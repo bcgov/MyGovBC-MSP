@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tempApp')
+angular.module('myBCGovApp')
   .directive('footer', function() {
     return {
       templateUrl: 'components/footer/footer.html',

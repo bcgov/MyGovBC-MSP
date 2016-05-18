@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('tempApp.util', []);
+angular.module('myBCGovApp.util', []);

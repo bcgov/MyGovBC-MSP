@@ -9,6 +9,9 @@ module.exports = {
     uri: 'mongodb://localhost/temp-dev'
   },
 
+  // Server port
+  port: process.env.PORT || 9000,
+
   // Seed database on startup
   seedDB: true
 

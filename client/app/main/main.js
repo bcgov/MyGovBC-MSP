@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tempApp')
+angular.module('myBCGovApp')
   .config(function($stateProvider) {
     $stateProvider
       .state('main', {

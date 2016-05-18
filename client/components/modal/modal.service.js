@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tempApp')
+angular.module('myBCGovApp')
   .factory('Modal', function($rootScope, $uibModal) {
     /**
      * Opens a modal

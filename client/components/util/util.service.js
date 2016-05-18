@@ -59,7 +59,7 @@ function UtilService($window) {
   return Util;
 }
 
-angular.module('tempApp.util')
+angular.module('myBCGovApp.util')
   .factory('Util', UtilService);
 
 })();

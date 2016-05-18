@@ -33,7 +33,7 @@ class MainController {
   }
 }
 
-angular.module('tempApp')
+angular.module('myBCGovApp')
   .component('main', {
     templateUrl: 'app/main/main.html',
     controller: MainController

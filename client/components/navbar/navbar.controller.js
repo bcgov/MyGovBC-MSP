@@ -14,5 +14,5 @@ class NavbarController {
     }
 }
 
-angular.module('tempApp')
+angular.module('myBCGovApp')
   .controller('NavbarController', NavbarController);

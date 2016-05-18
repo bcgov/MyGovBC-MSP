@@ -1,5 +1,5 @@
 (function(angular, undefined) {
-  angular.module("tempApp.constants", [])
+  angular.module("myBCGovApp.constants", [])
 
 .constant("appConfig", {
 	"userRoles": [

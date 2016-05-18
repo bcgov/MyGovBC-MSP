@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('tempApp', [
-  'tempApp.constants',
+angular.module('myBCGovApp', [
+  'myBCGovApp.constants',
   'ngCookies',
   'ngResource',
   'ngSanitize',
