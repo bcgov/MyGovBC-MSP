@@ -38,11 +38,11 @@ export default function(app) {
   app.use(session({
     secret: config.secrets.session,
     saveUninitialized: true,
-    resave: false,
-    store: new MongoStore({
-      mongooseConnection: mongoose.connection,
-      db: 'temp'
-    })
+    resave: false
+    // store: new MongoStore({
+    //   mongooseConnection: mongoose.connection,
+    //   db: 'temp'
+    // })
   }));
 
   /**
