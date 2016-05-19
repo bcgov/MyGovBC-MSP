@@ -18,6 +18,9 @@ class MainController {
     this.$http.get('/api/things').then(response => {
       this.awesomeThings = response.data;
       this.socket.syncUpdates('thing', this.awesomeThings);
+    }); 
+    this.$http.get('/api/profile').then(response => {
+      this.profile = response.data;
     });
   }
 
