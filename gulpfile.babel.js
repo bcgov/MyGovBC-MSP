@@ -517,7 +517,7 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html', 'constant', 'bu
 gulp.task('html', function() {
     return gulp.src(`${clientPath}/{app,components}/**/*.html`)
         .pipe(plugins.angularTemplatecache({
-            module: 'tempApp'
+            module: 'myBCGovApp'
         }))
         .pipe(gulp.dest('.tmp'));
 });
@@ -525,7 +525,7 @@ gulp.task('html', function() {
 gulp.task('constant', function() {
   let sharedConfig = require(`./${serverPath}/config/environment/shared`);
   return plugins.ngConstant({
-    name: 'tempApp.constants',
+    name: 'myBCGovApp.constants',
     deps: [],
     wrap: true,
     stream: true,
