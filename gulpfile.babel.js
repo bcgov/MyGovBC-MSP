@@ -38,6 +38,10 @@ const paths = {
   },
   server: {
     mainView: `${serverPath}/views/index.html`,
+    html: [
+      `${serverPath}/**/*.html`,
+      `!${serverPath}/views/index.html`
+    ],
     scripts: [
       `${serverPath}/**/!(*.spec|*.integration).js`,
       `!${serverPath}/config/local.env.sample.js`
@@ -581,7 +585,7 @@ gulp.task('copy:server', () => {
     'package.json',
     'bower.json',
     '.bowerrc'
-  ], {cwdbase: true})
+  ].concat(paths.server.html), {cwdbase: true})
     .pipe(gulp.dest(paths.dist));
 });
 
