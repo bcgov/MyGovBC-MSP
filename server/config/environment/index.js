@@ -44,7 +44,15 @@ var all = {
 
 // Export the config object based on the NODE_ENV
 // ==============================================
+let local = {}
+try {
+  local = require('./local.js')
+}
+catch (e) {
+}
+
 module.exports = _.merge(
   all,
   require('./shared'),
-  require('./' + process.env.NODE_ENV + '.js') || {});
+  require('./' + process.env.NODE_ENV + '.js') || {},
+  local);
