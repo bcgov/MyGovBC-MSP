@@ -6,6 +6,7 @@
 
 import errors from './components/errors';
 import path from 'path';
+import config from './config/environment';
 
 export default function(app) {
   // Insert routes below
@@ -18,6 +19,6 @@ export default function(app) {
   // All other routes should redirect to the index.html
   app.route('/*')
     .get((req, res) => {
-      res.sendFile(path.resolve(app.get('appPath') + '/index.html'));
+      res.render('index.html',config)
     });
 }
