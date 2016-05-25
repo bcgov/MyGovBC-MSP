@@ -7,4 +7,4 @@ dist
 /server/config/local.env.js
 npm-debug.log
 coverage
-/server/config/environment/local.js
+/server/config/environment/local*.js

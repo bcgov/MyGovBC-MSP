@@ -531,7 +531,15 @@ gulp.task('html', function () {
 });
 
 gulp.task('constant', function () {
-  let sharedConfig = require(`./${serverPath}/config/environment/shared`);
+  let commonSharedConfig = require(`./${serverPath}/config/environment/shared`);
+  let localSharedConfig = {}
+  try {
+    localSharedConfig = require(`./${serverPath}/config/environment/local.shared`)
+  }
+  catch (e) {
+  }
+  let sharedConfig = _.merge(commonSharedConfig, localSharedConfig);
+
   return plugins.ngConstant({
     name: 'myBCGovApp.constants',
     deps: [],
