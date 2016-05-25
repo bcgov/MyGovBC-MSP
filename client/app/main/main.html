@@ -10,6 +10,9 @@
   <div class="row">
     <div class="col-lg-12">
       <h1 class="page-header">Features:</h1>
+      <pre style="white-space: pre-wrap">
+        {{$ctrl.profile.headers}}
+      </pre>
       <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in $ctrl.awesomeThings">
         <li><a href="#" uib-tooltip="{{thing.info}}">{{thing.name}}<button type="button" class="close" ng-click="$ctrl.deleteThing(thing)">&times;</button></a></li>
       </ul>
