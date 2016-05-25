@@ -4,7 +4,7 @@ angular.module('myBCGovApp')
   .config(function ($stateProvider, appConfig) {
     $stateProvider
       .state('main', {
-        url: appConfig.rootUrlPath,
+        url: appConfig.rootUrlPath || '/',
         template: '<main></main>'
       });
   });

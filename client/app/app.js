@@ -11,7 +11,7 @@ angular.module('myBCGovApp', [
 ])
   .config(function ($urlRouterProvider, $locationProvider, appConfig) {
     $urlRouterProvider
-      .otherwise(appConfig.rootUrlPath);
+      .otherwise(appConfig.rootUrlPath || '/');
 
     $locationProvider.html5Mode(true);
   });
