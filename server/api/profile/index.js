@@ -5,7 +5,7 @@ var router = express.Router()
 
 router.get('/', (req, res) => {
   res.send({
-    name: req.get('smgov_userdisplayname') || 'my friend',
+    name: req.get('sm_user') || req.get('smgov_userdisplayname') || 'my friend',
     headers: req.headers
   })
 })
