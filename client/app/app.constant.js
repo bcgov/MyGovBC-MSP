@@ -8,7 +8,7 @@
 		"admin"
 	],
 	"headerFooterSvcUrl": "https://bcgov-www2-layout-service.pathfinder.gov.bc.ca/v1/theme1/",
-	"rootUrlPath": "/ext"
+	"rootUrlPath": "/"
 })
 
 ;

@@ -8,3 +8,4 @@ dist
 npm-debug.log
 coverage
 /server/config/environment/local*.js
+/client/app/app.constant.js
