@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('myBCGovApp')
-  .config(function($stateProvider) {
+  .config(function ($stateProvider, appConfig) {
     $stateProvider
       .state('main', {
-        url: '/',
+        url: appConfig.rootUrlPath,
         template: '<main></main>'
       });
   });
