@@ -51,8 +51,16 @@ try {
 catch (e) {
 }
 
+let localShared = {}
+try {
+  localShared = require('./local.shared.js')
+}
+catch (e) {
+}
+
 module.exports = _.merge(
   all,
   require('./shared'),
+  localShared,
   require('./' + process.env.NODE_ENV + '.js') || {},
   local);
