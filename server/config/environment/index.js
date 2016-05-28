@@ -39,7 +39,8 @@ var all = {
         safe: true
       }
     }
-  }
+  },
+  headerFooterSvcUrl: 'https://layout.api.dev.cos.citz.gov.bc.ca/v1/theme1/',
 };
 
 // Export the config object based on the NODE_ENV
