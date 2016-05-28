@@ -68,6 +68,9 @@ export default function(app) {
 
   if ('production' === env) {
     app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
+    if(config.rootUrlPath){
+      app.use(config.rootUrlPath, express.static(app.get('appPath')));
+    }
     app.use(express.static(app.get('appPath')));
     app.use(morgan('dev'));
   }
@@ -83,6 +86,10 @@ export default function(app) {
   }
 
   if ('development' === env || 'test' === env) {
+    if(config.rootUrlPath){
+      app.use(config.rootUrlPath, express.static(path.join(config.root, '.tmp')));
+      app.use(config.rootUrlPath, express.static(app.get('appPath')));
+    }
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(app.get('appPath')));
     app.use(morgan('dev'));
