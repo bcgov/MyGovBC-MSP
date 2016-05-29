@@ -1,7 +1,12 @@
 'use strict';
 
-exports = module.exports = {
+module.exports = {
   // List of user roles
   userRoles: ['guest', 'user', 'admin'],
-  rootUrlPath: ''
+  rootUrlPath: '',
+  apis:{
+    transcript: {
+      url: 'http://localhost:3000/api',
+    }
+  },
 };

@@ -21,7 +21,6 @@ angular.module('myBCGovApp', [
       })
       .state('transcript', {
         url: '/transcript',
-        template: '<footer></footer>'
+        template: '<transcript></transcript>'
       })
-
   });
