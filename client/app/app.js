@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 angular.module('myBCGovApp', [
   'myBCGovApp.constants',
@@ -9,11 +9,11 @@ angular.module('myBCGovApp', [
   'ui.router',
   'ui.bootstrap'
 ])
-  .config(function ($urlRouterProvider, $locationProvider, appConfig, $stateProvider) {
+  .config(function ($urlRouterProvider, $locationProvider, appConfig, $stateProvider, $httpProvider) {
+    $httpProvider.defaults.withCredentials = true
     $urlRouterProvider
-      .otherwise('/');
-    $locationProvider.html5Mode(true);
-
+      .otherwise('/')
+    $locationProvider.html5Mode(true)
     $stateProvider
       .state('main', {
         url: '/',
@@ -23,4 +23,4 @@ angular.module('myBCGovApp', [
         url: '/transcript',
         template: '<transcript></transcript>'
       })
-  });
+  })
