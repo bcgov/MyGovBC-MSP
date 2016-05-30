@@ -6,7 +6,7 @@ module.exports = {
   rootUrlPath: '',
   apis:{
     transcript: {
-      url: 'http://localhost:3000/api',
+      url: 'http://localhost:3000/ext/api',
     }
   },
 };
