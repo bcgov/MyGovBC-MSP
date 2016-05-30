@@ -7,7 +7,8 @@ angular.module('myBCGovApp', [
   'ngSanitize',
   'btford.socket-io',
   'ui.router',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'dndLists'
 ])
   .config(function ($urlRouterProvider, $locationProvider, appConfig, $stateProvider, $httpProvider) {
     $httpProvider.defaults.withCredentials = true
