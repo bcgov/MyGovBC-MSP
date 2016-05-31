@@ -1,6 +1,12 @@
-'use strict'
 + function () {
   angular.module('myBCGovApp')
+    .config(function ($stateProvider){
+      $stateProvider
+        .state('transcript.review', {
+          url: '/review',
+          template: '<review></review>'
+        })
+    })
     .component('transcript', {
       templateUrl: 'app/transcript/index.html',
       controller: function ($scope, $resource, appConfig) {
