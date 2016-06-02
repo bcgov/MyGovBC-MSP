@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package.json /usr/src/app/
 RUN npm install --production
 RUN npm install -g bower
-RUN bower install
+RUN bower install --allow-root
 
 # Bundle app source
 COPY . /usr/src/app
