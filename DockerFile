@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node
 
 # Create app directory
 RUN mkdir -p /usr/src/app
