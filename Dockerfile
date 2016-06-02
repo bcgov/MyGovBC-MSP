@@ -1,4 +1,4 @@
-FROM node
+FROM node:4
 
 # Create app directory
 RUN mkdir -p /usr/src/app
@@ -11,8 +11,11 @@ COPY . /usr/src/app
 RUN npm install -g bower
 RUN npm install -g gulp
 
-# Install node and bower dependencies
+# Install node dependencies
 RUN npm install
+
+# Install bower dependencies
+RUN bower install --allow-root
 
 # Build client
 RUN gulp build:client
