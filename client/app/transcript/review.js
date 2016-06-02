@@ -4,7 +4,9 @@
     .component('review', {
       templateUrl: 'app/transcript/review.html',
       controller: function ($scope, transcriptService) {
-        console.log(transcriptService.getSelectedSchools())
+        transcriptService.getTranscript(function(transcripts){
+          $scope.transcript = transcripts[0]
+        })
       }
     })
 }()

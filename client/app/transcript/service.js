@@ -2,20 +2,26 @@
 + function () {
   angular.module('myBCGovApp')
     .factory('transcriptService', function ($resource, appConfig) {
-      var School = {}
-      School.selectedSchools = {}
-      School.getSchools = function (cb) {
+      var TranscriptService = {}
+      TranscriptService.selectedSchools = {}
+      TranscriptService.getSchools = function (cb) {
         var PostSecondarySchool = $resource(appConfig.apis.transcript.url + '/postSecondarySchools')
         PostSecondarySchool.query(function (schools) {
           cb(schools)
         })
       }
-      School.getSelectedSchools = function () {
-        return School.selectedSchools
+      TranscriptService.getTranscript = function (cb) {
+        var MyTranscript = $resource(appConfig.apis.transcript.url + '/transcripts')
+        MyTranscript.query(function (data) {
+          cb(data)
+        })
       }
-      School.setSelectedSchools = function (schools) {
-        School.selectedSchools = schools
+      TranscriptService.getSelectedSchools = function () {
+        return TranscriptService.selectedSchools
       }
-      return School
+      TranscriptService.setSelectedSchools = function (schools) {
+        TranscriptService.selectedSchools = schools
+      }
+      return TranscriptService
     })
 }()

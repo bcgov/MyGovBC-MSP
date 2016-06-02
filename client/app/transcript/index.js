@@ -20,8 +20,8 @@
           $scope.models = {
             selected: null,
             lists: {"Available Institutions": [], "Selected Institutions": []}
-          };
-          $scope.models.lists["Available Institutions"] = schools;
+          }
+          $scope.models.lists["Available Institutions"] = schools
         })
       }
     })
