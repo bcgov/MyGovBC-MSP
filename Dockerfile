@@ -18,7 +18,7 @@ RUN npm install
 RUN bower install --allow-root
 
 # Build client
-RUN gulp build:client
+RUN gulp build
 
 EXPOSE 9000
 CMD [ "npm", "start" ]
