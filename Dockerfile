@@ -6,12 +6,9 @@ WORKDIR /usr/src/app
 
 # Install node dependencies
 COPY package.json /usr/src/app/
-RUN npm install 
-RUN npm install -g bower
-
-# Install bower dependencies
 COPY bower.json /usr/src/app/
-RUN bower install --allow-root
+RUN npm install -g bower
+RUN npm install
 
 # Bundle app source
 COPY . /usr/src/app
