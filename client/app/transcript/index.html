@@ -14,7 +14,7 @@
     </div>
     <div class="row">
       <div class="col-md-8">
-        <a ng-if="models.lists['Selected Institutions'].length>0" ui-sref="transcript.review"
+        <a ng-disabled="models.lists['Selected Institutions'].length<=0" ui-sref="transcript.review"
            class="btn btn-primary pull-right">Review >></a></div>
     </div>
   </div>
