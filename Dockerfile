@@ -7,8 +7,9 @@ WORKDIR /usr/src/app
 # Bundle app source
 COPY . /usr/src/app
 
-# Install bower
+# Install bower and gulp
 RUN npm install -g bower
+RUN npm install -g gulp
 
 # Install node and bower dependencies
 RUN npm install
