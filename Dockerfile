@@ -1,4 +1,4 @@
-FROM node:4
+FROM node:4-onbuild
 
 # Create app directory
 RUN mkdir -p /usr/src/app
