@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 
 # Install node dependencies
 COPY package.json /usr/src/app/
-RUN npm install --production
+RUN npm install 
 RUN npm install -g bower
 
 # Install bower dependencies
