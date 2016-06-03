@@ -16,8 +16,8 @@
           cb(data)
         })
       }
-      TranscriptService.getSelectedSchools = function () {
-        return TranscriptService.selectedSchools
+      TranscriptService.getSelectedSchools = function (cb) {
+        cb(TranscriptService.selectedSchools)
       }
       TranscriptService.setSelectedSchools = function (schools) {
         TranscriptService.selectedSchools = schools
