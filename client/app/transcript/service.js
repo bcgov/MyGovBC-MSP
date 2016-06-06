@@ -23,20 +23,23 @@
         TranscriptService.selectedSchools = schools
       }
       TranscriptService.submitTranscripts = function (cb) {
-         /*
-          schoolID (number),
-          submissionDate (string),
-          userID (string),
-          id (number, optional) */
-        angular.forEach (TranscriptService.selectedSchools, function (school, key) {
+        angular.forEach(TranscriptService.selectedSchools, function (school, key) {
           var TranscriptSubmission = $resource(appConfig.apis.transcript.url + '/transcriptSubmissions')
-          var body = {'schoolID': school.id,
+          var body = {
+            'schoolID': school.id,
             'submissionDate': Date.now(),
             'userID': '123'
           }
           TranscriptSubmission.save({}, body)
         })
         cb()
+      }
+
+      TranscriptService.getTranscriptSubmissions = function (cb) {
+        var TranscriptSubmissions = $resource(appConfig.apis.transcript.url + '/transcriptSubmissions')
+        TranscriptSubmissions.query(function (data) {
+          cb(data)
+        })
       }
       return TranscriptService
     })

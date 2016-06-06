@@ -24,4 +24,12 @@ angular.module('myBCGovApp', [
         url: '/transcript',
         template: '<transcript></transcript>'
       })
+      .state('education', {
+        url: '/education',
+        template: '<education></education>'
+      })
+      .state('transactions', {
+        url: '/transactions',
+        template: '<transactions></transactions>'
+      })
   })

@@ -3,7 +3,7 @@
   angular.module('myBCGovApp')
     .component('review', {
       templateUrl: 'app/transcript/review.html',
-      controller: function ($scope, transcriptService) {
+      controller: function ($scope, $state, transcriptService) {
         var ctrl = this;
 
         transcriptService.getSelectedSchools(function(schools) {
@@ -16,7 +16,7 @@
         // Confirm and send button on click
         ctrl.confirmAndSend = function () {
           transcriptService.submitTranscripts(function () {
-            console.log("done")
+            $state.go('transactions')
           })
         }
       }

@@ -1,0 +1,18 @@
+<div class="container">
+    <h1>My Transactions</h1>
+    <div ui-view>
+        <div class="panel panel-success" ng-repeat="transcriptSubmission in transcriptSubmissions">
+            <div class="panel-heading">
+                <h3 class="panel-title">Transcript Sent</h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    Date: {{transcriptSubmission.submissionDate}}<br>
+                    School ID: {{transcriptSubmission.schoolID}}
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <a ui-sref="main">Back to MyGov</a>
+</div>
