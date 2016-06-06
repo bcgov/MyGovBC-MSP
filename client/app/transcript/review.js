@@ -13,9 +13,11 @@
           $scope.transcript = transcripts[0]
         })
 
-        // Action for confirm and send button
+        // Confirm and send button on click
         ctrl.confirmAndSend = function () {
-          // TODO, call service
+          transcriptService.submitTranscripts(function () {
+            console.log("done")
+          })
         }
       }
 
