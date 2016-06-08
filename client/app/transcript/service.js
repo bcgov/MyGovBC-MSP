@@ -24,7 +24,14 @@
       }
       TranscriptService.submitTranscripts = function (cb) {
         angular.forEach(TranscriptService.selectedSchools, function (school, key) {
-          var TranscriptSubmission = $resource(appConfig.apis.transcript.url + '/transcriptSubmissions')
+          var TranscriptSubmission = $resource(appConfig.apis.transcript.url + '/transcriptSubmissions', {}, {
+            save: {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'text/plain'
+              }
+            }
+          })
           var body = {
             'schoolID': school.id,
             'submissionDate': Date.now(),
