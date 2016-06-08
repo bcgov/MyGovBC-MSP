@@ -1,25 +1,26 @@
-<header class="hero-unit" id="banner">
-  <div class="container">
-    <h1>'Allo, 'Allo, {{$ctrl.profile.name}}!</h1>
-    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
-    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
-  </div>
-</header>
-
 <div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">My Services:</h1>
-      <a ui-sref="education">transcript</a>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Manage my Government Services</h1>
+
+            <p>MyGov government services as of June 8, 2016.</p>
+        </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <h1 class="page-header">Headers:</h1>
-      <div class="mygov-header row" ng-repeat="(key,value) in $ctrl.profile.headers">
-        <div class="col-sm-3">{{key}}:</div>
-        <div class="col-sm-9" style=" word-wrap: break-word;">{{value}}</div>
-      </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>My Governement Services</h2>
+            <a ui-sref="education">Education</a>
+        </div>
     </div>
-  </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="page-header">Headers</h2>
+            <div class="well">
+                <div class="mygov-header row" ng-repeat="(key,value) in $ctrl.profile.headers">
+                    <div class="col-sm-3">{{key}}:</div>
+                    <div class="col-sm-9" style=" word-wrap: break-word;">{{value}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
