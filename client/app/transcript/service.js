@@ -1,7 +1,7 @@
 'use strict'
 + function () {
   angular.module('myBCGovApp')
-    .factory('transcriptService', function ($resource, appConfig) {
+    .factory('transcriptService', function ($resource, $q, appConfig) {
       var TranscriptService = {}
       TranscriptService.selectedSchools = {}
       TranscriptService.getSchools = function (cb) {
@@ -23,6 +23,8 @@
         TranscriptService.selectedSchools = schools
       }
       TranscriptService.submitTranscripts = function (cb) {
+        var promises = [];
+
         angular.forEach(TranscriptService.selectedSchools, function (school, key) {
           var TranscriptSubmission = $resource(appConfig.apis.transcript.url + '/transcriptSubmissions', {}, {
             save: {
@@ -37,9 +39,11 @@
             'submissionDate': Date.now(),
             'userID': '123'
           }
-          TranscriptSubmission.save({}, body)
+          promises.push(TranscriptSubmission.save({}, body))
         })
-        cb()
+
+        // Wait for all to finish before calling back
+        $q.all(promises).then(cb())
       }
 
       TranscriptService.getTranscriptSubmissions = function (cb) {
