@@ -26,14 +26,7 @@
         var promises = [];
 
         angular.forEach(TranscriptService.selectedSchools, function (school, key) {
-          var TranscriptSubmission = $resource(appConfig.apis.transcript.url + '/transcriptSubmissions', {}, {
-            save: {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'text/plain'
-              }
-            }
-          })
+          var TranscriptSubmission = $resource(appConfig.apis.transcript.url + '/transcriptSubmissions')
           var body = {
             'schoolID': school.id,
             'submissionDate': Date.now(),
