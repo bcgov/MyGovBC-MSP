@@ -1,8 +1,10 @@
-'use strict';
-var HtmlWebpackPlugin = require("html-webpack-plugin");
-var path = require('path');
-var _ = require('lodash');
-var localConfig = {}
+'use strict'
+var HtmlWebpackPlugin = require("html-webpack-plugin")
+var path = require('path')
+var _ = require('lodash')
+let localConfig = function () {
+  return {}
+}
 try {
   localConfig = require(__dirname + '/config/webpack/environments/local')
 }
@@ -17,21 +19,21 @@ var _configs = {
   production: require(__dirname + '/config/webpack/environments/production'),
   development: require(__dirname + '/config/webpack/environments/development'),
   local: localConfig
-};
+}
 
 var _load = function () {
   var ENV = process.env.NODE_ENV
     ? process.env.NODE_ENV
-    : 'production';
+    : 'production'
 
-  console.log('Current Environment: ', ENV);
+  console.log('Current Environment: ', ENV)
 
   // load config file by environment
   var webpackConfigs = _.merge(
     _configs.global(__dirname),
     _configs[ENV](__dirname),
     _configs.local(__dirname)
-  );
+  )
 
   webpackConfigs.plugins = webpackConfigs.plugins.concat([
     new HtmlWebpackPlugin({
@@ -41,6 +43,6 @@ var _load = function () {
     })
   ])
   return webpackConfigs
-};
+}
 
-module.exports = _load();
+module.exports = _load()
