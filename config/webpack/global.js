@@ -146,7 +146,7 @@ module.exports = function(_path) {
       new ExtractTextPlugin('assets/styles/css/[name]' + (NODE_ENV === 'development' ? '' : '.[chunkhash]') + '.css', { allChunks: true }),
       new HtmlWebpackPlugin({
         filename: 'index.html',
-        template: path.join(_path, 'src', 'tpl-index.html')
+        template: path.join(_path, 'src', 'index.html.ejs')
       })
     ]
   };
