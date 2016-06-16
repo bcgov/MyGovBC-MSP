@@ -6,7 +6,6 @@ var webpack           = require('webpack');
 var autoprefixer      = require('autoprefixer-core');
 var Manifest          = require('manifest-revision-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 var NODE_ENV = process.env.NODE_ENV || "production";
 var DEVELOPMENT  = NODE_ENV === "production" ? false : true;
@@ -143,11 +142,7 @@ module.exports = function(_path) {
         rootAssetPath: rootAssetPath,
         ignorePaths: ['.DS_Store']
       }),
-      new ExtractTextPlugin('assets/styles/css/[name]' + (NODE_ENV === 'development' ? '' : '.[chunkhash]') + '.css', { allChunks: true }),
-      new HtmlWebpackPlugin({
-        filename: 'index.html',
-        template: path.join(_path, 'src', 'index.html.ejs')
-      })
+      new ExtractTextPlugin('assets/styles/css/[name]' + (NODE_ENV === 'development' ? '' : '.[chunkhash]') + '.css', { allChunks: true })
     ]
   };
 

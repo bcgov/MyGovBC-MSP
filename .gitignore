@@ -5,3 +5,4 @@ bower_components/
 .tmp/
 dist/
 config/manifest.json
+npm-debug.log
