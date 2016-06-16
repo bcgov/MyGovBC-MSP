@@ -8,7 +8,8 @@ angular.module('myBCGovApp', [
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
-  'dndLists'
+  'dndLists',
+  'mygov.widget.education.integrated'
 ])
   .config(function ($urlRouterProvider, $locationProvider, appConfig, $stateProvider, $httpProvider) {
     $httpProvider.defaults.withCredentials = true
