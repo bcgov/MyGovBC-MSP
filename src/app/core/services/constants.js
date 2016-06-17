@@ -5,5 +5,5 @@ export default function (app) {
     .constant('ROUTE_ERRORS', {
       auth: 'Authorization has been denied.',
     })
-    .constant('appConfig', __APP_CONSTANTS__)
+    .constant('appConstants', __APP_CONSTANTS__)
 }

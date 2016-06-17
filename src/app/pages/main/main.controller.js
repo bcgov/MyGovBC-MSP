@@ -1,10 +1,10 @@
 'use strict';
 
-function MainController($log, $scope, appConfig) {
+function MainController($log, $scope, appConstants) {
   'ngInject';
 
   $log.debug('Hello from main controller!');
-  $scope.appConfig = appConfig
+  $scope.appConstants = appConstants
   
 }
 
