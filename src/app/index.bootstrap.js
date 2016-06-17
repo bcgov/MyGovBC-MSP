@@ -6,7 +6,7 @@ import '!!file-loader?name=[name].[ext]!../favicon.ico';
 // main App module
 import "./index.module";
 
-import "../assets/styles/sass/index.scss";
+import "./index.less";
 
 angular.element(document).ready(function () {
   angular.bootstrap(document, ['myGov-core-client'], {
