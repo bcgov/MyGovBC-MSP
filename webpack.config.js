@@ -42,6 +42,20 @@ var _load = function () {
       template: path.join(__dirname, 'src', 'index.html.ejs')
     })
   ])
+
+  webpackConfigs.module.loaders = webpackConfigs.module.loaders.concat([
+    {
+      test: /\.js$/,
+      exclude: [
+        path.resolve(__dirname, "node_modules")
+      ],
+      loader: 'string-replace',
+      query: {
+        search: '__APP_CONSTANTS__',
+        replace: JSON.stringify(webpackConfigs.appConstants)
+      }
+    }
+  ])
   return webpackConfigs
 }
 

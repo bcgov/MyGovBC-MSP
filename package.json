@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --progress",
     "build": "cross-env NODE_ENV=production webpack -p --colors"
   },
-  "dependencies": {
+  "devDependencies": {
     "angular": "^1.5.6",
     "angular-animate": "^1.5.6",
     "angular-aria": "^1.5.6",
@@ -47,6 +47,7 @@
     "node-sass": "^3.4.2",
     "postcss-loader": "^0.6.0",
     "sass-loader": "^3.1.1",
+    "string-replace-loader": "^1.0.2",
     "style-loader": "^0.13.0",
     "url": "^0.11.0",
     "url-loader": "^0.5.6",
