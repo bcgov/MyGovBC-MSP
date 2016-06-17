@@ -40,6 +40,8 @@
     "html-webpack-plugin": "^2.2.0",
     "imagemin-pngquant": "^4.2.0",
     "jquery": "^2.1.4",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
     "lodash": "~4.5.0",
     "manifest-revision-webpack-plugin": "~0.1.0",
     "ng-annotate-loader": "0.0.10",
