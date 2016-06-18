@@ -148,7 +148,9 @@ module.exports = function (_path) {
       new ExtractTextPlugin('assets/styles/css/[name]' + (NODE_ENV === 'development' ? '' : '.[chunkhash]') + '.css', {allChunks: true})
     ],
     // constants injected to app
-    appConstants: {},
+    appConstants: {
+      profileUrl: 'http://localhost:9000/api/profile',
+    },
     headerFooterSvcUrl: 'https://layout.api.dev.cos.citz.gov.bc.ca/v1/theme1/',
   };
 

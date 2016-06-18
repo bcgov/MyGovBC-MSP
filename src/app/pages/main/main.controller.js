@@ -1,11 +1,18 @@
 'use strict';
+class MainController {
 
-function MainController($log, $scope, appConstants) {
-  'ngInject';
+  constructor($http, $scope, appConstants) {
+    'ngInject';
+    this.$http = $http;
+    this.appConstants = appConstants
+  }
 
-  $log.debug('Hello from main controller!');
-  $scope.appConstants = appConstants
-  
+  $onInit() {
+    this.$http.get(this.appConstants.profileUrl).then(response => {
+      this.profile = response.data;
+    });
+  }
 }
+
 
 export default MainController;
