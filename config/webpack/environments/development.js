@@ -6,12 +6,6 @@ module.exports = function(_path) {
     context: _path,
     debug: true,
     devtool: 'inline-source-map',
-    devServer: {
-      contentBase: './dist',
-      info: true,
-      hot: true,
-      inline: true
-    },
     plugins: [
       new webpack.HotModuleReplacementPlugin()
     ]

@@ -147,11 +147,17 @@ module.exports = function (_path) {
       }),
       new ExtractTextPlugin('assets/styles/css/[name]' + (NODE_ENV === 'development' ? '' : '.[chunkhash]') + '.css', {allChunks: true})
     ],
+    devServer: {
+      publicPath: '/ext/',
+      contentBase: './dist',
+      info: true,
+      hot: true,
+      inline: true
+    },
     // constants injected to app
     appConstants: {
       profileUrl: 'http://localhost:9000/ext/api/profile',
     },
-    rootUrlPath: '',
     headerFooterSvcUrl: 'https://layout.api.dev.cos.citz.gov.bc.ca/v1/theme1/',
   };
 

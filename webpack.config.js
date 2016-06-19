@@ -42,7 +42,7 @@ var _load = function () {
 
   webpackConfigs.plugins = webpackConfigs.plugins.concat([
     new HtmlWebpackPlugin({
-      rootUrlPath: webpackConfigs.rootUrlPath || '',
+      rootUrlPath: webpackConfigs.devServer.publicPath || '',
       headerFooterSvcUrl: webpackConfigs.headerFooterSvcUrl || '',
       filename: 'index.html',
       template: path.join(__dirname, 'src', 'index.html.ejs')
