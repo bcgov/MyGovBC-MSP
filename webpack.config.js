@@ -24,7 +24,7 @@ var _configs = {
 var _load = function () {
   var ENV = process.env.NODE_ENV
     ? process.env.NODE_ENV
-    : 'production'
+    : 'development'
 
   console.log('Current Environment: ', ENV)
 
