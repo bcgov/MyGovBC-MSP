@@ -35,6 +35,11 @@ var _load = function () {
     _configs.local(__dirname)
   )
 
+  webpackConfigs.port = webpackConfigs.port || process.env.PORT || 8000
+  if (ENV === 'development') {
+    webpackConfigs.entry.app.unshift("webpack-dev-server/client?http://localhost:" + webpackConfigs.port + "/")
+  }
+
   webpackConfigs.plugins = webpackConfigs.plugins.concat([
     new HtmlWebpackPlugin({
       rootUrlPath: webpackConfigs.rootUrlPath || '',

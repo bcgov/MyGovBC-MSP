@@ -19,7 +19,7 @@ module.exports = function (_path) {
     // entry points
     entry: {
       vendor: _path + '/src/app/index.vendor.js',
-      app: _path + '/src/app/index.bootstrap.js',
+      app: [_path + '/src/app/index.bootstrap.js'],
       polyfill: 'babel-polyfill'
     },
 
@@ -27,6 +27,7 @@ module.exports = function (_path) {
     output: {
       path: require("path").resolve("dist"),
       filename: '[name].js',
+//      publicPath: '/',
     },
 
     // resolves modules
