@@ -27,7 +27,6 @@ module.exports = function (_path) {
     output: {
       path: require("path").resolve("dist"),
       filename: '[name].js',
-      publicPath: '/'
     },
 
     // resolves modules
