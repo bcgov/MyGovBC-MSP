@@ -11,7 +11,8 @@ angular.module('myBCGovApp', [
   'dndLists',
   'mygov.widget.education.integrated'
 ])
-  .config(function ($urlRouterProvider, $locationProvider, appConfig, $stateProvider, $httpProvider) {
+  .config(function ($urlRouterProvider, $locationProvider, appConfig, $stateProvider, $httpProvider, $logProvider) {
+    $logProvider.debugEnabled(true);
     $httpProvider.defaults.withCredentials = true
     $urlRouterProvider
       .otherwise('/')
