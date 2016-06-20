@@ -1,31 +1,21 @@
-# myBCGov-d
+# myGov-core-client
+This is myGov client-side core AngularJS app. It is scaffolded using [angular-webpack-es6](https://github.com/stukh/generator-angular-webpack-es6) yeoman generator with following webpack customizations:
 
-This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 3.6.1.
+1. Support less
+2. Support instance specific config in file `/config/webpack/environments/local.js`. The file is ignored by git. The file should return a factory function similar to its siblings.
+3. Inject application constants from webpack config `appConstants` object merged from different environments. See `/config/webpack/global.js` for default.
 
-## Getting Started
+## Development
+It is recommended to install the app under `/client` folder of [myGov-core-server](https://github.com/f-w/myGov-core-server). 
 
-### Prerequisites
-
-- [Git](https://git-scm.com/)
-- [Node.js and npm](nodejs.org) Node ^4.2.3, npm ^2.14.7
-- [Bower](bower.io) (`npm install --global bower`)
-- [Gulp](http://gulpjs.com/) (`npm install --global gulp`)
-- [MongoDB](https://www.mongodb.org/) - Keep a running daemon with `mongod`
-
-### Developing
-
-1. Run `npm install` to install server dependencies.
-
-2. Run `bower install` to install front-end dependencies.
-
-3. Run `mongod` in a separate shell to keep an instance of the MongoDB Daemon running
-
-4. Run `gulp serve` to start the development server. It should automatically open the client in your browser when ready.
-
-## Build & development
-
-Run `grunt build` for building and `grunt serve` for preview.
-
-## Testing
-
-Running `npm test` will run the unit tests with karma.
+To launch dev instance, assuming cwd is `/` of `myGov-core-server`:
+```
+git clone https://github.com/f-w/myGov-core-client client
+cd client
+npm install
+npm run dev
+```
+## Production
+```
+npm run build
+```
