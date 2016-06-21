@@ -6,7 +6,7 @@ module.exports = function ($http, appConstants, $window) {
     this.profile = response.data;
     try{
       let socket = $window.io();
-      socket.emit('message','hello');
+      socket.emit('info','hello');
     }
     catch(ex){}
   });
