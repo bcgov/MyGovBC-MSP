@@ -9,14 +9,16 @@ const App = angular.module(
   "myGov-core-client", [
     // plugins
     require('angular-ui-router'),
-    "ngAnimate", 
-	"ngCookies", 
-	"ngTouch", 
-	"ngSanitize", 
-	"ngMessages", 
-	"ngAria", 
-	"ngResource",
+    "ngAnimate",
+    "ngCookies",
+    "ngTouch",
+    "ngSanitize",
+    "ngMessages",
+    "ngAria",
+    "ngResource",
 
+    "mygov.widget.education.integrated",
+    
     // core
     require("./core/core.module").name,
 
@@ -29,13 +31,13 @@ const App = angular.module(
     // pages
     require("./pages/main/main.module").name
 
+
   ]
 );
 
 App
   .config(config)
   .run(run);
-
 
 
 export default App;

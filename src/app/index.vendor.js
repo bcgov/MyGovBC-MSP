@@ -26,6 +26,7 @@ import "angular-aria";
 
 import "angular-resource";
 
+import "mygov-widget-education";
 
 
 // local scripts

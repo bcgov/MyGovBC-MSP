@@ -7,10 +7,6 @@ function config($urlRouterProvider, $locationProvider, appConstants, $stateProvi
         .otherwise('/')
     $locationProvider.html5Mode(true)
     $stateProvider
-        .state('transcript', {
-            url: '/transcript',
-            template: '<transcript></transcript>'
-        })
         .state('education', {
             url: '/education',
             template: '<education></education>'
