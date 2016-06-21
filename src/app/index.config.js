@@ -11,10 +11,6 @@ function config($urlRouterProvider, $locationProvider, appConstants, $stateProvi
             url: '/education',
             template: '<education></education>'
         })
-        .state('transactions', {
-            url: '/transactions',
-            template: '<transactions></transactions>'
-        })
 }
 
 export default config;

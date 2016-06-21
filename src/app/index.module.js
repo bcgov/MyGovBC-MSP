@@ -29,9 +29,8 @@ const App = angular.module(
     require("./index.routes").name,
 
     // pages
-    require("./pages/main/main.module").name
-
-
+    require("./pages/main/main.module").name,
+    require("./pages/transactions/transactions.module").name
   ]
 );
 
