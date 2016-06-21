@@ -25,6 +25,3 @@ import "angular-resource";
 
 // local scripts
 //import "../assets/js/...";
-
-// Widget add-ons
-import "mygov-widget-education";

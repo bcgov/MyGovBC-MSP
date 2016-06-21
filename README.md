@@ -22,15 +22,7 @@ Download package via NPM:
 npm install <URL or package name> --save-dev
 ```
 
-Edit ```index.vendor.js``` adding the import statement, e.g.:
-
-```
-...
-// Widget add-ons
-import "mygov-widget-education";
-```
-
-If its an AngularJS module, declare in ```index.module.js```, e.g.,:
+Edit ```index.module.js```, e.g.,:
 
 ```
 const App = angular.module(
@@ -59,7 +51,7 @@ const App = angular.module(
     require("./pages/transactions/transactions.module").name,
 
     // widget add-ons
-    "mygov.widget.education.integrated"
+    require("../../node_modules/mygov-widget-education").name
   ]
 );
 ```

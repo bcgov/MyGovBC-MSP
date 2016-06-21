@@ -31,7 +31,7 @@ const App = angular.module(
     require("./pages/transactions/transactions.module").name,
 
     // widget add-ons
-    "mygov.widget.education.integrated"
+    require("../../node_modules/mygov-widget-education").name
   ]
 );
 
