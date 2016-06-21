@@ -5,10 +5,7 @@ import "angular";
 
 import "angular-ui-router";
 
-
 import 'jquery';
-
-
 
 import "angular-resource";
 
@@ -26,8 +23,8 @@ import "angular-aria";
 
 import "angular-resource";
 
-import "mygov-widget-education";
-
-
 // local scripts
 //import "../assets/js/...";
+
+// Widget add-ons
+import "mygov-widget-education";

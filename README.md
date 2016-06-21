@@ -15,6 +15,55 @@ cd client
 npm install
 npm run dev
 ```
+## Configuring Widget
+Download package via NPM:
+
+```
+npm install <URL or package name> --save-dev
+```
+
+Edit ```index.vendor.js``` adding the import statement, e.g.:
+
+```
+...
+// Widget add-ons
+import "mygov-widget-education";
+```
+
+If its an AngularJS module, declare in ```index.module.js```, e.g.,:
+
+```
+const App = angular.module(
+  "myGov-core-client", [
+    // plugins
+    require('angular-ui-router'),
+    "ngAnimate",
+    "ngCookies",
+    "ngTouch",
+    "ngSanitize",
+    "ngMessages",
+    "ngAria",
+    "ngResource",
+    
+    // core
+    require("./core/core.module").name,
+
+    // components
+    require("./index.components").name,
+
+    // routes
+    require("./index.routes").name,
+
+    // pages
+    require("./pages/main/main.module").name,
+    require("./pages/transactions/transactions.module").name,
+
+    // widget add-ons
+    "mygov.widget.education.integrated"
+  ]
+);
+```
+
 ## Production
 ```
 npm run build
