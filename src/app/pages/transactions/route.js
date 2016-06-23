@@ -1,6 +1,6 @@
 'use strict';
 
-import transactionsTpl from './transactions.html';
+import transactionsTpl from './index.html';
 
 function routeConfig($stateProvider) {
   'ngInject';
@@ -9,7 +9,7 @@ function routeConfig($stateProvider) {
     .state('transactions', {
       url: '/transactions',
       templateUrl: transactionsTpl,
-      controller: require('./transactions.controller'),
+      controller: require('./controller'),
       controllerAs: '$ctrl',
     });
 

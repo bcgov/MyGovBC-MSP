@@ -1,6 +1,6 @@
 'use strict';
 
-import mainTpl from './main.html';
+import mainTpl from './index.html';
 
 function routeConfig($stateProvider) {
   'ngInject';
@@ -9,7 +9,7 @@ function routeConfig($stateProvider) {
     .state('main', {
       url: '/',
       templateUrl: mainTpl,
-      controller: require('./main.controller'),
+      controller: require('./controller'),
       controllerAs: '$ctrl',
     });
 

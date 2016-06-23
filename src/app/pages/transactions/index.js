@@ -1,7 +1,7 @@
 'use strict';
 
-import route from './transactions.route';
-import './transactions.less'
+import route from './route';
+import './index.less'
 
 const transactionsPageModule = angular.module('transaction-module', [
   'ui.router',

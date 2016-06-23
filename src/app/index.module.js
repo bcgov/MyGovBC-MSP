@@ -16,7 +16,7 @@ const App = angular.module(
     "ngMessages",
     "ngAria",
     "ngResource",
-    
+
     // core
     require("./core/core.module").name,
 
@@ -27,11 +27,11 @@ const App = angular.module(
     require("./index.routes").name,
 
     // pages
-    require("./pages/main/main.module").name,
-    require("./pages/transactions/transactions.module").name,
+    require("./pages/main").name,
+    require("./pages/transactions").name,
 
     // widget add-ons
-    require("../../node_modules/mygov-widget-education").name
+    require("mygov-widget-education").name
   ]
 );
 
