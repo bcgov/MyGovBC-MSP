@@ -14,6 +14,8 @@
     "angular-aria": "^1.5.6",
     "angular-cookies": "^1.5.6",
     "angular-messages": "^1.5.6",
+    "angular-qr": "github:janantala/angular-qr",
+    "angular-qrcode": "^6.2.1",
     "angular-resource": "^1.5.6",
     "angular-sanitize": "^1.5.6",
     "angular-touch": "^1.5.6",
@@ -47,23 +49,23 @@
     "less-loader": "^2.2.3",
     "lodash": "~4.5.0",
     "manifest-revision-webpack-plugin": "~0.1.0",
+    "mygov-widget-education": "git@bitbucket.org:GregTurner/mygov-widget-education.git",
     "ng-annotate-loader": "0.0.10",
     "ngtemplate-loader": "^1.3.1",
     "node-sass": "^3.4.2",
     "open": "0.0.5",
     "postcss-loader": "^0.6.0",
     "sass-loader": "^3.1.1",
+    "script-loader": "^0.7.0",
     "string-replace-loader": "^1.0.2",
     "style-loader": "^0.13.0",
     "url": "^0.11.0",
     "url-loader": "^0.5.6",
     "webpack": "^1.12.12",
-    "webpack-dev-server": "1.14.0",
-    "mygov-widget-education": "git@bitbucket.org:GregTurner/mygov-widget-education.git"
+    "webpack-dev-server": "1.14.0"
   },
   "engines": {
     "node": ">=0.12.0"
   },
   "private": true
-
 }

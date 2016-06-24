@@ -1,35 +1,36 @@
 <header class="hero-unit" id="banner">
-    <div class="container">
-        <h1>Welcome, {{$ctrl.profile.name}}!</h1>
-    </div>
+  <div class="container">
+    <h1>Welcome, {{$ctrl.profile.name}}!</h1>
+  </div>
 </header>
 
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">My Government Services</h1>
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">My Government Services</h1>
 
-            <div class="panel panel-default">
-                <div class="panel-heading"><strong>Services/Ministry or Organization</strong></div>
-                <div class="panel-body">
-                    <ol>
-                        <li><a ui-sref="education">Education</a></li>
-                    </ol>
-                    <a ui-sref="transactions">Transactions</a>
-                </div>
-            </div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong>Services/Ministry or Organization</strong></div>
+        <div class="panel-body">
+          <ol>
+            <li><a ui-sref="login">Login</a></li>
+            <li><a ui-sref="education">Education</a></li>
+            <li><a ui-sref="transactions">Transactions</a></li>
+          </ol>
         </div>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="well">
-                <strong class="page-header">Headers</strong>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="well">
+        <strong class="page-header">Headers</strong>
 
-                <div class="mygov-header row" ng-repeat="(key,value) in $ctrl.profile.headers">
-                    <div class="col-sm-3">{{key}}:</div>
-                    <div class="col-sm-9" style=" word-wrap: break-word;">{{value}}</div>
-                </div>
-            </div>
+        <div class="mygov-header row" ng-repeat="(key,value) in $ctrl.profile.headers">
+          <div class="col-sm-3">{{key}}:</div>
+          <div class="col-sm-9" style=" word-wrap: break-word;">{{value}}</div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

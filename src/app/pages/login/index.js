@@ -1,14 +1,17 @@
-'use strict';
+'use strict'
 
-import route from './route';
+import route from './route'
+require('script!qrcode-generator')
+require('script!qrcode-generator/js/qrcode_UTF8')
+require("script!angular-qrcode")
 
-const loginPageModule = angular.module('transaction-module', [
+const loginPageModule = angular.module('login-module', [
   'ui.router',
-  // core
-  require("../../core/core.module").name
-]);
+  require("../../core/core.module").name,
+  'monospaced.qrcode'
+])
 
 loginPageModule
-  .config(route);
+  .config(route)
 
-export default loginPageModule;
+export default loginPageModule
