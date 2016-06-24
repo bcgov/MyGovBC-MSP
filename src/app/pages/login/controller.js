@@ -1,7 +1,7 @@
 'use strict'
 class LoginController {
 
-  constructor($cookies, $scope, socket, profileService, $location) {
+  constructor($cookies, $scope, socket, profileService, $location, $rootScope) {
     'ngInject'
     $scope.sid = $cookies.get('connect.sid') || 'unknown'
     socket.on('auth', function(data){
@@ -9,8 +9,8 @@ class LoginController {
       let profile = profileService.get()
       _.merge(profile, data)
       profileService.set(profile)
-      console.log(data.name)
-      $location.url('../')
+      $location.url('/');
+      $rootScope.$digest();
     })
   }
 }
