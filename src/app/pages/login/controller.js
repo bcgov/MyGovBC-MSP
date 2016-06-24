@@ -1,8 +1,9 @@
 'use strict'
 class LoginController {
 
-  constructor($http, appConstants, $window) {
+  constructor($cookies, $scope) {
     'ngInject'
+    $scope.sid = $cookies.get('connect.sid') || 'unknown'
   }
 }
 
