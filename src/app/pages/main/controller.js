@@ -1,16 +1,14 @@
 'use strict'
 class MainController {
 
-  constructor($http, appConstants, socket) {
+  constructor(profileService, socket) {
     'ngInject'
-    $http.get(appConstants.profileUrl).then(response => {
-      this.profile = response.data
-      try {
-        socket.emit('info', 'hello')
-      }
-      catch (ex) {
-      }
-    })
+    this.profile = profileService.get()
+    try {
+      socket.emit('info', 'hello')
+    }
+    catch (ex) {
+    }
   }
 }
 

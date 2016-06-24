@@ -47,7 +47,7 @@
     "jquery": "^2.1.4",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
-    "lodash": "~4.5.0",
+    "lodash": "^4.5.1",
     "manifest-revision-webpack-plugin": "~0.1.0",
     "mygov-widget-education": "git@bitbucket.org:GregTurner/mygov-widget-education.git",
     "ng-annotate-loader": "0.0.10",

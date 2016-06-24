@@ -11,6 +11,12 @@ function routeConfig($stateProvider) {
       templateUrl: mainTpl,
       controller: require('./controller'),
       controllerAs: '$ctrl',
+      resolve:{
+        profileServiceData: function(profileService){
+          'ngInject'
+          return profileService.promise
+        }
+      }
     });
 
 }

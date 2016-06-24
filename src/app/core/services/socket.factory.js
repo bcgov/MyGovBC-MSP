@@ -3,7 +3,7 @@
 export default function (app) {
   app.factory('socket', function($window){
     "ngInject"
-    let socket
+    let socket = {}
     try{
       socket = $window.io()
     }
