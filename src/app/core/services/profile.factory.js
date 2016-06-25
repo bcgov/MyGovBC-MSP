@@ -6,6 +6,8 @@ export default function (app) {
     let _profile
     let promise = $http.get(appConstants.profileUrl).then(response => {
       _profile = response.data
+    }, () => {
+      _profile = null
     })
     return {
       promise: promise,
