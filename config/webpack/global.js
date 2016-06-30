@@ -153,6 +153,7 @@ module.exports = function (_path) {
       info: true,
       hot: true,
       inline: true,
+      historyApiFallback: true,
       watchOptions: {
         poll: 1000,
       },
