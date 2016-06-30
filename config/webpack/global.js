@@ -59,7 +59,7 @@ module.exports = function (_path) {
       }, {
         test: /\.js$/,
         exclude: [
-          path.resolve(_path, "node_modules")
+          path.resolve(_path, "node_modules/(?!mygov).*")
         ],
         loaders: [
           'ng-annotate-loader'
@@ -160,7 +160,8 @@ module.exports = function (_path) {
     },
     // constants injected to app
     appConstants: {
-      profileUrl: 'http://localhost:9000/ext/api/profile'
+      profileUrl: 'http://localhost:9000/ext/api/profile',
+      transcriptEndpoint: 'http://localhost:3000/ext/api',
     },
     headerFooterSvcUrl: 'https://layout.api.dev.cos.citz.gov.bc.ca/v1/theme1/',
   };
