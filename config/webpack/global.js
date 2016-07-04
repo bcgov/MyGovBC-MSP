@@ -59,7 +59,7 @@ module.exports = function (_path) {
       }, {
         test: /\.js$/,
         exclude: [
-          new RegExp('node_modules\\'+path.sep+'(?!mygov).*')
+          new RegExp('node_modules\\'+path.sep+'(?!mygov-).*', 'i')
         ],
         loaders: [
           'ng-annotate-loader'
@@ -67,7 +67,7 @@ module.exports = function (_path) {
       }, {
         test: /\.js$/,
         exclude: [
-          new RegExp('node_modules\\'+path.sep+'(?!mygov).*')
+          new RegExp('node_modules\\'+path.sep+'(?!mygov-).*', 'i')
         ],
         loader: 'babel-loader',
         query: {
