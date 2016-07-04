@@ -160,6 +160,7 @@ module.exports = function (_path) {
     },
     // constants injected to app
     appConstants: {
+      runtimeEnv: 'development', // 'development|test|production'
       profileUrl: 'http://localhost:9000/ext/api/profile',
       transcriptEndpoint: 'http://localhost:3000/ext/api',
     },
