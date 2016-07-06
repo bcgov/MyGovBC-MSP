@@ -8,5 +8,6 @@ require('./services/constants')(shared);
 require('./services/socket.factory')(shared);
 require('./services/profile.factory')(shared);
 require('./services/resolver.provider')(shared);
+require('./services/lb-services');
 
 export default shared;
