@@ -19,11 +19,6 @@ cd client
 npm install
 npm run dev
 ```
-## Core Development
-
-Using Loopback AngularJS SDK
-lb-ng c:\mygov\mygov-core-server\server\server.js src\app\core\services\lb-services.js -u http://localhost:9000/ext/api
-
 
 ## Configuring Widget
 Download package via NPM:
@@ -46,7 +41,6 @@ const App = angular.module(
     "ngMessages",
     "ngAria",
     "ngResource",
-    "lbServices",
 
     // core
     require("./core/core.module").name,
@@ -67,7 +61,26 @@ const App = angular.module(
 );
 ```
 
+IMPORTANT: Once AngularJS knows about your widget its time to add it to our mygov service registry.  
+This lets the client to show it on the main page for users and dynamically route to it.  
+Eventually we'll have a UI but for now, see README.md in `mygov-core-server`.
+
 ## Production
 ```
 npm run build
+```
+
+## For Core Development
+
+If you're a widget developer you can skip this section.  This section is for core developers.
+ 
+### Generating AngularJS Service for SLC Loopback
+
+The `mygov-core-server` uses slc loopback.  So we can conviently use the [Loopback AngularJS SDK](https://docs.strongloop.com/display/APIC/AngularJS+JavaScript+SDK) to generate our AngularJS Services.
+ 
+When you make a change to a model/API on the `mygov-core-server`, you'll need to update our client side code by running:
+
+```
+cd <path to>\mygov-core-client\
+lb-ng <path to>\mygov-core-server\server\server.js src\app\core\services\lb-services.js -u http://localhost:9000/ext/api
 ```
