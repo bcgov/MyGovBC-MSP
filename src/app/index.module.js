@@ -16,6 +16,7 @@ const App = angular.module(
     "ngMessages",
     "ngAria",
     "ngResource",
+    "lbServices",
 
     // core
     require("./core/core.module").name,

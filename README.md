@@ -19,6 +19,12 @@ cd client
 npm install
 npm run dev
 ```
+## Core Development
+
+Using Loopback AngularJS SDK
+lb-ng c:\mygov\mygov-core-server\server\server.js src\app\core\services\lb-services.js -u http://localhost:9000/ext/api
+
+
 ## Configuring Widget
 Download package via NPM:
 
@@ -40,6 +46,7 @@ const App = angular.module(
     "ngMessages",
     "ngAria",
     "ngResource",
+    "lbServices",
 
     // core
     require("./core/core.module").name,
