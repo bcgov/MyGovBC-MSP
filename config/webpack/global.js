@@ -160,7 +160,8 @@ module.exports = function (_path) {
     },
     // constants injected to app
     appConstants: {
-      runtimeEnv: 'development', // 'development|test|production'
+      runtimeEnv: 'development', // 'development|test|production',
+      loopbackBaseUrl: 'http://localhost:9000/ext/api',
       profileUrl: 'http://localhost:9000/ext/api/profile',
       transcriptEndpoint: 'http://localhost:3000/ext/api',
     },

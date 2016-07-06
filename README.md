@@ -82,5 +82,5 @@ When you make a change to a model/API on the `mygov-core-server`, you'll need to
 
 ```
 cd <path to>\mygov-core-client\
-lb-ng <path to>\mygov-core-server\server\server.js src\app\core\services\lb-services.js -u http://localhost:9000/ext/api
+lb-ng <path to>\mygov-core-server\server\server.js src\app\core\services\lb-services.js
 ```
