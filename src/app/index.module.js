@@ -32,7 +32,8 @@ const App = angular.module(
     require("./pages/login").name,
 
     // widget add-ons
-    require("mygov-widget-education").name
+    require("mygov-widget-education").name,
+    require("mygov-widget-resizable-iframe").name
   ]
 );
 
