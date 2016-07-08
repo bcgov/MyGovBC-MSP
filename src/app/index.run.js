@@ -1,9 +1,7 @@
-'use strict';
+'use strict'
 
-function runBlock($log) {
-	'ngInject';
-
-//	$log.debug('Hello from run block!');
+function runBlock() {
+	'ngInject'
 }
 
-export default runBlock;
+export default runBlock
