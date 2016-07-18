@@ -31,6 +31,7 @@ const App = angular.module(
     require("./pages/main").name,
     require("./pages/transactions").name,
     require("./pages/login").name,
+    require("./pages/dev/styles").name,
 
     // widget add-ons
     require("mygov-widget-education").name
