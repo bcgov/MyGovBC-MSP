@@ -151,9 +151,11 @@ module.exports = function (_path) {
       publicPath: '/ext/',
       contentBase: './dist',
       info: true,
-      hot: true,
+      hot: false,
       inline: true,
-      historyApiFallback: true,
+      historyApiFallback: {
+        index: '/ext/'
+      },
       watchOptions: {
         poll: 1000,
       },
@@ -165,7 +167,7 @@ module.exports = function (_path) {
       profileUrl: 'http://localhost:9000/ext/api/profile',
       transcriptEndpoint: 'http://localhost:3000/ext/api',
     },
-    headerFooterSvcUrl: 'https://layout.api.dev.cos.citz.gov.bc.ca/v1/theme1/',
+    headerFooterSvcUrl: '',
   };
 
   if (NODE_ENV !== 'development') {
