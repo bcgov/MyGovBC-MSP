@@ -12,19 +12,126 @@
   letter-spacing: -1px;
 }
 
-.hero-unit {
-  position: relative;
-  padding: 30px 15px;
-  color: #F5F5F5;
-  text-align: center;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-  background: #4393B9;
-}
-
 .navbar-text {
   margin-left: 15px;
 }
 
 .mygov-header.row:nth-of-type(even) {
   background: #e0e0e0;
+}
+
+@media ( min-width: 768px) {
+  .contentPageLeftNavigation {
+    padding-right: 15px;
+  }
+}
+
+.contentPageLeftNavigation {
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  ul.leftNav {
+    border: 1px solid #e1e1e1;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    width: 100%;
+  }
+
+  ul li {
+    width: 100%;
+  }
+
+  & > div {
+    padding-left: 10px;
+  }
+
+  ul li {
+    list-style: none;
+    background-position: 0 4px;
+    background-repeat: no-repeat;
+    line-height: 14px;
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  ul.leftNav > li:first-child {
+    margin-top: 0;
+  }
+
+  div > ul {
+    padding-bottom: 26px;
+    padding-top: 10px;
+    top: 10px;
+  }
+
+  ul li.closed {
+    background-image: url("<%=unippearHost%><%=thisFileUrlPath%>../images/sidecolumnnav_closed.gif");
+    background-position: 0 2px;
+  }
+
+  ul li ul {
+    display: none;
+  }
+
+  ul li.open ul {
+    display: block;
+  }
+
+  ul li.solo {
+    background-image: none;
+  }
+
+  ul li.open {
+    background-image: url("<%=unippearHost%><%=thisFileUrlPath%>../images/sidecolumnnav_open.gif");
+    background-position: 0 2px;
+  }
+
+  ul li a {
+    text-decoration: none;
+    display: block;
+    padding: 2px 0 0 4px;
+  }
+
+  #topicLeftNav, #topicLeftNav .navbar-collapse {
+    padding: 0;
+    border: none;
+  }
+
+  #topicLeftNav li.open a {
+    background-color: inherit;
+  }
+
+  ul li a:hover {
+    text-decoration: underline;
+  }
+
+  ul li.active > div.leftNav-item-wrapper a {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+}
+
+.rightColumnBox {
+  background-color: #fff; /* for IE */
+  background-color: rgba(255, 255, 255, 0.80);
+  padding: 15px;
+  margin-bottom: 15px;
+  word-wrap: break-word;
+
+  p > img, .themePromoBox p > img {
+    display: inline;
+  }
+
+  img, .themePromoBox img {
+    display: block;
+    margin: 0 auto 10px auto;
+    width: inherit !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
 }

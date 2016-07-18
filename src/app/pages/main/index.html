@@ -1,30 +1,116 @@
-<header class="hero-unit" id="banner">
-    <div class="container">
-        <h1>Welcome, {{$ctrl.profile.name}}!</h1>
-    </div>
-</header>
+<div class="container template">
+  <div id="breadcrumbContainer">
+    <ol class="breadcrumb">
+      <li>
+        <a href="myaccount.html">MyGov</a>
+      </li>
+    </ol>
+  </div>
+  <div class="row">
+    <div class="contentPageLeftNavigation col-sm-3">
+      <div id="topicLeftNav" class="navbar">
+        <div class="navbar-header">
+          <button class="navbar-toggle topic-menu-trigger " aria-expanded="true" type="button" data-toggle="collapse"
+                  data-target="#topicLeftNav .navbar-collapse">
+            Section Navigation
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">My Government Services</h1>
+          </button>
 
-            <div class="panel panel-default">
-                <div class="panel-heading"><strong>Services/Ministry or Organization</strong></div>
-                <div class="panel-body">
-                    <ol ng-repeat="item in service">
-                        <li><a ui-sref="{{item.routeName}}">{{item.name}}</a></li>
-                    </ol>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading"><strong>Common Services</strong>
-                </div>
-                <div class="panel-body">
-                    <a class="btn btn-default btn-sm" ui-sref="transactions">Transactions</a>
-                </div>
-            </div>
         </div>
+        <div class="row navbar-collapse collapse">
+          <div class="col-xs-12">
+            <ul class="leftNav nav navbar-nav">
+              <li>
+                <div class="leftNav-item-wrapper">
+                  <a href="mayaccount2.html">MyGov</a>
+                  <span class="level-trigger"></span>
+                </div>
+                <ul>
+                  <li>
+
+                    <div class="leftNav-item-wrapper">
+
+                      <a href="services_list.html">More BC government services</a>
+
+                      <span class="level-trigger"></span>
+
+                    </div>
+
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div class="leftNav-item-wrapper">
+                  <a href="notifications.html">Messages Centre <strong>(4)</strong></a>
+                  <span class="level-trigger"></span>
+                </div>
+              </li>
+              <li>
+                <div class="leftNav-item-wrapper">
+                  <a href="#">Make a Payment</a>
+                  <span class="level-trigger"></span>
+                </div>
+              </li>
+              <li>
+                <div class="leftNav-item-wrapper">
+                  <a href="services_history.html">Transaction History</a>
+                  <span class="level-trigger"></span>
+                </div>
+              </li>
+              <li>
+                <div class="leftNav-item-wrapper">
+                  <a href="#">Contact Us</a>
+                  <span class="level-trigger"></span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <a class="btn btn-default btn-sm" ui-sref="devStyles">Dev Tool - Styles</a>
+    <div class="col-sm-9 col-md-5 col-lg-6">
+      <h1 class="page-header">My Government Services</h1>
+
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong>Services/Ministry or Organization</strong></div>
+        <div class="panel-body">
+          <ol ng-repeat="item in service">
+            <li><a ui-sref="{{item.routeName}}">{{item.name}}</a></li>
+          </ol>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong>Common Services</strong>
+        </div>
+        <div class="panel-body">
+          <a class="btn btn-default btn-sm" ui-sref="transactions">Transactions</a>
+        </div>
+      </div>
+      <a class="btn btn-default btn-sm" ui-sref="devStyles">Dev Tool - Styles</a>
+    </div>
+    <div class="contentPageRightColumn col-sm-9 col-md-4 col-lg-3 col-sm-offset-3 col-md-offset-0">
+      <div id="replicantData_929A2711AD51422A8679B340EF45864B" data-order="0">
+        <div id="replicantData_929A2711AD51422A8679B340EF45864B" data-order="0">
+          <h2 class="blue-heading-bar">Your Government Identification</h2>
+          <div class="promoBox rightColumnBox">
+            <p align="center"><img src="https://cos.citz.gov.bc.ca/protos/pa/index_files/images/sam-profile.png"></p>
+            <p><strong>Name:</strong> Samantha Irene Lee</p>
+            <p><strong>Date of Birth:</strong> 14 / 01 / 1997</p>
+            <!-- <p><strong>BC Services Card #</strong>: 99988499</p> -->
+            <p><strong>Address:</strong><br>1518 Mortimer St., Campbell River, V8P 3A4 </p>
+            <p><a href="#">Edit/change your address</a></p>
+          </div>
+        </div>
+        <div id="replicantData_929A2711AD51422A8679B340EF45864B" data-order="0">
+          <h2 class="blue-heading-bar">Learn More </h2>
+          <div class="promoBox rightColumnBox">
+            <p>Learn how to manage your BC My Account in our <a href="#">tutorial</a> or watch a video below.</p>
+            <iframe width="240" height="215" src="https://www.youtube.com/embed/r0AxuT28-ic?wmode=transparent"
+                    frameborder="0" allowfullscreen=""></iframe>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
 </div>
