@@ -1,145 +1,119 @@
 <div class="container">
-  <div id="breadcrumbContainer">
-    <ol class="breadcrumb">
-      <li>
-        <a href="myaccount.html">MyGov</a>
-      </li>
-    </ol>
-  </div>
-  <div class="row">
-    <div class="contentPageLeftNavigation col-sm-3">
-      <div id="topicLeftNav" class="navbar">
-        <div class="navbar-header">
-          <button class="navbar-toggle topic-menu-trigger " aria-expanded="true" type="button" data-toggle="collapse"
-                  data-target="#topicLeftNav .navbar-collapse">
-            Section Navigation
-
-          </button>
-
-        </div>
-        <div class="row navbar-collapse collapse">
-          <div class="col-xs-12">
-            <ul class="leftNav nav navbar-nav">
-              <li>
-                <div class="leftNav-item-wrapper">
-                  <a href="mayaccount2.html">MyGov</a>
-                  <span class="level-trigger"></span>
-                </div>
-                <ul>
-                  <li>
-
-                    <div class="leftNav-item-wrapper">
-
-                      <a href="services_list.html">More BC government services</a>
-
-                      <span class="level-trigger"></span>
-
-                    </div>
-
-                  </li>
+    <div id="breadcrumbContainer">
+        <ol class="breadcrumb">
+            <li>
+                <a href="myaccount.html">MyGov</a>
+            </li>
+        </ol>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="well">
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="mayaccount2.html"><strong>MyGov</strong></a>
+                    </li>
+                    <li>
+                        <a href="notifications.html">Messages Centre <strong>(4)</strong></a>
+                    </li>
+                    <li>
+                        <a href="#">Bill and Payments</a>
+                    </li>
+                    <li>
+                        <a ui-sref="transactions">Transaction History</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact Us</a>
+                    </li>
                 </ul>
-              </li>
-              <li>
-                <div class="leftNav-item-wrapper">
-                  <a href="notifications.html">Messages Centre <strong>(4)</strong></a>
-                  <span class="level-trigger"></span>
+            </div>
+            <a class="btn btn-block btn-default btn-sm" ui-sref="devStyles">Developer Tools - Styles</a>
+        </div>
+        <div class="col-sm-9 col-md-5 col-lg-6">
+            <h1 class="page-header">Manage my Government Services</h1>
+            <div class="alert alert-info fade in">
+                <button class="close" data-dismiss="alert" type="button">×</button>
+                <i class="fa fa-info-circle" aria-hidden="true"></i> <strong>Message:</strong>
+                <a href="#">You have a new notification</a>
+            </div>
+            <p>MyGov government serivce as of <strong>{{ today | date: 'longDate'}}</strong></p>
+            <div class="panel panel-default">
+                <div class="panel-heading">My Government Services</div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Service Ministry/Organization</th>
+                            <th>Manage</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in service">
+                            <td><a ui-sref="{{item.routeName}}">{{item.name}}</a></td>
+                            <td><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#"><strong> Add More BC Government Services</strong></a></td>
+                            <td><a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-              </li>
-              <li>
-                <div class="leftNav-item-wrapper">
-                  <a href="#">Make a Payment</a>
-                  <span class="level-trigger"></span>
-                </div>
-              </li>
-              <li>
-                <div class="leftNav-item-wrapper">
-                  <a ui-sref="transactions">Transaction History</a>
-                  <span class="level-trigger"></span>
-                </div>
-              </li>
-              <li>
-                <div class="leftNav-item-wrapper">
-                  <a href="#">Contact Us</a>
-                  <span class="level-trigger"></span>
-                </div>
-              </li>
+            </div>
+            <h2>Suggest Government Services</h2>
+            <p>Here are some common and relevant government services based on your MyGov profile.</p>
 
-            </ul>
-          </div>
-        </div>
-      </div>
-        <a class="btn btn-block btn-default btn-sm" ui-sref="devStyles">Developer Tools - Styles</a>
-    </div>
-    <div class="col-sm-9 col-md-5 col-lg-6">
-      <h1 class="page-header">Manage my Government Services</h1>
-        <div class="alert alert-info fade in">
-            <button class="close" data-dismiss="alert" type="button">×</button>
-            <i class="fa fa-info-circle" aria-hidden="true"></i> <strong>Message:</strong>
-            <a href="#">You have a new notification</a>
-        </div>
-        <p>MyGov government serivce as of <strong>{{ today | date: 'longDate'}}</strong></p>
-      <div class="panel panel-default">
-        <div class="panel-heading">My Government Services</div>
-        <div class="panel-body">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Service Ministry/Organization</th>
-                        <th>Manage</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="item in service">
-                        <td><a ui-sref="{{item.routeName}}">{{item.name}}</a></td>
-                        <td><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#"><strong> Add More BC Government Services</strong></a></td>
-                        <td><i class="fa fa-plus" aria-hidden="true"></i></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-      </div>
-      <h2>Suggest Government Services</h2>
-        <p>Here are some common and relevent government services based on your MyGov profile.</p>
-    </div>
-    <div class="col-sm-9 col-md-4 col-lg-3 col-sm-offset-3 col-md-offset-0">
-        <div class="panel panel-primary">
-            <div class="panel-heading">Your Government Identification</div>
-            <div class="panel-body">
-                <img class="img-responsive" src="https://cos.citz.gov.bc.ca/protos/pa/index_files/images/sam-profile.png">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Name</label>
-                        <div class="col-sm-8">
-                            <p class="form-control-static">{{$ctrl.profile.name}}</p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Date of Birth</label>
-                        <div class="col-sm-8">
-                            <p class="form-control-static">14 / 01 / 1997</p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Address</label>
-                        <div class="col-sm-8">
-                            <p class="form-control-static">1518 Mortimer St., Campbell River, V8P 3A4</p>
-                            <p><a href="#">Edit/change your address</a></p>
-                        </div>
-                    </div>
-                </form>
+            <div class="row">
+                <div class="col-sm-3">
+                    <a href="#">
+                        <!--<img class="img-circle" src="">-->
+                        <br>
+                        Driver's License
+                    </a>
+                    View your status, book a test and more.
+                </div>
             </div>
+
         </div>
-        <div class="panel panel-primary">
-            <div class="panel-heading">Learn More</div>
-            <div class="panel-body">   <p>Learn how to manage your BC My Account in our <a href="#">tutorial</a> or watch a video below.</p>
-                <div class="embed-responsive embed-responsive-4by3">
-                    <iframe src="https://www.youtube.com/embed/r0AxuT28-ic?wmode=transparent" frameborder="0" allowfullscreen=""></iframe>
+        <div class="col-sm-9 col-md-4 col-lg-3 col-sm-offset-3 col-md-offset-0">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Your Government Identification</div>
+                <div class="panel-body">
+                    <img class="img-responsive"
+                         src="https://cos.citz.gov.bc.ca/protos/pa/index_files/images/sam-profile.png">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Name</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static">{{$ctrl.profile.name}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Date of Birth</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static">14 / 01 / 1997</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Address</label>
+                            <div class="col-sm-8">
+                                <p class="form-control-static">1518 Mortimer St., Campbell River, V8P 3A4</p>
+                                <p><a href="#">Edit/change your address</a></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">Learn More</div>
+                <div class="panel-body"><p>Learn how to manage your BC My Account in our <a href="#">tutorial</a> or
+                    watch a video below.</p>
+                    <div class="embed-responsive embed-responsive-4by3">
+                        <iframe src="https://www.youtube.com/embed/r0AxuT28-ic?wmode=transparent" frameborder="0"
+                                allowfullscreen=""></iframe>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-  </div>
 </div>
