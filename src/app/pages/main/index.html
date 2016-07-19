@@ -1,4 +1,4 @@
-<div class="container template">
+<div class="container">
   <div id="breadcrumbContainer">
     <ol class="breadcrumb">
       <li>
@@ -53,7 +53,7 @@
               </li>
               <li>
                 <div class="leftNav-item-wrapper">
-                  <a href="services_history.html">Transaction History</a>
+                  <a ui-sref="transactions">Transaction History</a>
                   <span class="level-trigger"></span>
                 </div>
               </li>
@@ -71,19 +71,12 @@
     <div class="col-sm-9 col-md-5 col-lg-6">
       <h1 class="page-header">My Government Services</h1>
 
-      <div class="panel panel-default">
-        <div class="panel-heading"><strong>Services/Ministry or Organization</strong></div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">Services/Ministry or Organization</div>
         <div class="panel-body">
-          <ol ng-repeat="item in service">
+          <ul ng-repeat="item in service">
             <li><a ui-sref="{{item.routeName}}">{{item.name}}</a></li>
-          </ol>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading"><strong>Common Services</strong>
-        </div>
-        <div class="panel-body">
-          <a class="btn btn-default btn-sm" ui-sref="transactions">Transactions</a>
+          </ul>
         </div>
       </div>
       <a class="btn btn-default btn-sm" ui-sref="devStyles">Dev Tool - Styles</a>
