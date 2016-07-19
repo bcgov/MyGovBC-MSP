@@ -63,10 +63,12 @@
                   <span class="level-trigger"></span>
                 </div>
               </li>
+
             </ul>
           </div>
         </div>
       </div>
+        <a class="btn btn-block btn-default btn-sm" ui-sref="devStyles">Developer Tools - Styles</a>
     </div>
     <div class="col-sm-9 col-md-5 col-lg-6">
       <h1 class="page-header">Manage my Government Services</h1>
@@ -74,12 +76,25 @@
       <div class="panel panel-default">
         <div class="panel-heading">My Government Services</div>
         <div class="panel-body">
-          <ul ng-repeat="item in service">
-            <li><a ui-sref="{{item.routeName}}">{{item.name}}</a></li>
-          </ul>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Service Ministry/Organization</th>
+                        <th>Manage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in service">
+                        <td><a ui-sref="{{item.routeName}}">{{item.name}}</a></td>
+                        <td><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
       </div>
-      <a class="btn btn-default btn-sm" ui-sref="devStyles">Dev Tool - Styles</a>
+      <h2>Suggest Government Services</h2>
+        <p></p>
+
     </div>
     <div class="col-sm-9 col-md-4 col-lg-3 col-sm-offset-3 col-md-offset-0">
         <div class="panel panel-primary">
