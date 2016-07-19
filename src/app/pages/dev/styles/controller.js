@@ -1,7 +1,7 @@
 'use strict'
 class StylesController {
 
-  constructor() {
+  constructor($scope) {
     'ngInject'
   }
 }
