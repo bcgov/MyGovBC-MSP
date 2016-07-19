@@ -86,11 +86,27 @@
             <div class="panel-heading">Your Government Identification</div>
             <div class="panel-body">
                 <img class="img-responsive" src="https://cos.citz.gov.bc.ca/protos/pa/index_files/images/sam-profile.png">
-                <p><strong>Name:</strong> {{$ctrl.profile.name}}</p>
-                <p><strong>Date of Birth:</strong> 14 / 01 / 1997</p>
-                <!-- <p><strong>BC Services Card #</strong>: 99988499</p> -->
-                <p><strong>Address:</strong><br>1518 Mortimer St., Campbell River, V8P 3A4 </p>
-                <p><a href="#">Edit/change your address</a></p>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Name</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">{{$ctrl.profile.name}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Date of Birth</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">14 / 01 / 1997</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Address</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">1518 Mortimer St., Campbell River, V8P 3A4</p>
+                            <p><a href="#">Edit/change your address</a></p>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="panel panel-primary">
