@@ -69,10 +69,10 @@
       </div>
     </div>
     <div class="col-sm-9 col-md-5 col-lg-6">
-      <h1 class="page-header">My Government Services</h1>
-
-      <div class="panel panel-primary">
-        <div class="panel-heading">Services/Ministry or Organization</div>
+      <h1 class="page-header">Manage my Government Services</h1>
+        <p>MyGov government serivce as of <strong>July 19, 2016</strong></p>
+      <div class="panel panel-default">
+        <div class="panel-heading">My Government Services</div>
         <div class="panel-body">
           <ul ng-repeat="item in service">
             <li><a ui-sref="{{item.routeName}}">{{item.name}}</a></li>
@@ -81,29 +81,25 @@
       </div>
       <a class="btn btn-default btn-sm" ui-sref="devStyles">Dev Tool - Styles</a>
     </div>
-    <div class="contentPageRightColumn col-sm-9 col-md-4 col-lg-3 col-sm-offset-3 col-md-offset-0">
-      <div id="replicantData_929A2711AD51422A8679B340EF45864B" data-order="0">
-        <div id="replicantData_929A2711AD51422A8679B340EF45864B" data-order="0">
-          <h2 class="blue-heading-bar">Your Government Identification</h2>
-          <div class="promoBox rightColumnBox">
-            <p align="center"><img src="https://cos.citz.gov.bc.ca/protos/pa/index_files/images/sam-profile.png"></p>
-            <p><strong>Name:</strong> {{$ctrl.profile.name}}</p>
-            <p><strong>Date of Birth:</strong> 14 / 01 / 1997</p>
-            <!-- <p><strong>BC Services Card #</strong>: 99988499</p> -->
-            <p><strong>Address:</strong><br>1518 Mortimer St., Campbell River, V8P 3A4 </p>
-            <p><a href="#">Edit/change your address</a></p>
-          </div>
+    <div class="col-sm-9 col-md-4 col-lg-3 col-sm-offset-3 col-md-offset-0">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Your Government Identification</div>
+            <div class="panel-body">
+                <img class="img-responsive" src="https://cos.citz.gov.bc.ca/protos/pa/index_files/images/sam-profile.png">
+                <p><strong>Name:</strong> {{$ctrl.profile.name}}</p>
+                <p><strong>Date of Birth:</strong> 14 / 01 / 1997</p>
+                <!-- <p><strong>BC Services Card #</strong>: 99988499</p> -->
+                <p><strong>Address:</strong><br>1518 Mortimer St., Campbell River, V8P 3A4 </p>
+                <p><a href="#">Edit/change your address</a></p>
+            </div>
         </div>
-        <div id="replicantData_929A2711AD51422A8679B340EF45864B" data-order="0">
-          <h2 class="blue-heading-bar">Learn More </h2>
-          <div class="promoBox rightColumnBox">
-            <p>Learn how to manage your BC My Account in our <a href="#">tutorial</a> or watch a video below.</p>
-            <iframe width="240" height="215" src="https://www.youtube.com/embed/r0AxuT28-ic?wmode=transparent"
-                    frameborder="0" allowfullscreen=""></iframe>
-          </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">Learn More</div>
+            <div class="panel-body">   <p>Learn how to manage your BC My Account in our <a href="#">tutorial</a> or watch a video below.</p>
+                <iframe width="240" height="215" src="https://www.youtube.com/embed/r0AxuT28-ic?wmode=transparent"
+                        frameborder="0" allowfullscreen=""></iframe>
+            </div>
         </div>
-      </div>
-      </div>
     </div>
   </div>
 </div>
