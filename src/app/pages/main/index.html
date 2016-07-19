@@ -37,29 +37,26 @@
                 <a href="#">You have a new notification</a>
             </div>
             <p>MyGov government serivce as of <strong>{{ today | date: 'longDate'}}</strong></p>
-            <div class="panel panel-default">
-                <div class="panel-heading">My Government Services</div>
-                <div class="panel-body">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Service Ministry/Organization</th>
-                            <th>Manage</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="item in service">
-                            <td><a ui-sref="{{item.routeName}}">{{item.name}}</a></td>
-                            <td><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#"><strong> Add More BC Government Services</strong></a></td>
-                            <td><a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+
+            <h2>My Government Services</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Service Ministry/Organization</th>
+                    <th>Manage</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in service">
+                    <td><a ui-sref="{{item.routeName}}">{{item.name}}</a></td>
+                    <td><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                </tr>
+                <tr>
+                    <td><a href="#"><strong> Add More BC Government Services</strong></a></td>
+                    <td><a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a></td>
+                </tr>
+                </tbody>
+            </table>
             <h2>Suggest Government Services</h2>
             <p>Here are some common and relevant government services based on your MyGov profile.</p>
 
