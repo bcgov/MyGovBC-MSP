@@ -72,6 +72,11 @@
     </div>
     <div class="col-sm-9 col-md-5 col-lg-6">
       <h1 class="page-header">Manage my Government Services</h1>
+        <div class="alert alert-info fade in">
+            <button class="close" data-dismiss="alert" type="button">×</button>
+            <i class="fa fa-info-circle" aria-hidden="true"></i> <strong>Message:</strong>
+            <a href="#">You have a new notification</a>
+        </div>
         <p>MyGov government serivce as of <strong>{{ today | date: 'longDate'}}</strong></p>
       <div class="panel panel-default">
         <div class="panel-heading">My Government Services</div>
@@ -127,8 +132,9 @@
         <div class="panel panel-primary">
             <div class="panel-heading">Learn More</div>
             <div class="panel-body">   <p>Learn how to manage your BC My Account in our <a href="#">tutorial</a> or watch a video below.</p>
-                <iframe width="240" height="215" src="https://www.youtube.com/embed/r0AxuT28-ic?wmode=transparent"
-                        frameborder="0" allowfullscreen=""></iframe>
+                <div class="embed-responsive embed-responsive-4by3">
+                    <iframe src="https://www.youtube.com/embed/r0AxuT28-ic?wmode=transparent" frameborder="0" allowfullscreen=""></iframe>
+                </div>
             </div>
         </div>
     </div>
