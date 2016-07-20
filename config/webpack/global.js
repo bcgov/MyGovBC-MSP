@@ -167,7 +167,7 @@ module.exports = function (_path) {
       profileUrl: 'http://localhost:9000/ext/api/profile',
       transcriptEndpoint: 'http://localhost:3000/ext/api',
     },
-    headerFooterSvcUrl: '',
+    headerFooterSvcUrl: 'https://layout.api.dev.cos.citz.gov.bc.ca/v1/theme1/',
   };
 
   if (NODE_ENV !== 'development') {
