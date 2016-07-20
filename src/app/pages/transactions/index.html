@@ -1,18 +1,29 @@
 <div class="container wrapper">
-    <h1 class="customClass">My Transactions</h1>
-    <div ui-view>
-        <div class="panel panel-success" ng-repeat="transcriptSubmission in transcriptSubmissions">
-            <div class="panel-heading">
-                <h3 class="panel-title">Transcript Sent</h3>
-            </div>
-            <div class="panel-body">
-                <p>
-                    Date: {{transcriptSubmission.submissionDate}}<br>
-                    School ID: {{transcriptSubmission.schoolID}}
-                </p>
+    <div id="breadcrumbContainer">
+        <ol class="breadcrumb">
+            <li>
+                <a href="myaccount.html">MyGov</a>
+            </li>
+        </ol>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <menubox/>
+        </div>
+        <div class="col-sm-9 col-md-5 col-lg-6">
+            <h1 class="page-header">My Transactions</h1>
+
+            <div class="panel panel-success" ng-repeat="transcriptSubmission in transcriptSubmissions">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Transcript Sent</h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        Date: {{transcriptSubmission.submissionDate}}<br>
+                        School ID: {{transcriptSubmission.schoolID}}
+                    </p>
+                </div>
             </div>
         </div>
-
     </div>
-    <a ui-sref="main">Back to MyGov</a>
 </div>
