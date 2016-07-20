@@ -6,7 +6,7 @@ function routeConfig($stateProvider) {
   'ngInject'
 
   $stateProvider
-    .state('dev.styles', {
+    .state('dev-styles', {
       url: '/dev/styles',
       templateUrl: html,
       controller: require('./controller'),
