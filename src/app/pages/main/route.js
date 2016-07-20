@@ -16,7 +16,11 @@ function routeConfig($stateProvider) {
           'ngInject'
           return profileService.promise
         }
+      },
+      ncyBreadcrumb: {
+        label: 'MyGov'
       }
+
     });
 
 }

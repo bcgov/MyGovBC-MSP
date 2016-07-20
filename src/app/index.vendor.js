@@ -23,5 +23,7 @@ import "angular-aria";
 
 import "angular-resource";
 
+import "angular-breadcrumb";
+
 // local scripts
 //import "../assets/js/...";

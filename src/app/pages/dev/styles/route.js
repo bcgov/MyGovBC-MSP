@@ -11,6 +11,9 @@ function routeConfig($stateProvider) {
       templateUrl: html,
       controller: require('./controller'),
       controllerAs: '$ctrl',
+      ncyBreadcrumb: {
+        label: 'Style Palette'
+      }
     })
 }
 

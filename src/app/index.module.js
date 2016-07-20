@@ -17,6 +17,7 @@ const App = angular.module(
     "ngAria",
     "ngResource",
     "lbServices",
+    "ncy-angular-breadcrumb",
 
     // core
     require("./core/core.module").name,

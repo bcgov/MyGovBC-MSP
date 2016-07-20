@@ -11,6 +11,10 @@ function routeConfig($stateProvider) {
       templateUrl: transactionsTpl,
       controller: require('./controller'),
       controllerAs: '$ctrl',
+      ncyBreadcrumb: {
+        parent: 'main',
+        label: 'My Transactions'
+      }
     });
 
 }
