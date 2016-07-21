@@ -51,6 +51,7 @@
     "lodash": "^4.5.1",
     "manifest-revision-webpack-plugin": "~0.1.0",
     "mygov-widget-education": "git@bitbucket.org:GregTurner/mygov-widget-education.git",
+    "mygov-widget-myorg-myservice": "git+ssh://git@bitbucket.org/GregTurner/mygov-widget-myorg-myservice.git",
     "mygov-widget-resizable-iframe": "git@bitbucket.org:fredwen/mygov-widget-resizable-iframe.git",
     "ng-annotate-loader": "0.0.10",
     "ngtemplate-loader": "^1.3.1",
