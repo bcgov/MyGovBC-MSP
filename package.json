@@ -13,6 +13,7 @@
     "angular": "^1.5.6",
     "angular-animate": "^1.5.6",
     "angular-aria": "^1.5.6",
+    "angular-breadcrumb": "^0.4.1",
     "angular-cookies": "^1.5.6",
     "angular-messages": "^1.5.6",
     "angular-qr": "github:janantala/angular-qr",
