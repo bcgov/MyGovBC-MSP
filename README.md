@@ -27,6 +27,13 @@ Download package via NPM:
 npm install <URL or package name> --save-dev
 ```
 
+It is recommended for **test** and **production** scenarios to specify a version number (as a GIT tag) in the URL.  
+
+```
+npm install <URL#0.1.0> --save-dev
+npm install <name@0.1.x> --save-dev
+```
+
 Edit ```index.module.js```, e.g.,:
 
 ```
