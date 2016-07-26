@@ -5,9 +5,20 @@ This is myGov client-side core AngularJS app. It is scaffolded using [angular-we
 2. Support instance specific config in file `/config/webpack/environments/local.js`. The file is ignored by git. The file should return a factory function similar to its siblings.
 3. Inject application constants from webpack config `appConstants` object merged from different environments. See `/config/webpack/global.js` for default.
 
-## Prerequisites
+## Browser Compatibility
+
+* IE 9+
+* Edge 
+* Safari (TBD)
+* Chrome (evergreen)
+* Firefox (evergreen)
+
+## Developer Prerequisites
 * node@>=4.2.5
 * npm@>=3.10.0
+
+
+
 
 ## Development
 It is recommended to install the app under `/client` folder of [myGov-core-server](https://github.com/f-w/myGov-core-server).
