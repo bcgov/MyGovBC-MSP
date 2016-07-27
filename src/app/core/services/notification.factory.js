@@ -4,7 +4,7 @@ export default function (app) {
   app.factory('notificationService', function ($http, appConstants) {
     "ngInject"
     let _profile
-    let promise = $http.get(appConstants.profileUrl).then(response => {
+    let promise = $http.get(appConstants.coreApiBaseUrl + '/profile').then(response => {
       _profile = response.data
     }, () => {
       _profile = null

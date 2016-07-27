@@ -163,8 +163,7 @@ module.exports = function (_path) {
     // constants injected to app
     appConstants: {
       runtimeEnv: 'development', // 'development|test|production',
-      loopbackBaseUrl: 'http://localhost:9000/ext/api',
-      profileUrl: 'http://localhost:9000/ext/api/profile',
+      coreApiBaseUrl: 'http://localhost:9000/ext/api',
       transcriptEndpoint: 'http://localhost:3000/ext/api',
     },
     headerFooterSvcUrl: 'https://chfs-mygov.apps.gov.bc.ca/v1/theme1/',

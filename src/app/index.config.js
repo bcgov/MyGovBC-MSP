@@ -6,7 +6,7 @@ function config($urlRouterProvider, $locationProvider, appConstants, $stateProvi
   $httpProvider.defaults.withCredentials = true;
   $urlRouterProvider.otherwise('/');
   $locationProvider.html5Mode(true);
-  LoopBackResourceProvider.setUrlBase(appConstants.loopbackBaseUrl);
+  LoopBackResourceProvider.setUrlBase(appConstants.coreApiBaseUrl);
   $breadcrumbProvider.setOptions({
     prefixStateName: 'main',
     template: 'bootstrap3'
