@@ -1,6 +1,9 @@
-'use strict';
+'use strict'
 
-module.exports = function () {
-  'ngInject';
+module.exports = function (notificationService) {
+  'ngInject'
+  notificationService.get(function(list){
+    console.log(list.length)
+  })
 }
 

@@ -1,21 +1,21 @@
 'use strict'
 
 export default function (app) {
-  app.factory('notificationService', function ($http, appConstants) {
+  app.factory('notificationService', function (Service) {
     "ngInject"
-    let _profile
-    let promise = $http.get(appConstants.coreApiBaseUrl + '/profile').then(response => {
-      _profile = response.data
-    }, () => {
-      _profile = null
-    })
     return {
-      promise: promise,
-      set: function (profile) {
-        _profile = profile
-      },
-      get: function () {
-        return _profile
+      get: function (cb) {
+        Service.find({}, function (list) {
+            let notificationList = list.filter(function (e, i) {
+              return e.notificationRestApiUrl
+            }).reduce(function(p,e,i){
+              p[e.notificationRestApiUrl] = p[e.notificationRestApiUrl] || []
+              p[e.notificationRestApiUrl].push(e.name)
+              return p
+            },{})
+            cb(notificationList)
+          }
+        )
       }
     }
   })
