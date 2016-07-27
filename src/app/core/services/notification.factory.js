@@ -17,6 +17,7 @@ export default function (app) {
             let notificationRequests = _.map(notificationList, function (v, k, c) {
               return function (cb) {
                 $http.get(k).then(response => {
+                  // TODO: make sure the service attribute in response.data exists in v
                   cb(null, response.data)
                 })
               }
