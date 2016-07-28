@@ -9,7 +9,7 @@
       Send and keep track of all your notifications and messages with the BC Govenment
       <table class="table table-striped">
         <tbody>
-        <tr ng-repeat="item in notifications">
+        <tr ng-repeat="item in notifications" class="mygov-ntf-row-{{item.state}}">
           <td><a href="#item-{{$index}}" data-toggle="collapse"
                  class="mygov-ntf-row-toggle collapsed">{{item.subject}}</a>
             <div id="item-{{$index}}" class="collapse">
