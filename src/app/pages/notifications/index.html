@@ -7,8 +7,19 @@
     <div class="col-sm-9 col-md-5 col-lg-6">
       <h1 class="page-header">My Notifications</h1>
       Send and keep track of all your notifications and messages with the BC Govenment
-
-
+      <table class="table table-striped">
+        <tbody>
+        <tr ng-repeat="item in notifications">
+          <td><a href="#item-{{$index}}" data-toggle="collapse"
+                 class="mygov-ntf-row-toggle collapsed">{{item.subject}}</a>
+            <div id="item-{{$index}}" class="collapse">
+              {{item.body}}
+            </div>
+          </td>
+          <td class="text-right"><a href="#">Delete</a></td>
+        </tr>
+        </tbody>
+      </table>
     </div>
     <div class="col-sm-9 col-md-4 col-lg-3 col-sm-offset-3 col-md-offset-0">
       <div class="panel panel-primary">

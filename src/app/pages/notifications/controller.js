@@ -1,9 +1,9 @@
 'use strict'
 
-module.exports = function (notificationService) {
+module.exports = function (notificationService, $scope) {
   'ngInject'
   notificationService.get(function(list){
-    console.log(list.length)
+    $scope.notifications = list
   })
 }
 
