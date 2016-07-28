@@ -18,7 +18,10 @@ export default function (app) {
               return function (cb) {
                 $http.get(k).then(response => {
                   // TODO: make sure the service attribute in response.data exists in v
-                  cb(null, response.data)
+                  cb(null, response.data.map(function(e){
+                    e.baseUrl = k
+                    return e
+                  }))
                 })
               }
             })
@@ -30,6 +33,11 @@ export default function (app) {
             })
           }
         )
+      },
+      delete: function(url,cb){
+        $http.delete(url).then(function(res){
+          cb(null,res)
+        })
       }
     }
   })
