@@ -29,10 +29,14 @@ var _load = function () {
   console.log('Current Environment: ', ENV)
 
   // load config file by environment
-  var webpackConfigs = _.merge(
+  var webpackConfigs = _.mergeWith(
     _configs.global(__dirname),
     _configs[ENV](__dirname),
-    _configs.local(__dirname)
+    _configs.local(__dirname), function (objValue, srcValue) {
+      if (_.isArray(objValue)) {
+        return objValue.concat(srcValue);
+      }
+    }
   )
 
   webpackConfigs.port = webpackConfigs.port || process.env.PORT || 8000
