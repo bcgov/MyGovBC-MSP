@@ -151,7 +151,7 @@ module.exports = function (_path) {
       publicPath: '/ext/',
       contentBase: './dist',
       info: true,
-      hot: false,
+      hot: true,
       inline: true,
       historyApiFallback: {
         index: '/ext/'
