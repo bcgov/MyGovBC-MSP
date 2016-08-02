@@ -1,7 +1,7 @@
 'use strict';
 class MainController {
 
-  constructor($scope, profileService, socket, Service) {
+  constructor($scope, profileService, socket, Service, notificationService) {
     'ngInject';
     $scope.today = new Date();
     this.profile = profileService.get();
@@ -11,7 +11,11 @@ class MainController {
       function (errorResponse) {
         //TODO: handle it
       }
-    );
+    )
+    $scope.pluralize = require('pluralize')
+    notificationService.getUnreadCount(function(err, num){
+      $scope.unreadMsgCount = num
+    })
     try {
       socket.emit('info', 'hello')
     }

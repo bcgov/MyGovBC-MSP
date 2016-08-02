@@ -3,9 +3,10 @@ import parallel from 'async/parallel'
 
 module.exports = function (notificationService, $scope, $timeout) {
   'ngInject'
+  let markReadPromise
   notificationService.get(function (err, list) {
     $scope.notifications = list
-    $timeout(function () {
+    markReadPromise = $timeout(function () {
       try {
         let markAsReadRequests = list.filter(function (e, i) {
           return e.state === 'new'
@@ -29,5 +30,8 @@ module.exports = function (notificationService, $scope, $timeout) {
       list.splice(index, 1)
     })
   }
+  $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+    $timeout.cancel(markReadPromise)
+  })
 }
 
