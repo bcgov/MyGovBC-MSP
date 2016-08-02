@@ -3,7 +3,7 @@ import parallel from 'async/parallel'
 
 module.exports = function (notificationService, $scope, $timeout) {
   'ngInject'
-  notificationService.get(function (list) {
+  notificationService.get(function (err, list) {
     $scope.notifications = list
     $timeout(function () {
       try {
@@ -11,7 +11,9 @@ module.exports = function (notificationService, $scope, $timeout) {
           return e.state === 'new'
         }).reduce(function (p, e, i) {
           p.push(function (cb) {
-            notificationService.markAsRead(e.baseUrl + '/' + e.id)
+            notificationService.markAsRead(e.baseUrl + '/' + e.id, function (err, data) {
+              err || (e.state = 'read')
+            })
           })
           return p
         }, [])

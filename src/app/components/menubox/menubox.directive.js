@@ -15,7 +15,11 @@ function menuBoxComponent($log) {
 
   return directive;
 
-  function MenuBoxController () {
+  function MenuBoxController ($scope, notificationService) {
+    'ngInject'
+    notificationService.getUnreadCount(function(err, num){
+      $scope.unreadMsgCount = num
+    })
   }
 
 }
