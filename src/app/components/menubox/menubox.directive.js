@@ -17,6 +17,11 @@ function menuBoxComponent($log) {
 
   function MenuBoxController ($scope, notificationService) {
     'ngInject'
+    $scope.$on('unreadCountChanged', function(event){
+      notificationService.getUnreadCount(function(err, num){
+        $scope.unreadMsgCount = num
+      })
+    })
     notificationService.getUnreadCount(function(err, num){
       $scope.unreadMsgCount = num
     })

@@ -12,6 +12,12 @@ class MainController {
         //TODO: handle it
       }
     )
+    $scope.$on('unreadCountChanged', function(event){
+      notificationService.getUnreadCount(function(err, num){
+        $scope.unreadMsgCount = num
+      })
+    })
+
     $scope.pluralize = require('pluralize')
     notificationService.getUnreadCount(function(err, num){
       $scope.unreadMsgCount = num
