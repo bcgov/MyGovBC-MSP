@@ -4,7 +4,6 @@
 var path = require('path');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer-core');
-var Manifest = require('manifest-revision-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var NODE_ENV = process.env.NODE_ENV || "production";
@@ -140,10 +139,6 @@ module.exports = function (_path) {
         async: true,
         children: true,
         minChunks: Infinity
-      }),
-      new Manifest(path.join(_path + '/config', 'manifest.json'), {
-        rootAssetPath: rootAssetPath,
-        ignorePaths: ['.DS_Store']
       }),
       new ExtractTextPlugin('assets/styles/css/[name]' + (NODE_ENV === 'development' ? '' : '.[chunkhash]') + '.css', {allChunks: true})
     ],
