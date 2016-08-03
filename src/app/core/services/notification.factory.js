@@ -36,12 +36,14 @@ export default function (app) {
                   e.baseUrl = k
                   return e
                 }))
+              }, err => {
+                cb(null, null)
               })
             }
           })
           parallel(notificationRequests, function (err, results) {
             let concatenatedResults = results.reduce(function (p, e) {
-              return p.concat(e)
+              return e ? p.concat(e) : p
             }, [])
             notifications = concatenatedResults
             pending = false
