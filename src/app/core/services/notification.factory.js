@@ -6,6 +6,7 @@ export default function (app) {
     "ngInject"
     let httpTimeout = 10000
     let notifications, pending, cbs = []
+
     function getNotifications(cb) {
       if (notifications) {
         return cb(null, notifications)
@@ -27,8 +28,11 @@ export default function (app) {
           let notificationRequests = _.map(notificationList, function (v, k, c) {
             return function (cb) {
               $http.get(k, {timeout: httpTimeout}).then(response => {
-                // TODO: make sure the service attribute in response.data exists in v
-                cb(null, response.data.map(function (e) {
+                // make sure the serviceName attribute in response.data exists in v
+                let inServiceNotifications = response.data.filter(function (e, i) {
+                  return v.indexOf(e.serviceName) >= 0
+                })
+                cb(null, inServiceNotifications.map(function (e) {
                   e.baseUrl = k
                   return e
                 }))
