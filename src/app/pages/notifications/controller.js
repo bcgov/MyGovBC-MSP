@@ -16,9 +16,9 @@ module.exports = function (notificationService, $scope, $timeout, $rootScope) {
       list.splice(index, 1)
     })
   }
-  $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+  function markAsReadUponTimeout() {
     $timeout.cancel(markReadPromise)
-    if(!timeOutReached) return
+    if (!timeOutReached) return
     try {
       let markAsReadRequests = $scope.notifications.filter(function (e, i) {
         return e.state === 'new'
@@ -31,12 +31,16 @@ module.exports = function (notificationService, $scope, $timeout, $rootScope) {
         })
         return p
       }, [])
-      parallel(markAsReadRequests, function(err, data){
+      parallel(markAsReadRequests, function (err, data) {
         $rootScope.$broadcast('unreadCountChanged')
       })
     }
     catch (ex) {
     }
-  })
+  }
+  // when user navigates out of myGov
+  $scope.$on('onBeforeUnload', markAsReadUponTimeout)
+  // when user navigates within myGov
+  $scope.$on('$stateChangeStart', markAsReadUponTimeout)
 }
 
