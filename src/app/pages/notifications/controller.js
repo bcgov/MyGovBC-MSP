@@ -13,7 +13,10 @@ module.exports = function (notificationService, $scope, $timeout, $rootScope) {
   $scope.deleteItem = function (index) {
     let list = $scope.notifications
     notificationService.delete(list[index].baseUrl + '/' + list[index].id, function (err, data) {
-      list.splice(index, 1)
+      let deletedItems = list.splice(index, 1)
+      if(deletedItems[0].state === 'new'){
+        $rootScope.$broadcast('unreadCountChanged')
+      }
     })
   }
   function markAsReadUponTimeout() {
