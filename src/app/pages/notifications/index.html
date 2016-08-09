@@ -11,9 +11,9 @@
         <tbody>
         <tr ng-repeat="item in notifications" class="mygov-ntf-row-{{item.state}}">
           <td><a href="#item-{{$index}}" data-toggle="collapse"
-                 class="mygov-ntf-row-toggle collapsed">{{item.subject}}</a>
+                 class="mygov-ntf-row-toggle collapsed">{{item.message.subject}}</a>
             <div id="item-{{$index}}" class="collapse">
-              {{item.body}}
+              {{item.message.body}}
             </div>
           </td>
           <td class="text-right"><a ng-click="deleteItem($index)">Delete</a></td>

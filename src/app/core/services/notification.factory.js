@@ -17,6 +17,7 @@ export default function (app) {
         return
       }
       pending = true
+      // TOOD: get services subscribed by user only
       Service.find({}, function (list) {
           let notificationList = list.reduce(function (p, e, i) {
             if(!e.notificationRestApiUrl) return p
