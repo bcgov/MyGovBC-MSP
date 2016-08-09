@@ -18,9 +18,8 @@ export default function (app) {
       }
       pending = true
       Service.find({}, function (list) {
-          let notificationList = list.filter(function (e, i) {
-            return e.notificationRestApiUrl
-          }).reduce(function (p, e, i) {
+          let notificationList = list.reduce(function (p, e, i) {
+            if(!e.notificationRestApiUrl) return p
             p[e.notificationRestApiUrl] = p[e.notificationRestApiUrl] || []
             p[e.notificationRestApiUrl].push(e.name)
             return p
