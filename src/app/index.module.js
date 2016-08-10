@@ -32,6 +32,7 @@ const App = angular.module(
     require("./pages/main").name,
     require("./pages/transactions").name,
     require("./pages/notifications").name,
+    require("./pages/notifications/subscriptions").name,
     require("./pages/login").name,
     require("./pages/dev/styles").name,
 

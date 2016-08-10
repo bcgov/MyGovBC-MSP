@@ -43,7 +43,7 @@ export default function (app) {
     }
 
     return {
-      get: null,
+      get: getNotificationSubscriptions,
     }
   })
 }
