@@ -6,7 +6,28 @@
     </div>
     <div class="col-sm-9 col-md-5 col-lg-6">
       <h1 class="page-header">My Subscriptions</h1>
-      Send and keep track of all your notifications and messages with the BC Government
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Service</th>
+          <th>Subscrbe by</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in serviceSubscriptions">
+          <td>
+            {{item.name}}
+          </td>
+          <td>
+            <div class="checkbox" ng-repeat="channel in item.allowedNotificationChannels">
+              <label>
+                <input type="checkbox"> {{channel}}
+              </label>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
     <div class="col-sm-9 col-md-4 col-lg-3 col-sm-offset-3 col-md-offset-0">
       <div class="panel panel-primary">

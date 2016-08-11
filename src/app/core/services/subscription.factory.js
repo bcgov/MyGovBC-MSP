@@ -7,16 +7,16 @@ export default function (app) {
     let httpTimeout = 10000
     return {
       get: function (cb) {
-        // TOOD: get services subscribed by user only
+        // todo: get services subscribed by user only
         Service.find({}, function (serviceList) {
-            let notificationSubscriptionList = serviceList.reduce(function (p, e, i) {
+            let notificationSubscriptionList = serviceList.reduce(function (p, e) {
               if (!e.notificationSubscriptionRestApiUrl) return p
               if (!e.allowedNotificationChannels) return p
               p[e.notificationSubscriptionRestApiUrl] = p[e.notificationSubscriptionRestApiUrl] || []
               p[e.notificationSubscriptionRestApiUrl].push(e.name)
               return p
             }, {})
-            let notificationSubscriptionRequests = _.map(notificationSubscriptionList, function (v, k, c) {
+            let notificationSubscriptionRequests = _.map(notificationSubscriptionList, function (v, k) {
               return function (cb) {
                 $http.get(k, {timeout: httpTimeout}).then(response => {
                   // make sure the serviceName attribute in response.data exists in v
@@ -30,8 +30,8 @@ export default function (app) {
               }
             })
             parallel(notificationSubscriptionRequests, function (err, results) {
-              results.forEach(function (e, i) {
-                e.forEach(function (e, i) {
+              results.forEach(function (e) {
+                e.forEach(function (e) {
                   let serviceItem = serviceList.find(function (se, i) {
                     return se.name === e.serviceName
                   })
