@@ -23,7 +23,8 @@
               <label>
                 <input type="checkbox" ng-checked="v.channelId"> {{k}}
               </label>
-              : {{v.channelId}}
+              <span ng-if="v.channelId">
+              : <a href="#" editable-text="v.channelId">{{v.channelId}} ({{v.state}})</a></span>
             </div>
           </td>
         </tr>

@@ -25,5 +25,7 @@ import "angular-resource";
 
 import "angular-breadcrumb";
 
+require('script!angular-xeditable')
+require('angular-xeditable/dist/css/xeditable.min.css')
 // local scripts
 //import "../assets/js/...";
