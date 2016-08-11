@@ -9,6 +9,15 @@ export default function (app) {
       get: function (cb) {
         // todo: get services subscribed by user only
         Service.find({}, function (serviceList) {
+            serviceList = serviceList.map(function (e) {
+              if (e.allowedNotificationChannels) {
+                e.subscriptionData = e.subscriptionData || {}
+                e.allowedNotificationChannels.forEach(function (sc) {
+                  e.subscriptionData[sc] = {}
+                })
+              }
+              return e
+            })
             let notificationSubscriptionList = serviceList.reduce(function (p, e) {
               if (!e.notificationSubscriptionRestApiUrl) return p
               if (!e.allowedNotificationChannels) return p
@@ -36,8 +45,7 @@ export default function (app) {
                     return se.name === e.serviceName
                   })
                   if (!serviceItem) return
-                  serviceItem.subscriptionData = serviceItem.subscriptionData || []
-                  serviceItem.subscriptionData.push(e)
+                  serviceItem.subscriptionData[e.channel] = e
                 })
               })
               cb(null, serviceList)

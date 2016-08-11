@@ -5,7 +5,7 @@
       <menubox/>
     </div>
     <div class="col-sm-9 col-md-5 col-lg-6">
-      <h1 class="page-header">My Subscriptions</h1>
+      <h1 class="page-header">My Notification Subscriptions</h1>
       <table class="table table-striped">
         <thead>
         <tr>
@@ -19,10 +19,11 @@
             {{item.name}}
           </td>
           <td>
-            <div class="checkbox" ng-repeat="channel in item.allowedNotificationChannels">
+            <div class="checkbox" ng-repeat="(k,v) in item.subscriptionData">
               <label>
-                <input type="checkbox"> {{channel}}
+                <input type="checkbox" ng-checked="v.channelId"> {{k}}
               </label>
+              : {{v.channelId}}
             </div>
           </td>
         </tr>
