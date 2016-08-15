@@ -61,16 +61,23 @@ export default function (app) {
         )
       },
       update: function (data, cb) {
-        let notificationSubscriptionUpdateRequest = _.reduce(data, function (p, serviceItem, k) {
-          let newReqsInSerivce = _.reduce(serviceItem.subscriptionData, function (p, e) {
+        let notificationSubscriptionUpdateRequest = _.reduce(data, function (p, serviceItem) {
+          let newReqsInSerivce = _.reduce(serviceItem.subscriptionData, function (p, e, k) {
             let func
             if (e.previouslySubscribed === e.subscribed && e.previousChannelId === e.channelId) {
+              // identical
               return p
             }
             else if (e.previouslySubscribed === false && e.subscribed === true) {
               // subscribe
               func = function (cb) {
-                $http.post(serviceItem.notificationSubscriptionRestApiUrl, e, {timeout: httpTimeout}).then(response => {
+                let postData = {
+                  serviceName: serviceItem.name,
+                  channel: k,
+                  channelId: e.channelId,
+                  state: e.state
+                }
+                $http.post(serviceItem.notificationSubscriptionRestApiUrl, postData, {timeout: httpTimeout}).then(response => {
                   cb(null, response)
                 }, err => {
                   cb(null, null)
