@@ -6,7 +6,9 @@ module.exports = function (notificationSubscriptionService, $scope) {
     $scope.serviceSubscriptions = data
   })
   $scope.onSubmit = function(){
-    console.log($scope.serviceSubscriptions)
+    notificationSubscriptionService.update($scope.serviceSubscriptions, function(err, res){
+
+    })
   }
 }
 

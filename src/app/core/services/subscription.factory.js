@@ -15,6 +15,7 @@ export default function (app) {
                 e.allowedNotificationChannels.forEach(function (sc) {
                   e.subscriptionData[sc] = {
                     subscribed: false,
+                    previouslySubscribed: false,
                     state: 'unconfirmed'
                   }
                 })
@@ -49,6 +50,8 @@ export default function (app) {
                   })
                   if (!serviceItem) return
                   e.subscribed = true
+                  e.previouslySubscribed = true
+                  e.previousChannelId = e.channelId
                   serviceItem.subscriptionData[e.channel] = e
                 })
               })
@@ -56,6 +59,9 @@ export default function (app) {
             })
           }
         )
+      },
+      update: function(data, cb){
+
       },
     }
   })
