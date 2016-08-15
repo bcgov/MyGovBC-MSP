@@ -13,7 +13,9 @@ export default function (app) {
               if (e.allowedNotificationChannels) {
                 e.subscriptionData = e.subscriptionData || {}
                 e.allowedNotificationChannels.forEach(function (sc) {
-                  e.subscriptionData[sc] = {}
+                  e.subscriptionData[sc] = {
+                    subscribed: false
+                  }
                 })
               }
               return e
@@ -45,6 +47,7 @@ export default function (app) {
                     return se.name === e.serviceName
                   })
                   if (!serviceItem) return
+                  e.subscribed = true
                   serviceItem.subscriptionData[e.channel] = e
                 })
               })

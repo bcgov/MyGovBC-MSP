@@ -21,15 +21,16 @@
           <td>
             <div class="checkbox" ng-repeat="(k,v) in item.subscriptionData">
               <label>
-                <input type="checkbox" ng-checked="v.channelId"> {{k}}
+                <input type="checkbox" ng-model="v.subscribed"> {{k}}
               </label>
-              <span ng-if="v.channelId">
-              : <a href="#" editable-text="v.channelId">{{v.channelId}} ({{v.state}})</a></span>
+              : <a href="#" editable-text="v.channelId">{{v.channelId || 'empty'}} {{v.state && ('('+v.state+')')}}</a>
             </div>
           </td>
         </tr>
         </tbody>
       </table>
+      <div class="btn btn-primary pull-right" ng-click="onSubmit()">Submit</div>
+      <div class="btn btn-default pull-right">Cancel</div>
     </div>
     <div class="col-sm-9 col-md-4 col-lg-3 col-sm-offset-3 col-md-offset-0">
       <div class="panel panel-primary">
