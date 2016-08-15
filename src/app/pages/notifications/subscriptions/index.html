@@ -23,7 +23,9 @@
               <label>
                 <input type="checkbox" ng-model="v.subscribed"> {{k}}
               </label>
-              : <a href="#" editable-text="v.channelId">{{v.channelId || 'empty'}} {{v.state && ('('+v.state+')')}}</a>
+              : <a href="#" editable-text="v.channelId" oncancel="v.channelId || (v.subscribed=false)"
+                   ng-click="v.subscribed = true">{{v.channelId || 'empty'}} {{v.channelId && v.state &&
+              ('('+v.state+')')}}</a>
             </div>
           </td>
         </tr>

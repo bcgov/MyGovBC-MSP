@@ -14,7 +14,8 @@ export default function (app) {
                 e.subscriptionData = e.subscriptionData || {}
                 e.allowedNotificationChannels.forEach(function (sc) {
                   e.subscriptionData[sc] = {
-                    subscribed: false
+                    subscribed: false,
+                    state: 'unconfirmed'
                   }
                 })
               }
