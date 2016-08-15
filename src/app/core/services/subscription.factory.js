@@ -60,8 +60,51 @@ export default function (app) {
           }
         )
       },
-      update: function(data, cb){
-
+      update: function (data, cb) {
+        let notificationSubscriptionUpdateRequest = _.reduce(data, function (p, serviceItem, k) {
+          let newReqsInSerivce = _.reduce(serviceItem.subscriptionData, function (p, e) {
+            let func
+            if (e.previouslySubscribed === e.subscribed && e.previousChannelId === e.channelId) {
+              return p
+            }
+            else if (e.previouslySubscribed === false && e.subscribed === true) {
+              // subscribe
+              func = function (cb) {
+                $http.post(serviceItem.notificationSubscriptionRestApiUrl, e, {timeout: httpTimeout}).then(response => {
+                  cb(null, response)
+                }, err => {
+                  cb(null, null)
+                })
+              }
+            }
+            else if (e.previouslySubscribed === true && e.subscribed === false) {
+              // un-subscribe
+              func = function (cb) {
+                $http.delete(serviceItem.notificationSubscriptionRestApiUrl + '/' + e.id, {timeout: httpTimeout}).then(response => {
+                  cb(null, response)
+                }, err => {
+                  cb(null, null)
+                })
+              }
+            }
+            else {
+              // update
+              func = function (cb) {
+                $http.put(serviceItem.notificationSubscriptionRestApiUrl + '/' + e.id, {channelId: e.channelId}, {timeout: httpTimeout}).then(response => {
+                  cb(null, response)
+                }, err => {
+                  cb(null, null)
+                })
+              }
+            }
+            p.push(func)
+            return p
+          }, [])
+          return p.concat(newReqsInSerivce)
+        }, [])
+        parallel(notificationSubscriptionUpdateRequest, function (err, results) {
+          cb(err, results)
+        })
       },
     }
   })
