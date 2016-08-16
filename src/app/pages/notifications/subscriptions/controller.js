@@ -10,7 +10,7 @@ module.exports = function (notificationSubscriptionService, $scope) {
 
     })
   }
-  $scope.onChange = function (evt) {
+  $scope.onTelChange = function (evt) {
     switch (evt.target.value.length) {
       case 3:
         evt.target.value += '-'
