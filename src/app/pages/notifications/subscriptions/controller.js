@@ -20,6 +20,10 @@ module.exports = function (notificationSubscriptionService, $scope) {
         break
       default:
     }
+    if (evt.target.value.length > 11) {
+      evt.preventDefault()
+      return false
+    }
   }
 }
 
