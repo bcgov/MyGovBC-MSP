@@ -1,6 +1,11 @@
 'use strict'
 import parallel from 'async/parallel'
 import _ from 'lodash'
+const emailFrom = 'no_reply@gov.bc.ca'
+const emailSubject = 'confirmation'
+const emailTextBody = 'Please enter {confirmation_code} on the screen.'
+const emailHtmlBody = 'Please enter {confirmation_code} on the screen.'
+
 export default function (app) {
   app.factory('notificationSubscriptionService', function (Service, $http) {
     "ngInject"
@@ -75,7 +80,13 @@ export default function (app) {
                   serviceName: serviceItem.name,
                   channel: k,
                   channelId: e.channelId,
-                  state: e.state
+                  confirmationRequest: {
+                    from: emailFrom,
+                    subject: emailSubject,
+                    textBody: emailTextBody,
+                    htmlBody: emailHtmlBody,
+                    confirmationCodeRegex: "\\d{5}"
+                  }
                 }
                 $http.post(serviceItem.notificationSubscriptionRestApiUrl, postData, {timeout: httpTimeout}).then(response => {
                   cb(null, response)
