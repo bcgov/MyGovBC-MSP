@@ -58,7 +58,7 @@ module.exports = function (_path) {
       }, {
         test: /\.js$/,
         exclude: [
-          new RegExp('node_modules\\'+path.sep+'(?!mygov-).*', 'i')
+          new RegExp('node_modules\\' + path.sep + '(?!mygov-).*', 'i')
         ],
         loaders: [
           'ng-annotate-loader'
@@ -66,7 +66,7 @@ module.exports = function (_path) {
       }, {
         test: /\.js$/,
         exclude: [
-          new RegExp('node_modules\\'+path.sep+'(?!mygov-).*', 'i')
+          new RegExp('node_modules\\' + path.sep + '(?!mygov-).*', 'i')
         ],
         loader: 'babel-loader',
         query: {
@@ -102,16 +102,13 @@ module.exports = function (_path) {
         loaders: [
           "expose?angular"
         ]
-      },
-
-        {
-          test: require.resolve("jquery"),
-          loaders: [
-            "expose?$",
-            "expose?jQuery"
-          ]
-        }
-
+      }, {
+        test: require.resolve("jquery"),
+        loaders: [
+          "expose?$",
+          "expose?jQuery"
+        ]
+      }
       ]
     },
 
@@ -120,11 +117,6 @@ module.exports = function (_path) {
 
     // load plugins
     plugins: [
-      //new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|hu/),
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery'
-      }),
       new webpack.DefinePlugin({
         'NODE_ENV': JSON.stringify(NODE_ENV)
       }),

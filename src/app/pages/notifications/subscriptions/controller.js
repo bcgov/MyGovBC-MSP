@@ -7,7 +7,8 @@ module.exports = function (notificationSubscriptionService, $scope) {
   })
   $scope.onSubmit = function () {
     notificationSubscriptionService.update($scope.serviceSubscriptions, function (err, res) {
-
+      // TODO: check err and res before showing confirmation dialog
+      $('#myModal').modal('show')
     })
   }
   $scope.onTelChange = function (evt) {
