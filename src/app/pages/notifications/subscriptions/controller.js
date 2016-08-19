@@ -2,14 +2,18 @@
 module.exports = function (notificationSubscriptionService, $scope) {
   'ngInject'
   notificationSubscriptionService.get(function (err, data) {
-    console.log(data)
     $scope.serviceSubscriptions = data
   })
   $scope.onSubmit = function () {
     notificationSubscriptionService.update($scope.serviceSubscriptions, function (err, res) {
       // TODO: check err and res before showing confirmation dialog
-      $('#myModal').modal('show')
+      $scope.confirmationData = res
+      $('#mygovConfirmationModal').modal('show')
     })
+  }
+  $scope.onSendConfirmationCodes = function () {
+    //TODO: on completion, hide dialog
+    $('#mygovConfirmationModal').modal('hide')
   }
   $scope.onTelChange = function (evt) {
     switch (evt.target.value.length) {

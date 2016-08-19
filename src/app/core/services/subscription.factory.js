@@ -66,7 +66,7 @@ export default function (app) {
         )
       },
       update: function (data, cb) {
-        let notificationSubscriptionUpdateRequest = _.reduce(data, function (p, serviceItem) {
+        let notificationSubscriptionUpdateRequests = _.reduce(data, function (p1, serviceItem) {
           let newReqsInSerivce = _.reduce(serviceItem.subscriptionData, function (p, e, k) {
             let func
             if (e.previouslySubscribed === e.subscribed && e.previousChannelId === e.channelId) {
@@ -115,13 +115,21 @@ export default function (app) {
                 })
               }
             }
-            p.push(func)
+            p[e.channelId] = p[e.channelId] || []
+            p[e.channelId].push(func)
             return p
-          }, [])
-          return p.concat(newReqsInSerivce)
+          }, p1)
+          return newReqsInSerivce
+        }, {})
+        let reqArr = _.reduce(notificationSubscriptionUpdateRequests, function (p, v) {
+          return p.concat(v)
         }, [])
-        parallel(notificationSubscriptionUpdateRequest, function (err, results) {
-          cb(err, results)
+        let channelIds = _.reduce(notificationSubscriptionUpdateRequests, function (p, v, i) {
+          p[i] = {}
+          return p
+        }, {})
+        parallel(reqArr, function (err, results) {
+          cb(err, channelIds)
         })
       },
     }
