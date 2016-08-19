@@ -12,8 +12,9 @@ module.exports = function (notificationSubscriptionService, $scope) {
     })
   }
   $scope.onSendConfirmationCodes = function () {
-    //TODO: on completion, hide dialog
-    $('#mygovConfirmationModal').modal('hide')
+    notificationSubscriptionService.confirm($scope.confirmationData, $scope.serviceSubscriptions, function (err, res) {
+      $('#mygovConfirmationModal').modal('hide')
+    })
   }
   $scope.onTelChange = function (evt) {
     switch (evt.target.value.length) {

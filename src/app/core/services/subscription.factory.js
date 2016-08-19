@@ -89,7 +89,8 @@ export default function (app) {
                   }
                 }
                 $http.post(serviceItem.notificationSubscriptionRestApiUrl, postData, {timeout: httpTimeout}).then(response => {
-                  cb(null, response)
+                  e.id = response.data.id
+                  cb(null, null)
                 }, err => {
                   cb(null, null)
                 })
@@ -130,6 +131,31 @@ export default function (app) {
         }, {})
         parallel(reqArr, function (err, results) {
           cb(err, channelIds)
+        })
+      },
+      confirm: function (confirmationData, serviceSubscriptions, cb) {
+        let notificationSubscriptionConfirmationRequests = _.reduce(serviceSubscriptions, function (p1, serviceItem) {
+          let newReqsInSerivce = _.reduce(serviceItem.subscriptionData, function (p, e, k) {
+            let func
+            if (e.previouslySubscribed === e.subscribed && e.previousChannelId === e.channelId) {
+              // identical
+              return p
+            }
+            p.push(function (cb) {
+                $http.get(serviceItem.notificationSubscriptionRestApiUrl + '/' + e.id + '/verify?confirmationCode=' + confirmationData[e.channelId].confirmationCode, {timeout: httpTimeout}).then(response => {
+                  e.state = 'confirmed'
+                  cb(null, response)
+                }, err => {
+                  cb(null, null)
+                })
+              }
+            )
+            return p
+          }, p1)
+          return p1
+        }, [])
+        parallel(notificationSubscriptionConfirmationRequests, function (err, results) {
+          cb(err, results)
         })
       },
     }
