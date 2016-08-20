@@ -75,6 +75,7 @@ export default function (app) {
             }
             else if (e.previouslySubscribed === false && e.subscribed === true) {
               // subscribe
+              e.previouslySubscribed = true
               func = function (cb) {
                 let postData = {
                   serviceName: serviceItem.name,
