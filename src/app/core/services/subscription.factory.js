@@ -109,7 +109,18 @@ export default function (app) {
             else {
               // update
               func = function (cb) {
-                $http.put(serviceItem.notificationSubscriptionRestApiUrl + '/' + e.id, {channelId: e.channelId}, {timeout: httpTimeout}).then(response => {
+                let postData = {
+                  channel: e.channel,
+                  channelId: e.channelId,
+                  confirmationRequest: {
+                    from: emailFrom,
+                    subject: emailSubject,
+                    textBody: emailTextBody,
+                    htmlBody: emailHtmlBody,
+                    confirmationCodeRegex: "\\d{5}"
+                  }
+                }
+                $http.put(serviceItem.notificationSubscriptionRestApiUrl + '/' + e.id, postData, {timeout: httpTimeout}).then(response => {
                   cb(null, response)
                 }, err => {
                   cb(null, null)
