@@ -157,9 +157,12 @@ export default function (app) {
             }
             p.push(function (cb) {
                 $http.get(serviceItem.notificationSubscriptionRestApiUrl + '/' + e.id + '/verify?confirmationCode=' + confirmationData[e.channelId].confirmationCode, {timeout: httpTimeout}).then(response => {
-                  e.state = 'confirmed'
-                  cb(null, response)
+                  delete confirmationData[e.channelId]
+                  e.state = e.previousState = 'confirmed'
+                  e.previousChannelId = e.channelId
+                  cb(null, null)
                 }, err => {
+                  confirmationData[e.channelId].confirmationResult = err
                   cb(null, null)
                 })
               }
@@ -169,7 +172,7 @@ export default function (app) {
           return p1
         }, [])
         parallel(notificationSubscriptionConfirmationRequests, function (err, results) {
-          cb(err, results)
+          cb(null, null)
         })
       },
     }

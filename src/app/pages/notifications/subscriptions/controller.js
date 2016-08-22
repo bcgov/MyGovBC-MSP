@@ -13,7 +13,10 @@ module.exports = function (notificationSubscriptionService, $scope) {
   }
   $scope.onSendConfirmationCodes = function () {
     notificationSubscriptionService.confirm($scope.confirmationData, $scope.serviceSubscriptions, function (err, res) {
-      $('#mygovConfirmationModal').modal('hide')
+      if (_.keys($scope.confirmationData).length <= 0) {
+        $('#mygovConfirmationModal').modal('hide')
+        return
+      }
     })
   }
   $scope.updateField = function (data) {
