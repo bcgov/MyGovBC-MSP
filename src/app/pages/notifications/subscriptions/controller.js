@@ -20,6 +20,9 @@ module.exports = function (notificationSubscriptionService, $scope) {
     if (data.channelId !== data.previousChannelId) {
       data.state = 'unconfirmed'
     }
+    else {
+      data.state = data.previousState
+    }
   }
   $scope.onTelChange = function (evt) {
     switch (evt.target.value.length) {

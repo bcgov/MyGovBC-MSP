@@ -21,7 +21,8 @@ export default function (app) {
                   e.subscriptionData[sc] = {
                     subscribed: false,
                     previouslySubscribed: false,
-                    state: 'unconfirmed'
+                    state: 'unconfirmed',
+                    previousState: 'unconfirmed'
                   }
                 })
               }
@@ -57,6 +58,7 @@ export default function (app) {
                   e.subscribed = true
                   e.previouslySubscribed = true
                   e.previousChannelId = e.channelId
+                  e.previousState = e.state
                   serviceItem.subscriptionData[e.channel] = e
                 })
               })
