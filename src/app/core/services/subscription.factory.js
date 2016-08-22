@@ -88,7 +88,8 @@ export default function (app) {
                     subject: emailSubject,
                     textBody: emailTextBody,
                     htmlBody: emailHtmlBody,
-                    confirmationCodeRegex: "\\d{5}"
+                    confirmationCodeRegex: "\\d{5}",
+                    sendRequest: true,
                   }
                 }
                 $http.post(serviceItem.notificationSubscriptionRestApiUrl, postData, {timeout: httpTimeout}).then(response => {
@@ -120,7 +121,8 @@ export default function (app) {
                     subject: emailSubject,
                     textBody: emailTextBody,
                     htmlBody: emailHtmlBody,
-                    confirmationCodeRegex: "\\d{5}"
+                    confirmationCodeRegex: "\\d{5}",
+                    sendRequest: true,
                   }
                 }
                 $http.put(serviceItem.notificationSubscriptionRestApiUrl + '/' + e.id, postData, {timeout: httpTimeout}).then(response => {
