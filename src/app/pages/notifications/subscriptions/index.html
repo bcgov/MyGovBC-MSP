@@ -25,12 +25,14 @@
               </label>
               : <a ng-if="k==='email'" href="#" editable-email="v.channelId"
                    oncancel="v.channelId || (v.subscribed=false)"
-                   ng-click="v.subscribed = true">{{v.channelId || 'empty'}} {{v.channelId && v.state &&
+                   ng-click="v.subscribed = true" blur="submit" onaftersave="updateField(v)">{{v.channelId || 'empty'}}
+              {{v.channelId && v.state &&
               ('('+v.state+')')}}</a>
               <a ng-if="k==='sms'" href="#" editable-tel="v.channelId" e-pattern="\d{3}\-\d{3}\-\d{4}"
                  e-title="xxx-xxx-xxxx" oncancel="v.channelId || (v.subscribed=false)"
                  e-ng-keypress="onTelChange($event)"
-                 ng-click="v.subscribed = true">{{v.channelId || 'empty'}} {{v.channelId && v.state &&
+                 ng-click="v.subscribed = true" blur="submit" onaftersave="updateField(v)">{{v.channelId || 'empty'}}
+                {{v.channelId && v.state &&
                 ('('+v.state+')')}}</a>
             </div>
           </td>

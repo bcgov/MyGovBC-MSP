@@ -16,6 +16,11 @@ module.exports = function (notificationSubscriptionService, $scope) {
       $('#mygovConfirmationModal').modal('hide')
     })
   }
+  $scope.updateField = function (data) {
+    if (data.channelId !== data.previousChannelId) {
+      data.state = 'unconfirmed'
+    }
+  }
   $scope.onTelChange = function (evt) {
     switch (evt.target.value.length) {
       case 3:
