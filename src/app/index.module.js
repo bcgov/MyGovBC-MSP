@@ -39,7 +39,8 @@ const App = angular.module(
     // widget add-ons
     require("mygov-widget-education").name,
     require("mygov-widget-resizable-iframe").name,
-    require("mygov-widget-myorg-myservice").name
+    require("mygov-widget-myorg-myservice").name,
+    require("mygov-widget-sharedservices-foodsafe").name
   ]
 );
 
