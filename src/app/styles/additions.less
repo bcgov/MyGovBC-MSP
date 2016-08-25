@@ -6,12 +6,22 @@
   padding: 0.2em 0;
 }
 
+// The white in the main column
 .wrapper {
   background-color: #fff;
   padding-top: 20px;
   padding-bottom: 20px;
 }
 
+// To unbold form labels, auto add optional string
+.optional {
+  font-weight: normal;
+}
+.optional::after {
+  content: " (optional)";
+}
+
+// AngualarJS Helpers
 [ng-click],
 [data-ng-click],
 [x-ng-click] {
