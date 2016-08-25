@@ -49,8 +49,8 @@ export default function (app) {
               }
             })
             parallel(notificationSubscriptionRequests, function (err, results) {
-              results.forEach(function (e) {
-                e.forEach(function (e) {
+              results && results.forEach(function (e) {
+                e && e.forEach(function (e) {
                   let serviceItem = serviceList.find(function (se, i) {
                     return se.name === e.serviceName
                   })

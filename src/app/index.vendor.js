@@ -1,31 +1,33 @@
-'use strict';
+'use strict'
 
 // node_modules
-import "angular";
+import "angular"
 
-import "angular-ui-router";
+import "angular-ui-router"
 
-import 'jquery';
+import 'jquery'
 
-import "angular-resource";
+import "bootstrap"
 
-import "angular-animate";
+import "angular-resource"
 
-import "angular-cookies";
+import "angular-animate"
 
-import "angular-touch";
+import "angular-cookies"
 
-import "angular-sanitize";
+import "angular-touch"
 
-import "angular-messages";
+import "angular-sanitize"
 
-import "angular-aria";
+import "angular-messages"
 
-import "angular-resource";
+import "angular-aria"
 
-import "angular-breadcrumb";
+import "angular-resource"
+
+import "angular-breadcrumb"
 
 require('script!angular-xeditable')
 require('angular-xeditable/dist/css/xeditable.min.css')
 // local scripts
-//import "../assets/js/...";
+//import "../assets/js/..."
