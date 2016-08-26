@@ -33,6 +33,7 @@ module.exports = function(config) {
       './src/app/index.bootstrap.js',
       './node_modules/angular-mocks/angular-mocks.js',
       './src/**/*.spec.js',
+      './node_modules/mygov*/**/*.spec.js',
       './karma.spec.js'],
 
     preprocessors: {
