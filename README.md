@@ -37,6 +37,8 @@ For unit testing you'll need to install the karma CLI
 npm install -g karma-cli
 ```
 
+We run unit tests on IE9, IE10, IE11, Firefox and Chrome.  You'll need IE11, Firefox and Chrome installed.
+
 To continuously run Jasmine tests with the Karma load runner (in chrome) use:
 ```
 karma start

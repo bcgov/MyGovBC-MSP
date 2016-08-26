@@ -55,6 +55,8 @@
     "karma": "^1.2.0",
     "karma-babel-preprocessor": "^6.0.1",
     "karma-chrome-launcher": "^2.0.0",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-ie-launcher": "^1.0.0",
     "karma-jasmine": "^1.0.2",
     "karma-webpack": "^1.8.0",
     "less": "^2.7.1",

@@ -11,9 +11,21 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['Chrome', 'IE', 'IE10', 'IE9', 'Firefox'],
     singleRun: false,
     autoWatchBatchDelay: 300,
+
+    customLaunchers: {
+      IE10: {
+        base: 'IE',
+        'x-ua-compatible': 'IE=EmulateIE10'
+      },
+      IE9: {
+        base: 'IE',
+        'x-ua-compatible': 'IE=EmulateIE9'
+      }
+    },
+
 
     files: [
       './node_modules/babel-polyfill/dist/polyfill.js',
