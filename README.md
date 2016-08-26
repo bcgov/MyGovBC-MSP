@@ -31,6 +31,17 @@ npm install
 npm run dev
 ```
 
+## Unit Testing 
+For unit testing you'll need to install the karma CLI
+```
+npm install -g karma-cli
+```
+
+To continuously run Jasmine tests with the Karma load runner (in chrome) use:
+```
+karma start
+```
+
 ## Configuring Widget
 Download package via NPM:
 
