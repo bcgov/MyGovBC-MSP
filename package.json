@@ -67,7 +67,7 @@
     "mygov-widget-education": "git+ssh://git@bitbucket.org/GregTurner/mygov-widget-education.git#0.1.4",
     "mygov-widget-info-base": "git+ssh://git@bitbucket.org/GregTurner/mygov-widget-sharedservices-foodsafe.git",
     "mygov-widget-myorg-myservice": "git+ssh://git@bitbucket.org/GregTurner/mygov-widget-myorg-myservice.git#0.1.0",
-    "mygov-widget-resizable-iframe": "git+ssh://git@bitbucket.org:fredwen/mygov-widget-resizable-iframe.git#0.1.0",
+    "mygov-widget-resizable-iframe": "https://github.com/f-w/MyGovBC-widget-resizable-iframe.git",
     "mygov-widget-sharedservices-foodsafe": "git+ssh://git@bitbucket.org/GregTurner/mygov-widget-sharedservices-foodsafe.git",
     "ng-annotate-loader": "0.0.10",
     "ngtemplate-loader": "^1.3.1",
