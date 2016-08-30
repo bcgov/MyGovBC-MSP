@@ -98,6 +98,22 @@ IMPORTANT: Once AngularJS knows about your widget its time to add it to our MyGo
 This lets the client to show it on the main page for users and dynamically route to it.  
 Eventually we'll have a UI but for now, see README.md in `MyGovBC-core-server`.
 
+## Developing Widget in MyGovBC-core-client
+In order to build, test and view a widget, it requires the MyGovBC-core-client.
+
+One would expect you could do this with a `npm link`, but there's an existing defect in WebPack and Babel which
+makes this impossible (for now...).  We have this workaround:
+
+You'll need to checkout a GIT repo under the `node_modules` directory.  NPM doesn't like this an will throw errors 
+during any `npm install`.  Just ignore these.
+
+To make it easier to work with the repo in an IDE, create a junction next to of mygovbcc-core-client
+ (like a symlink for a directory)
+
+```
+mklink /J mygovbc-widget-sharedservices-foodsafe mygov-core-client\node_modules\mygovbc-widget-sharedservices-foodsafe
+```
+
 ## Production
 ```
 npm run build
