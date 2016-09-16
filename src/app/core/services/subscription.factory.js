@@ -57,7 +57,7 @@ export default function (app) {
                   if (!serviceItem) return
                   e.subscribed = true
                   e.previouslySubscribed = true
-                  e.previousChannelId = e.channelId
+                  e.previousChannelId = e.userChannelId
                   e.previousState = e.state
                   serviceItem.subscriptionData[e.channel] = e
                 })
@@ -71,7 +71,7 @@ export default function (app) {
         let notificationSubscriptionUpdateRequests = _.reduce(data, function (p1, serviceItem) {
           let newReqsInSerivce = _.reduce(serviceItem.subscriptionData, function (p, e, k) {
             let func
-            if (e.previouslySubscribed === e.subscribed && e.previousChannelId === e.channelId) {
+            if (e.previouslySubscribed === e.subscribed && e.previousChannelId === e.userChannelId) {
               // identical
               return p
             }
@@ -82,7 +82,7 @@ export default function (app) {
                 let postData = {
                   serviceName: serviceItem.name,
                   channel: k,
-                  channelId: e.channelId,
+                  userChannelId: e.userChannelId,
                   confirmationRequest: {
                     from: emailFrom,
                     subject: emailSubject,
@@ -115,7 +115,7 @@ export default function (app) {
               func = function (cb) {
                 let postData = {
                   channel: e.channel,
-                  channelId: e.channelId,
+                  userChannelId: e.userChannelId,
                   confirmationRequest: {
                     from: emailFrom,
                     subject: emailSubject,
@@ -132,8 +132,8 @@ export default function (app) {
                 })
               }
             }
-            p[e.channelId] = p[e.channelId] || []
-            p[e.channelId].push(func)
+            p[e.userChannelId] = p[e.userChannelId] || []
+            p[e.userChannelId].push(func)
             return p
           }, p1)
           return newReqsInSerivce
@@ -141,30 +141,30 @@ export default function (app) {
         let reqArr = _.reduce(notificationSubscriptionUpdateRequests, function (p, v) {
           return p.concat(v)
         }, [])
-        let channelIds = _.reduce(notificationSubscriptionUpdateRequests, function (p, v, i) {
+        let userChannelIds = _.reduce(notificationSubscriptionUpdateRequests, function (p, v, i) {
           p[i] = {}
           return p
         }, {})
         parallel(reqArr, function (err, results) {
-          cb(err, channelIds)
+          cb(err, userChannelIds)
         })
       },
       confirm: function (confirmationData, serviceSubscriptions, cb) {
         let notificationSubscriptionConfirmationRequests = _.reduce(serviceSubscriptions, function (p1, serviceItem) {
           let newReqsInSerivce = _.reduce(serviceItem.subscriptionData, function (p, e, k) {
             let func
-            if (e.previouslySubscribed === e.subscribed && e.previousChannelId === e.channelId) {
+            if (e.previouslySubscribed === e.subscribed && e.previousChannelId === e.userChannelId) {
               // identical
               return p
             }
             p.push(function (cb) {
-                $http.get(serviceItem.notificationSubscriptionRestApiUrl + '/' + e.id + '/verify?confirmationCode=' + confirmationData[e.channelId].confirmationCode, {timeout: httpTimeout}).then(response => {
-                  delete confirmationData[e.channelId]
+                $http.get(serviceItem.notificationSubscriptionRestApiUrl + '/' + e.id + '/verify?confirmationCode=' + confirmationData[e.userChannelId].confirmationCode, {timeout: httpTimeout}).then(response => {
+                  delete confirmationData[e.userChannelId]
                   e.state = e.previousState = 'confirmed'
-                  e.previousChannelId = e.channelId
+                  e.previousChannelId = e.userChannelId
                   cb(null, null)
                 }, err => {
-                  confirmationData[e.channelId].confirmationResult = err
+                  confirmationData[e.userChannelId].confirmationResult = err
                   cb(null, null)
                 })
               }

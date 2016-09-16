@@ -20,7 +20,7 @@ module.exports = function (notificationSubscriptionService, $scope) {
     })
   }
   $scope.updateField = function (data) {
-    if (data.channelId !== data.previousChannelId) {
+    if (data.userChannelId !== data.previousChannelId) {
       data.state = 'unconfirmed'
     }
     else {
