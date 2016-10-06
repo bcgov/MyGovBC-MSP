@@ -17,9 +17,9 @@ module.exports = function (_path) {
   var webpackConfig = {
     // entry points
     entry: {
-      vendor: _path + '/src/app/index.vendor.js',
-      app: [_path + '/src/app/index.bootstrap.js'],
-      polyfill: ['./src/polyfills.ts']
+      vendor: _path + '/src/app/index.vendor',
+      app: [_path + '/src/app/index.bootstrap'],
+      polyfill: ['./src/polyfills']
     },
 
     // output system
