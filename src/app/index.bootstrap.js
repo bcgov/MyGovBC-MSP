@@ -1,15 +1,17 @@
-'use strict';
+'use strict'
 
 // index.html page to dist folder
-import '!!file-loader?name=[name].[ext]!../favicon.ico';
+import '!!file-loader?name=[name].[ext]!../favicon.ico'
 
 // main App module
-import "./index.module";
+import "./index.module.js"
 
-import "./index.less";
+import "./index.less"
+
+import {upgradeAdapter} from './upgrade_adapter'
 
 angular.element(document).ready(function () {
-  angular.bootstrap(document, ['myGov-core-client'], {
+  upgradeAdapter.bootstrap(document.body, ['myGov-core-client'], {
     strictDi: true
-  });
-});
+  })
+})
