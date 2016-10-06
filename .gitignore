@@ -7,3 +7,4 @@ dist/
 config/manifest.json
 npm-debug.log
 /config/webpack/environments/local.js
+typings/

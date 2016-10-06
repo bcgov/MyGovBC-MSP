@@ -19,7 +19,7 @@ module.exports = function (_path) {
     entry: {
       vendor: _path + '/src/app/index.vendor.js',
       app: [_path + '/src/app/index.bootstrap.js'],
-      polyfill: 'babel-polyfill'
+      polyfill: ['./src/polyfills.ts']
     },
 
     // output system
