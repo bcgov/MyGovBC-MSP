@@ -31,7 +31,7 @@ module.exports = function (_path) {
 
     // resolves modules
     resolve: {
-      extensions: ['', '.js'],
+      extensions: ['', '.js', '.ts'],
       modulesDirectories: ['node_modules'],
       alias: {
         _appRoot: path.join(_path, 'src', 'app'),
@@ -44,71 +44,76 @@ module.exports = function (_path) {
     // modules resolvers
     module: {
       noParse: [],
-      loaders: [{
-        test: /\.html$/,
-        loaders: [
-          'ngtemplate-loader?relativeTo=' + _path,
-          'html-loader?attrs[]=img:src&attrs[]=img:data-src'
-        ]
-      }, {
-        test: /\.js$/,
-        loaders: [
-          'baggage-loader?[file].html&[file].css'
-        ]
-      }, {
-        test: /\.js$/,
-        exclude: [
-          new RegExp('node_modules\\' + path.sep + '(?!mygov(bc)?-).*', 'i')
-        ],
-        loaders: [
-          'ng-annotate-loader'
-        ]
-      }, {
-        test: /\.js$/,
-        exclude: [
-          new RegExp('node_modules\\' + path.sep + '(?!mygov(bc)?-).*', 'i')
-        ],
-        loader: 'babel-loader',
-        query: {
-          cacheDirectory: true,
-          plugins: ['transform-runtime', 'add-module-exports'],
-          presets: ['angular', 'es2017']
+      loaders: [
+        {
+          test: /\.ts$/,
+          loaders: ['awesome-typescript-loader', 'angular2-template-loader']
+        },
+        {
+          test: /\.html$/,
+          loaders: [
+            'ngtemplate-loader?relativeTo=' + _path,
+            'html-loader?attrs[]=img:src&attrs[]=img:data-src'
+          ]
+        }, {
+          test: /\.js$/,
+          loaders: [
+            'baggage-loader?[file].html&[file].css'
+          ]
+        }, {
+          test: /\.js$/,
+          exclude: [
+            new RegExp('node_modules\\' + path.sep + '(?!mygov(bc)?-).*', 'i')
+          ],
+          loaders: [
+            'ng-annotate-loader'
+          ]
+        }, {
+          test: /\.js$/,
+          exclude: [
+            new RegExp('node_modules\\' + path.sep + '(?!mygov(bc)?-).*', 'i')
+          ],
+          loader: 'babel-loader',
+          query: {
+            cacheDirectory: true,
+            plugins: ['transform-runtime', 'add-module-exports'],
+            presets: ['angular', 'es2017']
+          }
+        }, {
+          test: /\.css$/,
+          loaders: [
+            'style-loader',
+            'css-loader?sourceMap',
+            'postcss-loader'
+          ]
+        }, {
+          test: /\.less$/,
+          loader: "style!css!postcss!less"
+        }, {
+          test: /\.(scss|sass)$/,
+          loader: DEVELOPMENT ? ('style-loader!' + stylesLoader) : ExtractTextPlugin.extract('style-loader', stylesLoader)
+        }, {
+          test: /\.(woff2|woff|ttf|eot|svg)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          loaders: [
+            "url-loader?name=assets/fonts/[name]_[hash].[ext]"
+          ]
+        }, {
+          test: /\.(jpe?g|png|gif)$/i,
+          loaders: [
+            'url-loader?name=assets/images/[name]_[hash].[ext]&limit=10000'
+          ]
+        }, {
+          test: require.resolve("angular"),
+          loaders: [
+            "expose?angular"
+          ]
+        }, {
+          test: require.resolve("jquery"),
+          loaders: [
+            "expose?$",
+            "expose?jQuery"
+          ]
         }
-      }, {
-        test: /\.css$/,
-        loaders: [
-          'style-loader',
-          'css-loader?sourceMap',
-          'postcss-loader'
-        ]
-      }, {
-        test: /\.less$/,
-        loader: "style!css!postcss!less"
-      }, {
-        test: /\.(scss|sass)$/,
-        loader: DEVELOPMENT ? ('style-loader!' + stylesLoader) : ExtractTextPlugin.extract('style-loader', stylesLoader)
-      }, {
-        test: /\.(woff2|woff|ttf|eot|svg)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loaders: [
-          "url-loader?name=assets/fonts/[name]_[hash].[ext]"
-        ]
-      }, {
-        test: /\.(jpe?g|png|gif)$/i,
-        loaders: [
-          'url-loader?name=assets/images/[name]_[hash].[ext]&limit=10000'
-        ]
-      }, {
-        test: require.resolve("angular"),
-        loaders: [
-          "expose?angular"
-        ]
-      }, {
-        test: require.resolve("jquery"),
-        loaders: [
-          "expose?$",
-          "expose?jQuery"
-        ]
-      }
       ]
     },
 
