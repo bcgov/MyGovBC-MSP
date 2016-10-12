@@ -17,9 +17,9 @@ module.exports = function (_path) {
   var webpackConfig = {
     // entry points
     entry: {
-      vendor: _path + '/src/app/index.vendor',
-      app: [_path + '/src/app/index.bootstrap'],
-      polyfill: ['./src/polyfills']
+      vendor: _path + '/src/vendor',
+      app: [_path + '/src/main'],
+      polyfill: [_path + '/src/polyfills']
     },
 
     // output system
@@ -52,8 +52,7 @@ module.exports = function (_path) {
         {
           test: /\.html$/,
           loaders: [
-            'ngtemplate-loader?relativeTo=' + _path,
-            'html-loader?attrs[]=img:src&attrs[]=img:data-src'
+            'html'
           ]
         }, {
           test: /\.js$/,
