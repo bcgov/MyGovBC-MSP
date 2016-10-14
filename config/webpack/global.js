@@ -16,11 +16,7 @@ module.exports = function (_path) {
 
   var webpackConfig = {
     // entry points
-    entry: {
-      vendor: _path + '/src/vendor',
-      app: [_path + '/src/main'],
-      polyfill: [_path + '/src/polyfills']
-    },
+    entry: [_path + '/src/polyfills', _path + '/src/vendor', _path + '/src/main'],
 
     // output system
     output: {
@@ -153,7 +149,7 @@ module.exports = function (_path) {
     },
     // constants injected to app
     appConstants: {
-      runtimeEnv: 'development', // 'development|test|production',
+      runtimeEnv: NODE_ENV, // run-time environment; by default same as build-time node env
       coreApiBaseUrl: 'http://localhost:9000/ext/api',
       transcriptEndpoint: 'http://localhost:3001/ext/api',
     },

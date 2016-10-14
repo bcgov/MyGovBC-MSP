@@ -41,7 +41,7 @@ var _load = function () {
 
   webpackConfigs.port = webpackConfigs.port || process.env.PORT || 8000
   if (ENV === 'development') {
-    webpackConfigs.entry.app.unshift("webpack-dev-server/client?http://localhost:" + webpackConfigs.port + "/", "webpack/hot/dev-server")
+    webpackConfigs.entry.unshift("webpack-dev-server/client?http://localhost:" + webpackConfigs.port + "/", "webpack/hot/dev-server")
   }
 
   webpackConfigs.plugins = webpackConfigs.plugins.concat([
