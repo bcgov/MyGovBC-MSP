@@ -55,7 +55,7 @@ var _load = function () {
 
   webpackConfigs.module.loaders = webpackConfigs.module.loaders.concat([
     {
-      test: /\.js$/,
+      test: /\.(ts|js)$/,
       exclude: [
         path.resolve(__dirname, "node_modules")
       ],
