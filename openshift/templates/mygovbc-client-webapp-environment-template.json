@@ -147,33 +147,31 @@
       "displayName": "Name",
       "description": "The name assigned to all of the frontend objects defined in this template.",
       "required": true,
-      "value": "rproxy"
+      "value": "mygovbc-client"
     },
     {
       "name": "APPLICATION_DOMAIN",
       "displayName": "Application Hostname",
       "description": "The exposed hostname that will route to the MyGovBC service, if left blank a value will be defaulted.",
-      "value": "mygovbc-dev.pathfinder.gov.bc.ca"
+      "required": true
     },
     {
       "name": "APP_IMAGE_NAME",
       "displayName": "Application image name.",
       "description": "Application image name.",
-      "value": "rproxy",
+      "value": "mygovbc-client",
       "required": true
     },
     {
       "name": "APP_IMAGE_NAMESPACE",
       "displayName": "Namespace containing application images.",
       "description": "Namespace containing application images.",
-      "value": "gcpe-mygovbc-tools",
       "required": true
     },
     {
       "name": "APP_DEPLOYMENT_TAG",
       "displayName": "Image tag to watch for changes and trigger deployment.",
       "description": "Image tag to watch for changes and trigger deployment.",
-      "value": "dev",
       "required": true
     }
   ]
