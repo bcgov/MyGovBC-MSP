@@ -135,13 +135,13 @@ module.exports = function (_path) {
       new ExtractTextPlugin('assets/styles/css/[name]' + (NODE_ENV === 'development' ? '' : '.[chunkhash]') + '.css', {allChunks: true})
     ],
     devServer: {
-      publicPath: '/ext/',
+      publicPath: '/',
       contentBase: './dist',
       info: true,
       hot: true,
       inline: true,
       historyApiFallback: {
-        index: '/ext/'
+        index: '/'
       },
       watchOptions: {
         poll: 1000,
@@ -150,8 +150,8 @@ module.exports = function (_path) {
     // constants injected to app
     appConstants: {
       runtimeEnv: NODE_ENV, // run-time environment; by default same as build-time node env
-      coreApiBaseUrl: 'http://localhost:9000/ext/api',
-      transcriptEndpoint: 'http://localhost:3001/ext/api',
+      coreApiBaseUrl: 'http://localhost:9000/api',
+      transcriptEndpoint: 'http://localhost:3001/api',
     },
     headerFooterSvcUrl: 'https://chfs-mygov.apps.gov.bc.ca/v1/theme1/',
   };
