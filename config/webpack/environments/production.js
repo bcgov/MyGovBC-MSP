@@ -8,13 +8,14 @@ module.exports = function(_path) {
     devtool: 'cheap-source-map',
     output: {
       filename: '[name].[chunkhash].js'
-    },
+    }
+    /*,
     plugins: [
       new CleanWebpackPlugin(['dist'], {
         root: _path,
         verbose: true,
         dry: false
       })
-    ]
+    ]*/
   };
 };
