@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development node .",
     "dev-build": "cross-env NODE_ENV=development webpack -d --colors",
-    "build": "cross-env NODE_ENV=production webpack -p --output-path=/opt/app-root/src/html",
+    "build": "cross-env NODE_ENV=production webpack -p --display-error-details",
     "test": "karma start",
     "postinstall": "typings install"
   },
