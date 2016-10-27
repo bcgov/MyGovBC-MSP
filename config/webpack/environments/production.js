@@ -14,7 +14,19 @@ module.exports = function(_path) {
         root: _path,
         verbose: true,
         dry: false
-      })
+      }),
+      function()
+      {
+        this.plugin("done", function(stats)
+        {
+          if (stats.compilation.errors && stats.compilation.errors.length)
+          {
+            console.log(stats.compilation.errors);
+            process.exit(1);
+          }
+          // ...
+        });
+      }
     ]
   };
 };
