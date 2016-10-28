@@ -3,4 +3,4 @@
  *  export default  __APP_CONSTANTS__
  */
 
-export default {runtimeEnv: "development", serviceName: "My Service Name"}
+export default {runtimeEnv: "development", serviceName: "Apply for BC Health Care"}
