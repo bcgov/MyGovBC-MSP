@@ -152,8 +152,7 @@ module.exports = function (_path) {
       runtimeEnv: NODE_ENV, // run-time environment; by default same as build-time node env
       coreApiBaseUrl: 'http://localhost:9000/api',
       transcriptEndpoint: 'http://localhost:3001/api',
-    },
-    headerFooterSvcUrl: 'https://chfs-mygov.apps.gov.bc.ca/v1/theme1/',
+    }
   };
 
   if (NODE_ENV !== 'development') {
