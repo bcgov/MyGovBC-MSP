@@ -5,6 +5,9 @@ require('./index.less')
   templateUrl: './index.html'
 })
 export class CoreHeaderComponent {
+  appConstants: Object;
+
   constructor(@Inject('appConstants') appConstants: Object) {
+    this.appConstants = appConstants;
   }
 }

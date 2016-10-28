@@ -3,4 +3,4 @@
  *  export default  __APP_CONSTANTS__
  */
 
-export default {runtimeEnv: "development"}
+export default {runtimeEnv: "development", serviceName: "My Service Name"}
