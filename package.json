@@ -28,8 +28,6 @@
     "angular-cookies": "^1.5.6",
     "angular-messages": "^1.5.6",
     "angular-mocks": "^1.5.8",
-    "angular-qr": "github:janantala/angular-qr",
-    "angular-qrcode": "^6.2.1",
     "angular-resource": "^1.5.6",
     "angular-sanitize": "^1.5.6",
     "angular-touch": "^1.5.6",
