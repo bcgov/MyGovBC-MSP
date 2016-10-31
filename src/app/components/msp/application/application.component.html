@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <div class="msp-nav">
+    <nav>
+      <a routerLink="/msp/application/prepare" routerLinkActive="active">Prepare</a>
+      <a routerLink="/msp/application/personal-info" routerLinkActive="active">Personal Info</a>
+      <a routerLink="/msp/application/documents" routerLinkActive="active">Documents</a>
+      <a routerLink="/msp/application/address" routerLinkActive="active">Address</a>
+      <a routerLink="/msp/application/review" routerLinkActive="active">Review & Submit</a>
+    </nav>
+  </div>
+  <router-outlet></router-outlet>
+  <div class="row">
+    <div class="col-md-2">
+        <a class="btn btn-default" routerLink="/msp"
+         role="button">Go back to MSP home page</a>
+    </div>
+  </div>
+</div>

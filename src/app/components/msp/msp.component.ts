@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+require('./msp.component.less')
 
 @Component({
   selector: 'msp-app',
