@@ -16,15 +16,6 @@ import {ReviewComponent} from './application/review/review.component';
  */
 @NgModule({
   imports: [
-    // RouterModule.forChild([
-    //   { path: 'msp', 
-    //     component: MspComponent,
-    //     children: [
-
-    //     ]
-    //   }      
-    // ,{ path: 'address', component: AddressComponent }      
-    // ])
     RouterModule.forChild([
       {
         path: 'msp',
@@ -68,8 +59,6 @@ import {ReviewComponent} from './application/review/review.component';
           } 
         ]
       }
-     
-    // ,{ path: 'address', component: AddressComponent }      
     ])
     
   ],
@@ -85,7 +74,6 @@ import {ReviewComponent} from './application/review/review.component';
   ],
 
   exports: [
-    // MspComponent
   ]
 })
 @Injectable()
