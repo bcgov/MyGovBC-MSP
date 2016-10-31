@@ -1,1 +1,1 @@
-export default  __APP_CONSTANTS__
+export default  '__APP_CONSTANTS__'

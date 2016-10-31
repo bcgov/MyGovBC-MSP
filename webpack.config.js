@@ -73,7 +73,7 @@ var _load = function () {
       ],
       loader: 'string-replace',
       query: {
-        search: '__APP_CONSTANTS__',
+        search: '\'__APP_CONSTANTS__\'',
         replace: JSON.stringify(webpackConfigs.appConstants)
       }
     }
