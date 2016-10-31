@@ -3,7 +3,7 @@ import {BrowserModule}  from '@angular/platform-browser'
 import {HomeComponent} from './components/home'
 import {CoreHeaderComponent} from './components/core/header'
 import {CoreFooterComponent} from './components/core/footer'
-import appConstants from './services/appConstants'
+let appConstants = require('./services/appConstants')
 require('./index.less')
 @NgModule({
   imports: [
