@@ -10,6 +10,15 @@ try {
 }
 catch (e) {
 }
+let serviceConfig = function () {
+  return {}
+}
+try {
+  serviceConfig = require(__dirname + '/config/webpack/environments/service')
+}
+catch (e) {
+}
+
 var _configs = {
 
   // global section
@@ -18,7 +27,8 @@ var _configs = {
   // config by enviroments
   production: require(__dirname + '/config/webpack/environments/production'),
   development: require(__dirname + '/config/webpack/environments/development'),
-  local: localConfig
+  local: localConfig,
+  service: serviceConfig
 }
 
 var _load = function () {
@@ -32,7 +42,9 @@ var _load = function () {
   var webpackConfigs = _.mergeWith(
     _configs.global(__dirname),
     _configs[ENV](__dirname),
-    _configs.local(__dirname), function (objValue, srcValue) {
+    _configs.service(__dirname),
+    _configs.local(__dirname),
+    function (objValue, srcValue) {
       if (_.isArray(objValue)) {
         return objValue.concat(srcValue);
       }
