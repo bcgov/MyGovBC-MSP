@@ -74,11 +74,6 @@ module.exports = function (_path) {
             'url-loader?name=assets/images/[name]_[hash].[ext]&limit=10000'
           ]
         }, {
-          test: require.resolve("angular"),
-          loaders: [
-            "expose?angular"
-          ]
-        }, {
           test: require.resolve("jquery"),
           loaders: [
             "expose?$",
