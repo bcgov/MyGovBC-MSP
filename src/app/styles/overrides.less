@@ -1,3 +1,5 @@
+@import "../styles/variables.less";
+
 /* We override base bootstrap class here */
 
 // Headers
@@ -24,12 +26,17 @@ a {
   text-decoration: none;
 }
 
-// Header
-header {
-  background-color: @brand-primary;
-  border-bottom: 2px solid #fcba19;
-  padding-top: 10px;
-  padding-bottom: 20px;
+// body
+body, html{
+  height:100%;
+}
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
 }
 
 // footer
@@ -42,10 +49,7 @@ footer a:hover {
 footer {
   border-color: #fcba19;
   border-top: 2px solid #fcba19;
-  position: absolute;
-  bottom: 0;
   width: 100%;
-  height: auto;
 }
 footer .navbar {
   margin-bottom: 0;

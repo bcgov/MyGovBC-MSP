@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+require('./application.component.less');
 
 /**
  * Application for MSP

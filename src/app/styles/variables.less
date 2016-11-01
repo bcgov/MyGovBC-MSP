@@ -26,7 +26,7 @@
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-@body-bg:               #f1f1f1;
+@body-bg:               #fff;
 //** Global text color on `<body>`.
 @text-color:            #494949;
 
@@ -48,11 +48,11 @@
 @font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
 @font-family-base:        @font-family-sans-serif;
 
-@font-size-base:          14px;
+@font-size-base:          16px;
 @font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
 @font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
 
-@font-size-h1:            floor((@font-size-base * 1.7)); // ~24px
+@font-size-h1:            30px;
 @font-size-h2:            floor((@font-size-base * 1.5)); // ~21px
 @font-size-h3:            ceil((@font-size-base * 1.25)); // ~18px
 @font-size-h4:            ceil((@font-size-base * 1.07)); // ~15px
@@ -171,9 +171,9 @@
 @btn-link-disabled-color:        @gray-light;
 
 // Allows for customizing button radius independently from global border radius
-@btn-border-radius-base:         @border-radius-base;
-@btn-border-radius-large:        @border-radius-large;
-@btn-border-radius-small:        @border-radius-small;
+@btn-border-radius-base:         4px;
+@btn-border-radius-large:        8px;
+@btn-border-radius-small:        2px;
 
 
 //== Forms

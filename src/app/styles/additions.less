@@ -1,3 +1,5 @@
+@import "../styles/variables.less";
+
 // Helpers and other classes not found in bootstrap
 .browserupgrade {
   margin: 0.2em 0;
@@ -6,11 +8,18 @@
   padding: 0.2em 0;
 }
 
-// The white in the main column
-.wrapper {
-  background-color: #fff;
-  padding-top: 20px;
-  padding-bottom: 20px;
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -52px;
+}
+#pad {
+  height: 75px;
+
+  @media (max-width: 768px) {
+    height: 100px;
+  }
 }
 
 // To unbold form labels, auto add optional string
