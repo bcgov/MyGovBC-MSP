@@ -6,6 +6,20 @@
   padding: 0.2em 0;
 }
 
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -52px;
+}
+#pad {
+  height: 75px;
+
+  @media (max-width: 768px) {
+    height: 100px;
+  }
+}
+
 // To unbold form labels, auto add optional string
 .optional {
   font-weight: normal;
