@@ -3,34 +3,59 @@
     <p class="help-block">To qualify for health care, you must live in British Columbia.</p>
 
     <form>
-        <div class="form-group col-sm-5">
-            <label for="street">Street</label>
-            <input type="text" class="form-control" id="street" placeholder="Street" required>
+        <div class="row">
+            <div class="form-group col-sm-5">
+                <label for="street">Street</label>
+                <input type="text" class="form-control" id="street" required>
 
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="city">City</label>
+                <input type="text" class="form-control" id="city" required>
+            </div>
+            <div class="form-group col-sm-3">
+                <label for="postalCode">Postal Code</label>
+                <input type="text" class="form-control" id="postalCode" required>
+            </div>
         </div>
-        <div class="form-group col-sm-4">
-            <label for="city">City</label>
-            <input type="text" class="form-control" id="city" placeholder="City" required>
-        </div>
-        <div class="form-group col-sm-3">
-            <label for="postalCode">Postal Code</label>
-            <input type="text" class="form-control" id="postalCode" placeholder="Postal Code" required>
+        <div class="row">
+            <div class="form-group col-sm-12">
+                Is your <strong>mailing address</strong> different than the above?
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default">Yes</button>
+                    <button type="button" class="btn btn-default">No</button>
+                </div>
+            </div>
         </div>
     </form>
-    <p class="help-block">To qualify for health care, you must live in British Columbia.</p>
+    <h1>Mailing Address</h1>
     <form>
-        <div class="form-group col-sm-5">
-            <label for="street">Street</label>
-            <input type="text" class="form-control" id="street" placeholder="Street">
+        <div class="row">
+            <div class="form-group col-sm-5">
+                <label for="mailingStreet">Street</label>
+                <input type="text" class="form-control" id="mailingStreet">
 
-        </div>
-        <div class="form-group col-sm-4">
-            <label for="city">City</label>
-            <input type="text" class="form-control" id="city" placeholder="City">
-        </div>
-        <div class="form-group col-sm-3">
-            <label for="postalCode">Postal Code</label>
-            <input type="text" class="form-control" id="postalCode" placeholder="Postal Code">
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="mailignCity">City</label>
+                <input type="text" class="form-control" id="mailignCity">
+            </div>
+            <div class="form-group col-sm-3">
+                <label for="mailingPostalCode">Postal Code</label>
+                <input type="text" class="form-control" id="mailingPostalCode">
+            </div>
         </div>
     </form>
+    <h1>Your Phone Number</h1>
+    <form>
+        <div class="row">
+            <div class="form-group col-sm-5">
+                <label for="phone">Phone</label>
+                <input type="tel" class="form-control" id="phone">
+
+            </div>
+        </div>
+    </form>
+    <hr>
+    <button class="btn btn-primary" type="submit">Continue</button>
 </div>
