@@ -51,30 +51,6 @@ module.exports = function (_path) {
             'html'
           ]
         }, {
-          test: /\.js$/,
-          loaders: [
-            'baggage-loader?[file].html&[file].css'
-          ]
-        }, {
-          test: /\.js$/,
-          exclude: [
-            new RegExp('node_modules\\' + path.sep + '(?!mygov(bc)?-).*', 'i')
-          ],
-          loaders: [
-            'ng-annotate-loader'
-          ]
-        }, {
-          test: /\.js$/,
-          exclude: [
-            new RegExp('node_modules\\' + path.sep + '(?!mygov(bc)?-).*', 'i')
-          ],
-          loader: 'babel-loader',
-          query: {
-            cacheDirectory: true,
-            plugins: ['transform-runtime', 'add-module-exports'],
-            presets: ['angular', 'es2017']
-          }
-        }, {
           test: /\.css$/,
           loaders: [
             'style-loader',
