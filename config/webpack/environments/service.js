@@ -2,7 +2,7 @@
 module.exports = function(_path) {
   return {
     appConstants: {
-      serviceName: 'apply for msp'
+      serviceName: 'Apply for BC Health Care'
     }
   }
 }
