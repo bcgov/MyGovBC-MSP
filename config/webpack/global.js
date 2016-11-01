@@ -1,18 +1,18 @@
-'use strict';
+'use strict'
 
 // Depends
-var path = require('path');
-var webpack = require('webpack');
-var autoprefixer = require('autoprefixer-core');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var path = require('path')
+var webpack = require('webpack')
+var autoprefixer = require('autoprefixer-core')
+var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
-var NODE_ENV = process.env.NODE_ENV || "production";
-var DEVELOPMENT = NODE_ENV === "production" ? false : true;
-var stylesLoader = 'css-loader?sourceMap!postcss-loader!sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true';
+var NODE_ENV = process.env.NODE_ENV || "production"
+var DEVELOPMENT = NODE_ENV === "production" ? false : true
+var stylesLoader = 'css-loader?sourceMap!postcss-loader!sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
 
 
 module.exports = function (_path) {
-  var rootAssetPath = _path + 'src';
+  var rootAssetPath = _path + 'src'
 
   var webpackConfig = {
     // entry points
@@ -50,30 +50,6 @@ module.exports = function (_path) {
           loaders: [
             'html'
           ]
-        }, {
-          test: /\.js$/,
-          loaders: [
-            'baggage-loader?[file].html&[file].css'
-          ]
-        }, {
-          test: /\.js$/,
-          exclude: [
-            new RegExp('node_modules\\' + path.sep + '(?!mygov(bc)?-).*', 'i')
-          ],
-          loaders: [
-            'ng-annotate-loader'
-          ]
-        }, {
-          test: /\.js$/,
-          exclude: [
-            new RegExp('node_modules\\' + path.sep + '(?!mygov(bc)?-).*', 'i')
-          ],
-          loader: 'babel-loader',
-          query: {
-            cacheDirectory: true,
-            plugins: ['transform-runtime', 'add-module-exports'],
-            presets: ['angular', 'es2017']
-          }
         }, {
           test: /\.css$/,
           loaders: [
@@ -149,13 +125,15 @@ module.exports = function (_path) {
     },
     // constants injected to app
     appConstants: {
-      runtimeEnv: NODE_ENV, // run-time environment; by default same as build-time node env
+      runtimeEnv: NODE_ENV, // run-time environment. by default same as build-time node env
       coreApiBaseUrl: 'http://localhost:9000/api',
       transcriptEndpoint: 'http://localhost:3001/api',
       serviceName: 'core',
+    },
+    htmlLoader: {
+      minimize: false,
     }
-  };
-
+  }
   if (NODE_ENV !== 'development') {
     webpackConfig.plugins = webpackConfig.plugins.concat([
       new webpack.optimize.UglifyJsPlugin({
@@ -163,9 +141,9 @@ module.exports = function (_path) {
         warnings: false,
         sourceMap: true
       })
-    ]);
+    ])
   }
 
-  return webpackConfig;
+  return webpackConfig
 
-};
+}

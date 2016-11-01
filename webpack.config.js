@@ -65,7 +65,7 @@ var _load = function () {
     })
   ])
 
-  webpackConfigs.module.loaders = webpackConfigs.module.loaders.concat([
+  webpackConfigs.module.preLoaders = (webpackConfigs.module.preLoaders || []).concat([
     {
       test: /\.(ts|js)$/,
       exclude: [
