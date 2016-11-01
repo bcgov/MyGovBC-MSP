@@ -8,7 +8,8 @@ import {CoreFooterComponent} from './components/core/footer'
 
 import {MspModule} from './components/msp/msp.module'
 import {GeneralAppComponent} from './app.component'
-let appConstants = require('./services/appConstants')
+import appConstants from './services/appConstants'
+
 require('./index.less')
 @NgModule({
   imports: [
