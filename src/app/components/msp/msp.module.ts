@@ -3,6 +3,7 @@ import {RouterModule} from '@angular/router';
 
 import {MspComponent} from './msp.component';
 import {LandingComponent} from './landing/landing.component';
+import {MspAddressComponent} from './common/address';
 
 import {ApplicationComponent} from './application/application.component';
 import {PrepareComponent} from './application/prepare/prepare.component';
@@ -90,6 +91,7 @@ import {AssistancePrepareComponent} from './assistance/prepare/prepare.component
         // General
         MspComponent,
         LandingComponent,
+        MspAddressComponent,
 
         // Application
         ApplicationComponent,
