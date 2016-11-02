@@ -4,5 +4,5 @@ require('./personal-info.component.less')
   templateUrl: './personal-info.component.html'
 })
 export class PersonalInfoComponent {
-
+  
 }
