@@ -1,4 +1,4 @@
-import {Component, OpaqueToken, Inject} from '@angular/core'
+import {Component, Inject} from '@angular/core'
 require('./address.component.less')
 @Component({
   selector: 'msp-address',

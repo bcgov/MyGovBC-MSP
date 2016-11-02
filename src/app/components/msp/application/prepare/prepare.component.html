@@ -1,36 +1,7 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h2>Are you planning to stay in BC for the next 6 months or longer?</h2>
-          <div class="checkbox checkbox-success">
-              <input id="stayingYes" type="checkbox">
-              <label for="stayingYes">
-                Yes
-              </label>
-          </div>        
-          <div class="checkbox checkbox-success">
-              <input id="stayingNo" type="checkbox">
-              <label for="stayingNo">
-                No
-              </label>
-          </div>     
-
-        <h2>Are you currently in military service or a member of RCMP?</h2>
-          <div class="checkbox checkbox-success">
-            <input id="militaryYes" type="checkbox">
-            <label for="militaryYes">
-                Yes
-            </label>
-          </div>        
-          <div class="checkbox checkbox-success">
-            <input id="militaryNo" type="checkbox">
-            <label for="militaryNo">
-                No
-            </label>
-          </div>     
-             
-      </div>
-    </div>
-  </div>
+<h1>Are you planning to stay in BC for the next 6 months or longer?</h1>
+<div class="btn-group" role="group">
+    <button [class.btn-info]="staying" (click)="isStaying()" [disabled]="staying" type="button" class="btn btn-default" >Yes</button>
+    <button [class.btn-info]="!staying" (click)="isNotStaying()" [disabled]="!staying" type="button" class="btn btn-default">No&nbsp;</button>
 </div>
+<hr>
+<button class="btn btn-primary" type="submit" routerLink="/msp/application/personal-info">Continue</button>

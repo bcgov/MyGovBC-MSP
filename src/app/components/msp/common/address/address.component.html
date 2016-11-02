@@ -18,8 +18,8 @@
         <div class="form-group col-sm-12">
             Is your <strong>mailing address</strong> the same as above?
             <div class="btn-group" role="group">
-                <button [class.btn-success]="!mailingAddressDifferent" (click)="useSameMailingAddress()" [disabled]="!mailingAddressDifferent" type="button" class="btn btn-default" >Yes</button>
-                <button [class.btn-success]="mailingAddressDifferent" (click)="useDifferentMailingAddress()" [disabled]="mailingAddressDifferent" type="button" class="btn btn-default">No&nbsp;</button>
+                <button [class.btn-info]="!mailingAddressDifferent" (click)="useSameMailingAddress()" [disabled]="!mailingAddressDifferent" type="button" class="btn btn-default" >Yes</button>
+                <button [class.btn-info]="mailingAddressDifferent" (click)="useDifferentMailingAddress()" [disabled]="mailingAddressDifferent" type="button" class="btn btn-default">No&nbsp;</button>
             </div>
         </div>
     </div>
