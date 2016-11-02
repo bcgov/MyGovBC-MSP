@@ -1,11 +1,15 @@
 import {NgModule, Injectable} from '@angular/core';
 import {RouterModule} from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
 
 import {MspComponent} from './msp.component';
 import {LandingComponent} from './landing/landing.component';
 import {MspAddressComponent} from './common/address/address.component';
 
+import MspApplicationDataService from './application/application-data.service';
 import {ApplicationComponent} from './application/application.component';
+import {PersonalDetailsComponent} from './application/personal-info/personal-details/personal-details.component';
 import {PrepareComponent} from './application/prepare/prepare.component';
 import {PersonalInfoComponent} from './application/personal-info/personal-info.component';
 import {DocumentsComponent} from './application/documents/documents.component';
@@ -22,6 +26,7 @@ import {AssistancePrepareComponent} from './assistance/prepare/prepare.component
  */
 @NgModule({
     imports: [
+        FormsModule,
         RouterModule.forChild([
             {
                 path: 'msp',
@@ -95,6 +100,7 @@ import {AssistancePrepareComponent} from './assistance/prepare/prepare.component
 
         // Application
         ApplicationComponent,
+        PersonalDetailsComponent,        
         PrepareComponent,
         PersonalInfoComponent,
         DocumentsComponent,
@@ -107,7 +113,10 @@ import {AssistancePrepareComponent} from './assistance/prepare/prepare.component
         AssistancePrepareComponent
     ],
 
-    exports: []
+    providers: [
+        // Services
+        MspApplicationDataService
+    ]
 })
 @Injectable()
 export class MspModule {
