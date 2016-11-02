@@ -5,6 +5,17 @@ require('./index.less')
   templateUrl: './index.html'
 })
 export class MspAddressComponent {
-  constructor(@Inject('appConstants') appConstants: Object) {
-  }
+    mailingAddressDifferent: boolean;
+
+    constructor(@Inject('appConstants') appConstants: Object) {
+        this.mailingAddressDifferent = false;
+    }
+
+    useDifferentMailingAddress() {
+        this.mailingAddressDifferent = true;
+    }
+
+    useSameMailingAddress() {
+        this.mailingAddressDifferent = false;
+    }
 }

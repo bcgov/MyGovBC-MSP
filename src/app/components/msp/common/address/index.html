@@ -16,29 +16,31 @@
     </div>
     <div class="row">
         <div class="form-group col-sm-12">
-            Is your <strong>mailing address</strong> different than the above?
+            Is your <strong>mailing address</strong> the same as above?
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default">Yes</button>
-                <button type="button" class="btn btn-default">No</button>
+                <button [class.btn-success]="!mailingAddressDifferent" (click)="useSameMailingAddress()" [disabled]="!mailingAddressDifferent" type="button" class="btn btn-default" >Yes</button>
+                <button [class.btn-success]="mailingAddressDifferent" (click)="useDifferentMailingAddress()" [disabled]="mailingAddressDifferent" type="button" class="btn btn-default">No&nbsp;</button>
             </div>
         </div>
     </div>
 </form>
+<div [hidden]="!mailingAddressDifferent">
 <h1>Mailing Address</h1>
-<form>
-    <div class="row">
-        <div class="form-group col-sm-5">
-            <label for="mailingStreet">Street</label>
-            <input type="text" class="form-control" id="mailingStreet">
+    <form>
+        <div class="row">
+            <div class="form-group col-sm-5">
+                <label for="mailingStreet">Street</label>
+                <input type="text" class="form-control" id="mailingStreet">
 
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="mailignCity">City</label>
+                <input type="text" class="form-control" id="mailignCity">
+            </div>
+            <div class="form-group col-sm-3">
+                <label for="mailingPostalCode">Postal Code</label>
+                <input type="text" class="form-control" id="mailingPostalCode">
+            </div>
         </div>
-        <div class="form-group col-sm-4">
-            <label for="mailignCity">City</label>
-            <input type="text" class="form-control" id="mailignCity">
-        </div>
-        <div class="form-group col-sm-3">
-            <label for="mailingPostalCode">Postal Code</label>
-            <input type="text" class="form-control" id="mailingPostalCode">
-        </div>
-    </div>
-</form>
+    </form>
+</div>
