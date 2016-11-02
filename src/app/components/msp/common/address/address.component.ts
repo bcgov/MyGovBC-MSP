@@ -1,8 +1,8 @@
 import {Component, OpaqueToken, Inject} from '@angular/core'
-require('./index.less')
+require('./address.component.less')
 @Component({
   selector: 'msp-address',
-  templateUrl: './index.html'
+  templateUrl: './address.component.html'
 })
 export class MspAddressComponent {
     mailingAddressDifferent: boolean;
