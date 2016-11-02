@@ -1,22 +1,49 @@
 <div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                Reviw all details of your MSP application
-            </div>
-            <div class="panel-body">
-
-            </div>
-
+    <h1>Review Your Application</h1>
+    <h2>Personal Info</h2>
+    <div class="panel panel-default">
+        <div class="panel-body">Name 1<br>
+            <button class="btn btn-sm btn-default" type="submit" routerLink="/msp/application/personal-info">Change
+                Personal Info
+            </button>
         </div>
     </div>
-
-</div>
-
-<div class="row">
-    <div class="col-sm-12 col-md-4 col-md-offset-4">
-        <ul class="nav nav-pills nav-justified">
-            <li role="presentation" class="active"><a href="#">Submit application</a></li>
-        </ul>            
+    <h2>Address</h2>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <label>Residential Address</label>
+            <address>3925 Winton St., Victoria, British Columbia, V89 3L4</address>
+            <label>Mailing Address</label>
+            <address>P.O. Box 87., Victoria, British Columbia, V89 3L4</address>
+            <label>Phone Number</label>
+            <div>250-686-6071</div>
+            <button class="btn btn-sm btn-default" type="submit" routerLink="/msp/application/address">Change
+                Address
+            </button>
+        </div>
     </div>
+    <h2>Authorize Your Application</h2>
+    <p>
+        <small>
+            I have received information about MSP and agree to abide by the terms and conditions
+            of MSP. I understand the information I have given is collected under the authority of the Medicare
+            Protection Act and may be used to assess eligibility for other Ministry of Health Services programs,
+            and that practitioners who provide service(s) under MSP are required under the Medicare Protection
+            Act to release information relative to those services to MSP to support claims for benefits.
+        </small>
+    </p>
+    <p>
+        <small>
+            I declare that all information provided is true and I understand that the Ministry and/or Health Insurance
+            BC may verify this information with immigration authorities, law enforcement authorities and other public
+            authorities, agencies and persons as appropriate. I declare that all persons listed are residents of
+            British Columbia.
+        </small>
+    </p>
+    <div class="checkbox checkbox-success checkbox-inline">
+        <input class="input-lg" id="authorize" type="checkbox">
+        <label for="authorize">I agree</label>
+    </div>
+    <hr>
+    <button class="btn btn-primary" type="submit" routerLink="/msp/application/confirmation">Submit Application</button>
 </div>
