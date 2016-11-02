@@ -3,6 +3,7 @@ import {RouterModule} from '@angular/router';
 
 import {MspComponent} from './msp.component';
 import {LandingComponent} from './landing/landing.component';
+
 import {ApplicationComponent} from './application/application.component';
 import {PrepareComponent} from './application/prepare/prepare.component';
 import {PersonalInfoComponent} from './application/personal-info/personal-info.component';
@@ -10,6 +11,9 @@ import {DocumentsComponent} from './application/documents/documents.component';
 import {AddressComponent} from './application/address/address.component';
 import {ReviewComponent} from './application/review/review.component';
 import {ConfirmationComponent} from './application/confirmation/confirmation.component';
+
+import {AssistanceComponent} from './assistance/assistance.component';
+import {AssistancePrepareComponent} from './assistance/prepare/prepare.component';
 
 /**
  * The overall progress layout is created based on 'msp-prepare-v3-a.jpeg' in
@@ -60,6 +64,21 @@ import {ConfirmationComponent} from './application/confirmation/confirmation.com
                                 component: ConfirmationComponent
                             },
 
+                        ],
+                    },
+                    {
+                        path: 'assistance',
+                        component: AssistanceComponent,
+                        children: [
+                            {
+                                path: '',
+                                redirectTo: 'prepare',
+                                pathMatch: 'full'
+                            },
+                            {
+                                path: 'prepare',
+                                component: AssistancePrepareComponent
+                            },
                         ]
                     }
                 ]
@@ -68,15 +87,22 @@ import {ConfirmationComponent} from './application/confirmation/confirmation.com
 
     ],
     declarations: [
+        // General
         MspComponent,
         LandingComponent,
+
+        // Application
         ApplicationComponent,
         PrepareComponent,
         PersonalInfoComponent,
         DocumentsComponent,
         AddressComponent,
         ReviewComponent,
-        ConfirmationComponent
+        ConfirmationComponent,
+
+        // Assistance
+        AssistanceComponent,
+        AssistancePrepareComponent
     ],
 
     exports: []
