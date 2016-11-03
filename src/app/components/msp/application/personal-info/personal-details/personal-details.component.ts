@@ -10,8 +10,14 @@ require('./personal-details.component.less')
 
 export class PersonalDetailsComponent implements OnChanges{
   @Input() person: Person; 
+  @Output('removeDependent') notifyRemoval: EventEmitter<String> = new EventEmitter<string>();
 
   ngOnChanges():void {
     console.log('applicant set on details component: ' + JSON.stringify(this.person));
+  }
+
+  removeDependent(id?: string): void{
+    console.log('removing dependent');
+    this.notifyRemoval.emit(id);
   }
 }
