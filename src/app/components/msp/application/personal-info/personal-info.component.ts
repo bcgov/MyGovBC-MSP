@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {MspApplicantioin, Applicant, Person} from '../application';
+import {MspApplication, Applicant, Person} from '../application';
 import DataService from '../application-data.service';
 
 require('./personal-info.component.less')
@@ -26,5 +26,9 @@ export class PersonalInfoComponent {
 
   get children(): Person[] {
     return this.dataService.getApplication().children;
+  }
+
+  removeDependent(id?: string): void{
+    this.dataService.getApplication().removeChild();    
   }
 }

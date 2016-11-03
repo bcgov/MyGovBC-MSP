@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnChanges, EventEmitter } from '@angular/core';
-import {MspApplicantioin, Applicant, Person} from '../../application';
+import {MspApplication, Applicant, Person} from '../../application';
 
 require('./personal-details.component.less')
 @Component({
@@ -17,7 +17,7 @@ export class PersonalDetailsComponent implements OnChanges{
   }
 
   removeDependent(id?: string): void{
-    console.log('removing dependent');
+    console.log('firing removing dependent');
     this.notifyRemoval.emit(id);
   }
 }

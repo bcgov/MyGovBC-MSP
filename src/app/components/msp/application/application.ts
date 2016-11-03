@@ -43,9 +43,13 @@ class Applicant extends Person {
   get children(): Array<Person> {
     return this._children;
   }
+
+  removeChild():void {
+    let removed = this._children.splice(0,1);
+  }
 }
 
-class MspApplicantioin {
+class MspApplication {
   private _applicant: Applicant = new Applicant();
 
   constructor(){
@@ -71,7 +75,11 @@ class MspApplicantioin {
   get children(): Array<Person> {
     return this._applicant.children;
   }
+
+  removeChild(): void{
+    this._applicant.removeChild();
+  }
 }
 
 
-export {MspApplicantioin, Applicant, Person}
+export {MspApplication, Applicant, Person}

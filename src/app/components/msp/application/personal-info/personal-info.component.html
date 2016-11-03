@@ -3,7 +3,9 @@
   <msp-personal-details [person] = 'applicant.spouse'></msp-personal-details>
 </div>
 <div *ngIf = 'children.length > 0'>
-  <msp-personal-details *ngFor = 'let child of children' [person] = 'child'>
+  <msp-personal-details *ngFor = 'let child of children' [person] = 'child'
+    (removeDependent)="removeDependent($event)"
+  >
   </msp-personal-details>
 </div>
 
