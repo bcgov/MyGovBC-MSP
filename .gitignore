@@ -8,3 +8,4 @@ npm-debug.log
 /config/webpack/environments/local.js
 typings/
 debug.log
+/dist
