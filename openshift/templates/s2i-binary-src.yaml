@@ -11,7 +11,7 @@ objects:
   metadata:
     annotations:
       description: Keeps track of changes in the application image
-    name: ${APP_IMAGE_NAME}
+    name: ${NAME}
 - annotations:
     description: Defines how to build the application
   apiVersion: v1
@@ -28,12 +28,13 @@ objects:
       sourceStrategy:
         from:
           kind: ImageStreamTag
-          name: s2i-nginx:latest
+          name: ${BUILDER_IMAGE_NAME}:latest
+          namespace: ${BUILDER_IMAGE_NAMESPACE}
         incremental: false
     output:
       to:
         kind: ImageStreamTag
-        name: ${APP_IMAGE_NAME}:latest
+        name: ${NAME}:latest
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
@@ -62,7 +63,7 @@ objects:
           deploymentconfig: ${NAME}
       spec:
         containers:
-        - image: ${APP_IMAGE_NAME}
+        - image: ${NAME}
           imagePullPolicy: Always
           name: ${NAME}
           ports:
@@ -81,7 +82,7 @@ objects:
         - ${NAME}
         from:
           kind: ImageStreamTag
-          name: ${APP_IMAGE_NAME}:${APP_DEPLOYMENT_TAG}
+          name: ${NAME}:latest
       type: ImageChange
 - apiVersion: v1
   kind: Service
@@ -122,7 +123,7 @@ objects:
       name: ${NAME}
       weight: 100
 parameters:
-- description: The name assigned to all of the frontend objects defined in this template.
+- description: The name assigned to all of the openshift objects defined in this template.
   displayName: Name
   name: NAME
   required: true
@@ -131,12 +132,11 @@ parameters:
     blank a value will be defaulted.
   displayName: Application Hostname
   name: APPLICATION_DOMAIN
-- description: Application image name.
-  displayName: Application image name.
-  name: APP_IMAGE_NAME
+- description: Builder image name.
+  displayName: Builder Image
+  name: BUILDER_IMAGE_NAME
   required: true
-  value: mygovbc-client
-- description: Image tag to watch for changes and trigger deployment.
-  displayName: Image tag to watch for changes and trigger deployment.
-  name: APP_DEPLOYMENT_TAG
-  value: latest
+  value: s2i-nginx
+- description: Project containing the builder image.
+  displayName: Builder Image Namespace
+  name: BUILDER_IMAGE_NAMESPACE
