@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {MspApplication, Applicant, Person} from './application';
+import {MspApplication, Person} from './application';
 
 @Injectable()
 export default class MspApplicationDataService {

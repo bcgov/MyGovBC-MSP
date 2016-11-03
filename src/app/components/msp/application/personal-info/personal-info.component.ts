@@ -1,5 +1,5 @@
 import {Component, Injectable} from '@angular/core';
-import {MspApplication, Applicant, Person} from '../application';
+import {MspApplication, Person} from '../application';
 import DataService from '../application-data.service';
 
 require('./personal-info.component.less')
@@ -12,10 +12,16 @@ export class PersonalInfoComponent {
 
   }
 
-  get applicant(): Applicant {
+  get application(): MspApplication {
+    return this.dataService.getApplication();
+  }
+  get applicant(): Person {
     return this.dataService.getApplication().applicant;
   }
 
+  get spouse(): Person {
+    return this.dataService.getApplication().spouse;
+  }
   addSpouse(): void{
     this.dataService.getApplication().addSpouse();
   }

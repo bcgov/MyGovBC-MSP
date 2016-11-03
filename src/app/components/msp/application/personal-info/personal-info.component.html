@@ -1,6 +1,6 @@
 <msp-personal-details [person] = 'applicant'></msp-personal-details>
-<div *ngIf = '!!(applicant.spouse)'>
-  <msp-personal-details [person] = 'applicant.spouse'
+<div *ngIf = 'spouse'>
+  <msp-personal-details [person] = 'spouse'
     (notifySpouseRemoval)="removeSpouse($event)"
   ></msp-personal-details>
 </div>
@@ -30,3 +30,8 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col-md-12">
+    {{application | json}}
+  </div>
+</div>

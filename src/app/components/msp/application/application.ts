@@ -17,25 +17,15 @@ class Person {
 /**
  * Primary applicant for msp appication
  */
-class Applicant extends Person {
+class MspApplication {
+  private _applicant: Person = new Person('Yourself');
+  
   private _children: Array<Person>  = [];
   private _spouse: Person;
-  constructor(){
-    super('Yourself');
-  }
 
-  addSpouse(): void{
-    console.log('add spouse..');
-    if(!this._spouse){
-      this._spouse = new Person('Spouse');
-    }
+  get applicant(): Person {
+    return this._applicant;
   }
-
-  addChild(): void {
-    let c = new Person('Child')
-    this._children.length < 30 ? this._children.push(c): console.log('No more than 30 chidren can be added to one application');
-  }
-  
   get spouse(): Person {
     return this._spouse;
   }
@@ -44,6 +34,20 @@ class Applicant extends Person {
     return this._children;
   }
 
+  addSpouse(): void{
+    if(!this._spouse){
+      this._spouse = new Person('Spouse');
+      console.log('spouse added: ' + JSON.stringify(this._spouse));
+    }else{
+      console.log('spouse already added to your coverage.');
+    }
+  }
+
+  addChild(): void {
+    let c = new Person('Child')
+    this._children.length < 30 ? this._children.push(c): console.log('No more than 30 chidren can be added to one application');
+  }
+  
   removeChild():void {
     let removed = this._children.splice(0,1);
   }
@@ -54,41 +58,4 @@ class Applicant extends Person {
   }
 }
 
-class MspApplication {
-  private _applicant: Applicant = new Applicant();
-
-  constructor(){
-    
-  }
-  addSpouse(): void {
-    this._applicant.addSpouse();
-  }
-
-  addChild(): void {
-    this._applicant.addChild();
-  }
-
-  get applicant(){
-    // console.log('applicant firstname: ' + this._applicant.firstname);
-    return this._applicant;
-  }
-
-  get spouse(): Person {
-    return this._applicant.spouse;
-  }
-
-  get children(): Array<Person> {
-    return this._applicant.children;
-  }
-
-  removeChild(): void{
-    this._applicant.removeChild();
-  }
-
-  removeSpouse(): void {
-    this._applicant.removeSpouse();
-  }
-}
-
-
-export {MspApplication, Applicant, Person}
+export {MspApplication, Person}

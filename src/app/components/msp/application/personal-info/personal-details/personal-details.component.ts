@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnChanges, EventEmitter } from '@angular/core';
-import {MspApplication, Applicant, Person} from '../../application';
+import {MspApplication, Person} from '../../application';
 
 require('./personal-details.component.less')
 @Component({

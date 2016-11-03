@@ -1,5 +1,5 @@
 import { Component, Inject, Injectable } from '@angular/core';
-import {MspApplication, Applicant, Person} from '../application';
+import {MspApplication, Person} from '../application';
 
 import DataService from '../application-data.service';
 
@@ -21,7 +21,7 @@ export class PrepareComponent {
         this.staying = false;
     }
 
-  get applicant(): Applicant {
+  get applicant(): Person {
     return this.dataService.getApplication().applicant;
   }
 
