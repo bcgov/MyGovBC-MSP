@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Injectable} from '@angular/core';
 import {MspApplication, Applicant, Person} from '../application';
 import DataService from '../application-data.service';
 
@@ -6,7 +6,7 @@ require('./personal-info.component.less')
 @Component({
   templateUrl: './personal-info.component.html'
 })
-
+@Injectable()
 export class PersonalInfoComponent {
   constructor(private dataService: DataService){
 

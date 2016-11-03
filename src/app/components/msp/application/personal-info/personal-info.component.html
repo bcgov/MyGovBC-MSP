@@ -14,14 +14,14 @@
   <div class="col-md-6">
     <div class="msp-app">
       <div class="button-group">
-        <button type="button" class="btn btn-default" (click) = 'addChild()'>
-          <!--<span class="glyphicons glyphicons-plus"></span> Add child-->
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add child
-        </button>
         <button type="button" class="btn btn-default" (click)= 'addSpouse()'
           *ngIf = '!(applicant.spouse)'>
           <!--<span class="glyphicons glyphicons-plus"></span> Add child-->
           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add spouse
+        </button>
+        <button type="button" class="btn btn-default" (click) = 'addChild()'>
+          <!--<span class="glyphicons glyphicons-plus"></span> Add child-->
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add child
         </button>
       </div>
     </div>
