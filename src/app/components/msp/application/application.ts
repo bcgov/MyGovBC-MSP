@@ -47,6 +47,11 @@ class Applicant extends Person {
   removeChild():void {
     let removed = this._children.splice(0,1);
   }
+
+  removeSpouse(): void {
+    console.log('spouse removed from coverage');
+    this._spouse = null;
+  }
 }
 
 class MspApplication {
@@ -78,6 +83,10 @@ class MspApplication {
 
   removeChild(): void{
     this._applicant.removeChild();
+  }
+
+  removeSpouse(): void {
+    this._applicant.removeSpouse();
   }
 }
 

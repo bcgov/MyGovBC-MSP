@@ -4,10 +4,19 @@
 			<div class="title-container">
 				<h1>{{person.relationship}}</h1>
 				<!--<span style="margin-top: 28px; margin-left: 2em;">Remove</span>-->
-				<div *ngIf = "person.relationship !== 'Yourself'" >
-					<button type="button" class="btn btn-default btn-xs" (click)="removeDependent()">
-						Remove
-					</button>				
+				<div *ngIf = "person.relationship !== 'Yourself'">
+					<div *ngIf = "person.relationship === 'Spouse'">
+						<button type="button" class="btn btn-default btn-xs" 
+							(click)="removeSpouse(person.relationship)">
+							Remove
+						</button>				
+					</div>
+					<div *ngIf = "person.relationship === 'Child'">
+						<button type="button" class="btn btn-default btn-xs" 
+							(click)="removeChild(person.relationship)">
+							Remove
+						</button>				
+					</div>
 				</div>
 			</div>
 			<div class="form-group">

@@ -28,7 +28,12 @@ export class PersonalInfoComponent {
     return this.dataService.getApplication().children;
   }
 
-  removeDependent(id?: string): void{
+  removeChild(id?: string): void{
     this.dataService.getApplication().removeChild();    
+  }
+
+  removeSpouse(): void{
+    console.log('roger remove spouse');
+    this.dataService.getApplication().removeSpouse();
   }
 }
