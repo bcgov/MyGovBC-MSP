@@ -1,7 +1,7 @@
 import {NgModule, Injectable} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import { FormsModule } from '@angular/forms';
-
+import { CommonModule } from '@angular/common';
 
 import {MspComponent} from './msp.component';
 import {LandingComponent} from './landing/landing.component';
@@ -26,6 +26,7 @@ import {AssistancePrepareComponent} from './assistance/prepare/prepare.component
  */
 @NgModule({
     imports: [
+        CommonModule,
         FormsModule,
         RouterModule.forChild([
             {
