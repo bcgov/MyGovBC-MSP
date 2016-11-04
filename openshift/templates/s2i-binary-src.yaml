@@ -105,9 +105,6 @@ objects:
 - apiVersion: v1
   kind: Route
   metadata:
-    annotations:
-      openshift.io/host.generated: "true"
-    creationTimestamp: null
     labels:
       app: ${NAME}
     name: ${NAME}
