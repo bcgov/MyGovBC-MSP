@@ -1,5 +1,7 @@
 class Person {
   relationship: string;
+  status: string;
+  currentActivity: string;
   firstname: string;
   lastname: string;
   middlename: string;
