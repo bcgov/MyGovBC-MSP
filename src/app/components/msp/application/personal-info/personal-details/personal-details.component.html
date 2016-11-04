@@ -1,4 +1,4 @@
-<form #formRef='ngForm'>
+<form #formRef='ngForm' novalidate>
 	<div class="row">
 		<div class="col-md-5">
 			<div class="title-container">
@@ -7,13 +7,13 @@
 				<div *ngIf = "person.relationship !== 'Yourself'">
 					<div *ngIf = "person.relationship === 'Spouse'">
 						<button type="button" class="btn btn-default btn-xs" 
-							(click)="removeSpouse(person.relationship)">
+							(click)="removeSpouse()">
 							Remove
 						</button>				
 					</div>
 					<div *ngIf = "person.relationship === 'Child'">
 						<button type="button" class="btn btn-default btn-xs" 
-							(click)="removeChild(person.relationship)">
+							(click)="removeChild()">
 							Remove
 						</button>				
 					</div>
@@ -21,24 +21,35 @@
 			</div>
 			<div class="form-group">
 				<label for="firstname">First name</label>
-				<input type="text" [(ngModel)] = 'person.firstname' name='firstname'
+				<input type="text" [(ngModel)] = 'person.firstname' #usernameRef="ngModel"
+					required minlength="2"
+					id='firstname' name='firstname'
           class="form-control" id="firstname" placeholder="First name">
 			</div>
+
+			<div *ngIf='usernameRef.touched'>
+				<div class="error-message" *ngIf="usernameRef.errors?.required">First name is required</div>
+				<div class="error-message" *ngIf="usernameRef.errors?.minlength">First name must be longer than {{usernameRef.errors?.minlength.requiredLength-1}} characters.</div>
+			</div>
+			<!--<div>{{usernameRef.errors | json}}</div>-->
+
 			<div class="form-group">
 				<label for="lastname">Last name</label>
-				<input type="text" class="form-control" id="lastname" placeholder="Last name">
+				<input type="text" [(ngModel)] = 'person.lastname'
+				class="form-control" id="lastname" name='lastname'
+				placeholder="Last name">
 			</div>
 			<div class="form-group">
 				<label for="DOB">Date of birth</label>
 				<div class="dob-container">
-					<input type="text" class="form-control dob-item" id="dob_month" placeholder="month">
+					<input required type="text" class="form-control dob-item" id="dob_month" placeholder="month">
 					<input type="text" class="form-control dob-item" id="dob_day" placeholder="day">
 					<input type="text" class="form-control dob-item" id="dob_year" placeholder="year">
 				</div>
 			</div>
 		</div>
 		<div class="col-md-7">
-			<h3>Identification documents for {{person.relationship}}</h3>
+			<h3>Identification documents for {{person.relationship | lowercase}}</h3>
 		</div>
 	</div>
 
@@ -74,4 +85,18 @@
 		</div>
 	</div>
 </form>
+
+<!-- switch *ngIf value to true for debugging-->
+<div class="row" *ngIf='false'>
+	<div class="col-md-12">
+		<ul>
+			<li *ngFor = 'let log of changeLog'>
+					{{log | json}}
+			</li>
+		</ul>
+	</div>
+	<div class="col-md-12">
+		<!--{{formRef | json}}-->
+	</div>
+</div>
 <hr>

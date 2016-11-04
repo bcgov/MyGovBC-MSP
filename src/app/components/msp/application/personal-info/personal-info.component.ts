@@ -12,6 +12,10 @@ export class PersonalInfoComponent {
 
   }
 
+  onClick(): void{
+    console.log('child clicked');
+  }
+
   get application(): MspApplication {
     return this.dataService.getApplication();
   }
@@ -34,12 +38,13 @@ export class PersonalInfoComponent {
     return this.dataService.getApplication().children;
   }
 
-  removeChild(id?: string): void{
-    this.dataService.getApplication().removeChild();    
+  removeChild(event: Object, idx: number): void{
+    // console.log('remove child ' + JSON.stringify(event));
+    this.dataService.getApplication().removeChild(idx);    
   }
 
-  removeSpouse(): void{
-    console.log('roger remove spouse');
+  removeSpouse(event: Object): void{
+    // console.log('remove spouse ' + JSON.stringify(event));
     this.dataService.getApplication().removeSpouse();
   }
 }

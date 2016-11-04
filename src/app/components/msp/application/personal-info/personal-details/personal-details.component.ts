@@ -1,4 +1,7 @@
-import { Component, Input, Output, OnChanges, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnChanges, EventEmitter, 
+    SimpleChange, ViewChild, AfterViewInit} from '@angular/core';
+import {FormGroup, NgForm} from '@angular/forms';
+
 import {MspApplication, Person} from '../../application';
 
 require('./personal-details.component.less')
@@ -8,23 +11,50 @@ require('./personal-details.component.less')
 }
 )
 
-export class PersonalDetailsComponent implements OnChanges{
-  @Input() person: Person; 
-  @Output() notifyChildRemoval: EventEmitter<String> = new EventEmitter<string>();
-  @Output() notifySpouseRemoval: EventEmitter<String> = new EventEmitter<string>();
+export class PersonalDetailsComponent implements OnChanges, AfterViewInit{
+  @ViewChild('formRef') form: NgForm;
 
-  ngOnChanges():void {
+  @Input() person: Person; 
+  @Output() notifyChildRemoval: EventEmitter<Person> = new EventEmitter<Person>();
+  @Output() notifySpouseRemoval: EventEmitter<Person> = new EventEmitter<Person>();
+
+  /**
+   * Change log, for debugging purpuse, for input properties on the component
+   */
+  private changeLog: string[] = [];
+
+  /**
+   * propKey is the input property value of this component
+   */
+  ngOnChanges(changes: {[propKey: string]: SimpleChange}){
     console.log('applicant set on details component: ' + JSON.stringify(this.person));
+    this.logPropertyChange(changes);
   }
 
-  removeChild(id?: string): void{
-    console.log('firing removing child: ' + id);
-    this.notifyChildRemoval.emit(id);
+  private logPropertyChange(changes: {[propKey: string]: SimpleChange}): void{
+    let log: string[] = [];
+    for (let propName in changes) {
+      let changedProp = changes[propName];
+      let isFirst = changedProp.isFirstChange();
+      let from = JSON.stringify(changedProp.previousValue);
+      let to =   JSON.stringify(changedProp.currentValue);
+      log.push( `${propName} changed from ${from} to ${to}, is first change: ${isFirst}`);
+    }
+    this.changeLog.push(log.join(', '));    
+  }
+
+  ngAfterViewInit(){
+    this.form.valueChanges.subscribe(value => {
+      // console.table(value);
+    });
+  }
+
+  removeChild(): void{
+    this.notifyChildRemoval.emit(this.person);
+    // this.notifyChildRemoval.next(id);
   }
 
   removeSpouse(): void {
-    console.log('firing removing spouse');
-    
-    this.notifySpouseRemoval.emit('remove spouse event');
+    this.notifySpouseRemoval.emit(this.person);
   }
 }
