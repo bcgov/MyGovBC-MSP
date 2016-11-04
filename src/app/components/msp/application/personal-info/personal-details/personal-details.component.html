@@ -19,25 +19,29 @@
 					</div>
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="firstname">First name</label>
-				<input type="text" [(ngModel)] = 'person.firstname' #usernameRef="ngModel"
+			<div class="form-group" [ngClass]="{'has-error': !formRef.controls.firstname?.valid && firstnameRef.touched}">
+				<label class="control-label" for="firstname">First name</label>
+				<input type="text" [(ngModel)] = 'person.firstname' #firstnameRef="ngModel"
 					required minlength="2"
 					id='firstname' name='firstname'
           class="form-control" id="firstname" placeholder="First name">
 			</div>
 
-			<div *ngIf='usernameRef.touched'>
-				<div class="error-message" *ngIf="usernameRef.errors?.required">First name is required</div>
-				<div class="error-message" *ngIf="usernameRef.errors?.minlength">First name must be longer than {{usernameRef.errors?.minlength.requiredLength-1}} characters.</div>
+			<div *ngIf='firstnameRef.touched'>
+				<div class="text-danger" *ngIf="firstnameRef.errors?.required">First name is required</div>
+				<div class="text-danger" *ngIf="firstnameRef.errors?.minlength">First name must be longer than {{firstnameRef.errors?.minlength.requiredLength-1}} characters.</div>
 			</div>
-			<!--<div>{{usernameRef.errors | json}}</div>-->
 
-			<div class="form-group">
-				<label for="lastname">Last name</label>
-				<input type="text" [(ngModel)] = 'person.lastname'
+			<div class="form-group" [ngClass]="{'has-error': !formRef.controls.lastname?.valid && lastnameRef.touched}">
+				<label class="control-label" for="lastname">Last name</label>
+				<input type="text" [(ngModel)] = 'person.lastname' #lastnameRef="ngModel"
+					required minlength="2"
 				class="form-control" id="lastname" name='lastname'
 				placeholder="Last name">
+			</div>
+			<div *ngIf='lastnameRef.touched'>
+				<div class="text-danger" *ngIf="lastnameRef.errors?.required">Last name is required</div>
+				<div class="text-danger" *ngIf="lastnameRef.errors?.minlength">Last name must be longer than {{lastnameRef.errors?.minlength.requiredLength-1}} characters.</div>
 			</div>
 			<div class="form-group">
 				<label for="DOB">Date of birth</label>
@@ -87,7 +91,7 @@
 </form>
 
 <!-- switch *ngIf value to true for debugging-->
-<div class="row" *ngIf='false'>
+<div class="row" *ngIf='fasle'>
 	<div class="col-md-12">
 		<ul>
 			<li *ngFor = 'let log of changeLog'>
@@ -96,7 +100,8 @@
 		</ul>
 	</div>
 	<div class="col-md-12">
-		<!--{{formRef | json}}-->
+		{{ formRef.controls.firstname?.valid | json}}
+		{{ formRef.controls.firstname?.value | json}}
 	</div>
 </div>
 <hr>
