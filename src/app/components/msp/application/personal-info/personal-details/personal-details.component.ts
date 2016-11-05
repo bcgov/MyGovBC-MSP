@@ -23,13 +23,15 @@ require('./personal-details.component.less')
 
     animations: [
       trigger('shrinkOut', [
-        state('in', style({ display: 'none' })),
+        state('in', style({ display: 'none'})),
         state('out', style({ display: 'block'}))
+        // transition('* => *', animate(500))
       ]),
 
       trigger('shrinkOutStatus', [
         state('in', style({ display: 'none' })),
         state('out', style({ display: 'block'}))
+        // transition('* => *', animate(500))
       ])
       
     ]
@@ -109,6 +111,13 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit {
     this.shrinkOutStatus = 'in';
     this.person.status = st;
   }
+  showStatusList(){
+    this.shrinkOutStatus === 'out' ? this.shrinkOutStatus = 'in' : this.shrinkOutStatus = 'out';
+  }
+
+  get isStatusListShown(){
+    return this.shrinkOutStatus === 'out';
+  }
 
   selectActivity(act: string) {
     this.shrinkOut = 'in';
@@ -116,11 +125,11 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit {
   }
 
   showActivities(){
-    this.shrinkOut = 'out';
+    this.shrinkOut === 'out' ? this.shrinkOut = 'in' : this.shrinkOut = 'out';
   }
 
-  showStatusList(){
-    this.shrinkOutStatus = 'out';
+  get isActivitiesListShown() {
+    return this.shrinkOut === 'out';
   }
   
 }

@@ -62,8 +62,13 @@
 	<div class="row">
 		<!--<h3>Residence, citizenship, Immigration status</h3>-->
 		<div class="col-md-4">
-			<label>Your status in Canada: {{personStatus}}</label>
-			<p><a *ngIf="personStatus" href="javascript:void(0)" (click)="showStatusList()">change</a> </p>	
+			<p>Your status in Canada</p>
+			<h4>{{personStatus}}</h4>
+			<p><a *ngIf="personStatus" href="javascript:void(0)" (click)="showStatusList()">
+					<span *ngIf='isStatusListShown'>Close</span>
+					<span *ngIf='!isStatusListShown'>Change</span>
+				</a> 
+			</p>	
 			<ul class="list-group" [@shrinkOutStatus]="shrinkOutStatus">
 				
 				<li *ngFor="let st of statusInCanada" (click)=selectStatus(st);
@@ -75,9 +80,14 @@
 			</ul>			
 		</div>
 		<div class="col-md-8">
-			<label>What are you doing? 
-				{{activity}}</label>
-			<p><a *ngIf="activity" href="javascript:void(0)" (click)="showActivities()">change</a> </p>	
+			<p>What are you doing? 
+				</p>
+				<h4>{{activity}}</h4>
+			<p><a *ngIf="activity" href="javascript:void(0)" (click)="showActivities()">
+					<span *ngIf='isActivitiesListShown'>Close</span>
+					<span *ngIf='!isActivitiesListShown'>Change</span>
+					</a> 
+			</p>	
 			<ul class="list-group" [@shrinkOut]="shrinkOut">
 				<li *ngFor="let item of activities" (click)=selectActivity(item);
 					class="list-group-item canada-status">
