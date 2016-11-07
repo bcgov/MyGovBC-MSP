@@ -32,8 +32,19 @@ require('./personal-details.component.less')
         state('in', style({ display: 'none' })),
         state('out', style({ display: 'block'}))
         // transition('* => *', animate(500))
-      ])
+      ]),
+
+      trigger('genderListSignal', [
+        state('in', style({ display: 'none' })),
+        state('out', style({ display: 'block'}))
+        // transition('* => *', animate(500))
+      ]),
       
+      trigger('institutionWorkSignal', [
+        state('in', style({ display: 'none' })),
+        state('out', style({ display: 'block'}))
+        // transition('* => *', animate(500))
+      ])
     ]
     
   }
@@ -48,6 +59,11 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit {
 
   shrinkOut: string;
   shrinkOutStatus: string;
+  genderListSignal: string;
+  institutionWorkSignal: string;
+
+  genders: string[] = ['Male', 'Female'];
+  institutionList: string[] = ['Yes', 'No'];
 
   public statusInCanada: string[] = [
     'Canadian citizen',
@@ -103,6 +119,14 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit {
     return this.person.status;
   }
 
+  get legalGender(): string {
+    return this.person.legalGender;
+  }
+
+  get institutionWorkHistory(): string {
+    return this.person.institutionWorkHistory;
+  }
+
   get activity(): string {
     return this.person.currentActivity;
   }
@@ -111,6 +135,7 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit {
     this.shrinkOutStatus = 'in';
     this.person.status = st;
   }
+
   showStatusList(){
     this.shrinkOutStatus === 'out' ? this.shrinkOutStatus = 'in' : this.shrinkOutStatus = 'out';
   }
@@ -130,6 +155,32 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit {
 
   get isActivitiesListShown() {
     return this.shrinkOut === 'out';
+  }
+
+  selectGender(gender: string){
+    this.genderListSignal = 'in';
+    this.person.legalGender = gender;
+  }
+
+  toggleGenderList(){
+    this.genderListSignal === 'out' ? this.genderListSignal = 'in' : this.genderListSignal = 'out';
+  }
+
+  get isGenderListShown(){
+    return this.genderListSignal === 'out';
+  }
+
+  selectInstitution(history: string) {
+    this.institutionWorkSignal = 'in';
+    this.person.institutionWorkHistory = history;
+  }
+
+  toggleInstituationList() {
+    this.institutionWorkSignal === 'out' ? this.institutionWorkSignal = 'in' : this.institutionWorkSignal = 'out';    
+  }
+
+  get isInstitutionListShown() {
+    return this.institutionWorkSignal === 'out';
   }
   
 }

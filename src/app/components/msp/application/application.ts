@@ -3,13 +3,19 @@ class Person {
   status: string;
   currentActivity: string;
   firstname: string;
-  lastname: string;
   middlename: string;
-  gender: string
+  lastname: string;
+  legalGender: string
   dob_day: number;
   dob_month: number;
   dob_year: number;
+
+  arrival_day: number;
+  arrival_month: number;
+  arrival_year: number;
+
   previous_phn: string;
+  institutionWorkHistory: string;
 
   constructor(rel: string){
     this.relationship = rel;

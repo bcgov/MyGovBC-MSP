@@ -8,26 +8,23 @@
   }
 } 
 
-.dob-container {
+.dates-container {
   display: flex;
   width: 18em;
   justify-content: space-around;
   flex-wrap:wrap;
 
-
+  input:nth-child(1){
+    width: 5em;
+  }
+  input:nth-child(2){
+    width: 4em;
+  }
+  input:nth-child(3){
+    width: 6em;
+  }
 }
 
-.dob-container input:nth-child(1){
-  width: 5em;
-
-}
-.dob-container input:nth-child(2){
-  width: 4em;
-
-}
-.dob-container input:nth-child(3){
-  width: 6em;
-}
 
 .title-container {
   display:flex; 
@@ -54,13 +51,17 @@
 }
 
 
-li.canada-status:hover {
-  border-left: 3px solid #003366;
+li.msp-list-group-item:hover {
+  border-left: 3px solid #388E3C;
   cursor: pointer;
 }
-li.canada-status:hover > span{
+li.msp-list-group-item:hover > span{
     /*background-color: #003366;*/
     /*border: 2px solid #003366;*/
     /*color: floralwhite;*/
+}
+
+.msp-selection {
+  color: #388E3C
 }
 
