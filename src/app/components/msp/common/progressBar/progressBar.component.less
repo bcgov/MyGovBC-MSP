@@ -1,0 +1,105 @@
+@import "../../../../styles/variables.less";
+
+.progressBar {
+  text-align: left;
+}
+
+.progressBar ul {
+  list-style: none;
+  display: inline-table;
+  padding: 0px;
+}
+.progressBar ul li {
+  display: inline;
+  font-weight: 600;
+}
+
+.progressBar .beforeActive {
+  background: #C8DCFD;
+}
+
+.progressBar .beforeActive:after {
+  content: "";
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid #C8DCFD;
+  position: absolute; right: -20px; top: 0;
+  z-index: 1;
+}
+
+.progressBar .active {
+  background: #FBE78C;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+
+.progressBar .active:after {
+  content: "";
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid #FBE78C;
+  position: absolute; right: -20px; top: 0;
+  z-index: 1;
+}
+
+.progressBar .afterActive {
+  background: #E3E4E5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.progressBar .afterActive:after {
+  content: "";
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid #E3E4E5;
+  position: absolute; right: -20px; top: 0;
+  z-index: 1;
+}
+
+.progressBar ul li a {
+  display: block;
+  float: left;
+  height: 40px;
+  text-align: center;
+  padding: 7px 40px 0 40px;
+  position: relative;
+  margin: 0 10px 0 0;
+
+  font-size: @font-size-h3;
+  text-decoration: none;
+  color: black;
+}
+
+.progressBar ul li a:before {
+  content: "";
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid #fff;
+  position: absolute; left: 0; top: 0;
+}
+
+.progressBar ul li:first-child a {
+  border-top-left-radius: 0px; border-bottom-left-radius: 0px;
+}
+.progressBar ul li:first-child a:before {
+  display: none;
+}
+
+.progressBar ul li:last-child a {
+  padding-right: 20px;
+  border-top-right-radius: 0px; border-bottom-right-radius: 0px;
+}
+.progressBar ul li:last-child a:after {
+  display: none;
+}
+
+.progressBar ul li a:hover {
+  background: @brand-primary;
+  color: #fff;
+}
+.progressBar ul li a:hover:after {
+  border-left-color: @brand-primary;
+  color: #fff;
+}
