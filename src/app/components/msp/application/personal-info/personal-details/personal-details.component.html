@@ -3,7 +3,6 @@
 		<div class="col-md-5">
 			<div class="title-container">
 				<h1>{{person.relationship}}</h1>
-				<!--<span style="margin-top: 28px; margin-left: 2em;">Remove</span>-->
 				<div *ngIf = "person.relationship !== 'Yourself'">
 					<div *ngIf = "person.relationship === 'Spouse'">
 						<button type="button" class="btn btn-default btn-xs" 
@@ -19,6 +18,13 @@
 					</div>
 				</div>
 			</div>
+			<div>
+				<span class="glyphicon glyphicon-exclamation-sign" style="color:#d9534f"></span>
+				<span class="msp-fine-print">
+					Please enter legal names as they appear on the ID you will be providing.
+				</span>
+			</div>
+			
 			<div class="form-group" [ngClass]="{'has-error': !formRef.controls.firstname?.valid && firstnameRef.touched}">
 				<label class="control-label" for="firstname">First Name</label>
 				<input type="text" [(ngModel)] = 'person.firstname' #firstnameRef="ngModel"
