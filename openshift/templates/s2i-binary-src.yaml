@@ -1,0 +1,139 @@
+apiVersion: v1
+kind: Template
+metadata:
+  annotations:
+    description: A static html5 application from binary source input served by nginx
+    tags: instant-app,nginx
+  name: mygovbc-client
+objects:
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      description: Keeps track of changes in the application image
+    name: ${NAME}
+- annotations:
+    description: Defines how to build the application
+  apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    labels:
+      app: ${NAME}
+    name: ${NAME}
+  spec:
+    source:
+      type: Binary
+    strategy:
+      type: Source
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: ${BUILDER_IMAGE_NAME}:latest
+          namespace: ${BUILDER_IMAGE_NAMESPACE}
+        incremental: false
+    output:
+      to:
+        kind: ImageStreamTag
+        name: ${NAME}:latest
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    creationTimestamp: null
+    labels:
+      app: ${NAME}
+    name: ${NAME}
+  spec:
+    replicas: 2
+    selector:
+      app: ${NAME}
+      deploymentconfig: ${NAME}
+    strategy:
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: ${NAME}
+          deploymentconfig: ${NAME}
+      spec:
+        containers:
+        - image: ${NAME}
+          imagePullPolicy: Always
+          name: ${NAME}
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - ${NAME}
+        from:
+          kind: ImageStreamTag
+          name: ${NAME}:latest
+      type: ImageChange
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: null
+    labels:
+      app: ${NAME}
+    name: ${NAME}
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: ${NAME}
+      deploymentconfig: ${NAME}
+    sessionAffinity: None
+    type: ClusterIP
+- apiVersion: v1
+  kind: Route
+  metadata:
+    labels:
+      app: ${NAME}
+    name: ${NAME}
+  spec:
+    host: ${APPLICATION_DOMAIN}
+    port:
+      targetPort: 8080-tcp
+    tls:
+      insecureEdgeTerminationPolicy: Redirect
+      termination: edge
+    to:
+      kind: Service
+      name: ${NAME}
+      weight: 100
+parameters:
+- description: The name assigned to all of the openshift objects defined in this template.
+  displayName: Name
+  name: NAME
+  required: true
+  value: mygovbc-client
+- description: The exposed hostname that will route to the MyGovBC service, if left
+    blank a value will be defaulted.
+  displayName: Application Hostname
+  name: APPLICATION_DOMAIN
+- description: Builder image name.
+  displayName: Builder Image
+  name: BUILDER_IMAGE_NAME
+  required: true
+  value: s2i-nginx
+- description: Project containing the builder image.
+  displayName: Builder Image Namespace
+  name: BUILDER_IMAGE_NAMESPACE
