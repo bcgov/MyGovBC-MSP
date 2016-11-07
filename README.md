@@ -164,7 +164,7 @@ To facilitate building a multilingual site, i18n and markdown are supported by t
     lang = require('./i18n')
   }
   ```
-5. Use the static content in your HTML template:
+5. Use the translated static content in your HTML template:
 
   ```
    {{lang('./en/index').newApp}}
