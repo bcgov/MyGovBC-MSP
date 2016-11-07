@@ -1,12 +1,12 @@
 <div class="container">
-    <h1>This is just a page for dev purposes to jump into these flows:</h1>
-    <button class="btn btn-primary btn-lg" routerLink="/msp/application/prepare">
-        Start a New Application
-    </button>
-    <button class="btn btn-primary btn-lg" routerLink="/msp/assistance/prepare">
-        Apply for Premium Assistance
-    </button>
-    <button class="btn btn-primary btn-lg" routerLink="/msp/name/prepare" routerLinkActive="false">
-        Change Your Name
-    </button>
+  <div [innerHTML]="lang('./en/desc.md')"></div>
+  <button class="btn btn-primary btn-lg" routerLink="/msp/application/prepare">
+    {{lang('./en/index').newApp}}
+  </button>
+  <button class="btn btn-primary btn-lg" routerLink="/msp/assistance/prepare">
+    {{lang('./en/index').pa}}
+  </button>
+  <button class="btn btn-primary btn-lg" routerLink="/msp/name/prepare" routerLinkActive="false">
+    Change Your Name
+  </button>
 </div>

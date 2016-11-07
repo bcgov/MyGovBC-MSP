@@ -50,7 +50,9 @@ module.exports = function (_path) {
           loaders: [
             'html'
           ]
-        }, {
+        },
+        {test: /\.md$/, loader: "html!markdown"},
+        {
           test: /\.css$/,
           loaders: [
             'style-loader',
