@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import {MspComponent} from './msp.component';
 import {LandingComponent} from './landing/landing.component';
 import {MspAddressComponent} from './common/address/address.component';
+import {MspProgressBarComponent} from './common/progressBar/progressBar.component';
 
 import MspApplicationDataService from './application/application-data.service';
 import {ApplicationComponent} from './application/application.component';
@@ -98,6 +99,7 @@ import {AssistancePrepareComponent} from './assistance/prepare/prepare.component
         MspComponent,
         LandingComponent,
         MspAddressComponent,
+        MspProgressBarComponent,
 
         // Application
         ApplicationComponent,
