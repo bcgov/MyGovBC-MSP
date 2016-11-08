@@ -48,3 +48,5 @@ The deployment consists of these steps
    ```
 
 The last step can be easily automated using Jenkins to enable CI.
+
+If everything goes well, you will be able to access the web app using the URL provided in the Overview page of OpenShift project.
