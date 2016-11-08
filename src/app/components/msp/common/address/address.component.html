@@ -1,22 +1,22 @@
 <form>
     <div class="row">
         <div class="form-group col-sm-5">
-            <label for="street">Street</label>
+            <label for="street" [innerHtml]="lang('./en/index.js').streetLabel"></label>
             <input type="text" class="form-control" id="street" required>
 
         </div>
         <div class="form-group col-sm-4">
-            <label for="city">City</label>
+            <label for="city" [innerHtml]="lang('./en/index.js').cityLabel"></label>
             <input type="text" class="form-control" id="city" required>
         </div>
         <div class="form-group col-sm-3">
-            <label for="postalCode">Postal Code</label>
+            <label for="postalCode" [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
             <input type="text" class="form-control" id="postalCode" required>
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-12">
-            Is your <strong>mailing address</strong> the same as above?
+            <span [innerHtml]="lang('./en/index.js').mailingAddressSameQuestion"></span>
             <div class="btn-group" role="group">
                 <button [class.btn-info]="!mailingAddressDifferent" (click)="useSameMailingAddress()" [disabled]="!mailingAddressDifferent" type="button" class="btn btn-default" >Yes</button>
                 <button [class.btn-info]="mailingAddressDifferent" (click)="useDifferentMailingAddress()" [disabled]="mailingAddressDifferent" type="button" class="btn btn-default">No&nbsp;</button>
@@ -25,20 +25,20 @@
     </div>
 </form>
 <div [hidden]="!mailingAddressDifferent">
-<h1>Mailing Address</h1>
+<h1 [innerHtml]="lang('./en/index.js').mailingAddressHeading"></h1>
     <form>
         <div class="row">
             <div class="form-group col-sm-5">
-                <label for="mailingStreet">Street</label>
+                <label for="mailingStreet" [innerHtml]="lang('./en/index.js').streetLabel"></label>
                 <input type="text" class="form-control" id="mailingStreet">
 
             </div>
             <div class="form-group col-sm-4">
-                <label for="mailignCity">City</label>
-                <input type="text" class="form-control" id="mailignCity">
+                <label for="mailingCity" [innerHtml]="lang('./en/index.js').cityLabel"></label>
+                <input type="text" class="form-control" id="mailingCity">
             </div>
             <div class="form-group col-sm-3">
-                <label for="mailingPostalCode">Postal Code</label>
+                <label for="mailingPostalCode" [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
                 <input type="text" class="form-control" id="mailingPostalCode">
             </div>
         </div>

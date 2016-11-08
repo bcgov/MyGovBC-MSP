@@ -5,6 +5,8 @@ require('./address.component.less')
   templateUrl: './address.component.html'
 })
 export class MspAddressComponent {
+    lang = require('./i18n');
+
     mailingAddressDifferent: boolean;
 
     constructor(@Inject('appConstants') appConstants: Object) {
