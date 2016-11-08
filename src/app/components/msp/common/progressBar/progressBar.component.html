@@ -7,7 +7,8 @@
                        [class.beforeActive]="isBeforeActiveRoute(item.routerLink)"
                        [class.active]="isActiveRoute(item.routerLink)"
                        [class.afterActive]="isAfterActiveRoute(item.routerLink)">
-                        {{itemNum + 1}} {{item.displayName}}
+                        <span>{{itemNum + 1}}</span>
+                        <span [class.hidden-xs]="!isActiveRoute(item.routerLink)">{{item.displayName}}</span>
                     </a>
                 </li>
             </ul>
