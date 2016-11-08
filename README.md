@@ -134,10 +134,10 @@ cd <path to>\MyGovBC-core-client\
 lb-ng <path to>\MyGovBC-core-server\server\server.js src\app\core\services\lb-services.js
 ```
 
-## i18n and markdown Support
+## i18n and Markdown Support
 To facilitate building a multilingual site, i18n and markdown are supported by the webpack build framework. To promote modularization, there is no global folder to hold static content translations; instead, each Angular component can easily enable i18n and markdown static content editing feature by following 5 simple steps:
 
-1. create folder *i18n* under each component that needs i18n using a similar folder structure as *src/app/components/msp/landing/i18n*
+1. create folder *i18n* under each component that needs i18n using a similar folder structure as */src/app/components/msp/landing/i18n*
 2. create static English content in *i18n/data/en*. You can use various formats:
   * for short phrase type of content, create it in .js file in json format:
   
@@ -155,7 +155,7 @@ To facilitate building a multilingual site, i18n and markdown are supported by t
     [//]: # (content of src/app/components/msp/landing/i18/data/en/desc.md)
     # This is just a page for dev purposes to jump into these flows:
     ```
-3. translate the content into other languages under folder *i18n/data/\<lang\>*, preserving sub-folder structure. For example, French translation would be under *i18n/data/fr*.
+3. (optional) translate the content into other languages under folder *i18n/data/\<lang\>*, preserving sub-folder structure. For example, French translation would be under *i18n/data/fr*.
 4. Require *i18n* folder in your component:
 
   ```
@@ -172,6 +172,8 @@ To facilitate building a multilingual site, i18n and markdown are supported by t
   ```
   
   in the above example, language code *en* is hard-coded. Depending on how do you capture user's language choice, be it implicitly from browser header detection or via URL path that user explicitly selected, the language code should be replaced with a variable.
+
+The component */src/app/components/msp/landing/* has the reference implementation of i18n and markdown.
 
 ## License
 
