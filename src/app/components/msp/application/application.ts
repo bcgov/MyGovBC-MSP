@@ -17,6 +17,8 @@ class Person {
   previous_phn: string;
   institutionWorkHistory: string;
 
+  stayForSixMonthsOrLonger:boolean = true;
+
   constructor(rel: string){
     this.relationship = rel;
   }

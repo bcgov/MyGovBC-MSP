@@ -9,20 +9,17 @@ import DataService from '../application-data.service';
 })
 @Injectable()
 export class PrepareComponent {
-    staying: boolean;
     constructor(private dataService: DataService){
-        this.staying = true;
     }
-
     isStaying() {
-        this.staying = true;
+        return this.dataService.getApplication().applicant.stayForSixMonthsOrLonger;
     }
     isNotStaying() {
-        this.staying = false;
+        this.dataService.getApplication().applicant.stayForSixMonthsOrLonger = false;;
     }
 
-  get applicant(): Person {
-    return this.dataService.getApplication().applicant;
-  }
+    get applicant(): Person {
+        return this.dataService.getApplication().applicant;
+    }
 
 }

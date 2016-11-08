@@ -3,6 +3,8 @@
     <button [class.btn-info]="staying" (click)="isStaying()" [disabled]="staying" type="button" class="btn btn-default" >Yes</button>
     <button [class.btn-info]="!staying" (click)="isNotStaying()" [disabled]="!staying" type="button" class="btn btn-default">No&nbsp;</button>
 </div>
+
+<msp-personal-details [person]="applicant"></msp-personal-details>
 <hr>
 
 <div class="row">
