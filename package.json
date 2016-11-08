@@ -24,7 +24,7 @@
     "angular2-template-loader": "^0.4.0",
     "assets-webpack-plugin": "^3.2.0",
     "async": "^2.0.1",
-    "autoprefixer-core": "^5.2.1",
+    "autoprefixer": "^6.0.0",
     "awesome-typescript-loader": "^2.2.4",
     "baggage-loader": "^0.2.4",
     "bootstrap": "^3.3.6",
