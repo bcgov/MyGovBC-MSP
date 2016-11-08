@@ -1,20 +1,17 @@
-<h1>Your Current Address</h1>
-<p class="help-block">To qualify for health care, you must live in British Columbia.</p>
+<h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
+<p class="help-block" [innerHTML]="lang('./en/index.js').helpBlock"></p>
 <msp-address></msp-address>
-
-<h1>Your Phone Number</h1>
 <form>
     <div class="row">
         <div class="form-group col-sm-5">
-            <label for="phone">Phone</label>
+            <label for="phone" [innerHTML]="lang('./en/index.js').phoneLabel"></label>
             <input type="tel" class="form-control" id="phone">
-
         </div>
     </div>
 </form>
-<!--<hr>-->
 <div class="row">
     <div class="col-xs-2 col-xs-offset-9">
-        <button class="btn btn-primary" type="submit" routerLink="/msp/application/review">Continue</button>
+        <button class="btn btn-primary" type="submit" routerLink="/msp/application/review"
+            [innerHTML]="lang('./en/index.js').continueButton"></button>
     </div>
 </div>
