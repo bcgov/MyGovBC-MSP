@@ -2,12 +2,12 @@
     <nav>
         <div class="progressBar">
             <ul>
-                <li *ngFor="let item of progressBarList">
+                <li *ngFor="let item of progressBarList; let itemNum = index">
                     <a routerLink="{{item.routerLink}}"
                        [class.beforeActive]="isBeforeActiveRoute(item.routerLink)"
                        [class.active]="isActiveRoute(item.routerLink)"
                        [class.afterActive]="isAfterActiveRoute(item.routerLink)">
-                        {{item.displayName}}
+                        {{itemNum + 1}} {{item.displayName}}
                     </a>
                 </li>
             </ul>

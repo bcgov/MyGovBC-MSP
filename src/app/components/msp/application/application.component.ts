@@ -12,9 +12,9 @@ require('./application.component.less');
 
 export class ApplicationComponent {
     public applicationProgressBarList: Array<MspProgressBarItem> = [
-        new MspProgressBarItem("1 Prepare", "/msp/application/prepare"),
-        new MspProgressBarItem("2 Personal Info", "/msp/application/personal-info"),
-        new MspProgressBarItem("3 Address", "/msp/application/address"),
-        new MspProgressBarItem("4 Review & Submit", "/msp/application/review")
+        new MspProgressBarItem("Prepare", "/msp/application/prepare"),
+        new MspProgressBarItem("Personal Info", "/msp/application/personal-info"),
+        new MspProgressBarItem("Address", "/msp/application/address"),
+        new MspProgressBarItem("Review & Submit", "/msp/application/review")
     ];
 }
