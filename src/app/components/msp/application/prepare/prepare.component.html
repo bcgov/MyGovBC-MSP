@@ -1,14 +1,59 @@
-<h1>Are you planning to stay in BC for the next 6 months or longer?</h1>
+<h1>See if you qualify for public health care insurance in BC</h1>
+
+<h2>Do you currently live in British Columnbia (i.e. Do you have an address here)?</h2>
 <div class="btn-group" role="group">
-    <button [class.btn-info]="staying" (click)="isStaying()" [disabled]="staying" type="button" class="btn btn-default" >Yes</button>
-    <button [class.btn-info]="!staying" (click)="isNotStaying()" [disabled]="!staying" type="button" class="btn btn-default">No&nbsp;</button>
+    <button [class.btn-info]="liveInBC === true" (click)="setLiveInBC(true)" 
+        type="button" class="btn btn-default" >Yes</button>
+    <button [class.btn-info]="liveInBC === false" (click)="setLiveInBC(false)" 
+        type="button" class="btn btn-default">No&nbsp;</button>
 </div>
 
-<msp-personal-details [person]="applicant"></msp-personal-details>
+<div *ngIf="liveInBC === true">
+    <h2>Are you planning to stay in BC for the next 6 months or longer?</h2>
+    <div class="btn-group" role="group">
+        <button [class.btn-info]="stayLonger === true" (click)="setStayLonger(true)" 
+            type="button" class="btn btn-default" >Yes</button>
+        <button [class.btn-info]="stayLonger === false" (click)="setStayLonger(false)" 
+            type="button" class="btn btn-default">No&nbsp;</button>
+    </div>
+
+    <div *ngIf="stayLonger === true">
+        <h2>Are you planning to be away from British Columbia for longer than 30 days in the next 6 months?</h2>
+        <div class="btn-group" role="group">
+            <button [class.btn-info]="plannedAbsence === true" (click)="setPlannedAbsense(true)" 
+                type="button" class="btn btn-default" >Yes</button>
+            <button [class.btn-info]="plannedAbsence === false" (click)="setPlannedAbsense(false)" 
+                type="button" class="btn btn-default">No&nbsp;</button>
+        </div>
+
+        <h3 class="text-danger" *ngIf="plannedAbsence === true">
+            You cannot be away from BC for more than 30 days during the first 6 months.
+        </h3>
+        <div *ngIf="plannedAbsence === false">
+            <h3>
+                You are eligible for BC public health care insurance, this insurance is also known as BC Medical Service Plan (MSP).
+            </h3>
+            <h4>
+                Click the continue button below to complete the rest of your application.
+            </h4>
+        </div>
+    </div>
+
+    <div *ngIf="stayLonger === false">
+        <h3 class="text-danger">You must be planning to live in BC for at least 6 months in order to qualify for public health care insurance</h3>
+    </div>    
+</div>
+
+<h3 *ngIf="liveInBC === false" class="text-danger">
+    You must currently live in BC in order to apply for public health insurance here.
+</h3>
+
 <hr>
 
 <div class="row">
     <div class="col-xs-2 col-xs-offset-9">
-        <button class="btn btn-primary" type="submit" routerLink="/msp/application/personal-info">Continue</button>
+        <button class="btn btn-primary" 
+            [disabled] = "!(plannedAbsence === false && stayLonger === true && liveInBC === true)"
+            type="submit" routerLink="/msp/application/personal-info">Continue</button>
     </div>
 </div>

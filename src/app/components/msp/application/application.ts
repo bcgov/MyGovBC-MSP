@@ -17,7 +17,23 @@ class Person {
   previous_phn: string;
   institutionWorkHistory: string;
 
-  stayForSixMonthsOrLonger:boolean = true;
+  /**
+   * This property is for storing user provided answer to the following question: 
+   * Do you currently live in BC?
+   */
+  liveInBC:boolean;
+
+  /**
+   * This property is for storing user provided answer to the following question: 
+   * Are you planning to stay for six months or longer
+   */
+  stayForSixMonthsOrLonger:boolean;
+
+  /**
+   * This property is for storing user provided answer to the following question: 
+   * Are you planning to leave BCfor longer than 30 days in the next six months?
+   */
+  plannedAbsence:boolean;
 
   constructor(rel: string){
     this.relationship = rel;

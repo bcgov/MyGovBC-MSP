@@ -65,6 +65,7 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit {
   genders: string[] = ['Male', 'Female'];
   institutionList: string[] = ['Yes', 'No'];
 
+
   public statusInCanada: string[] = [
     'Canadian citizen',
     'Permanent resident',
