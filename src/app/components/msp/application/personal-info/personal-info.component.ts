@@ -8,6 +8,8 @@ require('./personal-info.component.less')
 })
 @Injectable()
 export class PersonalInfoComponent {
+  lang = require('./i18n');
+
   constructor(private dataService: DataService){
 
   }

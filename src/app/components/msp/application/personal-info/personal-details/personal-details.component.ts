@@ -65,6 +65,7 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit {
   genders: string[] = ['Male', 'Female'];
   institutionList: string[] = ['Yes', 'No'];
 
+  lang = require('./i18n');
 
   public statusInCanada: string[] = [
     'Canadian citizen',

@@ -6,36 +6,38 @@
 				<div *ngIf = "person.relationship !== 'Yourself'">
 					<div *ngIf = "person.relationship === 'Spouse'">
 						<button type="button" class="btn btn-default btn-xs" 
-							(click)="removeSpouse()">
-							Remove
+							(click)="removeSpouse()"
+                                [innerHTML]="lang('./en/index.js').removeSpouseButton">
 						</button>				
 					</div>
 					<div *ngIf = "person.relationship === 'Child'">
 						<button type="button" class="btn btn-default btn-xs" 
-							(click)="removeChild()">
-							Remove
+							(click)="removeChild()"
+                                [innerHTML]="lang('./en/index.js').removeChildButton">
 						</button>				
 					</div>
 				</div>
 			</div>
 			<div>
 				<span class="glyphicon glyphicon-exclamation-sign" style="color:#d9534f"></span>
-				<span class="msp-fine-print">
-					Please enter legal names as they appear on the ID you will be providing.
+				<span class="msp-fine-print" [innerHTML]="lang('./en/index.js').namesHelpBlock">
 				</span>
 			</div>
 			
 			<div class="form-group" [ngClass]="{'has-error': !formRef.controls.firstname?.valid && firstnameRef.touched}">
-				<label class="control-label" for="firstname">First Name</label>
+				<label class="control-label" for="firstname"
+                       [innerHTML]="lang('./en/index.js').firstNameLabel"></label>
 				<input type="text" [(ngModel)] = 'person.firstname' #firstnameRef="ngModel"
 					required minlength="2"
 					id='firstname' name='firstname'
-          class="form-control" id="firstname" placeholder="First name">
+                    class="form-control" id="firstname">
 			</div>
 
 			<div *ngIf='firstnameRef.touched'>
-				<div class="text-danger" *ngIf="firstnameRef.errors?.required">First name is required</div>
-				<div class="text-danger" *ngIf="firstnameRef.errors?.minlength">First name must be longer than {{firstnameRef.errors?.minlength.requiredLength-1}} characters.</div>
+				<div class="text-danger" *ngIf="firstnameRef.errors?.required"
+                     [innerHTML]="lang('./en/index.js').firstNameRequired"></div>
+				<div class="text-danger" *ngIf="firstnameRef.errors?.minlength"
+                     [innerHTML]="lang('./en/index.js').firstNameLength"></div>
 			</div>
 
 			<div class="form-group" [ngClass]="{'has-error': !formRef.controls.middlename?.valid && middlenameRef.touched}">
