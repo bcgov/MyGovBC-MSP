@@ -1,11 +1,16 @@
 @import "../../../styles/variables.less";
 
 .title {
-  font-size: 20px;
+  font-size: 30px;
   font-weight: bold;
   color: #fff;
-  padding-top: 18px;
+  top: 7px;
+  position: relative;
   white-space: nowrap;
+
+  @media (max-width: @screen-xs) {
+    font-size: 14px;
+  }
 }
 
 // Header
@@ -27,8 +32,8 @@ header {
   margin-right: 18px;
 
   @media (max-width: 767px) {
-    width: 125px;
-    height: 35px;
+    width: 110px;
+    height: 30px;
   }
 
 }
