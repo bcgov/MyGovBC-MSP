@@ -1,12 +1,28 @@
 <div>
   <form novalidate>
-    <label class='btn btn-primary'>Upload a file
+    <!--<label class='btn btn-primary'>Upload a file
       <input type="file" id="fileUpload" accept="image/*;capture=camera" 
         (change)="onChange($event)"/>  
-    </label>
+    </label>-->
+    <div style="position:relative;">
+      <div id="dropbox" style="width: 200px; height: 200px; border: 2px dashed grey;">
 
+      </div>
+      <div id="dropbox" style="width: 200px; height: 60px;">
+        <input type="file" id="fileUpload" accept="image/*" capture="camera" style="display:none;"
+          (change)="onChange($event)"/>  
+        <label for="fileUpload" class='btn btn-primary btn-sm'>Choose a file to upload</label>
+      </div>
+    </div>
+    <br/>
+    <!--<img *ngIf="trustedUrl" [src]="imageUrl" alt="" height="40px" #imgRef
+      (load)="onLoad($event)">-->
+      <img height="40px" #imgRef>
+
+    <div>
+      <p *ngIf="fileSize" class="text-muted">Size of selected file: {{fileSize}} {{fileSizeUnit}}</p>
+      <span *ngIf="fileName" class="text-muted">{{fileName}}</span>
+      <p *ngIf="fileSizeError" class="text-muted">{{fileSizeError}}</p>
+    </div>
   </form>
-
-  <img [src]="imageUrl" alt="" height="80px" #imgRef
-    (load)="onLoad($event)">
 </div>
