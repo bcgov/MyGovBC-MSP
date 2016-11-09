@@ -10,10 +10,12 @@ require('./assistance.component.less');
   templateUrl: './assistance.component.html'
 })
 export class AssistanceComponent {
+  lang = require('./i18n');
+
   public assistanceProgressBarList: Array<MspProgressBarItem> = [
-    new MspProgressBarItem("Check Eligibility", "/msp/assistance/prepare"),
-    new MspProgressBarItem("Personal & Contact Info", "/msp/application/personal-info"),
-    new MspProgressBarItem("Review", "/msp/application/review"),
-    new MspProgressBarItem("Authorize & Submit", "/msp/application/authorize-submit")
+    new MspProgressBarItem(this.lang("./en/index.js").progressStep1, "/msp/assistance/prepare"),
+    new MspProgressBarItem(this.lang("./en/index.js").progressStep2, "/msp/assistance/personal-info"),
+    new MspProgressBarItem(this.lang("./en/index.js").progressStep3, "/msp/assistance/review"),
+    new MspProgressBarItem(this.lang("./en/index.js").progressStep4, "/msp/assistance/authorize-submit")
   ];
 }

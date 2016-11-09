@@ -1,1 +1,23 @@
-<h1>Authorize and Submit</h1>
+<h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
+<p class="helpblock" [innerHTML]="lang('./en/index.js').helpBlock"></p>
+<h2 [innerHTML]="lang('./en/index.js').declarationAndConsentTitle"></h2>
+<p [innerHTML]="lang('./en/declaration.md')"></p>
+<form>
+    <div class="strong" [innerHTML]="lang('./en/index.js').doYouAgreeLabel.replace('{name}', '[First Name] [Last Name]')"></div>
+    <div class="checkbox checkbox-success checkbox-inline">
+        <input class="input-lg" id="firstPersonAuthorize" type="checkbox">
+        <label for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+    </div>
+    <br><br>
+    <div class="strong" [innerHTML]="lang('./en/index.js').doYouAgreeLabel.replace('{name}', '[First Name] [Last Name]')"></div>
+    <div class="checkbox checkbox-success checkbox-inline">
+        <input class="input-lg" id="secondPersonAuthorize" type="checkbox">
+        <label for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+    </div>
+</form>
+<div class="row">
+    <div class="col-xs-2 col-xs-offset-9">
+        <button class="btn btn-primary" type="submit" routerLink="/msp/assistance/review"
+                [innerHTML]="lang('./en/index.js').continueButton"></button>
+    </div>
+</div>

@@ -4,5 +4,5 @@ import { Component } from '@angular/core';
   templateUrl: './authorize-submit.component.html'
 })
 export class AssistanceAuthorizeSubmitComponent {
-
+  lang = require('./i18n');
 }
