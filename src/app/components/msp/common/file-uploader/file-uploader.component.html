@@ -1,3 +1,12 @@
 <div>
-  <p>This is your file uploader</p>
+  <form novalidate>
+    <label class='btn btn-primary'>Upload a file
+      <input type="file" id="fileUpload" accept="image/*;capture=camera" 
+        (change)="onChange($event)"/>  
+    </label>
+
+  </form>
+
+  <img [src]="imageUrl" alt="" height="80px" #imgRef
+    (load)="onLoad($event)">
 </div>

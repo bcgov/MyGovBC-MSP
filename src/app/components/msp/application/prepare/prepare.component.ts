@@ -36,7 +36,6 @@ export class PrepareComponent {
 
     setPlannedAbsense(leave: boolean){
         this.apt.plannedAbsence = leave;
-        console.log('plannedAbsence set to ' + this.apt.plannedAbsence);
     }
 
     get applicant(): Person {

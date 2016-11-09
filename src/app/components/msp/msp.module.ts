@@ -1,4 +1,6 @@
 import {NgModule, Injectable} from '@angular/core';
+import {BrowserModule}  from '@angular/platform-browser'
+
 import {RouterModule} from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -17,6 +19,8 @@ import {DocumentsComponent} from './application/documents/documents.component';
 import {AddressComponent} from './application/address/address.component';
 import {ReviewComponent} from './application/review/review.component';
 import {ConfirmationComponent} from './application/confirmation/confirmation.component';
+import {FileUploaderComponent} from './common/file-uploader/file-uploader.component';
+
 
 import {AssistanceComponent} from './assistance/assistance.component';
 import {AssistancePrepareComponent} from './assistance/prepare/prepare.component';
@@ -27,6 +31,7 @@ import {AssistancePrepareComponent} from './assistance/prepare/prepare.component
  */
 @NgModule({
     imports: [
+        BrowserModule,
         CommonModule,
         FormsModule,
         RouterModule.forChild([
@@ -100,6 +105,7 @@ import {AssistancePrepareComponent} from './assistance/prepare/prepare.component
         LandingComponent,
         MspAddressComponent,
         MspProgressBarComponent,
+        FileUploaderComponent,
 
         // Application
         ApplicationComponent,
