@@ -71,6 +71,8 @@ To facilitate building a multilingual site, i18n and markdown are supported by t
     [//]: # (content of src/app/components/msp/landing/i18/data/en/desc.md)
     # This is just a page for dev purposes to jump into these {page_count} flows:
     ```
+    Notice there is a placeholder {page_count}. The delimiter {} is flexible. We are going to replace it later on.
+    
 3. (optional) translate the content into other languages under folder *i18n/data/\<lang\>*, preserving sub-folder structure. For example, French translation would be under *i18n/data/fr*.
 4. Require *i18n* folder in your component:
 
@@ -87,7 +89,7 @@ To facilitate building a multilingual site, i18n and markdown are supported by t
    <div [innerHTML]="lang('./en/desc.md').replace('{page_count}',3)"></div>
   ```
   
-  in the above example, language code *en* is hard-coded. Depending on how do you capture user's language choice, be it implicitly from browser header detection or via URL path that user explicitly selected, the language code should be replaced with a variable.
+  In the above example, language code *en* is hard-coded. Depending on how do you capture user's language choice, be it implicitly from browser header detection or via URL path that user explicitly selected, the language code should be replaced with a variable.
   
   Because the output of static content is string, you can implement placeholder in the static content and substitute them with Angular variables easily as shown above for placeholder {page_count}.
   
