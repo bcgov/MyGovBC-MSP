@@ -71,7 +71,7 @@ To facilitate building a multilingual site, i18n and markdown are supported by t
     [//]: # (content of src/app/components/msp/landing/i18/data/en/desc.md)
     # This is just a page for dev purposes to jump into these {page_count} flows:
     ```
-    Notice there is a placeholder {page_count}. The delimiter {} is flexible. We are going to replace it later on.
+    Notice there is a placeholder {page_count}. The delimiter {} is a matter of choice. We are going to substitute the placeholder later on.
     
 3. (optional) translate the content into other languages under folder *i18n/data/\<lang\>*, preserving sub-folder structure. For example, French translation would be under *i18n/data/fr*.
 4. Require *i18n* folder in your component:
