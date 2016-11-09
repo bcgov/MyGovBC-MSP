@@ -25,6 +25,7 @@ import {FileUploaderComponent} from './common/file-uploader/file-uploader.compon
 import {AssistanceComponent} from './assistance/assistance.component';
 import {AssistancePrepareComponent} from './assistance/prepare/prepare.component';
 import {AssistanceAuthorizeSubmitComponent} from './assistance/authorize-submit/authorize-submit.component';
+import {AssistanceConfirmationComponent} from './assistance/confirmation/confirmation.component';
 
 /**
  * The overall progress layout is created based on 'msp-prepare-v3-a.jpeg' in
@@ -96,6 +97,10 @@ import {AssistanceAuthorizeSubmitComponent} from './assistance/authorize-submit/
                             {
                                 path: 'authorize-submit',
                                 component: AssistanceAuthorizeSubmitComponent
+                            },
+                            {
+                                path: 'confirmation',
+                                component: AssistanceConfirmationComponent
                             }
                         ]
                     }
@@ -125,7 +130,8 @@ import {AssistanceAuthorizeSubmitComponent} from './assistance/authorize-submit/
         // Assistance
         AssistanceComponent,
         AssistancePrepareComponent,
-        AssistanceAuthorizeSubmitComponent
+        AssistanceAuthorizeSubmitComponent,
+        AssistanceConfirmationComponent
     ],
 
     providers: [
