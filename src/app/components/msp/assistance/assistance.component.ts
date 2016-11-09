@@ -14,6 +14,6 @@ export class AssistanceComponent {
     new MspProgressBarItem("Check Eligibility", "/msp/assistance/prepare"),
     new MspProgressBarItem("Personal & Contact Info", "/msp/application/personal-info"),
     new MspProgressBarItem("Review", "/msp/application/review"),
-    new MspProgressBarItem("Authorize & Submit", "/msp/application/authorize")
+    new MspProgressBarItem("Authorize & Submit", "/msp/application/authorize-submit")
   ];
 }
