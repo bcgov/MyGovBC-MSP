@@ -1,5 +1,5 @@
 <div class="container">
-  <div [innerHTML]="lang('./en/desc.md')"></div>
+  <div [innerHTML]="lang('./en/desc.md').replace('{page_count}',3)"></div>
   <button class="btn btn-primary btn-lg" routerLink="/msp/application/prepare">
     {{lang('./en/index').newApp}}
   </button>
