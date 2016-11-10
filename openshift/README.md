@@ -46,8 +46,16 @@ The deployment consists of these steps
    $ oc project <yourprojectname>
    $ oc start-build <app_name> --from-dir=dist/ -Fw
    ```
-   where <app_name> is set in previous step with default value mygovbc-client.
+   where \<app_name\> is set in previous step with default value *mygovbc-client*.
 
-The last step can be easily automated using Jenkins to enable CI.
+The last step can be easily automated using Jenkins to enable CI. Jenkins should have same set of CLI listed in prerequisites. If you use default Jenkins hosted by OpenShift, which is recommended, oc is already installed. In such case you only need to install and configure [NodeJS Plugin](https://wiki.jenkins-ci.org/display/JENKINS/NodeJS+Plugin) to meet all prerequisites. 
+
+Proper authorization is needed for Jenkins to launch build. If Jenkins is in the same project \<yourprojectname\>, no further configuration is required. Otherwise, run following command to grant access to Jenkins service account:
+
+```
+oc project <yourprojectname>
+oc policy add-role-to-group edit system:serviceaccount:<jenkins_project>:<jenkins_service_name>
+```
+where \<jenkins_project\> and \<jenkins_service_name\> need to be substituted properly.
 
 If everything goes well, you will be able to access the web app using the URL provided in the Overview page of OpenShift project.
