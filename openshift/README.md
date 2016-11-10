@@ -46,7 +46,7 @@ The deployment consists of these steps
    $ oc project <yourprojectname>
    $ oc start-build <app_name> --from-dir=dist/ -Fw
    ```
-   where <app_name> is set in previous step with default value mygovbc-client.
+   where \<app_name\> is set in previous step with default value *mygovbc-client*.
 
 The last step can be easily automated using Jenkins to enable CI.
 
