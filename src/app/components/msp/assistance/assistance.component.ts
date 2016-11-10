@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MspProgressBarItem } from '../common/progressBar/progressBarDataItem.model';
 
 require('./assistance.component.less');
@@ -18,4 +18,8 @@ export class AssistanceComponent {
     new MspProgressBarItem(this.lang("./en/index.js").progressStep3, "/msp/assistance/review"),
     new MspProgressBarItem(this.lang("./en/index.js").progressStep4, "/msp/assistance/authorize-submit")
   ];
+
+  constructor (@Inject('appConstants') appConstants: any) {
+    appConstants.serviceName = this.lang('./en/index.js').serviceName;
+  }
 }

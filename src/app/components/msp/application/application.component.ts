@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MspProgressBarItem } from '../common/progressBar/progressBarDataItem.model';
 
 require('./application.component.less');
@@ -11,10 +11,17 @@ require('./application.component.less');
 })
 
 export class ApplicationComponent {
-    public applicationProgressBarList: Array<MspProgressBarItem> = [
-        new MspProgressBarItem("Prepare", "/msp/application/prepare"),
-        new MspProgressBarItem("Personal Info", "/msp/application/personal-info"),
-        new MspProgressBarItem("Address", "/msp/application/address"),
-        new MspProgressBarItem("Review & Submit", "/msp/application/review")
-    ];
+
+  lang = require('./i18n');
+
+  public applicationProgressBarList: Array<MspProgressBarItem> = [
+      new MspProgressBarItem(this.lang("./en/index.js").progressStep1, "/msp/application/prepare"),
+      new MspProgressBarItem(this.lang("./en/index.js").progressStep2, "/msp/application/personal-info"),
+      new MspProgressBarItem(this.lang("./en/index.js").progressStep3, "/msp/application/address"),
+      new MspProgressBarItem(this.lang("./en/index.js").progressStep4, "/msp/application/review")
+  ];
+
+  constructor (@Inject('appConstants') appConstants: any) {
+    appConstants.serviceName = this.lang('./en/index.js').serviceName;
+  }
 }
