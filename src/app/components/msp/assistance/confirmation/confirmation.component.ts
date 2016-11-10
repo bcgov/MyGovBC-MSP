@@ -4,5 +4,5 @@ require('./confirmation.component.less')
   templateUrl: './confirmation.component.html'
 })
 export class AssistanceConfirmationComponent {
-
+  lang = require('./i18n');
 }
