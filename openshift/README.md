@@ -44,8 +44,9 @@ The deployment consists of these steps
    $ npm install
    $ npm run build
    $ oc project <yourprojectname>
-   $ oc start-build mygovbc-client --from-dir=dist/ -Fw
+   $ oc start-build <app_name> --from-dir=dist/ -Fw
    ```
+   where <app_name> is set in previous step with default value mygovbc-client.
 
 The last step can be easily automated using Jenkins to enable CI.
 
