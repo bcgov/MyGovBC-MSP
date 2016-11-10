@@ -1,14 +1,17 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { MspThumbnail } from './MspThumbnail';
 
 require('./file-uploader.component.less')
 
 @Component({
   selector: 'msp-file-uploader',
-  templateUrl: './file-uploader.component.html'
+  // templateUrl: './file-uploader.component.html',
+  templateUrl: './file-uploader.html'
 })
 export class FileUploaderComponent {
-  @ViewChild('imgRef') imageElement: ElementRef;
+  // @ViewChild('imgRef') imageElement: ElementRef;
+  @ViewChild('PreviewZone') previewZone: ElementRef;
 
   private trustedUrl: SafeUrl;
   private maxFileSize: number;
@@ -17,10 +20,15 @@ export class FileUploaderComponent {
   private fileName: string;
   private fileSizeError: string;
   private imageFileContent:string;
+  /**
+   * Allow max of 12 elements.
+   */
+  private imageElements: Array<HTMLElement> = new Array<HTMLElement>();
 
   constructor(private sanitizer: DomSanitizer) {
     this.maxFileSize = 5 * 1024 * 1024;
   }
+
   onChange(evt: any) {
     this.trustedUrl = null;
 
@@ -45,16 +53,30 @@ export class FileUploaderComponent {
 
       let reader = new FileReader();
 
-      let imageEl = this.imageElement;
+      // let imageEl = this.imageElement;
+      let previewZn = this.previewZone;
+      let imageElms = this.imageElements;
 
       reader.onload = function(e){
         let imageContent = reader.result;
-        let imageObject = new Image();
-        imageObject.src = imageContent;
 
-        imageEl.nativeElement.src = imageContent;
-        let h = imageObject.naturalHeight;
-        let w = imageObject.naturalWidth;
+        let imgEl = document.createElement('img');
+        imgEl.classList.add('preview-item');
+        imgEl.src = imageContent;
+
+        imageElms.push(imgEl);
+        previewZn.nativeElement.appendChild(imgEl);
+
+        // let imageObject = new Image();
+        // imageObject.src = imageContent;
+
+        // //this height must be aligned with the height of .preview-item style height
+        // imageObject.height = 200;
+        // previewZn.nativeElement.appendChild(imageObject);
+
+        // imageEl.nativeElement.src = imageContent;
+        let h = imgEl.naturalHeight;
+        let w = imgEl.naturalWidth;
 
         console.log('reading image height and width: ' + h + 'x' + w);
       };
@@ -82,16 +104,6 @@ export class FileUploaderComponent {
       console.log('file blog url: ' + blob_url);
     }
 
-  }
-
-  onLoad(event: Event) {
-    console.log('img onload event');
-    console.log(this.imageElement.nativeElement);
-    var target = event.target ? event.target : event.srcElement;
-    // let image = evt.target;
-    // img.src = 
-    console.log('width: ' + this.imageElement.nativeElement.naturalWidth + ' and height: '
-      + this.imageElement.nativeElement.naturalHeight);
   }
 
   get imageUrl() {

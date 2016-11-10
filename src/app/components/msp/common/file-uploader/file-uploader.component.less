@@ -9,3 +9,69 @@ form {
     display: none;
   }
 }
+
+
+.drop-zone{
+  position:absolute;
+  border: 5px dashed grey;
+  width: 280px;
+  height: 200px;
+
+  .upload-instruction{
+    top: 8px;
+    color: darken(gray, 10%);
+    margin: 8px;
+  }
+  .choose-file{
+    position:absolute;
+    left: 70px;
+    bottom: 70px;
+    input {
+      display: none;
+    }
+  }
+  .use-camera{
+    position:absolute;
+    bottom: 20px;
+    left: 70px;
+
+  }
+}
+
+.dropzone {
+  /*position:absolute;*/
+  border: 3px dashed grey;
+  margin-bottom: 15px;
+  /*width: 280px;
+  height: 200px;*/
+
+  .instruction-zone {
+    margin: 10px 5px 10px;
+    /*height: 300px;*/
+    text-align: center;
+    input {
+      display: none;
+    }
+    .file-upload-label {
+      color: darkblue;
+    }  
+    .file-upload-label:hover {
+      text-decoration: underline;
+      cursor: pointer;
+
+    }
+  }
+
+  .preview-zone {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    .preview-item {
+      width: 200px; 
+      height: 200px; 
+      border: 0px solid grey; 
+      margin: 10px 5px 10px;
+    }
+  }
+}
+

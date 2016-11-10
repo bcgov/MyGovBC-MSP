@@ -134,7 +134,7 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit {
   }
 
   selectStatus(st: string) {
-    this.shrinkOutStatus = 'in';
+    // this.shrinkOutStatus = 'in';
     this.person.status = st;
   }
 
@@ -147,7 +147,7 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit {
   }
 
   selectActivity(act: string) {
-    this.shrinkOut = 'in';
+    // this.shrinkOut = 'in';
     this.person.currentActivity = act;
   }
 
@@ -160,20 +160,20 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit {
   }
 
   selectGender(gender: string){
-    this.genderListSignal = 'in';
+    // this.genderListSignal = 'in';
     this.person.legalGender = gender;
   }
 
-  toggleGenderList(){
-    this.genderListSignal === 'out' ? this.genderListSignal = 'in' : this.genderListSignal = 'out';
-  }
+  // toggleGenderList(){
+  //   this.genderListSignal === 'out' ? this.genderListSignal = 'in' : this.genderListSignal = 'out';
+  // }
 
   get isGenderListShown(){
     return this.genderListSignal === 'out';
   }
 
   selectInstitution(history: string) {
-    this.institutionWorkSignal = 'in';
+    // this.institutionWorkSignal = 'in';
     this.person.institutionWorkHistory = history;
   }
 

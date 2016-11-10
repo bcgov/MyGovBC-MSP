@@ -69,6 +69,7 @@
 		</div>
 		<div class="col-md-7">
 			<h3>Identification documents for {{person.relationship | lowercase}}</h3>
+			<msp-file-uploader></msp-file-uploader>
 		</div>
 	</div>
 
@@ -88,15 +89,15 @@
 		</div>
 		<div class="col-md-7">
 				<label>Legal Gender: </label> 
-					<span style="font-size: 13pt; font-weight: 500;">{{legalGender}}</span> 
+					<!--<span style="font-size: 13pt; font-weight: 500;">{{legalGender}}</span> 
 					<span style="margin-left: 10px;">
 						<a *ngIf="legalGender" href="javascript:void(0)" (click)="toggleGenderList()">
 											<span *ngIf='isGenderListShown'>Close</span>
 											<span *ngIf='!isGenderListShown'>Change</span>
 						</a> 
-					</span>
+					</span>-->
 
-				<ul class="list-group" [@genderListSignal]="genderListSignal" >
+				<ul class="list-group">
 					<li *ngFor = 'let gender of genders' (click)= "selectGender(gender)" 
 						class="list-group-item msp-list-group-item">
 						<span *ngIf="gender !== legalGender" class="glyphicon glyphicon-unchecked"></span>
@@ -111,13 +112,13 @@
 		<!--<h3>Residence, citizenship, Immigration status</h3>-->
 		<div class="col-md-5">
 			<h4>Your status in Canada</h4>
-			<h4>{{personStatus}}</h4>
+			<!--<h4>{{personStatus}}</h4>
 			<p><a *ngIf="personStatus" href="javascript:void(0)" (click)="showStatusList()">
 					<span *ngIf='isStatusListShown'>Close</span>
 					<span *ngIf='!isStatusListShown'>Change</span>
 				</a> 
-			</p>	
-			<ul class="list-group" [@shrinkOutStatus]="shrinkOutStatus">
+			</p>	-->
+			<ul class="list-group">
 				
 				<li *ngFor="let st of statusInCanada" (click)= "selectStatus(st)"
 					class="list-group-item msp-list-group-item">
@@ -129,13 +130,13 @@
 		</div>
 		<div class="col-md-7">
 			<h4>What are you doing?</h4>
-				<h4>{{activity}}</h4>
+				<!--<h4>{{activity}}</h4>
 			<p><a *ngIf="activity" href="javascript:void(0)" (click)="showActivities()">
 					<span *ngIf='isActivitiesListShown'>Close</span>
 					<span *ngIf='!isActivitiesListShown'>Change</span>
 					</a> 
-			</p>	
-			<ul class="list-group" [@shrinkOut]="shrinkOut">
+			</p>	-->
+			<ul class="list-group">
 				<li *ngFor="let item of activities" (click)=selectActivity(item);
 					class="list-group-item msp-list-group-item">
 						<span *ngIf="item !== activity" class="glyphicon glyphicon-unchecked"></span>
@@ -171,15 +172,15 @@
 	<div class="row" style="margin-top: 20px;">
 		<div class="col-md-8">
 			<label>Were you previously working for the RCMP, Canadian Forces or an institution?  </label> 
-				<span style="font-size: 13pt; font-weight: 500;">{{institutionWorkHistory}}</span> 
+				<!--<span style="font-size: 13pt; font-weight: 500;">{{institutionWorkHistory}}</span> 
 				<span style="margin-left: 10px;">
 					<a *ngIf="institutionWorkHistory" href="javascript:void(0)" (click)="toggleInstituationList()">
 										<span *ngIf='isInstitutionListShown'>Close</span>
 										<span *ngIf='!isInstitutionListShown'>Change</span>
 					</a> 
-				</span>
+				</span>-->
 
-			<ul class="list-group" [@institutionWorkSignal]="institutionWorkSignal" >
+			<ul class="list-group">
 				<li *ngFor = 'let institution of institutionList' (click)= "selectInstitution(institution)" 
 					class="list-group-item msp-list-group-item">
 					<span *ngIf="institution !== institutionWorkHistory" class="glyphicon glyphicon-unchecked"></span>
@@ -194,7 +195,7 @@
 </form>
 
 <!-- switch *ngIf value to true for debugging-->
-<div class="row" *ngIf='false'>
+<div class="row" *ngIf='true'>
 	<div class="col-md-12">
 		<ul>
 			<li *ngFor = 'let log of changeLog'>

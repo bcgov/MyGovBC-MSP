@@ -1,0 +1,38 @@
+<div class="dropzone">
+  <div *ngIf = "imageElements.length < 9" class="instruction-zone">
+        <input type="file" id="fileUpload" 
+          accept="image/*" capture="camera" style="display:none;"
+          (change)="onChange($event)"/>  
+          Drop an ID image file to attach, or 
+        <label for="fileUpload" class="file-upload-label">
+          browse
+        </label>
+        or 
+        <span class="glyphicon glyphicon-camera" aria-hidden="true"></span> 
+        use camera
+    <!--<div class="upload-instruction">
+      Drop an ID image file to attach, or browse or use camera to attach.
+    </div>-->
+    <!--<div class="choose-file">
+        <input type="file" id="fileUpload" 
+          accept="image/*" capture="camera" style="display:none;"
+          (change)="onChange($event)"/>  
+        <label for="fileUpload" class='btn btn-primary btn-sm'>
+          Choose a file
+        </label>
+        
+    </div>-->
+    <!--<div class="use-camera">
+      <button type="button" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-camera" aria-hidden="true"></span> 
+        Use Camera
+      </button>
+    </div>-->
+  </div>
+  <div class="preview-zone" #PreviewZone>
+  </div>
+  <div *ngIf = "imageElements.length === 0" class="preview-zone" #PreviewZone2>
+      <div class="preview-item"></div>
+  </div>
+
+</div>
