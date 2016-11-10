@@ -12,6 +12,8 @@ This is MyGovBC MSP AngularJS 2.x app.  It provides the following processes:
 * Chrome (evergreen)
 * Firefox (evergreen)
 
+Recommended minimum width 320px of device.
+
 ## Developer Prerequisites
 * node@>=4.2.5
 * npm@>=3.10.0 (note: not the default of node@4.2.5)
