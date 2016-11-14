@@ -24,6 +24,7 @@ import {FileUploaderComponent} from './common/file-uploader/file-uploader.compon
 
 import {AssistanceComponent} from './assistance/assistance.component';
 import {AssistancePrepareComponent} from './assistance/prepare/prepare.component';
+import {AssistanceReviewComponent} from './assistance/review/review.component';
 import {AssistanceAuthorizeSubmitComponent} from './assistance/authorize-submit/authorize-submit.component';
 import {AssistanceConfirmationComponent} from './assistance/confirmation/confirmation.component';
 
@@ -95,6 +96,10 @@ import {AssistanceConfirmationComponent} from './assistance/confirmation/confirm
                                 component: AssistancePrepareComponent
                             },
                             {
+                              path: 'review',
+                              component: AssistanceReviewComponent
+                            },
+                            {
                                 path: 'authorize-submit',
                                 component: AssistanceAuthorizeSubmitComponent
                             },
@@ -130,6 +135,7 @@ import {AssistanceConfirmationComponent} from './assistance/confirmation/confirm
         // Assistance
         AssistanceComponent,
         AssistancePrepareComponent,
+        AssistanceReviewComponent,
         AssistanceAuthorizeSubmitComponent,
         AssistanceConfirmationComponent
     ],

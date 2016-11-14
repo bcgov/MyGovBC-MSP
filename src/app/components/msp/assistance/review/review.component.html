@@ -1,0 +1,133 @@
+<h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
+
+<h2 [innerHTML]="lang('./en/index.js').eligibilityInfo"></h2>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').netAnnualIncomeLabel"></strong>
+                $15,000
+            </div>
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').minAgeOrOlderLabel"></strong>
+                Yes
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').hasSpouseLabel"></strong>
+                Yes
+            </div>
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').spouseIncomeLabel"></strong>
+                $25,000
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').numberOfKidsLabel"></strong>
+                1.4
+            </div>
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').childcareExpensesLabel"></strong>
+                $12,000
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').ucbAmountLabel"></strong>
+                $4,000
+            </div>
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').rdspAmountLabel"></strong>
+                $7,000
+            </div>
+        </div>
+        <br>
+        <a class="text-uppercase" type="submit" routerLink="/msp/assistance/prepare"
+                [innerHTML]="lang('./en/index.js').changeEligibilityInfoButton">
+        </a>
+    </div>
+</div>
+
+<h2 [innerHTML]="lang('./en/index.js').personalInfo"></h2>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').nameLabel"></strong>
+                Greg Turner
+            </div>
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').phnLabel"></strong>
+                98756487<br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').birthDateLabel"></strong>
+                January 1st, 1928<br>
+            </div>
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').sinLabel"></strong>
+                587 475 968<br>
+            </div>
+        </div>
+        <br>
+        <a class="text-uppercase" type="submit" routerLink="/msp/assistance/personal-info"
+           [innerHTML]="lang('./en/index.js').changePersonalInfoButton">
+        </a>
+    </div>
+</div>
+<h2 [innerHTML]="lang('./en/index.js').spouseInfo"></h2>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').nameLabel"></strong>
+                Jackie Turner
+            </div>
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').phnLabel"></strong>
+                98756487<br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').birthDateLabel"></strong>
+                January 1st, 1948<br>
+            </div>
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').sinLabel"></strong>
+                787 475 968<br>
+            </div>
+        </div>
+        <br>
+        <a class="text-uppercase" type="submit" routerLink="/msp/assistance/personal-info"
+           [innerHTML]="lang('./en/index.js').changeSpouseInfoButton">
+        </a>
+    </div>
+</div>
+
+<h2 [innerHTML]="lang('./en/index.js').contactInfo"></h2>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').mailingAddressLabel"></strong>
+                <address>3925 Winton St., Victoria, British Columbia, V89 3L4</address>
+
+            </div>
+            <div class="col-sm-6">
+                <strong [innerHTML]="lang('./en/index.js').phoneNumberLabel"></strong>
+                250-666-8888
+            </div>
+        </div>
+        <br>
+        <a class="text-uppercase" type="submit" routerLink="/msp/assistance/personal-info"
+           [innerHTML]="lang('./en/index.js').changeContactInfoButton">
+        </a>
+    </div>
+</div>
+<hr>
+<button class="btn btn-primary" type="submit" routerLink="/msp/application/confirmation" [innerHTML]="lang('./en/index.js').continueButton"></button>
