@@ -1,3 +1,5 @@
+[![Build Status](https://jenkins-gcpe-mygovbc-msp-tools.pathfinder.gov.bc.ca/job/msp-test/badge/icon)](https://jenkins-gcpe-mygovbc-msp-tools.pathfinder.gov.bc.ca/job/msp-test/)
+
 # MyGovBC-MSP
 This is MyGovBC MSP AngularJS 2.x app.  It provides the following processes:
  1. MSP Application
