@@ -2,8 +2,6 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { MspThumbnail } from './MspThumbnail';
 import { Observable } from 'rxjs/Observable';
-// import { fromEvent as staticFromEvent } from 'rxjs/observable/fromEvent';
-// import { FromEventObservable as fromEvent } from 'rxjs/Observable/FromEventObservable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -15,11 +13,9 @@ require('./file-uploader.component.less')
 
 @Component({
   selector: 'msp-file-uploader',
-  // templateUrl: './file-uploader.component.html',
   templateUrl: './file-uploader.html'
 })
 export class FileUploaderComponent implements OnInit {
-  // @ViewChild('imgRef') imageElement: ElementRef;
   @ViewChild('previewZone') previewZone: ElementRef;
   @ViewChild('dropZone') dropZone: ElementRef;
 
@@ -44,6 +40,9 @@ export class FileUploaderComponent implements OnInit {
     var dragOverStream =
       Observable.fromEvent<DragEvent>(this.dropZone.nativeElement, "dragover");
 
+    /**
+     * Must cancel the dragover event in order for the drop event to work. 
+     */  
     dragOverStream.map(evt => {
       return event;
     }).subscribe(evt => {
@@ -63,7 +62,7 @@ export class FileUploaderComponent implements OnInit {
     })
       .subscribe(
       (files) => {
-        console.log('drop event detected:');
+        // console.log('drop event detected:');
         console.log(files[0]);
         this.handleImageFile(files[0]);
       },
@@ -75,29 +74,6 @@ export class FileUploaderComponent implements OnInit {
       }
 
       );
-
-    // var src = Observable.fromEvent(this.dropZone.nativeElement, "dragoverx");
-
-
-    // src
-    // .map(event=>{
-    //   // console.log(event);
-    //   // event.dataTransfer.files[0].path;
-    // }).subscribe(
-    //   (dropEvt) => {
-    //     console.log('drop event detected');
-    //     console.log(dropEvt);
-    //   },
-    //   (err) => {
-    //     console.log('drop event error!');
-    //     console.log(err);
-    //   },
-    //   () => {
-    //     console.log('Completed drop.');
-    //   }
-
-    // );
-
   }
 
 
