@@ -1,4 +1,4 @@
-<div class="dropzone">
+<div class="dropzone" #dropZone>
   <div *ngIf = "imageElements.length < 9" class="instruction-zone">
         <input type="file" id="fileUpload" 
           accept="image/*" capture="camera" style="display:none;"
@@ -29,9 +29,13 @@
       </button>
     </div>-->
   </div>
-  <div class="preview-zone" #PreviewZone>
+  <div class="preview-zone" #previewZone>
   </div>
-  <div *ngIf = "imageElements.length === 0" class="preview-zone" #PreviewZone2>
+
+  <!-- The sole purpose of this element is to maintain the drop zone to an 
+      large size to display on screen.
+   -->
+  <div *ngIf = "imageElements.length === 0" class="preview-zone">
       <div class="preview-item"></div>
   </div>
 

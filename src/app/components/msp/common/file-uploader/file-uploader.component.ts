@@ -1,6 +1,15 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { MspThumbnail } from './MspThumbnail';
+import { Observable } from 'rxjs/Observable';
+// import { fromEvent as staticFromEvent } from 'rxjs/observable/fromEvent';
+// import { FromEventObservable as fromEvent } from 'rxjs/Observable/FromEventObservable';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
+
+
 
 require('./file-uploader.component.less')
 
@@ -9,9 +18,10 @@ require('./file-uploader.component.less')
   // templateUrl: './file-uploader.component.html',
   templateUrl: './file-uploader.html'
 })
-export class FileUploaderComponent {
+export class FileUploaderComponent implements OnInit {
   // @ViewChild('imgRef') imageElement: ElementRef;
-  @ViewChild('PreviewZone') previewZone: ElementRef;
+  @ViewChild('previewZone') previewZone: ElementRef;
+  @ViewChild('dropZone') dropZone: ElementRef;
 
   private trustedUrl: SafeUrl;
   private maxFileSize: number;
@@ -19,7 +29,7 @@ export class FileUploaderComponent {
   private fileSizeUnit: string;
   private fileName: string;
   private fileSizeError: string;
-  private imageFileContent:string;
+  private imageFileContent: string;
   /**
    * Allow max of 12 elements.
    */
@@ -27,6 +37,94 @@ export class FileUploaderComponent {
 
   constructor(private sanitizer: DomSanitizer) {
     this.maxFileSize = 5 * 1024 * 1024;
+  }
+
+  ngOnInit(): void {
+    console.log('subscribe to drop event.');
+    var dragOverStream =
+      Observable.fromEvent<DragEvent>(this.dropZone.nativeElement, "dragover");
+
+    dragOverStream.map(evt => {
+      return event;
+    }).subscribe(evt => {
+      // console.log('Cancel dragover event.');
+      evt.preventDefault();
+    });
+
+    var dropStream = Observable.fromEvent<DragEvent>(this.dropZone.nativeElement, "drop");
+
+    dropStream.map(
+      function (event) {
+        event.preventDefault();
+        return event.dataTransfer.files;
+      }
+    ).filter(files => {
+      return files && files.length > 0;
+    })
+      .subscribe(
+      (files) => {
+        console.log('drop event detected:');
+        console.log(files[0]);
+        this.handleImageFile(files[0]);
+      },
+
+      (error) => {
+        console.log('drop event error detected:');
+        console.log(error);
+
+      }
+
+      );
+
+    // var src = Observable.fromEvent(this.dropZone.nativeElement, "dragoverx");
+
+
+    // src
+    // .map(event=>{
+    //   // console.log(event);
+    //   // event.dataTransfer.files[0].path;
+    // }).subscribe(
+    //   (dropEvt) => {
+    //     console.log('drop event detected');
+    //     console.log(dropEvt);
+    //   },
+    //   (err) => {
+    //     console.log('drop event error!');
+    //     console.log(err);
+    //   },
+    //   () => {
+    //     console.log('Completed drop.');
+    //   }
+
+    // );
+
+  }
+
+
+  handleImageFile(imageFile: File) {
+    let reader = new FileReader();
+
+    // let imageEl = this.imageElement;
+    let previewZn = this.previewZone;
+    let imageElms = this.imageElements;
+
+    reader.onload = function (e) {
+      let imageContent = reader.result;
+
+      let imgEl = document.createElement('img');
+      imgEl.classList.add('preview-item');
+      imgEl.src = imageContent;
+
+      imageElms.push(imgEl);
+      previewZn.nativeElement.appendChild(imgEl);
+
+      let h = imgEl.naturalHeight;
+      let w = imgEl.naturalWidth;
+
+      console.log('reading image height and width: ' + h + 'x' + w);
+    };
+
+    reader.readAsDataURL(imageFile);
   }
 
   onChange(evt: any) {
@@ -37,7 +135,7 @@ export class FileUploaderComponent {
     // console.log('file list size: ' + fileList.length);
     let file = fileList[0];
     let nBytes = file.size;
-    this.fileName = file.name.substring(0,60);
+    this.fileName = file.name.substring(0, 60);
 
     var sOutput = nBytes + " bytes";
     // optional code for multiples approximation
@@ -50,39 +148,7 @@ export class FileUploaderComponent {
     if (nBytes > this.maxFileSize) {
       this.fileSizeError = 'This file was not accepted because its size exceeded max allowed file size (5MB).';
     } else {
-
-      let reader = new FileReader();
-
-      // let imageEl = this.imageElement;
-      let previewZn = this.previewZone;
-      let imageElms = this.imageElements;
-
-      reader.onload = function(e){
-        let imageContent = reader.result;
-
-        let imgEl = document.createElement('img');
-        imgEl.classList.add('preview-item');
-        imgEl.src = imageContent;
-
-        imageElms.push(imgEl);
-        previewZn.nativeElement.appendChild(imgEl);
-
-        // let imageObject = new Image();
-        // imageObject.src = imageContent;
-
-        // //this height must be aligned with the height of .preview-item style height
-        // imageObject.height = 200;
-        // previewZn.nativeElement.appendChild(imageObject);
-
-        // imageEl.nativeElement.src = imageContent;
-        let h = imgEl.naturalHeight;
-        let w = imgEl.naturalWidth;
-
-        console.log('reading image height and width: ' + h + 'x' + w);
-      };
-
-      reader.readAsDataURL(file);
-
+      this.handleImageFile(file);
       var blob_url = window.URL.createObjectURL(file);
       // let blob = this.reader.readAsDataURL(file);
       // console.log('file blob:');
