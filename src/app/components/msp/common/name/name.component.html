@@ -1,35 +1,28 @@
-
-<div class="form-group">
-    <label class="control-label" for="firstname"
-           [innerHTML]="lang('./en/index.js').firstNameLabel"></label>
-    <input type="text" [(ngModel)] = 'person.firstname' #firstnameRef="ngModel"
-           required minlength="2"
-           id='firstname' name='firstname'
-           class="form-control">
-</div>
-
-<div *ngIf='firstnameRef.touched'>
-    <div class="text-danger" *ngIf="firstnameRef.errors?.required"
-         [innerHTML]="lang('./en/index.js').firstNameRequired"></div>
-    <div class="text-danger" *ngIf="firstnameRef.errors?.minlength"
-         [innerHTML]="lang('./en/index.js').firstNameLength"></div>
-</div>
-
-<div class="form-group">
-    <label class="control-label" for="middlename">Middle Name</label>
-    <input type="text" [(ngModel)] = 'person.middlename' #middlenameRef="ngModel"
-           id='middlename' name='middlename' minlength="2"
-           class="form-control" id="middlename" placeholder="Middle name">
-</div>
-
-<div class="form-group">
-    <label class="control-label" for="lastname">Last Name</label>
-    <input type="text" [(ngModel)] = 'person.lastname' #lastnameRef="ngModel"
-           required minlength="2"
-           class="form-control" id="lastname" name='lastname'
-           placeholder="Last name">
-</div>
-<div *ngIf='lastnameRef.touched'>
-    <div class="text-danger" *ngIf="lastnameRef.errors?.required">Last name is required</div>
-    <div class="text-danger" *ngIf="lastnameRef.errors?.minlength">Last name must be longer than {{lastnameRef.errors?.minlength.requiredLength-1}} characters.</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label class="control-label" for="firstname"
+                   [innerHTML]="lang('./en/index.js').firstNameLabel"></label>
+            <input type="text"
+                   required minlength="2"
+                   id='firstname' name='firstname'
+                   class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label class="control-label optional" for="middlename">Middle Name</label>
+            <input type="text"
+                   id='middlename' name='middlename' minlength="2"
+                   class="form-control">
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label class="control-label" for="lastname">Last Name</label>
+            <input type="text"
+                   required minlength="2"
+                   class="form-control" id="lastname" name='lastname'>
+        </div>
+    </div>
 </div>

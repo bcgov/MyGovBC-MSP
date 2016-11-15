@@ -8,6 +8,7 @@ import {CommonModule} from '@angular/common';
 import {MspComponent} from './msp.component';
 import {LandingComponent} from './landing/landing.component';
 import {MspNameComponent} from './common/name/name.component';
+import {MspBirthDateComponent} from './common/birthdate/birthdate.component';
 import {MspAddressComponent} from './common/address/address.component';
 import {MspProgressBarComponent} from './common/progressBar/progressBar.component';
 
@@ -125,6 +126,7 @@ import {AssistanceConfirmationComponent} from './assistance/confirmation/confirm
     MspComponent,
     LandingComponent,
     MspNameComponent,
+    MspBirthDateComponent,
     MspAddressComponent,
     MspProgressBarComponent,
     FileUploaderComponent,
