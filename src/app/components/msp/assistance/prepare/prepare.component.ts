@@ -5,5 +5,5 @@ require('./prepare.component.less');
   templateUrl: './prepare.component.html'
 })
 export class AssistancePrepareComponent {
-
+  lang = require('./i18n');
 }

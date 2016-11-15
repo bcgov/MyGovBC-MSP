@@ -2,11 +2,12 @@ import {NgModule, Injectable} from '@angular/core';
 import {BrowserModule}  from '@angular/platform-browser'
 
 import {RouterModule} from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
 
 import {MspComponent} from './msp.component';
 import {LandingComponent} from './landing/landing.component';
+import {MspNameComponent} from './common/name/name.component';
 import {MspAddressComponent} from './common/address/address.component';
 import {MspProgressBarComponent} from './common/progressBar/progressBar.component';
 
@@ -24,6 +25,7 @@ import {FileUploaderComponent} from './common/file-uploader/file-uploader.compon
 
 import {AssistanceComponent} from './assistance/assistance.component';
 import {AssistancePrepareComponent} from './assistance/prepare/prepare.component';
+import {AssistancePersonalInfoComponent} from './assistance/personal-info/personal-info.component';
 import {AssistanceReviewComponent} from './assistance/review/review.component';
 import {AssistanceAuthorizeSubmitComponent} from './assistance/authorize-submit/authorize-submit.component';
 import {AssistanceConfirmationComponent} from './assistance/confirmation/confirmation.component';
@@ -33,117 +35,123 @@ import {AssistanceConfirmationComponent} from './assistance/confirmation/confirm
  * https://apps.gcpe.gov.bc.ca/jira/browse/PSPDN-255?filter=16000
  */
 @NgModule({
-    imports: [
-        BrowserModule,
-        CommonModule,
-        FormsModule,
-        RouterModule.forChild([
-            {
-                path: 'msp',
-                children: [
-                    {
-                        path: '',
-                        component: LandingComponent
-                    },
+  imports: [
+    BrowserModule,
+    CommonModule,
+    FormsModule,
+    RouterModule.forChild([
+      {
+        path: 'msp',
+        children: [
+          {
+            path: '',
+            component: LandingComponent
+          },
 
-                    {
-                        path: 'application',
-                        component: ApplicationComponent,
-                        children: [
-                            {
-                                path: '',
-                                redirectTo: 'prepare',
-                                pathMatch: 'full'
-                            },
-                            {
-                                path: 'prepare',
-                                component: PrepareComponent
-                            },
-                            {
-                                path: 'personal-info',
-                                component: PersonalInfoComponent
-                            },
-                            {
-                                path: 'documents',
-                                component: DocumentsComponent
-                            },
-                            {
-                                path: 'address',
-                                component: AddressComponent
-                            },
-                            {
-                                path: 'review',
-                                component: ReviewComponent
-                            },
-                            {
-                                path: 'confirmation',
-                                component: ConfirmationComponent
-                            },
+          {
+            path: 'application',
+            component: ApplicationComponent,
+            children: [
+              {
+                path: '',
+                redirectTo: 'prepare',
+                pathMatch: 'full'
+              },
+              {
+                path: 'prepare',
+                component: PrepareComponent
+              },
+              {
+                path: 'personal-info',
+                component: PersonalInfoComponent
+              },
+              {
+                path: 'documents',
+                component: DocumentsComponent
+              },
+              {
+                path: 'address',
+                component: AddressComponent
+              },
+              {
+                path: 'review',
+                component: ReviewComponent
+              },
+              {
+                path: 'confirmation',
+                component: ConfirmationComponent
+              },
 
-                        ],
-                    },
-                    {
-                        path: 'assistance',
-                        component: AssistanceComponent,
-                        children: [
-                            {
-                                path: '',
-                                redirectTo: 'prepare',
-                                pathMatch: 'full'
-                            },
-                            {
-                                path: 'prepare',
-                                component: AssistancePrepareComponent
-                            },
-                            {
-                              path: 'review',
-                              component: AssistanceReviewComponent
-                            },
-                            {
-                                path: 'authorize-submit',
-                                component: AssistanceAuthorizeSubmitComponent
-                            },
-                            {
-                                path: 'confirmation',
-                                component: AssistanceConfirmationComponent
-                            }
-                        ]
-                    }
-                ]
-            }
-        ])
+            ],
+          },
+          {
+            path: 'assistance',
+            component: AssistanceComponent,
+            children: [
+              {
+                path: '',
+                redirectTo: 'prepare',
+                pathMatch: 'full'
+              },
+              {
+                path: 'prepare',
+                component: AssistancePrepareComponent
+              },
+              {
+                path: 'personal-info',
+                component: AssistancePersonalInfoComponent,
+              },
+              {
+                path: 'review',
+                component: AssistanceReviewComponent
+              },
+              {
+                path: 'authorize-submit',
+                component: AssistanceAuthorizeSubmitComponent
+              },
+              {
+                path: 'confirmation',
+                component: AssistanceConfirmationComponent
+              }
+            ]
+          }
+        ]
+      }
+    ])
 
-    ],
-    declarations: [
-        // General
-        MspComponent,
-        LandingComponent,
-        MspAddressComponent,
-        MspProgressBarComponent,
-        FileUploaderComponent,
+  ],
+  declarations: [
+    // General
+    MspComponent,
+    LandingComponent,
+    MspNameComponent,
+    MspAddressComponent,
+    MspProgressBarComponent,
+    FileUploaderComponent,
 
-        // Application
-        ApplicationComponent,
-        PersonalDetailsComponent,        
-        PrepareComponent,
-        PersonalInfoComponent,
-        DocumentsComponent,
-        AddressComponent,
-        ReviewComponent,
-        ConfirmationComponent,
+    // Application
+    ApplicationComponent,
+    PersonalDetailsComponent,
+    PrepareComponent,
+    PersonalInfoComponent,
+    DocumentsComponent,
+    AddressComponent,
+    ReviewComponent,
+    ConfirmationComponent,
 
-        // Assistance
-        AssistanceComponent,
-        AssistancePrepareComponent,
-        AssistanceReviewComponent,
-        AssistanceAuthorizeSubmitComponent,
-        AssistanceConfirmationComponent
-    ],
+    // Assistance
+    AssistanceComponent,
+    AssistancePrepareComponent,
+    AssistancePersonalInfoComponent,
+    AssistanceReviewComponent,
+    AssistanceAuthorizeSubmitComponent,
+    AssistanceConfirmationComponent
+  ],
 
-    providers: [
-        // Services
-        MspApplicationDataService
-    ]
+  providers: [
+    // Services
+    MspApplicationDataService
+  ]
 })
 @Injectable()
 export class MspModule {
