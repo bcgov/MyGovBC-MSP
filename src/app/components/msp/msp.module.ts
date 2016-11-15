@@ -10,6 +10,7 @@ import {LandingComponent} from './landing/landing.component';
 import {MspNameComponent} from './common/name/name.component';
 import {MspBirthDateComponent} from './common/birthdate/birthdate.component';
 import {MspAddressComponent} from './common/address/address.component';
+import {MspPhoneComponent} from './common/phone/phone.component';
 import {MspProgressBarComponent} from './common/progressBar/progressBar.component';
 
 import MspApplicationDataService from './application/application-data.service';
@@ -27,6 +28,7 @@ import {FileUploaderComponent} from './common/file-uploader/file-uploader.compon
 import {AssistanceComponent} from './assistance/assistance.component';
 import {AssistancePrepareComponent} from './assistance/prepare/prepare.component';
 import {AssistancePersonalInfoComponent} from './assistance/personal-info/personal-info.component';
+import {AssistancePersonalDetailComponent} from './assistance/personal-info/personal-details/personal-details.component';
 import {AssistanceReviewComponent} from './assistance/review/review.component';
 import {AssistanceAuthorizeSubmitComponent} from './assistance/authorize-submit/authorize-submit.component';
 import {AssistanceConfirmationComponent} from './assistance/confirmation/confirmation.component';
@@ -128,6 +130,7 @@ import {AssistanceConfirmationComponent} from './assistance/confirmation/confirm
     MspNameComponent,
     MspBirthDateComponent,
     MspAddressComponent,
+    MspPhoneComponent,
     MspProgressBarComponent,
     FileUploaderComponent,
 
@@ -145,6 +148,7 @@ import {AssistanceConfirmationComponent} from './assistance/confirmation/confirm
     AssistanceComponent,
     AssistancePrepareComponent,
     AssistancePersonalInfoComponent,
+    AssistancePersonalDetailComponent,
     AssistanceReviewComponent,
     AssistanceAuthorizeSubmitComponent,
     AssistanceConfirmationComponent
