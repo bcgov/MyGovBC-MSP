@@ -1,15 +1,20 @@
 <div class="dropzone" #dropZone>
   <div *ngIf = "imageFileList.length < 9" class="instruction-zone">
-        <input type="file" id="fileUpload" 
-          accept="image/*" capture="camera" style="display:none;"
+        <input type="file" id="fileUploadBrowse" 
+          accept="image/*" style="display:none;"
           (change)="onChange($event)"/>  
           Drop an ID image file to attach, or 
-        <label for="fileUpload" class="file-upload-label">
+        <label for="fileUploadBrowse" class="file-upload-label">
           browse
         </label>
         or 
+        <input type="file" id="fileUploadUseCamera" 
+          accept="image/*" capture="camera" style="display:none;"
+          (change)="onChange($event)"/>  
         <span class="glyphicon glyphicon-camera" aria-hidden="true"></span> 
-        use camera
+        <label for="fileUploadUseCamera" class="file-upload-label">
+          use camera
+        </label>
   </div>
   <div class="preview-zone" #previewZone>
     <div *ngFor="let mspImage of imageFileList" class="preview-item">
