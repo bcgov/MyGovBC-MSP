@@ -1,16 +1,13 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
-import { MspThumbnail } from './MspThumbnail';
+import { MspImage } from '../MspImage';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
-
-
-require('./file-uploader.component.less')
-
+require('./file-uploader.component.less');
 @Component({
   selector: 'msp-file-uploader',
   templateUrl: './file-uploader.html'
@@ -21,15 +18,14 @@ export class FileUploaderComponent implements OnInit {
 
   private trustedUrl: SafeUrl;
   private maxFileSize: number;
-  private fileSize: string;
-  private fileSizeUnit: string;
-  private fileName: string;
   private fileSizeError: string;
-  private imageFileContent: string;
+  private imageFileList: Array<MspImage> = new Array<MspImage>();
   /**
    * Allow max of 12 elements.
    */
   private imageElements: Array<HTMLElement> = new Array<HTMLElement>();
+
+  private MAX_IMAGE_COUNT:number = 12;
 
   constructor(private sanitizer: DomSanitizer) {
     this.maxFileSize = 5 * 1024 * 1024;
@@ -58,97 +54,116 @@ export class FileUploaderComponent implements OnInit {
         return event.dataTransfer.files;
       }
     ).filter(files => {
-      return files && files.length > 0;
-    })
-      .subscribe(
+      return !!files && files.length && files.length > 0;
+    }).subscribe(
       (files) => {
         // console.log('drop event detected:');
-        console.log(files[0]);
-        this.handleImageFile(files[0]);
+        // console.log(files[0]);
+        this.handleImageFile(files[0], this.imageFileList, this.getFileSizeOutputString);
       },
 
       (error) => {
         console.log('drop event error detected:');
         console.log(error);
-
       }
-
-      );
+    );
   }
 
+  handleImageFile(imageFile: File, fileList: Array<MspImage>, sizeFinder:any) {
+    if(this.imageFileList.length >= this.MAX_IMAGE_COUNT){
+      console.log(`Max number of image file you can upload is ${this.MAX_IMAGE_COUNT}. 
+      This file ${imageFile.name} was not uploaded.` );
+        return;
+    }
 
-  handleImageFile(imageFile: File) {
     let reader = new FileReader();
 
     // let imageEl = this.imageElement;
     let previewZn = this.previewZone;
     let imageElms = this.imageElements;
 
-    reader.onload = function (e) {
-      let imageContent = reader.result;
+    reader.onload = function (e: ProgressEvent) {
 
-      let imgEl = document.createElement('img');
-      imgEl.classList.add('preview-item');
-      imgEl.src = imageContent;
+      let mspImage: MspImage = new MspImage();
+      mspImage.fileContent = reader.result;
+      mspImage.sizeTxt = sizeFinder(imageFile);
+      mspImage.name = imageFile.name;
 
-      imageElms.push(imgEl);
-      previewZn.nativeElement.appendChild(imgEl);
+      let imgEl: HTMLImageElement = document.createElement('img');
+      imgEl.src = reader.result;
 
-      let h = imgEl.naturalHeight;
-      let w = imgEl.naturalWidth;
+      console.log(`image file natural height and width: 
+          ${imgEl.naturalHeight} x ${imgEl.naturalWidth}`);
 
-      console.log('reading image height and width: ' + h + 'x' + w);
+      mspImage.naturalHeight = imgEl.naturalHeight;
+      mspImage.naturalWidth = imgEl.naturalWidth;
+
+      fileList.push(mspImage);
+      // let imageContent = reader.result;
+      // let imgEl: HTMLImageElement = document.createElement('img');
+      // imgEl.classList.add('preview-item');
+      // imgEl.src = imageContent;
+
+      // imageElms.push(imgEl);
+      // previewZn.nativeElement.appendChild(imgEl);
+
+      // let h = imgEl.naturalHeight;
+      // let w = imgEl.naturalWidth;
+
+      // console.log('reading image height and width: ' + h + 'x' + w);
     };
 
     reader.readAsDataURL(imageFile);
+    // reader.readAsText(imageFile);
   }
 
   onChange(evt: any) {
-    this.trustedUrl = null;
-
     console.log(evt);
-    let fileList = evt.srcElement.files;
-    // console.log('file list size: ' + fileList.length);
-    let file = fileList[0];
-    let nBytes = file.size;
-    this.fileName = file.name.substring(0, 60);
-
-    var sOutput = nBytes + " bytes";
-    // optional code for multiples approximation
-    for (var aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"], nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
-      sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
-      this.fileSize = nApprox.toFixed(0);
-      this.fileSizeUnit = aMultiples[nMultiple];
+    if(evt.srcElement.files && evt.srcElement.files.length && evt.srcElement.files.length > 0){
+      // console.log('file list size: ' + fileList.length);
+      let file = evt.srcElement.files[0];
+      let nBytes = file.size;
+      if (nBytes > this.maxFileSize) {
+        this.fileSizeError = 'This file was not accepted because its size exceeded max allowed file size (5MB).';
+        console.log(this.fileSizeError);
+      }else{
+        this.handleImageFile(file, this.imageFileList, this.getFileSizeOutputString);
+        // var blob_url = window.URL.createObjectURL(file);
+        // this.trustedUrl = this.sanitizer.bypassSecurityTrustUrl(blob_url);;
+        // console.log('file blog url: ' + blob_url);
+      }
+    }else{
+      console.log('No file was selected.');
+      return;
     }
-    console.log('size of selected file: ' + sOutput);
-    if (nBytes > this.maxFileSize) {
-      this.fileSizeError = 'This file was not accepted because its size exceeded max allowed file size (5MB).';
-    } else {
-      this.handleImageFile(file);
-      var blob_url = window.URL.createObjectURL(file);
-      // let blob = this.reader.readAsDataURL(file);
-      // console.log('file blob:');
-      // console.log(blob);
-
-
-      // let image = new Image();
-      // image.addEventListener('load', function (loadEvent) {
-      //   console.log('innner load event:');
-      //   console.log(loadEvent);
-      //   console.log(loadEvent.target);
-      // });
-
-      // image.src = file;
-      // image.src = blob_url;
-      // console.log('width: ' + image.naturalWidth + ' and height: ' + image.naturalHeight);
-
-      this.trustedUrl = this.sanitizer.bypassSecurityTrustUrl(blob_url);;
-      console.log('file blog url: ' + blob_url);
-    }
-
   }
 
-  get imageUrl() {
-    return this.trustedUrl;
+  getFileSizeOutputString(file: File){
+      let nBytes = file.size;
+      let fileSize = '';
+      let fileSizeUnit = '';
+      let name = file.name;
+      let sOutput:string = nBytes + " bytes";
+      // optional code for multiples approximation
+      for (var aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"], nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
+        sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
+        fileSize = nApprox.toFixed(0);
+        fileSizeUnit = aMultiples[nMultiple];
+      }
+      console.log(`Size of file ${name}: ${sOutput}`);
+      return sOutput;
   }
+
+  createMspImage(file: File, sOutput:string, fileName:string) {
+      let mspImage: MspImage = new MspImage();
+      mspImage.fileContent = file;
+      mspImage.sizeTxt = this.getFileSizeOutputString(file);
+      mspImage.name = fileName;
+
+      return mspImage;
+  }
+
+  // get imageUrl() {
+  //   return this.trustedUrl;
+  // }
 }

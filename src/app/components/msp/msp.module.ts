@@ -23,7 +23,7 @@ import {AddressComponent} from './application/address/address.component';
 import {ReviewComponent} from './application/review/review.component';
 import {ConfirmationComponent} from './application/confirmation/confirmation.component';
 import {FileUploaderComponent} from './common/file-uploader/file-uploader.component';
-
+import {ThumbnailComponent} from './common/thumbnail/thumbnail.component';
 
 import {AssistanceComponent} from './assistance/assistance.component';
 import {AssistancePrepareComponent} from './assistance/prepare/prepare.component';
@@ -133,6 +133,7 @@ import {AssistanceConfirmationComponent} from './assistance/confirmation/confirm
     MspPhoneComponent,
     MspProgressBarComponent,
     FileUploaderComponent,
+    ThumbnailComponent,
 
     // Application
     ApplicationComponent,

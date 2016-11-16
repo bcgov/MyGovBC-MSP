@@ -1,5 +1,5 @@
 <div class="dropzone" #dropZone>
-  <div *ngIf = "imageElements.length < 9" class="instruction-zone">
+  <div *ngIf = "imageFileList.length < 9" class="instruction-zone">
         <input type="file" id="fileUpload" 
           accept="image/*" capture="camera" style="display:none;"
           (change)="onChange($event)"/>  
@@ -10,32 +10,22 @@
         or 
         <span class="glyphicon glyphicon-camera" aria-hidden="true"></span> 
         use camera
-    <!--<div class="upload-instruction">
-      Drop an ID image file to attach, or browse or use camera to attach.
-    </div>-->
-    <!--<div class="choose-file">
-        <input type="file" id="fileUpload" 
-          accept="image/*" capture="camera" style="display:none;"
-          (change)="onChange($event)"/>  
-        <label for="fileUpload" class='btn btn-primary btn-sm'>
-          Choose a file
-        </label>
-        
-    </div>-->
-    <!--<div class="use-camera">
-      <button type="button" class="btn btn-default btn-sm">
-        <span class="glyphicon glyphicon-camera" aria-hidden="true"></span> 
-        Use Camera
-      </button>
-    </div>-->
   </div>
   <div class="preview-zone" #previewZone>
+    <!--<msp-img-thumbnail *ngFor="let img of imageElements">
+
+    </msp-img-thumbnail>-->
+    <div *ngFor="let mspImage of imageFileList" class="preview-item">
+      <msp-thumbnail [imageWrapper] ="mspImage">
+
+      </msp-thumbnail>
+    </div>
   </div>
 
   <!-- The sole purpose of this element is to maintain the drop zone to an 
       large size to display on screen.
    -->
-  <div *ngIf = "imageElements.length === 0" class="preview-zone">
+  <div *ngIf = "imageFileList.length === 0" class="preview-zone">
       <div class="preview-item"></div>
   </div>
 
