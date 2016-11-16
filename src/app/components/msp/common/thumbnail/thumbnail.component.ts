@@ -1,4 +1,4 @@
-import {Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MspImage } from '../MspImage';
 
 require('./thumbnail.less')
@@ -8,9 +8,14 @@ require('./thumbnail.less')
   templateUrl: './thumbnail.html'
 })
 export class ThumbnailComponent implements OnInit {
-  @Input() imageWrapper: MspImage;
+  @Input() imageObject: MspImage;
+  @Output('delete') deleteImage: EventEmitter<string> = new EventEmitter<string>();
 
   ngOnInit(){
 
+  }
+
+  delete() {
+    this.deleteImage.emit(this.imageObject.id);
   }
 }

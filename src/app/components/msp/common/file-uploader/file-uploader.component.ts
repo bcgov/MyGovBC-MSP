@@ -7,6 +7,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
+var sha1 =  require('sha1');
+
 require('./file-uploader.component.less');
 @Component({
   selector: 'msp-file-uploader',
@@ -19,13 +21,8 @@ export class FileUploaderComponent implements OnInit {
   private trustedUrl: SafeUrl;
   private maxFileSize: number;
   private fileSizeError: string;
-  private imageFileList: Array<MspImage> = new Array<MspImage>();
-  /**
-   * Allow max of 12 elements.
-   */
-  private imageElements: Array<HTMLElement> = new Array<HTMLElement>();
-
   private MAX_IMAGE_COUNT:number = 12;
+  private imageFileList: Array<MspImage> = new Array<MspImage>();
 
   constructor(private sanitizer: DomSanitizer) {
     this.maxFileSize = 5 * 1024 * 1024;
@@ -59,7 +56,8 @@ export class FileUploaderComponent implements OnInit {
       (files) => {
         // console.log('drop event detected:');
         // console.log(files[0]);
-        this.handleImageFile(files[0], this.imageFileList, this.getFileSizeOutputString);
+        this.handleImageFile(files[0], this.imageFileList, 
+          this.getFileSizeOutputString, this.checkImageExists, this.imageFileList);
       },
 
       (error) => {
@@ -69,7 +67,8 @@ export class FileUploaderComponent implements OnInit {
     );
   }
 
-  handleImageFile(imageFile: File, fileList: Array<MspImage>, sizeFinder:any) {
+  handleImageFile(imageFile: File, fileList: Array<MspImage>, 
+    sizeFinder:Function, imageDuplicationCheck:Function, imageList: Array<MspImage>) {
     if(this.imageFileList.length >= this.MAX_IMAGE_COUNT){
       console.log(`Max number of image file you can upload is ${this.MAX_IMAGE_COUNT}. 
       This file ${imageFile.name} was not uploaded.` );
@@ -80,12 +79,20 @@ export class FileUploaderComponent implements OnInit {
 
     // let imageEl = this.imageElement;
     let previewZn = this.previewZone;
-    let imageElms = this.imageElements;
 
     reader.onload = function (e: ProgressEvent) {
+      let alreadyUploaded = imageDuplicationCheck(reader.result, imageList);
+      if(alreadyUploaded){
+        console.log(`This file, ${imageFile.name}(or a file of thes same image) has already been uploaded.
+        This file was therefore not uploaded as a duplicate of that previous file.`);
+
+        return;
+      }
 
       let mspImage: MspImage = new MspImage();
       mspImage.fileContent = reader.result;
+      mspImage.id = sha1(reader.result);
+      console.log(`generated file id: ${mspImage.id}`);
       mspImage.sizeTxt = sizeFinder(imageFile);
       mspImage.name = imageFile.name;
 
@@ -127,7 +134,8 @@ export class FileUploaderComponent implements OnInit {
         this.fileSizeError = 'This file was not accepted because its size exceeded max allowed file size (5MB).';
         console.log(this.fileSizeError);
       }else{
-        this.handleImageFile(file, this.imageFileList, this.getFileSizeOutputString);
+        this.handleImageFile(file, this.imageFileList, 
+          this.getFileSizeOutputString, this.checkImageExists, this.imageFileList);
         // var blob_url = window.URL.createObjectURL(file);
         // this.trustedUrl = this.sanitizer.bypassSecurityTrustUrl(blob_url);;
         // console.log('file blog url: ' + blob_url);
@@ -154,16 +162,29 @@ export class FileUploaderComponent implements OnInit {
       return sOutput;
   }
 
-  createMspImage(file: File, sOutput:string, fileName:string) {
-      let mspImage: MspImage = new MspImage();
-      mspImage.fileContent = file;
-      mspImage.sizeTxt = this.getFileSizeOutputString(file);
-      mspImage.name = fileName;
-
-      return mspImage;
+  deleteImage(imageId:string){
+    for(var i = this.imageFileList.length -1; i >= 0 ; i--){
+        if(this.imageFileList[i].id === imageId){
+            this.imageFileList.splice(i, 1);
+        }
+    }    
   }
 
-  // get imageUrl() {
-  //   return this.trustedUrl;
-  // }
+  /**
+   * Return true if file already exists in the list; false otherwise.
+   */
+  checkImageExists(fileContent: string, imageList: Array<MspImage>) {
+    if(!imageList){
+      return false;
+    }else{
+      let sha1Sum = sha1(fileContent);
+      for(var i = imageList.length -1; i >= 0 ; i--){
+        // console.log(`compare  ${imageList[i].id} with ${sha1Sum}, result ${imageList[i].id === sha1Sum}`);
+          if(imageList[i].id === sha1Sum){
+            return true;
+          }
+      }    
+      return false;
+    }
+  }
 }

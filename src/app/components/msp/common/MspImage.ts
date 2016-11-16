@@ -1,4 +1,7 @@
 export class MspImage {
+  constructor(){
+    
+  }
   fileContent:File;
   size: number;
   sizeUnit: string;
@@ -6,4 +9,5 @@ export class MspImage {
   naturalHeight: number;
   naturalWidth: number;
   name:string;
+  id: string;
 }

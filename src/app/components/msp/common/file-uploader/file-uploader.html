@@ -12,12 +12,8 @@
         use camera
   </div>
   <div class="preview-zone" #previewZone>
-    <!--<msp-img-thumbnail *ngFor="let img of imageElements">
-
-    </msp-img-thumbnail>-->
     <div *ngFor="let mspImage of imageFileList" class="preview-item">
-      <msp-thumbnail [imageWrapper] ="mspImage">
-
+      <msp-thumbnail [imageObject] ="mspImage" (delete) = "deleteImage($event)">
       </msp-thumbnail>
     </div>
   </div>

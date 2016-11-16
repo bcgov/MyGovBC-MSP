@@ -1,7 +1,6 @@
 <div class="thumbnail-container">
-  <img [src]="imageWrapper.fileContent" alt="" class="image-thumbnail">
-  <!--<a href="javascript:void(0)">Delete<a>-->
-  <p class="action-strip">
-    <a href="javascript:void(0)">Delete</a>
-  </p>
+  <img [src]="imageObject.fileContent" alt="" class="image-thumbnail">
+  <div class="action-strip">
+    <a href="javascript:void(0)" (click)="delete()">Delete</a>
+  </div>
 </div>
