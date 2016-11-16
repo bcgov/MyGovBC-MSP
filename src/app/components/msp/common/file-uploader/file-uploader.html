@@ -1,5 +1,5 @@
 <div class="dropzone" #dropZone>
-  <div *ngIf = "imageFileList.length < 9" class="instruction-zone">
+  <div *ngIf = "imageFileList.length < MAX_NUM_IMAGES" class="instruction-zone">
         <input type="file" id="fileUploadBrowse" 
           accept="image/*" style="display:none;"
           (change)="onChange($event)"/>  

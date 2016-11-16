@@ -187,4 +187,8 @@ export class FileUploaderComponent implements OnInit {
       return false;
     }
   }
+
+  get MAX_NUM_IMAGES(): number{
+    return this.MAX_IMAGE_COUNT;
+  }
 }
