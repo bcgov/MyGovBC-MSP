@@ -1,5 +1,5 @@
 import { Component, Inject, Injectable } from '@angular/core';
-import {MspApplication, Person} from '../application';
+import {MspApplication, Person} from '../../model/application.model';
 
 import DataService from '../application-data.service';
 

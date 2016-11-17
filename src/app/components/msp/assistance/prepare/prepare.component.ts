@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import DataService from '../../application/application-data.service';
+import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
+
 require('./prepare.component.less');
 
 @Component({
@@ -6,4 +9,12 @@ require('./prepare.component.less');
 })
 export class AssistancePrepareComponent {
   lang = require('./i18n');
+
+  constructor(private dataService: DataService){
+
+  }
+
+  get finAssistApp(): FinancialAssistApplication{
+    return this.dataService.finAssistApp;
+  }
 }

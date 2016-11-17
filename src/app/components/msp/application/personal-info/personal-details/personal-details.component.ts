@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
 
-import { MspApplication, Person } from '../../application';
+import { MspApplication, Person } from '../../../model/application.model';
 
 require('./personal-details.component.less')
 @Component({

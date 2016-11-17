@@ -25,7 +25,7 @@ export class FileUploaderComponent implements OnInit {
   private imageFileList: Array<MspImage> = new Array<MspImage>();
 
   constructor(private sanitizer: DomSanitizer) {
-    this.maxFileSize = 5 * 1024 * 1024;
+    this.maxFileSize = 8 * 1024 * 1024;
   }
 
   ngOnInit(): void {
@@ -125,13 +125,13 @@ export class FileUploaderComponent implements OnInit {
   }
 
   onChange(evt: any) {
-    console.log(evt);
+    // console.log(evt);
     if(evt.srcElement.files && evt.srcElement.files.length && evt.srcElement.files.length > 0){
       // console.log('file list size: ' + fileList.length);
       let file = evt.srcElement.files[0];
       let nBytes = file.size;
       if (nBytes > this.maxFileSize) {
-        this.fileSizeError = 'This file was not accepted because its size exceeded max allowed file size (5MB).';
+        this.fileSizeError = 'This file was not accepted because its size exceeded max allowed file size (8MB).';
         console.log(this.fileSizeError);
       }else{
         this.handleImageFile(file, this.imageFileList, 

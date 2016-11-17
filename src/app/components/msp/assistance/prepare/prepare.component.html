@@ -1,6 +1,28 @@
-<h1>Prepare</h1>
 <div class="row">
-    <div class="col-xs-2 col-xs-offset-9">
+    <div class="col-md-9">
+        <h1>
+            See if you qualify for financial help to pay for public health care coverage
+        </h1>
+
+        <h2>
+            Have you just lost your job or are you experiencing other financial troubles?
+        </h2>
+        <div class="btn-group" role="group">
+            <button [class.msp-btn-radio]="finAssistApp.isInFinTrouble === true" (click)="finAssistApp.isInFinTrouble=true" 
+                type="button" class="btn btn-default" >Yes</button>
+            <button [class.msp-btn-radio]="finAssistApp.isInFinTrouble === false" (click)="finAssistApp.isInFinTrouble=false" 
+                type="button" class="btn btn-default">No&nbsp;</button>
+        </div>
+
+
+    </div>
+    <div class="col-md-3">
+        <h3>Reserved for help column</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-2 col-xs-offset-7">
         <button class="btn btn-primary" type="submit" routerLink="/msp/assistance/personal-info"
                 [innerHTML]="lang('./en/index.js').continueButton"></button>
     </div>
