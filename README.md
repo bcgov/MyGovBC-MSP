@@ -16,6 +16,50 @@ This is MyGovBC MSP AngularJS 2.x app.  It provides the following processes:
 
 Recommended minimum width 320px of device.
 
+## Content Author Prerequisites
+* A GitHub account without 2fa enabled
+* Write access to this repository
+
+## Content Authoring
+Most of the application text is configurable.  General procedure:
+* Navigate to the test environment and view a screen
+* Look at the URL of the page as this help you find the right file to edit
+* Browse to this repo's `/src/app/components/msp/` directory
+* It should be apparent by the name of each directory witch page you want to edit
+* With pages with configurable content, you should see a 'i18n' directory
+* Navigate into that directory to the './i18n/data/en/index.js' file
+* You should see a list of variable names and values in single quotes
+* Click the Edit button
+* Using the editor, edit the value in between the single quotes
+* If you need use a single quote, escape the quote with a backslash character \\
+* You may not delete or add variables, ask a developer if you want to do that
+* Once satisfied you can make a comment, e.g., content change, and commit the change
+* After about 3-5 minutes the change will appear on the test web site
+* If the change doesn't show up, its likely the build failed because of a syntax issue, talk to a developer
+
+
+### Example
+
+I want to edit the page `/msp/application/personal-info` and change the help block just below the title.
+
+I navigate to:
+
+[https://github.com/bcgov/MyGovBC-MSP/blob/master/src/app/components/msp/assistance/personal-info/i18n/data/en/index.js]()
+
+I click the Edit button
+
+I find in the file this line:
+```
+  helpBlock: 'Enter each person\'s legal name as it appears on their official Canadian identity documents, .e.g, birth' +
+  ' certificate, permanent resident card, passport.',
+```
+
+I modified the text between the `'` on the right-hand side of the `:` and change it to my new text.
+
+I make a comment in the Commit Changes that says 'content change' and click the `Commit changes` button.
+
+After a make a few more edits, I double check my work at the test site.
+
 ## Developer Prerequisites
 * node@>=4.2.5
 * npm@>=3.10.0 (note: not the default of node@4.2.5)
