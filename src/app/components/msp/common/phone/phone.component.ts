@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core'
+import {Component, Inject, Input} from '@angular/core'
 
 require('./phone.component.less')
 @Component({
@@ -9,6 +9,17 @@ export class MspPhoneComponent {
 
     lang = require('./i18n');
 
+    @Input('alternative') alternative = false;
+
     constructor(@Inject('appConstants') appConstants: Object) {
+    }
+
+    getLabel() {
+      if (this.alternative) {
+        return this.lang('./en/index.js').altPhoneLabel;
+      }
+      else {
+        return this.lang('./en/index.js').phoneLabel;
+      }
     }
 }

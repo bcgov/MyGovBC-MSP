@@ -1,6 +1,6 @@
 <div class="form-group">
-    <label class="control-label" for="phone"
-           [innerHTML]="lang('./en/index.js').phoneLabel"></label>
+    <label [class.optional]="alternative" class="control-label" for="phone"
+           [innerHTML]="getLabel()"></label>
     <input type="tel"
            required minlength="2"
            id='phone' name='phone'

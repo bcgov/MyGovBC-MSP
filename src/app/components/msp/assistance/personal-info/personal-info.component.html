@@ -8,7 +8,19 @@
 <msp-assistance-personal-details></msp-assistance-personal-details>
 
 <h2 [innerHTML]="lang('./en/index.js').contactInfo"></h2>
-<msp-phone></msp-phone>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-sm-4">
+                <msp-phone></msp-phone>
+            </div>
+            <div class="col-sm-4">
+                <msp-phone [alternative]="true"></msp-phone>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-xs-2 col-xs-offset-9">
