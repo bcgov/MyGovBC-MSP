@@ -4,16 +4,170 @@
             See if you qualify for financial help to pay for public health care coverage
         </h1>
 
-        <h2>
-            Have you just lost your job or are you experiencing other financial troubles?
-        </h2>
-        <div class="btn-group" role="group">
-            <button [class.msp-btn-radio]="finAssistApp.isInFinTrouble === true" (click)="finAssistApp.isInFinTrouble=true" 
-                type="button" class="btn btn-default" >Yes</button>
-            <button [class.msp-btn-radio]="finAssistApp.isInFinTrouble === false" (click)="finAssistApp.isInFinTrouble=false" 
-                type="button" class="btn btn-default">No&nbsp;</button>
+        <h3>
+            Be prepared to enter information found on last year’s:
+            <ul>
+                <li>
+                    Notice of Assessment (or Reassessment) from Canada Revenue Agency
+                </li>
+                <li>
+                    Income tax return            
+                </li>
+            </ul>
+        </h3>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="netIncome">What is your net income (Line 236) on last year's Notice of Assessment (or Reassessment) from Canada Revenue Agency?</label>
+                    
+                    <div class="col-md-6 input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" class="form-control" name="netIncome" [(ngModel)]="finAssistApp.netIncomelastYear">
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-10">
+                <div class="form-group">
+                    <label>
+                                Are you 65 or older this year?
+                    </label>
+                    <br/>
+                    <div class="btn-group" role="group">
+                        <button [class.msp-btn-radio]="finAssistApp.ageOver65 === true" (click)="finAssistApp.ageOver65=true" type="button" class="btn btn-default">Yes</button>
+                        <button [class.msp-btn-radio]="finAssistApp.ageOver65 === false" (click)="finAssistApp.ageOver65=false" type="button" class="btn btn-default">No&nbsp;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!--<div class="row">
+            <div class="col-md-6">
+                <div class="msp-app">
+                    <div class="button-group">
+                        <button type="button" class="btn btn-default" (click)='addSpouse()'>
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
+                        </button>
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
+                        </button>
+                        *ngIf='finAssistApp.hasSpouseOrCommonLaw === true || finAssistApp.hasSpouseOrCommonLaw !== false'
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="row">
+            <div class="col-md-10">
+                <div class="form-group">
+                    <label for="commonlaw">
+                        Do you have a spouse or common-law partner?
+                    </label>
+                    <br/>
+                    <div class="btn-group" role="group">
+                        <button [class.msp-btn-radio]="finAssistApp.hasSpouseOrCommonLaw === true" (click)="finAssistApp.hasSpouseOrCommonLaw=true" type="button" class="btn btn-default">Yes</button>
+                        <button [class.msp-btn-radio]="finAssistApp.hasSpouseOrCommonLaw === false" (click)="finAssistApp.hasSpouseOrCommonLaw=false" type="button" class="btn btn-default">No&nbsp;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div>
+                    <span class="glyphicon glyphicon-plus msp-label"
+                    *ngIf="!finAssistApp.hasChildrenInfo"
+                    (click)="finAssistApp.addChildrenInfo()"
+                    aria-hidden="true"></span>
+
+                    <span class="glyphicon glyphicon-minus msp-label"
+                    *ngIf="finAssistApp.hasChildrenInfo"
+                    (click)="finAssistApp.removeChildrenInfo()"
+                    aria-hidden="true"></span>
+
+                    <span [innerHTML]="lang('./en/index.js').addChildrenInfo"
+                    *ngIf="!finAssistApp.hasChildrenInfo"></span>
+
+                    <span [innerHTML]="lang('./en/index.js').removeChildrenInfo"
+                        *ngIf="finAssistApp.hasChildrenInfo"></span>
+                </div>
+                <div *ngIf="finAssistApp.hasChildrenInfo">
+                    <p>TBD</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div>
+                    <span class="glyphicon glyphicon-plus msp-label"
+                    *ngIf="!finAssistApp.hasDisabilityInfo"
+                    (click)="finAssistApp.addDisabilityInfo()"
+                    aria-hidden="true"></span>
+
+                    <span class="glyphicon glyphicon-minus msp-label"
+                    *ngIf="finAssistApp.hasDisabilityInfo"
+                    (click)="finAssistApp.removeDisabilityInfo()"
+                    aria-hidden="true"></span>
+
+                    <span [innerHTML]="lang('./en/index.js').addDisabilityInfo"
+                    *ngIf="!finAssistApp.hasDisabilityInfo"></span>
+                    
+                    <span [innerHTML]="lang('./en/index.js').removeDisabilityInfo"
+                        *ngIf="finAssistApp.hasDisabilityInfo"></span>
+                </div>
+            </div>
+        </div>
+        <p></p>
+        <div class="row" *ngIf="finAssistApp.hasDisabilityInfo">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="">Is anyone included on your public health insurance eligible for the Disability Credit as per Canada Revenue Agency (Lines 316, 318 or 326)? Please check all that apply.
+                    </label>
+
+                    <ul class="msp-horizontal-list-group">
+                        <li class="msp-horizontal-list-group-item-sm">
+                            <span class="glyphicon glyphicon-unchecked">
+
+                            </span>
+                            <span>Myself</span>
+                        </li>
+                        <li class="msp-horizontal-list-group-item-lg">
+                            <span class="glyphicon glyphicon-unchecked">
+
+                            </span>
+                            <span>My spouse/common-law partner</span>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="netIncome">
+                                How much did you (or your spouse / common-law partner) report for a Registered Disability
+                                Savings Plan on your income tax return (Line 125)?
+                            </label>
+                            
+                            <div class="col-md-6 input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" class="form-control" name="netIncome" [(ngModel)]="finAssistApp.netIncomelastYear">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        
+                
 
     </div>
     <div class="col-md-3">

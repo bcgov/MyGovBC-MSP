@@ -17,4 +17,8 @@ export class AssistancePrepareComponent {
   get finAssistApp(): FinancialAssistApplication{
     return this.dataService.finAssistApp;
   }
+
+  addSpouse():void {
+    this.finAssistApp.hasSpouseOrCommonLaw = true;
+  }
 }
