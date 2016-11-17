@@ -1,4 +1,4 @@
-<form>
+<form [hidden]="mailingOnly">
     <div class="row">
         <div class="form-group col-sm-5">
             <label for="street" [innerHtml]="lang('./en/index.js').streetLabel"></label>
@@ -24,8 +24,8 @@
         </div>
     </div>
 </form>
-<div [hidden]="!mailingAddressDifferent">
-<h1 [innerHtml]="lang('./en/index.js').mailingAddressHeading"></h1>
+<div [hidden]="!mailingAddressDifferent && !mailingOnly">
+<h2 [innerHtml]="lang('./en/index.js').mailingAddressHeading"></h2>
     <form>
         <div class="row">
             <div class="form-group col-sm-5">
