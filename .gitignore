@@ -9,6 +9,5 @@ npm-debug.log
 typings/
 debug.log
 /dist
-src/app/**/*.js
 src/app/**/*.map
 
