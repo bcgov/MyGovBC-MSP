@@ -1,5 +1,6 @@
 export class FinancialAssistApplication {
   netIncomelastYear:number;
+  spouseNetIncome: number;
   ageOver65:boolean;
   _hasSpouseOrCommonLaw: boolean;
 
@@ -30,6 +31,7 @@ export class FinancialAssistApplication {
   set hasSpouseOrCommonLaw(arg:boolean){
     if(!arg){
       this.spouseEligibleForDisabilityCredit = arg;
+      this.spouseNetIncome = null;
     }
     this._hasSpouseOrCommonLaw = arg;
   }
