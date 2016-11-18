@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-8">
         <h1>
             See if you qualify for financial help to pay for public health care coverage
         </h1>
@@ -20,7 +20,7 @@
                 <div class="col-md-12">
                     <label for="netIncome">What is your net income (Line 236) on last year's Notice of Assessment (or Reassessment) from Canada Revenue Agency?</label>
                     
-                    <div class="col-md-6 input-group">
+                    <div class="col-md-2 col-sm-3 col-xs-3 input-group">
                         <span class="input-group-addon">$</span>
                         <input type="text" class="form-control" name="netIncome" [(ngModel)]="finAssistApp.netIncomelastYear">
                     </div>
@@ -43,22 +43,6 @@
             </div>
         </div>
         <hr>
-        <!--<div class="row">
-            <div class="col-md-6">
-                <div class="msp-app">
-                    <div class="button-group">
-                        <button type="button" class="btn btn-default" (click)='addSpouse()'>
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                            <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
-                        </button>
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                            <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
-                        </button>
-                        *ngIf='finAssistApp.hasSpouseOrCommonLaw === true || finAssistApp.hasSpouseOrCommonLaw !== false'
-                    </div>
-                </div>
-            </div>
-        </div>-->
         <div class="row">
             <div class="col-md-10">
                 <div class="form-group">
@@ -105,44 +89,70 @@
         <div class="row">
             <div class="col-md-6">
                 <div>
-                    <span class="glyphicon glyphicon-plus msp-label"
-                    *ngIf="!finAssistApp.hasDisabilityInfo"
-                    (click)="finAssistApp.addDisabilityInfo()"
+                    <span class="glyphicon glyphicon-collapse-down msp-toggle"
+                    *ngIf="!showDisabilityInfo"
+                    (click)="showDisabilityInfo=true"
                     aria-hidden="true"></span>
 
-                    <span class="glyphicon glyphicon-minus msp-label"
-                    *ngIf="finAssistApp.hasDisabilityInfo"
-                    (click)="finAssistApp.removeDisabilityInfo()"
+                    <span class="glyphicon glyphicon-collapse-up msp-toggle"
+                    *ngIf="showDisabilityInfo"
+                    (click)="showDisabilityInfo=false"
                     aria-hidden="true"></span>
 
-                    <span [innerHTML]="lang('./en/index.js').addDisabilityInfo"
-                    *ngIf="!finAssistApp.hasDisabilityInfo"></span>
+                    <span [innerHTML]="lang('./en/index.js').disabilityInfo"
+                    *ngIf="!showDisabilityInfo"></span>
                     
-                    <span [innerHTML]="lang('./en/index.js').removeDisabilityInfo"
-                        *ngIf="finAssistApp.hasDisabilityInfo"></span>
+                    <span [innerHTML]="lang('./en/index.js').disabilityInfo"
+                        *ngIf="showDisabilityInfo"></span>
                 </div>
             </div>
         </div>
         <p></p>
-        <div class="row" *ngIf="finAssistApp.hasDisabilityInfo">
+        <div class="row" *ngIf="showDisabilityInfo" style="margin-left: 5px;">
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="">Is anyone included on your public health insurance eligible for the Disability Credit as per Canada Revenue Agency (Lines 316, 318 or 326)? Please check all that apply.
                     </label>
 
                     <ul class="msp-horizontal-list-group">
-                        <li class="msp-horizontal-list-group-item-sm">
-                            <span class="glyphicon glyphicon-unchecked">
-
-                            </span>
+                        <li class="msp-horizontal-list-group-item-sm msp-selectable" 
+                            *ngIf="!finAssistApp.selfDisabilityCredit"
+                            (click) = "finAssistApp.selfDisabilityCredit=true">
+                            <span class="glyphicon glyphicon-unchecked"
+                                ></span>
                             <span>Myself</span>
                         </li>
-                        <li class="msp-horizontal-list-group-item-lg">
-                            <span class="glyphicon glyphicon-unchecked">
+                        <li class="msp-horizontal-list-group-item-sm msp-selectable" 
+                            *ngIf="finAssistApp.selfDisabilityCredit"
+                            (click) = "finAssistApp.selfDisabilityCredit=false">
+                            <span class="glyphicon glyphicon-check msp-selection"
+                                ></span>
+                            <span>Myself</span>
+                        </li>
 
-                            </span>
+
+                        <li class="msp-horizontal-list-group-item-lg msp-selectable" 
+                            *ngIf="!finAssistApp.spouseEligibleForDisabilityCredit"
+                            (click) = "finAssistApp.spouseEligibleForDisabilityCredit=true">
+                            <span class="glyphicon glyphicon-unchecked"></span>
                             <span>My spouse/common-law partner</span>
                         </li>
+                        <li class="msp-horizontal-list-group-item-lg msp-selectable" 
+                            *ngIf="finAssistApp.spouseEligibleForDisabilityCredit"
+                            (click) = "finAssistApp.spouseEligibleForDisabilityCredit=false">
+                            <span class="glyphicon glyphicon-check msp-selection"></span>
+                            <span>My spouse/common-law partner</span>
+                        </li>
+
+                        <!--<li class="msp-horizontal-list-group-item-lg">
+                            <span class="glyphicon glyphicon-unchecked"
+                                (click)="finAssistApp.spouseEligibleForDisabilityCredit=true"
+                            ></span>
+                            <span class="glyphicon glyphicon-check"
+                                (click)="finAssistApp.spouseEligibleForDisabilityCredit=false"
+                            ></span>
+                            <span>My spouse/common-law partner</span>
+                        </li>-->
                     </ul>
 
                 </div>
@@ -155,7 +165,7 @@
                                 Savings Plan on your income tax return (Line 125)?
                             </label>
                             
-                            <div class="col-md-6 input-group">
+                            <div class="col-md-2 col-sm-3 col-xs-3 input-group">
                                 <span class="input-group-addon">$</span>
                                 <input type="text" class="form-control" name="netIncome" [(ngModel)]="finAssistApp.netIncomelastYear">
                             </div>
@@ -170,7 +180,7 @@
                 
 
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <h3>Reserved for help column</h3>
     </div>
 </div>

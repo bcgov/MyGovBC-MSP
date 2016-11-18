@@ -1,15 +1,15 @@
 export class FinancialAssistApplication {
   netIncomelastYear:number;
   ageOver65:boolean;
-  hasSpouseOrCommonLaw: boolean;
+  _hasSpouseOrCommonLaw: boolean;
 
   private _hasChildrenInfo:boolean;
-  private _hasDisabilityInfo:boolean;
+  // private _hasDisabilityInfo:boolean;
 
   /**
    * Applicant himself or herself eligible for disablity credit flag
    */
-  eligibleForDisabilityCredit:boolean;
+  private eligibleForDisabilityCredit:boolean;
   private spouseOrCommonLawEligibleForDisabilityCredit:boolean;
 
   /**
@@ -23,13 +23,33 @@ export class FinancialAssistApplication {
 
   }
 
+  get hasSpouseOrCommonLaw(){
+    return this._hasSpouseOrCommonLaw;
+  }
 
-  set spouseDisabilityCredit(eligible:boolean) {
-    if(this.hasSpouseOrCommonLaw){
-      this.spouseOrCommonLawEligibleForDisabilityCredit = eligible;
-    }else{
-      this.spouseOrCommonLawEligibleForDisabilityCredit = false;
+  set hasSpouseOrCommonLaw(arg:boolean){
+    if(!arg){
+      this.spouseEligibleForDisabilityCredit = arg;
     }
+    this._hasSpouseOrCommonLaw = arg;
+  }
+
+  get selfDisabilityCredit(){
+    return this.eligibleForDisabilityCredit;
+  }
+  set selfDisabilityCredit(selfEligible:boolean){
+    this.eligibleForDisabilityCredit = selfEligible;
+  }
+
+  get spouseEligibleForDisabilityCredit(){
+    return this.spouseOrCommonLawEligibleForDisabilityCredit
+  }
+
+  set spouseEligibleForDisabilityCredit(spouseEligible:boolean) {
+    if(spouseEligible){
+      this._hasSpouseOrCommonLaw = true;
+    }
+    this.spouseOrCommonLawEligibleForDisabilityCredit = spouseEligible;
   }
 
   /**
@@ -49,18 +69,18 @@ export class FinancialAssistApplication {
   /**
    * Disablility Info section
    */
-  get hasDisabilityInfo(){
-    return this._hasDisabilityInfo;
-  }
-  addDisabilityInfo(){
-    this._hasDisabilityInfo = true;
-  }
+  // get hasDisabilityInfo(){
+  //   return this._hasDisabilityInfo;
+  // }
+  // addDisabilityInfo(){
+  //   this._hasDisabilityInfo = true;
+  // }
 
   /**
    * reset all property regarding disability (self and spouse)
    */
-  removeDisabilityInfo(){
-    this._hasDisabilityInfo = false;
-  }
+  // removeDisabilityInfo(){
+  //   this._hasDisabilityInfo = false;
+  // }
 
 }

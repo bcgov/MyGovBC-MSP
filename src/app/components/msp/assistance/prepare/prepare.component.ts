@@ -9,11 +9,19 @@ require('./prepare.component.less');
 })
 export class AssistancePrepareComponent {
   lang = require('./i18n');
-
+  _showDisabilityInfo = true;
   constructor(private dataService: DataService){
 
   }
 
+  get showDisabilityInfo(){
+    return this._showDisabilityInfo;
+  }
+
+  set showDisabilityInfo(doShow:boolean){
+    this._showDisabilityInfo = doShow;
+  }
+  
   get finAssistApp(): FinancialAssistApplication{
     return this.dataService.finAssistApp;
   }
