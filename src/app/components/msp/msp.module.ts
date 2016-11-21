@@ -32,7 +32,7 @@ import {AssistancePersonalDetailComponent} from './assistance/personal-info/pers
 import {AssistanceReviewComponent} from './assistance/review/review.component';
 import {AssistanceAuthorizeSubmitComponent} from './assistance/authorize-submit/authorize-submit.component';
 import {AssistanceConfirmationComponent} from './assistance/confirmation/confirmation.component';
-
+import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calculator/deduction-calculator.component';
 /**
  * The overall progress layout is created based on 'msp-prepare-v3-a.jpeg' in
  * https://apps.gcpe.gov.bc.ca/jira/browse/PSPDN-255?filter=16000
@@ -152,7 +152,8 @@ import {AssistanceConfirmationComponent} from './assistance/confirmation/confirm
     AssistancePersonalDetailComponent,
     AssistanceReviewComponent,
     AssistanceAuthorizeSubmitComponent,
-    AssistanceConfirmationComponent
+    AssistanceConfirmationComponent,
+    DeductionCalculatorComponent
   ],
 
   providers: [

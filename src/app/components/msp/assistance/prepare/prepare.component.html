@@ -195,13 +195,21 @@
 
     </div>
     <div class="col-md-4">
-        <h3>Reserved for help column</h3>
+        <deduction-calculator [application]="finAssistApp"></deduction-calculator>
+        <p></p>
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="btn btn-primary btn-block" type="submit" routerLink="/msp/assistance/personal-info"
+                        [innerHTML]="lang('./en/index.js').continueButton"></button>
+            </div>
+        </div>
+        
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-2 col-xs-offset-7">
-        <button class="btn btn-primary" type="submit" routerLink="/msp/assistance/personal-info"
-                [innerHTML]="lang('./en/index.js').continueButton"></button>
+        <!--<button class="btn btn-primary" type="submit" routerLink="/msp/assistance/personal-info"
+                [innerHTML]="lang('./en/index.js').continueButton"></button>-->
     </div>
 </div>
