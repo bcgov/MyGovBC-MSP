@@ -71,53 +71,84 @@
 
         <div class="row">
             <div class="col-md-6">
-                <div>
-                    <span class="glyphicon glyphicon-collapse-down msp-toggle"
-                    *ngIf="!showChildrenInfo"
-                    (click)="showChildrenInfo=true"
+                <div (click)="showChildrenInfo=true" *ngIf="!showChildrenInfo"
+                    class="msp-toggle">
+                    <span class="glyphicon glyphicon-collapse-up"
+                        aria-hidden="true"></span>
+                    <span [innerHTML]="lang('./en/index.js').childrenInfo"></span>
+                </div>
+
+                <div (click)="showChildrenInfo=false" *ngIf="showChildrenInfo"
+                    class="msp-toggle">
+                    <span class="glyphicon glyphicon-collapse-down"
                     aria-hidden="true"></span>
-
-                    <span class="glyphicon glyphicon-collapse-up msp-toggle"
-                    *ngIf="showChildrenInfo"
-                    (click)="showChildrenInfo=false"
-                    aria-hidden="true"></span>
-
-                    <span [innerHTML]="lang('./en/index.js').childrenInfo"
-                    *ngIf="!showChildrenInfo"></span>
-
-                    <span [innerHTML]="lang('./en/index.js').childrenInfo"
-                        *ngIf="showChildrenInfo"></span>
+                    <span [innerHTML]="lang('./en/index.js').childrenInfo"></span>
                 </div>
             </div>
         </div>
         <p></p>
+
         <div class="row" *ngIf="showChildrenInfo" style="margin-left: 5px;">
-          <div class="col-md-12">
-            <div class="form-group">
-              <label for="">Children info goes here</label>
+            <div class="col-md-12">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="childrenCount" class="col-xs-9 control-label" style="text-align:left; padding-right: 0;">
+                            How many children do you have on your public health insurance?</label>
+                        <div class="col-xs-3 col-md-2" style="text-align:left; padding-left: 3px;">
+                            <input type="text" class="form-control" name="childrenCount" 
+                                maxlength="2"
+                                [(ngModel)]="finAssistApp.childrenCount">
+                        </div>    
+                    </div>
+                </form>
+                
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="netIncome">
+                                How much did you claim for child care expenses last year on your income tax return (Line 214)?
+                            </label>
+
+                            <div class="col-md-3 col-sm-4 col-xs-6 input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" class="form-control" name="netIncome" placeholder=""
+                                [(ngModel)]="finAssistApp.netIncomelastYear">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="netIncome">
+                                How much did you report for the Universal Child Care Benefit on your income tax return (Line 117)?            
+                            </label>
+
+                            <div class="col-md-3 col-sm-4 col-xs-6 input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" class="form-control" name="netIncome" placeholder=""
+                                [(ngModel)]="finAssistApp.netIncomelastYear">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-          </div>
         </div>
         <hr>
 
         <div class="row">
             <div class="col-md-6">
-                <div>
-                    <span class="glyphicon glyphicon-collapse-down msp-toggle"
-                    *ngIf="!showDisabilityInfo"
-                    (click)="showDisabilityInfo=true"
-                    aria-hidden="true"></span>
-
+                <div class="msp-toggle" *ngIf="!showDisabilityInfo" (click)="showDisabilityInfo=true">
                     <span class="glyphicon glyphicon-collapse-up msp-toggle"
-                    *ngIf="showDisabilityInfo"
-                    (click)="showDisabilityInfo=false"
                     aria-hidden="true"></span>
+                    <span [innerHTML]="lang('./en/index.js').disabilityInfo"></span>
 
-                    <span [innerHTML]="lang('./en/index.js').disabilityInfo"
-                    *ngIf="!showDisabilityInfo"></span>
-
-                    <span [innerHTML]="lang('./en/index.js').disabilityInfo"
-                        *ngIf="showDisabilityInfo"></span>
+                </div>
+                <div class="msp-toggle" *ngIf="showDisabilityInfo" (click)="showDisabilityInfo=false">
+                    <span class="glyphicon glyphicon-collapse-down msp-toggle"
+                    aria-hidden="true"></span>
+                    <span [innerHTML]="lang('./en/index.js').disabilityInfo"></span>
                 </div>
             </div>
         </div>
@@ -157,16 +188,6 @@
                             <span class="glyphicon glyphicon-check msp-selection"></span>
                             <span>My spouse/common-law partner</span>
                         </li>
-
-                        <!--<li class="msp-horizontal-list-group-item-lg">
-                            <span class="glyphicon glyphicon-unchecked"
-                                (click)="finAssistApp.spouseEligibleForDisabilityCredit=true"
-                            ></span>
-                            <span class="glyphicon glyphicon-check"
-                                (click)="finAssistApp.spouseEligibleForDisabilityCredit=false"
-                            ></span>
-                            <span>My spouse/common-law partner</span>
-                        </li>-->
                     </ul>
 
                 </div>
