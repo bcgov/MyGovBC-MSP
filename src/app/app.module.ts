@@ -1,6 +1,7 @@
-import {NgModule, OpaqueToken, Inject} from '@angular/core'
+import {NgModule, OpaqueToken, Inject, Component} from '@angular/core'
 import {BrowserModule}  from '@angular/platform-browser'
 import {RouterModule} from '@angular/router';
+
 
 import {HomeComponent} from './components/home'
 import {CoreHeaderComponent} from './components/core/header'

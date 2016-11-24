@@ -1,4 +1,6 @@
-import {Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {Component, ViewChild, OnInit, Input, Output, EventEmitter, ViewContainerRef } from '@angular/core';
+import { ModalDirective } from 'ng2-bootstrap/components/modal/modal.component';
+
 import { MspImage } from '../MspImage';
 
 require('./thumbnail.less')
@@ -10,7 +12,12 @@ require('./thumbnail.less')
 export class ThumbnailComponent implements OnInit {
   @Input() imageObject: MspImage;
   @Output('delete') deleteImage: EventEmitter<string> = new EventEmitter<string>();
+  @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
 
+  private viewContainerRef: ViewContainerRef;
+  constructor(viewContainerRef: ViewContainerRef){
+    this.viewContainerRef = viewContainerRef;
+  }
   ngOnInit(){
 
   }
@@ -18,4 +25,14 @@ export class ThumbnailComponent implements OnInit {
   delete() {
     this.deleteImage.emit(this.imageObject.id);
   }
+
+  showFullSizeView(){
+    this.fullSizeViewModal.config.backdrop = false
+    this.fullSizeViewModal.show();
+  }
+
+  hideFullSizeView(){
+    this.fullSizeViewModal.hide();
+  }
+  
 }

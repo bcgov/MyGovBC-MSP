@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, ViewContainerRef } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { MspImage } from '../MspImage';
 import { Observable } from 'rxjs/Observable';
@@ -24,7 +24,8 @@ export class FileUploaderComponent implements OnInit {
   private MAX_IMAGE_COUNT:number = 12;
   private imageFileList: Array<MspImage> = new Array<MspImage>();
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(private sanitizer: DomSanitizer, 
+    private viewContainerRef: ViewContainerRef) {
     this.maxFileSize = 8 * 1024 * 1024;
   }
 
@@ -191,4 +192,5 @@ export class FileUploaderComponent implements OnInit {
   get MAX_NUM_IMAGES(): number{
     return this.MAX_IMAGE_COUNT;
   }
+
 }

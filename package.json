@@ -5,7 +5,7 @@
   "homepage": "",
   "main": "server.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development node .",
+    "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development node .",
     "dev-build": "cross-env NODE_ENV=development webpack -d --colors",
     "build": "cross-env NODE_ENV=production webpack -p --display-error-details",
@@ -84,6 +84,7 @@
   },
   "private": false,
   "dependencies": {
+    "ng2-bootstrap": "^1.1.16",
     "sha1": "^1.1.1"
   }
 }

@@ -5,6 +5,10 @@ import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 
+import { AlertModule } from 'ng2-bootstrap/components/alert';
+import { ProgressbarModule } from 'ng2-bootstrap/components/progressbar';
+import { ModalModule } from 'ng2-bootstrap/components/modal';
+
 import {MspComponent} from './msp.component';
 import {LandingComponent} from './landing/landing.component';
 import {MspNameComponent} from './common/name/name.component';
@@ -42,6 +46,10 @@ import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calcu
     BrowserModule,
     CommonModule,
     FormsModule,
+
+    AlertModule,
+    ProgressbarModule,
+    ModalModule,
     RouterModule.forChild([
       {
         path: 'msp',

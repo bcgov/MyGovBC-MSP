@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewContainerRef } from '@angular/core';
 require('./msp.component.less')
 
 @Component({
@@ -6,5 +6,11 @@ require('./msp.component.less')
   templateUrl: './msp.component.html'
 })
 export class MspComponent {
+  private viewContainerRef: ViewContainerRef;
+
+  public constructor(viewContainerRef:ViewContainerRef) {
+    // You need this small hack in order to catch application root view container ref
+    this.viewContainerRef = viewContainerRef;
+  }  
 
 }
