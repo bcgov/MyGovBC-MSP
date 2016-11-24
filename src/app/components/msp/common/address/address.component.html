@@ -11,7 +11,8 @@
         </div>
         <div class="form-group col-sm-3">
             <label for="postalCode" [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
-            <input type="text" class="form-control" id="postalCode" required>
+            <input type="text" class="form-control to-upper" id="postalCode" required
+                   pattern="[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ ]?\d[ABCEGHJ-NPRSTV-Z]\d">
         </div>
     </div>
     <div class="row">
@@ -35,7 +36,7 @@
             </div>
             <div class="form-group col-sm-3">
                 <label for="mailingCity" [innerHtml]="lang('./en/index.js').cityLabel"></label>
-                <input type="text" class="form-control" id="mailingCity">
+                <input type="text" class="form-control to-upper" id="mailingCity">
             </div>
             <div class="form-group col-sm-3">
                 <label for="mailingProvince" [innerHtml]="lang('./en/index.js').provinceLabel"></label>
@@ -57,7 +58,8 @@
             </div>
             <div class="form-group col-sm-2">
                 <label for="mailingPostalCode" [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
-                <input type="text" class="form-control" id="mailingPostalCode">
+                <input type="text" class="form-control to-upper" id="mailingPostalCode" required
+                       pattern="[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ ]?\d[ABCEGHJ-NPRSTV-Z]\d">
             </div>
         </div>
     </form>
