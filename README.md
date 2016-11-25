@@ -9,7 +9,7 @@ This is MyGovBC MSP AngularJS 2.x app.  It provides the following processes:
 ## Browser Compatibility
 
 * IE 9+
-* Edge 
+* Edge
 * Safari (TBD)
 * Chrome (evergreen)
 * Firefox (evergreen)
@@ -75,22 +75,18 @@ npm install
 npm run dev
 ```
 
-## Unit Testing 
-For unit testing you'll need to install the karma CLI
+## Unit Testing
+Unit testing is implemented using karma with Jasmine framework. The implementation follows [Angular webpack instruction](https://angular.io/docs/ts/latest/guide/webpack.html). Jenkins CI runs unit test as part of the build. For an example of unit test script, see [/src/app/components/msp/landing/landing.spec.ts](https://github.com/bcgov/MyGovBC-MSP/blob/master/src/app/components/msp/landing/landing.spec.ts)
+
+To start unit test manually, run `npm test`, which launches tests in headless PhantomJS browser. To run the unit tests in UI browser such as IE9, IE10, IE11, Firefox and Chrome, first install karma once globally
+
 ```
 npm install -g karma-cli
 ```
+then
 
-We run unit tests on IE9, IE10, IE11, Firefox and Chrome.  You'll need IE11, Firefox and Chrome installed.
-
-To continuously run Jasmine tests with the Karma load runner (in Chrome only) use:
 ```
 karma start --browsers Chrome
-```
-
-To continuously run Jasmine tests with the Karma load runner (ALL Browsers) use:
-```
-karma start
 ```
 
 ## Production
@@ -104,7 +100,7 @@ To facilitate building a multilingual site, i18n and markdown are supported by t
 1. create folder *i18n* under each component that needs i18n using a similar folder structure as */src/app/components/msp/landing/i18n*
 2. create static English content in *i18n/data/en*. You can use various formats:
   * for short phrase type of content, create it in .js file in json format:
-  
+
     ```
     // content of src/app/components/msp/landing/i18/data/en/index.js
     module.exports = {
@@ -114,13 +110,13 @@ To facilitate building a multilingual site, i18n and markdown are supported by t
     }
     ```
   * for long content, create markdown or html files:
-  
+
     ```
     [//]: # (content of src/app/components/msp/landing/i18/data/en/desc.md)
     # This is just a page for dev purposes to jump into these {page_count} flows:
     ```
     Notice there is a placeholder {page_count}. The delimiter {} is a matter of choice. We are going to substitute the placeholder later on.
-    
+
 3. (optional) translate the content into other languages under folder *i18n/data/\<lang\>*, preserving sub-folder structure. For example, French translation would be under *i18n/data/fr*.
 4. Require *i18n* folder in your component:
 
@@ -136,11 +132,11 @@ To facilitate building a multilingual site, i18n and markdown are supported by t
    {{lang('./en/index').newApp}}
    <div [innerHTML]="lang('./en/desc.md').replace('{page_count}',3)"></div>
   ```
-  
+
   In the above example, language code *en* is hard-coded. Depending on how do you capture user's language choice, be it implicitly from browser header detection or via URL path that user explicitly selected, the language code should be replaced with a variable.
-  
+
   Because the output of static content is string, you can implement placeholder in the static content and substitute them with Angular variables easily as shown above for placeholder {page_count}.
-  
+
 The component */src/app/components/msp/landing/* has the reference implementation of i18n and markdown.
 
 ## License
@@ -149,7 +145,7 @@ The component */src/app/components/msp/landing/* has the reference implementatio
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at 
+    You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 

@@ -7,5 +7,6 @@ describe('App', () => {
   it ('should work', () => {
     let fixture = TestBed.createComponent(LandingComponent)
     expect(fixture.componentInstance instanceof LandingComponent).toBe(true, 'should create LandingComponent')
+    expect(fixture.componentInstance.lang('./en/index').pa).toContain('Apply')
   })
 })
