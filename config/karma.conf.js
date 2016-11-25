@@ -7,7 +7,6 @@ module.exports = function (config) {
     files: [
       {pattern: './config/karma-test-shim.js', watched: false}
     ],
-
     preprocessors: {
       './config/karma-test-shim.js': ['webpack', 'sourcemap']
     },
@@ -18,18 +17,13 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: false,
     // Start these browsers, currently available:
+    // - PhantomJS
     // - Chrome
     // - Firefox
     // - IE
-    // - IE10
-    // - IE9
-    // - PhantomJS
     browsers: ['PhantomJS'],
     singleRun: true,
-    autoWatchBatchDelay: 300,
-
     webpack: webpackConfig,
-
     webpackMiddleware: {
       stats: 'errors-only'
     }
