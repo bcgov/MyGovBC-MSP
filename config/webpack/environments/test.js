@@ -16,8 +16,8 @@ module.exports = {
       {
         test: /\.html$/,
         loader: 'html'
-
       },
+      {test: /\.md$/, loader: "html!markdown"},
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
         loader: 'null'
