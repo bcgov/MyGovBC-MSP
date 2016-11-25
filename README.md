@@ -76,7 +76,7 @@ npm run dev
 ```
 
 ## Unit Testing
-Unit testing is implemented using karma with Jasmine framework. The implementation follows [Angular webpack instruction](https://angular.io/docs/ts/latest/guide/webpack.html). Jenkins CI runs unit test as part of the build. For an example of unit test script, see [/src/app/components/msp/landing/landing.spec.ts](https://github.com/bcgov/MyGovBC-MSP/blob/master/src/app/components/msp/landing/landing.spec.ts)
+Unit testing is implemented using karma with Jasmine framework. The implementation generally follows [Angular webpack test configuration](https://angular.io/docs/ts/latest/guide/webpack.html#test-configuration). Jenkins CI runs unit test as part of the build. For an example of unit test script, see [/src/app/components/msp/landing/landing.spec.ts](https://github.com/bcgov/MyGovBC-MSP/blob/master/src/app/components/msp/landing/landing.spec.ts)
 
 To start unit test manually, run `npm test`, which launches tests in headless PhantomJS browser. To run the unit tests in UI browser such as IE9, IE10, IE11, Firefox and Chrome, first install karma once globally
 
