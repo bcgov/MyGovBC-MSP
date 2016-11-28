@@ -6,9 +6,9 @@ require('./phone.component.less')
   templateUrl: './phone.component.html'
 })
 export class MspPhoneComponent {
-
     lang = require('./i18n');
 
+    @Input() phoneNumber: String;
     @Input('alternative') alternative = false;
 
     constructor(@Inject('appConstants') appConstants: Object) {

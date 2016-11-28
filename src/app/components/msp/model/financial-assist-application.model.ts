@@ -92,4 +92,5 @@ export class FinancialAssistApplication {
   public mailingSameAsResidentialAddress: boolean = true;
   public mailingAddress: Address = new Address();
   public phoneNumber: string;
+  public alternativePhoneNumber: string;
 }
