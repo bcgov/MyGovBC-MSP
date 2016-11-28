@@ -16,6 +16,7 @@ import {MspBirthDateComponent} from './common/birthdate/birthdate.component';
 import {MspAddressComponent} from './common/address/address.component';
 import {MspPhoneComponent} from './common/phone/phone.component';
 import {MspProgressBarComponent} from './common/progressBar/progressBar.component';
+import {MspPhnComponent} from './common/phn/phn.component';
 
 import MspApplicationDataService from './application/application-data.service';
 import {ApplicationComponent} from './application/application.component';
@@ -139,6 +140,7 @@ import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calcu
     MspBirthDateComponent,
     MspAddressComponent,
     MspPhoneComponent,
+    MspPhnComponent,
     MspProgressBarComponent,
     FileUploaderComponent,
     ThumbnailComponent,

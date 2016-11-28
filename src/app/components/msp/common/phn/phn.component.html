@@ -1,0 +1,10 @@
+<form #formRef='ngForm' novalidate>
+    <div class="form-group">
+        <label class="control-label" for="phn"
+               [innerHTML]="lang('./en/index.js').phnLabel"></label>
+        <input type="text"
+               required
+               id='phn' name='phn'
+               class="form-control">
+    </div>
+</form>
