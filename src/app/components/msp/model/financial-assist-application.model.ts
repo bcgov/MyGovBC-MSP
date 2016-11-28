@@ -1,3 +1,5 @@
+import {Address} from "./address.model";
+
 export class FinancialAssistApplication {
   netIncomelastYear:number;
   spouseNetIncome: number;
@@ -85,4 +87,9 @@ export class FinancialAssistApplication {
   //   this._hasDisabilityInfo = false;
   // }
 
+  // Address and Contact Info
+  public residentialAddress: Address = new Address();
+  public mailingSameAsResidentialAddress: boolean = true;
+  public mailingAddress: Address = new Address();
+  public phoneNumber: string;
 }

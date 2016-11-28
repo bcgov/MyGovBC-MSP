@@ -1,3 +1,5 @@
+import {Address} from "./address.model";
+
 class Person {
   relationship: string;
   status: string;
@@ -83,6 +85,13 @@ class MspApplication {
     // console.log('spouse removed from coverage');
     this._spouse = null;
   }
+
+  // Address and Contact Info
+  public residentialAddress: Address = new Address();
+  public mailingSameAsResidentialAddress: boolean = true;
+  public mailingAddress: Address = new Address();
+  public phoneNumber: string;
+
 }
 
 export {MspApplication, Person}
