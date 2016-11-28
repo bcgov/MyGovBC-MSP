@@ -1,4 +1,4 @@
-import {Component, Inject, Input} from '@angular/core';
+import {Component, Inject, Input, NgModule} from '@angular/core';
 import {Address} from "../../model/address.model";
 
 require('./address.component.less');

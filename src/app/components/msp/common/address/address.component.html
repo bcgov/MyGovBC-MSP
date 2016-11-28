@@ -122,7 +122,7 @@
                 <label for="mailingAddressCity" [innerHtml]="lang('./en/index.js').cityLabel"></label>
                 <input [(ngModel)]='mailingAddress.city' type="text" class="form-control"
                        id="mailingAddressCity" name="mailingAddressCity" #mailingAddressCityRef="ngModel"
-                       maxlength="5" required>
+                       maxlength="25" required>
                 <div *ngIf='mailingAddressCityRef.touched'>
                     <div class="text-danger" *ngIf="mailingAddressCityRef.errors?.required"
                          [innerHtml]="lang('./en/index.js').cityErrorIsRequired"></div>
