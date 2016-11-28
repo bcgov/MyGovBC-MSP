@@ -1,8 +1,10 @@
 <div class="form-group">
     <label [class.optional]="alternative" class="control-label" for="phone"
            [innerHTML]="getLabel()"></label>
-    <input type="tel"
-           required minlength="2"
+    <input type="text"
+           required
+           pattern="\d{3}[\-]\d{3}[\-]\d{4}"
            id='phone' name='phone'
-           class="form-control">
+           class="form-control"
+           placeholder="555-123-4567">
 </div>

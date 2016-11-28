@@ -20,7 +20,7 @@ module.exports = {
 
   postalCodeLabel: 'Postal Code',
   postalCodeErrorIsRequired: 'Postal Code is required',
-  postalCodeErrorPattern: 'Postal Code must be in format A1B 2C3 or A1B2C3',
+  postalCodeErrorPattern: 'Postal Code must be in format V1B 2C3 or V1B2C3',
 
   countryLabel: 'Country',
   countryErrorIsRequired: 'Country is required',

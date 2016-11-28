@@ -2,7 +2,7 @@
 
     <div class="row" *ngIf="!mailingOnly">
         <div class="form-group col-sm-5"
-             [ngClass]="{'has-error': !formRef.controls.residentialAddressLine1Ref?.valid && residentialAddressLine1Ref.touched}">
+             [ngClass]="{'has-error': !formRef.controls.residentialAddressLine1?.valid && residentialAddressLine1Ref.touched}">
             <label for="residentialAddressLine1" [innerHtml]="lang('./en/index.js').addressLine1Label"></label>
             <input [(ngModel)]="residentialAddress.addressLine1" type="text" class="form-control"
                    id="residentialAddressLine1" name="residentialAddressLine1" #residentialAddressLine1Ref="ngModel"
@@ -51,12 +51,12 @@
             </div>
         </div>
         <div class="form-group col-sm-3"
-             [ngClass]="{'has-error': !formRef.controls.residentialAddressPostalCodeRef?.valid && residentialAddressPostalCodeRef.touched}">
+             [ngClass]="{'has-error': !formRef.controls.residentialAddressPostalCode?.valid && residentialAddressCityRef.touched}">
             <label for="residentialAddressPostalCode" [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
             <input [(ngModel)]='residentialAddress.postal' type="text" class="form-control to-upper"
                    id="residentialAddressPostalCode" name="residentialAddressPostalCode" #residentialAddressPostalCodeRef="ngModel"
                    required
-                   pattern="[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ ]?\d[ABCEGHJ-NPRSTV-Z]\d">
+                   pattern="[Vv]\d[ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][ ]?\d[ABCEGHJ-NPRSTV-Zabceghj-nprstv-z]\d">
             <div *ngIf='residentialAddressPostalCodeRef.touched'>
                 <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.required"
                      [innerHtml]="lang('./en/index.js').postalCodeErrorIsRequired"></div>
@@ -83,7 +83,7 @@
 
         <div class="row">
             <div class="form-group col-sm-5"
-                 [ngClass]="{'has-error': !formRef.controls.mailingAddressLine1Ref?.valid && mailingAddressLine1Ref.touched}">
+                 [ngClass]="{'has-error': !formRef.controls.mailingAddressLine1?.valid && mailingAddressLine1Ref.touched}">
                 <label for="mailingAddressLine1" [innerHtml]="lang('./en/index.js').addressLine1Label"></label>
                 <input [(ngModel)]="mailingAddress.addressLine1" type="text" class="form-control"
                        id="mailingAddressLine1" name="mailingAddressLine1" #mailingAddressLine1Ref="ngModel"
@@ -118,7 +118,7 @@
 
             </div>
             <div class="form-group col-sm-4"
-                 [ngClass]="{'has-error': !formRef.controls.mailingAddressCityRef?.valid && mailingAddressCityRef.touched}">
+                 [ngClass]="{'has-error': !formRef.controls.mailingAddressCity?.valid && mailingAddressCityRef.touched}">
                 <label for="mailingAddressCity" [innerHtml]="lang('./en/index.js').cityLabel"></label>
                 <input [(ngModel)]='mailingAddress.city' type="text" class="form-control"
                        id="mailingAddressCity" name="mailingAddressCity" #mailingAddressCityRef="ngModel"
@@ -131,12 +131,12 @@
                 </div>
             </div>
             <div class="form-group col-sm-3"
-                 [ngClass]="{'has-error': !formRef.controls.mailingAddressPostalCodeRef?.valid && mailingAddressPostalCodeRef.touched}">
+                 [ngClass]="{'has-error': !formRef.controls.mailingAddressPostalCode?.valid && mailingAddressPostalCodeRef.touched}">
                 <label for="mailingAddressPostalCode" [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
                 <input [(ngModel)]='mailingAddress.postal' type="text" class="form-control to-upper"
                        id="mailingAddressPostalCode" name="mailingAddressPostalCode" #mailingAddressPostalCodeRef="ngModel"
                        required
-                       pattern="[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ ]?\d[ABCEGHJ-NPRSTV-Z]\d">
+                       pattern="[ABCEGHJKLMNPRSTVXYabceghjklmnprstvxy]\d[ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][ ]?\d[ABCEGHJ-NPRSTV-Zabceghj-nprstv-z]\d">
                 <div *ngIf='mailingAddressPostalCodeRef.touched'>
                     <div class="text-danger" *ngIf="mailingAddressPostalCodeRef.errors?.required"
                          [innerHtml]="lang('./en/index.js').postalCodeErrorIsRequired"></div>
@@ -147,7 +147,7 @@
         </div>
         <div class="row">
             <div class="form-group col-sm-5"
-                 [ngClass]="{'has-error': !formRef.controls.mailingAddressProvinceRef?.valid && mailingAddressProvinceRef.touched}">
+                 [ngClass]="{'has-error': !formRef.controls.mailingAddressProvince?.valid && mailingAddressProvinceRef.touched}">
                 <label for="mailingAddressProvince" [innerHtml]="lang('./en/index.js').provinceLabel"></label>
                 <select class="form-control"
                         [(ngModel)]='mailingAddress.province'
@@ -173,7 +173,7 @@
                 </div>
             </div>
             <div class="form-group col-sm-4"
-                 [ngClass]="{'has-error': !formRef.controls.mailingAddressCountryRef?.valid && mailingAddressCountryRef.touched}">
+                 [ngClass]="{'has-error': !formRef.controls.mailingAddressCountry?.valid && mailingAddressCountryRef.touched}">
                 <label for="mailingAddressCountry" [innerHtml]="lang('./en/index.js').countryLabel"></label>
                 <input [(ngModel)]='mailingAddress.country' type="text" class="form-control"
                        id="mailingAddressCountry" name="mailingAddressCountry" #mailingAddressCountryRef="ngModel"

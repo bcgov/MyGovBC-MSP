@@ -100,5 +100,6 @@ export class MspAddressComponent {
 
   useSameMailingAddress() {
     this.mailingSameAsResidentialAddress = true;
+    this.mailingAddress = new Address();
   }
 }
