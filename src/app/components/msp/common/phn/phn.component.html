@@ -6,11 +6,15 @@
         <input type="text"
                [(ngModel)]="phn"
                [(required)]="required"
+               maxlength="13"
+               minlength="10"
                id='phn' name='phn' #phnRef="ngModel"
                class="form-control">
         <div *ngIf='phnRef.touched'>
             <div class="text-danger" *ngIf="phnRef.errors?.required"
-                 [innerHTML]="lang('./en/index.js').phnRequired"></div>
+                 [innerHTML]="lang('./en/index.js').phnErrorRequired"></div>
+            <div class="text-danger" *ngIf="phnRef.errors?.minlength"
+                 [innerHTML]="lang('./en/index.js').phnErrorMinLength"></div>
         </div>
     </div>
 </form>

@@ -1,4 +1,5 @@
 module.exports = {
   phnLabel: 'Personal Health Number (PHN)',
-  phnRequired: 'PHN is required',
+  phnErrorRequired: 'PHN is required',
+  phnErrorMinLength: 'PHN must be at least 10 characters long'
 }
