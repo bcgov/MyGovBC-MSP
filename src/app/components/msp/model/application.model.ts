@@ -92,6 +92,11 @@ class MspApplication {
   public mailingAddress: Address = new Address();
   public phoneNumber: string;
 
+  constructor() {
+    // Set some defaults
+    this.residentialAddress.province = "BC";
+    this.residentialAddress.country = "Canada";
+  }
 }
 
 export {MspApplication, Person}

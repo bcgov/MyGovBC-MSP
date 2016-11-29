@@ -36,7 +36,7 @@
             </div>
 
         </div>
-        <div class="form-group col-sm-4"
+        <div class="form-group col-sm-3 col-md-4"
              [ngClass]="{'has-error': !formRef.controls.residentialAddressCity?.valid && residentialAddressCityRef.touched}">
             <label for="residentialAddressCity" [innerHtml]="lang('./en/index.js').cityLabel"></label>
             <input [(ngModel)]='residentialAddress.city' type="text" class="form-control"
@@ -50,7 +50,14 @@
                      [innerHtml]="lang('./en/index.js').cityErrorMaxLength.replace('{length}', residentialAddressCityRef.maxLength)"></div>
             </div>
         </div>
-        <div class="form-group col-sm-3"
+        <div class="form-group col-sm-2 col-md-1">
+            <label for="residentialAddressProvince" [innerHtml]="lang('./en/index.js').provinceLabel"></label>
+            <input [(ngModel)]='residentialAddress.province' type="text" class="form-control"
+                   id="residentialAddressProvince" name="residentialAddressProvince"
+                   value="BC"
+                   readonly>
+        </div>
+        <div class="form-group col-sm-2"
              [ngClass]="{'has-error': !formRef.controls.residentialAddressPostalCode?.valid && residentialAddressCityRef.touched}">
             <label for="residentialAddressPostalCode" [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
             <input [(ngModel)]='residentialAddress.postal' type="text" class="form-control to-upper"
