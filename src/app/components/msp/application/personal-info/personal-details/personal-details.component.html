@@ -28,14 +28,13 @@
                  [ngClass]="{'has-error': !formRef.controls.firstname?.valid && firstnameRef.touched}">
                 <label class="control-label" for="firstname"
                        [innerHTML]="lang('./en/index.js').firstNameLabel"></label>
-                <input type="text" [(ngModel)]='person.firstname' #firstnameRef="ngModel"
-                       required minlength="2"
-                       id='firstname' name='firstname'
-                       class="form-control" id="firstname">
-            </div>
+				<input type="text" [(ngModel)] = 'person.firstname' #firstnameRef="ngModel"
+					required minlength="2"
+					id='firstname' name='firstname'class="form-control">
+			</div>
 
-            <div *ngIf='firstnameRef.touched'>
-                <div class="text-danger" *ngIf="firstnameRef.errors?.required"
+			<div *ngIf='firstnameRef.touched'>
+				<div class="text-danger" *ngIf="firstnameRef.errors?.required"
                      [innerHTML]="lang('./en/index.js').firstNameRequired"></div>
                 <div class="text-danger" *ngIf="firstnameRef.errors?.minlength"
                      [innerHTML]="lang('./en/index.js').firstNameLength"></div>
@@ -205,18 +204,18 @@
 
 <!-- switch *ngIf value to true for debugging-->
 <div class="row" *ngIf='false'>
-    <div class="col-md-12">
-        <ul>
-            <li *ngFor='let log of changeLog'>
-                {{log | json}}
-            </li>
-        </ul>
-    </div>
+	<div class="col-md-12">
+		<ul>
+			<li *ngFor = 'let log of changeLog'>
+					{{log | json}}
+			</li>
+		</ul>
+	</div>
 
-    <div class="col-md-12">
-        <p>Person Data Model</p>
-        {{this.person| json}}
-        <p>firstname</p>
-        {{ formRef.controls | json}}
-    </div>
+	<div class="col-md-12">
+		<p>Person Data Model</p>
+		{{this.person| json}}
+		<p>firstname</p>
+		<!--{{ formRef.controls.firstname | json}}-->
+	</div>
 </div>

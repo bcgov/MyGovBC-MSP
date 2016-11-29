@@ -8,6 +8,7 @@ export class FinancialAssistApplication {
    */
   spouseNetIncome: number;
 
+  childrenCount:number;
   /**
    * Line 214 on NOA
    */
@@ -24,10 +25,8 @@ export class FinancialAssistApplication {
   spouseDSPAmount_line125: number;
 
   ageOver65:boolean;
-  _hasSpouseOrCommonLaw: boolean;
+  private _hasSpouseOrCommonLaw: boolean;
 
-  private _hasChildrenInfo:boolean;
-  // private _hasDisabilityInfo:boolean;
 
   /**
    * Applicant himself or herself eligible for disablity credit flag
@@ -75,37 +74,6 @@ export class FinancialAssistApplication {
     }
     this.spouseOrCommonLawEligibleForDisabilityCredit = spouseEligible;
   }
-
-  /**
-   * Children info section
-   */
-  get hasChildrenInfo(){
-    return this._hasChildrenInfo;
-  }
-  addChildrenInfo(){
-    this._hasChildrenInfo = true;
-  }
-
-  removeChildrenInfo(){
-    this._hasChildrenInfo = false;
-  }
-
-  /**
-   * Disablility Info section
-   */
-  // get hasDisabilityInfo(){
-  //   return this._hasDisabilityInfo;
-  // }
-  // addDisabilityInfo(){
-  //   this._hasDisabilityInfo = true;
-  // }
-
-  /**
-   * reset all property regarding disability (self and spouse)
-   */
-  // removeDisabilityInfo(){
-  //   this._hasDisabilityInfo = false;
-  // }
 
   // Address and Contact Info
   public residentialAddress: Address = new Address();

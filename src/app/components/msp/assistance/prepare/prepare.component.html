@@ -171,7 +171,7 @@
             </div>
         </div>
         <p></p>
-        <div class="row" *ngIf="showDisabilityInfo" style="margin-left: 5px;">
+        <div class="row" [hidden]="!showDisabilityInfo" style="margin-left: 5px;">
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="">Is anyone included on your public health insurance eligible for the Disability Credit as per Canada Revenue Agency (Lines 316, 318 or 326)? Please check all that apply.
@@ -180,31 +180,28 @@
                     <ul class="msp-horizontal-list-group">
                         <li #selfDisabilityCreditSet
                             class="msp-horizontal-list-group-item-sm msp-selectable"
-                            *ngIf="!finAssistApp.selfDisabilityCredit"
-                            (click) = "finAssistApp.selfDisabilityCredit=true">
+                            [hidden]="finAssistApp.selfDisabilityCredit">
                             <span class="glyphicon glyphicon-unchecked"
                                 ></span>
                             <span>Myself</span>
                         </li>
-                        <li #selfDisabilityCreditNotSet
+                        <li #selfDisabilityCreditUnset
                             class="msp-horizontal-list-group-item-sm msp-selectable"
-                            *ngIf="finAssistApp.selfDisabilityCredit"
-                            (click) = "finAssistApp.selfDisabilityCredit=false">
+                            [hidden]="!finAssistApp.selfDisabilityCredit">
                             <span class="glyphicon glyphicon-check msp-selection"
                                 ></span>
                             <span>Myself</span>
                         </li>
 
-
-                        <li class="msp-horizontal-list-group-item-lg msp-selectable"
-                            *ngIf="!finAssistApp.spouseEligibleForDisabilityCredit"
-                            (click) = "finAssistApp.spouseEligibleForDisabilityCredit=true">
+                        <li #spouseDisabilityCreditSet 
+                            class="msp-horizontal-list-group-item-lg msp-selectable"
+                            [hidden]="finAssistApp.spouseEligibleForDisabilityCredit">
                             <span class="glyphicon glyphicon-unchecked"></span>
                             <span>My spouse/common-law partner</span>
                         </li>
-                        <li class="msp-horizontal-list-group-item-lg msp-selectable"
-                            *ngIf="finAssistApp.spouseEligibleForDisabilityCredit"
-                            (click) = "finAssistApp.spouseEligibleForDisabilityCredit=false">
+                        <li #spouseDisabilityCreditUnset 
+                            class="msp-horizontal-list-group-item-lg msp-selectable"
+                            [hidden]="!finAssistApp.spouseEligibleForDisabilityCredit">
                             <span class="glyphicon glyphicon-check msp-selection"></span>
                             <span>My spouse/common-law partner</span>
                         </li>

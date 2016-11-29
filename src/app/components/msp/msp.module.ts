@@ -39,6 +39,14 @@ import {AssistanceReviewComponent} from './assistance/review/review.component';
 import {AssistanceAuthorizeSubmitComponent} from './assistance/authorize-submit/authorize-submit.component';
 import {AssistanceConfirmationComponent} from './assistance/confirmation/confirmation.component';
 import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calculator/deduction-calculator.component';
+
+import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+
+let localStorageServiceConfig = {
+    prefix: 'ca.bc.gov.msp',
+    storageType: 'localStorage'
+};
+
 /**
  * The overall progress layout is created based on 'msp-prepare-v3-a.jpeg' in
  * https://apps.gcpe.gov.bc.ca/jira/browse/PSPDN-255?filter=16000
@@ -170,7 +178,11 @@ import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calcu
 
   providers: [
     // Services
-    MspApplicationDataService
+    MspApplicationDataService,
+    LocalStorageService,
+    {
+        provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
+    }    
   ]
 })
 @Injectable()
