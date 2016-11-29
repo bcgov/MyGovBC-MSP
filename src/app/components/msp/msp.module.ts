@@ -17,6 +17,7 @@ import {MspAddressComponent} from './common/address/address.component';
 import {MspPhoneComponent} from './common/phone/phone.component';
 import {MspProgressBarComponent} from './common/progressBar/progressBar.component';
 import {MspPhnComponent} from './common/phn/phn.component';
+import {Mod11CheckValidator} from './common/phn/phn.validator';
 
 import MspApplicationDataService from './application/application-data.service';
 import {ApplicationComponent} from './application/application.component';
@@ -141,6 +142,7 @@ import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calcu
     MspAddressComponent,
     MspPhoneComponent,
     MspPhnComponent,
+    Mod11CheckValidator,
     MspProgressBarComponent,
     FileUploaderComponent,
     ThumbnailComponent,
