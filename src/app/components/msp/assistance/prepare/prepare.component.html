@@ -1,9 +1,12 @@
 <div class="row">
+    <div class="col-sm-12">
+        <h2>
+            Check if you qualify for financial help to pay for public health care coverage
+        </h2>
+    </div>
+</div>
+<div class="row">
     <div class="col-md-8">
-        <h1>
-            See if you qualify for financial help to pay for public health care coverage
-        </h1>
-
         <h3>
             Be prepared to enter information found on last year’s:
             <ul>
@@ -15,6 +18,8 @@
                 </li>
             </ul>
         </h3>
+        <form #prepForm='ngForm' novalidate>
+
         <div class="form-group">
             <div class="row">
                 <div class="col-md-12">
@@ -36,9 +41,20 @@
                     </label>
                     <br/>
                     <div class="btn-group" role="group">
-                        <button [class.msp-btn-radio]="finAssistApp.ageOver65 === true" (click)="finAssistApp.ageOver65=true" type="button" class="btn btn-default">Yes</button>
-                        <button [class.msp-btn-radio]="finAssistApp.ageOver65 === false" (click)="finAssistApp.ageOver65=false" type="button" class="btn btn-default">No&nbsp;</button>
+                        <button #ageOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === true" 
+                            type="button" class="btn btn-default">Yes</button>
+                        <button #ageNotOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === false" 
+                            type="button" class="btn btn-default">No&nbsp;</button>
+
+                        <!--<label class="btn btn-primary" [(ngModel)]="finAssistApp.ageOver65" name="isSenior"
+                                btnRadio="true" uncheckable>Yes</label>
+
+                        <label class="btn btn-primary" [(ngModel)]="finAssistApp.ageOver65" name="isSenior" 
+                                btnRadio="false" uncheckable>No</label>
+                        <input type="hidden">-->
+                                                        
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -51,8 +67,10 @@
                     </label>
                     <br/>
                     <div class="btn-group" role="group">
-                        <button [class.msp-btn-radio]="finAssistApp.hasSpouseOrCommonLaw === true" (click)="finAssistApp.hasSpouseOrCommonLaw=true" type="button" class="btn btn-default">Yes</button>
-                        <button [class.msp-btn-radio]="finAssistApp.hasSpouseOrCommonLaw === false" (click)="finAssistApp.hasSpouseOrCommonLaw=false" type="button" class="btn btn-default">No&nbsp;</button>
+                        <button #hasSpouse [class.msp-btn-radio]="finAssistApp.hasSpouseOrCommonLaw === true" 
+                             type="button" class="btn btn-default">Yes</button>
+                        <button #negativeHasSpouse [class.msp-btn-radio]="finAssistApp.hasSpouseOrCommonLaw === false" 
+                             type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
                 </div>
 
@@ -90,9 +108,9 @@
 
         <div class="row" *ngIf="showChildrenInfo" style="margin-left: 5px;">
             <div class="col-md-12">
-                <form class="form-horizontal">
+                <div class="form-horizontal">
                     <div class="form-group">
-                        <label for="childrenCount" class="col-xs-9 control-label" style="text-align:left; padding-right: 0;">
+                        <label for="childrenCount" class="col-xs-8 col-md-8 control-label" style="text-align:left; padding-right: 0;">
                             How many children do you have on your public health insurance?</label>
                         <div class="col-xs-3 col-md-2" style="text-align:left; padding-left: 3px;">
                             <input type="text" class="form-control" name="childrenCount" 
@@ -100,19 +118,19 @@
                                 [(ngModel)]="finAssistApp.childrenCount">
                         </div>    
                     </div>
-                </form>
+                </div>
                 
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="netIncome">
+                            <label for="line214">
                                 How much did you claim for child care expenses last year on your income tax return (Line 214)?
                             </label>
 
                             <div class="col-md-3 col-sm-4 col-xs-6 input-group">
                                 <span class="input-group-addon">$</span>
-                                <input type="text" class="form-control" name="netIncome" placeholder=""
-                                [(ngModel)]="finAssistApp.netIncomelastYear">
+                                <input type="text" class="form-control" name="line214" placeholder=""
+                                [(ngModel)]="finAssistApp.claimedChildCareExpense_line214">
                             </div>
                         </div>
                     </div>
@@ -120,14 +138,14 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="netIncome">
+                            <label for="line117">
                                 How much did you report for the Universal Child Care Benefit on your income tax return (Line 117)?            
                             </label>
 
                             <div class="col-md-3 col-sm-4 col-xs-6 input-group">
                                 <span class="input-group-addon">$</span>
-                                <input type="text" class="form-control" name="netIncome" placeholder=""
-                                [(ngModel)]="finAssistApp.netIncomelastYear">
+                                <input type="text" class="form-control" name="line117" placeholder=""
+                                [(ngModel)]="finAssistApp.reportedUCCBenefit_line117">
                             </div>
                         </div>
                     </div>
@@ -160,14 +178,16 @@
                     </label>
 
                     <ul class="msp-horizontal-list-group">
-                        <li class="msp-horizontal-list-group-item-sm msp-selectable"
+                        <li #selfDisabilityCreditSet
+                            class="msp-horizontal-list-group-item-sm msp-selectable"
                             *ngIf="!finAssistApp.selfDisabilityCredit"
                             (click) = "finAssistApp.selfDisabilityCredit=true">
                             <span class="glyphicon glyphicon-unchecked"
                                 ></span>
                             <span>Myself</span>
                         </li>
-                        <li class="msp-horizontal-list-group-item-sm msp-selectable"
+                        <li #selfDisabilityCreditNotSet
+                            class="msp-horizontal-list-group-item-sm msp-selectable"
                             *ngIf="finAssistApp.selfDisabilityCredit"
                             (click) = "finAssistApp.selfDisabilityCredit=false">
                             <span class="glyphicon glyphicon-check msp-selection"
@@ -195,14 +215,14 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="netIncome">
+                            <label for="line125">
                                 How much did you (or your spouse / common-law partner) report for a Registered Disability
                                 Savings Plan on your income tax return (Line 125)?
                             </label>
 
                             <div class="col-md-3 col-sm-4 col-xs-6 input-group">
                                 <span class="input-group-addon">$</span>
-                                <input type="text" class="form-control" name="netIncome" [(ngModel)]="finAssistApp.netIncomelastYear">
+                                <input type="text" class="form-control" name="line125" [(ngModel)]="finAssistApp.spouseDSPAmount_line125">
                             </div>
                         </div>
                     </div>
@@ -213,15 +233,16 @@
 
 
 
-
+    </form>
     </div>
+
     <div class="col-md-4">
         <deduction-calculator [application]="finAssistApp"></deduction-calculator>
         <p></p>
         <div class="row">
             <div class="col-xs-12">
                 <button class="btn btn-primary btn-block" type="submit" routerLink="/msp/assistance/personal-info"
-                        [innerHTML]="lang('./en/index.js').continueButton"></button>
+                        [innerHTML]="lang('./en/index.js').continueButton" style="font-size: smaller"></button>
             </div>
         </div>
         

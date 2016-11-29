@@ -55,7 +55,6 @@
     "karma-webpack": "^1.8.0",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
-    "lodash": "^4.17.2",
     "manifest-revision-webpack-plugin": "^0.3.0",
     "markdown-loader": "^0.1.7",
     "ng-annotate-loader": "^0.2.0",
@@ -85,6 +84,8 @@
   },
   "private": false,
   "dependencies": {
+    "@types/lodash": "^4.14.41",
+    "lodash": "^4.17.2",
     "ng2-bootstrap": "^1.1.16",
     "sha1": "^1.1.1"
   }

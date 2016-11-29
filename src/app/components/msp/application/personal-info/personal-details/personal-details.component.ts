@@ -1,6 +1,6 @@
 import {
-  Component, Input, Output, OnChanges, EventEmitter,
-  SimpleChange, ViewChild, AfterViewInit,
+  Component, Input, Output, OnChanges, EventEmitter,TemplateRef,
+  SimpleChange, ViewChild, AfterViewInit, OnInit, ViewContainerRef,
   animate,transition, state, trigger, style
 } from '@angular/core';
 import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
@@ -50,9 +50,12 @@ require('./personal-details.component.less')
   }
 )
 
-export class PersonalDetailsComponent implements OnChanges, AfterViewInit {
+export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnInit {
   @ViewChild('formRef') form: NgForm;
+  // @ViewChild('viewOnlyContainer', {read: ViewContainerRef}) viewOnlyContainer: ViewContainerRef;
+  // @ViewChild('viewOnlyTempalte') viewOnlyTempalte: TemplateRef<Object>;
 
+  @Input() viewOnly: boolean = false;
   @Input() person: Person;
   @Output() notifyChildRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() notifySpouseRemoval: EventEmitter<Person> = new EventEmitter<Person>();
@@ -103,9 +106,17 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.form.valueChanges.subscribe(value => {
-      // console.table(value);
-    });
+    if(this.form){
+      this.form.valueChanges.subscribe(value => {
+        // console.table(value);
+      });
+    }
+  }
+
+  ngOnInit(){
+    // if(this.viewOnlyContainer){
+    //   this.viewOnlyContainer.createEmbeddedView(this.viewOnlyTempalte);
+    // }
   }
 
   removeChild(): void {
