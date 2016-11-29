@@ -1,14 +1,15 @@
-<msp-personal-details [person] = 'applicant'></msp-personal-details>
+<msp-personal-details [person] = 'applicant'
+  (save) = "save($event)"></msp-personal-details>
 <div *ngIf = 'spouse'>
   <msp-personal-details [person] = 'spouse'
     (notifySpouseRemoval)="removeSpouse($event)"
-  ></msp-personal-details>
+    (save) = "save($event)"></msp-personal-details>
 </div>
 <div *ngIf = 'children.length > 0'>
   <msp-personal-details *ngFor = "let child of children; let idx = index"
     [person] = 'child'
     (notifyChildRemoval)="removeChild($event,idx)"
-  >
+    (save) = "save($event)">
   </msp-personal-details>
 </div>
 

@@ -4,17 +4,27 @@ import {FinancialAssistApplication} from '../model/financial-assist-application.
 import { LocalStorageService } from 'angular-2-local-storage';
 @Injectable()
 export default class MspApplicationDataService {
-  private application: MspApplication = new MspApplication();
+  private application: MspApplication;
   private finAssistApplication: FinancialAssistApplication;
 
   constructor(private localStorageService: LocalStorageService){
 
-    let existing = this.localStorageService.get<FinancialAssistApplication>('financial-appl');
-    if(!existing){
+    let existingFinApp = this.localStorageService.get<FinancialAssistApplication>('financial-appl');
+    if(!existingFinApp){
       this.finAssistApplication = new FinancialAssistApplication();
     }else{
-      this.finAssistApplication = existing;
+      this.finAssistApplication = existingFinApp;
     }
+
+    let existingMainApp = this.localStorageService.get<MspApplication>('msp-appl');
+    if(!existingMainApp){
+      this.application = new MspApplication();
+    }else{
+      this.application = new MspApplication();
+      // turn on the following in when the entire application model class is wired up with screens.
+      // this.application = existingMainApp;
+    }
+
     console.log('init data service, application: ' + JSON.stringify(this.application));
   } 
 
@@ -28,5 +38,9 @@ export default class MspApplicationDataService {
 
   saveFinAssistApplication():void {
     this.localStorageService.set('financial-appl',this.finAssistApplication);
+  }
+
+  saveMspApplication():void {
+    this.localStorageService.set('msp-appl',this.application);
   }
 }

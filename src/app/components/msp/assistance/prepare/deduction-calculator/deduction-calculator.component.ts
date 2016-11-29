@@ -13,8 +13,14 @@ require('./deduction-calculator.less');
 
 export class DeductionCalculatorComponent{
   @Input() application: FinancialAssistApplication;
-
+  private spouseAmt: number = 0;
+  private disabilityAmt: number = 0;
+  private disabilitySavingPlanIncom: number = 0;
   constructor(){
+
+  }
+
+  recalcDeductions(){
 
   }
 }

@@ -59,6 +59,7 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
   @Input() person: Person;
   @Output() notifyChildRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() notifySpouseRemoval: EventEmitter<Person> = new EventEmitter<Person>();
+  @Output() save: EventEmitter<Person> = new EventEmitter<Person>();
 
   shrinkOut: string;
   shrinkOutStatus: string;
@@ -85,6 +86,10 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
    */
   private changeLog: string[] = [];
 
+  constructor(){
+
+  }
+
   /**
    * propKey is the input property value of this component
    */
@@ -108,7 +113,7 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
   ngAfterViewInit() {
     if(this.form){
       this.form.valueChanges.subscribe(value => {
-        // console.table(value);
+        this.save.emit(this.person);
       });
     }
   }
