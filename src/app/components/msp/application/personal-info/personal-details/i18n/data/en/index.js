@@ -5,5 +5,5 @@ module.exports = {
   phnLabel: 'Your previous PHN if applicable',
   removeSpouseButton: 'Remove',
   removeChildButton: 'Remove',
-  namesHelpBlock: 'Please enter legal names as they appear on the ID you will be providing.'
+  namesHelpBlock: 'Please enter legal names as they appear on the ID you will be providing.',
 }

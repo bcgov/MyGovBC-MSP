@@ -4,8 +4,9 @@ import {
   animate,transition, state, trigger, style
 } from '@angular/core';
 import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
+import { EnumValues } from 'enum-values';
 
-import { MspApplication, Person } from '../../../model/application.model';
+import { MspApplication, Person, StatusInCanada, Activities } from '../../../model/application.model';
 
 require('./personal-details.component.less')
 @Component({
@@ -20,6 +21,7 @@ require('./personal-details.component.less')
     //     ])
     //   ])
     // ]
+
 
     animations: [
       trigger('shrinkOut', [
@@ -51,6 +53,10 @@ require('./personal-details.component.less')
 )
 
 export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnInit {
+  lang = require('./i18n');
+  langStatus = require('../../../common/status/i18n');
+  langActivities = require('../../../common/activities/i18n');
+
   @ViewChild('formRef') form: NgForm;
   // @ViewChild('viewOnlyContainer', {read: ViewContainerRef}) viewOnlyContainer: ViewContainerRef;
   // @ViewChild('viewOnlyTempalte') viewOnlyTempalte: TemplateRef<Object>;
@@ -69,20 +75,12 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
   genders: string[] = ['Male', 'Female'];
   institutionList: string[] = ['Yes', 'No'];
 
-  lang = require('./i18n');
+  public statusInCanada: string[] = EnumValues.getNames(StatusInCanada);
 
-  public statusInCanada: string[] = [
-    'Canadian citizen',
-    'Permanent resident',
-    'Temporary resident'
-  ];
+  public activities: string[] = EnumValues.getNames(Activities);
 
-  public activities: string[] = [
-    'Returning to BC from abroad',
-    'Moving to BC from another Canadian province'
-  ];
   /**
-   * Change log, for debugging purpuse, for input properties on the component
+   * Change log, for debugging purpose, for input properties on the component
    */
   private changeLog: string[] = [];
 
@@ -145,10 +143,6 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
     return this.person.institutionWorkHistory;
   }
 
-  get activity(): string {
-    return this.person.currentActivity;
-  }
-
   selectStatus(st: string) {
     // this.shrinkOutStatus = 'in';
     this.person.status = st;
@@ -160,11 +154,6 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
 
   get isStatusListShown(){
     return this.shrinkOutStatus === 'out';
-  }
-
-  selectActivity(act: string) {
-    // this.shrinkOut = 'in';
-    this.person.currentActivity = act;
   }
 
   showActivities(){

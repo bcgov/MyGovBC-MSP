@@ -1,9 +1,27 @@
 import {Address} from "./address.model";
 
+/**
+ * Various statuses in Canada
+ */
+enum StatusInCanada {
+  Citizen,
+  PermanentResident,
+  TemporaryResident,
+}
+
+/**
+ * Reasons for returning to Canada
+ */
+enum Activities {
+  Returning,
+  MovingFromProvince,
+  MovingFromCountry
+}
+
 class Person {
   relationship: string;
   status: string;
-  currentActivity: string;
+  currentActivity: StatusInCanada;
   firstname: string;
   middlename: string;
   lastname: string;
@@ -99,4 +117,4 @@ class MspApplication {
   }
 }
 
-export {MspApplication, Person}
+export {MspApplication, Person, StatusInCanada, Activities}
