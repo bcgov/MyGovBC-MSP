@@ -1,192 +1,198 @@
 <form #formRef='ngForm' novalidate>
-	<div class="row">
-		<div class="col-md-5">
-			<div class="title-container">
-				<h1>{{person.relationship}}</h1>
-				<div *ngIf = "person.relationship !== 'Yourself'">
-					<div *ngIf = "person.relationship === 'Spouse'">
-						<button type="button" class="btn btn-default btn-xs" 
-							(click)="removeSpouse()"
+    <div class="row">
+        <div class="col-md-5">
+            <div class="title-container">
+                <h1>{{person.relationship}}</h1>
+                <div *ngIf="person.relationship !== 'Yourself'">
+                    <div *ngIf="person.relationship === 'Spouse'">
+                        <button type="button" class="btn btn-default btn-xs"
+                                (click)="removeSpouse()"
                                 [innerHTML]="lang('./en/index.js').removeSpouseButton">
-						</button>				
-					</div>
-					<div *ngIf = "person.relationship === 'Child'">
-						<button type="button" class="btn btn-default btn-xs" 
-							(click)="removeChild()"
+                        </button>
+                    </div>
+                    <div *ngIf="person.relationship === 'Child'">
+                        <button type="button" class="btn btn-default btn-xs"
+                                (click)="removeChild()"
                                 [innerHTML]="lang('./en/index.js').removeChildButton">
-						</button>				
-					</div>
-				</div>
-			</div>
-			<div>
-				<span class="glyphicon glyphicon-exclamation-sign" style="color:#d9534f"></span>
-				<span class="msp-fine-print" [innerHTML]="lang('./en/index.js').namesHelpBlock">
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <span class="glyphicon glyphicon-exclamation-sign" style="color:#d9534f"></span>
+                <span class="msp-fine-print" [innerHTML]="lang('./en/index.js').namesHelpBlock">
 				</span>
-			</div>
-			
-			<div class="form-group" [ngClass]="{'has-error': !formRef.controls.firstname?.valid && firstnameRef.touched}">
-				<label class="control-label" for="firstname"
+            </div>
+
+            <div class="form-group"
+                 [ngClass]="{'has-error': !formRef.controls.firstname?.valid && firstnameRef.touched}">
+                <label class="control-label" for="firstname"
                        [innerHTML]="lang('./en/index.js').firstNameLabel"></label>
-				<input type="text" [(ngModel)] = 'person.firstname' #firstnameRef="ngModel"
-					required minlength="2"
-					id='firstname' name='firstname'
-                    class="form-control" id="firstname">
-			</div>
+                <input type="text" [(ngModel)]='person.firstname' #firstnameRef="ngModel"
+                       required minlength="2"
+                       id='firstname' name='firstname'
+                       class="form-control" id="firstname">
+            </div>
 
-			<div *ngIf='firstnameRef.touched'>
-				<div class="text-danger" *ngIf="firstnameRef.errors?.required"
+            <div *ngIf='firstnameRef.touched'>
+                <div class="text-danger" *ngIf="firstnameRef.errors?.required"
                      [innerHTML]="lang('./en/index.js').firstNameRequired"></div>
-				<div class="text-danger" *ngIf="firstnameRef.errors?.minlength"
+                <div class="text-danger" *ngIf="firstnameRef.errors?.minlength"
                      [innerHTML]="lang('./en/index.js').firstNameLength"></div>
-			</div>
+            </div>
 
-			<div class="form-group" [ngClass]="{'has-error': !formRef.controls.middlename?.valid && middlenameRef.touched}">
-				<label class="control-label" for="middlename">Middle Name</label>
-				<input type="text" [(ngModel)] = 'person.middlename' #middlenameRef="ngModel"
-					id='middlename' name='middlename' minlength="2"
-          class="form-control" id="middlename" placeholder="Middle name">
-			</div>
+            <div class="form-group"
+                 [ngClass]="{'has-error': !formRef.controls.middlename?.valid && middlenameRef.touched}">
+                <label class="control-label" for="middlename">Middle Name</label>
+                <input type="text" [(ngModel)]='person.middlename' #middlenameRef="ngModel"
+                       id='middlename' name='middlename' minlength="2"
+                       class="form-control" id="middlename">
+            </div>
 
-			<div class="form-group" [ngClass]="{'has-error': !formRef.controls.lastname?.valid && lastnameRef.touched}">
-				<label class="control-label" for="lastname">Last Name</label>
-				<input type="text" [(ngModel)] = 'person.lastname' #lastnameRef="ngModel"
-					required minlength="2"
-				class="form-control" id="lastname" name='lastname'
-				placeholder="Last name">
-			</div>
-			<div *ngIf='lastnameRef.touched'>
-				<div class="text-danger" *ngIf="lastnameRef.errors?.required">Last name is required</div>
-				<div class="text-danger" *ngIf="lastnameRef.errors?.minlength">Last name must be longer than {{lastnameRef.errors?.minlength.requiredLength-1}} characters.</div>
-			</div>
+            <div class="form-group" [ngClass]="{'has-error': !formRef.controls.lastname?.valid && lastnameRef.touched}">
+                <label class="control-label" for="lastname">Last Name</label>
+                <input type="text" [(ngModel)]='person.lastname' #lastnameRef="ngModel"
+                       required minlength="2"
+                       class="form-control" id="lastname" name='lastname'>
+            </div>
+            <div *ngIf='lastnameRef.touched'>
+                <div class="text-danger" *ngIf="lastnameRef.errors?.required">Last name is required</div>
+                <div class="text-danger" *ngIf="lastnameRef.errors?.minlength">Last name must be longer than
+                    {{lastnameRef.errors?.minlength.requiredLength-1}} characters.
+                </div>
+            </div>
 
-            <msp-phn [phn]="person.previous_phn" [required]="false" [phnLabel]="lang('./en/index.js').phnLabel"></msp-phn>
+            <msp-phn [phn]="person.previous_phn" [required]="false"
+                     [phnLabel]="lang('./en/index.js').phnLabel"></msp-phn>
 
-		</div>
-		<div class="col-md-7">
-			<h3>Identification documents for {{person.relationship | lowercase}}</h3>
-			<msp-file-uploader></msp-file-uploader>
-		</div>
-	</div>
+        </div>
+        <div class="col-md-7">
+            <h3>Identification documents for {{person.relationship | lowercase}}</h3>
+            <msp-file-uploader></msp-file-uploader>
+        </div>
+    </div>
 
-	<div class="row">
-		<div class="col-md-5">
-			<div class="form-group">
-				<label for="DOB">Date of birth</label>
-				<div class="dates-container">
-					<input required type="text" [(ngModel)] = 'person.dob_month'
-						class="form-control" id="dob_month" name="dob_month" placeholder="month">
-					<input type="text" [(ngModel)] = 'person.dob_day'
-						class="form-control" id="dob_day" name="dob_day" placeholder="day">
-					<input type="text" [(ngModel)] = 'person.dob_year'
-						class="form-control" id="dob_year" name="dob_year" placeholder="year">
-				</div>
-			</div>
-		</div>
-		<div class="col-md-7">
-				<label>Legal Gender: </label> 
-					<!--<span style="font-size: 13pt; font-weight: 500;">{{legalGender}}</span> 
-					<span style="margin-left: 10px;">
-						<a *ngIf="legalGender" href="javascript:void(0)" (click)="toggleGenderList()">
-											<span *ngIf='isGenderListShown'>Close</span>
-											<span *ngIf='!isGenderListShown'>Change</span>
-						</a> 
-					</span>-->
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="DOB">Date of birth</label>
+                <div class="dates-container">
+                    <input required type="text" [(ngModel)]='person.dob_month'
+                           class="form-control" id="dob_month" name="dob_month" placeholder="month">
+                    <input type="text" [(ngModel)]='person.dob_day'
+                           class="form-control" id="dob_day" name="dob_day" placeholder="day">
+                    <input type="text" [(ngModel)]='person.dob_year'
+                           class="form-control" id="dob_year" name="dob_year" placeholder="year">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <label>Legal Gender: </label>
+            <!--<span style="font-size: 13pt; font-weight: 500;">{{legalGender}}</span>
+            <span style="margin-left: 10px;">
+                <a *ngIf="legalGender" href="javascript:void(0)" (click)="toggleGenderList()">
+                                    <span *ngIf='isGenderListShown'>Close</span>
+                                    <span *ngIf='!isGenderListShown'>Change</span>
+                </a>
+            </span>-->
 
-				<ul class="list-group">
-					<li *ngFor = 'let gender of genders' (click)= "selectGender(gender)" 
-						class="list-group-item msp-list-group-item">
-						<span *ngIf="gender !== legalGender" class="glyphicon glyphicon-unchecked"></span>
-						<span *ngIf="gender === legalGender" class="glyphicon glyphicon-check msp-selection"></span>
-						<span>{{gender}}</span>
-					</li>
-				</ul>
+            <ul class="list-group">
+                <li *ngFor='let gender of genders' (click)="selectGender(gender)"
+                    class="list-group-item msp-list-group-item">
+                    <span *ngIf="gender !== legalGender" class="glyphicon glyphicon-unchecked"></span>
+                    <span *ngIf="gender === legalGender" class="glyphicon glyphicon-check msp-selection"></span>
+                    <span>{{gender}}</span>
+                </li>
+            </ul>
 
-		</div>
-	</div>
-	<div class="row">
-		<!--<h3>Residence, citizenship, Immigration status</h3>-->
-		<div class="col-md-5">
-			<h4>Your status in Canada</h4>
-			<!--<h4>{{personStatus}}</h4>
-			<p><a *ngIf="personStatus" href="javascript:void(0)" (click)="showStatusList()">
-					<span *ngIf='isStatusListShown'>Close</span>
-					<span *ngIf='!isStatusListShown'>Change</span>
-				</a> 
-			</p>	-->
-			<ul class="list-group">
-				
-				<li *ngFor="let st of statusInCanada" (click)= "selectStatus(st)"
-					class="list-group-item msp-list-group-item">
-						<span *ngIf="st !== personStatus" class="glyphicon glyphicon-unchecked"></span>
-						<span *ngIf="st === personStatus" class="glyphicon glyphicon-check msp-selection"></span>
-						<span>{{st}}</span>
-				</li>
-			</ul>			
-		</div>
-		<div class="col-md-7">
-			<h4>What are you doing?</h4>
-				<!--<h4>{{activity}}</h4>
-			<p><a *ngIf="activity" href="javascript:void(0)" (click)="showActivities()">
-					<span *ngIf='isActivitiesListShown'>Close</span>
-					<span *ngIf='!isActivitiesListShown'>Change</span>
-					</a> 
-			</p>	-->
-			<ul class="list-group">
-				<li *ngFor="let item of activities" (click)=selectActivity(item);
-					class="list-group-item msp-list-group-item">
-						<span *ngIf="item !== activity" class="glyphicon glyphicon-unchecked"></span>
-						<span *ngIf="item === activity" class="glyphicon glyphicon-check msp-selection"></span>
-						<span>{{item}}</span>
-				</li>
-			</ul>			
-		</div>
-		<div class="col-md-4" *ngIf="false">
-			<h3 style="margin-top: 0">Please have the following ID ready</h3>
-			<h4>(either as digital images/scans you can upload or originals you can photograph with your mobile device)</h4>
-			<p>One of the following documents</p>
-			<ul>
-				<li>Birth Certificate</li>
-				<li>Passport</li>
-				<li>Canadian Citizenship Card</li>
-			</ul>
-		</div>
-	</div>
+        </div>
+    </div>
+    <div class="row">
+        <!--<h3>Residence, citizenship, Immigration status</h3>-->
+        <div class="col-md-5">
+            <h4>Your status in Canada</h4>
+            <!--<h4>{{personStatus}}</h4>
+            <p><a *ngIf="personStatus" href="javascript:void(0)" (click)="showStatusList()">
+                    <span *ngIf='isStatusListShown'>Close</span>
+                    <span *ngIf='!isStatusListShown'>Change</span>
+                </a>
+            </p>	-->
+            <ul class="list-group">
 
-	<div class="form-group">
-		<label for="arrivalDate">Arrival Date in BC </label>
-		<div class="dates-container">
-			<input required type="text" [(ngModel)] = 'person.arrival_month'
-				class="form-control " id="arrival_month" name="arrival_month" placeholder="month">
-			<input type="text" [(ngModel)] = 'person.arrival_day'
-				class="form-control " id="arrival_day" name="arrival_day" placeholder="day">
-			<input type="text" [(ngModel)] = 'person.arrival_year'
-				class="form-control " id="arrival_year" name="arrival_year" placeholder="year">
-		</div>
-	</div>
+                <li *ngFor="let st of statusInCanada" (click)="selectStatus(st)"
+                    class="list-group-item msp-list-group-item">
+                    <span *ngIf="st !== personStatus" class="glyphicon glyphicon-unchecked"></span>
+                    <span *ngIf="st === personStatus" class="glyphicon glyphicon-check msp-selection"></span>
+                    <span>{{st}}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-7">
+            <h4>What are you doing?</h4>
+            <!--<h4>{{activity}}</h4>
+        <p><a *ngIf="activity" href="javascript:void(0)" (click)="showActivities()">
+                <span *ngIf='isActivitiesListShown'>Close</span>
+                <span *ngIf='!isActivitiesListShown'>Change</span>
+                </a>
+        </p>	-->
+            <ul class="list-group">
+                <li *ngFor="let item of activities" (click)=selectActivity(item);
+                    class="list-group-item msp-list-group-item">
+                    <span *ngIf="item !== activity" class="glyphicon glyphicon-unchecked"></span>
+                    <span *ngIf="item === activity" class="glyphicon glyphicon-check msp-selection"></span>
+                    <span>{{item}}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4" *ngIf="false">
+            <h3 style="margin-top: 0">Please have the following ID ready</h3>
+            <h4>(either as digital images/scans you can upload or originals you can photograph with your mobile
+                device)</h4>
+            <p>One of the following documents</p>
+            <ul>
+                <li>Birth Certificate</li>
+                <li>Passport</li>
+                <li>Canadian Citizenship Card</li>
+            </ul>
+        </div>
+    </div>
 
-	<div class="row" style="margin-top: 20px;">
-		<div class="col-md-8">
-			<label>Were you previously working for the RCMP, Canadian Forces or an institution?  </label> 
-				<!--<span style="font-size: 13pt; font-weight: 500;">{{institutionWorkHistory}}</span> 
-				<span style="margin-left: 10px;">
-					<a *ngIf="institutionWorkHistory" href="javascript:void(0)" (click)="toggleInstituationList()">
-										<span *ngIf='isInstitutionListShown'>Close</span>
-										<span *ngIf='!isInstitutionListShown'>Change</span>
-					</a> 
-				</span>-->
+    <div class="form-group">
+        <label for="arrivalDate">Arrival Date in BC </label>
+        <div class="dates-container">
+            <input required type="text" [(ngModel)]='person.arrival_month'
+                   class="form-control " id="arrival_month" name="arrival_month" placeholder="month">
+            <input type="text" [(ngModel)]='person.arrival_day'
+                   class="form-control " id="arrival_day" name="arrival_day" placeholder="day">
+            <input type="text" [(ngModel)]='person.arrival_year'
+                   class="form-control " id="arrival_year" name="arrival_year" placeholder="year">
+        </div>
+    </div>
 
-			<ul class="list-group">
-				<li *ngFor = 'let institution of institutionList' (click)= "selectInstitution(institution)" 
-					class="list-group-item msp-list-group-item">
-					<span *ngIf="institution !== institutionWorkHistory" class="glyphicon glyphicon-unchecked"></span>
-					<span *ngIf="institution === institutionWorkHistory" class="glyphicon glyphicon-check msp-selection"></span>
-					<span>{{institution}}</span>
-				</li>
-			</ul>
-		</div>
-	</div>
-	
-	
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-md-8">
+            <label>Were you previously working for the RCMP, Canadian Forces or an institution? </label>
+            <!--<span style="font-size: 13pt; font-weight: 500;">{{institutionWorkHistory}}</span>
+            <span style="margin-left: 10px;">
+                <a *ngIf="institutionWorkHistory" href="javascript:void(0)" (click)="toggleInstituationList()">
+                                    <span *ngIf='isInstitutionListShown'>Close</span>
+                                    <span *ngIf='!isInstitutionListShown'>Change</span>
+                </a>
+            </span>-->
+
+            <ul class="list-group">
+                <li *ngFor='let institution of institutionList' (click)="selectInstitution(institution)"
+                    class="list-group-item msp-list-group-item">
+                    <span *ngIf="institution !== institutionWorkHistory" class="glyphicon glyphicon-unchecked"></span>
+                    <span *ngIf="institution === institutionWorkHistory"
+                          class="glyphicon glyphicon-check msp-selection"></span>
+                    <span>{{institution}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
 </form>
 
 <div #viewOnlyContainer *ngIf="viewOnly">
@@ -194,23 +200,23 @@
 </div>
 <template #viewOnlyTempalte>
 
-	<h1>Place personal detail view only template here</h1>
+    <h1>Place personal detail view only template here</h1>
 </template>
 
 <!-- switch *ngIf value to true for debugging-->
 <div class="row" *ngIf='false'>
-	<div class="col-md-12">
-		<ul>
-			<li *ngFor = 'let log of changeLog'>
-					{{log | json}}
-			</li>
-		</ul>
-	</div>
+    <div class="col-md-12">
+        <ul>
+            <li *ngFor='let log of changeLog'>
+                {{log | json}}
+            </li>
+        </ul>
+    </div>
 
-	<div class="col-md-12">
-		<p>Person Data Model</p>
-		{{this.person| json}}
-		<p>firstname</p>
-		{{ formRef.controls | json}}
-	</div>
+    <div class="col-md-12">
+        <p>Person Data Model</p>
+        {{this.person| json}}
+        <p>firstname</p>
+        {{ formRef.controls | json}}
+    </div>
 </div>
