@@ -1,10 +1,16 @@
 <form #formRef='ngForm' novalidate>
-    <div class="form-group">
-        <label class="control-label" for="phn"
-               [innerHTML]="lang('./en/index.js').phnLabel"></label>
+    <div class="form-group"
+         [ngClass]="{'has-error': !formRef.controls.phn?.valid && phnRef.touched}">
+        <label [class.optional]="!required" class="control-label" for="phn"
+               [innerHTML]="phnLabel"></label>
         <input type="text"
-               required
-               id='phn' name='phn'
+               [(ngModel)]="phn"
+               [(required)]="required"
+               id='phn' name='phn' #phnRef="ngModel"
                class="form-control">
+        <div *ngIf='phnRef.touched'>
+            <div class="text-danger" *ngIf="phnRef.errors?.required"
+                 [innerHTML]="lang('./en/index.js').phnRequired"></div>
+        </div>
     </div>
 </form>
