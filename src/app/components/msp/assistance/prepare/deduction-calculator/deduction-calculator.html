@@ -12,18 +12,52 @@
   <table>
     <tr>
       <td class="deduction-table-cell-margin">
+        Age over 65
+      </td>
+      <td class="deduction-table-cell-padding deduction-table-cell-margin">
+        {{ageOver65Amt}}
+      </td>
+    </tr>
+    <tr>
+      <td class="deduction-table-cell-margin">
         Spouse
       </td>
       <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{application.spouseNetIncome}}
+        {{spouseAmt}}
       </td>
     </tr>
+
+    <tr>
+      <td class="deduction-table-cell-margin">
+        Disability credit
+      </td>
+      <td class="deduction-table-cell-padding deduction-table-cell-margin">
+        {{disabilityCreditAmt}}
+      </td>
+    </tr>
+    <tr>
+      <td class="deduction-table-cell-margin">
+        Spouse disability credit
+      </td>
+      <td class="deduction-table-cell-padding deduction-table-cell-margin">
+        {{spouseDisabilityCreditAmt}}
+      </td>
+    </tr>
+    <tr>
+      <td class="deduction-table-cell-margin">
+        Spouse disability credit
+      </td>
+      <td class="deduction-table-cell-padding deduction-table-cell-margin">
+        {{rdsPlanAmt}}
+      </td>
+    </tr>
+        
     <tr>
       <td class="deduction-table-cell-margin">
         Total deductions
       </td>
       <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        $3000
+        {{totalDeductions}}
       </td>
     </tr>
     <tr>
@@ -31,7 +65,7 @@
         Your adjusted income:
       </td>
       <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        $35,000
+        {{adjustedIncome}}
       </td>
     </tr>
     

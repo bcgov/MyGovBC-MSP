@@ -85,6 +85,7 @@
   "private": false,
   "dependencies": {
     "@types/lodash": "^4.14.41",
+    "angular-2-local-storage": "0.0.23",
     "lodash": "^4.17.2",
     "ng2-bootstrap": "^1.1.16",
     "sha1": "^1.1.1"

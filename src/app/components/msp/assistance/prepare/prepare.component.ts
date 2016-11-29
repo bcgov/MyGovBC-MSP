@@ -47,14 +47,6 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
   }
 
   ngAfterViewInit() {
-    // this.prepForm.valueChanges.subscribe(
-    //   values => {
-    //     console.log('value changes on fin assist prep form.', values);
-    //     console.log(this.dataService.finAssistApp);
-    //   }
-    // );
-
-    
     let ageOver$ = Observable.fromEvent<MouseEvent>(this.ageOver65Btn.nativeElement, 'click')
       .map( x=>{
         this.dataService.finAssistApp.ageOver65 = true;
