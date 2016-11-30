@@ -1,7 +1,14 @@
 import {
-  Component, Input, Output, OnChanges, EventEmitter,
+  Component, Input, Output, OnInit, EventEmitter,
   SimpleChange, ViewChild, AfterViewInit
 } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/pluck';
+import 'rxjs/add/operator/catch';
+
 
 import {FinancialAssistApplication} from '../../../model/financial-assist-application.model';
 require('./deduction-calculator.less');
@@ -11,23 +18,31 @@ require('./deduction-calculator.less');
   templateUrl: './deduction-calculator.html'
 })
 
-export class DeductionCalculatorComponent{
+export class DeductionCalculatorComponent implements OnInit{
   @Input() application: FinancialAssistApplication;
-  private spouseAmt: number = 0;
   private ageOver65Amt: number = 0;
+  private spouseAmt: number = 0;
+
+  private childrenAmt: number = 0;
+  private childCareExpenseAmt: number = 0;
+  private uCCBenefitAmt: number = 0;
+  
   private disabilityCreditAmt: number = 0;
   private spouseDisabilityCreditAmt: number = 0;
-  private disabilitySavingPlanIncomeAmt: number = 0;
   private rdsPlanAmt: number = 0;
 
   constructor(){
 
   }
 
+  ngOnInit(){
+    // Observable.ofObjectChanges
+  }
+
   get totalDeductions(): number{
     let total = this.spouseAmt +
     this.disabilityCreditAmt + this.spouseDisabilityCreditAmt +
-    this.disabilitySavingPlanIncomeAmt + this.rdsPlanAmt;
+    this.rdsPlanAmt;
     return total;
   }
 
@@ -45,4 +60,6 @@ export class DeductionCalculatorComponent{
       return adjusted;
     }
   }
+
+  
 }
