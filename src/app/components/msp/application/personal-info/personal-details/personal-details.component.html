@@ -1,7 +1,7 @@
 <form #formRef='ngForm' novalidate>
     <div class="row">
-        <div class="col-md-5">
-            <label>Your status in Canada</label>
+        <div class="col-md-4">
+            <h3>{{lang('./en/index.js').statusLabel}}</h3>
             <div class="radio" *ngFor="let st of statusInCanada">
                 <input type="radio" name="statusInCanada" id="{{st}}" (click)="person.status = st"
                        [checked]="st === person.status">
@@ -20,19 +20,22 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4" *ngIf="false">
-            <h3 style="margin-top: 0">Please have the following ID ready</h3>
-            <h4>(either as digital images/scans you can upload or originals you can photograph with your mobile
-                device)</h4>
-            <p>One of the following documents</p>
+        <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
+            <h3>{{lang('./en/index.js').documentInstructionLabel}}</h3>
+            <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
             <ul>
                 <li>Birth Certificate</li>
                 <li>Passport</li>
                 <li>Canadian Citizenship Card</li>
             </ul>
+            <p class="danger" [innerHtml]="lang('./en/index.js').documentInstructionsNote"></p>
+        </div>
+        <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
+            <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel"></h3>
+            <msp-file-uploader></msp-file-uploader>
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="false">
         <div class="col-md-5">
             <div class="title-container">
                 <h1>{{person.relationship}}</h1>
@@ -98,16 +101,13 @@
                      [phnLabel]="lang('./en/index.js').phnLabel"></msp-phn>
 
         </div>
-        <div class="col-md-7">
-            <h3>Identification documents for {{person.relationship | lowercase}}</h3>
-            <msp-file-uploader></msp-file-uploader>
-        </div>
+
     </div>
 
     <div class="row">
         <div class="col-md-5">
             <div class="form-group">
-                <label for="DOB">Date of birth</label>
+                <label for="dob_month">Date of birth</label>
                 <div class="dates-container">
                     <input required type="text" [(ngModel)]='person.dob_month'
                            class="form-control" id="dob_month" name="dob_month" placeholder="month">
@@ -142,7 +142,7 @@
 
 
     <div class="form-group">
-        <label for="arrivalDate">Arrival Date in BC </label>
+        <label for="arrival_month">Arrival Date in BC </label>
         <div class="dates-container">
             <input required type="text" [(ngModel)]='person.arrival_month'
                    class="form-control " id="arrival_month" name="arrival_month" placeholder="month">

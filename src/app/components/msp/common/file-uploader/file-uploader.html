@@ -2,18 +2,18 @@
   <div *ngIf = "imageFileList.length < MAX_NUM_IMAGES" class="instruction-zone">
         <input type="file" id="fileUploadBrowse" 
           accept="image/*" style="display:none;"
-          (change)="onChange($event)"/>  
-          Drop an ID image file to attach, or 
+          (change)="onChange($event)"/>
+      {{lang('./en/index.js').dropFileLabel}}
         <label for="fileUploadBrowse" class="file-upload-label">
-          browse
+            {{lang('./en/index.js').browseLabel}}
         </label>
-        or 
+      {{lang('./en/index.js').orLabel}}
         <input type="file" id="fileUploadUseCamera" 
           accept="image/*" capture="camera" style="display:none;"
           (change)="onChange($event)"/>  
         <span class="glyphicon glyphicon-camera" aria-hidden="true"></span> 
         <label for="fileUploadUseCamera" class="file-upload-label">
-          use camera
+            {{lang('./en/index.js').takeAPhotoLabel}}
         </label>
   </div>
   <div class="preview-zone" #previewZone>

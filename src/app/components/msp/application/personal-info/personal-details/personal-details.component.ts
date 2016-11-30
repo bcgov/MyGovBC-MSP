@@ -3,10 +3,11 @@ import {
   SimpleChange, ViewChild, AfterViewInit, OnInit, ViewContainerRef,
   animate,transition, state, trigger, style
 } from '@angular/core';
-import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { EnumValues } from 'enum-values';
 
-import { MspApplication, Person, StatusInCanada, Activities } from '../../../model/application.model';
+import { Person } from '../../../model/application.model';
+import {StatusRules, ActivitiesRules, StatusInCanada, Activities} from "../../../model/status-activities-documents";
 
 require('./personal-details.component.less')
 @Component({
@@ -75,9 +76,19 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
   genders: string[] = ['Male', 'Female'];
   institutionList: string[] = ['Yes', 'No'];
 
-  public statusInCanada: string[] = EnumValues.getNames(StatusInCanada);
+  /**
+   * Gets status available to the current person
+   */
+  get statusInCanada(): StatusInCanada[] {
+    return StatusRules.availableStatus(this.person.relationship);
+  }
 
-  public activities: string[] = EnumValues.getNames(Activities);
+  /**
+   * Gets the available activities given the known status
+   */
+  get activities(): Activities[] {
+    return ActivitiesRules.availableActivities(this.person.status);
+  }
 
   /**
    * Change log, for debugging purpose, for input properties on the component
@@ -131,21 +142,12 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
     this.notifySpouseRemoval.emit(this.person);
   }
 
-  get personStatus(): string {
-    return this.person.status;
-  }
-
   get legalGender(): string {
     return this.person.legalGender;
   }
 
   get institutionWorkHistory(): string {
     return this.person.institutionWorkHistory;
-  }
-
-  selectStatus(st: string) {
-    // this.shrinkOutStatus = 'in';
-    this.person.status = st;
   }
 
   showStatusList(){

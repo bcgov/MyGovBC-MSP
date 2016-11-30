@@ -15,6 +15,8 @@ require('./file-uploader.component.less');
   templateUrl: './file-uploader.html'
 })
 export class FileUploaderComponent implements OnInit {
+  lang = require('./i18n');
+
   @ViewChild('previewZone') previewZone: ElementRef;
   @ViewChild('dropZone') dropZone: ElementRef;
 
@@ -187,6 +189,13 @@ export class FileUploaderComponent implements OnInit {
       }    
       return false;
     }
+  }
+
+  /**
+   * Get the current image count
+   */
+  imageCount() {
+    return this.imageFileList.length;
   }
 
   get MAX_NUM_IMAGES(): number{

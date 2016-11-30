@@ -1,31 +1,14 @@
 import {Address} from "./address.model";
-
-/**
- * Various statuses in Canada
- */
-enum StatusInCanada {
-  Citizen,
-  PermanentResident,
-  TemporaryResident,
-}
-
-/**
- * Reasons for returning to Canada
- */
-enum Activities {
-  Returning,
-  MovingFromProvince,
-  MovingFromCountry
-}
+import {Relationship, StatusInCanada, Activities} from "./status-activities-documents";
 
 class Person {
-  relationship: string;
-  status: string;
-  currentActivity: StatusInCanada;
+  relationship: Relationship;
+  status: StatusInCanada;
+  currentActivity: Activities;
   firstname: string;
   middlename: string;
   lastname: string;
-  legalGender: string
+  legalGender: string;
   dob_day: number;
   dob_month: number;
   dob_year: number;
@@ -55,7 +38,7 @@ class Person {
    */
   plannedAbsence:boolean;
 
-  constructor(rel: string){
+  constructor(rel: Relationship){
     this.relationship = rel;
   }
 }
@@ -64,7 +47,7 @@ class Person {
  * Primary applicant for msp appication
  */
 class MspApplication {
-  private _applicant: Person = new Person('Yourself');
+  private _applicant: Person = new Person(Relationship.Applicant);
   
   private _children: Array<Person>  = [];
   private _spouse: Person;
@@ -82,7 +65,7 @@ class MspApplication {
 
   addSpouse(): void{
     if(!this._spouse){
-      this._spouse = new Person('Spouse');
+      this._spouse = new Person(Relationship.Spouse);
       console.log('spouse added: ' + JSON.stringify(this._spouse));
     }else{
       console.log('spouse already added to your coverage.');
@@ -90,7 +73,7 @@ class MspApplication {
   }
 
   addChild(): void {
-    let c = new Person('Child')
+    let c = new Person(Relationship.Child)
     this._children.length < 30 ? this._children.push(c): console.log('No more than 30 chidren can be added to one application');
   }
   
