@@ -1,6 +1,11 @@
 import {Relationship, StatusInCanada, Activities} from "./status-activities-documents";
 import {PersonDocuments} from "./person-document.model";
 
+enum Gender {
+  Female,
+  Male
+}
+
 class Person {
   relationship: Relationship;
   status: StatusInCanada;
@@ -11,7 +16,7 @@ class Person {
   firstName: string;
   middleName: string;
   lastName: string;
-  legalGender: string;
+  gender: Gender;
   dob_day: number;
   dob_month: number;
   dob_year: number;
@@ -46,4 +51,4 @@ class Person {
   }
 }
 
-export {Person};
+export {Person, Gender};

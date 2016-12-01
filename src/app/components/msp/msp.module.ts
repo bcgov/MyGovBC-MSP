@@ -18,6 +18,9 @@ import {MspPhoneComponent} from './common/phone/phone.component';
 import {MspProgressBarComponent} from './common/progressBar/progressBar.component';
 import {MspPhnComponent} from './common/phn/phn.component';
 import {Mod11CheckValidator} from './common/phn/phn.validator';
+import {MspGenderComponent} from './common/gender/gender.component';
+import {FileUploaderComponent} from './common/file-uploader/file-uploader.component';
+import {ThumbnailComponent} from './common/thumbnail/thumbnail.component';
 
 import MspApplicationDataService from './application/application-data.service';
 import {ApplicationComponent} from './application/application.component';
@@ -27,8 +30,6 @@ import {PersonalInfoComponent} from './application/personal-info/personal-info.c
 import {AddressComponent} from './application/address/address.component';
 import {ReviewComponent} from './application/review/review.component';
 import {ConfirmationComponent} from './application/confirmation/confirmation.component';
-import {FileUploaderComponent} from './common/file-uploader/file-uploader.component';
-import {ThumbnailComponent} from './common/thumbnail/thumbnail.component';
 
 import {AssistanceComponent} from './assistance/assistance.component';
 import {AssistancePrepareComponent} from './assistance/prepare/prepare.component';
@@ -146,6 +147,7 @@ let localStorageServiceConfig = {
     MspPhoneComponent,
     MspPhnComponent,
     Mod11CheckValidator,
+    MspGenderComponent,
     MspProgressBarComponent,
     FileUploaderComponent,
     ThumbnailComponent,

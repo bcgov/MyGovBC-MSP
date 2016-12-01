@@ -37,112 +37,26 @@
         <h3 [innerHtml]="personalInfoLabel()"></h3>
         <p class="help-block" [innerHtml]="lang('./en/index.js').nameHelpBlock"></p>
         <msp-name [person]="person"></msp-name>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <msp-gender [person]="person"></msp-gender>
+            </div>
+            <div class="col-sm-8">
+                <msp-birthdate></msp-birthdate>
+            </div>
+        </div>
+
     </div>
-    <div class="row" *ngIf="person.documents.images.length > 0">
-        <div class="col-md-5">
-            <div class="title-container">
+    <div class="row">
 
-                <div *ngIf="person.relationship !== 'Yourself'">
-                    <div *ngIf="person.relationship === 'Spouse'">
-                        <button type="button" class="btn btn-default btn-xs"
-                                (click)="removeSpouse()"
-                                [innerHTML]="lang('./en/index.js').removeSpouseButton">
-                        </button>
-                    </div>
-                    <div *ngIf="person.relationship === 'Child'">
-                        <button type="button" class="btn btn-default btn-xs"
-                                (click)="removeChild()"
-                                [innerHTML]="lang('./en/index.js').removeChildButton">
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <span class="glyphicon glyphicon-exclamation-sign" style="color:#d9534f"></span>
-                <span class="msp-fine-print" [innerHTML]="lang('./en/index.js').namesHelpBlock">
-				</span>
-            </div>
-
-            <div class="form-group"
-                 [ngClass]="{'has-error': !formRef.controls.firstname?.valid && firstnameRef.touched}">
-                <label class="control-label" for="firstname"
-                       [innerHTML]="lang('./en/index.js').firstNameLabel"></label>
-				<input type="text" [(ngModel)] = "person.firstName" #firstnameRef="ngModel"
-                       required minlength="2"
-                       id='firstname' name='firstname' class="form-control">
-			</div>
-
-			<div *ngIf='firstnameRef.touched'>
-				<div class="text-danger" *ngIf="firstnameRef.errors?.required"
-                     [innerHTML]="lang('./en/index.js').firstNameRequired"></div>
-                <div class="text-danger" *ngIf="firstnameRef.errors?.minlength"
-                     [innerHTML]="lang('./en/index.js').firstNameLength"></div>
-            </div>
-
-            <div class="form-group"
-                 [ngClass]="{'has-error': !formRef.controls.middlename?.valid && middlenameRef.touched}">
-                <label class="control-label" for="middlename">Middle Name</label>
-                <input type="text" [(ngModel)]="person.middleName" #middlenameRef="ngModel"
-                       id='middlename' name='middlename' minlength="2"
-                       class="form-control" id="middlename">
-            </div>
-
-            <div class="form-group" [ngClass]="{'has-error': !formRef.controls.lastname?.valid && lastnameRef.touched}">
-                <label class="control-label" for="lastname">Last Name</label>
-                <input type="text" [(ngModel)]="person.lastName" #lastnameRef="ngModel"
-                       required minlength="2"
-                       class="form-control" id="lastname" name='lastname'>
-            </div>
-            <div *ngIf='lastnameRef.touched'>
-                <div class="text-danger" *ngIf="lastnameRef.errors?.required">Last name is required</div>
-                <div class="text-danger" *ngIf="lastnameRef.errors?.minlength">Last name must be longer than
-                    {{lastnameRef.errors?.minlength.requiredLength-1}} characters.
-                </div>
-            </div>
 
             <msp-phn [phn]="person.previous_phn" [required]="false"
                      [phnLabel]="lang('./en/index.js').phnLabel"></msp-phn>
 
-        </div>
+
 
     </div>
-
-    <div class="row">
-        <div class="col-md-5">
-            <div class="form-group">
-                <label for="dob_month">Date of birth</label>
-                <div class="dates-container">
-                    <input required type="text" [(ngModel)]='person.dob_month'
-                           class="form-control" id="dob_month" name="dob_month" placeholder="month">
-                    <input type="text" [(ngModel)]='person.dob_day'
-                           class="form-control" id="dob_day" name="dob_day" placeholder="day">
-                    <input type="text" [(ngModel)]='person.dob_year'
-                           class="form-control" id="dob_year" name="dob_year" placeholder="year">
-                </div>
-            </div>
-        </div>
-        <div class="col-md-7">
-            <label>Legal Gender: </label>
-            <!--<span style="font-size: 13pt; font-weight: 500;">{{legalGender}}</span>
-            <span style="margin-left: 10px;">
-                <a *ngIf="legalGender" href="javascript:void(0)" (click)="toggleGenderList()">
-                                    <span *ngIf='isGenderListShown'>Close</span>
-                                    <span *ngIf='!isGenderListShown'>Change</span>
-                </a>
-            </span>-->
-
-            <ul class="list-group">
-                <li *ngFor='let gender of genders' (click)="selectGender(gender)"
-                    class="list-group-item msp-list-group-item">
-                    <span *ngIf="gender !== legalGender" class="glyphicon glyphicon-unchecked"></span>
-                    <span *ngIf="gender === legalGender" class="glyphicon glyphicon-check msp-selection"></span>
-                    <span>{{gender}}</span>
-                </li>
-            </ul>
-
-        </div>
-    </div>
-
 
     <div class="form-group">
         <label for="arrival_month">Arrival Date in BC </label>

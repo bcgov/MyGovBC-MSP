@@ -153,25 +153,8 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
     this.notifySpouseRemoval.emit(this.person);
   }
 
-  get legalGender(): string {
-    return this.person.legalGender;
-  }
-
   get institutionWorkHistory(): string {
     return this.person.institutionWorkHistory;
-  }
-
-  selectGender(gender: string){
-    // this.genderListSignal = 'in';
-    this.person.legalGender = gender;
-  }
-
-  // toggleGenderList(){
-  //   this.genderListSignal === 'out' ? this.genderListSignal = 'in' : this.genderListSignal = 'out';
-  // }
-
-  get isGenderListShown(){
-    return this.genderListSignal === 'out';
   }
 
   selectInstitution(history: string) {
