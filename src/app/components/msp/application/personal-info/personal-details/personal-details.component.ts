@@ -7,7 +7,10 @@ import { NgForm } from '@angular/forms';
 import { EnumValues } from 'enum-values';
 
 import { Person } from '../../../model/application.model';
-import {StatusRules, ActivitiesRules, StatusInCanada, Activities} from "../../../model/status-activities-documents";
+import {
+  StatusRules, ActivitiesRules, StatusInCanada, Activities,
+  DocumentRules, Documents
+} from "../../../model/status-activities-documents";
 
 require('./personal-details.component.less')
 @Component({
@@ -57,10 +60,9 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
   lang = require('./i18n');
   langStatus = require('../../../common/status/i18n');
   langActivities = require('../../../common/activities/i18n');
+  langDocuments = require('../../../common/documents/i18n');
 
   @ViewChild('formRef') form: NgForm;
-  // @ViewChild('viewOnlyContainer', {read: ViewContainerRef}) viewOnlyContainer: ViewContainerRef;
-  // @ViewChild('viewOnlyTempalte') viewOnlyTempalte: TemplateRef<Object>;
 
   @Input() viewOnly: boolean = false;
   @Input() person: Person;
@@ -83,21 +85,34 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
     return StatusRules.availableStatus(this.person.relationship);
   }
 
+  setStatus(value:StatusInCanada) {
+    this.person.status = value;
+    this.person.currentActivity = null;
+  }
+
+  setActivity(value:Activities) {
+    console.log("activity" + value);
+    this.person.currentActivity = value;
+  }
+
   /**
    * Gets the available activities given the known status
    */
   get activities(): Activities[] {
-    return ActivitiesRules.availableActivities(this.person.status);
+    return ActivitiesRules.availableActivities(this.person.relationship, this.person.status);
+  }
+
+  /**
+   * Gets the available documents given the known status and activity
+   */
+  get documents(): Documents[] {
+    return DocumentRules.availiableDocuments(this.person.status, this.person.currentActivity);
   }
 
   /**
    * Change log, for debugging purpose, for input properties on the component
    */
   private changeLog: string[] = [];
-
-  constructor(){
-
-  }
 
   /**
    * propKey is the input property value of this component
@@ -148,22 +163,6 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
 
   get institutionWorkHistory(): string {
     return this.person.institutionWorkHistory;
-  }
-
-  showStatusList(){
-    this.shrinkOutStatus === 'out' ? this.shrinkOutStatus = 'in' : this.shrinkOutStatus = 'out';
-  }
-
-  get isStatusListShown(){
-    return this.shrinkOutStatus === 'out';
-  }
-
-  showActivities(){
-    this.shrinkOut === 'out' ? this.shrinkOut = 'in' : this.shrinkOut = 'out';
-  }
-
-  get isActivitiesListShown() {
-    return this.shrinkOut === 'out';
   }
 
   selectGender(gender: string){

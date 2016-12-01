@@ -16,6 +16,8 @@ enum StatusInCanada {
   CitizenYoungAdultStudent, //19-24, full-time student
   CitizenYouth, // 0-18
   PermanentResident,
+  PermanentResidentAdultStudent, //19-24, full-time student
+  PermanentResidentYouth, // 0-18
   TemporaryResident,
 }
 
@@ -39,7 +41,13 @@ enum Activities {
 enum Documents {
   CanadianBirthCertificate,
   CanadianPassport,
-  CanadianCitizenCard
+  CanadianCitizenCard,
+  RecordOfLanding,
+  PermanentResidentCard,
+  WorkPermit,
+  StudyPermit,
+  VisitorVisa,
+  PassportWithDiplomaticFoil
 }
 
 /**
@@ -50,6 +58,10 @@ class StatusRules {
     switch (relationship) {
       case Relationship.Applicant:
         return [StatusInCanada.CitizenAdult, StatusInCanada.PermanentResident, StatusInCanada.TemporaryResident];
+      default:
+        return [StatusInCanada.CitizenAdult, StatusInCanada.CitizenYoungAdultStudent, StatusInCanada.CitizenYouth,
+          StatusInCanada.PermanentResident, StatusInCanada.PermanentResidentAdultStudent, StatusInCanada.PermanentResidentYouth,
+          StatusInCanada.TemporaryResident];
     }
   }
 }
@@ -58,10 +70,23 @@ class StatusRules {
  * Business rules for activities
  */
 class ActivitiesRules {
-  static availableActivities(status: StatusInCanada): Activities[] {
+  static availableActivities(relationship: Relationship, status: StatusInCanada): Activities[] {
     switch (status) {
       case StatusInCanada.CitizenAdult:
+      case StatusInCanada.PermanentResident:
         return [Activities.Returning, Activities.MovingFromProvince, Activities.MovingFromCountry];
+      case StatusInCanada.CitizenYoungAdultStudent:
+      case StatusInCanada.CitizenYouth:
+      case StatusInCanada.PermanentResidentAdultStudent:
+      case StatusInCanada.PermanentResidentYouth:
+        return [Activities.Returning, Activities.MovingFromProvince];
+      case StatusInCanada.TemporaryResident:
+        if (Relationship.Applicant) {
+          return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligousWorker, Activities.Diplomat]
+        }
+        else {
+          return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligousWorker, Activities.SpouseOrDep, Activities.Diplomat]
+        }
     }
   }
 }
@@ -73,7 +98,22 @@ class DocumentRules {
   static availiableDocuments(status: StatusInCanada, activity: Activities): Documents[] {
     switch (status) {
       case StatusInCanada.CitizenAdult:
+      case StatusInCanada.CitizenYoungAdultStudent:
+      case StatusInCanada.CitizenYouth:
         return [Documents.CanadianBirthCertificate, Documents.CanadianCitizenCard, Documents.CanadianPassport];
+      case StatusInCanada.PermanentResident:
+      case StatusInCanada.PermanentResidentAdultStudent:
+        return [Documents.RecordOfLanding, Documents.PermanentResidentCard];
+    }
+    switch (activity) {
+      case Activities.WorkingInBC:
+        return [Documents.WorkPermit];
+      case Activities.StudyingInBC:
+        return [Documents.StudyPermit];
+      case Activities.ReligousWorker:
+        return [Documents.VisitorVisa];
+      case Activities.Diplomat:
+        return [Documents.PassportWithDiplomaticFoil]
     }
   }
 }

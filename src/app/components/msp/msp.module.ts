@@ -24,7 +24,6 @@ import {ApplicationComponent} from './application/application.component';
 import {PersonalDetailsComponent} from './application/personal-info/personal-details/personal-details.component';
 import {PrepareComponent} from './application/prepare/prepare.component';
 import {PersonalInfoComponent} from './application/personal-info/personal-info.component';
-import {DocumentsComponent} from './application/documents/documents.component';
 import {AddressComponent} from './application/address/address.component';
 import {ReviewComponent} from './application/review/review.component';
 import {ConfirmationComponent} from './application/confirmation/confirmation.component';
@@ -85,10 +84,6 @@ let localStorageServiceConfig = {
               {
                 path: 'personal-info',
                 component: PersonalInfoComponent
-              },
-              {
-                path: 'documents',
-                component: DocumentsComponent
               },
               {
                 path: 'address',
@@ -160,7 +155,6 @@ let localStorageServiceConfig = {
     PersonalDetailsComponent,
     PrepareComponent,
     PersonalInfoComponent,
-    DocumentsComponent,
     AddressComponent,
     ReviewComponent,
     ConfirmationComponent,

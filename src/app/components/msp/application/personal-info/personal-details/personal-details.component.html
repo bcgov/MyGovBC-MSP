@@ -3,18 +3,18 @@
         <div class="col-md-4">
             <h3>{{lang('./en/index.js').statusLabel}}</h3>
             <div class="radio" *ngFor="let st of statusInCanada">
-                <input type="radio" name="statusInCanada" id="{{st}}" (click)="person.status = st"
+                <input type="radio" name="statusInCanada" id="st{{st}}" (click)="setStatus(st)"
                        [checked]="st === person.status">
-                <label for="{{st}}">
+                <label for="st{{st}}">
                     {{langStatus('./en/index.js')[st]}}
                 </label>
 
                 <div *ngIf="st === person.status">
-                    <div class="radio" *ngFor="let item of activities">
-                        <input type="radio" name="activity" id="{{item}}" (click)="person.currentActivity = item"
-                               [checked]="item === person.currentActivity">
-                        <label for="{{item}}">
-                            {{langActivities('./en/index.js')[item]}}
+                    <div class="radio" *ngFor="let activity of activities">
+                        <input type="radio" name="activity" id="a{{activity}}" (click)="setActivity(activity)"
+                               [checked]="activity === person.currentActivity">
+                        <label for="a{{activity}}">
+                            {{langActivities('./en/index.js')[activity]}}
                         </label>
                     </div>
                 </div>
@@ -24,9 +24,7 @@
             <h3>{{lang('./en/index.js').documentInstructionLabel}}</h3>
             <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
             <ul>
-                <li>Birth Certificate</li>
-                <li>Passport</li>
-                <li>Canadian Citizenship Card</li>
+                <li *ngFor="let document of documents">{{langDocuments('./en/index.js')[document]}}</li>
             </ul>
             <p class="danger" [innerHtml]="lang('./en/index.js').documentInstructionsNote"></p>
         </div>
