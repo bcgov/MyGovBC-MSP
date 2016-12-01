@@ -7,7 +7,7 @@ import { NgForm } from '@angular/forms';
 import { Person } from '../../../model/person.model';
 import {
   StatusRules, ActivitiesRules, StatusInCanada, Activities,
-  DocumentRules, Documents
+  DocumentRules, Documents, Relationship
 } from "../../../model/status-activities-documents";
 
 require('./personal-details.component.less');
@@ -95,6 +95,15 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
    */
   get documents(): Documents[] {
     return DocumentRules.availiableDocuments(this.person.status, this.person.currentActivity);
+  }
+
+  personalInfoLabel(): string {
+    switch (this.person.relationship) {
+      case Relationship.Applicant:
+        return this.lang('./en/index.js').applicantPersonalInfo;
+      default:
+        return '';
+    }
   }
 
   /**

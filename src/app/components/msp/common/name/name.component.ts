@@ -1,5 +1,5 @@
-import {Component, Inject, ViewChild} from '@angular/core'
-import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
+import {Component, Inject, Input} from '@angular/core'
+import {Person} from "../../model/person.model";
 
 require('./name.component.less')
 @Component({
@@ -7,8 +7,9 @@ require('./name.component.less')
   templateUrl: './name.component.html'
 })
 export class MspNameComponent {
-
     lang = require('./i18n');
+
+    @Input() person: Person;
 
     constructor(@Inject('appConstants') appConstants: Object) {
     }

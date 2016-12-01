@@ -33,10 +33,15 @@
             <msp-file-uploader [images]="person.documents.images"></msp-file-uploader>
         </div>
     </div>
+    <div *ngIf="person.documents.images.length > 0 || true">
+        <h3 [innerHtml]="personalInfoLabel()"></h3>
+        <p class="help-block" [innerHtml]="lang('./en/index.js').nameHelpBlock"></p>
+        <msp-name [person]="person"></msp-name>
+    </div>
     <div class="row" *ngIf="person.documents.images.length > 0">
         <div class="col-md-5">
             <div class="title-container">
-                <h1>{{person.relationship}}</h1>
+
                 <div *ngIf="person.relationship !== 'Yourself'">
                     <div *ngIf="person.relationship === 'Spouse'">
                         <button type="button" class="btn btn-default btn-xs"

@@ -2,10 +2,10 @@
 <p class="help-block" [innerHTML]="lang('./en/index.js').helpBlock"></p>
 
 <h2 [innerHTML]="lang('./en/index.js').applicantInfo"></h2>
-<msp-assistance-personal-details></msp-assistance-personal-details>
+<msp-assistance-personal-details [person]="financialAssistApplication.applicant"></msp-assistance-personal-details>
 
 <h2 [innerHTML]="lang('./en/index.js').spouseInfo"></h2>
-<msp-assistance-personal-details></msp-assistance-personal-details>
+<msp-assistance-personal-details [person]="financialAssistApplication.spouse"></msp-assistance-personal-details>
 
 <h2 [innerHTML]="lang('./en/index.js').contactInfo"></h2>
 

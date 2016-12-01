@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Person} from "../../../model/person.model";
 require('./personal-details.component.less');
 
 @Component({
@@ -7,4 +8,7 @@ require('./personal-details.component.less');
 })
 export class AssistancePersonalDetailComponent {
   lang = require('./i18n');
+
+  @Input() person: Person;
+
 }

@@ -1,13 +1,13 @@
 module.exports = {
   firstNameLabel: 'First Name',
-  firstNameRequired: 'First name is required',
-  firstNameLength: 'First name must be longer than {{firstnameRef.errors?.minlength.requiredLength-1}} characters.',
+  firstNameErrorRequired: 'First name is required',
+  firstNameErrorPattern: 'Must begin with a letter followed by a letters, hyphen, period, apostrophe, or blank character',
 
   middleNameLabel: 'Middle Name',
   middleNameRequired: 'Middle name is required',
-  middleNameLength: 'Middle name must be longer than {{firstnameRef.errors?.minlength.requiredLength-1}} characters.',
+  middleNameErrorPattern: 'Must begin with a letter followed by a letters, hyphen, period, apostrophe, or blank character',
 
   lastNameLabel: 'Last Name',
-  lastNameRequired: 'Last name is required',
-  lastNameLength: 'Last name must be longer than {{firstnameRef.errors?.minlength.requiredLength-1}} characters.',
+  lastNameErrorRequired: 'Last name is required',
+  lastNameErrorPattern: 'Must begin with a letter followed by a letters, hyphen, period, apostrophe, or blank character',
 }

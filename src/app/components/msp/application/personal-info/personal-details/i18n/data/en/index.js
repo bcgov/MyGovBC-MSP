@@ -7,6 +7,9 @@ module.exports = {
   documentInstructionsNote: '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Please include the entire page, corner to corner.  See visual examples of exactly what to include for the type of ID you\'re uploading.',
 
 
+  nameHelpBlock: 'Enter your legal name and gender as it appears on the ID you uploaded above',
+
+  applicantPersonalInfo: 'Your personal info',
 
   firstNameLabel: 'First Name',
   firstNameRequired: 'First name is required',

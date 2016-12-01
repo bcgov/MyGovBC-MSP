@@ -1,28 +1,62 @@
-<div class="row">
-    <div class="col-sm-4">
-        <div class="form-group">
-            <label class="control-label" for="firstname"
-                   [innerHTML]="lang('./en/index.js').firstNameLabel"></label>
-            <input type="text"
-                   required minlength="2"
-                   id='firstname' name='firstname'
-                   class="form-control">
+<form #formRef='ngForm' novalidate>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group"
+                 [ngClass]="{'has-error': !formRef.controls.firstName?.valid && firstNameRef.touched}">
+                <label class="control-label" for="firstName"
+                       [innerHtml]="lang('./en/index.js').firstNameLabel"></label>
+                <input type="text"
+                       [(ngModel)]="person.firstName"
+                       required
+                       maxlength="30"
+                       pattern="[a-zA-Z][a-zA-Z\-.' ]*"
+                       id="firstName" name="firstName" #firstNameRef="ngModel"
+                       class="form-control">
+                <div *ngIf='firstNameRef.touched'>
+                    <div class="text-danger" *ngIf="firstNameRef.errors?.required"
+                         [innerHtml]="lang('./en/index.js').firstNameErrorRequired"></div>
+                    <div class="text-danger" *ngIf="firstNameRef.errors?.pattern"
+                         [innerHtml]="lang('./en/index.js').firstNameErrorPattern"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group"
+                 [ngClass]="{'has-error': !formRef.controls.middleName?.valid && middleNameRef.touched}">
+                <label class="control-label optional" for="middleName">Middle Name</label>
+                <input type="text"
+                       [(ngModel)]="person.middleName"
+                       id='middleName' name='middleName' #middleNameRef="ngModel"
+                       maxlength="30"
+                       pattern="[a-zA-Z][a-zA-Z\-.' ]*"
+                       class="form-control">
+                <div *ngIf='middleNameRef.touched'>
+                    <div class="text-danger" *ngIf="middleNameRef.errors?.required"
+                         [innerHtml]="lang('./en/index.js').middleNameErrorRequired"></div>
+                    <div class="text-danger" *ngIf="middleNameRef.errors?.pattern"
+                         [innerHtml]="lang('./en/index.js').middleNameErrorPattern"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group"
+                 [ngClass]="{'has-error': !formRef.controls.lastName?.valid && lastNameRef.touched}">
+                <label class="control-label" for="lastName">Last Name</label>
+                <input type="text"
+                       [(ngModel)]="person.lastName"
+                       id="lastName" name='lastName' #lastNameRef="ngModel"
+                       required
+                       maxlength="30"
+                       pattern="[a-zA-Z][a-zA-Z\-.' ]*"
+                       class="form-control">
+                <div *ngIf='lastNameRef.touched'>
+                    <div class="text-danger" *ngIf="lastNameRef.errors?.required"
+                         [innerHtml]="lang('./en/index.js').lastNameErrorRequired"></div>
+                    <div class="text-danger" *ngIf="lastNameRef.errors?.pattern"
+                         [innerHtml]="lang('./en/index.js').lastNameErrorPattern"></div>
+                </div>
+
+            </div>
         </div>
     </div>
-    <div class="col-sm-4">
-        <div class="form-group">
-            <label class="control-label optional" for="middlename">Middle Name</label>
-            <input type="text"
-                   id='middlename' name='middlename' minlength="2"
-                   class="form-control">
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="form-group">
-            <label class="control-label" for="lastname">Last Name</label>
-            <input type="text"
-                   required minlength="2"
-                   class="form-control" id="lastname" name='lastname'>
-        </div>
-    </div>
-</div>
+</form>
