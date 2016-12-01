@@ -4,15 +4,14 @@ import {
   animate,transition, state, trigger, style
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { EnumValues } from 'enum-values';
-
-import { Person } from '../../../model/application.model';
+import { Person } from '../../../model/person.model';
 import {
   StatusRules, ActivitiesRules, StatusInCanada, Activities,
   DocumentRules, Documents
 } from "../../../model/status-activities-documents";
 
-require('./personal-details.component.less')
+require('./personal-details.component.less');
+
 @Component({
     selector: 'msp-personal-details',
     templateUrl: './personal-details.component.html',
@@ -91,7 +90,6 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
   }
 
   setActivity(value:Activities) {
-    console.log("activity" + value);
     this.person.currentActivity = value;
   }
 
@@ -118,7 +116,6 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
    * propKey is the input property value of this component
    */
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
-    console.log('applicant set on details component: ' + JSON.stringify(this.person));
     this.logPropertyChange(changes);
   }
 

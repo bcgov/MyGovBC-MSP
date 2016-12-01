@@ -62,9 +62,9 @@
                  [ngClass]="{'has-error': !formRef.controls.firstname?.valid && firstnameRef.touched}">
                 <label class="control-label" for="firstname"
                        [innerHTML]="lang('./en/index.js').firstNameLabel"></label>
-				<input type="text" [(ngModel)] = 'person.firstname' #firstnameRef="ngModel"
-					required minlength="2"
-					id='firstname' name='firstname'class="form-control">
+				<input type="text" [(ngModel)] = "person.firstName" #firstnameRef="ngModel"
+                       required minlength="2"
+                       id='firstname' name='firstname' class="form-control">
 			</div>
 
 			<div *ngIf='firstnameRef.touched'>
@@ -77,14 +77,14 @@
             <div class="form-group"
                  [ngClass]="{'has-error': !formRef.controls.middlename?.valid && middlenameRef.touched}">
                 <label class="control-label" for="middlename">Middle Name</label>
-                <input type="text" [(ngModel)]='person.middlename' #middlenameRef="ngModel"
+                <input type="text" [(ngModel)]="person.middleName" #middlenameRef="ngModel"
                        id='middlename' name='middlename' minlength="2"
                        class="form-control" id="middlename">
             </div>
 
             <div class="form-group" [ngClass]="{'has-error': !formRef.controls.lastname?.valid && lastnameRef.touched}">
                 <label class="control-label" for="lastname">Last Name</label>
-                <input type="text" [(ngModel)]='person.lastname' #lastnameRef="ngModel"
+                <input type="text" [(ngModel)]="person.lastName" #lastnameRef="ngModel"
                        required minlength="2"
                        class="form-control" id="lastname" name='lastname'>
             </div>
