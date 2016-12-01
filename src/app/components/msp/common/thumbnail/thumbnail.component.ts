@@ -1,7 +1,7 @@
 import {Component, ViewChild, OnInit, Input, Output, EventEmitter, ViewContainerRef } from '@angular/core';
 import { ModalDirective } from 'ng2-bootstrap/components/modal/modal.component';
 
-import { MspImage } from '../MspImage';
+import { MspImage } from '../../model/msp-image';
 
 require('./thumbnail.less')
 
@@ -27,7 +27,7 @@ export class ThumbnailComponent implements OnInit {
   }
 
   showFullSizeView(){
-    this.fullSizeViewModal.config.backdrop = false
+    this.fullSizeViewModal.config.backdrop = false;
     this.fullSizeViewModal.show();
   }
 

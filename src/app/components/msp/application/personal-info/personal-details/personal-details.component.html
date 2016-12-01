@@ -30,10 +30,10 @@
         </div>
         <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
             <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel"></h3>
-            <msp-file-uploader></msp-file-uploader>
+            <msp-file-uploader [images]="person.documents.images"></msp-file-uploader>
         </div>
     </div>
-    <div class="row" *ngIf="false">
+    <div class="row" *ngIf="person.documents.images.length > 0">
         <div class="col-md-5">
             <div class="title-container">
                 <h1>{{person.relationship}}</h1>

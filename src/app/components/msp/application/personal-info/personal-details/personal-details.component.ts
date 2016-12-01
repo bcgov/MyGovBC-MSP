@@ -1,7 +1,7 @@
 import {
-  Component, Input, Output, OnChanges, EventEmitter,TemplateRef,
-  SimpleChange, ViewChild, AfterViewInit, OnInit, ViewContainerRef,
-  animate,transition, state, trigger, style
+  Component, Input, Output, OnChanges, EventEmitter,
+  SimpleChange, ViewChild, AfterViewInit, OnInit,
+  state, trigger, style
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Person } from '../../../model/person.model';
@@ -15,16 +15,6 @@ require('./personal-details.component.less');
 @Component({
     selector: 'msp-personal-details',
     templateUrl: './personal-details.component.html',
-    // animations: [
-    //   trigger('shrinkOut', [
-    //     state('in', style({ height: '*' })),
-    //     transition('* => void', [
-    //       style({ height: '*' }),
-    //       animate(250, style({ height: 0 }))
-    //     ])
-    //   ])
-    // ]
-
 
     animations: [
       trigger('shrinkOut', [

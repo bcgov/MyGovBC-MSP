@@ -1,5 +1,5 @@
 <div class="dropzone" #dropZone>
-  <div *ngIf = "imageFileList.length < MAX_NUM_IMAGES" class="instruction-zone">
+  <div *ngIf = "images.length < MAX_NUM_IMAGES" class="instruction-zone">
         <input type="file" id="fileUploadBrowse" 
           accept="image/*" style="display:none;"
           (change)="onChange($event)"/>
@@ -17,7 +17,7 @@
         </label>
   </div>
   <div class="preview-zone" #previewZone>
-    <div *ngFor="let mspImage of imageFileList" class="preview-item">
+    <div *ngFor="let mspImage of images" class="preview-item">
       <msp-thumbnail [imageObject] ="mspImage" (delete) = "deleteImage($event)">
       </msp-thumbnail>
     </div>
@@ -26,7 +26,7 @@
   <!-- The sole purpose of this element is to maintain the drop zone to an 
       large size to display on screen.
    -->
-  <div *ngIf = "imageFileList.length === 0" class="preview-zone">
+  <div *ngIf = "images.length === 0" class="preview-zone">
       <div class="preview-item"></div>
   </div>
 

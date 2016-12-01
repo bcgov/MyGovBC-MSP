@@ -2,9 +2,8 @@ import {Address} from "./address.model";
 import {Relationship, StatusInCanada, Activities} from "./status-activities-documents";
 import {Person} from "./person.model";
 
-
 /**
- * Primary applicant for msp appication
+ * Overall MSP Application Process Data
  */
 class MspApplication {
   private _applicant: Person = new Person(Relationship.Applicant);

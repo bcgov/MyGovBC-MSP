@@ -1,6 +1,6 @@
-import { Component, ViewChild, ElementRef, OnInit, ViewContainerRef } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
-import { MspImage } from '../MspImage';
+import {Component, ViewChild, ElementRef, OnInit, ViewContainerRef, Output, Input} from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { MspImage } from '../../model/msp-image';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
@@ -24,7 +24,7 @@ export class FileUploaderComponent implements OnInit {
   private maxFileSize: number;
   private fileSizeError: string;
   private MAX_IMAGE_COUNT:number = 12;
-  private imageFileList: Array<MspImage> = new Array<MspImage>();
+  @Input() images: Array<MspImage>;
 
   constructor(private sanitizer: DomSanitizer, 
     private viewContainerRef: ViewContainerRef) {
@@ -59,8 +59,8 @@ export class FileUploaderComponent implements OnInit {
       (files) => {
         // console.log('drop event detected:');
         // console.log(files[0]);
-        this.handleImageFile(files[0], this.imageFileList, 
-          this.getFileSizeOutputString, this.checkImageExists, this.imageFileList);
+        this.handleImageFile(files[0], this.images,
+          this.getFileSizeOutputString, this.checkImageExists, this.images);
       },
 
       (error) => {
@@ -72,7 +72,7 @@ export class FileUploaderComponent implements OnInit {
 
   handleImageFile(imageFile: File, fileList: Array<MspImage>, 
     sizeFinder:Function, imageDuplicationCheck:Function, imageList: Array<MspImage>) {
-    if(this.imageFileList.length >= this.MAX_IMAGE_COUNT){
+    if(this.images.length >= this.MAX_IMAGE_COUNT){
       console.log(`Max number of image file you can upload is ${this.MAX_IMAGE_COUNT}. 
       This file ${imageFile.name} was not uploaded.` );
         return;
@@ -137,8 +137,8 @@ export class FileUploaderComponent implements OnInit {
         this.fileSizeError = 'This file was not accepted because its size exceeded max allowed file size (8MB).';
         console.log(this.fileSizeError);
       }else{
-        this.handleImageFile(file, this.imageFileList, 
-          this.getFileSizeOutputString, this.checkImageExists, this.imageFileList);
+        this.handleImageFile(file, this.images,
+          this.getFileSizeOutputString, this.checkImageExists, this.images);
         // var blob_url = window.URL.createObjectURL(file);
         // this.trustedUrl = this.sanitizer.bypassSecurityTrustUrl(blob_url);;
         // console.log('file blog url: ' + blob_url);
@@ -166,9 +166,9 @@ export class FileUploaderComponent implements OnInit {
   }
 
   deleteImage(imageId:string){
-    for(var i = this.imageFileList.length -1; i >= 0 ; i--){
-        if(this.imageFileList[i].id === imageId){
-            this.imageFileList.splice(i, 1);
+    for(var i = this.images.length -1; i >= 0 ; i--){
+        if(this.images[i].id === imageId){
+            this.images.splice(i, 1);
         }
     }    
   }
@@ -195,7 +195,7 @@ export class FileUploaderComponent implements OnInit {
    * Get the current image count
    */
   imageCount() {
-    return this.imageFileList.length;
+    return this.images.length;
   }
 
   get MAX_NUM_IMAGES(): number{

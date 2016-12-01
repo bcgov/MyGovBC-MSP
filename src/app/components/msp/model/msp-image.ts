@@ -1,7 +1,7 @@
+/**
+ * Image as uploaded by user
+ */
 export class MspImage {
-  constructor(){
-    
-  }
   fileContent:File;
   size: number;
   sizeUnit: string;

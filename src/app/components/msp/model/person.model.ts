@@ -1,9 +1,13 @@
 import {Relationship, StatusInCanada, Activities} from "./status-activities-documents";
+import {PersonDocuments} from "./person-document.model";
 
 class Person {
   relationship: Relationship;
   status: StatusInCanada;
   currentActivity: Activities;
+
+  documents: PersonDocuments = new PersonDocuments();
+
   firstName: string;
   middleName: string;
   lastName: string;
