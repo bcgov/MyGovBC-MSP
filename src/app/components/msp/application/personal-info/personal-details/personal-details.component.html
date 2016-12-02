@@ -64,30 +64,18 @@
         </div>
     </div>
 
-    <div class="row" style="margin-top: 20px;">
+    <div class="row" *ngIf="person.currentActivity === Activities.Returning ||
+                            person.currentActivity === Activities.MovingFromProvince">
         <div class="col-md-8">
-            <label>Were you previously working for the RCMP, Canadian Forces or an institution? </label>
-            <!--<span style="font-size: 13pt; font-weight: 500;">{{institutionWorkHistory}}</span>
-            <span style="margin-left: 10px;">
-                <a *ngIf="institutionWorkHistory" href="javascript:void(0)" (click)="toggleInstituationList()">
-                                    <span *ngIf='isInstitutionListShown'>Close</span>
-                                    <span *ngIf='!isInstitutionListShown'>Change</span>
-                </a>
-            </span>-->
-
-            <ul class="list-group">
-                <li *ngFor='let institution of institutionList' (click)="selectInstitution(institution)"
-                    class="list-group-item msp-list-group-item">
-                    <span *ngIf="institution !== institutionWorkHistory" class="glyphicon glyphicon-unchecked"></span>
-                    <span *ngIf="institution === institutionWorkHistory"
-                          class="glyphicon glyphicon-check msp-selection"></span>
-                    <span>{{institution}}</span>
-                </li>
-            </ul>
+            <label [innerHtml]="lang('./en/index.js').canadianForcesQuestion"></label>
+            <div class="btn-group" role="group">
+                <button *ngFor='let institution of institutionList'
+                        [class.msp-btn-radio]="person.institutionWorkHistory == institution"
+                        (click)="selectInstitution(institution)"
+                        type="button" class="btn btn-default" >{{institution}}</button>
+            </div>
         </div>
     </div>
-
-
 </form>
 
 <div #viewOnlyContainer *ngIf="viewOnly">

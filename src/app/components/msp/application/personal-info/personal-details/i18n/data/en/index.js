@@ -15,6 +15,8 @@ module.exports = {
   movedFromProvinceLabel: 'Which province are you moving from?',
   arrivalDateToBCLabel: 'Arrival date to B.C.',
 
+  canadianForcesQuestion: 'Before you moved to B.C., were you working for the Canadian Forces or an institution in another province?',
+
   removeSpouseButton: 'Remove',
   removeChildButton: 'Remove',
 }
