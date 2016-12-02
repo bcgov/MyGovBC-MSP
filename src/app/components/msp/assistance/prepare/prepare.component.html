@@ -57,7 +57,7 @@
                         <button #ageNotOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === false" 
                             type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
-                    <div *ngIf='!ageSpecified'>
+                    <div *ngIf='!formValidationInfo.ageSpecified'>
                         <div class="text-danger"
                                 [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
                     </div>
@@ -78,7 +78,7 @@
                         <button #negativeHasSpouse [class.msp-btn-radio]="finAssistApp.hasSpouseOrCommonLaw === false" 
                              type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
-                    <div *ngIf='!spouseSpecified'>
+                    <div *ngIf='!formValidationInfo.spouseSpecified'>
                         <div class="text-danger"
                                 [innerHTML]="lang('./en/index.js').spouseCommonLawStatusRequired"></div>
                     </div>
@@ -93,7 +93,7 @@
                         <button #spouseOver65NegativeBtn [class.msp-btn-radio]="finAssistApp.spouseAgeOver65 === false" 
                                 type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
-                    <div *ngIf='!spouseAgeSpecified'>
+                    <div *ngIf='!formValidationInfo.spouseAgeSpecified'>
                         <div class="text-danger"
                                 [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
                     </div>
@@ -271,14 +271,17 @@
     </div>
 
     <div class="col-md-4">
-        <deduction-calculator [application]="finAssistApp"></deduction-calculator>
+        <deduction-calculator [application]="finAssistApp"
+        [formValidationInfo]="formValidationInfo">
+
+        </deduction-calculator>
         <p></p>
-        <div class="row">
+        <!--<div class="row" *ngIf="likelyQualify">
             <div class="col-xs-12">
                 <button class="btn btn-primary btn-block" type="submit" routerLink="/msp/assistance/personal-info"
                         [innerHTML]="lang('./en/index.js').continueButton" style="font-size: smaller"></button>
             </div>
-        </div>
+        </div>-->
         
     </div>
 </div>

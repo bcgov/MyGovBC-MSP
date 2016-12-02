@@ -123,6 +123,24 @@
 
     </tbody>
   </table>
-  <p class="qualify-message" *ngIf="showQualifyMessage">
+  <p class="qualify-message" *ngIf="likelyQualify">
     It is likely that you will qualify for assistance.</p>
 </div>
+
+<div class="row" *ngIf="likelyQualify && canContinue"
+  style="margin-top: 10px;">
+  <div class="col-xs-12">
+    <button class="btn btn-primary btn-block"
+      routerLink="/msp/assistance/personal-info"
+      style="font-size: smaller">
+      Continue to apply for financial assistance
+    </button>
+  </div>
+</div>
+
+  <!--<div class="row">
+      <div class="col-xs-12">
+          <button class="btn btn-primary btn-block" type="submit" routerLink="/msp/assistance/personal-info"
+                  style="font-size: smaller"></button>
+      </div>
+  </div>-->

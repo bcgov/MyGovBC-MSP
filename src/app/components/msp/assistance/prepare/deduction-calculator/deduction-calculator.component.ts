@@ -18,12 +18,18 @@ require('./deduction-calculator.less');
   templateUrl: './deduction-calculator.html'
 })
 
-export class DeductionCalculatorComponent implements OnInit{
+export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   @Input() application: FinancialAssistApplication;
+  @Input() formValidationInfo: any;
+  @Output() updateQualify:EventEmitter<Boolean> = new EventEmitter<Boolean>();
   constructor(){
   }
 
   ngOnInit(){
+    
+  }
+  ngAfterViewInit(){
+
   }
 
   get ageOver65Amt():number {
@@ -85,14 +91,28 @@ export class DeductionCalculatorComponent implements OnInit{
       (!isNaN(this.application.spouseNetIncome) && this.application.spouseNetIncome+'' !== ''));
   }
 
-  get showQualifyMessage() {
+  get likelyQualify() {
     // console.log("income " + this.application.netIncomelastYear);
     // console.log("income is number? " + !isNaN(this.application.netIncomelastYear));
     // console.log("spouseIncome " + this.application.spouseNetIncome);
     // console.log("spouseIncome is number? " + !_.isNaN(this.application.spouseNetIncome));
     // console.log(!isNaN(this.application.spouseNetIncome));
     // console.log(this.adjustedIncome);
+    // setTimeout(()=>this.updateQualify.emit(true), 0);
     return this.incomeInfoProvided && this.adjustedIncome <= 50000;
+      // && this.application.age;
+  }
+
+  get canContinue(){
+    if(this.formValidationInfo.ageSpecified && !_.isNil(this.application.hasSpouseOrCommonLaw)){
+        if(this.application.hasSpouseOrCommonLaw){
+          return this.formValidationInfo.spouseSpecified && this.formValidationInfo.spouseAgeSpecified;
+        }else{
+          return true;
+        }
+    }else{
+      return false;
+    }
   }
   get personalIncome(): number {
     let n = !!this.application.netIncomelastYear? this.application.netIncomelastYear : 0;

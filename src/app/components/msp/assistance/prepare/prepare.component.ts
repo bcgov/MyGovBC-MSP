@@ -32,9 +32,14 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
   lang = require('./i18n');
   _showDisabilityInfo:boolean = false;
   private _showChildrenInfo:boolean = false;
-  spouseAgeSpecified:boolean = false;
-  ageSpecified:boolean = false;
-  spouseSpecified:boolean = false;
+
+  formValidationInfo = {
+    spouseAgeSpecified: false,
+    ageSpecified: false,
+    spouseSpecified: false
+  };
+
+  private _likelyQualify:boolean = false;
 
   constructor(private dataService: DataService){
 
@@ -56,12 +61,12 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
     let ageOver$ = Observable.fromEvent<MouseEvent>(this.ageOver65Btn.nativeElement, 'click')
       .map( x=>{
         this.dataService.finAssistApp.ageOver65 = true;
-        this.ageSpecified = true;
+        this.formValidationInfo.ageSpecified = true;
       });
     let ageUnder$ = Observable.fromEvent<MouseEvent>(this.ageNotOver65Btn.nativeElement, 'click')
       .map( x=>{
         this.dataService.finAssistApp.ageOver65 = false;
-        this.ageSpecified = true;
+        this.formValidationInfo.ageSpecified = true;
       });
 
     this.prepForm.valueChanges.filter(
@@ -75,29 +80,29 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
           Observable.fromEvent<MouseEvent>(this.spouseOver65Btn.nativeElement, 'click')
             .map(x => {
               this.finAssistApp.spouseAgeOver65 = true;
-              this.spouseAgeSpecified = true;
+              this.formValidationInfo.spouseAgeSpecified = true;
             })
       )
       .merge(
           Observable.fromEvent<MouseEvent>(this.spouseOver65NegativeBtn.nativeElement, 'click')
             .map(x => {
               this.finAssistApp.spouseAgeOver65 = false;
-              this.spouseAgeSpecified = true;
+              this.formValidationInfo.spouseAgeSpecified = true;
             })
       )
       .merge(
           Observable.fromEvent<MouseEvent>(this.hasSpouse.nativeElement, 'click')
             .map(x => {
               this.dataService.finAssistApp.setSpouse = true;
-              this.spouseSpecified = true;
+              this.formValidationInfo.spouseSpecified = true;
             })
         )
       .merge(
           Observable.fromEvent<MouseEvent>(this.negativeHasSpouse.nativeElement, 'click')
             .map(x => {
               this.finAssistApp.setSpouse = false;
-              this.spouseAgeSpecified = false;
-              this.spouseSpecified = true;
+              this.formValidationInfo.spouseAgeSpecified = false;
+              this.formValidationInfo.spouseSpecified = true;
             })
       )
       .merge(
@@ -154,5 +159,13 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
 
   addSpouse():void {
     this.finAssistApp.setSpouse =true;
+  }
+
+  updateQualify(evt:boolean):void {
+    this._likelyQualify = evt;
+  }  
+
+  get likelyQualify():boolean{
+    return this._likelyQualify;
   }
 }
