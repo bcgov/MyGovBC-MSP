@@ -1,7 +1,7 @@
 <form #formRef='ngForm' novalidate>
     <div class="form-group col-sm-5"
          [ngClass]="{'has-error': !formRef.controls.province?.valid && provinceRef.touched}">
-        <label for="province" [innerHtml]="lang('./en/index.js').provinceLabel"></label>
+        <label for="province" [innerHtml]="provinceLabel"></label>
         <select class="form-control"
                 [(ngModel)]='province'
                 id="province" name="province" #provinceRef="ngModel"

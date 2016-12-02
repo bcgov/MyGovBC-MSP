@@ -12,6 +12,8 @@ module.exports = {
   applicantPersonalInfo: 'Your personal info',
 
   phnLabel: 'Your previous PHN',
+  movedFromProvinceLabel: 'Which province are you moving from?',
+
   removeSpouseButton: 'Remove',
   removeChildButton: 'Remove',
 }

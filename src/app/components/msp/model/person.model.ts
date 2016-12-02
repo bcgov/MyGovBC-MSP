@@ -29,6 +29,11 @@ class Person {
   institutionWorkHistory: string;
 
   /**
+   * Which province the person has moved from
+   */
+  movedFromProvince: string;
+
+  /**
    * This property is for storing user provided answer to the following question:
    * Do you currently live in BC?
    */

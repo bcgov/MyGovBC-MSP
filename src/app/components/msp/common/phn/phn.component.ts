@@ -14,4 +14,5 @@ export class MspPhnComponent {
   @Input() required: boolean = true;
   @Input() phnLabel: string = this.lang("./en/index.js").phnLabel;
   @Input() phn: string;
+  @Input() bcOnly: boolean = false;
 }

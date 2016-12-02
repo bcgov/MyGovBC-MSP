@@ -50,9 +50,12 @@
     </div>
     <div class="row">
         <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning">
-            <msp-phn [phn]="person.previous_phn" [required]="false"
+            <msp-phn [phn]="person.previous_phn" [required]="false" [bcOnly]="true"
                      [phnLabel]="lang('./en/index.js').phnLabel"></msp-phn>
         </div>
+        <msp-province *ngIf="person.currentActivity === Activities.MovingFromProvince"
+                      [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel"
+                      [province]="person.movedFromProvince"></msp-province>
     </div>
 
     <div class="form-group" *ngIf="">

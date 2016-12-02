@@ -12,5 +12,5 @@ export class MspProvinceComponent {
 
     @Input() province: string;
 
-
+    @Input() provinceLabel: string = this.lang('./en/index.js').provinceLabel;
 }
