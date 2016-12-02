@@ -21,7 +21,7 @@
         <form #formRef='ngForm' novalidate>
 
         <div class="form-group"
-            [ngClass]="{'has-error': !formRef.controls.netIncome?.valid}">
+            [ngClass]="{'has-error': !formRef.controls.netIncome?.valid && incomeRef.touched}">
             <div class="row">
                 <div class="col-md-12">
                     <label for="netIncome">What is your net income (Line 236) on last year's Notice of Assessment (or Reassessment) from Canada Revenue Agency?</label>
@@ -37,9 +37,9 @@
             </div>
         </div>
         <div>
-            <div class="text-danger" *ngIf="incomeRef.errors?.required"
+            <div class="text-danger" *ngIf="incomeRef.errors?.required && incomeRef.touched"
                     [innerHTML]="lang('./en/index.js').incomeDataRequired"></div>
-            <div class="text-danger" *ngIf="incomeRef.errors?.maxlength"
+            <div class="text-danger" *ngIf="incomeRef.errors?.maxlength && incomeRef.touched"
                     [innerHTML]="lang('./en/index.js').incomeDataMaxLength"></div>
         </div>
         
@@ -57,7 +57,7 @@
                         <button #ageNotOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === false" 
                             type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
-                    <div *ngIf='!formValidationInfo.ageSpecified'>
+                    <div *ngIf='incomeRef.touched && !formValidationInfo.ageSpecified'>
                         <div class="text-danger"
                                 [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
                     </div>
@@ -78,7 +78,7 @@
                         <button #negativeHasSpouse [class.msp-btn-radio]="finAssistApp.hasSpouseOrCommonLaw === false" 
                              type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
-                    <div *ngIf='!formValidationInfo.spouseSpecified'>
+                    <div *ngIf='incomeRef.touched && !formValidationInfo.spouseSpecified'>
                         <div class="text-danger"
                                 [innerHTML]="lang('./en/index.js').spouseCommonLawStatusRequired"></div>
                     </div>
