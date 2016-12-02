@@ -13,6 +13,7 @@ module.exports = {
 
   phnLabel: 'Your previous PHN',
   movedFromProvinceLabel: 'Which province are you moving from?',
+  arrivalDateToBCLabel: 'Arrival date to B.C.',
 
   removeSpouseButton: 'Remove',
   removeChildButton: 'Remove',

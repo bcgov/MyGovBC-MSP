@@ -18,6 +18,7 @@ import {MspProvinceComponent} from './common/province/province.component';
 import {MspPhoneComponent} from './common/phone/phone.component';
 import {MspProgressBarComponent} from './common/progressBar/progressBar.component';
 import {MspPhnComponent} from './common/phn/phn.component';
+import {MspArrivalDateComponent} from './common/arrival-date/arrival-date.component';
 import {Mod11CheckValidator} from './common/phn/phn.validator';
 import {MspGenderComponent} from './common/gender/gender.component';
 import {FileUploaderComponent} from './common/file-uploader/file-uploader.component';
@@ -148,6 +149,7 @@ let localStorageServiceConfig = {
     MspProvinceComponent,
     MspPhoneComponent,
     MspPhnComponent,
+    MspArrivalDateComponent,
     Mod11CheckValidator,
     MspGenderComponent,
     MspProgressBarComponent,

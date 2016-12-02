@@ -33,7 +33,7 @@
             <msp-file-uploader [images]="person.documents.images"></msp-file-uploader>
         </div>
     </div>
-    <div *ngIf="person.documents.images.length > 0 || true">
+    <div *ngIf="person.documents.images.length > 0">
         <h3 [innerHtml]="personalInfoLabel()"></h3>
         <p class="help-block" [innerHtml]="lang('./en/index.js').nameHelpBlock"></p>
         <msp-name [person]="person"></msp-name>
@@ -56,17 +56,11 @@
         <msp-province *ngIf="person.currentActivity === Activities.MovingFromProvince"
                       [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel"
                       [province]="person.movedFromProvince"></msp-province>
-    </div>
-
-    <div class="form-group" *ngIf="">
-        <label for="arrival_month">Arrival Date in BC </label>
-        <div class="dates-container">
-            <input required type="text" [(ngModel)]='person.arrival_month'
-                   class="form-control " id="arrival_month" name="arrival_month" placeholder="month">
-            <input type="text" [(ngModel)]='person.arrival_day'
-                   class="form-control " id="arrival_day" name="arrival_day" placeholder="day">
-            <input type="text" [(ngModel)]='person.arrival_year'
-                   class="form-control " id="arrival_year" name="arrival_year" placeholder="year">
+        <div class="col-sm-8" *ngIf="person.currentActivity === Activities.Returning">
+            <msp-arrival-date [arrivalLabel]="lang('./en/index.js').arrivalDateToBCLabel"
+                              [year]="person.arrival_year"
+                              [month]="person.arrival_month"
+                              [day]="person.arrival_day"></msp-arrival-date>
         </div>
     </div>
 
