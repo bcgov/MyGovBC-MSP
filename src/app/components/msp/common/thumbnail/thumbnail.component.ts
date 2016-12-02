@@ -18,8 +18,12 @@ export class ThumbnailComponent implements OnInit {
   constructor(viewContainerRef: ViewContainerRef){
     this.viewContainerRef = viewContainerRef;
   }
-  ngOnInit(){
 
+  scaledWidth:number = 300;
+  ngOnInit(){
+    let scaledWidthString:string = (180*this.imageObject.naturalWidth/this.imageObject.naturalHeight).toFixed(0);
+    console.log('scaled width: ' + scaledWidthString);
+    this.scaledWidth = parseInt(scaledWidthString);
   }
 
   delete() {
