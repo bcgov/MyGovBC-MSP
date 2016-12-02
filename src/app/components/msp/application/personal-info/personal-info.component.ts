@@ -1,6 +1,7 @@
 import {Component, Injectable} from '@angular/core';
 import {MspApplication, Person} from '../../model/application.model';
 import DataService from '../application-data.service';
+import {Relationship} from "../../model/status-activities-documents";
 
 require('./personal-info.component.less')
 @Component({
@@ -9,6 +10,8 @@ require('./personal-info.component.less')
 @Injectable()
 export class PersonalInfoComponent {
   lang = require('./i18n');
+
+  Relationship: typeof Relationship = Relationship;
 
   constructor(private dataService: DataService){
 
@@ -35,8 +38,8 @@ export class PersonalInfoComponent {
     this.dataService.getApplication().addSpouse();
   }
 
-  addChild(): void {
-    this.dataService.getApplication().addChild();
+  addChild(relationship: Relationship): void {
+    this.dataService.getApplication().addChild(relationship);
   }
 
   get children(): Person[] {

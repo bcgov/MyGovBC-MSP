@@ -1,7 +1,7 @@
 module.exports = {
   0: 'Canadian Citizen',
-  3: 'Permanent Resident',
-  6: 'Temporary permit holder or diplomat'
+  1: 'Permanent Resident',
+  2: 'Temporary permit holder or diplomat'
 }
 /**
  * Various statuses in Canada

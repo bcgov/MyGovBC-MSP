@@ -55,20 +55,17 @@ export class MspBirthDateComponent {
 
   ageCheck(): boolean {
 
-    // Child rules
-    if (this.person.relationship === Relationship.Child) {
-
-      // if child student must be between 19 and 24
-      if (this.person.currentActivity === Activities.StudyingInBC) {
-        if (!this.dob().isBetween(this.today.subtract(19, 'years'), this.today.subtract(24,'years'))) {
-          return false;
-        }
+    // ChildUnder19 rules
+    if (this.person.relationship === Relationship.ChildUnder19) {
+      // must be less than 19 if not in school
+      if (!this.dob().isAfter(this.today.subtract(19, 'years'))) {
+        return false;
       }
-      else {
-        // must be less than 19 if not in school
-        if (!this.dob().isAfter(this.today.subtract(19, 'years'))) {
-          return false;
-        }
+    }
+    else if (this.person.relationship === Relationship.Child19To24) {
+      // if child student must be between 19 and 24
+      if (!this.dob().isBetween(this.today.subtract(19, 'years'), this.today.subtract(24,'years'))) {
+        return false;
       }
     }
 

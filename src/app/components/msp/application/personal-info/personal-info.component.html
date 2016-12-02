@@ -22,10 +22,14 @@
           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
         </button>
-        <button type="button" class="btn btn-default" (click) = 'addChild()'>
+        <button type="button" class="btn btn-default" (click) = 'addChild(Relationship.ChildUnder19)'>
           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            <span [innerHTML]="lang('./en/index.js').addChildButton"></span>
+            <span [innerHTML]="lang('./en/index.js').addChildUnder19Button"></span>
         </button>
+          <button type="button" class="btn btn-default" (click) = 'addChild(Relationship.Child19To24)'>
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+              <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
+          </button>
       </div>
     </div>
   </div>

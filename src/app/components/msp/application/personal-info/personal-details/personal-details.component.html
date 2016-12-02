@@ -1,7 +1,7 @@
 <form #formRef='ngForm' novalidate>
     <div class="row">
         <div class="col-md-4">
-            <h3>{{lang('./en/index.js').statusLabel}}</h3>
+            <h3>{{statusLabel()}}</h3>
             <div class="radio" *ngFor="let st of statusInCanada">
                 <input type="radio" name="statusInCanada" id="st{{st}}" (click)="setStatus(st)"
                        [checked]="st === person.status">

@@ -1,6 +1,8 @@
 module.exports = {
 
-  statusLabel: 'Your Status in Canada',
+  statusApplicantLabel: 'Your Status in Canada',
+  statusSpouseLabel: 'Spouses Status in Canada',
+  statusChildLabel: 'Child Status in Canada',
   documentInstructionLabel: 'Your ID requirements',
   documentInstructionsIntro: 'You need to include a scan or photograph of <strong>one</strong> of the following with your application:',
   documentUploadLabel: 'Your documents',

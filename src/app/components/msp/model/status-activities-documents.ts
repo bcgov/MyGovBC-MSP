@@ -4,7 +4,8 @@
 enum Relationship {
   Applicant,
   Spouse,
-  Child
+  ChildUnder19,
+  Child19To24,
 }
 
 
@@ -13,11 +14,7 @@ enum Relationship {
  */
 enum StatusInCanada {
   CitizenAdult, // adult
-  CitizenYoungAdultStudent, //19-24, full-time student
-  CitizenYouth, // 0-18
   PermanentResident,
-  PermanentResidentAdultStudent, //19-24, full-time student
-  PermanentResidentYouth, // 0-18
   TemporaryResident,
 }
 
@@ -56,11 +53,9 @@ enum Documents {
 class StatusRules {
   static availableStatus(relationship: Relationship): StatusInCanada[] {
     switch (relationship) {
-      case Relationship.Applicant:
-        return [StatusInCanada.CitizenAdult, StatusInCanada.PermanentResident, StatusInCanada.TemporaryResident];
       default:
-        return [StatusInCanada.CitizenAdult, StatusInCanada.CitizenYoungAdultStudent, StatusInCanada.CitizenYouth,
-          StatusInCanada.PermanentResident, StatusInCanada.PermanentResidentAdultStudent, StatusInCanada.PermanentResidentYouth,
+        return [StatusInCanada.CitizenAdult,
+          StatusInCanada.PermanentResident,
           StatusInCanada.TemporaryResident];
     }
   }
@@ -74,12 +69,13 @@ class ActivitiesRules {
     switch (status) {
       case StatusInCanada.CitizenAdult:
       case StatusInCanada.PermanentResident:
-        return [Activities.Returning, Activities.MovingFromProvince, Activities.MovingFromCountry];
-      case StatusInCanada.CitizenYoungAdultStudent:
-      case StatusInCanada.CitizenYouth:
-      case StatusInCanada.PermanentResidentAdultStudent:
-      case StatusInCanada.PermanentResidentYouth:
-        return [Activities.Returning, Activities.MovingFromProvince];
+        if (relationship === Relationship.Child19To24 ||
+            relationship === Relationship.ChildUnder19) {
+          return [Activities.Returning, Activities.MovingFromProvince];
+        }
+        else {
+          return [Activities.Returning, Activities.MovingFromProvince, Activities.MovingFromCountry];
+        }
       case StatusInCanada.TemporaryResident:
         if (Relationship.Applicant) {
           return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligousWorker, Activities.Diplomat]
@@ -98,11 +94,8 @@ class DocumentRules {
   static availiableDocuments(status: StatusInCanada, activity: Activities): Documents[] {
     switch (status) {
       case StatusInCanada.CitizenAdult:
-      case StatusInCanada.CitizenYoungAdultStudent:
-      case StatusInCanada.CitizenYouth:
         return [Documents.CanadianBirthCertificate, Documents.CanadianCitizenCard, Documents.CanadianPassport];
       case StatusInCanada.PermanentResident:
-      case StatusInCanada.PermanentResidentAdultStudent:
         return [Documents.RecordOfLanding, Documents.PermanentResidentCard];
     }
     switch (activity) {

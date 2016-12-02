@@ -67,6 +67,18 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
   genderListSignal: string;
   institutionWorkSignal: string;
 
+  statusLabel(): string {
+    switch (this.person.relationship) {
+      case Relationship.Applicant:
+        return this.lang('./en/index.js').statusApplicantLabel;
+      case Relationship.Spouse:
+        return this.lang('./en/index.js').statusSpouseLabel;
+      case Relationship.ChildUnder19:
+      case Relationship.Child19To24:
+        return this.lang('./en/index.js').statusChildLabel;
+    }
+  }
+
   genders: string[] = ['Male', 'Female'];
   institutionList: string[] = ['Yes', 'No'];
 
