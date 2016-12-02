@@ -13,7 +13,8 @@ export default class MspApplicationDataService {
     if(!existingFinApp){
       this.finAssistApplication = new FinancialAssistApplication();
     }else{
-      this.finAssistApplication = existingFinApp;
+      this.finAssistApplication = new FinancialAssistApplication();
+      // this.finAssistApplication = existingFinApp;
     }
 
     let existingMainApp = this.localStorageService.get<MspApplication>('msp-appl');
@@ -25,7 +26,7 @@ export default class MspApplicationDataService {
       // this.application = existingMainApp;
     }
 
-    console.log('init data service, application: ' + JSON.stringify(this.application));
+    console.log('init data service, fin assistance application: ' + JSON.stringify(this.finAssistApplication));
   } 
 
   getApplication(): MspApplication {

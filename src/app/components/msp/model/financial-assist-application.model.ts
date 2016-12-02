@@ -25,19 +25,21 @@ export class FinancialAssistApplication {
   /**
    * Line 214 on NOA
    */
-  claimedChildCareExpense_line214: number;
+  private _claimedChildCareExpense_line214: number;
 
   /**
    * Line 117 on NOA
    */
-  reportedUCCBenefit_line117: number;
+  private _reportedUCCBenefit_line117: number;
 
   /**
    * Line 125
    */
-  spouseDSPAmount_line125: number;
+  private _spouseDSPAmount_line125: number;
 
   ageOver65:boolean;
+  spouseAgeOver65: boolean;
+
   private _hasSpouseOrCommonLaw: boolean;
 
 
@@ -47,28 +49,59 @@ export class FinancialAssistApplication {
   private eligibleForDisabilityCredit:boolean;
   private spouseOrCommonLawEligibleForDisabilityCredit:boolean;
 
-  /**
-   * Deductions
-   */
-  spouseAmout:number;
-  disabilityCredit:number;
-  reportedDisabilitySavingsPlanAmount:number;
 
-  constructor(){
+  get claimedChildCareExpense_line214(){
+    if(!!this._claimedChildCareExpense_line214){
+      return parseFloat(this._claimedChildCareExpense_line214+ '');
+    }else{
+      return null;
+    }
+  }
+  set claimedChildCareExpense_line214(n:number){
+    this._claimedChildCareExpense_line214 = n;
+  }
 
+  get reportedUCCBenefit_line117(): number{
+    if(!!this._reportedUCCBenefit_line117){
+      return parseFloat(this._reportedUCCBenefit_line117+ '');
+    }else{
+      return null;
+    }
+  }
+
+  set reportedUCCBenefit_line117(n:number){
+    this._reportedUCCBenefit_line117 = n;
+  }
+
+  get spouseDSPAmount_line125(): number{
+    if(!!this._spouseDSPAmount_line125){
+      return parseFloat(this._spouseDSPAmount_line125+ '');
+    }else{
+      return null;
+    }
+  }
+
+  set spouseDSPAmount_line125(n:number){
+    this._spouseDSPAmount_line125 = n;
   }
 
   get hasSpouseOrCommonLaw(){
     return this._hasSpouseOrCommonLaw;
   }
 
-  set hasSpouseOrCommonLaw(arg:boolean){
+  set setSpouse(arg: boolean){
+    console.log('invoked setSpouse with ' + arg);
     if(!arg){
       this.spouseEligibleForDisabilityCredit = arg;
-      this.spouseNetIncome = null;
+      this.spouseNetIncome = undefined;
+      this.spouseAgeOver65 = undefined;
     }
     this._hasSpouseOrCommonLaw = arg;
   }
+
+  // function test(){
+
+  // }
 
   get selfDisabilityCredit(){
     return this.eligibleForDisabilityCredit;
@@ -94,4 +127,10 @@ export class FinancialAssistApplication {
   public mailingAddress: Address = new Address();
   public phoneNumber: string;
   public alternativePhoneNumber: string;
+
+  constructor(){
+
+  }
+
+
 }

@@ -1,12 +1,13 @@
+@table-border-height: 0;
 .deduction-calc-spacer-lg {
   margin-top: 55%; 
 }
 .deduction-calc-spacer-md {
-  margin-top: 55%; 
+  margin-top: 45%; 
 }
 
 .deduction-calc-spacer-sm {
-  margin-top: 5%; 
+  margin-top: 25%; 
 }
 .deduction-calc {
   /*border: 1px solid red; */
@@ -26,4 +27,38 @@
 .deduction-table-cell-margin {
   /*border: 1px solid red;*/
   padding: 10px 10px 5px 10px;
+}
+.qualify-message {
+  background: green;
+  color: white;
+  padding: 5px;
+  margin:0;
+  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  // margin-left: 5px;
+  margin-right: 5px;
+  // margin-top: 5px;
+}
+
+table {
+  border: 0 dashed red;
+}
+
+tr {
+  border: @table-border-height solid green;
+}
+
+td {
+  border: @table-border-height solid blue;
+}
+
+thead {
+  border: @table-border-height+1 dashed orangered;
+}
+
+.msp-calc {
+  td.deduction-desc{
+    column-width: 10%;
+  }
 }

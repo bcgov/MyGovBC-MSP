@@ -1,97 +1,128 @@
-<div class="deduction-calc-spacer-lg hidden-xs hidden-sm">
-
-</div>
-<div class="deduction-calc-spacer-md hidden-xs hidden-sm">
-
-</div>
-<div class="deduction-calc-spacer-sm hidden-md hidden-lg">
-
-</div>
+<!--<div class="deduction-calc-spacer-lg hidden-xs hidden-sm"></div>-->
+<div class="deduction-calc-spacer-sm hidden-xs hidden-sm"></div>
+<div class="deduction-calc-spacer-lg hidden-md hidden-lg"></div>
 <div class="deduction-calc">
-  <h3>Your deductions</h3>
+  <h2>Eligibility calculator</h2>
   <table>
+    <tbody>
+      <tr>
+        <td class="deduction-table-cell-margin">
+          <h4><strong>Total household income</strong></h4>
+        </td>
+        <td class="deduction-table-cell-padding deduction-table-cell-margin">
+          {{totalHouseholdIncome | currency: 'USD': true}}
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  
+  <hr style="border: 1px solid black;" *ngIf="totalDeductions >0">
+  <table *ngIf="totalDeductions >0">
     <tr>
+      <th>
+        <h4><strong>Deductions</strong></h4>
+      </th>
+      <th></th>
+    </tr>
+    <tr *ngIf="application.ageOver65">
       <td class="deduction-table-cell-margin">
         Age over 65
       </td>
       <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{ageOver65Amt}}
+        {{ageOver65Amt | currency: 'USD': true}}
       </td>
     </tr>
-    <tr>
+    <tr *ngIf="application.hasSpouseOrCommonLaw">
       <td class="deduction-table-cell-margin">
         Spouse
       </td>
       <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{spouseAmt}}
+        {{spouseAmt| currency: 'USD': true}}
       </td>
     </tr>
-    <tr>
+    <tr *ngIf="application.hasSpouseOrCommonLaw && application.spouseAgeOver65">
+      <td class="deduction-table-cell-margin">
+        Spouse age over 65
+      </td>
+      <td class="deduction-table-cell-padding deduction-table-cell-margin">
+        {{spouseAgeOver65Amt | currency: 'USD': true}}
+      </td>
+    </tr>
+    <tr *ngIf="application.childrenCount && application.childrenCount > 0">
       <td class="deduction-table-cell-margin">
         Children
       </td>
       <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{childrenAmt}}
+        {{childrenAmt | currency: 'USD': true}}
       </td>
     </tr>
-    <tr>
+    <tr *ngIf="application.claimedChildCareExpense_line214">
       <td class="deduction-table-cell-margin">
         Child care expense
       </td>
       <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{childCareExpenseAmt}}
+        {{application.claimedChildCareExpense_line214 | currency: 'USD': true}}
       </td>
     </tr>
-    <tr>
+    <tr *ngIf="application.reportedUCCBenefit_line117">
       <td class="deduction-table-cell-margin">
         Universal child card benefit income
       </td>
       <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{uCCBenefitAmt}}
+        {{uCCBenefitAmt| currency: 'USD' : true}}
       </td>
     </tr>
 
-    <tr>
+    <tr *ngIf="application.selfDisabilityCredit">
       <td class="deduction-table-cell-margin">
         Disability credit
       </td>
       <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{disabilityCreditAmt}}
+        {{disabilityCreditAmt | currency: 'USD' : true}}
       </td>
     </tr>
-    <tr>
+    <tr *ngIf="application.spouseEligibleForDisabilityCredit">
       <td class="deduction-table-cell-margin">
         Spouse disability credit
       </td>
       <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{spouseDisabilityCreditAmt}}
+        {{spouseDisabilityCreditAmt| currency: 'USD' : true}}
       </td>
     </tr>
-    <tr>
+    <tr *ngIf="application.spouseDSPAmount_line125">
       <td class="deduction-table-cell-margin">
-        Disability savings plan income
+        Disability savings plan
       </td>
       <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{rdsPlanAmt}}
+        {{application.spouseDSPAmount_line125 | currency: 'USD' : true}}
       </td>
     </tr>
         
     <tr>
-      <td class="deduction-table-cell-margin">
-        Total deductions
+      <td>
+        <h4>Total deductions</h4>
       </td>
       <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{totalDeductions}}
+        {{totalDeductions | currency: 'USD' : true}}
       </td>
     </tr>
-    <tr>
-      <td class="deduction-table-cell-margin">
-        Your adjusted income:
-      </td>
-      <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{adjustedIncome}}
-      </td>
-    </tr>
-    
   </table>
+  <hr style="border: 1px solid black;">
+
+  <table>
+    <tbody>
+      <tr>
+        <td style="column-width: 180px;">
+          <h4><strong>Adjusted income:</strong></h4>
+        </td>
+        <td style="column-width: 50px;">
+          {{adjustedIncome | currency: 'USD' : true}}
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  <p class="qualify-message" *ngIf="showQualifyMessage">
+    It is likely that you will qualify for assistance.</p>
 </div>

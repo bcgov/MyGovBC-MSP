@@ -18,20 +18,30 @@
                 </li>
             </ul>
         </h3>
-        <form #prepForm='ngForm' novalidate>
+        <form #formRef='ngForm' novalidate>
 
-        <div class="form-group">
+        <div class="form-group" [ngClass]="{'has-error': !formRef.controls.netIncome?.valid && incomeRef.touched}">
             <div class="row">
                 <div class="col-md-12">
                     <label for="netIncome">What is your net income (Line 236) on last year's Notice of Assessment (or Reassessment) from Canada Revenue Agency?</label>
 
                     <div class="col-md-3 col-sm-4 col-xs-6 input-group">
                         <span class="input-group-addon">$</span>
-                        <input type="text" class="form-control" name="netIncome" [(ngModel)]="finAssistApp.netIncomelastYear">
+                        <input type="text" class="form-control" name="netIncome" 
+                            [(ngModel)]="finAssistApp.netIncomelastYear"
+                            #incomeRef="ngModel"
+                            required maxlength="12">
                     </div>
                 </div>
             </div>
         </div>
+        <div *ngIf='incomeRef.touched'>
+            <div class="text-danger" *ngIf="incomeRef.errors?.required"
+                    [innerHTML]="lang('./en/index.js').incomeDataRequired"></div>
+            <div class="text-danger" *ngIf="incomeRef.errors?.maxlength"
+                    [innerHTML]="lang('./en/index.js').incomeDataMaxLength"></div>
+        </div>
+        
 
         <div class="row">
             <div class="col-md-10">
@@ -45,14 +55,6 @@
                             type="button" class="btn btn-default">Yes</button>
                         <button #ageNotOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === false" 
                             type="button" class="btn btn-default">No&nbsp;</button>
-
-                        <!--<label class="btn btn-primary" [(ngModel)]="finAssistApp.ageOver65" name="isSenior"
-                                btnRadio="true" uncheckable>Yes</label>
-
-                        <label class="btn btn-primary" [(ngModel)]="finAssistApp.ageOver65" name="isSenior" 
-                                btnRadio="false" uncheckable>No</label>
-                        <input type="hidden">-->
-                                                        
                     </div>
                     
                 </div>
@@ -73,8 +75,16 @@
                              type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
                 </div>
-
-                <div class="form-group" *ngIf="finAssistApp.hasSpouseOrCommonLaw">
+                <div class="form-group" [hidden]="!finAssistApp.hasSpouseOrCommonLaw">
+                  <label for="">
+                      Is your spouse/common-law partner's age 65 year or older?
+                  </label>
+                    <div class="btn-group" role="group">
+                        <button #spouseOver65Btn [class.msp-btn-radio]="finAssistApp.spouseAgeOver65 === true" 
+                                type="button" class="btn btn-default">Yes</button>
+                        <button #spouseOver65NegativeBtn [class.msp-btn-radio]="finAssistApp.spouseAgeOver65 === false" 
+                                type="button" class="btn btn-default">No&nbsp;</button>
+                    </div>
                   <label for="">
                     What is your spouse’s / common-law partner’s net income (Line 236) on last year’s Notice of Assessment (or Reassessment) from Canada Revenue Agency?
                   </label>

@@ -17,9 +17,11 @@ require('./prepare.component.less');
   templateUrl: './prepare.component.html'
 })
 export class AssistancePrepareComponent implements AfterViewInit, OnInit{
-  @ViewChild('prepForm') prepForm: NgForm;
+  @ViewChild('formRef') prepForm: NgForm;
   @ViewChild('ageOver65Btn') ageOver65Btn: ElementRef;
   @ViewChild('ageNotOver65Btn') ageNotOver65Btn: ElementRef;
+  @ViewChild('spouseOver65Btn') spouseOver65Btn: ElementRef;
+  @ViewChild('spouseOver65NegativeBtn') spouseOver65NegativeBtn: ElementRef;
   @ViewChild('hasSpouse') hasSpouse: ElementRef;
   @ViewChild('negativeHasSpouse') negativeHasSpouse: ElementRef;
   @ViewChild('selfDisabilityCreditSet') selfDisabilityCreditSet: ElementRef;
@@ -42,8 +44,8 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
 
     this.showChildrenInfo =       
       !_.isNil(this.dataService.finAssistApp.childrenCount) ||
-      !_.isNil(this.finAssistApp.claimedChildCareExpense_line214) || 
-      !_.isNil(this.finAssistApp.reportedUCCBenefit_line117);
+      (!_.isNil(this.finAssistApp.claimedChildCareExpense_line214) && this.finAssistApp.claimedChildCareExpense_line214 > 0) || 
+      ((!_.isNil(this.finAssistApp.reportedUCCBenefit_line117)&&(this.finAssistApp.reportedUCCBenefit_line117>0)) );
   }
 
   ngAfterViewInit() {
@@ -64,15 +66,28 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
       )
       .merge(ageOver$).merge(ageUnder$)
       .merge(
+          Observable.fromEvent<MouseEvent>(this.spouseOver65Btn.nativeElement, 'click')
+            .map(x => {
+              this.finAssistApp.spouseAgeOver65 = true;
+            })
+      )
+      .merge(
+          Observable.fromEvent<MouseEvent>(this.spouseOver65NegativeBtn.nativeElement, 'click')
+            .map(x => {
+              this.finAssistApp.spouseAgeOver65 = false;
+            })
+      )
+      .merge(
           Observable.fromEvent<MouseEvent>(this.hasSpouse.nativeElement, 'click')
             .map(x => {
-              this.finAssistApp.hasSpouseOrCommonLaw = true;
+              this.dataService.finAssistApp.setSpouse = true;
+              console.log('setting spouse status: ' + this.finAssistApp.hasSpouseOrCommonLaw);
             })
         )
       .merge(
           Observable.fromEvent<MouseEvent>(this.negativeHasSpouse.nativeElement, 'click')
             .map(x => {
-              this.finAssistApp.hasSpouseOrCommonLaw = false;
+              this.finAssistApp.setSpouse = false;
             })
       )
       .merge(
@@ -128,6 +143,6 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
   }
 
   addSpouse():void {
-    this.finAssistApp.hasSpouseOrCommonLaw = true;
+    this.finAssistApp.setSpouse =true;
   }
 }

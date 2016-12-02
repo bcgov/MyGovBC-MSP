@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/pluck';
 import 'rxjs/add/operator/catch';
-
+import * as _ from 'lodash';
 
 import {FinancialAssistApplication} from '../../../model/financial-assist-application.model';
 require('./deduction-calculator.less');
@@ -20,45 +20,96 @@ require('./deduction-calculator.less');
 
 export class DeductionCalculatorComponent implements OnInit{
   @Input() application: FinancialAssistApplication;
-  private ageOver65Amt: number = 0;
-  private spouseAmt: number = 0;
-
-  private childrenAmt: number = 0;
-  private childCareExpenseAmt: number = 0;
-  private uCCBenefitAmt: number = 0;
-  
-  private disabilityCreditAmt: number = 0;
-  private spouseDisabilityCreditAmt: number = 0;
-  private rdsPlanAmt: number = 0;
-
   constructor(){
-
   }
 
   ngOnInit(){
-    // Observable.ofObjectChanges
+  }
+
+  get ageOver65Amt():number {
+    return !!this.application.ageOver65? 3000: 0;
+  }
+
+  get spouseAmt(): number {
+    return !!this.application.hasSpouseOrCommonLaw? 3000: 0; 
+  }
+
+  get spouseAgeOver65Amt(): number {
+    return !!this.application.spouseAgeOver65? 3000: 0;
+  }
+
+  get childrenAmt(): number {
+    let cnt:number = (!!this.application.childrenCount && this.application.childrenCount > 0)? this.application.childrenCount : 0;
+    return cnt * 3000;
+  }
+
+  get childCareExpense(): number {
+    return !!this.application.claimedChildCareExpense_line214? this.application.claimedChildCareExpense_line214 : 0;
+  }
+  get uCCBenefitAmt(): number {
+    return !!this.application.reportedUCCBenefit_line117? this.application.reportedUCCBenefit_line117 : 0;
+  }
+
+  get disabilityCreditAmt(): number {
+    return !!this.application.selfDisabilityCredit? 3000: 0;
+  }
+
+  get spouseDisabilityCreditAmt(): number {
+    return !!this.application.spouseEligibleForDisabilityCredit? 3000: 0;
   }
 
   get totalDeductions(): number{
-    let total = this.spouseAmt +
-    this.disabilityCreditAmt + this.spouseDisabilityCreditAmt +
-    this.rdsPlanAmt;
+    let total = this.ageOver65Amt
+    + this.spouseAmt
+    + this.spouseAgeOver65Amt
+    + this.childrenAmt
+    + this.childCareExpense
+    + this.uCCBenefitAmt
+    + this.disabilityCreditAmt
+    + this.spouseDisabilityCreditAmt
+    + this.application.spouseDSPAmount_line125;
     return total;
   }
-
   get adjustedIncome(): number{
-    let income:number = this.application.netIncomelastYear;
-    if(!this.application.netIncomelastYear){
-      income = 0;
-    }
+    let adjusted:number = parseFloat(this.totalHouseholdIncome) - this.totalDeductions;
 
-    let adjusted:number = income - this.totalDeductions;
-
-    if(adjusted < 1){
+    if(adjusted < 0){
       return 0;
     }else{
       return adjusted;
     }
+  }
+
+  get incomeInfoProvided() {
+    return ((!isNaN(this.application.netIncomelastYear) && this.application.netIncomelastYear+'' !== '') || 
+      (!isNaN(this.application.spouseNetIncome) && this.application.spouseNetIncome+'' !== ''));
+  }
+  get showQualifyMessage() {
+    console.log("income " + this.application.netIncomelastYear);
+    console.log("income is number? " + !isNaN(this.application.netIncomelastYear));
+    // console.log("spouseIncome " + this.application.spouseNetIncome);
+    // console.log("spouseIncome is number? " + !_.isNaN(this.application.spouseNetIncome));
+    // console.log(!isNaN(this.application.spouseNetIncome));
+    // console.log(this.adjustedIncome);
+    return ((!isNaN(this.application.netIncomelastYear) && this.application.netIncomelastYear+'' !== '') || 
+      (!isNaN(this.application.spouseNetIncome) && this.application.spouseNetIncome+'' !== '')) 
+      && this.adjustedIncome <= 50000;
+  }
+  get personalIncome(): number {
+    let n = !!this.application.netIncomelastYear? this.application.netIncomelastYear : 0;
+
+    return parseFloat(n+'');
+  }
+
+  get spouseIncome(): number {
+    let n= !!this.application.spouseNetIncome? this.application.spouseNetIncome : 0;
+    return parseFloat(n+'');
+  }
+
+  get totalHouseholdIncome(): string {
+    let t:number = this.personalIncome + this.spouseIncome;
+    let total: string = new Number(t).toFixed(2);
+    return total;
   }
 
   
