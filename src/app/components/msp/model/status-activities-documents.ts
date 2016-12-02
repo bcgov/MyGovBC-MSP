@@ -110,6 +110,7 @@ class DocumentRules {
         return [Documents.WorkPermit];
       case Activities.StudyingInBC:
         return [Documents.StudyPermit];
+      case Activities.SpouseOrDep:
       case Activities.ReligousWorker:
         return [Documents.VisitorVisa];
       case Activities.Diplomat:

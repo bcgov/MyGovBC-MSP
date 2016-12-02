@@ -14,6 +14,7 @@ import {LandingComponent} from './landing/landing.component';
 import {MspNameComponent} from './common/name/name.component';
 import {MspBirthDateComponent} from './common/birthdate/birthdate.component';
 import {MspAddressComponent} from './common/address/address.component';
+import {MspProvinceComponent} from './common/province/province.component';
 import {MspPhoneComponent} from './common/phone/phone.component';
 import {MspProgressBarComponent} from './common/progressBar/progressBar.component';
 import {MspPhnComponent} from './common/phn/phn.component';
@@ -144,6 +145,7 @@ let localStorageServiceConfig = {
     MspNameComponent,
     MspBirthDateComponent,
     MspAddressComponent,
+    MspProvinceComponent,
     MspPhoneComponent,
     MspPhnComponent,
     Mod11CheckValidator,

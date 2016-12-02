@@ -51,6 +51,9 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
   langActivities = require('../../../common/activities/i18n');
   langDocuments = require('../../../common/documents/i18n');
 
+  // Expose some types to template
+  Activities: typeof Activities = Activities;
+
   @ViewChild('formRef') form: NgForm;
 
   @Input() viewOnly: boolean = false;

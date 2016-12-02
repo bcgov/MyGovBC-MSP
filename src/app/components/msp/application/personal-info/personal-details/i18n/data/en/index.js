@@ -11,7 +11,7 @@ module.exports = {
 
   applicantPersonalInfo: 'Your personal info',
 
-  phnLabel: 'Your previous PHN if applicable',
+  phnLabel: 'Your previous PHN',
   removeSpouseButton: 'Remove',
   removeChildButton: 'Remove',
 }

@@ -153,32 +153,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-sm-5"
-                 [ngClass]="{'has-error': !formRef.controls.mailingAddressProvince?.valid && mailingAddressProvinceRef.touched}">
-                <label for="mailingAddressProvince" [innerHtml]="lang('./en/index.js').provinceLabel"></label>
-                <select class="form-control"
-                        [(ngModel)]='mailingAddress.province'
-                        id="mailingAddressProvince" name="mailingAddressProvince" #mailingAddressProvinceRef="ngModel"
-                        required>
-                    <option value="AB">Alberta</option>
-                    <option value="BC">British Columbia</option>
-                    <option value="MB">Manitoba</option>
-                    <option value="NB">New Brunswick</option>
-                    <option value="NL">Newfoundland and Labrador</option>
-                    <option value="NS">Nova Scotia</option>
-                    <option value="NU">Nunavut</option>
-                    <option value="NT">Northwest Territories</option>
-                    <option value="ON">Ontario</option>
-                    <option value="PE">Prince Edward Island</option>
-                    <option value="QC">Quebec</option>
-                    <option value="SK">Saskatchewan</option>
-                    <option value="YT">Yukon</option>
-                </select>
-                <div *ngIf='mailingAddressProvinceRef.touched'>
-                    <div class="text-danger" *ngIf="mailingAddressProvinceRef.errors?.required"
-                         [innerHtml]="lang('./en/index.js').provinceErrorIsRequired"></div>
-                </div>
-            </div>
+            <msp-province [province]="mailingAddress.province"></msp-province>
+
             <div class="form-group col-sm-4"
                  [ngClass]="{'has-error': !formRef.controls.mailingAddressCountry?.valid && mailingAddressCountryRef.touched}">
                 <label for="mailingAddressCountry" [innerHtml]="lang('./en/index.js').countryLabel"></label>
