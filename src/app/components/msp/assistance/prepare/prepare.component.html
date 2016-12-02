@@ -20,7 +20,8 @@
         </h3>
         <form #formRef='ngForm' novalidate>
 
-        <div class="form-group" [ngClass]="{'has-error': !formRef.controls.netIncome?.valid && incomeRef.touched}">
+        <div class="form-group"
+            [ngClass]="{'has-error': !formRef.controls.netIncome?.valid}">
             <div class="row">
                 <div class="col-md-12">
                     <label for="netIncome">What is your net income (Line 236) on last year's Notice of Assessment (or Reassessment) from Canada Revenue Agency?</label>
@@ -35,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf='incomeRef.touched'>
+        <div>
             <div class="text-danger" *ngIf="incomeRef.errors?.required"
                     [innerHTML]="lang('./en/index.js').incomeDataRequired"></div>
             <div class="text-danger" *ngIf="incomeRef.errors?.maxlength"
@@ -56,7 +57,10 @@
                         <button #ageNotOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === false" 
                             type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
-                    
+                    <div *ngIf='!ageSpecified'>
+                        <div class="text-danger"
+                                [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,6 +78,10 @@
                         <button #negativeHasSpouse [class.msp-btn-radio]="finAssistApp.hasSpouseOrCommonLaw === false" 
                              type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
+                    <div *ngIf='!spouseSpecified'>
+                        <div class="text-danger"
+                                [innerHTML]="lang('./en/index.js').spouseCommonLawStatusRequired"></div>
+                    </div>
                 </div>
                 <div class="form-group" [hidden]="!finAssistApp.hasSpouseOrCommonLaw">
                   <label for="">
@@ -85,14 +93,33 @@
                         <button #spouseOver65NegativeBtn [class.msp-btn-radio]="finAssistApp.spouseAgeOver65 === false" 
                                 type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
-                  <label for="">
+                    <div *ngIf='!spouseAgeSpecified'>
+                        <div class="text-danger"
+                                [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
+                    </div>
+                </div>
+
+
+                <div class="form-group" [hidden]="!finAssistApp.hasSpouseOrCommonLaw"
+                    [ngClass]="{'has-error': !formRef.controls.spouseNetIncome?.valid}">
+                  <label for="spouseNetIncome">
                     What is your spouse’s / common-law partner’s net income (Line 236) on last year’s Notice of Assessment (or Reassessment) from Canada Revenue Agency?
                   </label>
                   <div class="col-md-4 col-sm-5 col-xs-6 input-group">
                       <span class="input-group-addon">$</span>
-                      <input type="text" class="form-control" name="spouseNetIncome" [(ngModel)]="finAssistApp.spouseNetIncome">
+                      <input type="text" class="form-control" name="spouseNetIncome" 
+                        required maxlength="12" #spouseIncomeRef 
+                        [(ngModel)]="finAssistApp.spouseNetIncome">
                   </div>
+                    <div *ngIf='!formRef.controls.spouseNetIncome?.valid'>
+                        <div class="text-danger" *ngIf="formRef.controls.spouseNetIncome?.errors?.required"
+                                [innerHTML]="lang('./en/index.js').incomeDataRequired"></div>
+                        <div class="text-danger" *ngIf="formRef.controls.spouseNetIncome?.errors?.maxlength"
+                                [innerHTML]="lang('./en/index.js').incomeDataMaxLength"></div>
+                    </div>
                 </div>
+                
+
             </div>
         </div>
         <hr>

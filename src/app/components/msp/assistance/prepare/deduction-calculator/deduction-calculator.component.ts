@@ -84,16 +84,15 @@ export class DeductionCalculatorComponent implements OnInit{
     return ((!isNaN(this.application.netIncomelastYear) && this.application.netIncomelastYear+'' !== '') || 
       (!isNaN(this.application.spouseNetIncome) && this.application.spouseNetIncome+'' !== ''));
   }
+
   get showQualifyMessage() {
-    console.log("income " + this.application.netIncomelastYear);
-    console.log("income is number? " + !isNaN(this.application.netIncomelastYear));
+    // console.log("income " + this.application.netIncomelastYear);
+    // console.log("income is number? " + !isNaN(this.application.netIncomelastYear));
     // console.log("spouseIncome " + this.application.spouseNetIncome);
     // console.log("spouseIncome is number? " + !_.isNaN(this.application.spouseNetIncome));
     // console.log(!isNaN(this.application.spouseNetIncome));
     // console.log(this.adjustedIncome);
-    return ((!isNaN(this.application.netIncomelastYear) && this.application.netIncomelastYear+'' !== '') || 
-      (!isNaN(this.application.spouseNetIncome) && this.application.spouseNetIncome+'' !== '')) 
-      && this.adjustedIncome <= 50000;
+    return this.incomeInfoProvided && this.adjustedIncome <= 50000;
   }
   get personalIncome(): number {
     let n = !!this.application.netIncomelastYear? this.application.netIncomelastYear : 0;

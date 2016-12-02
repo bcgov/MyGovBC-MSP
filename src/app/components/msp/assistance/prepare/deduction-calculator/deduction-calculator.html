@@ -1,7 +1,7 @@
 <!--<div class="deduction-calc-spacer-lg hidden-xs hidden-sm"></div>-->
 <div class="deduction-calc-spacer-sm hidden-xs hidden-sm"></div>
-<div class="deduction-calc-spacer-lg hidden-md hidden-lg"></div>
-<div class="deduction-calc">
+<!--<div class="deduction-calc-spacer-lg hidden-sm hidden-md hidden-lg"></div>-->
+<div class="deduction-calc" *ngIf="incomeInfoProvided">
   <h2>Eligibility calculator</h2>
   <table>
     <tbody>
@@ -116,7 +116,7 @@
         <td style="column-width: 180px;">
           <h4><strong>Adjusted income:</strong></h4>
         </td>
-        <td style="column-width: 50px;">
+        <td class="deduction-table-cell-padding deduction-table-cell-margin">
           {{adjustedIncome | currency: 'USD' : true}}
         </td>
       </tr>
