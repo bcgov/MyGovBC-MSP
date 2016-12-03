@@ -1,5 +1,6 @@
 import {Component, Injectable} from '@angular/core';
 import {MspApplication, Person} from '../../model/application.model';
+
 import DataService from '../application-data.service';
 import {Relationship} from "../../model/status-activities-documents";
 
@@ -12,7 +13,7 @@ export class PersonalInfoComponent {
   lang = require('./i18n');
 
   Relationship: typeof Relationship = Relationship;
-
+  spouse:Person;
   constructor(private dataService: DataService){
 
   }
@@ -31,12 +32,15 @@ export class PersonalInfoComponent {
     return this.dataService.getApplication().applicant;
   }
 
-  get spouse(): Person {
-    return this.dataService.getApplication().spouse;
-  }
-  addSpouse(): void{
-    this.dataService.getApplication().addSpouse();
-  }
+  // get spouse(): Person {
+  //   return this.dataService.getApplication().spouse;
+  // }
+  addSpouse = () =>{
+    let sp:Person = new Person(Relationship.Spouse)    
+    this.dataService.getApplication().addSpouse(sp);
+    this.spouse = sp;
+    // this.spouse = this.dataService.getApplication().spouse;
+  };
 
   addChild(relationship: Relationship): void {
     this.dataService.getApplication().addChild(relationship);

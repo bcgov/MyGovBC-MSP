@@ -1,18 +1,18 @@
 <div class="dropzone" #dropZone>
-  <div *ngIf = "images.length < MAX_NUM_IMAGES" class="instruction-zone">
-        <input type="file" id="fileUploadBrowse" 
+  <div [hidden] = "images.length >= MAX_NUM_IMAGES" class="instruction-zone">
+        <input type="file" id="fileUploadBrowse-{{id}}" #browseFileRef
           accept="image/*" style="display:none;"
-          (change)="onChange($event)"/>
+          />
       {{lang('./en/index.js').dropFileLabel}}
-        <label for="fileUploadBrowse" class="file-upload-label">
+        <label for="fileUploadBrowse-{{id}}" class="file-upload-label">
             {{lang('./en/index.js').browseLabel}}
         </label>
       {{lang('./en/index.js').orLabel}}
-        <input type="file" id="fileUploadUseCamera" 
+        <input type="file" id="fileUploadUseCamera-{{id}}" #captureFileRef
           accept="image/*" capture="camera" style="display:none;"
-          (change)="onChange($event)"/>  
+          />  
         <span class="glyphicon glyphicon-camera" aria-hidden="true"></span> 
-        <label for="fileUploadUseCamera" class="file-upload-label">
+        <label for="fileUploadUseCamera-{{id}}" class="file-upload-label">
             {{lang('./en/index.js').takeAPhotoLabel}}
         </label>
   </div>

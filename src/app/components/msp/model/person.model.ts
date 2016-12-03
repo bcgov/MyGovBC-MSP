@@ -1,5 +1,6 @@
 import {Relationship, StatusInCanada, Activities} from "./status-activities-documents";
 import {PersonDocuments} from "./person-document.model";
+var sha1 =  require('sha1');
 
 enum Gender {
   Female,
@@ -51,8 +52,10 @@ class Person {
    */
   plannedAbsence:boolean;
 
+  id:string;
   constructor(rel: Relationship){
     this.relationship = rel;
+    this.id = sha1(new Date().getTime()).substring(0,9);
   }
 }
 

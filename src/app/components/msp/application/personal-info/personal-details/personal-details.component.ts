@@ -58,6 +58,7 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
 
   @Input() viewOnly: boolean = false;
   @Input() person: Person;
+  @Input() id: string;
   @Output() notifyChildRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() notifySpouseRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() save: EventEmitter<Person> = new EventEmitter<Person>();
@@ -89,9 +90,11 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
     return StatusRules.availableStatus(this.person.relationship);
   }
 
-  setStatus(value:StatusInCanada) {
-    this.person.status = value;
-    this.person.currentActivity = null;
+  setStatus(value:StatusInCanada, p: Person) {
+    p.status = value;
+    p.currentActivity = null;
+    // this.person.status = value;
+    // this.person.currentActivity = null;
   }
 
   setActivity(value:Activities) {

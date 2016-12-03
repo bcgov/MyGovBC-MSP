@@ -22,14 +22,15 @@ class MspApplication {
     return this._children;
   }
 
-  addSpouse(): void{
+  addSpouse = (sp:Person)=>{
     if(!this._spouse){
-      this._spouse = new Person(Relationship.Spouse);
+      // this._spouse = new Person(Relationship.Spouse);
+      this._spouse = sp;
       console.log('spouse added: ' + JSON.stringify(this._spouse));
     }else{
       console.log('spouse already added to your coverage.');
     }
-  }
+  };
 
   addChild(relationship: Relationship): void {
     let c = new Person(relationship)

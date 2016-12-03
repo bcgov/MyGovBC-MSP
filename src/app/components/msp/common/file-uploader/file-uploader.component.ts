@@ -19,13 +19,16 @@ export class FileUploaderComponent implements OnInit {
 
   @ViewChild('previewZone') previewZone: ElementRef;
   @ViewChild('dropZone') dropZone: ElementRef;
-
+  @ViewChild('browseFileRef') browseFileRef: ElementRef;
+  @ViewChild('captureFileRef') captureFileRef: ElementRef;
+  
   private trustedUrl: SafeUrl;
   private maxFileSize: number;
   private fileSizeError: string;
   private MAX_IMAGE_COUNT:number = 12;
+  
   @Input() images: Array<MspImage>;
-
+  @Input() id: string;
   constructor(private sanitizer: DomSanitizer, 
     private viewContainerRef: ViewContainerRef) {
     this.maxFileSize = 8 * 1024 * 1024;
@@ -48,18 +51,36 @@ export class FileUploaderComponent implements OnInit {
 
     var dropStream = Observable.fromEvent<DragEvent>(this.dropZone.nativeElement, "drop");
 
-    dropStream.map(
+    var filesArrayFromDrop = dropStream.map(
       function (event) {
         event.preventDefault();
         return event.dataTransfer.files;
       }
-    ).filter(files => {
+    )
+    
+    var browseFileStream = Observable.fromEvent<Event>(this.browseFileRef.nativeElement, 'change');
+    var captureFileStream = Observable.fromEvent<Event>(this.captureFileRef.nativeElement, 'change');
+
+    var filesArrayFromInput = browseFileStream.merge(captureFileStream)
+    .map(
+      (event) => {
+        event.preventDefault();
+        return event.target['files'];
+      }
+    )
+    
+    filesArrayFromInput
+    .merge(filesArrayFromDrop)
+    .filter(files => {
       return !!files && files.length && files.length > 0;
-    }).subscribe(
+    }).filter((files)=>{
+      return files[0].size <= this.maxFileSize;
+    })
+    .subscribe(
       (files) => {
         // console.log('drop event detected:');
         // console.log(files[0]);
-        this.handleImageFile(files[0], this.images,
+        this.handleImageFile(files[0], 
           this.getFileSizeOutputString, this.checkImageExists, this.images);
       },
 
@@ -68,9 +89,19 @@ export class FileUploaderComponent implements OnInit {
         console.log(error);
       }
     );
+
+
+    // .subscribe(
+    //   (files) => {
+    //     this.handleImageFile(files[0], 
+    //       this.getFileSizeOutputString, this.checkImageExists, this.images);
+    //   }
+    // );
+    
   }
 
-  handleImageFile(imageFile: File, fileList: Array<MspImage>, 
+
+  handleImageFile(imageFile: File, 
     sizeFinder:Function, imageDuplicationCheck:Function, imageList: Array<MspImage>) {
     if(this.images.length >= this.MAX_IMAGE_COUNT){
       console.log(`Max number of image file you can upload is ${this.MAX_IMAGE_COUNT}. 
@@ -108,7 +139,7 @@ export class FileUploaderComponent implements OnInit {
       mspImage.naturalHeight = imgEl.naturalHeight;
       mspImage.naturalWidth = imgEl.naturalWidth;
 
-      fileList.push(mspImage);
+      imageList.push(mspImage);
       // let imageContent = reader.result;
       // let imgEl: HTMLImageElement = document.createElement('img');
       // imgEl.classList.add('preview-item');
@@ -137,7 +168,7 @@ export class FileUploaderComponent implements OnInit {
         this.fileSizeError = 'This file was not accepted because its size exceeded max allowed file size (8MB).';
         console.log(this.fileSizeError);
       }else{
-        this.handleImageFile(file, this.images,
+        this.handleImageFile(file, 
           this.getFileSizeOutputString, this.checkImageExists, this.images);
         // var blob_url = window.URL.createObjectURL(file);
         // this.trustedUrl = this.sanitizer.bypassSecurityTrustUrl(blob_url);;
