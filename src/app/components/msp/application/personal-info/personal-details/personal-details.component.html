@@ -11,7 +11,8 @@
 
                 <div *ngIf="st === person.status">
                     <div class="radio" *ngFor="let activity of activities">
-                        <input type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}" (click)="setActivity(activity)"
+                        <input type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}"
+                               (click)="setActivity(activity)"
                                [checked]="activity === person.currentActivity">
                         <label for="a{{activity}}-{{id}}">
                             {{langActivities('./en/index.js')[activity]}}
@@ -21,7 +22,7 @@
             </div>
         </div>
         <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
-            <h3>{{lang('./en/index.js').documentInstructionLabel}}</h3>
+            <h3>{{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
             <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
             <ul>
                 <li *ngFor="let document of documents">{{langDocuments('./en/index.js')[document]}}</li>
@@ -29,13 +30,13 @@
             <p class="danger" [innerHtml]="lang('./en/index.js').documentInstructionsNote"></p>
         </div>
         <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
-            <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel"></h3>
-            <msp-file-uploader [images]="person.documents.images" [id] = 'id'></msp-file-uploader>
+            <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel[this.person.relationship]"></h3>
+            <msp-file-uploader [images]="person.documents.images" [id]='id'></msp-file-uploader>
         </div>
     </div>
     <div *ngIf="person.documents.images.length > 0">
         <h3 [innerHtml]="personalInfoLabel()"></h3>
-        <p class="help-block" [innerHtml]="lang('./en/index.js').nameHelpBlock"></p>
+        <p class="help-block" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
         <msp-name [person]="person"></msp-name>
 
         <div class="row">
@@ -48,13 +49,13 @@
         </div>
 
     </div>
-    <div class="row">
+    <div class="row" *ngIf="person.documents.images.length > 0">
         <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning">
             <msp-phn [phn]="person.previous_phn" [required]="false" [bcOnly]="true"
-                     [phnLabel]="lang('./en/index.js').phnLabel"></msp-phn>
+                     [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"></msp-phn>
         </div>
         <msp-province *ngIf="person.currentActivity === Activities.MovingFromProvince"
-                      [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel"
+                      [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
                       [province]="person.movedFromProvince"></msp-province>
         <div class="col-sm-8" *ngIf="person.currentActivity === Activities.Returning">
             <msp-arrival-date [arrivalLabel]="lang('./en/index.js').arrivalDateToBCLabel"
@@ -64,42 +65,36 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="person.currentActivity === Activities.Returning ||
-                            person.currentActivity === Activities.MovingFromProvince">
+    <div class="row" *ngIf="person.documents.images.length > 0 &&
+                            (person.currentActivity === Activities.Returning ||
+                            person.currentActivity === Activities.MovingFromProvince)">
         <div class="col-md-8">
-            <label [innerHtml]="lang('./en/index.js').canadianForcesQuestion"></label>
+            <label [innerHtml]="lang('./en/index.js').canadianForcesQuestion[this.person.relationship]"></label>
             <div class="btn-group" role="group">
                 <button *ngFor='let institution of institutionList'
                         [class.msp-btn-radio]="person.institutionWorkHistory == institution"
                         (click)="selectInstitution(institution)"
-                        type="button" class="btn btn-default" >{{institution}}</button>
+                        type="button" class="btn btn-default">{{institution}}
+                </button>
             </div>
         </div>
     </div>
 </form>
 
-<div #viewOnlyContainer *ngIf="viewOnly">
-
-</div>
-<template #viewOnlyTempalte>
-
-    <h1>Place personal detail view only template here</h1>
-</template>
-
 <!-- switch *ngIf value to true for debugging-->
 <div class="row" *ngIf='false'>
-	<div class="col-md-12">
-		<ul>
-			<li *ngFor = 'let log of changeLog'>
-					{{log | json}}
-			</li>
-		</ul>
-	</div>
+    <div class="col-md-12">
+        <ul>
+            <li *ngFor='let log of changeLog'>
+                {{log | json}}
+            </li>
+        </ul>
+    </div>
 
-	<div class="col-md-12">
-		<p>Person Data Model</p>
-		{{this.person| json}}
-		<p>firstname</p>
-		<!--{{ formRef.controls.firstname | json}}-->
-	</div>
+    <div class="col-md-12">
+        <p>Person Data Model</p>
+        {{this.person| json}}
+        <p>firstname</p>
+        <!--{{ formRef.controls.firstname | json}}-->
+    </div>
 </div>
