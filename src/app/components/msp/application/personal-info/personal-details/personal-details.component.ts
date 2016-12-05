@@ -53,6 +53,7 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
 
   // Expose some types to template
   Activities: typeof Activities = Activities;
+  Relationship: typeof Relationship = Relationship;
 
   @ViewChild('formRef') form: NgForm;
 

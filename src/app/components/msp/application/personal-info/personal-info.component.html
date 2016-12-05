@@ -1,51 +1,54 @@
-<msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
-  (save) = "save($event)"></msp-personal-details>
-<div *ngIf = 'spouse'>
-  <msp-personal-details [person] = 'spouse' [id] = 'spouse.id'
-    (notifySpouseRemoval)="removeSpouse($event)"
-    (save) = "save($event)"></msp-personal-details>
-</div>
-<div *ngIf = 'children.length > 0'>
-  <msp-personal-details *ngFor = "let child of children; let idx = index"
-    [person] = 'child'
-    [id] = 'child.id'
-    (notifyChildRemoval)="removeChild($event,idx)"
-    (save) = "save($event)">
-  </msp-personal-details>
-</div>
-<hr>
-<div class="row">
-  <div class="col-md-12">
-    <div class="msp-app">
-      <div class="button-group">
-        <button type="button" class="btn btn-default" (click)= 'addSpouse()'
-          *ngIf = '!spouse'>
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
-        </button>
-        <button type="button" class="btn btn-default" (click) = 'addChild(Relationship.ChildUnder19)'>
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            <span [innerHTML]="lang('./en/index.js').addChildUnder19Button"></span>
-        </button>
-          <button type="button" class="btn btn-default" (click) = 'addChild(Relationship.Child19To24)'>
+<form #formRef="ngForm" novalidate>
+    <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
+      (save) = "save($event)"></msp-personal-details>
+    <div *ngIf = 'spouse'>
+      <msp-personal-details [person] = 'spouse' [id] = 'spouse.id'
+        (notifySpouseRemoval)="removeSpouse($event)"
+        (save) = "save($event)"></msp-personal-details>
+    </div>
+    <div *ngIf = 'children.length > 0'>
+      <msp-personal-details *ngFor = "let child of children; let idx = index"
+        [person] = 'child'
+        [id] = 'child.id'
+        (notifyChildRemoval)="removeChild($event,idx)"
+        (save) = "save($event)">
+      </msp-personal-details>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="msp-app">
+          <div class="button-group">
+            <button type="button" class="btn btn-default" (click)= 'addSpouse()'
+              *ngIf = '!spouse'>
               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-              <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
-          </button>
+                <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
+            </button>
+            <button type="button" class="btn btn-default" (click) = 'addChild(Relationship.ChildUnder19)'>
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').addChildUnder19Button"></span>
+            </button>
+              <button type="button" class="btn btn-default" (click) = 'addChild(Relationship.Child19To24)'>
+                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                  <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
+              </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="row">
-    <div class="col-xs-2 col-xs-offset-9">
-        <button class="btn btn-primary" type="submit" routerLink="/msp/application/address"
-            [innerHTML]="lang('./en/index.js').continueButton"></button>
+    <div class="row">
+        <div class="col-xs-2 col-xs-offset-9">
+            <button class="btn btn-primary" type="submit" routerLink="/msp/application/address"
+                [innerHTML]="lang('./en/index.js').continueButton"></button>
+        </div>
     </div>
-</div>
 
 
-<div class="row" *ngIf = 'false'>
-  <div class="col-md-12">
-    {{application | json}}
-  </div>
-</div>
+    <div class="row" *ngIf = 'false'>
+      <div class="col-md-12">
+        {{application | json}}
+      </div>
+    </div>
+
+</form>

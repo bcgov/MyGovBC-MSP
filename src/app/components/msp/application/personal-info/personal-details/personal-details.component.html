@@ -79,6 +79,22 @@
             </div>
         </div>
     </div>
+
+    <div class="row" *ngIf="person.documents.images.length > 0 &&
+                            person.relationship === Relationship.Child19To24">
+        <div class="form-group col-md-4"
+             [ngClass]="{'has-error': !formRef.controls.schoolNameRef?.valid && schoolNameRef.touched}">
+            <label for="schoolName" [innerHtml]="lang('./en/index.js').schoolNameLabel"></label>
+            <input [(ngModel)]='person.schoolName' type="text" class="form-control"
+                   id="schoolName" name="schoolName" #schoolNameRef="ngModel"
+                   required
+                   maxlength="50">
+            <div *ngIf='schoolNameRef.touched'>
+                <div class="text-danger" *ngIf="schoolNameRef.errors?.required"
+                     [innerHtml]="lang('./en/index.js').schoolNameErrorIsRequired"></div>
+            </div>
+        </div>
+    </div>
 </form>
 
 <!-- switch *ngIf value to true for debugging-->

@@ -1,5 +1,6 @@
 import {Relationship, StatusInCanada, Activities} from "./status-activities-documents";
 import {PersonDocuments} from "./person-document.model";
+import {Address} from "./address.model";
 var sha1 =  require('sha1');
 
 enum Gender {
@@ -51,6 +52,21 @@ class Person {
    * Are you planning to leave BCfor longer than 30 days in the next six months?
    */
   plannedAbsence:boolean;
+
+  /**
+   * For children 19-24, we need the school name and address
+   */
+  schoolName: string;
+
+  schoolAddress: Address = new Address();
+
+  studiesFinishedYear: number;
+  studiesFinishedMonth: number;
+  studiesFinishedDay: number;
+
+  studiesDepartureYear: number;
+  studiesDepartureMonth: number;
+  studiesDepartureDay: number;
 
   id:string;
   constructor(rel: Relationship){

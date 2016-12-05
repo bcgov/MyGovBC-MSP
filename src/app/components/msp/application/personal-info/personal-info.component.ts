@@ -1,8 +1,9 @@
-import {Component, Injectable} from '@angular/core';
+import {Component, Injectable, ViewChild} from '@angular/core';
 import {MspApplication, Person} from '../../model/application.model';
 
 import DataService from '../application-data.service';
 import {Relationship} from "../../model/status-activities-documents";
+import {NgForm} from "@angular/forms";
 
 require('./personal-info.component.less')
 @Component({
@@ -14,6 +15,8 @@ export class PersonalInfoComponent {
 
   Relationship: typeof Relationship = Relationship;
   spouse:Person;
+  @ViewChild('formRef') form: NgForm;
+
   constructor(private dataService: DataService){
 
   }
