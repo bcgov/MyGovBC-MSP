@@ -14,14 +14,14 @@ export class FinancialAssistApplication {
    */
   spouse: Person = new Person(Relationship.Spouse);
 
-  netIncomelastYear:number;
+  private _netIncomelastYear:number;
 
   /**
    * line 236 on NOA
    */
-  spouseNetIncome: number;
+  private _spouseNetIncome: number;
 
-  childrenCount:number;
+  private _childrenCount:number;
   /**
    * Line 214 on NOA
    */
@@ -49,20 +49,59 @@ export class FinancialAssistApplication {
   private eligibleForDisabilityCredit:boolean;
   private spouseOrCommonLawEligibleForDisabilityCredit:boolean;
 
+  get netIncomelastYear():number {
+    return this._netIncomelastYear === null? null: this._netIncomelastYear;
+  }
+
+  set netIncomelastYear(n:number) {
+    if(!this.isEmptyString(n)){
+      this._netIncomelastYear = n;
+    }
+  }
+
+
+  get spouseNetIncome():number{
+    return this._spouseNetIncome === null? null: this._spouseNetIncome;
+  }
+
+  set spouseNetIncome(n:number){
+    if(!this.isEmptyString(n)){
+      this._spouseNetIncome = n;
+    }
+  }
+
+  isEmptyString(value: number){
+    let temp:string = value+'';
+    temp = temp.trim();
+    return temp.length < 1;
+  }
+  get childrenCount():number {
+    if(!this._childrenCount){
+      return null;
+    }else{
+      return (!!this._childrenCount && !isNaN(this._childrenCount)) ? this._childrenCount : 0;
+    }
+  }
+
+  set childrenCount(n:number) {
+    n > 29 ? this._childrenCount = 0 : this._childrenCount = n;
+  }
 
   get claimedChildCareExpense_line214(){
-    if(!!this._claimedChildCareExpense_line214){
+    if(!!this._claimedChildCareExpense_line214 && !isNaN(this._claimedChildCareExpense_line214)){
       return parseFloat(this._claimedChildCareExpense_line214+ '');
     }else{
       return null;
     }
   }
   set claimedChildCareExpense_line214(n:number){
-    this._claimedChildCareExpense_line214 = n;
+    if(!this.isEmptyString(n)){
+      this._claimedChildCareExpense_line214 = n;
+    }
   }
 
   get reportedUCCBenefit_line117(): number{
-    if(!!this._reportedUCCBenefit_line117){
+    if(!!this._reportedUCCBenefit_line117 && !isNaN(this._reportedUCCBenefit_line117)){
       return parseFloat(this._reportedUCCBenefit_line117+ '');
     }else{
       return null;
@@ -70,11 +109,13 @@ export class FinancialAssistApplication {
   }
 
   set reportedUCCBenefit_line117(n:number){
-    this._reportedUCCBenefit_line117 = n;
+    if(!this.isEmptyString(n)){
+      this._reportedUCCBenefit_line117 = n;
+    }    
   }
 
   get spouseDSPAmount_line125(): number{
-    if(!!this._spouseDSPAmount_line125){
+    if(!!this._spouseDSPAmount_line125 && !isNaN(this._spouseDSPAmount_line125)){
       return parseFloat(this._spouseDSPAmount_line125+ '');
     }else{
       return null;
@@ -82,7 +123,9 @@ export class FinancialAssistApplication {
   }
 
   set spouseDSPAmount_line125(n:number){
-    this._spouseDSPAmount_line125 = n;
+    if (!this.isEmptyString(n)) {
+      this._spouseDSPAmount_line125 = n;
+    }
   }
 
   get hasSpouseOrCommonLaw(){

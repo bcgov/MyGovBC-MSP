@@ -6,6 +6,7 @@ module.exports = {
   spouseCommonLawStatusRequired: 'Please specify spouse/common-law status',
   continueButton: 'Continue to apply for financial assistance',
   disabilityInfo: 'Disability Information',
-  childrenInfo: 'Children Information'
+  childrenInfo: 'Children Information',
+  invalidNumber: 'Must use a valid number'
 }
 

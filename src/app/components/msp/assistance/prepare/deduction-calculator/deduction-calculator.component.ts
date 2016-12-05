@@ -115,13 +115,17 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     }
   }
   get personalIncome(): number {
-    let n = !!this.application.netIncomelastYear? this.application.netIncomelastYear : 0;
+    if(this.application.netIncomelastYear === null){
+      return null;
+    }
+    let n = (!!this.application.netIncomelastYear && 
+      !isNaN(this.application.netIncomelastYear))? this.application.netIncomelastYear : 0;
 
     return parseFloat(n+'');
   }
 
   get spouseIncome(): number {
-    let n= !!this.application.spouseNetIncome? this.application.spouseNetIncome : 0;
+    let n= (!!this.application.spouseNetIncome && !isNaN(this.application.spouseNetIncome))? this.application.spouseNetIncome : 0;
     return parseFloat(n+'');
   }
 

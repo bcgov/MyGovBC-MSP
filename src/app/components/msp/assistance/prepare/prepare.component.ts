@@ -18,6 +18,7 @@ require('./prepare.component.less');
 })
 export class AssistancePrepareComponent implements AfterViewInit, OnInit{
   @ViewChild('formRef') prepForm: NgForm;
+  @ViewChild('incomeRef') incomeRef: ElementRef;
   @ViewChild('ageOver65Btn') ageOver65Btn: ElementRef;
   @ViewChild('ageNotOver65Btn') ageNotOver65Btn: ElementRef;
   @ViewChild('spouseOver65Btn') spouseOver65Btn: ElementRef;
@@ -55,9 +56,16 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
       !_.isNil(this.dataService.finAssistApp.childrenCount) ||
       (!_.isNil(this.finAssistApp.claimedChildCareExpense_line214) && this.finAssistApp.claimedChildCareExpense_line214 > 0) || 
       ((!_.isNil(this.finAssistApp.reportedUCCBenefit_line117)&&(this.finAssistApp.reportedUCCBenefit_line117>0)) );
+
+      
   }
 
   ngAfterViewInit() {
+    Observable.fromEvent<Event>(this.incomeRef.nativeElement, 'input')
+      .map(x => {
+        console.log('input event', x);
+      });
+
     let ageOver$ = Observable.fromEvent<MouseEvent>(this.ageOver65Btn.nativeElement, 'click')
       .map( x=>{
         this.dataService.finAssistApp.ageOver65 = true;
@@ -136,6 +144,22 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
         }
       );
   }
+  // ngModelChange(value:string){
+  //   console.log("ngModelChange: ", value);
+  //   let result:number = parseInt(value.trim());
+  //   if(result+'' === 'NaN'){
+  //     console.log("value is NaN after parseInt " + result);
+  //     result = null;
+  //     console.log("make result null: " + result);
+  //   }else{
+  //     console.log('input is not NaN, it is ' + result);
+  //   }
+  //   this.finAssistApp.netIncomelastYear = result;
+  //     console.log("result on model: " + this.finAssistApp.netIncomelastYear);
+  // }
+
+  
+
 
   get showDisabilityInfo(){
     return this._showDisabilityInfo;
