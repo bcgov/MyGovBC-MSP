@@ -94,7 +94,17 @@
                      [innerHtml]="lang('./en/index.js').schoolNameErrorIsRequired"></div>
             </div>
         </div>
+        <div class="form-group col-md-4">
+            <msp-school-date [year]="person.studiesFinishedYear" [month]="person.studiesFinishedMonth"
+                             [day]="person.studiesFinishedDay">
+            </msp-school-date>
+        </div>
     </div>
+    <msp-address *ngIf="person.documents.images.length > 0 &&
+        person.relationship === Relationship.Child19To24"
+                 [mailingAddressHeading]="lang('./en/index.js').schoolAddressLabel"
+                 [mailingAddress]="person.schoolAddress"
+                 [mailingOnly]="true"></msp-address>
 </form>
 
 <!-- switch *ngIf value to true for debugging-->

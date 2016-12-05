@@ -1,0 +1,58 @@
+<form #formRef='ngForm' novalidate>
+    <label [innerHtml]="schoolLabel"></label>
+
+    <div class="form-group"
+         [ngClass]="{'has-error': !formRef.controls.month?.valid && monthRef.touched}">
+        <select class="form-control monthSelect"
+                [(ngModel)]="month"
+                id="month" name="month" #monthRef="ngModel"
+                required>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+        <input type="number" class="form-control dayInput"
+               [(ngModel)]="day"
+               id="day" name="day" #dayRef="ngModel"
+               placeholder="day"
+               required
+               maxlength="2">
+        <input type="number"
+               class="form-control yearInput"
+               [(ngModel)]="year"
+               id="year" name="year" #yearRef="ngModel"
+               placeholder="year"
+               required
+               minlength="4"
+               maxlength="4">
+        <div *ngIf='monthRef.touched'>
+            <div class="text-danger" *ngIf="monthRef.errors?.required"
+                 [innerHtml]="lang('./en/index.js').monthErrorRequired"></div>
+        </div>
+        <div *ngIf='dayRef.touched'>
+            <div class="text-danger" *ngIf="dayRef.errors?.required"
+                 [innerHtml]="lang('./en/index.js').dayErrorRequired"></div>
+        </div>
+        <div *ngIf='yearRef.touched'>
+            <div class="text-danger" *ngIf="yearRef.errors?.required"
+                 [innerHtml]="lang('./en/index.js').yearErrorRequired"></div>
+        </div>
+        <div *ngIf='yearRef.touched && !isValid()'>
+            <div class="text-danger"
+                 [innerHtml]="lang('./en/index.js').yearErrorBadFormat"></div>
+        </div>
+        <div *ngIf='yearRef.touched && !futureCheck()'>
+            <div class="text-danger"
+                 [innerHtml]="lang('./en/index.js').yearErrorFutureCheck"></div>
+        </div>
+    </div>
+</form>

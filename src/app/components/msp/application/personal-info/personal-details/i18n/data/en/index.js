@@ -39,8 +39,9 @@ module.exports = {
     'Before they moved to B.C., were they working for the Canadian Forces or an institution in another province?',
     'Before they moved to B.C., were they working for the Canadian Forces or an institution in another province?'],
 
-  schoolNameLabel: ['Name of School'],
-  schoolNameErrorIsRequired: ['Name of school is required'],
+  schoolNameLabel: 'Name of School',
+  schoolNameErrorIsRequired: 'Name of school is required',
+  schoolAddressLabel: 'School Address',
 
   removeSpouseButton: 'Remove',
   removeChildButton: 'Remove',

@@ -22,9 +22,8 @@ export class MspAddressComponent {
   @Input() mailingSameAsResidentialAddress: boolean;
   @Input() mailingAddress: Address;
   @Input('mailingOnly') mailingOnly: boolean;
+  @Input() mailingAddressHeading:string = this.lang('./en/index.js').mailingAddressHeading
 
-  constructor(@Inject('appConstants') appConstants: Object) {
-  }
 
   /**
    * When user click 'Need another address line?'
