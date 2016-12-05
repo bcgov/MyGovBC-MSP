@@ -1,13 +1,12 @@
 <div class="row">
     <div class="col-sm-12">
-        <h2>
-            Check if you qualify for financial help to pay for public health care coverage
+        <h2 [innerHTML]="lang('./en/index.js').checkEligibilityScreenTitle">
         </h2>
     </div>
 </div>
 <div class="row">
     <div class="col-md-8">
-        <h3>
+        <!--<h3>
             Be prepared to enter information found on last year’s:
             <ul>
                 <li>
@@ -17,7 +16,7 @@
                     Income tax return
                 </li>
             </ul>
-        </h3>
+        </h3>-->
         <form #formRef='ngForm' novalidate>
 
         <div class="form-group"

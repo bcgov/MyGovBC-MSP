@@ -1,4 +1,5 @@
 module.exports = {
+  checkEligibilityScreenTitle: 'See if you qualify for Premium Assistance',
   incomeDataRequired: 'Please provide income information',
   incomeDataMaxLength: 'Too many characters',
   ageGroupRequired: 'Please specify age group',

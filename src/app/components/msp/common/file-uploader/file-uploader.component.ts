@@ -89,15 +89,6 @@ export class FileUploaderComponent implements OnInit {
         console.log(error);
       }
     );
-
-
-    // .subscribe(
-    //   (files) => {
-    //     this.handleImageFile(files[0], 
-    //       this.getFileSizeOutputString, this.checkImageExists, this.images);
-    //   }
-    // );
-    
   }
 
 
@@ -158,27 +149,27 @@ export class FileUploaderComponent implements OnInit {
     // reader.readAsText(imageFile);
   }
 
-  onChange(evt: any) {
-    // console.log(evt);
-    if(evt.srcElement.files && evt.srcElement.files.length && evt.srcElement.files.length > 0){
-      // console.log('file list size: ' + fileList.length);
-      let file = evt.srcElement.files[0];
-      let nBytes = file.size;
-      if (nBytes > this.maxFileSize) {
-        this.fileSizeError = 'This file was not accepted because its size exceeded max allowed file size (8MB).';
-        console.log(this.fileSizeError);
-      }else{
-        this.handleImageFile(file, 
-          this.getFileSizeOutputString, this.checkImageExists, this.images);
-        // var blob_url = window.URL.createObjectURL(file);
-        // this.trustedUrl = this.sanitizer.bypassSecurityTrustUrl(blob_url);;
-        // console.log('file blog url: ' + blob_url);
-      }
-    }else{
-      console.log('No file was selected.');
-      return;
-    }
-  }
+  // onChange(evt: any) {
+  //   // console.log(evt);
+  //   if(evt.srcElement.files && evt.srcElement.files.length && evt.srcElement.files.length > 0){
+  //     // console.log('file list size: ' + fileList.length);
+  //     let file = evt.srcElement.files[0];
+  //     let nBytes = file.size;
+  //     if (nBytes > this.maxFileSize) {
+  //       this.fileSizeError = 'This file was not accepted because its size exceeded max allowed file size (8MB).';
+  //       console.log(this.fileSizeError);
+  //     }else{
+  //       this.handleImageFile(file, 
+  //         this.getFileSizeOutputString, this.checkImageExists, this.images);
+  //       // var blob_url = window.URL.createObjectURL(file);
+  //       // this.trustedUrl = this.sanitizer.bypassSecurityTrustUrl(blob_url);;
+  //       // console.log('file blog url: ' + blob_url);
+  //     }
+  //   }else{
+  //     console.log('No file was selected.');
+  //     return;
+  //   }
+  // }
 
   getFileSizeOutputString(file: File){
       let nBytes = file.size;
