@@ -37,7 +37,7 @@
             </div>
         </div>
         <div>
-            <div class="text-danger" *ngIf="incomeRef.errors?.required && incomeRef.touched"
+            <div class="text-danger" *ngIf="incomeRef.errors?.required && incomeRef.dirty"
                     [innerHTML]="lang('./en/index.js').incomeDataRequired"></div>
             <div class="text-danger" *ngIf="incomeRef.errors?.pattern && incomeRef.dirty"
                     [innerHTML]="lang('./en/index.js').invalidNumber"></div>
@@ -59,7 +59,7 @@
                         <button #ageNotOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === false" 
                             type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
-                    <div *ngIf='incomeRef.touched && !formValidationInfo.ageSpecified'>
+                    <div *ngIf='incomeRef.dirty && !formValidationInfo.ageSpecified'>
                         <div class="text-danger"
                                 [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
                     </div>
@@ -80,7 +80,7 @@
                         <button #negativeHasSpouse [class.msp-btn-radio]="finAssistApp.hasSpouseOrCommonLaw === false" 
                              type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
-                    <div *ngIf='(incomeRef.touched || finAssistApp.spouseEligibleForDisabilityCredit === true ) && (finAssistApp.hasSpouseOrCommonLaw === null || finAssistApp.hasSpouseOrCommonLaw === undefined)'>
+                    <div *ngIf='(incomeRef.dirty || finAssistApp.spouseEligibleForDisabilityCredit === true ) && (finAssistApp.hasSpouseOrCommonLaw === null || finAssistApp.hasSpouseOrCommonLaw === undefined)'>
                         <div class="text-danger"
                                 [innerHTML]="lang('./en/index.js').spouseCommonLawStatusRequired"></div>
                     </div>
