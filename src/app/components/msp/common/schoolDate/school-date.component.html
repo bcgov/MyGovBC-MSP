@@ -1,5 +1,5 @@
 <form #formRef='ngForm' novalidate>
-    <label [innerHtml]="schoolLabel"></label>
+    <label [innerHtml]="schoolLabel()"></label>
 
     <div class="form-group"
          [ngClass]="{'has-error': !formRef.controls.month?.valid && monthRef.touched}">
@@ -52,7 +52,7 @@
         </div>
         <div *ngIf='yearRef.touched && !futureCheck()'>
             <div class="text-danger"
-                 [innerHtml]="lang('./en/index.js').yearErrorFutureCheck"></div>
+                 [innerHtml]="yearErrorPastFutureCheck()"></div>
         </div>
     </div>
 </form>

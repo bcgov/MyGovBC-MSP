@@ -105,6 +105,11 @@
                              [day]="person.studiesFinishedDay">
             </msp-school-date>
         </div>
+        <div class="form-group col-md-4">
+            <msp-school-date [departureDate]="true" [year]="person.studiesDepartureYear" [month]="person.studiesDepartureMonth"
+                             [day]="person.studiesDepartureDay">
+            </msp-school-date>
+        </div>
     </div>
     <msp-address *ngIf="person.documents.images.length > 0 &&
         person.relationship === Relationship.Child19To24"

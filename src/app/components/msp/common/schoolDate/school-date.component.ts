@@ -17,7 +17,25 @@ export class MspSchoolDateComponent {
   @Input() year: number;
   @Input() month: number;
   @Input() day: number;
-  @Input() schoolLabel: string = this.lang('./en/index.js').schoolDateLabel;
+  @Input() departureDate: boolean = false;
+
+  yearErrorPastFutureCheck() {
+    if (this.departureDate) {
+      return this.lang('./en/index.js').yearErrorFutureCheck;
+    }
+    else{
+      return this.lang('./en/index.js').yearErrorPastCheck;
+    }
+  }
+
+  schoolLabel() {
+    if (this.departureDate) {
+      return this.lang('./en/index.js').schoolDepartureDateLabel;
+    }
+    else {
+      return this.lang('./en/index.js').schoolCompletionDateLabel;
+    }
+  }
 
   // Parse person's date
   inputDate() {
@@ -45,9 +63,17 @@ export class MspSchoolDateComponent {
 
   futureCheck(): boolean {
 
-    // Check not in past
-    if (this.inputDate().isBefore(this.today)) {
-      return false;
+    if (this.departureDate) {
+      // Check not in future
+      if (this.inputDate().isAfter(this.today)) {
+        return false;
+      }
+    }
+    else {
+      // Check not in past
+      if (this.inputDate().isBefore(this.today)) {
+        return false;
+      }
     }
 
     return true;
