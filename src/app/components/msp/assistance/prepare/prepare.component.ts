@@ -130,23 +130,6 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
         }
       );
   }
-  // ngModelChange(value:string){
-  //   console.log("ngModelChange: ", value);
-  //   let result:number = parseInt(value.trim());
-  //   if(result+'' === 'NaN'){
-  //     console.log("value is NaN after parseInt " + result);
-  //     result = null;
-  //     console.log("make result null: " + result);
-  //   }else{
-  //     console.log('input is not NaN, it is ' + result);
-  //   }
-  //   this.finAssistApp.netIncomelastYear = result;
-  //     console.log("result on model: " + this.finAssistApp.netIncomelastYear);
-  // }
-
-  
-
-
   get showDisabilityInfo(){
     return this._showDisabilityInfo;
   }

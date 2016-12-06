@@ -22,6 +22,7 @@ export class PersonalInfoComponent {
   }
 
   save(){
+    console.log('save person from personal-info screen');
     this.dataService.saveMspApplication();
   }
   onClick(): void{

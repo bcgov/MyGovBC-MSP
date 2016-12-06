@@ -1,4 +1,4 @@
-export class FinancialAssistApplicationDto {
+export default class FinancialAssistApplicationDto {
   incomeLine236: number;
   ageOver65: boolean;
   hasSpouseOrCommonLaw:boolean;

@@ -114,6 +114,7 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
       return false;
     }
   }
+  
   get personalIncome(): number {
     if(this.application.netIncomelastYear === null){
       return null;

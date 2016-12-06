@@ -3,17 +3,6 @@ import {Person} from "./person.model";
 import {Relationship} from "./status-activities-documents";
 
 export class FinancialAssistApplication {
-
-  /**
-   * Person applying for financial assitance
-   */
-  applicant: Person = new Person(Relationship.Applicant);
-
-  /**
-   * Spouse
-   */
-  spouse: Person = new Person(Relationship.Spouse);
-
   private _netIncomelastYear:number;
 
   /**

@@ -144,6 +144,7 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
   ngAfterViewInit() {
     if(this.form){
       this.form.valueChanges.subscribe(value => {
+        console.log('emit saving event');
         this.save.emit(this.person);
       });
     }
