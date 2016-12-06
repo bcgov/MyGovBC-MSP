@@ -23,9 +23,13 @@ class Person {
   dob_month: number;
   dob_year: number;
 
-  arrival_day: number;
-  arrival_month: number;
-  arrival_year: number;
+  arrivalToBCDay: number;
+  arrivalToBCMonth: number;
+  arrivalToBCYear: number;
+
+  arrivalToCanadaDay: number;
+  arrivalToCanadaMonth: number;
+  arrivalToCanadaYear: number;
 
   previous_phn: string;
   institutionWorkHistory: string;

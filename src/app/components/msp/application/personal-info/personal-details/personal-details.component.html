@@ -57,14 +57,20 @@
         <msp-province *ngIf="person.currentActivity === Activities.MovingFromProvince"
                       [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
                       [province]="person.movedFromProvince"></msp-province>
-        <div class="col-sm-8" *ngIf="person.currentActivity === Activities.Returning">
+        <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning">
             <msp-arrival-date [arrivalLabel]="lang('./en/index.js').arrivalDateToBCLabel"
-                              [year]="person.arrival_year"
-                              [month]="person.arrival_month"
-                              [day]="person.arrival_day"></msp-arrival-date>
+                              [year]="person.arrivalToBCYear"
+                              [month]="person.arrivalToBCMonth"
+                              [day]="person.arrivalToBCDay"></msp-arrival-date>
+        </div>
+        <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning">
+            <msp-arrival-date [arrivalLabel]="lang('./en/index.js').arrivalDateToCanadaLabel"
+                              [year]="person.arrivalToCanadaYear"
+                              [month]="person.arrivalToCanadaMonth"
+                              [day]="person.arrivalToCanadaDay"></msp-arrival-date>
+
         </div>
     </div>
-
     <div class="row" *ngIf="person.documents.images.length > 0 &&
                             (person.currentActivity === Activities.Returning ||
                             person.currentActivity === Activities.MovingFromProvince)">
@@ -105,6 +111,7 @@
                  [mailingAddressHeading]="lang('./en/index.js').schoolAddressLabel"
                  [mailingAddress]="person.schoolAddress"
                  [mailingOnly]="true"></msp-address>
+
 </form>
 
 <!-- switch *ngIf value to true for debugging-->

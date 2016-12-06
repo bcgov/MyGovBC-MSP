@@ -33,6 +33,7 @@ module.exports = {
     'Which province are they moving from?',
     'Which province are they moving from?'],
   arrivalDateToBCLabel: 'Arrival date to B.C.',
+  arrivalDateToCanadaLabel: 'Arrival date to Canada',
 
   canadianForcesQuestion: ['Before you moved to B.C., were you working for the Canadian Forces or an institution in another province?',
     'Before they moved to B.C., were they working for the Canadian Forces or an institution in another province?',
