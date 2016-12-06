@@ -36,8 +36,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
 
   formValidationInfo = {
     spouseAgeSpecified: false,
-    ageSpecified: false,
-    spouseSpecified: false
+    ageSpecified: false
   };
 
   private _likelyQualify:boolean = false;
@@ -102,7 +101,6 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
           Observable.fromEvent<MouseEvent>(this.hasSpouse.nativeElement, 'click')
             .map(x => {
               this.dataService.finAssistApp.setSpouse = true;
-              this.formValidationInfo.spouseSpecified = true;
             })
         )
       .merge(
@@ -110,7 +108,6 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
             .map(x => {
               this.finAssistApp.setSpouse = false;
               this.formValidationInfo.spouseAgeSpecified = false;
-              this.formValidationInfo.spouseSpecified = true;
             })
       )
       .merge(

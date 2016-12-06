@@ -104,9 +104,12 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   }
 
   get canContinue(){
+    let spouseSpecified = 
+      !(this.application.hasSpouseOrCommonLaw === null || this.application.hasSpouseOrCommonLaw === undefined);
+
     if(this.formValidationInfo.ageSpecified && !_.isNil(this.application.hasSpouseOrCommonLaw)){
         if(this.application.hasSpouseOrCommonLaw){
-          return this.formValidationInfo.spouseSpecified && this.formValidationInfo.spouseAgeSpecified;
+          return spouseSpecified && this.formValidationInfo.spouseAgeSpecified;
         }else{
           return true;
         }

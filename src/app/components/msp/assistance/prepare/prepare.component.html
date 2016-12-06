@@ -80,7 +80,7 @@
                         <button #negativeHasSpouse [class.msp-btn-radio]="finAssistApp.hasSpouseOrCommonLaw === false" 
                              type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
-                    <div *ngIf='incomeRef.touched && !formValidationInfo.spouseSpecified'>
+                    <div *ngIf='(incomeRef.touched || finAssistApp.spouseEligibleForDisabilityCredit === true ) && (finAssistApp.hasSpouseOrCommonLaw === null || finAssistApp.hasSpouseOrCommonLaw === undefined)'>
                         <div class="text-danger"
                                 [innerHTML]="lang('./en/index.js').spouseCommonLawStatusRequired"></div>
                     </div>
@@ -242,7 +242,7 @@
                             <span>Myself</span>
                         </li>
 
-                        <li #spouseDisabilityCreditSet 
+                        <li #spouseDisabilityCreditSet
                             class="msp-horizontal-list-group-item-lg msp-selectable"
                             [hidden]="finAssistApp.spouseEligibleForDisabilityCredit">
                             <span class="glyphicon glyphicon-unchecked"></span>
