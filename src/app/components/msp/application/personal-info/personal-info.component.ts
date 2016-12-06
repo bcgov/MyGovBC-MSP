@@ -28,10 +28,10 @@ export class PersonalInfoComponent {
   }
 
   get application(): MspApplication {
-    return this.dataService.getApplication();
+    return this.dataService.getMspApplication();
   }
   get applicant(): Person {
-    return this.dataService.getApplication().applicant;
+    return this.dataService.getMspApplication().applicant;
   }
 
   // get spouse(): Person {
@@ -39,26 +39,26 @@ export class PersonalInfoComponent {
   // }
   addSpouse = () =>{
     let sp:Person = new Person(Relationship.Spouse)    
-    this.dataService.getApplication().addSpouse(sp);
+    this.dataService.getMspApplication().addSpouse(sp);
     this.spouse = sp;
     // this.spouse = this.dataService.getApplication().spouse;
   };
 
   addChild(relationship: Relationship): void {
-    this.dataService.getApplication().addChild(relationship);
+    this.dataService.getMspApplication().addChild(relationship);
   }
 
   get children(): Person[] {
-    return this.dataService.getApplication().children;
+    return this.dataService.getMspApplication().children;
   }
 
   removeChild(event: Object, idx: number): void{
     // console.log('remove child ' + JSON.stringify(event));
-    this.dataService.getApplication().removeChild(idx);    
+    this.dataService.getMspApplication().removeChild(idx);    
   }
 
   removeSpouse(event: Object): void{
     // console.log('remove spouse ' + JSON.stringify(event));
-    this.dataService.getApplication().removeSpouse();
+    this.dataService.getMspApplication().removeSpouse();
   }
 }

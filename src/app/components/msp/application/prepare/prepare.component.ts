@@ -11,7 +11,7 @@ import DataService from '../../service/msp-data.service';
 export class PrepareComponent {
     private apt: Person;
     constructor(private dataService: DataService){
-        this.apt = this.dataService.getApplication().applicant
+        this.apt = this.dataService.getMspApplication().applicant
     }
 
     get stayLonger() {

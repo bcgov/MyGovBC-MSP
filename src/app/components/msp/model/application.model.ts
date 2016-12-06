@@ -24,9 +24,7 @@ class MspApplication {
 
   addSpouse = (sp:Person)=>{
     if(!this._spouse){
-      // this._spouse = new Person(Relationship.Spouse);
       this._spouse = sp;
-      console.log('spouse added: ' + JSON.stringify(this._spouse));
     }else{
       console.log('spouse already added to your coverage.');
     }
@@ -34,16 +32,14 @@ class MspApplication {
 
   addChild(relationship: Relationship): void {
     let c = new Person(relationship)
-    this._children.length < 30 ? this._children.push(c): console.log('No more than 30 chidren can be added to one application');
+    this._children.length < 30 ? this._children.push(c): console.log('No more than 30 children can be added to one application');
   }
   
   removeChild(idx: number):void {
-    // console.log('removing child at index ' + idx);
     let removed = this._children.splice(idx,1);
   }
 
   removeSpouse(): void {
-    // console.log('spouse removed from coverage');
     this._spouse = null;
   }
 

@@ -23,7 +23,7 @@ export default class MspDataService {
 
   } 
 
-  getApplication(): MspApplication {
+  getMspApplication(): MspApplication {
     return this._mspApplication;
   }
 

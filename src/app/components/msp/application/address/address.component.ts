@@ -10,6 +10,6 @@ export class AddressComponent {
   mspApplication: MspApplication;
 
   constructor(private dataService: DataService) {
-    this.mspApplication = this.dataService.getApplication();
+    this.mspApplication = this.dataService.getMspApplication();
   }
 }
