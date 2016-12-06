@@ -36,12 +36,12 @@
                 </div>
             </div>
         </div>
-        <div>
-            <div class="text-danger" *ngIf="incomeRef.errors?.required && incomeRef.dirty"
+        <div *ngIf="(incomeRef.dirty || formRef.controls.spouseIncomeLine236?.valid)">
+            <div class="text-danger" *ngIf="incomeRef.errors?.required"
                     [innerHTML]="lang('./en/index.js').incomeDataRequired"></div>
-            <div class="text-danger" *ngIf="incomeRef.errors?.pattern && incomeRef.dirty"
+            <div class="text-danger" *ngIf="incomeRef.errors?.pattern"
                     [innerHTML]="lang('./en/index.js').invalidNumber"></div>
-            <div class="text-danger" *ngIf="incomeRef.errors?.maxlength && incomeRef.touched"
+            <div class="text-danger" *ngIf="incomeRef.errors?.maxlength"
                     [innerHTML]="lang('./en/index.js').incomeDataMaxLength"></div>
         </div>
         
@@ -59,7 +59,7 @@
                         <button #ageNotOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === false" 
                             type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
-                    <div *ngIf='incomeRef.dirty && !formValidationInfo.ageSpecified'>
+                    <div *ngIf='incomeRef.valid && (finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined)'>
                         <div class="text-danger"
                                 [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
                     </div>
@@ -95,7 +95,8 @@
                         <button #spouseOver65NegativeBtn [class.msp-btn-radio]="finAssistApp.spouseAgeOver65 === false" 
                                 type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
-                    <div *ngIf='!formValidationInfo.spouseAgeSpecified'>
+                    <div *ngIf='!(finAssistApp.hasSpouseOrCommonLaw === null || finAssistApp.hasSpouseOrCommonLaw === undefined) && 
+                        (finAssistApp.spouseAgeOver65 === null || finAssistApp.spouseAgeOver65 === undefined)'>
                         <div class="text-danger"
                                 [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
                     </div>
@@ -103,21 +104,21 @@
 
 
                 <div class="form-group" [hidden]="!finAssistApp.hasSpouseOrCommonLaw"
-                    [ngClass]="{'has-error': !formRef.controls.spouseNetIncome?.valid}">
-                  <label for="spouseNetIncome">
+                    [ngClass]="{'has-error': !formRef.controls.spouseIncomeLine236?.valid}">
+                  <label for="spouseIncomeLine236">
                     What is your spouse’s / common-law partner’s net income (Line 236) on last year’s Notice of Assessment (or Reassessment) from Canada Revenue Agency?
                   </label>
                   <div class="col-md-4 col-sm-5 col-xs-6 input-group">
                       <span class="input-group-addon">$</span>
-                      <input type="text" class="form-control" name="spouseNetIncome" 
+                      <input type="text" class="form-control" name="spouseIncomeLine236" 
                         required maxlength="12" #spouseIncomeRef="ngModel" 
                         pattern="(?=.)^(([1-9][0-9]{0,5}(,[0-9]{5})*)|[0-9]+)?(\.[0-9]{1,5})?$"
-                        [(ngModel)]="finAssistApp.spouseNetIncome">
+                        [(ngModel)]="finAssistApp.spouseIncomeLine236">
                   </div>
-                    <div *ngIf='!formRef.controls.spouseNetIncome?.valid'>
-                        <div class="text-danger" *ngIf="formRef.controls.spouseNetIncome?.errors?.required"
+                    <div *ngIf='!formRef.controls.spouseIncomeLine236?.valid'>
+                        <div class="text-danger" *ngIf="formRef.controls.spouseIncomeLine236?.errors?.required"
                                 [innerHTML]="lang('./en/index.js').incomeDataRequired"></div>
-                        <div class="text-danger" *ngIf="formRef.controls.spouseNetIncome?.errors?.maxlength"
+                        <div class="text-danger" *ngIf="formRef.controls.spouseIncomeLine236?.errors?.maxlength"
                                 [innerHTML]="lang('./en/index.js').incomeDataMaxLength"></div>
                         <div class="text-danger" *ngIf="spouseIncomeRef.errors?.pattern"
                                 [innerHTML]="lang('./en/index.js').invalidNumber"></div>

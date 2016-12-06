@@ -25,7 +25,6 @@ export class PersonalInfoComponent {
     this.dataService.saveMspApplication();
   }
   onClick(): void{
-    console.log('child clicked');
   }
 
   get application(): MspApplication {

@@ -19,7 +19,7 @@ export class FinancialAssistApplication {
   /**
    * line 236 on NOA
    */
-  private _spouseNetIncome: number;
+  private _spouseIncomeLine236: number;
 
   private _childrenCount:number;
   /**
@@ -60,13 +60,13 @@ export class FinancialAssistApplication {
   }
 
 
-  get spouseNetIncome():number{
-    return this._spouseNetIncome === null? null: this._spouseNetIncome;
+  get spouseIncomeLine236():number{
+    return this._spouseIncomeLine236 === null? null: this._spouseIncomeLine236;
   }
 
-  set spouseNetIncome(n:number){
+  set spouseIncomeLine236(n:number){
     if(!this.isEmptyString(n)){
-      this._spouseNetIncome = n;
+      this._spouseIncomeLine236 = n;
     }
   }
 
@@ -133,18 +133,13 @@ export class FinancialAssistApplication {
   }
 
   set setSpouse(arg: boolean){
-    console.log('invoked setSpouse with ' + arg);
     if(!arg){
       this.spouseEligibleForDisabilityCredit = arg;
-      this.spouseNetIncome = undefined;
+      this.spouseIncomeLine236 = undefined;
       this.spouseAgeOver65 = undefined;
     }
     this._hasSpouseOrCommonLaw = arg;
   }
-
-  // function test(){
-
-  // }
 
   get selfDisabilityCredit(){
     return this.eligibleForDisabilityCredit;

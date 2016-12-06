@@ -22,6 +22,7 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   @Input() application: FinancialAssistApplication;
   @Input() formValidationInfo: any;
   @Output() updateQualify:EventEmitter<Boolean> = new EventEmitter<Boolean>();
+  private qualificationThreshhold:number = 42000;
   constructor(){
   }
 
@@ -88,28 +89,24 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
 
   get incomeInfoProvided() {
     return ((!isNaN(this.application.netIncomelastYear) && this.application.netIncomelastYear+'' !== '') || 
-      (!isNaN(this.application.spouseNetIncome) && this.application.spouseNetIncome+'' !== ''));
+      (!isNaN(this.application.spouseIncomeLine236) && this.application.spouseIncomeLine236+'' !== ''));
   }
 
   get likelyQualify() {
-    // console.log("income " + this.application.netIncomelastYear);
-    // console.log("income is number? " + !isNaN(this.application.netIncomelastYear));
-    // console.log("spouseIncome " + this.application.spouseNetIncome);
-    // console.log("spouseIncome is number? " + !_.isNaN(this.application.spouseNetIncome));
-    // console.log(!isNaN(this.application.spouseNetIncome));
-    // console.log(this.adjustedIncome);
-    // setTimeout(()=>this.updateQualify.emit(true), 0);
-    return this.incomeInfoProvided && this.adjustedIncome <= 50000;
-      // && this.application.age;
+    return this.incomeInfoProvided && this.adjustedIncome <= this.qualificationThreshhold;
   }
 
   get canContinue(){
     let spouseSpecified = 
       !(this.application.hasSpouseOrCommonLaw === null || this.application.hasSpouseOrCommonLaw === undefined);
 
-    if(this.formValidationInfo.ageSpecified && !_.isNil(this.application.hasSpouseOrCommonLaw)){
+    let spouseAgeSpecified = 
+      !(this.application.spouseAgeOver65 === null || this.application.spouseAgeOver65 === undefined);
+
+    if(!(this.application.ageOver65 === null || this.application.ageOver65 == undefined) && 
+        !_.isNil(this.application.hasSpouseOrCommonLaw)){
         if(this.application.hasSpouseOrCommonLaw){
-          return spouseSpecified && this.formValidationInfo.spouseAgeSpecified;
+          return spouseSpecified && spouseAgeSpecified;
         }else{
           return true;
         }
@@ -128,7 +125,7 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   }
 
   get spouseIncome(): number {
-    let n= (!!this.application.spouseNetIncome && !isNaN(this.application.spouseNetIncome))? this.application.spouseNetIncome : 0;
+    let n= (!!this.application.spouseIncomeLine236 && !isNaN(this.application.spouseIncomeLine236))? this.application.spouseIncomeLine236 : 0;
     return parseFloat(n+'');
   }
 
