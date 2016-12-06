@@ -1,7 +1,7 @@
 import {Component, Injectable, ViewChild} from '@angular/core';
 import {MspApplication, Person} from '../../model/application.model';
 
-import DataService from '../application-data.service';
+import DataService from '../../service/msp-data.service';
 import {Relationship} from "../../model/status-activities-documents";
 import {NgForm} from "@angular/forms";
 

@@ -26,7 +26,7 @@ import {MspGenderComponent} from './common/gender/gender.component';
 import {FileUploaderComponent} from './common/file-uploader/file-uploader.component';
 import {ThumbnailComponent} from './common/thumbnail/thumbnail.component';
 
-import MspApplicationDataService from './application/application-data.service';
+import MspDataService from './service/msp-data.service';
 import {ApplicationComponent} from './application/application.component';
 import {PersonalDetailsComponent} from './application/personal-info/personal-details/personal-details.component';
 import {PrepareComponent} from './application/prepare/prepare.component';
@@ -182,7 +182,7 @@ let localStorageServiceConfig = {
 
   providers: [
     // Services
-    MspApplicationDataService,
+    MspDataService,
     LocalStorageService,
     {
         provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

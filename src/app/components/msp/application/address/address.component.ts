@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import DataService from '../application-data.service';
+import DataService from '../../service/msp-data.service';
 import {MspApplication} from "../../model/application.model";
 
 @Component({

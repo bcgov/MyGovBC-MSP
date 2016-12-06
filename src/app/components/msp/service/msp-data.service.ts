@@ -4,48 +4,56 @@ import {FinancialAssistApplication} from '../model/financial-assist-application.
 import { LocalStorageService } from 'angular-2-local-storage';
 import {FinancialAssistApplicationDto} from '../dto/financial-assist-application.dto';
 @Injectable()
-export default class MspApplicationDataService {
-  private application: MspApplication;
-  private finAssistApplication: FinancialAssistApplication;
+export default class MspDataService {
+  private _mspApplication: MspApplication;
+  private _finAssistApp: FinancialAssistApplication;
+  private finAssistAppStorageKey:string = 'financial-appl';
+  private mspAppStorageKey:string = 'msp-appl';
 
   constructor(private localStorageService: LocalStorageService){
 
-    this.finAssistApplication = this.getFinAssistApplication();
+    this._finAssistApp = this.getFinAssistApplication();
 
-    let existingMainApp = this.localStorageService.get<MspApplication>('msp-appl');
+    let existingMainApp = this.localStorageService.get<MspApplication>(this.mspAppStorageKey);
     if(!existingMainApp){
-      this.application = new MspApplication();
+      this._mspApplication = new MspApplication();
     }else{
-      this.application = new MspApplication();
-      // turn on the following in when the entire application model class is wired up with screens.
-      // this.application = existingMainApp;
+      this._mspApplication = new MspApplication();
     }
 
-    // console.log('init data service, fin assistance application: ' + JSON.stringify(this.finAssistApplication));
   } 
 
   getApplication(): MspApplication {
-    return this.application;
+    return this._mspApplication;
   }
 
   get finAssistApp(): FinancialAssistApplication {
-    return this.finAssistApplication;
+    return this._finAssistApp;
   }
 
   saveFinAssistApplication():void {
-    let dto:FinancialAssistApplicationDto = this.toFinAssistDataTransferObject(this.finAssistApplication);
-    this.localStorageService.set('financial-appl',dto);
+    let dto:FinancialAssistApplicationDto = this.toFinAssistDataTransferObject(this._finAssistApp);
+    this.localStorageService.set(this.finAssistAppStorageKey,dto);
   }
 
   getFinAssistApplication():FinancialAssistApplication{
     let dto:FinancialAssistApplicationDto = 
-      this.localStorageService.get<FinancialAssistApplicationDto>('financial-appl');
+      this.localStorageService.get<FinancialAssistApplicationDto>(this.finAssistAppStorageKey);
 
     if(dto){
       return this.fromFinAssistDataTransferObject(dto);
     }else{
       return new FinancialAssistApplication();
     }
+  }
+
+  removeFinAssistApplication():void{
+    let result:boolean = this.localStorageService.remove(this.finAssistAppStorageKey);
+    this._finAssistApp = new FinancialAssistApplication();
+  }
+  removeMspApplication():void{
+    this.localStorageService.remove(this.mspAppStorageKey);
+    this._mspApplication = new MspApplication();
   }
 
   toFinAssistDataTransferObject(input:FinancialAssistApplication):FinancialAssistApplicationDto{
@@ -85,6 +93,6 @@ export default class MspApplicationDataService {
   }
 
   saveMspApplication():void {
-    this.localStorageService.set('msp-appl',this.application);
+    this.localStorageService.set('msp-appl',this._mspApplication);
   }
 }
