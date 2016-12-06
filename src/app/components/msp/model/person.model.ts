@@ -35,6 +35,13 @@ class Person {
   institutionWorkHistory: string;
 
   /**
+   * Discharge date if worked in CDN forces
+   */
+  dischargeYear: number;
+  dischargeMonth: number;
+  dischargeDay: number;
+
+  /**
    * Which province the person has moved from
    */
   movedFromProvince: string;
@@ -61,13 +68,18 @@ class Person {
    * For children 19-24, we need the school name and address
    */
   schoolName: string;
-
   schoolAddress: Address = new Address();
 
+  /**
+   * When the student expects to finish
+   */
   studiesFinishedYear: number;
   studiesFinishedMonth: number;
   studiesFinishedDay: number;
 
+  /**
+   * If school outside BC when did they leave
+   */
   studiesDepartureYear: number;
   studiesDepartureMonth: number;
   studiesDepartureDay: number;

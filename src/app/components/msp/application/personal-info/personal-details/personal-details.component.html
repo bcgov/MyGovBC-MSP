@@ -84,6 +84,11 @@
                 </button>
             </div>
         </div>
+        <div *ngIf="person.institutionWorkHistory == 'Yes'" class="col-md-4">
+            <msp-discharge-date [year]="person.dischargeYear"
+                [month]="person.dischargeMonth"
+                [day]="person.dischargeDay"></msp-discharge-date>
+        </div>
     </div>
 
     <div class="row" *ngIf="person.documents.images.length > 0 &&

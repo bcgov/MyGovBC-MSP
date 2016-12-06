@@ -19,6 +19,7 @@ import {MspPhoneComponent} from './common/phone/phone.component';
 import {MspProgressBarComponent} from './common/progressBar/progressBar.component';
 import {MspPhnComponent} from './common/phn/phn.component';
 import {MspArrivalDateComponent} from './common/arrival-date/arrival-date.component';
+import {MspDischargeDateComponent} from './common/discharge-date/discharge-date.component';
 import {MspSchoolDateComponent} from './common/schoolDate/school-date.component';
 import {Mod11CheckValidator} from './common/phn/phn.validator';
 import {MspGenderComponent} from './common/gender/gender.component';
@@ -151,6 +152,7 @@ let localStorageServiceConfig = {
     MspPhoneComponent,
     MspPhnComponent,
     MspArrivalDateComponent,
+    MspDischargeDateComponent,
     MspSchoolDateComponent,
     Mod11CheckValidator,
     MspGenderComponent,

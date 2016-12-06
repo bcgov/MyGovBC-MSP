@@ -169,8 +169,12 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
   }
 
   selectInstitution(history: string) {
-    // this.institutionWorkSignal = 'in';
     this.person.institutionWorkHistory = history;
+    if (history == 'No') {
+      this.person.dischargeDay = null;
+      this.person.dischargeMonth = null;
+      this.person.dischargeYear = null;
+    }
   }
 
   toggleInstituationList() {
