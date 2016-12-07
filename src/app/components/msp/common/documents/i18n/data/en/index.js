@@ -1,13 +1,13 @@
 module.exports = {
-  0: 'Canadian Birth Certificate',
-  1: 'Canadian Passport',
-  2: 'Canadian Citizenship Card',
-  3: 'Record of Landing (front and back)',
-  4: 'Permanent Resident Card',
+  0: 'Canadian birth certificate',
+  1: 'Canadian passport',
+  2: 'Canadian citizenship card or certificate',
+  3: 'Record of Landing',
+  4: 'Permanent Resident Card (front and back)',
   5: 'Work Permit',
   6: 'Study Permit',
   7: 'Visitor Visa',
-  8: 'Passport with Diplomatic Foil'
+  8: 'Passport with diplomatic foil'
 }
 /**
  * ID documents
