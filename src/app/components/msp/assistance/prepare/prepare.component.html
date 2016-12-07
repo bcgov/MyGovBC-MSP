@@ -36,7 +36,15 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="(incomeRef.dirty || formRef.controls.spouseIncomeLine236?.valid)">
+        <div *ngIf="false">
+            <pre>{{incomeRef.errors|json}}</pre>
+            <pre>{{incomeRef.touched|json}}</pre>
+            <pre>{{incomeRef.dirty|json}}</pre>
+            <pre>{{incomeRef.value|json}}</pre>
+            <pre>{{formRef.dirty|json}}</pre>
+        </div>
+        <div *ngIf="(incomeRef.touched || incomeRef.dirty || (!!incomeRef.value && incomeRef.value.trim().length>0) || formRef.touched || !(finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined) ||
+                         formRef.controls.spouseIncomeLine236?.valid || finAssistApp.spouseEligibleForDisabilityCredit)">
             <div class="text-danger" *ngIf="incomeRef.errors?.required"
                     [innerHTML]="lang('./en/index.js').incomeDataRequired"></div>
             <div class="text-danger" *ngIf="incomeRef.errors?.pattern"
@@ -44,7 +52,6 @@
             <div class="text-danger" *ngIf="incomeRef.errors?.maxlength"
                     [innerHTML]="lang('./en/index.js').incomeDataMaxLength"></div>
         </div>
-        
 
         <div class="row">
             <div class="col-md-10">
@@ -59,15 +66,17 @@
                         <button #ageNotOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === false" 
                             type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
-                    <div *ngIf='incomeRef.valid && (finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined)'>
+                    <div *ngIf='(incomeRef.touched || incomeRef.dirty || (!!incomeRef.value && incomeRef.value.trim().length>0) || finAssistApp.spouseEligibleForDisabilityCredit || formRef.controls.spouseIncomeLine236?.valid ) && 
+                        (finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined)'>
                         <div class="text-danger"
                                 [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row" 
+            [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
         <hr>
-        <div class="row">
             <div class="col-md-10">
                 <div class="form-group">
                     <label for="commonlaw">
@@ -80,7 +89,9 @@
                         <button #negativeHasSpouse [class.msp-btn-radio]="finAssistApp.hasSpouseOrCommonLaw === false" 
                              type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
-                    <div *ngIf='(incomeRef.dirty || finAssistApp.spouseEligibleForDisabilityCredit === true ) && (finAssistApp.hasSpouseOrCommonLaw === null || finAssistApp.hasSpouseOrCommonLaw === undefined)'>
+                    <div *ngIf='(incomeRef.dirty || incomeRef.touched || (!!incomeRef.value && incomeRef.value.trim().length>0) ||
+                        finAssistApp.spouseEligibleForDisabilityCredit === true ) && 
+                        (finAssistApp.hasSpouseOrCommonLaw === null || finAssistApp.hasSpouseOrCommonLaw === undefined)'>
                         <div class="text-danger"
                                 [innerHTML]="lang('./en/index.js').spouseCommonLawStatusRequired"></div>
                     </div>
@@ -126,9 +137,10 @@
                 </div>
             </div>
         </div>
-        <hr>
 
-        <div class="row">
+        <div class="row"
+            [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
+        <hr>
             <div class="col-md-6">
                 <div (click)="showChildrenInfo=true" *ngIf="!showChildrenInfo"
                     class="msp-toggle">
@@ -203,9 +215,10 @@
 
             </div>
         </div>
-        <hr>
 
-        <div class="row">
+        <div class="row"
+            [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
+        <hr>
             <div class="col-md-6">
                 <div class="msp-toggle" *ngIf="!showDisabilityInfo" (click)="showDisabilityInfo=true">
                     <span class="glyphicon glyphicon-collapse-up msp-toggle"
@@ -243,18 +256,20 @@
                             <span>Myself</span>
                         </li>
 
-                        <li #spouseDisabilityCreditSet
-                            class="msp-horizontal-list-group-item-lg msp-selectable"
-                            [hidden]="finAssistApp.spouseEligibleForDisabilityCredit">
-                            <span class="glyphicon glyphicon-unchecked"></span>
-                            <span>My spouse/common-law partner</span>
-                        </li>
-                        <li #spouseDisabilityCreditUnset 
-                            class="msp-horizontal-list-group-item-lg msp-selectable"
-                            [hidden]="!finAssistApp.spouseEligibleForDisabilityCredit">
-                            <span class="glyphicon glyphicon-check msp-selection"></span>
-                            <span>My spouse/common-law partner</span>
-                        </li>
+                        <div [hidden] = "!finAssistApp.hasSpouseOrCommonLaw">
+                            <li #spouseDisabilityCreditSet 
+                                class="msp-horizontal-list-group-item-lg msp-selectable"
+                                [hidden]="finAssistApp.spouseEligibleForDisabilityCredit">
+                                <span class="glyphicon glyphicon-unchecked"></span>
+                                <span>My spouse/common-law partner</span>
+                            </li>
+                            <li #spouseDisabilityCreditUnset 
+                                class="msp-horizontal-list-group-item-lg msp-selectable"
+                                [hidden]="!finAssistApp.spouseEligibleForDisabilityCredit">
+                                <span class="glyphicon glyphicon-check msp-selection"></span>
+                                <span>My spouse/common-law partner</span>
+                            </li>
+                        </div>
                     </ul>
 
                 </div>
