@@ -6,6 +6,7 @@ import {Person} from "./person.model";
  * Overall MSP Application Process Data
  */
 class MspApplication {
+
   private _applicant: Person = new Person(Relationship.Applicant);
   
   private _children: Array<Person>  = [];

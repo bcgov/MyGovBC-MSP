@@ -65,6 +65,12 @@ class Person {
   plannedAbsence:boolean;
 
   /**
+   * Denotes unusual situation for the applicant
+   */
+  uncommonSituation: boolean;
+
+
+  /**
    * For children 19-24, we need the school name and address
    */
   schoolName: string;

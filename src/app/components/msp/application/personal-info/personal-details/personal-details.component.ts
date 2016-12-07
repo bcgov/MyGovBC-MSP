@@ -72,6 +72,10 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
   genderListSignal: string;
   institutionWorkSignal: string;
 
+  constructor() {
+
+  }
+
   statusLabel(): string {
     return this.lang('./en/index.js').statusLabel[this.person.relationship]
   }
@@ -150,17 +154,12 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
         console.log('emit saving event');
         this.save.emit(this.person);
       });
-      this.form.valueChanges.subscribe(value => {
-        console.log('emit form valid event');
-        this.valid.emit(this.form.valid);
-      })
     }
+    console.log('subscribing to form changes');
+    this.form.valueChanges.subscribe(data => console.log('form changes', data));
   }
 
   ngOnInit(){
-    // if(this.viewOnlyContainer){
-    //   this.viewOnlyContainer.createEmbeddedView(this.viewOnlyTempalte);
-    // }
   }
 
   removeChild(): void {

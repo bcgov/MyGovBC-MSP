@@ -1,6 +1,6 @@
-<h1>Check if you qualify for public health care insurance in BC</h1>
+<h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
 
-<h2>Do you currently live in British Columbia (i.e. Do you have an address here)?</h2>
+<h2 [innerHtml]="lang('./en/index.js').question1"></h2>
 <div class="btn-group" role="group">
     <button [class.msp-btn-radio]="liveInBC === true" (click)="setLiveInBC(true)" 
         type="button" class="btn btn-default" >Yes</button>
@@ -9,7 +9,7 @@
 </div>
 
 <div *ngIf="liveInBC === true">
-    <h2>Are you planning to stay in BC for the next 6 months or longer?</h2>
+    <h2 [innerHtml]="lang('./en/index.js').question2"></h2>
     <div class="btn-group" role="group">
         <button [class.msp-btn-radio]="stayLonger === true" (click)="setStayLonger(true)" 
             type="button" class="btn btn-default" >Yes</button>
@@ -18,7 +18,7 @@
     </div>
 
     <div *ngIf="stayLonger === true">
-        <h2> In the next 6 months, are you planning to be away from British Columbia for longer than 30 days?</h2>
+        <h2 [innerHtml]="lang('./en/index.js').question3"></h2>
         <div class="btn-group" role="group">
             <button [class.msp-btn-radio]="plannedAbsence === true" (click)="setPlannedAbsense(true)" 
                 type="button" class="btn btn-default" >Yes</button>
@@ -26,26 +26,34 @@
                 type="button" class="btn btn-default">No&nbsp;</button>
         </div>
 
-        <h3 class="text-danger" *ngIf="plannedAbsence === true">
-            You cannot be away from BC for more than 30 days during the first 6 months.
+        <h3 class="text-danger" *ngIf="plannedAbsence === true"
+            [innerHtml]="lang('./en/index.js').badAnswer3">
+
         </h3>
-        <div *ngIf="plannedAbsence === false">
-            <h3>
-                You are eligible for BC public health care insurance, this insurance is also known as BC Medical Service Plan (MSP).
-            </h3>
-            <h4>
-                Click the continue button below to complete the rest of your application.
-            </h4>
-        </div>
+
     </div>
 
     <div *ngIf="stayLonger === false">
-        <h3 class="text-danger">You must be planning to live in BC for at least 6 months in order to qualify for public health care insurance.</h3>
+        <h3 class="text-danger" [innerHtml]="lang('./en/index.js').badAnswer2"></h3>
     </div>    
 </div>
+<div *ngIf="plannedAbsence === false">
+    <h2 [innerHtml]="lang('./en/index.js').question4"></h2>
+    <h3 [innerHtml]="lang('./en/index.js').question4sub"></h3>
+    <div class="btn-group" role="group">
+        <button [class.msp-btn-radio]="uncommonSituation === true" (click)="setUncommonSituation(true)"
+                type="button" class="btn btn-default" >Yes</button>
+        <button [class.msp-btn-radio]="uncommonSituation === false" (click)="setUncommonSituation(false)"
+                type="button" class="btn btn-default">No&nbsp;</button>
+    </div>
+    <h3 class="text-danger" *ngIf="uncommonSituation === true"
+        [innerHtml]="lang('./en/index.js').badAnswer4">
+    </h3>
+</div>
+<div *ngIf="uncommonSituation === false" [innerHtml]="lang('./en/index.js').allRightAnswers">
+</div>
 
-<h3 *ngIf="liveInBC === false" class="text-danger">
-    You must currently live in BC in order to apply for public health insurance here.
+<h3 *ngIf="liveInBC === false" class="text-danger" [innerHtml]="lang('./en/index.js').badAnswer1">
 </h3>
 
 <hr>
@@ -53,7 +61,8 @@
 <div class="row">
     <div class="col-xs-2 col-xs-offset-9">
         <button class="btn btn-primary" 
-            [disabled] = "!(plannedAbsence === false && stayLonger === true && liveInBC === true)"
-            type="submit" routerLink="/msp/application/personal-info">Continue</button>
+            [disabled] = "!(plannedAbsence === false && stayLonger === true && liveInBC === true && uncommonSituation === false)"
+            type="submit" routerLink="/msp/application/personal-info"
+                [innerHtml]="lang('./en/index.js').continueButton"></button>
     </div>
 </div>

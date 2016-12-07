@@ -1,4 +1,4 @@
-import { Component, Inject, Injectable } from '@angular/core';
+import {Component, Inject, Injectable} from '@angular/core';
 import {MspApplication, Person} from '../../model/application.model';
 
 import DataService from '../../service/msp-data.service';
@@ -9,37 +9,48 @@ import DataService from '../../service/msp-data.service';
 })
 @Injectable()
 export class PrepareComponent {
-    private apt: Person;
-    constructor(private dataService: DataService){
-        this.apt = this.dataService.getMspApplication().applicant
-    }
+  lang = require('./i18n');
 
-    get stayLonger() {
-        return this.apt.stayForSixMonthsOrLonger;
-    }
+  private apt: Person;
 
-    get liveInBC(){
-        return this.apt.liveInBC;
-    }
+  constructor(private dataService: DataService) {
+    this.apt = this.dataService.getMspApplication().applicant
+  }
 
-    get plannedAbsence() {
-        return this.apt.plannedAbsence;
-    }
+  get stayLonger() {
+    return this.apt.stayForSixMonthsOrLonger;
+  }
 
-    setStayLonger(stay: boolean){
-        return this.apt.stayForSixMonthsOrLonger = stay;
-    }
+  get liveInBC() {
+    return this.apt.liveInBC;
+  }
 
-    setLiveInBC(live: boolean){
-        return this.apt.liveInBC = live;
-    }
+  get plannedAbsence() {
+    return this.apt.plannedAbsence;
+  }
 
-    setPlannedAbsense(leave: boolean){
-        this.apt.plannedAbsence = leave;
-    }
+  get uncommonSituation() {
+    return this.apt.uncommonSituation;
+  }
 
-    get applicant(): Person {
-        return this.apt;
-    }
+  setStayLonger(stay: boolean) {
+    return this.apt.stayForSixMonthsOrLonger = stay;
+  }
+
+  setLiveInBC(live: boolean) {
+    return this.apt.liveInBC = live;
+  }
+
+  setPlannedAbsense(leave: boolean) {
+    this.apt.plannedAbsence = leave;
+  }
+
+  setUncommonSituation(uncommon: boolean) {
+    this.apt.uncommonSituation = uncommon;
+  }
+
+  get applicant(): Person {
+    return this.apt;
+  }
 
 }
