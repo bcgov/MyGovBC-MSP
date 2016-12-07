@@ -63,6 +63,10 @@ After a make a few more edits, I double check my work at the test site.
 ## Developer Prerequisites
 * node@>=4.2.5
 * npm@>=3.10.0 (note: not the default of node@4.2.5)
+* typescript package
+```
+npm -g install typescript
+```
 
 ## Development
 It is recommended to install the app under `/client` folder of [MyGovBC-core-server](https://github.com/bcgov/MyGovBC-core-server).
