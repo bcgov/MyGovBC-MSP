@@ -51,12 +51,17 @@
     </div>
     <div class="row" *ngIf="person.documents.images.length > 0">
         <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning">
-            <msp-phn [phn]="person.previous_phn" [required]="false" [bcOnly]="true"
+            <msp-phn [phn]="person.previous_phn" [required]="false" [bcPhn]="true"
                      [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"></msp-phn>
         </div>
         <msp-province *ngIf="person.currentActivity === Activities.MovingFromProvince"
                       [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
-                      [province]="person.movedFromProvince"></msp-province>
+                      [province]="person.movedFromProvince"
+                      [exceptBC]="true"></msp-province>
+        <div class="col-sm-4" *ngIf="person.currentActivity === Activities.MovingFromProvince">
+            <msp-phn [phn]="person.previous_phn" [required]="false" [bcPhn]="false"
+                     [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"></msp-phn>
+        </div>
         <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning">
             <msp-arrival-date [arrivalLabel]="lang('./en/index.js').arrivalDateToBCLabel"
                               [year]="person.arrivalToBCYear"

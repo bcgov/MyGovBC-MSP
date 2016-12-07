@@ -16,6 +16,7 @@ describe('PHN Component', () => {
   it('should validate PHN properly', () => {
     let fixture = new Mod11CheckValidator();
 
+    fixture.bcPhn = true;
     expect(fixture.isValid("")).toBe(false, 'empty value should not pass');
     expect(fixture.isValid(null)).toBe(false, 'null should not pass');
     expect(fixture.isValid("A")).toBe(false, 'a letter should not pass');

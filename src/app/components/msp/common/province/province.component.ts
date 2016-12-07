@@ -11,6 +11,11 @@ export class MspProvinceComponent {
     lang = require('./i18n');
 
     @Input() province: string;
-
     @Input() provinceLabel: string = this.lang('./en/index.js').provinceLabel;
+
+  /**
+   * Use to remove BC from the list
+   * @type {boolean}
+   */
+  @Input() exceptBC: boolean = false;
 }

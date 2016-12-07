@@ -7,7 +7,7 @@
                 id="province" name="province" #provinceRef="ngModel"
                 required>
             <option value="AB">Alberta</option>
-            <option value="BC">British Columbia</option>
+            <option *ngIf="!exceptBC" value="BC">British Columbia</option>
             <option value="MB">Manitoba</option>
             <option value="NB">New Brunswick</option>
             <option value="NL">Newfoundland and Labrador</option>

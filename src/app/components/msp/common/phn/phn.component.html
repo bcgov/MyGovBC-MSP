@@ -7,7 +7,7 @@
                [(ngModel)]="phn"
                minlength="10"
                maxlength="13"
-               mod11Check
+               [(mod11Check)]="bcPhn"
                id='phn' name='phn' #phnRef="ngModel"
                class="form-control">
         <div *ngIf='phnRef.touched'>

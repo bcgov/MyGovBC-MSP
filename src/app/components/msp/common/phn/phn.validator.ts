@@ -1,14 +1,19 @@
-import { Directive, forwardRef } from '@angular/core';
+import {Directive, forwardRef, Input} from '@angular/core';
 import {Validator, NG_VALIDATORS, FormControl} from '@angular/forms';
 
 @Directive({
   selector: '[mod11Check][ngModel]',
   providers: [
-    { provide: NG_VALIDATORS, useExisting: forwardRef(() => Mod11CheckValidator), multi: true }
-  ]
+    { provide: NG_VALIDATORS, useExisting: forwardRef(() => Mod11CheckValidator), multi: true
+    }
+  ],
+  host: {'[attr.mod11Check]': 'mod11Check ? mod11Check : null'}
 })
 
 export class Mod11CheckValidator implements Validator {
+
+  @Input('mod11Check') bcPhn: boolean;
+
 
   validate(control: FormControl): {[key:string]:boolean;}  {
 
@@ -48,6 +53,17 @@ export class Mod11CheckValidator implements Validator {
 
     // Test for length
     if (phn.length != 10) return false;
+
+    // Look for a number that starts with 9 if BC only
+    if (this.bcPhn &&
+      phn[0] != '9') {
+      return false;
+    }
+    // Number cannot have 9
+    else if (!this.bcPhn &&
+      phn[0] == '9') {
+        return false;
+    }
 
     // Walk through each character
     for (let i = 0; i < phn.length; i++) {
