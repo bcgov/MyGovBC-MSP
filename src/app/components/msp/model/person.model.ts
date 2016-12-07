@@ -90,6 +90,11 @@ class Person {
   studiesDepartureMonth: number;
   studiesDepartureDay: number;
 
+  /**
+   * Social Insurance Number
+   */
+  sin: string;
+
   id:string;
   constructor(rel: Relationship){
     this.relationship = rel;

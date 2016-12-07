@@ -4,8 +4,9 @@
 <h2 [innerHTML]="lang('./en/index.js').applicantInfo"></h2>
 <msp-assistance-personal-details [person]="financialAssistApplication.applicant"></msp-assistance-personal-details>
 
-<h2 [innerHTML]="lang('./en/index.js').spouseInfo"></h2>
-<msp-assistance-personal-details [person]="financialAssistApplication.spouse"></msp-assistance-personal-details>
+<h2 *ngIf="financialAssistApplication.hasSpouseOrCommonLaw" [innerHTML]="lang('./en/index.js').spouseInfo"></h2>
+<msp-assistance-personal-details *ngIf="financialAssistApplication.hasSpouseOrCommonLaw"
+                                 [person]="financialAssistApplication.spouse"></msp-assistance-personal-details>
 
 <h2 [innerHTML]="lang('./en/index.js').contactInfo"></h2>
 
