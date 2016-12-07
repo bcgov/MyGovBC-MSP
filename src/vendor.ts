@@ -9,11 +9,11 @@ import '@angular/http'
 import '@angular/router'
 
 // RxJS
-import 'rxjs'
+require('rxjs');
 
 // node_modules
-import 'jquery'
-import "bootstrap"
+require('jquery');
+require('bootstrap');
 
 // local scripts
 //import "../assets/js/..."
