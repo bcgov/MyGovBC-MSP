@@ -1,13 +1,13 @@
 module.exports = {
-  pageTitle: 'Check if you qualify for public health care insurance in BC',
+  pageTitle: 'See if you qualify for public health care in B.C.',
 
   question1: 'Do you currently live in British Columbia (i.e. Do you have an address here)?',
   badAnswer1: 'You must currently live in BC in order to apply for public health insurance here.',
 
-  question2: 'Are you planning to stay in BC for the next 6 months or longer?',
+  question2: 'Are you planning to stay for six months or longer?',
   badAnswer2: 'You must be planning to live in BC for at least 6 months in order to qualify for public health care insurance.',
 
-  question3: 'In the next 6 months, are you planning to be away from British Columbia for longer than 30 days?',
+  question3: 'Are you planning to be away from B.C. for longer than 30 days in the next six months?',
   badAnswer3: 'You cannot be away from BC for more than 30 days during the first 6 months.',
 
   question4: 'Is anyone you\'re applying for',
