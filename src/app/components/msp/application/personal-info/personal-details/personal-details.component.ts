@@ -1,4 +1,4 @@
-import {
+import  {
   Component, Input, Output, OnChanges, EventEmitter,
   SimpleChange, ViewChild, AfterViewInit, OnInit,
   state, trigger, style
@@ -9,6 +9,8 @@ import {
   StatusRules, ActivitiesRules, StatusInCanada, Activities,
   DocumentRules, Documents, Relationship
 } from "../../../model/status-activities-documents";
+import {TemplateDrivenErrors} from "@angular/forms/src/directives/template_driven_errors";
+import {Valid} from "../../../common/valid";
 
 require('./personal-details.component.less');
 
@@ -45,7 +47,7 @@ require('./personal-details.component.less');
   }
 )
 
-export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnInit {
+export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnInit, Valid {
   lang = require('./i18n');
   langStatus = require('../../../common/status/i18n');
   langActivities = require('../../../common/activities/i18n');
@@ -63,6 +65,7 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
   @Output() notifyChildRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() notifySpouseRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() save: EventEmitter<Person> = new EventEmitter<Person>();
+  @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   shrinkOut: string;
   shrinkOutStatus: string;
@@ -147,6 +150,10 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
         console.log('emit saving event');
         this.save.emit(this.person);
       });
+      this.form.valueChanges.subscribe(value => {
+        console.log('emit form valid event');
+        this.valid.emit(this.form.valid);
+      })
     }
   }
 

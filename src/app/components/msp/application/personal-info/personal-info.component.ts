@@ -21,6 +21,11 @@ export class PersonalInfoComponent {
 
   }
 
+  valid(event: Object) {
+    console.log("event: " + event);
+    //this.form.valid = event;
+  }
+
   save(){
     console.log('save person from personal-info screen');
     this.dataService.saveMspApplication();

@@ -1,17 +1,20 @@
 <form #formRef="ngForm" novalidate>
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
-      (save) = "save($event)"></msp-personal-details>
+      (save) = "save($event)"
+      (valid)="valid($event)"></msp-personal-details>
     <div *ngIf = 'spouse'>
       <msp-personal-details [person] = 'spouse' [id] = 'spouse.id'
         (notifySpouseRemoval)="removeSpouse($event)"
-        (save) = "save($event)"></msp-personal-details>
+        (save) = "save($event)"
+        (valid)="valid($event)"></msp-personal-details>
     </div>
     <div *ngIf = 'children.length > 0'>
       <msp-personal-details *ngFor = "let child of children; let idx = index"
         [person] = 'child'
         [id] = 'child.id'
         (notifyChildRemoval)="removeChild($event,idx)"
-        (save) = "save($event)">
+        (save) = "save($event)"
+        (valid)="valid($event)">
       </msp-personal-details>
     </div>
     <hr>
