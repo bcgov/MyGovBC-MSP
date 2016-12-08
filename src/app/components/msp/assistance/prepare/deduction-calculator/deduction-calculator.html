@@ -141,13 +141,11 @@
     </button>
   </div>
 </div>
-<div class="row" *ngIf="!canContinue"
+<div class="row" *ngIf="!canContinue && !isPristine"
   style="margin-top: 10px;">
   <div class="col-xs-12">
     <div class="before-continue-warning">
-      <p style="font-size: smaller">
-          Please answer all highlighted questions on the form before continuing.
-      </p>
+      Please answer all highlighted questions on the form before continuing.
     </div>
   </div>
 </div>

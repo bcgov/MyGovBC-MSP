@@ -129,6 +129,11 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
      }
   }
 
+  get isPristine(){
+    return (this.application.ageOver65 !== true && this.application.ageOver65 !== false) && 
+      (this.application.netIncomelastYear === null || this.application.netIncomelastYear === undefined);
+  }
+
   get personalIncome(): number {
     if(this.application.netIncomelastYear === null){
       return null;

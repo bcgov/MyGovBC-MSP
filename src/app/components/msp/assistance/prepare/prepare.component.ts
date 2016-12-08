@@ -77,7 +77,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
       .distinctUntilChanged()
       .filter(
         (values) => {
-          // console.log('value changes: ', values);
+          // console.log('value changes: ', this.prepForm);
           let isEmptyObj = _.isEmpty(values);
           return !isEmptyObj;
         }
