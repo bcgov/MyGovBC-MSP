@@ -15,13 +15,46 @@ class Person {
 
   documents: PersonDocuments = new PersonDocuments();
 
+  /**
+   * Name section
+   */
   firstName: string;
   middleName: string;
   lastName: string;
+
+  get hasFullName():boolean {
+    return (this.firstName != null &&
+        this.middleName != null &&
+        this.lastName != null);
+  }
+  get fullName():string {
+    let fullName = this.firstName;
+    if (this.middleName != null &&
+      this.middleName.length > 0) {
+      fullName += " " + this.middleName;
+    }
+    fullName +=  " " + this.lastName;
+
+    return fullName;
+  }
+
+  /**
+   * Gender
+   */
   gender: Gender;
+
+  /**
+   * Date of birth section
+   */
   dob_day: number;
   dob_month: number;
   dob_year: number;
+
+  get hasDob(): boolean {
+    return (this.dob_year != null &&
+      this.dob_month != null &&
+      this.dob_day != null);
+  }
 
   arrivalToBCDay: number;
   arrivalToBCMonth: number;

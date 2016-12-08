@@ -1,42 +1,10 @@
-<h1>Review Your Application</h1>
-<h2>Personal Info</h2>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-sm-3">
-                <label>Applicant</label><br>
-                Greg Turner<br>
-                Born January 1st, 1928<br>
-                A Canadian Resident<br>
-                Returning from Abroad<br>
-            </div>
-            <div class="col-sm-3">
-                <label>Spouse</label><br>
-                Jackie Turner<br>
-                Born January 1st, 1928<br>
-                Canadian Resident<br>
-                Returning from Abroad<br>
-            </div>
-            <div class="col-sm-3">
-                <label>Child</label><br>
-                Sam Turner<br>
-                Born January 1st, 2000<br>
-                Canadian Resident<br>
-                Returning from Abroad<br>
-            </div>
-            <div class="col-sm-3">
-                <label>Child</label><br>
-                Ben Turner<br>
-                Born January 1st, 2005<br>
-                Canadian Resident<br>
-                Returning from Abroad<br>
-            </div>
-        </div>
+<h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
+
+       <msp-person-card [person]="application.applicant"></msp-person-card>
         <button class="btn btn-sm btn-default" type="submit" routerLink="/msp/application/personal-info">Change
             Personal Info
         </button>
-    </div>
-</div>
+
 <h2>Address</h2>
 <div class="panel panel-default">
     <div class="panel-body">

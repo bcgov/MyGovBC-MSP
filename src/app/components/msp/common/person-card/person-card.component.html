@@ -1,0 +1,56 @@
+<h2 [innerHtml]="lang('./en/index.js').relationshipLabel[person.relationship] +
+    ' ' + lang('./en/index.js').cardSuffix"></h2>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row" *ngIf="person.hasFullName">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').nameLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.fullName}}</strong>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="person.gender != null">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').genderLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{lang('./en/index.js').genderValues[person.gender]}}</strong>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="person.hasDob">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').dobLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{dobDisplay}}</strong>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="person.status != null">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').statusLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>
+                    {{langStatus('./en/index.js')[person.status]}}
+                    <span *ngIf="person.currentActivity != null">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        {{langActivities('./en/index.js')[person.currentActivity]}}
+                    </span>
+                </strong>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="person.movedFromProvince">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').movedFromProvinceLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{langProvince('./en/index.js')[person.movedFromProvince]}}</strong>
+            </div>
+        </div>
+    </div>
+</div>

@@ -26,6 +26,8 @@ import {MspGenderComponent} from './common/gender/gender.component';
 import {FileUploaderComponent} from './common/file-uploader/file-uploader.component';
 import {ThumbnailComponent} from './common/thumbnail/thumbnail.component';
 
+import {MspPersonCardComponent} from './common/person-card/person-card.component';
+
 import MspDataService from './service/msp-data.service';
 import {ApplicationComponent} from './application/application.component';
 import {PersonalDetailsComponent} from './application/personal-info/personal-details/personal-details.component';
@@ -159,6 +161,9 @@ let localStorageServiceConfig = {
     MspProgressBarComponent,
     FileUploaderComponent,
     ThumbnailComponent,
+
+    // View cards
+    MspPersonCardComponent,
 
     // Application
     ApplicationComponent,
