@@ -1,0 +1,13 @@
+<div class="row" *ngIf="address.hasValue">
+    <div class="col-xs-4" [innerHtml]="label">
+    </div>
+    <div class="col-xs-8">
+        <strong>
+            <span>{{address.addressLine1}}<br></span>
+            <span *ngIf="address.addressLine2 != null">{{address.addressLine2}}<br></span>
+            <span *ngIf="address.addressLine3 != null">{{address.addressLine3}}<br></span>
+            <span>{{address.city}}, {{langProvince('./en/index.js')[address.province]}}, {{address.postal}}<br></span>
+            <span>{{address.country}}</span>
+        </strong>
+    </div>
+</div>

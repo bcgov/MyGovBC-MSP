@@ -27,6 +27,7 @@ import {FileUploaderComponent} from './common/file-uploader/file-uploader.compon
 import {ThumbnailComponent} from './common/thumbnail/thumbnail.component';
 
 import {MspPersonCardComponent} from './common/person-card/person-card.component';
+import {MspAddressCardPartComponent} from './common/address-card-part/address-card-part.component';
 
 import MspDataService from './service/msp-data.service';
 import {ApplicationComponent} from './application/application.component';
@@ -164,6 +165,7 @@ let localStorageServiceConfig = {
 
     // View cards
     MspPersonCardComponent,
+    MspAddressCardPartComponent,
 
     // Application
     ApplicationComponent,

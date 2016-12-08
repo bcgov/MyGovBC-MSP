@@ -24,8 +24,13 @@ class Address {
   // Full english spelling of country
   country: string;
 
+  get hasValue(): boolean {
+    return (this.addressLine1 != null);
+  }
+
   constructor(){
   }
+
 }
 
 export {Address};

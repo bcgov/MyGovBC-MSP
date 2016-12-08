@@ -16,16 +16,6 @@ export class MspBirthDateComponent {
   // Create today for comparison in check later
   today = moment();
 
-  // Parse person's date
-  dob() {
-    return moment({
-      year: this.person.dob_year,
-      month: this.person.dob_month - 1, // moment use 0 index for month :(
-      day: this.person.dob_day,
-    });
-  }
-
-
   @Input() person: Person;
 
   /**
@@ -36,7 +26,7 @@ export class MspBirthDateComponent {
   isValid(): boolean {
 
     // Validate
-    if (!this.dob().isValid()) {
+    if (!this.person.dob.isValid()) {
       return false;
     }
 
@@ -46,7 +36,7 @@ export class MspBirthDateComponent {
   futureCheck(): boolean {
 
     // Check not in future
-    if (this.dob().isAfter(this.today)) {
+    if (this.person.dob.isAfter(this.today)) {
       return false;
     }
 
@@ -58,13 +48,13 @@ export class MspBirthDateComponent {
     // ChildUnder19 rules
     if (this.person.relationship === Relationship.ChildUnder19) {
       // must be less than 19 if not in school
-      if (!this.dob().isAfter(this.today.subtract(19, 'years'))) {
+      if (!this.person.dob.isAfter(this.today.subtract(19, 'years'))) {
         return false;
       }
     }
     else if (this.person.relationship === Relationship.Child19To24) {
       // if child student must be between 19 and 24
-      if (!this.dob().isBetween(this.today.subtract(19, 'years'), this.today.subtract(24,'years'))) {
+      if (!this.person.dob.isBetween(this.today.subtract(19, 'years'), this.today.subtract(24,'years'))) {
         return false;
       }
     }

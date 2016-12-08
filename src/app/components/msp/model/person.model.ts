@@ -1,6 +1,7 @@
 import {Relationship, StatusInCanada, Activities} from "./status-activities-documents";
 import {PersonDocuments} from "./person-document.model";
 import {Address} from "./address.model";
+import moment = require("moment");
 var sha1 =  require('sha1');
 
 enum Gender {
@@ -56,13 +57,37 @@ class Person {
       this.dob_day != null);
   }
 
+  get dob() {
+    return this.parseDate(this.dob_year, this.dob_month, this.dob_day);
+  }
+
   arrivalToBCDay: number;
   arrivalToBCMonth: number;
   arrivalToBCYear: number;
 
+  get hasArrivalToBC(): boolean {
+    return (this.arrivalToBCDay != null &&
+      this.arrivalToBCMonth != null &&
+      this.arrivalToBCYear != null);
+  }
+
+  get arrivalToBC() {
+    return this.parseDate(this.arrivalToBCYear, this.arrivalToBCMonth, this.arrivalToBCDay);
+  }
+
   arrivalToCanadaDay: number;
   arrivalToCanadaMonth: number;
   arrivalToCanadaYear: number;
+
+  get arrivalToCanada() {
+    return this.parseDate(this.arrivalToCanadaYear, this.arrivalToCanadaMonth, this.arrivalToCanadaDay);
+  }
+
+  get hasArrivalToCanada(): boolean {
+    return (this.arrivalToCanadaDay != null &&
+    this.arrivalToCanadaMonth != null &&
+    this.arrivalToCanadaYear != null);
+  }
 
   previous_phn: string;
   institutionWorkHistory: string;
@@ -73,6 +98,16 @@ class Person {
   dischargeYear: number;
   dischargeMonth: number;
   dischargeDay: number;
+
+  get hasDischarge(): boolean {
+    return (this.dischargeDay != null &&
+    this.dischargeMonth != null &&
+    this.dischargeYear != null);
+  }
+
+  get dischargeDate() {
+    return this.parseDate(this.dischargeYear, this.dischargeMonth, this.dischargeDay);
+  }
 
   /**
    * Which province the person has moved from
@@ -116,12 +151,32 @@ class Person {
   studiesFinishedMonth: number;
   studiesFinishedDay: number;
 
+  get hasStudiesFinished(): boolean {
+    return (this.studiesFinishedDay != null &&
+    this.studiesFinishedMonth != null &&
+    this.studiesFinishedYear != null);
+  }
+
+  get studiesFinishedDate() {
+    return this.parseDate(this.studiesFinishedYear, this.studiesFinishedMonth, this.studiesFinishedDay);
+  }
+
   /**
    * If school outside BC when did they leave
    */
   studiesDepartureYear: number;
   studiesDepartureMonth: number;
   studiesDepartureDay: number;
+
+  get hasStudiesDeparture(): boolean {
+    return (this.studiesDepartureDay != null &&
+    this.studiesDepartureMonth != null &&
+    this.studiesDepartureYear != null);
+  }
+
+  get studiesDepartureDate() {
+    return this.parseDate(this.studiesDepartureYear, this.studiesDepartureMonth, this.studiesDepartureDay);
+  }
 
   /**
    * Social Insurance Number
@@ -132,6 +187,14 @@ class Person {
   constructor(rel: Relationship){
     this.relationship = rel;
     this.id = sha1(new Date().getTime()).substring(0,9);
+  }
+
+  private parseDate (year: number, month: number, day: number) {
+    return moment({
+      year: year,
+      month: month - 1, // moment use 0 index for month :(
+      day: day,
+    });
   }
 }
 

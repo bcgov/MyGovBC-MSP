@@ -15,22 +15,6 @@ export class ReviewComponent {
 
   constructor(private dataService: DataService) {
     this.application = this.dataService.getMspApplication();
-
-
-
-    this.application.applicant.firstName = "Greg";
-    this.application.applicant.middleName = "W";
-    this.application.applicant.lastName = "Tur";
-
-    this.application.applicant.gender = Gender.Male;
-
-    this.application.applicant.dob_day = 2;
-    this.application.applicant.dob_month = 6;
-    this.application.applicant.dob_year = 1901;
-
-    this.application.applicant.status = StatusInCanada.CitizenAdult;
-    this.application.applicant.currentActivity = Activities.ReligousWorker;
-    this.application.applicant.movedFromProvince = "BC";
   }
 
 }

@@ -12,22 +12,11 @@ export class MspPersonCardComponent {
   lang = require('./i18n');
   langStatus = require('../status/i18n');
   langActivities = require('../activities/i18n');
+  langProvince = require('../province/i18n');
 
   @Input() person: Person;
 
   constructor() {
   }
 
-  // Parse person's date
-  dob() {
-    return moment({
-      year: this.person.dob_year,
-      month: this.person.dob_month - 1, // moment use 0 index for month :(
-      day: this.person.dob_day,
-    });
-  }
-
-  get dobDisplay(): string {
-    return this.dob().format("MMMM Do, YYYY");
-  }
 }

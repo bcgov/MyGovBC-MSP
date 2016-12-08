@@ -25,7 +25,7 @@
                 {{lang('./en/index.js').dobLabel}}
             </div>
             <div class="col-xs-8">
-                <strong>{{dobDisplay}}</strong>
+                <strong>{{person.dob.format("MMMM Do, YYYY")}}</strong>
             </div>
         </div>
 
@@ -52,5 +52,80 @@
                 <strong>{{langProvince('./en/index.js')[person.movedFromProvince]}}</strong>
             </div>
         </div>
+
+        <div class="row" *ngIf="person.previous_phn != null">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').previousHealthNumberLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.previous_phn}}</strong>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="person.hasArrivalToBC">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').arrivedToBCLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.arrivalToBC.format("MMMM Do, YYYY")}}</strong>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="person.hasArrivalToCanada">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').arrivedToCanadaLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.arrivalToCanada.format("MMMM Do, YYYY")}}</strong>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="person.institutionWorkHistory != null">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').institutionWorkHistoryLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{lang('./en/index.js').institutionWorkHistoryValues[person.institutionWorkHistory]}}</strong>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="person.hasDischarge">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').dischargeDateLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.dischargeDate.format("MMMM Do, YYYY")}}</strong>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="person.schoolName != null">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').schoolNameLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.schoolName}}</strong>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="person.hasStudiesFinished">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').studiesFinishedLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.studiesFinishedDate.format("MMMM Do, YYYY")}}</strong>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="person.hasStudiesDeparture">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').studiesDepartureLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.studiesDepartureDate.format("MMMM Do, YYYY")}}</strong>
+            </div>
+        </div>
+
+        <msp-address-card-part [address]="person.schoolAddress"
+            [label]="lang('./en/index.js').schoolAddressLabel"></msp-address-card-part>
     </div>
 </div>
