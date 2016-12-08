@@ -1,3 +1,9 @@
+.border-radius(@radius: 5px) {
+  -webkit-border-radius: @radius;
+     -moz-border-radius: @radius;
+          border-radius: @radius;
+}
+
 @table-border-height: 0;
 .deduction-calc-spacer-lg {
   margin-top: 55%; 
@@ -33,13 +39,28 @@
   color: white;
   padding: 5px;
   margin:0;
-  border-radius: 5px 5px 5px 5px;
-  -moz-border-radius: 5px 5px 5px 5px;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  // margin-left: 5px;
+  .border-radius;
   margin-right: 5px;
-  // margin-top: 5px;
 }
+
+.disqualify-message {
+  background: #FFC107;
+  color: white;
+  padding: 5px;
+  margin:0;
+  .border-radius;
+  margin-right: 5px;
+}
+
+.before-continue-warning {
+  color: #B71C1C;
+  padding: 5px;
+  margin:0;
+  .border-radius;
+  margin-right: 5px;
+  
+}
+
 
 table {
   border: 0 dashed red;

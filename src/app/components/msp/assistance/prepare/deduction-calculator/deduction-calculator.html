@@ -124,7 +124,11 @@
     </tbody>
   </table>
   <p class="qualify-message" *ngIf="likelyQualify">
-    It is likely that you will qualify for assistance.</p>
+    It is likely that you will qualify for assistance.
+  </p>
+  <p class="disqualify-message" *ngIf="!likelyQualify">
+    You are not qualified for MSP financial assistance.
+  </p>
 </div>
 
 <div class="row" *ngIf="likelyQualify && canContinue"
@@ -135,6 +139,16 @@
       style="font-size: smaller">
       Continue to apply for financial assistance
     </button>
+  </div>
+</div>
+<div class="row" *ngIf="!canContinue"
+  style="margin-top: 10px;">
+  <div class="col-xs-12">
+    <div class="before-continue-warning">
+      <p style="font-size: smaller">
+          Please answer all highlighted questions on the form before continuing.
+      </p>
+    </div>
   </div>
 </div>
 
