@@ -55,12 +55,12 @@ export default class MspDataService {
   }
 
   saveMspApplication():void {
+    console.log('saving msp application to local storage');
     let dto:MspApplicationDto = this.toMspApplicationTransferObject(this._mspApplication);
     this.localStorageService.set(this.mspAppStorageKey,dto);
   }
 
   saveFinAssistApplication():void {
-    console.log('saving msp application to local storage');
     let dto:FinancialAssistApplicationDto = this.toFinAssistDataTransferObject(this._finAssistApp);
     this.localStorageService.set(this.finAssistAppStorageKey,dto);
   }

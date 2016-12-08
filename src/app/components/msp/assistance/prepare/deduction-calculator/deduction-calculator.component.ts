@@ -87,9 +87,24 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     }
   }
 
+  get applicantIncomeInfoProvided() {
+    let result = (!!this.application.netIncomelastYear && !isNaN(this.application.netIncomelastYear) && (this.application.netIncomelastYear+'').trim() !== '');
+    let stamp = new Date().getTime();
+    // console.log( stamp + '- income info number : ' + this.application.netIncomelastYear);
+    // console.log(stamp + '- income info provided? : ' + result);
+    return result;
+  }
+  get spouseIncomeInfoProvided() {
+    let result = (!!this.application.spouseIncomeLine236 && !isNaN(this.application.spouseIncomeLine236) && (this.application.spouseIncomeLine236+'').trim() !== '');
+    return result;
+  }
+
   get incomeInfoProvided() {
-    return ((!isNaN(this.application.netIncomelastYear) && this.application.netIncomelastYear+'' !== '') || 
-      (!isNaN(this.application.spouseIncomeLine236) && this.application.spouseIncomeLine236+'' !== ''));
+    if(this.application.hasSpouseOrCommonLaw === true){
+      return this.spouseIncomeInfoProvided && this.applicantIncomeInfoProvided;
+    }else{
+      return this.applicantIncomeInfoProvided;
+    }
   }
 
   get likelyQualify() {
@@ -99,22 +114,21 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   get canContinue(){
     let spouseSpecified = 
       !(this.application.hasSpouseOrCommonLaw === null || this.application.hasSpouseOrCommonLaw === undefined);
+      
+    let spouseAgeSpecified = !(this.application.spouseAgeOver65 === null || this.application.spouseAgeOver65 === undefined);
+    let applicantAgeSpecified = !(this.application.ageOver65 === null || this.application.ageOver65 == undefined);
 
-    let spouseAgeSpecified = 
-      !(this.application.spouseAgeOver65 === null || this.application.spouseAgeOver65 === undefined);
-
-    if(!(this.application.ageOver65 === null || this.application.ageOver65 == undefined) && 
-        !_.isNil(this.application.hasSpouseOrCommonLaw)){
-        if(this.application.hasSpouseOrCommonLaw){
-          return spouseSpecified && spouseAgeSpecified;
-        }else{
-          return true;
-        }
-    }else{
-      return false;
-    }
+     if(this.incomeInfoProvided && applicantAgeSpecified && spouseSpecified){
+       if(this.application.hasSpouseOrCommonLaw){
+         return spouseAgeSpecified;
+       }else{
+         return true;
+       }
+     }else{
+       return false;
+     }
   }
-  
+
   get personalIncome(): number {
     if(this.application.netIncomelastYear === null){
       return null;

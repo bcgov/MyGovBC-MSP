@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
@@ -34,6 +35,8 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
   private _showChildrenInfo:boolean = false;
 
   private _likelyQualify:boolean = false;
+  private changeLog: string[] = [];
+  
 
   constructor(private dataService: DataService){
 
@@ -53,11 +56,13 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
       
   }
 
+  applicantIncomeChange(evt:any){
+    console.log('change!', evt);  
+  }
+  
+  
   ngAfterViewInit() {
-    Observable.fromEvent<Event>(this.incomeRef.nativeElement, 'input')
-      .map(x => {
-        console.log('input event', x);
-      });
+    console.log('income input field ', this.incomeRef);
 
     let ageOver$ = Observable.fromEvent<MouseEvent>(this.ageOver65Btn.nativeElement, 'click')
       .map( x=>{
@@ -68,10 +73,24 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
         this.dataService.finAssistApp.ageOver65 = false;
       });
 
-    this.prepForm.valueChanges.filter(
+    this.prepForm.valueChanges.debounceTime(250)
+      .distinctUntilChanged()
+      .filter(
         (values) => {
+          console.log('value changes: ', values);
           let isEmptyObj = _.isEmpty(values);
           return !isEmptyObj;
+        }
+      ).do(
+        (value)=>{
+          if(!value.netIncome || value.netIncome.trim().length === 0){
+            this.finAssistApp.netIncomelastYear = null;
+          }
+          if(!value.spouseIncomeLine236 || value.spouseIncomeLine236.trim().length === 0){
+            this.finAssistApp.spouseIncomeLine236 = null;
+          }
+
+          return value;
         }
       )
       .merge(ageOver$).merge(ageUnder$)

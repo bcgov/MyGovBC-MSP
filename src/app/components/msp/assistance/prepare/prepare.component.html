@@ -27,10 +27,11 @@
 
                     <div class="col-md-3 col-sm-4 col-xs-6 input-group">
                         <span class="input-group-addon">$</span>
-                        <input type="text" class="form-control" name="netIncome" 
+                        <input type="text" class="form-control" name="netIncome" id="netIncome"
                             [(ngModel)]="finAssistApp.netIncomelastYear"
                             #incomeRef="ngModel" 
                             pattern="(?=.)^(([1-9][0-9]{0,5}(,[0-9]{5})*)|[0-9]+)?(\.[0-9]{1,5})?$"
+                            (valueChanges) = "applicantIncomeChange($event)"
                             required maxlength="12">
                     </div>
                 </div>
@@ -41,7 +42,6 @@
             <pre>{{incomeRef.touched|json}}</pre>
             <pre>{{incomeRef.dirty|json}}</pre>
             <pre>{{incomeRef.value|json}}</pre>
-            <pre>{{formRef.dirty|json}}</pre>
         </div>
         <div *ngIf="(incomeRef.touched || incomeRef.dirty || (!!incomeRef.value && incomeRef.value.trim().length>0) || formRef.touched || !(finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined) ||
                          formRef.controls.spouseIncomeLine236?.valid || finAssistApp.spouseEligibleForDisabilityCredit)">
@@ -159,7 +159,8 @@
         </div>
         <p></p>
 
-        <div class="row" *ngIf="showChildrenInfo" style="margin-left: 5px;">
+        <div class="row" *ngIf="showChildrenInfo" style="margin-left: 5px;"
+            [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
             <div class="col-md-12">
                 <div class="form-horizontal">
                     <div class="form-group">
@@ -234,7 +235,8 @@
             </div>
         </div>
         <p></p>
-        <div class="row" [hidden]="!showDisabilityInfo" style="margin-left: 5px;">
+        <div class="row" [hidden]="!showDisabilityInfo" style="margin-left: 5px;"
+            [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="">Is anyone included on your public health insurance eligible for the Disability Credit as per Canada Revenue Agency (Lines 316, 318 or 326)? Please check all that apply.
@@ -306,22 +308,12 @@
     <div class="col-md-4">
         <deduction-calculator [application]="finAssistApp"
         [formValidationInfo]="formValidationInfo">
-
         </deduction-calculator>
         <p></p>
-        <!--<div class="row" *ngIf="likelyQualify">
-            <div class="col-xs-12">
-                <button class="btn btn-primary btn-block" type="submit" routerLink="/msp/assistance/personal-info"
-                        [innerHTML]="lang('./en/index.js').continueButton" style="font-size: smaller"></button>
-            </div>
-        </div>-->
-        
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-2 col-xs-offset-7">
-        <!--<button class="btn btn-primary" type="submit" routerLink="/msp/assistance/personal-info"
-                [innerHTML]="lang('./en/index.js').continueButton"></button>-->
     </div>
 </div>
