@@ -16,13 +16,13 @@ module.exports = {
     'Spouse\'s documents',
     'Child\'s documents',
     'Child\'s documents'],
-  documentInstructionsNote: '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Please include the entire page, corner to corner.  See visual examples of exactly what to include for the type of ID you\'re uploading.',
+  documentInstructionsNote: '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Please include the entire document, corner to corner. See some examples of what needs to be included.',
 
 
   nameHelpBlock: ['Enter your legal name and gender as it appears on the documents you provided',
-    'Enter your spouse\'s legal name and gender as it appears on the ID you uploaded above',
-    'Enter your child\'s legal name and gender as it appears on the ID you uploaded above',
-    'Enter your child\'s legal name and gender as it appears on the ID you uploaded above'],
+    'Enter your spouse\'s legal name and gender as it appears on the documents you provided',
+    'Enter your child\'s legal name and gender as it appears on the documents you provided',
+    'Enter your child\'s legal name and gender as it appears on the documents you provided'],
 
   phnLabel: ['Your previous Personal Health Number',
     'Spouse\'s previous Personal Health Number',
