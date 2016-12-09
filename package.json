@@ -13,15 +13,15 @@
     "postinstall": "typings install"
   },
   "devDependencies": {
-    "@angular/common": "^2.3.0",
-    "@angular/compiler": "^2.3.0",
-    "@angular/core": "^2.3.0",
-    "@angular/forms": "^2.3.0",
-    "@angular/http": "^2.3.0",
-    "@angular/platform-browser": "^2.3.0",
-    "@angular/platform-browser-dynamic": "^2.3.0",
-    "@angular/router": "^3.3.0",
-    "@angular/upgrade": "^2.3.0",
+    "@angular/common": "~2.2.1",
+    "@angular/compiler": "~2.2.1",
+    "@angular/core": "~2.2.1",
+    "@angular/forms": "~2.2.1",
+    "@angular/http": "~2.2.1",
+    "@angular/platform-browser": "~2.2.1",
+    "@angular/platform-browser-dynamic": "~2.2.1",
+    "@angular/router": "~3.2.1",
+    "@angular/upgrade": "~2.2.1",
     "angular2-template-loader": "^0.6.0",
     "assets-webpack-plugin": "^3.2.0",
     "async": "^2.0.1",
@@ -78,7 +78,7 @@
     "url-loader": "^0.5.6",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.16.2",
-    "zone.js": "^0.7.2"
+    "zone.js": "^0.6.25"
   },
   "engines": {
     "node": ">=0.12.0"
