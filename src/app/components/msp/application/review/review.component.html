@@ -1,10 +1,29 @@
 <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
 
-       <msp-person-card [person]="application.applicant"></msp-person-card>
-        <button class="btn btn-sm btn-default" type="submit" routerLink="/msp/application/personal-info">Change
-            Personal Info
+<div class="row">
+    <div class="col-lg-6">
+        <msp-person-card [person]="application.applicant"></msp-person-card>
+        <button class="btn btn-sm btn-default" type="submit"
+                routerLink="/msp/application/personal-info"
+                [innerHtml]="lang('./en/index.js').changePersonalInfoButton">
         </button>
-
+    </div>
+    <div class="col-lg-6" *ngIf="application.spouse != null">
+        <msp-person-card [person]="application.spouse"></msp-person-card>
+        <button class="btn btn-sm btn-default" type="submit"
+                routerLink="/msp/application/personal-info"
+                [innerHtml]="lang('./en/index.js').changePersonalInfoButton">
+        </button>
+    </div>
+</div>
+<div class="row" *ngIf="application.children != null && application.children.length > 0">
+    <div *ngFor="let child of application.children; let i = index;">
+        <div class="clearfix" *ngIf="i % 2 == 0"></div>
+        <div class="col-lg-6">
+            <msp-person-card [person]="child"></msp-person-card>
+        </div>
+    </div>
+</div>
 <h2>Address</h2>
 <div class="panel panel-default">
     <div class="panel-body">
@@ -19,27 +38,15 @@
         </button>
     </div>
 </div>
-<h2>Authorize Your Application</h2>
+<h2 [innerHtml]="lang('./en/index.js').agreementLabel"></h2>
 <p>
-    <small>
-        I have received information about MSP and agree to abide by the terms and conditions
-        of MSP. I understand the information I have given is collected under the authority of the Medicare
-        Protection Act and may be used to assess eligibility for other Ministry of Health Services programs,
-        and that practitioners who provide service(s) under MSP are required under the Medicare Protection
-        Act to release information relative to those services to MSP to support claims for benefits.
-    </small>
-</p>
-<p>
-    <small>
-        I declare that all information provided is true and I understand that the Ministry and/or Health Insurance
-        BC may verify this information with immigration authorities, law enforcement authorities and other public
-        authorities, agencies and persons as appropriate. I declare that all persons listed are residents of
-        British Columbia.
+    <small [innerHtml]="lang('./en/agreement.md')">
     </small>
 </p>
 <div class="checkbox checkbox-success checkbox-inline">
     <input class="input-lg" id="authorize" type="checkbox">
-    <label for="authorize">I agree</label>
+    <label for="authorize" [innerHtml]="lang('./en/index.js').agreeLabel"></label>
 </div>
 <hr>
-<button class="btn btn-primary" type="submit" routerLink="/msp/application/confirmation">Submit Application</button>
+<button class="btn btn-primary" type="submit" routerLink="/msp/application/confirmation"
+        [innerHtml]="lang('./en/index.js').submitButton"></button>
