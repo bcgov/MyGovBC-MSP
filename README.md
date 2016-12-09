@@ -4,7 +4,6 @@
 This is MyGovBC MSP AngularJS 2.x app.  It provides the following processes:
  1. MSP Application
  2. Premium Assistance Application
- 3. Name Change
 
 ## Browser Compatibility
 
