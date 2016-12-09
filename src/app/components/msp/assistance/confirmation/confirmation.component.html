@@ -1,33 +1,16 @@
 <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
+<div class="alert alert-info" role="alert">
+    <h2 class="to-upper">Confirmation #: 1872630</h2>
+</div>
 <h2 [innerHTML]="lang('./en/index.js').secondTitle"></h2>
 <ul>
     <li>
         <h3 [innerHTML]="lang('./en/index.js').printEmailInstructions"></h3>
-        <form>
-            <div class="row">
-                <div class="col-xs-12">
-                    <label for="email" [innerHTML]="lang('./en/index.js').emailAddressLabel"></label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-7">
-                    <input type="email" class="form-control" id="email">
-                </div>
-                <div class="col-xs-5">
-                    <!-- TODO: submit button not wrapping in xs view -->
-                    <button class="btn btn-primary" type="submit"
-                        [innerHTML]="lang('./en/index.js').sendEmailButton"></button>
-                </div>
-            </div>
-        </form>
     </li>
     <li>
         <h3 [innerHTML]="lang('./en/index.js').generalInstructions1"></h3>
     </li>
     <li>
         <h3 [innerHTML]="lang('./en/index.js').generalInstructions2"></h3>
-    </li>
-    <li>
-        <h3 [innerHTML]="lang('./en/index.js').generalInstructions3"></h3>
     </li>
 </ul>
