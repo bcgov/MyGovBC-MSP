@@ -1,6 +1,6 @@
 module.exports = {
   pageTitle: 'Your Address',
-  helpBlock: 'To qualify for health care, you must live in British Columbia.',
+  helpBlock: 'Enter your residential address &ndash; that’s the address you live at in B.C.',
   phoneLabel: 'Phone',
   continueButton: 'Continue'
 }
