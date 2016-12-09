@@ -16,9 +16,11 @@ export class ReviewComponent {
   constructor(private dataService: DataService) {
     this.application = this.dataService.getMspApplication();
 
+    /*
     this.application.addSpouse(new Person(Relationship.Spouse));
     this.application.spouse.firstName = "Jackie";
     this.application.spouse.lastName = "Turner";
+    this.application.spouse.documents.images.push()
 
 
     this.application.addChild(Relationship.Child19To24);
@@ -32,7 +34,7 @@ export class ReviewComponent {
     this.application.addChild(Relationship.Child19To24);
     this.application.children[2].firstName = "Bob";
     this.application.children[2].lastName = "Turner";
-
+    */
   }
 
 }

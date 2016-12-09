@@ -127,5 +127,12 @@
 
         <msp-address-card-part [address]="person.schoolAddress"
             [label]="lang('./en/index.js').schoolAddressLabel"></msp-address-card-part>
+
+        <div class="person-card-preview-zone">
+            <div *ngFor="let mspImage of person.documents.images" class="preview-item">
+                <msp-thumbnail [imageObject] ="mspImage" [reviewMode]="true">
+                </msp-thumbnail>
+            </div>
+        </div>
     </div>
 </div>

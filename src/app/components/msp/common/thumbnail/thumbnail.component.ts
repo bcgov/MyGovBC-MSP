@@ -11,6 +11,7 @@ require('./thumbnail.less')
 })
 export class ThumbnailComponent implements OnInit {
   @Input() imageObject: MspImage;
+  @Input() reviewMode: boolean = false;
   @Output('delete') deleteImage: EventEmitter<string> = new EventEmitter<string>();
   @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
 

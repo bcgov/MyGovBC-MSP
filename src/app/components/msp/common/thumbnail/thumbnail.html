@@ -2,7 +2,7 @@
   <img [src]="imageObject.fileContent" alt="" 
     [ngClass]="{'image-thumbnail': scaledWidth <= 300, 'image-thumbnail-width-priority': scaledWidth > 300}"
     (click)="showFullSizeView()">
-  <div class="action-strip">
+  <div class="action-strip" *ngIf="!reviewMode">
     <a href="javascript:void(0)" (click)="delete()">Delete</a>
   </div>
 </div>
