@@ -1,6 +1,6 @@
 module.exports = {
-  addressLine1Label: 'Address Line',
-  addressLine1ErrorIsRequired: 'Address Line is required',
+  addressLine1Label: 'Street',
+  addressLine1ErrorIsRequired: 'Street is required',
   addressLine1ErrorMaxLength: 'Address Line cannot be more than {length} characters',
 
   addressLine2Label: 'Address Line 2',
