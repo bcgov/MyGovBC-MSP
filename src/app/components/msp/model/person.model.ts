@@ -25,7 +25,6 @@ class Person {
 
   get hasFullName():boolean {
     return (this.firstName != null &&
-        this.middleName != null &&
         this.lastName != null);
   }
   get fullName():string {
