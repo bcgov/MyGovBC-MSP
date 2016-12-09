@@ -15,6 +15,7 @@ export class MspPersonCardComponent {
   langProvince = require('../province/i18n');
 
   @Input() person: Person;
+  @Input() editRouterLink: string;
 
   constructor() {
   }

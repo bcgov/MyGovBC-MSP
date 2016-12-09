@@ -20,4 +20,5 @@ module.exports = {
   studiesDepartureLabel: 'Date of departure:',
   schoolAddressLabel: 'School Address:',
 
+  editButton: 'Edit {label} & Documents',
 }
