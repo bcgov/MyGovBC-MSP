@@ -4,7 +4,8 @@
         <label [class.optional]="alternative" class="control-label" for="phone"
                [innerHTML]="getLabel()"></label>
         <input type="text" class="form-control"
-               [(ngModel)]="phoneNumber"
+               [ngModel]="phoneNumber"
+               (ngModelChange)="phoneNumber=$event;phoneNumberChange.emit($event)"
                id='phone' name='phone' #phoneRef="ngModel"
                required
                maxlength="12"

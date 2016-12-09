@@ -1,3 +1,4 @@
+<form #formRef="ngForm" novalidate>
 <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
 <p class="help-block" [innerHTML]="lang('./en/index.js').helpBlock"></p>
 <msp-address [residentialAddress]="mspApplication.residentialAddress"
@@ -5,12 +6,15 @@
              [mailingSameAsResidentialAddress]="mspApplication.mailingSameAsResidentialAddress"></msp-address>
 <div class="row">
     <div class="form-group col-sm-5">
-        <msp-phone [phoneNumber]="mspApplication.phoneNumber"></msp-phone>
+                <msp-phone [phoneNumber]="mspApplication.phoneNumber"
+                   (phoneNumberChange)="mspApplication.phoneNumber = $event"></msp-phone>
     </div>
 </div>
+
+</form>
 <div class="row">
     <div class="col-xs-2 col-xs-offset-9">
         <button class="btn btn-primary" type="submit" routerLink="/msp/application/review"
-            [innerHTML]="lang('./en/index.js').continueButton"></button>
+                [innerHTML]="lang('./en/index.js').continueButton"></button>
     </div>
 </div>
