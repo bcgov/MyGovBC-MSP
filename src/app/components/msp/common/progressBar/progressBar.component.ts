@@ -9,50 +9,50 @@ require('./progressBar.component.less');
 })
 
 export class MspProgressBarComponent {
-    @Input() public progressBarList: MspProgressBarItem[];
+  @Input() public progressBarList: MspProgressBarItem[];
 
-    constructor(@Inject('appConstants') appConstants: Object, public router: Router) {
-    }
+  constructor(@Inject('appConstants') appConstants: Object, public router: Router) {
+  }
 
-    isActiveRoute(route: string) {
-        return this.router.isActive(route, false);
-    }
+  /**
+   * Function to determine if any route in our progress bar is the current url
+   * @returns {MspProgressBarItem}
+   */
+  isAnyRoute() {
+    return this.progressBarList.find((item, index) => {
+      return this.router.url == item.routerLink;
+    });
+  }
 
-    isBeforeActiveRoute(route: string) {
-        var routeIndex = -1;
-        var activeRouteIndex = -1;
-        for(var i = 0; i < this.progressBarList.length; i++){
-            if (this.progressBarList[i].routerLink === route) {
-                routeIndex = i;
-            }
-            if (this.isActiveRoute(this.progressBarList[i].routerLink)) {
-                activeRouteIndex = i;
-            }
-        }
-        if (routeIndex < activeRouteIndex) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
+  isActiveRoute(route: string) {
+    return this.router.isActive(route, false);
+  }
 
-    isAfterActiveRoute(route: string) {
-        var routeIndex = -1;
-        var activeRouteIndex = -1;
-        for(var i = 0; i < this.progressBarList.length; i++){
-            if (this.progressBarList[i].routerLink === route) {
-                routeIndex = i;
-            }
-            if (this.isActiveRoute(this.progressBarList[i].routerLink)) {
-                activeRouteIndex = i;
-            }
-        }
-        if (routeIndex > activeRouteIndex) {
-            return true;
-        }
-        else {
-            return false;
-        }
+  isBeforeActiveRoute(route: string) {
+    let routeIndex = -1;
+    let activeRouteIndex = -1;
+    for (let i = 0; i < this.progressBarList.length; i++) {
+      if (this.progressBarList[i].routerLink === route) {
+        routeIndex = i;
+      }
+      if (this.isActiveRoute(this.progressBarList[i].routerLink)) {
+        activeRouteIndex = i;
+      }
     }
+    return routeIndex < activeRouteIndex;
+  }
+
+  isAfterActiveRoute(route: string) {
+    let routeIndex = -1;
+    let activeRouteIndex = -1;
+    for (let i = 0; i < this.progressBarList.length; i++) {
+      if (this.progressBarList[i].routerLink === route) {
+        routeIndex = i;
+      }
+      if (this.isActiveRoute(this.progressBarList[i].routerLink)) {
+        activeRouteIndex = i;
+      }
+    }
+    return routeIndex > activeRouteIndex;
+  }
 }
