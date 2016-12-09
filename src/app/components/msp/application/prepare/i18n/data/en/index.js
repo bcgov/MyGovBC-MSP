@@ -18,8 +18,7 @@ module.exports = {
   badAnswer4: 'You can submit an application with some assistance from one of our representatives - please contact' +
   'Health Insurance BC:<ul><li>(604) 683-7151 (Lower Mainland)</li><li>1-800-663-7100 (Elsewhere in B.C.)</li></ul>',
 
-  allRightAnswers: '<h3>You are eligible for BC public health care insurance, this insurance is also known as ' +
-  'BC Medical Service Plan (MSP).</h3><h4>Click the continue button below to complete the rest of your application.</h4>',
+  allRightAnswers: '',
 
   continueButton: 'Continue'
 }
