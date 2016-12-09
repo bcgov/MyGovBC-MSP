@@ -30,8 +30,6 @@ export class PersonalInfoComponent {
     console.log('save person from personal-info screen');
     this.dataService.saveMspApplication();
   }
-  onClick(): void{
-  }
 
   get application(): MspApplication {
     return this.dataService.getMspApplication();
