@@ -3,11 +3,11 @@
 <div class="row">
     <div class="col-md-6">
         <msp-person-card [person]="application.applicant"
-            [editRouterLink]="'/msp/application/personal-info'"></msp-person-card>
+                         [editRouterLink]="'/msp/application/personal-info'"></msp-person-card>
     </div>
     <div class="col-md-6" *ngIf="application.spouse != null">
         <msp-person-card [person]="application.spouse"
-            [editRouterLink]="'/msp/application/personal-info'"></msp-person-card>
+                         [editRouterLink]="'/msp/application/personal-info'"></msp-person-card>
     </div>
 </div>
 <div class="row" *ngIf="application.children != null && application.children.length > 0">
@@ -15,24 +15,14 @@
         <div class="clearfix" *ngIf="i % 2 == 0"></div>
         <div class="col-md-6">
             <msp-person-card [person]="child"
-                [editRouterLink]="'/msp/application/personal-info'"></msp-person-card>
+                             [editRouterLink]="'/msp/application/personal-info'"></msp-person-card>
         </div>
     </div>
 </div>
-<h2>Address</h2>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <label>Residential Address</label>
-        <address>3925 Winton St., Victoria, British Columbia, V89 3L4</address>
-        <label>Mailing Address</label>
-        <address>P.O. Box 87., Victoria, British Columbia, V89 3L4</address>
-        <label>Phone Number</label>
-        <div>250-686-6071</div>
-        <button class="btn btn-sm btn-default" type="submit" routerLink="/msp/application/address">Change
-            Address
-        </button>
-    </div>
-</div>
+<msp-contact-card [residentialAddress]="application.residentialAddress"
+                  [mailingAddress]="application.mailingAddress"
+                  [phone]="application.phoneNumber"
+                  [editRouterLink]="'/msp/application/address'"></msp-contact-card>
 <h2 [innerHtml]="lang('./en/index.js').agreementLabel"></h2>
 <p>
     <small [innerHtml]="lang('./en/agreement.md')">

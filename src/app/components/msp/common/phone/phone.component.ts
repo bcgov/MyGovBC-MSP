@@ -8,7 +8,7 @@ require('./phone.component.less')
 export class MspPhoneComponent {
     lang = require('./i18n');
 
-    @Input() phoneNumber: String;
+    @Input() phoneNumber: string;
     @Input('alternative') alternative = false;
 
     constructor(@Inject('appConstants') appConstants: Object) {
