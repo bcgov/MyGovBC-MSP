@@ -47,7 +47,7 @@ import {AssistanceReviewComponent} from './assistance/review/review.component';
 import {AssistanceAuthorizeSubmitComponent} from './assistance/authorize-submit/authorize-submit.component';
 import {AssistanceConfirmationComponent} from './assistance/confirmation/confirmation.component';
 import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calculator/deduction-calculator.component';
-
+import {EligibilityCardComponent} from './assistance/prepare/eligibility-card/eligibility-card.component';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 
 let localStorageServiceConfig = {
@@ -186,7 +186,9 @@ let localStorageServiceConfig = {
     AssistanceReviewComponent,
     AssistanceAuthorizeSubmitComponent,
     AssistanceConfirmationComponent,
-    DeductionCalculatorComponent
+    DeductionCalculatorComponent,
+
+    EligibilityCardComponent
   ],
 
   providers: [

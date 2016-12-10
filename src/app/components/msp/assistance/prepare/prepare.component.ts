@@ -77,7 +77,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
       .distinctUntilChanged()
       .filter(
         (values) => {
-          // console.log('value changes: ', this.prepForm);
+          // console.log('value changes: ', values);
           let isEmptyObj = _.isEmpty(values);
           return !isEmptyObj;
         }
@@ -88,6 +88,18 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
           }
           if(!value.spouseIncomeLine236 || value.spouseIncomeLine236.trim().length === 0){
             this.finAssistApp.spouseIncomeLine236 = null;
+          }
+          if(!value.line125){
+            this.finAssistApp.spouseDSPAmount_line125 = null;
+          }
+          if(!value.line214){
+            this.finAssistApp.claimedChildCareExpense_line214 = null;
+          }
+          if(!value.line117){
+            this.finAssistApp.reportedUCCBenefit_line117 = null;
+          }
+          if(!value.childrenCount || value.childrenCount.trim().length === 0){
+            this.finAssistApp.childrenCount = null;
           }
 
           return value;

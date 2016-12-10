@@ -10,6 +10,12 @@ export class Eligibility {
   premiumAssistanceYear:number;
   totalNetIncome:number;
 
+  /**
+   * Refer to original paper based form for exact definition of 
+   * deduction difference.
+   * 
+   * Tt is 50% of the child care expense claimed on last year's tax return.
+   */
   deductionDifference:number;
   totalDeductions:number;
   adjustedNetIncome:number;

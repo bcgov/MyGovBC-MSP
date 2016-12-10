@@ -4,10 +4,13 @@ import { DeductionCalculatorComponent } from
 import {FinancialAssistApplication} from '../../../model/financial-assist-application.model';
    
 @Component({
-  selector: 'eligibility-card',
+  selector: 'fin-assist-eligibility-card',
   templateUrl: './eligibility-card.html',
 
 })
-export class EligibilityCard {
+export class EligibilityCardComponent {
+  lang = require('./i18n');
+  
   @Input() application: FinancialAssistApplication;
+  @Input() editRouterLink: string;
 }

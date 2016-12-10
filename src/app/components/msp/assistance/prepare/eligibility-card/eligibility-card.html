@@ -1,0 +1,141 @@
+<h2>Eligibility</h2>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-8">
+          {{lang('./en/index.js').netAnnualIncome}}
+      </div>
+      <div class="col-xs-4">
+        <small>
+          <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+        </small>
+          <strong>{{this.application.netIncomelastYear}}</strong>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8">
+          {{lang('./en/index.js').ageOver65}}
+      </div>
+      <div class="col-xs-4">
+          <strong>{{this.application.ageOver65 === true? 'Yes': 'No'}}</strong>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8">
+          {{lang('./en/index.js').hasSpouseOrCommonLaw}}
+      </div>
+      <div class="col-xs-4">
+          <strong>{{this.application.hasSpouseOrCommonLaw === true? 'Yes': 'No'}}</strong>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8">
+          {{lang('./en/index.js').spouseAgeOver65}}
+      </div>
+      <div class="col-xs-4">
+          <strong>{{this.application.spouseAgeOver65 === true? 'Yes': 'No'}}</strong>
+      </div>
+    </div>
+    <div class="row" *ngIf="this.application.spouseIncomeLine236">
+      <div class="col-xs-8">
+          {{lang('./en/index.js').spouseAnnualIncome}}
+      </div>
+      <div class="col-xs-4">
+          <small>
+            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+          </small>
+          <strong>{{this.application.spouseIncomeLine236}}</strong>
+      </div>
+    </div>
+    <div class="row" *ngIf="this.application.childrenCount">
+      <div class="col-xs-8">
+          {{lang('./en/index.js').childCount}}
+      </div>
+      <div class="col-xs-4">
+          <strong>{{this.application.childrenCount}}</strong>
+      </div>
+    </div>
+    <div class="row" *ngIf="this.application.claimedChildCareExpense_line214">
+      <div class="col-xs-8">
+          {{lang('./en/index.js').claimedChildCareExpense_line214}}
+      </div>
+      <div class="col-xs-4">
+          <small>
+            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+          </small>
+          <strong>{{this.application.claimedChildCareExpense_line214}}</strong>
+      </div>
+    </div>    
+    
+    <div class="row" *ngIf="this.application.reportedUCCBenefit_line117">
+      <div class="col-xs-8">
+          {{lang('./en/index.js').reportedUCCBenefit_line117}}
+      </div>
+      <div class="col-xs-4">
+          <small>
+            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+          </small>
+          <strong>{{this.application.reportedUCCBenefit_line117}}</strong>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8">
+          {{lang('./en/index.js').disabilityCredit}}
+      </div>
+      <div class="col-xs-4">
+          <strong>{{this.application.selfDisabilityCredit === true? 'Yes':'No'}}</strong>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8">
+          {{lang('./en/index.js').spouseDisabilityCredit}}
+      </div>
+      <div class="col-xs-4">
+          <strong>{{this.application.spouseEligibleForDisabilityCredit === true? 'Yes':'No'}}</strong>
+      </div>
+    </div>
+    <div class="row" *ngIf="this.application.spouseDSPAmount_line125">
+      <div class="col-xs-8">
+          {{lang('./en/index.js').registeredDSP}}
+      </div>
+      <div class="col-xs-4">
+          <small>
+            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+          </small>
+          <strong>
+            {{this.application.spouseDSPAmount_line125}}
+          </strong>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8">
+          {{lang('./en/index.js').totalDeductions}}
+      </div>
+      <div class="col-xs-4">
+          <small>
+            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+          </small>
+          <strong>{{this.application.eligibility.totalDeductions}}</strong>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8">
+            {{lang('./en/index.js').adjustedIncome}}
+      </div>
+      <div class="col-xs-4">
+          <small>
+            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+          </small>
+          <strong>{{this.application.eligibility.adjustedNetIncome}}</strong>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+      <div class="col-xs-12">
+        <a *ngIf="editRouterLink" class="text-uppercase" type="submit" [routerLink]="editRouterLink"
+            [innerHTML]="lang('./en/index.js').editEligibilityInfo">
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,9 +1,10 @@
 import {Address} from "./address.model";
 import {Person} from "./person.model";
 import {Relationship} from "./status-activities-documents";
-
+import {Eligibility} from "./eligibility.model";
 export class FinancialAssistApplication {
 
+  eligibility: Eligibility = new Eligibility();
   /**
    * Person applying for assistance
    * @type {Person}

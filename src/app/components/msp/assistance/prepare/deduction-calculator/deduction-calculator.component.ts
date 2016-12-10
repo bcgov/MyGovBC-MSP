@@ -79,12 +79,11 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   }
   get adjustedIncome(): number{
     let adjusted:number = parseFloat(this.totalHouseholdIncome) - this.totalDeductions;
+    adjusted < 0? adjusted = 0 : adjusted = adjusted;
+    this.application.eligibility.adjustedNetIncome = adjusted;
+    this.application.eligibility.totalDeductions = this.totalDeductions;
 
-    if(adjusted < 0){
-      return 0;
-    }else{
-      return adjusted;
-    }
+    return adjusted;
   }
 
   get applicantIncomeInfoProvided() {

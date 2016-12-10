@@ -10,4 +10,6 @@ export default class FinancialAssistApplicationDto {
   selfDisabilityCredit:boolean;
   spouseEligibleForDisabilityCredit:boolean;
   spouseDSPAmount_line125:number;
+
+  
 }

@@ -1,12 +1,7 @@
 <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
 
-<h2 [innerHTML]="lang('./en/index.js').eligibilityInfo"></h2>
-<div class="panel panel-default">
-    <div class="panel-body">
-
-    </div>
-</div>
-
+<div class="row">
+    <div class="col-md-6">
 <h2 [innerHTML]="lang('./en/index.js').personalInfo"></h2>
 <div class="panel panel-default">
     <div class="panel-body">
@@ -86,5 +81,14 @@
         </a>
     </div>
 </div>
+    </div>
+    <div class="col-md-6">
+        <fin-assist-eligibility-card [application] = "application"
+            [editRouterLink]="'/msp/assistance/prepare'">
+        </fin-assist-eligibility-card>
+    </div>
+</div>
+
+
 <hr>
 <button class="btn btn-primary" type="submit" routerLink="/msp/assistance/authorize-submit" [innerHTML]="lang('./en/index.js').continueButton"></button>
