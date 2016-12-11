@@ -12,6 +12,9 @@
         <div class="col-xs-8">
             <strong>{{phone}}</strong>
         </div>
+        <div class="col-xs-8" *ngIf="altPhone">
+            <strong>{{altPhone}}</strong>
+        </div>
     </div>
         <a *ngIf="editRouterLink" class="text-uppercase" type="submit" [routerLink]="editRouterLink"
            [innerHTML]="lang('./en/index.js').editButton">

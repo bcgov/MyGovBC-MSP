@@ -12,6 +12,7 @@ export class MspContactCardComponent {
   @Input() residentialAddress: Address;
   @Input() mailingAddress: Address;
   @Input() phone: string;
+  @Input() altPhone: string;
   @Input() editRouterLink: string;
 
   constructor() {
