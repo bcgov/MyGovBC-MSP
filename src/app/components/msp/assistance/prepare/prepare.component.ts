@@ -62,7 +62,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
   
   
   ngAfterViewInit() {
-    console.log('income input field ', this.incomeRef);
+    // console.log('income input field ', this.incomeRef);
 
     let ageOver$ = Observable.fromEvent<MouseEvent>(this.ageOver65Btn.nativeElement, 'click')
       .map( x=>{

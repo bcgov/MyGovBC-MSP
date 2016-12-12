@@ -3,13 +3,13 @@
 <h2 [innerHTML]="lang('./en/index.js').declarationAndConsentTitle"></h2>
 <p [innerHTML]="lang('./en/declaration.md')"></p>
 <form>
-    <div class="strong" [innerHTML]="lang('./en/index.js').doYouAgreeLabel.replace('{name}', '[First Name] [Last Name]')"></div>
+    <div class="strong" [innerHTML]="questionApplicant"></div>
     <div class="checkbox checkbox-success checkbox-inline">
         <input class="input-lg" id="firstPersonAuthorize" type="checkbox">
         <label for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
     </div>
     <br><br>
-    <div class="strong" [innerHTML]="lang('./en/index.js').doYouAgreeLabel.replace('{name}', '[First Name] [Last Name]')"></div>
+    <div class="strong" [innerHTML]="questionSpouse"></div>
     <div class="checkbox checkbox-success checkbox-inline">
         <input class="input-lg" id="secondPersonAuthorize" type="checkbox">
         <label for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
