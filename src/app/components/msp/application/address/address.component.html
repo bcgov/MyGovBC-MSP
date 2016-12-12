@@ -1,16 +1,17 @@
 <form #formRef="ngForm" novalidate>
-<h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
-<p class="help-block" [innerHTML]="lang('./en/index.js').helpBlock"></p>
-<msp-address [residentialAddress]="mspApplication.residentialAddress"
-             [mailingAddress]="mspApplication.mailingAddress"
-             [mailingSameAsResidentialAddress]="mspApplication.mailingSameAsResidentialAddress"></msp-address>
-<div class="row">
-    <div class="form-group col-sm-5">
-                <msp-phone [phoneNumber]="mspApplication.phoneNumber"
-                   (phoneNumberChange)="mspApplication.phoneNumber = $event"></msp-phone>
+    <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
+    <p class="help-block" [innerHTML]="lang('./en/index.js').helpBlock"></p>
+    <msp-address [residentialAddress]="mspApplication.residentialAddress"
+                 [mailingAddress]="mspApplication.mailingAddress"
+                 [mailingSameAsResidentialAddress]="mspApplication.mailingSameAsResidentialAddress"
+                 (mailingSameAsResidentialAddressChange)="mspApplication.mailingSameAsResidentialAddress = $event">
+    </msp-address>
+    <div class="row">
+        <div class="form-group col-sm-5">
+            <msp-phone [phoneNumber]="mspApplication.phoneNumber"
+                       (phoneNumberChange)="mspApplication.phoneNumber = $event"></msp-phone>
+        </div>
     </div>
-</div>
-
 </form>
 <div class="row">
     <div class="col-xs-2 col-xs-offset-9">

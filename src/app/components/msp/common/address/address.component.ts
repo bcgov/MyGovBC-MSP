@@ -1,4 +1,4 @@
-import {Component, Inject, Input, NgModule} from '@angular/core';
+import {Component, Inject, Input, NgModule, Output, EventEmitter} from '@angular/core';
 import {Address} from "../../model/address.model";
 
 require('./address.component.less');
@@ -20,6 +20,7 @@ export class MspAddressComponent {
    */
   @Input() residentialAddress: Address;
   @Input() mailingSameAsResidentialAddress: boolean;
+  @Output() mailingSameAsResidentialAddressChange = new EventEmitter<boolean>();
   @Input() mailingAddress: Address;
   @Input('mailingOnly') mailingOnly: boolean;
   @Input() mailingAddressHeading:string = this.lang('./en/index.js').mailingAddressHeading
@@ -95,10 +96,12 @@ export class MspAddressComponent {
 
   useDifferentMailingAddress() {
     this.mailingSameAsResidentialAddress = false;
+    this.mailingSameAsResidentialAddressChange.emit(this.mailingSameAsResidentialAddress);
   }
 
   useSameMailingAddress() {
     this.mailingSameAsResidentialAddress = true;
     this.mailingAddress = new Address();
+    this.mailingSameAsResidentialAddressChange.emit(this.mailingSameAsResidentialAddress);
   }
 }

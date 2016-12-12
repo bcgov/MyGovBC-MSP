@@ -78,16 +78,16 @@
         <div class="form-group col-sm-12">
             <span [innerHtml]="lang('./en/index.js').mailingAddressSameQuestion"></span>
             <div class="btn-group" role="group">
-                <button [class.btn-info]="mailingSameAsResidentialAddress" (click)="useSameMailingAddress()"
+                <button [class.msp-btn-radio]="mailingSameAsResidentialAddress" (click)="useSameMailingAddress()"
                         [disabled]="mailingSameAsResidentialAddress" type="button" class="btn btn-default">Yes
                 </button>
-                <button [class.btn-info]="!mailingSameAsResidentialAddress" (click)="useDifferentMailingAddress()"
+                <button [class.msp-btn-radio]="!mailingSameAsResidentialAddress" (click)="useDifferentMailingAddress()"
                         [disabled]="!mailingSameAsResidentialAddress" type="button" class="btn btn-default">No&nbsp;</button>
             </div>
         </div>
     </div>
 
-    <div [hidden]="mailingSameAsResidentialAddress && !mailingOnly">
+    <div *ngIf="mailingSameAsResidentialAddress && !mailingOnly">
         <h2 [innerHtml]="mailingAddressHeading"></h2>
 
         <div class="row">
