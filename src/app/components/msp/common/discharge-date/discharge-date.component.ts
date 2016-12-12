@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core'
+import {Component, Input, EventEmitter, Output} from '@angular/core'
 import {Person} from "../../model/person.model";
 import * as moment from 'moment';
 
@@ -26,8 +26,11 @@ export class MspDischargeDateComponent {
 
 
   @Input() year: number;
+  @Output() yearChange = new EventEmitter<number>();
   @Input() month: number;
+  @Output() monthChange = new EventEmitter<number>();
   @Input() day: number;
+  @Output() dayChange = new EventEmitter<number>();
 
   /**
    * Determine if date of birth is valid for the given person

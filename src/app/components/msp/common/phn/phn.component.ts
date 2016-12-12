@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, EventEmitter, Output} from '@angular/core';
 
 require('./phn.component.less');
 
@@ -14,6 +14,7 @@ export class MspPhnComponent {
   @Input() required: boolean = true;
   @Input() phnLabel: string = this.lang("./en/index.js").phnLabel;
   @Input() phn: string;
+  @Output() phnChange = new EventEmitter<string>();
   @Input() bcPhn: boolean = false;
 
 

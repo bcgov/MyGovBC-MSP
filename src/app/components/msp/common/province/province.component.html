@@ -3,7 +3,8 @@
          [ngClass]="{'has-error': !formRef.controls.province?.valid && provinceRef.touched}">
         <label for="province" [innerHtml]="provinceLabel"></label>
         <select class="form-control"
-                [(ngModel)]='province'
+                [ngModel]='province'
+                (ngModelChange)="province=$event;provinceChange.emit($event)"
                 id="province" name="province" #provinceRef="ngModel"
                 required>
             <option value="AB">{{lang('./en/index.js').AB}}</option>

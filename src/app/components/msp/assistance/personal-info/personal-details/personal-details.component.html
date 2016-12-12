@@ -12,7 +12,9 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <msp-phn [bcPhn]="true"></msp-phn>
+                        <msp-phn [phn]="person.previous_phn"
+                                 (phnChange)="person.previous_phn = $event"
+                                 [bcPhn]="true"></msp-phn>
                     </div>
                 </div>
             </div>

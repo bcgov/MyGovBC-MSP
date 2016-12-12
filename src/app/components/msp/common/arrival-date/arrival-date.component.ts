@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core'
+import {Component, Input, Output, EventEmitter} from '@angular/core'
 import * as moment from 'moment';
 
 require('./arrival-date.component.less');
@@ -15,8 +15,11 @@ export class MspArrivalDateComponent {
   today = moment();
 
   @Input() year: number;
+  @Output() yearChange = new EventEmitter<number>();
   @Input() month: number;
+  @Output() monthChange = new EventEmitter<number>();
   @Input() day: number;
+  @Output() dayChange = new EventEmitter<number>();
   @Input() arrivalLabel: string = this.lang('./en/index.js').arrivalDateLabel;
 
   // Parse person's date

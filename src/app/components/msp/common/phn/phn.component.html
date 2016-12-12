@@ -4,7 +4,8 @@
         <label class="control-label optional" for="phn"
                [innerHTML]="phnLabel"></label>
         <input type="text"
-               [(ngModel)]="phn"
+               [ngModel]="phn"
+               (ngModelChange)="phn=$event;phnChange.emit($event)"
                minlength="10"
                maxlength="13"
                [(mod11Check)]="bcPhn"

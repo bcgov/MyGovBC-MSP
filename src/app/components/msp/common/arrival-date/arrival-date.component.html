@@ -4,7 +4,8 @@
     <div class="form-group"
          [ngClass]="{'has-error': !formRef.controls.month?.valid && monthRef.touched}">
         <select class="form-control monthSelect"
-                [(ngModel)]="month"
+                [ngModel]="month"
+                (ngModelChange)="month=$event;monthChange.emit($event)"
                 id="month" name="month" #monthRef="ngModel"
                 required>
             <option value="1">January</option>
@@ -21,14 +22,16 @@
             <option value="12">December</option>
         </select>
         <input type="number" class="form-control dayInput"
-               [(ngModel)]="day"
+               [ngModel]="day"
+               (ngModelChange)="day=$event;dayChange.emit($event)"
                id="day" name="day" #dayRef="ngModel"
                placeholder="day"
                required
                maxlength="2">
         <input type="number"
                class="form-control yearInput"
-               [(ngModel)]="year"
+               [ngModel]="year"
+               (ngModelChange)="year=$event;yearChange.emit($event)"
                id="year" name="year" #yearRef="ngModel"
                placeholder="year"
                required

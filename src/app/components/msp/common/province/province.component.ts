@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core'
+import {Component, Input, EventEmitter, Output} from '@angular/core'
 
 require('./province.component.less')
 @Component({
@@ -11,6 +11,7 @@ export class MspProvinceComponent {
     lang = require('./i18n');
 
     @Input() province: string;
+    @Output() provinceChange = new EventEmitter<string>();
     @Input() provinceLabel: string = this.lang('./en/index.js').provinceLabel;
 
   /**
