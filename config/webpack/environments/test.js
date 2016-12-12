@@ -28,6 +28,11 @@ module.exports = {
         loader: 'null'
       },
       {
+        test: /\.less$/,
+        exclude: helpers.root('src', 'app'),
+        loader: "style!css!postcss!less"
+      },
+      {
         test: /\.css$/,
         include: helpers.root('src', 'app'),
         loader: 'raw'
