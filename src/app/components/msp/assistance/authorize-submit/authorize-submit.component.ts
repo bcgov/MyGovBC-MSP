@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import MspDataService from '../../service/msp-data.service';
+import {FinancialAssistApplication} from "../../model/financial-assist-application.model";
 @Component({
   templateUrl: './authorize-submit.component.html'
 })
 export class AssistanceAuthorizeSubmitComponent {
   lang = require('./i18n');
 
-  constructor(private dataSerivce:MspDataService){
-
+  application: FinancialAssistApplication;
+  constructor(private dataService: MspDataService){
+    this.application = this.dataService.finAssistApp;
   }
+
   get questionApplicant(){
     return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.applicantName);    
   }
@@ -16,9 +19,9 @@ export class AssistanceAuthorizeSubmitComponent {
     return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.spouseName);    
   }
   get applicantName(){
-    return this.dataSerivce.finAssistApp.applicant.firstName + ' ' + this.dataSerivce.finAssistApp.applicant.lastName;
+    return this.application.applicant.firstName + ' ' + this.application.applicant.lastName;
   }
   get spouseName(){
-    return this.dataSerivce.finAssistApp.spouse.firstName + ' ' + this.dataSerivce.finAssistApp.spouse.lastName;
+    return this.application.spouse.firstName + ' ' + this.application.spouse.lastName;
   }
 }

@@ -9,11 +9,13 @@
         <label for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
     </div>
     <br><br>
-    <div class="strong" [innerHTML]="questionSpouse"></div>
-    <div class="checkbox checkbox-success checkbox-inline">
-        <input class="input-lg" id="secondPersonAuthorize" type="checkbox">
-        <label for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
-    </div>
+    <template *ngIf="application.hasSpouseOrCommonLaw">
+        <div class="strong" [innerHTML]="questionSpouse"></div>
+        <div class="checkbox checkbox-success checkbox-inline">
+            <input class="input-lg" id="secondPersonAuthorize" type="checkbox">
+            <label for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+        </div>
+    </template>
 </form>
 <div class="row">
     <div class="col-xs-2 col-xs-offset-9">
