@@ -39,7 +39,11 @@ export class MspAddressComponent {
   }
 
   get useResidentialAddressLine2() {
-    return this._useResidentialAddressLine2;
+    if (this._useResidentialAddressLine2 ||
+       this.residentialAddress.addressLine2) {
+      return true;
+    }
+    return false;
   }
 
   set useResidentialAddressLine2(value: boolean) {
@@ -50,7 +54,11 @@ export class MspAddressComponent {
   }
 
   get useResidentialAddressLine3() {
-    return this._useResidentialAddressLine3;
+    if (this._useResidentialAddressLine3 ||
+      this.residentialAddress.addressLine3) {
+      return true;
+    }
+    return false;
   }
 
   set useResidentialAddressLine3(value: boolean) {
@@ -73,7 +81,11 @@ export class MspAddressComponent {
   }
 
   get useMailingAddressLine2() {
-    return this._useMailingAddressLine2;
+    if (this._useMailingAddressLine2 ||
+      this.mailingAddress.addressLine2) {
+      return true;
+    }
+    return false;
   }
 
   set useMailingAddressLine2(value: boolean) {
@@ -84,7 +96,11 @@ export class MspAddressComponent {
   }
 
   get useMailingAddressLine3() {
-    return this._useMailingAddressLine3;
+    if (this._useMailingAddressLine3 ||
+      this.mailingAddress.addressLine3) {
+      return true;
+    }
+    return false;
   }
 
   set useMailingAddressLine3(value: boolean) {

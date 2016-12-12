@@ -15,6 +15,8 @@ module.exports = {
   cityErrorIsRequired: 'City is required',
   cityErrorMaxLength: 'City cannot be more than {length} characters',
 
+  provinceLabel: 'Province',
+
   postalCodeLabel: 'Postal Code',
   postalCodeErrorIsRequired: 'Postal Code is required',
   postalCodeErrorPattern: 'Postal Code must be in format V1B 2C3 or V1B2C3',
