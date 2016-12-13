@@ -15,6 +15,7 @@
 @gray-lighter:           lighten(@gray-base, 93.5%); // #eee
 
 @brand-primary:         #036;
+@brand-secondary:       #fcba19;
 @brand-success:         #5cb85c;
 @brand-info:            #5bc0de;
 @brand-warning:         #f0ad4e;
@@ -48,11 +49,11 @@
 @font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
 @font-family-base:        @font-family-sans-serif;
 
-@font-size-base:          15px;
+@font-size-base:          14px;
 @font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
 @font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
 
-@font-size-h1:            30px;
+@font-size-h1:            28px;
 @font-size-h2:            floor((@font-size-base * 1.5)); // ~21px
 @font-size-h3:            ceil((@font-size-base * 1.25)); // ~18px
 @font-size-h4:            ceil((@font-size-base * 1.07)); // ~15px
@@ -143,6 +144,7 @@
 //## For each of Bootstrap's buttons, define text, background and border color.
 
 @btn-font-weight:                normal;
+@btn-font-size:                  @font-size-large;
 
 @btn-default-color:              #333;
 @btn-default-bg:                 #f4f6f9;
@@ -213,7 +215,7 @@
 @input-height-small:             (floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2);
 
 //** `.form-group` margin
-@form-group-margin-bottom:       10px;
+@form-group-margin-bottom:       20px;
 
 @legend-color:                   @gray-dark;
 @legend-border-color:            #e5e5e5;
