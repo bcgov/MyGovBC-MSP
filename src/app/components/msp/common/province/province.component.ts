@@ -25,7 +25,6 @@ export class MspProvinceComponent {
    * Auto complete
    */
   private dataService: CompleterData;
-  private searchStr: string;
   private provinceData = this.lang('./en/index.js').provinceData;
   private stateData = this.lang('./en/index.js').stateData;
   private get provinceStateData() {

@@ -1,5 +1,6 @@
 import {Component, Inject, Input, NgModule, Output, EventEmitter} from '@angular/core';
 import {Address} from "../../model/address.model";
+import {CompleterData, CompleterService} from "ng2-completer";
 
 require('./address.component.less');
 
@@ -25,6 +26,16 @@ export class MspAddressComponent {
   @Input('mailingOnly') mailingOnly: boolean;
   @Input() mailingAddressHeading:string = this.lang('./en/index.js').mailingAddressHeading
 
+  /**
+   * Auto complete for country
+   */
+  private dataService: CompleterData;
+  private countryData = this.lang('./en/index.js').countryData;
+
+  constructor(private completerService: CompleterService) {
+
+    this.dataService = completerService.local(this.countryData, 'name', 'name');
+  }
 
   /**
    * When user click 'Need another address line?'

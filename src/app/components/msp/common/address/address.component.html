@@ -164,10 +164,12 @@
             <div class="form-group col-sm-4"
                  [ngClass]="{'has-error': !formRef.controls.mailingAddressCountry?.valid && mailingAddressCountryRef.touched}">
                 <label for="mailingAddressCountry" [innerHtml]="lang('./en/index.js').countryLabel"></label>
-                <input [(ngModel)]='mailingAddress.country' type="text" class="form-control"
-                       id="mailingAddressCountry" name="mailingAddressCountry" #mailingAddressCountryRef="ngModel"
-                       required
-                       maxlength="30">
+                <ng2-completer [(ngModel)]="mailingAddress.country"
+                               [dataService]="dataService" [minSearchLength]="0"
+                               [autoMatch]="true"
+                               [maxChars]="30"
+                               required
+                               id="mailingAddressCountry" name="mailingAddressCountry" #mailingAddressCountryRef="ngModel"></ng2-completer>
                 <div *ngIf='mailingAddressCountryRef.touched'>
                     <div class="text-danger" *ngIf="mailingAddressCountryRef.errors?.required"
                          [innerHtml]="lang('./en/index.js').countryErrorIsRequired"></div>
