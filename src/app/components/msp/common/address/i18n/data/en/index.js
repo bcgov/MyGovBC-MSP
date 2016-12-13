@@ -16,6 +16,7 @@ module.exports = {
   cityErrorMaxLength: 'City cannot be more than {length} characters',
 
   provinceLabel: 'Province',
+  provinceStateLabel: 'Province or State',
 
   postalCodeLabel: 'Postal Code',
   postalCodeErrorIsRequired: 'Postal Code is required',

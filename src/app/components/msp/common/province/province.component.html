@@ -2,25 +2,10 @@
     <div class="form-group col-sm-5"
          [ngClass]="{'has-error': !formRef.controls.province?.valid && provinceRef.touched}">
         <label for="province" [innerHtml]="provinceLabel"></label>
-        <select class="form-control"
-                [ngModel]='province'
-                (ngModelChange)="province=$event;provinceChange.emit($event)"
-                id="province" name="province" #provinceRef="ngModel"
-                required>
-            <option value="AB">{{lang('./en/index.js').AB}}</option>
-            <option *ngIf="!exceptBC" value="BC">{{lang('./en/index.js').BC}}</option>
-            <option value="MB">{{lang('./en/index.js').MB}}</option>
-            <option value="NB">{{lang('./en/index.js').NB}}</option>
-            <option value="NL">{{lang('./en/index.js').NL}}</option>
-            <option value="NS">{{lang('./en/index.js').NS}}</option>
-            <option value="NU">{{lang('./en/index.js').NU}}</option>
-            <option value="NT">{{lang('./en/index.js').NT}}</option>
-            <option value="ON">{{lang('./en/index.js').ON}}</option>
-            <option value="PE">{{lang('./en/index.js').PE}}</option>
-            <option value="QC">{{lang('./en/index.js').QC}}</option>
-            <option value="SK">{{lang('./en/index.js').SK}}</option>
-            <option value="YT">{{lang('./en/index.js').YT}}</option>
-        </select>
+        <ng2-completer [(ngModel)]="province" (ngModelChange)="province=$event;provinceChange.emit($event)"
+                       [dataService]="dataService" [minSearchLength]="0"
+                       [autoMatch]="true"
+                       id="province" name="province" #provinceRef="ngModel"></ng2-completer>
         <div *ngIf='provinceRef.touched'>
             <div class="text-danger" *ngIf="provinceRef.errors?.required"
                  [innerHtml]="lang('./en/index.js').provinceErrorIsRequired"></div>

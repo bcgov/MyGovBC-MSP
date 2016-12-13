@@ -93,5 +93,8 @@
   "engines": {
     "node": ">=4.2.5"
   },
-  "private": false
+  "private": false,
+  "dependencies": {
+    "ng2-completer": "^0.3.2"
+  }
 }

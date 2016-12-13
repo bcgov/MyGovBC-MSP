@@ -8,6 +8,7 @@ import {CommonModule} from '@angular/common';
 import { AlertModule } from 'ng2-bootstrap/components/alert';
 import { ProgressbarModule } from 'ng2-bootstrap/components/progressbar';
 import { ModalModule } from 'ng2-bootstrap/components/modal';
+import { Ng2CompleterModule } from "ng2-completer";
 
 import {MspComponent} from './msp.component';
 import {LandingComponent} from './landing/landing.component';
@@ -68,6 +69,8 @@ let localStorageServiceConfig = {
     AlertModule,
     ProgressbarModule,
     ModalModule,
+    Ng2CompleterModule,
+
     RouterModule.forChild([
       {
         path: 'msp',
