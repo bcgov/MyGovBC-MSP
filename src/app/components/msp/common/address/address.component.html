@@ -87,7 +87,7 @@
         </div>
     </div>
 
-    <div *ngIf="mailingSameAsResidentialAddress && !mailingOnly">
+    <div *ngIf="!mailingSameAsResidentialAddress || mailingOnly">
         <h2 [innerHtml]="mailingAddressHeading"></h2>
 
         <div class="row">
