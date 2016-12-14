@@ -1,13 +1,13 @@
 <!--<div class="deduction-calc-spacer-lg hidden-xs hidden-sm"></div>-->
 <div class="deduction-calc-spacer-sm hidden-xs hidden-sm"></div>
 <!--<div class="deduction-calc-spacer-lg hidden-sm hidden-md hidden-lg"></div>-->
-<div class="deduction-calc" *ngIf="incomeInfoProvided">
-  <h2>Eligibility calculator</h2>
+<div class="deduction-calc" *ngIf="applicantIncomeInfoProvided">
+  <h2 [innerHTML]="lang('./en/index.js').eligibilityCalculatorTitle"></h2>
   <table>
     <tbody>
       <tr>
         <td class="deduction-table-cell-margin">
-          <h4><strong>Total household income</strong></h4>
+          <h4 [innerHTML]="lang('./en/index.js').totalHouseholdIncome"></h4>
         </td>
         <td class="deduction-table-cell-padding deduction-table-cell-margin">
           {{totalHouseholdIncome | currency: 'USD': true}}
@@ -17,8 +17,8 @@
     </tbody>
   </table>
   
-  <hr style="border: 1px solid black;" *ngIf="totalDeductions >0">
-  <table *ngIf="totalDeductions >0">
+  <hr style="border: 1px solid black;">
+  <table>
     <tr>
       <th>
         <h4><strong>Deductions</strong></h4>
@@ -123,15 +123,15 @@
 
     </tbody>
   </table>
-  <p class="qualify-message" *ngIf="likelyQualify">
+  <p class="qualify-message" *ngIf="applicantIncomeInfoProvided && incomeUnderThreshhold">
     It is likely that you will qualify for assistance.
   </p>
-  <p class="disqualify-message" *ngIf="!likelyQualify">
+  <p class="disqualify-message" *ngIf="applicantIncomeInfoProvided && !incomeUnderThreshhold">
     Your adjusted income exceeds the maximum. It appears you are not eligible for MSP financial assistance.
   </p>
 </div>
 
-<div class="row" *ngIf="likelyQualify && canContinue"
+<div class="row" *ngIf="incomeUnderThreshhold && canContinue"
   style="margin-top: 10px;">
   <div class="col-xs-12">
     <button class="btn btn-primary btn-block"

@@ -20,9 +20,10 @@ require('./deduction-calculator.less');
 
 export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   @Input() application: FinancialAssistApplication;
-  @Input() formValidationInfo: any;
   @Output() updateQualify:EventEmitter<Boolean> = new EventEmitter<Boolean>();
   private qualificationThreshhold:number = 42000;
+  lang = require('./i18n');
+  
   constructor(){
   }
 
@@ -98,16 +99,16 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     return result;
   }
 
-  get incomeInfoProvided() {
-    if(this.application.hasSpouseOrCommonLaw === true){
-      return this.spouseIncomeInfoProvided && this.applicantIncomeInfoProvided;
-    }else{
-      return this.applicantIncomeInfoProvided;
-    }
-  }
+  // get incomeInfoProvided() {
+  //   if(this.application.hasSpouseOrCommonLaw === true){
+  //     return this.spouseIncomeInfoProvided && this.applicantIncomeInfoProvided;
+  //   }else{
+  //     return this.applicantIncomeInfoProvided;
+  //   }
+  // }
 
-  get likelyQualify() {
-    return this.incomeInfoProvided && this.adjustedIncome <= this.qualificationThreshhold;
+  get incomeUnderThreshhold() {
+    return this.adjustedIncome <= this.qualificationThreshhold;
   }
 
   get canContinue(){
@@ -117,7 +118,13 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     let spouseAgeSpecified = !(this.application.spouseAgeOver65 === null || this.application.spouseAgeOver65 === undefined);
     let applicantAgeSpecified = !(this.application.ageOver65 === null || this.application.ageOver65 == undefined);
 
-     if(this.incomeInfoProvided && applicantAgeSpecified && spouseSpecified){
+    // console.log('=========================================');
+    // console.log('applicantIncomeInfoProvided: ' + this.applicantIncomeInfoProvided);
+    // console.log('applicantAgeSpecified: ' + applicantAgeSpecified);
+    // console.log('spouseSpecified: ' + spouseSpecified);
+    // console.log('hasSpouseOrCommonLaw: ' + this.application.hasSpouseOrCommonLaw);
+    // console.log('spouseAgeSpecified: ' + spouseAgeSpecified);
+     if(this.applicantIncomeInfoProvided && applicantAgeSpecified && spouseSpecified){
        if(this.application.hasSpouseOrCommonLaw){
          return spouseAgeSpecified;
        }else{
@@ -144,7 +151,8 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   }
 
   get spouseIncome(): number {
-    let n= (!!this.application.spouseIncomeLine236 && !isNaN(this.application.spouseIncomeLine236))? this.application.spouseIncomeLine236 : 0;
+    // let n= (!!this.application.spouseIncomeLine236 && !isNaN(this.application.spouseIncomeLine236))? this.application.spouseIncomeLine236 : 0;
+    let n= this.spouseIncomeInfoProvided? this.application.spouseIncomeLine236 : 0;
     return parseFloat(n+'');
   }
 

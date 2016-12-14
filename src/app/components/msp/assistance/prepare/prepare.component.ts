@@ -44,8 +44,8 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
 
   ngOnInit(){
     this._showDisabilityInfo = 
-    !_.isNil(this.dataService.finAssistApp.selfDisabilityCredit) ||
-    !_.isNil(this.dataService.finAssistApp.spouseEligibleForDisabilityCredit) ||
+    this.dataService.finAssistApp.selfDisabilityCredit === true ||
+    this.dataService.finAssistApp.spouseEligibleForDisabilityCredit === true ||
     !_.isNil(this.dataService.finAssistApp.spouseDSPAmount_line125);
 
     this.showChildrenInfo =       

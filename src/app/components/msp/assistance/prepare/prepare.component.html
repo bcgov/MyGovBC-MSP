@@ -235,8 +235,7 @@
             </div>
         </div>
         <p></p>
-        <div class="row" [hidden]="!showDisabilityInfo" style="margin-left: 5px;"
-            [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
+        <div class="row" [hidden]="!showDisabilityInfo" style="margin-left: 5px;">
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="">Is anyone included on your public health insurance eligible for the Disability Credit as per Canada Revenue Agency (Lines 316, 318 or 326)? Please check all that apply.
@@ -306,8 +305,7 @@
     </div>
 
     <div class="col-md-4">
-        <deduction-calculator [application]="finAssistApp"
-        [formValidationInfo]="formValidationInfo">
+        <deduction-calculator [application]="finAssistApp">
         </deduction-calculator>
         <p></p>
     </div>
