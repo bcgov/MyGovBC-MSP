@@ -3,25 +3,26 @@
 <div class="row">
     <div class="col-md-6">
         <msp-person-card [person]="application.applicant"
-                        [editRouterLink]="'/msp/assistance/personal-info'"></msp-person-card>
+                         [editRouterLink]="'/msp/assistance/personal-info'"></msp-person-card>
         <msp-person-card [person]="application.spouse" *ngIf="application.hasSpouseOrCommonLaw"
-                        [editRouterLink]="'/msp/assistance/personal-info'"></msp-person-card>
+                         [editRouterLink]="'/msp/assistance/personal-info'"></msp-person-card>
 
 
-        <msp-contact-card 
-        [residentialAddress]="application.residentialAddress"
-        [mailingAddress]="application.mailingAddress"
-                        [phone]="application.phoneNumber"
-                        [editRouterLink]="'/msp/assistance/personal-info'"></msp-contact-card>
+        <msp-contact-card
+                [residentialAddress]="application.residentialAddress"
+                [mailingAddress]="application.mailingAddress"
+                [phone]="application.phoneNumber"
+                [editRouterLink]="'/msp/assistance/personal-info'"></msp-contact-card>
 
     </div>
     <div class="col-md-6">
-        <fin-assist-eligibility-card [application] = "application"
-            [editRouterLink]="'/msp/assistance/prepare'">
+        <fin-assist-eligibility-card [application]="application"
+                                     [editRouterLink]="'/msp/assistance/prepare'">
         </fin-assist-eligibility-card>
     </div>
 </div>
 
 
 <hr>
-<button class="btn btn-primary" type="submit" routerLink="/msp/assistance/authorize-submit" [innerHTML]="lang('./en/index.js').continueButton"></button>
+<button class="btn btn-primary" type="submit" routerLink="/msp/assistance/authorize-submit"
+        [innerHTML]="lang('./en/index.js').continueButton"></button>

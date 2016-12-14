@@ -22,10 +22,6 @@
 </div>
 <msp-address [mailingAddress]="financialAssistApplication.mailingAddress"
              [mailingOnly]="true"></msp-address>
-
-<div class="row">
-    <div class="col-xs-2 col-xs-offset-9">
-        <button class="btn btn-primary" type="submit" routerLink="/msp/assistance/review"
-                [innerHTML]="lang('./en/index.js').continueButton"></button>
-    </div>
-</div>
+<hr>
+<button class="btn btn-primary" type="submit" routerLink="/msp/assistance/review"
+        [innerHTML]="lang('./en/index.js').continueButton"></button>
