@@ -26,6 +26,21 @@ a {
   text-decoration: none;
 }
 
+.btn.disabled, .btn[disabled] {
+    color:@gray-light;
+    background-color:@gray-lighter;
+    border-color:@gray-lighter;    
+}
+
+// Change button hover color
+.btn-primary:hover {
+  background-color: lighten(@brand-secondary, 10%);
+}
+
+.btn-disabled:hover, .btn-primary[disabled]:hover {
+    background-color: @grey-lighter;
+}
+
 // body
 body, html{
   height:100%;
@@ -65,10 +80,6 @@ footer .navbar-nav > li > a {
   padding-bottom: 0;
 }
 
-// Change button hover color
-.btn-primary:hover {
-  background-color: lighten(@brand-secondary, 10%);
-}
 
 // FROM: https://github.com/flatlogic/awesome-bootstrap-checkbox
 // Checkboxes
