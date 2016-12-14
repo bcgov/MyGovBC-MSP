@@ -14,7 +14,7 @@
     "dev": "cross-env NODE_ENV=development node .",
     "dev-build": "cross-env NODE_ENV=development webpack -d --colors",
     "build": "cross-env NODE_ENV=production webpack -p --display-error-details",
-    "test": "NODE_ENV=development karma start",
+    "test": "cross-env NODE_ENV=development karma start",
     "postinstall": "typings install"
   },
   "devDependencies": {
