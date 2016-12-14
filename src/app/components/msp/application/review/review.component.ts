@@ -15,26 +15,18 @@ export class ReviewComponent {
 
   constructor(private dataService: DataService) {
     this.application = this.dataService.getMspApplication();
-
-    /*
-    this.application.addSpouse(new Person(Relationship.Spouse));
-    this.application.spouse.firstName = "Jackie";
-    this.application.spouse.lastName = "Turner";
-    this.application.spouse.documents.images.push()
-
-
-    this.application.addChild(Relationship.Child19To24);
-    this.application.children[0].firstName = "Sam";
-    this.application.children[0].lastName = "Turner";
-
-    this.application.addChild(Relationship.Child19To24);
-    this.application.children[1].firstName = "Ben";
-    this.application.children[1].lastName = "Turner";
-
-    this.application.addChild(Relationship.Child19To24);
-    this.application.children[2].firstName = "Bob";
-    this.application.children[2].lastName = "Turner";
-    */
   }
 
+  get questionApplicant(){
+    return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.applicantName);
+  }
+  get questionSpouse(){
+    return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.spouseName);
+  }
+  get applicantName(){
+    return this.application.applicant.firstName + ' ' + this.application.applicant.lastName;
+  }
+  get spouseName(){
+    return this.application.spouse.firstName + ' ' + this.application.spouse.lastName;
+  }
 }
