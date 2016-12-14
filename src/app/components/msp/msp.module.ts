@@ -23,6 +23,7 @@ import {MspArrivalDateComponent} from './common/arrival-date/arrival-date.compon
 import {MspDischargeDateComponent} from './common/discharge-date/discharge-date.component';
 import {MspSchoolDateComponent} from './common/schoolDate/school-date.component';
 import {Mod11CheckValidator} from './common/phn/phn.validator';
+import {SinCheckValidator} from './common/sin/sin.validator';
 import {MspGenderComponent} from './common/gender/gender.component';
 import {FileUploaderComponent} from './common/file-uploader/file-uploader.component';
 import {ThumbnailComponent} from './common/thumbnail/thumbnail.component';
@@ -162,6 +163,7 @@ let localStorageServiceConfig = {
     MspDischargeDateComponent,
     MspSchoolDateComponent,
     Mod11CheckValidator,
+    SinCheckValidator,
     MspGenderComponent,
     MspProgressBarComponent,
     FileUploaderComponent,

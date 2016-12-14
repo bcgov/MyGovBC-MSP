@@ -6,8 +6,7 @@ import {Validator, NG_VALIDATORS, FormControl} from '@angular/forms';
   providers: [
     { provide: NG_VALIDATORS, useExisting: forwardRef(() => SinCheckValidator), multi: true
     }
-  ],
-  host: {'[attr.mod11Check]': 'mod11Check ? mod11Check : null'}
+  ]
 })
 
 export class SinCheckValidator implements Validator {
@@ -19,7 +18,9 @@ export class SinCheckValidator implements Validator {
 
     // pre req checks
     if (sin == null ||
-      sin.length < 1) return null;
+      sin.length < 1) {
+      return null;
+    }
 
     if (this.isValid(sin)) {
       // return null for no errors
@@ -32,7 +33,6 @@ export class SinCheckValidator implements Validator {
   }
 
   isValid (sin: string): boolean {
-
     // pre req checks
     if (sin == null ||
       sin.length < 1) return false;
@@ -44,11 +44,13 @@ export class SinCheckValidator implements Validator {
     // Clean up string
     sin = sin.trim();
 
-    // Rip off spaces
-    sin = sin.replace(" ", "");
+    // Rip off spaces a regex
+    let regexp = new RegExp('[ ]', 'g');
+    sin = sin.replace(regexp, "");
 
     // Test for length
     if (sin.length != 9) return false;
+
 
     // Walk through each character
     for (let i = 0; i < sin.length; i++) {
@@ -72,7 +74,7 @@ export class SinCheckValidator implements Validator {
       sum += result;
     }
 
-    // The sum must be divisble by 10
+    // The sum must be divisible by 10
     if (sum % 10 != 0) {
       return false;
     }
