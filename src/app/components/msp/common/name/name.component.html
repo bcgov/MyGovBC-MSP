@@ -23,7 +23,7 @@
         <div class="col-sm-4">
             <div class="form-group"
                  [ngClass]="{'has-error': !formRef.controls.middleName?.valid && middleNameRef.touched}">
-                <label class="control-label optional" for="middleName">Middle Name</label>
+                <label class="control-label optional" for="middleName" [innerHtml]="lang('./en/index.js').middleNameLabel"></label>
                 <input type="text"
                        [(ngModel)]="person.middleName"
                        id='middleName' name='middleName' #middleNameRef="ngModel"
@@ -41,7 +41,7 @@
         <div class="col-sm-4">
             <div class="form-group"
                  [ngClass]="{'has-error': !formRef.controls.lastName?.valid && lastNameRef.touched}">
-                <label class="control-label" for="lastName">Last Name</label>
+                <label class="control-label" for="lastName" [innerHtml]="lang('./en/index.js').lastNameLabel"></label>
                 <input type="text"
                        [(ngModel)]="person.lastName"
                        id="lastName" name='lastName' #lastNameRef="ngModel"
