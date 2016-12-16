@@ -1,4 +1,4 @@
-import {Component, Inject, Input, EventEmitter, Output} from '@angular/core'
+import {Component, Input, EventEmitter, Output} from '@angular/core'
 
 require('./phone.component.less')
 @Component({
@@ -11,9 +11,6 @@ export class MspPhoneComponent {
     @Input() phoneNumber: string;
     @Output() phoneNumberChange = new EventEmitter<string>();
     @Input('alternative') alternative = false;
-
-    constructor(@Inject('appConstants') appConstants: Object) {
-    }
 
     getLabel() {
       if (this.alternative) {
