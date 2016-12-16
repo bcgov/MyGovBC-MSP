@@ -31,5 +31,6 @@ describe('Application Address Component', () => {
         let fixture = TestBed.createComponent(AddressComponent);
         fixture.componentInstance.mspApplication = new MspApplication();
         expect(fixture.componentInstance instanceof AddressComponent).toBe(true, 'should create AddressComponent');
+
     });
 })

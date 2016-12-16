@@ -2,7 +2,7 @@
 var HtmlWebpackPlugin = require("html-webpack-plugin")
 var path = require('path')
 var _ = require('lodash')
-let localConfig = function () {
+var localConfig = function () {
   return {}
 }
 try {
@@ -10,7 +10,7 @@ try {
 }
 catch (e) {
 }
-let serviceConfig = function () {
+var serviceConfig = function () {
   return {}
 }
 try {
