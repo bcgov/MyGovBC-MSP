@@ -1,5 +1,6 @@
-import { TestBed } from '@angular/core/testing'
+import {TestBed, inject, async} from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
+
 
 import { AddressComponent } from './address.component'
 import MspDataService from '../../service/msp-data.service';
@@ -27,10 +28,10 @@ describe('Application Address Component', () => {
             ]
         })
     });
+
     it ('should work', () => {
         let fixture = TestBed.createComponent(AddressComponent);
         fixture.componentInstance.mspApplication = new MspApplication();
         expect(fixture.componentInstance instanceof AddressComponent).toBe(true, 'should create AddressComponent');
-
     });
 })
