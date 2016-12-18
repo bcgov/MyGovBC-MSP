@@ -159,8 +159,8 @@
         </div>
         <p></p>
 
-        <div class="row" *ngIf="showChildrenInfo" style="margin-left: 5px;"
-            [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
+        <div class="row" style="margin-left: 5px;"
+            [hidden]="!showChildrenInfo || incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
             <div class="col-md-12">
                 <div class="form-horizontal">
                     <div class="form-group">
