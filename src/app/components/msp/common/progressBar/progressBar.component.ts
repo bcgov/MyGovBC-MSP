@@ -1,5 +1,5 @@
-import {Component, Inject, Input} from '@angular/core';
-import {Routes, Route, Router} from '@angular/router';
+import {Component, Input} from '@angular/core';
+import {Router} from '@angular/router';
 import {MspProgressBarItem} from "./progressBarDataItem.model";
 require('./progressBar.component.less');
 
@@ -11,7 +11,7 @@ require('./progressBar.component.less');
 export class MspProgressBarComponent {
   @Input() public progressBarList: MspProgressBarItem[];
 
-  constructor(@Inject('appConstants') appConstants: Object, public router: Router) {
+  constructor(public router: Router) {
   }
 
   /**
