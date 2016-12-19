@@ -23,7 +23,7 @@ module.exports = function (config) {
     // - Firefox
     // - IE
     browsers: ['PhantomJS'],
-    browserNoActivityTimeout: 30000,
+    browserNoActivityTimeout: 60000,
     singleRun: true,
     webpack: webpackConfig,
     webpackMiddleware: {
