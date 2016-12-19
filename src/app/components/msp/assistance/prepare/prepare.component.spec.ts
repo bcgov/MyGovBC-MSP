@@ -7,7 +7,7 @@ import {DeductionCalculatorComponent} from './deduction-calculator/deduction-cal
 import MspDataService from '../../service/msp-data.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 
-describe('App', () => {
+describe('AssistancePrepareComponent', () => {
   let localStorageServiceConfig = {
       prefix: 'ca.bc.gov.msp',
       storageType: 'localStorage'

@@ -11,8 +11,6 @@ import 'rxjs/add/operator/catch';
 import DataService from '../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 
-require('./prepare.component.less');
-
 @Component({
   templateUrl: './prepare.component.html'
 })
