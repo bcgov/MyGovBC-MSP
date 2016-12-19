@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core'
 import {Address} from "../../model/address.model";
-require('./address-card-part.component.less');
 
 @Component({
   selector: 'msp-address-card-part',

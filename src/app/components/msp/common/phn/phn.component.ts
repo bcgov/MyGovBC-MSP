@@ -1,7 +1,5 @@
 import {Component, Input, EventEmitter, Output} from '@angular/core';
 
-require('./phn.component.less');
-
 @Component({
   selector: 'msp-phn',
   templateUrl: './phn.component.html',

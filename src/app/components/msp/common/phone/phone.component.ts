@@ -1,6 +1,5 @@
 import {Component, Input, EventEmitter, Output} from '@angular/core'
 
-require('./phone.component.less')
 @Component({
   selector: 'msp-phone',
   templateUrl: './phone.component.html'

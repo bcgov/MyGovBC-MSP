@@ -1,6 +1,5 @@
 import {Component, Inject, Input} from '@angular/core'
 import {Person} from "../../model/person.model";
-require('./name.component.less');
 
 @Component({
   selector: 'msp-name',

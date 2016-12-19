@@ -1,7 +1,6 @@
 import {Component, Input, EventEmitter, Output} from '@angular/core';
 import {CompleterService, CompleterData} from 'ng2-completer';
 
-require('./province.component.less')
 @Component({
   selector: 'msp-province',
   templateUrl: './province.component.html'

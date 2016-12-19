@@ -1,7 +1,6 @@
 import {Component, Input} from '@angular/core'
 import {Person, Gender} from "../../model/person.model";
 
-require('./gender.component.less')
 @Component({
   selector: 'msp-gender',
   templateUrl: './gender.component.html'
