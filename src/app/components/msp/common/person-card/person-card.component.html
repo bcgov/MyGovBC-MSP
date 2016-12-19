@@ -134,8 +134,8 @@
                 </msp-thumbnail>
             </div>
         </div>
-        <a *ngIf="editRouterLink" class="text-uppercase" type="submit" [routerLink]="editRouterLink"
+        <button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
            [innerHTML]="lang('./en/index.js').editButton.replace('{label}', lang('./en/index.js').relationshipLabel[person.relationship])">
-        </a>
+        </button>
     </div>
 </div>

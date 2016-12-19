@@ -16,8 +16,8 @@
             <strong>{{altPhone}}</strong>
         </div>
     </div>
-        <a *ngIf="editRouterLink" class="text-uppercase" type="submit" [routerLink]="editRouterLink"
+        <button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
            [innerHTML]="lang('./en/index.js').editButton">
-        </a>
+        </button>
     </div>
 </div>
