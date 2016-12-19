@@ -8,7 +8,6 @@ import {MspAddressCardPartComponent} from "../../common/address-card-part/addres
 import {MspContactCardComponent} from "../../common/contact-card/contact-card.component";
 import {ThumbnailComponent} from "../../common/thumbnail/thumbnail.component";
 import {ModalModule} from "ng2-bootstrap";
-import {RouterModule} from "@angular/router";
 import {RouterTestingModule} from "@angular/router/testing";
 
 describe('ReviewComponent', () => {
