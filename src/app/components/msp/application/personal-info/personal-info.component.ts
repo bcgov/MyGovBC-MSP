@@ -5,7 +5,6 @@ import DataService from '../../service/msp-data.service';
 import {Relationship} from "../../model/status-activities-documents";
 import {NgForm} from "@angular/forms";
 
-require('./personal-info.component.less')
 @Component({
   templateUrl: './personal-info.component.html'
 })

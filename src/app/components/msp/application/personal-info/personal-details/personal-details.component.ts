@@ -9,10 +9,7 @@ import {
   StatusRules, ActivitiesRules, StatusInCanada, Activities,
   DocumentRules, Documents, Relationship
 } from "../../../model/status-activities-documents";
-import {TemplateDrivenErrors} from "@angular/forms/src/directives/template_driven_errors";
 import {Valid} from "../../../common/valid";
-
-require('./personal-details.component.less');
 
 @Component({
     selector: 'msp-personal-details',
