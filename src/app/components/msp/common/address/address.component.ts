@@ -2,8 +2,6 @@ import {Component, Inject, Input, NgModule, Output, EventEmitter} from '@angular
 import {Address} from "../../model/address.model";
 import {CompleterData, CompleterService} from "ng2-completer";
 
-require('./address.component.less');
-
 @Component({
   selector: 'msp-address',
   templateUrl: './address.component.html'
