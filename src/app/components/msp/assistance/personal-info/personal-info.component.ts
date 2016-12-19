@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-require('./personal-info.component.less');
 import DataService from '../../service/msp-data.service';
 import {FinancialAssistApplication} from "../../model/financial-assist-application.model";
 
