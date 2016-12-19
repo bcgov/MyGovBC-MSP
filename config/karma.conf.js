@@ -12,7 +12,7 @@ module.exports = function (config) {
       './config/karma-test-shim.js': ['coverage', 'webpack', 'sourcemap']
     },
 
-    reporters: ['progress', 'mocha', 'coverage', 'remap-coverage'],
+    reporters: ['progress', 'mocha', 'coverage'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
@@ -31,11 +31,6 @@ module.exports = function (config) {
     },
     coverageReporter: {
         type: 'in-memory'
-    },
-    remapCoverageReporter: {
-        'text-summary': null,
-        json: './coverage/coverage.json',
-        html: './coverage/html'
     },
   })
 }
