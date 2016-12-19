@@ -18,7 +18,7 @@ import {Ng2CompleterModule} from "ng2-completer";
 import {ThumbnailComponent} from "../../../common/thumbnail/thumbnail.component";
 import {ModalModule} from "ng2-bootstrap";
 
-describe('Component Test', () => {
+describe('PersonalDetailsComponent', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
     storageType: 'localStorage'
