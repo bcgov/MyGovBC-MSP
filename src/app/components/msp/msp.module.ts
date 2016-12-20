@@ -52,6 +52,8 @@ import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calcu
 import {EligibilityCardComponent} from './assistance/prepare/eligibility-card/eligibility-card.component';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 
+import {PersonalInfoGuard} from './assistance/personal-info/personal-info-guard';
+
 let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
     storageType: 'localStorage'
@@ -128,7 +130,9 @@ let localStorageServiceConfig = {
               },
               {
                 path: 'personal-info',
+                canActivate: [PersonalInfoGuard],
                 component: AssistancePersonalInfoComponent,
+                
               },
               {
                 path: 'review',
@@ -199,6 +203,7 @@ let localStorageServiceConfig = {
   providers: [
     // Services
     MspDataService,
+    PersonalInfoGuard,
     LocalStorageService,
     {
         provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
