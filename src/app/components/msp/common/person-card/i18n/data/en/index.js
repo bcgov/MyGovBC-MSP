@@ -13,7 +13,7 @@ module.exports = {
   arrivedToBCLabel: 'Date arrived in B.C.:',
   arrivedToCanadaLabel: 'Date arrived in Canada:',
   institutionWorkHistoryLabel: 'Worked for Canadian Forces or a correctional institution',
-  institutionWorkHistoryValues: {Y: 'Yes', N: 'No'},
+  institutionWorkHistoryValues: {Yes: 'Yes', No: 'No'},
   dischargeDateLabel: 'Date discharged:',
   schoolNameLabel: 'School Name:',
   studiesFinishedLabel: 'Date of expected school completion:',
