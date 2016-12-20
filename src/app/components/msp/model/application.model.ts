@@ -52,7 +52,7 @@ class MspApplication {
 
   constructor() {
     // Set some defaults
-    this.residentialAddress.province = "BC";
+    this.residentialAddress.province = "British Columbia";
     this.residentialAddress.country = "Canada";
   }
 }
