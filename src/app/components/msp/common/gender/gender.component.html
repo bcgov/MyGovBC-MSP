@@ -1,16 +1,16 @@
 <label [innerHtml]="lang('./en/index.js').genderLabel"></label>
 
 <div class="radio">
-    <input type="radio" name="gender" id="genderMale" (click)="person.gender = Gender.Male"
+    <input type="radio" name="gender" id="genderMale{{uuid}}" (click)="person.gender = Gender.Male"
            [checked]="Gender.Male === person.gender">
-    <label for="genderMale">
+    <label for="genderMale{{uuid}}">
         {{lang('./en/index.js').maleLabel}}
     </label>
 </div>
 <div class="radio">
-    <input type="radio" name="gender" id="genderFemale" (click)="person.gender = Gender.Female"
+    <input type="radio" name="gender" id="genderFemale{{uuid}}" (click)="person.gender = Gender.Female"
            [checked]="Gender.Female === person.gender">
-    <label for="genderFemale">
+    <label for="genderFemale{{uuid}}">
         {{lang('./en/index.js').femaleLabel}}
     </label>
 </div>

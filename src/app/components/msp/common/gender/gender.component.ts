@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core'
 import {Person, Gender} from "../../model/person.model";
+import {UUID} from 'angular2-uuid';
 
 @Component({
   selector: 'msp-gender',
@@ -7,12 +8,18 @@ import {Person, Gender} from "../../model/person.model";
 })
 export class MspGenderComponent {
 
-    lang = require('./i18n');
+  lang = require('./i18n');
 
-    // Expose type to template
-    Gender: typeof Gender = Gender;
+  // Expose type to template
+  Gender: typeof Gender = Gender;
 
-    @Input() person: Person;
+  @Input() person: Person;
+
+  /**
+   * Generate uuid for use in element's ID
+   * @type {string}
+   */
+  uuid = UUID.UUID();
 
 
 }

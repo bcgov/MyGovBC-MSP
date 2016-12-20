@@ -30,6 +30,7 @@
     "@types/lodash": "^4.14.41",
     "angular-2-local-storage": "0.0.23",
     "angular2-template-loader": "^0.6.0",
+    "angular2-uuid": "^1.1.0",
     "assets-webpack-plugin": "^3.2.0",
     "async": "^2.0.1",
     "autoprefixer": "^6.0.0",
