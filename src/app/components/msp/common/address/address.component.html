@@ -42,7 +42,7 @@
             <input [(ngModel)]='residentialAddress.city' type="text" class="form-control"
                    id="residentialAddressCity" name="residentialAddressCity" #residentialAddressCityRef="ngModel"
                    required
-                   maxlength="5">
+                   maxlength="25">
             <div *ngIf='residentialAddressCityRef.touched'>
                 <div class="text-danger" *ngIf="residentialAddressCityRef.errors?.required"
                      [innerHtml]="lang('./en/index.js').cityErrorIsRequired"></div>
