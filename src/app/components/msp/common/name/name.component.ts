@@ -1,12 +1,24 @@
-import {Component, Inject, Input} from '@angular/core'
+import {Component, Inject, Input, Output, EventEmitter, AfterViewInit, ViewChild} from '@angular/core'
 import {Person} from "../../model/person.model";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'msp-name',
   templateUrl: './name.component.html'
 })
-export class MspNameComponent {
-    lang = require('./i18n');
+export class MspNameComponent implements AfterViewInit {
 
-    @Input() person: Person;
+  lang = require('./i18n');
+
+  @Input() person: Person;
+  @Output() error = new EventEmitter<boolean>();
+
+  @ViewChild('formRef') form: NgForm;
+
+
+  ngAfterViewInit(): void {
+    this.form.valueChanges.subscribe(() => {
+      this.error.emit(this.form.valid);
+    });
+  }
 }

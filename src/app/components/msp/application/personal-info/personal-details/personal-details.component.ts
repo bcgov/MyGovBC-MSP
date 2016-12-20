@@ -44,7 +44,7 @@ import {Valid} from "../../../common/valid";
   }
 )
 
-export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnInit, Valid {
+export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnInit {
   lang = require('./i18n');
   langStatus = require('../../../common/status/i18n');
   langActivities = require('../../../common/activities/i18n');
@@ -68,10 +68,6 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
   shrinkOutStatus: string;
   genderListSignal: string;
   institutionWorkSignal: string;
-
-  constructor() {
-
-  }
 
   statusLabel(): string {
     return this.lang('./en/index.js').statusLabel[this.person.relationship]
