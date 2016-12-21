@@ -16,7 +16,7 @@ module.exports = {
     'Spouse\'s documents',
     'Child\'s documents',
     'Child\'s documents'],
-  documentInstructionsNote: '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Please include the entire document, corner to corner. See some examples of what needs to be included.',
+  documentInstructionsNote: '<i class="fa fa-info-circle" aria-hidden="true"></i> Please include the entire document, corner to corner. See some <a href="#" target="_blank">examples of what needs to be included</a>.',
 
 
   nameHelpBlock: ['Enter your legal name and gender as it appears on the documents you provided',
