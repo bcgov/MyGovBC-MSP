@@ -1,5 +1,5 @@
 module.exports = {
-  pageTitle: '<i class="fa fa-check success" aria-hidden="true"></i> You have successfully submitted your application for finacial assistance',
+  pageTitle: '<i class="fa fa-check success" aria-hidden="true"></i> Your application has been submitted',
   secondTitle: 'What happens next',
   printEmailInstructions: '<a>Print your application</a> for your records',
   emailAddressLabel: 'Email address',
