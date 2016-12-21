@@ -8,14 +8,8 @@ export class PersonalInfoGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
-        let id = +route.url[1].path;
-        if (isNaN(id) || id < 1) {
-            alert('Invalid product Id');
-            // start a new navigation to redirect to list page
-            this._router.navigate(['/prepare']);
-            // abort current navigation
-            return false;
-        };
-        return true;
+        console.log('PersonalInfoGuard engaged.');
+        this._router.navigate(['/msp/assistance/prepare']);
+        return false;
     }
 }
