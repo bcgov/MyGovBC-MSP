@@ -154,7 +154,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
       )
       .subscribe(
         values => {
-          // console.log('model to be saved', this.dataService.finAssistApp);
+          // console.log('values: ', values);
           this.dataService.saveFinAssistApplication();
         }
       );

@@ -33,6 +33,13 @@ import {MspContactCardComponent} from './common/contact-card/contact-card.compon
 import {MspAddressCardPartComponent} from './common/address-card-part/address-card-part.component';
 
 import MspDataService from './service/msp-data.service';
+import CompletenessCheckService from './service/completeness-check.service';
+
+import {PersonalInfoGuard} from './assistance/personal-info/personal-info-guard';
+import {ReviewGuard} from './assistance/review/review-guard';
+import {AuthorizationGuard} from './assistance/authorize-submit/authorization-guard';
+import {ConfirmationGuard} from './assistance/confirmation/confirmation-guard';
+
 import {ApplicationComponent} from './application/application.component';
 import {PersonalDetailsComponent} from './application/personal-info/personal-details/personal-details.component';
 import {PrepareComponent} from './application/prepare/prepare.component';
@@ -52,7 +59,6 @@ import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calcu
 import {EligibilityCardComponent} from './assistance/prepare/eligibility-card/eligibility-card.component';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 
-import {PersonalInfoGuard} from './assistance/personal-info/personal-info-guard';
 
 let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
@@ -136,14 +142,17 @@ let localStorageServiceConfig = {
               },
               {
                 path: 'review',
+                canActivate: [ReviewGuard],
                 component: AssistanceReviewComponent
               },
               {
                 path: 'authorize-submit',
+                canActivate: [AuthorizationGuard],
                 component: AssistanceAuthorizeSubmitComponent
               },
               {
                 path: 'confirmation',
+                canActivate: [ConfirmationGuard],
                 component: AssistanceConfirmationComponent
               }
             ]
@@ -203,7 +212,11 @@ let localStorageServiceConfig = {
   providers: [
     // Services
     MspDataService,
+    CompletenessCheckService,
     PersonalInfoGuard,
+    ReviewGuard,
+    AuthorizationGuard,
+    ConfirmationGuard,
     LocalStorageService,
     {
         provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

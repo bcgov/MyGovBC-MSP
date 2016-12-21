@@ -1,6 +1,6 @@
 <form #formRef='ngForm' novalidate>
-
-    <div class="row" *ngIf="!mailingOnly">
+    <div *ngIf="!mailingOnly">
+    <div class="row">
         <div class="form-group col-sm-5"
              [ngClass]="{'has-error': !formRef.controls.residentialAddressLine1?.valid && residentialAddressLine1Ref.touched}">
             <label for="residentialAddressLine1" [innerHtml]="lang('./en/index.js').addressLine1Label"></label>
@@ -85,7 +85,7 @@
                    readonly>
         </div>
     </div>
-    <div *ngIf="!mailingOnly" class="row">
+    <div class="row">
         <div class="form-group col-sm-12">
             <span [innerHtml]="lang('./en/index.js').mailingAddressSameQuestion"></span>
             <div class="btn-group" role="group">
@@ -96,6 +96,7 @@
                         [disabled]="!mailingSameAsResidentialAddress" type="button" class="btn btn-default">No&nbsp;</button>
             </div>
         </div>
+    </div>
     </div>
 
     <div *ngIf="!mailingSameAsResidentialAddress || mailingOnly">

@@ -8,7 +8,7 @@ class Address {
   city: string;
 
   // Two letter code
-  province: string;
+  province: string = 'BC';
 
   // canadian postal code
   private _postal: string;
@@ -18,7 +18,9 @@ class Address {
     return this._postal;
   }
   set postal(value: string) {
-    this._postal = value.toUpperCase();
+    if(!!value){
+      this._postal = value.toUpperCase();
+    }
   }
 
   // Full english spelling of country

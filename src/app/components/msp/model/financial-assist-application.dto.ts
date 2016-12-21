@@ -1,3 +1,5 @@
+import AddressDto from './address.dto';
+
 export default class FinancialAssistApplicationDto {
   incomeLine236: number;
   ageOver65: boolean;
@@ -11,5 +13,6 @@ export default class FinancialAssistApplicationDto {
   spouseEligibleForDisabilityCredit:boolean;
   spouseDSPAmount_line125:number;
 
-  
+  mailingAddress = new AddressDto();
+  residentialAddress = new AddressDto();
 }
