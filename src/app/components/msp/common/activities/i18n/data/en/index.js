@@ -5,7 +5,7 @@ module.exports = {
   3: 'Working in BC',
   4: 'Studying in BC',
   5: 'Religious worker',
-  6: 'Spouse on a visitor visa',
+  6: 'Visiting BC',
   7: 'Diplomat'
 }
 /**
