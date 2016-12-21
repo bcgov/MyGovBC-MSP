@@ -8,7 +8,7 @@ module.exports = {
   badAnswer2: 'You must live in B.C. for at least six months in order to qualify for public health care insurance.',
 
   question3: 'Are you planning to be away from B.C. for more than 30 days in total in the next six months?',
-  badAnswer3: 'If you leave B.C. for more than 30 days in total during the first few months after applying, you’re no longer considered a B.C. resident and will not qualify for public health care. If you’re planning to take a trip that’s longer than 30 days, apply for MSP when you return.',
+  badAnswer3: 'If you leave B.C. for more than 30 days in total during the first six months after applying, you’re no longer considered a B.C. resident and will not qualify for public health care. If you’re planning to take a trip that’s longer than 30 days, apply for MSP when you return.',
 
   question4: 'Is anyone you\'re applying for',
   question4sub: '<ul><li>An active member of the Canadian Forces</li>' +
