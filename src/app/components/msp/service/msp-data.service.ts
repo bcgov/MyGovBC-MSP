@@ -10,7 +10,8 @@ import AddressDto from '../model/address.dto';
 export default class MspDataService {
   private _mspApplication: MspApplication;
   private _finAssistApp: FinancialAssistApplication;
-  private finAssistAppStorageKey:string = 'financial-assist-application';
+  private finAssistAppStorageKey:string = 'financial-assist';
+  // private finAssistMailingAddressStorageKey:string = 'financial-assist-mailing-address';
   private mspAppStorageKey:string = 'msp-application';
 
   constructor(private localStorageService: LocalStorageService){
@@ -34,6 +35,11 @@ export default class MspDataService {
     return this._finAssistApp;
   }
 
+  saveMspApplication():void {
+    let dto:MspApplicationDto = this.toMspApplicationTransferObject(this._mspApplication);
+    this.localStorageService.set(this.mspAppStorageKey,dto);
+  }
+
   private fetchMspApplication(): MspApplication {
     let dto:MspApplicationDto = 
       this.localStorageService.get<MspApplicationDto>(this.mspAppStorageKey);
@@ -45,27 +51,25 @@ export default class MspDataService {
     }
   }
 
+  saveFinAssistApplication():void {
+    let dto:FinancialAssistApplicationDto = this.toFinAssistDataTransferObject(this._finAssistApp);
+    this.localStorageService.set(this.finAssistAppStorageKey,dto);
+    // this.localStorageService.set(this.finAssistMailingAddressStorageKey,dto.mailingAddress);
+  }
+
   private fetchFinAssistApplication():FinancialAssistApplication{
     let dto:FinancialAssistApplicationDto = 
       this.localStorageService.get<FinancialAssistApplicationDto>(this.finAssistAppStorageKey);
 
+    // let mailAddressDto:AddressDto = 
+    //   this.localStorageService.get<AddressDto>(this.finAssistMailingAddressStorageKey);
+
     if(dto){
-      console.log('restore from local storage');
+      // dto.mailingAddress = mailAddressDto;
       return this.fromFinAssistDataTransferObject(dto);
     }else{
       return new FinancialAssistApplication();
     }
-  }
-
-  saveMspApplication():void {
-    console.log('saving msp application to local storage');
-    let dto:MspApplicationDto = this.toMspApplicationTransferObject(this._mspApplication);
-    this.localStorageService.set(this.mspAppStorageKey,dto);
-  }
-
-  saveFinAssistApplication():void {
-    let dto:FinancialAssistApplicationDto = this.toFinAssistDataTransferObject(this._finAssistApp);
-    this.localStorageService.set(this.finAssistAppStorageKey,dto);
   }
 
   removeFinAssistApplication():void{
