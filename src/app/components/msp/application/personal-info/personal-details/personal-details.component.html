@@ -27,7 +27,7 @@
             <ul>
                 <li *ngFor="let document of documents">{{langDocuments('./en/index.js')[document]}}</li>
             </ul>
-            <p class="danger" [innerHtml]="lang('./en/index.js').documentInstructionsNote"></p>
+            <p class="warning" [innerHtml]="lang('./en/index.js').documentInstructionsNote"></p>
         </div>
         <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
             <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel[this.person.relationship]"></h3>
