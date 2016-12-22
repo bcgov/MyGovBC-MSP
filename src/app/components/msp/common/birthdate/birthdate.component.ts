@@ -1,4 +1,5 @@
-import {Component, Input} from '@angular/core'
+import {Component, Input, ViewChild, Output, EventEmitter, AfterViewInit} from '@angular/core'
+import {NgForm} from "@angular/forms";
 import {Person} from "../../model/person.model";
 import {Relationship, Activities} from "../../model/status-activities-documents";
 import * as moment from 'moment';
@@ -9,7 +10,7 @@ require('./birthdate.component.less');
   selector: 'msp-birthdate',
   templateUrl: './birthdate.component.html'
 })
-export class MspBirthDateComponent {
+export class MspBirthDateComponent implements AfterViewInit{
 
   lang = require('./i18n');
 
@@ -17,6 +18,14 @@ export class MspBirthDateComponent {
   today = moment();
 
   @Input() person: Person;
+  @Output() onChange = new EventEmitter<any>();
+  @ViewChild('formRef') form: NgForm;
+  ngAfterViewInit(): void {
+    this.form.valueChanges.subscribe(values => {
+      this.onChange.emit(values);
+    });
+  }
+  
 
   /**
    * Determine if date of birth is valid for the given person

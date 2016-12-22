@@ -11,14 +11,11 @@ export class MspNameComponent implements AfterViewInit {
   lang = require('./i18n');
 
   @Input() person: Person;
-  @Output() error = new EventEmitter<boolean>();
-
+  @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
-
-
   ngAfterViewInit(): void {
-    this.form.valueChanges.subscribe(() => {
-      this.error.emit(this.form.valid);
+    this.form.valueChanges.subscribe(values => {
+      this.onChange.emit(values);
     });
   }
 }

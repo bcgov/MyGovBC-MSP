@@ -1,4 +1,5 @@
-import {Component, Inject, Input, NgModule, Output, EventEmitter} from '@angular/core';
+import {Component, Inject, Input, NgModule, Output, EventEmitter, ViewChild, AfterViewInit} from '@angular/core';
+import {NgForm} from "@angular/forms";
 import {Address} from "../../model/address.model";
 import {CompleterData, CompleterService} from "ng2-completer";
 
@@ -7,7 +8,7 @@ import {CompleterData, CompleterService} from "ng2-completer";
   templateUrl: './address.component.html'
 })
 
-export class MspAddressComponent {
+export class MspAddressComponent implements AfterViewInit{
   lang = require('./i18n');
   private _useResidentialAddressLine2: boolean = false;
   private _useResidentialAddressLine3: boolean = false;
@@ -22,7 +23,15 @@ export class MspAddressComponent {
   @Output() mailingSameAsResidentialAddressChange = new EventEmitter<boolean>();
   @Input() mailingAddress: Address;
   @Input('mailingOnly') mailingOnly: boolean;
-  @Input() mailingAddressHeading:string = this.lang('./en/index.js').mailingAddressHeading
+  @Input() mailingAddressHeading:string = this.lang('./en/index.js').mailingAddressHeading;
+
+  @Output() onChange = new EventEmitter<any>();
+  @ViewChild('formRef') form: NgForm;
+  ngAfterViewInit(): void {
+    this.form.valueChanges.subscribe(values => {
+      this.onChange.emit(values);
+    });
+  }
 
   /**
    * Auto complete for country

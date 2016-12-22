@@ -169,7 +169,8 @@
             <msp-province
                     [provinceLabel]="lang('./en/index.js').provinceStateLabel"
                     [province]="mailingAddress.province"
-                    (provinceChange)="mailingAddress.province = $event">
+                    (provinceChange)="mailingAddress.province = $event"
+                    (onChange)="onChange.emit($event)">
             </msp-province>
 
             <div class="form-group col-sm-4"

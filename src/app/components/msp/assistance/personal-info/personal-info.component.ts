@@ -18,15 +18,20 @@ export class AssistancePersonalInfoComponent implements AfterViewInit, OnInit{
   }
 
   ngOnInit() {
-    console.log('personalInfoForm: ', this.personalInfoForm);
+    // console.log('personalInfoForm: ', this.personalInfoForm);
   }
   ngAfterViewInit() {
     this.personalInfoForm.valueChanges.debounceTime(250)
       .distinctUntilChanged().subscribe( values => {
-        console.log('Personal info form change: ', values);
+        // console.log('Personal info form change triggering save: ', values);
         this.dataService.saveFinAssistApplication();
-        
       });
   }
+
+  onChange(values:any) {
+    // console.log('changes from child component triggering save: ', values);
+    this.dataService.saveFinAssistApplication();
+  }
+  
   
 }

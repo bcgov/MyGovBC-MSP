@@ -37,7 +37,25 @@ export default class CompletenessCheckService {
     }
 
     finAppPersonalInfoCompleted():boolean {
-      return true;
+      let basics = !_.isEmpty(this.finApp.phoneNumber)
+        && !_.isEmpty(this.finApp.applicant.firstName)
+        && !_.isEmpty(this.finApp.applicant.lastName)
+        && _.isNumber(this.finApp.applicant.dob_day)
+        && !_.isEmpty(this.finApp.applicant.dob_month)
+        && _.isNumber(this.finApp.applicant.dob_year)
+        && !_.isEmpty(this.finApp.applicant.sin)
+        && this.finApp.mailingAddress.isValid;
+
+      if(this.finApp.hasSpouseOrCommonLaw === true){
+        return basics && !_.isEmpty(this.finApp.spouse.firstName)
+        && !_.isEmpty(this.finApp.spouse.lastName)
+        && _.isNumber(this.finApp.spouse.dob_day)
+        && !_.isEmpty(this.finApp.spouse.dob_month)
+        && _.isNumber(this.finApp.spouse.dob_year)
+        && !_.isEmpty(this.finApp.spouse.sin)
+      }else{
+        return basics;
+      }  
     }
 
     finAppReviewCompleted():boolean {

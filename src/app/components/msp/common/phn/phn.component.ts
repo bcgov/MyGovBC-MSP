@@ -1,4 +1,5 @@
-import {Component, Input, EventEmitter, Output} from '@angular/core';
+import {Component, Input, EventEmitter, Output, ViewChild, AfterViewInit} from '@angular/core';
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'msp-phn',
@@ -6,7 +7,7 @@ import {Component, Input, EventEmitter, Output} from '@angular/core';
 
 })
 
-export class MspPhnComponent {
+export class MspPhnComponent implements AfterViewInit{
   lang = require('./i18n');
 
   @Input() required: boolean = true;
@@ -15,5 +16,12 @@ export class MspPhnComponent {
   @Output() phnChange = new EventEmitter<string>();
   @Input() bcPhn: boolean = false;
 
+  @Output() onChange = new EventEmitter<any>();
+  @ViewChild('formRef') form: NgForm;
+  ngAfterViewInit(): void {
+    this.form.valueChanges.subscribe(values => {
+      this.onChange.emit(values);
+    });
+  }
 
 }

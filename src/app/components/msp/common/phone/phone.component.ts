@@ -1,4 +1,5 @@
-import {Component, Input, EventEmitter, Output} from '@angular/core'
+import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core'
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'msp-phone',
@@ -11,6 +12,14 @@ export class MspPhoneComponent {
     @Output() phoneNumberChange = new EventEmitter<string>();
     @Input('alternative') alternative = false;
 
+    @Output() onChange = new EventEmitter<any>();
+    @ViewChild('formRef') form: NgForm;
+    ngAfterViewInit(): void {
+      this.form.valueChanges.subscribe(values => {
+        this.onChange.emit(values);
+      });
+    }
+    
     getLabel() {
       if (this.alternative) {
         return this.lang('./en/index.js').altPhoneLabel;

@@ -1,5 +1,6 @@
-import {Component, Input, EventEmitter, Output} from '@angular/core';
+import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
 import {CompleterService, CompleterData} from 'ng2-completer';
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'msp-province',
@@ -13,6 +14,13 @@ export class MspProvinceComponent {
   @Input() province: string;
   @Output() provinceChange = new EventEmitter<string>();
   @Input() provinceLabel: string = this.lang('./en/index.js').provinceLabel;
+  @Output() onChange = new EventEmitter<any>();
+  @ViewChild('formRef') form: NgForm;
+  ngAfterViewInit(): void {
+    this.form.valueChanges.subscribe(values => {
+      this.onChange.emit(values);
+    });
+  }
 
   /**
    * Use to remove BC from the list

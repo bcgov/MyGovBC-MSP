@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {MspApplication, Person} from '../model/application.model';
+import PersonDto from '../model/person.dto';
 import {FinancialAssistApplication} from '../model/financial-assist-application.model';
 import { LocalStorageService } from 'angular-2-local-storage';
 import FinancialAssistApplicationDto from '../model/financial-assist-application.dto';
@@ -15,17 +16,8 @@ export default class MspDataService {
   private mspAppStorageKey:string = 'msp-application';
 
   constructor(private localStorageService: LocalStorageService){
-
     this._finAssistApp = this.fetchFinAssistApplication();
     this._mspApplication = this.fetchMspApplication();
-
-    // let existingMainApp = this.localStorageService.get<MspApplication>(this.mspAppStorageKey);
-    // if(!existingMainApp){
-    //   this._mspApplication = new MspApplication();
-    // }else{
-    //   this._mspApplication = new MspApplication();
-    // }
-
   } 
 
   getMspApplication(): MspApplication {
@@ -136,6 +128,12 @@ export default class MspDataService {
     return output;
   }
 
+  /**
+   * Convert data model object to data transfer object that is suitable for client
+   * side storage (local or session storage)
+   * 
+   * For financial assistance application.
+   */
   toFinAssistDataTransferObject(input:FinancialAssistApplication):FinancialAssistApplicationDto{
     let dto:FinancialAssistApplicationDto  = new FinancialAssistApplicationDto();
 
@@ -151,20 +149,60 @@ export default class MspDataService {
     dto.spouseEligibleForDisabilityCredit = input.spouseEligibleForDisabilityCredit;
     dto.spouseDSPAmount_line125 = input.spouseDSPAmount_line125;
 
+    dto.phoneNumber = input.phoneNumber;
+
+    this.convertToPersonDto(input.applicant, dto.applicant);
+    this.convertToPersonDto(input.spouse, dto.spouse);
     this.convertMailingAddress(input, dto);
     this.convertResidentialAddress(input, dto);
 
     return dto;
   }
 
+  /**
+   * 
+   */
+  private convertToPersonDto(input:Person, output:PersonDto){
+    output.dob_day = input.dob_day;
+    output.dob_month = input.dob_month;
+    output.dob_year = input.dob_year;
+
+    output.firstName = input.firstName;
+    output.middleName = input.middleName;
+    output.lastName = input.lastName;
+
+    output.sin = input.sin;
+    output.previous_phn = input.previous_phn;
+    output.liveInBC = input.liveInBC;
+    output.stayForSixMonthsOrLonger = input.stayForSixMonthsOrLonger;
+    output.plannedAbsence = input.plannedAbsence;
+  }
+  private convertToPerson(input:PersonDto, output:Person){
+    output.dob_day = input.dob_day;
+    output.dob_month = input.dob_month;
+    output.dob_year = input.dob_year;
+
+    output.firstName = input.firstName;
+    output.middleName = input.middleName;
+    output.lastName = input.lastName;
+
+    output.sin = input.sin;
+    output.previous_phn = input.previous_phn;
+    output.liveInBC = input.liveInBC;
+    output.stayForSixMonthsOrLonger = input.stayForSixMonthsOrLonger;
+    output.plannedAbsence = input.plannedAbsence;
+  }
+
+
+  /**
+   * Convert DTO object from local storage to data model object that is bound to screen.
+   * For financial assistance application
+   */
   fromFinAssistDataTransferObject(dto:FinancialAssistApplicationDto): FinancialAssistApplication{
     if(!dto.residentialAddress){
-      console.log('create residentialAddress dto');
       dto.residentialAddress = new AddressDto();
     }
     if(!dto.mailingAddress){
-      console.log('create mailingAddress dto');
-      
       dto.mailingAddress = new AddressDto();
     }
     let output:FinancialAssistApplication = new FinancialAssistApplication();
@@ -181,6 +219,10 @@ export default class MspDataService {
     output.spouseEligibleForDisabilityCredit = dto.spouseEligibleForDisabilityCredit;
     output.spouseDSPAmount_line125 = dto.spouseDSPAmount_line125;
 
+    output.phoneNumber = dto.phoneNumber;
+
+    this.convertToPerson(dto.applicant, output.applicant);
+    this.convertToPerson(dto.spouse, output.spouse);
     this.convertMailingAddress(dto, output);
     this.convertResidentialAddress(dto, output);
     return output;

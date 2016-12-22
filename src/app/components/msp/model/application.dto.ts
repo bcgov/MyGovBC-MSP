@@ -6,7 +6,8 @@ export default class MspApplicationDto {
   _applicant:PersonDto = new PersonDto();
   mailingAddress:AddressDto = new AddressDto();
   residentialAddress: AddressDto = new AddressDto();
-  
+  phoneNumber:string;
+
   get applicant():PersonDto{
     return this._applicant;
   }

@@ -6,7 +6,8 @@ export default class PersonDto {
   dob_day: number;
   dob_month: number;
   dob_year: number;
-
+  sin: string;
+  
   previous_phn: string;
 
   liveInBC:boolean;

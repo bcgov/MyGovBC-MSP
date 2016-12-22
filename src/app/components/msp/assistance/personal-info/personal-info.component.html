@@ -3,11 +3,16 @@
 
 <h2 [innerHTML]="lang('./en/index.js').applicantInfo"></h2>
 <form #formRef='ngForm' novalidate>
-    <msp-assistance-personal-details [person]="financialAssistApplication.applicant"></msp-assistance-personal-details>
+    <msp-assistance-personal-details 
+        [(person)]="financialAssistApplication.applicant"
+        (onChange)="onChange($event)">
+    </msp-assistance-personal-details>
 
     <h2 *ngIf="financialAssistApplication.hasSpouseOrCommonLaw" [innerHTML]="lang('./en/index.js').spouseInfo"></h2>
     <msp-assistance-personal-details *ngIf="financialAssistApplication.hasSpouseOrCommonLaw"
-                                    [person]="financialAssistApplication.spouse"></msp-assistance-personal-details>
+                                    [person]="financialAssistApplication.spouse"
+                                    (onChange)="onChange($event)">
+    </msp-assistance-personal-details>
 
     <h2 [innerHTML]="lang('./en/index.js').contactInfo"></h2>
     <a href="#contact-anchor"></a>
@@ -16,14 +21,15 @@
             <div class="row">
                 <div class="col-sm-4">
                     <msp-phone [phoneNumber]="financialAssistApplication.phoneNumber"
-                            (phoneNumberChange)="financialAssistApplication.phoneNumber = $event"></msp-phone>
+                            (phoneNumberChange)="financialAssistApplication.phoneNumber = $event"
+                            (onChange)="onChange($event)"></msp-phone>
                 </div>
             </div>
         </div>
     </div>
     <hr>
     <msp-address [mailingAddress]="financialAssistApplication.mailingAddress"
-                [mailingOnly]="true"></msp-address>
+                [mailingOnly]="true" (onChange)="onChange($event)"></msp-address>
 </form>
              
 <button class="btn btn-primary" type="submit" routerLink="/msp/assistance/review"

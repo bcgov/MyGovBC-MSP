@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 class Address {
   // Street number, name and suffix
   addressLine1: string;
@@ -30,6 +32,13 @@ class Address {
     return (this.addressLine1 != null);
   }
 
+  get isValid(): boolean {
+    return !_.isEmpty(this.addressLine1) 
+      &&!_.isEmpty(this.city) 
+      &&!_.isEmpty(this.province) 
+      &&!_.isEmpty(this.postal) 
+      &&!_.isEmpty(this.country) 
+  }
   constructor(){
   }
 
