@@ -9,13 +9,13 @@
         <label for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
     </div>
     <br><br>
-    <template *ngIf="application.hasSpouseOrCommonLaw">
+    <div *ngIf="application.hasSpouseOrCommonLaw">
         <div class="strong" [innerHTML]="questionSpouse"></div>
         <div class="checkbox checkbox-success checkbox-inline">
             <input class="input-lg" id="secondPersonAuthorize" type="checkbox">
             <label for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
         </div>
-    </template>
+    </div>
 </form>
 <hr>
 <button class="btn btn-primary" type="submit" routerLink="/msp/assistance/confirmation"

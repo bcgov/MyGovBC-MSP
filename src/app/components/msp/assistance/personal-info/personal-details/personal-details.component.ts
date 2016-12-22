@@ -27,7 +27,7 @@ export class AssistancePersonalDetailComponent implements AfterViewInit, OnInit 
   ngAfterViewInit() {
     this.personalDetailsForm.valueChanges
       .subscribe( values => {
-        console.log('Personal details form value changes saved: ', values);
+        // console.log('Personal details form value changes saved: ', values);
         this.onChange.emit(values);
       });
   }
