@@ -41,10 +41,10 @@ import {MspApplicationAddressGuard} from './application/address/address.guard'
 import {MspApplicationReviewGuard} from './application/review/review.guard'
 import {MspApplicationConfirmationGuard} from './application/confirmation/confirmation.guard'
 
-import {PersonalInfoGuard} from './assistance/personal-info/personal-info-guard';
-import {ReviewGuard} from './assistance/review/review-guard';
-import {AuthorizationGuard} from './assistance/authorize-submit/authorization-guard';
-import {ConfirmationGuard} from './assistance/confirmation/confirmation-guard';
+import {PersonalInfoGuard} from './assistance/personal-info/personal-info.guard';
+import {ReviewGuard} from './assistance/review/review.guard';
+import {AuthorizationGuard} from './assistance/authorize-submit/authorization.guard';
+import {ConfirmationGuard} from './assistance/confirmation/confirmation.guard';
 
 import {ApplicationComponent} from './application/application.component';
 import {PersonalDetailsComponent} from './application/personal-info/personal-details/personal-details.component';
