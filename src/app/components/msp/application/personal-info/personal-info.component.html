@@ -1,11 +1,11 @@
 <form #formRef="ngForm" novalidate>
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
-      (save) = "save($event)"
+      (onChange) = "onChange($event)"
       (valid)="valid($event)"></msp-personal-details>
     <div *ngIf = 'spouse'>
       <msp-personal-details [person] = 'spouse' [id] = 'spouse.id'
         (notifySpouseRemoval)="removeSpouse($event)"
-        (save) = "save($event)"
+        (onChange) = "onChange($event)"
         (valid)="valid($event)"></msp-personal-details>
     </div>
     <div *ngIf = 'children.length > 0'>
@@ -13,7 +13,7 @@
         [person] = 'child'
         [id] = 'child.id'
         (notifyChildRemoval)="removeChild($event,idx)"
-        (save) = "save($event)"
+        (onChange) = "onChange($event)"
         (valid)="valid($event)">
       </msp-personal-details>
     </div>

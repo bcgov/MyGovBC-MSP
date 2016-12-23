@@ -1,18 +1,43 @@
 import { Injectable } from '@angular/core';
 import DataService from './msp-data.service';
 import {FinancialAssistApplication} from '../model/financial-assist-application.model';
+import {MspApplication} from '../model/application.model';
 
 import * as _ from 'lodash';
 
 @Injectable()
 export default class CompletenessCheckService {
     private finApp:FinancialAssistApplication;
+    private mspApp:MspApplication;
     constructor(private dataService: DataService) {
         this.finApp = this.dataService.finAssistApp;
+        this.mspApp = this.dataService.getMspApplication();
     }
 
     private isNumber(arg:any){
       return(!!arg && arg.length > 0 && !Number.isNaN(arg))
+    }
+
+    /**
+     * 
+     */
+    mspCheckEligibilityCompleted(){
+      // fill in logic to ensure all data expected on check eligibility screen have been 
+      // provided. (check saved data in local storage)
+      this.mspApp.applicant.status;
+      return true;
+    }
+
+    mspPersonalInfoDocsCompleted(){
+      return true;
+    }
+
+    mspContactInfoCompleted(){
+      return true;
+    }
+
+    mspReviewAndSubmitCompleted(){
+      return true;
     }
 
     finAppPrepCompleted():boolean{

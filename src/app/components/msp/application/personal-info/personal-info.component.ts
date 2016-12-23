@@ -25,8 +25,8 @@ export class PersonalInfoComponent {
     //this.form.valid = event;
   }
 
-  save(){
-    console.log('save person from personal-info screen');
+  onChange(values:any){
+    console.log('save msp application upon changes from child component percolated up to parent.');
     this.dataService.saveMspApplication();
   }
 

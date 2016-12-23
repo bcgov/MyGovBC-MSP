@@ -1,7 +1,7 @@
 import  {
   Component, Input, Output, OnChanges, EventEmitter,
   SimpleChange, ViewChild, AfterViewInit, OnInit,
-  state, trigger, style
+  state, trigger, style, ElementRef
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Person } from '../../../model/person.model';
@@ -10,6 +10,7 @@ import {
   DocumentRules, Documents, Relationship
 } from "../../../model/status-activities-documents";
 import {Valid} from "../../../common/valid";
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'msp-personal-details',
@@ -44,7 +45,7 @@ import {Valid} from "../../../common/valid";
   }
 )
 
-export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnInit {
+export class PersonalDetailsComponent implements AfterViewInit, OnInit {
   lang = require('./i18n');
   langStatus = require('../../../common/status/i18n');
   langActivities = require('../../../common/activities/i18n');
@@ -61,7 +62,7 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
   @Input() id: string;
   @Output() notifyChildRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() notifySpouseRemoval: EventEmitter<Person> = new EventEmitter<Person>();
-  @Output() save: EventEmitter<Person> = new EventEmitter<Person>();
+  @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   shrinkOut: string;
@@ -86,12 +87,12 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
   setStatus(value:StatusInCanada, p: Person) {
     p.status = value;
     p.currentActivity = null;
-    // this.person.status = value;
-    // this.person.currentActivity = null;
+    this.onChange.emit(value);
   }
 
   setActivity(value:Activities) {
     this.person.currentActivity = value;
+    this.onChange.emit(value);
   }
 
   /**
@@ -120,36 +121,34 @@ export class PersonalDetailsComponent implements OnChanges, AfterViewInit, OnIni
   /**
    * Change log, for debugging purpose, for input properties on the component
    */
-  private changeLog: string[] = [];
+  // private changeLog: string[] = [];
 
   /**
    * propKey is the input property value of this component
    */
-  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
-    this.logPropertyChange(changes);
-  }
+  // ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+  //   this.logPropertyChange(changes);
+  // }
 
-  private logPropertyChange(changes: { [propKey: string]: SimpleChange }): void {
-    let log: string[] = [];
-    for (let propName in changes) {
-      let changedProp = changes[propName];
-      let isFirst = changedProp.isFirstChange();
-      let from = JSON.stringify(changedProp.previousValue);
-      let to = JSON.stringify(changedProp.currentValue);
-      log.push(`${propName} changed from ${from} to ${to}, is first change: ${isFirst}`);
-    }
-    this.changeLog.push(log.join(', '));
-  }
+  // private logPropertyChange(changes: { [propKey: string]: SimpleChange }): void {
+  //   let log: string[] = [];
+  //   for (let propName in changes) {
+  //     let changedProp = changes[propName];
+  //     let isFirst = changedProp.isFirstChange();
+  //     let from = JSON.stringify(changedProp.previousValue);
+  //     let to = JSON.stringify(changedProp.currentValue);
+  //     log.push(`${propName} changed from ${from} to ${to}, is first change: ${isFirst}`);
+  //   }
+  //   this.changeLog.push(log.join(', '));
+  // }
 
   ngAfterViewInit() {
     if(this.form){
-      this.form.valueChanges.subscribe(value => {
-        console.log('emit saving event');
-        this.save.emit(this.person);
+      this.form.valueChanges
+      .subscribe(values => {
+        this.onChange.emit(values);
       });
     }
-    console.log('subscribing to form changes');
-    this.form.valueChanges.subscribe(data => console.log('form changes', data));
   }
 
   ngOnInit(){

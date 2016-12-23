@@ -35,6 +35,12 @@ import {MspAddressCardPartComponent} from './common/address-card-part/address-ca
 import MspDataService from './service/msp-data.service';
 import CompletenessCheckService from './service/completeness-check.service';
 
+
+import {MspApplicationPersonalInfoGuard} from './application/personal-info/personal-info-documents.guard'
+import {MspApplicationAddressGuard} from './application/address/address.guard'
+import {MspApplicationReviewGuard} from './application/review/review.guard'
+import {MspApplicationConfirmationGuard} from './application/confirmation/confirmation.guard'
+
 import {PersonalInfoGuard} from './assistance/personal-info/personal-info-guard';
 import {ReviewGuard} from './assistance/review/review-guard';
 import {AuthorizationGuard} from './assistance/authorize-submit/authorization-guard';
@@ -95,6 +101,7 @@ let localStorageServiceConfig = {
             children: [
               {
                 path: '',
+                canActivate: [],
                 redirectTo: 'prepare',
                 pathMatch: 'full'
               },
@@ -104,18 +111,22 @@ let localStorageServiceConfig = {
               },
               {
                 path: 'personal-info',
+                canActivate: [MspApplicationPersonalInfoGuard],
                 component: PersonalInfoComponent
               },
               {
                 path: 'address',
+                canActivate: [MspApplicationAddressGuard],
                 component: AddressComponent
               },
               {
                 path: 'review',
+                canActivate: [MspApplicationReviewGuard],
                 component: ReviewComponent
               },
               {
                 path: 'confirmation',
+                canActivate: [MspApplicationConfirmationGuard],
                 component: ConfirmationComponent
               },
 
@@ -213,6 +224,12 @@ let localStorageServiceConfig = {
     // Services
     MspDataService,
     CompletenessCheckService,
+
+    MspApplicationPersonalInfoGuard,
+    MspApplicationAddressGuard,
+    MspApplicationReviewGuard,
+    MspApplicationConfirmationGuard,
+
     PersonalInfoGuard,
     ReviewGuard,
     AuthorizationGuard,

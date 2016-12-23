@@ -37,6 +37,7 @@ export default class MspDataService {
       this.localStorageService.get<MspApplicationDto>(this.mspAppStorageKey);
 
     if(dto){
+      console.log('MspApplicationDto from local storage: ', dto);
       return this.fromMspApplicationTransferObject(dto);
     }else{
       return new MspApplication();
@@ -62,6 +63,22 @@ export default class MspDataService {
     }else{
       return new FinancialAssistApplication();
     }
+  }
+
+  private convertMailingAddress(input:any, output:any){
+    this.convertAddress(input, output, 'mailingAddress');
+  }
+  private convertResidentialAddress(input:any, output:any){
+    this.convertAddress(input, output, 'residentialAddress');
+  }
+  private convertAddress(input:any, output:any, property:string){
+    output[property].addressLine1 = input[property].addressLine1;
+    output[property].addressLine2 = input[property].addressLine2;
+    output[property].addressLine3 = input[property].addressLine3;
+    output[property].postal = input[property].postal;
+    output[property].city = input[property].city;
+    output[property].province = input[property].province;
+    output[property].country = input[property].country;
   }
 
   removeFinAssistApplication():void{
@@ -94,24 +111,7 @@ export default class MspDataService {
     return dto;
   }
 
-  private convertMailingAddress(input:any, output:any){
-    this.convertAddress(input, output, 'mailingAddress');
-  }
-  private convertResidentialAddress(input:any, output:any){
-    this.convertAddress(input, output, 'residentialAddress');
-  }
-  private convertAddress(input:any, output:any, property:string){
-    output[property].addressLine1 = input[property].addressLine1;
-    output[property].addressLine2 = input[property].addressLine2;
-    output[property].addressLine3 = input[property].addressLine3;
-    output[property].postal = input[property].postal;
-    output[property].city = input[property].city;
-    output[property].province = input[property].province;
-    output[property].country = input[property].country;
-  }
-
-
-  fromMspApplicationTransferObject(dto:MspApplicationDto):MspApplication{
+  private fromMspApplicationTransferObject(dto:MspApplicationDto):MspApplication{
     let output:MspApplication = new MspApplication();
     //Fill in conversion logic here
     output.applicant.firstName = dto.applicant.firstName;
