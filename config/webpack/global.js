@@ -54,17 +54,14 @@ module.exports = function (_path) {
         {test: /\.md$/, loader: "html!markdown"},
         {
           test: /\.css$/,
-          loaders: [
-            'style-loader',
-            'css-loader?sourceMap',
-            'postcss-loader'
-          ]
+          loader: DEVELOPMENT ? 'style!css?sourceMap!postcss' : ExtractTextPlugin.extract("style",
+            'css?sourceMap!postcss')
         }, {
           test: /\.less$/,
-          loader: "style!css!postcss!less"
+          loader: DEVELOPMENT ? "style!css!postcss!less" : ExtractTextPlugin.extract("style", "css!postcss!less")
         }, {
           test: /\.(scss|sass)$/,
-          loader: DEVELOPMENT ? ('style-loader!' + stylesLoader) : ExtractTextPlugin.extract('style-loader', stylesLoader)
+          loader: DEVELOPMENT ? ('style!' + stylesLoader) : ExtractTextPlugin.extract('style', stylesLoader)
         }, {
           test: /\.(woff2|woff|ttf|eot|svg)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
           loaders: [
