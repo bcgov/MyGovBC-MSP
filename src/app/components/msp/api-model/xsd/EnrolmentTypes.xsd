@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema version="1.1"
+           xmlns:et="http://www.gov.bc.ca/hibc/enrolmentTypes"
+           xmlns:ct="CommonTypes.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.gov.bc.ca/hibc/enrolmentTypes">
+
+    <xs:import namespace="CommonTypes.xsd" schemaLocation="CommonTypes.xsd"/>
+
+    <xs:annotation>
+        <xs:documentation xml:lang="en">
+            MSP Application For enrolment - Digital Experience
+        </xs:documentation>
+    </xs:annotation>
+
+    <!-- The Application Root -->
+    <xs:element name="enrolmentApplication" type="et:EnrolmentApplicationType"/>
+
+    <!-- Application has three parts, applicant, spouse (optional), children (optional) -->
+    <xs:complexType name="EnrolmentApplicationType">
+        <xs:sequence>
+            <xs:element name="applicant" type="et:EnrolmentApplicantType" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="spouse" type="et:PersonType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="children" type="et:EnrolmentChildrenType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="dependents" type="et:EnrolmentDependentsType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Applicant -->
+    <xs:complexType name="EnrolmentApplicantType">
+        <xs:complexContent>
+            <xs:extension base="ct:BasicInfoType">
+                <xs:sequence>
+                    <xs:element name="telephone" type="ct:TelephoneType"/>
+                    <xs:element name="residenceAddress" type="ct:AddressType"/>
+                    <xs:element name="mailingAddress" type="ct:AddressType" minOccurs="0"/>
+                    <xs:element name="residency" type="et:ResidencyType"/>
+                    <xs:element name="authorizedByApplicant" type="ct:YesOrNoType"/>
+                    <xs:element name="authorizedByApplicantDate" type="xs:date"/>
+                    <xs:element name="authorizedBySpouse" type="ct:YesOrNoType"/>
+                    <xs:element name="authorizedBySpouseDate" type="xs:date"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- Children -->
+    <xs:complexType name="EnrolmentChildrenType">
+        <xs:sequence>
+            <xs:element name="child" type="et:PersonType" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Dependents -->
+    <xs:complexType name="EnrolmentDependentsType">
+        <xs:sequence>
+            <xs:element name="dependent" type="et:DependentType" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Residency status -->
+    <xs:complexType name="ResidencyType">
+        <xs:sequence>
+            <xs:element name="citizenshipStatus" type="ct:BasicCitizenshipType"/>
+            <xs:element name="previousCoverage" type="et:PreviousCoverageType"/>
+            <xs:element name="livedInBC" type="et:LivedInBCType"/>
+            <xs:element name="outsideBC" type="et:OutsideBCType"/>
+            <xs:element name="willBeAway" type="et:WillBeAwayType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Previous coverage status -->
+    <xs:complexType name="PreviousCoverageType">
+        <xs:sequence>
+            <xs:element name="hasPreviousCoverage" type="ct:YesOrNoType"/>
+            <xs:element name="prevPHN" type="ct:PHNType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- BC resident -->
+    <xs:complexType name="LivedInBCType">
+        <xs:sequence>
+            <xs:element name="hasLivedInBC" type="ct:YesOrNoType"/>
+            <xs:element name="recentBCMoveDate" type="xs:date" minOccurs="0"/>
+            <xs:element name="recentCanadaMoveDate" type="xs:date" minOccurs="0"/>
+            <xs:element name="isPermanentMove" type="ct:YesOrNoType" minOccurs="0"/>
+            <xs:element name="prevProvinceOrCountry" type="ct:PrevProvinceOrCountryType" minOccurs="0"/>
+            <xs:element name="prevHealthNumber" type="ct:PrevHealthNumberType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Non BC resident -->
+    <xs:complexType name="OutsideBCType">
+        <xs:sequence>
+            <xs:element name="beenOutsideBCMoreThan" type="ct:YesOrNoType"/>
+            <xs:element name="departureDate" type="xs:date" minOccurs="0"/>
+            <xs:element name="returnDate" type="xs:date" minOccurs="0"/>
+            <xs:element name="familyMemberReason" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Future Non BC resident -->
+    <xs:complexType name="WillBeAwayType">
+        <xs:sequence>
+            <xs:element name="willBeAway" type="ct:YesOrNoType"/>
+            <xs:element name="isFullTimeStudent" type="ct:YesOrNoType"/>
+            <xs:element name="isInBCafterStudies" type="ct:YesOrNoType" minOccurs="0"/>
+            <xs:element name="armedDischageDate" type="xs:date" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Base type for spouse and children -->
+    <xs:complexType name="PersonType">
+        <xs:complexContent>
+            <xs:extension base="ct:BasicInfoType">
+                <xs:sequence>
+                    <xs:element name="residency" type="et:ResidencyType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- Dependent -->
+    <xs:complexType name="DependentType">
+        <xs:complexContent>
+            <xs:extension base="et:PersonType">
+                <xs:sequence>
+                    <xs:element name="schoolName" type="ct:SchoolNameType"/>
+                    <xs:element name="schoolAddress" type="ct:SchoolAddressType"/>
+                    <xs:element name="dateStudiesFinish" type="xs:date"/>
+                    <xs:element name="departDateSchoolOutside" type="xs:date" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+</xs:schema>
+
