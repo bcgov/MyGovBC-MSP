@@ -40,7 +40,7 @@ module.exports = {
     'Before they moved to B.C., were they working in another province for the Canadian Forces or a correctional institution?',
     'Before they moved to B.C., were they working in another province for the Canadian Forces or a correctional institution?'],
 
-  schoolNameLabel: 'Name of school',
+  schoolNameLabel: 'Name of school (must be in full-time attendance)',
   schoolNameErrorIsRequired: 'Name of school is required',
   schoolAddressLabel: 'School address',
 
