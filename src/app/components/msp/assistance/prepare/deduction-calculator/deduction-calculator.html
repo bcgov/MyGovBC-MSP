@@ -124,10 +124,10 @@
     </tbody>
   </table>
   <p class="qualify-message" *ngIf="applicantIncomeInfoProvided && incomeUnderThreshhold">
-    It is likely that you will qualify for assistance.
+    It is likely that you will qualify for Premium Assistance.
   </p>
   <p class="disqualify-message" *ngIf="applicantIncomeInfoProvided && !incomeUnderThreshhold">
-    Your adjusted income exceeds the maximum. It appears you are not eligible for MSP financial assistance.
+    It appears you may not be eligible for Premium Assistance. Please <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us">contact Health Insurance BC</a> for more information.
   </p>
 </div>
 
@@ -137,7 +137,7 @@
     <button class="btn btn-primary btn-block"
       routerLink="/msp/assistance/personal-info"
       style="font-size: smaller">
-      Continue to apply for financial assistance
+      Continue to apply for Premium Assistance
     </button>
   </div>
 </div>
