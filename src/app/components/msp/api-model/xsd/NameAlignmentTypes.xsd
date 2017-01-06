@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema version="1.1"
            xmlns:et="http://www.gov.bc.ca/hibc/enrolmentTypes"
-           xmlns:ct="CommonTypes.xsd"
+           xmlns:ct="http://www.gov.bc.ca/hibc/commonTypes"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            targetNamespace="http://www.gov.bc.ca/hibc/enrolmentTypes">
 
-    <xs:import namespace="CommonTypes.xsd" schemaLocation="CommonTypes.xsd"/>
+    <xs:import namespace="http://www.gov.bc.ca/hibc/commonTypes" schemaLocation="CommonTypes.xsd"/>
 
     <xs:annotation>
         <xs:documentation xml:lang="en">
