@@ -63,10 +63,6 @@ After a make a few more edits, I double check my work at the test site.
 * node@>=4.2.5
 * npm@>=3.10.0 (note: not the default of node@4.2.5)
 * GIT
-* Python 2.x (only used for npm dependencies native compiling)
-
-### Windows Users
-* Visual Studio Express 2015 with C++ compiler (only used for npm dependencies native compiling)
 
 ## Development
 It is recommended to install the app under `/client` folder of [MyGovBC-core-server](https://github.com/bcgov/MyGovBC-core-server).
@@ -133,6 +129,16 @@ To facilitate building a multilingual site, i18n and markdown are supported by t
   Because the output of static content is string, you can implement placeholder in the static content and substitute them with Angular variables easily as shown above for placeholder {page_count}.
 
 The component */src/app/components/msp/landing/* has the reference implementation of i18n and markdown.
+
+## XSD to Typescript Generation
+
+
+### Tools
+* Python 2.x (only used for npm dependencies native compiling)
+
+### Windows Users
+* Visual Studio Express 2015 with C++ compiler (only used for npm dependencies native compiling)
+
 
 ## License
 
