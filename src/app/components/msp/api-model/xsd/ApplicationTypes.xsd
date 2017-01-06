@@ -1,67 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema version="1.1"
-           xmlns:ap="http://www.gov.bc.ca/hibc/applicationTypes"
-           xmlns:et="http://www.gov.bc.ca/hibc/enrolmentTypes"
-           xmlns:ct="http://www.gov.bc.ca/hibc/commonTypes"
-           xmlns:at="http://www.gov.bc.ca/hibc/assistanceTypes"
-           xmlns:nt="http://www.gov.bc.ca/hibc/nameAlignmentTypes"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://www.gov.bc.ca/hibc/applicationTypes">
-
-    <xs:import namespace="http://www.gov.bc.ca/hibc/commonTypes" schemaLocation="CommonTypes.xsd"/>
-    <xs:import namespace="http://www.gov.bc.ca/hibc/enrolmentTypes" schemaLocation="EnrolmentTypes.xsd"/>
-    <xs:import namespace="http://www.gov.bc.ca/hibc/assistanceTypes" schemaLocation="AssistanceTypes.xsd"/>
-    <xs:import namespace="http://www.gov.bc.ca/hibc/nameAlignmentTypes" schemaLocation="NameAlignmentTypes.xsd"/>
-
-    <xs:annotation>
-        <xs:documentation xml:lang="en">
+<xs:schema xmlns:ap="http://www.gov.bc.ca/hibc/applicationTypes" xmlns:et="http://www.gov.bc.ca/hibc/enrolmentTypes" xmlns:ct="http://www.gov.bc.ca/hibc/commonTypes" xmlns:at="http://www.gov.bc.ca/hibc/assistanceTypes" xmlns:nt="http://www.gov.bc.ca/hibc/nameAlignmentTypes" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.gov.bc.ca/hibc/applicationTypes" version="1.1">
+	<xs:import namespace="http://www.gov.bc.ca/hibc/commonTypes" schemaLocation="CommonTypes.xsd"/>
+	<xs:import namespace="http://www.gov.bc.ca/hibc/enrolmentTypes" schemaLocation="EnrolmentTypes.xsd"/>
+	<xs:import namespace="http://www.gov.bc.ca/hibc/assistanceTypes" schemaLocation="AssistanceTypes.xsd"/>
+	<!--	<xs:import namespace="http://www.gov.bc.ca/hibc/enrolmentTypes" schemaLocation="NameAlignmentTypes.xsd"/> -->
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
             Wrapper for all MSP Applications - Digital Experience.
             Supports Enrolment, Assistance and NameAlignment Applications.
         </xs:documentation>
-    </xs:annotation>
-
-    <!-- The Application Root -->
-    <xs:element name="application" type="ap:ApplicationType"/>
-
-    <!-- Application has three parts, applicant, spouse (optional), children (optional) -->
-    <xs:complexType name="ApplicationType">
-        <xs:sequence>
-            <xs:choice minOccurs="1" maxOccurs="1">
-                <xs:element name="enrolmentApplication" type="et:EnrolmentApplicationType"/>
-                <xs:element name="assistanceApplication" type="at:AssistanceApplicationType"/>
-                <xs:element name="nameAlignmentApplication" type="nt:NameAlignmentApplicationType"/>
-            </xs:choice>
-            <xs:element name="uuid" type="xs:string" maxOccurs="1"/>
-            <xs:element name="attachments" type="ap:AttachmentsType" maxOccurs="1"/>
-            <xs:element name="comment" type="xs:string" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <!-- Attachments -->
-    <xs:complexType name="AttachmentsType">
-        <xs:sequence>
-            <xs:element name="attachment" type="ap:AttachmentType" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <!-- Attachment -->
-    <xs:complexType name="AttachmentType">
-        <xs:sequence>
-            <xs:element name="contentType" type="ap:ContentType" maxOccurs="1"/>
-            <xs:element name="attachmentDocumentType" type="xs:string" maxOccurs="1"/>
-            <xs:element name="attachmentUuid" type="xs:string" maxOccurs="1"/>
-            <xs:element name="description" type="xs:string" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <!-- ContentType -->
-    <xs:simpleType name="ContentType">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="image/jpeg"/>
-            <xs:enumeration value="application/pdf"/>
-        </xs:restriction>
-    </xs:simpleType>
-
+	</xs:annotation>
+	<!-- The Application Root -->
+	<xs:element name="application" type="ap:ApplicationType"/>
+	<!-- Application has three parts, applicant, spouse (optional), children (optional) -->
+	<xs:complexType name="ApplicationType">
+		<xs:sequence>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element name="enrolmentApplication" type="et:EnrolmentApplicationType"/>
+				<xs:element name="assistanceApplication" type="at:AssistanceApplicationType"/>
+				<!--<xs:element name="nameAlignmentApplication" type="nt:NameAlignmentApplicationType"/>-->
+			</xs:choice>
+			<xs:element name="uuid" type="xs:string" maxOccurs="1"/>
+			<xs:element name="attachments" type="ap:AttachmentsType" maxOccurs="1"/>
+			<xs:element name="comment" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Attachments -->
+	<xs:complexType name="AttachmentsType">
+		<xs:sequence>
+			<xs:element name="attachment" type="ap:AttachmentType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Attachment -->
+	<xs:complexType name="AttachmentType">
+		<xs:sequence>
+			<xs:element name="contentType" type="ap:ContentType" maxOccurs="1"/>
+			<xs:element name="attachmentDocumentType" type="xs:string" maxOccurs="1"/>
+			<xs:element name="attachmentUuid" type="xs:string" maxOccurs="1"/>
+			<xs:element name="description" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- ContentType -->
+	<xs:simpleType name="ContentType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="image/jpeg"/>
+			<xs:enumeration value="application/pdf"/>
+		</xs:restriction>
+	</xs:simpleType>
 </xs:schema>
-
-
