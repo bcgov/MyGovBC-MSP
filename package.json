@@ -52,6 +52,7 @@
     "html-webpack-plugin": "^2.2.0",
     "jasmine-core": "^2.5.2",
     "jquery": "^2.1.4",
+    "jxon": "^2.0.0-beta.4",
     "karma": "^1.2.0",
     "karma-babel-preprocessor": "^6.0.1",
     "karma-chrome-launcher": "^2.0.0",

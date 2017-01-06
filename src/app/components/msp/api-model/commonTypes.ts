@@ -1,4 +1,4 @@
-import * as Primitive from '../../xml-primitives';
+import * as Primitive from './xml-primitives';
 
 // Source files:
 // https://raw.githubusercontent.com/bcgov/MyGovBC-MSP/master/src/app/components/msp/api-model/xsd-flat/CommonTypes.xsd
@@ -33,7 +33,7 @@ interface _BasicCitizenshipType extends BaseType {
 export interface BasicCitizenshipType extends _BasicCitizenshipType { constructor: { new(): BasicCitizenshipType }; }
 export var BasicCitizenshipType: { new(): BasicCitizenshipType };
 
-interface _BasicInfoType extends BaseType {
+export interface _BasicInfoType extends BaseType {
 	attachmentUuids: AttachmentUuidsType;
 	birthDate: Date;
 	gender: GenderType;

@@ -1,4 +1,4 @@
-import * as Primitive from '../../xml-primitives';
+import * as Primitive from './xml-primitives';
 import * as ct from './commonTypes';
 
 // Source files:
@@ -9,7 +9,7 @@ interface BaseType {
 	_exists: boolean;
 	_namespace: string;
 }
-interface _AssistanceApplicantType extends ct._BasicInfoType {
+interface _AssistanceApplicantType extends ct.BasicInfoType {
 	financials: FinancialsType;
 	mailingAddress?: ct.AddressType;
 	phn: number;
