@@ -1,7 +1,10 @@
+import {UUID} from "angular2-uuid";
 /**
  * Image as uploaded by user
  */
 export class MspImage {
+  readonly uuid = UUID.UUID();
+
   fileContent:File;
   size: number;
   sizeUnit: string;

@@ -1,11 +1,14 @@
 import {Address} from "./address.model";
 import {Relationship, StatusInCanada, Activities} from "./status-activities-documents";
 import {Person} from "./person.model";
+import {UUID} from "angular2-uuid";
 
 /**
  * Overall MSP Application Process Data
  */
 class MspApplication {
+
+  readonly uuid = UUID.UUID();
 
   private _applicant: Person = new Person(Relationship.Applicant);
   

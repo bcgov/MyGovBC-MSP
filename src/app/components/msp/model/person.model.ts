@@ -5,8 +5,8 @@ import moment = require("moment");
 var sha1 =  require('sha1');
 
 enum Gender {
-  Female,
-  Male
+  Female = <any>"F",
+  Male = <any>"M"
 }
 
 class Person {
