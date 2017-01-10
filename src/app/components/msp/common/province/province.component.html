@@ -3,8 +3,8 @@
          [ngClass]="{'has-error': !formRef.controls.province?.valid && provinceRef.touched}">
         <label for="province" [innerHtml]="provinceLabel"></label>
         <ng2-completer [(ngModel)]="province" (ngModelChange)="province=$event;provinceChange.emit($event)"
-                       [dataService]="dataService" [minSearchLength]="0"
-                       [overrideSuggested]="true"
+                       [dataService]="dataService" [minSearchLength]="1"
+                       [overrideSuggested]="false"
                        id="province" name="province" #provinceRef="ngModel"></ng2-completer>
         <div *ngIf='provinceRef.touched'>
             <div class="text-danger" *ngIf="provinceRef.errors?.required"

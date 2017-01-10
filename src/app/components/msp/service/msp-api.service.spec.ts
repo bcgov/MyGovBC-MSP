@@ -3,6 +3,7 @@ import {MspApiService} from "./msp-api.service";
 import {MspApplication} from "../model/application.model";
 import {Gender} from "../model/person.model";
 import {MspImage} from "../model/msp-image";
+import {StatusInCanada, Activities} from "../model/status-activities-documents";
 
 describe('MspApiService', () => {
 
@@ -45,9 +46,33 @@ describe('MspApiService', () => {
     app.applicant.dob_year = 1901;
     app.applicant.gender = Gender.Male;
     app.applicant.documents.images.push(new MspImage());
+    app.applicant.status = StatusInCanada.CitizenAdult;
+    app.applicant.currentActivity = Activities.Returning;
+    app.applicant.previous_phn = "912345678";
+    app.applicant.movedFromProvince = "BC";
+    app.applicant.arrivalToBCDay = 1;
+    app.applicant.arrivalToBCMonth = 1;
+    app.applicant.arrivalToBCYear = 1976;
+    app.applicant.arrivalToCanadaDay = 2;
+    app.applicant.arrivalToCanadaMonth = 2;
+    app.applicant.arrivalToCanadaYear = 1977;
+    app.authorizedByApplicant = true;
+    app.authorizedByApplicantDate = new Date();
+    app.authorizedBySpouse = false;
+    app.authorizedBySpouseDate = new Date();
+    app.residentialAddress.addressLine1 = "addr 1";
+    app.residentialAddress.addressLine2 = "addr 2";
+    app.residentialAddress.addressLine3 = "addr 3";
+    app.residentialAddress.postal = "v3p 4l4";
+    app.residentialAddress.city = "city";
+    app.residentialAddress.country = "country";
+    app.residentialAddress.province = "province";
+
     let applicationType = service.convert(app);
     let jsonString = JSON.stringify(applicationType);
     console.log(jsonString);
+    let xmlString = service.toXmlString(applicationType);
+    console.log(xmlString);
     expect(jsonString).toBeDefined();
   });
 

@@ -4,6 +4,13 @@ import * as applicationTypes from "../api-model/applicationTypes";
 import * as enrolmentTypes from "../api-model/enrolmentTypes";
 import * as commonTypes from "../api-model/commonTypes";
 import {GenderType} from "../api-model/commonTypes";
+import {Address} from "../model/address.model";
+import {Person} from "../model/person.model";
+import {ResidencyType} from "../api-model/enrolmentTypes";
+import {StatusInCanada, Activities} from "../model/status-activities-documents";
+import {CitizenshipType} from "../api-model/commonTypes";
+import {BasicCitizenshipType} from "../api-model/commonTypes";
+import {LivedInBCType} from "../api-model/enrolmentTypes";
 let jxon = require ("jxon/jxon");
 
 @Injectable()
@@ -54,13 +61,151 @@ export class MspApiService {
      authorizedByApplicantDate: Date;
      authorizedBySpouse: ct.YesOrNoType;
      authorizedBySpouseDate: Date;
+     */
+    if (from.authorizedByApplicant != null) {
+      to.enrolmentApplication.applicant.authorizedByApplicant = from.authorizedByApplicant ? "Y" : "N";
+      to.enrolmentApplication.applicant.authorizedByApplicantDate = from.authorizedByApplicantDate;
+    }
+    if (from.authorizedBySpouse != null) {
+      to.enrolmentApplication.applicant.authorizedBySpouse = from.authorizedBySpouse ? "Y" : "N";
+      to.enrolmentApplication.applicant.authorizedBySpouseDate = from.authorizedBySpouseDate;
+    }
+     /*
      mailingAddress?: ct.AddressType;
      residenceAddress: ct.AddressType;
      residency: ResidencyType;
      telephone: number;
      */
+    if (!from.mailingSameAsResidentialAddress) {
+      to.enrolmentApplication.applicant.mailingAddress = this.convertAddress(from.mailingAddress);
+    }
+    to.enrolmentApplication.applicant.residenceAddress = this.convertAddress(from.residentialAddress);
 
-    //to.enrolmentApplication.applicant.
+
+    to.enrolmentApplication.applicant.residency = this.convertResidency(from.applicant);
+
+    return to;
+  }
+
+  private convertResidency(from: Person): ResidencyType {
+    let to = <enrolmentTypes.ResidencyType>{};
+
+    /*
+     citizenshipStatus: ct.BasicCitizenshipType;
+     livedInBC: LivedInBCType;
+     outsideBC: OutsideBCType;
+     previousCoverage: PreviousCoverageType;
+     willBeAway: WillBeAwayType;
+     */
+
+    //("Citizen" | "PermanentResident" | "WorkPermit" | "StudyPermit" | "Diplomat" | "VisitorPermit");
+    to.citizenshipStatus = <BasicCitizenshipType>{};
+    switch (from.status) {
+      case StatusInCanada.CitizenAdult:
+        to.citizenshipStatus.citizenshipType = "Citizen";
+        break;
+      case StatusInCanada.PermanentResident:
+        to.citizenshipStatus.citizenshipType = "PermanentResident";
+        break;
+      case StatusInCanada.TemporaryResident:
+        switch (from.currentActivity) {
+          case Activities.WorkingInBC:
+            to.citizenshipStatus.citizenshipType = "WorkPermit";
+            break;
+          case Activities.StudyingInBC:
+            to.citizenshipStatus.citizenshipType = "StudyPermit";
+            break;
+          case Activities.Diplomat:
+            to.citizenshipStatus.citizenshipType = "Diplomat";
+            break;
+          default:
+            to.citizenshipStatus.citizenshipType = "VisitorPermit";
+            break;
+        }
+    }
+    to.citizenshipStatus.attachmentUuids = <commonTypes.AttachmentUuidsType>{};
+    to.citizenshipStatus.attachmentUuids.attachmentUuid = new Array<string>();
+    for(let image of from.documents.images) {
+      to.citizenshipStatus.attachmentUuids.attachmentUuid.push(image.uuid);
+    }
+
+    /*
+     hasLivedInBC: ct.YesOrNoType;
+     isPermanentMove?: ct.YesOrNoType;
+     prevHealthNumber?: string;
+     prevProvinceOrCountry?: string;
+     recentBCMoveDate?: Date;
+     recentCanadaMoveDate?: Date;
+
+     beenOutsideBCMoreThan: ct.YesOrNoType;
+     departureDate?: Date;
+     familyMemberReason?: string;
+     returnDate?: Date;
+     */
+    to.livedInBC = <enrolmentTypes.LivedInBCType>{};
+    to.livedInBC.hasLivedInBC = "N";
+    switch (from.currentActivity) {
+      case Activities.Returning:
+        to.livedInBC.hasLivedInBC = "Y";
+        to.livedInBC.isPermanentMove = "Y"; // Always Y, you can't proceed without
+        to.livedInBC.prevHealthNumber = from.previous_phn;
+        to.livedInBC.prevProvinceOrCountry = from.movedFromProvince;
+        to.livedInBC.recentBCMoveDate = from.arrivalToBC.toDate();
+        to.livedInBC.recentCanadaMoveDate = from.arrivalToCanada.toDate();
+        break;
+      case Activities.MovingFromProvince:
+      case Activities.MovingFromCountry:
+        //TODO: to.outsideBC.beenOutsideBCMoreThan
+        to.outsideBC.departureDate = from.studiesDepartureDate.toDate();
+        to.outsideBC.returnDate = from.studiesFinishedDate.toDate();
+        //TODO: familyMemberReason;
+        break;
+
+    }
+
+    /*
+     armedDischageDate?: Date;
+     TODO: following up with meg on these properties
+     isFullTimeStudent: ct.YesOrNoType;
+     isInBCafterStudies?: ct.YesOrNoType;
+     willBeAway: ct.YesOrNoType;
+     */
+    if (from.hasDischarge) {
+      to.willBeAway.armedDischageDate = from.dischargeDate.toDate();
+    }
+    /*
+     hasPreviousCoverage: ct.YesOrNoType;
+     prevPHN?: number;
+     */
+    //to.previousCoverage.hasPreviousCoverage
+    //to.previousCoverage.prevPHN
+
+    return to;
+  }
+
+  private convertAddress(from: Address): commonTypes.AddressType {
+    // Instantiate new object from interface
+    let to = <commonTypes.AddressType>{};
+
+    /*
+     addressLine1: string;
+     addressLine2?: string;
+     addressLine3?: string;
+     city?: string;
+     country?: string;
+     postalCode?: string;
+     provinceOrState?: string;
+     */
+
+    to.addressLine1 = from.addressLine1;
+    to.addressLine2 = from.addressLine2;
+    to.addressLine3 = from.addressLine3;
+    to.city = from.city;
+    to.country = from.country;
+    if (from.postal) {
+      to.postalCode = from.postal.toUpperCase().replace(" ", "");
+    }
+    to.provinceOrState = from.province;
 
     return to;
   }

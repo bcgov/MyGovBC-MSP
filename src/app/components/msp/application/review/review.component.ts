@@ -17,6 +17,20 @@ export class ReviewComponent {
     this.application = this.dataService.getMspApplication();
   }
 
+  applicantAuthorizeOnChange(event: boolean) {
+    this.application.authorizedByApplicant = event;
+    if (this.application.authorizedByApplicant) {
+      this.application.authorizedByApplicantDate = new Date();
+    }
+  }
+  spouseAuthorizeOnChange(event: boolean) {
+    this.application.authorizedBySpouse = event;
+    if (this.application.authorizedBySpouse) {
+      this.application.authorizedBySpouseDate = new Date();
+    }
+  }
+
+
   get questionApplicant(){
     return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.applicantName);
   }

@@ -10,7 +10,7 @@ class Address {
   city: string;
 
   // Two letter code
-  province: string = 'BC';
+  province: string;
 
   // canadian postal code
   private _postal: string;

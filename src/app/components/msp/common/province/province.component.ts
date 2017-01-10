@@ -38,6 +38,14 @@ export class MspProvinceComponent {
     return Array().concat(this.provinceData, this.stateData);
   }
 
+  getCode(name: string) {
+    this.provinceData.findIndex((item:{code:string,name:string})=> {
+      if (item.name ===  name) {
+        return item.code;
+      }
+    })
+  }
+
   constructor(private completerService: CompleterService) {
 
     this.dataService = completerService.local(this.provinceStateData, 'name', 'name');

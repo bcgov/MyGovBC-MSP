@@ -53,6 +53,11 @@ class MspApplication {
   public mailingAddress: Address = new Address();
   public phoneNumber: string;
 
+  authorizedByApplicant: boolean;
+  authorizedByApplicantDate: Date;
+  authorizedBySpouse: boolean;
+  authorizedBySpouseDate: Date;
+
   constructor() {
     // Set some defaults
     this.residentialAddress.province = "British Columbia";
