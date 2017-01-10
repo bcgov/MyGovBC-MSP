@@ -67,6 +67,7 @@ describe('MspApiService', () => {
     app.residentialAddress.city = "city";
     app.residentialAddress.country = "country";
     app.residentialAddress.province = "province";
+    app.phoneNumber = "123-1234-457";
 
     let applicationType = service.convert(app);
     let jsonString = JSON.stringify(applicationType);

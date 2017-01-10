@@ -1,16 +1,15 @@
 import {Injectable} from '@angular/core';
 import {MspApplication} from "../model/application.model";
-import * as applicationTypes from "../api-model/applicationTypes";
-import * as enrolmentTypes from "../api-model/enrolmentTypes";
-import * as commonTypes from "../api-model/commonTypes";
-import {GenderType} from "../api-model/commonTypes";
+import {GenderType, NameType, AttachmentUuidsType, AddressType} from "../api-model/commonTypes";
 import {Address} from "../model/address.model";
 import {Person} from "../model/person.model";
-import {ResidencyType} from "../api-model/enrolmentTypes";
+import {ResidencyType, EnrolmentApplicationType, EnrolmentApplicantType} from "../api-model/enrolmentTypes";
 import {StatusInCanada, Activities} from "../model/status-activities-documents";
 import {CitizenshipType} from "../api-model/commonTypes";
 import {BasicCitizenshipType} from "../api-model/commonTypes";
 import {LivedInBCType} from "../api-model/enrolmentTypes";
+import {PersonType} from "../api-model/enrolmentTypes";
+import {ApplicationType} from "../api-model/applicationTypes";
 let jxon = require ("jxon/jxon");
 
 @Injectable()
@@ -21,19 +20,19 @@ export class MspApiService {
    * @param from
    * @returns {applicationTypes.ApplicationType}
    */
-  convert(from: MspApplication):applicationTypes.ApplicationType  {
+  convert(from: MspApplication):ApplicationType  {
     // Instantiate new object from interface
-    let to = <applicationTypes.ApplicationType>{};
+    let to = <ApplicationType>{};
 
-    to.enrolmentApplication = <enrolmentTypes.EnrolmentApplicationType>{};
-    to.enrolmentApplication.applicant = <enrolmentTypes.EnrolmentApplicantType>{};
+    to.enrolmentApplication = <EnrolmentApplicationType>{};
+    to.enrolmentApplication.applicant = <EnrolmentApplicantType>{};
 
     /*
      firstName: string;
      lastName: string;
      secondName?: string;
      */
-    to.enrolmentApplication.applicant.name = <commonTypes.NameType>{};
+    to.enrolmentApplication.applicant.name = <NameType>{};
     to.enrolmentApplication.applicant.name.firstName = from.applicant.firstName;
     to.enrolmentApplication.applicant.name.secondName = from.applicant.middleName;
     to.enrolmentApplication.applicant.name.lastName = from.applicant.lastName;
@@ -43,7 +42,7 @@ export class MspApiService {
      birthDate: Date;
      gender: GenderType;
      */
-    to.enrolmentApplication.applicant.attachmentUuids =  <commonTypes.AttachmentUuidsType>{};
+    to.enrolmentApplication.applicant.attachmentUuids =  <AttachmentUuidsType>{};
     to.enrolmentApplication.applicant.attachmentUuids.attachmentUuid = new Array<string>();
     for(let image of from.applicant.documents.images) {
       to.enrolmentApplication.applicant.attachmentUuids.attachmentUuid.push(image.uuid);
@@ -53,7 +52,7 @@ export class MspApiService {
       to.enrolmentApplication.applicant.birthDate = from.applicant.dob.toDate();
     }
     if (from.applicant.gender != null) {
-      to.enrolmentApplication.applicant.gender = <commonTypes.GenderType>{};
+      to.enrolmentApplication.applicant.gender = <GenderType>{};
       to.enrolmentApplication.applicant.gender = <GenderType> from.applicant.gender.toString();
     }
     /*
@@ -81,14 +80,22 @@ export class MspApiService {
     }
     to.enrolmentApplication.applicant.residenceAddress = this.convertAddress(from.residentialAddress);
 
-
     to.enrolmentApplication.applicant.residency = this.convertResidency(from.applicant);
+    if (from.phoneNumber) {
+      to.enrolmentApplication.applicant.telephone = Number(from.phoneNumber.replace(new RegExp("[^0-9]", "g"), ""));
+    }
+
+    return to;
+  }
+
+  private convertPerson(from: Person):PersonType {
+    let to = <PersonType>{};
 
     return to;
   }
 
   private convertResidency(from: Person): ResidencyType {
-    let to = <enrolmentTypes.ResidencyType>{};
+    let to = <ResidencyType>{};
 
     /*
      citizenshipStatus: ct.BasicCitizenshipType;
@@ -123,7 +130,7 @@ export class MspApiService {
             break;
         }
     }
-    to.citizenshipStatus.attachmentUuids = <commonTypes.AttachmentUuidsType>{};
+    to.citizenshipStatus.attachmentUuids = <AttachmentUuidsType>{};
     to.citizenshipStatus.attachmentUuids.attachmentUuid = new Array<string>();
     for(let image of from.documents.images) {
       to.citizenshipStatus.attachmentUuids.attachmentUuid.push(image.uuid);
@@ -142,7 +149,7 @@ export class MspApiService {
      familyMemberReason?: string;
      returnDate?: Date;
      */
-    to.livedInBC = <enrolmentTypes.LivedInBCType>{};
+    to.livedInBC = <LivedInBCType>{};
     to.livedInBC.hasLivedInBC = "N";
     switch (from.currentActivity) {
       case Activities.Returning:
@@ -183,9 +190,9 @@ export class MspApiService {
     return to;
   }
 
-  private convertAddress(from: Address): commonTypes.AddressType {
+  private convertAddress(from: Address): AddressType {
     // Instantiate new object from interface
-    let to = <commonTypes.AddressType>{};
+    let to = <AddressType>{};
 
     /*
      addressLine1: string;

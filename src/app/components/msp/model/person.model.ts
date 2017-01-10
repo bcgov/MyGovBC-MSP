@@ -193,7 +193,7 @@ class Person {
       year: year,
       month: month - 1, // moment use 0 index for month :(
       day: day,
-    });
+    }).utc(); // use UTC mode to prevent browser timezone shifting
   }
 }
 
