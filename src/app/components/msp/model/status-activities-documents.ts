@@ -71,7 +71,7 @@ class ActivitiesRules {
       case StatusInCanada.PermanentResident:
         if (relationship === Relationship.Child19To24 ||
             relationship === Relationship.ChildUnder19) {
-          return [Activities.Returning, Activities.MovingFromProvince];
+          return [Activities.Returning, Activities.MovingFromProvince, Activities.MovingFromCountry];
         }
         else {
           return [Activities.Returning, Activities.MovingFromProvince, Activities.MovingFromCountry];
