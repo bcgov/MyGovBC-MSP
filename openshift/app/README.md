@@ -20,17 +20,17 @@ The deployment consists of these steps
    ```sh
    $ git clone https://github.com/bcgov/MyGovBC-core-client.git
    $ cd MyGovBC-core-client
-   $ docker build -t s2i-nginx openshift/builder-image
+   $ docker build -t s2i-nginx openshift/app/builder-image
    $ docker tag s2i-nginx docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/s2i-nginx
    $ oc login -u <username> https://console.pathfinder.gov.bc.ca:8443  
-   $ docker login docker-registry.pathfinder.gov.bc.ca -u <username> -p `oc whoami -t`
+   $ docker login  -u <username> -p `oc whoami -t` docker-registry.pathfinder.gov.bc.ca
    $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/s2i-nginx  
    ```
 2. deploy template
 
    ```sh
    $ oc project <yourprojectname>
-   $ oc create -f openshift/templates/s2i-binary-src.yaml
+   $ oc create -f openshift/app/templates/s2i-binary-src.yaml
    ```
    After this step you will find an instant app template called *mygovbc-client* available in the project 
 3. create OpenShift instant app. You can do so by clicking *mygovbc-client* template from *Add to Project* in web console or by running
