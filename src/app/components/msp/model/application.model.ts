@@ -18,6 +18,10 @@ class MspApplication {
   get applicant(): Person {
     return this._applicant;
   }
+
+  set applicant(apt: Person) {
+    this._applicant = apt;
+  } 
   get spouse(): Person {
     return this._spouse;
   }

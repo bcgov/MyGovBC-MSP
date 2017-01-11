@@ -21,8 +21,6 @@ export class PersonalInfoComponent {
   }
 
   valid(event: Object) {
-    console.log("event: " + event);
-    //this.form.valid = event;
   }
 
   onChange(values:any){

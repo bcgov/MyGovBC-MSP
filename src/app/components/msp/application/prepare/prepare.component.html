@@ -10,7 +10,7 @@
             #notLiveInBCBtn type="button" class="btn btn-default">No&nbsp;</button>
     </div>
 
-    <div *ngIf="liveInBC === true">
+    <div [hidden]="liveInBC !== true">
         <h2 [innerHtml]="lang('./en/index.js').question2"></h2>
         <div class="btn-group" role="group">
             <button [class.msp-btn-radio]="stayLonger === true" (click)="setStayLonger(true)" 
@@ -19,7 +19,7 @@
                #notStaySixMonthOrLonger type="button" class="btn btn-default">No&nbsp;</button>
         </div>
 
-        <div *ngIf="stayLonger === true">
+        <div [hidden]="stayLonger !== true">
             <h2 [innerHtml]="lang('./en/index.js').question3"></h2>
             <div class="btn-group" role="group">
                 <button [class.msp-btn-radio]="plannedAbsence === true" 
@@ -33,7 +33,7 @@
             </h3>
         </div>
 
-        <div *ngIf="stayLonger === false">
+        <div [hidden]="stayLonger === true || stayLonger === undefined">
             <h3 class="text-danger" [innerHtml]="lang('./en/index.js').badAnswer2"></h3>
         </div>    
     </div>
@@ -50,16 +50,16 @@
             [innerHtml]="lang('./en/index.js').badAnswer4">
         </h3>
     </div>
-    <div *ngIf="uncommonSituation === false" [innerHtml]="lang('./en/index.js').allRightAnswers">
+    <div [hidden]="uncommonSituation === true" [innerHtml]="lang('./en/index.js').allRightAnswers">
     </div>
 
-    <h3 *ngIf="liveInBC === false" class="text-danger" [innerHtml]="lang('./en/index.js').badAnswer1">
+    <h3 [hidden]="liveInBC === true || liveInBC === null || liveInBC === undefined" class="text-danger" [innerHtml]="lang('./en/index.js').badAnswer1">
     </h3>
 
     <hr>
 
     <button class="btn btn-primary"
         [disabled] = "!(plannedAbsence === false && stayLonger === true && liveInBC === true && uncommonSituation === false)"
-        type="submit" routerLink="/msp/application/personal-info"
+        routerLink="/msp/application/personal-info"
             [innerHtml]="lang('./en/index.js').continueButton"></button>
 </form>

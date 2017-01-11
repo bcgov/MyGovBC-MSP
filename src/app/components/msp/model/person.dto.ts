@@ -1,4 +1,5 @@
 export default class PersonDto {
+  relationship:number;
   firstName: string;
   middleName: string;
   lastName: string;
@@ -8,6 +9,8 @@ export default class PersonDto {
   dob_year: number;
   sin: string;
   
+  status:number;
+  currentActivity:number;
   previous_phn: string;
 
   liveInBC:boolean;
@@ -15,4 +18,5 @@ export default class PersonDto {
   plannedAbsence:boolean;
   uncommonSituation:boolean;
   
+  spouse:PersonDto;
 }

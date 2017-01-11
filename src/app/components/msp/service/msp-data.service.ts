@@ -6,7 +6,7 @@ import { LocalStorageService } from 'angular-2-local-storage';
 import FinancialAssistApplicationDto from '../model/financial-assist-application.dto';
 import MspApplicationDto from '../model/application.dto';
 import AddressDto from '../model/address.dto';
-
+import { StatusInCanada, Relationship } from '../model/status-activities-documents';
 @Injectable()
 export default class MspDataService {
   private _mspApplication: MspApplication;
@@ -90,22 +90,56 @@ export default class MspDataService {
     this._mspApplication = new MspApplication();
   }
 
+  private toPersonDto(input: Person): PersonDto{
+    let dto:PersonDto = new PersonDto();
+
+    dto.relationship = input.relationship;
+    dto.liveInBC = input.liveInBC;
+    dto.stayForSixMonthsOrLonger = input.stayForSixMonthsOrLonger;
+    dto.plannedAbsence = input.plannedAbsence;
+    dto.uncommonSituation = input.uncommonSituation;
+
+    dto.firstName = input.firstName;
+    dto.lastName = input.lastName;
+    dto.dob_day = input.dob_day;
+    dto.dob_month = input.dob_month;
+    dto.dob_year = input.dob_year;
+    dto.middleName = input.middleName;
+    dto.previous_phn = input.previous_phn;
+
+    dto.status = input.status;
+    dto.currentActivity = input.currentActivity;
+    return dto;
+  }
+
+  private fromPersonDto(dto: PersonDto):Person {
+    let output:Person = new Person(dto.relationship);
+
+    output.liveInBC = dto.liveInBC;
+    output.stayForSixMonthsOrLonger = dto.stayForSixMonthsOrLonger;
+    output.plannedAbsence = dto.plannedAbsence;
+    output.uncommonSituation = dto.uncommonSituation;    
+    output.firstName = dto.firstName;
+    output.lastName = dto.lastName;
+    output.dob_day = dto.dob_day;
+    output.dob_month = dto.dob_month;
+    output.dob_year = dto.dob_year;
+    output.middleName = dto.middleName;
+    output.previous_phn = dto.previous_phn;
+
+    output.status = dto.status;
+    output.currentActivity = dto.currentActivity;
+
+    return output  
+  }
+
   toMspApplicationTransferObject(input:MspApplication):MspApplicationDto {
     let dto:MspApplicationDto = new MspApplicationDto();
 
-    //Fill in conversion logic here
-    dto.applicant.liveInBC = input.applicant.liveInBC;
-    dto.applicant.stayForSixMonthsOrLonger = input.applicant.stayForSixMonthsOrLonger;
-    dto.applicant.plannedAbsence = input.applicant.plannedAbsence;
-    dto.applicant.uncommonSituation = input.applicant.uncommonSituation;
-
-    dto.applicant.firstName = input.applicant.firstName;
-    dto.applicant.lastName = input.applicant.lastName;
-    dto.applicant.dob_day = input.applicant.dob_day;
-    dto.applicant.dob_month = input.applicant.dob_month;
-    dto.applicant.dob_year = input.applicant.dob_year;
-    dto.applicant.middleName = input.applicant.middleName;
-    dto.applicant.previous_phn = input.applicant.previous_phn;
+    dto.applicant = this.toPersonDto(input.applicant);
+    if(input.spouse){
+      dto.applicant.spouse = this.toPersonDto(input.spouse);
+    }
 
     this.convertMailingAddress(input, dto);
     this.convertResidentialAddress(input, dto);
@@ -114,21 +148,11 @@ export default class MspDataService {
 
   private fromMspApplicationTransferObject(dto:MspApplicationDto):MspApplication{
     let output:MspApplication = new MspApplication();
-    //Fill in conversion logic here
+    output.applicant = this.fromPersonDto(dto.applicant);
 
-    output.applicant.liveInBC = dto.applicant.liveInBC;
-    output.applicant.stayForSixMonthsOrLonger = dto.applicant.stayForSixMonthsOrLonger;
-    output.applicant.plannedAbsence = dto.applicant.plannedAbsence;
-    output.applicant.uncommonSituation = dto.applicant.uncommonSituation;
-
-    
-    output.applicant.firstName = dto.applicant.firstName;
-    output.applicant.lastName = dto.applicant.lastName;
-    output.applicant.dob_day = dto.applicant.dob_day;
-    output.applicant.dob_month = dto.applicant.dob_month;
-    output.applicant.dob_year = dto.applicant.dob_year;
-    output.applicant.middleName = dto.applicant.middleName;
-    output.applicant.previous_phn = dto.applicant.previous_phn;
+    if(dto.applicant.spouse){
+      output.addSpouse(this.fromPersonDto(dto.applicant.spouse));
+    }
 
     this.convertMailingAddress(dto, output);
     this.convertResidentialAddress(dto, output);
