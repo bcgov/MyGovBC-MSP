@@ -19,27 +19,25 @@
                #notStaySixMonthOrLonger type="button" class="btn btn-default">No&nbsp;</button>
         </div>
 
-        <!--<div *ngIf="stayLonger === true">
+        <div *ngIf="stayLonger === true">
             <h2 [innerHtml]="lang('./en/index.js').question3"></h2>
             <div class="btn-group" role="group">
-                <button [class.msp-btn-radio]="plannedAbsence === true" (click)="setPlannedAbsense(true)" 
-                    type="button" class="btn btn-default" >Yes</button>
-                <button [class.msp-btn-radio]="plannedAbsence === false" (click)="setPlannedAbsense(false)" 
-                    type="button" class="btn btn-default">No&nbsp;</button>
+                <button [class.msp-btn-radio]="plannedAbsence === true" 
+                    #plannedAbsenceBtn type="button" class="btn btn-default" >Yes</button>
+                <button [class.msp-btn-radio]="plannedAbsence === false"  
+                    #noPlannedAbsenceBtn type="button" class="btn btn-default">No&nbsp;</button>
             </div>
 
             <h3 class="text-danger" *ngIf="plannedAbsence === true"
                 [innerHtml]="lang('./en/index.js').badAnswer3">
-
             </h3>
-
-        </div>-->
+        </div>
 
         <div *ngIf="stayLonger === false">
             <h3 class="text-danger" [innerHtml]="lang('./en/index.js').badAnswer2"></h3>
         </div>    
     </div>
-    <div *ngIf="stayLonger === true">
+    <div [hidden]= "stayLonger !== true || plannedAbsence === true">
         <h2 [innerHtml]="lang('./en/index.js').question4"></h2>
         <h3 [innerHtml]="lang('./en/index.js').question4sub"></h3>
         <div class="btn-group" role="group">
@@ -61,7 +59,7 @@
     <hr>
 
     <button class="btn btn-primary"
-        [disabled] = "!(stayLonger === true && liveInBC === true && uncommonSituation === false)"
+        [disabled] = "!(plannedAbsence === false && stayLonger === true && liveInBC === true && uncommonSituation === false)"
         type="submit" routerLink="/msp/application/personal-info"
             [innerHtml]="lang('./en/index.js').continueButton"></button>
 </form>

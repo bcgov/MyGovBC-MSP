@@ -25,6 +25,8 @@ export class PrepareComponent implements AfterViewInit{
   @ViewChild('notStaySixMonthOrLonger') notStaySixMonthOrLonger: ElementRef;
   @ViewChild('uncommonSituationBtn') uncommonSituationBtn: ElementRef;
   @ViewChild('noUncommonSituationBtn') noUncommonSituationBtn: ElementRef;
+  @ViewChild('plannedAbsenceBtn') plannedAbsenceBtn: ElementRef;
+  @ViewChild('noPlannedAbsenceBtn') noPlannedAbsenceBtn: ElementRef;
 
   private apt: Person;
 
@@ -60,10 +62,20 @@ export class PrepareComponent implements AfterViewInit{
         this.dataService.getMspApplication().applicant.uncommonSituation = false;
       });
 
+    let plannedAbsenceBtn$ = Observable.fromEvent<MouseEvent>(this.plannedAbsenceBtn.nativeElement, 'click')
+      .map( x=>{
+        this.dataService.getMspApplication().applicant.plannedAbsence = true;
+      });
+    let noPlannedAbsenceBtn$ = Observable.fromEvent<MouseEvent>(this.noPlannedAbsenceBtn.nativeElement, 'click')
+      .map( x=>{
+        this.dataService.getMspApplication().applicant.plannedAbsence = false;
+      });
+
     if(this.form){
       this.form.valueChanges.merge(liveInBC$).merge(notLiveInBC$)
       .merge(staySixMonthOrLonger$).merge(notStaySixMonthOrLonger$)
       .merge(uncommonSituation$).merge(noUncommonSituation$)
+      .merge(plannedAbsenceBtn$).merge(noPlannedAbsenceBtn$)
       .subscribe(values => {
         this.dataService.saveMspApplication();
       });
@@ -92,10 +104,6 @@ export class PrepareComponent implements AfterViewInit{
 
   setLiveInBC(live: boolean) {
     return this.apt.liveInBC = live;
-  }
-
-  setPlannedAbsense(leave: boolean) {
-    this.apt.plannedAbsence = leave;
   }
 
   setUncommonSituation(uncommon: boolean) {
