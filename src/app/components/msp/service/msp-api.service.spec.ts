@@ -103,5 +103,52 @@ describe('MspApiService', () => {
     expect(jsonString).toBeDefined();
   });
 
+  it ('should send an object', () => {
+    let service = TestBed.get(MspApiService);
+    let app = new MspApplication();
+    app.applicant.dob_day = 31;
+    app.applicant.dob_month = 12;
+    app.applicant.dob_year = 1901;
+    app.applicant.gender = Gender.Male;
 
-})
+    app.applicant.status = StatusInCanada.CitizenAdult;
+    app.applicant.currentActivity = Activities.Returning;
+    app.applicant.previous_phn = "912345678";
+    app.applicant.movedFromProvince = "BC";
+    app.applicant.arrivalToBCDay = 1;
+    app.applicant.arrivalToBCMonth = 1;
+    app.applicant.arrivalToBCYear = 1976;
+    app.applicant.arrivalToCanadaDay = 2;
+    app.applicant.arrivalToCanadaMonth = 2;
+    app.applicant.arrivalToCanadaYear = 1977;
+
+    let doc1 = new MspImage();
+    doc1.contentType = "image/jpeg";
+    app.applicant.documents.images.push(doc1);
+
+    app.authorizedByApplicant = true;
+    app.authorizedByApplicantDate = new Date();
+    app.authorizedBySpouse = false;
+    app.authorizedBySpouseDate = new Date();
+    app.residentialAddress.addressLine1 = "addr 1";
+    app.residentialAddress.addressLine2 = "addr 2";
+    app.residentialAddress.addressLine3 = "addr 3";
+    app.residentialAddress.postal = "v3p 4l4";
+    app.residentialAddress.city = "city";
+    app.residentialAddress.country = "country";
+    app.residentialAddress.province = "province";
+    app.phoneNumber = "123-1234-457";
+
+    let promise = service.send(app);
+    promise.then((application:MspApplication) => {
+
+      expect(application.referenceNumber).toBeDefined();
+      expect(application.referenceNumber.length).toBeGreaterThan(0);
+
+    }, (error: Error) => {
+      // no errors!
+      expect(error).toBeUndefined();
+    });
+  });
+});
+

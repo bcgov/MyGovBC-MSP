@@ -10,6 +10,11 @@ class MspApplication {
 
   readonly uuid = UUID.UUID();
 
+  /**
+   * Set by the API, not for client use
+   */
+  referenceNumber: string;
+
   private _applicant: Person = new Person(Relationship.Applicant);
   
   private _children: Array<Person>  = [];

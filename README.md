@@ -132,12 +132,25 @@ The component */src/app/components/msp/landing/* has the reference implementatio
 
 ## XSD to Typescript Generation
 
-
 ### Tools
 * Python 2.x (only used for npm dependencies native compiling)
 
 ### Windows Users
 * Visual Studio Express 2015 with C++ compiler (only used for npm dependencies native compiling)
+
+### CXSD
+
+Install cxsd:
+
+```
+npm -g install cxsd
+```
+
+Running cxsd:
+
+```
+cxsd https://raw.githubusercontent.com/bcgov/MyGovBC-MSP/master/src/app/components/msp/api-model/xsd/ResponseTypes.xsd
+```
 
 
 ## License

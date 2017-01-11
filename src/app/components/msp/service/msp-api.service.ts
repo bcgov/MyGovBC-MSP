@@ -18,10 +18,50 @@ import {
 } from "../api-model/applicationTypes";
 import {MspImage} from "../model/msp-image";
 import {PersonDocuments} from "../model/person-document.model";
+import {ResponseType} from "../api-model/responseTypes";
 let jxon = require ("jxon/jxon");
 
 @Injectable()
 export class MspApiService {
+
+
+  send(app: MspApplication): Promise<MspApplication> {
+
+    return new Promise<MspApplication>((resolve, reject) => {
+      try {
+
+        // first convert the model
+        let document = this.convert(app);
+
+        // second convert to XML
+        let convertedAppXml = this.toXmlString(document, MspApiService.ApplicationTypeNameSpace);
+
+        // if no errors, then we'll send all attachments
+        this.sendAttachments(document.application.attachments).then(() => {
+
+          // once all attachments are done we can send in the data
+          this.sendApplication(document);
+
+          // Add reference number
+          app.referenceNumber = "123";
+
+          resolve(app);
+        });
+
+      } catch (e) {
+        reject(new Error(e.toString()));
+      }
+    });
+  }
+
+  private sendAttachments(attachments: AttachmentsType): Promise<void> {
+    return Promise.resolve();
+  }
+
+  private sendApplication(application: document): Promise<ResponseType> {
+    return Promise.resolve(<ResponseType>{});
+  }
+
 
   /**
    * Start of a converter operation
