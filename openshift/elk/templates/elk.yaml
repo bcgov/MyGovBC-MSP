@@ -62,6 +62,9 @@ objects:
                 containerPort: 9300
                 protocol: TCP
             resources:
+              requests:
+                cpu: '1'
+                memory: 512Mi
             volumeMounts:
               -
                 name: elasticsearch-data
@@ -92,6 +95,138 @@ objects:
         terminationGracePeriodSeconds: 30
         dnsPolicy: ClusterFirst
 - apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    name: kibana
+    labels:
+      app: ${NAME}
+  spec:
+    strategy:
+      type: Rolling
+      rollingParams:
+        updatePeriodSeconds: 1
+        intervalSeconds: 1
+        timeoutSeconds: 600
+        maxUnavailable: 25%
+        maxSurge: 25%
+      resources:
+    triggers:
+      -
+        type: ConfigChange
+      -
+        type: ImageChange
+        imageChangeParams:
+          automatic: true
+          containerNames:
+            - kibana
+          from:
+            kind: ImageStreamTag
+            name: 'os-kibana:latest'
+    replicas: 1
+    test: false
+    selector:
+      app: ${NAME}
+      deploymentconfig: kibana
+    template:
+      metadata:
+        labels:
+          app: ${NAME}
+          deploymentconfig: kibana
+      spec:
+        containers:
+          -
+            name: kibana
+            image: os-kibana
+            ports:
+              -
+                containerPort: 5601
+                protocol: TCP
+            resources:
+            livenessProbe:
+              httpGet:
+                path: /
+                port: 5601
+                scheme: HTTP
+              initialDelaySeconds: 60
+              timeoutSeconds: 10
+              periodSeconds: 10
+              successThreshold: 1
+              failureThreshold: 3
+            readinessProbe:
+              httpGet:
+                path: /
+                port: 5601
+                scheme: HTTP
+              initialDelaySeconds: 58
+              timeoutSeconds: 10
+              periodSeconds: 10
+              successThreshold: 1
+              failureThreshold: 3
+            terminationMessagePath: /dev/termination-log
+            imagePullPolicy: Always
+        restartPolicy: Always
+        terminationGracePeriodSeconds: 30
+        dnsPolicy: ClusterFirst
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    name: logstash
+    labels:
+      app: ${NAME}
+  spec:
+    strategy:
+      type: Rolling
+      rollingParams:
+        updatePeriodSeconds: 1
+        intervalSeconds: 1
+        timeoutSeconds: 600
+        maxUnavailable: 25%
+        maxSurge: 25%
+      resources:
+    triggers:
+      -
+        type: ConfigChange
+      -
+        type: ImageChange
+        imageChangeParams:
+          automatic: true
+          containerNames:
+            - logstash
+          from:
+            kind: ImageStreamTag
+            name: 'os-logstash:latest'
+    replicas: 1
+    test: false
+    selector:
+      app: ${NAME}
+      deploymentconfig: logstash
+    template:
+      metadata:
+        labels:
+          app: logstash
+          deploymentconfig: logstash
+      spec:
+        containers:
+          -
+            name: logstash
+            image: os-logstash
+            ports:
+              -
+                containerPort: 8080
+                protocol: TCP
+            resources:
+              limits:
+                cpu: '3'
+                memory: 1Gi
+              requests:
+                cpu: '1'
+                memory: 512Mi
+            terminationMessagePath: /dev/termination-log
+            imagePullPolicy: Always
+        restartPolicy: Always
+        terminationGracePeriodSeconds: 30
+        dnsPolicy: ClusterFirst
+- apiVersion: v1
   kind: Service
   metadata:
     name: elasticsearch
@@ -113,6 +248,69 @@ objects:
       deploymentconfig: elasticsearch
     type: ClusterIP
     sessionAffinity: None
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: kibana
+    labels:
+      app: ${NAME}
+    annotations:
+      service.alpha.openshift.io/dependencies: '[{"name":"elasticsearch","kind":"Service"}]'
+  spec:
+    ports:
+      -
+        name: 5601-tcp
+        protocol: TCP
+        port: 5601
+        targetPort: 5601
+    selector:
+      deploymentconfig: kibana
+    type: ClusterIP
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: logstash
+    labels:
+      app: ${NAME}
+    annotations:
+      service.alpha.openshift.io/dependencies: '[{"name":"elasticsearch","kind":"Service"}]'
+  spec:
+    ports:
+      -
+        name: 8080-tcp
+        protocol: TCP
+        port: 8080
+        targetPort: 8080
+    selector:
+      deploymentconfig: logstash
+    type: ClusterIP
+    sessionAffinity: None
+- apiVersion: v1
+  kind: Route
+  metadata:
+    name: kibana
+    labels:
+      app: ${NAME}
+  spec:
+    to:
+      kind: Service
+      name: kibana
+      weight: 100
+    port:
+      targetPort: 5601-tcp
+- apiVersion: v1
+  kind: Route
+  metadata:
+    name: ${NAME}
+    labels:
+      app: logstash
+  spec:
+    to:
+      kind: Service
+      name: logstash
+      weight: 100
+    port:
+      targetPort: 8080-tcp
 parameters:
 - description: The name assigned to all of the openshift objects defined in this template.
   displayName: Name
