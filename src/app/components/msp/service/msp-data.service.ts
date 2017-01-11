@@ -97,6 +97,7 @@ export default class MspDataService {
     dto.applicant.liveInBC = input.applicant.liveInBC;
     dto.applicant.stayForSixMonthsOrLonger = input.applicant.stayForSixMonthsOrLonger;
     dto.applicant.plannedAbsence = input.applicant.plannedAbsence;
+    dto.applicant.uncommonSituation = input.applicant.uncommonSituation;
 
     dto.applicant.firstName = input.applicant.firstName;
     dto.applicant.lastName = input.applicant.lastName;
@@ -114,6 +115,13 @@ export default class MspDataService {
   private fromMspApplicationTransferObject(dto:MspApplicationDto):MspApplication{
     let output:MspApplication = new MspApplication();
     //Fill in conversion logic here
+
+    output.applicant.liveInBC = dto.applicant.liveInBC;
+    output.applicant.stayForSixMonthsOrLonger = dto.applicant.stayForSixMonthsOrLonger;
+    output.applicant.plannedAbsence = dto.applicant.plannedAbsence;
+    output.applicant.uncommonSituation = dto.applicant.uncommonSituation;
+
+    
     output.applicant.firstName = dto.applicant.firstName;
     output.applicant.lastName = dto.applicant.lastName;
     output.applicant.dob_day = dto.applicant.dob_day;

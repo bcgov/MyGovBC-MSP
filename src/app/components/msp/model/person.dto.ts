@@ -13,5 +13,6 @@ export default class PersonDto {
   liveInBC:boolean;
   stayForSixMonthsOrLonger:boolean;
   plannedAbsence:boolean;
+  uncommonSituation:boolean;
   
 }
