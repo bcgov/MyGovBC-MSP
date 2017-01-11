@@ -65,7 +65,6 @@ export class PrepareComponent implements AfterViewInit{
       .merge(staySixMonthOrLonger$).merge(notStaySixMonthOrLonger$)
       .merge(uncommonSituation$).merge(noUncommonSituation$)
       .subscribe(values => {
-        console.log('saving application from preparation screen.');
         this.dataService.saveMspApplication();
       });
     }
