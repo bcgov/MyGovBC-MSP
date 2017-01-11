@@ -13,4 +13,17 @@ export class MspImage {
   naturalWidth: number;
   name:string;
   id: string;
+
+  /**
+   * Mostly for unit test purposes because of difficultly with File API
+   * but could be used to override content type for conversion purposes, etc
+   */
+  private _contentType: string;
+  get contentType(): string {
+    if (this._contentType) return this._contentType;
+    else return this.fileContent.type;
+  }
+  set contentType(value:string) {
+    this._contentType = value;
+  }
 }

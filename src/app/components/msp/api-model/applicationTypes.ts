@@ -38,3 +38,5 @@ interface _ContentType extends Primitive._string { content: ContentType; }
 export interface document extends BaseType {
 	application: ApplicationType;
 }
+
+export const _ApplicationTypeNameSpace = "http://www.gov.bc.ca/hibc/applicationTypes";
