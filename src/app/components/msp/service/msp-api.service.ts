@@ -3,13 +3,18 @@ import {MspApplication} from "../model/application.model";
 import {GenderType, NameType, AttachmentUuidsType, AddressType} from "../api-model/commonTypes";
 import {Address} from "../model/address.model";
 import {Person} from "../model/person.model";
-import {ResidencyType, EnrolmentApplicationType, EnrolmentApplicantType} from "../api-model/enrolmentTypes";
+import {
+  ResidencyType, EnrolmentApplicationType, EnrolmentApplicantType,
+  EnrolmentChildrenType
+} from "../api-model/enrolmentTypes";
 import {StatusInCanada, Activities} from "../model/status-activities-documents";
 import {CitizenshipType} from "../api-model/commonTypes";
 import {BasicCitizenshipType} from "../api-model/commonTypes";
 import {LivedInBCType} from "../api-model/enrolmentTypes";
 import {PersonType} from "../api-model/enrolmentTypes";
 import {ApplicationType} from "../api-model/applicationTypes";
+import {MspImage} from "../model/msp-image";
+import {PersonDocuments} from "../model/person-document.model";
 let jxon = require ("jxon/jxon");
 
 @Injectable()
@@ -27,26 +32,13 @@ export class MspApiService {
     to.enrolmentApplication = <EnrolmentApplicationType>{};
     to.enrolmentApplication.applicant = <EnrolmentApplicantType>{};
 
-    /*
-     firstName: string;
-     lastName: string;
-     secondName?: string;
-     */
-    to.enrolmentApplication.applicant.name = <NameType>{};
-    to.enrolmentApplication.applicant.name.firstName = from.applicant.firstName;
-    to.enrolmentApplication.applicant.name.secondName = from.applicant.middleName;
-    to.enrolmentApplication.applicant.name.lastName = from.applicant.lastName;
+    to.enrolmentApplication.applicant.name = this.convertName(from.applicant);
 
     /*
-     attachmentUuids: AttachmentUuidsType;
      birthDate: Date;
      gender: GenderType;
      */
-    to.enrolmentApplication.applicant.attachmentUuids =  <AttachmentUuidsType>{};
-    to.enrolmentApplication.applicant.attachmentUuids.attachmentUuid = new Array<string>();
-    for(let image of from.applicant.documents.images) {
-      to.enrolmentApplication.applicant.attachmentUuids.attachmentUuid.push(image.uuid);
-    }
+    to.enrolmentApplication.applicant.attachmentUuids = this.convertAttachmentUuids(from.applicant.documents);
 
     if (from.applicant.hasDob) {
       to.enrolmentApplication.applicant.birthDate = from.applicant.dob.toDate();
@@ -85,16 +77,70 @@ export class MspApiService {
       to.enrolmentApplication.applicant.telephone = Number(from.phoneNumber.replace(new RegExp("[^0-9]", "g"), ""));
     }
 
+    // Convert spouse
+    if (from.spouse) {
+      to.enrolmentApplication.spouse = this.convertPerson(from.spouse);
+    }
+
+    // Convert children
+    if (from.children &&
+      from.children.length > 0) {
+
+      to.enrolmentApplication.children = <EnrolmentChildrenType>{};
+      to.enrolmentApplication.children.child = new Array<PersonType>();
+      for (let child of from.children) {
+        to.enrolmentApplication.children.child.push(this.convertPerson(child));
+      }
+    }
+
     return to;
   }
 
   private convertPerson(from: Person):PersonType {
     let to = <PersonType>{};
 
+    to.name = this.convertName(from);
+    to.attachmentUuids = this.convertAttachmentUuids(from.documents);
+
+    if (from.hasDob) {
+      to.birthDate = from.dob.toDate();
+    }
+    if (from.gender != null) {
+      to.gender = <GenderType>{};
+      to.gender = <GenderType> from.gender.toString();
+    }
+    to.residency = this.convertResidency(from);
+
     return to;
   }
 
-  private convertResidency(from: Person): ResidencyType {
+  private convertName(from: Person): NameType {
+    let to = <NameType>{};
+
+    /*
+     firstName: string;
+     lastName: string;
+     secondName?: string;
+     */
+    to.firstName = from.firstName;
+    to.secondName = from.middleName;
+    to.lastName = from.lastName;
+
+    return to;
+  }
+
+  private convertAttachmentUuids (from: PersonDocuments): AttachmentUuidsType {
+    let to = <AttachmentUuidsType>{};
+
+    to.attachmentUuid = new Array<string>();
+    for(let image of from.images) {
+      to.attachmentUuid.push(image.uuid);
+    }
+
+    return to;
+  }
+
+   private convertResidency(from: Person): ResidencyType {
     let to = <ResidencyType>{};
 
     /*
