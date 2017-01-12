@@ -41,8 +41,6 @@ export class PersonalInfoComponent {
   addSpouse = () =>{
     let sp:Person = new Person(Relationship.Spouse)    
     this.dataService.getMspApplication().addSpouse(sp);
-    // this.spouse = sp;
-    // this.spouse = this.dataService.getApplication().spouse;
   };
 
   addChild(relationship: Relationship): void {

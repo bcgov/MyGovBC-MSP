@@ -20,7 +20,11 @@ export default class PersonDto {
   
   movedFromProvince:string;
   institutionWorkHistory:string;
-  
+
+  dischargeYear: number;
+  dischargeMonth: number;
+  dischargeDay: number;
+
   status:number;
   currentActivity:number;
   previous_phn: string;
@@ -34,5 +38,6 @@ export default class PersonDto {
 
   spouse:PersonDto;
 
+  children: PersonDto[] = [];
   images: MspImage[];
 }

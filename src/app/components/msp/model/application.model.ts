@@ -36,6 +36,10 @@ class MspApplication {
     return this._children;
   }
 
+  set children(children:Array<Person>) {
+    this._children = children;
+  }
+
   addSpouse = (sp:Person)=>{
     if(!this._spouse){
       this._spouse = sp;

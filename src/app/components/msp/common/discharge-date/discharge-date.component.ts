@@ -1,4 +1,6 @@
-import {Component, Input, EventEmitter, Output} from '@angular/core'
+import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core'
+import { NgForm } from '@angular/forms';
+
 import {Person} from "../../model/person.model";
 import * as moment from 'moment';
 
@@ -11,9 +13,18 @@ require('./discharge-date.component.less');
 export class MspDischargeDateComponent {
 
   lang = require('./i18n');
+  @Output() onChange = new EventEmitter<any>();
 
   // Create today for comparison in check later
   today = moment();
+
+  @ViewChild('formRef') form: NgForm;
+  ngAfterViewInit(): void {
+    this.form.valueChanges.subscribe(values => {
+      this.onChange.emit(values);
+    });
+  }
+  
 
   // Parse person's date
   date() {

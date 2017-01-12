@@ -118,6 +118,10 @@ export default class MspDataService {
 
     dto.movedFromProvince = input.movedFromProvince;
     dto.institutionWorkHistory = input.institutionWorkHistory;
+    dto.dischargeYear = input.dischargeYear;
+    dto.dischargeMonth = input.dischargeMonth;
+    dto.dischargeDay = input.dischargeDay;
+    
 
     if(input.gender){
       dto.gender = input.gender.valueOf();
@@ -155,6 +159,9 @@ export default class MspDataService {
 
     output.movedFromProvince = dto.movedFromProvince;
     output.institutionWorkHistory = dto.institutionWorkHistory;
+    output.dischargeYear = dto.dischargeYear;
+    output.dischargeMonth = dto.dischargeMonth;
+    output.dischargeDay = dto.dischargeDay;
 
     if(dto.gender){
       output.gender = dto.gender;
@@ -177,6 +184,11 @@ export default class MspDataService {
       dto.applicant.spouse = this.toPersonDto(input.spouse);
     }
 
+    input.children.forEach( c => {
+      let c2:PersonDto = this.toPersonDto(c);
+      dto.applicant.children = [...dto.applicant.children, c2];
+    });
+
     this.convertMailingAddress(input, dto);
     this.convertResidentialAddress(input, dto);
     return dto;
@@ -189,6 +201,10 @@ export default class MspDataService {
     if(dto.applicant.spouse){
       output.addSpouse(this.fromPersonDto(dto.applicant.spouse));
     }
+
+    dto.applicant.children.forEach( c=> {
+      output.children = [...output.children, this.fromPersonDto(c)];
+    });
 
     this.convertMailingAddress(dto, output);
     this.convertResidentialAddress(dto, output);

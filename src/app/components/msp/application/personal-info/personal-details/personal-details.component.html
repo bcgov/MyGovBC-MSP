@@ -106,15 +106,16 @@
                         type="button" class="btn btn-default">{{institution}}
                 </button>
             </div>
-        </div>
-        <div *ngIf="person.institutionWorkHistory == 'Yes'" class="col-md-4">
-            <msp-discharge-date
-                    [year]="person.dischargeYear"
-                    (yearChange)="person.dischargeYear = $event"
-                    [month]="person.dischargeMonth"
-                    (monthChange)="person.dischargeMonth = $event"
-                    [day]="person.dischargeDay"
-                    (dayChange)="person.dischargeDay = $event"></msp-discharge-date>
+            <div *ngIf="person.institutionWorkHistory === 'Yes'" style="margin-top: 10px">
+                <msp-discharge-date
+                        [year]="person.dischargeYear"
+                        (yearChange)="person.dischargeYear = $event"
+                        [month]="person.dischargeMonth"
+                        (monthChange)="person.dischargeMonth = $event"
+                        [day]="person.dischargeDay"
+                        (dayChange)="person.dischargeDay = $event"
+                        (onChange) = "onChange.emit($event)"></msp-discharge-date>
+            </div>
         </div>
     </div>
 
