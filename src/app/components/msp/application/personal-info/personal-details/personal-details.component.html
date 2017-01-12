@@ -37,7 +37,7 @@
     <div *ngIf="person.documents.images.length > 0">
         <h3 [innerHtml]="personalInfoLabel()"></h3>
         <p class="help-block" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
-        <msp-name [person]="person"></msp-name>
+        <msp-name [person]="person" (onChange) = "onChange.emit($event)"></msp-name>
 
         <div class="row">
             <div class="col-sm-4">

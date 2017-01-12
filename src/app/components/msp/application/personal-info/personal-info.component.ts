@@ -13,7 +13,6 @@ export class PersonalInfoComponent {
   lang = require('./i18n');
 
   Relationship: typeof Relationship = Relationship;
-  spouse:Person;
   @ViewChild('formRef') form: NgForm;
 
   constructor(private dataService: DataService){
@@ -35,13 +34,14 @@ export class PersonalInfoComponent {
     return this.dataService.getMspApplication().applicant;
   }
 
-  // get spouse(): Person {
-  //   return this.dataService.getApplication().spouse;
-  // }
+  get spouse(): Person {
+    return this.dataService.getMspApplication().spouse;
+  }
+
   addSpouse = () =>{
     let sp:Person = new Person(Relationship.Spouse)    
     this.dataService.getMspApplication().addSpouse(sp);
-    this.spouse = sp;
+    // this.spouse = sp;
     // this.spouse = this.dataService.getApplication().spouse;
   };
 

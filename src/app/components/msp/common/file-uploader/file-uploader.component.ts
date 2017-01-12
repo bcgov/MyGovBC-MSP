@@ -35,7 +35,7 @@ export class FileUploaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('subscribe to drop event.');
+    // console.log('subscribe to drop event.');
     var dragOverStream =
       Observable.fromEvent<DragEvent>(this.dropZone.nativeElement, "dragover");
 

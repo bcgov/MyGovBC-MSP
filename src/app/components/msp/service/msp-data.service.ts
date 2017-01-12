@@ -93,6 +93,7 @@ export default class MspDataService {
   private toPersonDto(input: Person): PersonDto{
     let dto:PersonDto = new PersonDto();
 
+    dto.id = input.id;
     dto.relationship = input.relationship;
     dto.liveInBC = input.liveInBC;
     dto.stayForSixMonthsOrLonger = input.stayForSixMonthsOrLonger;
@@ -109,12 +110,15 @@ export default class MspDataService {
 
     dto.status = input.status;
     dto.currentActivity = input.currentActivity;
+
+    dto.images = input.documents.images; 
     return dto;
   }
 
   private fromPersonDto(dto: PersonDto):Person {
     let output:Person = new Person(dto.relationship);
 
+    output.id = dto.id;
     output.liveInBC = dto.liveInBC;
     output.stayForSixMonthsOrLonger = dto.stayForSixMonthsOrLonger;
     output.plannedAbsence = dto.plannedAbsence;
@@ -129,6 +133,10 @@ export default class MspDataService {
 
     output.status = dto.status;
     output.currentActivity = dto.currentActivity;
+
+    dto.images.forEach(img => {
+      output.documents.images = [...output.documents.images, img];
+    });
 
     return output  
   }

@@ -1,3 +1,5 @@
+import { MspImage } from './msp-image';
+
 export default class PersonDto {
   relationship:number;
   firstName: string;
@@ -17,6 +19,9 @@ export default class PersonDto {
   stayForSixMonthsOrLonger:boolean;
   plannedAbsence:boolean;
   uncommonSituation:boolean;
-  
+  id:string
+
   spouse:PersonDto;
+
+  images: MspImage[];
 }
