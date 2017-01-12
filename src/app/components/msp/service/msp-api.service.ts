@@ -19,17 +19,25 @@ import {
 import {MspImage} from "../model/msp-image";
 import {PersonDocuments} from "../model/person-document.model";
 import {ResponseType} from "../api-model/responseTypes";
+import {Http, Response} from "@angular/http";
+import {Observable} from "rxjs";
 let jxon = require ("jxon/jxon");
 
 @Injectable()
 export class MspApiService {
 
+  constructor (private http: Http) {}
 
+  /**
+   * Sends the Application and returns an MspApplication if successful with referenceNumber populated
+   * @param app
+   * @returns {Promise<MspApplication>}
+   */
   send(app: MspApplication): Promise<MspApplication> {
 
     return new Promise<MspApplication>((resolve, reject) => {
-      try {
 
+      try {
         // first convert the model
         let document = this.convert(app);
 
@@ -48,14 +56,37 @@ export class MspApiService {
           resolve(app);
         });
 
-      } catch (e) {
-        reject(new Error(e.toString()));
+      } catch (error) {
+        reject(error);
       }
     });
   }
 
   private sendAttachments(attachments: AttachmentsType): Promise<void> {
-    return Promise.resolve();
+    return new Promise<void>((resolve, reject) => {
+
+      // Make a list of promises for each attachment
+      let attachmentPromises = new Array<Promise<ResponseType>>();
+      for (let attachment of attachments.attachment) {
+        attachmentPromises.push(this.sendAttachment(attachment));
+      }
+
+      // Execute all promises are waiting for results
+      Promise.all(attachmentPromises).then((responses: ResponseType[]) => {
+        resolve();
+      }, (error:Error) => {
+        reject(error);
+      });
+    });
+  }
+
+  private sendAttachment(attachment: AttachmentType): Promise<ResponseType> {
+    return new Promise<ResponseType>((resolve, reject) => {
+      /*this.http.post("http://localhost/attachment", {}).map((response:Response) => {
+        resolve(<ResponseType>{});
+      });*/
+      resolve(<ResponseType>{});
+    });
   }
 
   private sendApplication(application: document): Promise<ResponseType> {
@@ -309,14 +340,22 @@ export class MspApiService {
         to.livedInBC.isPermanentMove = "Y"; // Always Y, you can't proceed without
         to.livedInBC.prevHealthNumber = from.previous_phn;
         to.livedInBC.prevProvinceOrCountry = from.movedFromProvince;
-        to.livedInBC.recentBCMoveDate = from.arrivalToBC.toDate();
-        to.livedInBC.recentCanadaMoveDate = from.arrivalToCanada.toDate();
+        if (from.hasArrivalToBC) {
+          to.livedInBC.recentBCMoveDate = from.arrivalToBC.toDate();
+        }
+        if (from.hasArrivalToCanada) {
+          to.livedInBC.recentCanadaMoveDate = from.arrivalToCanada.toDate();
+        }
         break;
       case Activities.MovingFromProvince:
       case Activities.MovingFromCountry:
         //TODO: to.outsideBC.beenOutsideBCMoreThan
-        to.outsideBC.departureDate = from.studiesDepartureDate.toDate();
-        to.outsideBC.returnDate = from.studiesFinishedDate.toDate();
+        if (from.hasStudiesDeparture) {
+          to.outsideBC.departureDate = from.studiesDepartureDate.toDate();
+        }
+        if (from.hasStudiesFinished) {
+          to.outsideBC.returnDate = from.studiesFinishedDate.toDate();
+        }
         //TODO: familyMemberReason;
         break;
 
@@ -370,6 +409,7 @@ export class MspApiService {
   }
 
   static ApplicationTypeNameSpace = _ApplicationTypeNameSpace;
+  private static XmlDocumentType = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
 
   /**
    * Converts any JS object to XML with optional namespace
@@ -379,6 +419,7 @@ export class MspApiService {
    */
   toXmlString (from: any, namespace?: string):string {
     let xml = jxon.jsToXml(from, namespace);
-    return jxon.xmlToString(xml);
+    let xmlString = jxon.xmlToString(xml);
+    return MspApiService.XmlDocumentType + xmlString;
   }
 }

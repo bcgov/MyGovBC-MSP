@@ -43,9 +43,10 @@ class MspApplication {
     }
   };
 
-  addChild(relationship: Relationship): void {
+  addChild(relationship: Relationship): Person {
     let c = new Person(relationship)
     this._children.length < 30 ? this._children.push(c): console.log('No more than 30 children can be added to one application');
+    return c;
   }
   
   removeChild(idx: number):void {
