@@ -14,7 +14,8 @@ export default class PersonDto {
   status:number;
   currentActivity:number;
   previous_phn: string;
-
+  gender: number;
+  
   liveInBC:boolean;
   stayForSixMonthsOrLonger:boolean;
   plannedAbsence:boolean;

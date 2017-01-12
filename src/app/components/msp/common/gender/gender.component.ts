@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core'
+import {Component, Input, Output, EventEmitter} from '@angular/core'
 import {Person, Gender} from "../../model/person.model";
 import {UUID} from 'angular2-uuid';
 
@@ -14,7 +14,7 @@ export class MspGenderComponent {
   Gender: typeof Gender = Gender;
 
   @Input() person: Person;
-
+  @Output() onChange = new EventEmitter<any>();
   /**
    * Generate uuid for use in element's ID
    * @type {string}

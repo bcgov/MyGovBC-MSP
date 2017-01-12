@@ -109,6 +109,9 @@ export default class MspDataService {
     dto.middleName = input.middleName;
     dto.previous_phn = input.previous_phn;
 
+    if(input.gender){
+      dto.gender = input.gender.valueOf();
+    }
     dto.status = input.status;
     dto.currentActivity = input.currentActivity;
 
@@ -133,6 +136,9 @@ export default class MspDataService {
     output.middleName = dto.middleName;
     output.previous_phn = dto.previous_phn;
 
+    if(dto.gender){
+      output.gender = dto.gender;
+    }
     output.status = dto.status;
     output.currentActivity = dto.currentActivity;
 
