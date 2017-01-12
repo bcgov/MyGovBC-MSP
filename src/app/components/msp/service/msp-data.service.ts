@@ -101,6 +101,7 @@ export default class MspDataService {
     dto.uncommonSituation = input.uncommonSituation;
 
     dto.firstName = input.firstName;
+    dto.middleName = input.middleName;
     dto.lastName = input.lastName;
     dto.dob_day = input.dob_day;
     dto.dob_month = input.dob_month;
@@ -124,6 +125,7 @@ export default class MspDataService {
     output.plannedAbsence = dto.plannedAbsence;
     output.uncommonSituation = dto.uncommonSituation;    
     output.firstName = dto.firstName;
+    output.middleName = dto.middleName;
     output.lastName = dto.lastName;
     output.dob_day = dto.dob_day;
     output.dob_month = dto.dob_month;

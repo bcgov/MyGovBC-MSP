@@ -28,7 +28,6 @@ enum Activities {
   WorkingInBC,
   StudyingInBC,
   ReligousWorker,
-  SpouseOrDep,
   Diplomat
 }
 
@@ -81,7 +80,7 @@ class ActivitiesRules {
           return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligousWorker, Activities.Diplomat]
         }
         else {
-          return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligousWorker, Activities.SpouseOrDep, Activities.Diplomat]
+          return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligousWorker, Activities.Diplomat]
         }
     }
   }
@@ -103,7 +102,6 @@ class DocumentRules {
         return [Documents.WorkPermit];
       case Activities.StudyingInBC:
         return [Documents.StudyPermit];
-      case Activities.SpouseOrDep:
       case Activities.ReligousWorker:
         return [Documents.VisitorVisa];
       case Activities.Diplomat:
