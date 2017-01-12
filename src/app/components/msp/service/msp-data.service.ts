@@ -109,6 +109,13 @@ export default class MspDataService {
     dto.middleName = input.middleName;
     dto.previous_phn = input.previous_phn;
 
+    dto.arrivalToCanadaDay = input.arrivalToCanadaDay;
+    dto.arrivalToCanadaMonth = input.arrivalToCanadaMonth;
+    dto.arrivalToCanadaYear = input.arrivalToCanadaYear;
+    dto.arrivalToBCDay = input.arrivalToBCDay;
+    dto.arrivalToBCMonth = input.arrivalToBCMonth;
+    dto.arrivalToBCYear = input.arrivalToBCYear;
+
     if(input.gender){
       dto.gender = input.gender.valueOf();
     }
@@ -135,6 +142,13 @@ export default class MspDataService {
     output.dob_year = dto.dob_year;
     output.middleName = dto.middleName;
     output.previous_phn = dto.previous_phn;
+
+    output.arrivalToCanadaDay = dto.arrivalToCanadaDay;
+    output.arrivalToCanadaMonth = dto.arrivalToCanadaMonth;
+    output.arrivalToCanadaYear = dto.arrivalToCanadaYear;
+    output.arrivalToBCDay = dto.arrivalToBCDay;
+    output.arrivalToBCMonth = dto.arrivalToBCMonth;
+    output.arrivalToBCYear = dto.arrivalToBCYear;
 
     if(dto.gender){
       output.gender = dto.gender;

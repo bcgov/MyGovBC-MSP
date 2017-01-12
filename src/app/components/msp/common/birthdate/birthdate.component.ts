@@ -19,6 +19,7 @@ export class MspBirthDateComponent implements AfterViewInit{
 
   @Input() person: Person;
   @Output() onChange = new EventEmitter<any>();
+
   @ViewChild('formRef') form: NgForm;
   ngAfterViewInit(): void {
     this.form.valueChanges.subscribe(values => {

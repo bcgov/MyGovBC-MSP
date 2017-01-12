@@ -44,7 +44,7 @@
                 <msp-gender [person]="person" (onChange) = "onChange.emit($event)"></msp-gender>
             </div>
             <div class="col-sm-8">
-                <msp-birthdate [person]="person"></msp-birthdate>
+                <msp-birthdate [person]="person" (onChange) = "onChange.emit($event)"></msp-birthdate>
             </div>
         </div>
 
@@ -55,19 +55,22 @@
                      (phnChange)="person.previous_phn = $event"
                      [required]="false"
                      [bcPhn]="true"
-                     [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"></msp-phn>
+                     [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"
+                     (onChange) = "onChange.emit($event)"></msp-phn>
         </div>
         <msp-province *ngIf="person.currentActivity === Activities.MovingFromProvince"
                       [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
                       [province]="person.movedFromProvince"
                       (provinceChange)="person.movedFromProvince = $event"
-                      [exceptBC]="true"></msp-province>
+                      [exceptBC]="true"
+                      (onChange) = "onChange.emit($event)"></msp-province>
         <div class="col-sm-4" *ngIf="person.currentActivity === Activities.MovingFromProvince">
             <msp-phn [phn]="person.previous_phn"
                      (phnChange)="person.previous_phn = $event"
                      [required]="false"
                      [bcPhn]="false"
-                     [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"></msp-phn>
+                     [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"
+                     (onChange) = "onChange.emit($event)"></msp-phn>
         </div>
         <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning">
             <msp-arrival-date [arrivalLabel]="lang('./en/index.js').arrivalDateToBCLabel"
@@ -76,7 +79,8 @@
                               [month]="person.arrivalToBCMonth"
                               (monthChange)="person.arrivalToBCMonth = $event"
                               [day]="person.arrivalToBCDay"
-                              (dayChange)="person.arrivalToBCDay = $event"></msp-arrival-date>
+                              (dayChange)="person.arrivalToBCDay = $event"
+                              (onChange) = "onChange.emit($event)"></msp-arrival-date>
         </div>
         <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning">
             <msp-arrival-date [arrivalLabel]="lang('./en/index.js').arrivalDateToCanadaLabel"
@@ -85,7 +89,8 @@
                               [month]="person.arrivalToCanadaMonth"
                               (monthChange)="person.arrivalToCanadaMonth = $event"
                               [day]="person.arrivalToCanadaDay"
-                              (dayChange)="person.arrivalToCanadaDay = $event"></msp-arrival-date>
+                              (dayChange)="person.arrivalToCanadaDay = $event"
+                              (onChange) = "onChange.emit($event)"></msp-arrival-date>
 
         </div>
     </div>

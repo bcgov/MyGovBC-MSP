@@ -10,6 +10,13 @@ export default class PersonDto {
   dob_month: number;
   dob_year: number;
   sin: string;
+
+  arrivalToCanadaYear: number;
+  arrivalToCanadaMonth: number;
+  arrivalToCanadaDay: number;
+  arrivalToBCYear: number;
+  arrivalToBCMonth: number;
+  arrivalToBCDay: number;
   
   status:number;
   currentActivity:number;
