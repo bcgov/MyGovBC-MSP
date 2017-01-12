@@ -30,7 +30,7 @@ The deployment consists of these steps
    ```sh
    $ oc process elk|oc create -f -
    ```
-3. deploty docker image
+3. deploy docker image
 
    ```sh
    $ docker login  -u <username> -p `oc whoami -t` docker-registry.pathfinder.gov.bc.ca
