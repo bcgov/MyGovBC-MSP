@@ -35,7 +35,7 @@ module.exports = {
   arrivalDateToBCLabel: 'Arrival date in B.C.',
   arrivalDateToCanadaLabel: 'Arrival date in Canada',
 
-  canadianForcesQuestion: ['Before you moved to B.C., were you working in another province for the Canadian Forces or a correctional institution?',
+  canadianForcesQuestion: ['Before you moved to BC, were you working in another province for the Canadian Forces or a correctional institution?',
     'Before they moved to B.C., were they working in another province for the Canadian Forces or a correctional institution?',
     'Before they moved to B.C., were they working in another province for the Canadian Forces or a correctional institution?',
     'Before they moved to B.C., were they working in another province for the Canadian Forces or a correctional institution?'],

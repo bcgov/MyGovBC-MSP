@@ -116,6 +116,9 @@ export default class MspDataService {
     dto.arrivalToBCMonth = input.arrivalToBCMonth;
     dto.arrivalToBCYear = input.arrivalToBCYear;
 
+    dto.movedFromProvince = input.movedFromProvince;
+    dto.institutionWorkHistory = input.institutionWorkHistory;
+
     if(input.gender){
       dto.gender = input.gender.valueOf();
     }
@@ -149,6 +152,9 @@ export default class MspDataService {
     output.arrivalToBCDay = dto.arrivalToBCDay;
     output.arrivalToBCMonth = dto.arrivalToBCMonth;
     output.arrivalToBCYear = dto.arrivalToBCYear;
+
+    output.movedFromProvince = dto.movedFromProvince;
+    output.institutionWorkHistory = dto.institutionWorkHistory;
 
     if(dto.gender){
       output.gender = dto.gender;

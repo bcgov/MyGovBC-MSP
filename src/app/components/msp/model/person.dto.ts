@@ -18,6 +18,9 @@ export default class PersonDto {
   arrivalToBCMonth: number;
   arrivalToBCDay: number;
   
+  movedFromProvince:string;
+  institutionWorkHistory:string;
+  
   status:number;
   currentActivity:number;
   previous_phn: string;

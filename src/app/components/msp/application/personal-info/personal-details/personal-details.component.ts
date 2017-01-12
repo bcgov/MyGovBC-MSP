@@ -118,30 +118,6 @@ export class PersonalDetailsComponent implements AfterViewInit, OnInit {
     }
   }
 
-  /**
-   * Change log, for debugging purpose, for input properties on the component
-   */
-  // private changeLog: string[] = [];
-
-  /**
-   * propKey is the input property value of this component
-   */
-  // ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
-  //   this.logPropertyChange(changes);
-  // }
-
-  // private logPropertyChange(changes: { [propKey: string]: SimpleChange }): void {
-  //   let log: string[] = [];
-  //   for (let propName in changes) {
-  //     let changedProp = changes[propName];
-  //     let isFirst = changedProp.isFirstChange();
-  //     let from = JSON.stringify(changedProp.previousValue);
-  //     let to = JSON.stringify(changedProp.currentValue);
-  //     log.push(`${propName} changed from ${from} to ${to}, is first change: ${isFirst}`);
-  //   }
-  //   this.changeLog.push(log.join(', '));
-  // }
-
   ngAfterViewInit() {
     if(this.form){
       this.form.valueChanges
@@ -152,6 +128,12 @@ export class PersonalDetailsComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(){
+
+  }
+
+  provinceUpdate(evt:string){
+    this.person.movedFromProvince = evt;
+    this.onChange.emit(evt);
   }
 
   removeChild(): void {
@@ -174,6 +156,8 @@ export class PersonalDetailsComponent implements AfterViewInit, OnInit {
       this.person.dischargeMonth = null;
       this.person.dischargeYear = null;
     }
+
+    this.onChange.emit(history);
   }
 
   toggleInstituationList() {

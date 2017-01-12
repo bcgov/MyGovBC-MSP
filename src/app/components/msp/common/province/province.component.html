@@ -2,7 +2,7 @@
     <div class="form-group col-sm-5"
          [ngClass]="{'has-error': !formRef.controls.province?.valid && provinceRef.touched}">
         <label for="province" [innerHtml]="provinceLabel"></label>
-        <ng2-completer [(ngModel)]="province" (ngModelChange)="province=$event;provinceChange.emit($event)"
+        <ng2-completer [(ngModel)]="province" (ngModelChange)="updateModel($event)"
                        [dataService]="dataService" [minSearchLength]="1"
                        [overrideSuggested]="false"
                        id="province" name="province" #provinceRef="ngModel"></ng2-completer>

@@ -12,14 +12,21 @@ export class MspProvinceComponent {
   lang = require('./i18n');
 
   @Input() province: string;
-  @Output() provinceChange = new EventEmitter<string>();
   @Input() provinceLabel: string = this.lang('./en/index.js').provinceLabel;
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
+
   ngAfterViewInit(): void {
-    this.form.valueChanges.subscribe(values => {
-      this.onChange.emit(values);
-    });
+    // this.form.valueChanges.subscribe(values => {
+    //   console.log('form value change, %o', values);
+    //   this.onChange.emit(values);
+    // });
+  }
+  
+  updateModel(event:string){
+    console.log('province change, %o', event);
+    // this.province=event;
+    this.onChange.emit(event)    
   }
 
   /**

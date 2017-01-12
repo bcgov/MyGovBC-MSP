@@ -23,7 +23,7 @@ export class PersonalInfoComponent {
   }
 
   onChange(values:any){
-    console.log('save msp application upon changes from child component percolated up to parent.');
+    console.log('save msp application upon changes from child component percolated up to parent, %o', values);
     this.dataService.saveMspApplication();
   }
 

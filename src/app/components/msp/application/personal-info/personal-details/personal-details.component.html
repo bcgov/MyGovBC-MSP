@@ -61,9 +61,9 @@
         <msp-province *ngIf="person.currentActivity === Activities.MovingFromProvince"
                       [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
                       [province]="person.movedFromProvince"
-                      (provinceChange)="person.movedFromProvince = $event"
+                      (onChange)="provinceUpdate($event)"
                       [exceptBC]="true"
-                      (onChange) = "onChange.emit($event)"></msp-province>
+                      ></msp-province>
         <div class="col-sm-4" *ngIf="person.currentActivity === Activities.MovingFromProvince">
             <msp-phn [phn]="person.previous_phn"
                      (phnChange)="person.previous_phn = $event"
