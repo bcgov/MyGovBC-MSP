@@ -7,6 +7,24 @@ metadata:
   name: elk
 objects:
 - apiVersion: v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      description: openshift elasticsearch
+    name: os-elasticsearch
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      description: openshift logstash
+    name: os-logstash
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      description: openshift kibana
+    name: os-kibana
+- apiVersion: v1
   kind: DeploymentConfig
   metadata:
     name: elasticsearch
@@ -62,9 +80,12 @@ objects:
                 containerPort: 9300
                 protocol: TCP
             resources:
+              limits:
+                cpu: '1'
+                memory: 4Gi
               requests:
                 cpu: '1'
-                memory: 512Mi
+                memory: 2Gi
             volumeMounts:
               -
                 name: elasticsearch-data
@@ -203,7 +224,7 @@ objects:
     template:
       metadata:
         labels:
-          app: logstash
+          app: ${NAME}
           deploymentconfig: logstash
       spec:
         containers:
@@ -216,11 +237,11 @@ objects:
                 protocol: TCP
             resources:
               limits:
-                cpu: '3'
-                memory: 1Gi
+                cpu: '1'
+                memory: 2Gi
               requests:
                 cpu: '1'
-                memory: 512Mi
+                memory: 1Gi
             terminationMessagePath: /dev/termination-log
             imagePullPolicy: Always
         restartPolicy: Always
@@ -301,9 +322,9 @@ objects:
 - apiVersion: v1
   kind: Route
   metadata:
-    name: ${NAME}
+    name: logstash
     labels:
-      app: logstash
+      app: ${NAME}
   spec:
     to:
       kind: Service
@@ -311,9 +332,24 @@ objects:
       weight: 100
     port:
       targetPort: 8080-tcp
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: elasticsearch-rwo
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: ${VOLUME_CAPACITY}
 parameters:
 - description: The name assigned to all of the openshift objects defined in this template.
   displayName: Name
   name: NAME
   required: true
   value: elk
+- description: Volume space available for elasticsearch data, e.g. 512Mi, 1Gi
+  displayName: Volume capacity
+  name: VOLUME_CAPACITY
+  required: true
+  value: 1Gi
