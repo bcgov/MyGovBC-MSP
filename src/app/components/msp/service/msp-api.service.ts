@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Inject} from '@angular/core';
 import {MspApplication} from "../model/application.model";
 import {GenderType, NameType, AttachmentUuidsType, AddressType} from "../api-model/commonTypes";
 import {Address} from "../model/address.model";
@@ -26,7 +26,7 @@ let jxon = require ("jxon/jxon");
 @Injectable()
 export class MspApiService {
 
-  constructor (private http: Http) {}
+  constructor (private http: Http, @Inject('appConstants') private appConstants: Object) {}
 
   /**
    * Sends the Application and returns an MspApplication if successful with referenceNumber populated
@@ -39,21 +39,26 @@ export class MspApiService {
 
       try {
         // first convert the model
-        let document = this.convert(app);
+        let document:document = this.convert(app);
 
         // second convert to XML
         let convertedAppXml = this.toXmlString(document, MspApiService.ApplicationTypeNameSpace);
 
         // if no errors, then we'll send all attachments
-        this.sendAttachments(document.application.attachments).then(() => {
+        this.sendAttachments(document.application.uuid, app.getAllImages()).then(() => {
 
           // once all attachments are done we can send in the data
-          this.sendApplication(document);
+          this.sendApplication(document).then((response:ResponseType) => {
 
-          // Add reference number
-          app.referenceNumber = "123";
+            // Add reference number
+            app.referenceNumber = response.referenceNumber.toString();
 
-          resolve(app);
+            // Let our caller know were done passing back the application
+            resolve(app);
+
+          }, (error:Error) => {
+            reject(error);
+          });
         });
 
       } catch (error) {
@@ -62,15 +67,14 @@ export class MspApiService {
     });
   }
 
-  private sendAttachments(attachments: AttachmentsType): Promise<void> {
+  private sendAttachments(applicationUUID:string, attachments: MspImage[]): Promise<void> {
     return new Promise<void>((resolve, reject) => {
 
       // Make a list of promises for each attachment
       let attachmentPromises = new Array<Promise<ResponseType>>();
-      for (let attachment of attachments.attachment) {
-        attachmentPromises.push(this.sendAttachment(attachment));
+      for (let attachment of attachments) {
+        attachmentPromises.push(this.sendAttachment(applicationUUID, attachment));
       }
-
       // Execute all promises are waiting for results
       Promise.all(attachmentPromises).then((responses: ResponseType[]) => {
         resolve();
@@ -80,17 +84,57 @@ export class MspApiService {
     });
   }
 
-  private sendAttachment(attachment: AttachmentType): Promise<ResponseType> {
+  private sendAttachment(applicationUUID:string, attachment: MspImage): Promise<ResponseType> {
     return new Promise<ResponseType>((resolve, reject) => {
-      /*this.http.post("http://localhost/attachment", {}).map((response:Response) => {
+
+      /*
+       Create URL
+       /{applicationUUID}/attachment/{attachmentUUID}
+       */
+      let url = this.appConstants['apiBaseUrl']
+        + "/MSPDESubmitAttachment/" + applicationUUID
+        + "/attachment/" + attachment.uuid;
+
+      // programArea
+      url += "?programArea=enrolment";
+
+      // attachmentDocumentType - UI does NOT collect this property
+      url += "&attachmentDocumentType=" + MspApiService.AttachmentDocumentType;
+
+      // contentType
+      url += "&contentType=" + attachment.contentType;
+
+      // imageSize
+      url += "&imageSize=" + attachment.size;
+
+      // description - UI does NOT collect this property
+
+      this.http.post(url, attachment.fileContent).map((response:Response) => {
         resolve(<ResponseType>{});
-      });*/
-      resolve(<ResponseType>{});
+      });
     });
   }
 
-  private sendApplication(application: document): Promise<ResponseType> {
-    return Promise.resolve(<ResponseType>{});
+  private sendApplication(document:document): Promise<ResponseType> {
+    return new Promise<ResponseType>((resolve, reject) => {
+      /*
+       Create URL
+       /{applicationUUID}
+       */
+      let url = this.appConstants['apiBaseUrl']
+        + "/MSPDESubmitApplication/" + document.application.uuid;
+
+      // programArea
+      url += "?programArea=enrolment";
+
+      this.http.post(url, document).map((response:Response) => {
+        resolve(this.convertResponse(response.text()));
+      });
+    });
+  }
+
+  convertResponse(responseBody:string):ResponseType {
+    return this.stringToJs<ResponseType>(responseBody);
   }
 
 
@@ -195,13 +239,7 @@ export class MspApiService {
     to.attachment = new Array<AttachmentType>();
 
     // assemble all attachments
-    let attachments = from.applicant.documents.images;
-    if (from.spouse) {
-      attachments.concat(from.applicant.documents.images);
-    }
-    for (let child of from.children) {
-      attachments.concat(child.documents.images);
-    }
+    let attachments = from.getAllImages();
 
     // Convert each one
     for (let attachment of attachments) {
@@ -410,6 +448,7 @@ export class MspApiService {
 
   static ApplicationTypeNameSpace = _ApplicationTypeNameSpace;
   private static XmlDocumentType = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+  private static QualifiedName = "ns1:application";
 
   /**
    * Converts any JS object to XML with optional namespace
@@ -422,4 +461,10 @@ export class MspApiService {
     let xmlString = jxon.xmlToString(xml);
     return MspApiService.XmlDocumentType + xmlString;
   }
+
+  stringToJs<T> (from:string):T {
+    return jxon.stringToJs(from) as T;
+  }
+
+
 }

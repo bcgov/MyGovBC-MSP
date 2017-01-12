@@ -121,8 +121,8 @@ module.exports = function (_path) {
     appConstants: {
       runtimeEnv: NODE_ENV, // run-time environment. by default same as build-time node env
       coreApiBaseUrl: 'http://localhost:9000/api',
-      transcriptEndpoint: 'http://localhost:3001/api',
       serviceName: 'core',
+      apiBaseUrl: 'http://localhost:9000/api'
     },
     htmlLoader: {
       minimize: false,

@@ -1,7 +1,8 @@
 import {Address} from "./address.model";
-import {Relationship, StatusInCanada, Activities} from "./status-activities-documents";
+import {Relationship, StatusInCanada, Activities, Documents} from "./status-activities-documents";
 import {Person} from "./person.model";
 import {UUID} from "angular2-uuid";
+import {MspImage} from "./msp-image";
 
 /**
  * Overall MSP Application Process Data
@@ -67,6 +68,25 @@ class MspApplication {
   authorizedByApplicantDate: Date;
   authorizedBySpouse: boolean;
   authorizedBySpouseDate: Date;
+
+  /*
+    Gets all images for applicant, spouse and all children
+   */
+  getAllImages():MspImage[] {
+    let allImages = Array<MspImage>();
+
+    // add applicant
+    allImages.concat(this.applicant.documents.images);
+
+    if (this.spouse) {
+      allImages.concat(this.spouse.documents.images);
+    }
+    for (let child of this.children) {
+      allImages.concat(child.documents.images);
+    }
+
+    return allImages;
+  }
 
   constructor() {
     // Set some defaults

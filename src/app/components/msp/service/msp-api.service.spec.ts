@@ -1,28 +1,38 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed, fakeAsync, inject} from '@angular/core/testing';
 import {MspApiService} from "./msp-api.service";
 import {MspApplication} from "../model/application.model";
 import {Gender, Person} from "../model/person.model";
 import {MspImage} from "../model/msp-image";
 import {StatusInCanada, Activities, Relationship} from "../model/status-activities-documents";
-import {Http, HttpModule} from "@angular/http";
+import {HttpModule, XHRBackend, Response, RequestMethod, ResponseOptions} from "@angular/http";
+import appConstants from '../../../services/appConstants';
+import {MockBackend, MockConnection} from "@angular/http/testing";
 
 describe('MspApiService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MspApiService],
-      imports: [HttpModule]
+      imports: [HttpModule],
+      providers: [
+        {provide: 'appConstants', useValue: appConstants},
+        MspApiService
+      ]
     })
   });
-  it ('should be defined', () => {
+
+  beforeEach(function() {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
+  });
+
+  it('should be defined', () => {
     let service = TestBed.get(MspApiService);
     expect(service).toBeDefined();
   });
-  it ('should convert something simple', () => {
+  it('should convert something simple', () => {
     let service = TestBed.get(MspApiService);
     expect(service.convert(new MspApplication())).toBeDefined();
   });
-  it ('should display some JSON', () => {
+  it('should display some JSON', () => {
     let service = TestBed.get(MspApiService);
     let app = new MspApplication();
     app.applicant.firstName = "First Name";
@@ -30,7 +40,7 @@ describe('MspApiService', () => {
     let jsonString = JSON.stringify(applicationType);
     expect(jsonString).toBeDefined();
   });
-  it ('should be able to serialize JS to XML', () => {
+  it('should be able to serialize JS to XML', () => {
     let service = TestBed.get(MspApiService);
     let app = new MspApplication();
     app.applicant.firstName = "First Name";
@@ -40,7 +50,7 @@ describe('MspApiService', () => {
     expect(xmlString).toBeDefined();
   });
 
-  it ('should convert a fully populated object', () => {
+  it('should convert a fully populated object', () => {
     let service = TestBed.get(MspApiService);
     let app = new MspApplication();
     app.applicant.dob_day = 31;
@@ -102,9 +112,8 @@ describe('MspApiService', () => {
     child.schoolAddress.addressLine1 = "addr1";
     child.schoolAddress.addressLine2 = "addr2";
     child.schoolAddress.addressLine3 = "addr3";
-    child.status =  StatusInCanada.PermanentResident;
+    child.status = StatusInCanada.PermanentResident;
     child.currentActivity = Activities.StudyingInBC;
-
 
 
     let doc2 = new MspImage();
@@ -119,7 +128,7 @@ describe('MspApiService', () => {
     expect(jsonString).toBeDefined();
   });
 
-  it ('should conform to Maximus sample message', () => {
+  it('should conform to Maximus sample message', () => {
     let service = TestBed.get(MspApiService);
     let app = new MspApplication();
     app.applicant.firstName = "James";
@@ -176,7 +185,7 @@ describe('MspApiService', () => {
     child.dob_year = 1996;
     child.dob_month = 12;
     child.dob_day = 6;
-    child.status =  StatusInCanada.PermanentResident;
+    child.status = StatusInCanada.PermanentResident;
     child.currentActivity = Activities.Returning;
     child.liveInBC = true;
     child.previous_phn = "1234567890";
@@ -188,7 +197,7 @@ describe('MspApiService', () => {
     expect(jsonString).toBeDefined();
   });
 
-  it ('should send an object', (done) => {
+  it('should send an object', done => {
     let service = TestBed.get(MspApiService);
     let app = new MspApplication();
     app.applicant.dob_day = 31;
@@ -225,7 +234,7 @@ describe('MspApiService', () => {
     app.phoneNumber = "123-1234-457";
 
     let promise = service.send(app);
-    promise.then((application:MspApplication) => {
+    promise.then((application: MspApplication) => {
 
       expect(application.referenceNumber).toBeDefined();
       expect(application.referenceNumber.length).toBeGreaterThan(0);
