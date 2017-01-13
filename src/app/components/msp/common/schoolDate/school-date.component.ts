@@ -1,4 +1,5 @@
-import {Component, Input, EventEmitter, Output} from '@angular/core'
+import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
+import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
 
 require('./school-date.component.less');
@@ -21,6 +22,17 @@ export class MspSchoolDateComponent {
   @Input() day: number;
   @Output() dayChange = new EventEmitter<number>();
   @Input() departureDate: boolean = false;
+
+  @Output() onChange = new EventEmitter<any>();
+
+  @ViewChild('formRef') form: NgForm;
+
+  ngAfterViewInit(): void {
+    this.form.valueChanges.subscribe(values => {
+      // console.log('school date value change, %o', values);
+      this.onChange.emit(values);
+    });
+  }
 
   yearErrorPastFutureCheck() {
     if (this.departureDate) {

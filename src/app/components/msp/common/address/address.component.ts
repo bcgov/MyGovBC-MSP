@@ -33,6 +33,10 @@ export class MspAddressComponent implements AfterViewInit{
     });
   }
 
+  provinceUpdate(event:string){
+    this.mailingAddress.province = event;
+    this.onChange.emit(event);
+  }
   /**
    * Auto complete for country
    */

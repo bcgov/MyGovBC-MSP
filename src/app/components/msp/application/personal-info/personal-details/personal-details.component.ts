@@ -136,6 +136,26 @@ export class PersonalDetailsComponent implements AfterViewInit, OnInit {
     this.onChange.emit(evt);
   }
 
+  schoolAddressUpdate(evt:any){
+    this.onChange.emit(evt);
+  }
+
+  updateSchoolExpectedCompletionDate(evt:any){
+    // console.log('school expected completion date updated: %o', evt);
+    this.person.studiesFinishedDay = evt.day;
+    this.person.studiesFinishedMonth = evt.month;
+    this.person.studiesFinishedYear = evt.year;
+    this.onChange.emit(evt);
+  }
+
+  updateSchoolDepartureDate(evt:any){
+    // console.log('school departure date updated: %o', evt);
+    this.person.studiesDepartureDay = evt.day;
+    this.person.studiesDepartureMonth = evt.month;
+    this.person.studiesDepartureYear = evt.year;
+    this.onChange.emit(evt);
+  }  
+
   removeChild(): void {
     this.notifyChildRemoval.emit(this.person);
     // this.notifyChildRemoval.next(id);

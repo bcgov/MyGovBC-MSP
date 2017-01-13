@@ -139,7 +139,8 @@
                              [month]="person.studiesFinishedMonth"
                              (monthChange)="person.studiesFinishedMonth = $event"
                              [day]="person.studiesFinishedDay"
-                             (dayChange)="person.studiesFinishedDay = $event">
+                             (dayChange)="person.studiesFinishedDay = $event"
+                             (onChange) = "updateSchoolExpectedCompletionDate($event)">
             </msp-school-date>
         </div>
         <div class="form-group col-md-4">
@@ -149,7 +150,8 @@
                              [month]="person.studiesDepartureMonth"
                              (monthChange)="person.studiesDepartureMonth = $event"
                              [day]="person.studiesDepartureDay"
-                             (dayChange)="person.studiesDepartureDay = $event">
+                             (dayChange)="person.studiesDepartureDay = $event"
+                             (onChange) = "updateSchoolDepartureDate($event)">
             </msp-school-date>
         </div>
     </div>
@@ -157,7 +159,9 @@
         person.relationship === Relationship.Child19To24"
                  [mailingAddressHeading]="lang('./en/index.js').schoolAddressLabel"
                  [mailingAddress]="person.schoolAddress"
-                 [mailingOnly]="true"></msp-address>
+                 [mailingOnly]="true"
+                 (onChange)="schoolAddressUpdate($event)"                 
+                 ></msp-address>
 
 </form>
 

@@ -71,16 +71,6 @@ export class MspBirthDateComponent implements AfterViewInit, OnInit{
 
   }
 
-  futureCheck(): boolean {
-
-    // Check not in future
-    if (this.person.dob.isAfter(this.today)) {
-      return false;
-    }else{
-      return true;
-    }
-  }
-
   isInTheFuture(): boolean {
     return this.person.dob.isAfter(this.today);
   }

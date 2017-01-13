@@ -29,7 +29,6 @@
         <input type="number"
                class="form-control yearInput"
                [(ngModel)]="person.dob_year"
-               (ngModelChange) = "dobYearChange($event)"
                id="year" name="year" #yearRef="ngModel"
                placeholder="year"
                required
@@ -47,20 +46,20 @@
             <div class="text-danger" *ngIf="yearRef.errors?.required"
                  [innerHtml]="lang('./en/index.js').yearErrorRequired"></div>
         </div>
-        <div class="text-danger" *ngIf="dobYearValidationError">
+        <!--<div class="text-danger" *ngIf="dobYearValidationError">
             <span>{{dobYearValidationError}}</span>
-        </div>        
-        <!--<div *ngIf='yearRef.touched && !isValid()'>
+        </div>        -->
+        <div *ngIf='yearRef.touched && !isValid()'>
             <div class="text-danger"
                  [innerHtml]="lang('./en/index.js').yearErrorBadFormat"></div>
         </div>
-        <div *ngIf='yearRef.touched && !futureCheck()'>
+        <div *ngIf='yearRef.touched && isInTheFuture()'>
             <div class="text-danger"
                  [innerHtml]="lang('./en/index.js').yearErrorFutureCheck"></div>
         </div>
         <div *ngIf='yearRef.touched && !ageCheck()'>
             <div class="text-danger"
                  [innerHtml]="lang('./en/index.js').yearErrorAgeCheck"></div>
-        </div>-->
+        </div>
     </div>
 </form>

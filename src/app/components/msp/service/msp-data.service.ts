@@ -71,6 +71,9 @@ export default class MspDataService {
   private convertResidentialAddress(input:any, output:any){
     this.convertAddress(input, output, 'residentialAddress');
   }
+  private convertSchoolAddress(input:any, output:any){
+    this.convertAddress(input, output, 'schoolAddress');
+  }
   private convertAddress(input:any, output:any, property:string){
     output[property].addressLine1 = input[property].addressLine1;
     output[property].addressLine2 = input[property].addressLine2;
@@ -121,7 +124,15 @@ export default class MspDataService {
     dto.dischargeYear = input.dischargeYear;
     dto.dischargeMonth = input.dischargeMonth;
     dto.dischargeDay = input.dischargeDay;
+    dto.schoolName = input.schoolName;
     
+    dto.studiesDepartureYear = input.studiesDepartureYear;
+    dto.studiesDepartureMonth = input.studiesDepartureMonth;
+    dto.studiesDepartureDay = input.studiesDepartureDay;
+
+    dto.studiesFinishedYear = input.studiesFinishedYear;
+    dto.studiesFinishedMonth = input.studiesFinishedMonth;
+    dto.studiesFinishedDay = input.studiesFinishedDay;
 
     if(input.gender){
       dto.gender = input.gender.valueOf();
@@ -162,6 +173,15 @@ export default class MspDataService {
     output.dischargeYear = dto.dischargeYear;
     output.dischargeMonth = dto.dischargeMonth;
     output.dischargeDay = dto.dischargeDay;
+    output.schoolName = dto.schoolName;
+
+    output.studiesDepartureYear = dto.studiesDepartureYear;
+    output.studiesDepartureMonth = dto.studiesDepartureMonth;
+    output.studiesDepartureDay = dto.studiesDepartureDay;
+
+    output.studiesFinishedYear = dto.studiesFinishedYear;
+    output.studiesFinishedMonth = dto.studiesFinishedMonth;
+    output.studiesFinishedDay = dto.studiesFinishedDay;
 
     if(dto.gender){
       output.gender = dto.gender;
@@ -186,11 +206,16 @@ export default class MspDataService {
 
     input.children.forEach( c => {
       let c2:PersonDto = this.toPersonDto(c);
+      this.convertSchoolAddress(c, c2);
       dto.applicant.children = [...dto.applicant.children, c2];
     });
 
     this.convertMailingAddress(input, dto);
     this.convertResidentialAddress(input, dto);
+
+    // input.children.forEach( c => {
+    //   this.convertSchoolAddress(c.schoolAddress, dto.applicant);
+    // })
     return dto;
   }
 
@@ -203,7 +228,9 @@ export default class MspDataService {
     }
 
     dto.applicant.children.forEach( c=> {
-      output.children = [...output.children, this.fromPersonDto(c)];
+      let child: Person = this.fromPersonDto(c)
+      this.convertSchoolAddress(c, child);
+      output.children = [...output.children, child];
     });
 
     this.convertMailingAddress(dto, output);

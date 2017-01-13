@@ -1,4 +1,5 @@
 import { MspImage } from './msp-image';
+import AddressDto from './address.dto';
 
 export default class PersonDto {
   relationship:number;
@@ -40,4 +41,18 @@ export default class PersonDto {
 
   children: PersonDto[] = [];
   images: MspImage[];
+
+  schoolName: string;
+  
+  schoolAddress: AddressDto = new AddressDto();
+
+  studiesFinishedYear: number;
+  studiesFinishedMonth: number;
+  studiesFinishedDay: number;
+
+  studiesDepartureYear: number;
+  studiesDepartureMonth: number;
+  studiesDepartureDay: number;
+  
+
 }
