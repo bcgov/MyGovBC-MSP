@@ -19,7 +19,7 @@ import {
 import {MspImage} from "../model/msp-image";
 import {PersonDocuments} from "../model/person-document.model";
 import {ResponseType} from "../api-model/responseTypes";
-import {Http, Response} from "@angular/http";
+import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs";
 let jxon = require ("jxon/jxon");
 
@@ -44,19 +44,23 @@ export class MspApiService {
         // second convert to XML
         let convertedAppXml = this.toXmlString(document, MspApiService.ApplicationTypeNameSpace);
 
+        console.log("num images: " + app.getAllImages().length);
+
         // if no errors, then we'll send all attachments
         this.sendAttachments(document.application.uuid, app.getAllImages()).then(() => {
 
           // once all attachments are done we can send in the data
+          console.log("// once all attachments are done we can send in the data");
           this.sendApplication(document).then((response:ResponseType) => {
-
+            console.log("sent application resolved");
             // Add reference number
             app.referenceNumber = response.referenceNumber.toString();
 
             // Let our caller know were done passing back the application
             resolve(app);
 
-          }, (error:Error) => {
+          }).catch((error:Error) => {
+            console.log("sent application rejected");
             reject(error);
           });
         });
@@ -76,11 +80,13 @@ export class MspApiService {
         attachmentPromises.push(this.sendAttachment(applicationUUID, attachment));
       }
       // Execute all promises are waiting for results
+      console.log("Execute all promises are waiting for results");
       Promise.all(attachmentPromises).then((responses: ResponseType[]) => {
+        console.log("All promises resolved");
         resolve();
-      }, (error:Error) => {
-        reject(error);
-      });
+      }).catch((error:Error) => {
+        console.log("a promise rejected");
+      })
     });
   }
 
@@ -94,6 +100,8 @@ export class MspApiService {
       let url = this.appConstants['apiBaseUrl']
         + "/MSPDESubmitAttachment/" + applicationUUID
         + "/attachment/" + attachment.uuid;
+
+      console.log("url: " + url);
 
       // programArea
       url += "?programArea=enrolment";
@@ -109,9 +117,16 @@ export class MspApiService {
 
       // description - UI does NOT collect this property
 
-      this.http.post(url, attachment.fileContent).map((response:Response) => {
-        resolve(<ResponseType>{});
-      });
+      this.http
+        .post(url, attachment.fileContent)
+        .toPromise()
+        .then((response:Response) => {
+          resolve(<ResponseType>{});
+        })
+        .catch((error: any) => {
+          console.log("error:" + error.toString());
+          reject();
+        });
     });
   }
 
@@ -122,14 +137,28 @@ export class MspApiService {
        /{applicationUUID}
        */
       let url = this.appConstants['apiBaseUrl']
-        + "/MSPDESubmitApplication/" + document.application.uuid;
+        + "/MSPDESubmitApplication/" + document.application.uuid
+        + "?programArea=enrolment";
 
-      // programArea
-      url += "?programArea=enrolment";
+      console.log("url: " + url);
 
-      this.http.post(url, document).map((response:Response) => {
-        resolve(this.convertResponse(response.text()));
-      });
+      // Setup headers
+      let headers = new Headers({ 'Content-Type': 'application/xml' });
+      let options = new RequestOptions({ headers: headers });
+
+      // Convert doc to XML
+      let documentXmlString = this.toXmlString(document);
+
+      this.http.post(url, documentXmlString, options)
+        .toPromise()
+        .then((response:Response) => {
+          console.log("sent application resolved");
+          resolve(this.convertResponse(response.text()));
+        })
+        .catch((error: Response | any) => {
+          console.log("sent application rejected: " + error.toString());
+          reject();
+        });
     });
   }
 
@@ -464,6 +493,10 @@ export class MspApiService {
 
   stringToJs<T> (from:string):T {
     return jxon.stringToJs(from) as T;
+  }
+
+  jsToXml (from:any) {
+    return jxon.jsToXml(from);
   }
 
 

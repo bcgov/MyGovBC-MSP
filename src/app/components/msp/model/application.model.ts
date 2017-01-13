@@ -76,13 +76,13 @@ class MspApplication {
     let allImages = Array<MspImage>();
 
     // add applicant
-    allImages.concat(this.applicant.documents.images);
+    allImages = allImages.concat(this.applicant.documents.images);
 
     if (this.spouse) {
-      allImages.concat(this.spouse.documents.images);
+      allImages = allImages.concat(this.spouse.documents.images);
     }
     for (let child of this.children) {
-      allImages.concat(child.documents.images);
+      allImages = allImages.concat(child.documents.images);
     }
 
     return allImages;
