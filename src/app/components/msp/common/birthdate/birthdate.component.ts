@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild, Output, EventEmitter, AfterViewInit} from '@angular/core'
+import {Component, Input, ViewChild, Output, EventEmitter, AfterViewInit, OnInit} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import {Person} from "../../model/person.model";
 import {Relationship, Activities} from "../../model/status-activities-documents";
@@ -10,23 +10,46 @@ require('./birthdate.component.less');
   selector: 'msp-birthdate',
   templateUrl: './birthdate.component.html'
 })
-export class MspBirthDateComponent implements AfterViewInit{
+export class MspBirthDateComponent implements AfterViewInit, OnInit{
 
   lang = require('./i18n');
+  dobYearValidationError:string;
 
   // Create today for comparison in check later
-  today = moment();
+  today:any;
+
+  constructor(){
+    this.today = moment();
+  }
 
   @Input() person: Person;
   @Output() onChange = new EventEmitter<any>();
 
   @ViewChild('formRef') form: NgForm;
-  ngAfterViewInit(): void {
+
+
+  ngOnInit(): void {
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);
     });
   }
   
+  ngAfterViewInit():void {
+
+  }
+
+  dobYearChange(evt:number):void {
+    console.log('dob year, %d', evt);
+    if(!this.isValid()){
+      this.dobYearValidationError = this.lang('./en/index.js').yearErrorBadFormat
+    }else if(!this.futureCheck()){
+      this.dobYearValidationError = this.lang('./en/index.js').yearErrorFutureCheck
+    }else if(!this.ageCheck()){
+      this.dobYearValidationError = this.lang('./en/index.js').yearErrorAgeCheck
+    }else{
+      this.dobYearValidationError = null;
+    }
+  }
 
   /**
    * Determine if date of birth is valid for the given person
