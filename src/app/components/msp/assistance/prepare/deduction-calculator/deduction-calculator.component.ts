@@ -46,13 +46,17 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     return !!this.application.spouseAgeOver65? 3000: 0;
   }
 
+  /**
+   * Children amount has been reduced with 50% of child care expense claimed on income tax
+   */
   get childrenAmt(): number {
     let cnt:number = (!!this.application.childrenCount && this.application.childrenCount > 0)? this.application.childrenCount : 0;
-    return cnt * 3000;
+    let amt = cnt * 3000 + this.childCareExpense;
+    return amt > 0 ? amt : 0;
   }
 
   get childCareExpense(): number {
-    return !!this.application.claimedChildCareExpense_line214? this.application.claimedChildCareExpense_line214 : 0;
+    return !!this.application.claimedChildCareExpense_line214? (this.application.claimedChildCareExpense_line214/2)*-1 : 0;
   }
   get uCCBenefitAmt(): number {
     return !!this.application.reportedUCCBenefit_line117? this.application.reportedUCCBenefit_line117 : 0;
@@ -71,7 +75,6 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     + this.spouseAmt
     + this.spouseAgeOver65Amt
     + this.childrenAmt
-    + this.childCareExpense
     + this.uCCBenefitAmt
     + this.disabilityCreditAmt
     + this.spouseDisabilityCreditAmt

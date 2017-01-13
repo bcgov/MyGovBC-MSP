@@ -57,12 +57,12 @@
         {{childrenAmt | currency: 'USD': true}}
       </td>
     </tr>
-    <tr *ngIf="application.claimedChildCareExpense_line214">
+    <tr *ngIf="application.claimedChildCareExpense_line214 && childrenAmt">
       <td class="deduction-table-cell-margin">
-        Child care expense
+        -50% Child care expense claimed on income tax
       </td>
       <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{application.claimedChildCareExpense_line214 | currency: 'USD': true}}
+        {{childCareExpense | currency: 'USD': true}}
       </td>
     </tr>
     <tr *ngIf="application.reportedUCCBenefit_line117">
