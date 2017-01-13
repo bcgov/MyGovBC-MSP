@@ -39,14 +39,18 @@ export class MspBirthDateComponent implements AfterViewInit, OnInit{
   }
 
   dobYearChange(evt:number):void {
-    console.log('dob year, %d', evt);
     if(!this.isValid()){
+      console.log('dob not valid, %s', this.dobYearValidationError);
+      
       this.dobYearValidationError = this.lang('./en/index.js').yearErrorBadFormat
-    }else if(!this.futureCheck()){
+    }else if(this.isInTheFuture()){
       this.dobYearValidationError = this.lang('./en/index.js').yearErrorFutureCheck
     }else if(!this.ageCheck()){
+      console.log('dob failed age check, %s', this.dobYearValidationError);
+      
       this.dobYearValidationError = this.lang('./en/index.js').yearErrorAgeCheck
     }else{
+      console.log('reset error to null, %s', this.dobYearValidationError);
       this.dobYearValidationError = null;
     }
   }
@@ -61,9 +65,10 @@ export class MspBirthDateComponent implements AfterViewInit, OnInit{
     // Validate
     if (!this.person.dob.isValid()) {
       return false;
+    }else{
+      return true;
     }
 
-    return true;
   }
 
   futureCheck(): boolean {
@@ -71,28 +76,31 @@ export class MspBirthDateComponent implements AfterViewInit, OnInit{
     // Check not in future
     if (this.person.dob.isAfter(this.today)) {
       return false;
+    }else{
+      return true;
     }
+  }
 
-    return true;
+  isInTheFuture(): boolean {
+    return this.person.dob.isAfter(this.today);
   }
 
   ageCheck(): boolean {
-
     // ChildUnder19 rules
     if (this.person.relationship === Relationship.ChildUnder19) {
       // must be less than 19 if not in school
-      if (!this.person.dob.isAfter(this.today.subtract(19, 'years'))) {
+      if (!this.person.dob.isAfter(moment().subtract(19, 'years'))) {
         return false;
       }
-    }
-    else if (this.person.relationship === Relationship.Child19To24) {
+    }else if (this.person.relationship === Relationship.Child19To24) {
       // if child student must be between 19 and 24
-      if (!this.person.dob.isBetween(this.today.subtract(19, 'years'), this.today.subtract(24,'years'))) {
+      if (!this.person.dob.isBetween(moment().subtract(19, 'years'), moment().subtract(24,'years'))) {
         return false;
       }
+    }else{
+      return true;
     }
 
-    return true;
   }
 
 }
