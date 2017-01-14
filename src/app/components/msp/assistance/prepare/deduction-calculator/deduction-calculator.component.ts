@@ -69,6 +69,10 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   get spouseDisabilityCreditAmt(): number {
     return !!this.application.spouseEligibleForDisabilityCredit? 3000: 0;
   }
+  get childreDisabilityCreditAmt(): number {
+    let m = this.application.childDisabilityCreditCreditMultiplier;
+    return !!m? 3000*m: 0;
+  }
 
   get totalDeductions(): number{
     let total = this.ageOver65Amt
@@ -78,6 +82,7 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     + this.uCCBenefitAmt
     + this.disabilityCreditAmt
     + this.spouseDisabilityCreditAmt
+    + this.childreDisabilityCreditAmt
     + this.application.spouseDSPAmount_line125;
     return total;
   }

@@ -28,6 +28,9 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
   @ViewChild('spouseDisabilityCreditSet') spouseDisabilityCreditSet: ElementRef;
   @ViewChild('spouseDisabilityCreditUnset') spouseDisabilityCreditUnset: ElementRef;
 
+  @ViewChild('childDisabilityCreditset') childDisabilityCreditset: ElementRef;
+  @ViewChild('childDisabilityCreditUnset') childDisabilityCreditUnset: ElementRef;
+
   lang = require('./i18n');
   _showDisabilityInfo:boolean = false;
   private _showChildrenInfo:boolean = false;
@@ -151,6 +154,18 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
           .map( x=> {
             this.finAssistApp.spouseEligibleForDisabilityCredit = false;
           })
+      )      
+      .merge(
+        Observable.fromEvent<MouseEvent>(this.childDisabilityCreditset.nativeElement, 'click')
+          .map( x=> {
+            this.finAssistApp.childDisabilityCreditCreditMultiplier = 1;
+          })
+      )
+      .merge(
+        Observable.fromEvent<MouseEvent>(this.childDisabilityCreditUnset.nativeElement, 'click')
+          .map( x=> {
+            this.finAssistApp.childDisabilityCreditCreditMultiplier = 0;
+          })
       )
       .subscribe(
         values => {
@@ -189,5 +204,11 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
 
   get likelyQualify():boolean{
     return this._likelyQualify;
+  }
+
+  updateChildDisabilityCreditCreditMultiplier(evt:string){
+    // console.log('updateChildDisabilityCreditCreditMultiplier: %o', evt);
+    this.finAssistApp.childDisabilityCreditCreditMultiplier = parseInt(evt);
+    this.dataService.saveFinAssistApplication();
   }
 }

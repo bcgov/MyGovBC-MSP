@@ -90,6 +90,14 @@
         {{spouseDisabilityCreditAmt| currency: 'USD' : true}}
       </td>
     </tr>
+    <tr *ngIf="application.childDisabilityCreditCreditMultiplier">
+      <td class="deduction-table-cell-margin">
+        Child disability credit
+      </td>
+      <td class="deduction-table-cell-padding deduction-table-cell-margin">
+        {{childreDisabilityCreditAmt| currency: 'USD' : true}}
+      </td>
+    </tr>
     <tr *ngIf="application.spouseDSPAmount_line125">
       <td class="deduction-table-cell-margin">
         Disability savings plan

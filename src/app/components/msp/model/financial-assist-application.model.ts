@@ -53,6 +53,8 @@ export class FinancialAssistApplication {
   private eligibleForDisabilityCredit:boolean;
   private spouseOrCommonLawEligibleForDisabilityCredit:boolean;
 
+  childDisabilityCreditCreditMultiplier:number = 0;
+
   get netIncomelastYear():number {
     return this._netIncomelastYear === null? null: this._netIncomelastYear;
   }
@@ -83,12 +85,25 @@ export class FinancialAssistApplication {
     if(!this._childrenCount){
       return null;
     }else{
-      return (!!this._childrenCount && !isNaN(this._childrenCount)) ? this._childrenCount : 0;
+      let n = (!!this._childrenCount && !isNaN(this._childrenCount)) ? this._childrenCount : 0;
+      return n;
     }
+  }
+
+  childrenCountArray(): Array<number> {
+    let arr: number[] = new Array(this.childrenCount);
+    for(let i=0; i<this.childrenCount; i++){
+      arr[i] = i+1;
+    }
+
+    return arr;
   }
 
   set childrenCount(n:number) {
     n > 29 ? this._childrenCount = 0 : this._childrenCount = n;
+    if(this.childrenCount < this.childDisabilityCreditCreditMultiplier){
+      this.childDisabilityCreditCreditMultiplier = 0;
+    }
   }
 
   get claimedChildCareExpense_line214(){

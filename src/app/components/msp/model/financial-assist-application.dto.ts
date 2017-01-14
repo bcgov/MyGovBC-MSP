@@ -14,6 +14,7 @@ export default class FinancialAssistApplicationDto {
   spouseEligibleForDisabilityCredit:boolean;
   spouseDSPAmount_line125:number;
 
+  childDisabilityCreditCreditMultiplier:number;
   phoneNumber:string;
   mailingAddress = new AddressDto();
   residentialAddress = new AddressDto();
