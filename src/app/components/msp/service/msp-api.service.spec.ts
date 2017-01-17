@@ -7,6 +7,7 @@ import {StatusInCanada, Activities, Relationship} from "../model/status-activiti
 import {HttpModule} from "@angular/http";
 import appConstants from '../../../services/appConstants';
 import {Data} from "./test/image.data";
+import {FinancialAssistApplication} from "../model/financial-assist-application.model";
 let base64ToBlob = require("base64ToBlob");
 
 describe('MspApiService', () => {
@@ -198,7 +199,7 @@ describe('MspApiService', () => {
     expect(jsonString).toBeDefined();
   });
 
-  it('should send an object', done => {
+  it('should sendMspApplication an object', done => {
     done();
     let service = TestBed.get(MspApiService);
     let app = new MspApplication();
@@ -261,7 +262,7 @@ describe('MspApiService', () => {
     child.liveInBC = true;
     child.previous_phn = "1234567890";
 */
-    let promise = service.send(app);
+    let promise = service.sendMspApplication(app);
     promise.then((application: MspApplication) => {
 
       expect(application.referenceNumber).toBeDefined();
@@ -273,6 +274,15 @@ describe('MspApiService', () => {
       console.log("spec error: ", error);
       done.fail("failed by rejection");
     });
+
+  });
+  it('should convert an assistance application', () => {
+    let service = TestBed.get(MspApiService);
+    let app = new FinancialAssistApplication();
+
+    let document = service.convertAssistance(app);
+
+    expect(document).toBeDefined();
 
   });
 });

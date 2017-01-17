@@ -27,6 +27,8 @@ import {ResponseType} from "../api-model/responseTypes";
 import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import * as moment from "moment";
 import ISO_8601 = moment.ISO_8601;
+import {FinancialAssistApplication} from "../model/financial-assist-application.model";
+import {AssistanceApplicationTypeFactory} from "../api-model/assistanceTypes";
 let jxon = require ("jxon/jxon");
 
 @Injectable()
@@ -39,7 +41,7 @@ export class MspApiService {
    * @param app
    * @returns {Promise<MspApplication>}
    */
-  send(app: MspApplication): Promise<MspApplication> {
+  sendMspApplication(app: MspApplication): Promise<MspApplication> {
 
     return new Promise<MspApplication>((resolve, reject) => {
       console.log("Start sending...");
@@ -54,12 +56,12 @@ export class MspApiService {
 
         console.log("num images: " + app.getAllImages().length);
 
-        // if no errors, then we'll send all attachments
+        // if no errors, then we'll sendMspApplication all attachments
         this.sendAttachments(document.application.uuid, app.getAllImages()).then(() => {
 
-          // once all attachments are done we can send in the data
-          console.log("// once all attachments are done we can send in the data");
-          this.sendApplication(document).then((response:ResponseType) => {
+          // once all attachments are done we can sendMspApplication in the data
+          console.log("// once all attachments are done we can sendMspApplication in the data");
+          this.sendEnrolmentApplication(document).then((response:ResponseType) => {
             console.log("sent application resolved");
             // Add reference number
             app.referenceNumber = response.referenceNumber.toString();
@@ -74,7 +76,7 @@ export class MspApiService {
         });
 
       } catch (error) {
-        console.log("send error: ", error);
+        console.log("sendMspApplication error: ", error);
         reject(error);
       }
     });
@@ -145,7 +147,7 @@ export class MspApiService {
    * @param document
    * @returns {Promise<ResponseType>}
    */
-  private sendApplication(document:document): Promise<ResponseType> {
+  private sendEnrolmentApplication(document:document): Promise<ResponseType> {
     return new Promise<ResponseType>((resolve, reject) => {
       /*
        Create URL
@@ -186,7 +188,7 @@ export class MspApiService {
 
 
   /**
-   * Start of a converter operation
+   * Start of MSP Application converted converter operation
    * @param from
    * @returns {applicationTypes.ApplicationType}
    */
@@ -252,7 +254,7 @@ export class MspApiService {
 
     // Convert spouse
     if (from.spouse) {
-      to.application.enrolmentApplication.spouse = this.convertPerson(from.spouse);
+      to.application.enrolmentApplication.spouse = this.convertPersonFromEnrollment(from.spouse);
     }
 
     // Convert children
@@ -262,12 +264,32 @@ export class MspApiService {
       to.application.enrolmentApplication.children = EnrolmentChildrenTypeFactory.make();
       to.application.enrolmentApplication.children.child = new Array<PersonType>();
       for (let child of from.children) {
-        to.application.enrolmentApplication.children.child.push(this.convertPerson(child));
+        to.application.enrolmentApplication.children.child.push(this.convertPersonFromEnrollment(child));
       }
     }
 
     // Convert attachments
-    to.application.attachments = this.convertAttachments(from);
+    to.application.attachments = this.convertAttachmentsForEnrolment(from);
+
+    return to;
+  }
+
+  convertAssistance(from:FinancialAssistApplication):document {
+    // Instantiate new object from interface
+    let to = DocumentFactory.make();
+    to.application = ApplicationTypeFactory.make();
+
+    // UUID
+    to.application.uuid = from.uuid;
+
+    // Init assistance
+    to.application.assistanceApplication = AssistanceApplicationTypeFactory.make();
+
+    //to.application.assistanceApplication.applicant
+
+    // Convert attachments
+    //to.application.attachments = this.convertAttachments(from);
+
 
     return to;
   }
@@ -283,7 +305,7 @@ export class MspApiService {
    * @param from
    * @returns {AttachmentsType}
    */
-  private convertAttachments(from: MspApplication): AttachmentsType {
+  private convertAttachmentsForEnrolment(from: MspApplication): AttachmentsType {
     console.log("Convert attachments...");
 
     let to = AttachmentsTypeFactory.make();
@@ -326,7 +348,7 @@ export class MspApiService {
     return to;
   }
 
-  private convertPerson(from: Person):PersonType {
+  private convertPersonFromEnrollment(from: Person):PersonType {
     let to = PersonTypeFactory.make();
 
     to.name = this.convertName(from);
