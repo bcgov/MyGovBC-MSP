@@ -36,7 +36,6 @@
     "autoprefixer": "^6.0.0",
     "awesome-typescript-loader": "^2.2.4",
     "baggage-loader": "^0.2.4",
-    "base64toblob": "0.0.1",
     "bootstrap": "^3.3.6",
     "clean-webpack-plugin": "^0.1.8",
     "core-js": "^2.4.1",
