@@ -30,7 +30,7 @@ export class FileUploaderComponent implements OnInit {
   private trustedUrl: SafeUrl;
   private maxFileSize: number;
   private fileSizeError: string;
-  private MAX_IMAGE_COUNT:number = 12;
+  private MAX_IMAGE_COUNT:number = 10;
   
   @Input() images: Array<MspImage>;
   @Input() id: string;
