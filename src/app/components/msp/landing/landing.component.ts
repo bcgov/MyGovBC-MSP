@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import MspDataService from '../service/msp-data.service';
+import { Router } from '@angular/router';
+
 require('./landing.component.less')
 
 /**
@@ -14,15 +16,18 @@ require('./landing.component.less')
 export class LandingComponent {
   lang = require('./i18n')
 
-  constructor(private mspDataService:MspDataService){
+  constructor(private mspDataService:MspDataService, private router: Router){
 
   }
   clearSavedFinAssisApp(){
     console.log('deleting saved fin assist app.');
     this.mspDataService.removeFinAssistApplication();
+    this.router.navigate(['/msp/assistance/prepare']);
+    
   }
 
   clearSavedMspApp(){
     this.mspDataService.removeMspApplication();
+    this.router.navigate(['/msp/application/prepare']);
   }
 }

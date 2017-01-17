@@ -1,5 +1,6 @@
 module.exports = {
-  newApp: 'Start a New Application',
-  pa: 'Apply for Financial Support',
-  cn: 'Change Your Name'
+  newEnrollApp: 'New enrollment application',
+  newPaApp: 'New premium assistance application',
+  continueEnrollApp: 'Continue enrollment application',
+  continuePaApp: 'Continue premium assistance application',
 }
