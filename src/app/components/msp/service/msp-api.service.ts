@@ -1,11 +1,16 @@
 import {Injectable, Inject} from '@angular/core';
 import {MspApplication} from "../model/application.model";
-import {GenderType, NameType, AttachmentUuidsType, AddressType} from "../api-model/commonTypes";
+import {
+  GenderType, NameType, AttachmentUuidsType, AddressType, NameTypeFactory,
+  AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, AddressTypeFactory
+} from "../api-model/commonTypes";
 import {Address} from "../model/address.model";
 import {Person} from "../model/person.model";
 import {
   ResidencyType, EnrolmentApplicationType, EnrolmentApplicantType,
-  EnrolmentChildrenType
+  EnrolmentChildrenType, PersonTypeFactory, ResidencyTypeFactory, LivedInBCTypeFactory, EnrolmentApplicationTypeFactory,
+  EnrolmentApplicantTypeFactory, EnrolmentChildrenTypeFactory, PreviousCoverageTypeFactory, OutsideBCTypeFactory,
+  WillBeAwayTypeFactory
 } from "../api-model/enrolmentTypes";
 import {StatusInCanada, Activities} from "../model/status-activities-documents";
 import {CitizenshipType} from "../api-model/commonTypes";
@@ -14,13 +19,14 @@ import {LivedInBCType} from "../api-model/enrolmentTypes";
 import {PersonType} from "../api-model/enrolmentTypes";
 import {
   ApplicationType, AttachmentsType, document, _ApplicationTypeNameSpace,
-  AttachmentType
+  AttachmentType, ApplicationTypeFactory, DocumentFactory, AttachmentsTypeFactory, AttachmentTypeFactory
 } from "../api-model/applicationTypes";
 import {MspImage} from "../model/msp-image";
 import {PersonDocuments} from "../model/person-document.model";
 import {ResponseType} from "../api-model/responseTypes";
 import {Http, Response, Headers, RequestOptions} from "@angular/http";
-import {Observable} from "rxjs";
+import * as moment from "moment";
+import ISO_8601 = moment.ISO_8601;
 let jxon = require ("jxon/jxon");
 
 @Injectable()
@@ -36,13 +42,15 @@ export class MspApiService {
   send(app: MspApplication): Promise<MspApplication> {
 
     return new Promise<MspApplication>((resolve, reject) => {
+      console.log("Start sending...");
 
       try {
         // first convert the model
         let document:document = this.convert(app);
+        console.log("converted...");
 
         // second convert to XML
-        let convertedAppXml = this.toXmlString(document, MspApiService.ApplicationTypeNameSpace);
+        let convertedAppXml = this.toXmlString(document);
 
         console.log("num images: " + app.getAllImages().length);
 
@@ -60,12 +68,13 @@ export class MspApiService {
             resolve(app);
 
           }).catch((error:Error) => {
-            console.log("sent application rejected");
-            reject(error);
+            console.log("sent application rejected: ", error);
+            reject();
           });
         });
 
       } catch (error) {
+        console.log("send error: ", error);
         reject(error);
       }
     });
@@ -85,7 +94,8 @@ export class MspApiService {
         console.log("All promises resolved");
         resolve();
       }).catch((error:Error) => {
-        console.log("a promise rejected");
+        console.log("error sending attachment: ", error);
+        reject();
       })
     });
   }
@@ -118,18 +128,23 @@ export class MspApiService {
       // description - UI does NOT collect this property
 
       this.http
-        .post(url, attachment.fileContent)
+        .post(url, attachment.getFileAsBlob())
         .toPromise()
         .then((response:Response) => {
           resolve(<ResponseType>{});
         })
         .catch((error: any) => {
-          console.log("error:" + error.toString());
+          console.log("attachment error: ", error);
           reject();
         });
     });
   }
 
+  /**
+   * Sends the application XML, last step in overall transaction
+   * @param document
+   * @returns {Promise<ResponseType>}
+   */
   private sendApplication(document:document): Promise<ResponseType> {
     return new Promise<ResponseType>((resolve, reject) => {
       /*
@@ -157,13 +172,16 @@ export class MspApiService {
         })
         .catch((error: Response | any) => {
           console.log("sent application rejected: " + error.toString());
+          console.log("document sent: ", documentXmlString);
+          let response = this.convertResponse(error);
+          console.log("full error: ", error)
           reject();
         });
     });
   }
 
   convertResponse(responseBody:string):ResponseType {
-    return this.stringToJs<ResponseType>(responseBody);
+    return this.stringToJs(responseBody)["ns2:response"];
   }
 
 
@@ -174,17 +192,17 @@ export class MspApiService {
    */
   convert(from: MspApplication):document  {
     // Instantiate new object from interface
-    let to = <document>{};
-    to.application = <ApplicationType>{};
+    let to = DocumentFactory.make();
+    to.application = ApplicationTypeFactory.make();
 
     // UUID
     to.application.uuid = from.uuid;
 
     // Init data structure
-    to.application.enrolmentApplication = <EnrolmentApplicationType>{};
+    to.application.enrolmentApplication = EnrolmentApplicationTypeFactory.make();
 
     // Applicant section
-    to.application.enrolmentApplication.applicant = <EnrolmentApplicantType>{};
+    to.application.enrolmentApplication.applicant = EnrolmentApplicantTypeFactory.make();
     to.application.enrolmentApplication.applicant.name = this.convertName(from.applicant);
 
     /*
@@ -194,7 +212,7 @@ export class MspApiService {
     to.application.enrolmentApplication.applicant.attachmentUuids = this.convertAttachmentUuids(from.applicant.documents);
 
     if (from.applicant.hasDob) {
-      to.application.enrolmentApplication.applicant.birthDate = from.applicant.dob.toDate();
+      to.application.enrolmentApplication.applicant.birthDate = from.applicant.dob.format(this.ISO8601DateFormat);
     }
     if (from.applicant.gender != null) {
       to.application.enrolmentApplication.applicant.gender = <GenderType>{};
@@ -208,11 +226,13 @@ export class MspApiService {
      */
     if (from.authorizedByApplicant != null) {
       to.application.enrolmentApplication.applicant.authorizedByApplicant = from.authorizedByApplicant ? "Y" : "N";
-      to.application.enrolmentApplication.applicant.authorizedByApplicantDate = from.authorizedByApplicantDate;
+      to.application.enrolmentApplication.applicant.authorizedByApplicantDate = moment(from.authorizedByApplicantDate)
+        .format(this.ISO8601DateFormat);
     }
     if (from.authorizedBySpouse != null) {
       to.application.enrolmentApplication.applicant.authorizedBySpouse = from.authorizedBySpouse ? "Y" : "N";
-      to.application.enrolmentApplication.applicant.authorizedBySpouseDate = from.authorizedBySpouseDate;
+      to.application.enrolmentApplication.applicant.authorizedBySpouseDate = moment(from.authorizedBySpouseDate)
+        .format(this.ISO8601DateFormat);
     }
      /*
      mailingAddress?: ct.AddressType;
@@ -239,7 +259,7 @@ export class MspApiService {
     if (from.children &&
       from.children.length > 0) {
 
-      to.application.enrolmentApplication.children = <EnrolmentChildrenType>{};
+      to.application.enrolmentApplication.children = EnrolmentChildrenTypeFactory.make();
       to.application.enrolmentApplication.children.child = new Array<PersonType>();
       for (let child of from.children) {
         to.application.enrolmentApplication.children.child.push(this.convertPerson(child));
@@ -264,16 +284,20 @@ export class MspApiService {
    * @returns {AttachmentsType}
    */
   private convertAttachments(from: MspApplication): AttachmentsType {
-    let to = <AttachmentsType>{};
+    console.log("Convert attachments...");
+
+    let to = AttachmentsTypeFactory.make();
     to.attachment = new Array<AttachmentType>();
 
     // assemble all attachments
-    let attachments = from.getAllImages();
+    let attachments:MspImage[] = from.getAllImages();
+
+    console.log("num images: " + attachments.length);
 
     // Convert each one
     for (let attachment of attachments) {
       // Init new attachment with defaults
-      let toAttachment = <AttachmentType>{};
+      let toAttachment = AttachmentTypeFactory.make();
       toAttachment.attachmentDocumentType = MspApiService.AttachmentDocumentType;
 
       // Content type
@@ -297,20 +321,21 @@ export class MspApiService {
       to.attachment.push(toAttachment);
     }
 
+    console.log("Finished converting attachments.");
+
     return to;
   }
 
   private convertPerson(from: Person):PersonType {
-    let to = <PersonType>{};
+    let to = PersonTypeFactory.make();
 
     to.name = this.convertName(from);
     to.attachmentUuids = this.convertAttachmentUuids(from.documents);
 
     if (from.hasDob) {
-      to.birthDate = from.dob.toDate();
+      to.birthDate = from.dob.format(this.ISO8601DateFormat);
     }
     if (from.gender != null) {
-      to.gender = <GenderType>{};
       to.gender = <GenderType> from.gender.toString();
     }
     to.residency = this.convertResidency(from);
@@ -319,7 +344,7 @@ export class MspApiService {
   }
 
   private convertName(from: Person): NameType {
-    let to = <NameType>{};
+    let to = NameTypeFactory.make();
 
     /*
      firstName: string;
@@ -334,7 +359,7 @@ export class MspApiService {
   }
 
   private convertAttachmentUuids (from: PersonDocuments): AttachmentUuidsType {
-    let to = <AttachmentUuidsType>{};
+    let to = AttachmentUuidsTypeFactory.make();
 
     to.attachmentUuid = new Array<string>();
     for(let image of from.images) {
@@ -345,7 +370,7 @@ export class MspApiService {
   }
 
    private convertResidency(from: Person): ResidencyType {
-    let to = <ResidencyType>{};
+    let to = ResidencyTypeFactory.make();
 
     /*
      citizenshipStatus: ct.BasicCitizenshipType;
@@ -356,7 +381,7 @@ export class MspApiService {
      */
 
     //("Citizen" | "PermanentResident" | "WorkPermit" | "StudyPermit" | "Diplomat" | "VisitorPermit");
-    to.citizenshipStatus = <BasicCitizenshipType>{};
+    to.citizenshipStatus = BasicCitizenshipTypeFactory.make();
     switch (from.status) {
       case StatusInCanada.CitizenAdult:
         to.citizenshipStatus.citizenshipType = "Citizen";
@@ -380,7 +405,7 @@ export class MspApiService {
             break;
         }
     }
-    to.citizenshipStatus.attachmentUuids = <AttachmentUuidsType>{};
+    to.citizenshipStatus.attachmentUuids = AttachmentUuidsTypeFactory.make();
     to.citizenshipStatus.attachmentUuids.attachmentUuid = new Array<string>();
     for(let image of from.documents.images) {
       to.citizenshipStatus.attachmentUuids.attachmentUuid.push(image.uuid);
@@ -399,8 +424,13 @@ export class MspApiService {
      familyMemberReason?: string;
      returnDate?: Date;
      */
-    to.livedInBC = <LivedInBCType>{};
+    // Init and set defaults
+    to.livedInBC = LivedInBCTypeFactory.make();
     to.livedInBC.hasLivedInBC = "N";
+    to.outsideBC = OutsideBCTypeFactory.make();
+    to.outsideBC.beenOutsideBCMoreThan = "N";
+
+
     switch (from.currentActivity) {
       case Activities.Returning:
         to.livedInBC.hasLivedInBC = "Y";
@@ -408,20 +438,20 @@ export class MspApiService {
         to.livedInBC.prevHealthNumber = from.previous_phn;
         to.livedInBC.prevProvinceOrCountry = from.movedFromProvince;
         if (from.hasArrivalToBC) {
-          to.livedInBC.recentBCMoveDate = from.arrivalToBC.toDate();
+          to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
         }
         if (from.hasArrivalToCanada) {
-          to.livedInBC.recentCanadaMoveDate = from.arrivalToCanada.toDate();
+          to.livedInBC.recentCanadaMoveDate = from.arrivalToCanada.format(this.ISO8601DateFormat);
         }
         break;
       case Activities.MovingFromProvince:
       case Activities.MovingFromCountry:
         //TODO: to.outsideBC.beenOutsideBCMoreThan
         if (from.hasStudiesDeparture) {
-          to.outsideBC.departureDate = from.studiesDepartureDate.toDate();
+          to.outsideBC.departureDate = from.studiesDepartureDate.format(this.ISO8601DateFormat);
         }
         if (from.hasStudiesFinished) {
-          to.outsideBC.returnDate = from.studiesFinishedDate.toDate();
+          to.outsideBC.returnDate = from.studiesFinishedDate.format(this.ISO8601DateFormat);
         }
         //TODO: familyMemberReason;
         break;
@@ -435,22 +465,30 @@ export class MspApiService {
      isInBCafterStudies?: ct.YesOrNoType;
      willBeAway: ct.YesOrNoType;
      */
+
+    to.willBeAway = WillBeAwayTypeFactory.make();
+    to.willBeAway.willBeAway = "N";
+    to.willBeAway.isFullTimeStudent = "N";
+
+
     if (from.hasDischarge) {
-      to.willBeAway.armedDischageDate = from.dischargeDate.toDate();
+      to.willBeAway.armedDischageDate = from.dischargeDate.format(this.ISO8601DateFormat);
     }
     /*
+    TODO: figure out these, are they duplicateS?
+
      hasPreviousCoverage: ct.YesOrNoType;
      prevPHN?: number;
      */
-    //to.previousCoverage.hasPreviousCoverage
-    //to.previousCoverage.prevPHN
+    to.previousCoverage = PreviousCoverageTypeFactory.make();
+    to.previousCoverage.hasPreviousCoverage = "N";
 
     return to;
   }
 
   private convertAddress(from: Address): AddressType {
     // Instantiate new object from interface
-    let to = <AddressType>{};
+    let to = AddressTypeFactory.make();
 
     /*
      addressLine1: string;
@@ -477,7 +515,6 @@ export class MspApiService {
 
   static ApplicationTypeNameSpace = _ApplicationTypeNameSpace;
   private static XmlDocumentType = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
-  private static QualifiedName = "ns1:application";
 
   /**
    * Converts any JS object to XML with optional namespace
@@ -485,19 +522,29 @@ export class MspApiService {
    * @param namespace
    * @returns {any}
    */
-  toXmlString (from: any, namespace?: string):string {
-    let xml = jxon.jsToXml(from, namespace);
+  toXmlString (from: any):string {
+    let xml = jxon.jsToXml(from);
     let xmlString = jxon.xmlToString(xml);
+    //TODO: namespace not working properly, fix it and remove this hack
+    xmlString = xmlString.replace("<application>", '<ns2:application xmlns:ns2="http://www.gov.bc.ca/hibc/applicationTypes">');
+    xmlString = xmlString.replace("</application>", '</ns2:application>');
     return MspApiService.XmlDocumentType + xmlString;
   }
 
-  stringToJs<T> (from:string):T {
-    return jxon.stringToJs(from) as T;
+  stringToJs (from:string):Object {
+    console.log("from: ", from);
+    let converted = jxon.stringToJs(from);
+    console.log("converted: ", converted);
+    return converted;
   }
 
   jsToXml (from:any) {
     return jxon.jsToXml(from);
   }
 
+  stringToXml (from:string) {
+    return jxon.stringToXml(from);
+  }
 
+  readonly ISO8601DateFormat = "YYYY-MM-DD";
 }

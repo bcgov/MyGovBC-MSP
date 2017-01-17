@@ -26,4 +26,15 @@ export class MspImage {
   set contentType(value:string) {
     this._contentType = value;
   }
+
+  private _blob: Blob;
+  getFileAsBlob(): Blob {
+    if (this.fileContent) {
+      return this.fileContent;
+    }
+    else return this._blob;
+  }
+  setFileAsBlob(value:Blob) {
+    this._blob = value;
+  }
 }

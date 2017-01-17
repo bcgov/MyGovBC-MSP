@@ -6,6 +6,8 @@ import {MspImage} from "../model/msp-image";
 import {StatusInCanada, Activities, Relationship} from "../model/status-activities-documents";
 import {HttpModule} from "@angular/http";
 import appConstants from '../../../services/appConstants';
+import {Data} from "./test/image.data";
+let base64ToBlob = require("base64ToBlob");
 
 describe('MspApiService', () => {
 
@@ -45,7 +47,7 @@ describe('MspApiService', () => {
     app.applicant.firstName = "First Name";
     let applicationType = service.convert(app);
     let xmlString = service.toXmlString(applicationType);
-    console.log(xmlString);
+    //console.log(xmlString);
     expect(xmlString).toBeDefined();
   });
 
@@ -121,9 +123,9 @@ describe('MspApiService', () => {
 
     let applicationType = service.convert(app);
     let jsonString = JSON.stringify(applicationType);
-    console.log(jsonString);
+    //console.log(jsonString);
     let xmlString = service.toXmlString(applicationType, MspApiService.ApplicationTypeNameSpace);
-    console.log(xmlString);
+    //console.log(xmlString);
     expect(jsonString).toBeDefined();
   });
 
@@ -200,39 +202,65 @@ describe('MspApiService', () => {
     done();
     let service = TestBed.get(MspApiService);
     let app = new MspApplication();
-    app.applicant.dob_day = 31;
-    app.applicant.dob_month = 12;
-    app.applicant.dob_year = 1901;
+    app.applicant.firstName = "James";
+    app.applicant.lastName = "Hamm";
     app.applicant.gender = Gender.Male;
+    app.applicant.dob_day = 5;
+    app.applicant.dob_month = 12;
+    app.applicant.dob_year = 1966;
+    app.phoneNumber = "5555555555";
+    app.residentialAddress.addressLine1 = "1234 Fort St.";
+    app.residentialAddress.city = "Victoria";
+    app.residentialAddress.postal = "V9R3T1";
+    app.residentialAddress.province = "BC";
+    app.residentialAddress.country = "Canada";
 
-    app.applicant.status = StatusInCanada.CitizenAdult;
+    app.applicant.status = StatusInCanada.PermanentResident;
     app.applicant.currentActivity = Activities.Returning;
-    app.applicant.previous_phn = "912345678";
-    app.applicant.movedFromProvince = "BC";
-    app.applicant.arrivalToBCDay = 1;
-    app.applicant.arrivalToBCMonth = 1;
-    app.applicant.arrivalToBCYear = 1976;
-    app.applicant.arrivalToCanadaDay = 2;
-    app.applicant.arrivalToCanadaMonth = 2;
-    app.applicant.arrivalToCanadaYear = 1977;
-
-    //let doc1 = new MspImage();
-    //doc1.contentType = "image/jpeg";
-    //app.applicant.documents.images.push(doc1);
+    app.applicant.previous_phn = "1234567890";
+    app.applicant.liveInBC = true;
 
     app.authorizedByApplicant = true;
     app.authorizedByApplicantDate = new Date();
     app.authorizedBySpouse = false;
     app.authorizedBySpouseDate = new Date();
-    app.residentialAddress.addressLine1 = "addr 1";
-    app.residentialAddress.addressLine2 = "addr 2";
-    app.residentialAddress.addressLine3 = "addr 3";
-    app.residentialAddress.postal = "v3p 4l4";
-    app.residentialAddress.city = "city";
-    app.residentialAddress.country = "country";
-    app.residentialAddress.province = "province";
-    app.phoneNumber = "123-1234-457";
 
+    let doc12 = new MspImage();
+    doc12.contentType = "image/jpeg";
+    doc12.setFileAsBlob(base64ToBlob(Data.image1, "image/jpeg"));
+    doc12.size = 100749;
+    app.applicant.documents.images.push(doc12);
+
+    /*
+    app.addSpouse(new Person(Relationship.Spouse));
+    app.spouse.firstName = "Christine";
+    app.spouse.lastName = "Mackie";
+    app.spouse.dob_day = 5;
+    app.spouse.dob_month = 12;
+    app.spouse.dob_year = 1976;
+    app.spouse.gender = Gender.Female;
+
+    app.spouse.status = StatusInCanada.PermanentResident;
+    app.spouse.currentActivity = Activities.Returning;
+    app.spouse.previous_phn = "123456790";
+    app.spouse.liveInBC = true;
+
+    //let doc2 = new MspImage();
+    //doc2.contentType = "image/jpeg";
+    //app.spouse.documents.images.push(doc2);
+
+    let child = app.addChild(Relationship.Child19To24);
+    child.firstName = "Mary";
+    child.lastName = "Hamm";
+    child.gender = Gender.Female;
+    child.dob_year = 1996;
+    child.dob_month = 12;
+    child.dob_day = 6;
+    child.status = StatusInCanada.PermanentResident;
+    child.currentActivity = Activities.Returning;
+    child.liveInBC = true;
+    child.previous_phn = "1234567890";
+*/
     let promise = service.send(app);
     promise.then((application: MspApplication) => {
 
@@ -242,7 +270,8 @@ describe('MspApiService', () => {
       // signal jasmine were done
       done();
     }).catch((error: Error) => {
-      done.fail(JSON.stringify(error));
+      console.log("spec error: ", error);
+      done.fail("failed by rejection");
     });
 
   });

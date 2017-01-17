@@ -7,36 +7,75 @@ import * as et from './enrolmentTypes';
 
 
 interface BaseType {
-	_exists: boolean;
-	_namespace: string;
+  _exists: boolean;
+  _namespace: string;
+  _sequence:Array<string>
 }
 interface _ApplicationType extends BaseType {
-	assistanceApplication: at.AssistanceApplicationType;
-	attachments: AttachmentsType;
-	comment?: string;
-	enrolmentApplication: et.EnrolmentApplicationType;
-	uuid: string;
+  assistanceApplication: at.AssistanceApplicationType;
+  attachments: AttachmentsType;
+  comment?: string;
+  enrolmentApplication: et.EnrolmentApplicationType;
+  uuid: string;
+  $xmlns: string;
 }
-export interface ApplicationType extends _ApplicationType { constructor: { new(): ApplicationType }; }
+export interface ApplicationType extends _ApplicationType {
+  constructor: {
+    new(): ApplicationType
+  };
+}
+export class ApplicationTypeFactory {
+  static make(): ApplicationType {
+    let instance = <ApplicationType>{};
+    instance._sequence = ["assistanceApplication", "enrolmentApplication", "uuid", "attachments", "comment"];
+    //instance.$xmlns = _ApplicationTypeNameSpace;
+    return instance;
+  }
+}
 
 interface _AttachmentsType extends BaseType {
-	attachment?: AttachmentType[];
+  attachment?: AttachmentType[];
 }
-export interface AttachmentsType extends _AttachmentsType { constructor: { new(): AttachmentsType }; }
+export interface AttachmentsType extends _AttachmentsType { constructor: {new(): AttachmentsType};
+}
+export class AttachmentsTypeFactory {
+  static make(): AttachmentsType {
+    let instance = <AttachmentsType>{};
+    instance._sequence = ["attachment"];
+    return instance;
+  }
+}
 
 interface _AttachmentType extends BaseType {
-	attachmentDocumentType: string;
-	attachmentUuid: string;
-	contentType: ContentType;
-	description?: string;
+  attachmentDocumentType: string;
+  attachmentUuid: string;
+  contentType: ContentType;
+  description?: string;
 }
-export interface AttachmentType extends _AttachmentType { constructor: { new(): AttachmentType }; }
+export interface AttachmentType extends _AttachmentType { constructor: {new(): AttachmentType};
+}
+export class AttachmentTypeFactory {
+  static make(): AttachmentType {
+    let instance = <AttachmentType>{};
+    instance._sequence = ["contentType", "attachmentDocumentType", "attachmentUuid", "description"];
+    return instance;
+  }
+}
 
 export type ContentType = ("image/jpeg" | "application/pdf");
-interface _ContentType extends Primitive._string { content: ContentType; }
+interface _ContentType extends Primitive._string { content: ContentType;
+}
 
 export interface document extends BaseType {
-	application: ApplicationType;
+  application: ApplicationType;
+  $xmlns: string;
+}
+export class DocumentFactory {
+  static make(): document {
+    let instance = <document>{};
+    instance._sequence = ["application"];
+    return instance;
+  }
 }
 
 export const _ApplicationTypeNameSpace = "http://www.gov.bc.ca/hibc/applicationTypes";

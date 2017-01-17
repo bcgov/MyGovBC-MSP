@@ -7,6 +7,7 @@ import * as Primitive from './xml-primitives';
 interface BaseType {
 	_exists: boolean;
 	_namespace: string;
+	_sequence:Array<string>;
 }
 interface _AddressType extends BaseType {
 	addressLine1: string;
@@ -20,11 +21,28 @@ interface _AddressType extends BaseType {
 export interface AddressType extends _AddressType { constructor: { new(): AddressType }; }
 export var AddressType: { new(): AddressType };
 
+export class AddressTypeFactory {
+	static make(): AddressType {
+		let instance = <AddressType>{};
+		instance._sequence = ["addressLine1", "addressLine2", "addressLine3", "city", "postalCode", "provinceOrState",
+			"country"];
+		return instance;
+	}
+}
+
 interface _AttachmentUuidsType extends BaseType {
 	attachmentUuid: string[];
 }
 export interface AttachmentUuidsType extends _AttachmentUuidsType { constructor: { new(): AttachmentUuidsType }; }
 export var AttachmentUuidsType: { new(): AttachmentUuidsType };
+
+export class AttachmentUuidsTypeFactory {
+	static make(): AttachmentUuidsType {
+		let instance = <AttachmentUuidsType>{};
+		instance._sequence = ["attachmentUuid"];
+		return instance;
+	}
+}
 
 interface _BasicCitizenshipType extends BaseType {
 	attachmentUuids: AttachmentUuidsType;
@@ -33,14 +51,30 @@ interface _BasicCitizenshipType extends BaseType {
 export interface BasicCitizenshipType extends _BasicCitizenshipType { constructor: { new(): BasicCitizenshipType }; }
 export var BasicCitizenshipType: { new(): BasicCitizenshipType };
 
+export class BasicCitizenshipTypeFactory {
+	static make(): BasicCitizenshipType {
+		let instance = <BasicCitizenshipType>{};
+		instance._sequence = ["citizenshipType", "attachmentUuids"];
+		return instance;
+	}
+}
+
 export interface _BasicInfoType extends BaseType {
 	attachmentUuids: AttachmentUuidsType;
-	birthDate: Date;
+	birthDate: string;
 	gender: GenderType;
 	name: NameType;
 }
 export interface BasicInfoType extends _BasicInfoType { constructor: { new(): BasicInfoType }; }
 export var BasicInfoType: { new(): BasicInfoType };
+
+export class BasicInfoTypeFactory {
+	static make(): BasicInfoType {
+		let instance = <BasicInfoType>{};
+		instance._sequence = ["name", "gender", "birthDate", "attachmentUuids"];
+		return instance;
+	}
+}
 
 export type CitizenshipType = ("Citizen" | "PermanentResident" | "WorkPermit" | "StudyPermit" | "Diplomat" | "VisitorPermit");
 interface _CitizenshipType extends Primitive._string { content: CitizenshipType; }
@@ -64,6 +98,14 @@ interface _NameType extends BaseType {
 }
 export interface NameType extends _NameType { constructor: { new(): NameType }; }
 export var NameType: { new(): NameType };
+
+export class NameTypeFactory {
+	static make(): NameType {
+		let instance = <NameType>{};
+		instance._sequence = ["firstName", "secondName", "lastName"];
+		return instance;
+	}
+}
 
 export type PHNType = number;
 type _PHNType = Primitive._number;
