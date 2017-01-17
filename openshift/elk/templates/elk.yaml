@@ -303,27 +303,6 @@ objects:
               -
                 name: KIBANA_PASSWORD
                 value: ${KIBANA_PASSWORD}
-            resources:
-            livenessProbe:
-              httpGet:
-                path: /
-                port: 8081
-                scheme: HTTP
-              initialDelaySeconds: 60
-              timeoutSeconds: 10
-              periodSeconds: 10
-              successThreshold: 1
-              failureThreshold: 3
-            readinessProbe:
-              httpGet:
-                path: /
-                port: 8081
-                scheme: HTTP
-              initialDelaySeconds: 60
-              timeoutSeconds: 10
-              periodSeconds: 10
-              successThreshold: 1
-              failureThreshold: 3
             terminationMessagePath: /dev/termination-log
             imagePullPolicy: Always
         restartPolicy: Always
@@ -454,6 +433,6 @@ parameters:
   required: true
   value: 1Gi
 - description: Password for Kibana web console. User name is fixed to admin.
-  from: '[a-zA-Z0-9]{16}'
+  from: '[a-zA-Z0-9]{8}'
   generate: expression
   name: KIBANA_PASSWORD
