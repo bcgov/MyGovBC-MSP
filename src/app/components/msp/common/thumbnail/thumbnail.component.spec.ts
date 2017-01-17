@@ -5,7 +5,6 @@ import MspDataService from '../../service/msp-data.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {ModalModule} from "ng2-bootstrap";
 
-/* TODO: re-enable this
 describe('ThumbnailComponent', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
@@ -28,4 +27,3 @@ describe('ThumbnailComponent', () => {
     expect(fixture.componentInstance instanceof ThumbnailComponent).toBe(true, 'should create ThumbnailComponent');
   });
 })
-*/
