@@ -5,8 +5,7 @@ import {UUID} from "angular2-uuid";
 export class MspImage {
   readonly uuid = UUID.UUID();
 
-  // The type should be string. Should change to string after file uploader stablizes
-  fileContent:string;
+  fileContent:Blob;
   size: number;
   sizeUnit: string;
   sizeTxt:string;
