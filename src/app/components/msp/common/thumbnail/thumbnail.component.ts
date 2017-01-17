@@ -12,7 +12,7 @@ require('./thumbnail.less')
 export class ThumbnailComponent implements OnInit {
   @Input() imageObject: MspImage;
   @Input() reviewMode: boolean = false;
-  @Output('delete') deleteImage: EventEmitter<string> = new EventEmitter<string>();
+  @Output('delete') deleteImage: EventEmitter<MspImage> = new EventEmitter<MspImage>();
   @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
 
   private viewContainerRef: ViewContainerRef;
@@ -27,8 +27,9 @@ export class ThumbnailComponent implements OnInit {
     this.scaledWidth = parseInt(scaledWidthString);
   }
 
-  delete() {
-    this.deleteImage.emit(this.imageObject.id);
+  delete(evt:any) {
+    // console.log('Delete from thumbnail: %o', evt);
+    this.deleteImage.emit(this.imageObject);
   }
 
   showFullSizeView(){

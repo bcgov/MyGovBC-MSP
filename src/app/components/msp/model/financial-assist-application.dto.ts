@@ -1,5 +1,6 @@
 import AddressDto from './address.dto';
 import PersonDto from './person.dto';
+import {MspImage} from "./msp-image";
 
 export default class FinancialAssistApplicationDto {
   incomeLine236: number;
@@ -21,5 +22,11 @@ export default class FinancialAssistApplicationDto {
 
   applicant:PersonDto = new PersonDto();
   spouse:PersonDto = new PersonDto();
+
+  authorizedByApplicant:boolean;
+  authorizedBySpouse:boolean;
+  authorizedByAttorney:boolean;
+
+  powerOfAttorneyDocs:MspImage[] = [];
 
 }

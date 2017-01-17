@@ -3,6 +3,7 @@ import {Person} from "./person.model";
 import {Relationship} from "./status-activities-documents";
 import {Eligibility} from "./eligibility.model";
 import {UUID} from "angular2-uuid";
+import { MspImage } from "./msp-image";
 
 export class FinancialAssistApplication {
 
@@ -62,6 +63,44 @@ export class FinancialAssistApplication {
   private spouseOrCommonLawEligibleForDisabilityCredit:boolean;
 
   childDisabilityCreditCreditMultiplier:number = 0;
+
+  _authorizedByApplicant:boolean;
+  _authorizedBySpouse:boolean;
+  _authorizedByAttorney:boolean;
+
+  powerOfAttorneyDocs:MspImage[] = [];
+
+  set authorizedByApplicant(auth:boolean){
+    this._authorizedByApplicant = auth;
+
+    if(auth){
+      this._authorizedByAttorney = false;
+    }
+  }
+
+  set authorizedBySpouse(auth:boolean){
+    this._authorizedBySpouse = auth;
+    if(auth){
+      this._authorizedByAttorney = false;
+    }
+  }
+  set authorizedByAttorney(auth:boolean){
+    this._authorizedByAttorney = auth;
+    if(auth){
+      this._authorizedByApplicant = false;
+      this._authorizedBySpouse = false;
+    }
+  }
+
+  get authorizedByApplicant():boolean {
+    return this._authorizedByApplicant;
+  }
+  get authorizedBySpouse():boolean {
+    return this._authorizedBySpouse;
+  }
+  get authorizedByAttorney():boolean {
+    return this._authorizedByAttorney;
+  }
 
   get netIncomelastYear():number {
     return this._netIncomelastYear === null? null: this._netIncomelastYear;
@@ -192,10 +231,10 @@ export class FinancialAssistApplication {
   public mailingAddress: Address = new Address();
   public phoneNumber: string;
 
+  id:string;
 
   constructor(){
-
+    this.id = UUID.UUID();
   }
-
-
+  
 }

@@ -99,6 +99,7 @@
   },
   "private": false,
   "dependencies": {
-    "ng2-completer": "^0.3.2"
+    "ng2-completer": "^0.3.2",
+    "rx-dom": "^7.0.3"
   }
 }

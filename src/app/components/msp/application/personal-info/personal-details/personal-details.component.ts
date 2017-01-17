@@ -9,6 +9,7 @@ import {
   StatusRules, ActivitiesRules, StatusInCanada, Activities,
   DocumentRules, Documents, Relationship
 } from "../../../model/status-activities-documents";
+import { MspImage } from '../../../model/msp-image';
 import {Valid} from "../../../common/valid";
 import { Observable } from 'rxjs/Observable';
 
@@ -109,6 +110,21 @@ export class PersonalDetailsComponent implements AfterViewInit, OnInit {
     return DocumentRules.availiableDocuments(this.person.status, this.person.currentActivity);
   }
 
+  addDocument(evt:MspImage){
+    console.log('image added: %s', evt);
+    this.person.documents.images = [...this.person.documents.images, evt];
+    this.onChange.emit(evt);
+  }
+
+  deleteDocument(evt:MspImage){
+    this.person.documents.images = this.person.documents.images.filter( 
+      (mspImage:MspImage) => {
+        return evt.uuid !== mspImage.uuid;
+      }
+    );
+    this.onChange.emit(evt);
+  }
+
   personalInfoLabel(): string {
     switch (this.person.relationship) {
       case Relationship.Applicant:
@@ -187,5 +203,4 @@ export class PersonalDetailsComponent implements AfterViewInit, OnInit {
   get isInstitutionListShown() {
     return this.institutionWorkSignal === 'out';
   }
-  
 }

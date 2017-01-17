@@ -261,6 +261,12 @@ export default class MspDataService {
     dto.spouseDSPAmount_line125 = input.spouseDSPAmount_line125;
     dto.childDisabilityCreditCreditMultiplier = input.childDisabilityCreditCreditMultiplier;
 
+    dto.authorizedByApplicant = input.authorizedByApplicant;
+    dto.authorizedBySpouse = input.authorizedBySpouse;
+    dto.authorizedByAttorney = input.authorizedByAttorney;
+
+    dto.powerOfAttorneyDocs = input.powerOfAttorneyDocs;
+
     dto.phoneNumber = input.phoneNumber;
 
     this.convertToPersonDto(input.applicant, dto.applicant);
@@ -272,8 +278,46 @@ export default class MspDataService {
   }
 
   /**
-   * 
+   * Convert DTO object from local storage to data model object that is bound to screen.
+   * For financial assistance application
    */
+  fromFinAssistDataTransferObject(dto:FinancialAssistApplicationDto): FinancialAssistApplication{
+    if(!dto.residentialAddress){
+      dto.residentialAddress = new AddressDto();
+    }
+    if(!dto.mailingAddress){
+      dto.mailingAddress = new AddressDto();
+    }
+    let output:FinancialAssistApplication = new FinancialAssistApplication();
+
+    output.netIncomelastYear = dto.incomeLine236;
+    output.ageOver65 = dto.ageOver65;
+    output.setSpouse = dto.hasSpouseOrCommonLaw;
+    output.spouseAgeOver65 = dto.spouseAgeOver65;
+    output.spouseIncomeLine236 = dto.spouseIncomeLine236;
+    output.childrenCount = dto.childrenCount;
+    output.claimedChildCareExpense_line214 = dto.claimedChildCareExpense_line214;
+    output.reportedUCCBenefit_line117 = dto.reportedUCCBenefit_line117;
+    output.selfDisabilityCredit = dto.selfDisabilityCredit;
+    output.spouseEligibleForDisabilityCredit = dto.spouseEligibleForDisabilityCredit;
+    output.spouseDSPAmount_line125 = dto.spouseDSPAmount_line125;
+    output.childDisabilityCreditCreditMultiplier = dto.childDisabilityCreditCreditMultiplier;
+
+    output.phoneNumber = dto.phoneNumber;
+
+    output.authorizedByApplicant = dto.authorizedByApplicant;
+    output.authorizedBySpouse = dto.authorizedBySpouse;
+    output.authorizedByAttorney = dto.authorizedByAttorney;
+    
+    output.powerOfAttorneyDocs = dto.powerOfAttorneyDocs;
+
+    this.convertToPerson(dto.applicant, output.applicant);
+    this.convertToPerson(dto.spouse, output.spouse);
+    this.convertMailingAddress(dto, output);
+    this.convertResidentialAddress(dto, output);
+    return output;
+  }
+
   private convertToPersonDto(input:Person, output:PersonDto){
     output.dob_day = input.dob_day;
     output.dob_month = input.dob_month;
@@ -304,41 +348,6 @@ export default class MspDataService {
     output.stayForSixMonthsOrLonger = input.stayForSixMonthsOrLonger;
     output.plannedAbsence = input.plannedAbsence;
   }
-
-
-  /**
-   * Convert DTO object from local storage to data model object that is bound to screen.
-   * For financial assistance application
-   */
-  fromFinAssistDataTransferObject(dto:FinancialAssistApplicationDto): FinancialAssistApplication{
-    if(!dto.residentialAddress){
-      dto.residentialAddress = new AddressDto();
-    }
-    if(!dto.mailingAddress){
-      dto.mailingAddress = new AddressDto();
-    }
-    let output:FinancialAssistApplication = new FinancialAssistApplication();
-
-    output.netIncomelastYear = dto.incomeLine236;
-    output.ageOver65 = dto.ageOver65;
-    output.setSpouse = dto.hasSpouseOrCommonLaw;
-    output.spouseAgeOver65 = dto.spouseAgeOver65;
-    output.spouseIncomeLine236 = dto.spouseIncomeLine236;
-    output.childrenCount = dto.childrenCount;
-    output.claimedChildCareExpense_line214 = dto.claimedChildCareExpense_line214;
-    output.reportedUCCBenefit_line117 = dto.reportedUCCBenefit_line117;
-    output.selfDisabilityCredit = dto.selfDisabilityCredit;
-    output.spouseEligibleForDisabilityCredit = dto.spouseEligibleForDisabilityCredit;
-    output.spouseDSPAmount_line125 = dto.spouseDSPAmount_line125;
-    output.childDisabilityCreditCreditMultiplier = dto.childDisabilityCreditCreditMultiplier;
-
-    output.phoneNumber = dto.phoneNumber;
-
-    this.convertToPerson(dto.applicant, output.applicant);
-    this.convertToPerson(dto.spouse, output.spouse);
-    this.convertMailingAddress(dto, output);
-    this.convertResidentialAddress(dto, output);
-    return output;
-  }
+  
 
 }

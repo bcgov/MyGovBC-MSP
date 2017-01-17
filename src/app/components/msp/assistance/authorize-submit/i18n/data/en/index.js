@@ -4,5 +4,6 @@ module.exports = {
   declarationAndConsentTitle: 'Declaration and Consent',
   doYouAgreeLabel: '{name}, do you agree?',
   agreeLabel: 'Yes, I agree',
+  attorneyDoYouAgreeLabel: 'I have power of attorney and I am applying on behalft of {applicantName}',
   continueButton: 'Continue'
 }

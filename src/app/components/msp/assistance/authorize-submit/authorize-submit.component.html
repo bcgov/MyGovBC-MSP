@@ -2,20 +2,52 @@
 <p class="helpblock" [innerHTML]="lang('./en/index.js').helpBlock"></p>
 <h2 [innerHTML]="lang('./en/index.js').declarationAndConsentTitle"></h2>
 <p [innerHTML]="lang('./en/declaration.md')"></p>
-<form>
-    <div class="strong" [innerHTML]="questionApplicant"></div>
-    <div class="checkbox checkbox-success checkbox-inline">
-        <input class="input-lg" id="firstPersonAuthorize" type="checkbox">
-        <label for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
-    </div>
-    <br><br>
-    <div *ngIf="application.hasSpouseOrCommonLaw">
-        <div class="strong" [innerHTML]="questionSpouse"></div>
+
+<form #form="ngForm">
+    <div>
+        <div class="strong" [innerHTML]="questionApplicant"></div>
         <div class="checkbox checkbox-success checkbox-inline">
-            <input class="input-lg" id="secondPersonAuthorize" type="checkbox">
-            <label for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+            <input class="input-lg" 
+                name="authorizedByApplicant" 
+                [(ngModel)] = "application.authorizedByApplicant"
+                (ngModelChange) = "deleteAllDocs($event)"
+                id="firstPersonAuthorize" type="checkbox">
+            <label for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+        </div>
+        <br><br>
+        <div *ngIf="application.hasSpouseOrCommonLaw">
+            <div class="strong" [innerHTML]="questionSpouse"></div>
+            <div class="checkbox checkbox-success checkbox-inline">
+                <input class="input-lg" 
+                name="authorizedBySpouse" 
+                [(ngModel)] = "application.authorizedBySpouse"
+                (ngModelChange) = "deleteAllDocs($event)"
+                id="secondPersonAuthorize" type="checkbox">
+                <label for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+            </div>
         </div>
     </div>
+    <div style="margin-top: 20px;">
+        <div class="strong" [innerHTML]="questionForAttorney"></div>
+        <div class="checkbox checkbox-success checkbox-inline">
+            <input class="input-lg" 
+                name="authorizedByAttorney" 
+                [(ngModel)] = "application.authorizedByAttorney"
+                (ngModelChange) = "handleAuthorizedByAttorney($event)"
+                id="authByAttorney" type="checkbox">
+            <label for="authByAttorney" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px;" *ngIf="application.authorizedByAttorney">
+        <label for="">Power of Attorney Document</label>
+        <msp-file-uploader 
+            [images]="application.powerOfAttorneyDocs" 
+            [id]='application.id'
+            (onAddDocument)="addDocument($event)"
+            (onDeleteDocument)="deleteDocument($event)">
+        </msp-file-uploader>
+    </div>    
 </form>
 <hr>
 <button class="btn btn-primary" type="submit" routerLink="/msp/assistance/confirmation"

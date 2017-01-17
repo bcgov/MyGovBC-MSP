@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import MspDataService from '../../service/msp-data.service';
 import {FinancialAssistApplication} from "../../model/financial-assist-application.model";
+import {MspImage} from '../../model/msp-image';
 @Component({
   templateUrl: './authorize-submit.component.html'
 })
@@ -8,8 +10,48 @@ export class AssistanceAuthorizeSubmitComponent {
   lang = require('./i18n');
 
   application: FinancialAssistApplication;
+
   constructor(private dataService: MspDataService){
     this.application = this.dataService.finAssistApp;
+  }
+
+  @ViewChild('form') form: NgForm;
+
+  ngAfterViewInit(): void {
+    this.form.valueChanges.subscribe(values => {
+      // console.log('authorization form change: %o', values);
+      // this.onChange.emit(values);
+      this.dataService.saveFinAssistApplication();
+    });
+  }
+  
+  addDocument(mspImage:MspImage) {
+    this.application.powerOfAttorneyDocs = [...this.application.powerOfAttorneyDocs, mspImage];
+    this.dataService.saveFinAssistApplication();
+  }
+
+  deleteDocument(mspImage:MspImage) {
+    // console.log('doc to be deleted: %o', mspImage);
+    this.application.powerOfAttorneyDocs = this.application.powerOfAttorneyDocs.filter(
+      (doc:MspImage) => {
+        return doc.uuid !== mspImage.uuid;
+      }
+    );
+    this.dataService.saveFinAssistApplication();
+  }
+
+  deleteAllDocs(doDelete:boolean){
+    if(doDelete){
+      this.application.powerOfAttorneyDocs = [];
+      this.dataService.saveFinAssistApplication();
+    }
+  }
+
+  handleAuthorizedByAttorney(byAttorney:boolean){
+    // console.log('Power of Attorney, %o', byAttorney);
+    if(!byAttorney){
+      this.deleteAllDocs(!byAttorney);      
+    }
   }
 
   get questionApplicant(){
@@ -17,6 +59,9 @@ export class AssistanceAuthorizeSubmitComponent {
   }
   get questionSpouse(){
     return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.spouseName);    
+  }
+  get questionForAttorney(){
+    return this.lang('./en/index.js').attorneyDoYouAgreeLabel.replace('{applicantName}', this.applicantName);    
   }
   get applicantName(){
     return this.application.applicant.firstName + ' ' + this.application.applicant.lastName;
