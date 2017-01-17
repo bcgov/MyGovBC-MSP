@@ -5,9 +5,9 @@ import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 
-import { AlertModule } from 'ng2-bootstrap/components/alert';
-import { ProgressbarModule } from 'ng2-bootstrap/components/progressbar';
-import { ModalModule } from 'ng2-bootstrap/components/modal';
+import { AlertModule } from 'ng2-bootstrap/alert';
+import { ProgressbarModule } from 'ng2-bootstrap/progressbar';
+import { ModalModule } from 'ng2-bootstrap/modal';
 import { Ng2CompleterModule } from "ng2-completer";
 
 import {MspComponent} from './msp.component';
