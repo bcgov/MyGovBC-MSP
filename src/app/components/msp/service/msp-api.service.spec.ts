@@ -6,6 +6,7 @@ import {MspImage} from "../model/msp-image";
 import {StatusInCanada, Activities, Relationship} from "../model/status-activities-documents";
 import {HttpModule} from "@angular/http";
 import appConstants from '../../../services/appConstants';
+import {Data} from "./test/image.data";
 //import {Data} from "./test/image.data";
 let base64ToBlob = require("base64ToBlob");
 
@@ -227,7 +228,7 @@ describe('MspApiService', () => {
 
     let doc12 = new MspImage();
     doc12.contentType = "image/jpeg";
-    //doc12.setFileAsBlob(base64ToBlob(Data.image1, "image/jpeg"));
+    doc12.setFileAsBlob(base64ToBlob(Data.image1, "image/jpeg"));
     doc12.size = 100749;
     app.applicant.documents.images.push(doc12);
 
