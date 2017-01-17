@@ -7,7 +7,6 @@ import {StatusInCanada, Activities, Relationship} from "../model/status-activiti
 import {HttpModule} from "@angular/http";
 import appConstants from '../../../services/appConstants';
 import {Data} from "./test/image.data";
-//import {Data} from "./test/image.data";
 let base64ToBlob = require("base64ToBlob");
 
 describe('MspApiService', () => {

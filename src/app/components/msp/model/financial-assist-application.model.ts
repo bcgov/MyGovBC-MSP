@@ -2,8 +2,16 @@ import {Address} from "./address.model";
 import {Person} from "./person.model";
 import {Relationship} from "./status-activities-documents";
 import {Eligibility} from "./eligibility.model";
+import {UUID} from "angular2-uuid";
 
 export class FinancialAssistApplication {
+
+  readonly uuid = UUID.UUID();
+
+  /**
+   * Set by the API, not for client use
+   */
+  referenceNumber: string;
 
   eligibility: Eligibility = new Eligibility();
   /**
