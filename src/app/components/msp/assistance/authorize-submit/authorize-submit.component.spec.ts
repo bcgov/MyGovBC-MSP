@@ -3,6 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { AssistanceAuthorizeSubmitComponent } from './authorize-submit.component';
 import MspDataService from '../../service/msp-data.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
+import {ThumbnailComponent} from "../../common/thumbnail/thumbnail.component";
+import {Ng2BootstrapModule} from "ng2-bootstrap";
 
 describe('AssistanceAuthorizeSubmitComponent', () => {
   let localStorageServiceConfig = {
@@ -12,8 +15,8 @@ describe('AssistanceAuthorizeSubmitComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AssistanceAuthorizeSubmitComponent],
-      imports: [FormsModule],
+      declarations: [AssistanceAuthorizeSubmitComponent, FileUploaderComponent, ThumbnailComponent],
+      imports: [FormsModule, Ng2BootstrapModule],
       providers: [MspDataService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
