@@ -25,6 +25,12 @@ objects:
       description: openshift kibana
     name: os-kibana
 - apiVersion: v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      description: elk nginx
+    name: elk-nginx
+- apiVersion: v1
   kind: DeploymentConfig
   metadata:
     name: elasticsearch
@@ -166,7 +172,7 @@ objects:
                 path: /
                 port: 5601
                 scheme: HTTP
-              initialDelaySeconds: 60
+              initialDelaySeconds: 120
               timeoutSeconds: 10
               periodSeconds: 10
               successThreshold: 1
@@ -176,7 +182,7 @@ objects:
                 path: /
                 port: 5601
                 scheme: HTTP
-              initialDelaySeconds: 58
+              initialDelaySeconds: 60
               timeoutSeconds: 10
               periodSeconds: 10
               successThreshold: 1
@@ -244,6 +250,86 @@ objects:
         terminationGracePeriodSeconds: 30
         dnsPolicy: ClusterFirst
 - apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    name: elk-nginx
+    labels:
+      app: ${NAME}
+  spec:
+    strategy:
+      type: Rolling
+      rollingParams:
+        updatePeriodSeconds: 1
+        intervalSeconds: 1
+        timeoutSeconds: 600
+        maxUnavailable: 25%
+        maxSurge: 25%
+      resources:
+    triggers:
+      -
+        type: ConfigChange
+      -
+        type: ImageChange
+        imageChangeParams:
+          automatic: true
+          containerNames:
+            - elk-nginx
+          from:
+            kind: ImageStreamTag
+            name: 'elk-nginx:latest'
+    replicas: 1
+    test: false
+    selector:
+      app: ${NAME}
+      deploymentconfig: elk-nginx
+    template:
+      metadata:
+        labels:
+          app: ${NAME}
+          deploymentconfig: elk-nginx
+      spec:
+        containers:
+          -
+            name: elk-nginx
+            image: elk-nginx
+            ports:
+              -
+                containerPort: 8080
+                protocol: TCP
+              -
+                containerPort: 8081
+                protocol: TCP
+            env:
+              -
+                name: KIBANA_PASSWORD
+                value: ${KIBANA_PASSWORD}
+            resources:
+            livenessProbe:
+              httpGet:
+                path: /
+                port: 8081
+                scheme: HTTP
+              initialDelaySeconds: 60
+              timeoutSeconds: 10
+              periodSeconds: 10
+              successThreshold: 1
+              failureThreshold: 3
+            readinessProbe:
+              httpGet:
+                path: /
+                port: 8081
+                scheme: HTTP
+              initialDelaySeconds: 60
+              timeoutSeconds: 10
+              periodSeconds: 10
+              successThreshold: 1
+              failureThreshold: 3
+            terminationMessagePath: /dev/termination-log
+            imagePullPolicy: Always
+        restartPolicy: Always
+        terminationGracePeriodSeconds: 30
+        dnsPolicy: ClusterFirst
+- apiVersion: v1
   kind: Service
   metadata:
     name: elasticsearch
@@ -271,8 +357,6 @@ objects:
     name: kibana
     labels:
       app: ${NAME}
-    annotations:
-      service.alpha.openshift.io/dependencies: '[{"name":"elasticsearch","kind":"Service"}]'
   spec:
     ports:
       -
@@ -289,8 +373,6 @@ objects:
     name: logstash
     labels:
       app: ${NAME}
-    annotations:
-      service.alpha.openshift.io/dependencies: '[{"name":"elasticsearch","kind":"Service"}]'
   spec:
     ports:
       -
@@ -303,6 +385,28 @@ objects:
     type: ClusterIP
     sessionAffinity: None
 - apiVersion: v1
+  kind: Service
+  metadata:
+    name: elk-nginx
+    labels:
+      app: ${NAME}
+  spec:
+    ports:
+      -
+        name: 8080-tcp
+        protocol: TCP
+        port: 8080
+        targetPort: 8080
+      -
+        name: 8081-tcp
+        protocol: TCP
+        port: 8081
+        targetPort: 8081
+    selector:
+      deploymentconfig: elk-nginx
+    type: ClusterIP
+    sessionAffinity: None
+- apiVersion: v1
   kind: Route
   metadata:
     name: kibana
@@ -311,10 +415,10 @@ objects:
   spec:
     to:
       kind: Service
-      name: kibana
+      name: elk-nginx
       weight: 100
     port:
-      targetPort: 5601-tcp
+      targetPort: 8081-tcp
 - apiVersion: v1
   kind: Route
   metadata:
@@ -324,7 +428,7 @@ objects:
   spec:
     to:
       kind: Service
-      name: logstash
+      name: elk-nginx
       weight: 100
     port:
       targetPort: 8080-tcp
@@ -349,3 +453,7 @@ parameters:
   name: VOLUME_CAPACITY
   required: true
   value: 1Gi
+- description: Password for Kibana web console. User name is fixed to admin.
+  from: '[a-zA-Z0-9]{16}'
+  generate: expression
+  name: KIBANA_PASSWORD
