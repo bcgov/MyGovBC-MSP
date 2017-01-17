@@ -84,15 +84,13 @@ export class FileUploaderComponent implements OnInit {
       (fileList:FileList) => {
         return this.observableFromFile(fileList[0]);
       }
-    ).do(
+    ).filter(
       (mspImage:MspImage) => {
-        this.onAddDocument.emit(mspImage);
+        return !this.checkImageExists(mspImage, this.images);
       }
     )
     .subscribe(
       (file:MspImage) => {
-        // console.log('drop event detected:');
-        // console.log(files[0]);
         this.handleImageFile(file);
       },
 
@@ -111,7 +109,7 @@ export class FileUploaderComponent implements OnInit {
         let mspImage: MspImage = new MspImage();
         mspImage.fileContent = reader.result;
         mspImage.id = sha1(reader.result);
-        console.log(`generated file id: ${mspImage.id}`);
+        // console.log(`generated file id: ${mspImage.id}`);
 
         let nBytes = file.size;
         let fileSize = '';
@@ -148,84 +146,14 @@ export class FileUploaderComponent implements OnInit {
   }
 
   handleImageFile(mspImage: MspImage) {
-      console.log('image file from observable: %o', mspImage);
     if(this.images.length >= this.MAX_IMAGE_COUNT){
       console.log(`Max number of image file you can upload is ${this.MAX_IMAGE_COUNT}. 
       This file ${mspImage.name} was not uploaded.` );
-        return;
+    }else{
+        this.onAddDocument.emit(mspImage);
     }
-
-    // let alreadyUploaded = this.checkImageExists(file., this.images);
-    
   }
 
-
-  handleImageFile2(imageFile: File, 
-    sizeFinder:Function, imageDuplicationCheck:Function, imageList: Array<MspImage>) {
-    if(this.images.length >= this.MAX_IMAGE_COUNT){
-      console.log(`Max number of image file you can upload is ${this.MAX_IMAGE_COUNT}. 
-      This file ${imageFile.name} was not uploaded.` );
-        return;
-    }
-
-    let reader = new FileReader();
-    // var subject = new ReplaySubject(1)
-    // let imageEl = this.imageElement;
-    let previewZn = this.previewZone;
-
-    reader.onload = function (e: ProgressEvent) {
-      let alreadyUploaded = imageDuplicationCheck(reader.result, imageList);
-      if(alreadyUploaded){
-        console.log(`This file, ${imageFile.name}(or a file of thes same image) has already been uploaded.
-        This file was therefore not uploaded as a duplicate of that previous file.`);
-
-        return;
-      }
-
-      let mspImage: MspImage = new MspImage();
-      mspImage.fileContent = reader.result;
-      mspImage.id = sha1(reader.result);
-      console.log(`generated file id: ${mspImage.id}`);
-      mspImage.sizeTxt = sizeFinder(imageFile);
-      mspImage.name = imageFile.name;
-
-      let imgEl: HTMLImageElement = document.createElement('img');
-      imgEl.src = reader.result;
-
-      console.log(`image file natural height and width: 
-          ${imgEl.naturalHeight} x ${imgEl.naturalWidth}`);
-
-      mspImage.naturalHeight = imgEl.naturalHeight;
-      mspImage.naturalWidth = imgEl.naturalWidth;
-
-      imageList.push(mspImage);
-    };
-
-    reader.readAsDataURL(imageFile);
-    // reader.readAsText(imageFile);
-  }
-
-  // onChange(evt: any) {
-  //   // console.log(evt);
-  //   if(evt.srcElement.files && evt.srcElement.files.length && evt.srcElement.files.length > 0){
-  //     // console.log('file list size: ' + fileList.length);
-  //     let file = evt.srcElement.files[0];
-  //     let nBytes = file.size;
-  //     if (nBytes > this.maxFileSize) {
-  //       this.fileSizeError = 'This file was not accepted because its size exceeded max allowed file size (8MB).';
-  //       console.log(this.fileSizeError);
-  //     }else{
-  //       this.handleImageFile(file, 
-  //         this.getFileSizeOutputString, this.checkImageExists, this.images);
-  //       // var blob_url = window.URL.createObjectURL(file);
-  //       // this.trustedUrl = this.sanitizer.bypassSecurityTrustUrl(blob_url);;
-  //       // console.log('file blog url: ' + blob_url);
-  //     }
-  //   }else{
-  //     console.log('No file was selected.');
-  //     return;
-  //   }
-  // }
 
   getFileSizeOutputString(file: File){
       let nBytes = file.size;
@@ -245,24 +173,20 @@ export class FileUploaderComponent implements OnInit {
 
   deleteImage(mspImage:MspImage){
     this.onDeleteDocument.emit(mspImage);
-    // for(var i = this.images.length -1; i >= 0 ; i--){
-    //     if(this.images[i].id === imageId){
-    //         this.images.splice(i, 1);
-    //     }
-    // }    
   }
 
   /**
    * Return true if file already exists in the list; false otherwise.
    */
-  checkImageExists(fileContent: string, imageList: Array<MspImage>) {
+  checkImageExists(file: MspImage, imageList: Array<MspImage>) {
     if(!imageList){
       return false;
     }else{
-      let sha1Sum = sha1(fileContent);
+      let sha1Sum = sha1(file.fileContent);
       for(var i = imageList.length -1; i >= 0 ; i--){
         // console.log(`compare  ${imageList[i].id} with ${sha1Sum}, result ${imageList[i].id === sha1Sum}`);
           if(imageList[i].id === sha1Sum){
+            console.log(`This file ${file.name} has already been uploaded.`);
             return true;
           }
       }    

@@ -6,13 +6,15 @@ export class MspImage {
   readonly uuid = UUID.UUID();
 
   // The type should be string. Should change to string after file uploader stablizes
-  fileContent:File;
+  fileContent:string;
   size: number;
   sizeUnit: string;
   sizeTxt:string;
   naturalHeight: number;
   naturalWidth: number;
   name:string;
+
+  //file uniqness checksum
   id: string;
 
   /**
@@ -22,7 +24,7 @@ export class MspImage {
   private _contentType: string;
   get contentType(): string {
     if (this._contentType) return this._contentType;
-    else return this.fileContent.type;
+    else return 'unknown';
   }
   set contentType(value:string) {
     this._contentType = value;
