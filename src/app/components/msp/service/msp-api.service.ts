@@ -69,12 +69,15 @@ export class MspApiService {
             // Let our caller know were done passing back the application
             resolve(app);
 
-          }).catch((error:Error) => {
+          }).catch((error: Response | any) => {
             console.log("sent application rejected: ", error);
-            reject();
+            reject(error);
           });
+        })
+        .catch((error: Response | any) => {
+          console.log("sent all attachments rejected: ", error);
+          reject(error);
         });
-
       } catch (error) {
         console.log("sendMspApplication error: ", error);
         reject(error);
@@ -95,9 +98,9 @@ export class MspApiService {
       Promise.all(attachmentPromises).then((responses: ResponseType[]) => {
         console.log("All promises resolved");
         resolve();
-      }).catch((error:Error) => {
+      }).catch((error: Response | any) => {
         console.log("error sending attachment: ", error);
-        reject();
+        reject(error);
       })
     });
   }
@@ -129,15 +132,26 @@ export class MspApiService {
 
       // description - UI does NOT collect this property
 
+      // Setup headers
+      let headers = new Headers({ 'Content-Type':  attachment.contentType});
+      let options = new RequestOptions({ headers: headers });
+
+      let binary = atob(attachment.fileContent.split(',')[1]);
+      let array = <any>[];
+      for(var i = 0; i < binary.length; i++) {
+        array.push(binary.charCodeAt(i));
+      }
+      let blob = new Blob([new Uint8Array(array)], {type: attachment.contentType});
+
       this.http
-        .post(url, attachment.getFileAsBlob())
+        .post(url, blob, options)
         .toPromise()
         .then((response:Response) => {
           resolve(<ResponseType>{});
         })
-        .catch((error: any) => {
+        .catch((error: Response | any) => {
           console.log("attachment error: ", error);
-          reject();
+          reject(error);
         });
     });
   }
@@ -177,7 +191,7 @@ export class MspApiService {
           console.log("document sent: ", documentXmlString);
           let response = this.convertResponse(error);
           console.log("full error: ", error)
-          reject();
+          reject(error);
         });
     });
   }
@@ -468,17 +482,19 @@ export class MspApiService {
         break;
       case Activities.MovingFromProvince:
       case Activities.MovingFromCountry:
-        //TODO: to.outsideBC.beenOutsideBCMoreThan
-        if (from.hasStudiesDeparture) {
-          to.outsideBC.departureDate = from.studiesDepartureDate.format(this.ISO8601DateFormat);
-        }
-        if (from.hasStudiesFinished) {
-          to.outsideBC.returnDate = from.studiesFinishedDate.format(this.ISO8601DateFormat);
-        }
+
         //TODO: familyMemberReason;
         break;
 
     }
+
+     //TODO: to.outsideBC.beenOutsideBCMoreThan
+     if (from.hasStudiesDeparture) {
+       to.outsideBC.departureDate = from.studiesDepartureDate.format(this.ISO8601DateFormat);
+     }
+     if (from.hasStudiesFinished) {
+       to.outsideBC.returnDate = from.studiesFinishedDate.format(this.ISO8601DateFormat);
+     }
 
     /*
      armedDischageDate?: Date;
@@ -488,6 +504,7 @@ export class MspApiService {
      willBeAway: ct.YesOrNoType;
      */
 
+    //to.willBeAway.isFullTimeStudent = from.
     to.willBeAway = WillBeAwayTypeFactory.make();
     to.willBeAway.willBeAway = "N";
     to.willBeAway.isFullTimeStudent = "N";

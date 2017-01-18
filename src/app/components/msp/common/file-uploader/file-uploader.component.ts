@@ -123,8 +123,10 @@ export class FileUploaderComponent implements OnInit {
           fileSizeUnit = aMultiples[nMultiple];
         }
         console.log(`Size of file ${name}: ${sOutput}`);
+        mspImage.size = file.size;
         mspImage.sizeTxt = sOutput;
         mspImage.name = file.name;
+        mspImage.contentType = file.type;
         
         let imgEl: HTMLImageElement = document.createElement('img');
         imgEl.src = reader.result;

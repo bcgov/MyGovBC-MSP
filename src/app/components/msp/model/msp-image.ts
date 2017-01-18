@@ -5,7 +5,8 @@ import {UUID} from "angular2-uuid";
 export class MspImage {
   readonly uuid = UUID.UUID();
 
-  fileContent:Blob;
+  fileContent:string;
+  contentType: string;
   size: number;
   sizeUnit: string;
   sizeTxt:string;
@@ -15,28 +16,4 @@ export class MspImage {
 
   //file uniqness checksum
   id: string;
-
-  /**
-   * Mostly for unit test purposes because of difficultly with File API
-   * but could be used to override content type for conversion purposes, etc
-   */
-  private _contentType: string;
-  get contentType(): string {
-    if (this._contentType) return this._contentType;
-    else return 'unknown';
-  }
-  set contentType(value:string) {
-    this._contentType = value;
-  }
-
-  private _blob: Blob;
-  getFileAsBlob(): Blob {
-    if (this.fileContent) {
-      return this.fileContent;
-    }
-    else return this._blob;
-  }
-  setFileAsBlob(value:Blob) {
-    this._blob = value;
-  }
 }

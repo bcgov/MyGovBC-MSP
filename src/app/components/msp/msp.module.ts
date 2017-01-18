@@ -52,6 +52,7 @@ import {PrepareComponent} from './application/prepare/prepare.component';
 import {PersonalInfoComponent} from './application/personal-info/personal-info.component';
 import {AddressComponent} from './application/address/address.component';
 import {ReviewComponent} from './application/review/review.component';
+import {SendingComponent} from './application/sending/sending.component';
 import {ConfirmationComponent} from './application/confirmation/confirmation.component';
 
 import {AssistanceComponent} from './assistance/assistance.component';
@@ -64,6 +65,7 @@ import {AssistanceConfirmationComponent} from './assistance/confirmation/confirm
 import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calculator/deduction-calculator.component';
 import {EligibilityCardComponent} from './assistance/prepare/eligibility-card/eligibility-card.component';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+import {MspApiService} from "./service/msp-api.service";
 
 
 let localStorageServiceConfig = {
@@ -123,6 +125,11 @@ let localStorageServiceConfig = {
                 path: 'review',
                 canActivate: [MspApplicationReviewGuard],
                 component: ReviewComponent
+              },
+              {
+                path: 'sending',
+                canActivate: [MspApplicationReviewGuard],
+                component: SendingComponent
               },
               {
                 path: 'confirmation',
@@ -205,6 +212,7 @@ let localStorageServiceConfig = {
     PersonalInfoComponent,
     AddressComponent,
     ReviewComponent,
+    SendingComponent,
     ConfirmationComponent,
 
     // Assistance
@@ -224,6 +232,7 @@ let localStorageServiceConfig = {
     // Services
     MspDataService,
     CompletenessCheckService,
+    MspApiService,
 
     MspApplicationPersonalInfoGuard,
     MspApplicationAddressGuard,

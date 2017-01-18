@@ -94,6 +94,7 @@ describe('MspApiService', () => {
 
     let doc1 = new MspImage();
     doc1.contentType = "image/jpeg";
+    doc1.fileContent = "data:image/jpeg;base64," + "blah";
     app.applicant.documents.images.push(doc1);
 
     app.authorizedByApplicant = true;
@@ -140,7 +141,7 @@ describe('MspApiService', () => {
 
 
     let doc2 = new MspImage();
-    doc2.contentType = "application/pdf";
+    doc2.fileContent = "data:image/jpeg;base64," + "blah";
     app.spouse.documents.images.push(doc2);
 
     let applicationType = service.convert(app);
@@ -179,9 +180,11 @@ describe('MspApiService', () => {
 
     let doc1 = new MspImage();
     doc1.contentType = "image/jpeg";
+    doc1.fileContent = "data:image/jpeg;base64," + "blah";
     app.applicant.documents.images.push(doc1);
     let doc12 = new MspImage();
     doc12.contentType = "image/jpeg";
+    doc12.fileContent = "data:image/jpeg;base64," + "blah";
     app.applicant.documents.images.push(doc12);
 
     app.addSpouse(new Person(Relationship.Spouse));
@@ -198,7 +201,7 @@ describe('MspApiService', () => {
     app.spouse.liveInBC = true;
 
     let doc2 = new MspImage();
-    doc2.contentType = "image/jpeg";
+    doc2.fileContent = "data:image/jpeg;base64," + "blah";
     app.spouse.documents.images.push(doc2);
 
     let child = app.addChild(Relationship.Child19To24);
@@ -221,7 +224,6 @@ describe('MspApiService', () => {
   });
 
   it('should sendMspApplication an object', done => {
-    done();
     let service = TestBed.get(MspApiService);
     let app = new MspApplication();
     app.applicant.firstName = "James";
@@ -249,7 +251,7 @@ describe('MspApiService', () => {
 
     let doc12 = new MspImage();
     doc12.contentType = "image/jpeg";
-    doc12.setFileAsBlob(base64ToBlob(Data.image1, "image/jpeg"));
+    doc12.fileContent = "data:image/jpeg;base64," + Data.image1;
     doc12.size = 100749;
     app.applicant.documents.images.push(doc12);
 
