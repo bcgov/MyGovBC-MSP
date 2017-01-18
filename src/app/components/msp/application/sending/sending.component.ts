@@ -14,7 +14,9 @@ export class SendingComponent implements AfterViewInit  {
   lang = require('./i18n');
 
   application:MspApplication;
+  rawUrl: string;
   rawError: string;
+  rawRequest: string;
 
   constructor(private dataService: DataService, private service:MspApiService, public router: Router) {
     this.application = this.dataService.getMspApplication();
@@ -31,7 +33,9 @@ export class SendingComponent implements AfterViewInit  {
         this.router.navigateByUrl("/msp/application/confirmation");
       })
       .catch((error: ResponseType | any) => {
-        this.rawError = (error) ? error._body : "unknown error";
+        this.rawUrl = error.url;
+        this.rawError = error._body;
+        this.rawRequest = error._requestBody
       });
   }
 }

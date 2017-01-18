@@ -178,8 +178,7 @@ export class MspApiService {
           resolve(this.convertResponse(response.text()));
         })
         .catch((error: Response | any) => {
-          console.log("sent application rejected: " + error.toString());
-          console.log("document sent: ", documentXmlString);
+          error._requestBody = documentXmlString;
           let response = this.convertResponse(error);
           console.log("full error: ", error)
           reject(response || error);
