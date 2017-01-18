@@ -122,7 +122,7 @@ module.exports = function (_path) {
       runtimeEnv: NODE_ENV, // run-time environment. by default same as build-time node env
       coreApiBaseUrl: 'http://localhost:9000/api',
       serviceName: 'core',
-      apiBaseUrl: 'https://temporaryroutefordevpurposes.pathfinder.gov.bc.ca'
+      apiBaseUrl: '/api'
     },
     htmlLoader: {
       minimize: false,
