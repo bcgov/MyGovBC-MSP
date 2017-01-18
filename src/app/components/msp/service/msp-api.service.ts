@@ -466,7 +466,6 @@ export class MspApiService {
     to.outsideBC = OutsideBCTypeFactory.make();
     to.outsideBC.beenOutsideBCMoreThan = "N";
 
-
     switch (from.currentActivity) {
       case Activities.Returning:
         to.livedInBC.hasLivedInBC = "Y";
@@ -547,7 +546,18 @@ export class MspApiService {
     if (from.postal) {
       to.postalCode = from.postal.toUpperCase().replace(" ", "");
     }
-    to.provinceOrState = from.province;
+
+    // convert name to code
+    let provinceData = require('../common/province/i18n/data/en/index').provinceData;
+    let stateData = require('../common/province/i18n/data/en/index').stateData;
+    let provinceStateData = Array().concat(provinceData, stateData);
+
+    let itemFound = to.provinceOrState = provinceStateData.find((item)=> {
+      if (item.name ===  from.province) {
+        return true;
+      }
+    });
+    if (itemFound) { to.provinceOrState = itemFound.code; }
 
     return to;
   }

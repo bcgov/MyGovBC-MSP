@@ -164,7 +164,7 @@ describe('MspApiService', () => {
     app.residentialAddress.addressLine1 = "1234 Fort St.";
     app.residentialAddress.city = "Victoria";
     app.residentialAddress.postal = "V9R3T1";
-    app.residentialAddress.province = "BC";
+    app.residentialAddress.province = "British Columbia";
     app.residentialAddress.country = "Canada";
 
     app.applicant.status = StatusInCanada.PermanentResident;

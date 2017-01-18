@@ -9,8 +9,11 @@ class Address {
   // City
   city: string;
 
-  // Two letter code
+  // Full Name
   province: string;
+
+  // Two letter abbrevation
+  provinceCode: string;
 
   // canadian postal code
   private _postal: string;
