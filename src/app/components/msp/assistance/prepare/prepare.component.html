@@ -276,17 +276,17 @@
                 </div>
             </div>
             <!--<div class="row">-->
-                <div class="col-md-3">
+                <div class="col-md-3" [hidden]="!finAssistApp.childrenCount">
                     <div class="form-group">
                         <ul class="msp-horizontal-list-group">
                             <li #childDisabilityCreditset
-                                [hidden] = finAssistApp.childDisabilityCreditCreditMultiplier
+                                [hidden] = finAssistApp.childWithDisabilityCount
                                 class="msp-horizontal-list-group-item-lg msp-selectable">
                                 <span class="glyphicon glyphicon-unchecked"></span>
                                 <span>My Child</span>
                             </li>
                             <li #childDisabilityCreditUnset
-                                [hidden] = !finAssistApp.childDisabilityCreditCreditMultiplier
+                                [hidden] = !finAssistApp.childWithDisabilityCount
                                 class="msp-horizontal-list-group-item-lg msp-selectable">
                                 <span class="glyphicon glyphicon-check msp-selection"></span>
                                 <span>My Child</span>
@@ -295,15 +295,15 @@
 
                     </div>
                 </div>
-                <div class="col-md-9" *ngIf="(finAssistApp.childDisabilityCreditCreditMultiplier && (finAssistApp.childrenCount > 1))">
+                <div class="col-md-9" *ngIf="(finAssistApp.childWithDisabilityCount && (finAssistApp.childrenCount > 1))">
                     <div class="form-group">
                         <div class="col-md-9" >
                             <p style="margin: 5px 0 0 0">Number of chilldren who are eligible for disability credit</p>
                         </div>
                         <div class="col-md-3" >
-                            <select name="childDisabilityCreditCreditMultiplier" 
+                            <select name="childWithDisabilityCount" 
                                 #childDisabilityCreditCreditMultiplierSelect
-                                [ngModel] = "finAssistApp.childDisabilityCreditCreditMultiplier"
+                                [ngModel] = "finAssistApp.childWithDisabilityCount"
                                 (ngModelChange) = "updateChildDisabilityCreditCreditMultiplier($event)">
                                 <option *ngFor="let v of finAssistApp.childrenCountArray()" 
                                     [value]="v">

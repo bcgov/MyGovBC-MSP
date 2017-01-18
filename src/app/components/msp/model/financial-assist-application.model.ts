@@ -62,7 +62,7 @@ export class FinancialAssistApplication {
   private eligibleForDisabilityCredit:boolean;
   private spouseOrCommonLawEligibleForDisabilityCredit:boolean;
 
-  childDisabilityCreditCreditMultiplier:number = 0;
+  childWithDisabilityCount:number = 0;
 
   _authorizedByApplicant:boolean;
   _authorizedBySpouse:boolean;
@@ -148,8 +148,8 @@ export class FinancialAssistApplication {
 
   set childrenCount(n:number) {
     n > 29 ? this._childrenCount = 0 : this._childrenCount = n;
-    if(this.childrenCount < this.childDisabilityCreditCreditMultiplier){
-      this.childDisabilityCreditCreditMultiplier = 0;
+    if(!this.childrenCount || (this.childrenCount < this.childWithDisabilityCount)){
+      this.childWithDisabilityCount = 0;
     }
   }
 

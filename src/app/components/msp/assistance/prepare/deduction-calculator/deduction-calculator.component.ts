@@ -70,7 +70,7 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     return !!this.application.spouseEligibleForDisabilityCredit? 3000: 0;
   }
   get childreDisabilityCreditAmt(): number {
-    let m = this.application.childDisabilityCreditCreditMultiplier;
+    let m = this.application.childWithDisabilityCount;
     return !!m? 3000*m: 0;
   }
 

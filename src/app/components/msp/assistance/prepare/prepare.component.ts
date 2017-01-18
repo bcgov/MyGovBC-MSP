@@ -158,13 +158,15 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
       .merge(
         Observable.fromEvent<MouseEvent>(this.childDisabilityCreditset.nativeElement, 'click')
           .map( x=> {
-            this.finAssistApp.childDisabilityCreditCreditMultiplier = 1;
+            this.finAssistApp.childWithDisabilityCount = 1;
+            console.log('Set childWithDisabilityCount to ' + this.finAssistApp.childWithDisabilityCount);
           })
       )
       .merge(
         Observable.fromEvent<MouseEvent>(this.childDisabilityCreditUnset.nativeElement, 'click')
           .map( x=> {
-            this.finAssistApp.childDisabilityCreditCreditMultiplier = 0;
+            this.finAssistApp.childWithDisabilityCount = 0;
+            console.log('unset childWithDisabilityCount to ' + this.finAssistApp.childWithDisabilityCount);
           })
       )
       .subscribe(
@@ -208,7 +210,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
 
   updateChildDisabilityCreditCreditMultiplier(evt:string){
     // console.log('updateChildDisabilityCreditCreditMultiplier: %o', evt);
-    this.finAssistApp.childDisabilityCreditCreditMultiplier = parseInt(evt);
+    this.finAssistApp.childWithDisabilityCount = parseInt(evt);
     this.dataService.saveFinAssistApplication();
   }
 }
