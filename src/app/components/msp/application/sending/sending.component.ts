@@ -4,6 +4,7 @@ import {MspApplication, Person} from '../../model/application.model';
 import DataService from '../../service/msp-data.service';
 import {MspApiService} from "../../service/msp-api.service";
 import {Router} from "@angular/router";
+import {ResponseType} from "../../api-model/responseTypes";
 
 @Component({
   templateUrl: 'sending.component.html'
@@ -29,8 +30,8 @@ export class SendingComponent implements AfterViewInit  {
         //  go to confirmation
         this.router.navigateByUrl("/msp/application/confirmation");
       })
-      .catch((error: Error | any) => {
-        this.rawError = (error) ? error.toString() : "unknown error";
+      .catch((error: ResponseType | any) => {
+        this.rawError = (error) ? error._body : "unknown error";
       });
   }
 }

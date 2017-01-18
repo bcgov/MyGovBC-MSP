@@ -49,18 +49,14 @@ export class MspApiService {
       try {
         // first convert the model
         let document:document = this.convert(app);
-        console.log("converted...");
 
         // second convert to XML
         let convertedAppXml = this.toXmlString(document);
-
-        console.log("num images: " + app.getAllImages().length);
 
         // if no errors, then we'll sendMspApplication all attachments
         this.sendAttachments(document.application.uuid, app.getAllImages()).then(() => {
 
           // once all attachments are done we can sendMspApplication in the data
-          console.log("// once all attachments are done we can sendMspApplication in the data");
           this.sendEnrolmentApplication(document).then((response:ResponseType) => {
             console.log("sent application resolved");
             // Add reference number
@@ -94,9 +90,7 @@ export class MspApiService {
         attachmentPromises.push(this.sendAttachment(applicationUUID, attachment));
       }
       // Execute all promises are waiting for results
-      console.log("Execute all promises are waiting for results");
       Promise.all(attachmentPromises).then((responses: ResponseType[]) => {
-        console.log("All promises resolved");
         resolve();
       }).catch((error: Response | any) => {
         console.log("error sending attachment: ", error);
@@ -115,8 +109,6 @@ export class MspApiService {
       let url = this.appConstants['apiBaseUrl']
         + "/MSPDESubmitAttachment/" + applicationUUID
         + "/attachment/" + attachment.uuid;
-
-      console.log("url: " + url);
 
       // programArea
       url += "?programArea=enrolment";
@@ -172,8 +164,6 @@ export class MspApiService {
         + "/MSPDESubmitApplication/" + document.application.uuid
         + "?programArea=enrolment";
 
-      console.log("url: " + url);
-
       // Setup headers
       let headers = new Headers({ 'Content-Type': 'application/xml' });
       let options = new RequestOptions({ headers: headers });
@@ -198,7 +188,7 @@ export class MspApiService {
   }
 
   convertResponse(responseBody:string):ResponseType {
-    return this.stringToJs(responseBody)["ns2:response"];
+    return this.stringToJs<ResponseType>(responseBody)["ns2:response"];
   }
 
 
@@ -321,15 +311,12 @@ export class MspApiService {
    * @returns {AttachmentsType}
    */
   private convertAttachmentsForEnrolment(from: MspApplication): AttachmentsType {
-    console.log("Convert attachments...");
 
     let to = AttachmentsTypeFactory.make();
     to.attachment = new Array<AttachmentType>();
 
     // assemble all attachments
     let attachments:MspImage[] = from.getAllImages();
-
-    console.log("num images: " + attachments.length);
 
     // Convert each one
     for (let attachment of attachments) {
@@ -357,8 +344,6 @@ export class MspApiService {
       // Add to array
       to.attachment.push(toAttachment);
     }
-
-    console.log("Finished converting attachments.");
 
     return to;
   }
@@ -581,10 +566,8 @@ export class MspApiService {
     return MspApiService.XmlDocumentType + xmlString;
   }
 
-  stringToJs (from:string):Object {
-    console.log("from: ", from);
-    let converted = jxon.stringToJs(from);
-    console.log("converted: ", converted);
+  stringToJs<T> (from:string):T {
+    let converted = jxon.stringToJs(from) as T;
     return converted;
   }
 
