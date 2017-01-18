@@ -151,7 +151,8 @@ export class MspApiService {
         })
         .catch((error: Response | any) => {
           console.log("attachment error: ", error);
-          reject(error);
+          let response = this.convertResponse(error);
+          reject(response || error);
         });
     });
   }
@@ -191,7 +192,7 @@ export class MspApiService {
           console.log("document sent: ", documentXmlString);
           let response = this.convertResponse(error);
           console.log("full error: ", error)
-          reject(error);
+          reject(response || error);
         });
     });
   }
