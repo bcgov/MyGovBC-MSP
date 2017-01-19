@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+{
+  date
+  curl -XDELETE http://localhost:9200/logstash-`date -d '-4 month' +%Y.%m`*
+} 2>&1 | tee /tmp/purge-elasticsearch-index.log
