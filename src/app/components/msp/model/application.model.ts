@@ -3,11 +3,12 @@ import {Relationship, StatusInCanada, Activities, Documents} from "./status-acti
 import {Person} from "./person.model";
 import {UUID} from "angular2-uuid";
 import {MspImage} from "./msp-image";
+import {ApplicationBase} from "./application-base.model";
 
 /**
  * Overall MSP Application Process Data
  */
-class MspApplication {
+class MspApplication implements ApplicationBase {
 
   readonly uuid = UUID.UUID();
 

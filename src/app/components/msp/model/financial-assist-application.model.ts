@@ -5,8 +5,9 @@ import {Eligibility} from "./eligibility.model";
 import {UUID} from "angular2-uuid";
 import { MspImage } from "./msp-image";
 import moment = require("moment");
+import {ApplicationBase} from "./application-base.model";
 
-export class FinancialAssistApplication {
+export class FinancialAssistApplication implements ApplicationBase {
 
   readonly uuid = UUID.UUID();
 
@@ -243,6 +244,10 @@ export class FinancialAssistApplication {
   public phoneNumber: string;
 
   id:string;
+
+  getAllImages():MspImage[] {
+    return this.powerOfAttorneyDocs;
+  }
 
   constructor(){
     this.id = UUID.UUID();
