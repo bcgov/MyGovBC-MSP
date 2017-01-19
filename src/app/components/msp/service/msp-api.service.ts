@@ -245,7 +245,6 @@ export class MspApiService {
      authorizedByApplicant: ct.YesOrNoType;
      authorizedByApplicantDate: Date;
      authorizedBySpouse: ct.YesOrNoType;
-     authorizedBySpouseDate: Date;
      */
     if (from.authorizedByApplicant != null) {
       to.application.enrolmentApplication.applicant.authorizedByApplicant = from.authorizedByApplicant ? "Y" : "N";
@@ -440,7 +439,7 @@ export class MspApiService {
     to.netIncome = from.netIncomelastYear;
     to.uccb = from.reportedUCCBenefit_line117;
     to.disabilitySavingsPlan = from.spouseDSPAmount_line125;
-    to.taxYear = moment().utc().year() - 1;
+    to.taxYear = moment().utc().year();
 
     return to;
   }
