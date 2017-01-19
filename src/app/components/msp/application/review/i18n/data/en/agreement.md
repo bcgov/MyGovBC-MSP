@@ -1,6 +1,6 @@
 I have received information about MSP and agree to abide by the terms and conditions
 of MSP. I understand the information I have given is collected under the authority of the Medicare
-Protection Act and may be used to assess eligibility for other Ministry of Health Services programs,
+Protection Act and may be used to assess eligibility for other Ministry of Health programs,
 and that practitioners who provide service(s) under MSP are required under the Medicare Protection
 Act to release information relative to those services to MSP to support claims for benefits.
 
