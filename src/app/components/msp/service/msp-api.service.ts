@@ -45,7 +45,7 @@ export class MspApiService {
    * @param app
    * @returns {Promise<MspApplication>}
    */
-  sendApplication(app: ApplicationBase): Promise<MspApplication> {
+  sendApplication(app: ApplicationBase): Promise<ApplicationBase> {
 
     return new Promise<ApplicationBase>((resolve, reject) => {
       console.log("Start sending...");

@@ -1,0 +1,17 @@
+<h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
+<p *ngIf="!rawError" class="center-block">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+    <span class="sr-only">Loading...</span>
+</p>
+<div *ngIf="rawError">
+    <h3>Dev/Test Temporary Debug Section</h3>
+    <p>Copy and paste the contents of each text area into the issue</p>
+    URL:
+    <textarea class="form-control" rows="2">{{rawUrl}}</textarea><br>
+    Error
+    <textarea class="form-control" rows="5">{{rawError}}</textarea><br>
+    Request
+    <textarea class="form-control" rows="20">{{rawRequest}}</textarea><br>
+    <hr>
+    <button class="btn btn-primary" type="submit" routerLink="/msp/assistance/confirmation">Skip to confirmation</button>
+</div>

@@ -61,6 +61,7 @@ import {AssistancePersonalInfoComponent} from './assistance/personal-info/person
 import {AssistancePersonalDetailComponent} from './assistance/personal-info/personal-details/personal-details.component';
 import {AssistanceReviewComponent} from './assistance/review/review.component';
 import {AssistanceAuthorizeSubmitComponent} from './assistance/authorize-submit/authorize-submit.component';
+import {AssistanceSendingComponent} from './assistance/sending/sending.component';
 import {AssistanceConfirmationComponent} from './assistance/confirmation/confirmation.component';
 import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calculator/deduction-calculator.component';
 import {EligibilityCardComponent} from './assistance/prepare/eligibility-card/eligibility-card.component';
@@ -169,6 +170,11 @@ let localStorageServiceConfig = {
                 component: AssistanceAuthorizeSubmitComponent
               },
               {
+                path: 'sending',
+                //canActivate: [],
+                component: AssistanceSendingComponent
+              },
+              {
                 path: 'confirmation',
                 canActivate: [ConfirmationGuard],
                 component: AssistanceConfirmationComponent
@@ -222,6 +228,7 @@ let localStorageServiceConfig = {
     AssistancePersonalDetailComponent,
     AssistanceReviewComponent,
     AssistanceAuthorizeSubmitComponent,
+    AssistanceSendingComponent,
     AssistanceConfirmationComponent,
     DeductionCalculatorComponent,
 
