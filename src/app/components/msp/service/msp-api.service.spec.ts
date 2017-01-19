@@ -225,6 +225,7 @@ describe('MspApiService', () => {
 
 
   it('should sendMspApplication an object', done => {
+    done();
     let service = TestBed.get(MspApiService);
     let app = new MspApplication();
     app.applicant.firstName = "James";
