@@ -28,7 +28,10 @@ import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import * as moment from "moment";
 import ISO_8601 = moment.ISO_8601;
 import {FinancialAssistApplication} from "../model/financial-assist-application.model";
-import {AssistanceApplicationTypeFactory} from "../api-model/assistanceTypes";
+import {
+  AssistanceApplicationTypeFactory, AssistanceApplicantType,
+  AssistanceApplicantTypeFactory, FinancialsType, FinancialsTypeFactory, AssistanceSpouseTypeFactory
+} from "../api-model/assistanceTypes";
 let jxon = require ("jxon/jxon");
 
 @Injectable()
@@ -289,11 +292,142 @@ export class MspApiService {
     // Init assistance
     to.application.assistanceApplication = AssistanceApplicationTypeFactory.make();
 
-    //to.application.assistanceApplication.applicant
+    /*
+     attachmentUuids: AttachmentUuidsType;
+     birthDate: string;
+     gender: GenderType;
+     name: NameType;
+     */
+    to.application.assistanceApplication.applicant = AssistanceApplicantTypeFactory.make();
+    to.application.assistanceApplication.applicant.name = this.convertName(from.applicant);
+
+    if (from.applicant.hasDob) {
+      to.application.assistanceApplication.applicant.birthDate = from.applicant.dob.format(this.ISO8601DateFormat);
+    }
+    if (from.applicant.gender != null) {
+      to.application.assistanceApplication.applicant.gender = <GenderType> from.applicant.gender.toString();
+    }
+    to.application.assistanceApplication.applicant.attachmentUuids = this.convertAttachmentUuids(from.applicant.documents);
+
+    /*
+     financials: FinancialsType;
+     mailingAddress?: ct.AddressType;
+     phn: number;
+     powerOfAttorny: ct.YesOrNoType;
+     residenceAddress: ct.AddressType;
+     SIN: number;
+     telephone: number;
+     */
+    to.application.assistanceApplication.applicant.financials = this.convertFinancial(from);
+    if (!from.mailingSameAsResidentialAddress) {
+      to.application.assistanceApplication.applicant.mailingAddress = this.convertAddress(from.mailingAddress);
+    }
+    if (from.applicant.previous_phn) {
+      to.application.assistanceApplication.applicant.phn = Number(from.applicant.previous_phn.replace(new RegExp("[^0-9]", "g"), ""));
+    }
+    if (from.hasPowerOfAttorney)
+      to.application.assistanceApplication.applicant.powerOfAttorny = "Y";
+    else {
+      to.application.assistanceApplication.applicant.powerOfAttorny = "N";
+    }
+    to.application.assistanceApplication.applicant.residenceAddress = this.convertAddress(from.residentialAddress);
+    if (from.applicant.sin) {
+    to.application.assistanceApplication.applicant.SIN = Number(from.applicant.sin.replace(new RegExp("[^0-9]", "g"), ""));
+    }
+    if (from.phoneNumber) {
+      to.application.assistanceApplication.applicant.telephone = Number(from.phoneNumber.replace(new RegExp("[^0-9]", "g"), ""));
+    }
+    /*
+     authorizedByApplicant: ct.YesOrNoType;
+     authorizedByApplicantDate: Date;
+     authorizedBySpouse: ct.YesOrNoType;
+     authorizedBySpouseDate: Date;
+     spouse?: AssistanceSpouseType;
+     */
+    if (from.authorizedByApplicant) {
+      to.application.assistanceApplication.authorizedByApplicant = "Y";
+      to.application.assistanceApplication.authorizedByApplicantDate =
+        moment(from.authorizedByApplicantDate).format(this.ISO8601DateFormat);
+    }
+    else {
+      to.application.assistanceApplication.authorizedByApplicant = "N";
+    }
+    if (from.authorizedBySpouse) {
+      to.application.assistanceApplication.authorizedBySpouse = "Y";
+      to.application.assistanceApplication.authorizedBySpouseDate =
+        moment(from.authorizedBySpouseDate).format(this.ISO8601DateFormat);
+    }
+    else {
+      to.application.assistanceApplication.authorizedBySpouse = "N";
+    }
+
+    if (from.hasSpouseOrCommonLaw) {
+      to.application.assistanceApplication.spouse = AssistanceSpouseTypeFactory.make();
+
+      /*
+       name: ct.NameType;
+       phn?: number;
+       SIN?: number;
+       spouseDeduction?: number;
+       spouseSixtyFiveDeduction?: number;
+       */
+      to.application.assistanceApplication.spouse.name = this.convertName(from.spouse);
+      if (from.spouse.previous_phn) {
+        to.application.assistanceApplication.spouse.phn = Number(from.spouse.previous_phn.replace(new RegExp("[^0-9]", "g"), ""));
+      }
+      if (from.spouse.sin) {
+        to.application.assistanceApplication.spouse.SIN = Number(from.spouse.sin.replace(new RegExp("[^0-9]", "g"), ""));
+      }
+
+      /* NOT MAPPED
+       spouseDeduction?: number;
+       spouseSixtyFiveDeduction?: number;
+       */
+    }
 
     // Convert attachments
-    //to.application.attachments = this.convertAttachments(from);
+    to.application.attachments = this.convertAttachmentsForAssistance(from);
 
+    return to;
+  }
+
+  private convertFinancial (from:FinancialAssistApplication): FinancialsType {
+    let to = FinancialsTypeFactory.make();
+
+    /*
+     adjustedNetIncome?: number;          // not mapped
+     assistanceYear: AssistanceYearType;  // "CurrentPA"
+     childCareExpense?: number;           // claimedChildCareExpense_line214
+     childDeduction?: number;             // not mapped
+     deductions?: number;                 // not mapped
+     disabilityDeduction?: number;        // not mapped
+     disabilitySavingsPlan?: number;      // spouseDSPAmount_line125
+     netIncome: number;                   // netIncomelastYear
+     numChildren?: number;                // childrenCount
+     numDisabled?: number;                // childDisabilityCreditCreditMultiplier
+     sixtyFiveDeduction?: number;         // not mapped
+     spouseNetIncome?: number;            // spouseIncomeLine236
+     taxYear: number;                     // Current Year - 1
+     totalDeductions?: number;            // not mapped
+     totalNetIncome?: number;             // not mapped
+     uccb?: number;                       // reportedUCCBenefit_line117
+                                          // ageOver65
+                                          // hasSpouseOrCommonLaw
+                                          // spouseAgeOver65
+                                          // spouseEligibleForDisabilityCredit
+                                          // selfDisabilityCredit
+     */
+
+    to.assistanceYear = "CurrentPA";
+    to.childCareExpense = from.claimedChildCareExpense_line214;
+    to.netIncome = from.netIncomelastYear;
+    to.numChildren = from.childrenCount;
+    to.numDisabled = from.childDisabilityCreditCreditMultiplier;
+    to.spouseNetIncome = from.spouseIncomeLine236;
+    to.netIncome = from.netIncomelastYear;
+    to.uccb = from.reportedUCCBenefit_line117;
+    to.disabilitySavingsPlan = from.spouseDSPAmount_line125;
+    to.taxYear = moment().utc().year() - 1;
 
     return to;
   }
@@ -346,6 +480,51 @@ export class MspApiService {
 
     return to;
   }
+
+  /**
+   * Creates the array of attachments from applicant, spouse and all children
+   * @param from
+   * @returns {AttachmentsType}
+   */
+  private convertAttachmentsForAssistance(from: FinancialAssistApplication): AttachmentsType {
+
+    let to = AttachmentsTypeFactory.make();
+    to.attachment = new Array<AttachmentType>();
+
+    // assemble all attachments
+    let attachments:MspImage[] = from.powerOfAttorneyDocs;
+
+    // Convert each one
+    for (let attachment of attachments) {
+      // Init new attachment with defaults
+      let toAttachment = AttachmentTypeFactory.make();
+      toAttachment.attachmentDocumentType = MspApiService.AttachmentDocumentType;
+
+      // Content type
+      switch (attachment.contentType) {
+        case "image/jpeg":
+          toAttachment.contentType = "image/jpeg";
+          break;
+        case "application/pdf":
+          toAttachment.contentType = "application/pdf";
+          break;
+        default:
+        //TODO: throw error on bad content type
+      }
+
+      // uuid
+      toAttachment.attachmentUuid = attachment.uuid;
+
+      // user does NOT provide description so it's left blank for now, may be used in future
+
+      // Add to array
+      to.attachment.push(toAttachment);
+    }
+
+    return to;
+  }
+
+
 
   private convertPersonFromEnrollment(from: Person):PersonType {
     let to = PersonTypeFactory.make();

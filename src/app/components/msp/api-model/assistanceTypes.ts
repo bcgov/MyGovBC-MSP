@@ -34,9 +34,9 @@ export class AssistanceApplicantTypeFactory {
 interface _AssistanceApplicationType extends BaseType {
 	applicant: AssistanceApplicantType;
 	authorizedByApplicant: ct.YesOrNoType;
-	authorizedByApplicantDate: Date;
+	authorizedByApplicantDate: string;
 	authorizedBySpouse: ct.YesOrNoType;
-	authorizedBySpouseDate: Date;
+	authorizedBySpouseDate: string;
 	spouse?: AssistanceSpouseType;
 }
 export interface AssistanceApplicationType extends _AssistanceApplicationType { constructor: { new(): AssistanceApplicationType }; }

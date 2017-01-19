@@ -4,6 +4,7 @@ import {Relationship} from "./status-activities-documents";
 import {Eligibility} from "./eligibility.model";
 import {UUID} from "angular2-uuid";
 import { MspImage } from "./msp-image";
+import moment = require("moment");
 
 export class FinancialAssistApplication {
 
@@ -67,14 +68,22 @@ export class FinancialAssistApplication {
   _authorizedByApplicant:boolean;
   _authorizedBySpouse:boolean;
   _authorizedByAttorney:boolean;
+  authorizedByApplicantDate: Date;
+  authorizedBySpouseDate: Date;
+  authorizedByAttorneyDate: Date;
 
   powerOfAttorneyDocs:MspImage[] = [];
+  get hasPowerOfAttorney(): boolean {
+    return this.powerOfAttorneyDocs &&
+        this.powerOfAttorneyDocs.length > 0;
+  }
 
   set authorizedByApplicant(auth:boolean){
     this._authorizedByApplicant = auth;
 
     if(auth){
       this._authorizedByAttorney = false;
+      this.authorizedByApplicantDate = moment().toDate();
     }
   }
 
@@ -82,6 +91,7 @@ export class FinancialAssistApplication {
     this._authorizedBySpouse = auth;
     if(auth){
       this._authorizedByAttorney = false;
+      this.authorizedBySpouseDate = moment().toDate();
     }
   }
   set authorizedByAttorney(auth:boolean){
@@ -89,6 +99,7 @@ export class FinancialAssistApplication {
     if(auth){
       this._authorizedByApplicant = false;
       this._authorizedBySpouse = false;
+      this.authorizedByAttorneyDate = moment().toDate();
     }
   }
 
