@@ -304,6 +304,46 @@ describe('MspApiService', () => {
     let service = TestBed.get(MspApiService);
     let app = new FinancialAssistApplication();
 
+    app.childWithDisabilityCount = 2;
+    app.authorizedBySpouse = true;
+    app.authorizedByApplicant = true;
+    app.childrenCount = 8;
+    app.childWithDisabilityCount = 4;
+    app.applicant.firstName = "Greg";
+    app.applicant.middleName = "W";
+    app.applicant.lastName = "Boss";
+    app.applicant.dob_day = 1;
+    app.applicant.dob_month = 1;
+    app.applicant.dob_year = 1999;
+    app.applicant.previous_phn = "123 321 654";
+    app.applicant.sin = "654 974 5646";
+    app.residentialAddress.addressLine1 = "add1";
+    app.residentialAddress.addressLine2 = "add2";
+    app.residentialAddress.addressLine3 = "add3";
+    app.residentialAddress.city = "lkajsdkjasd";
+    app.residentialAddress.province = "Alberta";
+    app.residentialAddress.country = "Canada";
+    app.residentialAddress.postal = "v8o 2l3";
+    app.mailingAddress = app.residentialAddress;
+    app.mailingSameAsResidentialAddress = false;
+    app.phoneNumber = "250-232-1233";
+    app.spouse.firstName = "Greg";
+    app.spouse.middleName = "W";
+    app.spouse.lastName = "Boss";
+    app.spouse.dob_day = 1;
+    app.spouse.dob_month = 1;
+    app.spouse.dob_year = 1999;
+    app.spouse.previous_phn = "123 321 654";
+    app.spouse.sin = "654 974 5646";
+    app.claimedChildCareExpense_line214 = 12345;
+    app.reportedUCCBenefit_line117 = 123123;
+    app.ageOver65 = true;
+    app.spouseAgeOver65 = true;
+    app.spouseDSPAmount_line125 = 123123;
+    app.spouseIncomeLine236 = 12323123;
+    app.spouseEligibleForDisabilityCredit = true;
+    app.netIncomelastYear = 123123123;
+
     let document = service.convertAssistance(app);
 
     expect(document).toBeDefined();
