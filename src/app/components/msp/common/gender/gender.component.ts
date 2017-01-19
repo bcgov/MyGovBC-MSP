@@ -13,7 +13,7 @@ export class MspGenderComponent {
   // Expose type to template
   Gender: typeof Gender = Gender;
 
-  @Input() person: Person;
+  @Input('person') person: Person;
   @Output() onChange = new EventEmitter<any>();
   /**
    * Generate uuid for use in element's ID

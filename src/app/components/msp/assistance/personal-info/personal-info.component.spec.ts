@@ -12,8 +12,9 @@ import {MspProvinceComponent} from "../../common/province/province.component";
 import {Ng2CompleterModule} from "ng2-completer";
 import {AssistancePersonalDetailComponent} from "./personal-details/personal-details.component";
 import {MspPhoneComponent} from "../../common/phone/phone.component";
+import {MspGenderComponent} from "../../common/gender/gender.component";
 
-describe('AssistancePersonalDetailComponent', () => {
+describe('AssistancePersonalInfoComponent', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
     storageType: 'localStorage'
@@ -24,7 +25,7 @@ describe('AssistancePersonalDetailComponent', () => {
       declarations: [AssistancePersonalInfoComponent, AssistancePersonalDetailComponent,
         MspPhnComponent, MspNameComponent, MspPhoneComponent,
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent,
-        Mod11CheckValidator],
+        Mod11CheckValidator, MspGenderComponent],
       imports: [FormsModule, Ng2CompleterModule],
       providers: [MspDataService,
         LocalStorageService,{

@@ -1,12 +1,9 @@
 import {Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
-import {MspApplication, Person} from '../../model/application.model';
-
 import DataService from '../../service/msp-data.service';
 import {MspApiService} from "../../service/msp-api.service";
 import {Router} from "@angular/router";
 import {ResponseType} from "../../api-model/responseTypes";
 import {FinancialAssistApplication} from "../../model/financial-assist-application.model";
-import {ApplicationBase} from "../../model/application-base.model";
 
 @Component({
   templateUrl: 'sending.component.html'

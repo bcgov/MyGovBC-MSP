@@ -5,14 +5,12 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div *ngIf="false" class="col-md-4">
             <msp-gender [person]="person" (onChange) = "onChange.emit($event)"></msp-gender>
         </div>
         <div class="col-md-4">
             <msp-birthdate [person]="person" (onChange) = "onChange.emit($event)"></msp-birthdate>
         </div>
-    </div>
-    <div class="row">
         <div class="col-sm-4">
             <div class="form-group">
                 <msp-phn [phn]="person.previous_phn"
