@@ -32,6 +32,7 @@ import {
   AssistanceApplicationTypeFactory, AssistanceApplicantType,
   AssistanceApplicantTypeFactory, FinancialsType, FinancialsTypeFactory, AssistanceSpouseTypeFactory
 } from "../api-model/assistanceTypes";
+import {ApplicationBase} from "../model/application-base.model";
 let jxon = require ("jxon/jxon");
 
 @Injectable()
@@ -44,23 +45,31 @@ export class MspApiService {
    * @param app
    * @returns {Promise<MspApplication>}
    */
-  sendMspApplication(app: MspApplication): Promise<MspApplication> {
+  sendApplication(app: ApplicationBase): Promise<MspApplication> {
 
-    return new Promise<MspApplication>((resolve, reject) => {
+    return new Promise<ApplicationBase>((resolve, reject) => {
       console.log("Start sending...");
 
       try {
-        // first convert the model
-        let document:document = this.convert(app);
+
+        let documentModel: document;
+        if (app instanceof MspApplication) {
+          documentModel = this.convertMspApplication(app);
+        } else if (app instanceof FinancialAssistApplication) {
+          documentModel = this.convertAssistance(app);
+        }
+        else {
+          throw new Error("Unknown document type");
+        }
 
         // second convert to XML
-        let convertedAppXml = this.toXmlString(document);
+        let convertedAppXml = this.toXmlString(documentModel);
 
-        // if no errors, then we'll sendMspApplication all attachments
-        this.sendAttachments(document.application.uuid, app.getAllImages()).then(() => {
+        // if no errors, then we'll sendApplication all attachments
+        this.sendAttachments(documentModel.application.uuid, app.getAllImages()).then(() => {
 
-          // once all attachments are done we can sendMspApplication in the data
-          this.sendEnrolmentApplication(document).then((response:ResponseType) => {
+          // once all attachments are done we can sendApplication in the data
+          this.sendEnrolmentApplication(documentModel).then((response:ResponseType) => {
             console.log("sent application resolved");
             // Add reference number
             app.referenceNumber = response.referenceNumber.toString();
@@ -78,7 +87,7 @@ export class MspApiService {
           reject(error);
         });
       } catch (error) {
-        console.log("sendMspApplication error: ", error);
+        console.log("sendApplication error: ", error);
         reject(error);
       }
     });
@@ -199,7 +208,7 @@ export class MspApiService {
    * @param from
    * @returns {applicationTypes.ApplicationType}
    */
-  convert(from: MspApplication):document  {
+  convertMspApplication(from: MspApplication):document  {
     // Instantiate new object from interface
     let to = DocumentFactory.make();
     to.application = ApplicationTypeFactory.make();

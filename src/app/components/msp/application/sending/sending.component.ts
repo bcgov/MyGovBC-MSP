@@ -25,7 +25,7 @@ export class SendingComponent implements AfterViewInit  {
   ngAfterViewInit() {
     // After view inits, begin sending the application
     this.service
-      .sendMspApplication(this.application)
+      .sendApplication(this.application)
       .then((application:MspApplication) => {
         this.application = application;
 
