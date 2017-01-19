@@ -85,6 +85,10 @@ objects:
               -
                 containerPort: 9300
                 protocol: TCP
+            env:
+              -
+                name: RETENTION_MONTH
+                value: ${RETENTION_MONTH}
             resources:
               limits:
                 memory: 4Gi
@@ -436,3 +440,8 @@ parameters:
   from: '[a-zA-Z0-9]{8}'
   generate: expression
   name: KIBANA_PASSWORD
+- description: Elasticsearch log retention in month.
+  displayName: Log Retention In Month
+  name: RETENTION_MONTH
+  required: true
+  value: 3
