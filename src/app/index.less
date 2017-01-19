@@ -62,10 +62,38 @@
 
 //---------------------------------------------------------------------------------
 
-@import '~font-awesome/less/font-awesome.less';
+/*!
+ *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
+
+
+
+@import "~font-awesome/less/variables.less";
+@import "~font-awesome/less/mixins.less";
+
+@fa-font-path: '~font-awesome/fonts';
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('@{fa-font-path}/fontawesome-webfont.ttf?v=@{fa-version}') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import "~font-awesome/less/core.less";
+@import "~font-awesome/less/larger.less";
+@import "~font-awesome/less/fixed-width.less";
+@import "~font-awesome/less/list.less";
+@import "~font-awesome/less/bordered-pulled.less";
+@import "~font-awesome/less/animated.less";
+@import "~font-awesome/less/rotated-flipped.less";
+@import "~font-awesome/less/stacked.less";
+@import "~font-awesome/less/icons.less";
+@import "~font-awesome/less/screen-reader.less";
+
 
 @icon-font-path: '~bootstrap/fonts/';
-@fa-font-path: '~font-awesome/fonts';
+
 
 @import 'styles/overrides.less';
 @import 'styles/additions.less';
