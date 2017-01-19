@@ -9,7 +9,7 @@
 </div>
 <div class="radio">
     <input type="radio" name="gender" id="genderFemale{{uuid}}" (click)="person.gender = Gender.Female"
-           [checked]="Gender.Female === person.gender" (change)="onChange.emit(Gender.Male)">
+           [checked]="Gender.Female === person.gender" (change)="onChange.emit(Gender.Female)">
     <label for="genderFemale{{uuid}}">
         {{lang('./en/index.js').femaleLabel}}
     </label>

@@ -1,47 +1,46 @@
 <form #formRef="ngForm" novalidate>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <msp-name [person]="person" (onChange) = "onChange.emit($event)"></msp-name>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <msp-gender [person]="person" (onChange) = "onChange.emit($event)"></msp-gender>
         </div>
         <div class="col-md-4">
             <msp-birthdate [person]="person" (onChange) = "onChange.emit($event)"></msp-birthdate>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <msp-phn [phn]="person.previous_phn"
-                                 (phnChange)="person.previous_phn = $event"
-                                 (onChange) = "onChange.emit($event)"
-                                 [bcPhn]="true"></msp-phn>
-                    </div>
-                </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <msp-phn [phn]="person.previous_phn"
+                         (phnChange)="person.previous_phn = $event"
+                         (onChange) = "onChange.emit($event)"
+                         [bcPhn]="true"></msp-phn>
             </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="form-group"
-                         [ngClass]="{'has-error': !formRef.controls.sin?.valid && sinRef.touched}">
-                        <label class="control-label" for="sin"
-                               [innerHTML]="lang('./en/index.js').sinLabel"></label>
-                        <input type="text"
-                               [(ngModel)]="person.sin"
-                               sinCheck
-                               required
-                               pattern="\d{3}\s?\d{3}\s?\d{3}"
-                               id='sin' name='sin' #sinRef="ngModel"
-                               class="form-control"
-                               placeholder="046 454 286">
-                        <div *ngIf='sinRef.touched'>
-                            <div class="text-danger" *ngIf="sinRef.errors?.required"
-                                 [innerHTML]="lang('./en/index.js').sinErrorRequired"></div>
-                            <div class="text-danger" *ngIf="sinRef.errors?.pattern"
-                                 [innerHTML]="lang('./en/index.js').sinErrorPattern"></div>
-                            <div class="text-danger" *ngIf="!sinRef.errors?.pattern && sinRef.errors?.sinCheck"
-                                 [innerHTML]="lang('./en/index.js').sinCheckErrorPattern"></div>
-                        </div>
-                    </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group"
+                 [ngClass]="{'has-error': !formRef.controls.sin?.valid && sinRef.touched}">
+                <label class="control-label" for="sin"
+                       [innerHTML]="lang('./en/index.js').sinLabel"></label>
+                <input type="text"
+                       [(ngModel)]="person.sin"
+                       sinCheck
+                       required
+                       pattern="\d{3}\s?\d{3}\s?\d{3}"
+                       id='sin' name='sin' #sinRef="ngModel"
+                       class="form-control"
+                       placeholder="046 454 286">
+                <div *ngIf='sinRef.touched'>
+                    <div class="text-danger" *ngIf="sinRef.errors?.required"
+                         [innerHTML]="lang('./en/index.js').sinErrorRequired"></div>
+                    <div class="text-danger" *ngIf="sinRef.errors?.pattern"
+                         [innerHTML]="lang('./en/index.js').sinErrorPattern"></div>
+                    <div class="text-danger" *ngIf="!sinRef.errors?.pattern && sinRef.errors?.sinCheck"
+                         [innerHTML]="lang('./en/index.js').sinCheckErrorPattern"></div>
                 </div>
             </div>
         </div>

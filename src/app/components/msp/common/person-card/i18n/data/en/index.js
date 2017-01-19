@@ -4,7 +4,7 @@ module.exports = {
 
   nameLabel: 'Name:',
   genderLabel: 'Gender:',
-  genderValues: ['Female', 'Male'],
+  genderValues: {F: 'Female', M: 'Male'},
 
   dobLabel: 'Birthdate:',
   statusLabel: 'Status in Canada:',
