@@ -69,7 +69,7 @@ export class MspApiService {
         this.sendAttachments(documentModel.application.uuid, app.getAllImages()).then(() => {
 
           // once all attachments are done we can sendApplication in the data
-          this.sendEnrolmentApplication(documentModel).then((response:ResponseType) => {
+          this.sendDocument(documentModel).then((response:ResponseType) => {
             console.log("sent application resolved");
             // Add reference number
             app.referenceNumber = response.referenceNumber.toString();
@@ -95,6 +95,11 @@ export class MspApiService {
 
   private sendAttachments(applicationUUID:string, attachments: MspImage[]): Promise<void> {
     return new Promise<void>((resolve, reject) => {
+
+      // Instantly resolve if no attachments
+      if (!attachments || attachments.length < 1) {
+        resolve();
+      }
 
       // Make a list of promises for each attachment
       let attachmentPromises = new Array<Promise<ResponseType>>();
@@ -166,7 +171,7 @@ export class MspApiService {
    * @param document
    * @returns {Promise<ResponseType>}
    */
-  private sendEnrolmentApplication(document:document): Promise<ResponseType> {
+  private sendDocument(document:document): Promise<ResponseType> {
     return new Promise<ResponseType>((resolve, reject) => {
       /*
        Create URL
@@ -249,8 +254,6 @@ export class MspApiService {
     }
     if (from.authorizedBySpouse != null) {
       to.application.enrolmentApplication.applicant.authorizedBySpouse = from.authorizedBySpouse ? "Y" : "N";
-      to.application.enrolmentApplication.applicant.authorizedBySpouseDate = moment(from.authorizedBySpouseDate)
-        .format(this.ISO8601DateFormat);
     }
      /*
      mailingAddress?: ct.AddressType;
@@ -363,8 +366,6 @@ export class MspApiService {
     }
     if (from.authorizedBySpouse) {
       to.application.assistanceApplication.authorizedBySpouse = "Y";
-      to.application.assistanceApplication.authorizedBySpouseDate =
-        moment(from.authorizedBySpouseDate).format(this.ISO8601DateFormat);
     }
     else {
       to.application.assistanceApplication.authorizedBySpouse = "N";
@@ -389,13 +390,16 @@ export class MspApiService {
       }
 
       /* NOT MAPPED
-       spouseDeduction?: number;
+       spouseDeduction?: number;  // TODO: populate these
        spouseSixtyFiveDeduction?: number;
        */
     }
 
     // Convert attachments
-    to.application.attachments = this.convertAttachmentsForAssistance(from);
+    let attachments = this.convertAttachmentsForAssistance(from);
+    if (attachments) {
+      to.application.attachments = attachments;
+    }
 
     return to;
   }
@@ -405,20 +409,20 @@ export class MspApiService {
 
     /*
      adjustedNetIncome?: number;          // not mapped
-     assistanceYear: AssistanceYearType;  // "CurrentPA"
+     assistanceYear: AssistanceYearType;  // "CurrentPA" TODO: ticket in JIRA to address this
      childCareExpense?: number;           // claimedChildCareExpense_line214
      childDeduction?: number;             // not mapped
-     deductions?: number;                 // not mapped
-     disabilityDeduction?: number;        // not mapped
+     deductions?: number;                 // not mapped TODO: look at functional spec r22/23 - deductions difference
+     disabilityDeduction?: number;        // not mapped - TODO: selfDisabilityCredit
      disabilitySavingsPlan?: number;      // spouseDSPAmount_line125
      netIncome: number;                   // netIncomelastYear
      numChildren?: number;                // childrenCount
      numDisabled?: number;                // childWithDisabilityCount
-     sixtyFiveDeduction?: number;         // not mapped
+     sixtyFiveDeduction?: number;         // not mapped, both applicant and spouse
      spouseNetIncome?: number;            // spouseIncomeLine236
-     taxYear: number;                     // Current Year - 1
+     taxYear: number;                     // Current Year, if multiple the recent selected
      totalDeductions?: number;            // not mapped
-     totalNetIncome?: number;             // not mapped
+     totalNetIncome?: number;             // not mapped, applicant and spouse
      uccb?: number;                       // reportedUCCBenefit_line117
                                           // ageOver65
                                           // hasSpouseOrCommonLaw
@@ -474,8 +478,6 @@ export class MspApiService {
         case "application/pdf":
           toAttachment.contentType = "application/pdf";
           break;
-        default:
-          //TODO: throw error on bad content type
       }
 
       // uuid
@@ -502,6 +504,12 @@ export class MspApiService {
 
     // assemble all attachments
     let attachments:MspImage[] = from.powerOfAttorneyDocs;
+
+    // If no attachments just return
+    if (!attachments || attachments.length < 1) {
+      console.log("no attachments");
+      return null;
+    }
 
     // Convert each one
     for (let attachment of attachments) {
@@ -643,7 +651,7 @@ export class MspApiService {
       case Activities.Returning:
         to.livedInBC.hasLivedInBC = "Y";
         to.livedInBC.isPermanentMove = "Y"; // Always Y, you can't proceed without
-        to.livedInBC.prevHealthNumber = from.previous_phn;
+        to.livedInBC.prevHealthNumber = from.previous_phn; // out of province health numbers
         to.livedInBC.prevProvinceOrCountry = from.movedFromProvince;
         if (from.hasArrivalToBC) {
           to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
@@ -654,8 +662,6 @@ export class MspApiService {
         break;
       case Activities.MovingFromProvince:
       case Activities.MovingFromCountry:
-
-        //TODO: familyMemberReason;
         break;
 
     }
@@ -689,10 +695,10 @@ export class MspApiService {
     TODO: figure out these, are they duplicateS?
 
      hasPreviousCoverage: ct.YesOrNoType;
-     prevPHN?: number;
+     prevPHN?: number;  // BC only
      */
     to.previousCoverage = PreviousCoverageTypeFactory.make();
-    to.previousCoverage.hasPreviousCoverage = "N";
+    to.previousCoverage.hasPreviousCoverage = "N"; // TODO: issue in JIRA to ask that question
 
     return to;
   }

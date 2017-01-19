@@ -32,8 +32,7 @@ export class DependentTypeFactory {
 interface _EnrolmentApplicantType extends ct._BasicInfoType {
 	authorizedByApplicant: ct.YesOrNoType;
 	authorizedByApplicantDate: string;
-	authorizedBySpouse: ct.YesOrNoType;
-	authorizedBySpouseDate: string;
+	authorizedBySpouse?: ct.YesOrNoType;
 	mailingAddress?: ct.AddressType;
 	residenceAddress: ct.AddressType;
 	residency: ResidencyType;
@@ -46,7 +45,7 @@ export class EnrolmentApplicantTypeFactory {
 	static make(): EnrolmentApplicantType {
 		let instance = <EnrolmentApplicantType>{};
 		instance._sequence = ["name", "gender", "birthDate", "attachmentUuids", "telephone", "residenceAddress", "mailingAddress", "residency", "authorizedByApplicant",
-			"authorizedByApplicantDate", "authorizedBySpouse", "authorizedBySpouseDate"];
+			"authorizedByApplicantDate", "authorizedBySpouse"];
 		return instance;
 	}
 }

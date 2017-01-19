@@ -25,9 +25,6 @@ export class ReviewComponent {
   }
   spouseAuthorizeOnChange(event: boolean) {
     this.application.authorizedBySpouse = event;
-    if (this.application.authorizedBySpouse) {
-      this.application.authorizedBySpouseDate = new Date();
-    }
   }
 
 

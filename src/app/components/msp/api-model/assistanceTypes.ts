@@ -47,7 +47,7 @@ export class AssistanceApplicationTypeFactory {
 	static make(): AssistanceApplicationType {
 		let instance = <AssistanceApplicationType>{};
 		instance._sequence = ["applicant", "spouse", "authorizedByApplicant", "authorizedByApplicantDate",
-			"authorizedBySpouse", "authorizedBySpouseDate"];
+			"authorizedBySpouse"];
 		return instance;
 	}
 }

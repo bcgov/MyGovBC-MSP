@@ -70,8 +70,6 @@ export class FinancialAssistApplication implements ApplicationBase {
   _authorizedBySpouse:boolean;
   _authorizedByAttorney:boolean;
   authorizedByApplicantDate: Date;
-  authorizedBySpouseDate: Date;
-  authorizedByAttorneyDate: Date;
 
   powerOfAttorneyDocs:MspImage[] = [];
   get hasPowerOfAttorney(): boolean {
@@ -92,7 +90,6 @@ export class FinancialAssistApplication implements ApplicationBase {
     this._authorizedBySpouse = auth;
     if(auth){
       this._authorizedByAttorney = false;
-      this.authorizedBySpouseDate = moment().toDate();
     }
   }
   set authorizedByAttorney(auth:boolean){
@@ -100,7 +97,6 @@ export class FinancialAssistApplication implements ApplicationBase {
     if(auth){
       this._authorizedByApplicant = false;
       this._authorizedBySpouse = false;
-      this.authorizedByAttorneyDate = moment().toDate();
     }
   }
 

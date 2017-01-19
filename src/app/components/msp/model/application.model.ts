@@ -72,7 +72,7 @@ class MspApplication implements ApplicationBase {
   authorizedByApplicant: boolean;
   authorizedByApplicantDate: Date;
   authorizedBySpouse: boolean;
-  authorizedBySpouseDate: Date;
+
 
   /*
     Gets all images for applicant, spouse and all children
