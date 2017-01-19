@@ -17,8 +17,7 @@ require('./index.less')
     BrowserModule,
     MspModule,
     RouterModule.forRoot([
-      { path: '', redirectTo: 'msp', pathMatch: 'full' },
-      // { path: '**', redirectTo: 'msp', pathMatch: 'full' }
+      { path: '', redirectTo: 'msp', pathMatch: 'full' }
     ])
     
   ],

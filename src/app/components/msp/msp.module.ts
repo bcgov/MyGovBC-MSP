@@ -71,7 +71,7 @@ import {MspApiService} from "./service/msp-api.service";
 
 let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
-    storageType: 'localStorage'
+    storageType: 'sessionStorage'
 };
 
 /**
