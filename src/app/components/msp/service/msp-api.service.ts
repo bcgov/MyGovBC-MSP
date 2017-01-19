@@ -232,7 +232,7 @@ export class MspApiService {
      birthDate: Date;
      gender: GenderType;
      */
-    to.application.enrolmentApplication.applicant.attachmentUuids = this.convertAttachmentUuids(from.applicant.documents);
+    to.application.enrolmentApplication.applicant.attachmentUuids = this.convertAttachmentUuids(from.applicant.documents.images);
 
     if (from.applicant.hasDob) {
       to.application.enrolmentApplication.applicant.birthDate = from.applicant.dob.format(this.ISO8601DateFormat);
@@ -318,7 +318,7 @@ export class MspApiService {
     if (from.applicant.gender != null) {
       to.application.assistanceApplication.applicant.gender = <GenderType> from.applicant.gender.toString();
     }
-    to.application.assistanceApplication.applicant.attachmentUuids = this.convertAttachmentUuids(from.applicant.documents);
+    to.application.assistanceApplication.applicant.attachmentUuids = this.convertAttachmentUuids(from.powerOfAttorneyDocs);
 
     /*
      financials: FinancialsType;
@@ -330,9 +330,8 @@ export class MspApiService {
      telephone: number;
      */
     to.application.assistanceApplication.applicant.financials = this.convertFinancial(from);
-    if (!from.mailingSameAsResidentialAddress) {
-      to.application.assistanceApplication.applicant.mailingAddress = this.convertAddress(from.mailingAddress);
-    }
+    to.application.assistanceApplication.applicant.mailingAddress = this.convertAddress(from.mailingAddress);
+
     if (from.applicant.previous_phn) {
       to.application.assistanceApplication.applicant.phn = Number(from.applicant.previous_phn.replace(new RegExp("[^0-9]", "g"), ""));
     }
@@ -546,7 +545,7 @@ export class MspApiService {
     let to = PersonTypeFactory.make();
 
     to.name = this.convertName(from);
-    to.attachmentUuids = this.convertAttachmentUuids(from.documents);
+    to.attachmentUuids = this.convertAttachmentUuids(from.documents.images);
 
     if (from.hasDob) {
       to.birthDate = from.dob.format(this.ISO8601DateFormat);
@@ -574,11 +573,11 @@ export class MspApiService {
     return to;
   }
 
-  private convertAttachmentUuids (from: PersonDocuments): AttachmentUuidsType {
+  private convertAttachmentUuids (from: MspImage[]): AttachmentUuidsType {
     let to = AttachmentUuidsTypeFactory.make();
 
     to.attachmentUuid = new Array<string>();
-    for(let image of from.images) {
+    for(let image of from) {
       to.attachmentUuid.push(image.uuid);
     }
 
