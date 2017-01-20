@@ -642,8 +642,7 @@ export class MspApiService {
     // Init and set defaults
     to.livedInBC = LivedInBCTypeFactory.make();
     to.livedInBC.hasLivedInBC = "N";
-    to.outsideBC = OutsideBCTypeFactory.make();
-    to.outsideBC.beenOutsideBCMoreThan = "N";
+
 
     switch (from.currentActivity) {
       case Activities.Returning:
@@ -664,12 +663,16 @@ export class MspApiService {
 
     }
 
-     //TODO: to.outsideBC.beenOutsideBCMoreThan
-     if (from.hasStudiesDeparture) {
-       to.outsideBC.departureDate = from.studiesDepartureDate.format(this.ISO8601DateFormat);
+     // Outside BC
+     to.outsideBC = OutsideBCTypeFactory.make();
+     if (from.outsideBC) {
+       to.outsideBC.beenOutsideBCMoreThan = "Y";
+       to.outsideBC.departureDate = from.outsideBCDepartureDate.format(this.ISO8601DateFormat);
+       to.outsideBC.returnDate = from.outsideBCReturnDate.format(this.ISO8601DateFormat);
+       to.outsideBC.familyMemberReason = from.outsideBCFamilyMemberReason;
      }
-     if (from.hasStudiesFinished) {
-       to.outsideBC.returnDate = from.studiesFinishedDate.format(this.ISO8601DateFormat);
+     else {
+       to.outsideBC.beenOutsideBCMoreThan = "N";
      }
 
     /*

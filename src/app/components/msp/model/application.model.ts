@@ -73,6 +73,66 @@ class MspApplication implements ApplicationBase {
   authorizedByApplicantDate: Date;
   authorizedBySpouse: boolean;
 
+  // Outside BC question
+  outsideBCFor30Days: boolean;
+
+  getOutOfProvinceFor30DayCandidates (): Person[] {
+    let personList = new Array<Person>();
+
+    if (this.applicant.test30DayCandidate()) {
+      personList.push(this.applicant);
+    }
+    if (this.spouse != null) {
+      if (this.spouse.test30DayCandidate()) {
+        personList.push(this.spouse)
+      }
+    }
+    for (let child of this.children) {
+      if (child.test30DayCandidate()) {
+        personList.push(child);
+      }
+    }
+
+    return personList;
+  }
+
+  getOutOfProvinceFor30DayCandidatesAvailable (): Person[] {
+    let personList = new Array<Person>();
+
+    if (this.applicant.test30DayCandidateAvailable()) {
+      personList.push(this.applicant);
+    }
+    if (this.spouse != null) {
+      if (this.spouse.test30DayCandidateAvailable()) {
+        personList.push(this.spouse)
+      }
+    }
+    for (let child of this.children) {
+      if (child.test30DayCandidateAvailable()) {
+        personList.push(child);
+      }
+    }
+
+    return personList;
+
+  }
+
+  getOutOfProvincePersons (): Person[] {
+    let personList = new Array<Person>();
+    if (this.applicant.outsideBC) {
+      personList.push(this.applicant)
+    }
+    if (this.spouse && this.spouse.outsideBC) {
+      personList.push(this.spouse)
+    }
+    for (let child of this.children) {
+      if (child.outsideBC) {
+        personList.push(child);
+      }
+    }
+
+    return personList;
+  }
 
   /*
     Gets all images for applicant, spouse and all children
@@ -91,6 +151,28 @@ class MspApplication implements ApplicationBase {
     }
 
     return allImages;
+  }
+
+  /**
+   * Finds a person based on UUID
+   * @param uuid
+   * @returns {any}
+   */
+  findPerson(uuid: string): Person {
+    if (this.applicant.uuid === uuid) {
+      return this.applicant;
+    }
+    if (this.spouse) {
+      if (this.spouse.uuid === uuid) {
+        return this.spouse;
+      }
+    }
+    for (let child of this.children) {
+      if (child.uuid === uuid) {
+        return child;
+      }
+    }
+    return null;
   }
 
   constructor() {

@@ -22,12 +22,15 @@ import {MspPhnComponent} from './common/phn/phn.component';
 import {HealthNumberComponent} from './common/health-number/health-number.component';
 import {MspArrivalDateComponent} from './common/arrival-date/arrival-date.component';
 import {MspDischargeDateComponent} from './common/discharge-date/discharge-date.component';
+import {MspDepartureDateComponent} from './common/departure-date/departure-date.component';
+import {MspReturnDateComponent} from "./common/return-date/return-date.component";
 import {MspSchoolDateComponent} from './common/schoolDate/school-date.component';
 import {Mod11CheckValidator} from './common/phn/phn.validator';
 import {SinCheckValidator} from './common/sin/sin.validator';
 import {MspGenderComponent} from './common/gender/gender.component';
 import {FileUploaderComponent} from './common/file-uploader/file-uploader.component';
 import {ThumbnailComponent} from './common/thumbnail/thumbnail.component';
+import {MspOutsideBCComponent} from "./common/outside-bc/outside-bc.component";
 
 import {MspPersonCardComponent} from './common/person-card/person-card.component';
 import {MspContactCardComponent} from './common/contact-card/contact-card.component';
@@ -68,6 +71,7 @@ import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calcu
 import {EligibilityCardComponent} from './assistance/prepare/eligibility-card/eligibility-card.component';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {MspApiService} from "./service/msp-api.service";
+
 
 
 let localStorageServiceConfig = {
@@ -200,6 +204,8 @@ let localStorageServiceConfig = {
     HealthNumberComponent,
     MspArrivalDateComponent,
     MspDischargeDateComponent,
+    MspDepartureDateComponent,
+    MspReturnDateComponent,
     MspSchoolDateComponent,
     Mod11CheckValidator,
     SinCheckValidator,
@@ -207,6 +213,7 @@ let localStorageServiceConfig = {
     MspProgressBarComponent,
     FileUploaderComponent,
     ThumbnailComponent,
+    MspOutsideBCComponent,
 
     // View cards
     MspPersonCardComponent,
