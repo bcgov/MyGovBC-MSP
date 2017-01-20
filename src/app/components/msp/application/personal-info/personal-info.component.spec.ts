@@ -18,6 +18,7 @@ import {Mod11CheckValidator} from "../../common/phn/phn.validator";
 import {Ng2CompleterModule} from "ng2-completer";
 import {ThumbnailComponent} from "../../common/thumbnail/thumbnail.component";
 import {ModalModule} from "ng2-bootstrap";
+import {HealthNumberComponent} from "../../common/health-number/health-number.component";
 
 describe('PersonalInfoComponent', () => {
   let localStorageServiceConfig = {
@@ -30,7 +31,7 @@ describe('PersonalInfoComponent', () => {
       declarations: [PersonalInfoComponent, PersonalDetailsComponent, MspPhnComponent, MspNameComponent, MspProvinceComponent,
         MspArrivalDateComponent, MspArrivalDateComponent, MspGenderComponent, MspDischargeDateComponent,
         MspBirthDateComponent, MspSchoolDateComponent, FileUploaderComponent, MspAddressComponent,
-        Mod11CheckValidator, ThumbnailComponent],
+        Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent],
       imports: [FormsModule, Ng2CompleterModule, ModalModule],
       providers: [MspDataService,
         LocalStorageService,{
