@@ -1,6 +1,6 @@
 module.exports = {
   schoolCompletionDateLabel: 'Expected school completion date',
-  schoolDepartureDateLabel: 'Departure date (only if outside BC)',
+  schoolDepartureDateLabel: 'Original departure date from BC (if school is outside BC)',
   monthErrorRequired: 'Month is required',
   dayErrorRequired: 'Day is required',
   yearErrorRequired: 'Year is required',
