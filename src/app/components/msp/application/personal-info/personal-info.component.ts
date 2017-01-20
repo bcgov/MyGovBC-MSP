@@ -2,6 +2,8 @@ import {Component, Injectable, ViewChild} from '@angular/core';
 import {MspApplication, Person} from '../../model/application.model';
 
 import DataService from '../../service/msp-data.service';
+import CompletenessCheckService from '../../service/completeness-check.service';
+
 import {Relationship} from "../../model/status-activities-documents";
 import {NgForm} from "@angular/forms";
 
@@ -15,7 +17,8 @@ export class PersonalInfoComponent {
   Relationship: typeof Relationship = Relationship;
   @ViewChild('formRef') form: NgForm;
 
-  constructor(private dataService: DataService){
+  constructor(private dataService: DataService,
+    private completenessCheck:CompletenessCheckService){
 
   }
 
@@ -62,5 +65,9 @@ export class PersonalInfoComponent {
     // console.log('remove spouse ' + JSON.stringify(event));
     this.dataService.getMspApplication().removeSpouse();
     this.dataService.saveMspApplication();
+  }
+
+  get canContinue():boolean {
+    return this.completenessCheck.mspPersonalInfoDocsCompleted();
   }
 }

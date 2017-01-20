@@ -26,15 +26,20 @@ export default class CompletenessCheckService {
       // provided. (check saved data in local storage)
       return _.isBoolean(this.mspApp.applicant.liveInBC)
       && _.isBoolean(this.mspApp.applicant.stayForSixMonthsOrLonger) 
-      && _.isBoolean(this.mspApp.applicant.uncommonSituation) 
+      && _.isBoolean(this.mspApp.unUsualCircumstance) 
       && _.isBoolean(this.mspApp.applicant.plannedAbsence) 
     }
 
     mspPersonalInfoDocsCompleted(){
-      
+      let complete = this.mspApp.applicant.isInfoComplete;      
+      console.log('applicant info complete: ' + complete);
 
+      if(this.mspApp.spouse){
+        complete = complete && this.mspApp.spouse.isInfoComplete;
+        console.log('applicant and spouse info complete: ' + complete);
+      }
 
-      return true;
+      return complete;
     }
 
     mspContactInfoCompleted(){

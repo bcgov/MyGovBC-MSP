@@ -23,8 +23,8 @@ export class PrepareComponent implements AfterViewInit{
   @ViewChild('notLiveInBCBtn') notLiveInBCBtn: ElementRef;
   @ViewChild('staySixMonthOrLonger') staySixMonthOrLonger: ElementRef;
   @ViewChild('notStaySixMonthOrLonger') notStaySixMonthOrLonger: ElementRef;
-  @ViewChild('uncommonSituationBtn') uncommonSituationBtn: ElementRef;
-  @ViewChild('noUncommonSituationBtn') noUncommonSituationBtn: ElementRef;
+  @ViewChild('unUsualCircumstanceBtn') unUsualCircumstanceBtn: ElementRef;
+  @ViewChild('noUnusualCircustanceBtn') noUnusualCircustanceBtn: ElementRef;
   @ViewChild('plannedAbsenceBtn') plannedAbsenceBtn: ElementRef;
   @ViewChild('noPlannedAbsenceBtn') noPlannedAbsenceBtn: ElementRef;
 
@@ -53,13 +53,13 @@ export class PrepareComponent implements AfterViewInit{
         this.dataService.getMspApplication().applicant.stayForSixMonthsOrLonger = false;
       });
 
-    let uncommonSituation$ = Observable.fromEvent<MouseEvent>(this.uncommonSituationBtn.nativeElement, 'click')
+    let unUsualCircumstance$ = Observable.fromEvent<MouseEvent>(this.unUsualCircumstanceBtn.nativeElement, 'click')
       .map( x=>{
-        this.dataService.getMspApplication().applicant.uncommonSituation = true;
+        this.dataService.getMspApplication().unUsualCircumstance = true;
       });
-    let noUncommonSituation$ = Observable.fromEvent<MouseEvent>(this.noUncommonSituationBtn.nativeElement, 'click')
+    let noUnUsualCircumstance$ = Observable.fromEvent<MouseEvent>(this.noUnusualCircustanceBtn.nativeElement, 'click')
       .map( x=>{
-        this.dataService.getMspApplication().applicant.uncommonSituation = false;
+        this.dataService.getMspApplication().unUsualCircumstance = false;
       });
 
     let plannedAbsenceBtn$ = Observable.fromEvent<MouseEvent>(this.plannedAbsenceBtn.nativeElement, 'click')
@@ -74,7 +74,7 @@ export class PrepareComponent implements AfterViewInit{
     if(this.form){
       this.form.valueChanges.merge(liveInBC$).merge(notLiveInBC$)
       .merge(staySixMonthOrLonger$).merge(notStaySixMonthOrLonger$)
-      .merge(uncommonSituation$).merge(noUncommonSituation$)
+      .merge(unUsualCircumstance$).merge(noUnUsualCircumstance$)
       .merge(plannedAbsenceBtn$).merge(noPlannedAbsenceBtn$)
       .subscribe(values => {
         this.dataService.saveMspApplication();
@@ -94,8 +94,8 @@ export class PrepareComponent implements AfterViewInit{
     return this.apt.plannedAbsence;
   }
 
-  get uncommonSituation() {
-    return this.apt.uncommonSituation;
+  get unUsualCircumstance() {
+    return this.dataService.getMspApplication().unUsualCircumstance;
   }
 
   setStayLonger(stay: boolean) {
@@ -105,11 +105,6 @@ export class PrepareComponent implements AfterViewInit{
   setLiveInBC(live: boolean) {
     return this.apt.liveInBC = live;
   }
-
-  setUncommonSituation(uncommon: boolean) {
-    this.apt.uncommonSituation = uncommon;
-  }
-
   get applicant(): Person {
     return this.apt;
   }

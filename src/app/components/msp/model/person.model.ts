@@ -3,6 +3,8 @@ import {PersonDocuments} from "./person-document.model";
 import {Address} from "./address.model";
 import moment = require("moment");
 import {UUID} from "angular2-uuid";
+import * as _ from 'lodash';
+
 var sha1 =  require('sha1');
 
 enum Gender {
@@ -131,10 +133,6 @@ class Person {
    */
   plannedAbsence:boolean;
 
-  /**
-   * Denotes unusual situation for the applicant
-   */
-  uncommonSituation: boolean;
 
   fullTimeStudent: boolean;
   inBCafterStudies: boolean;
@@ -305,6 +303,30 @@ class Person {
       month: month - 1, // moment use 0 index for month :(
       day: day,
     }).utc(); // use UTC mode to prevent browser timezone shifting
+  }
+
+  private isNotEmpty(thing:any):boolean{
+    return thing !== null && thing !== undefined;
+  }
+
+  get isInfoComplete(){
+    let basic =  _.isString(this.gender)
+    && _.isString(this.firstName) && _.isString(this.lastName)
+    // && this.isNotEmpty(this.dob_day) && this.isNotEmpty(this.dob_month) && this.isNotEmpty(this.dob_year)
+    && _.isNumber(this.dob_day) && _.isString(this.dob_month) && _.isNumber(this.dob_year)
+    && _.isNumber(this._status) && _.isNumber(this._currentActivity);
+
+    let complete = false;
+
+    if(this.currentActivity === 0){
+      complete = _.isBoolean(this.hasPreviousBCPhn);
+    }else{
+      complete = true;
+    }
+
+    console.log('currentActivity: ' + this.currentActivity);
+    console.log('_.isBoolean(this.hasPreviousBCPhn) ' + _.isBoolean(this.hasPreviousBCPhn));
+    return basic && complete;
   }
 }
 

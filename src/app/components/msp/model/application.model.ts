@@ -22,6 +22,8 @@ class MspApplication implements ApplicationBase {
   private _children: Array<Person>  = [];
   private _spouse: Person;
 
+  unUsualCircumstance:boolean;
+
   get applicant(): Person {
     return this._applicant;
   }

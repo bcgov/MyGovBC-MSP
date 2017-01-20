@@ -51,4 +51,5 @@
 </form>
 <hr>
 <button class="btn btn-primary" type="submit" routerLink="/msp/application/address"
-        [innerHTML]="lang('./en/index.js').continueButton"></button>
+        [innerHTML]="lang('./en/index.js').continueButton"
+        [disabled]="!canContinue"></button>

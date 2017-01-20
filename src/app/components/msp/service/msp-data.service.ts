@@ -101,7 +101,6 @@ export default class MspDataService {
     dto.liveInBC = input.liveInBC;
     dto.stayForSixMonthsOrLonger = input.stayForSixMonthsOrLonger;
     dto.plannedAbsence = input.plannedAbsence;
-    dto.uncommonSituation = input.uncommonSituation;
 
     dto.livedInBCSinceBirth = input.livedInBCSinceBirth;
     dto.hasPreviousBCPhn = input.hasPreviousBCPhn;
@@ -171,7 +170,6 @@ export default class MspDataService {
     output.hasPreviousBCPhn = dto.hasPreviousBCPhn;
     
     output.plannedAbsence = dto.plannedAbsence;
-    output.uncommonSituation = dto.uncommonSituation;    
     output.firstName = dto.firstName;
     output.middleName = dto.middleName;
     output.lastName = dto.lastName;
@@ -233,6 +231,7 @@ export default class MspDataService {
   toMspApplicationTransferObject(input:MspApplication):MspApplicationDto {
     let dto:MspApplicationDto = new MspApplicationDto();
 
+    dto.unUsualCircumstance = input.unUsualCircumstance;
     dto.applicant = this.toPersonDto(input.applicant);
     if(input.spouse){
       dto.applicant.spouse = this.toPersonDto(input.spouse);
@@ -257,6 +256,7 @@ export default class MspDataService {
 
   private fromMspApplicationTransferObject(dto:MspApplicationDto):MspApplication{
     let output:MspApplication = new MspApplication();
+    output.unUsualCircumstance = dto.unUsualCircumstance;
     output.applicant = this.fromPersonDto(dto.applicant);
 
     if(dto.applicant.spouse){

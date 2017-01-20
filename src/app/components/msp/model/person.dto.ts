@@ -38,7 +38,6 @@ export default class PersonDto {
 
   stayForSixMonthsOrLonger:boolean;
   plannedAbsence:boolean;
-  uncommonSituation:boolean;
   id:string
 
   spouse:PersonDto;
