@@ -1,7 +1,27 @@
 <form #formRef='ngForm' novalidate>
     <div class="row">
         <div class="col-md-4">
-            <h3>{{statusLabel()}}</h3>
+            <div class="row">
+                <div class="col-md-8">
+                    <h3>{{statusLabel()}}</h3>
+                </div>
+                <div class="col-md-4">
+                    <div *ngIf="person.relationship !== 0" style="margin-top: 18px">
+                        <div *ngIf="person.relationship === 1">
+                            <button type="button" class="btn btn-default btn-xs"
+                                    (click)="removeSpouse()"
+                                    [innerHTML]="lang('./en/index.js').removeSpouseButton">
+                            </button>
+                        </div>
+                        <div *ngIf="person.relationship === 2 || person.relationship === 3 ">
+                            <button type="button" class="btn btn-default btn-xs"
+                                    (click)="removeChild()"
+                                    [innerHTML]="lang('./en/index.js').removeChildButton">
+                            </button>
+                        </div>
+                    </div>            
+                </div>
+            </div>
             <div class="radio" *ngFor="let st of statusInCanada">
                 <input type="radio" name="statusInCanada-{{id}}" id="st{{st}}-{{id}}" (click)="setStatus(st, person)"
                        [checked]="st === person.status">

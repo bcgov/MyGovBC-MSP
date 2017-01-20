@@ -54,10 +54,13 @@ export class PersonalInfoComponent {
   removeChild(event: Object, idx: number): void{
     // console.log('remove child ' + JSON.stringify(event));
     this.dataService.getMspApplication().removeChild(idx);    
+    this.dataService.saveMspApplication();
+    
   }
 
   removeSpouse(event: Object): void{
     // console.log('remove spouse ' + JSON.stringify(event));
     this.dataService.getMspApplication().removeSpouse();
+    this.dataService.saveMspApplication();
   }
 }
