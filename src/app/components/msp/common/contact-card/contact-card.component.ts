@@ -1,5 +1,7 @@
 import {Component, Input} from '@angular/core'
 import {Address} from "../../model/address.model";
+import {Person} from "../../model/person.model";
+import moment = require("moment");
 
 @Component({
   selector: 'msp-contact-card',
@@ -13,8 +15,6 @@ export class MspContactCardComponent {
   @Input() phone: string;
   @Input() altPhone: string;
   @Input() editRouterLink: string;
-
-  constructor() {
-  }
+  @Input() outsideBCPersons: Person[];
 
 }
