@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnChanges} from '@angular/core';
 import DataService from '../../service/msp-data.service';
 import {MspApplication} from "../../model/application.model";
 import {Person} from "../../model/person.model";
@@ -58,6 +58,5 @@ export class AddressComponent {
   hasOutOfProvinceFor30CandidatesNotWorking(): boolean {
     return true;
   }
-
 
 }

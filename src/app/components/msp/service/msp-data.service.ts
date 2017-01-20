@@ -138,6 +138,15 @@ export default class MspDataService {
     dto.studiesFinishedMonth = input.studiesFinishedMonth;
     dto.studiesFinishedDay = input.studiesFinishedDay;
 
+    dto.outsideBC = input.outsideBC
+    dto.outsideBCDepartureDateYear = input.outsideBCDepartureDateYear;
+    dto.outsideBCDepartureDateMonth = input.outsideBCDepartureDateMonth;
+    dto.outsideBCDepartureDateDay = input.outsideBCDepartureDateDay;
+    dto.outsideBCReturnDateYear = input.outsideBCReturnDateYear;
+    dto.outsideBCReturnDateMonth = input.outsideBCReturnDateMonth;
+    dto.outsideBCReturnDateDay = input.outsideBCReturnDateDay;
+    dto.outsideBCFamilyMemberReason = input.outsideBCFamilyMemberReason;
+
     if(input.gender){
       dto.gender = input.gender.valueOf();
     }
@@ -229,6 +238,8 @@ export default class MspDataService {
 
     this.convertMailingAddress(input, dto);
     this.convertResidentialAddress(input, dto);
+
+    dto.outsideBCFor30Days = input.outsideBCFor30Days;
 
     // input.children.forEach( c => {
     //   this.convertSchoolAddress(c.schoolAddress, dto.applicant);
