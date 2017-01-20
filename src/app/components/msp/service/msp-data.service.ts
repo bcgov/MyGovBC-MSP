@@ -103,6 +103,9 @@ export default class MspDataService {
     dto.plannedAbsence = input.plannedAbsence;
     dto.uncommonSituation = input.uncommonSituation;
 
+    dto.livedInBCSinceBirth = input.livedInBCSinceBirth;
+    dto.hasPreviousPhn = input.hasPreviousPhn;
+
     dto.firstName = input.firstName;
     dto.middleName = input.middleName;
     dto.lastName = input.lastName;
@@ -150,6 +153,9 @@ export default class MspDataService {
     output.id = dto.id;
     output.liveInBC = dto.liveInBC;
     output.stayForSixMonthsOrLonger = dto.stayForSixMonthsOrLonger;
+    output.livedInBCSinceBirth = dto.livedInBCSinceBirth;
+    output.hasPreviousPhn = dto.hasPreviousPhn;
+    
     output.plannedAbsence = dto.plannedAbsence;
     output.uncommonSituation = dto.uncommonSituation;    
     output.firstName = dto.firstName;

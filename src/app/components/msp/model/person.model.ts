@@ -11,32 +11,15 @@ enum Gender {
 
 class Person {
   relationship: Relationship;
-  status: StatusInCanada;
-  currentActivity: Activities;
-
+  _status: StatusInCanada;
+  _currentActivity: Activities;
   documents: PersonDocuments = new PersonDocuments();
-
   /**
    * Name section
    */
   firstName: string;
   middleName: string;
   lastName: string;
-
-  get hasFullName():boolean {
-    return (this.firstName != null &&
-        this.lastName != null);
-  }
-  get fullName():string {
-    let fullName = this.firstName;
-    if (this.middleName != null &&
-      this.middleName.length > 0) {
-      fullName += " " + this.middleName;
-    }
-    fullName +=  " " + this.lastName;
-
-    return fullName;
-  }
 
   /**
    * Gender
@@ -89,6 +72,8 @@ class Person {
   }
 
   previous_phn: string;
+  hasPreviousPhn: boolean;
+
   institutionWorkHistory: string;
 
   /**
@@ -118,6 +103,13 @@ class Person {
    * Do you currently live in BC?
    */
   liveInBC:boolean;
+
+  /**
+   * Derived from answer to question: Do you have a previous PHN?
+   * If answser is NO, the livedInBCSinceBirth = false
+   * See https://apps.gcpe.gov.bc.ca/jira/browse/PSPDN-398
+   */
+  livedInBCSinceBirth:boolean = null;
 
   /**
    * This property is for storing user provided answer to the following question:
@@ -175,6 +167,44 @@ class Person {
 
   get studiesDepartureDate() {
     return this.parseDate(this.studiesDepartureYear, this.studiesDepartureMonth, this.studiesDepartureDay);
+  }
+
+  get status(){
+    return this._status;
+  }
+  set status(st:StatusInCanada){
+    this._status = st;
+    if(this._status === StatusInCanada.PermanentResident 
+      || this._status === StatusInCanada.TemporaryResident){
+        this.livedInBCSinceBirth = false;
+      }
+  }
+
+  get currentActivity(){
+    return this._currentActivity;
+  }
+
+  /**
+   * All activies in the system now indicates that person has not lived in BC since birth.
+   */
+  set currentActivity(act: Activities) {
+    this._currentActivity = act;
+    this.livedInBCSinceBirth = false;
+  }
+
+  get hasFullName():boolean {
+    return (this.firstName != null &&
+        this.lastName != null);
+  }
+  get fullName():string {
+    let fullName = this.firstName;
+    if (this.middleName != null &&
+      this.middleName.length > 0) {
+      fullName += " " + this.middleName;
+    }
+    fullName +=  " " + this.lastName;
+
+    return fullName;
   }
 
   /**

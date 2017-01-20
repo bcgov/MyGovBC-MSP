@@ -32,6 +32,9 @@ export default class PersonDto {
   gender: number;
   
   liveInBC:boolean;
+  livedInBCSinceBirth:boolean;
+  hasPreviousPhn: boolean;
+
   stayForSixMonthsOrLonger:boolean;
   plannedAbsence:boolean;
   uncommonSituation:boolean;
