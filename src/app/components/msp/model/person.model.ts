@@ -136,6 +136,8 @@ class Person {
    */
   uncommonSituation: boolean;
 
+  fullTimeStudent: boolean;
+  inBCafterStudies: boolean;
 
   /**
    * For children 19-24, we need the school name and address

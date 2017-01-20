@@ -113,6 +113,30 @@
         </div>
     </div>
     <div class="row" *ngIf="person.documents.images.length > 0 &&
+                            (person.relationship === Relationship.Applicant ||
+                             person.relationship === Relationship.Child19To24)">
+        <div class="col-md-4">
+            <label [innerHtml]="lang('./en/index.js').fullTimeStudentLabel"></label>
+            <div class="btn-group" role="group">
+                <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
+                        [class.msp-btn-radio]="person.fullTimeStudent === answer.value"
+                        (click)="setFullTimeStudent(answer.value)"
+                        type="button" class="btn btn-default">{{answer.label}}
+                </button>
+            </div>
+        </div>
+        <div *ngIf="person.fullTimeStudent" class="col-md-6">
+            <label [innerHtml]="lang('./en/index.js').inBCAfterStudiesLabel"></label>
+            <div class="btn-group" role="group">
+                <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
+                        [class.msp-btn-radio]="person.inBCafterStudies === answer.value"
+                        (click)="person.inBCafterStudies = answer.value"
+                        type="button" class="btn btn-default">{{answer.label}}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="person.documents.images.length > 0 &&
                             (person.currentActivity === Activities.Returning ||
                             person.currentActivity === Activities.MovingFromProvince)">
         <div class="col-md-8">

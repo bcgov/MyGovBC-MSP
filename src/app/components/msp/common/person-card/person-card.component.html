@@ -80,6 +80,34 @@
             </div>
         </div>
 
+        <div class="row" *ngIf="person.hasArrivalToCanada">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').arrivedToCanadaLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.arrivalToCanada.format("MMMM Do, YYYY")}}</strong>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="person.fullTimeStudent != null">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').fullTimeStudentLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.fullTimeStudent ? "Yes": "No"}}</strong>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="person.inBCafterStudies  != null">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').inBCafterStudiesLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.inBCafterStudiesLabel ? "Yes": "No"}}</strong>
+            </div>
+        </div>
+
+
         <div class="row" *ngIf="person.institutionWorkHistory != null">
             <div class="col-xs-4">
                 {{lang('./en/index.js').institutionWorkHistoryLabel}}

@@ -46,6 +46,9 @@ export default class PersonDto {
   children: PersonDto[] = [];
   images: MspImage[];
 
+  fullTimeStudent: boolean;
+  inBCafterStudies: boolean;
+
   schoolName: string;
   
   schoolAddress: AddressDto = new AddressDto();

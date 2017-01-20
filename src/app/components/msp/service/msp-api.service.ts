@@ -685,12 +685,21 @@ export class MspApiService {
      isInBCafterStudies?: ct.YesOrNoType;
      willBeAway: ct.YesOrNoType;
      */
-
-    //to.willBeAway.isFullTimeStudent = from.
     to.willBeAway = WillBeAwayTypeFactory.make();
-    to.willBeAway.willBeAway = "N";
-    to.willBeAway.isFullTimeStudent = "N";
+    if (from.fullTimeStudent) {
+      to.willBeAway.isFullTimeStudent = "Y";
+    }
+    else {
+      to.willBeAway.isFullTimeStudent = "N";
+    }
+    if (from.inBCafterStudies) {
+      to.willBeAway.isInBCafterStudies = "Y";
+    }
+    else {
+      to.willBeAway.isInBCafterStudies = "N";
+    }
 
+    to.willBeAway.willBeAway = "N";
 
     if (from.hasDischarge) {
       to.willBeAway.armedDischageDate = from.dischargeDate.format(this.ISO8601DateFormat);

@@ -15,6 +15,8 @@ module.exports = {
   institutionWorkHistoryLabel: 'Worked for Canadian Forces or a correctional institution',
   institutionWorkHistoryValues: {Yes: 'Yes', No: 'No'},
   dischargeDateLabel: 'Date discharged:',
+  fullTimeStudentLabel: 'Full Time Student:',
+  inBCafterStudiesLabel: 'Returning to B.C. after studies:',
   schoolNameLabel: 'School Name:',
   studiesFinishedLabel: 'Date of expected school completion:',
   studiesDepartureLabel: 'Date of departure:',

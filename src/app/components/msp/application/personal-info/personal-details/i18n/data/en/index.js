@@ -36,6 +36,9 @@ module.exports = {
   arrivalDateToBCLabelForReturning: 'Most recent move to B.C.',
   arrivalDateToCanadaLabel: 'Arrival date in Canada',
 
+  fullTimeStudentLabel: 'Are you a full-time student?',
+  inBCAfterStudiesLabel: 'Will you reside in B.C. upon completion of your studies?',
+
   canadianForcesQuestion: ['Have you been released from the Canadian Armed Forces or an Institution?',
     'Have they been released from the Canadian Armed Forces or an Institution?',
     'Have they been released from the Canadian Armed Forces or an Institution?',

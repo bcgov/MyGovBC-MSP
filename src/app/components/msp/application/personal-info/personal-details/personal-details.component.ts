@@ -155,6 +155,13 @@ export class PersonalDetailsComponent implements AfterViewInit {
     this.onChange.emit(evt);
   }
 
+  setFullTimeStudent(event: boolean) {
+    this.person.fullTimeStudent = event;
+    if (!this.person.fullTimeStudent) {
+      this.person.inBCafterStudies = null;
+    }
+  }
+
   schoolAddressUpdate(evt:any){
     this.onChange.emit(evt);
   }

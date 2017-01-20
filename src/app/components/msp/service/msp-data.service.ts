@@ -128,6 +128,10 @@ export default class MspDataService {
     dto.dischargeYear = input.dischargeYear;
     dto.dischargeMonth = input.dischargeMonth;
     dto.dischargeDay = input.dischargeDay;
+
+    dto.fullTimeStudent = input.fullTimeStudent;
+    dto.inBCafterStudies = input.inBCafterStudies;
+
     dto.schoolName = input.schoolName;
     
     dto.studiesDepartureYear = input.studiesDepartureYear;
@@ -190,6 +194,10 @@ export default class MspDataService {
     output.dischargeYear = dto.dischargeYear;
     output.dischargeMonth = dto.dischargeMonth;
     output.dischargeDay = dto.dischargeDay;
+
+    output.fullTimeStudent = dto.fullTimeStudent;
+    output.inBCafterStudies = dto.inBCafterStudies;
+
     output.schoolName = dto.schoolName;
 
     output.studiesDepartureYear = dto.studiesDepartureYear;
