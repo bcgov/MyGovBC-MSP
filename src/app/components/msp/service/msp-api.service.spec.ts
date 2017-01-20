@@ -10,28 +10,6 @@ import {Data} from "./test/image.data";
 import {FinancialAssistApplication} from "../model/financial-assist-application.model";
 import {ApplicationBase} from "../model/application-base.model";
 
-function base64ToBlob(base64:any, mime:any) {
-  mime = mime || '';
-  var sliceSize = 1024;
-  var byteChars = window.atob(base64);
-  var byteArrays = <any>[];
-
-  for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
-    var slice = byteChars.slice(offset, offset + sliceSize);
-
-    var byteNumbers = new Array(slice.length);
-    for (var i = 0; i < slice.length; i++) {
-      byteNumbers[i] = slice.charCodeAt(i);
-    }
-
-    var byteArray = new Uint8Array(byteNumbers);
-
-    byteArrays.push(byteArray);
-  }
-
-  return new Blob(byteArrays, {type: mime});
-}
-
 describe('MspApiService', () => {
 
   beforeEach(() => {

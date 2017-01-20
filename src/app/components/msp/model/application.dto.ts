@@ -7,5 +7,6 @@ export default class MspApplicationDto {
   mailingAddress:AddressDto = new AddressDto();
   residentialAddress: AddressDto = new AddressDto();
   phoneNumber:string;
+  outsideBCFor30Days: boolean;
 
 }

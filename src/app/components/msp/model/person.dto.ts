@@ -57,6 +57,13 @@ export default class PersonDto {
   studiesDepartureYear: number;
   studiesDepartureMonth: number;
   studiesDepartureDay: number;
-  
 
+  outsideBC: boolean = false;
+  outsideBCDepartureDateYear: number;
+  outsideBCDepartureDateMonth: number;
+  outsideBCDepartureDateDay: number;
+  outsideBCReturnDateYear: number;
+  outsideBCReturnDateMonth: number;
+  outsideBCReturnDateDay: number;
+  outsideBCFamilyMemberReason: string;
 }
