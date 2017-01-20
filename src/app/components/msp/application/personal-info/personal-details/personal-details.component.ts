@@ -46,7 +46,7 @@ import { Observable } from 'rxjs/Observable';
   }
 )
 
-export class PersonalDetailsComponent implements AfterViewInit, OnInit {
+export class PersonalDetailsComponent implements AfterViewInit {
   lang = require('./i18n');
   langStatus = require('../../../common/status/i18n');
   langActivities = require('../../../common/activities/i18n');
@@ -143,8 +143,11 @@ export class PersonalDetailsComponent implements AfterViewInit, OnInit {
     }
   }
 
-  ngOnInit(){
-
+  get arrivalDateLabel():string {
+    if (this.person.currentActivity == Activities.Returning) {
+      return this.lang('./en/index.js').arrivalDateToBCLabelForReturning;
+    }
+    return this.lang('./en/index.js').arrivalDateToBCLabel;
   }
 
   provinceUpdate(evt:string){

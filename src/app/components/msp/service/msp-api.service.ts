@@ -650,18 +650,21 @@ export class MspApiService {
         to.livedInBC.isPermanentMove = "Y"; // Always Y, you can't proceed without
         to.livedInBC.prevHealthNumber = from.previous_phn; // out of province health numbers
         to.livedInBC.prevProvinceOrCountry = from.movedFromProvince;
-        if (from.hasArrivalToBC) {
-          to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
-        }
-        if (from.hasArrivalToCanada) {
-          to.livedInBC.recentCanadaMoveDate = from.arrivalToCanada.format(this.ISO8601DateFormat);
-        }
+
         break;
       case Activities.MovingFromProvince:
       case Activities.MovingFromCountry:
         break;
 
     }
+
+    // Arrival dates
+     if (from.hasArrivalToBC) {
+       to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+     }
+     if (from.hasArrivalToCanada) {
+       to.livedInBC.recentCanadaMoveDate = from.arrivalToCanada.format(this.ISO8601DateFormat);
+     }
 
      // Outside BC
      to.outsideBC = OutsideBCTypeFactory.make();

@@ -90,8 +90,8 @@
                      [required]="false">
             </msp-health-number>
         </div>
-        <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning">
-            <msp-arrival-date [arrivalLabel]="lang('./en/index.js').arrivalDateToBCLabel"
+        <div class="col-sm-4">
+            <msp-arrival-date [arrivalLabel]="arrivalDateLabel"
                               [year]="person.arrivalToBCYear"
                               (yearChange)="person.arrivalToBCYear = $event"
                               [month]="person.arrivalToBCMonth"
@@ -100,7 +100,7 @@
                               (dayChange)="person.arrivalToBCDay = $event"
                               (onChange) = "onChange.emit($event)"></msp-arrival-date>
         </div>
-        <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning">
+        <div class="col-sm-4">
             <msp-arrival-date [arrivalLabel]="lang('./en/index.js').arrivalDateToCanadaLabel"
                               [year]="person.arrivalToCanadaYear"
                               (yearChange)="person.arrivalToCanadaYear = $event"
