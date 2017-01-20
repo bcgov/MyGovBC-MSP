@@ -19,6 +19,7 @@ import {Ng2CompleterModule} from "ng2-completer";
 import {ThumbnailComponent} from "../../common/thumbnail/thumbnail.component";
 import {ModalModule} from "ng2-bootstrap";
 import {HealthNumberComponent} from "../../common/health-number/health-number.component";
+import CompletenessCheckService from '../../service/completeness-check.service';
 
 describe('PersonalInfoComponent', () => {
   let localStorageServiceConfig = {
@@ -34,6 +35,7 @@ describe('PersonalInfoComponent', () => {
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent],
       imports: [FormsModule, Ng2CompleterModule, ModalModule],
       providers: [MspDataService,
+        CompletenessCheckService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         }

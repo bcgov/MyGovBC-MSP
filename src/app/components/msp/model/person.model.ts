@@ -318,6 +318,7 @@ class Person {
 
     let complete = false;
 
+    // code 0 is "Returning to BC after an absence"
     if(this.currentActivity === 0){
       complete = _.isBoolean(this.hasPreviousBCPhn);
     }else{
