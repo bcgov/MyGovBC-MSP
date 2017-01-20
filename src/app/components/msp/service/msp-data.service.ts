@@ -104,7 +104,7 @@ export default class MspDataService {
     dto.uncommonSituation = input.uncommonSituation;
 
     dto.livedInBCSinceBirth = input.livedInBCSinceBirth;
-    dto.hasPreviousPhn = input.hasPreviousPhn;
+    dto.hasPreviousBCPhn = input.hasPreviousBCPhn;
 
     dto.firstName = input.firstName;
     dto.middleName = input.middleName;
@@ -114,6 +114,7 @@ export default class MspDataService {
     dto.dob_year = input.dob_year;
     dto.middleName = input.middleName;
     dto.previous_phn = input.previous_phn;
+    dto.healthNumberFromOtherProvince = input.healthNumberFromOtherProvince;
 
     dto.arrivalToCanadaDay = input.arrivalToCanadaDay;
     dto.arrivalToCanadaMonth = input.arrivalToCanadaMonth;
@@ -154,7 +155,7 @@ export default class MspDataService {
     output.liveInBC = dto.liveInBC;
     output.stayForSixMonthsOrLonger = dto.stayForSixMonthsOrLonger;
     output.livedInBCSinceBirth = dto.livedInBCSinceBirth;
-    output.hasPreviousPhn = dto.hasPreviousPhn;
+    output.hasPreviousBCPhn = dto.hasPreviousBCPhn;
     
     output.plannedAbsence = dto.plannedAbsence;
     output.uncommonSituation = dto.uncommonSituation;    
@@ -165,6 +166,7 @@ export default class MspDataService {
     output.dob_month = dto.dob_month;
     output.dob_year = dto.dob_year;
     output.middleName = dto.middleName;
+    output.healthNumberFromOtherProvince = dto.healthNumberFromOtherProvince;
     output.previous_phn = dto.previous_phn;
 
     output.arrivalToCanadaDay = dto.arrivalToCanadaDay;

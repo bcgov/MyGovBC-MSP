@@ -28,12 +28,13 @@ export default class PersonDto {
 
   status:number;
   currentActivity:number;
+  healthNumberFromOtherProvince:string;
   previous_phn: string;
   gender: number;
   
   liveInBC:boolean;
   livedInBCSinceBirth:boolean;
-  hasPreviousPhn: boolean;
+  hasPreviousBCPhn: boolean;
 
   stayForSixMonthsOrLonger:boolean;
   plannedAbsence:boolean;

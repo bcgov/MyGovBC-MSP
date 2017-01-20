@@ -62,15 +62,15 @@
         <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning && (person.status === 1 || person.status === 0)">
             <label>Do you have a previous BC Personal Health Number?</label>
             <div class="btn-group" role="group">
-                <button [class.msp-btn-radio]="person.hasPreviousPhn" 
-                    (click)="person.hasPreviousPhn = true; onChange.emit(person.hasPreviousPhn)" 
+                <button [class.msp-btn-radio]="person.hasPreviousBCPhn" 
+                    (click)="person.hasPreviousBCPhn = true; onChange.emit(person.hasPreviousBCPhn)" 
                     type="button" class="btn btn-default" >Yes</button>
-                <button [class.msp-btn-radio]="person.hasPreviousPhn === false" 
-                    (click)="person.hasPreviousPhn = false; onChange.emit(person.hasPreviousPhn)" 
+                <button [class.msp-btn-radio]="person.hasPreviousBCPhn === false" 
+                    (click)="person.hasPreviousBCPhn = false; onChange.emit(person.hasPreviousBCPhn)" 
                     type="button" class="btn btn-default">No&nbsp;</button>
             </div>
         </div>
-        <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning && person.hasPreviousPhn === true">
+        <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning && person.hasPreviousBCPhn === true">
             <msp-phn [phn]="person.previous_phn"
                      (phnChange)="person.previous_phn = $event"
                      [required]="false"
@@ -85,12 +85,10 @@
                       [exceptBC]="true"
                       ></msp-province>
         <div class="col-sm-4" *ngIf="person.currentActivity === Activities.MovingFromProvince">
-            <msp-phn [phn]="person.previous_phn"
-                     (phnChange)="person.previous_phn = $event"
-                     [required]="false"
-                     [bcPhn]="false"
-                     [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"
-                     (onChange) = "onChange.emit($event)"></msp-phn>
+            <msp-health-number [healthNumber]="person.healthNumberFromOtherProvince"
+                     (healthNumberChange)="handleHealthNumberChange($event)"
+                     [required]="false">
+            </msp-health-number>
         </div>
         <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning">
             <msp-arrival-date [arrivalLabel]="lang('./en/index.js').arrivalDateToBCLabel"

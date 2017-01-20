@@ -19,6 +19,7 @@ import {MspProvinceComponent} from './common/province/province.component';
 import {MspPhoneComponent} from './common/phone/phone.component';
 import {MspProgressBarComponent} from './common/progressBar/progressBar.component';
 import {MspPhnComponent} from './common/phn/phn.component';
+import {HealthNumberComponent} from './common/health-number/health-number.component';
 import {MspArrivalDateComponent} from './common/arrival-date/arrival-date.component';
 import {MspDischargeDateComponent} from './common/discharge-date/discharge-date.component';
 import {MspSchoolDateComponent} from './common/schoolDate/school-date.component';
@@ -196,6 +197,7 @@ let localStorageServiceConfig = {
     MspProvinceComponent,
     MspPhoneComponent,
     MspPhnComponent,
+    HealthNumberComponent,
     MspArrivalDateComponent,
     MspDischargeDateComponent,
     MspSchoolDateComponent,

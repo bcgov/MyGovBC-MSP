@@ -71,8 +71,12 @@ class Person {
     this.arrivalToCanadaYear != null);
   }
 
+  /**
+   * BC Personal Health Number
+   */
   previous_phn: string;
-  hasPreviousPhn: boolean;
+  healthNumberFromOtherProvince:string;
+  hasPreviousBCPhn: boolean;
 
   institutionWorkHistory: string;
 

@@ -203,4 +203,11 @@ export class PersonalDetailsComponent implements AfterViewInit, OnInit {
   get isInstitutionListShown() {
     return this.institutionWorkSignal === 'out';
   }
+
+  handleHealthNumberChange(evt:string){
+    this.person.healthNumberFromOtherProvince = evt;
+    this.onChange.emit(evt);
+    
+    console.log('health number changed: ' + evt);
+  }
 }
