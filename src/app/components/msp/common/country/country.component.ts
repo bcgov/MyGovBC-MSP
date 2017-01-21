@@ -14,7 +14,8 @@ export class MspCountryComponent {
   /**
    * Model Inputs
    */
-  @Input() address: Address;
+  @Input() country: string;
+  @Output() onChange = new EventEmitter<string>();
 
   /**
    * Auto complete for country
@@ -25,5 +26,11 @@ export class MspCountryComponent {
   constructor(private completerService: CompleterService) {
 
     this.dataService = completerService.local(this.countryData, 'name', 'name');
+  }
+
+  updateModel(event:string){
+    // console.log('province change, %o', event);
+    // this.province=event;
+    this.onChange.emit(event)
   }
 }

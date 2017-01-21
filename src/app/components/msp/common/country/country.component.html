@@ -2,7 +2,8 @@
     <div class="form-group col-sm-4"
          [ngClass]="{'has-error': !formRef.controls.country?.valid && countryRef.touched}">
         <label for="country" [innerHtml]="lang('./en/index.js').countryLabel"></label>
-        <ng2-completer [(ngModel)]="address.country"
+        <ng2-completer [(ngModel)]="country"
+                       (ngModelChange)="updateModel($event)"
                        [dataService]="dataService" [minSearchLength]="0"
                        [autoMatch]="true"
                        [maxChars]="30"

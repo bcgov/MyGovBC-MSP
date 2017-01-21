@@ -173,7 +173,10 @@
                     (onChange)="provinceUpdate($event)">
             </msp-province>
 
-            <msp-country [address]="mailingAddress"></msp-country>
+            <msp-country
+                [country]="mailingAddress.country"
+                (onChange)="countryUpdate($event)">
+            </msp-country>
         </div>
     </div>
 </form>
