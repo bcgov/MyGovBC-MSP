@@ -212,8 +212,9 @@ export class PersonalDetailsComponent implements AfterViewInit {
     this.institutionWorkSignal === 'out' ? this.institutionWorkSignal = 'in' : this.institutionWorkSignal = 'out';    
   }
 
-  get currentActivityIsValid(): boolean{
-    return _.isNumber(this.person.currentActivity);
+  get hasValidCurrentActivity(): boolean{
+    let v = _.isNumber(this.person.currentActivity);
+    return v;
   }
 
   get isInstitutionListShown() {

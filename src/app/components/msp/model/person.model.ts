@@ -82,9 +82,21 @@ class Person {
    */
   previous_phn: string;
   healthNumberFromOtherProvince:string;
-  hasPreviousBCPhn: boolean;
-
+  _hasPreviousBCPhn: boolean;
+  
   institutionWorkHistory: string;
+
+  get hasPreviousBCPhn():boolean {
+    return this._hasPreviousBCPhn;
+  }
+
+  set hasPreviousBCPhn(hasPhn:boolean) {
+    if(!hasPhn){
+      this.previous_phn = null;
+    }
+    this._hasPreviousBCPhn = hasPhn;
+  }
+  
 
   /**
    * Discharge date if worked in CDN forces
@@ -309,6 +321,15 @@ class Person {
     return thing !== null && thing !== undefined;
   }
 
+  /**
+   *   0: 'Returning to BC after an absence',
+   *   1: 'Moving from another province',
+   *   2: 'Moving from another country',
+   *   3: 'Working in BC',
+   *   4: 'Studying in BC',
+   *   5: 'Religious worker',
+   *   6: 'Diplomat'
+   */
   get isInfoComplete(){
     let basic =  _.isString(this.gender)
     && _.isString(this.firstName) && this.firstName.length > 0 && _.isString(this.lastName) && this.lastName.length > 0
@@ -335,11 +356,20 @@ class Person {
       studentComplete = _.isBoolean(this.inBCafterStudies);
     }
 
+    let institutionWorkComplete = true;
+    if(this.currentActivity === 1 || this.currentActivity === 0){
+      institutionWorkComplete = _.isString(this.institutionWorkHistory) 
+        && (this.institutionWorkHistory.toLowerCase() === 'yes' || this.institutionWorkHistory.toLowerCase() === 'no');
+      if(institutionWorkComplete && this.institutionWorkHistory.toLowerCase() === 'yes'){
+        institutionWorkComplete = _.isNumber(this.dischargeDay) && _.isString(this.dischargeMonth) && _.isNumber(this.dischargeYear);
+      }  
+    }
     let arrivalInCanadaComplete = _.isNumber(this.arrivalToCanadaDay) && _.isString(this.arrivalToCanadaMonth) && _.isNumber(this.arrivalToCanadaYear);
     return basic 
       && returningToBCComplete 
       && arrivalInCanadaComplete
       && movingFromAnotherProvince
+      && institutionWorkComplete
       && studentComplete;
   }
 }
