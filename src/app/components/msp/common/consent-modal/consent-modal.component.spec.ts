@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
-import { PrepareComponent } from './prepare.component';
+import { MspConsentModalComponent } from './consent-modal.component';
 import MspDataService from '../../service/msp-data.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
-import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
+import {MspAddressCardPartComponent} from "../address-card-part/address-card-part.component";
+import {RouterTestingModule} from "@angular/router/testing";
 import {Ng2BootstrapModule} from "ng2-bootstrap";
 
-describe('PrepareComponent', () => {
+describe('MspConsentModalComponent', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
     storageType: 'localStorage'
@@ -14,8 +15,8 @@ describe('PrepareComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PrepareComponent, MspConsentModalComponent],
-      imports: [FormsModule, Ng2BootstrapModule],
+      declarations: [MspConsentModalComponent, MspAddressCardPartComponent],
+      imports: [FormsModule, RouterTestingModule, Ng2BootstrapModule],
       providers: [MspDataService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
@@ -24,8 +25,8 @@ describe('PrepareComponent', () => {
     })
   });
   it ('should work', () => {
-    let fixture = TestBed.createComponent(PrepareComponent);
-    expect(fixture.componentInstance instanceof PrepareComponent).toBe(true, 'should create PrepareComponent');
+    let fixture = TestBed.createComponent(MspConsentModalComponent);
+    expect(fixture.componentInstance instanceof MspConsentModalComponent).toBe(true, 'should create MspConsentModalComponent');
 
   });
 })

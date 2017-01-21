@@ -3,6 +3,7 @@ import PersonDto from './person.dto';
 import {MspImage} from "./msp-image";
 
 export default class FinancialAssistApplicationDto {
+  infoCollectionAgreement: boolean;
   incomeLine236: number;
   ageOver65: boolean;
   hasSpouseOrCommonLaw:boolean;

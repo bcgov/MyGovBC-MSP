@@ -7,6 +7,7 @@ import FinancialAssistApplicationDto from '../model/financial-assist-application
 import MspApplicationDto from '../model/application.dto';
 import AddressDto from '../model/address.dto';
 import { StatusInCanada, Relationship } from '../model/status-activities-documents';
+import {puts} from "util";
 @Injectable()
 export default class MspDataService {
   private _mspApplication: MspApplication;
@@ -231,6 +232,7 @@ export default class MspDataService {
   toMspApplicationTransferObject(input:MspApplication):MspApplicationDto {
     let dto:MspApplicationDto = new MspApplicationDto();
 
+    dto.infoCollectionAgreement = input.infoCollectionAgreement;
     dto.unUsualCircumstance = input.unUsualCircumstance;
     dto.applicant = this.toPersonDto(input.applicant);
     if(input.spouse){
@@ -258,6 +260,7 @@ export default class MspDataService {
     let output:MspApplication = new MspApplication();
     output.unUsualCircumstance = dto.unUsualCircumstance;
     output.applicant = this.fromPersonDto(dto.applicant);
+    output.infoCollectionAgreement = dto.infoCollectionAgreement;
 
     if(dto.applicant.spouse){
       output.addSpouse(this.fromPersonDto(dto.applicant.spouse));
@@ -284,6 +287,8 @@ export default class MspDataService {
    */
   toFinAssistDataTransferObject(input:FinancialAssistApplication):FinancialAssistApplicationDto{
     let dto:FinancialAssistApplicationDto  = new FinancialAssistApplicationDto();
+
+    dto.infoCollectionAgreement = input.infoCollectionAgreement;
 
     dto.incomeLine236 = input.netIncomelastYear;
     dto.ageOver65 = input.ageOver65;
@@ -326,6 +331,8 @@ export default class MspDataService {
       dto.mailingAddress = new AddressDto();
     }
     let output:FinancialAssistApplication = new FinancialAssistApplication();
+
+    output.infoCollectionAgreement = dto.infoCollectionAgreement;
 
     output.netIncomelastYear = dto.incomeLine236;
     output.ageOver65 = dto.ageOver65;

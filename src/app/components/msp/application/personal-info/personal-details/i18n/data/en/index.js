@@ -32,6 +32,9 @@ module.exports = {
     'Which province are they moving from?',
     'Which province are they moving from?',
     'Which province are they moving from?'],
+
+
+  movedFromCountryLabel: 'Which country are you moving from?',
   arrivalDateToBCLabel: 'Arrival date in B.C.',
   arrivalDateToBCLabelForReturning: 'Most recent move to B.C.',
   arrivalDateToCanadaLabel: 'Arrival date in Canada',

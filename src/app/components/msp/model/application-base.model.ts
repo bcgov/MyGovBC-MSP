@@ -5,4 +5,5 @@ export interface ApplicationBase {
   readonly uuid: string;
   referenceNumber: string;
   getAllImages():MspImage[];
+  infoCollectionAgreement: boolean;
 }

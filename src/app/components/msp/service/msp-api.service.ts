@@ -33,12 +33,13 @@ import {
   AssistanceApplicantTypeFactory, FinancialsType, FinancialsTypeFactory, AssistanceSpouseTypeFactory
 } from "../api-model/assistanceTypes";
 import {ApplicationBase} from "../model/application-base.model";
-let jxon = require ("jxon/jxon");
+let jxon = require("jxon/jxon");
 
 @Injectable()
 export class MspApiService {
 
-  constructor (private http: Http, @Inject('appConstants') private appConstants: Object) {}
+  constructor(private http: Http, @Inject('appConstants') private appConstants: Object) {
+  }
 
   /**
    * Sends the Application and returns an MspApplication if successful with referenceNumber populated
@@ -69,7 +70,7 @@ export class MspApiService {
         this.sendAttachments(documentModel.application.uuid, app.getAllImages()).then(() => {
 
           // once all attachments are done we can sendApplication in the data
-          this.sendDocument(documentModel).then((response:ResponseType) => {
+          this.sendDocument(documentModel).then((response: ResponseType) => {
             console.log("sent application resolved");
             // Add reference number
             app.referenceNumber = response.referenceNumber.toString();
@@ -82,10 +83,10 @@ export class MspApiService {
             reject(error);
           });
         })
-        .catch((error: Response | any) => {
-          console.log("sent all attachments rejected: ", error);
-          reject(error);
-        });
+          .catch((error: Response | any) => {
+            console.log("sent all attachments rejected: ", error);
+            reject(error);
+          });
       } catch (error) {
         console.log("sendApplication error: ", error);
         reject(error);
@@ -93,7 +94,7 @@ export class MspApiService {
     });
   }
 
-  private sendAttachments(applicationUUID:string, attachments: MspImage[]): Promise<void> {
+  private sendAttachments(applicationUUID: string, attachments: MspImage[]): Promise<void> {
     return new Promise<void>((resolve, reject) => {
 
       // Instantly resolve if no attachments
@@ -116,7 +117,7 @@ export class MspApiService {
     });
   }
 
-  private sendAttachment(applicationUUID:string, attachment: MspImage): Promise<ResponseType> {
+  private sendAttachment(applicationUUID: string, attachment: MspImage): Promise<ResponseType> {
     return new Promise<ResponseType>((resolve, reject) => {
 
       /*
@@ -142,12 +143,12 @@ export class MspApiService {
       // description - UI does NOT collect this property
 
       // Setup headers
-      let headers = new Headers({ 'Content-Type':  attachment.contentType});
-      let options = new RequestOptions({ headers: headers });
+      let headers = new Headers({'Content-Type': attachment.contentType});
+      let options = new RequestOptions({headers: headers});
 
       let binary = atob(attachment.fileContent.split(',')[1]);
       let array = <any>[];
-      for(var i = 0; i < binary.length; i++) {
+      for (var i = 0; i < binary.length; i++) {
         array.push(binary.charCodeAt(i));
       }
       let blob = new Blob([new Uint8Array(array)], {type: attachment.contentType});
@@ -155,7 +156,7 @@ export class MspApiService {
       this.http
         .post(url, blob, options)
         .toPromise()
-        .then((response:Response) => {
+        .then((response: Response) => {
           resolve(<ResponseType>{});
         })
         .catch((error: Response | any) => {
@@ -171,7 +172,7 @@ export class MspApiService {
    * @param document
    * @returns {Promise<ResponseType>}
    */
-  private sendDocument(document:document): Promise<ResponseType> {
+  private sendDocument(document: document): Promise<ResponseType> {
     return new Promise<ResponseType>((resolve, reject) => {
       /*
        Create URL
@@ -182,15 +183,15 @@ export class MspApiService {
         + "?programArea=enrolment";
 
       // Setup headers
-      let headers = new Headers({ 'Content-Type': 'application/xml' });
-      let options = new RequestOptions({ headers: headers });
+      let headers = new Headers({'Content-Type': 'application/xml'});
+      let options = new RequestOptions({headers: headers});
 
       // Convert doc to XML
       let documentXmlString = this.toXmlString(document);
 
       this.http.post(url, documentXmlString, options)
         .toPromise()
-        .then((response:Response) => {
+        .then((response: Response) => {
           console.log("sent application resolved");
           resolve(this.convertResponse(response.text()));
         })
@@ -203,7 +204,7 @@ export class MspApiService {
     });
   }
 
-  convertResponse(responseBody:string):ResponseType {
+  convertResponse(responseBody: string): ResponseType {
     return this.stringToJs<ResponseType>(responseBody)["ns2:response"];
   }
 
@@ -213,7 +214,7 @@ export class MspApiService {
    * @param from
    * @returns {applicationTypes.ApplicationType}
    */
-  convertMspApplication(from: MspApplication):document  {
+  convertMspApplication(from: MspApplication): document {
     // Instantiate new object from interface
     let to = DocumentFactory.make();
     to.application = ApplicationTypeFactory.make();
@@ -254,7 +255,7 @@ export class MspApiService {
     if (from.authorizedBySpouse != null) {
       to.application.enrolmentApplication.applicant.authorizedBySpouse = from.authorizedBySpouse ? "Y" : "N";
     }
-     /*
+    /*
      mailingAddress?: ct.AddressType;
      residenceAddress: ct.AddressType;
      residency: ResidencyType;
@@ -292,7 +293,7 @@ export class MspApiService {
     return to;
   }
 
-  convertAssistance(from:FinancialAssistApplication):document {
+  convertAssistance(from: FinancialAssistApplication): document {
     // Instantiate new object from interface
     let to = DocumentFactory.make();
     to.application = ApplicationTypeFactory.make();
@@ -342,7 +343,7 @@ export class MspApiService {
     }
     to.application.assistanceApplication.applicant.residenceAddress = this.convertAddress(from.residentialAddress);
     if (from.applicant.sin) {
-    to.application.assistanceApplication.applicant.SIN = Number(from.applicant.sin.replace(new RegExp("[^0-9]", "g"), ""));
+      to.application.assistanceApplication.applicant.SIN = Number(from.applicant.sin.replace(new RegExp("[^0-9]", "g"), ""));
     }
     if (from.phoneNumber) {
       to.application.assistanceApplication.applicant.telephone = Number(from.phoneNumber.replace(new RegExp("[^0-9]", "g"), ""));
@@ -402,7 +403,7 @@ export class MspApiService {
     return to;
   }
 
-  private convertFinancial (from:FinancialAssistApplication): FinancialsType {
+  private convertFinancial(from: FinancialAssistApplication): FinancialsType {
     let to = FinancialsTypeFactory.make();
 
     /*
@@ -422,11 +423,11 @@ export class MspApiService {
      totalDeductions?: number;            // not mapped
      totalNetIncome?: number;             // not mapped, applicant and spouse
      uccb?: number;                       // reportedUCCBenefit_line117
-                                          // ageOver65
-                                          // hasSpouseOrCommonLaw
-                                          // spouseAgeOver65
-                                          // spouseEligibleForDisabilityCredit
-                                          // selfDisabilityCredit
+     // ageOver65
+     // hasSpouseOrCommonLaw
+     // spouseAgeOver65
+     // spouseEligibleForDisabilityCredit
+     // selfDisabilityCredit
      */
 
     to.assistanceYear = "CurrentPA";
@@ -460,7 +461,7 @@ export class MspApiService {
     to.attachment = new Array<AttachmentType>();
 
     // assemble all attachments
-    let attachments:MspImage[] = from.getAllImages();
+    let attachments: MspImage[] = from.getAllImages();
 
     // Convert each one
     for (let attachment of attachments) {
@@ -501,7 +502,7 @@ export class MspApiService {
     to.attachment = new Array<AttachmentType>();
 
     // assemble all attachments
-    let attachments:MspImage[] = from.powerOfAttorneyDocs;
+    let attachments: MspImage[] = from.powerOfAttorneyDocs;
 
     // If no attachments just return
     if (!attachments || attachments.length < 1) {
@@ -540,8 +541,7 @@ export class MspApiService {
   }
 
 
-
-  private convertPersonFromEnrollment(from: Person):PersonType {
+  private convertPersonFromEnrollment(from: Person): PersonType {
     let to = PersonTypeFactory.make();
 
     to.name = this.convertName(from);
@@ -573,18 +573,18 @@ export class MspApiService {
     return to;
   }
 
-  private convertAttachmentUuids (from: MspImage[]): AttachmentUuidsType {
+  private convertAttachmentUuids(from: MspImage[]): AttachmentUuidsType {
     let to = AttachmentUuidsTypeFactory.make();
 
     to.attachmentUuid = new Array<string>();
-    for(let image of from) {
+    for (let image of from) {
       to.attachmentUuid.push(image.uuid);
     }
 
     return to;
   }
 
-   private convertResidency(from: Person): ResidencyType {
+  private convertResidency(from: Person): ResidencyType {
     let to = ResidencyTypeFactory.make();
 
     /*
@@ -622,7 +622,7 @@ export class MspApiService {
     }
     to.citizenshipStatus.attachmentUuids = AttachmentUuidsTypeFactory.make();
     to.citizenshipStatus.attachmentUuids.attachmentUuid = new Array<string>();
-    for(let image of from.documents.images) {
+    for (let image of from.documents.images) {
       to.citizenshipStatus.attachmentUuids.attachmentUuid.push(image.uuid);
     }
 
@@ -641,42 +641,43 @@ export class MspApiService {
      */
     // Init and set defaults
     to.livedInBC = LivedInBCTypeFactory.make();
-    to.livedInBC.hasLivedInBC = "N";
+    to.livedInBC.hasLivedInBC = "N"; // default to no
 
 
     switch (from.currentActivity) {
       case Activities.Returning:
         to.livedInBC.hasLivedInBC = "Y";
         to.livedInBC.isPermanentMove = "Y"; // Always Y, you can't proceed without
-        to.livedInBC.prevHealthNumber = from.previous_phn; // out of province health numbers
-        to.livedInBC.prevProvinceOrCountry = from.movedFromProvince;
 
         break;
-      case Activities.MovingFromProvince:
-      case Activities.MovingFromCountry:
-        break;
-
+    }
+    if (from.previous_phn) {
+      to.livedInBC.prevHealthNumber = from.previous_phn; // out of province health numbers
+    }
+    if (from.movedFromProvince) {
+      to.livedInBC.prevProvinceOrCountry = from.movedFromProvince;
     }
 
-    // Arrival dates
-     if (from.hasArrivalToBC) {
-       to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
-     }
-     if (from.hasArrivalToCanada) {
-       to.livedInBC.recentCanadaMoveDate = from.arrivalToCanada.format(this.ISO8601DateFormat);
-     }
 
-     // Outside BC
-     to.outsideBC = OutsideBCTypeFactory.make();
-     if (from.outsideBC) {
-       to.outsideBC.beenOutsideBCMoreThan = "Y";
-       to.outsideBC.departureDate = from.outsideBCDepartureDate.format(this.ISO8601DateFormat);
-       to.outsideBC.returnDate = from.outsideBCReturnDate.format(this.ISO8601DateFormat);
-       to.outsideBC.familyMemberReason = from.outsideBCFamilyMemberReason;
-     }
-     else {
-       to.outsideBC.beenOutsideBCMoreThan = "N";
-     }
+    // Arrival dates
+    if (from.hasArrivalToBC) {
+      to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+    }
+    if (from.hasArrivalToCanada) {
+      to.livedInBC.recentCanadaMoveDate = from.arrivalToCanada.format(this.ISO8601DateFormat);
+    }
+
+    // Outside BC
+    to.outsideBC = OutsideBCTypeFactory.make();
+    if (from.outsideBC) {
+      to.outsideBC.beenOutsideBCMoreThan = "Y";
+      to.outsideBC.departureDate = from.outsideBCDepartureDate.format(this.ISO8601DateFormat);
+      to.outsideBC.returnDate = from.outsideBCReturnDate.format(this.ISO8601DateFormat);
+      to.outsideBC.familyMemberReason = from.outsideBCFamilyMemberReason;
+    }
+    else {
+      to.outsideBC.beenOutsideBCMoreThan = "N";
+    }
 
     /*
      armedDischageDate?: Date;
@@ -704,13 +705,15 @@ export class MspApiService {
       to.willBeAway.armedDischageDate = from.dischargeDate.format(this.ISO8601DateFormat);
     }
     /*
-    TODO: figure out these, are they duplicateS?
-
      hasPreviousCoverage: ct.YesOrNoType;
      prevPHN?: number;  // BC only
      */
     to.previousCoverage = PreviousCoverageTypeFactory.make();
-    to.previousCoverage.hasPreviousCoverage = "N"; // TODO: issue in JIRA to ask that question
+    to.previousCoverage.hasPreviousCoverage = "N";  // default N
+    if (from.hasPreviousBCPhn) {
+      to.previousCoverage.hasPreviousCoverage = "Y";
+      to.previousCoverage.prevPHN = Number(from.previous_phn.replace(new RegExp("[^0-9]", "g"), ""));;
+    }
 
     return to;
   }
@@ -743,12 +746,14 @@ export class MspApiService {
     let stateData = require('../common/province/i18n/data/en/index').stateData;
     let provinceStateData = Array().concat(provinceData, stateData);
 
-    let itemFound = to.provinceOrState = provinceStateData.find((item)=> {
-      if (item.name ===  from.province) {
+    let itemFound = to.provinceOrState = provinceStateData.find((item) => {
+      if (item.name === from.province) {
         return true;
       }
     });
-    if (itemFound) { to.provinceOrState = itemFound.code; }
+    if (itemFound) {
+      to.provinceOrState = itemFound.code;
+    }
 
     return to;
   }
@@ -762,7 +767,7 @@ export class MspApiService {
    * @param namespace
    * @returns {any}
    */
-  toXmlString (from: any):string {
+  toXmlString(from: any): string {
     let xml = jxon.jsToXml(from);
     let xmlString = jxon.xmlToString(xml);
     //TODO: namespace not working properly, fix it and remove this hack
@@ -771,16 +776,16 @@ export class MspApiService {
     return MspApiService.XmlDocumentType + xmlString;
   }
 
-  stringToJs<T> (from:string):T {
+  stringToJs<T>(from: string): T {
     let converted = jxon.stringToJs(from) as T;
     return converted;
   }
 
-  jsToXml (from:any) {
+  jsToXml(from: any) {
     return jxon.jsToXml(from);
   }
 
-  stringToXml (from:string) {
+  stringToXml(from: string) {
     return jxon.stringToXml(from);
   }
 
