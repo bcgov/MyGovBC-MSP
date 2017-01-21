@@ -96,14 +96,14 @@
                     [province]="person.movedFromProvince"
                     (onChange)="provinceUpdate($event)"
                     [exceptBC]="true"
-                    ></msp-province>
+                    colSize="col-sm-4"></msp-province>
         <div class="col-sm-4" *ngIf="person.currentActivity === Activities.MovingFromProvince">
             <msp-health-number [healthNumber]="person.healthNumberFromOtherProvince"
                     (healthNumberChange)="handleHealthNumberChange($event)"
                     [required]="false">
             </msp-health-number>
         </div>
-        <div class="col-sm-4">
+        <div class="col-md-4">
             <msp-arrival-date [arrivalLabel]="arrivalDateLabel"
                             [year]="person.arrivalToBCYear"
                             (yearChange)="person.arrivalToBCYear = $event"
@@ -113,7 +113,7 @@
                             (dayChange)="person.arrivalToBCDay = $event"
                             (onChange) = "onChange.emit($event)"></msp-arrival-date>
         </div>
-        <div class="col-sm-4">
+        <div class="col-md-4">
             <msp-arrival-date [arrivalLabel]="lang('./en/index.js').arrivalDateToCanadaLabel"
                             [year]="person.arrivalToCanadaYear"
                             (yearChange)="person.arrivalToCanadaYear = $event"
@@ -124,6 +124,9 @@
                             (onChange) = "onChange.emit($event)"></msp-arrival-date>
 
         </div>
+        <msp-country *ngIf="person.currentActivity == Activities.MovingFromCountry || person.status == StatusInCanada.TemporaryResident"
+                      [label]="lang('./en/index.js').movedFromCountryLabel" colSize="col-sm-4"
+                      [country]="person.movedFromProvince" (onChange)="person.movedFromProvince = $event; onChange.emit($event)"></msp-country>        
     </div>
     <div class="row" *ngIf="person.documents.images.length > 0 &&
                             (person.relationship === Relationship.Applicant ||
