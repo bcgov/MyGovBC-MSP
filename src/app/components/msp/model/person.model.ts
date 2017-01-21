@@ -311,23 +311,36 @@ class Person {
 
   get isInfoComplete(){
     let basic =  _.isString(this.gender)
-    && _.isString(this.firstName) && _.isString(this.lastName)
+    && _.isString(this.firstName) && this.firstName.length > 0 && _.isString(this.lastName) && this.lastName.length > 0
     // && this.isNotEmpty(this.dob_day) && this.isNotEmpty(this.dob_month) && this.isNotEmpty(this.dob_year)
     && _.isNumber(this.dob_day) && _.isString(this.dob_month) && _.isNumber(this.dob_year)
     && _.isNumber(this._status) && _.isNumber(this._currentActivity);
 
-    let complete = false;
+    let returningToBCComplete = true;
 
     // code 0 is "Returning to BC after an absence"
     if(this.currentActivity === 0){
-      complete = _.isBoolean(this.hasPreviousBCPhn);
-    }else{
-      complete = true;
+      returningToBCComplete = _.isBoolean(this.hasPreviousBCPhn)
+      && _.isNumber(this.arrivalToBCYear) && _.isString(this.arrivalToBCMonth) && _.isNumber(this.arrivalToBCDay);
     }
 
-    console.log('currentActivity: ' + this.currentActivity);
-    console.log('_.isBoolean(this.hasPreviousBCPhn) ' + _.isBoolean(this.hasPreviousBCPhn));
-    return basic && complete;
+    // code 1 is "Moving from another province"
+    let movingFromAnotherProvince = true;
+    if(this.currentActivity === 1){
+      movingFromAnotherProvince = _.isString(this.movedFromProvince) && this.movedFromProvince.length > 1;
+    }
+
+    let studentComplete = true;
+    if(this.fullTimeStudent === true){
+      studentComplete = _.isBoolean(this.inBCafterStudies);
+    }
+
+    let arrivalInCanadaComplete = _.isNumber(this.arrivalToCanadaDay) && _.isString(this.arrivalToCanadaMonth) && _.isNumber(this.arrivalToCanadaYear);
+    return basic 
+      && returningToBCComplete 
+      && arrivalInCanadaComplete
+      && movingFromAnotherProvince
+      && studentComplete;
   }
 }
 

@@ -12,6 +12,8 @@ import {
 import { MspImage } from '../../../model/msp-image';
 import {Valid} from "../../../common/valid";
 import { Observable } from 'rxjs/Observable';
+import * as _ from 'lodash';
+
 
 @Component({
     selector: 'msp-personal-details',
@@ -208,6 +210,10 @@ export class PersonalDetailsComponent implements AfterViewInit {
 
   toggleInstituationList() {
     this.institutionWorkSignal === 'out' ? this.institutionWorkSignal = 'in' : this.institutionWorkSignal = 'out';    
+  }
+
+  get currentActivityIsValid(): boolean{
+    return _.isNumber(this.person.currentActivity);
   }
 
   get isInstitutionListShown() {
