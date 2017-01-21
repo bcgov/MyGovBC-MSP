@@ -331,6 +331,7 @@ class Person {
    *   6: 'Diplomat'
    */
   get isInfoComplete(){
+    console.log('check data completeness for: ' + Relationship[this.relationship]);
     let basic =  _.isString(this.gender)
     && _.isString(this.firstName) && this.firstName.length > 0 && _.isString(this.lastName) && this.lastName.length > 0
     // && this.isNotEmpty(this.dob_day) && this.isNotEmpty(this.dob_month) && this.isNotEmpty(this.dob_year)
@@ -356,9 +357,25 @@ class Person {
       movingFromAnotherCountryComplete = _.isString(this.movedFromProvinceOrCountry) && this.movedFromProvinceOrCountry.length > 1;
     }
 
-    let studentComplete = _.isBoolean(this.fullTimeStudent);
-    if(studentComplete && this.fullTimeStudent){
-      studentComplete = _.isBoolean(this.inBCafterStudies);
+    let studentComplete:boolean = true;
+    if(this.relationship === Relationship.Applicant || this.relationship === Relationship.Child19To24){
+      studentComplete = _.isBoolean(this.fullTimeStudent);
+      if(studentComplete && this.fullTimeStudent){
+        studentComplete = _.isBoolean(this.inBCafterStudies);
+      }
+    }
+
+    let ageOver19ChildComplete = true;
+
+    if(this.relationship === Relationship.Child19To24){
+      if(this.fullTimeStudent){
+        ageOver19ChildComplete = _.isString(this.schoolName) && this.schoolName.length > 3
+          && _.isNumber(this.studiesFinishedYear) && _.isString(this.studiesFinishedMonth) && _.isNumber(this.studiesFinishedDay)
+          && this.schoolAddress.isValid;
+      }else{
+        //must be a full time student
+        ageOver19ChildComplete = false;
+      }
     }
 
     let institutionWorkComplete = true;
@@ -370,13 +387,17 @@ class Person {
       }  
     }
     let arrivalInCanadaComplete = _.isNumber(this.arrivalToCanadaDay) && _.isString(this.arrivalToCanadaMonth) && _.isNumber(this.arrivalToCanadaYear);
-    return basic 
+    let result = basic 
       && returningToBCComplete 
       && arrivalInCanadaComplete
       && movingFromAnotherProvinceComplete
       && movingFromAnotherCountryComplete
       && institutionWorkComplete
+      && ageOver19ChildComplete
       && studentComplete;
+
+    console.log(Relationship[this.relationship] + ' data completed? ' + result);  
+    return result;  
   }
 }
 

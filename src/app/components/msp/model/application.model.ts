@@ -54,6 +54,10 @@ class MspApplication implements ApplicationBase {
 
   addChild(relationship: Relationship): Person {
     let c = new Person(relationship)
+    if(relationship === Relationship.Child19To24){
+      //child between 19-24 must be a full time student to qualify for enrollment
+      c.fullTimeStudent = true;
+    }
     this._children.length < 30 ? this._children.push(c): console.log('No more than 30 children can be added to one application');
     return c;
   }

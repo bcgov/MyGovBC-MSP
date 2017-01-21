@@ -40,6 +40,7 @@ module.exports = {
   arrivalDateToCanadaLabel: 'Arrival date in Canada',
 
   fullTimeStudentLabel: 'Are you a full-time student?',
+  assertChildBeFullTimeStudent: 'This child is a fulltime student',
   inBCAfterStudiesLabel: 'Will you reside in B.C. upon completion of your studies?',
 
   canadianForcesQuestion: ['Have you been released from the Canadian Armed Forces or an Institution?',

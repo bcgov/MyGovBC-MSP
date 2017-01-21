@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import DataService from './msp-data.service';
 import {FinancialAssistApplication} from '../model/financial-assist-application.model';
 import {MspApplication} from '../model/application.model';
+import {Person} from '../model/person.model';
 
 import * as _ from 'lodash';
 
@@ -37,6 +38,17 @@ export default class CompletenessCheckService {
       if(this.mspApp.spouse){
         complete = complete && this.mspApp.spouse.isInfoComplete;
         console.log('applicant and spouse info complete: ' + complete);
+      }
+
+      if(complete){
+        let infoCompletedChildren:Person[] = this.mspApp.children.filter( ch => {
+          return ch.isInfoComplete;
+        });
+
+        console.log(infoCompletedChildren.length + ' out of ' + this.mspApp.children.length
+          + ' children\'s information are completed.')
+
+        complete = (infoCompletedChildren.length === this.mspApp.children.length);
       }
 
       return complete;

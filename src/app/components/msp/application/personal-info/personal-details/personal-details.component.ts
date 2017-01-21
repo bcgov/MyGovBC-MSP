@@ -163,6 +163,7 @@ export class PersonalDetailsComponent implements AfterViewInit {
     if (!this.person.fullTimeStudent) {
       this.person.inBCafterStudies = null;
     }
+    this.onChange.emit(event);
   }
 
   schoolAddressUpdate(evt:any){
