@@ -13,6 +13,7 @@ import {Ng2CompleterModule} from "ng2-completer";
 import {AssistancePersonalDetailComponent} from "./personal-details/personal-details.component";
 import {MspPhoneComponent} from "../../common/phone/phone.component";
 import {MspGenderComponent} from "../../common/gender/gender.component";
+import {MspCountryComponent} from "../../common/country/country.component";
 
 describe('AssistancePersonalInfoComponent', () => {
   let localStorageServiceConfig = {
@@ -24,7 +25,7 @@ describe('AssistancePersonalInfoComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AssistancePersonalInfoComponent, AssistancePersonalDetailComponent,
         MspPhnComponent, MspNameComponent, MspPhoneComponent,
-        MspBirthDateComponent, MspAddressComponent, MspProvinceComponent,
+        MspBirthDateComponent, MspAddressComponent, MspProvinceComponent, MspCountryComponent,
         Mod11CheckValidator, MspGenderComponent],
       imports: [FormsModule, Ng2CompleterModule],
       providers: [MspDataService,

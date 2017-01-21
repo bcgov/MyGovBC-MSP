@@ -41,13 +41,6 @@ export class MspAddressComponent implements AfterViewInit{
   /**
    * Auto complete for country
    */
-  private dataService: CompleterData;
-  private countryData = this.lang('./en/index.js').countryData;
-
-  constructor(private completerService: CompleterService) {
-
-    this.dataService = completerService.local(this.countryData, 'name', 'name');
-  }
 
   /**
    * When user click 'Need another address line?'

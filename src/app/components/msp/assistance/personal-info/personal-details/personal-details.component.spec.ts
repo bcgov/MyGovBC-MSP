@@ -11,6 +11,7 @@ import {Mod11CheckValidator} from "../../../common/phn/phn.validator";
 import {MspProvinceComponent} from "../../../common/province/province.component";
 import {Ng2CompleterModule} from "ng2-completer";
 import {MspGenderComponent} from "../../../common/gender/gender.component";
+import {MspCountryComponent} from "../../../common/country/country.component";
 
 describe('AssistancePersonalDetailComponent', () => {
   let localStorageServiceConfig = {
@@ -22,7 +23,7 @@ describe('AssistancePersonalDetailComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AssistancePersonalDetailComponent, MspPhnComponent, MspNameComponent,
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent,
-        Mod11CheckValidator, MspGenderComponent],
+        Mod11CheckValidator, MspGenderComponent, MspCountryComponent],
       imports: [FormsModule, Ng2CompleterModule],
       providers: [MspDataService,
         LocalStorageService,{

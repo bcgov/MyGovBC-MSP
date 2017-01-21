@@ -20,6 +20,7 @@ import {ThumbnailComponent} from "../../common/thumbnail/thumbnail.component";
 import {ModalModule} from "ng2-bootstrap";
 import {HealthNumberComponent} from "../../common/health-number/health-number.component";
 import CompletenessCheckService from '../../service/completeness-check.service';
+import {MspCountryComponent} from "../../common/country/country.component";
 
 describe('PersonalInfoComponent', () => {
   let localStorageServiceConfig = {
@@ -32,7 +33,7 @@ describe('PersonalInfoComponent', () => {
       declarations: [PersonalInfoComponent, PersonalDetailsComponent, MspPhnComponent, MspNameComponent, MspProvinceComponent,
         MspArrivalDateComponent, MspArrivalDateComponent, MspGenderComponent, MspDischargeDateComponent,
         MspBirthDateComponent, MspSchoolDateComponent, FileUploaderComponent, MspAddressComponent,
-        Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent],
+        Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent],
       imports: [FormsModule, Ng2CompleterModule, ModalModule],
       providers: [MspDataService,
         CompletenessCheckService,

@@ -680,7 +680,6 @@ export class MspApiService {
 
     /*
      armedDischageDate?: Date;
-     TODO: following up with meg on these properties
      isFullTimeStudent: ct.YesOrNoType;
      isInBCafterStudies?: ct.YesOrNoType;
      willBeAway: ct.YesOrNoType;
