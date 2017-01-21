@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button [class.disabled]="!agreeCheck" class="btn btn-block btn-primary pull-left"
+        <button [disabled]="!agreeCheck" class="btn btn-block btn-primary pull-left"
                 type="submit" (click)="continue()" aria-label="Close">
           {{lang('./en/index.js').continueButton}}</button>
       </div>
