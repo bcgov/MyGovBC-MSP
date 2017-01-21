@@ -44,14 +44,6 @@
             </div>
         </div>
 
-        <div class="row" *ngIf="person.movedFromProvince">
-            <div class="col-xs-4">
-                {{lang('./en/index.js').movedFromProvinceLabel}}
-            </div>
-            <div class="col-xs-8">
-                <strong>{{person.movedFromProvince}}</strong>
-            </div>
-        </div>
 
         <div class="row" *ngIf="person.previous_phn != null">
             <div class="col-xs-4">
@@ -86,6 +78,14 @@
             </div>
             <div class="col-xs-8">
                 <strong>{{person.arrivalToCanada.format("MMMM Do, YYYY")}}</strong>
+            </div>
+        </div>
+        <div class="row" *ngIf="person.movedFromProvince">
+            <div class="col-xs-4">
+                {{movedFromLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.movedFromProvince}}</strong>
             </div>
         </div>
 

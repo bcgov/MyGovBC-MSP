@@ -11,6 +11,7 @@ export class MspProvinceComponent {
 
   lang = require('./i18n');
 
+  @Input() colSize: string = "col-sm-5";
   @Input() province: string;
   @Input() provinceLabel: string = this.lang('./en/index.js').provinceLabel;
   @Output() onChange = new EventEmitter<any>();
