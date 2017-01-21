@@ -234,6 +234,9 @@ export default class MspDataService {
 
     dto.infoCollectionAgreement = input.infoCollectionAgreement;
     dto.unUsualCircumstance = input.unUsualCircumstance;
+    dto.phoneNumber = input.phoneNumber;
+
+    dto.mailingSameAsResidentialAddress = input.mailingSameAsResidentialAddress
     dto.applicant = this.toPersonDto(input.applicant);
     if(input.spouse){
       dto.applicant.spouse = this.toPersonDto(input.spouse);
@@ -261,6 +264,9 @@ export default class MspDataService {
     output.unUsualCircumstance = dto.unUsualCircumstance;
     output.applicant = this.fromPersonDto(dto.applicant);
     output.infoCollectionAgreement = dto.infoCollectionAgreement;
+    output.mailingSameAsResidentialAddress = dto.mailingSameAsResidentialAddress
+    
+    output.phoneNumber = dto.phoneNumber;
 
     if(dto.applicant.spouse){
       output.addSpouse(this.fromPersonDto(dto.applicant.spouse));

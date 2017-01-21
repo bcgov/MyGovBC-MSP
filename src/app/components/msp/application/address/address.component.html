@@ -4,12 +4,12 @@
     <msp-address [residentialAddress]="mspApplication.residentialAddress"
                  [mailingAddress]="mspApplication.mailingAddress"
                  [mailingSameAsResidentialAddress]="mspApplication.mailingSameAsResidentialAddress"
-                 (mailingSameAsResidentialAddressChange)="mspApplication.mailingSameAsResidentialAddress = $event">
+                 (mailingSameAsResidentialAddressChange)="toggleMailingSameAsResidentialAddress($event)">
     </msp-address>
     <div class="row">
         <div class="form-group col-sm-5">
             <msp-phone [phoneNumber]="mspApplication.phoneNumber"
-                       (phoneNumberChange)="mspApplication.phoneNumber = $event"></msp-phone>
+                       (phoneNumberChange)="handlePhoneNumberChange($event)"></msp-phone>
         </div>
     </div>
     <div *ngIf="outOfProvinceFor30DayCandidates.length > 0" class="row">
