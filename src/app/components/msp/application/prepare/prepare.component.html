@@ -63,3 +63,5 @@
         [disabled] = "!(plannedAbsence === false && stayLonger === true && liveInBC === true && unUsualCircumstance === false)"
         routerLink="/msp/application/personal-info"
         [innerHtml]="lang('./en/index.js').continueButton"></button>
+
+<msp-consent-modal #mspConsentModal [application]="mspApplication"></msp-consent-modal>

@@ -32,6 +32,7 @@ import {MspGenderComponent} from './common/gender/gender.component';
 import {FileUploaderComponent} from './common/file-uploader/file-uploader.component';
 import {ThumbnailComponent} from './common/thumbnail/thumbnail.component';
 import {MspOutsideBCComponent} from "./common/outside-bc/outside-bc.component";
+import {MspConsentModalComponent} from "./common/consent-modal/consent-modal.component";
 
 import {MspPersonCardComponent} from './common/person-card/person-card.component';
 import {MspContactCardComponent} from './common/contact-card/contact-card.component';
@@ -72,6 +73,7 @@ import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calcu
 import {EligibilityCardComponent} from './assistance/prepare/eligibility-card/eligibility-card.component';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {MspApiService} from "./service/msp-api.service";
+
 
 
 
@@ -216,6 +218,7 @@ let localStorageServiceConfig = {
     FileUploaderComponent,
     ThumbnailComponent,
     MspOutsideBCComponent,
+    MspConsentModalComponent,
 
     // View cards
     MspPersonCardComponent,

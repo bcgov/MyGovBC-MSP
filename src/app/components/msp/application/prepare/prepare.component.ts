@@ -10,6 +10,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
 import DataService from '../../service/msp-data.service';
+import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
 
 
 @Component({
@@ -27,14 +28,22 @@ export class PrepareComponent implements AfterViewInit{
   @ViewChild('noUnusualCircustanceBtn') noUnusualCircustanceBtn: ElementRef;
   @ViewChild('plannedAbsenceBtn') plannedAbsenceBtn: ElementRef;
   @ViewChild('noPlannedAbsenceBtn') noPlannedAbsenceBtn: ElementRef;
+  @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
 
   private apt: Person;
+  mspApplication: MspApplication;
 
   constructor(private dataService: DataService) {
-    this.apt = this.dataService.getMspApplication().applicant
+    this.mspApplication = this.dataService.getMspApplication();
+    this.apt = this.mspApplication.applicant;
   }
 
   ngAfterViewInit() {
+
+    if (!this.mspApplication.infoCollectionAgreement) {
+      this.mspConsentModal.showFullSizeView();
+    }
+
     let liveInBC$ = Observable.fromEvent<MouseEvent>(this.liveInBCBtn.nativeElement, 'click')
       .map( x=>{
         this.dataService.getMspApplication().applicant.liveInBC = true;

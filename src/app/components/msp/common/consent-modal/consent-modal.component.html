@@ -1,0 +1,23 @@
+<div bsModal #fullSizeViewModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="margin-top: 70px;">
+    <div class="modal-content">
+      <div class="modal-header modal-header-primary">
+        <h2>{{lang('./en/index.js').title}}</h2>
+      </div>
+      <div class="modal-body">
+        <div [innerHtml]="lang('./en/index.js').body"></div>
+        <br>
+        <div class="checkbox checkbox-success checkbox-inline">
+          <input class="input-lg" id="agree" type="checkbox" [(ngModel)]="agreeCheck">
+          <label class="" for="agree"><strong>{{lang('./en/index.js').agreeLabel}}</strong></label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button [class.disabled]="!agreeCheck" class="btn btn-block btn-primary pull-left"
+                type="submit" (click)="continue()" aria-label="Close">
+          {{lang('./en/index.js').continueButton}}</button>
+      </div>
+    </div>
+  </div>
+</div>

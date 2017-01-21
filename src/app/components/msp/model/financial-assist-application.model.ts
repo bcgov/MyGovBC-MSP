@@ -10,6 +10,7 @@ import {ApplicationBase} from "./application-base.model";
 export class FinancialAssistApplication implements ApplicationBase {
 
   readonly uuid = UUID.UUID();
+  infoCollectionAgreement: boolean = false;
 
   /**
    * Set by the API, not for client use
