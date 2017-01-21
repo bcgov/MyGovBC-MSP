@@ -80,12 +80,12 @@
                 <strong>{{person.arrivalToCanada.format("MMMM Do, YYYY")}}</strong>
             </div>
         </div>
-        <div class="row" *ngIf="person.movedFromProvince">
+        <div class="row" *ngIf="person.movedFromProvinceOrCountry">
             <div class="col-xs-4">
                 {{movedFromLabel}}
             </div>
             <div class="col-xs-8">
-                <strong>{{person.movedFromProvince}}</strong>
+                <strong>{{person.movedFromProvinceOrCountry}}</strong>
             </div>
         </div>
 

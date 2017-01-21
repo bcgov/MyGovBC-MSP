@@ -154,7 +154,7 @@ export class PersonalDetailsComponent implements AfterViewInit {
   }
 
   provinceUpdate(evt:string){
-    this.person.movedFromProvince = evt;
+    this.person.movedFromProvinceOrCountry = evt;
     this.onChange.emit(evt);
   }
 

@@ -19,7 +19,7 @@ export default class PersonDto {
   arrivalToBCMonth: number;
   arrivalToBCDay: number;
   
-  movedFromProvince:string;
+  movedFromProvinceOrCountry:string;
   institutionWorkHistory:string;
 
   dischargeYear: number;

@@ -92,7 +92,7 @@
             </div>
             <msp-province *ngIf="person.currentActivity === Activities.MovingFromProvince"
                         [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
-                        [province]="person.movedFromProvince"
+                        [province]="person.movedFromProvinceOrCountry"
                         (onChange)="provinceUpdate($event)"
                         [exceptBC]="true"
                         colSize="col-sm-4"></msp-province>
@@ -125,7 +125,7 @@
             </div>
             <msp-country *ngIf="person.currentActivity == Activities.MovingFromCountry || person.status == StatusInCanada.TemporaryResident"
                         [label]="lang('./en/index.js').movedFromCountryLabel" colSize="col-sm-4"
-                        [country]="person.movedFromProvince" (onChange)="person.movedFromProvince = $event; onChange.emit($event)"></msp-country>
+                        [country]="person.movedFromProvinceOrCountry" (onChange)="person.movedFromProvinceOrCountry = $event; onChange.emit($event)"></msp-country>
         </div>
     </div>
 

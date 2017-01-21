@@ -118,7 +118,7 @@ class Person {
   /**
    * Which province the person has moved from
    */
-  movedFromProvince: string;
+  movedFromProvinceOrCountry: string;
 
   /**
    * This property is for storing user provided answer to the following question:
@@ -346,13 +346,18 @@ class Person {
     }
 
     // code 1 is "Moving from another province"
-    let movingFromAnotherProvince = true;
+    let movingFromAnotherProvinceComplete = true;
     if(this.currentActivity === 1){
-      movingFromAnotherProvince = _.isString(this.movedFromProvince) && this.movedFromProvince.length > 1;
+      movingFromAnotherProvinceComplete = _.isString(this.movedFromProvinceOrCountry) && this.movedFromProvinceOrCountry.length > 1;
     }
 
-    let studentComplete = true;
-    if(this.fullTimeStudent === true){
+    let movingFromAnotherCountryComplete = true;
+    if(this.currentActivity === 2 || this.status === 2) {
+      movingFromAnotherCountryComplete = _.isString(this.movedFromProvinceOrCountry) && this.movedFromProvinceOrCountry.length > 1;
+    }
+
+    let studentComplete = _.isBoolean(this.fullTimeStudent);
+    if(studentComplete && this.fullTimeStudent){
       studentComplete = _.isBoolean(this.inBCafterStudies);
     }
 
@@ -368,7 +373,8 @@ class Person {
     return basic 
       && returningToBCComplete 
       && arrivalInCanadaComplete
-      && movingFromAnotherProvince
+      && movingFromAnotherProvinceComplete
+      && movingFromAnotherCountryComplete
       && institutionWorkComplete
       && studentComplete;
   }

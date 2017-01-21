@@ -654,8 +654,8 @@ export class MspApiService {
     if (from.previous_phn) {
       to.livedInBC.prevHealthNumber = from.previous_phn; // out of province health numbers
     }
-    if (from.movedFromProvince) {
-      to.livedInBC.prevProvinceOrCountry = from.movedFromProvince;
+    if (from.movedFromProvinceOrCountry) {
+      to.livedInBC.prevProvinceOrCountry = from.movedFromProvinceOrCountry;
     }
 
 

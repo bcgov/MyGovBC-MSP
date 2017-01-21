@@ -123,7 +123,7 @@ export default class MspDataService {
     dto.arrivalToBCMonth = input.arrivalToBCMonth;
     dto.arrivalToBCYear = input.arrivalToBCYear;
 
-    dto.movedFromProvince = input.movedFromProvince;
+    dto.movedFromProvinceOrCountry = input.movedFromProvinceOrCountry;
     dto.institutionWorkHistory = input.institutionWorkHistory;
     dto.dischargeYear = input.dischargeYear;
     dto.dischargeMonth = input.dischargeMonth;
@@ -188,7 +188,7 @@ export default class MspDataService {
     output.arrivalToBCMonth = dto.arrivalToBCMonth;
     output.arrivalToBCYear = dto.arrivalToBCYear;
 
-    output.movedFromProvince = dto.movedFromProvince;
+    output.movedFromProvinceOrCountry = dto.movedFromProvinceOrCountry;
     output.institutionWorkHistory = dto.institutionWorkHistory;
     output.dischargeYear = dto.dischargeYear;
     output.dischargeMonth = dto.dischargeMonth;
