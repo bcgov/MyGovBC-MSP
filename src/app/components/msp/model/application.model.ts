@@ -87,9 +87,9 @@ class MspApplication implements ApplicationBase {
    * Set this flag if any family member has been outside BC for more than 30 days
    */
   get outsideBCFor30Days():boolean {
-    return this.applicant.beenOutSideOver30Days 
-      || this._spouse.beenOutSideOver30Days
-      || this.childBeenOutsideBCFor30Days();
+    return (!!this.applicant && this.applicant.beenOutSideOver30Days) 
+      || (!!this._spouse && this._spouse.beenOutSideOver30Days)
+    || this.childBeenOutsideBCFor30Days();
   }
 
   set outsideBCFor30Days(out:boolean) {
