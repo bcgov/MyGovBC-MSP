@@ -8,6 +8,8 @@ import {MspPhnComponent} from "../../common/phn/phn.component";
 import {MspNameComponent} from "../../common/name/name.component";
 import {MspProvinceComponent} from "../../common/province/province.component";
 import {MspArrivalDateComponent} from "../../common/arrival-date/arrival-date.component";
+import {MspDepartureDateComponent} from '../../common/departure-date/departure-date.component';
+import {MspReturnDateComponent} from '../../common/return-date/return-date.component';
 import {MspGenderComponent} from "../../common/gender/gender.component";
 import {MspDischargeDateComponent} from "../../common/discharge-date/discharge-date.component";
 import {MspBirthDateComponent} from "../../common/birthdate/birthdate.component";
@@ -22,6 +24,7 @@ import {HealthNumberComponent} from "../../common/health-number/health-number.co
 import CompletenessCheckService from '../../service/completeness-check.service';
 import {MspCountryComponent} from "../../common/country/country.component";
 import {MspIdReqModalComponent} from "../../common/id-req-modal/id-req-modal.component";
+import {MspOutofBCRecordComponent} from "../../common/outof-bc/outof-bc.component";
 
 describe('PersonalInfoComponent', () => {
   let localStorageServiceConfig = {
@@ -34,7 +37,8 @@ describe('PersonalInfoComponent', () => {
       declarations: [PersonalInfoComponent, PersonalDetailsComponent, MspPhnComponent, MspNameComponent, MspProvinceComponent,
         MspArrivalDateComponent, MspArrivalDateComponent, MspGenderComponent, MspDischargeDateComponent,
         MspBirthDateComponent, MspSchoolDateComponent, FileUploaderComponent, MspAddressComponent,
-        Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent],
+        Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,
+        MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent],
       imports: [FormsModule, Ng2CompleterModule, ModalModule, AccordionModule],
       providers: [MspDataService,
         CompletenessCheckService,
