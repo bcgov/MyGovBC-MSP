@@ -4,9 +4,9 @@ import { MspIdReqModalComponent } from './id-req-modal.component';
 import MspDataService from '../../service/msp-data.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {RouterTestingModule} from "@angular/router/testing";
-import {AccordionModule} from "ng2-bootstrap";
+import {AccordionModule, ModalModule} from "ng2-bootstrap";
 
-describe('MspConsentModalComponent', () => {
+describe('MspIdReqModalComponent', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
     storageType: 'localStorage'
@@ -15,7 +15,7 @@ describe('MspConsentModalComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MspIdReqModalComponent],
-      imports: [FormsModule, RouterTestingModule, AccordionModule],
+      imports: [FormsModule, RouterTestingModule, ModalModule, AccordionModule],
       providers: [MspDataService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
