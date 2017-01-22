@@ -6,6 +6,8 @@ import { LocalStorageService } from 'angular-2-local-storage';
 import FinancialAssistApplicationDto from '../model/financial-assist-application.dto';
 import MspApplicationDto from '../model/application.dto';
 import AddressDto from '../model/address.dto';
+import {OutofBCRecordDto} from '../model/outof-bc-record.dto';
+import {OutofBCRecord} from '../model/outof-bc-record.model';
 import { StatusInCanada, Relationship } from '../model/status-activities-documents';
 import {puts} from "util";
 @Injectable()
@@ -244,19 +246,80 @@ export default class MspDataService {
 
     input.children.forEach( c => {
       let c2:PersonDto = this.toPersonDto(c);
+      c2.outOfBCRecords = this.toOutofBCRecordDtoCollection(c.outOfBCRecords);
+
       this.convertSchoolAddress(c, c2);
       dto.applicant.children = [...dto.applicant.children, c2];
+
     });
 
     this.convertMailingAddress(input, dto);
     this.convertResidentialAddress(input, dto);
 
+    dto.applicant.outOfBCRecords = this.toOutofBCRecordDtoCollection(input.applicant.outOfBCRecords);
+    if(input.spouse){
+      dto.applicant.spouse.outOfBCRecords = 
+        this.toOutofBCRecordDtoCollection(input.spouse.outOfBCRecords);
+    }
+
     dto.outsideBCFor30Days = input.outsideBCFor30Days;
 
-    // input.children.forEach( c => {
-    //   this.convertSchoolAddress(c.schoolAddress, dto.applicant);
-    // })
     return dto;
+  }
+
+
+  private toOutofBCRecordDtoCollection(outofBCRecordCol: OutofBCRecord[]) {
+    let dtoCol: OutofBCRecordDto[] = [];
+    if(!!outofBCRecordCol){
+      outofBCRecordCol.forEach(
+        rec => {
+          if (!rec.isEmpty) {
+            let temp = this.toOutofBCRecordDto(rec);
+            dtoCol = [...dtoCol, temp];
+          }
+        }
+      );
+    }
+    return dtoCol;
+  }
+
+  private toOutofBCRecordCollection(outofBCRecordDtoCol: OutofBCRecordDto[]) {
+    let records: OutofBCRecord[] = [];
+    if(!!outofBCRecordDtoCol) {
+      outofBCRecordDtoCol.forEach(
+        dto => {
+          let temp = this.toOutofBCRecord(dto);
+          records = [...records, temp];
+        }
+      );
+    }
+    return records;
+  }
+
+  private toOutofBCRecordDto(outofBCRecord: OutofBCRecord){
+    let dto:OutofBCRecordDto = new OutofBCRecordDto();
+    dto.reasonAndLocation = outofBCRecord.reasonAndLocation;
+    dto.departureDay = outofBCRecord.departureDay;
+    dto.departureMonth = outofBCRecord.departureMonth;
+    dto.departureYear = outofBCRecord.departureYear;
+    dto.returnDay = outofBCRecord.returnDay;
+    dto.returnMonth = outofBCRecord.returnMonth;
+    dto.returnYear = outofBCRecord.returnYear;
+
+    return dto;
+  }
+
+  private toOutofBCRecord(dto: OutofBCRecordDto){
+    let rec:OutofBCRecord = new OutofBCRecord();
+    rec.reasonAndLocation = dto.reasonAndLocation;
+    rec.departureDay = dto.departureDay;
+    rec.departureMonth = dto.departureMonth;
+    rec.departureYear = dto.departureYear;
+    rec.returnDay = dto.returnDay;
+    rec.returnMonth = dto.returnMonth;
+    rec.returnYear = dto.returnYear;
+
+    return rec;
   }
 
   private fromMspApplicationTransferObject(dto:MspApplicationDto):MspApplication{
@@ -272,14 +335,22 @@ export default class MspDataService {
       output.addSpouse(this.fromPersonDto(dto.applicant.spouse));
     }
 
-    dto.applicant.children.forEach( c=> {
+    dto.applicant.children.forEach( c => {
       let child: Person = this.fromPersonDto(c)
+      child.outOfBCRecords = this.toOutofBCRecordCollection(c.outOfBCRecords);
       this.convertSchoolAddress(c, child);
       output.children = [...output.children, child];
     });
 
     this.convertMailingAddress(dto, output);
     this.convertResidentialAddress(dto, output);
+
+    output.applicant.outOfBCRecords = this.toOutofBCRecordCollection(dto.applicant.outOfBCRecords);
+    if(dto.applicant.spouse){
+      output.spouse.outOfBCRecords = 
+        this.toOutofBCRecordCollection(dto.applicant.spouse.outOfBCRecords);
+    }
+    
     output.outsideBCFor30Days = dto.outsideBCFor30Days;
 
     return output;

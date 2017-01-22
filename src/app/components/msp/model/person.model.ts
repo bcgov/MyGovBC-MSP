@@ -1,6 +1,7 @@
 import {Relationship, StatusInCanada, Activities} from "./status-activities-documents";
 import {PersonDocuments} from "./person-document.model";
 import {Address} from "./address.model";
+import {OutofBCRecord} from "./outof-bc-record.model";
 import moment = require("moment");
 import {UUID} from "angular2-uuid";
 import * as _ from 'lodash';
@@ -20,6 +21,27 @@ class Person {
   _status: StatusInCanada;
   _currentActivity: Activities;
   documents: PersonDocuments = new PersonDocuments();
+  outOfBCRecords:OutofBCRecord[] = [];
+
+  /**
+   * Had episodes of leaving and returning to bc for peirod of longer than 30 days.
+   */
+  private _beenOutSideOver30Days:boolean;
+
+  get beenOutSideOver30Days():boolean {
+    return this.outOfBCRecords.filter( rec => {
+      return !rec.isEmpty;      
+    }).length > 0;
+  }
+
+  get hasCompleteOutSideRecords():boolean {
+    let noRecords = this.outOfBCRecords.length === 0; 
+    let allFilledIn = this.outOfBCRecords.filter( rec => {
+      return rec.isValid();
+    }).length === this.outOfBCRecords.length;
+
+    return noRecords || allFilledIn;
+  }
   /**
    * Name section
    */
@@ -331,7 +353,7 @@ class Person {
    *   6: 'Diplomat'
    */
   get isInfoComplete(){
-    console.log('check data completeness for: ' + Relationship[this.relationship]);
+    // console.log('check data completeness for: ' + Relationship[this.relationship]);
     let basic =  _.isString(this.gender)
     && _.isString(this.firstName) && this.firstName.length > 0 && _.isString(this.lastName) && this.lastName.length > 0
     // && this.isNotEmpty(this.dob_day) && this.isNotEmpty(this.dob_month) && this.isNotEmpty(this.dob_year)
@@ -387,6 +409,7 @@ class Person {
       }  
     }
     let arrivalInCanadaComplete = _.isNumber(this.arrivalToCanadaDay) && _.isString(this.arrivalToCanadaMonth) && _.isNumber(this.arrivalToCanadaYear);
+    
     let result = basic 
       && returningToBCComplete 
       && arrivalInCanadaComplete
@@ -394,9 +417,10 @@ class Person {
       && movingFromAnotherCountryComplete
       && institutionWorkComplete
       && ageOver19ChildComplete
-      && studentComplete;
+      && studentComplete
+      && this.hasCompleteOutSideRecords;
 
-    console.log(Relationship[this.relationship] + ' data completed? ' + result);  
+    // console.log(Relationship[this.relationship] + ' data completed? ' + result);  
     return result;  
   }
 }

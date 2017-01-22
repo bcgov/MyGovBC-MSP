@@ -5,6 +5,7 @@ import  {
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Person } from '../../../model/person.model';
+import { OutofBCRecord } from '../../../model/outof-bc-record.model';
 import {
   StatusRules, ActivitiesRules, StatusInCanada, Activities,
   DocumentRules, Documents, Relationship
@@ -225,11 +226,39 @@ export class PersonalDetailsComponent implements AfterViewInit {
     return this.institutionWorkSignal === 'out';
   }
 
+  addOutofBCRecord() {
+    if(this.person.outOfBCRecords.length < 12){
+      this.person.outOfBCRecords.push(new OutofBCRecord());
+    }
+  }
+
   handleHealthNumberChange(evt:string){
     this.person.healthNumberFromOtherProvince = evt;
     this.onChange.emit(evt);
     
-    console.log('health number changed: ' + evt);
+    // console.log('health number changed: ' + evt);
+  }
+
+  handleDeleteOutofBCRecord(evt:OutofBCRecord){
+    this.person.outOfBCRecords = this.person.outOfBCRecords.filter(
+      rec => {
+        return rec.id != evt.id;
+      }
+    );
+    this.onChange.emit(evt);
+  }
+
+  handleOutofBCRecordChange(evt:OutofBCRecord){
+    this.onChange.emit(evt);
+  }
+
+  get outofBCRecordsValid():boolean {
+    let valid = true;
+    this.person.outOfBCRecords.forEach( rec => {
+      valid = valid && rec.isValid();
+    });
+
+    return valid;
   }
 
   viewIdReqModal(event:Documents) {

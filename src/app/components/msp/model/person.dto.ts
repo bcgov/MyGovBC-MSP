@@ -1,5 +1,6 @@
 import { MspImage } from './msp-image';
 import AddressDto from './address.dto';
+import {OutofBCRecordDto} from './outof-bc-record.dto';
 
 export default class PersonDto {
   relationship:number;
@@ -68,4 +69,6 @@ export default class PersonDto {
   outsideBCReturnDateMonth: number;
   outsideBCReturnDateDay: number;
   outsideBCFamilyMemberReason: string;
+
+  outOfBCRecords: OutofBCRecordDto[];
 }

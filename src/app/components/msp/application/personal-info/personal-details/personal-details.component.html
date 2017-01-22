@@ -62,7 +62,9 @@
                 (onDeleteDocument)="deleteDocument($event)"></msp-file-uploader>
         </div>
     </div>
-    <div *ngIf="person.documents.images.length > 0 && hasValidCurrentActivity">
+<div *ngIf="hasValidCurrentActivity">
+
+    <div *ngIf="person.documents.images.length > 0">
         <h3 [innerHtml]="personalInfoLabel()"></h3>
         <p class="help-block" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
         <msp-name [person]="person" (onChange) = "onChange.emit($event)"></msp-name>
@@ -75,7 +77,34 @@
                 <msp-birthdate [person]="person" (onChange) = "onChange.emit($event)"></msp-birthdate>
             </div>
         </div>
-
+<!--
+   These questions need to be visible to everyone except those who have selected one of the two following statuses:
+   Canadian citizen - moving from another province
+   Permanent Resident - moving from another province
+-->        
+        <div *ngIf="!((person.status === StatusInCanada.CitizenAdult || person.status === StatusInCanada.PermanentResident) && (person.currentActivity === Activities.MovingFromProvince))"
+            style="margin-bottom: 20px">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4>Have you been outside BC for more than 30 days in total during the past 12 months?</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <msp-outof-bc-record *ngFor="let record of person.outOfBCRecords"
+                        [outofBCRecord]="record"
+                        (onDelete)="handleDeleteOutofBCRecord($event)"
+                        (onUpdate)="handleOutofBCRecordChange($event)"
+                    >
+                    </msp-outof-bc-record>
+                </div>
+            </div>
+            <div class="row" *ngIf="person.outOfBCRecords.length < 12">
+                <div class="col-sm-12">
+                    <a href="javascript:void(0)" (click)="addOutofBCRecord($event)">Add information about being outside and returning to BC</a>
+                </div>    
+            </div>
+        </div>
         <div class="row">
             <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning && (person.status === 1 || person.status === 0)">
                 <label>Do you have a previous BC Personal Health Number?</label>
@@ -231,6 +260,9 @@
                 [mailingOnly]="true"
                 (onChange)="schoolAddressUpdate($event)"                 
                 ></msp-address>
+
+</div>
+
 </form>
 
 <!-- switch *ngIf value to true for debugging-->

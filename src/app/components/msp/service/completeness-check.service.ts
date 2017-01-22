@@ -33,11 +33,11 @@ export default class CompletenessCheckService {
 
     mspPersonalInfoDocsCompleted(){
       let complete = this.mspApp.applicant.isInfoComplete;      
-      console.log('applicant info complete: ' + complete);
+      // console.log('applicant info complete: ' + complete);
 
       if(this.mspApp.spouse){
         complete = complete && this.mspApp.spouse.isInfoComplete;
-        console.log('applicant and spouse info complete: ' + complete);
+        // console.log('applicant and spouse info complete: ' + complete);
       }
 
       if(complete){
@@ -45,8 +45,8 @@ export default class CompletenessCheckService {
           return ch.isInfoComplete;
         });
 
-        console.log(infoCompletedChildren.length + ' out of ' + this.mspApp.children.length
-          + ' children\'s information are completed.')
+        // console.log(infoCompletedChildren.length + ' out of ' + this.mspApp.children.length
+        //   + ' children\'s information are completed.')
 
         complete = (infoCompletedChildren.length === this.mspApp.children.length);
       }
