@@ -13,6 +13,7 @@ import { MspImage } from '../../../model/msp-image';
 import {Valid} from "../../../common/valid";
 import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
+import {MspIdReqModalComponent} from "../../../common/id-req-modal/id-req-modal.component";
 
 
 @Component({
@@ -60,6 +61,7 @@ export class PersonalDetailsComponent implements AfterViewInit {
   StatusInCanada: typeof StatusInCanada = StatusInCanada;
 
   @ViewChild('formRef') form: NgForm;
+  @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
 
   @Input() viewOnly: boolean = false;
   @Input() person: Person;
@@ -228,5 +230,9 @@ export class PersonalDetailsComponent implements AfterViewInit {
     this.onChange.emit(evt);
     
     console.log('health number changed: ' + evt);
+  }
+
+  viewIdReqModal(event:Documents) {
+    this.idReqModal.showFullSizeView();
   }
 }

@@ -17,7 +17,7 @@ module.exports = {
     'Child\'s documents',
     'Child\'s documents'],
   documentInstructionsNote: '<i class="fa fa-info-circle" aria-hidden="true"></i> Please include the entire document, corner to corner. See some <a href="#" target="_blank">examples of what needs to be included</a>.',
-
+  viewSamplesButton: 'View samples',
 
   nameHelpBlock: ['Enter your legal name and gender as it appears on the documents you provided',
     'Enter your spouse\'s legal name and gender as it appears on the documents you provided',

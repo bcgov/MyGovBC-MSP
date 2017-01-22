@@ -1,0 +1,36 @@
+<div bsModal #fullSizeViewModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div id="idReq" class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <a class="pull-right" (click)="hideFullSizeView()" aria-label="Close">
+          <i class="fa fa-2x fa-times" aria-hidden="true"></i>
+        </a>
+        <h1>{{lang('./en/index.js').title}}</h1>
+        <p class="help-block" [innerHTML]="lang('./en/index.js').intro"></p>
+
+        <div *ngFor="let idReq of idRequirementContentList">
+          <h2>{{idReq.residency}}</h2>
+
+          <accordion>
+            <accordion-group #group
+               *ngFor="let documentContent of idReq.documentContentList">
+              <div accordion-heading>
+                {{documentContent.title}}
+                <i class="pull-right float-xs-right fa"
+                   [ngClass]="{'fa-caret-down': group?._isOpen, 'fa-caret-right': !group?._isOpen}"></i>
+              </div>
+              <div class="row">
+                <div class="col-sm-6" [innerHtml]="documentContent.body"></div>
+                <div class="col-sm-6">
+                  TODO image here
+                </div>
+              </div>
+            </accordion-group>
+          </accordion>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

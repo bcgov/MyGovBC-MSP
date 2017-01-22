@@ -45,7 +45,13 @@
             <h3>{{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
             <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
             <ul>
-                <li *ngFor="let document of documents">{{langDocuments('./en/index.js')[document]}}</li>
+                <li *ngFor="let document of documents">
+                    {{langDocuments('./en/index.js')[document]}}
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <a role="button" (click)="viewIdReqModal(document)"
+                       [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
+                </li>
+                <msp-id-req-modal #idReqModal></msp-id-req-modal>
             </ul>
             <p class="warning" [innerHtml]="lang('./en/index.js').documentInstructionsNote"></p>
         </div>

@@ -8,6 +8,7 @@ import {CommonModule} from '@angular/common';
 import { AlertModule } from 'ng2-bootstrap/components/alert';
 import { ProgressbarModule } from 'ng2-bootstrap/components/progressbar';
 import { ModalModule } from 'ng2-bootstrap/components/modal';
+import { AccordionModule } from 'ng2-bootstrap/components/accordion';
 import { Ng2CompleterModule } from "ng2-completer";
 
 import {MspComponent} from './msp.component';
@@ -33,6 +34,7 @@ import {FileUploaderComponent} from './common/file-uploader/file-uploader.compon
 import {ThumbnailComponent} from './common/thumbnail/thumbnail.component';
 import {MspOutsideBCComponent} from "./common/outside-bc/outside-bc.component";
 import {MspConsentModalComponent} from "./common/consent-modal/consent-modal.component";
+import {MspIdReqModalComponent} from "./common/id-req-modal/id-req-modal.component";
 
 import {MspPersonCardComponent} from './common/person-card/person-card.component';
 import {MspContactCardComponent} from './common/contact-card/contact-card.component';
@@ -74,9 +76,6 @@ import {EligibilityCardComponent} from './assistance/prepare/eligibility-card/el
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {MspApiService} from "./service/msp-api.service";
 
-
-
-
 let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
     storageType: 'sessionStorage'
@@ -95,6 +94,7 @@ let localStorageServiceConfig = {
     AlertModule,
     ProgressbarModule,
     ModalModule,
+    AccordionModule,
     Ng2CompleterModule,
 
     RouterModule.forChild([
@@ -219,6 +219,7 @@ let localStorageServiceConfig = {
     ThumbnailComponent,
     MspOutsideBCComponent,
     MspConsentModalComponent,
+    MspIdReqModalComponent,
 
     // View cards
     MspPersonCardComponent,
