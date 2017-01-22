@@ -233,6 +233,6 @@ export class PersonalDetailsComponent implements AfterViewInit {
   }
 
   viewIdReqModal(event:Documents) {
-    this.idReqModal.showFullSizeView();
+    this.idReqModal.showFullSizeView(event);
   }
 }

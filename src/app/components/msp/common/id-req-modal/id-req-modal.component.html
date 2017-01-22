@@ -12,9 +12,11 @@
         <div *ngFor="let idReq of idRequirementContentList">
           <h2>{{idReq.residency}}</h2>
 
-          <accordion>
+          <accordion [closeOthers]="true">
             <accordion-group #group
-               *ngFor="let documentContent of idReq.documentContentList">
+                *ngFor="let documentContent of idReq.documentContentList"
+                [isOpen]="documentContent.document === initialDocument">
+
               <div accordion-heading>
                 {{documentContent.title}}
                 <i class="pull-right float-xs-right fa"
@@ -26,6 +28,7 @@
                   TODO image here
                 </div>
               </div>
+
             </accordion-group>
           </accordion>
 

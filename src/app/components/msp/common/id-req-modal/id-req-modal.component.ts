@@ -2,6 +2,7 @@ import {Component, Input, ViewChild} from '@angular/core'
 import moment = require("moment");
 import {ModalDirective, AccordionComponent} from "ng2-bootstrap";
 import {IdRequirementContent} from "./id-req-content.model.component";
+import {Documents} from "../../model/status-activities-documents";
 
 require('./id-req-modal.component.less');
 
@@ -15,9 +16,12 @@ export class MspIdReqModalComponent {
 
   @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
   @ViewChild('accordian') public accordian:AccordionComponent;
-  idRequirementContentList: IdRequirementContent[] = this.lang('./en/index.js').idRequirementContentList;
 
-  showFullSizeView(){
+  idRequirementContentList: IdRequirementContent[] = this.lang('./en/index.js').idRequirementContentList;
+  initialDocument: number;
+
+  showFullSizeView(document: Documents){
+    this.initialDocument = document;
     this.fullSizeViewModal.config.backdrop = false;
     this.fullSizeViewModal.show();
   }

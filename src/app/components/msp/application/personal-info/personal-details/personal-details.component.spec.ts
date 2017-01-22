@@ -16,7 +16,7 @@ import {MspAddressComponent} from "../../../common/address/address.component";
 import {Mod11CheckValidator} from "../../../common/phn/phn.validator";
 import {Ng2CompleterModule} from "ng2-completer";
 import {ThumbnailComponent} from "../../../common/thumbnail/thumbnail.component";
-import {ModalModule} from "ng2-bootstrap";
+import {ModalModule, AccordionModule} from "ng2-bootstrap";
 import {HealthNumberComponent} from "../../../common/health-number/health-number.component";
 import {MspCountryComponent} from "../../../common/country/country.component";
 
@@ -32,7 +32,7 @@ describe('PersonalDetailsComponent', () => {
         MspArrivalDateComponent, MspArrivalDateComponent, MspGenderComponent, MspDischargeDateComponent,
         MspBirthDateComponent, MspSchoolDateComponent, FileUploaderComponent, MspAddressComponent,
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent],
-      imports: [FormsModule, Ng2CompleterModule, ModalModule],
+      imports: [FormsModule, Ng2CompleterModule, ModalModule, AccordionModule],
       providers: [MspDataService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
