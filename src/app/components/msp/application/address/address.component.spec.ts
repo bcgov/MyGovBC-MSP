@@ -1,9 +1,9 @@
 import {TestBed, inject, async} from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
 
-
 import { AddressComponent } from './address.component'
 import MspDataService from '../../service/msp-data.service';
+import CompletenessCheckService from '../../service/completeness-check.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {MspApplication} from "../../model/application.model";
 import {MspAddressComponent} from "../../common/address/address.component";
@@ -26,7 +26,7 @@ describe('Application Address Component', () => {
             declarations: [AddressComponent, MspAddressComponent, MspPhoneComponent, MspProvinceComponent,
                 MspOutsideBCComponent, MspDepartureDateComponent, MspReturnDateComponent, MspCountryComponent],
             imports: [FormsModule, Ng2CompleterModule],
-            providers: [MspDataService,
+            providers: [MspDataService, CompletenessCheckService,
                 LocalStorageService,{
                     provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
                 }
