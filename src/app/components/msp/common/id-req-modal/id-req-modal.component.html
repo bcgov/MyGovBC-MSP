@@ -25,7 +25,8 @@
               <div class="row">
                 <div class="col-sm-6" [innerHtml]="documentContent.body"></div>
                 <div class="col-sm-6">
-                  TODO image here
+                 <img *ngIf="documentContent.image && documentContent.image.length > 0"
+                      [src]="getImageUrl(documentContent.image)" class="img-responsive">
                 </div>
               </div>
 
