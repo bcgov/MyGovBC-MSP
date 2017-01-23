@@ -22,6 +22,12 @@ module.exports = {
 
             documentContentList: [
                 {
+                    document: 0,
+                    title: "Canadian Birth Certificate",
+                    body: "<ul><li>Include entire page, corner to corner</li><li>Ensure all text is legible and photo is in focus</li></ul>",
+                    image: "sampleUrl"
+                },
+                {
                     document: 1,
                     title: "Canadian Passport",
                     body: "<ul><li>Include entire page, corner to corner</li><li>Ensure all text is legible and photo is in focus</li></ul>",
@@ -54,6 +60,24 @@ module.exports = {
                 {
                     document: 3,
                     title: "Record of Landing",
+                    body: "Sample body",
+                    image: "sampleUrl"
+                },
+                {
+                    document: 5,
+                    title: "Work Permit",
+                    body: "Sample body",
+                    image: "sampleUrl"
+                },
+                {
+                    document: 6,
+                    title: "Study Permit",
+                    body: "Sample body",
+                    image: "sampleUrl"
+                },
+                 {
+                    document: 7,
+                    title: "Visitor Visa",
                     body: "Sample body",
                     image: "sampleUrl"
                 }
