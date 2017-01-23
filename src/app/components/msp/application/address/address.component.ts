@@ -3,6 +3,7 @@ import {NgForm} from "@angular/forms";
 import DataService from '../../service/msp-data.service';
 import {MspApplication} from "../../model/application.model";
 import {Person} from "../../model/person.model";
+import {Address} from "../../model/address.model";
 import {UUID} from "angular2-uuid";
 
 @Component({
@@ -32,56 +33,21 @@ export class AddressComponent implements AfterViewInit{
     });
   }
 
-  setOutsideBCFor30DaysLabel (value:boolean) {
-    this.mspApplication.outsideBCFor30Days = value;
-    if (!value) {
-
-      // erase departure persons
-      this.departurePersonUuids = null;
-
-      //erase all previous work
-      for (let person of this.outOfProvinceFor30DayCandidates) {
-        person.resetOutsideBCValues();
-      }
-    }
-    else {
-      // erase departure persons
-      this.departurePersonUuids = new Array<string>();
-      this.departurePersonUuids.push("");
-    }
-
-    this.dataService.saveMspApplication();
-  }
-
-  addAnotherOutsideBCPersonButton():void {
-    this.departurePersonUuids.push("");
-    this.dataService.saveMspApplication();
-  }
-
-  removeDeparture(uuid: string): void {
-    let index = this.departurePersonUuids.indexOf(uuid);
-    if (index > -1) {
-      this.departurePersonUuids.splice(index, 1);
-    }
-    this.dataService.saveMspApplication();
-  }
-  /**
-   * Function to determine if any person left are not being worked on
-   */
-  hasOutOfProvinceFor30CandidatesNotWorking(): boolean {
-    return true;
-  }
-
   handlePhoneNumberChange(evt:any) {
     this.mspApplication.phoneNumber = evt;    
     this.dataService.saveMspApplication();
   }
 
   toggleMailingSameAsResidentialAddress(evt:boolean){
-    // console.log("handleMailingAddressChange");
-    // console.log(evt);
     this.mspApplication.mailingSameAsResidentialAddress = evt;
+    if(evt){
+      this.mspApplication.mailingAddress = new Address();
+    }
     this.dataService.saveMspApplication();
   }
 
+  handleAddressUpdate(evt:any){
+    console.log('address update event: %o', evt);
+    this.dataService.saveMspApplication();
+  }
 }

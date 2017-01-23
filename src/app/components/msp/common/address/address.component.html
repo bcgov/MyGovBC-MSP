@@ -18,7 +18,7 @@
                        id="residentialAddressLine3" name="residentialAddressLine3" #residentialAddressLine3Ref="ngModel"
                        maxlength="25">
             </div>
-            <a [hidden]="useResidentialAddressLine2 && useResidentialAddressLine3"
+            <a [hidden]="useResidentialAddressLine2 && useResidentialAddressLine3" href="javascript:void(0)"
                (click)="useAnotherResidentialAddressLine()">Need another address line?</a>
             <div *ngIf='residentialAddressLine1Ref.touched'>
                 <div class="text-danger" *ngIf="residentialAddressLine1Ref.errors?.required"
@@ -120,7 +120,7 @@
                            id="mailingAddressLine3" name="mailingAddressLine3" #mailingAddressLine3Ref="ngModel"
                            maxlength="25">
                 </div>
-                <a [hidden]="useMailingAddressLine2 && useMailingAddressLine3"
+                <a [hidden]="useMailingAddressLine2 && useMailingAddressLine3" href="javascript:void(0)"
                    (click)="useAnotherMailingAddressLine()">Need another address line?</a>
                 <div *ngIf='mailingAddressLine1Ref.touched'>
                     <div class="text-danger" *ngIf="mailingAddressLine1Ref.errors?.required"

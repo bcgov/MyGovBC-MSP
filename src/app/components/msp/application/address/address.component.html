@@ -4,7 +4,8 @@
     <msp-address [residentialAddress]="mspApplication.residentialAddress"
                  [mailingAddress]="mspApplication.mailingAddress"
                  [mailingSameAsResidentialAddress]="mspApplication.mailingSameAsResidentialAddress"
-                 (mailingSameAsResidentialAddressChange)="toggleMailingSameAsResidentialAddress($event)">
+                 (mailingSameAsResidentialAddressChange)="toggleMailingSameAsResidentialAddress($event)"
+                 (onChange)="handleAddressUpdate($event)">
     </msp-address>
     <div class="row">
         <div class="form-group col-sm-5">
