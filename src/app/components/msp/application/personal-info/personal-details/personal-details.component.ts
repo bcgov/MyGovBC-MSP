@@ -116,6 +116,13 @@ export class PersonalDetailsComponent implements AfterViewInit {
     return DocumentRules.availiableDocuments(this.person.status, this.person.currentActivity);
   }
 
+  /**
+   * Gets the available documents given the known status and activity
+   */
+  get nameChangeDocuments(): Documents[] {
+    return DocumentRules.nameChangeDocument();
+  }
+
   addDocument(evt:MspImage){
     console.log('image added: %s', evt);
     this.person.documents.images = [...this.person.documents.images, evt];

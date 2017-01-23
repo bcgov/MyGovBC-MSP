@@ -43,7 +43,9 @@ enum Documents {
   WorkPermit,
   StudyPermit,
   VisitorVisa,
-  PassportWithDiplomaticFoil
+  PassportWithDiplomaticFoil,
+  MarriageCertificate,
+  ChangeOfNameCertificate
 }
 
 /**
@@ -107,6 +109,10 @@ class DocumentRules {
       case Activities.Diplomat:
         return [Documents.PassportWithDiplomaticFoil]
     }
+  }
+
+  static nameChangeDocument() {
+    return [Documents.MarriageCertificate, Documents.ChangeOfNameCertificate]
   }
 }
 

@@ -12,11 +12,12 @@ module.exports = {
     'Child\'s ID requirements',
     'Child\'s ID requirements'],
   documentInstructionsIntro: 'You need to include a scan or photograph of <strong>one</strong> of the following with your application:',
+  documentInstructionsMarriage: 'Has your name changed since your ID was issue due to marriage or a legal name change? If so, include <strong>one or more</strong> of the following:',
   documentUploadLabel: ['Your documents',
     'Spouse\'s documents',
     'Child\'s documents',
     'Child\'s documents'],
-  documentInstructionsNote: '<i class="fa fa-info-circle" aria-hidden="true"></i> Please include the entire document, corner to corner. See some <a href="#" target="_blank">examples of what needs to be included</a>.',
+  documentInstructionsNote: '<i class="fa fa-info-circle" aria-hidden="true"></i> Please include the entire document, corner to corner.',
   viewSamplesButton: 'View samples',
 
   nameHelpBlock: ['Enter your legal name and gender as it appears on the documents you provided',
