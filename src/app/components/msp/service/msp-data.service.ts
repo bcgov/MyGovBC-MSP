@@ -153,6 +153,8 @@ export default class MspDataService {
     dto.outsideBCReturnDateDay = input.outsideBCReturnDateDay;
     dto.outsideBCFamilyMemberReason = input.outsideBCFamilyMemberReason;
 
+    dto.declarationForOutsideOver30Days = input.declarationForOutsideOver30Days;
+
     if(input.gender){
       dto.gender = input.gender.valueOf();
     }
@@ -217,6 +219,8 @@ export default class MspDataService {
     output.outsideBCReturnDateMonth = dto.outsideBCReturnDateMonth;
     output.outsideBCReturnDateDay = dto.outsideBCReturnDateDay;
     output.outsideBCFamilyMemberReason = dto.outsideBCFamilyMemberReason;
+
+    output.declarationForOutsideOver30Days = dto.declarationForOutsideOver30Days;
 
     if(dto.gender){
       output.gender = dto.gender;

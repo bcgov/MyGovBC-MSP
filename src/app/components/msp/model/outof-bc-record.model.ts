@@ -20,7 +20,7 @@ export class OutofBCRecord {
    * All fields provided with value
    */
   isValid():boolean {
-    return !this.isEmpty
+    return !this.isEmpty && !!this.reasonAndLocation
     && this.reasonAndLocation.length > 0
     && _.isNumber(this.departureDay)
     && _.isNumber(this.departureYear)

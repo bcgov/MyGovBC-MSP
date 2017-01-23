@@ -77,16 +77,23 @@
                 <msp-birthdate [person]="person" (onChange) = "onChange.emit($event)"></msp-birthdate>
             </div>
         </div>
-<!--
-   These questions need to be visible to everyone except those who have selected one of the two following statuses:
-   Canadian citizen - moving from another province
-   Permanent Resident - moving from another province
--->        
+        <!--
+        These questions need to be visible to everyone except those who have selected one of the two following statuses:
+        Canadian citizen - moving from another province
+        Permanent Resident - moving from another province
+        -->        
         <div *ngIf="!((person.status === StatusInCanada.CitizenAdult || person.status === StatusInCanada.PermanentResident) && (person.currentActivity === Activities.MovingFromProvince))"
             style="margin-bottom: 20px">
             <div class="row">
                 <div class="col-sm-12">
-                    <h4>Have you been outside BC for more than 30 days in total during the past 12 months?</h4>
+                    <label [innerHtml]="lang('./en/index.js').beenOutsideBCOver30DaysLabel"></label>
+                    <div class="btn-group" role="group">
+                        <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
+                                [class.msp-btn-radio]="person.declarationForOutsideOver30Days === answer.value"
+                                (click)="setBeenOutsideForOver30Days(answer.value)"
+                                type="button" class="btn btn-default">{{answer.label}}
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -99,7 +106,14 @@
                     </msp-outof-bc-record>
                 </div>
             </div>
-            <div class="row" *ngIf="person.outOfBCRecords.length < 12">
+            <!--
+                <div class="row" *ngIf="person.declarationForOutsideOver30Days">
+                To allow multiple departure-return/outof-bc records to be added, 
+                1. use "person.declarationForOutsideOver30Days" as the above line shows.
+                2. Go to outof-bc.component.html to enable the delete button. (adjust the column 
+                allocation on the page to allocate one column to the delete button.)
+            -->
+            <div class="row" *ngIf="false">
                 <div class="col-sm-12">
                     <a href="javascript:void(0)" (click)="addOutofBCRecord($event)">Add information about being outside and returning to BC</a>
                 </div>    

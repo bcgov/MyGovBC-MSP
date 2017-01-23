@@ -27,6 +27,7 @@ class Person {
    * Had episodes of leaving and returning to bc for peirod of longer than 30 days.
    */
   private _beenOutSideOver30Days:boolean;
+  declarationForOutsideOver30Days: boolean;
 
   get beenOutSideOver30Days():boolean {
     return this.outOfBCRecords.filter( rec => {

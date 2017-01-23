@@ -70,5 +70,7 @@ export default class PersonDto {
   outsideBCReturnDateDay: number;
   outsideBCFamilyMemberReason: string;
 
+  declarationForOutsideOver30Days:boolean;
+
   outOfBCRecords: OutofBCRecordDto[];
 }

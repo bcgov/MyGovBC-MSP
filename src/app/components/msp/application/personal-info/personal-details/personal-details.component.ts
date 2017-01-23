@@ -77,6 +77,8 @@ export class PersonalDetailsComponent implements AfterViewInit {
   genderListSignal: string;
   institutionWorkSignal: string;
 
+  constructor(){
+  }
   statusLabel(): string {
     return this.lang('./en/index.js').statusLabel[this.person.relationship]
   }
@@ -141,6 +143,12 @@ export class PersonalDetailsComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    /**
+     * Load an empty row to screen 
+     */
+    if(this.person.declarationForOutsideOver30Days && this.person.outOfBCRecords.length === 0){
+      this.setBeenOutsideForOver30Days(true);      
+    }
     if(this.form){
       this.form.valueChanges
       .subscribe(values => {
@@ -237,6 +245,16 @@ export class PersonalDetailsComponent implements AfterViewInit {
     this.onChange.emit(evt);
     
     // console.log('health number changed: ' + evt);
+  }
+
+  setBeenOutsideForOver30Days(out:boolean){
+    this.person.declarationForOutsideOver30Days = out;
+    if(out){
+      this.addOutofBCRecord();
+    }else {
+      this.person.outOfBCRecords = [];
+    }
+    this.onChange.emit(out);
   }
 
   handleDeleteOutofBCRecord(evt:OutofBCRecord){

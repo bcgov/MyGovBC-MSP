@@ -39,6 +39,7 @@ module.exports = {
   arrivalDateToBCLabelForReturning: 'Most recent move to B.C.',
   arrivalDateToCanadaLabel: 'Arrival date in Canada',
 
+  beenOutsideBCOver30DaysLabel: "Have you been outside BC for more than 30 days in total during the past 12 months?",
   fullTimeStudentLabel: 'Are you a full-time student?',
   assertChildBeFullTimeStudent: 'This child is a fulltime student',
   inBCAfterStudiesLabel: 'Will you reside in B.C. upon completion of your studies?',
