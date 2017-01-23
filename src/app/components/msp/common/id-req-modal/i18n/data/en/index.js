@@ -25,7 +25,7 @@ module.exports = {
                     document: 0,
                     title: "Canadian Birth Certificate",
                     body: "<ul><li>Include entire page, corner to corner</li><li>Ensure all text is legible and photo is in focus</li></ul>",
-                    image: "sampleUrl"
+                    image: ""
                 },
                 {
                     document: 1,
@@ -37,7 +37,7 @@ module.exports = {
                     document: 2,
                     title: "Canadian Citizenship Card",
                     body: "sample body",
-                    image: "sampleUrl2"
+                    image: ""
                 }
             ]
         },
@@ -49,7 +49,7 @@ module.exports = {
                     document: 4,
                     title: "Confirmation of Permanent Residence",
                     body: "Sample body",
-                    image: "sampleUrl"
+                    image: ""
                 }
             ]
         },
@@ -61,25 +61,25 @@ module.exports = {
                     document: 3,
                     title: "Record of Landing",
                     body: "Sample body",
-                    image: "sampleUrl"
+                    image: ""
                 },
                 {
                     document: 5,
                     title: "Work Permit",
                     body: "Sample body",
-                    image: "sampleUrl"
+                    image: ""
                 },
                 {
                     document: 6,
                     title: "Study Permit",
                     body: "Sample body",
-                    image: "sampleUrl"
+                    image: ""
                 },
                  {
                     document: 7,
                     title: "Visitor Visa",
                     body: "Sample body",
-                    image: "sampleUrl"
+                    image: ""
                 }
             ]
         },
@@ -91,7 +91,7 @@ module.exports = {
                     document: 8,
                     title: "Canadian Passport with diplomatic foil",
                     body: "Sample body",
-                    image: "sampleUrl"
+                    image: ""
                 }
             ]
         },
@@ -103,13 +103,13 @@ module.exports = {
                     document: 9,
                     title: "Marriage Certificate",
                     body: "<ul><li>Include entire page, corner to corner</li><li>Ensure all text is legible and photo is in focus</li></ul>",
-                    image: "sampleurl"
+                    image: ""
                 },
                 {
                     document: 10,
                     title: "Legal Name Change Certificate",
                     body: "sample body",
-                    image: "sampleUrl2"
+                    image: ""
                 }
             ]
         },
