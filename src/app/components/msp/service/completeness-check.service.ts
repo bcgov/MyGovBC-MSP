@@ -62,6 +62,15 @@ export default class CompletenessCheckService {
       return true;
     }
 
+    mspSendingComplete() {
+      // if we have a reference numebr, we are complete
+      if (this.mspApp.referenceNumber &&
+          this.mspApp.referenceNumber.length > 0) {
+        return true;
+      }
+      return false;
+    }
+
     finAppPrepCompleted():boolean{
         let basics:boolean = this.isNumber(this.finApp.netIncomelastYear) && 
         this.finApp.netIncomelastYear >= 0 &&

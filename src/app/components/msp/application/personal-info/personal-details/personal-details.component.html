@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4" *ngIf="person.status !== null && person.currentActivity !== null">
+        <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
             <h3>{{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
             <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
             <ul>
@@ -51,8 +51,17 @@
                     <a role="button" (click)="viewIdReqModal(document)"
                        [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
                 </li>
-                <msp-id-req-modal #idReqModal></msp-id-req-modal>
             </ul>
+            <p [innerHtml]="lang('./en/index.js').documentInstructionsMarriage"></p>
+            <ul>
+                <li *ngFor="let document of nameChangeDocuments">
+                    {{langDocuments('./en/index.js')[document]}}
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <a role="button" (click)="viewIdReqModal(document)"
+                       [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
+                </li>
+            </ul>
+            <msp-id-req-modal #idReqModal></msp-id-req-modal>
             <p class="warning" [innerHtml]="lang('./en/index.js').documentInstructionsNote"></p>
         </div>
         <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">

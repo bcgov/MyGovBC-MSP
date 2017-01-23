@@ -48,6 +48,7 @@ import CompletenessCheckService from './service/completeness-check.service';
 import {MspApplicationPersonalInfoGuard} from './application/personal-info/personal-info-documents.guard'
 import {MspApplicationAddressGuard} from './application/address/address.guard'
 import {MspApplicationReviewGuard} from './application/review/review.guard'
+import {MspApplicationSendingGuard} from "./application/sending/sending.guard";
 import {MspApplicationConfirmationGuard} from './application/confirmation/confirmation.guard'
 
 import {PersonalInfoGuard} from './assistance/personal-info/personal-info.guard';
@@ -138,7 +139,7 @@ let localStorageServiceConfig = {
               },
               {
                 path: 'sending',
-                canActivate: [MspApplicationReviewGuard],
+                canActivate: [MspApplicationSendingGuard],
                 component: SendingComponent
               },
               {
@@ -261,6 +262,7 @@ let localStorageServiceConfig = {
     MspApplicationPersonalInfoGuard,
     MspApplicationAddressGuard,
     MspApplicationReviewGuard,
+    MspApplicationSendingGuard,
     MspApplicationConfirmationGuard,
 
     PersonalInfoGuard,

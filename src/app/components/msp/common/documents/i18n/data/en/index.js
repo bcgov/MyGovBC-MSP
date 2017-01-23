@@ -7,7 +7,9 @@ module.exports = {
   5: 'Work Permit',
   6: 'Study Permit',
   7: 'Visitor Visa',
-  8: 'Passport with diplomatic foil'
+  8: 'Passport with diplomatic foil',
+  9: 'Marriage Certificate',
+  10: 'Legal Name Change Certificate'
 }
 /**
  * ID documents
