@@ -91,9 +91,8 @@ objects:
                 value: ${RETENTION_MONTH}
             resources:
               limits:
-                memory: 4Gi
-              requests:
                 memory: 2Gi
+                cpu: 200m
             volumeMounts:
               -
                 name: elasticsearch-data
@@ -171,6 +170,8 @@ objects:
                 containerPort: 5601
                 protocol: TCP
             resources:
+              limits:
+                cpu: 200m
             livenessProbe:
               httpGet:
                 path: /
@@ -246,8 +247,7 @@ objects:
             resources:
               limits:
                 memory: 2Gi
-              requests:
-                memory: 1Gi
+                cpu: 200m
             terminationMessagePath: /dev/termination-log
             imagePullPolicy: Always
         restartPolicy: Always
@@ -303,6 +303,9 @@ objects:
               -
                 containerPort: 8081
                 protocol: TCP
+            resources:
+              limits:
+                cpu: 100m
             env:
               -
                 name: KIBANA_PASSWORD
