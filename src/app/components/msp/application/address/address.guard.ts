@@ -8,14 +8,18 @@ export class MspApplicationAddressGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
-        if(this.compCheck.mspPersonalInfoDocsCompleted()){
-            console.log(`passed MspApplicationAddressGuard personal info completeness check, 
-            can proceed to contacts.`);
-            return true;
-        }else{
+        if(!this.compCheck.mspPersonalInfoDocsCompleted()){
             console.log('Must complete personal info and documents step first.');
             this._router.navigate(['/msp/application/personal-info']);
             return false;
+        }else if(!this.compCheck.mspCheckEligibilityCompleted()){
+            console.log('Must complete check-eligibility step first.');
+            this._router.navigate(['/msp/application/prepare']);
+            return false;
+        }else {
+            console.log(`passed MspApplicationAddressGuard personal info completeness check, 
+            can proceed to contacts.`);
+            return true;
         }
     }
 
