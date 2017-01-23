@@ -1,6 +1,7 @@
 import {Component, Input, ViewChild, Output, EventEmitter, AfterViewInit, OnInit} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import DataService from '../../service/msp-data.service';
+import CompletenessCheckService from '../../service/completeness-check.service';
 import {MspApplication} from "../../model/application.model";
 import {Person} from "../../model/person.model";
 import {Address} from "../../model/address.model";
@@ -17,7 +18,8 @@ export class AddressComponent implements AfterViewInit{
   outOfProvinceFor30DayCandidates: Person[];
   departurePersonUuids: string[];
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, 
+    private completenessService: CompletenessCheckService) {
     this.mspApplication = this.dataService.getMspApplication();
     this.outOfProvinceFor30DayCandidates = this.mspApplication.getOutOfProvinceFor30DayCandidates();
 
@@ -47,7 +49,11 @@ export class AddressComponent implements AfterViewInit{
   }
 
   handleAddressUpdate(evt:any){
-    console.log('address update event: %o', evt);
+    // console.log('address update event: %o', evt);
     this.dataService.saveMspApplication();
+  }
+
+  canContinue(){
+    return this.completenessService.mspContactInfoCompleted();
   }
 }

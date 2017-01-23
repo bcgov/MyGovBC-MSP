@@ -55,7 +55,12 @@ export default class CompletenessCheckService {
     }
 
     mspContactInfoCompleted(){
-      return true;
+      let valid = _.isBoolean(this.mspApp.mailingSameAsResidentialAddress) && this.mspApp.residentialAddress.isValid 
+      if(!this.mspApp.mailingSameAsResidentialAddress){
+        valid = valid && this.mspApp.mailingAddress.isValid;
+      }
+      valid = valid && _.isString(this.mspApp.phoneNumber) && this.mspApp.phoneNumber.length > 9
+      return valid;
     }
 
     mspReviewAndSubmitCompleted(){

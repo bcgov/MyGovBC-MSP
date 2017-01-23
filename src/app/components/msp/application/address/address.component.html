@@ -43,4 +43,6 @@
 </form>
 <hr>
 <button class="btn btn-primary" type="submit" routerLink="/msp/application/review"
-        [innerHTML]="lang('./en/index.js').continueButton"></button>
+        [innerHTML]="lang('./en/index.js').continueButton"
+        [disabled]="!canContinue()">
+</button>
