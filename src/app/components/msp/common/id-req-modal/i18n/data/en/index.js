@@ -31,7 +31,7 @@ module.exports = {
                     document: 1,
                     title: "Canadian Passport",
                     body: "<ul><li>Include entire page, corner to corner</li><li>Ensure all text is legible and photo is in focus</li></ul>",
-                    image: "passport.jpg"
+                    image: require('./images/passport.jpeg')
                 },
                 {
                     document: 2,
