@@ -28,7 +28,7 @@ The deployment consists of these steps
 2. create OpenShift instant app. You can do so by clicking *elk* template from *Add to Project* in web console or by running
    
    ```sh
-   $ oc process elk|oc create -f -
+   $ oc process elk|oc create -f-
    ```
 3. deploy docker image
 
@@ -37,12 +37,15 @@ The deployment consists of these steps
    $ docker build -t os-elasticsearch openshift/elk/docker-images/elastic-search
    $ docker tag os-elasticsearch docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-elasticsearch
    $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-elasticsearch  
-   $ docker build -t os-logstash openshift/elk/docker-images/elastic-logstash
+   $ docker build -t os-logstash openshift/elk/docker-images/logstash
    $ docker tag os-logstash docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-logstash
    $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-logstash  
-   $ docker build -t os-kibana openshift/elk/docker-images/elastic-kibana
+   $ docker build -t os-kibana openshift/elk/docker-images/kibana
    $ docker tag os-kibana docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-kibana
    $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-kibana  
+   $ docker build -t elk-nginx openshift/elk/docker-images/nginx
+   $ docker tag elk-nginx docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-nginx
+   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-nginx    
    ```
 
 If everything goes well, you will be able to access the logstash http endpoint provided in the Overview page of OpenShift project for log collection and kibana URL for reporting dashboard.
