@@ -319,7 +319,9 @@ export class MspApiService {
     if (from.applicant.gender != null) {
       to.application.assistanceApplication.applicant.gender = <GenderType> from.applicant.gender.toString();
     }
-    to.application.assistanceApplication.applicant.attachmentUuids = this.convertAttachmentUuids(from.powerOfAttorneyDocs);
+    if (from.powerOfAttorneyDocs && from.powerOfAttorneyDocs.length > 0) {
+      to.application.assistanceApplication.applicant.attachmentUuids = this.convertAttachmentUuids(from.powerOfAttorneyDocs);
+    }
 
     /*
      financials: FinancialsType;
@@ -337,9 +339,9 @@ export class MspApiService {
       to.application.assistanceApplication.applicant.phn = Number(from.applicant.previous_phn.replace(new RegExp("[^0-9]", "g"), ""));
     }
     if (from.hasPowerOfAttorney)
-      to.application.assistanceApplication.applicant.powerOfAttorny = "Y";
+      to.application.assistanceApplication.applicant.powerOfAttorney = "Y";
     else {
-      to.application.assistanceApplication.applicant.powerOfAttorny = "N";
+      to.application.assistanceApplication.applicant.powerOfAttorney = "N";
     }
     to.application.assistanceApplication.applicant.residenceAddress = this.convertAddress(from.residentialAddress);
     if (from.applicant.sin) {
@@ -396,7 +398,7 @@ export class MspApiService {
 
     // Convert attachments
     let attachments = this.convertAttachmentsForAssistance(from);
-    if (attachments) {
+    if (attachments != null) {
       to.application.attachments = attachments;
     }
 

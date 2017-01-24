@@ -60,9 +60,9 @@ export class BasicCitizenshipTypeFactory {
 }
 
 export interface _BasicInfoType extends BaseType {
-	attachmentUuids: AttachmentUuidsType;
+	attachmentUuids?: AttachmentUuidsType;
 	birthDate: string;
-	gender: GenderType;
+	gender?: GenderType;
 	name: NameType;
 }
 export interface BasicInfoType extends _BasicInfoType { constructor: { new(): BasicInfoType }; }

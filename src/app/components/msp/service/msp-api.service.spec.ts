@@ -203,7 +203,6 @@ describe('MspApiService', () => {
 
 
   it('should sendMspApplication an object', done => {
-    done();
     let service = TestBed.get(MspApiService);
     let app = new MspApplication();
     app.applicant.firstName = "James";
@@ -231,7 +230,7 @@ describe('MspApiService', () => {
     let doc12 = new MspImage();
     doc12.contentType = "image/jpeg";
     doc12.fileContent = "data:image/jpeg;base64," + Data.image1;
-    doc12.size = 100749;
+    doc12.size = 247764;
     app.applicant.documents.images.push(doc12);
 
     /*
@@ -294,17 +293,15 @@ describe('MspApiService', () => {
     app.applicant.dob_day = 1;
     app.applicant.dob_month = 1;
     app.applicant.dob_year = 1999;
-    app.applicant.previous_phn = "123 321 654";
+    app.applicant.previous_phn = "9012372173";
     app.applicant.sin = "654 974 5646";
-    app.residentialAddress.addressLine1 = "add1";
-    app.residentialAddress.addressLine2 = "add2";
-    app.residentialAddress.addressLine3 = "add3";
-    app.residentialAddress.city = "lkajsdkjasd";
-    app.residentialAddress.province = "Alberta";
-    app.residentialAddress.country = "Canada";
-    app.residentialAddress.postal = "v8o 2l3";
-    app.mailingAddress = app.residentialAddress;
-    app.mailingSameAsResidentialAddress = false;
+    app.mailingAddress.addressLine1 = "add1";
+    app.mailingAddress.addressLine2 = "add2";
+    app.mailingAddress.addressLine3 = "add3";
+    app.mailingAddress.city = "lkajsdkjasd";
+    app.mailingAddress.province = "Alberta";
+    app.mailingAddress.country = "Canada";
+    app.mailingAddress.postal = "v8o 2l3";
     app.phoneNumber = "250-232-1233";
     app.spouse.firstName = "Greg";
     app.spouse.middleName = "W";
@@ -312,7 +309,7 @@ describe('MspApiService', () => {
     app.spouse.dob_day = 1;
     app.spouse.dob_month = 1;
     app.spouse.dob_year = 1999;
-    app.spouse.previous_phn = "123 321 654";
+    app.spouse.previous_phn = "9012372173";
     app.spouse.sin = "654 974 5646";
     app.claimedChildCareExpense_line214 = 12345;
     app.reportedUCCBenefit_line117 = 123123;
@@ -332,7 +329,7 @@ describe('MspApiService', () => {
   });
 
   it('should send an assistance application', (done) => {
-    done();
+
     let service = TestBed.get(MspApiService);
     let app = new FinancialAssistApplication();
 
@@ -348,8 +345,8 @@ describe('MspApiService', () => {
     app.applicant.dob_month = 1;
     app.applicant.dob_year = 1999;
     app.applicant.gender = Gender.Female;
-    app.applicant.previous_phn = "123 321 654";
-    app.applicant.sin = "654 974 5646";
+    app.applicant.previous_phn = "9012372173";
+    app.applicant.sin = "654 974 564";
     app.residentialAddress.addressLine1 = "add1";
     app.residentialAddress.addressLine2 = "add2";
     app.residentialAddress.addressLine3 = "add3";
@@ -367,8 +364,8 @@ describe('MspApiService', () => {
     app.spouse.dob_month = 1;
     app.spouse.dob_year = 1999;
     app.spouse.gender = Gender.Male;
-    app.spouse.previous_phn = "123 321 654";
-    app.spouse.sin = "654 974 5646";
+    app.spouse.previous_phn = "9012372173";
+    app.spouse.sin = "654 974 564";
     app.claimedChildCareExpense_line214 = 12345;
     app.reportedUCCBenefit_line117 = 123123;
     app.ageOver65 = true;

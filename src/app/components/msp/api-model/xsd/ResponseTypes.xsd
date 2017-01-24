@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema version="1.1"
-           xmlns:rt="http://www.gov.bc.ca/hibc/responseTypes"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://www.gov.bc.ca/hibc/responseTypes">
+    xmlns:rt="http://www.gov.bc.ca/hibc/responseTypes"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.gov.bc.ca/hibc/responseTypes">
 
     <xs:annotation>
-        <xs:documentation xml:lang="en">
-            Response in XML format - Digital Experience
-        </xs:documentation>
+    	<xs:documentation xml:lang="en">
+    		Response in XML format - Digital Experience
+    	</xs:documentation>
     </xs:annotation>
 
-    <xs:element name="response" type="rt:ResponseType"/>
+	<xs:element name="response" type="rt:ResponseType"/>
 
-    <!-- Response type -->
-    <xs:complexType name="ResponseType">
-        <xs:sequence>
-            <xs:element name="referenceNumber" type="xs:long" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="status" type="xs:string" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="errorMessage" type="xs:string" minOccurs="0" maxOccurs="1"/>
-        </xs:sequence>
-    </xs:complexType>
+	<!-- Response type -->
+	<xs:complexType name="ResponseType">
+		<xs:sequence>
+			<xs:element name="referenceNumber" type="xs:long" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="status" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="errorMessage" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
 
 </xs:schema>
