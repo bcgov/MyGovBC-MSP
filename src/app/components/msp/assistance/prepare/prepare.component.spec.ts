@@ -6,6 +6,8 @@ import {AssistancePrepareComponent} from './prepare.component'
 import {DeductionCalculatorComponent} from './deduction-calculator/deduction-calculator.component';
 import MspDataService from '../../service/msp-data.service';
 import {LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG} from 'angular-2-local-storage';
+import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
+import {ModalModule} from "ng2-bootstrap";
 
 describe('AssistancePrepareComponent', () => {
   let localStorageServiceConfig = {
@@ -15,9 +17,9 @@ describe('AssistancePrepareComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AssistancePrepareComponent,
+      declarations: [AssistancePrepareComponent, MspConsentModalComponent,
         DeductionCalculatorComponent],
-      imports: [FormsModule],
+      imports: [FormsModule, ModalModule],
       providers: [MspDataService,
         LocalStorageService, {
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
