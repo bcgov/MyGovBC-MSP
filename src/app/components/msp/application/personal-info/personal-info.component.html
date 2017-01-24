@@ -1,4 +1,5 @@
 <form #formRef="ngForm" novalidate>
+    <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
       (onChange) = "onChange($event)"
       (valid)="valid($event)"></msp-personal-details>
@@ -17,7 +18,6 @@
         (valid)="valid($event)">
       </msp-personal-details>
     </div>
-    <hr>
     <div class="row">
       <div class="col-md-12">
         <div class="msp-app">
