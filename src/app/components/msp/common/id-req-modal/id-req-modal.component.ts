@@ -20,10 +20,6 @@ export class MspIdReqModalComponent {
   idRequirementContentList: IdRequirementContent[] = this.lang('./en/index.js').idRequirementContentList;
   initialDocument: number;
 
-  getImageUrl(fileName:string):string {
-    return require("file-loader?name=[name].[ext]&emitFile=true&publicPath=assets/images/!./images/" + fileName);
-  }
-
   showFullSizeView(document: Documents){
     this.initialDocument = document;
     this.fullSizeViewModal.config.backdrop = false;

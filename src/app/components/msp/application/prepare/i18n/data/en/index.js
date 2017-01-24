@@ -4,7 +4,7 @@ module.exports = {
   question1: 'Do you currently live in British Columbia (i.e. Do you have an address here)?',
   badAnswer1: 'You might not qualify for public health insurance if you do not live in B.C. Contact <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">Health Insurance BC</a> for more information.',
 
-  question2: 'Have you moved to BC permanently?',
+  question2: 'Have you moved to B.C. permanently?',
   badAnswer2: 'If you are planning on returning to a residence in another province or country, you might not qualify for public health insurance in BC. Please contact <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">Health Insurance BC</a> for assistance with your application.',
 
   question3: 'Are you planning to be away from B.C. for more than 30 days in total in the next six months?',

@@ -91,33 +91,12 @@ objects:
                 value: ${RETENTION_MONTH}
             resources:
               limits:
-                memory: 4Gi
-              requests:
                 memory: 2Gi
+                cpu: 500m
             volumeMounts:
               -
                 name: elasticsearch-data
                 mountPath: /usr/share/elasticsearch/data
-            livenessProbe:
-              httpGet:
-                path: /
-                port: 9200
-                scheme: HTTP
-              initialDelaySeconds: 60
-              timeoutSeconds: 10
-              periodSeconds: 10
-              successThreshold: 1
-              failureThreshold: 3
-            readinessProbe:
-              httpGet:
-                path: /
-                port: 9200
-                scheme: HTTP
-              initialDelaySeconds: 60
-              timeoutSeconds: 5
-              periodSeconds: 10
-              successThreshold: 1
-              failureThreshold: 3
             terminationMessagePath: /dev/termination-log
             imagePullPolicy: Always
         restartPolicy: Always
@@ -171,6 +150,8 @@ objects:
                 containerPort: 5601
                 protocol: TCP
             resources:
+              limits:
+                cpu: 200m
             livenessProbe:
               httpGet:
                 path: /
@@ -246,8 +227,7 @@ objects:
             resources:
               limits:
                 memory: 2Gi
-              requests:
-                memory: 1Gi
+                cpu: 200m
             terminationMessagePath: /dev/termination-log
             imagePullPolicy: Always
         restartPolicy: Always
@@ -303,6 +283,9 @@ objects:
               -
                 containerPort: 8081
                 protocol: TCP
+            resources:
+              limits:
+                cpu: 100m
             env:
               -
                 name: KIBANA_PASSWORD
@@ -425,6 +408,30 @@ objects:
     resources:
       requests:
         storage: ${VOLUME_CAPACITY}
+- apiVersion: batch/v2alpha1
+  kind: ScheduledJob
+  metadata:
+    name: es-cron
+    labels:
+      app: ${NAME}
+  spec:
+    schedule: "* 3 * * *"
+    ConcurrencyPolicy: Forbid
+    jobTemplate:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: elasticsearch
+              # todo: this is the only known workaround. Need to either remove ns and ip
+              #       or using a placeholder
+              image: 172.50.0.2:5000/gcpe-mygovbc-msp-test/os-elasticsearch
+              command: ["/etc/cron.daily/purge-elasticsearch-index"]
+              env:
+                -
+                  name: RETENTION_MONTH
+                  value: ${RETENTION_MONTH}
+            restartPolicy: Never
 parameters:
 - description: The name assigned to all of the openshift objects defined in this template.
   displayName: Name
@@ -444,4 +451,4 @@ parameters:
   displayName: Log Retention In Month
   name: RETENTION_MONTH
   required: true
-  value: 3
+  value: "3"

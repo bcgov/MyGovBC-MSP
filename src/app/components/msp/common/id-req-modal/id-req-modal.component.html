@@ -26,7 +26,7 @@
                 <div class="col-sm-6" [innerHtml]="documentContent.body"></div>
                 <div class="col-sm-6">
                  <img *ngIf="documentContent.image && documentContent.image.length > 0"
-                      [src]="getImageUrl(documentContent.image)" class="img-responsive">
+                      [src]="documentContent.image" class="img-responsive">
                 </div>
               </div>
 
