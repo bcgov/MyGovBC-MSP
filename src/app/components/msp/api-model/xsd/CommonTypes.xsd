@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema version="1.1"
-           xmlns:ct="http://www.gov.bc.ca/hibc/commonTypes"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://www.gov.bc.ca/hibc/commonTypes">
+	xmlns:ct="http://www.gov.bc.ca/hibc/commonTypes" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://www.gov.bc.ca/hibc/commonTypes">
 
-    <xs:annotation>
-        <xs:documentation xml:lang="en">
-            Common Types - Digital Experience
-            Supports EnrollmentTypes, AssistanceTypes, NameChangeTypes.
-        </xs:documentation>
+	<xs:annotation>
+    	<xs:documentation xml:lang="en">
+    		Common Types - Digital Experience
+    		Supports EnrollmentTypes, AssistanceTypes, NameChangeTypes.
+    	</xs:documentation>
     </xs:annotation>
-
+    
     <xs:complexType name="BasicInfoType">
-        <xs:sequence>
-            <xs:element name="name" type="ct:NameType" maxOccurs="1"/>
-            <xs:element name="gender" type="ct:GenderType" maxOccurs="1"/>
-            <xs:element name="birthDate" type="xs:date" maxOccurs="1"/>
-            <xs:element name="attachmentUuids" type="ct:AttachmentUuidsType"/>
-        </xs:sequence>
-    </xs:complexType>
+		<xs:sequence>
+			<xs:element name="name" type="ct:NameType" maxOccurs="1"/>
+			<xs:element name="gender" type="ct:GenderType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="birthDate" type="xs:date" maxOccurs="1"/>
+			<xs:element name="attachmentUuids" type="ct:AttachmentUuidsType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
 
-    <xs:complexType name="BasicCitizenshipType">
-        <xs:sequence>
-            <xs:element name="citizenshipType" type="ct:CitizenshipType"/>
-            <xs:element name="attachmentUuids" type="ct:AttachmentUuidsType"/>
-        </xs:sequence>
-    </xs:complexType>
-
+	<xs:complexType name="BasicCitizenshipType">
+		<xs:sequence>
+			<xs:element name="citizenshipType" type="ct:CitizenshipType"/>
+			<xs:element name="attachmentUuids" type="ct:AttachmentUuidsType"/>
+		</xs:sequence>
+	</xs:complexType>
+    
     <xs:complexType name="NameType">
         <xs:sequence>
             <xs:element name="firstName" type="ct:SubNameType" maxOccurs="1"/>
@@ -36,7 +36,7 @@
     </xs:complexType>
 
     <xs:complexType name="AddressType">
-        <xs:sequence>
+    	<xs:sequence>
             <xs:element name="addressLine1" type="ct:SubAddressLineType" minOccurs="1"/>
             <xs:element name="addressLine2" type="ct:SubAddressLineType" minOccurs="0"/>
             <xs:element name="addressLine3" type="ct:SubAddressLineType" minOccurs="0"/>
@@ -46,7 +46,7 @@
             <xs:element name="country" type="ct:CountryType" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
-
+    
     <xs:simpleType name="GenderType">
         <xs:restriction base="xs:string">
             <xs:enumeration value="M"/>
@@ -55,79 +55,79 @@
     </xs:simpleType>
 
     <xs:simpleType name="PHNType">
-        <xs:restriction base="xs:positiveInteger">
-            <xs:pattern value="[1-9]([0-9]{9})"/>
-        </xs:restriction>
+    	<xs:restriction base="xs:positiveInteger">
+          <xs:pattern value="[1-9]([0-9]{9})" />
+       	</xs:restriction>
     </xs:simpleType>
-
+    
     <xs:simpleType name="GroupNumberType">
-        <xs:restriction base="xs:positiveInteger">
-            <xs:pattern value="[0-9]*"/>
-        </xs:restriction>
+    	<xs:restriction base="xs:positiveInteger">
+          <xs:pattern value="[0-9]*" />
+       	</xs:restriction>
     </xs:simpleType>
-
+    
     <xs:simpleType name="YearType">
-        <xs:restriction base="xs:positiveInteger">
-            <xs:pattern value="[1-2]([0-9]{3})"/>
-        </xs:restriction>
+    	<xs:restriction base="xs:positiveInteger">
+          <xs:pattern value="[1-2]([0-9]{3})" />
+       	</xs:restriction>
     </xs:simpleType>
-
+    
     <xs:simpleType name="SINType">
-        <xs:restriction base="xs:positiveInteger">
-            <xs:pattern value="[1-9]([0-9]{8})"/>
-        </xs:restriction>
+    	<xs:restriction base="xs:positiveInteger">
+          <xs:pattern value="[1-9]([0-9]{8})" />
+       	</xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="SubNameType">
-        <xs:restriction base="xs:string">
-            <xs:maxLength value="30"/>
-        </xs:restriction>
-    </xs:simpleType>
+	<xs:simpleType name="SubNameType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="SubAddressLineType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="25"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="CityType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="25"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="PostalCodeType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="25"/>
+		</xs:restriction>
+	</xs:simpleType>
 
-    <xs:simpleType name="SubAddressLineType">
-        <xs:restriction base="xs:string">
-            <xs:maxLength value="25"/>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:simpleType name="CityType">
-        <xs:restriction base="xs:string">
-            <xs:maxLength value="25"/>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:simpleType name="PostalCodeType">
-        <xs:restriction base="xs:string">
-            <xs:maxLength value="25"/>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:simpleType name="ProvinceOrStateType">
-        <xs:restriction base="xs:string">
-            <xs:maxLength value="2"/>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:simpleType name="CountryType">
-        <xs:restriction base="xs:string">
-            <xs:maxLength value="30"/>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:simpleType name="TelephoneType">
-        <xs:restriction base="xs:positiveInteger">
-            <xs:pattern value="[2-9]([0-9]{9})"/>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:simpleType name="YesOrNoType">
-        <xs:restriction base="xs:string">
+	<xs:simpleType name="ProvinceOrStateType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="CountryType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="TelephoneType">
+		<xs:restriction base="xs:positiveInteger">
+          <xs:pattern value="[2-9]([0-9]{9})" />
+       </xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="YesOrNoType">
+		<xs:restriction base="xs:string">
             <xs:enumeration value="Y"/>
             <xs:enumeration value="N"/>
         </xs:restriction>
-    </xs:simpleType>
-
-    <xs:simpleType name="CitizenshipType">
+	</xs:simpleType>
+	
+	<xs:simpleType name="CitizenshipType">
         <xs:restriction base="xs:string">
             <xs:enumeration value="Citizen"/>
             <xs:enumeration value="PermanentResident"/>
@@ -138,33 +138,33 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="PrevProvinceOrCountryType">
-        <xs:restriction base="xs:string">
-            <xs:maxLength value="25"/>
-        </xs:restriction>
-    </xs:simpleType>
+	<xs:simpleType name="PrevProvinceOrCountryType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="25"/>
+		</xs:restriction>
+	</xs:simpleType>
 
-    <xs:simpleType name="PrevHealthNumberType">
-        <xs:restriction base="xs:string">
-            <xs:maxLength value="50"/>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:simpleType name="SchoolNameType">
-        <xs:restriction base="xs:string">
-            <xs:maxLength value="50"/>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:simpleType name="SchoolAddressType">
-        <xs:restriction base="xs:string">
-            <xs:maxLength value="50"/>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:complexType name="AttachmentUuidsType">
-        <xs:sequence>
-            <xs:element name="attachmentUuid" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
+	<xs:simpleType name="PrevHealthNumberType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="SchoolNameType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="SchoolAddressType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="AttachmentUuidsType">
+		<xs:sequence>
+			<xs:element name="attachmentUuid" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
 </xs:schema>

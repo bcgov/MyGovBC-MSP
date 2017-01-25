@@ -1,5 +1,10 @@
 module.exports = {
 
+  sectionTitle: ['Main Applicant (Account Holder)',
+      'Spouse',
+      'Child',
+      'Child'],
+
   /*
    * Status for each relationship type
    */

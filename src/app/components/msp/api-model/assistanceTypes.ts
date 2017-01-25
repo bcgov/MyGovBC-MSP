@@ -12,10 +12,10 @@ interface BaseType {
 }
 interface _AssistanceApplicantType extends ct.BasicInfoType {
 	financials: FinancialsType;
-	mailingAddress?: ct.AddressType;
+	mailingAddress: ct.AddressType;
 	phn: number;
-	powerOfAttorny: ct.YesOrNoType;
-	residenceAddress: ct.AddressType;
+	powerOfAttorney: ct.YesOrNoType;
+	residenceAddress?: ct.AddressType;
 	SIN: number;
 	telephone: number;
 }
@@ -26,7 +26,7 @@ export class AssistanceApplicantTypeFactory {
 	static make(): AssistanceApplicantType {
 		let instance = <AssistanceApplicantType>{};
 		instance._sequence = ["name", "gender", "birthDate", "attachmentUuids", "telephone", "residenceAddress",
-			"mailingAddress", "financials", "phn","SIN","powerOfAttorny"];
+			"mailingAddress", "financials", "phn","SIN","powerOfAttorney"];
 		return instance;
 	}
 }
@@ -35,8 +35,7 @@ interface _AssistanceApplicationType extends BaseType {
 	applicant: AssistanceApplicantType;
 	authorizedByApplicant: ct.YesOrNoType;
 	authorizedByApplicantDate: string;
-	authorizedBySpouse: ct.YesOrNoType;
-	authorizedBySpouseDate: string;
+	authorizedBySpouse?: ct.YesOrNoType;
 	spouse?: AssistanceSpouseType;
 }
 export interface AssistanceApplicationType extends _AssistanceApplicationType { constructor: { new(): AssistanceApplicationType }; }

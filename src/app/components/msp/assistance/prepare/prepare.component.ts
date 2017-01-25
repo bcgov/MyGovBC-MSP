@@ -10,6 +10,7 @@ import 'rxjs/add/operator/catch';
 
 import DataService from '../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
+import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
 
 @Component({
   templateUrl: './prepare.component.html'
@@ -30,6 +31,8 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
 
   @ViewChild('childDisabilityCreditset') childDisabilityCreditset: ElementRef;
   @ViewChild('childDisabilityCreditUnset') childDisabilityCreditUnset: ElementRef;
+
+  @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
 
   lang = require('./i18n');
   _showDisabilityInfo:boolean = false;
@@ -62,6 +65,10 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
   
   
   ngAfterViewInit() {
+    if (!this.dataService.finAssistApp.infoCollectionAgreement) {
+      this.mspConsentModal.showFullSizeView();
+    }
+
     // console.log('income input field ', this.incomeRef);
 
     let ageOver$ = Observable.fromEvent<MouseEvent>(this.ageOver65Btn.nativeElement, 'click')
