@@ -12,6 +12,35 @@ export class FinancialAssistApplication implements ApplicationBase {
   readonly uuid = UUID.UUID();
   infoCollectionAgreement: boolean = false;
 
+  private _claimForDisabilityCredit:boolean = false;
+  private _claimForNursingHomeExpense:boolean = false;
+
+  get claimForDisabilityCredit():boolean {
+    return this._claimForDisabilityCredit;
+  }
+  get claimForNursingHomeExpense():boolean {
+    return this._claimForNursingHomeExpense;
+  }
+
+  set claimForDisabilityCredit(doClaim:boolean){
+    if(doClaim === null || doClaim === undefined){
+      doClaim = false;
+    }
+    
+    this._claimForDisabilityCredit = doClaim;
+    if(this._claimForDisabilityCredit){
+      this._claimForNursingHomeExpense = false;
+    }
+  }
+  set claimForNursingHomeExpense(doClaim:boolean){
+    if(doClaim === null || doClaim === undefined){
+      doClaim = false;
+    }
+    this._claimForNursingHomeExpense = doClaim;
+    if(this._claimForNursingHomeExpense){
+      this._claimForDisabilityCredit = false;
+    }
+  }
   /**
    * Set by the API, not for client use
    */

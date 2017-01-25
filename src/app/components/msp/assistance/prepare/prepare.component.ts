@@ -37,7 +37,6 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
 
   private _likelyQualify:boolean = false;
   private changeLog: string[] = [];
-  
 
   constructor(private dataService: DataService){
 
@@ -212,5 +211,13 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
     // console.log('updateChildDisabilityCreditCreditMultiplier: %o', evt);
     this.finAssistApp.childWithDisabilityCount = parseInt(evt);
     this.dataService.saveFinAssistApplication();
+  }
+
+  toggleClaimForNursingHomeExpense(evt:any){
+    this.finAssistApp.claimForNursingHomeExpense = evt;
+  }
+
+  toggleClaimForDisabilityCredit(evt:any){
+    this.finAssistApp.claimForDisabilityCredit = evt;
   }
 }

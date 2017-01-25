@@ -384,6 +384,9 @@ export default class MspDataService {
     dto.spouseDSPAmount_line125 = input.spouseDSPAmount_line125;
     dto.childWithDisabilityCount = input.childWithDisabilityCount;
 
+    dto.claimForDisabilityCredit = input.claimForDisabilityCredit;
+    dto.claimForNursingHomeExpense = input.claimForNursingHomeExpense;
+
     dto.authorizedByApplicant = input.authorizedByApplicant;
     dto.authorizedBySpouse = input.authorizedBySpouse;
     dto.authorizedByAttorney = input.authorizedByAttorney;
@@ -427,6 +430,9 @@ export default class MspDataService {
     output.spouseEligibleForDisabilityCredit = dto.spouseEligibleForDisabilityCredit;
     output.spouseDSPAmount_line125 = dto.spouseDSPAmount_line125;
     output.childWithDisabilityCount = dto.childWithDisabilityCount;
+
+    output.claimForDisabilityCredit = dto.claimForDisabilityCredit;
+    output.claimForNursingHomeExpense = dto.claimForNursingHomeExpense;
 
     output.phoneNumber = dto.phoneNumber;
 

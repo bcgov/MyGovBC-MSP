@@ -14,7 +14,8 @@ export class AssistanceComponent {
 
   public assistanceProgressBarList: Array<MspProgressBarItem> = [
     new MspProgressBarItem(this.lang("./en/index.js").progressStep1, "/msp/assistance/prepare"),
-    new MspProgressBarItem(this.lang("./en/index.js").progressStep2, "/msp/assistance/personal-info"),
+    // new MspProgressBarItem(this.lang("./en/index.js").progressStep2, "/msp/assistance/which-year"),
+    new MspProgressBarItem(this.lang("./en/index.js").progressStep3, "/msp/assistance/personal-info"),
     new MspProgressBarItem(this.lang("./en/index.js").progressStep3, "/msp/assistance/review"),
     new MspProgressBarItem(this.lang("./en/index.js").progressStep4, "/msp/assistance/authorize-submit")
   ];

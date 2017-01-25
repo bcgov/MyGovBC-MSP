@@ -30,4 +30,6 @@ export default class FinancialAssistApplicationDto {
 
   powerOfAttorneyDocs:MspImage[] = [];
 
+  claimForDisabilityCredit:boolean;
+  claimForNursingHomeExpense:boolean;
 }

@@ -217,130 +217,178 @@
             </div>
         </div>
 
-        <div class="row"
-            [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
-        <hr>
-            <div class="col-md-6">
-                <div class="msp-toggle" *ngIf="!showDisabilityInfo" (click)="showDisabilityInfo=true">
-                    <span class="glyphicon glyphicon-collapse-up msp-toggle"
-                    aria-hidden="true"></span>
-                    <span [innerHTML]="lang('./en/index.js').disabilityInfo"></span>
-
-                </div>
-                <div class="msp-toggle" *ngIf="showDisabilityInfo" (click)="showDisabilityInfo=false">
-                    <span class="glyphicon glyphicon-collapse-down msp-toggle"
-                    aria-hidden="true"></span>
-                    <span [innerHTML]="lang('./en/index.js').disabilityInfo"></span>
-                </div>
-            </div>
-        </div>
-        <p></p>
-        <div class="row" [hidden]="!showDisabilityInfo" style="margin-left: 5px;">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="">Is anyone included on your public health insurance eligible for the Disability Credit as per Canada Revenue Agency (Lines 316, 318 or 326)? Please check all that apply.
-                    </label>
-
-                    <ul class="msp-horizontal-list-group">
-                        <li #selfDisabilityCreditSet
-                            class="msp-horizontal-list-group-item-sm msp-selectable"
-                            [hidden]="finAssistApp.selfDisabilityCredit">
-                            <span class="glyphicon glyphicon-unchecked"
-                                ></span>
-                            <span>Myself</span>
-                        </li>
-                        <li #selfDisabilityCreditUnset
-                            class="msp-horizontal-list-group-item-sm msp-selectable"
-                            [hidden]="!finAssistApp.selfDisabilityCredit">
-                            <span class="glyphicon glyphicon-check msp-selection"
-                                ></span>
-                            <span>Myself</span>
-                        </li>
-
-                        <div [hidden] = "!finAssistApp.hasSpouseOrCommonLaw">
-                            <li #spouseDisabilityCreditSet 
-                                class="msp-horizontal-list-group-item-lg msp-selectable"
-                                [hidden]="finAssistApp.spouseEligibleForDisabilityCredit">
-                                <span class="glyphicon glyphicon-unchecked"></span>
-                                <span>My spouse/common-law partner</span>
-                            </li>
-                            <li #spouseDisabilityCreditUnset 
-                                class="msp-horizontal-list-group-item-lg msp-selectable"
-                                [hidden]="!finAssistApp.spouseEligibleForDisabilityCredit">
-                                <span class="glyphicon glyphicon-check msp-selection"></span>
-                                <span>My spouse/common-law partner</span>
-                            </li>
-                        </div>
-                    </ul>
-
+    <div [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null 
+            || finAssistApp.ageOver65 === undefined">
+            
+            <hr>
+            <h4>Please select one of the following options or select none if neither applies to you</h4>
+            <div class="row" style="margin-top: 15px">
+                <div class="col-sm-10">
+                    <div class="checkbox checkbox-success checkbox-inline">
+                            <input type="checkbox"
+                            id="claimForDisabilityCredit"
+                            name ="claimForDisabilityCredit"
+                            [(ngModel)] = "finAssistApp.claimForDisabilityCredit"
+                            (ngModelChange) = "toggleClaimForDisabilityCredit($event)">
+                        <label for="claimForDisabilityCredit">
+                            I would like to claim for disability credit
+                        </label>
+                    </div>
                 </div>
             </div>
-            <!--<div class="row">-->
-                <div class="col-md-3" [hidden]="!finAssistApp.childrenCount">
+
+            <div class="row" style="margin-top: 12px">
+                <div class="col-sm-10">
+                    <div class="checkbox checkbox-success checkbox-inline">
+                            <input type="checkbox" 
+                            name="claimForNursingHomeExpense"
+                            id="claimForNursingHomeExpense"
+                            [(ngModel)] = "finAssistApp.claimForNursingHomeExpense"
+                            (ngModelChange) = "toggleClaimForNursingHomeExpense($event)">
+                        <label for="claimForNursingHomeExpense">
+                            I would like to claim attendent or nursing home expense
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row" style="margin-top: 15px">
+                <div class="col-md-6" [hidden]="!finAssistApp.claimForDisabilityCredit">
+                    <span [innerHTML]="lang('./en/index.js').disabilityInfoLabel"></span>
+                </div>
+                <div class="col-md-6" [hidden]="!finAssistApp.claimForNursingHomeExpense">
+                    <span [innerHTML]="lang('./en/index.js').nursingHomeLabel"></span>
+                </div>
+                <div class="col-md-6" [hidden] ="true">
+                    <div class="msp-toggle" *ngIf="!showDisabilityInfo" (click)="showDisabilityInfo=true">
+                        <span class="glyphicon glyphicon-collapse-up msp-toggle"
+                        aria-hidden="true"></span>
+                        <span [innerHTML]="lang('./en/index.js').disabilityInfo"></span>
+
+                    </div>
+                    <div class="msp-toggle" *ngIf="showDisabilityInfo" (click)="showDisabilityInfo=false">
+                        <span class="glyphicon glyphicon-collapse-down msp-toggle"
+                        aria-hidden="true"></span>
+                        <span [innerHTML]="lang('./en/index.js').disabilityInfo"></span>
+                    </div>
+                </div>
+            </div>
+            <p></p>
+            <div class="row" [hidden]="!finAssistApp.claimForDisabilityCredit" style="margin-left: 5px;">
+                <div class="col-md-12">
                     <div class="form-group">
+                        <label for="">Is anyone included on your public health insurance eligible for the Disability Credit as per Canada Revenue Agency (Lines 316, 318 or 326)? Please check all that apply.
+                        </label>
+
                         <ul class="msp-horizontal-list-group">
-                            <li #childDisabilityCreditset
-                                [hidden] = finAssistApp.childWithDisabilityCount
-                                class="msp-horizontal-list-group-item-lg msp-selectable">
-                                <span class="glyphicon glyphicon-unchecked"></span>
-                                <span>My Child</span>
+                            <li #selfDisabilityCreditSet
+                                class="msp-horizontal-list-group-item-sm msp-selectable"
+                                [hidden]="finAssistApp.selfDisabilityCredit">
+                                <span class="glyphicon glyphicon-unchecked"
+                                    ></span>
+                                <span>Myself</span>
                             </li>
-                            <li #childDisabilityCreditUnset
-                                [hidden] = !finAssistApp.childWithDisabilityCount
-                                class="msp-horizontal-list-group-item-lg msp-selectable">
-                                <span class="glyphicon glyphicon-check msp-selection"></span>
-                                <span>My Child</span>
+                            <li #selfDisabilityCreditUnset
+                                class="msp-horizontal-list-group-item-sm msp-selectable"
+                                [hidden]="!finAssistApp.selfDisabilityCredit">
+                                <span class="glyphicon glyphicon-check msp-selection"
+                                    ></span>
+                                <span>Myself</span>
                             </li>
+
+                            <div [hidden] = "!finAssistApp.hasSpouseOrCommonLaw">
+                                <li #spouseDisabilityCreditSet 
+                                    class="msp-horizontal-list-group-item-lg msp-selectable"
+                                    [hidden]="finAssistApp.spouseEligibleForDisabilityCredit">
+                                    <span class="glyphicon glyphicon-unchecked"></span>
+                                    <span>My spouse/common-law partner</span>
+                                </li>
+                                <li #spouseDisabilityCreditUnset 
+                                    class="msp-horizontal-list-group-item-lg msp-selectable"
+                                    [hidden]="!finAssistApp.spouseEligibleForDisabilityCredit">
+                                    <span class="glyphicon glyphicon-check msp-selection"></span>
+                                    <span>My spouse/common-law partner</span>
+                                </li>
+                            </div>
                         </ul>
 
                     </div>
                 </div>
-                <div class="col-md-9" *ngIf="(finAssistApp.childWithDisabilityCount && (finAssistApp.childrenCount > 1))">
-                    <div class="form-group">
-                        <div class="col-md-9" >
-                            <p style="margin: 5px 0 0 0">Number of chilldren who are eligible for disability credit</p>
-                        </div>
-                        <div class="col-md-3" >
-                            <select name="childWithDisabilityCount" 
-                                #childDisabilityCreditCreditMultiplierSelect
-                                [ngModel] = "finAssistApp.childWithDisabilityCount"
-                                (ngModelChange) = "updateChildDisabilityCreditCreditMultiplier($event)">
-                                <option *ngFor="let v of finAssistApp.childrenCountArray()" 
-                                    [value]="v">
-                                    {{v}}
-                                </option>
-                            </select>
-                        </div>
-                    </div>        
-                </div>
-            <!--</div>-->
-            
-            <div class="col-md-12">
+                <!--<div class="row">-->
+                    <div class="col-md-3" [hidden]="!finAssistApp.childrenCount">
+                        <div class="form-group">
+                            <ul class="msp-horizontal-list-group">
+                                <li #childDisabilityCreditset
+                                    [hidden] = finAssistApp.childWithDisabilityCount
+                                    class="msp-horizontal-list-group-item-lg msp-selectable">
+                                    <span class="glyphicon glyphicon-unchecked"></span>
+                                    <span>My Child</span>
+                                </li>
+                                <li #childDisabilityCreditUnset
+                                    [hidden] = !finAssistApp.childWithDisabilityCount
+                                    class="msp-horizontal-list-group-item-lg msp-selectable">
+                                    <span class="glyphicon glyphicon-check msp-selection"></span>
+                                    <span>My Child</span>
+                                </li>
+                            </ul>
 
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="line125">
-                                How much did you (or your spouse / common-law partner) report for a Registered Disability
-                                Savings Plan on your income tax return (Line 125)?
-                            </label>
-
-                            <div class="col-md-3 col-sm-4 col-xs-6 input-group">
-                                <span class="input-group-addon">$</span>
-                                <input type="text" class="form-control" name="line125" id="line125"
-                                pattern="(?=.)^(([1-9][0-9]{0,5}(,[0-9]{5})*)|[0-9]+)?(\.[0-9]{1,5})?$"
-                                #line125Ref="ngModel"
-                                [(ngModel)]="finAssistApp.spouseDSPAmount_line125">
-                            </div>
-                            <div class="text-danger" *ngIf="line125Ref.errors?.pattern" [innerHTML]="lang('./en/index.js').invalidNumber"></div>
-                            
                         </div>
                     </div>
+                    <div class="col-md-9" *ngIf="(finAssistApp.childWithDisabilityCount && (finAssistApp.childrenCount > 1))">
+                        <div class="form-group">
+                            <div class="col-md-9" >
+                                <p style="margin: 5px 0 0 0">Number of chilldren who are eligible for disability credit</p>
+                            </div>
+                            <div class="col-md-3" >
+                                <select name="childWithDisabilityCount" 
+                                    #childDisabilityCreditCreditMultiplierSelect
+                                    [ngModel] = "finAssistApp.childWithDisabilityCount"
+                                    (ngModelChange) = "updateChildDisabilityCreditCreditMultiplier($event)">
+                                    <option *ngFor="let v of finAssistApp.childrenCountArray()" 
+                                        [value]="v">
+                                        {{v}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>        
+                    </div>
+                <!--</div>-->
+                
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="line125">
+                                    How much did you (or your spouse / common-law partner) report for a Registered Disability
+                                    Savings Plan on your income tax return (Line 125)?
+                                </label>
+
+                                <div class="col-md-3 col-sm-4 col-xs-6 input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <input type="text" class="form-control" name="line125" id="line125"
+                                    pattern="(?=.)^(([1-9][0-9]{0,5}(,[0-9]{5})*)|[0-9]+)?(\.[0-9]{1,5})?$"
+                                    #line125Ref="ngModel"
+                                    [(ngModel)]="finAssistApp.spouseDSPAmount_line125">
+                                </div>
+                                <div class="text-danger" *ngIf="line125Ref.errors?.pattern" [innerHTML]="lang('./en/index.js').invalidNumber"></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-
+            
             </div>
-        </div>
+            <div class="row" [hidden]="!finAssistApp.claimForNursingHomeExpense" style="margin-left: 5px;">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3>Attendent or nursing home expense goes here</h3>
 
+                    </div>
+                </div>
+            </div>
+    </div>
 
 
     </form>
