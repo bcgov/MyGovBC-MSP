@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core'
+import {Component, Input, ViewChild} from '@angular/core';
 import moment = require("moment");
 import {ModalDirective} from "ng2-bootstrap";
 import DataService from '../../service/msp-data.service';
@@ -10,6 +10,7 @@ import DataService from '../../service/msp-data.service';
 export class MspCancelComponent {
   lang = require('./i18n');
 
+  @Input() btnBlock: boolean = false;
   @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
 
   constructor(private dataService: DataService) {
@@ -27,6 +28,7 @@ export class MspCancelComponent {
   yesButtonClick() {
     this.dataService.destroyAll();
 
-    //navigate
+    // navigate to CMS
+    window.location.href = this.lang('./en/index.js').postCancelUrl;
   }
 }

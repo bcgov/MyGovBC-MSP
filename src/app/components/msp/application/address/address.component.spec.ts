@@ -14,6 +14,8 @@ import {MspOutsideBCComponent} from "../../common/outside-bc/outside-bc.componen
 import {MspDepartureDateComponent} from "../../common/departure-date/departure-date.component";
 import {MspReturnDateComponent} from "../../common/return-date/return-date.component";
 import {MspCountryComponent} from "../../common/country/country.component";
+import {MspCancelComponent} from "../../common/cancel/cancel.component";
+import {ModalModule} from "ng2-bootstrap";
 
 describe('Application Address Component', () => {
     let localStorageServiceConfig = {
@@ -24,8 +26,9 @@ describe('Application Address Component', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [AddressComponent, MspAddressComponent, MspPhoneComponent, MspProvinceComponent,
-                MspOutsideBCComponent, MspDepartureDateComponent, MspReturnDateComponent, MspCountryComponent],
-            imports: [FormsModule, Ng2CompleterModule],
+                MspOutsideBCComponent, MspDepartureDateComponent, MspReturnDateComponent, MspCountryComponent,
+                MspCancelComponent],
+            imports: [FormsModule, Ng2CompleterModule, ModalModule],
             providers: [MspDataService, CompletenessCheckService,
                 LocalStorageService,{
                     provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

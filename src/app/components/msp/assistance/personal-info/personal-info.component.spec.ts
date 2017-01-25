@@ -14,6 +14,8 @@ import {AssistancePersonalDetailComponent} from "./personal-details/personal-det
 import {MspPhoneComponent} from "../../common/phone/phone.component";
 import {MspGenderComponent} from "../../common/gender/gender.component";
 import {MspCountryComponent} from "../../common/country/country.component";
+import {MspCancelComponent} from "../../common/cancel/cancel.component";
+import {ModalModule} from "ng2-bootstrap";
 
 describe('AssistancePersonalInfoComponent', () => {
   let localStorageServiceConfig = {
@@ -26,8 +28,8 @@ describe('AssistancePersonalInfoComponent', () => {
       declarations: [AssistancePersonalInfoComponent, AssistancePersonalDetailComponent,
         MspPhnComponent, MspNameComponent, MspPhoneComponent,
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent, MspCountryComponent,
-        Mod11CheckValidator, MspGenderComponent],
-      imports: [FormsModule, Ng2CompleterModule],
+        Mod11CheckValidator, MspGenderComponent, MspCancelComponent],
+      imports: [FormsModule, Ng2CompleterModule, ModalModule],
       providers: [MspDataService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

@@ -5,6 +5,8 @@ import { FormsModule, FormGroup, NgForm, AbstractControl } from '@angular/forms'
 import {DeductionCalculatorComponent} from './deduction-calculator.component';
 import MspDataService from '../../../service/msp-data.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+import {MspCancelComponent} from "../../../common/cancel/cancel.component";
+import {ModalModule} from "ng2-bootstrap";
 
 describe('DeductionCalculatorComponent', () => {
   let localStorageServiceConfig = {
@@ -14,8 +16,8 @@ describe('DeductionCalculatorComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DeductionCalculatorComponent],
-      imports: [FormsModule],
+      declarations: [DeductionCalculatorComponent, MspCancelComponent],
+      imports: [FormsModule, ModalModule],
       providers: [MspDataService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

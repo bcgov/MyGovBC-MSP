@@ -25,6 +25,7 @@ import CompletenessCheckService from '../../service/completeness-check.service';
 import {MspCountryComponent} from "../../common/country/country.component";
 import {MspIdReqModalComponent} from "../../common/id-req-modal/id-req-modal.component";
 import {MspOutofBCRecordComponent} from "../../common/outof-bc/outof-bc.component";
+import {MspCancelComponent} from "../../common/cancel/cancel.component";
 
 describe('PersonalInfoComponent', () => {
   let localStorageServiceConfig = {
@@ -38,7 +39,7 @@ describe('PersonalInfoComponent', () => {
         MspArrivalDateComponent, MspArrivalDateComponent, MspGenderComponent, MspDischargeDateComponent,
         MspBirthDateComponent, MspSchoolDateComponent, FileUploaderComponent, MspAddressComponent,
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,
-        MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent],
+        MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspCancelComponent],
       imports: [FormsModule, Ng2CompleterModule, ModalModule, AccordionModule],
       providers: [MspDataService,
         CompletenessCheckService,
