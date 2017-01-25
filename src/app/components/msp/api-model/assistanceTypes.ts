@@ -15,7 +15,7 @@ interface _AssistanceApplicantType extends ct.BasicInfoType {
 	mailingAddress: ct.AddressType;
 	phn: number;
 	powerOfAttorney: ct.YesOrNoType;
-	residenceAddress?: ct.AddressType;
+	//residenceAddress?: ct.AddressType;  // not used
 	SIN: number;
 	telephone: number;
 }

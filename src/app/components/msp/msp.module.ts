@@ -36,6 +36,7 @@ import {MspOutsideBCComponent} from "./common/outside-bc/outside-bc.component";
 import {MspOutofBCRecordComponent} from "./common/outof-bc/outof-bc.component";
 import {MspConsentModalComponent} from "./common/consent-modal/consent-modal.component";
 import {MspIdReqModalComponent} from "./common/id-req-modal/id-req-modal.component";
+import {MspCancelComponent} from "./common/cancel/cancel.component";
 
 import {MspPersonCardComponent} from './common/person-card/person-card.component';
 import {MspContactCardComponent} from './common/contact-card/contact-card.component';
@@ -223,6 +224,7 @@ let localStorageServiceConfig = {
     MspOutofBCRecordComponent,
     MspConsentModalComponent,
     MspIdReqModalComponent,
+    MspCancelComponent,
 
     // View cards
     MspPersonCardComponent,

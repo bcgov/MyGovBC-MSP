@@ -21,7 +21,11 @@ export default class MspDataService {
   constructor(private localStorageService: LocalStorageService){
     this._finAssistApp = this.fetchFinAssistApplication();
     this._mspApplication = this.fetchMspApplication();
-  } 
+  }
+
+  destroyAll() {
+    this.localStorageService.clearAll();
+  }
 
   getMspApplication(): MspApplication {
     return this._mspApplication;
