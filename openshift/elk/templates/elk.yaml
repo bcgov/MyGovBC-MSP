@@ -44,7 +44,7 @@ objects:
         intervalSeconds: 1
         timeoutSeconds: 600
         maxUnavailable: 5%
-        maxSurge: 25%
+        maxSurge: 5%
       resources:
     triggers:
       -
@@ -91,7 +91,7 @@ objects:
             resources:
               limits:
                 memory: 2Gi
-                cpu: 100m
+                cpu: 150m
             volumeMounts:
               -
                 name: elasticsearch-data
@@ -111,7 +111,7 @@ objects:
                 path: /
                 port: 9200
                 scheme: HTTP
-              initialDelaySeconds: 60
+              initialDelaySeconds: 300
               timeoutSeconds: 10
               periodSeconds: 10
               successThreshold: 1
