@@ -72,8 +72,7 @@ objects:
         volumes:
           -
             name: elasticsearch-data
-            persistentVolumeClaim:
-              claimName: elasticsearch-rwo
+            emptyDir:
         containers:
           -
             name: elasticsearch
@@ -398,16 +397,6 @@ objects:
       weight: 100
     port:
       targetPort: 8080-tcp
-- apiVersion: v1
-  kind: PersistentVolumeClaim
-  metadata:
-    name: elasticsearch-rwo
-  spec:
-    accessModes:
-    - ReadWriteOnce
-    resources:
-      requests:
-        storage: ${VOLUME_CAPACITY}
 - apiVersion: batch/v2alpha1
   kind: ScheduledJob
   metadata:
@@ -438,11 +427,6 @@ parameters:
   name: NAME
   required: true
   value: elk
-- description: Volume space available for elasticsearch data, e.g. 512Mi, 1Gi
-  displayName: Volume capacity
-  name: VOLUME_CAPACITY
-  required: true
-  value: 1Gi
 - description: Password for Kibana web console. User name is fixed to admin.
   from: '[a-zA-Z0-9]{8}'
   generate: expression
