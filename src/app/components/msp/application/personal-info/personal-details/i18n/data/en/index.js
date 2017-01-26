@@ -30,10 +30,16 @@ module.exports = {
     'Enter your child\'s legal name and gender as it appears on the documents you provided',
     'Enter your child\'s legal name and gender as it appears on the documents you provided'],
 
-  phnLabel: ['Your previous Personal Health Number',
-    'Spouse\'s previous Personal Health Number',
-    'Child\'s previous Personal Health Number',
-    'Child\'s previous Personal Health Number'],
+  phnLabel: ['Your previous BC Personal Health Number',
+    'Spouse\'s previous BC Personal Health Number',
+    'Child\'s previous BC Personal Health Number',
+    'Child\'s previous BC Personal Health Number'],
+
+  previousBCHealthNumber: ['Do you have a previous BC Personal Health Number?',
+      'Does your spouse have a previous BC Personal Health Number?',
+      'Does your child have a previous BC Personal Health Number?',
+      'Does your child have a previous BC Personal Health Number?'],
+
   movedFromProvinceLabel: ['Which province are you moving from?',
     'Which province are they moving from?',
     'Which province are they moving from?',

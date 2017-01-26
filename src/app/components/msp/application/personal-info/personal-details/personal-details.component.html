@@ -133,9 +133,9 @@
                 </div>    
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning && (person.status === 1 || person.status === 0)">
-                <label>Do you have a previous BC Personal Health Number?</label>
+        <div class="row" style="margin-bottom: 20px">
+            <div class="col-sm-4">
+                <label [innerHtml]="lang('./en/index.js').previousBCHealthNumber[this.person.relationship]"></label>
                 <div class="btn-group" role="group">
                     <button [class.msp-btn-radio]="person.hasPreviousBCPhn" 
                         (click)="person.hasPreviousBCPhn = true; onChange.emit(person.hasPreviousBCPhn)" 
@@ -145,14 +145,16 @@
                         type="button" class="btn btn-default">No&nbsp;</button>
                 </div>
             </div>
-            <div class="col-sm-4" *ngIf="person.currentActivity === Activities.Returning && person.hasPreviousBCPhn === true">
+            <div class="col-sm-4" *ngIf="person.hasPreviousBCPhn === true">
                 <msp-phn [phn]="person.previous_phn"
                         (phnChange)="person.previous_phn = $event"
-                        [required]="false"
+                        [required]="true"
                         [bcPhn]="true"
                         [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"
                         (onChange) = "onChange.emit($event)"></msp-phn>
             </div>
+        </div>
+        <div class="row">
             <msp-province *ngIf="person.currentActivity === Activities.MovingFromProvince"
                         [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
                         [province]="person.movedFromProvinceOrCountry"
