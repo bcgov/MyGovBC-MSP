@@ -10,7 +10,7 @@ The prerequisites of the deployment are:
   * OpenShift docker registry, by default docker-registry.pathfinder.gov.bc.ca
 * has following software installed on the deployment client:
   * git
-  * docker
+  * docker. This further implies you have the provisioning tools such as docker machine installed on non-linux clients and started by executing `docker-machine start`.
   * oc
 
 The deployment consists of these steps
