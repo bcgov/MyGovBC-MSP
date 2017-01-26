@@ -150,7 +150,7 @@ class Person {
   liveInBC:boolean;
 
   /**
-   * Derived from answer to question: Do you have a previous PHN?
+   * Now ask explicitly of the user
    * If answser is NO, the livedInBCSinceBirth = false
    * See https://apps.gcpe.gov.bc.ca/jira/browse/PSPDN-398
    */
@@ -232,7 +232,6 @@ class Person {
    */
   set currentActivity(act: Activities) {
     this._currentActivity = act;
-    this.livedInBCSinceBirth = false;
   }
 
   get hasFullName():boolean {

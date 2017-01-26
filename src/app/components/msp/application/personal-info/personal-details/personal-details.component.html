@@ -91,6 +91,18 @@
                 <msp-birthdate [person]="person" (onChange) = "onChange.emit($event)"></msp-birthdate>
             </div>
         </div>
+        <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult" style="margin-bottom: 20px">
+            <div class="col-sm-12">
+                <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[this.person.relationship]"></label>
+                <div class="btn-group" role="group">
+                    <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
+                            [class.msp-btn-radio]="person.livedInBCSinceBirth === answer.value"
+                            (click)="person.livedInBCSinceBirth  = answer.value"
+                            type="button" class="btn btn-default">{{answer.label}}
+                    </button>
+                </div>
+            </div>
+        </div>
         <!--
         These questions need to be visible to everyone except those who have selected one of the two following statuses:
         Canadian citizen - moving from another province

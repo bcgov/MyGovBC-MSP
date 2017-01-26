@@ -643,16 +643,15 @@ export class MspApiService {
      */
     // Init and set defaults
     to.livedInBC = LivedInBCTypeFactory.make();
-    to.livedInBC.hasLivedInBC = "N"; // default to no
 
-
-    switch (from.currentActivity) {
-      case Activities.Returning:
-        to.livedInBC.hasLivedInBC = "Y";
-        to.livedInBC.isPermanentMove = "Y"; // Always Y, you can't proceed without
-
-        break;
+    if (from.livedInBCSinceBirth === true) {
+      to.livedInBC.hasLivedInBC = "Y";
     }
+    else {
+      to.livedInBC.hasLivedInBC = "N";
+    }
+    to.livedInBC.isPermanentMove = "Y"; // Always Y, you can't proceed without
+
     if (from.previous_phn) {
       to.livedInBC.prevHealthNumber = from.previous_phn; // out of province health numbers
     }
