@@ -91,11 +91,21 @@ objects:
             resources:
               limits:
                 memory: 2Gi
-                cpu: 500m
+                cpu: 200m
             volumeMounts:
               -
                 name: elasticsearch-data
                 mountPath: /usr/share/elasticsearch/data
+            readinessProbe:
+              httpGet:
+                path: /
+                port: 9200
+                scheme: HTTP
+              initialDelaySeconds: 10
+              timeoutSeconds: 3
+              periodSeconds: 10
+              successThreshold: 1
+              failureThreshold: 3
             terminationMessagePath: /dev/termination-log
             imagePullPolicy: Always
         restartPolicy: Always
