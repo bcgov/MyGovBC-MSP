@@ -20,6 +20,7 @@ export class Eligibility {
   totalNetIncome:number;
   spouseDeduction:number;
   spouseSixtyFiveDeduction:number;
+  sixtyFiveDeduction:number;
 
   /**
    * Refer to original paper based form for exact definition of 
