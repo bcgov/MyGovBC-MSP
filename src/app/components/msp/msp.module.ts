@@ -53,6 +53,7 @@ import {MspApplicationSendingGuard} from "./application/sending/sending.guard";
 import {MspApplicationConfirmationGuard} from './application/confirmation/confirmation.guard'
 
 import {PersonalInfoGuard} from './assistance/personal-info/personal-info.guard';
+import {RetroYearsGuard} from './assistance/retro-years/retro-years.guard';
 import {ReviewGuard} from './assistance/review/review.guard';
 import {AuthorizationGuard} from './assistance/authorize-submit/authorization.guard';
 import {ConfirmationGuard} from './assistance/confirmation/confirmation.guard';
@@ -71,6 +72,7 @@ import {AssistancePrepareComponent} from './assistance/prepare/prepare.component
 import {AssistancePersonalInfoComponent} from './assistance/personal-info/personal-info.component';
 import {AssistancePersonalDetailComponent} from './assistance/personal-info/personal-details/personal-details.component';
 import {AssistanceReviewComponent} from './assistance/review/review.component';
+import {AssistanceRetroYearsComponent} from './assistance/retro-years/retro-years.component';
 import {AssistanceAuthorizeSubmitComponent} from './assistance/authorize-submit/authorize-submit.component';
 import {AssistanceSendingComponent} from './assistance/sending/sending.component';
 import {AssistanceConfirmationComponent} from './assistance/confirmation/confirmation.component';
@@ -171,6 +173,11 @@ let localStorageServiceConfig = {
                 
               },
               {
+                path: 'retro',
+                canActivate: [RetroYearsGuard],
+                component: AssistanceRetroYearsComponent
+              },
+              {
                 path: 'review',
                 canActivate: [ReviewGuard],
                 component: AssistanceReviewComponent
@@ -247,6 +254,7 @@ let localStorageServiceConfig = {
     AssistancePersonalInfoComponent,
     AssistancePersonalDetailComponent,
     AssistanceReviewComponent,
+    AssistanceRetroYearsComponent,
     AssistanceAuthorizeSubmitComponent,
     AssistanceSendingComponent,
     AssistanceConfirmationComponent,
@@ -266,7 +274,7 @@ let localStorageServiceConfig = {
     MspApplicationReviewGuard,
     MspApplicationSendingGuard,
     MspApplicationConfirmationGuard,
-
+    RetroYearsGuard,
     PersonalInfoGuard,
     ReviewGuard,
     AuthorizationGuard,
