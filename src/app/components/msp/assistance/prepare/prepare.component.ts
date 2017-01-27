@@ -42,6 +42,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   private _likelyQualify:boolean = false;
   private changeLog: string[] = [];
   qualifiedForAssistance = false;
+  requireAttendantCareReceipts = false;
 
   qualificationThreshhold:number = 42000;
 
@@ -241,5 +242,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
 
   ngDoCheck(){
     this.qualifiedForAssistance = this.finAssistApp.eligibility.adjustedNetIncome <= this.qualificationThreshhold;
+    this.requireAttendantCareReceipts = this.qualifiedForAssistance && (this.finAssistApp.applicantClaimForAttendantCareExpense ||
+    this.finAssistApp.spouseClaimForAttendantCareExpense || this.finAssistApp.childClaimForAttendantCareExpense);
   }
 }

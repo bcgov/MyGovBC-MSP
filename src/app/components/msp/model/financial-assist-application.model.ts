@@ -6,10 +6,15 @@ import {UUID} from "angular2-uuid";
 import { MspImage } from "./msp-image";
 import moment = require("moment");
 import {ApplicationBase} from "./application-base.model";
+import {AssistanceYear} from './assistance-year.model';
 
 export class FinancialAssistApplication implements ApplicationBase {
 
   readonly uuid = UUID.UUID();
+
+  assistYears:AssistanceYear[] = [];
+  assistYeaDocs:MspImage[] = [];
+
   infoCollectionAgreement: boolean = false;
 
   applicantClaimForAttendantCareExpense:boolean = false;

@@ -404,6 +404,9 @@ export default class MspDataService {
 
     dto.phoneNumber = input.phoneNumber;
 
+    dto.assistYears = input.assistYears;
+    dto.assistYeaDocs = input.assistYeaDocs;    
+
     this.convertToPersonDto(input.applicant, dto.applicant);
     this.convertToPersonDto(input.spouse, dto.spouse);
     this.convertMailingAddress(input, dto);
@@ -454,6 +457,9 @@ export default class MspDataService {
     
     output.powerOfAttorneyDocs = dto.powerOfAttorneyDocs;
     output.attendantCareExpenseReceipts = dto.attendantCareExpenseReceipts;
+
+    output.assistYears = dto.assistYears || [];
+    output.assistYeaDocs = dto.assistYeaDocs || [];    
 
     this.convertToPerson(dto.applicant, output.applicant);
     this.convertToPerson(dto.spouse, output.spouse);

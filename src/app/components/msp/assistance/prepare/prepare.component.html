@@ -415,25 +415,7 @@
                         </div>
                     </div>
                 </div>
-                <!--<div class="row">
-                    <div class="col-md-offset-1 col-md-8">
-                        <label>Number of children who claimed for attendant care expense</label>
-
-                        <div class="col-xs-6 input-group">
-                            <select name="childWithDisabilityCount" 
-                                #childDisabilityCreditCreditMultiplierSelect
-                                [ngModel] = "finAssistApp.childWithDisabilityCount"
-                                (ngModelChange) = "updateChildDisabilityCreditCreditMultiplier($event)">
-                                <option *ngFor="let v of finAssistApp.childrenCountArray()" 
-                                    [value]="v">
-                                    {{v}}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                </div>-->
-                <div class="row" style="margin-top: 15px;" *ngIf="qualifiedForAssistance">
+                <div class="row" style="margin-top: 15px;" *ngIf="requireAttendantCareReceipts">
                     <div class="col-md-12">
                         <label for="netIncome">Please upload your attendant care receipts for the expense entered above.</label>
                         <msp-file-uploader 

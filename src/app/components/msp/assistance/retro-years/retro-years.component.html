@@ -1,7 +1,45 @@
 <h1 [innerHTML]="lang('./en/index.js').retroYearsTitle"></h1>
+<div class="row">
+  <div class="col-xs-12">
+    <h3>Be sure to get assistance for any previous years you may have qualified for - share your income tax information for up to six years.</h3>
+  </div>
+</div>
 
-<hr>
-<button class="btn btn-primary" type="submit" routerLink="/msp/assistance/review"
-        [innerHTML]="lang('./en/index.js').continueButton"></button>
+<form #formRef='ngForm' novalidate>
 
-<msp-cancel></msp-cancel>
+  <div class="row">
+    <div class="col-md-2" style="margin-top: 20px">
+      <div class="form-group" *ngFor="let assistYear of years">
+        <div class="checkbox checkbox-success checkbox-inline" >
+            <input type="checkbox" 
+            name="assistYear-{{assistYear.year}}"
+            id="assistYear-{{assistYear.year}}"
+            [(ngModel)] = "assistYear.apply">
+            <label for="assistYear-{{assistYear.year}}">
+                {{ assistYear.year}}
+            </label>
+        </div>                        
+      </div>
+
+    </div>
+    <div class="col-md-8">
+        <h4>Documents required</h4>
+        <label for="netIncome">Include photograph of Notics of Assessement from Canada Revenue Agency for each year you have selected.</label>
+      
+        <msp-file-uploader 
+            [images]="application.assistYeaDocs" 
+            [id]='application.id'
+            (onAddDocument)="addDoc($event)"
+            (onDeleteDocument)="deleteDoc($event)">
+        </msp-file-uploader>
+      
+    </div>
+  </div>
+
+  <hr>
+  <button class="btn btn-primary" type="submit" routerLink="/msp/assistance/review"
+          [innerHTML]="lang('./en/index.js').continueButton"></button>
+
+  <msp-cancel></msp-cancel>
+
+</form>

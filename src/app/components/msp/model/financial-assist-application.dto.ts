@@ -2,6 +2,7 @@ import AddressDto from './address.dto';
 import PersonDto from './person.dto';
 import {MspImage} from "./msp-image";
 
+import {AssistanceYear} from './assistance-year.model';
 export default class FinancialAssistApplicationDto {
   infoCollectionAgreement: boolean;
   incomeLine236: number;
@@ -37,4 +38,8 @@ export default class FinancialAssistApplicationDto {
   childClaimForAttendantCareExpenseCount:number = 1;
 
   attendantCareExpense:number;
+
+  assistYears:AssistanceYear[] = [];
+  assistYeaDocs:MspImage[] = [];
+  
 }
