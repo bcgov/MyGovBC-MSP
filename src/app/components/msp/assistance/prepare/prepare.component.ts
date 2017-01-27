@@ -41,6 +41,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
 
   private _likelyQualify:boolean = false;
   private changeLog: string[] = [];
+  qualificationThreshhold:number = 42000;
 
   constructor(private dataService: DataService){
 
@@ -239,4 +240,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
     this.finAssistApp.childClaimForAttendantCareExpense = evt;
   }  
 
+  qualified():boolean {
+    return this.finAssistApp.eligibility.adjustedNetIncome <= this.qualificationThreshhold;
+  }
 }

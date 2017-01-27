@@ -22,7 +22,8 @@ require('./deduction-calculator.less');
 export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   @Input() application: FinancialAssistApplication;
   @Output() updateQualify:EventEmitter<Boolean> = new EventEmitter<Boolean>();
-  private qualificationThreshhold:number = 42000;
+
+  @Input() qualificationThreshhold:number;
   lang = require('./i18n');
   
   constructor(){
@@ -176,7 +177,8 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   }
 
   get incomeUnderThreshhold() {
-    return this.adjustedIncome <= this.qualificationThreshhold;
+    let r = this.adjustedIncome <= this.qualificationThreshhold;
+    return r;
   }
 
   get canContinue(){
