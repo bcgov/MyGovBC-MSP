@@ -390,10 +390,16 @@ export class MspApiService {
         to.application.assistanceApplication.spouse.SIN = Number(from.spouse.sin.replace(new RegExp("[^0-9]", "g"), ""));
       }
 
-      /* NOT MAPPED
-       spouseDeduction?: number;  // TODO: populate these
+      /*
+       spouseDeduction?: number;
        spouseSixtyFiveDeduction?: number;
        */
+      if (from.eligibility.spouseDeduction != null) {
+        to.application.assistanceApplication.spouse.spouseDeduction = from.eligibility.spouseDeduction;
+      }
+      if (from.eligibility.spouseSixtyFiveDeduction != null) {
+        to.application.assistanceApplication.spouse.spouseSixtyFiveDeduction = from.eligibility.spouseSixtyFiveDeduction;
+      }
     }
 
     // Convert attachments
@@ -409,30 +415,41 @@ export class MspApiService {
     let to = FinancialsTypeFactory.make();
 
     /*
-     adjustedNetIncome?: number;          // not mapped
+     adjustedNetIncome?: number;          // adjustedNetIncome
      assistanceYear: AssistanceYearType;  // "CurrentPA" TODO: ticket in JIRA to address this
      childCareExpense?: number;           // claimedChildCareExpense_line214
-     childDeduction?: number;             // not mapped
-     deductions?: number;                 // not mapped TODO: look at functional spec r22/23 - deductions difference
-     disabilityDeduction?: number;        // not mapped - TODO: selfDisabilityCredit
+     childDeduction?: number;             // childDeduction
+     deductions?: number;                 // deductions
+     disabilityDeduction?: number;        // disabilityDeduction
      disabilitySavingsPlan?: number;      // spouseDSPAmount_line125
      netIncome: number;                   // netIncomelastYear
      numChildren?: number;                // childrenCount
      numDisabled?: number;                // childWithDisabilityCount
-     sixtyFiveDeduction?: number;         // not mapped, both applicant and spouse
+     sixtyFiveDeduction?: number;         // both applicant and spouse
      spouseNetIncome?: number;            // spouseIncomeLine236
      taxYear: number;                     // Current Year, if multiple the recent selected
-     totalDeductions?: number;            // not mapped
-     totalNetIncome?: number;             // not mapped, applicant and spouse
+     totalDeductions?: number;            // totalDeductions
+     totalNetIncome?: number;             // totalNetIncome, applicant and spouse
      uccb?: number;                       // reportedUCCBenefit_line117
-     // ageOver65
-     // hasSpouseOrCommonLaw
-     // spouseAgeOver65
-     // spouseEligibleForDisabilityCredit
-     // selfDisabilityCredit
+                                         // ageOver65
+                                         // hasSpouseOrCommonLaw
+                                         // spouseAgeOver65
+                                         // spouseEligibleForDisabilityCredit
+                                         // selfDisabilityCredit
+                                         // deductionDifference?
      */
 
     to.assistanceYear = "CurrentPA";
+    to.taxYear = moment().year();
+
+    if (from.eligibility.adjustedNetIncome != null) to.adjustedNetIncome = from.eligibility.adjustedNetIncome;
+    if (from.eligibility.childDeduction != null) to.childDeduction = from.eligibility.childDeduction;
+    if (from.eligibility.deductions != null) to.deductions = from.eligibility.deductions;
+    if (from.eligibility.disabilityDeduction != null) to.disabilityDeduction = from.eligibility.disabilityDeduction;
+    if (from.eligibility.sixtyFiveDeduction != null) to.sixtyFiveDeduction = from.eligibility.sixtyFiveDeduction;
+    if (from.eligibility.spouseSixtyFiveDeduction != null) to.sixtyFiveDeduction += from.eligibility.spouseSixtyFiveDeduction;
+    if (from.eligibility.totalDeductions != null) to.totalDeductions = from.eligibility.totalDeductions;
+    if (from.eligibility.totalNetIncome != null) to.totalDeductions = from.eligibility.totalDeductions;
     if (from.claimedChildCareExpense_line214 != null) to.childCareExpense = from.claimedChildCareExpense_line214;
     if (from.netIncomelastYear != null) to.netIncome = from.netIncomelastYear;
     if (from.childrenCount != null) to.numChildren = from.childrenCount;
@@ -441,7 +458,7 @@ export class MspApiService {
     if (from.netIncomelastYear != null) to.netIncome = from.netIncomelastYear;
     if (from.reportedUCCBenefit_line117 != null) to.uccb = from.reportedUCCBenefit_line117;
     if (from.spouseDSPAmount_line125 != null) to.disabilitySavingsPlan = from.spouseDSPAmount_line125;
-    to.taxYear = moment().utc().year();
+
 
     return to;
   }
