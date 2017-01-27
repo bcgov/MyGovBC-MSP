@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit, OnInit, ElementRef} from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit, ElementRef, DoCheck} from '@angular/core';
 import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs/Observable';
@@ -11,11 +11,11 @@ import 'rxjs/add/operator/catch';
 import DataService from '../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
-
+import {MspImage} from "../../../msp/model/msp-image";
 @Component({
   templateUrl: './prepare.component.html'
 })
-export class AssistancePrepareComponent implements AfterViewInit, OnInit{
+export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoCheck{
   @ViewChild('formRef') prepForm: NgForm;
   @ViewChild('incomeRef') incomeRef: ElementRef;
   @ViewChild('ageOver65Btn') ageOver65Btn: ElementRef;
@@ -41,6 +41,8 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
 
   private _likelyQualify:boolean = false;
   private changeLog: string[] = [];
+  qualifiedForAssistance = false;
+
   qualificationThreshhold:number = 42000;
 
   constructor(private dataService: DataService){
@@ -68,8 +70,13 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
     this.dataService.saveFinAssistApplication();
   }
 
-  deleteReceipts(evt:any){
-
+  deleteReceipts(evt:MspImage){
+    this.finAssistApp.attendantCareExpenseReceipts = this.finAssistApp.attendantCareExpenseReceipts.filter(
+      receipt => {
+        return receipt.id != evt.id;
+      }
+    );
+    this.dataService.saveFinAssistApplication();
   }
 
   applicantIncomeChange(evt:any){
@@ -240,7 +247,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
     this.finAssistApp.childClaimForAttendantCareExpense = evt;
   }  
 
-  qualified():boolean {
-    return this.finAssistApp.eligibility.adjustedNetIncome <= this.qualificationThreshhold;
+  ngDoCheck(){
+    this.qualifiedForAssistance = this.finAssistApp.eligibility.adjustedNetIncome <= this.qualificationThreshhold;
   }
 }

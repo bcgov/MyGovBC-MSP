@@ -191,13 +191,24 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
 
      if(this.applicantIncomeInfoProvided && applicantAgeSpecified && spouseSpecified){
        if(this.application.hasSpouseOrCommonLaw){
-         return spouseAgeSpecified;
+         return spouseAgeSpecified && this.attendantCareExpenseReceiptsProvided;
        }else{
-         return true;
+         return this.attendantCareExpenseReceiptsProvided;
        }
      }else{
        return false;
      }
+
+  }
+
+  private get attendantCareExpenseReceiptsProvided():boolean {
+    let provided = true;
+     if(this.incomeUnderThreshhold && (this.childClaimForAttendantCareExpenseAmt > 0 
+      || this.applicantClaimForAttendantCareExpenseAmt > 0 || this.spouseClaimForAttendantCareExpenseAmt > 0)){
+        provided = this.application.attendantCareExpenseReceipts.length > 0;
+     }
+
+     return provided;
   }
 
   get isPristine(){

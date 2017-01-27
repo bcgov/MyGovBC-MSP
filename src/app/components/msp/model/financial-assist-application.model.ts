@@ -19,7 +19,7 @@ export class FinancialAssistApplication implements ApplicationBase {
 
   _attendantCareExpense:number;
 
-  _attendantCareExpenseReceipts: MspImage[] = new Array<MspImage>();
+  private _attendantCareExpenseReceipts: MspImage[] = new Array<MspImage>();
 
   get attendantCareExpense():number {
     if(!!this._attendantCareExpense && !isNaN(this._attendantCareExpense)){
