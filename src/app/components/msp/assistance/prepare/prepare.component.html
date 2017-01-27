@@ -20,7 +20,6 @@
                             [(ngModel)]="finAssistApp.netIncomelastYear"
                             #incomeRef="ngModel" 
                             pattern="(?=.)^(([1-9][0-9]{0,5}(,[0-9]{5})*)|[0-9]+)?(\.[0-9]{1,5})?$"
-                            (valueChanges) = "applicantIncomeChange($event)"
                             required maxlength="12">
                     </div>
                 </div>
@@ -362,19 +361,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    <!--<div class="col-md-12">
-                        <label for="netIncome">What is your attendant care expense (line 215 or line 330) on last year's Notice of Assessment (or Reassessment) from Canada Revenue Agency?</label>
-
-                        <div class="col-md-3 col-sm-4 col-xs-12 input-group">
-                            <span class="input-group-addon">$</span>
-                            <input type="text" class="form-control" name="attendantCareExpense" id="attendantCareExpense"
-                                [(ngModel)]="finAssistApp.attendantCareExpense"
-                                #attendantCareExpenseRef="ngModel" 
-                                pattern="(?=.)^(([1-9][0-9]{0,5}(,[0-9]{5})*)|[0-9]+)?(\.[0-9]{1,5})?$"
-                                (valueChanges) = "attendantCareExpenseChange($event)"
-                                required maxlength="12">
-                        </div>
-                    </div>-->
                     <div class="col-md-3 col-md-offset-1">
                         <div class="checkbox checkbox-success checkbox-inline">
                                 <input type="checkbox" 

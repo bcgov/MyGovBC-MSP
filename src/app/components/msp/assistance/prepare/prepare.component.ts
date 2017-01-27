@@ -79,14 +79,6 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
     this.dataService.saveFinAssistApplication();
   }
 
-  applicantIncomeChange(evt:any){
-    console.log('applicantIncomeChange! ', evt);  
-  }
-  attendantCareExpenseChange(evt:any){
-    console.log('attendantCareExpenseChange! ', evt);  
-    
-  }
-  
   ngAfterViewInit() {
     if (!this.dataService.finAssistApp.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();
