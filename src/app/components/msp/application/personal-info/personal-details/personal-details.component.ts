@@ -126,7 +126,7 @@ export class PersonalDetailsComponent implements AfterViewInit {
   }
 
   addDocument(evt:MspImage){
-    console.log('image added: %s', evt);
+    // console.log('image added: %s', evt);
     this.person.documents.images = [...this.person.documents.images, evt];
     this.onChange.emit(evt);
   }

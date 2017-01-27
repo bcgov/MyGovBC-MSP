@@ -6,17 +6,6 @@
 </div>
 <div class="row">
     <div class="col-md-8">
-        <!--<h3>
-            Be prepared to enter information found on last year’s:
-            <ul>
-                <li>
-                    Notice of Assessment (or Reassessment) from Canada Revenue Agency
-                </li>
-                <li>
-                    Income tax return
-                </li>
-            </ul>
-        </h3>-->
         <form #formRef='ngForm' novalidate>
 
         <div class="form-group"
@@ -221,45 +210,8 @@
             || finAssistApp.ageOver65 === undefined">
             
             <hr>
-            <h4>Please select one of the following options or select none if neither applies to you</h4>
-            <div class="row" style="margin-top: 15px">
-                <div class="col-sm-10">
-                    <div class="checkbox checkbox-success checkbox-inline">
-                            <input type="checkbox"
-                            id="claimForDisabilityCredit"
-                            name ="claimForDisabilityCredit"
-                            [(ngModel)] = "finAssistApp.claimForDisabilityCredit"
-                            (ngModelChange) = "toggleClaimForDisabilityCredit($event)">
-                        <label for="claimForDisabilityCredit">
-                            I would like to claim for disability credit
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" style="margin-top: 12px">
-                <div class="col-sm-10">
-                    <div class="checkbox checkbox-success checkbox-inline">
-                            <input type="checkbox" 
-                            name="claimForNursingHomeExpense"
-                            id="claimForNursingHomeExpense"
-                            [(ngModel)] = "finAssistApp.claimForNursingHomeExpense"
-                            (ngModelChange) = "toggleClaimForNursingHomeExpense($event)">
-                        <label for="claimForNursingHomeExpense">
-                            I would like to claim attendent or nursing home expense
-                        </label>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row" style="margin-top: 15px">
-                <div class="col-md-6" [hidden]="!finAssistApp.claimForDisabilityCredit">
-                    <span [innerHTML]="lang('./en/index.js').disabilityInfoLabel"></span>
-                </div>
-                <div class="col-md-6" [hidden]="!finAssistApp.claimForNursingHomeExpense">
-                    <span [innerHTML]="lang('./en/index.js').nursingHomeLabel"></span>
-                </div>
-                <div class="col-md-6" [hidden] ="true">
+            <div class="row">
+                <div class="col-md-6">
                     <div class="msp-toggle" *ngIf="!showDisabilityInfo" (click)="showDisabilityInfo=true">
                         <span class="glyphicon glyphicon-collapse-up msp-toggle"
                         aria-hidden="true"></span>
@@ -273,11 +225,14 @@
                     </div>
                 </div>
             </div>
-            <p></p>
-            <div class="row" [hidden]="!finAssistApp.claimForDisabilityCredit" style="margin-left: 5px;">
+
+
+            <div class="row" [hidden]="!showDisabilityInfo" style="margin-left: 5px; margin-top: 15px;">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="">Is anyone included on your public health insurance eligible for the Disability Credit as per Canada Revenue Agency (Lines 316, 318 or 326)? Please check all that apply.
+                        <label for="">
+                            <!--Is anyone included on your public health insurance eligible for the Disability Credit as per Canada Revenue Agency (Lines 316, 318 or 326)? Please check all that apply.-->
+                            Did anyone included in your MSP coverage claimed disability credit in last year's tax return (Lines 316, 318 or 326)? 
                         </label>
 
                         <ul class="msp-horizontal-list-group">
@@ -380,11 +335,128 @@
                 </div>
             
             </div>
-            <div class="row" [hidden]="!finAssistApp.claimForNursingHomeExpense" style="margin-left: 5px;">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <h3>Attendent or nursing home expense goes here</h3>
+            
+            <hr>
+            <div class="row" style="margin-top: 12px">
+                <div class="col-sm-10">
+                    <div class="msp-toggle" *ngIf="!showAttendantCareInfo" (click)="showAttendantCareInfo=true">
+                        <span class="glyphicon glyphicon-collapse-up msp-toggle"
+                        aria-hidden="true"></span>
+                        <span [innerHTML]="lang('./en/index.js').nursingHomeLabel"></span>
 
+                    </div>
+                    <div class="msp-toggle" *ngIf="showAttendantCareInfo" (click)="showAttendantCareInfo=false">
+                        <span class="glyphicon glyphicon-collapse-down msp-toggle"
+                        aria-hidden="true"></span>
+                        <span [innerHTML]="lang('./en/index.js').nursingHomeLabel"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div [hidden]="!showAttendantCareInfo" style="margin-left: 15px; margin-top: 10px;">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label>
+                            Did any one included in your MSP coverage claimed attendant care expense in last year's tax return (line 215 or line 330)?
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--<div class="col-md-12">
+                        <label for="netIncome">What is your attendant care expense (line 215 or line 330) on last year's Notice of Assessment (or Reassessment) from Canada Revenue Agency?</label>
+
+                        <div class="col-md-3 col-sm-4 col-xs-12 input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" class="form-control" name="attendantCareExpense" id="attendantCareExpense"
+                                [(ngModel)]="finAssistApp.attendantCareExpense"
+                                #attendantCareExpenseRef="ngModel" 
+                                pattern="(?=.)^(([1-9][0-9]{0,5}(,[0-9]{5})*)|[0-9]+)?(\.[0-9]{1,5})?$"
+                                (valueChanges) = "attendantCareExpenseChange($event)"
+                                required maxlength="12">
+                        </div>
+                    </div>-->
+                    <div class="col-md-3 col-md-offset-1">
+                        <div class="checkbox checkbox-success checkbox-inline">
+                                <input type="checkbox" 
+                                name="applicantClaimForAttendantCareExpense"
+                                id="applicantClaimForAttendantCareExpense"
+                                [(ngModel)] = "finAssistApp.applicantClaimForAttendantCareExpense">
+                            <label for="applicantClaimForAttendantCareExpense">
+                                Myself
+                            </label>
+                        </div>                        
+                    </div>
+                    <div class="col-md-8">
+                        <div class="checkbox checkbox-success checkbox-inline">
+                                <input type="checkbox" 
+                                name="spouseClaimForAttendantCareExpense"
+                                id="spouseClaimForAttendantCareExpense"
+                                [(ngModel)] = "finAssistApp.spouseClaimForAttendantCareExpense">
+                            <label for="spouseClaimForAttendantCareExpense">
+                                My spouse/common-law partner
+                            </label>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px" *ngIf="!!finAssistApp.childrenCount">
+                    <div class="col-md-3 col-md-offset-1">
+                        <div class="checkbox checkbox-success checkbox-inline">
+                                <input type="checkbox" 
+                                name="childClaimForAttendantCareExpense"
+                                id="childClaimForAttendantCareExpense"
+                                [ngModel] = "finAssistApp.childClaimForAttendantCareExpense"
+                                (ngModelChange) = "toggleChildClaimForAttendantCareExpense($event)">
+                                <label for="childClaimForAttendantCareExpense">
+                                    My child
+                                </label>
+                        </div>                        
+                    </div>    
+                    <div class="col-md-8" [hidden]="!finAssistApp.childClaimForAttendantCareExpense || finAssistApp.childrenCount < 2">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <span>Number of children who claimed for attendant care expense</span>
+                                <span style="margin-left: 5px">
+                                    <select name="childClaimForAttendantCareExpenseCount" 
+                                        #childDisabilityCreditCreditMultiplierSelect
+                                        [(ngModel)] = "finAssistApp.childClaimForAttendantCareExpenseCount">
+                                        <option *ngFor="let v of finAssistApp.childrenCountArray()" 
+                                            [value]="v">
+                                            {{v}}
+                                        </option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="row">
+                    <div class="col-md-offset-1 col-md-8">
+                        <label>Number of children who claimed for attendant care expense</label>
+
+                        <div class="col-xs-6 input-group">
+                            <select name="childWithDisabilityCount" 
+                                #childDisabilityCreditCreditMultiplierSelect
+                                [ngModel] = "finAssistApp.childWithDisabilityCount"
+                                (ngModelChange) = "updateChildDisabilityCreditCreditMultiplier($event)">
+                                <option *ngFor="let v of finAssistApp.childrenCountArray()" 
+                                    [value]="v">
+                                    {{v}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                </div>-->
+                <div class="row" style="margin-top: 15px;">
+                    <div class="col-md-12">
+                        <label for="netIncome">Please upload your attendant care receipts for the expense entered above.</label>
+                        <msp-file-uploader 
+                            [images]="finAssistApp.attendantCareExpenseReceipts" 
+                            [id]='finAssistApp.id'
+                            (onAddDocument)="addReceipts($event)"
+                            (onDeleteDocument)="deleteReceipts($event)">
+                        </msp-file-uploader>
+                        
                     </div>
                 </div>
             </div>

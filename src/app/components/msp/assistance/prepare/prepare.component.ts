@@ -36,6 +36,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
 
   lang = require('./i18n');
   _showDisabilityInfo:boolean = false;
+  showAttendantCareInfo = true;
   private _showChildrenInfo:boolean = false;
 
   private _likelyQualify:boolean = false;
@@ -49,6 +50,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
     this._showDisabilityInfo = 
     this.dataService.finAssistApp.selfDisabilityCredit === true ||
     this.dataService.finAssistApp.spouseEligibleForDisabilityCredit === true ||
+    !!this.finAssistApp.childWithDisabilityCount ||
     !_.isNil(this.dataService.finAssistApp.spouseDSPAmount_line125);
 
     this.showChildrenInfo =       
@@ -59,10 +61,23 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
       
   }
 
-  applicantIncomeChange(evt:any){
-    console.log('change!', evt);  
+  addReceipts(evt:any){
+    console.log('image added: %s', evt);
+    this.finAssistApp.attendantCareExpenseReceipts = [...this.finAssistApp.attendantCareExpenseReceipts, evt];
+    this.dataService.saveFinAssistApplication();
   }
-  
+
+  deleteReceipts(evt:any){
+
+  }
+
+  applicantIncomeChange(evt:any){
+    console.log('applicantIncomeChange! ', evt);  
+  }
+  attendantCareExpenseChange(evt:any){
+    console.log('attendantCareExpenseChange! ', evt);  
+    
+  }
   
   ngAfterViewInit() {
     if (!this.dataService.finAssistApp.infoCollectionAgreement) {
@@ -215,16 +230,13 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit{
   }
 
   updateChildDisabilityCreditCreditMultiplier(evt:string){
-    // console.log('updateChildDisabilityCreditCreditMultiplier: %o', evt);
     this.finAssistApp.childWithDisabilityCount = parseInt(evt);
     this.dataService.saveFinAssistApplication();
   }
 
-  toggleClaimForNursingHomeExpense(evt:any){
-    this.finAssistApp.claimForNursingHomeExpense = evt;
-  }
+  toggleChildClaimForAttendantCareExpense(evt:boolean){
+    // console.log('toggleChildClaimForAttendantCareExpense: %o', evt);
+    this.finAssistApp.childClaimForAttendantCareExpense = evt;
+  }  
 
-  toggleClaimForDisabilityCredit(evt:any){
-    this.finAssistApp.claimForDisabilityCredit = evt;
-  }
 }

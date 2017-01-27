@@ -10,6 +10,10 @@ import 'rxjs/add/operator/pluck';
 import 'rxjs/add/operator/catch';
 import * as _ from 'lodash';
 
+import {Deductions} from '../../../model/deductions.model';
+import {Eligibility} from '../../../model/eligibility.model';
+
+
 import {FinancialAssistApplication} from '../../../model/financial-assist-application.model';
 require('./deduction-calculator.less');
 
@@ -49,9 +53,14 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   /**
    * Children amount has been reduced with 50% of child care expense claimed on income tax
    */
+  get adjustedChildrenAmt(): number {
+    let amt = this.childrenAmt + this.childCareExpense;
+    return amt > 0 ? amt : 0;
+  }
+
   get childrenAmt(): number {
     let cnt:number = (!!this.application.childrenCount && this.application.childrenCount > 0)? this.application.childrenCount : 0;
-    let amt = cnt * 3000 + this.childCareExpense;
+    let amt = cnt * 3000;
     return amt > 0 ? amt : 0;
   }
 
@@ -74,23 +83,85 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     return !!m? 3000*m: 0;
   }
 
+  get attendantCareExpenseAmt(): number {
+    if(_.isNumber(this.application.attendantCareExpense) 
+      && this.application.attendantCareExpense < 3000 
+      && this.application.attendantCareExpense > 0){
+      return this.application.attendantCareExpense;
+    }else{
+      return 0;
+    }
+  }
+
+  get childClaimForAttendantCareExpenseAmt(): number {
+    if(!!this.application.childClaimForAttendantCareExpense){
+      return this.application.childClaimForAttendantCareExpenseCount * 3000;
+    }else{
+      return 0;
+    }
+  }
+  get spouseClaimForAttendantCareExpenseAmt(): number {
+    if(!!this.application.spouseClaimForAttendantCareExpense){
+      return 3000;
+    }else{
+      return 0;
+    }
+  }
+  get applicantClaimForAttendantCareExpenseAmt(): number {
+    if(!!this.application.applicantClaimForAttendantCareExpense){
+      return 3000;
+    }else{
+      return 0;
+    }
+  }
+
+  get familyClaimForAttendantCareExpenseAmt(): number {
+    return this.childClaimForAttendantCareExpenseAmt + this.spouseClaimForAttendantCareExpenseAmt
+    + this.applicantClaimForAttendantCareExpenseAmt;
+  }
+
   get totalDeductions(): number{
     let total = this.ageOver65Amt
     + this.spouseAmt
     + this.spouseAgeOver65Amt
-    + this.childrenAmt
+    + this.adjustedChildrenAmt
     + this.uCCBenefitAmt
     + this.disabilityCreditAmt
     + this.spouseDisabilityCreditAmt
     + this.childreDisabilityCreditAmt
-    + this.application.spouseDSPAmount_line125;
+    + this.application.spouseDSPAmount_line125
+    + this.applicantClaimForAttendantCareExpenseAmt
+    + this.spouseClaimForAttendantCareExpenseAmt
+    + this.childClaimForAttendantCareExpenseAmt;
     return total;
   }
+
   get adjustedIncome(): number{
     let adjusted:number = parseFloat(this.totalHouseholdIncome) - this.totalDeductions;
     adjusted < 0? adjusted = 0 : adjusted = adjusted;
+    
     this.application.eligibility.adjustedNetIncome = adjusted;
     this.application.eligibility.totalDeductions = this.totalDeductions;
+
+    this.application.eligibility.childDeduction = this.childrenAmt
+    this.application.eligibility.disabilityDeduction = this.disabilityCreditAmt + this.spouseDisabilityCreditAmt + this.childreDisabilityCreditAmt;
+    this.application.eligibility.totalDeductions = this.totalDeductions;
+    this.application.eligibility.totalNetIncome = parseFloat(this.totalHouseholdIncome);
+    this.application.eligibility.spouseDeduction = this.spouseAmt;
+    this.application.eligibility.spouseSixtyFiveDeduction = this.spouseAgeOver65Amt;
+
+    /**
+     * Rule 23 on FDS document
+     * 
+     * IF D0.NUMBER OF CHILDREN = 0
+     *  THEN Value = 0
+     *  ELSE Value =
+     *  D0.CHILD DEDUCTION -  
+     *  D0.CHILD CARE EXPENSES 
+     *  IF Value < 0 
+     *  THEN Value = 0
+     */
+    this.application.eligibility.deductions = this.adjustedChildrenAmt;
 
     return adjusted;
   }
@@ -155,5 +226,7 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     return total;
   }
 
-  
+  get eligibility(): Eligibility {
+    return this.application.eligibility;
+  }
 }

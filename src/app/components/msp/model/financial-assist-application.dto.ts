@@ -29,7 +29,12 @@ export default class FinancialAssistApplicationDto {
   authorizedByAttorney:boolean;
 
   powerOfAttorneyDocs:MspImage[] = [];
+  attendantCareExpenseReceipts:MspImage[] = [];
 
-  claimForDisabilityCredit:boolean;
-  claimForNursingHomeExpense:boolean;
+  applicantClaimForAttendantCareExpense:boolean = false;
+  spouseClaimForAttendantCareExpense:boolean = false;
+  childClaimForAttendantCareExpense:boolean = false;
+  childClaimForAttendantCareExpenseCount:number = 1;
+
+  attendantCareExpense:number;
 }

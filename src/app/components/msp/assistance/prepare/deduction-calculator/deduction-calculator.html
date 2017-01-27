@@ -76,7 +76,7 @@
 
     <tr *ngIf="application.selfDisabilityCredit">
       <td class="deduction-table-cell-margin">
-        Disability credit
+        Applicant Disability credit
       </td>
       <td class="deduction-table-cell-padding deduction-table-cell-margin">
         {{disabilityCreditAmt | currency: 'USD' : true}}
@@ -104,6 +104,31 @@
       </td>
       <td class="deduction-table-cell-padding deduction-table-cell-margin">
         {{application.spouseDSPAmount_line125 | currency: 'USD' : true}}
+      </td>
+    </tr>
+
+    <tr *ngIf="application.applicantClaimForAttendantCareExpense">
+      <td class="deduction-table-cell-margin">
+        Applicant attendant care expense
+      </td>
+      <td class="deduction-table-cell-padding deduction-table-cell-margin">
+        {{applicantClaimForAttendantCareExpenseAmt | currency: 'USD' : true}}
+      </td>
+    </tr>
+    <tr *ngIf="application.spouseClaimForAttendantCareExpense">
+      <td class="deduction-table-cell-margin">
+        Spouse attendant care expense
+      </td>
+      <td class="deduction-table-cell-padding deduction-table-cell-margin">
+        {{spouseClaimForAttendantCareExpenseAmt| currency: 'USD' : true}}
+      </td>
+    </tr>
+    <tr *ngIf="application.childClaimForAttendantCareExpense">
+      <td class="deduction-table-cell-margin">
+        Child attendant care expense
+      </td>
+      <td class="deduction-table-cell-padding deduction-table-cell-margin">
+        {{childClaimForAttendantCareExpenseAmt| currency: 'USD' : true}}
       </td>
     </tr>
         
@@ -164,3 +189,6 @@
                   style="font-size: smaller"></button>
       </div>
   </div>-->
+<div>
+  {{eligibility | json}}
+</div>

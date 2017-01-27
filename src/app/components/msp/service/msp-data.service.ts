@@ -384,14 +384,19 @@ export default class MspDataService {
     dto.spouseDSPAmount_line125 = input.spouseDSPAmount_line125;
     dto.childWithDisabilityCount = input.childWithDisabilityCount;
 
-    dto.claimForDisabilityCredit = input.claimForDisabilityCredit;
-    dto.claimForNursingHomeExpense = input.claimForNursingHomeExpense;
+    dto.applicantClaimForAttendantCareExpense = input.applicantClaimForAttendantCareExpense;
+    dto.spouseClaimForAttendantCareExpense = input.spouseClaimForAttendantCareExpense;
+    dto.childClaimForAttendantCareExpense = input.childClaimForAttendantCareExpense;
+    dto.childClaimForAttendantCareExpenseCount = input.childClaimForAttendantCareExpenseCount;
+
+    dto.attendantCareExpense = input.attendantCareExpense;
 
     dto.authorizedByApplicant = input.authorizedByApplicant;
     dto.authorizedBySpouse = input.authorizedBySpouse;
     dto.authorizedByAttorney = input.authorizedByAttorney;
 
     dto.powerOfAttorneyDocs = input.powerOfAttorneyDocs;
+    dto.attendantCareExpenseReceipts = input.attendantCareExpenseReceipts;
 
     dto.phoneNumber = input.phoneNumber;
 
@@ -431,8 +436,11 @@ export default class MspDataService {
     output.spouseDSPAmount_line125 = dto.spouseDSPAmount_line125;
     output.childWithDisabilityCount = dto.childWithDisabilityCount;
 
-    output.claimForDisabilityCredit = dto.claimForDisabilityCredit;
-    output.claimForNursingHomeExpense = dto.claimForNursingHomeExpense;
+    output.applicantClaimForAttendantCareExpense = dto.applicantClaimForAttendantCareExpense;
+    output.spouseClaimForAttendantCareExpense = dto.spouseClaimForAttendantCareExpense;
+    output.childClaimForAttendantCareExpense = dto.childClaimForAttendantCareExpense;
+    output.childClaimForAttendantCareExpenseCount = dto.childClaimForAttendantCareExpenseCount;
+    output.attendantCareExpense = dto.attendantCareExpense;
 
     output.phoneNumber = dto.phoneNumber;
 
@@ -441,6 +449,7 @@ export default class MspDataService {
     output.authorizedByAttorney = dto.authorizedByAttorney;
     
     output.powerOfAttorneyDocs = dto.powerOfAttorneyDocs;
+    output.attendantCareExpenseReceipts = dto.attendantCareExpenseReceipts;
 
     this.convertToPerson(dto.applicant, output.applicant);
     this.convertToPerson(dto.spouse, output.spouse);

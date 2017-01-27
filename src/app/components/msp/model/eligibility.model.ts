@@ -8,7 +8,18 @@
 export class Eligibility {
   taxYear:Number;
   premiumAssistanceYear:number;
+
+  /**
+   * mapped to PA API
+   */
+  adjustedNetIncome:number;
+  childDeduction:number;
+  deductions:number;
+  disabilityDeduction:number;
+  totalDeductions:number;
   totalNetIncome:number;
+  spouseDeduction:number;
+  spouseSixtyFiveDeduction:number;
 
   /**
    * Refer to original paper based form for exact definition of 
@@ -17,8 +28,6 @@ export class Eligibility {
    * Tt is 50% of the child care expense claimed on last year's tax return.
    */
   deductionDifference:number;
-  totalDeductions:number;
-  adjustedNetIncome:number;
   authorizationDate:string;
 
 }

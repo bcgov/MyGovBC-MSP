@@ -12,34 +12,32 @@ export class FinancialAssistApplication implements ApplicationBase {
   readonly uuid = UUID.UUID();
   infoCollectionAgreement: boolean = false;
 
-  private _claimForDisabilityCredit:boolean = false;
-  private _claimForNursingHomeExpense:boolean = false;
+  applicantClaimForAttendantCareExpense:boolean = false;
+  spouseClaimForAttendantCareExpense:boolean = false;
+  childClaimForAttendantCareExpense:boolean = false;
+  childClaimForAttendantCareExpenseCount:number = 1;
 
-  get claimForDisabilityCredit():boolean {
-    return this._claimForDisabilityCredit;
-  }
-  get claimForNursingHomeExpense():boolean {
-    return this._claimForNursingHomeExpense;
+  _attendantCareExpense:number;
+
+  _attendantCareExpenseReceipts: MspImage[] = new Array<MspImage>();
+
+  get attendantCareExpense():number {
+    if(!!this._attendantCareExpense && !isNaN(this._attendantCareExpense)){
+      return parseFloat(this._attendantCareExpense+ '');
+    }else{
+      return null;
+    }
   }
 
-  set claimForDisabilityCredit(doClaim:boolean){
-    if(doClaim === null || doClaim === undefined){
-      doClaim = false;
-    }
-    
-    this._claimForDisabilityCredit = doClaim;
-    if(this._claimForDisabilityCredit){
-      this._claimForNursingHomeExpense = false;
-    }
+  set attendantCareExpense(n:number) {
+    this._attendantCareExpense = n || 0;
   }
-  set claimForNursingHomeExpense(doClaim:boolean){
-    if(doClaim === null || doClaim === undefined){
-      doClaim = false;
-    }
-    this._claimForNursingHomeExpense = doClaim;
-    if(this._claimForNursingHomeExpense){
-      this._claimForDisabilityCredit = false;
-    }
+  get attendantCareExpenseReceipts():MspImage[] {
+    return this._attendantCareExpenseReceipts;
+  }
+
+  set attendantCareExpenseReceipts(receipts: MspImage[]) {
+    this._attendantCareExpenseReceipts = receipts || [];
   }
   /**
    * Set by the API, not for client use
@@ -60,7 +58,6 @@ export class FinancialAssistApplication implements ApplicationBase {
   spouse: Person = new Person(Relationship.Spouse);
 
   private _netIncomelastYear:number;
-
   /**
    * line 236 on NOA
    */
@@ -271,8 +268,11 @@ export class FinancialAssistApplication implements ApplicationBase {
 
   id:string;
 
+  /**
+   * Power of atterney docs and attendant care expense receipts
+   */
   getAllImages():MspImage[] {
-    return this.powerOfAttorneyDocs;
+    return [...this.powerOfAttorneyDocs, ...this.attendantCareExpenseReceipts];
   }
 
   constructor(){
