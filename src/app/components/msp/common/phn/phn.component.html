@@ -1,13 +1,14 @@
 <form #formRef="ngForm" novalidate>
     <div class="form-group"
          [ngClass]="{'has-error': !formRef.controls.phn?.valid && phnRef.touched}">
-        <label class="control-label optional" for="phn"
+        <label [class.optional]="!required" class="control-label" for="phn"
                [innerHTML]="phnLabel"></label>
         <input type="text"
                [ngModel]="phn"
                (ngModelChange)="phn=$event;phnChange.emit($event)"
                minlength="10"
                maxlength="13"
+               [required]="required"
                [(mod11Check)]="bcPhn"
                id='phn' name='phn' #phnRef="ngModel"
                class="form-control">

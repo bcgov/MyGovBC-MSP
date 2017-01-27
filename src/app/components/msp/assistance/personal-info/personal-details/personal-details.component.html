@@ -16,6 +16,7 @@
                 <msp-phn [phn]="person.previous_phn"
                          (phnChange)="person.previous_phn = $event"
                          (onChange) = "onChange.emit($event)"
+                         [required]="true"
                          [bcPhn]="true"></msp-phn>
             </div>
         </div>

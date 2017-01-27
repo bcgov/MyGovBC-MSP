@@ -11,6 +11,7 @@ import {MspAddressCardPartComponent} from "../../common/address-card-part/addres
 import {ThumbnailComponent} from "../../common/thumbnail/thumbnail.component";
 import {RouterTestingModule} from "@angular/router/testing";
 import {Ng2BootstrapModule} from "ng2-bootstrap";
+import {MspCancelComponent} from "../../common/cancel/cancel.component";
 
 describe('AssistancePrepareComponent', () => {
   let localStorageServiceConfig = {
@@ -21,7 +22,7 @@ describe('AssistancePrepareComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AssistanceReviewComponent, MspPersonCardComponent, MspContactCardComponent,
-        EligibilityCardComponent, MspAddressCardPartComponent, ThumbnailComponent],
+        EligibilityCardComponent, MspAddressCardPartComponent, ThumbnailComponent, MspCancelComponent],
       imports: [FormsModule, RouterTestingModule, Ng2BootstrapModule],
       providers: [MspDataService,
         LocalStorageService,{

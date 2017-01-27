@@ -10,6 +10,7 @@ import {ApplicationBase} from "../../model/application-base.model";
 export class MspConsentModalComponent {
   lang = require('./i18n');
 
+  @Input() processName: string;
   @Input() application: ApplicationBase;
   @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
   agreeCheck: boolean = false;

@@ -64,4 +64,6 @@
         routerLink="/msp/application/personal-info"
         [innerHtml]="lang('./en/index.js').continueButton"></button>
 
-<msp-consent-modal #mspConsentModal [application]="mspApplication"></msp-consent-modal>
+<msp-cancel></msp-cancel>
+
+<msp-consent-modal #mspConsentModal [application]="mspApplication" [processName]="lang('./en/index.js').consentProcessName"></msp-consent-modal>

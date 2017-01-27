@@ -168,8 +168,7 @@
   style="margin-top: 10px;">
   <div class="col-xs-12">
     <button class="btn btn-primary btn-block"
-      routerLink="/msp/assistance/personal-info"
-      style="font-size: smaller">
+      routerLink="/msp/assistance/personal-info">
       Continue to apply for Premium Assistance
     </button>
   </div>
@@ -182,7 +181,11 @@
     </div>
   </div>
 </div>
-
+<div class="row" style="margin-top: 10px;">
+  <div class="col-xs-12">
+    <msp-cancel [btnBlock]="true"></msp-cancel>
+  </div>
+</div>
   <!--<div class="row">
       <div class="col-xs-12">
           <button class="btn btn-primary btn-block" type="submit" routerLink="/msp/assistance/personal-info"

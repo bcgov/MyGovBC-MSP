@@ -1,0 +1,22 @@
+<button [class.btn-block]="btnBlock" class="btn btn-default pull-right"
+        [innerHtml]="lang('./en/index.js').cancelButton"
+        (click)="showFullSizeView()"></button>
+
+<div bsModal #fullSizeViewModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="margin-top: 70px;">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h2 [innerHtml]="lang('./en/index.js').body"></h2>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary pull-left"
+                [innerHtml]="lang('./en/index.js').noButton"
+                (click)="noButtonClick()"></button>
+        <button class="btn btn-danger pull-right"
+                [innerHtml]="lang('./en/index.js').yesButton"
+                (click)="yesButtonClick()"></button>
+      </div>
+    </div>
+  </div>
+</div>

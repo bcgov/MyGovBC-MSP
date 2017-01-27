@@ -9,6 +9,7 @@ import {MspContactCardComponent} from "../../common/contact-card/contact-card.co
 import {ThumbnailComponent} from "../../common/thumbnail/thumbnail.component";
 import {ModalModule} from "ng2-bootstrap";
 import {RouterTestingModule} from "@angular/router/testing";
+import {MspCancelComponent} from "../../common/cancel/cancel.component";
 
 describe('ReviewComponent', () => {
   let localStorageServiceConfig = {
@@ -19,7 +20,7 @@ describe('ReviewComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ReviewComponent, MspPersonCardComponent, MspAddressCardPartComponent,
-        MspContactCardComponent, ThumbnailComponent],
+        MspContactCardComponent, ThumbnailComponent, MspCancelComponent],
       imports: [FormsModule, ModalModule, RouterTestingModule],
       providers: [MspDataService,
         LocalStorageService,{

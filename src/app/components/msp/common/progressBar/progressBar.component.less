@@ -2,20 +2,40 @@
 
 .progressBar {
   text-align: left;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
 }
 
 .progressBar ul {
   list-style: none;
-  display: inline-table;
-  padding: 0px;
+  display: table-row;
+  margin: 0;
+  padding: 0;
 }
+
 .progressBar ul li {
-  display: inline;
-  font-weight: 600;
+  list-style: none;
+  display: inline-block;
+  text-align: center;
+  font-weight: 500;
+  width: auto;
+    
+    @media screen and (min-width:@screen-sm) {
+        min-width: 25%;
+        display: table-cell;
+        }
+}
+
+
+.progressBar ul li a span:first-of-type {
+     font-weight: 700;
+     padding-right: 5px;
 }
 
 .progressBar .beforeActive {
   background: #C8DCFD;
+  color: #234075;
 }
 
 .progressBar .beforeActive:after {
@@ -31,6 +51,7 @@
   background: #FBE78C;
   cursor: not-allowed;
   pointer-events: none;
+  color: #234075;
 }
 
 
@@ -61,10 +82,10 @@
 
 .progressBar ul li a {
   display: block;
-  float: left;
+  float: none;
   height: 40px;
   text-align: center;
-  padding: 7px 30px 0 30px;
+  padding: 7px 10px 0 30px;
   position: relative;
   margin: 0 5px 0 0;
 
@@ -76,6 +97,10 @@
     padding: 7px 2px 0 24px;
     margin: 0 2px 0 0;
     text-align: left;
+  }
+    
+  @media(max-width: @screen-md) {
+    font-size: @font-size-h4;
   }
 }
 
@@ -103,10 +128,10 @@
 }
 
 .progressBar ul li a:hover {
-  background: #001933;
+  background: #234075;
   color: #fff;
 }
 .progressBar ul li a:hover:after {
-  border-left-color: #001933;
+  border-left-color: #234075;
   color: #fff;
 }

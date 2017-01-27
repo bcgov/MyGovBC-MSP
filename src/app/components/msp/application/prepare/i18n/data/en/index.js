@@ -20,5 +20,7 @@ module.exports = {
 
   allRightAnswers: '',
 
+  consentProcessName: 'apply for MSP',
+
   continueButton: 'Continue'
 }

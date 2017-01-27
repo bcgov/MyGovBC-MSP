@@ -343,7 +343,7 @@ export class MspApiService {
     else {
       to.application.assistanceApplication.applicant.powerOfAttorney = "N";
     }
-    to.application.assistanceApplication.applicant.residenceAddress = this.convertAddress(from.residentialAddress);
+
     if (from.applicant.sin) {
       to.application.assistanceApplication.applicant.SIN = Number(from.applicant.sin.replace(new RegExp("[^0-9]", "g"), ""));
     }
@@ -433,14 +433,14 @@ export class MspApiService {
      */
 
     to.assistanceYear = "CurrentPA";
-    to.childCareExpense = from.claimedChildCareExpense_line214;
-    to.netIncome = from.netIncomelastYear;
-    to.numChildren = from.childrenCount;
-    to.numDisabled = from.childWithDisabilityCount;
-    to.spouseNetIncome = from.spouseIncomeLine236;
-    to.netIncome = from.netIncomelastYear;
-    to.uccb = from.reportedUCCBenefit_line117;
-    to.disabilitySavingsPlan = from.spouseDSPAmount_line125;
+    if (from.claimedChildCareExpense_line214 != null) to.childCareExpense = from.claimedChildCareExpense_line214;
+    if (from.netIncomelastYear != null) to.netIncome = from.netIncomelastYear;
+    if (from.childrenCount != null) to.numChildren = from.childrenCount;
+    if (from.childWithDisabilityCount != null) to.numDisabled = from.childWithDisabilityCount;
+    if (from.spouseIncomeLine236 != null) to.spouseNetIncome = from.spouseIncomeLine236;
+    if (from.netIncomelastYear != null) to.netIncome = from.netIncomelastYear;
+    if (from.reportedUCCBenefit_line117 != null) to.uccb = from.reportedUCCBenefit_line117;
+    if (from.spouseDSPAmount_line125 != null) to.disabilitySavingsPlan = from.spouseDSPAmount_line125;
     to.taxYear = moment().utc().year();
 
     return to;
@@ -643,16 +643,15 @@ export class MspApiService {
      */
     // Init and set defaults
     to.livedInBC = LivedInBCTypeFactory.make();
-    to.livedInBC.hasLivedInBC = "N"; // default to no
 
-
-    switch (from.currentActivity) {
-      case Activities.Returning:
-        to.livedInBC.hasLivedInBC = "Y";
-        to.livedInBC.isPermanentMove = "Y"; // Always Y, you can't proceed without
-
-        break;
+    if (from.livedInBCSinceBirth === true) {
+      to.livedInBC.hasLivedInBC = "Y";
     }
+    else {
+      to.livedInBC.hasLivedInBC = "N";
+    }
+    to.livedInBC.isPermanentMove = "Y"; // Always Y, you can't proceed without
+
     if (from.previous_phn) {
       to.livedInBC.prevHealthNumber = from.previous_phn; // out of province health numbers
     }
