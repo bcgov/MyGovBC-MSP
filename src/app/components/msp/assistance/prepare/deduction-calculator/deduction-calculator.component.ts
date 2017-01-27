@@ -10,10 +10,7 @@ import 'rxjs/add/operator/pluck';
 import 'rxjs/add/operator/catch';
 import * as _ from 'lodash';
 
-import {Deductions} from '../../../model/deductions.model';
 import {Eligibility} from '../../../model/eligibility.model';
-
-
 import {FinancialAssistApplication} from '../../../model/financial-assist-application.model';
 require('./deduction-calculator.less');
 
