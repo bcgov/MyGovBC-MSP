@@ -35,8 +35,8 @@ module.exports = {
                 },
                 {
                     document: 2,
-                    title: "Canadian Citizenship Card",
-                    body: "sample body",
+                    title: "Canadian Citizenship Card or Certificate",
+                    body: "<ul><li>Include both sides, corner to corner</li></ul>",
                     image: ""
                 }
             ]
@@ -89,7 +89,7 @@ module.exports = {
             documentContentList: [
                 {
                     document: 8,
-                    title: "Canadian Passport with diplomatic foil",
+                    title: "Valid passport with entry stamps and Acceptance Foils",
                     body: "Sample body",
                     image: ""
                 }
