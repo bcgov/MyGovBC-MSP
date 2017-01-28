@@ -47,7 +47,9 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   qualificationThreshhold:number = 42000;
 
   constructor(private dataService: DataService){
-
+    this.showAttendantCareInfo = this.finAssistApp.applicantClaimForAttendantCareExpense
+    || this.finAssistApp.spouseClaimForAttendantCareExpense
+    || this.finAssistApp.childClaimForAttendantCareExpense;
   }
 
   ngOnInit(){
