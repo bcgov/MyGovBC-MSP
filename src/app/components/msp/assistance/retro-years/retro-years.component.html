@@ -1,7 +1,8 @@
 <h1 [innerHTML]="lang('./en/index.js').retroYearsTitle"></h1>
 <div class="row">
   <div class="col-xs-12">
-    <h3>Be sure to get assistance for any previous years you may have qualified for - share your income tax information for up to six years.</h3>
+    <h3 [innerHTML]="lang('./en/index.js').applyForPreviousYearInstruction">
+    </h3>
   </div>
 </div>
 
@@ -22,9 +23,10 @@
       </div>
 
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8" *ngIf="docRequired">
         <h4>Documents required</h4>
-        <label for="netIncome">Include photograph of Notics of Assessement from Canada Revenue Agency for each year you have selected.</label>
+        <label [innerHTML]="lang('./en/index.js').docUploadInstruction">
+        </label>
       
         <msp-file-uploader 
             [images]="application.assistYeaDocs" 

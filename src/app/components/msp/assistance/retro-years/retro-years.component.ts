@@ -70,4 +70,14 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
     this.dataService.saveFinAssistApplication();
   }
 
+  get docRequired():boolean {
+    let required = false;
+    for(let i=0; i<this.years.length; i++){
+      if(this.years[i].apply){
+        return true;
+      }
+    }
+    return required;
+  }
+
 }
