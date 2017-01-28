@@ -40,7 +40,7 @@ module.exports = {
     'Child\'s previous B.C. Personal Health Number',
     'Child\'s previous B.C. Personal Health Number'],
 
-  previousBCHealthNumber: ['Do you have a previous BC Personal Health Number?',
+  previousBCHealthNumber: ['Do you have a previous B.C. Personal Health Number?',
       'Does your spouse have a previous B.C. Personal Health Number?',
       'Does your child have a previous B.C. Personal Health Number?',
       'Does your child have a previous B.C. Personal Health Number?'],
