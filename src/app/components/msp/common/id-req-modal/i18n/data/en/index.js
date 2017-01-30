@@ -89,7 +89,7 @@ module.exports = {
             documentContentList: [
                 {
                     document: 8,
-                    title: "Valid passport with entry stamps and Acceptance Foils",
+                    title: "Valid Passport With Entry Stamps and Acceptance Foils",
                     body: "Sample body",
                     image: ""
                 }
