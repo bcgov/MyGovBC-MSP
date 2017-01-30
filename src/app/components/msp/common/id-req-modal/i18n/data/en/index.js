@@ -24,7 +24,7 @@ module.exports = {
                 {
                     document: 0,
                     title: "Canadian Birth Certificate",
-                    body: "<ul><li>Include entire page, corner to corner</li><li>Ensure all text is legible and photo is in focus</li></ul>",
+                    body: "<ul><li>Include front and back</li><li>Ensure all text is legible and photo is in focus</li></ul>",
                     image: ""
                 },
                 {
@@ -36,7 +36,7 @@ module.exports = {
                 {
                     document: 2,
                     title: "Canadian Citizenship Card or Certificate",
-                    body: "<ul><li>Include both sides, corner to corner</li></ul>",
+                    body: "<ul><li>Include front and back, corner to corner</li></ul>",
                     image: ""
                 }
             ]
@@ -48,7 +48,7 @@ module.exports = {
                 {
                     document: 4,
                     title: "Confirmation of Permanent Residence",
-                    body: "Sample body",
+                    body: "<ul><li>Must include full legal document including date and signature.</li><li>Must be signed by Canadian Immigration</li></ul>",
                     image: ""
                 }
             ]
@@ -60,25 +60,25 @@ module.exports = {
                 {
                     document: 3,
                     title: "Record of Landing",
-                    body: "Sample body",
+                    body: "<ul><li>Must include full legal document including date and signature.</li><li>Must be signed by Canadian Immigration</li></ul>",
                     image: ""
                 },
                 {
                     document: 5,
                     title: "Work Permit",
-                    body: "Sample body",
+                    body: "<ul><li>Must be valid for six months or longer</li></ul>",
                     image: ""
                 },
                 {
                     document: 6,
                     title: "Study Permit",
-                    body: "Sample body",
+                    body: "<ul><li>Must be valid for six months or longer</li></ul>",
                     image: ""
                 },
                  {
                     document: 7,
                     title: "Visitor Visa",
-                    body: "Sample body",
+                    body: "<ul><li>Must state religious worker on document under remarks</li></ul>",
                     image: ""
                 }
             ]
