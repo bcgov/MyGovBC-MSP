@@ -25,7 +25,7 @@ module.exports = {
                     document: 0,
                     title: "Canadian Birth Certificate",
                     body: "<ul><li>Include front and back</li><li>Ensure all text is legible and photo is in focus</li></ul>",
-                    image: ""
+                    image: require('./images/canadian_birth_certs.jpg')
                 },
                 {
                     document: 1,
@@ -37,7 +37,7 @@ module.exports = {
                     document: 2,
                     title: "Canadian Citizenship Card or Certificate",
                     body: "<ul><li>Include front and back, corner to corner</li></ul>",
-                    image: ""
+                    image: require('./images/canadian_cit_card.jpg')
                 }
             ]
         },
@@ -47,9 +47,9 @@ module.exports = {
             documentContentList: [
                 {
                     document: 4,
-                    title: "Confirmation of Permanent Residence",
+                    title: "Permanent Resident Card",
                     body: "<ul><li>Must include full legal document including date and signature.</li><li>Must be signed by Canadian Immigration</li></ul>",
-                    image: ""
+                    image: require('./images/pr_card.jpg')
                 }
             ]
         },
@@ -73,7 +73,7 @@ module.exports = {
                     document: 6,
                     title: "Study Permit",
                     body: "<ul><li>Must be valid for six months or longer</li></ul>",
-                    image: ""
+                    image: require('./images/study-permit.jpg')
                 },
                  {
                     document: 7,
@@ -103,7 +103,7 @@ module.exports = {
                     document: 9,
                     title: "Marriage Certificate",
                     body: "<ul><li>Include entire page, corner to corner</li><li>Ensure all text is legible and photo is in focus</li></ul>",
-                    image: ""
+                    image: require('./images/large-marriage-cert-big.jpg')
                 },
                 {
                     document: 10,
