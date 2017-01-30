@@ -45,6 +45,12 @@ module.exports = {
             residency: "Permanent Residents",
 
             documentContentList: [
+                 {
+                    document: 3,
+                    title: "Record of Landing",
+                    body: "<ul><li>Must include full legal document including date and signature.</li><li>Must be signed by Canadian Immigration</li></ul>",
+                    image: ""
+                },
                 {
                     document: 4,
                     title: "Permanent Resident Card",
@@ -57,12 +63,6 @@ module.exports = {
             residency: "Temporary Permit Holders",
 
             documentContentList: [
-                {
-                    document: 3,
-                    title: "Record of Landing",
-                    body: "<ul><li>Must include full legal document including date and signature.</li><li>Must be signed by Canadian Immigration</li></ul>",
-                    image: ""
-                },
                 {
                     document: 5,
                     title: "Work Permit",
