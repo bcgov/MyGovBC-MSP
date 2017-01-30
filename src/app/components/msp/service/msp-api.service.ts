@@ -27,12 +27,13 @@ import {ResponseType} from "../api-model/responseTypes";
 import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import * as moment from "moment";
 import ISO_8601 = moment.ISO_8601;
-import {FinancialAssistApplication} from "../model/financial-assist-application.model";
+import {FinancialAssistApplication, AssistanceApplicationType} from "../model/financial-assist-application.model";
 import {
   AssistanceApplicationTypeFactory, AssistanceApplicantType,
   AssistanceApplicantTypeFactory, FinancialsType, FinancialsTypeFactory, AssistanceSpouseTypeFactory
 } from "../api-model/assistanceTypes";
 import {ApplicationBase} from "../model/application-base.model";
+import {AssistanceYear} from "../model/assistance-year.model";
 let jxon = require("jxon/jxon");
 
 @Injectable()
@@ -439,9 +440,18 @@ export class MspApiService {
                                          // deductionDifference?
      */
 
-    to.assistanceYear = "CurrentPA";
-    to.taxYear = moment().year();
-
+    switch (from.getAssistanceApplicationType()) {
+      case AssistanceApplicationType.CurrentYear:
+        to.assistanceYear = "CurrentPA";
+        break;
+      case AssistanceApplicationType.PreviousTwoYears:
+        to.assistanceYear = "PreviousTwo";
+        break;
+      case AssistanceApplicationType.MultiYear:
+        to.assistanceYear = "MultiYear";
+        break;
+    }
+    to.taxYear = from.getTaxYear();
     if (from.eligibility.adjustedNetIncome != null) to.adjustedNetIncome = from.eligibility.adjustedNetIncome;
     if (from.eligibility.childDeduction != null) to.childDeduction = from.eligibility.childDeduction;
     if (from.eligibility.deductions != null) to.deductions = from.eligibility.deductions;
@@ -521,7 +531,7 @@ export class MspApiService {
     to.attachment = new Array<AttachmentType>();
 
     // assemble all attachments
-    let attachments: MspImage[] = from.powerOfAttorneyDocs;
+    let attachments: MspImage[] = from.getAllImages();
 
     // If no attachments just return
     if (!attachments || attachments.length < 1) {

@@ -328,79 +328,79 @@ describe('MspApiService', () => {
 
   });
 
-  // it('should send an assistance application', (done) => {
-  //
-  //   let service = TestBed.get(MspApiService);
-  //   let app = new FinancialAssistApplication();
-  //
-  //   app.childWithDisabilityCount = 2;
-  //   app.authorizedBySpouse = true;
-  //   app.authorizedByApplicant = true;
-  //   app.childrenCount = 8;
-  //   app.childWithDisabilityCount = 4;
-  //   app.applicant.firstName = "Greg";
-  //   app.applicant.middleName = "W";
-  //   app.applicant.lastName = "Boss";
-  //   app.applicant.dob_day = 1;
-  //   app.applicant.dob_month = 1;
-  //   app.applicant.dob_year = 1999;
-  //   app.applicant.gender = Gender.Female;
-  //   app.applicant.previous_phn = "9012372173";
-  //   app.applicant.sin = "654 974 564";
-  //   app.eligibility.spouseSixtyFiveDeduction = 2154;
-  //   app.eligibility.adjustedNetIncome = 56487;
-  //   app.eligibility.totalNetIncome = 56454;
-  //   app.eligibility.childDeduction = 65454;
-  //   app.eligibility.deductionDifference = 6565;
-  //   app.eligibility.deductions = 879878;
-  //   app.eligibility.totalDeductions = 654545;
-  //   app.eligibility.premiumAssistanceYear = 2015;
-  //   app.eligibility.taxYear = 2016;
-  //   //app.eligibility.spouseDeduction = 65454;
-  //   app.eligibility.sixtyFiveDeduction = 54;
-  //   app.residentialAddress.addressLine1 = "add1";
-  //   app.residentialAddress.addressLine2 = "add2";
-  //   app.residentialAddress.addressLine3 = "add3";
-  //   app.residentialAddress.city = "lkajsdkjasd";
-  //   app.residentialAddress.province = "Alberta";
-  //   app.residentialAddress.country = "Canada";
-  //   app.residentialAddress.postal = "v8o 2l3";
-  //   app.mailingAddress = app.residentialAddress;
-  //   app.mailingSameAsResidentialAddress = false;
-  //   app.phoneNumber = "250-232-1233";
-  //   app.spouse.firstName = "Greg";
-  //   app.spouse.middleName = "W";
-  //   app.spouse.lastName = "Boss";
-  //   app.spouse.dob_day = 1;
-  //   app.spouse.dob_month = 1;
-  //   app.spouse.dob_year = 1999;
-  //   app.spouse.gender = Gender.Male;
-  //   app.spouse.previous_phn = "9012372173";
-  //   app.spouse.sin = "654 974 564";
-  //   app.claimedChildCareExpense_line214 = 12345;
-  //   app.reportedUCCBenefit_line117 = 123123;
-  //   app.ageOver65 = true;
-  //   app.spouseAgeOver65 = true;
-  //   app.spouseDSPAmount_line125 = 123123;
-  //   app.spouseIncomeLine236 = 12323123;
-  //   app.spouseEligibleForDisabilityCredit = true;
-  //   app.netIncomelastYear = 123123123;
-  //
-  //   let promise = service.sendApplication(app);
-  //   promise.then((application: ApplicationBase) => {
-  //
-  //     expect(application.referenceNumber).toBeDefined();
-  //     expect(application.referenceNumber.length).toBeGreaterThan(0);
-  //
-  //     // signal jasmine were done
-  //     done();
-  //   }).catch((error: Error) => {
-  //     console.log("spec error: ", error);
-  //     done.fail("failed by rejection");
-  //   });
-  //
-  //
-  // });
+  it('should send an assistance application', (done) => {
+
+    let service = TestBed.get(MspApiService);
+    let app = new FinancialAssistApplication();
+
+    app.childWithDisabilityCount = 2;
+    app.authorizedBySpouse = true;
+    app.authorizedByApplicant = true;
+    app.childrenCount = 8;
+    app.childWithDisabilityCount = 4;
+    app.applicant.firstName = "Greg";
+    app.applicant.middleName = "W";
+    app.applicant.lastName = "Boss";
+    app.applicant.dob_day = 1;
+    app.applicant.dob_month = 1;
+    app.applicant.dob_year = 1999;
+    app.applicant.gender = Gender.Female;
+    app.applicant.previous_phn = "9012372173";
+    app.applicant.sin = "654 974 564";
+    app.eligibility.spouseSixtyFiveDeduction = 2154;
+    app.eligibility.adjustedNetIncome = 56487;
+    app.eligibility.totalNetIncome = 56454;
+    app.eligibility.childDeduction = 65454;
+    app.eligibility.deductionDifference = 6565;
+    app.eligibility.deductions = 879878;
+    app.eligibility.totalDeductions = 654545;
+    app.eligibility.premiumAssistanceYear = 2015;
+    app.eligibility.taxYear = 2016;
+    //app.eligibility.spouseDeduction = 65454;
+    app.eligibility.sixtyFiveDeduction = 54;
+    app.residentialAddress.addressLine1 = "add1";
+    app.residentialAddress.addressLine2 = "add2";
+    app.residentialAddress.addressLine3 = "add3";
+    app.residentialAddress.city = "lkajsdkjasd";
+    app.residentialAddress.province = "Alberta";
+    app.residentialAddress.country = "Canada";
+    app.residentialAddress.postal = "v8o 2l3";
+    app.mailingAddress = app.residentialAddress;
+    app.mailingSameAsResidentialAddress = false;
+    app.phoneNumber = "250-232-1233";
+    app.spouse.firstName = "Greg";
+    app.spouse.middleName = "W";
+    app.spouse.lastName = "Boss";
+    app.spouse.dob_day = 1;
+    app.spouse.dob_month = 1;
+    app.spouse.dob_year = 1999;
+    app.spouse.gender = Gender.Male;
+    app.spouse.previous_phn = "9012372173";
+    app.spouse.sin = "654 974 564";
+    app.claimedChildCareExpense_line214 = 12345;
+    app.reportedUCCBenefit_line117 = 123123;
+    app.ageOver65 = true;
+    app.spouseAgeOver65 = true;
+    app.spouseDSPAmount_line125 = 123123;
+    app.spouseIncomeLine236 = 12323123;
+    app.spouseEligibleForDisabilityCredit = true;
+    app.netIncomelastYear = 123123123;
+
+    let promise = service.sendApplication(app);
+    promise.then((application: ApplicationBase) => {
+
+      expect(application.referenceNumber).toBeDefined();
+      expect(application.referenceNumber.length).toBeGreaterThan(0);
+
+      // signal jasmine were done
+      done();
+    }).catch((error: Error) => {
+      console.log("spec error: ", error);
+      done.fail("failed by rejection");
+    });
+
+
+  });
 
 
 });
