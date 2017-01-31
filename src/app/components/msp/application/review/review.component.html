@@ -25,9 +25,7 @@
                   [editRouterLink]="'/msp/application/address'"
                   [outsideBCPersons]="application.getOutOfProvincePersons()"></msp-contact-card>
 <h2 [innerHtml]="lang('./en/index.js').agreementLabel"></h2>
-<p>
-    <small [innerHtml]="lang('./en/agreement.md')">
-    </small>
+<p [innerHtml]="lang('./en/agreement.md')">
 </p>
 <div class="strong" [innerHTML]="questionApplicant"></div>
 <div class="checkbox checkbox-success checkbox-inline">
