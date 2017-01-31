@@ -61,7 +61,6 @@
             <ul>
                 <li *ngFor="let document of nameChangeDocuments">
                     {{langDocuments('./en/index.js')[document]}}
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
                     <a role="button" (click)="viewIdReqModal(document)"
                        [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
                 </li>
