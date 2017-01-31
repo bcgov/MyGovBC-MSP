@@ -37,7 +37,7 @@ module.exports = {
                     document: 2,
                     title: "Canadian Citizenship Card or Certificate",
                     body: "<ul><li>Include front and back, corner to corner</li></ul>",
-                    image: require('./images/canadian_cit_card.jpg')
+                    image: require('./images/canadian_cit_card-cert.jpg')
                 }
             ]
         },
