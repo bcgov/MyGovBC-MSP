@@ -9,8 +9,7 @@
                id='phone' name='phone' #phoneRef="ngModel"
                required
                maxlength="12"
-               pattern="\d{3}[\-]?\d{3}[\-]?\d{4}"
-               placeholder="555-123-4567">
+               pattern="\d{3}[\-]?\d{3}[\-]?\d{4}">
         <div *ngIf='phoneRef.touched'>
             <div class="text-danger" *ngIf="phoneRef.errors?.required"
                  [innerHtml]="lang('./en/index.js').phoneErrorRequired"></div>
