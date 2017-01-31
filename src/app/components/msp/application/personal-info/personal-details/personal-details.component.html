@@ -52,7 +52,6 @@
             <ul>
                 <li *ngFor="let document of documents">
                     {{langDocuments('./en/index.js')[document]}}
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
                     <a role="button" (click)="viewIdReqModal(document)"
                        [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
                 </li>
@@ -66,10 +65,10 @@
                 </li>
             </ul>
             <msp-id-req-modal #idReqModal></msp-id-req-modal>
-            <p class="warning" [innerHtml]="lang('./en/index.js').documentInstructionsNote"></p>
         </div>
         <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
             <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel[this.person.relationship]"></h3>
+            <p class="warning" [innerHtml]="lang('./en/index.js').documentInstructionsNote"></p>
             <msp-file-uploader [images]="person.documents.images" [id]='id'
                 (onAddDocument)="addDocument($event)"
                 (onDeleteDocument)="deleteDocument($event)"></msp-file-uploader>
