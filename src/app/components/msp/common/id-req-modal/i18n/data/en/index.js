@@ -1,6 +1,6 @@
 module.exports = {
     title: 'ID Requirements for MSP Enrolment',
-    intro: 'Providing the correct ID is essential to having your eligibility confirmed and your application processed. Please see the instructions below for details on what to include in your scan or photo.',
+    intro: '',
 
     /*
     module.exports = {
