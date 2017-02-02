@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
 import { AssistancePersonalInfoComponent } from './personal-info.component';
 import MspDataService from '../../service/msp-data.service';
+import CompletenessCheckService from '../../service/completeness-check.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {MspPhnComponent} from "../../common/phn/phn.component";
 import {MspNameComponent} from "../../common/name/name.component";
@@ -30,7 +31,7 @@ describe('AssistancePersonalInfoComponent', () => {
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent, MspCountryComponent,
         Mod11CheckValidator, MspGenderComponent, MspCancelComponent],
       imports: [FormsModule, Ng2CompleterModule, ModalModule],
-      providers: [MspDataService,
+      providers: [MspDataService,CompletenessCheckService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         }
