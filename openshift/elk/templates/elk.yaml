@@ -499,4 +499,4 @@ parameters:
   displayName: Access-Control-Allow-Origin
   name: AccessControlAllowOrigin
   required: true
-  value: *
+  value: "*"
