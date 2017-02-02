@@ -14,7 +14,7 @@ module.exports = {
   previousHealthNumberLabel: 'Previous health number:',
   arrivedToBCLabel: 'Date arrived in B.C.:',
   arrivedToCanadaLabel: 'Date arrived in Canada:',
-  institutionWorkHistoryLabel: 'Worked for Canadian Forces or a correctional institution',
+  institutionWorkHistoryLabel: 'Released from Canadian Armed Forces or an institution',
   institutionWorkHistoryValues: {Yes: 'Yes', No: 'No'},
   dischargeDateLabel: 'Date discharged:',
   fullTimeStudentLabel: 'Full Time Student:',
