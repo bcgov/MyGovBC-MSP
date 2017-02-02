@@ -8,7 +8,7 @@ module.exports = {
 
   dobLabel: 'Birthdate:',
   statusLabel: 'Status in Canada:',
-  livedInBCSinceBirth: 'Lived in BC since birth:',
+  livedInBCSinceBirth: 'Lived in B.C. since birth:',
   movedFromProvinceLabel: 'Moved from province:',
   movedFromCountryLabel: 'Moved from country:',
   previousHealthNumberLabel: 'Previous health number:',
@@ -17,12 +17,12 @@ module.exports = {
   institutionWorkHistoryLabel: 'Released from Canadian Armed Forces or an institution',
   institutionWorkHistoryValues: {Yes: 'Yes', No: 'No'},
   dischargeDateLabel: 'Date discharged:',
-  fullTimeStudentLabel: 'Full Time Student:',
+  fullTimeStudentLabel: 'Full-time student:',
   inBCafterStudiesLabel: 'Returning to B.C. after studies:',
-  schoolNameLabel: 'School Name:',
+  schoolNameLabel: 'School name:',
   studiesFinishedLabel: 'Date of expected school completion:',
   studiesDepartureLabel: 'Date of departure:',
-  schoolAddressLabel: 'School Address:',
+  schoolAddressLabel: 'School address:',
 
   editButton: 'Edit {label} & Documents',
 }
