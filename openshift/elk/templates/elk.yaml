@@ -316,6 +316,9 @@ objects:
               -
                 name: KIBANA_PASSWORD
                 value: ${KIBANA_PASSWORD}
+              -
+                name: AccessControlAllowOrigin
+                value: ${AccessControlAllowOrigin}
             terminationMessagePath: /dev/termination-log
             imagePullPolicy: Always
         restartPolicy: Always
@@ -492,3 +495,8 @@ parameters:
   name: VOLUME_CAPACITY
   required: true
   value: 1Gi
+- description: CORS Access-Control-Allow-Origin to post data to Logstash. Specify host such as http://foo.com or wildcard * for unrestricted.
+  displayName: Access-Control-Allow-Origin
+  name: AccessControlAllowOrigin
+  required: true
+  value: *

@@ -1,5 +1,5 @@
 FROM nginx:mainline
-COPY default.conf /etc/nginx/conf.d/
+COPY default.conf.template /tmp/default.conf.template
 COPY DOCKER_RUN.sh /tmp
 RUN chmod -R 0777 /tmp /var /run /etc
 EXPOSE 8080 8081
