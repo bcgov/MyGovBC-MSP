@@ -80,6 +80,7 @@ import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calcu
 import {EligibilityCardComponent} from './assistance/prepare/eligibility-card/eligibility-card.component';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {MspApiService} from "./service/msp-api.service";
+import {MspLogService} from "./service/log.service"
 
 let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
@@ -170,7 +171,7 @@ let localStorageServiceConfig = {
                 path: 'personal-info',
                 canActivate: [PersonalInfoGuard],
                 component: AssistancePersonalInfoComponent,
-                
+
               },
               {
                 path: 'retro',
@@ -268,6 +269,7 @@ let localStorageServiceConfig = {
     MspDataService,
     CompletenessCheckService,
     MspApiService,
+    MspLogService,
 
     MspApplicationPersonalInfoGuard,
     MspApplicationAddressGuard,
@@ -282,7 +284,7 @@ let localStorageServiceConfig = {
     LocalStorageService,
     {
         provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-    }    
+    }
   ]
 })
 @Injectable()
