@@ -47,7 +47,7 @@
             </div>
         </div>
         <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
-            <h3>{{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
+            <h3><i class="fa fa-check-square-o" aria-hidden="true"></i>{{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
             <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
             <ul>
                 <li *ngFor="let document of documents">
@@ -70,7 +70,7 @@
             <p class="warning" [innerHtml]="lang('./en/index.js').documentInstructionsNote"></p>
         </div>
         <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
-            <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel[this.person.relationship]"></h3>
+            <h3><i class="fa fa-upload" aria-hidden="true"></i>{{lang('./en/index.js').documentUploadLabel[this.person.relationship]}}</h3>
             <msp-file-uploader [images]="person.documents.images" [id]='id'
                 (onAddDocument)="addDocument($event)"
                 (onDeleteDocument)="deleteDocument($event)"></msp-file-uploader>
