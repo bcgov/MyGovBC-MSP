@@ -1,16 +1,36 @@
-This folder contains following files to facilitate deploying ELK with http input to OpenShift:
+# ELK Cluster on OpenShift
+This folder contains following files to facilitate deploying ELK cluster to OpenShift:
 
-* an instant-app template to generate ELK runtime artifacts
-* customized ELK docker-images runnable on OpenShift
+* an instant-app template to generate OpenShift artifacts
+* customized ELK docker images runnable on OpenShift
+
+The ELK has these features:
+* Logstash [HTTP input](https://www.elastic.co/blog/introducing-logstash-input-http-plugin)
+* scalable Elasticsearch cluster
+* local ephemeral storage for Elasticsearch data to improve performance. Performance of OpenShift GlusterFS persistent volume has been found unacceptable to hold search index, as supported by this [Elasticsearch blog](https://www.elastic.co/blog/performance-considerations-elasticsearch-indexing)
+* configurable data lifespan, by default 3 months
+* daily backup of Elasticsearch data to persistent storage with 7-day retention
+* uses nginx to proxy Logstash input and Kibana with following access controls:
+  * basic authentication for Kibana
+  * allow only POST request to Logstash input
+  * CORS support for Logstash input
+* based on official elastic docker images 
 
 The prerequisites of the deployment are:
 
 * minimum edit access to a project of OpenShift origin 1.3 or compatible cluster. This implies you know and have access to following URL end points:
-  * OpenShift console, by default https://console.pathfinder.gov.bc.ca:8443/console/
-  * OpenShift docker registry, by default docker-registry.pathfinder.gov.bc.ca
+  * OpenShift console, commands below defaults to https://console.pathfinder.gov.bc.ca:8443/console/ 
+  * OpenShift docker registry, commands below defaults to docker-registry.pathfinder.gov.bc.ca
 * has following software installed on the deployment client:
   * git
-  * docker. This further implies you have the provisioning tools such as docker machine installed on non-linux clients and started by executing `docker-machine start`.
+  * docker. This further implies you have the provisioning tools such as docker machine installed on non-linux clients and started by executing, for example 
+  
+    ```
+    docker-machine start
+    docker-machine env
+    # Following the output, run this command to configure your shell:
+    eval $(docker-machine env)
+    ```
   * oc
 
 The deployment consists of these steps
@@ -20,13 +40,13 @@ The deployment consists of these steps
    ```sh
    $ git clone https://github.com/bcgov/MyGovBC-msp.git
    $ cd MyGovBC-msp
-   $ oc login -u <username> https://console.pathfinder.gov.bc.ca:8443  
+   $ oc login -u <username> https://console.pathfinder.gov.bc.ca:8443
    $ oc project <yourprojectname>
    $ oc create -f openshift/elk/templates/elk.yaml
    ```
-   After this step you will find an instant app template called *elk* available in the project 
+   After this step you will find an instant app template called *elk* available in the project
 2. create OpenShift instant app. You can do so by clicking *elk* template from *Add to Project* in web console or by running
-   
+
    ```sh
    $ oc process elk|oc create -f-
    ```
@@ -36,16 +56,20 @@ The deployment consists of these steps
    $ docker login  -u <username> -p `oc whoami -t` docker-registry.pathfinder.gov.bc.ca
    $ docker build -t os-elasticsearch openshift/elk/docker-images/elastic-search
    $ docker tag os-elasticsearch docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-elasticsearch
-   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-elasticsearch  
+   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-elasticsearch
    $ docker build -t os-logstash openshift/elk/docker-images/logstash
    $ docker tag os-logstash docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-logstash
-   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-logstash  
+   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-logstash
    $ docker build -t os-kibana openshift/elk/docker-images/kibana
    $ docker tag os-kibana docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-kibana
-   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-kibana  
+   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-kibana
    $ docker build -t elk-nginx openshift/elk/docker-images/nginx
    $ docker tag elk-nginx docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-nginx
-   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-nginx    
+   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-nginx
    ```
 
-If everything goes well, you will be able to access the logstash http endpoint provided in the Overview page of OpenShift project for log collection and kibana URL for reporting dashboard.
+4. Wait for the first Elasticsearch pod to be fully up, then scale up the cluster to 5 pods (or more). If doing so too soon, contention may arise between the pods vying to be the first and sole master.   
+
+If everything goes well, you will be able to access the Logstash http endpoint provided in the Overview page of OpenShift project for log collection and kibana URL for reporting dashboard.
+
+Because Elasticsearch data is on ephemeral storage, due care is needed to avoid bringing down or corrupt the cluster. By default each piece of data has 1 replica (i.e. 2 copies on different pods). If two or more pods are taken down in a short period such that the cluster doesn't have a chance to recover in between, partial data loss may occur. Therefore only scale down 1 pod at a time and leave enough recovery window for the next. 
