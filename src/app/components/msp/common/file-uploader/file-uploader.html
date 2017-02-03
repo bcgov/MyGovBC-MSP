@@ -16,7 +16,7 @@
             {{lang('./en/index.js').takeAPhotoLabel}}
         </label>
   </div>
-  <div class="preview-zone" #previewZone>
+  <div class="preview-zone">
     <div *ngFor="let mspImage of images" class="preview-item">
       <msp-thumbnail [imageObject] ="mspImage" (delete) = "deleteImage($event)">
       </msp-thumbnail>

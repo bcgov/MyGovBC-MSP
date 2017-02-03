@@ -1,0 +1,31 @@
+<div bsModal #errorModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true" [config]="{backdrop: 'static', ignoreBackdropClick: true}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="continue()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h2>{{lang('./en/index.js').errorModelTitle}}</h2>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <h2 *ngIf="imageWithError && imageWithError.error != null">{{getErrorMessage()}}</h2>
+            <img *ngIf="imageWithError && imageWithError.fileContent" [src]="imageWithError.fileContent" alt="" class="center-block img-responsive">
+            <p *ngIf="imageWithError">
+              Filename: <strong>{{imageWithError.name}}</strong><br>
+              Width: <strong>{{imageWithError.naturalWidth}} pixels</strong><br>
+              Height: <strong>{{imageWithError.naturalHeight}} pixels</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-block" (click)="continue()" >
+          Try Again
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

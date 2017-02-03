@@ -28,13 +28,14 @@
         <label [innerHTML]="lang('./en/index.js').docUploadInstruction">
         </label>
       
-        <msp-file-uploader 
+        <msp-file-uploader #fileUploader
             [images]="application.assistYeaDocs" 
             [id]='application.id'
             (onAddDocument)="addDoc($event)"
+            (onErrorDocument)="errorDoc($event)"
             (onDeleteDocument)="deleteDoc($event)">
         </msp-file-uploader>
-      
+        <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
     </div>
   </div>
 

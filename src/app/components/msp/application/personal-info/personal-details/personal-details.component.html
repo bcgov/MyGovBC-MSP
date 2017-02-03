@@ -68,10 +68,14 @@
         </div>
         <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
             <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel[this.person.relationship]"></h3>
-            <p class="warning" [innerHtml]="lang('./en/index.js').documentInstructionsNote"></p>
-            <msp-file-uploader [images]="person.documents.images" [id]='id'
+
+            <msp-file-uploader #fileUploader
+                [images]="person.documents.images" [id]='id'
                 (onAddDocument)="addDocument($event)"
+                (onErrorDocument)="errorDocument($event)"
                 (onDeleteDocument)="deleteDocument($event)"></msp-file-uploader>
+
+            <msp-image-error-modal #imageErrorModal></msp-image-error-modal>
         </div>
     </div>
 <div *ngIf="hasValidCurrentActivity">

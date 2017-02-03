@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import MspDataService from '../service/msp-data.service';
 import { Router } from '@angular/router';
+import {MspImage} from "../model/msp-image";
+import {MspImageErrorModalComponent} from "../common/image-error-modal/image-error-modal.component";
+import {FileUploaderComponent} from "../common/file-uploader/file-uploader.component";
 
 require('./landing.component.less')
 

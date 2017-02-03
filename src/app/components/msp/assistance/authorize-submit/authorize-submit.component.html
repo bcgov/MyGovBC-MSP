@@ -41,12 +41,14 @@
 
     <div style="margin-top: 20px;" *ngIf="application.authorizedByAttorney">
         <label for="">Power of Attorney Document</label>
-        <msp-file-uploader 
+        <msp-file-uploader #fileUploader
             [images]="application.powerOfAttorneyDocs" 
             [id]='application.id'
             (onAddDocument)="addDocument($event)"
+            (onErrorDocument)="errorDocument($event)"
             (onDeleteDocument)="deleteDocument($event)">
         </msp-file-uploader>
+        <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
     </div>    
 </form>
 <hr>

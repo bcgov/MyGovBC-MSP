@@ -1,6 +1,7 @@
 module.exports = {
-  dropFileLabel: 'Drop files to attach or',
+  dropFileLabel: 'Drag-and-drop a file to attach or',
   browseLabel: 'browse',
   orLabel: 'or',
-  takeAPhotoLabel: 'take a photo'
+  takeAPhotoLabel: 'take a photo',
+
 }

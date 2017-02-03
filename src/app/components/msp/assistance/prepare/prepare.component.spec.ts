@@ -11,6 +11,7 @@ import {ModalModule} from "ng2-bootstrap";
 import {MspCancelComponent} from "../../common/cancel/cancel.component";
 import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
 import {ThumbnailComponent} from "../../common/thumbnail/thumbnail.component";
+import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
 
 describe('AssistancePrepareComponent', () => {
   let localStorageServiceConfig = {
@@ -21,7 +22,8 @@ describe('AssistancePrepareComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AssistancePrepareComponent, MspConsentModalComponent,
-        DeductionCalculatorComponent, MspCancelComponent, FileUploaderComponent, ThumbnailComponent],
+        DeductionCalculatorComponent, MspCancelComponent, FileUploaderComponent, ThumbnailComponent,
+        MspImageErrorModalComponent],
       imports: [FormsModule, ModalModule],
       providers: [MspDataService,
         LocalStorageService, {

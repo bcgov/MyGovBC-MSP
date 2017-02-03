@@ -6,6 +6,8 @@ import MspDataService from '../../service/msp-data.service';
 import {FinancialAssistApplication}from '../../model/financial-assist-application.model';
 import {AssistanceYear} from '../../model/assistance-year.model';
 import {MspImage} from "../../../msp/model/msp-image";
+import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
+import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
 
 
 @Component({
@@ -17,6 +19,8 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
   years: AssistanceYear[];
 
   @ViewChild('formRef') form: NgForm;
+  @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
+  @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
 
   constructor(private dataService: MspDataService){
@@ -58,8 +62,15 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
   }
 
   addDoc(doc:MspImage){
-    this.application.assistYeaDocs = [...this.application.assistYeaDocs, doc];
+    this.application.assistYeaDocs.push(doc);
+    this.fileUploader.forceRender();
     this.dataService.saveFinAssistApplication();
+  }
+
+  errorDoc(evt:MspImage) {
+    this.mspImageErrorModal.imageWithError = evt;
+    this.mspImageErrorModal.showFullSizeView();
+    this.mspImageErrorModal.forceRender();
   }
 
   deleteDoc(doc:MspImage){
