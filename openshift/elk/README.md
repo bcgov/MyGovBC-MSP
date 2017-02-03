@@ -78,8 +78,21 @@ The deployment consists of these steps
 
 If everything goes well, you will be able to access the Logstash http endpoint provided in the Overview page of OpenShift project for log collection and kibana URL for reporting dashboard.
 
-##Operation
-Because Elasticsearch data is on ephemeral storage, due care is needed to avoid bringing down or corrupt the cluster. By default each piece of data has 1 replica (i.e. 2 copies on separate pods). If two or more pods are taken down in a short period such that the cluster doesn't have enough time to recover in between, partial data loss may occur. Therefore only scale down 1 pod at a time and leave enough recovery window for the next. 
+## Elasticsearch Cluster Operation
+
+### Data Integrity 
+Because Elasticsearch data is on ephemeral storage, due care is needed to avoid bringing down or corrupt the cluster. By default each piece of data has 1 replica (i.e. 2 copies on separate pods). Number of replicas can be adjusted for [existing indices](https://www.elastic.co/guide/en/elasticsearch/guide/current/replica-shards.html) and for future created indices via [templates](http://stackoverflow.com/questions/24553718/updating-the-default-index-number-of-replicas-setting-for-new-indices).
+
+ Assuming the replica is *N*, then if *N+1* or more pods are taken down in a short period such that the cluster doesn't have enough time to recover in between, partial data loss may occur. Therefore only scale down no more than *N* pods at a time and leave enough recovery window for the next.
+ 
+### Pod Count
+Although Elasticsearch cluster can survive under as few as one pod, to maintain a healthy resilient cluster following factors needs to be taken into account to determine minimum pod count
+
+  1. no less than *N+1* for a replica of *N*
+  2. expected load
+  3. if data volume is large and the number of OpenShift hosts is limited, the pod count should be equal, or a multiple of,  OpenShift host count in order to distribute data more or less evenly among the hosts
+  4. quota
+
 ### Cluster Recovery
 If Elasticsearch cluster is crashed, data can be restored from the most recently nightly backup. But data from last backup till now is lost permanently. To restore,
 
