@@ -45,7 +45,7 @@ The deployment consists of these steps
    $ oc create -f openshift/elk/templates/elk.yaml
    ```
    After this step you will find an instant app template called *elk* available in the project
-2. create OpenShift instant app. You can do so by clicking *elk* template from *Add to Project* in web console or by running
+2. create OpenShift instant app. You can do so by clicking *elk* template from *Add to Project* in web console or, if you accept default values for all parameters, by running
 
    ```sh
    $ oc process elk|oc create -f-
@@ -72,4 +72,4 @@ The deployment consists of these steps
 
 If everything goes well, you will be able to access the Logstash http endpoint provided in the Overview page of OpenShift project for log collection and kibana URL for reporting dashboard.
 
-Because Elasticsearch data is on ephemeral storage, due care is needed to avoid bringing down or corrupt the cluster. By default each piece of data has 1 replica (i.e. 2 copies on different pods). If two or more pods are taken down in a short period such that the cluster doesn't have a chance to recover in between, partial data loss may occur. Therefore only scale down 1 pod at a time and leave enough recovery window for the next. 
+Because Elasticsearch data is on ephemeral storage, due care is needed to avoid bringing down or corrupt the cluster. By default each piece of data has 1 replica (i.e. 2 copies on separate pods). If two or more pods are taken down in a short period such that the cluster doesn't have enough time to recover in between, partial data loss may occur. Therefore only scale down 1 pod at a time and leave enough recovery window for the next. 
