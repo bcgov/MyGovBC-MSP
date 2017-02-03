@@ -85,22 +85,23 @@ If Elasticsearch cluster is crashed, data can be restored from the most recently
 
 1. Deploy a new empty cluster by following the procedure above. Disable the route to avoid input
 2. Login to a Elasticsearch pod by running `oc exec -it <pod_name> bash`. In the pod run following commands
-    ```
-    $ # register backup repo
-    $ curl -XPUT 'http://localhost:9200/_snapshot/my_backup' -d '{
-        "type": "fs",
-        "settings": {
-            "location": "my_backup",
-            "compress": true
-        }
-    }'
-    $ # close all indices
-    $ curl -XPOST 'localhost:9200/_all/_close?pretty'
-    $ # restore; replace <most_recent_snapshot_id> with 
-    $ # most recent snapshot id in /var/backups/my_backup/
-    $ # this is usually the week day id of today or yesterday.
-    $ curl -XPOST 'localhost:9200/_snapshot/my_backup/snapshot_<most_recent_snapshot_id>/_restore?pretty&wait_for_completion'
-    $ # re-open all indices
-    $ curl -XPOST 'localhost:9200/_all/_open?pretty'
-    ```
+
+  ```
+  $ # register backup repo
+  $ curl -XPUT 'http://localhost:9200/_snapshot/my_backup' -d '{
+      "type": "fs",
+      "settings": {
+          "location": "my_backup",
+          "compress": true
+      }
+  }'
+  $ # close all indices
+  $ curl -XPOST 'localhost:9200/_all/_close?pretty'
+  $ # restore; replace <most_recent_snapshot_id> with 
+  $ # most recent snapshot id in /var/backups/my_backup/
+  $ # this is usually the week day id of today or yesterday.
+  $ curl -XPOST 'localhost:9200/_snapshot/my_backup/snapshot_<most_recent_snapshot_id>/_restore?pretty&wait_for_completion'
+  $ # re-open all indices
+  $ curl -XPOST 'localhost:9200/_all/_open?pretty'
+  ```
 3. re-enable the route
