@@ -148,6 +148,7 @@ export class PersonalDetailsComponent implements AfterViewInit {
   errorDocument(evt:MspImage) {
     this.imageErrorModal.imageWithError = evt;
     this.imageErrorModal.showFullSizeView();
+    this.imageErrorModal.forceRender();
   }
 
   personalInfoLabel(): string {
