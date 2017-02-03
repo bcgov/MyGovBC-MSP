@@ -132,7 +132,7 @@ module.exports = function (_path) {
         minHeight: 1500,
         acceptMimeType: "image/*",
         convertToMimeType: "image/jpeg",
-        jpegQuality: 0.75
+        jpegQuality: 0.5
       }
     },
     htmlLoader: {
