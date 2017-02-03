@@ -37,6 +37,7 @@
     "awesome-typescript-loader": "^2.2.4",
     "baggage-loader": "^0.2.4",
     "blueimp-canvas-to-blob": "^3.6.0",
+    "blueimp-load-image": "^2.10.0",
     "bootstrap": "^3.3.6",
     "clean-webpack-plugin": "^0.1.8",
     "core-js": "^2.4.1",
