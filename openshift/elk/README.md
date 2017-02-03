@@ -82,6 +82,7 @@ If everything goes well, you will be able to access the Logstash http endpoint p
 Because Elasticsearch data is on ephemeral storage, due care is needed to avoid bringing down or corrupt the cluster. By default each piece of data has 1 replica (i.e. 2 copies on separate pods). If two or more pods are taken down in a short period such that the cluster doesn't have enough time to recover in between, partial data loss may occur. Therefore only scale down 1 pod at a time and leave enough recovery window for the next. 
 ### Cluster Recovery
 If Elasticsearch cluster is crashed, data can be restored from the most recently nightly backup
+
 1. Deploy a new empty cluster by following the procedure above. Disable the route to avoid input
 2. Login to a Elasticsearch pod by running `oc exec -it <pod_name> bash`. In the pod run following commands
 ```
