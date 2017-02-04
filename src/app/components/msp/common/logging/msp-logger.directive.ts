@@ -1,5 +1,7 @@
 import { Component, Directive, HostBinding,ElementRef,
   OnChanges, OnInit, HostListener, Input, SimpleChanges } from '@angular/core';
+import moment = require("moment");
+
 import { MspLogService } from '../../service/log.service';
 import DataService from '../../service/msp-data.service';
 import { LogEntry } from './log-entry.model';
@@ -30,7 +32,9 @@ export class MspLoggerDirective{
   makeGeneralLog():LogEntry{
     let log:LogEntry = new LogEntry();
     log.applicationId = this.dataService. getMspApplication().uuid || this.dataService.finAssistApp.uuid;
-    log.timestamp = new Date().getTime() + '';
+    // log.timestamp = new Date().getTime() + '';
+    var now = moment();
+    log.timestamp = now.toISOString();
     log.applicationPhase = this.mspLogger;
     log.refNumber = this.dataService. getMspApplication().referenceNumber;
     return log;

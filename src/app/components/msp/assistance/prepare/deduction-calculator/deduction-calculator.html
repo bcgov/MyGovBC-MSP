@@ -167,7 +167,9 @@
 <div class="row" *ngIf="incomeUnderThreshhold && canContinue"
   style="margin-top: 10px;">
   <div class="col-xs-12">
-    <button class="btn btn-primary btn-block"
+    <button 
+      [mspLogger]="'msp-premium-assistance_check-eligibility_continue'"    
+      class="btn btn-primary btn-block"
       routerLink="/msp/assistance/personal-info">
       Continue to apply for Premium Assistance
     </button>

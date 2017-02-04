@@ -1,8 +1,12 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
+import { HttpModule }    from '@angular/http';
 import { ConfirmationComponent } from './confirmation.component'
 import MspDataService from '../../service/msp-data.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
+import { MspLogService } from '../../service/log.service';
+import appConstants from '../../../../services/appConstants';
 
 describe('Component Test', () => {
   let localStorageServiceConfig = {
@@ -12,12 +16,13 @@ describe('Component Test', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ConfirmationComponent],
-      imports: [],
-      providers: [MspDataService,
+      declarations: [ConfirmationComponent, MspLoggerDirective],
+      imports: [HttpModule],
+      providers: [MspDataService, MspLogService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        }
+        },
+        {provide: 'appConstants', useValue: appConstants}
       ]
     })
   });

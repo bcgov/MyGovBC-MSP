@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
+import { HttpModule }    from '@angular/http';
 import { PersonalInfoComponent } from './personal-info.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 import MspDataService from '../../service/msp-data.service';
@@ -27,7 +28,9 @@ import {MspIdReqModalComponent} from "../../common/id-req-modal/id-req-modal.com
 import {MspOutofBCRecordComponent} from "../../common/outof-bc/outof-bc.component";
 import {MspCancelComponent} from "../../common/cancel/cancel.component";
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
-
+import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
+import { MspLogService } from '../../service/log.service';
+import appConstants from '../../../../services/appConstants';
 describe('PersonalInfoComponent', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
@@ -41,13 +44,14 @@ describe('PersonalInfoComponent', () => {
         MspBirthDateComponent, MspSchoolDateComponent, FileUploaderComponent, MspAddressComponent,
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,
         MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspCancelComponent,
-        MspImageErrorModalComponent],
-      imports: [FormsModule, Ng2CompleterModule, ModalModule, AccordionModule],
-      providers: [MspDataService,
+        MspImageErrorModalComponent, MspLoggerDirective],
+      imports: [FormsModule, Ng2CompleterModule, ModalModule, AccordionModule, HttpModule],
+      providers: [MspDataService, MspLogService,
         CompletenessCheckService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        }
+        },
+        {provide: 'appConstants', useValue: appConstants}
       ]
     })
   });

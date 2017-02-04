@@ -39,7 +39,7 @@ import {MspConsentModalComponent} from "./common/consent-modal/consent-modal.com
 import {MspIdReqModalComponent} from "./common/id-req-modal/id-req-modal.component";
 import {MspCancelComponent} from "./common/cancel/cancel.component";
 import {MspLoggerDirective} from "./common/logging/msp-logger.directive";
-import {MspLoggerComponent} from "./common/logging/msp-logger.component";
+//import {MspLoggerComponent} from "./common/logging/msp-logger.component";
 
 import {MspPersonCardComponent} from './common/person-card/person-card.component';
 import {MspContactCardComponent} from './common/contact-card/contact-card.component';
@@ -209,6 +209,8 @@ let localStorageServiceConfig = {
 
   ],
   declarations: [
+    MspLoggerDirective,
+    
     // General
     MspComponent,
     LandingComponent,
@@ -237,8 +239,6 @@ let localStorageServiceConfig = {
     MspConsentModalComponent,
     MspIdReqModalComponent,
     MspCancelComponent,
-    MspLoggerDirective,
-    MspLoggerComponent,
 
     // View cards
     MspPersonCardComponent,
