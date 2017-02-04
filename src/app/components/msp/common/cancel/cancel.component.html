@@ -13,7 +13,8 @@
         <button class="btn btn-primary pull-left"
                 [innerHtml]="lang('./en/index.js').noButton"
                 (click)="noButtonClick()"></button>
-        <button class="btn btn-danger pull-right"
+        <button [mspLogger]="'msp-enrollment_cancel_application'"
+                class="btn btn-danger pull-right"
                 [innerHtml]="lang('./en/index.js').yesButton"
                 (click)="yesButtonClick()"></button>
       </div>

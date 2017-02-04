@@ -43,7 +43,8 @@
     </div>
 </div>
 <hr>
-<button class="btn btn-primary" type="submit" routerLink="/msp/application/sending"
+<button [mspLogger]="'msp-enrollment_review_continue'"
+        class="btn btn-primary" type="submit" routerLink="/msp/application/sending"
         [innerHtml]="lang('./en/index.js').submitButton"></button>
 
 <msp-cancel></msp-cancel>
