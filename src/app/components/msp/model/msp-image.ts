@@ -1,4 +1,13 @@
 import {UUID} from "angular2-uuid";
+
+export enum MspImageError {
+  WrongType,
+  TooSmall,
+  TooBig,
+  AlreadyExists,
+  Unknown
+}
+
 /**
  * Image as uploaded by user
  */
@@ -16,4 +25,6 @@ export class MspImage {
 
   //file uniqness checksum
   id: string;
+
+  error?: MspImageError;
 }

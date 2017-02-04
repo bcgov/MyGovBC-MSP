@@ -1,9 +1,9 @@
 module.exports = {
   cardTitle: 'Contact info',
-  editButton: 'Edit Contact Info',
-  residentialAddressLabel: 'Residential Address:',
-  mailingAddressLabel: 'Mailing Address:',
-  phoneLabel: 'Phone Number:',
+  editButton: 'Edit contact info',
+  residentialAddressLabel: 'Residential address:',
+  mailingAddressLabel: 'Mailing address:',
+  phoneLabel: 'Phone number:',
   familyMemberLabel: 'Family member:',
   departureDateLabel: 'Departure date:',
   returnDateLabel: 'Return date:',

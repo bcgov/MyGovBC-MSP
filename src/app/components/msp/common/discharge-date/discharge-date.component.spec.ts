@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
 import { MspDischargeDateComponent } from './discharge-date.component';
 import MspDataService from '../../service/msp-data.service';
+import appConstants from '../../../../services/appConstants';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 
 describe('MspDischargeDateComponent', () => {
@@ -17,7 +18,8 @@ describe('MspDischargeDateComponent', () => {
       providers: [MspDataService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        }
+        },
+        {provide: 'appConstants', useValue: appConstants}
       ]
     })
   });

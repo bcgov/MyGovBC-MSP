@@ -61,7 +61,7 @@ export class MspLoggerDirective{
   }  
 
   private sendLog(entry:LogEntry){
-    this.logService.log(entry).subscribe(
+    this.logService.logIt(entry).subscribe(
       (response)=>{
         // console.log('log rest service response: ');
         console.log(response);

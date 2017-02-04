@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import MspDataService from '../../service/msp-data.service';
 import {FinancialAssistApplication} from "../../model/financial-assist-application.model";
 import {MspImage} from '../../model/msp-image';
+import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
+import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
 @Component({
   templateUrl: './authorize-submit.component.html'
 })
@@ -10,6 +12,9 @@ export class AssistanceAuthorizeSubmitComponent {
   lang = require('./i18n');
 
   application: FinancialAssistApplication;
+
+  @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
+  @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
   constructor(private dataService: MspDataService){
     this.application = this.dataService.finAssistApp;
@@ -26,8 +31,15 @@ export class AssistanceAuthorizeSubmitComponent {
   }
   
   addDocument(mspImage:MspImage) {
-    this.application.powerOfAttorneyDocs = [...this.application.powerOfAttorneyDocs, mspImage];
+    this.application.powerOfAttorneyDocs.push(mspImage);
+    this.fileUploader.forceRender();
     this.dataService.saveFinAssistApplication();
+  }
+
+  errorDocument(evt:MspImage) {
+    this.mspImageErrorModal.imageWithError = evt;
+    this.mspImageErrorModal.showFullSizeView();
+    this.mspImageErrorModal.forceRender();
   }
 
   deleteDocument(mspImage:MspImage) {

@@ -1,18 +1,19 @@
 server {
     listen       8080;
     server_name  localhost;
-    add_header Allow "POST, HEAD, OPTIONS" always;
+    add_header Allow "POST, HEAD, OPTIONS";
+    add_header Access-Control-Allow-Origin %AccessControlAllowOrigin%;
+    add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
     if ( $request_method !~ ^(POST|HEAD|OPTIONS)$ ) {
     	return 405;
     }
+    if ( $request_method ~ ^(HEAD|OPTIONS)$ ) {
+    	return 200;
+    }
     location / {
-        # proxy all traffic to this URL,
-        # note the trailing slash strips out the /proxy path on
-        # the request to the upstream server
-        proxy_pass http://logstash:8080/;
-
-        # Ensure HTTP get passed thru
-        proxy_pass_request_headers on;
+      if ($request_method = POST ) {
+        proxy_pass http://logstash:8080;
+      }
     }
 }
 
