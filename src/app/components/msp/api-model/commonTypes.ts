@@ -76,7 +76,7 @@ export class BasicInfoTypeFactory {
 	}
 }
 
-export type CitizenshipType = ("Citizen" | "PermanentResident" | "WorkPermit" | "StudyPermit" | "Diplomat" | "VisitorPermit");
+export type CitizenshipType = ("CanadianCitizen" | "PermanentResident" | "WorkPermit" | "StudyPermit" | "Diplomat" | "VisitorPermit");
 interface _CitizenshipType extends Primitive._string { content: CitizenshipType; }
 
 export type CityType = string;

@@ -8,6 +8,8 @@
     	<xs:documentation xml:lang="en">
     		Common Types - Digital Experience
     		Supports EnrollmentTypes, AssistanceTypes, NameChangeTypes.
+    		Version: $LastChangedRevision: 4360 $  
+    		LastChanged: $LastChangedDate: 2017-02-02 15:58:08 -0800 (Thu, 02 Feb 2017) $
     	</xs:documentation>
     </xs:annotation>
     
@@ -129,7 +131,7 @@
 	
 	<xs:simpleType name="CitizenshipType">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Citizen"/>
+            <xs:enumeration value="CanadianCitizen"/>
             <xs:enumeration value="PermanentResident"/>
             <xs:enumeration value="WorkPermit"/>
             <xs:enumeration value="StudyPermit"/>

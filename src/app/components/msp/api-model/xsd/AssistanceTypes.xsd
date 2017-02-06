@@ -10,6 +10,8 @@
     <xs:annotation>
     	<xs:documentation xml:lang="en">
     		MSP Premium Assistance Application - Digital Experience
+    		Version: $LastChangedRevision: 4310 $  
+    		LastChanged: $LastChangedDate: 2017-01-25 14:19:29 -0800 (Wed, 25 Jan 2017) $
     	</xs:documentation>
     </xs:annotation>
 
@@ -31,8 +33,7 @@
 		<xs:complexContent>
 			<xs:extension base="ct:BasicInfoType">
     			<xs:sequence>
-        			<xs:element name="telephone" type="ct:TelephoneType"/>
-        			<xs:element name="residenceAddress" type="ct:AddressType" minOccurs="0"/>
+        			<xs:element name="telephone" type="ct:TelephoneType" minOccurs="0"/>
         			<xs:element name="mailingAddress" type="ct:AddressType"/>
         			<xs:element name="financials" type="at:FinancialsType"/>
         			<xs:element name="phn" type="ct:PHNType"/>

@@ -17,6 +17,8 @@
     	<xs:documentation xml:lang="en">
     		Wrapper for all MSP Applications - Digital Experience.
     		Supports Enrolment, Assistance and NameAlignment Applications.
+    		Version: $LastChangedRevision: 4310 $  
+    		LastChanged: $LastChangedDate: 2017-01-25 14:19:29 -0800 (Wed, 25 Jan 2017) $
     	</xs:documentation>
     </xs:annotation>
 

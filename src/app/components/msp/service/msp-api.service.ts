@@ -628,7 +628,7 @@ export class MspApiService {
     to.citizenshipStatus = BasicCitizenshipTypeFactory.make();
     switch (from.status) {
       case StatusInCanada.CitizenAdult:
-        to.citizenshipStatus.citizenshipType = "Citizen";
+        to.citizenshipStatus.citizenshipType = "CanadianCitizen";
         break;
       case StatusInCanada.PermanentResident:
         to.citizenshipStatus.citizenshipType = "PermanentResident";
@@ -702,6 +702,7 @@ export class MspApiService {
       to.outsideBC.departureDate = from.outsideBCDepartureDate.format(this.ISO8601DateFormat);
       to.outsideBC.returnDate = from.outsideBCReturnDate.format(this.ISO8601DateFormat);
       to.outsideBC.familyMemberReason = from.outsideBCFamilyMemberReason;
+      to.outsideBC.destination = from.outsideBCDestination;
     }
     else {
       to.outsideBC.beenOutsideBCMoreThan = "N";
@@ -727,7 +728,7 @@ export class MspApiService {
     }
 
     if (from.hasDischarge) {
-      to.willBeAway.armedDischageDate = from.dischargeDate.format(this.ISO8601DateFormat);
+      to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
     }
     /*
      hasPreviousCoverage: ct.YesOrNoType;
