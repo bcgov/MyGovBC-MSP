@@ -711,7 +711,6 @@ export class MspApiService {
      armedDischageDate?: Date;
      isFullTimeStudent: ct.YesOrNoType;
      isInBCafterStudies?: ct.YesOrNoType;
-     willBeAway: ct.YesOrNoType;
      */
     to.willBeAway = WillBeAwayTypeFactory.make();
     if (from.fullTimeStudent) {
@@ -726,8 +725,6 @@ export class MspApiService {
     else {
       to.willBeAway.isInBCafterStudies = "N";
     }
-
-    to.willBeAway.willBeAway = "N";
 
     if (from.hasDischarge) {
       to.willBeAway.armedDischageDate = from.dischargeDate.format(this.ISO8601DateFormat);
