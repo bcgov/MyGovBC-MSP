@@ -8,14 +8,13 @@ export class RetroYearsGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
-        console.log('Entering RetroYearsGuard');
         let isComplete = this.compCheck.finAppPersonalInfoCompleted();
         if(!isComplete){
             console.log('Personal info not completed, must complete personal-info screen first.')
             this._router.navigate(['/msp/assistance/personal-info']);
             return false;
         }else {
-            console.log('Personal info completed, can proceed to previous years screen.')
+            // console.log('Personal info completed, can proceed to previous years screen.')
             return true;
         }
     }

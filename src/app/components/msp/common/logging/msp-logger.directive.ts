@@ -61,11 +61,11 @@ export class MspLoggerDirective{
         console.log(response);
       },
       (error)=>{
-        console.log('log rest service error: ');
+        console.log('HTTP error response from logging service: ');
         console.log(error);
       },
       ()=>{
-        console.log('log rest service completed!');
+        // console.log('log rest service completed!');
       }
     );
 
