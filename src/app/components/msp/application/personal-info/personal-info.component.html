@@ -23,15 +23,15 @@
         <div class="msp-app">
           <div class="button-group">
             <button type="button" class="btn btn-default" (click)= 'addSpouse()'
-              *ngIf = '!spouse'>
+              *ngIf = '!spouse'  [disabled] = "!canContinue">
               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
             </button>
-            <button type="button" class="btn btn-default" (click) = 'addChild(Relationship.ChildUnder19)'>
+            <button type="button" class="btn btn-default" (click) = 'addChild(Relationship.ChildUnder19)'  [disabled] = "!canContinue">
               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addChildUnder19Button"></span>
             </button>
-              <button type="button" class="btn btn-default" (click) = 'addChild(Relationship.Child19To24)'>
+              <button type="button" class="btn btn-default" (click) = 'addChild(Relationship.Child19To24)'  [disabled] = "!canContinue">
                   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                   <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
               </button>
