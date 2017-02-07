@@ -22,7 +22,7 @@ describe('AssistanceAuthorizeSubmitComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AssistanceAuthorizeSubmitComponent, FileUploaderComponent, ThumbnailComponent, MspCancelComponent,
-        MspImageErrorModalComponent,MspLoggerDirective],
+        MspImageErrorModalComponent,MspLoggerDirective, MspLoggerDirective],
       imports: [FormsModule, Ng2BootstrapModule, HttpModule],
       providers: [MspDataService, MspLogService,
         LocalStorageService,{
