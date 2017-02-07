@@ -15,7 +15,7 @@ The ELK has these features
 * uses nginx to proxy Logstash input and Kibana with following access controls
   * basic authentication for Kibana
   * allow only POST request to Logstash input
-  * CORS support for Logstash input
+  * CORS support for Logstash input with configurable Access-Control-Allow-Origin
 * based on official elastic docker images 
 
 ##Deployment
@@ -33,10 +33,10 @@ The prerequisites of the deployment are
     ```
     docker-machine start
     docker-machine env
-    # Following the output, run this command to configure your shell:
+    # Following the output instruction, for example run this command to configure your shell:
     eval $(docker-machine env)
     ```
-  * oc
+  * [oc](https://docs.openshift.com/container-platform/latest/cli_reference/get_started_cli.html)
 
 ###Procedure
 The deployment consists of these steps
