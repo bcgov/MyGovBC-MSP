@@ -21,11 +21,11 @@ export class MspLoggerDirective{
 
   }
   @HostListener('click', ['$event']) onclick($event:any) {
-    console.log('log on click event');
+    // console.log('log on click event');
     this.sendLog(this.makeGeneralLog());
   }
   @HostListener('load', ['$event']) onLoad($event:any) {
-    console.log('log on load event');
+    // console.log('log on load event');
     this.sendLog(this.makeGeneralLog());
   }
 
@@ -36,13 +36,9 @@ export class MspLoggerDirective{
     var now = moment();
     log.timestamp = now.toISOString();
     log.applicationPhase = this.mspLogger;
-    log.refNumber = this.dataService. getMspApplication().referenceNumber;
+    log.refNumberEnrollment = this.dataService.getMspApplication().referenceNumber;
+    log.refNumberPremiumAssistance = this.dataService.finAssistApp.referenceNumber;
     return log;
-  }
-
-  ngOnInit(){
-    // console.log('input value: ' + this.mspLogger);
-    // el.nativeElement
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -50,19 +46,13 @@ export class MspLoggerDirective{
     if(!!chng){
       let cur  = JSON.stringify(chng.currentValue);
       if(!!cur){
-        // console.log('log confirmationNumber: ' + cur);
         this.sendLog(this.makeGeneralLog());
       }
     }
-    // for (let propName in changes) {
-    //   console.log('property name: ' + propName);
-    //   let chng = changes[propName];
-    //   let cur  = JSON.stringify(chng.currentValue);
-    //   let prev = JSON.stringify(chng.previousValue);
-    //   console.log('current value: ' + cur);
-    //   console.log('previous value: ' + prev);
-    // }
   }  
+
+  ngOnInit(){
+  }
 
   private sendLog(entry:LogEntry){
     this.logService.logIt(entry).subscribe(

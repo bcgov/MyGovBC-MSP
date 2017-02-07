@@ -17,7 +17,8 @@ export class LogEntry {
   statusOfApplication?:string;
   ipAddress?:string;
   browserType?:string;
-  refNumber?:string;
+  refNumberEnrollment?:string;
+  refNumberPremiumAssistance?:string;
   /**
    * Optional 
    */

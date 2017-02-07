@@ -42,7 +42,8 @@
 </form>
 
 <hr>
-<button class="btn btn-primary" type="submit" routerLink="/msp/assistance/review"
+<button [mspLogger]="'msp-premium-assistance_apply_for_prevous_years'"  
+        class="btn btn-primary" type="submit" routerLink="/msp/assistance/review"
         [innerHTML]="lang('./en/index.js').continueButton"></button>
 
 <msp-cancel></msp-cancel>
