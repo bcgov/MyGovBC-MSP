@@ -75,6 +75,19 @@ npm install
 npm run dev
 ```
 
+Under `config/webpack/environments`, create a file named as `local.js` with the following content
+```
+'use strict'
+module.exports = function(_path) {
+  return {
+    appConstants: {
+      serviceName: 'Apply for BC Health Care',
+      logBaseUrl: 'http://logstash-gcpe-mygovbc-msp-dev.pathfinder.gov.bc.ca',
+    }
+  }
+}
+```
+
 ## Unit Testing
 Unit testing is implemented using karma with Jasmine framework. The implementation generally follows [Angular webpack test configuration](https://angular.io/docs/ts/latest/guide/webpack.html#test-configuration). Jenkins CI runs unit test as part of the build, therefore all unit test scripts should be able to run unattended, quickly and depend only on local resources. Unit test scripts are located side-by-side with the target component and have file extension *.spec.js* or *.spec.ts*. For an example of unit test script, see [/src/app/components/msp/landing/landing.spec.ts](https://github.com/bcgov/MyGovBC-MSP/blob/master/src/app/components/msp/landing/landing.spec.ts)
 
