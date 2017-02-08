@@ -4,9 +4,9 @@ module.exports = {
   2: 'Canadian citizenship card or certificate',
   3: 'Record of Landing',
   4: 'Permanent Resident Card (front and back)',
-  5: 'Work Permit',
-  6: 'Study Permit',
-  7: 'Visitor Visa',
+  5: 'Work permit',
+  6: 'Study permit',
+  7: 'Visitor visa',
   8: 'Passport with diplomatic foil',
   9: 'Marriage Certificate',
   10: 'Legal Name Change Certificate'
