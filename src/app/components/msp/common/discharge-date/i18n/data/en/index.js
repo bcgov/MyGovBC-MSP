@@ -1,5 +1,5 @@
 module.exports = {
-  dischargeDateLabel: 'Discharge Date',
+  dischargeDateLabel: 'Discharge date',
   monthErrorRequired: 'Month is required',
   dayErrorRequired: 'Day is required',
   yearErrorRequired: 'Year is required',
