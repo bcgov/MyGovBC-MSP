@@ -16,13 +16,13 @@ module.exports = {
   cityErrorMaxLength: 'City cannot be more than {length} characters',
 
   provinceLabel: 'Province',
-  provinceStateLabel: 'Province or State',
+  provinceStateLabel: 'Province or state',
 
   countryLabel: 'Country',
 
-  postalCodeLabel: 'Postal Code',
-  postalCodeErrorIsRequired: 'Postal Code is required',
-  postalCodeErrorPattern: 'Postal Code must be in format V1B 2C3 or V1B2C3',
+  postalCodeLabel: 'Postal code',
+  postalCodeErrorIsRequired: 'Postal code is required',
+  postalCodeErrorPattern: 'Postal code must be in format V1B 2C3 or V1B2C3',
 
   mailingAddressSameQuestion: 'Is your <strong>mailing address</strong> the same as above?',
   mailingAddressHeading: 'Mailing Address'
