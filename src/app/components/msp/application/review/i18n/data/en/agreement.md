@@ -6,7 +6,7 @@ Act to release information relative to those services to MSP to support claims f
 
 I declare that all information provided is true and I understand that the Ministry and/or Health Insurance
 BC may verify this information with immigration authorities, law enforcement authorities and other public
-authorities, agencies and persons as appropriate.
+authorities, agencies and persons, as appropriate.
 
 I declare that all persons listed are residents of British Columbia. Resident means a person who is a citizen of Canada or is lawfully admitted to Canada for
 permanent residence, who makes his or her home in British Columbia, and is physically present in British Columbia for at least 6 months in a calendar year, or a
