@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
+import { HttpModule }    from '@angular/http';
 import { ReviewComponent } from './review.component';
 import MspDataService from '../../service/msp-data.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
@@ -10,6 +11,9 @@ import {ThumbnailComponent} from "../../common/thumbnail/thumbnail.component";
 import {ModalModule} from "ng2-bootstrap";
 import {RouterTestingModule} from "@angular/router/testing";
 import {MspCancelComponent} from "../../common/cancel/cancel.component";
+import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
+import { MspLogService } from '../../service/log.service';
+import appConstants from '../../../../services/appConstants';
 
 describe('ReviewComponent', () => {
   let localStorageServiceConfig = {
@@ -20,12 +24,13 @@ describe('ReviewComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ReviewComponent, MspPersonCardComponent, MspAddressCardPartComponent,
-        MspContactCardComponent, ThumbnailComponent, MspCancelComponent],
-      imports: [FormsModule, ModalModule, RouterTestingModule],
-      providers: [MspDataService,
+        MspContactCardComponent, ThumbnailComponent, MspCancelComponent, MspLoggerDirective],
+      imports: [FormsModule, ModalModule, RouterTestingModule, HttpModule],
+      providers: [MspDataService, MspLogService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        }
+        },
+        {provide: 'appConstants', useValue: appConstants}
       ]
     })
   });

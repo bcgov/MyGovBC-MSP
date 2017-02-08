@@ -47,12 +47,11 @@
             </div>
         </div>
         <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
-            <h3><i class="fa fa-check-square-o" aria-hidden="true"></i>{{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
+            <h3>{{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
             <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
             <ul>
                 <li *ngFor="let document of documents">
                     {{langDocuments('./en/index.js')[document]}}
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
                     <a role="button" (click)="viewIdReqModal(document)"
                        [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
                 </li>
@@ -61,19 +60,22 @@
             <ul>
                 <li *ngFor="let document of nameChangeDocuments">
                     {{langDocuments('./en/index.js')[document]}}
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
                     <a role="button" (click)="viewIdReqModal(document)"
                        [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
                 </li>
             </ul>
             <msp-id-req-modal #idReqModal></msp-id-req-modal>
-            <p class="warning" [innerHtml]="lang('./en/index.js').documentInstructionsNote"></p>
         </div>
         <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
-            <h3><i class="fa fa-upload" aria-hidden="true"></i>{{lang('./en/index.js').documentUploadLabel[this.person.relationship]}}</h3>
-            <msp-file-uploader [images]="person.documents.images" [id]='id'
+            <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel[this.person.relationship]"></h3>
+
+            <msp-file-uploader #fileUploader
+                [images]="person.documents.images" [id]='id'
                 (onAddDocument)="addDocument($event)"
+                (onErrorDocument)="errorDocument($event)"
                 (onDeleteDocument)="deleteDocument($event)"></msp-file-uploader>
+
+            <msp-image-error-modal #imageErrorModal></msp-image-error-modal>
         </div>
     </div>
 <div *ngIf="hasValidCurrentActivity">

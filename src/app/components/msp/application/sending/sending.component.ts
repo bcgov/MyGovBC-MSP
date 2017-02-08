@@ -5,20 +5,21 @@ import DataService from '../../service/msp-data.service';
 import {MspApiService} from "../../service/msp-api.service";
 import {Router} from "@angular/router";
 import {ResponseType} from "../../api-model/responseTypes";
+import {MspLogService} from '../../service/log.service'
 
 @Component({
   templateUrl: 'sending.component.html'
 })
 @Injectable()
-export class SendingComponent implements AfterViewInit  {
+export class SendingComponent implements AfterViewInit {
   lang = require('./i18n');
 
-  application:MspApplication;
+  application: MspApplication;
   rawUrl: string;
   rawError: string;
   rawRequest: string;
 
-  constructor(private dataService: DataService, private service:MspApiService, public router: Router) {
+  constructor(private dataService: DataService, private service: MspApiService, public router: Router, private logService: MspLogService) {
     this.application = this.dataService.getMspApplication();
   }
 
@@ -26,9 +27,9 @@ export class SendingComponent implements AfterViewInit  {
     // After view inits, begin sending the application
     this.service
       .sendApplication(this.application)
-      .then((application:MspApplication) => {
+      .then((application: MspApplication) => {
         this.application = application;
-
+        this.logService.log({name: 'x', confirmationNumber: 'replaceMe'})
         //  go to confirmation
         this.router.navigateByUrl("/msp/application/confirmation");
       })

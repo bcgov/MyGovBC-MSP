@@ -1,7 +1,9 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
+import { HttpModule }    from '@angular/http';
 import { AssistancePersonalInfoComponent } from './personal-info.component';
 import MspDataService from '../../service/msp-data.service';
+import CompletenessCheckService from '../../service/completeness-check.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {MspPhnComponent} from "../../common/phn/phn.component";
 import {MspNameComponent} from "../../common/name/name.component";
@@ -16,6 +18,9 @@ import {MspGenderComponent} from "../../common/gender/gender.component";
 import {MspCountryComponent} from "../../common/country/country.component";
 import {MspCancelComponent} from "../../common/cancel/cancel.component";
 import {ModalModule} from "ng2-bootstrap";
+import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
+import { MspLogService } from '../../service/log.service';
+import appConstants from '../../../../services/appConstants';
 
 describe('AssistancePersonalInfoComponent', () => {
   let localStorageServiceConfig = {
@@ -28,12 +33,13 @@ describe('AssistancePersonalInfoComponent', () => {
       declarations: [AssistancePersonalInfoComponent, AssistancePersonalDetailComponent,
         MspPhnComponent, MspNameComponent, MspPhoneComponent,
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent, MspCountryComponent,
-        Mod11CheckValidator, MspGenderComponent, MspCancelComponent],
-      imports: [FormsModule, Ng2CompleterModule, ModalModule],
-      providers: [MspDataService,
+        Mod11CheckValidator, MspGenderComponent, MspCancelComponent, MspLoggerDirective],
+      imports: [FormsModule, Ng2CompleterModule, ModalModule, HttpModule],
+      providers: [MspDataService,CompletenessCheckService, MspLogService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        }
+        },
+        {provide: 'appConstants', useValue: appConstants}
       ]
     })
   });

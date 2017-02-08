@@ -10,6 +10,8 @@
     <xs:annotation>
     	<xs:documentation xml:lang="en">
     		MSP Application For enrolment - Digital Experience
+    		Version: $LastChangedRevision: 4374 $  
+    		LastChanged: $LastChangedDate: 2017-02-03 15:04:09 -0800 (Fri, 03 Feb 2017) $
     	</xs:documentation>
     </xs:annotation>
 
@@ -31,7 +33,7 @@
 		<xs:complexContent>
 			<xs:extension base="ct:BasicInfoType">
     			<xs:sequence>
-        			<xs:element name="telephone" type="ct:TelephoneType"/>
+        			<xs:element name="telephone" type="ct:TelephoneType" minOccurs="0"/>
         			<xs:element name="residenceAddress" type="ct:AddressType"/>
         			<xs:element name="mailingAddress" type="ct:AddressType" minOccurs="0"/>
         			<xs:element name="residency" type="et:ResidencyType"/>
@@ -95,16 +97,19 @@
 			<xs:element name="departureDate" type="xs:date" minOccurs="0"/>
 			<xs:element name="returnDate" type="xs:date" minOccurs="0"/>
 			<xs:element name="familyMemberReason" type="xs:string" minOccurs="0"/>
+			<xs:element name="destination" type="xs:string" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	
 	<!-- Future Non BC resident -->
 	<xs:complexType name="WillBeAwayType">
 		<xs:sequence>
+			<!-- willBeAway is marked as removed
 			<xs:element name="willBeAway" type="ct:YesOrNoType"/>
+			-->
 			<xs:element name="isFullTimeStudent" type="ct:YesOrNoType"/>
 			<xs:element name="isInBCafterStudies" type="ct:YesOrNoType" minOccurs="0"/>
-			<xs:element name="armedDischageDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="armedDischargeDate" type="xs:date" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	

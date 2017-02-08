@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
+import { HttpModule }    from '@angular/http';
 import { AssistanceComponent } from './assistance.component';
 import MspDataService from '../service/msp-data.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
@@ -16,7 +17,7 @@ describe('AssistanceComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AssistanceComponent, MspProgressBarComponent],
-      imports: [FormsModule, RouterTestingModule],
+      imports: [FormsModule, RouterTestingModule, HttpModule],
       providers: [MspDataService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

@@ -12,6 +12,8 @@ import DataService from '../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
 import {MspImage} from "../../../msp/model/msp-image";
+import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
+import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
 @Component({
   templateUrl: './prepare.component.html'
 })
@@ -28,6 +30,8 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   @ViewChild('selfDisabilityCreditUnset') selfDisabilityCreditUnset: ElementRef;
   @ViewChild('spouseDisabilityCreditSet') spouseDisabilityCreditSet: ElementRef;
   @ViewChild('spouseDisabilityCreditUnset') spouseDisabilityCreditUnset: ElementRef;
+  @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
+  @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
   @ViewChild('childDisabilityCreditset') childDisabilityCreditset: ElementRef;
   @ViewChild('childDisabilityCreditUnset') childDisabilityCreditUnset: ElementRef;
@@ -69,8 +73,15 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
 
   addReceipts(evt:any){
     console.log('image added: %s', evt);
-    this.finAssistApp.attendantCareExpenseReceipts = [...this.finAssistApp.attendantCareExpenseReceipts, evt];
+    this.finAssistApp.attendantCareExpenseReceipts.push(evt);
+    this.fileUploader.forceRender();
     this.dataService.saveFinAssistApplication();
+  }
+
+  errorReceipts(evt:MspImage) {
+    this.mspImageErrorModal.imageWithError = evt;
+    this.mspImageErrorModal.showFullSizeView();
+    this.mspImageErrorModal.forceRender();
   }
 
   deleteReceipts(evt:MspImage){

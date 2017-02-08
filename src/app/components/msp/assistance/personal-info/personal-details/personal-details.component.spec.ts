@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
+import { HttpModule }    from '@angular/http';
 import { AssistancePersonalDetailComponent } from './personal-details.component';
 import MspDataService from '../../../service/msp-data.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
@@ -12,6 +13,8 @@ import {MspProvinceComponent} from "../../../common/province/province.component"
 import {Ng2CompleterModule} from "ng2-completer";
 import {MspGenderComponent} from "../../../common/gender/gender.component";
 import {MspCountryComponent} from "../../../common/country/country.component";
+import { MspLogService } from '../../../service/log.service';
+import appConstants from '../../../../../services/appConstants';
 
 describe('AssistancePersonalDetailComponent', () => {
   let localStorageServiceConfig = {
@@ -24,11 +27,12 @@ describe('AssistancePersonalDetailComponent', () => {
       declarations: [AssistancePersonalDetailComponent, MspPhnComponent, MspNameComponent,
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent,
         Mod11CheckValidator, MspGenderComponent, MspCountryComponent],
-      imports: [FormsModule, Ng2CompleterModule],
+      imports: [FormsModule, Ng2CompleterModule, HttpModule],
       providers: [MspDataService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        }
+        },
+        {provide: 'appConstants', useValue: appConstants}
       ]
     })
   });

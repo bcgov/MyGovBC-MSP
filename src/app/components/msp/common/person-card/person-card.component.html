@@ -80,15 +80,7 @@
                 <strong>{{person.arrivalToCanada.format("MMMM Do, YYYY")}}</strong>
             </div>
         </div>
-
-        <div class="row" *ngIf="person.hasArrivalToCanada">
-            <div class="col-xs-4">
-                {{lang('./en/index.js').arrivedToCanadaLabel}}
-            </div>
-            <div class="col-xs-8">
-                <strong>{{person.arrivalToCanada.format("MMMM Do, YYYY")}}</strong>
-            </div>
-        </div>
+        
         <div class="row" *ngIf="person.movedFromProvinceOrCountry">
             <div class="col-xs-4">
                 {{movedFromLabel}}

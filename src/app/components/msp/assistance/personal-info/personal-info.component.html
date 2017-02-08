@@ -2,7 +2,7 @@
 <p class="help-block" [innerHTML]="lang('./en/index.js').helpBlock"></p>
 
 <h2 [innerHTML]="lang('./en/index.js').applicantInfo"></h2>
-<form #formRef='ngForm' novalidate>
+<form #formRef='ngForm' (ngSubmit)="onSubmit(formRef)" novalidate>
     <msp-assistance-personal-details 
         [(person)]="financialAssistApplication.applicant"
         (onChange)="onChange($event)">
@@ -30,8 +30,14 @@
     <hr>
     <msp-address [mailingAddress]="financialAssistApplication.mailingAddress"
                 [mailingOnly]="true" (onChange)="onChange($event)"></msp-address>
+    <hr>
+
+    <button [mspLogger]="'msp-premium-assistance_personal-info_continue'"   
+            class="btn btn-primary" type="submit" routerLink="/msp/assistance/retro"
+            [innerHTML]="lang('./en/index.js').continueButton"></button>
+    <!--<div>
+        <p style="float:left; margin-left: 10px;">There are validation errors on the page</p>  
+        <div style="clear:left"></div>
+    </div>      -->
+    <msp-cancel></msp-cancel>
 </form>
-<hr>
-<button class="btn btn-primary" type="submit" routerLink="/msp/assistance/retro"
-        [innerHTML]="lang('./en/index.js').continueButton"></button>
-<msp-cancel></msp-cancel>

@@ -55,13 +55,14 @@
 
     <h3 [hidden]="liveInBC === true || liveInBC === null || liveInBC === undefined" class="text-danger" [innerHtml]="lang('./en/index.js').badAnswer1">
     </h3>
-</form>
 
+</form>
 <hr>
 
-<button class="btn btn-primary"
+<button [mspLogger]="'msp-enrollment_check-eligibility_continue'"  class="btn btn-primary"
         [disabled] = "!(plannedAbsence === false && stayLonger === true && liveInBC === true && unUsualCircumstance === false)"
         routerLink="/msp/application/personal-info"
+        type="button"
         [innerHtml]="lang('./en/index.js').continueButton"></button>
 
 <msp-cancel></msp-cancel>

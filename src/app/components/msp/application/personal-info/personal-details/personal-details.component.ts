@@ -15,6 +15,8 @@ import {Valid} from "../../../common/valid";
 import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
 import {MspIdReqModalComponent} from "../../../common/id-req-modal/id-req-modal.component";
+import {MspImageErrorModalComponent} from "../../../common/image-error-modal/image-error-modal.component";
+import {FileUploaderComponent} from "../../../common/file-uploader/file-uploader.component";
 
 
 @Component({
@@ -62,7 +64,9 @@ export class PersonalDetailsComponent implements AfterViewInit {
   StatusInCanada: typeof StatusInCanada = StatusInCanada;
 
   @ViewChild('formRef') form: NgForm;
+  @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
   @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
+  @ViewChild('imageErrorModal') imageErrorModal: MspImageErrorModalComponent;
 
   @Input() viewOnly: boolean = false;
   @Input() person: Person;
@@ -127,7 +131,8 @@ export class PersonalDetailsComponent implements AfterViewInit {
 
   addDocument(evt:MspImage){
     // console.log('image added: %s', evt);
-    this.person.documents.images = [...this.person.documents.images, evt];
+    this.person.documents.images.push(evt);
+    this.fileUploader.forceRender();
     this.onChange.emit(evt);
   }
 
@@ -138,6 +143,12 @@ export class PersonalDetailsComponent implements AfterViewInit {
       }
     );
     this.onChange.emit(evt);
+  }
+
+  errorDocument(evt:MspImage) {
+    this.imageErrorModal.imageWithError = evt;
+    this.imageErrorModal.showFullSizeView();
+    this.imageErrorModal.forceRender();
   }
 
   personalInfoLabel(): string {

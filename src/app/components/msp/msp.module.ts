@@ -31,12 +31,15 @@ import {Mod11CheckValidator} from './common/phn/phn.validator';
 import {SinCheckValidator} from './common/sin/sin.validator';
 import {MspGenderComponent} from './common/gender/gender.component';
 import {FileUploaderComponent} from './common/file-uploader/file-uploader.component';
+import {MspImageErrorModalComponent} from './common/image-error-modal/image-error-modal.component';
 import {ThumbnailComponent} from './common/thumbnail/thumbnail.component';
 import {MspOutsideBCComponent} from "./common/outside-bc/outside-bc.component";
 import {MspOutofBCRecordComponent} from "./common/outof-bc/outof-bc.component";
 import {MspConsentModalComponent} from "./common/consent-modal/consent-modal.component";
 import {MspIdReqModalComponent} from "./common/id-req-modal/id-req-modal.component";
 import {MspCancelComponent} from "./common/cancel/cancel.component";
+import {MspLoggerDirective} from "./common/logging/msp-logger.directive";
+//import {MspLoggerComponent} from "./common/logging/msp-logger.component";
 
 import {MspPersonCardComponent} from './common/person-card/person-card.component';
 import {MspContactCardComponent} from './common/contact-card/contact-card.component';
@@ -80,6 +83,7 @@ import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calcu
 import {EligibilityCardComponent} from './assistance/prepare/eligibility-card/eligibility-card.component';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {MspApiService} from "./service/msp-api.service";
+import {MspLogService} from "./service/log.service"
 
 let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
@@ -170,7 +174,7 @@ let localStorageServiceConfig = {
                 path: 'personal-info',
                 canActivate: [PersonalInfoGuard],
                 component: AssistancePersonalInfoComponent,
-                
+
               },
               {
                 path: 'retro',
@@ -205,6 +209,8 @@ let localStorageServiceConfig = {
 
   ],
   declarations: [
+    MspLoggerDirective,
+    
     // General
     MspComponent,
     LandingComponent,
@@ -226,6 +232,7 @@ let localStorageServiceConfig = {
     MspGenderComponent,
     MspProgressBarComponent,
     FileUploaderComponent,
+    MspImageErrorModalComponent,
     ThumbnailComponent,
     MspOutsideBCComponent,
     MspOutofBCRecordComponent,
@@ -268,6 +275,7 @@ let localStorageServiceConfig = {
     MspDataService,
     CompletenessCheckService,
     MspApiService,
+    MspLogService,
 
     MspApplicationPersonalInfoGuard,
     MspApplicationAddressGuard,
@@ -282,7 +290,7 @@ let localStorageServiceConfig = {
     LocalStorageService,
     {
         provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-    }    
+    }
   ]
 })
 @Injectable()

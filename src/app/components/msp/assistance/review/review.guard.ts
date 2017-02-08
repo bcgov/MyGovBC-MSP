@@ -10,7 +10,7 @@ export class ReviewGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
         if(this.compCheck.finAppPersonalInfoCompleted()){
-            console.log('passed personal-info completeness check, can proceed.');
+            // console.log('passed personal-info completeness check, can proceed.');
             return true;
         }else{
             console.log('Must complete personal-info step first.');

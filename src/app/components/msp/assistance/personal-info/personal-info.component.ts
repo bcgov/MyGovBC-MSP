@@ -2,6 +2,7 @@ import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
 
 import DataService from '../../service/msp-data.service';
+import CompletenessCheckService from '../../service/completeness-check.service';
 import {FinancialAssistApplication} from "../../model/financial-assist-application.model";
 
 @Component({
@@ -13,7 +14,7 @@ export class AssistancePersonalInfoComponent implements AfterViewInit, OnInit{
 
   financialAssistApplication: FinancialAssistApplication;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private completenessCheck: CompletenessCheckService) {
     this.financialAssistApplication = this.dataService.finAssistApp;
   }
 
@@ -33,5 +34,15 @@ export class AssistancePersonalInfoComponent implements AfterViewInit, OnInit{
     this.dataService.saveFinAssistApplication();
   }
   
+  onSubmit(form: NgForm){
+    console.log('PA personal-info form submitted.');
+    console.log(form.value);
+    console.log(form.valid);
+    console.log(form);
+  }
+
+  get canContinue():boolean{
+    return this.completenessCheck.finAppPersonalInfoCompleted();
+  }
   
 }

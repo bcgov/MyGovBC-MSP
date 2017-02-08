@@ -265,6 +265,7 @@ class Person {
   outsideBCReturnDateMonth: number;
   outsideBCReturnDateDay: number;
   outsideBCFamilyMemberReason: string;
+  outsideBCDestination: string;
 
   get hasOutsideBCDepartureDate(): boolean {
     return (this.outsideBCDepartureDateDay != null &&

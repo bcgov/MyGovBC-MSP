@@ -5,8 +5,9 @@ import MspDataService from '../../service/msp-data.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {ThumbnailComponent} from "../thumbnail/thumbnail.component";
 import {ModalModule} from "ng2-bootstrap";
+import appConstants from '../../../../services/appConstants';
 
-describe('MspDischargeDateComponent', () => {
+describe('FileUploaderComponent', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
     storageType: 'localStorage'
@@ -19,7 +20,8 @@ describe('MspDischargeDateComponent', () => {
       providers: [MspDataService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        }
+        },
+        {provide: 'appConstants', useValue: appConstants}
       ]
     })
   });

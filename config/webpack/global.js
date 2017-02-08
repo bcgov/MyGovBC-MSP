@@ -122,9 +122,18 @@ module.exports = function (_path) {
       runtimeEnv: NODE_ENV, // run-time environment. by default same as build-time node env
       coreApiBaseUrl: 'http://localhost:9000/api',
       serviceName: 'core',
-      apiBaseUrl: '/api'
-      //  apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api'
-
+      // apiBaseUrl: '/api',
+      apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
+      images: {
+        maxImagesPerPerson: 10,
+        maxWidth: 2600,
+        maxHeight: 3300,
+        minWidth: 1000,
+        minHeight: 1500,
+        acceptMimeType: "image/*",
+        convertToMimeType: "image/jpeg",
+        jpegQuality: 0.5
+      }
     },
     htmlLoader: {
       minimize: false,

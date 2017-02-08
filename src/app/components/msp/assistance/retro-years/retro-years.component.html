@@ -28,20 +28,22 @@
         <label [innerHTML]="lang('./en/index.js').docUploadInstruction">
         </label>
       
-        <msp-file-uploader 
+        <msp-file-uploader #fileUploader
             [images]="application.assistYeaDocs" 
             [id]='application.id'
             (onAddDocument)="addDoc($event)"
+            (onErrorDocument)="errorDoc($event)"
             (onDeleteDocument)="deleteDoc($event)">
         </msp-file-uploader>
-      
+        <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
     </div>
   </div>
 
 </form>
 
 <hr>
-<button class="btn btn-primary" type="submit" routerLink="/msp/assistance/review"
+<button [mspLogger]="'msp-premium-assistance_apply_for_prevous_years'"  
+        class="btn btn-primary" type="submit" routerLink="/msp/assistance/review"
         [innerHTML]="lang('./en/index.js').continueButton"></button>
 
 <msp-cancel></msp-cancel>

@@ -12,8 +12,12 @@ import {ThumbnailComponent} from "../../common/thumbnail/thumbnail.component";
 import {RouterTestingModule} from "@angular/router/testing";
 import {Ng2BootstrapModule} from "ng2-bootstrap";
 import {MspCancelComponent} from "../../common/cancel/cancel.component";
+import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
+import {MspLogService} from "../../service/log.service";
+import {HttpModule} from "@angular/http";
+import appConstants from '../../../../services/appConstants';
 
-describe('AssistancePrepareComponent', () => {
+describe('AssistanceReviewComponent', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
     storageType: 'localStorage'
@@ -22,12 +26,14 @@ describe('AssistancePrepareComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AssistanceReviewComponent, MspPersonCardComponent, MspContactCardComponent,
-        EligibilityCardComponent, MspAddressCardPartComponent, ThumbnailComponent, MspCancelComponent],
-      imports: [FormsModule, RouterTestingModule, Ng2BootstrapModule],
-      providers: [MspDataService,
+        EligibilityCardComponent, MspAddressCardPartComponent, ThumbnailComponent, MspCancelComponent,
+        MspLoggerDirective],
+      imports: [FormsModule, RouterTestingModule, Ng2BootstrapModule, HttpModule],
+      providers: [MspDataService,MspLogService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        }
+        },
+        {provide: 'appConstants', useValue: appConstants}
       ]
     })
   });

@@ -120,6 +120,7 @@ interface _OutsideBCType extends BaseType {
 	departureDate?: string;
 	familyMemberReason?: string;
 	returnDate?: string;
+	destination?: string;
 }
 export interface OutsideBCType extends _OutsideBCType { constructor: { new(): OutsideBCType }; }
 export var OutsideBCType: { new(): OutsideBCType };
@@ -127,7 +128,7 @@ export var OutsideBCType: { new(): OutsideBCType };
 export class OutsideBCTypeFactory {
 	static make(): OutsideBCType {
 		let instance = <OutsideBCType>{};
-		instance._sequence = ["beenOutsideBCMoreThan", "departureDate", "returnDate", "familyMemberReason"];
+		instance._sequence = ["beenOutsideBCMoreThan", "departureDate", "returnDate", "familyMemberReason", "destination"];
 		return instance;
 	}
 }
@@ -180,10 +181,9 @@ export class ResidencyTypeFactory {
 }
 
 interface _WillBeAwayType extends BaseType {
-	armedDischageDate?: string;
+	armedDischargeDate?: string;
 	isFullTimeStudent: ct.YesOrNoType;
 	isInBCafterStudies?: ct.YesOrNoType;
-	willBeAway: ct.YesOrNoType;
 }
 export interface WillBeAwayType extends _WillBeAwayType { constructor: { new(): WillBeAwayType }; }
 export var WillBeAwayType: { new(): WillBeAwayType };
@@ -191,7 +191,7 @@ export var WillBeAwayType: { new(): WillBeAwayType };
 export class WillBeAwayTypeFactory {
 	static make(): WillBeAwayType {
 		let instance = <WillBeAwayType>{};
-		instance._sequence = ["willBeAway", "isFullTimeStudent", "isInBCafterStudies", "armedDischageDate"];
+		instance._sequence = ["isFullTimeStudent", "isInBCafterStudies", "armedDischageDate"];
 		return instance;
 	}
 }

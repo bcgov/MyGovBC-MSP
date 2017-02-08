@@ -24,7 +24,8 @@
 
 
 <hr>
-<button class="btn btn-primary" type="submit" routerLink="/msp/assistance/authorize-submit"
+<button [mspLogger]="'msp-premium-assistance_review'"
+        class="btn btn-primary" type="submit" routerLink="/msp/assistance/authorize-submit"
         [innerHTML]="lang('./en/index.js').continueButton"></button>
 
 <msp-cancel></msp-cancel>
