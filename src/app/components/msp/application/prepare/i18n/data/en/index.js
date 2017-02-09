@@ -14,7 +14,8 @@ module.exports = {
   question4sub: '<ul><li>An active member of the Canadian Forces</li>' +
   '<li>A sponsored spouse on a visitor\'s visa</li>' +
   '<li>A student returning to your home province at the end of a course or program</li>' +
-  '<li>A refugee</li></ul>',
+  '<li>A minor under the age of sixteen applying for an individual account</li>' +
+  '<li>A refugee claimant whose claim for refugee status has not yet been determined, and who does not posses a valid work or study permit</li></ul>',
   badAnswer4: 'You can submit an application with some assistance from one of our representatives - please contact' +
   'Health Insurance BC:<ul><li>(604) 683-7151 (Lower Mainland)</li><li>1-800-663-7100 (Elsewhere in B.C.)</li></ul>',
 
