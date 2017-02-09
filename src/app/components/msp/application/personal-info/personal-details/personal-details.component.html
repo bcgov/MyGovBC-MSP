@@ -47,7 +47,7 @@
             </div>
         </div>
         <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
-            <h3>{{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
+            <h3><i class="fa fa-check-square-o" aria-hidden="true"></i> {{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
             <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
             <ul>
                 <li *ngFor="let document of documents">
@@ -67,7 +67,9 @@
             <msp-id-req-modal #idReqModal></msp-id-req-modal>
         </div>
         <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
+
             <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel[this.person.relationship]"></h3>
+            <div [innerHtml]="lang('./en/index.js').documentInstructionsNote"></div>
 
             <msp-file-uploader #fileUploader
                 [images]="person.documents.images" [id]='id'

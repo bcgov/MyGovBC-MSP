@@ -18,7 +18,7 @@ module.exports = {
     'Child\'s ID requirements'],
   documentInstructionsIntro: 'You need to include <strong>one</strong> of the following with your application:',
   documentInstructionsMarriage: 'Has your name changed since your ID was issue due to marriage or a legal name change? If so, include <strong>one or more</strong> of the following:',
-  documentUploadLabel: ['Attach your documents',
+  documentUploadLabel: [' <i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> Your documents',
     'Attach your spouse\'s documents',
     'Attach your child\'s documents',
     'Attach your child\'s documents'],
