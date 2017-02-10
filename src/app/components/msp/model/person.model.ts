@@ -104,9 +104,13 @@ class Person {
    * BC Personal Health Number
    */
   previous_phn: string;
-  healthNumberFromOtherProvince:string;
   _hasPreviousBCPhn: boolean;
-  
+
+  /**
+   * Health number from another province
+   */
+  healthNumberFromOtherProvince:string;
+
   institutionWorkHistory: string;
 
   get hasPreviousBCPhn():boolean {

@@ -680,8 +680,8 @@ export class MspApiService {
     }
     to.livedInBC.isPermanentMove = "Y"; // Always Y, you can't proceed without
 
-    if (from.previous_phn) {
-      to.livedInBC.prevHealthNumber = from.previous_phn; // out of province health numbers
+    if (from.healthNumberFromOtherProvince) {
+      to.livedInBC.prevHealthNumber = from.healthNumberFromOtherProvince; // out of province health numbers
     }
     if (from.movedFromProvinceOrCountry) {
       to.livedInBC.prevProvinceOrCountry = from.movedFromProvinceOrCountry;

@@ -149,6 +149,7 @@ describe('MspApiService', () => {
     app.applicant.status = StatusInCanada.PermanentResident;
     app.applicant.currentActivity = Activities.Returning;
     app.applicant.previous_phn = "1234567890";
+    app.applicant.healthNumberFromOtherProvince = "123123123123";
     app.applicant.liveInBC = true;
 
     app.authorizedByApplicant = true;
