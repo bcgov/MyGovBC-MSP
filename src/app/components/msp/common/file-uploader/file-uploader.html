@@ -7,12 +7,12 @@
         <label for="fileUploadBrowse-{{id}}" class="file-upload-label">
             {{lang('./en/index.js').browseLabel}}
         </label>
-      {{lang('./en/index.js').orLabel}}
+      <span class="mobileShow">{{lang('./en/index.js').orLabel}}</span>
         <input type="file" id="fileUploadUseCamera-{{id}}" #captureFileRef
-          accept="image/*" capture="camera" style="display:none;"
+          accept="image/*" capture="camera" style="..."
           />  
-        <span class="glyphicon glyphicon-camera" aria-hidden="true"></span> 
-        <label for="fileUploadUseCamera-{{id}}" class="file-upload-label">
+        <span class="glyphicon glyphicon-camera mobileShow" aria-hidden="true"></span>
+        <label for="fileUploadUseCamera-{{id}}" class="file-upload-label mobileShow">
             {{lang('./en/index.js').takeAPhotoLabel}}
         </label>
         <br />
