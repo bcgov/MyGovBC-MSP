@@ -5,7 +5,8 @@ module.exports = {
   3: 'Working in B.C.',
   4: 'Studying in B.C.',
   5: 'Religious worker',
-  6: 'Diplomat'
+  6: 'Diplomat',
+  7: 'Visiting'
 }
 /**
  * Reasons for returning to Canada

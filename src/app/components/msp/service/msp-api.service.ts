@@ -644,6 +644,7 @@ export class MspApiService {
           case Activities.Diplomat:
             to.citizenshipStatus.citizenshipType = "Diplomat";
             break;
+          case Activities.Visiting:
           default:
             to.citizenshipStatus.citizenshipType = "VisitorPermit";
             break;

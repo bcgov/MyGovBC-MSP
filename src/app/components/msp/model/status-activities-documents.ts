@@ -28,7 +28,8 @@ enum Activities {
   WorkingInBC,
   StudyingInBC,
   ReligousWorker,
-  Diplomat
+  Diplomat,
+  Visiting
 }
 
 /**
@@ -78,11 +79,11 @@ class ActivitiesRules {
           return [Activities.Returning, Activities.MovingFromProvince, Activities.MovingFromCountry];
         }
       case StatusInCanada.TemporaryResident:
-        if (Relationship.Applicant) {
+        if (relationship === Relationship.Applicant) {
           return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligousWorker, Activities.Diplomat]
-        }
-        else {
-          return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligousWorker, Activities.Diplomat]
+        } else {
+          return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligousWorker, Activities.Diplomat,
+            Activities.Visiting]
         }
     }
   }
@@ -108,6 +109,8 @@ class DocumentRules {
         return [Documents.VisitorVisa];
       case Activities.Diplomat:
         return [Documents.PassportWithDiplomaticFoil]
+      case Activities.Visiting:
+        return [Documents.VisitorVisa];
     }
   }
 
