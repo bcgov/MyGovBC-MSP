@@ -146,7 +146,7 @@ describe('MspApiService', () => {
     app.residentialAddress.province = "British Columbia";
     app.residentialAddress.country = "Canada";
 
-    app.applicant.status = StatusInCanada.PermanentResident;
+    app.applicant.status = StatusInCanada.CitizenAdult;
     app.applicant.currentActivity = Activities.Returning;
     app.applicant.previous_phn = "1234567890";
     app.applicant.healthNumberFromOtherProvince = "123123123123";
@@ -183,7 +183,7 @@ describe('MspApiService', () => {
     doc2.fileContent = "data:image/jpeg;base64," + "blah";
     app.spouse.documents.images.push(doc2);
 
-    let child = app.addChild(Relationship.Child19To24);
+    let child = app.addChild(Relationship.ChildUnder19);
     child.firstName = "Mary";
     child.lastName = "Hamm";
     child.gender = Gender.Female;
@@ -194,6 +194,31 @@ describe('MspApiService', () => {
     child.currentActivity = Activities.Returning;
     child.liveInBC = true;
     child.previous_phn = "1234567890";
+
+    let dependant = app.addChild(Relationship.Child19To24);
+    dependant.firstName = "Someone else";
+    dependant.lastName = "Hamm";
+    dependant.gender = Gender.Female;
+    dependant.dob_year = 1996;
+    dependant.dob_month = 12;
+    dependant.dob_day = 6;
+    dependant.status = StatusInCanada.PermanentResident;
+    dependant.currentActivity = Activities.Returning;
+    dependant.liveInBC = true;
+    dependant.previous_phn = "1234567890";
+    dependant.schoolName = "Big school nam<e?>";
+    dependant.studiesDepartureDay = 1;
+    dependant.studiesDepartureMonth = 12;
+    dependant.studiesDepartureYear = 2015;
+    dependant.studiesFinishedDay = 1;
+    dependant.studiesFinishedMonth = 1;
+    dependant.studiesFinishedYear = 2020;
+    dependant.schoolAddress.addressLine1 = "addr1";
+    dependant.schoolAddress.city = "city";
+    dependant.schoolAddress.country = "country";
+    dependant.schoolAddress.postal = "12312123";
+    dependant.schoolAddress.province = "Alberta";
+
 
     let applicationType = service.convertMspApplication(app);
     let jsonString = JSON.stringify(applicationType);

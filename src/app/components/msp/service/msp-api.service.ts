@@ -10,9 +10,9 @@ import {
   ResidencyType, EnrolmentApplicationType, EnrolmentApplicantType,
   EnrolmentChildrenType, PersonTypeFactory, ResidencyTypeFactory, LivedInBCTypeFactory, EnrolmentApplicationTypeFactory,
   EnrolmentApplicantTypeFactory, EnrolmentChildrenTypeFactory, PreviousCoverageTypeFactory, OutsideBCTypeFactory,
-  WillBeAwayTypeFactory
+  WillBeAwayTypeFactory, DependentType, DependentTypeFactory, EnrolmentDependentsTypeFactory
 } from "../api-model/enrolmentTypes";
-import {StatusInCanada, Activities} from "../model/status-activities-documents";
+import {StatusInCanada, Activities, Relationship} from "../model/status-activities-documents";
 import {CitizenshipType} from "../api-model/commonTypes";
 import {BasicCitizenshipType} from "../api-model/commonTypes";
 import {LivedInBCType} from "../api-model/enrolmentTypes";
@@ -277,14 +277,32 @@ export class MspApiService {
       to.application.enrolmentApplication.spouse = this.convertPersonFromEnrollment(from.spouse);
     }
 
-    // Convert children
+    // Convert children and dependants
     if (from.children &&
       from.children.length > 0) {
 
-      to.application.enrolmentApplication.children = EnrolmentChildrenTypeFactory.make();
-      to.application.enrolmentApplication.children.child = new Array<PersonType>();
-      for (let child of from.children) {
-        to.application.enrolmentApplication.children.child.push(this.convertPersonFromEnrollment(child));
+      // Filter out children vs dependants
+      let children = from.children.filter((child:Person) =>
+        { return child.relationship === Relationship.ChildUnder19});
+      let dependants = from.children.filter((child:Person) =>
+        { return child.relationship === Relationship.Child19To24});
+
+      // Children
+      if (children.length > 0) {
+        to.application.enrolmentApplication.children = EnrolmentChildrenTypeFactory.make();
+        to.application.enrolmentApplication.children.child = new Array<PersonType>();
+        for (let child of children) {
+          to.application.enrolmentApplication.children.child.push(this.convertPersonFromEnrollment(child));
+        }
+      }
+
+      // Dependants
+      if (dependants.length > 0) {
+        to.application.enrolmentApplication.dependents = EnrolmentDependentsTypeFactory.make();
+        to.application.enrolmentApplication.dependents.dependent = new Array<DependentType>();
+        for (let dependant of dependants) {
+          to.application.enrolmentApplication.dependents.dependent.push(this.convertDependantFromEnrollment(dependant));
+        }
       }
     }
 
@@ -586,6 +604,45 @@ export class MspApiService {
 
     return to;
   }
+
+  private convertDependantFromEnrollment(from: Person): DependentType {
+    let to = DependentTypeFactory.make();
+    to = <DependentType>this.convertPersonFromEnrollment(from);
+
+    to.schoolName = from.schoolName;
+    if (from.hasStudiesDeparture) {
+      to.departDateSchoolOutside = from.studiesDepartureDate.format(this.ISO8601DateFormat);
+    }
+    if (from.hasStudiesFinished) {
+      to.dateStudiesFinish = from.studiesFinishedDate.format(this.ISO8601DateFormat);
+    }
+
+    // Assemble address string
+    let address:AddressType = this.convertAddress(from.schoolAddress);
+
+    to.schoolAddress = address.addressLine1;
+    if (address.addressLine2 &&
+      address.addressLine2.length > 0) {
+      to.schoolAddress += ", " + address.addressLine2;
+    }
+    if (address.addressLine3 &&
+      address.addressLine3.length > 0) {
+      to.schoolAddress += ", " + address.addressLine3;
+    }
+    to.schoolAddress += ", " + address.city;
+    to.schoolAddress += ", " + address.provinceOrState;
+    to.schoolAddress += ", " + address.postalCode;
+    to.schoolAddress += ", " + address.country;
+
+    return to;
+  }
+
+  // private convertDependant(from: Person): DependentType {
+  //   // Convert dependancy types
+  //   if (from.relationship === Relationship.Child19To24) {
+  //
+  //   }
+  // }
 
   private convertName(from: Person): NameType {
     let to = NameTypeFactory.make();

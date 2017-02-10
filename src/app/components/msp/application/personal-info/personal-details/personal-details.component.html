@@ -271,7 +271,7 @@
     <div class="row" *ngIf="person.documents.images.length > 0 &&
                             person.relationship === Relationship.Child19To24" style="margin-top: 18px">
         <div class="form-group col-md-4"
-            [ngClass]="{'has-error': !formRef.controls.schoolNameRef?.valid && schoolNameRef.touched}">
+            [ngClass]="{'has-error': !formRef.controls.schoolName?.valid && schoolNameRef.touched}">
             <label for="schoolName" [innerHtml]="lang('./en/index.js').schoolNameLabel"></label>
             <input [(ngModel)]='person.schoolName' type="text" class="form-control"
                 id="schoolName" name="schoolName" #schoolNameRef="ngModel"
