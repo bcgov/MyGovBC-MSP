@@ -222,7 +222,7 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     }
     let n = (!!this.application.netIncomelastYear && 
       !isNaN(this.application.netIncomelastYear))? this.application.netIncomelastYear : 0;
-
+    //console.log("application net income: " + this.application.netIncomelastYear);
     return parseFloat(n+'');
   }
 

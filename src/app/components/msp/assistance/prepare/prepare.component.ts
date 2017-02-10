@@ -119,7 +119,10 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
         }
       ).do(
         (value)=>{
-          if(!value.netIncome || value.netIncome.trim().length === 0){
+            console.log('netIncome value: ');
+            console.log(value.netIncome);
+            console.log(typeof value.netIncome);
+          if(!value.netIncome){
             this.finAssistApp.netIncomelastYear = null;
           }
           if(!value.spouseIncomeLine236 || value.spouseIncomeLine236.trim().length === 0){
