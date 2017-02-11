@@ -618,31 +618,10 @@ export class MspApiService {
     }
 
     // Assemble address string
-    let address:AddressType = this.convertAddress(from.schoolAddress);
-
-    to.schoolAddress = address.addressLine1;
-    if (address.addressLine2 &&
-      address.addressLine2.length > 0) {
-      to.schoolAddress += ", " + address.addressLine2;
-    }
-    if (address.addressLine3 &&
-      address.addressLine3.length > 0) {
-      to.schoolAddress += ", " + address.addressLine3;
-    }
-    to.schoolAddress += ", " + address.city;
-    to.schoolAddress += ", " + address.provinceOrState;
-    to.schoolAddress += ", " + address.postalCode;
-    to.schoolAddress += ", " + address.country;
+    to.schoolAddress = this.convertAddress(from.schoolAddress);
 
     return to;
   }
-
-  // private convertDependant(from: Person): DependentType {
-  //   // Convert dependancy types
-  //   if (from.relationship === Relationship.Child19To24) {
-  //
-  //   }
-  // }
 
   private convertName(from: Person): NameType {
     let to = NameTypeFactory.make();

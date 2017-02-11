@@ -14,7 +14,7 @@ interface BaseType {
 interface _DependentType extends _PersonType {
 	dateStudiesFinish: string;
 	departDateSchoolOutside?: string;
-	schoolAddress: string;
+	schoolAddress: ct.AddressType;
 	schoolName: string;
 }
 export interface DependentType extends _DependentType { constructor: { new(): DependentType }; }
