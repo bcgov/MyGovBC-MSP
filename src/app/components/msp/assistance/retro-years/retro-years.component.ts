@@ -62,7 +62,7 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
   }
 
   addDoc(doc:MspImage){
-    this.application.assistYeaDocs.push(doc);
+    this.application.assistYeaDocs = this.application.assistYeaDocs.concat(doc);
     this.fileUploader.forceRender();
     this.dataService.saveFinAssistApplication();
   }

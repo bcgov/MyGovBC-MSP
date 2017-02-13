@@ -161,7 +161,7 @@ export class FinancialAssistApplication implements ApplicationBase {
   set netIncomelastYearAsString(n:string) {
     if(!_.isEmpty(n) && n !== null){
       let num = n.toString();
-      let parsedNum = parseFloat(num.replace(',', ''));
+      let parsedNum:number = parseFloat(num.replace(',', ''));
       this._netIncomelastYear = parsedNum;
       this._netIncomelastYearAsString = n;
     }
@@ -171,11 +171,9 @@ export class FinancialAssistApplication implements ApplicationBase {
   }
 
   set netIncomelastYear(n:number) {
-    if(!_.isEmpty(n) && n !== null){
-
-        let num = n.toString();
-        let parsedNum = parseFloat(num.replace(',', ''));
-        this._netIncomelastYear = parsedNum;
+    if(n !== null){
+        // let parsedNum = parseFloat(num.replace(',', ''));
+        this.netIncomelastYearAsString = n+'';
     }
   }
 //End of GET SET for the netIncome

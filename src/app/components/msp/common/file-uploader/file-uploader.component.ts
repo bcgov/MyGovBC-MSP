@@ -1,7 +1,8 @@
 import {
-  Component, ViewChild, ElementRef, OnInit, EventEmitter, Output, Input,
-  Inject, NgZone
+  Component, ViewChild, ElementRef, OnInit, OnChanges,EventEmitter, Output, Input,
+  Inject, NgZone, SimpleChanges
 } from '@angular/core';
+import {ModalDirective} from "ng2-bootstrap";
 import {MspImage, MspImageError} from '../../model/msp-image';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
@@ -18,12 +19,15 @@ require('./file-uploader.component.less');
   selector: 'msp-file-uploader',
   templateUrl: './file-uploader.html'
 })
-export class FileUploaderComponent implements OnInit {
+export class FileUploaderComponent implements OnInit, OnChanges {
   lang = require('./i18n');
+  errorStyle:boolean;
 
   @ViewChild('dropZone') dropZone: ElementRef;
   @ViewChild('browseFileRef') browseFileRef: ElementRef;
   @ViewChild('captureFileRef') captureFileRef: ElementRef;
+  @ViewChild('imagePlaceholderRef') imagePlaceholderRef: ElementRef;
+  @ViewChild('staticModal') staticModalRef: ModalDirective;
 
   @Input() images: Array<MspImage>;
   @Input() id: string;
@@ -43,6 +47,15 @@ export class FileUploaderComponent implements OnInit {
    */
   forceRender() {
     this.zone.run(() => {});
+  }
+
+  ngOnChanges(changes: SimpleChanges):void {
+    if(changes['images'].currentValue.length === 0 && 
+      changes['images'].previousValue.length > 0){
+        this.errorStyle = true;
+    }else{
+        this.errorStyle = false;
+    }
   }
 
   ngOnInit(): void {
@@ -68,6 +81,15 @@ export class FileUploaderComponent implements OnInit {
         return event.dataTransfer.files;
       }
     );
+
+    let imagePlaceholderStream = Observable.fromEvent<Event>(this.imagePlaceholderRef.nativeElement, 'click')
+      .map((event)=>{
+        event.preventDefault();
+      });
+    imagePlaceholderStream.subscribe((event)=>{
+      this.browseFileRef.nativeElement.click();
+    });
+
 
     let browseFileStream = Observable.fromEvent<Event>(this.browseFileRef.nativeElement, 'change');
     let captureFileStream = Observable.fromEvent<Event>(this.captureFileRef.nativeElement, 'change');
@@ -237,6 +259,7 @@ export class FileUploaderComponent implements OnInit {
   }
 
   deleteImage(mspImage: MspImage) {
+    // this.staticModalRef.show();
     this.onDeleteDocument.emit(mspImage);
   }
 

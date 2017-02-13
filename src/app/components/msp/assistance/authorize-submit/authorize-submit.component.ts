@@ -31,7 +31,7 @@ export class AssistanceAuthorizeSubmitComponent {
   }
   
   addDocument(mspImage:MspImage) {
-    this.application.powerOfAttorneyDocs.push(mspImage);
+    this.application.powerOfAttorneyDocs = this.application.powerOfAttorneyDocs.concat(mspImage);
     this.fileUploader.forceRender();
     this.dataService.saveFinAssistApplication();
   }

@@ -16,7 +16,7 @@ export default class CompletenessCheckService {
     }
 
     private isNumber(arg:any){
-      return(!!arg && arg.length > 0 && !Number.isNaN(arg))
+      return _.isNumber(arg);
     }
 
     /**

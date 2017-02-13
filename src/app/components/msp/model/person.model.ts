@@ -363,7 +363,7 @@ class Person {
     && _.isString(this.firstName) && this.firstName.length > 0 && _.isString(this.lastName) && this.lastName.length > 0
     // && this.isNotEmpty(this.dob_day) && this.isNotEmpty(this.dob_month) && this.isNotEmpty(this.dob_year)
     && _.isNumber(this.dob_day) && _.isString(this.dob_month) && _.isNumber(this.dob_year)
-    && _.isNumber(this._status) && _.isNumber(this._currentActivity);
+    && _.isNumber(this._status) && _.isNumber(this._currentActivity) && this.documents.images.length > 0
 
     let returningToBCComplete = true;
 

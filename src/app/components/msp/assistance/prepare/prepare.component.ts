@@ -72,8 +72,8 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   }
 
   addReceipts(evt:any){
-    console.log('image added: %s', evt);
-    this.finAssistApp.attendantCareExpenseReceipts.push(evt);
+    // console.log('image added: %s', evt);
+    this.finAssistApp.attendantCareExpenseReceipts = this.finAssistApp.attendantCareExpenseReceipts.concat(evt);
     this.fileUploader.forceRender();
     this.dataService.saveFinAssistApplication();
   }
@@ -98,8 +98,6 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
       this.mspConsentModal.showFullSizeView();
     }
 
-    // console.log('income input field ', this.incomeRef);
-
     let ageOver$ = Observable.fromEvent<MouseEvent>(this.ageOver65Btn.nativeElement, 'click')
       .map( x=>{
         this.dataService.finAssistApp.ageOver65 = true;
@@ -119,11 +117,12 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
         }
       ).do(
         (value)=>{
-            console.log('netIncome value: ');
-            console.log(value.netIncome);
-            console.log(typeof value.netIncome);
+          console.log('PA value object change:')
+          console.log(value);
           if(!value.netIncome){
             this.finAssistApp.netIncomelastYear = null;
+          }else{
+            this.finAssistApp.netIncomelastYear = value.netIncome;
           }
           if(!value.spouseIncomeLine236 || value.spouseIncomeLine236.trim().length === 0){
             this.finAssistApp.spouseIncomeLine236 = null;
@@ -209,7 +208,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
       )
       .subscribe(
         values => {
-          // console.log('values: ', values);
+          console.log('values before saving: ', values);
           this.dataService.saveFinAssistApplication();
         }
       );

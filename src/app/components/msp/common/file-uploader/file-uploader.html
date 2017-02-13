@@ -9,14 +9,13 @@
         </label>
       <span class="mobileShow">{{lang('./en/index.js').orLabel}}</span>
         <input type="file" id="fileUploadUseCamera-{{id}}" #captureFileRef
-          accept="image/*" capture="camera" style="..."
+          accept="image/*" capture="camera" 
           />  
         <span class="glyphicon glyphicon-camera mobileShow" aria-hidden="true"></span>
         <label for="fileUploadUseCamera-{{id}}" class="file-upload-label mobileShow">
             {{lang('./en/index.js').takeAPhotoLabel}}
         </label>
         <br />
-        <i class="fa fa-upload fa-5x icon-upload" aria-hidden="true"></i>
   </div>
   <div class="preview-zone">
     <div *ngFor="let mspImage of images" class="preview-item">
@@ -28,9 +27,33 @@
   <!-- The sole purpose of this element is to maintain the drop zone to an 
       large size to display on screen.
    -->
-  <div *ngIf = "images.length === 0" class="preview-zone">
-      <div class="preview-item"></div>
+  <div [hidden]= "images.length > 0" class="preview-zone">
+      <div class="preview-item" #imagePlaceholderRef [ngClass]="{'error-style': errorStyle}">
+        <i class="fa fa-file-image-o fa-5x icon-upload" aria-hidden="true">
+
+        </i>
+        <p class="text-upload">Select a file to upload</p>
+      </div>
+  </div>
+
+  <div class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}"
+      tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">You must provide photos of required Id</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          This is static modal, backdrop click will not close it.
+          Click <b>&times;</b> to close modal.
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
+
 

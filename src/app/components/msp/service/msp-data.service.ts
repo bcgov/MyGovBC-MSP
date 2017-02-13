@@ -52,6 +52,8 @@ export default class MspDataService {
   }
 
   saveFinAssistApplication():void {
+    console.log('this._finAssistApp before conversion and saving: ');
+    console.log(this._finAssistApp);
     let dto:FinancialAssistApplicationDto = this.toFinAssistDataTransferObject(this._finAssistApp);
     this.localStorageService.set(this.finAssistAppStorageKey,dto);
     // this.localStorageService.set(this.finAssistMailingAddressStorageKey,dto.mailingAddress);
@@ -430,7 +432,9 @@ export default class MspDataService {
 
     output.infoCollectionAgreement = dto.infoCollectionAgreement;
 
+    console.log('set netIncomelastYear from value: ' + dto.incomeLine236);
     output.netIncomelastYear = dto.incomeLine236;
+    console.log(' netIncomelastYear after setting the value: ' + output.netIncomelastYear);
     output.ageOver65 = dto.ageOver65;
     output.setSpouse = dto.hasSpouseOrCommonLaw;
     output.spouseAgeOver65 = dto.spouseAgeOver65;
