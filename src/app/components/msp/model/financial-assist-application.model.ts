@@ -416,6 +416,14 @@ export class FinancialAssistApplication implements ApplicationBase {
     return moment().year();
   }
 
+  /**
+   * Counts the number of tax years
+   * @returns {number}
+   */
+  numberOfTaxYears(): number {
+    return this.getAppliedForTaxYears().length;
+  }
+
   constructor(){
     this.id = UUID.UUID();
   }

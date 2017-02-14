@@ -10,8 +10,8 @@
     <xs:annotation>
     	<xs:documentation xml:lang="en">
     		MSP Premium Assistance Application - Digital Experience
-    		Version: $LastChangedRevision: 4310 $  
-    		LastChanged: $LastChangedDate: 2017-01-25 14:19:29 -0800 (Wed, 25 Jan 2017) $
+    		Version: $LastChangedRevision: 4408 $  
+    		LastChanged: $LastChangedDate: 2017-02-10 10:28:03 -0800 (Fri, 10 Feb 2017) $
     	</xs:documentation>
     </xs:annotation>
 
@@ -60,6 +60,7 @@
 		<xs:sequence>
 			<xs:element name="taxYear" type="ct:YearType"/>
 			<xs:element name="assistanceYear" type="at:AssistanceYearType"/>
+			<xs:element name="numberOfTaxYears" type="at:NumberOfTaxYearsType" minOccurs="0"/>
 			<xs:element name="netIncome" type="xs:decimal"/>
 			<xs:element name="spouseNetIncome" type="xs:decimal" minOccurs="0"/>
 			<xs:element name="totalNetIncome" type="xs:decimal" minOccurs="0"/>
@@ -91,4 +92,9 @@
         </xs:restriction>
     </xs:simpleType>
     
+    <xs:simpleType name="NumberOfTaxYearsType">
+    	<xs:restriction base="xs:positiveInteger">
+          <xs:pattern value="[1-6]" />
+       	</xs:restriction>
+    </xs:simpleType>
 </xs:schema>
