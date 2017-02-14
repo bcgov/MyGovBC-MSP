@@ -470,6 +470,7 @@ export class MspApiService {
         break;
     }
     to.taxYear = from.getTaxYear();
+    to.numberOfTaxYears = from.numberOfTaxYears();
     if (from.eligibility.adjustedNetIncome != null) to.adjustedNetIncome = from.eligibility.adjustedNetIncome;
     if (from.eligibility.childDeduction != null) to.childDeduction = from.eligibility.childDeduction;
     if (from.eligibility.deductions != null) to.deductions = from.eligibility.deductions;

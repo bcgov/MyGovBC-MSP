@@ -82,6 +82,7 @@ interface _FinancialsType extends BaseType {
 	disabilityDeduction?: number;
 	disabilitySavingsPlan?: number;
 	netIncome: number;
+	numberOfTaxYears?: number;
 	numChildren?: number;
 	numDisabled?: number;
 	sixtyFiveDeduction?: number;
@@ -97,7 +98,7 @@ export var FinancialsType: { new(): FinancialsType };
 export class FinancialsTypeFactory {
 	static make(): FinancialsType {
 		let instance = <FinancialsType>{};
-		instance._sequence = ["taxYear", "assistanceYear", "netIncome", "spouseNetIncome",
+		instance._sequence = ["taxYear", "assistanceYear", "numberOfTaxYears", "netIncome", "spouseNetIncome",
 			"totalNetIncome", "sixtyFiveDeduction", "numChildren", "childDeduction", "childCareExpense", "deductions",
 			"uccb", "numDisabled", "disabilityDeduction", "disabilitySavingsPlan", "totalDeductions", "adjustedNetIncome"];
 		return instance;

@@ -9,6 +9,7 @@ import appConstants from '../../../services/appConstants';
 import {Data} from "./test/image.data";
 import {FinancialAssistApplication} from "../model/financial-assist-application.model";
 import {ApplicationBase} from "../model/application-base.model";
+import {AssistanceYear} from "../model/assistance-year.model";
 
 describe('MspApiService', () => {
 
@@ -345,6 +346,10 @@ describe('MspApiService', () => {
     app.spouseIncomeLine236 = 12323123;
     app.spouseEligibleForDisabilityCredit = true;
     app.netIncomelastYear = 123123123;
+    let assistYear = new AssistanceYear();
+    assistYear.apply = true;
+    assistYear.year = 2015;
+    app.assistYears.push(assistYear);
 
     let document = service.convertAssistance(app);
 
