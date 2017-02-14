@@ -85,8 +85,8 @@ export class MspBirthDateComponent implements AfterViewInit, OnInit{
     }else if (this.person.relationship === Relationship.Child19To24) {
       // if child student must be between 19 and 24
 
-      let tooYoung = this.person.dob.isBefore(moment().subtract(19, 'years'));
-      let tooOld = this.person.dob.isAfter(moment().subtract(24, 'years'));
+      let tooYoung = this.person.dob.isAfter(moment().subtract(19, 'years'));
+      let tooOld = this.person.dob.isBefore(moment().subtract(24, 'years'));
 
       if(tooYoung){
         console.log('This child is less than 19 years old.')
