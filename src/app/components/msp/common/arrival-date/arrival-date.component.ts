@@ -1,6 +1,7 @@
 import {Component, Input, Output, EventEmitter, ViewChild, AfterViewInit} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
+import * as _ from 'lodash';
 
 require('./arrival-date.component.less');
 
@@ -15,6 +16,7 @@ export class MspArrivalDateComponent implements AfterViewInit{
   // Create today for comparison in check later
   today = moment();
 
+  @Input() required: boolean = true;
   @Input() year: number;
   @Output() yearChange = new EventEmitter<number>();
   @Input() month: number;
@@ -48,10 +50,14 @@ export class MspArrivalDateComponent implements AfterViewInit{
    * @returns {boolean}
    */
   isValid(): boolean {
+    // Validate, only if provided
+    if (this.year != null ||
+        _.isNaN(this.month) ||
+        this.day != null) {
 
-    // Validate
-    if (!this.inputDate().isValid()) {
-      return false;
+      if (!this.inputDate().isValid()) {
+        return false;
+      }
     }
 
     return true;

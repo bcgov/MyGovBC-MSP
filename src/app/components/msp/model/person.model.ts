@@ -413,8 +413,14 @@ class Person {
         institutionWorkComplete = _.isNumber(this.dischargeDay) && _.isString(this.dischargeMonth) && _.isNumber(this.dischargeYear);
       }  
     }
-    let arrivalInCanadaComplete = _.isNumber(this.arrivalToCanadaDay) && _.isString(this.arrivalToCanadaMonth) && _.isNumber(this.arrivalToCanadaYear);
-    
+
+    // arrival in canada is optional for some activites
+    let arrivalInCanadaComplete = true;
+    if (this.status === StatusInCanada.CitizenAdult &&
+      (this.currentActivity === Activities.MovingFromProvince ||
+        this.currentActivity === Activities.Returning)) {
+      arrivalInCanadaComplete = _.isNumber(this.arrivalToCanadaDay) && _.isString(this.arrivalToCanadaMonth) && _.isNumber(this.arrivalToCanadaYear);
+    }
     let result = basic 
       && returningToBCComplete 
       && arrivalInCanadaComplete
