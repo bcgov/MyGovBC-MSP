@@ -16,9 +16,16 @@ export default class CompletenessCheckService {
     }
 
     private isNumber(arg:any){
-      return _.isNumber(arg);
+      return _.isNumber(arg) || this.isStringBeParsedToNumber(arg);
     }
 
+    /**
+     * Is it a string that can be parsed to a number?
+     */
+    private isStringBeParsedToNumber(input:any){
+      let v = parseFloat(input);
+      return _.isNumber(v);
+    }
     /**
      * 
      */

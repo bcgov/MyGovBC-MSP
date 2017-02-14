@@ -117,9 +117,8 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
         }
       ).do(
         (value)=>{
-          console.log('PA value object change:')
-          console.log(value);
-          if(!value.netIncome){
+          // console.log('form value: ', value);
+          if(!value.netIncome || value.netIncome.trim().length === 0){
             this.finAssistApp.netIncomelastYear = null;
           }else{
             this.finAssistApp.netIncomelastYear = value.netIncome;
@@ -208,7 +207,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
       )
       .subscribe(
         values => {
-          console.log('values before saving: ', values);
+          // console.log('values before saving: ', values);
           this.dataService.saveFinAssistApplication();
         }
       );

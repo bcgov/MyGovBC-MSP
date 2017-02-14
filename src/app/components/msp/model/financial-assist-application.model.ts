@@ -70,11 +70,6 @@ export class FinancialAssistApplication implements ApplicationBase {
   spouse: Person = new Person(Relationship.Spouse);
 
   private _netIncomelastYear:number;
-  private _netIncomelastYearAsString:string;
-  private _spouseIncomeLine236AsString:string;
-  private _claimedChildCareExpense_line214AsString:string;
-  private _reportedUCCBenefit_line117AsString:string;
-  private _spouseDSPAmount_line125AsString:string;
   /**
    * line 236 on NOA
    */
@@ -153,40 +148,13 @@ export class FinancialAssistApplication implements ApplicationBase {
   get authorizedByAttorney():boolean {
     return this._authorizedByAttorney;
   }
-// GET SET for the netIncome
-  get netIncomelastYearAsString():string {
-    return this._netIncomelastYearAsString;
-  }
-
-  set netIncomelastYearAsString(n:string) {
-    if(!_.isEmpty(n) && n !== null){
-      let num = n.toString();
-      let parsedNum:number = parseFloat(num.replace(',', ''));
-      this._netIncomelastYear = parsedNum;
-      this._netIncomelastYearAsString = n;
-    }
-  }
   get netIncomelastYear():number {
     return this._netIncomelastYear === null? null: this._netIncomelastYear;
   }
 
   set netIncomelastYear(n:number) {
-    if(n !== null){
-        // let parsedNum = parseFloat(num.replace(',', ''));
-        this.netIncomelastYearAsString = n+'';
-    }
-  }
-//End of GET SET for the netIncome
-//GET SET for the SpouseIncome
-  get spouseIncomeLine236AsString():string{
-    return this._spouseIncomeLine236AsString;
-  }
-  set spouseIncomeLine236AsString(n:string){
-    if(!_.isEmpty(n) && n !== null){
-      let num = n.toString();
-      let parsedNum = parseFloat(num.replace(',', ''));
-      this._spouseIncomeLine236 = parsedNum;
-      this._spouseIncomeLine236AsString = n;
+   if(!this.isEmptyString(n)){
+      this._netIncomelastYear = n;
     }
   }
   get spouseIncomeLine236():number{
@@ -228,22 +196,6 @@ export class FinancialAssistApplication implements ApplicationBase {
       this.childWithDisabilityCount = 0;
     }
   }
-//GET SET for the Child Care Expense count
-  get claimedChildCareExpense_line214AsString():string{
-    if(!this._claimedChildCareExpense_line214AsString){
-      return null;
-    } else {
-     return this._claimedChildCareExpense_line214AsString;
-    }
-  }
-  set claimedChildCareExpense_line214AsString(n:string){
-    if(!_.isEmpty(n) && n !== null){
-      let num = n.toString();
-      let parsedNum = parseFloat(num.replace(',', ''));
-      this._claimedChildCareExpense_line214 = parsedNum;
-      this._claimedChildCareExpense_line214AsString = n;
-    }
-  }
 
   get claimedChildCareExpense_line214(){
     if(!!this._claimedChildCareExpense_line214 && !isNaN(this._claimedChildCareExpense_line214)){
@@ -258,23 +210,6 @@ export class FinancialAssistApplication implements ApplicationBase {
       this._claimedChildCareExpense_line214 = n;
     }
   }
-// End of GET SET for the Child Care Expense count
-// GET SET for UCCBenefit
-  get reportedUCCBenefit_line117AsString(): string{
-    if(!this._reportedUCCBenefit_line117AsString){
-      return null;
-    } else {
-      return this._reportedUCCBenefit_line117AsString;
-    }
-  }
-  set reportedUCCBenefit_line117AsString(n:string){
-    if(!_.isEmpty(n) && n !== null) {
-      let num = n.toString();
-      let parsedNum = parseFloat(num.replace(',', ''));
-      this._reportedUCCBenefit_line117 = parsedNum;
-      this._reportedUCCBenefit_line117AsString = n;
-    }
-  }
   get reportedUCCBenefit_line117(): number{
     if(!!this._reportedUCCBenefit_line117 && !isNaN(this._reportedUCCBenefit_line117)){
       return parseFloat(this._reportedUCCBenefit_line117+ '');
@@ -287,24 +222,6 @@ export class FinancialAssistApplication implements ApplicationBase {
     if(!this.isEmptyString(n)){
       this._reportedUCCBenefit_line117 = n;
     }    
-  }
-// End of GET SET for UCCBenefit
-// GET SET for spouseDSPAmount_line125
-  get spouseDSPAmount_line125AsString(): string{
-    if(!this._spouseDSPAmount_line125AsString){
-      return null;
-    } else {
-      return this._spouseDSPAmount_line125AsString;
-    }
-  }
-
-  set spouseDSPAmount_line125AsString(n:string){
-    if(!_.isEmpty(n) && n !== null) {
-      let num = n.toString();
-      let parsedNum = parseFloat(num.replace(',', ''));
-      this._spouseDSPAmount_line125 = parsedNum;
-      this._spouseDSPAmount_line125AsString = n;
-    }
   }
   get spouseDSPAmount_line125(): number{
     if(!!this._spouseDSPAmount_line125 && !isNaN(this._spouseDSPAmount_line125)){

@@ -58,7 +58,7 @@ export class MspLoggerDirective{
     this.logService.logIt(entry).subscribe(
       (response)=>{
         // console.log('log rest service response: ');
-        console.log(response);
+        // console.log(response);
       },
       (error)=>{
         console.log('HTTP error response from logging service: ');
