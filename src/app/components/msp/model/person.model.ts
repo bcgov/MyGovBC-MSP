@@ -34,9 +34,10 @@ class Person {
   }
 
   get hasCompleteOutSideRecords():boolean {
-    let noRecords = this.outOfBCRecord === null;
+    let noRecords = this.outOfBCRecord == null;
+    if (noRecords) return true;
     let allFilledIn = this.outOfBCRecord.isValid();
-    return noRecords || allFilledIn;
+    return allFilledIn;
   }
   /**
    * Name section
@@ -339,9 +340,9 @@ class Person {
 
     // arrival in canada is optional for some activites
     let arrivalInCanadaComplete = true;
-    if (this.status === StatusInCanada.CitizenAdult &&
+    if (!(this.status === StatusInCanada.CitizenAdult &&
       (this.currentActivity === Activities.MovingFromProvince ||
-        this.currentActivity === Activities.Returning)) {
+        this.currentActivity === Activities.Returning))) {
       arrivalInCanadaComplete = _.isNumber(this.arrivalToCanadaDay) && _.isString(this.arrivalToCanadaMonth) && _.isNumber(this.arrivalToCanadaYear);
     }
     let result = basic 

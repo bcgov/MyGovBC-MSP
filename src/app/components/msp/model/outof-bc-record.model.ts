@@ -23,8 +23,8 @@ export class OutofBCRecord {
    */
   isValid():boolean {
     return !this.isEmpty && !!this.reason
-    && this.reason.length > 0
-    && this.location.length > 0
+    && !this.isEmptyString(this.reason)
+    && !this.isEmptyString(this.location)
     && _.isNumber(this.departureDay)
     && _.isNumber(this.departureYear)
     && _.isString(this.departureMonth)
