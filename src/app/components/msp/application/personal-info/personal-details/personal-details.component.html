@@ -47,7 +47,7 @@
             </div>
         </div>
         <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
-            <h3><i class="fa fa-check-square-o" aria-hidden="true"></i> {{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
+            <h3><i class="fa fa-id-card-o" aria-hidden="true"></i> {{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
             <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
             <ul>
                 <li *ngFor="let document of documents">
@@ -243,9 +243,7 @@
             </div>
         </div>
     </div>
-    <div class="row" *ngIf="person.documents.images.length > 0 &&
-                            (person.currentActivity === Activities.Returning ||
-                            person.currentActivity === Activities.MovingFromProvince)" style="margin-top: 18px;">
+    <div class="row" *ngIf="person.documents.images.length > 0 && person.status === StatusInCanada.CitizenAdult" style="margin-top: 18px;">
         <div class="col-md-8">
             <label [innerHtml]="lang('./en/index.js').canadianForcesQuestion[this.person.relationship]"></label>
             <div class="btn-group" role="group">
