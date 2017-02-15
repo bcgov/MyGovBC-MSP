@@ -36,9 +36,11 @@ export class MspAddressComponent implements AfterViewInit, OnChanges{
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes['mailingSameAsResidentialAddress'].currentValue === null 
-      || changes['mailingSameAsResidentialAddress'].currentValue === undefined){
-      this.mailingSameAsResidentialAddress = true;
+    if(!changes['mailingOnly'] && !!changes['mailingSameAsResidentialAddress']){
+      if(changes['mailingSameAsResidentialAddress'].currentValue === null 
+        || changes['mailingSameAsResidentialAddress'].currentValue === undefined){
+          this.mailingSameAsResidentialAddress = true;
+      }
     }
   }
   provinceUpdate(event:string){
