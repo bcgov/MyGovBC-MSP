@@ -21,7 +21,7 @@ class Person {
   _status: StatusInCanada;
   _currentActivity: Activities;
   documents: PersonDocuments = new PersonDocuments();
-  outOfBCRecords:OutofBCRecord[] = [];
+  outOfBCRecord: OutofBCRecord;
 
   /**
    * Had episodes of leaving and returning to bc for peirod of longer than 30 days.
@@ -30,17 +30,12 @@ class Person {
   declarationForOutsideOver30Days: boolean;
 
   get beenOutSideOver30Days():boolean {
-    return this.outOfBCRecords.filter( rec => {
-      return !rec.isEmpty;      
-    }).length > 0;
+    return this.outOfBCRecord != null;
   }
 
   get hasCompleteOutSideRecords():boolean {
-    let noRecords = this.outOfBCRecords.length === 0; 
-    let allFilledIn = this.outOfBCRecords.filter( rec => {
-      return rec.isValid();
-    }).length === this.outOfBCRecords.length;
-
+    let noRecords = this.outOfBCRecord === null;
+    let allFilledIn = this.outOfBCRecord.isValid();
     return noRecords || allFilledIn;
   }
   /**
@@ -257,78 +252,6 @@ class Person {
    * Social Insurance Number
    */
   sin: string;
-
-  /*
-    Outside BC section
-   */
-  outsideBC: boolean = false;
-  outsideBCDepartureDateYear: number;
-  outsideBCDepartureDateMonth: number;
-  outsideBCDepartureDateDay: number;
-  outsideBCReturnDateYear: number;
-  outsideBCReturnDateMonth: number;
-  outsideBCReturnDateDay: number;
-  outsideBCFamilyMemberReason: string;
-  outsideBCDestination: string;
-
-  get hasOutsideBCDepartureDate(): boolean {
-    return (this.outsideBCDepartureDateDay != null &&
-    this.outsideBCDepartureDateMonth != null &&
-    this.outsideBCReturnDateYear != null);
-  }
-
-  get hasOutsideBCReturnDate(): boolean {
-    return (this.outsideBCReturnDateDay != null &&
-    this.outsideBCReturnDateMonth != null &&
-    this.outsideBCReturnDateYear != null);
-  }
-
-  get outsideBCDepartureDate() {
-    return this.parseDate(this.outsideBCDepartureDateYear, this.outsideBCDepartureDateMonth, this.outsideBCDepartureDateDay);
-  }
-
-  get outsideBCReturnDate() {
-    return this.parseDate(this.outsideBCReturnDateYear, this.outsideBCReturnDateMonth, this.outsideBCReturnDateDay);
-  }
-
-  /**
-   These questions need to be visible to everyone except those who have selected one of the two following statuses:
-   Canadian citizen - moving from another province
-   Permanent Resident - moving from another province
-   */
-  test30DayCandidate(): boolean {
-    if (this.status == StatusInCanada.CitizenAdult && this.currentActivity == Activities.MovingFromProvince) {
-      return false;
-    }
-    if (this.status == StatusInCanada.PermanentResident && this.currentActivity == Activities.MovingFromProvince) {
-      return false;
-    }
-    return true;
-  }
-
-  /**
-   These questions need to be visible to everyone except those who have selected one of the two following statuses:
-   Canadian citizen - moving from another province
-   Permanent Resident - moving from another province
-   */
-  test30DayCandidateAvailable(): boolean {
-    if (this.outsideBC) {
-      return false;
-    }
-   return this.test30DayCandidate();
-  }
-
-  resetOutsideBCValues(): void {
-    this.outsideBC = false;
-    this.outsideBCFamilyMemberReason = null;
-    this.outsideBCDepartureDateYear = null;
-    this.outsideBCDepartureDateMonth = null;
-    this.outsideBCDepartureDateDay = null;
-    this.outsideBCReturnDateYear = null;
-    this.outsideBCReturnDateMonth = null;
-    this.outsideBCReturnDateDay = null;
-  }
-
 
   id:string;
   constructor(rel: Relationship){

@@ -10,6 +10,7 @@ import {Data} from "./test/image.data";
 import {FinancialAssistApplication} from "../model/financial-assist-application.model";
 import {ApplicationBase} from "../model/application-base.model";
 import {AssistanceYear} from "../model/assistance-year.model";
+import {OutofBCRecord} from "../model/outof-bc-record.model";
 
 describe('MspApiService', () => {
 
@@ -146,7 +147,16 @@ describe('MspApiService', () => {
     app.residentialAddress.postal = "V9R3T1";
     app.residentialAddress.province = "British Columbia";
     app.residentialAddress.country = "Canada";
-
+    app.applicant.declarationForOutsideOver30Days = true;
+    app.applicant.outOfBCRecord = new OutofBCRecord();
+    app.applicant.outOfBCRecord.departureYear = 1978;
+    app.applicant.outOfBCRecord.departureMonth = 5;
+    app.applicant.outOfBCRecord.departureDay = 1;
+    app.applicant.outOfBCRecord.reason = "my reason";
+    app.applicant.outOfBCRecord.location = "my location";
+    app.applicant.outOfBCRecord.returnYear = 1977;
+    app.applicant.outOfBCRecord.returnMonth = 12;
+    app.applicant.outOfBCRecord.returnDay = 31;
     app.applicant.status = StatusInCanada.CitizenAdult;
     app.applicant.currentActivity = Activities.Returning;
     app.applicant.previous_phn = "1234567890";

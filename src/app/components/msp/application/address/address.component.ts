@@ -15,18 +15,10 @@ export class AddressComponent implements AfterViewInit{
   @ViewChild('formRef') form: NgForm;
   
   mspApplication: MspApplication;
-  outOfProvinceFor30DayCandidates: Person[];
-  departurePersonUuids: string[];
 
   constructor(private dataService: DataService, 
     private completenessService: CompletenessCheckService) {
     this.mspApplication = this.dataService.getMspApplication();
-    this.outOfProvinceFor30DayCandidates = this.mspApplication.getOutOfProvinceFor30DayCandidates();
-
-    this.departurePersonUuids = new Array<string>();
-    for (let person of this.mspApplication.getOutOfProvincePersons()) {
-      this.departurePersonUuids.push(person.uuid);
-    }
   }
 
   ngAfterViewInit():void {

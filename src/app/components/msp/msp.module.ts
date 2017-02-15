@@ -33,7 +33,6 @@ import {MspGenderComponent} from './common/gender/gender.component';
 import {FileUploaderComponent} from './common/file-uploader/file-uploader.component';
 import {MspImageErrorModalComponent} from './common/image-error-modal/image-error-modal.component';
 import {ThumbnailComponent} from './common/thumbnail/thumbnail.component';
-import {MspOutsideBCComponent} from "./common/outside-bc/outside-bc.component";
 import {MspOutofBCRecordComponent} from "./common/outof-bc/outof-bc.component";
 import {MspConsentModalComponent} from "./common/consent-modal/consent-modal.component";
 import {MspIdReqModalComponent} from "./common/id-req-modal/id-req-modal.component";
@@ -234,7 +233,6 @@ let localStorageServiceConfig = {
     FileUploaderComponent,
     MspImageErrorModalComponent,
     ThumbnailComponent,
-    MspOutsideBCComponent,
     MspOutofBCRecordComponent,
     MspConsentModalComponent,
     MspIdReqModalComponent,

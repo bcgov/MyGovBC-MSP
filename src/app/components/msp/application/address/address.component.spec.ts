@@ -10,7 +10,6 @@ import {MspAddressComponent} from "../../common/address/address.component";
 import {MspPhoneComponent} from "../../common/phone/phone.component";
 import {Ng2CompleterModule} from "ng2-completer";
 import {MspProvinceComponent} from "../../common/province/province.component";
-import {MspOutsideBCComponent} from "../../common/outside-bc/outside-bc.component";
 import {MspDepartureDateComponent} from "../../common/departure-date/departure-date.component";
 import {MspReturnDateComponent} from "../../common/return-date/return-date.component";
 import {MspCountryComponent} from "../../common/country/country.component";
@@ -29,7 +28,7 @@ describe('Application Address Component', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [AddressComponent, MspAddressComponent, MspPhoneComponent, MspProvinceComponent,
-                MspOutsideBCComponent, MspDepartureDateComponent, MspReturnDateComponent, MspCountryComponent,
+                MspDepartureDateComponent, MspReturnDateComponent, MspCountryComponent,
                 MspCancelComponent, MspLoggerDirective],
             imports: [FormsModule, Ng2CompleterModule, ModalModule, HttpModule],
             providers: [MspDataService, CompletenessCheckService, MspLogService,

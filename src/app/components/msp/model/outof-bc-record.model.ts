@@ -1,5 +1,6 @@
 import {UUID} from "angular2-uuid";
 import * as _ from 'lodash';
+import moment = require("moment");
 
 export class OutofBCRecord {
   readonly id:string;
@@ -7,21 +8,23 @@ export class OutofBCRecord {
   constructor(){
     this.id = UUID.UUID();
   }
-  reasonAndLocation:string;
+  reason: string;
+  location: string;
   departureDay: number;
-  departureMonth:string;
+  departureMonth:number;
   departureYear:number;
   
   returnDay:number;
-  returnMonth:string;
+  returnMonth: number;
   returnYear:number;
 
   /**
    * All fields provided with value
    */
   isValid():boolean {
-    return !this.isEmpty && !!this.reasonAndLocation
-    && this.reasonAndLocation.length > 0
+    return !this.isEmpty && !!this.reason
+    && this.reason.length > 0
+    && this.location.length > 0
     && _.isNumber(this.departureDay)
     && _.isNumber(this.departureYear)
     && _.isString(this.departureMonth)
@@ -40,12 +43,40 @@ export class OutofBCRecord {
   }
 
   get isEmpty():boolean {
-    return this.isEmptyString(this.reasonAndLocation)
-    && this.isEmptyString(this.departureMonth)
-    && this.isEmptyString(this.returnMonth)
+    return this.isEmptyString(this.reason)
+    && this.isNotNumber(this.departureMonth)
+    && this.isNotNumber(this.returnMonth)
     && this.isNotNumber(this.departureDay)
     && this.isNotNumber(this.departureYear)
     && this.isNotNumber(this.returnDay)
     && this.isNotNumber(this.returnYear);
+  }
+
+  get hasDeparture(): boolean {
+    return (this.departureDay != null &&
+    this.departureMonth != null &&
+    this.departureYear != null);
+  }
+
+  get departureDate() {
+    return this.parseDate(this.departureYear, this.departureMonth, this.departureDay);
+  }
+
+  get hasReturn(): boolean {
+    return (this.returnDay != null &&
+    this.returnMonth != null &&
+    this.returnYear != null);
+  }
+
+  get returnDate() {
+    return this.parseDate(this.returnYear, this.returnMonth, this.returnDay);
+  }
+
+  private parseDate (year: number, month: number, day: number) {
+    return moment({
+      year: year,
+      month: month - 1, // moment use 0 index for month :(
+      day: day,
+    }).utc(); // use UTC mode to prevent browser timezone shifting
   }
 }

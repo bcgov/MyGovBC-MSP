@@ -1,29 +1,35 @@
 <form #formRef='ngForm' novalidate>
   <div class="row">
-    <!--<div class="col-sm-1">
-        <a class="btn btn-default btn-sm" href="javascript:void(0)"
-        style="margin-top:25px; margin-bottom: 5px;" (click)="delete(outofBCRecord.id)">
-          Delete
-        </a>      
-    </div>-->
     <div class="col-md-4">
-      <!--<span>
-      {{outofBCRecord.isEmpty | json}}
-      </span>-->
       <div class="form-group">
         <label [innerHtml]="lang('./en/index.js').reasonLabel"></label><br>
         <input type="text" class="form-control"
-              [(ngModel)]="outofBCRecord.reasonAndLocation"
-              name='reasonAndLocation' #reasonAndLocationRef="ngModel"
-              required
-              maxlength="20">
-        <div *ngIf='reasonAndLocationRef.touched'>
-          <div class="text-danger" *ngIf="reasonAndLocationRef.errors?.required"
+               [(ngModel)]="outofBCRecord.reason"
+               name="reason" #reasonRef="ngModel"
+               required
+               maxlength="20">
+        <div *ngIf='reasonRef.touched'>
+          <div class="text-danger" *ngIf="reasonRef.errors?.required"
               [innerHtml]="lang('./en/index.js').ourOfBCReasonRequired"></div>
         </div>
       </div>
-      
     </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label [innerHtml]="lang('./en/index.js').locationLabel"></label><br>
+        <input type="text" class="form-control"
+               [(ngModel)]="outofBCRecord.location"
+               name="location" #locationRef="ngModel"
+               required
+               maxlength="20">
+        <div *ngIf='locationRef.touched'>
+          <div class="text-danger" *ngIf="locationRef.errors?.required"
+               [innerHtml]="lang('./en/index.js').locationRequired"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-4">
       <msp-departure-date
           [year]="outofBCRecord.departureYear"
