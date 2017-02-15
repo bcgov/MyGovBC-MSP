@@ -35,7 +35,8 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
   ngOnInit(){
     this.years = this.application.assistYears;
 
-    let thisYear:number = moment().utc().year();
+    // this calendar year
+    let thisYear:number = moment().utc().year()-1;
     let pre = thisYear;
     while(--pre > thisYear - 7){
 
