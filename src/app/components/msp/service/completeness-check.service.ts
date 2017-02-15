@@ -75,7 +75,7 @@ export default class CompletenessCheckService {
     }
 
     mspSendingComplete() {
-      // if we have a reference numebr, we are complete
+      // if we have a reference number, we are complete
       if (this.mspApp.referenceNumber &&
           this.mspApp.referenceNumber.length > 0) {
         return true;
@@ -117,9 +117,6 @@ export default class CompletenessCheckService {
       if(this.finApp.hasSpouseOrCommonLaw === true){
         return basics && !_.isEmpty(this.finApp.spouse.firstName)
         && !_.isEmpty(this.finApp.spouse.lastName)
-        && _.isNumber(this.finApp.spouse.dob_day)
-        && !_.isEmpty(this.finApp.spouse.dob_month)
-        && _.isNumber(this.finApp.spouse.dob_year)
         && !_.isEmpty(this.finApp.spouse.sin)
       }else{
         return basics;
