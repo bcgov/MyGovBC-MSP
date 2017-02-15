@@ -1,5 +1,5 @@
 <form #formRef='ngForm' novalidate>
-    <label [innerHtml]="arrivalLabel"></label>
+    <label [innerHtml]="arrivalLabel" [class.optional]="!required"></label>
 
     <div class="form-group"
          [ngClass]="{'has-error': !formRef.controls.month?.valid && monthRef.touched}">
@@ -7,7 +7,8 @@
                 [ngModel]="month"
                 (ngModelChange)="month=$event;monthChange.emit($event)"
                 id="month" name="month" #monthRef="ngModel"
-                required>
+                [required]="required">
+            <option>&nbsp;</option>
             <option value="1">January</option>
             <option value="2">February</option>
             <option value="3">March</option>
@@ -26,7 +27,7 @@
                (ngModelChange)="day=$event;dayChange.emit($event)"
                id="day" name="day" #dayRef="ngModel"
                placeholder="day"
-               required
+               [required]="required"
                maxlength="2">
         <input type="number"
                class="form-control yearInput"
@@ -34,7 +35,7 @@
                (ngModelChange)="year=$event;yearChange.emit($event)"
                id="year" name="year" #yearRef="ngModel"
                placeholder="year"
-               required
+               [required]="required"
                minlength="4"
                maxlength="4">
         <div *ngIf='monthRef.touched'>
