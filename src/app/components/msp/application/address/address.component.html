@@ -13,33 +13,6 @@
                        (phoneNumberChange)="handlePhoneNumberChange($event)"></msp-phone>
         </div>
     </div>
-
-    <!--<div *ngIf="outOfProvinceFor30DayCandidates.length > 0" class="row">
-        <div class="form-group col-sm-12">
-            <label [innerHtml]="lang('./en/index.js').outsideBCFor30DaysLabel"></label><br>
-            <div class="btn-group" role="group">
-                <button [class.msp-btn-radio]="mspApplication.outsideBCFor30Days" (click)="setOutsideBCFor30DaysLabel(true)"
-                        [disabled]="mspApplication.outsideBCFor30Days" type="button" class="btn btn-default">Yes
-                </button>
-                <button [class.msp-btn-radio]="!mspApplication.outsideBCFor30Days" (click)="setOutsideBCFor30DaysLabel(false)"
-                        [disabled]="!mspApplication.outsideBCFor30Days" type="button" class="btn btn-default">No&nbsp;</button>
-            </div>
-        </div>
-    </div>
-    <div *ngIf="mspApplication.outsideBCFor30Days">
-        <msp-outside-bc [mspApplication]="mspApplication" [uuid]="uuid" *ngFor = "let uuid of departurePersonUuids"
-            (onRemove)="removeDeparture($event)"></msp-outside-bc>
-        <div class="row" *ngIf="mspApplication.getOutOfProvinceFor30DayCandidatesAvailable().length > 0">
-            <div class="col-md-12">
-                <div class="button-group">
-                    <button type="button" class="btn btn-default" (click)= 'addAnotherOutsideBCPersonButton()'>
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        <span [innerHTML]="lang('./en/index.js').addAnotherOutsideBCPersonButton"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>-->
 </form>
 <hr>
 <button [mspLogger]="'msp-enrollment_contact-info_continue'"
