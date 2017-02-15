@@ -1,4 +1,5 @@
-import {Component, Inject, Input, NgModule, Output, EventEmitter, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, Inject, Input, NgModule, Output, SimpleChanges,
+    OnChanges, EventEmitter, ViewChild, AfterViewInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {Address} from "../../model/address.model";
 import {CompleterData, CompleterService} from "ng2-completer";
@@ -8,7 +9,7 @@ import {CompleterData, CompleterService} from "ng2-completer";
   templateUrl: './address.component.html'
 })
 
-export class MspAddressComponent implements AfterViewInit{
+export class MspAddressComponent implements AfterViewInit, OnChanges{
   lang = require('./i18n');
   private _useResidentialAddressLine2: boolean = false;
   private _useResidentialAddressLine3: boolean = false;
@@ -27,12 +28,19 @@ export class MspAddressComponent implements AfterViewInit{
 
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
+
   ngAfterViewInit(): void {
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);
     });
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes['mailingSameAsResidentialAddress'].currentValue === null 
+      || changes['mailingSameAsResidentialAddress'].currentValue === undefined){
+      this.mailingSameAsResidentialAddress = true;
+    }
+  }
   provinceUpdate(event:string){
     this.mailingAddress.province = event;
     this.onChange.emit(event);

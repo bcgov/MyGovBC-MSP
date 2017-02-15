@@ -85,7 +85,7 @@
                    readonly>
         </div>
     </div>
-    <div class="row">
+    <!--<div class="row">
         <div class="form-group col-sm-12">
             <span [innerHtml]="lang('./en/index.js').mailingAddressSameQuestion"></span>
             <div class="btn-group" role="group">
@@ -96,7 +96,34 @@
                         [disabled]="!mailingSameAsResidentialAddress" type="button" class="btn btn-default">No&nbsp;</button>
             </div>
         </div>
+    </div>-->
+
+    <div class="row">
+        <div class="form-group col-xs-12">
+            <div class="checkbox checkbox-success checkbox-inline" 
+                (click) = "useSameMailingAddress()">
+                <input type="checkbox" 
+                name="mailAddressSameAsResidential-yes"
+                id="mailAddressSameAsResidential"
+                [ngModel] = "mailingSameAsResidentialAddress">
+                <label for="mailAddressSameAsResidential-yes" [innerHTML]="lang('./en/index.js').useResidentialAsMailing"></label>
+            </div>                        
+        </div>
     </div>
+    <div class="row">
+        <div class="form-group col-xs-12">
+            <div class="checkbox checkbox-success checkbox-inline" 
+                (click) = "useDifferentMailingAddress()">
+                <input type="checkbox" 
+                name="mailAddressSameAsResidential-no"
+                id="mailAddressSameAsResidential"
+                [ngModel] = "!mailingSameAsResidentialAddress"
+                >
+                <label for="mailAddressSameAsResidential-no" [innerHTML]="lang('./en/index.js').useOtherMailing"></label>
+            </div>                        
+        </div>
+    </div>
+
     </div>
 
     <div *ngIf="!mailingSameAsResidentialAddress || mailingOnly">
