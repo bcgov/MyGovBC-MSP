@@ -2,12 +2,13 @@
 export class OutofBCRecordDto {
   id:string;
 
-  reasonAndLocation:string;
+  reason: string;
+  location: string;
   departureDay: number;
-  departureMonth:string;
+  departureMonth:number;
   departureYear:number;
   
   returnDay:number;
-  returnMonth:string;
+  returnMonth:number;
   returnYear:number;
 }

@@ -164,7 +164,7 @@ export class PersonalDetailsComponent implements AfterViewInit {
     /**
      * Load an empty row to screen 
      */
-    if(this.person.declarationForOutsideOver30Days && this.person.outOfBCRecords.length === 0){
+    if(this.person.declarationForOutsideOver30Days && this.person.outOfBCRecord != null){
       this.setBeenOutsideForOver30Days(true);      
     }
     if(this.form){
@@ -252,12 +252,6 @@ export class PersonalDetailsComponent implements AfterViewInit {
     return this.institutionWorkSignal === 'out';
   }
 
-  addOutofBCRecord() {
-    if(this.person.outOfBCRecords.length < 12){
-      this.person.outOfBCRecords.push(new OutofBCRecord());
-    }
-  }
-
   handleHealthNumberChange(evt:string){
     this.person.healthNumberFromOtherProvince = evt;
     this.onChange.emit(evt);
@@ -268,19 +262,15 @@ export class PersonalDetailsComponent implements AfterViewInit {
   setBeenOutsideForOver30Days(out:boolean){
     this.person.declarationForOutsideOver30Days = out;
     if(out){
-      this.addOutofBCRecord();
+      this.person.outOfBCRecord = new OutofBCRecord();
     }else {
-      this.person.outOfBCRecords = [];
+      this.person.outOfBCRecord = null;
     }
     this.onChange.emit(out);
   }
 
   handleDeleteOutofBCRecord(evt:OutofBCRecord){
-    this.person.outOfBCRecords = this.person.outOfBCRecords.filter(
-      rec => {
-        return rec.id != evt.id;
-      }
-    );
+    this.person.outOfBCRecord = null;
     this.onChange.emit(evt);
   }
 
@@ -290,9 +280,7 @@ export class PersonalDetailsComponent implements AfterViewInit {
 
   get outofBCRecordsValid():boolean {
     let valid = true;
-    this.person.outOfBCRecords.forEach( rec => {
-      valid = valid && rec.isValid();
-    });
+    this.person.outOfBCRecord.isValid();
 
     return valid;
   }

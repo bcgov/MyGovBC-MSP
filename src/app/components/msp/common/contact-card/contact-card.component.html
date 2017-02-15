@@ -16,40 +16,7 @@
         <strong>{{altPhone}}</strong>
       </div>
     </div>
-    <div *ngFor="let person of outsideBCPersons">
-      <div class="row">
-        <div class="col-xs-4">
-          {{lang('./en/index.js').familyMemberLabel}}
-        </div>
-        <div class="col-xs-8">
-          <strong>{{person.fullName}}</strong>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-4">
-          {{lang('./en/index.js').departureDateLabel}}
-        </div>
-        <div class="col-xs-8">
-          <strong>{{person.outsideBCDepartureDate.format("MMMM Do, YYYY")}}</strong>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-4">
-          {{lang('./en/index.js').returnDateLabel}}
-        </div>
-        <div class="col-xs-8">
-          <strong>{{person.outsideBCReturnDate.format("MMMM Do, YYYY")}}</strong>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-4">
-          {{lang('./en/index.js').reasonLabel}}
-        </div>
-        <div class="col-xs-8">
-          <strong>{{person.outsideBCFamilyMemberReason}}</strong>
-        </div>
-      </div>
-    </div>
+
     <button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
             [innerHTML]="lang('./en/index.js').editButton">
     </button>

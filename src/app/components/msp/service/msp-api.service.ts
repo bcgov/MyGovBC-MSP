@@ -735,12 +735,16 @@ export class MspApiService {
 
     // Outside BC
     to.outsideBC = OutsideBCTypeFactory.make();
-    if (from.outsideBC) {
+    if (from.outOfBCRecord) {
       to.outsideBC.beenOutsideBCMoreThan = "Y";
-      to.outsideBC.departureDate = from.outsideBCDepartureDate.format(this.ISO8601DateFormat);
-      to.outsideBC.returnDate = from.outsideBCReturnDate.format(this.ISO8601DateFormat);
-      to.outsideBC.familyMemberReason = from.outsideBCFamilyMemberReason;
-      to.outsideBC.destination = from.outsideBCDestination;
+      if (from.outOfBCRecord.hasDeparture) {
+        to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+      }
+      if (from.outOfBCRecord.hasReturn) {
+        to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+      }
+      to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
+      to.outsideBC.destination = from.outOfBCRecord.location;
     }
     else {
       to.outsideBC.beenOutsideBCMoreThan = "N";

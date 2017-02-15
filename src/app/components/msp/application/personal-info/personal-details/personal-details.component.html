@@ -156,10 +156,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row" style="margin-bottom: 20px">
+            <div *ngIf="person.declarationForOutsideOver30Days == true" class="row" style="margin-bottom: 20px">
                 <div class="col-sm-12">
-                    <msp-outof-bc-record *ngFor="let record of person.outOfBCRecords"
-                                         [outofBCRecord]="record"
+                    <msp-outof-bc-record [outofBCRecord]="person.outOfBCRecord"
                                          (onDelete)="handleDeleteOutofBCRecord($event)"
                                          (onUpdate)="handleOutofBCRecordChange($event)"
                     >

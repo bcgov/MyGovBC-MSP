@@ -15,6 +15,5 @@ export class MspContactCardComponent {
   @Input() phone: string;
   @Input() altPhone: string;
   @Input() editRouterLink: string;
-  @Input() outsideBCPersons: Person[];
 
 }

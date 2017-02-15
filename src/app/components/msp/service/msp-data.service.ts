@@ -150,15 +150,6 @@ export default class MspDataService {
     dto.studiesFinishedMonth = input.studiesFinishedMonth;
     dto.studiesFinishedDay = input.studiesFinishedDay;
 
-    dto.outsideBC = input.outsideBC
-    dto.outsideBCDepartureDateYear = input.outsideBCDepartureDateYear;
-    dto.outsideBCDepartureDateMonth = input.outsideBCDepartureDateMonth;
-    dto.outsideBCDepartureDateDay = input.outsideBCDepartureDateDay;
-    dto.outsideBCReturnDateYear = input.outsideBCReturnDateYear;
-    dto.outsideBCReturnDateMonth = input.outsideBCReturnDateMonth;
-    dto.outsideBCReturnDateDay = input.outsideBCReturnDateDay;
-    dto.outsideBCFamilyMemberReason = input.outsideBCFamilyMemberReason;
-
     dto.declarationForOutsideOver30Days = input.declarationForOutsideOver30Days;
 
     if(input.gender){
@@ -217,15 +208,6 @@ export default class MspDataService {
     output.studiesFinishedMonth = dto.studiesFinishedMonth;
     output.studiesFinishedDay = dto.studiesFinishedDay;
 
-    output.outsideBC = dto.outsideBC;
-    output.outsideBCDepartureDateYear = dto.outsideBCDepartureDateYear;
-    output.outsideBCDepartureDateMonth = dto.outsideBCDepartureDateMonth;
-    output.outsideBCDepartureDateDay = dto.outsideBCDepartureDateDay;
-    output.outsideBCReturnDateYear = dto.outsideBCReturnDateYear;
-    output.outsideBCReturnDateMonth = dto.outsideBCReturnDateMonth;
-    output.outsideBCReturnDateDay = dto.outsideBCReturnDateDay;
-    output.outsideBCFamilyMemberReason = dto.outsideBCFamilyMemberReason;
-
     output.declarationForOutsideOver30Days = dto.declarationForOutsideOver30Days;
 
     if(dto.gender){
@@ -248,7 +230,7 @@ export default class MspDataService {
     dto.unUsualCircumstance = input.unUsualCircumstance;
     dto.phoneNumber = input.phoneNumber;
 
-    dto.mailingSameAsResidentialAddress = input.mailingSameAsResidentialAddress
+    dto.mailingSameAsResidentialAddress = input.mailingSameAsResidentialAddress;
     dto.applicant = this.toPersonDto(input.applicant);
     if(input.spouse){
       dto.applicant.spouse = this.toPersonDto(input.spouse);
@@ -256,7 +238,7 @@ export default class MspDataService {
 
     input.children.forEach( c => {
       let c2:PersonDto = this.toPersonDto(c);
-      c2.outOfBCRecords = this.toOutofBCRecordDtoCollection(c.outOfBCRecords);
+      c2.outOfBCRecord = this.toOutofBCRecordDto(c.outOfBCRecord);
 
       this.convertSchoolAddress(c, c2);
       dto.applicant.children = [...dto.applicant.children, c2];
@@ -266,10 +248,10 @@ export default class MspDataService {
     this.convertMailingAddress(input, dto);
     this.convertResidentialAddress(input, dto);
 
-    dto.applicant.outOfBCRecords = this.toOutofBCRecordDtoCollection(input.applicant.outOfBCRecords);
+    dto.applicant.outOfBCRecord = this.toOutofBCRecordDto(input.applicant.outOfBCRecord);
     if(input.spouse){
-      dto.applicant.spouse.outOfBCRecords = 
-        this.toOutofBCRecordDtoCollection(input.spouse.outOfBCRecords);
+      dto.applicant.spouse.outOfBCRecord =
+        this.toOutofBCRecordDto(input.spouse.outOfBCRecord);
     }
 
     dto.outsideBCFor30Days = input.outsideBCFor30Days;
@@ -277,38 +259,12 @@ export default class MspDataService {
     return dto;
   }
 
-
-  private toOutofBCRecordDtoCollection(outofBCRecordCol: OutofBCRecord[]) {
-    let dtoCol: OutofBCRecordDto[] = [];
-    if(!!outofBCRecordCol){
-      outofBCRecordCol.forEach(
-        rec => {
-          if (!rec.isEmpty) {
-            let temp = this.toOutofBCRecordDto(rec);
-            dtoCol = [...dtoCol, temp];
-          }
-        }
-      );
-    }
-    return dtoCol;
-  }
-
-  private toOutofBCRecordCollection(outofBCRecordDtoCol: OutofBCRecordDto[]) {
-    let records: OutofBCRecord[] = [];
-    if(!!outofBCRecordDtoCol) {
-      outofBCRecordDtoCol.forEach(
-        dto => {
-          let temp = this.toOutofBCRecord(dto);
-          records = [...records, temp];
-        }
-      );
-    }
-    return records;
-  }
-
   private toOutofBCRecordDto(outofBCRecord: OutofBCRecord){
+    if (outofBCRecord == null) return null;
+
     let dto:OutofBCRecordDto = new OutofBCRecordDto();
-    dto.reasonAndLocation = outofBCRecord.reasonAndLocation;
+    dto.reason = outofBCRecord.reason;
+    dto.location = outofBCRecord.location;
     dto.departureDay = outofBCRecord.departureDay;
     dto.departureMonth = outofBCRecord.departureMonth;
     dto.departureYear = outofBCRecord.departureYear;
@@ -320,8 +276,11 @@ export default class MspDataService {
   }
 
   private toOutofBCRecord(dto: OutofBCRecordDto){
+    if (dto == null) return null;
+
     let rec:OutofBCRecord = new OutofBCRecord();
-    rec.reasonAndLocation = dto.reasonAndLocation;
+    rec.reason = dto.reason;
+    rec.location = dto.location;
     rec.departureDay = dto.departureDay;
     rec.departureMonth = dto.departureMonth;
     rec.departureYear = dto.departureYear;
@@ -347,7 +306,7 @@ export default class MspDataService {
 
     dto.applicant.children.forEach( c => {
       let child: Person = this.fromPersonDto(c)
-      child.outOfBCRecords = this.toOutofBCRecordCollection(c.outOfBCRecords);
+      child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
       this.convertSchoolAddress(c, child);
       output.children = [...output.children, child];
     });
@@ -355,10 +314,10 @@ export default class MspDataService {
     this.convertMailingAddress(dto, output);
     this.convertResidentialAddress(dto, output);
 
-    output.applicant.outOfBCRecords = this.toOutofBCRecordCollection(dto.applicant.outOfBCRecords);
+    output.applicant.outOfBCRecord = this.toOutofBCRecord(dto.applicant.outOfBCRecord);
     if(dto.applicant.spouse){
-      output.spouse.outOfBCRecords = 
-        this.toOutofBCRecordCollection(dto.applicant.spouse.outOfBCRecords);
+      output.spouse.outOfBCRecord =
+        this.toOutofBCRecord(dto.applicant.spouse.outOfBCRecord);
     }
     
     output.outsideBCFor30Days = dto.outsideBCFor30Days;
