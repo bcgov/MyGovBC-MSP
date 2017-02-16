@@ -38,7 +38,7 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
     // this calendar year
     let thisYear:number = moment().utc().year()-1;
     let pre = thisYear;
-    while(--pre > thisYear - 7){
+    while(--pre > thisYear - 6){
 
       let assistYr:AssistanceYear = new AssistanceYear();
       assistYr.year = pre;
