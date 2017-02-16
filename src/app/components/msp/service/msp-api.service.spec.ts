@@ -340,6 +340,7 @@ describe('MspApiService', () => {
     app.mailingAddress.country = "Canada";
     app.mailingAddress.postal = "v8o 2l3";
     app.phoneNumber = "250-232-1233";
+    app.setSpouse = true;
     app.spouse.firstName = "Greg";
     app.spouse.middleName = "W";
     app.spouse.lastName = "Boss";

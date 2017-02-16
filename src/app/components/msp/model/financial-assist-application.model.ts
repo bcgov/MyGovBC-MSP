@@ -136,6 +136,7 @@ export class FinancialAssistApplication implements ApplicationBase {
     if(auth){
       this._authorizedByApplicant = false;
       this._authorizedBySpouse = false;
+      this.authorizedByApplicantDate = moment().toDate();
     }
   }
 
