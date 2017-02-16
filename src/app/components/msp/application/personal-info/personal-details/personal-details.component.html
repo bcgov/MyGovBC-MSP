@@ -179,7 +179,7 @@
             </div>
         </div>
         <div class="row" style="margin-bottom: 20px">
-            <div class="col-sm-6">
+            <div class="col-md-6">
                 <label [innerHtml]="lang('./en/index.js').previousBCHealthNumber[this.person.relationship]"></label>
                 <div class="btn-group" role="group">
                     <button [class.msp-btn-radio]="person.hasPreviousBCPhn"
@@ -191,8 +191,8 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-bottom: 20px">
-            <div class="col-sm-4" *ngIf="person.hasPreviousBCPhn === true">
+        <div class="row">
+            <div class="col-md-6" *ngIf="person.hasPreviousBCPhn === true">
                 <msp-phn [phn]="person.previous_phn"
                          (phnChange)="person.previous_phn = $event"
                          [required]="true"
@@ -215,35 +215,9 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="person.documents.images.length > 0 &&
-                            (person.relationship === Relationship.Applicant ||
-                            person.relationship === Relationship.Child19To24)">
-        <div class="col-md-4" *ngIf="person.relationship === Relationship.Applicant">
-            <label [innerHtml]="lang('./en/index.js').fullTimeStudentLabel"></label>
-            <div class="btn-group" role="group">
-                <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
-                        [class.msp-btn-radio]="person.fullTimeStudent === answer.value"
-                        (click)="setFullTimeStudent(answer.value)"
-                        type="button" class="btn btn-default">{{answer.label}}
-                </button>
-            </div>
-        </div>
-
-        <div class="col-md-4" *ngIf="person.relationship === Relationship.Child19To24">
-            <p [innerHtml]="lang('./en/index.js').assertChildBeFullTimeStudent"></p>
-        </div>    
-        <div *ngIf="person.fullTimeStudent" class="col-md-6">
-            <label [innerHtml]="lang('./en/index.js').inBCAfterStudiesLabel"></label>
-            <div class="btn-group" role="group">
-                <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
-                        [class.msp-btn-radio]="person.inBCafterStudies === answer.value"
-                        (click)="person.inBCafterStudies = answer.value; onChange.emit(answer.value)"
-                        type="button" class="btn btn-default">{{answer.label}}
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="row" *ngIf="person.documents.images.length > 0 && person.status === StatusInCanada.CitizenAdult" style="margin-top: 18px;">
+    <div class="row"
+        *ngIf="person.documents.images.length > 0 && person.status === StatusInCanada.CitizenAdult" 
+        style="margin-top: 10px; margin-bottom: 10px;">
         <div class="col-md-8">
             <label [innerHtml]="lang('./en/index.js').canadianForcesQuestion[this.person.relationship]"></label>
             <div class="btn-group" role="group">
@@ -267,10 +241,28 @@
     </div>
 
     <div class="row" *ngIf="person.documents.images.length > 0 &&
-                            person.relationship === Relationship.Child19To24" style="margin-top: 18px">
-        <div class="form-group col-md-4"
+                            (person.relationship === Relationship.Applicant ||
+                            person.relationship === Relationship.Child19To24)">
+        <div class="form-group col-md-4" *ngIf="person.relationship === Relationship.Applicant">
+            <label [innerHtml]="lang('./en/index.js').fullTimeStudentLabel"></label>
+            <div class="btn-group" role="group">
+                <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
+                        [class.msp-btn-radio]="person.fullTimeStudent === answer.value"
+                        (click)="setFullTimeStudent(answer.value)"
+                        type="button" class="btn btn-default">{{answer.label}}
+                </button>
+            </div>
+        </div>
+
+    </div>
+    
+
+    <div class="row" *ngIf="person.documents.images.length > 0 &&
+                            person.relationship === Relationship.Child19To24">
+        <div class="form-group col-md-6"
             [ngClass]="{'has-error': !formRef.controls.schoolName?.valid && schoolNameRef.touched}">
-            <label for="schoolName" [innerHtml]="lang('./en/index.js').schoolNameLabel"></label>
+            <h2 [innerHtml]="lang('./en/index.js').nameOfSchool"></h2>
+            <label for="schoolName" [innerHtml]="lang('./en/index.js').fullAttendanceLabel"></label>
             <input [(ngModel)]='person.schoolName' type="text" class="form-control"
                 id="schoolName" name="schoolName" #schoolNameRef="ngModel"
                 required
@@ -280,16 +272,17 @@
                     [innerHtml]="lang('./en/index.js').schoolNameErrorIsRequired"></div>
             </div>
         </div>
-        <div class="form-group col-md-4">
-            <msp-school-date [year]="person.studiesFinishedYear"
-                            (yearChange)="person.studiesFinishedYear = $event"
-                            [month]="person.studiesFinishedMonth"
-                            (monthChange)="person.studiesFinishedMonth = $event"
-                            [day]="person.studiesFinishedDay"
-                            (dayChange)="person.studiesFinishedDay = $event"
-                            (onChange) = "updateSchoolExpectedCompletionDate($event)">
-            </msp-school-date>
-        </div>
+    </div>
+    <msp-address *ngIf="person.documents.images.length > 0 &&
+        person.relationship === Relationship.Child19To24"
+                [mailingAddressHeading]="lang('./en/index.js').schoolAddressLabel"
+                [mailingAddress]="person.schoolAddress"
+                [mailingOnly]="true"
+                (onChange)="schoolAddressUpdate($event)"                 
+                ></msp-address>
+
+    <div class="row" *ngIf="person.documents.images.length > 0 &&
+                            person.relationship === Relationship.Child19To24">
         <div class="form-group col-md-4">
             <msp-school-date [departureDate]="true"
                             [year]="person.studiesDepartureYear"
@@ -301,14 +294,33 @@
                             (onChange) = "updateSchoolDepartureDate($event)">
             </msp-school-date>
         </div>
+        <div class="form-group col-md-6">
+            <msp-school-date [year]="person.studiesFinishedYear"
+                            (yearChange)="person.studiesFinishedYear = $event"
+                            [month]="person.studiesFinishedMonth"
+                            (monthChange)="person.studiesFinishedMonth = $event"
+                            [day]="person.studiesFinishedDay"
+                            (dayChange)="person.studiesFinishedDay = $event"
+                            (onChange) = "updateSchoolExpectedCompletionDate($event)">
+            </msp-school-date>
+        </div>
+        
     </div>
-    <msp-address *ngIf="person.documents.images.length > 0 &&
-        person.relationship === Relationship.Child19To24"
-                [mailingAddressHeading]="lang('./en/index.js').schoolAddressLabel"
-                [mailingAddress]="person.schoolAddress"
-                [mailingOnly]="true"
-                (onChange)="schoolAddressUpdate($event)"                 
-                ></msp-address>
+    <div class="row">
+        <div *ngIf="person.fullTimeStudent" class="col-md-6">
+            <label *ngIf="person.relationship === Relationship.Applicant" 
+                [innerHtml]="lang('./en/index.js').inBCAfterStudiesLabel"></label>
+            <label *ngIf="person.relationship === Relationship.Child19To24" 
+                [innerHtml]="lang('./en/index.js').childStayInBCAfterStudiesLabel"></label>
+            <div class="btn-group" role="group">
+                <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
+                        [class.msp-btn-radio]="person.inBCafterStudies === answer.value"
+                        (click)="person.inBCafterStudies = answer.value; onChange.emit(answer.value)"
+                        type="button" class="btn btn-default">{{answer.label}}
+                </button>
+            </div>
+        </div>
+    </div>
 
 </div>
 

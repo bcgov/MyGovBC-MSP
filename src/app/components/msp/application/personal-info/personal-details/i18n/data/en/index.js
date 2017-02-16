@@ -58,15 +58,17 @@ module.exports = {
 
   beenOutsideBCOver30DaysLabel: "Since you arrived, have you been outside B.C. for more than 30 days in total?",
   fullTimeStudentLabel: 'Are you a full-time student?',
-  assertChildBeFullTimeStudent: 'This child is a fulltime student',
+  assertChildBeFullTimeStudent: 'School Information for Full-time Student Child',
   inBCAfterStudiesLabel: 'Will you reside in B.C. upon completion of your studies?',
+  childStayInBCAfterStudiesLabel: 'Will this child reside in B.C. after completing study in this school?',
 
   canadianForcesQuestion: ['Have you been released from the Canadian Armed Forces or an Institution?',
     'Have they been released from the Canadian Armed Forces or an Institution?',
     'Have they been released from the Canadian Armed Forces or an Institution?',
     'Have they been released from the Canadian Armed Forces or an Institution?'],
 
-  schoolNameLabel: 'Name of school (must be in full-time attendance)',
+  nameOfSchool: 'Name of school that this child is attending',
+  fullAttendanceLabel: '(must be in full-time attendance)',
   schoolNameErrorIsRequired: 'Name of school is required',
   schoolAddressLabel: 'School address',
 

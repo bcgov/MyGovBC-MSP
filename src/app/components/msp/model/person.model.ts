@@ -320,7 +320,7 @@ class Person {
 
     if(this.relationship === Relationship.Child19To24){
       if(this.fullTimeStudent){
-        ageOver19ChildComplete = _.isString(this.schoolName) && this.schoolName.length > 3
+        ageOver19ChildComplete = _.isString(this.schoolName) && this.schoolName.length > 0
           && _.isNumber(this.studiesFinishedYear) && _.isString(this.studiesFinishedMonth) && _.isNumber(this.studiesFinishedDay)
           && this.schoolAddress.isValid;
       }else{

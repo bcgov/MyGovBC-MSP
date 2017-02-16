@@ -52,7 +52,7 @@ import {FileUploaderComponent} from "../../../common/file-uploader/file-uploader
   }
 )
 
-export class PersonalDetailsComponent implements AfterViewInit {
+export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   lang = require('./i18n');
   langStatus = require('../../../common/status/i18n');
   langActivities = require('../../../common/activities/i18n');
@@ -83,6 +83,10 @@ export class PersonalDetailsComponent implements AfterViewInit {
 
   constructor(){
   }
+
+  ngOnInit(){
+  }
+
   statusLabel(): string {
     return this.lang('./en/index.js').statusLabel[this.person.relationship]
   }
