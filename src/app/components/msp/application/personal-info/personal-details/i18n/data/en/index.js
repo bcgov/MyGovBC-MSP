@@ -1,5 +1,12 @@
 module.exports = {
 
+    applicationPersonalInfo:[
+        'Applicant',
+        'Spouse',
+        'Child Under 19',
+        'Child19-24',
+    ],
+
   sectionTitle: ['Main Applicant (Account Holder)',
       'Spouse',
       'Child',
