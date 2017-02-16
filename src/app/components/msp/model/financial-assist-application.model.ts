@@ -136,6 +136,7 @@ export class FinancialAssistApplication implements ApplicationBase {
     if(auth){
       this._authorizedByApplicant = false;
       this._authorizedBySpouse = false;
+      this.authorizedByApplicantDate = moment().toDate();
     }
   }
 
@@ -298,7 +299,7 @@ export class FinancialAssistApplication implements ApplicationBase {
    */
   getMostRecentAppliedForTaxYears(): AssistanceYear[] {
     return this.getAppliedForTaxYears().sort((a:AssistanceYear, b:AssistanceYear) => {
-      return a.year - b.year;
+      return b.year - a.year;
     })
   }
 
@@ -316,8 +317,7 @@ export class FinancialAssistApplication implements ApplicationBase {
 
     // If we only have one and it's last year
     if (mostRecentAppliedForTaxYears &&
-      mostRecentAppliedForTaxYears.length === 1 &&
-      mostRecentAppliedForTaxYears[0].year === moment().year() - 1) {
+      mostRecentAppliedForTaxYears.length === 1) {
       return AssistanceApplicationType.PreviousTwoYears;
     }
 
@@ -330,7 +330,13 @@ export class FinancialAssistApplication implements ApplicationBase {
    * @returns {number}
    */
   getTaxYear():number {
-    return moment().year();
+    let mostRecentAppliedForTaxYears = this.getMostRecentAppliedForTaxYears();
+    if (mostRecentAppliedForTaxYears.length > 0) {
+      return mostRecentAppliedForTaxYears[0].year;
+    }
+    else {
+      return moment().year() - 1;
+    }
   }
 
   /**
