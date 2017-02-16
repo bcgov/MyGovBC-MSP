@@ -83,7 +83,7 @@
 <div *ngIf="hasValidCurrentActivity">
 
     <div *ngIf="person.documents.images.length > 0">
-        <h3 [innerHtml]="personalInfoLabel()"></h3>
+        <h3 [innerHtml]="lang('./en/index.js').applicationPersonalInfo[person.relationship]"></h3>
         <p class="help-block" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
         <msp-name [person]="person" (onChange) = "onChange.emit($event)"></msp-name>
 
