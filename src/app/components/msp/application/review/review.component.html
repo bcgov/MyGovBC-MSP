@@ -29,7 +29,7 @@
 <div class="strong" [innerHTML]="questionApplicant"></div>
 <div class="checkbox checkbox-success checkbox-inline">
     <input class="input-lg" id="firstPersonAuthorize" type="checkbox" [ngModel]="application.authorizedByApplicant"
-           (change)="applicantAuthorizeOnChange($event)">
+           (ngModelChange)="applicantAuthorizeOnChange($event)">
     <label for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
 </div>
 <br><br>
@@ -37,13 +37,14 @@
     <div class="strong" [innerHTML]="questionSpouse"></div>
     <div class="checkbox checkbox-success checkbox-inline">
         <input class="input-lg" id="secondPersonAuthorize" type="checkbox"
-               [ngModel]="application.authorizedBySpouse" (change)="spouseAuthorizeOnChange($event)">
+               [ngModel]="application.authorizedBySpouse" (ngModelChange)="spouseAuthorizeOnChange($event)">
         <label for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
     </div>
 </div>
 <hr>
 <button [mspLogger]="'msp-enrollment_review_continue'"
-        class="btn btn-primary" type="submit" routerLink="/msp/application/sending"
+        [disabled]="!application.authorizedByApplicant || (application.spouse && !application.authorizedBySpouse)"
+        class="btn btn-primary" type="button" routerLink="/msp/application/sending"
         [innerHtml]="lang('./en/index.js').submitButton"></button>
 
 <msp-cancel></msp-cancel>

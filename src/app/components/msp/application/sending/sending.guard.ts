@@ -8,8 +8,16 @@ export class MspApplicationSendingGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    if(this.compCheck.mspSendingComplete()){
-      console.log('has been sent, cannot activate');
+    let authorized = this.compCheck.mspApplicationAuthorizedByUser();
+    let sent = this.compCheck.mspSendingComplete();
+
+    if(sent){
+      console.log('This enrollment application has been previously submitted, cannot activate sending route again.');
+    }
+    if(!authorized ){
+      console.log('This enrollment application has not been authorized by user(s), cannot activate sending route again.');
+    }
+    if(!authorized || sent){
       this._router.navigate(['/msp/application/confirmation']);
       return false;
     }else{
