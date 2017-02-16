@@ -33,7 +33,6 @@ export class SendingComponent implements AfterViewInit {
 
         //delete the application from storage
         this.dataService.removeMspApplication();
-
         //  go to confirmation
         this.router.navigateByUrl("/msp/application/confirmation");
       })
