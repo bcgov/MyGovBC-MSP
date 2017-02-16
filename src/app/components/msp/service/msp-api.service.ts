@@ -376,10 +376,11 @@ export class MspApiService {
      authorizedBySpouseDate: Date;
      spouse?: AssistanceSpouseType;
      */
+    to.application.assistanceApplication.authorizedByApplicantDate =
+      moment(from.authorizedByApplicantDate).format(this.ISO8601DateFormat);
     if (from.authorizedByApplicant) {
       to.application.assistanceApplication.authorizedByApplicant = "Y";
-      to.application.assistanceApplication.authorizedByApplicantDate =
-        moment(from.authorizedByApplicantDate).format(this.ISO8601DateFormat);
+
     }
     else {
       to.application.assistanceApplication.authorizedByApplicant = "N";
