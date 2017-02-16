@@ -22,9 +22,9 @@ Recommended minimum width 320px of device.
 ## Content Authoring
 Most of the application text is configurable.  General procedure:
 * Navigate to the test environment and view a screen
-* Look at the URL of the page as this help you find the right file to edit
+* Look at the URL of the page as this helps you find the right file to edit
 * Browse to this repo's `/src/app/components/msp/` directory
-* It should be apparent by the name of each directory witch page you want to edit
+* It should be apparent by the name of each directory which page you want to edit
 * With pages with configurable content, you should see a 'i18n' directory
 * Navigate into that directory to the './i18n/data/en/index.js' file
 * You should see a list of variable names and values in single quotes
@@ -34,7 +34,7 @@ Most of the application text is configurable.  General procedure:
 * You may not delete or add variables, ask a developer if you want to do that
 * Once satisfied you can make a comment, e.g., content change, and commit the change
 * After about 3-5 minutes the change will appear on the test web site
-* If the change doesn't show up, its likely the build failed because of a syntax issue, talk to a developer
+* If the change doesn't show up, it's likely the build failed because of a syntax issue, talk to a developer
 
 
 ### Example
@@ -89,7 +89,7 @@ module.exports = function(_path) {
 ```
 
 ## Unit Testing
-Unit testing is implemented using karma with Jasmine framework. The implementation generally follows [Angular webpack test configuration](https://angular.io/docs/ts/latest/guide/webpack.html#test-configuration). Jenkins CI runs unit test as part of the build, therefore all unit test scripts should be able to run unattended, quickly and depend only on local resources. Unit test scripts are located side-by-side with the target component and have file extension *.spec.js* or *.spec.ts*. For an example of unit test script, see [/src/app/components/msp/landing/landing.spec.ts](https://github.com/bcgov/MyGovBC-MSP/blob/master/src/app/components/msp/landing/landing.spec.ts)
+Unit testing is implemented using karma with Jasmine framework. The implementation generally follows [Angular webpack test configuration](https://angular.io/docs/ts/latest/guide/webpack.html#test-configuration). Jenkins CI runs unit tests as part of the build, therefore all unit test scripts should be able to run unattended, quickly and depend only on local resources. Unit test scripts are located side-by-side with the target component and have file extension *.spec.js* or *.spec.ts*. For an example of unit test script, see [/src/app/components/msp/landing/landing.spec.ts](https://github.com/bcgov/MyGovBC-MSP/blob/master/src/app/components/msp/landing/landing.spec.ts)
 
 To start unit test manually, run `npm test`, which launches tests in headless PhantomJS browser. To run the unit tests in UI browser such as IE9, IE10, IE11, Firefox and Chrome, run `npm test -- --browsers Chrome`.
 

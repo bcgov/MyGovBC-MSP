@@ -29,7 +29,11 @@ export class SendingComponent implements AfterViewInit {
       .sendApplication(this.application)
       .then((application: MspApplication) => {
         this.application = application;
-        this.logService.log({name: 'x', confirmationNumber: 'replaceMe'})
+        this.logService.log({name: 'x', confirmationNumber: 'replaceMe'});
+
+        //delete the application from storage
+        this.dataService.removeMspApplication();
+
         //  go to confirmation
         this.router.navigateByUrl("/msp/application/confirmation");
       })

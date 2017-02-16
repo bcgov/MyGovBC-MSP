@@ -28,6 +28,8 @@ export class AssistanceSendingComponent implements AfterViewInit  {
       .then((application:FinancialAssistApplication) => {
         this.application = application;
 
+        //delete the premium assistance application content from local storage
+        this.dataService.removeFinAssistApplication();
         //  go to confirmation
         this.router.navigateByUrl("/msp/assistance/confirmation");
       })
