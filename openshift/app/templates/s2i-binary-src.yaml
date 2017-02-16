@@ -69,6 +69,10 @@ objects:
           ports:
           - containerPort: 8080
             protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 200Mi
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         securityContext: {}
