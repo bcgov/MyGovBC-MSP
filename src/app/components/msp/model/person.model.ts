@@ -286,9 +286,12 @@ class Person {
     let basic =  _.isString(this.gender)
     && _.isString(this.firstName) && this.firstName.length > 0 && _.isString(this.lastName) && this.lastName.length > 0
     // && this.isNotEmpty(this.dob_day) && this.isNotEmpty(this.dob_month) && this.isNotEmpty(this.dob_year)
-    && _.isNumber(this.dob_day) && _.isString(this.dob_month) && _.isNumber(this.dob_year)// && !(this.dob_month == 0)
+    && _.isNumber(this.dob_day) && _.isString(this.dob_month) && _.isNumber(this.dob_year) && !(this.dob_month == 0)
     && _.isNumber(this._status) && _.isNumber(this._currentActivity) && this.documents.images.length > 0
-    //&& !(this.arrivalToBCMonth == 0)
+    && !(this.arrivalToBCMonth == 0)  && _.isNumber(this.arrivalToBCYear)
+    && !(this.arrivalToCanadaMonth == 0)
+    && !(this.studiesDepartureMonth == 0)
+    && !(this.studiesFinishedMonth == 0)
     let returningToBCComplete = true;
 
     // code 0 is "Returning to BC after an absence"
