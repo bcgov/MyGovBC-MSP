@@ -183,12 +183,11 @@
                 <label for="mailingAddressPostalCode" [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
                 <input [(ngModel)]='mailingAddress.postal' type="text" class="form-control to-upper"
                        id="mailingAddressPostalCode" name="mailingAddressPostalCode" #mailingAddressPostalCodeRef="ngModel"
-                       pattern="[ABCEGHJKLMNPRSTVXYabceghjklmnprstvxy]\d[ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][ ]?\d[ABCEGHJ-NPRSTV-Zabceghj-nprstv-z]\d">
+                       maxlength="25"
+                       required>
                 <div *ngIf='mailingAddressPostalCodeRef.touched'>
                     <div class="text-danger" *ngIf="mailingAddressPostalCodeRef.errors?.required"
                          [innerHtml]="lang('./en/index.js').postalCodeErrorIsRequired"></div>
-                    <div class="text-danger" *ngIf="mailingAddressPostalCodeRef.errors?.pattern"
-                         [innerHtml]="lang('./en/index.js').postalCodeErrorPattern"></div>
                 </div>
             </div>
         </div>

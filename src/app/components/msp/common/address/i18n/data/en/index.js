@@ -20,9 +20,8 @@ module.exports = {
 
   countryLabel: 'Country',
 
-  postalCodeLabel: 'Postal code',
-  postalCodeErrorIsRequired: 'Postal code is required',
-  postalCodeErrorPattern: 'Postal code must be in format V1B 2C3 or V1B2C3',
+  postalCodeLabel: 'Postal or Zip code',
+  postalCodeErrorIsRequired: 'Postal or Zip code is required',
 
   mailingAddressSameQuestion: 'Is your <strong>mailing address</strong> the same as above?',
   mailingAddressHeading: 'Mailing Address',
