@@ -104,6 +104,10 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   setStatus(value:StatusInCanada, p: Person) {
     p.status = value;
     p.currentActivity = null;
+
+    if(p.status !== StatusInCanada.CitizenAdult){
+      p.institutionWorkHistory = 'No';
+    }
     this.onChange.emit(value);
   }
 
@@ -191,6 +195,9 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
     this.onChange.emit(evt);
   }
 
+  get schoolInBC():boolean {
+    return this.person.schoolAddress.province.toLowerCase() === 'british columbia';
+  }
   setFullTimeStudent(event: boolean) {
     this.person.fullTimeStudent = event;
     if (!this.person.fullTimeStudent) {

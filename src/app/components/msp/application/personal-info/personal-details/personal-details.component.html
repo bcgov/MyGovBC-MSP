@@ -283,9 +283,10 @@
 
     <div class="row" *ngIf="person.documents.images.length > 0 &&
                             person.relationship === Relationship.Child19To24">
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-6">
             <msp-school-date [departureDate]="true"
                             [year]="person.studiesDepartureYear"
+                            [required]="schoolInBC"
                             (yearChange)="person.studiesDepartureYear = $event"
                             [month]="person.studiesDepartureMonth"
                             (monthChange)="person.studiesDepartureMonth = $event"
@@ -294,7 +295,7 @@
                             (onChange) = "updateSchoolDepartureDate($event)">
             </msp-school-date>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <msp-school-date [year]="person.studiesFinishedYear"
                             (yearChange)="person.studiesFinishedYear = $event"
                             [month]="person.studiesFinishedMonth"
