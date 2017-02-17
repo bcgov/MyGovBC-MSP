@@ -115,7 +115,8 @@ export default class CompletenessCheckService {
         && !_.isEmpty(this.finApp.applicant.dob_month)
         && _.isNumber(this.finApp.applicant.dob_year)
         && !_.isEmpty(this.finApp.applicant.sin)
-        && this.finApp.mailingAddress.isValid;
+        && this.finApp.mailingAddress.isValid
+        && !(this.finApp.applicant.dob_month == 0);
 
       if(this.finApp.hasSpouseOrCommonLaw === true){
         return basics && !_.isEmpty(this.finApp.spouse.firstName)
