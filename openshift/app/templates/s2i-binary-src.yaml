@@ -69,6 +69,10 @@ objects:
           ports:
           - containerPort: 8080
             protocol: TCP
+          env:
+          -
+            name: RealIpFrom
+            value: ${REAL_IP_FROM}
           resources:
             limits:
               cpu: 500m
@@ -138,6 +142,11 @@ parameters:
   name: BUILDER_IMAGE_NAME
   required: true
   value: s2i-nginx
+- description: OpenShift cluster private IP range in CIDR notation, used by Nginx ngx_http_realip_module.
+  displayName: OpenShift Cluster IP Range
+  name: REAL_IP_FROM
+  required: true
+  value: "172.51.0.0/16"
 - description: Project containing the builder image.
   displayName: Builder Image Namespace
   name: BUILDER_IMAGE_NAMESPACE
