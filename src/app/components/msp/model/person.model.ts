@@ -338,7 +338,6 @@ class Person {
       }  
     }
 
-    // arrival in canada is optional for some activites
     let arrivalInCanadaComplete = true;
     if (!(this.status === StatusInCanada.CitizenAdult &&
       (this.currentActivity === Activities.MovingFromProvince ||

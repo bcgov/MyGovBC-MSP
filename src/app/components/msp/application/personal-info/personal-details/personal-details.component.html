@@ -107,8 +107,11 @@
                                   (onChange) = "onChange.emit($event)"></msp-arrival-date>
             </div>
             <div class="col-md-4">
+                <!--For canadian citizen, returning to BC after an absence or moving from another province, the arrival date in canada
+                is not required.-->
                 <msp-arrival-date [arrivalLabel]="lang('./en/index.js').arrivalDateToCanadaLabel"
-                                  [required]="!(person.currentActivity == Activities.Returning || person.currentActivity == Activities.MovingFromProvince)"
+                                  [required]="!(person.status === StatusInCanada.CitizenAdult 
+                                    && (person.currentActivity == Activities.Returning || person.currentActivity == Activities.MovingFromProvince))"
                                   [year]="person.arrivalToCanadaYear"
                                   (yearChange)="person.arrivalToCanadaYear = $event"
                                   [month]="person.arrivalToCanadaMonth"

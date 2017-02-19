@@ -196,7 +196,9 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   }
 
   get schoolInBC():boolean {
-    return this.person.schoolAddress.province.toLowerCase() === 'british columbia';
+    return this.person.schoolAddress
+      && this.person.schoolAddress.province 
+      && this.person.schoolAddress.province.toLowerCase() === 'british columbia';
   }
   setFullTimeStudent(event: boolean) {
     this.person.fullTimeStudent = event;
