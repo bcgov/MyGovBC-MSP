@@ -18,8 +18,8 @@ The deployment consists of these steps
 1. deploy builder image
 
    ```sh
-   $ git clone https://github.com/bcgov/MyGovBC-core-client.git
-   $ cd MyGovBC-core-client
+   $ git clone https://github.com/bcgov/MyGovBC-MSP.git
+   $ cd MyGovBC-MSP
    $ docker build -t s2i-nginx openshift/app/builder-image
    $ docker tag s2i-nginx docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/s2i-nginx
    $ oc login -u <username> https://console.pathfinder.gov.bc.ca:8443  

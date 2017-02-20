@@ -159,15 +159,6 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
     this.imageErrorModal.forceRender();
   }
 
-  personalInfoLabel(): string {
-    switch (this.person.relationship) {
-      case Relationship.Applicant:
-        return this.lang('./en/index.js').applicantPersonalInfo;
-      default:
-        return '';
-    }
-  }
-
   ngAfterViewInit() {
     /**
      * Load an empty row to screen 

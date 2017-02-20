@@ -874,7 +874,7 @@ module.exports = {
     },
     {
       "code": "TW",
-      "name": "Taiwan, Province of China"
+      "name": "Taiwan"
     },
     {
       "code": "TJ",

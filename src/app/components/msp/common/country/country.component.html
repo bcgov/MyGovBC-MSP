@@ -6,7 +6,8 @@
                        (ngModelChange)="updateModel($event)"
                        [dataService]="dataService" [minSearchLength]="0"
                        [autoMatch]="true"
-                       [maxChars]="25"
+                       [overrideSuggested]="true"
+                       [maxChars]="30"
                        required
                        id="country" name="country" #countryRef="ngModel"></ng2-completer>
         <div *ngIf='countryRef.touched'>
