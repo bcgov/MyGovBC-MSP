@@ -344,7 +344,7 @@ export class FinancialAssistApplication implements ApplicationBase {
    * @returns {number}
    */
   numberOfTaxYears(): number {
-    return this.getAppliedForTaxYears().length;
+    return this.getAppliedForTaxYears().length + 1;
   }
 
   constructor(){

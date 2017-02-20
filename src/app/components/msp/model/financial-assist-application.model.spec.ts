@@ -23,18 +23,20 @@ describe('FinancialAssistApplication Component', () => {
     expect(fixture.getAssistanceApplicationType()).toBe(AssistanceApplicationType.CurrentYear,
       JSON.stringify(fixture.getMostRecentAppliedForTaxYears()));
     expect(fixture.getTaxYear()).toBe(moment().year() - 1);
+    expect(fixture.numberOfTaxYears()).toBe(1);
 
     fixture.assistYears[0].apply = true;
 
     expect(fixture.getAssistanceApplicationType()).toBe(AssistanceApplicationType.PreviousTwoYears,
       JSON.stringify(fixture.getMostRecentAppliedForTaxYears()));
     expect(fixture.getTaxYear()).toBe(fixture.assistYears[0].year);
+    expect(fixture.numberOfTaxYears()).toBe(2);
 
     fixture.assistYears[1].apply = true;
 
     expect(fixture.getAssistanceApplicationType()).toBe(AssistanceApplicationType.MultiYear,
       JSON.stringify(fixture.getMostRecentAppliedForTaxYears()));
     expect(fixture.getTaxYear()).toBe(fixture.assistYears[0].year);
-
+    expect(fixture.numberOfTaxYears()).toBe(3);
   });
 });
