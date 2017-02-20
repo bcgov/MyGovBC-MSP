@@ -4,6 +4,7 @@ import {MspApiService} from "../../service/msp-api.service";
 import {Router} from "@angular/router";
 import {ResponseType} from "../../api-model/responseTypes";
 import {FinancialAssistApplication} from "../../model/financial-assist-application.model";
+import {MspLogService} from '../../service/log.service'
 
 @Component({
   templateUrl: 'sending.component.html'
@@ -17,7 +18,10 @@ export class AssistanceSendingComponent implements AfterViewInit  {
   rawError: string;
   rawRequest: string;
 
-  constructor(private dataService: DataService, private service:MspApiService, public router: Router) {
+  constructor(private dataService: DataService, 
+              private service:MspApiService, 
+              public router: Router,
+              public logService:MspLogService) {
     this.application = this.dataService.finAssistApp;
   }
 
@@ -28,15 +32,25 @@ export class AssistanceSendingComponent implements AfterViewInit  {
       .then((application:FinancialAssistApplication) => {
         this.application = application;
 
+        this.logService.log({name: 'premium assistance application received success confirmation from API server', 
+          confirmationNumber: this.application.referenceNumber});
+
+        //  go to confirmation
+        this.router.navigate(["/msp/assistance/confirmation"], 
+          {queryParams: {confirmationNum:this.application.referenceNumber}});
+        
         //delete the premium assistance application content from local storage
         this.dataService.removeFinAssistApplication();
-        //  go to confirmation
-        this.router.navigateByUrl("/msp/assistance/confirmation");
       })
       .catch((error: ResponseType | any) => {
         this.rawUrl = error.url;
         this.rawError = error._body;
-        this.rawRequest = error._requestBody
+        this.rawRequest = error._requestBody;
+
+        this.logService.log({name: 'premium assistance application received failure message from API server', 
+          error: error._body,
+          request: error._requestBody});
+        
       });
   }
 }
