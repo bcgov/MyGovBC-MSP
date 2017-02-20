@@ -3,6 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 // import { RouterTestingModule } from '@angular/router/testing';
 import { AssistanceConfirmationComponent } from './confirmation.component';
+import {LandingComponent} from '../../landing/landing.component';
+import {ConfirmationGuard} from './confirmation.guard';
+import {AssistanceComponent} from '../assistance.component';
 import MspDataService from '../../service/msp-data.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
@@ -23,7 +26,30 @@ describe('AssistanceConfirmationComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AssistanceConfirmationComponent, MspLoggerDirective],
-      imports: [FormsModule, HttpModule, RouterModule],
+      imports: [FormsModule, HttpModule, RouterModule.forRoot(
+        [
+          {
+            path: 'msp',
+            children: [
+              {
+                path: '',
+                component: LandingComponent
+              },
+              {
+                path: 'assistance',
+                component: AssistanceComponent,
+                children: [
+                  {
+                    path: 'confirmation',
+                    canActivate: [ConfirmationGuard],
+                    component: AssistanceConfirmationComponent
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      )],
       providers: [MspDataService,MspLogService,ActivatedRoute,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
