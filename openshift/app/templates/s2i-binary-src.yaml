@@ -62,6 +62,10 @@ objects:
           app: ${NAME}
           deploymentconfig: ${NAME}
       spec:
+        volumes:
+          -
+            name: log-data
+            emptyDir:
         containers:
         - image: ${NAME}
           imagePullPolicy: Always
@@ -77,6 +81,10 @@ objects:
             limits:
               cpu: 500m
               memory: 200Mi
+          volumeMounts:
+          -
+            name: log-data
+            mountPath: /var/log/nginx
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         securityContext: {}
