@@ -1,5 +1,5 @@
 module.exports = {
   eligibilityCalculatorTitle: 'Eligibility calculator',
-  totalHouseholdIncome: 'Total household income'
+  totalHouseholdIncome: 'Total household income:'
 
 }

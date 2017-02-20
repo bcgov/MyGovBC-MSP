@@ -1,7 +1,7 @@
 <!--<div class="deduction-calc-spacer-lg hidden-xs hidden-sm"></div>-->
 <div class="deduction-calc-spacer-sm hidden-xs hidden-sm"></div>
 <!--<div class="deduction-calc-spacer-lg hidden-sm hidden-md hidden-lg"></div>-->
-<div class="deduction-calc" *ngIf="applicantIncomeInfoProvided">
+<div class="deduction-calc">
   <h2 [innerHTML]="lang('./en/index.js').eligibilityCalculatorTitle"></h2>
   <table>
     <tbody>
@@ -10,7 +10,12 @@
           <h4 [innerHTML]="lang('./en/index.js').totalHouseholdIncome"></h4>
         </td>
         <td class="deduction-table-cell-padding deduction-table-cell-margin">
-          {{totalHouseholdIncome | currency: 'USD': true}}
+          <span *ngIf="applicantIncomeInfoProvided">
+            {{totalHouseholdIncome | currency: 'USD': true}}
+          </span>
+          <span *ngIf="!applicantIncomeInfoProvided">
+            - -
+          </span>
         </td>
       </tr>
 
@@ -134,10 +139,14 @@
         
     <tr>
       <td>
-        <h4>Total deductions</h4>
+        <h4>Total deductions:</h4>
       </td>
       <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{totalDeductions | currency: 'USD' : true}}
+        <span *ngIf="applicantIncomeInfoProvided">        
+          {{totalDeductions | currency: 'USD' : true}}
+        </span>  
+        <span *ngIf="!applicantIncomeInfoProvided">- -     
+        </span>  
       </td>
     </tr>
   </table>
@@ -146,11 +155,16 @@
   <table>
     <tbody>
       <tr>
-        <td style="column-width: 180px;">
+        <td style="column-width: 100px;">
           <h4><strong>Adjusted income:</strong></h4>
         </td>
         <td class="deduction-table-cell-padding deduction-table-cell-margin">
-          {{adjustedIncome | currency: 'USD' : true}}
+          <span *ngIf="applicantIncomeInfoProvided">        
+            {{adjustedIncome | currency: 'USD' : true}}
+          </span>  
+          <span *ngIf="!applicantIncomeInfoProvided">   
+            - -     
+          </span>  
         </td>
       </tr>
 
