@@ -52,6 +52,7 @@ import {MspApplicationPersonalInfoGuard} from './application/personal-info/perso
 import {MspApplicationAddressGuard} from './application/address/address.guard'
 import {MspApplicationReviewGuard} from './application/review/review.guard'
 import {MspApplicationSendingGuard} from "./application/sending/sending.guard";
+import {MspFinancialAssistAppSendingGuard} from "./assistance/sending/sending.guard";
 import {MspApplicationConfirmationGuard} from './application/confirmation/confirmation.guard'
 
 import {PersonalInfoGuard} from './assistance/personal-info/personal-info.guard';
@@ -192,7 +193,7 @@ let localStorageServiceConfig = {
               },
               {
                 path: 'sending',
-                //canActivate: [],
+                canActivate: [MspFinancialAssistAppSendingGuard],
                 component: AssistanceSendingComponent
               },
               {
@@ -285,6 +286,7 @@ let localStorageServiceConfig = {
     ReviewGuard,
     AuthorizationGuard,
     ConfirmationGuard,
+    MspFinancialAssistAppSendingGuard,    
     LocalStorageService,
     {
         provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
