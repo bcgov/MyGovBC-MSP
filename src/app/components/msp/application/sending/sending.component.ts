@@ -29,17 +29,23 @@ export class SendingComponent implements AfterViewInit {
       .sendApplication(this.application)
       .then((application: MspApplication) => {
         this.application = application;
-        this.logService.log({name: 'x', confirmationNumber: 'replaceMe'});
+        this.logService.log({name: 'enrollment application received success confirmation from API server', 
+          confirmationNumber: this.application.referenceNumber});
 
         //delete the application from storage
         this.dataService.removeMspApplication();
         //  go to confirmation
-        this.router.navigateByUrl("/msp/application/confirmation");
+        this.router.navigate(["/msp/application/confirmation"], 
+          {queryParams: {confirmationNum:this.application.referenceNumber}});
+
       })
       .catch((error: ResponseType | any) => {
         this.rawUrl = error.url;
         this.rawError = error._body;
         this.rawRequest = error._requestBody
+        this.logService.log({name: 'enrollment application received failure message from API server', 
+          error: error._body,
+          request: error._requestBody});
       });
   }
 }
