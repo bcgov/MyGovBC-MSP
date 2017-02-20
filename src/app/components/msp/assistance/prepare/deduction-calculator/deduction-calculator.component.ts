@@ -147,7 +147,7 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     this.application.eligibility.totalNetIncome = parseFloat(this.totalHouseholdIncome);
     this.application.eligibility.spouseDeduction = this.spouseAmt;
     this.application.eligibility.spouseSixtyFiveDeduction = this.spouseAgeOver65Amt;
-    this.application.eligibility.sixtyFiveDeduction = this.spouseAgeOver65Amt + this.ageOver65Amt;
+    this.application.eligibility.sixtyFiveDeduction = this.ageOver65Amt;
 
     /**
      * Rule 23 on FDS document
