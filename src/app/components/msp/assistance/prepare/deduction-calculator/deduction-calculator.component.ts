@@ -142,7 +142,7 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     this.application.eligibility.totalDeductions = this.totalDeductions;
 
     this.application.eligibility.childDeduction = this.childrenAmt
-    this.application.eligibility.disabilityDeduction = this.disabilityCreditAmt + this.spouseDisabilityCreditAmt + this.childrenDisabilityCreditAmt;
+    this.application.eligibility.disabilityDeduction = this.childrenDisabilityCreditAmt;
     this.application.eligibility.totalDeductions = this.totalDeductions;
     this.application.eligibility.totalNetIncome = parseFloat(this.totalHouseholdIncome);
     this.application.eligibility.spouseDeduction = this.spouseAmt;
