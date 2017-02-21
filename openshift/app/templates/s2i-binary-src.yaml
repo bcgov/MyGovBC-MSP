@@ -78,8 +78,8 @@ objects:
           name: file-beat
           resources:
             limits:
-              cpu: 200m
-              memory: 200Mi
+              cpu: 100m
+              memory: 100Mi
           volumeMounts:
           -
             name: log-data
@@ -109,14 +109,22 @@ objects:
     test: false
     triggers:
     - type: ConfigChange
-    - imageChangeParams:
+    - type: ImageChange
+      imageChangeParams:
         automatic: true
         containerNames:
         - ${NAME}
         from:
           kind: ImageStreamTag
           name: ${NAME}:latest
-      type: ImageChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+        - file-beat
+        from:
+          kind: ImageStreamTag
+          name: file-beat:latest
 - apiVersion: v1
   kind: Service
   metadata:
