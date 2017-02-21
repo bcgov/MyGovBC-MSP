@@ -12,6 +12,12 @@ objects:
     annotations:
       description: Keeps track of changes in the application image
     name: ${NAME}
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      description: file beat
+    name: file-beat
 - annotations:
     description: Defines how to build the application
   apiVersion: v1
@@ -67,6 +73,17 @@ objects:
             name: log-data
             emptyDir:
         containers:
+        - image: file-beat
+          imagePullPolicy: Always
+          name: file-beat
+          resources:
+            limits:
+              cpu: 200m
+              memory: 200Mi
+          volumeMounts:
+          -
+            name: log-data
+            mountPath: /mnt
         - image: ${NAME}
           imagePullPolicy: Always
           name: ${NAME}

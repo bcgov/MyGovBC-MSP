@@ -20,11 +20,14 @@ The deployment consists of these steps
    ```sh
    $ git clone https://github.com/bcgov/MyGovBC-MSP.git
    $ cd MyGovBC-MSP
-   $ docker build -t s2i-nginx openshift/app/builder-image
-   $ docker tag s2i-nginx docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/s2i-nginx
    $ oc login -u <username> https://console.pathfinder.gov.bc.ca:8443  
    $ docker login  -u <username> -p `oc whoami -t` docker-registry.pathfinder.gov.bc.ca
+   $ docker build -t s2i-nginx openshift/app/docker-images/s2i-nginx
+   $ docker tag s2i-nginx docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/s2i-nginx
    $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/s2i-nginx  
+   $ docker build -t file-beat openshift/app/docker-images/file-beat
+   $ docker tag file-beat docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/file-beat
+   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/file-beat
    ```
 2. deploy template
 
