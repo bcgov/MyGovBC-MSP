@@ -8,8 +8,8 @@
     	<xs:documentation xml:lang="en">
     		Common Types - Digital Experience
     		Supports EnrollmentTypes, AssistanceTypes, NameChangeTypes.
-    		Version: $LastChangedRevision: 4360 $  
-    		LastChanged: $LastChangedDate: 2017-02-02 15:58:08 -0800 (Thu, 02 Feb 2017) $
+    		Version: $LastChangedRevision: 4431 $  
+    		LastChanged: $LastChangedDate: 2017-02-17 14:25:08 -0800 (Fri, 17 Feb 2017) $
     	</xs:documentation>
     </xs:annotation>
     
@@ -106,7 +106,7 @@
 
 	<xs:simpleType name="ProvinceOrStateType">
 		<xs:restriction base="xs:string">
-			<xs:maxLength value="2"/>
+			<xs:maxLength value="25"/>
 		</xs:restriction>
 	</xs:simpleType>
 	
