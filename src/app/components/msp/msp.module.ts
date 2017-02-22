@@ -10,7 +10,6 @@ import { ProgressbarModule } from 'ng2-bootstrap/components/progressbar';
 import { ModalModule } from 'ng2-bootstrap/components/modal';
 import { AccordionModule } from 'ng2-bootstrap/components/accordion';
 import { Ng2CompleterModule } from "ng2-completer";
-import { CaptchaComponent } from "mygovbc-captcha-widget/component";
 
 import {MspComponent} from './msp.component';
 import {LandingComponent} from './landing/landing.component';
@@ -239,7 +238,6 @@ let localStorageServiceConfig = {
     MspConsentModalComponent,
     MspIdReqModalComponent,
     MspCancelComponent,
-    CaptchaComponent,
 
     // View cards
     MspPersonCardComponent,

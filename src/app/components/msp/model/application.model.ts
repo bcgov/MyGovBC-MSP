@@ -12,7 +12,6 @@ class MspApplication implements ApplicationBase {
 
   readonly uuid = UUID.UUID();
   infoCollectionAgreement: boolean = false;
-  authorizationToken: string;
 
   /**
    * Set by the API, not for client use

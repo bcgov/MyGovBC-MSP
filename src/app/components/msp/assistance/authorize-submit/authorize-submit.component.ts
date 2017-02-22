@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, ViewChild, Output, Inject} from '@angular/core';
+import { Component, AfterViewInit, ViewChild, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import MspDataService from '../../service/msp-data.service';
 import {FinancialAssistApplication} from "../../model/financial-assist-application.model";
@@ -12,7 +12,6 @@ import CompletenessCheckService from '../../service/completeness-check.service';
 })
 export class AssistanceAuthorizeSubmitComponent {
   lang = require('./i18n');
-  captchaApiBaseUrl:string;
 
   application: FinancialAssistApplication;
 
@@ -20,10 +19,8 @@ export class AssistanceAuthorizeSubmitComponent {
   @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
   constructor(private dataService: MspDataService,
-    private completenessCheck:CompletenessCheckService,
-    @Inject('appConstants') private appConstants: Object){
+    private completenessCheck:CompletenessCheckService){
     this.application = this.dataService.finAssistApp;
-    this.captchaApiBaseUrl = "http://localhost:3000";//this.appConstants["apiBaseUrl"] + "/captcha";
   }
 
   @ViewChild('form') form: NgForm;
