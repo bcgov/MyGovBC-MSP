@@ -9,7 +9,7 @@ module.exports = {
   disabilityInfoLabel: 'Disability information',
   nursingHomeLabel: 'Add attendant or nursing home expense information',
   childrenInfo: 'Add children information',
-  invalidNumber: 'Must use a valid number',
+  invalidNumber: 'Comma is not allowed',
   consentProcessName: 'apply for Premium Assistance',
 }
 

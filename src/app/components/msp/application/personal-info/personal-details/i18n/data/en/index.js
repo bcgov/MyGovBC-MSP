@@ -29,7 +29,7 @@ module.exports = {
     'Upload your spouse\'s documents',
     'Upload your child\'s documents',
     'Upload your child\'s documents'],
-  documentInstructionsNote: 'Carefully follow these instructions:<ul><li>Scan the document, or take a photo of it</li><li>Include the entire document, corner to corner</li><li>Make sure the document is in focus and is easy to read</li><li>Save the file as a JPG or PDF</li></ul>',
+  documentInstructionsNote: 'Carefully follow these instructions:<ul><li>Scan the document, or take a photo of it</li><li>Include the entire document, corner to corner</li><li>Make sure the document is in focus and is easy to read</li><li>Save the file as a JPG or PNG</li></ul>',
   viewSamplesButton: 'See a sample',
 
   nameHelpBlock: ['Enter your legal name and gender',

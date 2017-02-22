@@ -62,10 +62,6 @@ objects:
           app: ${NAME}
           deploymentconfig: ${NAME}
       spec:
-        volumes:
-          -
-            name: log-data
-            emptyDir:
         containers:
         - image: ${NAME}
           imagePullPolicy: Always
@@ -81,10 +77,6 @@ objects:
             limits:
               cpu: 500m
               memory: 200Mi
-          volumeMounts:
-          -
-            name: log-data
-            mountPath: /var/log/nginx
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         securityContext: {}
@@ -92,14 +84,14 @@ objects:
     test: false
     triggers:
     - type: ConfigChange
-    - imageChangeParams:
+    - type: ImageChange
+      imageChangeParams:
         automatic: true
         containerNames:
         - ${NAME}
         from:
           kind: ImageStreamTag
           name: ${NAME}:latest
-      type: ImageChange
 - apiVersion: v1
   kind: Service
   metadata:

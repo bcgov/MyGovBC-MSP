@@ -250,6 +250,15 @@ objects:
               -
                 containerPort: 8080
                 protocol: TCP
+              -
+                containerPort: 28777
+                protocol: TCP
+              -
+                containerPort: 5514
+                protocol: TCP
+              -
+                containerPort: 5514
+                protocol: UDP
             resources:
               limits:
                 memory: 2Gi
@@ -376,6 +385,21 @@ objects:
         protocol: TCP
         port: 8080
         targetPort: 8080
+      -
+        name: 28777-tcp
+        protocol: TCP
+        port: 28777
+        targetPort: 28777
+      -
+        name: 5514-udp
+        protocol: UDP
+        port: 5514
+        targetPort: 5514
+      -
+        name: 5514-tcp
+        protocol: TCP
+        port: 5514
+        targetPort: 5514
     selector:
       deploymentconfig: logstash
     type: ClusterIP

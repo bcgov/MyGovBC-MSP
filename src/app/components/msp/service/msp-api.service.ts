@@ -68,10 +68,10 @@ export class MspApiService {
         let convertedAppXml = this.toXmlString(documentModel);
 
         // if no errors, then we'll sendApplication all attachments
-        this.sendAttachments(documentModel.application.uuid, app.getAllImages()).then(() => {
+        this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
 
           // once all attachments are done we can sendApplication in the data
-          this.sendDocument(documentModel).then((response: ResponseType) => {
+          this.sendDocument(app.authorizationToken, documentModel).then((response: ResponseType) => {
             console.log("sent application resolved");
             // Add reference number
             app.referenceNumber = response.referenceNumber.toString();
@@ -95,7 +95,7 @@ export class MspApiService {
     });
   }
 
-  private sendAttachments(applicationUUID: string, attachments: MspImage[]): Promise<void> {
+  private sendAttachments(token: string, applicationUUID: string, attachments: MspImage[]): Promise<void> {
     return new Promise<void>((resolve, reject) => {
 
       // Instantly resolve if no attachments
@@ -106,7 +106,7 @@ export class MspApiService {
       // Make a list of promises for each attachment
       let attachmentPromises = new Array<Promise<ResponseType>>();
       for (let attachment of attachments) {
-        attachmentPromises.push(this.sendAttachment(applicationUUID, attachment));
+        attachmentPromises.push(this.sendAttachment(token, applicationUUID, attachment));
       }
       // Execute all promises are waiting for results
       Promise.all(attachmentPromises).then((responses: ResponseType[]) => {
@@ -118,7 +118,7 @@ export class MspApiService {
     });
   }
 
-  private sendAttachment(applicationUUID: string, attachment: MspImage): Promise<ResponseType> {
+  private sendAttachment(token: string, applicationUUID: string, attachment: MspImage): Promise<ResponseType> {
     return new Promise<ResponseType>((resolve, reject) => {
 
       /*
@@ -144,7 +144,10 @@ export class MspApiService {
       // description - UI does NOT collect this property
 
       // Setup headers
-      let headers = new Headers({'Content-Type': attachment.contentType});
+      let headers = new Headers({
+        'Content-Type': attachment.contentType,
+        'Authorization': 'Bearer ' + token
+      });
       let options = new RequestOptions({headers: headers});
 
       let binary = atob(attachment.fileContent.split(',')[1]);
@@ -173,7 +176,7 @@ export class MspApiService {
    * @param document
    * @returns {Promise<ResponseType>}
    */
-  private sendDocument(document: document): Promise<ResponseType> {
+  private sendDocument(token: string, document: document): Promise<ResponseType> {
     return new Promise<ResponseType>((resolve, reject) => {
       /*
        Create URL
@@ -184,7 +187,9 @@ export class MspApiService {
         + "?programArea=enrolment";
 
       // Setup headers
-      let headers = new Headers({'Content-Type': 'application/xml'});
+      let headers = new Headers({
+        'Content-Type': 'application/xml',
+        'Authorization': 'Bearer ' + token});
       let options = new RequestOptions({headers: headers});
 
       // Convert doc to XML
@@ -809,20 +814,7 @@ export class MspApiService {
     if (from.postal) {
       to.postalCode = from.postal.toUpperCase().replace(" ", "");
     }
-
-    // convert name to code
-    let provinceData = require('../common/province/i18n/data/en/index').provinceData;
-    let stateData = require('../common/province/i18n/data/en/index').stateData;
-    let provinceStateData = Array().concat(provinceData, stateData);
-
-    let itemFound = to.provinceOrState = provinceStateData.find((item) => {
-      if (item.name === from.province) {
-        return true;
-      }
-    });
-    if (itemFound) {
-      to.provinceOrState = itemFound.code;
-    }
+    to.provinceOrState = from.province;
 
     return to;
   }
