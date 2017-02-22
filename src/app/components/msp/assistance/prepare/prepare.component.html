@@ -308,8 +308,7 @@
                     </div>
                 <!--</div>-->
                 
-                <div class="col-md-12">
-
+                <div class="col-md-12" [hidden] = "!finAssistApp.hasSpouseOrCommonLaw || !finAssistApp.spouseEligibleForDisabilityCredit">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-12">
@@ -362,25 +361,31 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3 col-md-offset-1">
-                        <div class="checkbox checkbox-success checkbox-inline">
-                                <input type="checkbox" 
-                                name="applicantClaimForAttendantCareExpense"
-                                id="applicantClaimForAttendantCareExpense"
-                                [(ngModel)] = "finAssistApp.applicantClaimForAttendantCareExpense">
-                            <label for="applicantClaimForAttendantCareExpense">
-                                Myself
-                            </label>
-                        </div>                        
+                        <div class="form-group">
+                            <div class="checkbox checkbox-success checkbox-inline">
+                                    <input type="checkbox"
+                                    name="applicantClaimForAttendantCareExpense"
+                                    id="applicantClaimForAttendantCareExpense"
+                                    [ngModel]="finAssistApp.applicantClaimForAttendantCareExpense"
+                                    (click)="applicantClaimForAttendantCareExpense($event)">
+                                <label for="applicantClaimForAttendantCareExpense">
+                                    Myself
+                                </label>
+                            </div>     
+                        </div>
                     </div>
                     <div class="col-md-8">
                         <div class="checkbox checkbox-success checkbox-inline">
+                            <div class="form-group">
                                 <input type="checkbox" 
                                 name="spouseClaimForAttendantCareExpense"
                                 id="spouseClaimForAttendantCareExpense"
-                                [(ngModel)] = "finAssistApp.spouseClaimForAttendantCareExpense">
-                            <label for="spouseClaimForAttendantCareExpense">
-                                My spouse/common-law partner
-                            </label>
+                                [ngModel] = "finAssistApp.spouseClaimForAttendantCareExpense"
+                                (click)="spouseClaimForAttendantCareExpense($event)">
+                                <label for="spouseClaimForAttendantCareExpense">
+                                    My spouse/common-law partner
+                                </label>
+                            </div>
                         </div>                        
                     </div>
                 </div>
@@ -391,7 +396,7 @@
                                 name="childClaimForAttendantCareExpense"
                                 id="childClaimForAttendantCareExpense"
                                 [ngModel] = "finAssistApp.childClaimForAttendantCareExpense"
-                                (ngModelChange) = "toggleChildClaimForAttendantCareExpense($event)">
+                                (click) = "childClaimForAttendantCareExpense($event)">
                                 <label for="childClaimForAttendantCareExpense">
                                     My child
                                 </label>
@@ -417,7 +422,7 @@
                 </div>
                 <div class="row" style="margin-top: 15px;" *ngIf="requireAttendantCareReceipts">
                     <div class="col-md-12">
-                        <label for="netIncome">Please upload your attendant care receipts for the expense entered above.</label>
+                        <label for="netIncome">Please upload your attendant care receipts for the expense entered above (required).</label>
                         <msp-file-uploader #fileUploader
                             [images]="finAssistApp.attendantCareExpenseReceipts" 
                             [id]='finAssistApp.id'
@@ -448,3 +453,36 @@
 </div>
 
 <msp-consent-modal #mspConsentModal [application]="dataService.finAssistApp" [processName]="lang('./en/index.js').consentProcessName"></msp-consent-modal>
+
+<div bsModal #disabilityNursingHomeChoiceModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}"
+    tabindex="-1" role="dialog" aria-labelledby="disabilityNursingHomeChoiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title pull-left">Claim either {{claimCategory}} or {{counterClaimCategory}}</h3>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="disabilityNursingHomeChoiceModal.hide()">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div>
+                <p>
+                    You have already selected <span class="msp-emphasis">{{counterClaimCategory}}</span> for {{claimant}}.
+                </p>
+                <p>
+                    If you add <span class="msp-emphasis">{{claimCategory}}</span> for {{claimant}}, your {{counterClaimCategory}} will be removed.
+                </p>
+                <p>
+                    Do you want to continue to add {{claimCategory}} for {{claimant}}?
+                </p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-md pull-left" data-dismiss="modal"
+                (click)="switchClaim(claimant, claimCategory, counterClaimCategory)">Yes, continue</button>
+            <button type="button" class="btn btn-danger btn-md pull-right" data-dismiss="modal"
+                (click)="disabilityNursingHomeChoiceModal.hide()">No, cancel</button>
+        </div>
+        </div>
+    </div>
+</div>

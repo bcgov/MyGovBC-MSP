@@ -270,7 +270,7 @@
                 id="schoolName" name="schoolName" #schoolNameRef="ngModel"
                 required
                 maxlength="50">
-            <div *ngIf='schoolNameRef.touched'>
+            <div *ngIf='schoolNameRef.touched || formRef.submitted'>
                 <div class="text-danger" *ngIf="schoolNameRef.errors?.required"
                     [innerHtml]="lang('./en/index.js').schoolNameErrorIsRequired"></div>
             </div>
