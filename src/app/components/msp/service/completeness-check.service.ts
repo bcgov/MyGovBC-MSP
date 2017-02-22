@@ -146,7 +146,8 @@ export default class CompletenessCheckService {
       }else{
         // console.log('PA application authorized by attorney');
       }
+      if (this.finApp.authorizationToken == null) return false;
 
-      return familyAuth || attorneyAUth;  
+      return familyAuth || attorneyAUth;
     }
 }
