@@ -2,7 +2,6 @@ This folder contains following artifacts to facilitate deploying a myGovBC-clien
 
 * an instant-app template adopting s2i build strategy with binary source input 
 * a nginx-based builder image
-* a file-beat docker image
 
 The prerequisites of the deployment are:
 
@@ -45,9 +44,6 @@ The deployment consists of these steps
    $ docker build -t s2i-nginx openshift/app/docker-images/s2i-nginx
    $ docker tag s2i-nginx docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/s2i-nginx
    $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/s2i-nginx  
-   $ docker build -t file-beat openshift/app/docker-images/file-beat
-   $ docker tag file-beat docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/file-beat
-   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/file-beat
    ```   
 4. build runtime image
 

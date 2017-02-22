@@ -12,12 +12,6 @@ objects:
     annotations:
       description: Keeps track of changes in the application image
     name: ${NAME}
-- apiVersion: v1
-  kind: ImageStream
-  metadata:
-    annotations:
-      description: file beat
-    name: file-beat
 - annotations:
     description: Defines how to build the application
   apiVersion: v1
@@ -68,22 +62,7 @@ objects:
           app: ${NAME}
           deploymentconfig: ${NAME}
       spec:
-        volumes:
-          -
-            name: log-data
-            emptyDir:
         containers:
-        - image: file-beat
-          imagePullPolicy: Always
-          name: file-beat
-          resources:
-            limits:
-              cpu: 100m
-              memory: 100Mi
-          volumeMounts:
-          -
-            name: log-data
-            mountPath: /mnt
         - image: ${NAME}
           imagePullPolicy: Always
           name: ${NAME}
@@ -98,10 +77,6 @@ objects:
             limits:
               cpu: 500m
               memory: 200Mi
-          volumeMounts:
-          -
-            name: log-data
-            mountPath: /var/log/nginx
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         securityContext: {}
@@ -117,14 +92,6 @@ objects:
         from:
           kind: ImageStreamTag
           name: ${NAME}:latest
-    - type: ImageChange
-      imageChangeParams:
-        automatic: true
-        containerNames:
-        - file-beat
-        from:
-          kind: ImageStreamTag
-          name: file-beat:latest
 - apiVersion: v1
   kind: Service
   metadata:
