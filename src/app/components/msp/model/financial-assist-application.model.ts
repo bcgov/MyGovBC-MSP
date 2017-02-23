@@ -311,13 +311,16 @@ export class FinancialAssistApplication implements ApplicationBase {
     let mostRecentAppliedForTaxYears = this.getMostRecentAppliedForTaxYears();
 
     if (mostRecentAppliedForTaxYears == null ||
-      mostRecentAppliedForTaxYears.length < 1) {
+      mostRecentAppliedForTaxYears.length == 1 &&
+      mostRecentAppliedForTaxYears[0].year == this.MostRecentTaxYear) {
       return AssistanceApplicationType.CurrentYear;
     }
 
-    // If we only have one and it's last year
+    // If we only have two and it's last year
     if (mostRecentAppliedForTaxYears &&
-      mostRecentAppliedForTaxYears.length === 1) {
+      mostRecentAppliedForTaxYears.length === 2 &&
+      mostRecentAppliedForTaxYears[0].year == this.MostRecentTaxYear &&
+      mostRecentAppliedForTaxYears[1].year == this.MostRecentTaxYear - 1) {
       return AssistanceApplicationType.PreviousTwoYears;
     }
 
@@ -335,8 +338,12 @@ export class FinancialAssistApplication implements ApplicationBase {
       return mostRecentAppliedForTaxYears[0].year;
     }
     else {
-      return moment().year() - 1;
+      return this.MostRecentTaxYear;
     }
+  }
+
+  get MostRecentTaxYear(): number {
+    return moment().year() - 1;
   }
 
   /**
@@ -344,7 +351,7 @@ export class FinancialAssistApplication implements ApplicationBase {
    * @returns {number}
    */
   numberOfTaxYears(): number {
-    return this.getAppliedForTaxYears().length + 1;
+    return this.getAppliedForTaxYears().length;
   }
 
   constructor(){
