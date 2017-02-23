@@ -716,7 +716,7 @@ export class MspApiService {
     else {
       to.livedInBC.hasLivedInBC = "N";
     }
-    to.livedInBC.isPermanentMove = "Y"; // Always Y, you can't proceed without
+    to.livedInBC.isPermanentMove = from.madePermanentMoveToBC === true? "Y":"N"; 
 
     if (from.healthNumberFromOtherProvince) {
       to.livedInBC.prevHealthNumber = from.healthNumberFromOtherProvince; // out of province health numbers
