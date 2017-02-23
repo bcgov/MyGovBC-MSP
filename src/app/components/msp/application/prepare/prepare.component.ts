@@ -25,8 +25,6 @@ export class PrepareComponent implements AfterViewInit{
   @ViewChild('formRef') form: NgForm;
   @ViewChild('liveInBCBtn') liveInBCBtn: ElementRef;
   @ViewChild('notLiveInBCBtn') notLiveInBCBtn: ElementRef;
-  @ViewChild('staySixMonthOrLonger') staySixMonthOrLonger: ElementRef;
-  @ViewChild('notStaySixMonthOrLonger') notStaySixMonthOrLonger: ElementRef;
   @ViewChild('unUsualCircumstanceBtn') unUsualCircumstanceBtn: ElementRef;
   @ViewChild('noUnusualCircustanceBtn') noUnusualCircustanceBtn: ElementRef;
   @ViewChild('plannedAbsenceBtn') plannedAbsenceBtn: ElementRef;
@@ -57,15 +55,6 @@ export class PrepareComponent implements AfterViewInit{
         this.dataService.getMspApplication().applicant.liveInBC = false;
       });
 
-    let staySixMonthOrLonger$ = Observable.fromEvent<MouseEvent>(this.staySixMonthOrLonger.nativeElement, 'click')
-      .map( x=>{
-        this.dataService.getMspApplication().applicant.stayForSixMonthsOrLonger = true;
-      });
-    let notStaySixMonthOrLonger$ = Observable.fromEvent<MouseEvent>(this.notStaySixMonthOrLonger.nativeElement, 'click')
-      .map( x=>{
-        this.dataService.getMspApplication().applicant.stayForSixMonthsOrLonger = false;
-      });
-
     let unUsualCircumstance$ = Observable.fromEvent<MouseEvent>(this.unUsualCircumstanceBtn.nativeElement, 'click')
       .map( x=>{
         this.dataService.getMspApplication().unUsualCircumstance = true;
@@ -86,7 +75,6 @@ export class PrepareComponent implements AfterViewInit{
 
     if(this.form){
       this.form.valueChanges.merge(liveInBC$).merge(notLiveInBC$)
-      .merge(staySixMonthOrLonger$).merge(notStaySixMonthOrLonger$)
       .merge(unUsualCircumstance$).merge(noUnUsualCircumstance$)
       .merge(plannedAbsenceBtn$).merge(noPlannedAbsenceBtn$)
       .subscribe(values => {
@@ -104,10 +92,6 @@ export class PrepareComponent implements AfterViewInit{
     }
   }
 
-  get stayLonger() {
-    return this.apt.stayForSixMonthsOrLonger;
-  }
-
   get liveInBC() {
     return this.apt.liveInBC;
   }
@@ -118,10 +102,6 @@ export class PrepareComponent implements AfterViewInit{
 
   get unUsualCircumstance() {
     return this.dataService.getMspApplication().unUsualCircumstance;
-  }
-
-  setStayLonger(stay: boolean) {
-    return this.apt.stayForSixMonthsOrLonger = stay;
   }
 
   setLiveInBC(live: boolean) {

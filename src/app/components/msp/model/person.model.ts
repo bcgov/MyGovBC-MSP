@@ -160,7 +160,7 @@ class Person {
    * This property is for storing user provided answer to the following question:
    * Are you planning to stay for six months or longer
    */
-  stayForSixMonthsOrLonger:boolean;
+  madePermanentMoveToBC:boolean;
 
   /**
    * This property is for storing user provided answer to the following question:

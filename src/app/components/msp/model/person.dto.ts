@@ -37,7 +37,7 @@ export default class PersonDto {
   livedInBCSinceBirth:boolean;
   hasPreviousBCPhn: boolean;
 
-  stayForSixMonthsOrLonger:boolean;
+  madePermanentMoveToBC:boolean;
   plannedAbsence:boolean;
   id:string
 

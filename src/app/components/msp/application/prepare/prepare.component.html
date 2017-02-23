@@ -11,35 +11,21 @@
     </div>
 
     <div [hidden]="liveInBC !== true">
-        <h2 [innerHtml]="lang('./en/index.js').question2"></h2>
+        <h2 [innerHtml]="lang('./en/index.js').plannedAwayForOver30DaysQuestion"></h2>
         <div class="btn-group" role="group">
-            <button [class.msp-btn-radio]="stayLonger === true" (click)="setStayLonger(true)" 
-               #staySixMonthOrLonger type="button" class="btn btn-default" >Yes</button>
-            <button [class.msp-btn-radio]="stayLonger === false" (click)="setStayLonger(false)" 
-               #notStaySixMonthOrLonger type="button" class="btn btn-default">No&nbsp;</button>
+            <button [class.msp-btn-radio]="plannedAbsence === true" 
+                #plannedAbsenceBtn type="button" class="btn btn-default" >Yes</button>
+            <button [class.msp-btn-radio]="plannedAbsence === false"  
+                #noPlannedAbsenceBtn type="button" class="btn btn-default">No&nbsp;</button>
         </div>
 
-        <div [hidden]="stayLonger !== true">
-            <h2 [innerHtml]="lang('./en/index.js').question3"></h2>
-            <div class="btn-group" role="group">
-                <button [class.msp-btn-radio]="plannedAbsence === true" 
-                    #plannedAbsenceBtn type="button" class="btn btn-default" >Yes</button>
-                <button [class.msp-btn-radio]="plannedAbsence === false"  
-                    #noPlannedAbsenceBtn type="button" class="btn btn-default">No&nbsp;</button>
-            </div>
-
-            <h3 class="text-danger" *ngIf="plannedAbsence === true"
-                [innerHtml]="lang('./en/index.js').badAnswer3">
-            </h3>
-        </div>
-
-        <div [hidden]="stayLonger === true || stayLonger === undefined">
-            <h3 class="text-danger" [innerHtml]="lang('./en/index.js').badAnswer2"></h3>
-        </div>    
+        <h3 class="text-danger" *ngIf="plannedAbsence === true"
+            [innerHtml]="lang('./en/index.js').badAnswer3">
+        </h3>
     </div>
-    <div [hidden]= "stayLonger !== true || plannedAbsence === true">
-        <h2 [innerHtml]="lang('./en/index.js').question4"></h2>
-        <h3 [innerHtml]="lang('./en/index.js').question4sub"></h3>
+    <div [hidden]= "plannedAbsence !== false || !liveInBC">
+        <h2 [innerHtml]="lang('./en/index.js').specialCircumstanceQuestion"></h2>
+        <h3 [innerHtml]="lang('./en/index.js').specialCircumstanceQuestionSub"></h3>
         <div class="btn-group" role="group">
             <button [class.msp-btn-radio]="unUsualCircumstance === true" 
                    #unUsualCircumstanceBtn type="button" class="btn btn-default" >Yes</button>
@@ -60,7 +46,7 @@
 <hr>
 
 <button [mspLogger]="'msp-enrollment_check-eligibility_continue'"  class="btn btn-primary"
-        [disabled] = "!(plannedAbsence === false && stayLonger === true && liveInBC === true && unUsualCircumstance === false)"
+        [disabled] = "!(plannedAbsence === false && liveInBC === true && unUsualCircumstance === false)"
         (click) = "goToPersonalInfo()"
         type="button"
         [innerHtml]="lang('./en/index.js').continueButton"></button>

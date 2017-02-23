@@ -108,7 +108,7 @@ export default class MspDataService {
     dto.id = input.id;
     dto.relationship = input.relationship;
     dto.liveInBC = input.liveInBC;
-    dto.stayForSixMonthsOrLonger = input.stayForSixMonthsOrLonger;
+    dto.madePermanentMoveToBC = input.madePermanentMoveToBC;
     dto.plannedAbsence = input.plannedAbsence;
 
     dto.livedInBCSinceBirth = input.livedInBCSinceBirth;
@@ -167,7 +167,7 @@ export default class MspDataService {
 
     output.id = dto.id;
     output.liveInBC = dto.liveInBC;
-    output.stayForSixMonthsOrLonger = dto.stayForSixMonthsOrLonger;
+    output.madePermanentMoveToBC = dto.madePermanentMoveToBC;
     output.livedInBCSinceBirth = dto.livedInBCSinceBirth;
     output.hasPreviousBCPhn = dto.hasPreviousBCPhn;
     
@@ -441,7 +441,7 @@ export default class MspDataService {
     output.sin = input.sin;
     output.previous_phn = input.previous_phn;
     output.liveInBC = input.liveInBC;
-    output.stayForSixMonthsOrLonger = input.stayForSixMonthsOrLonger;
+    output.madePermanentMoveToBC = input.madePermanentMoveToBC;
     output.plannedAbsence = input.plannedAbsence;
   }
   private convertToPerson(input:PersonDto, output:Person){
@@ -456,7 +456,7 @@ export default class MspDataService {
     output.sin = input.sin;
     output.previous_phn = input.previous_phn;
     output.liveInBC = input.liveInBC;
-    output.stayForSixMonthsOrLonger = input.stayForSixMonthsOrLonger;
+    output.madePermanentMoveToBC = input.madePermanentMoveToBC;
     output.plannedAbsence = input.plannedAbsence;
   }
   

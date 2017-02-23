@@ -33,7 +33,6 @@ export default class CompletenessCheckService {
       // fill in logic to ensure all data expected on check eligibility screen have been 
       // provided. (check saved data in local storage)
       return _.isBoolean(this.mspApp.applicant.liveInBC)
-      && _.isBoolean(this.mspApp.applicant.stayForSixMonthsOrLonger) 
       && _.isBoolean(this.mspApp.unUsualCircumstance) 
       && _.isBoolean(this.mspApp.applicant.plannedAbsence) 
     }
