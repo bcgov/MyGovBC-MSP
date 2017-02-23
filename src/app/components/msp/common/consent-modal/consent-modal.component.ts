@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild, HostListener} from '@angular/core'
+import {Component, Input, ViewChild} from '@angular/core'
 import moment = require("moment");
 import {ModalDirective} from "ng2-bootstrap";
 import {ApplicationBase} from "../../model/application-base.model";
@@ -14,16 +14,6 @@ export class MspConsentModalComponent {
   @Input() application: ApplicationBase;
   @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
 
-  // @HostListener('document:keydown', ['$event']) 
-  // keyboardInput(event: KeyboardEvent) {
-  //   console.log('keydown event', event);
-  //   if(event.key === 'Escape'){
-  //     console.log('escape key detected, prevent user from escaping it.');
-  //     event.preventDefault();
-  //     event.stopPropagation();
-  //   }
-  // }
-  
   agreeCheck: boolean = false;
 
   showFullSizeView(){
