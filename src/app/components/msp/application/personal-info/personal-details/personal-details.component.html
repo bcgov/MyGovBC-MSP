@@ -142,8 +142,7 @@
         Canadian citizen - moving from another province
         Permanent Resident - moving from another province
         -->
-        <div *ngIf="!((person.status === StatusInCanada.CitizenAdult || person.status === StatusInCanada.PermanentResident) && (person.currentActivity === Activities.MovingFromProvince))"
-             style="margin-bottom: 20px">
+        <div style="margin-bottom: 20px">
             <div class="row">
                 <div class="col-sm-12">
                     <label [innerHtml]="lang('./en/index.js').beenOutsideBCOver30DaysLabel"></label>
