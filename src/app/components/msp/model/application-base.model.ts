@@ -6,4 +6,5 @@ export interface ApplicationBase {
   referenceNumber: string;
   getAllImages():MspImage[];
   infoCollectionAgreement: boolean;
+  authorizationToken: string;
 }
