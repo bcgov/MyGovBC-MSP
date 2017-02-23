@@ -61,10 +61,12 @@
 
 <button [mspLogger]="'msp-enrollment_check-eligibility_continue'"  class="btn btn-primary"
         [disabled] = "!(plannedAbsence === false && stayLonger === true && liveInBC === true && unUsualCircumstance === false)"
-        routerLink="/msp/application/personal-info"
+        (click) = "goToPersonalInfo()"
         type="button"
         [innerHtml]="lang('./en/index.js').continueButton"></button>
 
 <msp-cancel></msp-cancel>
 
-<msp-consent-modal #mspConsentModal [application]="mspApplication" [processName]="lang('./en/index.js').consentProcessName"></msp-consent-modal>
+<msp-consent-modal #mspConsentModal [application]="mspApplication" 
+    [processName]="lang('./en/index.js').consentProcessName">
+</msp-consent-modal>

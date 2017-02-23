@@ -1,5 +1,8 @@
 import {Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
+
 import {MspApplication, Person} from '../../model/application.model';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs/Observable';
@@ -33,7 +36,8 @@ export class PrepareComponent implements AfterViewInit{
   private apt: Person;
   mspApplication: MspApplication;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService,
+    private _router: Router) {
     this.mspApplication = this.dataService.getMspApplication();
     this.apt = this.mspApplication.applicant;
   }
@@ -88,6 +92,15 @@ export class PrepareComponent implements AfterViewInit{
       .subscribe(values => {
         this.dataService.saveMspApplication();
       });
+    }
+  }
+
+  goToPersonalInfo(){
+    if(this.mspApplication.infoCollectionAgreement !== true){
+      console.log('user agreement not accepted yet, show user dialog box.');
+      this.mspConsentModal.showFullSizeView();
+    }else{
+      this._router.navigate(["/msp/application/personal-info"]);
     }
   }
 
