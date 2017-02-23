@@ -20,6 +20,8 @@ server {
 server {
     listen       8081;
     server_name  localhost;
+    # ip filtering
+    %KibanaIpFilterRules%
     location / {
         # proxy all traffic to this URL,
         # note the trailing slash strips out the /proxy path on
