@@ -326,6 +326,9 @@ objects:
               -
                 name: AccessControlAllowOrigin
                 value: ${AccessControlAllowOrigin}
+              -
+                name: KibanaIpFilterRules
+                value: ${KibanaIpFilterRules}
             terminationMessagePath: /dev/termination-log
             imagePullPolicy: Always
         restartPolicy: Always
@@ -513,7 +516,12 @@ parameters:
   required: true
   value: 1Gi
 - description: CORS Access-Control-Allow-Origin to post data to Logstash. Specify host such as http://foo.com or wildcard * for unrestricted.
-  displayName: Access-Control-Allow-Origin
+  displayName: Access Control Allow Origin
   name: AccessControlAllowOrigin
   required: true
   value: "*"
+- description: client ip rules to access Kibana. See http://nginx.org/en/docs/http/ngx_http_access_module.html for syntax. Use \n to for new line.
+  displayName: Kibana Ip Filter Rules
+  name: KibanaIpFilterRules
+  required: true
+  value: allow 0.0.0.0/0;\ndeny all;
