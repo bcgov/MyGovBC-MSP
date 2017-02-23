@@ -12,6 +12,7 @@ import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
 import appConstants from '../../../../services/appConstants';
+import CompletenessCheckService from '../../service/completeness-check.service';
 
 describe('AssistanceAuthorizeSubmitComponent', () => {
   let localStorageServiceConfig = {
@@ -24,7 +25,7 @@ describe('AssistanceAuthorizeSubmitComponent', () => {
       declarations: [AssistanceAuthorizeSubmitComponent, FileUploaderComponent, ThumbnailComponent, MspCancelComponent,
         MspImageErrorModalComponent,MspLoggerDirective, MspLoggerDirective],
       imports: [FormsModule, Ng2BootstrapModule, HttpModule],
-      providers: [MspDataService, MspLogService,
+      providers: [MspDataService, MspLogService,CompletenessCheckService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         },

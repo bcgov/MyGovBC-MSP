@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, ViewChild, AfterViewInit} from '@angular/core'
+import {Component, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -9,7 +9,7 @@ require('./arrival-date.component.less');
   selector: 'msp-arrival-date',
   templateUrl: './arrival-date.component.html'
 })
-export class MspArrivalDateComponent implements AfterViewInit{
+export class MspArrivalDateComponent implements AfterViewInit, OnChanges{
 
   lang = require('./i18n');
 
@@ -28,6 +28,10 @@ export class MspArrivalDateComponent implements AfterViewInit{
   @Output() onChange = new EventEmitter<any>();
 
   @ViewChild('formRef') form: NgForm;
+
+  ngOnChanges(changes: SimpleChanges):void{
+    // console.log('changes on input for msp-arrival-date: ', changes);
+  }
 
   ngAfterViewInit(): void {
     this.form.valueChanges.subscribe(values => {

@@ -107,8 +107,11 @@
                                   (onChange) = "onChange.emit($event)"></msp-arrival-date>
             </div>
             <div class="col-md-4">
+                <!--For canadian citizen, returning to BC after an absence or moving from another province, the arrival date in canada
+                is not required.-->
                 <msp-arrival-date [arrivalLabel]="lang('./en/index.js').arrivalDateToCanadaLabel"
-                                  [required]="!(person.currentActivity == Activities.Returning || person.currentActivity == Activities.MovingFromProvince)"
+                                  [required]="!(person.status === StatusInCanada.CitizenAdult 
+                                    && (person.currentActivity == Activities.Returning || person.currentActivity == Activities.MovingFromProvince))"
                                   [year]="person.arrivalToCanadaYear"
                                   (yearChange)="person.arrivalToCanadaYear = $event"
                                   [month]="person.arrivalToCanadaMonth"
@@ -142,7 +145,8 @@
         Canadian citizen - moving from another province
         Permanent Resident - moving from another province
         -->
-        <div style="margin-bottom: 20px">
+        <div *ngIf="!((person.status === StatusInCanada.CitizenAdult || person.status === StatusInCanada.PermanentResident) && (person.currentActivity === Activities.MovingFromProvince))"
+             style="margin-bottom: 20px">
             <div class="row">
                 <div class="col-sm-12">
                     <label [innerHtml]="lang('./en/index.js').beenOutsideBCOver30DaysLabel"></label>
@@ -266,7 +270,7 @@
                 id="schoolName" name="schoolName" #schoolNameRef="ngModel"
                 required
                 maxlength="50">
-            <div *ngIf='schoolNameRef.touched'>
+            <div *ngIf='schoolNameRef.touched || formRef.submitted'>
                 <div class="text-danger" *ngIf="schoolNameRef.errors?.required"
                     [innerHtml]="lang('./en/index.js').schoolNameErrorIsRequired"></div>
             </div>
@@ -282,9 +286,10 @@
 
     <div class="row" *ngIf="person.documents.images.length > 0 &&
                             person.relationship === Relationship.Child19To24">
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-6">
             <msp-school-date [departureDate]="true"
                             [year]="person.studiesDepartureYear"
+                            [required]="schoolInBC"
                             (yearChange)="person.studiesDepartureYear = $event"
                             [month]="person.studiesDepartureMonth"
                             (monthChange)="person.studiesDepartureMonth = $event"
@@ -293,7 +298,7 @@
                             (onChange) = "updateSchoolDepartureDate($event)">
             </msp-school-date>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <msp-school-date [year]="person.studiesFinishedYear"
                             (yearChange)="person.studiesFinishedYear = $event"
                             [month]="person.studiesFinishedMonth"

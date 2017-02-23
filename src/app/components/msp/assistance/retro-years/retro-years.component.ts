@@ -36,17 +36,22 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
     this.years = this.application.assistYears;
 
     // this calendar year
-    let thisYear:number = moment().utc().year()-1;
+    let thisYear:number = this.application.MostRecentTaxYear;
     let pre = thisYear;
-    while(--pre > thisYear - 6){
+    while(pre > thisYear - 6){
 
       let assistYr:AssistanceYear = new AssistanceYear();
       assistYr.year = pre;
       assistYr.apply = false;
+      if (pre == this.application.MostRecentTaxYear) {
+        assistYr.docsRequired = false;
+        assistYr.apply = true;
+      }
 
       if(!this.containsYear(assistYr)){
         this.addYear(assistYr);
       }
+      pre--;
     }
   }
 
@@ -85,7 +90,7 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
   get docRequired():boolean {
     let required = false;
     for(let i=0; i<this.years.length; i++){
-      if(this.years[i].apply){
+      if(this.years[i].apply && this.years[i].docsRequired){
         return true;
       }
     }

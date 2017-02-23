@@ -1,9 +1,8 @@
 <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
 <div class="alert alert-info" role="alert">
     <h2 [mspLogger]="'msp-enrollment_confirmation'"
-        [confirmationNumber] = "mspApplication.referenceNumber"
         class="to-upper">
-        Reference # {{mspApplication.referenceNumber}}
+        Reference # {{confirmationNum}}
     </h2>
 </div>
 

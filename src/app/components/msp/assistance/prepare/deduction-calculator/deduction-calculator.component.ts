@@ -76,7 +76,7 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   get spouseDisabilityCreditAmt(): number {
     return !!this.application.spouseEligibleForDisabilityCredit? 3000: 0;
   }
-  get childreDisabilityCreditAmt(): number {
+  get childrenDisabilityCreditAmt(): number {
     let m = this.application.childWithDisabilityCount;
     return !!m? 3000*m: 0;
   }
@@ -126,7 +126,7 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     + this.uCCBenefitAmt
     + this.disabilityCreditAmt
     + this.spouseDisabilityCreditAmt
-    + this.childreDisabilityCreditAmt
+    + this.childrenDisabilityCreditAmt
     + this.application.spouseDSPAmount_line125
     + this.applicantClaimForAttendantCareExpenseAmt
     + this.spouseClaimForAttendantCareExpenseAmt
@@ -142,12 +142,12 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     this.application.eligibility.totalDeductions = this.totalDeductions;
 
     this.application.eligibility.childDeduction = this.childrenAmt
-    this.application.eligibility.disabilityDeduction = this.disabilityCreditAmt + this.spouseDisabilityCreditAmt + this.childreDisabilityCreditAmt;
+    this.application.eligibility.disabilityDeduction = this.childrenDisabilityCreditAmt;
     this.application.eligibility.totalDeductions = this.totalDeductions;
     this.application.eligibility.totalNetIncome = parseFloat(this.totalHouseholdIncome);
     this.application.eligibility.spouseDeduction = this.spouseAmt;
     this.application.eligibility.spouseSixtyFiveDeduction = this.spouseAgeOver65Amt;
-    this.application.eligibility.sixtyFiveDeduction = this.spouseAgeOver65Amt + this.ageOver65Amt;
+    this.application.eligibility.sixtyFiveDeduction = this.ageOver65Amt;
 
     /**
      * Rule 23 on FDS document

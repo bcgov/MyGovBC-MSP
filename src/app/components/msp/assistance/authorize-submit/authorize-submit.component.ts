@@ -5,6 +5,8 @@ import {FinancialAssistApplication} from "../../model/financial-assist-applicati
 import {MspImage} from '../../model/msp-image';
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
 import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
+import CompletenessCheckService from '../../service/completeness-check.service';
+
 @Component({
   templateUrl: './authorize-submit.component.html'
 })
@@ -16,7 +18,8 @@ export class AssistanceAuthorizeSubmitComponent {
   @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
   @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
-  constructor(private dataService: MspDataService){
+  constructor(private dataService: MspDataService,
+    private completenessCheck:CompletenessCheckService){
     this.application = this.dataService.finAssistApp;
   }
 
@@ -64,6 +67,10 @@ export class AssistanceAuthorizeSubmitComponent {
     if(!byAttorney){
       this.deleteAllDocs(!byAttorney);      
     }
+  }
+
+  get authorized():boolean {
+    return this.completenessCheck.finAppAuthorizationCompleted();
   }
 
   get questionApplicant(){

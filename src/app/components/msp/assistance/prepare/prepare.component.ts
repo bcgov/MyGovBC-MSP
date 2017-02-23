@@ -8,12 +8,17 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
+import {ModalDirective} from "ng2-bootstrap";
+
 import DataService from '../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
 import {MspImage} from "../../../msp/model/msp-image";
 import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
+
+import "./prepare.component.less";
+
 @Component({
   templateUrl: './prepare.component.html'
 })
@@ -37,6 +42,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   @ViewChild('childDisabilityCreditUnset') childDisabilityCreditUnset: ElementRef;
 
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
+  @ViewChild('disabilityNursingHomeChoiceModal') public disabilityNursingHomeChoiceModal: ModalDirective;
 
   lang = require('./i18n');
   _showDisabilityInfo:boolean = false;
@@ -49,6 +55,13 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   requireAttendantCareReceipts = false;
 
   qualificationThreshhold:number = 42000;
+
+  counterClaimCategory:string;
+  claimCategory:string;
+  claimant:string;
+
+  CREDIT_CLAIM_CATEGORY:string[] = ['disability credit', 'attendant or nursing home expense credit'];
+  CREDIT_CLAIMANT:string[] = ['yourself', 'spouse or common law partner'];
 
   constructor(private dataService: DataService){
     this.showAttendantCareInfo = this.finAssistApp.applicantClaimForAttendantCareExpense
@@ -169,6 +182,14 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
       )
       .merge(
         Observable.fromEvent<MouseEvent>(this.selfDisabilityCreditSet.nativeElement, 'click')
+          .filter( (x:MouseEvent) => {
+            if(this.finAssistApp.applicantClaimForAttendantCareExpense){
+              this.applicantClaimDisabilityCredit();
+              return false;
+            }else{
+              return true;
+            }
+          })
           .map( x=> {
             this.finAssistApp.selfDisabilityCredit = true;
           })
@@ -181,28 +202,34 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
       )
       .merge(
         Observable.fromEvent<MouseEvent>(this.spouseDisabilityCreditSet.nativeElement, 'click')
+          .filter( (x:MouseEvent) => {
+            if(this.finAssistApp.spouseClaimForAttendantCareExpense){
+              this.spouseClaimDisabilityCredit();
+              return false;
+            }else{
+              return true;
+            }
+          })
           .map( x=> {
             this.finAssistApp.spouseEligibleForDisabilityCredit = true;
           })
       )
       .merge(
         Observable.fromEvent<MouseEvent>(this.spouseDisabilityCreditUnset.nativeElement, 'click')
-          .map( x=> {
+          .map( (x:MouseEvent) => {
             this.finAssistApp.spouseEligibleForDisabilityCredit = false;
           })
       )      
       .merge(
         Observable.fromEvent<MouseEvent>(this.childDisabilityCreditset.nativeElement, 'click')
-          .map( x=> {
+          .map( (x:MouseEvent)=> {
             this.finAssistApp.childWithDisabilityCount = 1;
-            console.log('Set childWithDisabilityCount to ' + this.finAssistApp.childWithDisabilityCount);
           })
       )
       .merge(
         Observable.fromEvent<MouseEvent>(this.childDisabilityCreditUnset.nativeElement, 'click')
           .map( x=> {
             this.finAssistApp.childWithDisabilityCount = 0;
-            console.log('unset childWithDisabilityCount to ' + this.finAssistApp.childWithDisabilityCount);
           })
       )
       .subscribe(
@@ -249,14 +276,109 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
     this.dataService.saveFinAssistApplication();
   }
 
-  toggleChildClaimForAttendantCareExpense(evt:boolean){
-    // console.log('toggleChildClaimForAttendantCareExpense: %o', evt);
-    this.finAssistApp.childClaimForAttendantCareExpense = evt;
-  }  
-
   ngDoCheck(){
     this.qualifiedForAssistance = this.finAssistApp.eligibility.adjustedNetIncome <= this.qualificationThreshhold;
     this.requireAttendantCareReceipts = this.qualifiedForAssistance && (this.finAssistApp.applicantClaimForAttendantCareExpense ||
     this.finAssistApp.spouseClaimForAttendantCareExpense || this.finAssistApp.childClaimForAttendantCareExpense);
+  }
+
+  applicantClaimForAttendantCareExpense($event:Event){
+    if(!this.finAssistApp.applicantClaimForAttendantCareExpense 
+        && this.finAssistApp.selfDisabilityCredit === true){
+      event.preventDefault();
+
+      this.claimCategory = this.CREDIT_CLAIM_CATEGORY[1];
+      this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY[0];
+      this.claimant = this.CREDIT_CLAIMANT[0];
+      
+      this.disabilityNursingHomeChoiceModal.config.backdrop = false;
+      this.disabilityNursingHomeChoiceModal.show();
+    }else{
+      this.finAssistApp.applicantClaimForAttendantCareExpense = !this.finAssistApp.applicantClaimForAttendantCareExpense;
+    }
+  }
+
+  spouseClaimForAttendantCareExpense($event:Event){
+    if(!this.finAssistApp.spouseClaimForAttendantCareExpense 
+        && (this.finAssistApp.spouseDSPAmount_line125 || this.finAssistApp.spouseEligibleForDisabilityCredit)){
+      event.preventDefault();
+
+      this.claimCategory = this.CREDIT_CLAIM_CATEGORY[1];
+      this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY[0];
+      this.claimant = this.CREDIT_CLAIMANT[1];
+      
+      this.disabilityNursingHomeChoiceModal.config.backdrop = false;
+      this.disabilityNursingHomeChoiceModal.show();
+    }else{
+      this.finAssistApp.spouseClaimForAttendantCareExpense = !this.finAssistApp.spouseClaimForAttendantCareExpense;
+    }
+  }
+
+  childClaimForAttendantCareExpense(evt:boolean){
+    this.finAssistApp.childClaimForAttendantCareExpense = !this.finAssistApp.childClaimForAttendantCareExpense;
+    
+    // if(!this.finAssistApp.childClaimForAttendantCareExpense && this.finAssistApp.childWithDisabilityCount){
+    //     event.preventDefault();
+    //     this.disabilityNursingHomeChoiceModal.config.backdrop = false;
+    //     this.disabilityNursingHomeChoiceModal.show();
+    // }else{
+    //   this.finAssistApp.childClaimForAttendantCareExpense = !this.finAssistApp.childClaimForAttendantCareExpense;
+    // }
+  }  
+  
+  // private childClaimDisabilityCredit(){
+  //     this.disabilityNursingHomeChoiceModal.config.backdrop = false;
+  //     this.disabilityNursingHomeChoiceModal.show();
+  // }
+  /**
+   * Prevent spouse from claiming disability credit
+   */
+  private spouseClaimDisabilityCredit(){
+      this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY[1];
+      this.claimCategory = this.CREDIT_CLAIM_CATEGORY[0];
+      this.claimant = this.CREDIT_CLAIMANT[1];
+      this.disabilityNursingHomeChoiceModal.config.backdrop = false;
+      this.disabilityNursingHomeChoiceModal.show();
+  }
+  /**
+   * Prevent application from claiming disability credit
+   */
+  private applicantClaimDisabilityCredit(){
+      this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY[1];
+      this.claimCategory = this.CREDIT_CLAIM_CATEGORY[0];
+      this.claimant = this.CREDIT_CLAIMANT[0];
+      this.disabilityNursingHomeChoiceModal.config.backdrop = false;
+      this.disabilityNursingHomeChoiceModal.show();
+  }
+
+  switchClaim(...args:string[]){
+    //for self
+    if(args[0] === this.CREDIT_CLAIMANT[0]){
+      if(args[2] === this.CREDIT_CLAIM_CATEGORY[0]){
+        // The counter claim is disability credit, now user has opted to switch to 
+        // apply for nursing home expense
+        this.finAssistApp.applicantClaimForAttendantCareExpense = true;
+        this.finAssistApp.selfDisabilityCredit = false;
+
+      }else if(args[2] === this.CREDIT_CLAIM_CATEGORY[1]){
+        // apply disability credit
+        this.finAssistApp.applicantClaimForAttendantCareExpense = false;
+        this.finAssistApp.selfDisabilityCredit = true;
+      }
+    }else if(args[0] === this.CREDIT_CLAIMANT[1]){
+      // for spouse
+      if(args[2] === this.CREDIT_CLAIM_CATEGORY[0]){
+        // apply disability credit
+        this.finAssistApp.spouseClaimForAttendantCareExpense = true;
+        this.finAssistApp.spouseEligibleForDisabilityCredit = false;
+      }else if(args[2] === this.CREDIT_CLAIM_CATEGORY[1]){
+        // apply nursing home expense
+        this.finAssistApp.spouseClaimForAttendantCareExpense = false;
+        this.finAssistApp.spouseEligibleForDisabilityCredit = true;
+      }
+    }
+
+    this.disabilityNursingHomeChoiceModal.hide();
+    
   }
 }

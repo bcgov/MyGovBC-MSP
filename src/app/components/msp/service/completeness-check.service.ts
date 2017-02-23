@@ -132,6 +132,21 @@ export default class CompletenessCheckService {
     }
 
     finAppAuthorizationCompleted():boolean {
-      return true;
+      let familyAuth = (this.finApp.authorizedByApplicant &&
+        (this.finApp.hasSpouseOrCommonLaw && this.finApp.authorizedBySpouse || !this.finApp.hasSpouseOrCommonLaw));
+
+      if(!familyAuth){
+        // console.log('PA application not authorized by applicant and spouse');
+      }else{
+        // console.log('PA application authorized by applicant and spouse');
+      }  
+      let attorneyAUth = this.finApp.authorizedByAttorney && this.finApp.powerOfAttorneyDocs.length > 0;
+      if(!attorneyAUth){
+        // console.log('PA application not authorized by attorney');
+      }else{
+        // console.log('PA application authorized by attorney');
+      }
+
+      return familyAuth || attorneyAUth;  
     }
 }

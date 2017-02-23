@@ -40,7 +40,7 @@
     </div>
 
     <div style="margin-top: 20px;" *ngIf="application.authorizedByAttorney">
-        <label for="">Power of Attorney Document</label>
+        <label for="">Power of Attorney Document (required)</label>
         <msp-file-uploader #fileUploader
             [images]="application.powerOfAttorneyDocs" 
             [id]='application.id'
@@ -53,6 +53,7 @@
 </form>
 <hr>
 <button [mspLogger]="'msp-premium-assistance_submit'"  
+    [disabled]="!authorized"
     class="btn btn-primary" type="submit" routerLink="/msp/assistance/sending"
         [innerHTML]="lang('./en/index.js').continueButton"></button>
 <msp-cancel></msp-cancel>

@@ -23,6 +23,8 @@ export class MspSchoolDateComponent {
   @Output() dayChange = new EventEmitter<number>();
   @Input() departureDate: boolean = false;
 
+  @Input() required:boolean;
+
   @Output() onChange = new EventEmitter<any>();
 
   @ViewChild('formRef') form: NgForm;
@@ -33,6 +35,7 @@ export class MspSchoolDateComponent {
       this.onChange.emit(values);
     });
   }
+
 
   yearErrorPastFutureCheck() {
     if (this.departureDate) {
@@ -67,13 +70,16 @@ export class MspSchoolDateComponent {
    * @returns {boolean}
    */
   isValid(): boolean {
-
-    // Validate
-    if (!this.inputDate().isValid()) {
+    if(!this.year || !this.month || !this.day){
       return false;
-    }
+    }else{
+      let valid = this.inputDate().isValid();
+      let diff = this.inputDate().diff(moment(), 'years');
 
-    return true;
+      console.log('diff between now: ', diff);
+      console.log(this.inputDate().inspect() + ' is valid? ', this.inputDate().isValid());
+      return valid;
+    }
   }
 
   futureCheck(): boolean {
