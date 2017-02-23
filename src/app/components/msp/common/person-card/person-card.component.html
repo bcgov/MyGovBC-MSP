@@ -44,16 +44,6 @@
             </div>
         </div>
 
-        <div class="row" *ngIf="person.livedInBCSinceBirth != null">
-            <div class="col-xs-4">
-                {{lang('./en/index.js').livedInBCSinceBirth}}
-            </div>
-            <div class="col-xs-8">
-                <strong *ngIf="person.livedInBCSinceBirth">Yes</strong>
-                <strong *ngIf="!person.livedInBCSinceBirth">No</strong>
-            </div>
-        </div>
-
         <div class="row" *ngIf="person.previous_phn != null">
             <div class="col-xs-4">
                 {{lang('./en/index.js').previousHealthNumberLabel}}
