@@ -49,7 +49,11 @@
             (onDeleteDocument)="deleteDocument($event)">
         </msp-file-uploader>
         <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
-    </div>    
+    </div>
+    <div class="row">
+        <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
+                 (onValidToken)="application.authorizationToken = $event"></captcha>
+    </div>
 </form>
 <hr>
 <button [mspLogger]="'msp-premium-assistance_submit'"  

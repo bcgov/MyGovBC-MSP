@@ -18,6 +18,7 @@ export enum AssistanceApplicationType {
 export class FinancialAssistApplication implements ApplicationBase {
 
   readonly uuid = UUID.UUID();
+  authorizationToken: string;
 
   assistYears:AssistanceYear[] = [];
   assistYeaDocs:MspImage[] = [];
