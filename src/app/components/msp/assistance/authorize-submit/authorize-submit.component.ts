@@ -23,7 +23,7 @@ export class AssistanceAuthorizeSubmitComponent {
     private completenessCheck:CompletenessCheckService,
     @Inject('appConstants') private appConstants: Object){
     this.application = this.dataService.finAssistApp;
-    this.captchaApiBaseUrl = "http://localhost:3000";//this.appConstants["apiBaseUrl"] + "/captcha";
+    this.captchaApiBaseUrl = this.appConstants["captchaApiBaseUrl"];
   }
 
   @ViewChild('form') form: NgForm;
