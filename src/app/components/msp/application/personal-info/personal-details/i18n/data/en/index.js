@@ -37,7 +37,7 @@ module.exports = {
     'Enter your child\'s legal name and gender',
     'Enter your child\'s legal name and gender'],
 
-  livedInBCSinceBirth: ['Have you lived in B.C. since birth?',
+  movedToBCPermanently: ['Have you lived in B.C. since birth?',
       'Has your spouse lived in B.C. since birth?',
       'Has your child lived in B.C. since birth?',
       'Has your child lived in B.C. since birth?'],
