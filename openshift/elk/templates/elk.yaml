@@ -329,6 +329,9 @@ objects:
               -
                 name: KibanaIpFilterRules
                 value: ${KibanaIpFilterRules}
+              -
+                name: RealIpFrom
+                value: ${REAL_IP_FROM}
             terminationMessagePath: /dev/termination-log
             imagePullPolicy: Always
         restartPolicy: Always
@@ -434,6 +437,9 @@ objects:
       weight: 100
     port:
       targetPort: 8081-tcp
+    tls:
+      termination: edge
+      insecureEdgeTerminationPolicy: Redirect
 - apiVersion: v1
   kind: Route
   metadata:
@@ -520,6 +526,11 @@ parameters:
   name: AccessControlAllowOrigin
   required: true
   value: "*"
+- description: OpenShift cluster private IP range in CIDR notation, used by Nginx ngx_http_realip_module.
+  displayName: OpenShift Cluster IP Range
+  name: REAL_IP_FROM
+  required: true
+  value: "172.51.0.0/16"
 - description: client ip rules to access Kibana. See http://nginx.org/en/docs/http/ngx_http_access_module.html for syntax. Use \n to for new line.
   displayName: Kibana Ip Filter Rules
   name: KibanaIpFilterRules
