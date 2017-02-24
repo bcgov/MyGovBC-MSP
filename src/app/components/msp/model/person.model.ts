@@ -154,7 +154,7 @@ class Person {
    * If answser is NO, the livedInBCSinceBirth = false
    * See https://apps.gcpe.gov.bc.ca/jira/browse/PSPDN-398
    */
-  livedInBCSinceBirth:boolean = null;
+  // livedInBCSinceBirth:boolean = null;
 
   /**
    * This property is for storing user provided answer to the following question:
@@ -217,10 +217,6 @@ class Person {
   }
   set status(st:StatusInCanada){
     this._status = st;
-    if(this._status === StatusInCanada.PermanentResident 
-      || this._status === StatusInCanada.TemporaryResident){
-        this.livedInBCSinceBirth = false;
-      }
   }
 
   get currentActivity(){

@@ -8,7 +8,6 @@ module.exports = {
 
   dobLabel: 'Birthdate:',
   statusLabel: 'Status in Canada:',
-  livedInBCSinceBirth: 'Lived in B.C. since birth:',
   movedFromProvinceLabel: 'Moved from province:',
   movedFromCountryLabel: 'Moved from country:',
   previousHealthNumberLabel: 'Previous health number:',

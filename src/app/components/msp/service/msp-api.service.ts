@@ -710,12 +710,14 @@ export class MspApiService {
     // Init and set defaults
     to.livedInBC = LivedInBCTypeFactory.make();
 
-    if (from.livedInBCSinceBirth === true) {
-      to.livedInBC.hasLivedInBC = "Y";
-    }
-    else {
-      to.livedInBC.hasLivedInBC = "N";
-    }
+    /**
+     * This field is for the now defunct "have you lived in BC since birth" question.
+     * After API side removes the field from XSD or make it optional, the following
+     * line, which provides a default value to this field, can be removed.
+     * Refer to JIRA ticket: https://apps.gcpe.gov.bc.ca/jira/browse/PSPDN-505
+     */
+    to.livedInBC.hasLivedInBC = "N";
+
     to.livedInBC.isPermanentMove = from.madePermanentMoveToBC === true? "Y":"N"; 
 
     if (from.healthNumberFromOtherProvince) {
