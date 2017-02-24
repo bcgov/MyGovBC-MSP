@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MspApplication} from "../../model/application.model";
 
 import DataService from '../../service/msp-data.service';
@@ -12,9 +12,12 @@ export class ReviewComponent {
   lang = require('./i18n');
 
   application: MspApplication;
+  captchaApiBaseUrl:string;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService,
+              @Inject('appConstants') private appConstants: Object) {
     this.application = this.dataService.getMspApplication();
+    this.captchaApiBaseUrl = this.appConstants["captchaApiBaseUrl"];
   }
 
   applicantAuthorizeOnChange(event: boolean) {

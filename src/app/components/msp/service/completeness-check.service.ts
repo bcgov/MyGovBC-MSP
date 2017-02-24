@@ -75,7 +75,8 @@ export default class CompletenessCheckService {
     }
 
     mspApplicationAuthorizedByUser() {
-      return !(!this.mspApp.authorizedByApplicant || (this.mspApp.spouse && !this.mspApp.authorizedBySpouse));
+      return !(!this.mspApp.authorizedByApplicant || (this.mspApp.spouse && !this.mspApp.authorizedBySpouse)
+      || !this.mspApp.authorizationToken);
     }
     mspSendingComplete() {
       // if we have a reference number, we are complete
