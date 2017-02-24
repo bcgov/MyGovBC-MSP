@@ -74,7 +74,8 @@ export default class CompletenessCheckService {
     }
 
     mspApplicationAuthorizedByUser() {
-      return !(!this.mspApp.authorizedByApplicant || (this.mspApp.spouse && !this.mspApp.authorizedBySpouse));
+      return !(!this.mspApp.authorizedByApplicant || (this.mspApp.spouse && !this.mspApp.authorizedBySpouse)
+      || !this.mspApp.authorizationToken);
     }
     mspSendingComplete() {
       // if we have a reference number, we are complete
@@ -145,7 +146,8 @@ export default class CompletenessCheckService {
       }else{
         // console.log('PA application authorized by attorney');
       }
+      if (this.finApp.authorizationToken == null) return false;
 
-      return familyAuth || attorneyAUth;  
+      return familyAuth || attorneyAUth;
     }
 }
