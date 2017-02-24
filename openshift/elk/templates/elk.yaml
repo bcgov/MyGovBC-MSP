@@ -437,6 +437,9 @@ objects:
       weight: 100
     port:
       targetPort: 8081-tcp
+    tls:
+      termination: edge
+      insecureEdgeTerminationPolicy: Redirect
 - apiVersion: v1
   kind: Route
   metadata:
