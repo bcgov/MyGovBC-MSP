@@ -233,10 +233,14 @@ export class FileUploaderComponent implements OnInit, OnChanges {
 
     reader.onload = function (e: ProgressEvent) {
 
+      // Load into an image element
       let imgEl: HTMLImageElement = document.createElement('img');
       imgEl.src = reader.result;
 
-      return callback(imgEl);
+      // Wait for onload so all properties are populated
+      imgEl.onload = () => {
+        return callback(imgEl);
+      }
     };
 
     reader.readAsDataURL(imageFile);
