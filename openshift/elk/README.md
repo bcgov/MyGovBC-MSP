@@ -15,6 +15,7 @@ The ELK has these features
 * daily backup of Elasticsearch data to persistent storage with 7-day retention
 * uses nginx to proxy Logstash input and Kibana with following access controls
   * basic authentication for Kibana
+  * customizable client ip filter rules for Kibana
   * allow only POST request to Logstash input
   * CORS support for Logstash input with configurable Access-Control-Allow-Origin
 * based on official docker images from respective product vendor 
@@ -52,11 +53,12 @@ The deployment consists of these steps
    $ oc create -f openshift/elk/templates/elk.yaml
    ```
    After this step you will find an instant app template called *elk* available in the project
-2. create OpenShift instant app. You can do so by clicking *elk* template from *Add to Project* in web console or, if you accept default values for all parameters, by running
+2. create OpenShift instant app. You can do so by clicking *elk* template from *Add to Project* in web console (preferred) or, if you accept default values for all parameters, by running
 
    ```sh
    $ oc process elk|oc create -f-
-   ```
+   ```  
+   
 3. deploy docker image
 
    ```sh
