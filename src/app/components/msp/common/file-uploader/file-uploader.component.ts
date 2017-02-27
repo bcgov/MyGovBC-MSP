@@ -162,14 +162,17 @@ export class FileUploaderComponent implements OnInit, OnChanges {
 
         // Scale the image by loading into a canvas
         let scaledImage = loadImage(
-          image.src,
-          function (canvas: HTMLCanvasElement) {
+          file, // NOTE: we pass the File ref here again even though its already read because we need the XIFF metadata
+          function (canvas: HTMLCanvasElement, metadata:any) {
 
             // Canvas may be an Event when errors happens
             if (canvas instanceof Event) {
               self.handleError(MspImageError.WrongType, mspImage);
               return;
             }
+
+            // Log metadata
+            console.log("metadata: ", metadata);
 
             // Convert to grayscale
             //self.makeGrayScale(canvas);
