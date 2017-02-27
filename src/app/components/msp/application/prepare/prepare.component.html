@@ -1,6 +1,6 @@
 <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
 
-<h2 [innerHtml]="lang('./en/index.js').question1"></h2>
+<p class="intro" [innerHtml]="lang('./en/index.js').question1"></p>
 
 <form #formRef='ngForm' novalidate>
     <div class="btn-group" role="group">
@@ -11,7 +11,7 @@
     </div>
 
     <div [hidden]="liveInBC !== true">
-        <h2 [innerHtml]="lang('./en/index.js').plannedAwayForOver30DaysQuestion"></h2>
+        <p class="intro" [innerHtml]="lang('./en/index.js').plannedAwayForOver30DaysQuestion"></p>
         <div class="btn-group" role="group">
             <button [class.msp-btn-radio]="plannedAbsence === true" 
                 #plannedAbsenceBtn type="button" class="btn btn-default" >Yes</button>
@@ -24,8 +24,8 @@
         </h3>
     </div>
     <div [hidden]= "plannedAbsence !== false || !liveInBC">
-        <h2 [innerHtml]="lang('./en/index.js').specialCircumstanceQuestion"></h2>
-        <h3 [innerHtml]="lang('./en/index.js').specialCircumstanceQuestionSub"></h3>
+        <p class="intro" [innerHtml]="lang('./en/index.js').specialCircumstanceQuestion"></p>
+        <p [innerHtml]="lang('./en/index.js').specialCircumstanceQuestionSub"></p>
         <div class="btn-group" role="group">
             <button [class.msp-btn-radio]="unUsualCircumstance === true" 
                    #unUsualCircumstanceBtn type="button" class="btn btn-default" >Yes</button>
