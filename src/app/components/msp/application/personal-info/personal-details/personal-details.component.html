@@ -102,12 +102,27 @@
                 <div class="btn-group" role="group">
                     <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
                             [class.msp-btn-radio]="person.livedInBCSinceBirth === answer.value"
-                            (click)="person.livedInBCSinceBirth  = answer.value"
+                            (click)="setLivedInBCSinceBirth(answer.value)"
                             type="button" class="btn btn-default">{{answer.label}}
                     </button>
                 </div>
             </div>
         </div>
+
+      <div class="row" *ngIf="person.documents.images.length > 0">
+          <div class="form-group col-md-4">
+              <label [innerHtml]="lang('./en/index.js').haveYouMovedToBCPermanently"></label>
+              <div class="btn-group" role="group">
+                  <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
+                          [class.msp-btn-radio]="person.madePermanentMoveToBC === answer.value"
+                          (click)="setMovedToBCPermanently(answer.value)"
+                          type="button" class="btn btn-default">{{answer.label}}
+                  </button>
+              </div>
+          </div>
+
+      </div>
+
         <div class="row" *ngIf="!(person.status === StatusInCanada.CitizenAdult &&
                 person.currentActivity === Activities.LivingInBCWithoutMSP &&
                 person.livedInBCSinceBirth === true)">

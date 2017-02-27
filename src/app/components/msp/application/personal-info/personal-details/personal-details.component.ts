@@ -169,6 +169,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
     if(this.form){
       this.form.valueChanges
       .subscribe(values => {
+        console.log('form changed: ', values);
         this.onChange.emit(values);
       });
     }
@@ -287,6 +288,15 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
     this.person.outOfBCRecord.isValid();
 
     return valid;
+  }
+
+  setMovedToBCPermanently(moved:boolean){
+    this.person.madePermanentMoveToBC = moved;
+    this.onChange.emit(moved);
+  }
+  setLivedInBCSinceBirth(lived:boolean){
+    this.person.livedInBCSinceBirth = lived;
+    this.onChange.emit(lived);
   }
 
   viewIdReqModal(event:Documents) {
