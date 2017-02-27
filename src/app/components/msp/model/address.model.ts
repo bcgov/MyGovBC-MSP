@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+//import { Input } from '@angular/core';
 
 class Address {
   // Street number, name and suffix
@@ -19,9 +20,12 @@ class Address {
   get postal(): string {
     return this._postal;
   }
+  //@Input('postal')
   set postal(value: string) {
     if(!!value){
       this._postal = value.toUpperCase();
+    }else {
+        this._postal = null;
     }
   }
 
@@ -33,11 +37,11 @@ class Address {
   }
 
   get isValid(): boolean {
-    return !_.isEmpty(this.addressLine1) 
-      &&!_.isEmpty(this.city) 
-      &&!_.isEmpty(this.province) 
-      &&!_.isEmpty(this.postal) 
-      &&!_.isEmpty(this.country) 
+    return !_.isEmpty(this.addressLine1)
+        &&!_.isEmpty(this.city)
+        &&!_.isEmpty(this.province)
+        &&!_.isEmpty(this.postal)
+        &&!_.isEmpty(this.country)
   }
   constructor(){
   }
