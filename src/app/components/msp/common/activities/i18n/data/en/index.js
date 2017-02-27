@@ -1,5 +1,5 @@
 module.exports = {
-  0: 'Returning to B.C. after an absence',
+  0: 'Living in B.C. without active MSP coverage',
   1: 'Moving from another province',
   2: 'Moving from another country',
   3: 'Working in B.C.',
@@ -12,7 +12,7 @@ module.exports = {
  * Reasons for returning to Canada
 
 enum Activities {
-  Returning,
+  LivingInBCWithoutMSP,
     MovingFromProvince,
     MovingFromCountry,
     WorkingInBC,

@@ -340,7 +340,7 @@ class Person {
     let arrivalInCanadaComplete = true;
     if (!(this.status === StatusInCanada.CitizenAdult &&
       (this.currentActivity === Activities.MovingFromProvince ||
-        this.currentActivity === Activities.Returning))) {
+        this.currentActivity === Activities.LivingInBCWithoutMSP))) {
       arrivalInCanadaComplete = _.isNumber(this.arrivalToCanadaDay) && _.isString(this.arrivalToCanadaMonth) && _.isNumber(this.arrivalToCanadaYear);
     }
     let result = basic 

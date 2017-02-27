@@ -175,7 +175,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   }
 
   get arrivalDateLabel():string {
-    if (this.person.currentActivity == Activities.Returning) {
+    if (this.person.currentActivity == Activities.LivingInBCWithoutMSP) {
       return this.lang('./en/index.js').arrivalDateToBCLabelForReturning;
     }
     return this.lang('./en/index.js').arrivalDateToBCLabel;
