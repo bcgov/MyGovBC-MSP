@@ -111,6 +111,7 @@ export default class MspDataService {
     dto.madePermanentMoveToBC = input.madePermanentMoveToBC;
     dto.plannedAbsence = input.plannedAbsence;
 
+    dto.livedInBCSinceBirth = input.livedInBCSinceBirth;
     dto.hasPreviousBCPhn = input.hasPreviousBCPhn;
 
     dto.firstName = input.firstName;
@@ -167,6 +168,7 @@ export default class MspDataService {
     output.id = dto.id;
     output.liveInBC = dto.liveInBC;
     output.madePermanentMoveToBC = dto.madePermanentMoveToBC;
+    output.livedInBCSinceBirth = dto.livedInBCSinceBirth;
     output.hasPreviousBCPhn = dto.hasPreviousBCPhn;
     
     output.plannedAbsence = dto.plannedAbsence;

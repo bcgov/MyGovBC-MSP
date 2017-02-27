@@ -34,6 +34,7 @@ export default class PersonDto {
   gender: number;
   
   liveInBC:boolean;
+  livedInBCSinceBirth:boolean;
   hasPreviousBCPhn: boolean;
 
   madePermanentMoveToBC:boolean;
