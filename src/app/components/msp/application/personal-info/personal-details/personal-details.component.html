@@ -111,7 +111,7 @@
                 is not required.-->
                 <msp-arrival-date [arrivalLabel]="lang('./en/index.js').arrivalDateToCanadaLabel"
                                   [required]="!(person.status === StatusInCanada.CitizenAdult 
-                                    && (person.currentActivity == Activities.Returning || person.currentActivity == Activities.MovingFromProvince))"
+                                    && (person.currentActivity == Activities.LivingInBCWithoutMSP || person.currentActivity == Activities.MovingFromProvince))"
                                   [year]="person.arrivalToCanadaYear"
                                   (yearChange)="person.arrivalToCanadaYear = $event"
                                   [month]="person.arrivalToCanadaMonth"

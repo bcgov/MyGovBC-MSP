@@ -22,7 +22,7 @@ enum StatusInCanada {
  * Reasons for returning to Canada
  */
 enum Activities {
-  Returning,
+  LivingInBCWithoutMSP,
   MovingFromProvince,
   MovingFromCountry,
   WorkingInBC,
@@ -73,10 +73,10 @@ class ActivitiesRules {
       case StatusInCanada.PermanentResident:
         if (relationship === Relationship.Child19To24 ||
             relationship === Relationship.ChildUnder19) {
-          return [Activities.Returning, Activities.MovingFromProvince, Activities.MovingFromCountry];
+          return [Activities.MovingFromProvince, Activities.MovingFromCountry, Activities.LivingInBCWithoutMSP];
         }
         else {
-          return [Activities.Returning, Activities.MovingFromProvince, Activities.MovingFromCountry];
+          return [Activities.MovingFromProvince, Activities.MovingFromCountry, Activities.LivingInBCWithoutMSP];
         }
       case StatusInCanada.TemporaryResident:
         if (relationship === Relationship.Applicant) {
