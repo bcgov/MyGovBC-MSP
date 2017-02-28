@@ -102,13 +102,13 @@ module.exports = {
                 {
                     document: 9,
                     title: "Marriage Certificate",
-                    body: "<ul><li>Include entire page, corner to corner</li><li>Ensure all text is legible and photo is in focus</li></ul>",
+                    body: "<ul><li>Include entire page, corner to corner</li><li>Ensure all text is legible and in focus</li></ul>",
                     image: require('./images/large-marriage-cert-big.jpg')
                 },
                 {
                     document: 10,
                     title: "Legal Name Change Certificate",
-                    body: "sample body",
+                    body: "<ul><li>Include entire page, corner to corner</li><li>Ensure all text is legible and in focus</li></ul>",
                     image: require('./images/bigname.gif')
                 }
             ]
