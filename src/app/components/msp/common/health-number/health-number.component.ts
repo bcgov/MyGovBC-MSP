@@ -8,6 +8,7 @@ import {NgForm} from "@angular/forms";
 export class HealthNumberComponent implements AfterViewInit{
   lang = require('./i18n');
 
+  @Input()showError: boolean;
   @Input()healthNumber:string;
   @Input()required:boolean;
   @Output()healthNumberChange:EventEmitter<string> = new EventEmitter<string>();

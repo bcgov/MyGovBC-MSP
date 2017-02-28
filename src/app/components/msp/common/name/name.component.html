@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-4">
             <div class="form-group"
-                 [ngClass]="{'has-error': !formRef.controls.firstName?.valid && firstNameRef.touched}">
+                 [ngClass]="{'has-error': !formRef.controls.firstName?.valid && (firstNameRef.touched || showError)}">
                 <label class="control-label" for="firstName"
                        [innerHtml]="lang('./en/index.js').firstNameLabel"></label>
                 <input type="text"
@@ -12,7 +12,7 @@
                        pattern="[a-zA-Z][a-zA-Z\-.' ]*"
                        id="firstName" name="firstName" #firstNameRef="ngModel"
                        class="form-control">
-                <div *ngIf='firstNameRef.touched'>
+                <div *ngIf='firstNameRef.touched || showError'>
                     <div class="text-danger" *ngIf="firstNameRef.errors?.required"
                          [innerHtml]="lang('./en/index.js').firstNameErrorRequired"></div>
                     <div class="text-danger" *ngIf="firstNameRef.errors?.pattern"
@@ -30,7 +30,7 @@
                        maxlength="30"
                        pattern="[a-zA-Z][a-zA-Z\-.' ]*"
                        class="form-control">
-                <div *ngIf='middleNameRef.touched'>
+                <div *ngIf='middleNameRef.touched || showError'>
                     <div class="text-danger" *ngIf="middleNameRef.errors?.required"
                          [innerHtml]="lang('./en/index.js').middleNameErrorRequired"></div>
                     <div class="text-danger" *ngIf="middleNameRef.errors?.pattern"
@@ -40,7 +40,7 @@
         </div>
         <div class="col-sm-4">
             <div class="form-group"
-                 [ngClass]="{'has-error': !formRef.controls.lastName?.valid && lastNameRef.touched}">
+                 [ngClass]="{'has-error': !formRef.controls.lastName?.valid && (lastNameRef.touched || showError)}">
                 <label class="control-label" for="lastName" [innerHtml]="lang('./en/index.js').lastNameLabel"></label>
                 <input type="text"
                        [(ngModel)]="person.lastName"
@@ -49,7 +49,7 @@
                        maxlength="30"
                        pattern="[a-zA-Z][a-zA-Z\-.' ]*"
                        class="form-control">
-                <div *ngIf='lastNameRef.touched'>
+                <div *ngIf='lastNameRef.touched || showError'>
                     <div class="text-danger" *ngIf="lastNameRef.errors?.required"
                          [innerHtml]="lang('./en/index.js').lastNameErrorRequired"></div>
                     <div class="text-danger" *ngIf="lastNameRef.errors?.pattern"
