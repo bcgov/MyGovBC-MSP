@@ -114,6 +114,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
 
   setActivity(value:Activities) {
     this.person.currentActivity = value;
+    this.person.movedFromProvinceOrCountry = undefined;
     this.onChange.emit(value);
   }
 

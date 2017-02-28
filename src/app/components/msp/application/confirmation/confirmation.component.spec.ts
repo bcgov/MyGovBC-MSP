@@ -12,6 +12,8 @@ import appConstants from '../../../../services/appConstants';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable} from 'rxjs/Observable';
 import { Subscription} from 'rxjs/Subscription';
+import { RouterTestingModule } from '@angular/router/testing';
+
 
 describe('Component Test', () => {
   let localStorageServiceConfig = {
@@ -22,7 +24,7 @@ describe('Component Test', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ConfirmationComponent, MspLoggerDirective],
-      imports: [HttpModule, RouterModule],
+      imports: [HttpModule, RouterModule, RouterTestingModule],
       providers: [MspDataService, MspLogService,ActivatedRoute,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

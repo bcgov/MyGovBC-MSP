@@ -84,5 +84,7 @@ module.exports = {
   removeChildButton: 'Remove',
   mustAnswerQuestionAboutBeenOutsideBC: 'You must answer this question about your absense from BC.',
   mustAnswerQuestionAboutPermMoveToBC: 'You must answer this question about your move to BC.',
-  mustDeclareStudentStatus: "Are you a full time student right now?"
+  mustDeclareStudentStatus: "Are you a full time student right now?",
+  mustDeclareInstitutionWorkHistory: "Please answer this question.",
+  mustAnswerQuestion: "This question has to be answered in order to continue with the application."
 }

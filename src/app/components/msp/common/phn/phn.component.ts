@@ -15,7 +15,7 @@ export class MspPhnComponent implements AfterViewInit{
   @Input() phn: string;
   @Output() phnChange = new EventEmitter<string>();
   @Input() bcPhn: boolean = false;
-
+  @Input() showError:boolean;
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
 
