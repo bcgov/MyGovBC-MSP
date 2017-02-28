@@ -13,6 +13,7 @@ export class MspOutofBCRecordComponent implements OnChanges, AfterViewInit{
   @Input()
   outofBCRecord: OutofBCRecord;
 
+  @Input()showError: boolean;
   @Output()
   onUpdate: EventEmitter<OutofBCRecord> = new EventEmitter<OutofBCRecord>();
   @Output()

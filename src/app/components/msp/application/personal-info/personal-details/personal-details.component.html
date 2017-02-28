@@ -214,7 +214,7 @@
                     <msp-outof-bc-record [outofBCRecord]="person.outOfBCRecord"
                                          (onDelete)="handleDeleteOutofBCRecord($event)"
                                          (onUpdate)="handleOutofBCRecordChange($event)"
-                    >
+                                          [showError]="showError">
                     </msp-outof-bc-record>
                 </div>
             </div>
