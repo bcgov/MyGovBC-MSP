@@ -1,5 +1,5 @@
 <form #formRef='ngForm' novalidate>
-    <div class="form-group {{colSize}}"
+    <div class="form-group"
          [ngClass]="{'has-error': !formRef.controls.country?.valid && (countryRef.touched || showError)}">
         <label for="country" [innerHtml]="label" 
           class="control-label"></label>

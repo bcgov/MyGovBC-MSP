@@ -2,7 +2,7 @@
     <label [innerHtml]="lang('./en/index.js').dischargeDateLabel"></label>
 
     <div class="form-group"
-         [ngClass]="{'has-error': !formRef.controls.month?.valid && monthRef.touched}">
+         [ngClass]="{'has-error': !formRef.controls.month?.valid && (monthRef.touched || showError)}">
         <select class="form-control monthSelect"
                 [ngModel]="month"
                 (ngModelChange)="month=$event;monthChange.emit($event)"
@@ -37,23 +37,23 @@
                required
                minlength="4"
                maxlength="4">
-        <div *ngIf='monthRef.touched'>
+        <div *ngIf='monthRef.touched|| showError'>
             <div class="text-danger" *ngIf="monthRef.errors?.required"
                  [innerHtml]="lang('./en/index.js').monthErrorRequired"></div>
         </div>
-        <div *ngIf='dayRef.touched'>
+        <div *ngIf='dayRef.touched|| showError'>
             <div class="text-danger" *ngIf="dayRef.errors?.required"
                  [innerHtml]="lang('./en/index.js').dayErrorRequired"></div>
         </div>
-        <div *ngIf='yearRef.touched'>
+        <div *ngIf='yearRef.touched|| showError'>
             <div class="text-danger" *ngIf="yearRef.errors?.required"
                  [innerHtml]="lang('./en/index.js').yearErrorRequired"></div>
         </div>
-        <div *ngIf='yearRef.touched && !isValid()'>
+        <div *ngIf='(yearRef.touched|| showError) && !isValid()'>
             <div class="text-danger"
                  [innerHtml]="lang('./en/index.js').yearErrorBadFormat"></div>
         </div>
-        <div *ngIf='yearRef.touched && !futureCheck()'>
+        <div *ngIf='(yearRef.touched|| showError) && !futureCheck()'>
             <div class="text-danger"
                  [innerHtml]="lang('./en/index.js').yearErrorFutureCheck"></div>
         </div>
