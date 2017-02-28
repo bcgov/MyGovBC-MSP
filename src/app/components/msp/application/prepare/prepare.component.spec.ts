@@ -11,6 +11,7 @@ import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
 import appConstants from '../../../../services/appConstants';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('PrepareComponent', () => {
   let localStorageServiceConfig = {
@@ -21,7 +22,7 @@ describe('PrepareComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [PrepareComponent, MspConsentModalComponent, MspCancelComponent, MspLoggerDirective],
-      imports: [FormsModule, Ng2BootstrapModule, HttpModule],
+      imports: [FormsModule, Ng2BootstrapModule, HttpModule, RouterTestingModule],
       providers: [MspDataService, MspLogService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
@@ -31,9 +32,9 @@ describe('PrepareComponent', () => {
       ]
     })
   });
-  // it ('should work', () => {
-  //   let fixture = TestBed.createComponent(PrepareComponent);
-  //   expect(fixture.componentInstance instanceof PrepareComponent).toBe(true, 'should create PrepareComponent');
+  it ('should work', () => {
+    let fixture = TestBed.createComponent(PrepareComponent);
+    expect(fixture.componentInstance instanceof PrepareComponent).toBe(true, 'should create PrepareComponent');
 
-  // });
+  });
 })

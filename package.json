@@ -10,6 +10,7 @@
   "homepage": "",
   "main": "server.js",
   "scripts": {
+    "prestart": "npm install && npm update mygovbc-captcha-widget",
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development node .",
     "dev-build": "cross-env NODE_ENV=development webpack -d --colors",
