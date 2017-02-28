@@ -533,8 +533,46 @@ objects:
       name: elk-cron
       apiVersion: extensions/v1beta1
       subresource: scale
-    minReplicas: 1
     maxReplicas: 1
+- apiVersion: extensions/v1beta1
+  kind: HorizontalPodAutoscaler
+  metadata:
+    name: logstash
+    labels:
+      app: ${NAME}
+  spec:
+    scaleRef:
+      kind: DeploymentConfig
+      name: logstash
+      apiVersion: extensions/v1beta1
+      subresource: scale
+    maxReplicas: 4
+- apiVersion: extensions/v1beta1
+  kind: HorizontalPodAutoscaler
+  metadata:
+    name: elk-nginx
+    labels:
+      app: ${NAME}
+  spec:
+    scaleRef:
+      kind: DeploymentConfig
+      name: elk-nginx
+      apiVersion: extensions/v1beta1
+      subresource: scale
+    maxReplicas: 4
+- apiVersion: extensions/v1beta1
+  kind: HorizontalPodAutoscaler
+  metadata:
+    name: kibana
+    labels:
+      app: ${NAME}
+  spec:
+    scaleRef:
+      kind: DeploymentConfig
+      name: kibana
+      apiVersion: extensions/v1beta1
+      subresource: scale
+    maxReplicas: 4
 parameters:
 - description: The name assigned to all of the openshift objects defined in this template.
   displayName: Name
