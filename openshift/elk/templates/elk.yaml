@@ -110,20 +110,16 @@ objects:
                 name: elasticsearch-backup
                 mountPath: /var/backups
             readinessProbe:
-              httpGet:
-                path: /
-                port: 9200
-                scheme: HTTP
-              initialDelaySeconds: 60
+              exec:
+                command: ['/bin/sh','-c','ls /var/backups && curl -f http://localhost:9200/']
+              initialDelaySeconds: 100
               timeoutSeconds: 10
               periodSeconds: 10
               successThreshold: 1
               failureThreshold: 3
             livenessProbe:
-              httpGet:
-                path: /
-                port: 9200
-                scheme: HTTP
+              exec:
+                command: ['/bin/sh','-c','ls /var/backups && curl -f http://localhost:9200/']
               initialDelaySeconds: 300
               timeoutSeconds: 10
               periodSeconds: 10
