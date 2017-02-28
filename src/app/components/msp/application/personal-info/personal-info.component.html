@@ -1,7 +1,8 @@
-<form #formRef="ngForm" novalidate>
+<form #formRef="ngForm" novalidate (submit)="continue()">
     <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
       (onChange) = "onChange($event)"
+      [showError] = "formRef.submitted"
       (valid)="valid($event)"></msp-personal-details>
     <div *ngIf = 'spouse'>
       <msp-personal-details [person] = 'spouse' [id] = 'spouse.id'
@@ -45,14 +46,31 @@
     <div class="row" *ngIf = 'false'>
       <div class="col-md-12">
         {{application | json}}
+
+        <p>
+          can continue {{!canContinue | json}}
+        </p>
+        <p>
+          form submitted {{formRef.submitted | json}}
+        </p>
+        <p>
+          combined {{(!canContinue && formRef.submitted) | json}}
+        </p>
       </div>
     </div>
 
+    <div class="row" style="margin-top: 10px;">
+      <div class="col-sm-2">
+        <button [mspLogger]="'msp-enrollment_personal-info_continue'" 
+            class="btn btn-primary" type="submit" 
+            [innerHTML]="lang('./en/index.js').continueButton"></button>
+        
+      </div>
+      <div class="col-sm-6 pull-left" *ngIf="!canContinue && formRef.submitted">
+        <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
+        </p>
+      </div>
+    </div>
 </form>
 <hr>
-<button [mspLogger]="'msp-enrollment_personal-info_continue'"
-        class="btn btn-primary" type="submit" routerLink="/msp/application/address"
-        [innerHTML]="lang('./en/index.js').continueButton"
-        [disabled]="!canContinue"></button>
-
 <msp-cancel></msp-cancel>

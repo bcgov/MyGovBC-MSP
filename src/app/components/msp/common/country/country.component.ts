@@ -14,6 +14,7 @@ export class MspCountryComponent {
   /**
    * Model Inputs
    */
+  @Input() showError:boolean;
   @Input() colSize: string = "col-sm-5";
   @Input() label: string = this.lang('./en/index.js').countryLabel;
   @Input() country: string;

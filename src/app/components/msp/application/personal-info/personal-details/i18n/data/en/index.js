@@ -82,4 +82,7 @@ module.exports = {
 
   removeSpouseButton: 'Remove',
   removeChildButton: 'Remove',
+  mustAnswerQuestionAboutBeenOutsideBC: 'You must answer this question about your absense from BC.',
+  mustAnswerQuestionAboutPermMoveToBC: 'You must answer this question about your move to BC.',
+  mustDeclareStudentStatus: "Are you a full time student right now?"
 }

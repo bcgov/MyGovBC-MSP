@@ -11,6 +11,7 @@ export class MspNameComponent implements AfterViewInit {
   lang = require('./i18n');
 
   @Input() person: Person;
+  @Input() showError: boolean;
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
   ngAfterViewInit(): void {

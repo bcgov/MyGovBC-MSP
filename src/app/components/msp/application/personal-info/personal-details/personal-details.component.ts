@@ -71,6 +71,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   @Input() viewOnly: boolean = false;
   @Input() person: Person;
   @Input() id: string;
+  @Input() showError: boolean;
   @Output() notifyChildRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() notifySpouseRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
