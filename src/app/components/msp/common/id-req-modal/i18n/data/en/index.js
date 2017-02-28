@@ -109,7 +109,7 @@ module.exports = {
                     document: 10,
                     title: "Legal Name Change Certificate",
                     body: "sample body",
-                    image: ""
+                    image: require('./images/bigname.gif')
                 }
             ]
         },
