@@ -99,6 +99,29 @@ Although Elasticsearch cluster can survive under as few as one pod, to maintain 
   3. if data volume is large and the number of OpenShift hosts is limited, the pod count should be equal, or a multiple of,  OpenShift host count in order to distribute data more or less evenly among the hosts
   4. quota
 
+### Persistent Volume Claim Mount Check And Fix
+All pods connect to a PVC mounted at `/var/backups` for nightly backup. If any of the pods lost the connection, backup will fail. By design this shouldn't happen as there is a liveness probe for this PVC mount and the pod is killed if the liveness check fails. However, in case the problem happens, it is manifested in the log of pod `elk-cron` if the last backup contains something like
+
+```
++ curl -sXDELETE 'http://elasticsearch:9200/_snapshot
+/my_backup/snapshot_2?pretty'
+{"acknowledged":true}{"error":{"root_cause":[{"type
+":"repository_verification_exception",
+"reason":"[my_backup] [jtzho-ALS-644Z-DeA2p0g, 
+'RemoteTransportException[[Exploding Man][172.51.40
+.51:9300][internal:admin/repository/verify]]; nested: 
+ElasticsearchException[failed to create blob container];
+nested: NotSerializableExceptionWrapper
+[file_system_exception: /var/backups/my_backup: 
+Transport endpoint is not connected];'], 
+...
+```
+If you see such error message, login to the console of each elasticsearch container and  issue command `ls /var/backups`. If you see
+```
+ls: cannot access /var/backups: Transport endpoint is not connected
+```
+then kill the pod. You need to go through each pod. When killing a pod, make sure to leave enough recovery window from last kill, as mentioned before.
+
 ### Cluster Recovery
 If Elasticsearch cluster is crashed, data can be restored from the most recently nightly backup. But data from last backup till now is lost permanently. To restore,
 
