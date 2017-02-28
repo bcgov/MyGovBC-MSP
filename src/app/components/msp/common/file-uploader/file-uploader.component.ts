@@ -204,8 +204,8 @@ export class FileUploaderComponent implements OnInit, OnChanges {
                   mspImage.id = sha1(mspImage.fileContent);
 
                   // delete image and canvas from DOM
-                  image.remove();
-                  canvas.remove();
+                  //image.remove();
+                  //canvas.remove();
 
                   observer.next(mspImage);
                 };
