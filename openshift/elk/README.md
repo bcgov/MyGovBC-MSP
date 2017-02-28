@@ -75,6 +75,9 @@ The deployment consists of these steps
    $ docker build -t elk-nginx openshift/elk/docker-images/nginx
    $ docker tag elk-nginx docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-nginx
    $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-nginx
+   $ docker build -t elk-cron openshift/elk/docker-images/cron
+   $ docker tag elk-cron docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-cron
+   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-cron
    ```
 
 4. Wait for the first Elasticsearch pod to be fully up, then scale up the cluster to 5 pods (or more). If doing so too soon, contention may arise between the pods vying to be the first and sole master.   
