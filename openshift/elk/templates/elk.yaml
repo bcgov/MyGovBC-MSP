@@ -521,6 +521,20 @@ objects:
     resources:
       requests:
         storage: ${VOLUME_CAPACITY}
+- apiVersion: extensions/v1beta1
+  kind: HorizontalPodAutoscaler
+  metadata:
+    name: elk-cron
+    labels:
+      app: ${NAME}
+  spec:
+    scaleRef:
+      kind: DeploymentConfig
+      name: elk-cron
+      apiVersion: extensions/v1beta1
+      subresource: scale
+    minReplicas: 1
+    maxReplicas: 1
 parameters:
 - description: The name assigned to all of the openshift objects defined in this template.
   displayName: Name
