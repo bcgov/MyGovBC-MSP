@@ -19,9 +19,9 @@
                 #noPlannedAbsenceBtn type="button" class="btn btn-default">No&nbsp;</button>
         </div>
 
-        <h3 class="text-danger" *ngIf="plannedAbsence === true"
+        <p class="intro text-danger" *ngIf="plannedAbsence === true"
             [innerHtml]="lang('./en/index.js').badAnswer3">
-        </h3>
+        </p>
     </div>
     <div [hidden]= "plannedAbsence !== false || !liveInBC">
         <p class="intro" [innerHtml]="lang('./en/index.js').specialCircumstanceQuestion"></p>
@@ -32,15 +32,15 @@
             <button [class.msp-btn-radio]="unUsualCircumstance === false"
                    #noUnusualCircustanceBtn type="button" class="btn btn-default">No&nbsp;</button>
         </div>
-        <h3 class="text-danger" *ngIf="unUsualCircumstance === true"
+        <p class="intro text-danger" *ngIf="unUsualCircumstance === true"
             [innerHtml]="lang('./en/index.js').badAnswer4">
-        </h3>
+        </p>
     </div>
     <div [hidden]="unUsualCircumstance === true" [innerHtml]="lang('./en/index.js').allRightAnswers">
     </div>
 
-    <h3 [hidden]="liveInBC === true || liveInBC === null || liveInBC === undefined" class="text-danger" [innerHtml]="lang('./en/index.js').badAnswer1">
-    </h3>
+    <p class="intro text-danger" [hidden]="liveInBC === true || liveInBC === null || liveInBC === undefined" class="text-danger" [innerHtml]="lang('./en/index.js').badAnswer1">
+    </p>
 
 </form>
 <hr>
