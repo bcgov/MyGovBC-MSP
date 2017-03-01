@@ -27,9 +27,11 @@ export class MspApplicationSendingGuard implements CanActivate {
       return true;
     }else if(!authorized){
       console.log('This enrollment application has not been authorized by user(s), cannot activate sending route again.');
+      this._router.navigate(['/msp/application/review']);
       return false;
     }else if(!validAuthToken){
       console.log('Not a valid auth token, cannot activate sending route.');
+      this._router.navigate(['/msp/application/review']);
       return false;
     }
   }
