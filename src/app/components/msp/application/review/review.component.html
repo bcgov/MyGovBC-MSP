@@ -1,55 +1,63 @@
-<h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
-<i class="fa fa-print fa-lg pointer" aria-hidden="true" onclick="window.print();">  Print</i>
-<div class="row">
-    <div class="col-md-6">
-        <msp-person-card [person]="application.applicant"
-                         [editRouterLink]="'/msp/application/personal-info'"></msp-person-card>
-    </div>
-    <div class="col-md-6" *ngIf="application.spouse != null">
-        <msp-person-card [person]="application.spouse"
-                         [editRouterLink]="'/msp/application/personal-info'"></msp-person-card>
-    </div>
-</div>
-<div class="row" *ngIf="application.children != null && application.children.length > 0">
-    <div *ngFor="let child of application.children; let i = index;">
-        <div class="clearfix" *ngIf="i % 2 == 0"></div>
-        <div class="col-md-6">
-            <msp-person-card [person]="child"
-                             [editRouterLink]="'/msp/application/personal-info'"></msp-person-card>
-        </div>
-    </div>
-</div>
-<msp-contact-card [residentialAddress]="application.residentialAddress"
-                  [mailingAddress]="application.mailingAddress"
-                  [phone]="application.phoneNumber"
-                  [editRouterLink]="'/msp/application/address'"></msp-contact-card>
-<h2 [innerHtml]="lang('./en/index.js').agreementLabel"></h2>
-<p [innerHtml]="lang('./en/agreement.md')">
-</p>
-<div class="strong" [innerHTML]="questionApplicant"></div>
-<div class="checkbox checkbox-success checkbox-inline">
-    <input class="input-lg" id="firstPersonAuthorize" type="checkbox" [ngModel]="application.authorizedByApplicant"
-           (ngModelChange)="applicantAuthorizeOnChange($event)">
-    <label for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
-</div>
-<br><br>
-<div *ngIf="application.spouse != null">
-    <div class="strong" [innerHTML]="questionSpouse"></div>
-    <div class="checkbox checkbox-success checkbox-inline">
-        <input class="input-lg" id="secondPersonAuthorize" type="checkbox"
-               [ngModel]="application.authorizedBySpouse" (ngModelChange)="spouseAuthorizeOnChange($event)">
-        <label for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
-    </div>
-</div>
-<div class="row">
-    <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
-             (onValidToken)="application.authorizationToken = $event"></captcha>
-</div>
-<hr>
-<button [mspLogger]="'msp-enrollment_review_continue'"
-        [disabled]="!application.authorizedByApplicant || (application.spouse && !application.authorizedBySpouse)
-        || !application.authorizationToken"
-        class="btn btn-primary" type="button" routerLink="/msp/application/sending"
-        [innerHtml]="lang('./en/index.js').submitButton"></button>
+<form #formRef="ngForm" novalidate (submit)="handleFormSubmission($event)">
 
-<msp-cancel></msp-cancel>
+  <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
+  <i class="fa fa-print fa-lg pointer" aria-hidden="true" onclick="window.print();">  Print</i>
+  <div class="row">
+      <div class="col-md-6">
+          <msp-person-card [person]="application.applicant"
+                          [editRouterLink]="'/msp/application/personal-info'"></msp-person-card>
+      </div>
+      <div class="col-md-6" *ngIf="application.spouse != null">
+          <msp-person-card [person]="application.spouse"
+                          [editRouterLink]="'/msp/application/personal-info'"></msp-person-card>
+      </div>
+  </div>
+  <div class="row" *ngIf="application.children != null && application.children.length > 0">
+      <div *ngFor="let child of application.children; let i = index;">
+          <div class="clearfix" *ngIf="i % 2 == 0"></div>
+          <div class="col-md-6">
+              <msp-person-card [person]="child"
+                              [editRouterLink]="'/msp/application/personal-info'"></msp-person-card>
+          </div>
+      </div>
+  </div>
+  <msp-contact-card [residentialAddress]="application.residentialAddress"
+                    [mailingAddress]="application.mailingAddress"
+                    [phone]="application.phoneNumber"
+                    [editRouterLink]="'/msp/application/address'"></msp-contact-card>
+  <h2 [innerHtml]="lang('./en/index.js').agreementLabel"></h2>
+  <p [innerHtml]="lang('./en/agreement.md')">
+  </p>
+  <div class="strong" [innerHTML]="questionApplicant"></div>
+  <div class="checkbox checkbox-success checkbox-inline">
+      <input class="input-lg" id="firstPersonAuthorize" name="firstPersonAuthorize"
+            type="checkbox" [ngModel]="application.authorizedByApplicant"
+            (ngModelChange)="applicantAuthorizeOnChange($event)">
+      <label for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+  </div>
+  <br><br>
+  <div *ngIf="application.spouse != null">
+      <div class="strong" [innerHTML]="questionSpouse"></div>
+      <div class="checkbox checkbox-success checkbox-inline">
+          <input class="input-lg" id="secondPersonAuthorize" type="checkbox" name="secondPersonAuthorize"
+                [ngModel]="application.authorizedBySpouse" (ngModelChange)="spouseAuthorizeOnChange($event)">
+          <label for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+      </div>
+  </div>
+  <div class="row">
+      <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
+              (onValidToken)="application.authorizationToken = $event"></captcha>
+  </div>
+  <hr>
+  <button [mspLogger]="'msp-enrollment_review_continue'"
+          [disabled]="!application.authorizedByApplicant || (application.spouse && !application.authorizedBySpouse)"
+          class="btn btn-primary" type="submit"
+          [innerHtml]="lang('./en/index.js').submitButton"></button>
+  <!--<button [mspLogger]="'msp-enrollment_review_continue'"
+          [disabled]="!application.authorizedByApplicant || (application.spouse && !application.authorizedBySpouse)
+          || !application.authorizationToken"
+          class="btn btn-primary" type="button" routerLink="/msp/application/sending"
+          [innerHtml]="lang('./en/index.js').submitButton"></button>-->
+
+  <msp-cancel></msp-cancel>
+</form>

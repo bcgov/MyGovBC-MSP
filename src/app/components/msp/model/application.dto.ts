@@ -10,4 +10,9 @@ export default class MspApplicationDto {
   phoneNumber:string;
   outsideBCFor30Days: boolean;
   unUsualCircumstance:boolean;
+
+  authorizedByApplicant: boolean;
+  authorizedByApplicantDate: Date;
+  authorizedBySpouse: boolean;
+  
 }

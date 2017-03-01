@@ -69,6 +69,10 @@ export class PersonalInfoComponent {
     this.dataService.saveMspApplication();
   }
 
+  documentsReady(): boolean {
+    return this.dataService.getMspApplication().documentsReady;
+  }
+
   get canContinue():boolean {
     return this.completenessCheck.mspPersonalInfoDocsCompleted();
   }

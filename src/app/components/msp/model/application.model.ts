@@ -144,6 +144,23 @@ class MspApplication implements ApplicationBase {
     return null;
   }
 
+
+  get documentsReady(): boolean {
+    let applicantDocsAvail = this.applicant.hasDocuments;
+    let spouseDocsAvail = true;
+    let kidsDocsAvail = true;
+    if(this._spouse){
+      spouseDocsAvail = this._spouse.hasDocuments;
+    }
+
+    let kidsWithNoDocs = this._children.filter( kid => {
+      return !kid.hasDocuments;
+    })
+    kidsDocsAvail = kidsWithNoDocs.length === 0;
+
+    return applicantDocsAvail && spouseDocsAvail && kidsDocsAvail;
+  }
+
   constructor() {
     // Set some defaults
     this.residentialAddress.province = "British Columbia";

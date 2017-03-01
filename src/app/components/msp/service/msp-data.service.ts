@@ -227,6 +227,10 @@ export default class MspDataService {
   toMspApplicationTransferObject(input:MspApplication):MspApplicationDto {
     let dto:MspApplicationDto = new MspApplicationDto();
 
+    dto.authorizedByApplicant = input.authorizedByApplicant;
+    dto.authorizedByApplicantDate = input.authorizedByApplicantDate;
+    dto.authorizedBySpouse = input.authorizedBySpouse;
+
     dto.infoCollectionAgreement = input.infoCollectionAgreement;
     dto.unUsualCircumstance = input.unUsualCircumstance;
     dto.phoneNumber = input.phoneNumber;
@@ -294,6 +298,11 @@ export default class MspDataService {
 
   private fromMspApplicationTransferObject(dto:MspApplicationDto):MspApplication{
     let output:MspApplication = new MspApplication();
+
+    output.authorizedByApplicant = dto.authorizedByApplicant;
+    output.authorizedByApplicantDate = dto.authorizedByApplicantDate;
+    output.authorizedBySpouse = dto.authorizedBySpouse;
+    
     output.unUsualCircumstance = dto.unUsualCircumstance;
     output.applicant = this.fromPersonDto(dto.applicant);
     output.infoCollectionAgreement = dto.infoCollectionAgreement;

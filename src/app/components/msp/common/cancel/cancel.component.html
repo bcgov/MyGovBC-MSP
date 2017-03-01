@@ -10,13 +10,13 @@
         <h2 [innerHtml]="lang('./en/index.js').body"></h2>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary pull-left"
-                [innerHtml]="lang('./en/index.js').noButton"
-                (click)="noButtonClick()"></button>
-        <button 
-                class="btn btn-danger pull-right"
+        <button class="btn btn-danger pull-left"
                 [innerHtml]="lang('./en/index.js').yesButton"
                 (click)="yesButtonClick()"></button>
+        <button class="btn btn-primary pull-right"
+                [innerHtml]="lang('./en/index.js').noButton"
+                (click)="noButtonClick()"></button>
+                
       </div>
     </div>
   </div>

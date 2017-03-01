@@ -8,27 +8,29 @@ export class MspApplicationSendingGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
+    let step1Complete = this.compCheck.mspCheckEligibilityCompleted();
+    let step2Complete = this.compCheck.mspPersonalInfoDocsCompleted();
+    let step3Complete = this.compCheck.mspContactInfoCompleted();
+    let step4Complete = this.compCheck.mspReviewAndSubmitCompleted();
+
+    if(!step1Complete || !step2Complete || !step3Complete || !step4Complete){
+      console.log('EA not completed yet, return user to first step');
+      this._router.navigate(['/msp/application']);
+      return false;
+    }
+
     let authorized = this.compCheck.mspApplicationAuthorizedByUser();
     let validAuthToken = this.compCheck.mspApplicationValidAuthToken();
-    let sent = this.compCheck.mspSendingComplete();
 
-    if(sent){
-      console.log('This enrollment application has been previously submitted, cannot activate sending route again.');
-    }
-    if(!authorized ){
-      console.log('This enrollment application has not been authorized by user(s), cannot activate sending route again.');
-    }
-    if(!validAuthToken){
-      console.log('Not valid auth token found, cannot activate sending route again.');
-    }
-
-    if(!authorized || sent || !validAuthToken){
-      this._router.navigate(['/msp/application/confirmation']);
-      return false;
-    }else{
-      console.log('sending not complete, can activate.');
-
+    if(authorized && !validAuthToken){
+      console.log('All preconditions for sumbmitting EA are met, sending guard is allowing app activating/transitioning into sending state.');
       return true;
+    }else if(!authorized){
+      console.log('This enrollment application has not been authorized by user(s), cannot activate sending route again.');
+      return false;
+    }else if(!validAuthToken){
+      console.log('Not a valid auth token, cannot activate sending route.');
+      return false;
     }
   }
 

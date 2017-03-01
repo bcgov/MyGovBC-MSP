@@ -24,6 +24,9 @@ class Person {
   documents: PersonDocuments = new PersonDocuments();
   outOfBCRecord: OutofBCRecord;
 
+  get hasDocuments():boolean {
+    return this.documents.images && this.documents.images.length > 0;
+  }
   /**
    * Had episodes of leaving and returning to bc for peirod of longer than 30 days.
    */
