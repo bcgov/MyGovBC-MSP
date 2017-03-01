@@ -283,6 +283,7 @@ class Person {
    */
   get isInfoComplete(){
     // console.log('check data completeness for: ' + Relationship[this.relationship]);
+
     let basic =  _.isString(this.gender)
     && _.isString(this.firstName) && this.firstName.length > 0 && _.isString(this.lastName) && this.lastName.length > 0
     // && this.isNotEmpty(this.dob_day) && this.isNotEmpty(this.dob_month) && this.isNotEmpty(this.dob_year)
@@ -292,6 +293,8 @@ class Person {
     && !(this.arrivalToCanadaMonth == 0)
     && !(this.studiesDepartureMonth == 0)
     && !(this.studiesFinishedMonth == 0)
+    && !(this.outOfBCRecord && this.outOfBCRecord.departureMonth == 0)
+    && !(this.outOfBCRecord && this.outOfBCRecord.returnMonth == 0)
     let returningToBCComplete = true;
 
     // code 0 is "Returning to BC after an absence"
