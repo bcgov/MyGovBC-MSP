@@ -17,7 +17,7 @@ export class ReviewComponent {
   application: MspApplication;
   captchaApiBaseUrl:string;
   @ViewChild(NgForm) form: NgForm;
-  
+
   constructor(private dataService: DataService,
               private _router: Router,
               @Inject('appConstants') private appConstants: Object) {
@@ -54,9 +54,6 @@ export class ReviewComponent {
     return this.application.spouse.firstName + ' ' + this.application.spouse.lastName;
   }
 
-  get validToken():boolean{
-    return this.application.hasValidAuthToken;
-  }
   handleFormSubmission(evt:any){
     // console.log('review form submitted, %o', evt);
     if(this.application.hasValidAuthToken){
