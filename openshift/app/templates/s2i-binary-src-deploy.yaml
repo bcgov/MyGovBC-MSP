@@ -2,39 +2,10 @@ apiVersion: v1
 kind: Template
 metadata:
   annotations:
-    description: A static html5 application from binary source input served by nginx
+    description: Deployment template for a static html5 application from binary source input served by nginx
     tags: instant-app,nginx
-  name: mygovbc-client
+  name: mygovbc-client-deploy
 objects:
-- apiVersion: v1
-  kind: ImageStream
-  metadata:
-    annotations:
-      description: Keeps track of changes in the application image
-    name: ${NAME}
-- annotations:
-    description: Defines how to build the application
-  apiVersion: v1
-  kind: BuildConfig
-  metadata:
-    labels:
-      app: ${NAME}
-    name: ${NAME}
-  spec:
-    source:
-      type: Binary
-    strategy:
-      type: Source
-      sourceStrategy:
-        from:
-          kind: ImageStreamTag
-          name: ${BUILDER_IMAGE_NAME}:latest
-          namespace: ${BUILDER_IMAGE_NAMESPACE}
-        incremental: false
-    output:
-      to:
-        kind: ImageStreamTag
-        name: ${NAME}:latest
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
@@ -91,6 +62,7 @@ objects:
         - ${NAME}
         from:
           kind: ImageStreamTag
+          namespace: ${IMAGE_NAMESPACE}
           name: ${NAME}:latest
 - apiVersion: v1
   kind: Service
@@ -161,6 +133,6 @@ parameters:
   name: REAL_IP_FROM
   required: true
   value: "172.51.0.0/16"
-- description: Project containing the builder image.
-  displayName: Builder Image Namespace
-  name: BUILDER_IMAGE_NAMESPACE
+- description: Project containing the runtime image stream.
+  displayName: Image Stream Namespace
+  name: IMAGE_NAMESPACE

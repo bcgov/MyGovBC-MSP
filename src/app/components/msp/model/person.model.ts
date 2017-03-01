@@ -310,6 +310,7 @@ class Person {
     && _.isNumber(this._status) && _.isNumber(this._currentActivity) && this.documents.images.length > 0
     && !(this.studiesDepartureMonth == 0)
     && !(this.studiesFinishedMonth == 0)
+    && _.isBoolean(this.declarationForOutsideOver30Days);
     let returningToBCComplete = true;
 
     // code 0 is "Lived in BC without MSP"
