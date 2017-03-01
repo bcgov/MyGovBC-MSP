@@ -22,7 +22,14 @@ export class MspApplicationSendingGuard implements CanActivate {
     let authorized = this.compCheck.mspApplicationAuthorizedByUser();
     let validAuthToken = this.compCheck.mspApplicationValidAuthToken();
 
-    if(authorized && !validAuthToken){
+    if(validAuthToken){
+      console.log('Sending guard sees valid auth token.');
+    }
+    if(authorized){
+      console.log('Sending guard sees users have authorized to submit this application.');
+    }
+
+    if(authorized && validAuthToken){
       console.log('All preconditions for sumbmitting EA are met, sending guard is allowing app activating/transitioning into sending state.');
       return true;
     }else if(!authorized){
