@@ -1,8 +1,8 @@
 <h1 [innerHTML]="lang('./en/index.js').retroYearsTitle"></h1>
 <div class="row">
   <div class="col-xs-12">
-    <h3 [innerHTML]="lang('./en/index.js').applyForPreviousYearInstruction">
-    </h3>
+    <p [innerHTML]="lang('./en/index.js').applyForPreviousYearInstruction">
+    </p>
   </div>
 </div>
 
@@ -24,7 +24,7 @@
 
     </div>
     <div class="col-md-8" *ngIf="docRequired">
-        <h4>Documents required</h4>
+        <h2>Documents required</h2>
         <label [innerHTML]="lang('./en/index.js').docUploadInstruction">
         </label>
       

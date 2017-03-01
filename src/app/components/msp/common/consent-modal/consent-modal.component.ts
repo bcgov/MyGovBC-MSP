@@ -13,10 +13,12 @@ export class MspConsentModalComponent {
   @Input() processName: string;
   @Input() application: ApplicationBase;
   @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
+
   agreeCheck: boolean = false;
 
   showFullSizeView(){
     this.fullSizeViewModal.config.backdrop = false;
+    this.fullSizeViewModal.config.keyboard = false;
     this.fullSizeViewModal.show();
   }
 

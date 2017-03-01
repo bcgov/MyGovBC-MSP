@@ -12,6 +12,7 @@ class MspApplication implements ApplicationBase {
 
   readonly uuid = UUID.UUID();
   infoCollectionAgreement: boolean = false;
+  authorizationToken: string;
 
   /**
    * Set by the API, not for client use
@@ -143,6 +144,26 @@ class MspApplication implements ApplicationBase {
     return null;
   }
 
+
+  get documentsReady(): boolean {
+    let applicantDocsAvail = this.applicant.hasDocuments;
+    let spouseDocsAvail = true;
+    let kidsDocsAvail = true;
+    if(this._spouse){
+      spouseDocsAvail = this._spouse.hasDocuments;
+    }
+
+    let kidsWithNoDocs = this._children.filter( kid => {
+      return !kid.hasDocuments;
+    })
+    kidsDocsAvail = kidsWithNoDocs.length === 0;
+
+    return applicantDocsAvail && spouseDocsAvail && kidsDocsAvail;
+  }
+
+  get hasValidAuthToken(){
+    return this.authorizationToken && this.authorizationToken.length > 1;
+  }
   constructor() {
     // Set some defaults
     this.residentialAddress.province = "British Columbia";

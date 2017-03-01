@@ -1,5 +1,5 @@
 import {
-  Component, ViewChild, ElementRef, OnInit, OnChanges,EventEmitter, Output, Input,
+  Component, ViewChild, ElementRef, OnInit, OnChanges, EventEmitter, Output, Input,
   Inject, NgZone, SimpleChanges
 } from '@angular/core';
 import {ModalDirective} from "ng2-bootstrap";
@@ -21,7 +21,7 @@ require('./file-uploader.component.less');
 })
 export class FileUploaderComponent implements OnInit, OnChanges {
   lang = require('./i18n');
-  errorStyle:boolean;
+  noIdImage: Boolean = false;
 
   @ViewChild('dropZone') dropZone: ElementRef;
   @ViewChild('browseFileRef') browseFileRef: ElementRef;
@@ -31,13 +31,14 @@ export class FileUploaderComponent implements OnInit, OnChanges {
 
   @Input() images: Array<MspImage>;
   @Input() id: string;
+  @Input() showError: boolean;
 
   @Output() onAddDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
   @Output() onErrorDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
   @Output() onDeleteDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
 
   constructor(@Inject('appConstants') private appConstants: any,
-              private zone:NgZone) {
+              private zone: NgZone) {
   }
 
   /**
@@ -46,15 +47,16 @@ export class FileUploaderComponent implements OnInit, OnChanges {
    * change of the images Array.
    */
   forceRender() {
-    this.zone.run(() => {});
+    this.zone.run(() => {
+    });
   }
 
-  ngOnChanges(changes: SimpleChanges):void {
-    if(changes['images'].currentValue.length === 0 && 
-      changes['images'].previousValue.length > 0){
-        this.errorStyle = true;
-    }else{
-        this.errorStyle = false;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['images'] && (changes['images'].currentValue.length === 0 &&
+      changes['images'].previousValue.length > 0)) {
+      this.noIdImage = true;
+    } else {
+      this.noIdImage = false;
     }
   }
 
@@ -83,10 +85,10 @@ export class FileUploaderComponent implements OnInit, OnChanges {
     );
 
     let imagePlaceholderStream = Observable.fromEvent<Event>(this.imagePlaceholderRef.nativeElement, 'click')
-      .map((event)=>{
+      .map((event) => {
         event.preventDefault();
       });
-    imagePlaceholderStream.subscribe((event)=>{
+    imagePlaceholderStream.subscribe((event) => {
       this.browseFileRef.nativeElement.click();
     });
 
@@ -146,75 +148,106 @@ export class FileUploaderComponent implements OnInit, OnChanges {
       // Copy file properties
       mspImage.name = file.name;
 
-      // Canvas will force the change to a JPEG
-      mspImage.contentType = self.appConstants.images.convertToMimeType;
+      // Load image into img element to read natural height and width
+      this.loadImg(file, (image: HTMLImageElement) => {
 
-      // First scale the image by loading into a canvas
-      let scaledImage = loadImage(
-        file,
-        function (canvas: HTMLCanvasElement) {
+        // While it's still in an image, get it's height and width
+        mspImage.naturalWidth = image.naturalWidth;
+        mspImage.naturalHeight = image.naturalHeight;
 
-          // Canvas may be an Event when errors happens
-          if (canvas instanceof Event) {
-            self.handleError(MspImageError.WrongType, mspImage);
-            return;
-          }
-
-          // While it's still in a canvas, get it's height and width
-          mspImage.naturalWidth = canvas.width;
-          mspImage.naturalHeight = canvas.height;
-
-          console.log(`image file natural height and width: 
+        console.log(`image file natural height and width: 
             ${mspImage.naturalHeight} x ${mspImage.naturalWidth}`);
 
-          // Convert to grayscale
-          //self.makeGrayScale(canvas);
+        // Canvas will force the change to a JPEG
+        mspImage.contentType = self.appConstants.images.convertToMimeType;
 
-          // Convert to blob to get size
-          canvas.toBlob((blob: Blob) => {
+        // Scale the image by loading into a canvas
+        let scaledImage = loadImage(
+          file, // NOTE: we pass the File ref here again even though its already read because we need the XIFF metadata
+          function (canvas: HTMLCanvasElement, metadata:any) {
 
-              // Copy the blob properties
-              mspImage.size = blob.size;
+            // Canvas may be an Event when errors happens
+            if (canvas instanceof Event) {
+              self.handleError(MspImageError.WrongType, mspImage);
+              return;
+            }
 
-              let nBytes = mspImage.size;
-              let fileSize = '';
-              let fileSizeUnit = '';
-              let sOutput: string = nBytes + " bytes";
-              // optional code for multiples approximation
-              for (let aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"], nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
-                sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
-                fileSize = nApprox.toFixed(0);
-                fileSizeUnit = aMultiples[nMultiple];
-              }
+            // Log metadata
+            console.log("metadata: ", metadata);
 
-              console.log(`Size of file ${name}: ${sOutput}`);
-              mspImage.sizeTxt = sOutput;
+            // Convert to grayscale
+            //self.makeGrayScale(canvas);
 
-              // call reader with new transformed image
-              reader.onload = function (evt: any) {
+            // Convert to blob to get size
+            canvas.toBlob((blob: Blob) => {
 
-                mspImage.fileContent = evt.target.result;
-                mspImage.id = sha1(mspImage.fileContent);
+                // Copy the blob properties
+                mspImage.size = blob.size;
 
-                observer.next(mspImage);
-              };
-              reader.readAsDataURL(blob);
+                let nBytes = mspImage.size;
+                let fileSize = '';
+                let fileSizeUnit = '';
+                let sOutput: string = nBytes + " bytes";
+                // optional code for multiples approximation
+                for (let aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"], nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
+                  sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
+                  fileSize = nApprox.toFixed(0);
+                  fileSizeUnit = aMultiples[nMultiple];
+                }
 
-            },
+                console.log(`Size of file ${name}: ${sOutput}`);
+                mspImage.sizeTxt = sOutput;
 
-            // What mime type to make the blob as and jpeg quality
-            self.appConstants.images.convertToMimeType, self.appConstants.images.jpegQuality);
-        },
-        {
-          maxWidth: self.appConstants.images.maxWidth,
-          maxHeight: self.appConstants.images.maxHeight,
-          contain: true,
-          canvas: true
-        }
-      );
+                // call reader with new transformed image
+                reader.onload = function (evt: any) {
+
+                  mspImage.fileContent = evt.target.result;
+                  mspImage.id = sha1(mspImage.fileContent);
+
+                  // delete image and canvas from DOM
+                  //image.remove();
+                  //canvas.remove();
+
+                  observer.next(mspImage);
+                };
+                reader.readAsDataURL(blob);
+
+              },
+
+              // What mime type to make the blob as and jpeg quality
+              self.appConstants.images.convertToMimeType, self.appConstants.images.jpegQuality);
+          },
+          {
+            maxWidth: self.appConstants.images.maxWidth,
+            maxHeight: self.appConstants.images.maxHeight,
+            contain: true,
+            canvas: true,
+            meta: true,
+            orientation: true
+          }
+        );
+      });
     });
 
     return fileObservable;
+  }
+
+  private loadImg(imageFile: File, callback: (image: HTMLImageElement) => void) {
+    let reader = new FileReader();
+
+    reader.onload = function (e: ProgressEvent) {
+
+      // Load into an image element
+      let imgEl: HTMLImageElement = document.createElement('img');
+      imgEl.src = reader.result;
+
+      // Wait for onload so all properties are populated
+      imgEl.onload = () => {
+        return callback(imgEl);
+      }
+    };
+
+    reader.readAsDataURL(imageFile);
   }
 
   /**
@@ -248,10 +281,12 @@ export class FileUploaderComponent implements OnInit, OnChanges {
       This file ${mspImage.name} was not uploaded.`);
     } else {
       this.onAddDocument.emit(mspImage);
+      this.showError = false;
+      this.noIdImage = false;
     }
   }
 
-  handleError(error:MspImageError, mspImage: MspImage) {
+  handleError(error: MspImageError, mspImage: MspImage) {
     // just add the error to mspImage
     mspImage.error = error;
     console.log("error with image: ", mspImage);
@@ -288,7 +323,7 @@ export class FileUploaderComponent implements OnInit, OnChanges {
    * @param file
    */
   checkImageSizeProperties(file: MspImage): boolean {
-    if (file.naturalHeight <  this.appConstants.images.minHeight ||
+    if (file.naturalHeight < this.appConstants.images.minHeight ||
       file.naturalWidth < this.appConstants.images.minWidth) {
       return false;
     }

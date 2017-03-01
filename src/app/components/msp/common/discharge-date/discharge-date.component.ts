@@ -14,7 +14,8 @@ export class MspDischargeDateComponent {
 
   lang = require('./i18n');
   @Output() onChange = new EventEmitter<any>();
-
+  @Input() showError:boolean;
+  
   // Create today for comparison in check later
   today = moment();
 

@@ -64,7 +64,7 @@ describe('MspApiService', () => {
     app.applicant.gender = Gender.Male;
 
     app.applicant.status = StatusInCanada.CitizenAdult;
-    app.applicant.currentActivity = Activities.Returning;
+    app.applicant.currentActivity = Activities.LivingInBCWithoutMSP;
     app.applicant.previous_phn = "912345678";
     app.applicant.movedFromProvinceOrCountry = "BC";
     app.applicant.arrivalToBCDay = 1;
@@ -158,7 +158,7 @@ describe('MspApiService', () => {
     app.applicant.outOfBCRecord.returnMonth = 12;
     app.applicant.outOfBCRecord.returnDay = 31;
     app.applicant.status = StatusInCanada.CitizenAdult;
-    app.applicant.currentActivity = Activities.Returning;
+    app.applicant.currentActivity = Activities.LivingInBCWithoutMSP;
     app.applicant.previous_phn = "1234567890";
     app.applicant.healthNumberFromOtherProvince = "123123123123";
     app.applicant.liveInBC = true;
@@ -186,7 +186,7 @@ describe('MspApiService', () => {
     app.spouse.gender = Gender.Female;
 
     app.spouse.status = StatusInCanada.PermanentResident;
-    app.spouse.currentActivity = Activities.Returning;
+    app.spouse.currentActivity = Activities.LivingInBCWithoutMSP;
     app.spouse.previous_phn = "123456790";
     app.spouse.liveInBC = true;
 
@@ -202,7 +202,7 @@ describe('MspApiService', () => {
     child.dob_month = 12;
     child.dob_day = 6;
     child.status = StatusInCanada.PermanentResident;
-    child.currentActivity = Activities.Returning;
+    child.currentActivity = Activities.LivingInBCWithoutMSP;
     child.liveInBC = true;
     child.previous_phn = "1234567890";
 
@@ -214,7 +214,7 @@ describe('MspApiService', () => {
     dependant.dob_month = 12;
     dependant.dob_day = 6;
     dependant.status = StatusInCanada.PermanentResident;
-    dependant.currentActivity = Activities.Returning;
+    dependant.currentActivity = Activities.LivingInBCWithoutMSP;
     dependant.liveInBC = true;
     dependant.previous_phn = "1234567890";
     dependant.schoolName = "Big school nam<e?>";
@@ -256,7 +256,7 @@ describe('MspApiService', () => {
 //     app.residentialAddress.country = "Canada";
 //
 //     app.applicant.status = StatusInCanada.PermanentResident;
-//     app.applicant.currentActivity = Activities.Returning;
+//     app.applicant.currentActivity = Activities.LivingInBCWithoutMSP;
 //     app.applicant.previous_phn = "1234567890";
 //     app.applicant.liveInBC = true;
 //
@@ -280,7 +280,7 @@ describe('MspApiService', () => {
 //     app.spouse.gender = Gender.Female;
 //
 //     app.spouse.status = StatusInCanada.PermanentResident;
-//     app.spouse.currentActivity = Activities.Returning;
+//     app.spouse.currentActivity = Activities.LivingInBCWithoutMSP;
 //     app.spouse.previous_phn = "123456790";
 //     app.spouse.liveInBC = true;
 //
@@ -296,7 +296,7 @@ describe('MspApiService', () => {
 //     child.dob_month = 12;
 //     child.dob_day = 6;
 //     child.status = StatusInCanada.PermanentResident;
-//     child.currentActivity = Activities.Returning;
+//     child.currentActivity = Activities.LivingInBCWithoutMSP;
 //     child.liveInBC = true;
 //     child.previous_phn = "1234567890";
 // */

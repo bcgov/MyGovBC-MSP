@@ -1,6 +1,6 @@
 <form #formRef="ngForm" novalidate>
     <div class="form-group"
-         [ngClass]="{'has-error': !formRef.controls.phn?.valid && phnRef.touched}">
+         [ngClass]="{'has-error': !formRef.controls.phn?.valid && (phnRef.touched || showError)}">
         <label [class.optional]="!required" class="control-label" for="phn"
                [innerHTML]="phnLabel"></label>
         <input type="text"
@@ -12,7 +12,7 @@
                [(mod11Check)]="bcPhn"
                id='phn' name='phn' #phnRef="ngModel"
                class="form-control">
-        <div *ngIf='phnRef.touched'>
+        <div *ngIf='phnRef.touched || showError'>
             <div class="text-danger" *ngIf="phnRef.errors?.required"
                  [innerHTML]="lang('./en/index.js').phnErrorRequired"></div>
             <div class="text-danger" *ngIf="phnRef.errors?.minlength"

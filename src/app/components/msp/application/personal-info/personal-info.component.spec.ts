@@ -31,6 +31,7 @@ import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
 import appConstants from '../../../../services/appConstants';
+import {RouterTestingModule} from "@angular/router/testing";
 describe('PersonalInfoComponent', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
@@ -45,7 +46,7 @@ describe('PersonalInfoComponent', () => {
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,
         MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspCancelComponent,
         MspImageErrorModalComponent, MspLoggerDirective],
-      imports: [FormsModule, Ng2CompleterModule, ModalModule, AccordionModule, HttpModule],
+      imports: [FormsModule, Ng2CompleterModule, ModalModule, AccordionModule, HttpModule, RouterTestingModule],
       providers: [MspDataService, MspLogService,
         CompletenessCheckService,
         LocalStorageService,{

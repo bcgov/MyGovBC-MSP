@@ -15,6 +15,7 @@ The ELK has these features
 * daily backup of Elasticsearch data to persistent storage with 7-day retention
 * uses nginx to proxy Logstash input and Kibana with following access controls
   * basic authentication for Kibana
+  * customizable client ip filter rules for Kibana
   * allow only POST request to Logstash input
   * CORS support for Logstash input with configurable Access-Control-Allow-Origin
 * based on official docker images from respective product vendor 
@@ -52,11 +53,12 @@ The deployment consists of these steps
    $ oc create -f openshift/elk/templates/elk.yaml
    ```
    After this step you will find an instant app template called *elk* available in the project
-2. create OpenShift instant app. You can do so by clicking *elk* template from *Add to Project* in web console or, if you accept default values for all parameters, by running
+2. create OpenShift instant app. You can do so by clicking *elk* template from *Add to Project* in web console (preferred) or, if you accept default values for all parameters, by running
 
    ```sh
    $ oc process elk|oc create -f-
-   ```
+   ```  
+   
 3. deploy docker image
 
    ```sh
@@ -73,6 +75,9 @@ The deployment consists of these steps
    $ docker build -t elk-nginx openshift/elk/docker-images/nginx
    $ docker tag elk-nginx docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-nginx
    $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-nginx
+   $ docker build -t elk-cron openshift/elk/docker-images/cron
+   $ docker tag elk-cron docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-cron
+   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-cron
    ```
 
 4. Wait for the first Elasticsearch pod to be fully up, then scale up the cluster to 5 pods (or more). If doing so too soon, contention may arise between the pods vying to be the first and sole master.   
@@ -93,6 +98,29 @@ Although Elasticsearch cluster can survive under as few as one pod, to maintain 
   2. expected load
   3. if data volume is large and the number of OpenShift hosts is limited, the pod count should be equal, or a multiple of,  OpenShift host count in order to distribute data more or less evenly among the hosts
   4. quota
+
+### Persistent Volume Claim Mount Check And Fix
+All pods connect to a PVC mounted at `/var/backups` for nightly backup. If any of the pods lost the connection, backup will fail. By design this shouldn't happen as there is a liveness probe for this PVC mount and the pod is killed if the liveness check fails. However, in case the problem happens, it is manifested in the log of pod `elk-cron` if the last backup contains something like
+
+```
++ curl -sXDELETE 'http://elasticsearch:9200/_snapshot
+/my_backup/snapshot_2?pretty'
+{"acknowledged":true}{"error":{"root_cause":[{"type
+":"repository_verification_exception",
+"reason":"[my_backup] [jtzho-ALS-644Z-DeA2p0g, 
+'RemoteTransportException[[Exploding Man][172.51.40
+.51:9300][internal:admin/repository/verify]]; nested: 
+ElasticsearchException[failed to create blob container];
+nested: NotSerializableExceptionWrapper
+[file_system_exception: /var/backups/my_backup: 
+Transport endpoint is not connected];'], 
+...
+```
+If you see such error message, login to the console of each elasticsearch container and  issue command `ls /var/backups`. If you see
+```
+ls: cannot access /var/backups: Transport endpoint is not connected
+```
+then kill the pod. You need to go through each pod. When killing a pod, make sure to leave enough recovery window from last kill, as mentioned before.
 
 ### Cluster Recovery
 If Elasticsearch cluster is crashed, data can be restored from the most recently nightly backup. But data from last backup till now is lost permanently. To restore,

@@ -5,4 +5,5 @@ module.exports = {
   doYouAgreeLabel: '{name}, do you agree?',
   agreeLabel: 'Yes, I agree',
   submitButton: 'Submit Application',
+  tryAgainWithCaptcha: 'Please try again to enter the text you see above'
 }

@@ -14,6 +14,7 @@ export class MspGenderComponent {
   Gender: typeof Gender = Gender;
 
   @Input('person') person: Person;
+  @Input() showError: boolean;
   @Output() onChange = new EventEmitter<any>();
   /**
    * Generate uuid for use in element's ID

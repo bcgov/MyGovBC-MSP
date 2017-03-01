@@ -33,7 +33,6 @@ export default class CompletenessCheckService {
       // fill in logic to ensure all data expected on check eligibility screen have been 
       // provided. (check saved data in local storage)
       return _.isBoolean(this.mspApp.applicant.liveInBC)
-      && _.isBoolean(this.mspApp.applicant.stayForSixMonthsOrLonger) 
       && _.isBoolean(this.mspApp.unUsualCircumstance) 
       && _.isBoolean(this.mspApp.applicant.plannedAbsence) 
     }
@@ -76,6 +75,10 @@ export default class CompletenessCheckService {
 
     mspApplicationAuthorizedByUser() {
       return !(!this.mspApp.authorizedByApplicant || (this.mspApp.spouse && !this.mspApp.authorizedBySpouse));
+    }
+
+    mspApplicationValidAuthToken() {
+      return this.mspApp.hasValidAuthToken;
     }
     mspSendingComplete() {
       // if we have a reference number, we are complete
@@ -146,7 +149,8 @@ export default class CompletenessCheckService {
       }else{
         // console.log('PA application authorized by attorney');
       }
+      if (this.finApp.authorizationToken == null) return false;
 
-      return familyAuth || attorneyAUth;  
+      return familyAuth || attorneyAUth;
     }
 }

@@ -8,22 +8,31 @@ export class MspApplicationSendingGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    let authorized = this.compCheck.mspApplicationAuthorizedByUser();
-    let sent = this.compCheck.mspSendingComplete();
+    let step1Complete = this.compCheck.mspCheckEligibilityCompleted();
+    let step2Complete = this.compCheck.mspPersonalInfoDocsCompleted();
+    let step3Complete = this.compCheck.mspContactInfoCompleted();
+    let step4Complete = this.compCheck.mspReviewAndSubmitCompleted();
 
-    if(sent){
-      console.log('This enrollment application has been previously submitted, cannot activate sending route again.');
-    }
-    if(!authorized ){
-      console.log('This enrollment application has not been authorized by user(s), cannot activate sending route again.');
-    }
-    if(!authorized || sent){
-      this._router.navigate(['/msp/application/confirmation']);
+    if(!step1Complete || !step2Complete || !step3Complete || !step4Complete){
+      console.log('There are missing informaion on the application. Return user to first step');
+      this._router.navigate(['/msp/application']);
       return false;
-    }else{
-      console.log('sending not complete, can activate.');
+    }
 
+    let authorized = this.compCheck.mspApplicationAuthorizedByUser();
+    let validAuthToken = this.compCheck.mspApplicationValidAuthToken();
+
+    if(authorized && validAuthToken){
+      console.log('All preconditions for sumbmitting EA are met, sending guard is allowing app activating/transitioning into sending state.');
       return true;
+    }else if(!authorized){
+      console.log('This enrollment application has not been authorized by user(s), cannot activate sending route again.');
+      this._router.navigate(['/msp/application/review']);
+      return false;
+    }else if(!validAuthToken){
+      console.log('Not a valid auth token, cannot activate sending route.');
+      this._router.navigate(['/msp/application/review']);
+      return false;
     }
   }
 

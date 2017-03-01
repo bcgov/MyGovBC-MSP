@@ -16,6 +16,7 @@ export class MspArrivalDateComponent implements AfterViewInit, OnChanges{
   // Create today for comparison in check later
   today = moment();
 
+  @Input() showError: boolean;
   @Input() required: boolean = true;
   @Input() year: number;
   @Output() yearChange = new EventEmitter<number>();

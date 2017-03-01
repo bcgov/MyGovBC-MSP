@@ -1,6 +1,6 @@
 module.exports = {
   countryLabel: 'Country',
-  countryErrorIsRequired: 'Country is required',
+  countryErrorIsRequired: 'Name of the country is required',
   countryErrorMaxLength: 'Country cannot be more than {length} characters',
 
   countryData: [

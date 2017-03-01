@@ -71,6 +71,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   @Input() viewOnly: boolean = false;
   @Input() person: Person;
   @Input() id: string;
+  @Input() showError: boolean;
   @Output() notifyChildRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() notifySpouseRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
@@ -113,6 +114,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
 
   setActivity(value:Activities) {
     this.person.currentActivity = value;
+    this.person.movedFromProvinceOrCountry = undefined;
     this.onChange.emit(value);
   }
 
@@ -169,13 +171,14 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
     if(this.form){
       this.form.valueChanges
       .subscribe(values => {
+        console.log('form changed: ', values);
         this.onChange.emit(values);
       });
     }
   }
 
   get arrivalDateLabel():string {
-    if (this.person.currentActivity == Activities.Returning) {
+    if (this.person.currentActivity == Activities.LivingInBCWithoutMSP) {
       return this.lang('./en/index.js').arrivalDateToBCLabelForReturning;
     }
     return this.lang('./en/index.js').arrivalDateToBCLabel;
@@ -287,6 +290,15 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
     this.person.outOfBCRecord.isValid();
 
     return valid;
+  }
+
+  setMovedToBCPermanently(moved:boolean){
+    this.person.madePermanentMoveToBC = moved;
+    this.onChange.emit(moved);
+  }
+  setLivedInBCSinceBirth(lived:boolean){
+    this.person.livedInBCSinceBirth = lived;
+    this.onChange.emit(lived);
   }
 
   viewIdReqModal(event:Documents) {

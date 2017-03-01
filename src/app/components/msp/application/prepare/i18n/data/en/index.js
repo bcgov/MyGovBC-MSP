@@ -4,14 +4,14 @@ module.exports = {
   question1: 'Do you currently live in British Columbia (i.e. Do you have an address here)?',
   badAnswer1: 'You might not qualify for public health insurance if you do not live in B.C. Contact <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">Health Insurance BC</a> for more information.',
 
-  question2: 'Have you moved to B.C. permanently?',
+  madePermanentMoveQuestion: 'Have you moved to B.C. permanently?',
   badAnswer2: 'If you are planning on returning to a residence in another province or country, you might not qualify for public health insurance in BC. Please contact <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">Health Insurance BC</a> for assistance with your application.',
 
-  question3: 'Are you planning to be away from B.C. for more than 30 days in total over the next six months?',
+  plannedAwayForOver30DaysQuestion: 'Are you planning to be away from B.C. for more than 30 days in total over the next six months?',
   badAnswer3: 'You might not qualify for public health insurance if you leave the province for more than 30 days in total during the first six months after you apply - doing this could mean you are no longer considered a B.C. resident. Find out more by contacting <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">Health Insurance BC</a>.',
 
-  question4: 'Is anyone you\'re applying for',
-  question4sub: '<ul><li>A student returning to your home province at the end of a course or program</li>' +
+  specialCircumstanceQuestion: 'Is anyone you\'re applying for',
+  specialCircumstanceQuestionSub: '<ul><li>A student returning to your home province at the end of a course or program</li>' +
   '<li>A minor (under the age of 16) who needs to have their own individual account</li>' +
   '<li>Seeking refugee status and is not approved yet</li>' +
   '<li>An immigrant who does not have a valid work or study permit yet</li></ul>',

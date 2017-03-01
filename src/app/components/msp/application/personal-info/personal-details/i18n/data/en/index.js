@@ -25,11 +25,11 @@ module.exports = {
     'Child\'s ID requirements'],
   documentInstructionsIntro: 'You need to include <strong>one</strong> of the following with your application:',
   documentInstructionsMarriage: 'Has your name changed since your ID was issue due to marriage or a legal name change? If so, include <strong>one or more</strong> of the following:',
-  documentUploadLabel: [' <i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> Upload your documents',
-    'Upload your spouse\'s documents',
-    'Upload your child\'s documents',
-    'Upload your child\'s documents'],
-  documentInstructionsNote: 'Carefully follow these instructions:<ul><li>Scan the document, or take a photo of it</li><li>Include the entire document, corner to corner</li><li>Make sure the document is in focus and is easy to read</li><li>Save the file as a JPG or PNG</li></ul>',
+  documentUploadLabel: ['<i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> Upload your documents',
+    '<i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> Upload your spouse\'s documents',
+    '<i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> Upload your child\'s documents',
+    '<i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> Upload your child\'s documents'],
+  documentInstructionsNote: 'Scan the document, or take a photo of it. Make sure that it:<ul><li>Is at least 1000 pixels wide x 1500 pixels tall</li><li>Includes the entire document, corner to corner</li><li>Is in focus and is easy to read</li><li>Is a JPG or PNG file</li></ul>',
   viewSamplesButton: 'See a sample',
 
   nameHelpBlock: ['Enter your legal name and gender',
@@ -65,6 +65,7 @@ module.exports = {
 
   beenOutsideBCOver30DaysLabel: "Since you arrived, have you been outside B.C. for more than 30 days in total?",
   fullTimeStudentLabel: 'Are you a full-time student?',
+  haveYouMovedToBCPermanently: 'Have you moved to BC permanently?',
   assertChildBeFullTimeStudent: 'School Information for Full-time Student Child',
   inBCAfterStudiesLabel: 'Will you reside in B.C. upon completion of your studies?',
   childStayInBCAfterStudiesLabel: 'Will this child reside in B.C. after completing study in this school?',
@@ -81,4 +82,9 @@ module.exports = {
 
   removeSpouseButton: 'Remove',
   removeChildButton: 'Remove',
+  mustAnswerQuestionAboutBeenOutsideBC: 'You must answer this question about your absence from B.C.',
+  mustAnswerQuestionAboutPermMoveToBC: 'You must answer this question about your move to B.C.',
+  mustDeclareStudentStatus: "Are you a full time student right now?",
+  mustDeclareInstitutionWorkHistory: "Please answer this question.",
+  mustAnswerQuestion: "This question has to be answered in order to continue with the application."
 }

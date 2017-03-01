@@ -3,6 +3,7 @@ import {MspApplication, Person} from '../../model/application.model';
 
 import DataService from '../../service/msp-data.service';
 import CompletenessCheckService from '../../service/completeness-check.service';
+import { Router } from '@angular/router';
 
 import {Relationship} from "../../model/status-activities-documents";
 import {NgForm} from "@angular/forms";
@@ -18,7 +19,8 @@ export class PersonalInfoComponent {
   @ViewChild('formRef') form: NgForm;
 
   constructor(private dataService: DataService,
-    private completenessCheck:CompletenessCheckService){
+    private completenessCheck:CompletenessCheckService,
+    private _router: Router){
 
   }
 
@@ -67,7 +69,19 @@ export class PersonalInfoComponent {
     this.dataService.saveMspApplication();
   }
 
+  documentsReady(): boolean {
+    return this.dataService.getMspApplication().documentsReady;
+  }
+
   get canContinue():boolean {
     return this.completenessCheck.mspPersonalInfoDocsCompleted();
+  }
+
+  continue():void {
+    if(!this.canContinue){
+      console.log('Please fill in all required fields on the form.');
+    }else{
+      this._router.navigate(['/msp/application/address']);
+    }
   }
 }

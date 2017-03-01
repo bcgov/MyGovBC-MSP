@@ -13,6 +13,7 @@ import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
 import appConstants from '../../../../services/appConstants';
 import CompletenessCheckService from '../../service/completeness-check.service';
+let CaptchaComponent = require("mygovbc-captcha-widget/component").CaptchaComponent;
 
 describe('AssistanceAuthorizeSubmitComponent', () => {
   let localStorageServiceConfig = {
@@ -23,7 +24,7 @@ describe('AssistanceAuthorizeSubmitComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AssistanceAuthorizeSubmitComponent, FileUploaderComponent, ThumbnailComponent, MspCancelComponent,
-        MspImageErrorModalComponent,MspLoggerDirective, MspLoggerDirective],
+        MspImageErrorModalComponent,MspLoggerDirective, MspLoggerDirective, CaptchaComponent],
       imports: [FormsModule, Ng2BootstrapModule, HttpModule],
       providers: [MspDataService, MspLogService,CompletenessCheckService,
         LocalStorageService,{

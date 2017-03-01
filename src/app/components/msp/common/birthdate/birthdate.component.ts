@@ -23,6 +23,7 @@ export class MspBirthDateComponent implements AfterViewInit, OnInit{
   }
 
   @Input() person: Person;
+  @Input() showError: boolean;
   @Output() onChange = new EventEmitter<any>();
 
   @ViewChild('formRef') form: NgForm;

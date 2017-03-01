@@ -1,5 +1,8 @@
 import {Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
+
 import {MspApplication, Person} from '../../model/application.model';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs/Observable';
@@ -22,8 +25,6 @@ export class PrepareComponent implements AfterViewInit{
   @ViewChild('formRef') form: NgForm;
   @ViewChild('liveInBCBtn') liveInBCBtn: ElementRef;
   @ViewChild('notLiveInBCBtn') notLiveInBCBtn: ElementRef;
-  @ViewChild('staySixMonthOrLonger') staySixMonthOrLonger: ElementRef;
-  @ViewChild('notStaySixMonthOrLonger') notStaySixMonthOrLonger: ElementRef;
   @ViewChild('unUsualCircumstanceBtn') unUsualCircumstanceBtn: ElementRef;
   @ViewChild('noUnusualCircustanceBtn') noUnusualCircustanceBtn: ElementRef;
   @ViewChild('plannedAbsenceBtn') plannedAbsenceBtn: ElementRef;
@@ -33,7 +34,8 @@ export class PrepareComponent implements AfterViewInit{
   private apt: Person;
   mspApplication: MspApplication;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService,
+    private _router: Router) {
     this.mspApplication = this.dataService.getMspApplication();
     this.apt = this.mspApplication.applicant;
   }
@@ -51,15 +53,6 @@ export class PrepareComponent implements AfterViewInit{
     let notLiveInBC$ = Observable.fromEvent<MouseEvent>(this.notLiveInBCBtn.nativeElement, 'click')
       .map( x=>{
         this.dataService.getMspApplication().applicant.liveInBC = false;
-      });
-
-    let staySixMonthOrLonger$ = Observable.fromEvent<MouseEvent>(this.staySixMonthOrLonger.nativeElement, 'click')
-      .map( x=>{
-        this.dataService.getMspApplication().applicant.stayForSixMonthsOrLonger = true;
-      });
-    let notStaySixMonthOrLonger$ = Observable.fromEvent<MouseEvent>(this.notStaySixMonthOrLonger.nativeElement, 'click')
-      .map( x=>{
-        this.dataService.getMspApplication().applicant.stayForSixMonthsOrLonger = false;
       });
 
     let unUsualCircumstance$ = Observable.fromEvent<MouseEvent>(this.unUsualCircumstanceBtn.nativeElement, 'click')
@@ -82,7 +75,6 @@ export class PrepareComponent implements AfterViewInit{
 
     if(this.form){
       this.form.valueChanges.merge(liveInBC$).merge(notLiveInBC$)
-      .merge(staySixMonthOrLonger$).merge(notStaySixMonthOrLonger$)
       .merge(unUsualCircumstance$).merge(noUnUsualCircumstance$)
       .merge(plannedAbsenceBtn$).merge(noPlannedAbsenceBtn$)
       .subscribe(values => {
@@ -91,8 +83,13 @@ export class PrepareComponent implements AfterViewInit{
     }
   }
 
-  get stayLonger() {
-    return this.apt.stayForSixMonthsOrLonger;
+  goToPersonalInfo(){
+    if(this.mspApplication.infoCollectionAgreement !== true){
+      console.log('user agreement not accepted yet, show user dialog box.');
+      this.mspConsentModal.showFullSizeView();
+    }else{
+      this._router.navigate(["/msp/application/personal-info"]);
+    }
   }
 
   get liveInBC() {
@@ -105,10 +102,6 @@ export class PrepareComponent implements AfterViewInit{
 
   get unUsualCircumstance() {
     return this.dataService.getMspApplication().unUsualCircumstance;
-  }
-
-  setStayLonger(stay: boolean) {
-    return this.apt.stayForSixMonthsOrLonger = stay;
   }
 
   setLiveInBC(live: boolean) {

@@ -12,7 +12,7 @@
             [ngClass]="{'has-error': !formRef.controls.netIncome?.valid && incomeRef.touched}">
             <div class="row">
                 <div class="col-md-12">
-                    <label for="netIncome">What is your net income (Line 236) on Notice of Assessment (or Reassessment) from Canada Revenue Agency for the most recent tax year your applying for?</label>
+                    <label for="netIncome">Enter your net income for the year you think you qualify for assistance – see Line 236 of your Notice of Assessment or Reassessment from Canada Revenue Agency.</label>
 
                     <div class="col-md-3 col-sm-4 col-xs-6 input-group">
                         <span class="input-group-addon">$</span>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="form-group" [hidden]="!finAssistApp.hasSpouseOrCommonLaw">
                   <label for="">
-                      Is your spouse/common-law partner's age 65 year or older this year?
+                      Is your spouse/common-law partner 65 or older this year?
                   </label>
                     <div class="btn-group" role="group">
                         <button #spouseOver65Btn [class.msp-btn-radio]="finAssistApp.spouseAgeOver65 === true" 

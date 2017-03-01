@@ -127,6 +127,20 @@ objects:
       kind: Service
       name: ${NAME}
       weight: 100
+- apiVersion: extensions/v1beta1
+  kind: HorizontalPodAutoscaler
+  metadata:
+    name: ${NAME}
+    labels:
+      app: ${NAME}
+  spec:
+    scaleRef:
+      kind: DeploymentConfig
+      name: ${NAME}
+      apiVersion: extensions/v1beta1
+      subresource: scale
+    minReplicas: 2
+    maxReplicas: 6
 parameters:
 - description: The name assigned to all of the openshift objects defined in this template.
   displayName: Name

@@ -75,7 +75,8 @@
                 [images]="person.documents.images" [id]='id'
                 (onAddDocument)="addDocument($event)"
                 (onErrorDocument)="errorDocument($event)"
-                (onDeleteDocument)="deleteDocument($event)"></msp-file-uploader>
+                (onDeleteDocument)="deleteDocument($event)"
+                [showError]="showError"></msp-file-uploader>
 
             <msp-image-error-modal #imageErrorModal></msp-image-error-modal>
         </div>
@@ -85,17 +86,66 @@
     <div *ngIf="person.documents.images.length > 0">
         <h3 [innerHtml]="lang('./en/index.js').applicationPersonalInfo[person.relationship]"></h3>
         <p class="help-block" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
-        <msp-name [person]="person" (onChange) = "onChange.emit($event)"></msp-name>
+        <msp-name [person]="person" (onChange) = "onChange.emit($event)" [showError]="showError"></msp-name>
 
         <div class="row">
             <div class="col-sm-4">
-                <msp-gender [person]="person" (onChange) = "onChange.emit($event)"></msp-gender>
+                <msp-gender [person]="person" (onChange) = "onChange.emit($event)" [showError] = "showError"></msp-gender>
             </div>
             <div class="col-sm-8">
-                <msp-birthdate [person]="person" (onChange) = "onChange.emit($event)"></msp-birthdate>
+                <msp-birthdate [person]="person" (onChange) = "onChange.emit($event)" [showError] = "showError"></msp-birthdate>
             </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult &&
+            person.currentActivity === Activities.LivingInBCWithoutMSP" style="margin-bottom: 20px">
+            <div class="col-sm-12">
+                <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[this.person.relationship]"></label>
+                <div class="btn-group" role="group">
+                    <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
+                            [class.msp-btn-radio]="person.livedInBCSinceBirth === answer.value"
+                            (click)="setLivedInBCSinceBirth(answer.value)"
+                            type="button" class="btn btn-default">{{answer.label}}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+      <div class="row" *ngIf="person.documents.images.length > 0">
+            <div class="col-md-4" *ngIf="person.currentActivity == Activities.MovingFromCountry || person.status == StatusInCanada.TemporaryResident">
+              <msp-country [label]="lang('./en/index.js').movedFromCountryLabel" 
+                  [country]="person.movedFromProvinceOrCountry" 
+                  (onChange)="person.movedFromProvinceOrCountry = $event; onChange.emit($event)"
+                  [showError]="showError">
+              </msp-country>
+            </div>
+            <div class="col-md-4" *ngIf="person.currentActivity === Activities.MovingFromProvince">
+              <msp-province [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
+                            [province]="person.movedFromProvinceOrCountry"
+                            (onChange)="provinceUpdate($event)"
+                            [exceptBC]="true" [showError]="showError"
+                            colSize="col-sm-4"></msp-province>
+            </div>
+        
+          <div class="col-md-4" style="margin-top: 25px;">
+            <div class="form-group" [ngClass]="{'has-error': showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)}">
+
+              <label [innerHtml]="lang('./en/index.js').haveYouMovedToBCPermanently" class="control-label"></label>
+              <div class="btn-group" role="group">
+                <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]' [class.msp-btn-radio]="person.madePermanentMoveToBC === answer.value"
+                  (click)="setMovedToBCPermanently(answer.value)" type="button" class="btn btn-default">{{answer.label}}
+                  </button>
+              </div>
+              <div *ngIf='showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)'>
+                <div class="text-danger" [innerHtml]="lang('./en/index.js').mustAnswerQuestionAboutPermMoveToBC"></div>
+              </div>
+
+            </div>
+          </div>
+      </div>
+
+        <div class="row" *ngIf="!(person.status === StatusInCanada.CitizenAdult &&
+                person.currentActivity === Activities.LivingInBCWithoutMSP &&
+                person.livedInBCSinceBirth === true)">
             <div class="col-md-4">
                 <msp-arrival-date [arrivalLabel]="arrivalDateLabel"
                                   [year]="person.arrivalToBCYear"
@@ -104,39 +154,33 @@
                                   (monthChange)="person.arrivalToBCMonth = $event"
                                   [day]="person.arrivalToBCDay"
                                   (dayChange)="person.arrivalToBCDay = $event"
-                                  (onChange) = "onChange.emit($event)"></msp-arrival-date>
+                                  (onChange) = "onChange.emit($event)"
+                                  [showError]="showError"></msp-arrival-date>
             </div>
             <div class="col-md-4">
                 <!--For canadian citizen, returning to BC after an absence or moving from another province, the arrival date in canada
                 is not required.-->
                 <msp-arrival-date [arrivalLabel]="lang('./en/index.js').arrivalDateToCanadaLabel"
                                   [required]="!(person.status === StatusInCanada.CitizenAdult 
-                                    && (person.currentActivity == Activities.Returning || person.currentActivity == Activities.MovingFromProvince))"
+                                    && (person.currentActivity == Activities.LivingInBCWithoutMSP || person.currentActivity == Activities.MovingFromProvince))"
                                   [year]="person.arrivalToCanadaYear"
                                   (yearChange)="person.arrivalToCanadaYear = $event"
                                   [month]="person.arrivalToCanadaMonth"
                                   (monthChange)="person.arrivalToCanadaMonth = $event"
                                   [day]="person.arrivalToCanadaDay"
                                   (dayChange)="person.arrivalToCanadaDay = $event"
-                                  (onChange) = "onChange.emit($event)"></msp-arrival-date>
+                                  (onChange) = "onChange.emit($event)"
+                                  [showError]="showError"></msp-arrival-date>
 
             </div>
-            <msp-country *ngIf="person.currentActivity == Activities.MovingFromCountry || person.status == StatusInCanada.TemporaryResident"
-                         [label]="lang('./en/index.js').movedFromCountryLabel" colSize="col-sm-4"
-                         [country]="person.movedFromProvinceOrCountry" (onChange)="person.movedFromProvinceOrCountry = $event; onChange.emit($event)"></msp-country>
-            <msp-province *ngIf="person.currentActivity === Activities.MovingFromProvince"
-                          [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
-                          [province]="person.movedFromProvinceOrCountry"
-                          (onChange)="provinceUpdate($event)"
-                          [exceptBC]="true"
-                          colSize="col-sm-4"></msp-province>
 
         </div>
         <div class="row" *ngIf="person.currentActivity === Activities.MovingFromProvince">
             <div class="col-sm-4" >
                 <msp-health-number [healthNumber]="person.healthNumberFromOtherProvince"
                                    (healthNumberChange)="handleHealthNumberChange($event)"
-                                   [required]="false">
+                                   [required]="false"
+                                   [showError]="showError">
                 </msp-health-number>
             </div>
         </div>
@@ -149,13 +193,20 @@
              style="margin-bottom: 20px">
             <div class="row">
                 <div class="col-sm-12">
-                    <label [innerHtml]="lang('./en/index.js').beenOutsideBCOver30DaysLabel"></label>
-                    <div class="btn-group" role="group">
-                        <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
-                                [class.msp-btn-radio]="person.declarationForOutsideOver30Days === answer.value"
-                                (click)="setBeenOutsideForOver30Days(answer.value)"
-                                type="button" class="btn btn-default">{{answer.label}}
-                        </button>
+                    <div class="form-group"
+                      [ngClass]="{'has-error': showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)}">
+                      <label [innerHtml]="lang('./en/index.js').beenOutsideBCOver30DaysLabel" class="control-label"></label>
+                      <div class="btn-group" role="group">
+                          <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
+                                  [class.msp-btn-radio]="person.declarationForOutsideOver30Days === answer.value"
+                                  (click)="setBeenOutsideForOver30Days(answer.value)"
+                                  type="button" class="btn btn-default">{{answer.label}}
+                          </button>
+                      </div>
+                      <div *ngIf='showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)'>
+                          <div class="text-danger" 
+                              [innerHtml]="lang('./en/index.js').mustAnswerQuestionAboutBeenOutsideBC"></div>
+                      </div>
                     </div>
                 </div>
             </div>
@@ -164,7 +215,7 @@
                     <msp-outof-bc-record [outofBCRecord]="person.outOfBCRecord"
                                          (onDelete)="handleDeleteOutofBCRecord($event)"
                                          (onUpdate)="handleOutofBCRecordChange($event)"
-                    >
+                                          [showError]="showError">
                     </msp-outof-bc-record>
                 </div>
             </div>
@@ -183,7 +234,11 @@
         </div>
         <div class="row" style="margin-bottom: 20px">
             <div class="col-md-6">
-                <label [innerHtml]="lang('./en/index.js').previousBCHealthNumber[this.person.relationship]"></label>
+              <div class="form-group"
+                 [ngClass]="{'has-error': (person.hasPreviousBCPhn === undefined || person.hasPreviousBCPhn === null) && showError}">
+              
+                <label [innerHtml]="lang('./en/index.js').previousBCHealthNumber[this.person.relationship]"
+                  class="control-label"></label>
                 <div class="btn-group" role="group">
                     <button [class.msp-btn-radio]="person.hasPreviousBCPhn"
                             (click)="person.hasPreviousBCPhn = true; onChange.emit(person.hasPreviousBCPhn)"
@@ -192,43 +247,44 @@
                             (click)="person.hasPreviousBCPhn = false; onChange.emit(person.hasPreviousBCPhn)"
                             type="button" class="btn btn-default">No&nbsp;</button>
                 </div>
+
+              </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6" *ngIf="person.hasPreviousBCPhn === true">
                 <msp-phn [phn]="person.previous_phn"
                          (phnChange)="person.previous_phn = $event"
-                         [required]="true"
+                         [required]="false"
                          [bcPhn]="true"
                          [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"
-                         (onChange) = "onChange.emit($event)"></msp-phn>
+                         (onChange) = "onChange.emit($event)"
+                         [showError] = "showError"></msp-phn>
             </div>
         </div>
-        <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult" style="margin-bottom: 20px">
-            <div class="col-sm-12">
-                <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[this.person.relationship]"></label>
-                <div class="btn-group" role="group">
-                    <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
-                            [class.msp-btn-radio]="person.livedInBCSinceBirth === answer.value"
-                            (click)="person.livedInBCSinceBirth  = answer.value"
-                            type="button" class="btn btn-default">{{answer.label}}
-                    </button>
-                </div>
-            </div>
-        </div>
+
     </div>
 
     <div class="row"
         *ngIf="person.documents.images.length > 0 && person.status === StatusInCanada.CitizenAdult" 
         style="margin-top: 10px; margin-bottom: 10px;">
         <div class="col-md-8">
-            <label [innerHtml]="lang('./en/index.js').canadianForcesQuestion[this.person.relationship]"></label>
-            <div class="btn-group" role="group">
-                <button *ngFor='let institution of institutionList'
-                        [class.msp-btn-radio]="person.institutionWorkHistory == institution"
-                        (click)="selectInstitution(institution)"
-                        type="button" class="btn btn-default">{{institution}}
-                </button>
+            <div class="form-group"
+              [ngClass]="{'has-error': (person.institutionWorkHistory === undefined ||  person.institutionWorkHistory === null) 
+                && showError}">
+              <label [innerHtml]="lang('./en/index.js').canadianForcesQuestion[this.person.relationship]" class="control-label"></label>
+              <div class="btn-group" role="group">
+                  <button *ngFor='let institution of institutionList'
+                          [class.msp-btn-radio]="person.institutionWorkHistory == institution"
+                          (click)="selectInstitution(institution)"
+                          type="button" class="btn btn-default">{{institution}}
+                  </button>
+              </div>
+              <div *ngIf='(person.institutionWorkHistory === undefined ||  person.institutionWorkHistory === null) && showError'>
+                  <p class="text-danger" 
+                      [innerHtml]="lang('./en/index.js').mustDeclareInstitutionWorkHistory"></p>
+              </div>
+              
             </div>
             <div *ngIf="person.institutionWorkHistory === 'Yes'" style="margin-top: 10px">
                 <msp-discharge-date
@@ -238,7 +294,7 @@
                         (monthChange)="person.dischargeMonth = $event"
                         [day]="person.dischargeDay"
                         (dayChange)="person.dischargeDay = $event"
-                        (onChange) = "onChange.emit($event)"></msp-discharge-date>
+                        (onChange) = "onChange.emit($event)" [showError]="showError"></msp-discharge-date>
             </div>
         </div>
     </div>
@@ -246,14 +302,20 @@
     <div class="row" *ngIf="person.documents.images.length > 0 &&
                             (person.relationship === Relationship.Applicant ||
                             person.relationship === Relationship.Child19To24)">
-        <div class="form-group col-md-4" *ngIf="person.relationship === Relationship.Applicant">
-            <label [innerHtml]="lang('./en/index.js').fullTimeStudentLabel"></label>
+        <div class="form-group col-md-4" *ngIf="person.relationship === Relationship.Applicant"
+            [ngClass]="{'has-error': showError && (person.fullTimeStudent === undefined || person.fullTimeStudent === null)}">
+            <label [innerHtml]="lang('./en/index.js').fullTimeStudentLabel" class="control-label"></label>
             <div class="btn-group" role="group">
                 <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
                         [class.msp-btn-radio]="person.fullTimeStudent === answer.value"
                         (click)="setFullTimeStudent(answer.value)"
                         type="button" class="btn btn-default">{{answer.label}}
                 </button>
+                
+            </div>
+            <div *ngIf='showError && (person.fullTimeStudent === undefined || person.fullTimeStudent === null)'>
+                <div class="text-danger" 
+                    [innerHtml]="lang('./en/index.js').mustDeclareStudentStatus"></div>
             </div>
         </div>
 
@@ -263,14 +325,14 @@
     <div class="row" *ngIf="person.documents.images.length > 0 &&
                             person.relationship === Relationship.Child19To24">
         <div class="form-group col-md-6"
-            [ngClass]="{'has-error': !formRef.controls.schoolName?.valid && schoolNameRef.touched}">
+            [ngClass]="{'has-error': !formRef.controls.schoolName?.valid && schoolNameRef.touched || showError}">
             <h2 [innerHtml]="lang('./en/index.js').nameOfSchool"></h2>
             <label for="schoolName" [innerHtml]="lang('./en/index.js').fullAttendanceLabel"></label>
             <input [(ngModel)]='person.schoolName' type="text" class="form-control"
                 id="schoolName" name="schoolName" #schoolNameRef="ngModel"
                 required
                 maxlength="50">
-            <div *ngIf='schoolNameRef.touched || formRef.submitted'>
+            <div *ngIf='schoolNameRef.touched || showError'>
                 <div class="text-danger" *ngIf="schoolNameRef.errors?.required"
                     [innerHtml]="lang('./en/index.js').schoolNameErrorIsRequired"></div>
             </div>
@@ -310,11 +372,13 @@
         </div>
         
     </div>
-    <div class="row">
+    <div class="row" *ngIf="person.documents.images.length > 0">
         <div *ngIf="person.fullTimeStudent" class="col-md-6">
+          <div class="form-group"
+             [ngClass]="{'has-error': (person.inBCafterStudies===undefined || person.inBCafterStudies===null) && showError}">
             <label *ngIf="person.relationship === Relationship.Applicant" 
-                [innerHtml]="lang('./en/index.js').inBCAfterStudiesLabel"></label>
-            <label *ngIf="person.relationship === Relationship.Child19To24" 
+                [innerHtml]="lang('./en/index.js').inBCAfterStudiesLabel" class="control-label"></label>
+            <label *ngIf="person.relationship === Relationship.Child19To24" class="control-label"
                 [innerHtml]="lang('./en/index.js').childStayInBCAfterStudiesLabel"></label>
             <div class="btn-group" role="group">
                 <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
@@ -323,6 +387,12 @@
                         type="button" class="btn btn-default">{{answer.label}}
                 </button>
             </div>
+            <div *ngIf="(person.inBCafterStudies===undefined || person.inBCafterStudies===null) && showError">
+                <p class="text-danger" 
+                    [innerHtml]="lang('./en/index.js').mustAnswerQuestion"></p>
+            </div>
+
+          </div>
         </div>
     </div>
 

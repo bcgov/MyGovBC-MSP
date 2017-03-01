@@ -8,7 +8,7 @@
                name="reason" #reasonRef="ngModel"
                required
                maxlength="20">
-        <div *ngIf='reasonRef.touched'>
+        <div *ngIf='reasonRef.touched || showError'>
           <div class="text-danger" *ngIf="reasonRef.errors?.required"
               [innerHtml]="lang('./en/index.js').ourOfBCReasonRequired"></div>
         </div>
@@ -22,7 +22,7 @@
                name="location" #locationRef="ngModel"
                required
                maxlength="20">
-        <div *ngIf='locationRef.touched'>
+        <div *ngIf='locationRef.touched || showError'>
           <div class="text-danger" *ngIf="locationRef.errors?.required"
                [innerHtml]="lang('./en/index.js').locationRequired"></div>
         </div>
@@ -38,7 +38,8 @@
           (monthChange)="outofBCRecord.departureMonth = $event"
           [day]="outofBCRecord.departureDay"
           (dayChange)="outofBCRecord.departureDay = $event;"
-          (onChange)="onUpdate.emit($event)"></msp-departure-date>
+          (onChange)="onUpdate.emit($event)"
+          [showError]="showError"></msp-departure-date>
     </div>
     <div class="col-md-4">
       <msp-return-date
@@ -48,7 +49,8 @@
           (monthChange)="outofBCRecord.returnMonth = $event"
           [day]="outofBCRecord.returnDay"
           (dayChange)="outofBCRecord.returnDay = $event"
-          (onChange)="onUpdate.emit($event)"></msp-return-date>
+          (onChange)="onUpdate.emit($event)"
+          [showError]="showError"></msp-return-date>
     </div>
   </div>
 </form>

@@ -15,6 +15,7 @@ enum Gender {
 
 class Person {
 
+
   readonly uuid = UUID.UUID();
 
   relationship: Relationship;
@@ -23,6 +24,9 @@ class Person {
   documents: PersonDocuments = new PersonDocuments();
   outOfBCRecord: OutofBCRecord;
 
+  get hasDocuments():boolean {
+    return this.documents.images && this.documents.images.length > 0;
+  }
   /**
    * Had episodes of leaving and returning to bc for peirod of longer than 30 days.
    */
@@ -154,13 +158,30 @@ class Person {
    * If answser is NO, the livedInBCSinceBirth = false
    * See https://apps.gcpe.gov.bc.ca/jira/browse/PSPDN-398
    */
-  livedInBCSinceBirth:boolean = null;
+  private _livedInBCSinceBirth:boolean = null;
+
+  get livedInBCSinceBirth(): boolean {
+    return this._livedInBCSinceBirth;
+  }
+
+  set livedInBCSinceBirth(value: boolean) {
+    this._livedInBCSinceBirth = value;
+    if (this._livedInBCSinceBirth === true) {
+      // We erase this info if they lived in BC since birth
+      this.arrivalToCanadaYear = null;
+      this.arrivalToCanadaMonth = null;
+      this.arrivalToCanadaDay = null;
+      this.arrivalToBCYear = null;
+      this.arrivalToBCMonth = null;
+      this.arrivalToBCDay = null;
+    }
+  }
 
   /**
    * This property is for storing user provided answer to the following question:
    * Are you planning to stay for six months or longer
    */
-  stayForSixMonthsOrLonger:boolean;
+  madePermanentMoveToBC:boolean;
 
   /**
    * This property is for storing user provided answer to the following question:
@@ -219,7 +240,7 @@ class Person {
     this._status = st;
     if(this._status === StatusInCanada.PermanentResident 
       || this._status === StatusInCanada.TemporaryResident){
-        this.livedInBCSinceBirth = false;
+        this._livedInBCSinceBirth = false;
       }
   }
 
@@ -273,7 +294,7 @@ class Person {
   }
 
   /**
-   *   0: 'Returning to BC after an absence',
+   *   0: 'Living in BC without MSP',
    *   1: 'Moving from another province',
    *   2: 'Moving from another country',
    *   3: 'Working in BC',
@@ -285,19 +306,19 @@ class Person {
     // console.log('check data completeness for: ' + Relationship[this.relationship]);
     let basic =  _.isString(this.gender)
     && _.isString(this.firstName) && this.firstName.length > 0 && _.isString(this.lastName) && this.lastName.length > 0
-    // && this.isNotEmpty(this.dob_day) && this.isNotEmpty(this.dob_month) && this.isNotEmpty(this.dob_year)
     && _.isNumber(this.dob_day) && _.isString(this.dob_month) && _.isNumber(this.dob_year) && !(this.dob_month == 0)
     && _.isNumber(this._status) && _.isNumber(this._currentActivity) && this.documents.images.length > 0
-    && !(this.arrivalToBCMonth == 0)  && _.isNumber(this.arrivalToBCYear)
-    && !(this.arrivalToCanadaMonth == 0)
     && !(this.studiesDepartureMonth == 0)
     && !(this.studiesFinishedMonth == 0)
     let returningToBCComplete = true;
 
-    // code 0 is "Returning to BC after an absence"
+    // code 0 is "Lived in BC without MSP"
     if(this.currentActivity === 0){
-      returningToBCComplete = _.isBoolean(this.hasPreviousBCPhn)
-      && _.isNumber(this.arrivalToBCYear) && _.isString(this.arrivalToBCMonth) && _.isNumber(this.arrivalToBCDay);
+      returningToBCComplete = _.isBoolean(this.hasPreviousBCPhn);
+
+      if (this.status === StatusInCanada.CitizenAdult) {
+        returningToBCComplete = returningToBCComplete && _.isBoolean(this.livedInBCSinceBirth);
+      }
     }
 
     // code 1 is "Moving from another province"
@@ -341,14 +362,22 @@ class Person {
       }  
     }
 
+
+    let arrivalToBCCompete = true;
+    if (this.livedInBCSinceBirth === null || this.livedInBCSinceBirth === false) {
+      arrivalToBCCompete = this.arrivalToBCMonth > 0  && _.isNumber(this.arrivalToBCYear)
+        && _.isNumber(this.arrivalToBCDay);
+    }
+
     let arrivalInCanadaComplete = true;
     if (!(this.status === StatusInCanada.CitizenAdult &&
       (this.currentActivity === Activities.MovingFromProvince ||
-        this.currentActivity === Activities.Returning))) {
+        this.currentActivity === Activities.LivingInBCWithoutMSP))) {
       arrivalInCanadaComplete = _.isNumber(this.arrivalToCanadaDay) && _.isString(this.arrivalToCanadaMonth) && _.isNumber(this.arrivalToCanadaYear);
     }
     let result = basic 
-      && returningToBCComplete 
+      && returningToBCComplete
+      && arrivalToBCCompete
       && arrivalInCanadaComplete
       && movingFromAnotherProvinceComplete
       && movingFromAnotherCountryComplete

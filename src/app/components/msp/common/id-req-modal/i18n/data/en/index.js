@@ -31,7 +31,7 @@ module.exports = {
                     document: 1,
                     title: "Canadian Passport",
                     body: "<ul><li>Include entire page, corner to corner</li><li>Ensure all text is legible and photo is in focus</li></ul>",
-                    image: require('./images/passport.jpg')
+                    image: require('./images/Data_Page_of_Canadian_Passport.jpg')
                 },
                 {
                     document: 2,
@@ -67,13 +67,13 @@ module.exports = {
                     document: 5,
                     title: "Work Permit",
                     body: "<ul><li>Must be valid for six months or longer</li></ul>",
-                    image: ""
+                    image: require('./images/work-permit.jpg')
                 },
                 {
                     document: 6,
                     title: "Study Permit",
                     body: "<ul><li>Must be valid for six months or longer</li></ul>",
-                    image: require('./images/study-permit.jpg')
+                    image: require('./images/SP-new2013.jpg')
                 },
                  {
                     document: 7,
@@ -102,14 +102,14 @@ module.exports = {
                 {
                     document: 9,
                     title: "Marriage Certificate",
-                    body: "<ul><li>Include entire page, corner to corner</li><li>Ensure all text is legible and photo is in focus</li></ul>",
+                    body: "<ul><li>Include entire page, corner to corner</li><li>Ensure all text is legible and in focus</li></ul>",
                     image: require('./images/large-marriage-cert-big.jpg')
                 },
                 {
                     document: 10,
                     title: "Legal Name Change Certificate",
-                    body: "sample body",
-                    image: ""
+                    body: "<ul><li>Include entire page, corner to corner</li><li>Ensure all text is legible and in focus</li></ul>",
+                    image: require('./images/bigname.gif')
                 }
             ]
         },
