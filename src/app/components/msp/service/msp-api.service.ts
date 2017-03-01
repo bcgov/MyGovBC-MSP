@@ -68,29 +68,31 @@ export class MspApiService {
         let convertedAppXml = this.toXmlString(documentModel);
 
         // if no errors, then we'll sendApplication all attachments
-        this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
+        return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
 
           // once all attachments are done we can sendApplication in the data
-          this.sendDocument(app.authorizationToken, documentModel).then((response: ResponseType) => {
-            console.log("sent application resolved");
-            // Add reference number
-            app.referenceNumber = response.referenceNumber.toString();
+          return this.sendDocument(app.authorizationToken, documentModel).then(
+            (response: ResponseType) => {
+              console.log("sent application resolved");
+              // Add reference number
+              app.referenceNumber = response.referenceNumber.toString();
 
-            // Let our caller know were done passing back the application
-            resolve(app);
-
-          }).catch((error: Response | any) => {
-            console.log("sent application rejected: ", error);
-            reject(error);
-          });
+              // Let our caller know were done passing back the application
+              return resolve(app);
+            },
+          
+            (error: Response | any) => {
+              return reject(error);
+            }          
+          )
         })
-          .catch((error: Response | any) => {
+        .catch((error: Response | any) => {
             console.log("sent all attachments rejected: ", error);
-            reject(error);
+            return reject(error);
           });
       } catch (error) {
-        console.log("sendApplication error: ", error);
-        reject(error);
+        console.log("data conversion error: ", error);
+        return reject(error);
       }
     });
   }
@@ -109,12 +111,19 @@ export class MspApiService {
         attachmentPromises.push(this.sendAttachment(token, applicationUUID, attachment));
       }
       // Execute all promises are waiting for results
-      Promise.all(attachmentPromises).then((responses: ResponseType[]) => {
-        resolve();
-      }).catch((error: Response | any) => {
+      return Promise.all(attachmentPromises).then(
+        (responses: ResponseType[]) => {
+          return resolve();
+        },
+        (error: Response | any) => {
         console.log("error sending attachment: ", error);
-        reject(error);
-      })
+          return reject(error);
+        }
+      );
+      // .catch((error: Response | any) => {
+      //   console.log("error sending attachment: ", error);
+      //   return reject(error);
+      // })
     });
   }
 
@@ -164,12 +173,13 @@ export class MspApiService {
           resolve(<ResponseType>{});
         })
         .catch((error: Response | any) => {
-          console.log("attachment error: ", error);
+          console.log("Error in sending individual attachment: ", error);
           let response = this.convertResponse(error);
           reject(response || error);
         });
     });
   }
+
 
   /**
    * Sends the application XML, last step in overall transaction
@@ -195,17 +205,17 @@ export class MspApiService {
       // Convert doc to XML
       let documentXmlString = this.toXmlString(document);
 
-      this.http.post(url, documentXmlString, options)
+      return this.http.post(url, documentXmlString, options)
         .toPromise()
         .then((response: Response) => {
           console.log("sent application resolved");
-          resolve(this.convertResponse(response.text()));
+          return resolve(this.convertResponse(response.text()));
         })
         .catch((error: Response | any) => {
           error._requestBody = documentXmlString;
           let response = this.convertResponse(error);
           console.log("full error: ", error)
-          reject(response || error);
+          return reject(response || error);
         });
     });
   }
