@@ -48,16 +48,16 @@
       <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
               (onValidToken)="application.authorizationToken = $event"></captcha>
   </div>
+  <div class="row" *ngIf="form.submitted && !validToken">
+      <div class="col-md-6">
+        <div class="text-danger" 
+             [innerHtml]="lang('./en/index.js').tryAgainWithCaptcha"></div>        
+      </div>
+  </div>
   <hr>
   <button [mspLogger]="'msp-enrollment_review_continue'"
           [disabled]="!application.authorizedByApplicant || (application.spouse && !application.authorizedBySpouse)"
           class="btn btn-primary" type="submit"
           [innerHtml]="lang('./en/index.js').submitButton"></button>
-  <!--<button [mspLogger]="'msp-enrollment_review_continue'"
-          [disabled]="!application.authorizedByApplicant || (application.spouse && !application.authorizedBySpouse)
-          || !application.authorizationToken"
-          class="btn btn-primary" type="button" routerLink="/msp/application/sending"
-          [innerHtml]="lang('./en/index.js').submitButton"></button>-->
-
   <msp-cancel></msp-cancel>
 </form>

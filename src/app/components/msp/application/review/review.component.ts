@@ -1,4 +1,5 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, ViewChild, ElementRef} from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 
 import {MspApplication} from "../../model/application.model";
@@ -15,7 +16,8 @@ export class ReviewComponent {
 
   application: MspApplication;
   captchaApiBaseUrl:string;
-
+  @ViewChild(NgForm) form: NgForm;
+  
   constructor(private dataService: DataService,
               private _router: Router,
               @Inject('appConstants') private appConstants: Object) {
@@ -52,9 +54,15 @@ export class ReviewComponent {
     return this.application.spouse.firstName + ' ' + this.application.spouse.lastName;
   }
 
+  get validToken():boolean{
+    return this.application.hasValidAuthToken;
+  }
   handleFormSubmission(evt:any){
-    console.log('review form submitted, %o', evt);
-    this._router.navigate(['/msp/application/sending']);
-    //routerLink="/msp/application/sending"
+    // console.log('review form submitted, %o', evt);
+    if(this.application.hasValidAuthToken){
+      this._router.navigate(['/msp/application/sending']);
+    }else{
+      console.log('Auth token is not valid');
+    }
   }
 }
