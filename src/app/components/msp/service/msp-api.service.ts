@@ -155,6 +155,7 @@ export class MspApiService {
       // Setup headers
       let headers = new Headers({
         'Content-Type': attachment.contentType,
+        'Access-Control-Allow-Origin': '*',
         'Authorization': 'Bearer ' + token
       });
       let options = new RequestOptions({headers: headers});
@@ -166,17 +167,24 @@ export class MspApiService {
       }
       let blob = new Blob([new Uint8Array(array)], {type: attachment.contentType});
 
-      this.http
+      return this.http
         .post(url, blob, options)
         .toPromise()
         .then((response: Response) => {
-          resolve(<ResponseType>{});
-        })
-        .catch((error: Response | any) => {
-          console.log("Error in sending individual attachment: ", error);
-          let response = this.convertResponse(error);
-          reject(response || error);
-        });
+          return resolve(<ResponseType>{
+            status: response.status + ''
+          });
+        },
+          (error: Response|any) => {
+            console.log('error response in its origin form: ', error);
+            return reject(error);
+          }
+        );
+        // .catch((error: Response | any) => {
+        //   console.log("Error in sending individual attachment: ", error);
+        //   let response = this.convertResponse(error);
+        //   reject(response || error);
+        // });
     });
   }
 

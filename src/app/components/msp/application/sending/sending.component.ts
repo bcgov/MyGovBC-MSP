@@ -63,7 +63,7 @@ export class SendingComponent implements AfterViewInit {
         console.log('error in sending application: ', error);
         this.errorCode = error.status + '';
         this.rawUrl = error.url;
-        this.rawError = error._body;
+        this.rawError = error;
         this.rawRequest = error._requestBody
         this.logService.log({name: 'enrollment application received failure message from API server', 
           error: error._body,
