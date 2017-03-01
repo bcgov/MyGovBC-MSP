@@ -123,7 +123,7 @@ module.exports = function (_path) {
       coreApiBaseUrl: 'http://localhost:9000/api',
       serviceName: 'core',
       apiBaseUrl: '/api',
-      //apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
+      // apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
       captchaApiBaseUrl: '/api/captcha',
       images: {
         maxImagesPerPerson: 10,
