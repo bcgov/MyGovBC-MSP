@@ -161,6 +161,9 @@ class MspApplication implements ApplicationBase {
     return applicantDocsAvail && spouseDocsAvail && kidsDocsAvail;
   }
 
+  get hasValidAuthToken(){
+    return this.authorizationToken && this.authorizationToken.length > 1;
+  }
   constructor() {
     // Set some defaults
     this.residentialAddress.province = "British Columbia";

@@ -14,7 +14,7 @@ export class MspApplicationSendingGuard implements CanActivate {
     let step4Complete = this.compCheck.mspReviewAndSubmitCompleted();
 
     if(!step1Complete || !step2Complete || !step3Complete || !step4Complete){
-      console.log('EA not completed yet, return user to first step');
+      console.log('There are missing informaion on the application. Return user to first step');
       this._router.navigate(['/msp/application']);
       return false;
     }
@@ -22,7 +22,7 @@ export class MspApplicationSendingGuard implements CanActivate {
     let authorized = this.compCheck.mspApplicationAuthorizedByUser();
     let validAuthToken = this.compCheck.mspApplicationValidAuthToken();
 
-    if(authorized && !validAuthToken){
+    if(authorized && validAuthToken){
       console.log('All preconditions for sumbmitting EA are met, sending guard is allowing app activating/transitioning into sending state.');
       return true;
     }else if(!authorized){
