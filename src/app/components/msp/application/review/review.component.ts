@@ -57,6 +57,7 @@ export class ReviewComponent {
   handleFormSubmission(evt:any){
     // console.log('review form submitted, %o', evt);
     if(this.application.hasValidAuthToken){
+      console.log('Found valid auth token, transfer to sending screen.');
       this._router.navigate(['/msp/application/sending']);
     }else{
       console.log('Auth token is not valid');
