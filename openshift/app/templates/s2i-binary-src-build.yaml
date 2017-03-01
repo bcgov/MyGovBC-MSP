@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Template
+metadata:
+  annotations:
+    description: Build template for a static html5 application from binary source input served by nginx
+    tags: instant-app,nginx
+  name: mygovbc-client-build
+objects:
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      description: Keeps track of changes in the application image
+    name: ${NAME}
+- apiVersion: v1
+  kind: BuildConfig
+  annotations:
+    description: Defines how to build the application
+  metadata:
+    labels:
+      app: ${NAME}
+    name: ${NAME}
+  spec:
+    source:
+      type: Binary
+    strategy:
+      type: Source
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: ${BUILDER_IMAGE_NAME}:latest
+        incremental: false
+    output:
+      to:
+        kind: ImageStreamTag
+        name: ${NAME}:latest
+parameters:
+- description: The name assigned to all of the openshift objects defined in this template.
+  displayName: Name
+  name: NAME
+  required: true
+  value: mygovbc-client
+- description: Builder image name.
+  displayName: Builder Image
+  name: BUILDER_IMAGE_NAME
+  required: true
+  value: s2i-nginx
