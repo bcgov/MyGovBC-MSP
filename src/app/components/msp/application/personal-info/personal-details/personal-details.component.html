@@ -75,7 +75,8 @@
                 [images]="person.documents.images" [id]='id'
                 (onAddDocument)="addDocument($event)"
                 (onErrorDocument)="errorDocument($event)"
-                (onDeleteDocument)="deleteDocument($event)"></msp-file-uploader>
+                (onDeleteDocument)="deleteDocument($event)"
+                [showError]="showError"></msp-file-uploader>
 
             <msp-image-error-modal #imageErrorModal></msp-image-error-modal>
         </div>
@@ -371,7 +372,7 @@
         </div>
         
     </div>
-    <div class="row">
+    <div class="row" *ngIf="person.documents.images.length > 0">
         <div *ngIf="person.fullTimeStudent" class="col-md-6">
           <div class="form-group"
              [ngClass]="{'has-error': (person.inBCafterStudies===undefined || person.inBCafterStudies===null) && showError}">

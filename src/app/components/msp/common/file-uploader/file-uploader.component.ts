@@ -21,7 +21,7 @@ require('./file-uploader.component.less');
 })
 export class FileUploaderComponent implements OnInit, OnChanges {
   lang = require('./i18n');
-  errorStyle: boolean;
+  errorStyle: Boolean = false;
 
   @ViewChild('dropZone') dropZone: ElementRef;
   @ViewChild('browseFileRef') browseFileRef: ElementRef;
@@ -31,6 +31,7 @@ export class FileUploaderComponent implements OnInit, OnChanges {
 
   @Input() images: Array<MspImage>;
   @Input() id: string;
+  @Input() showError: boolean;
 
   @Output() onAddDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
   @Output() onErrorDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
@@ -51,8 +52,8 @@ export class FileUploaderComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['images'].currentValue.length === 0 &&
-      changes['images'].previousValue.length > 0) {
+    if (changes['images'] && (changes['images'].currentValue.length === 0 &&
+      changes['images'].previousValue.length > 0)) {
       this.errorStyle = true;
     } else {
       this.errorStyle = false;
