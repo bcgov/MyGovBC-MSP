@@ -21,7 +21,7 @@ require('./file-uploader.component.less');
 })
 export class FileUploaderComponent implements OnInit, OnChanges {
   lang = require('./i18n');
-  errorStyle: Boolean = false;
+  noIdImage: Boolean = false;
 
   @ViewChild('dropZone') dropZone: ElementRef;
   @ViewChild('browseFileRef') browseFileRef: ElementRef;
@@ -54,9 +54,9 @@ export class FileUploaderComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['images'] && (changes['images'].currentValue.length === 0 &&
       changes['images'].previousValue.length > 0)) {
-      this.errorStyle = true;
+      this.noIdImage = true;
     } else {
-      this.errorStyle = false;
+      this.noIdImage = false;
     }
   }
 
@@ -281,6 +281,8 @@ export class FileUploaderComponent implements OnInit, OnChanges {
       This file ${mspImage.name} was not uploaded.`);
     } else {
       this.onAddDocument.emit(mspImage);
+      this.showError = false;
+      this.noIdImage = false;
     }
   }
 

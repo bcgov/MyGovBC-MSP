@@ -1,4 +1,6 @@
 import {Component, Inject} from '@angular/core';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
+
 import {MspApplication} from "../../model/application.model";
 
 import DataService from '../../service/msp-data.service';
@@ -15,19 +17,25 @@ export class ReviewComponent {
   captchaApiBaseUrl:string;
 
   constructor(private dataService: DataService,
+              private _router: Router,
               @Inject('appConstants') private appConstants: Object) {
     this.application = this.dataService.getMspApplication();
     this.captchaApiBaseUrl = this.appConstants["captchaApiBaseUrl"];
   }
 
   applicantAuthorizeOnChange(event: boolean) {
+    // console.log('applicant authorization: ', event);
     this.application.authorizedByApplicant = event;
+
     if (this.application.authorizedByApplicant) {
       this.application.authorizedByApplicantDate = new Date();
     }
+    this.dataService.saveMspApplication();
+    
   }
   spouseAuthorizeOnChange(event: boolean) {
     this.application.authorizedBySpouse = event;
+    this.dataService.saveMspApplication();
   }
 
 
@@ -42,5 +50,11 @@ export class ReviewComponent {
   }
   get spouseName(){
     return this.application.spouse.firstName + ' ' + this.application.spouse.lastName;
+  }
+
+  handleFormSubmission(evt:any){
+    console.log('review form submitted, %o', evt);
+    this._router.navigate(['/msp/application/sending']);
+    //routerLink="/msp/application/sending"
   }
 }

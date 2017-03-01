@@ -32,9 +32,10 @@ export class SendingComponent implements AfterViewInit {
         this.logService.log({name: 'enrollment application received success confirmation from API server', 
           confirmationNumber: this.application.referenceNumber});
 
+        let tempRef = this.application.referenceNumber;
         //  go to confirmation
         this.router.navigate(["/msp/application/confirmation"], 
-          {queryParams: {confirmationNum:this.application.referenceNumber}});
+          {queryParams: {confirmationNum:tempRef}});
 
         //delete the application from storage
         this.dataService.removeMspApplication();
