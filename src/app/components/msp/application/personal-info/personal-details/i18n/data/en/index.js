@@ -29,7 +29,7 @@ module.exports = {
     '<i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> Upload your spouse\'s documents',
     '<i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> Upload your child\'s documents',
     '<i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> Upload your child\'s documents'],
-  documentInstructionsNote: 'Carefully follow these instructions:<ul><li>Scan the document, or take a photo of it</li><li>Include the entire document, corner to corner</li><li>Make sure the document is in focus and is easy to read</li><li>Save the file as a JPG or PNG</li></ul>',
+  documentInstructionsNote: 'Scan the document, or take a photo of it. Make sure that it:<ul><li>Is at least 1000 pixels wide x 1500 pixels tall</li><li>Includes the entire document, corner to corner</li><li>Is in focus and is easy to read</li><li>Is a JPG or PNG file</li></ul>',
   viewSamplesButton: 'See a sample',
 
   nameHelpBlock: ['Enter your legal name and gender',
@@ -82,8 +82,8 @@ module.exports = {
 
   removeSpouseButton: 'Remove',
   removeChildButton: 'Remove',
-  mustAnswerQuestionAboutBeenOutsideBC: 'You must answer this question about your absense from BC.',
-  mustAnswerQuestionAboutPermMoveToBC: 'You must answer this question about your move to BC.',
+  mustAnswerQuestionAboutBeenOutsideBC: 'You must answer this question about your absence from B.C.',
+  mustAnswerQuestionAboutPermMoveToBC: 'You must answer this question about your move to B.C.',
   mustDeclareStudentStatus: "Are you a full time student right now?",
   mustDeclareInstitutionWorkHistory: "Please answer this question.",
   mustAnswerQuestion: "This question has to be answered in order to continue with the application."
