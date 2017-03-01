@@ -2,7 +2,7 @@
 <div class="alert alert-info" role="alert">
     <h2 [mspLogger]="'msp-enrollment_confirmation'"
         class="to-upper">
-        Reference # {{confirmationNum}}
+        Reference # {{confirmationNum? confirmationNum : 'N/A'}}
     </h2>
 </div>
 <h2 [innerHTML]="lang('./en/index.js').secondTitle"></h2>

@@ -40,6 +40,7 @@ export class SendingComponent implements AfterViewInit {
         this.dataService.removeMspApplication();
       })
       .catch((error: ResponseType | any) => {
+        console.log('error in sending application: ', error);
         this.rawUrl = error.url;
         this.rawError = error._body;
         this.rawRequest = error._requestBody

@@ -21,7 +21,7 @@ export class AssistanceConfirmationComponent {
   ngOnInit():void {
     this.subscription = this.route.queryParams.subscribe(
       params => {
-        this.confirmationNum = params['confirmationNum'] || 'N/A';
+        this.confirmationNum = params['confirmationNum'];
       }
     )
   }
