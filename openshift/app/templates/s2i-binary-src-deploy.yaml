@@ -7,6 +7,12 @@ metadata:
   name: mygovbc-client-deploy
 objects:
 - apiVersion: v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      description: runtime images stream
+    name: ${NAME}
+- apiVersion: v1
   kind: DeploymentConfig
   metadata:
     creationTimestamp: null
@@ -62,8 +68,7 @@ objects:
         - ${NAME}
         from:
           kind: ImageStreamTag
-          namespace: ${IMAGE_NAMESPACE}
-          name: ${NAME}:${IMAGE_TAG}
+          name: ${NAME}:latest
 - apiVersion: v1
   kind: Service
   metadata:
@@ -119,15 +124,6 @@ parameters:
   name: NAME
   required: true
   value: mygovbc-client
-- description: Project containing the runtime image stream.
-  displayName: Image Stream Namespace
-  required: true
-  name: IMAGE_NAMESPACE
-- description: Image tag to be deployed
-  displayName: Image tag
-  name: IMAGE_TAG
-  required: true
-  value: latest
 - description: OpenShift cluster private IP range in CIDR notation, used by Nginx ngx_http_realip_module.
   displayName: OpenShift Cluster IP Range
   name: REAL_IP_FROM
