@@ -10,7 +10,13 @@ objects:
   kind: ImageStream
   metadata:
     annotations:
-      description: Keeps track of changes in the application image
+      description: builder image stream
+    name: ${BUILDER_IMAGE_NAME}
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      description: runtime images stream
     name: ${NAME}
 - apiVersion: v1
   kind: BuildConfig

@@ -63,7 +63,7 @@ objects:
         from:
           kind: ImageStreamTag
           namespace: ${IMAGE_NAMESPACE}
-          name: ${NAME}:latest
+          name: ${NAME}:${IMAGE_TAG}
 - apiVersion: v1
   kind: Service
   metadata:
@@ -114,25 +114,26 @@ objects:
     minReplicas: 2
     maxReplicas: 6
 parameters:
-- description: The name assigned to all of the openshift objects defined in this template.
+- description: The name assigned to all of the openshift objects defined in this template. It is also the name of runtime image.
   displayName: Name
   name: NAME
   required: true
   value: mygovbc-client
-- description: The exposed hostname that will route to the MyGovBC service, if left
-    blank a value will be defaulted.
-  displayName: Application Hostname
-  name: APPLICATION_DOMAIN
-- description: Builder image name.
-  displayName: Builder Image
-  name: BUILDER_IMAGE_NAME
+- description: Project containing the runtime image stream.
+  displayName: Image Stream Namespace
   required: true
-  value: s2i-nginx
+  name: IMAGE_NAMESPACE
+- description: Image tag to be deployed
+  displayName: Image tag
+  name: IMAGE_TAG
+  required: true
+  value: latest
 - description: OpenShift cluster private IP range in CIDR notation, used by Nginx ngx_http_realip_module.
   displayName: OpenShift Cluster IP Range
   name: REAL_IP_FROM
   required: true
   value: "172.51.0.0/16"
-- description: Project containing the runtime image stream.
-  displayName: Image Stream Namespace
-  name: IMAGE_NAMESPACE
+- description: The exposed hostname that will route to the MyGovBC service, if left
+    blank a value will be defaulted.
+  displayName: Application Hostname
+  name: APPLICATION_DOMAIN
