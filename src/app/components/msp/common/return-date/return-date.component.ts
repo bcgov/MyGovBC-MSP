@@ -15,6 +15,7 @@ export class MspReturnDateComponent implements AfterViewInit{
   // Create today for comparison in check later
   today = moment();
 
+  @Input() showError: boolean;
   @Input() year: number;
   @Output() yearChange = new EventEmitter<number>();
   @Input() month: number;
