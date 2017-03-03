@@ -116,6 +116,13 @@ module.exports = function (_path) {
       watchOptions: {
         poll: 1000,
       },
+      proxy: {
+          '/api': {
+              target: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca',
+              changeOrigin: true,
+              secure: false
+          }
+      }
     },
     // constants injected to app
     appConstants: {

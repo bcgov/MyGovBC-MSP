@@ -500,7 +500,6 @@ export class MspApiService {
     if (from.eligibility.deductions != null) to.deductions = from.eligibility.deductions;
     if (from.eligibility.disabilityDeduction != null) to.disabilityDeduction = from.eligibility.disabilityDeduction;
     if (from.eligibility.sixtyFiveDeduction != null) to.sixtyFiveDeduction = from.eligibility.sixtyFiveDeduction;
-    if (from.eligibility.spouseSixtyFiveDeduction != null) to.sixtyFiveDeduction += from.eligibility.spouseSixtyFiveDeduction;
     if (from.eligibility.totalDeductions != null) to.totalDeductions = from.eligibility.totalDeductions;
     if (from.eligibility.totalNetIncome != null) to.totalDeductions = from.eligibility.totalDeductions;
     if (from.claimedChildCareExpense_line214 != null) to.childCareExpense = from.claimedChildCareExpense_line214;
