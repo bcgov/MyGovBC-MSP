@@ -2,7 +2,7 @@ module.exports = {
   netAnnualIncome: 'Your net annual income',
   ageOver65: '65 or older',
   hasSpouseOrCommonLaw: 'Spouse/common-law partner',
-  spouseAgeOver65: 'Spouse/common-law 65 or order',
+  spouseAgeOver65: 'Spouse/common-law 65 or older',
   spouseAnnualIncome: 'Spouse\'s annual income',
   childCount: 'Kids',
   disabilityCredit: 'Disability credit',
