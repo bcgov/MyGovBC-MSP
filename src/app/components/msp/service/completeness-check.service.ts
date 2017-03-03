@@ -65,7 +65,6 @@ export default class CompletenessCheckService {
       if(!this.mspApp.mailingSameAsResidentialAddress){
         valid = valid && this.mspApp.mailingAddress.isValid;
       }
-      valid = valid && _.isString(this.mspApp.phoneNumber) && this.mspApp.phoneNumber.length > 9
       return valid;
     }
 
@@ -111,8 +110,7 @@ export default class CompletenessCheckService {
     }
 
     finAppPersonalInfoCompleted():boolean {
-      let basics = !_.isEmpty(this.finApp.phoneNumber)
-        && !_.isEmpty(this.finApp.applicant.firstName)
+      let basics = !_.isEmpty(this.finApp.applicant.firstName)
         && !_.isEmpty(this.finApp.applicant.lastName)
         && _.isNumber(this.finApp.applicant.dob_day)
         && !_.isEmpty(this.finApp.applicant.dob_month)

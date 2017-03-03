@@ -1,18 +1,15 @@
 <form #formRef='ngForm' novalidate>
     <div class="form-group"
          [ngClass]="{'has-error': !formRef.controls.phone?.valid && phoneRef.touched}">
-        <label [class.optional]="alternative" class="control-label" for="phone"
+        <label class="control-label optional" for="phone"
                [innerHTML]="getLabel()"></label>
         <input type="text" class="form-control"
                [ngModel]="phoneNumber"
                (ngModelChange)="phoneNumber=$event;phoneNumberChange.emit($event)"
                id='phone' name='phone' #phoneRef="ngModel"
-               required
                maxlength="12"
                pattern="\d{3}[\-]?\d{3}[\-]?\d{4}">
         <div *ngIf='phoneRef.touched'>
-            <div class="text-danger" *ngIf="phoneRef.errors?.required"
-                 [innerHtml]="lang('./en/index.js').phoneErrorRequired"></div>
             <div class="text-danger" *ngIf="phoneRef.errors?.pattern"
                  [innerHtml]="lang('./en/index.js').phoneErrorPattern"></div>
         </div>
