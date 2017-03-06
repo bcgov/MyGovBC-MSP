@@ -1,0 +1,22 @@
+<div>
+  <div class="col-xs-12 transmission-error">
+    <span *ngIf="!showMoreErrorDetails">
+      <i class="fa fa-chevron-right"></i>
+    </span>
+    <span *ngIf="showMoreErrorDetails">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+    <a href="javascript:void(0)" (click)="toggleErrorDetails()" *ngIf="showMoreErrorDetails">Close error details</a>
+    <a href="javascript:void(0)" (click)="toggleErrorDetails()" *ngIf="!showMoreErrorDetails">See error details</a>
+  </div>
+  <div class="col-xs-12" *ngIf="showMoreErrorDetails">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Errro code: {{errorCode}}</h3>
+      </div>
+      <div class="panel-body">
+        {{rawError | json}}
+      </div>
+    </div>
+  </div>
+</div>

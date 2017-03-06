@@ -18,6 +18,10 @@ export class AssistanceSendingComponent implements AfterViewInit  {
   rawError: string;
   rawRequest: string;
 
+  transmissionInProcess:boolean;
+  errorCode:string;
+  showMoreErrorDetails:boolean;
+
   constructor(private dataService: DataService, 
               private service:MspApiService, 
               public router: Router,
@@ -27,6 +31,10 @@ export class AssistanceSendingComponent implements AfterViewInit  {
 
   ngAfterViewInit() {
     // After view inits, begin sending the application
+    this.transmissionInProcess = true;
+    this.errorCode = undefined;
+    
+    // After view inits, begin sending the application
     this.service
       .sendApplication(this.application)
       .then((application:FinancialAssistApplication) => {
@@ -35,14 +43,18 @@ export class AssistanceSendingComponent implements AfterViewInit  {
         this.logService.log({name: 'premium assistance application received success confirmation from API server', 
           confirmationNumber: this.application.referenceNumber});
 
+        //delete the premium assistance application content from local storage
+        this.dataService.removeFinAssistApplication();
+
         //  go to confirmation
         this.router.navigate(["/msp/assistance/confirmation"], 
           {queryParams: {confirmationNum:this.application.referenceNumber}});
         
-        //delete the premium assistance application content from local storage
-        this.dataService.removeFinAssistApplication();
       })
       .catch((error: ResponseType | any) => {
+        console.log('Error in sending PA: %o', error);
+        this.errorCode = error.status + '';
+        
         this.rawUrl = error.url;
         this.rawError = error._body;
         this.rawRequest = error._requestBody;
@@ -50,7 +62,14 @@ export class AssistanceSendingComponent implements AfterViewInit  {
         this.logService.log({name: 'premium assistance application received failure message from API server', 
           error: error._body,
           request: error._requestBody});
+        this.transmissionInProcess = false;
+        // this.router.navigate(["/msp/assistance/confirmation"]);
         
       });
   }
+
+  toggleErrorDetails(){
+    this.showMoreErrorDetails = !this.showMoreErrorDetails;
+  }
+  
 }

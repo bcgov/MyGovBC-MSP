@@ -803,7 +803,10 @@ export class MspApiService {
     to.previousCoverage.hasPreviousCoverage = "N";  // default N
     if (from.hasPreviousBCPhn) {
       to.previousCoverage.hasPreviousCoverage = "Y";
-      to.previousCoverage.prevPHN = Number(from.previous_phn.replace(new RegExp("[^0-9]", "g"), ""));;
+
+      if (from.previous_phn) {
+        to.previousCoverage.prevPHN = Number(from.previous_phn.replace(new RegExp("[^0-9]", "g"), ""));
+      }
     }
 
     return to;
