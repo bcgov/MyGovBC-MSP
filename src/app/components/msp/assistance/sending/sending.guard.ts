@@ -8,8 +8,18 @@ export class MspFinancialAssistAppSendingGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
+
+    let prepComplete = this.compCheck.finAppPrepCompleted();
+    let personalInfoComplete = this.compCheck.finAppPersonalInfoCompleted();
     let authorized = this.compCheck.finAppAuthorizationCompleted();
-    if(!authorized){
+
+    if(!prepComplete){
+      console.log('There are missing informaion on the premium assistance application. Return user to first step');
+      this._router.navigate(['/msp/assistance/prepare']);
+      return false;
+    }else if(!personalInfoComplete){
+      this._router.navigate(['/msp/assistance/personal-info']);
+    }else if(!authorized){
         console.log('Please complete authorization.');
         this._router.navigate(['/msp/assistance/authorize-submit']);
         return false;
