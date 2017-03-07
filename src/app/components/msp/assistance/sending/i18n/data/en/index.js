@@ -2,6 +2,6 @@ module.exports = {
   pageTitle: 'Submitting your MSP premium assistance application',
   transmissionSuccess: 'You MSP premium assistance application has been successfully submitted!',
   transmissionInProgressMessage: 'Please do not close this browser tab or window, it can take 1-2 minutes to complete the submission.',
-  transmissionErrorTitle: 'Error happened during submission',
-  instructionForUserOnError: 'Please <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">contact Health Insurance BC</a> for assistance or try submitting again. If you keep your web browser open, the data you have entered on this form will remain saved locally to the computer or device you are using.) '
+  transmissionErrorTitle: 'System error',
+  instructionForUserOnError: '<p>Sorry, it looks like something happened while your application was being submitted.</p><p>You can try submitting again - the data you&#8217;ve entered is saved on your device until you close the web browser.</p><p>If that doesn&#8217;t work, apply using a paper form:</p><ul><li><a href="http://www2.gov.bc.ca/assets/gov/health/forms/119fil.pdf" target="_blank">MSP Application form (PDF)</a></li></ul>'
 }
