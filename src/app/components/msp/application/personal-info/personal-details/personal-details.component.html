@@ -76,7 +76,10 @@
                 (onAddDocument)="addDocument($event)"
                 (onErrorDocument)="errorDocument($event)"
                 (onDeleteDocument)="deleteDocument($event)"
-                [showError]="showError"></msp-file-uploader>
+                [showError]="showError">
+                
+                <span id="uploadInstruction">Please upload required ID documents</span>
+            </msp-file-uploader>
 
             <msp-image-error-modal #imageErrorModal></msp-image-error-modal>
         </div>

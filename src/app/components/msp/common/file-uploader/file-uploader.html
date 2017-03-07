@@ -34,7 +34,9 @@
         </i>
         <p class="text-upload" *ngIf="images.length > 0 && (!erroStyle || !showError)">Upload another file</p>
         <p class="text-upload" [ngClass]="{'error-style': showError}"
-          *ngIf="images?.length < 1 || noIdImage">Please upload required ID documents</p>
+          *ngIf="images?.length < 1 || noIdImage">
+          <ng-content></ng-content>  
+        </p>
       </div>
   </div>
 
