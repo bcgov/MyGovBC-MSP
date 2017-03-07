@@ -1,5 +1,5 @@
 module.exports = {
-  checkEligibilityScreenTitle: 'See if you qualify for Premium Assistance to pay for public health care coverage',
+  checkEligibilityScreenTitle: 'Enter your financial information',
   incomeDataRequired: 'Please provide income information',
   incomeDataMaxLength: 'Too many characters',
   ageGroupRequired: 'Please specify age group',
