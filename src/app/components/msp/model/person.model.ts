@@ -313,7 +313,8 @@ class Person {
     && !(this.studiesFinishedMonth == 0)
 	&& _.isBoolean(this.declarationForOutsideOver30Days)
     && !(this.outOfBCRecord && this.outOfBCRecord.departureMonth == 0)
-    && !(this.outOfBCRecord && this.outOfBCRecord.returnMonth == 0);
+    && !(this.outOfBCRecord && this.outOfBCRecord.returnMonth == 0)
+    && !(this.dischargeDate && this.dischargeMonth == 0);
     let returningToBCComplete = true;
 
     // code 0 is "Lived in BC without MSP"

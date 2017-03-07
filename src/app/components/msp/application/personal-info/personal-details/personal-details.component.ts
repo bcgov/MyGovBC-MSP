@@ -82,7 +82,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   genderListSignal: string;
   institutionWorkSignal: string;
 
-  constructor(){
+  constructor(private el:ElementRef){
   }
 
   ngOnInit(){
@@ -165,6 +165,9 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
     /**
      * Load an empty row to screen 
      */
+    if(this.person.relationship === Relationship.Spouse){
+      window.scrollTo(0,this.el.nativeElement.offsetTop);
+    }
     if(this.person.declarationForOutsideOver30Days && this.person.outOfBCRecord != null){
       this.setBeenOutsideForOver30Days(true);      
     }
