@@ -156,7 +156,7 @@ export class MspApiService {
       let headers = new Headers({
         'Content-Type': attachment.contentType,
         'Access-Control-Allow-Origin': '*',
-        'Authorization': 'Bearer ' + token
+        'X-Authorization': 'Bearer ' + token
       });
       let options = new RequestOptions({headers: headers});
 
@@ -207,7 +207,7 @@ export class MspApiService {
       // Setup headers
       let headers = new Headers({
         'Content-Type': 'application/xml',
-        'Authorization': 'Bearer ' + token});
+        'X-Authorization': 'Bearer ' + token});
       let options = new RequestOptions({headers: headers});
 
       // Convert doc to XML
