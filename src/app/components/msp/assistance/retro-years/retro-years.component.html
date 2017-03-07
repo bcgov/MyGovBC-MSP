@@ -42,8 +42,26 @@
 </form>
 
 <hr>
-<button [mspLogger]="'msp-premium-assistance_apply_for_prevous_years'"  
-        class="btn btn-primary" type="submit" routerLink="/msp/assistance/review"
-        [innerHTML]="lang('./en/index.js').continueButton"></button>
 
+      <div class="col-sm-6 pull-left" *ngIf="!canContinue && formRef.submitted">
+        <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
+        </p>
+      </div>
+
+
+
+
+    <div class="row" style="margin-top: 10px;">
+      <div class="col-sm-2">
+        <button [mspLogger]="'msp-premium-assistance_apply_for_prevous_years'"  
+                [disabled] = "docRequired && application.assistYeaDocs.length < 1"
+                class="btn btn-primary" type="submit" routerLink="/msp/assistance/review"
+                [innerHTML]="lang('./en/index.js').continueButton"></button>
+        
+      </div>
+      <div class="col-sm-6 pull-left" *ngIf="docRequired && application.assistYeaDocs.length < 1">
+        <p class="text-danger" [innerHTML]="lang('./en/index.js').noaDocRequired">
+        </p>
+      </div>
+    </div>
 <msp-cancel></msp-cancel>

@@ -43,6 +43,9 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
       let assistYr:AssistanceYear = new AssistanceYear();
       assistYr.year = pre;
       assistYr.apply = false;
+
+      //NOA docs are required by default except for the current tax year.
+      assistYr.docsRequired = true;
       if (pre == this.application.MostRecentTaxYear) {
         assistYr.docsRequired = false;
         assistYr.apply = true;
