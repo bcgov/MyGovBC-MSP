@@ -35,26 +35,25 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
   ngOnInit(){
     this.years = this.application.assistYears;
 
-    // this calendar year
-    let thisYear:number = this.application.MostRecentTaxYear;
-    let pre = thisYear;
-    while(pre > thisYear - 6){
+    if(!this.years || this.years.length < 1){
+      // this calendar year
+      let thisYear:number = this.application.MostRecentTaxYear;
+      let pre = thisYear;
+      while(pre > thisYear - 6){
 
-      let assistYr:AssistanceYear = new AssistanceYear();
-      assistYr.year = pre;
-      assistYr.apply = false;
+        let assistYr:AssistanceYear = new AssistanceYear();
+        assistYr.year = pre;
+        assistYr.apply = false;
 
-      //NOA docs are required by default except for the current tax year.
-      assistYr.docsRequired = true;
-      if (pre == this.application.MostRecentTaxYear) {
-        assistYr.docsRequired = false;
-        assistYr.apply = true;
+        //NOA docs are required by default except for the current tax year.
+        assistYr.docsRequired = true;
+        if (pre == this.application.MostRecentTaxYear) {
+          assistYr.docsRequired = false;
+          assistYr.apply = true;
+        }
+        this.years.push(assistYr);
+        pre--;
       }
-
-      if(!this.containsYear(assistYr)){
-        this.addYear(assistYr);
-      }
-      pre--;
     }
   }
 
@@ -64,10 +63,46 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
         return true;
       }
     }
+
+    return false;
   }
 
-  private addYear(y:AssistanceYear){
-    this.years.push(y);
+  get docRequiredInstruction(){
+    let docsRequiredYears:string = this.application.getAppliedForTaxYears().reduce(
+      function(acc, value, idx){
+        if(value.docsRequired){
+          if(acc.length > 0){
+            return acc + ', ' + value.year;
+          }else{
+            return acc + value.year;
+          }
+        }else{
+          return acc;
+        }
+      }, ''
+    );
+    return this.lang('./en/index.js').applyForPreviousYearInstruction
+      .replace('{taxYearsAppliedFor}', docsRequiredYears);
+  }
+
+  getDocNotRequiredInstruction(){
+
+    let docsNotRequiredYears:string = this.application.getAppliedForTaxYears().reduce(
+      function(acc, value, idx){
+        if(!value.docsRequired){
+          if(acc.length > 0){
+            return acc + ', ' + value.year;
+          }else{
+            return acc + value.year;
+          }
+        }else{
+          return acc;
+        }
+      }, ''
+    );
+    return this.lang('./en/index.js').docNotRequiredInstruction
+      .replace('{notRequiredYears}', docsNotRequiredYears);
+    
   }
 
   addDoc(doc:MspImage){

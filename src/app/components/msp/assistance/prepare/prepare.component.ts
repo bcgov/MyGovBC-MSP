@@ -13,7 +13,8 @@ import {ModalDirective} from "ng2-bootstrap";
 import DataService from '../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
-import {MspImage} from "../../../msp/model/msp-image";
+import {MspImage} from "../../model/msp-image";
+import {AssistanceYear} from '../../model/assistance-year.model';
 import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
 
@@ -53,7 +54,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   private changeLog: string[] = [];
   qualifiedForAssistance = false;
   requireAttendantCareReceipts = false;
-
+  taxYearInfoMissing = false;
   qualificationThreshhold:number = 42000;
 
   counterClaimCategory:string;
@@ -62,6 +63,13 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
 
   CREDIT_CLAIM_CATEGORY:string[] = ['disability credit', 'attendant or nursing home expense credit'];
   CREDIT_CLAIMANT:string[] = ['yourself', 'spouse or common law partner'];
+
+
+  /**
+   * Past 6 tax years from now.
+   */
+  pastYears: number[] = [];
+
 
   constructor(private dataService: DataService){
     this.showAttendantCareInfo = this.finAssistApp.applicantClaimForAttendantCareExpense
@@ -81,7 +89,8 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
       (!_.isNil(this.finAssistApp.claimedChildCareExpense_line214) && this.finAssistApp.claimedChildCareExpense_line214 > 0) || 
       ((!_.isNil(this.finAssistApp.reportedUCCBenefit_line117)&&(this.finAssistApp.reportedUCCBenefit_line117>0)) );
 
-      
+    this.initYearsList();    
+
   }
 
   addReceipts(evt:any){
@@ -381,4 +390,84 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
     this.disabilityNursingHomeChoiceModal.hide();
     
   }
+
+  
+  initYearsList(){
+    this.pastYears = [];
+    let recentTaxYear = this.finAssistApp.MostRecentTaxYear;
+    this.pastYears.push(recentTaxYear);
+
+    let i = 1;
+    while(i < 6){
+      this.pastYears.push(recentTaxYear - i);
+      i++;
+    }    
+
+    if(!this.finAssistApp.assistYears || this.finAssistApp.assistYears.length < 6){
+      this.finAssistApp.assistYears = this.pastYears.reduce( 
+        (tally, yearNum) => {
+          let assistYear: AssistanceYear = new AssistanceYear();
+          assistYear.apply = false;
+          assistYear.year = yearNum;
+          assistYear.docsRequired = true;
+
+          if(yearNum === this.finAssistApp.MostRecentTaxYear){
+            assistYear.docsRequired = false;
+          }
+          tally.push(assistYear);
+
+          return tally;
+      }, []);
+    }
+    this.dataService.saveFinAssistApplication();
+  } 
+
+  get assistanceYearsList(): AssistanceYear[] {
+    return this.finAssistApp.assistYears;
+  }
+
+  get getFinanialInfoSectionTitle(){
+    if(!!this.userSelectedMostRecentTaxYear){
+      return this.lang('./en/index.js').checkEligibilityScreenTitle.replace('{userSelectedMostRecentTaxYear}', 
+        this.userSelectedMostRecentTaxYear);
+    }else{
+      return this.lang('./en/index.js').checkEligibilityScreenTitleDefault;
+    }
+  }
+  
+  get taxYearsSpecified(){
+    return this.finAssistApp.taxtYearsProvided;
+  }
+
+  get userSelectedMostRecentTaxYear():number {
+    let max = 0;
+    if(this.finAssistApp.assistYears && this.finAssistApp.assistYears.length > 0){
+      this.finAssistApp.assistYears.forEach(
+        assistYear => {
+          if(assistYear.apply && assistYear.year > max){
+            max = assistYear.year;
+          }
+        }
+      );
+    }
+
+    return max;
+
+  }
+  onAssistanceYearUpdate(assistYearParam: AssistanceYear){
+    this.finAssistApp.assistYears.forEach(
+      assistYear => {
+        if(assistYear.year + '' === assistYearParam.year + ''){
+          assistYear.apply = assistYearParam.apply;
+        }
+      }
+    );
+
+    this.dataService.saveFinAssistApplication();
+  }
+
+  onTaxYearInfoMissing(){
+    this.taxYearInfoMissing = true;
+  }
+  
 }

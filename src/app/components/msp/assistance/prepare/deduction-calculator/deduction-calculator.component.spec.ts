@@ -10,6 +10,7 @@ import {MspCancelComponent} from "../../../common/cancel/cancel.component";
 import {ModalModule} from "ng2-bootstrap";
 import appConstants from '../../../../../services/appConstants';
 import {MspLoggerDirective} from "../../../common/logging/msp-logger.directive";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('DeductionCalculatorComponent', () => {
   let localStorageServiceConfig = {
@@ -20,7 +21,7 @@ describe('DeductionCalculatorComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [DeductionCalculatorComponent, MspCancelComponent, MspLoggerDirective],
-      imports: [FormsModule, ModalModule, HttpModule],
+      imports: [RouterTestingModule, FormsModule, ModalModule, HttpModule],
       providers: [MspDataService,MspLogService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

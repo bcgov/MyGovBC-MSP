@@ -1,0 +1,5 @@
+<div class="assistance-year-container">
+  <input type="checkbox" [ngModel] ="assistanceYear.apply"
+    (ngModelChange)="update($event)">
+  <span>{{assistanceYear.year}}</span>
+</div>

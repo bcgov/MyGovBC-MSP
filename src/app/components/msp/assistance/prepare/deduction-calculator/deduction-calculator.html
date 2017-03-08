@@ -1,213 +1,215 @@
 <!--<div class="deduction-calc-spacer-lg hidden-xs hidden-sm"></div>-->
-<div class="deduction-calc-spacer-sm hidden-xs hidden-sm"></div>
-<!--<div class="deduction-calc-spacer-lg hidden-sm hidden-md hidden-lg"></div>-->
-<div class="deduction-calc">
-  <h2 [innerHTML]="lang('./en/index.js').eligibilityCalculatorTitle"></h2>
-  <table>
-    <tbody>
+<form #formRef="ngForm" novalidate (submit)="navigateToPersonalInfo()">
+  <div class="deduction-calc-spacer-sm hidden-xs hidden-sm"></div>
+  <!--<div class="deduction-calc-spacer-lg hidden-sm hidden-md hidden-lg"></div>-->
+  <div class="deduction-calc">
+    <h2 [innerHTML]="lang('./en/index.js').eligibilityCalculatorTitle"></h2>
+    <table>
+      <tbody>
+        <tr>
+          <td class="deduction-table-cell-margin">
+            <h4 [innerHTML]="lang('./en/index.js').totalHouseholdIncome"></h4>
+          </td>
+          <td class="deduction-table-cell-padding deduction-table-cell-margin">
+            <span *ngIf="applicantIncomeInfoProvided">
+              {{totalHouseholdIncome | currency: 'USD': true}}
+            </span>
+            <span *ngIf="!applicantIncomeInfoProvided">
+              - -
+            </span>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+    
+    <hr style="border: 1px solid black;">
+    <table>
       <tr>
+        <th>
+          <h4><strong>Deductions</strong></h4>
+        </th>
+        <th></th>
+      </tr>
+      <tr *ngIf="application.ageOver65">
         <td class="deduction-table-cell-margin">
-          <h4 [innerHTML]="lang('./en/index.js').totalHouseholdIncome"></h4>
+          Age over 65
         </td>
         <td class="deduction-table-cell-padding deduction-table-cell-margin">
-          <span *ngIf="applicantIncomeInfoProvided">
-            {{totalHouseholdIncome | currency: 'USD': true}}
-          </span>
-          <span *ngIf="!applicantIncomeInfoProvided">
-            - -
-          </span>
+          {{ageOver65Amt | currency: 'USD': true}}
+        </td>
+      </tr>
+      <tr *ngIf="application.hasSpouseOrCommonLaw">
+        <td class="deduction-table-cell-margin">
+          Spouse
+        </td>
+        <td class="deduction-table-cell-padding deduction-table-cell-margin">
+          {{spouseAmt| currency: 'USD': true}}
+        </td>
+      </tr>
+      <tr *ngIf="application.hasSpouseOrCommonLaw && application.spouseAgeOver65">
+        <td class="deduction-table-cell-margin">
+          Spouse age over 65
+        </td>
+        <td class="deduction-table-cell-padding deduction-table-cell-margin">
+          {{spouseAgeOver65Amt | currency: 'USD': true}}
+        </td>
+      </tr>
+      <tr *ngIf="application.childrenCount && application.childrenCount > 0">
+        <td class="deduction-table-cell-margin">
+          Children
+        </td>
+        <td class="deduction-table-cell-padding deduction-table-cell-margin">
+          {{childrenAmt | currency: 'USD': true}}
+        </td>
+      </tr>
+      <tr *ngIf="application.claimedChildCareExpense_line214 && childrenAmt">
+        <td class="deduction-table-cell-margin">
+          -50% Child care expense claimed on income tax
+        </td>
+        <td class="deduction-table-cell-padding deduction-table-cell-margin">
+          {{childCareExpense | currency: 'USD': true}}
+        </td>
+      </tr>
+      <tr *ngIf="application.reportedUCCBenefit_line117">
+        <td class="deduction-table-cell-margin">
+          Universal child card benefit income
+        </td>
+        <td class="deduction-table-cell-padding deduction-table-cell-margin">
+          {{uCCBenefitAmt| currency: 'USD' : true}}
         </td>
       </tr>
 
-    </tbody>
-  </table>
-  
-  <hr style="border: 1px solid black;">
-  <table>
-    <tr>
-      <th>
-        <h4><strong>Deductions</strong></h4>
-      </th>
-      <th></th>
-    </tr>
-    <tr *ngIf="application.ageOver65">
-      <td class="deduction-table-cell-margin">
-        Age over 65
-      </td>
-      <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{ageOver65Amt | currency: 'USD': true}}
-      </td>
-    </tr>
-    <tr *ngIf="application.hasSpouseOrCommonLaw">
-      <td class="deduction-table-cell-margin">
-        Spouse
-      </td>
-      <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{spouseAmt| currency: 'USD': true}}
-      </td>
-    </tr>
-    <tr *ngIf="application.hasSpouseOrCommonLaw && application.spouseAgeOver65">
-      <td class="deduction-table-cell-margin">
-        Spouse age over 65
-      </td>
-      <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{spouseAgeOver65Amt | currency: 'USD': true}}
-      </td>
-    </tr>
-    <tr *ngIf="application.childrenCount && application.childrenCount > 0">
-      <td class="deduction-table-cell-margin">
-        Children
-      </td>
-      <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{childrenAmt | currency: 'USD': true}}
-      </td>
-    </tr>
-    <tr *ngIf="application.claimedChildCareExpense_line214 && childrenAmt">
-      <td class="deduction-table-cell-margin">
-        -50% Child care expense claimed on income tax
-      </td>
-      <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{childCareExpense | currency: 'USD': true}}
-      </td>
-    </tr>
-    <tr *ngIf="application.reportedUCCBenefit_line117">
-      <td class="deduction-table-cell-margin">
-        Universal child card benefit income
-      </td>
-      <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{uCCBenefitAmt| currency: 'USD' : true}}
-      </td>
-    </tr>
+      <tr *ngIf="application.selfDisabilityCredit">
+        <td class="deduction-table-cell-margin">
+          Applicant Disability credit
+        </td>
+        <td class="deduction-table-cell-padding deduction-table-cell-margin">
+          {{disabilityCreditAmt | currency: 'USD' : true}}
+        </td>
+      </tr>
+      <tr *ngIf="application.spouseEligibleForDisabilityCredit">
+        <td class="deduction-table-cell-margin">
+          Spouse disability credit
+        </td>
+        <td class="deduction-table-cell-padding deduction-table-cell-margin">
+          {{spouseDisabilityCreditAmt| currency: 'USD' : true}}
+        </td>
+      </tr>
+      <tr *ngIf="application.childWithDisabilityCount">
+        <td class="deduction-table-cell-margin">
+          Child disability credit
+        </td>
+        <td class="deduction-table-cell-padding deduction-table-cell-margin">
+          {{childrenDisabilityCreditAmt| currency: 'USD' : true}}
+        </td>
+      </tr>
+      <tr *ngIf="application.spouseDSPAmount_line125">
+        <td class="deduction-table-cell-margin">
+          Disability savings plan
+        </td>
+        <td class="deduction-table-cell-padding deduction-table-cell-margin">
+          {{application.spouseDSPAmount_line125 | currency: 'USD' : true}}
+        </td>
+      </tr>
 
-    <tr *ngIf="application.selfDisabilityCredit">
-      <td class="deduction-table-cell-margin">
-        Applicant Disability credit
-      </td>
-      <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{disabilityCreditAmt | currency: 'USD' : true}}
-      </td>
-    </tr>
-    <tr *ngIf="application.spouseEligibleForDisabilityCredit">
-      <td class="deduction-table-cell-margin">
-        Spouse disability credit
-      </td>
-      <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{spouseDisabilityCreditAmt| currency: 'USD' : true}}
-      </td>
-    </tr>
-    <tr *ngIf="application.childWithDisabilityCount">
-      <td class="deduction-table-cell-margin">
-        Child disability credit
-      </td>
-      <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{childrenDisabilityCreditAmt| currency: 'USD' : true}}
-      </td>
-    </tr>
-    <tr *ngIf="application.spouseDSPAmount_line125">
-      <td class="deduction-table-cell-margin">
-        Disability savings plan
-      </td>
-      <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{application.spouseDSPAmount_line125 | currency: 'USD' : true}}
-      </td>
-    </tr>
-
-    <tr *ngIf="application.applicantClaimForAttendantCareExpense">
-      <td class="deduction-table-cell-margin">
-        Applicant attendant care expense
-      </td>
-      <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{applicantClaimForAttendantCareExpenseAmt | currency: 'USD' : true}}
-      </td>
-    </tr>
-    <tr *ngIf="application.spouseClaimForAttendantCareExpense">
-      <td class="deduction-table-cell-margin">
-        Spouse attendant care expense
-      </td>
-      <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{spouseClaimForAttendantCareExpenseAmt| currency: 'USD' : true}}
-      </td>
-    </tr>
-    <tr *ngIf="application.childClaimForAttendantCareExpense">
-      <td class="deduction-table-cell-margin">
-        Child attendant care expense
-      </td>
-      <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        {{childClaimForAttendantCareExpenseAmt| currency: 'USD' : true}}
-      </td>
-    </tr>
-        
-    <tr>
-      <td>
-        <h4>Total deductions:</h4>
-      </td>
-      <td class="deduction-table-cell-padding deduction-table-cell-margin">
-        <span *ngIf="applicantIncomeInfoProvided">        
-          {{totalDeductions | currency: 'USD' : true}}
-        </span>  
-        <span *ngIf="!applicantIncomeInfoProvided">- -     
-        </span>  
-      </td>
-    </tr>
-  </table>
-  <hr style="border: 1px solid black;">
-
-  <table>
-    <tbody>
+      <tr *ngIf="application.applicantClaimForAttendantCareExpense">
+        <td class="deduction-table-cell-margin">
+          Applicant attendant care expense
+        </td>
+        <td class="deduction-table-cell-padding deduction-table-cell-margin">
+          {{applicantClaimForAttendantCareExpenseAmt | currency: 'USD' : true}}
+        </td>
+      </tr>
+      <tr *ngIf="application.spouseClaimForAttendantCareExpense">
+        <td class="deduction-table-cell-margin">
+          Spouse attendant care expense
+        </td>
+        <td class="deduction-table-cell-padding deduction-table-cell-margin">
+          {{spouseClaimForAttendantCareExpenseAmt| currency: 'USD' : true}}
+        </td>
+      </tr>
+      <tr *ngIf="application.childClaimForAttendantCareExpense">
+        <td class="deduction-table-cell-margin">
+          Child attendant care expense
+        </td>
+        <td class="deduction-table-cell-padding deduction-table-cell-margin">
+          {{childClaimForAttendantCareExpenseAmt| currency: 'USD' : true}}
+        </td>
+      </tr>
+          
       <tr>
-        <td style="column-width: 100px;">
-          <h4><strong>Adjusted income:</strong></h4>
+        <td>
+          <h4>Total deductions:</h4>
         </td>
         <td class="deduction-table-cell-padding deduction-table-cell-margin">
           <span *ngIf="applicantIncomeInfoProvided">        
-            {{adjustedIncome | currency: 'USD' : true}}
+            {{totalDeductions | currency: 'USD' : true}}
           </span>  
-          <span *ngIf="!applicantIncomeInfoProvided">   
-            - -     
+          <span *ngIf="!applicantIncomeInfoProvided">- -     
           </span>  
         </td>
       </tr>
+    </table>
+    <hr style="border: 1px solid black;">
 
-    </tbody>
-  </table>
-  <p class="qualify-message" *ngIf="applicantIncomeInfoProvided && incomeUnderThreshhold">
-    It is likely that you will qualify for Premium Assistance.
-  </p>
-  <p class="disqualify-message" *ngIf="applicantIncomeInfoProvided && !incomeUnderThreshhold">
-    Based on the income entered, you might not qualify for assistance. Please <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us">contact Health Insurance BC</a> for more information.
-  </p>
-</div>
+    <table>
+      <tbody>
+        <tr>
+          <td style="column-width: 100px;">
+            <h4><strong>Adjusted income:</strong></h4>
+          </td>
+          <td class="deduction-table-cell-padding deduction-table-cell-margin">
+            <span *ngIf="applicantIncomeInfoProvided">        
+              {{adjustedIncome | currency: 'USD' : true}}
+            </span>  
+            <span *ngIf="!applicantIncomeInfoProvided">   
+              - -     
+            </span>  
+          </td>
+        </tr>
 
-<div class="row" *ngIf="incomeUnderThreshhold && canContinue"
-  style="margin-top: 10px;">
-  <div class="col-xs-12">
-    <button 
-      [mspLogger]="'msp-premium-assistance_check_eligibility_continue'"    
-      class="btn btn-primary btn-block"
-      routerLink="/msp/assistance/personal-info">
-      Continue to apply for Premium Assistance
-    </button>
+      </tbody>
+    </table>
+    <p class="qualify-message" *ngIf="applicantIncomeInfoProvided && incomeUnderThreshhold">
+      It is likely that you will qualify for Premium Assistance.
+    </p>
+    <p class="disqualify-message" *ngIf="applicantIncomeInfoProvided && !incomeUnderThreshhold">
+      Based on the income entered, you might not qualify for assistance. Please <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us">contact Health Insurance BC</a> for more information.
+    </p>
   </div>
-</div>
-<div class="row" *ngIf="!canContinue && !isPristine"
-  style="margin-top: 10px;">
-  <div class="col-xs-12">
-    <div class="before-continue-warning">
-      Please answer all highlighted questions on the form before continuing.
+
+  <div class="row" *ngIf="incomeUnderThreshhold && canContinue"
+    style="margin-top: 10px;">
+    <div class="col-xs-12">
+      <button type="submit"
+        [mspLogger]="'msp-premium-assistance_check_eligibility_continue'"    
+        class="btn btn-primary btn-block">
+        Continue to apply for Premium Assistance
+      </button>
     </div>
   </div>
-</div>
-<div class="row" style="margin-top: 10px;">
-  <div class="col-xs-12">
-    <msp-cancel [btnBlock]="true"></msp-cancel>
-  </div>
-</div>
-  <!--<div class="row">
-      <div class="col-xs-12">
-          <button class="btn btn-primary btn-block" type="submit" routerLink="/msp/assistance/personal-info"
-                  style="font-size: smaller"></button>
+  <div class="row" *ngIf="(!canContinue && !isPristine)||(formRef.submitted && !taxYearSpecified)"
+    style="margin-top: 10px;">
+    <div class="col-xs-12">
+      <div class="before-continue-warning">
+        Please answer all highlighted questions on the form before continuing.
       </div>
-  </div>-->
-<div *ngIf="false">
-  {{eligibility | json}}
-</div>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 10px;">
+    <div class="col-xs-12">
+      <msp-cancel [btnBlock]="true"></msp-cancel>
+    </div>
+  </div>
+    <!--<div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-primary btn-block" type="submit" routerLink="/msp/assistance/personal-info"
+                    style="font-size: smaller"></button>
+        </div>
+    </div>-->
+  <div *ngIf="false">
+    {{eligibility | json}}
+  </div>
+
+</form>
