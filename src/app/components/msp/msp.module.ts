@@ -82,6 +82,7 @@ import {AssistanceAuthorizeSubmitComponent} from './assistance/authorize-submit/
 import {AssistanceSendingComponent} from './assistance/sending/sending.component';
 import {AssistanceConfirmationComponent} from './assistance/confirmation/confirmation.component';
 import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calculator/deduction-calculator.component';
+import {MspAssistanceYearComponent} from './assistance/prepare/assistance-year/assistance-year.component';
 import {EligibilityCardComponent} from './assistance/prepare/eligibility-card/eligibility-card.component';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {MspApiService} from "./service/msp-api.service";
@@ -269,6 +270,7 @@ let localStorageServiceConfig = {
     AssistanceSendingComponent,
     AssistanceConfirmationComponent,
     DeductionCalculatorComponent,
+    MspAssistanceYearComponent,
 
     EligibilityCardComponent
   ],

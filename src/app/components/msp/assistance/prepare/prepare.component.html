@@ -1,6 +1,28 @@
+<div class="row" [ngClass]="{'tax-year-missing': (taxYearInfoMissing && !taxYearsSpecified)}">
+    <div class="col-sm-12">
+        <h2 [innerHTML]="lang('./en/index.js').whatYearsToApplyFor">
+        </h2>
+    </div>
+</div>
+
+<div class="row" style="margin-bottom: 15px">
+  <div class="col-xs-12 col-md-8">
+    <div [ngClass]="{'tax-year-missing': (taxYearInfoMissing && !taxYearsSpecified)}">
+      <p [innerHTML]="lang('./en/index.js').whatYearsToApplyForDetails">
+      </p>
+    </div>
+
+    <div *ngIf="assistanceYearsList && assistanceYearsList.length > 0"> 
+      <msp-assistance-year *ngFor="let assistanceYear of assistanceYearsList"
+        [assistanceYear]='assistanceYear'
+        (updateAssistanceYear) = "onAssistanceYearUpdate($event)">
+      </msp-assistance-year>
+    </div>
+  </div>
+</div>
 <div class="row">
     <div class="col-sm-12">
-        <h2 [innerHTML]="lang('./en/index.js').checkEligibilityScreenTitle">
+        <h2 [innerHTML]="getFinanialInfoSectionTitle">
         </h2>
     </div>
 </div>
@@ -443,7 +465,8 @@
     </div>
 
     <div class="col-md-4">
-        <deduction-calculator [application]="finAssistApp" [qualificationThreshhold] = "qualificationThreshhold">
+        <deduction-calculator [application]="finAssistApp" [qualificationThreshhold] = "qualificationThreshhold"
+          (taxYearInfoMissing)= "onTaxYearInfoMissing($event)">
         </deduction-calculator>
         <p></p>
     </div>

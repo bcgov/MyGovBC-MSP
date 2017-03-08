@@ -2,6 +2,7 @@ import {
   Component, Input, Output, OnInit, EventEmitter,
   SimpleChange, ViewChild, AfterViewInit
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
@@ -22,11 +23,12 @@ require('./deduction-calculator.less');
 export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   @Input() application: FinancialAssistApplication;
   @Output() updateQualify:EventEmitter<Boolean> = new EventEmitter<Boolean>();
+  @Output() taxYearInfoMissing:EventEmitter<Boolean> = new EventEmitter<Boolean>();
 
   @Input() qualificationThreshhold:number;
   lang = require('./i18n');
   
-  constructor(){
+  constructor(private _router: Router){
   }
 
   ngOnInit(){
@@ -178,8 +180,9 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   }
 
   get incomeUnderThreshhold() {
-    let r = this.adjustedIncome <= this.qualificationThreshhold;
-    return r;
+    return _.isNumber(this.adjustedIncome) && this.adjustedIncome < Math.pow(10, 6);
+    // let r = this.adjustedIncome <= this.qualificationThreshhold;
+    // return r;
   }
 
   get canContinue(){
@@ -198,7 +201,20 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
      }else{
        return false;
      }
+  }
 
+
+  navigateToPersonalInfo(){
+    let taxYearSpecified = this.application.taxtYearsProvided;
+    if(taxYearSpecified){
+      this._router.navigate(['/msp/assistance/personal-info']);
+    }else{
+      this.taxYearInfoMissing.emit(true);
+    }
+  }
+
+  get taxYearsSpecified(){
+    return this.application.taxtYearsProvided;
   }
 
   private get attendantCareExpenseReceiptsProvided():boolean {
