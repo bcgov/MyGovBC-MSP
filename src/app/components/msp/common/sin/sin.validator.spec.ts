@@ -21,7 +21,9 @@ describe('SIN Component', () => {
     expect(fixture.isValid("A")).toBe(false, 'a letter should not pass');
     expect(fixture.isValid(" A ")).toBe(false, 'a letter should not pass');
     expect(fixture.isValid("123456789")).toBe(false, 'not a good sin number');
-    expect(fixture.isValid("046454286")).toBe(true, 'a good sin number');
-    expect(fixture.isValid("046 454 286")).toBe(true, 'a good sin number with spacing');
+    expect(fixture.isValid("654987874")).toBe(true, 'a good sin number');
+    // leading zeros are not allowed anymore
+    // expect(fixture.isValid("046454286")).toBe(true, 'a good sin number');
+    // expect(fixture.isValid("046 454 286")).toBe(true, 'a good sin number with spacing');
   });
 })

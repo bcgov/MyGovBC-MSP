@@ -260,8 +260,12 @@ objects:
                 protocol: UDP
             resources:
               limits:
-                memory: 2Gi
+                memory: 1Gi
                 cpu: 200m
+            env:
+              -
+                name: LS_HEAP_SIZE
+                value: 512m
             terminationMessagePath: /dev/termination-log
             imagePullPolicy: Always
         restartPolicy: Always
@@ -547,6 +551,7 @@ objects:
       apiVersion: extensions/v1beta1
       subresource: scale
     maxReplicas: 4
+    minReplicas: 2
 - apiVersion: extensions/v1beta1
   kind: HorizontalPodAutoscaler
   metadata:
@@ -603,8 +608,8 @@ parameters:
   name: REAL_IP_FROM
   required: true
   value: "172.51.0.0/16"
-- description: client ip rules to access Kibana. See http://nginx.org/en/docs/http/ngx_http_access_module.html for syntax. Use \n to for new line.
+- description: client ip rules to access Kibana. See http://nginx.org/en/docs/http/ngx_http_access_module.html for syntax. Use \n for new line if wanted.
   displayName: Kibana Ip Filter Rules
   name: KibanaIpFilterRules
   required: true
-  value: allow 0.0.0.0/0;\ndeny all;
+  value: allow 0.0.0.0/0; deny all;
