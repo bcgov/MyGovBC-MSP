@@ -115,6 +115,7 @@ export default class CompletenessCheckService {
         && _.isNumber(this.finApp.applicant.dob_day)
         && !_.isEmpty(this.finApp.applicant.dob_month)
         && _.isNumber(this.finApp.applicant.dob_year)
+        && !_.isEmpty(this.finApp.applicant.previous_phn)
         && !_.isEmpty(this.finApp.applicant.sin)
         && this.finApp.mailingAddress.isValid
         && !(this.finApp.applicant.dob_month == 0);
