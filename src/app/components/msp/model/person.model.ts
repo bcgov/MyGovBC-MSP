@@ -345,8 +345,15 @@ class Person {
       }
     }
 
-    let ageOver19ChildComplete = true;
+    // applicant 16 and older
+    let applicant16OrOlderComplete = true;
+    if(this.relationship === Relationship.Applicant &&
+      this.hasDob) {
+      applicant16OrOlderComplete = !this.dob.isAfter(moment().subtract(16, 'years'))
+    }
 
+
+    let ageOver19ChildComplete = true;
     if(this.relationship === Relationship.Child19To24){
       if(this.fullTimeStudent){
         ageOver19ChildComplete = !!this.schoolName && _.isString(this.schoolName) && this.schoolName.length > 0
@@ -387,6 +394,7 @@ class Person {
       && movingFromAnotherProvinceComplete
       && movingFromAnotherCountryComplete
       && institutionWorkComplete
+      && applicant16OrOlderComplete
       && ageOver19ChildComplete
       && studentComplete
       && this.hasCompleteOutSideRecords;
