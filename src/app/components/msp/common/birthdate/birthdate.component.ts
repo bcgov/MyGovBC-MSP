@@ -57,7 +57,7 @@ export class MspBirthDateComponent implements OnInit{
   ageCheck(): boolean {
     // Applicant rules
     if (this.person.relationship === Relationship.Applicant) {
-      // must be less than 19 if not in school
+      // must be 16 or older for applicant
       let tooYoung = this.person.dob.isAfter(moment().subtract(16, 'years'))
       return !tooYoung;
     }

@@ -63,6 +63,15 @@
             </div>
         </div>
 
+        <div class="row" *ngIf="person.sin != null">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').sinNumberLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.sin}}</strong>
+            </div>
+        </div>
+
         <div class="row" *ngIf="person.hasArrivalToBC">
             <div class="col-xs-4">
                 {{lang('./en/index.js').arrivedToBCLabel}}

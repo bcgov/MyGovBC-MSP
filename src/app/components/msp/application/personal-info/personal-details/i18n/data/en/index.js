@@ -29,7 +29,7 @@ module.exports = {
     '<i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> Upload your spouse\'s documents',
     '<i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> Upload your child\'s documents',
     '<i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> Upload your child\'s documents'],
-  documentInstructionsNote: 'Scan the document, or take a photo of it. Make sure that it:<ul><li>Is at least 1000 pixels wide x 1500 pixels tall</li><li>Includes the entire document, corner to corner</li><li>Is rotated correctly</li><li>Is in focus and is easy to read</li><li>Is a JPG or PNG file (at this time PDF files are not accepted)</li></ul>',
+  documentInstructionsNote: 'Scan the document, or take a photo of it. Make sure that it&#8217;s:<ul><li>The entire document, from corner to corner</li><li>At least 1000 pixels wide x 1500 pixels tall</li><li>Rotated correctly (not upside down or sideways)</li><li>In focus and easy to read</li><li>A JPG or PNG file (not a PDF)</li></ul>',
   viewSamplesButton: 'See a sample',
 
   nameHelpBlock: ['Enter your legal name and gender',
@@ -64,6 +64,7 @@ module.exports = {
   arrivalDateToCanadaLabel: 'Arrival date in Canada',
 
   beenOutsideBCOver30DaysLabel: "Since you arrived, have you been outside B.C. for more than 30 days in total?",
+  beenOutsideBCForMoreThan30DaysInTotalInThePast12Months: "Have you been outside B.C. for more than 30 days in total in the past 12 months",
   fullTimeStudentLabel: 'Are you a full-time student?',
   haveYouMovedToBCPermanently: 'Have you moved to BC permanently?',
   assertChildBeFullTimeStudent: 'School Information for Full-time Student Child',

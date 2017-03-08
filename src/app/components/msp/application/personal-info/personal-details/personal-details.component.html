@@ -192,7 +192,8 @@
                 <div class="col-sm-12">
                     <div class="form-group"
                       [ngClass]="{'has-error': showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)}">
-                      <label [innerHtml]="lang('./en/index.js').beenOutsideBCOver30DaysLabel" class="control-label"></label>
+                      <label *ngIf="!(person.currentActivity === Activities.LivingInBCWithoutMSP)" [innerHtml]="lang('./en/index.js').beenOutsideBCOver30DaysLabel" class="control-label"></label>
+                      <label  *ngIf="person.currentActivity === Activities.LivingInBCWithoutMSP" [innerHtml]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months" class="control-label"></label>
                       <div class="btn-group" role="group">
                           <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
                                   [class.msp-btn-radio]="person.declarationForOutsideOver30Days === answer.value"
