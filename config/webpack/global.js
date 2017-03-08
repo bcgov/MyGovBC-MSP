@@ -22,7 +22,7 @@ module.exports = function (_path) {
     output: {
       path: require("path").resolve("dist"),
       filename: '[name].js',
-      publicPath: '/msp',
+//      publicPath: '/',
     },
 
     // resolves modules
@@ -105,7 +105,7 @@ module.exports = function (_path) {
       new ExtractTextPlugin('assets/styles/css/[name]' + (NODE_ENV === 'development' ? '' : '.[chunkhash]') + '.css', {allChunks: true})
     ],
     devServer: {
-      publicPath: '/msp',
+      publicPath: '/',
       contentBase: './dist',
       info: true,
       hot: true,
