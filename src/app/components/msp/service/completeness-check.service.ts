@@ -35,6 +35,7 @@ export default class CompletenessCheckService {
       return _.isBoolean(this.mspApp.applicant.liveInBC)
       && _.isBoolean(this.mspApp.unUsualCircumstance) 
       && _.isBoolean(this.mspApp.applicant.plannedAbsence) 
+      && (this.mspApp.infoCollectionAgreement === true);
     }
 
     mspPersonalInfoDocsCompleted(){
