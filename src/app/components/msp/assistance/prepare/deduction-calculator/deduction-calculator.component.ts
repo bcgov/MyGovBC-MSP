@@ -12,6 +12,7 @@ import 'rxjs/add/operator/catch';
 import * as _ from 'lodash';
 
 import {Eligibility} from '../../../model/eligibility.model';
+import DataService from '../../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../../model/financial-assist-application.model';
 require('./deduction-calculator.less');
 
@@ -28,7 +29,8 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   @Input() qualificationThreshhold:number;
   lang = require('./i18n');
   
-  constructor(private _router: Router){
+  constructor(private _router: Router, 
+    private dataService: DataService){
   }
 
   ngOnInit(){
@@ -140,6 +142,8 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     + this.applicantClaimForAttendantCareExpenseAmt
     + this.spouseClaimForAttendantCareExpenseAmt
     + this.childClaimForAttendantCareExpenseAmt;
+
+    this.dataService.saveFinAssistApplication();
     return total;
   }
 
