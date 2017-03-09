@@ -1,11 +1,11 @@
-<div class="row" [ngClass]="{'tax-year-missing': (taxYearInfoMissing && !taxYearsSpecified)}">
+<div class="row" style="margin-top: 15px;" [ngClass]="{'tax-year-missing': (taxYearInfoMissing && !taxYearsSpecified)}">
     <div class="col-sm-12">
         <h2 [innerHTML]="lang('./en/index.js').whatYearsToApplyFor">
         </h2>
     </div>
 </div>
 
-<div class="row" style="margin-bottom: 15px">
+<div class="row" style="margin-top: 5px; margin-bottom: 15px">
   <div class="col-xs-12 col-md-8">
     <div [ngClass]="{'tax-year-missing': (taxYearInfoMissing && !taxYearsSpecified)}">
       <p [innerHTML]="lang('./en/index.js').whatYearsToApplyForDetails">

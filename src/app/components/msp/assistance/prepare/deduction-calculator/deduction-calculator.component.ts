@@ -72,15 +72,22 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   }
 
   get disabilityCreditAmt(): number {
-    return !!this.application.selfDisabilityCredit? 3000: 0;
+    let amt = !!this.application.selfDisabilityCredit? 3000: 0;
+    this.application.applicantDisabilityCredit = amt;
+    return amt;
   }
 
   get spouseDisabilityCreditAmt(): number {
-    return !!this.application.spouseEligibleForDisabilityCredit? 3000: 0;
+    let amt = !!this.application.spouseEligibleForDisabilityCredit? 3000: 0;
+    this.application.spouseDisabilityCredit = amt;
+    return amt;    
   }
+
   get childrenDisabilityCreditAmt(): number {
     let m = this.application.childWithDisabilityCount;
-    return !!m? 3000*m: 0;
+    let amt = !!m? 3000*m: 0;
+    this.application.childrenDisabilityCredit = amt;
+    return amt;
   }
 
   get attendantCareExpenseAmt(): number {
