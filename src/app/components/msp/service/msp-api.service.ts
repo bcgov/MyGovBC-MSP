@@ -467,7 +467,7 @@ export class MspApiService {
      disabilitySavingsPlan?: number;      // spouseDSPAmount_line125
      netIncome: number;                   // netIncomelastYear
      numChildren?: number;                // childrenCount
-     numDisabled?: number;                // childWithDisabilityCount
+     numDisabled?: number;                // numDisabled
      sixtyFiveDeduction?: number;         // both applicant and spouse
      spouseNetIncome?: number;            // spouseIncomeLine236
      taxYear: number;                     // Current Year, if multiple the recent selected
@@ -505,7 +505,7 @@ export class MspApiService {
     if (from.claimedChildCareExpense_line214 != null) to.childCareExpense = from.claimedChildCareExpense_line214;
     if (from.netIncomelastYear != null) to.netIncome = from.netIncomelastYear;
     if (from.childrenCount != null) to.numChildren = from.childrenCount;
-    if (from.childWithDisabilityCount != null) to.numDisabled = from.childWithDisabilityCount;
+    if (from.numDisabled > 0) to.numDisabled = from.numDisabled;
     if (from.spouseIncomeLine236 != null) to.spouseNetIncome = from.spouseIncomeLine236;
     if (from.netIncomelastYear != null) to.netIncome = from.netIncomelastYear;
     if (from.reportedUCCBenefit_line117 != null) to.uccb = from.reportedUCCBenefit_line117;

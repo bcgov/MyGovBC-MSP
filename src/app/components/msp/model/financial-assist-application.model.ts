@@ -363,6 +363,33 @@ export class FinancialAssistApplication implements ApplicationBase {
     return this.getAppliedForTaxYears().length;
   }
 
+  /**
+   * Counts up total number of disabled including children, applicant and spouse
+   */
+  get numDisabled(): number {
+    let numDisabled = 0;
+
+    // applicant
+    if (this.selfDisabilityCredit != null &&
+      this.selfDisabilityCredit === true) {
+      numDisabled++;
+    }
+
+    // spouse
+    if (this.spouseEligibleForDisabilityCredit != null &&
+      this.spouseEligibleForDisabilityCredit === true) {
+      numDisabled++;
+    }
+
+    if (this.childWithDisabilityCount != null &&
+      this.childWithDisabilityCount >= 0) {
+
+      numDisabled += this.childWithDisabilityCount;
+    }
+
+    return numDisabled;
+  }
+
   constructor(){
     this.id = UUID.UUID();
   }

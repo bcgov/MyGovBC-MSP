@@ -51,4 +51,21 @@ describe('FinancialAssistApplication Component', () => {
     expect(fixture.numberOfTaxYears()).toBe(2);
 
   });
+
+  it('should calculate the numDisabled', () => {
+
+    let fixture = new FinancialAssistApplication();
+
+    expect(fixture.numDisabled).toBe(0);
+    fixture.selfDisabilityCredit = true;
+    expect(fixture.numDisabled).toBe(1);
+    fixture.spouseEligibleForDisabilityCredit = true;
+    expect(fixture.numDisabled).toBe(2);
+    fixture.childWithDisabilityCount = 0;
+    expect(fixture.numDisabled).toBe(2);
+    fixture.childWithDisabilityCount = 1;
+    expect(fixture.numDisabled).toBe(3);
+    fixture.childWithDisabilityCount = 2;
+    expect(fixture.numDisabled).toBe(4);
+  });
 });
