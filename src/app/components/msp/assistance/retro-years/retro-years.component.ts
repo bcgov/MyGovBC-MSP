@@ -67,7 +67,7 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
     return false;
   }
 
-  get docRequiredInstruction(){
+  get docRequiredInstruction(): any{
     let docsRequiredYears:string = this.application.getAppliedForTaxYears().reduce(
       function(acc, value, idx){
         if(value.docsRequired){
@@ -81,8 +81,17 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
         }
       }, ''
     );
-    return this.lang('./en/index.js').applyForPreviousYearInstruction
+    let applicantLine = this.lang('./en/index.js').applicantDocsRequired
       .replace('{taxYearsAppliedFor}', docsRequiredYears);
+
+    let spouseLine = this.lang('./en/index.js').spouseDocsRequired
+      .replace('{taxYearsAppliedFor}', docsRequiredYears);
+    
+    return {
+      applicant: applicantLine,
+      spouse: spouseLine
+    }
+      
   }
 
   getDocNotRequiredInstruction(){
@@ -125,6 +134,10 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
     this.dataService.saveFinAssistApplication();
   }
 
+  get hasSpouse():boolean {
+    return this.application.hasSpouseOrCommonLaw;
+  }
+  
   get docRequired():boolean {
     let required = false;
     for(let i=0; i<this.years.length; i++){

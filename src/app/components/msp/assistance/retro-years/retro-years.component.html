@@ -12,7 +12,13 @@
   <h1 [innerHTML]="lang('./en/index.js').retroYearsTitle"></h1>
   <div class="row">
     <div class="col-xs-12">
-      <p [innerHTML]="docRequiredInstruction">
+      <p [innerHTML]="docRequiredInstruction.applicant">
+      </p>
+    </div>
+  </div>
+  <div class="row" *ngIf="hasSpouse">
+    <div class="col-xs-12">
+      <p [innerHTML]="docRequiredInstruction.spouse">
       </p>
     </div>
   </div>

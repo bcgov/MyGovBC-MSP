@@ -30,6 +30,11 @@ export class FinancialAssistApplication implements ApplicationBase {
   childClaimForAttendantCareExpense:boolean = false;
   childClaimForAttendantCareExpenseCount:number = 1;
 
+
+  applicantDisabilityCredit:number;
+  spouseDisabilityCredit:number;
+  childrenDisabilityCredit:number;
+
   _attendantCareExpense:number;
 
   private _attendantCareExpenseReceipts: MspImage[] = new Array<MspImage>();
