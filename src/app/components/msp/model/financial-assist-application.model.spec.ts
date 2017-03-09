@@ -75,4 +75,16 @@ describe('FinancialAssistApplication Component', () => {
     fixture.childWithDisabilityCount = 2;
     expect(fixture.numDisabled).toBe(4);
   });
+
+  it('should calculate the disabilityDeduction', () => {
+    let fixture = new FinancialAssistApplication();
+
+    expect(fixture.disabilityDeduction).toBe(0);
+    fixture.applicantDisabilityCredit = 3000;
+    expect(fixture.disabilityDeduction).toBe(3000);
+    fixture.spouseDisabilityCredit = 3000;
+    expect(fixture.disabilityDeduction).toBe(6000);
+    fixture.childrenDisabilityCredit = 6000;
+    expect(fixture.disabilityDeduction).toBe(12000);
+  });
 });
