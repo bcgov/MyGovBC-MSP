@@ -12,6 +12,7 @@ module.exports = {
   movedFromProvinceLabel: 'Moved from province:',
   movedFromCountryLabel: 'Moved from country:',
   previousHealthNumberLabel: 'Previous health number:',
+  personalHealthNumberLabel: 'Personal health number:',
   sinNumberLabel: 'Social insurance number',
   arrivedToBCLabel: 'Date arrived in B.C.:',
   arrivedToCanadaLabel: 'Date arrived in Canada:',

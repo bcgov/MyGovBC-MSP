@@ -319,6 +319,7 @@ describe('MspApiService', () => {
     let service = TestBed.get(MspApiService);
     let app = new FinancialAssistApplication();
 
+    app.selfDisabilityCredit = true;
     app.childWithDisabilityCount = 2;
     app.authorizedBySpouse = true;
     app.authorizedByApplicant = true;
