@@ -319,6 +319,7 @@ export class FinancialAssistApplication implements ApplicationBase {
   getAssistanceApplicationType (): AssistanceApplicationType {
     let mostRecentAppliedForTaxYears = this.getMostRecentAppliedForTaxYears();
 
+    // If we only have one and it's last year
     if (mostRecentAppliedForTaxYears == null ||
       mostRecentAppliedForTaxYears.length == 1 &&
       mostRecentAppliedForTaxYears[0].year == this.MostRecentTaxYear) {
@@ -333,6 +334,14 @@ export class FinancialAssistApplication implements ApplicationBase {
       return AssistanceApplicationType.PreviousTwoYears;
     }
 
+    // If we only have one and it's last year - 1
+    if (mostRecentAppliedForTaxYears &&
+      mostRecentAppliedForTaxYears.length === 1 &&
+      mostRecentAppliedForTaxYears[0].year == this.MostRecentTaxYear - 1) {
+      return AssistanceApplicationType.PreviousTwoYears;
+    }
+
+    // In all other cases it's multi year
     return AssistanceApplicationType.MultiYear;
 
   }
