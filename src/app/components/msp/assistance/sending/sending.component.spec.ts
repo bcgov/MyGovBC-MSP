@@ -1,4 +1,5 @@
-import { TestBed } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing';
+import {RouterTestingModule} from "@angular/router/testing";
 import { FormsModule } from '@angular/forms';
 import { AssistanceSendingComponent } from './sending.component';
 import MspDataService from '../../service/msp-data.service';
@@ -15,7 +16,7 @@ describe('AssistanceSendingComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AssistanceSendingComponent, ],
-      imports: [FormsModule, HttpModule],
+      imports: [FormsModule, HttpModule, RouterTestingModule],
       providers: [MspDataService, MspApiService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

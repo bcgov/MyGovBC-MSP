@@ -1,4 +1,5 @@
-import { TestBed } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing';
+import {RouterTestingModule} from "@angular/router/testing";
 import { FormsModule } from '@angular/forms';
 import { SendingComponent } from './sending.component';
 import MspDataService from '../../service/msp-data.service';
@@ -15,7 +16,7 @@ describe('SendingComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [SendingComponent, ],
-      imports: [FormsModule, HttpModule],
+      imports: [FormsModule, HttpModule, RouterTestingModule],
       providers: [MspDataService, MspApiService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
@@ -24,8 +25,8 @@ describe('SendingComponent', () => {
     })
   });
   it ('should work', () => {
-    //let fixture = TestBed.createComponent(SendingComponent);
-    //expect(fixture.componentInstance instanceof SendingComponent).toBe(true, 'should create SendingComponent');
+    // let fixture = TestBed.createComponent(SendingComponent);
+    // expect(fixture.componentInstance instanceof SendingComponent).toBe(true, 'should create SendingComponent');
 
   });
 })

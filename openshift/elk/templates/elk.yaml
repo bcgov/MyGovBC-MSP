@@ -121,7 +121,7 @@ objects:
               exec:
                 command: ['/bin/sh','-c','ls /var/backups && curl -f http://localhost:9200/']
               initialDelaySeconds: 300
-              timeoutSeconds: 10
+              timeoutSeconds: 60
               periodSeconds: 10
               successThreshold: 1
               failureThreshold: 3
@@ -186,7 +186,7 @@ objects:
                 port: 5601
                 scheme: HTTP
               initialDelaySeconds: 120
-              timeoutSeconds: 10
+              timeoutSeconds: 60
               periodSeconds: 10
               successThreshold: 1
               failureThreshold: 3

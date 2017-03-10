@@ -467,7 +467,7 @@ export class MspApiService {
      disabilitySavingsPlan?: number;      // spouseDSPAmount_line125
      netIncome: number;                   // netIncomelastYear
      numChildren?: number;                // childrenCount
-     numDisabled?: number;                // childWithDisabilityCount
+     numDisabled?: number;                // numDisabled
      sixtyFiveDeduction?: number;         // both applicant and spouse
      spouseNetIncome?: number;            // spouseIncomeLine236
      taxYear: number;                     // Current Year, if multiple the recent selected
@@ -498,14 +498,14 @@ export class MspApiService {
     if (from.eligibility.adjustedNetIncome != null) to.adjustedNetIncome = from.eligibility.adjustedNetIncome;
     if (from.eligibility.childDeduction != null) to.childDeduction = from.eligibility.childDeduction;
     if (from.eligibility.deductions != null) to.deductions = from.eligibility.deductions;
-    if (from.eligibility.disabilityDeduction != null) to.disabilityDeduction = from.eligibility.disabilityDeduction;
+    if (from.disabilityDeduction > 0) to.disabilityDeduction = from.disabilityDeduction;
     if (from.eligibility.sixtyFiveDeduction != null) to.sixtyFiveDeduction = from.eligibility.sixtyFiveDeduction;
     if (from.eligibility.totalDeductions != null) to.totalDeductions = from.eligibility.totalDeductions;
     if (from.eligibility.totalNetIncome != null) to.totalDeductions = from.eligibility.totalDeductions;
     if (from.claimedChildCareExpense_line214 != null) to.childCareExpense = from.claimedChildCareExpense_line214;
     if (from.netIncomelastYear != null) to.netIncome = from.netIncomelastYear;
     if (from.childrenCount != null) to.numChildren = from.childrenCount;
-    if (from.childWithDisabilityCount != null) to.numDisabled = from.childWithDisabilityCount;
+    if (from.numDisabled > 0) to.numDisabled = from.numDisabled;
     if (from.spouseIncomeLine236 != null) to.spouseNetIncome = from.spouseIncomeLine236;
     if (from.netIncomelastYear != null) to.netIncome = from.netIncomelastYear;
     if (from.reportedUCCBenefit_line117 != null) to.uccb = from.reportedUCCBenefit_line117;

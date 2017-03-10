@@ -19,6 +19,7 @@ export class FinancialAssistApplication implements ApplicationBase {
 
   readonly uuid = UUID.UUID();
   authorizationToken: string;
+  phnRequired:boolean = true;
 
   assistYears:AssistanceYear[] = [];
   assistYeaDocs:MspImage[] = [];
@@ -29,6 +30,11 @@ export class FinancialAssistApplication implements ApplicationBase {
   spouseClaimForAttendantCareExpense:boolean = false;
   childClaimForAttendantCareExpense:boolean = false;
   childClaimForAttendantCareExpenseCount:number = 1;
+
+
+  applicantDisabilityCredit:number;
+  spouseDisabilityCredit:number;
+  childrenDisabilityCredit:number;
 
   _attendantCareExpense:number;
 
@@ -295,6 +301,9 @@ export class FinancialAssistApplication implements ApplicationBase {
     });
   }
 
+  get taxtYearsProvided():boolean {
+    return !!this.getAppliedForTaxYears() && this.getAppliedForTaxYears().length > 0;    
+  }
   /**
    * Sorts descending the applied for tax years
    */
@@ -311,6 +320,7 @@ export class FinancialAssistApplication implements ApplicationBase {
   getAssistanceApplicationType (): AssistanceApplicationType {
     let mostRecentAppliedForTaxYears = this.getMostRecentAppliedForTaxYears();
 
+    // If we only have one and it's last year
     if (mostRecentAppliedForTaxYears == null ||
       mostRecentAppliedForTaxYears.length == 1 &&
       mostRecentAppliedForTaxYears[0].year == this.MostRecentTaxYear) {
@@ -325,6 +335,14 @@ export class FinancialAssistApplication implements ApplicationBase {
       return AssistanceApplicationType.PreviousTwoYears;
     }
 
+    // If we only have one and it's last year - 1
+    if (mostRecentAppliedForTaxYears &&
+      mostRecentAppliedForTaxYears.length === 1 &&
+      mostRecentAppliedForTaxYears[0].year == this.MostRecentTaxYear - 1) {
+      return AssistanceApplicationType.PreviousTwoYears;
+    }
+
+    // In all other cases it's multi year
     return AssistanceApplicationType.MultiYear;
 
   }
@@ -353,6 +371,60 @@ export class FinancialAssistApplication implements ApplicationBase {
    */
   numberOfTaxYears(): number {
     return this.getAppliedForTaxYears().length;
+  }
+
+  /**
+   * Counts up total number of disabled including children, applicant and spouse
+   */
+  get numDisabled(): number {
+    let numDisabled = 0;
+
+    // applicant
+    if (this.selfDisabilityCredit != null &&
+      this.selfDisabilityCredit === true) {
+      numDisabled++;
+    }
+
+    // spouse
+    if (this.spouseEligibleForDisabilityCredit != null &&
+      this.spouseEligibleForDisabilityCredit === true) {
+      numDisabled++;
+    }
+
+    if (this.childWithDisabilityCount != null &&
+      this.childWithDisabilityCount >= 0) {
+
+      numDisabled += this.childWithDisabilityCount;
+    }
+
+    return numDisabled;
+  }
+
+  /**
+   * The sum of all disability deductions
+   * @returns {number}
+   */
+  get disabilityDeduction(): number {
+    let disabilityDeduction = 0;
+
+    if (this.applicantDisabilityCredit &&
+      this.applicantDisabilityCredit > 0) {
+
+      disabilityDeduction += this.applicantDisabilityCredit;
+    }
+    if (this.spouseDisabilityCredit &&
+      this.spouseDisabilityCredit > 0) {
+
+      disabilityDeduction += this.spouseDisabilityCredit;
+    }
+
+    if (this.childrenDisabilityCredit &&
+        this.childrenDisabilityCredit > 0) {
+
+      disabilityDeduction += this.childrenDisabilityCredit;
+    }
+
+    return disabilityDeduction;
   }
 
   constructor(){

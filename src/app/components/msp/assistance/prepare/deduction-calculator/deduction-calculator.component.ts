@@ -2,6 +2,7 @@ import {
   Component, Input, Output, OnInit, EventEmitter,
   SimpleChange, ViewChild, AfterViewInit
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
@@ -11,8 +12,11 @@ import 'rxjs/add/operator/catch';
 import * as _ from 'lodash';
 
 import {Eligibility} from '../../../model/eligibility.model';
+import DataService from '../../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../../model/financial-assist-application.model';
-require('./deduction-calculator.less');
+import * as moment from 'moment';
+
+import'./deduction-calculator.less';
 
 @Component({
   selector: 'deduction-calculator',
@@ -22,11 +26,13 @@ require('./deduction-calculator.less');
 export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   @Input() application: FinancialAssistApplication;
   @Output() updateQualify:EventEmitter<Boolean> = new EventEmitter<Boolean>();
+  @Output() taxYearInfoMissing:EventEmitter<Boolean> = new EventEmitter<Boolean>();
 
   @Input() qualificationThreshhold:number;
   lang = require('./i18n');
   
-  constructor(){
+  constructor(private _router: Router, 
+    private dataService: DataService){
   }
 
   ngOnInit(){
@@ -70,15 +76,22 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   }
 
   get disabilityCreditAmt(): number {
-    return !!this.application.selfDisabilityCredit? 3000: 0;
+    let amt = !!this.application.selfDisabilityCredit? 3000: 0;
+    this.application.applicantDisabilityCredit = amt;
+    return amt;
   }
 
   get spouseDisabilityCreditAmt(): number {
-    return !!this.application.spouseEligibleForDisabilityCredit? 3000: 0;
+    let amt = !!this.application.spouseEligibleForDisabilityCredit? 3000: 0;
+    this.application.spouseDisabilityCredit = amt;
+    return amt;    
   }
+
   get childrenDisabilityCreditAmt(): number {
     let m = this.application.childWithDisabilityCount;
-    return !!m? 3000*m: 0;
+    let amt = !!m? 3000*m: 0;
+    this.application.childrenDisabilityCredit = amt;
+    return amt;
   }
 
   get attendantCareExpenseAmt(): number {
@@ -131,6 +144,8 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
     + this.applicantClaimForAttendantCareExpenseAmt
     + this.spouseClaimForAttendantCareExpenseAmt
     + this.childClaimForAttendantCareExpenseAmt;
+
+    this.dataService.saveFinAssistApplication();
     return total;
   }
 
@@ -178,8 +193,9 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   }
 
   get incomeUnderThreshhold() {
-    let r = this.adjustedIncome <= this.qualificationThreshhold;
-    return r;
+    return _.isNumber(this.adjustedIncome) && this.adjustedIncome <= this.qualificationThreshhold;
+    // let r = this.adjustedIncome <= this.qualificationThreshhold;
+    // return r;
   }
 
   get canContinue(){
@@ -198,7 +214,20 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
      }else{
        return false;
      }
+  }
 
+
+  navigateToPersonalInfo(){
+    let taxYearSpecified = this.application.taxtYearsProvided;
+    if(taxYearSpecified){
+      this._router.navigate(['/msp/assistance/personal-info']);
+    }else{
+      this.taxYearInfoMissing.emit(true);
+    }
+  }
+
+  get taxYearsSpecified(){
+    return this.application.taxtYearsProvided;
   }
 
   private get attendantCareExpenseReceiptsProvided():boolean {
@@ -239,5 +268,9 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
 
   get eligibility(): Eligibility {
     return this.application.eligibility;
+  }
+
+  get currentCalendarYear():Number {
+    return moment().year();
   }
 }

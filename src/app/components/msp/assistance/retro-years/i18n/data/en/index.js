@@ -1,7 +1,13 @@
 module.exports = {
-  retroYearsTitle: "Tell us which years you would like to apply for",
+  retroYearsTitleDocsNotRequired: "Documents not required",
+  retroYearsTitle: "Documents required",
+  docUploadInstructions: "<i class='fa fa-upload fa icon-upload'></i> Upload your documents",
   continueButton: "Continue",
-  docUploadInstruction: "Include a scan or photograph of your Notice of Assessment for each year you have selected.<ul><li>Include all pages</li><li>Make sure your name is visible</li></ul>",
-  applyForPreviousYearInstruction: "Be sure to get assistance for any years you may have qualified for – share your Notice of Assessment or Reassessment from Canada Revenue Agency. Up to six years can be included.",
-  noaDocRequired: "Copies of your Notice of Assessement from CRA are required for each previous year assistance you are applying for."
+  docUploadInstruction: "Scan the document, or take a photo of it. Make sure that it’s:<ul><li>The entire document, from corner to corner, with your name visible</li><li>At least 1000 pixels wide x 1500 pixels tal</li><li>Rotated correctly (not upside down or sideways)</li><li>In focus and easy to read</li><li>A JPG or PNG file (not a PDF)</li></ul>",
+  applicantDocsRequired: "Your Notice of Assessment or Reassessment from Canada Revenue Agency for: <strong>{taxYearsAppliedFor}</strong>.",
+  spouseDocsRequired: "Your spouse or common-law partner’s Notice of Assessment or Reassessment from Canada Revenue Agency for: <strong>{taxYearsAppliedFor}</strong>.",
+  noaDocRequired: "Copies of your Notice of Assessement from CRA are required for each previous year assistance you are appluying for.",
+
+
+  docNotRequiredInstruction: "Documents are not required for {notRequiredYears}.",  
 }

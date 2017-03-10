@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import CompletenessCheckService from '../../service/completeness-check.service';
 
 @Injectable()
-export class MspApplicationReviewGuard implements CanActivate {
+export class MspApplicationReviewGuard implements CanActivate {
     constructor(private _router: Router, private compCheck: CompletenessCheckService) {
     }
 

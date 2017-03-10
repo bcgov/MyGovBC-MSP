@@ -4,6 +4,7 @@ import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
 import DataService from '../../service/msp-data.service';
 import CompletenessCheckService from '../../service/completeness-check.service';
 import {FinancialAssistApplication} from "../../model/financial-assist-application.model";
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './personal-info.component.html'
@@ -14,7 +15,9 @@ export class AssistancePersonalInfoComponent implements AfterViewInit, OnInit{
 
   financialAssistApplication: FinancialAssistApplication;
 
-  constructor(private dataService: DataService, private completenessCheck: CompletenessCheckService) {
+  constructor(private dataService: DataService, 
+    private completenessCheck: CompletenessCheckService,
+    private _router: Router) {
     this.financialAssistApplication = this.dataService.finAssistApp;
   }
 
@@ -35,10 +38,7 @@ export class AssistancePersonalInfoComponent implements AfterViewInit, OnInit{
   }
   
   onSubmit(form: NgForm){
-    console.log('PA personal-info form submitted.');
-    console.log(form.value);
-    console.log(form.valid);
-    console.log(form);
+    this._router.navigate(['/msp/assistance/retro']);
   }
 
   get canContinue():boolean{
