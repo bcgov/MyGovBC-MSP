@@ -498,7 +498,7 @@ export class MspApiService {
     if (from.eligibility.adjustedNetIncome != null) to.adjustedNetIncome = from.eligibility.adjustedNetIncome;
     if (from.eligibility.childDeduction != null) to.childDeduction = from.eligibility.childDeduction;
     if (from.eligibility.deductions != null) to.deductions = from.eligibility.deductions;
-    if (from.eligibility.disabilityDeduction != null) to.disabilityDeduction = from.eligibility.disabilityDeduction;
+    if (from.disabilityDeduction > 0) to.disabilityDeduction = from.disabilityDeduction;
     if (from.eligibility.sixtyFiveDeduction != null) to.sixtyFiveDeduction = from.eligibility.sixtyFiveDeduction;
     if (from.eligibility.totalDeductions != null) to.totalDeductions = from.eligibility.totalDeductions;
     if (from.eligibility.totalNetIncome != null) to.totalDeductions = from.eligibility.totalDeductions;

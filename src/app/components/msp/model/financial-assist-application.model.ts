@@ -400,6 +400,33 @@ export class FinancialAssistApplication implements ApplicationBase {
     return numDisabled;
   }
 
+  /**
+   * The sum of all disability deductions
+   * @returns {number}
+   */
+  get disabilityDeduction(): number {
+    let disabilityDeduction = 0;
+
+    if (this.applicantDisabilityCredit &&
+      this.applicantDisabilityCredit > 0) {
+
+      disabilityDeduction += this.applicantDisabilityCredit;
+    }
+    if (this.spouseDisabilityCredit &&
+      this.spouseDisabilityCredit > 0) {
+
+      disabilityDeduction += this.spouseDisabilityCredit;
+    }
+
+    if (this.childrenDisabilityCredit &&
+        this.childrenDisabilityCredit > 0) {
+
+      disabilityDeduction += this.childrenDisabilityCredit;
+    }
+
+    return disabilityDeduction;
+  }
+
   constructor(){
     this.id = UUID.UUID();
   }
