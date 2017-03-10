@@ -6,6 +6,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {CommonModule} from "@angular/common";
 import CompletenessCheckService from '../../service/completeness-check.service';
 import MspDataService from '../../service/msp-data.service';
+import ValidationService from '../../service/msp-validation.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {MspPhnComponent} from './phn.component';
 
@@ -29,7 +30,7 @@ describe('PHN Component', () => {
         CommonModule,
         FormsModule],
       providers: [
-        CompletenessCheckService, MspDataService,
+        CompletenessCheckService, MspDataService,ValidationService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         }
@@ -84,7 +85,7 @@ describe('PHN Component', () => {
       expect(element.querySelector('label').innerText).toBe(testLabel);
     });
   }));  
-  
+
   it('should render with error message for a msp-phn component with invalid phn input value', fakeAsync(() => {
     container.required = true;
     container.phnLabel = testLabel;
@@ -123,6 +124,7 @@ describe('PHN Component', () => {
     fixture.detectChanges();
 
     fixture.whenStable().then(() => { 
+      fixture.detectChanges();
       console.log('div text content error message: ',element.querySelector('div.text-danger').textContent);
       expect(element.querySelector('label').innerText).toBe(testLabel);
       expect(element.querySelector('div.text-danger').textContent).not.toBe(null);

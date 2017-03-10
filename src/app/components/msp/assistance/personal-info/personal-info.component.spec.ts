@@ -21,10 +21,11 @@ import {MspCancelComponent} from "../../common/cancel/cancel.component";
 import {ModalModule} from "ng2-bootstrap";
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
+import ValidationSerivce from '../../service/msp-validation.service';
 import appConstants from '../../../../services/appConstants';
 
 
-describe('AssistancePersonalInfoComponent', () => {
+describe('AssistancePersonalInfoComponent Test', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
     storageType: 'localStorage'
@@ -37,7 +38,7 @@ describe('AssistancePersonalInfoComponent', () => {
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent, MspCountryComponent,
         Mod11CheckValidator, MspGenderComponent, MspCancelComponent, MspLoggerDirective],
       imports: [FormsModule, Ng2CompleterModule, ModalModule, HttpModule,RouterTestingModule],
-      providers: [MspDataService,CompletenessCheckService, MspLogService,
+      providers: [MspDataService,CompletenessCheckService, MspLogService,ValidationSerivce,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         },

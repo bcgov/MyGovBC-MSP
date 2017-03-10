@@ -1,6 +1,7 @@
 import { Component, Input, Output, ViewChild, AfterViewInit, OnInit, EventEmitter } from '@angular/core';
 import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
 import { Person } from "../../../model/person.model";
+import { IPerson } from "../../../model/person.interface";
 import DataService from '../../../service/msp-data.service';
 import {FinancialAssistApplication} from "../../../model/financial-assist-application.model";
 
@@ -12,7 +13,7 @@ export class AssistancePersonalDetailComponent implements AfterViewInit, OnInit 
   lang = require('./i18n');
   private finApp:FinancialAssistApplication;
 
-  @Input() person: Person;
+  @Input() person: IPerson;
   @ViewChild('formRef') personalDetailsForm: NgForm;
   @Output() onChange = new EventEmitter<any>();
 

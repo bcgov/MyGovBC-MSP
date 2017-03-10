@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import DataService from './msp-data.service';
 import {FinancialAssistApplication} from '../model/financial-assist-application.model';
 import {MspApplication} from '../model/application.model';
+import ValidtionService from './msp-validation.service';
 import {Person} from '../model/person.model';
 
 import * as _ from 'lodash';
@@ -10,7 +11,8 @@ import * as _ from 'lodash';
 export default class CompletenessCheckService {
     private finApp:FinancialAssistApplication;
     private mspApp:MspApplication;
-    constructor(private dataService: DataService) {
+    constructor(private dataService: DataService,
+        private validationService:ValidtionService) {
         this.finApp = this.dataService.finAssistApp;
         this.mspApp = this.dataService.getMspApplication();
     }
@@ -115,20 +117,20 @@ export default class CompletenessCheckService {
     }
 
 
-    validatePhnForEnrollmentApplication(){
+    validatePhnForEnrollmentApplication():boolean{
       let applicantValidPhn = true;
       let spouseValidPhn = true;
       let kidsValidPhn = true;
       
-      applicantValidPhn = this.validatePHN(this.mspApp.applicant.previous_phn, true, !this.mspApp.phnRequired);
+      applicantValidPhn = this.validationService.validatePHN(this.mspApp.applicant.previous_phn, true, !this.mspApp.phnRequired);
       if(this.mspApp.spouse){
-        spouseValidPhn = this.validatePHN(this.mspApp.spouse.previous_phn, true, !this.mspApp.phnRequired);
+        spouseValidPhn = this.validationService.validatePHN(this.mspApp.spouse.previous_phn, true, !this.mspApp.phnRequired);
       }
 
       kidsValidPhn = this.mspApp.children.reduce(
         (acc, current) => {
           if(acc){
-            return this.validatePHN(current.previous_phn, true, !this.mspApp.phnRequired);
+            return this.validationService.validatePHN(current.previous_phn, true, !this.mspApp.phnRequired);
           }else{
             return acc;
           }
@@ -138,10 +140,10 @@ export default class CompletenessCheckService {
 
 
     validatePhnForPremiumAssistance(): boolean{
-      let applicantValidPhn = this.validatePHN(this.finApp.applicant.previous_phn, true, !this.finApp.phnRequired);
+      let applicantValidPhn = this.validationService.validatePHN(this.finApp.applicant.previous_phn, true, !this.finApp.phnRequired);
       let spouseValidPhn = true;
       if(this.finApp.hasSpouseOrCommonLaw){
-        spouseValidPhn = this.validatePHN(this.finApp.spouse.previous_phn, true, !this.finApp.phnRequired);
+        spouseValidPhn = this.validationService.validatePHN(this.finApp.spouse.previous_phn, true, !this.finApp.phnRequired);
       }
 
       return applicantValidPhn === true && spouseValidPhn === true;
@@ -169,13 +171,30 @@ export default class CompletenessCheckService {
       }  
 
       var hasValidPhn = this.validatePhnForPremiumAssistance();
+      var hasValidSin = this.validateSinForPremiumAssistance();
+      if(!hasValidSin){
+        console.log('SIN not valid for spouse or applicant in PA');
+      }
+      
 
       if(!hasValidPhn){
         console.log('PHN not valid for spouse or applicant in PA');
       }
 
-      return completed === true && hasValidPhn === true;      
+      return completed && hasValidPhn && hasValidSin;      
     }
+
+    validateSinForPremiumAssistance():boolean{
+      let applicantValidSin = this.validationService.validateSIN(this.finApp.applicant.sin);
+      let spouseValidSin = true;
+
+      if(this.finApp.hasSpouseOrCommonLaw){
+        spouseValidSin = this.validationService.validateSIN(this.finApp.spouse.sin);
+      }
+
+      return applicantValidSin && spouseValidSin;
+    }
+
 
     finAppReviewCompleted():boolean {
       return true;
@@ -201,78 +220,4 @@ export default class CompletenessCheckService {
       return familyAuth === true || attorneyAUth === true;
     }
 
-    /**
-     * 
-     * @param phn Empty value (null, undefined, empty string) are treated as invalid.
-     * @param isBCPhn 
-     */
-  validatePHN (phn: string, isBCPhn:boolean = true, allowEmptyValue:boolean = false): boolean {
-    // pre req checks
-    if (phn === null || phn === undefined || phn.trim().length < 1){
-      return allowEmptyValue;      
-    }
-
-    // Init weights and other stuff
-    let weights:number[] = [-1, 2, 4, 8, 5, 10, 9, 7, 3, -1];
-    let sumOfRemainders = 0;
-
-    // Clean up string
-    phn = phn.trim();
-
-    // Rip off leading zeros with a regex
-    let regexp = new RegExp('^0+');
-    phn = phn.replace(regexp, "");
-
-    // Test for length
-    if (phn.length != 10) {
-      return false;
-    }
-    // Look for a number that starts with 9 if BC only
-    if (isBCPhn &&
-      phn[0] != '9') {
-      return false;
-    }
-    // Number cannot have 9
-    else if (!isBCPhn &&
-      phn[0] == '9') {
-        return false;
-    }
-
-    // Walk through each character
-    for (let i = 0; i < phn.length; i++) {
-
-      // pull out char
-      let char = phn.charAt(i);
-
-      // parse the number
-      let num = Number(char);
-      if (Number.isNaN(num)) return false;
-
-      // Only use the multiplier if weight is greater than zero
-      let result = 0;
-      if (weights[i] > 0) {
-        // multiply the value against the weight
-        result = num * weights[i];
-
-        // divide by 11 and save the remainder
-        result = result % 11;
-
-        // add it to our sum
-        sumOfRemainders += result;
-      }
-    }
-
-    // mod by 11
-    let checkDigit = 11 - (sumOfRemainders % 11);
-
-    // if the result is 10 or 11, it is an invalid PHN
-    if (checkDigit === 10 || checkDigit === 11) return false;
-
-    // Compare against 10th digit
-    let finalDigit = Number(phn.substring(9,10));
-    if (checkDigit !== finalDigit) return false;
-
-    // All done!
-    return true;
-  }    
 }

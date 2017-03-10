@@ -47,6 +47,7 @@ import {MspContactCardComponent} from './common/contact-card/contact-card.compon
 import {MspAddressCardPartComponent} from './common/address-card-part/address-card-part.component';
 
 import MspDataService from './service/msp-data.service';
+import ValidationService from './service/msp-validation.service';
 import CompletenessCheckService from './service/completeness-check.service';
 
 
@@ -278,6 +279,7 @@ let localStorageServiceConfig = {
   providers: [
     // Services
     MspDataService,
+    ValidationService,
     CompletenessCheckService,
     MspApiService,
     MspLogService,

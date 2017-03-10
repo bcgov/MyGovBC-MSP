@@ -5,9 +5,6 @@
         </div>
     </div>
     <div class="row">
-        <div *ngIf="false" class="col-md-4">
-            <msp-gender [person]="person" (onChange) = "onChange.emit($event)"></msp-gender>
-        </div>
         <div class="col-md-4" >
             <msp-birthdate [person]="person" (onChange) = "onChange.emit($event)" *ngIf="!person.relationship"></msp-birthdate>
         </div>

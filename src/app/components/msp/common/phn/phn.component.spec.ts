@@ -2,11 +2,12 @@ import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
 import { MspPhnComponent } from './phn.component';
 import MspDataService from '../../service/msp-data.service';
+import ValidationService from '../../service/msp-validation.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {Mod11CheckValidator} from "./phn.validator";
 import CompletenessCheckService from '../../service/completeness-check.service';
 
-describe('MspPhnComponent', () => {
+describe('MspPhnComponent Test', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
     storageType: 'localStorage'
@@ -16,7 +17,7 @@ describe('MspPhnComponent', () => {
     TestBed.configureTestingModule({
       declarations: [MspPhnComponent, Mod11CheckValidator],
       imports: [FormsModule],
-      providers: [MspDataService, CompletenessCheckService,
+      providers: [MspDataService, CompletenessCheckService,ValidationService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         }

@@ -1,6 +1,7 @@
 import {Directive, forwardRef, Input} from '@angular/core';
 import {Validator, NG_VALIDATORS, FormControl} from '@angular/forms';
 import CompletenessCheckService from '../../service/completeness-check.service';
+import ValidationService from '../../service/msp-validation.service';
 
 @Directive({
   selector: '[mod11Check][ngModel]',
@@ -15,7 +16,8 @@ export class Mod11CheckValidator implements Validator {
 
   @Input('mod11Check') bcPhn: boolean;
 
-  constructor(private completenessCheck: CompletenessCheckService){
+  constructor(private completenessCheck: CompletenessCheckService,
+    private validationService: ValidationService){
 
   }
 
@@ -28,7 +30,7 @@ export class Mod11CheckValidator implements Validator {
     if (phn == null ||
       phn.length < 1) return null;
 
-    if (this.completenessCheck.validatePHN(phn, this.bcPhn)) {
+    if (this.validationService.validatePHN(phn, this.bcPhn)) {
       // return null for no errors
       return null;
     }

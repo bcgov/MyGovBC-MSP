@@ -1,3 +1,5 @@
+import {IPerson} from './person.interface';
+
 import {Relationship, StatusInCanada, Activities} from "./status-activities-documents";
 import {PersonDocuments} from "./person-document.model";
 import {Address} from "./address.model";
@@ -13,8 +15,7 @@ enum Gender {
   Male = <any>"M"
 }
 
-class Person {
-
+class Person implements IPerson{
 
   readonly uuid = UUID.UUID();
 

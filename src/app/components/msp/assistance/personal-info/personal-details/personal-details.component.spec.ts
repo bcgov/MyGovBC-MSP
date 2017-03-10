@@ -14,11 +14,12 @@ import {Ng2CompleterModule} from "ng2-completer";
 import {MspGenderComponent} from "../../../common/gender/gender.component";
 import {MspCountryComponent} from "../../../common/country/country.component";
 import { MspLogService } from '../../../service/log.service';
+import ValidationService from '../../../service/msp-validation.service';
 import appConstants from '../../../../../services/appConstants';
 import CompletenessCheckService from '../../../service/completeness-check.service';
 
 
-describe('AssistancePersonalDetailComponent', () => {
+describe('AssistancePersonalDetailComponent Test', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
     storageType: 'localStorage'
@@ -30,7 +31,7 @@ describe('AssistancePersonalDetailComponent', () => {
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent,
         Mod11CheckValidator, MspGenderComponent, MspCountryComponent],
       imports: [FormsModule, Ng2CompleterModule, HttpModule],
-      providers: [MspDataService, CompletenessCheckService,
+      providers: [MspDataService, CompletenessCheckService,ValidationService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         },

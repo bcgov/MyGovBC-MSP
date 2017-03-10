@@ -30,9 +30,11 @@ import {MspCancelComponent} from "../../common/cancel/cancel.component";
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
+import ValiationService from '../../service/msp-validation.service';
+
 import appConstants from '../../../../services/appConstants';
 import {RouterTestingModule} from "@angular/router/testing";
-describe('PersonalInfoComponent', () => {
+describe('PersonalInfoComponent Test', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
     storageType: 'localStorage'
@@ -47,7 +49,7 @@ describe('PersonalInfoComponent', () => {
         MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspCancelComponent,
         MspImageErrorModalComponent, MspLoggerDirective],
       imports: [FormsModule, Ng2CompleterModule, ModalModule, AccordionModule, HttpModule, RouterTestingModule],
-      providers: [MspDataService, MspLogService,
+      providers: [MspDataService, MspLogService, ValiationService,
         CompletenessCheckService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

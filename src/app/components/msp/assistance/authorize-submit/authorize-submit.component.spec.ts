@@ -11,11 +11,12 @@ import {MspCancelComponent} from "../../common/cancel/cancel.component";
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
+import ValidationService from '../../service/msp-validation.service';
 import appConstants from '../../../../services/appConstants';
 import CompletenessCheckService from '../../service/completeness-check.service';
 let CaptchaComponent = require("mygovbc-captcha-widget/component").CaptchaComponent;
 
-describe('AssistanceAuthorizeSubmitComponent', () => {
+describe('AssistanceAuthorizeSubmitComponent Test', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
     storageType: 'localStorage'
@@ -26,7 +27,7 @@ describe('AssistanceAuthorizeSubmitComponent', () => {
       declarations: [AssistanceAuthorizeSubmitComponent, FileUploaderComponent, ThumbnailComponent, MspCancelComponent,
         MspImageErrorModalComponent,MspLoggerDirective, MspLoggerDirective, CaptchaComponent],
       imports: [FormsModule, Ng2BootstrapModule, HttpModule],
-      providers: [MspDataService, MspLogService,CompletenessCheckService,
+      providers: [MspDataService, MspLogService,CompletenessCheckService,ValidationService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         },
