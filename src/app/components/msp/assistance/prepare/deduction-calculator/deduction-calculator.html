@@ -1,4 +1,14 @@
 <!--<div class="deduction-calc-spacer-lg hidden-xs hidden-sm"></div>-->
+<h2></h2>
+<div class="panel panel-primary" style="margin-bottom:5px">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Coming soon</div>
+  <div class="panel-body">
+    <p [innerHTML]="lang('./en/index.js').comingSoonText.replace('{nextCalendarYear}', currentCalendarYear + 1)"></p>
+  </div>
+
+</div>
+
 <form #formRef="ngForm" novalidate (submit)="navigateToPersonalInfo()">
   <div class="deduction-calc-spacer-sm hidden-xs hidden-sm"></div>
   <!--<div class="deduction-calc-spacer-lg hidden-sm hidden-md hidden-lg"></div>-->
@@ -174,12 +184,25 @@
     <p class="qualify-message" *ngIf="applicantIncomeInfoProvided && incomeUnderThreshhold">
       It is likely that you will qualify for Premium Assistance.
     </p>
-    <p class="disqualify-message" *ngIf="applicantIncomeInfoProvided && !incomeUnderThreshhold">
-      Based on the income entered, you might not qualify for assistance. Please <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us">contact Health Insurance BC</a> for more information.
-    </p>
+    <div *ngIf="applicantIncomeInfoProvided && !incomeUnderThreshhold" style="margin-right: 5px;">
+      <p class="disqualify-message"
+        [innerHTML]="lang('./en/index.js').mayNotQualifyText.replace('{currentCalendarYear}', currentCalendarYear)">
+      </p>
+      <p [innerHTML]="lang('./en/index.js').youShouldContinue">
+      </p>
+    </div>
+    
   </div>
 
-  <div class="row" *ngIf="incomeUnderThreshhold && canContinue"
+  <div class="row" *ngIf="false">
+    <div class="col-md-2">
+      {{incomeUnderThreshhold}}
+    </div>
+    <div class="col-md-2">
+      {{canContinue}}
+    </div>
+  </div>
+  <div class="row" *ngIf="canContinue"
     style="margin-top: 10px;">
     <div class="col-xs-12">
       <button type="submit"

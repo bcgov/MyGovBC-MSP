@@ -14,7 +14,9 @@ import * as _ from 'lodash';
 import {Eligibility} from '../../../model/eligibility.model';
 import DataService from '../../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../../model/financial-assist-application.model';
-require('./deduction-calculator.less');
+import * as moment from 'moment';
+
+import'./deduction-calculator.less';
 
 @Component({
   selector: 'deduction-calculator',
@@ -191,7 +193,7 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
   }
 
   get incomeUnderThreshhold() {
-    return _.isNumber(this.adjustedIncome) && this.adjustedIncome < Math.pow(10, 6);
+    return _.isNumber(this.adjustedIncome) && this.adjustedIncome <= this.qualificationThreshhold;
     // let r = this.adjustedIncome <= this.qualificationThreshhold;
     // return r;
   }
@@ -266,5 +268,9 @@ export class DeductionCalculatorComponent implements OnInit, AfterViewInit{
 
   get eligibility(): Eligibility {
     return this.application.eligibility;
+  }
+
+  get currentCalendarYear():Number {
+    return moment().year();
   }
 }
