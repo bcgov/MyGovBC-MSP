@@ -22,7 +22,7 @@ module.exports = function (_path) {
     output: {
       path: require("path").resolve("dist"),
       filename: '[name].js',
-//      publicPath: '/',
+      publicPath: '/msp',
     },
 
     // resolves modules
@@ -105,19 +105,19 @@ module.exports = function (_path) {
       new ExtractTextPlugin('assets/styles/css/[name]' + (NODE_ENV === 'development' ? '' : '.[chunkhash]') + '.css', {allChunks: true})
     ],
     devServer: {
-      publicPath: '/',
+      publicPath: '/msp',
       contentBase: './dist',
       info: true,
       hot: true,
       inline: true,
       historyApiFallback: {
-        index: '/'
+        index: '/msp'
       },
       watchOptions: {
         poll: 1000,
       },
       proxy: {
-          '/api': {
+          '/msp/api': {
               target: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca',
               changeOrigin: true,
               secure: false
@@ -129,9 +129,9 @@ module.exports = function (_path) {
       runtimeEnv: NODE_ENV, // run-time environment. by default same as build-time node env
       coreApiBaseUrl: 'http://localhost:9000/api',
       serviceName: 'core',
-      apiBaseUrl: '/api',
+      apiBaseUrl: '/msp/api',
       // apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
-      captchaApiBaseUrl: '/api/captcha',
+      captchaApiBaseUrl: '/msp/api/captcha',
       images: {
         maxImagesPerPerson: 10,
         maxWidth: 2600,
