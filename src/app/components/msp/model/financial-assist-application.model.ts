@@ -19,6 +19,7 @@ export class FinancialAssistApplication implements ApplicationBase {
 
   readonly uuid = UUID.UUID();
   authorizationToken: string;
+  phnRequired:boolean = true;
 
   assistYears:AssistanceYear[] = [];
   assistYeaDocs:MspImage[] = [];

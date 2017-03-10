@@ -104,7 +104,7 @@ class Person {
    * BC Personal Health Number
    */
   previous_phn: string;
-  _hasPreviousBCPhn: boolean;
+  private _hasPreviousBCPhn: boolean;
 
   /**
    * Health number from another province

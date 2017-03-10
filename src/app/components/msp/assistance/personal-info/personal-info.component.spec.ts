@@ -1,4 +1,5 @@
-import { TestBed } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing';
+import {RouterTestingModule} from "@angular/router/testing";
 import { FormsModule } from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 import { AssistancePersonalInfoComponent } from './personal-info.component';
@@ -22,6 +23,7 @@ import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
 import appConstants from '../../../../services/appConstants';
 
+
 describe('AssistancePersonalInfoComponent', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
@@ -34,7 +36,7 @@ describe('AssistancePersonalInfoComponent', () => {
         MspPhnComponent, MspNameComponent, MspPhoneComponent,
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent, MspCountryComponent,
         Mod11CheckValidator, MspGenderComponent, MspCancelComponent, MspLoggerDirective],
-      imports: [FormsModule, Ng2CompleterModule, ModalModule, HttpModule],
+      imports: [FormsModule, Ng2CompleterModule, ModalModule, HttpModule,RouterTestingModule],
       providers: [MspDataService,CompletenessCheckService, MspLogService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

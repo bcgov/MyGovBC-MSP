@@ -15,6 +15,8 @@ import {MspGenderComponent} from "../../../common/gender/gender.component";
 import {MspCountryComponent} from "../../../common/country/country.component";
 import { MspLogService } from '../../../service/log.service';
 import appConstants from '../../../../../services/appConstants';
+import CompletenessCheckService from '../../../service/completeness-check.service';
+
 
 describe('AssistancePersonalDetailComponent', () => {
   let localStorageServiceConfig = {
@@ -28,7 +30,7 @@ describe('AssistancePersonalDetailComponent', () => {
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent,
         Mod11CheckValidator, MspGenderComponent, MspCountryComponent],
       imports: [FormsModule, Ng2CompleterModule, HttpModule],
-      providers: [MspDataService,
+      providers: [MspDataService, CompletenessCheckService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         },
