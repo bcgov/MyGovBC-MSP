@@ -29,7 +29,7 @@ module.exports = {
     '<i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> Upload your spouse\'s documents',
     '<i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> Upload your child\'s documents',
     '<i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> Upload your child\'s documents'],
-  documentInstructionsNote: 'Scan the document, or take a photo of it. Make sure that it&#8217;s:<ul><li>The entire document, from corner to corner</li><li>At least 1000 pixels wide x 1500 pixels tall</li><li>Rotated correctly (not upside down or sideways)</li><li>In focus and easy to read</li><li>A JPG or PNG file (not a PDF)</li></ul>',
+  documentInstructionsNote: 'Scan the document, or take a photo of it. Make sure that it&#8217;s:<ul><li>The entire document, from corner to corner</li><li>At least 1000 pixels wide x 1500 pixels tall</li><li>Rotated correctly (not upside down or sideways)</li><li>In focus and easy to read</li><li>A JPG, PNG, GIF or BMP file (not a PDF)</li></ul>',
   viewSamplesButton: 'See a sample',
 
   nameHelpBlock: ['Enter your legal name and gender',
