@@ -68,8 +68,11 @@ export default class CompletenessCheckService {
     }
 
     mspContactInfoCompleted(){
-      let valid = _.isBoolean(this.mspApp.mailingSameAsResidentialAddress) && this.mspApp.residentialAddress.isValid 
-      if(!this.mspApp.mailingSameAsResidentialAddress){
+      let valid = _.isBoolean(this.mspApp.mailingSameAsResidentialAddress)
+        && this.mspApp.residentialAddress.isValid
+        && this.mspApp.phoneNumberIsValid;
+
+      if(!this.mspApp.mailingSameAsResidentialAddress) {
         valid = valid && this.mspApp.mailingAddress.isValid;
       }
       return valid;
@@ -160,6 +163,7 @@ export default class CompletenessCheckService {
         && !_.isEmpty(this.finApp.applicant.previous_phn)
         && !_.isEmpty(this.finApp.applicant.sin)
         && this.finApp.mailingAddress.isValid
+        && this.finApp.phoneNumberIsValid
         && !(this.finApp.applicant.dob_month == 0);
 
       if(this.finApp.hasSpouseOrCommonLaw === true){

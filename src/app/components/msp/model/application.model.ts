@@ -4,6 +4,7 @@ import {Person} from "./person.model";
 import {UUID} from "angular2-uuid";
 import {MspImage} from "./msp-image";
 import {ApplicationBase} from "./application-base.model";
+import {PhoneNumber} from "./phone.model";
 
 /**
  * Overall MSP Application Process Data
@@ -77,6 +78,24 @@ class MspApplication implements ApplicationBase {
   public mailingSameAsResidentialAddress: boolean = true;
   public mailingAddress: Address = new Address();
   public phoneNumber: string;
+
+
+  /**
+   * validator for phone number
+   * @returns {boolean}
+   */
+  get phoneNumberIsValid(): boolean {
+
+    // Phone is optional
+    if (this.phoneNumber == null ||
+      this.phoneNumber.length < 1) {
+      return true;
+    }
+
+    // But if it's provided is must be valid
+    let regEx = new RegExp(PhoneNumber.PhoneNumberRegEx);
+    return regEx.test(this.phoneNumber);
+  }
 
   authorizedByApplicant: boolean;
   authorizedByApplicantDate: Date;

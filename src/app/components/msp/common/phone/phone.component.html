@@ -8,7 +8,7 @@
                (ngModelChange)="phoneNumber=$event;phoneNumberChange.emit($event)"
                id='phone' name='phone' #phoneRef="ngModel"
                maxlength="12"
-               pattern="\d{3}[\-]?\d{3}[\-]?\d{4}">
+               [pattern]="PhoneNumber.PhoneNumberRegEx">
         <div *ngIf='phoneRef.touched'>
             <div class="text-danger" *ngIf="phoneRef.errors?.pattern"
                  [innerHtml]="lang('./en/index.js').phoneErrorPattern"></div>

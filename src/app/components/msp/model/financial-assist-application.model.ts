@@ -8,6 +8,7 @@ import moment = require("moment");
 import {ApplicationBase} from "./application-base.model";
 import {AssistanceYear} from './assistance-year.model';
 import * as _ from 'lodash';
+import {PhoneNumber} from "./phone.model";
 
 export enum AssistanceApplicationType {
   CurrentYear,
@@ -281,6 +282,23 @@ export class FinancialAssistApplication implements ApplicationBase {
   public mailingSameAsResidentialAddress: boolean = true;
   public mailingAddress: Address = new Address();
   public phoneNumber: string;
+
+  /**
+   * validator for phone number
+   * @returns {boolean}
+   */
+  get phoneNumberIsValid(): boolean {
+
+    // Phone is optional
+    if (this.phoneNumber == null ||
+      this.phoneNumber.length < 1) {
+      return true;
+    }
+
+    // But if it's provided is must be valid
+    let regEx = new RegExp(PhoneNumber.PhoneNumberRegEx);
+    return regEx.test(this.phoneNumber);
+  }
 
   id:string;
 
