@@ -501,7 +501,7 @@ export class MspApiService {
     if (from.disabilityDeduction > 0) to.disabilityDeduction = from.disabilityDeduction;
     if (from.eligibility.sixtyFiveDeduction != null) to.sixtyFiveDeduction = from.eligibility.sixtyFiveDeduction;
     if (from.eligibility.totalDeductions != null) to.totalDeductions = from.eligibility.totalDeductions;
-    if (from.eligibility.totalNetIncome != null) to.totalDeductions = from.eligibility.totalDeductions;
+    if (from.eligibility.totalNetIncome != null) to.totalNetIncome = from.eligibility.totalNetIncome;
     if (from.claimedChildCareExpense_line214 != null) to.childCareExpense = from.claimedChildCareExpense_line214;
     if (from.netIncomelastYear != null) to.netIncome = from.netIncomelastYear;
     if (from.childrenCount != null) to.numChildren = from.childrenCount;
