@@ -119,11 +119,11 @@ export class MspApiService {
         console.log("error sending attachment: ", error);
           return reject(error);
         }
-      );
-      // .catch((error: Response | any) => {
-      //   console.log("error sending attachment: ", error);
-      //   return reject(error);
-      // })
+      )
+      .catch((error: Response | any) => {
+        console.log("error sending attachment: ", error);
+        return reject(error);
+      });
     });
   }
 
