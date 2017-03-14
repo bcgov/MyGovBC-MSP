@@ -179,12 +179,12 @@ export class MspApiService {
             console.log('error response in its origin form: ', error);
             return reject(error);
           }
-        );
-        // .catch((error: Response | any) => {
-        //   console.log("Error in sending individual attachment: ", error);
-        //   let response = this.convertResponse(error);
-        //   reject(response || error);
-        // });
+        )
+        .catch((error: Response | any) => {
+          console.log("Error in sending individual attachment: ", error);
+          let response = this.convertResponse(error);
+          reject(response || error);
+        });
     });
   }
 
@@ -220,10 +220,8 @@ export class MspApiService {
           return resolve(this.convertResponse(response.text()));
         })
         .catch((error: Response | any) => {
-          error._requestBody = documentXmlString;
-          let response = this.convertResponse(error);
           console.log("full error: ", error)
-          return reject(response || error);
+          return reject(error);
         });
     });
   }
