@@ -15,6 +15,9 @@ http {
     default_type  application/octet-stream;
     server_tokens off;
 
+    # ip filtering
+    %IpFilterRules%
+
     geo $loggable {
         default 1;
         %RealIpFrom% 0;
