@@ -51,6 +51,8 @@ class Person implements IPerson{
   middleName: string;
   lastName: string;
 
+  static NameRegEx = "^[a-zA-Z][a-zA-Z\\-.' ]*$";
+
   /**
    * Gender
    */
@@ -317,6 +319,15 @@ class Person implements IPerson{
     && !(this.outOfBCRecord && this.outOfBCRecord.returnMonth == 0)
     && !(this.dischargeDate && this.dischargeMonth == 0);
     let returningToBCComplete = true;
+
+    // Check name regexs
+    let regEx = new RegExp(Person.NameRegEx);
+    basic = basic && regEx.test(this.firstName);
+    if (this.middleName &&
+      this.middleName.length > 0) {
+      basic = basic && regEx.test(this.middleName);
+    }
+    basic = basic && regEx.test(this.lastName);
 
     // code 0 is "Lived in BC without MSP"
     if(this.currentActivity === 0){

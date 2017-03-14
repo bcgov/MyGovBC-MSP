@@ -166,13 +166,32 @@ export default class CompletenessCheckService {
         && this.finApp.phoneNumberIsValid
         && !(this.finApp.applicant.dob_month == 0);
 
+      // Check applicant name regexs
+      let regEx = new RegExp(Person.NameRegEx);
+      basics = basics && regEx.test(this.finApp.applicant.firstName);
+      if (this.finApp.applicant.middleName &&
+        this.finApp.applicant.middleName.length > 0) {
+        basics = basics && regEx.test(this.finApp.applicant.middleName);
+      }
+      basics = basics && regEx.test(this.finApp.applicant.lastName);
+
       if(this.finApp.hasSpouseOrCommonLaw === true){
+
+        // Check spouses name regexs
+
         completed = basics && !_.isEmpty(this.finApp.spouse.firstName)
         && !_.isEmpty(this.finApp.spouse.lastName)
         && !_.isEmpty(this.finApp.spouse.sin)
+
+        completed = completed && regEx.test(this.finApp.spouse.firstName);
+        if (this.finApp.spouse.middleName &&
+          this.finApp.spouse.middleName.length > 0) {
+          completed = completed && regEx.test(this.finApp.spouse.middleName);
+        }
+        completed = completed && regEx.test(this.finApp.spouse.lastName);
       }else{
         completed = basics;
-      }  
+      }
 
       var hasValidPhn = this.validatePhnForPremiumAssistance();
       var hasValidSin = this.validateSinForPremiumAssistance();

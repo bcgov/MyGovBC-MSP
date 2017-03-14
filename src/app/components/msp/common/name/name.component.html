@@ -9,7 +9,7 @@
                        [(ngModel)]="person.firstName"
                        required
                        maxlength="30"
-                       pattern="[a-zA-Z][a-zA-Z\-.' ]*"
+                       [pattern]="Person.NameRegEx"
                        id="firstName" name="firstName" #firstNameRef="ngModel"
                        class="form-control">
                 <div *ngIf='firstNameRef.touched || showError'>
@@ -28,7 +28,7 @@
                        [(ngModel)]="person.middleName"
                        id='middleName' name='middleName' #middleNameRef="ngModel"
                        maxlength="30"
-                       pattern="[a-zA-Z][a-zA-Z\-.' ]*"
+                       [pattern]="Person.NameRegEx"
                        class="form-control">
                 <div *ngIf='middleNameRef.touched || showError'>
                     <div class="text-danger" *ngIf="middleNameRef.errors?.required"
@@ -47,7 +47,7 @@
                        id="lastName" name='lastName' #lastNameRef="ngModel"
                        required
                        maxlength="30"
-                       pattern="[a-zA-Z][a-zA-Z\-.' ]*"
+                       [pattern]="Person.NameRegEx"
                        class="form-control">
                 <div *ngIf='lastNameRef.touched || showError'>
                     <div class="text-danger" *ngIf="lastNameRef.errors?.required"

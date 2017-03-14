@@ -14,6 +14,8 @@ export class MspNameComponent implements AfterViewInit {
   @Input() showError: boolean;
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
+  Person: typeof Person = Person;
+
   ngAfterViewInit(): void {
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);
