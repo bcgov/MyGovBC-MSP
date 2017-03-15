@@ -70,6 +70,7 @@ export default class CompletenessCheckService {
     mspContactInfoCompleted(){
       let valid = _.isBoolean(this.mspApp.mailingSameAsResidentialAddress)
         && this.mspApp.residentialAddress.isValid
+        && this.mspApp.residentialAddress.isBCOnly
         && this.mspApp.phoneNumberIsValid;
 
       if(!this.mspApp.mailingSameAsResidentialAddress) {

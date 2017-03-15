@@ -29,6 +29,8 @@ export class MspAddressComponent implements AfterViewInit, OnChanges{
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
 
+  Address: typeof Address = Address;
+
   ngAfterViewInit(): void {
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);

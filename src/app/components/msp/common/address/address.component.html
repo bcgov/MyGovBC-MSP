@@ -52,12 +52,12 @@
         </div>
 
         <div class="form-group col-sm-3"
-             [ngClass]="{'has-error': !formRef.controls.residentialAddressPostalCode?.valid && residentialAddressCityRef.touched}">
+             [ngClass]="{'has-error': !formRef.controls.residentialAddressPostalCode?.valid && residentialAddressPostalCodeRef.touched}">
             <label for="residentialAddressPostalCode" [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
             <input [(ngModel)]='residentialAddress.postal' type="text" class="form-control to-upper"
                    id="residentialAddressPostalCode" name="residentialAddressPostalCode" #residentialAddressPostalCodeRef="ngModel"
                    required
-                   pattern="[Vv]\d[ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][ ]?\d[ABCEGHJ-NPRSTV-Zabceghj-nprstv-z]\d">
+                   [pattern]="Address.PostalCodeBCRegEx">
             <div *ngIf='residentialAddressPostalCodeRef.touched'>
                 <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.required"
                      [innerHtml]="lang('./en/index.js').postalCodeErrorIsRequired"></div>
