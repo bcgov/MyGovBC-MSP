@@ -357,6 +357,13 @@ class Person implements IPerson{
       }
     }
 
+    // check spouse
+    let spouseComplete:boolean = true;
+    if (this.relationship === Relationship.Spouse) {
+      // must be not in the future
+      spouseComplete = this.dob.isBefore(moment());
+    }
+
     // applicant 16 and older
     let applicant16OrOlderComplete = true;
     if(this.relationship === Relationship.Applicant &&
@@ -367,14 +374,24 @@ class Person implements IPerson{
 
     let ageOver19ChildComplete = true;
     if(this.relationship === Relationship.Child19To24){
+      let tooYoung = this.dob.isAfter(moment().subtract(19, 'years'));
+      let tooOld = this.dob.isBefore(moment().subtract(24, 'years'));
+      ageOver19ChildComplete = !tooOld && !tooYoung;
+
       if(this.fullTimeStudent){
-        ageOver19ChildComplete = !!this.schoolName && _.isString(this.schoolName) && this.schoolName.length > 0
+        ageOver19ChildComplete = ageOver19ChildComplete && !!this.schoolName && _.isString(this.schoolName) && this.schoolName.length > 0
           && _.isNumber(this.studiesFinishedYear) && _.isString(this.studiesFinishedMonth) && _.isNumber(this.studiesFinishedDay)
           && this.schoolAddress.isValid;
       }else{
         //must be a full time student
         ageOver19ChildComplete = false;
       }
+    }
+
+    let ageUnder19ChildComplete = true;
+    if (this.relationship === Relationship.ChildUnder19) {
+      let lessThan19 = this.dob.isAfter(moment().subtract(19, 'years'));
+      ageUnder19ChildComplete = lessThan19;
     }
 
     let institutionWorkComplete = true;
@@ -407,8 +424,10 @@ class Person implements IPerson{
       && movingFromAnotherCountryComplete
       && institutionWorkComplete
       && applicant16OrOlderComplete
+      && ageUnder19ChildComplete
       && ageOver19ChildComplete
       && studentComplete
+      && spouseComplete
       && this.hasCompleteOutSideRecords;
 
     // console.log(Relationship[this.relationship] + ' data completed? ' + result);  
