@@ -133,7 +133,7 @@ module.exports = function (_path) {
       // apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
       captchaApiBaseUrl: '/msp/api/captcha',
       images: {
-        maxImagesPerPerson: 10,
+        maxImagesPerPerson: 50,
         maxWidth: 2600,
         maxHeight: 3300,
         minWidth: 1000,
