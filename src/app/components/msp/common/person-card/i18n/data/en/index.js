@@ -1,6 +1,6 @@
 module.exports = {
   relationshipLabel: ['Applicant', 'Spouse', 'Child', 'Child'],
-  cardSuffix: 'info & documents',
+  cardSuffix: 'info',
 
   nameLabel: 'Name:',
   genderLabel: 'Gender:',
@@ -31,5 +31,5 @@ module.exports = {
   studiesDepartureLabel: 'Date of departure:',
   schoolAddressLabel: 'School address:',
 
-  editButton: 'Edit {label} & Documents',
+  editButton: 'Edit {label}',
 }
