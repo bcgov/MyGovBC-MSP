@@ -1,6 +1,6 @@
 module.exports = {
   pageTitle: 'Review your application',
-  eligibilityInfo: 'Eligibility information',
+  eligibilityInfo: 'Financial info',
 
   netAnnualIncomeLabel: 'Your net annual income:',
   minAgeOrOlderLabel: '65 or older:',
@@ -10,7 +10,7 @@ module.exports = {
   childcareExpensesLabel: 'Childcare expenses:',
   ucbAmountLabel: 'Universal childcare benefit amount:',
   rdspAmountLabel: 'Registered Disability Savings Plan amount:',
-  changeEligibilityInfoButton: 'Edit Eligibility Information',
+  changeEligibilityInfoButton: 'Edit Financial Info',
 
   personalInfo: 'Your information',
   spouseInfo: 'Your spouse or common-law partner\'s information',
