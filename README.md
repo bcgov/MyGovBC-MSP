@@ -7,8 +7,8 @@ This is MyGovBC MSP AngularJS 2.x app.  It provides the following processes:
 
 ## Browser Compatibility
 
-* IE 9+
-* Edge
+* IE 11
+* Edge (evergreen)
 * Safari (evergreen)
 * Chrome (evergreen)
 * Firefox (evergreen)
