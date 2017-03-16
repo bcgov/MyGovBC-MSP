@@ -2,7 +2,7 @@
 
 # MyGovBC-MSP
 This is MyGovBC MSP AngularJS 2.x app.  It provides the following processes:
- 1. MSP Application
+ 1. Enrolment Application
  2. Premium Assistance Application
 
 ## Browser Compatibility
