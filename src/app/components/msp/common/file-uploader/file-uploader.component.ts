@@ -60,6 +60,30 @@ export class FileUploaderComponent implements OnInit, OnChanges {
     }
   }
 
+  /*
+   System processing steps
+
+   1. User clicks browse or drag-n-drops an file
+   2. For browse case, the browser is told to only accept mime type image/*, .JPG, .GIF, .PNG, etc, however user can override and for drag-n-drop we don't can't impose this filter
+   4. Using the HTML5 File API, we open a handle on the file
+   5. Read the filename for later display to the user
+   6. Create a hidden Image element in the browser's DOM
+   7. Read the file's bytes as a DataUrl and copy them into the Image element
+   8. Wait until the Image finishes loading the image
+   9. Read the image element's natural width and height
+   10. Pass the File handle into a HTML5 Canvas lib (we need the XIFF headers to auto rotate, XIFF headers are not available in DataUrl)
+   11. The Canvas errors because it's a wrong type, e.g., TIFF, we abort and notify user
+   12. Instruct the Canvas lib to resize the image if it exceeds a maximum width or height, extract meta data, and auto-orient based on XIFF metadata.  It uses a "contain" operation which retains it's width to height pixel ratio.
+   13. Call a function on the Canvas element to turn the Canvas into a JPEG of quality 50%.
+   14. Once in a Blob with get the blob size in bytes and a human friendly display size
+   15. In order to more easily manage the image, we convert the Blob to a DataUrl again.
+   16. Pass the DataUrl into a hash algorithm to create an identifier and to check if the image has already been uploaded
+   17. Next we check the final size of the image to ensure it's not to small in resolution (arguably this could've been done earlier), if too small we notify user
+   18. Finally, the image is saved into the user's ongoing EA/PA application including localstorage
+   19. The image is displayed to user as a thumbnail
+
+   */
+
   ngOnInit(): void {
     // console.log('subscribe to drop event.');
     let dragOverStream =
