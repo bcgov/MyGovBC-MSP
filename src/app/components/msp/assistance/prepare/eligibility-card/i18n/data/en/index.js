@@ -13,5 +13,5 @@ module.exports = {
   adjustedIncome: 'Adjusted income',
   reportedUCCBenefit_line117: 'Universal child card benefit income',
   claimedChildCareExpense_line214: 'Child care expense',
-  editEligibilityInfo: 'Edit Eligibility Information'
+  editEligibilityInfo: 'Edit Financial Information'
 }
