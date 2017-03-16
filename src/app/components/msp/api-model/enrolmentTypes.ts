@@ -191,7 +191,7 @@ export var WillBeAwayType: { new(): WillBeAwayType };
 export class WillBeAwayTypeFactory {
 	static make(): WillBeAwayType {
 		let instance = <WillBeAwayType>{};
-		instance._sequence = ["isFullTimeStudent", "isInBCafterStudies", "armedDischageDate"];
+		instance._sequence = ["isFullTimeStudent", "isInBCafterStudies", "armedDischargeDate"];
 		return instance;
 	}
 }
