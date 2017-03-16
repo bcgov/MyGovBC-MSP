@@ -2,12 +2,16 @@
   <div [innerHTML]="lang('./en/desc.md')"></div>
 
   <div class="row">
-    <div class="col-xs-4">
+    <div class="col-md-4">
       <button class="btn btn-primary btn-lg btn-block" routerLink="/msp/application/prepare">
         {{lang('./en/index').newEnrollApp}}
       </button>
     </div>
-    <div class="col-xs-4">
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <hr>
       <button class="btn btn-primary btn-lg btn-block" routerLink="/msp/assistance/prepare">
         {{lang('./en/index').newPaApp}}
       </button>
