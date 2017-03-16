@@ -628,8 +628,11 @@ export class MspApiService {
   }
 
   private convertDependantFromEnrollment(from: Person): DependentType {
-    let to = DependentTypeFactory.make();
-    to = <DependentType>this.convertPersonFromEnrollment(from);
+    // Do base type first
+    let to = <DependentType>this.convertPersonFromEnrollment(from);
+
+    // Copy sequence over
+    to._sequence = DependentTypeFactory.make()._sequence;
 
     to.schoolName = from.schoolName;
     if (from.hasStudiesDeparture) {
