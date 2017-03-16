@@ -208,7 +208,8 @@ let localStorageServiceConfig = {
             ]
           }
         ]
-      }
+      },
+      { path: '**', redirectTo: '/msp' }
     ])
 
   ],
