@@ -1,6 +1,6 @@
 # ELK Cluster on OpenShift
 
-##Overview
+## Overview
 This folder contains following files to facilitate deploying ELK cluster to OpenShift
 
 * an instant-app template to generate OpenShift artifacts
@@ -20,9 +20,9 @@ The ELK has these features
   * CORS support for Logstash input with configurable Access-Control-Allow-Origin
 * based on official docker images from respective product vendor 
 
-##Deployment
+## Deployment
 
-###Prerequisites 
+### Prerequisites 
 The prerequisites of the deployment are
 
 * minimum edit access to a project of OpenShift origin 1.3 or compatible cluster. This implies you know and have access to following URL end points
@@ -40,7 +40,7 @@ The prerequisites of the deployment are
     ```
   * [oc](https://docs.openshift.com/container-platform/latest/cli_reference/get_started_cli.html)
 
-###Procedure
+### Procedure
 The deployment consists of these steps
 
 1. deploy template
@@ -61,24 +61,37 @@ The deployment consists of these steps
    
 3. deploy docker image
 
-   ```sh
-   $ docker login  -u <username> -p `oc whoami -t` docker-registry.pathfinder.gov.bc.ca
-   $ docker build -t os-elasticsearch openshift/elk/docker-images/elastic-search
-   $ docker tag os-elasticsearch docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-elasticsearch
-   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-elasticsearch
-   $ docker build -t os-logstash openshift/elk/docker-images/logstash
-   $ docker tag os-logstash docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-logstash
-   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-logstash
-   $ docker build -t os-kibana openshift/elk/docker-images/kibana
-   $ docker tag os-kibana docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-kibana
-   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-kibana
-   $ docker build -t elk-nginx openshift/elk/docker-images/nginx
-   $ docker tag elk-nginx docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-nginx
-   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-nginx
-   $ docker build -t elk-cron openshift/elk/docker-images/cron
-   $ docker tag elk-cron docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-cron
-   $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-cron
-   ```
+   * If you are deploying for the first time, which usually to a dev environment/project, run
+
+     ```sh
+     $ docker login  -u <username> -p `oc whoami -t` docker-registry.pathfinder.gov.bc.ca
+     $ docker build -t os-elasticsearch openshift/elk/docker-images/elastic-search
+     $ docker tag os-elasticsearch docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-elasticsearch
+     $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-elasticsearch
+     $ docker build -t os-logstash openshift/elk/docker-images/logstash
+     $ docker tag os-logstash docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-logstash
+     $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-logstash
+     $ docker build -t os-kibana openshift/elk/docker-images/kibana
+     $ docker tag os-kibana docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-kibana
+     $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/os-kibana
+     $ docker build -t elk-nginx openshift/elk/docker-images/nginx
+     $ docker tag elk-nginx docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-nginx
+     $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-nginx
+     $ docker build -t elk-cron openshift/elk/docker-images/cron
+     $ docker tag elk-cron docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-cron
+     $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname>/elk-cron
+     ```
+      you can also run above commands when you want to rebuild the images.
+   * Otherwise, if you already have the images in the cluster and want to promote the images from one environment/project to another, say from dev env to test env, then you can deploy the images to the target environment/project through tagging
+     ```
+     $ oc tag <yourprojectname-dev>/os-elasticsearch:latest <yourprojectname-test>/os-elasticsearch:latest
+     $ oc tag <yourprojectname-dev>/os-logstash:latest <yourprojectname-test>/os-logstash:latest
+     $ oc tag <yourprojectname-dev>/os-kibana:latest <yourprojectname-test>/os-kibana:latest
+     $ oc tag <yourprojectname-dev>/elk-nginx:latest <yourprojectname-test>/elk-nginx:latest
+     $ oc tag <yourprojectname-dev>/elk-cron:latest <yourprojectname-test>/elk-cron:latest
+     ```
+     This ensures the images are binary identical across environments/projects.
+   
 
 4. Wait for the first Elasticsearch pod to be fully up, then scale up the cluster to 5 pods (or more). If doing so too soon, contention may arise between the pods vying to be the first and sole master.   
 
