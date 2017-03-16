@@ -139,7 +139,7 @@ To facilitate building a multilingual site, i18n and markdown are supported by t
 
   In the above example, language code *en* is hard-coded. Depending on how do you capture user's language choice, be it implicitly from browser header detection or via URL path that user explicitly selected, the language code should be replaced with a variable.
 
-  Because the output of static content is string, you can implement placeholder in the static content and substitute them with Angular variables easily as shown above for placeholder {page_count}.
+  Because the output of static content is string, you can implement placeholder in the static content and substitute them using *replace* method as shown above for placeholder {page_count}.
 
 The component */src/app/components/msp/landing/* has the reference implementation of i18n and markdown.
 
