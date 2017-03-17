@@ -136,8 +136,8 @@ module.exports = function (_path) {
         maxImagesPerPerson: 50,
         maxWidth: 2600,
         maxHeight: 3300,
-        minWidth: 1000,
-        minHeight: 1500,
+        minWidth: 0,
+        minHeight: 0,
         acceptMimeType: "image/*",
         convertToMimeType: "image/jpeg",
         jpegQuality: 0.5
