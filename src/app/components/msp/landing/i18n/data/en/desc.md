@@ -1,3 +1,3 @@
-# Sorry, we couldn't figure out where you wanted to go...
+# Sorry, something went wrong and now we're not sure where you wanted to go. 
 
 ## What would you like to do?
