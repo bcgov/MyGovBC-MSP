@@ -268,13 +268,6 @@ objects:
               -
                 name: LS_HEAP_SIZE
                 value: 512m
-            readinessProbe:
-              httpGet:
-                path: /
-                port: 8080
-                scheme: HTTP
-              initialDelaySeconds: 240
-              timeoutSeconds: 60
             terminationMessagePath: /dev/termination-log
             imagePullPolicy: Always
         restartPolicy: Always
