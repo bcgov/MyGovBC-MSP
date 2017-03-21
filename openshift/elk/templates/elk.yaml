@@ -272,9 +272,9 @@ objects:
             readinessProbe:
               tcpSocket:
                 port: 8080
-              initialDelaySeconds: 300
+              initialDelaySeconds: 360
               timeoutSeconds: 60
-              periodSeconds: 10
+              periodSeconds: 30
               successThreshold: 1
               failureThreshold: 3
             terminationMessagePath: /dev/termination-log
