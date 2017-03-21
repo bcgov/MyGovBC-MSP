@@ -260,14 +260,23 @@ objects:
                 protocol: UDP
             resources:
               limits:
-                memory: 1Gi
                 cpu: 100m
+                memory: 700Mi
               requests:
                 cpu: 100m
+                memory: 700Mi
             env:
               -
                 name: LS_HEAP_SIZE
                 value: 512m
+            readinessProbe:
+              tcpSocket:
+                port: 8080
+              initialDelaySeconds: 360
+              timeoutSeconds: 60
+              periodSeconds: 30
+              successThreshold: 1
+              failureThreshold: 3
             terminationMessagePath: /dev/termination-log
             imagePullPolicy: Always
         restartPolicy: Always
@@ -552,7 +561,7 @@ objects:
       name: logstash
       apiVersion: extensions/v1beta1
       subresource: scale
-    maxReplicas: 4
+    maxReplicas: 8
     minReplicas: 2
 - apiVersion: extensions/v1beta1
   kind: HorizontalPodAutoscaler

@@ -138,7 +138,7 @@ then kill the pod. You need to go through each pod. When killing a pod, make sur
 ### Cluster Recovery
 If Elasticsearch cluster is crashed, data can be restored from the most recently nightly backup. But data from last backup till now is lost permanently. To restore,
 
-1. Deploy a new empty cluster by following the procedure above. Disable the route to disallow input.
+1. Deploy a new empty cluster by following the procedure above. Disable the route or scale down logstash pods to 0 to disallow input.
 2. Login to a Elasticsearch pod by running `oc exec -it <pod_name> bash`. In the pod run following commands
 
   ```
@@ -162,4 +162,4 @@ If Elasticsearch cluster is crashed, data can be restored from the most recently
   $ # re-open all indices
   $ curl -XPOST 'localhost:9200/_all/_open?pretty'
   ```
-3. re-enable the route
+3. re-enable the route or scale up logstsh pod count back
