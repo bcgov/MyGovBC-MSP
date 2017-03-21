@@ -33,40 +33,8 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
     });
   }
   ngOnInit(){
-    this.years = this.application.assistYears;
 
-    if(!this.years || this.years.length < 1){
-      // this calendar year
-      let thisYear:number = this.application.MostRecentTaxYear;
-      let pre = thisYear;
-      while(pre > thisYear - 6){
-
-        let assistYr:AssistanceYear = new AssistanceYear();
-        assistYr.year = pre;
-        assistYr.apply = false;
-
-        //NOA docs are required by default except for the current tax year.
-        assistYr.docsRequired = true;
-        if (pre == this.application.MostRecentTaxYear) {
-          assistYr.docsRequired = false;
-          assistYr.apply = true;
-        }
-        this.years.push(assistYr);
-        pre--;
-      }
-    }
   }
-
-  private containsYear(y: AssistanceYear){
-    for(let i=0; i< this.years.length; i++){
-      if(this.years[i].year === y.year){
-        return true;
-      }
-    }
-
-    return false;
-  }
-
   get docRequiredInstruction(): any{
     let docsRequiredYears:string = this.application.getAppliedForTaxYears().reduce(
       function(acc, value, idx){
@@ -140,8 +108,8 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
   
   get docRequired():boolean {
     let required = false;
-    for(let i=0; i<this.years.length; i++){
-      if(this.years[i].apply && this.years[i].docsRequired){
+    for(let i=0; i<this.application.getAppliedForTaxYears().length; i++){
+      if(this.application.getAppliedForTaxYears()[i].apply && this.application.getAppliedForTaxYears()[i].docsRequired){
         return true;
       }
     }

@@ -398,12 +398,12 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
     this.pastYears.push(recentTaxYear);
 
     let i = 1;
-    while(i < 6){
+    while(i < 7){
       this.pastYears.push(recentTaxYear - i);
       i++;
     }    
 
-    if(!this.finAssistApp.assistYears || this.finAssistApp.assistYears.length < 6){
+    if(!this.finAssistApp.assistYears || this.finAssistApp.assistYears.length < 7){
       this.finAssistApp.assistYears = this.pastYears.reduce( 
         (tally, yearNum) => {
           let assistYear: AssistanceYear = new AssistanceYear();
