@@ -13,7 +13,15 @@
 <div class="row" *ngIf="!transmissionInProcess && errorCode">
   <div class="col-xs-12 col-md-6">
     <h1 [innerHtml]="lang('./en/index.js').transmissionErrorTitle"></h1>
-    <h3 [innerHtml]="lang('./en/index.js').instructionForUserOnError"></h3>
+    <h3 [innerHtml]="lang('./en/index.js').instructionForUserOnErrorLine1"></h3>
+    <div style="font-size: 18px">
+      <ul>
+        <li> 
+          <a [routerLink]="['/msp/application/review']" [innerHtml]="lang('./en/index.js').tryToSumitAgain"></a>
+        </li>
+      </ul>
+    </div>
+    <h3 [innerHtml]="lang('./en/index.js').instructionForUserOnErrorLine2"></h3>
   </div>
 </div>
 

@@ -59,7 +59,7 @@
 </form>
 <hr>
 <button [mspLogger]="'msp-premium-assistance_submit'"  
-    [disabled]="!authorized"
+    [disabled]="!authorized || !(!!application.authorizationToken && application.authorizationToken.length > 1)"
     class="btn btn-primary" type="submit" routerLink="/msp/assistance/sending"
         [innerHTML]="lang('./en/index.js').continueButton"></button>
 <msp-cancel></msp-cancel>

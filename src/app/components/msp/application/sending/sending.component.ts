@@ -69,6 +69,8 @@ export class SendingComponent implements AfterViewInit {
           error: error._body,
           request: error._requestBody});
         this.transmissionInProcess = false;
+
+        this.application.authorizationToken = null;
       });
 
   }

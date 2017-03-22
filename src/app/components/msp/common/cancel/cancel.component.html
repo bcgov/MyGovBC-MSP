@@ -1,6 +1,9 @@
-<button [class.btn-block]="btnBlock" class="btn btn-default pull-right"
+<!--<button [class.btn-block]="btnBlock" class="btn btn-default pull-right"
         [innerHtml]="lang('./en/index.js').cancelButton"
-        (click)="showFullSizeView()"></button>
+        (click)="showFullSizeView()"></button>-->
+<a [class.btn-block]="btnBlock" class="btn btn-default pull-right" href="javascript:void(0)"
+        [innerHtml]="lang('./en/index.js').cancelButton"
+        (click)="showFullSizeView()" role="button"></a>
 
 <div bsModal #fullSizeViewModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -10,12 +13,12 @@
         <h2 [innerHtml]="lang('./en/index.js').body"></h2>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-danger pull-left"
+        <a class="btn btn-danger pull-left" role="button" href="javascript:void(0)"
                 [innerHtml]="lang('./en/index.js').yesButton"
-                (click)="yesButtonClick()"></button>
-        <button class="btn btn-primary pull-right"
+                (click)="yesButtonClick()"></a>
+        <a class="btn btn-primary pull-right" role="button" href="javascript:void(0)"
                 [innerHtml]="lang('./en/index.js').noButton"
-                (click)="noButtonClick()"></button>
+                (click)="noButtonClick()"></a>
                 
       </div>
     </div>

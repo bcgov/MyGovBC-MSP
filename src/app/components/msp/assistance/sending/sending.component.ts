@@ -64,7 +64,7 @@ export class AssistanceSendingComponent implements AfterViewInit  {
           request: error._requestBody});
         this.transmissionInProcess = false;
         // this.router.navigate(["/msp/assistance/confirmation"]);
-        
+        this.application.authorizationToken = null;
       });
   }
 
