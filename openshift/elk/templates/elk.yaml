@@ -100,7 +100,10 @@ objects:
                 value: ${RETENTION_MONTH}
             resources:
               limits:
-                memory: 2Gi
+                memory: 1500Mi
+                cpu: 150m
+              requests:
+                memory: 1500Mi
                 cpu: 150m
             volumeMounts:
               -
@@ -112,8 +115,8 @@ objects:
             readinessProbe:
               exec:
                 command: ['/bin/sh','-c','ls /var/backups && curl -f http://localhost:9200/']
-              initialDelaySeconds: 100
-              timeoutSeconds: 10
+              initialDelaySeconds: 290
+              timeoutSeconds: 60
               periodSeconds: 10
               successThreshold: 1
               failureThreshold: 3
