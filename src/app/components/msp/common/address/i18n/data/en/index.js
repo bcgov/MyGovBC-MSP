@@ -20,8 +20,8 @@ module.exports = {
 
   countryLabel: 'Country',
 
-  postalCodeLabel: 'Postal or Zip code',
-  postalCodeErrorIsRequired: 'Postal or Zip code is required',
+  postalCodeLabel: 'Postal or zip code',
+  postalCodeErrorIsRequired: 'Postal or zip code is required',
   postalCodeErrorPattern: 'Postal code must be a valid BC postal code',
 
   mailingAddressSameQuestion: 'Is your <strong>mailing address</strong> the same as above?',
