@@ -13,8 +13,7 @@ module.exports = {
   specialCircumstanceQuestion: 'Is anyone you\'re applying for',
   specialCircumstanceQuestionSub: '<ul><li>A student returning to your home province at the end of a course or program</li>' +
   '<li>A minor (under the age of 16) who needs to have their own individual account</li>' +
-  '<li>Seeking refugee status and is not approved yet</li>' +
-  '<li>An immigrant who does not have a valid work or study permit yet</li></ul>',
+  '<li>Seeking refugee status and is not approved yet</li>',
   badAnswer4: 'You can submit an application with some assistance from one of our representatives - please contact ' +
   'Health Insurance BC:<ul><li>(604) 683-7151 (Lower Mainland)</li><li>1-800-663-7100 (Elsewhere in B.C.)</li></ul>',
 
