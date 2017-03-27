@@ -96,7 +96,12 @@
                 <msp-gender [person]="person" (onChange) = "onChange.emit($event)" [showError] = "showError"></msp-gender>
             </div>
             <div class="col-sm-8">
-                <msp-birthdate [person]="person" (onChange) = "onChange.emit($event)" [showError] = "showError"></msp-birthdate>
+                <msp-birthdate 
+                  [person]="person" 
+                  (onChange) = "onChange.emit($event)"
+                  [showError] = "showError"
+                  (registerBirthDateComponent)="onRegisterBirthDateComponent($event)">
+                </msp-birthdate>
             </div>
         </div>
         <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult &&
@@ -158,7 +163,9 @@
                                   [day]="person.arrivalToBCDay"
                                   (dayChange)="person.arrivalToBCDay = $event"
                                   (onChange) = "onChange.emit($event)"
-                                  [showError]="showError"></msp-arrival-date>
+                                  [showError]="showError"
+                                  (registerArrivalDateComponent)="onRegisterArrivalDateComponent($event)">
+                </msp-arrival-date>
             </div>
             <div class="col-md-4">
                 <!--For canadian citizen, returning to BC after an absence or moving from another province, the arrival date in canada
@@ -173,7 +180,9 @@
                                   [day]="person.arrivalToCanadaDay"
                                   (dayChange)="person.arrivalToCanadaDay = $event"
                                   (onChange) = "onChange.emit($event)"
-                                  [showError]="showError"></msp-arrival-date>
+                                  [showError]="showError"
+                                  (registerArrivalDateComponent)="onRegisterArrivalDateComponent($event)">
+                </msp-arrival-date>
 
             </div>
 
@@ -323,7 +332,7 @@
     <div class="row" *ngIf="person.documents.images.length > 0 &&
                             person.relationship === Relationship.Child19To24">
         <div class="form-group col-md-6"
-            [ngClass]="{'has-error': !formRef.controls.schoolName?.valid && schoolNameRef.touched || showError}">
+            [ngClass]="{'has-error': !formRef.controls.schoolName?.valid && (schoolNameRef.touched || showError)}">
             <h2 [innerHtml]="lang('./en/index.js').nameOfSchool"></h2>
             <label for="schoolName" [innerHtml]="lang('./en/index.js').fullAttendanceLabel"></label>
             <input [(ngModel)]='person.schoolName' type="text" class="form-control"

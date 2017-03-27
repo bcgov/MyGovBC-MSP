@@ -76,8 +76,8 @@ export class MspSchoolDateComponent {
       let valid = this.inputDate().isValid();
       let diff = this.inputDate().diff(moment(), 'years');
 
-      console.log('diff between now: ', diff);
-      console.log(this.inputDate().inspect() + ' is valid? ', this.inputDate().isValid());
+      // console.log('diff between now: ', diff);
+      // console.log(this.inputDate().inspect() + ' is valid? ', this.inputDate().isValid());
       return valid;
     }
   }

@@ -1,4 +1,4 @@
-import {Component, Injectable, ViewChild} from '@angular/core';
+import {Component, Injectable, ViewChild, ViewChildren, QueryList, AfterViewInit, OnInit} from '@angular/core';
 import {MspApplication, Person} from '../../model/application.model';
 
 import DataService from '../../service/msp-data.service';
@@ -7,29 +7,80 @@ import { Router } from '@angular/router';
 
 import {Relationship} from "../../model/status-activities-documents";
 import {NgForm} from "@angular/forms";
+import {PersonalDetailsComponent} from "./personal-details/personal-details.component";
+
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { Observer } from 'rxjs/Observer';
 
 @Component({
   templateUrl: './personal-info.component.html'
 })
 @Injectable()
-export class PersonalInfoComponent {
+export class PersonalInfoComponent implements AfterViewInit{
   lang = require('./i18n');
-
+  private combinedValidationState:boolean;
   Relationship: typeof Relationship = Relationship;
-  @ViewChild('formRef') form: NgForm;
 
+  validitySubscription:Subscription;
+  currentFormValidity:Observable<boolean>;
+
+  @ViewChild('formRef') form: NgForm;
+  // @ViewChildren(PersonalDetailsComponent) personalDetailsList:QueryList<PersonalDetailsComponent>;
+  personalDetailsList:PersonalDetailsComponent[] = [];
+  
   constructor(private dataService: DataService,
     private completenessCheck:CompletenessCheckService,
     private _router: Router){
 
   }
 
-  valid(event: Object) {
+
+  ngOnInit(){
+    let curForm = this.form;
+    this.currentFormValidity = Observable.create((observer:Observer<boolean>)=>{
+      observer.next(curForm.valid);
+    });
+
+    this.updateSubscription();
+  }
+
+  ngAfterViewInit(){
+  }
+
+  updateSubscription(){
+
+    if(this.validitySubscription){
+      this.validitySubscription.unsubscribe();
+    }
+
+    let childrenObservables:Observable<boolean>[] = [];
+    childrenObservables = this.personalDetailsList.map((comp:PersonalDetailsComponent)=>{
+      return comp.isFormValid;
+    });
+
+    this.validitySubscription = Observable.combineLatest(
+      this.currentFormValidity,
+      ...childrenObservables
+    ).subscribe(collection => {
+      this.combinedValidationState = collection.reduce( function(acc, cur){
+        return acc && !!cur;
+      },true);
+
+      // console.log('combinedValidationState on personal info screen: ' + this.combinedValidationState);
+    });
+
   }
 
   onChange(values:any){
-    // console.log('save msp application upon changes from child component percolated up to parent, %o', values);
+    // console.log('save msp application upon changes from child component percolated up to parent, %o', this.applicant.dob_year);
     this.dataService.saveMspApplication();
+  }
+
+  onRegisterPersonalDetailsComponent(personalDetailsComp:PersonalDetailsComponent){
+    // console.log('register personal details component with personal info screen');
+    this.personalDetailsList.push(personalDetailsComp);
+    this.updateSubscription();
   }
 
   get application(): MspApplication {
@@ -74,7 +125,7 @@ export class PersonalInfoComponent {
   }
 
   get canContinue():boolean {
-    return this.completenessCheck.mspPersonalInfoDocsCompleted();
+    return this.completenessCheck.mspPersonalInfoDocsCompleted() && this.combinedValidationState;
   }
 
   continue():void {

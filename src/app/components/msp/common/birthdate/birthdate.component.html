@@ -1,8 +1,8 @@
 <form #formRef='ngForm' novalidate>
-    <label [innerHtml]="lang('./en/index.js').birthdateLabel"></label>
+    <label class="control-label" [innerHtml]="lang('./en/index.js').birthdateLabel"></label>
 
     <div class="form-group"
-         [ngClass]="{'has-error': !formRef.controls.month?.valid && (monthRef.touched || showError)}">
+         [ngClass]="{'has-error': formRef.invalid && (monthRef.touched || showError)}">
         <select class="form-control monthSelect"
                 [(ngModel)]="person.dob_month"
                 id="month" name="month" #monthRef="ngModel"
@@ -22,19 +22,30 @@
             <option value=12>December</option>
         </select>
         <input type="number" class="form-control dayInput"
-               [(ngModel)]="person.dob_day"
+
+               [ngModel]="person.dob_day"
+               (ngModelChange) = 'setDayValueOnModel($event)'
+               [calendarFieldFormatter]="'day'"
+               validateCalendarDay
+
                id="day" name="day" #dayRef="ngModel"
                placeholder="day"
                required
                maxlength="2">
-        <input type="number"
-               class="form-control yearInput"
-               [(ngModel)]="person.dob_year"
+        <input type="number" class="form-control yearInput"
+
+               [ngModel]="person.dob_year"
+               (ngModelChange) = 'setYearValueOnModel($event)'
+               [calendarFieldFormatter]="'year'"
+               validateCalendarYear
+
                id="year" name="year" #yearRef="ngModel"
                placeholder="year"
                required
-               minlength="4"
-               maxlength="4">
+               min="1830"
+               max="2300"
+               step="1">
+               
         <div *ngIf='monthRef.touched || showError'>
             <div class="text-danger" *ngIf="monthRef.errors?.required"
                  [innerHtml]="lang('./en/index.js').monthErrorRequired"></div>
@@ -47,9 +58,10 @@
             <div class="text-danger" *ngIf="yearRef.errors?.required"
                  [innerHtml]="lang('./en/index.js').yearErrorRequired"></div>
         </div>
-        <!--<div class="text-danger" *ngIf="dobYearValidationError">
-            <span>{{dobYearValidationError}}</span>
-        </div>        -->
+        <div *ngIf='yearRef.dirty || showError'>
+            <div class="text-danger" *ngIf="yearRef.errors?.pattern"
+                 [innerHtml]="lang('./en/index.js').invalidYearPattern"></div>
+        </div>
         <div *ngIf='(yearRef.touched || showError) && !isValid()'>
             <div class="text-danger"
                  [innerHtml]="lang('./en/index.js').yearErrorBadFormat"></div>
@@ -58,6 +70,20 @@
             <div class="text-danger"
                  [innerHtml]="lang('./en/index.js').yearErrorFutureCheck"></div>
         </div>
+
+        <div *ngIf='(dayRef.touched || showError)'>
+            <div class="text-danger" *ngIf="dayRef.errors?.calendarDayOutOfRange"
+                 [innerHtml]="lang('./en/index.js').calendarDayOutOfRange"></div>
+        </div>
+        <div *ngIf='(yearRef.touched || showError)'>
+            <div class="text-danger" *ngIf="yearRef.errors?.yearDistantPast"
+                 [innerHtml]="lang('./en/index.js').yearErrorDistantPast"></div>
+        </div>
+        <div *ngIf='(yearRef.touched || showError)'>
+            <div class="text-danger" *ngIf="yearRef.errors?.yearDistantFuture"
+                 [innerHtml]="lang('./en/index.js').yearErrorDistantFuture"></div>
+        </div>
+
         <div *ngIf='(yearRef.touched || showError) && !ageCheck()'>
             <div class="text-danger"
                  [innerHtml]="lang('./en/index.js').yearErrorAgeCheck[person.relationship]"></div>

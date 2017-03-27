@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild, Output, EventEmitter, AfterViewInit, OnInit} from '@angular/core'
+import {Component, Input, ViewChild, Output, EventEmitter, AfterViewInit, OnInit, ChangeDetectorRef} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import {Person} from "../../model/person.model";
 import {Relationship} from "../../model/status-activities-documents";
@@ -10,30 +10,59 @@ require('./birthdate.component.less');
   selector: 'msp-birthdate',
   templateUrl: './birthdate.component.html'
 })
-export class MspBirthDateComponent implements OnInit{
+export class MspBirthDateComponent implements OnInit, AfterViewInit{
 
   lang = require('./i18n');
 
   // Create today for comparison in check later
   today:any;
 
-  constructor(){
+  constructor(private cd: ChangeDetectorRef){
     this.today = moment();
   }
 
   @Input() person: Person;
   @Input() showError: boolean;
   @Output() onChange = new EventEmitter<any>();
-
+  @Output() isFormValid = new EventEmitter<boolean>();
+  @Output() registerBirthDateComponent = new EventEmitter<MspBirthDateComponent>();
   @ViewChild('formRef') form: NgForm;
 
 
   ngOnInit(): void {
+    this.registerBirthDateComponent.emit(this);
     this.form.valueChanges.subscribe(values => {
-      this.onChange.emit(values);
+      this.onChange.emit(this.form.valid);
+      this.isFormValid.emit(this.form.valid);
     });
   }
 
+  ngAfterViewInit():void{
+  }
+
+  setYearValueOnModel(value:number){
+    let org:string = value + '';
+    let trimmed = org.substring(0, 4);
+
+
+    if(/[^\d]+/.test(trimmed)){
+      trimmed = trimmed.replace(/[^\d]/g, '');
+    }
+
+    this.person.dob_year = parseInt(trimmed);
+    
+  }
+
+  setDayValueOnModel(value:string){
+    let org:string = value + '';
+    let trimmed = org.substring(0, 2);
+
+    if(/[^\d]+/.test(trimmed)){
+      trimmed = trimmed.replace(/[^\d]/g, '');
+    }
+    
+    this.person.dob_day = parseInt(value);
+  }
   /**
    * Determine if date of birth is valid for the given person
    *
@@ -52,6 +81,11 @@ export class MspBirthDateComponent implements OnInit{
 
   isInTheFuture(): boolean {
     return this.person.dob.isAfter(this.today);
+  }
+  tooFarInThePast(): boolean {
+    let far = (this.today.get('y') - this.person.dob.get('y')) > 150;
+
+    return far;
   }
 
   ageCheck(): boolean {
@@ -75,10 +109,10 @@ export class MspBirthDateComponent implements OnInit{
       let tooOld = this.person.dob.isBefore(moment().subtract(24, 'years'));
 
       if(tooYoung){
-        console.log('This child is less than 19 years old.')
+        // console.log('This child is less than 19 years old.')
       }
       if(tooOld){
-        console.log('This child is older than 24.')
+        // console.log('This child is older than 24.')
       }
       let ageInRange = !tooYoung && !tooOld;
       return ageInRange;

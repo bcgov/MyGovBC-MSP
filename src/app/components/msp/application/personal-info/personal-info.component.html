@@ -3,13 +3,17 @@
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
       (onChange) = "onChange($event)"
       [showError] = "formRef.submitted"
-      (valid)="valid($event)"></msp-personal-details>
+      (valid)="valid($event)"
+      (registerPersonalDetailsComponent)="onRegisterPersonalDetailsComponent($event)">
+      </msp-personal-details>
     <div *ngIf = 'spouse'>
       <msp-personal-details [person] = 'spouse' [id] = 'spouse.id'
         (notifySpouseRemoval)="removeSpouse($event)"
         (onChange) = "onChange($event)"
         [showError] = "formRef.submitted"        
-        (valid)="valid($event)"></msp-personal-details>
+        (valid)="valid($event)"
+        (registerPersonalDetailsComponent)="onRegisterPersonalDetailsComponent($event)">
+      </msp-personal-details>
     </div>
     <div *ngIf = 'children.length > 0'>
       <msp-personal-details *ngFor = "let child of children; let idx = index"
@@ -18,7 +22,8 @@
         (notifyChildRemoval)="removeChild($event,idx)"
         (onChange) = "onChange($event)"
         [showError] = "formRef.submitted"        
-        (valid)="valid($event)">
+        (valid)="valid($event)"
+        (registerPersonalDetailsComponent)="onRegisterPersonalDetailsComponent($event)">
       </msp-personal-details>
     </div>
     <div class="row">

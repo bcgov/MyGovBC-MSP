@@ -12,12 +12,19 @@ import {
 } from "../../../model/status-activities-documents";
 import { MspImage } from '../../../model/msp-image';
 import {Valid} from "../../../common/valid";
-import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
 import {MspIdReqModalComponent} from "../../../common/id-req-modal/id-req-modal.component";
 import {MspImageErrorModalComponent} from "../../../common/image-error-modal/image-error-modal.component";
 import {FileUploaderComponent} from "../../../common/file-uploader/file-uploader.component";
-
+import {MspBirthDateComponent} from "../../../common/birthdate/birthdate.component";
+import {MspArrivalDateComponent} from "../../../common/arrival-date/arrival-date.component";
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { Observer } from 'rxjs/Observer';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
 
 @Component({
     selector: 'msp-personal-details',
@@ -68,6 +75,10 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
   @ViewChild('imageErrorModal') imageErrorModal: MspImageErrorModalComponent;
 
+  // @ViewChild(MspBirthDateComponent) birthDateComponent:MspBirthDateComponent;
+  private birthDateComponentList:MspBirthDateComponent[] = [];
+  private arrivalDateComponentList:MspArrivalDateComponent[] = [];
+
   @Input() viewOnly: boolean = false;
   @Input() person: Person;
   @Input() id: string;
@@ -75,17 +86,18 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   @Output() notifyChildRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() notifySpouseRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
-  @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() isFormValid = new EventEmitter<boolean>();
+  @Output() registerPersonalDetailsComponent = new EventEmitter<PersonalDetailsComponent>();
 
   shrinkOut: string;
   shrinkOutStatus: string;
   genderListSignal: string;
   institutionWorkSignal: string;
 
-  constructor(private el:ElementRef){
-  }
+  validitySubscription:Subscription;
+  currentFormValidity:Observable<boolean>;
 
-  ngOnInit(){
+  constructor(private el:ElementRef){
   }
 
   statusLabel(): string {
@@ -95,6 +107,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   genders: string[] = ['Male', 'Female'];
   institutionList: string[] = ['Yes', 'No'];
 
+  
   /**
    * Gets status available to the current person
    */
@@ -161,6 +174,16 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
     this.imageErrorModal.forceRender();
   }
 
+  ngOnInit(){
+    let curForm = this.form;
+    this.currentFormValidity = Observable.create((observer:Observer<boolean>)=>{
+      observer.next(curForm.valid);
+    });
+    this.updateSubscription();
+
+    this.registerPersonalDetailsComponent.emit(this);
+  }
+
   ngAfterViewInit() {
     /**
      * Load an empty row to screen 
@@ -171,13 +194,44 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
     if(this.person.declarationForOutsideOver30Days && this.person.outOfBCRecord != null){
       this.setBeenOutsideForOver30Days(true);      
     }
-    if(this.form){
-      this.form.valueChanges
-      .subscribe(values => {
-        console.log('form changed: ', values);
-        this.onChange.emit(values);
-      });
+  }
+
+  updateSubscription(){
+    if(this.validitySubscription){
+      this.validitySubscription.unsubscribe();
     }
+
+    let childrenObservables:Observable<boolean>[] = [];
+    let arrivalDateObservables:Observable<boolean>[] = [];
+
+    childrenObservables = this.birthDateComponentList.map( bcom => {
+      return bcom.isFormValid;
+    })
+    arrivalDateObservables = this.arrivalDateComponentList.map( bcom => {
+      return bcom.isFormValid;
+    })
+    
+    Observable.combineLatest(
+      ...childrenObservables,
+      ...arrivalDateObservables,
+      this.currentFormValidity
+    ).subscribe( collection => {
+      let combinedValidationState = collection.reduce( function(acc, cur){
+        return acc && cur;
+      },true);
+
+      // console.log('combinedValidationState at personal details: ' + combinedValidationState);
+      this.isFormValid.emit(!!combinedValidationState); 
+    });
+  }
+
+  onRegisterBirthDateComponent(comp:MspBirthDateComponent){
+    this.birthDateComponentList.push(comp);
+    this.updateSubscription();
+  }
+  onRegisterArrivalDateComponent(comp:MspArrivalDateComponent){
+    this.arrivalDateComponentList.push(comp);
+    this.updateSubscription();
   }
 
   get arrivalDateLabel():string {
