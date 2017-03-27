@@ -54,7 +54,7 @@ module.exports = {
                 {
                     document: 4,
                     title: "Permanent Resident Card",
-                    body: "<ul><li>Must include full legal document including date and signature.</li><li>Must be signed by Canadian Immigration</li></ul>",
+                    body: "<ul><li>Include front and back, corner to corner</li><li>Date on back of card must be fully legible.</li></ul>",
                     image: require('./images/pr_card.jpg')
                 }
             ]
