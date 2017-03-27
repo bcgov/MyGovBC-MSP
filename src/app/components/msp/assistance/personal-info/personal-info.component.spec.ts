@@ -23,6 +23,9 @@ import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
 import ValidationSerivce from '../../service/msp-validation.service';
 import appConstants from '../../../../services/appConstants';
+import {CalendarYearFormatter} from '../../common/calendar/calendar-year-formatter.component';
+import {CalendarYearValidator} from '../../common/calendar/calendar-year.validator';
+import {CalendarDayValidator} from '../../common/calendar/calendar-day.validator';
 
 
 describe('AssistancePersonalInfoComponent Test', () => {
@@ -36,7 +39,8 @@ describe('AssistancePersonalInfoComponent Test', () => {
       declarations: [AssistancePersonalInfoComponent, AssistancePersonalDetailComponent,
         MspPhnComponent, MspNameComponent, MspPhoneComponent,
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent, MspCountryComponent,
-        Mod11CheckValidator, MspGenderComponent, MspCancelComponent, MspLoggerDirective],
+        Mod11CheckValidator, MspGenderComponent, MspCancelComponent, MspLoggerDirective,
+        CalendarYearFormatter,CalendarYearValidator,CalendarDayValidator],
       imports: [FormsModule, Ng2CompleterModule, ModalModule, HttpModule,RouterTestingModule],
       providers: [MspDataService,CompletenessCheckService, MspLogService,ValidationSerivce,
         LocalStorageService,{

@@ -18,6 +18,10 @@ import ValidationService from '../../../service/msp-validation.service';
 import appConstants from '../../../../../services/appConstants';
 import CompletenessCheckService from '../../../service/completeness-check.service';
 
+import {CalendarYearFormatter} from '../../../common/calendar/calendar-year-formatter.component';
+import {CalendarYearValidator} from '../../../common/calendar/calendar-year.validator';
+import {CalendarDayValidator} from '../../../common/calendar/calendar-day.validator';
+
 
 describe('AssistancePersonalDetailComponent Test', () => {
   let localStorageServiceConfig = {
@@ -29,7 +33,8 @@ describe('AssistancePersonalDetailComponent Test', () => {
     TestBed.configureTestingModule({
       declarations: [AssistancePersonalDetailComponent, MspPhnComponent, MspNameComponent,
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent,
-        Mod11CheckValidator, MspGenderComponent, MspCountryComponent],
+        Mod11CheckValidator, MspGenderComponent, MspCountryComponent,
+        CalendarYearFormatter,CalendarYearValidator,CalendarDayValidator],
       imports: [FormsModule, Ng2CompleterModule, HttpModule],
       providers: [MspDataService, CompletenessCheckService,ValidationService,
         LocalStorageService,{

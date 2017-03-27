@@ -25,6 +25,11 @@ import {MspIdReqModalComponent} from "../../../common/id-req-modal/id-req-modal.
 import {MspOutofBCRecordComponent} from "../../../common/outof-bc/outof-bc.component";
 import {MspImageErrorModalComponent} from "../../../common/image-error-modal/image-error-modal.component";
 
+import {CalendarYearFormatter} from '../../../common/calendar/calendar-year-formatter.component';
+import {CalendarYearValidator} from '../../../common/calendar/calendar-year.validator';
+import {CalendarDayValidator} from '../../../common/calendar/calendar-day.validator';
+
+
 describe('PersonalDetailsComponent', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
@@ -37,7 +42,8 @@ describe('PersonalDetailsComponent', () => {
         MspArrivalDateComponent, MspArrivalDateComponent, MspGenderComponent, MspDischargeDateComponent,
         MspBirthDateComponent, MspSchoolDateComponent, FileUploaderComponent, MspAddressComponent,
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,
-        MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspImageErrorModalComponent],
+        MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspImageErrorModalComponent,
+        CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator],
       imports: [FormsModule, Ng2CompleterModule, ModalModule, AccordionModule],
       providers: [MspDataService,
         LocalStorageService,{

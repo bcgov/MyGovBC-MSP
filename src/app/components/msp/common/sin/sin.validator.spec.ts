@@ -16,6 +16,10 @@ import {MspNameComponent} from "../name/name.component";
 import {MspBirthDateComponent} from "../birthdate/birthdate.component";
 import {MspPhnComponent} from "../phn/phn.component";
 
+import {CalendarYearFormatter} from '../../common/calendar/calendar-year-formatter.component';
+import {CalendarYearValidator} from '../../common/calendar/calendar-year.validator';
+import {CalendarDayValidator} from '../../common/calendar/calendar-day.validator';
+
 describe('SIN Validator Test', () => {
 
   // let nameComponentFixture:ComponentFixture<MspNameComponent>;
@@ -36,7 +40,8 @@ describe('SIN Validator Test', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [SinCheckValidator, AssistancePersonalDetailComponent, 
-      MspBirthDateComponent, MspNameComponent, MspPhnComponent, Mod11CheckValidator],
+      MspBirthDateComponent, MspNameComponent, MspPhnComponent, Mod11CheckValidator,
+      CalendarYearFormatter,CalendarYearValidator,CalendarDayValidator],
       imports: [BrowserModule,
         CommonModule,
         FormsModule],

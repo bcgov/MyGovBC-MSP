@@ -5,6 +5,9 @@ import MspDataService from '../../service/msp-data.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {Person} from "../../model/person.model";
 import {Relationship} from "../../model/status-activities-documents";
+import {CalendarYearFormatter} from '../../common/calendar/calendar-year-formatter.component';
+import {CalendarYearValidator} from '../../common/calendar/calendar-year.validator';
+import {CalendarDayValidator} from '../../common/calendar/calendar-day.validator';
 
 describe('MspBirthDateComponent', () => {
   let localStorageServiceConfig = {
@@ -14,7 +17,7 @@ describe('MspBirthDateComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MspBirthDateComponent],
+      declarations: [MspBirthDateComponent,CalendarYearFormatter,CalendarYearValidator,CalendarDayValidator],
       imports: [FormsModule],
       providers: [MspDataService,
         LocalStorageService,{

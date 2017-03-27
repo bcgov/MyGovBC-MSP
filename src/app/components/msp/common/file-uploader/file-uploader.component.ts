@@ -208,6 +208,7 @@ export class FileUploaderComponent implements OnInit, OnChanges {
                 // Copy the blob properties
                 mspImage.size = blob.size;
 
+                let fileName = mspImage.name;
                 let nBytes = mspImage.size;
                 let fileSize = '';
                 let fileSizeUnit = '';
@@ -219,7 +220,7 @@ export class FileUploaderComponent implements OnInit, OnChanges {
                   fileSizeUnit = aMultiples[nMultiple];
                 }
 
-                console.log(`Size of file ${name}: ${sOutput}`);
+                console.log(`Size of file ${fileName}: ${sOutput}`);
                 mspImage.sizeTxt = sOutput;
 
                 // call reader with new transformed image
@@ -300,6 +301,7 @@ export class FileUploaderComponent implements OnInit, OnChanges {
 
 
   handleImageFile(mspImage: MspImage) {
+    console.log('image size (bytes) after compression: ' + mspImage.size);
     if (this.images.length >= this.appConstants.images.maxImagesPerPerson) {
       console.log(`Max number of image file you can upload is ${this.appConstants.images.maxImagesPerPerson}. 
       This file ${mspImage.name} was not uploaded.`);

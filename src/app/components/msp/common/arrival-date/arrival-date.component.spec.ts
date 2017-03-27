@@ -4,6 +4,9 @@ import { MspArrivalDateComponent } from './arrival-date.component';
 import MspDataService from '../../service/msp-data.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {Ng2CompleterModule} from "ng2-completer";
+import {CalendarYearFormatter} from '../../common/calendar/calendar-year-formatter.component';
+import {CalendarYearValidator} from '../../common/calendar/calendar-year.validator';
+import {CalendarDayValidator} from '../../common/calendar/calendar-day.validator';
 
 describe('MspArrivalDateComponent', () => {
   let localStorageServiceConfig = {
@@ -13,7 +16,7 @@ describe('MspArrivalDateComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MspArrivalDateComponent],
+      declarations: [MspArrivalDateComponent, CalendarYearFormatter,CalendarYearValidator,CalendarDayValidator],
       imports: [FormsModule, Ng2CompleterModule],
       providers: [MspDataService,
         LocalStorageService,{
