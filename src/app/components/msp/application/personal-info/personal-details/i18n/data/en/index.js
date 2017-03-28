@@ -1,16 +1,16 @@
 module.exports = {
 
     applicationPersonalInfo:[
-        'Applicant',
-        'Spouse',
-        'Child Under 19',
-        'Child19-24',
+        'Your Personal Information',
+        'Your Spouse/Common-Law Partner\'s Personal Information',
+        'Your Child\'s Personal Information',
+        'Your Child\'s Personal Information',
     ],
 
   sectionTitle: ['Main Applicant (Account Holder)',
       'Spouse/Common-Law Partner',
       'Child (0-18)',
-      'Child (19-24)'],
+      'Child (19-24) who is a full-time student'],
 
   /*
    * Status for each relationship type
