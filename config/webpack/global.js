@@ -129,8 +129,8 @@ module.exports = function (_path) {
       runtimeEnv: NODE_ENV, // run-time environment. by default same as build-time node env
       coreApiBaseUrl: 'http://localhost:9000/api',
       serviceName: 'core',
-      // apiBaseUrl: '/msp/api',
-      apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
+      apiBaseUrl: '/msp/api',
+      // apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
       captchaApiBaseUrl: '/msp/api/captcha',
       images: {
         maxImagesPerPerson: 50,
