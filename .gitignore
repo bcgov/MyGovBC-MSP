@@ -14,3 +14,5 @@ src/app/**/*.map
 coverage
 /src/app/components/msp/api-model/cache
 /src/app/components/msp/api-model/xmlns
+.DS_Store
+

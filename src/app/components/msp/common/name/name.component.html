@@ -23,7 +23,7 @@
         <div class="col-sm-4">
             <div class="form-group"
                  [ngClass]="{'has-error': !formRef.controls.middleName?.valid && middleNameRef.touched}">
-                <label class="control-label optional" for="middleName" [innerHtml]="lang('./en/index.js').middleNameLabel"></label>
+                <label class="control-label if-applicable" for="middleName" [innerHtml]="lang('./en/index.js').middleNameLabel"></label>
                 <input type="text"
                        [(ngModel)]="person.middleName"
                        id='middleName' name='middleName' #middleNameRef="ngModel"
