@@ -84,7 +84,7 @@ export class SendingComponent implements AfterViewInit {
     let oldUUID = this.application.uuid;
     this.application.regenUUID();
     this.dataService.saveMspApplication();
-    console.log('EA uuid change before retry: from %s to %s', this.application.uuid, this.dataService.getMspApplication().uuid);
+    console.log('EA uuid change before retry: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
     this.router.navigate(['/msp/application/review']);
   }
 }
