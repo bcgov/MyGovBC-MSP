@@ -1,4 +1,4 @@
-import {Component, Inject, ViewChild, ElementRef} from '@angular/core';
+import {Component, Inject, ViewChild, ElementRef, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 
@@ -11,7 +11,7 @@ import {StatusInCanada, Activities, Relationship} from "../../model/status-activ
 @Component({
   templateUrl: './review.component.html'
 })
-export class ReviewComponent {
+export class ReviewComponent implements OnInit{
   lang = require('./i18n');
 
   application: MspApplication;
@@ -25,6 +25,14 @@ export class ReviewComponent {
     this.captchaApiBaseUrl = this.appConstants["captchaApiBaseUrl"];
   }
 
+
+  ngOnInit(){
+    console.log('EA uuid before: ' + this.application.uuid);
+    this.application.regenUUID();
+    this.dataService.saveMspApplication();
+    console.log('EA uuid after: ' + this.application.uuid);
+    
+  }
   applicantAuthorizeOnChange(event: boolean) {
     // console.log('applicant authorization: ', event);
     this.application.authorizedByApplicant = event;

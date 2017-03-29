@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, ViewChild, Output, Inject} from '@angular/core';
+import {Component, AfterViewInit, ViewChild, Output, Inject, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import MspDataService from '../../service/msp-data.service';
 import {FinancialAssistApplication} from "../../model/financial-assist-application.model";
@@ -10,7 +10,7 @@ import CompletenessCheckService from '../../service/completeness-check.service';
 @Component({
   templateUrl: './authorize-submit.component.html'
 })
-export class AssistanceAuthorizeSubmitComponent {
+export class AssistanceAuthorizeSubmitComponent implements OnInit{
   lang = require('./i18n');
   captchaApiBaseUrl:string;
 
@@ -26,9 +26,20 @@ export class AssistanceAuthorizeSubmitComponent {
     this.captchaApiBaseUrl = this.appConstants["captchaApiBaseUrl"];
   }
 
+
+
   @ViewChild('form') form: NgForm;
 
+  ngOnInit(){
+    console.log('PA uuid before: ' + this.application.uuid);
+    this.application.regenUUID();
+    this.dataService.saveFinAssistApplication();
+    console.log('PA uuid after: ' + this.application.uuid);
+
+  }
   ngAfterViewInit(): void {
+
+    
     this.form.valueChanges.subscribe(values => {
       // console.log('authorization form change: %o', values);
       // this.onChange.emit(values);
