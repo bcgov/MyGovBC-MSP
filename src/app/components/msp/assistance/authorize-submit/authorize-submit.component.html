@@ -53,8 +53,10 @@
         <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
     </div>
     <div class="row">
+      <div class="col-md-8">
         <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
                  (onValidToken)="application.authorizationToken = $event"></captcha>
+      </div>
     </div>
 </form>
 <hr>

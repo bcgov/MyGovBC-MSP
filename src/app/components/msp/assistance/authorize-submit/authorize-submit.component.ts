@@ -31,15 +31,10 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit{
   @ViewChild('form') form: NgForm;
 
   ngOnInit(){
-    console.log('PA uuid before: ' + this.application.uuid);
-    this.application.regenUUID();
-    this.dataService.saveFinAssistApplication();
-    console.log('PA uuid after: ' + this.application.uuid);
-
+    console.log('PA uuid used for CAPTCHA: ' + this.application.uuid);
   }
-  ngAfterViewInit(): void {
 
-    
+  ngAfterViewInit(): void {
     this.form.valueChanges.subscribe(values => {
       // console.log('authorization form change: %o', values);
       // this.onChange.emit(values);

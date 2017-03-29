@@ -77,4 +77,12 @@ export class AssistanceSendingComponent implements AfterViewInit  {
     this.showMoreErrorDetails = !this.showMoreErrorDetails;
   }
   
+  retrySubmission(){
+    let oldUUID = this.application.uuid;
+    this.application.regenUUID();
+    this.dataService.saveFinAssistApplication();
+    console.log('PA uuid change before retry: from %s to %s', this.application.uuid, this.dataService.finAssistApp.uuid);
+    this.router.navigate(['/msp/assistance/authorize-submit']);
+  }
+  
 }

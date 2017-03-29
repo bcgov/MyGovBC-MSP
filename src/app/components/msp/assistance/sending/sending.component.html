@@ -19,7 +19,7 @@
     <div style="font-size: 18px">
       <ul>
         <li> 
-          <a [routerLink]="['/msp/assistance/authorize-submit']" [innerHtml]="lang('./en/index.js').pa_tryToSumitAgain"></a>
+          <a href="javascript:void(0)" (click)="retrySubmission()" [innerHtml]="lang('./en/index.js').pa_tryToSumitAgain"></a>
         </li>
       </ul>
     </div>

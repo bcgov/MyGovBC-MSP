@@ -17,7 +17,7 @@
     <div style="font-size: 18px">
       <ul>
         <li> 
-          <a [routerLink]="['/msp/application/review']" [innerHtml]="lang('./en/index.js').tryToSumitAgain"></a>
+          <a href="javascript:void(0)" (click) = "retrySubmission()"[innerHtml]="lang('./en/index.js').tryToSumitAgain"></a>
         </li>
       </ul>
     </div>

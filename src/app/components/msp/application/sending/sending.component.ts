@@ -24,7 +24,8 @@ export class SendingComponent implements AfterViewInit {
   errorCode:string;
   showMoreErrorDetails:boolean;
   
-  constructor(private dataService: DataService, private service: MspApiService, public router: Router, private logService: MspLogService) {
+  constructor(private dataService: DataService, private service: MspApiService, 
+    public router: Router, private logService: MspLogService) {
     this.application = this.dataService.getMspApplication();
     this.transmissionInProcess = undefined;
     this.errorCode = undefined;
@@ -77,5 +78,13 @@ export class SendingComponent implements AfterViewInit {
 
   toggleErrorDetails(){
     this.showMoreErrorDetails = !this.showMoreErrorDetails;
+  }
+
+  retrySubmission(){
+    let oldUUID = this.application.uuid;
+    this.application.regenUUID();
+    this.dataService.saveMspApplication();
+    console.log('EA uuid change before retry: from %s to %s', this.application.uuid, this.dataService.getMspApplication().uuid);
+    this.router.navigate(['/msp/application/review']);
   }
 }
