@@ -33,12 +33,6 @@ export class SendingComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // this.transmissionInProcess = true;
-    // setTimeout(
-    //   ()=>{
-    //     this.transmissionInProcess = false;
-    //   }, 3000
-    // );
     this.transmitApplication();
   }
 
