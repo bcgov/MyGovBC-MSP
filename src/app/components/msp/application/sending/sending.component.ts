@@ -42,6 +42,13 @@ export class SendingComponent implements AfterViewInit {
   }
 
   transmitApplication(){
+    // console.log('EA uuid before: ' + this.application.uuid);
+    
+    this.application.regenUUID();
+    this.dataService.saveMspApplication();
+
+    // console.log('EA uuid after: ' + this.application.uuid);
+    
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
     this.errorCode = undefined;

@@ -30,6 +30,11 @@ export class AssistanceSendingComponent implements AfterViewInit  {
   }
 
   ngAfterViewInit() {
+    // console.log('PA uuid before: ' + this.application.uuid);
+    this.application.regenUUID();
+    this.dataService.saveFinAssistApplication();
+    // console.log('PA uuid after: ' + this.application.uuid);
+    
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
     this.errorCode = undefined;

@@ -11,7 +11,7 @@ import {PhoneNumber} from "./phone.model";
  */
 class MspApplication implements ApplicationBase {
 
-  readonly uuid = UUID.UUID();
+  private _uuid = UUID.UUID();
   infoCollectionAgreement: boolean = false;
   authorizationToken: string;
   phnRequired:boolean = false;
@@ -28,6 +28,14 @@ class MspApplication implements ApplicationBase {
 
   unUsualCircumstance:boolean;
 
+
+  get uuid():string {
+    return this._uuid;
+  }
+  
+  regenUUID(){
+    this._uuid = UUID.UUID();
+  }
   get applicant(): Person {
     return this._applicant;
   }

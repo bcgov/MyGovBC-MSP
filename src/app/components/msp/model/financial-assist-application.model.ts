@@ -18,7 +18,7 @@ export enum AssistanceApplicationType {
 
 export class FinancialAssistApplication implements ApplicationBase {
 
-  readonly uuid = UUID.UUID();
+  private _uuid = UUID.UUID();
   authorizationToken: string;
   phnRequired:boolean = true;
 
@@ -40,6 +40,15 @@ export class FinancialAssistApplication implements ApplicationBase {
   _attendantCareExpense:number;
 
   private _attendantCareExpenseReceipts: MspImage[] = new Array<MspImage>();
+
+
+  get uuid():string {
+    return this._uuid;
+  }
+  
+  regenUUID(){
+    this._uuid = UUID.UUID();
+  }
 
   get attendantCareExpense():number {
     if(!!this._attendantCareExpense && !isNaN(this._attendantCareExpense)){
