@@ -61,7 +61,7 @@ export class AssistanceSendingComponent implements AfterViewInit  {
         this.errorCode = error.status + '';
         
         this.rawUrl = error.url;
-        this.rawError = error._body;
+        this.rawError = error;
         this.rawRequest = error._requestBody;
 
         this.logService.log({name: 'premium assistance application received failure message from API server', 
