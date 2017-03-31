@@ -2,6 +2,7 @@ import {
   Component, ViewChild, ElementRef, OnInit, OnChanges, EventEmitter, Output, Input,
   Inject, NgZone, SimpleChanges
 } from '@angular/core';
+import {NgForm} from '@angular/forms';
 import {ModalDirective} from "ng2-bootstrap";
 import {MspImage, MspImageError} from '../../model/msp-image';
 import {Observable} from 'rxjs/Observable';
@@ -23,6 +24,7 @@ export class FileUploaderComponent implements OnInit, OnChanges {
   lang = require('./i18n');
   noIdImage: Boolean = false;
 
+  @ViewChild('formRef') form: NgForm;
   @ViewChild('dropZone') dropZone: ElementRef;
   @ViewChild('browseFileRef') browseFileRef: ElementRef;
   @ViewChild('captureFileRef') captureFileRef: ElementRef;
@@ -100,7 +102,6 @@ export class FileUploaderComponent implements OnInit, OnChanges {
     });
 
     let dropStream = Observable.fromEvent<DragEvent>(this.dropZone.nativeElement, "drop");
-
     let filesArrayFromDrop = dropStream.map(
       function (event) {
         event.preventDefault();
@@ -119,6 +120,8 @@ export class FileUploaderComponent implements OnInit, OnChanges {
 
     let browseFileStream = Observable.fromEvent<Event>(this.browseFileRef.nativeElement, 'change');
     let captureFileStream = Observable.fromEvent<Event>(this.captureFileRef.nativeElement, 'change');
+    let brosweFileInputElement = this.browseFileRef.nativeElement;
+    let captureFileInputElement = this.captureFileRef.nativeElement;
 
     let filesArrayFromInput = browseFileStream.merge(captureFileStream)
       .map(
@@ -137,7 +140,10 @@ export class FileUploaderComponent implements OnInit, OnChanges {
       .filter(
         (mspImage: MspImage) => {
           let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
-          if (imageExists) this.handleError(MspImageError.AlreadyExists, mspImage);
+          if (imageExists){
+            this.handleError(MspImageError.AlreadyExists, mspImage);
+            this.resetInputFields();
+          } 
           return !imageExists;
         }
       ).filter(
@@ -150,6 +156,7 @@ export class FileUploaderComponent implements OnInit, OnChanges {
       .subscribe(
         (file: MspImage) => {
           this.handleImageFile(file);
+          this.resetInputFields();
         },
 
         (error) => {
@@ -160,6 +167,7 @@ export class FileUploaderComponent implements OnInit, OnChanges {
   }
 
   observableFromFile(file: File) {
+    console.log('Start processing file: ' + file.name);
     // Init
     let self = this;
 
@@ -319,8 +327,19 @@ export class FileUploaderComponent implements OnInit, OnChanges {
     this.onErrorDocument.emit(mspImage);
   }
 
+  /**
+   * Reset input fields so that user can delete a file and
+   * immediately upload that file again.
+   */
+  resetInputFields(){
+    // let brosweFileInputElement = this.browseFileRef.nativeElement;
+    // let captureFileInputElement = this.captureFileRef.nativeElement;
+    this.browseFileRef.nativeElement.value="";
+    this.captureFileRef.nativeElement.value="";
+  }
   deleteImage(mspImage: MspImage) {
     // this.staticModalRef.show();
+    this.resetInputFields();
     this.onDeleteDocument.emit(mspImage);
   }
 

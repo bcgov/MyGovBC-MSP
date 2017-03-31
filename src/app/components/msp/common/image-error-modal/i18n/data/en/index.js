@@ -1,5 +1,5 @@
 module.exports = {
-    errorModelTitle:'This image has a problem',
+    errorModelTitle:'This image was not uploaded',
     /*
      WrongType,
      TooSmall,
