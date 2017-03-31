@@ -323,7 +323,7 @@ export class FileUploaderComponent implements OnInit, OnChanges {
   handleError(error: MspImageError, mspImage: MspImage) {
     // just add the error to mspImage
     mspImage.error = error;
-    console.log("error with image: ", mspImage);
+    // console.log("error with image: ", mspImage);
     this.onErrorDocument.emit(mspImage);
   }
 
