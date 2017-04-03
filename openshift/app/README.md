@@ -52,6 +52,8 @@ The deployment consists of these steps
    ```
    $ npm install
    $ npm run build
+   $ # bolt source code SHA-1 into index.html
+   $ sed -i s~%MSP_APP_SHA1%~`git rev-parse HEAD`~ dist/index.html
    $ oc project <yourprojectname-tools>
    $ oc start-build <app_name> --from-dir=dist/ -Fw
    ```
