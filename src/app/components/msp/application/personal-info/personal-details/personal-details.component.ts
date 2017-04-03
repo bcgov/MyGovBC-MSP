@@ -1,7 +1,7 @@
 import  {
   Component, Input, Output, OnChanges, EventEmitter,
   SimpleChange, ViewChild, AfterViewInit, OnInit,
-  state, trigger, style, ElementRef
+  state, trigger, style, ElementRef, QueryList, ViewChildren
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Person } from '../../../model/person.model';
@@ -17,6 +17,7 @@ import {MspIdReqModalComponent} from "../../../common/id-req-modal/id-req-modal.
 import {MspImageErrorModalComponent} from "../../../common/image-error-modal/image-error-modal.component";
 import {FileUploaderComponent} from "../../../common/file-uploader/file-uploader.component";
 import {MspBirthDateComponent} from "../../../common/birthdate/birthdate.component";
+import {MspNameComponent} from "../../../common/name/name.component";
 import {MspArrivalDateComponent} from "../../../common/arrival-date/arrival-date.component";
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -79,6 +80,9 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   private birthDateComponentList:MspBirthDateComponent[] = [];
   private arrivalDateComponentList:MspArrivalDateComponent[] = [];
 
+  private nameComponentsList: MspNameComponent[] = [];
+  // @ViewChildren(MspNameComponent) nameComponents: QueryList<MspNameComponent>;
+  
   @Input() viewOnly: boolean = false;
   @Input() person: Person;
   @Input() id: string;
@@ -95,7 +99,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   institutionWorkSignal: string;
 
   validitySubscription:Subscription;
-  currentFormValidity:Observable<boolean>;
+  // currentFormValidity:Observable<boolean>;
 
   constructor(private el:ElementRef){
   }
@@ -176,11 +180,19 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(){
     let curForm = this.form;
-    this.currentFormValidity = Observable.create((observer:Observer<boolean>)=>{
-      observer.next(curForm.valid);
-    });
+
+    this.form.valueChanges.subscribe(
+      (values) => {
+        console.log('Personal details form value changed: %o', values);
+        this.isFormValid.emit(this.form.valid);
+      }
+    );
+
     this.updateSubscription();
 
+    /**
+     * Register this component with its parent.
+     */
     this.registerPersonalDetailsComponent.emit(this);
   }
 
@@ -196,9 +208,17 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * Each component provides this function to combine all observables from 
+   * children and itself into one stream and calcuate one final boolean value to indicate if
+   * all children and this component are valid.
+   * 
+   * User can only continue when the final boolean value is true.
+   */
   updateSubscription(){
     if(this.validitySubscription){
       this.validitySubscription.unsubscribe();
+      this.validitySubscription = null;
     }
 
     let childrenObservables:Observable<boolean>[] = [];
@@ -211,18 +231,36 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
       return bcom.isFormValid;
     })
     
-    Observable.combineLatest(
+    let nameComponentObservables:Observable<boolean>[] = 
+    this.nameComponentsList.map ( nameComponent => {
+      return nameComponent.isFormValid;
+    });
+
+    this.validitySubscription = Observable.combineLatest(
       ...childrenObservables,
       ...arrivalDateObservables,
-      this.currentFormValidity
+      ...nameComponentObservables
     ).subscribe( collection => {
-      let combinedValidationState = collection.reduce( function(acc, cur){
-        return acc && cur;
-      },true);
 
-      // console.log('combinedValidationState at personal details: ' + combinedValidationState);
-      this.isFormValid.emit(!!combinedValidationState); 
+    /**
+     * Must combine with the current form valid value.
+     */
+    let combinedValidationState = collection.reduce( function(acc, cur){
+      return acc && cur;
+    },true) && this.form.valid;
+
+    // console.log('combinedValidationState at personal details: ' + combinedValidationState);
+    this.isFormValid.emit(combinedValidationState); 
     });
+
+    // console.log('this.validitySubscription on PersonalDetailsComponent: %o', this.validitySubscription);
+  }
+
+  ngOnDestroy(){
+    if(this.validitySubscription){
+      this.validitySubscription.unsubscribe();
+      this.validitySubscription = null;    
+    }    
   }
 
   onRegisterBirthDateComponent(comp:MspBirthDateComponent){
@@ -231,6 +269,11 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   }
   onRegisterArrivalDateComponent(comp:MspArrivalDateComponent){
     this.arrivalDateComponentList.push(comp);
+    this.updateSubscription();
+  }
+
+  onRegisterMspNameComponent(comp:MspNameComponent){
+    this.nameComponentsList.push(comp);
     this.updateSubscription();
   }
 

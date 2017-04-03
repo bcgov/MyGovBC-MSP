@@ -60,16 +60,20 @@ export class PersonalInfoComponent implements AfterViewInit{
     });
 
     this.validitySubscription = Observable.combineLatest(
-      this.currentFormValidity,
+      // this.currentFormValidity,
       ...childrenObservables
     ).subscribe(collection => {
       this.combinedValidationState = collection.reduce( function(acc, cur){
         return acc && !!cur;
-      },true);
+      },true)&& this.form.valid;
 
-      // console.log('combinedValidationState on personal info screen: ' + this.combinedValidationState);
+      console.log('combinedValidationState on personal info screen: ' + this.combinedValidationState);
     });
 
+  }
+
+  ngOnDestroy(){
+    this.validitySubscription.unsubscribe();
   }
 
   onChange(values:any){
