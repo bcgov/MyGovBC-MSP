@@ -32,7 +32,16 @@ export class SendingComponent implements AfterViewInit {
     this.showMoreErrorDetails = undefined;
   }
 
+  /**
+   * always regnerate uuid for application and its images 
+   * When user use browser back button, the uuid are guaranteed to be unique for API server.
+   */
   ngAfterViewInit() {
+    let oldUUID = this.application.uuid;
+    this.application.regenUUID();
+    this.dataService.saveMspApplication();
+    console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
+
     this.transmitApplication();
   }
 
@@ -75,10 +84,6 @@ export class SendingComponent implements AfterViewInit {
   }
 
   retrySubmission(){
-    let oldUUID = this.application.uuid;
-    this.application.regenUUID();
-    this.dataService.saveMspApplication();
-    console.log('EA uuid change before retry: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
     this.router.navigate(['/msp/application/review']);
   }
 }

@@ -12,7 +12,22 @@ export enum MspImageError {
  * Image as uploaded by user
  */
 export class MspImage {
-  readonly uuid = UUID.UUID();
+
+  _uuid:string;
+
+  constructor(){
+    this._uuid = UUID.UUID();
+    
+  }
+
+  get uuid():string {
+    return this._uuid;
+  }
+
+  setUUIDForImage(uid:string){
+    this._uuid = uid;
+    console.log('regen uuid for image to: %s', this._uuid);
+  }
 
   fileContent:string;
   contentType: string;
