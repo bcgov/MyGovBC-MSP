@@ -55,9 +55,9 @@ export class FinancialAssistApplication implements ApplicationBase {
     let all = this.getAllImages();
     for(let i= 0; i < all.length; i++ ){
       let mspImage: MspImage = all[i];
-      // mspImage.regenUUID();
-      let index = i + 1;
-      mspImage.setUUIDForImage(this._uuid + '-' + index + '-' + all.length);
+      mspImage.regenUUID();
+      // let index = i + 1;
+      // mspImage.setUUIDForImage(this._uuid + '-' + index + '-' + all.length);
     }
   }
 
