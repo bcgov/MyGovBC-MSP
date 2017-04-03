@@ -52,6 +52,7 @@ export class PersonalInfoComponent implements AfterViewInit{
 
     if(this.validitySubscription){
       this.validitySubscription.unsubscribe();
+      this.validitySubscription = null;
     }
 
     let childrenObservables:Observable<boolean>[] = [];
@@ -73,7 +74,10 @@ export class PersonalInfoComponent implements AfterViewInit{
   }
 
   ngOnDestroy(){
-    this.validitySubscription.unsubscribe();
+    if(this.validitySubscription){
+      this.validitySubscription.unsubscribe();
+      this.validitySubscription = null;
+    }
   }
 
   onChange(values:any){
