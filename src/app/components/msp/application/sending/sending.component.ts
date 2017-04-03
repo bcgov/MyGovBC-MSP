@@ -37,11 +37,6 @@ export class SendingComponent implements AfterViewInit {
    * When user use browser back button, the uuid are guaranteed to be unique for API server.
    */
   ngAfterViewInit() {
-    let oldUUID = this.application.uuid;
-    this.application.regenUUID();
-    this.dataService.saveMspApplication();
-    console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
-
     this.transmitApplication();
   }
 

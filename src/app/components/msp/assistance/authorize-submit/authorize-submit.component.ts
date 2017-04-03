@@ -26,12 +26,13 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit{
     this.captchaApiBaseUrl = this.appConstants["captchaApiBaseUrl"];
   }
 
-
-
   @ViewChild('form') form: NgForm;
 
   ngOnInit(){
-    console.log('PA uuid used for CAPTCHA: ' + this.application.uuid);
+    let oldUUID = this.application.uuid;
+    this.application.regenUUID();
+    this.dataService.saveFinAssistApplication();
+    console.log('PA uuid updated: from %s to %s', oldUUID, this.dataService.finAssistApp.uuid);
   }
 
   ngAfterViewInit(): void {

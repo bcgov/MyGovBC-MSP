@@ -24,14 +24,14 @@ export class MspImage {
     return this._uuid;
   }
 
-  regenUUID() {
-    this._uuid = UUID.UUID();
-    console.log('regen uuid for image to: %s', this._uuid);
-  }
-  // setUUIDForImage(uid:string){
-  //   this._uuid = uid;
+  // regenUUID() {
+  //   this._uuid = UUID.UUID();
   //   console.log('regen uuid for image to: %s', this._uuid);
   // }
+  setUUIDForImage(uid:string){
+    this._uuid = uid;
+    console.log('regen uuid for image to: %s', this._uuid);
+  }
 
   fileContent:string;
   contentType: string;

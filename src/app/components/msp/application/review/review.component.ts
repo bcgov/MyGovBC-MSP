@@ -27,8 +27,12 @@ export class ReviewComponent implements OnInit{
 
 
   ngOnInit(){
-    console.log('EA uuid used for CAPTCHA: ' + this.application.uuid);
+    let oldUUID = this.application.uuid;
+    this.application.regenUUID();
+    this.dataService.saveMspApplication();
+    console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
   }
+  
   applicantAuthorizeOnChange(event: boolean) {
     // console.log('applicant authorization: ', event);
     this.application.authorizedByApplicant = event;
