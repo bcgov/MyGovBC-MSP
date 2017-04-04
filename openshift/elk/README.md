@@ -100,7 +100,7 @@ If everything goes well, you will be able to access the Logstash http endpoint p
 ## Elasticsearch Cluster Operation
 
 ### Data Integrity 
-Because Elasticsearch data is on ephemeral storage, due care is needed to avoid bringing down or corrupt the cluster. By default each piece of data has 1 replica (i.e. 2 copies on separate pods). Number of replicas can be adjusted for [existing indices](https://www.elastic.co/guide/en/elasticsearch/guide/current/replica-shards.html) and for future created indices via [templates](http://stackoverflow.com/questions/24553718/updating-the-default-index-number-of-replicas-setting-for-new-indices).
+Because Elasticsearch data is on ephemeral storage, due care is needed to avoid bringing down or corrupt the cluster. By default each piece of data has 1 replica (i.e. 2 copies) on separate pods. Number of replicas can be adjusted for [existing indices](https://www.elastic.co/guide/en/elasticsearch/guide/current/replica-shards.html) and for future created indices via [templates](http://stackoverflow.com/questions/24553718/updating-the-default-index-number-of-replicas-setting-for-new-indices).
 
  Assuming the replica is *N*, then if *N+1* or more pods are taken down in a short period such that the cluster doesn't have enough time to recover in between, partial data loss may occur. Therefore only kill no more than *N* pods at a time and leave enough recovery window for the next.
  
