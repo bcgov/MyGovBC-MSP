@@ -64,6 +64,12 @@ export class MspApiService {
           throw new Error("Unknown document type");
         }
 
+        // Check for authorization token
+        if (app.authorizationToken == null ||
+          app.authorizationToken.length < 1) {
+          throw new Error("Missing authorization token.");
+        }
+
         // second convert to XML
         let convertedAppXml = this.toXmlString(documentModel);
 
@@ -91,7 +97,7 @@ export class MspApiService {
             return reject(error);
           });
       } catch (error) {
-        console.log("data conversion error: ", error);
+        console.log("error: ", error);
         return reject(error);
       }
     });
