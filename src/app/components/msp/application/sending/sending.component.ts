@@ -52,12 +52,15 @@ export class SendingComponent implements AfterViewInit {
           confirmationNumber: this.application.referenceNumber});
 
         let tempRef = this.application.referenceNumber;
+
+        //delete the application from storage
+        this.dataService.removeMspApplication();
+
         //  go to confirmation
         this.router.navigate(["/msp/application/confirmation"], 
           {queryParams: {confirmationNum:tempRef}});
 
-        //delete the application from storage
-        this.dataService.removeMspApplication();
+
       }).catch((error: ResponseType | any) => {
         console.log('error in sending application: ', error);
         this.errorCode = error.status + '';
