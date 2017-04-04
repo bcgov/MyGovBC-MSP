@@ -41,12 +41,10 @@ class MspApplication implements ApplicationBase {
      * followed by [index]-of-[total]
      */
     let all = this.getAllImages();
-    for(let i= 0; i < all.length; i++ ){
-      let mspImage: MspImage = all[i];
-      mspImage.regenUUID();
-      // let index = i + 1;
-      // mspImage.setUUIDForImage(this._uuid + '-' + index + '-' + all.length);
-    }
+
+    all.forEach( image =>{
+      image.uuid = UUID.UUID();
+    });
   }
   get applicant(): Person {
     return this._applicant;
