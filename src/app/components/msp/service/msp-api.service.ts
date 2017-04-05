@@ -508,7 +508,7 @@ export class MspApiService {
     if (from.eligibility.totalNetIncome != null) to.totalNetIncome = from.eligibility.totalNetIncome;
     if (from.claimedChildCareExpense_line214 != null) to.childCareExpense = from.claimedChildCareExpense_line214;
     if (from.netIncomelastYear != null) to.netIncome = from.netIncomelastYear;
-    if (from.childrenCount != null) to.numChildren = from.childrenCount;
+    if (from.childrenCount != null && from.childrenCount > 0) to.numChildren = from.childrenCount;
     if (from.numDisabled > 0) to.numDisabled = from.numDisabled;
     if (from.spouseIncomeLine236 != null) to.spouseNetIncome = from.spouseIncomeLine236;
     if (from.netIncomelastYear != null) to.netIncome = from.netIncomelastYear;
