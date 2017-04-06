@@ -13,25 +13,11 @@ export enum MspImageError {
  */
 export class MspImage {
 
-  _uuid:string;
+  uuid:string;
 
   constructor(){
-    this._uuid = UUID.UUID();
-    
+    this.uuid = UUID.UUID();
   }
-
-  get uuid():string {
-    return this._uuid;
-  }
-
-  regenUUID() {
-    this._uuid = UUID.UUID();
-    console.log('regen uuid for image to: %s', this._uuid);
-  }
-  // setUUIDForImage(uid:string){
-  //   this._uuid = uid;
-  //   console.log('regen uuid for image to: %s', this._uuid);
-  // }
 
   fileContent:string;
   contentType: string;

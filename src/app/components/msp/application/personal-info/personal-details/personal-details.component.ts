@@ -203,9 +203,6 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
     if(this.person.relationship === Relationship.Spouse){
       window.scrollTo(0,this.el.nativeElement.offsetTop);
     }
-    if(this.person.declarationForOutsideOver30Days && this.person.outOfBCRecord != null){
-      this.setBeenOutsideForOver30Days(true);      
-    }
   }
 
   /**

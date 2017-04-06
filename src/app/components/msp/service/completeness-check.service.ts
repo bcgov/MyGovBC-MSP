@@ -9,12 +9,14 @@ import * as _ from 'lodash';
 
 @Injectable()
 export default class CompletenessCheckService {
-    private finApp:FinancialAssistApplication;
-    private mspApp:MspApplication;
+    private get finApp():FinancialAssistApplication {
+      return this.dataService.finAssistApp;
+    }
+    private get mspApp():MspApplication {
+      return this.dataService.getMspApplication();
+    }
     constructor(private dataService: DataService,
         private validationService:ValidtionService) {
-        this.finApp = this.dataService.finAssistApp;
-        this.mspApp = this.dataService.getMspApplication();
     }
 
     private isNumber(arg:any){

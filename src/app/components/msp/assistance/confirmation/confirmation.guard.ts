@@ -9,14 +9,7 @@ export class ConfirmationGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
-        if(this.compCheck.finAppAuthorizationCompleted()){
-            console.log('passed authorization completeness check, can proceed.');
-            return true;
-        }else{
-            console.log('Must complete authorization step first.');
-            this._router.navigate(['/msp/assistance/personal-info']);
-            return false;
-        }
+        return true;
     }
 
 }
