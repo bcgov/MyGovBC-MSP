@@ -79,7 +79,7 @@ module.exports = {
                     document: 7,
                     title: "Visitor Permit",
                     body: "<ul><li>Must be case type 13, or case type 10 with remarks stating that you are a religious worker</li></ul>",
-                    image: ""
+                    image: require('./images/visitor-permit.jpg')
                 }
             ]
         },
@@ -91,7 +91,7 @@ module.exports = {
                     document: 8,
                     title: "Valid Passport With Entry Stamps and Acceptance Foils",
                     body: "",
-                    image: ""
+                    image: require('./images/acceptance-foil.jpg')
                 }
             ]
         },
