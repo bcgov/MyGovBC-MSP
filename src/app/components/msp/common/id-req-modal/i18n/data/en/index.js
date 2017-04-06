@@ -30,7 +30,7 @@ module.exports = {
                 {
                     document: 1,
                     title: "Canadian Passport",
-                    body: "<ul><li>Include entire page, corner to corner</li><li>Ensure all text is legible and photo is in focus</li></ul>",
+                    body: "<ul><li>Must include your full legal name</li><li>Include entire page, corner to corner</li><li>Ensure all text is legible and photo is in focus</li></ul>",
                     image: require('./images/Data_Page_of_Canadian_Passport.jpg')
                 },
                 {
@@ -77,8 +77,8 @@ module.exports = {
                 },
                  {
                     document: 7,
-                    title: "Visitor Visa",
-                    body: "<ul><li>Must state religious worker on document under remarks</li></ul>",
+                    title: "Visitor Permit",
+                    body: "<ul><li>Must be case type 13, or case type 10 with remarks stating that you are a religious worker</li></ul>",
                     image: ""
                 }
             ]
@@ -90,7 +90,7 @@ module.exports = {
                 {
                     document: 8,
                     title: "Valid Passport With Entry Stamps and Acceptance Foils",
-                    body: "Sample body",
+                    body: "",
                     image: ""
                 }
             ]
