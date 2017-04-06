@@ -78,7 +78,7 @@ module.exports = {
                  {
                     document: 7,
                     title: "Visitor Permit",
-                    body: "<ul><li>Must be case type 13, or case type 10 with remarks stating that you are a religious worker</li></ul>",
+                    body: "<ul><li>If you are the main applicant, must be case type 13, or case type 10 with remarks stating that you are a religious worker</li></ul>",
                     image: require('./images/visitor-permit.jpg')
                 }
             ]
