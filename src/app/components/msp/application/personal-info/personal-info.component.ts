@@ -23,7 +23,6 @@ export class PersonalInfoComponent implements AfterViewInit{
   Relationship: typeof Relationship = Relationship;
 
   validitySubscription:Subscription;
-  currentFormValidity:Observable<boolean>;
 
   @ViewChild('formRef') form: NgForm;
   // @ViewChildren(PersonalDetailsComponent) personalDetailsList:QueryList<PersonalDetailsComponent>;
@@ -38,10 +37,6 @@ export class PersonalInfoComponent implements AfterViewInit{
 
   ngOnInit(){
     let curForm = this.form;
-    this.currentFormValidity = Observable.create((observer:Observer<boolean>)=>{
-      observer.next(curForm.valid);
-    });
-
     this.updateSubscription();
   }
 
@@ -50,9 +45,14 @@ export class PersonalInfoComponent implements AfterViewInit{
 
   updateSubscription(){
 
-    if(this.validitySubscription){
-      this.validitySubscription.unsubscribe();
-    }
+    // if(this.validitySubscription){
+    //   this.validitySubscription.unsubscribe();
+    // }
+
+    let currentFormObservable: Observable<boolean> =
+      this.form.valueChanges.map(values => {
+        return this.form.valid;
+    });
 
     let childrenObservables:Observable<boolean>[] = [];
     childrenObservables = this.personalDetailsList.map((comp:PersonalDetailsComponent)=>{
@@ -60,7 +60,7 @@ export class PersonalInfoComponent implements AfterViewInit{
     });
 
     this.validitySubscription = Observable.combineLatest(
-      // this.currentFormValidity,
+      currentFormObservable,
       ...childrenObservables
     ).subscribe(collection => {
       this.combinedValidationState = collection.reduce( function(acc, cur){

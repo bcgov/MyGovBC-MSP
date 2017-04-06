@@ -44,7 +44,7 @@ Calling in from `ngOnInit` in child component to register itself. (very first li
 For components that play parent component role, it must provide one or multiple onRegisterXXXComponent functions to build
 list of child components that it need to collect form validation status from.
 
-### HTML Template Change
+### Parent component: HTML template update
 
 Hook up child component registerXXXComponent function with parent onRegisterXXXComponent in parent component template file.
 

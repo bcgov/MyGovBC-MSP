@@ -99,7 +99,6 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   institutionWorkSignal: string;
 
   validitySubscription:Subscription;
-  // currentFormValidity:Observable<boolean>;
 
   constructor(private el:ElementRef){
   }
@@ -183,8 +182,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
 
     this.form.valueChanges.subscribe(
       (values) => {
-        console.log('Personal details form value changed: %o', values);
-        this.isFormValid.emit(this.form.valid);
+        this.onChange.emit(values);
       }
     );
 
@@ -213,13 +211,14 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
    * User can only continue when the final boolean value is true.
    */
   updateSubscription(){
-    if(this.validitySubscription){
-      this.validitySubscription.unsubscribe();
-      this.validitySubscription = null;
-    }
 
     let childrenObservables:Observable<boolean>[] = [];
     let arrivalDateObservables:Observable<boolean>[] = [];
+
+    let currentFormObservable:Observable<boolean> =
+      this.form.valueChanges.map( values => {
+        return this.form.valid;
+      });
 
     childrenObservables = this.birthDateComponentList.map( bcom => {
       return bcom.isFormValid;
@@ -236,18 +235,16 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
     this.validitySubscription = Observable.combineLatest(
       ...childrenObservables,
       ...arrivalDateObservables,
-      ...nameComponentObservables
+      ...nameComponentObservables,
+      currentFormObservable
     ).subscribe( collection => {
 
-    /**
-     * Must combine with the current form valid value.
-     */
-    let combinedValidationState = collection.reduce( function(acc, cur){
-      return acc && cur;
-    },true) && this.form.valid;
+      let combinedValidationState = collection.reduce( function(acc, cur){
+        return acc && cur;
+      },true);
 
-    // console.log('combinedValidationState at personal details: ' + combinedValidationState);
-    this.isFormValid.emit(combinedValidationState); 
+      console.log('combinedValidationState at personal details: ' + combinedValidationState);
+      this.isFormValid.emit(combinedValidationState); 
     });
 
     // console.log('this.validitySubscription on PersonalDetailsComponent: %o', this.validitySubscription);
