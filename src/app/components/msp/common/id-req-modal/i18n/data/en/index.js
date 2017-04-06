@@ -36,7 +36,7 @@ module.exports = {
                 {
                     document: 2,
                     title: "Canadian Citizenship Card or Certificate",
-                    body: "<ul><li>Include front and back, corner to corner</li></ul>",
+                    body: "<ul><li>Include front and back, corner to corner</li><li>Ensure all text is legible and photo is in focus</li></ul>",
                     image: require('./images/canadian_cit_card-cert.jpg')
                 }
             ]
@@ -48,7 +48,7 @@ module.exports = {
                  {
                     document: 3,
                     title: "Record of Landing",
-                    body: "<ul><li>Must include full legal document including date and signature</li><li>Must be signed by Canadian Immigration</li></ul>",
+                    body: "<ul><li>Must include full legal document, corner to corner, including date and signature</li><li>Must be signed by Canadian Immigration</li><li>Ensure all text is legible and photo is in focus</li></ul>",
                     image: ""
                 },
                 {
@@ -66,19 +66,19 @@ module.exports = {
                 {
                     document: 5,
                     title: "Work Permit",
-                    body: "<ul><li>Must be valid for six months or longer</li></ul>",
+                    body: "<ul><li>Must be valid for six months or longer</li><li>Include entire page, corner to corner</li><li>Ensure all text is legible and photo is in focus</li></ul>",
                     image: require('./images/work-permit.jpg')
                 },
                 {
                     document: 6,
                     title: "Study Permit",
-                    body: "<ul><li>Must be valid for six months or longer</li></ul>",
+                    body: "<ul><li>Must be valid for six months or longer</li><li>Include entire page, corner to corner</li><li>Ensure all text is legible and photo is in focus</li></ul>",
                     image: require('./images/SP-new2013.jpg')
                 },
                  {
                     document: 7,
                     title: "Visitor Permit",
-                    body: "<ul><li>If you are the main applicant, must be case type 13, or case type 10 with remarks stating that you are a religious worker</li></ul>",
+                    body: "<ul><li>If you are the main applicant, must be case type 13, or case type 10 with remarks stating that you are a religious worker</li><li>Include entire page, corner to corner</li><li>Ensure all text is legible and photo is in focus</li></ul>",
                     image: require('./images/visitor-permit.jpg')
                 }
             ]
@@ -90,7 +90,7 @@ module.exports = {
                 {
                     document: 8,
                     title: "Valid Passport With Entry Stamps and Acceptance Foils",
-                    body: "",
+                    body: "<li>Include both passport and acceptance foil</li><li>Ensure all text is legible and photo is in focus</li>",
                     image: require('./images/acceptance-foil.jpg')
                 }
             ]
