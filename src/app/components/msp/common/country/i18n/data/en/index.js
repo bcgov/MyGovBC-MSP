@@ -10,7 +10,7 @@ module.exports = {
     },
     {
       "code": "AX",
-      "name": "Åland Islands"
+      "name": "Aland Islands"
     },
     {
       "code": "AL",
@@ -110,11 +110,11 @@ module.exports = {
     },
     {
       "code": "BO",
-      "name": "Bolivia, Plurinational State of"
+      "name": "Bolivia"
     },
     {
       "code": "BQ",
-      "name": "Bonaire, Sint Eustatius and Saba"
+      "name": "Bonaire"
     },
     {
       "code": "BA",
@@ -134,7 +134,7 @@ module.exports = {
     },
     {
       "code": "IO",
-      "name": "British Indian Ocean Territory"
+      "name": "British Indian Ocean"
     },
     {
       "code": "BN",
@@ -209,10 +209,6 @@ module.exports = {
       "name": "Congo"
     },
     {
-      "code": "CD",
-      "name": "Congo, the Democratic Republic of the"
-    },
-    {
       "code": "CK",
       "name": "Cook Islands"
     },
@@ -222,7 +218,7 @@ module.exports = {
     },
     {
       "code": "CI",
-      "name": "Côte d'Ivoire"
+      "name": "Cote d'Ivoire"
     },
     {
       "code": "HR",
@@ -234,7 +230,7 @@ module.exports = {
     },
     {
       "code": "CW",
-      "name": "Curaçao"
+      "name": "Curacao"
     },
     {
       "code": "CY",
@@ -290,7 +286,7 @@ module.exports = {
     },
     {
       "code": "FK",
-      "name": "Falkland Islands (Malvinas)"
+      "name": "Falkland Islands"
     },
     {
       "code": "FO",
@@ -318,7 +314,7 @@ module.exports = {
     },
     {
       "code": "TF",
-      "name": "French Southern Territories"
+      "name": "French Southern Ter."
     },
     {
       "code": "GA",
@@ -390,11 +386,11 @@ module.exports = {
     },
     {
       "code": "HM",
-      "name": "Heard Island and McDonald Islands"
+      "name": "Heard and McDonald Isl"
     },
     {
       "code": "VA",
-      "name": "Holy See (Vatican City State)"
+      "name": "Vatican City State"
     },
     {
       "code": "HN",
@@ -422,7 +418,7 @@ module.exports = {
     },
     {
       "code": "IR",
-      "name": "Iran, Islamic Republic of"
+      "name": "Iran"
     },
     {
       "code": "IQ",
@@ -474,7 +470,7 @@ module.exports = {
     },
     {
       "code": "KP",
-      "name": "Korea, Democratic People's Republic of"
+      "name": "Korea, North"
     },
     {
       "code": "KR",
@@ -490,7 +486,7 @@ module.exports = {
     },
     {
       "code": "LA",
-      "name": "Lao People's Democratic Republic"
+      "name": "Lao"
     },
     {
       "code": "LV",
@@ -530,7 +526,7 @@ module.exports = {
     },
     {
       "code": "MK",
-      "name": "Macedonia, the Former Yugoslav Republic of"
+      "name": "Macedonia"
     },
     {
       "code": "MG",
@@ -582,7 +578,7 @@ module.exports = {
     },
     {
       "code": "FM",
-      "name": "Micronesia, Federated States of"
+      "name": "Micronesia"
     },
     {
       "code": "MD",
@@ -726,7 +722,7 @@ module.exports = {
     },
     {
       "code": "RE",
-      "name": "Réunion"
+      "name": "Reunion"
     },
     {
       "code": "RO",
@@ -746,7 +742,7 @@ module.exports = {
     },
     {
       "code": "SH",
-      "name": "Saint Helena, Ascension and Tristan da Cunha"
+      "name": "Saint Helena"
     },
     {
       "code": "KN",
@@ -766,7 +762,7 @@ module.exports = {
     },
     {
       "code": "VC",
-      "name": "Saint Vincent and the Grenadines"
+      "name": "Saint Vincent"
     },
     {
       "code": "WS",
@@ -830,7 +826,7 @@ module.exports = {
     },
     {
       "code": "GS",
-      "name": "South Georgia and the South Sandwich Islands"
+      "name": "South Georgia"
     },
     {
       "code": "SS",
@@ -882,7 +878,7 @@ module.exports = {
     },
     {
       "code": "TZ",
-      "name": "Tanzania, United Republic of"
+      "name": "Tanzania"
     },
     {
       "code": "TH",
@@ -950,7 +946,7 @@ module.exports = {
     },
     {
       "code": "UM",
-      "name": "United States Minor Outlying Islands"
+      "name": "US Minor Outlying Islands"
     },
     {
       "code": "UY",
@@ -966,7 +962,7 @@ module.exports = {
     },
     {
       "code": "VE",
-      "name": "Venezuela, Bolivarian Republic of"
+      "name": "Venezuela"
     },
     {
       "code": "VN",

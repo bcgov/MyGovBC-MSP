@@ -24,7 +24,7 @@ export class MspCountryComponent {
    * Auto complete for country
    */
   private dataService: CompleterData;
-  private countryData = this.lang('./en/index.js').countryData;
+  countryData:Array<{code:string, name:string}> = this.lang('./en/index.js').countryData;
 
   constructor(private completerService: CompleterService) {
 

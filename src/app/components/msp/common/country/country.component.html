@@ -8,7 +8,7 @@
                        [dataService]="dataService" [minSearchLength]="0"
                        [autoMatch]="true"
                        [overrideSuggested]="true"
-                       [maxChars]="30"
+                       [maxChars]="25"
                        required
                        id="country" name="country" #countryRef="ngModel"></ng2-completer>
         <div *ngIf='countryRef.touched || showError'>
