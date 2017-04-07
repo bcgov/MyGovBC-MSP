@@ -27,7 +27,7 @@ export class PersonalInfoComponent implements AfterViewInit{
   @ViewChild('formRef') form: NgForm;
   // @ViewChildren(PersonalDetailsComponent) personalDetailsList:QueryList<PersonalDetailsComponent>;
   personalDetailsList:PersonalDetailsComponent[] = [];
-  
+
   constructor(private dataService: DataService,
     // private completenessCheck:CompletenessCheckService,
     private _router: Router){
@@ -44,11 +44,6 @@ export class PersonalInfoComponent implements AfterViewInit{
   }
 
   updateSubscription(){
-
-    // if(this.validitySubscription){
-    //   this.validitySubscription.unsubscribe();
-    // }
-
     let currentFormObservable: Observable<boolean> =
       this.form.valueChanges.map(values => {
         return this.form.valid;

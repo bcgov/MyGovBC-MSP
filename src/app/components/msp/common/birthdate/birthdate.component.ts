@@ -2,6 +2,8 @@ import {Component, Input, ViewChild, Output, EventEmitter, AfterViewInit, OnInit
 import {NgForm} from "@angular/forms";
 import {Person} from "../../model/person.model";
 import {Relationship} from "../../model/status-activities-documents";
+import {ValidationStatus} from "../../common/validation-status.interface";
+
 import * as moment from 'moment';
 
 require('./birthdate.component.less');
@@ -24,7 +26,7 @@ export class MspBirthDateComponent implements OnInit, AfterViewInit{
   @Input() person: Person;
   @Input() showError: boolean;
   @Output() onChange = new EventEmitter<any>();
-  @Output() isFormValid = new EventEmitter<boolean>();
+  @Output() isFormValid = new EventEmitter<ValidationStatus>();
   @Output() registerBirthDateComponent = new EventEmitter<MspBirthDateComponent>();
   @ViewChild('formRef') form: NgForm;
 
@@ -33,7 +35,7 @@ export class MspBirthDateComponent implements OnInit, AfterViewInit{
     this.registerBirthDateComponent.emit(this);
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(this.form.valid);
-      this.isFormValid.emit(this.form.valid);
+      this.isFormValid.emit( {name: 'birthdate component', value: this.form.valid});
     });
   }
 

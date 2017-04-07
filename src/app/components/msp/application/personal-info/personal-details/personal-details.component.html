@@ -165,6 +165,7 @@
                                   (dayChange)="person.arrivalToBCDay = $event"
                                   (onChange) = "onChange.emit($event)"
                                   [showError]="showError"
+                                  [required] = "true"
                                   (registerArrivalDateComponent)="onRegisterArrivalDateComponent($event)">
                 </msp-arrival-date>
             </div>
@@ -218,12 +219,14 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="person.declarationForOutsideOver30Days == true" class="row" style="margin-bottom: 20px">
+            <div *ngIf="person.declarationForOutsideOver30Days === true" class="row" style="margin-bottom: 20px">
                 <div class="col-sm-12">
                     <msp-outof-bc-record [outofBCRecord]="person.outOfBCRecord"
                                          (onDelete)="handleDeleteOutofBCRecord($event)"
                                          (onUpdate)="handleOutofBCRecordChange($event)"
-                                          [showError]="showError">
+                                          [showError]="showError"
+                                         (registerComponent) = "onRegisterOutOfBCComponent($event)" 
+                                          >
                     </msp-outof-bc-record>
                 </div>
             </div>

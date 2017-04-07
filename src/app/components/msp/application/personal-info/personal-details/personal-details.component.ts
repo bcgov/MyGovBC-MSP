@@ -19,6 +19,8 @@ import {FileUploaderComponent} from "../../../common/file-uploader/file-uploader
 import {MspBirthDateComponent} from "../../../common/birthdate/birthdate.component";
 import {MspNameComponent} from "../../../common/name/name.component";
 import {MspArrivalDateComponent} from "../../../common/arrival-date/arrival-date.component";
+import {MspOutofBCRecordComponent} from "../../../common/outof-bc/outof-bc.component";
+import {ValidationStatus} from "../../../common/validation-status.interface";
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Observer } from 'rxjs/Observer';
@@ -76,8 +78,8 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
   @ViewChild('imageErrorModal') imageErrorModal: MspImageErrorModalComponent;
 
-  // @ViewChild(MspBirthDateComponent) birthDateComponent:MspBirthDateComponent;
   private birthDateComponentList:MspBirthDateComponent[] = [];
+  private outofBCComponentList: MspOutofBCRecordComponent[] = [];
   private arrivalDateComponentList:MspArrivalDateComponent[] = [];
 
   private nameComponentsList: MspNameComponent[] = [];
@@ -178,23 +180,22 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(){
-    let curForm = this.form;
+    this.person.declarationForOutsideOver30Days = false;    
+  }
 
+  ngAfterViewInit() {
     this.form.valueChanges.subscribe(
       (values) => {
         this.onChange.emit(values);
       }
     );
-
-    this.updateSubscription();
-
     /**
      * Register this component with its parent.
      */
     this.registerPersonalDetailsComponent.emit(this);
-  }
-
-  ngAfterViewInit() {
+    
+    this.updateSubscription();
+    
     /**
      * Load an empty row to screen 
      */
@@ -211,43 +212,72 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
    * User can only continue when the final boolean value is true.
    */
   updateSubscription(){
+    // if(this.validitySubscription){
+    //   this.validitySubscription.unsubscribe();
+    // }
+    
+    let totalObvs:Observable<ValidationStatus>[] = new Array<Observable<ValidationStatus>>();
 
-    let childrenObservables:Observable<boolean>[] = [];
-    let arrivalDateObservables:Observable<boolean>[] = [];
-
-    let currentFormObservable:Observable<boolean> =
+    let currentFormObservable:Observable<ValidationStatus> =
       this.form.valueChanges.map( values => {
-        return this.form.valid;
+        return {name: 'current form', value: this.form.valid};
       });
 
-    childrenObservables = this.birthDateComponentList.map( bcom => {
+    let birthDateObvs:Observable<ValidationStatus>[] = this.birthDateComponentList.map( bcom => {
       return bcom.isFormValid;
-    })
-    arrivalDateObservables = this.arrivalDateComponentList.map( bcom => {
+    });
+
+    let arrivalDateObvs:Observable<ValidationStatus>[] = this.arrivalDateComponentList.map( bcom => {
       return bcom.isFormValid;
     })
     
-    let nameComponentObservables:Observable<boolean>[] = 
+    let nameComponentObvs:Observable<ValidationStatus>[] = 
     this.nameComponentsList.map ( nameComponent => {
       return nameComponent.isFormValid;
+      // return nameComponent.isFormValid;
     });
+
+
+    // console.log('number of outofbc components: %d', this.outofBCComponentList.length);
+    let outofBCObvs:Observable<ValidationStatus>[] = this.outofBCComponentList.map(
+      comp => {
+        return comp.isFormValid;
+      }
+    );
+    console.log('number of outofbc observables: %d', outofBCObvs.length);
+
+    totalObvs = this.collectObservabls(totalObvs, [currentFormObservable]);
+    totalObvs = this.collectObservabls(totalObvs, birthDateObvs);
+    totalObvs = this.collectObservabls(totalObvs, arrivalDateObvs);
+    totalObvs = this.collectObservabls(totalObvs, nameComponentObvs);
+
+    console.log('number of totalObvs observables before: %o', totalObvs);
+    totalObvs = this.collectObservabls(totalObvs, outofBCObvs);
+    console.log('number of totalObvs observables: %o', totalObvs);
 
     this.validitySubscription = Observable.combineLatest(
-      ...childrenObservables,
-      ...arrivalDateObservables,
-      ...nameComponentObservables,
-      currentFormObservable
+      ...totalObvs
     ).subscribe( collection => {
+      let combinedValidationState = collection.reduce( (acc: ValidationStatus, cur: ValidationStatus, idx:number, arr: ValidationStatus[]) => {
+        console.log('observables values array: %o', arr);
+        return {name: 'combined status at personl details level', value: acc.value && cur.value};
+      },{name: 'starter', value: true});
 
-      let combinedValidationState = collection.reduce( function(acc, cur){
-        return acc && cur;
-      },true);
-
-      console.log('combinedValidationState at personal details: ' + combinedValidationState);
-      this.isFormValid.emit(combinedValidationState); 
+      console.log('combinedValidationState at personal details: %o', combinedValidationState);
+      console.log('combinedValidationState at personal details value: %s', combinedValidationState.value);
+      this.isFormValid.emit(combinedValidationState.value); 
     });
 
-    // console.log('this.validitySubscription on PersonalDetailsComponent: %o', this.validitySubscription);
+    console.log('validitySubscription on PersonalDetailsComponent closed?: %s', this.validitySubscription.closed);
+    console.log('validitySubscription on PersonalDetailsComponent: %o', this.validitySubscription);
+  }
+
+  collectObservabls(destObvs:Observable<ValidationStatus>[], targetAbvs:Observable<ValidationStatus>[]): Observable<ValidationStatus>[]{
+    if(targetAbvs.length > 0){
+      return destObvs.concat(targetAbvs);
+    }else{
+      return destObvs
+    }
   }
 
   ngOnDestroy(){
@@ -257,6 +287,11 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
     }    
   }
 
+  onRegisterOutOfBCComponent(comp:MspOutofBCRecordComponent){
+    console.log('outofbc component register with parent personal details');
+    this.outofBCComponentList.push(comp);
+    this.updateSubscription();
+  }
   onRegisterBirthDateComponent(comp:MspBirthDateComponent){
     this.birthDateComponentList.push(comp);
     this.updateSubscription();
@@ -269,6 +304,10 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   onRegisterMspNameComponent(comp:MspNameComponent){
     this.nameComponentsList.push(comp);
     this.updateSubscription();
+
+    // comp.isFormValid.subscribe( (value:ValidationStatus) => {
+    //   console.log('a sepearate subscription for name component only: %o', value);
+    // });
   }
 
   get arrivalDateLabel():string {
@@ -366,6 +405,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
       this.person.outOfBCRecord = new OutofBCRecord();
     }else {
       this.person.outOfBCRecord = null;
+      this.outofBCComponentList = [];
     }
     this.onChange.emit(out);
   }

@@ -2,6 +2,7 @@ import {Component, Input, Output, EventEmitter, ViewChild, OnInit, AfterViewInit
 import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import {ValidationStatus} from "../../common/validation-status.interface";
 
 require('./arrival-date.component.less');
 
@@ -27,7 +28,7 @@ export class MspArrivalDateComponent implements OnInit, AfterViewInit, OnChanges
   @Input() arrivalLabel: string = this.lang('./en/index.js').arrivalDateLabel;
 
   @Output() onChange = new EventEmitter<any>();
-  @Output() isFormValid = new EventEmitter<boolean>();
+  @Output() isFormValid = new EventEmitter<ValidationStatus>();
   @Output() registerArrivalDateComponent = new EventEmitter<MspArrivalDateComponent>();
 
   @ViewChild('formRef') form: NgForm;
@@ -40,7 +41,7 @@ export class MspArrivalDateComponent implements OnInit, AfterViewInit, OnChanges
     this.registerArrivalDateComponent.emit(this);
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);
-      this.isFormValid.emit(this.form.valid);
+      this.isFormValid.emit( {name: 'arrival date component', value: this.form.valid});
     });
   }
   ngAfterViewInit(): void {
