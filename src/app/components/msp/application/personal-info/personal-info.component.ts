@@ -2,7 +2,7 @@ import {Component, Injectable, ViewChild, ViewChildren, QueryList, AfterViewInit
 import {MspApplication, Person} from '../../model/application.model';
 
 import DataService from '../../service/msp-data.service';
-import CompletenessCheckService from '../../service/completeness-check.service';
+// import CompletenessCheckService from '../../service/completeness-check.service';
 import { Router } from '@angular/router';
 
 import {Relationship} from "../../model/status-activities-documents";
@@ -29,7 +29,7 @@ export class PersonalInfoComponent implements AfterViewInit{
   personalDetailsList:PersonalDetailsComponent[] = [];
   
   constructor(private dataService: DataService,
-    private completenessCheck:CompletenessCheckService,
+    // private completenessCheck:CompletenessCheckService,
     private _router: Router){
 
   }
@@ -65,7 +65,7 @@ export class PersonalInfoComponent implements AfterViewInit{
     ).subscribe(collection => {
       this.combinedValidationState = collection.reduce( function(acc, cur){
         return acc && !!cur;
-      },true)&& this.form.valid;
+      },true);
 
       console.log('combinedValidationState on personal info screen: ' + this.combinedValidationState);
     });
@@ -129,11 +129,11 @@ export class PersonalInfoComponent implements AfterViewInit{
   }
 
   get canContinue():boolean {
-    return this.completenessCheck.mspPersonalInfoDocsCompleted() && this.combinedValidationState;
+    return this.combinedValidationState;
   }
 
   continue():void {
-    if(!this.canContinue){
+    if(!this.combinedValidationState){
       console.log('Please fill in all required fields on the form.');
     }else{
       this._router.navigate(['/msp/application/address']);
