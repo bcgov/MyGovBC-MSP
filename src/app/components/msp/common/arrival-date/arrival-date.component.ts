@@ -19,12 +19,12 @@ export class MspArrivalDateComponent implements OnInit, AfterViewInit, OnChanges
 
   @Input() showError: boolean;
   @Input() required: boolean = true;
-  @Input() year: number;
-  @Output() yearChange = new EventEmitter<number>();
+  @Input() year: number | string;
+  @Output() yearChange = new EventEmitter<number|string>();
   @Input() month: number;
   @Output() monthChange = new EventEmitter<number>();
-  @Input() day: number;
-  @Output() dayChange = new EventEmitter<number>();
+  @Input() day: number | string;
+  @Output() dayChange = new EventEmitter<number|string>();
   @Input() arrivalLabel: string = this.lang('./en/index.js').arrivalDateLabel;
 
   @Output() onChange = new EventEmitter<any>();
@@ -54,25 +54,32 @@ export class MspArrivalDateComponent implements OnInit, AfterViewInit, OnChanges
 
   // Parse person's date
   inputDate() {
+    let y:number = this.year as number;
+    let m:number = this.month as number;
+    let d:number = this.month as number;
     return moment({
-      year: this.year,
-      month: this.month - 1, // moment use 0 index for month :(
-      day: this.day,
+      year: y,
+      month: m - 1, // moment use 0 index for month :(
+      day: d,
     });
   }
 
   setYearValueOnModel(value:string){
     if(value){
       this.year = parseInt(value);
-      this.yearChange.emit(this.year);
+    }else{
+      this.year = value;
     }
+    this.yearChange.emit(this.year);
   }
 
   setDayValueOnModel(value:string){
     if(value){
       this.day = parseInt(value);
-      this.dayChange.emit(this.day);
+    }else{
+      this.day = value;
     }
+    this.dayChange.emit(this.day);
   }
 
   /**

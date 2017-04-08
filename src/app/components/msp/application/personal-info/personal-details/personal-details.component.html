@@ -136,6 +136,7 @@
                             [province]="person.movedFromProvinceOrCountry"
                             (onChange)="provinceUpdate($event)"
                             [exceptBC]="true" [showError]="showError"
+                            (registerComponent) = "onRegisterMspProvinceComponent($event)"
                             colSize="col-sm-4"></msp-province>
             </div>
         

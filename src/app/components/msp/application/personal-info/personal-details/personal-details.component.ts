@@ -1,6 +1,6 @@
 import  {
   Component, Input, Output, OnChanges, EventEmitter,
-  SimpleChange, ViewChild, AfterViewInit, OnInit,
+  SimpleChange, ViewChild, AfterViewInit, OnInit, OnDestroy,
   state, trigger, style, ElementRef, QueryList, ViewChildren, ChangeDetectorRef
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -22,6 +22,7 @@ import {MspGenderComponent} from "../../../common/gender/gender.component";
 
 import {MspArrivalDateComponent} from "../../../common/arrival-date/arrival-date.component";
 import {MspOutofBCRecordComponent} from "../../../common/outof-bc/outof-bc.component";
+import {MspProvinceComponent} from "../../../common/province/province.component";
 import {ValidationStatus} from "../../../common/validation-status.interface";
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -64,7 +65,7 @@ import 'rxjs/add/operator/catch';
   }
 )
 
-export class PersonalDetailsComponent implements OnInit, AfterViewInit {
+export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   lang = require('./i18n');
   langStatus = require('../../../common/status/i18n');
   langActivities = require('../../../common/activities/i18n');
@@ -83,10 +84,10 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   private nameComponent: MspNameComponent;
   private birthDateComponent:MspBirthDateComponent;
 
-  private genderComponentList:MspGenderComponent[] = [];
+  private genderComponent:MspGenderComponent;
+  private provinceComponent:MspProvinceComponent;
   private outofBCComponentList: MspOutofBCRecordComponent[] = [];
   private arrivalDateComponentList:MspArrivalDateComponent[] = [];
-
   
   @Input() viewOnly: boolean = false;
   @Input() person: Person;
@@ -103,14 +104,20 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   genderListSignal: string;
   institutionWorkSignal: string;
 
-  validitySubscription:Subscription;
+  // validitySubscription:Subscription;
 
   nameValidStatus:boolean = false;
   dobValidStatus:boolean = false;
-  genderValid:boolean = false;
-  arrivalDatesValid:boolean = false;
+  genderValidStatus:boolean = false;
+  provinceValidStatus:boolean = false;
+  arrivalDatesValidStatus:boolean[] = [];
+  
+
   outofBCFormValid:boolean = true;
   combinedValidationStatus:boolean = true;
+
+
+  subscriptions:Subscription[] = [];
 
   constructor(private el:ElementRef,
     private cd: ChangeDetectorRef){
@@ -216,24 +223,64 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   }
 
   updateSubscription(){
+    this.unsubscribeAll();
     if(this.birthDateComponent){
-      this.birthDateComponent.isFormValid
+      this.subscriptions.push(this.birthDateComponent.isFormValid
         .subscribe( (status:boolean) => {
           this.dobValidStatus = status;
           // console.log('dobValid status value: %s', this.dobValidStatus);
           this.emitFormValidationStatus();
-        });
+        })
+      );
     }
 
     if(this.nameComponent){
-      this.nameComponent.isFormValid
+      this.subscriptions.push(this.nameComponent.isFormValid
         .subscribe(
           (status:boolean) => {
             this.nameValidStatus = status;
             this.emitFormValidationStatus();
           }
-        );
+        )
+      );
     }
+
+    if(this.genderComponent){
+      this.subscriptions.push(this.genderComponent.isFormValid
+        .subscribe(
+          (status:boolean) => {
+            this.genderValidStatus = status;
+            this.emitFormValidationStatus();
+          }
+        )
+      );
+    }
+
+    if(this.provinceComponent){
+      this.subscriptions.push(this.provinceComponent.isFormValid
+        .subscribe(
+          (status:boolean) => {
+            this.provinceValidStatus = status;
+            this.emitFormValidationStatus();
+          }
+        )
+      );
+    }
+
+    let arrivalDateObvs:Observable<boolean>[] = this.arrivalDateComponentList.map( bcom => {
+      return bcom.isFormValid;
+    });
+
+    arrivalDateObvs.forEach( (arrivalDateObs:Observable<boolean>, idx:number) => {
+      this.subscriptions.push(arrivalDateObs.subscribe(
+          (status:boolean) => {
+            console.log('arrival date valid status: %s', status);
+            this.arrivalDatesValidStatus[idx] = status;
+            this.emitFormValidationStatus();
+          }
+        )
+      );
+    });
     
   }
 
@@ -245,30 +292,26 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
    * User can only continue when the final boolean value is true.
    */
   updateSubscription2(){
-    if(this.validitySubscription){
-      this.validitySubscription.unsubscribe();
-    }
-
     let currentFormObservable:Observable<ValidationStatus> =
       this.form.valueChanges.map( values => {
         return {name: 'current personal details form', value: this.form.valid};
       });
 
 
-    let arrivalDateObvs:Observable<boolean>[] = this.arrivalDateComponentList.map( bcom => {
-      return bcom.isFormValid;
-    });
+    // let arrivalDateObvs:Observable<boolean>[] = this.arrivalDateComponentList.map( bcom => {
+    //   return bcom.isFormValid;
+    // });
 
-    Observable.combineLatest(...arrivalDateObvs)
-      .subscribe( (values:boolean[])=>{
-        this.arrivalDatesValid = values.reduce(
-          function(acc:boolean,cur:boolean){
-            return acc && cur;
-          },true
-        );
-        // console.log('arrival datas valid in personal details: %s', this.arrivalDatesValid);
-        this.emitFormValidationStatus();
-      });    
+    // Observable.combineLatest(...arrivalDateObvs)
+    //   .subscribe( (values:boolean[])=>{
+    //     this.arrivalDatesValid = values.reduce(
+    //       function(acc:boolean,cur:boolean){
+    //         return acc && cur;
+    //       },true
+    //     );
+    //     // console.log('arrival datas valid in personal details: %s', this.arrivalDatesValid);
+    //     this.emitFormValidationStatus();
+    //   });    
 
 
 
@@ -278,15 +321,6 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
       }
     );
 
-    if(this.genderComponentList.length){
-      this.genderComponentList[0].isFormValid
-        .subscribe(
-          (status:boolean)=>{
-            this.genderValid = status;
-            this.emitFormValidationStatus();
-          }
-        );
-    }
     /**
      * We need this code block to ensure that the validatin status from 
      * the outof-bc componnet can always get rolled up with the rest of the form
@@ -343,27 +377,44 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
 
   }
 
-  emitFormValidationStatus(){
+  emitFormValidationStatus() {
     // let formCombined:boolean =
-    //   this.dobValidStatus &&
-    //   this.nameValidStatus &&
     //   this.outofBCFormValid &&
     //   this.combinedValidationStatus &&
     //   this.genderValid &&
     //   this.arrivalDatesValid;
-    let formCombined:boolean =
+    let formCombined: boolean =
       this.dobValidStatus &&
-      this.nameValidStatus;
+      this.nameValidStatus &&
+      this.genderValidStatus &&
+      this.provinceValidStatus;
+    // console.log('personal details formCombined (except arrival date): %s', formCombined);
+
+    let combinedArrivalDateValidStatus =
+      this.arrivalDatesValidStatus.reduce(
+        (acc: boolean, cur: boolean) => {
+          return acc && cur;
+        }, true
+      );
+
+    let movedToBC = this.person.madePermanentMoveToBC === true || this.person.madePermanentMoveToBC === false;  
+    // console.log('combinedArrivalDateValidStatus: %s', combinedArrivalDateValidStatus);
+
+    formCombined = formCombined && combinedArrivalDateValidStatus && movedToBC;
 
     console.log('personal details formCombined: %s', formCombined);
-    this.isFormValid.emit(formCombined);      
+    this.isFormValid.emit(formCombined);
   }
 
   ngOnDestroy(){
-    if(this.validitySubscription){
-      this.validitySubscription.unsubscribe();
-      this.validitySubscription = null;    
-    }    
+    this.unsubscribeAll();
+  }
+  unsubscribeAll(){
+    this.subscriptions.forEach(
+      (sub:Subscription) => {
+        sub.unsubscribe();
+      }
+    )
   }
 
   onRegisterOutOfBCComponent(comp:MspOutofBCRecordComponent){
@@ -391,10 +442,14 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   }
 
   onRegisterGenderComponent(comp:MspGenderComponent){
-    console.log('gender component register with parent personal details.');
-    this.genderComponentList.push(comp);
+    this.genderComponent = comp;
     this.updateSubscription();
   }
+
+  onRegisterMspProvinceComponent(comp:MspProvinceComponent){
+    this.provinceComponent = comp;
+    this.updateSubscription();
+  }  
   get arrivalDateLabel():string {
     if (this.person.currentActivity == Activities.LivingInBCWithoutMSP) {
       return this.lang('./en/index.js').arrivalDateToBCLabelForReturning;
