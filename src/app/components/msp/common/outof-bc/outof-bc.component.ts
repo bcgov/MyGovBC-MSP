@@ -4,7 +4,6 @@ import {OutofBCRecord} from "../../model/outof-bc-record.model";
 import {NgForm} from "@angular/forms";
 import {MspReturnDateComponent} from "../return-date/return-date.component";
 import {MspDepartureDateComponent} from "../departure-date/departure-date.component";
-import {ValidationStatus} from "../../common/validation-status.interface";
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -32,7 +31,7 @@ export class MspOutofBCRecordComponent implements AfterViewInit{
   @Output()
   onDelete: EventEmitter<OutofBCRecord> = new EventEmitter<OutofBCRecord>();
 
-  @Output() isFormValid = new EventEmitter<ValidationStatus>();
+  @Output() isFormValid = new EventEmitter<boolean>();
   @Output() registerComponent = new EventEmitter<MspOutofBCRecordComponent>();
   @Output() unRegisterComponent = new EventEmitter<MspOutofBCRecordComponent>();
 
@@ -60,7 +59,7 @@ export class MspOutofBCRecordComponent implements AfterViewInit{
           },true
         );
         console.log('outof-bc component validation status %s', combined);
-        this.isFormValid.emit({name: 'outof bc component', value: combined as boolean});
+        this.isFormValid.emit(combined as boolean);
       }
     );
 

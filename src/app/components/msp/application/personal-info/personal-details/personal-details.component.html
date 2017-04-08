@@ -276,6 +276,7 @@
                          [bcPhn]="true"
                          [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"
                          (onChange) = "onChange.emit($event)"
+                         (registerComponent)="onRegisterPhnComponent($event)"
                          [showError] = "showError"></msp-phn>
             </div>
         </div>
