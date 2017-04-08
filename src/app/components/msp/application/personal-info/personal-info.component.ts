@@ -98,7 +98,6 @@ export class PersonalInfoComponent implements AfterViewInit{
   }
 
   onRegisterPersonalDetailsComponent(personalDetailsComp:PersonalDetailsComponent){
-    console.log('register personal details component with personal info screen');
     this.personalDetailsList.push(personalDetailsComp);
     this.updateSubscription();
   }
@@ -149,7 +148,7 @@ export class PersonalInfoComponent implements AfterViewInit{
   }
 
   continue():void {
-    console.log('personal info form valid: %s', this.form.valid);
+    console.log('personal info form itself valid: %s', this.form.valid);
     console.log('combinedValidationState on personal info: %s', this.combinedValidationState);
     if(!this.combinedValidationState){
       console.log('Please fill in all required fields on the form.');

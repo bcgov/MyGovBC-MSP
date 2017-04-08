@@ -20,6 +20,8 @@ import {MspBirthDateComponent} from "../../../common/birthdate/birthdate.compone
 import {MspNameComponent} from "../../../common/name/name.component";
 import {MspGenderComponent} from "../../../common/gender/gender.component";
 import {MspPhnComponent} from "../../../common/phn/phn.component";
+import {HealthNumberComponent} from "../../../common/health-number/health-number.component";
+import {MspDischargeDateComponent} from "../../../common/discharge-date/discharge-date.component";
 
 import {MspArrivalDateComponent} from "../../../common/arrival-date/arrival-date.component";
 import {MspOutofBCRecordComponent} from "../../../common/outof-bc/outof-bc.component";
@@ -90,6 +92,8 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
   private outofBCComponent: MspOutofBCRecordComponent;
   private arrivalDateComponentList:MspArrivalDateComponent[] = [];
   private phnComponent:MspPhnComponent;
+  private healthNumberComponent:HealthNumberComponent;
+  private dischargeDateComponent:MspDischargeDateComponent;
   
   @Input() viewOnly: boolean = false;
   @Input() person: Person;
@@ -114,6 +118,10 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
   provinceValidStatus:boolean = false;
   phnValidStatus:boolean = false;
   arrivalDatesValidStatus:boolean[] = [];
+  dischargeDateValidStatus:boolean = true;
+
+  //default to true because it is optional
+  healthNumberValidStatus:boolean = true;
   
 
   outofBCFormValidStatus:boolean = true;
@@ -216,7 +224,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
     this.registerPersonalDetailsComponent.emit(this);
     
     this.updateSubscription();
-    
+    this.emitFormValidationStatus();
     /**
      * Load an empty row to screen 
      */
@@ -282,11 +290,33 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     if(this.outofBCComponent){
-      this.outofBCComponent.isFormValid
+      this.subscriptions.push(this.outofBCComponent.isFormValid
         .subscribe(
           (status:boolean) => {
             this.outofBCFormValidStatus = status;
             // console.log('outofBCFormValidStatus in personal details: %s', this.outofBCFormValidStatus);
+            this.emitFormValidationStatus();
+          }
+        )
+      );
+    }
+    
+    if(this.healthNumberComponent){
+      this.subscriptions.push(this.healthNumberComponent.isFormValid
+        .subscribe(
+          (status:boolean) => {
+            this.healthNumberValidStatus = status;
+            this.emitFormValidationStatus();
+          }
+        )
+      );
+    }
+
+    if(this.dischargeDateComponent){
+      this.dischargeDateComponent.isFormValid
+        .subscribe(
+          (status:boolean) => {
+            this.dischargeDateValidStatus = status;
             this.emitFormValidationStatus();
           }
         );
@@ -299,7 +329,6 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
     arrivalDateObvs.forEach( (arrivalDateObs:Observable<boolean>, idx:number) => {
       this.subscriptions.push(arrivalDateObs.subscribe(
           (status:boolean) => {
-            console.log('arrival date valid status: %s', status);
             this.arrivalDatesValidStatus[idx] = status;
             this.emitFormValidationStatus();
           }
@@ -309,13 +338,12 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   emitFormValidationStatus() {
-    let formCombined: boolean =
+    let totalFormStatus: boolean =
       this.dobValidStatus &&
       this.nameValidStatus &&
       this.genderValidStatus &&
       this.provinceValidStatus &&
       this.outofBCFormValidStatus;
-    // console.log('personal details formCombined (except arrival date): %s', formCombined);
 
     let combinedArrivalDateValidStatus =
       this.arrivalDatesValidStatus.reduce(
@@ -324,14 +352,30 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
         }, true
       );
 
-    let movedToBC = this.person.madePermanentMoveToBC === true || this.person.madePermanentMoveToBC === false;  
-    let hasPrevPhn = this.person.hasPreviousBCPhn === true || this.person.hasPreviousBCPhn == false;
-    // console.log('combinedArrivalDateValidStatus: %s', combinedArrivalDateValidStatus);
+    let movedToBC = _.isBoolean(this.person.madePermanentMoveToBC);
+    let hasPrevPhnAnswer = _.isBoolean(this.person.hasPreviousBCPhn);
+    let armedForceHistoryAnswer = this.person.institutionWorkHistory.toLowerCase() === 'yes' ||
+      this.person.institutionWorkHistory.toLowerCase() === 'no';
 
-    formCombined = formCombined && combinedArrivalDateValidStatus && movedToBC && hasPrevPhn;
+    let fullTimeStutAnswer = _.isBoolean(this.person.fullTimeStudent);
+    let inBCAfterStudyAnswer = true;
+    if(this.person.fullTimeStudent === true){
+      inBCAfterStudyAnswer = _.isBoolean(this.person.inBCafterStudies);
+    }
 
-    console.log('personal details formCombined: %s', formCombined);
-    this.isFormValid.emit(formCombined);
+    totalFormStatus = totalFormStatus 
+      && combinedArrivalDateValidStatus 
+      && movedToBC 
+      && hasPrevPhnAnswer
+      && this.phnValidStatus
+      && armedForceHistoryAnswer
+      && this.dischargeDateValidStatus
+      && fullTimeStutAnswer
+      && inBCAfterStudyAnswer
+      && this.healthNumberValidStatus;
+    
+    console.log('personal details totalFormStatus: %s', totalFormStatus);
+    this.isFormValid.emit(totalFormStatus);
   }
 
   ngOnDestroy(){
@@ -379,11 +423,32 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
     this.updateSubscription();
   }  
 
+  onRegisterHealthNumberComponent(comp:HealthNumberComponent){
+    this.healthNumberComponent = comp;
+    this.updateSubscription();
+  }
+
+  onUnregisterHealthNumberComponent(){
+    this.healthNumberComponent = null;
+  }
+
   onRegisterPhnComponent(comp:MspPhnComponent){
     this.phnComponent = comp;
     this.updateSubscription();
   }
 
+  onUnregisterPhnComponent(){
+    this.phnComponent = null;
+  }
+
+  onRegisterDischargeDate(c:MspDischargeDateComponent){
+    this.dischargeDateComponent = c;
+    this.updateSubscription();
+  }
+
+  onUnRegisterDischargeDate(){
+    this.dischargeDateComponent = null;
+  }
 
   get arrivalDateLabel():string {
     if (this.person.currentActivity == Activities.LivingInBCWithoutMSP) {
@@ -408,6 +473,12 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
       this.person.inBCafterStudies = null;
     }
     this.onChange.emit(event);
+    this.emitFormValidationStatus();
+  }
+  setStayInBCAfterStudy(event:boolean){
+    this.person.inBCafterStudies = event; 
+    this.emitFormValidationStatus();
+    this.onChange.emit(event)    
   }
 
   schoolAddressUpdate(evt:any){
@@ -450,7 +521,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
       this.person.dischargeMonth = null;
       this.person.dischargeYear = null;
     }
-
+    this.emitFormValidationStatus();
     this.onChange.emit(history);
   }
 

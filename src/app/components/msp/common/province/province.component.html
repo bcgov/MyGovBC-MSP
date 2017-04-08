@@ -5,7 +5,9 @@
               [innerHtml]="provinceLabel"></label>
         
         <ng2-completer [(ngModel)]="province" (ngModelChange)="updateModel($event)"
+                      (keyup) = "handleKeyboard($event)"
                        [dataService]="dataService" [minSearchLength]="1"
+                       #provinceInput = "ngModel"
                        [overrideSuggested]="true"
                        id="province" name="province" #provinceRef="ngModel"></ng2-completer>
         <div *ngIf='(provinceRef.touched || showError) && (province === undefined || province === null || province?.length < 1)'>

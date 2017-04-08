@@ -15,9 +15,11 @@ export class CalendarMonthValidator {
 
     // Get value out of control
     let month:string = control.value;
+
     if(month){
       let m:number = parseInt(month);
-      console.log('calendar month: %d', m);
+      // console.log('calendar month: %d', m);
+      // console.log('calendar month required?: %o', control);
       if(!(m > 0 && m < 13)){
         return {"calendarMonthOutOfRange": true}
       }

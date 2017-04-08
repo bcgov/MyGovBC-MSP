@@ -199,7 +199,10 @@
                 <msp-health-number [healthNumber]="person.healthNumberFromOtherProvince"
                                    (healthNumberChange)="handleHealthNumberChange($event)"
                                    [required]="false"
-                                   [showError]="showError">
+                                   [showError]="showError"
+                                   (registerComponent) = "onRegisterHealthNumberComponent($event)"
+                                   (unRegisterComponent) = "onUnregisterHealthNumberComponent($event)"
+                                   >
                 </msp-health-number>
             </div>
         </div>
@@ -277,6 +280,7 @@
                          [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"
                          (onChange) = "onChange.emit($event)"
                          (registerComponent)="onRegisterPhnComponent($event)"
+                         (unRegisterComponent)="onUnregisterPhnComponent($event)"
                          [showError] = "showError"></msp-phn>
             </div>
         </div>
@@ -312,7 +316,10 @@
                         (monthChange)="person.dischargeMonth = $event"
                         [day]="person.dischargeDay"
                         (dayChange)="person.dischargeDay = $event"
-                        (onChange) = "onChange.emit($event)" [showError]="showError"></msp-discharge-date>
+                        (onChange) = "onChange.emit($event)" [showError]="showError"
+                        (registerComponent) = "onRegisterDischargeDate($event)"
+                        (onUnRegisterDischargeDate) = "onUnRegisterDischargeDate($event)"
+                        ></msp-discharge-date>
             </div>
         </div>
     </div>
@@ -401,7 +408,7 @@
             <div class="btn-group" role="group">
                 <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
                         [class.msp-btn-radio]="person.inBCafterStudies === answer.value"
-                        (click)="person.inBCafterStudies = answer.value; onChange.emit(answer.value)"
+                        (click)="setStayInBCAfterStudy(answer.value)"
                         type="button" class="btn btn-default">{{answer.label}}
                 </button>
             </div>

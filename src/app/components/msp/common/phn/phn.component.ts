@@ -1,4 +1,5 @@
-import {Component, Input, EventEmitter, Output, ViewChild, OnInit, AfterViewInit} from '@angular/core';
+import {Component, Input, EventEmitter, Output, 
+  OnDestroy, ViewChild, OnInit, AfterViewInit} from '@angular/core';
 import {NgForm, NgControl, FormControl, ValidatorFn} from "@angular/forms";
 
 @Component({
@@ -7,7 +8,7 @@ import {NgForm, NgControl, FormControl, ValidatorFn} from "@angular/forms";
 
 })
 
-export class MspPhnComponent implements AfterViewInit, OnInit{
+export class MspPhnComponent implements AfterViewInit, OnInit, OnDestroy{
   lang = require('./i18n');
 
   @Input() required: boolean = false;
@@ -19,28 +20,28 @@ export class MspPhnComponent implements AfterViewInit, OnInit{
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
 
-  @Input() isFormValid = new EventEmitter<boolean>();
-  @Input() registerComponent = new EventEmitter<MspPhnComponent>();
+  @Output() isFormValid = new EventEmitter<boolean>();
+  @Output() registerComponent = new EventEmitter<MspPhnComponent>();
+  @Output() unRegisterComponent = new EventEmitter<MspPhnComponent>();
 
   ngOnInit(){
-    
+    this.registerComponent.emit(this);
+    this.isFormValid.emit(this.form.valid);
   }
 
   ngAfterViewInit(): void {
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);
+      this.isFormValid.emit(this.form.valid);
     });
-    this.isFormValid.emit(this.form.valid);
   }
 
   setPhn(value:string){
     this.phn = value;
     this.phnChange.emit(value);  
+  }
 
-    if(this.required){
-      this.isFormValid.emit(this.form.valid);
-    }else{
-      this.isFormValid.emit(true);
-    }
+  ngOnDestroy(){
+    this.unRegisterComponent.emit(this);
   }
 }

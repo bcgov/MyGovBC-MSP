@@ -38,18 +38,24 @@ export class MspArrivalDateComponent implements OnInit, AfterViewInit, OnChanges
   }
 
   ngOnInit(){
+    
+  }
+  ngAfterViewInit(): void {
     this.registerArrivalDateComponent.emit(this);
+
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);
       if(this.required){
         this.isFormValid.emit(this.form.valid);
       }else{
-        this.isFormValid.emit(true);
+        if(!this.month && !this.day && !this.year){
+          this.isFormValid.emit(true);
+        }else{
+          this.isFormValid.emit(this.form.valid);
+        }
       }
     });
-  }
-  ngAfterViewInit(): void {
-
+    this.isFormValid.emit(this.form.valid);
   }
 
   // Parse person's date
@@ -80,6 +86,16 @@ export class MspArrivalDateComponent implements OnInit, AfterViewInit, OnChanges
       this.day = value;
     }
     this.dayChange.emit(this.day);
+  }
+
+  setMonthValueOnModel(value:string){
+    if(value){
+      this.month = parseInt(value);
+    }else{
+      this.month = NaN;
+    }
+    this.monthChange.emit(this.month);
+    
   }
 
   /**

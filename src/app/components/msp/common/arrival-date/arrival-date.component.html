@@ -1,11 +1,11 @@
 <form #formRef='ngForm' novalidate>
     <label [innerHtml]="arrivalLabel" class="control-label" [class.optional]="!required"></label>
     <div class="form-group" 
-         [ngClass]="{'has-error': formRef.invalid && (monthRef.touched || showError)}">
+         [ngClass]="{'has-error': formRef.invalid && required && (monthRef.touched || yearRef.touched || dayRef.touched || showError)}">
         <select class="form-control monthSelect"
                 [ngModel]="month"
                 validateCalendarMonth
-                (ngModelChange)="month=$event;monthChange.emit($event)"
+                (ngModelChange)="setMonthValueOnModel($event)"
                 id="month" name="month" #monthRef="ngModel"
                 [required]="required">
             <option value="0">&nbsp;</option>
@@ -31,7 +31,8 @@
                id="day" name="day" #dayRef="ngModel"
                placeholder="day"
                [required]="required"
-               maxlength="2"> 
+               min="1"
+               max="31"> 
         <input type="number" [calendarFieldFormatter]="'year'"
                class="form-control yearInput"
 

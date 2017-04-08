@@ -1,6 +1,6 @@
 import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
 import {CompleterService, CompleterData} from 'ng2-completer';
-import {NgForm} from "@angular/forms";
+import {NgForm, FormControl} from "@angular/forms";
 
 @Component({
   selector: 'msp-province',
@@ -21,19 +21,30 @@ export class MspProvinceComponent {
   @Output() registerComponent = new EventEmitter<MspProvinceComponent>();
 
   @ViewChild('formRef') form: NgForm;
+  @ViewChild('provinceInput') inputField: FormControl;
 
   ngAfterViewInit(): void {
     this.registerComponent.emit(this);
     this.isFormValid.emit(!!this.province);
+    this.form.valueChanges.subscribe( values => {
+      this.isFormValid.emit(!!this.province);
+    });
   }
   
   updateModel(event:string){
-    // console.log('province change, %o', event);
-    // this.province=event;
+    console.log('province change, %o', event);
+    this.province=event;
     this.onChange.emit(event)    
     this.isFormValid.emit(!!event);
   }
-
+  handleKeyboard(event:KeyboardEvent){
+    const input = event.target as HTMLInputElement;
+    if(!input.value){
+      this.province = '';
+      this.isFormValid.emit(!!this.province);
+      console.log('province keyboard event: %s', this.province);
+    }
+  }
   /**
    * Use to remove BC from the list
    * @type {boolean}
