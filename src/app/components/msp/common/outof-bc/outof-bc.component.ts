@@ -34,14 +34,15 @@ export class MspOutofBCRecordComponent implements AfterViewInit{
 
   @Output() isFormValid = new EventEmitter<ValidationStatus>();
   @Output() registerComponent = new EventEmitter<MspOutofBCRecordComponent>();
+  @Output() unRegisterComponent = new EventEmitter<MspOutofBCRecordComponent>();
 
   @ViewChild(MspDepartureDateComponent) departureDateComp: MspDepartureDateComponent;
   @ViewChild(MspReturnDateComponent) returnDateComp: MspReturnDateComponent;
 
-  ngOnInit(){
+  ngAfterViewInit(){
   }
 
-  ngAfterViewInit(){
+  ngOnInit(){
     let curFormValidation:Observable<boolean> = this.form.valueChanges.map(
       (values) => {
         return this.form.valid;
@@ -72,6 +73,7 @@ export class MspOutofBCRecordComponent implements AfterViewInit{
 
   ngOnDestroy(){
     this.validationSubscription.unsubscribe();
+    this.unRegisterComponent.emit(this);
   }
 
   delete(id:string){

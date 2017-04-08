@@ -1,7 +1,7 @@
 import  {
   Component, Input, Output, OnChanges, EventEmitter,
   SimpleChange, ViewChild, AfterViewInit, OnInit,
-  state, trigger, style, ElementRef, QueryList, ViewChildren
+  state, trigger, style, ElementRef, QueryList, ViewChildren, ChangeDetectorRef
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Person } from '../../../model/person.model';
@@ -102,7 +102,16 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
 
   validitySubscription:Subscription;
 
-  constructor(private el:ElementRef){
+  // outofBCObservable:Observable<boolean>;
+
+  outofBCFormValid:boolean = true;
+
+  //This is the combined valiation status except for the outof bc form
+  combinedValidationStatus:boolean = true;
+
+  constructor(private el:ElementRef,
+    private cd: ChangeDetectorRef){
+
   }
 
   statusLabel(): string {
@@ -180,7 +189,6 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(){
-    this.person.declarationForOutsideOver30Days = false;    
   }
 
   ngAfterViewInit() {
@@ -220,7 +228,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
 
     let currentFormObservable:Observable<ValidationStatus> =
       this.form.valueChanges.map( values => {
-        return {name: 'current form', value: this.form.valid};
+        return {name: 'current personal details form', value: this.form.valid};
       });
 
     let birthDateObvs:Observable<ValidationStatus>[] = this.birthDateComponentList.map( bcom => {
@@ -234,42 +242,72 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
     let nameComponentObvs:Observable<ValidationStatus>[] = 
     this.nameComponentsList.map ( nameComponent => {
       return nameComponent.isFormValid;
-      // return nameComponent.isFormValid;
     });
 
-
-    // console.log('number of outofbc components: %d', this.outofBCComponentList.length);
     let outofBCObvs:Observable<ValidationStatus>[] = this.outofBCComponentList.map(
-      comp => {
-        return comp.isFormValid;
+      component => {
+        return component.isFormValid;
       }
     );
-    console.log('number of outofbc observables: %d', outofBCObvs.length);
 
-    totalObvs = this.collectObservabls(totalObvs, [currentFormObservable]);
-    totalObvs = this.collectObservabls(totalObvs, birthDateObvs);
-    totalObvs = this.collectObservabls(totalObvs, arrivalDateObvs);
-    totalObvs = this.collectObservabls(totalObvs, nameComponentObvs);
+    let _outofBCObv:Observable<ValidationStatus> = Observable.create(
+      (observer:Observer<ValidationStatus>) => {
 
-    console.log('number of totalObvs observables before: %o', totalObvs);
-    totalObvs = this.collectObservabls(totalObvs, outofBCObvs);
-    console.log('number of totalObvs observables: %o', totalObvs);
+        if(this.outofBCComponentList && this.outofBCComponentList.length > 0){
+          this.outofBCComponentList[0].isFormValid.subscribe(
+            (vstatus: ValidationStatus)=> {
+              observer.next(vstatus);
+            }
+          )
+        }
+      }
+    );
+    /**
+     * We need this code block to ensure that the validatin status from 
+     * the outof-bc componnet can always get rolled up with the rest of the form
+     * after togging yes/no on the question.
+     * 
+     * This is to get around the following bug.
+     * 
+     * This is likely a bug either in Angular 2 or RxJS:
+     * After using the yes/no toggle to add/remove outof-bc component, the 
+     * combineLatest is not picking up values from the isFormValid observable.
+     */
+    if(this.outofBCComponentList.length){
+      // console.log('add outofbc component to list of observables!');
+      let outofBCObservable = this.outofBCComponentList[0].isFormValid;
 
-    this.validitySubscription = Observable.combineLatest(
-      ...totalObvs
-    ).subscribe( collection => {
+      outofBCObservable.subscribe( (status:ValidationStatus) => {
+        // console.log('a separate subscription from pesonal details: %s - %s', status.name, status.value);
+        if(this.person.declarationForOutsideOver30Days === true){
+          this.outofBCFormValid = status.value;
+        }else{
+          this.outofBCFormValid = true;
+        }
+
+        this.isFormValid.emit(this.combinedValidationStatus && this.outofBCFormValid); 
+      })
+    }
+
+    Observable.combineLatest(
+        currentFormObservable,
+        ...birthDateObvs,
+        ...arrivalDateObvs,
+        ...nameComponentObvs
+      ).subscribe((collection:ValidationStatus[]) => {
+
       let combinedValidationState = collection.reduce( (acc: ValidationStatus, cur: ValidationStatus, idx:number, arr: ValidationStatus[]) => {
-        console.log('observables values array: %o', arr);
+        // console.log('processing index: %d', idx);
+        // console.log('observables values array: %o', arr);
         return {name: 'combined status at personl details level', value: acc.value && cur.value};
       },{name: 'starter', value: true});
 
-      console.log('combinedValidationState at personal details: %o', combinedValidationState);
-      console.log('combinedValidationState at personal details value: %s', combinedValidationState.value);
-      this.isFormValid.emit(combinedValidationState.value); 
+      // console.log('combinedValidationState at personal details value: %s', combinedValidationState.value);
+
+      this.combinedValidationStatus = combinedValidationState.value;
+      this.isFormValid.emit(this.combinedValidationStatus && this.outofBCFormValid); 
     });
 
-    console.log('validitySubscription on PersonalDetailsComponent closed?: %s', this.validitySubscription.closed);
-    console.log('validitySubscription on PersonalDetailsComponent: %o', this.validitySubscription);
   }
 
   collectObservabls(destObvs:Observable<ValidationStatus>[], targetAbvs:Observable<ValidationStatus>[]): Observable<ValidationStatus>[]{
@@ -289,9 +327,16 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
 
   onRegisterOutOfBCComponent(comp:MspOutofBCRecordComponent){
     console.log('outofbc component register with parent personal details');
-    this.outofBCComponentList.push(comp);
+    this.outofBCComponentList = this.outofBCComponentList.concat(comp);
     this.updateSubscription();
   }
+
+  onUnregisterOutOfBCComponent(comp:MspOutofBCRecordComponent){
+    console.log('outofbc component unregister with parent personal details');
+    this.outofBCComponentList = [];
+    this.updateSubscription();
+  }
+
   onRegisterBirthDateComponent(comp:MspBirthDateComponent){
     this.birthDateComponentList.push(comp);
     this.updateSubscription();
@@ -396,7 +441,6 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
     this.person.healthNumberFromOtherProvince = evt;
     this.onChange.emit(evt);
     
-    // console.log('health number changed: ' + evt);
   }
 
   setBeenOutsideForOver30Days(out:boolean){
@@ -407,6 +451,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit {
       this.person.outOfBCRecord = null;
       this.outofBCComponentList = [];
     }
+    
     this.onChange.emit(out);
   }
 
