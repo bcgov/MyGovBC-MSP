@@ -2,7 +2,7 @@ import {Component, Input, ViewChild, Output, EventEmitter, AfterViewInit, OnInit
 import {NgForm} from "@angular/forms";
 import {Person} from "../../model/person.model";
 import {Relationship} from "../../model/status-activities-documents";
-import {ValidationStatus} from "../../common/validation-status.interface";
+// import {ValidationStatus} from "../../common/validation-status.interface";
 
 import * as moment from 'moment';
 
@@ -26,16 +26,15 @@ export class MspBirthDateComponent implements OnInit, AfterViewInit{
   @Input() person: Person;
   @Input() showError: boolean;
   @Output() onChange = new EventEmitter<any>();
-  @Output() isFormValid = new EventEmitter<ValidationStatus>();
+  @Output() isFormValid = new EventEmitter<boolean>();
   @Output() registerBirthDateComponent = new EventEmitter<MspBirthDateComponent>();
   @ViewChild('formRef') form: NgForm;
-
 
   ngOnInit(): void {
     this.registerBirthDateComponent.emit(this);
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(this.form.valid);
-      this.isFormValid.emit( {name: 'birthdate component', value: this.form.valid});
+      this.isFormValid.emit(this.form.valid);
     });
   }
 
@@ -43,27 +42,29 @@ export class MspBirthDateComponent implements OnInit, AfterViewInit{
   }
 
   setYearValueOnModel(value:number){
-    let org:string = value + '';
-    let trimmed = org.substring(0, 4);
+    if(value){
+      let org:string = value + '';
+      let trimmed = org.substring(0, 4);
 
 
-    if(/[^\d]+/.test(trimmed)){
-      trimmed = trimmed.replace(/[^\d]/g, '');
+      if(/[^\d]+/.test(trimmed)){
+        trimmed = trimmed.replace(/[^\d]/g, '');
+      }
+
+      this.person.dob_year = parseInt(trimmed);
     }
-
-    this.person.dob_year = parseInt(trimmed);
-    
   }
 
   setDayValueOnModel(value:string){
-    let org:string = value + '';
-    let trimmed = org.substring(0, 2);
+    if(value){
+      let org:string = value + '';
+      let trimmed = org.substring(0, 2);
 
-    if(/[^\d]+/.test(trimmed)){
-      trimmed = trimmed.replace(/[^\d]/g, '');
+      if(/[^\d]+/.test(trimmed)){
+        trimmed = trimmed.replace(/[^\d]/g, '');
+      }
+      this.person.dob_day = parseInt(value);
     }
-    
-    this.person.dob_day = parseInt(value);
   }
   /**
    * Determine if date of birth is valid for the given person

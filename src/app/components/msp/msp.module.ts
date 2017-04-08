@@ -19,6 +19,7 @@ import {MspBirthDateComponent} from './common/birthdate/birthdate.component';
 import {CalendarYearFormatter} from './common/calendar/calendar-year-formatter.component';
 import {CalendarYearValidator} from './common/calendar/calendar-year.validator';
 import {CalendarDayValidator} from './common/calendar/calendar-day.validator';
+import {CalendarMonthValidator} from './common/calendar/calendar-month.validator';
 import {MspAddressComponent} from './common/address/address.component';
 import {MspProvinceComponent} from './common/province/province.component';
 import {MspCountryComponent} from './common/country/country.component';
@@ -227,6 +228,7 @@ let localStorageServiceConfig = {
     CalendarYearFormatter,
     CalendarYearValidator,
     CalendarDayValidator,
+    CalendarMonthValidator,
     MspAddressComponent,
     MspProvinceComponent,
     MspCountryComponent,

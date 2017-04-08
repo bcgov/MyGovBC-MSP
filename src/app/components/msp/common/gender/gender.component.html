@@ -1,21 +1,24 @@
-<div class="form-group" 
-  [ngClass]="{'has-error': showError && (person.gender === undefined || person.gender === null)}">
-  <label [innerHtml]="lang('./en/index.js').genderLabel"></label>
-  <span *ngIf='showError && (person.gender === undefined || person.gender === null)' 
-    class="text-danger">(Please specify gender)</span>
+<form #formRef="ngForm">
+  <div class="form-group" 
+    [ngClass]="{'has-error': showError && (person.gender === undefined || person.gender === null)}">
+    <label [innerHtml]="lang('./en/index.js').genderLabel"></label>
+    <span *ngIf='showError && (person.gender === undefined || person.gender === null)' 
+      class="text-danger">(Please specify gender)</span>
 
-  <div class="radio">
-    <input type="radio" name="gender" id="genderMale{{uuid}}" (click)="person.gender = Gender.Male" [checked]="Gender.Male === person.gender"
-      (change)="onChange.emit(Gender.Male)">
-      <label for="genderMale{{uuid}}">
-        {{lang('./en/index.js').maleLabel}}
-    </label>
+    <div class="radio">
+      <input type="radio" name="gender" id="genderMale{{uuid}}" 
+        (click)="person.gender = Gender.Male" [checked]="Gender.Male === person.gender"
+        (change)="genderChange(Gender.Male)">
+        <label for="genderMale{{uuid}}">
+          {{lang('./en/index.js').maleLabel}}
+      </label>
+    </div>
+    <div class="radio">
+      <input type="radio" name="gender" id="genderFemale{{uuid}}" (click)="person.gender = Gender.Female" [checked]="Gender.Female === person.gender"
+        (change)="genderChange(Gender.Female)">
+        <label for="genderFemale{{uuid}}">
+          {{lang('./en/index.js').femaleLabel}}
+      </label>
+    </div>
   </div>
-  <div class="radio">
-    <input type="radio" name="gender" id="genderFemale{{uuid}}" (click)="person.gender = Gender.Female" [checked]="Gender.Female === person.gender"
-      (change)="onChange.emit(Gender.Female)">
-      <label for="genderFemale{{uuid}}">
-        {{lang('./en/index.js').femaleLabel}}
-    </label>
-  </div>
-</div>
+</form>

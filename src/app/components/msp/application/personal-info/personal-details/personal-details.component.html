@@ -94,7 +94,11 @@
 
         <div class="row">
             <div class="col-sm-4">
-                <msp-gender [person]="person" (onChange) = "onChange.emit($event)" [showError] = "showError"></msp-gender>
+                <msp-gender [person]="person" 
+                  (onChange) = "onChange.emit($event)" 
+                  [showError] = "showError"
+                  (registerComponent) = "onRegisterGenderComponent($event)"
+                  ></msp-gender>
             </div>
             <div class="col-sm-8">
                 <msp-birthdate 

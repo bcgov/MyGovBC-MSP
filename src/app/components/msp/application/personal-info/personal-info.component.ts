@@ -1,4 +1,5 @@
-import {Component, Injectable, ViewChild, ViewChildren, QueryList, AfterViewInit, OnInit} from '@angular/core';
+import {Component, Injectable, ViewChild, ViewChildren, 
+  ChangeDetectorRef, QueryList, AfterViewInit, OnInit} from '@angular/core';
 import {MspApplication, Person} from '../../model/application.model';
 
 import DataService from '../../service/msp-data.service';
@@ -28,19 +29,21 @@ export class PersonalInfoComponent implements AfterViewInit{
   // @ViewChildren(PersonalDetailsComponent) personalDetailsList:QueryList<PersonalDetailsComponent>;
   personalDetailsList:PersonalDetailsComponent[] = [];
 
+  childComponentValidStatus:boolean[] = [];
+
   constructor(private dataService: DataService,
-    // private completenessCheck:CompletenessCheckService,
+    private cd:ChangeDetectorRef,
     private _router: Router){
 
   }
 
 
   ngOnInit(){
-    let curForm = this.form;
-    this.updateSubscription();
   }
 
   ngAfterViewInit(){
+    this.updateSubscription();
+    this.cd.detectChanges();
   }
 
   updateSubscription(){
@@ -54,21 +57,39 @@ export class PersonalInfoComponent implements AfterViewInit{
       return comp.isFormValid;
     });
 
-    this.validitySubscription = Observable.combineLatest(
-      currentFormObservable,
-      ...childrenObservables
-    ).subscribe(collection => {
-      this.combinedValidationState = collection.reduce( function(acc, cur){
-        return acc && !!cur;
-      },true);
+    for(let i=0; i < childrenObservables.length; i++){
+      childrenObservables[i].subscribe(
+        (status:boolean) => {
+          this.childComponentValidStatus[i] = status;
 
-      console.log('combinedValidationState on personal info screen: ' + this.combinedValidationState);
-    });
+          this.combinedValidationState = 
+            this.childComponentValidStatus.reduce(
+              (acc, cur, idx, arr) => {
+                return acc && cur;
+              },true
+            );
+
+          console.log('combinedValidationState on personal info screen: ' + this.combinedValidationState);
+        }
+      );
+    }
+
+    // this.validitySubscription = Observable.combineLatest(
+    //   ...childrenObservables
+    // ).subscribe(collection => {
+    //   this.combinedValidationState = collection.reduce( function(acc, cur, idx, arr){
+    //     console.log('personal info combined validation: %o', arr );
+    //     return acc && !!cur;
+    //   },true);
+
+    //   console.log('combinedValidationState on personal info screen: ' + this.combinedValidationState);
+    // });
 
   }
 
+
   ngOnDestroy(){
-    this.validitySubscription.unsubscribe();
+    // this.validitySubscription.unsubscribe();
   }
 
   onChange(values:any){
@@ -77,7 +98,7 @@ export class PersonalInfoComponent implements AfterViewInit{
   }
 
   onRegisterPersonalDetailsComponent(personalDetailsComp:PersonalDetailsComponent){
-    // console.log('register personal details component with personal info screen');
+    console.log('register personal details component with personal info screen');
     this.personalDetailsList.push(personalDetailsComp);
     this.updateSubscription();
   }
@@ -128,6 +149,8 @@ export class PersonalInfoComponent implements AfterViewInit{
   }
 
   continue():void {
+    console.log('personal info form valid: %s', this.form.valid);
+    console.log('combinedValidationState on personal info: %s', this.combinedValidationState);
     if(!this.combinedValidationState){
       console.log('Please fill in all required fields on the form.');
     }else{

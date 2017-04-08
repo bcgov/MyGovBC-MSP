@@ -1,7 +1,7 @@
 import {Component, Inject, Input, Output, EventEmitter, AfterViewInit, OnInit, ViewChild} from '@angular/core'
 import {Person} from "../../model/person.model";
 import {NgForm} from "@angular/forms";
-import {ValidationStatus} from "../../common/validation-status.interface";
+// import {ValidationStatus} from "../../common/validation-status.interface";
 
 
 @Component({
@@ -11,7 +11,7 @@ import {ValidationStatus} from "../../common/validation-status.interface";
 export class MspNameComponent implements AfterViewInit, OnInit{
   lang = require('./i18n');
 
-  @Output() isFormValid = new EventEmitter<ValidationStatus>();
+  @Output() isFormValid = new EventEmitter<boolean>();
   @Output() registerMspNameComponent = new EventEmitter<MspNameComponent>();
 
   @Input() person: Person;
@@ -22,17 +22,15 @@ export class MspNameComponent implements AfterViewInit, OnInit{
 
   ngOnInit(){
     this.registerMspNameComponent.emit(this);
-    
-    this.form.valueChanges.subscribe(
-      (values) => {
-        this.isFormValid.emit({name: 'msp-name component', value: this.form.valid});
-      }
-    );
   }
 
   ngAfterViewInit(): void {
-    this.form.valueChanges.subscribe(values => {
-      this.onChange.emit(values);
-    });
+    this.form.valueChanges.subscribe(
+      (values) => {
+        this.onChange.emit(values);
+        console.log('name component validation: %s', this.form.valid);
+        this.isFormValid.emit(this.form.valid);
+      }
+    );
   }
 }
