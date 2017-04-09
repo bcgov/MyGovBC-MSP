@@ -104,7 +104,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() isFormValid = new EventEmitter<boolean>();
   @Output() registerPersonalDetailsComponent = new EventEmitter<PersonalDetailsComponent>();
-
+  @Output() unRegisterPersonalDetailsComponent = new EventEmitter<PersonalDetailsComponent>();
   shrinkOut: string;
   shrinkOutStatus: string;
   genderListSignal: string;
@@ -115,8 +115,8 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
   nameValidStatus:boolean = false;
   dobValidStatus:boolean = false;
   genderValidStatus:boolean = false;
-  provinceValidStatus:boolean = false;
-  phnValidStatus:boolean = false;
+  // provinceValidStatus:boolean = true;
+  phnValidStatus:boolean = true;
   arrivalDatesValidStatus:boolean[] = [];
   dischargeDateValidStatus:boolean = true;
 
@@ -125,7 +125,8 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
   
 
   outofBCFormValidStatus:boolean = true;
-  combinedValidationStatus:boolean = true;
+
+  // combinedValidationStatus:boolean = true;
 
 
   subscriptions:Subscription[] = [];
@@ -162,7 +163,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
 
   setActivity(value:Activities) {
     this.person.currentActivity = value;
-    this.person.movedFromProvinceOrCountry = undefined;
+    this.person.movedFromProvinceOrCountry = '';
     this.onChange.emit(value);
   }
 
@@ -225,6 +226,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
     
     this.updateSubscription();
     this.emitFormValidationStatus();
+    this.cd.detectChanges();
     /**
      * Load an empty row to screen 
      */
@@ -271,7 +273,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
       this.subscriptions.push(this.provinceComponent.isFormValid
         .subscribe(
           (status:boolean) => {
-            this.provinceValidStatus = status;
+            console.log('province component validation status: %s', status);
             this.emitFormValidationStatus();
           }
         )
@@ -338,11 +340,14 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   emitFormValidationStatus() {
+    let countryOrProvinceProvided = !!this.person.movedFromProvinceOrCountry
+      && this.person.movedFromProvinceOrCountry.trim().length > 0;
+
     let totalFormStatus: boolean =
       this.dobValidStatus &&
       this.nameValidStatus &&
       this.genderValidStatus &&
-      this.provinceValidStatus &&
+      countryOrProvinceProvided &&
       this.outofBCFormValidStatus;
 
     let combinedArrivalDateValidStatus =
@@ -352,13 +357,15 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
         }, true
       );
 
+      
     let movedToBC = _.isBoolean(this.person.madePermanentMoveToBC);
     let hasPrevPhnAnswer = _.isBoolean(this.person.hasPreviousBCPhn);
-    let armedForceHistoryAnswer = this.person.institutionWorkHistory.toLowerCase() === 'yes' ||
-      this.person.institutionWorkHistory.toLowerCase() === 'no';
+    let armedForceHistoryAnswer = this.person.institutionWorkHistory && (this.person.institutionWorkHistory.toLowerCase() === 'yes' ||
+      this.person.institutionWorkHistory.toLowerCase() === 'no');
 
     let fullTimeStutAnswer = _.isBoolean(this.person.fullTimeStudent);
     let inBCAfterStudyAnswer = true;
+
     if(this.person.fullTimeStudent === true){
       inBCAfterStudyAnswer = _.isBoolean(this.person.inBCafterStudies);
     }
@@ -375,12 +382,16 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
       && this.healthNumberValidStatus;
     
     console.log('personal details totalFormStatus: %s', totalFormStatus);
+
+    // this.combinedValidationStatus = totalFormStatus;
     this.isFormValid.emit(totalFormStatus);
   }
 
   ngOnDestroy(){
     this.unsubscribeAll();
+    this.unRegisterPersonalDetailsComponent.emit(this);
   }
+  
   unsubscribeAll(){
     this.subscriptions.forEach(
       (sub:Subscription) => {
@@ -421,6 +432,10 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
   onRegisterMspProvinceComponent(comp:MspProvinceComponent){
     this.provinceComponent = comp;
     this.updateSubscription();
+  }  
+  onUnregisterMspProvinceComponent(){
+    this.provinceComponent = null;
+    // this.updateSubscription();
   }  
 
   onRegisterHealthNumberComponent(comp:HealthNumberComponent){
@@ -485,6 +500,13 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
     this.onChange.emit(evt);
   }
 
+
+  setHasPreviousPhn(value:boolean){
+    this.person.hasPreviousBCPhn = value;
+    this.emitFormValidationStatus();
+    this.onChange.emit(value);    
+    this.cd.detectChanges();
+  }
   updateSchoolExpectedCompletionDate(evt:any){
     // console.log('school expected completion date updated: %o', evt);
     this.person.studiesFinishedDay = evt.day;

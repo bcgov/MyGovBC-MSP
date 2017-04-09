@@ -20,17 +20,15 @@ import { Observer } from 'rxjs/Observer';
 @Injectable()
 export class PersonalInfoComponent implements AfterViewInit{
   lang = require('./i18n');
-  private combinedValidationState:boolean;
+  // private combinedValidationState:boolean;
   Relationship: typeof Relationship = Relationship;
 
-  validitySubscription:Subscription;
+  // validitySubscription:Subscription;
 
   @ViewChild('formRef') form: NgForm;
   // @ViewChildren(PersonalDetailsComponent) personalDetailsList:QueryList<PersonalDetailsComponent>;
   personalDetailsList:PersonalDetailsComponent[] = [];
-
-  childComponentValidStatus:boolean[] = [];
-
+  // childComponentValidStatus:boolean[] = [];
   constructor(private dataService: DataService,
     private cd:ChangeDetectorRef,
     private _router: Router){
@@ -42,50 +40,38 @@ export class PersonalInfoComponent implements AfterViewInit{
   }
 
   ngAfterViewInit(){
-    this.updateSubscription();
-    this.cd.detectChanges();
+    // this.updateSubscription();
+    // this.cd.detectChanges();
   }
 
-  updateSubscription(){
-    let currentFormObservable: Observable<boolean> =
-      this.form.valueChanges.map(values => {
-        return this.form.valid;
-    });
+  // updateSubscription(){
+  //   let currentFormObservable: Observable<boolean> =
+  //     this.form.valueChanges.map(values => {
+  //       return this.form.valid;
+  //   });
 
-    let childrenObservables:Observable<boolean>[] = [];
-    childrenObservables = this.personalDetailsList.map((comp:PersonalDetailsComponent)=>{
-      return comp.isFormValid;
-    });
+  //   let childrenObservables:Observable<boolean>[] = [];
+  //   childrenObservables = this.personalDetailsList.map((comp:PersonalDetailsComponent)=>{
+  //     return comp.isFormValid;
+  //   });
 
-    for(let i=0; i < childrenObservables.length; i++){
-      childrenObservables[i].subscribe(
-        (status:boolean) => {
-          this.childComponentValidStatus[i] = status;
+  //   for(let i=0; i < childrenObservables.length; i++){
+  //     childrenObservables[i].subscribe(
+  //       (status:boolean) => {
+  //         this.childComponentValidStatus[i] = status;
+      
+  //         this.combinedValidationState = 
+  //           this.childComponentValidStatus.reduce(
+  //             (acc, cur, idx, arr) => {
+  //               return acc && cur;
+  //             },true
+  //           );
 
-          this.combinedValidationState = 
-            this.childComponentValidStatus.reduce(
-              (acc, cur, idx, arr) => {
-                return acc && cur;
-              },true
-            );
-
-          console.log('combinedValidationState on personal info screen: ' + this.combinedValidationState);
-        }
-      );
-    }
-
-    // this.validitySubscription = Observable.combineLatest(
-    //   ...childrenObservables
-    // ).subscribe(collection => {
-    //   this.combinedValidationState = collection.reduce( function(acc, cur, idx, arr){
-    //     console.log('personal info combined validation: %o', arr );
-    //     return acc && !!cur;
-    //   },true);
-
-    //   console.log('combinedValidationState on personal info screen: ' + this.combinedValidationState);
-    // });
-
-  }
+  //         console.log('combinedValidationState on personal info screen: ' + this.combinedValidationState);
+  //       }
+  //     );
+  //   }
+  // }
 
 
   ngOnDestroy(){
@@ -99,7 +85,16 @@ export class PersonalInfoComponent implements AfterViewInit{
 
   onRegisterPersonalDetailsComponent(personalDetailsComp:PersonalDetailsComponent){
     this.personalDetailsList.push(personalDetailsComp);
-    this.updateSubscription();
+    // this.cd.detectChanges();
+    // this.updateSubscription();
+  }
+  onUnregisterPersonalDetailsComponent(c:PersonalDetailsComponent){
+    this.personalDetailsList = this.personalDetailsList.filter(
+      (cp:PersonalDetailsComponent)=>{
+        return cp.person.uuid !== c.person.uuid;
+      }
+    );
+    // this.cd.detectChanges();
   }
 
   get application(): MspApplication {
@@ -143,14 +138,23 @@ export class PersonalInfoComponent implements AfterViewInit{
     return this.dataService.getMspApplication().documentsReady;
   }
 
-  get canContinue():boolean {
-    return this.combinedValidationState;
+  canContinue():boolean {
+    let validStatus:boolean = 
+    this.personalDetailsList.reduce(
+      (acc:boolean, cur:PersonalDetailsComponent, idx:number)=>{
+        return acc && cur.combinedValidationStatus;
+      },true
+    );
+
+    return validStatus && this.form.valid;
   }
 
   continue():void {
-    console.log('personal info form itself valid: %s', this.form.valid);
-    console.log('combinedValidationState on personal info: %s', this.combinedValidationState);
-    if(!this.combinedValidationState){
+
+    let temp = this.canContinue();
+    // console.log('personal info form itself valid: %s', this.form.valid);
+    console.log('combinedValidationState on personal info: %s', temp);
+    if(!temp){
       console.log('Please fill in all required fields on the form.');
     }else{
       this._router.navigate(['/msp/application/address']);

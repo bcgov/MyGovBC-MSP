@@ -1,4 +1,4 @@
-import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, Input, EventEmitter, Output, ViewChild, OnDestroy} from '@angular/core';
 import {CompleterService, CompleterData} from 'ng2-completer';
 import {NgForm, FormControl} from "@angular/forms";
 
@@ -7,7 +7,7 @@ import {NgForm, FormControl} from "@angular/forms";
   templateUrl: './province.component.html'
 })
 
-export class MspProvinceComponent {
+export class MspProvinceComponent implements OnDestroy {
 
   lang = require('./i18n');
 
@@ -19,6 +19,7 @@ export class MspProvinceComponent {
 
   @Output() isFormValid = new EventEmitter<boolean>();
   @Output() registerComponent = new EventEmitter<MspProvinceComponent>();
+  @Output() unRegisterComponent = new EventEmitter<MspProvinceComponent>();
 
   @ViewChild('formRef') form: NgForm;
   @ViewChild('provinceInput') inputField: FormControl;
@@ -32,7 +33,6 @@ export class MspProvinceComponent {
   }
   
   updateModel(event:string){
-    console.log('province change, %o', event);
     this.province=event;
     this.onChange.emit(event)    
     this.isFormValid.emit(!!event);
@@ -42,7 +42,6 @@ export class MspProvinceComponent {
     if(!input.value){
       this.province = '';
       this.isFormValid.emit(!!this.province);
-      console.log('province keyboard event: %s', this.province);
     }
   }
   /**
@@ -64,5 +63,9 @@ export class MspProvinceComponent {
   constructor(private completerService: CompleterService) {
 
     this.dataService = completerService.local(this.provinceStateData, 'name', 'name');
+  }
+
+  ngOnDestroy(){
+    this.unRegisterComponent.emit(this);
   }
 }

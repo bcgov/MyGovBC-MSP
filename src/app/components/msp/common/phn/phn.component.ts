@@ -26,7 +26,16 @@ export class MspPhnComponent implements AfterViewInit, OnInit, OnDestroy{
 
   ngOnInit(){
     this.registerComponent.emit(this);
-    this.isFormValid.emit(this.form.valid);
+
+    if(!this.required){
+      if(this.phn === null || this.phn === undefined || this.phn.trim() === ""){
+        this.isFormValid.emit(true);
+      }else{
+        this.isFormValid.emit(this.form.valid);
+      }
+    }else{
+      this.isFormValid.emit(this.form.valid);
+    }
   }
 
   ngAfterViewInit(): void {

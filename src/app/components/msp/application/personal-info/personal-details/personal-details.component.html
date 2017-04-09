@@ -137,6 +137,7 @@
                             (onChange)="provinceUpdate($event)"
                             [exceptBC]="true" [showError]="showError"
                             (registerComponent) = "onRegisterMspProvinceComponent($event)"
+                            (unRegisterComponent) = "onUnregisterMspProvinceComponent($event)"
                             colSize="col-sm-4"></msp-province>
             </div>
         
@@ -261,10 +262,10 @@
                   class="control-label"></label>
                 <div class="btn-group" role="group">
                     <button [class.msp-btn-radio]="person.hasPreviousBCPhn"
-                            (click)="person.hasPreviousBCPhn = true; onChange.emit(person.hasPreviousBCPhn)"
+                            (click)="setHasPreviousPhn(true)"
                             type="button" class="btn btn-default" >Yes</button>
                     <button [class.msp-btn-radio]="person.hasPreviousBCPhn === false"
-                            (click)="person.hasPreviousBCPhn = false; onChange.emit(person.hasPreviousBCPhn)"
+                            (click)="setHasPreviousPhn(false)"
                             type="button" class="btn btn-default">No&nbsp;</button>
                 </div>
 

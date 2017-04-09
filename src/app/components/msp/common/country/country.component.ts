@@ -32,8 +32,6 @@ export class MspCountryComponent {
   }
 
   updateModel(event:string){
-    // console.log('province change, %o', event);
-    // this.province=event;
     this.onChange.emit(event)
   }
 }
