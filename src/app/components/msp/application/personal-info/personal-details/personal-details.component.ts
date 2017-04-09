@@ -238,7 +238,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
         .subscribe( (status:boolean) => {
           this.dobValidStatus = status;
           // console.log('dobValid status value: %s', this.dobValidStatus);
-          this.emitFormValidationStatus();
+          // this.emitFormValidationStatus();
         })
       );
     }
@@ -248,7 +248,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
         .subscribe(
           (status:boolean) => {
             this.nameValidStatus = status;
-            this.emitFormValidationStatus();
+            // this.emitFormValidationStatus();
           }
         )
       );
@@ -259,7 +259,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
         .subscribe(
           (status:boolean) => {
             this.genderValidStatus = status;
-            this.emitFormValidationStatus();
+            // this.emitFormValidationStatus();
           }
         )
       );
@@ -270,7 +270,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
         .subscribe(
           (status:boolean) => {
             console.log('province component validation status: %s', status);
-            this.emitFormValidationStatus();
+            // this.emitFormValidationStatus();
           }
         )
       );
@@ -281,7 +281,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
         .subscribe(
           (status:boolean) => {
             this.phnValidStatus = status;
-            this.emitFormValidationStatus();
+            // this.emitFormValidationStatus();
           }
         )
       );
@@ -293,7 +293,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
           (status:boolean) => {
             this.outofBCFormValidStatus = status;
             // console.log('outofBCFormValidStatus in personal details: %s', this.outofBCFormValidStatus);
-            this.emitFormValidationStatus();
+            // this.emitFormValidationStatus();
           }
         )
       );
@@ -304,7 +304,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
         .subscribe(
           (status:boolean) => {
             this.healthNumberValidStatus = status;
-            this.emitFormValidationStatus();
+            // this.emitFormValidationStatus();
           }
         )
       );
@@ -315,7 +315,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
         .subscribe(
           (status:boolean) => {
             this.dischargeDateValidStatus = status;
-            this.emitFormValidationStatus();
+            // this.emitFormValidationStatus();
           }
         );
     }
@@ -328,7 +328,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
       this.subscriptions.push(arrivalDateObs.subscribe(
           (status:boolean) => {
             this.arrivalDatesValidStatus[idx] = status;
-            this.emitFormValidationStatus();
+            // this.emitFormValidationStatus();
           }
         )
       );
@@ -336,7 +336,8 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   emitFormValidationStatus() {
-    let countryOrProvinceProvided = !!this.person.movedFromProvinceOrCountry
+    let rollupItems:any = {};
+    rollupItems.countryOrProvinceProvided = !!this.person.movedFromProvinceOrCountry
       && this.person.movedFromProvinceOrCountry.trim().length > 0;
 
       /**
@@ -344,26 +345,29 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
        * Canadian citizen living in BC without MSP
        * Permanant resident living in BC without MSP
        */
-    let countryOrProvinceRequired = 
+    rollupItems.countryOrProvinceRequired = 
       !((this.person.status === StatusInCanada.CitizenAdult || this.person.status === StatusInCanada.PermanentResident)
         && this.person.currentActivity === Activities.LivingInBCWithoutMSP);
 
-    let cntyOrProvValid:boolean = true;
-    if(countryOrProvinceRequired){
-      cntyOrProvValid = countryOrProvinceProvided;
+    rollupItems.cntyOrProvValid = true;
+    if(rollupItems.countryOrProvinceRequired){
+      rollupItems.cntyOrProvValid = rollupItems.countryOrProvinceProvided;
     }
 
-    let livedInBCSinceBirthSpecified = _.isBoolean(this.person.livedInBCSinceBirth);
+    rollupItems.livedInBCSinceBirthSettled = true;
+    let livedInBCSinceBirthRequired:boolean = 
+      (this.person.status === StatusInCanada.CitizenAdult && this.person.currentActivity === Activities.LivingInBCWithoutMSP);
 
-    let totalFormStatus: boolean =
-      this.dobValidStatus &&
-      this.nameValidStatus &&
-      this.genderValidStatus &&
-      cntyOrProvValid &&
-      livedInBCSinceBirthSpecified &&
-      this.outofBCFormValidStatus;
+    if(livedInBCSinceBirthRequired){
+      rollupItems.livedInBCSinceBirthSettled = _.isBoolean(this.person.livedInBCSinceBirth);
+    }  
 
-    let combinedArrivalDateValidStatus =
+    rollupItems.dobValidStatus = this.dobValidStatus;
+    rollupItems.nameValidStatus = this.nameValidStatus;
+    rollupItems.genderValidStatus = this.genderValidStatus;
+    rollupItems.outofBCFormValidStatus = this.outofBCFormValidStatus
+
+    rollupItems.combinedArrivalDateValidStatus =
       this.arrivalDatesValidStatus.reduce(
         (acc: boolean, cur: boolean) => {
           return acc && cur;
@@ -371,30 +375,34 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
       );
 
       
-    let movedToBC = _.isBoolean(this.person.madePermanentMoveToBC);
-    let hasPrevPhnAnswer = _.isBoolean(this.person.hasPreviousBCPhn);
-    let armedForceHistoryAnswer = this.person.institutionWorkHistory && (this.person.institutionWorkHistory.toLowerCase() === 'yes' ||
+    rollupItems.movedToBC = _.isBoolean(this.person.madePermanentMoveToBC);
+    rollupItems.hasPrevPhnAnswer = _.isBoolean(this.person.hasPreviousBCPhn);
+    rollupItems.armedForceHistoryAnswer = this.person.institutionWorkHistory && (this.person.institutionWorkHistory.toLowerCase() === 'yes' ||
       this.person.institutionWorkHistory.toLowerCase() === 'no');
 
-    let fullTimeStutAnswer = _.isBoolean(this.person.fullTimeStudent);
-    let inBCAfterStudyAnswer = true;
+    rollupItems.studentAnswerSettled = true;
 
-    if(this.person.fullTimeStudent === true){
-      inBCAfterStudyAnswer = _.isBoolean(this.person.inBCafterStudies);
+    if(this.person.relationship === Relationship.Applicant ){
+      let fullTimeStutAnswer = _.isBoolean(this.person.fullTimeStudent);
+      let inBCAfterStudyAnswerSettled = true;
+
+      if(this.person.fullTimeStudent === true){
+        inBCAfterStudyAnswerSettled = _.isBoolean(this.person.inBCafterStudies);
+      }
+      rollupItems.studentAnswerSettled = fullTimeStutAnswer && inBCAfterStudyAnswerSettled;
     }
 
-    totalFormStatus = totalFormStatus 
-      && combinedArrivalDateValidStatus 
-      && movedToBC 
-      && hasPrevPhnAnswer
-      && this.phnValidStatus
-      && armedForceHistoryAnswer
-      && this.dischargeDateValidStatus
-      && fullTimeStutAnswer
-      && inBCAfterStudyAnswer
-      && this.healthNumberValidStatus;
+    rollupItems.phnValidStatus = this.phnValidStatus;
+    rollupItems.dischargeDateValidStatus = this.dischargeDateValidStatus;
+    rollupItems.healthNumberValidStatus = this.healthNumberValidStatus;
+
+    let totalFormStatus:boolean = Object.getOwnPropertyNames(rollupItems).reduce(
+      (acc:boolean, cur:string, idx:number, arr:any) => {
+        return acc && rollupItems[cur];
+      },true
+    );
     
-    // console.log('personal details totalFormStatus: %s', totalFormStatus);
+    console.log('personal details screen validation status for %s: %s - %o', this.person.firstName, totalFormStatus, rollupItems);
     // this.isFormValid.emit(totalFormStatus);
     return totalFormStatus;
   }
@@ -418,6 +426,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   onUnregisterOutOfBCComponent(comp:MspOutofBCRecordComponent){
+    console.log('remove MspOutofBCRecordComponent');
     this.outofBCComponent = null;
     this.updateSubscription();
   }

@@ -147,11 +147,11 @@ export class PersonalInfoComponent implements AfterViewInit{
     let validStatus:boolean = 
     this.personalDetailsList.reduce(
       (acc:boolean, cur:PersonalDetailsComponent, idx:number, arr:PersonalDetailsComponent[])=>{
-        // console.log('personal details list: %o', arr);
+        console.log('personal details list: %o', arr);
         return acc && cur.emitFormValidationStatus();
       },true
     );
-    // console.log('Child p details rolled up status: %s', validStatus);
+    console.log('Child p details rolled up status for: %s', validStatus);
     return validStatus;
   }
 
