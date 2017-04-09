@@ -58,7 +58,7 @@ export class MspOutofBCRecordComponent implements AfterViewInit{
             return acc && cur;
           },true
         );
-        console.log('outof-bc component validation status %s', combined);
+        // console.log('outof-bc component validation status %s', combined);
         this.isFormValid.emit(combined as boolean);
       }
     );

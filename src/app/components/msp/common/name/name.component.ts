@@ -28,7 +28,7 @@ export class MspNameComponent implements AfterViewInit, OnInit{
     this.form.valueChanges.subscribe(
       (values) => {
         this.onChange.emit(values);
-        console.log('name component validation: %s', this.form.valid);
+        // console.log('name component validation: %s', this.form.valid);
         this.isFormValid.emit(this.form.valid);
       }
     );

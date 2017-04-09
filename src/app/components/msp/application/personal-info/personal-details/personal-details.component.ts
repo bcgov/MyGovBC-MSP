@@ -353,11 +353,14 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
       cntyOrProvValid = countryOrProvinceProvided;
     }
 
+    let livedInBCSinceBirthSpecified = _.isBoolean(this.person.livedInBCSinceBirth);
+
     let totalFormStatus: boolean =
       this.dobValidStatus &&
       this.nameValidStatus &&
       this.genderValidStatus &&
       cntyOrProvValid &&
+      livedInBCSinceBirthSpecified &&
       this.outofBCFormValidStatus;
 
     let combinedArrivalDateValidStatus =

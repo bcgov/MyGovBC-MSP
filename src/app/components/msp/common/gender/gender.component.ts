@@ -35,7 +35,7 @@ export class MspGenderComponent {
 
   ngAfterViewInit(){
     let status:boolean = (this.person.gender === Gender.Male || this.person.gender === Gender.Female);
-    console.log('gender component initial validation status: %o', status);
+    // console.log('gender component initial validation status: %o', status);
     this.isFormValid.emit(status);
   }
 
@@ -43,7 +43,7 @@ export class MspGenderComponent {
     this.onChange.emit(evt);
 
     let status:boolean = (this.person.gender === Gender.Male || this.person.gender === Gender.Female);
-    console.log('Gender component validation status: %o', status);
+    // console.log('Gender component validation status: %o', status);
     this.isFormValid.emit(status);
   }
 }
