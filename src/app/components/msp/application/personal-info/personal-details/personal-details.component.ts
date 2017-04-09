@@ -123,11 +123,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
   //default to true because it is optional
   healthNumberValidStatus:boolean = true;
   
-
   outofBCFormValidStatus:boolean = true;
-
-  // combinedValidationStatus:boolean;
-
 
   subscriptions:Subscription[] = [];
 
@@ -343,11 +339,25 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
     let countryOrProvinceProvided = !!this.person.movedFromProvinceOrCountry
       && this.person.movedFromProvinceOrCountry.trim().length > 0;
 
+      /**
+       * Don't need to provide where from info on country or province for the following cases: 
+       * Canadian citizen living in BC without MSP
+       * Permanant resident living in BC without MSP
+       */
+    let countryOrProvinceRequired = 
+      !((this.person.status === StatusInCanada.CitizenAdult || this.person.status === StatusInCanada.PermanentResident)
+        && this.person.currentActivity === Activities.LivingInBCWithoutMSP);
+
+    let cntyOrProvValid:boolean = true;
+    if(countryOrProvinceRequired){
+      cntyOrProvValid = countryOrProvinceProvided;
+    }
+
     let totalFormStatus: boolean =
       this.dobValidStatus &&
       this.nameValidStatus &&
       this.genderValidStatus &&
-      countryOrProvinceProvided &&
+      cntyOrProvValid &&
       this.outofBCFormValidStatus;
 
     let combinedArrivalDateValidStatus =
@@ -381,10 +391,9 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
       && inBCAfterStudyAnswer
       && this.healthNumberValidStatus;
     
-    console.log('personal details totalFormStatus: %s', totalFormStatus);
-    return totalFormStatus;
-    // this.combinedValidationStatus = totalFormStatus;
+    // console.log('personal details totalFormStatus: %s', totalFormStatus);
     // this.isFormValid.emit(totalFormStatus);
+    return totalFormStatus;
   }
 
   ngOnDestroy(){
