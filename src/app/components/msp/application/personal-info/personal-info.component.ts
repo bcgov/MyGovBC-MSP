@@ -139,19 +139,25 @@ export class PersonalInfoComponent implements AfterViewInit{
   }
 
   canContinue():boolean {
+    return this.gatherChildValidationStatus();
+    // return true;
+  }
+
+  gatherChildValidationStatus(){
     let validStatus:boolean = 
     this.personalDetailsList.reduce(
-      (acc:boolean, cur:PersonalDetailsComponent, idx:number)=>{
-        return acc && cur.combinedValidationStatus;
+      (acc:boolean, cur:PersonalDetailsComponent, idx:number, arr:PersonalDetailsComponent[])=>{
+        // console.log('personal details list: %o', arr);
+        return acc && cur.emitFormValidationStatus();
       },true
     );
-
-    return validStatus && this.form.valid;
+    // console.log('Child p details rolled up status: %s', validStatus);
+    return validStatus;
   }
 
   continue():void {
 
-    let temp = this.canContinue();
+    let temp = this.gatherChildValidationStatus();
     // console.log('personal info form itself valid: %s', this.form.valid);
     console.log('combinedValidationState on personal info: %s', temp);
     if(!temp){

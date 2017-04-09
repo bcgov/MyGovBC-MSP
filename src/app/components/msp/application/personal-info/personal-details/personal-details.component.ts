@@ -126,7 +126,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
 
   outofBCFormValidStatus:boolean = true;
 
-  // combinedValidationStatus:boolean = true;
+  // combinedValidationStatus:boolean;
 
 
   subscriptions:Subscription[] = [];
@@ -382,9 +382,9 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
       && this.healthNumberValidStatus;
     
     console.log('personal details totalFormStatus: %s', totalFormStatus);
-
+    return totalFormStatus;
     // this.combinedValidationStatus = totalFormStatus;
-    this.isFormValid.emit(totalFormStatus);
+    // this.isFormValid.emit(totalFormStatus);
   }
 
   ngOnDestroy(){
