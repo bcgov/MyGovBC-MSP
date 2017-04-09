@@ -20,6 +20,7 @@ import {MspBirthDateComponent} from "../../../common/birthdate/birthdate.compone
 import {MspNameComponent} from "../../../common/name/name.component";
 import {MspGenderComponent} from "../../../common/gender/gender.component";
 import {MspPhnComponent} from "../../../common/phn/phn.component";
+import {MspSchoolDateComponent} from "../../../common/schoolDate/school-date.component";
 import {HealthNumberComponent} from "../../../common/health-number/health-number.component";
 import {MspDischargeDateComponent} from "../../../common/discharge-date/discharge-date.component";
 
@@ -91,6 +92,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
   private provinceComponent:MspProvinceComponent;
   private outofBCComponent: MspOutofBCRecordComponent;
   private arrivalDateComponentList:MspArrivalDateComponent[] = [];
+  private schoolDateComponentList:MspSchoolDateComponent[] = [];
   private phnComponent:MspPhnComponent;
   private healthNumberComponent:HealthNumberComponent;
   private dischargeDateComponent:MspDischargeDateComponent;
@@ -118,6 +120,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
   // provinceValidStatus:boolean = true;
   phnValidStatus:boolean = true;
   arrivalDatesValidStatus:boolean[] = [];
+  schoolDatesStatus:boolean[] = [];
   dischargeDateValidStatus:boolean = true;
 
   //default to true because it is optional
@@ -333,11 +336,22 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
         )
       );
     });
+
+    this.schoolDateComponentList.map( schoolDateComp => {
+      return schoolDateComp.isFormValid;
+    }).forEach(
+      (obv:Observable<boolean>, idx: number) => {
+        obv.subscribe( (status:boolean) => {
+          // console.log('personal details panel, school date valid status: %s', status);
+          this.schoolDatesStatus[idx] = status;
+        });
+      }
+    );
   }
 
   emitFormValidationStatus() {
     let rollupItems:any = {};
-    rollupItems.countryOrProvinceProvided = !!this.person.movedFromProvinceOrCountry
+    let countryOrProvinceProvided:boolean = !!this.person.movedFromProvinceOrCountry
       && this.person.movedFromProvinceOrCountry.trim().length > 0;
 
       /**
@@ -345,13 +359,13 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
        * Canadian citizen living in BC without MSP
        * Permanant resident living in BC without MSP
        */
-    rollupItems.countryOrProvinceRequired = 
+    let countryOrProvinceRequired:boolean = 
       !((this.person.status === StatusInCanada.CitizenAdult || this.person.status === StatusInCanada.PermanentResident)
         && this.person.currentActivity === Activities.LivingInBCWithoutMSP);
 
-    rollupItems.cntyOrProvValid = true;
+    rollupItems.cntyOrProvSettled = true;
     if(rollupItems.countryOrProvinceRequired){
-      rollupItems.cntyOrProvValid = rollupItems.countryOrProvinceProvided;
+      rollupItems.cntyOrProvSettled = rollupItems.countryOrProvinceProvided;
     }
 
     rollupItems.livedInBCSinceBirthSettled = true;
@@ -396,11 +410,19 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
     rollupItems.dischargeDateValidStatus = this.dischargeDateValidStatus;
     rollupItems.healthNumberValidStatus = this.healthNumberValidStatus;
 
-    let totalFormStatus:boolean = Object.getOwnPropertyNames(rollupItems).reduce(
-      (acc:boolean, cur:string, idx:number, arr:any) => {
-        return acc && rollupItems[cur];
+    rollupItems.schoolDatesValidStatus = this.schoolDatesStatus.reduce( 
+      (acc:boolean,cur:boolean) => {
+        return acc && cur;
       },true
     );
+
+    rollupItems.personalDetailsFormValidStatus = this.form.valid;
+    let totalFormStatus:boolean = Object.getOwnPropertyNames(rollupItems)
+      .reduce(
+        (acc:boolean, cur:string, idx:number, arr:any) => {
+          return acc && rollupItems[cur];
+        },true
+      );
     
     console.log('personal details screen validation status for %s: %s - %o', this.person.firstName, totalFormStatus, rollupItems);
     // this.isFormValid.emit(totalFormStatus);
@@ -484,6 +506,18 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
 
   onUnRegisterDischargeDate(){
     this.dischargeDateComponent = null;
+  }
+
+  onRegisterSchoolComponent(sp:MspSchoolDateComponent){
+    this.schoolDateComponentList.push(sp);
+    this.updateSubscription();
+  }
+
+  onUnregisterSchoolComponent(sp:MspSchoolDateComponent){
+    this.schoolDateComponentList = 
+      this.schoolDateComponentList.filter( c=>{
+      return c.uuid === sp.uuid;
+    });
   }
 
   get arrivalDateLabel():string {

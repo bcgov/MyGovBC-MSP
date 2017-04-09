@@ -29,11 +29,17 @@ export class MspAddressComponent implements AfterViewInit, OnChanges{
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
 
+  @Output() isFormValid = new EventEmitter<boolean>();
+  @Output() registerComponent = new EventEmitter<MspAddressComponent>();
+  @Output() unRegisterComponent = new EventEmitter<MspAddressComponent>();
+
   Address: typeof Address = Address;
 
   ngAfterViewInit(): void {
+    this.isFormValid.emit(this.form.valid);
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);
+      this.isFormValid.emit(this.form.valid);
     });
   }
 
@@ -42,6 +48,7 @@ export class MspAddressComponent implements AfterViewInit, OnChanges{
       if(changes['mailingSameAsResidentialAddress'].currentValue === null 
         || changes['mailingSameAsResidentialAddress'].currentValue === undefined){
           this.mailingSameAsResidentialAddress = true;
+          this.isFormValid.emit(this.form.valid);
       }
     }
   }
@@ -145,11 +152,14 @@ export class MspAddressComponent implements AfterViewInit, OnChanges{
   useDifferentMailingAddress() {
     this.mailingSameAsResidentialAddress = false;
     this.mailingSameAsResidentialAddressChange.emit(this.mailingSameAsResidentialAddress);
+    this.isFormValid.emit(this.form.valid);
+    
   }
 
   useSameMailingAddress() {
     this.mailingSameAsResidentialAddress = true;
     this.mailingAddress = new Address();
     this.mailingSameAsResidentialAddressChange.emit(this.mailingSameAsResidentialAddress);
+    this.isFormValid.emit(this.form.valid);
   }
 }

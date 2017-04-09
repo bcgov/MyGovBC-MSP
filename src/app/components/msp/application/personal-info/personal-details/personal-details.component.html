@@ -385,7 +385,10 @@
                             (monthChange)="person.studiesDepartureMonth = $event"
                             [day]="person.studiesDepartureDay"
                             (dayChange)="person.studiesDepartureDay = $event"
-                            (onChange) = "updateSchoolDepartureDate($event)">
+                            (onChange) = "updateSchoolDepartureDate($event)"
+                            (registerComponent)="onRegisterSchoolComponent($event)"
+                            (unRegisterComponent)="onUnregisterSchoolComponent($event)"
+                            >
             </msp-school-date>
         </div>
         <div class="form-group col-md-4">
@@ -395,7 +398,10 @@
                             (monthChange)="person.studiesFinishedMonth = $event"
                             [day]="person.studiesFinishedDay"
                             (dayChange)="person.studiesFinishedDay = $event"
-                            (onChange) = "updateSchoolExpectedCompletionDate($event)">
+                            (onChange) = "updateSchoolExpectedCompletionDate($event)"
+                            (registerComponent)="onRegisterSchoolComponent($event)"
+                            (unRegisterComponent)="onUnregisterSchoolComponent($event)"
+                            >
             </msp-school-date>
         </div>
         
