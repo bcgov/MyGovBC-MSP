@@ -29,7 +29,8 @@
                id="day" name="day" #dayRef="ngModel"
                placeholder="day"
                required
-               maxlength="2">
+               min="1900"
+               max="2300">
         <input type="number"
                class="form-control yearInput"
                [ngModel]="year"
@@ -37,8 +38,8 @@
                id="year" name="year" #yearRef="ngModel"
                placeholder="year"
                required
-               minlength="4"
-               maxlength="4">
+               min="1900"
+               max="2300">
         <div *ngIf='monthRef.touched || showError'>
             <div class="text-danger" *ngIf="monthRef.errors?.required"
                  [innerHtml]="lang('./en/index.js').monthErrorRequired"></div>

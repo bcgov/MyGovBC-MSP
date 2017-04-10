@@ -3,16 +3,18 @@
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
       (onChange) = "onChange($event)"
       [showError] = "formRef.submitted"
-      (valid)="valid($event)"
-      (registerPersonalDetailsComponent)="onRegisterPersonalDetailsComponent($event)">
+      (registerPersonalDetailsComponent)="onRegisterPersonalDetailsComponent($event)"
+      (unRegisterPersonalDetailsComponent)="onUnregisterPersonalDetailsComponent($event)"
+      >
       </msp-personal-details>
     <div *ngIf = 'spouse'>
       <msp-personal-details [person] = 'spouse' [id] = 'spouse.id'
         (notifySpouseRemoval)="removeSpouse($event)"
         (onChange) = "onChange($event)"
         [showError] = "formRef.submitted"        
-        (valid)="valid($event)"
-        (registerPersonalDetailsComponent)="onRegisterPersonalDetailsComponent($event)">
+        (registerPersonalDetailsComponent)="onRegisterPersonalDetailsComponent($event)"
+        (unRegisterPersonalDetailsComponent)="onUnregisterPersonalDetailsComponent($event)"
+        >
       </msp-personal-details>
     </div>
     <div *ngIf = 'children.length > 0'>
@@ -22,8 +24,9 @@
         (notifyChildRemoval)="removeChild($event,idx)"
         (onChange) = "onChange($event)"
         [showError] = "formRef.submitted"        
-        (valid)="valid($event)"
-        (registerPersonalDetailsComponent)="onRegisterPersonalDetailsComponent($event)">
+        (registerPersonalDetailsComponent)="onRegisterPersonalDetailsComponent($event)"
+        (unRegisterPersonalDetailsComponent)="onUnregisterPersonalDetailsComponent($event)"
+        >
       </msp-personal-details>
     </div>
     <div class="row">
@@ -31,15 +34,15 @@
         <div class="msp-app">
           <div class="button-group">
             <button type="button" class="btn btn-default" (click)= 'addSpouse()'
-              *ngIf = '!spouse'  [disabled] = "!canContinue">
+              *ngIf = '!spouse'  [disabled] = "!canContinue()">
               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
             </button>
-            <button type="button" class="btn btn-default" (click) = 'addChild(Relationship.ChildUnder19)'  [disabled] = "!canContinue">
+            <button type="button" class="btn btn-default" (click) = 'addChild(Relationship.ChildUnder19)'  [disabled] = "!canContinue()">
               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addChildUnder19Button"></span>
             </button>
-              <button type="button" class="btn btn-default" (click) = 'addChild(Relationship.Child19To24)'  [disabled] = "!canContinue">
+              <button type="button" class="btn btn-default" (click) = 'addChild(Relationship.Child19To24)'  [disabled] = "!canContinue()">
                   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                   <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
               </button>
@@ -49,23 +52,6 @@
     </div>
 
 
-
-    <div class="row" *ngIf = 'false'>
-      <div class="col-md-12">
-        {{application | json}}
-
-        <p>
-          can continue {{!canContinue | json}}
-        </p>
-        <p>
-          form submitted {{formRef.submitted | json}}
-        </p>
-        <p>
-          combined {{(!canContinue && formRef.submitted) | json}}
-        </p>
-      </div>
-    </div>
-
   <hr>
     <div class="row" style="margin-top: 10px;">
       <div class="col-sm-2">
@@ -74,10 +60,12 @@
             [innerHTML]="lang('./en/index.js').continueButton"></button>
         
       </div>
-      <div class="col-sm-6 pull-left" *ngIf="!canContinue && formRef.submitted">
+      <div class="col-sm-6 pull-left" *ngIf="!formValidStatus && formRef.submitted">
         <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
         </p>
       </div>
       <msp-cancel></msp-cancel>
     </div>
+    <input type="hidden" id="test" name="test" [(ngModel)]="test">
+
 </form>

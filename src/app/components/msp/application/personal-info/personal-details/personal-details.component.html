@@ -94,7 +94,11 @@
 
         <div class="row">
             <div class="col-sm-4">
-                <msp-gender [person]="person" (onChange) = "onChange.emit($event)" [showError] = "showError"></msp-gender>
+                <msp-gender [person]="person" 
+                  (onChange) = "onChange.emit($event)" 
+                  [showError] = "showError"
+                  (registerComponent) = "onRegisterGenderComponent($event)"
+                  ></msp-gender>
             </div>
             <div class="col-sm-8">
                 <msp-birthdate 
@@ -105,17 +109,21 @@
                 </msp-birthdate>
             </div>
         </div>
-        <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult &&
-            person.currentActivity === Activities.LivingInBCWithoutMSP" style="margin-bottom: 20px">
+        <div class="row" 
+          *ngIf="person.status === StatusInCanada.CitizenAdult &&
+            person.currentActivity === Activities.LivingInBCWithoutMSP" style="margin-bottom: 5px">
             <div class="col-sm-12">
-                <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[this.person.relationship]"></label>
-                <div class="btn-group" role="group">
-                    <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
-                            [class.msp-btn-radio]="person.livedInBCSinceBirth === answer.value"
-                            (click)="setLivedInBCSinceBirth(answer.value)"
-                            type="button" class="btn btn-default">{{answer.label}}
-                    </button>
-                </div>
+              <div class="form-group"
+                [ngClass]="{'msp-has-error': showError && (person.livedInBCSinceBirth !== true && person.livedInBCSinceBirth !== false)}">
+                  <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[this.person.relationship]"></label>
+                  <div class="btn-group" role="group">
+                      <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
+                              [class.msp-btn-radio]="person.livedInBCSinceBirth === answer.value"
+                              (click)="setLivedInBCSinceBirth(answer.value)"
+                              type="button" class="btn btn-default">{{answer.label}}
+                      </button>
+                  </div>
+              </div>
             </div>
         </div>
 
@@ -132,10 +140,12 @@
                             [province]="person.movedFromProvinceOrCountry"
                             (onChange)="provinceUpdate($event)"
                             [exceptBC]="true" [showError]="showError"
+                            (registerComponent) = "onRegisterMspProvinceComponent($event)"
+                            (unRegisterComponent) = "onUnregisterMspProvinceComponent($event)"
                             colSize="col-sm-4"></msp-province>
             </div>
         
-          <div class="col-md-4" style="margin-top: 25px;">
+          <div class="col-md-4" style="margin-top: 15px;">
             <div class="form-group" [ngClass]="{'has-error': showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)}">
 
               <label [innerHtml]="lang('./en/index.js').haveYouMovedToBCPermanently" class="control-label"></label>
@@ -165,6 +175,7 @@
                                   (dayChange)="person.arrivalToBCDay = $event"
                                   (onChange) = "onChange.emit($event)"
                                   [showError]="showError"
+                                  [required] = "true"
                                   (registerArrivalDateComponent)="onRegisterArrivalDateComponent($event)">
                 </msp-arrival-date>
             </div>
@@ -193,7 +204,10 @@
                 <msp-health-number [healthNumber]="person.healthNumberFromOtherProvince"
                                    (healthNumberChange)="handleHealthNumberChange($event)"
                                    [required]="false"
-                                   [showError]="showError">
+                                   [showError]="showError"
+                                   (registerComponent) = "onRegisterHealthNumberComponent($event)"
+                                   (unRegisterComponent) = "onUnregisterHealthNumberComponent($event)"
+                                   >
                 </msp-health-number>
             </div>
         </div>
@@ -218,12 +232,15 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="person.declarationForOutsideOver30Days == true" class="row" style="margin-bottom: 20px">
+            <div *ngIf="person.declarationForOutsideOver30Days === true" class="row" style="margin-bottom: 20px">
                 <div class="col-sm-12">
                     <msp-outof-bc-record [outofBCRecord]="person.outOfBCRecord"
                                          (onDelete)="handleDeleteOutofBCRecord($event)"
                                          (onUpdate)="handleOutofBCRecordChange($event)"
-                                          [showError]="showError">
+                                          [showError]="showError"
+                                         (registerComponent) = "onRegisterOutOfBCComponent($event)" 
+                                         (unRegisterComponent) = "onUnregisterOutOfBCComponent($event)" 
+                                          >
                     </msp-outof-bc-record>
                 </div>
             </div>
@@ -249,10 +266,10 @@
                   class="control-label"></label>
                 <div class="btn-group" role="group">
                     <button [class.msp-btn-radio]="person.hasPreviousBCPhn"
-                            (click)="person.hasPreviousBCPhn = true; onChange.emit(person.hasPreviousBCPhn)"
+                            (click)="setHasPreviousPhn(true)"
                             type="button" class="btn btn-default" >Yes</button>
                     <button [class.msp-btn-radio]="person.hasPreviousBCPhn === false"
-                            (click)="person.hasPreviousBCPhn = false; onChange.emit(person.hasPreviousBCPhn)"
+                            (click)="setHasPreviousPhn(false)"
                             type="button" class="btn btn-default">No&nbsp;</button>
                 </div>
 
@@ -267,6 +284,8 @@
                          [bcPhn]="true"
                          [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"
                          (onChange) = "onChange.emit($event)"
+                         (registerComponent)="onRegisterPhnComponent($event)"
+                         (unRegisterComponent)="onUnregisterPhnComponent($event)"
                          [showError] = "showError"></msp-phn>
             </div>
         </div>
@@ -302,7 +321,10 @@
                         (monthChange)="person.dischargeMonth = $event"
                         [day]="person.dischargeDay"
                         (dayChange)="person.dischargeDay = $event"
-                        (onChange) = "onChange.emit($event)" [showError]="showError"></msp-discharge-date>
+                        (onChange) = "onChange.emit($event)" [showError]="showError"
+                        (registerComponent) = "onRegisterDischargeDate($event)"
+                        (onUnRegisterDischargeDate) = "onUnRegisterDischargeDate($event)"
+                        ></msp-discharge-date>
             </div>
         </div>
     </div>
@@ -351,7 +373,9 @@
                 [mailingAddressHeading]="lang('./en/index.js').schoolAddressLabel"
                 [mailingAddress]="person.schoolAddress"
                 [mailingOnly]="true"
-                (onChange)="schoolAddressUpdate($event)"                 
+                (onChange)="schoolAddressUpdate($event)"    
+                (registerComponent)="onRegisterAddressComponent($event)"             
+                (unRegisterComponent)="onUnregisterSchoolComponent($event)"             
                 ></msp-address>
 
     <div class="row" *ngIf="person.documents.images.length > 0 &&
@@ -365,7 +389,10 @@
                             (monthChange)="person.studiesDepartureMonth = $event"
                             [day]="person.studiesDepartureDay"
                             (dayChange)="person.studiesDepartureDay = $event"
-                            (onChange) = "updateSchoolDepartureDate($event)">
+                            (onChange) = "updateSchoolDepartureDate($event)"
+                            (registerComponent)="onRegisterSchoolComponent($event)"
+                            (unRegisterComponent)="onUnRegisterAddressComponent($event)"
+                            >
             </msp-school-date>
         </div>
         <div class="form-group col-md-4">
@@ -375,7 +402,10 @@
                             (monthChange)="person.studiesFinishedMonth = $event"
                             [day]="person.studiesFinishedDay"
                             (dayChange)="person.studiesFinishedDay = $event"
-                            (onChange) = "updateSchoolExpectedCompletionDate($event)">
+                            (onChange) = "updateSchoolExpectedCompletionDate($event)"
+                            (registerComponent)="onRegisterSchoolComponent($event)"
+                            (unRegisterComponent)="onUnregisterSchoolComponent($event)"
+                            >
             </msp-school-date>
         </div>
         
@@ -391,7 +421,7 @@
             <div class="btn-group" role="group">
                 <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
                         [class.msp-btn-radio]="person.inBCafterStudies === answer.value"
-                        (click)="person.inBCafterStudies = answer.value; onChange.emit(answer.value)"
+                        (click)="setStayInBCAfterStudy(answer.value)"
                         type="button" class="btn btn-default">{{answer.label}}
                 </button>
             </div>
@@ -405,7 +435,7 @@
     </div>
 
 </div>
-
+<input type="hidden" id="test" name="test" [(ngModel)]="test">
 </form>
 <hr class="strong-hr">
 

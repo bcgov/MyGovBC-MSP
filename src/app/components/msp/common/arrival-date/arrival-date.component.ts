@@ -2,6 +2,7 @@ import {Component, Input, Output, EventEmitter, ViewChild, OnInit, AfterViewInit
 import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
 import * as _ from 'lodash';
+// import {ValidationStatus} from "../../common/validation-status.interface";
 
 require('./arrival-date.component.less');
 
@@ -18,12 +19,12 @@ export class MspArrivalDateComponent implements OnInit, AfterViewInit, OnChanges
 
   @Input() showError: boolean;
   @Input() required: boolean = true;
-  @Input() year: number;
-  @Output() yearChange = new EventEmitter<number>();
+  @Input() year: number | string;
+  @Output() yearChange = new EventEmitter<number|string>();
   @Input() month: number;
   @Output() monthChange = new EventEmitter<number>();
-  @Input() day: number;
-  @Output() dayChange = new EventEmitter<number>();
+  @Input() day: number | string;
+  @Output() dayChange = new EventEmitter<number|string>();
   @Input() arrivalLabel: string = this.lang('./en/index.js').arrivalDateLabel;
 
   @Output() onChange = new EventEmitter<any>();
@@ -37,34 +38,64 @@ export class MspArrivalDateComponent implements OnInit, AfterViewInit, OnChanges
   }
 
   ngOnInit(){
-    this.registerArrivalDateComponent.emit(this);
-    this.form.valueChanges.subscribe(values => {
-      this.onChange.emit(values);
-      this.isFormValid.emit(this.form.valid);
-    });
+    
   }
   ngAfterViewInit(): void {
+    this.registerArrivalDateComponent.emit(this);
 
+    this.form.valueChanges.subscribe(values => {
+      this.onChange.emit(values);
+      if(this.required){
+        this.isFormValid.emit(this.form.valid);
+      }else{
+        if(!this.month && !this.day && !this.year){
+          this.isFormValid.emit(true);
+        }else{
+          this.isFormValid.emit(this.form.valid);
+        }
+      }
+    });
+    this.isFormValid.emit(this.form.valid);
   }
 
   // Parse person's date
   inputDate() {
+    let y:number = this.year as number;
+    let m:number = this.month as number;
+    let d:number = this.month as number;
     return moment({
-      year: this.year,
-      month: this.month - 1, // moment use 0 index for month :(
-      day: this.day,
+      year: y,
+      month: m - 1, // moment use 0 index for month :(
+      day: d,
     });
   }
 
   setYearValueOnModel(value:string){
-    this.year = parseInt(value);
+    if(value){
+      this.year = parseInt(value);
+    }else{
+      this.year = value;
+    }
     this.yearChange.emit(this.year);
-    
   }
 
   setDayValueOnModel(value:string){
-    this.day = parseInt(value);
+    if(value){
+      this.day = parseInt(value);
+    }else{
+      this.day = value;
+    }
     this.dayChange.emit(this.day);
+  }
+
+  setMonthValueOnModel(value:string){
+    if(value){
+      this.month = parseInt(value);
+    }else{
+      this.month = NaN;
+    }
+    this.monthChange.emit(this.month);
+    
   }
 
   /**

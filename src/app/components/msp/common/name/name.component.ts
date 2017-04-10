@@ -1,6 +1,8 @@
 import {Component, Inject, Input, Output, EventEmitter, AfterViewInit, OnInit, ViewChild} from '@angular/core'
 import {Person} from "../../model/person.model";
 import {NgForm} from "@angular/forms";
+// import {ValidationStatus} from "../../common/validation-status.interface";
+
 
 @Component({
   selector: 'msp-name',
@@ -20,17 +22,15 @@ export class MspNameComponent implements AfterViewInit, OnInit{
 
   ngOnInit(){
     this.registerMspNameComponent.emit(this);
-    
-    this.form.valueChanges.subscribe(
-      (values) => {
-        this.isFormValid.emit(this.form.valid);
-      }
-    );
   }
 
   ngAfterViewInit(): void {
-    this.form.valueChanges.subscribe(values => {
-      this.onChange.emit(values);
-    });
+    this.form.valueChanges.subscribe(
+      (values) => {
+        this.onChange.emit(values);
+        // console.log('name component validation: %s', this.form.valid);
+        this.isFormValid.emit(this.form.valid);
+      }
+    );
   }
 }

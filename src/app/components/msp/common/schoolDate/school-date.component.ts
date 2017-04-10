@@ -1,6 +1,7 @@
-import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, Input, EventEmitter, Output, ViewChild, OnDestroy} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
+import {UUID} from "angular2-uuid";
 
 require('./school-date.component.less');
 
@@ -11,7 +12,7 @@ require('./school-date.component.less');
 export class MspSchoolDateComponent {
 
   lang = require('./i18n');
-
+  uuid:string = UUID.UUID();
   // Create today for comparison in check later
   today = moment();
 
@@ -29,13 +30,23 @@ export class MspSchoolDateComponent {
 
   @ViewChild('formRef') form: NgForm;
 
+  @Output() isFormValid = new EventEmitter<boolean>();
+
+  @Output() registerComponent = new EventEmitter<MspSchoolDateComponent>();
+  @Output() unRegisterComponent = new EventEmitter<MspSchoolDateComponent>();
+
   ngAfterViewInit(): void {
+
+    this.registerComponent.emit(this);
     this.form.valueChanges.subscribe(values => {
-      // console.log('school date value change, %o', values);
       this.onChange.emit(values);
+      this.isFormValid.emit(this.form.valid);
     });
   }
 
+  ngDestroy(): void{
+    this.unRegisterComponent.emit(this);
+  }
 
   yearErrorPastFutureCheck() {
     if (this.departureDate) {

@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, ViewChild, AfterViewInit} from '@angular/core'
+import {Component, Input, Output, EventEmitter, ViewChild, OnInit} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
 
@@ -8,7 +8,7 @@ require('./departure-date.component.less');
   selector: 'msp-departure-date',
   templateUrl: './departure-date.component.html'
 })
-export class MspDepartureDateComponent implements AfterViewInit{
+export class MspDepartureDateComponent implements OnInit{
 
   lang = require('./i18n');
 
@@ -26,12 +26,18 @@ export class MspDepartureDateComponent implements AfterViewInit{
 
   @Output() onChange = new EventEmitter<any>();
 
+  @Output() isFormValid = new EventEmitter<boolean>();
+
   @ViewChild('formRef') form: NgForm;
 
-  ngAfterViewInit(): void {
-    this.form.valueChanges.subscribe(values => {
-      this.onChange.emit(values);
-    });
+  ngOnInit(){
+    this.form.valueChanges.subscribe(
+      (values) => {
+        this.onChange.emit(values);
+        // console.log('departure date emitting: %s', this.form.valid);
+        this.isFormValid.emit(this.form.valid);
+      }
+    );
   }
 
   // Parse person's date

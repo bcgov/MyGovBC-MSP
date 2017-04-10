@@ -5,7 +5,7 @@
                [innerHTML]="phnLabel"></label>
         <input type="text"
                [ngModel]="phn"
-               (ngModelChange)="phn=$event;phnChange.emit($event)"
+               (ngModelChange)="setPhn($event)"
                minlength="10"
                maxlength="13"
                [required]="required"

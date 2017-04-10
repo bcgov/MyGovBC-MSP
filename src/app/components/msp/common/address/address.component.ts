@@ -1,5 +1,5 @@
 import {Component, Inject, Input, NgModule, Output, SimpleChanges,
-    OnChanges, EventEmitter, ViewChild, AfterViewInit} from '@angular/core';
+    OnChanges, OnDestroy, EventEmitter, ViewChild, AfterViewInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {Address} from "../../model/address.model";
 import {CompleterData, CompleterService} from "ng2-completer";
@@ -29,11 +29,19 @@ export class MspAddressComponent implements AfterViewInit, OnChanges{
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
 
+  @Output() isFormValid = new EventEmitter<boolean>();
+  @Output() registerComponent = new EventEmitter<MspAddressComponent>();
+  @Output() unRegisterComponent = new EventEmitter<MspAddressComponent>();
+
   Address: typeof Address = Address;
 
   ngAfterViewInit(): void {
+    this.registerComponent.emit(this);
+
+    this.isFormValid.emit(this.form.valid);
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);
+      this.isFormValid.emit(this.form.valid);
     });
   }
 
@@ -42,9 +50,15 @@ export class MspAddressComponent implements AfterViewInit, OnChanges{
       if(changes['mailingSameAsResidentialAddress'].currentValue === null 
         || changes['mailingSameAsResidentialAddress'].currentValue === undefined){
           this.mailingSameAsResidentialAddress = true;
+          this.isFormValid.emit(this.form.valid);
       }
     }
   }
+
+  ngDestroy():void{
+    this.unRegisterComponent.emit(this);
+  }
+
   provinceUpdate(event:string){
     this.mailingAddress.province = event;
     this.onChange.emit(event);
@@ -145,11 +159,14 @@ export class MspAddressComponent implements AfterViewInit, OnChanges{
   useDifferentMailingAddress() {
     this.mailingSameAsResidentialAddress = false;
     this.mailingSameAsResidentialAddressChange.emit(this.mailingSameAsResidentialAddress);
+    this.isFormValid.emit(this.form.valid);
+    
   }
 
   useSameMailingAddress() {
     this.mailingSameAsResidentialAddress = true;
     this.mailingAddress = new Address();
     this.mailingSameAsResidentialAddressChange.emit(this.mailingSameAsResidentialAddress);
+    this.isFormValid.emit(this.form.valid);
   }
 }
