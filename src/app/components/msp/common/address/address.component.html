@@ -1,20 +1,20 @@
-<form #formRef='ngForm' novalidate [ngClass]="{'has-error': !formRef.valid}">
+<form #formRef='ngForm' novalidate>
     <div *ngIf="!mailingOnly">
     <div class="row">
         <div class="form-group col-sm-5"
              [ngClass]="{'has-error': !formRef.controls.residentialAddressLine1?.valid && residentialAddressLine1Ref.touched}">
             <label for="residentialAddressLine1" [innerHtml]="lang('./en/index.js').addressLine1Label"></label>
-            <input [(ngModel)]="residentialAddress.addressLine1" type="text" class="form-control"
+            <input [(ngModel)]="residentialAddress.addressLine1" type="text" class="form-control msp-addressline"
                    id="residentialAddressLine1" name="residentialAddressLine1" #residentialAddressLine1Ref="ngModel"
                    required
                    maxlength="25">
             <div [hidden]="!useResidentialAddressLine2">
-                <input [(ngModel)]="residentialAddress.addressLine2" type="text" class="form-control"
+                <input [(ngModel)]="residentialAddress.addressLine2" type="text" class="form-control msp-addressline"
                        id="residentialAddressLine2" name="residentialAddressLine2" #residentialAddressLine2Ref="ngModel"
                        maxlength="25">
             </div>
             <div [hidden]="!useResidentialAddressLine3">
-                <input [(ngModel)]="residentialAddress.addressLine3" type="text" class="form-control"
+                <input [(ngModel)]="residentialAddress.addressLine3" type="text" class="form-control msp-addressline"
                        id="residentialAddressLine3" name="residentialAddressLine3" #residentialAddressLine3Ref="ngModel"
                        maxlength="25">
             </div>

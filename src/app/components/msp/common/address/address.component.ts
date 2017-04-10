@@ -3,6 +3,7 @@ import {Component, Inject, Input, NgModule, Output, SimpleChanges,
 import {NgForm} from "@angular/forms";
 import {Address} from "../../model/address.model";
 import {CompleterData, CompleterService} from "ng2-completer";
+import './address.component.less';
 
 @Component({
   selector: 'msp-address',
