@@ -34,7 +34,7 @@ describe('MspCountryComponent', () => {
     expect(fixture.componentInstance instanceof MspCountryComponent).toBe(true, 'should create MspCountryComponent');
 
     for (let country of fixture.componentInstance.countryData) {
-      expect(country.name.length).toBeLessThan(26, "country name too long: " + country.name);
+      expect(country.name.length).toBeLessThan(30, "country name too long: " + country.name);
     }
   });
 });

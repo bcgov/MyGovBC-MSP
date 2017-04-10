@@ -32,6 +32,10 @@ export class MspCountryComponent {
   }
 
   updateModel(event:string){
-    this.onChange.emit(event)
+    if(event){
+      event = event.trim().slice(0,25);
+      this.country = event;
+      this.onChange.emit(event)
+    }
   }
 }
