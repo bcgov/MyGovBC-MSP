@@ -147,7 +147,7 @@ describe('SIN Validator Test', () => {
       
       
       fixture.detectChanges();
-      console.debug('AssistancePersonalDetailComponent after blur', element);
+      //console.debug('AssistancePersonalDetailComponent after blur', element);
       
       expect(element.querySelector("label[for='sin']").textContent).toBe(testLabel);
 

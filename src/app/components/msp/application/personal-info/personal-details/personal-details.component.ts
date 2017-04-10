@@ -11,7 +11,6 @@ import {
   DocumentRules, Documents, Relationship
 } from "../../../model/status-activities-documents";
 import { MspImage } from '../../../model/msp-image';
-import {Valid} from "../../../common/valid";
 import * as _ from 'lodash';
 import {MspIdReqModalComponent} from "../../../common/id-req-modal/id-req-modal.component";
 import {MspImageErrorModalComponent} from "../../../common/image-error-modal/image-error-modal.component";
@@ -28,7 +27,6 @@ import {MspAddressComponent} from "../../../common/address/address.component";
 import {MspArrivalDateComponent} from "../../../common/arrival-date/arrival-date.component";
 import {MspOutofBCRecordComponent} from "../../../common/outof-bc/outof-bc.component";
 import {MspProvinceComponent} from "../../../common/province/province.component";
-import {ValidationStatus} from "../../../common/validation-status.interface";
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Observer } from 'rxjs/Observer';

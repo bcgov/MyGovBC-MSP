@@ -2,7 +2,6 @@ import {Component, Input, Output, EventEmitter, ViewChild, OnInit} from '@angula
 import {NgForm} from '@angular/forms'
 import {Person, Gender} from "../../model/person.model";
 import {UUID} from 'angular2-uuid';
-import {ValidationStatus} from "../../common/validation-status.interface";
 
 @Component({
   selector: 'msp-gender',
