@@ -23,6 +23,7 @@ import {MspPhnComponent} from "../../../common/phn/phn.component";
 import {MspSchoolDateComponent} from "../../../common/schoolDate/school-date.component";
 import {HealthNumberComponent} from "../../../common/health-number/health-number.component";
 import {MspDischargeDateComponent} from "../../../common/discharge-date/discharge-date.component";
+import {MspAddressComponent} from "../../../common/address/address.component";
 
 import {MspArrivalDateComponent} from "../../../common/arrival-date/arrival-date.component";
 import {MspOutofBCRecordComponent} from "../../../common/outof-bc/outof-bc.component";
@@ -36,6 +37,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
+import './personal-details.component.less';
 @Component({
     selector: 'msp-personal-details',
     templateUrl: './personal-details.component.html',
@@ -96,7 +98,8 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
   private phnComponent:MspPhnComponent;
   private healthNumberComponent:HealthNumberComponent;
   private dischargeDateComponent:MspDischargeDateComponent;
-  
+  private addressComponent:MspAddressComponent;
+
   @Input() viewOnly: boolean = false;
   @Input() person: Person;
   @Input() id: string;
@@ -122,6 +125,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
   arrivalDatesValidStatus:boolean[] = [];
   schoolDatesStatus:boolean[] = [];
   dischargeDateValidStatus:boolean = true;
+  schoolAddressValid:boolean = true;
 
   //default to true because it is optional
   healthNumberValidStatus:boolean = true;
@@ -272,7 +276,7 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
       this.subscriptions.push(this.provinceComponent.isFormValid
         .subscribe(
           (status:boolean) => {
-            console.log('province component validation status: %s', status);
+            // console.log('province component validation status: %s', status);
             // this.emitFormValidationStatus();
           }
         )
@@ -347,6 +351,15 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
         });
       }
     );
+
+    if(this.addressComponent){
+      this.addressComponent.isFormValid.subscribe(
+        (status:boolean) => {
+          console.log('school address valid status: %s', status);
+          this.schoolAddressValid = status;
+        }
+      );
+    }
   }
 
   emitFormValidationStatus() {
@@ -391,8 +404,10 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
       
     rollupItems.movedToBC = _.isBoolean(this.person.madePermanentMoveToBC);
     rollupItems.hasPrevPhnAnswer = _.isBoolean(this.person.hasPreviousBCPhn);
-    rollupItems.armedForceHistoryAnswer = this.person.institutionWorkHistory && (this.person.institutionWorkHistory.toLowerCase() === 'yes' ||
-      this.person.institutionWorkHistory.toLowerCase() === 'no');
+    rollupItems.armedForceHistoryAnswer = 
+      this.person.institutionWorkHistory && 
+      (this.person.institutionWorkHistory.toLowerCase() === 'yes' ||
+        this.person.institutionWorkHistory.toLowerCase() === 'no');
 
     rollupItems.studentAnswerSettled = true;
 
@@ -411,11 +426,13 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
     rollupItems.healthNumberValidStatus = this.healthNumberValidStatus;
 
     rollupItems.schoolDatesValidStatus = this.schoolDatesStatus.reduce( 
-      (acc:boolean,cur:boolean) => {
+      (acc:boolean,cur:boolean, idx:number, arr:any) => {
+        console.log('personal details rolling up school dates: %o', arr);
         return acc && cur;
       },true
     );
 
+    rollupItems.schoolAddressValid = this.schoolAddressValid;
     rollupItems.personalDetailsFormValidStatus = this.form.valid;
     let totalFormStatus:boolean = Object.getOwnPropertyNames(rollupItems)
       .reduce(
@@ -518,6 +535,15 @@ export class PersonalDetailsComponent implements OnInit, AfterViewInit, OnDestro
       this.schoolDateComponentList.filter( c=>{
       return c.uuid === sp.uuid;
     });
+  }
+
+  onRegisterAddressComponent(addr:MspAddressComponent){
+    this.addressComponent = addr;
+    this.updateSubscription();
+  }
+
+  onUnRegisterAddressComponent(){
+    this.addressComponent = null;
   }
 
   get arrivalDateLabel():string {

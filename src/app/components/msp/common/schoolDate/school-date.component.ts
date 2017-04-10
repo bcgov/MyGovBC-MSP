@@ -39,9 +39,6 @@ export class MspSchoolDateComponent {
 
     this.registerComponent.emit(this);
     this.form.valueChanges.subscribe(values => {
-      // console.log('school date value change, %o', values);
-      // console.log('school date form valid, %s', this.form.valid);
-      // console.log('school date form object, %o', this.form);
       this.onChange.emit(values);
       this.isFormValid.emit(this.form.valid);
     });

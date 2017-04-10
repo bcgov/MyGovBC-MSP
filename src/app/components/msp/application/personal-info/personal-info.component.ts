@@ -25,6 +25,7 @@ export class PersonalInfoComponent implements AfterViewInit{
 
   // validitySubscription:Subscription;
 
+  formValidStatus:boolean;
   @ViewChild('formRef') form: NgForm;
   // @ViewChildren(PersonalDetailsComponent) personalDetailsList:QueryList<PersonalDetailsComponent>;
   personalDetailsList:PersonalDetailsComponent[] = [];
@@ -139,8 +140,8 @@ export class PersonalInfoComponent implements AfterViewInit{
   }
 
   canContinue():boolean {
-    return this.gatherChildValidationStatus();
-    // return true;
+    // return this.gatherChildValidationStatus();
+    return true;
   }
 
   gatherChildValidationStatus(){
@@ -157,10 +158,10 @@ export class PersonalInfoComponent implements AfterViewInit{
 
   continue():void {
 
-    let temp = this.gatherChildValidationStatus();
+    this.formValidStatus = this.gatherChildValidationStatus();
     // console.log('personal info form itself valid: %s', this.form.valid);
-    console.log('combinedValidationState on personal info: %s', temp);
-    if(!temp){
+    console.log('combinedValidationState on personal info: %s', this.formValidStatus);
+    if(!this.formValidStatus){
       console.log('Please fill in all required fields on the form.');
     }else{
       this._router.navigate(['/msp/application/address']);

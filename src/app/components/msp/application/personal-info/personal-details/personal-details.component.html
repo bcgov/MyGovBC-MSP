@@ -109,17 +109,21 @@
                 </msp-birthdate>
             </div>
         </div>
-        <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult &&
-            person.currentActivity === Activities.LivingInBCWithoutMSP" style="margin-bottom: 20px">
+        <div class="row" 
+          *ngIf="person.status === StatusInCanada.CitizenAdult &&
+            person.currentActivity === Activities.LivingInBCWithoutMSP" style="margin-bottom: 5px">
             <div class="col-sm-12">
-                <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[this.person.relationship]"></label>
-                <div class="btn-group" role="group">
-                    <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
-                            [class.msp-btn-radio]="person.livedInBCSinceBirth === answer.value"
-                            (click)="setLivedInBCSinceBirth(answer.value)"
-                            type="button" class="btn btn-default">{{answer.label}}
-                    </button>
-                </div>
+              <div class="form-group"
+                [ngClass]="{'msp-has-error': showError && (person.livedInBCSinceBirth !== true && person.livedInBCSinceBirth !== false)}">
+                  <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[this.person.relationship]"></label>
+                  <div class="btn-group" role="group">
+                      <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
+                              [class.msp-btn-radio]="person.livedInBCSinceBirth === answer.value"
+                              (click)="setLivedInBCSinceBirth(answer.value)"
+                              type="button" class="btn btn-default">{{answer.label}}
+                      </button>
+                  </div>
+              </div>
             </div>
         </div>
 
@@ -140,10 +144,8 @@
                             (unRegisterComponent) = "onUnregisterMspProvinceComponent($event)"
                             colSize="col-sm-4"></msp-province>
             </div>
-
-
         
-          <div class="col-md-4" style="margin-top: 25px;">
+          <div class="col-md-4" style="margin-top: 15px;">
             <div class="form-group" [ngClass]="{'has-error': showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)}">
 
               <label [innerHtml]="lang('./en/index.js').haveYouMovedToBCPermanently" class="control-label"></label>
@@ -371,7 +373,9 @@
                 [mailingAddressHeading]="lang('./en/index.js').schoolAddressLabel"
                 [mailingAddress]="person.schoolAddress"
                 [mailingOnly]="true"
-                (onChange)="schoolAddressUpdate($event)"                 
+                (onChange)="schoolAddressUpdate($event)"    
+                (registerComponent)="onRegisterAddressComponent($event)"             
+                (unRegisterComponent)="onUnregisterSchoolComponent($event)"             
                 ></msp-address>
 
     <div class="row" *ngIf="person.documents.images.length > 0 &&
@@ -387,7 +391,7 @@
                             (dayChange)="person.studiesDepartureDay = $event"
                             (onChange) = "updateSchoolDepartureDate($event)"
                             (registerComponent)="onRegisterSchoolComponent($event)"
-                            (unRegisterComponent)="onUnregisterSchoolComponent($event)"
+                            (unRegisterComponent)="onUnRegisterAddressComponent($event)"
                             >
             </msp-school-date>
         </div>

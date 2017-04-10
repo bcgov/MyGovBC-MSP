@@ -60,7 +60,7 @@
             [innerHTML]="lang('./en/index.js').continueButton"></button>
         
       </div>
-      <div class="col-sm-6 pull-left" *ngIf="!canContinue() && formRef.submitted">
+      <div class="col-sm-6 pull-left" *ngIf="!formValidStatus && formRef.submitted">
         <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
         </p>
       </div>

@@ -1,5 +1,5 @@
 import {Component, Inject, Input, NgModule, Output, SimpleChanges,
-    OnChanges, EventEmitter, ViewChild, AfterViewInit} from '@angular/core';
+    OnChanges, OnDestroy, EventEmitter, ViewChild, AfterViewInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {Address} from "../../model/address.model";
 import {CompleterData, CompleterService} from "ng2-completer";
@@ -36,6 +36,8 @@ export class MspAddressComponent implements AfterViewInit, OnChanges{
   Address: typeof Address = Address;
 
   ngAfterViewInit(): void {
+    this.registerComponent.emit(this);
+
     this.isFormValid.emit(this.form.valid);
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);
@@ -52,6 +54,11 @@ export class MspAddressComponent implements AfterViewInit, OnChanges{
       }
     }
   }
+
+  ngDestroy():void{
+    this.unRegisterComponent.emit(this);
+  }
+
   provinceUpdate(event:string){
     this.mailingAddress.province = event;
     this.onChange.emit(event);
