@@ -754,7 +754,7 @@ module.exports = {
     },
     {
       "code": "MF",
-      "name": "Saint Martin (French part)"
+      "name": "Saint Martin"
     },
     {
       "code": "PM",
