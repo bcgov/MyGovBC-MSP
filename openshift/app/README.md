@@ -16,7 +16,7 @@ The Nginx serves as the web server for the SPA frontend app as well as proxy to 
 * [Captcha](https://github.com/bcgov/MyGovBC-captcha-service)
 * [ELK Logging](https://github.com/bcgov/MyGovBC-MSP/tree/master/openshift/elk). (Note: the module also comes with a nginx proxy. But it is this nginx that is used to proxy browser logging events. elk-nginx only proxies Kibana web app.)
 
-To setup entire MSP runtime and CI environment, follow instructions in respective modules to deploy the module to OpenShift first. 
+To setup entire MSP runtime and CI environment, follow instructions in respective modules to deploy them to OpenShift first. 
 
 ## Environment Setup
 The prerequisites of the deployment are:
@@ -51,7 +51,12 @@ The deployment consists of these steps
    $ oc create -f openshift/app/templates/s2i-binary-src-deploy.yaml
    ```
    After this step you will find an instant app template called *mygovbc-client-build* available in the *tools* project and *mygovbc-client-deploy* in the runtime environment project.  
-2. create OpenShift instant app by clicking *mygovbc-client-build* and *mygovbc-client-deploy* template from *Add to Project* in web console of respective projects. For this msp project, set *Name* parameter to *msp*, which is different from default value *mygovbc-client*.
+2. create OpenShift instant app by clicking *mygovbc-client-build* and *mygovbc-client-deploy* template from *Add to Project* in web console of respective projects (Tip: you may need to click *See all* link in Instant Apps section to reveal the template). For this msp project, set *Name* parameter to *msp*, which is different from default value *mygovbc-client*.
+
+    Some parameters can be adjusted after app is created. For example, following *mygovbc-client-deploy* parameters are used to config Nginx by setting corresponding environment variables in *msp* deployment config:
+    * *OpenShift Cluster IP Range* set env *RealIpFrom*
+    * *Additional real_ip_from Rules* set env *AdditionalRealIpFromRules*. The reason to define this environment variable in addition to *RealIpFrom*, is that *RealIpFrom* serves more purposes than ngx_http_realip_module - it is also used to skip OpenShift internal heartbeat requests from logging due to frequency of occurrence. 
+    * *Ip Filter Rules* set env *IpFilterRules*, which is used for pre-launch access control.
 3. deploy docker images
 
    ```sh
