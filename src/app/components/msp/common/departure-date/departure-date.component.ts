@@ -1,6 +1,8 @@
-import {Component, Input, Output, EventEmitter, ViewChild, OnInit} from '@angular/core'
+import {Component, Input, Output, EventEmitter, ViewChild} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
+import {BaseComponent} from "../base.component";
+import {Valid} from "../valid";
 
 require('./departure-date.component.less');
 
@@ -8,7 +10,7 @@ require('./departure-date.component.less');
   selector: 'msp-departure-date',
   templateUrl: './departure-date.component.html'
 })
-export class MspDepartureDateComponent implements OnInit{
+export class MspDepartureDateComponent extends BaseComponent {
 
   lang = require('./i18n');
 
@@ -23,22 +25,9 @@ export class MspDepartureDateComponent implements OnInit{
   @Input() day: number;
   @Output() dayChange = new EventEmitter<number>();
   @Input() departureLabel: string = this.lang('./en/index.js').departureLabel;
-
   @Output() onChange = new EventEmitter<any>();
 
-  @Output() isFormValid = new EventEmitter<boolean>();
-
-  @ViewChild('formRef') form: NgForm;
-
-  ngOnInit(){
-    this.form.valueChanges.subscribe(
-      (values) => {
-        this.onChange.emit(values);
-        // console.log('departure date emitting: %s', this.form.valid);
-        this.isFormValid.emit(this.form.valid);
-      }
-    );
-  }
+  @ViewChild('formRef') form:NgForm;
 
   // Parse person's date
   inputDate() {
@@ -54,7 +43,7 @@ export class MspDepartureDateComponent implements OnInit{
    *
    * @returns {boolean}
    */
-  isValid(): boolean {
+  isCorrectFormat(): boolean {
 
     // Validate
     if (!this.inputDate().isValid()) {
@@ -72,5 +61,9 @@ export class MspDepartureDateComponent implements OnInit{
     }
 
     return true;
+  }
+
+  isValid(): boolean {
+    return this.isCorrectFormat() && this.futureCheck();
   }
 }

@@ -89,23 +89,23 @@
     <div *ngIf="person.documents.images.length > 0">
         <h3 [innerHtml]="lang('./en/index.js').applicationPersonalInfo[person.relationship]"></h3>
         <p class="help-block" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
-        <msp-name [person]="person" (onChange) = "onChange.emit($event)" [showError]="showError"
-          (registerMspNameComponent)="onRegisterMspNameComponent($event)"></msp-name>
+        <msp-name [person]="person" (onChange) = "onChange.emit($event)" [showError]="showError"></msp-name>
 
         <div class="row">
             <div class="col-sm-4">
-                <msp-gender [person]="person" 
+                <msp-gender
+                  #gender
+                  [person]="person"
                   (onChange) = "onChange.emit($event)" 
                   [showError] = "showError"
-                  (registerComponent) = "onRegisterGenderComponent($event)"
                   ></msp-gender>
             </div>
             <div class="col-sm-8">
-                <msp-birthdate 
+                <msp-birthdate
+                  #birthDate
                   [person]="person" 
                   (onChange) = "onChange.emit($event)"
-                  [showError] = "showError"
-                  (registerBirthDateComponent)="onRegisterBirthDateComponent($event)">
+                  [showError] = "showError">
                 </msp-birthdate>
             </div>
         </div>
@@ -140,8 +140,6 @@
                             [province]="person.movedFromProvinceOrCountry"
                             (onChange)="provinceUpdate($event)"
                             [exceptBC]="true" [showError]="showError"
-                            (registerComponent) = "onRegisterMspProvinceComponent($event)"
-                            (unRegisterComponent) = "onUnregisterMspProvinceComponent($event)"
                             colSize="col-sm-4"></msp-province>
             </div>
         
@@ -175,8 +173,7 @@
                                   (dayChange)="person.arrivalToBCDay = $event"
                                   (onChange) = "onChange.emit($event)"
                                   [showError]="showError"
-                                  [required] = "true"
-                                  (registerArrivalDateComponent)="onRegisterArrivalDateComponent($event)">
+                                  [required] = "true">
                 </msp-arrival-date>
             </div>
             <div class="col-md-4">
@@ -192,8 +189,7 @@
                                   [day]="person.arrivalToCanadaDay"
                                   (dayChange)="person.arrivalToCanadaDay = $event"
                                   (onChange) = "onChange.emit($event)"
-                                  [showError]="showError"
-                                  (registerArrivalDateComponent)="onRegisterArrivalDateComponent($event)">
+                                  [showError]="showError">
                 </msp-arrival-date>
 
             </div>
@@ -205,8 +201,6 @@
                                    (healthNumberChange)="handleHealthNumberChange($event)"
                                    [required]="false"
                                    [showError]="showError"
-                                   (registerComponent) = "onRegisterHealthNumberComponent($event)"
-                                   (unRegisterComponent) = "onUnregisterHealthNumberComponent($event)"
                                    >
                 </msp-health-number>
             </div>
@@ -234,12 +228,11 @@
             </div>
             <div *ngIf="person.declarationForOutsideOver30Days === true" class="row" style="margin-bottom: 20px">
                 <div class="col-sm-12">
-                    <msp-outof-bc-record [outofBCRecord]="person.outOfBCRecord"
+                    <msp-outof-bc-record #outOfBCRecord
+                                         [outofBCRecord]="person.outOfBCRecord"
                                          (onDelete)="handleDeleteOutofBCRecord($event)"
                                          (onUpdate)="handleOutofBCRecordChange($event)"
                                           [showError]="showError"
-                                         (registerComponent) = "onRegisterOutOfBCComponent($event)" 
-                                         (unRegisterComponent) = "onUnregisterOutOfBCComponent($event)" 
                                           >
                     </msp-outof-bc-record>
                 </div>
@@ -284,8 +277,6 @@
                          [bcPhn]="true"
                          [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"
                          (onChange) = "onChange.emit($event)"
-                         (registerComponent)="onRegisterPhnComponent($event)"
-                         (unRegisterComponent)="onUnregisterPhnComponent($event)"
                          [showError] = "showError"></msp-phn>
             </div>
         </div>
@@ -322,8 +313,6 @@
                         [day]="person.dischargeDay"
                         (dayChange)="person.dischargeDay = $event"
                         (onChange) = "onChange.emit($event)" [showError]="showError"
-                        (registerComponent) = "onRegisterDischargeDate($event)"
-                        (onUnRegisterDischargeDate) = "onUnRegisterDischargeDate($event)"
                         ></msp-discharge-date>
             </div>
         </div>
@@ -374,8 +363,6 @@
                 [mailingAddress]="person.schoolAddress"
                 [mailingOnly]="true"
                 (onChange)="schoolAddressUpdate($event)"    
-                (registerComponent)="onRegisterAddressComponent($event)"             
-                (unRegisterComponent)="onUnregisterSchoolComponent($event)"             
                 ></msp-address>
 
     <div class="row" *ngIf="person.documents.images.length > 0 &&
@@ -390,8 +377,6 @@
                             [day]="person.studiesDepartureDay"
                             (dayChange)="person.studiesDepartureDay = $event"
                             (onChange) = "updateSchoolDepartureDate($event)"
-                            (registerComponent)="onRegisterSchoolComponent($event)"
-                            (unRegisterComponent)="onUnRegisterAddressComponent($event)"
                             >
             </msp-school-date>
         </div>
@@ -403,8 +388,6 @@
                             [day]="person.studiesFinishedDay"
                             (dayChange)="person.studiesFinishedDay = $event"
                             (onChange) = "updateSchoolExpectedCompletionDate($event)"
-                            (registerComponent)="onRegisterSchoolComponent($event)"
-                            (unRegisterComponent)="onUnregisterSchoolComponent($event)"
                             >
             </msp-school-date>
         </div>

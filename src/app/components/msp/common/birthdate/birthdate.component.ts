@@ -2,9 +2,9 @@ import {Component, Input, ViewChild, Output, EventEmitter, AfterViewInit, OnInit
 import {NgForm} from "@angular/forms";
 import {Person} from "../../model/person.model";
 import {Relationship} from "../../model/status-activities-documents";
-// import {ValidationStatus} from "../../common/validation-status.interface";
 
 import * as moment from 'moment';
+import {BaseComponent} from "../base.component";
 
 require('./birthdate.component.less');
 
@@ -12,36 +12,24 @@ require('./birthdate.component.less');
   selector: 'msp-birthdate',
   templateUrl: './birthdate.component.html'
 })
-export class MspBirthDateComponent implements OnInit, AfterViewInit{
+export class MspBirthDateComponent extends BaseComponent {
 
   lang = require('./i18n');
 
   // Create today for comparison in check later
   today:any;
 
-  constructor(private cd: ChangeDetectorRef){
+  constructor() {
+    super();
     this.today = moment();
   }
 
   @Input() person: Person;
   @Input() showError: boolean;
   @Output() onChange = new EventEmitter<any>();
-  @Output() isFormValid = new EventEmitter<boolean>();
-  @Output() registerBirthDateComponent = new EventEmitter<MspBirthDateComponent>();
   @ViewChild('formRef') form: NgForm;
 
-  ngOnInit(): void {
-    this.registerBirthDateComponent.emit(this);
-    this.form.valueChanges.subscribe(values => {
-      this.onChange.emit(this.form.valid);
-      this.isFormValid.emit(this.form.valid);
-    });
-  }
-
-  ngAfterViewInit():void{
-  }
-
-  setYearValueOnModel(value:number){
+  setYearValueOnModel(value:number) {
     if(value){
       let org:string = value + '';
       let trimmed = org.substring(0, 4);
@@ -71,7 +59,7 @@ export class MspBirthDateComponent implements OnInit, AfterViewInit{
    *
    * @returns {boolean}
    */
-  isValid(): boolean {
+  isCorrectFormat(): boolean {
 
     // Validate
     if (!this.person.dob.isValid()) {
@@ -122,7 +110,10 @@ export class MspBirthDateComponent implements OnInit, AfterViewInit{
     }else{
       return true;
     }
+  }
 
+  isValid():boolean {
+    return this.isCorrectFormat() && !this.isInTheFuture() && !this.tooFarInThePast() && this.ageCheck();
   }
 
 }

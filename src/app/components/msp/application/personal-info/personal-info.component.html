@@ -2,19 +2,13 @@
     <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
       (onChange) = "onChange($event)"
-      [showError] = "formRef.submitted"
-      (registerPersonalDetailsComponent)="onRegisterPersonalDetailsComponent($event)"
-      (unRegisterPersonalDetailsComponent)="onUnregisterPersonalDetailsComponent($event)"
-      >
+      [showError] = "formRef.submitted">
       </msp-personal-details>
     <div *ngIf = 'spouse'>
       <msp-personal-details [person] = 'spouse' [id] = 'spouse.id'
         (notifySpouseRemoval)="removeSpouse($event)"
         (onChange) = "onChange($event)"
-        [showError] = "formRef.submitted"        
-        (registerPersonalDetailsComponent)="onRegisterPersonalDetailsComponent($event)"
-        (unRegisterPersonalDetailsComponent)="onUnregisterPersonalDetailsComponent($event)"
-        >
+        [showError] = "formRef.submitted">
       </msp-personal-details>
     </div>
     <div *ngIf = 'children.length > 0'>
@@ -23,10 +17,7 @@
         [id] = 'child.id'
         (notifyChildRemoval)="removeChild($event,idx)"
         (onChange) = "onChange($event)"
-        [showError] = "formRef.submitted"        
-        (registerPersonalDetailsComponent)="onRegisterPersonalDetailsComponent($event)"
-        (unRegisterPersonalDetailsComponent)="onUnregisterPersonalDetailsComponent($event)"
-        >
+        [showError] = "formRef.submitted">
       </msp-personal-details>
     </div>
     <div class="row">

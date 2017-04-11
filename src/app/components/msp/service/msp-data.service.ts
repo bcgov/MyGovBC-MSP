@@ -132,8 +132,7 @@ export default class MspDataService {
     dto.arrivalToBCMonth = input.arrivalToBCMonth;
     dto.arrivalToBCYear = input.arrivalToBCYear;
 
-    //truncate to 25 chars to accomodate backend API.
-    dto.movedFromProvinceOrCountry = input.movedFromProvinceOrCountry.slice(0,25);
+    dto.movedFromProvinceOrCountry = input.movedFromProvinceOrCountry;
     dto.institutionWorkHistory = input.institutionWorkHistory;
     dto.dischargeYear = input.dischargeYear;
     dto.dischargeMonth = input.dischargeMonth;

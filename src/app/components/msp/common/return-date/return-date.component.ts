@@ -1,6 +1,7 @@
 import {Component, Input, Output, EventEmitter, ViewChild, OnInit} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
+import {BaseComponent} from "../base.component";
 
 require('./return-date.component.less');
 
@@ -8,7 +9,7 @@ require('./return-date.component.less');
   selector: 'msp-return-date',
   templateUrl: './return-date.component.html'
 })
-export class MspReturnDateComponent implements OnInit{
+export class MspReturnDateComponent extends BaseComponent {
 
   lang = require('./i18n');
 
@@ -24,19 +25,9 @@ export class MspReturnDateComponent implements OnInit{
   @Output() dayChange = new EventEmitter<number>();
   @Input() returnLabel: string = this.lang('./en/index.js').returnLabel;
 
+  @ViewChild('formRef') form:NgForm;
+
   @Output() onChange = new EventEmitter<any>();
-  @Output() isFormValid = new EventEmitter<boolean>();
-
-  @ViewChild('formRef') form: NgForm;
-
-  ngOnInit(){
-    this.form.valueChanges.subscribe(
-      (values) => {
-        this.onChange.emit(values);
-        this.isFormValid.emit(this.form.valid);
-      }
-    );
-  }
 
   // Parse person's date
   inputDate() {
@@ -52,7 +43,7 @@ export class MspReturnDateComponent implements OnInit{
    *
    * @returns {boolean}
    */
-  isValid(): boolean {
+  isCorrectFormat(): boolean {
 
     // Validate
     if (!this.inputDate().isValid()) {
@@ -70,5 +61,9 @@ export class MspReturnDateComponent implements OnInit{
     }
 
     return true;
+  }
+
+  isValid(): boolean {
+    return this.isCorrectFormat() && this.futureCheck();
   }
 }

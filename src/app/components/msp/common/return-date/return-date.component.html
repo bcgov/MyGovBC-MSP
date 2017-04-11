@@ -52,7 +52,7 @@
             <div class="text-danger" *ngIf="yearRef.errors?.required"
                  [innerHtml]="lang('./en/index.js').yearErrorRequired"></div>
         </div>
-        <div *ngIf='(yearRef.touched || showError) && !isValid()'>
+        <div *ngIf='(yearRef.touched || showError) && !isCorrectFormat()'>
             <div class="text-danger"
                  [innerHtml]="lang('./en/index.js').yearErrorBadFormat"></div>
         </div>
