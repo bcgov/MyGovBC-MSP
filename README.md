@@ -94,9 +94,11 @@ Unit testing is implemented using karma with Jasmine framework. The implementati
 To start unit test manually, run `npm test`, which launches tests in headless PhantomJS browser. To run the unit tests in UI browser such as IE9, IE10, IE11, Firefox and Chrome, run `npm test -- --browsers Chrome`.
 
 ## Production
+To build production distribution of the app,
 ```
 npm run build
 ```
+MSP production environment is hosted on OpenShift. Check out [deployment docs](openshift/app/README.md).   
 
 ## i18n and Markdown Support
 To facilitate building a multilingual site, i18n and markdown are supported by the webpack build framework. To promote modularization, there is no global folder to hold static content translations; instead, each Angular component can easily enable i18n and markdown static content editing feature by following 5 simple steps:
