@@ -1,47 +1,35 @@
-import {Component, Input, EventEmitter, Output, ViewChild, OnDestroy} from '@angular/core';
+import {Component, Input, EventEmitter, Output, ViewChild, OnInit} from '@angular/core';
 import {CompleterService, CompleterData} from 'ng2-completer';
 import {NgForm, FormControl} from "@angular/forms";
+import {BaseComponent} from "../base.component";
 
 @Component({
   selector: 'msp-province',
   templateUrl: './province.component.html'
 })
 
-export class MspProvinceComponent implements OnDestroy {
+export class MspProvinceComponent extends BaseComponent implements OnInit {
 
   lang = require('./i18n');
 
   @Input() showError: boolean;
   @Input() colSize: string = "col-sm-5";
   @Input() province: string;
+  @Input() provinceOnly: boolean;
   @Input() provinceLabel: string = this.lang('./en/index.js').provinceLabel;
   @Output() onChange = new EventEmitter<any>();
-
-  @Output() isFormValid = new EventEmitter<boolean>();
-  @Output() registerComponent = new EventEmitter<MspProvinceComponent>();
-  @Output() unRegisterComponent = new EventEmitter<MspProvinceComponent>();
 
   @ViewChild('formRef') form: NgForm;
   @ViewChild('provinceInput') inputField: FormControl;
 
-  ngAfterViewInit(): void {
-    this.registerComponent.emit(this);
-    this.isFormValid.emit(!!this.province);
-    this.form.valueChanges.subscribe( values => {
-      this.isFormValid.emit(!!this.province);
-    });
-  }
-  
   updateModel(event:string){
     this.province=event;
     this.onChange.emit(event)    
-    this.isFormValid.emit(!!event);
   }
   handleKeyboard(event:KeyboardEvent){
     const input = event.target as HTMLInputElement;
     if(!input.value){
       this.province = '';
-      this.isFormValid.emit(!!this.province);
     }
   }
   /**
@@ -61,11 +49,15 @@ export class MspProvinceComponent implements OnDestroy {
   }
 
   constructor(private completerService: CompleterService) {
-
-    this.dataService = completerService.local(this.provinceStateData, 'name', 'name');
+    super();
   }
 
-  ngOnDestroy(){
-    this.unRegisterComponent.emit(this);
+  ngOnInit() {
+    if (this.provinceOnly === true) {
+      this.dataService = this.completerService.local(this.provinceData, 'name', 'name');
+    }
+    else {
+      this.dataService = this.completerService.local(this.provinceStateData, 'name', 'name');
+    }
   }
 }

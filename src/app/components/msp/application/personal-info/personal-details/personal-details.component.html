@@ -89,7 +89,7 @@
     <div *ngIf="person.documents.images.length > 0">
         <h3 [innerHtml]="lang('./en/index.js').applicationPersonalInfo[person.relationship]"></h3>
         <p class="help-block" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
-        <msp-name [person]="person" (onChange) = "onChange.emit($event)" [showError]="showError"></msp-name>
+        <msp-name #name [person]="person" (onChange) = "onChange.emit($event)" [showError]="showError"></msp-name>
 
         <div class="row">
             <div class="col-sm-4">
@@ -129,16 +129,17 @@
 
       <div class="row" *ngIf="person.documents.images.length > 0">
             <div class="col-md-4" *ngIf="person.currentActivity == Activities.MovingFromCountry || person.status == StatusInCanada.TemporaryResident">
-              <msp-country [label]="lang('./en/index.js').movedFromCountryLabel" 
+              <msp-country #country [label]="lang('./en/index.js').movedFromCountryLabel"
                   [country]="person.movedFromProvinceOrCountry" 
                   (onChange)="person.movedFromProvinceOrCountry = $event; onChange.emit($event)"
                   [showError]="showError">
               </msp-country>
             </div>
             <div class="col-md-4" *ngIf="person.currentActivity === Activities.MovingFromProvince">
-              <msp-province [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
+              <msp-province #province [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
                             [province]="person.movedFromProvinceOrCountry"
                             (onChange)="provinceUpdate($event)"
+                            [provinceOnly]="true"
                             [exceptBC]="true" [showError]="showError"
                             colSize="col-sm-4"></msp-province>
             </div>

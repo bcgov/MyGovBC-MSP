@@ -35,6 +35,7 @@ import 'rxjs/add/operator/catch';
 
 import './personal-details.component.less';
 import {BaseComponent} from "../../../common/base.component";
+import {MspCountryComponent} from "../../../common/country/country.component";
 @Component({
     selector: 'msp-personal-details',
     templateUrl: './personal-details.component.html',
@@ -86,6 +87,9 @@ export class PersonalDetailsComponent extends BaseComponent {
   @ViewChild('outOfBCRecord') outOfBCRecord: MspOutofBCRecordComponent;
   @ViewChild('gender') gender: MspGenderComponent;
   @ViewChild('birthDate') birthdate: MspBirthDateComponent;
+  @ViewChild('name') name: MspNameComponent;
+  @ViewChild('country') country: MspCountryComponent;
+  @ViewChild('province') province: MspProvinceComponent;
 
   @Input() person: Person;
   @Input() id: string;
