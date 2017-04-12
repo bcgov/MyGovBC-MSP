@@ -275,7 +275,8 @@
         </div>
         <div class="row">
             <div class="col-md-6" *ngIf="person.hasPreviousBCPhn === true">
-                <msp-phn [phn]="person.previous_phn"
+                <msp-phn #phn
+                         [phn]="person.previous_phn"
                          (phnChange)="person.previous_phn = $event"
                          [required]="false"
                          [bcPhn]="true"

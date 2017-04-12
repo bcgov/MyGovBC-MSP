@@ -93,6 +93,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   @ViewChild('arrivalDateBC') arrivalDateBC: MspArrivalDateComponent;
   @ViewChild('arrivalDateCanada') arrivalDateCanada: MspArrivalDateComponent;
   @ViewChild('healthNumber') healthNumber: HealthNumberComponent;
+  @ViewChild('phn') phn: MspPhnComponent;
 
   @Input() person: Person;
   @Input() id: string;
