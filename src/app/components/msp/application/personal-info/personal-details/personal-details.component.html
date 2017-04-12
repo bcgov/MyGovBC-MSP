@@ -136,9 +136,10 @@
               </msp-country>
             </div>
             <div class="col-md-4" *ngIf="person.currentActivity === Activities.MovingFromProvince">
-              <msp-province [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
+              <msp-province #province [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
                             [province]="person.movedFromProvinceOrCountry"
                             (onChange)="provinceUpdate($event)"
+                            [provinceOnly]="true"
                             [exceptBC]="true" [showError]="showError"
                             colSize="col-sm-4"></msp-province>
             </div>
