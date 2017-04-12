@@ -129,7 +129,7 @@
 
       <div class="row" *ngIf="person.documents.images.length > 0">
             <div class="col-md-4" *ngIf="person.currentActivity == Activities.MovingFromCountry || person.status == StatusInCanada.TemporaryResident">
-              <msp-country [label]="lang('./en/index.js').movedFromCountryLabel" 
+              <msp-country #country [label]="lang('./en/index.js').movedFromCountryLabel"
                   [country]="person.movedFromProvinceOrCountry" 
                   (onChange)="person.movedFromProvinceOrCountry = $event; onChange.emit($event)"
                   [showError]="showError">

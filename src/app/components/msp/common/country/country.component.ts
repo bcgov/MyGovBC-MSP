@@ -1,14 +1,14 @@
-import {Component, Inject, Input, NgModule, Output, EventEmitter, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {Address} from "../../model/address.model";
 import {CompleterData, CompleterService} from "ng2-completer";
+import {BaseComponent} from "../base.component";
 
 @Component({
   selector: 'msp-country',
   templateUrl: './country.component.html'
 })
 
-export class MspCountryComponent {
+export class MspCountryComponent extends BaseComponent {
   lang = require('./i18n');
 
   /**
@@ -19,6 +19,7 @@ export class MspCountryComponent {
   @Input() label: string = this.lang('./en/index.js').countryLabel;
   @Input() country: string;
   @Output() onChange = new EventEmitter<string>();
+  @ViewChild('formRef') form: NgForm;
 
   /**
    * Auto complete for country
@@ -27,7 +28,7 @@ export class MspCountryComponent {
   countryData:Array<{code:string, name:string}> = this.lang('./en/index.js').countryData;
 
   constructor(private completerService: CompleterService) {
-
+    super();
     this.dataService = completerService.local(this.countryData, 'name', 'name');
   }
 
