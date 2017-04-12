@@ -86,6 +86,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   @ViewChild('outOfBCRecord') outOfBCRecord: MspOutofBCRecordComponent;
   @ViewChild('gender') gender: MspGenderComponent;
   @ViewChild('birthDate') birthdate: MspBirthDateComponent;
+  @ViewChild('name') name: MspNameComponent;
 
   @Input() person: Person;
   @Input() id: string;

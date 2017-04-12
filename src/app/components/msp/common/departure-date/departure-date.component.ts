@@ -2,7 +2,6 @@ import {Component, Input, Output, EventEmitter, ViewChild} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
 import {BaseComponent} from "../base.component";
-import {Valid} from "../valid";
 
 require('./departure-date.component.less');
 
