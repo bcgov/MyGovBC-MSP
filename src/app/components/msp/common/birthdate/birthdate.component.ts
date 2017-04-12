@@ -62,10 +62,12 @@ export class MspBirthDateComponent extends BaseComponent {
   isCorrectFormat(): boolean {
 
     // Validate
-    if (!this.person.dob.isValid()) {
-      return false;
-    }else{
+    if (this.person &&
+        this.person.dob &&
+        this.person.dob.isValid()) {
       return true;
+    }else{
+      return false;
     }
 
   }

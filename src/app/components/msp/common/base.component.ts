@@ -130,7 +130,8 @@ export class BaseComponent implements DoCheck {
    */
   childrenIsValid (): boolean {
 
-    for (let item of Object.values(this.validationMap)) {
+    for (let key of Object.keys(this.validationMap)) {
+      let item = this.validationMap[key];
       if (item === false) {
         return false;
       }
