@@ -111,7 +111,7 @@ export class BaseComponent implements DoCheck {
   /**
    * A common function to emit the status of the form
    */
-  private emitIsFormValid () {
+  emitIsFormValid () {
     console.log(this.constructor.name + ": children: " + this.childrenIsValid() + "(" + Object.keys(this.validationMap).length
       + "); myFormValid: " + this.myFormValid +
       "; this.isValid: " + this.isValid());

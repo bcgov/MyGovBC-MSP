@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, ViewChild} from '@angular/core'
+import {Component, Input, Output, EventEmitter, ViewChild, OnChanges, SimpleChanges} from '@angular/core'
 import {NgForm} from '@angular/forms'
 import {Person, Gender} from "../../model/person.model";
 import {UUID} from 'angular2-uuid';
@@ -9,6 +9,8 @@ import {BaseComponent} from "../base.component";
   templateUrl: './gender.component.html'
 })
 export class MspGenderComponent extends BaseComponent {
+
+
 
   lang = require('./i18n');
 
@@ -28,12 +30,9 @@ export class MspGenderComponent extends BaseComponent {
    */
   uuid = UUID.UUID();
 
-  ngAfterViewInit() {
-    super.ngAfterViewInit();
-  }
-
   genderChange(evt:Gender){
     this.onChange.emit(evt);
+    super.emitIsFormValid();
   }
 
   isValid(): boolean {
