@@ -1,16 +1,18 @@
-import {Component, Inject, Input, NgModule, Output, SimpleChanges,
-    OnChanges, OnDestroy, EventEmitter, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, Input, Output, SimpleChanges,
+    EventEmitter, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {Address} from "../../model/address.model";
-import {CompleterData, CompleterService} from "ng2-completer";
 import './address.component.less';
+import {BaseComponent} from "../base.component";
+import {MspProvinceComponent} from "../province/province.component";
+import {MspCountryComponent} from "../country/country.component";
 
 @Component({
   selector: 'msp-address',
   templateUrl: './address.component.html'
 })
 
-export class MspAddressComponent implements AfterViewInit, OnChanges{
+export class MspAddressComponent extends BaseComponent {
   lang = require('./i18n');
   private _useResidentialAddressLine2: boolean = false;
   private _useResidentialAddressLine3: boolean = false;
@@ -29,35 +31,27 @@ export class MspAddressComponent implements AfterViewInit, OnChanges{
 
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
-
-  @Output() isFormValid = new EventEmitter<boolean>();
-  @Output() registerComponent = new EventEmitter<MspAddressComponent>();
-  @Output() unRegisterComponent = new EventEmitter<MspAddressComponent>();
+  @ViewChild('province') province: MspProvinceComponent;
+  @ViewChild('country') country: MspCountryComponent;
 
   Address: typeof Address = Address;
 
   ngAfterViewInit(): void {
-    this.registerComponent.emit(this);
+    super.ngAfterViewInit();
 
-    this.isFormValid.emit(this.form.valid);
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);
-      this.isFormValid.emit(this.form.valid);
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
+
     if(!changes['mailingOnly'] && !!changes['mailingSameAsResidentialAddress']){
       if(changes['mailingSameAsResidentialAddress'].currentValue === null 
         || changes['mailingSameAsResidentialAddress'].currentValue === undefined){
           this.mailingSameAsResidentialAddress = true;
-          this.isFormValid.emit(this.form.valid);
       }
     }
-  }
-
-  ngDestroy():void{
-    this.unRegisterComponent.emit(this);
   }
 
   provinceUpdate(event:string){
@@ -160,14 +154,11 @@ export class MspAddressComponent implements AfterViewInit, OnChanges{
   useDifferentMailingAddress() {
     this.mailingSameAsResidentialAddress = false;
     this.mailingSameAsResidentialAddressChange.emit(this.mailingSameAsResidentialAddress);
-    this.isFormValid.emit(this.form.valid);
-    
   }
 
   useSameMailingAddress() {
     this.mailingSameAsResidentialAddress = true;
     this.mailingAddress = new Address();
     this.mailingSameAsResidentialAddressChange.emit(this.mailingSameAsResidentialAddress);
-    this.isFormValid.emit(this.form.valid);
   }
 }

@@ -363,8 +363,9 @@
             </div>
         </div>
     </div>
-    <msp-address *ngIf="person.documents.images.length > 0 &&
-        person.relationship === Relationship.Child19To24"
+    <msp-address #schoolAddress
+                *ngIf="person.documents.images.length > 0 &&
+                  person.relationship === Relationship.Child19To24"
                 [mailingAddressHeading]="lang('./en/index.js').schoolAddressLabel"
                 [mailingAddress]="person.schoolAddress"
                 [mailingOnly]="true"

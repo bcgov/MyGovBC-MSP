@@ -85,19 +85,6 @@
                    readonly>
         </div>
     </div>
-    <!--<div class="row">
-        <div class="form-group col-sm-12">
-            <span [innerHtml]="lang('./en/index.js').mailingAddressSameQuestion"></span>
-            <div class="btn-group" role="group">
-                <button [class.msp-btn-radio]="mailingSameAsResidentialAddress" (click)="useSameMailingAddress()"
-                        [disabled]="mailingSameAsResidentialAddress" type="button" class="btn btn-default">Yes
-                </button>
-                <button [class.msp-btn-radio]="!mailingSameAsResidentialAddress" (click)="useDifferentMailingAddress()"
-                        [disabled]="!mailingSameAsResidentialAddress" type="button" class="btn btn-default">No&nbsp;</button>
-            </div>
-        </div>
-    </div>-->
-
     <div class="row">
         <div class="form-group col-xs-12">
             <div class="checkbox checkbox-success checkbox-inline" 
@@ -193,7 +180,7 @@
         </div>
         <div class="row">
             <div class="form-group col-sm-5">
-                <msp-province
+                <msp-province #province
                         [provinceLabel]="lang('./en/index.js').provinceStateLabel"
                         [province]="mailingAddress.province"
                         (provinceChange)="mailingAddress.province = $event"
@@ -201,7 +188,7 @@
                 </msp-province>
             </div>
             <div class="form-group col-sm-4">
-                <msp-country
+                <msp-country #country
                     [country]="mailingAddress.country"
                     (onChange)="countryUpdate($event)">
                 </msp-country>

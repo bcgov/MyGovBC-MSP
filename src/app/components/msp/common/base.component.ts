@@ -89,7 +89,7 @@ export class BaseComponent implements DoCheck {
    */
   private registerBaseComponent(comp:BaseComponent) {
     if (this.validationMap[comp.objectId] == null) {
-      console.log(this.constructor.name + " is adding: " + comp.constructor.name + " in state: " + comp.isAllValid());
+      console.log(this.constructor.name + " is adding: " + comp.constructor.name + " (" + comp.objectId + ") in state: " + comp.isAllValid());
       this.validationMap[comp.objectId] = comp.isAllValid();
       this.emitIsFormValid();
       this.subscriptionList.push(comp.isFormValid
@@ -115,6 +115,12 @@ export class BaseComponent implements DoCheck {
     console.log(this.constructor.name + ": children: " + this.childrenIsValid() + "(" + Object.keys(this.validationMap).length
       + "); myFormValid: " + this.myFormValid +
       "; this.isValid: " + this.isValid());
+    for (let key of Object.keys(this.validationMap)) {
+      let item = this.validationMap[key];
+      if (item === false) {
+        console.log(this.constructor.name + ": child is invalid: " + key);
+      }
+    }
     this.isFormValid.emit({id: this.objectId, isValid: this.isAllValid()});
   }
 
