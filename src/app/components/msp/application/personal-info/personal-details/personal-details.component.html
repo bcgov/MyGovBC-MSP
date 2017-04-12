@@ -200,7 +200,8 @@
         </div>
         <div class="row" *ngIf="person.currentActivity === Activities.MovingFromProvince">
             <div class="col-sm-4" >
-                <msp-health-number [healthNumber]="person.healthNumberFromOtherProvince"
+                <msp-health-number #healthNumber
+                                    [healthNumber]="person.healthNumberFromOtherProvince"
                                    (healthNumberChange)="handleHealthNumberChange($event)"
                                    [required]="false"
                                    [showError]="showError"

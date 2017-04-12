@@ -6,7 +6,7 @@
         <input type="text"
                [ngModel]="healthNumber"
                (ngModelChange) = "updateHealthNumber($event)"
-               minlength="10"
+               minlength="1"
                maxlength="50"
                id='healthNumber' name='healthNumber' #healthNumberRef="ngModel"
                class="form-control">
