@@ -311,6 +311,7 @@
             </div>
             <div *ngIf="person.institutionWorkHistory === 'Yes'" style="margin-top: 10px">
                 <msp-discharge-date
+                        #dischargeDate
                         [year]="person.dischargeYear"
                         (yearChange)="person.dischargeYear = $event"
                         [month]="person.dischargeMonth"
