@@ -1,8 +1,7 @@
-import {Component, Input, Output, EventEmitter, ViewChild, OnInit, AfterViewInit, OnChanges, SimpleChanges} from '@angular/core'
+import {Component, Input, Output, EventEmitter, ViewChild, AfterViewInit} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
-import * as _ from 'lodash';
-// import {ValidationStatus} from "../../common/validation-status.interface";
+import {BaseComponent} from "../base.component";
 
 require('./arrival-date.component.less');
 
@@ -10,7 +9,7 @@ require('./arrival-date.component.less');
   selector: 'msp-arrival-date',
   templateUrl: './arrival-date.component.html'
 })
-export class MspArrivalDateComponent implements OnInit, AfterViewInit, OnChanges{
+export class MspArrivalDateComponent extends BaseComponent implements AfterViewInit {
 
   lang = require('./i18n');
 
@@ -28,34 +27,15 @@ export class MspArrivalDateComponent implements OnInit, AfterViewInit, OnChanges
   @Input() arrivalLabel: string = this.lang('./en/index.js').arrivalDateLabel;
 
   @Output() onChange = new EventEmitter<any>();
-  @Output() isFormValid = new EventEmitter<boolean>();
-  @Output() registerArrivalDateComponent = new EventEmitter<MspArrivalDateComponent>();
 
   @ViewChild('formRef') form: NgForm;
 
-  ngOnChanges(changes: SimpleChanges):void{
-    // console.log('changes on input for msp-arrival-date: ', changes);
-  }
-
-  ngOnInit(){
-    
-  }
   ngAfterViewInit(): void {
-    this.registerArrivalDateComponent.emit(this);
+    super.ngAfterViewInit();
 
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);
-      if(this.required){
-        this.isFormValid.emit(this.form.valid);
-      }else{
-        if(!this.month && !this.day && !this.year){
-          this.isFormValid.emit(true);
-        }else{
-          this.isFormValid.emit(this.form.valid);
-        }
-      }
     });
-    this.isFormValid.emit(this.form.valid);
   }
 
   // Parse person's date
@@ -103,18 +83,11 @@ export class MspArrivalDateComponent implements OnInit, AfterViewInit, OnChanges
    *
    * @returns {boolean}
    */
-  isValid(): boolean {
-    // Validate, only if provided
-    if (this.year != null ||
-        _.isNaN(this.month) ||
-        this.day != null) {
-
-      if (!this.inputDate().isValid()) {
-        return false;
-      }
+  isCorrectFormat(): boolean {
+    if (this.year && this.month && this.day) {
+      return this.inputDate().isValid();
     }
-
-    return true;
+    return false;
   }
 
   futureCheck(): boolean {
@@ -124,6 +97,18 @@ export class MspArrivalDateComponent implements OnInit, AfterViewInit, OnChanges
       return false;
     }
 
+    return true;
+  }
+
+  isValid(): boolean {
+    if (this.required) {
+      if (!this.year || !this.month || !this.day) {
+        return false;
+      }
+    }
+    if (this.year || (this.month && this.month != 0) || this.day) {
+      return this.isCorrectFormat() && this.futureCheck();
+    }
     return true;
   }
 }

@@ -19,6 +19,7 @@ export class MspGenderComponent extends BaseComponent {
 
   @Input('person') person: Person;
   @Input() showError: boolean;
+
   @Output() onChange = new EventEmitter<any>();
 
   /**
@@ -29,17 +30,13 @@ export class MspGenderComponent extends BaseComponent {
 
   ngAfterViewInit() {
     super.ngAfterViewInit();
-
-    let status:boolean = (this.person.gender === Gender.Male || this.person.gender === Gender.Female);
-    // console.log('gender component initial validation status: %o', status);
   }
 
   genderChange(evt:Gender){
-    this.form.resetForm();
-
     this.onChange.emit(evt);
+  }
 
-    let status:boolean = (this.person.gender === Gender.Male || this.person.gender === Gender.Female);
-    // console.log('Gender component validation status: %o', status);
+  isValid(): boolean {
+    return this.person.gender != null;
   }
 }

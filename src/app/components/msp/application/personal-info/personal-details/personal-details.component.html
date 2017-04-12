@@ -165,7 +165,8 @@
                 person.currentActivity === Activities.LivingInBCWithoutMSP &&
                 person.livedInBCSinceBirth === true)">
             <div class="col-md-4">
-                <msp-arrival-date [arrivalLabel]="arrivalDateLabel"
+                <msp-arrival-date #arrivalDateBC
+                                  [arrivalLabel]="arrivalDateLabel"
                                   [year]="person.arrivalToBCYear"
                                   (yearChange)="person.arrivalToBCYear = $event"
                                   [month]="person.arrivalToBCMonth"
@@ -180,7 +181,8 @@
             <div class="col-md-4">
                 <!--For canadian citizen, returning to BC after an absence or moving from another province, the arrival date in canada
                 is not required.-->
-                <msp-arrival-date [arrivalLabel]="lang('./en/index.js').arrivalDateToCanadaLabel"
+                <msp-arrival-date #arrivalDateCanada
+                                  [arrivalLabel]="lang('./en/index.js').arrivalDateToCanadaLabel"
                                   [required]="!(person.status === StatusInCanada.CitizenAdult 
                                     && (person.currentActivity == Activities.LivingInBCWithoutMSP || person.currentActivity == Activities.MovingFromProvince))"
                                   [year]="person.arrivalToCanadaYear"

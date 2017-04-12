@@ -4,7 +4,6 @@
          [ngClass]="{'has-error': formRef.invalid && required && (monthRef.touched || yearRef.touched || dayRef.touched || showError)}">
         <select class="form-control monthSelect"
                 [ngModel]="month"
-                validateCalendarMonth
                 (ngModelChange)="setMonthValueOnModel($event)"
                 id="month" name="month" #monthRef="ngModel"
                 [required]="required">
