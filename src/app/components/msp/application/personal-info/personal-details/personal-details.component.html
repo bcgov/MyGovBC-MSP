@@ -76,6 +76,7 @@
                 (onAddDocument)="addDocument($event)"
                 (onErrorDocument)="errorDocument($event)"
                 (onDeleteDocument)="deleteDocument($event)"
+                [required]="true"
                 [showError]="showError">
                 
                 <span id="uploadInstruction">Please upload required ID documents</span>

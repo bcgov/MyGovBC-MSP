@@ -10,6 +10,7 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
+import {BaseComponent} from "../base.component";
 
 let loadImage = require('blueimp-load-image');
 
@@ -20,7 +21,7 @@ require('./file-uploader.component.less');
   selector: 'msp-file-uploader',
   templateUrl: './file-uploader.html'
 })
-export class FileUploaderComponent implements OnInit, OnChanges {
+export class FileUploaderComponent extends BaseComponent implements OnInit, OnChanges {
   lang = require('./i18n');
   noIdImage: Boolean = false;
 
@@ -34,6 +35,7 @@ export class FileUploaderComponent implements OnInit, OnChanges {
   @Input() images: Array<MspImage>;
   @Input() id: string;
   @Input() showError: boolean;
+  @Input() required: boolean = false;
 
   @Output() onAddDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
   @Output() onErrorDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
@@ -41,6 +43,7 @@ export class FileUploaderComponent implements OnInit, OnChanges {
 
   constructor(@Inject('appConstants') private appConstants: any,
               private zone: NgZone) {
+    super();
   }
 
   /**
@@ -157,10 +160,13 @@ export class FileUploaderComponent implements OnInit, OnChanges {
         (file: MspImage) => {
           this.handleImageFile(file);
           this.resetInputFields();
+          this.emitIsFormValid();
         },
 
         (error) => {
           console.log(error);
+          this.emitIsFormValid();
+
         }
       )
 
@@ -373,6 +379,13 @@ export class FileUploaderComponent implements OnInit, OnChanges {
       return false;
     }
 
+    return true;
+  }
+
+  isValid(): boolean {
+    if (this.required) {
+      return this.images && this.images.length > 0;
+    }
     return true;
   }
 

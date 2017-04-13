@@ -97,6 +97,13 @@ export class BaseComponent implements DoCheck {
           this.validationMap[event.id] = event.isValid;
           this.emitIsFormValid();
         }));
+
+      // Listen for the unsubscribe and delete it from the validation map
+      comp.unRegisterComponent.subscribe( (event:BaseComponent) => {
+        console.log(this.constructor.name + " is removing: " + event.constructor.name);
+        this.validationMap[event.objectId] = null;
+        this.emitIsFormValid();
+      });
     }
   }
 
