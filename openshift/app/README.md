@@ -6,6 +6,13 @@ This folder contains following artifacts to facilitate deploying MSP app to Open
 * 2 instant-app templates adopting s2i build strategy with binary source input, one for build and one for deployment.
 * a nginx-based builder image
 
+Nginx runtime features
+* app provisioning
+* proxy to all backend API service directly consumed by MSP SPA
+* request throttling
+* ip filtering
+* security hardening based on result of security scan
+
 OpenShift is expected to be setup this way:
 * 1 project for build. This project is identified by *\<yourprojectname-tools\>* below. All build related activities take place in this project.
 * 1 or more projects for runtime environments such as *-dev*, *-test* etc, identified by *<yourprojectname-\<env\>>* below. All deployment activities and runtime artifacts are contained in respective projects.
@@ -26,14 +33,13 @@ The prerequisites of the deployment are:
   * OpenShift docker registry, by default docker-registry.pathfinder.gov.bc.ca
 * has following software installed on the deployment client:
   * git
-  * docker. This further implies you have the provisioning tools such as docker machine installed on non-linux clients and started by executing, for example 
-            
-              ```
-              docker-machine start
-              docker-machine env
-              # Following the output instruction, for example run this command to configure your shell:
-              eval $(docker-machine env)
-              ```
+  * docker. This further implies you have the provisioning tools such as docker machine installed on non-linux clients and started by executing, for example
+    ```
+     docker-machine start
+     docker-machine env
+     # Following the output instruction, for example run this command to configure your shell:
+     eval $(docker-machine env)
+     ```
   * [oc](https://docs.openshift.com/container-platform/latest/cli_reference/get_started_cli.html)
 
 The deployment consists of these steps
