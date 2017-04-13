@@ -96,6 +96,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   @ViewChild('phn') phn: MspPhnComponent;
   @ViewChild('dischargeDate') dischargeDate: MspDischargeDateComponent;
   @ViewChild('schoolAddress') schoolAddress: MspAddressComponent;
+  @ViewChild('schoolDate') schoolDate: MspSchoolDateComponent;
 
   @Input() person: Person;
   @Input() id: string;

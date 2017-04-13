@@ -38,27 +38,27 @@
                required
                min="1900"
                max="2200">
-        <div *ngIf='monthRef.touched'>
+        <div *ngIf='monthRef.touched || showError'>
             <div class="text-danger" *ngIf="monthRef.errors?.required"
                  [innerHtml]="lang('./en/index.js').monthErrorRequired"></div>
         </div>
-        <div *ngIf='dayRef.touched'>
+        <div *ngIf='dayRef.touched || showError'>
             <div class="text-danger" *ngIf="dayRef.errors?.required"
                  [innerHtml]="lang('./en/index.js').dayErrorRequired"></div>
         </div>
-        <div *ngIf='yearRef.touched'>
+        <div *ngIf='yearRef.touched || showError'>
             <div class="text-danger" *ngIf="yearRef.errors?.required"
                  [innerHtml]="lang('./en/index.js').yearErrorRequired"></div>
         </div>
-        <div *ngIf='yearRef.touched && !isValid()'>
+        <div *ngIf='(yearRef.touched  || showError) && !isValid()'>
             <div class="text-danger"
                  [innerHtml]="lang('./en/index.js').yearErrorBadFormat"></div>
         </div>
-        <div *ngIf='yearRef.touched && !futureCheck()'>
+        <div *ngIf='(yearRef.touched  || showError) && !futureCheck()'>
             <div class="text-danger"
                  [innerHtml]="yearErrorPastFutureCheck()"></div>
         </div>
-        <div *ngIf="required && !isValid()">
+        <div *ngIf="(required  || showError) && !isValid()">
             <div class="text-danger"
                  [innerHtml]="lang('./en/index.js').fillInDateText"></div>
         </div>

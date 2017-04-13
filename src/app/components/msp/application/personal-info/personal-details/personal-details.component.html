@@ -369,13 +369,15 @@
                 [mailingAddressHeading]="lang('./en/index.js').schoolAddressLabel"
                 [mailingAddress]="person.schoolAddress"
                 [mailingOnly]="true"
-                (onChange)="schoolAddressUpdate($event)"    
+                (onChange)="schoolAddressUpdate($event)"
+                [showError] = "showError"
                 ></msp-address>
 
     <div class="row" *ngIf="person.documents.images.length > 0 &&
                             person.relationship === Relationship.Child19To24">
         <div class="form-group col-md-6">
-            <msp-school-date [departureDate]="true"
+            <msp-school-date #schoolDate
+                            [departureDate]="true"
                             [year]="person.studiesDepartureYear"
                             [required]="schoolInBC"
                             (yearChange)="person.studiesDepartureYear = $event"
@@ -384,6 +386,7 @@
                             [day]="person.studiesDepartureDay"
                             (dayChange)="person.studiesDepartureDay = $event"
                             (onChange) = "updateSchoolDepartureDate($event)"
+                            [showError] = "showError"
                             >
             </msp-school-date>
         </div>
@@ -395,6 +398,7 @@
                             [day]="person.studiesFinishedDay"
                             (dayChange)="person.studiesFinishedDay = $event"
                             (onChange) = "updateSchoolExpectedCompletionDate($event)"
+                            [showError] = "showError"
                             >
             </msp-school-date>
         </div>

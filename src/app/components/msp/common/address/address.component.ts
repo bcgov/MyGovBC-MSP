@@ -28,6 +28,7 @@ export class MspAddressComponent extends BaseComponent {
   @Input() mailingAddress: Address;
   @Input('mailingOnly') mailingOnly: boolean;
   @Input() mailingAddressHeading:string = this.lang('./en/index.js').mailingAddressHeading;
+  @Input() showError: boolean;
 
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
