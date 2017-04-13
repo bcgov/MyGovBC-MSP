@@ -1,27 +1,32 @@
-import {Component, Input, ViewChild, Output, EventEmitter, AfterViewInit, OnInit} from '@angular/core'
+import {Component, ViewChild} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import DataService from '../../service/msp-data.service';
-import CompletenessCheckService from '../../service/completeness-check.service';
 import {MspApplication} from "../../model/application.model";
-import {Person} from "../../model/person.model";
 import {Address} from "../../model/address.model";
-import {UUID} from "angular2-uuid";
+import {BaseComponent} from "../../common/base.component";
+import {MspAddressComponent} from "../../common/address/address.component";
+import {MspPhoneComponent} from "../../common/phone/phone.component";
 
 @Component({
   templateUrl: './address.component.html'
 })
-export class AddressComponent implements AfterViewInit{
+export class AddressComponent extends BaseComponent {
   lang = require('./i18n');
+
   @ViewChild('formRef') form: NgForm;
+  @ViewChild('address') address: MspAddressComponent;
+  @ViewChild('phone') phone: MspPhoneComponent;
   
   mspApplication: MspApplication;
 
-  constructor(private dataService: DataService, 
-    private completenessService: CompletenessCheckService) {
+  constructor(private dataService: DataService) {
+    super();
     this.mspApplication = this.dataService.getMspApplication();
   }
 
   ngAfterViewInit():void {
+    super.ngAfterViewInit();
+
     this.form.valueChanges.subscribe(values => {
       this.dataService.saveMspApplication();
     });
@@ -46,6 +51,6 @@ export class AddressComponent implements AfterViewInit{
   }
 
   canContinue(){
-    return this.completenessService.mspContactInfoCompleted();
+    return this.isAllValid();
   }
 }

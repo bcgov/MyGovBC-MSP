@@ -1,12 +1,13 @@
 import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import {PhoneNumber} from "../../model/phone.model";
+import {BaseComponent} from "../base.component";
 
 @Component({
   selector: 'msp-phone',
   templateUrl: './phone.component.html'
 })
-export class MspPhoneComponent {
+export class MspPhoneComponent extends BaseComponent {
     lang = require('./i18n');
 
     @Input() phoneNumber: string;
@@ -16,7 +17,10 @@ export class MspPhoneComponent {
 
     @Output() onChange = new EventEmitter<any>();
     @ViewChild('formRef') form: NgForm;
+
     ngAfterViewInit(): void {
+      super.ngAfterViewInit();
+
       this.form.valueChanges.subscribe(values => {
         this.onChange.emit(values);
       });
