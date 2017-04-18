@@ -42,7 +42,7 @@ The prerequisites of the deployment are:
      ```
   * [oc](https://docs.openshift.com/container-platform/latest/cli_reference/get_started_cli.html)
 
-The deployment consists of these steps
+The environment setup consists of these steps
 
 1. deploy template
 
@@ -70,7 +70,9 @@ The deployment consists of these steps
    $ docker tag s2i-nginx docker-registry.pathfinder.gov.bc.ca/<yourprojectname-tools>/s2i-nginx
    $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname-tools>/s2i-nginx  
    ```   
-4. build runtime image
+
+## Build
+To build runtime image, run
 
    ```
    $ npm install
@@ -80,7 +82,14 @@ The deployment consists of these steps
    $ oc project <yourprojectname-tools>
    $ oc start-build msp --from-dir=dist/ -Fw
    ```
-The last step can be easily automated using Jenkins to enable CI. Jenkins should have same set of CLI listed in prerequisites. If you use default Jenkins hosted by OpenShift, which is recommended, oc is already installed. In such case you only need to install and configure [NodeJS Plugin](https://wiki.jenkins-ci.org/display/JENKINS/NodeJS+Plugin) to meet all prerequisites. To setup Jenkins hosted by OpenShift, in \<yourprojectname-tools\>, click *Add to Project* and select *jenkins-persistent*.
+   
+The command ``sed -i s~%MSP_APP_SHA1%~`git rev-parse HEAD`~ dist/index.html`` injects git commit SHA-1 tag to index.html so that you can trace back the source code version of a runtime instance by opening in browser the HTML source, which at around 4th line should look like
+
+```
+<!-- application source SHA-1: 02fef8c4893c4837d54084b885c65849413ca384 -->
+```
+
+The build commands can be easily automated using Jenkins to enable CI. Jenkins should have same set of CLI listed in prerequisites. If you use default Jenkins hosted by OpenShift, which is recommended, oc is already installed. In such case you only need to install and configure [NodeJS Plugin](https://wiki.jenkins-ci.org/display/JENKINS/NodeJS+Plugin) to meet all prerequisites. To setup Jenkins hosted by OpenShift, in \<yourprojectname-tools\>, click *Add to Project* and select *jenkins-persistent*.
 
 Proper authorization is needed for Jenkins to launch build. If Jenkins is in the same project \<yourprojectname-tools\>, no further configuration is required. Otherwise, run following command to grant access to Jenkins service account:
 
