@@ -21,6 +21,7 @@ export class MspImage {
 
   fileContent:string;
   contentType: string;
+  //number of bytes.
   size: number;
   sizeUnit: string;
   sizeTxt:string;
