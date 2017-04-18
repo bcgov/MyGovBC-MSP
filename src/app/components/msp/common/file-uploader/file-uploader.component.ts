@@ -151,9 +151,15 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
         }
       ).filter(
         (mspImage: MspImage) => {
-          let imageSizeOk = this.checkImageSizeProperties(mspImage);
+          let imageSizeOk = this.checkImageDimensions(mspImage);
           if (!imageSizeOk) this.handleError(MspImageError.TooSmall, mspImage);
           return imageSizeOk;
+        }
+      ).filter(
+        (mspImage: MspImage) => {
+          let bytesUnderLimit = this.checkImageSizeInBytes(mspImage);
+          if (!bytesUnderLimit) this.handleError(MspImageError.TooBig, mspImage);
+          return bytesUnderLimit;
         }
       )
       .subscribe(
@@ -232,6 +238,7 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
                   sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
                   fileSize = nApprox.toFixed(0);
                   fileSizeUnit = aMultiples[nMultiple];
+                  mspImage.sizeUnit = fileSizeUnit;
                 }
 
                 console.log(`Size of file ${fileName}: ${sOutput}`);
@@ -373,13 +380,22 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
    * Return true if the image size is within range
    * @param file
    */
-  checkImageSizeProperties(file: MspImage): boolean {
+  checkImageDimensions(file: MspImage): boolean {
     if (file.naturalHeight < this.appConstants.images.minHeight ||
       file.naturalWidth < this.appConstants.images.minWidth) {
       return false;
     }
-
     return true;
+  }
+
+  checkImageSizeInBytes(file: MspImage):boolean{
+    if(file.size < 1048576 * 2){
+      // console.log('file size under 2MB, ok to use.');
+      return true;
+    }else{
+      console.log('file size %s is greater than 2MB; cannot use this file.', file.sizeTxt);
+      return false;
+    }
   }
 
   isValid(): boolean {
