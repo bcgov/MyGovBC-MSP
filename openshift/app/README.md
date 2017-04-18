@@ -8,14 +8,14 @@ This folder contains following artifacts to facilitate deploying MSP app to Open
 
 Nginx runtime features
 * app provisioning
-* proxy to all backend API service directly consumed by MSP SPA
+* proxy to all backend API services directly consumed by MSP SPA
 * request throttling
 * ip filtering
 * security hardening based on result of security scan
 
 OpenShift is expected to be setup this way:
 * 1 project for build. This project is identified by *\<yourprojectname-tools\>* below. All build related activities take place in this project.
-* 1 or more projects for runtime environments such as *-dev*, *-test* etc, identified by *<yourprojectname-\<env\>>* below. All deployment activities and runtime artifacts are contained in respective projects.
+* 1 or more projects for runtime environments such as *dev*, *test* etc, identified by *\<yourprojectname-\<env\>>* below. All deployment activities and runtime artifacts are contained in respective projects to make an environment self-sufficient.
 
 ## Dependencies
 The Nginx serves as the web server for the SPA frontend app as well as proxy to following backend API services:
@@ -83,7 +83,7 @@ To build runtime image, run
    $ oc start-build msp --from-dir=dist/ -Fw
    ```
    
-The command ``sed -i s~%MSP_APP_SHA1%~`git rev-parse HEAD`~ dist/index.html`` injects git commit SHA-1 tag to index.html so that you can trace back the source code version of a runtime instance by opening in browser the HTML source, which at around 4th line should look like
+The command ``sed -i s~%MSP_APP_SHA1%~`git rev-parse HEAD`~ dist/index.html`` injects git commit SHA-1 to index.html so that you can trace back the source code version of a runtime instance by opening in browser the HTML source, which at around 4th line should look like
 
 ```
 <!-- application source SHA-1: 02fef8c4893c4837d54084b885c65849413ca384 -->
@@ -107,7 +107,7 @@ When you setup Jenkins to automate the last step in previous section with a webh
 ```
 oc tag <yourprojectname-tools>/msp:latest <yourprojectname-<env>>/msp:latest
 ```
-Usually, \<env\> referred to by the command is *dev*. The command can be combined with the build commands (last step in previous section) to keep *dev* env up-to-date with code. 
+Usually, \<env\> referred to by the command is *dev*. The command can be combined with the build commands executed in Jenkins to keep *dev* env up-to-date with code. Make sure Jenkins has proper authorization since the command updates images in another project.
 
 ### Change Propagation
 To promote runtime image from one environment to another, for example from *dev* to *test*, run
@@ -115,6 +115,6 @@ To promote runtime image from one environment to another, for example from *dev*
 ```
 oc tag <yourprojectname-tools>/msp:latest <yourprojectname-test>/msp:latest <yourprojectname-tools>/msp:test
 ```
-The above command will deploy the latest/dev runtime image to *test* env. The purpose of tagging runtime image of *test* env in both \<yourprojectname-test\>/msp:latest and \<yourprojectname-tools\>/msp:test is to use \<yourprojectname-tools\>/msp:test as backup such that in case the image stream \<yourprojectname-test\>/msp, which is used by *test* runtime pods, is deleted inadvertently, it can be recovered from \<yourprojectname-tools\>/msp:test.
+The above command will deploy the latest (which should also be dev) runtime image to *test* env. The purpose of tagging runtime image of *test* env in both \<yourprojectname-test\>/msp:latest and \<yourprojectname-tools\>/msp:test is to use \<yourprojectname-tools\>/msp:test as backup such that in case the image stream \<yourprojectname-test\>/msp, which is used by *test* runtime pods, is deleted inadvertently, it can be recovered from \<yourprojectname-tools\>/msp:test.
 
 The command can be setup as a Jenkins task to faciliate using Jenkins to orchestrate deployment of entire application, as is the case.
