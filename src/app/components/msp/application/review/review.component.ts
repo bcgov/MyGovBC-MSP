@@ -7,6 +7,7 @@ import {MspApplication} from "../../model/application.model";
 import DataService from '../../service/msp-data.service';
 import {Gender, Person} from "../../model/person.model";
 import {StatusInCanada, Activities, Relationship} from "../../model/status-activities-documents";
+import ProcessService from "../../service/process.service";
 
 @Component({
   templateUrl: './review.component.html'
@@ -20,6 +21,7 @@ export class ReviewComponent implements OnInit{
 
   constructor(private dataService: DataService,
               private _router: Router,
+              private processService:ProcessService,
               @Inject('appConstants') private appConstants: Object) {
     this.application = this.dataService.getMspApplication();
     this.captchaApiBaseUrl = this.appConstants["captchaApiBaseUrl"];
@@ -66,6 +68,7 @@ export class ReviewComponent implements OnInit{
     // console.log('review form submitted, %o', evt);
     if(this.application.hasValidAuthToken){
       console.log('Found valid auth token, transfer to sending screen.');
+      this.processService.setStep(3, true);
       this._router.navigate(['/msp/application/sending']);
     }else{
       console.log('Auth token is not valid');

@@ -55,12 +55,7 @@ import ValidationService from './service/msp-validation.service';
 import CompletenessCheckService from './service/completeness-check.service';
 
 
-import {MspApplicationPersonalInfoGuard} from './application/personal-info/personal-info-documents.guard'
-import {MspApplicationAddressGuard} from './application/address/address.guard'
-import {MspApplicationReviewGuard} from './application/review/review.guard'
-import {MspApplicationSendingGuard} from "./application/sending/sending.guard";
 import {MspFinancialAssistAppSendingGuard} from "./assistance/sending/sending.guard";
-import {MspApplicationConfirmationGuard} from './application/confirmation/confirmation.guard'
 
 import {PersonalInfoGuard} from './assistance/personal-info/personal-info.guard';
 import {RetroYearsGuard} from './assistance/retro-years/retro-years.guard';
@@ -92,6 +87,7 @@ import {EligibilityCardComponent} from './assistance/prepare/eligibility-card/el
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {MspApiService} from "./service/msp-api.service";
 import {MspLogService} from "./service/log.service"
+import ProcessService from "./service/process.service";
 
 let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
@@ -139,27 +135,27 @@ let localStorageServiceConfig = {
               },
               {
                 path: 'personal-info',
-                canActivate: [MspApplicationPersonalInfoGuard],
+                canActivate: [ProcessService],
                 component: PersonalInfoComponent
               },
               {
                 path: 'address',
-                canActivate: [MspApplicationAddressGuard],
+                canActivate: [ProcessService],
                 component: AddressComponent
               },
               {
                 path: 'review',
-                canActivate: [MspApplicationReviewGuard],
+                canActivate: [ProcessService],
                 component: ReviewComponent
               },
               {
                 path: 'sending',
-                canActivate: [MspApplicationSendingGuard],
+                canActivate: [ProcessService],
                 component: SendingComponent
               },
               {
                 path: 'confirmation',
-                canActivate: [MspApplicationConfirmationGuard],
+                canActivate: [],
                 component: ConfirmationComponent
               },
 
@@ -292,12 +288,8 @@ let localStorageServiceConfig = {
     CompletenessCheckService,
     MspApiService,
     MspLogService,
+    ProcessService,
 
-    MspApplicationPersonalInfoGuard,
-    MspApplicationAddressGuard,
-    MspApplicationReviewGuard,
-    MspApplicationSendingGuard,
-    MspApplicationConfirmationGuard,
     RetroYearsGuard,
     PersonalInfoGuard,
     ReviewGuard,

@@ -8,6 +8,7 @@ import {Relationship} from "../../model/status-activities-documents";
 import {NgForm} from "@angular/forms";
 import {PersonalDetailsComponent} from "./personal-details/personal-details.component";
 import {BaseComponent} from "../../common/base.component";
+import ProcessService from "../../service/process.service";
 
 @Component({
   templateUrl: './personal-info.component.html'
@@ -22,6 +23,7 @@ export class PersonalInfoComponent extends BaseComponent {
   @ViewChildren(PersonalDetailsComponent) personalDetailsComponent: QueryList<PersonalDetailsComponent>;
 
   constructor(private dataService: DataService,
+    private processService:ProcessService,
     private _router: Router){
     super();
   }
@@ -82,6 +84,7 @@ export class PersonalInfoComponent extends BaseComponent {
     if(!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{
+      this.processService.setStep(1, true);
       this._router.navigate(['/msp/application/address']);
     }
   }

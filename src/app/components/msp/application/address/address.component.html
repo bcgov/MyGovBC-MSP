@@ -1,4 +1,4 @@
-<form #formRef="ngForm" novalidate>
+<form #formRef="ngForm" novalidate (submit)="continue()">
     <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
     <p class="help-block" [innerHTML]="lang('./en/index.js').helpBlock"></p>
     <msp-address #address
@@ -15,12 +15,13 @@
                        (phoneNumberChange)="handlePhoneNumberChange($event)"></msp-phone>
         </div>
     </div>
+    <hr>
+    <button [mspLogger]="'msp-enrollment_contact-info_continue'"
+            class="btn btn-primary" type="submit"
+            [innerHTML]="lang('./en/index.js').continueButton"
+            [disabled]="!canContinue()">
+    </button>
 </form>
-<hr>
-<button [mspLogger]="'msp-enrollment_contact-info_continue'"
-        class="btn btn-primary" type="submit" routerLink="/msp/application/review"
-        [innerHTML]="lang('./en/index.js').continueButton"
-        [disabled]="!canContinue()">
-</button>
+
 
 <msp-cancel></msp-cancel>

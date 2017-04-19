@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {ResponseType} from "../../api-model/responseTypes";
 import {MspLogService} from '../../service/log.service'
 import './sending.component.less';
+import ProcessService from "../../service/process.service";
 
 @Component({
   templateUrl: 'sending.component.html'
@@ -24,7 +25,7 @@ export class SendingComponent implements AfterViewInit {
   errorCode:string;
   showMoreErrorDetails:boolean;
   
-  constructor(private dataService: DataService, private service: MspApiService, 
+  constructor(private dataService: DataService, private service: MspApiService, private processService:ProcessService,
     public router: Router, private logService: MspLogService) {
     this.application = this.dataService.getMspApplication();
     this.transmissionInProcess = undefined;
@@ -57,6 +58,7 @@ export class SendingComponent implements AfterViewInit {
         this.dataService.removeMspApplication();
 
         //  go to confirmation
+
         this.router.navigate(["/msp/application/confirmation"], 
           {queryParams: {confirmationNum:tempRef}});
 

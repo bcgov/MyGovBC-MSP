@@ -14,6 +14,7 @@ import 'rxjs/add/operator/catch';
 
 import DataService from '../../service/msp-data.service';
 import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
+import ProcessService from "../../service/process.service";
 
 
 @Component({
@@ -35,6 +36,7 @@ export class PrepareComponent implements AfterViewInit{
   mspApplication: MspApplication;
 
   constructor(private dataService: DataService,
+    private processService:ProcessService,
     private _router: Router) {
     this.mspApplication = this.dataService.getMspApplication();
     this.apt = this.mspApplication.applicant;
@@ -87,7 +89,8 @@ export class PrepareComponent implements AfterViewInit{
     if(this.mspApplication.infoCollectionAgreement !== true){
       console.log('user agreement not accepted yet, show user dialog box.');
       this.mspConsentModal.showFullSizeView();
-    }else{
+    } else {
+      this.processService.setStep(0, true);
       this._router.navigate(["/msp/application/personal-info"]);
     }
   }
