@@ -389,11 +389,11 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
   }
 
   checkImageSizeInBytes(file: MspImage):boolean{
-    if(file.size < 1048576 * 2){
+    if(file.size < 1048576 * 1.2){
       // console.log('file size under 2MB, ok to use.');
       return true;
     }else{
-      console.log('file size %s is greater than 2MB; cannot use this file.', file.sizeTxt);
+      console.log('file size %s is greater than 1.2MB; cannot use this file.', file.sizeTxt);
       return false;
     }
   }
