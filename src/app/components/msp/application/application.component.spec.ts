@@ -6,6 +6,7 @@ import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-loc
 import {MspProgressBarComponent} from "../common/progressBar/progressBar.component";
 import {RouterTestingModule} from "@angular/router/testing";
 import appConstants from '../../../services/appConstants';
+import ProcessService from "../service/process.service";
 
 describe('ApplicationComponent', () => {
   let localStorageServiceConfig = {
@@ -17,7 +18,7 @@ describe('ApplicationComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ApplicationComponent, MspProgressBarComponent],
       imports: [FormsModule, RouterTestingModule],
-      providers: [MspDataService,
+      providers: [MspDataService, ProcessService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         },

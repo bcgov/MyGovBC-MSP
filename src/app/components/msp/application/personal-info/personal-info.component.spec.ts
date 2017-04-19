@@ -38,8 +38,9 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {CalendarYearFormatter} from '../../common/calendar/calendar-year-formatter.component';
 import {CalendarYearValidator} from '../../common/calendar/calendar-year.validator';
 import {CalendarDayValidator} from '../../common/calendar/calendar-day.validator';
+import ProcessService from "../../service/process.service";
 
-describe('PersonalInfoComponent Test', () => {
+describe('PersonalInfoComponent', () => {
   let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
     storageType: 'localStorage'
@@ -52,9 +53,10 @@ describe('PersonalInfoComponent Test', () => {
         MspBirthDateComponent, MspSchoolDateComponent, FileUploaderComponent, MspAddressComponent,
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,
         MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspCancelComponent,
-        MspImageErrorModalComponent, MspLoggerDirective, CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator],
+        MspImageErrorModalComponent, MspLoggerDirective, CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator
+        ],
       imports: [FormsModule, Ng2CompleterModule, ModalModule, AccordionModule, HttpModule, RouterTestingModule],
-      providers: [MspDataService, MspLogService, ValiationService,
+      providers: [MspDataService, MspLogService, ValiationService, ProcessService,
         CompletenessCheckService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

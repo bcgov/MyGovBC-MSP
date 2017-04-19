@@ -6,6 +6,7 @@ import MspDataService from '../../service/msp-data.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {MspApiService} from "../../service/msp-api.service";
 import {Http, HttpModule} from "@angular/http";
+import ProcessService from "../../service/process.service";
 
 describe('SendingComponent', () => {
   let localStorageServiceConfig = {
@@ -15,9 +16,9 @@ describe('SendingComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SendingComponent, ],
+      declarations: [SendingComponent],
       imports: [FormsModule, HttpModule, RouterTestingModule],
-      providers: [MspDataService, MspApiService,
+      providers: [MspDataService, MspApiService, ProcessService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         }
