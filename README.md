@@ -16,8 +16,8 @@ This is MyGovBC MSP AngularJS 2.x app.  It provides the following processes:
 Recommended minimum width 320px of device.
 
 ## Content Author Prerequisites
-* A GitHub account with 2fa enabled
-* Write access to this repository
+* A GitHub account with 2fa enabled.
+* Write access to this repository.
 
 ## Content Authoring
 Most of the application text is configurable.  General procedure:
