@@ -1,6 +1,6 @@
 [![Build Status](https://jenkins-gcpe-mygovbc-msp-tools.pathfinder.gov.bc.ca/buildStatus/icon?job=msp-dev)](https://jenkins-gcpe-mygovbc-msp-tools.pathfinder.gov.bc.ca/job/msp-dev)
 
-# MyGovBC-MSP
+## MyGovBC-MSP
 This is MyGovBC MSP AngularJS 2.x app.  It provides the following processes:
  1. Enrolment Application
  2. Premium Assistance Application
@@ -16,8 +16,8 @@ This is MyGovBC MSP AngularJS 2.x app.  It provides the following processes:
 Recommended minimum width 320px of device.
 
 ## Content Author Prerequisites
-* A GitHub account with 2fa enabled
-* Write access to this repository
+* A GitHub account with 2FA enabled.
+* Write access to this repository.
 
 ## Content Authoring
 Most of the application text is configurable.  General procedure:

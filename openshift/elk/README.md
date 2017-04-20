@@ -8,7 +8,7 @@ This folder contains following files to facilitate deploying ELK cluster to Open
 
 The ELK has these features
 * Logstash [HTTP input](https://www.elastic.co/blog/introducing-logstash-input-http-plugin) for client browser-side logging
-* Logstash [syslog input](https://www.elastic.co/guide/en/logstash/2.4/plugins-inputs-syslog.html) for internal server-side logging
+* Logstash [syslog input](https://www.elastic.co/guide/en/logstash/2.4/plugins-inputs-syslog.html) on TCP and UDP port 5514 for internal project-scoped server-side logging
 * scalable Elasticsearch cluster
 * local ephemeral storage for Elasticsearch data to improve performance. Performance of OpenShift GlusterFS persistent volume has been found unacceptable to hold search index, as supported by this [Elasticsearch blog](https://www.elastic.co/blog/performance-considerations-elasticsearch-indexing)
 * configurable data lifespan, by default 3 months
@@ -45,7 +45,7 @@ The deployment consists of these steps
 
 1. deploy template
 
-   ```sh
+   ```
    $ git clone https://github.com/bcgov/MyGovBC-msp.git
    $ cd MyGovBC-msp
    $ oc login -u <username> https://console.pathfinder.gov.bc.ca:8443
