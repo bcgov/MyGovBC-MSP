@@ -52,7 +52,7 @@
             <ul>
                 <li *ngFor="let document of documents">
                     {{langDocuments('./en/index.js')[document]}}
-                    <a role="button" (click)="viewIdReqModal(document)"
+                    <a role="button" href="javascript:void(0)" (click)="viewIdReqModal(document)" tabindex="0"
                        [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
                 </li>
             </ul>
@@ -60,7 +60,7 @@
             <ul>
                 <li *ngFor="let document of nameChangeDocuments">
                     {{langDocuments('./en/index.js')[document]}}
-                    <a role="button" (click)="viewIdReqModal(document)"
+                    <a role="button" href="javascript:void(0)" (click)="viewIdReqModal(document)" tabindex="0"
                        [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
                 </li>
             </ul>
