@@ -130,8 +130,12 @@ objects:
               failureThreshold: 3
             terminationMessagePath: /dev/termination-log
             imagePullPolicy: Always
+            lifecycle:
+              preStop:
+                exec:
+                  command: ["/tmp/preStop.sh"]
         restartPolicy: Always
-        terminationGracePeriodSeconds: 30
+        terminationGracePeriodSeconds: 9999
         dnsPolicy: ClusterFirst
 - apiVersion: v1
   kind: DeploymentConfig
