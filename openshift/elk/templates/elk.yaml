@@ -596,20 +596,6 @@ objects:
       apiVersion: extensions/v1beta1
       subresource: scale
     maxReplicas: 4
-- apiVersion: extensions/v1beta1
-  kind: HorizontalPodAutoscaler
-  metadata:
-    name: elasticsearch
-    labels:
-      app: ${NAME}
-  spec:
-    scaleRef:
-      kind: DeploymentConfig
-      name: elasticsearch
-      apiVersion: extensions/v1beta1
-      subresource: scale
-    minReplicas: 5
-    maxReplicas: 10
 parameters:
 - description: The name assigned to all of the openshift objects defined in this template.
   displayName: Name

@@ -92,8 +92,8 @@ The deployment consists of these steps
      ```
      This ensures the images are binary identical across environments/projects.
    
-
-4. Wait for the first Elasticsearch pod to be fully up, then scale up the cluster to 5 pods (or more). If doing so too soon, contention may arise between the pods vying to be the first and sole master.   
+4. Wait for the first Elasticsearch pod to be fully up, then scale up the cluster to 5 pods (or more). If doing so too soon, contention may arise between the pods vying to be the first and sole master.
+5. Auto-scale Elasticsearch. Set min to # of pods brought up in last step.
 
 If everything goes well, you will be able to access the Logstash http endpoint provided in the Overview page of OpenShift project for log collection and kibana URL for reporting dashboard.
 
