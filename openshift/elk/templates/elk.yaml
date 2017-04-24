@@ -260,6 +260,9 @@ objects:
                 containerPort: 8080
                 protocol: TCP
               -
+                containerPort: 8088
+                protocol: TCP
+              -
                 containerPort: 5514
                 protocol: TCP
               -
@@ -275,10 +278,22 @@ objects:
             env:
               -
                 name: LS_HEAP_SIZE
-                value: 512m
+                value: 450m
+            livenessProbe:
+              httpGet:
+                path: /
+                port: 8088
+                scheme: HTTP
+              initialDelaySeconds: 900
+              timeoutSeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              failureThreshold: 3
             readinessProbe:
-              tcpSocket:
-                port: 8080
+              httpGet:
+                path: /
+                port: 8088
+                scheme: HTTP
               initialDelaySeconds: 360
               timeoutSeconds: 60
               periodSeconds: 30

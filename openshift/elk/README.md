@@ -153,6 +153,10 @@ ls: cannot access /var/backups: Transport endpoint is not connected
 ```
 then kill the pod. You need to go through each pod. When killing a pod, make sure to leave enough recovery window from last kill, as mentioned before.
 
+### Manual Backup
+ELK performs nightly backup. Before any risky operations such as deploying an updated ElasticSearch image to prod, it is advised to perform a manual backup beforehand. To do so, log into pod *elk-cron*, run command `. /cron/cron-tasks.sh`, and wait for it to finish.
+
+
 ### Cluster Recovery
 If Elasticsearch cluster is crashed, data can be restored from the most recently nightly backup. But data from last backup till now is lost permanently. To restore,
 
