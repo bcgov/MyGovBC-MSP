@@ -13,9 +13,24 @@ export class MspApplicationSendingGuard implements CanActivate {
     let step3Complete = this.compCheck.mspContactInfoCompleted();
     let step4Complete = this.compCheck.mspReviewAndSubmitCompleted();
 
-    if(!step1Complete || !step2Complete || !step3Complete || !step4Complete){
-      console.log('There are missing informaion on the application. Return user to first step');
-      this._router.navigate(['/msp/application']);
+    if(!step1Complete){
+      console.log('There are missing informaion in step 1.');
+      this._router.navigate(['/msp/application/prepare']);
+      return false;
+    }
+    if(!step2Complete){
+      console.log('There are missing informaion in step 2.');
+      this._router.navigate(['/msp/application/personal-info']);
+      return false;
+    }
+    if(!step3Complete){
+      console.log('There are missing informaion in step 3.');
+      this._router.navigate(['/msp/application/address']);
+      return false;
+    }
+    if(!step4Complete){
+      console.log('There are missing informaion in step 3.');
+      this._router.navigate(['/msp/application/review']);
       return false;
     }
 
