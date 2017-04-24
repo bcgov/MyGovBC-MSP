@@ -13,8 +13,19 @@ import 'rxjs/add/operator/catch';
 import {BaseComponent} from "../base.component";
 
 let loadImage = require('blueimp-load-image');
-
 var sha1 = require('sha1');
+
+// for image too large error
+class ImageTooLargeError extends Error {
+  public mspImageCurrentSize: number;
+  public mspImageFile : File;
+
+  constructor(public imageCurrentSize: number, public imageFile: File, public message: string) {
+      super(message);
+      this.mspImageCurrentSize = imageCurrentSize;
+      this.mspImageFile = imageFile;
+  }
+}
 
 require('./file-uploader.component.less');
 @Component({
@@ -24,6 +35,9 @@ require('./file-uploader.component.less');
 export class FileUploaderComponent extends BaseComponent implements OnInit, OnChanges {
   lang = require('./i18n');
   noIdImage: Boolean = false;
+
+  // jam - maximum size allowed
+  readonly maxScaledSize: number = 1048576 * 1.2;
 
   @ViewChild('formRef') form: NgForm;
   @ViewChild('dropZone') dropZone: ElementRef;
@@ -120,11 +134,14 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
       this.browseFileRef.nativeElement.click();
     });
 
-
     let browseFileStream = Observable.fromEvent<Event>(this.browseFileRef.nativeElement, 'change');
     let captureFileStream = Observable.fromEvent<Event>(this.captureFileRef.nativeElement, 'change');
     let brosweFileInputElement = this.browseFileRef.nativeElement;
     let captureFileInputElement = this.captureFileRef.nativeElement;
+
+    // jam : size factor
+    let maxFactor = 1.0;
+    let processedFile : File = null;
 
     let filesArrayFromInput = browseFileStream.merge(captureFileStream)
       .map(
@@ -137,48 +154,73 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
         return !!files && files.length && files.length > 0;
       }).flatMap(
         (fileList: FileList) => {
-          return this.observableFromFile(fileList[0]);
+          processedFile = fileList[0];
+          return this.processFile(fileList[0], maxFactor);
         }
-      )
-      .filter(
-        (mspImage: MspImage) => {
-          let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
-          if (imageExists){
-            this.handleError(MspImageError.AlreadyExists, mspImage);
-            this.resetInputFields();
-          } 
-          return !imageExists;
-        }
-      ).filter(
-        (mspImage: MspImage) => {
-          let imageSizeOk = this.checkImageDimensions(mspImage);
-          if (!imageSizeOk) this.handleError(MspImageError.TooSmall, mspImage);
-          return imageSizeOk;
-        }
-      ).filter(
-        (mspImage: MspImage) => {
-          let bytesUnderLimit = this.checkImageSizeInBytes(mspImage);
-          if (!bytesUnderLimit) this.handleError(MspImageError.TooBig, mspImage);
-          return bytesUnderLimit;
-        }
-      )
-      .subscribe(
+      ).subscribe(
         (file: MspImage) => {
           this.handleImageFile(file);
           this.resetInputFields();
           this.emitIsFormValid();
         },
-
         (error) => {
-          console.log(error);
+          console.log(error.message);
+          if (error instanceof ImageTooLargeError) {
+            maxFactor = this.calculateScaling(error.mspImageCurrentSize);
+            this.processFile(error.mspImageFile, maxFactor).subscribe(
+                (file: MspImage) => {
+                    this.handleImageFile(file);
+                    this.resetInputFields();
+                    this.emitIsFormValid();
+                },
+                (error) => {
+                    console.log(error.message);
+                    if (error instanceof ImageTooLargeError) {
+                        maxFactor = this.calculateScaling(error.mspImageCurrentSize);
+                        this.processFile(error.mspImageFile, maxFactor);
+                    }
+                    this.emitIsFormValid();
+                });
+          }
           this.emitIsFormValid();
-
         }
-      )
-
+      );
   }
 
-  observableFromFile(file: File) {
+  processFile(file: File, maxFactor: number) : Observable<any> {
+    return this.observableFromFile(file, maxFactor).filter(
+        (mspImage: MspImage) => {
+          let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
+          if (imageExists){
+            this.handleError(MspImageError.AlreadyExists, mspImage);
+            this.resetInputFields();
+          }
+          return !imageExists;
+        }
+        ).filter(
+            (mspImage: MspImage) => {
+              let imageSizeOk = this.checkImageDimensions(mspImage);
+              if (!imageSizeOk) this.handleError(MspImageError.TooSmall, mspImage);
+              return imageSizeOk;
+            }
+        ).filter(
+            (mspImage: MspImage) => {
+              let bytesUnderLimit = this.checkImageSizeInBytes(mspImage);
+              if (!bytesUnderLimit) {
+                // find the location
+                let errorMessage : string = `image size(${mspImage.size}) > max(${this.maxScaledSize})`;
+                console.log(errorMessage);
+                // maxFactor = this.calculateScaling(mspImage.size);
+                // mspImage = this.resizeImageFromFile(fileSaved, maxFactor);
+                throw new ImageTooLargeError(mspImage.size, file, errorMessage);
+                // this.handleError(MspImageError.TooBig, mspImage);
+              }
+              return bytesUnderLimit;
+            }
+        );
+  }
+
+  observableFromFile(file: File, maxFactor: number) {
     console.log('Start processing file: ' + file.name);
     // Init
     let self = this;
@@ -205,6 +247,10 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
         // Canvas will force the change to a JPEG
         mspImage.contentType = self.appConstants.images.convertToMimeType;
 
+        // jam - calculate canvas width, height based on scaling factor
+        let width = self.appConstants.images.maxWidth / maxFactor;
+        let height = self.appConstants.images.maxHeight / maxFactor;
+
         // Scale the image by loading into a canvas
         let scaledImage = loadImage(
           file, // NOTE: we pass the File ref here again even though its already read because we need the XIFF metadata
@@ -220,7 +266,7 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
             console.log("metadata: ", metadata);
 
             // Convert to grayscale
-            //self.makeGrayScale(canvas);
+            // self.makeCompressedGrayScale(canvas);
 
             // Convert to blob to get size
             canvas.toBlob((blob: Blob) => {
@@ -228,20 +274,33 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
                 // Copy the blob properties
                 mspImage.size = blob.size;
 
+                /*
+                if (mspImage.size > self.maxScaledSize) {
+                  console.log(`image size(${mspImage.size}) > max(${self.maxScaledSize})`);
+                  maxFactor = self.calculateScaling(mspImage.size);
+                  mspImage = self.resizeImageFromFile(file, maxFactor);
+                  observer.next(mspImage);
+                  return;
+                }
+                */
+
                 let fileName = mspImage.name;
                 let nBytes = mspImage.size;
                 let fileSize = '';
                 let fileSizeUnit = '';
                 let sOutput: string = nBytes + " bytes";
                 // optional code for multiples approximation
-                for (let aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"], nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
+                for (let aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"], nMultiple = 0,
+                         nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
                   sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
                   fileSize = nApprox.toFixed(0);
                   fileSizeUnit = aMultiples[nMultiple];
                   mspImage.sizeUnit = fileSizeUnit;
                 }
 
+                // log info
                 console.log(`Size of file ${fileName}: ${sOutput}`);
+                console.log(`Canvas size: ${canvas.height} x ${canvas.width}`);
                 mspImage.sizeTxt = sOutput;
 
                 // call reader with new transformed image
@@ -257,15 +316,13 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
                   observer.next(mspImage);
                 };
                 reader.readAsDataURL(blob);
-
               },
-
               // What mime type to make the blob as and jpeg quality
               self.appConstants.images.convertToMimeType, self.appConstants.images.jpegQuality);
           },
           {
-            maxWidth: self.appConstants.images.maxWidth,
-            maxHeight: self.appConstants.images.maxHeight,
+            maxWidth: width,
+            maxHeight: height,
             contain: true,
             canvas: true,
             meta: true,
@@ -276,6 +333,105 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
     });
 
     return fileObservable;
+  }
+
+  resizeImageFromFile(file: File, maxFactor: number) : MspImage {
+    console.log('Start resizing file: ' + file.name);
+    // Init
+    let self = this;
+
+      let reader: FileReader = new FileReader();
+      let mspImage: MspImage = new MspImage();
+
+      // Copy file properties
+      mspImage.name = file.name;
+
+      // Load image into img element to read natural height and width
+      this.loadImg(file, (image: HTMLImageElement) => {
+
+        // While it's still in an image, get it's height and width
+        mspImage.naturalWidth = image.naturalWidth;
+        mspImage.naturalHeight = image.naturalHeight;
+
+        console.log(`image file natural height and width: 
+            ${mspImage.naturalHeight} x ${mspImage.naturalWidth}`);
+
+        // Canvas will force the change to a JPEG
+        mspImage.contentType = self.appConstants.images.convertToMimeType;
+
+        // jam - calculate canvas width, height based on scaling factor
+        let width = self.appConstants.images.maxWidth / maxFactor;
+        let height = self.appConstants.images.maxHeight / maxFactor;
+
+        // Scale the image by loading into a canvas
+        let scaledImage = loadImage(
+            file, // NOTE: we pass the File ref here again even though its already read because we need the XIFF metadata
+            function (canvas: HTMLCanvasElement, metadata:any) {
+
+              // Canvas may be an Event when errors happens
+              if (canvas instanceof Event) {
+                self.handleError(MspImageError.WrongType, mspImage);
+                return;
+              }
+
+              // Log metadata
+              console.log("metadata: ", metadata);
+
+              // Convert to grayscale
+              // self.makeCompressedGrayScale(canvas);
+
+              // Convert to blob to get size
+              canvas.toBlob((blob: Blob) => {
+
+                    // Copy the blob properties
+                    mspImage.size = blob.size;
+
+                    let fileName = mspImage.name;
+                    let nBytes = mspImage.size;
+                    let fileSize = '';
+                    let fileSizeUnit = '';
+                    let sOutput: string = nBytes + " bytes";
+                    // optional code for multiples approximation
+                    for (let aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"], nMultiple = 0,
+                             nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
+                      sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
+                      fileSize = nApprox.toFixed(0);
+                      fileSizeUnit = aMultiples[nMultiple];
+                      mspImage.sizeUnit = fileSizeUnit;
+                    }
+
+                    // log info
+                    console.log(`Size of file ${fileName}: ${sOutput}`);
+                    console.log(`Canvas size: ${canvas.height} x ${canvas.width}`);
+                    mspImage.sizeTxt = sOutput;
+
+                    // call reader with new transformed image
+                    reader.onload = function (evt: any) {
+
+                      mspImage.fileContent = evt.target.result;
+                      mspImage.id = sha1(mspImage.fileContent);
+
+                      // delete image and canvas from DOM
+                      //image.remove();
+                      //canvas.remove();
+                    };
+                    reader.readAsDataURL(blob);
+                  },
+                  // What mime type to make the blob as and jpeg quality
+                  self.appConstants.images.convertToMimeType, self.appConstants.images.jpegQuality);
+            },
+            {
+              maxWidth: width,
+              maxHeight: height,
+              contain: true,
+              canvas: true,
+              meta: true,
+              orientation: true
+            }
+        );
+      });
+
+    return mspImage;
   }
 
   private loadImg(imageFile: File, callback: (image: HTMLImageElement) => void) {
@@ -297,10 +453,19 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
   }
 
   /**
+   * jam - calculate scaling factor based on current size
+   */
+  calculateScaling(currentSize: number) : number {
+    let maxFactor = currentSize / this.maxScaledSize;
+    console.log (`currentSize(${currentSize}) maxFactor(${maxFactor}`);
+    return maxFactor;
+  }
+
+  /**
    * Non reversible image filter to take an existing canvas and make it gray scale
    * @param canvas
    */
-  makeGrayScale(canvas: HTMLCanvasElement): void {
+  private makeGrayScale(canvas: HTMLCanvasElement): void {
     let context = canvas.getContext('2d');
 
     let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
@@ -320,6 +485,48 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
     context.putImageData(imageData, 0, 0);
   }
 
+  /**
+   * jam - Non reversible image filter to take an existing canvas and make it a compressed gray scale
+   * @param canvas
+   */
+  private makeCompressedGrayScale(canvas: HTMLCanvasElement): void {
+    let context = canvas.getContext('2d');
+
+    let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    let data = imageData.data;
+
+    // var arrayBuffer = new ArrayBuffer(data.length);
+    // var dataview = new DataView(arrayBuffer);
+
+    for (let i = 0; i < data.length; i += 4) {
+      let brightness = 0.34 * this.roundNearest(data[i], 8)
+          + 0.5 * this.roundNearest(data[i + 1], 8)
+          + 0.16 * this.roundNearest(data[i + 2], 4);
+      // red
+      data[i] = brightness;
+      // green
+      data[i + 1] = brightness;
+      // blue
+      data[i + 2] = brightness;
+      // dataview.setUint8(i, brightness);
+    }
+
+    // var blob = new Blob([dataview], {type: "application/octet-stream"});
+    // context.clearRect(0, 0, canvas.width, canvas.height);
+    // context.drawImage(context.createImageBitmap(blob), 0, 0, canvas.width, canvas.height);
+    // return blob;
+
+    // overwrite original image
+    context.putImageData(imageData, 0, 0);
+  }
+
+  /**
+   * jam - Function to round down to a range of 0 to 255
+   * @param mspImage
+   */
+  roundNearest(x: number, a: number) {
+    return Math.floor(x / (255 / a)) * (255 / a);
+  }
 
   handleImageFile(mspImage: MspImage) {
     console.log('image size (bytes) after compression: ' + mspImage.size);
@@ -389,11 +596,12 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
   }
 
   checkImageSizeInBytes(file: MspImage):boolean{
-    if(file.size < 1048576 * 1.2){
-      // console.log('file size under 2MB, ok to use.');
+    // jam - changed to maxScaledSize
+    if(file.size < this.maxScaledSize){
+      // console.log('file size under max, ok to use.');
       return true;
     }else{
-      console.log('file size %s is greater than 1.2MB; cannot use this file.', file.sizeTxt);
+      console.log(`file size ${file.sizeTxt} is greater than ${this.maxScaledSize}; cannot use this file.`);
       return false;
     }
   }
