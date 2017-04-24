@@ -209,7 +209,12 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
     // Create our observer
     let fileObservable = Observable.create((observer: Observer<MspImage>) => {
 
-      scaleFactors = scaleFactors.scaleDown(0.7);
+      /**
+       * scale down to 80% of the original size on each retry.
+       * With max retry set to 30 times, the application can take
+       * a max of 800MB image and scale it down to under 1MB.
+       */
+      scaleFactors = scaleFactors.scaleDown(0.8);
 
       let reader: FileReader = new FileReader();
       let mspImage: MspImage = new MspImage();
@@ -287,8 +292,8 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
                   // keep scaling down the image until the image size is
                   // under max image size
                   
-                  let MAX_IMAGE_SIZE:number = 1048576 * 1.2;    
-                  // let MAX_IMAGE_SIZE:number = 1048576 * 0.2;    
+                  let MAX_IMAGE_SIZE:number = 1048576;    
+                  // let MAX_IMAGE_SIZE:number = 1048576 * 0.5;    
                   
                   if(mspImage.size > MAX_IMAGE_SIZE){
 
@@ -326,7 +331,7 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
       (error: MspImageProcessingError)=>{
         observer.error(error);
       });
-    }).retryWhen(this.retryStrategy(100));
+    }).retryWhen(this.retryStrategy(30));
 
     return fileObservable;
   }
