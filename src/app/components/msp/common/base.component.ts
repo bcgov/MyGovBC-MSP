@@ -2,6 +2,7 @@ import {ChangeDetectorRef, DoCheck, EventEmitter, Output, QueryList, SimpleChang
 import { Subscription } from 'rxjs/Subscription';
 import {NgForm} from "@angular/forms";
 import {UUID} from "angular2-uuid";
+import ProcessService from "../service/process.service";
 
 export class ValidEvent {
   id: string;
@@ -34,6 +35,11 @@ export class BaseComponent implements DoCheck {
   subscriptionList:Subscription[] = [];
   private validationMap = {};
   private myFormValid:boolean = true;
+
+  constructor(private linkedProcessStepNumber?: number,
+              private processService?:ProcessService) {
+    // A linked process step auto sets in when invalid or valid is determine
+  }
 
   /**
    * Wire up all children and self by looking for properties of type BaseComponent
@@ -127,7 +133,17 @@ export class BaseComponent implements DoCheck {
         console.log(this.constructor.name + ": child is invalid: " + key);
       }
     }
-    this.isFormValid.emit({id: this.objectId, isValid: this.isAllValid()});
+
+    // Determine if all is valid
+    let isAllValid = this.isAllValid();
+
+    // If we have a process step, mark it with the current state
+    if (this.linkedProcessStepNumber != null &&
+      this.processService != null) {
+      this.processService.setStep(this.linkedProcessStepNumber, isAllValid);
+    }
+
+    this.isFormValid.emit({id: this.objectId, isValid: isAllValid});
   }
 
   /**

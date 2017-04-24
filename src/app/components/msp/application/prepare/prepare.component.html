@@ -46,7 +46,7 @@
 <hr>
 
 <button [mspLogger]="'msp-enrollment_check-eligibility_continue'"  class="btn btn-primary"
-        [disabled] = "!(plannedAbsence === false && liveInBC === true && unUsualCircumstance === false)"
+        [disabled] = "!canContinue()"
         (click) = "goToPersonalInfo()"
         type="button"
         [innerHtml]="lang('./en/index.js').continueButton"></button>

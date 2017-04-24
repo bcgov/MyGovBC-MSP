@@ -13,6 +13,9 @@ import {Router} from "@angular/router";
   templateUrl: './address.component.html'
 })
 export class AddressComponent extends BaseComponent {
+
+  static ProcessStepNum = 2;
+
   lang = require('./i18n');
 
   @ViewChild('formRef') form: NgForm;
@@ -22,10 +25,9 @@ export class AddressComponent extends BaseComponent {
   mspApplication: MspApplication;
 
   constructor(private dataService: DataService,
-              private processService:ProcessService,
               private _router: Router,
-              ) {
-    super();
+              private _processService: ProcessService) {
+    super(AddressComponent.ProcessStepNum, _processService);
     this.mspApplication = this.dataService.getMspApplication();
   }
 
@@ -65,7 +67,6 @@ export class AddressComponent extends BaseComponent {
     if(!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{
-      this.processService.setStep(2, true);
       this._router.navigate(['/msp/application/review']);
     }
   }
