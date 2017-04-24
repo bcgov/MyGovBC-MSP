@@ -1,5 +1,7 @@
-import {Component, Input, Output, SimpleChanges,
-    EventEmitter, ViewChild} from '@angular/core';
+import {
+  Component, Input, Output, SimpleChanges,
+  EventEmitter, ViewChild, ChangeDetectorRef
+} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {Address} from "../../model/address.model";
 import './address.component.less';
@@ -36,6 +38,10 @@ export class MspAddressComponent extends BaseComponent {
   @ViewChild('country') country: MspCountryComponent;
 
   Address: typeof Address = Address;
+
+  constructor() {
+    super();
+  }
 
   ngAfterViewInit(): void {
     super.ngAfterViewInit();

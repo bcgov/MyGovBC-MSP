@@ -43,9 +43,6 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
   @Output() onErrorDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
   @Output() onDeleteDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
 
-  // private MAX_IMAGE_SIZE:number = 1048576 * 1.2;
-  // private MAX_IMAGE_SIZE:number = 1048576 * 0.2;
-
   constructor(@Inject('appConstants') private appConstants: any,
               private zone: NgZone) {
     super();
@@ -142,7 +139,7 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
         return !!files && files.length && files.length > 0;
       }).flatMap(
         (fileList: FileList) => {
-          return this.observableFromFile(fileList[0], new MspImageScaleFactorsImpl(1.4, 1.4));
+          return this.observableFromFile(fileList[0], new MspImageScaleFactorsImpl(1, 1));
         }
       )
       .filter(
@@ -160,14 +157,7 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
           if (!imageSizeOk) this.handleError(MspImageError.TooSmall, mspImage);
           return imageSizeOk;
         }
-      ).filter(
-        (mspImage: MspImage) => {
-          let bytesUnderLimit = this.checkImageSizeInBytes(mspImage);
-          if (!bytesUnderLimit) this.handleError(MspImageError.TooBig, mspImage);
-          return bytesUnderLimit;
-        }
-      )
-      .subscribe(
+      ).subscribe(
         (file: MspImage) => {
           this.handleImageFile(file);
           this.resetInputFields();
@@ -180,7 +170,7 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
           /**
            * Handle the error if the image is gigantic that after
            * 100 times of scaling down by 30% on each step, the image
-           * is still over 1.2 MB.
+           * is still over 1 MB.
            */
           if(error.errorCode){
             if(MspImageError.TooBig === error.errorCode ){
@@ -202,18 +192,28 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
 
   }
 
+  /**
+   * Solve size in this equation: size * 0.8to-the-power-of30 < 1MB, size
+   * will be the max image size this application can accept and scale down 
+   * to under 1MB. In this case: size < 807 MB
+   * 
+   * 30 is the number of retries. the value for maxRetry passed to retryStrategy
+   * function.
+   * 
+   * If: size * 0.8to-the-power-of40 < 1MB, then size < 1262 MB.
+   * 
+   * 
+   * 
+   * @param file 
+   * @param scaleFactors 
+   */
   observableFromFile(file: File, scaleFactors: MspImageScaleFactors) {
-    console.log('Start processing file: ' + file.name);
+    console.log('Start processing file %s of size %s bytes', file.name, file.size);
     // Init
     let self = this;
     // Create our observer
     let fileObservable = Observable.create((observer: Observer<MspImage>) => {
 
-      /**
-       * scale down to 80% of the original size on each retry.
-       * With max retry set to 30 times, the application can take
-       * a max of 800MB image and scale it down to under 1MB.
-       */
       scaleFactors = scaleFactors.scaleDown(0.8);
 
       let reader: FileReader = new FileReader();
@@ -248,13 +248,6 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
               self.handleError(MspImageError.WrongType, mspImage);
               return;
             }
-
-            // Log metadata
-            // console.log("metadata: ", metadata);
-
-            // Convert to grayscale
-            //self.makeGrayScale(canvas);
-
             // Convert to blob to get size
             canvas.toBlob((blob: Blob) => {
 
@@ -276,7 +269,7 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
                   mspImage.sizeUnit = fileSizeUnit;
                 }
 
-                console.log(`Size of file ${fileName}: ${sOutput}`);
+                console.log(`File ${fileName} is scaled down to: ${sOutput}`);
                 mspImage.sizeTxt = sOutput;
 
                 // call reader with new transformed image
@@ -285,15 +278,11 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
                   mspImage.fileContent = evt.target.result;
                   mspImage.id = sha1(mspImage.fileContent);
 
-                  // delete image and canvas from DOM
-                  //image.remove();
-                  //canvas.remove();
-
                   // keep scaling down the image until the image size is
                   // under max image size
                   
+                  // let MAX_IMAGE_SIZE:number = 1048576 * 1.2;    
                   let MAX_IMAGE_SIZE:number = 1048576;    
-                  // let MAX_IMAGE_SIZE:number = 1048576 * 0.5;    
                   
                   if(mspImage.size > MAX_IMAGE_SIZE){
 
@@ -331,7 +320,7 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
       (error: MspImageProcessingError)=>{
         observer.error(error);
       });
-    }).retryWhen(this.retryStrategy(30));
+    }).retryWhen(this.retryStrategy(32));
 
     return fileObservable;
   }
@@ -342,19 +331,33 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
    */
   retryStrategy(maxRetry: number){
     return function (errors:Observable<MspImageProcessingError>){
-      console.log('Image is still too large after scaling down.');
       return errors.scan(
-        (acc, error) => {
-          console.log('Error encountered: %o', error);
+        (acc, error, index) => {
+          // console.log('Error encountered: %o', error);
+            console.log('Progressively scaling down the image, step %d.', index);
 
+          /**
+           * If the error is about file too big and we have not reach max retry 
+           * yet, theyt keep going to scaling down.
+           */  
           if(acc < maxRetry && error.errorCode === MspImageError.TooBig){
+            // console.log('Progressively scaling down the image, step %d.', index);
             return acc + 1;
           }else{
+            /**
+             * For either conditions terminate the retry, propogate
+             * the error.
+             * 
+             * 1. errors such as CannotRead or any other unknown errors
+             * not listed in MspImageError enum
+             * 2. Exceeded maxRetry 
+             * 
+             */
             console.log('Re-throw this image process error: %o', error);
             throw error;
           }
         }, 0
-      ).delay(20);
+      ).delay(2);
     }
   };
 
@@ -488,15 +491,15 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
     return true;
   }
 
-  checkImageSizeInBytes(file: MspImage):boolean{
-    if(file.size < 1048576 * 1.2){
-      // console.log('file size under 2MB, ok to use.');
-      return true;
-    }else{
-      console.log('file size %s is greater than 1.2MB; cannot use this file.', file.sizeTxt);
-      return false;
-    }
-  }
+  // checkImageSizeInBytes(file: MspImage):boolean{
+  //   if(file.size < 1048576){
+  //     // console.log('file size under 2MB, ok to use.');
+  //     return true;
+  //   }else{
+  //     console.log('file size %s is greater than 1.0MB; cannot use this file.', file.sizeTxt);
+  //     return false;
+  //   }
+  // }
 
   isValid(): boolean {
     if (this.required) {

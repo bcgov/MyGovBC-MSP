@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter, ViewChild
+  Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef
 } from '@angular/core'
 import {OutofBCRecord} from "../../model/outof-bc-record.model";
 import {NgForm} from "@angular/forms";
@@ -26,6 +26,10 @@ export class MspOutofBCRecordComponent extends BaseComponent {
   @ViewChild('mspDepartureDate') mspDepartureDate: MspDepartureDateComponent;
   @ViewChild('mspReturnDate') mspReturnDate: MspReturnDateComponent;
   @ViewChild('formRef') form:NgForm;
+
+  constructor() {
+    super();
+  }
 
   delete(id:string){
     this.onDelete.emit(this.outofBCRecord);

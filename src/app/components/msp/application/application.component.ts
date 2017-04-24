@@ -19,7 +19,10 @@ export class ApplicationComponent  {
   @ViewChild('progressBar') progressBar: MspProgressBarComponent;
 
   get applicationProgressBarList(): Array<MspProgressBarItem> {
-    if (this.processService.process.processSteps == null) return [];
+    if (this.processService.process == null ||
+      this.processService.process.processSteps == null) {
+      this.initProcessService();
+    }
 
     return [
       new MspProgressBarItem(this.lang("./en/index.js").progressStep1, this.processService.process.processSteps[0].route),
@@ -33,7 +36,10 @@ export class ApplicationComponent  {
                private processService: ProcessService) {
 
     appConstants.serviceName = this.lang('./en/index.js').serviceName;
+    this.initProcessService();
+  }
 
+  private initProcessService () {
     this.processService.init([
       new ProcessStep("/msp/application/prepare"),
       new ProcessStep("/msp/application/personal-info"),
@@ -41,6 +47,5 @@ export class ApplicationComponent  {
       new ProcessStep("/msp/application/review"),
       new ProcessStep("/msp/application/sending")]);
   }
-
 
 }

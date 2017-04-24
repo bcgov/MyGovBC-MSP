@@ -39,6 +39,10 @@ export default class ProcessService implements CanActivate {
     this.dataService.setMspProcess(process);
   }
 
+  getStep(stepNumber:number) {
+    return this.process.processSteps[stepNumber]
+  }
+
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean>
     | Promise<boolean>

@@ -15,13 +15,15 @@ import 'rxjs/add/operator/catch';
 import DataService from '../../service/msp-data.service';
 import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
 import ProcessService from "../../service/process.service";
+import {BaseComponent} from "../../common/base.component";
 
 
 @Component({
   templateUrl: './prepare.component.html'
 })
 @Injectable()
-export class PrepareComponent implements AfterViewInit{
+export class PrepareComponent extends BaseComponent {
+  static ProcessStepNum = 0;
   lang = require('./i18n');
   @ViewChild('formRef') form: NgForm;
   @ViewChild('liveInBCBtn') liveInBCBtn: ElementRef;
@@ -36,13 +38,15 @@ export class PrepareComponent implements AfterViewInit{
   mspApplication: MspApplication;
 
   constructor(private dataService: DataService,
-    private processService:ProcessService,
+    private _processService:ProcessService,
     private _router: Router) {
+    super(PrepareComponent.ProcessStepNum, _processService);
     this.mspApplication = this.dataService.getMspApplication();
     this.apt = this.mspApplication.applicant;
   }
 
   ngAfterViewInit() {
+    super.ngAfterViewInit();
 
     if (!this.mspApplication.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();
@@ -81,6 +85,7 @@ export class PrepareComponent implements AfterViewInit{
       .merge(plannedAbsenceBtn$).merge(noPlannedAbsenceBtn$)
       .subscribe(values => {
         this.dataService.saveMspApplication();
+        this.emitIsFormValid();
       });
     }
   }
@@ -90,7 +95,7 @@ export class PrepareComponent implements AfterViewInit{
       console.log('user agreement not accepted yet, show user dialog box.');
       this.mspConsentModal.showFullSizeView();
     } else {
-      this.processService.setStep(0, true);
+      this._processService.setStep(0, true);
       this._router.navigate(["/msp/application/personal-info"]);
     }
   }
@@ -114,4 +119,14 @@ export class PrepareComponent implements AfterViewInit{
     return this.apt;
   }
 
+  canContinue(): boolean {
+    return this.isAllValid();
+  }
+
+  isValid(): boolean {
+    let app = this.dataService.getMspApplication();
+    return app.applicant.plannedAbsence === false
+      && app.applicant.liveInBC === true
+      && app.unUsualCircumstance === false;
+  }
 }

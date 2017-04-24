@@ -16,6 +16,7 @@ import ProcessService from "../../service/process.service";
 @Injectable()
 export class PersonalInfoComponent extends BaseComponent {
 
+  static ProcessStepNum = 1;
   lang = require('./i18n');
   Relationship: typeof Relationship = Relationship;
 
@@ -23,9 +24,10 @@ export class PersonalInfoComponent extends BaseComponent {
   @ViewChildren(PersonalDetailsComponent) personalDetailsComponent: QueryList<PersonalDetailsComponent>;
 
   constructor(private dataService: DataService,
-    private processService:ProcessService,
-    private _router: Router){
-    super();
+    private _router: Router,
+    private _processService: ProcessService) {
+
+    super(PersonalInfoComponent.ProcessStepNum, _processService);
   }
 
   onChange(values:any){
@@ -84,7 +86,6 @@ export class PersonalInfoComponent extends BaseComponent {
     if(!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{
-      this.processService.setStep(1, true);
       this._router.navigate(['/msp/application/address']);
     }
   }

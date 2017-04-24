@@ -1,30 +1,37 @@
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import {Component, ViewChild, AfterViewInit, OnInit, ViewChildren, QueryList} from '@angular/core';
 import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
 
 import DataService from '../../service/msp-data.service';
 import CompletenessCheckService from '../../service/completeness-check.service';
 import {FinancialAssistApplication} from "../../model/financial-assist-application.model";
 import { Router } from '@angular/router';
+import {BaseComponent} from "../../common/base.component";
+import {AssistancePersonalDetailComponent} from "./personal-details/personal-details.component";
+import {MspAddressComponent} from "../../common/address/address.component";
+import {MspPhoneComponent} from "../../common/phone/phone.component";
 
 @Component({
   templateUrl: './personal-info.component.html'
 })
-export class AssistancePersonalInfoComponent implements AfterViewInit, OnInit{
+export class AssistancePersonalInfoComponent extends BaseComponent{
   lang = require('./i18n');
+
   @ViewChild('formRef') personalInfoForm: NgForm;
+  @ViewChildren(AssistancePersonalDetailComponent) personalDetailsComponent: QueryList<AssistancePersonalDetailComponent>;
+  @ViewChild('address') address: MspAddressComponent;
+  @ViewChild('phone') phone: MspPhoneComponent;
 
   financialAssistApplication: FinancialAssistApplication;
 
-  constructor(private dataService: DataService, 
-    private completenessCheck: CompletenessCheckService,
+  constructor(private dataService: DataService,
     private _router: Router) {
+    super();
     this.financialAssistApplication = this.dataService.finAssistApp;
   }
 
-  ngOnInit() {
-    // console.log('personalInfoForm: ', this.personalInfoForm);
-  }
   ngAfterViewInit() {
+    super.ngAfterViewInit();
+
     this.personalInfoForm.valueChanges.debounceTime(250)
       .distinctUntilChanged().subscribe( values => {
         // console.log('Personal info form change triggering save: ', values);
@@ -42,7 +49,7 @@ export class AssistancePersonalInfoComponent implements AfterViewInit, OnInit{
   }
 
   get canContinue():boolean{
-    return this.completenessCheck.finAppPersonalInfoCompleted();
+    return this.isAllValid();
   }
   
 }
