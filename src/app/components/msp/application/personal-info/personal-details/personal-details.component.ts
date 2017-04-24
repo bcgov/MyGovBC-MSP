@@ -342,6 +342,11 @@ export class PersonalDetailsComponent extends BaseComponent {
     // Some inputs can be determine via the form.isValid,
     // check these explicitly
 
+    // Status
+    if (this.person.currentActivity == null) {
+      return false;
+    }
+
     // moved to bc permanently
     if (this.person.madePermanentMoveToBC == null) {
       console.log("madePermanentMoveToBC invalid");
@@ -361,19 +366,19 @@ export class PersonalDetailsComponent extends BaseComponent {
     }
 
     // armed forces
-    if (this.armedForcedQuestion == null ||
+    if (this.armedForcedQuestion != null &&
       this.person.institutionWorkHistory == null) {
       console.log("institutionWorkHistory invalid");
       return false;
     }
 
     // school
-    if (this.schoolQuestion == null ||
+    if (this.schoolQuestion != null &&
       this.person.fullTimeStudent == null) {
       console.log("schoolQuestion invalid");
       return false;
     }
-    if (this.inBCAfterStudiesQuestion == null ||
+    if (this.inBCAfterStudiesQuestion != null &&
       this.person.fullTimeStudent == null) {
       console.log("fullTimeStudent invalid");
       return false;
