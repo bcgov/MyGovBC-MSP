@@ -5,9 +5,18 @@ export enum MspImageError {
   TooSmall,
   TooBig,
   AlreadyExists,
-  Unknown
+  Unknown,
+  CannotOpen
 }
 
+export class MspImageProcessingError {
+  mspImage?:MspImage;
+  rawImageFile?: File;
+  maxSizeAllowed?: number;
+  constructor(public errorCode:MspImageError){
+
+  }
+}
 /**
  * Image as uploaded by user
  */
@@ -33,4 +42,27 @@ export class MspImage {
   id: string;
 
   error?: MspImageError;
+}
+
+export interface MspImageScaleFactors {
+  widthFactor:number;
+  heightFactor:number;
+
+  scaleDown(scale:number):MspImageScaleFactors;
+}
+
+export class MspImageScaleFactorsImpl implements  MspImageScaleFactors{
+  widthFactor:number;
+  heightFactor:number;
+  
+  constructor(wFactor:number, hFactor:number){
+    this.widthFactor = wFactor;
+    this.heightFactor = hFactor;
+  }
+
+  scaleDown(scale:number): MspImageScaleFactors{
+    return new MspImageScaleFactorsImpl(
+      this.widthFactor * scale, 
+      this.heightFactor * scale);
+  }
 }

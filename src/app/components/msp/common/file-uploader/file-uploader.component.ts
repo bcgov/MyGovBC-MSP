@@ -4,8 +4,10 @@ import {
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {ModalDirective} from "ng2-bootstrap";
-import {MspImage, MspImageError} from '../../model/msp-image';
+import {MspImage, MspImageError, MspImageProcessingError,
+   MspImageScaleFactors, MspImageScaleFactorsImpl} from '../../model/msp-image';
 import {Observable} from 'rxjs/Observable';
+import {Observer} from 'rxjs/Observer';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -40,6 +42,9 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
   @Output() onAddDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
   @Output() onErrorDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
   @Output() onDeleteDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
+
+  // private MAX_IMAGE_SIZE:number = 1048576 * 1.2;
+  // private MAX_IMAGE_SIZE:number = 1048576 * 0.2;
 
   constructor(@Inject('appConstants') private appConstants: any,
               private zone: NgZone) {
@@ -137,7 +142,7 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
         return !!files && files.length && files.length > 0;
       }).flatMap(
         (fileList: FileList) => {
-          return this.observableFromFile(fileList[0]);
+          return this.observableFromFile(fileList[0], new MspImageScaleFactorsImpl(1.4, 1.4));
         }
       )
       .filter(
@@ -170,21 +175,41 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
         },
 
         (error) => {
-          console.log(error);
+          console.log('Error in loading image: %o', error);
+
+          /**
+           * Handle the error if the image is gigantic that after
+           * 100 times of scaling down by 30% on each step, the image
+           * is still over 1.2 MB.
+           */
+          if(error.errorCode){
+            if(MspImageError.TooBig === error.errorCode ){
+              this.handleError(MspImageError.TooBig, error.image);
+            }else if(MspImageError.CannotOpen === error.errorCode){
+              this.handleError(MspImageError.CannotOpen, error.image);
+            }else{
+              throw error;
+            }
+          } 
+
           this.emitIsFormValid();
 
+        },
+        () => {
+          console.log('completed loading image');
         }
       )
 
   }
 
-  observableFromFile(file: File) {
+  observableFromFile(file: File, scaleFactors: MspImageScaleFactors) {
     console.log('Start processing file: ' + file.name);
     // Init
     let self = this;
-
     // Create our observer
-    let fileObservable = Observable.create((observer: any) => {
+    let fileObservable = Observable.create((observer: Observer<MspImage>) => {
+
+      scaleFactors = scaleFactors.scaleDown(0.7);
 
       let reader: FileReader = new FileReader();
       let mspImage: MspImage = new MspImage();
@@ -193,7 +218,7 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
       mspImage.name = file.name;
 
       // Load image into img element to read natural height and width
-      this.loadImg(file, (image: HTMLImageElement) => {
+      this.readImage(file, (image: HTMLImageElement) => {
 
         // While it's still in an image, get it's height and width
         mspImage.naturalWidth = image.naturalWidth;
@@ -206,6 +231,9 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
         mspImage.contentType = self.appConstants.images.convertToMimeType;
 
         // Scale the image by loading into a canvas
+      
+      
+        console.log('Start scaling down the image using blueimp-load-image lib: ');
         let scaledImage = loadImage(
           file, // NOTE: we pass the File ref here again even though its already read because we need the XIFF metadata
           function (canvas: HTMLCanvasElement, metadata:any) {
@@ -217,7 +245,7 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
             }
 
             // Log metadata
-            console.log("metadata: ", metadata);
+            // console.log("metadata: ", metadata);
 
             // Convert to grayscale
             //self.makeGrayScale(canvas);
@@ -234,7 +262,9 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
                 let fileSizeUnit = '';
                 let sOutput: string = nBytes + " bytes";
                 // optional code for multiples approximation
-                for (let aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"], nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
+                for (let aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"], 
+                  nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
+
                   sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
                   fileSize = nApprox.toFixed(0);
                   fileSizeUnit = aMultiples[nMultiple];
@@ -254,6 +284,25 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
                   //image.remove();
                   //canvas.remove();
 
+                  // keep scaling down the image until the image size is
+                  // under max image size
+                  
+                  let MAX_IMAGE_SIZE:number = 1048576 * 1.2;    
+                  // let MAX_IMAGE_SIZE:number = 1048576 * 0.2;    
+                  
+                  if(mspImage.size > MAX_IMAGE_SIZE){
+
+                    console.log('File size after scaling down: %d, max file size allowed: %d', 
+                      mspImage.size, MAX_IMAGE_SIZE);
+                    
+                    let imageTooBigError:MspImageProcessingError = 
+                      new MspImageProcessingError(MspImageError.TooBig);
+                    
+                    imageTooBigError.maxSizeAllowed = MAX_IMAGE_SIZE;
+                    imageTooBigError.mspImage = mspImage;
+                    
+                    observer.error(imageTooBigError);
+                  }
                   observer.next(mspImage);
                 };
                 reader.readAsDataURL(blob);
@@ -264,33 +313,75 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
               self.appConstants.images.convertToMimeType, self.appConstants.images.jpegQuality);
           },
           {
-            maxWidth: self.appConstants.images.maxWidth,
-            maxHeight: self.appConstants.images.maxHeight,
+            maxWidth: self.appConstants.images.maxWidth * scaleFactors.widthFactor,
+            maxHeight: self.appConstants.images.maxHeight * scaleFactors.heightFactor,
             contain: true,
             canvas: true,
             meta: true,
             orientation: true
           }
         );
+      },
+      
+      (error: MspImageProcessingError)=>{
+        observer.error(error);
       });
-    });
+    }).retryWhen(this.retryStrategy(100));
 
     return fileObservable;
   }
 
-  private loadImg(imageFile: File, callback: (image: HTMLImageElement) => void) {
+
+  /**
+   * Max retry scaling down for maxRetry times.
+   */
+  retryStrategy(maxRetry: number){
+    return function (errors:Observable<MspImageProcessingError>){
+      console.log('Image is still too large after scaling down.');
+      return errors.scan(
+        (acc, error) => {
+          console.log('Error encountered: %o', error);
+
+          if(acc < maxRetry && error.errorCode === MspImageError.TooBig){
+            return acc + 1;
+          }else{
+            console.log('Re-throw this image process error: %o', error);
+            throw error;
+          }
+        }, 0
+      ).delay(20);
+    }
+  };
+
+  private readImage(imageFile: File, 
+    callback: (image: HTMLImageElement) => void,
+    invalidImageHanlder: (error:MspImageProcessingError) => void) {
     let reader = new FileReader();
 
-    reader.onload = function (e: ProgressEvent) {
+    reader.onload = function (progressEvt: ProgressEvent) {
 
+      console.log('loading image into an img tag: %o', progressEvt);
       // Load into an image element
       let imgEl: HTMLImageElement = document.createElement('img');
       imgEl.src = reader.result;
 
       // Wait for onload so all properties are populated
-      imgEl.onload = () => {
+      imgEl.onload = (args) => {
+        console.log('Completed image loading into an img tag: %o', args);
         return callback(imgEl);
-      }
+      };
+
+      imgEl.onerror =
+        (args) => {
+          console.log('This image cannot be opened/read, it is probably an invalid image. %o', args);
+          // throw new Error('This image cannot be opened/read');
+          let imageReadError:MspImageProcessingError = 
+            new MspImageProcessingError(MspImageError.CannotOpen);
+
+          imageReadError.rawImageFile = imageFile;
+
+          return invalidImageHanlder(imageReadError);
+        };
     };
 
     reader.readAsDataURL(imageFile);
@@ -334,6 +425,10 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
   }
 
   handleError(error: MspImageError, mspImage: MspImage) {
+
+    if(!mspImage){
+      mspImage = new MspImage();
+    }
     // just add the error to mspImage
     mspImage.error = error;
     // console.log("error with image: ", mspImage);
