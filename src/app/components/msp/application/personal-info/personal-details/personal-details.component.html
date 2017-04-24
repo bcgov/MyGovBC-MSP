@@ -289,7 +289,7 @@
 
     </div>
 
-    <div class="row"
+    <div #armedForcedQuestion class="row"
         *ngIf="person.documents.images.length > 0 && person.status === StatusInCanada.CitizenAdult" 
         style="margin-top: 10px; margin-bottom: 10px;">
         <div class="col-md-8">
@@ -325,7 +325,7 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="person.documents.images.length > 0 &&
+    <div #schoolQuestion class="row" *ngIf="person.documents.images.length > 0 &&
                             (person.relationship === Relationship.Applicant ||
                             person.relationship === Relationship.Child19To24)">
         <div class="form-group col-md-4" *ngIf="person.relationship === Relationship.Applicant"
@@ -406,7 +406,7 @@
         
     </div>
     <div class="row" *ngIf="person.documents.images.length > 0">
-        <div *ngIf="person.fullTimeStudent" class="col-md-6">
+        <div #inBCAfterStudiesQuestion *ngIf="person.fullTimeStudent" class="col-md-6">
           <div class="form-group"
              [ngClass]="{'has-error': (person.inBCafterStudies===undefined || person.inBCafterStudies===null) && showError}">
             <label *ngIf="person.relationship === Relationship.Applicant" 

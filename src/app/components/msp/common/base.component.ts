@@ -1,4 +1,4 @@
-import {DoCheck, EventEmitter, Output, QueryList, SimpleChanges} from "@angular/core";
+import {ChangeDetectorRef, DoCheck, EventEmitter, Output, QueryList, SimpleChanges} from "@angular/core";
 import { Subscription } from 'rxjs/Subscription';
 import {NgForm} from "@angular/forms";
 import {UUID} from "angular2-uuid";
@@ -101,8 +101,7 @@ export class BaseComponent implements DoCheck {
       // Listen for the unsubscribe and delete it from the validation map
       comp.unRegisterComponent.subscribe( (event:BaseComponent) => {
         console.log(this.constructor.name + " is removing: " + event.constructor.name);
-        this.validationMap[event.objectId] = null;
-        this.emitIsFormValid();
+        delete this.validationMap[event.objectId];
       });
     }
   }

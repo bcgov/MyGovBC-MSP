@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core'
+import {ChangeDetectorRef, Component, ViewChild} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import DataService from '../../service/msp-data.service';
 import {MspApplication} from "../../model/application.model";
@@ -23,7 +23,8 @@ export class AddressComponent extends BaseComponent {
 
   constructor(private dataService: DataService,
               private processService:ProcessService,
-              private _router: Router) {
+              private _router: Router,
+              ) {
     super();
     this.mspApplication = this.dataService.getMspApplication();
   }

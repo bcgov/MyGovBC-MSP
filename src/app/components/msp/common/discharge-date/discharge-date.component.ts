@@ -1,4 +1,4 @@
-import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core'
+import {Component, Input, EventEmitter, Output, ViewChild, ChangeDetectorRef} from '@angular/core'
 import { NgForm } from '@angular/forms';
 
 import * as moment from 'moment';
@@ -26,6 +26,10 @@ export class MspDischargeDateComponent extends BaseComponent {
   
   // Create today for comparison in check later
   today = moment();
+
+  constructor() {
+    super();
+  }
 
   ngAfterViewInit(): void {
     super.ngAfterViewInit();

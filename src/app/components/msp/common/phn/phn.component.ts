@@ -1,4 +1,4 @@
-import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, Input, EventEmitter, Output, ViewChild, ChangeDetectorRef} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {BaseComponent} from "../base.component";
 
@@ -18,6 +18,10 @@ export class MspPhnComponent extends BaseComponent {
   @Input() showError:boolean;
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
+
+  constructor() {
+    super();
+  }
 
   ngAfterViewInit(): void {
     super.ngAfterViewInit();

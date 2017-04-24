@@ -1,4 +1,7 @@
-import {Component, Input, Output, EventEmitter, ViewChild, OnChanges, SimpleChanges} from '@angular/core'
+import {
+  Component, Input, Output, EventEmitter, ViewChild, OnChanges, SimpleChanges,
+  ChangeDetectorRef
+} from '@angular/core'
 import {NgForm} from '@angular/forms'
 import {Person, Gender} from "../../model/person.model";
 import {UUID} from 'angular2-uuid';
@@ -29,6 +32,10 @@ export class MspGenderComponent extends BaseComponent {
    * @type {string}
    */
   uuid = UUID.UUID();
+
+  constructor() {
+    super();
+  }
 
   genderChange(evt:Gender){
     this.onChange.emit(evt);

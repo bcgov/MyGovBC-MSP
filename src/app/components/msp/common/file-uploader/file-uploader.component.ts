@@ -1,6 +1,6 @@
 import {
   Component, ViewChild, ElementRef, OnInit, OnChanges, EventEmitter, Output, Input,
-  Inject, NgZone, SimpleChanges
+  Inject, NgZone, SimpleChanges, ChangeDetectorRef
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {ModalDirective} from "ng2-bootstrap";
