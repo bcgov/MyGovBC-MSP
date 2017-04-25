@@ -1,9 +1,7 @@
-import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, DoCheck } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
 import MspDataService from '../../service/msp-data.service';
 import {FinancialAssistApplication}from '../../model/financial-assist-application.model';
-import {AssistanceYear} from '../../model/assistance-year.model';
 import {MspImage} from "../../../msp/model/msp-image";
 import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
@@ -14,11 +12,11 @@ import ProcessService from "../../service/process.service";
 @Component({
   templateUrl: './retro-years.component.html'
 })
-export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
+export class AssistanceRetroYearsComponent implements AfterViewInit, DoCheck{
+
   static ProcessStepNum = 2;
   lang = require('./i18n');
   application: FinancialAssistApplication;
-  years: AssistanceYear[];
 
   @ViewChild('formRef') form: NgForm;
   @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
@@ -31,14 +29,17 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
     this.application = this.dataService.finAssistApp;
   }
 
+  ngDoCheck(): void {
+    let valid = this.canContinue;
+    this._processService.setStep(AssistanceRetroYearsComponent.ProcessStepNum, valid);
+  }
+
   ngAfterViewInit(){
     this.form.valueChanges.subscribe( value => {
       this.dataService.saveFinAssistApplication();
     });
   }
-  ngOnInit(){
 
-  }
   get docRequiredInstruction(): any{
     let docsRequiredYears:string = this.application.getAppliedForTaxYears().reduce(
       function(acc, value, idx){
@@ -118,6 +119,17 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
       }
     }
     return required;
+  }
+
+  get canContinue(): boolean {
+
+    if (!this.docRequired) return true;
+
+    if (this.docRequired && this.application.assistYeaDocs.length > 0) {
+      return true;
+    }
+
+    return false;
   }
 
   continue(): void {
