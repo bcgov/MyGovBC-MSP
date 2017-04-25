@@ -281,18 +281,15 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
                   // keep scaling down the image until the image size is
                   // under max image size
                   
-                  // let MAX_IMAGE_SIZE:number = 1048576 * 1.2;    
-                  let MAX_IMAGE_SIZE:number = 1048576;    
-                  
-                  if(mspImage.size > MAX_IMAGE_SIZE){
+                  if(mspImage.size > self.appConstants.images.maxSizeBytes){
 
                     console.log('File size after scaling down: %d, max file size allowed: %d', 
-                      mspImage.size, MAX_IMAGE_SIZE);
+                      mspImage.size, self.appConstants.images.maxSizeBytes);
                     
                     let imageTooBigError:MspImageProcessingError = 
                       new MspImageProcessingError(MspImageError.TooBig);
                     
-                    imageTooBigError.maxSizeAllowed = MAX_IMAGE_SIZE;
+                    imageTooBigError.maxSizeAllowed = self.appConstants.images.maxSizeBytes;
                     imageTooBigError.mspImage = mspImage;
                     
                     observer.error(imageTooBigError);
@@ -490,16 +487,6 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
     }
     return true;
   }
-
-  // checkImageSizeInBytes(file: MspImage):boolean{
-  //   if(file.size < 1048576){
-  //     // console.log('file size under 2MB, ok to use.');
-  //     return true;
-  //   }else{
-  //     console.log('file size %s is greater than 1.0MB; cannot use this file.', file.sizeTxt);
-  //     return false;
-  //   }
-  // }
 
   isValid(): boolean {
     if (this.required) {
