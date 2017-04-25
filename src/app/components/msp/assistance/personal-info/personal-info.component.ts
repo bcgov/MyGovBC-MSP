@@ -9,11 +9,14 @@ import {BaseComponent} from "../../common/base.component";
 import {AssistancePersonalDetailComponent} from "./personal-details/personal-details.component";
 import {MspAddressComponent} from "../../common/address/address.component";
 import {MspPhoneComponent} from "../../common/phone/phone.component";
+import ProcessService from "../../service/process.service";
 
 @Component({
   templateUrl: './personal-info.component.html'
 })
 export class AssistancePersonalInfoComponent extends BaseComponent{
+  static ProcessStepNum = 1;
+
   lang = require('./i18n');
 
   @ViewChild('formRef') personalInfoForm: NgForm;
@@ -24,8 +27,9 @@ export class AssistancePersonalInfoComponent extends BaseComponent{
   financialAssistApplication: FinancialAssistApplication;
 
   constructor(private dataService: DataService,
-    private _router: Router) {
-    super();
+    private _router: Router,
+    private _processService:ProcessService) {
+    super(AssistancePersonalInfoComponent.ProcessStepNum, _processService);
     this.financialAssistApplication = this.dataService.finAssistApp;
   }
 

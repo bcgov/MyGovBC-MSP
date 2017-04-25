@@ -54,15 +54,6 @@ import MspDataService from './service/msp-data.service';
 import ValidationService from './service/msp-validation.service';
 import CompletenessCheckService from './service/completeness-check.service';
 
-
-import {MspFinancialAssistAppSendingGuard} from "./assistance/sending/sending.guard";
-
-import {PersonalInfoGuard} from './assistance/personal-info/personal-info.guard';
-import {RetroYearsGuard} from './assistance/retro-years/retro-years.guard';
-import {ReviewGuard} from './assistance/review/review.guard';
-import {AuthorizationGuard} from './assistance/authorize-submit/authorization.guard';
-import {ConfirmationGuard} from './assistance/confirmation/confirmation.guard';
-
 import {ApplicationComponent} from './application/application.component';
 import {PersonalDetailsComponent} from './application/personal-info/personal-details/personal-details.component';
 import {PrepareComponent} from './application/prepare/prepare.component';
@@ -176,33 +167,33 @@ let localStorageServiceConfig = {
               },
               {
                 path: 'personal-info',
-                canActivate: [PersonalInfoGuard],
+                canActivate: [ProcessService],
                 component: AssistancePersonalInfoComponent,
 
               },
               {
                 path: 'retro',
-                canActivate: [RetroYearsGuard],
+                canActivate: [ProcessService],
                 component: AssistanceRetroYearsComponent
               },
               {
                 path: 'review',
-                canActivate: [ReviewGuard],
+                canActivate: [ProcessService],
                 component: AssistanceReviewComponent
               },
               {
                 path: 'authorize-submit',
-                canActivate: [AuthorizationGuard],
+                canActivate: [ProcessService],
                 component: AssistanceAuthorizeSubmitComponent
               },
               {
                 path: 'sending',
-                canActivate: [MspFinancialAssistAppSendingGuard],
+                canActivate: [ProcessService],
                 component: AssistanceSendingComponent
               },
               {
                 path: 'confirmation',
-                canActivate: [ConfirmationGuard],
+                canActivate: [],
                 component: AssistanceConfirmationComponent
               }
             ]
@@ -290,12 +281,6 @@ let localStorageServiceConfig = {
     MspLogService,
     ProcessService,
 
-    RetroYearsGuard,
-    PersonalInfoGuard,
-    ReviewGuard,
-    AuthorizationGuard,
-    ConfirmationGuard,
-    MspFinancialAssistAppSendingGuard,    
     LocalStorageService,
     {
         provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

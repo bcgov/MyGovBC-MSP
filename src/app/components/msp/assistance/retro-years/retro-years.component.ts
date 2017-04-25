@@ -1,6 +1,5 @@
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
-import * as moment from 'moment';
-import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 import MspDataService from '../../service/msp-data.service';
 import {FinancialAssistApplication}from '../../model/financial-assist-application.model';
@@ -8,12 +7,15 @@ import {AssistanceYear} from '../../model/assistance-year.model';
 import {MspImage} from "../../../msp/model/msp-image";
 import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
+import {Router} from "@angular/router";
+import ProcessService from "../../service/process.service";
 
 
 @Component({
   templateUrl: './retro-years.component.html'
 })
 export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
+  static ProcessStepNum = 2;
   lang = require('./i18n');
   application: FinancialAssistApplication;
   years: AssistanceYear[];
@@ -23,7 +25,9 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
   @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
 
-  constructor(private dataService: MspDataService){
+  constructor(private dataService: MspDataService,
+              private _router: Router,
+              private _processService: ProcessService){
     this.application = this.dataService.finAssistApp;
   }
 
@@ -116,4 +120,8 @@ export class AssistanceRetroYearsComponent implements OnInit, AfterViewInit{
     return required;
   }
 
+  continue(): void {
+    this._processService.setStep(AssistanceRetroYearsComponent.ProcessStepNum, true);
+    this._router.navigate(['/msp/assistance/review']);
+  }
 }

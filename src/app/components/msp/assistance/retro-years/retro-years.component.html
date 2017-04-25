@@ -61,7 +61,7 @@
       <div class="col-sm-2">
         <button [mspLogger]="'msp-premium-assistance_apply_for_prevous_years'"  
                 [disabled] = "docRequired && application.assistYeaDocs.length < 1"
-                class="btn btn-primary" type="submit" routerLink="/msp/assistance/review"
+                class="btn btn-primary" type="submit" (click)="continue()"
                 [innerHTML]="lang('./en/index.js').continueButton"></button>
         
       </div>
