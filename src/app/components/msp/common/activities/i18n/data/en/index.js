@@ -1,5 +1,5 @@
 module.exports = {
-  0: 'Living in B.C. without active MSP coverage',
+  0: 'Not new to B.C. but need to apply for MSP',
   1: 'Moving from another province',
   2: 'Moving from another country',
   3: 'Working in B.C.',
