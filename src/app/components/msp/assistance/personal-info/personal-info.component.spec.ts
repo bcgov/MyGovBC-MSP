@@ -26,6 +26,7 @@ import appConstants from '../../../../services/appConstants';
 import {CalendarYearFormatter} from '../../common/calendar/calendar-year-formatter.component';
 import {CalendarYearValidator} from '../../common/calendar/calendar-year.validator';
 import {CalendarDayValidator} from '../../common/calendar/calendar-day.validator';
+import ProcessService from "../../service/process.service";
 
 
 describe('AssistancePersonalInfoComponent Test', () => {
@@ -42,7 +43,7 @@ describe('AssistancePersonalInfoComponent Test', () => {
         Mod11CheckValidator, MspGenderComponent, MspCancelComponent, MspLoggerDirective,
         CalendarYearFormatter,CalendarYearValidator,CalendarDayValidator],
       imports: [FormsModule, Ng2CompleterModule, ModalModule, HttpModule,RouterTestingModule],
-      providers: [MspDataService,CompletenessCheckService, MspLogService,ValidationSerivce,
+      providers: [MspDataService,CompletenessCheckService, MspLogService,ValidationSerivce,ProcessService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         },

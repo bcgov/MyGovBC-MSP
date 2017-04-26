@@ -21,6 +21,7 @@ import CompletenessCheckService from '../../../service/completeness-check.servic
 import {CalendarYearFormatter} from '../../../common/calendar/calendar-year-formatter.component';
 import {CalendarYearValidator} from '../../../common/calendar/calendar-year.validator';
 import {CalendarDayValidator} from '../../../common/calendar/calendar-day.validator';
+import ProcessService from "../../../service/process.service";
 
 
 describe('AssistancePersonalDetailComponent Test', () => {
@@ -36,7 +37,7 @@ describe('AssistancePersonalDetailComponent Test', () => {
         Mod11CheckValidator, MspGenderComponent, MspCountryComponent,
         CalendarYearFormatter,CalendarYearValidator,CalendarDayValidator],
       imports: [FormsModule, Ng2CompleterModule, HttpModule],
-      providers: [MspDataService, CompletenessCheckService,ValidationService,
+      providers: [MspDataService, CompletenessCheckService,ValidationService,ProcessService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         },
