@@ -136,14 +136,15 @@ ls: cannot access /var/backups: Transport endpoint is not connected
 then kill the pod. You need to go through each pod. When killing a pod, make sure to leave enough recovery window from last kill, as mentioned before.
 
 ### Manual Backup
-ELK performs nightly backup. Before any risky operations such as deploying an updated ElasticSearch image to prod, it is advised to perform a manual backup beforehand. To do so, log into pod *elk-cron*, run command `. /cron/cron-tasks.sh`, and wait for it to finish.
+ELK performs nightly backup. Before any risky operations such as deploying an updated Elasticsearch image to prod, it is advised to perform a manual backup beforehand. To do so, log into pod *elk-cron*, run command `. /cron/cron-tasks.sh`, and wait for it to finish.
 
 
 ### Cluster Recovery
 If Elasticsearch cluster is crashed, data can be restored from the most recently nightly backup. But data from last backup till now is lost permanently. To restore,
 
-1. deploy a new empty cluster by following the procedure above. Disable the route or scale down logstash pods to 0 to disallow input.
-2. login to a Elasticsearch pod by running `oc exec -it <pod_name> bash`. In the pod run following commands
+1. remove auto-scaling if set and scale down logstash pods to 0 to disallow input
+2. deploy a new empty Elasticsearch cluster by following the procedure above. 
+3. login to a Elasticsearch pod by running `oc exec -it <pod_name> bash`. In the pod run following commands
 
   ```
   $ # register backup repo
@@ -167,4 +168,4 @@ If Elasticsearch cluster is crashed, data can be restored from the most recently
   $ curl -XPOST 'localhost:9200/_all/_open?pretty'
   ```
 4. keep running `curl localhost:9200/_cat/health?v` to check unassigned shard count until it's down to 0 and status is green.
-3. re-enable the route or scale up logstsh pod count back
+5. scale logstash pod count back and re-create auto-scaling if defined before
