@@ -106,8 +106,9 @@ export class BaseComponent implements DoCheck {
 
       // Listen for the unsubscribe and delete it from the validation map
       comp.unRegisterComponent.subscribe( (event:BaseComponent) => {
-        console.log(this.constructor.name + " is removing: " + event.constructor.name);
+        console.log(this.constructor.name + " is removing: " + event.constructor.name + ": " + event.objectId);
         delete this.validationMap[event.objectId];
+        //YILING, we need this here this.emitIsFormValid();
       });
     }
   }
@@ -124,7 +125,7 @@ export class BaseComponent implements DoCheck {
    * A common function to emit the status of the form
    */
   emitIsFormValid () {
-    console.log(this.constructor.name + ": children: " + this.childrenIsValid() + "(" + Object.keys(this.validationMap).length
+    console.log(this.constructor.name + "(" + this.objectId + "): children: " + this.childrenIsValid() + "(" + Object.keys(this.validationMap).length
       + "); myFormValid: " + this.myFormValid +
       "; this.isValid: " + this.isValid());
     for (let key of Object.keys(this.validationMap)) {
@@ -180,6 +181,7 @@ export class BaseComponent implements DoCheck {
    * On destroym, unsubcribed and init self
    */
   ngOnDestroy(){
+    console.log("Destroying " + this.constructor.name + "(" + this.objectId + ")");
     this.unsubscribeAll();
     this.validationMap = {};
     this.myFormValid = true;
