@@ -334,6 +334,7 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.person.livedInBCSinceBirth = lived;
     this.onChange.emit(lived);
     this.emitIsFormValid();
+    this.cd.detectChanges();
   }
 
   viewIdReqModal(event:Documents) {

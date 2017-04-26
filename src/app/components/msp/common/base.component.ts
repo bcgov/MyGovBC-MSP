@@ -103,23 +103,24 @@ export class BaseComponent implements DoCheck {
   private registerBaseComponent(comp:BaseComponent) {
     let self:BaseComponent = this;
     
-    if (this.validationMap[comp.objectId] == null) {
+    if (self.validationMap[comp.objectId] == null) {
       console.log(this.constructor.name + " is adding: " + comp.constructor.name + " (" + comp.objectId + ") in state: " + comp.isAllValid());
-      this.validationMap[comp.objectId] = comp.isAllValid();
-      this.emitIsFormValid();
-      this.subscriptionList.push(comp.isFormValid
+      self.validationMap[comp.objectId] = comp.isAllValid();
+      self.emitIsFormValid();
+      let subscription = comp.isFormValid
         .subscribe( (event:ValidEvent) => {
-          this.validationMap[event.id] = event.isValid;
-          this.emitIsFormValid();
-        }));
+          self.validationMap[event.id] = event.isValid;
+          self.emitIsFormValid();
+        });
+      self.subscriptionList.push(subscription);
 
       // Listen for the unsubscribe and delete it from the validation map
       comp.unRegisterComponent.subscribe( (event:BaseComponent) => {
         console.log(this.constructor.name + " is removing: " + event.constructor.name + ": " + event.objectId);
-        delete this.validationMap[event.objectId];
-        // self.changeDetectorRef.detectChanges();
-        this.emitIsFormValid();
-        //YILING, we need this here this.emitIsFormValid();
+        delete self.validationMap[event.objectId];
+        subscription.unsubscribe();
+        //console.log("after deleted: " + self.validationMap[event.objectId]);
+        self.emitIsFormValid();
       });
     }
   }
@@ -141,6 +142,7 @@ export class BaseComponent implements DoCheck {
       "; this.isValid: " + this.isValid());
     for (let key of Object.keys(this.validationMap)) {
       let item = this.validationMap[key];
+      console.log("key: " + key + "; value: " + item);
       if (item === false) {
         console.log(this.constructor.name + ": child is invalid: " + key);
       }
