@@ -9,7 +9,7 @@ This folder contains following files to facilitate deploying ELK cluster to Open
 The ELK has these features
 * Logstash [HTTP input](https://www.elastic.co/blog/introducing-logstash-input-http-plugin) for client browser-side logging
 * Logstash [syslog input](https://www.elastic.co/guide/en/logstash/2.4/plugins-inputs-syslog.html) on TCP and UDP port 5514 for internal project-scoped server-side logging
-* scalable Elasticsearch cluster
+* auto-scalable Elasticsearch cluster
 * local ephemeral storage for Elasticsearch data to improve performance. Performance of OpenShift GlusterFS persistent volume has been found unacceptable to hold search index, as supported by this [Elasticsearch blog](https://www.elastic.co/blog/performance-considerations-elasticsearch-indexing)
 * configurable data lifespan, by default 3 months
 * daily backup of Elasticsearch data to persistent storage with 7-day retention
@@ -102,25 +102,7 @@ If everything goes well, you will be able to access the Logstash http endpoint p
 ### Data Integrity 
 Because Elasticsearch data is on ephemeral storage, due care is needed to avoid bringing down or corrupt the cluster. By default each piece of data has 1 replica (i.e. 2 copies) on separate pods. Number of replicas can be adjusted for [existing indices](https://www.elastic.co/guide/en/elasticsearch/guide/current/replica-shards.html) and for future created indices via [templates](http://stackoverflow.com/questions/24553718/updating-the-default-index-number-of-replicas-setting-for-new-indices).
 
- Assuming the replica is *N*, then if *N+1* or more pods are taken down in a short period such that the cluster doesn't have enough time to recover in between, partial data loss may occur. Therefore only kill no more than *N* pods at a time and leave enough recovery window for the next.
- 
- To determine the recovery window, log into one of the surviving pods and run command
-  
-  ```
-  I have no name!@elasticsearch-34-cq6jg:/usr/share/elasticsearch$ curl localhost:9200/_cat/health?v
-  epoch      timestamp cluster status node.total node.data shards pri relo init unassign pending_tasks max_task_wait_time active_shards_percent
-  1491328738 17:58:58  my-elk  yellow          4         4    159  61    0    8       16            20               7.3s                 86.9%
-  ```
- If the `status` is yellow as shown above, then the cluster is in the middle of recovering. When cluster finished recovering, run same command will output
- 
- ```
-I have no name!@elasticsearch-34-cq6jg:/usr/share/elasticsearch$ curl localhost:9200/_cat/health?v
-epoch      timestamp cluster status node.total node.data shards pri relo init unassign pending_tasks max_task_wait_time active_shards_percent
-1491328750 17:59:10  my-elk  green           4         4    183  61    2    0        0             1                  -                100.0%
-```
- note unassigned shard count is 0.
- 
- The above check is applicable to manual pod killing. During a rolling update, the pod killing rate is determined by deploymentConfig *maxUnavailable* and pod readinessProbe's *initialDelaySeconds* parameter. As data volumn increases, recovery time will also increases, therefore *initialDelaySeconds* needs to be adjusted accordingly.   
+ Assuming the replica is *N*, then if *N+1* or more pods are taken down **forcefully** by means of, for example, `oc delete pod --grace-period=0`, in a short period such that the cluster doesn't have enough time to recover in between, partial data loss may occur. Therefore refrain from terminating multiple pods forcefully. Normal pod termination operation is not susceptible  because a [*preStop lifecycle handler*](https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/#defining-poststart-and-prestop-handlers) has been implemented to move out data prior to pod termination.
  
 ### Pod Count
 Although Elasticsearch cluster can survive under as few as one pod, to maintain a healthy resilient cluster following factors needs to be taken into account to determine minimum pod count
