@@ -8,14 +8,28 @@ export class MspApplicationReviewGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
-        if(this.compCheck.mspContactInfoCompleted()){
-            console.log('passed MspApplicationReviewGuard completeness check, can proceed.');
-            return true;
-        }else{
-            console.log('Must complete address/contact step first.');
-            this._router.navigate(['/msp/application/address']);
-            return false;
-        }
+      let step1Complete = this.compCheck.mspCheckEligibilityCompleted();
+      let step2Complete = this.compCheck.mspPersonalInfoDocsCompleted();
+      let step3Complete = this.compCheck.mspContactInfoCompleted();
+      
+      if(!step1Complete){
+        console.log('There are missing informaion in step 1.');
+        this._router.navigate(['/msp/application/prepare']);
+        return false;
+      }
+      if(!step2Complete){
+        console.log('There are missing informaion in step 2.');
+        this._router.navigate(['/msp/application/personal-info']);
+        return false;
+      }
+      if(!step3Complete){
+        console.log('There are missing informaion in step 3.');
+        this._router.navigate(['/msp/application/address']);
+        return false;
+      }else{
+        console.log('passed MspApplicationReviewGuard completeness check, can proceed.');
+        return true;
+      }
     }
 
 }
