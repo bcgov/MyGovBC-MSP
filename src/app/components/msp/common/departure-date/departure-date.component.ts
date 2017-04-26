@@ -28,8 +28,8 @@ export class MspDepartureDateComponent extends BaseComponent {
 
   @ViewChild('formRef') form:NgForm;
 
-  constructor() {
-    super();
+  constructor(private cd: ChangeDetectorRef) {
+    super(cd);
   }
 
   // Parse person's date

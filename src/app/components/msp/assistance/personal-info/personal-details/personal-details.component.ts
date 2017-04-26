@@ -1,4 +1,4 @@
-import { Component, Input, Output, ViewChild, EventEmitter } from '@angular/core';
+import { Component, Input, Output, ViewChild, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { IPerson } from "../../../model/person.interface";
 import DataService from '../../../service/msp-data.service';
@@ -24,8 +24,9 @@ export class AssistancePersonalDetailComponent extends BaseComponent {
 
   @Output() onChange = new EventEmitter<any>();
 
-  constructor(private dataService: DataService) {
-    super();
+  constructor(private dataService: DataService,
+    private cd: ChangeDetectorRef) {
+    super(cd);
     this.finApp = this.dataService.finAssistApp;
     this.person = this.dataService.finAssistApp.applicant;
   }

@@ -114,7 +114,7 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   constructor(private el:ElementRef,
     private cd: ChangeDetectorRef){
-    super();
+    super(cd);
   }
 
   statusLabel(): string {
@@ -280,6 +280,7 @@ export class PersonalDetailsComponent extends BaseComponent {
       this.person.dischargeMonth = null;
       this.person.dischargeYear = null;
     }
+    this.cd.detectChanges();
     this.onChange.emit(history);
     this.emitIsFormValid();
   }
@@ -310,6 +311,7 @@ export class PersonalDetailsComponent extends BaseComponent {
     }else {
       this.person.outOfBCRecord = null;
     }
+    this.cd.detectChanges();
     this.onChange.emit(out);
     this.emitIsFormValid();
   }

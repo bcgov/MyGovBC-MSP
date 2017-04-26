@@ -1,4 +1,4 @@
-import {Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -39,10 +39,15 @@ export class PrepareComponent extends BaseComponent {
 
   constructor(private dataService: DataService,
     private _processService:ProcessService,
-    private _router: Router) {
-    super(PrepareComponent.ProcessStepNum, _processService);
+    private _router: Router,
+    private cd: ChangeDetectorRef) {
+    super(cd);
     this.mspApplication = this.dataService.getMspApplication();
     this.apt = this.mspApplication.applicant;
+  }
+
+  ngOnInit(){
+    this.initProcessMembers(PrepareComponent.ProcessStepNum, this._processService);
   }
 
   ngAfterViewInit() {

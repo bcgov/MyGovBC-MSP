@@ -28,8 +28,8 @@ export class MspCountryComponent extends BaseComponent {
   countryData:Array<{code:string, name:string}> = this.lang('./en/index.js').countryData;
 
   constructor(private completerService: CompleterService,
-              ) {
-    super();
+              private cd: ChangeDetectorRef) {
+    super(cd);
     this.dataService = completerService.local(this.countryData, 'name', 'name');
   }
 

@@ -1,4 +1,4 @@
-import {Component, ViewChild, AfterViewInit, OnInit, ViewChildren, QueryList} from '@angular/core';
+import {ChangeDetectorRef, Component, ViewChild, AfterViewInit, OnInit, ViewChildren, QueryList} from '@angular/core';
 import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
 
 import DataService from '../../service/msp-data.service';
@@ -28,11 +28,15 @@ export class AssistancePersonalInfoComponent extends BaseComponent{
 
   constructor(private dataService: DataService,
     private _router: Router,
-    private _processService:ProcessService) {
-    super(AssistancePersonalInfoComponent.ProcessStepNum, _processService);
+    private _processService:ProcessService,
+    private cd:ChangeDetectorRef) {
+    super(cd);
     this.financialAssistApplication = this.dataService.finAssistApp;
   }
 
+  ngOnInit(){
+    this.initProcessMembers(AssistancePersonalInfoComponent.ProcessStepNum, this._processService);
+  }
   ngAfterViewInit() {
     super.ngAfterViewInit();
 

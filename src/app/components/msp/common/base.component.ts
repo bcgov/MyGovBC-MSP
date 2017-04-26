@@ -1,4 +1,5 @@
-import {ChangeDetectorRef, DoCheck, EventEmitter, Output, QueryList, SimpleChanges} from "@angular/core";
+import {ChangeDetectorRef, DoCheck, EventEmitter, 
+  Output, QueryList, SimpleChanges, Optional} from "@angular/core";
 import { Subscription } from 'rxjs/Subscription';
 import {NgForm} from "@angular/forms";
 import {UUID} from "angular2-uuid";
@@ -36,11 +37,17 @@ export class BaseComponent implements DoCheck {
   private validationMap = {};
   private myFormValid:boolean = true;
 
-  constructor(private linkedProcessStepNumber?: number,
-              private processService?:ProcessService) {
+  private linkedProcessStepNumber: number;
+  private processService:ProcessService;
+
+  constructor(public changeDetectorRef: ChangeDetectorRef) {
     // A linked process step auto sets in when invalid or valid is determine
   }
 
+  initProcessMembers(processStepNum: number, processService:ProcessService){
+    this.linkedProcessStepNumber = processStepNum;
+    this.processService = processService;
+  }
   /**
    * Wire up all children and self by looking for properties of type BaseComponent
    */
@@ -94,6 +101,8 @@ export class BaseComponent implements DoCheck {
    * @param comp
    */
   private registerBaseComponent(comp:BaseComponent) {
+    let self:BaseComponent = this;
+    
     if (this.validationMap[comp.objectId] == null) {
       console.log(this.constructor.name + " is adding: " + comp.constructor.name + " (" + comp.objectId + ") in state: " + comp.isAllValid());
       this.validationMap[comp.objectId] = comp.isAllValid();
@@ -108,6 +117,8 @@ export class BaseComponent implements DoCheck {
       comp.unRegisterComponent.subscribe( (event:BaseComponent) => {
         console.log(this.constructor.name + " is removing: " + event.constructor.name + ": " + event.objectId);
         delete this.validationMap[event.objectId];
+        // self.changeDetectorRef.detectChanges();
+        this.emitIsFormValid();
         //YILING, we need this here this.emitIsFormValid();
       });
     }

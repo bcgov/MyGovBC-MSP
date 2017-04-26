@@ -25,9 +25,14 @@ export class PersonalInfoComponent extends BaseComponent {
 
   constructor(private dataService: DataService,
     private _router: Router,
-    private _processService: ProcessService) {
+    private _processService: ProcessService,
+    private cd:ChangeDetectorRef) {
 
-    super(PersonalInfoComponent.ProcessStepNum, _processService);
+    super(cd);
+  }
+
+  ngOnInit(){
+    this.initProcessMembers(PersonalInfoComponent.ProcessStepNum, this._processService);
   }
 
   onChange(values:any){

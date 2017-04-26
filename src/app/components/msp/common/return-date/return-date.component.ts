@@ -29,8 +29,8 @@ export class MspReturnDateComponent extends BaseComponent {
 
   @Output() onChange = new EventEmitter<any>();
 
-  constructor() {
-    super();
+  constructor(private cd: ChangeDetectorRef) {
+    super(cd);
   }
 
   // Parse person's date

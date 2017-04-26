@@ -33,8 +33,8 @@ export class MspGenderComponent extends BaseComponent {
    */
   uuid = UUID.UUID();
 
-  constructor() {
-    super();
+  constructor(private cd: ChangeDetectorRef) {
+    super(cd);
   }
 
   genderChange(evt:Gender){

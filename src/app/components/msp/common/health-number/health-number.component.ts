@@ -15,8 +15,8 @@ export class HealthNumberComponent extends BaseComponent {
   @Output()healthNumberChange:EventEmitter<string> = new EventEmitter<string>();
   @ViewChild('formRef') form: NgForm;
 
-  constructor() {
-    super();
+  constructor(private cd: ChangeDetectorRef) {
+    super(cd);
   }
 
   updateHealthNumber(evt:string){

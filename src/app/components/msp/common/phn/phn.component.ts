@@ -19,8 +19,8 @@ export class MspPhnComponent extends BaseComponent {
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
 
-  constructor() {
-    super();
+  constructor(private cd: ChangeDetectorRef) {
+    super(cd);
   }
 
   ngAfterViewInit(): void {

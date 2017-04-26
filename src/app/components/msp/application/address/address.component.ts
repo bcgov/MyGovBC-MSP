@@ -26,9 +26,13 @@ export class AddressComponent extends BaseComponent {
 
   constructor(private dataService: DataService,
               private _router: Router,
-              private _processService: ProcessService) {
-    super(AddressComponent.ProcessStepNum, _processService);
+              private _processService: ProcessService,
+              private cd:ChangeDetectorRef) {
+    super(cd);
     this.mspApplication = this.dataService.getMspApplication();
+  }
+  ngOnInit(){
+    this.initProcessMembers(AddressComponent.ProcessStepNum, this._processService);
   }
 
   ngAfterViewInit():void {

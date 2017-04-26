@@ -27,8 +27,8 @@ export class MspOutofBCRecordComponent extends BaseComponent {
   @ViewChild('mspReturnDate') mspReturnDate: MspReturnDateComponent;
   @ViewChild('formRef') form:NgForm;
 
-  constructor() {
-    super();
+  constructor(private cd: ChangeDetectorRef) {
+    super(cd);
   }
 
   delete(id:string){

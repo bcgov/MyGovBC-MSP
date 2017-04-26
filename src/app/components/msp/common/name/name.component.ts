@@ -17,8 +17,8 @@ export class MspNameComponent extends BaseComponent {
   @ViewChild('formRef') form: NgForm;
   Person: typeof Person = Person;
 
-  constructor() {
-    super();
+  constructor(private cd: ChangeDetectorRef) {
+    super(cd);
   }
 
   ngAfterViewInit(): void {

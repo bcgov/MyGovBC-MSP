@@ -1,6 +1,6 @@
 import {
   Component, ViewChild, ElementRef, OnInit, OnChanges, EventEmitter, Output, Input,
-  Inject, NgZone, SimpleChanges
+  Inject, NgZone, SimpleChanges, ChangeDetectorRef
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {ModalDirective} from "ng2-bootstrap";
@@ -44,8 +44,9 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
   @Output() onDeleteDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
 
   constructor(@Inject('appConstants') private appConstants: any,
-              private zone: NgZone) {
-    super();
+              private zone: NgZone,
+              private cd: ChangeDetectorRef) {
+    super(cd);
   }
 
   /**

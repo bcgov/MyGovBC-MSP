@@ -48,8 +48,9 @@ export class MspProvinceComponent extends BaseComponent implements OnInit {
     return Array().concat(this.provinceData, this.stateData);
   }
 
-  constructor(private completerService: CompleterService) {
-    super();
+  constructor(private completerService: CompleterService,
+    private cd: ChangeDetectorRef) {
+    super(cd);
   }
 
   ngOnInit() {

@@ -27,8 +27,8 @@ export class MspDischargeDateComponent extends BaseComponent {
   // Create today for comparison in check later
   today = moment();
 
-  constructor() {
-    super();
+  constructor(private cd: ChangeDetectorRef) {
+    super(cd);
   }
 
   ngAfterViewInit(): void {

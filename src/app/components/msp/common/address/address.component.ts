@@ -39,8 +39,8 @@ export class MspAddressComponent extends BaseComponent {
 
   Address: typeof Address = Address;
 
-  constructor() {
-    super();
+  constructor(private cd: ChangeDetectorRef) {
+    super(cd);
   }
 
   ngAfterViewInit(): void {
