@@ -47,7 +47,11 @@
             (onAddDocument)="addDocument($event)"
             (onErrorDocument)="errorDocument($event)"
             (onDeleteDocument)="deleteDocument($event)">
-            <span id="uploadInstruction">Please upload required power of attorney documents</span>
+            <span id="uploadInstruction"
+              #uploadInstruction
+            >
+              Please upload required power of attorney documents
+            </span>
             
         </msp-file-uploader>
         <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
