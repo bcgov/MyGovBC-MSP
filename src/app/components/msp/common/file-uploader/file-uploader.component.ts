@@ -1,6 +1,6 @@
 import {
   Component, ViewChild, ElementRef, OnInit, OnChanges, EventEmitter, Output, Input,
-  Inject, NgZone, SimpleChanges, ChangeDetectorRef
+  Inject, NgZone, SimpleChanges, ChangeDetectorRef, ContentChild, AfterContentInit
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {ModalDirective} from "ng2-bootstrap";
@@ -23,7 +23,9 @@ require('./file-uploader.component.less');
   selector: 'msp-file-uploader',
   templateUrl: './file-uploader.html'
 })
-export class FileUploaderComponent extends BaseComponent implements OnInit, OnChanges {
+export class FileUploaderComponent 
+  extends BaseComponent 
+  implements OnInit, OnChanges, AfterContentInit {
   lang = require('./i18n');
   noIdImage: Boolean = false;
 
@@ -32,8 +34,10 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
   @ViewChild('browseFileRef') browseFileRef: ElementRef;
   @ViewChild('captureFileRef') captureFileRef: ElementRef;
   @ViewChild('imagePlaceholderRef') imagePlaceholderRef: ElementRef;
+  @ViewChild('selectFileLabel') selectFileLabelRef: ElementRef;
   @ViewChild('staticModal') staticModalRef: ModalDirective;
 
+  @ContentChild('uploadInstruction') uploadInstructionRef:ElementRef;
   @Input() images: Array<MspImage>;
   @Input() id: string;
   @Input() showError: boolean;
@@ -115,15 +119,6 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
       }
     );
 
-    let imagePlaceholderStream = Observable.fromEvent<Event>(this.imagePlaceholderRef.nativeElement, 'click')
-      .map((event) => {
-        event.preventDefault();
-      });
-    imagePlaceholderStream.subscribe((event) => {
-      this.browseFileRef.nativeElement.click();
-    });
-
-
     let browseFileStream = Observable.fromEvent<Event>(this.browseFileRef.nativeElement, 'change');
     let captureFileStream = Observable.fromEvent<Event>(this.captureFileRef.nativeElement, 'change');
     let brosweFileInputElement = this.browseFileRef.nativeElement;
@@ -191,6 +186,33 @@ export class FileUploaderComponent extends BaseComponent implements OnInit, OnCh
         }
       )
 
+  }
+
+  ngAfterContentInit(){
+    let imagePlaceholderEnterKeyStream = Observable.fromEvent<Event>(this.imagePlaceholderRef.nativeElement, 'keyup')
+      .merge(
+        Observable.fromEvent<Event>(this.selectFileLabelRef.nativeElement, 'keyup')
+      )
+      .merge(
+        Observable.fromEvent<Event>(this.uploadInstructionRef.nativeElement, 'keyup')
+      )
+      .filter( (evt:KeyboardEvent)=>{
+        return evt.key === 'Enter';
+      });
+
+    Observable.fromEvent<Event>(this.imagePlaceholderRef.nativeElement, 'click')
+      .merge(
+        Observable.fromEvent<Event>(this.uploadInstructionRef.nativeElement, 'click')
+      )
+      .merge(imagePlaceholderEnterKeyStream)
+      .map((event) => {
+        event.preventDefault();
+        return event;
+      }).subscribe(
+        (event) => {
+          this.browseFileRef.nativeElement.click();
+        }
+      );    
   }
 
   /**

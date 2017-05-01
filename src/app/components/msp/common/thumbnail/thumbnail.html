@@ -1,9 +1,9 @@
 <div class="thumbnail-container">
-  <img [src]="imageObject.fileContent" alt="" 
+  <img [src]="imageObject.fileContent" alt="" tabindex="0"
     [ngClass]="{'image-thumbnail': scaledWidth <= 300, 'image-thumbnail-width-priority': scaledWidth > 300}"
     (click)="showFullSizeView()">
   <div class="action-strip" *ngIf="!reviewMode">
-    <a href="javascript:void(0)" (click)="delete($event)">Delete</a>
+    <a href="javascript:void(0)" (click)="delete($event)" tabindex="0">Delete</a>
   </div>
 </div>
 

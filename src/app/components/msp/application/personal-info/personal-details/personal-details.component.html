@@ -29,7 +29,7 @@
             </div>
             <div class="radio" *ngFor="let st of statusInCanada">
                 <input type="radio" name="statusInCanada-{{id}}" id="st{{st}}-{{id}}" (click)="setStatus(st, person)"
-                       [checked]="st === person.status">
+                       [checked]="st === person.status" tabindex="0">
                 <label for="st{{st}}-{{id}}">
                     {{langStatus('./en/index.js')[st]}}
                 </label>
@@ -79,7 +79,7 @@
                 [required]="true"
                 [showError]="showError">
                 
-                <span id="uploadInstruction">Please upload required ID documents</span>
+                <span id="uploadInstruction" #uploadInstruction tabindex="0">Please upload required ID documents</span>
             </msp-file-uploader>
 
             <msp-image-error-modal #imageErrorModal></msp-image-error-modal>

@@ -2,17 +2,19 @@
 <div class="dropzone" #dropZone>
   <div [hidden] = "images.length >= MAX_NUM_IMAGES" class="instruction-zone">
         <input type="file" id="fileUploadBrowse-{{id}}" #browseFileRef
-          accept="image/*" style="display:none;"
+          accept="image/*" style="display:none;" tabindex="0"
           />
-        <label for="fileUploadBrowse-{{id}}" class="file-upload-label">
+        <label for="fileUploadBrowse-{{id}}" class="file-upload-label"
+          #selectFileLabel tabindex="0">
             {{lang('./en/index.js').browseLabel}}
         </label>
       <span class="mobileShow">{{lang('./en/index.js').orLabel}}</span>
         <input type="file" id="fileUploadUseCamera-{{id}}" #captureFileRef
-          accept="image/*" capture="camera" 
+          accept="image/*" capture="camera" tabindex="0"
           />  
         <span class="glyphicon glyphicon-camera mobileShow" aria-hidden="true"></span>
-        <label for="fileUploadUseCamera-{{id}}" class="file-upload-label mobileShow">
+        <label for="fileUploadUseCamera-{{id}}" class="file-upload-label mobileShow"
+          tabindex="0">
             {{lang('./en/index.js').takeAPhotoLabel}}
         </label>
         <br />
@@ -28,8 +30,10 @@
       large size to display on screen.
    -->
   <div [hidden]= "images.length > 0" class="preview-zone">
-      <div class="preview-item" #imagePlaceholderRef [ngClass]="{'error-style': noIdImage}">
-        <i class="fa fa-file-image-o fa-5x icon-upload" aria-hidden="true">
+      <div class="preview-item"
+          [ngClass]="{'error-style': noIdImage}">
+        <i class="fa fa-file-image-o fa-5x icon-upload" tabindex="0"
+          #imagePlaceholderRef aria-hidden="true">
 
         </i>
         <p class="text-upload" *ngIf="images.length > 0 && (!erroStyle || !showError)">Upload another file</p>

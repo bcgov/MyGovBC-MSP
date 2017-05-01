@@ -5,17 +5,17 @@
 <form #formRef='ngForm' novalidate>
     <div class="btn-group" role="group">
         <button [class.msp-btn-radio]="liveInBC === true" (click)="setLiveInBC(true)" 
-           #liveInBCBtn type="button" class="btn btn-default" >Yes</button>
+           #liveInBCBtn type="button" class="btn btn-default" tabindex="0">Yes</button>
         <button [class.msp-btn-radio]="liveInBC === false" (click)="setLiveInBC(false)" 
-            #notLiveInBCBtn type="button" class="btn btn-default">No&nbsp;</button>
+            #notLiveInBCBtn type="button" class="btn btn-default" tabindex="0">No&nbsp;</button>
     </div>
 
     <div [hidden]="liveInBC !== true">
         <p class="intro" [innerHtml]="lang('./en/index.js').plannedAwayForOver30DaysQuestion"></p>
         <div class="btn-group" role="group">
-            <button [class.msp-btn-radio]="plannedAbsence === true" 
+            <button [class.msp-btn-radio]="plannedAbsence === true" tabindex="0"
                 #plannedAbsenceBtn type="button" class="btn btn-default" >Yes</button>
-            <button [class.msp-btn-radio]="plannedAbsence === false"  
+            <button [class.msp-btn-radio]="plannedAbsence === false" tabindex="0"
                 #noPlannedAbsenceBtn type="button" class="btn btn-default">No&nbsp;</button>
         </div>
 
@@ -27,9 +27,9 @@
         <p class="intro" [innerHtml]="lang('./en/index.js').specialCircumstanceQuestion"></p>
         <p [innerHtml]="lang('./en/index.js').specialCircumstanceQuestionSub"></p>
         <div class="btn-group" role="group">
-            <button [class.msp-btn-radio]="unUsualCircumstance === true" 
+            <button [class.msp-btn-radio]="unUsualCircumstance === true" tabindex="0"
                    #unUsualCircumstanceBtn type="button" class="btn btn-default" >Yes</button>
-            <button [class.msp-btn-radio]="unUsualCircumstance === false"
+            <button [class.msp-btn-radio]="unUsualCircumstance === false"tabindex="0"
                    #noUnusualCircustanceBtn type="button" class="btn btn-default">No&nbsp;</button>
         </div>
         <p class="intro text-danger" *ngIf="unUsualCircumstance === true"
@@ -48,7 +48,7 @@
 <button [mspLogger]="'msp-enrollment_check-eligibility_continue'"  class="btn btn-primary"
         [disabled] = "!canContinue()"
         (click) = "goToPersonalInfo()"
-        type="button"
+        type="button" tabindex="0"
         [innerHtml]="lang('./en/index.js').continueButton"></button>
 
 <msp-cancel></msp-cancel>
