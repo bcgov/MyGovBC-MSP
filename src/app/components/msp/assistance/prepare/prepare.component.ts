@@ -45,6 +45,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
   @ViewChild('disabilityNursingHomeChoiceModal') public disabilityNursingHomeChoiceModal: ModalDirective;
 
+  
   lang = require('./i18n');
   _showDisabilityInfo:boolean = false;
   showAttendantCareInfo = true;
