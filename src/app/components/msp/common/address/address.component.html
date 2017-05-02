@@ -6,17 +6,17 @@
             <label for="residentialAddressLine1" [innerHtml]="lang('./en/index.js').addressLine1Label"></label>
             <input [(ngModel)]="residentialAddress.addressLine1" type="text" class="form-control msp-addressline"
                    id="residentialAddressLine1" name="residentialAddressLine1" #residentialAddressLine1Ref="ngModel"
-                   required
+                   required tabindex="0"
                    maxlength="25">
             <div [hidden]="!useResidentialAddressLine2">
                 <input [(ngModel)]="residentialAddress.addressLine2" type="text" class="form-control msp-addressline"
                        id="residentialAddressLine2" name="residentialAddressLine2" #residentialAddressLine2Ref="ngModel"
-                       maxlength="25">
+                       maxlength="25" tabindex="0">
             </div>
             <div [hidden]="!useResidentialAddressLine3">
                 <input [(ngModel)]="residentialAddress.addressLine3" type="text" class="form-control msp-addressline"
                        id="residentialAddressLine3" name="residentialAddressLine3" #residentialAddressLine3Ref="ngModel"
-                       maxlength="25">
+                       maxlength="25" tabindex="0">
             </div>
             <a [hidden]="useResidentialAddressLine2 && useResidentialAddressLine3" href="javascript:void(0)"
                (click)="useAnotherResidentialAddressLine()">Need another address line?</a>
@@ -41,7 +41,7 @@
             <label for="residentialAddressCity" [innerHtml]="lang('./en/index.js').cityLabel"></label>
             <input [(ngModel)]='residentialAddress.city' type="text" class="form-control"
                    id="residentialAddressCity" name="residentialAddressCity" #residentialAddressCityRef="ngModel"
-                   required
+                   required tabindex="0"
                    maxlength="25">
             <div *ngIf='residentialAddressCityRef.touched || showError'>
                 <div class="text-danger" *ngIf="residentialAddressCityRef.errors?.required"
@@ -57,7 +57,7 @@
             <label for="residentialAddressPostalCode" [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
             <input [(ngModel)]='residentialAddress.postal' type="text" class="form-control to-upper"
                    id="residentialAddressPostalCode" name="residentialAddressPostalCode" #residentialAddressPostalCodeRef="ngModel"
-                   required
+                   required tabindex="0"
                    [pattern]="Address.PostalCodeBCRegEx">
             <div *ngIf='residentialAddressPostalCodeRef.touched || showError'>
                 <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.required"
