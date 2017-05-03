@@ -11,7 +11,7 @@ module.exports = {
   disabilityInfoLabel: 'Disability information',
   nursingHomeLabel: 'Add attendant or nursing home expense information',
   childrenInfo: 'Add children information',
-  invalidNumber: 'Comma is not allowed',
+  invalidNumber: 'Invalid number, use numbers and a period only, e.g., 12345.67',
   consentProcessName: 'apply for Premium Assistance',
   whatYearsToApplyFor: 'What years would you like to apply for?',
   whatYearsToApplyForDetails: 'Apply for any years you may have qualified for. In step 3, you will need to include your Notice of Assessment or Reassessment from Canada Revenue Agency.'
