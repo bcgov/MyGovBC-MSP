@@ -65,17 +65,17 @@ After a make a few more edits, I double check my work at the test site.
 * GIT
 
 ## Development
-It is recommended to install the app under `/client` folder of [MyGovBC-core-server](https://github.com/bcgov/MyGovBC-core-server).
-
-To launch dev instance, assuming cwd is `/` of `MyGovBC-core-server`:
+To launch dev instance
 ```
-git clone https://github.com/bcgov/MyGovBC-core-client client
-cd client
+git clone https://github.com/bcgov/MyGovBC-MSP.git
+cd MyGovBC-MSP
 npm install
 npm run dev
 ```
 
-Under `config/webpack/environments`, create a file named as `local.js` with the following content
+### Instance-specific Configuration
+To define configurations affecting only the local instance, create file *config/webpack/environments/local.js* with the following content for example
+
 ```
 'use strict'
 module.exports = function(_path) {
@@ -87,6 +87,7 @@ module.exports = function(_path) {
   }
 }
 ```
+*local.js* takes precedence over other webpack config files during deep merge of configurations. *local.js* is ignored by git. 
 
 ## Unit Testing
 Unit testing is implemented using karma with Jasmine framework. The implementation generally follows [Angular webpack test configuration](https://angular.io/docs/ts/latest/guide/webpack.html#test-configuration). Jenkins CI runs unit tests as part of the build, therefore all unit test scripts should be able to run unattended, quickly and depend only on local resources. Unit test scripts are located side-by-side with the target component and have file extension *.spec.js* or *.spec.ts*. For an example of unit test script, see [/src/app/components/msp/landing/landing.spec.ts](https://github.com/bcgov/MyGovBC-MSP/blob/master/src/app/components/msp/landing/landing.spec.ts)
