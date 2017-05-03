@@ -48,7 +48,7 @@ objects:
       rollingParams:
         updatePeriodSeconds: 1
         intervalSeconds: 1
-        timeoutSeconds: 600
+        timeoutSeconds: 60000
         maxUnavailable: 5%
         maxSurge: 5%
       resources:
@@ -115,7 +115,7 @@ objects:
             readinessProbe:
               exec:
                 command: ['/bin/sh','-c','ls /var/backups && curl -f http://localhost:9200/']
-              initialDelaySeconds: 290
+              initialDelaySeconds: 30
               timeoutSeconds: 60
               periodSeconds: 10
               successThreshold: 1
@@ -130,8 +130,12 @@ objects:
               failureThreshold: 3
             terminationMessagePath: /dev/termination-log
             imagePullPolicy: Always
+            lifecycle:
+              preStop:
+                exec:
+                  command: ["/tmp/preStop.sh"]
         restartPolicy: Always
-        terminationGracePeriodSeconds: 30
+        terminationGracePeriodSeconds: 9999
         dnsPolicy: ClusterFirst
 - apiVersion: v1
   kind: DeploymentConfig
@@ -256,6 +260,9 @@ objects:
                 containerPort: 8080
                 protocol: TCP
               -
+                containerPort: 8088
+                protocol: TCP
+              -
                 containerPort: 5514
                 protocol: TCP
               -
@@ -271,10 +278,22 @@ objects:
             env:
               -
                 name: LS_HEAP_SIZE
-                value: 512m
+                value: 450m
+            livenessProbe:
+              httpGet:
+                path: /
+                port: 8088
+                scheme: HTTP
+              initialDelaySeconds: 900
+              timeoutSeconds: 60
+              periodSeconds: 10
+              successThreshold: 1
+              failureThreshold: 3
             readinessProbe:
-              tcpSocket:
-                port: 8080
+              httpGet:
+                path: /
+                port: 8088
+                scheme: HTTP
               initialDelaySeconds: 360
               timeoutSeconds: 60
               periodSeconds: 30
