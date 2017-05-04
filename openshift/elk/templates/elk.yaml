@@ -94,10 +94,6 @@ objects:
               -
                 containerPort: 9300
                 protocol: TCP
-            env:
-              -
-                name: RETENTION_MONTH
-                value: ${RETENTION_MONTH}
             resources:
               limits:
                 memory: 1500Mi
