@@ -381,7 +381,7 @@ export class PersonalDetailsComponent extends BaseComponent {
       console.log("schoolQuestion invalid");
       return false;
     }
-    if (this.inBCAfterStudiesQuestion != null &&
+    if (this.person.fullTimeStudent &&
       this.person.inBCafterStudies == null) {
       console.log("inBCafterStudies invalid");
       return false;
