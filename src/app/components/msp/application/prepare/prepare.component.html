@@ -1,16 +1,17 @@
-<h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
-
-<p class="intro" [innerHtml]="lang('./en/index.js').question1"></p>
+<h1 role="heading" [innerHtml]="lang('./en/index.js').pageTitle"></h1>
 
 <form #formRef='ngForm' novalidate>
-    <div class="btn-group" role="group">
-        <button [class.msp-btn-radio]="liveInBC === true" (click)="setLiveInBC(true)" 
-           #liveInBCBtn type="button" class="btn btn-default" tabindex="0">Yes</button>
-        <button [class.msp-btn-radio]="liveInBC === false" (click)="setLiveInBC(false)" 
-            #notLiveInBCBtn type="button" class="btn btn-default" tabindex="0">No&nbsp;</button>
+    <div role="alertdialog">
+        <p class="intro" [innerHtml]="lang('./en/index.js').question1"></p>
+        <div class="btn-group" role="group">
+            <button [class.msp-btn-radio]="liveInBC === true" (click)="setLiveInBC(true)"
+               #liveInBCBtn type="button" class="btn btn-default" tabindex="0">Yes</button>
+            <button [class.msp-btn-radio]="liveInBC === false" (click)="setLiveInBC(false)"
+                #notLiveInBCBtn type="button" class="btn btn-default" tabindex="0">No&nbsp;</button>
+        </div>
     </div>
 
-    <div [hidden]="liveInBC !== true">
+    <div [hidden]="liveInBC !== true" role="alertdialog">
         <p class="intro" [innerHtml]="lang('./en/index.js').plannedAwayForOver30DaysQuestion"></p>
         <div class="btn-group" role="group">
             <button [class.msp-btn-radio]="plannedAbsence === true" tabindex="0"
@@ -20,10 +21,10 @@
         </div>
 
         <p class="intro text-danger" *ngIf="plannedAbsence === true"
-            [innerHtml]="lang('./en/index.js').badAnswer3">
+            [innerHtml]="lang('./en/index.js').badAnswer3" role="alert">
         </p>
     </div>
-    <div [hidden]= "plannedAbsence !== false || !liveInBC">
+    <div [hidden]= "plannedAbsence !== false || !liveInBC" role="alertdialog">
         <p class="intro" [innerHtml]="lang('./en/index.js').specialCircumstanceQuestion"></p>
         <p [innerHtml]="lang('./en/index.js').specialCircumstanceQuestionSub"></p>
         <div class="btn-group" role="group">
@@ -33,13 +34,14 @@
                    #noUnusualCircustanceBtn type="button" class="btn btn-default">No&nbsp;</button>
         </div>
         <p class="intro text-danger" *ngIf="unUsualCircumstance === true"
-            [innerHtml]="lang('./en/index.js').badAnswer4">
+            [innerHtml]="lang('./en/index.js').badAnswer4" role="alert">
         </p>
     </div>
-    <div [hidden]="unUsualCircumstance === true" [innerHtml]="lang('./en/index.js').allRightAnswers">
+    <div *ngIf="unUsualCircumstance === false" [innerHtml]="lang('./en/index.js').allRightAnswers" role="alert">
     </div>
 
-    <p class="intro text-danger" [hidden]="liveInBC === true || liveInBC === null || liveInBC === undefined" class="text-danger" [innerHtml]="lang('./en/index.js').badAnswer1">
+    <p class="intro text-danger" *ngIf="!(liveInBC === true || liveInBC === null || liveInBC === undefined)" class="text-danger" [innerHtml]="lang('./en/index.js').badAnswer1"
+        role="alert">
     </p>
 
 </form>
