@@ -383,9 +383,12 @@ export class FileUploaderComponent implements OnInit, OnChanges {
   }
 
   checkImageSizeInBytes(file: MspImage):boolean{
-    if(file.size < 1048576 * 1.2){
-      // console.log('file size under 2MB, ok to use.');
-    return true;
+    // Be a bit more stringent with image size to ensure the more stringent backend
+    // server image size check will always pass.    
+    // The API server set the limit as 1000*1024*1.2 = 1228800.
+    if(file.size <= 1048576){
+      console.log('file size under 1MB, ok to use.');
+      return true;
     }else{
       console.log('file size %s is greater than 1.2MB; cannot use this file.', file.sizeTxt);
       return false;
