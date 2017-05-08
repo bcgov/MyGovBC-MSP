@@ -3,11 +3,11 @@
                    (onClose)="liveInBCBtn.focus()">
 </msp-consent-modal>
 
-<h1 role="heading" [innerHtml]="lang('./en/index.js').pageTitle"></h1>
+<h1 role="heading" [innerHtml]="lang('./en/index.js').pageTitle" aria-live="polite"></h1>
 
 <form #formRef='ngForm' novalidate role="form" >
-    <div role="alertdialog">
-        <p class="intro" [innerHtml]="lang('./en/index.js').question1"></p>
+    <div role="dialog" aria-labelledby="q1">
+        <p id="q1" class="intro" [innerHtml]="lang('./en/index.js').question1"></p>
         <div class="btn-group" role="group">
             <button [class.msp-btn-radio]="liveInBC === true" (click)="setLiveInBC(true)"
                #liveInBCBtn type="button" class="btn btn-default" tabindex="0" role="button">Yes</button>
@@ -16,8 +16,8 @@
         </div>
     </div>
 
-    <div [hidden]="liveInBC !== true" role="alertdialog">
-        <p class="intro" [innerHtml]="lang('./en/index.js').plannedAwayForOver30DaysQuestion"></p>
+    <div [hidden]="liveInBC !== true" role="dialog" aria-labelledby="q2">
+        <p id="q2" class="intro" [innerHtml]="lang('./en/index.js').plannedAwayForOver30DaysQuestion"></p>
         <div class="btn-group" role="group">
             <button [class.msp-btn-radio]="plannedAbsence === true" tabindex="0"
                 #plannedAbsenceBtn type="button" class="btn btn-default" role="button">Yes</button>
@@ -29,9 +29,8 @@
             [innerHtml]="lang('./en/index.js').badAnswer3" role="alert">
         </p>
     </div>
-    <div [hidden]= "plannedAbsence !== false || !liveInBC" role="alertdialog">
-        <p class="intro" [innerHtml]="lang('./en/index.js').specialCircumstanceQuestion"></p>
-        <p [innerHtml]="lang('./en/index.js').specialCircumstanceQuestionSub"></p>
+    <div [hidden]= "plannedAbsence !== false || !liveInBC" role="dialog" aria-labelledby="q3">
+        <p id="q3" class="intro" [innerHtml]="lang('./en/index.js').specialCircumstanceQuestion"></p>
         <div class="btn-group" role="">
             <button [class.msp-btn-radio]="unUsualCircumstance === true" tabindex="0"
                    #unUsualCircumstanceBtn type="button" class="btn btn-default" >Yes</button>

@@ -21,20 +21,21 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4" role="dialog" [attr.aria-label]="statusLabel()">
             <div class="row">
                 <div class="col-md-12">
                     <h3>{{statusLabel()}}</h3>
                 </div>
             </div>
             <div class="radio" *ngFor="let st of statusInCanada">
-                <input type="radio" name="statusInCanada-{{id}}" id="st{{st}}-{{id}}" (click)="setStatus(st, person)"
+                <input type="radio" name="statusInCanada-{{id}}" id="st{{st}}-{{id}}"
+                       (click)="setStatus(st, person)"
                        [checked]="st === person.status" tabindex="0">
                 <label for="st{{st}}-{{id}}">
                     {{langStatus('./en/index.js')[st]}}
                 </label>
 
-                <div *ngIf="st === person.status">
+                <div *ngIf="st === person.status" role="alertdialog" aria-labelledby="What is your activity?">
                     <div class="radio" *ngFor="let activity of activities">
                         <input type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}"
                                (click)="setActivity(activity)"
@@ -46,7 +47,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
+        <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null" role="alert">
             <h3><i class="fa fa-id-card-o" aria-hidden="true"></i> {{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
             <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
             <ul>
