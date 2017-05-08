@@ -228,7 +228,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="msp-toggle" tabindex="0"
-                        [mspKeyboard] = "'Enter'" (keyboardAction) = "showDisabilityInfo=true"
+                        [mspKeyboard] = "['Enter','space']" (keyboardAction) = "showDisabilityInfo=true"
                         *ngIf="!showDisabilityInfo" (click)="showDisabilityInfo=true">
                         <span class="glyphicon glyphicon-collapse-up msp-toggle"
                         aria-hidden="true"></span>
@@ -236,7 +236,7 @@
 
                     </div>
                     <div class="msp-toggle" tabindex="0"
-                        [mspKeyboard] = "'Enter'" (keyboardAction) = "showDisabilityInfo=false"
+                        [mspKeyboard] = "['Enter','space']" (keyboardAction) = "showDisabilityInfo=false"
                         *ngIf="showDisabilityInfo" (click)="showDisabilityInfo=false">
                         <span class="glyphicon glyphicon-collapse-down msp-toggle"
                         aria-hidden="true"></span>
@@ -255,14 +255,18 @@
                         </label>
 
                         <ul class="msp-horizontal-list-group">
-                            <li #selfDisabilityCreditSet
+                            <li #selfDisabilityCreditSet tabindex="0"
+                                [mspKeyboard] = "'Enter'" 
+                                [convertToEvent] = "'click'"
                                 class="msp-horizontal-list-group-item-sm msp-selectable"
                                 [hidden]="finAssistApp.selfDisabilityCredit">
                                 <span class="glyphicon glyphicon-unchecked"
                                     ></span>
                                 <span>Myself</span>
                             </li>
-                            <li #selfDisabilityCreditUnset
+                            <li #selfDisabilityCreditUnset tabindex="0"
+                                [mspKeyboard] = "'Enter'" 
+                                [convertToEvent] = "'click'"
                                 class="msp-horizontal-list-group-item-sm msp-selectable"
                                 [hidden]="!finAssistApp.selfDisabilityCredit">
                                 <span class="glyphicon glyphicon-check msp-selection"
@@ -271,13 +275,17 @@
                             </li>
 
                             <div [hidden] = "!finAssistApp.hasSpouseOrCommonLaw">
-                                <li #spouseDisabilityCreditSet 
+                                <li #spouseDisabilityCreditSet tabindex="0"
+                                    [mspKeyboard] = "'Enter'" 
+                                    [convertToEvent] = "'click'"
                                     class="msp-horizontal-list-group-item-lg msp-selectable"
                                     [hidden]="finAssistApp.spouseEligibleForDisabilityCredit">
                                     <span class="glyphicon glyphicon-unchecked"></span>
                                     <span>My spouse/common-law partner</span>
                                 </li>
-                                <li #spouseDisabilityCreditUnset 
+                                <li #spouseDisabilityCreditUnset tabindex="0"
+                                    [mspKeyboard] = "'Enter'" 
+                                    [convertToEvent] = "'click'"
                                     class="msp-horizontal-list-group-item-lg msp-selectable"
                                     [hidden]="!finAssistApp.spouseEligibleForDisabilityCredit">
                                     <span class="glyphicon glyphicon-check msp-selection"></span>
@@ -292,13 +300,17 @@
                     <div class="col-md-3" [hidden]="!finAssistApp.childrenCount">
                         <div class="form-group">
                             <ul class="msp-horizontal-list-group">
-                                <li #childDisabilityCreditset
+                                <li #childDisabilityCreditset tabindex="0"
+                                    [mspKeyboard] = "'Enter'" 
+                                    [convertToEvent] = "'click'"
                                     [hidden] = finAssistApp.childWithDisabilityCount
                                     class="msp-horizontal-list-group-item-lg msp-selectable">
                                     <span class="glyphicon glyphicon-unchecked"></span>
                                     <span>My Child</span>
                                 </li>
-                                <li #childDisabilityCreditUnset
+                                <li #childDisabilityCreditUnset tabindex="0"
+                                    [mspKeyboard] = "'Enter'" 
+                                    [convertToEvent] = "'click'"
                                     [hidden] = !finAssistApp.childWithDisabilityCount
                                     class="msp-horizontal-list-group-item-lg msp-selectable">
                                     <span class="glyphicon glyphicon-check msp-selection"></span>
@@ -387,7 +399,7 @@
                     <div class="col-md-3 col-md-offset-1">
                         <div class="form-group">
                             <div class="checkbox checkbox-success checkbox-inline">
-                                    <input type="checkbox"
+                                    <input type="checkbox" tabindex="0"
                                     name="applicantClaimForAttendantCareExpense"
                                     id="applicantClaimForAttendantCareExpense"
                                     [ngModel]="finAssistApp.applicantClaimForAttendantCareExpense"
@@ -401,7 +413,7 @@
                     <div class="col-md-8" *ngIf="finAssistApp.hasSpouseOrCommonLaw === true">
                         <div class="checkbox checkbox-success checkbox-inline">
                             <div class="form-group">
-                                <input type="checkbox" 
+                                <input type="checkbox" tabindex="0"
                                 name="spouseClaimForAttendantCareExpense"
                                 id="spouseClaimForAttendantCareExpense"
                                 [ngModel] = "finAssistApp.spouseClaimForAttendantCareExpense"
@@ -416,7 +428,7 @@
                 <div class="row" style="margin-top:10px" *ngIf="!!finAssistApp.childrenCount">
                     <div class="col-md-3 col-md-offset-1">
                         <div class="checkbox checkbox-success checkbox-inline">
-                                <input type="checkbox" 
+                                <input type="checkbox" tabindex="0"
                                 name="childClaimForAttendantCareExpense"
                                 id="childClaimForAttendantCareExpense"
                                 [ngModel] = "finAssistApp.childClaimForAttendantCareExpense"
