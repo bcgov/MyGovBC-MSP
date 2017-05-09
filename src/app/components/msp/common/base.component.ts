@@ -136,7 +136,18 @@ export class BaseComponent implements DoCheck {
   /**
    * A common function to emit the status of the form
    */
-  emitIsFormValid () {
+  emitIsFormValid (defer?: boolean) {
+    // IE 11 has a bug in this odd scenario where the output event sets the input that then gets tested for isValid
+    // the workaround is to put the emit on the next event cycle in order for the input to get set before testing
+    if (defer) {
+      setTimeout(() => { this._emitIsFormValid(); }, 0);
+    }
+    else {
+      this._emitIsFormValid();
+    }
+  }
+
+  private _emitIsFormValid () {
     console.log(this.constructor.name + "(" + this.objectId + "): children: " + this.childrenIsValid() + "(" + Object.keys(this.validationMap).length
       + "); myFormValid: " + this.myFormValid +
       "; this.isValid: " + this.isValid());

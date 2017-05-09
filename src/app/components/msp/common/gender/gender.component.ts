@@ -39,7 +39,7 @@ export class MspGenderComponent extends BaseComponent {
 
   genderChange(evt:Gender){
     this.onChange.emit(evt);
-    super.emitIsFormValid();
+    this.emitIsFormValid(true);
   }
 
   isValid(): boolean {

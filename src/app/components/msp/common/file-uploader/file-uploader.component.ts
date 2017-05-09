@@ -157,7 +157,7 @@ export class FileUploaderComponent
         (file: MspImage) => {
           this.handleImageFile(file);
           this.resetInputFields();
-          this.emitIsFormValid();
+          this.emitIsFormValid(true);
         },
 
         (error) => {
