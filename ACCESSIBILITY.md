@@ -6,11 +6,11 @@ This applications meets or exceeds the [World Wide Web Consortium (W3C) Web Cont
 
 The following technologies have been test with this application, chosen because of their popularity and coverage using data from http://webaim.org/projects/screenreadersurvey6/:
 
-1. TODO: JAWS IE 11?
-2. TODO: NVDA Firefox?
-3. TODO: VoiceOver iOS?
+1. JAWS IE 11 on Windows 10
+2. NVDA Firefox (evergreen) on Windows 10 
+3. VoiceOver on Mac OS (should get iOS coverage)
 
-## AngularJS 2 Implementation Patterns
+## Implementation Patterns
 
 ### Tab Indexing
 TODO: Yiling to write
@@ -19,7 +19,7 @@ TODO: Yiling to write
 
 Screen readers need to be notified when new content/forms are dynamically displayed:
 
-1. Avoid `[hidden]="expression"` use `*ngIf="expression"` instead.  Screen readers tend to read hidden elements.
+1. (AngularJS) Avoid `[hidden]="expression"` use `*ngIf="expression"` instead.  Screen readers tend to read hidden elements.
 2. For errors, announce revealed content with `role="alert" aria-live="assertive"`
 3. If revealing new for element use  `role="dialogue"`
 
