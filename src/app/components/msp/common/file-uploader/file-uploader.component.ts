@@ -13,6 +13,10 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import {BaseComponent} from "../base.component";
+import {MspLogService} from "../../service/log.service";
+import DataService from "../../service/msp-data.service";
+import {LogEntry} from "../logging/log-entry.model";
+import moment = require("moment");
 
 let loadImage = require('blueimp-load-image');
 
@@ -48,6 +52,8 @@ export class FileUploaderComponent
   @Output() onDeleteDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
 
   constructor(@Inject('appConstants') private appConstants: any,
+              private dataService: DataService,
+              private logService:MspLogService,
               private zone: NgZone,
               private cd: ChangeDetectorRef) {
     super(cd);
@@ -304,23 +310,27 @@ export class FileUploaderComponent
                   // keep scaling down the image until the image size is
                   // under max image size
                   
-                  if(mspImage.size > self.appConstants.images.maxSizeBytes){
+                  if(mspImage.size > self.appConstants.images.maxSizeBytes) {
 
-                    console.log('File size after scaling down: %d, max file size allowed: %d', 
-                      mspImage.size, self.appConstants.images.maxSizeBytes);
-                    
-                    let imageTooBigError:MspImageProcessingError = 
-                      new MspImageProcessingError(MspImageError.TooBig);
-                    
+                    console.log('File size after scaling down: %d, max file size allowed: %d',
+                        mspImage.size, self.appConstants.images.maxSizeBytes);
+
+                    let imageTooBigError: MspImageProcessingError =
+                        new MspImageProcessingError(MspImageError.TooBig);
+
                     imageTooBigError.maxSizeAllowed = self.appConstants.images.maxSizeBytes;
                     imageTooBigError.mspImage = mspImage;
-                    
+
                     observer.error(imageTooBigError);
+                  }
+                  else {
+                    // log image info
+                    let uuid = (self.dataService.getMspApplication() ? self.dataService.getMspApplication().uuid : self.dataService.finAssistApp.uuid);
+                    self.logImageInfo(uuid, mspImage);
                   }
                   observer.next(mspImage);
                 };
                 reader.readAsDataURL(blob);
-
               },
 
               // What mime type to make the blob as and jpeg quality
@@ -477,6 +487,40 @@ export class FileUploaderComponent
     // this.staticModalRef.show();
     this.resetInputFields();
     this.onDeleteDocument.emit(mspImage);
+  }
+
+  /**
+   * Log image attributes
+   * @param mspImage
+   */
+  private logImageInfo(applicationId: string, mspImage: MspImage) {
+
+    // create log entry
+    let log:LogEntry = new LogEntry();
+    log.applicationId = applicationId;
+    var now = moment();
+    log.mspTimestamp = now.toISOString();
+    log.applicationPhase = "msp_file-uploader_image-attributes:  mspImageId: " + mspImage.id
+      + "  mspImageUuid: " + mspImage.uuid
+      + "  mspImageSize: " + mspImage.size
+      + "  mspImageWidth: " + mspImage.naturalWidth
+      + "  mspImageHeight: " + mspImage.naturalHeight
+      + "  mspImageContentType: " + mspImage.contentType;
+
+    // send it while subscribing to response
+    this.logService.logIt(log).subscribe(
+        (response)=>{
+          // console.log('log rest service response: ');
+          // console.log(response);
+        },
+        (error)=>{
+          console.log('HTTP error response from logging service: ');
+          console.log(error);
+        },
+        ()=>{
+          // console.log('log rest service completed!');
+        }
+    );
   }
 
   /**
