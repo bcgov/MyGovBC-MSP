@@ -9,7 +9,7 @@
                id="reason{{objectId}}"
                required
                maxlength="20">
-        <div *ngIf='reasonRef.touched || showError' role="alert">
+        <div *ngIf='reasonRef.touched || showError' role="alert" aria-live="assertive">
           <div class="text-danger" *ngIf="reasonRef.errors?.required"
               [innerHtml]="lang('./en/index.js').ourOfBCReasonRequired"></div>
         </div>
@@ -24,7 +24,7 @@
                id="location{{objectId}}"
                required
                maxlength="20">
-        <div *ngIf='locationRef.touched || showError' role="alert">
+        <div *ngIf='locationRef.touched || showError' role="alert" aria-live="assertive">
           <div class="text-danger" *ngIf="locationRef.errors?.required"
                [innerHtml]="lang('./en/index.js').locationRequired"></div>
         </div>

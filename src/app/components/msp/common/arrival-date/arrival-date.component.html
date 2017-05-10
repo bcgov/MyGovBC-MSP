@@ -48,7 +48,7 @@
                max="2300"
                step="1">
 
-        <div role="alert">
+        <div role="alert" aria-live="assertive">
             <div *ngIf='monthRef.touched || showError'>
                 <div class="text-danger" *ngIf="monthRef.errors?.required"
                      [innerHtml]="lang('./en/index.js').monthErrorRequired"></div>

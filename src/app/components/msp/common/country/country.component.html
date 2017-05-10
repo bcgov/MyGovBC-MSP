@@ -10,7 +10,7 @@
                        [maxChars]="25"
                        required
                        [inputId]="'country' + objectId" name="country" #countryRef="ngModel"></ng2-completer>
-        <div *ngIf='countryRef.touched || showError' role="alert">
+        <div *ngIf='countryRef.touched || showError' role="alert" aria-live="assertive">
             <div class="text-danger" *ngIf="countryRef.errors?.required"
                  [innerHtml]="lang('./en/index.js').countryErrorIsRequired"></div>
             <div class="text-danger" *ngIf="countryRef.errors?.pattern"

@@ -47,7 +47,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null" role="alert">
+        <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null" role="alert" aria-live="assertive">
             <h3><i class="fa fa-id-card-o" aria-hidden="true"></i> {{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
             <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
             <ul>
@@ -226,7 +226,7 @@
                                   type="button" class="btn btn-default">{{answer.label}}
                           </button>
                       </div>
-                      <div *ngIf='showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)' role="alert">
+                      <div *ngIf='showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)' role="alert" aria-live="assertive">
                           <div class="text-danger" 
                               [innerHtml]="lang('./en/index.js').mustAnswerQuestionAboutBeenOutsideBC"></div>
                       </div>
@@ -244,25 +244,14 @@
                     </msp-outof-bc-record>
                 </div>
             </div>
-            <!--
-                <div class="row" *ngIf="person.declarationForOutsideOver30Days">
-                To allow multiple departure-return/outof-bc records to be added,
-                1. use "person.declarationForOutsideOver30Days" as the above line shows.
-                2. Go to outof-bc.component.html to enable the delete button. (adjust the column
-                allocation on the page to allocate one column to the delete button.)
-            -->
-            <div class="row" *ngIf="false">
-                <div class="col-sm-12">
-                    <a href="javascript:void(0)" (click)="addOutofBCRecord($event)">Add information about being outside and returning to BC</a>
-                </div>
-            </div>
         </div>
         <div class="row" style="margin-bottom: 20px">
             <div class="col-md-6">
               <div class="form-group"
-                 [ngClass]="{'has-error': (person.hasPreviousBCPhn === undefined || person.hasPreviousBCPhn === null) && showError}">
+                 [ngClass]="{'has-error': (person.hasPreviousBCPhn === undefined || person.hasPreviousBCPhn === null) && showError}"
+                 role="dialog" [attr.aria-labelledby]="'previousBCHealthNumber' + objectId">
               
-                <label [innerHtml]="lang('./en/index.js').previousBCHealthNumber[this.person.relationship]"
+                <label id="previousBCHealthNumber{{objectId}}" [innerHtml]="lang('./en/index.js').previousBCHealthNumber[this.person.relationship]"
                   class="control-label"></label>
                 <div class="btn-group" role="group">
                     <button [class.msp-btn-radio]="person.hasPreviousBCPhn"
