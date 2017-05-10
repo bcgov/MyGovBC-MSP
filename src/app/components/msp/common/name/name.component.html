@@ -12,7 +12,7 @@
                        [pattern]="Person.NameRegEx"
                        id="firstName" name="firstName" #firstNameRef="ngModel"
                        class="form-control">
-                <div *ngIf='firstNameRef.touched || showError'>
+                <div *ngIf='firstNameRef.touched || showError' role="alert">
                     <div class="text-danger" *ngIf="firstNameRef.errors?.required"
                          [innerHtml]="lang('./en/index.js').firstNameErrorRequired"></div>
                     <div class="text-danger" *ngIf="firstNameRef.errors?.pattern"
@@ -30,7 +30,7 @@
                        maxlength="30"
                        [pattern]="Person.NameRegEx"
                        class="form-control">
-                <div *ngIf='middleNameRef.touched || showError'>
+                <div *ngIf='middleNameRef.touched || showError' role="alert">
                     <div class="text-danger" *ngIf="middleNameRef.errors?.required"
                          [innerHtml]="lang('./en/index.js').middleNameErrorRequired"></div>
                     <div class="text-danger" *ngIf="middleNameRef.errors?.pattern"
@@ -49,7 +49,7 @@
                        maxlength="30"
                        [pattern]="Person.NameRegEx"
                        class="form-control">
-                <div *ngIf='lastNameRef.touched || showError'>
+                <div *ngIf='lastNameRef.touched || showError' role="alert">
                     <div class="text-danger" *ngIf="lastNameRef.errors?.required"
                          [innerHtml]="lang('./en/index.js').lastNameErrorRequired"></div>
                     <div class="text-danger" *ngIf="lastNameRef.errors?.pattern"

@@ -23,3 +23,7 @@ Screen readers need to be notified when new content/forms are dynamically displa
 2. For errors, announce revealed content with `role="alert" aria-live="assertive"`
 3. If revealing new for element use  `role="dialogue"`
 
+### Radio Buttons
+
+1. Use `<label for="">` for the first radio control
+2. Use a hidden label `<label class="hidden" for="">` for the second and so on controls 
