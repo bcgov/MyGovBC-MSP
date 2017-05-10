@@ -116,8 +116,9 @@
             person.currentActivity === Activities.LivingInBCWithoutMSP" style="margin-bottom: 5px">
             <div class="col-sm-12">
               <div class="form-group"
-                [ngClass]="{'msp-has-error': showError && (person.livedInBCSinceBirth !== true && person.livedInBCSinceBirth !== false)}">
-                  <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[this.person.relationship]"></label>
+                [ngClass]="{'msp-has-error': showError && (person.livedInBCSinceBirth !== true && person.livedInBCSinceBirth !== false)}"
+                   role="dialog" [attr.aria-labelledby]="'livedInBCSinceBirth' + objectId">
+                  <label [attr.id]="'livedInBCSinceBirth' + objectId" [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[this.person.relationship]"></label>
                   <div class="btn-group" role="group">
                       <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
                               [class.msp-btn-radio]="person.livedInBCSinceBirth === answer.value"

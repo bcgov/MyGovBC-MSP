@@ -20,13 +20,15 @@ TODO: Yiling to write
 Screen readers need to be notified when new content/forms are dynamically displayed:
 
 1. (AngularJS) Avoid `[hidden]="expression"` use `*ngIf="expression"` instead.  Screen readers tend to read hidden elements.
-2. For errors, announce revealed content with `role="alert" aria-live="assertive"`
-3. If revealing new for element use  `role="dialogue"`
+1. For errors, announce revealed content with `role="alert" aria-live="assertive"`
+1. If revealing new for element use  `role="dialogue"`
+1. If you have multiple errors, wrap a `<div role="alert">` around all the messages
+
 
 ### Radio Buttons
 
 1. Use `<label for="">` for the first radio control
-2. Use a hidden label `<label class="visuallyhidden" for="">` for the second and so on controls
+1. Use a hidden label `<label class="visuallyhidden" for="">` for the second and so on controls
  
  ```
 /*
@@ -40,3 +42,4 @@ Screen readers need to be notified when new content/forms are dynamically displa
   margin: -1px; padding: 0; border: 0;
 }
 ```
+
