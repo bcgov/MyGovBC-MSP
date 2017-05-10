@@ -1,8 +1,7 @@
 <form #formRef='ngForm' novalidate>
     <div class="form-group"
          [ngClass]="{'has-error': !formRef.controls.country?.valid && (countryRef.touched || showError)}">
-        <label for="country" [innerHtml]="label" 
-          class="control-label"></label>
+        <label for="country{{objectId}}" [innerHtml]="label" class="control-label"></label>
         <ng2-completer [ngModel]="country"
                        (ngModelChange)="updateModel($event)"
                        [dataService]="dataService" [minSearchLength]="0"
@@ -10,8 +9,8 @@
                        [overrideSuggested]="true"
                        [maxChars]="25"
                        required
-                       id="country" name="country" #countryRef="ngModel"></ng2-completer>
-        <div *ngIf='countryRef.touched || showError'>
+                       [inputId]="'country' + objectId" name="country" #countryRef="ngModel"></ng2-completer>
+        <div *ngIf='countryRef.touched || showError' role="alert">
             <div class="text-danger" *ngIf="countryRef.errors?.required"
                  [innerHtml]="lang('./en/index.js').countryErrorIsRequired"></div>
             <div class="text-danger" *ngIf="countryRef.errors?.pattern"
