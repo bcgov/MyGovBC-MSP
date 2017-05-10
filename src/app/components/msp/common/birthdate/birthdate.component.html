@@ -1,12 +1,12 @@
 <form #formRef='ngForm' novalidate>
     <label class="control-label" [innerHtml]="lang('./en/index.js').birthdateLabel"></label>
-    <label class="visuallyhidden" for="month">{{lang('./en/index.js').birthdateLabel}} {{lang('./en/index.js').monthLabel}}</label>
+    <label class="visuallyhidden" for="month{{objectId}}">{{lang('./en/index.js').birthdateLabel}} {{lang('./en/index.js').monthLabel}}</label>
     <div class="form-group"
          [ngClass]="{'has-error': formRef.invalid && (monthRef.touched || showError)}">
         <select class="form-control monthSelect"
                 [(ngModel)]="person.dob_month"
                 validateCalendarMonth
-                id="month" name="month" #monthRef="ngModel"
+                id="month{{objectId}}" name="month" #monthRef="ngModel"
                 required>
             <option value=0>&nbsp;</option>
             <option value=1>January</option>
@@ -22,7 +22,7 @@
             <option value=11>November</option>
             <option value=12>December</option>
         </select>
-        <label class="visuallyhidden" for="day">{{lang('./en/index.js').birthdateLabel}} {{lang('./en/index.js').dayLabel}}</label>
+        <label class="visuallyhidden" for="day{{objectId}}">{{lang('./en/index.js').birthdateLabel}} {{lang('./en/index.js').dayLabel}}</label>
         <input type="number" class="form-control dayInput"
 
                [ngModel]="person.dob_day"
@@ -30,18 +30,18 @@
                [calendarFieldFormatter]="'day'"
                validateCalendarDay
 
-               id="day" name="day" #dayRef="ngModel"
+               id="day{{objectId}}" name="day" #dayRef="ngModel"
                placeholder="day"
                required
                maxlength="2">
 
-        <label class="visuallyhidden" for="year">{{lang('./en/index.js').birthdateLabel}} {{lang('./en/index.js').yearLabel}}</label>
+        <label class="visuallyhidden" for="year{{objectId}}">{{lang('./en/index.js').birthdateLabel}} {{lang('./en/index.js').yearLabel}}</label>
         <input type="number" class="form-control yearInput"
                [ngModel]="person.dob_year"
                (ngModelChange) = 'setYearValueOnModel($event)'
                [calendarFieldFormatter]="'year'"
                validateCalendarYear
-               id="year" name="year" #yearRef="ngModel"
+               id="year{{objectId}}" name="year" #yearRef="ngModel"
                placeholder="year"
                required
                min="1830"
