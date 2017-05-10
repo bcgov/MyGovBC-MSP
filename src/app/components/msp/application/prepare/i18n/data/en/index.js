@@ -11,8 +11,8 @@ module.exports = {
   badAnswer3: 'You might not qualify for public health insurance if you leave the province for more than 30 days in total during the first six months after you apply - doing this could mean you are no longer considered a B.C. resident. Find out more by contacting <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">Health Insurance BC</a>.',
 
   specialCircumstanceQuestion: 'Is anyone you\'re applying for<br>' +
-  '<ul><li>A student returning to your home province at the end of a course or program</li>' +
-  '<li>A minor (under the age of 16) who needs to have their own individual account</li>' +
+  '<ul><li>A student returning to your home province at the end of a course or program; or</li>' +
+  '<li>A minor (under the age of 16) who needs to have their own individual account; or</li>' +
   '<li>Seeking refugee status and is not approved yet</li>',
   badAnswer4: 'You can submit an application with some assistance from one of our representatives - please contact ' +
   'Health Insurance BC:<ul><li>(604) 683-7151 (Lower Mainland)</li><li>1-800-663-7100 (Elsewhere in B.C.)</li></ul>',
