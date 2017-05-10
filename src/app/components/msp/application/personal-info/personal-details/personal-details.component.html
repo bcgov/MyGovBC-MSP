@@ -147,10 +147,9 @@
                             colSize="col-sm-4"></msp-province>
             </div>
         
-          <div class="col-md-4" style="margin-top: 15px;">
+          <div class="col-md-4" style="margin-top: 15px;" role="dialog" [attr.aria-labelledby]="'movedPermLabel' + objectId">
             <div class="form-group" [ngClass]="{'has-error': showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)}">
-
-              <label [innerHtml]="lang('./en/index.js').haveYouMovedToBCPermanently" class="control-label"></label>
+              <label [attr.id]="'movedPermLabel' + objectId" [innerHtml]="lang('./en/index.js').haveYouMovedToBCPermanently" class="control-label"></label>
               <div class="btn-group" role="group">
                 <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]' [class.msp-btn-radio]="person.madePermanentMoveToBC === answer.value"
                   (click)="setMovedToBCPermanently(answer.value)" type="button" class="btn btn-default">{{answer.label}}
