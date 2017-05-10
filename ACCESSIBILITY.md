@@ -26,4 +26,17 @@ Screen readers need to be notified when new content/forms are dynamically displa
 ### Radio Buttons
 
 1. Use `<label for="">` for the first radio control
-2. Use a hidden label `<label class="hidden" for="">` for the second and so on controls 
+2. Use a hidden label `<label class="visuallyhidden" for="">` for the second and so on controls
+ 
+ ```
+/*
+  Special accessibility class to hide things like labels but still have the readable by screen readers
+ */
+.visuallyhidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px; width: 1px;
+  margin: -1px; padding: 0; border: 0;
+}
+```

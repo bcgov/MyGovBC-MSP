@@ -1,6 +1,6 @@
 <form #formRef='ngForm' novalidate>
     <label class="control-label" [innerHtml]="lang('./en/index.js').birthdateLabel"></label>
-    <label class="hidden" for="month">{{lang('./en/index.js').birthdateLabel}} {{lang('./en/index.js').monthLabel}}</label>
+    <label class="visuallyhidden" for="month">{{lang('./en/index.js').birthdateLabel}} {{lang('./en/index.js').monthLabel}}</label>
     <div class="form-group"
          [ngClass]="{'has-error': formRef.invalid && (monthRef.touched || showError)}">
         <select class="form-control monthSelect"
@@ -22,7 +22,7 @@
             <option value=11>November</option>
             <option value=12>December</option>
         </select>
-        <label class="hidden" for="day">{{lang('./en/index.js').birthdateLabel}} {{lang('./en/index.js').dayLabel}}</label>
+        <label class="visuallyhidden" for="day">{{lang('./en/index.js').birthdateLabel}} {{lang('./en/index.js').dayLabel}}</label>
         <input type="number" class="form-control dayInput"
 
                [ngModel]="person.dob_day"
@@ -35,7 +35,7 @@
                required
                maxlength="2">
 
-        <label class="hidden" for="year">{{lang('./en/index.js').birthdateLabel}} {{lang('./en/index.js').yearLabel}}</label>
+        <label class="visuallyhidden" for="year">{{lang('./en/index.js').birthdateLabel}} {{lang('./en/index.js').yearLabel}}</label>
         <input type="number" class="form-control yearInput"
                [ngModel]="person.dob_year"
                (ngModelChange) = 'setYearValueOnModel($event)'

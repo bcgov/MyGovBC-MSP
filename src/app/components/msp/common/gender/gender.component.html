@@ -2,7 +2,7 @@
   <div class="form-group" 
     [ngClass]="{'has-error': showError && (person.gender === undefined || person.gender === null)}">
     <label for="genderMale{{uuid}}" [innerHtml]="lang('./en/index.js').genderLabel"></label>
-    <label class="hidden" for="genderFemale{{uuid}}" [innerHtml]="lang('./en/index.js').genderLabel"></label>
+    <label class="visuallyhidden" for="genderFemale{{uuid}}" [innerHtml]="lang('./en/index.js').genderLabel"></label>
     <span *ngIf='showError && (person.gender === undefined || person.gender === null)' 
       class="text-danger" role="alert">(Please specify gender)</span>
 
