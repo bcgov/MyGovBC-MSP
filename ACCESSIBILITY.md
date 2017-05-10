@@ -13,7 +13,10 @@ The following technologies have been test with this application, chosen because 
 ## AngularJS 2 Implementation Patterns
 
 ### Tab Indexing
-TODO: Yiling to write
+
+1. Assign tabindex to "0" for controls that needs to be included in tab index.
+1. Assign tabindex to "-1" for controls that needs to be excluded from tab index.
+1. Use native html controls whenever possible
 
 ### Dynamically Displayed Content
 
