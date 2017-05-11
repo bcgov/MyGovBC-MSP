@@ -226,7 +226,8 @@
                                   type="button" class="btn btn-default">{{answer.label}}
                           </button>
                       </div>
-                      <div *ngIf='showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)' role="alert" aria-live="assertive">
+                      <div *ngIf='showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)'
+                           role="alert" aria-live="assertive">
                           <div class="text-danger" 
                               [innerHtml]="lang('./en/index.js').mustAnswerQuestionAboutBeenOutsideBC"></div>
                       </div>
@@ -282,12 +283,13 @@
 
     <div #armedForcedQuestion class="row"
         *ngIf="person.documents.images.length > 0 && person.status === StatusInCanada.CitizenAdult" 
-        style="margin-top: 10px; margin-bottom: 10px;">
+        style="margin-top: 10px; margin-bottom: 10px;"
+         role="dialog" [attr.aria-labelledby]="'canadianForcesQuestionLabel' + objectId">
         <div class="col-md-8">
             <div class="form-group"
               [ngClass]="{'has-error': (person.institutionWorkHistory === undefined ||  person.institutionWorkHistory === null) 
                 && showError}">
-              <label [innerHtml]="lang('./en/index.js').canadianForcesQuestion[this.person.relationship]" class="control-label"></label>
+              <label id="canadianForcesQuestionLabel{{objectId}}" [innerHtml]="lang('./en/index.js').canadianForcesQuestion[this.person.relationship]" class="control-label"></label>
               <div class="btn-group" role="group">
                   <button *ngFor='let institution of institutionList'
                           [class.msp-btn-radio]="person.institutionWorkHistory == institution"
@@ -295,7 +297,8 @@
                           type="button" class="btn btn-default">{{institution}}
                   </button>
               </div>
-              <div *ngIf='(person.institutionWorkHistory === undefined ||  person.institutionWorkHistory === null) && showError'>
+              <div *ngIf='(person.institutionWorkHistory === undefined ||  person.institutionWorkHistory === null) && showError'
+                   role="alert" aria-live="assertive">
                   <p class="text-danger" 
                       [innerHtml]="lang('./en/index.js').mustDeclareInstitutionWorkHistory"></p>
               </div>
@@ -320,8 +323,9 @@
                             (person.relationship === Relationship.Applicant ||
                             person.relationship === Relationship.Child19To24)">
         <div class="form-group col-md-4" *ngIf="person.relationship === Relationship.Applicant"
-            [ngClass]="{'has-error': showError && (person.fullTimeStudent === undefined || person.fullTimeStudent === null)}">
-            <label [innerHtml]="lang('./en/index.js').fullTimeStudentLabel" class="control-label"></label>
+            [ngClass]="{'has-error': showError && (person.fullTimeStudent === undefined || person.fullTimeStudent === null)}"
+            role="dialog" [attr.aria-labelledby]="'fullTimeStudentLabel' + objectId">
+            <label id="fullTimeStudentLabel{{objectId}}" [innerHtml]="lang('./en/index.js').fullTimeStudentLabel" class="control-label"></label>
             <div class="btn-group" role="group">
                 <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
                         [class.msp-btn-radio]="person.fullTimeStudent === answer.value"
@@ -330,7 +334,8 @@
                 </button>
                 
             </div>
-            <div *ngIf='showError && (person.fullTimeStudent === undefined || person.fullTimeStudent === null)'>
+            <div *ngIf='showError && (person.fullTimeStudent === undefined || person.fullTimeStudent === null)'
+                 role="alert" aria-live="assertive">
                 <div class="text-danger" 
                     [innerHtml]="lang('./en/index.js').mustDeclareStudentStatus"></div>
             </div>
@@ -344,12 +349,13 @@
         <div class="form-group col-md-6"
             [ngClass]="{'has-error': !formRef.controls.schoolName?.valid && (schoolNameRef.touched || showError)}">
             <h2 [innerHtml]="lang('./en/index.js').nameOfSchool"></h2>
-            <label for="schoolName" [innerHtml]="lang('./en/index.js').fullAttendanceLabel"></label>
+            <label [innerHtml]="lang('./en/index.js').fullAttendanceLabel"></label>
+            <label class="visuallyhidden" for="schoolName{{objectId}}">{{lang('./en/index.js').nameOfSchool}} {{lang('./en/index.js').fullAttendanceLabel}}></label>
             <input [(ngModel)]='person.schoolName' type="text" class="form-control"
-                id="schoolName" name="schoolName" #schoolNameRef="ngModel"
+                id="schoolName{{objectId}}" name="schoolName" #schoolNameRef="ngModel"
                 required
                 maxlength="50">
-            <div *ngIf='schoolNameRef.touched || showError'>
+            <div *ngIf='schoolNameRef.touched || showError' role="alert" aria-live="assertive">
                 <div class="text-danger" *ngIf="schoolNameRef.errors?.required"
                     [innerHtml]="lang('./en/index.js').schoolNameErrorIsRequired"></div>
             </div>
