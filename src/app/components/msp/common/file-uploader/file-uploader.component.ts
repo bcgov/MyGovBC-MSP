@@ -91,7 +91,7 @@ export class FileUploaderComponent
    9. Read the image element's natural width and height
    10. Pass the File handle into a HTML5 Canvas lib (we need the XIFF headers to auto rotate, XIFF headers are not available in DataUrl)
    11. The Canvas errors because it's a wrong type, e.g., TIFF, we abort and notify user
-   12. Instruct the Canvas lib to resize the image if it exceeds a maximum width or height, extract meta data, and auto-orient based on XIFF metadata.  It uses a "contain" operation which retains it's width to height pixel ratio.
+   12. Instruct the Canvas lib to keep resizing the image if it exceeds a maximum width or height, extract meta data, and auto-orient based on XIFF metadata.  It uses a "contain" operation which retains it's width to height pixel ratio.
    13. Call a function on the Canvas element to turn the Canvas into a JPEG of quality 50%.
    14. Once in a Blob with get the blob size in bytes and a human friendly display size
    15. In order to more easily manage the image, we convert the Blob to a DataUrl again.
@@ -178,6 +178,11 @@ export class FileUploaderComponent
             if(MspImageError.TooBig === error.errorCode ){
               this.handleError(MspImageError.TooBig, error.image);
             }else if(MspImageError.CannotOpen === error.errorCode){
+              if (! error.image) {
+                error.image = new MspImage();
+                if (error.rawImageFile)
+                  error.image.name = error.rawImageFile.name;
+              }
               this.handleError(MspImageError.CannotOpen, error.image);
             }else{
               throw error;
@@ -230,7 +235,8 @@ export class FileUploaderComponent
    * function.
    * 
    * If: size * 0.8to-the-power-of40 < 1MB, then size < 1262 MB.
-   * 
+   *
+   * Note: 0.8 is the self.appConstants.images.reductionScaleFactor defined in global.js
    * 
    * 
    * @param file 
@@ -243,7 +249,7 @@ export class FileUploaderComponent
     // Create our observer
     let fileObservable = Observable.create((observer: Observer<MspImage>) => {
 
-      scaleFactors = scaleFactors.scaleDown(0.8);
+      scaleFactors = scaleFactors.scaleDown(self.appConstants.images.reductionScaleFactor);
 
       let reader: FileReader = new FileReader();
       let mspImage: MspImage = new MspImage();
@@ -265,8 +271,7 @@ export class FileUploaderComponent
         mspImage.contentType = self.appConstants.images.convertToMimeType;
 
         // Scale the image by loading into a canvas
-      
-      
+
         console.log('Start scaling down the image using blueimp-load-image lib: ');
         let scaledImage = loadImage(
           file, // NOTE: we pass the File ref here again even though its already read because we need the XIFF metadata
@@ -282,6 +287,10 @@ export class FileUploaderComponent
 
                 // Copy the blob properties
                 mspImage.size = blob.size;
+
+                // log image info (but only for the first time before any scaling)
+                if (scaleFactors.widthFactor == self.appConstants.images.reductionScaleFactor)
+                  self.logImageInfo("msp_file-uploader_before_resize_attributes", self.dataService.getMspUuid(), mspImage, "  mspImagefileName: " + file.name);
 
                 let fileName = mspImage.name;
                 let nBytes = mspImage.size;
@@ -325,8 +334,7 @@ export class FileUploaderComponent
                   }
                   else {
                     // log image info
-                    let uuid = (self.dataService.getMspApplication() ? self.dataService.getMspApplication().uuid : self.dataService.finAssistApp.uuid);
-                    self.logImageInfo(uuid, mspImage);
+                    self.logImageInfo("msp_file-uploader_after_resize_attributes", self.dataService.getMspUuid(), mspImage);
                   }
                   observer.next(mspImage);
                 };
@@ -411,7 +419,10 @@ export class FileUploaderComponent
 
       imgEl.onerror =
         (args) => {
+
+          // log it to the console
           console.log('This image cannot be opened/read, it is probably an invalid image. %o', args);
+
           // throw new Error('This image cannot be opened/read');
           let imageReadError:MspImageProcessingError = 
             new MspImageProcessingError(MspImageError.CannotOpen);
@@ -453,6 +464,12 @@ export class FileUploaderComponent
   handleImageFile(mspImage: MspImage) {
     console.log('image size (bytes) after compression: ' + mspImage.size);
     if (this.images.length >= this.appConstants.images.maxImagesPerPerson) {
+
+      // log it
+      this.logImageInfo("msp_file-uploader_error", this.dataService.getMspUuid(),
+          mspImage, `Number of image files exceeds max of ${this.appConstants.images.maxImagesPerPerson}`);
+
+      // log to console
       console.log(`Max number of image file you can upload is ${this.appConstants.images.maxImagesPerPerson}. 
       This file ${mspImage.name} was not uploaded.`);
     } else {
@@ -469,6 +486,11 @@ export class FileUploaderComponent
     }
     // just add the error to mspImage
     mspImage.error = error;
+
+    // log the error
+    this.logImageInfo("msp_file-uploader_error", this.dataService.getMspUuid(), mspImage,
+        "  mspImageFile: " + mspImage.name + "  mspError: " + error);
+
     // console.log("error with image: ", mspImage);
     this.onErrorDocument.emit(mspImage);
   }
@@ -493,19 +515,20 @@ export class FileUploaderComponent
    * Log image attributes
    * @param mspImage
    */
-  private logImageInfo(applicationId: string, mspImage: MspImage) {
+  private logImageInfo(title: string, applicationId: string, mspImage: MspImage, additionalInfo?: string) {
 
     // create log entry
     let log:LogEntry = new LogEntry();
     log.applicationId = applicationId;
     var now = moment();
     log.mspTimestamp = now.toISOString();
-    log.applicationPhase = "msp_file-uploader_image-attributes:  mspImageId: " + mspImage.id
+    log.applicationPhase = title + ":  mspImageId: " + mspImage.id
       + "  mspImageUuid: " + mspImage.uuid
       + "  mspImageSize: " + mspImage.size
       + "  mspImageWidth: " + mspImage.naturalWidth
       + "  mspImageHeight: " + mspImage.naturalHeight
-      + "  mspImageContentType: " + mspImage.contentType;
+      + "  mspImageContentType: " + mspImage.contentType
+      + (additionalInfo ? "  " + additionalInfo : "");
 
     // send it while subscribing to response
     this.logService.logIt(log).subscribe(

@@ -39,8 +39,19 @@ export default class MspDataService {
   getMspApplication(): MspApplication {
     return this._mspApplication;
   }
+
   get finAssistApp(): FinancialAssistApplication {
     return this._finAssistApp;
+  }
+
+  // return the application or assistance uuid
+  getMspUuid() : string {
+    let uuid = "";
+    if (this._mspApplication)
+      uuid = this._mspApplication.uuid;
+    else if (this._finAssistApp)
+      uuid = this._finAssistApp.uuid;
+    return uuid;
   }
 
   saveMspApplication():void {

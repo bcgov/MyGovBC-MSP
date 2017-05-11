@@ -14,6 +14,7 @@ module.exports = {
         'This image is too large. It is greater then 1.2 Megabytes after compression.',
         'You have already uploaded this image',
         'Unknown error, try uploading the file again or if the problem persists contact help',
-        'Cannot read this image. This image is likely an invalid image file or you don\'t have permission to read it'
+        'Cannot read this image. This image is likely an invalid image file or you don\'t have permission to read it.' +
+        '  Please refresh your browser once you close this dialog.'
     ]
 }

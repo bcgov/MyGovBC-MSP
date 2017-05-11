@@ -139,6 +139,7 @@ module.exports = function (_path) {
         minWidth: 0,
         minHeight: 0,
         maxSizeBytes: 1048576,
+        reductionScaleFactor: 0.8,
         acceptMimeType: "image/*",
         convertToMimeType: "image/jpeg",
         jpegQuality: 0.5
