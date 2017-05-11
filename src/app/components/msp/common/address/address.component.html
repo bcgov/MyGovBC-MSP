@@ -121,47 +121,53 @@
             <div class="form-group col-sm-5"
                  [ngClass]="{'has-error': !formRef.controls.mailingAddressLine1?.valid &&
                     (mailingAddressLine1Ref.touched || showError)}">
-                <label for="mailingAddressLine1" [innerHtml]="lang('./en/index.js').addressLine1Label"></label>
+                <label [innerHtml]="lang('./en/index.js').addressLine1Label"></label>
+                <label class="visuallyhidden" for="mailingAddressLine1{{objectId}}">{{mailingAddressHeading}} {{lang('./en/index.js').addressLine1Label}}</label>
                 <input [(ngModel)]="mailingAddress.addressLine1" type="text" class="form-control"
-                       id="mailingAddressLine1" name="mailingAddressLine1" #mailingAddressLine1Ref="ngModel"
+                       id="mailingAddressLine1{{objectId}}" name="mailingAddressLine1" #mailingAddressLine1Ref="ngModel"
                        required
                        maxlength="25">
                 <div [hidden]="!useMailingAddressLine2">
+                    <label class="visuallyhidden" for="mailingAddressLine2{{objectId}}">{{mailingAddressHeading}} {{lang('./en/index.js').addressLine2Label}}</label>
                     <input [(ngModel)]="mailingAddress.addressLine2" type="text" class="form-control"
-                           id="mailingAddressLine2" name="mailingAddressLine2" #mailingAddressLine2Ref="ngModel"
+                           id="mailingAddressLine2{{objectId}}" name="mailingAddressLine2" #mailingAddressLine2Ref="ngModel"
                            maxlength="25">
                 </div>
                 <div [hidden]="!useMailingAddressLine3">
+                    <label class="visuallyhidden" for="mailingAddressLine3{{objectId}}">{{mailingAddressHeading}} {{lang('./en/index.js').addressLine3Label}}</label>
                     <input [(ngModel)]="mailingAddress.addressLine3" type="text" class="form-control"
-                           id="mailingAddressLine3" name="mailingAddressLine3" #mailingAddressLine3Ref="ngModel"
+                           id="mailingAddressLine3{{objectId}}" name="mailingAddressLine3" #mailingAddressLine3Ref="ngModel"
                            maxlength="25">
                 </div>
                 <a [hidden]="useMailingAddressLine2 && useMailingAddressLine3" href="javascript:void(0)"
-                   (click)="useAnotherMailingAddressLine()">Need another address line?</a>
-                <div *ngIf='mailingAddressLine1Ref.touched || showError'>
-                    <div class="text-danger" *ngIf="mailingAddressLine1Ref.errors?.required"
-                         [innerHtml]="lang('./en/index.js').addressLine1ErrorIsRequired"></div>
-                    <div class="text-danger" *ngIf="mailingAddressLine1Ref.errors?.maxlength"
-                         [innerHtml]="lang('./en/index.js').addressLine1ErrorMaxLength.replace('{length}', mailingAddressLine1Ref.maxLength)"></div>
+                   (click)="useAnotherMailingAddressLine()" role="button">Need another address line?</a>
+                <div role="alert" aria-live="assertive">
+                    <div *ngIf='mailingAddressLine1Ref.touched || showError'>
+                        <div class="text-danger" *ngIf="mailingAddressLine1Ref.errors?.required"
+                             [innerHtml]="lang('./en/index.js').addressLine1ErrorIsRequired"></div>
+                        <div class="text-danger" *ngIf="mailingAddressLine1Ref.errors?.maxlength"
+                             [innerHtml]="lang('./en/index.js').addressLine1ErrorMaxLength.replace('{length}', mailingAddressLine1Ref.maxLength)"></div>
+                    </div>
+                    <div *ngIf='useMailingAddressLine2 && mailingAddressLine2Ref.touched || showError'>
+                        <div class="text-danger" *ngIf="mailingAddressLine2Ref.errors?.maxlength"
+                             [innerHtml]="lang('./en/index.js').addressLine2ErrorMaxLength.replace('{length}', mailingAddressLine2Ref.maxLength)"></div>
+                    </div>
+                    <div *ngIf='useMailingAddressLine3 && mailingAddressLine3Ref.touched || showError'>
+                        <div class="text-danger" *ngIf="mailingAddressLine3Ref.errors?.maxlength"
+                             [innerHtml]="lang('./en/index.js').addressLine3ErrorMaxLength.replace('{length}', mailingAddressLine3Ref.maxLength)"></div>
+                    </div>
                 </div>
-                <div *ngIf='useMailingAddressLine2 && mailingAddressLine2Ref.touched || showError'>
-                    <div class="text-danger" *ngIf="mailingAddressLine2Ref.errors?.maxlength"
-                         [innerHtml]="lang('./en/index.js').addressLine2ErrorMaxLength.replace('{length}', mailingAddressLine2Ref.maxLength)"></div>
-                </div>
-                <div *ngIf='useMailingAddressLine3 && mailingAddressLine3Ref.touched || showError'>
-                    <div class="text-danger" *ngIf="mailingAddressLine3Ref.errors?.maxlength"
-                         [innerHtml]="lang('./en/index.js').addressLine3ErrorMaxLength.replace('{length}', mailingAddressLine3Ref.maxLength)"></div>
-                </div>
-
             </div>
             <div class="form-group col-sm-4"
                  [ngClass]="{'has-error': !formRef.controls.mailingAddressCity?.valid &&
                     (mailingAddressCityRef.touched || showError)}">
-                <label for="mailingAddressCity" [innerHtml]="lang('./en/index.js').cityLabel"></label>
+                <label [innerHtml]="lang('./en/index.js').cityLabel"></label>
+                <label for="mailingAddressCity{{objectId}}" class="visuallyhidden">{{mailingAddressHeading}} {{lang('./en/index.js').cityLabel}}</label>
                 <input [(ngModel)]='mailingAddress.city' type="text" class="form-control"
-                       id="mailingAddressCity" name="mailingAddressCity" #mailingAddressCityRef="ngModel"
+                       id="mailingAddressCity{{objectId}}" name="mailingAddressCity" #mailingAddressCityRef="ngModel"
                        maxlength="25" required>
-                <div *ngIf='mailingAddressCityRef.touched || showError'>
+                <div *ngIf='mailingAddressCityRef.touched || showError'
+                     role="alert" aria-live="assertive">
                     <div class="text-danger" *ngIf="mailingAddressCityRef.errors?.required"
                          [innerHtml]="lang('./en/index.js').cityErrorIsRequired"></div>
                     <div class="text-danger" *ngIf="mailingAddressCityRef.errors?.maxlength"
@@ -171,12 +177,14 @@
             <div class="form-group col-sm-3"
                  [ngClass]="{'has-error': !formRef.controls.mailingAddressPostalCode?.valid &&
                     (mailingAddressPostalCodeRef.touched || showError)}">
-                <label for="mailingAddressPostalCode" [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
+                <label [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
+                <label for="mailingAddressPostalCode{{objectId}}" class="visuallyhidden">{{mailingAddressHeading}} {{lang('./en/index.js').postalCodeLabel}}</label>
                 <input [(ngModel)]='mailingAddress.postal' type="text" class="form-control to-upper"
-                       id="mailingAddressPostalCode" name="mailingAddressPostalCode" #mailingAddressPostalCodeRef="ngModel"
+                       id="mailingAddressPostalCode{{objectId}}" name="mailingAddressPostalCode" #mailingAddressPostalCodeRef="ngModel"
                        maxlength="25"
                        required>
-                <div *ngIf='mailingAddressPostalCodeRef.touched || showError'>
+                <div *ngIf='mailingAddressPostalCodeRef.touched || showError'
+                     role="alert" aria-live="assertive">
                     <div class="text-danger" *ngIf="mailingAddressPostalCodeRef.errors?.required"
                          [innerHtml]="lang('./en/index.js').postalCodeErrorIsRequired"></div>
                 </div>
