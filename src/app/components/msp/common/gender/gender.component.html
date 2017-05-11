@@ -1,9 +1,10 @@
 <form #formRef="ngForm">
   <div class="form-group" 
     [ngClass]="{'has-error': showError && (person.gender === undefined || person.gender === null)}">
-    <label [innerHtml]="lang('./en/index.js').genderLabel"></label>
+    <label for="genderMale{{uuid}}" [innerHtml]="lang('./en/index.js').genderLabel"></label>
+    <label class="visuallyhidden" for="genderFemale{{uuid}}" [innerHtml]="lang('./en/index.js').genderLabel"></label>
     <span *ngIf='showError && (person.gender === undefined || person.gender === null)' 
-      class="text-danger">(Please specify gender)</span>
+      class="text-danger" role="alert" aria-live="assertive">(Please specify gender)</span>
 
     <div class="radio">
       <input type="radio" name="gender" id="genderMale{{uuid}}" 

@@ -1,7 +1,7 @@
 <form #formRef='ngForm' novalidate>
     <div class="form-group"
          [ngClass]="{'has-error': !formRef.controls.phone?.valid && phoneRef.touched}">
-        <label class="control-label optional" for="phone"
+        <label class="control-label optional" for="phone" tabindex="0"
                [innerHTML]="getLabel()"></label>
         <input type="text" class="form-control"
                [ngModel]="phoneNumber"
@@ -10,7 +10,7 @@
                maxlength="12"
                [pattern]="PhoneNumber.PhoneNumberRegEx">
         <div *ngIf='phoneRef.touched'>
-            <div class="text-danger" *ngIf="phoneRef.errors?.pattern"
+            <div class="text-danger" *ngIf="phoneRef.errors?.pattern" tabindex="0"
                  [innerHtml]="lang('./en/index.js').phoneErrorPattern"></div>
         </div>
     </div>

@@ -1,10 +1,10 @@
 <div class="row" style="margin-top: 0px; margin-bottom: 15px">
     <div class="col-md-8" style="border: 1px solid transparent">
       <div [ngClass]="{'tax-year-missing': (taxYearInfoMissing && !taxYearsSpecified)}">
-        <h2 [innerHTML]="lang('./en/index.js').whatYearsToApplyFor">
+        <h2 [innerHTML]="lang('./en/index.js').whatYearsToApplyFor" tabindex="0">
         </h2>
         <div>
-          <p [innerHTML]="lang('./en/index.js').whatYearsToApplyForDetails">
+          <p [innerHTML]="lang('./en/index.js').whatYearsToApplyForDetails" tabindex="0">
           </p>
         </div>
 
@@ -16,7 +16,7 @@
         </div>
       </div>
 
-        <h2 [innerHTML]="getFinanialInfoSectionTitle">
+        <h2 [innerHTML]="getFinanialInfoSectionTitle" tabindex="0">
         </h2>
         <form #formRef='ngForm' novalidate>
 
@@ -24,7 +24,7 @@
             [ngClass]="{'has-error': !formRef.controls.netIncome?.valid && incomeRef.touched}">
             <div class="row">
                 <div class="col-md-12">
-                    <label for="netIncome">Enter your net income – see Line 236 of your Notice of Assessment or Reassessment from Canada Revenue Agency.</label>
+                    <label for="netIncome" tabindex="0">Enter your net income – see Line 236 of your Notice of Assessment or Reassessment from Canada Revenue Agency.</label>
 
                     <div class="col-md-3 col-sm-4 col-xs-6 input-group">
                         <span class="input-group-addon">$</span>
@@ -37,26 +37,20 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="false">
-            <pre>{{incomeRef.errors|json}}</pre>
-            <pre>{{incomeRef.touched|json}}</pre>
-            <pre>{{incomeRef.dirty|json}}</pre>
-            <pre>{{incomeRef.value|json}}</pre>
-        </div>
         <div *ngIf="(incomeRef.touched || incomeRef.dirty || (!!incomeRef.value && incomeRef.value.trim().length>0) || formRef.touched || !(finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined) ||
                          formRef.controls.spouseIncomeLine236?.valid || finAssistApp.spouseEligibleForDisabilityCredit)">
             <div class="text-danger" *ngIf="incomeRef.errors?.required"
-                    [innerHTML]="lang('./en/index.js').incomeDataRequired"></div>
+                    [innerHTML]="lang('./en/index.js').incomeDataRequired" tabindex="0"></div>
             <div class="text-danger" *ngIf="incomeRef.errors?.pattern"
-                    [innerHTML]="lang('./en/index.js').invalidNumber"></div>
+                    [innerHTML]="lang('./en/index.js').invalidNumber" tabindex="0"></div>
             <div class="text-danger" *ngIf="incomeRef.errors?.maxlength"
-                    [innerHTML]="lang('./en/index.js').incomeDataMaxLength"></div>
+                    [innerHTML]="lang('./en/index.js').incomeDataMaxLength" tabindex="0"></div>
         </div>
 
         <div class="row">
             <div class="col-md-10">
                 <div class="form-group">
-                    <label>
+                    <label tabindex="0">
                                 Are you 65 or older this year?
                     </label>
                     <br/>
@@ -74,12 +68,12 @@
                 </div>
             </div>
         </div>
-        <div class="row" 
+        <div class="row" tabindex="0"
             [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
         <hr>
             <div class="col-md-10">
                 <div class="form-group">
-                    <label for="commonlaw">
+                    <label for="commonlaw" tabindex="0">
                         Do you have a spouse or common-law partner?
                     </label>
                     <br/>
@@ -92,12 +86,12 @@
                     <div *ngIf='(incomeRef.dirty || incomeRef.touched || (!!incomeRef.value && incomeRef.value.trim().length>0) ||
                         finAssistApp.spouseEligibleForDisabilityCredit === true ) && 
                         (finAssistApp.hasSpouseOrCommonLaw === null || finAssistApp.hasSpouseOrCommonLaw === undefined)'>
-                        <div class="text-danger"
+                        <div class="text-danger" tabindex="0"
                                 [innerHTML]="lang('./en/index.js').spouseCommonLawStatusRequired"></div>
                     </div>
                 </div>
                 <div class="form-group" [hidden]="!finAssistApp.hasSpouseOrCommonLaw">
-                  <label for="">
+                  <label for="" tabindex="0">
                       Is your spouse/common-law partner 65 or older this year?
                   </label>
                     <div class="btn-group" role="group">
@@ -108,7 +102,7 @@
                     </div>
                     <div *ngIf='!(finAssistApp.hasSpouseOrCommonLaw === null || finAssistApp.hasSpouseOrCommonLaw === undefined) && 
                         (finAssistApp.spouseAgeOver65 === null || finAssistApp.spouseAgeOver65 === undefined)'>
-                        <div class="text-danger"
+                        <div class="text-danger" tabindex="0"
                                 [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
                     </div>
                 </div>
@@ -116,7 +110,7 @@
 
                 <div class="form-group" [hidden]="!finAssistApp.hasSpouseOrCommonLaw"
                     [ngClass]="{'has-error': !formRef.controls.spouseIncomeLine236?.valid}">
-                  <label for="spouseIncomeLine236">
+                  <label for="spouseIncomeLine236" tabindex="0">
                     What is your spouse’s / common-law partner’s net income (Line 236) on last year’s Notice of Assessment (or Reassessment) from Canada Revenue Agency?
                   </label>
                   <div class="col-md-4 col-sm-5 col-xs-6 input-group">
@@ -128,11 +122,11 @@
                   </div>
                     <div *ngIf='!formRef.controls.spouseIncomeLine236?.valid'>
                         <div class="text-danger" *ngIf="formRef.controls.spouseIncomeLine236?.errors?.required"
-                                [innerHTML]="lang('./en/index.js').incomeDataRequired"></div>
+                                [innerHTML]="lang('./en/index.js').incomeDataRequired" tabindex="0"></div>
                         <div class="text-danger" *ngIf="formRef.controls.spouseIncomeLine236?.errors?.maxlength"
-                                [innerHTML]="lang('./en/index.js').incomeDataMaxLength"></div>
+                                [innerHTML]="lang('./en/index.js').incomeDataMaxLength" tabindex="0"></div>
                         <div class="text-danger" *ngIf="spouseIncomeRef.errors?.pattern"
-                                [innerHTML]="lang('./en/index.js').invalidNumber"></div>
+                                [innerHTML]="lang('./en/index.js').invalidNumber" tabindex="0"></div>
                     </div>
                 </div>
             </div>
@@ -168,7 +162,8 @@
             <div class="col-md-12">
                 <div class="form-horizontal">
                     <div class="form-group">
-                        <label for="childrenCount" class="col-xs-8 col-md-8 control-label" style="text-align:left; padding-right: 0;">
+                        <label for="childrenCount" tabindex="0"
+                          class="col-xs-8 col-md-8 control-label" style="text-align:left; padding-right: 0;">
                             How many children do you have on your Medical Services Plan?</label>
                         <div class="col-xs-3 col-md-2" style="text-align:left; padding-left: 3px;">
                             <input type="text" class="form-control" name="childrenCount" 
@@ -181,7 +176,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="line214">
+                            <label for="line214" tabindex="0">
                                 How much did you claim for child care expenses last year on your income tax return (Line 214)?
                             </label>
 
@@ -201,7 +196,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="line117">
+                            <label for="line117" tabindex="0">
                                 How much did you report for the Universal Child Care Benefit on your income tax return (Line 117)?            
                             </label>
 
@@ -249,50 +244,52 @@
             <div class="row" [hidden]="!showDisabilityInfo" style="margin-left: 5px; margin-top: 15px;">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="">
+                        <label for="" tabindex="0">
                             <!--Is anyone included on your public health insurance eligible for the Disability Credit as per Canada Revenue Agency (Lines 316, 318 or 326)? Please check all that apply.-->
                             Did anyone included in your MSP coverage claim a disability tax credit on last year's income tax return (Lines 316, 318 or 326)? 
                         </label>
+                        <div role="alert">
+                          <ul class="msp-horizontal-list-group">
+                              <li #selfDisabilityCreditSet tabindex="0"
+                                  [mspKeyboard] = "'Enter'" 
+                                  [convertToEvent] = "'click'"
+                                  class="msp-horizontal-list-group-item-sm msp-selectable"
+                                  [hidden]="finAssistApp.selfDisabilityCredit">
+                                  <span class="glyphicon glyphicon-unchecked"
+                                      ></span>
+                                  <span>Myself</span>
+                              </li>
+                              <li #selfDisabilityCreditUnset tabindex="0"
+                                  [mspKeyboard] = "'Enter'" 
+                                  [convertToEvent] = "'click'"
+                                  class="msp-horizontal-list-group-item-sm msp-selectable"
+                                  [hidden]="!finAssistApp.selfDisabilityCredit">
+                                  <span class="glyphicon glyphicon-check msp-selection"
+                                      ></span>
+                                  <span>Myself</span>
+                              </li>
 
-                        <ul class="msp-horizontal-list-group">
-                            <li #selfDisabilityCreditSet tabindex="0"
-                                [mspKeyboard] = "'Enter'" 
-                                [convertToEvent] = "'click'"
-                                class="msp-horizontal-list-group-item-sm msp-selectable"
-                                [hidden]="finAssistApp.selfDisabilityCredit">
-                                <span class="glyphicon glyphicon-unchecked"
-                                    ></span>
-                                <span>Myself</span>
-                            </li>
-                            <li #selfDisabilityCreditUnset tabindex="0"
-                                [mspKeyboard] = "'Enter'" 
-                                [convertToEvent] = "'click'"
-                                class="msp-horizontal-list-group-item-sm msp-selectable"
-                                [hidden]="!finAssistApp.selfDisabilityCredit">
-                                <span class="glyphicon glyphicon-check msp-selection"
-                                    ></span>
-                                <span>Myself</span>
-                            </li>
+                              <div [hidden] = "!finAssistApp.hasSpouseOrCommonLaw">
+                                  <li #spouseDisabilityCreditSet tabindex="0"
+                                      [mspKeyboard] = "'Enter'" 
+                                      [convertToEvent] = "'click'"
+                                      class="msp-horizontal-list-group-item-lg msp-selectable"
+                                      [hidden]="finAssistApp.spouseEligibleForDisabilityCredit">
+                                      <span class="glyphicon glyphicon-unchecked"></span>
+                                      <span>My spouse/common-law partner</span>
+                                  </li>
+                                  <li #spouseDisabilityCreditUnset tabindex="0"
+                                      [mspKeyboard] = "'Enter'" 
+                                      [convertToEvent] = "'click'"
+                                      class="msp-horizontal-list-group-item-lg msp-selectable"
+                                      [hidden]="!finAssistApp.spouseEligibleForDisabilityCredit">
+                                      <span class="glyphicon glyphicon-check msp-selection"></span>
+                                      <span>My spouse/common-law partner</span>
+                                  </li>
+                              </div>
+                          </ul>
+                        </div>
 
-                            <div [hidden] = "!finAssistApp.hasSpouseOrCommonLaw">
-                                <li #spouseDisabilityCreditSet tabindex="0"
-                                    [mspKeyboard] = "'Enter'" 
-                                    [convertToEvent] = "'click'"
-                                    class="msp-horizontal-list-group-item-lg msp-selectable"
-                                    [hidden]="finAssistApp.spouseEligibleForDisabilityCredit">
-                                    <span class="glyphicon glyphicon-unchecked"></span>
-                                    <span>My spouse/common-law partner</span>
-                                </li>
-                                <li #spouseDisabilityCreditUnset tabindex="0"
-                                    [mspKeyboard] = "'Enter'" 
-                                    [convertToEvent] = "'click'"
-                                    class="msp-horizontal-list-group-item-lg msp-selectable"
-                                    [hidden]="!finAssistApp.spouseEligibleForDisabilityCredit">
-                                    <span class="glyphicon glyphicon-check msp-selection"></span>
-                                    <span>My spouse/common-law partner</span>
-                                </li>
-                            </div>
-                        </ul>
 
                     </div>
                 </div>
@@ -374,7 +371,7 @@
                         *ngIf="!showAttendantCareInfo" (click)="showAttendantCareInfo=true">
                         <span class="glyphicon glyphicon-collapse-up msp-toggle"
                         aria-hidden="true"></span>
-                        <span [innerHTML]="lang('./en/index.js').nursingHomeLabel"></span>
+                        <span [innerHTML]="lang('./en/index.js').nursingHomeLabel" tabindex="0"></span>
 
                     </div>
                     <div class="msp-toggle" tabindex="0"
@@ -382,7 +379,7 @@
                          *ngIf="showAttendantCareInfo" (click)="showAttendantCareInfo=false">
                         <span class="glyphicon glyphicon-collapse-down msp-toggle"
                         aria-hidden="true"></span>
-                        <span [innerHTML]="lang('./en/index.js').nursingHomeLabel"></span>
+                        <span [innerHTML]="lang('./en/index.js').nursingHomeLabel" tabindex="0"></span>
                     </div>
                 </div>
             </div>
@@ -390,7 +387,7 @@
             <div [hidden]="!showAttendantCareInfo" style="margin-left: 15px; margin-top: 10px;">
                 <div class="row">
                     <div class="col-xs-12">
-                        <label>
+                        <label for="" tabindex="0">
                             Did anyone included in your MSP coverage claim attendant or nursing home expenses <strong>in place of a disability</strong> on last year's tax return (line 215 or line 330)?
                         </label>
                     </div>
@@ -497,7 +494,7 @@
 <msp-consent-modal #mspConsentModal [application]="dataService.finAssistApp" [processName]="lang('./en/index.js').consentProcessName"></msp-consent-modal>
 
 <div bsModal #disabilityNursingHomeChoiceModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}"
-    tabindex="-1" role="dialog" aria-labelledby="disabilityNursingHomeChoiceModalLabel" aria-hidden="true">
+    tabindex="0" role="dialog" aria-labelledby="disabilityNursingHomeChoiceModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
         <div class="modal-header">

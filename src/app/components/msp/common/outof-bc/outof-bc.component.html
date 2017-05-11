@@ -2,13 +2,14 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="form-group">
-        <label [innerHtml]="lang('./en/index.js').reasonLabel"></label><br>
+        <label for="reason{{objectId}}" [innerHtml]="lang('./en/index.js').reasonLabel"></label><br>
         <input type="text" class="form-control"
                [(ngModel)]="outofBCRecord.reason"
                name="reason" #reasonRef="ngModel"
+               id="reason{{objectId}}"
                required
                maxlength="20">
-        <div *ngIf='reasonRef.touched || showError'>
+        <div *ngIf='reasonRef.touched || showError' role="alert" aria-live="assertive">
           <div class="text-danger" *ngIf="reasonRef.errors?.required"
               [innerHtml]="lang('./en/index.js').ourOfBCReasonRequired"></div>
         </div>
@@ -16,13 +17,14 @@
     </div>
     <div class="col-sm-4">
       <div class="form-group">
-        <label [innerHtml]="lang('./en/index.js').locationLabel"></label><br>
+        <label for="location{{objectId}}" [innerHtml]="lang('./en/index.js').locationLabel"></label><br>
         <input type="text" class="form-control"
                [(ngModel)]="outofBCRecord.location"
                name="location" #locationRef="ngModel"
+               id="location{{objectId}}"
                required
                maxlength="20">
-        <div *ngIf='locationRef.touched || showError'>
+        <div *ngIf='locationRef.touched || showError' role="alert" aria-live="assertive">
           <div class="text-danger" *ngIf="locationRef.errors?.required"
                [innerHtml]="lang('./en/index.js').locationRequired"></div>
         </div>
