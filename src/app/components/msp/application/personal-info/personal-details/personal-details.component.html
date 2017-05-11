@@ -403,12 +403,13 @@
         
     </div>
     <div class="row" *ngIf="person.documents.images.length > 0">
-        <div #inBCAfterStudiesQuestion *ngIf="person.fullTimeStudent" class="col-md-6">
+        <div #inBCAfterStudiesQuestion *ngIf="person.fullTimeStudent" class="col-md-6"
+          role="dialog" [attr.aria-labelledby]="'inBCAfterStudiesLabel' + objectId">
           <div class="form-group"
              [ngClass]="{'has-error': (person.inBCafterStudies===undefined || person.inBCafterStudies===null) && showError}">
-            <label *ngIf="person.relationship === Relationship.Applicant" 
+            <label id="inBCAfterStudiesLabel{{objectId}}" *ngIf="person.relationship === Relationship.Applicant"
                 [innerHtml]="lang('./en/index.js').inBCAfterStudiesLabel" class="control-label"></label>
-            <label *ngIf="person.relationship === Relationship.Child19To24" class="control-label"
+            <label id="inBCAfterStudiesLabel{{objectId}}" *ngIf="person.relationship === Relationship.Child19To24" class="control-label"
                 [innerHtml]="lang('./en/index.js').childStayInBCAfterStudiesLabel"></label>
             <div class="btn-group" role="group">
                 <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
@@ -417,7 +418,8 @@
                         type="button" class="btn btn-default">{{answer.label}}
                 </button>
             </div>
-            <div *ngIf="(person.inBCafterStudies===undefined || person.inBCafterStudies===null) && showError">
+            <div *ngIf="(person.inBCafterStudies===undefined || person.inBCafterStudies===null) && showError"
+                 role="alert" aria-live="assertive">
                 <p class="text-danger" 
                     [innerHtml]="lang('./en/index.js').mustAnswerQuestion"></p>
             </div>
