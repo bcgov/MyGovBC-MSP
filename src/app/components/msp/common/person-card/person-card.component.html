@@ -4,10 +4,10 @@
     <div class="panel-body">
         <div class="row" *ngIf="person.hasFullName">
             <div class="col-xs-4">
-                {{lang('./en/index.js').nameLabel}}
+                <label for="">{{lang('./en/index.js').nameLabel}}</label>
             </div>
             <div class="col-xs-8">
-                <strong>{{person.fullName}}</strong>
+              <span id="{{person.uuid}}-{{person.relationship}}-fullname"><strong>{{person.fullName}}</strong></span>
             </div>
         </div>
 

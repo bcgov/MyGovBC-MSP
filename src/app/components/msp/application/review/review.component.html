@@ -1,7 +1,14 @@
 <form #formRef="ngForm" novalidate (submit)="handleFormSubmission($event)">
 
-  <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
-  <i class="fa fa-print fa-lg pointer" aria-hidden="true" onclick="window.print();">  Print</i>
+  <h1 [innerHtml]="lang('./en/index.js').pageTitle" tabindex="0"></h1>
+
+  <button class="btn btn-default" onclick="window.print();">
+    <i class="fa fa-print fa-lg pointer" 
+      aria-hidden="true"></i>
+    Print
+  </button>
+
+
   <div class="row">
       <div class="col-md-6">
           <msp-person-card [person]="application.applicant"
