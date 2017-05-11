@@ -28,7 +28,7 @@ Screen readers need to be notified when new content/forms are dynamically displa
 1. If you have multiple errors, wrap a `<div role="alert">` around all the messages
 
 
-### Radio Buttons
+### Radio Buttons or Group of fields with a single label 
 
 1. Use `<label for="">` for the first radio control
 1. Use a hidden label `<label class="visuallyhidden" for="">` for the second and so on controls
