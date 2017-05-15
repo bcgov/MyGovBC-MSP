@@ -73,7 +73,7 @@
     "manifest-revision-webpack-plugin": "^0.3.0",
     "markdown-loader": "^0.1.7",
     "moment": "^2.17.0",
-    "mygovbc-captcha-widget": "git+https://github.com/bcgov/MyGovBC-CAPTCHA-Widget.git#0.5.5",
+    "mygovbc-captcha-widget": "git+https://github.com/bcgov/MyGovBC-CAPTCHA-Widget.git#1.0.0",
     "ng-annotate-loader": "^0.2.0",
     "ng2-bootstrap": "1.1.16",
     "ng2-completer": "^1.4.0",
