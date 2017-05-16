@@ -25,7 +25,7 @@ Screen readers need to be notified when new content/forms are dynamically displa
 1. (AngularJS) Avoid `[hidden]="expression"` use `*ngIf="expression"` instead.  Screen readers tend to read hidden elements.
 1. For errors, announce revealed content with `role="alert" aria-live="assertive"`
 1. If revealing new for element use  `role="dialogue"`
-1. If you have multiple errors, wrap a `<div role="alert">` around all the messages
+1. If you have multiple errors, wrap a `<div role="alert" aria-live="assertive">` around all the messages
 
 
 ### Radio Buttons or Group of fields with a single label 
