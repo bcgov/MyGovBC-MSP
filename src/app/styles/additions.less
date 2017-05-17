@@ -136,3 +136,15 @@ Special accessibility class to hide things like labels but still have the readab
   height: 1px; width: 1px;
   margin: -1px; padding: 0; border: 0;
 }
+/*
+  Hide spinners in firefox
+ */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance:textfield;
+}
