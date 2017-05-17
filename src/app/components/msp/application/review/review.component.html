@@ -1,8 +1,8 @@
 <form #formRef="ngForm" novalidate (submit)="handleFormSubmission($event)">
 
-  <h1 [innerHtml]="lang('./en/index.js').pageTitle" tabindex="0"></h1>
+  <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
 
-  <button class="btn btn-default" onclick="window.print();">
+  <button tabindex="0" class="btn btn-default" onclick="window.print();">
     <i class="fa fa-print fa-lg pointer" 
       aria-hidden="true"></i>
     Print
