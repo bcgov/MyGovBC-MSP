@@ -67,8 +67,8 @@ class Person implements IPerson{
 
   get hasDob(): boolean {
     return (this.dob_year != null &&
-    this.dob_month != null &&
-    this.dob_day != null);
+      this.dob_month != null &&
+      this.dob_day != null);
   }
 
   get dob() {
@@ -81,8 +81,8 @@ class Person implements IPerson{
 
   get hasArrivalToBC(): boolean {
     return (this.arrivalToBCDay != null &&
-    this.arrivalToBCMonth != null &&
-    this.arrivalToBCYear != null);
+      this.arrivalToBCMonth != null &&
+      this.arrivalToBCYear != null);
   }
 
   get arrivalToBC() {
@@ -242,9 +242,9 @@ class Person implements IPerson{
   set status(st:StatusInCanada){
     this._status = st;
     if(this._status === StatusInCanada.PermanentResident
-        || this._status === StatusInCanada.TemporaryResident){
-      this._livedInBCSinceBirth = false;
-    }
+      || this._status === StatusInCanada.TemporaryResident){
+        this._livedInBCSinceBirth = false;
+      }
   }
 
   get currentActivity(){
@@ -260,12 +260,12 @@ class Person implements IPerson{
 
   get hasFullName():boolean {
     return (this.firstName != null &&
-    this.lastName != null);
+        this.lastName != null);
   }
   get fullName():string {
     let fullName = this.firstName;
     if (this.middleName != null &&
-        this.middleName.length > 0) {
+      this.middleName.length > 0) {
       fullName += " " + this.middleName;
     }
     fullName +=  " " + this.lastName;
@@ -309,22 +309,22 @@ class Person implements IPerson{
     // console.log('check data completeness for: ' + Relationship[this.relationship]);
 
     let basic =  _.isString(this.gender)
-        && _.isString(this.firstName) && this.firstName.length > 0 && _.isString(this.lastName) && this.lastName.length > 0
-        && _.isNumber(this.dob_day) && _.isString(this.dob_month) && _.isNumber(this.dob_year) && !(this.dob_month == 0)
-        && _.isNumber(this._status) && _.isNumber(this._currentActivity) && this.documents.images.length > 0
-        && !(this.studiesDepartureMonth == 0)
-        && !(this.studiesFinishedMonth == 0)
-        && _.isBoolean(this.declarationForOutsideOver30Days)
-        && !(this.outOfBCRecord && this.outOfBCRecord.departureMonth == 0)
-        && !(this.outOfBCRecord && this.outOfBCRecord.returnMonth == 0)
-        && !(this.dischargeDate && this.dischargeMonth == 0);
+    && _.isString(this.firstName) && this.firstName.length > 0 && _.isString(this.lastName) && this.lastName.length > 0
+    && _.isNumber(this.dob_day) && _.isString(this.dob_month) && _.isNumber(this.dob_year) && !(this.dob_month == 0)
+    && _.isNumber(this._status) && _.isNumber(this._currentActivity) && this.documents.images.length > 0
+    && !(this.studiesDepartureMonth == 0)
+    && !(this.studiesFinishedMonth == 0)
+	&& _.isBoolean(this.declarationForOutsideOver30Days)
+    && !(this.outOfBCRecord && this.outOfBCRecord.departureMonth == 0)
+    && !(this.outOfBCRecord && this.outOfBCRecord.returnMonth == 0)
+    && !(this.dischargeDate && this.dischargeMonth == 0);
     let returningToBCComplete = true;
 
     // Check name regexs
     let regEx = new RegExp(Person.NameRegEx);
     basic = basic && regEx.test(this.firstName);
     if (this.middleName &&
-        this.middleName.length > 0) {
+      this.middleName.length > 0) {
       basic = basic && regEx.test(this.middleName);
     }
     basic = basic && regEx.test(this.lastName);
@@ -367,7 +367,7 @@ class Person implements IPerson{
     // applicant 16 and older
     let applicant16OrOlderComplete = true;
     if(this.relationship === Relationship.Applicant &&
-        this.hasDob) {
+      this.hasDob) {
       applicant16OrOlderComplete = !this.dob.isAfter(moment().subtract(16, 'years'))
     }
 
@@ -380,8 +380,8 @@ class Person implements IPerson{
 
       if(this.fullTimeStudent){
         ageOver19ChildComplete = ageOver19ChildComplete && !!this.schoolName && _.isString(this.schoolName) && this.schoolName.length > 0
-            && _.isNumber(this.studiesFinishedYear) && _.isString(this.studiesFinishedMonth) && _.isNumber(this.studiesFinishedDay)
-            && this.schoolAddress.isValid;
+          && _.isNumber(this.studiesFinishedYear) && _.isString(this.studiesFinishedMonth) && _.isNumber(this.studiesFinishedDay)
+          && this.schoolAddress.isValid;
       }else{
         //must be a full time student
         ageOver19ChildComplete = false;
@@ -397,7 +397,7 @@ class Person implements IPerson{
     let institutionWorkComplete = true;
     if(this.currentActivity === 1 || this.currentActivity === 0){
       institutionWorkComplete = _.isString(this.institutionWorkHistory)
-          && (this.institutionWorkHistory.toLowerCase() === 'yes' || this.institutionWorkHistory.toLowerCase() === 'no');
+        && (this.institutionWorkHistory.toLowerCase() === 'yes' || this.institutionWorkHistory.toLowerCase() === 'no');
       if(institutionWorkComplete && this.institutionWorkHistory.toLowerCase() === 'yes'){
         institutionWorkComplete = _.isNumber(this.dischargeDay) && _.isString(this.dischargeMonth) && _.isNumber(this.dischargeYear);
       }
@@ -407,28 +407,28 @@ class Person implements IPerson{
     let arrivalToBCCompete = true;
     if (this.livedInBCSinceBirth === null || this.livedInBCSinceBirth === false) {
       arrivalToBCCompete = this.arrivalToBCMonth > 0  && _.isNumber(this.arrivalToBCYear)
-          && _.isNumber(this.arrivalToBCDay);
+        && _.isNumber(this.arrivalToBCDay);
     }
 
     let arrivalInCanadaComplete = true;
     if (!(this.status === StatusInCanada.CitizenAdult &&
-        (this.currentActivity === Activities.MovingFromProvince ||
+      (this.currentActivity === Activities.MovingFromProvince ||
         this.currentActivity === Activities.LivingInBCWithoutMSP))) {
       arrivalInCanadaComplete = _.isNumber(this.arrivalToCanadaDay) && _.isString(this.arrivalToCanadaMonth) && _.isNumber(this.arrivalToCanadaYear);
     }
     let result = basic
-        && returningToBCComplete
-        && arrivalToBCCompete
-        && arrivalInCanadaComplete
-        && movingFromAnotherProvinceComplete
-        && movingFromAnotherCountryComplete
-        && institutionWorkComplete
-        && applicant16OrOlderComplete
-        && ageUnder19ChildComplete
-        && ageOver19ChildComplete
-        && studentComplete
-        && spouseComplete
-        && this.hasCompleteOutSideRecords;
+      && returningToBCComplete
+      && arrivalToBCCompete
+      && arrivalInCanadaComplete
+      && movingFromAnotherProvinceComplete
+      && movingFromAnotherCountryComplete
+      && institutionWorkComplete
+      && applicant16OrOlderComplete
+      && ageUnder19ChildComplete
+      && ageOver19ChildComplete
+      && studentComplete
+      && spouseComplete
+      && this.hasCompleteOutSideRecords;
 
     // console.log(Relationship[this.relationship] + ' data completed? ' + result);  
     return result;
