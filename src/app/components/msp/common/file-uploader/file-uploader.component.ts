@@ -55,7 +55,7 @@ export class FileUploaderComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['images'] && (changes['images'].currentValue.length === 0 &&
-      changes['images'].previousValue.length > 0)) {
+        changes['images'].previousValue.length > 0)) {
       this.noIdImage = true;
     } else {
       this.noIdImage = false;
@@ -89,7 +89,7 @@ export class FileUploaderComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     // console.log('subscribe to drop event.');
     let dragOverStream =
-      Observable.fromEvent<DragEvent>(this.dropZone.nativeElement, "dragover");
+        Observable.fromEvent<DragEvent>(this.dropZone.nativeElement, "dragover");
 
     /**
      * Must cancel the dragover event in order for the drop event to work.
@@ -103,16 +103,16 @@ export class FileUploaderComponent implements OnInit, OnChanges {
 
     let dropStream = Observable.fromEvent<DragEvent>(this.dropZone.nativeElement, "drop");
     let filesArrayFromDrop = dropStream.map(
-      function (event) {
-        event.preventDefault();
-        return event.dataTransfer.files;
-      }
+        function (event) {
+          event.preventDefault();
+          return event.dataTransfer.files;
+        }
     );
 
     let imagePlaceholderStream = Observable.fromEvent<Event>(this.imagePlaceholderRef.nativeElement, 'click')
-      .map((event) => {
-        event.preventDefault();
-      });
+        .map((event) => {
+          event.preventDefault();
+        });
     imagePlaceholderStream.subscribe((event) => {
       this.browseFileRef.nativeElement.click();
     });
@@ -124,51 +124,51 @@ export class FileUploaderComponent implements OnInit, OnChanges {
     let captureFileInputElement = this.captureFileRef.nativeElement;
 
     let filesArrayFromInput = browseFileStream.merge(captureFileStream)
-      .map(
-        (event) => {
-          event.preventDefault();
-          return event.target['files'];
-        }
-      ).merge(filesArrayFromDrop)
-      .filter(files => {
-        return !!files && files.length && files.length > 0;
-      }).flatMap(
-        (fileList: FileList) => {
-          return this.observableFromFile(fileList[0]);
-        }
-      )
-      .filter(
-        (mspImage: MspImage) => {
-          let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
-          if (imageExists){
-            this.handleError(MspImageError.AlreadyExists, mspImage);
-            this.resetInputFields();
-          } 
-          return !imageExists;
-        }
-      ).filter(
-        (mspImage: MspImage) => {
-          let imageSizeOk = this.checkImageDimensions(mspImage);
-          if (!imageSizeOk) this.handleError(MspImageError.TooSmall, mspImage);
-          return imageSizeOk;
-        }
-      ).filter(
-        (mspImage: MspImage) => {
-          let bytesUnderLimit = this.checkImageSizeInBytes(mspImage);
-          if (!bytesUnderLimit) this.handleError(MspImageError.TooBig, mspImage);
-          return bytesUnderLimit;
-        }
-      )
-      .subscribe(
-        (file: MspImage) => {
-          this.handleImageFile(file);
-          this.resetInputFields();
-        },
+        .map(
+            (event) => {
+              event.preventDefault();
+              return event.target['files'];
+            }
+        ).merge(filesArrayFromDrop)
+        .filter(files => {
+          return !!files && files.length && files.length > 0;
+        }).flatMap(
+            (fileList: FileList) => {
+              return this.observableFromFile(fileList[0]);
+            }
+        )
+        .filter(
+            (mspImage: MspImage) => {
+              let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
+              if (imageExists){
+                this.handleError(MspImageError.AlreadyExists, mspImage);
+                this.resetInputFields();
+              }
+              return !imageExists;
+            }
+        ).filter(
+            (mspImage: MspImage) => {
+              let imageSizeOk = this.checkImageDimensions(mspImage);
+              if (!imageSizeOk) this.handleError(MspImageError.TooSmall, mspImage);
+              return imageSizeOk;
+            }
+        ).filter(
+            (mspImage: MspImage) => {
+              let bytesUnderLimit = this.checkImageSizeInBytes(mspImage);
+              if (!bytesUnderLimit) this.handleError(MspImageError.TooBig, mspImage);
+              return bytesUnderLimit;
+            }
+        )
+        .subscribe(
+            (file: MspImage) => {
+              this.handleImageFile(file);
+              this.resetInputFields();
+            },
 
-        (error) => {
-          console.log(error);
-        }
-      )
+            (error) => {
+              console.log(error);
+            }
+        )
 
   }
 
@@ -201,70 +201,70 @@ export class FileUploaderComponent implements OnInit, OnChanges {
 
         // Scale the image by loading into a canvas
         let scaledImage = loadImage(
-          file, // NOTE: we pass the File ref here again even though its already read because we need the XIFF metadata
-          function (canvas: HTMLCanvasElement, metadata:any) {
+            file, // NOTE: we pass the File ref here again even though its already read because we need the XIFF metadata
+            function (canvas: HTMLCanvasElement, metadata:any) {
 
-            // Canvas may be an Event when errors happens
-            if (canvas instanceof Event) {
-              self.handleError(MspImageError.WrongType, mspImage);
-              return;
+              // Canvas may be an Event when errors happens
+              if (canvas instanceof Event) {
+                self.handleError(MspImageError.WrongType, mspImage);
+                return;
+              }
+
+              // Log metadata
+              console.log("metadata: ", metadata);
+
+              // Convert to grayscale
+              //self.makeGrayScale(canvas);
+
+              // Convert to blob to get size
+              canvas.toBlob((blob: Blob) => {
+
+                    // Copy the blob properties
+                    mspImage.size = blob.size;
+
+                    let fileName = mspImage.name;
+                    let nBytes = mspImage.size;
+                    let fileSize = '';
+                    let fileSizeUnit = '';
+                    let sOutput: string = nBytes + " bytes";
+                    // optional code for multiples approximation
+                    for (let aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"], nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
+                      sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
+                      fileSize = nApprox.toFixed(0);
+                      fileSizeUnit = aMultiples[nMultiple];
+                      mspImage.sizeUnit = fileSizeUnit;
+                    }
+
+                    console.log(`Size of file ${fileName}: ${sOutput}`);
+                    mspImage.sizeTxt = sOutput;
+
+                    // call reader with new transformed image
+                    reader.onload = function (evt: any) {
+
+                      mspImage.fileContent = evt.target.result;
+                      mspImage.id = sha1(mspImage.fileContent);
+
+                      // delete image and canvas from DOM
+                      //image.remove();
+                      //canvas.remove();
+
+                      observer.next(mspImage);
+                    };
+                    reader.readAsDataURL(blob);
+
+                  },
+
+                  // What mime type to make the blob as and jpeg quality
+                  self.appConstants.images.convertToMimeType, self.appConstants.images.jpegQuality);
+            },
+            {
+              maxWidth: self.appConstants.images.maxWidth,
+              maxHeight: self.appConstants.images.maxHeight,
+              contain: true,
+              canvas: true,
+              meta: true,
+              orientation: true
             }
-
-            // Log metadata
-            console.log("metadata: ", metadata);
-
-            // Convert to grayscale
-            //self.makeGrayScale(canvas);
-
-            // Convert to blob to get size
-            canvas.toBlob((blob: Blob) => {
-
-                // Copy the blob properties
-                mspImage.size = blob.size;
-
-                let fileName = mspImage.name;
-                let nBytes = mspImage.size;
-                let fileSize = '';
-                let fileSizeUnit = '';
-                let sOutput: string = nBytes + " bytes";
-                // optional code for multiples approximation
-                for (let aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"], nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
-                  sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
-                  fileSize = nApprox.toFixed(0);
-                  fileSizeUnit = aMultiples[nMultiple];
-                  mspImage.sizeUnit = fileSizeUnit;
-                }
-
-                console.log(`Size of file ${fileName}: ${sOutput}`);
-                mspImage.sizeTxt = sOutput;
-
-                // call reader with new transformed image
-                reader.onload = function (evt: any) {
-
-                  mspImage.fileContent = evt.target.result;
-                  mspImage.id = sha1(mspImage.fileContent);
-
-                  // delete image and canvas from DOM
-                  //image.remove();
-                  //canvas.remove();
-
-                  observer.next(mspImage);
-                };
-                reader.readAsDataURL(blob);
-
-              },
-
-              // What mime type to make the blob as and jpeg quality
-              self.appConstants.images.convertToMimeType, self.appConstants.images.jpegQuality);
-          },
-          {
-            maxWidth: self.appConstants.images.maxWidth,
-            maxHeight: self.appConstants.images.maxHeight,
-            contain: true,
-            canvas: true,
-            meta: true,
-            orientation: true
-          }
         );
       });
     });
@@ -376,20 +376,23 @@ export class FileUploaderComponent implements OnInit, OnChanges {
    */
   checkImageDimensions(file: MspImage): boolean {
     if (file.naturalHeight < this.appConstants.images.minHeight ||
-      file.naturalWidth < this.appConstants.images.minWidth) {
+        file.naturalWidth < this.appConstants.images.minWidth) {
       return false;
     }
     return true;
   }
 
   checkImageSizeInBytes(file: MspImage):boolean{
-    if(file.size < 1048576 * 1.2){
-      // console.log('file size under 2MB, ok to use.');
-    return true;
+    // Be a bit more stringent with image size to ensure the more stringent backend
+    // server image size check will always pass.
+    // The API server set the limit as 1000*1024*1.2 = 1228800.
+    if(file.size <= 1048576){
+      console.log('file size under 1MB, ok to use.');
+      return true;
     }else{
       console.log('file size %s is greater than 1.2MB; cannot use this file.', file.sizeTxt);
       return false;
-  }
+    }
   }
 
 }
