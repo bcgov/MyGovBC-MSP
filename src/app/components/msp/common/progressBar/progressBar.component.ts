@@ -24,7 +24,7 @@ export class MspProgressBarComponent {
     });
   }
 
-  isActiveRoute(route: string) {
+  isActiveRoute(route: string):boolean {
     return this.router.isActive(route, false);
   }
 

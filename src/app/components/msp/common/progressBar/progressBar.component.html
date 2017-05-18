@@ -3,7 +3,8 @@
         <div class="progressBar">
             <ul>
                 <li *ngFor="let item of progressBarList; let itemNum = index">
-                    <a routerLink="{{item.routerLink}}" tabindex="0"
+                    <a routerLink="{{item.routerLink}}" 
+                       [tabindex]="(isActiveRoute(item.routerLink) || isBeforeActiveRoute(item.routerLink) )? 0 : -1"
                        [class.beforeActive]="isBeforeActiveRoute(item.routerLink)"
                        [class.active]="isActiveRoute(item.routerLink)"
                        [class.afterActive]="isAfterActiveRoute(item.routerLink)">
