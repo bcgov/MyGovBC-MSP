@@ -67,6 +67,10 @@
             <div class="text-danger"
                  [innerHtml]="lang('./en/index.js').yearErrorFutureCheck"></div>
         </div>
+        <div *ngIf='(yearRef.touched || showError) && tooFarInThePast()'>
+            <div class="text-danger"
+                 [innerHtml]="lang('./en/index.js').yearErrorDistantPast"></div>
+        </div>
 
         <div *ngIf='(dayRef.touched || showError)'>
             <div class="text-danger" *ngIf="dayRef.errors?.calendarDayOutOfRange"

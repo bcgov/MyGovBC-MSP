@@ -125,3 +125,16 @@ p.intro {
     font-size: @font-size-large;
     margin-top: 20px;
 }
+
+/*
+  Hide spinners in firefox
+ */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance:textfield;
+}
