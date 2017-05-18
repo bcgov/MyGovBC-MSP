@@ -24,7 +24,7 @@
             [ngClass]="{'has-error': !formRef.controls.netIncome?.valid && incomeRef.touched}">
             <div class="row">
                 <div class="col-md-12">
-                    <label for="netIncome" tabindex="0">Enter your net income – see Line 236 of your Notice of Assessment or Reassessment from Canada Revenue Agency.</label>
+                    <label for="netIncome">Enter your net income – see Line 236 of your Notice of Assessment or Reassessment from Canada Revenue Agency.</label>
 
                     <div class="col-md-3 col-sm-4 col-xs-6 input-group">
                         <span class="input-group-addon">$</span>
@@ -50,16 +50,15 @@
         <div class="row">
             <div class="col-md-10">
                 <div class="form-group">
-                    <label tabindex="0">
-                                Are you 65 or older this year?
-                    </label>
-                    <br/>
-                    <div class="btn-group" role="group">
-                        <button #ageOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === true" 
-                            type="button" class="btn btn-default">Yes</button>
-                        <button #ageNotOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === false" 
-                            type="button" class="btn btn-default">No&nbsp;</button>
-                    </div>
+                  <div role="dialog" aria-labelledby="q1">
+                      <p id="q1" class="intro" [innerHtml]="lang('./en/index.js').areYou65OrOlder"></p>
+                      <div class="btn-group" role="group">
+                          <button #ageOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === true" 
+                              type="button" class="btn btn-default">Yes</button>
+                          <button #ageNotOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === false" 
+                              type="button" class="btn btn-default">No&nbsp;</button>
+                      </div>
+                  </div>                    
                     <div *ngIf='(incomeRef.touched || incomeRef.dirty || (!!incomeRef.value && incomeRef.value.trim().length>0) || finAssistApp.spouseEligibleForDisabilityCredit || formRef.controls.spouseIncomeLine236?.valid ) && 
                         (finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined)'>
                         <div class="text-danger"
@@ -68,21 +67,19 @@
                 </div>
             </div>
         </div>
-        <div class="row" tabindex="0"
+        <div class="row" tabindex="-1"
             [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
-        <hr>
             <div class="col-md-10">
                 <div class="form-group">
-                    <label for="commonlaw" tabindex="0">
-                        Do you have a spouse or common-law partner?
-                    </label>
-                    <br/>
+                  <div role="dialog" aria-labelledby="q2">
+                    <p id="q2" class="intro" [innerHtml]="lang('./en/index.js').doYouHaveASpouseOrPartner"></p>
                     <div class="btn-group" role="group">
                         <button #hasSpouse [class.msp-btn-radio]="finAssistApp.hasSpouseOrCommonLaw === true" 
                              type="button" class="btn btn-default">Yes</button>
                         <button #negativeHasSpouse [class.msp-btn-radio]="finAssistApp.hasSpouseOrCommonLaw === false" 
                              type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
+                  </div>                    
                     <div *ngIf='(incomeRef.dirty || incomeRef.touched || (!!incomeRef.value && incomeRef.value.trim().length>0) ||
                         finAssistApp.spouseEligibleForDisabilityCredit === true ) && 
                         (finAssistApp.hasSpouseOrCommonLaw === null || finAssistApp.hasSpouseOrCommonLaw === undefined)'>
@@ -91,15 +88,15 @@
                     </div>
                 </div>
                 <div class="form-group" [hidden]="!finAssistApp.hasSpouseOrCommonLaw">
-                  <label for="" tabindex="0">
-                      Is your spouse/common-law partner 65 or older this year?
-                  </label>
+                  <div role="dialog" aria-labelledby="q3">
+                    <p id="q3" class="intro" [innerHtml]="lang('./en/index.js').isYourSpouseOrPartner65OrOlder"></p>
                     <div class="btn-group" role="group">
                         <button #spouseOver65Btn [class.msp-btn-radio]="finAssistApp.spouseAgeOver65 === true" 
                                 type="button" class="btn btn-default">Yes</button>
                         <button #spouseOver65NegativeBtn [class.msp-btn-radio]="finAssistApp.spouseAgeOver65 === false" 
                                 type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
+                  </div>
                     <div *ngIf='!(finAssistApp.hasSpouseOrCommonLaw === null || finAssistApp.hasSpouseOrCommonLaw === undefined) && 
                         (finAssistApp.spouseAgeOver65 === null || finAssistApp.spouseAgeOver65 === undefined)'>
                         <div class="text-danger" tabindex="0"
@@ -110,8 +107,7 @@
 
                 <div class="form-group" [hidden]="!finAssistApp.hasSpouseOrCommonLaw"
                     [ngClass]="{'has-error': !formRef.controls.spouseIncomeLine236?.valid}">
-                  <label for="spouseIncomeLine236" tabindex="0">
-                    What is your spouse’s / common-law partner’s net income (Line 236) on last year’s Notice of Assessment (or Reassessment) from Canada Revenue Agency?
+                  <label for="spouseIncomeLine236" [innerHtml]="lang('./en/index.js').whatIsYourSpouseOrPartnerIncome">
                   </label>
                   <div class="col-md-4 col-sm-5 col-xs-6 input-group">
                       <span class="input-group-addon">$</span>
@@ -132,13 +128,13 @@
             </div>
         </div>
 
-        <div class="row"
+        <div class="row" tabindex="-1"
             [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
         <hr>
             <div class="col-md-6">
                 <div (click)="showChildrenInfo=true" *ngIf="!showChildrenInfo"
                     [mspKeyboard] = "'Enter'" (keyboardAction) = "showChildrenInfo=true"
-                    class="msp-toggle" tabindex="0">
+                    class="msp-toggle" tabindex="0" role="button">
                     <span class="glyphicon glyphicon-collapse-up"
                         aria-hidden="true"></span>
                     <span
@@ -148,7 +144,7 @@
 
                 <div (click)="showChildrenInfo=false" *ngIf="showChildrenInfo"
                     [mspKeyboard] = "'Enter'" (keyboardAction) = "showChildrenInfo=false"
-                    class="msp-toggle" tabindex="0">
+                    class="msp-toggle" tabindex="0" role="button">
                     <span class="glyphicon glyphicon-collapse-down"
                     aria-hidden="true"></span>
                     <span [innerHTML]="lang('./en/index.js').childrenInfo"></span>
@@ -162,11 +158,13 @@
             <div class="col-md-12">
                 <div class="form-horizontal">
                     <div class="form-group">
-                        <label for="childrenCount" tabindex="0"
-                          class="col-xs-8 col-md-8 control-label" style="text-align:left; padding-right: 0;">
-                            How many children do you have on your Medical Services Plan?</label>
+                        <label for="childrenCount"
+                          class="col-xs-8 col-md-8 control-label" style="text-align:left; padding-right: 0;"
+                            [innerHtml]="lang('./en/index.js').howManyChildrenDoYouHaveOnYourMSP">
+                          </label>
                         <div class="col-xs-3 col-md-2" style="text-align:left; padding-left: 3px;">
                             <input type="text" class="form-control" name="childrenCount" 
+                                id="childrenCount"
                                 maxlength="2"
                                 [(ngModel)]="finAssistApp.childrenCount">
                         </div>    
@@ -176,8 +174,8 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="line214" tabindex="0">
-                                How much did you claim for child care expenses last year on your income tax return (Line 214)?
+                            <label for="line214" 
+                              [innerHtml]="lang('./en/index.js').howMuchDidYouClaimForChildCareExpenseLastYear">
                             </label>
 
                             <div class="col-md-3 col-sm-4 col-xs-6 input-group">
@@ -196,8 +194,8 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="line117" tabindex="0">
-                                How much did you report for the Universal Child Care Benefit on your income tax return (Line 117)?            
+                            <label for="line117" 
+                              [innerHtml]="lang('./en/index.js').howMuchDidYouReportForUCC">
                             </label>
 
                             <div class="col-md-3 col-sm-4 col-xs-6 input-group">
@@ -222,15 +220,14 @@
             <hr>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="msp-toggle" tabindex="0"
+                    <div class="msp-toggle" tabindex="0" role="button"
                         [mspKeyboard] = "['Enter','space']" (keyboardAction) = "showDisabilityInfo=true"
                         *ngIf="!showDisabilityInfo" (click)="showDisabilityInfo=true">
                         <span class="glyphicon glyphicon-collapse-up msp-toggle"
                         aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').disabilityInfo"></span>
-
                     </div>
-                    <div class="msp-toggle" tabindex="0"
+                    <div class="msp-toggle" tabindex="0" role="button"
                         [mspKeyboard] = "['Enter','space']" (keyboardAction) = "showDisabilityInfo=false"
                         *ngIf="showDisabilityInfo" (click)="showDisabilityInfo=false">
                         <span class="glyphicon glyphicon-collapse-down msp-toggle"
@@ -244,9 +241,8 @@
             <div class="row" [hidden]="!showDisabilityInfo" style="margin-left: 5px; margin-top: 15px;">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="" tabindex="0">
-                            <!--Is anyone included on your public health insurance eligible for the Disability Credit as per Canada Revenue Agency (Lines 316, 318 or 326)? Please check all that apply.-->
-                            Did anyone included in your MSP coverage claim a disability tax credit on last year's income tax return (Lines 316, 318 or 326)? 
+                        <label for="" 
+                          [innerHtml]="lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear">
                         </label>
                         <div role="alert">
                           <ul class="msp-horizontal-list-group">
