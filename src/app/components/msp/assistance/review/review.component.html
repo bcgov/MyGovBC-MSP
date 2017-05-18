@@ -16,6 +16,12 @@
 
     </div>
     <div class="col-md-6">
+        <div class="person-card-preview-zone">
+            <div *ngFor="let mspImage of application.assistYeaDocs" class="preview-item">
+                <msp-thumbnail [imageObject] ="mspImage" [reviewMode]="true">
+                </msp-thumbnail>
+            </div>
+        </div>
         <fin-assist-eligibility-card [application]="application"
                                      [editRouterLink]="'/msp/assistance/prepare'">
         </fin-assist-eligibility-card>
