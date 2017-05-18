@@ -1,7 +1,7 @@
 # ELK Cluster on OpenShift
 
 ## Overview
-This folder contains following files to facilitate deploying ELK cluster to OpenShift
+This folder contains following files to facilitate deploying ELK 2.4 cluster to OpenShift
 
 * an instant-app template to generate OpenShift artifacts
 * customized ELK docker images runnable on OpenShift
@@ -19,6 +19,8 @@ The ELK has these features
   * allow only POST request to Logstash input
   * CORS support for Logstash input with configurable Access-Control-Allow-Origin
 * based on official docker images from respective product vendor 
+
+The reason to choose older version 2.4 is that some kernel sysctl settings on BCGovt's on-premise OpenShift cluster hosts don't meet ELK 5's [prerequisites](https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config.html)
 
 ## Deployment
 
