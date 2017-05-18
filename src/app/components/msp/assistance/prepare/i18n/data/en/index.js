@@ -1,4 +1,12 @@
 module.exports = {
+  areYou65OrOlder: 'Are you 65 or older this year?',
+  doYouHaveASpouseOrPartner: 'Do you have a spouse or common-law partner?',
+  isYourSpouseOrPartner65OrOlder: 'Is your spouse/common-law partner 65 or older this year?',
+  whatIsYourSpouseOrPartnerIncome: 'What is your spouse’s / common-law partner’s net income (Line 236) on last year’s Notice of Assessment (or Reassessment) from Canada Revenue Agency?',
+  howManyChildrenDoYouHaveOnYourMSP: 'How many children do you have on your Medical Services Plan?',
+  howMuchDidYouClaimForChildCareExpenseLastYear: 'How much did you claim for child care expenses last year on your income tax return (Line 214)?',
+  howMuchDidYouReportForUCC: 'How much did you report for the Universal Child Care Benefit on your income tax return (Line 117)?',
+  didAnyoneClaimDisabilityTaxCreditLastYear: 'Did anyone included in your MSP coverage claim a disability tax credit on last year\'s income tax return (Lines 316, 318 or 326)? ',
   checkEligibilityScreenTitleDefault: 'Enter your financial information',
   checkEligibilityScreenTitle: 'Enter your financial information for tax year {userSelectedMostRecentTaxYear}',
   mustSelectTaxYears: 'Please select the year for which you are apply for assistance for.',
