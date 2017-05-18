@@ -9,7 +9,7 @@
         </div>
 
         <div *ngIf="assistanceYearsList && assistanceYearsList.length > 0"> 
-          <msp-assistance-year *ngFor="let assistanceYear of assistanceYearsList"
+          <msp-assistance-year #assistanceYearComp *ngFor="let assistanceYear of assistanceYearsList"
             [assistanceYear]='assistanceYear'
             (updateAssistanceYear) = "onAssistanceYearUpdate($event)">
           </msp-assistance-year>
@@ -491,7 +491,9 @@
     </div>
 </div>
 
-<msp-consent-modal #mspConsentModal [application]="dataService.finAssistApp" [processName]="lang('./en/index.js').consentProcessName"></msp-consent-modal>
+<msp-consent-modal #mspConsentModal [application]="dataService.finAssistApp"
+                   [processName]="lang('./en/index.js').consentProcessName"
+                    (onClose)="assistanceYearComp.focus()"></msp-consent-modal>
 
 <div bsModal #disabilityNursingHomeChoiceModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}"
     tabindex="0" role="dialog" aria-labelledby="disabilityNursingHomeChoiceModalLabel" aria-hidden="true">

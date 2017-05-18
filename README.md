@@ -15,6 +15,8 @@ This is MyGovBC MSP AngularJS 2.x app.  It provides the following processes:
 
 Recommended minimum width 320px of device.
 
+See `ACCESSIBILITY.md` for tested screen readers.
+
 ## Content Author Prerequisites
 * A GitHub account with 2FA enabled.
 * Write access to this repository.
@@ -72,6 +74,8 @@ cd MyGovBC-MSP
 npm install
 npm run dev
 ```
+
+See `ACCESSIBILITY.md` for accessibility implementations patterns.
 
 ### Instance-specific Configuration
 To define configurations affecting only the local instance, create file *config/webpack/environments/local.js* with the following content for example

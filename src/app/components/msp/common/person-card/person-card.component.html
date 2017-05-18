@@ -1,4 +1,4 @@
-<h2 [innerHtml]="lang('./en/index.js').relationshipLabel[person.relationship] +
+                                                                <h2 [innerHtml]="lang('./en/index.js').relationshipLabel[person.relationship] +
     ' ' + lang('./en/index.js').cardSuffix"></h2>
 <div class="panel panel-default">
     <div class="panel-body">
@@ -223,7 +223,8 @@
             </div>
         </div>
         <button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
-           [innerHTML]="lang('./en/index.js').editButton.replace('{label}', lang('./en/index.js').relationshipLabel[person.relationship])">
+            [innerHTML]="lang('./en/index.js').editButton.replace('{label}', lang('./en/index.js').relationshipLabel[person.relationship])"
+            tabindex="0">
         </button>
     </div>
 </div>

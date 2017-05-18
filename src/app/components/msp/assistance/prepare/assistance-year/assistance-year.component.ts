@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ViewChild, ElementRef} from '@angular/core';
 import {AssistanceYear} from '../../../model/assistance-year.model';
 import './assistance-year.component.less';
 
@@ -10,6 +10,7 @@ export class MspAssistanceYearComponent implements OnChanges{
 
   @Input() assistanceYear: AssistanceYear;
   @Output() updateAssistanceYear:EventEmitter<AssistanceYear> = new EventEmitter<AssistanceYear>();
+  @ViewChild('yearInput') yearInput: ElementRef;
 
   ngOnChanges(changes: SimpleChanges) {
     this.assistanceYear = new AssistanceYear();
@@ -23,5 +24,9 @@ export class MspAssistanceYearComponent implements OnChanges{
   update(value:boolean){
     this.assistanceYear.apply = value;
     this.updateAssistanceYear.emit(this.assistanceYear);
+  }
+
+  focus() {
+    this.yearInput.nativeElement.focus();
   }
 }

@@ -1,6 +1,6 @@
 # Accessibility
 
-This applications meets or exceeds the [World Wide Web Consortium (W3C) Web Content Accessibility Guidelines (WCAG) 2.0](https://www.w3.org/TR/WCAG20/).
+This applications aims to meet or exceed the [World Wide Web Consortium (W3C) Web Content Accessibility Guidelines (WCAG) 2.0](https://www.w3.org/TR/WCAG20/).
 
 ## Tested Assistive Technologies
 
@@ -10,13 +10,18 @@ The following technologies have been test with this application, chosen because 
 2. NVDA Firefox (evergreen) on Windows 10 
 3. VoiceOver on Mac OS (should get iOS coverage)
 
+## General Advice
+
+1. Use native HTML5 elements/attributes where possible, e.g., `<header><nav><label><input required>`
+1. Do not just code it, test it yourself with a screen reader!
+1. Establish your patterns early during development, less effort up-front than retro fitting later.
+
 ## Implementation Patterns
 
 ### Tab Indexing
 
 1. Assign tabindex to "0" for controls that needs to be included in tab index.
 1. Assign tabindex to "-1" for controls that needs to be excluded from tab index.
-1. Use native html controls whenever possible
 
 ### Dynamically Displayed Content
 
