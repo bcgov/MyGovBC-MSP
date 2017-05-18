@@ -19,6 +19,7 @@ import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.co
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
 
 import "./prepare.component.less";
+import {MspAssistanceYearComponent} from "./assistance-year/assistance-year.component";
 
 @Component({
   templateUrl: './prepare.component.html'
@@ -38,6 +39,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   @ViewChild('spouseDisabilityCreditUnset') spouseDisabilityCreditUnset: ElementRef;
   @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
   @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
+  @ViewChild('assistanceYearComp') assistanceYearComp: MspAssistanceYearComponent;
 
   @ViewChild('childDisabilityCreditset') childDisabilityCreditset: ElementRef;
   @ViewChild('childDisabilityCreditUnset') childDisabilityCreditUnset: ElementRef;
@@ -45,6 +47,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
   @ViewChild('disabilityNursingHomeChoiceModal') public disabilityNursingHomeChoiceModal: ModalDirective;
 
+  
   lang = require('./i18n');
   _showDisabilityInfo:boolean = false;
   showAttendantCareInfo = true;

@@ -1,6 +1,9 @@
 module.exports = {
   invalidYearPattern: 'In the year field, use a 4-digt number starting with a non-zero digit',
   arrivalDateLabel: 'Arrival date in B.C.',
+  yearLabel: 'Year',
+  dayLabel: 'Day',
+  monthLabel: 'Month',
   monthErrorRequired: 'Month is required',
   dayErrorRequired: 'Day is required',
   yearErrorRequired: 'Year is required',

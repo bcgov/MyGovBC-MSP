@@ -19,8 +19,8 @@ export class MspBirthDateComponent extends BaseComponent {
   // Create today for comparison in check later
   today:any;
 
-  constructor() {
-    super();
+  constructor(private cd: ChangeDetectorRef) {
+    super(cd);
     this.today = moment();
   }
 

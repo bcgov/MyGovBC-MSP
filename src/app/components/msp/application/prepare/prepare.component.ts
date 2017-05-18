@@ -1,4 +1,4 @@
-import {Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -14,13 +14,16 @@ import 'rxjs/add/operator/catch';
 
 import DataService from '../../service/msp-data.service';
 import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
+import ProcessService from "../../service/process.service";
+import {BaseComponent} from "../../common/base.component";
 
 
 @Component({
   templateUrl: './prepare.component.html'
 })
 @Injectable()
-export class PrepareComponent implements AfterViewInit{
+export class PrepareComponent extends BaseComponent {
+  static ProcessStepNum = 0;
   lang = require('./i18n');
   @ViewChild('formRef') form: NgForm;
   @ViewChild('liveInBCBtn') liveInBCBtn: ElementRef;
@@ -35,12 +38,20 @@ export class PrepareComponent implements AfterViewInit{
   mspApplication: MspApplication;
 
   constructor(private dataService: DataService,
-    private _router: Router) {
+    private _processService:ProcessService,
+    private _router: Router,
+    private cd: ChangeDetectorRef) {
+    super(cd);
     this.mspApplication = this.dataService.getMspApplication();
     this.apt = this.mspApplication.applicant;
   }
 
+  ngOnInit(){
+    this.initProcessMembers(PrepareComponent.ProcessStepNum, this._processService);
+  }
+
   ngAfterViewInit() {
+    super.ngAfterViewInit();
 
     if (!this.mspApplication.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();
@@ -79,6 +90,7 @@ export class PrepareComponent implements AfterViewInit{
       .merge(plannedAbsenceBtn$).merge(noPlannedAbsenceBtn$)
       .subscribe(values => {
         this.dataService.saveMspApplication();
+        this.emitIsFormValid();
       });
     }
   }
@@ -87,7 +99,8 @@ export class PrepareComponent implements AfterViewInit{
     if(this.mspApplication.infoCollectionAgreement !== true){
       console.log('user agreement not accepted yet, show user dialog box.');
       this.mspConsentModal.showFullSizeView();
-    }else{
+    } else {
+      this._processService.setStep(0, true);
       this._router.navigate(["/msp/application/personal-info"]);
     }
   }
@@ -111,4 +124,14 @@ export class PrepareComponent implements AfterViewInit{
     return this.apt;
   }
 
+  canContinue(): boolean {
+    return this.isAllValid();
+  }
+
+  isValid(): boolean {
+    let app = this.dataService.getMspApplication();
+    return app.applicant.plannedAbsence === false
+      && app.applicant.liveInBC === true
+      && app.unUsualCircumstance === false;
+  }
 }

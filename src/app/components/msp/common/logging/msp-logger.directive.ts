@@ -32,9 +32,9 @@ export class MspLoggerDirective{
   makeGeneralLog():LogEntry{
     let log:LogEntry = new LogEntry();
     log.applicationId = this.dataService. getMspApplication().uuid || this.dataService.finAssistApp.uuid;
-    // log.timestamp = new Date().getTime() + '';
+    // log.mspTimestamp = new Date().getTime() + '';
     var now = moment();
-    log.timestamp = now.toISOString();
+    log.mspTimestamp = now.toISOString();
     log.applicationPhase = this.mspLogger;
     log.refNumberEnrollment = this.dataService.getMspApplication().referenceNumber;
     log.refNumberPremiumAssistance = this.dataService.finAssistApp.referenceNumber;

@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, ViewChild, AfterViewInit} from '@angular/core'
+import {Component, Input, Output, EventEmitter, ViewChild, AfterViewInit, ChangeDetectorRef} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
 import {BaseComponent} from "../base.component";
@@ -29,6 +29,10 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
   @Output() onChange = new EventEmitter<any>();
 
   @ViewChild('formRef') form: NgForm;
+
+  constructor(private cd: ChangeDetectorRef) {
+    super(cd);
+  }
 
   ngAfterViewInit(): void {
     super.ngAfterViewInit();

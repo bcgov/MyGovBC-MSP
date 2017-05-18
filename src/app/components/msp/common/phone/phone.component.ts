@@ -1,4 +1,4 @@
-import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core'
+import {Component, Input, EventEmitter, Output, ViewChild, ChangeDetectorRef} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import {PhoneNumber} from "../../model/phone.model";
 import {BaseComponent} from "../base.component";
@@ -17,6 +17,10 @@ export class MspPhoneComponent extends BaseComponent {
 
     @Output() onChange = new EventEmitter<any>();
     @ViewChild('formRef') form: NgForm;
+
+    constructor(private cd: ChangeDetectorRef) {
+      super(cd);
+    }
 
     ngAfterViewInit(): void {
       super.ngAfterViewInit();

@@ -1,16 +1,16 @@
 <form #formRef="ngForm" novalidate>
     <div class="form-group"
          [ngClass]="{'has-error': !formRef.controls.healthNumber?.valid && (healthNumberRef.touched || showError)}">
-        <label class="control-label optional" for="healthNumber"
+        <label class="control-label optional" for="healthNumber{{objectId}}"
                [innerHTML]="lang('./en/index.js').healthNumberLabel"></label>
         <input type="text"
                [ngModel]="healthNumber"
                (ngModelChange) = "updateHealthNumber($event)"
                minlength="1"
                maxlength="50"
-               id='healthNumber' name='healthNumber' #healthNumberRef="ngModel"
+               id='healthNumber{{objectId}}' name='healthNumber' #healthNumberRef="ngModel"
                class="form-control">
-        <div *ngIf='healthNumberRef.touched || showError'>
+        <div *ngIf='healthNumberRef.touched || showError' role="alert" aria-live="assertive">
             <div class="text-danger" *ngIf="healthNumberRef.errors?.required"
                  [innerHTML]="lang('./en/index.js').healthNumberErrorRequired"></div>
             <div class="text-danger" *ngIf="healthNumberRef.errors?.minlength"

@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import {RouterTestingModule} from "@angular/router/testing";
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import appConstants from '../../../services/appConstants';
+import ProcessService from "../service/process.service";
 
 describe('AssistanceComponent', () => {
   let localStorageServiceConfig = {
@@ -20,7 +21,7 @@ describe('AssistanceComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AssistanceComponent, MspProgressBarComponent],
       imports: [FormsModule, RouterTestingModule, HttpModule, RouterModule],
-      providers: [MspDataService,
+      providers: [MspDataService, ProcessService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         },

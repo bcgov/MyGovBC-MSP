@@ -1,24 +1,24 @@
 <div *ngIf="!docRequired">
-  <h1 [innerHTML]="lang('./en/index.js').retroYearsTitleDocsNotRequired"></h1>
+  <h1 [innerHTML]="lang('./en/index.js').retroYearsTitleDocsNotRequired" tabindex="0"></h1>
   <div class="row">
     <div class="col-xs-12">
-      <p [innerHTML]="getDocNotRequiredInstruction()">
+      <p [innerHTML]="getDocNotRequiredInstruction()" tabindex="0">
       </p>
     </div>
   </div>
 </div>
 
 <div *ngIf="docRequired">
-  <h1 [innerHTML]="lang('./en/index.js').retroYearsTitle"></h1>
+  <h1 [innerHTML]="lang('./en/index.js').retroYearsTitle" tabindex="0"></h1>
   <div class="row">
     <div class="col-xs-12">
-      <p [innerHTML]="docRequiredInstruction.applicant">
+      <p [innerHTML]="docRequiredInstruction.applicant" tabindex="0">
       </p>
     </div>
   </div>
   <div class="row" *ngIf="hasSpouse">
     <div class="col-xs-12">
-      <p [innerHTML]="docRequiredInstruction.spouse">
+      <p [innerHTML]="docRequiredInstruction.spouse" tabindex="0">
       </p>
     </div>
   </div>
@@ -28,8 +28,8 @@
 
   <div class="row">
     <div class="col-md-8" *ngIf="docRequired">
-        <h2 [innerHTML]="lang('./en/index.js').docUploadInstructions"></h2>
-        <label [innerHTML]="lang('./en/index.js').docUploadInstruction">
+        <h2 [innerHTML]="lang('./en/index.js').docUploadInstructions" tabindex="0"></h2>
+        <label [innerHTML]="lang('./en/index.js').docUploadInstruction" tabindex="0">
         </label>
       
         <msp-file-uploader #fileUploader
@@ -38,7 +38,11 @@
             (onAddDocument)="addDoc($event)"
             (onErrorDocument)="errorDoc($event)"
             (onDeleteDocument)="deleteDoc($event)">
-        <span id="uploadInstruction">Please upload Notice of Assessment documents</span>
+        <span id="uploadInstruction" tabindex="0"
+          #uploadInstruction
+        >
+          Please upload Notice of Assessment documents
+        </span>
             
         </msp-file-uploader>
         <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
@@ -50,7 +54,8 @@
 <hr>
 
       <div class="col-sm-6 pull-left" *ngIf="!canContinue && formRef.submitted">
-        <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
+        <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields"
+          tabindex="0">
         </p>
       </div>
 
@@ -60,13 +65,13 @@
     <div class="row" style="margin-top: 10px;">
       <div class="col-sm-2">
         <button [mspLogger]="'msp-premium-assistance_apply_for_prevous_years'"  
-                [disabled] = "docRequired && application.assistYeaDocs.length < 1"
-                class="btn btn-primary" type="submit" routerLink="/msp/assistance/review"
+                [disabled] = "!canContinue"
+                class="btn btn-primary" type="submit" (click)="continue()"
                 [innerHTML]="lang('./en/index.js').continueButton"></button>
         
       </div>
       <div class="col-sm-6 pull-left" *ngIf="docRequired && application.assistYeaDocs.length < 1">
-        <p class="text-danger" [innerHTML]="lang('./en/index.js').noaDocRequired">
+        <p class="text-danger" [innerHTML]="lang('./en/index.js').noaDocRequired" tabindex="0">
         </p>
       </div>
     </div>

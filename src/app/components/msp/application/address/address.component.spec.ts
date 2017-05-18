@@ -19,6 +19,8 @@ import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
 import ValidationService from '../../service/msp-validation.service';
 import appConstants from '../../../../services/appConstants';
+import ProcessService from "../../service/process.service";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('Application Address Component Test', () => {
     let localStorageServiceConfig = {
@@ -31,8 +33,8 @@ describe('Application Address Component Test', () => {
             declarations: [AddressComponent, MspAddressComponent, MspPhoneComponent, MspProvinceComponent,
                 MspDepartureDateComponent, MspReturnDateComponent, MspCountryComponent,
                 MspCancelComponent, MspLoggerDirective],
-            imports: [FormsModule, Ng2CompleterModule, ModalModule, HttpModule],
-            providers: [MspDataService, CompletenessCheckService, MspLogService,ValidationService,
+            imports: [FormsModule, Ng2CompleterModule, ModalModule, HttpModule, RouterTestingModule],
+            providers: [MspDataService, CompletenessCheckService, MspLogService,ValidationService, ProcessService,
                 LocalStorageService,{
                     provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
                 },

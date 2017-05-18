@@ -16,6 +16,7 @@ import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import {MspLogService} from "../../service/log.service";
 import {HttpModule} from "@angular/http";
 import appConstants from '../../../../services/appConstants';
+import ProcessService from "../../service/process.service";
 
 describe('AssistanceReviewComponent', () => {
   let localStorageServiceConfig = {
@@ -29,7 +30,7 @@ describe('AssistanceReviewComponent', () => {
         EligibilityCardComponent, MspAddressCardPartComponent, ThumbnailComponent, MspCancelComponent,
         MspLoggerDirective],
       imports: [FormsModule, RouterTestingModule, Ng2BootstrapModule, HttpModule],
-      providers: [MspDataService,MspLogService,
+      providers: [MspDataService,MspLogService, ProcessService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         },

@@ -11,7 +11,7 @@
  * 10. Errors (technical only)
  */
 export class LogEntry {
-  timestamp:string;
+  mspTimestamp:string;
   applicationId:string;
   attachmentId:string[];
   statusOfApplication?:string;

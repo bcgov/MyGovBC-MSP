@@ -14,6 +14,8 @@ import { MspLogService } from '../../service/log.service';
 import ValidationService from '../../service/msp-validation.service';
 import appConstants from '../../../../services/appConstants';
 import CompletenessCheckService from '../../service/completeness-check.service';
+import ProcessService from "../../service/process.service";
+import {RouterTestingModule} from "@angular/router/testing";
 let CaptchaComponent = require("mygovbc-captcha-widget/component").CaptchaComponent;
 
 describe('AssistanceAuthorizeSubmitComponent Test', () => {
@@ -26,8 +28,8 @@ describe('AssistanceAuthorizeSubmitComponent Test', () => {
     TestBed.configureTestingModule({
       declarations: [AssistanceAuthorizeSubmitComponent, FileUploaderComponent, ThumbnailComponent, MspCancelComponent,
         MspImageErrorModalComponent,MspLoggerDirective, MspLoggerDirective, CaptchaComponent],
-      imports: [FormsModule, Ng2BootstrapModule, HttpModule],
-      providers: [MspDataService, MspLogService,CompletenessCheckService,ValidationService,
+      imports: [FormsModule, Ng2BootstrapModule, HttpModule, RouterTestingModule],
+      providers: [MspDataService, MspLogService,CompletenessCheckService,ValidationService,ProcessService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         },

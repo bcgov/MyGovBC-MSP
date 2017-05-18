@@ -1,17 +1,17 @@
-<h2 [innerHtml]="lang('./en/index.js').relationshipLabel[person.relationship] +
+                                                                <h2 [innerHtml]="lang('./en/index.js').relationshipLabel[person.relationship] +
     ' ' + lang('./en/index.js').cardSuffix"></h2>
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row" *ngIf="person.hasFullName">
             <div class="col-xs-4">
-                {{lang('./en/index.js').nameLabel}}
+                <label for="">{{lang('./en/index.js').nameLabel}}</label>
             </div>
             <div class="col-xs-8">
-                <strong>{{person.fullName}}</strong>
+              <span id="{{person.uuid}}-{{person.relationship}}-fullname"><strong>{{person.fullName}}</strong></span>
             </div>
         </div>
 
-        <div class="row" *ngIf="person.gender != null">
+        <div class="row" *ngIf="person.gender">
             <div class="col-xs-4">
                 {{lang('./en/index.js').genderLabel}}
             </div>
@@ -29,14 +29,14 @@
             </div>
         </div>
 
-        <div class="row" *ngIf="person.status != null">
+        <div class="row" *ngIf="person.status">
             <div class="col-xs-4">
                 {{lang('./en/index.js').statusLabel}}
             </div>
             <div class="col-xs-8">
                 <strong>
                     {{langStatus('./en/index.js')[person.status]}}
-                    <span *ngIf="person.currentActivity != null">
+                    <span *ngIf="person.currentActivity">
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
                         {{langActivities('./en/index.js')[person.currentActivity]}}
                     </span>
@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <div class="row" *ngIf="person.livedInBCSinceBirth != null">
+        <div class="row" *ngIf="person.livedInBCSinceBirth">
             <div class="col-xs-4">
                 {{lang('./en/index.js').livedInBCSinceBirth}}
             </div>
@@ -54,7 +54,16 @@
             </div>
         </div>
 
-        <div class="row" *ngIf="person.previous_phn != null">
+        <div class="row" *ngIf="person.healthNumberFromOtherProvince">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').previousHealthNumberLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.healthNumberFromOtherProvince}}</strong>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="person.previous_phn">
             <div class="col-xs-4">
                 {{lang('./en/index.js').personalHealthNumberLabel}}
             </div>
@@ -63,7 +72,7 @@
             </div>
         </div>
 
-        <div class="row" *ngIf="person.sin != null">
+        <div class="row" *ngIf="person.sin">
             <div class="col-xs-4">
                 {{lang('./en/index.js').sinNumberLabel}}
             </div>
@@ -89,7 +98,7 @@
                 <strong>{{person.arrivalToCanada.format("MMMM Do, YYYY")}}</strong>
             </div>
         </div>
-        <div class="row" *ngIf="person.declarationForOutsideOver30Days != null">
+        <div class="row" *ngIf="person.declarationForOutsideOver30Days">
             <div class="col-xs-4">
                 {{lang('./en/index.js').outsideBCLabel}}
             </div>
@@ -97,7 +106,7 @@
                 <strong>{{person.declarationForOutsideOver30Days ? "Yes": "No"}}</strong>
             </div>
         </div>
-        <div *ngIf="person.outOfBCRecord != null">
+        <div *ngIf="person.outOfBCRecord">
             <div class="row">
                 <div class="col-xs-4">
                     {{lang('./en/index.js').outsideBCReasonLabel}}
@@ -140,7 +149,7 @@
             </div>
         </div>
 
-        <div class="row" *ngIf="person.fullTimeStudent != null">
+        <div class="row" *ngIf="person.fullTimeStudent">
             <div class="col-xs-4">
                 {{lang('./en/index.js').fullTimeStudentLabel}}
             </div>
@@ -149,17 +158,17 @@
             </div>
         </div>
 
-        <div class="row" *ngIf="person.inBCafterStudies  != null">
+        <div class="row" *ngIf="person.inBCafterStudies">
             <div class="col-xs-4">
                 {{lang('./en/index.js').inBCafterStudiesLabel}}
             </div>
             <div class="col-xs-8">
-                <strong>{{person.inBCafterStudiesLabel ? "Yes": "No"}}</strong>
+                <strong>{{person.inBCafterStudies ? "Yes": "No"}}</strong>
             </div>
         </div>
 
 
-        <div class="row" *ngIf="person.institutionWorkHistory != null">
+        <div class="row" *ngIf="person.institutionWorkHistory">
             <div class="col-xs-4">
                 {{lang('./en/index.js').institutionWorkHistoryLabel}}
             </div>
@@ -177,7 +186,7 @@
             </div>
         </div>
 
-        <div class="row" *ngIf="person.schoolName != null">
+        <div class="row" *ngIf="person.schoolName">
             <div class="col-xs-4">
                 {{lang('./en/index.js').schoolNameLabel}}
             </div>
@@ -214,7 +223,8 @@
             </div>
         </div>
         <button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
-           [innerHTML]="lang('./en/index.js').editButton.replace('{label}', lang('./en/index.js').relationshipLabel[person.relationship])">
+            [innerHTML]="lang('./en/index.js').editButton.replace('{label}', lang('./en/index.js').relationshipLabel[person.relationship])"
+            tabindex="0">
         </button>
     </div>
 </div>

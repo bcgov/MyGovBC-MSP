@@ -6,11 +6,14 @@ import {MspImage} from '../../model/msp-image';
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
 import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
 import CompletenessCheckService from '../../service/completeness-check.service';
+import ProcessService from "../../service/process.service";
+import {Router} from "@angular/router";
 
 @Component({
   templateUrl: './authorize-submit.component.html'
 })
 export class AssistanceAuthorizeSubmitComponent implements OnInit{
+  static ProcessStepNum = 4;
   lang = require('./i18n');
   captchaApiBaseUrl:string;
 
@@ -20,8 +23,10 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit{
   @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
   constructor(private dataService: MspDataService,
-    private completenessCheck:CompletenessCheckService,
-    @Inject('appConstants') private appConstants: Object){
+              private completenessCheck:CompletenessCheckService,
+              @Inject('appConstants') private appConstants: Object,
+              private _router: Router,
+              private _processService: ProcessService){
     this.application = this.dataService.finAssistApp;
     this.captchaApiBaseUrl = this.appConstants["captchaApiBaseUrl"];
   }
@@ -97,5 +102,16 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit{
   }
   get spouseName(){
     return this.application.spouse.firstName + ' ' + this.application.spouse.lastName;
+  }
+
+  get canContinue():boolean {
+    return this.authorized &&
+      this.application.authorizationToken &&
+      this.application.authorizationToken.length > 1;
+  }
+
+  continue() {
+    this._processService.setStep(AssistanceAuthorizeSubmitComponent.ProcessStepNum, true);
+    this._router.navigate(['/msp/assistance/sending']);
   }
 }

@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 // import { RouterTestingModule } from '@angular/router/testing';
 import { AssistanceConfirmationComponent } from './confirmation.component';
 import {LandingComponent} from '../../landing/landing.component';
-import {ConfirmationGuard} from './confirmation.guard';
 import {AssistanceComponent} from '../assistance.component';
 import MspDataService from '../../service/msp-data.service';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
@@ -41,7 +40,7 @@ describe('AssistanceConfirmationComponent', () => {
                 children: [
                   {
                     path: 'confirmation',
-                    canActivate: [ConfirmationGuard],
+                    canActivate: [],
                     component: AssistanceConfirmationComponent
                   }
                 ]

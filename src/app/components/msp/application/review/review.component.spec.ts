@@ -14,6 +14,7 @@ import {MspCancelComponent} from "../../common/cancel/cancel.component";
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
 import appConstants from '../../../../services/appConstants';
+import ProcessService from "../../service/process.service";
 
 let CaptchaComponent = require("mygovbc-captcha-widget/component").CaptchaComponent;
 
@@ -28,7 +29,7 @@ describe('ReviewComponent', () => {
       declarations: [ReviewComponent, MspPersonCardComponent, MspAddressCardPartComponent,
         MspContactCardComponent, ThumbnailComponent, MspCancelComponent, MspLoggerDirective, CaptchaComponent],
       imports: [FormsModule, ModalModule, RouterTestingModule, HttpModule],
-      providers: [MspDataService, MspLogService,
+      providers: [MspDataService, MspLogService, ProcessService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         },

@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core'
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core'
 import moment = require("moment");
 import {ModalDirective} from "ng2-bootstrap";
 import {ApplicationBase} from "../../model/application-base.model";
@@ -13,6 +13,7 @@ export class MspConsentModalComponent {
   @Input() processName: string;
   @Input() application: ApplicationBase;
   @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
+  @Output() onClose = new EventEmitter<void>();
 
   agreeCheck: boolean = false;
 
@@ -25,6 +26,7 @@ export class MspConsentModalComponent {
   continue() {
     this.application.infoCollectionAgreement = true;
     this.fullSizeViewModal.hide();
+    this.onClose.emit();
   }
 
 }

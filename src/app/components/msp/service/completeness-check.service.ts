@@ -12,9 +12,7 @@ export default class CompletenessCheckService {
     private get finApp():FinancialAssistApplication {
       return this.dataService.finAssistApp;
     }
-    private get mspApp():MspApplication {
-      return this.dataService.getMspApplication();
-    }
+
     constructor(private dataService: DataService,
         private validationService:ValidtionService) {
     }
@@ -29,76 +27,6 @@ export default class CompletenessCheckService {
     private isStringBeParsedToNumber(input:any){
       let v = parseFloat(input);
       return _.isNumber(v);
-    }
-    /**
-     * 
-     */
-    mspCheckEligibilityCompleted(){
-      // fill in logic to ensure all data expected on check eligibility screen have been 
-      // provided. (check saved data in local storage)
-      return _.isBoolean(this.mspApp.applicant.liveInBC)
-      && _.isBoolean(this.mspApp.unUsualCircumstance) 
-      && _.isBoolean(this.mspApp.applicant.plannedAbsence) 
-      && (this.mspApp.infoCollectionAgreement === true);
-    }
-
-    mspPersonalInfoDocsCompleted(){
-      let complete = this.mspApp.applicant.isInfoComplete;      
-      // console.log('applicant info complete: ' + complete);
-
-      if(this.mspApp.spouse){
-        complete = complete && this.mspApp.spouse.isInfoComplete;
-        // console.log('applicant and spouse info complete: ' + complete);
-      }
-
-      if(complete){
-        let infoCompletedChildren:Person[] = this.mspApp.children.filter( ch => {
-          return ch.isInfoComplete;
-        });
-
-        // console.log(infoCompletedChildren.length + ' out of ' + this.mspApp.children.length
-        //   + ' children\'s information are completed.')
-
-        complete = (infoCompletedChildren.length === this.mspApp.children.length);
-      }
-
-      let familyHasValidPhn = this.validatePhnForEnrollmentApplication();
-      if(!familyHasValidPhn){
-        // console.log('PHN not valid for a member of the family in enrollment application');
-      }
-      return complete === true && familyHasValidPhn === true;
-    }
-
-    mspContactInfoCompleted(){
-      let valid = _.isBoolean(this.mspApp.mailingSameAsResidentialAddress)
-        && this.mspApp.residentialAddress.isValid
-        && this.mspApp.residentialAddress.isBCOnly
-        && this.mspApp.phoneNumberIsValid;
-
-      if(!this.mspApp.mailingSameAsResidentialAddress) {
-        valid = valid && this.mspApp.mailingAddress.isValid;
-      }
-      return valid;
-    }
-
-    mspReviewAndSubmitCompleted(){
-      return true;
-    }
-
-    mspApplicationAuthorizedByUser() {
-      return !(!this.mspApp.authorizedByApplicant || (this.mspApp.spouse && !this.mspApp.authorizedBySpouse));
-    }
-
-    mspApplicationValidAuthToken() {
-      return this.mspApp.hasValidAuthToken;
-    }
-    mspSendingComplete() {
-      // if we have a reference number, we are complete
-      if (this.mspApp.referenceNumber &&
-          this.mspApp.referenceNumber.length > 0) {
-        return true;
-      }
-      return false;
     }
 
     finAppPrepCompleted():boolean{
@@ -121,29 +49,6 @@ export default class CompletenessCheckService {
         }
         return basics === true && spouseInfo === true;
     }
-
-
-    validatePhnForEnrollmentApplication():boolean{
-      let applicantValidPhn = true;
-      let spouseValidPhn = true;
-      let kidsValidPhn = true;
-      
-      applicantValidPhn = this.validationService.validatePHN(this.mspApp.applicant.previous_phn, true, !this.mspApp.phnRequired);
-      if(this.mspApp.spouse){
-        spouseValidPhn = this.validationService.validatePHN(this.mspApp.spouse.previous_phn, true, !this.mspApp.phnRequired);
-      }
-
-      kidsValidPhn = this.mspApp.children.reduce(
-        (acc, current) => {
-          if(acc){
-            return this.validationService.validatePHN(current.previous_phn, true, !this.mspApp.phnRequired);
-          }else{
-            return acc;
-          }
-      }, true);
-      return applicantValidPhn === true && spouseValidPhn === true && kidsValidPhn === true;
-    }
-
 
     validatePhnForPremiumAssistance(): boolean{
       let applicantValidPhn = this.validationService.validatePHN(this.finApp.applicant.previous_phn, true, !this.finApp.phnRequired);

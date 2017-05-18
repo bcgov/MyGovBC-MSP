@@ -1,6 +1,6 @@
 [![Build Status](https://jenkins-gcpe-mygovbc-msp-tools.pathfinder.gov.bc.ca/buildStatus/icon?job=msp-dev)](https://jenkins-gcpe-mygovbc-msp-tools.pathfinder.gov.bc.ca/job/msp-dev)
 
-# MyGovBC-MSP
+## MyGovBC-MSP
 This is MyGovBC MSP AngularJS 2.x app.  It provides the following processes:
  1. Enrolment Application
  2. Premium Assistance Application
@@ -15,9 +15,11 @@ This is MyGovBC MSP AngularJS 2.x app.  It provides the following processes:
 
 Recommended minimum width 320px of device.
 
+See `ACCESSIBILITY.md` for tested screen readers.
+
 ## Content Author Prerequisites
-* A GitHub account with 2fa enabled
-* Write access to this repository
+* A GitHub account with 2FA enabled.
+* Write access to this repository.
 
 ## Content Authoring
 Most of the application text is configurable.  General procedure:
@@ -65,17 +67,19 @@ After a make a few more edits, I double check my work at the test site.
 * GIT
 
 ## Development
-It is recommended to install the app under `/client` folder of [MyGovBC-core-server](https://github.com/bcgov/MyGovBC-core-server).
-
-To launch dev instance, assuming cwd is `/` of `MyGovBC-core-server`:
+To launch dev instance
 ```
-git clone https://github.com/bcgov/MyGovBC-core-client client
-cd client
+git clone https://github.com/bcgov/MyGovBC-MSP.git
+cd MyGovBC-MSP
 npm install
 npm run dev
 ```
 
-Under `config/webpack/environments`, create a file named as `local.js` with the following content
+See `ACCESSIBILITY.md` for accessibility implementations patterns.
+
+### Instance-specific Configuration
+To define configurations affecting only the local instance, create file *config/webpack/environments/local.js* with the following content for example
+
 ```
 'use strict'
 module.exports = function(_path) {
@@ -87,9 +91,10 @@ module.exports = function(_path) {
   }
 }
 ```
+*local.js* takes precedence over other webpack config files during deep merge of configurations. *local.js* is ignored by git. 
 
 ## Unit Testing
-Unit testing is implemented using karma with Jasmine framework. The implementation generally follows [Angular webpack test configuration](https://angular.io/docs/ts/latest/guide/webpack.html#test-configuration). Jenkins CI runs unit tests as part of the build, therefore all unit test scripts should be able to run unattended, quickly and depend only on local resources. Unit test scripts are located side-by-side with the target component and have file extension *.spec.js* or *.spec.ts*. For an example of unit test script, see [/src/app/components/msp/landing/landing.spec.ts](https://github.com/bcgov/MyGovBC-MSP/blob/master/src/app/components/msp/landing/landing.spec.ts)
+Unit testing is implemented using karma with Jasmine framework. The implementation generally follows [Angular webpack test configuration](https://angular.io/docs/ts/latest/guide/webpack.html#test-configuration). Jenkins CI runs unit tests as part of the build, therefore all unit test scripts should be able to run unattended, headless, quickly and depend only on local resources. Unit test scripts are located side-by-side with the target component and have file extension *.spec.js* or *.spec.ts*. For an example of unit test script, see [/src/app/components/msp/landing/landing.spec.ts](https://github.com/bcgov/MyGovBC-MSP/blob/master/src/app/components/msp/landing/landing.spec.ts)
 
 To start unit test manually, run `npm test`, which launches tests in headless PhantomJS browser. To run the unit tests in UI browser such as IE9, IE10, IE11, Firefox and Chrome, run `npm test -- --browsers Chrome`.
 

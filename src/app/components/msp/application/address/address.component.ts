@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core'
+import {ChangeDetectorRef, Component, ViewChild} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import DataService from '../../service/msp-data.service';
 import {MspApplication} from "../../model/application.model";
@@ -6,11 +6,16 @@ import {Address} from "../../model/address.model";
 import {BaseComponent} from "../../common/base.component";
 import {MspAddressComponent} from "../../common/address/address.component";
 import {MspPhoneComponent} from "../../common/phone/phone.component";
+import ProcessService from "../../service/process.service";
+import {Router} from "@angular/router";
 
 @Component({
   templateUrl: './address.component.html'
 })
 export class AddressComponent extends BaseComponent {
+
+  static ProcessStepNum = 2;
+
   lang = require('./i18n');
 
   @ViewChild('formRef') form: NgForm;
@@ -19,9 +24,15 @@ export class AddressComponent extends BaseComponent {
   
   mspApplication: MspApplication;
 
-  constructor(private dataService: DataService) {
-    super();
+  constructor(private dataService: DataService,
+              private _router: Router,
+              private _processService: ProcessService,
+              private cd:ChangeDetectorRef) {
+    super(cd);
     this.mspApplication = this.dataService.getMspApplication();
+  }
+  ngOnInit(){
+    this.initProcessMembers(AddressComponent.ProcessStepNum, this._processService);
   }
 
   ngAfterViewInit():void {
@@ -52,5 +63,15 @@ export class AddressComponent extends BaseComponent {
 
   canContinue(){
     return this.isAllValid();
+  }
+
+  continue() {
+    // console.log('personal info form itself valid: %s', this.form.valid);
+    console.log('combinedValidationState on address: %s', this.isAllValid());
+    if(!this.isAllValid()){
+      console.log('Please fill in all required fields on the form.');
+    }else{
+      this._router.navigate(['/msp/application/review']);
+    }
   }
 }

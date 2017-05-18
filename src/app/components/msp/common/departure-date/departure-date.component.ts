@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, ViewChild} from '@angular/core'
+import {Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
 import {BaseComponent} from "../base.component";
@@ -27,6 +27,10 @@ export class MspDepartureDateComponent extends BaseComponent {
   @Output() onChange = new EventEmitter<any>();
 
   @ViewChild('formRef') form:NgForm;
+
+  constructor(private cd: ChangeDetectorRef) {
+    super(cd);
+  }
 
   // Parse person's date
   inputDate() {

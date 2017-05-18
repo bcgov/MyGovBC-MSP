@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, ViewChild} from '@angular/core';
+import {Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {CompleterData, CompleterService} from "ng2-completer";
 import {BaseComponent} from "../base.component";
@@ -27,8 +27,9 @@ export class MspCountryComponent extends BaseComponent {
   private dataService: CompleterData;
   countryData:Array<{code:string, name:string}> = this.lang('./en/index.js').countryData;
 
-  constructor(private completerService: CompleterService) {
-    super();
+  constructor(private completerService: CompleterService,
+              private cd: ChangeDetectorRef) {
+    super(cd);
     this.dataService = completerService.local(this.countryData, 'name', 'name');
   }
 

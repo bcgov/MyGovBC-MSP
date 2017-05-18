@@ -6,9 +6,16 @@ This folder contains following artifacts to facilitate deploying MSP app to Open
 * 2 instant-app templates adopting s2i build strategy with binary source input, one for build and one for deployment.
 * a nginx-based builder image
 
+Nginx runtime features
+* app provisioning
+* proxy to all backend API services directly consumed by MSP SPA
+* request throttling
+* ip filtering
+* security hardening based on result of security scan
+
 OpenShift is expected to be setup this way:
 * 1 project for build. This project is identified by *\<yourprojectname-tools\>* below. All build related activities take place in this project.
-* 1 or more projects for runtime environments such as *-dev*, *-test* etc, identified by *<yourprojectname-\<env\>>* below. All deployment activities and runtime artifacts are contained in respective projects.
+* 1 or more projects for runtime environments such as *dev*, *test* etc, identified by *\<yourprojectname-\<env\>>* below. All deployment activities and runtime artifacts are contained in respective projects to make an environment self-sufficient.
 
 ## Dependencies
 The Nginx serves as the web server for the SPA frontend app as well as proxy to following backend API services:
@@ -26,17 +33,16 @@ The prerequisites of the deployment are:
   * OpenShift docker registry, by default docker-registry.pathfinder.gov.bc.ca
 * has following software installed on the deployment client:
   * git
-  * docker. This further implies you have the provisioning tools such as docker machine installed on non-linux clients and started by executing, for example 
-            
-              ```
-              docker-machine start
-              docker-machine env
-              # Following the output instruction, for example run this command to configure your shell:
-              eval $(docker-machine env)
-              ```
+  * docker. This further implies you have the provisioning tools such as docker machine installed on non-linux clients and started by executing, for example
+    ```
+     docker-machine start
+     docker-machine env
+     # Following the output instruction, for example run this command to configure your shell:
+     eval $(docker-machine env)
+     ```
   * [oc](https://docs.openshift.com/container-platform/latest/cli_reference/get_started_cli.html)
 
-The deployment consists of these steps
+The environment setup consists of these steps
 
 1. deploy template
 
@@ -64,7 +70,9 @@ The deployment consists of these steps
    $ docker tag s2i-nginx docker-registry.pathfinder.gov.bc.ca/<yourprojectname-tools>/s2i-nginx
    $ docker push docker-registry.pathfinder.gov.bc.ca/<yourprojectname-tools>/s2i-nginx  
    ```   
-4. build runtime image
+
+## Build
+To build runtime image, run
 
    ```
    $ npm install
@@ -74,7 +82,14 @@ The deployment consists of these steps
    $ oc project <yourprojectname-tools>
    $ oc start-build msp --from-dir=dist/ -Fw
    ```
-The last step can be easily automated using Jenkins to enable CI. Jenkins should have same set of CLI listed in prerequisites. If you use default Jenkins hosted by OpenShift, which is recommended, oc is already installed. In such case you only need to install and configure [NodeJS Plugin](https://wiki.jenkins-ci.org/display/JENKINS/NodeJS+Plugin) to meet all prerequisites. To setup Jenkins hosted by OpenShift, in \<yourprojectname-tools\>, click *Add to Project* and select *jenkins-persistent*.
+   
+The command ``sed -i s~%MSP_APP_SHA1%~`git rev-parse HEAD`~ dist/index.html`` injects git commit SHA-1 to index.html so that you can trace back the source code version of a runtime instance by opening in browser the HTML source, which at around 4th line should look like
+
+```
+<!-- application source SHA-1: 02fef8c4893c4837d54084b885c65849413ca384 -->
+```
+
+The build commands can be easily automated using Jenkins to enable CI. Jenkins should have same set of CLI listed in prerequisites. If you use default Jenkins hosted by OpenShift, which is recommended, oc is already installed. In such case you only need to install and configure [NodeJS Plugin](https://wiki.jenkins-ci.org/display/JENKINS/NodeJS+Plugin) to meet all prerequisites. To setup Jenkins hosted by OpenShift, in \<yourprojectname-tools\>, click *Add to Project* and select *jenkins-persistent*.
 
 Proper authorization is needed for Jenkins to launch build. If Jenkins is in the same project \<yourprojectname-tools\>, no further configuration is required. Otherwise, run following command to grant access to Jenkins service account:
 
@@ -92,7 +107,7 @@ When you setup Jenkins to automate the last step in previous section with a webh
 ```
 oc tag <yourprojectname-tools>/msp:latest <yourprojectname-<env>>/msp:latest
 ```
-Usually, \<env\> referred to by the command is *dev*. The command can be combined with the build commands (last step in previous section) to keep *dev* env up-to-date with code. 
+Usually, \<env\> referred to by the command is *dev*. The command can be combined with the build commands executed in Jenkins to keep *dev* env up-to-date with code. Make sure Jenkins has proper authorization since the command updates images in another project.
 
 ### Change Propagation
 To promote runtime image from one environment to another, for example from *dev* to *test*, run
@@ -100,6 +115,6 @@ To promote runtime image from one environment to another, for example from *dev*
 ```
 oc tag <yourprojectname-tools>/msp:latest <yourprojectname-test>/msp:latest <yourprojectname-tools>/msp:test
 ```
-The above command will deploy the latest/dev runtime image to *test* env. The purpose of tagging runtime image of *test* env in both \<yourprojectname-test\>/msp:latest and \<yourprojectname-tools\>/msp:test is to use \<yourprojectname-tools\>/msp:test as backup such that in case the image stream \<yourprojectname-test\>/msp, which is used by *test* runtime pods, is deleted inadvertently, it can be recovered from \<yourprojectname-tools\>/msp:test.
+The above command will deploy the latest (which should also be dev) runtime image to *test* env. The purpose of tagging runtime image of *test* env in both \<yourprojectname-test\>/msp:latest and \<yourprojectname-tools\>/msp:test is to use \<yourprojectname-tools\>/msp:test as backup such that in case the image stream \<yourprojectname-test\>/msp, which is used by *test* runtime pods, is deleted inadvertently, it can be recovered from \<yourprojectname-tools\>/msp:test.
 
 The command can be setup as a Jenkins task to faciliate using Jenkins to orchestrate deployment of entire application, as is the case.

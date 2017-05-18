@@ -10,6 +10,7 @@ import {OutofBCRecordDto} from '../model/outof-bc-record.dto';
 import {OutofBCRecord} from '../model/outof-bc-record.model';
 import { StatusInCanada, Relationship } from '../model/status-activities-documents';
 import {puts} from "util";
+import {Process} from "./process.service";
 @Injectable()
 export default class MspDataService {
   private _mspApplication: MspApplication;
@@ -17,6 +18,7 @@ export default class MspDataService {
   private finAssistAppStorageKey:string = 'financial-assist';
   // private finAssistMailingAddressStorageKey:string = 'financial-assist-mailing-address';
   private mspAppStorageKey:string = 'msp-application';
+  private mspProcessKey:string = 'msp-process';
 
   constructor(private localStorageService: LocalStorageService){
     this._finAssistApp = this.fetchFinAssistApplication();
@@ -27,11 +29,29 @@ export default class MspDataService {
     this.localStorageService.clearAll();
   }
 
+  getMspProcess(): Process {
+    return this.localStorageService.get<Process>(this.mspProcessKey);
+  }
+  setMspProcess(process:Process) {
+    this.localStorageService.set(this.mspProcessKey, process);
+  }
+
   getMspApplication(): MspApplication {
     return this._mspApplication;
   }
+
   get finAssistApp(): FinancialAssistApplication {
     return this._finAssistApp;
+  }
+
+  // return the application or assistance uuid
+  getMspUuid() : string {
+    let uuid = "";
+    if (this._mspApplication)
+      uuid = this._mspApplication.uuid;
+    else if (this._finAssistApp)
+      uuid = this._finAssistApp.uuid;
+    return uuid;
   }
 
   saveMspApplication():void {
@@ -95,11 +115,11 @@ export default class MspDataService {
   }
 
   removeFinAssistApplication():void{
-    let result:boolean = this.localStorageService.remove(this.finAssistAppStorageKey);
+    this.destroyAll();
     this._finAssistApp = new FinancialAssistApplication();
   }
   removeMspApplication():void{
-    this.localStorageService.remove(this.mspAppStorageKey);
+    this.destroyAll();
     this._mspApplication = new MspApplication();
   }
 

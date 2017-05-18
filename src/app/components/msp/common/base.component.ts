@@ -1,7 +1,9 @@
-import {DoCheck, EventEmitter, Output, QueryList, SimpleChanges} from "@angular/core";
+import {ChangeDetectorRef, DoCheck, EventEmitter, 
+  Output, QueryList, SimpleChanges, Optional} from "@angular/core";
 import { Subscription } from 'rxjs/Subscription';
 import {NgForm} from "@angular/forms";
 import {UUID} from "angular2-uuid";
+import ProcessService from "../service/process.service";
 
 export class ValidEvent {
   id: string;
@@ -35,6 +37,17 @@ export class BaseComponent implements DoCheck {
   private validationMap = {};
   private myFormValid:boolean = true;
 
+  private linkedProcessStepNumber: number;
+  private processService:ProcessService;
+
+  constructor(public changeDetectorRef: ChangeDetectorRef) {
+    // A linked process step auto sets in when invalid or valid is determine
+  }
+
+  initProcessMembers(processStepNum: number, processService:ProcessService){
+    this.linkedProcessStepNumber = processStepNum;
+    this.processService = processService;
+  }
   /**
    * Wire up all children and self by looking for properties of type BaseComponent
    */
@@ -88,21 +101,26 @@ export class BaseComponent implements DoCheck {
    * @param comp
    */
   private registerBaseComponent(comp:BaseComponent) {
-    if (this.validationMap[comp.objectId] == null) {
+    let self:BaseComponent = this;
+    
+    if (self.validationMap[comp.objectId] == null) {
       console.log(this.constructor.name + " is adding: " + comp.constructor.name + " (" + comp.objectId + ") in state: " + comp.isAllValid());
-      this.validationMap[comp.objectId] = comp.isAllValid();
-      this.emitIsFormValid();
-      this.subscriptionList.push(comp.isFormValid
+      self.validationMap[comp.objectId] = comp.isAllValid();
+      self.emitIsFormValid();
+      let subscription = comp.isFormValid
         .subscribe( (event:ValidEvent) => {
-          this.validationMap[event.id] = event.isValid;
-          this.emitIsFormValid();
-        }));
+          self.validationMap[event.id] = event.isValid;
+          self.emitIsFormValid();
+        });
+      self.subscriptionList.push(subscription);
 
       // Listen for the unsubscribe and delete it from the validation map
       comp.unRegisterComponent.subscribe( (event:BaseComponent) => {
-        console.log(this.constructor.name + " is removing: " + event.constructor.name);
-        this.validationMap[event.objectId] = null;
-        this.emitIsFormValid();
+        console.log(this.constructor.name + " is removing: " + event.constructor.name + ": " + event.objectId);
+        delete self.validationMap[event.objectId];
+        subscription.unsubscribe();
+        //console.log("after deleted: " + self.validationMap[event.objectId]);
+        self.emitIsFormValid();
       });
     }
   }
@@ -118,17 +136,39 @@ export class BaseComponent implements DoCheck {
   /**
    * A common function to emit the status of the form
    */
-  emitIsFormValid () {
-    console.log(this.constructor.name + ": children: " + this.childrenIsValid() + "(" + Object.keys(this.validationMap).length
+  emitIsFormValid (defer?: boolean) {
+    // IE 11 has a bug in this odd scenario where the output event sets the input that then gets tested for isValid
+    // the workaround is to put the emit on the next event cycle in order for the input to get set before testing
+    if (defer) {
+      setTimeout(() => { this._emitIsFormValid(); }, 0);
+    }
+    else {
+      this._emitIsFormValid();
+    }
+  }
+
+  private _emitIsFormValid () {
+    console.log(this.constructor.name + "(" + this.objectId + "): children: " + this.childrenIsValid() + "(" + Object.keys(this.validationMap).length
       + "); myFormValid: " + this.myFormValid +
       "; this.isValid: " + this.isValid());
     for (let key of Object.keys(this.validationMap)) {
       let item = this.validationMap[key];
+      console.log("key: " + key + "; value: " + item);
       if (item === false) {
         console.log(this.constructor.name + ": child is invalid: " + key);
       }
     }
-    this.isFormValid.emit({id: this.objectId, isValid: this.isAllValid()});
+
+    // Determine if all is valid
+    let isAllValid = this.isAllValid();
+
+    // If we have a process step, mark it with the current state
+    if (this.linkedProcessStepNumber != null &&
+      this.processService != null) {
+      this.processService.setStep(this.linkedProcessStepNumber, isAllValid);
+    }
+
+    this.isFormValid.emit({id: this.objectId, isValid: isAllValid});
   }
 
   /**
@@ -165,6 +205,7 @@ export class BaseComponent implements DoCheck {
    * On destroym, unsubcribed and init self
    */
   ngOnDestroy(){
+    console.log("Destroying " + this.constructor.name + "(" + this.objectId + ")");
     this.unsubscribeAll();
     this.validationMap = {};
     this.myFormValid = true;

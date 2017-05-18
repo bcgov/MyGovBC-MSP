@@ -10,5 +10,22 @@ curl -sXPUT 'http://elasticsearch:9200/_snapshot/my_backup' -d '{
         "compress": true
     }
 }'
+
+# snapshots
 curl -sXDELETE "http://elasticsearch:9200/_snapshot/my_backup/snapshot_`date +%u`?pretty"
 curl -sXPUT "http://elasticsearch:9200/_snapshot/my_backup/snapshot_`date +%u`?wait_for_completion=true&pretty"
+
+# reset shard allocation filter
+while : ; do
+    relo=$(curl -s elasticsearch:9200/_cat/health|cut -f9 -d ' ')
+    echo $relo
+    [[ $relo -gt 0 ]] || break
+    sleep 2
+done
+curl -sXPUT elasticsearch:9200/_cluster/settings?pretty -H 'Content-Type: application/json' -d'
+{
+  "transient" : {
+    "cluster.routing.allocation.exclude._id" : ""
+  }
+}
+'

@@ -1,4 +1,4 @@
-import {Component, Input, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, Input, EventEmitter, Output, ViewChild, ChangeDetectorRef} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
 import {BaseComponent} from "../base.component";
@@ -28,6 +28,10 @@ export class MspSchoolDateComponent extends BaseComponent {
   @Input() showError: boolean;
 
   @ViewChild('formRef') form: NgForm;
+
+  constructor(private cd: ChangeDetectorRef) {
+    super(cd);
+  }
 
   ngAfterViewInit(): void {
     super.ngAfterViewInit();

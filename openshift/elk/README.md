@@ -8,8 +8,8 @@ This folder contains following files to facilitate deploying ELK cluster to Open
 
 The ELK has these features
 * Logstash [HTTP input](https://www.elastic.co/blog/introducing-logstash-input-http-plugin) for client browser-side logging
-* Logstash [syslog input](https://www.elastic.co/guide/en/logstash/2.4/plugins-inputs-syslog.html) for internal server-side logging
-* scalable Elasticsearch cluster
+* Logstash [syslog input](https://www.elastic.co/guide/en/logstash/2.4/plugins-inputs-syslog.html) on TCP and UDP port 5514 for internal project-scoped server-side logging
+* auto-scalable Elasticsearch cluster
 * local ephemeral storage for Elasticsearch data to improve performance. Performance of OpenShift GlusterFS persistent volume has been found unacceptable to hold search index, as supported by this [Elasticsearch blog](https://www.elastic.co/blog/performance-considerations-elasticsearch-indexing)
 * configurable data lifespan, by default 3 months
 * daily backup of Elasticsearch data to persistent storage with 7-day retention
@@ -45,7 +45,7 @@ The deployment consists of these steps
 
 1. deploy template
 
-   ```sh
+   ```
    $ git clone https://github.com/bcgov/MyGovBC-msp.git
    $ cd MyGovBC-msp
    $ oc login -u <username> https://console.pathfinder.gov.bc.ca:8443
@@ -92,8 +92,8 @@ The deployment consists of these steps
      ```
      This ensures the images are binary identical across environments/projects.
    
-
-4. Wait for the first Elasticsearch pod to be fully up, then scale up the cluster to 5 pods (or more). If doing so too soon, contention may arise between the pods vying to be the first and sole master.   
+4. Wait for the first Elasticsearch pod to be fully up, then scale up the cluster to 5 pods (or more). If doing so too soon, contention may arise between the pods vying to be the first and sole master.
+5. Auto-scale Elasticsearch. Set min to # of pods brought up in last step.
 
 If everything goes well, you will be able to access the Logstash http endpoint provided in the Overview page of OpenShift project for log collection and kibana URL for reporting dashboard.
 
@@ -102,25 +102,7 @@ If everything goes well, you will be able to access the Logstash http endpoint p
 ### Data Integrity 
 Because Elasticsearch data is on ephemeral storage, due care is needed to avoid bringing down or corrupt the cluster. By default each piece of data has 1 replica (i.e. 2 copies) on separate pods. Number of replicas can be adjusted for [existing indices](https://www.elastic.co/guide/en/elasticsearch/guide/current/replica-shards.html) and for future created indices via [templates](http://stackoverflow.com/questions/24553718/updating-the-default-index-number-of-replicas-setting-for-new-indices).
 
- Assuming the replica is *N*, then if *N+1* or more pods are taken down in a short period such that the cluster doesn't have enough time to recover in between, partial data loss may occur. Therefore only kill no more than *N* pods at a time and leave enough recovery window for the next.
- 
- To determine the recovery window, log into one of the surviving pods and run command
-  
-  ```
-  I have no name!@elasticsearch-34-cq6jg:/usr/share/elasticsearch$ curl localhost:9200/_cat/health?v
-  epoch      timestamp cluster status node.total node.data shards pri relo init unassign pending_tasks max_task_wait_time active_shards_percent
-  1491328738 17:58:58  my-elk  yellow          4         4    159  61    0    8       16            20               7.3s                 86.9%
-  ```
- If the `status` is yellow as shown above, then the cluster is in the middle of recovering. When cluster finished recovering, run same command will output
- 
- ```
-I have no name!@elasticsearch-34-cq6jg:/usr/share/elasticsearch$ curl localhost:9200/_cat/health?v
-epoch      timestamp cluster status node.total node.data shards pri relo init unassign pending_tasks max_task_wait_time active_shards_percent
-1491328750 17:59:10  my-elk  green           4         4    183  61    2    0        0             1                  -                100.0%
-```
- note unassigned shard count is 0.
- 
- The above check is applicable to manual pod killing. During a rolling update, the pod killing rate is determined by deploymentConfig *maxUnavailable* and pod readinessProbe's *initialDelaySeconds* parameter. As data volumn increases, recovery time will also increases, therefore *initialDelaySeconds* needs to be adjusted accordingly.   
+ Assuming the replica is *N*, then if *N+1* or more pods are taken down **forcefully** by means of, for example, `oc delete pod --grace-period=0`, in a short period such that the cluster doesn't have enough time to recover in between, partial data loss may occur. Therefore refrain from terminating multiple pods forcefully. Normal pod termination operation is not susceptible  because a [*preStop lifecycle handler*](https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/#defining-poststart-and-prestop-handlers) has been implemented to move out data prior to pod termination.
  
 ### Pod Count
 Although Elasticsearch cluster can survive under as few as one pod, to maintain a healthy resilient cluster following factors needs to be taken into account to determine minimum pod count
@@ -153,11 +135,16 @@ ls: cannot access /var/backups: Transport endpoint is not connected
 ```
 then kill the pod. You need to go through each pod. When killing a pod, make sure to leave enough recovery window from last kill, as mentioned before.
 
+### Manual Backup
+ELK performs nightly backup. Before any risky operations such as deploying an updated Elasticsearch image to prod, it is advised to perform a manual backup beforehand. To do so, log into pod *elk-cron*, run command `. /cron/cron-tasks.sh`, and wait for it to finish.
+
+
 ### Cluster Recovery
 If Elasticsearch cluster is crashed, data can be restored from the most recently nightly backup. But data from last backup till now is lost permanently. To restore,
 
-1. Deploy a new empty cluster by following the procedure above. Disable the route or scale down logstash pods to 0 to disallow input.
-2. Login to a Elasticsearch pod by running `oc exec -it <pod_name> bash`. In the pod run following commands
+1. remove auto-scaling if set and scale down logstash pods to 0 to disallow input
+2. deploy a new empty Elasticsearch cluster by following the procedure above. 
+3. login to a Elasticsearch pod by running `oc exec -it <pod_name> bash`. In the pod run following commands
 
   ```
   $ # register backup repo
@@ -180,4 +167,5 @@ If Elasticsearch cluster is crashed, data can be restored from the most recently
   $ # re-open all indices
   $ curl -XPOST 'localhost:9200/_all/_open?pretty'
   ```
-3. re-enable the route or scale up logstsh pod count back
+4. keep running `curl localhost:9200/_cat/health?v` to check unassigned shard count until it's down to 0 and status is green.
+5. scale logstash pod count back and re-create auto-scaling if defined before

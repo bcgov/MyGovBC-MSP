@@ -47,7 +47,11 @@
             (onAddDocument)="addDocument($event)"
             (onErrorDocument)="errorDocument($event)"
             (onDeleteDocument)="deleteDocument($event)">
-            <span id="uploadInstruction">Please upload required power of attorney documents</span>
+            <span id="uploadInstruction"
+              #uploadInstruction
+            >
+              Please upload required power of attorney documents
+            </span>
             
         </msp-file-uploader>
         <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
@@ -61,7 +65,7 @@
 </form>
 <hr>
 <button [mspLogger]="'msp-premium-assistance_submit'"  
-    [disabled]="!authorized || !(!!application.authorizationToken && application.authorizationToken.length > 1)"
-    class="btn btn-primary" type="submit" routerLink="/msp/assistance/sending"
+    [disabled]="!canContinue"
+    class="btn btn-primary" type="submit" (click)="continue()"
         [innerHTML]="lang('./en/index.js').continueButton"></button>
 <msp-cancel></msp-cancel>

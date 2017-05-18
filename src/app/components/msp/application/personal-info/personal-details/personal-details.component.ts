@@ -94,7 +94,10 @@ export class PersonalDetailsComponent extends BaseComponent {
   @ViewChild('arrivalDateCanada') arrivalDateCanada: MspArrivalDateComponent;
   @ViewChild('healthNumber') healthNumber: HealthNumberComponent;
   @ViewChild('phn') phn: MspPhnComponent;
+  @ViewChild('armedForcedQuestion') armedForcedQuestion: HTMLElement;
   @ViewChild('dischargeDate') dischargeDate: MspDischargeDateComponent;
+  @ViewChild('schoolQuestion') schoolQuestion: HTMLElement;
+  @ViewChild('inBCAfterStudiesQuestion') inBCAfterStudiesQuestion: HTMLElement;
   @ViewChild('schoolAddress') schoolAddress: MspAddressComponent;
   @ViewChild('schoolDate') schoolDate: MspSchoolDateComponent;
 
@@ -111,7 +114,7 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   constructor(private el:ElementRef,
     private cd: ChangeDetectorRef){
-    super();
+    super(cd);
   }
 
   statusLabel(): string {
@@ -221,10 +224,13 @@ export class PersonalDetailsComponent extends BaseComponent {
       this.person.inBCafterStudies = null;
     }
     this.onChange.emit(event);
+    this.emitIsFormValid();
   }
   setStayInBCAfterStudy(event:boolean){
     this.person.inBCafterStudies = event; 
     this.onChange.emit(event)
+    this.emitIsFormValid();
+    this.emitIsFormValid();
   }
 
   schoolAddressUpdate(evt:any){
@@ -236,6 +242,7 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.person.hasPreviousBCPhn = value;
     this.onChange.emit(value);
     this.cd.detectChanges();
+    this.emitIsFormValid();
   }
   updateSchoolExpectedCompletionDate(evt:any){
     // console.log('school expected completion date updated: %o', evt);
@@ -273,7 +280,9 @@ export class PersonalDetailsComponent extends BaseComponent {
       this.person.dischargeMonth = null;
       this.person.dischargeYear = null;
     }
+    this.cd.detectChanges();
     this.onChange.emit(history);
+    this.emitIsFormValid();
   }
 
   toggleInstituationList() {
@@ -302,8 +311,9 @@ export class PersonalDetailsComponent extends BaseComponent {
     }else {
       this.person.outOfBCRecord = null;
     }
-    
+    this.cd.detectChanges();
     this.onChange.emit(out);
+    this.emitIsFormValid();
   }
 
   handleDeleteOutofBCRecord(evt:OutofBCRecord){
@@ -318,13 +328,65 @@ export class PersonalDetailsComponent extends BaseComponent {
   setMovedToBCPermanently(moved:boolean){
     this.person.madePermanentMoveToBC = moved;
     this.onChange.emit(moved);
+    this.emitIsFormValid();
   }
   setLivedInBCSinceBirth(lived:boolean){
     this.person.livedInBCSinceBirth = lived;
     this.onChange.emit(lived);
+    this.emitIsFormValid();
+    this.cd.detectChanges();
   }
 
   viewIdReqModal(event:Documents) {
     this.idReqModal.showFullSizeView(event);
+  }
+
+  isValid(): boolean {
+    // Some inputs can be determine via the form.isValid,
+    // check these explicitly
+
+    // Status
+    if (this.person.currentActivity == null) {
+      return false;
+    }
+
+    // moved to bc permanently
+    if (this.person.madePermanentMoveToBC == null) {
+      console.log("madePermanentMoveToBC invalid");
+      return false;
+    }
+
+    // outside bc 30 days
+    if (this.person.declarationForOutsideOver30Days == null) {
+      console.log("declarationForOutsideOver30Days invalid");
+      return false;
+    }
+
+    // previous PHN
+    if (this.person.hasPreviousBCPhn == null) {
+      console.log("hasPreviousBCPhn invalid");
+      return false;
+    }
+
+    // armed forces
+    if (this.armedForcedQuestion != null &&
+      this.person.institutionWorkHistory == null) {
+      console.log("institutionWorkHistory invalid");
+      return false;
+    }
+
+    // school
+    if (this.schoolQuestion != null &&
+      this.person.fullTimeStudent == null) {
+      console.log("schoolQuestion invalid");
+      return false;
+    }
+    if (this.person.fullTimeStudent &&
+      this.person.inBCafterStudies == null) {
+      console.log("inBCafterStudies invalid");
+      return false;
+    }
+
+    return true;
   }
 }

@@ -19,6 +19,7 @@ export enum AssistanceApplicationType {
 export class FinancialAssistApplication implements ApplicationBase {
 
   private _uuid = UUID.UUID();
+
   authorizationToken: string;
   phnRequired:boolean = true;
 

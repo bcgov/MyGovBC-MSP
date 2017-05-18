@@ -1,4 +1,4 @@
-import {Component, Input, EventEmitter, Output, ViewChild, OnInit} from '@angular/core';
+import {Component, Input, EventEmitter, Output, ViewChild, OnInit, ChangeDetectorRef} from '@angular/core';
 import {CompleterService, CompleterData} from 'ng2-completer';
 import {NgForm, FormControl} from "@angular/forms";
 import {BaseComponent} from "../base.component";
@@ -48,8 +48,9 @@ export class MspProvinceComponent extends BaseComponent implements OnInit {
     return Array().concat(this.provinceData, this.stateData);
   }
 
-  constructor(private completerService: CompleterService) {
-    super();
+  constructor(private completerService: CompleterService,
+    private cd: ChangeDetectorRef) {
+    super(cd);
   }
 
   ngOnInit() {

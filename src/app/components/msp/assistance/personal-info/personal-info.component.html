@@ -3,41 +3,40 @@
 
 <h2 [innerHTML]="lang('./en/index.js').applicantInfo"></h2>
 <form #formRef='ngForm' (ngSubmit)="onSubmit(formRef)" novalidate>
-    <msp-assistance-personal-details 
-        [(person)]="financialAssistApplication.applicant"
-        (onChange)="onChange($event)">
-    </msp-assistance-personal-details>
+  <msp-assistance-personal-details
+      [(person)]="financialAssistApplication.applicant"
+      (onChange)="onChange($event)">
+  </msp-assistance-personal-details>
 
-    <h2 *ngIf="financialAssistApplication.hasSpouseOrCommonLaw" [innerHTML]="lang('./en/index.js').spouseInfo"></h2>
-    <msp-assistance-personal-details *ngIf="financialAssistApplication.hasSpouseOrCommonLaw"
-                                    [person]="financialAssistApplication.spouse"
-                                    (onChange)="onChange($event)">
-    </msp-assistance-personal-details>
+  <h2 *ngIf="financialAssistApplication.hasSpouseOrCommonLaw" [innerHTML]="lang('./en/index.js').spouseInfo"></h2>
+  <msp-assistance-personal-details *ngIf="financialAssistApplication.hasSpouseOrCommonLaw"
+                                   [person]="financialAssistApplication.spouse"
+                                   (onChange)="onChange($event)">
+  </msp-assistance-personal-details>
 
-    <h2 [innerHTML]="lang('./en/index.js').contactInfo"></h2>
-    <a href="#contact-anchor"></a>
-    <div class="row">
-        <div class="col-md-8">
-            <div class="row">
-                <div class="col-sm-4">
-                    <msp-phone [phoneNumber]="financialAssistApplication.phoneNumber"
-                            (phoneNumberChange)="financialAssistApplication.phoneNumber = $event"
-                            (onChange)="onChange($event)"></msp-phone>
-                </div>
-            </div>
+  <h2 [innerHTML]="lang('./en/index.js').contactInfo" tabindex="0"></h2>
+  <a href="#contact-anchor"></a>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-sm-4">
+          <msp-phone #phone
+                     [phoneNumber]="financialAssistApplication.phoneNumber"
+                     (phoneNumberChange)="financialAssistApplication.phoneNumber = $event"
+                     (onChange)="onChange($event)"></msp-phone>
         </div>
+      </div>
     </div>
-    <hr>
-    <msp-address [mailingAddress]="financialAssistApplication.mailingAddress"
-                [mailingOnly]="true" (onChange)="onChange($event)"></msp-address>
-    <hr>
+  </div>
+  <hr>
+  <msp-address #address
+               [mailingAddress]="financialAssistApplication.mailingAddress"
+               [mailingOnly]="true" (onChange)="onChange($event)"></msp-address>
+  <hr>
 
-    <button [mspLogger]="'msp-premium-assistance_personal-info_continue'"   
-            class="btn btn-primary" type="submit" 
-            [innerHTML]="lang('./en/index.js').continueButton"></button>
-    <!--<div>
-        <p style="float:left; margin-left: 10px;">There are validation errors on the page</p>  
-        <div style="clear:left"></div>
-    </div>      -->
-    <msp-cancel></msp-cancel>
+  <button [mspLogger]="'msp-premium-assistance_personal-info_continue'"
+          class="btn btn-primary" type="submit"
+          [disabled]="!canContinue"
+          [innerHTML]="lang('./en/index.js').continueButton"></button>
+  <msp-cancel></msp-cancel>
 </form>

@@ -25,11 +25,11 @@ module.exports = {
   institutionWorkHistoryValues: {Yes: 'Yes', No: 'No'},
   dischargeDateLabel: 'Date discharged:',
   fullTimeStudentLabel: 'Full-time student:',
-  inBCafterStudiesLabel: 'Returning to B.C. after studies:',
+  inBCafterStudiesLabel: 'Will you reside in BC upon completion of your studies:',
   schoolNameLabel: 'School name:',
   studiesFinishedLabel: 'Date of expected school completion:',
   studiesDepartureLabel: 'Date of departure:',
   schoolAddressLabel: 'School address:',
 
   editButton: 'Edit {label}',
-}
+};

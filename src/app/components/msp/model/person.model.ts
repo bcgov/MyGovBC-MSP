@@ -285,11 +285,11 @@ class Person implements IPerson{
   }
 
   private parseDate (year: number, month: number, day: number) {
-    return moment({
+    return moment.utc({
       year: year,
       month: month - 1, // moment use 0 index for month :(
       day: day,
-    }).utc(); // use UTC mode to prevent browser timezone shifting
+    }); // use UTC mode to prevent browser timezone shifting
   }
 
   private isNotEmpty(thing:any):boolean{

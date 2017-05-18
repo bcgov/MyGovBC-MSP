@@ -12,6 +12,7 @@ import { MspLogService } from '../../service/log.service';
 import appConstants from '../../../../services/appConstants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import ProcessService from "../../service/process.service";
 
 describe('PrepareComponent', () => {
   let localStorageServiceConfig = {
@@ -23,7 +24,7 @@ describe('PrepareComponent', () => {
     TestBed.configureTestingModule({
       declarations: [PrepareComponent, MspConsentModalComponent, MspCancelComponent, MspLoggerDirective],
       imports: [FormsModule, Ng2BootstrapModule, HttpModule, RouterTestingModule],
-      providers: [MspDataService, MspLogService,
+      providers: [MspDataService, MspLogService, ProcessService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
         },

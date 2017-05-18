@@ -8,6 +8,7 @@ import {Relationship} from "../../model/status-activities-documents";
 import {NgForm} from "@angular/forms";
 import {PersonalDetailsComponent} from "./personal-details/personal-details.component";
 import {BaseComponent} from "../../common/base.component";
+import ProcessService from "../../service/process.service";
 
 @Component({
   templateUrl: './personal-info.component.html'
@@ -15,6 +16,7 @@ import {BaseComponent} from "../../common/base.component";
 @Injectable()
 export class PersonalInfoComponent extends BaseComponent {
 
+  static ProcessStepNum = 1;
   lang = require('./i18n');
   Relationship: typeof Relationship = Relationship;
 
@@ -22,8 +24,15 @@ export class PersonalInfoComponent extends BaseComponent {
   @ViewChildren(PersonalDetailsComponent) personalDetailsComponent: QueryList<PersonalDetailsComponent>;
 
   constructor(private dataService: DataService,
-    private _router: Router){
-    super();
+    private _router: Router,
+    private _processService: ProcessService,
+    private cd:ChangeDetectorRef) {
+
+    super(cd);
+  }
+
+  ngOnInit(){
+    this.initProcessMembers(PersonalInfoComponent.ProcessStepNum, this._processService);
   }
 
   onChange(values:any){
