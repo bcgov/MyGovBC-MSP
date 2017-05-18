@@ -26,19 +26,16 @@
                [ngModel]="person.dob_day"
                (ngModelChange) = 'setDayValueOnModel($event)'
                [calendarFieldFormatter]="'day'"
-               validateCalendarDay
-
                id="day" name="day" #dayRef="ngModel"
                placeholder="day"
                required
-               maxlength="2">
+               min="1"
+               max="31">
         <input type="number" class="form-control yearInput"
 
                [ngModel]="person.dob_year"
                (ngModelChange) = 'setYearValueOnModel($event)'
                [calendarFieldFormatter]="'year'"
-               validateCalendarYear
-
                id="year" name="year" #yearRef="ngModel"
                placeholder="year"
                required

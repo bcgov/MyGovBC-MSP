@@ -41,6 +41,10 @@ export class MspBirthDateComponent implements OnInit, AfterViewInit{
   }
 
   setYearValueOnModel(value:number){
+
+    /* jam - turning off modification of input
+       and leaving it to validation to refuse bad entries
+
     let org:string = value + '';
     let trimmed = org.substring(0, 4);
 
@@ -50,10 +54,15 @@ export class MspBirthDateComponent implements OnInit, AfterViewInit{
     }
 
     this.person.dob_year = parseInt(trimmed);
-    
+    */
+    this.person.dob_year = value;
   }
 
-  setDayValueOnModel(value:string){
+  setDayValueOnModel(value:number){
+
+    /* jam - turning off modification of input
+     and leaving it to validation to refuse bad entries
+
     let org:string = value + '';
     let trimmed = org.substring(0, 2);
 
@@ -62,6 +71,8 @@ export class MspBirthDateComponent implements OnInit, AfterViewInit{
     }
     
     this.person.dob_day = parseInt(value);
+    */
+    this.person.dob_day = value;
   }
   /**
    * Determine if date of birth is valid for the given person
