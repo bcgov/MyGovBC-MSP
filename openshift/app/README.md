@@ -62,7 +62,7 @@ The environment setup consists of these steps
     Some parameters can be adjusted after app is created. For example, following *mygovbc-client-deploy* parameters are used to config Nginx by setting corresponding environment variables in *msp* deployment config:
     * *OpenShift Cluster IP Range* set env *RealIpFrom*
     * *Additional real_ip_from Rules* set env *AdditionalRealIpFromRules*. The reason to define this environment variable in addition to *RealIpFrom*, is that *RealIpFrom* serves more purposes than ngx_http_realip_module - it is also used to skip OpenShift internal heartbeat requests from logging due to frequency of occurrence. 
-    * *Ip Filter Rules* set env *IpFilterRules*, which is used for pre-launch access control.
+    * *Ip Filter Rules* set env *IpFilterRules*, which is used for pre-launch access control. This field typically contains a whitelist of all authorized admin ips allowed to access the app during a ban. (*tip*: when lifting the ban, instead of emptying/deleting the field, just commenting the list out by prepending # so that the whitelist is retained for next usage.)
 3. deploy docker images
 
    ```sh
