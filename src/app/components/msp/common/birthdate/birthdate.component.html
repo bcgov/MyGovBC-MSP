@@ -24,23 +24,20 @@
         </select>
         <label class="visuallyhidden" for="day{{objectId}}">{{lang('./en/index.js').birthdateLabel}} {{lang('./en/index.js').dayLabel}}</label>
         <input type="number" class="form-control dayInput"
-
                [ngModel]="person.dob_day"
                (ngModelChange) = 'setDayValueOnModel($event)'
                [calendarFieldFormatter]="'day'"
-               validateCalendarDay
-
                id="day{{objectId}}" name="day" #dayRef="ngModel"
                placeholder="day"
                required
-               maxlength="2">
+               min="1"
+               max="31">
 
         <label class="visuallyhidden" for="year{{objectId}}">{{lang('./en/index.js').birthdateLabel}} {{lang('./en/index.js').yearLabel}}</label>
         <input type="number" class="form-control yearInput"
                [ngModel]="person.dob_year"
                (ngModelChange) = 'setYearValueOnModel($event)'
                [calendarFieldFormatter]="'year'"
-               validateCalendarYear
                id="year{{objectId}}" name="year" #yearRef="ngModel"
                placeholder="year"
                required
@@ -73,7 +70,10 @@
                 <div class="text-danger"
                      [innerHtml]="lang('./en/index.js').yearErrorFutureCheck"></div>
             </div>
-
+            <div *ngIf='(yearRef.touched || showError) && tooFarInThePast()'>
+                <div class="text-danger"
+                     [innerHtml]="lang('./en/index.js').yearErrorDistantPast"></div>
+            </div>
             <div *ngIf='(dayRef.touched || showError)'>
                 <div class="text-danger" *ngIf="dayRef.errors?.calendarDayOutOfRange"
                      [innerHtml]="lang('./en/index.js').calendarDayOutOfRange"></div>

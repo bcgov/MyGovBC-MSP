@@ -29,30 +29,12 @@ export class MspBirthDateComponent extends BaseComponent {
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
 
-  setYearValueOnModel(value:number) {
-    if(value){
-      let org:string = value + '';
-      let trimmed = org.substring(0, 4);
-
-
-      if(/[^\d]+/.test(trimmed)){
-        trimmed = trimmed.replace(/[^\d]/g, '');
-      }
-
-      this.person.dob_year = parseInt(trimmed);
-    }
+  setYearValueOnModel(value:number){
+      this.person.dob_year = value;
   }
 
-  setDayValueOnModel(value:string){
-    if(value){
-      let org:string = value + '';
-      let trimmed = org.substring(0, 2);
-
-      if(/[^\d]+/.test(trimmed)){
-        trimmed = trimmed.replace(/[^\d]/g, '');
-      }
-      this.person.dob_day = parseInt(value);
-    }
+  setDayValueOnModel(value:number){
+      this.person.dob_day = value;
   }
   /**
    * Determine if date of birth is valid for the given person
