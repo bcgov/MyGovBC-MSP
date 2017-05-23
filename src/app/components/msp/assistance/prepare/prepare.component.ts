@@ -33,16 +33,10 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   @ViewChild('spouseOver65NegativeBtn') spouseOver65NegativeBtn: ElementRef;
   @ViewChild('hasSpouse') hasSpouse: ElementRef;
   @ViewChild('negativeHasSpouse') negativeHasSpouse: ElementRef;
-  @ViewChild('selfDisabilityCreditSet') selfDisabilityCreditSet: ElementRef;
-  @ViewChild('selfDisabilityCreditUnset') selfDisabilityCreditUnset: ElementRef;
-  @ViewChild('spouseDisabilityCreditSet') spouseDisabilityCreditSet: ElementRef;
   @ViewChild('spouseDisabilityCreditUnset') spouseDisabilityCreditUnset: ElementRef;
   @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
   @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
   @ViewChild('assistanceYearComp') assistanceYearComp: MspAssistanceYearComponent;
-
-  @ViewChild('childDisabilityCreditset') childDisabilityCreditset: ElementRef;
-  @ViewChild('childDisabilityCreditUnset') childDisabilityCreditUnset: ElementRef;
 
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
   @ViewChild('disabilityNursingHomeChoiceModal') public disabilityNursingHomeChoiceModal: ModalDirective;
@@ -192,58 +186,6 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
               this.finAssistApp.setSpouse = false;
             })
       )
-      .merge(
-        Observable.fromEvent<MouseEvent>(this.selfDisabilityCreditSet.nativeElement, 'click')
-          .filter( (x:MouseEvent) => {
-            if(this.finAssistApp.applicantClaimForAttendantCareExpense){
-              this.applicantClaimDisabilityCredit();
-              return false;
-            }else{
-              return true;
-            }
-          })
-          .map( x=> {
-            this.finAssistApp.selfDisabilityCredit = true;
-          })
-      )
-      .merge(
-        Observable.fromEvent<MouseEvent>(this.selfDisabilityCreditUnset.nativeElement, 'click')
-          .map( x=> {
-            this.finAssistApp.selfDisabilityCredit= false;
-          })
-      )
-      .merge(
-        Observable.fromEvent<MouseEvent>(this.spouseDisabilityCreditSet.nativeElement, 'click')
-          .filter( (x:MouseEvent) => {
-            if(this.finAssistApp.spouseClaimForAttendantCareExpense){
-              this.spouseClaimDisabilityCredit();
-              return false;
-            }else{
-              return true;
-            }
-          })
-          .map( x=> {
-            this.finAssistApp.spouseEligibleForDisabilityCredit = true;
-          })
-      )
-      .merge(
-        Observable.fromEvent<MouseEvent>(this.spouseDisabilityCreditUnset.nativeElement, 'click')
-          .map( (x:MouseEvent) => {
-            this.finAssistApp.spouseEligibleForDisabilityCredit = false;
-          })
-      )      
-      .merge(
-        Observable.fromEvent<MouseEvent>(this.childDisabilityCreditset.nativeElement, 'click')
-          .map( (x:MouseEvent)=> {
-            this.finAssistApp.childWithDisabilityCount = 1;
-          })
-      )
-      .merge(
-        Observable.fromEvent<MouseEvent>(this.childDisabilityCreditUnset.nativeElement, 'click')
-          .map( x=> {
-            this.finAssistApp.childWithDisabilityCount = 0;
-          })
-      )
       .subscribe(
         values => {
           // console.log('values before saving: ', values);
@@ -251,6 +193,25 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
         }
       );
   }
+
+  toggleClaimForSelfDisabilityCredit($event:Event):void {
+    if(this.finAssistApp.applicantClaimForAttendantCareExpense){
+      $event.preventDefault();
+      this.applicantClaimDisabilityCredit();
+    }else{
+      this.finAssistApp.selfDisabilityCredit = !this.finAssistApp.selfDisabilityCredit;
+    }
+  }
+
+  toggleClaimForSpouseDisabilityCredit($event:Event):void{
+    if(this.finAssistApp.spouseClaimForAttendantCareExpense && !this.finAssistApp.spouseEligibleForDisabilityCredit){
+      $event.preventDefault();
+      this.spouseClaimDisabilityCredit();
+    }else{
+      this.finAssistApp.spouseEligibleForDisabilityCredit = !this.finAssistApp.spouseEligibleForDisabilityCredit;
+    }
+  }
+
   get showDisabilityInfo(){
     return this._showDisabilityInfo;
   }

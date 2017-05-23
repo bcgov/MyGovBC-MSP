@@ -242,128 +242,78 @@
                 <div class="col-md-12">
 
                   <div role="dialog" aria-labelledby="anyoneClaimeDisabilityQ">
-                    <!--<label id="anyoneClaimeDisabilityQ" [innerHtml]="lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear"></label>-->
+                    <label id="anyoneClaimeDisabilityQ" style="margin-bottom: 5px"
+                      [innerHtml]="lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear">
+                    </label>
                     <div class="form-group">
-                      
-                        <!--<label for="">
-                          [innerHtml]="lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear">
-                        </label>-->
-                        <div role="alert">
-                          <label id="anyoneClaimeDisabilityQ" for="disabilityInfo"
-                            [innerHtml]="lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear">
-                          </label>
-                          <ul class="msp-horizontal-list-group" id="disabilityInfo">
-                              <li #selfDisabilityCreditSet tabindex="0"
-                                  [mspKeyboard] = "'Enter'" 
-                                  [convertToEvent] = "'click'"
-                                  class="msp-horizontal-list-group-item-sm msp-selectable"
-                                  [hidden]="finAssistApp.selfDisabilityCredit">
-                                  <span class="glyphicon glyphicon-unchecked"
-                                      ></span>
-                                  <span>Myself</span>
-                              </li>
-                              <li #selfDisabilityCreditUnset tabindex="0"
-                                  [mspKeyboard] = "'Enter'" 
-                                  [convertToEvent] = "'click'"
-                                  class="msp-horizontal-list-group-item-sm msp-selectable"
-                                  [hidden]="!finAssistApp.selfDisabilityCredit">
-                                  <span class="glyphicon glyphicon-check msp-selection"
-                                      ></span>
-                                  <span>Myself</span>
-                              </li>
+                        <div class="checkbox checkbox-success checkbox-inline" style="margin-left: 15px">
+                              <input type="checkbox" tabindex="0"
+                                name="applicantClaimForDisabilityCredit"
+                                id="applicantClaimForDisabilityCredit"
+                                [checked]="finAssistApp.selfDisabilityCredit"
+                                (click)="toggleClaimForSelfDisabilityCredit($event)">
+                            <label for="applicantClaimForDisabilityCredit">
+                                Myself
+                            </label>
+                        </div>     
+                    </div>
 
-                              <div [hidden] = "!finAssistApp.hasSpouseOrCommonLaw">
-                                  <li #spouseDisabilityCreditSet tabindex="0"
-                                      [mspKeyboard] = "'Enter'" 
-                                      [convertToEvent] = "'click'"
-                                      class="msp-horizontal-list-group-item-lg msp-selectable"
-                                      [hidden]="finAssistApp.spouseEligibleForDisabilityCredit">
-                                      <span class="glyphicon glyphicon-unchecked"></span>
-                                      <span>My spouse/common-law partner</span>
-                                  </li>
-                                  <li #spouseDisabilityCreditUnset tabindex="0"
-                                      [mspKeyboard] = "'Enter'" 
-                                      [convertToEvent] = "'click'"
-                                      class="msp-horizontal-list-group-item-lg msp-selectable"
-                                      [hidden]="!finAssistApp.spouseEligibleForDisabilityCredit">
-                                      <span class="glyphicon glyphicon-check msp-selection"></span>
-                                      <span>My spouse/common-law partner</span>
-                                  </li>
-                              </div>
-                          </ul>
-                          </div>
-                    </div>                    
+                    <div class="form-group">
+                        <div class="checkbox checkbox-success checkbox-inline" style="margin-left: 15px">
+                              <input type="checkbox" tabindex="0"
+                                name="spouseClaimForDisabilityCredit"
+                                id="spouseClaimForDisabilityCredit"
+                                [checked]="finAssistApp.spouseEligibleForDisabilityCredit"
+                                (click)="toggleClaimForSpouseDisabilityCredit($event)">
+                            <label for="spouseClaimForDisabilityCredit">
+                                My spouse/common-law partner
+                            </label>
+                        </div>     
+                    </div>
+                    <div class="form-group" *ngIf="(finAssistApp.childrenCount > 1)">
+                        <label for="childWithDisabilityCount" class="col-sm-7 control-label"> 
+                          Number of chilldren who are eligible for disability credit
+                        </label>
+                        <select name="childWithDisabilityCount" id="childWithDisabilityCount" class="col-sm-1" role="Option"
+                            #childDisabilityCreditCreditMultiplierSelect
+                            [ngModel] = "finAssistApp.childWithDisabilityCount"
+                            (ngModelChange) = "updateChildDisabilityCreditCreditMultiplier($event)">
+                            <option *ngFor="let v of finAssistApp.childrenCountArray()" 
+                                [value]="v">
+                                {{v}}
+                            </option>
+                        </select>
+                    </div>  
                   </div>
 
                 </div>
-                <!--<div class="row">-->
-                    <div class="col-md-3" [hidden]="!finAssistApp.childrenCount">
-                        <div class="form-group">
-                            <ul class="msp-horizontal-list-group">
-                                <li #childDisabilityCreditset tabindex="0"
-                                    [mspKeyboard] = "'Enter'" 
-                                    [convertToEvent] = "'click'"
-                                    [hidden] = finAssistApp.childWithDisabilityCount
-                                    class="msp-horizontal-list-group-item-lg msp-selectable">
-                                    <span class="glyphicon glyphicon-unchecked"></span>
-                                    <span>My Child</span>
-                                </li>
-                                <li #childDisabilityCreditUnset tabindex="0"
-                                    [mspKeyboard] = "'Enter'" 
-                                    [convertToEvent] = "'click'"
-                                    [hidden] = !finAssistApp.childWithDisabilityCount
-                                    class="msp-horizontal-list-group-item-lg msp-selectable">
-                                    <span class="glyphicon glyphicon-check msp-selection"></span>
-                                    <span>My Child</span>
-                                </li>
-                            </ul>
+            </div>
 
-                        </div>
-                    </div>
-                    <div class="col-md-9" *ngIf="(finAssistApp.childWithDisabilityCount && (finAssistApp.childrenCount > 1))">
-                        <div class="form-group">
-                            <div class="col-md-9" >
-                                <p style="margin: 5px 0 0 0">Number of chilldren who are eligible for disability credit</p>
-                            </div>
-                            <div class="col-md-3" >
-                                <select name="childWithDisabilityCount" 
-                                    #childDisabilityCreditCreditMultiplierSelect
-                                    [ngModel] = "finAssistApp.childWithDisabilityCount"
-                                    (ngModelChange) = "updateChildDisabilityCreditCreditMultiplier($event)">
-                                    <option *ngFor="let v of finAssistApp.childrenCountArray()" 
-                                        [value]="v">
-                                        {{v}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>        
-                    </div>
-                <!--</div>-->
-                
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="line125">
-                                    How much did you (or your spouse / common-law partner) report for a Registered Disability
-                                    Savings Plan on your income tax return (Line 125)?
-                                </label>
+          <div class="row" [hidden]="!showDisabilityInfo" style="margin-left: 5px; margin-top: 15px;">
+              
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <div class="row">
+                          <div class="col-md-12">
+                              <label for="line125">
+                                  How much did you (or your spouse / common-law partner) report for a Registered Disability
+                                  Savings Plan on your income tax return (Line 125)?
+                              </label>
 
-                                <div class="col-md-3 col-sm-4 col-xs-6 input-group">
-                                    <span class="input-group-addon">$</span>
-                                    <input type="text" class="form-control" name="line125" id="line125"
-                                    pattern="(?=.)^(([1-9][0-9]{0,5}(,[0-9]{5})*)|[0-9]+)?(\.[0-9]{1,5})?$"
-                                    #line125Ref="ngModel"
-                                    [(ngModel)]="finAssistApp.spouseDSPAmount_line125">
-                                </div>
-                                <div class="text-danger" *ngIf="line125Ref.errors?.pattern" [innerHTML]="lang('./en/index.js').invalidNumber"></div>
-                                
-                            </div>
-                        </div>
-                    </div>
+                              <div class="col-md-3 col-sm-4 col-xs-6 input-group">
+                                  <span class="input-group-addon">$</span>
+                                  <input type="text" class="form-control" name="line125" id="line125"
+                                  pattern="(?=.)^(([1-9][0-9]{0,5}(,[0-9]{5})*)|[0-9]+)?(\.[0-9]{1,5})?$"
+                                  #line125Ref="ngModel"
+                                  [(ngModel)]="finAssistApp.spouseDSPAmount_line125">
+                              </div>
+                              <div class="text-danger" *ngIf="line125Ref.errors?.pattern" [innerHTML]="lang('./en/index.js').invalidNumber"></div>
+                              
+                          </div>
+                      </div>
+                  </div>
 
-                </div>
-            
+              </div>
             </div>
             
             <hr>

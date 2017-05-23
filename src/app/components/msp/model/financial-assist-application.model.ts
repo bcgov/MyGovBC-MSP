@@ -210,8 +210,8 @@ export class FinancialAssistApplication implements ApplicationBase {
 
   childrenCountArray(): Array<number> {
     let arr: number[] = new Array(this.childrenCount);
-    for(let i=0; i<this.childrenCount; i++){
-      arr[i] = i+1;
+    for(let i=0; i<=this.childrenCount; i++){
+      arr[i] = i;
     }
 
     return arr;
