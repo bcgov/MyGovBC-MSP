@@ -185,11 +185,6 @@
                             </div>
 
                             <div class="text-danger" *ngIf="line214Ref.errors?.pattern" [innerHTML]="lang('./en/index.js').invalidNumber"></div>
-                    <!--<div class="row">
-                        <div class="col-md-12">
-                            
-                        </div>
-                    </div>-->
                 </div>
                 <div class="form-group">
                     <div class="row">
@@ -271,7 +266,7 @@
                         </div>     
                     </div>
                     <div class="form-group" *ngIf="(finAssistApp.childrenCount > 1)">
-                        <label for="childWithDisabilityCount" class="col-sm-7 control-label"> 
+                        <label for="childWithDisabilityCount" class="col-sm-7"> 
                           Number of chilldren who are eligible for disability credit
                         </label>
                         <select name="childWithDisabilityCount" id="childWithDisabilityCount" class="col-sm-1" role="Option"
@@ -337,12 +332,13 @@
                 </div>
             </div>
             
-            <div [hidden]="!showAttendantCareInfo" style="margin-left: 15px; margin-top: 10px;">
+            <div [hidden]="!showAttendantCareInfo" style="margin-left: 15px; margin-top: 10px;" 
+              role="dialog" aria-labelledby="anyoneClaimeAttendantCareQ">
                 <div class="row">
                     <div class="col-xs-12">
-                        <label for="" tabindex="0">
-                            Did anyone included in your MSP coverage claim attendant or nursing home expenses <strong>in place of a disability</strong> on last year's tax return (line 215 or line 330)?
-                        </label>
+                      <label id="anyoneClaimeAttendantCareQ" style="margin-bottom: 5px"
+                        [innerHtml]="lang('./en/index.js').didAnyoneClaimAttendantCareLastYear">
+                      </label>
                     </div>
                 </div>
                 <div class="row">
@@ -449,7 +445,7 @@
                     (onClose)="assistanceYearComp.focus()"></msp-consent-modal>
 
 <div bsModal #disabilityNursingHomeChoiceModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}"
-    tabindex="0" role="dialog" aria-labelledby="disabilityNursingHomeChoiceModalLabel" aria-hidden="true">
+    tabindex="0" role="dialog" aria-labelledby="disabilityNursingHomeChoiceModalLabel">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
         <div class="modal-header">
@@ -472,9 +468,9 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-md pull-left" data-dismiss="modal"
+            <button type="button" class="btn btn-primary btn-md pull-left" data-dismiss="modal" tabindex="0"
                 (click)="switchClaim(claimant, claimCategory, counterClaimCategory)">Yes, continue</button>
-            <button type="button" class="btn btn-danger btn-md pull-right" data-dismiss="modal"
+            <button type="button" class="btn btn-danger btn-md pull-right" data-dismiss="modal" tabindex="0"
                 (click)="disabilityNursingHomeChoiceModal.hide()">No, cancel</button>
         </div>
         </div>
