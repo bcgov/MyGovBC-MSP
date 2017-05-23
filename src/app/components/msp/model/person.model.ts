@@ -126,7 +126,7 @@ class Person implements IPerson{
     }
     this._hasPreviousBCPhn = hasPhn;
   }
-  
+
 
   /**
    * Discharge date if worked in CDN forces
@@ -241,7 +241,7 @@ class Person implements IPerson{
   }
   set status(st:StatusInCanada){
     this._status = st;
-    if(this._status === StatusInCanada.PermanentResident 
+    if(this._status === StatusInCanada.PermanentResident
       || this._status === StatusInCanada.TemporaryResident){
         this._livedInBCSinceBirth = false;
       }
@@ -396,11 +396,11 @@ class Person implements IPerson{
 
     let institutionWorkComplete = true;
     if(this.currentActivity === 1 || this.currentActivity === 0){
-      institutionWorkComplete = _.isString(this.institutionWorkHistory) 
+      institutionWorkComplete = _.isString(this.institutionWorkHistory)
         && (this.institutionWorkHistory.toLowerCase() === 'yes' || this.institutionWorkHistory.toLowerCase() === 'no');
       if(institutionWorkComplete && this.institutionWorkHistory.toLowerCase() === 'yes'){
         institutionWorkComplete = _.isNumber(this.dischargeDay) && _.isString(this.dischargeMonth) && _.isNumber(this.dischargeYear);
-      }  
+      }
     }
 
 
@@ -416,7 +416,7 @@ class Person implements IPerson{
         this.currentActivity === Activities.LivingInBCWithoutMSP))) {
       arrivalInCanadaComplete = _.isNumber(this.arrivalToCanadaDay) && _.isString(this.arrivalToCanadaMonth) && _.isNumber(this.arrivalToCanadaYear);
     }
-    let result = basic 
+    let result = basic
       && returningToBCComplete
       && arrivalToBCCompete
       && arrivalInCanadaComplete
@@ -431,7 +431,7 @@ class Person implements IPerson{
       && this.hasCompleteOutSideRecords;
 
     // console.log(Relationship[this.relationship] + ' data completed? ' + result);  
-    return result;  
+    return result;
   }
 }
 
