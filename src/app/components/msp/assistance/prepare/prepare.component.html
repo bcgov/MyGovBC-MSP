@@ -240,11 +240,10 @@
 
             <div class="row" [hidden]="!showDisabilityInfo" style="margin-left: 5px; margin-top: 15px;">
                 <div class="col-md-12">
+
+                  <div role="dialog" aria-labelledby="anyoneClaimeDisabilityQ">
+                    <label id="anyoneClaimeDisabilityQ" [innerHtml]="lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear"></label>
                     <div class="form-group">
-                        <label for="" 
-                          [innerHtml]="lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear">
-                        </label>
-                        <div role="alert">
                           <ul class="msp-horizontal-list-group">
                               <li #selfDisabilityCreditSet tabindex="0"
                                   [mspKeyboard] = "'Enter'" 
@@ -284,10 +283,9 @@
                                   </li>
                               </div>
                           </ul>
-                        </div>
+                    </div>                    
+                  </div>
 
-
-                    </div>
                 </div>
                 <!--<div class="row">-->
                     <div class="col-md-3" [hidden]="!finAssistApp.childrenCount">
