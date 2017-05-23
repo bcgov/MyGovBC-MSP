@@ -242,13 +242,17 @@
                 <div class="col-md-12">
 
                   <div role="dialog" aria-labelledby="anyoneClaimeDisabilityQ">
-                    <label id="anyoneClaimeDisabilityQ" [innerHtml]="lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear"></label>
+                    <!--<label id="anyoneClaimeDisabilityQ" [innerHtml]="lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear"></label>-->
                     <div class="form-group">
-                        <label for="">
+                      
+                        <!--<label for="">
                           [innerHtml]="lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear">
-                        </label>
+                        </label>-->
                         <div role="alert">
-                          <ul class="msp-horizontal-list-group">
+                          <label id="anyoneClaimeDisabilityQ" for="disabilityInfo"
+                            [innerHtml]="lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear">
+                          </label>
+                          <ul class="msp-horizontal-list-group" id="disabilityInfo">
                               <li #selfDisabilityCreditSet tabindex="0"
                                   [mspKeyboard] = "'Enter'" 
                                   [convertToEvent] = "'click'"
@@ -287,6 +291,7 @@
                                   </li>
                               </div>
                           </ul>
+                          </div>
                     </div>                    
                   </div>
 
