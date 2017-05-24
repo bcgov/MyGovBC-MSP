@@ -72,12 +72,6 @@ module.exports = function (_path) {
           loaders: [
             'url-loader?name=assets/images/[name]_[hash].[ext]&limit=10000'
           ]
-        }, {
-          test: require.resolve("jquery"),
-          loaders: [
-            "expose?$",
-            "expose?jQuery"
-          ]
         }
       ]
     },
