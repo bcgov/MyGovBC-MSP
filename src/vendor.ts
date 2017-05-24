@@ -12,8 +12,7 @@ import '@angular/router'
 import 'rxjs'
 
 // node_modules
-import 'jquery'
-import "bootstrap"
+//import "bootstrap"
 
 // local scripts
 //import "../assets/js/..."
