@@ -1,7 +1,7 @@
 <form #formRef='ngForm' novalidate>
     <div class="form-group"
          [ngClass]="{'has-error': !formRef.controls.phone?.valid && phoneRef.touched}">
-        <label class="control-label optional" for="phone" tabindex="0"
+        <label class="control-label optional" for="phone"
                [innerHTML]="getLabel()"></label>
         <input type="text" class="form-control"
                [ngModel]="phoneNumber"
