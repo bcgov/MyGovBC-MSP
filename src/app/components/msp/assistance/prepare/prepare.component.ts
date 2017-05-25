@@ -33,7 +33,6 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   @ViewChild('spouseOver65NegativeBtn') spouseOver65NegativeBtn: ElementRef;
   @ViewChild('hasSpouse') hasSpouse: ElementRef;
   @ViewChild('negativeHasSpouse') negativeHasSpouse: ElementRef;
-  @ViewChild('spouseDisabilityCreditUnset') spouseDisabilityCreditUnset: ElementRef;
   @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
   @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
   @ViewChild('assistanceYearComp') assistanceYearComp: MspAssistanceYearComponent;
