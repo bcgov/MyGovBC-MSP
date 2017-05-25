@@ -214,10 +214,10 @@
         <div style="margin-bottom: 20px">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="form-group"
+                    <div class="form-group" *ngIf="person.currentActivity === Activities.LivingInBCWithoutMSP"
                          [ngClass]="{'has-error': showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)}"
                          role="dialog" [attr.aria-labelledby]="'outsideBCLabel' + objectId">
-                      <label id="outsideBCLabel{{objectId}}"  *ngIf="person.currentActivity === Activities.LivingInBCWithoutMSP" [innerHtml]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months" class="control-label"></label>
+                      <label id="outsideBCLabel{{objectId}}" [innerHtml]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months" class="control-label"></label>
                       <div class="btn-group" role="group">
                           <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
                                   [class.msp-btn-radio]="person.declarationForOutsideOver30Days === answer.value"
