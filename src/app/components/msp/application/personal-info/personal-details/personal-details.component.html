@@ -214,7 +214,7 @@
         <div style="margin-bottom: 20px">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="form-group" *ngIf="person.currentActivity === Activities.LivingInBCWithoutMSP"
+                    <div class="form-group"
                          [ngClass]="{'has-error': showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)}"
                          role="dialog" [attr.aria-labelledby]="'outsideBCLabel' + objectId">
                       <label id="outsideBCLabel{{objectId}}" [innerHtml]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months" class="control-label"></label>
