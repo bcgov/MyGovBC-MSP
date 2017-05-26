@@ -253,7 +253,7 @@
                         </div>     
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="finAssistApp.hasSpouseOrCommonLaw">
                         <div class="checkbox checkbox-success checkbox-inline" style="margin-left: 15px">
                               <input type="checkbox" tabindex="0"
                                 name="spouseClaimForDisabilityCredit"
@@ -265,7 +265,7 @@
                             </label>
                         </div>     
                     </div>
-                    <div class="form-group" *ngIf="(finAssistApp.childrenCount > 1)">
+                    <div class="form-group" *ngIf="(finAssistApp.childrenCount > 0)">
                         <label for="childWithDisabilityCount" class="col-sm-7"> 
                           Number of chilldren who are eligible for disability credit
                         </label>
