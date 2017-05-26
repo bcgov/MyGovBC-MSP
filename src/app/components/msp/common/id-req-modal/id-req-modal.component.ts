@@ -16,27 +16,38 @@ export class MspIdReqModalComponent implements OnInit {
 
   @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
   @ViewChild('accordian') public accordian:AccordionComponent;
-  @ViewChild('modalBody') modalBodyRef: ElementRef;
+  // @ViewChild('modalBody') modalBodyRef: ElementRef;
   idRequirementContentList: IdRequirementContent[] = this.lang('./en/index.js').idRequirementContentList;
   initialDocument: number;
 
-  constructor(private renderer:Renderer){
+  // constructor(private renderer:Renderer){
 
-  }
+  // }
   ngOnInit(){
   }
   showFullSizeView(document: Documents){
     console.log('show full size modal dialog for sample ids.');
     this.initialDocument = document;
-    console.log('native element modalBodyRef %o', this.modalBodyRef.nativeElement);
-    // this.fullSizeViewModal.config.backdrop = false;
+    // console.log('native element modalBodyRef %o', this.modalBodyRef.nativeElement);
+    this.fullSizeViewModal.config.backdrop = false;
     this.fullSizeViewModal.show();
-     
+    this.showBackdrop();
     // this.modalBodyRef.nativeElement.focus();
     
   }
   hideFullSizeView() {
     this.fullSizeViewModal.hide();
+    this.hideBackdrop();
   }
+
+  showBackdrop() {
+      let el = document.createElement('div');
+      el.className = 'modal-backdrop fade in';
+      el.tabIndex = -1;
+      document.body.appendChild(el);
+  }
+  hideBackdrop() {
+      document.body.removeChild(document.querySelector('.modal-backdrop'));
+  }  
 
 }

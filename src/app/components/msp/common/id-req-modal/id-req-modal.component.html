@@ -1,10 +1,10 @@
 <div bsModal #fullSizeViewModal="bs-modal" class="modal fade" tabindex="-1" role="alertdialog"
      aria-labelledby="title"
-     aria-hidden="true" 
+     aria-hidden="true" [config]="{backdrop: false}"
      >
   <div id="idReq" class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-body" #modalBody>
+      <div class="modal-body">
         <a class="pull-right" (click)="hideFullSizeView()" aria-label="Close">
           <i class="fa fa-2x fa-times"></i>
         </a>
