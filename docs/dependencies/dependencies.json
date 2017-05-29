@@ -1,0 +1,1132 @@
+[
+  {
+    "name": "AppModule",
+    "file": "src/app/app.module.ts",
+    "providers": [],
+    "declarations": [
+      {
+        "name": "AppComponent",
+        "file": "src/app/app.component.ts",
+        "selector": "app-root",
+        "providers": [],
+        "templateUrl": [
+          "app.component.html"
+        ],
+        "styleUrls": [
+          "app.component.css"
+        ],
+        "__raw": [
+          {
+            "pos": 58,
+            "end": 81,
+            "flags": 0,
+            "kind": 261,
+            "name": {
+              "pos": 58,
+              "end": 69,
+              "flags": 0,
+              "text": "selector"
+            },
+            "initializer": {
+              "pos": 70,
+              "end": 81,
+              "flags": 0,
+              "kind": 9,
+              "text": "app-root"
+            }
+          },
+          {
+            "pos": 82,
+            "end": 120,
+            "flags": 0,
+            "kind": 261,
+            "name": {
+              "pos": 82,
+              "end": 96,
+              "flags": 0,
+              "text": "templateUrl"
+            },
+            "initializer": {
+              "pos": 97,
+              "end": 120,
+              "flags": 0,
+              "kind": 9,
+              "text": "./app.component.html"
+            }
+          },
+          {
+            "pos": 121,
+            "end": 158,
+            "flags": 0,
+            "kind": 261,
+            "name": {
+              "pos": 121,
+              "end": 133,
+              "flags": 0,
+              "text": "styleUrls"
+            },
+            "initializer": {
+              "pos": 134,
+              "end": 158,
+              "flags": 0,
+              "kind": 177,
+              "elements": [
+                {
+                  "pos": 136,
+                  "end": 157,
+                  "flags": 0,
+                  "kind": 9,
+                  "text": "./app.component.css"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "CaptchaComponent",
+        "file": "mygovbc-captcha-widget/src/captcha.component.ts",
+        "selector": "captcha",
+        "providers": [
+          {
+            "name": "DataService"
+          }
+        ],
+        "templateUrl": [],
+        "styleUrls": [],
+        "__raw": [
+          {
+            "pos": 242,
+            "end": 265,
+            "flags": 0,
+            "kind": 261,
+            "name": {
+              "pos": 242,
+              "end": 254,
+              "flags": 0,
+              "text": "selector"
+            },
+            "initializer": {
+              "pos": 255,
+              "end": 265,
+              "flags": 0,
+              "kind": 9,
+              "text": "captcha"
+            }
+          },
+          {
+            "pos": 266,
+            "end": 3661,
+            "flags": 0,
+            "kind": 261,
+            "name": {
+              "pos": 266,
+              "end": 278,
+              "flags": 0,
+              "text": "template"
+            },
+            "initializer": {
+              "pos": 279,
+              "end": 3661,
+              "flags": 0,
+              "kind": 13,
+              "text": "\n<div>\n  <form style=\"clear:both\">\n    <div [ngClass]=\"{'has-error': !!incorrectAnswer}\">\n      <div>\n        \n        <div class=\"spinner-box\" *ngIf=\"!state || state === 1\">\n          <i class=\"fa fa-spinner fa-pulse fa-3x fa-fw\" aria-hidden=\"true\"></i>\n        </div>\n        \n        <div [ngClass]=\"{'captcha-box-visible': state === 2, 'captcha-box-invisible': state !== 2}\">\n          <div>\n            <div style=\"float: left;\" #image class=\"captcha-image\"></div>\n            <audio #audioElement *ngIf=\"audio && audio.length > 0\" id=\"audioElement\" [src]=\"audio\">\n              Your browser does not support the audio element.\n            </audio>\n            <p style=\"float: left;\">\n              <a class=\"try-another-image\" href=\"javascript:void(0)\" (click)=\"playAudio()\" role=\"button\">\n                <i class=\"fa fa-play-circle-o\" aria-hidden=\"true\" role=\"alert\"></i> Play Audio\n              </a><br>\n              <a class=\"try-another-image\" href=\"javascript:void(0)\" (click)=\"retryFetchCaptcha()\" role=\"button\">\n                <i class=\"fa fa-refresh\" aria-hidden=\"true\"></i> Try another image\n              </a>\n            </p>\n          </div>\n          <div style=\"clear:both;\"></div>\n          <div>\n            <label for=\"answer\">Enter the text you either see in the orange box or you hear in the audio</label>\n            <div class=\"user-input\">\n              <input \n                type=\"text\"\n                class=\"form-control\"\n                id=\"answer\"\n                [(ngModel)]=\"answer\"\n                (input)=\"answerChanged($event)\"\n                name=\"answer\"\n                maxlength=\"6\"\n                required\n                autocorrect=\"off\" \n                autocapitalize=\"none\">\n            </div>\n          </div>\n        </div>\n\n        <div class=\"error-captcha\" *ngIf=\"state === 3\" role=\"alert\" aria-live=\"assertive\">\n          <i class=\"fa fa-exclamation-triangle fa-2x\" aria-hidden=\"true\"></i>\n          <span> Error happened while retreiving image. please \n            <a href=\"javascript:void(0)\" (click)=\"retryFetchCaptcha()\">click here</a> \n              to try again\n          </span>\n          <p>\n            {{errorFetchingImg}}\n          </p>\n        </div>\n        \n        <div class=\"spinner-box\" *ngIf=\"state == 4\" role=\"alert\" aria-live=\"assertive\">\n          <i class=\"fa fa-spinner fa-pulse fa-3x fa-fw\"></i>\n          <span>Verifying your answer...</span>\n        </div>\n        <div class=\"error-captcha\" *ngIf=\"state === 6\"  role=\"alert\" aria-live=\"assertive\">\n          <i class=\"fa fa-exclamation-triangle fa-2x\" aria-hidden=\"true\"></i>\n          <span> Error happened while verifying your answer. please \n            <a href=\"javascript:void(0)\" (click)=\"retryFetchCaptcha()\">click here</a> \n              to try again\n          </span>\n          <p>\n          </p>\n        </div>\n        \n        <div class=\"text-danger\" *ngIf=\"incorrectAnswer === true\" role=\"alert\" aria-live=\"assertive\">\n          Incorrect answer, plese try again.\n        </div>\n      </div>\n    </div>\n  </form>\n  <div class=\"confirm-correct-answer\" *ngIf=\"state === 5\" role=\"alert\" aria-live=\"assertive\">\n    <i class=\"fa fa-check success fa-2x\" aria-hidden=\"true\"></i> \n    Correct. You can submit your application now.\n  </div>\n</div>\n  \n  "
+            }
+          },
+          {
+            "pos": 3662,
+            "end": 4506,
+            "flags": 0,
+            "kind": 261,
+            "name": {
+              "pos": 3662,
+              "end": 3672,
+              "flags": 0,
+              "text": "styles"
+            },
+            "initializer": {
+              "pos": 3673,
+              "end": 4506,
+              "flags": 0,
+              "kind": 177,
+              "elements": [
+                {
+                  "pos": 3675,
+                  "end": 4505,
+                  "flags": 0,
+                  "kind": 13,
+                  "text": "\n    .confirm-correct-answer {\n      display:block;\n      \n    }\n    .confirm-correct-answer i {\n      color: green;\n    }\n    .spinner-box {\n      height: 60px;\n      margin: 6px 10px 6px 10px;\n    }\n\n    .error-captcha {\n      margin-left: 10px;\n    }\n    .error-captcha i {\n      color: darkorange;\n    }\n    .error-captcha p{\n      margin-left: 32px;\n    }\n\n    .user-input {\n      width: 300px;\n    }\n\n    .captcha-box-visible {\n      display: block\n    }\n\n    .captcha-box-invisible{\n      display: none\n    }  \n\n    .image-box {\n      position:relative\n    }\n\n    .captcha-image {\n      display: inline-block;\n      border: 1px solid darkorange;\n    }\n    .try-another-image {\n      vertical-align:text-top;\n      display: inline-block;\n      margin-left: 5px;\n    }\n\n\n  "
+                }
+              ]
+            }
+          },
+          {
+            "pos": 4507,
+            "end": 4535,
+            "flags": 0,
+            "kind": 261,
+            "name": {
+              "pos": 4507,
+              "end": 4520,
+              "flags": 0,
+              "text": "providers"
+            },
+            "initializer": {
+              "pos": 4521,
+              "end": 4535,
+              "flags": 0,
+              "kind": 177,
+              "elements": [
+                {
+                  "pos": 4523,
+                  "end": 4534,
+                  "flags": 0,
+                  "text": "DataService"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "imports": [
+      {
+        "name": "BrowserModule"
+      },
+      {
+        "name": "FormsModule"
+      },
+      {
+        "name": "HttpModule"
+      }
+    ],
+    "exports": [],
+    "bootstrap": [
+      {
+        "name": "AppComponent"
+      }
+    ],
+    "__raw": [
+      {
+        "pos": 323,
+        "end": 389,
+        "flags": 0,
+        "kind": 261,
+        "name": {
+          "pos": 323,
+          "end": 339,
+          "flags": 0,
+          "text": "declarations"
+        },
+        "initializer": {
+          "pos": 340,
+          "end": 389,
+          "flags": 0,
+          "kind": 177,
+          "multiLine": true,
+          "elements": [
+            {
+              "pos": 342,
+              "end": 360,
+              "flags": 0,
+              "text": "AppComponent"
+            },
+            {
+              "pos": 361,
+              "end": 383,
+              "flags": 0,
+              "text": "CaptchaComponent"
+            }
+          ]
+        }
+      },
+      {
+        "pos": 390,
+        "end": 463,
+        "flags": 0,
+        "kind": 261,
+        "name": {
+          "pos": 390,
+          "end": 401,
+          "flags": 0,
+          "text": "imports"
+        },
+        "initializer": {
+          "pos": 402,
+          "end": 463,
+          "flags": 0,
+          "kind": 177,
+          "multiLine": true,
+          "elements": [
+            {
+              "pos": 404,
+              "end": 423,
+              "flags": 0,
+              "text": "BrowserModule"
+            },
+            {
+              "pos": 424,
+              "end": 441,
+              "flags": 0,
+              "text": "FormsModule"
+            },
+            {
+              "pos": 442,
+              "end": 458,
+              "flags": 0,
+              "text": "HttpModule"
+            }
+          ]
+        }
+      },
+      {
+        "pos": 464,
+        "end": 481,
+        "flags": 0,
+        "kind": 261,
+        "name": {
+          "pos": 464,
+          "end": 477,
+          "flags": 0,
+          "text": "providers"
+        },
+        "initializer": {
+          "pos": 478,
+          "end": 481,
+          "flags": 0,
+          "kind": 177,
+          "elements": []
+        }
+      },
+      {
+        "pos": 482,
+        "end": 511,
+        "flags": 0,
+        "kind": 261,
+        "name": {
+          "pos": 482,
+          "end": 495,
+          "flags": 0,
+          "text": "bootstrap"
+        },
+        "initializer": {
+          "pos": 496,
+          "end": 511,
+          "flags": 0,
+          "kind": 177,
+          "elements": [
+            {
+              "pos": 498,
+              "end": 510,
+              "flags": 0,
+              "text": "AppComponent"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "Ng2CompleterModule",
+    "file": "ng2-completer/src/ng2-completer.module.ts",
+    "providers": [
+      {
+        "name": "CompleterService"
+      },
+      {
+        "name": "LocalDataFactoryProvider"
+      },
+      {
+        "name": "RemoteDataFactoryProvider"
+      }
+    ],
+    "declarations": [
+      {
+        "name": "CompleterListItemCmp",
+        "file": "src/components/completer-list-item-cmp.ts",
+        "selector": "completer-list-item",
+        "providers": [],
+        "templateUrl": [],
+        "styleUrls": [],
+        "__raw": [
+          {
+            "pos": 155,
+            "end": 191,
+            "flags": 0,
+            "kind": 261,
+            "name": {
+              "pos": 155,
+              "end": 168,
+              "flags": 0,
+              "text": "selector"
+            },
+            "initializer": {
+              "pos": 169,
+              "end": 191,
+              "flags": 0,
+              "kind": 9,
+              "text": "completer-list-item"
+            }
+          },
+          {
+            "pos": 192,
+            "end": 507,
+            "flags": 0,
+            "kind": 261,
+            "name": {
+              "pos": 192,
+              "end": 205,
+              "flags": 0,
+              "text": "template"
+            },
+            "initializer": {
+              "pos": 206,
+              "end": 507,
+              "flags": 0,
+              "kind": 13,
+              "text": "\n    <span class=\"completer-list-item-holder\" [ngClass]=\"{'completer-title': type === 'title', 'completer-description': type === 'description'}\" >\n        <span class=\"completer-list-item\" *ngFor=\"let part of parts\" [ngClass]=\"part.isMatch ? matchClass : null\">{{part.text}}</span>\n    </span>\n    "
+            }
+          }
+        ]
+      },
+      {
+        "name": "CtrCompleter"
+      },
+      {
+        "name": "CtrDropdown"
+      },
+      {
+        "name": "CtrInput"
+      },
+      {
+        "name": "CtrList"
+      },
+      {
+        "name": "CtrRow"
+      },
+      {
+        "name": "CompleterCmp",
+        "file": "src/components/completer-cmp.ts",
+        "selector": "ng2-completer",
+        "providers": [
+          {
+            "name": "COMPLETER_CONTROL_VALUE_ACCESSOR"
+          }
+        ],
+        "templateUrl": [],
+        "styleUrls": [],
+        "__raw": [
+          {
+            "pos": 804,
+            "end": 834,
+            "flags": 0,
+            "kind": 261,
+            "name": {
+              "pos": 804,
+              "end": 817,
+              "flags": 0,
+              "text": "selector"
+            },
+            "initializer": {
+              "pos": 818,
+              "end": 834,
+              "flags": 0,
+              "kind": 9,
+              "text": "ng2-completer"
+            }
+          },
+          {
+            "pos": 835,
+            "end": 3960,
+            "flags": 0,
+            "kind": 261,
+            "name": {
+              "pos": 835,
+              "end": 848,
+              "flags": 0,
+              "text": "template"
+            },
+            "initializer": {
+              "pos": 849,
+              "end": 3960,
+              "flags": 0,
+              "kind": 13,
+              "text": "\n        <div class=\"completer-holder\" ctrCompleter>\n            <input #ctrInput [attr.id]=\"inputId.length > 0 ? inputId : null\" type=\"search\" class=\"completer-input\" ctrInput [ngClass]=\"inputClass\" \n                [(ngModel)]=\"searchStr\" (ngModelChange)=\"onChange($event)\" [attr.name]=\"inputName\" [placeholder]=\"placeholder\"\n                [attr.maxlength]=\"maxChars\" [tabindex]=\"fieldTabindex\" [disabled]=\"disableInput\" \n                [clearSelected]=\"clearSelected\" [clearUnselected]=\"clearUnselected\"\n                [overrideSuggested]=\"overrideSuggested\" [openOnFocus]=\"openOnFocus\" [fillHighlighted]=\"fillHighlighted\" \n                (blur)=\"onBlur()\" (focus)=\"onFocus()\" (keyup)=\"onKeyup($event)\" (keydown)=\"onKeydown($event)\"\n                autocomplete=\"off\" autocorrect=\"off\" autocapitalize=\"off\" />\n\n            <div class=\"completer-dropdown-holder\"\n                *ctrList=\"dataService;\n                    minSearchLength: minSearchLength;\n                    pause: pause;\n                    autoMatch: autoMatch;\n                    initialValue: initialValue;\n                    autoHighlight: autoHighlight;\n                    let items = results;\n                    let searchActive = searching;\n                    let isInitialized = searchInitialized;\n                    let isOpen = isOpen;\">\n                <div class=\"completer-dropdown\" ctrDropdown *ngIf=\"isInitialized && isOpen && ((items.length > 0 || displayNoResults) || (searchActive && displaySearching))\">\n                    <div *ngIf=\"searchActive && displaySearching\" class=\"completer-searching\">{{_textSearching}}</div>\n                    <div *ngIf=\"!searchActive && (!items || items.length === 0)\" class=\"completer-no-results\">{{_textNoResults}}</div>\n                    <div class=\"completer-row-wrapper\" *ngFor=\"let item of items; let rowIndex=index\">\n                        <div class=\"completer-row\" [ctrRow]=\"rowIndex\" [dataItem]=\"item\">\n                            <div *ngIf=\"item.image || item.image === ''\" class=\"completer-image-holder\">\n                                <img *ngIf=\"item.image != ''\" src=\"{{item.image}}\" class=\"completer-image\" />\n                                <div *ngIf=\"item.image === ''\" class=\"completer-image-default\"></div>\n                            </div>\n                            <div class=\"completer-item-text\" [ngClass]=\"{'completer-item-text-image': item.image || item.image === '' }\">\n                                <completer-list-item class=\"completer-title\" [text]=\"item.title\" [matchClass]=\"matchClass\" [searchStr]=\"searchStr\" [type]=\"'title'\"></completer-list-item>\n                                <completer-list-item *ngIf=\"item.description && item.description != ''\" class=\"completer-description\" [text]=\"item.description\"\n                                    [matchClass]=\"matchClass\" [searchStr]=\"searchStr\" [type]=\"'description'\">\n                                </completer-list-item>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    "
+            }
+          },
+          {
+            "pos": 3961,
+            "end": 4945,
+            "flags": 0,
+            "kind": 261,
+            "name": {
+              "pos": 3961,
+              "end": 3972,
+              "flags": 0,
+              "text": "styles"
+            },
+            "initializer": {
+              "pos": 3973,
+              "end": 4945,
+              "flags": 0,
+              "kind": 177,
+              "elements": [
+                {
+                  "pos": 3975,
+                  "end": 4944,
+                  "flags": 0,
+                  "kind": 13,
+                  "text": "\n    .completer-dropdown {\n        border-color: #ececec;\n        border-width: 1px;\n        border-style: solid;\n        border-radius: 2px;\n        width: 250px;\n        padding: 6px;\n        cursor: pointer;\n        z-index: 9999;\n        position: absolute;\n        margin-top: -6px;\n        background-color: #ffffff;\n    }\n\n    .completer-row {\n        padding: 5px;\n        color: #000000;\n        margin-bottom: 4px;\n        clear: both;\n        display: inline-block;\n        width: 103%;\n    }\n\n    .completer-selected-row {\n        background-color: lightblue;\n        color: #ffffff;\n    }\n\n    .completer-description {\n        font-size: 14px;\n    }\n\n    .completer-image-default {\n        width: 16px; \n        height: 16px;\n        background-image: url(\"demo/res/img/default.png\");\n    }\n\n    .completer-image-holder {\n        float: left;\n        width: 10%;\n    }\n    .completer-item-text-image {\n        float: right;\n        width: 90%;\n    }\n    "
+                }
+              ]
+            }
+          },
+          {
+            "pos": 4946,
+            "end": 4996,
+            "flags": 0,
+            "kind": 261,
+            "name": {
+              "pos": 4946,
+              "end": 4960,
+              "flags": 0,
+              "text": "providers"
+            },
+            "initializer": {
+              "pos": 4961,
+              "end": 4996,
+              "flags": 0,
+              "kind": 177,
+              "elements": [
+                {
+                  "pos": 4963,
+                  "end": 4995,
+                  "flags": 0,
+                  "text": "COMPLETER_CONTROL_VALUE_ACCESSOR"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "imports": [
+      {
+        "name": "CommonModule"
+      },
+      {
+        "name": "FormsModule"
+      },
+      {
+        "name": "HttpModule"
+      }
+    ],
+    "exports": [
+      {
+        "name": "CompleterCmp"
+      },
+      {
+        "name": "CompleterListItemCmp"
+      },
+      {
+        "name": "CtrCompleter"
+      },
+      {
+        "name": "CtrDropdown"
+      },
+      {
+        "name": "CtrInput"
+      },
+      {
+        "name": "CtrList"
+      },
+      {
+        "name": "CtrRow"
+      }
+    ],
+    "bootstrap": [],
+    "__raw": [
+      {
+        "pos": 761,
+        "end": 844,
+        "flags": 0,
+        "kind": 261,
+        "name": {
+          "pos": 761,
+          "end": 773,
+          "flags": 0,
+          "text": "imports"
+        },
+        "initializer": {
+          "pos": 774,
+          "end": 844,
+          "flags": 0,
+          "kind": 177,
+          "multiLine": true,
+          "elements": [
+            {
+              "pos": 776,
+              "end": 797,
+              "flags": 0,
+              "text": "CommonModule"
+            },
+            {
+              "pos": 798,
+              "end": 818,
+              "flags": 0,
+              "text": "FormsModule"
+            },
+            {
+              "pos": 819,
+              "end": 838,
+              "flags": 0,
+              "text": "HttpModule"
+            }
+          ]
+        }
+      },
+      {
+        "pos": 845,
+        "end": 1016,
+        "flags": 0,
+        "kind": 261,
+        "name": {
+          "pos": 845,
+          "end": 862,
+          "flags": 0,
+          "text": "declarations"
+        },
+        "initializer": {
+          "pos": 863,
+          "end": 1016,
+          "flags": 0,
+          "kind": 177,
+          "multiLine": true,
+          "elements": [
+            {
+              "pos": 865,
+              "end": 894,
+              "flags": 0,
+              "text": "CompleterListItemCmp"
+            },
+            {
+              "pos": 895,
+              "end": 916,
+              "flags": 0,
+              "text": "CtrCompleter"
+            },
+            {
+              "pos": 917,
+              "end": 937,
+              "flags": 0,
+              "text": "CtrDropdown"
+            },
+            {
+              "pos": 938,
+              "end": 955,
+              "flags": 0,
+              "text": "CtrInput"
+            },
+            {
+              "pos": 956,
+              "end": 972,
+              "flags": 0,
+              "text": "CtrList"
+            },
+            {
+              "pos": 973,
+              "end": 988,
+              "flags": 0,
+              "text": "CtrRow"
+            },
+            {
+              "pos": 989,
+              "end": 1010,
+              "flags": 0,
+              "text": "CompleterCmp"
+            }
+          ]
+        }
+      },
+      {
+        "pos": 1017,
+        "end": 1183,
+        "flags": 0,
+        "kind": 261,
+        "name": {
+          "pos": 1017,
+          "end": 1029,
+          "flags": 0,
+          "text": "exports"
+        },
+        "initializer": {
+          "pos": 1030,
+          "end": 1183,
+          "flags": 0,
+          "kind": 177,
+          "multiLine": true,
+          "elements": [
+            {
+              "pos": 1032,
+              "end": 1053,
+              "flags": 0,
+              "text": "CompleterCmp"
+            },
+            {
+              "pos": 1054,
+              "end": 1083,
+              "flags": 0,
+              "text": "CompleterListItemCmp"
+            },
+            {
+              "pos": 1084,
+              "end": 1105,
+              "flags": 0,
+              "text": "CtrCompleter"
+            },
+            {
+              "pos": 1106,
+              "end": 1126,
+              "flags": 0,
+              "text": "CtrDropdown"
+            },
+            {
+              "pos": 1127,
+              "end": 1144,
+              "flags": 0,
+              "text": "CtrInput"
+            },
+            {
+              "pos": 1145,
+              "end": 1161,
+              "flags": 0,
+              "text": "CtrList"
+            },
+            {
+              "pos": 1162,
+              "end": 1177,
+              "flags": 0,
+              "text": "CtrRow"
+            }
+          ]
+        }
+      },
+      {
+        "pos": 1184,
+        "end": 1301,
+        "flags": 0,
+        "kind": 261,
+        "name": {
+          "pos": 1184,
+          "end": 1198,
+          "flags": 0,
+          "text": "providers"
+        },
+        "initializer": {
+          "pos": 1199,
+          "end": 1301,
+          "flags": 0,
+          "kind": 177,
+          "multiLine": true,
+          "elements": [
+            {
+              "pos": 1201,
+              "end": 1226,
+              "flags": 0,
+              "text": "CompleterService"
+            },
+            {
+              "pos": 1227,
+              "end": 1260,
+              "flags": 0,
+              "text": "LocalDataFactoryProvider"
+            },
+            {
+              "pos": 1261,
+              "end": 1295,
+              "flags": 0,
+              "text": "RemoteDataFactoryProvider"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "name": "AppModule",
+    "file": "src/app/app.module.ts",
+    "providers": [
+      {
+        "name": "{ provide: 'appConstants', useValue: appConstants }"
+      }
+    ],
+    "declarations": [
+      {
+        "name": "HomeComponent"
+      },
+      {
+        "name": "CoreHeaderComponent"
+      },
+      {
+        "name": "CoreFooterComponent"
+      },
+      {
+        "name": "GeneralAppComponent",
+        "file": "src/app/app.component.ts",
+        "selector": "general-app",
+        "providers": [],
+        "templateUrl": [
+          "app.component.html"
+        ],
+        "styleUrls": [],
+        "__raw": [
+          {
+            "pos": 169,
+            "end": 195,
+            "flags": 0,
+            "kind": 261,
+            "name": {
+              "pos": 169,
+              "end": 180,
+              "flags": 0,
+              "text": "selector"
+            },
+            "initializer": {
+              "pos": 181,
+              "end": 195,
+              "flags": 0,
+              "kind": 9,
+              "text": "general-app"
+            }
+          },
+          {
+            "pos": 196,
+            "end": 234,
+            "flags": 0,
+            "kind": 261,
+            "name": {
+              "pos": 196,
+              "end": 210,
+              "flags": 0,
+              "text": "templateUrl"
+            },
+            "initializer": {
+              "pos": 211,
+              "end": 234,
+              "flags": 0,
+              "kind": 9,
+              "text": "./app.component.html"
+            }
+          }
+        ]
+      }
+    ],
+    "imports": [
+      {
+        "name": "BrowserModule"
+      },
+      {
+        "name": "MspModule"
+      },
+      {
+        "ns": "RouterModule",
+        "name": "RouterModule.forRoot(args)"
+      }
+    ],
+    "exports": [],
+    "bootstrap": [
+      {
+        "name": "CoreHeaderComponent"
+      },
+      {
+        "name": "CoreFooterComponent"
+      },
+      {
+        "name": "GeneralAppComponent"
+      }
+    ],
+    "__raw": [
+      {
+        "pos": 540,
+        "end": 687,
+        "flags": 0,
+        "kind": 261,
+        "name": {
+          "pos": 540,
+          "end": 550,
+          "flags": 0,
+          "text": "imports"
+        },
+        "initializer": {
+          "pos": 551,
+          "end": 687,
+          "flags": 0,
+          "kind": 177,
+          "multiLine": true,
+          "elements": [
+            {
+              "pos": 553,
+              "end": 571,
+              "flags": 0,
+              "text": "BrowserModule"
+            },
+            {
+              "pos": 572,
+              "end": 586,
+              "flags": 0,
+              "text": "MspModule"
+            },
+            {
+              "pos": 587,
+              "end": 678,
+              "flags": 0,
+              "kind": 181,
+              "expression": {
+                "pos": 587,
+                "end": 612,
+                "flags": 0,
+                "kind": 179,
+                "expression": {
+                  "pos": 587,
+                  "end": 604,
+                  "flags": 0,
+                  "text": "RouterModule"
+                },
+                "name": {
+                  "pos": 605,
+                  "end": 612,
+                  "flags": 0,
+                  "text": "forRoot"
+                }
+              },
+              "arguments": [
+                {
+                  "pos": 613,
+                  "end": 677,
+                  "flags": 0,
+                  "kind": 177,
+                  "multiLine": true,
+                  "elements": [
+                    {
+                      "pos": 614,
+                      "end": 671,
+                      "flags": 0,
+                      "kind": 178,
+                      "properties": [
+                        {
+                          "pos": 622,
+                          "end": 631,
+                          "flags": 0,
+                          "kind": 261,
+                          "name": {
+                            "pos": 622,
+                            "end": 627,
+                            "flags": 0,
+                            "text": "path"
+                          },
+                          "initializer": {
+                            "pos": 628,
+                            "end": 631,
+                            "flags": 0,
+                            "kind": 9,
+                            "text": ""
+                          }
+                        },
+                        {
+                          "pos": 632,
+                          "end": 650,
+                          "flags": 0,
+                          "kind": 261,
+                          "name": {
+                            "pos": 632,
+                            "end": 643,
+                            "flags": 0,
+                            "text": "redirectTo"
+                          },
+                          "initializer": {
+                            "pos": 644,
+                            "end": 650,
+                            "flags": 0,
+                            "kind": 9,
+                            "text": "msp"
+                          }
+                        },
+                        {
+                          "pos": 651,
+                          "end": 669,
+                          "flags": 0,
+                          "kind": 261,
+                          "name": {
+                            "pos": 651,
+                            "end": 661,
+                            "flags": 0,
+                            "text": "pathMatch"
+                          },
+                          "initializer": {
+                            "pos": 662,
+                            "end": 669,
+                            "flags": 0,
+                            "kind": 9,
+                            "text": "full"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "pos": 688,
+        "end": 796,
+        "flags": 0,
+        "kind": 261,
+        "name": {
+          "pos": 688,
+          "end": 703,
+          "flags": 0,
+          "text": "declarations"
+        },
+        "initializer": {
+          "pos": 704,
+          "end": 796,
+          "flags": 0,
+          "kind": 177,
+          "multiLine": true,
+          "elements": [
+            {
+              "pos": 706,
+              "end": 724,
+              "flags": 0,
+              "text": "HomeComponent"
+            },
+            {
+              "pos": 725,
+              "end": 745,
+              "flags": 0,
+              "text": "CoreHeaderComponent"
+            },
+            {
+              "pos": 746,
+              "end": 766,
+              "flags": 0,
+              "text": "CoreFooterComponent"
+            },
+            {
+              "pos": 767,
+              "end": 792,
+              "flags": 0,
+              "text": "GeneralAppComponent"
+            }
+          ]
+        }
+      },
+      {
+        "pos": 797,
+        "end": 865,
+        "flags": 0,
+        "kind": 261,
+        "name": {
+          "pos": 797,
+          "end": 812,
+          "flags": 0,
+          "text": "providers"
+        },
+        "initializer": {
+          "pos": 813,
+          "end": 865,
+          "flags": 0,
+          "kind": 177,
+          "elements": [
+            {
+              "pos": 815,
+              "end": 864,
+              "flags": 0,
+              "kind": 178,
+              "properties": [
+                {
+                  "pos": 816,
+                  "end": 839,
+                  "flags": 0,
+                  "kind": 261,
+                  "name": {
+                    "pos": 816,
+                    "end": 823,
+                    "flags": 0,
+                    "text": "provide"
+                  },
+                  "initializer": {
+                    "pos": 824,
+                    "end": 839,
+                    "flags": 0,
+                    "kind": 9,
+                    "text": "appConstants"
+                  }
+                },
+                {
+                  "pos": 840,
+                  "end": 863,
+                  "flags": 0,
+                  "kind": 261,
+                  "name": {
+                    "pos": 840,
+                    "end": 849,
+                    "flags": 0,
+                    "text": "useValue"
+                  },
+                  "initializer": {
+                    "pos": 850,
+                    "end": 863,
+                    "flags": 0,
+                    "text": "appConstants"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "pos": 866,
+        "end": 943,
+        "flags": 0,
+        "kind": 261,
+        "name": {
+          "pos": 866,
+          "end": 878,
+          "flags": 0,
+          "text": "bootstrap"
+        },
+        "initializer": {
+          "pos": 879,
+          "end": 943,
+          "flags": 0,
+          "kind": 177,
+          "elements": [
+            {
+              "pos": 881,
+              "end": 900,
+              "flags": 0,
+              "text": "CoreHeaderComponent"
+            },
+            {
+              "pos": 901,
+              "end": 921,
+              "flags": 0,
+              "text": "CoreFooterComponent"
+            },
+            {
+              "pos": 922,
+              "end": 942,
+              "flags": 0,
+              "text": "GeneralAppComponent"
+            }
+          ]
+        }
+      }
+    ]
+  }
+]
