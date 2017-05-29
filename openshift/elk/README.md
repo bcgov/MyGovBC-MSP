@@ -22,6 +22,8 @@ The ELK has these features
 
 The reason to choose older version 2.4 is that some kernel sysctl settings on BCGovt's on-premise OpenShift cluster hosts don't meet ELK 5's [prerequisites](https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config.html)
 
+The reason to choose older version 2.4 is that some kernel sysctl settings on BCGovt's on-premise OpenShift cluster hosts don't meet ELK 5's [prerequisites](https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config.html)
+
 ## Deployment
 
 ### Prerequisites 
