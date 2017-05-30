@@ -4,8 +4,8 @@
 
 ### @Output() isFormValid on each component
 
-*. Each component should declare an output property `isFormValid`. It is throught this output property that 
-the component can bubble up its form state to its parent, then the parent to grandparent all the way
+*. Each component should declare an output property `isFormValid`. It is through this output property that 
+the component can bubble up its form state to its parent, from parent to grandparent all the way
 up to the component that is linked to a route.
 ```
   @Output() isFormValid = new EventEmitter<boolean>();
