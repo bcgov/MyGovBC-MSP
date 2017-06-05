@@ -46,7 +46,7 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
   inputDate() {
     let y:number = this.year as number;
     let m:number = this.month as number;
-    let d:number = this.month as number;
+    let d:number = this.day as number;
     return moment({
       year: y,
       month: m - 1, // moment use 0 index for month :(
@@ -95,6 +95,9 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
   }
 
   futureCheck(): boolean {
+
+    console.log('today is: ' + this.today.format('DD-MM-YYYY') + '  input date is: ' + this.inputDate().format('DD-MM-YYYY'));
+    console.log('isAfter returns ' + this.inputDate().isAfter(this.today));
 
     // Check not in future
     if (this.inputDate().isAfter(this.today)) {
