@@ -96,6 +96,9 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
 
   futureCheck(): boolean {
 
+    console.log('today is: ' + this.today.format('DD-MM-YYYY') + '  input date is: ' + this.inputDate().format('DD-MM-YYYY'));
+    console.log('isAfter returns ' + this.inputDate().isAfter(this.today));
+
     // Check not in future
     if (this.inputDate().isAfter(this.today)) {
       return false;
