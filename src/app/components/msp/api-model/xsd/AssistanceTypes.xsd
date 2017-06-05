@@ -48,6 +48,7 @@
 	<xs:complexType name="AssistanceSpouseType">
 		<xs:sequence>
        		<xs:element name="name" type="ct:NameType" maxOccurs="1"/>
+			<xs:element name="birthDate" type="xs:date" minOccurs="0"/>
        		<xs:element name="phn" type="ct:PHNType" minOccurs="0"/>
        		<xs:element name="SIN" type="ct:SINType" minOccurs="0"/>
        		<xs:element name="spouseDeduction" type="xs:decimal" minOccurs="0"/>

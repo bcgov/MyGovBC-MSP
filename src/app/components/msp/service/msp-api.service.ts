@@ -424,12 +424,16 @@ export class MspApiService {
 
       /*
        name: ct.NameType;
+       birthDate?: string;
        phn?: number;
        SIN?: number;
        spouseDeduction?: number;
        spouseSixtyFiveDeduction?: number;
        */
       to.application.assistanceApplication.spouse.name = this.convertName(from.spouse);
+      if (from.spouse.hasDob) {
+        to.application.assistanceApplication.spouse.birthDate = from.spouse.dob.format(this.ISO8601DateFormat);
+      }
       if (from.spouse.previous_phn) {
         to.application.assistanceApplication.spouse.phn = Number(from.spouse.previous_phn.replace(new RegExp("[^0-9]", "g"), ""));
       }

@@ -53,6 +53,7 @@ export class AssistanceApplicationTypeFactory {
 
 interface _AssistanceSpouseType extends BaseType {
 	name: ct.NameType;
+	birthDate?: string;
 	phn?: number;
 	SIN?: number;
 	spouseDeduction?: number;
@@ -64,7 +65,7 @@ export var AssistanceSpouseType: { new(): AssistanceSpouseType };
 export class AssistanceSpouseTypeFactory {
 	static make(): AssistanceSpouseType {
 		let instance = <AssistanceSpouseType>{};
-		instance._sequence = ["name", "phn", "SIN", "spouseDeduction",
+		instance._sequence = ["name", "birthDate", "phn", "SIN", "spouseDeduction",
 			"spouseSixtyFiveDeduction"];
 		return instance;
 	}
