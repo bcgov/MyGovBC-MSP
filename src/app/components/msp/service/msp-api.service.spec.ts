@@ -98,7 +98,7 @@ describe('MspApiService', () => {
     app.spouse.gender = Gender.Male;
 
     app.spouse.status = StatusInCanada.TemporaryResident;
-    app.spouse.currentActivity = Activities.ReligousWorker;
+    app.spouse.currentActivity = Activities.ReligiousWorker;
     app.spouse.previous_phn = "912345678";
     app.spouse.movedFromProvinceOrCountry = "BC";
     app.spouse.arrivalToBCDay = 1;

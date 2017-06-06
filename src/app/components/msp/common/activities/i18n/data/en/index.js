@@ -17,7 +17,7 @@ enum Activities {
     MovingFromCountry,
     WorkingInBC,
     StudyingInBC,
-    ReligousWorker,
+    ReligiousWorker,
     SpouseOrDep,
     Diplomat
 } */

@@ -695,7 +695,7 @@ export class MspApiService {
      willBeAway: WillBeAwayType;
      */
 
-    //("Citizen" | "PermanentResident" | "WorkPermit" | "StudyPermit" | "Diplomat" | "VisitorPermit");
+    //("Citizen" | "PermanentResident" | "WorkPermit" | "StudyPermit" | "Diplomat" | "ReligiousWorker" | "VisitorPermit");
     to.citizenshipStatus = BasicCitizenshipTypeFactory.make();
     switch (from.status) {
       case StatusInCanada.CitizenAdult:
@@ -714,6 +714,9 @@ export class MspApiService {
             break;
           case Activities.Diplomat:
             to.citizenshipStatus.citizenshipType = "Diplomat";
+            break;
+          case Activities.ReligiousWorker:
+            to.citizenshipStatus.citizenshipType = "ReligiousWorker";
             break;
           case Activities.Visiting:
           default:
