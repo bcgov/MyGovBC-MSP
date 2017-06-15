@@ -6,6 +6,9 @@
         <div>
           <p [innerHTML]="lang('./en/index.js').whatYearsToApplyForDetails" tabindex="0">
           </p>
+            <!--DEF-74 KPS-->
+            <p [innerHTML]="lang('./en/index.js').rateReduction" tabindex="0">
+            </p>
         </div>
 
         <div *ngIf="assistanceYearsList && assistanceYearsList.length > 0"> 

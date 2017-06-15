@@ -23,6 +23,9 @@ module.exports = {
   invalidNumber: 'Invalid number, use numbers and a period only, e.g., 12345.67',
   consentProcessName: 'apply for Premium Assistance',
   whatYearsToApplyFor: 'What years would you like to apply for?',
-  whatYearsToApplyForDetails: 'Apply for any years you may have qualified for. In step 3, you will need to include your Notice of Assessment or Reassessment from Canada Revenue Agency.'
+  //DEF-74 KPS
+    rateReduction: 'If you are applying for the January 1, 2018 Premium Assistance rate reduction, please select only the most recent tax year.',
+  whatYearsToApplyForDetails: 'Apply for any years you may have qualified for. In a subsequent step, you will need to include your Notice of Assessment or Reassessment from Canada Revenue Agency.'
+
 }
 

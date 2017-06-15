@@ -80,6 +80,7 @@ import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-loc
 import {MspApiService} from "./service/msp-api.service";
 import {MspLogService} from "./service/log.service"
 import ProcessService from "./service/process.service";
+import {AssistanceInitialEligibilityCheckComponent} from "./assistance/initial-eligibility-check/initial-eligibility-check.component";
 
 let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
@@ -160,7 +161,12 @@ let localStorageServiceConfig = {
               {
                 path: '',
                 redirectTo: 'prepare',
+                //redirectTo: 'initial-eligibility-check',
                 pathMatch: 'full'
+              },
+              {
+                path: 'initial-eligibility-check',
+                component: AssistanceInitialEligibilityCheckComponent
               },
               {
                 path: 'prepare',
@@ -259,6 +265,7 @@ let localStorageServiceConfig = {
 
     // Assistance
     AssistanceComponent,
+    AssistanceInitialEligibilityCheckComponent,
     AssistancePrepareComponent,
     AssistancePersonalInfoComponent,
     AssistancePersonalDetailComponent,
