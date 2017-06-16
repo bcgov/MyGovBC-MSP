@@ -42,7 +42,7 @@ describe('AssistancePersonalInfoComponent Test', () => {
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent, MspCountryComponent,
         Mod11CheckValidator, MspGenderComponent, MspCancelComponent, MspLoggerDirective,
         CalendarYearFormatter,CalendarYearValidator,CalendarDayValidator],
-      imports: [FormsModule, Ng2CompleterModule, ModalModule, HttpModule,RouterTestingModule],
+      imports: [FormsModule, Ng2CompleterModule, ModalModule.forRoot(), HttpModule,RouterTestingModule],
       providers: [MspDataService,CompletenessCheckService, MspLogService,ValidationSerivce,ProcessService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

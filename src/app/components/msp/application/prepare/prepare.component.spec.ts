@@ -23,7 +23,7 @@ describe('PrepareComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [PrepareComponent, MspConsentModalComponent, MspCancelComponent, MspLoggerDirective],
-      imports: [FormsModule, Ng2BootstrapModule, HttpModule, RouterTestingModule],
+      imports: [FormsModule, Ng2BootstrapModule.forRoot(), HttpModule, RouterTestingModule],
       providers: [MspDataService, MspLogService, ProcessService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

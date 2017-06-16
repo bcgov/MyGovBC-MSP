@@ -15,7 +15,7 @@ describe('MspIdReqModalComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MspIdReqModalComponent],
-      imports: [FormsModule, RouterTestingModule, ModalModule, AccordionModule],
+      imports: [FormsModule, RouterTestingModule, ModalModule.forRoot(), AccordionModule.forRoot()],
       providers: [MspDataService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

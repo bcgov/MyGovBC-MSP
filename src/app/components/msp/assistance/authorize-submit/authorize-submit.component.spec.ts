@@ -28,7 +28,7 @@ describe('AssistanceAuthorizeSubmitComponent Test', () => {
     TestBed.configureTestingModule({
       declarations: [AssistanceAuthorizeSubmitComponent, FileUploaderComponent, ThumbnailComponent, MspCancelComponent,
         MspImageErrorModalComponent,MspLoggerDirective, MspLoggerDirective, CaptchaComponent],
-      imports: [FormsModule, Ng2BootstrapModule, HttpModule, RouterTestingModule],
+      imports: [FormsModule, Ng2BootstrapModule.forRoot(), HttpModule, RouterTestingModule],
       providers: [MspDataService, MspLogService,CompletenessCheckService,ValidationService,ProcessService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

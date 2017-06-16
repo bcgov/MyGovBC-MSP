@@ -23,7 +23,7 @@ describe('FileUploaderComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [FileUploaderComponent, ThumbnailComponent],
-      imports: [FormsModule, ModalModule, HttpModule],
+      imports: [FormsModule, ModalModule.forRoot(), HttpModule],
       providers: [MspDataService, MspLogService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

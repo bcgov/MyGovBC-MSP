@@ -29,7 +29,7 @@ describe('AssistanceReviewComponent', () => {
       declarations: [AssistanceReviewComponent, MspPersonCardComponent, MspContactCardComponent,
         EligibilityCardComponent, MspAddressCardPartComponent, ThumbnailComponent, MspCancelComponent,
         MspLoggerDirective],
-      imports: [FormsModule, RouterTestingModule, Ng2BootstrapModule, HttpModule],
+      imports: [FormsModule, RouterTestingModule, Ng2BootstrapModule.forRoot(), HttpModule],
       providers: [MspDataService,MspLogService, ProcessService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

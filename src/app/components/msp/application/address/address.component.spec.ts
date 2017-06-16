@@ -33,7 +33,7 @@ describe('Application Address Component Test', () => {
             declarations: [AddressComponent, MspAddressComponent, MspPhoneComponent, MspProvinceComponent,
                 MspDepartureDateComponent, MspReturnDateComponent, MspCountryComponent,
                 MspCancelComponent, MspLoggerDirective],
-            imports: [FormsModule, Ng2CompleterModule, ModalModule, HttpModule, RouterTestingModule],
+            imports: [FormsModule, Ng2CompleterModule, ModalModule.forRoot(), HttpModule, RouterTestingModule],
             providers: [MspDataService, CompletenessCheckService, MspLogService,ValidationService, ProcessService,
                 LocalStorageService,{
                     provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

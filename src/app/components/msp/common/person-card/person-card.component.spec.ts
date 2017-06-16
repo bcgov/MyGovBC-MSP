@@ -17,7 +17,7 @@ describe('MspPersonCardComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MspPersonCardComponent, MspAddressCardPartComponent, ThumbnailComponent],
-      imports: [FormsModule, ModalModule, RouterTestingModule],
+      imports: [FormsModule, ModalModule.forRoot(), RouterTestingModule],
       providers: [MspDataService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
