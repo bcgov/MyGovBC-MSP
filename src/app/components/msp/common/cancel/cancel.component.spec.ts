@@ -21,7 +21,7 @@ describe('MspCancelComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MspCancelComponent, MspAddressCardPartComponent, MspLoggerDirective],
-      imports: [FormsModule, RouterTestingModule, Ng2BootstrapModule, HttpModule],
+      imports: [FormsModule, RouterTestingModule, Ng2BootstrapModule.forRoot(), HttpModule],
       providers: [MspDataService, MspLogService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

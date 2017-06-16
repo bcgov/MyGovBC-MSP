@@ -44,7 +44,7 @@ describe('PersonalDetailsComponent', () => {
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,
         MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspImageErrorModalComponent,
         CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator],
-      imports: [FormsModule, Ng2CompleterModule, ModalModule, AccordionModule],
+      imports: [FormsModule, Ng2CompleterModule, ModalModule.forRoot(), AccordionModule.forRoot()],
       providers: [MspDataService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
