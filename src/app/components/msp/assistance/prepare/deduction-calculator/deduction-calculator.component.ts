@@ -212,7 +212,7 @@ export class DeductionCalculatorComponent implements DoCheck {
     let applicantAgeSpecified = !(this.application.ageOver65 === null || this.application.ageOver65 === undefined);
 
     // check the net income with pattern "^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
-    let patt = /^[1-9]{1}[0-9]{0,5}(\.[0-9]{1,2}){0,1}$/g;
+    let patt = /^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2}){0,1}$/g;
     let netIncomeValid = false;
     if (this.application.netIncomelastYear === null || this.application.netIncomelastYear === undefined) {
       netIncomeValid = false;
