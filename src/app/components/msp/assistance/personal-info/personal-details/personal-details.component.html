@@ -8,14 +8,9 @@
     <div class="col-md-4">
       <msp-birthdate #birthdate
                      [person]="person"
-                     (onChange)="onChange.emit($event)">
-      </msp-birthdate>
-      <!-- KPS Removed ngif to expose birthdate for spouse
-      <msp-birthdate #birthdate
-                     [person]="person"
       *ngIf="!person.relationship"
       (onChange)="onChange.emit($event)">
-      </msp-birthdate>-->
+      </msp-birthdate>
     </div>
     <div class="col-sm-4">
       <div class="form-group">

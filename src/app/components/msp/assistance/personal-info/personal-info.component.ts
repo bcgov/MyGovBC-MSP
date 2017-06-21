@@ -15,7 +15,8 @@ import ProcessService from "../../service/process.service";
   templateUrl: './personal-info.component.html'
 })
 export class AssistancePersonalInfoComponent extends BaseComponent{
-  static ProcessStepNum = 1;
+  //DEF-74 KPS
+  static ProcessStepNum = 2;
 
   lang = require('./i18n');
 
@@ -34,9 +35,6 @@ export class AssistancePersonalInfoComponent extends BaseComponent{
     this.financialAssistApplication = this.dataService.finAssistApp;
   }
 
-  ngOnInit(){
-    this.initProcessMembers(AssistancePersonalInfoComponent.ProcessStepNum, this._processService);
-  }
   ngAfterViewInit() {
     super.ngAfterViewInit();
 
@@ -53,6 +51,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent{
   }
   
   onSubmit(form: NgForm){
+    this._processService.setStep(AssistancePersonalInfoComponent.ProcessStepNum, true);
     this._router.navigate(['/msp/assistance/retro']);
   }
 

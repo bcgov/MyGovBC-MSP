@@ -10,10 +10,9 @@
             <p [innerHTML]="lang('./en/index.js').rateReduction" tabindex="0">
             </p>
         </div>
-
-        <div *ngIf="assistanceYearsList && assistanceYearsList.length > 0"> 
+        <div *ngIf="assistanceYearsList && assistanceYearsList.length > 0">
           <msp-assistance-year #assistanceYearComp *ngFor="let assistanceYear of assistanceYearsList"
-            [assistanceYear]='assistanceYear'
+           [assistanceYear]='assistanceYear'
             (updateAssistanceYear) = "onAssistanceYearUpdate($event)">
           </msp-assistance-year>
         </div>

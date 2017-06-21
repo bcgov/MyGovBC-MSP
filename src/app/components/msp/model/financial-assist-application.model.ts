@@ -28,6 +28,10 @@ export class FinancialAssistApplication implements ApplicationBase {
 
   infoCollectionAgreement: boolean = false;
 
+  //DEF-74 KPS
+  citizenshipQ:boolean;
+  incomeTaxQ:boolean;
+
   applicantClaimForAttendantCareExpense:boolean = false;
   spouseClaimForAttendantCareExpense:boolean = false;
   childClaimForAttendantCareExpense:boolean = false;

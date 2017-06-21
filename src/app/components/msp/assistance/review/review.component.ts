@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
   templateUrl: './review.component.html'
 })
 export class AssistanceReviewComponent {
-  static ProcessStepNum = 3;
+  static ProcessStepNum = 4;
 
   lang = require('./i18n');
   application: FinancialAssistApplication;

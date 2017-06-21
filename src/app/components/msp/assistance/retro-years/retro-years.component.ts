@@ -14,7 +14,7 @@ import ProcessService from "../../service/process.service";
 })
 export class AssistanceRetroYearsComponent implements AfterViewInit, DoCheck{
 
-  static ProcessStepNum = 2;
+  static ProcessStepNum = 3;
   lang = require('./i18n');
   application: FinancialAssistApplication;
 
