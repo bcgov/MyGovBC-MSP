@@ -14,7 +14,7 @@ describe('ThumbnailComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ThumbnailComponent],
-      imports: [FormsModule, ModalModule],
+      imports: [FormsModule, ModalModule.forRoot()],
       providers: [MspDataService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

@@ -28,7 +28,7 @@ describe('ReviewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ReviewComponent, MspPersonCardComponent, MspAddressCardPartComponent,
         MspContactCardComponent, ThumbnailComponent, MspCancelComponent, MspLoggerDirective, CaptchaComponent],
-      imports: [FormsModule, ModalModule, RouterTestingModule, HttpModule],
+      imports: [FormsModule, ModalModule.forRoot(), RouterTestingModule, HttpModule],
       providers: [MspDataService, MspLogService, ProcessService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

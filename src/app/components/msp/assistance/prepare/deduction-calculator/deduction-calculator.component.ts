@@ -209,9 +209,22 @@ export class DeductionCalculatorComponent implements DoCheck {
       !(this.application.hasSpouseOrCommonLaw === null || this.application.hasSpouseOrCommonLaw === undefined);
 
     let spouseAgeSpecified = !(this.application.spouseAgeOver65 === null || this.application.spouseAgeOver65 === undefined);
-    let applicantAgeSpecified = !(this.application.ageOver65 === null || this.application.ageOver65 == undefined);
+    let applicantAgeSpecified = !(this.application.ageOver65 === null || this.application.ageOver65 === undefined);
 
-    if (this.applicantIncomeInfoProvided && applicantAgeSpecified && spouseSpecified) {
+    // check the net income with pattern "^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
+    let patt = /^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2}){0,1}$/g;
+    let netIncomeValid = false;
+    if (this.application.netIncomelastYear === null || this.application.netIncomelastYear === undefined) {
+      netIncomeValid = false;
+    }
+    else {
+      let pm = this.application.netIncomelastYear.toString().match(patt);
+      if (pm && !(pm === null) && pm[0] && ! (pm[0] === null)) {
+        netIncomeValid = this.application.netIncomelastYear.toString() === pm[0];
+      }
+    }
+
+    if (this.applicantIncomeInfoProvided && applicantAgeSpecified && spouseSpecified && netIncomeValid) {
       if (this.application.hasSpouseOrCommonLaw) {
         return spouseAgeSpecified && this.attendantCareExpenseReceiptsProvided;
       } else {

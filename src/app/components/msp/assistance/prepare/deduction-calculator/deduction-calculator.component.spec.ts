@@ -22,7 +22,7 @@ describe('DeductionCalculatorComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [DeductionCalculatorComponent, MspCancelComponent, MspLoggerDirective],
-      imports: [RouterTestingModule, FormsModule, ModalModule, HttpModule],
+      imports: [RouterTestingModule, FormsModule, ModalModule.forRoot(), HttpModule],
       providers: [MspDataService,MspLogService, ProcessService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig

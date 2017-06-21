@@ -5,10 +5,10 @@ import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 
-import { AlertModule } from 'ng2-bootstrap/components/alert';
-import { ProgressbarModule } from 'ng2-bootstrap/components/progressbar';
-import { ModalModule } from 'ng2-bootstrap/components/modal';
-import { AccordionModule } from 'ng2-bootstrap/components/accordion';
+import { AlertModule } from 'ng2-bootstrap/alert';
+import { ProgressbarModule } from 'ng2-bootstrap/progressbar';
+import { ModalModule } from 'ng2-bootstrap/modal';
+import { AccordionModule } from 'ng2-bootstrap/accordion';
 import { Ng2CompleterModule } from "ng2-completer";
 let CaptchaComponent = require("mygovbc-captcha-widget/component").CaptchaComponent;
 

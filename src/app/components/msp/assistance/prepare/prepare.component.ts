@@ -373,6 +373,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
           assistYear.apply = false;
           assistYear.year = yearNum;
           assistYear.docsRequired = true;
+          assistYear.currentYear = this.finAssistApp.MostRecentTaxYear;
 
           if(yearNum === this.finAssistApp.MostRecentTaxYear){
             assistYear.docsRequired = false;
