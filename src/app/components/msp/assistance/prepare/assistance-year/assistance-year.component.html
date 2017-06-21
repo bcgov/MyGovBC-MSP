@@ -2,5 +2,12 @@
   <input #yearInput type="checkbox" [ngModel] ="assistanceYear.apply"
     id="checkbox-{{assistanceYear.year}}"
     (ngModelChange)="update($event)">
-  <label for="checkbox-{{assistanceYear.year}}" >{{assistanceYear.year}}</label>
+  <label for="checkbox-{{assistanceYear.year}}">
+    <div *ngIf="assistanceYear.year === assistanceYear.currentYear">
+      <i><strong>{{assistanceYear.year}}</strong></i>
+    </div>
+    <div *ngIf="assistanceYear.year != assistanceYear.currentYear">
+      {{assistanceYear.year}}
+    </div>
+  </label>
 </div>

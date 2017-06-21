@@ -18,6 +18,7 @@ export class MspAssistanceYearComponent implements OnChanges{
     this.assistanceYear.apply = changes['assistanceYear'].currentValue['apply'];
     this.assistanceYear.year = changes['assistanceYear'].currentValue['year'];
     this.assistanceYear.docsRequired = changes['assistanceYear'].currentValue['docsRequired'];
+    this.assistanceYear.currentYear = changes['assistanceYear'].currentValue['currentYear'];
 
   }
   
