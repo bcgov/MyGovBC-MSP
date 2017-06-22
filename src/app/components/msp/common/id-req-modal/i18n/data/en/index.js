@@ -120,7 +120,7 @@ module.exports = {
                     document: 10,
                     title: "Legal Name Change Certificate",
                     body: "<ul><li>Include entire page, corner to corner</li><li>Ensure all text is legible and in focus</li></ul>",
-                    image: require('./images/bigname.gif'),
+                    image: require('./images/name-change-cert.gif'),
                     imageAlt: "A picture of a sample Legal Name Change Certificate"
                 }
             ]
