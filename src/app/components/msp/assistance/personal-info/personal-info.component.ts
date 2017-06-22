@@ -45,6 +45,10 @@ export class AssistancePersonalInfoComponent extends BaseComponent{
       });
   }
 
+  ngOnInit(){
+    this.initProcessMembers(AssistancePersonalInfoComponent.ProcessStepNum, this._processService);
+  }
+
   onChange(values:any) {
     // console.log('changes from child component triggering save: ', values);
     this.dataService.saveFinAssistApplication();

@@ -69,6 +69,22 @@ export default class ProcessService implements CanActivate {
         // On the first step that is incomplete, navigate back one
         console.log("navigating back");
         this._router.navigate([this.process.processSteps[i].route]);
+
+        //If validation fails because of an activeElement not being validated, we scroll to it and trigger validation.
+        let bodyRect = document.body.getBoundingClientRect();
+        let elemRect = document.activeElement.getBoundingClientRect();
+        let offset   = elemRect.top - bodyRect.top;
+        document.body.scrollTop = offset - (document.activeElement !== document.body ? 50 : 0);
+
+        //Force validation to trigger by causing blur
+        //We wrap this in a try/catch, because it's theoretically possible the last activeElement is not an HTML element, but an SVG.
+        try {
+          (<HTMLElement>document.activeElement).blur(); //works?
+        }
+        catch (e){
+          console.error(e);
+        }
+        
         return false;
       }
     }
