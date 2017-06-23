@@ -9,6 +9,16 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin")
 var NODE_ENV = process.env.NODE_ENV || "production"
 var DEVELOPMENT = NODE_ENV === "production" ? false : true
 var stylesLoader = 'css-loader?sourceMap!postcss-loader!sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
+var stylesLoaderV2 = ['css', 'sourceMap', 'postcss', 'sass']
+
+/**
+ * TODO 
+ * 
+ *    - Get query params from stylesLoader into stylesLaoderV2
+ *      - e.g. ?=xxx
+ *    - Ensure ExractText is properly migrated, esp the `use` field (some have ?= params)
+ *  
+ */
 
 
 module.exports = function (_path) {
@@ -43,37 +53,74 @@ module.exports = function (_path) {
       loaders: [
         {
           test: /\.ts$/,
-          loaders: ['awesome-typescript-loader', 'angular2-template-loader']
+          // loaders: ['awesome-typescript-loader', 'angular2-template-loader']
+          use: [
+            {
+              loader: "awesome-typescript-loader"
+            },
+            {
+              loader: "angular2-template-loader"
+            }
+          ]
         },
         {
           test: /\.html$/,
-          loaders: [
-            'html'
-          ]
+          // loaders: [
+          //   'html'
+          // ]
+          use: [{ loader: "html" }]
         },
-        { test: /\.md$/, loader: "html!markdown" },
+        // { test: /\.md$/, loader: "html!markdown" },
+        {
+          test: /\.md$/, use: [
+            {
+              loader: "html"
+            },
+            {
+              loader: "markdown"
+            }]
+        },
         {
           test: /\.css$/,
-          loader: DEVELOPMENT ? 'style!css?sourceMap!postcss' : ExtractTextPlugin.extract({ fallback: "style-loader", use: 'css?sourceMap!postcss' })
-
+          // loader: DEVELOPMENT ? 'style!css?sourceMap!postcss' : ExtractTextPlugin.extract({ fallback: "style-loader", use: 'css?sourceMap!postcss' })
+          use: DEVELOPMENT ? ['style', 'css', 'sourceMap', 'postcss'] : ExtractTextPlugin.extract({ fallback: "style-loader", use: ['css', 'sourceMap', 'postcss'] })
         }, {
           test: /\.less$/,
-          loader: DEVELOPMENT ? "style!css!postcss!less" : ExtractTextPlugin.extract({ fallback: "style", use: "css!postcss!less" })
+          // loader: DEVELOPMENT ? "style!css!postcss!less" : ExtractTextPlugin.extract({ fallback: "style", use: "css!postcss!less" })
+          use: DEVELOPMENT ? ['style', 'css', 'postcss', 'less'] : ExtractTextPlugin.extract({ fallback: "style", use: ["css", "postcss","less"] })
         }, {
           test: /\.(scss|sass)$/,
-          loader: DEVELOPMENT ? ('style!' + stylesLoader) : ExtractTextPlugin.extract({ fallback: 'style', use: stylesLoader })
+          // loader: DEVELOPMENT ? ('style!' + stylesLoader) : ExtractTextPlugin.extract({ fallback: 'style', use: stylesLoader })
+          use: DEVELOPMENT ? ('style!' + stylesLoader) : ExtractTextPlugin.extract({ fallback: 'style', use: stylesLoader })
         }, {
           test: /\.(woff2|woff|ttf|eot|svg)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-          loaders: [
-            "url-loader?name=assets/fonts/[name]_[hash].[ext]"
+          // loaders: [
+          //   "url-loader?name=assets/fonts/[name]_[hash].[ext]"
+          // ]
+          use: [
+            {
+              loader: "url",
+              options: {
+                name: "assets/fonts/[name]_[hash].[ext]"
+              }
+            }
           ]
         }, {
           test: /\.(jpe?g|png|gif)$/i,
-          loaders: [
-            'url-loader?name=assets/images/[name]_[hash].[ext]&limit=10000'
+          // loaders: [
+          //   'url-loader?name=assets/images/[name]_[hash].[ext]&limit=10000'
+          // ]
+          use: [
+            {
+              loader: "url",
+              options: {
+                name: "name=assets/images/[name]_[hash].[ext]",
+                limit: 10000
+              }
+            }
           ]
         }
-      ]
+      ],
     },
 
     // post css
@@ -143,9 +190,9 @@ module.exports = function (_path) {
         jpegQuality: 0.5
       }
     },
-    htmlLoader: {
-      minimize: false,
-    }
+    // htmlLoader: {
+    //   minimize: false,
+    // }
   }
   if (NODE_ENV !== 'development') {
     webpackConfig.plugins = webpackConfig.plugins.concat([

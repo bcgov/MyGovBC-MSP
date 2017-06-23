@@ -52,7 +52,7 @@ var _load = function () {
     }
   )
 
-  webpackConfigs.port = webpackConfigs.port || process.env.PORT || 8000
+  // webpackConfigs.port = webpackConfigs.port || process.env.PORT || 8000
   if (ENV === 'development') {
     webpackConfigs.entry.unshift("webpack-dev-server/client?http://localhost:" + webpackConfigs.port + "/", "webpack/hot/dev-server")
   }
