@@ -51,17 +51,17 @@ module.exports = function (_path) {
             'html'
           ]
         },
-        {test: /\.md$/, loader: "html!markdown"},
+        { test: /\.md$/, loader: "html!markdown" },
         {
           test: /\.css$/,
-          loader: DEVELOPMENT ? 'style!css?sourceMap!postcss' : ExtractTextPlugin.extract("style",
-            'css?sourceMap!postcss')
+          loader: DEVELOPMENT ? 'style!css?sourceMap!postcss' : ExtractTextPlugin.extract({ fallback: "style-loader", use: 'css?sourceMap!postcss' })
+
         }, {
           test: /\.less$/,
-          loader: DEVELOPMENT ? "style!css!postcss!less" : ExtractTextPlugin.extract("style", "css!postcss!less")
+          loader: DEVELOPMENT ? "style!css!postcss!less" : ExtractTextPlugin.extract({ fallback: "style", use: "css!postcss!less" })
         }, {
           test: /\.(scss|sass)$/,
-          loader: DEVELOPMENT ? ('style!' + stylesLoader) : ExtractTextPlugin.extract('style', stylesLoader)
+          loader: DEVELOPMENT ? ('style!' + stylesLoader) : ExtractTextPlugin.extract({ fallback: 'style', use: stylesLoader })
         }, {
           test: /\.(woff2|woff|ttf|eot|svg)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
           loaders: [
@@ -77,7 +77,7 @@ module.exports = function (_path) {
     },
 
     // post css
-    postcss: [autoprefixer({browsers: ['last 5 versions']})],
+    postcss: [autoprefixer({ browsers: ['last 5 versions'] })],
 
     // load plugins
     plugins: [
@@ -96,7 +96,11 @@ module.exports = function (_path) {
         children: true,
         minChunks: Infinity
       }),
-      new ExtractTextPlugin('assets/styles/css/[name]' + (NODE_ENV === 'development' ? '' : '.[chunkhash]') + '.css', {allChunks: true})
+      // new ExtractTextPlugin('assets/styles/css/[name]' + (NODE_ENV === 'development' ? '' : '.[chunkhash]') + '.css', {allChunks: true})
+      new ExtractTextPlugin({
+        filename: 'assets/styles/css/[name]' + (NODE_ENV === 'development' ? '' : '.[chunkhash]') + '.css',
+        allChunks: true
+      })
     ],
     devServer: {
       publicPath: '/msp',
@@ -111,11 +115,11 @@ module.exports = function (_path) {
         poll: 1000,
       },
       proxy: {
-          '/msp/api': {
-              target: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca',
-              changeOrigin: true,
-              secure: false
-          }
+        '/msp/api': {
+          target: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca',
+          changeOrigin: true,
+          secure: false
+        }
       }
     },
     // constants injected to app
