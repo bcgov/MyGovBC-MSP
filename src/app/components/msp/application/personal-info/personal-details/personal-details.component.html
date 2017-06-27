@@ -182,7 +182,7 @@
             </div>
             <div class="col-md-4">
                 <msp-province #province
-                              [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
+                              [provinceLabel]="lang('./en/index.js').movedFromAnotherProvinceLabel"
                               [province]="person.movedFromProvinceOrCountry"
                               (onChange)="provinceUpdate($event)"
                               [provinceOnly]="true"
