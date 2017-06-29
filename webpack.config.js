@@ -66,19 +66,21 @@ var _load = function () {
     })
   ])
 
-  webpackConfigs.module.preLoaders = (webpackConfigs.module.preLoaders || []).concat([
-    {
-      test: /\.(ts|js)$/,
-      exclude: [
-        path.resolve(__dirname, "node_modules")
-      ],
-      loader: 'string-replace',
-      query: {
-        search: '\'__APP_CONSTANTS__\'',
-        replace: JSON.stringify(webpackConfigs.appConstants)
-      }
-    }
-  ])
+
+  //ARC TODO - Below is used for appConstants, likely can be removed or editted.
+  // webpackConfigs.module.preLoaders = (webpackConfigs.module.preLoaders || []).concat([
+  //   {
+  //     test: /\.(ts|js)$/,
+  //     exclude: [
+  //       path.resolve(__dirname, "node_modules")
+  //     ],
+  //     loader: 'string-replace',
+  //     query: {
+  //       search: '\'__APP_CONSTANTS__\'',
+  //       replace: JSON.stringify(webpackConfigs.appConstants)
+  //     }
+  //   }
+  // ])
   return webpackConfigs
 }
 

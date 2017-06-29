@@ -37,8 +37,10 @@ module.exports = function (_path) {
 
     // resolves modules
     resolve: {
-      extensions: ['', '.js', '.ts'],
-      modulesDirectories: ['node_modules'],
+      // extensions: ['', '.js', '.ts'], //orig
+      extensions: ['.js', '.ts'], //ARC
+      // modulesDirectories: ['node_modules'], //orig
+      modules: ['node_modules'], //ARC
       alias: {
         _appRoot: path.join(_path, 'src', 'app'),
         _images: path.join(_path, 'src', 'app', 'assets', 'images'),
@@ -49,7 +51,7 @@ module.exports = function (_path) {
 
     // modules resolvers
     module: {
-      noParse: [],
+      // noParse: [], //ARC TODO, safe to remove?
       loaders: [
         {
           test: /\.ts$/,
@@ -124,7 +126,8 @@ module.exports = function (_path) {
     },
 
     // post css
-    postcss: [autoprefixer({ browsers: ['last 5 versions'] })],
+    //ARC TODO - Find out how to get postCSS in webpack2
+    // postcss: [autoprefixer({ browsers: ['last 5 versions'] })],
 
     // load plugins
     plugins: [
@@ -170,30 +173,42 @@ module.exports = function (_path) {
       }
     },
     // constants injected to app
-    appConstants: {
-      runtimeEnv: NODE_ENV, // run-time environment. by default same as build-time node env
-      coreApiBaseUrl: 'http://localhost:9000/api',
-      serviceName: 'core',
-      apiBaseUrl: '/msp/api',
-      // apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
-      captchaApiBaseUrl: '/msp/api/captcha',
-      images: {
-        maxImagesPerPerson: 50,
-        maxWidth: 2600,
-        maxHeight: 3300,
-        minWidth: 0,
-        minHeight: 0,
-        maxSizeBytes: 1048576,
-        reductionScaleFactor: 0.8,
-        acceptMimeType: "image/*",
-        convertToMimeType: "image/jpeg",
-        jpegQuality: 0.5
-      }
-    },
+    /**
+     * ARC - appConstants is unexpected webpack property and is invalid, 
+     *  Move into options possible?
+     *  Otherwise use DefinePlugin to define constants
+     * 
+     * also need changes in:
+     *    webpack.config.js
+     *    config/webpack/environments/service.js
+     */
+
+    // appConstants: {
+    //   runtimeEnv: NODE_ENV, // run-time environment. by default same as build-time node env
+    //   coreApiBaseUrl: 'http://localhost:9000/api',
+    //   serviceName: 'core',
+    //   apiBaseUrl: '/msp/api',
+    //   // apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
+    //   captchaApiBaseUrl: '/msp/api/captcha',
+    //   images: {
+    //     maxImagesPerPerson: 50,
+    //     maxWidth: 2600,
+    //     maxHeight: 3300,
+    //     minWidth: 0,
+    //     minHeight: 0,
+    //     maxSizeBytes: 1048576,
+    //     reductionScaleFactor: 0.8,
+    //     acceptMimeType: "image/*",
+    //     convertToMimeType: "image/jpeg",
+    //     jpegQuality: 0.5
+    //   }
+    // },
     // htmlLoader: {
     //   minimize: false,
     // }
   }
+
+  //ARC - Why is this not in dev file? TODO
   if (NODE_ENV !== 'development') {
     webpackConfig.plugins = webpackConfig.plugins.concat([
       new webpack.optimize.UglifyJsPlugin({
