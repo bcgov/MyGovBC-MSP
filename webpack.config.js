@@ -54,6 +54,10 @@ var _load = function () {
 
   // webpackConfigs.port = webpackConfigs.port || process.env.PORT || 8000
   if (ENV === 'development') {
+    //ARC TODO - Unsure the purpose of these lines. Commenting out didn't seem to have any real change.
+    //Documentation https://webpack.js.org/configuration/entry-context/
+    //Implies that this line is unnecessary, but check webpack-dev-server docs first.
+
     // webpackConfigs.entry.unshift("webpack-dev-server/client?http://localhost:" + webpackConfigs.port + "/", "webpack/hot/dev-server") //orig
     webpackConfigs.entry.unshift("webpack-dev-server/client?http://localhost:" + webpackConfigs.devServer.port + "/") //ARC new. removes duplicates
   }

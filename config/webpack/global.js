@@ -135,7 +135,7 @@ module.exports = function (_path) {
       new webpack.DefinePlugin({
         'NODE_ENV': JSON.stringify(NODE_ENV)
       }),
-      new webpack.LoaderOptionsPlugin({  //ARC new - how configs should be stored webpack2
+      new webpack.LoaderOptionsPlugin({
         //ARC - Can we also store AppConstants here?
         options: {
           postcss: [autoprefixer({ browsers: ['last 5 versions'] })]
