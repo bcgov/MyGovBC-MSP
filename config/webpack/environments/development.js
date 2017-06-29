@@ -11,6 +11,17 @@ module.exports = function(_path) {
     ],
     performance: {
       hints: "warning",
+    },
+    devServer: {
+      stats: {
+        colors: true,
+        performance: true,
+        modules: true,
+        errors: true,
+        reasons: true,
+        versions: true,
+        warnings: true,
+      }
     }
   };
 };

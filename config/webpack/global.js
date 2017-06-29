@@ -74,25 +74,8 @@ module.exports = function (_path) {
     module: {
       // noParse: [], //ARC TODO, safe to remove?
       loaders: [
-        // {
-        //   test: /\.(ts|js)$/,
-        //   enforce: "pre",
-        //   exclude: [
-        //     path.resolve(__dirname, "node_modules")
-        //   ],
-        //   use: [{
-        //     loader: 'string-replace-loader',
-        //     query: {
-        //       search: '\'__APP_CONSTANTS__\'',
-        //       // replace: JSON.stringify(process.env.appConstants)
-        //       replace: JSON.stringify(debugAppConstants)
-        //       // replace: JSON.stringify(appConstants)
-        //     }
-        //   }],
-        // },
         {
           test: /\.ts$/,
-          // loaders: ['awesome-typescript-loader', 'angular2-template-loader']
           use: [
             {
               loader: "awesome-typescript-loader"
@@ -104,12 +87,8 @@ module.exports = function (_path) {
         },
         {
           test: /\.html$/,
-          // loaders: [
-          //   'html'
-          // ]
           use: [{ loader: "html-loader" }]
         },
-        // { test: /\.md$/, loader: "html!markdown" },
         {
           test: /\.md$/, use: [
             {
@@ -121,22 +100,15 @@ module.exports = function (_path) {
         },
         {
           test: /\.css$/,
-          // loader: DEVELOPMENT ? 'style!css?sourceMap!postcss' : ExtractTextPlugin.extract({ fallback: "style-loader", use: 'css?sourceMap!postcss' })
           use: DEVELOPMENT ? ['style-loader', 'css-loader', 'sourceMap-loader', 'postcss-loader'] : ExtractTextPlugin.extract({ fallback: "style-loader", use: ['css-loader', 'sourceMap-loader', 'postcss-loader'] })
         }, {
           test: /\.less$/,
-          // loader: DEVELOPMENT ? "style!css!postcss!less" : ExtractTextPlugin.extract({ fallback: "style", use: "css!postcss!less" })
           use: DEVELOPMENT ? ['style-loader', 'css-loader', 'postcss-loader', 'less-loader'] : ExtractTextPlugin.extract({ fallback: "style-loader", use: ["css-loader", "postcss-loader", "less-loader"] })
         }, {
           test: /\.(scss|sass)$/,
-          // loader: DEVELOPMENT ? ('style!' + stylesLoader) : ExtractTextPlugin.extract({ fallback: 'style', use: stylesLoader })
-          // use: DEVELOPMENT ? ('style!' + stylesLoader) : ExtractTextPlugin.extract({ fallback: 'style', use: stylesLoader })
           use: DEVELOPMENT ? (['style-loader'].concat(stylesLoaderV2)) : ExtractTextPlugin.extract({ fallback: 'style-loader', use: stylesLoaderV2 })
         }, {
           test: /\.(woff2|woff|ttf|eot|svg)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-          // loaders: [
-          //   "url-loader?name=assets/fonts/[name]_[hash].[ext]"
-          // ]
           use: [
             {
               loader: "url-loader",
@@ -147,9 +119,6 @@ module.exports = function (_path) {
           ]
         }, {
           test: /\.(jpe?g|png|gif)$/i,
-          // loaders: [
-          //   'url-loader?name=assets/images/[name]_[hash].[ext]&limit=10000'
-          // ]
           use: [
             {
               loader: "url-loader",
@@ -163,7 +132,6 @@ module.exports = function (_path) {
       ],
     },
 
-    // load plugins
     plugins: [
       new webpack.DefinePlugin({
         'NODE_ENV': JSON.stringify(NODE_ENV),
@@ -173,25 +141,13 @@ module.exports = function (_path) {
           postcss: [autoprefixer({ browsers: ['last 5 versions'] })]
         }
       }),
-
-      //ARC TODO - Unsure if this is actually removing the warning.
+      //Removes an Angular 2 warning.  Note: May have to change when upgrading to Angular 4+
+      //https://github.com/angular/angular/issues/11580
       new webpack.ContextReplacementPlugin(
         // The (\\|\/) piece accounts for path separators in *nix and Windows
-        // /angular(\\|\/)core(\\|\/)@angular/,
-        // path.resolve(__dirname, './src/app')
-        //
         /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
         path.resolve(__dirname, 'doesnotexist/')
       ),
-      // new webpack.ContextReplacementPlugin(
-      //   // The (\\|\/) piece accounts for path separators in *nix and Windows
-      //   /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-      //   path.join(__dirname, './src'), // location of your src
-      //   { }
-      // )
-
-
-
       new webpack.NoEmitOnErrorsPlugin(), //ARC new todo
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new webpack.optimize.AggressiveMergingPlugin({
@@ -209,27 +165,6 @@ module.exports = function (_path) {
         allChunks: true
       })
     ],
-    //ORIG ORIG
-    // devServer: {
-    //   publicPath: '/msp',
-    //   contentBase: './dist',
-    //   info: true,
-    //   hot: true,
-    //   inline: true,
-    //   historyApiFallback: {
-    //     index: '/msp'
-    //   },
-    //   watchOptions: {
-    //     poll: 1000,
-    //   },
-    //   proxy: {
-    //     '/msp/api': {
-    //       target: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca',
-    //       changeOrigin: true,
-    //       secure: false
-    //     }
-    //   }
-    // },
     //ARC TODO - Orig is above.
     devServer: {
       publicPath: '/msp',
@@ -237,7 +172,7 @@ module.exports = function (_path) {
       // info: true, //orig
       hot: true,
       inline: true,
-      port: 8000, //ARC NEW TODO VERIFY
+      port: 8000,
       historyApiFallback: {
         index: '/msp'
       },
@@ -253,8 +188,8 @@ module.exports = function (_path) {
       }
     },
     /**
-     * AppConstants can be defined here, or in the config files as appropriate:
-     *    /config/webpack/environments/*.js
+     * AppConstants can be defined here, or in the environment files as needed:
+     *    /config/webpack/environments/development.js, local.js, etc.
      */
     appConstants: {
       runtimeEnv: NODE_ENV, // run-time environment. by default same as build-time node env
