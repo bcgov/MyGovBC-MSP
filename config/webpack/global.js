@@ -8,39 +8,10 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 var NODE_ENV = process.env.NODE_ENV || "production"
 var DEVELOPMENT = NODE_ENV === "production" ? false : true
-// var stylesLoader = 'css-loader?sourceMap!postcss-loader!sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
+// for displaying the in-maintenance message
+var MSP_IS_IN_MAINTENANCE_FLAG = process.env.mspIsInMaintenanceFlag
+var MSP_IS_IN_MAINTENANCE_TEXT = process.env.mspIsInMaintenanceText
 var stylesLoaderV2 = ['css-loader', 'sourceMap-loader', 'postcss-loader', 'sass-loader']
-
-var debugAppConstants = {
-  runtimeEnv: NODE_ENV, // run-time environment. by default same as build-time node env
-  coreApiBaseUrl: 'http://localhost:9000/api',
-  serviceName: 'core',
-  apiBaseUrl: '/msp/api',
-  // apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
-  captchaApiBaseUrl: '/msp/api/captcha',
-  images: {
-    maxImagesPerPerson: 50,
-    maxWidth: 2600,
-    maxHeight: 3300,
-    minWidth: 0,
-    minHeight: 0,
-    maxSizeBytes: 1048576,
-    reductionScaleFactor: 0.8,
-    acceptMimeType: "image/*",
-    convertToMimeType: "image/jpeg",
-    jpegQuality: 0.5
-  }
-}
-
-/**
- * TODO 
- * 
- *    - Get query params from stylesLoader into stylesLaoderV2
- *      - e.g. ?=xxx
- *    - Ensure ExractText is properly migrated, esp the `use` field (some have ?= params)
- *  
- */
-
 
 module.exports = function (_path) {
   var rootAssetPath = _path + 'src'
@@ -209,7 +180,10 @@ module.exports = function (_path) {
         acceptMimeType: "image/*",
         convertToMimeType: "image/jpeg",
         jpegQuality: 0.5
-      }
+      },
+      // general state of the app, if unavailable, display Unavailable message and don't continue
+      mspIsInMaintenanceFlag: MSP_IS_IN_MAINTENANCE_FLAG,
+      mspIsInMaintenanceText: MSP_IS_IN_MAINTENANCE_TEXT
     },
     // htmlLoader: {
     //   minimize: false,
