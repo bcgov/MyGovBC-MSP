@@ -9,10 +9,6 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin")
 var NODE_ENV = process.env.NODE_ENV || "production"
 var DEVELOPMENT = NODE_ENV === "production" ? false : true
 
-// for displaying the in-maintenance message
-var MSP_IS_IN_MAINTENANCE_FLAG = process.env.mspIsInMaintenanceFlag
-var MSP_IS_IN_MAINTENANCE_TEXT = process.env.mspIsInMaintenanceText
-
 var stylesLoader = 'css-loader?sourceMap!postcss-loader!sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
 
 
@@ -87,7 +83,9 @@ module.exports = function (_path) {
     // load plugins
     plugins: [
       new webpack.DefinePlugin({
-        'NODE_ENV': JSON.stringify(NODE_ENV)
+        'NODE_ENV': JSON.stringify(NODE_ENV),
+        'process.env.mspIsInMaintenanceFlag': JSON.stringify(process.env.mspIsInMaintenanceFlag),
+        'process.env.mspIsInMaintenanceText': JSON.stringify(process.env.mspIsInMaintenanceText)
       }),
       new webpack.NoErrorsPlugin(),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
@@ -144,8 +142,8 @@ module.exports = function (_path) {
         jpegQuality: 0.5
       },
       // general state of the app, if unavailable, display Unavailable message and don't continue
-      mspIsInMaintenanceFlag: MSP_IS_IN_MAINTENANCE_FLAG,
-      mspIsInMaintenanceText: MSP_IS_IN_MAINTENANCE_TEXT
+      mspIsInMaintenanceFlag: process.env.mspIsInMaintenanceFlag,
+      mspIsInMaintenanceText: process.env.mspIsInMaintenanceText
     },
     htmlLoader: {
       minimize: false,
