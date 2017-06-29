@@ -8,8 +8,8 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 var NODE_ENV = process.env.NODE_ENV || "production"
 var DEVELOPMENT = NODE_ENV === "production" ? false : true
-var stylesLoader = 'css-loader?sourceMap!postcss-loader!sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
-var stylesLoaderV2 = ['css', 'sourceMap', 'postcss', 'sass']
+// var stylesLoader = 'css-loader?sourceMap!postcss-loader!sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
+var stylesLoaderV2 = ['css-loader', 'sourceMap-loader', 'postcss-loader', 'sass-loader']
 
 /**
  * TODO 
@@ -70,30 +70,31 @@ module.exports = function (_path) {
           // loaders: [
           //   'html'
           // ]
-          use: [{ loader: "html" }]
+          use: [{ loader: "html-loader" }]
         },
         // { test: /\.md$/, loader: "html!markdown" },
         {
           test: /\.md$/, use: [
             {
-              loader: "html"
+              loader: "html-loader"
             },
             {
-              loader: "markdown"
+              loader: "markdown-loader"
             }]
         },
         {
           test: /\.css$/,
           // loader: DEVELOPMENT ? 'style!css?sourceMap!postcss' : ExtractTextPlugin.extract({ fallback: "style-loader", use: 'css?sourceMap!postcss' })
-          use: DEVELOPMENT ? ['style', 'css', 'sourceMap', 'postcss'] : ExtractTextPlugin.extract({ fallback: "style-loader", use: ['css', 'sourceMap', 'postcss'] })
+          use: DEVELOPMENT ? ['style-loader', 'css-loader', 'sourceMap-loader', 'postcss-loader'] : ExtractTextPlugin.extract({ fallback: "style-loader", use: ['css-loader', 'sourceMap-loader', 'postcss-loader'] })
         }, {
           test: /\.less$/,
           // loader: DEVELOPMENT ? "style!css!postcss!less" : ExtractTextPlugin.extract({ fallback: "style", use: "css!postcss!less" })
-          use: DEVELOPMENT ? ['style', 'css', 'postcss', 'less'] : ExtractTextPlugin.extract({ fallback: "style", use: ["css", "postcss","less"] })
+          use: DEVELOPMENT ? ['style-loader', 'css-loader', 'postcss-loader', 'less-loader'] : ExtractTextPlugin.extract({ fallback: "style-loader", use: ["css-loader", "postcss-loader","less-loader"] })
         }, {
           test: /\.(scss|sass)$/,
           // loader: DEVELOPMENT ? ('style!' + stylesLoader) : ExtractTextPlugin.extract({ fallback: 'style', use: stylesLoader })
-          use: DEVELOPMENT ? ('style!' + stylesLoader) : ExtractTextPlugin.extract({ fallback: 'style', use: stylesLoader })
+          // use: DEVELOPMENT ? ('style!' + stylesLoader) : ExtractTextPlugin.extract({ fallback: 'style', use: stylesLoader })
+          use: DEVELOPMENT ? (['style-loader'].concat(stylesLoaderV2)) : ExtractTextPlugin.extract({ fallback: 'style-loader', use: stylesLoaderV2 })
         }, {
           test: /\.(woff2|woff|ttf|eot|svg)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
           // loaders: [
@@ -101,7 +102,7 @@ module.exports = function (_path) {
           // ]
           use: [
             {
-              loader: "url",
+              loader: "url-loader",
               options: {
                 name: "assets/fonts/[name]_[hash].[ext]"
               }
@@ -114,7 +115,7 @@ module.exports = function (_path) {
           // ]
           use: [
             {
-              loader: "url",
+              loader: "url-loader",
               options: {
                 name: "name=assets/images/[name]_[hash].[ext]",
                 limit: 10000
@@ -134,9 +135,15 @@ module.exports = function (_path) {
       new webpack.DefinePlugin({
         'NODE_ENV': JSON.stringify(NODE_ENV)
       }),
-      new webpack.NoErrorsPlugin(),
+      new webpack.LoaderOptionsPlugin({  //ARC new - how configs should be stored webpack2
+        //ARC - Can we also store AppConstants here?
+        options: {
+          postcss: [autoprefixer({ browsers: ['last 5 versions'] })]
+        }
+      }),
+      // new webpack.NoErrorsPlugin(), //orig, deprecated
+      new webpack.NoEmitOnErrorsPlugin(), //ARC new todo
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-      new webpack.optimize.DedupePlugin(),
       new webpack.optimize.AggressiveMergingPlugin({
         moveToParents: true
       }),
@@ -152,12 +159,35 @@ module.exports = function (_path) {
         allChunks: true
       })
     ],
+    //ORIG ORIG
+    // devServer: {
+    //   publicPath: '/msp',
+    //   contentBase: './dist',
+    //   info: true,
+    //   hot: true,
+    //   inline: true,
+    //   historyApiFallback: {
+    //     index: '/msp'
+    //   },
+    //   watchOptions: {
+    //     poll: 1000,
+    //   },
+    //   proxy: {
+    //     '/msp/api': {
+    //       target: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca',
+    //       changeOrigin: true,
+    //       secure: false
+    //     }
+    //   }
+    // },
+    //ARC TODO - Orig is above.
     devServer: {
       publicPath: '/msp',
       contentBase: './dist',
-      info: true,
+      // info: true, //orig
       hot: true,
       inline: true,
+      port: 8000, //ARC NEW TODO VERIFY
       historyApiFallback: {
         index: '/msp'
       },

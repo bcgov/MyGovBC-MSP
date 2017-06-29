@@ -54,7 +54,8 @@ var _load = function () {
 
   // webpackConfigs.port = webpackConfigs.port || process.env.PORT || 8000
   if (ENV === 'development') {
-    webpackConfigs.entry.unshift("webpack-dev-server/client?http://localhost:" + webpackConfigs.port + "/", "webpack/hot/dev-server")
+    // webpackConfigs.entry.unshift("webpack-dev-server/client?http://localhost:" + webpackConfigs.port + "/", "webpack/hot/dev-server") //orig
+    webpackConfigs.entry.unshift("webpack-dev-server/client?http://localhost:" + webpackConfigs.devServer.port + "/") //ARC new. removes duplicates
   }
 
   webpackConfigs.plugins = webpackConfigs.plugins.concat([
