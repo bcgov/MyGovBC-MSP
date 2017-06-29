@@ -141,7 +141,11 @@ module.exports = function (_path) {
           postcss: [autoprefixer({ browsers: ['last 5 versions'] })]
         }
       }),
-      // new webpack.NoErrorsPlugin(), //orig, deprecated
+      new webpack.ContextReplacementPlugin(
+        // The (\\|\/) piece accounts for path separators in *nix and Windows
+        /angular(\\|\/)core(\\|\/)@angular/,
+        path.resolve(__dirname, '../src')
+      ),
       new webpack.NoEmitOnErrorsPlugin(), //ARC new todo
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new webpack.optimize.AggressiveMergingPlugin({
