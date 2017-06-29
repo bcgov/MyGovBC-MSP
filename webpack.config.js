@@ -32,7 +32,8 @@ var _configs = {
 }
 
 var _load = function () {
-  console.log('all env variables:' + JSON.stringify(process.env));
+  // for debugging of env variables only:
+  // console.log('all env variables:' + JSON.stringify(process.env));
   console.log('Node process.env.NODE_ENV value set to: ' + process.env.NODE_ENV);
   var ENV = process.env.NODE_ENV
     ? process.env.NODE_ENV
