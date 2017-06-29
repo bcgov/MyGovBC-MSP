@@ -6,17 +6,40 @@
   <div class="modal-dialog" style="margin-top: 70px;">
     <div class="modal-content">
       <div class="modal-header modal-header-primary">
-        <h2 id="myLargeModalLabel">{{lang('./en/index.js').title}}</h2>
+        <h2 id="myLargeModalLabel">{{appConstants.mspIsInMaintenanceFlag != undefined && appConstants.mspIsInMaintenanceFlag === 'true' ? lang('./en/indexMaintenance.js').title : lang('./en/index.js').title}}</h2>
       </div>
       <div class="modal-body">
-        <div [innerHtml]="lang('./en/index.js').body"></div>
+        <!-- jam app unavailable message -->
+        <!-- <div [innerHtml]="lang('./en/index.js').body"></div> -->
+        <div *ngIf="appConstants.mspIsInMaintenanceFlag != undefined && appConstants.mspIsInMaintenanceFlag === 'true'">
+          <p><strong>{{appConstants.mspIsInMaintenanceText}}</strong></p>
+          <p>The online application system for MSP and Regular Premium Assistance is <strong>unavailable</strong>.  We apologize for the inconvenience. Please check back later or use the paper application forms available:
+            <br/><br/>
+            <strong>MSP landing page:</strong>
+            <br/><br/>
+            The online application system for MSP and Regular Premium Assistance is unavailable between 9:00 PM and 12:00 AM. We apologize for the inconvenience.
+            Please check back later or use the <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp">paper application forms</a> available.
+            <br/><br/>
+            <strong>How to Apply page:</strong>
+            <br/><br/>
+            The online application for MSP is unavailable between 9:00 PM and 12:00 AM. We apologize for the inconvenience.
+            Please check back later or use the <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/how-to-enrol">paper application form</a> available.
+            <br/><br/>
+            <strong>Regular Premium Assistance page:</strong>
+            <br/><br/>
+            The online application for Regular Premium Assistance is unavailable between 9:00 PM and 12:00 AM. We apologize for the inconvenience.
+            Please check back later or use the <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/premiums/regular-premium-assistance">paper application form</a> available.
+          </p>
+        </div>
+        <div *ngIf="appConstants.mspIsInMaintenanceFlag === undefined || appConstants.mspIsInMaintenanceFlag != 'true'" [innerHtml]="lang('./en/index.js').body"></div>
+
         <br>
-        <div class="checkbox checkbox-success checkbox-inline">
+        <div *ngIf="appConstants.mspIsInMaintenanceFlag === undefined || appConstants.mspIsInMaintenanceFlag != 'true'" class="checkbox checkbox-success checkbox-inline">
           <input class="input-lg" id="agree" type="checkbox" [(ngModel)]="agreeCheck">
           <label class="" for="agree"><strong>{{lang('./en/index.js').agreeLabel}}</strong></label>
         </div>
       </div>
-      <div class="modal-footer">
+      <div *ngIf="appConstants.mspIsInMaintenanceFlag === undefined || appConstants.mspIsInMaintenanceFlag != 'true'" class="modal-footer">
         <button [disabled]="!agreeCheck" class="btn btn-block btn-primary pull-left"
                 type="submit" (click)="continue()">
           {{lang('./en/index.js').continueButton}}</button>
