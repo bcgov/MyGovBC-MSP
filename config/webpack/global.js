@@ -11,6 +11,27 @@ var DEVELOPMENT = NODE_ENV === "production" ? false : true
 // var stylesLoader = 'css-loader?sourceMap!postcss-loader!sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
 var stylesLoaderV2 = ['css-loader', 'sourceMap-loader', 'postcss-loader', 'sass-loader']
 
+var debugAppConstants = {
+  runtimeEnv: NODE_ENV, // run-time environment. by default same as build-time node env
+  coreApiBaseUrl: 'http://localhost:9000/api',
+  serviceName: 'core',
+  apiBaseUrl: '/msp/api',
+  // apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
+  captchaApiBaseUrl: '/msp/api/captcha',
+  images: {
+    maxImagesPerPerson: 50,
+    maxWidth: 2600,
+    maxHeight: 3300,
+    minWidth: 0,
+    minHeight: 0,
+    maxSizeBytes: 1048576,
+    reductionScaleFactor: 0.8,
+    acceptMimeType: "image/*",
+    convertToMimeType: "image/jpeg",
+    jpegQuality: 0.5
+  }
+}
+
 /**
  * TODO 
  * 
@@ -53,6 +74,22 @@ module.exports = function (_path) {
     module: {
       // noParse: [], //ARC TODO, safe to remove?
       loaders: [
+        // {
+        //   test: /\.(ts|js)$/,
+        //   enforce: "pre",
+        //   exclude: [
+        //     path.resolve(__dirname, "node_modules")
+        //   ],
+        //   use: [{
+        //     loader: 'string-replace-loader',
+        //     query: {
+        //       search: '\'__APP_CONSTANTS__\'',
+        //       // replace: JSON.stringify(process.env.appConstants)
+        //       replace: JSON.stringify(debugAppConstants)
+        //       // replace: JSON.stringify(appConstants)
+        //     }
+        //   }],
+        // },
         {
           test: /\.ts$/,
           // loaders: ['awesome-typescript-loader', 'angular2-template-loader']
@@ -89,7 +126,7 @@ module.exports = function (_path) {
         }, {
           test: /\.less$/,
           // loader: DEVELOPMENT ? "style!css!postcss!less" : ExtractTextPlugin.extract({ fallback: "style", use: "css!postcss!less" })
-          use: DEVELOPMENT ? ['style-loader', 'css-loader', 'postcss-loader', 'less-loader'] : ExtractTextPlugin.extract({ fallback: "style-loader", use: ["css-loader", "postcss-loader","less-loader"] })
+          use: DEVELOPMENT ? ['style-loader', 'css-loader', 'postcss-loader', 'less-loader'] : ExtractTextPlugin.extract({ fallback: "style-loader", use: ["css-loader", "postcss-loader", "less-loader"] })
         }, {
           test: /\.(scss|sass)$/,
           // loader: DEVELOPMENT ? ('style!' + stylesLoader) : ExtractTextPlugin.extract({ fallback: 'style', use: stylesLoader })
@@ -126,21 +163,17 @@ module.exports = function (_path) {
       ],
     },
 
-    // post css
-    //ARC TODO - Find out how to get postCSS in webpack2
-    // postcss: [autoprefixer({ browsers: ['last 5 versions'] })],
-
     // load plugins
     plugins: [
       new webpack.DefinePlugin({
-        'NODE_ENV': JSON.stringify(NODE_ENV)
+        'NODE_ENV': JSON.stringify(NODE_ENV),
       }),
       new webpack.LoaderOptionsPlugin({
-        //ARC - Can we also store AppConstants here?
         options: {
           postcss: [autoprefixer({ browsers: ['last 5 versions'] })]
         }
       }),
+      //ARC TODO - Unsure if this is actually removing the warning.
       new webpack.ContextReplacementPlugin(
         // The (\\|\/) piece accounts for path separators in *nix and Windows
         /angular(\\|\/)core(\\|\/)@angular/,
@@ -206,37 +239,30 @@ module.exports = function (_path) {
         }
       }
     },
-    // constants injected to app
     /**
-     * ARC - appConstants is unexpected webpack property and is invalid, 
-     *  Move into options possible?
-     *  Otherwise use DefinePlugin to define constants
-     * 
-     * also need changes in:
-     *    webpack.config.js
-     *    config/webpack/environments/service.js
+     * AppConstants can be defined here, or in the config files as appropriate:
+     *    /config/webpack/environments/*.js
      */
-
-    // appConstants: {
-    //   runtimeEnv: NODE_ENV, // run-time environment. by default same as build-time node env
-    //   coreApiBaseUrl: 'http://localhost:9000/api',
-    //   serviceName: 'core',
-    //   apiBaseUrl: '/msp/api',
-    //   // apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
-    //   captchaApiBaseUrl: '/msp/api/captcha',
-    //   images: {
-    //     maxImagesPerPerson: 50,
-    //     maxWidth: 2600,
-    //     maxHeight: 3300,
-    //     minWidth: 0,
-    //     minHeight: 0,
-    //     maxSizeBytes: 1048576,
-    //     reductionScaleFactor: 0.8,
-    //     acceptMimeType: "image/*",
-    //     convertToMimeType: "image/jpeg",
-    //     jpegQuality: 0.5
-    //   }
-    // },
+    appConstants: {
+      runtimeEnv: NODE_ENV, // run-time environment. by default same as build-time node env
+      coreApiBaseUrl: 'http://localhost:9000/api',
+      serviceName: 'core',
+      apiBaseUrl: '/msp/api',
+      // apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
+      captchaApiBaseUrl: '/msp/api/captcha',
+      images: {
+        maxImagesPerPerson: 50,
+        maxWidth: 2600,
+        maxHeight: 3300,
+        minWidth: 0,
+        minHeight: 0,
+        maxSizeBytes: 1048576,
+        reductionScaleFactor: 0.8,
+        acceptMimeType: "image/*",
+        convertToMimeType: "image/jpeg",
+        jpegQuality: 0.5
+      }
+    },
     // htmlLoader: {
     //   minimize: false,
     // }

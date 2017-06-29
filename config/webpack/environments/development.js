@@ -8,6 +8,9 @@ module.exports = function(_path) {
     devtool: 'inline-source-map',
     plugins: [
       new webpack.HotModuleReplacementPlugin()
-    ]
+    ],
+    performance: {
+      hints: "warning",
+    }
   };
 };

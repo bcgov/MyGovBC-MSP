@@ -72,20 +72,34 @@ var _load = function () {
   ])
 
 
-  //ARC TODO - Below is used for appConstants, likely can be removed or editted.
-  // webpackConfigs.module.preLoaders = (webpackConfigs.module.preLoaders || []).concat([
-  //   {
-  //     test: /\.(ts|js)$/,
-  //     exclude: [
-  //       path.resolve(__dirname, "node_modules")
-  //     ],
-  //     loader: 'string-replace',
-  //     query: {
-  //       search: '\'__APP_CONSTANTS__\'',
-  //       replace: JSON.stringify(webpackConfigs.appConstants)
-  //     }
-  //   }
-  // ])
+  /**
+   * Setup appConstants.ts by writing webpackConfigs.appConstants to it
+   */
+  webpackConfigs.module.loaders = (webpackConfigs.module.loaders || []).concat([
+    {
+      test: /\.(ts|js)$/,
+      enforce: "pre",
+      exclude: [
+        path.resolve(__dirname, "node_modules")
+      ],
+      use: [{
+        loader: 'string-replace-loader',
+        query: {
+          search: '\'__APP_CONSTANTS__\'',
+          replace: JSON.stringify(webpackConfigs.appConstants)
+        }
+      }],
+    }
+  ])
+
+  /**
+   * We need to remove the appConstants attribute before returning the object
+   * to webpack. Webpack validates objects rigorously in version 2, and
+   * appConstants is an invalid custom attribute.  We make use of the
+   * object, by overwriting the appConstants.ts file, then delete it.
+   */
+
+  delete webpackConfigs.appConstants
   return webpackConfigs
 }
 

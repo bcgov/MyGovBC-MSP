@@ -5,6 +5,8 @@ var WebpackDevServer = require('webpack-dev-server')
 var config = require('./webpack.config')
 var open = require('open')
 
+
+//ARC TODO - Handle the below. Delete + add functionatlity to npm scripts?
 // console.log('WebpackDevServer: ', config.devServer)
 
 // new WebpackDevServer(webpack(config), config.devServer)
