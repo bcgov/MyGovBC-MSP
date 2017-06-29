@@ -8,6 +8,11 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 var NODE_ENV = process.env.NODE_ENV || "production"
 var DEVELOPMENT = NODE_ENV === "production" ? false : true
+
+// for displaying the in-maintenance message
+var MSP_IS_IN_MAINTENANCE_FLAG = process.env.mspIsInMaintenanceFlag
+var MSP_IS_IN_MAINTENANCE_TEXT = process.env.mspIsInMaintenanceText
+
 var stylesLoader = 'css-loader?sourceMap!postcss-loader!sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
 
 
@@ -137,7 +142,10 @@ module.exports = function (_path) {
         acceptMimeType: "image/*",
         convertToMimeType: "image/jpeg",
         jpegQuality: 0.5
-      }
+      },
+      // general state of the app, if unavailable, display Unavailable message and don't continue
+      mspIsInMaintenanceFlag: MSP_IS_IN_MAINTENANCE_FLAG,
+      mspIsInMaintenanceText: MSP_IS_IN_MAINTENANCE_TEXT
     },
     htmlLoader: {
       minimize: false,
