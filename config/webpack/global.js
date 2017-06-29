@@ -173,12 +173,25 @@ module.exports = function (_path) {
           postcss: [autoprefixer({ browsers: ['last 5 versions'] })]
         }
       }),
+
       //ARC TODO - Unsure if this is actually removing the warning.
       new webpack.ContextReplacementPlugin(
         // The (\\|\/) piece accounts for path separators in *nix and Windows
-        /angular(\\|\/)core(\\|\/)@angular/,
-        path.resolve(__dirname, '../src')
+        // /angular(\\|\/)core(\\|\/)@angular/,
+        // path.resolve(__dirname, './src/app')
+        //
+        /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+        path.resolve(__dirname, 'doesnotexist/')
       ),
+      // new webpack.ContextReplacementPlugin(
+      //   // The (\\|\/) piece accounts for path separators in *nix and Windows
+      //   /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+      //   path.join(__dirname, './src'), // location of your src
+      //   { }
+      // )
+
+
+
       new webpack.NoEmitOnErrorsPlugin(), //ARC new todo
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new webpack.optimize.AggressiveMergingPlugin({

@@ -5,16 +5,12 @@ var WebpackDevServer = require('webpack-dev-server')
 var config = require('./webpack.config')
 var open = require('open')
 
-
-//ARC TODO - Handle the below. Delete + add functionatlity to npm scripts?
-// console.log('WebpackDevServer: ', config.devServer)
-
-// new WebpackDevServer(webpack(config), config.devServer)
-//   .listen(config.port, 'localhost', function (err) {
-//     if (err) {
-//       console.log(err)
-//     }
-//     console.log('Listening at localhost:' + config.port)
-//     console.log('Opening your system browser...')
-//     open('http://localhost:' + config.port + config.devServer.publicPath)
-//   })
+new WebpackDevServer(webpack(config), config.devServer)
+    .listen(config.devServer.port, "localhost", function (err) {
+        let URL = "http://localhost:" + config.devServer.port + config.devServer.publicPath;
+        console.log("Starting server on: " + URL);
+        if (err) {
+            console.error("ERRROR!", err);
+        }
+        open(URL);
+    });
