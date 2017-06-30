@@ -250,8 +250,9 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
 
   ngDoCheck(){
     this.qualifiedForAssistance = this.finAssistApp.eligibility.adjustedNetIncome <= this.qualificationThreshhold;
-    this.requireAttendantCareReceipts = this.qualifiedForAssistance && (this.finAssistApp.applicantClaimForAttendantCareExpense ||
-    this.finAssistApp.spouseClaimForAttendantCareExpense || this.finAssistApp.childClaimForAttendantCareExpense);
+    // fix for DEF-91
+    this.requireAttendantCareReceipts = this.finAssistApp.applicantClaimForAttendantCareExpense ||
+    this.finAssistApp.spouseClaimForAttendantCareExpense || this.finAssistApp.childClaimForAttendantCareExpense;
   }
 
   applicantClaimForAttendantCareExpense($event:Event){
