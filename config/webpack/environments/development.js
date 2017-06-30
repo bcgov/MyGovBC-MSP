@@ -41,11 +41,8 @@ module.exports = function (_path) {
       },
       stats: {
         colors: true,
-        performance: true,
         errors: true,
-        warnings: true,
-        cached: false,
-        timings: true,
+        warnings: true
       }
     }
   };

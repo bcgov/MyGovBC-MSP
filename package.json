@@ -84,7 +84,7 @@
     "sass-loader": "^3.1.1",
     "script-loader": "^0.7.0",
     "sha1": "^1.1.1",
-    "string-replace-loader": "^1.0.2", 
+    "string-replace-loader": "^1.0.2",
     "style-loader": "^0.13.1",
     "typescript": "2.0.10",
     "typings": "^2.0.0",
