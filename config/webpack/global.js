@@ -1,5 +1,6 @@
 'use strict'
 
+// Depends
 var path = require('path')
 var webpack = require('webpack')
 var autoprefixer = require('autoprefixer')
@@ -7,15 +8,9 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 var NODE_ENV = process.env.NODE_ENV || "production"
 var DEVELOPMENT = NODE_ENV === "production" ? false : true
-// for displaying the in-maintenance message
-var MSP_IS_IN_MAINTENANCE_FLAG = process.env.mspIsInMaintenanceFlag
-var MSP_IS_IN_MAINTENANCE_TEXT = process.env.mspIsInMaintenanceText
 
-/**
- * This is the main webpack configuration file.  It should contain configs that
- * should be found in all environments, production, dev, etc. Properties in the 
- * other environmental config files will override values here.
- */
+var stylesLoader = 'css-loader?sourceMap!postcss-loader!sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
+
 
 module.exports = function (_path) {
   var rootAssetPath = _path + 'src'
@@ -33,8 +28,8 @@ module.exports = function (_path) {
 
     // resolves modules
     resolve: {
-      extensions: ['.js', '.ts'],
-      modules: ['node_modules'],
+      extensions: ['', '.js', '.ts'],
+      modulesDirectories: ['node_modules'],
       alias: {
         _appRoot: path.join(_path, 'src', 'app'),
         _images: path.join(_path, 'src', 'app', 'assets', 'images'),
@@ -45,95 +40,56 @@ module.exports = function (_path) {
 
     // modules resolvers
     module: {
+      noParse: [],
       loaders: [
         {
           test: /\.ts$/,
-          use: [
-            { loader: "awesome-typescript-loader" },
-            { loader: "angular2-template-loader" }
-          ]
+          loaders: ['awesome-typescript-loader', 'angular2-template-loader']
         },
         {
           test: /\.html$/,
-          use: [{ loader: "html-loader" }]
-        },
-        {
-          test: /\.md$/, use: [
-            { loader: "html-loader" },
-            { loader: "markdown-loader" }
+          loaders: [
+            'html'
           ]
         },
+        {test: /\.md$/, loader: "html!markdown"},
         {
           test: /\.css$/,
-          use: ExtractTextPlugin.extract({
-            fallback: "style-loader",
-            use: [
-              {
-                loader: "css-loader",
-                options: {
-                  sourceMap: true
-                }
-              },
-              { loader: "sourceMap-loader" },
-              { loader: "postcss-loader" }
-            ]
-          })
+          loader: DEVELOPMENT ? 'style!css?sourceMap!postcss' : ExtractTextPlugin.extract("style",
+            'css?sourceMap!postcss')
         }, {
           test: /\.less$/,
-          use: ExtractTextPlugin.extract({
-            fallback: "style-loader",
-            use: [
-              {
-                loader: "css-loader",
-                options: {
-                  sourceMap: true,
-                }
-              },
-              { loader: 'postcss-loader' },
-              { loader: 'less-loader' }
-            ],
-          })
+          loader: DEVELOPMENT ? "style!css!postcss!less" : ExtractTextPlugin.extract("style", "css!postcss!less")
+        }, {
+          test: /\.(scss|sass)$/,
+          loader: DEVELOPMENT ? ('style!' + stylesLoader) : ExtractTextPlugin.extract('style', stylesLoader)
         }, {
           test: /\.(woff2|woff|ttf|eot|svg)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-          use: [{
-            loader: "url-loader",
-            options: {
-              name: "assets/fonts/[name]_[hash].[ext]"
-            }
-          }]
+          loaders: [
+            "url-loader?name=assets/fonts/[name]_[hash].[ext]"
+          ]
         }, {
           test: /\.(jpe?g|png|gif)$/i,
-          use: [{
-            loader: "url-loader",
-            options: {
-              name: "name=assets/images/[name]_[hash].[ext]",
-              limit: 10000
-            }
-          }]
+          loaders: [
+            'url-loader?name=assets/images/[name]_[hash].[ext]&limit=10000'
+          ]
         }
-      ],
+      ]
     },
 
+    // post css
+    postcss: [autoprefixer({browsers: ['last 5 versions']})],
+
+    // load plugins
     plugins: [
       new webpack.DefinePlugin({
         'NODE_ENV': JSON.stringify(NODE_ENV),
         'process.env.mspIsInMaintenanceFlag': JSON.stringify(process.env.mspIsInMaintenanceFlag),
         'process.env.mspIsInMaintenanceText': JSON.stringify(process.env.mspIsInMaintenanceText)
       }),
-      new webpack.LoaderOptionsPlugin({
-        options: {
-          postcss: [autoprefixer({ browsers: ['last 5 versions'] })]
-        }
-      }),
-      //Removes an ng2 warning.  Note: May change when upgrading to Angular 4+
-      //https://github.com/angular/angular/issues/11580
-      new webpack.ContextReplacementPlugin(
-        // The (\\|\/) piece accounts for path separators in *nix and Windows
-        /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-        path.resolve(__dirname, 'doesnotexist/')
-      ),
-      new webpack.NoEmitOnErrorsPlugin(),
+      new webpack.NoErrorsPlugin(),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      new webpack.optimize.DedupePlugin(),
       new webpack.optimize.AggressiveMergingPlugin({
         moveToParents: true
       }),
@@ -143,19 +99,31 @@ module.exports = function (_path) {
         children: true,
         minChunks: Infinity
       }),
-      new ExtractTextPlugin({
-        filename: 'assets/styles/css/[name]' + (NODE_ENV === 'development' ? '' : '.[chunkhash]') + '.css',
-        allChunks: true
-      })
+      new ExtractTextPlugin('assets/styles/css/[name]' + (NODE_ENV === 'development' ? '' : '.[chunkhash]') + '.css', {allChunks: true})
     ],
-    //devServer declared to avoid undefined errors. Content is in development.ts
-    devServer: {},
-    /**
-     * AppConstants can be defined here or in environment files. Remember,
-     * environment files will override values here.
-     */
+    devServer: {
+      publicPath: '/msp',
+      contentBase: './dist',
+      info: true,
+      hot: true,
+      inline: true,
+      historyApiFallback: {
+        index: '/msp'
+      },
+      watchOptions: {
+        poll: 1000,
+      },
+      proxy: {
+          '/msp/api': {
+              target: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca',
+              changeOrigin: true,
+              secure: false
+          }
+      }
+    },
+    // constants injected to app
     appConstants: {
-      runtimeEnv: NODE_ENV, // run-time env. by default same as build-time node env
+      runtimeEnv: NODE_ENV, // run-time environment. by default same as build-time node env
       coreApiBaseUrl: 'http://localhost:9000/api',
       serviceName: 'core',
       apiBaseUrl: '/msp/api',
@@ -177,7 +145,20 @@ module.exports = function (_path) {
       mspIsInMaintenanceFlag: process.env.mspIsInMaintenanceFlag,
       mspIsInMaintenanceText: process.env.mspIsInMaintenanceText
     },
+    htmlLoader: {
+      minimize: false,
+    }
+  }
+  if (NODE_ENV !== 'development') {
+    webpackConfig.plugins = webpackConfig.plugins.concat([
+      new webpack.optimize.UglifyJsPlugin({
+        minimize: true,
+        warnings: false,
+        sourceMap: true
+      })
+    ])
   }
 
   return webpackConfig
+
 }
