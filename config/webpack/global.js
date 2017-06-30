@@ -117,6 +117,8 @@ module.exports = function (_path) {
     plugins: [
       new webpack.DefinePlugin({
         'NODE_ENV': JSON.stringify(NODE_ENV),
+        'process.env.mspIsInMaintenanceFlag': JSON.stringify(process.env.mspIsInMaintenanceFlag),
+        'process.env.mspIsInMaintenanceText': JSON.stringify(process.env.mspIsInMaintenanceText)
       }),
       new webpack.LoaderOptionsPlugin({
         options: {
@@ -172,8 +174,8 @@ module.exports = function (_path) {
         jpegQuality: 0.5
       },
       // general state of the app, if unavailable, display Unavailable message and don't continue
-      mspIsInMaintenanceFlag: MSP_IS_IN_MAINTENANCE_FLAG,
-      mspIsInMaintenanceText: MSP_IS_IN_MAINTENANCE_TEXT
+      mspIsInMaintenanceFlag: process.env.mspIsInMaintenanceFlag,
+      mspIsInMaintenanceText: process.env.mspIsInMaintenanceText
     },
   }
 
