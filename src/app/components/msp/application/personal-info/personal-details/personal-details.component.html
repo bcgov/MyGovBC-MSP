@@ -180,7 +180,9 @@
                                   [required] = "true">
                 </msp-arrival-date>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" *ngIf="person.status === StatusInCanada.CitizenAdult &&
+                person.currentActivity === Activities.LivingInBCWithoutMSP &&
+                !person.livedInBCSinceBirth">
                 <msp-province #province
                               [provinceLabel]="lang('./en/index.js').movedFromAnotherProvinceLabel"
                               [province]="person.movedFromProvinceOrCountry"
