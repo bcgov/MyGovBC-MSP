@@ -85,7 +85,8 @@ module.exports = function (_path) {
       new webpack.DefinePlugin({
         'NODE_ENV': JSON.stringify(NODE_ENV),
         'process.env.mspIsInMaintenanceFlag': JSON.stringify(process.env.mspIsInMaintenanceFlag),
-        'process.env.mspIsInMaintenanceText': JSON.stringify(process.env.mspIsInMaintenanceText)
+        'process.env.mspIsInMaintenanceText': JSON.stringify(process.env.mspIsInMaintenanceText),
+        'process.env.mspIsInMaintenanceTimes': JSON.stringify(process.env.mspIsInMaintenanceTimes)
       }),
       new webpack.NoErrorsPlugin(),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
@@ -143,7 +144,8 @@ module.exports = function (_path) {
       },
       // general state of the app, if unavailable, display Unavailable message and don't continue
       mspIsInMaintenanceFlag: process.env.mspIsInMaintenanceFlag,
-      mspIsInMaintenanceText: process.env.mspIsInMaintenanceText
+      mspIsInMaintenanceText: process.env.mspIsInMaintenanceText,
+      mspIsInMaintenanceTimes: process.env.mspIsInMaintenanceTimes
     },
     htmlLoader: {
       minimize: false,

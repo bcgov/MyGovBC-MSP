@@ -10,26 +10,16 @@
       </div>
       <div class="modal-body">
         <!-- jam app unavailable message -->
-        <!-- <div [innerHtml]="lang('./en/index.js').body"></div> -->
         <div *ngIf="appConstants.mspIsInMaintenanceFlag != undefined && appConstants.mspIsInMaintenanceFlag === 'true'">
           <p><strong>{{appConstants.mspIsInMaintenanceText}}</strong></p>
-          <p>The online application system for MSP and Regular Premium Assistance is <strong>unavailable</strong>.  We apologize for the inconvenience. Please check back later or use the paper application forms available:
-            <br/><br/>
-            <strong>MSP landing page:</strong>
-            <br/><br/>
-            The online application system for MSP and Regular Premium Assistance is unavailable between 9:00 PM and 12:00 AM. We apologize for the inconvenience.
-            Please check back later or use the <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp">paper application forms</a> available.
-            <br/><br/>
-            <strong>How to Apply page:</strong>
-            <br/><br/>
-            The online application for MSP is unavailable between 9:00 PM and 12:00 AM. We apologize for the inconvenience.
-            Please check back later or use the <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/how-to-enrol">paper application form</a> available.
-            <br/><br/>
-            <strong>Regular Premium Assistance page:</strong>
-            <br/><br/>
-            The online application for Regular Premium Assistance is unavailable between 9:00 PM and 12:00 AM. We apologize for the inconvenience.
-            Please check back later or use the <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/premiums/regular-premium-assistance">paper application form</a> available.
-          </p>
+          <p>The online application system for MSP and Regular Premium Assistance is currently <strong>unavailable</strong> {{appConstants.mspIsInMaintenanceTimes}}.</p>
+          <p>Please try again later, or submit a paper application using print-and-mail PDF forms:</p>
+          <ul>
+            <li><strong>MSP Enrolment:</strong> <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/how-to-enrol">HLTH 102: Application For Enrolment</a>
+            </li>
+            <li><strong>Regular Premium Assistance:</strong> <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/premiums/regular-premium-assistance">HLTH 119: Application For Regular Premium Assistance</a>
+            </li>
+          </ul>
         </div>
         <div *ngIf="appConstants.mspIsInMaintenanceFlag === undefined || appConstants.mspIsInMaintenanceFlag != 'true'" [innerHtml]="lang('./en/index.js').body"></div>
 

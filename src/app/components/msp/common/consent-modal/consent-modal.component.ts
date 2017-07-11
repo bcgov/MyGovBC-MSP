@@ -18,9 +18,7 @@ export class MspConsentModalComponent {
   @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
   @Output() onClose = new EventEmitter<void>();
 
-  constructor(@Inject('appConstants') private appConstants: any) {
-    console.log(appConstants);
-  }
+  constructor(@Inject('appConstants') private appConstants: any) {}
 
   agreeCheck: boolean = false;
 
