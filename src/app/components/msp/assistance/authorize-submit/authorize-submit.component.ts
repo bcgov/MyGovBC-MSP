@@ -13,7 +13,7 @@ import {Router} from "@angular/router";
   templateUrl: './authorize-submit.component.html'
 })
 export class AssistanceAuthorizeSubmitComponent implements OnInit{
-  static ProcessStepNum = 5;
+  static ProcessStepNum = 4;
   lang = require('./i18n');
   captchaApiBaseUrl:string;
 

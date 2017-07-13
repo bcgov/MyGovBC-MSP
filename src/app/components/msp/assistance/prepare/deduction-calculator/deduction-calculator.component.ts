@@ -25,7 +25,7 @@ import ProcessService from "../../../service/process.service";
 })
 
 export class DeductionCalculatorComponent implements DoCheck {
-  static ProcessStepNum = 1;
+  static ProcessStepNum = 0;
 
   @Input() application: FinancialAssistApplication;
   @Output() updateQualify: EventEmitter<Boolean> = new EventEmitter<Boolean>();

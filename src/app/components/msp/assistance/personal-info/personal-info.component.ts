@@ -16,7 +16,7 @@ import ProcessService from "../../service/process.service";
 })
 export class AssistancePersonalInfoComponent extends BaseComponent{
   //DEF-74 KPS
-  static ProcessStepNum = 2;
+  static ProcessStepNum = 1;
 
   lang = require('./i18n');
 
@@ -55,8 +55,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent{
   }
   
   onSubmit(form: NgForm){
-    this._processService.setStep(AssistancePersonalInfoComponent.ProcessStepNum, true);
-    this._router.navigate(['/msp/assistance/retro']);
+   this._router.navigate(['/msp/assistance/retro']);
   }
 
   get canContinue():boolean{

@@ -160,9 +160,8 @@ let localStorageServiceConfig = {
             children: [
               {
                 path: '',
-                //redirectTo: 'prepare',
-                canActivate: [],
-                redirectTo: 'initial-eligibility-check',
+                redirectTo: 'prepare',
+                //redirectTo: 'initial-eligibility-check',
                 pathMatch: 'full'
               },
               {
@@ -171,7 +170,6 @@ let localStorageServiceConfig = {
               },
               {
                 path: 'prepare',
-                canActivate: [ProcessService],
                 component: AssistancePrepareComponent
               },
               {
