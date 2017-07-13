@@ -12,7 +12,7 @@ import {ModalDirective} from "ng2-bootstrap";
 
 import DataService from '../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
-//KPS import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
+import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
 import {MspImage} from "../../model/msp-image";
 import {AssistanceYear} from '../../model/assistance-year.model';
 import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
@@ -37,7 +37,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
   @ViewChild('assistanceYearComp') assistanceYearComp: MspAssistanceYearComponent;
 
-  //KPS @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
+  @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
   @ViewChild('disabilityNursingHomeChoiceModal') public disabilityNursingHomeChoiceModal: ModalDirective;
 
   
@@ -112,9 +112,9 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   }
 
   ngAfterViewInit() {
-    /*KPS if (!this.dataService.finAssistApp.infoCollectionAgreement) {
+    if (!this.dataService.finAssistApp.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();
-    }*/
+    }
 
     let ageOver$ = Observable.fromEvent<MouseEvent>(this.ageOver65Btn.nativeElement, 'click')
       .map( x=>{

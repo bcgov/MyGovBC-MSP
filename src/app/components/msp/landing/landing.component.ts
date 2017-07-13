@@ -25,8 +25,7 @@ export class LandingComponent {
   clearSavedFinAssisApp(){
     console.log('deleting saved fin assist app.');
     this.mspDataService.removeFinAssistApplication();
-    //KPS this.router.navigate(['/msp/assistance/prepare']);
-    this.router.navigate(['/msp/assistance/initial-eligibility-check']);
+    this.router.navigate(['/msp/assistance/prepare']);
     
   }
 

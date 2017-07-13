@@ -26,9 +26,7 @@ export class AssistanceComponent {
       new MspProgressBarItem(this.lang("./en/index.js").progressStep2, this.processService.process.processSteps[1].route),
       new MspProgressBarItem(this.lang("./en/index.js").progressStep3, this.processService.process.processSteps[2].route),
       new MspProgressBarItem(this.lang("./en/index.js").progressStep4, this.processService.process.processSteps[3].route),
-      new MspProgressBarItem(this.lang("./en/index.js").progressStep5, this.processService.process.processSteps[4].route),
-      //KPS
-      new MspProgressBarItem(this.lang("./en/index.js").progressStep6, this.processService.process.processSteps[5].route)
+      new MspProgressBarItem(this.lang("./en/index.js").progressStep5, this.processService.process.processSteps[4].route)
     ];
   }
 
@@ -40,7 +38,6 @@ export class AssistanceComponent {
 
   private initProcessService () {
     this.processService.init([
-      new ProcessStep("/msp/assistance/initial-eligibility-check"),
       new ProcessStep("/msp/assistance/prepare"),
       new ProcessStep("/msp/assistance/personal-info"),
       new ProcessStep("/msp/assistance/retro"),
