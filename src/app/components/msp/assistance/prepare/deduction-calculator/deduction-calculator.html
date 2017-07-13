@@ -183,15 +183,13 @@
 
       </tbody>
     </table>
-    <!-- DEF-75 KPS <p class="qualify-message" *ngIf="applicantIncomeInfoProvided && incomeUnderThreshhold" tabindex="0">-->
-    <p class="qualify-message" *ngIf="applicantIncomeInfoProvided" tabindex="0">
-      <!-- DEF-75 KPS It is likely that you will qualify for Premium Assistance.-->
-      If you qualify for Regular Premium Assistance, your Adjusted Net Income will be used to determine your monthly rate.
+    <p class="qualify-message" *ngIf="applicantIncomeInfoProvided && incomeUnderThreshhold" tabindex="0">
+      It is likely that you will qualify for Premium Assistance.
     </p>
     <div *ngIf="applicantIncomeInfoProvided && !incomeUnderThreshhold" style="margin-right: 5px;">
-      <!-- DEF-75 KPS<p class="disqualify-message" tabindex="0"
+      <p class="disqualify-message" tabindex="0"
         [innerHTML]="lang('./en/index.js').mayNotQualifyText.replace('{currentCalendarYear}', currentCalendarYear)">
-      </p>-->
+      </p>
       <p [innerHTML]="lang('./en/index.js').youShouldContinue" tabindex="0">
       </p>
     </div>
