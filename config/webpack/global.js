@@ -14,7 +14,10 @@ module.exports = function (_path) {
 
   var webpackConfig = {
     // entry points
-    entry: [_path + '/src/polyfills', _path + '/src/vendor', _path + '/src/main'],
+    entry: {
+      vendor: [_path + '/src/polyfills', _path + '/src/vendor'],
+      main: _path + '/src/main'
+    },
 
     // output system
     output: {

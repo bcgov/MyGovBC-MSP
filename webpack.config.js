@@ -92,7 +92,9 @@ function addHtmlPlugin(webpackConfigs) {
       rootUrlPath: webpackConfigs.devServer.publicPath || '',
       headerFooterSvcUrl: webpackConfigs.headerFooterSvcUrl || '',
       filename: 'index.html',
-      template: path.join(__dirname, 'src', 'index.html.ejs')
+      template: path.join(__dirname, 'src', 'index.html.ejs'),
+      //Orders script tags.
+      chunksSortMode: function (a, b) { var order = ["main", "vendor"]; return order.indexOf(b.names[0]) - order.indexOf(a.names[0]); }
     })
   ]);
 
