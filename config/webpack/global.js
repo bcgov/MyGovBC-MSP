@@ -139,7 +139,8 @@ module.exports = function (_path) {
       new ExtractTextPlugin({
         filename: 'assets/styles/css/[name]' + (NODE_ENV === 'development' ? '' : '.[chunkhash]') + '.css',
         allChunks: true
-      })
+      }),
+      new webpack.optimize.ModuleConcatenationPlugin()
     ],
     //devServer declared to avoid undefined errors. Content is in development.ts
     devServer: {},
