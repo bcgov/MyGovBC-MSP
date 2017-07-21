@@ -1,7 +1,7 @@
 import {NgModule, OpaqueToken, Inject, Component} from '@angular/core'
 import {BrowserModule}  from '@angular/platform-browser'
 import {RouterModule} from '@angular/router';
-import {APP_BASE_HREF} from '@angular/common';
+
 
 import {HomeComponent} from './components/home'
 import {CoreHeaderComponent} from './components/core/header'
@@ -29,7 +29,7 @@ require('./index.less')
     GeneralAppComponent
   ],
   
-  providers: [{provide: 'appConstants', useValue: appConstants}, {provide: APP_BASE_HREF, useValue: '/'}],
+  providers: [{provide: 'appConstants', useValue: appConstants}],
   bootstrap: [CoreHeaderComponent, CoreFooterComponent, GeneralAppComponent]
 })
 export class AppModule {
