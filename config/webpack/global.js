@@ -174,10 +174,7 @@ module.exports = function (_path) {
       mspIsInMaintenanceFlag: process.env.mspIsInMaintenanceFlag,
       mspIsInMaintenanceText: process.env.mspIsInMaintenanceText,
       mspIsInMaintenanceTimes: process.env.mspIsInMaintenanceTimes
-    },
-     htmlLoader: {
-          minimize: false,
-      }
+    }
   }
 
   return webpackConfig
