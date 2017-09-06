@@ -9,7 +9,7 @@ import {NgForm} from "@angular/forms";
 import {PersonalDetailsComponent} from "./personal-details/personal-details.component";
 import {BaseComponent} from "../../common/base.component";
 import ProcessService from "../../service/process.service";
-
+import { StatusInCanada} from "../../model/status-activities-documents";
 @Component({
   templateUrl: './personal-info.component.html'
 })
@@ -80,6 +80,26 @@ export class PersonalInfoComponent extends BaseComponent {
     return this.dataService.getMspApplication().documentsReady;
   }
 
+  // fix for DEF-90
+  isStayinginBCAfterstudies(): boolean {
+   let stayingInBc = true;
+    if (this.personalDetailsComponent) {  // initial page load..empty object
+      this.personalDetailsComponent.forEach((personalDetailsComponent) => {
+        if (personalDetailsComponent && personalDetailsComponent.person) {  //dependent can be empty object..ignore them
+
+          let currentApplicant: Person = personalDetailsComponent.person;
+          if (currentApplicant.status === StatusInCanada.CitizenAdult || currentApplicant.status === StatusInCanada.PermanentResident) {
+            if (currentApplicant.fullTimeStudent && currentApplicant.inBCafterStudies == false) {
+              this._processService.setStep(1, false);
+              stayingInBc = false;
+            }
+          }
+        }
+     });
+
+      return stayingInBc;
+    }
+  }
   canContinue():boolean {
     return this.isAllValid();
   }

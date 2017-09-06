@@ -1,10 +1,10 @@
 'use strict';
 var CleanWebpackPlugin = require('clean-webpack-plugin');
+var webpack = require('webpack');
 
 module.exports = function(_path) {
   return {
     context: _path,
-    debug: true,
     devtool: 'cheap-source-map',
     output: {
       filename: '[name].[chunkhash].js'
@@ -14,6 +14,11 @@ module.exports = function(_path) {
         root: _path,
         verbose: true,
         dry: false
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        minimize: true,
+        warnings: false,
+        sourceMap: false
       }),
       function()
       {

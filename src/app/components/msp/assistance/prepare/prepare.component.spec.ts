@@ -30,7 +30,7 @@ describe('AssistancePrepareComponent', () => {
         DeductionCalculatorComponent, MspCancelComponent, FileUploaderComponent, ThumbnailComponent,
         MspImageErrorModalComponent, MspLoggerDirective],
 
-      imports: [FormsModule, ModalModule, HttpModule],
+      imports: [FormsModule, ModalModule.forRoot(), HttpModule],
 
       providers: [MspDataService, MspLogService,
         LocalStorageService, {

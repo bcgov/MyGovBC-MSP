@@ -8,7 +8,7 @@
           </p>
         </div>
 
-        <div *ngIf="assistanceYearsList && assistanceYearsList.length > 0"> 
+        <div *ngIf="assistanceYearsList && assistanceYearsList.length > 0">
           <msp-assistance-year #assistanceYearComp *ngFor="let assistanceYear of assistanceYearsList"
             [assistanceYear]='assistanceYear'
             (updateAssistanceYear) = "onAssistanceYearUpdate($event)">

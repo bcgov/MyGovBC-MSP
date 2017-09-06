@@ -55,7 +55,7 @@ describe('PersonalInfoComponent', () => {
         MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspCancelComponent,
         MspImageErrorModalComponent, MspLoggerDirective, CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator
         ],
-      imports: [FormsModule, Ng2CompleterModule, ModalModule, AccordionModule, HttpModule, RouterTestingModule],
+      imports: [FormsModule, Ng2CompleterModule, ModalModule.forRoot(), AccordionModule.forRoot(), HttpModule, RouterTestingModule],
       providers: [MspDataService, MspLogService, ValiationService, ProcessService,
         CompletenessCheckService,
         LocalStorageService,{

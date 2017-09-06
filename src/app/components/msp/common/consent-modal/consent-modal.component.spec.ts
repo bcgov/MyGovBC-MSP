@@ -17,7 +17,7 @@ describe('MspConsentModalComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MspConsentModalComponent, MspAddressCardPartComponent],
-      imports: [FormsModule, RouterTestingModule, Ng2BootstrapModule],
+      imports: [FormsModule, RouterTestingModule, Ng2BootstrapModule.forRoot()],
       providers: [MspDataService,
         LocalStorageService,{
           provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
