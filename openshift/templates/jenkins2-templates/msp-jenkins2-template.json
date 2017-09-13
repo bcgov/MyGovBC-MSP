@@ -44,7 +44,7 @@
           "type": "Git",
           "git": {
             "uri": "${SOURCE_REPOSITORY_URL}",
-            "ref": "${GIT_REFERENCE}"
+            "ref": "${SOURCE_REPOSITORY_REF}"
           }
         },
         "strategy": {
@@ -89,7 +89,7 @@
           "type": "Git",
           "git": {
             "uri": "${SOURCE_REPOSITORY_URL}",
-            "ref": "${GIT_REFERENCE}"
+            "ref": "${SOURCE_REPOSITORY_REF}"
           }
         },
         "strategy": {
@@ -124,7 +124,7 @@
       "value": "https://github.com/bcgov/MyGovBC-MSP.git"
     },
     {
-      "name": "GIT_REFERENCE",
+      "name": "SOURCE_REPOSITORY_REF",
       "displayName": "Git Reference",
       "description": "Optional branch, tag, or commit.",
       "required": true,
