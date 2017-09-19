@@ -29,7 +29,7 @@ export class DependentTypeFactory {
 	}
 }
 
-interface _EnrolmentApplicantType extends ct._BasicInfoType {
+export interface _EnrolmentApplicantType extends ct._BasicInfoType {
 	authorizedByApplicant: ct.YesOrNoType;
 	authorizedByApplicantDate: string;
 	authorizedBySpouse?: ct.YesOrNoType;

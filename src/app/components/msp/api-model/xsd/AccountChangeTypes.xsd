@@ -47,21 +47,21 @@
     <!-- The spouses -->
 	<xs:complexType name="AccountChangeSpousesType">
     	<xs:sequence>
-    	    <xs:element name="removedSpouse" type="ac:SpouseType" minOccurs="0" maxOccurs="1"/>
-    	    <xs:element name="addedSpouse" type="ac:SpouseType" minOccurs="0" maxOccurs="1"/>
-    	    <xs:element name="updatedSpouse" type="ac:SpouseType" minOccurs="0" maxOccurs="1"/>
+    	    <xs:element name="removedSpouse" type="ac:AccountChangeSpouseType" minOccurs="0" maxOccurs="1"/>
+    	    <xs:element name="addedSpouse" type="ac:AccountChangeSpouseType" minOccurs="0" maxOccurs="1"/>
+    	    <xs:element name="updatedSpouse" type="ac:AccountChangeSpouseType" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
     
     <!-- The children -->
 	<xs:complexType name="AccountChangeChildrenType">
 		<xs:sequence>
-			<xs:element name="child" type="ac:ChildType" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="child" type="ac:AccountChangeChildType" minOccurs="1" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
     
     <!-- Basic Spouse Type -->
-	<xs:complexType name="SpouseType">
+	<xs:complexType name="AccountChangeSpouseType">
 		<xs:complexContent>
 			<xs:extension base="ct:BasicInfoType">
 				<xs:sequence>
@@ -77,7 +77,7 @@
 	</xs:complexType>
 	
 	<!-- Basic Child Type -->
-	<xs:complexType name="ChildType">
+	<xs:complexType name="AccountChangeChildType">
 		<xs:complexContent>
 			<xs:extension base="ct:BasicInfoType">
 				<xs:sequence>
