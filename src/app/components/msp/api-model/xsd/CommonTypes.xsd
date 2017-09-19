@@ -8,8 +8,8 @@
     	<xs:documentation xml:lang="en">
     		Common Types - Digital Experience
     		Supports EnrollmentTypes, AssistanceTypes, NameChangeTypes.
-    		Version: $LastChangedRevision: 4971 $  
-    		LastChanged: $LastChangedDate: 2017-06-06 17:42:04 -0400 (Tue, 06 Jun 2017) $
+    		Version: $LastChangedRevision: 5148 $  
+    		LastChanged: $LastChangedDate: 2017-09-18 13:53:51 -0700 (Mon, 18 Sep 2017) $
     	</xs:documentation>
     </xs:annotation>
     
@@ -154,6 +154,12 @@
 	</xs:simpleType>
 	
 	<xs:simpleType name="SchoolNameType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="InstitutionNameType">
 		<xs:restriction base="xs:string">
 			<xs:maxLength value="50"/>
 		</xs:restriction>

@@ -125,6 +125,9 @@ type _ProvinceOrStateType = Primitive._string;
 export type SchoolAddressType = string;
 type _SchoolAddressType = Primitive._string;
 
+export type InstitutionNameType = string;
+type _InstitutionNameType = Primitive._string;
+
 export type SchoolNameType = string;
 type _SchoolNameType = Primitive._string;
 

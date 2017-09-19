@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema version="1.2"
+    xmlns:ac="http://www.gov.bc.ca/hibc/accountChangeTypes" 
+    xmlns:et="http://www.gov.bc.ca/hibc/enrolmentTypes"
+    xmlns:ct="http://www.gov.bc.ca/hibc/commonTypes" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.gov.bc.ca/hibc/accountChangeTypes">
+
+    <xs:import namespace="http://www.gov.bc.ca/hibc/commonTypes" schemaLocation="CommonTypes.xsd"/>
+    <xs:import namespace="http://www.gov.bc.ca/hibc/enrolmentTypes" schemaLocation="EnrolmentTypes.xsd"/>
+
+    <xs:annotation>
+    	<xs:documentation xml:lang="en">
+    		MSP Account Change Types - Digital Experience
+    		Version: $LastChangedRevision: 4963 $  
+    		LastChanged: $LastChangedDate: 2017-06-06 09:17:58 -0700 (Tue, 06 Jun 2017) $
+    	</xs:documentation>
+    </xs:annotation>
+
+	<!-- root element -->
+	<xs:element name="accountChangeApplication" type="ac:AccountChangeApplicationType"/>
+	
+	<!-- type of root element -->
+	<xs:complexType name="AccountChangeApplicationType">
+	    <xs:sequence>
+	    	<xs:element name="accountHolder" type="ac:AccountChangeAccountHolderType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="spouses" type="ac:AccountChangeSpousesType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="children" type="ac:AccountChangeChildrenType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+    
+    <!-- The account holder -->
+	<xs:complexType name="AccountChangeAccountHolderType">
+		<xs:complexContent>
+			<xs:extension base="et:EnrolmentApplicantType">
+    			<xs:sequence>
+    	    		<xs:element name="selectedAddressChange" type="xs:boolean" maxOccurs="1"/>
+    	    		<xs:element name="selectedPersonalInfoChange" type="xs:boolean" maxOccurs="1"/>
+    	    		<xs:element name="selectedAddRemove" type="xs:boolean" maxOccurs="1"/>
+    	    		<xs:element name="selectedStatusChange" type="xs:boolean" maxOccurs="1"/>
+    	    		<xs:element name="phn" type="ct:PHNType" maxOccurs="1"/>
+        		</xs:sequence>
+        	</xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- The spouses -->
+	<xs:complexType name="AccountChangeSpousesType">
+    	<xs:sequence>
+    	    <xs:element name="removedSpouse" type="ac:SpouseType" minOccurs="0" maxOccurs="1"/>
+    	    <xs:element name="addedSpouse" type="ac:SpouseType" minOccurs="0" maxOccurs="1"/>
+    	    <xs:element name="updatedSpouse" type="ac:SpouseType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- The children -->
+	<xs:complexType name="AccountChangeChildrenType">
+		<xs:sequence>
+			<xs:element name="child" type="ac:ChildType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+    
+    <!-- Basic Spouse Type -->
+	<xs:complexType name="SpouseType">
+		<xs:complexContent>
+			<xs:extension base="ct:BasicInfoType">
+				<xs:sequence>
+					<xs:element name="residency" type="et:ResidencyType" maxOccurs="1"/>
+					<xs:element name="previousLastName" type="ct:SubNameType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="marriageDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="phn" type="ct:PHNType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="cancellationReason" type="ac:CancellationReasonType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="cancellationDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<!-- Basic Child Type -->
+	<xs:complexType name="ChildType">
+		<xs:complexContent>
+			<xs:extension base="ct:BasicInfoType">
+				<xs:sequence>
+					<xs:element name="operationAction" type="ac:OperationActionType" maxOccurs="1"/>
+					<xs:element name="residency" type="et:ResidencyType"/>
+					<xs:element name="phn" type="ct:PHNType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="cancellationReason" type="ac:CancellationReasonType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="cancellationDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="adoptionDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="schoolName" type="ct:SchoolNameType"/>
+					<xs:element name="schoolAddress" type="ct:AddressType"/>
+					<xs:element name="dateStudiesFinish" type="xs:date"/>
+					<xs:element name="departDateSchoolOutside" type="xs:date" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="CancellationReasonType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="OperationActionType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Add"/>
+            <xs:enumeration value="Remove"/>
+            <xs:enumeration value="Update"/>
+        </xs:restriction>
+    </xs:simpleType>
+	
+</xs:schema>

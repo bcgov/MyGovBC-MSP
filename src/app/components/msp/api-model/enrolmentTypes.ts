@@ -182,6 +182,7 @@ export class ResidencyTypeFactory {
 
 interface _WillBeAwayType extends BaseType {
 	armedDischargeDate?: string;
+	armedForceInstitutionName?: string;
 	isFullTimeStudent: ct.YesOrNoType;
 	isInBCafterStudies?: ct.YesOrNoType;
 }
@@ -191,7 +192,7 @@ export var WillBeAwayType: { new(): WillBeAwayType };
 export class WillBeAwayTypeFactory {
 	static make(): WillBeAwayType {
 		let instance = <WillBeAwayType>{};
-		instance._sequence = ["isFullTimeStudent", "isInBCafterStudies", "armedDischargeDate"];
+		instance._sequence = ["isFullTimeStudent", "isInBCafterStudies", "armedDischargeDate", "armedForceInstitutionName"];
 		return instance;
 	}
 }
