@@ -84,6 +84,7 @@ import {MspLogService} from "./service/log.service"
 import ProcessService from "./service/process.service";
 
 import {AccountComponent} from './account/account.component';
+import {AccountPrepareComponent} from "./account/prepare/prepare.component";
 
 let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
@@ -206,8 +207,21 @@ let localStorageServiceConfig = {
                     // Start of Account Routes
                     {
                         path: 'account',
-                        component: AssistanceComponent,
+                        component: AccountComponent,
+                        children: [
+                            {
+                                path: '',
+                                canActivate: [],
+                                redirectTo: 'prepare',
+                                pathMatch: 'full'
+                            },
+                            {
+                                path: 'prepare',
+                                component: AccountPrepareComponent
+                            }
+                    ]
                     }
+
                 ]
             },
             {path: '**', redirectTo: '/msp'}
@@ -283,7 +297,8 @@ let localStorageServiceConfig = {
 
         //Account
 
-        AccountComponent
+        AccountComponent,
+        AccountPrepareComponent
     ],
 
     providers: [

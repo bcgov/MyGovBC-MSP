@@ -12,6 +12,7 @@ import {OutofBCRecord} from '../model/outof-bc-record.model';
 import {StatusInCanada, Relationship} from '../model/status-activities-documents';
 import {puts} from "util";
 import {Process} from "./process.service";
+import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
 
 @Injectable()
 export default class MspDataService {
@@ -22,6 +23,11 @@ export default class MspDataService {
     // private finAssistMailingAddressStorageKey:string = 'financial-assist-mailing-address';
     private mspAppStorageKey: string = 'msp-application';
     private mspProcessKey: string = 'msp-process';
+    private mspProgressBarKey: string = 'msp-progressbar';  //Progress bar has to be saved since its dynamic .Storing to avoid extra calls in all the getter invocations
+
+    private mspAccountStorageKey: string = 'msp-account';
+    private mspAccountKey: string = 'account-process';
+    private mspAccountNavBarKey: string = 'account-navbar';
 
     constructor(private localStorageService: LocalStorageService) {
         this._finAssistApp = this.fetchFinAssistApplication();
@@ -40,8 +46,21 @@ export default class MspDataService {
         this.localStorageService.set(this.mspProcessKey, process);
     }
 
+
+    getMspProgressBar (): Array<MspProgressBarItem> {
+        return this.localStorageService.get<Array<MspProgressBarItem>>(this.mspProgressBarKey);
+    }
+
+    seMspProgressBar(progressBar: Array<MspProgressBarItem>) {
+        this.localStorageService.set(this.mspProgressBarKey, progressBar);
+    }
+
     getMspApplication(): MspApplication {
         return this._mspApplication;
+    }
+
+    getMspAccount(): MspAccount {
+        return this._mspAccount;
     }
 
     get finAssistApp(): FinancialAssistApplication {

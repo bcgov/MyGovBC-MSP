@@ -1,0 +1,36 @@
+<msp-consent-modal #mspConsentModal [application]="mspAccount" [processName]="lang('./en/index.js').consentProcessName"
+                   (onClose)="addressChangeInput.focus()">
+</msp-consent-modal>
+
+<h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
+
+<form #formRef='ngForm' novalidate role="form" >
+
+    <div role="dialog" aria-labelledby="q1" class="checkbox checkbox-spaced">
+        <input #addressChangeInput class="input-lg" id='addressChange' name="addressChange" type="checkbox" [(ngModel)]="accountChangeOptions.addressUpdate">
+        <label id="q1" for='addressChange' [innerHtml]="lang('./en/index.js').addressChange"></label>
+    </div>
+    <div role="dialog" aria-labelledby="q2" class="checkbox checkbox-spaced">
+        <input class="input-lg" id='personalInfoChange' name="personalInfoChange" type="checkbox" [(ngModel)]="accountChangeOptions.personInfoUpdate">
+        <label id="q2" for='personalInfoChange' [innerHtml]="lang('./en/index.js').personalInfoChange"></label>
+    </div>
+    <div role="dialog" aria-labelledby="q3" class="checkbox checkbox-spaced">
+        <input class="input-lg" id='dependentChange' name="dependentChange" type="checkbox" [(ngModel)]="accountChangeOptions.depdendentChange">
+        <label id="q3" for='dependentChange' [innerHtml]="lang('./en/index.js').dependentChange"></label>
+    </div>
+    <div role="dialog" aria-labelledby="q4" class="checkbox checkbox-spaced">
+        <input class="input-lg" id='updateStatusInCanada' name="updateStatusInCanada" type="checkbox" [(ngModel)]="accountChangeOptions.statusUpdate">
+        <label id="q4" for='updateStatusInCanada' [innerHtml]="lang('./en/index.js').updateStatusInCanada"></label>
+    </div>
+</form>
+<hr>
+
+
+<hr>
+
+<button [mspLogger]="'msp-enrollment_check-eligibility_continue'" class="btn btn-primary" [disabled]="!canContinue()" (click)="next()"
+        type="button" tabindex="0" [innerHtml]="lang('./en/index.js').continueButton"></button>
+
+<msp-cancel></msp-cancel>
+
+
