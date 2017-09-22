@@ -89,8 +89,8 @@ http {
             # Enable Nginx stats
             stub_status on;
 
-            # Only allow access from localhost
-            allow 172.51.0.0/16;
+            # Only allow access from within OpenShift
+            allow %RealIpFrom%;
 
             # Other request should be denied
             deny all;
