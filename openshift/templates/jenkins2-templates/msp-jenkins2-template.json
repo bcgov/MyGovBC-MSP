@@ -13,17 +13,17 @@
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${APPLICATION_NAME}"
+        "name": "${APPLICATION_NAME}-${GIT_REFERENCE}"
       }
     },
     {
       "kind": "BuildConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${APPLICATION_NAME}",
+        "name": "${APPLICATION_NAME}-${GIT_REFERENCE}",
         "creationTimestamp": null,
         "labels": {
-          "app": "${APPLICATION_NAME}"
+          "app": "${APPLICATION_NAME}-${GIT_REFERENCE}"
         },
         "annotations": {
           "openshift.io/generated-by": "OpenShiftWebConsole"
@@ -43,8 +43,8 @@
         "source": {
           "type": "Git",
           "git": {
-            "uri": "${SOURCE_REPOSITORY_URL}",
-            "ref": "${SOURCE_REPOSITORY_REF}"
+            "uri": "${GIT_SOURCE_URL}",
+            "ref": "${GIT_REFERENCE}"
           }
         },
         "strategy": {
@@ -60,7 +60,7 @@
         "output": {
           "to": {
             "kind": "ImageStreamTag",
-            "name": "${APPLICATION_NAME}:latest"
+            "name": "${APPLICATION_NAME}-${GIT_REFERENCE}:latest"
           }
         },
         "resources": {},
@@ -75,12 +75,12 @@
       "kind": "BuildConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${APPLICATION_NAME}-pipeline",
+        "name": "${APPLICATION_NAME}-${GIT_REFERENCE}-pipeline",
         "creationTimestamp": null,
         "labels": {
-          "app": "${APPLICATION_NAME}-pipeline",
-          "name": "${APPLICATION_NAME}-pipeline",
-          "template": "${APPLICATION_NAME}-pipeline"
+          "app": "${APPLICATION_NAME}-${GIT_REFERENCE}-pipeline",
+          "name": "${APPLICATION_NAME}-${GIT_REFERENCE}-pipeline",
+          "template": "${APPLICATION_NAME}-${GIT_REFERENCE}-pipeline"
         }
       },
       "spec": {
@@ -88,8 +88,8 @@
         "source": {
           "type": "Git",
           "git": {
-            "uri": "${SOURCE_REPOSITORY_URL}",
-            "ref": "${SOURCE_REPOSITORY_REF}"
+            "uri": "${GIT_SOURCE_URL}",
+            "ref": "${GIT_REFERENCE}"
           }
         },
         "strategy": {
@@ -117,14 +117,14 @@
       "value": "msp"
     },
     {
-      "name": "SOURCE_REPOSITORY_URL",
+      "name": "GIT_SOURCE_URL",
       "displayName": "Source Repository",
       "description": "The source repository to use for the builds.",
       "required": true,
       "value": "https://github.com/bcgov/MyGovBC-MSP.git"
     },
     {
-      "name": "SOURCE_REPOSITORY_REF",
+      "name": "GIT_REFERENCE",
       "displayName": "Git Reference",
       "description": "Optional branch, tag, or commit.",
       "required": true,
