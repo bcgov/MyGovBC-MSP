@@ -43,7 +43,7 @@
           "sourceStrategy": {
             "from": {
                 "kind": "ImageStreamTag",
-                "name": "angular-builder:latest"
+                "name": "angular-builder-${GIT_REFERENCE}:latest"
             },
             "runtimeImage": {
               "kind": "ImageStreamTag",
