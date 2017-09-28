@@ -58,7 +58,7 @@ http {
     client_max_body_size 100m;
 
     # HTTP Basic rules
-    auth_basic_user_file /tmp/.htpasswd;
+    # auth_basic_user_file /tmp/.htpasswd;
 
     server {
         listen       8080;
