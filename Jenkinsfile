@@ -24,7 +24,7 @@ node {
   }
   stage('deploy-' + TAG_NAMES[0]) {
     echo "Deploying to: " + TAG_NAMES[0]
-    echo "tag source " + IMAGESTREAM_NAME " with tag " + $BUILD_ID + " to dest " + IMAGESTREAM_NAME
+    echo "tag source " + IMAGESTREAM_NAME " with tag " + '$BUILD_ID' + " to dest " + IMAGESTREAM_NAME
     openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[0], srcStream: IMAGESTREAM_NAME, srcTag: '$BUILD_ID'
   }
 }
