@@ -60,6 +60,12 @@ export default class ProcessService implements CanActivate {
     }
 
 
+    getStepNumber(url:string):number{
+        console.log("url-------"+url);
+        let process = this.process;
+        return process.processSteps.findIndex(x => x.route === url);
+    }
+
     addStep(step: ProcessStep, index: number) {
         let process = this.process;
         process.processSteps.splice(index, 0, step);
