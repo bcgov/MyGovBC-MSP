@@ -1,13 +1,14 @@
 // Edit your app's name below
 def APP_NAME = 'msp'
+def APP_VERSION = '1.3'
 
 // Edit your environment TAG names below
 def TAG_NAMES = ['dev', 'test', 'prod']
 
 // You shouldn't have to edit these if you're following the conventions
 def NGINX_BUILD_CONFIG = 'nginx-runtime'
-def BUILD_CONFIG = APP_NAME + '-build'
-def IMAGESTREAM_NAME = APP_NAME
+def BUILD_CONFIG = APP_NAME + '-' + APP_VERSION + '-build'
+def IMAGESTREAM_NAME = APP_NAME + '-' + APP_VERSION
 
 node {
 
@@ -22,6 +23,8 @@ node {
     openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: '$BUILD_ID', srcStream: IMAGESTREAM_NAME, srcTag: 'latest'
   }
   stage('deploy-' + TAG_NAMES[0]) {
+    echo "Deploying to: " + TAG_NAMES[0]
+    echo "tag source " + IMAGESTREAM_NAME + " with tag " + '$BUILD_ID' + " to dest " + IMAGESTREAM_NAME
     openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[0], srcStream: IMAGESTREAM_NAME, srcTag: '$BUILD_ID'
   }
 }
