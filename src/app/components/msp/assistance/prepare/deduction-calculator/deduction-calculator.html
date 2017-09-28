@@ -4,7 +4,7 @@
   <!-- Default panel contents -->
   <div class="panel-heading" tabindex="0">Coming soon</div>
   <div class="panel-body">
-    <p [innerHTML]="lang('./en/index.js').comingSoonText.replace('{nextCalendarYear}', currentCalendarYear + 1)" 
+    <p [innerHTML]="lang('./en/index.js').comingSoonText.replace('{nextCalendarYear}', currentCalendarYear.toString() + 1)" 
       tabindex="0">
     </p>
   </div>
@@ -214,7 +214,7 @@
       </button>
     </div>
   </div>
-  <div class="row" *ngIf="(!canContinue && !isPristine)||(formRef.submitted && !taxYearSpecified)"
+  <div class="row" *ngIf="(!canContinue && !isPristine)||(formRef.submitted)"
     style="margin-top: 10px;">
     <div class="col-xs-12">
       <div class="before-continue-warning" tabindex="0">

@@ -54,12 +54,10 @@
             [innerHTML]="lang('./en/index.js').continueButton"></button>
         
       </div>
-      <div class="col-sm-6 pull-left" *ngIf="!formValidStatus && formRef.submitted">
+      <div class="col-sm-6 pull-left" *ngIf="formRef.submitted">
         <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
         </p>
       </div>
       <msp-cancel></msp-cancel>
     </div>
-    <input type="hidden" id="test" name="test" [(ngModel)]="test">
-
 </form>

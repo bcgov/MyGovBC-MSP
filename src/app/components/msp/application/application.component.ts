@@ -1,15 +1,17 @@
 import {Component, Inject, ViewChild} from '@angular/core';
 import { MspProgressBarItem } from '../common/progressBar/progressBarDataItem.model';
 import {MspProgressBarComponent} from "../common/progressBar/progressBar.component";
-import ProcessService, {ProcessStep} from "../service/process.service";
+// import ProcessService, {ProcessStep} from "../service/process.service";
+import {ProcessService, ProcessStep} from "../service/process.service";
 
-require('./application.component.less');
+import { environment } from '../../../../environments/environment';
 
 /**
  * Application for MSP
  */
 @Component({
-  templateUrl: './application.component.html'
+  templateUrl: './application.component.html',
+  styleUrls: ['./application.component.less']
 })
 
 export class ApplicationComponent  {
@@ -32,10 +34,8 @@ export class ApplicationComponent  {
     ]
   };
 
-  constructor (@Inject('appConstants') appConstants: any,
-               private processService: ProcessService) {
-
-    appConstants.serviceName = this.lang('./en/index.js').serviceName;
+  constructor (private processService: ProcessService) {
+    environment.appConstants.serviceName = this.lang('./en/index.js').serviceName;
     this.initProcessService();
   }
 

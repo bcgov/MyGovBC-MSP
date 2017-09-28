@@ -1,12 +1,12 @@
 import {Component, AfterViewInit, ViewChild, Output, Inject, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
-import MspDataService from '../../service/msp-data.service';
+import { MspDataService } from '../../service/msp-data.service';
 import {FinancialAssistApplication} from "../../model/financial-assist-application.model";
 import {MspImage} from '../../model/msp-image';
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
 import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
-import CompletenessCheckService from '../../service/completeness-check.service';
-import ProcessService from "../../service/process.service";
+import {CompletenessCheckService} from '../../service/completeness-check.service';
+import {ProcessService} from "../../service/process.service";
 import {Router} from "@angular/router";
 
 @Component({

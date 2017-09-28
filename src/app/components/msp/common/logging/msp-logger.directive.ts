@@ -1,9 +1,9 @@
 import { Component, Directive, HostBinding,ElementRef,
   OnChanges, OnInit, HostListener, Input, SimpleChanges } from '@angular/core';
-import moment = require("moment");
+  import * as moment from 'moment';
 
 import { MspLogService } from '../../service/log.service';
-import DataService from '../../service/msp-data.service';
+import { MspDataService } from '../../service/msp-data.service';
 import { LogEntry } from './log-entry.model';
 
 @Directive({
@@ -16,7 +16,7 @@ export class MspLoggerDirective{
   @Input() mspLogger:string;
   @Input() confirmationNumber:string;
   constructor(private logService:MspLogService, 
-    private dataService:DataService,
+    private dataService:MspDataService,
     private el:ElementRef){
 
   }
@@ -55,19 +55,20 @@ export class MspLoggerDirective{
   }
 
   private sendLog(entry:LogEntry){
-    this.logService.logIt(entry).subscribe(
-      (response)=>{
-        // console.log('log rest service response: ');
-        // console.log(response);
-      },
-      (error)=>{
-        console.log('HTTP error response from logging service: ');
-        console.log(error);
-      },
-      ()=>{
-        // console.log('log rest service completed!');
-      }
-    );
+    // ARC TODO - RENABLE! Removed during Angular4 migration.
+    // this.logService.logIt(entry).subscribe(
+    //   (response)=>{
+    //     // console.log('log rest service response: ');
+    //     // console.log(response);
+    //   },
+    //   (error)=>{
+    //     console.log('HTTP error response from logging service: ');
+    //     console.log(error);
+    //   },
+    //   ()=>{
+    //     // console.log('log rest service completed!');
+    //   }
+    // );
 
   }
 }

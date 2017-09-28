@@ -3,11 +3,11 @@ import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
 import {BaseComponent} from "../base.component";
 
-require('./departure-date.component.less');
 
 @Component({
   selector: 'msp-departure-date',
-  templateUrl: './departure-date.component.html'
+  templateUrl: './departure-date.component.html',
+  styleUrls: ['./departure-date.component.less']
 })
 export class MspDepartureDateComponent extends BaseComponent {
 

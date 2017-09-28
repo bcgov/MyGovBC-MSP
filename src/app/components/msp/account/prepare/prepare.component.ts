@@ -12,10 +12,9 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
-import DataService from '../../service/msp-data.service';
+import { MspDataService } from '../../service/msp-data.service';
 import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
-import ProcessService,{ProcessStep} from "../../service/process.service";
-import {ProcessUrls} from "../../service/process.service";
+import {ProcessService, ProcessStep, ProcessUrls} from "../../service/process.service";
 import {BaseComponent} from "../../common/base.component";
 
 
@@ -31,7 +30,7 @@ export class AccountPrepareComponent extends BaseComponent {
 
     @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
 
-    constructor(private cd: ChangeDetectorRef, private dataService: DataService, private _processService: ProcessService ,private _router: Router) {
+    constructor(private cd: ChangeDetectorRef, private dataService: MspDataService, private _processService: ProcessService ,private _router: Router) {
         super(cd);
         this.mspAccount = dataService.getMspAccount();
         this.accountChangeOptions = this.mspAccount.accountChangeOptions;
@@ -41,7 +40,6 @@ export class AccountPrepareComponent extends BaseComponent {
         this.initProcessMembers(AccountPrepareComponent.ProcessStepNum, this._processService);
     }
     ngAfterViewInit() {
-        super.ngAfterViewInit();
         if (!this.mspAccount.infoCollectionAgreement) {
             this.mspConsentModal.showFullSizeView();
         }

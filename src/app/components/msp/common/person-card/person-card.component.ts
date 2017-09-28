@@ -2,11 +2,11 @@ import {Component, Input} from '@angular/core'
 import {Person, Gender} from "../../model/person.model";
 import {Relationship, Activities, StatusInCanada} from "../../model/status-activities-documents";
 import * as moment from 'moment';
-require('./person-card.component.less');
 
 @Component({
   selector: 'msp-person-card',
-  templateUrl: './person-card.component.html'
+  templateUrl: './person-card.component.html',
+  styleUrls: ['./person-card.component.less']
 })
 export class MspPersonCardComponent {
   lang = require('./i18n');

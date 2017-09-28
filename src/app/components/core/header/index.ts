@@ -1,13 +1,13 @@
 import {Component, OpaqueToken, Inject} from '@angular/core'
-require('./index.less')
+
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'core-header',
-  templateUrl: './index.html'
+  templateUrl: './index.html',
+  styleUrls: ['./index.less']
 })
 export class CoreHeaderComponent {
-  appConstants: Object;
-
-  constructor(@Inject('appConstants') appConstants: Object) {
-    this.appConstants = appConstants;
+  get serviceName(): string {
+    return environment.appConstants.serviceName;
   }
 }

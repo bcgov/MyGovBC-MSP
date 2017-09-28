@@ -10,7 +10,7 @@ import {MspLogService} from "../../service/log.service";
 import DataService from "../../service/msp-data.service";
 import {LogEntry} from "../logging/log-entry.model";
 import {Http, Headers, RequestOptions, ConnectionBackend, HttpModule} from "@angular/http"
-import moment = require("moment");
+import * as moment from 'moment';
 
 
 

@@ -6,8 +6,7 @@ import {RouterModule} from '@angular/router';
 import {HomeComponent} from './components/home'
 import {CoreHeaderComponent} from './components/core/header'
 import {CoreFooterComponent} from './components/core/footer'
-import { ModalModule } from 'ng2-bootstrap/modal';
-import { AccordionModule } from 'ng2-bootstrap/accordion';
+import { ModalModule, AccordionModule} from 'ngx-bootstrap';
 import {MspModule} from './components/msp/msp.module'
 import {GeneralAppComponent} from './app.component'
 import appConstants from './services/appConstants'

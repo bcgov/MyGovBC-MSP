@@ -27,18 +27,18 @@ import {MspAddressComponent} from "../../../common/address/address.component";
 import {MspArrivalDateComponent} from "../../../common/arrival-date/arrival-date.component";
 import {MspOutofBCRecordComponent} from "../../../common/outof-bc/outof-bc.component";
 import {MspProvinceComponent} from "../../../common/province/province.component";
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
-import './personal-details.component.less';
 import {BaseComponent} from "../../../common/base.component";
 import {MspCountryComponent} from "../../../common/country/country.component";
 @Component({
     selector: 'msp-personal-details',
     templateUrl: './personal-details.component.html',
+    styleUrls: ['./personal-details.component.less'],
 
     animations: [
       trigger('shrinkOut', [
@@ -189,8 +189,8 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.imageErrorModal.forceRender();
   }
 
-  ngAfterViewInit() {
-    super.ngAfterViewInit();
+  ngAfterContentInit() {
+    super.ngAfterContentInit();
 
     this.cd.detectChanges();
     /**

@@ -1,6 +1,6 @@
 import {Directive, forwardRef, Input} from '@angular/core';
 import {Validator, NG_VALIDATORS, FormControl} from '@angular/forms';
-import ValidationService from '../../service/msp-validation.service';
+import {MspValidationService} from '../../service/msp-validation.service';
 
 @Directive({
   selector: '[sinCheck][ngModel]',
@@ -12,7 +12,7 @@ import ValidationService from '../../service/msp-validation.service';
 
 export class SinCheckValidator implements Validator {
 
-  constructor(private validationService:ValidationService){
+  constructor(private validationService:MspValidationService){
 
   }
 

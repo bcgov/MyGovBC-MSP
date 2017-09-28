@@ -1,15 +1,15 @@
-import {Component, Inject, ViewChild} from '@angular/core';
+import {Component, Inject, ViewChild, ChangeDetectorRef} from '@angular/core';
 import { MspProgressBarItem } from '../common/progressBar/progressBarDataItem.model';
 import {MspProgressBarComponent} from "../common/progressBar/progressBar.component";
-import ProcessService, {ProcessStep} from "../service/process.service";
-
-require('./assistance.component.less');
+import {ProcessService, ProcessStep} from "../service/process.service";
+import { environment } from '../../../../environments/environment';
 
 /**
  * Application for Premium Assistance
  */
 @Component({
-  templateUrl: './assistance.component.html'
+  templateUrl: './assistance.component.html',
+  styleUrls: ['./assistance.component.less']
 })
 export class AssistanceComponent {
   lang = require('./i18n');
@@ -30,9 +30,8 @@ export class AssistanceComponent {
     ];
   }
 
-  constructor (@Inject('appConstants') appConstants: any,
-               private processService: ProcessService) {
-    appConstants.serviceName = this.lang('./en/index.js').serviceName;
+  constructor (private processService: ProcessService, private changeRef: ChangeDetectorRef) {
+    environment.appConstants.serviceName = this.lang('./en/index.js').serviceName;
     this.initProcessService();
   }
 

@@ -33,7 +33,7 @@
                     [phone]="application.phoneNumber"
                     [editRouterLink]="'/msp/application/address'"></msp-contact-card>
   <h2 [innerHtml]="lang('./en/index.js').agreementLabel"></h2>
-  <p [innerHtml]="lang('./en/agreement.md')">
+  <p [innerHtml]="lang('./en/index.js').agreement">
   </p>
   <div class="strong" [innerHTML]="questionApplicant"></div>
   <div class="checkbox checkbox-success checkbox-inline">
@@ -53,8 +53,9 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
-              (onValidToken)="application.authorizationToken = $event"></captcha>
+        <!-- TODO - Temporarily commented out for AoT compilation. -->
+      <!-- <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
+              (onValidToken)="application.authorizationToken = $event"></captcha> -->
     </div>
   </div>
   <div class="row" *ngIf="form.submitted && !application.hasValidAuthToken">

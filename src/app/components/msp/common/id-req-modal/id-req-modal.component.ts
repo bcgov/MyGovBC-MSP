@@ -1,14 +1,14 @@
 import {Component, Input, ViewChild, ElementRef, OnInit, Renderer} from '@angular/core'
-import moment = require("moment");
-import {ModalDirective, AccordionComponent} from "ng2-bootstrap";
+import * as moment from 'moment';
+import {ModalDirective, AccordionComponent} from "ngx-bootstrap";
 import {IdRequirementContent} from "./id-req-content.model.component";
 import {Documents} from "../../model/status-activities-documents";
 
-require('./id-req-modal.component.less');
 
 @Component({
   selector: 'msp-id-req-modal',
-  templateUrl: './id-req-modal.component.html'
+  templateUrl: './id-req-modal.component.html',
+  styleUrls: ['./id-req-modal.component.less']
 })
 
 export class MspIdReqModalComponent implements OnInit {

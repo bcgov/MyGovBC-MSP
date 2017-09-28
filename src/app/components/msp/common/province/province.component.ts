@@ -41,7 +41,7 @@ export class MspProvinceComponent extends BaseComponent implements OnInit {
   /**
    * Auto complete
    */
-  private dataService: CompleterData;
+  public dataService: CompleterData;
   private provinceData = this.lang('./en/index.js').provinceData;
   private stateData = this.lang('./en/index.js').stateData;
   private get provinceStateData() {

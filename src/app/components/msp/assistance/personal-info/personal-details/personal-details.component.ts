@@ -1,7 +1,8 @@
 import { Component, Input, Output, ViewChild, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { IPerson } from "../../../model/person.interface";
-import DataService from '../../../service/msp-data.service';
+// import { IPerson } from "../../../model/person.interface";
+import { Person } from '../../../model/person.model';
+import { MspDataService } from '../../../service/msp-data.service';
 import {FinancialAssistApplication} from "../../../model/financial-assist-application.model";
 import {BaseComponent} from "../../../common/base.component";
 import {MspBirthDateComponent} from "../../../common/birthdate/birthdate.component";
@@ -16,7 +17,7 @@ export class AssistancePersonalDetailComponent extends BaseComponent {
   lang = require('./i18n');
   private finApp:FinancialAssistApplication;
 
-  @Input() person: IPerson;
+  @Input() person: Person;
   @ViewChild('name') name: MspNameComponent;
   @ViewChild('formRef') personalDetailsForm: NgForm;
   @ViewChild('birthdate') birthdate: MspBirthDateComponent;
@@ -24,7 +25,7 @@ export class AssistancePersonalDetailComponent extends BaseComponent {
 
   @Output() onChange = new EventEmitter<any>();
 
-  constructor(private dataService: DataService,
+  constructor(private dataService: MspDataService,
     private cd: ChangeDetectorRef) {
     super(cd);
     this.finApp = this.dataService.finAssistApp;
@@ -32,8 +33,6 @@ export class AssistancePersonalDetailComponent extends BaseComponent {
   }
 
   ngAfterViewInit() {
-    super.ngAfterViewInit();
-
     this.personalDetailsForm.valueChanges
       .subscribe( values => {
         // console.log('Personal details form value changes saved: ', values);

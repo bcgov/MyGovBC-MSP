@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MspApplication} from "../../model/application.model";
-import DataService from '../../service/msp-data.service';
+import { MspDataService } from '../../service/msp-data.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable} from 'rxjs/Observable';
 import { Subscription} from 'rxjs/Subscription';
@@ -12,7 +12,7 @@ export class ConfirmationComponent implements OnInit{
   lang = require('./i18n');
   confirmationNum:string;
   subscription: Subscription;
-  constructor(private dataService: DataService,
+  constructor(private dataService: MspDataService,
               private route: ActivatedRoute) {
   }
 

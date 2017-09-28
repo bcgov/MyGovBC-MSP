@@ -5,16 +5,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import {MspApplication, Person} from '../../model/application.model';
 import * as _ from 'lodash';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
-import DataService from '../../service/msp-data.service';
+import {MspDataService} from '../../service/msp-data.service';
 import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
-import ProcessService from "../../service/process.service";
+import {ProcessService} from "../../service/process.service";
 import {BaseComponent} from "../../common/base.component";
 
 
@@ -37,7 +37,7 @@ export class PrepareComponent extends BaseComponent {
   private apt: Person;
   mspApplication: MspApplication;
 
-  constructor(private dataService: DataService,
+  constructor(private dataService: MspDataService,
     private _processService:ProcessService,
     private _router: Router,
     private cd: ChangeDetectorRef) {
@@ -51,7 +51,6 @@ export class PrepareComponent extends BaseComponent {
   }
 
   ngAfterViewInit() {
-    super.ngAfterViewInit();
 
     if (!this.mspApplication.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();

@@ -3,7 +3,7 @@ import {
   Inject, NgZone, SimpleChanges, ChangeDetectorRef, ContentChild, AfterContentInit
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import {MspImage, MspImageError, MspImageProcessingError,
    MspImageScaleFactors, MspImageScaleFactorsImpl} from '../../model/msp-image';
 import {Observable} from 'rxjs/Observable';
@@ -14,24 +14,27 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import {BaseComponent} from "../base.component";
 import {MspLogService} from "../../service/log.service";
-import DataService from "../../service/msp-data.service";
+import { MspDataService } from "../../service/msp-data.service";
 import {LogEntry} from "../logging/log-entry.model";
-import moment = require("moment");
+import * as moment from 'moment';
+
+import { environment } from '../../../../../environments/environment';
 
 let loadImage = require('blueimp-load-image');
 
 var sha1 = require('sha1');
 
-require('./file-uploader.component.less');
 @Component({
   selector: 'msp-file-uploader',
-  templateUrl: './file-uploader.html'
+  templateUrl: './file-uploader.html',
+  styleUrls: ['./file-uploader.component.less']
 })
 export class FileUploaderComponent 
   extends BaseComponent 
   implements OnInit, OnChanges, AfterContentInit {
   lang = require('./i18n');
   noIdImage: Boolean = false;
+  private appConstants;
 
   @ViewChild('formRef') form: NgForm;
   @ViewChild('dropZone') dropZone: ElementRef;
@@ -51,12 +54,12 @@ export class FileUploaderComponent
   @Output() onErrorDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
   @Output() onDeleteDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
 
-  constructor(@Inject('appConstants') private appConstants: any,
-              private dataService: DataService,
+  constructor(private dataService: MspDataService,
               private logService:MspLogService,
               private zone: NgZone,
               private cd: ChangeDetectorRef) {
     super(cd);
+    this.appConstants = environment.appConstants;
   }
 
   /**
@@ -70,8 +73,14 @@ export class FileUploaderComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['images'] && (changes['images'].currentValue.length === 0 &&
-      changes['images'].previousValue.length > 0)) {
+    console.log('fileuploader onChanges', changes['images']);
+    // if (changes['images'] && (changes['images'].currentValue.length === 0 &&
+    //   changes['images'].previousValue.length > 0)) {
+    if (changes['images'] && (
+      changes['images'].currentValue.length === 0 
+      && changes['images'].previousValue
+      && changes['images'].previousValue.length > 0)
+    ) {
       this.noIdImage = true;
     } else {
       this.noIdImage = false;

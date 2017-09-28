@@ -15,7 +15,7 @@ import {Process} from "./process.service";
 import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
 
 @Injectable()
-export default class MspDataService {
+export class MspDataService {
     private _mspApplication: MspApplication;
     private _finAssistApp: FinancialAssistApplication;
     private _mspAccount: MspAccount;
@@ -32,6 +32,7 @@ export default class MspDataService {
     constructor(private localStorageService: LocalStorageService) {
         this._finAssistApp = this.fetchFinAssistApplication();
         this._mspApplication = this.fetchMspApplication();
+        this._mspAccount = this.fetchMspAccount();
     }
 
     destroyAll() {
@@ -120,6 +121,24 @@ export default class MspDataService {
         } else {
             return new FinancialAssistApplication();
         }
+    }
+
+
+    /** 
+     * A simple method to load existing or create new MspAccount. Unlike other
+     * fetch methods, this one does not look at localStorage or creates a DTO,
+     * instead it only sees if it has an object in memory. Having this function
+     * called in the constructor is necessary for the edge condition in
+     * development when user navigates directly to Account Maintenance page,
+     * bypassing landing page, which then inadvertantly bypasses mspAccount
+     * intitialization. 
+     */
+    private fetchMspAccount(): MspAccount {
+        if (this._mspAccount) {
+            return this._mspAccount;
+        }
+
+        return new MspAccount();
     }
 
     private convertMailingAddress(input: any, output: any) {

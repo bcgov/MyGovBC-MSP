@@ -1,9 +1,9 @@
 import { Component,ViewContainerRef } from '@angular/core';
-require('./msp.component.less')
 
 @Component({
   selector: 'msp-app',
-  templateUrl: './msp.component.html'
+  templateUrl: './msp.component.html',
+  styleUrls: ['./msp.component.less']
 })
 export class MspComponent {
   private viewContainerRef: ViewContainerRef;

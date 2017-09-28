@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import MspDataService from '../../service/msp-data.service';
+import { MspDataService } from '../../service/msp-data.service';
 import {FinancialAssistApplication}from '../../model/financial-assist-application.model';
-import ProcessService from "../../service/process.service";
+import {ProcessService} from "../../service/process.service";
 import {Router} from "@angular/router";
 @Component({
   templateUrl: './review.component.html'

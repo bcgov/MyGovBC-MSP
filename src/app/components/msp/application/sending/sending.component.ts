@@ -1,16 +1,16 @@
 import {Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import {MspApplication, Person} from '../../model/application.model';
 
-import DataService from '../../service/msp-data.service';
+import { MspDataService } from '../../service/msp-data.service';
 import {MspApiService} from "../../service/msp-api.service";
 import {Router} from "@angular/router";
 import {ResponseType} from "../../api-model/responseTypes";
 import {MspLogService} from '../../service/log.service'
-import './sending.component.less';
-import ProcessService from "../../service/process.service";
+import {ProcessService} from "../../service/process.service";
 
 @Component({
-  templateUrl: 'sending.component.html'
+  templateUrl: 'sending.component.html',
+  styleUrls: ['./sending.component.less']
 })
 @Injectable()
 export class SendingComponent implements AfterViewInit {
@@ -22,14 +22,14 @@ export class SendingComponent implements AfterViewInit {
   rawRequest: string;
 
   transmissionInProcess:boolean;
-  errorCode:string;
+  hasError:boolean;
   showMoreErrorDetails:boolean;
   
-  constructor(private dataService: DataService, private service: MspApiService, private processService:ProcessService,
+  constructor(private dataService: MspDataService, private service: MspApiService, private processService:ProcessService,
     public router: Router, private logService: MspLogService) {
     this.application = this.dataService.getMspApplication();
     this.transmissionInProcess = undefined;
-    this.errorCode = undefined;
+    this.hasError = undefined;
     this.showMoreErrorDetails = undefined;
   }
 
@@ -44,7 +44,7 @@ export class SendingComponent implements AfterViewInit {
   transmitApplication(){
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
-    this.errorCode = undefined;
+    this.hasError = undefined;
     this.service
       .sendApplication(this.application)
       .then((application: MspApplication) => {
@@ -65,7 +65,7 @@ export class SendingComponent implements AfterViewInit {
 
       }).catch((error: ResponseType | any) => {
         console.log('error in sending application: ', error);
-        this.errorCode = error.status + '';
+        this.hasError = true;
         this.rawUrl = error.url;
         this.rawError = error;
         this.rawRequest = error._requestBody

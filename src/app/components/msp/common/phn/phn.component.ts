@@ -24,8 +24,6 @@ export class MspPhnComponent extends BaseComponent {
   }
 
   ngAfterViewInit(): void {
-    super.ngAfterViewInit();
-
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);
     });

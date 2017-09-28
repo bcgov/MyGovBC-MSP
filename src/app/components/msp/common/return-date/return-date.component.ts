@@ -3,11 +3,11 @@ import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
 import {BaseComponent} from "../base.component";
 
-require('./return-date.component.less');
 
 @Component({
   selector: 'msp-return-date',
-  templateUrl: './return-date.component.html'
+  templateUrl: './return-date.component.html',
+  styleUrls: ['./return-date.component.less']
 })
 export class MspReturnDateComponent extends BaseComponent {
 

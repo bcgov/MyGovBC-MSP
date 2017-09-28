@@ -6,11 +6,12 @@ import {Relationship} from "../../model/status-activities-documents";
 import * as moment from 'moment';
 import {BaseComponent} from "../base.component";
 
-require('./birthdate.component.less');
 
 @Component({
   selector: 'msp-birthdate',
-  templateUrl: './birthdate.component.html'
+  templateUrl: './birthdate.component.html',
+  styleUrls: ['./birthdate.component.less']
+  
 })
 export class MspBirthDateComponent extends BaseComponent {
 

@@ -12,12 +12,12 @@ import 'rxjs/add/operator/catch';
 import * as _ from 'lodash';
 
 import {Eligibility} from '../../../model/eligibility.model';
-import DataService from '../../../service/msp-data.service';
+import { MspDataService } from '../../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../../model/financial-assist-application.model';
 import * as moment from 'moment';
 
 import'./deduction-calculator.less';
-import ProcessService from "../../../service/process.service";
+import {ProcessService} from "../../../service/process.service";
 
 @Component({
   selector: 'deduction-calculator',
@@ -35,7 +35,7 @@ export class DeductionCalculatorComponent implements DoCheck {
   lang = require('./i18n');
 
   constructor(private _router: Router,
-              private dataService: DataService,
+              private dataService: MspDataService,
               private _processService: ProcessService) {
   }
 

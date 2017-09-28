@@ -1,28 +1,27 @@
 import { Component, ViewChild, AfterViewInit, OnInit, ElementRef, DoCheck} from '@angular/core';
 import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
-import {ModalDirective} from "ng2-bootstrap";
+import { ModalDirective } from 'ngx-bootstrap';
 
-import DataService from '../../service/msp-data.service';
+import { MspDataService } from '../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
 import {MspImage} from "../../model/msp-image";
 import {AssistanceYear} from '../../model/assistance-year.model';
 import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
-
-import "./prepare.component.less";
 import {MspAssistanceYearComponent} from "./assistance-year/assistance-year.component";
 
 @Component({
-  templateUrl: './prepare.component.html'
+  templateUrl: './prepare.component.html',
+  styleUrls: ["./prepare.component.less"]
 })
 export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoCheck{
   @ViewChild('formRef') prepForm: NgForm;
@@ -67,7 +66,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   pastYears: number[] = [];
 
 
-  constructor(private dataService: DataService){
+  constructor(public dataService: MspDataService){
     this.showAttendantCareInfo = this.finAssistApp.applicantClaimForAttendantCareExpense
     || this.finAssistApp.spouseClaimForAttendantCareExpense
     || this.finAssistApp.childClaimForAttendantCareExpense;

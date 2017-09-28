@@ -1,9 +1,9 @@
 import {ChangeDetectorRef, Component, Injectable} from '@angular/core';
 
-import DataService from '../../service/msp-data.service';
+import {MspDataService} from '../../service/msp-data.service';
 import {Router} from '@angular/router';
 import {BaseComponent} from "../../common/base.component";
-import ProcessService from "../../service/process.service";
+import {ProcessService} from "../../service/process.service";
 import {LocalStorageService} from 'angular-2-local-storage';
 
 @Component({
@@ -16,7 +16,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
   lang = require('./i18n');
 
 
-  constructor(private dataService: DataService,
+  constructor(private dataService: MspDataService,
               private _router: Router,
               private _processService: ProcessService,
               private cd:ChangeDetectorRef, private localStorageService: LocalStorageService) {

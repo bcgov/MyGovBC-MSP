@@ -1,6 +1,6 @@
 import {Component, Input, ViewChild, NgZone, Inject} from '@angular/core'
-import moment = require("moment");
-import {ModalDirective} from "ng2-bootstrap";
+import * as moment from 'moment';
+import {ModalDirective} from "ngx-bootstrap";
 import {MspImage, MspImageError} from "../../model/msp-image";
 
 @Component({

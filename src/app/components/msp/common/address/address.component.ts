@@ -4,14 +4,14 @@ import {
 } from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {Address} from "../../model/address.model";
-import './address.component.less';
 import {BaseComponent} from "../base.component";
 import {MspProvinceComponent} from "../province/province.component";
 import {MspCountryComponent} from "../country/country.component";
 
 @Component({
   selector: 'msp-address',
-  templateUrl: './address.component.html'
+  templateUrl: './address.component.html',
+  styleUrls: ['./address.component.less']
 })
 
 export class MspAddressComponent extends BaseComponent {
@@ -44,8 +44,6 @@ export class MspAddressComponent extends BaseComponent {
   }
 
   ngAfterViewInit(): void {
-    super.ngAfterViewInit();
-
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);
     });

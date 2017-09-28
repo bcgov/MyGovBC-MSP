@@ -3,7 +3,7 @@ import {ChangeDetectorRef, DoCheck, EventEmitter,
 import { Subscription } from 'rxjs/Subscription';
 import {NgForm} from "@angular/forms";
 import {UUID} from "angular2-uuid";
-import ProcessService from "../service/process.service";
+import {ProcessService} from "../service/process.service";
 
 export class ValidEvent {
   id: string;
@@ -49,9 +49,16 @@ export class BaseComponent implements DoCheck {
     this.processService = processService;
   }
   /**
-   * Wire up all children and self by looking for properties of type BaseComponent
+   * Wire up all children and self by looking for properties of type
+   * BaseComponent
+   * 
+   * Angular 4 Upgrade Notes 
+   * Previously this used to be ngAfterViewInit but when upgrading to Angular 4
+   * that lead to ExpressionChangedAfterItHasBeenCheckedError errors. This is
+   * because the dynamic component instantiation must be done prior to
+   * ngAfterViewInit, which is a post-DOM lifecycle hook.
    */
-  ngAfterViewInit() {
+  ngAfterContentInit() {
 
     // First register the children
     this.registerChildren();

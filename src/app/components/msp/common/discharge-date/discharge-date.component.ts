@@ -4,11 +4,12 @@ import { NgForm } from '@angular/forms';
 import * as moment from 'moment';
 import {BaseComponent} from "../base.component";
 
-require('./discharge-date.component.less');
 
 @Component({
   selector: 'msp-discharge-date',
-  templateUrl: './discharge-date.component.html'
+  templateUrl: './discharge-date.component.html',
+  styleUrls: ['./discharge-date.component.less']
+  
 })
 export class MspDischargeDateComponent extends BaseComponent {
 
@@ -32,8 +33,6 @@ export class MspDischargeDateComponent extends BaseComponent {
   }
 
   ngAfterViewInit(): void {
-    super.ngAfterViewInit();
-
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);
     });

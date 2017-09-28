@@ -1,6 +1,8 @@
 import {UUID} from "angular2-uuid";
 import * as _ from 'lodash';
-import moment = require("moment");
+
+
+import * as moment from 'moment';
 
 export class OutofBCRecord {
   readonly id:string;

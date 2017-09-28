@@ -1,5 +1,5 @@
 import {Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
-import DataService from '../../service/msp-data.service';
+import { MspDataService } from '../../service/msp-data.service';
 import {MspApiService} from "../../service/msp-api.service";
 import {Router} from "@angular/router";
 import {ResponseType} from "../../api-model/responseTypes";
@@ -19,10 +19,10 @@ export class AssistanceSendingComponent implements AfterViewInit  {
   rawRequest: string;
 
   transmissionInProcess:boolean;
-  errorCode:string;
+  hasError:boolean;
   showMoreErrorDetails:boolean;
 
-  constructor(private dataService: DataService, 
+  constructor(private dataService: MspDataService, 
               private service:MspApiService, 
               public router: Router,
               public logService:MspLogService) {
@@ -32,7 +32,7 @@ export class AssistanceSendingComponent implements AfterViewInit  {
   ngAfterViewInit() {
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
-    this.errorCode = undefined;
+    this.hasError = false;
     
     // After view inits, begin sending the application
     this.service
@@ -53,7 +53,7 @@ export class AssistanceSendingComponent implements AfterViewInit  {
       })
       .catch((error: ResponseType | any) => {
         console.log('Error in sending PA: %o', error);
-        this.errorCode = error.status + '';
+        this.hasError = true;
         
         this.rawUrl = error.url;
         this.rawError = error;

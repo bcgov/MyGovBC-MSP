@@ -1,15 +1,15 @@
 import {ChangeDetectorRef, Component, ViewChild, AfterViewInit, OnInit, ViewChildren, QueryList} from '@angular/core';
 import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
 
-import DataService from '../../service/msp-data.service';
-import CompletenessCheckService from '../../service/completeness-check.service';
+import { MspDataService } from '../../service/msp-data.service';
+import { CompletenessCheckService}  from '../../service/completeness-check.service';
 import {FinancialAssistApplication} from "../../model/financial-assist-application.model";
 import { Router } from '@angular/router';
 import {BaseComponent} from "../../common/base.component";
 import {AssistancePersonalDetailComponent} from "./personal-details/personal-details.component";
 import {MspAddressComponent} from "../../common/address/address.component";
 import {MspPhoneComponent} from "../../common/phone/phone.component";
-import ProcessService from "../../service/process.service";
+import {ProcessService} from "../../service/process.service";
 
 @Component({
   templateUrl: './personal-info.component.html'
@@ -27,7 +27,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent{
 
   financialAssistApplication: FinancialAssistApplication;
 
-  constructor(private dataService: DataService,
+  constructor(private dataService: MspDataService,
     private _router: Router,
     private _processService:ProcessService,
     private cd:ChangeDetectorRef) {
@@ -36,8 +36,6 @@ export class AssistancePersonalInfoComponent extends BaseComponent{
   }
 
   ngAfterViewInit() {
-    super.ngAfterViewInit();
-
     this.personalInfoForm.valueChanges.debounceTime(250)
       .distinctUntilChanged().subscribe( values => {
         // console.log('Personal info form change triggering save: ', values);

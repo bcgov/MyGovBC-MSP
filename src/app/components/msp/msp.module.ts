@@ -4,14 +4,13 @@ import {BrowserModule} from '@angular/platform-browser'
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
+import { AlertModule, ModalModule, AccordionModule} from 'ngx-bootstrap';
 
-import {AlertModule} from 'ng2-bootstrap/alert';
-import {ProgressbarModule} from 'ng2-bootstrap/progressbar';
-import {ModalModule} from 'ng2-bootstrap/modal';
-import {AccordionModule} from 'ng2-bootstrap/accordion';
+
 import {Ng2CompleterModule} from "ng2-completer";
 
-let CaptchaComponent = require("mygovbc-captcha-widget/component").CaptchaComponent;
+//ARC TODO - Temporarily removed while AoT compilation is failing!
+// let CaptchaComponent = require("mygovbc-captcha-widget/component").CaptchaComponent;
 
 import {MspComponent} from './msp.component';
 import {LandingComponent} from './landing/landing.component';
@@ -53,9 +52,9 @@ import {MspPersonCardComponent} from './common/person-card/person-card.component
 import {MspContactCardComponent} from './common/contact-card/contact-card.component';
 import {MspAddressCardPartComponent} from './common/address-card-part/address-card-part.component';
 
-import MspDataService from './service/msp-data.service';
-import ValidationService from './service/msp-validation.service';
-import CompletenessCheckService from './service/completeness-check.service';
+import {MspDataService} from './service/msp-data.service';
+import { MspValidationService } from './service/msp-validation.service';
+import { CompletenessCheckService } from './service/completeness-check.service';
 
 import {ApplicationComponent} from './application/application.component';
 import {PersonalDetailsComponent} from './application/personal-info/personal-details/personal-details.component';
@@ -78,10 +77,10 @@ import {AssistanceConfirmationComponent} from './assistance/confirmation/confirm
 import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calculator/deduction-calculator.component';
 import {MspAssistanceYearComponent} from './assistance/prepare/assistance-year/assistance-year.component';
 import {EligibilityCardComponent} from './assistance/prepare/eligibility-card/eligibility-card.component';
-import {LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG} from 'angular-2-local-storage';
+import { LocalStorageModule } from 'angular-2-local-storage';
 import {MspApiService} from "./service/msp-api.service";
-import {MspLogService} from "./service/log.service";
-import ProcessService from "./service/process.service";
+import {MspLogService} from "./service/log.service"
+import {ProcessService} from "./service/process.service";
 
 import {AccountComponent} from './account/account.component';
 import {AccountPrepareComponent} from "./account/prepare/prepare.component";
@@ -105,7 +104,6 @@ let localStorageServiceConfig = {
         FormsModule,
 
         AlertModule,
-        ProgressbarModule,
         ModalModule,
         AccordionModule,
         Ng2CompleterModule,
@@ -238,8 +236,12 @@ let localStorageServiceConfig = {
                 ]
             },
             {path: '**', redirectTo: '/msp'}
-        ])
+        ]),
 
+        LocalStorageModule.withConfig({
+            prefix: 'ca.bc.gov.msp',
+            storageType: 'sessionStorage'
+        })
     ],
     declarations: [
         MspLoggerDirective,
@@ -276,7 +278,7 @@ let localStorageServiceConfig = {
         MspConsentModalComponent,
         MspIdReqModalComponent,
         MspCancelComponent,
-        CaptchaComponent,
+        // CaptchaComponent, //TODO - Temp commented out for --aot compilation
 
         // View cards
         MspPersonCardComponent,
@@ -319,16 +321,13 @@ let localStorageServiceConfig = {
     providers: [
         // Services
         MspDataService,
-        ValidationService,
+        MspValidationService,
+
+
         CompletenessCheckService,
         MspApiService,
         MspLogService,
         ProcessService,
-
-        LocalStorageService,
-        {
-            provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        }
     ]
 })
 @Injectable()

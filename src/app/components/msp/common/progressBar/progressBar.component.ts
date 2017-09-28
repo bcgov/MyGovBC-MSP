@@ -1,11 +1,11 @@
 import {Component, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import {MspProgressBarItem} from "./progressBarDataItem.model";
-require('./progressBar.component.less');
 
 @Component({
   selector: 'msp-progressBar',
-  templateUrl: './progressBar.component.html'
+  templateUrl: './progressBar.component.html',
+  styleUrls: ['./progressBar.component.less']
 })
 
 export class MspProgressBarComponent {

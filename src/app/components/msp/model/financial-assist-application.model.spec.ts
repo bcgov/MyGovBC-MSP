@@ -1,6 +1,6 @@
 import {FinancialAssistApplication, AssistanceApplicationType} from "./financial-assist-application.model";
 import {AssistanceYear} from "./assistance-year.model";
-import moment = require("moment");
+import * as moment from 'moment';
 
 describe('FinancialAssistApplication Component', () => {
 

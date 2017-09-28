@@ -1,18 +1,20 @@
 import {Component, Inject, ViewChild} from '@angular/core';
 import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
 import {MspProgressBarComponent} from "../common/progressBar/progressBar.component";
-import ProcessService, {ProcessStep,ProcessUrls} from "../service/process.service";
-import {MspAccount} from '../model/account.model';
-import {ProgressBarHelper} from './ProgressBarHelper';
-import MspDataService from '../service/msp-data.service';
+import {ProcessService, ProcessStep, ProcessUrls} from "../service/process.service";
 
-require('./account.component.less');
+import {MspAccount} from '../model/account.model';
+import { MspDataService } from '../service/msp-data.service';
+import { environment } from '../../../../environments/environment';
+import {ProgressBarHelper} from './ProgressBarHelper';
+
 
 /**
  * Account for MSP
  */
 @Component({
-    templateUrl: './account.component.html'
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.less']
 })
 
 export class AccountComponent {
@@ -22,12 +24,11 @@ export class AccountComponent {
 
     @ViewChild('progressBar') progressBar: MspProgressBarComponent;
 
-    constructor(@Inject('appConstants') appConstants: any,
-                private processService: ProcessService, private dataService: MspDataService) {
-
-        appConstants.serviceName = this.lang('./en/index.js').serviceName;
+    constructor (private processService: ProcessService ,private dataService: MspDataService) {
+        environment.appConstants.serviceName = this.lang('./en/index.js').serviceName;
         this.initProcessService();
     }
+
 
     get accountProgressBarList(): Array<MspProgressBarItem> {
 

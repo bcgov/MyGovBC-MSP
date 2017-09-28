@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
 import {Observable} from "rxjs/Observable";
-import MspDataService from "./msp-data.service";
+import { MspDataService } from "./msp-data.service";
 
 export class ProcessUrls {
     public static readonly ACCOUNT_PREPARE_URL = "/msp/account/prepare" ;
@@ -28,7 +28,7 @@ export class ProcessStep {
 }
 
 @Injectable()
-export default class ProcessService implements CanActivate {
+export class ProcessService implements CanActivate {
 
     constructor(private dataService: MspDataService,
                 private _router: Router) {
