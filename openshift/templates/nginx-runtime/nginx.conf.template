@@ -1,6 +1,7 @@
 worker_processes  auto;
 
 error_log  /var/log/nginx/error.log;
+error_log  syslog:server=logstash:5514,tag=nginx_error,severity=error;
 pid        /var/run/nginx.pid;
 
 events {
@@ -27,6 +28,7 @@ http {
                       '"$http_user_agent" "$http_x_forwarded_for"';
 
     access_log  /var/log/nginx/access.log  main if=$loggable;
+    access_log syslog:server=logstash:5514,tag=nginx_access,severity=info main if=$loggable;
 
     sendfile        on;
     #tcp_nopush     on;
@@ -46,10 +48,14 @@ http {
     limit_req_zone $binary_remote_addr zone=bra3:10m rate=3r/s;
     limit_req_zone $binary_remote_addr zone=bra5:10m rate=5r/s;
     limit_req_zone $binary_remote_addr zone=bra25:10m rate=25r/s;
-    limit_req_zone $binary_remote_addr zone=bra100:10m rate=100r/s;
 
     #default throttle; not inherited if set in nested level
-    limit_req zone=bra5 burst=100;
+    # limit_req_zone $binary_remote_addr zone=bra100:10m rate=100r/s;
+    # limit_req zone=bra5 burst=100;
+    limit_req_zone $binary_remote_addr zone=bra100:10m rate=400r/s;
+    limit_req zone=bra5 burst=400;
+
+    client_max_body_size 100m;
 
     # HTTP Basic rules
     auth_basic_user_file /tmp/.htpasswd;
@@ -67,6 +73,7 @@ http {
 
         # serve our angular app here
         location / {
+	    rewrite ^/msp(/.*)$ $1;
             root   /tmp/app/dist;
             index  index.html index.htm;
             try_files $uri /index.html;
@@ -75,8 +82,26 @@ http {
             gzip_types      *;
 
             # Deploy-time configurable
-            %HTTP_BASIC%
+            # %HTTP_BASIC%
         }
+
+	location /api {
+	    proxy_pass http://mygovbc-msp-service:8080/;
+
+	    location /api/logging {
+              if ( $request_method !~ ^(POST|HEAD|OPTIONS)$ ) {
+                return 405;
+              }
+              if ( $request_method ~ ^(HEAD|OPTIONS)$ ) {
+                return 200;
+              }
+              proxy_pass http://logstash:8080/;
+            }
+
+            location /api/captcha/ {
+              proxy_pass http://mygovbc-captcha-service:8080/;
+            }
+	}
 
         # redirect server error pages to the static page /50x.html
         error_page   500 502 503 504  /50x.html;
@@ -98,6 +123,5 @@ http {
             # No need to log this request, its just noise
             access_log off;
         }
-
     }
 }
