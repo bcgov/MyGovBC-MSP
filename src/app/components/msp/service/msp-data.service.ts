@@ -55,6 +55,10 @@ export default class MspDataService {
         this.localStorageService.set(this.mspProgressBarKey, progressBar);
     }
 
+    emptyMspProgressBar() {
+        this.localStorageService.remove(this.mspProgressBarKey);
+    }
+
     getMspApplication(): MspApplication {
         return this._mspApplication;
     }

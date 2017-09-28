@@ -1,9 +1,9 @@
-
 import {Component, Inject, ViewChild} from '@angular/core';
-import { MspProgressBarItem } from '../common/progressBar/progressBarDataItem.model';
+import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
 import {MspProgressBarComponent} from "../common/progressBar/progressBar.component";
-import ProcessService, {ProcessStep} from "../service/process.service";
+import ProcessService, {ProcessStep,ProcessUrls} from "../service/process.service";
 import {MspAccount} from '../model/account.model';
+import {ProgressBarHelper} from './ProgressBarHelper';
 import MspDataService from '../service/msp-data.service';
 
 require('./account.component.less');
@@ -12,15 +12,22 @@ require('./account.component.less');
  * Account for MSP
  */
 @Component({
-  templateUrl: './account.component.html'
+    templateUrl: './account.component.html'
 })
 
-export class AccountComponent  {
+export class AccountComponent {
 
     lang = require('./i18n');
 
+
     @ViewChild('progressBar') progressBar: MspProgressBarComponent;
 
+    constructor(@Inject('appConstants') appConstants: any,
+                private processService: ProcessService, private dataService: MspDataService) {
+
+        appConstants.serviceName = this.lang('./en/index.js').serviceName;
+        this.initProcessService();
+    }
 
     get accountProgressBarList(): Array<MspProgressBarItem> {
 
@@ -29,36 +36,71 @@ export class AccountComponent  {
             this.initProcessService();
         }
 
-        return [
-            new MspProgressBarItem(this.lang("./en/index.js").progressStep1, this.processService.process.processSteps[0].route),
-            new MspProgressBarItem(this.lang("./en/index.js").progressStep2, this.processService.process.processSteps[1].route),
-            new MspProgressBarItem(this.lang("./en/index.js").progressStep3, this.processService.process.processSteps[2].route),
-            new MspProgressBarItem(this.lang("./en/index.js").progressStep4, this.processService.process.processSteps[3].route)
-        ]
+        if (!this.dataService.getMspProgressBar()) {
+            this.generateProgressBarItems();
+        }
+
+        return this.dataService.getMspProgressBar();
 
 
     };
 
     get account(): MspAccount {
-        return ;
+        return;
     }
 
-    constructor (@Inject('appConstants') appConstants: any,
-                 private processService: ProcessService ,private dataService: MspDataService) {
+    private generateProgressBarItems() {
+        var newProgressBarItems: MspProgressBarItem[] = [];
+        let customHeight: Object = {'height': '60px'};
 
-        appConstants.serviceName = this.lang('./en/index.js').serviceName;
-        this.initProcessService();
+        let widthMainMenu: Object = {};
+        let widthPersonalInfo: Object = {};
+        let widthDependents: Object = {};
+        let widthDocumentUpload: Object = {};
+
+        if (this.dataService.getMspAccount()) {
+            const accountChangeOptions = this.dataService.getMspAccount().accountChangeOptions;
+            const progressBarHelper: ProgressBarHelper = new ProgressBarHelper(this.dataService.getMspAccount().accountChangeOptions);
+
+            customHeight = progressBarHelper.height;
+
+            widthMainMenu = progressBarHelper.widthMainMenu;
+
+            widthPersonalInfo = progressBarHelper.widthPersonalInfo;
+            widthDependents = progressBarHelper.widthDependents;
+
+            widthDocumentUpload = progressBarHelper.widthDocumentUpload;
+
+            if (accountChangeOptions.hasAnyPISelected()) {
+                newProgressBarItems.push(new MspProgressBarItem(progressBarHelper.personalInfoLabel, ProcessUrls.ACCOUNT_PERSONAL_INFO_URL, customHeight,widthPersonalInfo));
+            }
+
+            if (accountChangeOptions.depdendentChange) {
+                newProgressBarItems.push(new MspProgressBarItem(progressBarHelper.dependentsLabel, ProcessUrls.ACCOUNT_DEPENDENTS_URL, customHeight,widthDependents));
+            }
+
+
+        }
+        let progressBar: MspProgressBarItem[] = [
+            new MspProgressBarItem(this.lang("./en/index.js").progressStepMainMenu, this.processService.process.processSteps[0].route, customHeight, widthMainMenu),
+            new MspProgressBarItem(this.lang("./en/index.js").progressStepDocumentation, this.processService.process.processSteps[1].route, customHeight, widthDocumentUpload),
+            new MspProgressBarItem(this.lang("./en/index.js").progressStepReview, this.processService.process.processSteps[2].route, customHeight),
+
+        ];
+        if (newProgressBarItems && newProgressBarItems.length > 0) {
+            progressBar.splice(1, 0, ...newProgressBarItems);
+        }
+        this.dataService.seMspProgressBar(progressBar);
     }
 
-    private initProcessService () {
+
+    private initProcessService() {
         this.processService.init([
-            new ProcessStep("/msp/account/prepare"),
-            new ProcessStep("/msp/account/personal-info"),
-            new ProcessStep("/msp/account/address"),
-            new ProcessStep("/msp/account/review"),
-            new ProcessStep("/msp/account/sending")]);
+            new ProcessStep(ProcessUrls.ACCOUNT_PREPARE_URL),
+            new ProcessStep(ProcessUrls.ACCOUNT_FILE_UPLOADER_URL),
+            new ProcessStep(ProcessUrls.ACCOUNT_REVIEW_URL),
+            new ProcessStep(ProcessUrls.ACCOUNT_SENDING_URL)]);
     }
-
 
 
 }

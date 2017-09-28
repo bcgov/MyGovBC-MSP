@@ -15,6 +15,7 @@ import 'rxjs/add/operator/catch';
 import DataService from '../../service/msp-data.service';
 import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
 import ProcessService,{ProcessStep} from "../../service/process.service";
+import {ProcessUrls} from "../../service/process.service";
 import {BaseComponent} from "../../common/base.component";
 
 
@@ -49,7 +50,7 @@ export class AccountPrepareComponent extends BaseComponent {
 
 
     canContinue(): boolean {
-        return this.isAllValid();
+        return true;
     }
 
     next() {
@@ -63,13 +64,14 @@ export class AccountPrepareComponent extends BaseComponent {
 
         // Resets  te process
         this._processService.init([
-            new ProcessStep("/msp/account/prepare"),
-            new ProcessStep("/msp/account/fileuploader"),
-            new ProcessStep("/msp/account/review"),
-            new ProcessStep("/msp/account/sending")]);
+            new ProcessStep(ProcessUrls.ACCOUNT_PREPARE_URL),
+            new ProcessStep(ProcessUrls.ACCOUNT_FILE_UPLOADER_URL),
+            new ProcessStep(ProcessUrls.ACCOUNT_REVIEW_URL),
+            new ProcessStep(ProcessUrls.ACCOUNT_SENDING_URL)]);
 
         this.setupProcessStepsFromSelection();
-
+        this._processService.setStep(0, true);
+        this.dataService.emptyMspProgressBar();
         this._router.navigate([this._processService.getNextStep()]);
 
     }
@@ -80,12 +82,13 @@ export class AccountPrepareComponent extends BaseComponent {
     */
     private setupProcessStepsFromSelection() : void {
            var stepNumber:number = 1 ;
-            if (this.accountChangeOptions.personInfoUpdate || this.accountChangeOptions.statusUpdate) {
-                this._processService.addStep(new ProcessStep("/msp/account/personal-info"), stepNumber);
+
+        if (this.accountChangeOptions.personInfoUpdate || this.accountChangeOptions.statusUpdate) {
+                this._processService.addStep(new ProcessStep(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL), stepNumber);
                 stepNumber++;
             }
             if (this.accountChangeOptions.depdendentChange) {
-                this._processService.addStep(new ProcessStep("/msp/account/dependent-change"), stepNumber);
+                this._processService.addStep(new ProcessStep(ProcessUrls.ACCOUNT_DEPENDENTS_URL), stepNumber);
             }
     }
     isValid(): boolean {

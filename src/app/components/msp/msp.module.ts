@@ -80,11 +80,14 @@ import {MspAssistanceYearComponent} from './assistance/prepare/assistance-year/a
 import {EligibilityCardComponent} from './assistance/prepare/eligibility-card/eligibility-card.component';
 import {LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG} from 'angular-2-local-storage';
 import {MspApiService} from "./service/msp-api.service";
-import {MspLogService} from "./service/log.service"
+import {MspLogService} from "./service/log.service";
 import ProcessService from "./service/process.service";
 
 import {AccountComponent} from './account/account.component';
 import {AccountPrepareComponent} from "./account/prepare/prepare.component";
+import {AccountPersonalInfoComponent} from "./account/personal-info/personal-info.component";
+import {AccountDependentChangeComponent} from "./account/dependent-change/dependent-change.component";
+
 
 let localStorageServiceConfig = {
     prefix: 'ca.bc.gov.msp',
@@ -218,7 +221,17 @@ let localStorageServiceConfig = {
                             {
                                 path: 'prepare',
                                 component: AccountPrepareComponent
+                            },
+                            {
+                                path: 'personal-info',
+                                component: AccountPersonalInfoComponent
+                            },
+                            {
+                                path: 'dependent-change',
+                                component: AccountDependentChangeComponent
+
                             }
+
                     ]
                     }
 
@@ -298,7 +311,9 @@ let localStorageServiceConfig = {
         //Account
 
         AccountComponent,
-        AccountPrepareComponent
+        AccountPrepareComponent,
+        AccountPersonalInfoComponent,
+        AccountDependentChangeComponent
     ],
 
     providers: [

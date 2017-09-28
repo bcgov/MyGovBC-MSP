@@ -3,12 +3,21 @@ import {ApplicationBase} from "./application-base.model";
 import {MspImage} from "./msp-image";
 
 export class AccountChangeOptions {
-    personInfoUpdate: boolean = false;
-    depdendentChange: boolean = false;
-    addressUpdate: boolean = false;
-    statusUpdate: boolean = false;
-    resetNavBar: boolean = false;
 
+     personInfoUpdate: boolean = false;
+     depdendentChange: boolean = false;
+     addressUpdate: boolean = false;
+     statusUpdate: boolean = false;
+
+    hasAnyPISelected () :boolean {
+        return this.personInfoUpdate || this.statusUpdate;
+    }
+    hasAllOptionsSelected () :boolean {
+        return this.personInfoUpdate && this.depdendentChange && this.addressUpdate && this.statusUpdate ;
+    }
+    hasAllPISelected () {
+        return this.personInfoUpdate && this.addressUpdate && this.statusUpdate ;
+    }
 }
 
 class MspAccount implements ApplicationBase {
