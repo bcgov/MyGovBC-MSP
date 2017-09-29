@@ -1,24 +1,21 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
 import { MspDischargeDateComponent } from './discharge-date.component';
-import MspDataService from '../../service/msp-data.service';
+import { MspDataService } from '../../service/msp-data.service';
 import appConstants from '../../../../services/appConstants';
-import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 
 describe('MspDischargeDateComponent', () => {
-  let localStorageServiceConfig = {
-    prefix: 'ca.bc.gov.msp',
-    storageType: 'localStorage'
-  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MspDischargeDateComponent],
-      imports: [FormsModule],
+      imports: [FormsModule, LocalStorageModule.withConfig({
+        prefix: 'ca.bc.gov.msp',
+        storageType: 'sessionStorage'
+      })],
       providers: [MspDataService,
-        LocalStorageService,{
-          provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        },
+        
         {provide: 'appConstants', useValue: appConstants}
       ]
     })

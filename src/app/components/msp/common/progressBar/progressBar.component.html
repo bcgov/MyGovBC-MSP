@@ -2,7 +2,7 @@
     <nav>
         <div class="progressBar">
             <ul>
-                <template ngFor let-item let-i="index" [ngForOf]="progressBarList" >
+                <ng-template ngFor let-item let-i="index" [ngForOf]="progressBarList" >
                     <li  [ngStyle]="item.width">
                         <a routerLink="{{item.routerLink}}" [ngStyle]="item.height"
                            [tabindex]="(isActiveRoute(item.routerLink) || isBeforeActiveRoute(item.routerLink) )? 0 : -1"
@@ -13,7 +13,7 @@
                             <span [class.hidden-xs]="!isActiveRoute(item.routerLink)"  [innerHtml]="item.displayName"></span>
                         </a>
                     </li>
-                </template>
+                </ng-template>
             </ul>
         </div>
     </nav>

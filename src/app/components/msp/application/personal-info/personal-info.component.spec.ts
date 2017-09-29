@@ -3,8 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 import { PersonalInfoComponent } from './personal-info.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
-import MspDataService from '../../service/msp-data.service';
-import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+import { MspDataService } from '../../service/msp-data.service';
+import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspPhnComponent} from "../../common/phn/phn.component";
 import {MspNameComponent} from "../../common/name/name.component";
 import {MspProvinceComponent} from "../../common/province/province.component";
@@ -20,9 +20,9 @@ import {MspAddressComponent} from "../../common/address/address.component";
 import {Mod11CheckValidator} from "../../common/phn/phn.validator";
 import {Ng2CompleterModule} from "ng2-completer";
 import {ThumbnailComponent} from "../../common/thumbnail/thumbnail.component";
-import {ModalModule, AccordionModule} from "ng2-bootstrap";
+import {ModalModule, AccordionModule} from "ngx-bootstrap";
 import {HealthNumberComponent} from "../../common/health-number/health-number.component";
-import CompletenessCheckService from '../../service/completeness-check.service';
+import { CompletenessCheckService } from '../../service/completeness-check.service';
 import {MspCountryComponent} from "../../common/country/country.component";
 import {MspIdReqModalComponent} from "../../common/id-req-modal/id-req-modal.component";
 import {MspOutofBCRecordComponent} from "../../common/outof-bc/outof-bc.component";
@@ -30,7 +30,7 @@ import {MspCancelComponent} from "../../common/cancel/cancel.component";
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
-import ValiationService from '../../service/msp-validation.service';
+import {MspValidationService} from '../../service/msp-validation.service';
 
 import appConstants from '../../../../services/appConstants';
 import {RouterTestingModule} from "@angular/router/testing";
@@ -38,13 +38,9 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {CalendarYearFormatter} from '../../common/calendar/calendar-year-formatter.component';
 import {CalendarYearValidator} from '../../common/calendar/calendar-year.validator';
 import {CalendarDayValidator} from '../../common/calendar/calendar-day.validator';
-import ProcessService from "../../service/process.service";
+import { ProcessService } from "../../service/process.service";
 
 describe('PersonalInfoComponent', () => {
-  let localStorageServiceConfig = {
-    prefix: 'ca.bc.gov.msp',
-    storageType: 'localStorage'
-  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -55,12 +51,13 @@ describe('PersonalInfoComponent', () => {
         MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspCancelComponent,
         MspImageErrorModalComponent, MspLoggerDirective, CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator
         ],
-      imports: [FormsModule, Ng2CompleterModule, ModalModule.forRoot(), AccordionModule.forRoot(), HttpModule, RouterTestingModule],
-      providers: [MspDataService, MspLogService, ValiationService, ProcessService,
+      imports: [FormsModule, Ng2CompleterModule, ModalModule.forRoot(), AccordionModule.forRoot(), HttpModule, RouterTestingModule, LocalStorageModule.withConfig({
+        prefix: 'ca.bc.gov.msp',
+        storageType: 'sessionStorage'
+      })],
+      providers: [MspDataService, MspLogService, MspValidationService, ProcessService,
         CompletenessCheckService,
-        LocalStorageService,{
-          provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        },
+        
         {provide: 'appConstants', useValue: appConstants}
       ]
     })

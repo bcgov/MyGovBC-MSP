@@ -1,25 +1,21 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
 import { ThumbnailComponent } from './thumbnail.component';
-import MspDataService from '../../service/msp-data.service';
-import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
-import {ModalModule} from "ng2-bootstrap";
+import { MspDataService } from '../../service/msp-data.service';
+import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
+import {ModalModule} from "ngx-bootstrap";
 
 describe('ThumbnailComponent', () => {
-  let localStorageServiceConfig = {
-    prefix: 'ca.bc.gov.msp',
-    storageType: 'localStorage'
-  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ThumbnailComponent],
-      imports: [FormsModule, ModalModule.forRoot()],
+      imports: [FormsModule, ModalModule.forRoot(), LocalStorageModule.withConfig({
+        prefix: 'ca.bc.gov.msp',
+        storageType: 'sessionStorage'
+      })],
       providers: [MspDataService,
-        LocalStorageService,{
-          provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        }
-      ]
+        LocalStorageService]
     })
   });
   it ('should work', () => {

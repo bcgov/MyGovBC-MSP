@@ -234,7 +234,7 @@ describe('MspApiService', () => {
     let applicationType = service.convertMspApplication(app);
     let jsonString = JSON.stringify(applicationType);
     let xmlString = service.toXmlString(applicationType, MspApiService.ApplicationTypeNameSpace);
-    console.log(xmlString);
+    // console.log(xmlString);
     expect(jsonString).toBeDefined();
   });
 
@@ -367,7 +367,7 @@ describe('MspApiService', () => {
 
     expect(document).toBeDefined();
 
-    console.log("pa document: ", service.toXmlString(document));
+    // console.log("pa document: ", service.toXmlString(document));
 
   });
 

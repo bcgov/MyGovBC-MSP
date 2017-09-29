@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
 import { MspBirthDateComponent } from './birthdate.component'
-import MspDataService from '../../service/msp-data.service';
-import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+import { MspDataService } from '../../service/msp-data.service';
+import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {Person} from "../../model/person.model";
 import {Relationship} from "../../model/status-activities-documents";
 import {CalendarYearFormatter} from '../../common/calendar/calendar-year-formatter.component';
@@ -10,20 +10,17 @@ import {CalendarYearValidator} from '../../common/calendar/calendar-year.validat
 import {CalendarDayValidator} from '../../common/calendar/calendar-day.validator';
 
 describe('MspBirthDateComponent', () => {
-  let localStorageServiceConfig = {
-    prefix: 'ca.bc.gov.msp',
-    storageType: 'localStorage'
-  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MspBirthDateComponent,CalendarYearFormatter,CalendarYearValidator,CalendarDayValidator],
-      imports: [FormsModule],
-      providers: [MspDataService,
-        LocalStorageService,{
-          provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        }
-      ]
+      imports: [FormsModule,
+        LocalStorageModule.withConfig({
+          prefix: 'ca.bc.gov.msp',
+          storageType: 'sessionStorage'
+        })
+      ],
+      providers: [MspDataService]
     })
   });
   it ('should work', () => {

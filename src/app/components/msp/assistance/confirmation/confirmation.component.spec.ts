@@ -5,8 +5,8 @@ import { RouterModule } from '@angular/router';
 import { AssistanceConfirmationComponent } from './confirmation.component';
 import {LandingComponent} from '../../landing/landing.component';
 import {AssistanceComponent} from '../assistance.component';
-import MspDataService from '../../service/msp-data.service';
-import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+import { MspDataService } from '../../service/msp-data.service';
+import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import {MspLogService} from "../../service/log.service";
 import {HttpModule} from "@angular/http";
@@ -17,15 +17,16 @@ import { Subscription} from 'rxjs/Subscription';
 
 
 describe('AssistanceConfirmationComponent', () => {
-  let localStorageServiceConfig = {
-    prefix: 'ca.bc.gov.msp',
-    storageType: 'localStorage'
-  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AssistanceConfirmationComponent, MspLoggerDirective],
-      imports: [FormsModule, HttpModule, RouterModule.forRoot(
+      imports: [FormsModule, HttpModule, 
+      LocalStorageModule.withConfig({
+        prefix: 'ca.bc.gov.msp',
+        storageType: 'sessionStorage'
+      }), 
+      RouterModule.forRoot(
         [
           {
             path: 'msp',
@@ -50,9 +51,7 @@ describe('AssistanceConfirmationComponent', () => {
         ]
       )],
       providers: [MspDataService,MspLogService,ActivatedRoute,
-        LocalStorageService,{
-          provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        },
+        
         {provide: 'appConstants', useValue: appConstants}
       ]
     })

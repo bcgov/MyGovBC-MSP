@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser'
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import { AlertModule, ModalModule, AccordionModule} from 'ngx-bootstrap';
+import { ModalModule, AccordionModule} from 'ngx-bootstrap';
 
 
 import {Ng2CompleterModule} from "ng2-completer";
@@ -87,12 +87,6 @@ import {AccountPrepareComponent} from "./account/prepare/prepare.component";
 import {AccountPersonalInfoComponent} from "./account/personal-info/personal-info.component";
 import {AccountDependentChangeComponent} from "./account/dependent-change/dependent-change.component";
 
-
-let localStorageServiceConfig = {
-    prefix: 'ca.bc.gov.msp',
-    storageType: 'sessionStorage'
-};
-
 /**
  * The overall progress layout is created based on 'msp-prepare-v3-a.jpeg' in
  * https://apps.gcpe.gov.bc.ca/jira/browse/PSPDN-255?filter=16000
@@ -103,7 +97,6 @@ let localStorageServiceConfig = {
         CommonModule,
         FormsModule,
 
-        AlertModule,
         ModalModule,
         AccordionModule,
         Ng2CompleterModule,

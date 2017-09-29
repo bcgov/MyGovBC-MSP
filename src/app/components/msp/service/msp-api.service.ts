@@ -585,7 +585,7 @@ export class MspApiService {
 
     // If no attachments just return
     if (!attachments || attachments.length < 1) {
-      console.log("no attachments");
+      // console.log("no attachments");
       return null;
     }
 

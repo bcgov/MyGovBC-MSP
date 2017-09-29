@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
 import { PersonalDetailsComponent } from './personal-details.component';
-import MspDataService from '../../../service/msp-data.service';
-import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+import { MspDataService } from '../../../service/msp-data.service';
+import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspPhnComponent} from "../../../common/phn/phn.component";
 import {MspNameComponent} from "../../../common/name/name.component";
 import {MspProvinceComponent} from "../../../common/province/province.component";
@@ -18,7 +18,7 @@ import {MspAddressComponent} from "../../../common/address/address.component";
 import {Mod11CheckValidator} from "../../../common/phn/phn.validator";
 import {Ng2CompleterModule} from "ng2-completer";
 import {ThumbnailComponent} from "../../../common/thumbnail/thumbnail.component";
-import {ModalModule, AccordionModule} from "ng2-bootstrap";
+import {ModalModule, AccordionModule} from "ngx-bootstrap";
 import {HealthNumberComponent} from "../../../common/health-number/health-number.component";
 import {MspCountryComponent} from "../../../common/country/country.component";
 import {MspIdReqModalComponent} from "../../../common/id-req-modal/id-req-modal.component";
@@ -31,10 +31,6 @@ import {CalendarDayValidator} from '../../../common/calendar/calendar-day.valida
 
 
 describe('PersonalDetailsComponent', () => {
-  let localStorageServiceConfig = {
-    prefix: 'ca.bc.gov.msp',
-    storageType: 'localStorage'
-  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -44,12 +40,11 @@ describe('PersonalDetailsComponent', () => {
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,
         MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspImageErrorModalComponent,
         CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator],
-      imports: [FormsModule, Ng2CompleterModule, ModalModule.forRoot(), AccordionModule.forRoot()],
-      providers: [MspDataService,
-        LocalStorageService,{
-          provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        }
-      ]
+      imports: [FormsModule, Ng2CompleterModule, ModalModule.forRoot(), AccordionModule.forRoot(), LocalStorageModule.withConfig({
+        prefix: 'ca.bc.gov.msp',
+        storageType: 'sessionStorage'
+      })],
+      providers: [MspDataService,]
     })
   });
   it ('should work', () => {
