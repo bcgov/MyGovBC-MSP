@@ -5,6 +5,8 @@ import {ApplicationBase} from "../../model/application-base.model";
 // jam - trying to inject appConstants
 // import appConstants from '../../../../services/appConstants';
 
+import { environment } from '../../../../../environments/environment';
+
 @Component({
   selector: 'msp-consent-modal',
   templateUrl: './consent-modal.component.html',
@@ -18,7 +20,11 @@ export class MspConsentModalComponent {
   @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
   @Output() onClose = new EventEmitter<void>();
 
-  constructor(@Inject('appConstants') public appConstants: any) {}
+  public appConstants;
+
+  constructor() {
+    this.appConstants = environment.appConstants
+  }
 
   agreeCheck: boolean = false;
 
