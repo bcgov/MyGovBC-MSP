@@ -72,6 +72,7 @@ export class AccountChangeSpousesTypeFactory {
 interface _AccountChangeSpouseType extends ct._BasicInfoType {
     residency: et.ResidencyType;
     previousLastName?: ct.SubNameType;
+    mailingAddress?: ct.AddressType;
     marriageDate?: string;
     phn?: ct.PHNType;
     cancellationReason?: CancellationReasonType;
@@ -85,7 +86,7 @@ export class AccountChangeSpouseTypeFactory {
     static make(): AccountChangeSpouseType {
         let instance = <AccountChangeSpouseType>{};
         instance._sequence = ["name", "gender", "birthDate", "attachmentUuids", "residency",
-		   "previousLastName", "marriageDate", "phn", "cancellationReason", "cancellationDate"]
+		   "previousLastName", "mailingAddress", "marriageDate", "phn", "cancellationReason", "cancellationDate"]
         return instance;
     }
 }
@@ -114,6 +115,7 @@ export class AccountChangeChildrenFactory {
 interface _AccountChangeChildType extends ct._BasicInfoType {
 	operationAction: OperationActionType;
     residency: et.ResidencyType;
+    mailingAddress?: ct.AddressType;
     phn?: ct.PHNType;
     cancellationReason?: CancellationReasonType;
     cancellationDate?: string;
@@ -131,7 +133,7 @@ export class AccountChangeChildTypeFactory {
     static make(): AccountChangeChildType {
         let instance = <AccountChangeChildType>{};
         instance._sequence = ["name", "gender", "birthDate", "attachmentUuids", "operationAction", "residency",
-            "phn", "cancellationReason", "cancellationDate", "adoptionDate", "schoolName", "schoolAddress",
+            "mailingAddress", "phn", "cancellationReason", "cancellationDate", "adoptionDate", "schoolName", "schoolAddress",
 		    "dateStudiesFinish", "departDateSchoolOutside"]
         return instance;
     }

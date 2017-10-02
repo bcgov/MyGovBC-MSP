@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema version="1.2"
+<xs:schema version="1.3"
     xmlns:ac="http://www.gov.bc.ca/hibc/accountChangeTypes" 
     xmlns:et="http://www.gov.bc.ca/hibc/enrolmentTypes"
     xmlns:ct="http://www.gov.bc.ca/hibc/commonTypes" 
@@ -67,6 +67,7 @@
 				<xs:sequence>
 					<xs:element name="residency" type="et:ResidencyType" maxOccurs="1"/>
 					<xs:element name="previousLastName" type="ct:SubNameType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="mailingAddress" type="ct:AddressType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="marriageDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="phn" type="ct:PHNType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="cancellationReason" type="ac:CancellationReasonType" minOccurs="0" maxOccurs="1"/>
@@ -83,6 +84,7 @@
 				<xs:sequence>
 					<xs:element name="operationAction" type="ac:OperationActionType" maxOccurs="1"/>
 					<xs:element name="residency" type="et:ResidencyType"/>
+					<xs:element name="mailingAddress" type="ct:AddressType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="phn" type="ct:PHNType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="cancellationReason" type="ac:CancellationReasonType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="cancellationDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
