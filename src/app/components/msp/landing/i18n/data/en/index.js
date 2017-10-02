@@ -1,7 +1,5 @@
 module.exports = {
-    //ARC TODO - Revert.
-    // newEnrollApp: 'New MSP enrollment application',
-    newEnrollApp: 'TEST DEPLOY',
+    newEnrollApp: 'New MSP enrollment application',
     newPaApp: 'New MSP premium assistance application',
     continueEnrollApp: 'Continue enrollment application',
     continuePaApp: 'Continue premium assistance application',
