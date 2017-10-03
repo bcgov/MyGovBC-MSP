@@ -9,7 +9,6 @@ import {CoreFooterComponent} from './components/core/footer'
 import { ModalModule, AccordionModule} from 'ngx-bootstrap';
 import {MspModule} from './components/msp/msp.module'
 import {GeneralAppComponent} from './app.component'
-import appConstants from './services/appConstants'
 
 require('./index.less')
 @NgModule({
@@ -27,8 +26,6 @@ require('./index.less')
     HomeComponent, CoreHeaderComponent, CoreFooterComponent, 
     GeneralAppComponent
   ],
-  
-  providers: [{provide: 'appConstants', useValue: appConstants}],
   bootstrap: [CoreHeaderComponent, CoreFooterComponent, GeneralAppComponent]
 })
 export class AppModule {
