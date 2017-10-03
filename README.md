@@ -62,36 +62,49 @@ I make a comment in the Commit Changes that says 'content change' and click the 
 After a make a few more edits, I double check my work at the test site.
 
 ## Developer Prerequisites
-* node@>=4.2.5
-* npm@>=3.10.0 (note: not the default of node@4.2.5)
-* GIT
+* node@>=6.9.0 (recommended: >= 7.6.0)
+* npm@>=3.10.0 (recommended: >= 4.1.2)
+* Git
+* Yarn (`npm install -g yarn`) [Documentation](https://yarnpkg.com/lang/en/docs/install/)
+* AngularCLI  (`npm install -g @angular/cli`) [Documentation](https://github.com/angular/angular-cli)
 
 ## Development
 To launch dev instance
-```
+```bash
 git clone https://github.com/bcgov/MyGovBC-MSP.git
 cd MyGovBC-MSP
-npm install
-npm run dev
+yarn
+npm run dev # or `ng serve -o`
 ```
 
 See `ACCESSIBILITY.md` for accessibility implementations patterns.
 
 ### Instance-specific Configuration
-To define configurations affecting only the local instance, create file *config/webpack/environments/local.js* with the following content for example
 
+MyGovBC-MSP uses the default AngularCLI approach to environments. [Documentation.](https://github.com/angular/angular-cli/wiki/build).  Unlike the previous MyGovBC-MSP environment setup, now environment values do NOT cascade. There is no longer a global environment file. Instead, each environment file must be entirely self-contained and stand on its own.
+
+In brief, `/src/environments/environment.ts` is for the dev environment, and `/src/environments/environment.prod.ts` is for prod.  The default environment is dev. You define other environments in `.angular-cli.json` and you determine what environment to use via command line arguments.
+
+```bash
+ng serve -o # uses dev environment
+ng serve -o --environment=prod # uses prod environment
+ng build --prod # uses prod
+ng build # uses dev.
+ng serve -o --environment=example # uses example environment
 ```
-'use strict'
-module.exports = function(_path) {
-  return {
-    appConstants: {
-      serviceName: 'Apply for BC Health Care',
-      logBaseUrl: 'http://logstash-gcpe-mygovbc-msp-dev.pathfinder.gov.bc.ca',
-    }
-  }
+
+To define a new environment, simply edit the `environments` property in .angular-cli.json to look like:
+
+```json
+"environments": {
+  "dev": "environments/environment.ts",
+  "prod": "environments/environment.prod.ts",
+  "test": "environments/environment.test.ts",
+  "local": "environments/environment.local.ts" //New environment
 }
 ```
-*local.js* takes precedence over other webpack config files during deep merge of configurations. *local.js* is ignored by git. 
+
+Then create the file, e.g. `src/environments/environment.local.ts`.
 
 ## Unit Testing
 Unit testing is implemented using karma with Jasmine framework. The implementation generally follows [Angular webpack test configuration](https://angular.io/docs/ts/latest/guide/webpack.html#test-configuration). Jenkins CI runs unit tests as part of the build, therefore all unit test scripts should be able to run unattended, headless, quickly and depend only on local resources. Unit test scripts are located side-by-side with the target component and have file extension *.spec.js* or *.spec.ts*. For an example of unit test script, see [/src/app/components/msp/landing/landing.spec.ts](https://github.com/bcgov/MyGovBC-MSP/blob/master/src/app/components/msp/landing/landing.spec.ts)
