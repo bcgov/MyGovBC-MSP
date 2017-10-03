@@ -50,7 +50,7 @@ export class PrepareComponent extends BaseComponent {
     this.initProcessMembers(PrepareComponent.ProcessStepNum, this._processService);
   }
 
-  ngAfterContentInit() {
+  ngAfterViewInit() {
 
     if (!this.mspApplication.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();
