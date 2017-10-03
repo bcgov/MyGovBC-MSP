@@ -34,12 +34,13 @@ import {
 } from "../api-model/assistanceTypes";
 import {ApplicationBase} from "../model/application-base.model";
 import {AssistanceYear} from "../model/assistance-year.model";
+import { environment } from '../../../../environments/environment';
 let jxon = require("jxon/jxon");
 
 @Injectable()
 export class MspApiService {
 
-  constructor(private http: Http, @Inject('appConstants') private appConstants: Object) {
+  constructor(private http: Http) {
   }
 
   /**
@@ -140,7 +141,7 @@ export class MspApiService {
        Create URL
        /{applicationUUID}/attachment/{attachmentUUID}
        */
-      let url = this.appConstants['apiBaseUrl']
+      let url = environment.appConstants['apiBaseUrl']
         + "/MSPDESubmitAttachment/" + applicationUUID
         + "/attachment/" + attachment.uuid;
 
@@ -206,7 +207,7 @@ export class MspApiService {
        Create URL
        /{applicationUUID}
        */
-      let url = this.appConstants['apiBaseUrl']
+      let url = environment.appConstants['apiBaseUrl']
         + "/MSPDESubmitApplication/" + document.application.uuid
         + "?programArea=enrolment";
 

@@ -8,6 +8,7 @@ import { MspDataService } from '../../service/msp-data.service';
 import {Gender, Person} from "../../model/person.model";
 import {StatusInCanada, Activities, Relationship} from "../../model/status-activities-documents";
 import {ProcessService} from "../../service/process.service";
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   templateUrl: './review.component.html'
@@ -21,10 +22,9 @@ export class ReviewComponent implements OnInit{
 
   constructor(private dataService: MspDataService,
               private _router: Router,
-              private processService:ProcessService,
-              @Inject('appConstants') private appConstants: Object) {
+              private processService:ProcessService,) {
     this.application = this.dataService.getMspApplication();
-    this.captchaApiBaseUrl = this.appConstants["captchaApiBaseUrl"];
+    this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
   }
 
 

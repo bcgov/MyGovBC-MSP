@@ -8,6 +8,7 @@ import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.co
 import {CompletenessCheckService} from '../../service/completeness-check.service';
 import {ProcessService} from "../../service/process.service";
 import {Router} from "@angular/router";
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   templateUrl: './authorize-submit.component.html'
@@ -24,11 +25,11 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit{
 
   constructor(private dataService: MspDataService,
               private completenessCheck:CompletenessCheckService,
-              @Inject('appConstants') private appConstants: Object,
               private _router: Router,
               private _processService: ProcessService){
     this.application = this.dataService.finAssistApp;
-    this.captchaApiBaseUrl = this.appConstants["captchaApiBaseUrl"];
+    this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
+    
   }
 
   @ViewChild('form') form: NgForm;

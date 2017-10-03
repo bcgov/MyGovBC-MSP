@@ -5,6 +5,6 @@ import {Component, OpaqueToken, Inject} from '@angular/core'
   styleUrls: ['./index.less']
 })
 export class HomeComponent {
-  constructor(@Inject('appConstants') appConstants: Object) {
+  constructor() {
   }
 }
