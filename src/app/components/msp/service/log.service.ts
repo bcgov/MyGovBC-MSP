@@ -1,11 +1,14 @@
 import {Injectable, Inject} from '@angular/core'
 import {Http, Headers, RequestOptions} from "@angular/http"
 import { Observable } from 'rxjs/Rx';
+import { environment } from '../../../../environments/environment';
 
 
 @Injectable()
 export class MspLogService {
-  constructor(private http: Http, @Inject('appConstants') private appConstants: Object) {
+  appConstants;
+  constructor(private http: Http) {
+    this.appConstants = environment.appConstants;
   }
 
   /**
