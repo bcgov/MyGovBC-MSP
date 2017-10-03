@@ -39,7 +39,7 @@ export class AccountPrepareComponent extends BaseComponent {
     ngOnInit() {
         this.initProcessMembers(AccountPrepareComponent.ProcessStepNum, this._processService);
     }
-    ngAfterViewInit() {
+    ngAfterContentInit() {
         if (!this.mspAccount.infoCollectionAgreement) {
             this.mspConsentModal.showFullSizeView();
         }

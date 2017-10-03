@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit, OnInit, ElementRef, DoCheck} from '@angular/core';
+import { Component, ViewChild, AfterContentInit, OnInit, ElementRef, DoCheck} from '@angular/core';
 import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs/Rx';
@@ -23,7 +23,7 @@ import {MspAssistanceYearComponent} from "./assistance-year/assistance-year.comp
   templateUrl: './prepare.component.html',
   styleUrls: ["./prepare.component.less"]
 })
-export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoCheck{
+export class AssistancePrepareComponent implements AfterContentInit, OnInit, DoCheck{
   @ViewChild('formRef') prepForm: NgForm;
   @ViewChild('incomeRef') incomeRef: ElementRef;
   @ViewChild('ageOver65Btn') ageOver65Btn: ElementRef;
@@ -110,7 +110,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
     this.dataService.saveFinAssistApplication();
   }
 
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     if (!this.dataService.finAssistApp.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();
     }

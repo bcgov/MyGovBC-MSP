@@ -1,4 +1,4 @@
-import {Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
+import {Component, Inject, Injectable, AfterContentInit, ViewChild, ElementRef} from '@angular/core';
 import {MspApplication, Person} from '../../model/application.model';
 
 import { MspDataService } from '../../service/msp-data.service';
@@ -13,7 +13,7 @@ import {ProcessService} from "../../service/process.service";
   styleUrls: ['./sending.component.less']
 })
 @Injectable()
-export class SendingComponent implements AfterViewInit {
+export class SendingComponent implements AfterContentInit {
   lang = require('./i18n');
 
   application: MspApplication;
@@ -37,7 +37,7 @@ export class SendingComponent implements AfterViewInit {
    * always regnerate uuid for application and its images 
    * When user use browser back button, the uuid are guaranteed to be unique for API server.
    */
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     this.transmitApplication();
   }
 
