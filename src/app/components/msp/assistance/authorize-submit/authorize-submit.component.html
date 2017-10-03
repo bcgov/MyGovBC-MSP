@@ -58,9 +58,8 @@
     </div>
     <div class="row">
       <div class="col-md-8">
-        <!-- TODO - Temporarily commented out for AoT compilation. -->
-        <!-- <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
-                 (onValidToken)="application.authorizationToken = $event"></captcha> -->
+        <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
+                 (onValidToken)="application.authorizationToken = $event"></captcha>
       </div>
     </div>
 </form>

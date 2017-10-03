@@ -5,13 +5,7 @@ import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import { ModalModule, AccordionModule} from 'ngx-bootstrap';
-
-
 import {Ng2CompleterModule} from "ng2-completer";
-
-//ARC TODO - Temporarily removed while AoT compilation is failing!
-// let CaptchaComponent = require("mygovbc-captcha-widget/component").CaptchaComponent;
-
 import {MspComponent} from './msp.component';
 import {LandingComponent} from './landing/landing.component';
 import {MspNameComponent} from './common/name/name.component';
@@ -86,6 +80,17 @@ import {AccountComponent} from './account/account.component';
 import {AccountPrepareComponent} from "./account/prepare/prepare.component";
 import {AccountPersonalInfoComponent} from "./account/personal-info/personal-info.component";
 import {AccountDependentChangeComponent} from "./account/dependent-change/dependent-change.component";
+/**
+ * Currently CaptchaComponent is making --aot compilation fail. 
+ * TODO - Periodically check if issue is resolved.
+ * https://github.com/bcgov/MyGovBC-CAPTCHA-Widget/issues/3
+ * 
+ * Once there's an update we can update package.json
+ * 1. Change `npm build` and remove `--aot=false` from the command
+ * 2. Update the version specified in dependencies.
+ */
+
+let CaptchaComponent = require("mygovbc-captcha-widget/component").CaptchaComponent;
 
 /**
  * The overall progress layout is created based on 'msp-prepare-v3-a.jpeg' in
@@ -271,7 +276,7 @@ import {AccountDependentChangeComponent} from "./account/dependent-change/depend
         MspConsentModalComponent,
         MspIdReqModalComponent,
         MspCancelComponent,
-        // CaptchaComponent, //TODO - Temp commented out for --aot compilation
+        CaptchaComponent,
 
         // View cards
         MspPersonCardComponent,
