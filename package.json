@@ -10,7 +10,7 @@
   "homepage": "",
   "main": "server.js",
   "scripts": {
-    "prestart": "yarn install",
+    "prestart": "npm install",
     "start": "npm run dev",
     "dev": "ng serve -o",
     "dev-build": "ng build",

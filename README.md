@@ -67,7 +67,7 @@ After a make a few more edits, I double check my work at the test site.
 # Development
 
 ## Developer Prerequisites
-* node@>=6.9.0
+* node@>=6.9.0 (to satisfy Yarn avoid 7.x.x releases, but 8.x.x are okay)
 * npm@>=3.10.0
 * Yarn>=1.1.0 (`npm install -g yarn`) [Documentation](https://yarnpkg.com/lang/en/docs/install/)
 * AngularCLI (`npm install -g @angular/cli`) [Documentation](https://github.com/angular/angular-cli)
