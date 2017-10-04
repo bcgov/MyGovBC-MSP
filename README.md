@@ -86,9 +86,6 @@ See `ACCESSIBILITY.md` for accessibility implementations patterns.
 
 ## Folder Structure
 
-The base folder structure is largely defined by [angular-scaffold](https://github.com/bcgov/angular-scaffold), however that does not extend to files in the `src/` folder. This section seeks to explain the `src/` folder structure that's unique to prime-web.
-
-
 ```bash
 MyGovBC-msp/src/
 ├── environments/ # from angular-scaffold
@@ -109,7 +106,6 @@ MyGovBC-msp/src/
     │       └── model/ # models, dtos, interfaces, etc. for all msp sections
     │       └── service/ # services specific to msp
     │       └── msp.component.*
-    ├── services/ # angular services
     ├── styles/ # directives for frontend validation, discussed below
     ├── app.component.* # root component, contains app-wide configs and router.
     ├── app.module.ts
