@@ -90,7 +90,9 @@ import {AccountDependentChangeComponent} from "./account/dependent-change/depend
  * 2. Update the version specified in dependencies.
  */
 
-let CaptchaComponent = require("mygovbc-captcha-widget/component").CaptchaComponent;
+import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
+import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
+
 
 /**
  * The overall progress layout is created based on 'msp-prepare-v3-a.jpeg' in
@@ -292,6 +294,7 @@ let CaptchaComponent = require("mygovbc-captcha-widget/component").CaptchaCompon
         ReviewComponent,
         SendingComponent,
         ConfirmationComponent,
+        
 
         // Assistance
         AssistanceComponent,
@@ -326,6 +329,7 @@ let CaptchaComponent = require("mygovbc-captcha-widget/component").CaptchaCompon
         MspApiService,
         MspLogService,
         ProcessService,
+        CaptchaDataService
     ]
 })
 @Injectable()
