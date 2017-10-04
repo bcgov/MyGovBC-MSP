@@ -1,11 +1,14 @@
 [![Build Status](https://jenkins-gcpe-mygovbc-msp-tools.pathfinder.gov.bc.ca/buildStatus/icon?job=msp-dev)](https://jenkins-gcpe-mygovbc-msp-tools.pathfinder.gov.bc.ca/job/msp-dev)
 
-## MyGovBC-MSP
+# MyGovBC-MSP
+
+## General
+
 This is MyGovBC MSP AngularJS 2.x app.  It provides the following processes:
  1. Enrolment Application
  2. Premium Assistance Application
 
-## Browser Compatibility
+### Browser Compatibility
 
 * IE 11
 * Edge (evergreen)
@@ -17,11 +20,11 @@ Recommended minimum width 320px of device.
 
 See `ACCESSIBILITY.md` for tested screen readers.
 
-## Content Author Prerequisites
+### Content Author Prerequisites
 * A GitHub account with 2FA enabled.
 * Write access to this repository.
 
-## Content Authoring
+### Content Authoring
 Most of the application text is configurable.  General procedure:
 * Navigate to the test environment and view a screen
 * Look at the URL of the page as this helps you find the right file to edit
@@ -39,7 +42,7 @@ Most of the application text is configurable.  General procedure:
 * If the change doesn't show up, it's likely the build failed because of a syntax issue, talk to a developer
 
 
-### Example
+#### Example
 
 I want to edit the page `/msp/application/personal-info` and change the help block just below the title.
 
@@ -61,6 +64,8 @@ I make a comment in the Commit Changes that says 'content change' and click the 
 
 After a make a few more edits, I double check my work at the test site.
 
+# Development
+
 ## Developer Prerequisites
 * node@>=6.9.0 (recommended: >= 7.6.0)
 * npm@>=3.10.0 (recommended: >= 4.1.2)
@@ -79,7 +84,39 @@ npm run dev # or `ng serve -o`
 
 See `ACCESSIBILITY.md` for accessibility implementations patterns.
 
-### Instance-specific Configuration
+## Folder Structure
+
+The base folder structure is largely defined by [angular-scaffold](https://github.com/bcgov/angular-scaffold), however that does not extend to files in the `src/` folder. This section seeks to explain the `src/` folder structure that's unique to prime-web.
+
+
+```bash
+MyGovBC-msp/src/
+├── environments/ # from angular-scaffold
+│   ├── environment.ts # used by default
+│   └── environment.prod.ts # used with --prod or --environment prod
+└── app/
+    ├── images/ # assets copied to build folder
+    ├── fonts/ # assets copied to build folder
+    ├── components/ # one component for each page, e.g. contact-info, site-access
+    │   └── core/ # core components used in all sections, i.e. header and footer
+    │   └── msp/ # contains msp module and components
+    │       └── account/ # for the account maintenance section
+    │       └── api-model/ #
+    │       └── application/ # for the new enrolment application section
+    │       └── assistance/ # for premium assistance section
+    │       └── common/ # re-usable components across sections
+    │       └── landing/ # landing page
+    │       └── model/ # models, dtos, interfaces, etc. for all msp sections
+    │       └── service/ # services specific to msp
+    │       └── msp.component.*
+    ├── services/ # angular services
+    ├── styles/ # directives for frontend validation, discussed below
+    ├── app.component.* # root component, contains app-wide configs and router.
+    ├── app.module.ts
+    └── variables.scss # app wide scss variables, copied from MSP.
+```
+
+### Environments and Instance-specific Configuration
 
 MyGovBC-MSP uses the default AngularCLI approach to environments. [Documentation.](https://github.com/angular/angular-cli/wiki/build).  Unlike the previous MyGovBC-MSP environment setup, now environment values do NOT cascade. There is no longer a global environment file. Instead, each environment file must be entirely self-contained and stand on its own.
 
