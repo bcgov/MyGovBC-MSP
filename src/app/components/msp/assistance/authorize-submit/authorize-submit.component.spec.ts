@@ -12,7 +12,7 @@ import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
 import { MspValidationService } from '../../service/msp-validation.service';
-import appConstants from '../../../../services/appConstants';
+
 import { CompletenessCheckService } from '../../service/completeness-check.service';
 import { ProcessService } from "../../service/process.service";
 import {RouterTestingModule} from "@angular/router/testing";
@@ -30,7 +30,7 @@ describe('AssistanceAuthorizeSubmitComponent Test', () => {
       })],
       providers: [MspDataService, MspLogService,CompletenessCheckService,MspValidationService,ProcessService,
         
-        {provide: 'appConstants', useValue: appConstants}
+        
       ]
     })
   });

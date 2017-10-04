@@ -15,7 +15,6 @@ import {MspGenderComponent} from "../../../common/gender/gender.component";
 import {MspCountryComponent} from "../../../common/country/country.component";
 import { MspLogService } from '../../../service/log.service';
 import { MspValidationService } from '../../../service/msp-validation.service';
-import appConstants from '../../../../../services/appConstants';
 import { CompletenessCheckService } from '../../../service/completeness-check.service';
 
 import {CalendarYearFormatter} from '../../../common/calendar/calendar-year-formatter.component';
@@ -38,7 +37,7 @@ describe('AssistancePersonalDetailComponent Test', () => {
       })],
       providers: [MspDataService, CompletenessCheckService,MspValidationService,ProcessService,
         
-        {provide: 'appConstants', useValue: appConstants}
+        
       ]
     })
   });

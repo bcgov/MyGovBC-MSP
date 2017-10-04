@@ -5,7 +5,6 @@ import { MspDataService } from '../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspProgressBarComponent} from "../common/progressBar/progressBar.component";
 import {RouterTestingModule} from "@angular/router/testing";
-import appConstants from '../../../services/appConstants';
 import { ProcessService } from "../service/process.service";
 
 describe('ApplicationComponent', () => {
@@ -17,9 +16,7 @@ describe('ApplicationComponent', () => {
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],
-      providers: [MspDataService, ProcessService,
-        
-        {provide: 'appConstants', useValue: appConstants}
+      providers: [MspDataService, ProcessService
       ]
     })
   });

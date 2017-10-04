@@ -10,7 +10,7 @@ import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import {MspLogService} from "../../service/log.service";
 import {HttpModule} from "@angular/http";
-import appConstants from '../../../../services/appConstants';
+
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable} from 'rxjs/Observable';
 import { Subscription} from 'rxjs/Subscription';
@@ -52,7 +52,7 @@ describe('AssistanceConfirmationComponent', () => {
       )],
       providers: [MspDataService,MspLogService,ActivatedRoute,
         
-        {provide: 'appConstants', useValue: appConstants}
+        
       ]
     })
   });

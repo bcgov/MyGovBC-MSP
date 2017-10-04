@@ -9,7 +9,6 @@ import {Ng2BootstrapModule} from "ngx-bootstrap";
 import {MspCancelComponent} from "../../common/cancel/cancel.component";
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
-import appConstants from '../../../../services/appConstants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ProcessService } from "../../service/process.service";
@@ -24,10 +23,7 @@ describe('AccountPrepareComponent', () => {
           prefix: 'ca.bc.gov.msp',
           storageType: 'sessionStorage'
         })],
-      providers: [MspDataService, MspLogService, ProcessService,
-        
-        {provide: 'appConstants', useValue: appConstants}
-        
+      providers: [MspDataService, MspLogService, ProcessService
       ]
     })
   });

@@ -15,7 +15,7 @@ import {MspCancelComponent} from "../../common/cancel/cancel.component";
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import {MspLogService} from "../../service/log.service";
 import {HttpModule} from "@angular/http";
-import appConstants from '../../../../services/appConstants';
+
 import { ProcessService } from "../../service/process.service";
 
 describe('AssistanceReviewComponent', () => {
@@ -31,7 +31,7 @@ describe('AssistanceReviewComponent', () => {
       })],
       providers: [MspDataService,MspLogService, ProcessService,
         
-        {provide: 'appConstants', useValue: appConstants}
+        
       ]
     })
   });

@@ -4,7 +4,7 @@ import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {RouterTestingModule} from "@angular/router/testing";
 import {Ng2BootstrapModule} from "ngx-bootstrap";
-import appConstants from '../../../../services/appConstants';
+
 import {MspImageErrorModalComponent} from "./image-error-modal.component";
 
 describe('MspImageErrorModalComponent', () => {
@@ -17,7 +17,7 @@ describe('MspImageErrorModalComponent', () => {
       })],
       providers: [MspDataService,
         
-        {provide: 'appConstants', useValue: appConstants}
+        
       ]
     })
   });

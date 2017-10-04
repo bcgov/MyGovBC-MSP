@@ -5,7 +5,7 @@ import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {ThumbnailComponent} from "../thumbnail/thumbnail.component";
 import {ModalModule} from "ngx-bootstrap";
-import appConstants from '../../../../services/appConstants';
+
 import {MspLogService} from "../../service/log.service";
 import {LogEntry} from "../logging/log-entry.model";
 import {Http, Headers, RequestOptions, ConnectionBackend, HttpModule} from "@angular/http"
@@ -24,7 +24,7 @@ describe('FileUploaderComponent', () => {
       })],
       providers: [MspDataService, MspLogService,
         
-        {provide: 'appConstants', useValue: appConstants}
+        
       ]
     })
   });

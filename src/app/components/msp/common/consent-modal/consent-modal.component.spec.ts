@@ -6,7 +6,7 @@ import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage
 import {MspAddressCardPartComponent} from "../address-card-part/address-card-part.component";
 import {RouterTestingModule} from "@angular/router/testing";
 import {Ng2BootstrapModule} from "ngx-bootstrap";
-import appConstants from '../../../../services/appConstants';
+
 
 describe('MspConsentModalComponent', () => {
 
@@ -19,7 +19,7 @@ describe('MspConsentModalComponent', () => {
       })],
       providers: [MspDataService,
         
-        {provide: 'appConstants', useValue: appConstants}
+        
       ]
     })
   });

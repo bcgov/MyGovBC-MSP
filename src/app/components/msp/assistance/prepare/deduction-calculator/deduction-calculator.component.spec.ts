@@ -8,7 +8,6 @@ import { MspDataService } from '../../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspCancelComponent} from "../../../common/cancel/cancel.component";
 import {ModalModule} from "ngx-bootstrap";
-import appConstants from '../../../../../services/appConstants';
 import {MspLoggerDirective} from "../../../common/logging/msp-logger.directive";
 import {RouterTestingModule} from "@angular/router/testing";
 import { ProcessService } from "../../../service/process.service";
@@ -24,7 +23,7 @@ describe('DeductionCalculatorComponent', () => {
       })],
       providers: [MspDataService,MspLogService, ProcessService,
         
-        {provide: 'appConstants', useValue: appConstants}
+        
       ]
     })
   });

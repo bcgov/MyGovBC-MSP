@@ -2,8 +2,6 @@ import {NgModule, OpaqueToken, Inject, Component} from '@angular/core'
 import {BrowserModule}  from '@angular/platform-browser'
 import {RouterModule} from '@angular/router';
 
-
-import {HomeComponent} from './components/home'
 import {CoreHeaderComponent} from './components/core/header'
 import {CoreFooterComponent} from './components/core/footer'
 import { ModalModule, AccordionModule} from 'ngx-bootstrap';
@@ -23,7 +21,7 @@ require('./index.less')
     
   ],
   declarations: [
-    HomeComponent, CoreHeaderComponent, CoreFooterComponent, 
+    CoreHeaderComponent, CoreFooterComponent, 
     GeneralAppComponent
   ],
   bootstrap: [CoreHeaderComponent, CoreFooterComponent, GeneralAppComponent]

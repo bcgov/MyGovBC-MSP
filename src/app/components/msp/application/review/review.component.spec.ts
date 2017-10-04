@@ -13,7 +13,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MspCancelComponent} from "../../common/cancel/cancel.component";
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
-import appConstants from '../../../../services/appConstants';
+
 import { ProcessService } from "../../service/process.service";
 
 let CaptchaComponent = require("mygovbc-captcha-widget/component").CaptchaComponent;
@@ -30,7 +30,7 @@ describe('ReviewComponent', () => {
       })],
       providers: [MspDataService, MspLogService, ProcessService,
         
-        {provide: 'appConstants', useValue: appConstants}
+        
       ]
     })
   });

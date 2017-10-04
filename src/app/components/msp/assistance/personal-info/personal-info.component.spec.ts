@@ -22,7 +22,7 @@ import {ModalModule} from "ngx-bootstrap";
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
 import {MspValidationService} from '../../service/msp-validation.service';
-import appConstants from '../../../../services/appConstants';
+
 import {CalendarYearFormatter} from '../../common/calendar/calendar-year-formatter.component';
 import {CalendarYearValidator} from '../../common/calendar/calendar-year.validator';
 import {CalendarDayValidator} from '../../common/calendar/calendar-day.validator';
@@ -44,7 +44,7 @@ describe('AssistancePersonalInfoComponent Test', () => {
       })],
       providers: [MspDataService,CompletenessCheckService, MspLogService,MspValidationService,ProcessService,
         
-        {provide: 'appConstants', useValue: appConstants}
+        
       ]
     })
   });

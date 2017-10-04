@@ -11,11 +11,11 @@
  * https://github.com/angular/angular-cli/wiki/build
  */
 
-var NODE_ENV = process.env.NODE_ENV || "production"
+// var NODE_ENV = process.env.NODE_ENV || "production"
 
 export const environment = {
     appConstants: {
-        runtimeEnv: NODE_ENV, // run-time env. by default same as build-time node env
+        runtimeEnv: "development", // run-time env. by default same as build-time node env
         coreApiBaseUrl: 'http://localhost:9000/api',
         serviceName: 'Apply for BC Health Care',
         logBaseUrl: '/msp/api/logging',

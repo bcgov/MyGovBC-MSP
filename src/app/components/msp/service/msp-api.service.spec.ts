@@ -5,7 +5,6 @@ import {Gender, Person} from "../model/person.model";
 import {MspImage} from "../model/msp-image";
 import {StatusInCanada, Activities, Relationship} from "../model/status-activities-documents";
 import {HttpModule} from "@angular/http";
-import appConstants from '../../../services/appConstants';
 import {Data} from "./test/image.data";
 import {FinancialAssistApplication} from "../model/financial-assist-application.model";
 import {ApplicationBase} from "../model/application-base.model";
@@ -18,7 +17,7 @@ describe('MspApiService', () => {
     TestBed.configureTestingModule({
       imports: [HttpModule],
       providers: [
-        {provide: 'appConstants', useValue: appConstants},
+        ,
         MspApiService
       ]
     })

@@ -16,7 +16,7 @@ import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-
 import {MspAssistanceYearComponent} from "./assistance-year/assistance-year.component";
 import { MspLogService } from '../../service/log.service';
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
-import appConstants from '../../../../services/appConstants';
+
 
 describe('AssistancePrepareComponent', () => {
 
@@ -32,7 +32,7 @@ describe('AssistancePrepareComponent', () => {
       })],
 
       providers: [MspDataService, MspLogService,
-        {provide: 'appConstants', useValue: appConstants}
+        
       ]
     })
   });

@@ -18,7 +18,6 @@ import {ModalModule} from "ngx-bootstrap";
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
 import { MspValidationService } from '../../service/msp-validation.service';
-import appConstants from '../../../../services/appConstants';
 import { ProcessService } from "../../service/process.service";
 import {RouterTestingModule} from "@angular/router/testing";
 
@@ -33,8 +32,7 @@ describe('Application Address Component Test', () => {
                 prefix: 'ca.bc.gov.msp',
                 storageType: 'sessionStorage'
               })],
-            providers: [MspDataService, CompletenessCheckService, MspLogService,MspValidationService, ProcessService,
-                {provide: 'appConstants', useValue: appConstants}
+            providers: [MspDataService, CompletenessCheckService, MspLogService,MspValidationService, ProcessService
             ]
         })
     });

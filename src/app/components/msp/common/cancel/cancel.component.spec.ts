@@ -11,7 +11,7 @@ import {Ng2BootstrapModule} from "ngx-bootstrap";
 
 import { MspLogService } from '../../service/log.service';
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
-import appConstants from '../../../../services/appConstants';
+
 describe('MspCancelComponent', () => {
 
   beforeEach(() => {
@@ -23,7 +23,7 @@ describe('MspCancelComponent', () => {
       })],
       providers: [MspDataService, MspLogService,
         
-        {provide: 'appConstants', useValue: appConstants}
+        
       ]
     })
   });

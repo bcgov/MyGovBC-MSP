@@ -1,8 +1,8 @@
-var NODE_ENV = process.env.NODE_ENV || "production"
+// var NODE_ENV = process.env.NODE_ENV || 
 
 export const environment = {
     appConstants: {
-        runtimeEnv: NODE_ENV, // run-time env. by default same as build-time node env
+        runtimeEnv: "production", // run-time env. by default same as build-time node env
         coreApiBaseUrl: 'http://localhost:9000/api',
         serviceName: 'Apply for BC Health Care',
         logBaseUrl: '/msp/api/logging',

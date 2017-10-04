@@ -3,14 +3,14 @@ import * as moment from 'moment';
 import {ModalDirective} from "ngx-bootstrap";
 import {ApplicationBase} from "../../model/application-base.model";
 // jam - trying to inject appConstants
-// import appConstants from '../../../../services/appConstants';
+// 
 
 import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'msp-consent-modal',
   templateUrl: './consent-modal.component.html',
-  // providers: [{provide: 'appConstants', useValue: appConstants}]
+  // providers: []
 })
 export class MspConsentModalComponent {
   lang = require('./i18n');

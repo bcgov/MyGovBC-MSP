@@ -8,7 +8,6 @@ import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
-import appConstants from '../../../../services/appConstants';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable} from 'rxjs/Observable';
 import { Subscription} from 'rxjs/Subscription';
@@ -26,8 +25,7 @@ describe('Component Test', () => {
       })
     ],
       providers: [MspDataService, MspLogService,ActivatedRoute,
-        
-        {provide: 'appConstants', useValue: appConstants}
+  
       ]
     })
   });

@@ -32,7 +32,7 @@ import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
 import {MspValidationService} from '../../service/msp-validation.service';
 
-import appConstants from '../../../../services/appConstants';
+
 import {RouterTestingModule} from "@angular/router/testing";
 
 import {CalendarYearFormatter} from '../../common/calendar/calendar-year-formatter.component';
@@ -58,7 +58,7 @@ describe('PersonalInfoComponent', () => {
       providers: [MspDataService, MspLogService, MspValidationService, ProcessService,
         CompletenessCheckService,
         
-        {provide: 'appConstants', useValue: appConstants}
+        
       ]
     })
   });

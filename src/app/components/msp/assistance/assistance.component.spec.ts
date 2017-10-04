@@ -8,7 +8,6 @@ import {MspProgressBarComponent} from "../common/progressBar/progressBar.compone
 import { RouterModule } from '@angular/router';
 import {RouterTestingModule} from "@angular/router/testing";
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import appConstants from '../../../services/appConstants';
 import { ProcessService } from "../service/process.service";
 
 describe('AssistanceComponent', () => {
@@ -22,7 +21,7 @@ describe('AssistanceComponent', () => {
       })],
       providers: [MspDataService, ProcessService,
         
-        {provide: 'appConstants', useValue: appConstants}
+        
       ]
     })
   });
