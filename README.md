@@ -67,11 +67,10 @@ After a make a few more edits, I double check my work at the test site.
 # Development
 
 ## Developer Prerequisites
-* node@>=6.9.0 (recommended: >= 7.6.0)
-* npm@>=3.10.0 (recommended: >= 4.1.2)
-* Git
-* Yarn (`npm install -g yarn`) [Documentation](https://yarnpkg.com/lang/en/docs/install/)
-* AngularCLI  (`npm install -g @angular/cli`) [Documentation](https://github.com/angular/angular-cli)
+* node@>=6.9.0
+* npm@>=3.10.0
+* Yarn>=1.1.0 (`npm install -g yarn`) [Documentation](https://yarnpkg.com/lang/en/docs/install/)
+* AngularCLI (`npm install -g @angular/cli`) [Documentation](https://github.com/angular/angular-cli)
 
 ## Development
 To launch dev instance
