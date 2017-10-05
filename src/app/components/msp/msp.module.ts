@@ -80,15 +80,6 @@ import {AccountComponent} from './account/account.component';
 import {AccountPrepareComponent} from "./account/prepare/prepare.component";
 import {AccountPersonalInfoComponent} from "./account/personal-info/personal-info.component";
 import {AccountDependentChangeComponent} from "./account/dependent-change/dependent-change.component";
-/**
- * Currently CaptchaComponent is making --aot compilation fail. 
- * TODO - Periodically check if issue is resolved.
- * https://github.com/bcgov/MyGovBC-CAPTCHA-Widget/issues/3
- * 
- * Once there's an update we can update package.json
- * 1. Change `npm build` and remove `--aot=false` from the command
- * 2. Update the version specified in dependencies.
- */
 
 import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
 import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
