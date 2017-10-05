@@ -70,7 +70,7 @@
     "jxon": "git+https://github.com/bcgov/jxon.git",
     "lodash": "^4.17.2",
     "moment": "^2.17.0",
-    "mygovbc-captcha-widget": "^2.0.2",
+    "mygovbc-captcha-widget": "^2.0.6",
     "ng2-completer": "^1.4.0",
     "ngx-bootstrap": "next",
     "rx-dom": "^7.0.3",
