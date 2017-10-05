@@ -1,0 +1,65 @@
+<form #formRef="ngForm" novalidate>
+    <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
+
+    <div class="row">
+        <div class="col-xs-6" role="alert" aria-live="assertive">
+            <h3><i class="fa fa-id-card-o" aria-hidden="true"></i> {{lang('./en/index.js').documentInstructionLabel[0]}}
+            </h3>
+            <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
+
+
+            <ul>
+                <li *ngFor="let documentGroup of documents">
+                    {{documentGroup.title}}
+                    <ul>
+                        <li *ngFor="let document of documentGroup.docs">
+                            {{langDocuments('./en/index.js')[document]}}
+                            <a role="button" aria-haspopup="true" href="javascript:void(0)"
+                               (click)="viewIdReqModal(document)" tabindex="0"
+                               [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <msp-id-req-modal #idReqModal></msp-id-req-modal>
+
+        </div>
+        <div class="col-xs-6" >
+
+            <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel"></h3>
+            <div [innerHtml]="lang('./en/index.js').documentInstructionsNote"></div>
+
+
+            <h2 [innerHTML]="lang('./en/index.js').docUploadInstructions" tabindex="0"></h2>
+            <label [innerHTML]="lang('./en/index.js').docUploadInstruction" tabindex="0">
+            </label>
+            <msp-file-uploader #fileUploader
+                               [images]="mspAccountApp.documents"
+                               [id]='mspAccountApp.id'
+                               (onAddDocument)="addDoc($event)"
+                               (onErrorDocument)="errorDoc($event)"
+                               (onDeleteDocument)="deleteDoc($event)">
+        <span id="uploadInstruction" tabindex="0"
+              #uploadInstruction
+        >
+          Please upload Required documents
+        </span>
+
+            </msp-file-uploader>
+            <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-sm-2">
+            <button [mspLogger]="'msp-accountmanagement_docment-upload_continue'"
+                    [disabled] = "!canContinue"
+                    class="btn btn-primary" type="submit" (click)="continue()"
+                    [innerHTML]="lang('./en/index.js').continueButton"></button>
+
+        </div>
+        <msp-cancel></msp-cancel>
+
+    </div>
+
+</form>

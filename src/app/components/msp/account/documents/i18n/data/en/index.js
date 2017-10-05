@@ -1,0 +1,15 @@
+module.exports = {
+  pageTitle: 'Documents Required',
+  pageTitle: 'Documents Required',
+    documentInstructionLabel: ['Your ID Requirements',
+        'Spouse\'s ID Requirements',
+        'Child\'s ID Requirements',
+        'Child\'s ID Requirements'],
+    documentInstructionsIntro: 'Your ID requirements depend on which MSP account details you are changing. Please refer to the appropriate section to see which document(s) should be uploaded. ',
+    documentUploadLabel: '<i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> Upload your documents',
+    documentInstructionsNote: 'Scan the document, or take a photo of it. Make sure that it&#8217;s:<ul><li>The entire document, from corner to corner</li><li>At least 1000 pixels wide x 1500 pixels tall</li><li>Rotated correctly (not upside down or sideways)</li><li>In focus and easy to read</li><li>A JPG, PNG, GIF or BMP file (<strong>not a PDF</strong>)</li></ul>',
+    viewSamplesButton: 'Open sample',
+    docUploadInstructions: "<i class='fa fa-upload fa icon-upload'></i> Upload your documents",
+    docUploadSectonTitle:'If you are changing your name due to marriage, divorce or a legal name change, include one or more of the following:',
+    continueButton: "Continue",
+}

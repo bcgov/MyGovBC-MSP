@@ -1,0 +1,154 @@
+<form #formRef='ngForm' novalidate>
+    <div class="row">
+        <div class="col-xs-9">
+            <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]"></h2>
+            <h4 *ngIf="person.relationship === 0 || person.relationship === 1"
+                [innerHTML]="lang('./en/index.js').sectionSubTitle[person.relationship]"></h4>
+
+        </div>
+        <div class="col-xs-3">
+            <div *ngIf="person.relationship !== 0" style="margin-top: 18px">
+                <div *ngIf="person.relationship === 1">
+                    <button type="button" class="btn btn-default btn-xs pull-right"
+                            (click)="removeSpouse()"
+                            [innerHTML]="lang('./en/index.js').removeSpouseButton">
+                    </button>
+                </div>
+                <div *ngIf="person.relationship === 2 || person.relationship === 3 ">
+                    <button type="button" class="btn btn-default btn-xs pull-right"
+                            (click)="removeChild()"
+                            [innerHTML]="lang('./en/index.js').removeChildButton">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <msp-name #name [person]="person" (onChange)="onChange.emit($event)" [showError]="showError"></msp-name>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <msp-gender
+                    #gender
+                    [person]="person"
+                    (onChange)="onChange.emit($event)"
+                    [showError]="showError"
+            ></msp-gender>
+        </div>
+        <div class="col-sm-4">
+            <msp-birthdate
+                    #birthDate
+                    [person]="person"
+                    (onChange)="onChange.emit($event)"
+                    [showError]="showError">
+            </msp-birthdate>
+        </div>
+        <div class="col-sm-4">
+            <msp-phn #phn
+                     [phn]="person.previous_phn"
+                     [required]="true"
+                     [bcPhn]="true"
+                     [showError]="showError"
+                     (phnChange)="person.previous_phn = $event"
+                     (onChange)="onChange.emit($event)"
+            ></msp-phn>
+        </div>
+
+    </div>
+    <div class="row" *ngIf="person.relationship === 0">
+        <div class="col-sm-4">
+            <msp-phone #phone
+                       [phoneNumber]="person.phoneNumber"
+                       (phoneNumberChange)="handlePhoneNumberChange($event)"></msp-phone>
+
+        </div>
+    </div>
+    <div class="row" *ngIf="person.relationship === 0">
+        <div class="col-sm-12">
+            <msp-address #address *ngIf="person.relationship === 0" [showError]="showError"
+                         [residentialAddress]="person.residentialAddress"
+                         [mailingAddress]="person.mailingAddress"
+                         [mailingSameAsResidentialAddress]="person.mailingSameAsResidentialAddress"
+                         (mailingSameAsResidentialAddressChange)="toggleMailingSameAsResidentialAddress($event)"
+                         (onChange)="handleAddressUpdate($event)">
+
+            </msp-address>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="mspAccountApp.accountChangeOptions.statusUpdate">
+        <div class="col-xs-12" role="dialog" [attr.aria-label]="lang('./en/index.js').statusLabel[person.relationship]">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3 [innerHTML]="lang('./en/index.js').statusLabel[person.relationship]"></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="radio" *ngFor="let st of statusInCanada">
+                    <input type="radio" name="statusInCanada-{{id}}" id="st{{st}}-{{id}}"
+                           (click)="setStatus(st, person)"
+                           [checked]="st === person.status" tabindex="0">
+                    <label for="st{{st}}-{{id}}">
+                        {{lang('./en/index.js').canadaStatusLabel[st]}}
+                    </label>
+
+                    <div *ngIf="st === person.status && st > 1" role="alertdialog"
+                         aria-labelledby="What is your activity?">
+                        <div class="radio" *ngFor="let activity of activities">
+                            <input type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}"
+                                   (click)="setActivity(activity)"
+                                   [checked]="activity === person.currentActivity">
+                            <label for="a{{activity}}-{{id}}" class="shade">
+                                {{langAccountActivities('./en/index.js')[activity]}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row" *ngIf="visitor(person)">
+            <div class="col-md-12">
+                <p class="intro text-danger" [innerHTML]="lang('./en/index.js').visitorBadInput"
+                   role="alert" aria-live="assertive">
+                </p>
+            </div>
+
+        </div>
+        <div class="row" *ngIf="diplomat(person)">
+            <div class="col-md-12">
+                <p class="intro text-info" [innerHTML]="lang('./en/index.js').diplomatBadInput"
+                   role="alert" aria-live="assertive">
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <input type="hidden" id="test" name="test" [(ngModel)]="test">
+</form>
+<hr class="strong-hr">
+
+<!-- switch *ngIf value to true for debugging-->
+<div class="row" *ngIf='false'>
+    <div class="col-md-12">
+        <ul>
+            <li *ngFor='let log of changeLog'>
+                {{log | json}}
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-12">
+        <p>Person Data Model</p>
+        {{this.person| json}}
+        <p>firstname</p>
+        <!--{{ formRef.controls.firstname | json}}-->
+    </div>
+</div>
