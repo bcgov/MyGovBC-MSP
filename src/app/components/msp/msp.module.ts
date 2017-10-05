@@ -1,7 +1,7 @@
 import {NgModule, Injectable} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser'
 
-import {RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import { ModalModule, AccordionModule} from 'ngx-bootstrap';
@@ -94,6 +94,136 @@ import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha
 import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
 
 
+const APP_ROUTES : Routes = [
+    {
+        path: 'msp',
+        children: [
+            {
+                path: '',
+                component: LandingComponent
+            },
+
+            {
+                path: 'application',
+                component: ApplicationComponent,
+                children: [
+                    {
+                        path: '',
+                        canActivate: [],
+                        redirectTo: 'prepare',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'prepare',
+                        component: PrepareComponent
+                    },
+                    {
+                        path: 'personal-info',
+                        canActivate: [ProcessService],
+                        component: PersonalInfoComponent
+                    },
+                    {
+                        path: 'address',
+                        canActivate: [ProcessService],
+                        component: AddressComponent
+                    },
+                    {
+                        path: 'review',
+                        canActivate: [ProcessService],
+                        component: ReviewComponent
+                    },
+                    {
+                        path: 'sending',
+                        canActivate: [ProcessService],
+                        component: SendingComponent
+                    },
+                    {
+                        path: 'confirmation',
+                        canActivate: [],
+                        component: ConfirmationComponent
+                    },
+
+                ],
+            },
+            {
+                path: 'assistance',
+                component: AssistanceComponent,
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'prepare',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'prepare',
+                        component: AssistancePrepareComponent
+                    },
+                    {
+                        path: 'personal-info',
+                        canActivate: [ProcessService],
+                        component: AssistancePersonalInfoComponent,
+
+                    },
+                    {
+                        path: 'retro',
+                        canActivate: [ProcessService],
+                        component: AssistanceRetroYearsComponent
+                    },
+                    {
+                        path: 'review',
+                        canActivate: [ProcessService],
+                        component: AssistanceReviewComponent
+                    },
+                    {
+                        path: 'authorize-submit',
+                        canActivate: [ProcessService],
+                        component: AssistanceAuthorizeSubmitComponent
+                    },
+                    {
+                        path: 'sending',
+                        canActivate: [ProcessService],
+                        component: AssistanceSendingComponent
+                    },
+                    {
+                        path: 'confirmation',
+                        canActivate: [],
+                        component: AssistanceConfirmationComponent
+                    }
+                ]
+            },
+            // Start of Account Routes
+            {
+                path: 'account',
+                component: AccountComponent,
+                children: [
+                    {
+                        path: '',
+                        canActivate: [],
+                        redirectTo: 'prepare',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'prepare',
+                        component: AccountPrepareComponent
+                    },
+                    {
+                        path: 'personal-info',
+                        component: AccountPersonalInfoComponent
+                    },
+                    {
+                        path: 'dependent-change',
+                        component: AccountDependentChangeComponent
+
+                    }
+
+            ]
+            }
+
+        ]
+    },
+    {path: '**', redirectTo: '/msp'}
+];
+
 /**
  * The overall progress layout is created based on 'msp-prepare-v3-a.jpeg' in
  * https://apps.gcpe.gov.bc.ca/jira/browse/PSPDN-255?filter=16000
@@ -103,141 +233,10 @@ import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.
         BrowserModule,
         CommonModule,
         FormsModule,
-
         ModalModule,
         AccordionModule,
         Ng2CompleterModule,
-
-        RouterModule.forChild([
-            {
-                path: 'msp',
-                children: [
-                    {
-                        path: '',
-                        component: LandingComponent
-                    },
-
-                    {
-                        path: 'application',
-                        component: ApplicationComponent,
-                        children: [
-                            {
-                                path: '',
-                                canActivate: [],
-                                redirectTo: 'prepare',
-                                pathMatch: 'full'
-                            },
-                            {
-                                path: 'prepare',
-                                component: PrepareComponent
-                            },
-                            {
-                                path: 'personal-info',
-                                canActivate: [ProcessService],
-                                component: PersonalInfoComponent
-                            },
-                            {
-                                path: 'address',
-                                canActivate: [ProcessService],
-                                component: AddressComponent
-                            },
-                            {
-                                path: 'review',
-                                canActivate: [ProcessService],
-                                component: ReviewComponent
-                            },
-                            {
-                                path: 'sending',
-                                canActivate: [ProcessService],
-                                component: SendingComponent
-                            },
-                            {
-                                path: 'confirmation',
-                                canActivate: [],
-                                component: ConfirmationComponent
-                            },
-
-                        ],
-                    },
-                    {
-                        path: 'assistance',
-                        component: AssistanceComponent,
-                        children: [
-                            {
-                                path: '',
-                                redirectTo: 'prepare',
-                                pathMatch: 'full'
-                            },
-                            {
-                                path: 'prepare',
-                                component: AssistancePrepareComponent
-                            },
-                            {
-                                path: 'personal-info',
-                                canActivate: [ProcessService],
-                                component: AssistancePersonalInfoComponent,
-
-                            },
-                            {
-                                path: 'retro',
-                                canActivate: [ProcessService],
-                                component: AssistanceRetroYearsComponent
-                            },
-                            {
-                                path: 'review',
-                                canActivate: [ProcessService],
-                                component: AssistanceReviewComponent
-                            },
-                            {
-                                path: 'authorize-submit',
-                                canActivate: [ProcessService],
-                                component: AssistanceAuthorizeSubmitComponent
-                            },
-                            {
-                                path: 'sending',
-                                canActivate: [ProcessService],
-                                component: AssistanceSendingComponent
-                            },
-                            {
-                                path: 'confirmation',
-                                canActivate: [],
-                                component: AssistanceConfirmationComponent
-                            }
-                        ]
-                    },
-                    // Start of Account Routes
-                    {
-                        path: 'account',
-                        component: AccountComponent,
-                        children: [
-                            {
-                                path: '',
-                                canActivate: [],
-                                redirectTo: 'prepare',
-                                pathMatch: 'full'
-                            },
-                            {
-                                path: 'prepare',
-                                component: AccountPrepareComponent
-                            },
-                            {
-                                path: 'personal-info',
-                                component: AccountPersonalInfoComponent
-                            },
-                            {
-                                path: 'dependent-change',
-                                component: AccountDependentChangeComponent
-
-                            }
-
-                    ]
-                    }
-
-                ]
-            },
-            {path: '**', redirectTo: '/msp'}
-        ]),
-
+        RouterModule.forChild(APP_ROUTES),
         LocalStorageModule.withConfig({
             prefix: 'ca.bc.gov.msp',
             storageType: 'sessionStorage'
