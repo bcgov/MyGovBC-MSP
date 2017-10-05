@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {MspApplication, Person} from '../model/application.model';
-import {MspAccount} from '../model/account.model';
+import {MspAccountApp} from '../model/account.model';
 import PersonDto from '../model/person.dto';
 import {FinancialAssistApplication} from '../model/financial-assist-application.model';
 import {LocalStorageService} from 'angular-2-local-storage';
 import FinancialAssistApplicationDto from '../model/financial-assist-application.dto';
 import MspApplicationDto from '../model/application.dto';
+import MspAccountDto from '../model/account.dto';
 import AddressDto from '../model/address.dto';
 import {OutofBCRecordDto} from '../model/outof-bc-record.dto';
 import {OutofBCRecord} from '../model/outof-bc-record.model';
@@ -15,10 +16,10 @@ import {Process} from "./process.service";
 import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
 
 @Injectable()
-export class MspDataService {
+export  class MspDataService {
     private _mspApplication: MspApplication;
     private _finAssistApp: FinancialAssistApplication;
-    private _mspAccount: MspAccount;
+    private _mspAccountApp: MspAccountApp;
     private finAssistAppStorageKey: string = 'financial-assist';
     // private finAssistMailingAddressStorageKey:string = 'financial-assist-mailing-address';
     private mspAppStorageKey: string = 'msp-application';
@@ -32,7 +33,7 @@ export class MspDataService {
     constructor(private localStorageService: LocalStorageService) {
         this._finAssistApp = this.fetchFinAssistApplication();
         this._mspApplication = this.fetchMspApplication();
-        this._mspAccount = this.fetchMspAccount();
+        this._mspAccountApp = this.fetchMspAccountApplication();
     }
 
     destroyAll() {
@@ -64,8 +65,8 @@ export class MspDataService {
         return this._mspApplication;
     }
 
-    getMspAccount(): MspAccount {
-        return this._mspAccount;
+    getMspAccountApp(): MspAccountApp {
+        return this._mspAccountApp;
     }
 
     get finAssistApp(): FinancialAssistApplication {
@@ -82,6 +83,13 @@ export class MspDataService {
         return uuid;
     }
 
+    saveMspAccountApp(): void {
+        let dto: MspAccountDto = this.toMspAccountAppTransferObject(this._mspAccountApp);
+        // console.log('saving msp app: ', dto);
+        this.localStorageService.set(this.mspAccountKey, dto);
+    }
+
+
     saveMspApplication(): void {
         let dto: MspApplicationDto = this.toMspApplicationTransferObject(this._mspApplication);
         // console.log('saving msp app: ', dto);
@@ -97,6 +105,18 @@ export class MspDataService {
             return this.fromMspApplicationTransferObject(dto);
         } else {
             return new MspApplication();
+        }
+    }
+
+    private fetchMspAccountApplication(): MspAccountApp {
+        let dto: MspAccountDto =
+            this.localStorageService.get<MspAccountDto>(this.mspAccountStorageKey);
+
+        if (dto) {
+            // console.log('MspApplicationDto from local storage: ', dto);
+            return this.fromMspAccountTransferObject(dto);
+        } else {
+            return new MspAccountApp();
         }
     }
 
@@ -121,24 +141,6 @@ export class MspDataService {
         } else {
             return new FinancialAssistApplication();
         }
-    }
-
-
-    /** 
-     * A simple method to load existing or create new MspAccount. Unlike other
-     * fetch methods, this one does not look at localStorage or creates a DTO,
-     * instead it only sees if it has an object in memory. Having this function
-     * called in the constructor is necessary for the edge condition in
-     * development when user navigates directly to Account Maintenance page,
-     * bypassing landing page, which then inadvertantly bypasses mspAccount
-     * intitialization. 
-     */
-    private fetchMspAccount(): MspAccount {
-        if (this._mspAccount) {
-            return this._mspAccount;
-        }
-
-        return new MspAccount();
     }
 
     private convertMailingAddress(input: any, output: any) {
@@ -173,9 +175,9 @@ export class MspDataService {
         this._mspApplication = new MspApplication();
     }
 
-    removeMspAccount(): void {
+    removeMspAccountApp(): void {
         this.destroyAll();
-        this._mspAccount = new MspAccount();
+        this._mspAccountApp = new MspAccountApp();
     }
 
     private toPersonDto(input: Person): PersonDto {
@@ -299,6 +301,29 @@ export class MspDataService {
         return output
     }
 
+    toMspAccountAppTransferObject(input: MspAccountApp): MspAccountDto {
+        let dto: MspAccountDto = new MspAccountDto();
+        dto.addressUpdate = input.accountChangeOptions.addressUpdate ;
+        dto.personInfoUpdate = input.accountChangeOptions.personInfoUpdate ;
+        dto.dependentChange = input.accountChangeOptions.dependentChange ;
+        dto.statusUpdate = input.accountChangeOptions.statusUpdate ;
+        dto.applicant = this.toPersonDto(input.applicant);
+        if (input.updatedSpouse) {
+            dto.applicant.updatedSpouse = this.toPersonDto(input.updatedSpouse);
+        }
+
+        input.children.forEach(c => {
+            let c2: PersonDto = this.toPersonDto(c);
+            c2.outOfBCRecord = this.toOutofBCRecordDto(c.outOfBCRecord);
+
+            this.convertSchoolAddress(c, c2);
+            dto.applicant.children = [...dto.applicant.children, c2];
+
+        });
+        return dto;
+
+    }
+
     toMspApplicationTransferObject(input: MspApplication): MspApplicationDto {
         let dto: MspApplicationDto = new MspApplicationDto();
 
@@ -369,6 +394,17 @@ export class MspDataService {
         rec.returnYear = dto.returnYear;
 
         return rec;
+    }
+    private fromMspAccountTransferObject(dto: MspAccountDto): MspAccountApp {
+        let output: MspAccountApp = new MspAccountApp();
+
+        output.accountChangeOptions.addressUpdate = dto.addressUpdate ;
+        output.accountChangeOptions.personInfoUpdate = dto.personInfoUpdate ;
+        output.accountChangeOptions.dependentChange = dto.dependentChange ;
+        output.accountChangeOptions.statusUpdate = dto.statusUpdate ;
+        output.applicant = this.fromPersonDto(dto.applicant);
+
+        return output;
     }
 
     private fromMspApplicationTransferObject(dto: MspApplicationDto): MspApplication {

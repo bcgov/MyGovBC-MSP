@@ -1,6 +1,8 @@
 module.exports = {
   pageTitle: 'Personal Information',
-  addSpouseButton: 'Update Spouse ',
+    depdendentTitle: 'Update Spouse or Child Personal Information',
+    depdendentInfoMsg:'Click the Spouse or Child buttons to update the legal name, birthdate and/or gender of a spouse or child <strong>currently on your MSP account</strong> (not for adding or removing a spouse or child).',
+  UpdateSpouseButton: 'Update Spouse ',
   addChildUnder19Button: 'Update Child/Dependent Post Secondary Student ',
   addChild19To24Button: 'Add Child (19-24) Dependent Post Secondary Student',
   continueButton: 'Continue',

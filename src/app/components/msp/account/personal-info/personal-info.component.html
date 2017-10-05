@@ -1,4 +1,71 @@
-<form #formRef="ngForm" novalidate>
+<form #formRef="ngForm" novalidate (submit)="continue()">
     <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
 
+    <msp-account-personal-details [person]='applicant' [id]='applicant.id'
+                                  (onChange)="onChange($event)"
+                                  [showError]="formRef.submitted">
+    </msp-account-personal-details>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 [innerHtml]="lang('./en/index.js').depdendentTitle"></h2>
+            <h4 [innerHtml]="lang('./en/index.js').depdendentInfoMsg"></h4>
+        </div>
+    </div>
+
+    <div *ngIf='spouse'>
+        <msp-account-personal-details [person]='spouse' [id]='spouse.id'
+                                      (notifySpouseRemoval)="removeSpouse($event)"
+                                      (onChange)="onChange($event)"
+                                      [showError]="formRef.submitted">
+        </msp-account-personal-details>
+    </div>
+
+    <div *ngIf='children.length > 0'>
+        <msp-account-personal-details *ngFor="let child of children; let idx = index"
+                                      [person]='child'
+                                      [id]='child.id'
+                                      (notifyChildRemoval)="removeUpdateChild($event,idx)"
+                                      (onChange)="onChange($event)"
+                                      [showError]="formRef.submitted">
+        </msp-account-personal-details>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="msp-app">
+                <div class="button-group">
+                    <button type="button" class="btn btn-default" (click)='addUpdateSpouse()'
+                            [disabled]="spouse" [disabled] = "!canContinue()" >
+                        <span class="glyphicon" aria-hidden="true"></span>
+                        <span [innerHTML]="lang('./en/index.js').UpdateSpouseButton"></span>
+                    </button>
+
+                    <button type="button" class="btn btn-default" (click)='addUpdateChild()' [disabled] = "!canContinue()">
+                        <span class="glyphicon" aria-hidden="true"></span>
+                        <span [innerHTML]="lang('./en/index.js').addChildUnder19Button"></span>
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-sm-2">
+
+            <button [disabled] = "hasAnyInvalidStatus()&& !canContinue()" [mspLogger]="'msp-accountmanagement_personal-info_continue'"
+                    class="btn btn-primary" type="submit"
+                    [innerHTML]="lang('./en/index.js').continueButton"></button>
+
+        </div>
+        <div class="col-sm-6 pull-left" *ngIf="!formValidStatus && formRef.submitted">
+            <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
+            </p>
+        </div>
+        <msp-cancel></msp-cancel>
+    </div>
+    <input type="hidden" id="test" name="test" [(ngModel)]="test">
 </form>

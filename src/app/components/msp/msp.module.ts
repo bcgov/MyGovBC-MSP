@@ -79,7 +79,9 @@ import {ProcessService} from "./service/process.service";
 import {AccountComponent} from './account/account.component';
 import {AccountPrepareComponent} from "./account/prepare/prepare.component";
 import {AccountPersonalInfoComponent} from "./account/personal-info/personal-info.component";
+import {AccountPersonalDetailsComponent} from "./account/personal-info/personal-details/personal-details.component"
 import {AccountDependentChangeComponent} from "./account/dependent-change/dependent-change.component";
+import {AccountDocumentsComponent} from "./account/documents/documents.component"
 
 import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
 import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
@@ -205,6 +207,11 @@ const APP_ROUTES : Routes = [
                         path: 'dependent-change',
                         component: AccountDependentChangeComponent
 
+                    },
+                    {
+                        path: 'documents',
+                        component: AccountDocumentsComponent
+
                     }
 
             ]
@@ -306,7 +313,9 @@ const APP_ROUTES : Routes = [
         AccountComponent,
         AccountPrepareComponent,
         AccountPersonalInfoComponent,
-        AccountDependentChangeComponent
+        AccountDependentChangeComponent,
+        AccountPersonalDetailsComponent,
+        AccountDocumentsComponent
     ],
 
     providers: [

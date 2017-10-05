@@ -1,5 +1,5 @@
 <a [class.btn-block]="btnBlock" class="btn btn-default pull-right" href="javascript:void(0)"
-        [innerHtml]="lang('./en/index.js').cancelButton"
+        [innerHtml]="accountButton?lang('./en/index.js').accountcancelButton : lang('./en/index.js').cancelButton"
         (click)="showFullSizeView()" role="button"></a>
 
 <div bsModal #fullSizeViewModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
@@ -7,16 +7,16 @@
   <div class="modal-dialog" style="margin-top: 70px;">
     <div class="modal-content">
       <div class="modal-body">
-        <h2 [innerHtml]="lang('./en/index.js').body"></h2>
+        <h2 [innerHtml]="accountButton?lang('./en/index.js').accountbody : lang('./en/index.js').body"></h2>
       </div>
       <div class="modal-footer">
         <a class="btn btn-danger pull-left" role="button" href="javascript:void(0)"
                 [innerHtml]="lang('./en/index.js').yesButton"
                 (click)="yesButtonClick()"></a>
         <a class="btn btn-primary pull-right" role="button" href="javascript:void(0)"
-                [innerHtml]="lang('./en/index.js').noButton"
+                [innerHtml]="accountButton? lang('./en/index.js').accountnoButton : lang('./en/index.js').noButton"
                 (click)="noButtonClick()"></a>
-                
+
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@ import {NgForm} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 
 
-import {MspAccount,AccountChangeOptions} from '../../model/account.model';
+import {MspAccountApp, AccountChangeOptions} from '../../model/account.model';
 import * as _ from 'lodash';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
@@ -12,9 +12,10 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
-import { MspDataService } from '../../service/msp-data.service';
+import {MspDataService} from '../../service/msp-data.service';
 import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
-import {ProcessService, ProcessStep, ProcessUrls} from "../../service/process.service";
+import {ProcessService,ProcessStep} from "../../service/process.service";
+import {ProcessUrls} from "../../service/process.service";
 import {BaseComponent} from "../../common/base.component";
 
 
@@ -25,40 +26,84 @@ import {BaseComponent} from "../../common/base.component";
 export class AccountPrepareComponent extends BaseComponent {
     static ProcessStepNum = 0;
     lang = require('./i18n');
-    mspAccount: MspAccount;
-    accountChangeOptions:AccountChangeOptions;
+    mspAccountApp: MspAccountApp;
+    accountChangeOptions: AccountChangeOptions;
 
+    @ViewChild('addressChangeChkBx') addressChangeChkBx: ElementRef;
+    @ViewChild('personalInfoChangeChkBx') personalInfoChangeChkBx: ElementRef;
+    @ViewChild('dependentChangeChkBx') dependentChangeChkBx: ElementRef;
+    @ViewChild('updateStatusInCanadaChkBx') updateStatusInCanadaChkBx: ElementRef;
     @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
+    @ViewChild('formRef') form: NgForm;
 
-    constructor(private cd: ChangeDetectorRef, private dataService: MspDataService, private _processService: ProcessService ,private _router: Router) {
+    constructor(private cd: ChangeDetectorRef, private dataService: MspDataService, private _processService: ProcessService, private _router: Router) {
         super(cd);
-        this.mspAccount = dataService.getMspAccount();
-        this.accountChangeOptions = this.mspAccount.accountChangeOptions;
+        this.mspAccountApp = dataService.getMspAccountApp();
+        this.accountChangeOptions = this.mspAccountApp.accountChangeOptions;
     }
 
     ngOnInit() {
         this.initProcessMembers(AccountPrepareComponent.ProcessStepNum, this._processService);
     }
+
     ngAfterViewInit() {
-        if (!this.mspAccount.infoCollectionAgreement) {
+        if (!this.mspAccountApp.infoCollectionAgreement) {
             this.mspConsentModal.showFullSizeView();
         }
+
     }
 
+    get hasOnlyAddressSelected(): boolean {
+       return this.accountChangeOptions.hasOnlyAddressSelected();
+    }
 
 
     canContinue(): boolean {
-        return true;
+        return this.isAllValid();
     }
 
     next() {
-        if (this.mspAccount.infoCollectionAgreement !== true) {
+        if (this.mspAccountApp.infoCollectionAgreement !== true) {
             return this.mspConsentModal.showFullSizeView();
         }
-        if (this.accountChangeOptions.addressUpdate && !(this.accountChangeOptions.personInfoUpdate ||this.accountChangeOptions.depdendentChange || this.accountChangeOptions.statusUpdate ) ) {
+        if (this.accountChangeOptions.hasOnlyAddressSelected()) {
             window.location.href = "https://www.addresschange.gov.bc.ca/";
             return;
         }
+        this.setupProcessStepsFromSelection();
+        this._processService.setStep(0, true);
+        this.dataService.emptyMspProgressBar();
+        this.dataService.saveMspAccountApp();
+        this._router.navigate([this._processService.getNextStep()]);
+
+    }
+
+    addressUpdateOnChange(event: boolean) {
+        this.accountChangeOptions.addressUpdate = event;
+        this.dataService.saveMspAccountApp();
+    }
+
+    personInfoUpdateOnChange(event: boolean) {
+        this.accountChangeOptions.personInfoUpdate = event;
+        this.dataService.saveMspAccountApp();
+    }
+
+    dependentChangeOnChange(event: boolean) {
+        this.accountChangeOptions.dependentChange = event;
+        this.dataService.saveMspAccountApp();
+    }
+
+    statusUpdateOnChange(event: boolean) {
+        this.accountChangeOptions.statusUpdate = event;
+        this.dataService.saveMspAccountApp();
+    }
+
+    /*
+    Depending on users selection , second and third steps will be introduced.
+        user selects PI Update OR Update status in canada ==> first step=personal-info
+        user selects Dependent Change  ==>  Next step=Dependent change
+    */
+    private setupProcessStepsFromSelection(): void {
 
         // Resets  te process
         this._processService.init([
@@ -67,34 +112,25 @@ export class AccountPrepareComponent extends BaseComponent {
             new ProcessStep(ProcessUrls.ACCOUNT_REVIEW_URL),
             new ProcessStep(ProcessUrls.ACCOUNT_SENDING_URL)]);
 
-        this.setupProcessStepsFromSelection();
-        this._processService.setStep(0, true);
-        this.dataService.emptyMspProgressBar();
-        this._router.navigate([this._processService.getNextStep()]);
-
-    }
-    /*
-    Depending on users selection , second and third steps will be introduced.
-        user selects PI Update OR Update status in canada ==> first step=personal-info
-        user selects Dependent Change  ==>  Next step=Dependent change
-    */
-    private setupProcessStepsFromSelection() : void {
-           var stepNumber:number = 1 ;
+        var stepNumber: number = 1;
 
         if (this.accountChangeOptions.personInfoUpdate || this.accountChangeOptions.statusUpdate) {
-                this._processService.addStep(new ProcessStep(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL), stepNumber);
-                stepNumber++;
-            }
-            if (this.accountChangeOptions.depdendentChange) {
-                this._processService.addStep(new ProcessStep(ProcessUrls.ACCOUNT_DEPENDENTS_URL), stepNumber);
-            }
-    }
-    isValid(): boolean {
-        //make sure at least one checkbox is selected
-        if (!(this.accountChangeOptions.personInfoUpdate || this.accountChangeOptions.depdendentChange || this.accountChangeOptions.statusUpdate || this.accountChangeOptions.addressUpdate)) {
-            return false;
+            this._processService.addStep(new ProcessStep(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL), stepNumber);
+            stepNumber++;
+        }
+        if (this.accountChangeOptions.dependentChange) {
+            this._processService.addStep(new ProcessStep(ProcessUrls.ACCOUNT_DEPENDENTS_URL), stepNumber);
         }
 
-        return true;
+        console.log("----PREPARe-"+JSON.stringify(this._processService.process.processSteps));
+    }
+
+    isValid(): boolean {
+        //make sure at least one checkbox is selected
+        if (this.accountChangeOptions.hasAnyOptionSelected()) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -22,7 +22,6 @@ export class LandingComponent {
     lang = require('./i18n')
 
     constructor(private mspDataService: MspDataService, private router: Router) {}
-    
 
     clearSavedFinAssisApp() {
         console.log('deleting saved fin assist app.');
@@ -37,7 +36,7 @@ export class LandingComponent {
     }
 
     clearSavedAccountApp() {
-        this.mspDataService.removeMspAccount();
+        this.mspDataService.removeMspAccountApp();
         this.router.navigate(['/msp/account/prepare']);
     }
 

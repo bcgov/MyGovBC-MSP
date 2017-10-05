@@ -16,7 +16,7 @@
     "dev-build": "ng build",
     "build": "ng build --prod",
     "test": "ng test",
-    "postinstall": "typings install ; npm run build"
+    "postinstall": "npm run build"
   },
   "devDependencies": {
     "@angular/cli": "^1.1.3",

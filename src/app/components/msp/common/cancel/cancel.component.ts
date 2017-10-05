@@ -1,7 +1,8 @@
 import {Component, Input, ViewChild} from '@angular/core';
 import * as moment from 'moment';
 import {ModalDirective} from "ngx-bootstrap";
-import { MspDataService } from '../../service/msp-data.service';
+import {MspDataService} from "../../service/msp-data.service";
+
 
 @Component({
   selector: 'msp-cancel',
@@ -12,6 +13,7 @@ export class MspCancelComponent {
 
   @Input() btnBlock: boolean = false;
   @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
+  @Input() accountButton: boolean = false;
 
   constructor(private dataService: MspDataService) {
   }

@@ -1,10 +1,10 @@
-import {MspAccount, AccountChangeOptions} from '../model/account.model';
+import {AccountChangeOptions} from '../model/account.model';
 
 export class ProgressBarHelper {
 
     public static readonly br = "<br>";
     lang = require('./i18n');
-    private _height: Object = {'height': '60px'};
+    private _height: Object = {'height': '70px'};
     private _dependentsLabel: string = "";
     private _personalInfoLabel: string = "";
     private _widthMainMenu: Object = {};
@@ -12,31 +12,38 @@ export class ProgressBarHelper {
     private _widthDependents: Object = {};
     private _widthDocumentUpload: Object = {};
 
+    private _widthReview: Object = {};
+
     constructor(private _accountChangeOptions: AccountChangeOptions) {
         this.constructLabels();
         this.constructHeight();
         this.constructWidths();
     }
 
+
+
     private constructWidths(): void {
-        let isAllFourTabsShown = this._accountChangeOptions.hasAllOptionsSelected() || (this._accountChangeOptions.hasAnyPISelected() && this._accountChangeOptions.depdendentChange) ;
+        let isAllFourTabsShown = this._accountChangeOptions.hasAllOptionsSelected() || (this._accountChangeOptions.hasAnyPISelected() && this._accountChangeOptions.dependentChange) ;
         if (isAllFourTabsShown  ) {     // All Four tabs  shown
             this._widthMainMenu = {'width': '15%'};
             this._widthDocumentUpload = {'width': '15%'};
             this._widthPersonalInfo = {'width': '30%'};
             this._widthDependents = {'width': '20%'};
+            this._widthReview  = {'width': '20%'};
             return;
         }
         if (this._accountChangeOptions.hasAnyPISelected()){
-            this._widthMainMenu = {'width': '22.5%'};
+            this._widthMainMenu = {'width': '22%'};
             this._widthDocumentUpload = {'width': '25%'};
             this._widthPersonalInfo = {'width': '30%'};
+            this._widthReview  = {'width': '23%'};
             return ;
         }
-        if (this._accountChangeOptions.depdendentChange){
+        if (this._accountChangeOptions.dependentChange){
             this._widthMainMenu = {'width': '20%'};
             this._widthDocumentUpload = {'width': '25%'};
             this._widthDependents = {'width': '35%'};
+            this._widthReview  = {'width': '20%'};
             return ;
         }
 
@@ -49,11 +56,11 @@ export class ProgressBarHelper {
             this._height = {'height': '90px'};
             return;
         }
-        if (this._accountChangeOptions.depdendentChange && this._accountChangeOptions.hasAnyPISelected()) {
+        if (this._accountChangeOptions.dependentChange && this._accountChangeOptions.hasAnyPISelected()) {
             this._height = {'height': '80px'};
             return;
         }
-        if (this._accountChangeOptions.depdendentChange && this._accountChangeOptions.addressUpdate) {
+        if (this._accountChangeOptions.dependentChange && this._accountChangeOptions.addressUpdate) {
             this._height = {'height': '70px'};
             return;
         }
@@ -76,7 +83,7 @@ export class ProgressBarHelper {
             }
         }
 
-        if (this._accountChangeOptions.depdendentChange) {
+        if (this._accountChangeOptions.dependentChange) {
             this._dependentsLabel = this.lang('./en/index.js').progressStepDependents;
             if (this._accountChangeOptions.addressUpdate && !this._accountChangeOptions.hasAnyPISelected()) {
                 this._dependentsLabel = this._dependentsLabel.concat(ProgressBarHelper.br).concat(this.lang('./en/index.js').progressStepAddressUpdate);
@@ -116,4 +123,10 @@ export class ProgressBarHelper {
     get dependentsLabel(): string {
         return this._dependentsLabel;
     }
+
+    get widthWidthReview(): Object {
+        return this._widthReview;
+    }
+
+
 }

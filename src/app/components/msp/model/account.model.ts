@@ -1,26 +1,12 @@
 import {UUID} from "angular2-uuid";
 import {ApplicationBase} from "./application-base.model";
 import {MspImage} from "./msp-image";
+import {Person,OperationActionType} from "./person.model";
+import {Relationship, StatusInCanada, Activities, Documents} from "./status-activities-documents";
+import {PhoneNumber} from "./phone.model";
 
-export class AccountChangeOptions {
 
-     personInfoUpdate: boolean = false;
-     depdendentChange: boolean = false;
-     addressUpdate: boolean = false;
-     statusUpdate: boolean = false;
-
-    hasAnyPISelected () :boolean {
-        return this.personInfoUpdate || this.statusUpdate;
-    }
-    hasAllOptionsSelected () :boolean {
-        return this.personInfoUpdate && this.depdendentChange && this.addressUpdate && this.statusUpdate ;
-    }
-    hasAllPISelected () {
-        return this.personInfoUpdate && this.addressUpdate && this.statusUpdate ;
-    }
-}
-
-class MspAccount implements ApplicationBase {
+class MspAccountApp implements ApplicationBase {
 
     private _uuid = UUID.UUID();
     infoCollectionAgreement: boolean = false;
@@ -30,9 +16,103 @@ class MspAccount implements ApplicationBase {
      * Set by the API, not for client use
      */
     referenceNumber: string;
+    private _applicant: Person = new Person(Relationship.Applicant);
+    public phoneNumber: string;
+    documents:MspImage[] = [];
+
+    /**
+     * validator for phone number
+     * @returns {boolean}
+     */
+    get phoneNumberIsValid(): boolean {
+
+        // Phone is optional
+        if (this.phoneNumber == null ||
+            this.phoneNumber.length < 1) {
+            return true;
+        }
+
+        // But if it's provided is must be valid
+        let regEx = new RegExp(PhoneNumber.PhoneNumberRegEx);
+        return regEx.test(this.phoneNumber);
+    }
+
+    private _removedSpouse: Person;
+
+    get children(): Array<Person> {
+        return this._children;
+    }
+
+    set children(value: Array<Person>) {
+        this._children = value;
+    }
+
+    private _addedSpouse: Person;
+    private _updatedSpouse: Person;
+    private _children: Array<Person>  = [];
 
     private _accountChangeOptions :AccountChangeOptions = new AccountChangeOptions ();
 
+    removeUpdatedSpouse =() => {
+        this._updatedSpouse = null;
+    } ;
+
+    addUpdatedSpouse = (sp:Person)=>{
+        if(!this._updatedSpouse){
+            this._updatedSpouse = sp;
+        }else{
+            console.log('spouse for updating already added to your coverage.');
+        }
+    };
+
+
+    addUpdateChild(): Person {
+        let c = new Person(Relationship.Child19To24,OperationActionType.Update);
+        this._children.length < 30 ? this._children.push(c): console.log('No more than 30 children can be added to one application');
+        return c;
+    }
+
+
+    removeUpdateChild(idx: number):void {
+        let removed = this._children.splice(idx,1);
+    }
+
+    get updateChildren(): Array<Person> {
+        var updateChildren =  this._children.filter( (child:Person) => child.operationActionType === OperationActionType.Update);
+        return updateChildren;
+    }
+
+    get applicant(): Person {
+        return this._applicant;
+    }
+
+    get removedSpouse(): Person {
+        return this._removedSpouse;
+    }
+
+    set removedSpouse(value: Person) {
+        this._removedSpouse = value;
+    }
+
+    get addedSpouse(): Person {
+        return this._addedSpouse;
+    }
+
+    set addedSpouse(value: Person) {
+        this._addedSpouse = value;
+    }
+
+    get updatedSpouse(): Person {
+        return this._updatedSpouse;
+    }
+
+    set updatedSpouse(value: Person) {
+        this._updatedSpouse = value;
+    }
+
+    set applicant(apt: Person) {
+        this._applicant = apt;
+    }
 
     get accountChangeOptions(): AccountChangeOptions {
         return this._accountChangeOptions;
@@ -77,4 +157,29 @@ class MspAccount implements ApplicationBase {
 
 }
 
-export {MspAccount}
+class AccountChangeOptions {
+
+    personInfoUpdate: boolean = false;
+    dependentChange: boolean = false;
+    addressUpdate: boolean = false;
+    statusUpdate: boolean = false;
+
+    hasAnyPISelected () :boolean {
+        return this.personInfoUpdate || this.statusUpdate;
+    }
+    hasAllOptionsSelected () :boolean {
+        return this.personInfoUpdate && this.dependentChange && this.addressUpdate && this.statusUpdate ;
+    }
+    hasAllPISelected () {
+        return this.personInfoUpdate && this.addressUpdate && this.statusUpdate ;
+    }
+    hasOnlyAddressSelected () {
+        return  this.addressUpdate && !(this.personInfoUpdate  ||  this.dependentChange || this.statusUpdate);
+    }
+
+    hasAnyOptionSelected() {
+        return  this.addressUpdate || this.personInfoUpdate  ||  this.dependentChange || this.statusUpdate;
+    }
+}
+
+export {MspAccountApp,AccountChangeOptions,Person}

@@ -5,7 +5,7 @@ import { MspDataService } from "./msp-data.service";
 
 export class ProcessUrls {
     public static readonly ACCOUNT_PREPARE_URL = "/msp/account/prepare" ;
-    public static readonly ACCOUNT_FILE_UPLOADER_URL = "/msp/account/fileuploader" ;
+    public static readonly ACCOUNT_FILE_UPLOADER_URL = "/msp/account/documents" ;
     public static readonly ACCOUNT_REVIEW_URL = "/msp/account/review" ;
     public static readonly ACCOUNT_PERSONAL_INFO_URL = "/msp/account/personal-info" ;
     public static readonly ACCOUNT_DEPENDENTS_URL = "/msp/account/dependent-change" ;

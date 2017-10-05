@@ -43,6 +43,6 @@ export class MspGenderComponent extends BaseComponent {
   }
 
   isValid(): boolean {
-    return this.person.gender != null;
+    return this.person && this.person.gender != null;
   }
 }

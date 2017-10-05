@@ -1,67 +1,73 @@
-import { MspImage } from './msp-image';
+import {MspImage} from './msp-image';
 import AddressDto from './address.dto';
 import {OutofBCRecordDto} from './outof-bc-record.dto';
 
 export default class PersonDto {
-  relationship:number;
-  firstName: string;
-  middleName: string;
-  lastName: string;
+    relationship: number;
+    firstName: string;
+    middleName: string;
+    lastName: string;
 
-  dob_day: number;
-  dob_month: number;
-  dob_year: number;
-  sin: string;
+    dob_day: number;
+    dob_month: number;
+    dob_year: number;
+    sin: string;
 
-  arrivalToCanadaYear: number;
-  arrivalToCanadaMonth: number;
-  arrivalToCanadaDay: number;
-  arrivalToBCYear: number;
-  arrivalToBCMonth: number;
-  arrivalToBCDay: number;
-  
-  movedFromProvinceOrCountry:string;
-  institutionWorkHistory:string;
+    arrivalToCanadaYear: number;
+    arrivalToCanadaMonth: number;
+    arrivalToCanadaDay: number;
+    arrivalToBCYear: number;
+    arrivalToBCMonth: number;
+    arrivalToBCDay: number;
 
-  dischargeYear: number;
-  dischargeMonth: number;
-  dischargeDay: number;
+    movedFromProvinceOrCountry: string;
+    institutionWorkHistory: string;
 
-  status:number;
-  currentActivity:number;
-  healthNumberFromOtherProvince:string;
-  previous_phn: string;
-  gender: number;
-  
-  liveInBC:boolean;
-  livedInBCSinceBirth:boolean;
-  hasPreviousBCPhn: boolean;
+    dischargeYear: number;
+    dischargeMonth: number;
+    dischargeDay: number;
 
-  madePermanentMoveToBC:boolean;
-  plannedAbsence:boolean;
-  id:string
+    status: number;
+    currentActivity: number;
+    healthNumberFromOtherProvince: string;
+    previous_phn: string;
+    gender: number;
 
-  spouse:PersonDto;
+    liveInBC: boolean;
+    livedInBCSinceBirth: boolean;
+    hasPreviousBCPhn: boolean;
 
-  children: PersonDto[] = [];
-  images: MspImage[];
+    madePermanentMoveToBC: boolean;
+    plannedAbsence: boolean;
+    id: string
 
-  fullTimeStudent: boolean;
-  inBCafterStudies: boolean;
+    spouse: PersonDto;
 
-  schoolName: string;
-  
-  schoolAddress: AddressDto = new AddressDto();
+    // three kind of spouses can be there for Account Change.. remove ,update ,add
+    removedSpouse?: PersonDto;
+    addedSpouse?: PersonDto;
+    updatedSpouse?: PersonDto;
 
-  studiesFinishedYear: number;
-  studiesFinishedMonth: number;
-  studiesFinishedDay: number;
 
-  studiesDepartureYear: number;
-  studiesDepartureMonth: number;
-  studiesDepartureDay: number;
+    children: PersonDto[] = [];
+    images: MspImage[];
 
-  declarationForOutsideOver30Days:boolean;
+    fullTimeStudent: boolean;
+    inBCafterStudies: boolean;
 
-  outOfBCRecord: OutofBCRecordDto;
+    schoolName: string;
+
+    schoolAddress: AddressDto = new AddressDto();
+
+    studiesFinishedYear: number;
+    studiesFinishedMonth: number;
+    studiesFinishedDay: number;
+
+    studiesDepartureYear: number;
+    studiesDepartureMonth: number;
+    studiesDepartureDay: number;
+
+    declarationForOutsideOver30Days: boolean;
+
+    outOfBCRecord: OutofBCRecordDto;
 }

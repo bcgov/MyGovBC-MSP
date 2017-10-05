@@ -1,20 +1,19 @@
 import {Component, Inject, ViewChild} from '@angular/core';
 import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
 import {MspProgressBarComponent} from "../common/progressBar/progressBar.component";
-import {ProcessService, ProcessStep, ProcessUrls} from "../service/process.service";
-
-import {MspAccount} from '../model/account.model';
-import { MspDataService } from '../service/msp-data.service';
-import { environment } from '../../../../environments/environment';
+import {ProcessService,ProcessStep,ProcessUrls} from "../service/process.service";
+import {MspAccountApp} from '../model/account.model';
 import {ProgressBarHelper} from './ProgressBarHelper';
+import {MspDataService} from '../service/msp-data.service';
+import { environment } from '../../../../environments/environment';
 
+require('./account.component.less');
 
 /**
  * Account for MSP
  */
 @Component({
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.less']
+    templateUrl: './account.component.html'
 })
 
 export class AccountComponent {
@@ -24,11 +23,10 @@ export class AccountComponent {
 
     @ViewChild('progressBar') progressBar: MspProgressBarComponent;
 
-    constructor (private processService: ProcessService ,private dataService: MspDataService) {
+    constructor(private processService: ProcessService, private dataService: MspDataService) {
         environment.appConstants.serviceName = this.lang('./en/index.js').serviceName;
         this.initProcessService();
     }
-
 
     get accountProgressBarList(): Array<MspProgressBarItem> {
 
@@ -46,9 +44,6 @@ export class AccountComponent {
 
     };
 
-    get account(): MspAccount {
-        return;
-    }
 
     private generateProgressBarItems() {
         var newProgressBarItems: MspProgressBarItem[] = [];
@@ -58,10 +53,11 @@ export class AccountComponent {
         let widthPersonalInfo: Object = {};
         let widthDependents: Object = {};
         let widthDocumentUpload: Object = {};
+        let widthReview: Object = {};
 
-        if (this.dataService.getMspAccount()) {
-            const accountChangeOptions = this.dataService.getMspAccount().accountChangeOptions;
-            const progressBarHelper: ProgressBarHelper = new ProgressBarHelper(this.dataService.getMspAccount().accountChangeOptions);
+        if (this.dataService.getMspAccountApp()) {
+            const accountChangeOptions = this.dataService.getMspAccountApp().accountChangeOptions;
+            const progressBarHelper: ProgressBarHelper = new ProgressBarHelper(this.dataService.getMspAccountApp().accountChangeOptions);
 
             customHeight = progressBarHelper.height;
 
@@ -71,21 +67,25 @@ export class AccountComponent {
             widthDependents = progressBarHelper.widthDependents;
 
             widthDocumentUpload = progressBarHelper.widthDocumentUpload;
+            widthReview = progressBarHelper.widthWidthReview;
 
             if (accountChangeOptions.hasAnyPISelected()) {
                 newProgressBarItems.push(new MspProgressBarItem(progressBarHelper.personalInfoLabel, ProcessUrls.ACCOUNT_PERSONAL_INFO_URL, customHeight,widthPersonalInfo));
             }
 
-            if (accountChangeOptions.depdendentChange) {
+            if (accountChangeOptions.dependentChange) {
                 newProgressBarItems.push(new MspProgressBarItem(progressBarHelper.dependentsLabel, ProcessUrls.ACCOUNT_DEPENDENTS_URL, customHeight,widthDependents));
             }
 
 
         }
+
+
+
         let progressBar: MspProgressBarItem[] = [
             new MspProgressBarItem(this.lang("./en/index.js").progressStepMainMenu, this.processService.process.processSteps[0].route, customHeight, widthMainMenu),
-            new MspProgressBarItem(this.lang("./en/index.js").progressStepDocumentation, this.processService.process.processSteps[1].route, customHeight, widthDocumentUpload),
-            new MspProgressBarItem(this.lang("./en/index.js").progressStepReview, this.processService.process.processSteps[2].route, customHeight),
+            new MspProgressBarItem(this.lang("./en/index.js").progressStepDocumentation,  ProcessUrls.ACCOUNT_FILE_UPLOADER_URL, customHeight, widthDocumentUpload),
+            new MspProgressBarItem(this.lang("./en/index.js").progressStepReview, ProcessUrls.ACCOUNT_REVIEW_URL, customHeight ,widthReview),
 
         ];
         if (newProgressBarItems && newProgressBarItems.length > 0) {

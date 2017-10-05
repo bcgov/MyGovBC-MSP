@@ -1,36 +1,37 @@
-<msp-consent-modal #mspConsentModal [application]="mspAccount" [processName]="lang('./en/index.js').consentProcessName"
-                   (onClose)="addressChangeInput.focus()">
+<msp-consent-modal #mspConsentModal [application]="mspAccountApp" [processName]="lang('./en/index.js').consentProcessName"
+                   (onClose)="addressChangeChkBx.focus()">
 </msp-consent-modal>
 
 <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
+<h4 [innerHtml]="lang('./en/index.js').subTitle"></h4>
+<h3 [innerHtml]="lang('./en/index.js').selectTitle"></h3>
 
 <form #formRef='ngForm' novalidate role="form" >
 
     <div role="dialog" aria-labelledby="q1" class="checkbox checkbox-spaced">
-        <input #addressChangeInput class="input-lg" id='addressChange' name="addressChange" type="checkbox" [(ngModel)]="accountChangeOptions.addressUpdate">
+        <input #addressChangeChkBx class="input-lg" id='addressChange' name="addressChange" type="checkbox" [(ngModel)]="accountChangeOptions.addressUpdate" (ngModelChange)="addressUpdateOnChange($event)" >
         <label id="q1" for='addressChange' [innerHtml]="lang('./en/index.js').addressChange"></label>
     </div>
     <div role="dialog" aria-labelledby="q2" class="checkbox checkbox-spaced">
-        <input class="input-lg" id='personalInfoChange' name="personalInfoChange" type="checkbox" [(ngModel)]="accountChangeOptions.personInfoUpdate">
+        <input #personalInfoChangeChkBx class="input-lg" id='personalInfoChange' name="personalInfoChange" type="checkbox" [(ngModel)]="accountChangeOptions.personInfoUpdate" (ngModelChange)="personInfoUpdateOnChange($event)">
         <label id="q2" for='personalInfoChange' [innerHtml]="lang('./en/index.js').personalInfoChange"></label>
     </div>
     <div role="dialog" aria-labelledby="q3" class="checkbox checkbox-spaced">
-        <input class="input-lg" id='dependentChange' name="dependentChange" type="checkbox" [(ngModel)]="accountChangeOptions.depdendentChange">
+        <input #dependentChangeChkBx class="input-lg" id='dependentChange' name="dependentChange" type="checkbox" [(ngModel)]="accountChangeOptions.dependentChange" (ngModelChange)="dependentChangeOnChange($event)">
         <label id="q3" for='dependentChange' [innerHtml]="lang('./en/index.js').dependentChange"></label>
     </div>
     <div role="dialog" aria-labelledby="q4" class="checkbox checkbox-spaced">
-        <input class="input-lg" id='updateStatusInCanada' name="updateStatusInCanada" type="checkbox" [(ngModel)]="accountChangeOptions.statusUpdate">
-        <label id="q4" for='updateStatusInCanada' [innerHtml]="lang('./en/index.js').updateStatusInCanada"></label>
+        <input #updateStatusInCanadaChkBx class="input-lg" id='statusChange' name="statusChange" type="checkbox" [(ngModel)]="accountChangeOptions.statusUpdate" (ngModelChange)="statusUpdateOnChange($event)" >
+        <label id="q4" for='statusChange' [innerHtml]="lang('./en/index.js').statusChange"></label>
     </div>
+    <p class="intro text-danger" *ngIf="hasOnlyAddressSelected" [innerHtml]="lang('./en/index.js').addressRedirecMsg" role="alert"
+       aria-live="assertive"></p>
 </form>
 <hr>
 
-
-<hr>
-
-<button [mspLogger]="'msp-enrollment_check-eligibility_continue'" class="btn btn-primary" [disabled]="!canContinue()" (click)="next()"
+<button [mspLogger]="'msp-account-management_prepare_continue'" class="btn btn-primary" [disabled]="!canContinue()" (click)="next()"
         type="button" tabindex="0" [innerHtml]="lang('./en/index.js').continueButton"></button>
 
-<msp-cancel></msp-cancel>
+<msp-cancel [accountButton]="true"></msp-cancel>
 
 
