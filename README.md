@@ -78,7 +78,7 @@ To launch dev instance
 git clone https://github.com/bcgov/MyGovBC-MSP.git
 cd MyGovBC-MSP
 yarn
-npm run dev # or `ng serve -o`
+npm run dev
 ```
 
 See `ACCESSIBILITY.md` for accessibility implementations patterns.
@@ -106,9 +106,10 @@ MyGovBC-msp/src/
     │       └── service/ # services specific to msp
     │       └── msp.component.*
     ├── styles/ # directives for frontend validation, discussed below
+    │   └── variables.scss # app wide scss variables
     ├── app.component.* # root component, contains app-wide configs and router.
     ├── app.module.ts
-    └── variables.scss # app wide scss variables, copied from MSP.
+    
 ```
 
 ### Environments and Instance-specific Configuration
