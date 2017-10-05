@@ -19,6 +19,7 @@ class MspAccountApp implements ApplicationBase {
     private _applicant: Person = new Person(Relationship.Applicant);
     public phoneNumber: string;
     documents:MspImage[] = [];
+    id:string;
 
     /**
      * validator for phone number
@@ -153,6 +154,10 @@ class MspAccountApp implements ApplicationBase {
            }*/
 
         return allImages;
+    }
+
+    constructor(){
+        this.id = UUID.UUID();
     }
 
 }
