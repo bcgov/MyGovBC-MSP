@@ -16,7 +16,8 @@ import { MspLogService } from '../../service/log.service';
 
 import { ProcessService } from "../../service/process.service";
 
-let CaptchaComponent = require("mygovbc-captcha-widget/component").CaptchaComponent;
+import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
+import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
 
 describe('ReviewComponent', () => {
 
@@ -28,7 +29,7 @@ describe('ReviewComponent', () => {
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],
-      providers: [MspDataService, MspLogService, ProcessService,
+      providers: [MspDataService, MspLogService, ProcessService, CaptchaDataService
         
         
       ]

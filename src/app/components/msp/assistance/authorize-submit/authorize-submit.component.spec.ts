@@ -16,7 +16,8 @@ import { MspValidationService } from '../../service/msp-validation.service';
 import { CompletenessCheckService } from '../../service/completeness-check.service';
 import { ProcessService } from "../../service/process.service";
 import {RouterTestingModule} from "@angular/router/testing";
-let CaptchaComponent = require("mygovbc-captcha-widget/component").CaptchaComponent;
+import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
+import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
 
 describe('AssistanceAuthorizeSubmitComponent Test', () => {
 
@@ -28,7 +29,7 @@ describe('AssistanceAuthorizeSubmitComponent Test', () => {
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],
-      providers: [MspDataService, MspLogService,CompletenessCheckService,MspValidationService,ProcessService,
+      providers: [MspDataService, MspLogService,CompletenessCheckService,MspValidationService,ProcessService,CaptchaDataService
         
         
       ]
