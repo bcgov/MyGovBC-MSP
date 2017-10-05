@@ -19,7 +19,7 @@ node {
 
   stage('build ' + BUILD_CONFIG) {
     echo "Building: " + BUILD_CONFIG
-    openshiftBuild bldCfg: BUILD_CONFIG, showBuildLogs: 'true'
+    openshiftBuild bldCfg: BUILD_CONFIG, showBuildLogs: 'true', verbose: 'true'
     openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: '$BUILD_ID', srcStream: IMAGESTREAM_NAME, srcTag: 'latest'
   }
   stage('deploy-' + TAG_NAMES[0]) {
