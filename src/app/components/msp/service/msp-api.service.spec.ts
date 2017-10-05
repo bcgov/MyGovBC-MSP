@@ -5,7 +5,6 @@ import {Gender, Person} from "../model/person.model";
 import {MspImage} from "../model/msp-image";
 import {StatusInCanada, Activities, Relationship} from "../model/status-activities-documents";
 import {HttpModule} from "@angular/http";
-import {Data} from "./test/image.data";
 import {FinancialAssistApplication} from "../model/financial-assist-application.model";
 import {ApplicationBase} from "../model/application-base.model";
 import {AssistanceYear} from "../model/assistance-year.model";
