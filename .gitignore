@@ -16,3 +16,5 @@ coverage
 /src/app/components/msp/api-model/xmlns
 .DS_Store
 DEBUG.ts
+documentation/
+.vscode/
