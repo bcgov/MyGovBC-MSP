@@ -3,7 +3,6 @@ import {ChangeDetectorRef, Component, Injectable, ViewChild} from '@angular/core
 import {MspDataService} from '../../service/msp-data.service';
 import {Router} from '@angular/router';
 import {BaseComponent} from "../../common/base.component";
-import {ProcessService} from "../../service/process.service";
 import {LocalStorageService} from 'angular-2-local-storage';
 import {MspAccountApp, AccountChangeOptions} from '../../model/account.model';
 import {AccountDocumentRules, DocumentGroup} from '../../model/account-documents';
@@ -11,7 +10,7 @@ import {
     StatusRules, ActivitiesRules, StatusInCanada, Activities,
     DocumentRules, Documents, Relationship
 } from "../../model/status-activities-documents";
-
+import {ProcessService,ProcessUrls} from "../../service/process.service";
 import {MspImage} from "../../../msp/model/msp-image";
 import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
@@ -29,7 +28,7 @@ export class AccountDocumentsComponent extends BaseComponent {
     @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
     @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
-    langDocuments = require('../../common/documents/i18n');
+    langAccountDocuments = require('../../common/account-documents/i18n');
     langStatus = require('../../common/status/i18n');
     langActivities = require('../../common/activities/i18n');
 
@@ -41,8 +40,8 @@ export class AccountDocumentsComponent extends BaseComponent {
         super(cd);
         this.mspAccountApp = dataService.getMspAccountApp();
     }
-
     ngOnInit() {
+        AccountDocumentsComponent.ProcessStepNum = this._processService.getStepNumber(ProcessUrls.ACCOUNT_FILE_UPLOADER_URL);
         this.initProcessMembers(AccountDocumentsComponent.ProcessStepNum, this._processService);
     }
 
@@ -85,7 +84,10 @@ export class AccountDocumentsComponent extends BaseComponent {
     }
 
     continue(): void {
-        this._router.navigate(['/msp/account/review']);
+
+        this._processService.setStep(AccountDocumentsComponent.ProcessStepNum, true);
+        console.log('this._processService.getNextStep():'+this._processService.getNextStep());
+        this._router.navigate([this._processService.getNextStep()]);
     }
 
 }

@@ -1,0 +1,13 @@
+<form #formRef="ngForm" novalidate (submit)="handleFormSubmission($event)">
+
+  <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
+
+  <button tabindex="0" class="btn btn-default" onclick="window.print();">
+    <i class="fa fa-print fa-lg pointer" 
+      aria-hidden="true"></i>
+    Print
+  </button>
+
+
+  <msp-cancel></msp-cancel>
+</form>

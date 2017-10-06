@@ -9,10 +9,9 @@
           <i class="fa fa-2x fa-times"></i>
         </a>
         <h1 id="title">{{lang('./en/index.js').title}}</h1>
-        <p class="help-block" [innerHTML]="lang('./en/index.js').intro"></p>
-
-        <div *ngFor="let idReq of idRequirementContentList">
-          <h2>{{idReq.residency}}</h2>
+        <p class="help-block" [innerHTML]="isForAccountChange? lang('./en/index.js').titleAccount: lang('./en/index.js').titleEnrollment"></p>
+        <div *ngFor="let idReq of (isForAccountChange?idRequirementContentListAccountMaintanence:idRequirementContentList)">
+          <h2 *ngIf="!isForAccountChange">{{idReq.residency}}</h2>
 
           <accordion [closeOthers]="true">
             <accordion-group #group

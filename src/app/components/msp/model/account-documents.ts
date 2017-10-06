@@ -1,5 +1,5 @@
 /**
- * ID documents
+ * ID documents for account management changes
  */
 enum Documents {
     CanadianBirthCertificate,
@@ -12,18 +12,47 @@ enum Documents {
     VisitorVisa,
     PassportWithDiplomaticFoil,
     MarriageCertificate,
-    ChangeOfNameCertificate
+    ChangeOfNameCertificate,
+    //new docs for account management
+    DivorceDecree,
+    SeparationAgreement,
+    GenderDesignationAdult,
+    GenderDesignationMinor,
+    LandedImmigrationDocs,
+    ReligiousWorkerPermit,
+    ReligiousConfirmationOrder,
+    FoilDiplomaticPassport
 }
 
 
 /**
- * Business rules for documents
+ * Account change has a different structure for documents section..
+ * This can be modified if requirements changes
  */
 class AccountDocumentRules {
 
+
     static availiableDocuments(): DocumentGroup[] {
-        return [new DocumentGroup("Name/BirthDate", "name or birthdate", [Documents.MarriageCertificate, Documents.ChangeOfNameCertificate]),
-            new DocumentGroup("", "", [Documents.MarriageCertificate, Documents.VisitorVisa])];
+        let nameBirthDate: DocumentGroup = new DocumentGroup("Name/BirthDate", "name or birthdate",
+            [Documents.CanadianBirthCertificate, Documents.CanadianCitizenCard]);
+
+        let marriageDivorceLegalName: DocumentGroup = new DocumentGroup("Marriage, divorce or a legal name change", "divorce or a legal name change",
+            [Documents.MarriageCertificate,
+            Documents.DivorceDecree,
+            Documents.ChangeOfNameCertificate, Documents.SeparationAgreement
+
+        ]);
+
+        let gender: DocumentGroup = new DocumentGroup("Gender", "Gender",
+            [Documents.CanadianBirthCertificate, Documents.GenderDesignationAdult,Documents.GenderDesignationMinor]);
+
+        let statusInCanada: DocumentGroup = new DocumentGroup("Status in Canada", "Status in Canada",
+            [Documents.CanadianPassport, Documents.PermanentResidentCard,Documents.WorkPermit,
+                Documents.StudyPermit, Documents.VisitorVisa,Documents.LandedImmigrationDocs,
+                Documents.ReligiousWorkerPermit, Documents.ReligiousConfirmationOrder,Documents.FoilDiplomaticPassport]);
+
+
+        return [nameBirthDate, marriageDivorceLegalName, gender, statusInCanada];
     }
 
 }
@@ -41,4 +70,4 @@ class DocumentGroup {
 }
 
 
-export {AccountDocumentRules,Documents, DocumentGroup};
+export {AccountDocumentRules, Documents, DocumentGroup};

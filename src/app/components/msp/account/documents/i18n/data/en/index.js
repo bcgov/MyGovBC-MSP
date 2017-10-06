@@ -11,5 +11,9 @@ module.exports = {
     viewSamplesButton: 'Open sample',
     docUploadInstructions: "<i class='fa fa-upload fa icon-upload'></i> Upload your documents",
     docUploadSectonTitle:'If you are changing your name due to marriage, divorce or a legal name change, include one or more of the following:',
+    documentGroupTitle: ['If you are updating your <strong>name or birthdate</strong>, please include  <strong>one</strong> of the following with your update request:',
+        'If you are changing your name due to  <strong>marriage, divorce or a legal name change</strong>, include  <strong>one or more</strong> of the following:',
+        'If you are updating your  <strong>gender</strong>, please include  <strong>one or more</strong> of the following with your update request:',
+        'If you are updating  <strong>your status in Canada</strong>, include  <strong>one or more</strong> of the following:'],
     continueButton: "Continue",
 }
