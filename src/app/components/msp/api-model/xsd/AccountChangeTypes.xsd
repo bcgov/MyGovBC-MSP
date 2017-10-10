@@ -32,13 +32,19 @@
     <!-- The account holder -->
 	<xs:complexType name="AccountChangeAccountHolderType">
 		<xs:complexContent>
-			<xs:extension base="et:EnrolmentApplicantType">
+			<xs:extension base="ct:BasicInfoType">
     			<xs:sequence>
-    	    		<xs:element name="selectedAddressChange" type="xs:boolean" maxOccurs="1"/>
-    	    		<xs:element name="selectedPersonalInfoChange" type="xs:boolean" maxOccurs="1"/>
-    	    		<xs:element name="selectedAddRemove" type="xs:boolean" maxOccurs="1"/>
-    	    		<xs:element name="selectedStatusChange" type="xs:boolean" maxOccurs="1"/>
-    	    		<xs:element name="phn" type="ct:PHNType" maxOccurs="1"/>
+    			    <xs:element name="phn" type="ct:PHNType" maxOccurs="1"/>
+        			<xs:element name="telephone" type="ct:TelephoneType" minOccurs="0"/>
+        			<xs:element name="residenceAddress" type="ct:AddressType"/>
+        			<xs:element name="mailingAddress" type="ct:AddressType" minOccurs="0"/>
+        			<xs:element name="citizenshipStatus" type="ct:BasicCitizenshipType" minOccurs="0"/>
+        			<xs:element name="authorizedByApplicant" type="ct:YesOrNoType"/>
+        			<xs:element name="authorizedByApplicantDate" type="xs:date"/>
+    	    		<xs:element name="selectedAddressChange" type="ct:YesOrNoType" maxOccurs="1"/>
+    	    		<xs:element name="selectedPersonalInfoChange" type="ct:YesOrNoType" maxOccurs="1"/>
+    	    		<xs:element name="selectedAddRemove" type="ct:YesOrNoType" maxOccurs="1"/>
+    	    		<xs:element name="selectedStatusChange" type="ct:YesOrNoType" maxOccurs="1"/>
         		</xs:sequence>
         	</xs:extension>
         </xs:complexContent>
@@ -65,13 +71,14 @@
 		<xs:complexContent>
 			<xs:extension base="ct:BasicInfoType">
 				<xs:sequence>
-					<xs:element name="residency" type="et:ResidencyType" maxOccurs="1"/>
+					<xs:element name="residency" type="et:ResidencyType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="previousLastName" type="ct:SubNameType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="mailingAddress" type="ct:AddressType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="marriageDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="phn" type="ct:PHNType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="cancellationReason" type="ac:CancellationReasonType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="cancellationDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="authorizedBySpouse" type="ct:YesOrNoType" minOccurs="0"/>    			    
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -83,7 +90,7 @@
 			<xs:extension base="ct:BasicInfoType">
 				<xs:sequence>
 					<xs:element name="operationAction" type="ac:OperationActionType" maxOccurs="1"/>
-					<xs:element name="residency" type="et:ResidencyType"/>
+					<xs:element name="residency" type="et:ResidencyType" minOccurs="0"/>
 					<xs:element name="mailingAddress" type="ct:AddressType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="phn" type="ct:PHNType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="cancellationReason" type="ac:CancellationReasonType" minOccurs="0" maxOccurs="1"/>
