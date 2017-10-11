@@ -7,7 +7,7 @@ module.exports = {
         'Your Child\'s Personal Information',
     ],
 
-    sectionTitle: ['Main Applicant (Account Holder)',
+    sectionTitle: ['Account Holder Information',
         'Spouse/Common-Law Partner',
         'Child',
         'Child'],
