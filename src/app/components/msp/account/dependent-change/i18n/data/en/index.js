@@ -1,7 +1,11 @@
 module.exports = {
   pageTitle: 'Add/Remove Spouse and/or Child(ren)',
-  addSpouseButton: 'Update Spouse ',
+  addSpouseButton: 'Add Spouse',
+  removeSpouseButton: 'Remove Spouse',
+  updateSpouseButton: 'Update Spouse',
+  removeDependentButton: 'Remove Child/Dependent-Post Secondary Student',
   addChildUnder19Button: 'Update Child/Dependent Post Secondary Student ',
+  addChildUnder19ButtonSimple: 'Add Child (0-18)',
   addChild19To24Button: 'Add Child (19-24) Dependent Post Secondary Student',
   continueButton: 'Continue',
   completesAllHighlightedFields: 'Please complete all highlighted fields on this page and try to continue to next page.',

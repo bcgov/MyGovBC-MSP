@@ -27,7 +27,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
   }
 
   ngOnInit() {
-    this.initProcessMembers(AccountDependentChangeComponent.ProcessStepNum, this._processService);
+    // this.initProcessMembers(AccountDependentChangeComponent.ProcessStepNum, this._processService);
   }
 
   get person(): Person {
@@ -36,6 +36,14 @@ export class AccountDependentChangeComponent extends BaseComponent {
 
   onChange($event){
     console.log('dependent-change onChange()', $event);
+  }
+
+  canContinue(): boolean {
+    return true;
+  }
+
+  addSpouse(){
+    console.log('addSpouse called!');
   }
 
 

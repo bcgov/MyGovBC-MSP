@@ -1,9 +1,46 @@
 <form #formRef="ngForm" novalidate>
     <h1 class='page-title' [innerHTML]="lang('./en/index.js').pageTitle"></h1>
-    <msp-account-personal-details [person]='person' [id]='person.id'
-        (onChange)="onChange($event)"
-        [showError]="formRef.submitted">
+    <msp-account-personal-details [person]='person' [id]='person.id' (onChange)="onChange($event)" [showError]="formRef.submitted">
     </msp-account-personal-details>
-    <hr>
-    <!-- TODO - Add/Remove deps here. -->
+
+
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class='panel-title' [innerHTML]="lang('./en/index.js').pageTitle"></h4>
+        </div>
+        <div class="panel-body">
+
+            
+
+
+            <button class="btn btn-default" (click)="addSpouse()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
+            </button>
+            <button class="btn btn-default">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').addChildUnder19ButtonSimple"></span>
+            </button>
+            <button class="btn btn-default">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
+            </button>
+
+
+            <hr>
+
+            <button class="btn btn-default">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').removeSpouseButton"></span>
+            </button>
+            <button class="btn btn-default">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').removeDependentButton"></span>
+            </button>
+
+
+
+        </div>
+    </div>
 </form>
