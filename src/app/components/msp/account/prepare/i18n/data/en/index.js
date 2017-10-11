@@ -8,5 +8,5 @@ module.exports = {
     dependentChange: 'Add/Remove Spouse/Common-Law and/or Child(ren)',
     statusChange: 'Update Status in Canada (e.g., Permanent Resident)',
     continueButton: 'Continue',
-    addressRedirecMsg:'You will be redirected to Address Change BC.Please enter Captcha and Press Continue'
+    addressRedirecMsg:'You will be redirected to Address Change BC to complete your request. Please complete the field below and click Continue.'
 }
