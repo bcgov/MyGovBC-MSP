@@ -37,6 +37,8 @@ export const environment = {
         // general state of the app, if unavailable, display Unavailable message and don't continue
         mspIsInMaintenanceFlag: process.env.mspIsInMaintenanceFlag,
         mspIsInMaintenanceText: process.env.mspIsInMaintenanceText,
-        mspIsInMaintenanceTimes: process.env.mspIsInMaintenanceTimes
+        mspIsInMaintenanceTimes: process.env.mspIsInMaintenanceTimes,
+        AddressChangeBCUrl: 'https://www.addresschange.gov.bc.ca/'
+
       }
 }

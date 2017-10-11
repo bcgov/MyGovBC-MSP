@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-
+import {MspLogService} from '../../service/log.service'
 
 import {MspAccountApp, AccountChangeOptions} from '../../model/account.model';
 import * as _ from 'lodash';
@@ -11,13 +11,15 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
-
+import {Gender, Person} from "../../model/person.model";
 import {MspDataService} from '../../service/msp-data.service';
 import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
-import {ProcessService,ProcessStep} from "../../service/process.service";
+import {ProcessService, ProcessStep} from "../../service/process.service";
 import {ProcessUrls} from "../../service/process.service";
 import {BaseComponent} from "../../common/base.component";
-
+import {Address} from "../../model/address.model";
+import {MspApiService} from "../../service/msp-api.service";
+import {environment} from '../../../../../environments/environment';
 
 @Component({
     templateUrl: './prepare.component.html'
@@ -28,6 +30,7 @@ export class AccountPrepareComponent extends BaseComponent {
     lang = require('./i18n');
     mspAccountApp: MspAccountApp;
     accountChangeOptions: AccountChangeOptions;
+    captchaApiBaseUrl: string;
 
     @ViewChild('addressChangeChkBx') addressChangeChkBx: ElementRef;
     @ViewChild('personalInfoChangeChkBx') personalInfoChangeChkBx: ElementRef;
@@ -36,10 +39,15 @@ export class AccountPrepareComponent extends BaseComponent {
     @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
     @ViewChild('formRef') form: NgForm;
 
-    constructor(private cd: ChangeDetectorRef, private dataService: MspDataService, private _processService: ProcessService, private _router: Router) {
+    constructor(private cd: ChangeDetectorRef, private logService: MspLogService, private apiService: MspApiService, private dataService: MspDataService, private _processService: ProcessService, private _router: Router) {
         super(cd);
         this.mspAccountApp = dataService.getMspAccountApp();
         this.accountChangeOptions = this.mspAccountApp.accountChangeOptions;
+        this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
+    }
+
+    get hasOnlyAddressSelected(): boolean {
+        return this.accountChangeOptions.hasOnlyAddressSelected();
     }
 
     ngOnInit() {
@@ -53,11 +61,6 @@ export class AccountPrepareComponent extends BaseComponent {
 
     }
 
-    get hasOnlyAddressSelected(): boolean {
-       return this.accountChangeOptions.hasOnlyAddressSelected();
-    }
-
-
     canContinue(): boolean {
         return this.isAllValid();
     }
@@ -67,16 +70,43 @@ export class AccountPrepareComponent extends BaseComponent {
             return this.mspConsentModal.showFullSizeView();
         }
         if (this.accountChangeOptions.hasOnlyAddressSelected()) {
-            window.location.href = "https://www.addresschange.gov.bc.ca/";
-            return;
+
+            this.mspAccountApp = this.dataService.getFakeAccountChangeApplication();
+
+            this.apiService
+                .sendApplication(this.mspAccountApp)
+                .then((mspAccountApp: MspAccountApp) => {
+
+                    this.logService.log({
+                        name: 'MSP Account Maintanence Address Change Only Request received success confirmation from API server',
+                        confirmationNumber: this.mspAccountApp.referenceNumber
+                    });
+                    this.dataService.removeMspAccountApp();
+       //             window.location.href = environment.appConstants.AddressChangeBCUrl;
+                    return;
+                }).catch((error: ResponseType | any) => {
+                this.logService.log({
+                    name: 'MSP Account Maintanence Address Change Only Request received failure message from API server',
+                    error: error._body,
+                    request: error._requestBody
+                });
+
+                this.dataService.removeMspAccountApp();
+         //       window.location.href = environment.appConstants.AddressChangeBCUrl;
+                return;
+            });
+
+
+        } else {
+            this.setupProcessStepsFromSelection();
+            this._processService.setStep(0, true);
+            this.dataService.emptyMspProgressBar();
+            this.dataService.saveMspAccountApp();
+            this._router.navigate([this._processService.getNextStep()]);
         }
-        this.setupProcessStepsFromSelection();
-        this._processService.setStep(0, true);
-        this.dataService.emptyMspProgressBar();
-        this.dataService.saveMspAccountApp();
-        this._router.navigate([this._processService.getNextStep()]);
 
     }
+
 
     addressUpdateOnChange(event: boolean) {
         this.accountChangeOptions.addressUpdate = event;
@@ -96,6 +126,19 @@ export class AccountPrepareComponent extends BaseComponent {
     statusUpdateOnChange(event: boolean) {
         this.accountChangeOptions.statusUpdate = event;
         this.dataService.saveMspAccountApp();
+    }
+
+    isValid(): boolean {
+        //make sure at least one checkbox is selected
+        if (this.accountChangeOptions.hasAnyOptionSelected()) {
+
+            if (this.accountChangeOptions.hasOnlyAddressSelected() && !this.mspAccountApp.authorizationToken) {
+                return false;
+            }
+            return true;
+        }
+
+        return false;
     }
 
     /*
@@ -122,14 +165,5 @@ export class AccountPrepareComponent extends BaseComponent {
             this._processService.addStep(new ProcessStep(ProcessUrls.ACCOUNT_DEPENDENTS_URL), stepNumber);
         }
 
-    }
-
-    isValid(): boolean {
-        //make sure at least one checkbox is selected
-        if (this.accountChangeOptions.hasAnyOptionSelected()) {
-            return true;
-        }
-
-        return false;
     }
 }
