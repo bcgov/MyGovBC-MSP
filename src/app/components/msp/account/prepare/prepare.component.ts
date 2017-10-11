@@ -122,7 +122,6 @@ export class AccountPrepareComponent extends BaseComponent {
             this._processService.addStep(new ProcessStep(ProcessUrls.ACCOUNT_DEPENDENTS_URL), stepNumber);
         }
 
-        console.log("----PREPARe-"+JSON.stringify(this._processService.process.processSteps));
     }
 
     isValid(): boolean {

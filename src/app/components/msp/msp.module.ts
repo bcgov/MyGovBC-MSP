@@ -83,7 +83,8 @@ import {AccountPersonalDetailsComponent} from "./account/personal-info/personal-
 import {AccountDependentChangeComponent} from "./account/dependent-change/dependent-change.component";
 import {AccountDocumentsComponent} from "./account/documents/documents.component";
 import {AccountReviewComponent} from "./account/review/review.component";
-
+import {AccountSendingComponent} from "./account/sending/sending.component";
+import {AccountConfirmationComponent} from "./account/confirmation/confirmation.component";
 import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
 import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
 
@@ -218,7 +219,17 @@ const APP_ROUTES : Routes = [
                         path: 'review',
                         component: AccountReviewComponent
 
+                    },
+                    {
+                        path: 'sending',
+                        component: AccountSendingComponent
+                    },
+                    {
+                        path: 'confirmation',
+                        canActivate: [],
+                        component: AccountConfirmationComponent
                     }
+
 
             ]
             }
@@ -322,7 +333,9 @@ const APP_ROUTES : Routes = [
         AccountDependentChangeComponent,
         AccountPersonalDetailsComponent,
         AccountDocumentsComponent,
-        AccountReviewComponent
+        AccountReviewComponent,
+        AccountSendingComponent,
+        AccountConfirmationComponent
 
     ],
 
