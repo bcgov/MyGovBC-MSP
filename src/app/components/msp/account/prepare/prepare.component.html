@@ -27,8 +27,14 @@
     <p class="intro text-danger" *ngIf="hasOnlyAddressSelected" [innerHtml]="lang('./en/index.js').addressRedirecMsg" role="alert"
        aria-live="assertive"></p>
 </form>
-<hr>
 
+<div class="row" *ngIf="hasOnlyAddressSelected">
+    <div class="col-md-12">
+        <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="mspAccountApp.uuid"
+                 (onValidToken)="mspAccountApp.authorizationToken = $event"></captcha>
+    </div>
+</div>
+<hr>
 <button [mspLogger]="'msp-account-management_prepare_continue'" class="btn btn-primary" [disabled]="!canContinue()" (click)="next()"
         type="button" tabindex="0" [innerHtml]="lang('./en/index.js').continueButton"></button>
 

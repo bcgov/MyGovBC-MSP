@@ -14,6 +14,8 @@ import {StatusInCanada, Relationship} from '../model/status-activities-documents
 import {puts} from "util";
 import {Process} from "./process.service";
 import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
+import {Gender} from "../model/person.model";
+import {Address} from "../model/address.model";
 
 @Injectable()
 export  class MspDataService {
@@ -141,6 +143,24 @@ export  class MspDataService {
         } else {
             return new FinancialAssistApplication();
         }
+    }
+
+    public getFakeAccountChangeApplication(): MspAccountApp {
+       let mspAccountApp:MspAccountApp = this._mspAccountApp;
+        mspAccountApp.applicant.firstName = "NA";
+        mspAccountApp.applicant.lastName = "NA";
+        mspAccountApp.applicant.gender = Gender.Male;
+        mspAccountApp.applicant.dob_day = 1;
+        mspAccountApp.applicant.dob_month = 1;
+        mspAccountApp.applicant.dob_year = 2000;
+        mspAccountApp.applicant.previous_phn = "1234567890";
+        mspAccountApp.phoneNumber = "2501234567";
+        let dumyAddress: Address = new Address();
+        dumyAddress.addressLine1 = "NA";
+        mspAccountApp.authorizedByApplicant = true;
+        mspAccountApp.authorizedByApplicantDate = new Date();
+        mspAccountApp.applicant.residentialAddress = dumyAddress;
+        return mspAccountApp;
     }
 
     private convertMailingAddress(input: any, output: any) {

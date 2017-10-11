@@ -32,9 +32,12 @@ import {
   AssistanceApplicationTypeFactory, AssistanceApplicantType,
   AssistanceApplicantTypeFactory, FinancialsType, FinancialsTypeFactory, AssistanceSpouseTypeFactory
 } from "../api-model/assistanceTypes";
+
+import {AccountChangeApplicationTypeFactory,AccountChangeAccountHolderType,AccountChangeAccountHolderFactory} from "../api-model/accountChangeTypes";
 import {ApplicationBase} from "../model/application-base.model";
 import {AssistanceYear} from "../model/assistance-year.model";
 import { environment } from '../../../../environments/environment';
+import {MspAccountApp} from "../model/account.model";
 let jxon = require("jxon/jxon");
 
 @Injectable()
@@ -60,8 +63,9 @@ export class MspApiService {
           documentModel = this.convertMspApplication(app);
         } else if (app instanceof FinancialAssistApplication) {
           documentModel = this.convertAssistance(app);
-        }
-        else {
+        } else if (app instanceof MspAccountApp) {
+            documentModel = this.convertMspAccountApp(app);
+        } else {
           throw new Error("Unknown document type");
         }
 
@@ -73,6 +77,9 @@ export class MspApiService {
 
         // second convert to XML
         let convertedAppXml = this.toXmlString(documentModel);
+          if (app instanceof MspAccountApp) {
+              console.log("convertedAppXml-"+JSON.stringify(convertedAppXml));
+          }
 
         // if no errors, then we'll sendApplication all attachments
         return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
@@ -339,6 +346,48 @@ export class MspApiService {
 
     return to;
   }
+
+    convertMspAccountApp(from: MspAccountApp):document {
+        let to = DocumentFactory.make();
+        to.application = ApplicationTypeFactory.make();
+
+        // UUID
+        to.application.uuid = from.uuid;
+
+        to.application.accountChangeApplication = AccountChangeApplicationTypeFactory.make();
+
+        to.application.accountChangeApplication.accountHolder = AccountChangeAccountHolderFactory.make();
+
+        to.application.accountChangeApplication.accountHolder.name = this.convertName(from.applicant);
+
+        if (from.applicant.hasDob) {
+            to.application.accountChangeApplication.accountHolder.birthDate = from.applicant.dob.format(this.ISO8601DateFormat);
+        }
+        if (from.applicant.gender != null) {
+            to.application.accountChangeApplication.accountHolder.gender = <GenderType>{};
+            to.application.accountChangeApplication.accountHolder.gender = <GenderType> from.applicant.gender.toString();
+        }
+        if (from.authorizedByApplicant != null) {
+            to.application.accountChangeApplication.accountHolder.authorizedByApplicant = from.authorizedByApplicant ? "Y" : "N";
+            to.application.accountChangeApplication.accountHolder.authorizedByApplicantDate = moment(from.authorizedByApplicantDate)
+                .format(this.ISO8601DateFormat);
+        }
+
+        to.application.accountChangeApplication.accountHolder.residenceAddress = this.convertAddress(from.applicant.residentialAddress);
+        if (from.phoneNumber) {
+            to.application.accountChangeApplication.accountHolder.telephone = Number(from.phoneNumber.replace(new RegExp("[^0-9]", "g"), ""));
+        }
+        if (from.applicant.previous_phn) {
+            to.application.accountChangeApplication.accountHolder.phn = Number(from.applicant.previous_phn.replace(new RegExp("[^0-9]", "g"), ""));
+        }
+
+        to.application.accountChangeApplication.accountHolder.selectedAddRemove =  "N" ;
+        to.application.accountChangeApplication.accountHolder.selectedAddressChange = "Y";
+        to.application.accountChangeApplication.accountHolder.selectedPersonalInfoChange = "N";
+        to.application.accountChangeApplication.accountHolder.selectedStatusChange = "N";
+
+        return to;
+    }
 
   convertAssistance(from: FinancialAssistApplication): document {
     // Instantiate new object from interface

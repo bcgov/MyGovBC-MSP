@@ -21,6 +21,11 @@ class MspAccountApp implements ApplicationBase {
     documents:MspImage[] = [];
     id:string;
 
+    authorizedByApplicant: boolean;
+    authorizedByApplicantDate: Date;
+    authorizedByUpdatedSpouse: boolean;
+
+
     /**
      * validator for phone number
      * @returns {boolean}
@@ -66,7 +71,9 @@ class MspAccountApp implements ApplicationBase {
         }
     };
 
-
+    get hasValidAuthToken(){
+        return this.authorizationToken && this.authorizationToken.length > 1;
+    }
     addUpdateChild(): Person {
         let c = new Person(Relationship.Child19To24,OperationActionType.Update);
         this._children.length < 30 ? this._children.push(c): console.log('No more than 30 children can be added to one application');
