@@ -1,5 +1,5 @@
 module.exports = {
-  pageTitle: 'DEPDENDENT PAGE',
+  pageTitle: 'Add/Remove Spouse and/or Child(ren)',
   addSpouseButton: 'Update Spouse ',
   addChildUnder19Button: 'Update Child/Dependent Post Secondary Student ',
   addChild19To24Button: 'Add Child (19-24) Dependent Post Secondary Student',

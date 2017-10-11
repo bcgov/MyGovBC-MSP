@@ -1,0 +1,4 @@
+h1.page-title {
+    //In order to match the prototype's layout we must clear this margin. In the prototype, it has the h1 and h2 in the same div so the margins collapse, but here the h2 is in a separate component/div.
+    margin-bottom: 0px;
+}
