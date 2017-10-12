@@ -59,14 +59,6 @@ class MspApplication implements ApplicationBase {
   get spouse(): Person {
     return this._spouse;
   }
-  set spouse(spouse: Person) {
-    this._spouse = spouse;
-  }
-
-  /** A spouse to be removed from the Account Holder's plan */
-  get spouseRemoval(): Person {
-    return this._spouseRemoval;
-  }
 
   get children(): Array<Person> {
     return this._children;
