@@ -96,10 +96,10 @@
 					<xs:element name="cancellationReason" type="ac:CancellationReasonType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="cancellationDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="adoptionDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
-					<xs:element name="schoolName" type="ct:SchoolNameType"/>
-					<xs:element name="schoolAddress" type="ct:AddressType"/>
-					<xs:element name="dateStudiesFinish" type="xs:date"/>
-					<xs:element name="departDateSchoolOutside" type="xs:date" minOccurs="0"/>
+					<xs:element name="schoolName" type="ct:SchoolNameType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="schoolAddress" type="ct:AddressType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="dateStudiesFinish" type="xs:date" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="departDateSchoolOutside" type="xs:date" minOccurs="0" maxOccurs="1"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
