@@ -1,9 +1,81 @@
 <form #formRef="ngForm" novalidate>
     <h1 class='page-title' [innerHTML]="lang('./en/index.js').pageTitle"></h1>
-    <msp-account-personal-details [person]='person' [id]='person.id'
-        (onChange)="onChange($event)"
-        [showError]="formRef.submitted">
+    <msp-account-personal-details [person]='person' [id]='person.id' (onChange)="onChange($event)" [showError]="formRef.submitted">
     </msp-account-personal-details>
-    <hr>
-    <!-- TODO - Add/Remove deps here. -->
+
+<!-- 
+    Development Notes
+
+
+    TODO:
+        - Look at <msp-add-remove-dependent> in 1.3-prototype        
+        - Keep it DRY
+        - Componentize. Should take the Person obj, and create form fields based on that.
+        - Use SimonTest to auto-generate tests!
+
+    Handover:
+            - All text is from i18n files
+            - Source code is formatted via VSC (html, ts, and scss)
+
+    Resources:
+            Add-Remove-Dependent component
+            https://github.com/bcgov/MyGovBC-MSP/blob/1.3-prototype/src/app/components/msp/account/dependent-change/remove-spouse/remove-spouse.component.ts
+
+            Main view 
+            https://github.com/bcgov/MyGovBC-MSP/blob/1.3-prototype/src/app/components/msp/account/dependent-change/dependent-change.component.html
+    -->
+
+    <!-- Add Spouse Section  -->
+
+    <ng-container *ngIf="spouse">
+        <msp-add-remove-dependent
+            [person]="spouse"
+            (onCancel)="clearSpouse()"
+        ></msp-add-remove-dependent> 
+    </ng-container>
+
+    <!-- End Add Spouse Section -->
+
+
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class='panel-title' [innerHTML]="lang('./en/index.js').pageTitle"></h4>
+        </div>
+        <div class="panel-body">
+
+            
+
+
+            <button class="btn btn-default" 
+                [disabled]="spouse"
+                (click)="addSpouse()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
+            </button>
+            <button class="btn btn-default">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').addChildUnder19ButtonSimple"></span>
+            </button>
+            <button class="btn btn-default">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
+            </button>
+
+
+            <hr>
+
+            <button class="btn btn-default">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').removeSpouseButton"></span>
+            </button>
+            <button class="btn btn-default">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').removeDependentButton"></span>
+            </button>
+
+
+
+        </div>
+    </div>
 </form>

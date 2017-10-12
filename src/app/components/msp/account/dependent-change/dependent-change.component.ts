@@ -5,7 +5,8 @@ import { BaseComponent } from "../../common/base.component";
 import { ProcessService } from "../../service/process.service";
 import { LocalStorageService } from 'angular-2-local-storage';
 
-import {  Person } from '../../model/application.model';
+import { Person } from '../../model/application.model';
+import { Relationship } from '../../model/status-activities-documents';
 
 @Component({
   templateUrl: './dependent-change.component.html',
@@ -27,15 +28,40 @@ export class AccountDependentChangeComponent extends BaseComponent {
   }
 
   ngOnInit() {
-    this.initProcessMembers(AccountDependentChangeComponent.ProcessStepNum, this._processService);
+    // this.initProcessMembers(AccountDependentChangeComponent.ProcessStepNum, this._processService);
   }
 
   get person(): Person {
     return this.dataService.getMspApplication().applicant;
   }
 
-  onChange($event){
+  onChange($event) {
     console.log('dependent-change onChange()', $event);
+  }
+
+  canContinue(): boolean {
+    return true;
+  }
+
+  addSpouse() {
+    console.log('addSpouse called!');
+    this.dataService.getMspApplication().spouse =  new Person(Relationship.Spouse);
+  }
+  clearSpouse(){
+    this.dataService.getMspApplication().spouse = null;
+  }
+  
+  get spouse(): Person {
+    return this.dataService.getMspApplication().spouse;
+  }
+
+
+
+  get spouseRemoval(): Person {
+    return this.dataService.getMspApplication().spouseRemoval;
+  }
+  get children(): Person[] {
+    return this.dataService.getMspApplication().children;
   }
 
 

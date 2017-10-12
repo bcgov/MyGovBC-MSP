@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import {UUID} from "angular2-uuid";
 import * as _ from 'lodash';
 import {PhoneNumber} from "./phone.model";
+import { SimpleDate } from './simple-date.interface';
 
 var sha1 = require('sha1');
 
@@ -210,6 +211,15 @@ class Person implements IPerson {
      * Are you planning to leave BCfor longer than 30 days in the next six months?
      */
     plannedAbsence: boolean;
+
+    /** Used for dependents and spouses to check if they are  an existing MSP Beneficiary. */
+    isExistingBeneficiary: boolean;
+    /** Only for spouse. Previous last name. */
+    prevLastName: string;
+    /** Only for spouse. Marriage date to applicant. */
+    marriageDate: SimpleDate;
+
+
 
 
     fullTimeStudent: boolean;

@@ -6,7 +6,8 @@ import {CoreHeaderComponent} from './components/core/header'
 import {CoreFooterComponent} from './components/core/footer'
 import { ModalModule, AccordionModule} from 'ngx-bootstrap';
 import {MspModule} from './components/msp/msp.module'
-import {GeneralAppComponent} from './app.component'
+import {GeneralAppComponent} from './app.component';
+
 
 require('./index.less')
 @NgModule({

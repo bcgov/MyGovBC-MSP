@@ -2,3 +2,20 @@ h1.page-title {
     //In order to match the prototype's layout we must clear this margin. In the prototype, it has the h1 and h2 in the same div so the margins collapse, but here the h2 is in a separate component/div.
     margin-bottom: 0px;
 }
+
+.panel-primary > .panel-heading {
+    color: #fff;
+    //todo - remove
+    // background-color: #036;
+    // border-color: transparent;
+}
+
+.panel-body > .btn {
+    margin-right: 20px;
+}
+
+.panel-primary hr {
+    border-color: #bbb; //default
+    color: #bbb; //old IE
+    background-color: #bbb; //other modern browsers
+}
