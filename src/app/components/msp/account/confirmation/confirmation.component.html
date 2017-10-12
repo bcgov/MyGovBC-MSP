@@ -22,19 +22,22 @@
     <li>
         <h3 [innerHTML]="lang('./en/index.js').nextStep4"></h3>
     </li>
-    <li>
-        <h3 [innerHTML]="lang('./en/index.js').nextStep5"></h3>
-    </li>
-    <li>
-        <h3 [innerHTML]="lang('./en/index.js').nextStep6"></h3>
-    </li>
-    <li>
-        <h3 [innerHTML]="lang('./en/index.js').nextStep7"></h3>
-    </li>
-    <li>
-        <h3 [innerHTML]="lang('./en/index.js').nextStep8"></h3>
-    </li>
-    <li>
-        <h3 [innerHTML]="lang('./en/index.js').nextStep9"></h3>
-    </li>
 </ul>
+
+<ng-container *ngIf="showDepMsg == 'true'">
+    <h3 [innerHTML]="lang('./en/index.js').dependentsMsg"></h3>
+
+    <ul>
+        <li>
+            <h3 [innerHTML]="lang('./en/index.js').depNextStep1"></h3>
+        </li>
+        <li>
+            <h3 [innerHTML]="lang('./en/index.js').depNextStep2"></h3>
+        </li>
+        <li>
+            <h3 [innerHTML]="lang('./en/index.js').depNextStep3"></h3>
+        </li>
+    </ul>
+
+</ng-container>
+<h3 [innerHTML]="lang('./en/index.js').nextStep5"></h3>
