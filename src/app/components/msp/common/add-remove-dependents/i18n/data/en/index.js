@@ -10,5 +10,11 @@ module.exports = {
   clearButton: [
     '',
     'Clear Spouse'
+  ],
+  isExistingBeneficiaryQuestion: [
+    '',
+    'Is the spouse an existing MSP Beneficiary?',
+    'Is the child an existing MSP Beneficiary?',
+    'Is the child an existing MSP Beneficiary?',
   ]
 }

@@ -11,6 +11,8 @@ export class AddRemoveDependentComponent implements OnInit {
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
   lang = require('./i18n');
 
+  public isExistingBeneficiary: boolean;
+
   constructor() { }
 
   ngOnInit() {

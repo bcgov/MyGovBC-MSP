@@ -7,7 +7,21 @@
  [innerHTML]="lang('./en/index.js').clearButton[person.relationship]">
 </button>
 
+
 <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]"></h2>
 <p [innerHTML]="lang('./en/index.js').sectionBody[person.relationship]"></p>
 
-<p>PERSON: {{person | json }}</p>
+
+<!-- <p class="intro" [innerHtml]="lang('./en/index.js').isExistingBeneficiaryQuestion[person.relationship]"></p> -->
+<label [innerHtml]="lang('./en/index.js').isExistingBeneficiaryQuestion[person.relationship]"></label>
+<!-- <msp-toggle
+  [(data)]="isExistingBeneficiary"
+></msp-toggle> -->
+
+<!-- should this be an attribute on person? -->
+<msp-toggle [(data)]="person.fullTimeStudent"></msp-toggle>
+
+
+
+
+<hr class='strong-hr'>

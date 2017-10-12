@@ -47,20 +47,19 @@ export class AccountDependentChangeComponent extends BaseComponent {
     console.log('addSpouse called!');
     this.dataService.getMspApplication().spouse =  new Person(Relationship.Spouse);
   }
-
   clearSpouse(){
     this.dataService.getMspApplication().spouse = null;
   }
+  
+  get spouse(): Person {
+    return this.dataService.getMspApplication().spouse;
+  }
+
 
 
   get spouseRemoval(): Person {
     return this.dataService.getMspApplication().spouseRemoval;
   }
-
-  get spouse(): Person {
-    return this.dataService.getMspApplication().spouse;
-  }
-
   get children(): Person[] {
     return this.dataService.getMspApplication().children;
   }
