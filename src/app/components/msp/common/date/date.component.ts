@@ -20,9 +20,9 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
   @Input() showError: boolean;
   @Input() required: boolean = true;
 
-  private year:  number | string;
-  private month:  number | string;
-  private day:  number | string;
+  public year:  number | string;
+  public month:  number | string;
+  public day:  number | string;
   @Input() label: string;
   @Input() date: SimpleDate;
   @Output() dateChange = new EventEmitter<SimpleDate>();
