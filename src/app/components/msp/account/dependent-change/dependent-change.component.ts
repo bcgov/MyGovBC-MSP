@@ -5,7 +5,8 @@ import { BaseComponent } from "../../common/base.component";
 import { ProcessService } from "../../service/process.service";
 import { LocalStorageService } from 'angular-2-local-storage';
 
-import {  Person } from '../../model/application.model';
+import { Person } from '../../model/application.model';
+import { Relationship } from '../../model/status-activities-documents';
 
 @Component({
   templateUrl: './dependent-change.component.html',
@@ -34,7 +35,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
     return this.dataService.getMspApplication().applicant;
   }
 
-  onChange($event){
+  onChange($event) {
     console.log('dependent-change onChange()', $event);
   }
 
@@ -42,8 +43,26 @@ export class AccountDependentChangeComponent extends BaseComponent {
     return true;
   }
 
-  addSpouse(){
+  addSpouse() {
     console.log('addSpouse called!');
+    this.dataService.getMspApplication().spouse =  new Person(Relationship.Spouse);
+  }
+
+  clearSpouse(){
+    this.dataService.getMspApplication().spouse = null;
+  }
+
+
+  get spouseRemoval(): Person {
+    return this.dataService.getMspApplication().spouseRemoval;
+  }
+
+  get spouse(): Person {
+    return this.dataService.getMspApplication().spouse;
+  }
+
+  get children(): Person[] {
+    return this.dataService.getMspApplication().children;
   }
 
 

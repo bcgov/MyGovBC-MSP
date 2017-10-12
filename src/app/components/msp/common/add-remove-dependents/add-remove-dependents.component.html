@@ -1,0 +1,13 @@
+<!-- 
+  TODO - INTERNATIONALIZE ALL TEXT!
+  Have all text based on the PERSON that's provided to as an @Input to component.
+ -->
+<button type="button" class="btn btn-default btn-xs pull-right"
+ (click)="cancelDependentRemoval()"
+ [innerHTML]="lang('./en/index.js').clearButton[person.relationship]">
+</button>
+
+<h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]"></h2>
+<p [innerHTML]="lang('./en/index.js').sectionBody[person.relationship]"></p>
+
+<p>PERSON: {{person | json }}</p>

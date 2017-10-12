@@ -86,6 +86,7 @@ import {AccountReviewComponent} from "./account/review/review.component";
 
 import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
 import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
+import { AddRemoveDependentComponent } from './common/add-remove-dependents/add-remove-dependents.component';
 
 
 const APP_ROUTES : Routes = [
@@ -322,7 +323,8 @@ const APP_ROUTES : Routes = [
         AccountDependentChangeComponent,
         AccountPersonalDetailsComponent,
         AccountDocumentsComponent,
-        AccountReviewComponent
+        AccountReviewComponent,
+        AddRemoveDependentComponent
 
     ],
 
