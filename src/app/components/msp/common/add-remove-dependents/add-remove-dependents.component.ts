@@ -15,6 +15,10 @@ export class AddRemoveDependentComponent implements OnInit {
 
   constructor() { }
 
+  onChange($event){
+    console.log('addRemoveDeps component onChange', $event);
+  }
+
   ngOnInit() {
   }
 

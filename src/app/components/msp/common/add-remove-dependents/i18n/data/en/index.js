@@ -16,5 +16,11 @@ module.exports = {
     'Is the spouse an existing MSP Beneficiary?',
     'Is the child an existing MSP Beneficiary?',
     'Is the child an existing MSP Beneficiary?',
-  ]
+  ],
+  //Spouse only? Maybe remove the array format?
+  previousName: [
+    '',
+    'Spouse\'s Previous Last Name (if applicable)'
+  ],
+  marriageDate: 'Marriage Date (if applicable)'
 }

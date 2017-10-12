@@ -88,6 +88,7 @@ import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha
 import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
 import { AddRemoveDependentComponent } from './common/add-remove-dependents/add-remove-dependents.component';
 import { ToggleComponent } from './common/toggle/toggle.component';
+import { MspDateComponent } from './common/date/date.component';
 
 
 const APP_ROUTES : Routes = [
@@ -284,6 +285,8 @@ const APP_ROUTES : Routes = [
         MspIdReqModalComponent,
         MspCancelComponent,
         CaptchaComponent,
+        ToggleComponent,        
+        MspDateComponent,
 
         // View cards
         MspPersonCardComponent,
@@ -326,8 +329,6 @@ const APP_ROUTES : Routes = [
         AccountDocumentsComponent,
         AccountReviewComponent,
         AddRemoveDependentComponent,
-        ToggleComponent
-
     ],
 
     providers: [
