@@ -96,6 +96,8 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @Input() person: Person;
     @Input() id: string;
     @Input() showError: boolean;
+    /** Hides the 'Clear Spouse/Child' button. Useful in layouts where the button must be created elsewhere. */
+    @Input() hideClearButton: boolean = false;
     @Output() notifyChildRemoval: EventEmitter<Person> = new EventEmitter<Person>();
     @Output() notifySpouseRemoval: EventEmitter<Person> = new EventEmitter<Person>();
     @Output() onChange: EventEmitter<any> = new EventEmitter<any>();

@@ -5,9 +5,11 @@
 <p [innerHTML]="lang('./en/index.js').sectionBody[person.relationship]"></p>
 <label [innerHtml]="lang('./en/index.js').isExistingBeneficiaryQuestion[person.relationship]"></label>
 <msp-toggle [(data)]="person.isExistingBeneficiary"></msp-toggle>
-
+<hr>
+{{ person.isExistingBeneficiary.toString() }}
+<hr>
 <ng-container *ngIf="person.isExistingBeneficiary">
-  <msp-account-personal-details [person]='person' [id]='person.id' (onChange)="onChange($event)"></msp-account-personal-details>
+  <msp-account-personal-details [person]='person' [id]='person.id' (onChange)="onChange($event)" hideClearButton=true></msp-account-personal-details>
 
   <!-- TODO - These fields should only show if Spouse? 
   If so, remove the [person.relationship] stuff. It's just noise. -->
@@ -18,27 +20,11 @@
       <input type="text" name="spousePrevLastname" class="form-control" id='addSpousePreviousLastName' [(ngModel)]="person.prevLastName">
     </div>
     <div class="col-md-4">
-      <!-- <msp-marriagedate #marriageDate [person]="person" [showError]="showError" customLabel="lang('./en/index.js').marriageDate"></msp-marriagedate> -->
-
-      <!-- TODO - Need to bind the results back to Person. -->
       <msp-date
         [label]="lang('./en/index.js').marriageDate"
         [showError]='showError'
         [(date)]="person.marriageDate"
       ></msp-date>
-
-      <!-- <msp-arrival-date #arrivalDateBC
-                        [arrivalLabel]="arrivalDateLabel"
-                        [year]="person.arrivalToBCYear"
-                        (yearChange)="person.arrivalToBCYear = $event"
-                        [month]="person.arrivalToBCMonth"
-                        (monthChange)="person.arrivalToBCMonth = $event"
-                        [day]="person.arrivalToBCDay"
-                        (dayChange)="person.arrivalToBCDay = $event"
-                        (onChange) = "onChange.emit($event)"
-                        [showError]="showError"
-                        [required] = "true">
-      </msp-arrival-date> -->
     </div>
   </div>
 

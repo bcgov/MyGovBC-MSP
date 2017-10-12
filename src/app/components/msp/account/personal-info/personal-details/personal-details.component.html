@@ -6,7 +6,7 @@
                 [innerHTML]="lang('./en/index.js').sectionSubTitle[person.relationship]"></h4>
 
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-3" *ngIf="!hideClearButton">
             <div *ngIf="person.relationship !== 0" style="margin-top: 18px">
                 <div *ngIf="person.relationship === 1">
                     <button type="button" class="btn btn-default btn-xs pull-right"
