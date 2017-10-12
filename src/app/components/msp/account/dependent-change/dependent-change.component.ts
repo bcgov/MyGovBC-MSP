@@ -32,7 +32,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
   }
 
   get person(): Person {
-    return this.dataService.getMspApplication().applicant;
+    return this.dataService.getMspAccountApp().applicant;
   }
 
   onChange($event) {
@@ -44,24 +44,23 @@ export class AccountDependentChangeComponent extends BaseComponent {
   }
 
   addSpouse() {
-    console.log('addSpouse called!');
-    this.dataService.getMspApplication().spouse =  new Person(Relationship.Spouse);
+    this.dataService.getMspAccountApp().addedSpouse =  new Person(Relationship.Spouse);
   }
   clearSpouse(){
-    this.dataService.getMspApplication().spouse = null;
+    this.dataService.getMspAccountApp().addedSpouse = null;
   }
   
   get spouse(): Person {
-    return this.dataService.getMspApplication().spouse;
+    return this.dataService.getMspAccountApp().addedSpouse;
   }
 
 
 
   get spouseRemoval(): Person {
-    return this.dataService.getMspApplication().spouseRemoval;
+    return this.dataService.getMspAccountApp().removedSpouse;
   }
   get children(): Person[] {
-    return this.dataService.getMspApplication().children;
+    return this.dataService.getMspAccountApp().children;
   }
 
 
