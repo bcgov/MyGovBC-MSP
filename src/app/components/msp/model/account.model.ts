@@ -146,21 +146,7 @@ class MspAccountApp implements ApplicationBase {
     Gets all images for applicant, spouse and all children
    */
     getAllImages(): MspImage[] {
-        let allImages = Array<MspImage>();
-
-        //TODO  //FIXME implement logic.
-
-        /*   // add applicant
-           allImages = allImages.concat(this.applicant.documents.images);
-
-           if (this.spouse) {
-               allImages = allImages.concat(this.spouse.documents.images);
-           }
-           for (let child of this.children) {
-               allImages = allImages.concat(child.documents.images);
-           }*/
-
-        return allImages;
+        return this.documents;
     }
 
     constructor(){
