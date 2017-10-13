@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Person } from '../../model/person.model';
-// import { MspDataService } from '../../service/msp-data.service';
 
 @Component({
   selector: 'msp-add-remove-dependent',
@@ -13,14 +12,10 @@ export class AddRemoveDependentComponent implements OnInit {
   @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
   lang = require('./i18n');
 
-  public isExistingBeneficiary: boolean;
-
-  // constructor(private dataService: MspDataService) { }
   constructor() { }
 
   change($event){
     console.log('addRemoveDeps component onChange', $event);
-    // this.dataService.saveMspAccountApp();
     this.onChange.emit();
   }
 
