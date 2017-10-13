@@ -147,6 +147,7 @@ export  class MspDataService {
 
     public getFakeAccountChangeApplication(): MspAccountApp {
        let mspAccountApp:MspAccountApp = this._mspAccountApp;
+        mspAccountApp.accountChangeOptions.addressUpdate = true;
         mspAccountApp.applicant.firstName = "NA";
         mspAccountApp.applicant.lastName = "NA";
         mspAccountApp.applicant.gender = Gender.Male;
