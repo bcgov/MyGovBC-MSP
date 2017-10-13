@@ -19,27 +19,7 @@
         </div>
     </div>
 
-    <h2 [innerHtml]="lang('./en/index.js').agreementLabel"></h2>
-    <p [innerHtml]="lang('./en/index.js').agreement">
-    </p>
-    <div class="strong" [innerHTML]="questionApplicant"></div>
-    <div class="checkbox checkbox-success checkbox-inline">
-        <input class="input-lg" id="firstPersonAuthorize" name="firstPersonAuthorize"
-               type="checkbox" [ngModel]="mspAccountApp.authorizedByApplicant"
-               (ngModelChange)="applicantAuthorizeOnChange($event)">
-        <label for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
-    </div>
-    <br><br>
 
-    <div *ngIf="mspAccountApp.updatedSpouse != null">
-        <div class="strong" [innerHTML]="questionSpouse"></div>
-        <div class="checkbox checkbox-success checkbox-inline">
-            <input class="input-lg" id="secondPersonAuthorize" type="checkbox" name="secondPersonAuthorize"
-                   [ngModel]="mspAccountApp.authorizedByUpdatedSpouse"
-                   (ngModelChange)="spouseAuthorizeOnChange($event)">
-            <label for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
-        </div>
-    </div>
 
     <div class="row" *ngIf="mspAccountApp.updateChildren != null && mspAccountApp.updateChildren.length > 0">
         <div *ngFor="let child of mspAccountApp.updateChildren; let i = index;">
@@ -74,6 +54,27 @@
         </div>
     </div>
 
+    <h2 [innerHtml]="lang('./en/index.js').agreementLabel"></h2>
+    <p [innerHtml]="lang('./en/index.js').agreement">
+    </p>
+    <div class="strong" [innerHTML]="questionApplicant"></div>
+    <div class="checkbox checkbox-success checkbox-inline">
+        <input class="input-lg" id="firstPersonAuthorize" name="firstPersonAuthorize"
+               type="checkbox" [ngModel]="mspAccountApp.authorizedByApplicant"
+               (ngModelChange)="applicantAuthorizeOnChange($event)">
+        <label for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+    </div>
+    <br><br>
+
+    <div *ngIf="mspAccountApp.updatedSpouse != null">
+        <div class="strong" [innerHTML]="questionSpouse"></div>
+        <div class="checkbox checkbox-success checkbox-inline">
+            <input class="input-lg" id="secondPersonAuthorize" type="checkbox" name="secondPersonAuthorize"
+                   [ngModel]="mspAccountApp.authorizedByUpdatedSpouse"
+                   (ngModelChange)="spouseAuthorizeOnChange($event)">
+            <label for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+        </div>
+    </div>
 
 
     <div class="row">
