@@ -5,28 +5,44 @@
 <p [innerHTML]="lang('./en/index.js').sectionBody[person.relationship]"></p>
 <label [innerHtml]="lang('./en/index.js').isExistingBeneficiaryQuestion[person.relationship]"></label>
 <msp-toggle [(data)]="person.isExistingBeneficiary"></msp-toggle>
-<hr>
-{{ person.isExistingBeneficiary.toString() }}
-<hr>
-<ng-container *ngIf="person.isExistingBeneficiary">
-  <msp-account-personal-details [person]='person' [id]='person.id' (onChange)="onChange($event)" hideClearButton=true></msp-account-personal-details>
 
-  <!-- TODO - These fields should only show if Spouse? 
-  If so, remove the [person.relationship] stuff. It's just noise. -->
+<!-- We only want this section to show if value is true or false, but NOT truthy
+or falsy.  It only appears once the user has selected either option in the
+toggle. -->
+<ng-container *ngIf="person.isExistingBeneficiary===true || person.isExistingBeneficiary===false">
 
-  <div class="row">
-    <div class="col-md-4">
-      <label for='addSpousePreviousLastName' [innerHTML]="lang('./en/index.js').previousName[person.relationship]"></label>
-      <input type="text" name="spousePrevLastname" class="form-control" id='addSpousePreviousLastName' [(ngModel)]="person.prevLastName">
+  <msp-status-in-canada-radio 
+    *ngIf="person.isExistingBeneficiary===false" 
+    [person]='person'>
+  </msp-status-in-canada-radio>
+
+  
+
+  <!-- msp-status-in-canada-radio is visible, user must make a selection first before displaying this section. -->
+  <ng-container *ngIf="
+    person.isExistingBeneficiary!==false || 
+    (person.status || person.status === 0)"> <!-- dependent form container -->
+
+    <!-- todo - need to hide the trailing <hr> in msp-account-person-details but only for here, not affect other layouts. -->
+    <msp-account-personal-details [person]='person' [id]='person.id' (onChange)="change($event)" embedded=true></msp-account-personal-details>
+  
+    <!-- TODO - These fields should ONLY show if Spouse? But hide for others?
+    If so, remove the [person.relationship] stuff. It's just noise. -->
+    <div class="row">
+      <div class="col-md-4">
+        <label for='addSpousePreviousLastName' [innerHTML]="lang('./en/index.js').previousName[person.relationship]"></label>
+        <input type="text" name="spousePrevLastname" class="form-control" id='addSpousePreviousLastName' [(ngModel)]="person.prevLastName">
+      </div>
+      <div class="col-md-4">
+        <msp-date
+          [label]="lang('./en/index.js').marriageDate"
+          [showError]='showError'
+          [(date)]="person.marriageDate"
+        ></msp-date>
+      </div>
     </div>
-    <div class="col-md-4">
-      <msp-date
-        [label]="lang('./en/index.js').marriageDate"
-        [showError]='showError'
-        [(date)]="person.marriageDate"
-      ></msp-date>
-    </div>
-  </div>
+  
+  </ng-container> <!-- end dependent form container -->
 
 </ng-container>
 

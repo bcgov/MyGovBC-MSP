@@ -6,7 +6,7 @@
                 [innerHTML]="lang('./en/index.js').sectionSubTitle[person.relationship]"></h4>
 
         </div>
-        <div class="col-xs-3" *ngIf="!hideClearButton">
+        <div class="col-xs-3" *ngIf="!embedded">
             <div *ngIf="person.relationship !== 0" style="margin-top: 18px">
                 <div *ngIf="person.relationship === 1">
                     <button type="button" class="btn btn-default btn-xs pull-right"
@@ -129,7 +129,7 @@
 
 
 </form>
-<hr class="strong-hr">
+<hr class="strong-hr" *ngIf="!embedded">
 
 <!-- switch *ngIf value to true for debugging-->
 <div class="row" *ngIf='false'>

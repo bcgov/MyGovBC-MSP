@@ -35,8 +35,14 @@ export class AccountDependentChangeComponent extends BaseComponent {
     return this.dataService.getMspAccountApp().applicant;
   }
 
-  onChange($event) {
-    console.log('dependent-change onChange()', $event);
+  onChange() {
+    console.log('dependent-change onChange, saving account');
+    /**
+     * NOT WORKING! THIS IS NOT SAVING `addedSpouse`
+     * I believe the MspAccountDto doesn't handle the `addedSpouse` field,
+     * but does for updatedSpouse.  Discuss with Saravan. TODO.
+     */
+    this.dataService.saveMspAccountApp();
   }
 
   canContinue(): boolean {

@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import {RouterTestingModule} from "@angular/router/testing";
 import { FormsModule } from '@angular/forms';
-import { SendingComponent } from './sending.component';
+import { AccountSendingComponent } from './sending.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspApiService} from "../../service/msp-api.service";
@@ -12,7 +12,7 @@ describe('SendingComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SendingComponent],
+      declarations: [AccountSendingComponent],
       imports: [FormsModule, HttpModule, RouterTestingModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
@@ -21,8 +21,8 @@ describe('SendingComponent', () => {
     })
   });
   it ('should work', () => {
-    // let fixture = TestBed.createComponent(SendingComponent);
-    // expect(fixture.componentInstance instanceof SendingComponent).toBe(true, 'should create SendingComponent');
+    // let fixture = TestBed.createComponent(AccountSendingComponent);
+    // expect(fixture.componentInstance instanceof AccountSendingComponent).toBe(true, 'should create AccountSendingComponent');
 
   });
 })
