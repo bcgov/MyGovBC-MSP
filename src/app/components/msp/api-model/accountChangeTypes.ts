@@ -128,9 +128,9 @@ interface _AccountChangeChildType extends ct._BasicInfoType {
     cancellationReason?: CancellationReasonType;
     cancellationDate?: string;
     adoptionDate?: string;
-    schoolName: ct.SchoolNameType;
-    schoolAddress: ct.SchoolAddressType;
-    dateStudiesFinish: string;
+    schoolName?: ct.SchoolNameType;
+    schoolAddress?: ct.SchoolAddressType;
+    dateStudiesFinish?: string;
     departDateSchoolOutside?: string;
 }
 export interface AccountChangeChildType extends _AccountChangeChildType { constructor: { new(): AccountChangeChildType }; }
