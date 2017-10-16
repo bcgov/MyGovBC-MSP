@@ -13,18 +13,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ProcessService } from "../../service/process.service";
 
+import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
+import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
+
 describe('AccountPrepareComponent', () => {
 
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AccountPrepareComponent, MspConsentModalComponent, MspCancelComponent, MspLoggerDirective],
+      declarations: [AccountPrepareComponent, MspConsentModalComponent, MspCancelComponent, MspLoggerDirective, CaptchaComponent],
       imports: [FormsModule, Ng2BootstrapModule.forRoot(), HttpModule, RouterTestingModule, LocalStorageModule.withConfig({
           prefix: 'ca.bc.gov.msp',
           storageType: 'sessionStorage'
       })],
       providers: [MspDataService, MspLogService, ProcessService,
-        LocalStorageService
+        LocalStorageService, CaptchaDataService
         
       ]
     })

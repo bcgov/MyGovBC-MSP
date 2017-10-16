@@ -10,9 +10,9 @@
     </msp-account-personal-details>
 
     <!-- Dependents. Appears only if user clicks button from panel below. -->
-    <msp-add-remove-dependent *ngIf="spouse"
-        [person]="spouse"
-        (onCancel)="clearSpouse()"
+    <msp-add-remove-dependent *ngFor="let dependent of changedDependents"
+        [person]="dependent"
+        (onCancel)="clearDependent(dependent)"
         (onChange)="onChange()">
     </msp-add-remove-dependent> 
 
@@ -27,11 +27,13 @@
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
             </button>
-            <button class="btn btn-default">
+            <button class="btn btn-default"
+                (click)="addChild(Relationship.ChildUnder19)">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addChildUnder19ButtonSimple"></span>
             </button>
-            <button class="btn btn-default">
+            <button class="btn btn-default"
+                (click)="addChild(Relationship.Child19To24)">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
             </button>

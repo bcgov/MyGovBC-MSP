@@ -1,7 +1,9 @@
 module.exports = {
   sectionTitle: [
     '', //0 indice is for the Applicant, but it doesn't make sense to have an applicant field here as it's about modifying dependents on on the plan.
-    'Add Spouse'
+    'Add Spouse',
+    'Add Child (0-18)',
+    'Add Child (19-24)'
   ],
   sectionBody: [
     '',
@@ -9,7 +11,9 @@ module.exports = {
   ],
   clearButton: [
     '',
-    'Clear Spouse'
+    'Clear Spouse',
+    'Clear Child',
+    'Clear Child'
   ],
   isExistingBeneficiaryQuestion: [
     '',
@@ -17,10 +21,9 @@ module.exports = {
     'Is the child an existing MSP Beneficiary?',
     'Is the child an existing MSP Beneficiary?',
   ],
+
+
   //Spouse only? Maybe remove the array format?
-  previousName: [
-    '',
-    'Spouse\'s Previous Last Name (if applicable)'
-  ],
+  previousName: 'Spouse\'s Previous Last Name (if applicable)',
   marriageDate: 'Marriage Date (if applicable)'
 }
