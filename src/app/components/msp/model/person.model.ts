@@ -35,6 +35,9 @@ class Person implements IPerson {
     outOfBCRecord: OutofBCRecord;
     private _operationActionType: OperationActionType;
 
+    // Each spouse has authorisation..Field applies only for spouse
+    authorizedBySpouse: boolean;
+
     get operationActionType(): OperationActionType {
         return this._operationActionType;
     }

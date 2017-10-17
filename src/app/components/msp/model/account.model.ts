@@ -24,7 +24,7 @@ class MspAccountApp implements ApplicationBase {
     authorizedByApplicant: boolean;
     authorizedByApplicantDate: Date;
     authorizedByUpdatedSpouse: boolean;
-
+    authorizedByAddedSpouse: boolean;
 
     /**
      * validator for phone number
@@ -93,6 +93,8 @@ class MspAccountApp implements ApplicationBase {
     get applicant(): Person {
         return this._applicant;
     }
+
+
 
     get removedSpouse(): Person {
         return this._removedSpouse;

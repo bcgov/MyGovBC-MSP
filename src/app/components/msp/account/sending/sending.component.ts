@@ -48,7 +48,7 @@ export class AccountSendingComponent implements AfterContentInit {
       .sendApplication(this.mspAccountApp)
       .then((mspAccountApp: MspAccountApp) => {
         this.mspAccountApp = mspAccountApp;
-        this.logService.log({name: 'enrollment application received success confirmation from API server', 
+        this.logService.log({name: 'MSP Account Maintenance request received success confirmation from API server',
           confirmationNumber: this.mspAccountApp.referenceNumber});
 
         let tempRef = this.mspAccountApp.referenceNumber;
@@ -68,7 +68,7 @@ export class AccountSendingComponent implements AfterContentInit {
         this.rawUrl = error.url;
         this.rawError = error;
         this.rawRequest = error._requestBody
-        this.logService.log({name: 'MSP Account Maintanence request received failure message from API server',
+        this.logService.log({name: 'MSP Account Maintenance request received failure message from API server',
           error: error._body,
           request: error._requestBody});
         this.transmissionInProcess = false;
