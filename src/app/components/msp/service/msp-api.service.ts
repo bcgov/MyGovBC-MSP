@@ -423,12 +423,15 @@ export class MspApiService {
 
         if (from.updatedSpouse) {
             to.application.accountChangeApplication.spouses.updatedSpouse = this.convertSpouseFromAccountChange(from.updatedSpouse);
+            to.application.accountChangeApplication.spouses.updatedSpouse.authorizedBySpouse = from.updatedSpouse.authorizedBySpouse ? "Y" : "N";;
         }
         if (from.removedSpouse) {
             to.application.accountChangeApplication.spouses.removedSpouse = this.convertSpouseFromAccountChange(from.removedSpouse);
         }
         if (from.addedSpouse) {
-            to.application.accountChangeApplication.spouses.removedSpouse = this.convertSpouseFromAccountChange(from.addedSpouse);
+            to.application.accountChangeApplication.spouses.addedSpouse = this.convertSpouseFromAccountChange(from.addedSpouse);
+
+            to.application.accountChangeApplication.spouses.addedSpouse.authorizedBySpouse = from.addedSpouse.authorizedBySpouse ? "Y" : "N";;
         }
 
         // Convert children and dependants
