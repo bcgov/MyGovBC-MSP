@@ -6,6 +6,7 @@ enum Relationship {
   Spouse,
   ChildUnder19,
   Child19To24,
+  ChildUnder24
 }
 
 
@@ -72,7 +73,7 @@ class ActivitiesRules {
       case StatusInCanada.CitizenAdult:
       case StatusInCanada.PermanentResident:
         if (relationship === Relationship.Child19To24 ||
-            relationship === Relationship.ChildUnder19) {
+            relationship === Relationship.ChildUnder19 || relationship === Relationship.ChildUnder24) {
           return [Activities.MovingFromProvince, Activities.MovingFromCountry, Activities.LivingInBCWithoutMSP];
         }
         else {
