@@ -158,6 +158,8 @@ class Person implements IPerson {
     dischargeMonth: number;
     dischargeDay: number;
 
+    nameOfInstitute: string;
+
     get hasDischarge(): boolean {
         return (this.dischargeDay != null &&
             this.dischargeMonth != null &&

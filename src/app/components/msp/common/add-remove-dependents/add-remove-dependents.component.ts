@@ -15,6 +15,8 @@ export class AddRemoveDependentComponent implements OnInit {
   @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
   lang = require('./i18n');
 
+  public showHasBeenReleasedFromArmedForces: boolean;
+
   constructor() { }
 
   change($event){

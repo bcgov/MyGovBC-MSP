@@ -46,29 +46,48 @@ toggle. -->
          
     <!-- Dependent is Citizen -->
     <ng-container *ngIf="person.status === StatusInCanada.CitizenAdult">
-      <div>
+      <div class='question-row'>
         <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[person.relationship]"></label>
         <msp-toggle [(data)]="person.livedInBCSinceBirth"></msp-toggle>
       </div>
 
-      <div *ngIf="person.relationship === Relationship.ChildUnder19 || person.relationship === Relationship.Child19To24">
+      <div class='question-row' *ngIf="person.relationship === Relationship.ChildUnder19 || person.relationship === Relationship.Child19To24">
           <label [innerHtml]="lang('./en/index.js').newlyAdopted"></label>
           <msp-toggle [(data)]="person.newlyAdopted"></msp-toggle>
       </div>
 
-      <div>
+      <div class='question-row'>
           <label [innerHtml]="lang('./en/index.js').hasBeenOutsideBC30InYear"></label>
           <msp-toggle [(data)]="person.declarationForOutsideOver30Days"></msp-toggle>
       </div>
-      <div>
+      <div class='question-row'>
           <label [innerHtml]="lang('./en/index.js').willBeOutsideBC30InYear"></label>
           <msp-toggle [(data)]="person.plannedAbsence"></msp-toggle>
       </div>
-      <div>
+      <div class='question-row'>
         <!-- This section special? Only store discharge date in model, so this should just show/hide date input? -->
           <label [innerHtml]="lang('./en/index.js').releasedFromArmedForcesOrInstitution"></label>
           <!-- TODO - This won't pass AoT needs to be a component variable -->
-          <msp-toggle [(data)]="showArmedForces"></msp-toggle>
+          <msp-toggle [(data)]="showHasBeenReleasedFromArmedForces"></msp-toggle>
+      </div>
+      <div class='row' *ngIf="showHasBeenReleasedFromArmedForces">
+          <div class="col-md-3">
+            <msp-discharge-date
+              [year]="person.dischargeYear"
+              (yearChange)="person.dischargeYear = $event"
+              [month]="person.dischargeMonth"
+              (monthChange)="person.dischargeMonth = $event"
+              [day]="person.dischargeDay"
+              (dayChange)="person.dischargeDay = $event"
+              (onChange) = "onChange.emit($event)" 
+              [showError]="showError"
+            ></msp-discharge-date>
+          </div>
+
+          <div class="col-md-5">
+            <label [innerHtml]="lang('./en/index.js').instituteName"></label>     
+            <input type="text" class='form-control' name="nameOfInstitute" [(ngModel)]=person.nameOfInstitute>
+          </div>
       </div>
 
     </ng-container>
