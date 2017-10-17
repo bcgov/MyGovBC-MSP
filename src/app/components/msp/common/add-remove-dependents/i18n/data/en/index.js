@@ -29,6 +29,12 @@ module.exports = {
     'Has child lived in B.C. since birth?',
   ],
 
+  newlyAdopted: "Is this child newly adopted?",
+
+  hasBeenOutsideBC30InYear: "Has this family member been outside of BC for more than a total of 30 days during the past 12 months?",
+  willBeOutsideBC30InYear: "Will this family member be outside of BC for more than a total of 30 days during the next 6 months?",
+  releasedFromArmedForcesOrInstitution: "Have they been released from the Canadian Armed Forces or an Institution?",
+
 
   //Spouse only? Maybe remove the array format?
   previousName: 'Spouse\'s Previous Last Name (if applicable)',

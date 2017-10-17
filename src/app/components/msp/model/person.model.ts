@@ -35,6 +35,9 @@ class Person implements IPerson {
     outOfBCRecord: OutofBCRecord;
     private _operationActionType: OperationActionType;
 
+    /** For child only. Are they newly adopted? Note - Not yet wired up to XML backend, dto, etc. Todo. */
+    public newlyAdopted: boolean;
+
     get operationActionType(): OperationActionType {
         return this._operationActionType;
     }

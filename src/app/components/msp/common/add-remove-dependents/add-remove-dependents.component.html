@@ -46,10 +46,31 @@ toggle. -->
          
     <!-- Dependent is Citizen -->
     <ng-container *ngIf="person.status === StatusInCanada.CitizenAdult">
-      <div class="row">
+      <div>
         <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[person.relationship]"></label>
         <msp-toggle [(data)]="person.livedInBCSinceBirth"></msp-toggle>
       </div>
+
+      <div *ngIf="person.relationship === Relationship.ChildUnder19 || person.relationship === Relationship.Child19To24">
+          <label [innerHtml]="lang('./en/index.js').newlyAdopted"></label>
+          <msp-toggle [(data)]="person.newlyAdopted"></msp-toggle>
+      </div>
+
+      <div>
+          <label [innerHtml]="lang('./en/index.js').hasBeenOutsideBC30InYear"></label>
+          <msp-toggle [(data)]="person.declarationForOutsideOver30Days"></msp-toggle>
+      </div>
+      <div>
+          <label [innerHtml]="lang('./en/index.js').willBeOutsideBC30InYear"></label>
+          <msp-toggle [(data)]="person.plannedAbsence"></msp-toggle>
+      </div>
+      <div>
+        <!-- This section special? Only store discharge date in model, so this should just show/hide date input? -->
+          <label [innerHtml]="lang('./en/index.js').releasedFromArmedForcesOrInstitution"></label>
+          <!-- TODO - This won't pass AoT needs to be a component variable -->
+          <msp-toggle [(data)]="showArmedForces"></msp-toggle>
+      </div>
+
     </ng-container>
     <!-- End Dependent is Citizen Section -->
 
