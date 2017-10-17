@@ -75,7 +75,7 @@ class MspAccountApp implements ApplicationBase {
         return this.authorizationToken && this.authorizationToken.length > 1;
     }
     addUpdateChild(): Person {
-        let c = new Person(Relationship.Child19To24,OperationActionType.Update);
+        let c = new Person(Relationship.ChildUnder24,OperationActionType.Update);
         this._children.length < 30 ? this._children.push(c): console.log('No more than 30 children can be added to one application');
         return c;
     }

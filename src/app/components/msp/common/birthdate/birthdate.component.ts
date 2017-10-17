@@ -78,6 +78,12 @@ export class MspBirthDateComponent extends BaseComponent {
       return lessThan19;
       
     }
+    // ChildUnder24 rules - Account Management Child
+    else if (this.person.relationship === Relationship.ChildUnder24) {
+        let tooOld = this.person.dob.isBefore(moment().subtract(24, 'years'));
+        return !tooOld;
+
+    }
     else if (this.person.relationship === Relationship.Child19To24) {
       // if child student must be between 19 and 24
 
