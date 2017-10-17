@@ -17,6 +17,10 @@ export class AccountDependentChangeComponent extends BaseComponent {
 
   static ProcessStepNum = 1;
   lang = require('./i18n');
+  Relationship: typeof Relationship = Relationship;
+
+  /** A list of all dependents that the applicant wants to add, modify, remove, etc. Each one should correspond to an open section in the form visible to the user. */
+  changedDependents: Person[] = [];
 
 
   constructor(private dataService: MspDataService,
@@ -49,24 +53,45 @@ export class AccountDependentChangeComponent extends BaseComponent {
     return true;
   }
 
+  /** Add a spouse to the account. */
   addSpouse() {
-    this.dataService.getMspAccountApp().addedSpouse =  new Person(Relationship.Spouse);
+    const sp = new Person(Relationship.Spouse);
+    this.spouse = sp;
+    this.changedDependents.push(sp);
   }
-  clearSpouse(){
-    this.dataService.getMspAccountApp().addedSpouse = null;
+  
+  /** Add a child to the account */
+  addChild(relationship: Relationship){
+    const child = new Person(relationship);
+    this.changedDependents.push(child);
+  }
+  
+  /** Remove a dependent that the user had added to the form, e.g. by mistake. Spouse or children. */
+  clearDependent(dependent){
+    this.changedDependents = this.changedDependents
+    .filter(x => x !== dependent);
+
+    if (dependent.relationship === Relationship.Spouse){
+      this.spouse = null;
+    }
   }
   
   get spouse(): Person {
     return this.dataService.getMspAccountApp().addedSpouse;
   }
 
-
-
-  get spouseRemoval(): Person {
-    return this.dataService.getMspAccountApp().removedSpouse;
+  set spouse(sp: Person) {
+    this.dataService.getMspAccountApp().addedSpouse = sp;
   }
+
   get children(): Person[] {
     return this.dataService.getMspAccountApp().children;
+  }
+
+
+  // TODO!
+  get spouseRemoval(): Person {
+    return this.dataService.getMspAccountApp().removedSpouse;
   }
 
 

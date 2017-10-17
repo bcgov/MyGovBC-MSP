@@ -28,9 +28,9 @@ toggle. -->
   
     <!-- TODO - These fields should ONLY show if Spouse? But hide for others?
     If so, remove the [person.relationship] stuff. It's just noise. -->
-    <div class="row">
+    <div class="row" *ngIf="person.relationship === Relationship.Spouse">
       <div class="col-md-4">
-        <label for='addSpousePreviousLastName' [innerHTML]="lang('./en/index.js').previousName[person.relationship]"></label>
+        <label for='addSpousePreviousLastName' [innerHTML]="lang('./en/index.js').previousName"></label>
         <input type="text" name="spousePrevLastname" class="form-control" id='addSpousePreviousLastName' [(ngModel)]="person.prevLastName">
       </div>
       <div class="col-md-4">
@@ -41,6 +41,12 @@ toggle. -->
         ></msp-date>
       </div>
     </div>
+
+    <!-- TODO Add fields based on peron's status!
+      fields must be i18n based on relationship, e.g.: 
+          ['Has your spouse lived in B.C. since birth?',
+          'Has your child lived in B.C. since birth?']
+    -->
   
   </ng-container> <!-- end dependent form container -->
 

@@ -50,10 +50,10 @@ http {
     limit_req_zone $binary_remote_addr zone=bra25:10m rate=25r/s;
 
     #default throttle; not inherited if set in nested level
-    # limit_req_zone $binary_remote_addr zone=bra100:10m rate=100r/s;
+    # limit_req_zone $binary_remote_addr zone=bra5:10m rate=100r/s;
     # limit_req zone=bra5 burst=100;
     limit_req_zone $binary_remote_addr zone=bra100:10m rate=400r/s;
-    limit_req zone=bra5 burst=400;
+    # limit_req zone=bra100 burst=400;
 
     client_max_body_size 100m;
 
