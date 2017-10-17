@@ -34,6 +34,8 @@ class Person implements IPerson {
     documents: PersonDocuments = new PersonDocuments();
     outOfBCRecord: OutofBCRecord;
     private _operationActionType: OperationActionType;
+    // Each spouse has authorisation..Field applies only for spouse
+    authorizedBySpouse: boolean;
 
     /** NEEDS XSD. For child only. */
     public newlyAdopted: boolean;
