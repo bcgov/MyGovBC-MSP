@@ -21,6 +21,7 @@ import {MspNameComponent} from "../../../common/name/name.component";
 import {MspGenderComponent} from "../../../common/gender/gender.component";
 import {MspPhnComponent} from "../../../common/phn/phn.component";
 import {MspSchoolDateComponent} from "../../../common/schoolDate/school-date.component";
+import {MspPhoneComponent} from "../../../common/phone/phone.component";
 import {HealthNumberComponent} from "../../../common/health-number/health-number.component";
 import {MspDischargeDateComponent} from "../../../common/discharge-date/discharge-date.component";
 import {MspAddressComponent} from "../../../common/address/address.component";
@@ -91,7 +92,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @ViewChild('birthDate') birthdate: MspBirthDateComponent;
     @ViewChild('name') name: MspNameComponent;
     @ViewChild('phn') phn: MspPhnComponent;
-
+    @ViewChild('phone') phone: MspPhoneComponent;
 
     @Input() person: Person;
     @Input() id: string;
