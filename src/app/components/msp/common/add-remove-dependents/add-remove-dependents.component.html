@@ -14,9 +14,7 @@ toggle. -->
   <msp-status-in-canada-radio 
     *ngIf="person.isExistingBeneficiary===false" 
     [person]='person'>
-  </msp-status-in-canada-radio>
-
-  
+  </msp-status-in-canada-radio>  
 
   <!-- msp-status-in-canada-radio is visible, user must make a selection first before displaying this section. -->
   <ng-container *ngIf="
@@ -26,21 +24,34 @@ toggle. -->
     <!-- todo - need to hide the trailing <hr> in msp-account-person-details but only for here, not affect other layouts. -->
     <msp-account-personal-details [person]='person' [id]='person.id' (onChange)="change($event)" embedded=true></msp-account-personal-details>
   
-    <!-- TODO - These fields should ONLY show if Spouse? But hide for others?
-    If so, remove the [person.relationship] stuff. It's just noise. -->
-    <div class="row" *ngIf="person.relationship === Relationship.Spouse">
-      <div class="col-md-4">
-        <label for='addSpousePreviousLastName' [innerHTML]="lang('./en/index.js').previousName"></label>
-        <input type="text" name="spousePrevLastname" class="form-control" id='addSpousePreviousLastName' [(ngModel)]="person.prevLastName">
+    <!-- Spouse Section -->
+    <ng-container *ngIf="person.relationship === Relationship.Spouse">
+      <div class="row">
+        <div class="col-md-4">
+          <label for='addSpousePreviousLastName' [innerHTML]="lang('./en/index.js').previousName"></label>
+          <input type="text" name="spousePrevLastname" class="form-control" id='addSpousePreviousLastName' [(ngModel)]="person.prevLastName">
+        </div>
+        <div class="col-md-4">
+          <msp-date
+            [label]="lang('./en/index.js').marriageDate"
+            [showError]='showError'
+            [(date)]="person.marriageDate"
+          ></msp-date>
+        </div>
       </div>
-      <div class="col-md-4">
-        <msp-date
-          [label]="lang('./en/index.js').marriageDate"
-          [showError]='showError'
-          [(date)]="person.marriageDate"
-        ></msp-date>
+
+    
+    </ng-container> <!-- End Spouse-only Section -->
+
+         
+    <!-- Dependent is Citizen -->
+    <ng-container *ngIf="person.status === StatusInCanada.CitizenAdult">
+      <div class="row">
+        <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[person.relationship]"></label>
+        <msp-toggle [(data)]="person.livedInBCSinceBirth"></msp-toggle>
       </div>
-    </div>
+    </ng-container>
+    <!-- End Dependent is Citizen Section -->
 
     <!-- TODO Add fields based on peron's status!
       fields must be i18n based on relationship, e.g.: 

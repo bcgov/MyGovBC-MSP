@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Person } from '../../model/person.model';
-import { Relationship } from '../../model/status-activities-documents';
+import { Relationship, StatusInCanada } from '../../model/status-activities-documents';
 
 @Component({
   selector: 'msp-add-remove-dependent',
@@ -9,6 +9,7 @@ import { Relationship } from '../../model/status-activities-documents';
 })
 export class AddRemoveDependentComponent implements OnInit {
   Relationship: typeof Relationship = Relationship;
+  StatusInCanada: typeof StatusInCanada = StatusInCanada;
   @Input() person: Person;
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
   @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
