@@ -40,7 +40,6 @@ export class AccountDependentChangeComponent extends BaseComponent {
   }
 
   onChange() {
-    console.log('dependent-change onChange, saving account');
     /**
      * NOT WORKING! THIS IS NOT SAVING `addedSpouse`
      * I believe the MspAccountDto doesn't handle the `addedSpouse` field,

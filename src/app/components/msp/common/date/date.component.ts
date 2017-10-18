@@ -20,9 +20,10 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
   @Input() showError: boolean;
   @Input() required: boolean = true;
 
-  public year:  number | string;
-  public month:  number | string;
-  public day:  number | string;
+  public year:  number;
+  public month:  number;
+  public day:  number;
+
   @Input() label: string;
   @Input() date: SimpleDate;
   @Output() dateChange = new EventEmitter<SimpleDate>();
@@ -56,7 +57,7 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
     if (value) {
       this.year = parseInt(value);
     } else {
-      this.year = value;
+      this.year = NaN;
     }
   }
 
@@ -64,7 +65,7 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
     if (value) {
       this.day = parseInt(value);
     } else {
-      this.day = value;
+      this.day = NaN;
     }
   }
 
@@ -90,8 +91,8 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
 
   futureCheck(): boolean {
 
-    console.log('today is: ' + this.today.format('DD-MM-YYYY') + '  input date is: ' + this.inputDate().format('DD-MM-YYYY'));
-    console.log('isAfter returns ' + this.inputDate().isAfter(this.today));
+    // console.log('today is: ' + this.today.format('DD-MM-YYYY') + '  input date is: ' + this.inputDate().format('DD-MM-YYYY'));
+    // console.log('isAfter returns ' + this.inputDate().isAfter(this.today));
 
     // Check not in future
     if (this.inputDate().isAfter(this.today)) {
@@ -113,6 +114,7 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
     }
     //Only emit the date when it's valid and there are no form errors.
     if (!this.hasFormErrors){
+      console.log('EMITTING DATE', this.simpleDate);
       this.dateChange.emit(this.simpleDate);      
     }
     return true;
@@ -129,11 +131,13 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
   /** 
    * Checks for the presence of form errors created by validation directives
    * like calendar-year.validator.ts, which puts the errors directly on the
-   * controls. */
+   * controls. 
+   * */
   get hasFormErrors(): boolean {
-    return [this.form.controls.year.errors,
-      this.form.controls.month.errors,
-      this.form.controls.day.errors
+    return [
+      this.form.controls.year ? this.form.controls.year.errors : null,
+      this.form.controls.month ? this.form.controls.month.errors : null,
+      this.form.controls.day ? this.form.controls.day.errors : null
     ].filter(x => x).length >= 1
   }
 }

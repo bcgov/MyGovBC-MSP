@@ -33,6 +33,8 @@ class Person implements IPerson {
     _currentActivity: Activities;
     documents: PersonDocuments = new PersonDocuments();
     outOfBCRecord: OutofBCRecord;
+    /** NEEDS XSD. Departure information for the question regarding if the person will be out of BC for more than 30 days in the next 6 months. */
+    planOnBeingOutOfBCRecord: OutofBCRecord;
     private _operationActionType: OperationActionType;
     // Each spouse has authorisation..Field applies only for spouse
     authorizedBySpouse: boolean;
@@ -56,7 +58,6 @@ class Person implements IPerson {
      * Had episodes of leaving and returning to bc for peirod of longer than 30 days.
      */
     private _beenOutSideOver30Days: boolean;
-    declarationForOutsideOver30Days: boolean;
 
     get beenOutSideOver30Days(): boolean {
         return this.outOfBCRecord != null;
@@ -67,6 +68,34 @@ class Person implements IPerson {
         if (noRecords) return true;
         let allFilledIn = this.outOfBCRecord.isValid();
         return allFilledIn;
+    }
+
+    /**
+     * Person has declared they have episodes of returning/leaving BC for longer
+     * than 30 days.
+     */
+    private _declarationForOutsideOver30Days: boolean;
+
+    /** 
+     * Automatically handles the instantiation and destruction of the
+     * OutofBCRecord object. Previously this was handled in the controllers, but
+     * it should be in the model as it i) is an operation purely on data ii)
+     * reduces code duplication.
+     */
+    set declarationForOutsideOver30Days(val: boolean) {
+        this._declarationForOutsideOver30Days = val;
+        console.log('person.declarationForOutsideOver30Days called with', val);
+        if (val){
+            console.log('Creating outOFBC record', this);
+            this.outOfBCRecord = new OutofBCRecord();
+        }
+        else {
+            this.outOfBCRecord = null;
+        }
+    }
+
+    get declarationForOutsideOver30Days(): boolean {
+        return this._declarationForOutsideOver30Days;
     }
 
     /**
@@ -112,6 +141,22 @@ class Person implements IPerson {
 
     get arrivalToBC() {
         return this.parseDate(this.arrivalToBCYear, this.arrivalToBCMonth, this.arrivalToBCDay);
+    }
+
+    /** Provides the same answer as arrivalToBC but in a different format. Useful with the MspDateComponent which can take a single SimpleDate obj for configuration. */
+    get arrivalToBCSimple(): SimpleDate {
+        return {
+            "day": this.arrivalToBCDay,
+            "month": this.arrivalToBCMonth,
+            "year": this.arrivalToBCYear,
+        }
+    }
+
+    /** Set the arrival to BC day/month/year by passing in a Simple object. Useful with the MspDateComponent for two-way data binding. */
+    set arrivalToBCSimple(date: SimpleDate){
+        this.arrivalToBCDay = date.day;
+        this.arrivalToBCMonth = date.month;
+        this.arrivalToBCYear = date.year;
     }
 
     arrivalToCanadaDay: number;
@@ -208,17 +253,28 @@ class Person implements IPerson {
         }
     }
 
-    /**
-     * This property is for storing user provided answer to the following question:
-     * Are you planning to stay for six months or longer
-     */
-    madePermanentMoveToBC: boolean;
 
+    madePermanentMoveToBC: boolean;
+    private _plannedAbsence: boolean;
+    
     /**
      * This property is for storing user provided answer to the following question:
-     * Are you planning to leave BCfor longer than 30 days in the next six months?
+     * > Are you planning to leave BCfor longer than 30 days in the next six months?
+     * 
      */
-    plannedAbsence: boolean;
+    get plannedAbsence(): boolean {
+        return this._plannedAbsence;
+    }
+
+    set plannedAbsence(val: boolean){
+        this._plannedAbsence = val;
+        if (val){
+            this.planOnBeingOutOfBCRecord = new OutofBCRecord();
+        }
+        else {
+            this.planOnBeingOutOfBCRecord = null;
+        }
+    }
 
     /** Used for dependents and spouses to check if they are  an existing MSP Beneficiary. */
     isExistingBeneficiary: boolean;
@@ -226,6 +282,8 @@ class Person implements IPerson {
     prevLastName: string;
     /** Only for spouse. Marriage date to applicant. */
     marriageDate: SimpleDate;
+
+
 
 
 
@@ -383,7 +441,7 @@ class Person implements IPerson {
             && _.isNumber(this._status) && _.isNumber(this._currentActivity) && this.documents.images.length > 0
             && !(this.studiesDepartureMonth == 0)
             && !(this.studiesFinishedMonth == 0)
-            && _.isBoolean(this.declarationForOutsideOver30Days)
+            && _.isBoolean(this._declarationForOutsideOver30Days)
             && !(this.outOfBCRecord && this.outOfBCRecord.departureMonth == 0)
             && !(this.outOfBCRecord && this.outOfBCRecord.returnMonth == 0)
             && !(this.dischargeDate && this.dischargeMonth == 0);
