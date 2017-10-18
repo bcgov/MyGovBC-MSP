@@ -1,5 +1,5 @@
-                                                                <h2 [innerHtml]="lang('./en/index.js').relationshipLabel[person.relationship] +
-    ' ' + lang('./en/index.js').cardSuffix"></h2>
+<h2 [innerHtml]="(person.operationActionType ? lang('./en/index.js').actionTypeLabel[person.operationActionType]:'') + lang('./en/index.js').relationshipLabel[person.relationship] +
+    ' ' + lang('./en/index.js').cardSuffix "></h2>
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row" *ngIf="person.hasFullName">

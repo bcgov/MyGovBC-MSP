@@ -58,12 +58,12 @@ class MspAccountApp implements ApplicationBase {
     private _accountChangeOptions :AccountChangeOptions = new AccountChangeOptions ();
 
     removeUpdatedSpouse =() => {
-        this._updatedSpouse = null;
+        this.updatedSpouse = null;
     } ;
 
     addUpdatedSpouse = (sp:Person)=>{
-        if(!this._updatedSpouse){
-            this._updatedSpouse = sp;
+        if(!this.updatedSpouse){
+            this.updatedSpouse = sp;
         }else{
             console.log('spouse for updating already added to your coverage.');
         }
@@ -74,7 +74,7 @@ class MspAccountApp implements ApplicationBase {
     }
     addUpdateChild(): Person {
         let c = new Person(Relationship.ChildUnder24,OperationActionType.Update);
-        this._children.length < 30 ? this._children.push(c): console.log('No more than 30 children can be added to one application');
+        this.children.length < 30 ? this.children.push(c): console.log('No more than 30 children can be added to one application');
         return c;
     }
 
@@ -84,7 +84,7 @@ class MspAccountApp implements ApplicationBase {
     }
 
     get updateChildren(): Array<Person> {
-        var updateChildren =  this._children.filter( (child:Person) => child.operationActionType === OperationActionType.Update);
+        var updateChildren =  this.children.filter( (child:Person) => child.operationActionType === OperationActionType.Update);
         return updateChildren;
     }
 
@@ -100,6 +100,7 @@ class MspAccountApp implements ApplicationBase {
 
     set removedSpouse(value: Person) {
         this._removedSpouse = value;
+        this._removedSpouse.operationActionType = OperationActionType.Remove;
     }
 
     get addedSpouse(): Person {
@@ -108,6 +109,7 @@ class MspAccountApp implements ApplicationBase {
 
     set addedSpouse(value: Person) {
         this._addedSpouse = value;
+        this._addedSpouse.operationActionType = OperationActionType.Add;
     }
 
     get updatedSpouse(): Person {
@@ -116,6 +118,7 @@ class MspAccountApp implements ApplicationBase {
 
     set updatedSpouse(value: Person) {
         this._updatedSpouse = value;
+        this._updatedSpouse.operationActionType = OperationActionType.Update;
     }
 
     set applicant(apt: Person) {

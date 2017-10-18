@@ -28,8 +28,13 @@ export class AccountReviewComponent implements OnInit {
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
     }
 
-    get spouses(): Person[] {
+    get spousesForAuthorisation(): Person[] {
         return [this.mspAccountApp.addedSpouse, this.mspAccountApp.updatedSpouse].filter(spouse => !!spouse);
+    }
+
+    get allSpouses(): Person[] {
+        //TODO FIXME Make sure this logic is working when add / remove is implemented for Spouses
+        return [this.mspAccountApp.updatedSpouse,this.mspAccountApp.addedSpouse,this.mspAccountApp.removedSpouse].filter(spouse => !!spouse);
     }
 
     get questionApplicant(){
