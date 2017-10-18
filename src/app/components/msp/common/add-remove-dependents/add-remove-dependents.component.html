@@ -49,6 +49,34 @@ toggle. -->
       <div class='question-row'>
         <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[person.relationship]"></label>
         <msp-toggle [(data)]="person.livedInBCSinceBirth"></msp-toggle>
+
+
+        <!-- 
+          If yes, show 
+            * Most Recent Move to BC [Date]
+            * From (province or country) [Text]
+            * Medical plan in Previous place of Residence (optional) [Text]
+       -->
+
+        <div class="row form-group" *ngIf="person.livedInBCSinceBirth">
+          <div class="col-md-8">
+            <!-- MOST RECENT MOVE DATE TO BC
+            PROBLEM - date in person is stored as:
+  
+            arrivalToBCDay: number;
+            arrivalToBCMonth: number;
+            arrivalToBCYear: number;
+  
+            but here we need a simpleDate. Maybe a way to translate the two? -->
+
+              <msp-date
+              [label]="lang('./en/index.js').moveDateToBC"
+              [showError]='showError'
+              [(date)]="person.arrivalToBCSimple">
+            </msp-date>
+          </div>
+        </div>
+
       </div>
 
       <div class='question-row' *ngIf="person.relationship === Relationship.ChildUnder19 || person.relationship === Relationship.Child19To24">
@@ -65,11 +93,10 @@ toggle. -->
           <msp-toggle [(data)]="person.plannedAbsence"></msp-toggle>
       </div>
       <div class='question-row'>
-        <!-- This section special? Only store discharge date in model, so this should just show/hide date input? -->
           <label [innerHtml]="lang('./en/index.js').releasedFromArmedForcesOrInstitution"></label>
-          <!-- TODO - This won't pass AoT needs to be a component variable -->
           <msp-toggle [(data)]="showHasBeenReleasedFromArmedForces"></msp-toggle>
       </div>
+
       <div class='row' *ngIf="showHasBeenReleasedFromArmedForces">
           <div class="col-md-3">
             <msp-discharge-date
@@ -106,9 +133,3 @@ toggle. -->
 
 
 <hr class='strong-hr'>
-
-<pre style='max-width: 600px'>
-  PERSON:
-  
-  {{person | json}}
-</pre>

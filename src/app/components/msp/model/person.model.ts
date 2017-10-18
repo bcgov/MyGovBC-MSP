@@ -114,6 +114,22 @@ class Person implements IPerson {
         return this.parseDate(this.arrivalToBCYear, this.arrivalToBCMonth, this.arrivalToBCDay);
     }
 
+    /** Provides the same answer as arrivalToBC but in a different format. Useful with the MspDateComponent which can take a single SimpleDate obj for configuration. */
+    get arrivalToBCSimple(): SimpleDate {
+        return {
+            "day": this.arrivalToBCDay,
+            "month": this.arrivalToBCMonth,
+            "year": this.arrivalToBCYear,
+        }
+    }
+
+    /** Set the arrival to BC day/month/year by passing in a Simple object. Useful with the MspDateComponent for two-way data binding. */
+    set arrivalToBCSimple(date: SimpleDate){
+        this.arrivalToBCDay = date.day;
+        this.arrivalToBCMonth = date.month;
+        this.arrivalToBCYear = date.year;
+    }
+
     arrivalToCanadaDay: number;
     arrivalToCanadaMonth: number;
     arrivalToCanadaYear: number;
@@ -226,6 +242,8 @@ class Person implements IPerson {
     prevLastName: string;
     /** Only for spouse. Marriage date to applicant. */
     marriageDate: SimpleDate;
+
+
 
 
 

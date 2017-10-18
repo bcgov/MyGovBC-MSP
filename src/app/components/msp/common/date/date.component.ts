@@ -20,9 +20,10 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
   @Input() showError: boolean;
   @Input() required: boolean = true;
 
-  public year:  number | string;
-  public month:  number | string;
-  public day:  number | string;
+  public year:  number;
+  public month:  number;
+  public day:  number;
+
   @Input() label: string;
   @Input() date: SimpleDate;
   @Output() dateChange = new EventEmitter<SimpleDate>();
@@ -56,7 +57,7 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
     if (value) {
       this.year = parseInt(value);
     } else {
-      this.year = value;
+      this.year = NaN;
     }
   }
 
@@ -64,7 +65,7 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
     if (value) {
       this.day = parseInt(value);
     } else {
-      this.day = value;
+      this.day = NaN;
     }
   }
 

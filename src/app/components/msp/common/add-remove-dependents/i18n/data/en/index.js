@@ -36,6 +36,10 @@ module.exports = {
   releasedFromArmedForcesOrInstitution: "Have they been released from the Canadian Armed Forces or an Institution?",
   instituteName: "Name of Institute",
 
+  moveDateToBC: "Most recent move date to B.C.",
+  moveFromProvinceOrCountry: "From (province or country)",
+  medicalPlanPreviousResidence: "Medical plan in Previous place of Residence (optional)",
+
 
   //Spouse only? Maybe remove the array format?
   previousName: 'Spouse\'s Previous Last Name (if applicable)',
