@@ -24,7 +24,7 @@ toggle. -->
     <!-- todo - need to hide the trailing <hr> in msp-account-person-details but only for here, not affect other layouts. -->
     <msp-account-personal-details [person]='person' [id]='person.id' (onChange)="change($event)" embedded=true></msp-account-personal-details>
   
-    <!-- Spouse Section -->
+    <!-- Spouse-only Section, marriage date etc. -->
     <ng-container *ngIf="person.relationship === Relationship.Spouse">
       <div class="row">
         <div class="col-md-4">
@@ -39,42 +39,35 @@ toggle. -->
           ></msp-date>
         </div>
       </div>
-
-    
     </ng-container> <!-- End Spouse-only Section -->
 
          
-    <!-- Dependent is Citizen -->
+    <!-- Dependent is CitizenAdult -->
+    <!-- TODO - Extract all 'status' fields to component? <msp-dependents-new-beneficiary>? -->
     <ng-container *ngIf="person.status === StatusInCanada.CitizenAdult">
       <div class='question-row'>
-        <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[person.relationship]"></label>
-        <msp-toggle [(data)]="person.livedInBCSinceBirth"></msp-toggle>
+        <div class="form-group">
+          <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[person.relationship]"></label>
+          <msp-toggle [(data)]="person.livedInBCSinceBirth"></msp-toggle>
+        </div>
 
 
-        <!-- 
-          If yes, show 
-            * Most Recent Move to BC [Date]
-            * From (province or country) [Text]
-            * Medical plan in Previous place of Residence (optional) [Text]
-       -->
-
-        <div class="row form-group" *ngIf="person.livedInBCSinceBirth">
-          <div class="col-md-8">
-            <!-- MOST RECENT MOVE DATE TO BC
-            PROBLEM - date in person is stored as:
-  
-            arrivalToBCDay: number;
-            arrivalToBCMonth: number;
-            arrivalToBCYear: number;
-  
-            but here we need a simpleDate. Maybe a way to translate the two? -->
-
+        <div class="row form-group" *ngIf="person.livedInBCSinceBirth === false">
+          <div class="col-md-3">
               <msp-date
               [label]="lang('./en/index.js').moveDateToBC"
               [showError]='showError'
               [(date)]="person.arrivalToBCSimple">
             </msp-date>
           </div>
+          <div class="col-md-4">
+            <label for="movedFromProvinceOrCountry" [innerHtml]="lang('./en/index.js').movedFromProvinceOrCountry"></label>
+            <input type="text" class='form-control' name="movedFromProvinceOrCountry" [(ngModel)]=person.movedFromProvinceOrCountry>
+          </div>
+          <div class="col-md-4">
+              <label for="healthNumberFromOtherProvince" [innerHtml]="lang('./en/index.js').medicalPlanPreviousResidence"></label>
+              <input type="text" class='form-control' name="healthNumberFromOtherProvince" [(ngModel)]=person.healthNumberFromOtherProvince>
+            </div>
         </div>
 
       </div>

@@ -37,7 +37,7 @@ module.exports = {
   instituteName: "Name of Institute",
 
   moveDateToBC: "Most recent move date to B.C.",
-  moveFromProvinceOrCountry: "From (province or country)",
+  movedFromProvinceOrCountry: "From (province or country)",
   medicalPlanPreviousResidence: "Medical plan in Previous place of Residence (optional)",
 
 
