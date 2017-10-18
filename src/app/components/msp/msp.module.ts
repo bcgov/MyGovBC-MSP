@@ -87,10 +87,11 @@ import {AccountSendingComponent} from "./account/sending/sending.component";
 import {AccountConfirmationComponent} from "./account/confirmation/confirmation.component";
 import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
 import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
-import { AddRemoveDependentComponent } from './common/add-remove-dependents/add-remove-dependents.component';
+import { AddRemoveDependentComponent } from './account/add-remove-dependents/add-remove-dependents.component';
 import { ToggleComponent } from './common/toggle/toggle.component';
 import { MspDateComponent } from './common/date/date.component';
 import { StatusInCanadaRadioComponent } from './common/status-in-canada-radio/status-in-canada-radio.component';
+import { AddNewDependentBeneficiaryComponent } from './account/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
 
 
 const APP_ROUTES : Routes = [
@@ -344,6 +345,7 @@ const APP_ROUTES : Routes = [
         AccountConfirmationComponent,
         AddRemoveDependentComponent,
         StatusInCanadaRadioComponent,
+        AddNewDependentBeneficiaryComponent,
     ],
 
     providers: [

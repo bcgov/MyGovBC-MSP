@@ -84,9 +84,7 @@ class Person implements IPerson {
      */
     set declarationForOutsideOver30Days(val: boolean) {
         this._declarationForOutsideOver30Days = val;
-        console.log('person.declarationForOutsideOver30Days called with', val);
         if (val){
-            console.log('Creating outOFBC record', this);
             this.outOfBCRecord = new OutofBCRecord();
         }
         else {
