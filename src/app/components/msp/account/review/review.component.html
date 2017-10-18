@@ -13,13 +13,11 @@
             <msp-person-card [person]="mspAccountApp.applicant"
                              [editRouterLink]="'/msp/account/personal-info'"></msp-person-card>
         </div>
-        <div class="col-md-6" *ngIf="mspAccountApp.updatedSpouse != null">
-            <msp-person-card [person]="mspAccountApp.updatedSpouse"
+        <div class="col-md-6" *ngFor="let spouse of allSpouses; let i = index;">
+            <msp-person-card [person]="spouse"
                              [editRouterLink]="'/msp/account/personal-info'"></msp-person-card>
         </div>
     </div>
-
-
 
     <div class="row" *ngIf="mspAccountApp.updateChildren != null && mspAccountApp.updateChildren.length > 0">
         <div *ngFor="let child of mspAccountApp.updateChildren; let i = index;">
@@ -66,7 +64,7 @@
     </div>
     <br><br>
 
-    <div *ngFor="let spouse of spouses; let i = index;">
+    <div *ngFor="let spouse of spousesForAuthorisation; let i = index;">
         <div *ngIf="spouse">
             <div class="strong" [innerHTML]="questionSpouse(spouse)"></div>
             <div class="checkbox checkbox-success checkbox-inline">

@@ -14,7 +14,7 @@
                             [innerHTML]="lang('./en/index.js').removeSpouseButton">
                     </button>
                 </div>
-                <div *ngIf="person.relationship === 2 || person.relationship === 3 ">
+                <div *ngIf="person.relationship === 4">
                     <button type="button" class="btn btn-default btn-xs pull-right"
                             (click)="removeChild()"
                             [innerHTML]="lang('./en/index.js').removeChildButton">
