@@ -56,7 +56,6 @@ class Person implements IPerson {
      * Had episodes of leaving and returning to bc for peirod of longer than 30 days.
      */
     private _beenOutSideOver30Days: boolean;
-    declarationForOutsideOver30Days: boolean;
 
     get beenOutSideOver30Days(): boolean {
         return this.outOfBCRecord != null;
@@ -67,6 +66,34 @@ class Person implements IPerson {
         if (noRecords) return true;
         let allFilledIn = this.outOfBCRecord.isValid();
         return allFilledIn;
+    }
+
+    /**
+     * Person has declared they have episodes of returning/leaving BC for longer
+     * than 30 days.
+     */
+    private _declarationForOutsideOver30Days: boolean;
+
+    /** 
+     * Automatically handles the instantiation and destruction of the
+     * OutofBCRecord object. Previously this was handled in the controllers, but
+     * it should be in the model as it i) is an operation purely on data ii)
+     * reduces code duplication.
+     */
+    set declarationForOutsideOver30Days(val: boolean) {
+        this._declarationForOutsideOver30Days = val;
+        console.log('person.declarationForOutsideOver30Days called with', val);
+        if (val){
+            console.log('Creating outOFBC record', this);
+            this.outOfBCRecord = new OutofBCRecord();
+        }
+        else {
+            this.outOfBCRecord = null;
+        }
+    }
+
+    get declarationForOutsideOver30Days(): boolean {
+        return this._declarationForOutsideOver30Days;
     }
 
     /**
@@ -401,7 +428,7 @@ class Person implements IPerson {
             && _.isNumber(this._status) && _.isNumber(this._currentActivity) && this.documents.images.length > 0
             && !(this.studiesDepartureMonth == 0)
             && !(this.studiesFinishedMonth == 0)
-            && _.isBoolean(this.declarationForOutsideOver30Days)
+            && _.isBoolean(this._declarationForOutsideOver30Days)
             && !(this.outOfBCRecord && this.outOfBCRecord.departureMonth == 0)
             && !(this.outOfBCRecord && this.outOfBCRecord.returnMonth == 0)
             && !(this.dischargeDate && this.dischargeMonth == 0);

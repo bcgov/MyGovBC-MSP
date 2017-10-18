@@ -50,8 +50,6 @@ toggle. -->
           <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[person.relationship]"></label>
           <msp-toggle [(data)]="person.livedInBCSinceBirth"></msp-toggle>
         </div>
-
-
         <div class="row form-group" *ngIf="person.livedInBCSinceBirth === false">
           <div class="col-md-3">
               <msp-date
@@ -69,46 +67,68 @@ toggle. -->
               <input type="text" class='form-control' name="healthNumberFromOtherProvince" [(ngModel)]=person.healthNumberFromOtherProvince>
             </div>
         </div>
-
       </div>
 
       <div class='question-row' *ngIf="person.relationship === Relationship.ChildUnder19 || person.relationship === Relationship.Child19To24">
-          <label [innerHtml]="lang('./en/index.js').newlyAdopted"></label>
-          <msp-toggle [(data)]="person.newlyAdopted"></msp-toggle>
-      </div>
-
-      <div class='question-row'>
-          <label [innerHtml]="lang('./en/index.js').hasBeenOutsideBC30InYear"></label>
-          <msp-toggle [(data)]="person.declarationForOutsideOver30Days"></msp-toggle>
-      </div>
-      <div class='question-row'>
-          <label [innerHtml]="lang('./en/index.js').willBeOutsideBC30InYear"></label>
-          <msp-toggle [(data)]="person.plannedAbsence"></msp-toggle>
-      </div>
-      <div class='question-row'>
-          <label [innerHtml]="lang('./en/index.js').releasedFromArmedForcesOrInstitution"></label>
-          <msp-toggle [(data)]="showHasBeenReleasedFromArmedForces"></msp-toggle>
-      </div>
-
-      <div class='row' *ngIf="showHasBeenReleasedFromArmedForces">
-          <div class="col-md-3">
-            <msp-discharge-date
-              [year]="person.dischargeYear"
-              (yearChange)="person.dischargeYear = $event"
-              [month]="person.dischargeMonth"
-              (monthChange)="person.dischargeMonth = $event"
-              [day]="person.dischargeDay"
-              (dayChange)="person.dischargeDay = $event"
-              (onChange) = "onChange.emit($event)" 
-              [showError]="showError"
-            ></msp-discharge-date>
-          </div>
-
-          <div class="col-md-5">
-            <label [innerHtml]="lang('./en/index.js').instituteName"></label>     
-            <input type="text" class='form-control' name="nameOfInstitute" [(ngModel)]=person.nameOfInstitute>
+          <div class="row form-group">
+            <div class="col-md-12">
+              <label [innerHtml]="lang('./en/index.js').newlyAdopted"></label>
+              <msp-toggle [(data)]="person.newlyAdopted"></msp-toggle>
+            </div>
           </div>
       </div>
+
+      <div class='question-row'>
+          <div class="row form-group">
+            <div class="col-md-12">
+              <label [innerHtml]="lang('./en/index.js').hasBeenOutsideBC30InYear"></label>
+              <msp-toggle [(data)]="person.declarationForOutsideOver30Days"></msp-toggle>
+    
+              <msp-outof-bc-record *ngIf="person.declarationForOutsideOver30Days"
+                [outofBCRecord]="person.outOfBCRecord"
+                [showError]="showError">
+              </msp-outof-bc-record>
+            </div>
+          </div>
+      </div>
+      <div class='question-row'>
+          <div class="row form-group">
+            <div class="col-md-12">
+              <label [innerHtml]="lang('./en/index.js').willBeOutsideBC30InYear"></label>
+              <msp-toggle [(data)]="person.plannedAbsence"></msp-toggle>
+            </div>
+          </div>
+      </div>
+      <div class='question-row'>
+          <div class="row form-group">
+            <div class="col-md-12">
+              <label [innerHtml]="lang('./en/index.js').releasedFromArmedForcesOrInstitution"></label>
+              <msp-toggle [(data)]="showHasBeenReleasedFromArmedForces"></msp-toggle>
+            </div>
+          </div>
+
+          <div class='row' *ngIf="showHasBeenReleasedFromArmedForces">
+              <div class="col-md-3">
+                <msp-discharge-date
+                  [year]="person.dischargeYear"
+                  (yearChange)="person.dischargeYear = $event"
+                  [month]="person.dischargeMonth"
+                  (monthChange)="person.dischargeMonth = $event"
+                  [day]="person.dischargeDay"
+                  (dayChange)="person.dischargeDay = $event"
+                  (onChange) = "onChange.emit($event)" 
+                  [showError]="showError"
+                ></msp-discharge-date>
+              </div>
+
+              <div class="col-md-5">
+                <label [innerHtml]="lang('./en/index.js').instituteName"></label>     
+                <input type="text" class='form-control' name="nameOfInstitute" [(ngModel)]=person.nameOfInstitute>
+              </div>
+          </div>
+      </div>
+
+      <!-- End of question row section -->
 
     </ng-container>
     <!-- End Dependent is Citizen Section -->
