@@ -26,31 +26,28 @@
       <div class="row">
         <div class="col-md-4 form-group"
           [ngClass]="{'has-error': !formRef.controls['spousePrevLastname-'+person.id]?.valid && (prevNameRef.touched || showError)}">
-    
           
           <label for='addSpousePreviousLastName-{{person.id}}' [innerHTML]="lang('./en/index.js').previousName"></label>
           <input type="text" 
-          name="spousePrevLastname-{{person.id}}" 
-          class="form-control" 
-          id='addSpousePreviousLastName-{{person.id}}' 
-          maxlength="30"
-          [pattern]="Person.NameRegEx"
-          #prevNameRef="ngModel"
-          [(ngModel)]="person.prevLastName">
+            name="spousePrevLastname-{{person.id}}" 
+            class="form-control" 
+            id='addSpousePreviousLastName-{{person.id}}' 
+            maxlength="30"
+            [pattern]="Person.NameRegEx"
+            #prevNameRef="ngModel"
+            [(ngModel)]="person.prevLastName">
           
           <div *ngIf='prevNameRef.touched || showError' role="alert" aria-live="assertive">
-              <div class="text-danger" *ngIf="prevNameRef.errors?.pattern"
-                  [innerHtml]="lang('./en/index.js').previousNameErrorPattern"></div>
+              <div class="text-danger" *ngIf="prevNameRef.errors?.pattern"[innerHtml]="lang('./en/index.js').previousNameErrorPattern"></div>
           </div>
 
-
-          <!-- TODO - ADD VALIDATION -->
         </div>
         <div class="col-md-4">
           <msp-date
             [label]="lang('./en/index.js').marriageDate"
             [showError]='showError'
             [(date)]="person.marriageDate"
+            required=false
           ></msp-date>
         </div>
       </div>
