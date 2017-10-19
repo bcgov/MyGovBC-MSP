@@ -18,6 +18,7 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
   today = moment();
 
   @Input() showError: boolean;
+  /** Is this date component required? If false, it can be left blank and it will pass validation. */
   @Input() required: boolean = true;
 
   public year:  number;
@@ -33,6 +34,20 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
 
   constructor(private cd: ChangeDetectorRef) {
     super(cd);
+  }
+
+  ngOnInit(){
+    /**
+     * 'Required' should be a boolean, but it is possible to pass it a string
+     * which leads to a difficult to debug issue. Ideally, pass a raw boolean,
+     * but regardless this code will make sure both work.
+     * 
+     * BAD:   <msp-date required="false">
+     * GOOD:  <msp-date required=false>
+     */
+    if (typeof this.required === "string"){
+      this.required = (<any>this.required === 'true' ? true : false)
+    }
   }
 
   ngAfterViewInit(): void {
@@ -107,10 +122,21 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
       if (!this.year || !this.month || !this.day) {
         return false;
       }
+    } else {
+      //If input isn't required, section is valid only if all inputs are blank.
+      //Partially filled out sections will fail validation. (Don't want users to
+      //accidentally miss out a field)
+      if (!this.year && !this.month && !this.day){
+        return true;
+      }
     }
+
+
     if (this.year || (this.month && this.month != 0) || this.day) {
       let val = this.isCorrectFormat() && this.futureCheck();
-      if (!val) { return val; }
+      if (!val) { 
+        return val; 
+      }
     }
     //Only emit the date when it's valid and there are no form errors.
     if (!this.hasFormErrors){

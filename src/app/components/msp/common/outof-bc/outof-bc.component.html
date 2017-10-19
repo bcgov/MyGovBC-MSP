@@ -1,7 +1,7 @@
 <form #formRef='ngForm' novalidate>
   <div class="row">
     <div class="col-sm-4">
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error': !formRef.controls['reason'+objectId]?.valid && (reasonRef.touched || showError)}">
         <label for="reason{{objectId}}" [innerHtml]="lang('./en/index.js').reasonLabel"></label><br>
         <input type="text" class="form-control"
                [(ngModel)]="outofBCRecord.reason"
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="col-sm-4">
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error': !formRef.controls['location'+objectId]?.valid && (locationRef.touched || showError)}">
         <label for="location{{objectId}}" [innerHtml]="lang('./en/index.js').locationLabel"></label><br>
         <input type="text" class="form-control"
                [(ngModel)]="outofBCRecord.location"

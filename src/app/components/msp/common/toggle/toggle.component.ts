@@ -10,6 +10,9 @@ export class ToggleComponent implements OnInit {
   @Input() data: boolean;
   @Output() dataChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  @Input() id: string;
+  
+
   constructor() { }
 
   ngOnInit() {
