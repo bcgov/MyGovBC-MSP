@@ -1,5 +1,5 @@
 
-<ng-container>        
+<form #formRef='ngForm' novalidate>
     <div class="form-group" *ngIf="person.status === StatusInCanada.CitizenAdult">
       <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[person.relationship]"></label>
       <msp-toggle [(data)]="person.livedInBCSinceBirth"></msp-toggle>
@@ -73,9 +73,7 @@
         </msp-outof-bc-record>
       </div>
     </div>
-
-    <div class="row form-group" *ngIf="person.livedInBCSinceBirth === false">
-      
+    <div class="row" *ngIf="person.relationship === Relationship.Spouse">      
       <div class="col-md-12">
         <label [innerHtml]="lang('./en/index.js').releasedFromArmedForcesOrInstitution"></label>
         <msp-toggle [(data)]="showHasBeenReleasedFromArmedForces"></msp-toggle>
@@ -96,10 +94,23 @@
           ></msp-discharge-date>
         </div>
 
-        <div class="col-md-5">
+        <div class="col-md-5 form-group" [ngClass]="{'has-error': !formRef.controls['nameOfInstitute'+person.id]?.valid && (instituteNameRef.touched || showError)}">
+          
           <label [innerHtml]="lang('./en/index.js').instituteName"></label>     
-          <input type="text" class='form-control' name="nameOfInstitute" [(ngModel)]=person.nameOfInstitute>
+          <input
+            type="text"
+            class='form-control'
+            name="nameOfInstitute{{person.id}}"
+            id="nameOfInstitute{{person.id}}"
+            [(ngModel)]=person.nameOfInstitute
+            #instituteNameRef='ngModel'
+            required>
+
+          <div *ngIf='instituteNameRef.touched || showError' role="alert" aria-live="assertive">
+              <div class="text-danger" *ngIf="instituteNameRef.errors?.required"[innerHtml]="lang('./en/index.js').instituteNameRequired"></div>
+          </div>
+
         </div>
     </div>
 
-  </ng-container>
+  </form>
