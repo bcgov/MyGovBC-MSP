@@ -35,10 +35,10 @@
 			<xs:extension base="ct:BasicInfoType">
     			<xs:sequence>
     			    <xs:element name="phn" type="ct:PHNType" maxOccurs="1"/>
-        			<xs:element name="telephone" type="ct:TelephoneType" minOccurs="0"/>
-        			<xs:element name="residenceAddress" type="ct:AddressType"/>
-        			<xs:element name="mailingAddress" type="ct:AddressType" minOccurs="0"/>
-        			<xs:element name="citizenshipStatus" type="ct:BasicCitizenshipType" minOccurs="0"/>
+        			<xs:element name="telephone" type="ct:TelephoneType" minOccurs="0" maxOccurs="1"/>
+        			<xs:element name="residenceAddress" type="ct:AddressType" maxOccurs="1"/>
+        			<xs:element name="mailingAddress" type="ct:AddressType" minOccurs="0" maxOccurs="1"/>
+        			<xs:element name="citizenship" type="ct:CitizenshipType" minOccurs="0" maxOccurs="1"/>
         			<xs:element name="authorizedByApplicant" type="ct:YesOrNoType"/>
         			<xs:element name="authorizedByApplicantDate" type="xs:date"/>
     	    		<xs:element name="selectedAddressChange" type="ct:YesOrNoType" maxOccurs="1"/>
@@ -71,14 +71,19 @@
 		<xs:complexContent>
 			<xs:extension base="ct:BasicInfoType">
 				<xs:sequence>
-					<xs:element name="residency" type="et:ResidencyType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="citizenship" type="ct:CitizenshipType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="previousCoverage" type="et:PreviousCoverageType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="livedInBC" type="et:LivedInBCType" minOccurs="0" maxOccurs="1"/>					
+					<xs:element name="outsideBC" type="et:OutsideBCType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="outsideBCinFuture" type="et:OutsideBCType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="willBeAway" type="et:WillBeAwayType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="previousLastName" type="ct:SubNameType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="mailingAddress" type="ct:AddressType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="marriageDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="phn" type="ct:PHNType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="cancellationReason" type="ac:CancellationReasonType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="cancellationDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
-					<xs:element name="authorizedBySpouse" type="ct:YesOrNoType" minOccurs="0"/>    			    
+					<xs:element name="authorizedBySpouse" type="ct:YesOrNoType" minOccurs="0" maxOccurs="1"/>    			    
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -90,7 +95,12 @@
 			<xs:extension base="ct:BasicInfoType">
 				<xs:sequence>
 					<xs:element name="operationAction" type="ac:OperationActionType" maxOccurs="1"/>
-					<xs:element name="residency" type="et:ResidencyType" minOccurs="0"/>
+					<xs:element name="citizenship" type="ct:CitizenshipType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="previousCoverage" type="et:PreviousCoverageType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="livedInBC" type="et:LivedInBCType" minOccurs="0" maxOccurs="1"/>					
+					<xs:element name="outsideBC" type="et:OutsideBCType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="outsideBCinFuture" type="et:OutsideBCType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="willBeAway" type="et:WillBeAwayType"/>
 					<xs:element name="mailingAddress" type="ct:AddressType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="phn" type="ct:PHNType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="cancellationReason" type="ac:CancellationReasonType" minOccurs="0" maxOccurs="1"/>
@@ -98,6 +108,7 @@
 					<xs:element name="adoptionDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="schoolName" type="ct:SchoolNameType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="schoolAddress" type="ct:AddressType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="dateStudiesBegin" type="xs:date" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="dateStudiesFinish" type="xs:date" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="departDateSchoolOutside" type="xs:date" minOccurs="0" maxOccurs="1"/>
 				</xs:sequence>
