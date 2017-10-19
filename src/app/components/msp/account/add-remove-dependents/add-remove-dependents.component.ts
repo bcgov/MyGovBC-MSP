@@ -10,6 +10,7 @@ import { Relationship, StatusInCanada } from '../../model/status-activities-docu
 export class AddRemoveDependentComponent {
   Relationship: typeof Relationship = Relationship;
   StatusInCanada: typeof StatusInCanada = StatusInCanada;
+  Person: typeof Person = Person;
   @Input() person: Person;
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
   @Output() onChange: EventEmitter<void> = new EventEmitter<void>();

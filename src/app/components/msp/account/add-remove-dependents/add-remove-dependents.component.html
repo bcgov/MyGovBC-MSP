@@ -7,42 +7,64 @@
 <label #firstFocus for="isExistingBeneficiary-{{person.id}}" [innerHtml]="lang('./en/index.js').isExistingBeneficiaryQuestion[person.relationship]"></label>
 <msp-toggle [id]="'isExistingBeneficiary-'+ person.id" [(data)]="person.isExistingBeneficiary"></msp-toggle>
 
-<msp-status-in-canada-radio 
-  *ngIf="person.isExistingBeneficiary===false" 
-  [person]='person'>
-</msp-status-in-canada-radio>  
-
-
-<!-- Show this form to existing beneficiary's immediately, and only show it to
-new beneficiaries once they have set their status. -->
-<ng-container *ngIf="person.isExistingBeneficiary || (person.status || person.status === 0)">
+<form #formRef='ngForm' novalidate>
   
-  <msp-account-personal-details [person]='person' [id]='person.id' (onChange)="change($event)" embedded=true></msp-account-personal-details>
+  <msp-status-in-canada-radio 
+    *ngIf="person.isExistingBeneficiary===false" 
+    [person]='person'>
+  </msp-status-in-canada-radio>  
 
-  <!-- Spouse-only Section, marriage date etc. -->
-  <ng-container *ngIf="person.relationship === Relationship.Spouse">
-    <div class="row">
-      <div class="col-md-4">
-        <label for='addSpousePreviousLastName' [innerHTML]="lang('./en/index.js').previousName"></label>
-        <input type="text" name="spousePrevLastname" class="form-control" id='addSpousePreviousLastName' [(ngModel)]="person.prevLastName">
+
+  <!-- Show this form to existing beneficiary's immediately, and only show it to
+  new beneficiaries once they have set their status. -->
+  <ng-container *ngIf="person.isExistingBeneficiary || (person.status || person.status === 0)">
+    
+    <msp-account-personal-details [person]='person' [id]='person.id' (onChange)="change($event)" embedded=true></msp-account-personal-details>
+
+    <!-- Spouse-only Section, marriage date etc. -->
+    <ng-container *ngIf="person.relationship === Relationship.Spouse">
+      <div class="row">
+        <div class="col-md-4 form-group"
+          [ngClass]="{'has-error': !formRef.controls['spousePrevLastname-'+person.id]?.valid && (prevNameRef.touched || showError)}">
+    
+          
+          <label for='addSpousePreviousLastName-{{person.id}}' [innerHTML]="lang('./en/index.js').previousName"></label>
+          <input type="text" 
+          name="spousePrevLastname-{{person.id}}" 
+          class="form-control" 
+          id='addSpousePreviousLastName-{{person.id}}' 
+          maxlength="30"
+          [pattern]="Person.NameRegEx"
+          #prevNameRef="ngModel"
+          [(ngModel)]="person.prevLastName">
+          
+          <div *ngIf='prevNameRef.touched || showError' role="alert" aria-live="assertive">
+              <div class="text-danger" *ngIf="prevNameRef.errors?.pattern"
+                  [innerHtml]="lang('./en/index.js').previousNameErrorPattern"></div>
+          </div>
+
+
+          <!-- TODO - ADD VALIDATION -->
+        </div>
+        <div class="col-md-4">
+          <msp-date
+            [label]="lang('./en/index.js').marriageDate"
+            [showError]='showError'
+            [(date)]="person.marriageDate"
+          ></msp-date>
+        </div>
       </div>
-      <div class="col-md-4">
-        <msp-date
-          [label]="lang('./en/index.js').marriageDate"
-          [showError]='showError'
-          [(date)]="person.marriageDate"
-        ></msp-date>
-      </div>
-    </div>
-  </ng-container> 
-  <!-- End Spouse-only Section -->
+    </ng-container> 
+    <!-- End Spouse-only Section -->
 
-  <!-- Contains all questions if the user is a new beneficiary. -->
-  <msp-add-new-dependent-beneficiary
-    *ngIf="(person.status || person.status === 0)"
-    [person]="person"
-  ></msp-add-new-dependent-beneficiary>
+    <!-- Contains all questions if the user is a new beneficiary. -->
+    <msp-add-new-dependent-beneficiary
+      *ngIf="(person.status || person.status === 0)"
+      [person]="person"
+    ></msp-add-new-dependent-beneficiary>
 
-</ng-container> <!-- end dependent form container -->
+  </ng-container> <!-- end dependent form container -->
+
+</form>
 
 <hr class='strong-hr'>

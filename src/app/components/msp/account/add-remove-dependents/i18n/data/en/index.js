@@ -24,5 +24,6 @@ module.exports = {
 
   //Spouse only? Maybe remove the array format?
   previousName: 'Spouse\'s Previous Last Name (if applicable)',
-  marriageDate: 'Marriage Date (if applicable)'
+  previousNameErrorPattern: 'Must begin with a letter followed by a letters, hyphen, period, apostrophe, or blank character',
+  marriageDate: 'Marriage Date (if applicable)',
 }
