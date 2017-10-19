@@ -20,6 +20,7 @@ interface _AccountChangeAccountHolderType extends ct._BasicInfoType {
     citizenship?: ct.CitizenshipType;
     authorizedByApplicant: ct.YesOrNoType;
     authorizedByApplicantDate: string;
+    authorizedBySpouse?: ct.YesOrNoType;
 	selectedAddressChange: ct.YesOrNoType;
 	selectedPersonalInfoChange: ct.YesOrNoType;
 	selectedAddRemove: ct.YesOrNoType;
@@ -33,7 +34,7 @@ export class AccountChangeAccountHolderFactory {
 	static make(): AccountChangeAccountHolderType {
 		let instance = <AccountChangeAccountHolderType>{};
         instance._sequence = ["name", "gender", "birthDate", "attachmentUuids", "phn", "telephone", "residenceAddress", "mailingAddress", "citizenship", "authorizedByApplicant",
-            "authorizedByApplicantDate", "selectedAddressChange", "selectedPersonalInfoChange", "selectedAddRemove", "selectedStatusChange", "phn"]
+            "authorizedByApplicantDate", "authorizedBySpouse", "selectedAddressChange", "selectedPersonalInfoChange", "selectedAddRemove", "selectedStatusChange", "phn"]
 		return instance;
 	}
 }
@@ -88,7 +89,6 @@ interface _AccountChangeSpouseType extends ct._BasicInfoType {
     phn?: ct.PHNType;
     cancellationReason?: CancellationReasonType;
     cancellationDate?: string;
-    authorizedBySpouse?: ct.YesOrNoType;
 }
 export interface AccountChangeSpouseType extends _AccountChangeSpouseType { constructor: { new(): AccountChangeSpouseType }; }
 
@@ -99,7 +99,7 @@ export class AccountChangeSpouseTypeFactory {
         let instance = <AccountChangeSpouseType>{};
         instance._sequence = ["name", "gender", "birthDate", "attachmentUuids",
 			"citizenship", "previousCoverage", "livedInBC", "outsideBC", "outsideBCinFuture", "willBeAway",
-			"previousLastName", "mailingAddress", "marriageDate", "phn", "cancellationReason", "cancellationDate", "authorizedBySpouse"]
+			"previousLastName", "mailingAddress", "marriageDate", "phn", "cancellationReason", "cancellationDate"]
         return instance;
     }
 }
