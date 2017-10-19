@@ -15,16 +15,15 @@ interface BaseType {
 interface _AccountChangeAccountHolderType extends ct._BasicInfoType {
     phn: ct.PHNType;
     telephone: number;
-    mailingAddress?: ct.AddressType;
     residenceAddress: ct.AddressType;
-    citizenshipStatus?: ct.BasicCitizenshipType;
+    mailingAddress?: ct.AddressType;
+    citizenship?: ct.CitizenshipType;
     authorizedByApplicant: ct.YesOrNoType;
     authorizedByApplicantDate: string;
 	selectedAddressChange: ct.YesOrNoType;
 	selectedPersonalInfoChange: ct.YesOrNoType;
 	selectedAddRemove: ct.YesOrNoType;
 	selectedStatusChange: ct.YesOrNoType;
-
 }
 export interface AccountChangeAccountHolderType extends _AccountChangeAccountHolderType { constructor: { new(): AccountChangeAccountHolderType }; }
 
@@ -33,7 +32,7 @@ export var AccountChangeAccountHolderType: { new(): AccountChangeAccountHolderTy
 export class AccountChangeAccountHolderFactory {
 	static make(): AccountChangeAccountHolderType {
 		let instance = <AccountChangeAccountHolderType>{};
-        instance._sequence = ["name", "gender", "birthDate", "attachmentUuids", "phn", "telephone", "residenceAddress", "mailingAddress", "citizenshipStatus", "authorizedByApplicant",
+        instance._sequence = ["name", "gender", "birthDate", "attachmentUuids", "phn", "telephone", "residenceAddress", "mailingAddress", "citizenship", "authorizedByApplicant",
             "authorizedByApplicantDate", "selectedAddressChange", "selectedPersonalInfoChange", "selectedAddRemove", "selectedStatusChange", "phn"]
 		return instance;
 	}
@@ -77,7 +76,12 @@ export class AccountChangeSpousesTypeFactory {
 
 // Spouse
 interface _AccountChangeSpouseType extends ct._BasicInfoType {
-    residency?: et.ResidencyType;
+	citizenship?: ct.CitizenshipType;
+	previousCoverage?: et.PreviousCoverageType;
+	livedInBC?: et.LivedInBCType;
+	outsideBC?: et.OutsideBCType;
+	outsideBCinFuture?: et.OutsideBCType;
+	willBeAway?: et.WillBeAwayType;
     previousLastName?: ct.SubNameType;
     mailingAddress?: ct.AddressType;
     marriageDate?: string;
@@ -93,8 +97,9 @@ export var AccountChangeSpouseType: { new(): AccountChangeSpouseType };
 export class AccountChangeSpouseTypeFactory {
     static make(): AccountChangeSpouseType {
         let instance = <AccountChangeSpouseType>{};
-        instance._sequence = ["name", "gender", "birthDate", "attachmentUuids", "residency",
-		   "previousLastName", "mailingAddress", "marriageDate", "phn", "cancellationReason", "cancellationDate", "authorizedBySpouse"]
+        instance._sequence = ["name", "gender", "birthDate", "attachmentUuids",
+			"citizenship", "previousCoverage", "livedInBC", "outsideBC", "outsideBCinFuture", "willBeAway",
+			"previousLastName", "mailingAddress", "marriageDate", "phn", "cancellationReason", "cancellationDate", "authorizedBySpouse"]
         return instance;
     }
 }
@@ -122,14 +127,20 @@ export class AccountChangeChildrenFactory {
 // child
 interface _AccountChangeChildType extends ct._BasicInfoType {
 	operationAction: OperationActionType;
-    residency?: et.ResidencyType;
+    citizenship?: ct.CitizenshipType;
+    previousCoverage?: et.PreviousCoverageType;
+    livedInBC?: et.LivedInBCType;
+    outsideBC?: et.OutsideBCType;
+    outsideBCinFuture?: et.OutsideBCType;
+    willBeAway?: et.WillBeAwayType;
     mailingAddress?: ct.AddressType;
     phn?: ct.PHNType;
     cancellationReason?: CancellationReasonType;
     cancellationDate?: string;
     adoptionDate?: string;
     schoolName?: ct.SchoolNameType;
-    schoolAddress?: ct.SchoolAddressType;
+    schoolAddress?: ct.AddressType;
+    dateStudiesBegin?: string;
     dateStudiesFinish?: string;
     departDateSchoolOutside?: string;
 }
@@ -140,9 +151,10 @@ export var AccountChangeChildType: { new(): AccountChangeChildType };
 export class AccountChangeChildTypeFactory {
     static make(): AccountChangeChildType {
         let instance = <AccountChangeChildType>{};
-        instance._sequence = ["name", "gender", "birthDate", "attachmentUuids", "operationAction", "residency",
+        instance._sequence = ["name", "gender", "birthDate", "attachmentUuids", "operationAction",
+            "citizenship", "previousCoverage", "livedInBC", "outsideBC", "outsideBCinFuture", "willBeAway",
             "mailingAddress", "phn", "cancellationReason", "cancellationDate", "adoptionDate", "schoolName", "schoolAddress",
-		    "dateStudiesFinish", "departDateSchoolOutside"]
+            "dateStudiesBegin", "dateStudiesFinish", "departDateSchoolOutside"]
         return instance;
     }
 }
@@ -193,22 +205,6 @@ export class OutsideBCTypeFactory {
 	}
 }
 
-// person
-interface _PersonType extends ct._BasicInfoType {
-	residency: ResidencyType;
-}
-export interface PersonType extends _PersonType { constructor: { new(): PersonType }; }
-
-export var PersonType: { new(): PersonType };
-
-export class PersonTypeFactory {
-	static make(): PersonType {
-		let instance = <PersonType>{};
-		instance._sequence = ["name", "gender", "birthDate", "attachmentUuids", "residency"];
-		return instance;
-	}
-}
-
 // previousCoverage
 interface _PreviousCoverageType extends BaseType {
 	hasPreviousCoverage: ct.YesOrNoType;
@@ -222,26 +218,6 @@ export class PreviousCoverageTypeFactory {
 	static make(): PreviousCoverageType {
 		let instance = <PreviousCoverageType>{};
 		instance._sequence = ["hasPreviousCoverage", "prevPHN"];
-		return instance;
-	}
-}
-
-// residency
-interface _ResidencyType extends BaseType {
-	citizenshipStatus: ct.BasicCitizenshipType;
-	livedInBC: LivedInBCType;
-	outsideBC: OutsideBCType;
-	previousCoverage: PreviousCoverageType;
-	willBeAway: WillBeAwayType;
-}
-export interface ResidencyType extends _ResidencyType { constructor: { new(): ResidencyType }; }
-
-export var ResidencyType: { new(): ResidencyType };
-
-export class ResidencyTypeFactory {
-	static make(): ResidencyType {
-		let instance = <ResidencyType>{};
-		instance._sequence = ["citizenshipStatus", "previousCoverage", "livedInBC", "outsideBC", "willBeAway"];
 		return instance;
 	}
 }
@@ -278,3 +254,6 @@ export class DocumentTypeFactory {
 		return instance;
 	}
 }
+
+export type CitizenshipType = ("CanadianCitizen" | "PermanentResident" | "WorkPermit" | "StudyPermit" | "Diplomat" | "ReligiousWorker" | "VisitorPermit");
+interface _CitizenshipType extends Primitive._string { content: CitizenshipType; }
