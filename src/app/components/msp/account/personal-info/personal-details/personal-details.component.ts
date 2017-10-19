@@ -93,6 +93,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @ViewChild('name') name: MspNameComponent;
     @ViewChild('phn') phn: MspPhnComponent;
     @ViewChild('phone') phone: MspPhoneComponent;
+    @ViewChild('address') address: MspAddressComponent;
 
     @Input() person: Person;
     @Input() id: string;
