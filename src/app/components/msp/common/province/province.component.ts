@@ -15,9 +15,18 @@ export class MspProvinceComponent extends BaseComponent implements OnInit {
   @Input() showError: boolean;
   @Input() colSize: string = "col-sm-5";
   @Input() province: string;
-  @Input() provinceOnly: boolean;
+  /**
+   * Include states from USA in the list.
+   */
+  @Input() hideStates: boolean;
   @Input() provinceLabel: string = this.lang('./en/index.js').provinceLabel;
   @Output() onChange = new EventEmitter<any>();
+  /**
+   * Include countries on the list.  Essentially combines MspCountryComponent
+   * with MspProvinceComponent, for the cases where both data is required on one
+   * input.
+   */
+  @Input() showCountries: boolean = false;
 
   @ViewChild('formRef') form: NgForm;
   @ViewChild('provinceInput') inputField: FormControl;
@@ -44,6 +53,8 @@ export class MspProvinceComponent extends BaseComponent implements OnInit {
   public dataService: CompleterData;
   private provinceData = this.lang('./en/index.js').provinceData;
   private stateData = this.lang('./en/index.js').stateData;
+  private countryData = this.lang('./en/index.js').countryData;
+
   private get provinceStateData() {
     return Array().concat(this.provinceData, this.stateData);
   }
@@ -54,11 +65,16 @@ export class MspProvinceComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.provinceOnly === true) {
-      this.dataService = this.completerService.local(this.provinceData, 'name', 'name');
+    let data = this.provinceData;
+    if (this.hideStates === false) {
+      data = Array().concat(data, this.stateData);
     }
-    else {
-      this.dataService = this.completerService.local(this.provinceStateData, 'name', 'name');
+    if (this.showCountries){
+      data = Array().concat(data, this.countryData);
     }
+
+    this.dataService = this.completerService.local(data, 'name', 'name');
   }
+  
+  
 }

@@ -10,12 +10,20 @@
             <msp-date
             [label]="lang('./en/index.js').moveDateToBC"
             [showError]='showError'
-            [(date)]="person.arrivalToBCSimple">
+            [(date)]="person.arrivalToBCSimple"
+            required=false>
           </msp-date>
         </div>
         <div class="col-md-4">
-          <label for="movedFromProvinceOrCountry" [innerHtml]="lang('./en/index.js').movedFromProvinceOrCountry"></label>
-          <input type="text" class='form-control' name="movedFromProvinceOrCountry" [(ngModel)]=person.movedFromProvinceOrCountry>
+          <msp-province [provinceLabel]="lang('./en/index.js').movedFromProvinceOrCountry"
+            [province]="person.movedFromProvinceOrCountry"
+            (onChange)="person.movedFromProvinceOrCountry = $event"
+            hideStates=true
+            exceptBC=true 
+            [showError]="showError"
+            showCountries=true
+            colSize="col-sm-4">
+          </msp-province>
         </div>
         <div class="col-md-4">
             <label for="healthNumberFromOtherProvince" [innerHtml]="lang('./en/index.js').medicalPlanPreviousResidence"></label>
