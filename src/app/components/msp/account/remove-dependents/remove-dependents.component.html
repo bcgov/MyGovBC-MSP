@@ -1,0 +1,59 @@
+<button type="button" class="btn btn-default btn-xs pull-right" (click)="cancelDependentRemoval()" [innerHTML]="lang('./en/index.js').clearButton[person.relationship]">
+</button>
+
+<h2 #firstFocus tabindex="0" [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]"></h2>
+<p [innerHTML]="lang('./en/index.js').sectionBody[person.relationship]"></p>
+
+
+<form #formRef='ngForm' novalidate>
+
+
+  <ng-container>
+
+    <msp-account-personal-details [person]='person' [id]='person.id' (onChange)="change($event)" embedded=true></msp-account-personal-details>
+
+
+    <div class="row">
+      <div class="col-sm-4 form-group">
+        <label for="reason-{{person.id}}" [innerHtml]="lang('./en/index.js').reason"></label>
+        <select class='form-control' name="reason-{{person.id}}" id="reason-{{person.id}}" 
+          [ngModel]="reasonForCancellation"
+          (ngModelChange)="onChangeReasonForCancellation($event)">
+            <option value=null [innerHtml]="lang('./en/index.js').pleaseSelect"></option>
+            <option *ngFor="let item of cancellationReasonsIterable" value="{{item.prop}}" [innerHtml]="lang('./en/index.js').cancellationReasons[item.index]"></option>
+        </select>
+      </div>
+
+      <div class="col-sm-4 form-group"
+      [ngClass]="{'has-error': !formRef.controls['reasonDetailed-'+person.id]?.valid && (reasonDetailedRef.touched || showError)}"
+      *ngIf="showOtherCancellationReason">
+          <label for='reasonDetailed-{{person.id}}' [innerHTML]="lang('./en/index.js').reasonDetailed"></label>
+          <input type="text" 
+            name="reasonDetailed-{{person.id}}" 
+            class="form-control" 
+            id='reasonDetailed-{{person.id}}' 
+            maxlength="30"
+            #reasonDetailedRef="ngModel"
+            required
+            [(ngModel)]="person.reasonForCancellation">
+
+                      
+            <div *ngIf='reasonDetailedRef.touched || showError' role="alert" aria-live="assertive">
+                <div class="text-danger" *ngIf="reasonDetailedRef.errors?.required"[innerHtml]="lang('./en/index.js').reasonDetailedRequired"></div>
+            </div>
+      </div>
+
+      <div class="col-sm-4 form-group">
+        <msp-date
+          [label]="lang('./en/index.js').cancellationDate"
+          [showError]='showError'
+          [(date)]="person.cancellationDate"
+        ></msp-date>
+      </div>
+    </div>
+
+  </ng-container>
+
+</form>
+
+<hr class='strong-hr'>

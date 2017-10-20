@@ -10,11 +10,18 @@
     </msp-account-personal-details>
 
     <!-- Dependents. Appears only if user clicks button from panel below. -->
-    <msp-add-remove-dependent *ngFor="let dependent of changedDependents"
+    <msp-add-dependent *ngFor="let dependent of addedPersons"
         [person]="dependent"
         (onCancel)="clearDependent(dependent)"
         (onChange)="onChange()">
-    </msp-add-remove-dependent> 
+    </msp-add-dependent> 
+
+    <!-- For consistency's sake, removed persons will always be below added persons. -->
+    <msp-remove-dependent *ngFor="let dependent of removedPersons"
+        [person]="dependent"
+        (onCancel)="clearDependent(dependent)"
+        (onChange)="onChange()">
+    </msp-remove-dependent> 
 
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -38,11 +45,13 @@
                 <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
             </button>
             <hr> <!-- new row -->
-            <button class="btn btn-default">
+            <button class="btn btn-default"
+                (click)="removeSpouse()">
                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').removeSpouseButton"></span>
             </button>
-            <button class="btn btn-default">
+            <button class="btn btn-default"
+                (click)="removeChild()">
                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').removeDependentButton"></span>
             </button>

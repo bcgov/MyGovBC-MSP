@@ -3,11 +3,11 @@ import { Person } from '../../model/person.model';
 import { Relationship, StatusInCanada } from '../../model/status-activities-documents';
 
 @Component({
-  selector: 'msp-add-remove-dependent',
-  templateUrl: './add-remove-dependents.component.html',
-  styleUrls: ['./add-remove-dependents.component.less']
+  selector: 'msp-add-dependent',
+  templateUrl: './add-dependents.component.html',
+  styleUrls: ['./add-dependents.component.less']
 })
-export class AddRemoveDependentComponent {
+export class AddDependentComponent {
   Relationship: typeof Relationship = Relationship;
   StatusInCanada: typeof StatusInCanada = StatusInCanada;
   Person: typeof Person = Person;

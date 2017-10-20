@@ -46,8 +46,8 @@ describe("AccountDependentChangeComponent", () => {
         expect(comp).toBeTruthy();
     });
 
-    it("changedDependents defaults to: []", () => {
-        expect(comp.changedDependents).toEqual([]);
+    it("addedPersons defaults to: []", () => {
+        expect(comp.addedPersons).toEqual([]);
     });
 
     describe("onChange", () => {

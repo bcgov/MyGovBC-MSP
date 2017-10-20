@@ -49,7 +49,6 @@ class MspAccountApp implements ApplicationBase {
 
     set children(value: Array<Person>) {
         this._children = value;
-        console.log("ARC account setChild length",this._children.length);
     }
 
     private _addedSpouse: Person;
