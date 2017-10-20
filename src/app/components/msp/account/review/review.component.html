@@ -64,17 +64,15 @@
     </div>
     <br><br>
 
-    <div *ngFor="let spouse of spousesForAuthorisation; let i = index;">
-        <div *ngIf="spouse">
-            <div class="strong" [innerHTML]="questionSpouse(spouse)"></div>
+     <div *ngIf="spouseForAuthorisation">
+            <div class="strong" [innerHTML]="questionSpouse()"></div>
             <div class="checkbox checkbox-success checkbox-inline">
                 <input class="input-lg" id="secondPersonAuthorize-{{i}}" type="checkbox" name="secondPersonAuthorize"
-                       [ngModel]="spouse.authorizedBySpouse"
-                       (ngModelChange)="spouseUpdateAuthorizeOnChange(spouse,$event)">
+                       [ngModel]="mspAccountApp.authorizedBySpouse"
+                       (ngModelChange)="spouseUpdateAuthorizeOnChange($event)">
                 <label for="secondPersonAuthorize-{{i}}" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
             </div>
-        </div>
-    </div>
+     </div>
 
 
 
@@ -93,8 +91,7 @@
     </div>
     <hr>
     <button [mspLogger]="'msp-accountmanagement_review_continue'"
-            [disabled]="!mspAccountApp.authorizedByApplicant || (mspAccountApp.updatedSpouse && !mspAccountApp.updatedSpouse.authorizedBySpouse)
-            || (mspAccountApp.addedSpouse && !mspAccountApp.addedSpouse.authorizedBySpouse)
+            [disabled]="!mspAccountApp.authorizedByApplicant || ((mspAccountApp.updatedSpouse || mspAccountApp.addedSpouse ) && !mspAccountApp.authorizedBySpouse)
             || !mspAccountApp.hasValidAuthToken"
             class="btn btn-primary" type="submit"
             [innerHtml]="lang('./en/index.js').submitButton"></button>

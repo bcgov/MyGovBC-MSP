@@ -28,8 +28,13 @@ export class AccountReviewComponent implements OnInit {
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
     }
 
+   // unused.. logic changed
     get spousesForAuthorisation(): Person[] {
         return [this.mspAccountApp.addedSpouse, this.mspAccountApp.updatedSpouse].filter(spouse => !!spouse);
+    }
+
+    get spouseForAuthorisation(): Person {
+        return this.mspAccountApp.addedSpouse ||  this.mspAccountApp.updatedSpouse || undefined;
     }
 
     get allSpouses(): Person[] {
@@ -56,7 +61,6 @@ export class AccountReviewComponent implements OnInit {
 
     applicantAuthorizeOnChange(event: boolean) {
         this.mspAccountApp.authorizedByApplicant = event;
-
         if (this.mspAccountApp.authorizedByApplicant) {
             this.mspAccountApp.authorizedByApplicantDate = new Date();
         }
@@ -65,17 +69,17 @@ export class AccountReviewComponent implements OnInit {
 
 
 
-    spouseUpdateAuthorizeOnChange(spouse: Person, event: boolean) {
-        spouse.authorizedBySpouse = event;
+    spouseUpdateAuthorizeOnChange(event: boolean) {
+        this.mspAccountApp.authorizedBySpouse = event;
         this.dataService.saveMspAccountApp();
     }
 
-    questionSpouse(spouse: Person) {
-        return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.spouseName(spouse));
+    questionSpouse() {
+        return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.spouseName());
     }
 
-    spouseName(spouse: Person) {
-        return spouse.firstName + ' ' + spouse.lastName;
+    spouseName() {
+        return this.spouseForAuthorisation.firstName + ' ' + this.spouseForAuthorisation.lastName;
     }
 
     handleFormSubmission(evt: any) {

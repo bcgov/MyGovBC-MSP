@@ -23,6 +23,7 @@ class MspAccountApp implements ApplicationBase {
 
     authorizedByApplicant: boolean;
     authorizedByApplicantDate: Date;
+    authorizedBySpouse: boolean;
 
     /**
      * validator for phone number

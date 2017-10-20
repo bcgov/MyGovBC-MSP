@@ -404,6 +404,10 @@ export class MspApiService {
                 .format(this.ISO8601DateFormat);
         }
 
+        if (from.authorizedBySpouse != null) {
+            to.application.accountChangeApplication.accountHolder.authorizedBySpouse = from.authorizedBySpouse ? "Y" : "N";
+        }
+
         if (!from.applicant.mailingSameAsResidentialAddress) {
             to.application.accountChangeApplication.accountHolder.mailingAddress = this.convertAddress(from.applicant.mailingAddress);
         }
@@ -423,16 +427,14 @@ export class MspApiService {
 
         if (from.updatedSpouse) {
             to.application.accountChangeApplication.spouses.updatedSpouse = this.convertSpouseFromAccountChange(from.updatedSpouse);
-            to.application.accountChangeApplication.spouses.updatedSpouse.authorizedBySpouse = from.updatedSpouse.authorizedBySpouse ? "Y" : "N";;
+
         }
         if (from.removedSpouse) {
             to.application.accountChangeApplication.spouses.removedSpouse = this.convertSpouseFromAccountChange(from.removedSpouse);
         }
         if (from.addedSpouse) {
             to.application.accountChangeApplication.spouses.addedSpouse = this.convertSpouseFromAccountChange(from.addedSpouse);
-
-            to.application.accountChangeApplication.spouses.addedSpouse.authorizedBySpouse = from.addedSpouse.authorizedBySpouse ? "Y" : "N";;
-        }
+       }
 
         // Convert children and dependants
         if (from.children &&
@@ -747,7 +749,7 @@ export class MspApiService {
 
         //TODO //FIXME once data model is implemented , verify this..Also might need another convertResidency for DEAM
         if (from.status) {
-            to.residency = this.convertResidency(from);
+        //    to.residency = this.convertResidency(from);
         }
 
       //FIXME//TODO ADD Adoption details ..more fields to come..
@@ -774,7 +776,7 @@ export class MspApiService {
 
         //TODO //FIXME once data model is implemented , verify this..Also might need another convertResidency for DEAM
         if (from.status) {
-            to.residency = this.convertResidency(from);
+        //    to.residency = this.convertResidency(from);
         }
 
         //FIXME//TODO MArriage Date..Reasaon for cancellation ..more fields to come..

@@ -36,8 +36,6 @@ class Person implements IPerson {
     /** NEEDS XSD. Departure information for the question regarding if the person will be out of BC for more than 30 days in the next 6 months. */
     planOnBeingOutOfBCRecord: OutofBCRecord;
     private _operationActionType: OperationActionType;
-    // Each spouse has authorisation..Field applies only for spouse
-    authorizedBySpouse: boolean;
 
     /** NEEDS XSD. For child only. */
     public newlyAdopted: boolean;
