@@ -5,7 +5,7 @@ import {
     AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, AddressTypeFactory
 } from "../api-model/commonTypes";
 import {Address} from "../model/address.model";
-import {Person} from "../model/person.model";
+import {Person,OperationActionType as OperationActionTypeEnum} from "../model/person.model";
 import {
     ResidencyType,
     EnrolmentApplicationType,
@@ -47,7 +47,7 @@ import {
 
 import {
     AccountChangeApplicationTypeFactory, AccountChangeAccountHolderType, AccountChangeAccountHolderFactory,
-    AccountChangeSpousesTypeFactory, AccountChangeSpouseTypeFactory, AccountChangeSpouseType,
+    AccountChangeSpousesTypeFactory, AccountChangeSpouseTypeFactory, AccountChangeSpouseType,OperationActionType,
     AccountChangeChildrenFactory, AccountChangeChildType, AccountChangeChildTypeFactory
 } from "../api-model/accountChangeTypes";
 
@@ -422,6 +422,12 @@ export class MspApiService {
             to.application.accountChangeApplication.accountHolder.phn = Number(from.applicant.previous_phn.replace(new RegExp("[^0-9]", "g"), ""));
         }
 
+        if (from.applicant.status != null  ) {
+            to.application.accountChangeApplication.accountHolder.citizenship = this.findCitizenShip(from.applicant.status,from.applicant.currentActivity);
+
+        }
+
+
         to.application.accountChangeApplication.spouses = AccountChangeSpousesTypeFactory.make();
 
 
@@ -437,8 +443,7 @@ export class MspApiService {
        }
 
         // Convert children and dependants
-        if (from.children &&
-            from.children.length > 0) {
+        if (from.children && from.children.length > 0) {
             to.application.accountChangeApplication.children = AccountChangeChildrenFactory.make();
             to.application.accountChangeApplication.children.child = new Array<AccountChangeChildType>();
             for (let child of  from.children) {
@@ -735,6 +740,8 @@ export class MspApiService {
     private convertChildFromAccountChange(from: Person): AccountChangeChildType {
         let to = AccountChangeChildTypeFactory.make();
 
+        to.operationAction = <OperationActionType> OperationActionTypeEnum[from.operationActionType] ;
+
         to.name = this.convertName(from);
         if (from.hasDob) {
             to.birthDate = from.dob.format(this.ISO8601DateFormat);
@@ -748,8 +755,9 @@ export class MspApiService {
         }
 
         //TODO //FIXME once data model is implemented , verify this..Also might need another convertResidency for DEAM
-        if (from.status) {
-        //    to.residency = this.convertResidency(from);
+        if (from.status != null  ) {
+            to.citizenship = this.findCitizenShip(from.status,from.currentActivity);
+
         }
 
       //FIXME//TODO ADD Adoption details ..more fields to come..
@@ -758,6 +766,37 @@ export class MspApiService {
         return to;
     }
 
+    findCitizenShip(statusInCanada:StatusInCanada , currentActivity:Activities) :CitizenshipType {
+        let citizen:CitizenshipType ;
+        switch (statusInCanada) {
+            case StatusInCanada.CitizenAdult:
+                citizen = "CanadianCitizen";
+                break;
+            case StatusInCanada.PermanentResident:
+                citizen= "PermanentResident";
+                break;
+            case StatusInCanada.TemporaryResident:
+                switch (currentActivity) {
+                    case Activities.WorkingInBC:
+                        citizen = "WorkPermit";
+                        break;
+                    case Activities.StudyingInBC:
+                        citizen = "StudyPermit";
+                        break;
+                    case Activities.Diplomat:
+                        citizen = "Diplomat";
+                        break;
+                    case Activities.ReligiousWorker:
+                        citizen = "ReligiousWorker";
+                        break;
+                    case Activities.Visiting:
+                    default:
+                        citizen = "VisitorPermit";
+                        break;
+                }
+        }
+        return citizen;
+    }
     private convertSpouseFromAccountChange(from: Person): AccountChangeSpouseType {
         let to = AccountChangeSpouseTypeFactory.make();
         to.name = this.convertName(from);
