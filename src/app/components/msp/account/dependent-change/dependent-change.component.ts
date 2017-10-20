@@ -63,6 +63,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
   addChild(relationship: Relationship){
     const child = new Person(relationship);
     this.changedDependents.push(child);
+    this.children.push(child);
   }
   
   /** Remove a dependent that the user had added to the form, e.g. by mistake. Spouse or children. */
@@ -73,6 +74,9 @@ export class AccountDependentChangeComponent extends BaseComponent {
     if (dependent.relationship === Relationship.Spouse){
       this.spouse = null;
     }
+
+    this.children = this.children
+    .filter(x => x !== dependent);
   }
   
   get spouse(): Person {
@@ -86,6 +90,12 @@ export class AccountDependentChangeComponent extends BaseComponent {
   get children(): Person[] {
     return this.dataService.getMspAccountApp().children;
   }
+
+  set children(val: Person[]) {
+    this.dataService.getMspAccountApp().children = val;
+  }
+
+
 
 
   // TODO!

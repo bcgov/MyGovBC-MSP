@@ -49,6 +49,7 @@ class MspAccountApp implements ApplicationBase {
 
     set children(value: Array<Person>) {
         this._children = value;
+        console.log("ARC account setChild length",this._children.length);
     }
 
     private _addedSpouse: Person;
@@ -100,7 +101,9 @@ class MspAccountApp implements ApplicationBase {
 
     set removedSpouse(value: Person) {
         this._removedSpouse = value;
-        this._removedSpouse.operationActionType = OperationActionType.Remove;
+        if (value){
+            this._removedSpouse.operationActionType = OperationActionType.Remove;
+        }
     }
 
     get addedSpouse(): Person {
@@ -109,7 +112,9 @@ class MspAccountApp implements ApplicationBase {
 
     set addedSpouse(value: Person) {
         this._addedSpouse = value;
-        this._addedSpouse.operationActionType = OperationActionType.Add;
+        if (value){
+            this._addedSpouse.operationActionType = OperationActionType.Add;
+        }
     }
 
     get updatedSpouse(): Person {
@@ -118,7 +123,9 @@ class MspAccountApp implements ApplicationBase {
 
     set updatedSpouse(value: Person) {
         this._updatedSpouse = value;
-        this._updatedSpouse.operationActionType = OperationActionType.Update;
+        if (value){ 
+            this._updatedSpouse.operationActionType = OperationActionType.Update;
+        }
     }
 
     set applicant(apt: Person) {

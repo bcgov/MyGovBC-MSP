@@ -9,6 +9,9 @@ import { LocalStorageModule } from "angular-2-local-storage";
 import { Relationship } from "../../model/status-activities-documents";
 import { AccountDependentChangeComponent } from "./dependent-change.component";
 
+
+
+
 import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
 import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
 
@@ -20,7 +23,6 @@ describe("AccountDependentChangeComponent", () => {
         const changeDetectorRefStub = {};
         const routerStub = {};
         const processServiceStub = {};
-        const relationshipStub = {};
         TestBed.configureTestingModule({
             declarations: [ AccountDependentChangeComponent, CaptchaComponent ],
             schemas: [ NO_ERRORS_SCHEMA ],
@@ -29,15 +31,12 @@ describe("AccountDependentChangeComponent", () => {
                 MspDataService,
                 { provide: Router, useValue: routerStub },
                 { provide: ProcessService, useValue: processServiceStub },
-                // LocalStorageService,
-                LocalStorageModule.withConfig({
-                    prefix: 'TEST.ca.bc.gov.msp',
-                    storageType: 'sessionStorage'
-                }),
-                { provide: Relationship, useValue: relationshipStub },
                 CaptchaDataService
             ],
-            imports: [FormsModule]
+            imports: [FormsModule, LocalStorageModule.withConfig({
+                prefix: 'ca.bc.gov.msp',
+                storageType: 'sessionStorage'
+              })]
         });
         fixture = TestBed.createComponent(AccountDependentChangeComponent);
         comp = fixture.componentInstance;
@@ -45,10 +44,6 @@ describe("AccountDependentChangeComponent", () => {
 
     it("can load instance", () => {
         expect(comp).toBeTruthy();
-    });
-
-    it("Relationship defaults to: Relationship", () => {
-        expect(comp.Relationship).toEqual(Relationship);
     });
 
     it("changedDependents defaults to: []", () => {
@@ -83,7 +78,7 @@ describe("AccountDependentChangeComponent", () => {
         comp.addChild(Relationship.Child19To24);
         expect(comp.children.length).toBe(2);
         comp.clearDependent(comp.children[0]);
-        comp.clearDependent(comp.children[1]);
+        comp.clearDependent(comp.children[0]); //second child, as indexes are reset
         expect(comp.children.length).toBe(0);        
     });
 
