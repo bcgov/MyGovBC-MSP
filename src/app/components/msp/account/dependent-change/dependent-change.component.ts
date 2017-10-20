@@ -19,8 +19,11 @@ export class AccountDependentChangeComponent extends BaseComponent {
   lang = require('./i18n');
   Relationship: typeof Relationship = Relationship;
 
-  /** A list of all dependents that the applicant wants to add, modify, remove, etc. Each one should correspond to an open section in the form visible to the user. */
-  changedDependents: Person[] = [];
+  /** A list of all spouses or dependents that the applicant wants to add. Each should correspond to an open section in the form visible to the user. */
+  addedPersons: Person[] = [];
+  /** List of all spouses or dependents that applicant wants to remove. Each corresponds to an open section of the form visible to the user.  */
+  removedPersons: Person[] = [];
+  
 
 
   constructor(private dataService: MspDataService,
@@ -56,29 +59,56 @@ export class AccountDependentChangeComponent extends BaseComponent {
   addSpouse() {
     const sp = new Person(Relationship.Spouse);
     this.spouse = sp;
-    this.changedDependents.push(sp);
+    this.addedPersons.push(sp);
   }
   
   /** Add a child to the account */
   addChild(relationship: Relationship){
     const child = new Person(relationship);
-    this.changedDependents.push(child);
+    this.addedPersons.push(child);
     this.children.push(child);
   }
   
-  /** Remove a dependent that the user had added to the form, e.g. by mistake. Spouse or children. */
+  /** Clears (or deletes) a dependent that the user had added to the form, e.g. by mistake. Spouse or children. */
   clearDependent(dependent){
-    this.changedDependents = this.changedDependents
+    this.addedPersons = this.addedPersons
     .filter(x => x !== dependent);
 
     if (dependent.relationship === Relationship.Spouse){
+      //ARC TODO - Need to verify if this is ADDED spouse or REMOVED spouse? (use id)
       this.spouse = null;
     }
 
     this.children = this.children
     .filter(x => x !== dependent);
   }
-  
+
+
+  /**
+   * The account holder wishes to remove a spouse from their account.  For when
+   * a spouse already exists on the account and the accout holder is changing
+   * that. This is ***not to be confused with deleting or cancelling adding a
+   * new spouse*** to the account, for that look at `clearDependents()`.
+   */
+  removeSpouse(){
+    const sp = new Person(Relationship.Spouse);
+    this.removedPersons.push(sp);
+    this.removedSpouse = sp;
+    console.log('removeSpouse done');
+  }
+
+  /**
+   * The account holder wishes to remove a child or dependent from their
+   * account. For when a dependent already exists on the account. This is ***not
+   * to be confused with deleting or cancelling adding a new dependent to the
+   * account***, for that look at `clearDependents()`.
+   */
+  removeChild(){
+    console.log('removeChild todo. What relationship?');
+
+  }
+
+  /** Spouse to be added to the account. */
   get spouse(): Person {
     return this.dataService.getMspAccountApp().addedSpouse;
   }
@@ -97,11 +127,13 @@ export class AccountDependentChangeComponent extends BaseComponent {
 
 
 
-
-  // TODO!
-  get spouseRemoval(): Person {
+  /** Spouse to be removed from the account. */
+  get removedSpouse(): Person {
     return this.dataService.getMspAccountApp().removedSpouse;
   }
 
+  set removedSpouse(value: Person) {
+    this.dataService.getMspAccountApp().removedSpouse = value;
+  }
 
 }

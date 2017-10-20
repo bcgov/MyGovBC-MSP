@@ -50,6 +50,15 @@ enum Documents {
   ChangeOfNameCertificate
 }
 
+enum CancellationReasons {
+  NoLongerInFullTimeStudies,
+  Deceased,
+  OutOfProvinceOrCountry,
+  Incarcerated,
+  ArmedForces,
+  Other, //user can provide custom string for reason
+}
+
 /**
  * Business rules for status
  */
@@ -120,4 +129,4 @@ class DocumentRules {
   }
 }
 
-export {Relationship, Activities, StatusInCanada, Documents, ActivitiesRules, StatusRules, DocumentRules};
+export {Relationship, Activities, StatusInCanada, Documents, ActivitiesRules, StatusRules, DocumentRules, CancellationReasons};
