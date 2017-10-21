@@ -814,8 +814,9 @@ export class MspApiService {
 
 
         //TODO //FIXME once data model is implemented , verify this..Also might need another convertResidency for DEAM
-        if (from.status) {
-        //    to.residency = this.convertResidency(from);
+        if (from.status != null  ) {
+            to.citizenship = this.findCitizenShip(from.status,from.currentActivity);
+
         }
 
         //FIXME//TODO MArriage Date..Reasaon for cancellation ..more fields to come..
