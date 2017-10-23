@@ -7,6 +7,7 @@ import { LocalStorageService } from 'angular-2-local-storage';
 
 import { Person } from '../../model/application.model';
 import { Relationship } from '../../model/status-activities-documents';
+import { ProcessUrls } from '../../service/process.service'
 
 @Component({
   templateUrl: './dependent-change.component.html',
@@ -35,7 +36,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
   }
 
   ngOnInit() {
-    // this.initProcessMembers(AccountDependentChangeComponent.ProcessStepNum, this._processService);
+    this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_DEPENDENTS_URL), this._processService);
   }
 
   get person(): Person {
@@ -51,8 +52,25 @@ export class AccountDependentChangeComponent extends BaseComponent {
     this.dataService.saveMspAccountApp();
   }
 
+  //TODO
   canContinue(): boolean {
     return true;
+  }
+
+  //TODO
+  hasAnyInvalidStatus(): boolean {
+    return false;
+  }
+
+  //TODO!
+  continue(): void {
+
+    if (!this.isAllValid()) {
+      console.log('Please fill in all required fields on the form.');
+    } else {
+      console.log('redirecting to' + this._processService.getNextStep());
+      this._router.navigate([this._processService.getNextStep()]);
+    }
   }
 
   /** Add a spouse to the account. */
