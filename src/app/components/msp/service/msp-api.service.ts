@@ -34,6 +34,7 @@ import {
     AttachmentType, ApplicationTypeFactory, DocumentFactory, AttachmentsTypeFactory, AttachmentTypeFactory
 } from "../api-model/applicationTypes";
 import {MspImage} from "../model/msp-image";
+import { SimpleDate } from '../model/simple-date.interface';
 import {PersonDocuments} from "../model/person-document.model";
 import {ResponseType} from "../api-model/responseTypes";
 import {Http, Response, Headers, RequestOptions} from "@angular/http";
@@ -819,9 +820,79 @@ export class MspApiService {
 
         }
 
-        //FIXME//TODO MArriage Date..Reasaon for cancellation ..more fields to come..
+        if (from.prevLastName) {
+            to.previousLastName = from.prevLastName;
+        }
 
+        if (from.marriageDate) {
+            to.marriageDate = this.parseDate(from.marriageDate).format(this.ISO8601DateFormat);
+        }
 
+        //Has spouse lived in B.C. since birth?
+        if (from.livedInBCSinceBirth != null) {
+
+            if (from.livedInBCSinceBirth === true) {
+                to.livedInBC.hasLivedInBC = "Y";
+            }
+            else {
+                to.livedInBC.hasLivedInBC = "N";
+            }
+
+            to.livedInBC.isPermanentMove = from.madePermanentMoveToBC === true ? "Y" : "N";
+            if (from.healthNumberFromOtherProvince) {
+                to.livedInBC.prevHealthNumber = from.healthNumberFromOtherProvince; // out of province health numbers
+            }
+
+            if (from.movedFromProvinceOrCountry) {
+                to.livedInBC.prevProvinceOrCountry = from.movedFromProvinceOrCountry;
+            }
+
+            // Arrival dates
+            if (from.hasArrivalToBC) {
+                to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+            }
+
+        }
+
+       // Has this family member been outside of BC for more than a total of 30 days during the past 12 months?
+
+        if (from.declarationForOutsideOver30Days != null) {
+            to.outsideBC = OutsideBCTypeFactory.make();
+            to.outsideBC.beenOutsideBCMoreThan = from.declarationForOutsideOver30Days === true ? "Y" : "N";
+            if (from.outOfBCRecord.hasDeparture) {
+                to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+            }
+            if (from.outOfBCRecord.hasReturn) {
+                to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+            }
+            to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
+            to.outsideBC.destination = from.outOfBCRecord.location;
+
+        }
+
+      //  Will this family member be outside of BC for more than a total of 30 days during the next 6 months?
+
+        if (from.plannedAbsence != null) {
+            to.outsideBCinFuture = OutsideBCTypeFactory.make();
+            to.outsideBCinFuture.beenOutsideBCMoreThan = from.plannedAbsence === true ? "Y" : "N";
+            if (from.planOnBeingOutOfBCRecord.hasDeparture) {
+                to.outsideBCinFuture.departureDate = from.planOnBeingOutOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+            }
+            if (from.planOnBeingOutOfBCRecord.hasReturn) {
+                to.outsideBCinFuture.returnDate = from.planOnBeingOutOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+            }
+            to.outsideBCinFuture.familyMemberReason = from.planOnBeingOutOfBCRecord.reason;
+            to.outsideBCinFuture.destination = from.planOnBeingOutOfBCRecord.location;
+
+        }
+
+       // Have they been released from the Canadian Armed Forces or an Institution?
+        if (from.hasDischarge) {
+            to.willBeAway = WillBeAwayTypeFactory.make();
+            to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
+            to.willBeAway.armedForceInstitutionName =  from.nameOfInstitute;
+            to.willBeAway.isFullTimeStudent = "N" ;
+        }
 
 
         return to;
@@ -1091,6 +1162,14 @@ export class MspApiService {
 
     stringToXml(from: string) {
         return jxon.stringToXml(from);
+    }
+
+    private parseDate(date : SimpleDate) {
+        return moment.utc({
+            year: date.year,
+            month: date.month - 1, // moment use 0 index for month :(
+            day: date.day,
+        }); // use UTC mode to prevent browser timezone shifting
     }
 
     readonly ISO8601DateFormat = "YYYY-MM-DD";
