@@ -830,7 +830,7 @@ export class MspApiService {
 
         //Has spouse lived in B.C. since birth?
         if (from.livedInBCSinceBirth != null) {
-
+            to.livedInBC = LivedInBCTypeFactory.make();
             if (from.livedInBCSinceBirth === true) {
                 to.livedInBC.hasLivedInBC = "Y";
             }
@@ -894,6 +894,16 @@ export class MspApiService {
             to.willBeAway.isFullTimeStudent = "N" ;
         }
 
+            // Removing Spouse
+
+        if (from.reasonForCancellation) {
+            to.cancellationReason = from.reasonForCancellation;
+            to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
+        }
+
+        if (from.mailingAddress) { //TODO ADD IF check to see if address is enterd
+            to.mailingAddress = this.convertAddress(from.mailingAddress) ;
+        }
 
         return to;
 
