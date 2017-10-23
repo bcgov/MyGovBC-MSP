@@ -65,6 +65,15 @@ export class AccountDependentChangeComponent extends BaseComponent {
   //TODO!
   continue(): void {
 
+    //DEV TODO - Just temporarily set this step as completed
+    //Note - Maybe add new method to process service? `setStepForUrl(url, boolean)`
+    this._processService.process.processSteps.forEach((val, i) => {
+      if (val.route.indexOf("dependent-change") > -1){
+        this._processService.setStep(i, true);
+      } 
+    })
+
+
     if (!this.isAllValid()) {
       console.log('Please fill in all required fields on the form.');
     } else {

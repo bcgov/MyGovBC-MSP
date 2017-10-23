@@ -1,4 +1,4 @@
-<form #formRef="ngForm" novalidate (submit)="continue()">
+<form #formRef="ngForm" novalidate>
     <h1 class='page-title' [innerHTML]="lang('./en/index.js').pageTitle"></h1>
     
     <!--  Account holder info, user always fills -->
@@ -62,7 +62,9 @@
     <div class="row" style="margin-top: 10px;">
         <div class="col-sm-2">
 
-            <button [disabled] = "hasAnyInvalidStatus()&& !canContinue()" [mspLogger]="'msp-accountmanagement_personal-info_continue'"
+            <button 
+            (click)="continue()"
+            [disabled] = "hasAnyInvalidStatus()&& !canContinue()" [mspLogger]="'msp-accountmanagement_personal-info_continue'"
                     class="btn btn-primary" type="submit"
                     [innerHTML]="lang('./en/index.js').continueButton"></button>
 
