@@ -26,4 +26,10 @@ module.exports = {
   previousName: 'Spouse\'s Previous Last Name (if applicable)',
   previousNameErrorPattern: 'Must begin with a letter followed by a letters, hyphen, period, apostrophe, or blank character',
   marriageDate: 'Marriage Date (if applicable)',
+  schoolAddressLabel: "School Address",
+  studiesBegin: "Date studies will begin",
+  studiesFinish: "Date studies will finish",
+  schoolOutsideBC: "Is this school located outside of BC?",
+  schoolName: "School Name",
+  departureDate: "Departure Date",
 }

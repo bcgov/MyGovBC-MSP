@@ -54,6 +54,68 @@
     </ng-container> 
     <!-- End Spouse-only Section -->
 
+    <!-- School information for child 19 to 24 -->
+    <ng-container *ngIf="person.relationship === Relationship.Child19To24">
+      <div class="row form-group">
+        <div class="col-md-4">
+            <label for='schoolName-{{person.id}}' [innerHTML]="lang('./en/index.js').schoolName"></label>
+
+            <input type="text" 
+            name="schoolName-{{person.id}}" 
+            class="form-control" 
+            id='schoolName-{{person.id}}' 
+            maxlength="30"
+            #schoolName="ngModel"
+            [(ngModel)]="person.schoolName">
+        </div>
+      </div>
+
+      <div class="row form-group">
+        <div class="col-md-4">
+          <label for="isOutsideBC-{{person.id}}" [innerHtml]="lang('./en/index.js').schoolOutsideBC"></label>
+      
+          <msp-toggle [id]="'isOutsideBC-'+ person.id" [(data)]="person.schoolOutsideOfBC"></msp-toggle>
+        </div>
+
+        <div class="col-md-4 form-inline" *ngIf="person.schoolOutsideOfBC">
+          <msp-date
+            [label]="lang('./en/index.js').departureDate"
+            [showError]='showError'
+            [(date)]="person.studiesDepartureSimple"
+          ></msp-date>
+        </div>
+      </div>
+
+
+
+      <msp-address #schoolAddress
+      [mailingAddressHeading]="lang('./en/index.js').schoolAddressLabel"
+      [mailingAddress]="person.schoolAddress"
+      [mailingOnly]="true"
+      [showError] = "showError"
+      hideProvinceAndCountry=true
+      ></msp-address>
+
+      <div class="row">
+        <div class="col-md-4">
+          <msp-date
+            [label]="lang('./en/index.js').studiesBegin"
+            [showError]='showError'
+            [(date)]="person.studiesBeginSimple"
+          ></msp-date>
+        </div>
+
+        <div class="col-md-4">
+          <msp-date
+            [label]="lang('./en/index.js').studiesFinish"
+            [showError]='showError'
+            [(date)]="person.studiesFinishedSimple"
+          ></msp-date>
+        </div>
+      </div>
+
+    </ng-container>
+
     <!-- Contains all questions if the user is a new beneficiary. -->
     <msp-add-new-dependent-beneficiary
       *ngIf="(person.status || person.status === 0)"

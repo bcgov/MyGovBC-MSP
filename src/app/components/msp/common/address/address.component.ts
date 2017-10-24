@@ -29,6 +29,7 @@ export class MspAddressComponent extends BaseComponent {
   @Output() mailingSameAsResidentialAddressChange = new EventEmitter<boolean>();
   @Input() mailingAddress: Address;
   @Input('mailingOnly') mailingOnly: boolean;
+  @Input('hideProvinceAndCountry') hideProvinceAndCountry: boolean = false;
   @Input() mailingAddressHeading:string = this.lang('./en/index.js').mailingAddressHeading;
   @Input() showError: boolean;
 
