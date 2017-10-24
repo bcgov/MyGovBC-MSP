@@ -1,4 +1,5 @@
 FROM nginx:mainline
+RUN apt-get update && apt-get install openssl
 COPY default.conf.template /tmp/default.conf.template
 COPY DOCKER_RUN.sh /tmp
 COPY nginx.conf /etc/nginx/
