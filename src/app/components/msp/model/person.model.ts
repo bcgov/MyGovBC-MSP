@@ -49,6 +49,8 @@ class Person implements IPerson {
     /** NEEDS XSD. For child only. */
     public newlyAdopted: boolean;
 
+    public adoptionDate: SimpleDate;
+
     get operationActionType(): OperationActionType {
         return this._operationActionType;
     }
