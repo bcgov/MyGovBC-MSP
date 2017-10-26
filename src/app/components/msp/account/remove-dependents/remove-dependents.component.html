@@ -52,6 +52,20 @@
       </div>
     </div>
 
+
+    <div class="form-group">
+        <label for="knowSpouseCurrentMailing-{{person.id}}" [innerHtml]="lang('./en/index.js').knowSpouseCurrentMailing[person.relationship]"></label>
+        <msp-toggle [id]="'knowSpouseCurrentMailing-'+ person.id" [(data)]="person.knownMailingAddress"></msp-toggle>        
+    </div>
+
+    <msp-address 
+      *ngIf="person.knownMailingAddress"
+      [mailingAddressHeading]="lang('./en/index.js').mailingAddr"
+      [mailingAddress]="person.residentialAddress"
+      [mailingOnly]="true"
+      [showError] = "showError"
+    ></msp-address>
+
   </ng-container>
 
 </form>

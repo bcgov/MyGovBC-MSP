@@ -16,6 +16,7 @@ module.exports = {
   instituteNameRequired: "Name of Institute is required.",
 
   moveDateToBC: "Most recent move date to B.C.",
+  adoptedDate: "Adopted Date",
   movedFromProvinceOrCountry: "From (province or country)",
   medicalPlanPreviousResidence: "Medical plan in Previous place of Residence (optional)",
   permanentMove: "Is this a permanent move?",

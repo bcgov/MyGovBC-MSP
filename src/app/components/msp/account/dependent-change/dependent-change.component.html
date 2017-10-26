@@ -19,7 +19,7 @@
     <!-- For consistency's sake, removed persons will always be below added persons. -->
     <msp-remove-dependent *ngFor="let dependent of removedPersons"
         [person]="dependent"
-        (onCancel)="clearDependent(dependent)"
+        (onCancel)="clearDependentRemoval(dependent)"
         (onChange)="onChange()">
     </msp-remove-dependent> 
 
@@ -44,8 +44,9 @@
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
             </button>
-            <hr> <!-- new row -->
+            <hr>
             <button class="btn btn-default"
+                [disabled]="removedSpouse"
                 (click)="removeSpouse()">
                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').removeSpouseButton"></span>
@@ -59,14 +60,26 @@
     </div>
 
     <hr>
+
+    <pre>
+        canContinue: {{canContinue()}}
+
+        isAllValid: {{isAllValid()}}
+
+        myFormValid: {{myFormValid}}
+
+        isValid: {{isValid()}}
+    </pre>
+
     <div class="row" style="margin-top: 10px;">
         <div class="col-sm-2">
-
             <button 
             (click)="continue()"
-            [disabled] = "hasAnyInvalidStatus()&& !canContinue()" [mspLogger]="'msp-accountmanagement_personal-info_continue'"
-                    class="btn btn-primary" type="submit"
-                    [innerHTML]="lang('./en/index.js').continueButton"></button>
+            [disabled]="!canContinue()"
+            [mspLogger]="'msp-accountmanagement_personal-info_continue'"
+            class="btn btn-primary" 
+            type="submit"
+            [innerHTML]="lang('./en/index.js').continueButton"></button>
 
         </div>
         <!-- <div class="col-sm-6 pull-left" *ngIf="formRef.submitted">

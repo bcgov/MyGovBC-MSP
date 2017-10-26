@@ -100,6 +100,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @Input() showError: boolean;
     /** Hides the 'Clear Spouse/Child' button, and the <hr> at the end of the component. Useful in layouts where this form must be embedded in a larger form.. */
     @Input() embedded: boolean = false;
+    @Input() hidePHN: boolean = false;
     @Output() notifyChildRemoval: EventEmitter<Person> = new EventEmitter<Person>();
     @Output() notifySpouseRemoval: EventEmitter<Person> = new EventEmitter<Person>();
     @Output() onChange: EventEmitter<any> = new EventEmitter<any>();

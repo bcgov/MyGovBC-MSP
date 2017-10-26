@@ -2,8 +2,9 @@ module.exports = {
   sectionTitle: [
     '', //0 indice is for the Applicant, but it doesn't make sense to have an applicant field here as it's about modifying dependents on on the plan.
     'Remove Spouse',
-    'Remove Child (0-18)',
-    'Remove Child (19-24)'
+    '', //children under 19
+    '', //children 19-24
+    'Remove Children', //children under 24 - catch-all.
   ],
   sectionBody: [
     '',
@@ -12,8 +13,9 @@ module.exports = {
   clearButton: [
     '',
     'Clear Spouse',
+    '',
+    '',
     'Clear Child',
-    'Clear Child'
   ],
   cancellationDate: "Cancellation Date",
   reason: "Reason for Cancellation",
@@ -30,16 +32,12 @@ module.exports = {
     "Other",
   ],
   pleaseSelect: "Please select",
-
-  // isExistingBeneficiaryQuestion: [
-  //   '',
-  //   'Is the spouse an existing MSP Beneficiary?',
-  //   'Is the child an existing MSP Beneficiary?',
-  //   'Is the child an existing MSP Beneficiary?',
-  // ],
-
-  //Spouse only? Maybe remove the array format?
-  // previousName: 'Spouse\'s Previous Last Name (if applicable)',
-  // previousNameErrorPattern: 'Must begin with a letter followed by a letters, hyphen, period, apostrophe, or blank character',
-  // marriageDate: 'Marriage Date (if applicable)',
+  knowSpouseCurrentMailing: [
+    '',
+    "Do you know your Spouse's current mailing address?",
+    '',
+    '',
+    "Do you know your Child's current mailing address?",
+  ],
+  mailingAddr: "Mailing Address",
 }

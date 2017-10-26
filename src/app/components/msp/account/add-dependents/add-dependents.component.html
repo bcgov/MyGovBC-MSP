@@ -19,7 +19,13 @@
   new beneficiaries once they have set their status. -->
   <ng-container *ngIf="person.isExistingBeneficiary || (person.status || person.status === 0)">
     
-    <msp-account-personal-details [person]='person' [id]='person.id' (onChange)="change($event)" embedded=true></msp-account-personal-details>
+    <msp-account-personal-details 
+      [person]='person' 
+      [id]='person.id' 
+      (onChange)="change($event)" 
+      embedded=true
+      [hidePHN]="!person.isExistingBeneficiary">
+    </msp-account-personal-details>
 
     <!-- Spouse-only Section, marriage date etc. -->
     <ng-container *ngIf="person.relationship === Relationship.Spouse">
@@ -65,8 +71,16 @@
             class="form-control" 
             id='schoolName-{{person.id}}' 
             maxlength="30"
-            #schoolName="ngModel"
+            #schoolNameRef="ngModel"
+            [pattern]="Person.NameRegEx"
+            required
             [(ngModel)]="person.schoolName">
+
+            <div *ngIf='schoolNameRef.touched || showError' role="alert" aria-live="assertive">
+                <div class="text-danger" *ngIf="schoolNameRef.errors?.required"
+                [innerHtml]="lang('./en/index.js').schoolNameRequired"></div>
+                <div class="text-danger" *ngIf="schoolNameRef.errors?.pattern"[innerHtml]="lang('./en/index.js').previousNameErrorPattern"></div>
+            </div>
         </div>
       </div>
 
@@ -97,7 +111,7 @@
       ></msp-address>
 
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <msp-date
             [label]="lang('./en/index.js').studiesBegin"
             [showError]='showError'
@@ -105,7 +119,7 @@
           ></msp-date>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-6">
           <msp-date
             [label]="lang('./en/index.js').studiesFinish"
             [showError]='showError'

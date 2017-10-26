@@ -47,7 +47,20 @@ class Person implements IPerson {
     public cancellationDate: SimpleDate;
 
     /** NEEDS XSD. For child only. */
-    public newlyAdopted: boolean;
+    private _newlyAdopted: boolean;
+
+    get newlyAdopted(): boolean {
+        return this._newlyAdopted;
+    }
+
+    set newlyAdopted(val: boolean){
+        if (!val){
+            this.adoptedDate = null;
+        }
+        this._newlyAdopted = val;
+    }
+
+    public adoptedDate: SimpleDate;
 
     get operationActionType(): OperationActionType {
         return this._operationActionType;
@@ -310,6 +323,26 @@ class Person implements IPerson {
     public mailingSameAsResidentialAddress: boolean = true;
     public mailingAddress: Address = new Address();
     public phoneNumber: string;
+
+    /** Only useful if person is spouse. Answers the question: "Do you know your Spouses' current mailing address?" */
+    private _knownMailingAddress: boolean;
+
+    get knownMailingAddress(): boolean {
+        return this._knownMailingAddress;
+    }
+
+    set knownMailingAddress(val: boolean){
+
+        if (!val){
+            //NOTE - FDS page 51 says residentialAddress should be "Unknown" now?
+            this.residentialAddress = new Address();
+            // this.residentialAddress = "Unknown";
+            this.mailingSameAsResidentialAddress = true;
+            this.mailingAddress = new Address();
+        }
+        
+        this._knownMailingAddress = val;
+    }
 
 
     /**

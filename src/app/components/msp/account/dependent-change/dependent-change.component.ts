@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, Injectable } from '@angular/core';
+import { ChangeDetectorRef, Component, Injectable, ViewChild } from '@angular/core';
+import { NgForm } from "@angular/forms";
 import { MspDataService } from '../../service/msp-data.service';
 import { Router } from '@angular/router';
 import { BaseComponent } from "../../common/base.component";
@@ -8,6 +9,8 @@ import { LocalStorageService } from 'angular-2-local-storage';
 import { Person } from '../../model/application.model';
 import { Relationship } from '../../model/status-activities-documents';
 import { ProcessUrls } from '../../service/process.service'
+
+
 
 @Component({
   templateUrl: './dependent-change.component.html',
@@ -24,6 +27,10 @@ export class AccountDependentChangeComponent extends BaseComponent {
   addedPersons: Person[] = [];
   /** List of all spouses or dependents that applicant wants to remove. Each corresponds to an open section of the form visible to the user.  */
   removedPersons: Person[] = [];
+
+
+  //PROBLEM - This is always returning valid, even if child forms are invalid.
+  @ViewChild('formRef') form: NgForm;
   
 
 
@@ -35,7 +42,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
     super(cd);
   }
 
-  ngOnInit() {
+  ngOnInit() {    
     this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_DEPENDENTS_URL), this._processService);
   }
 
@@ -54,7 +61,9 @@ export class AccountDependentChangeComponent extends BaseComponent {
 
   //TODO
   canContinue(): boolean {
-    return true;
+    // return true;
+    // return false;
+    return this.isAllValid();
   }
 
   //TODO
@@ -65,21 +74,25 @@ export class AccountDependentChangeComponent extends BaseComponent {
   //TODO!
   continue(): void {
 
+    console.log('continue, form', this.form.valid, this.form);
+
     //DEV TODO - Just temporarily set this step as completed
     //Note - Maybe add new method to process service? `setStepForUrl(url, boolean)`
-    this._processService.process.processSteps.forEach((val, i) => {
-      if (val.route.indexOf("dependent-change") > -1){
-        this._processService.setStep(i, true);
-      } 
-    })
+    // this._processService.process.processSteps.forEach((val, i) => {
+    //   if (val.route.indexOf("dependent-change") > -1){
+    //     this._processService.setStep(i, true);
+    //   } 
+    // })
 
 
-    if (!this.isAllValid()) {
-      console.log('Please fill in all required fields on the form.');
-    } else {
-      console.log('redirecting to' + this._processService.getNextStep());
-      this._router.navigate([this._processService.getNextStep()]);
-    }
+    // if (!this.isAllValid()) {
+    //   console.log('Please fill in all required fields on the form.');
+    // } else {
+    //   console.log('redirecting to' + this._processService.getNextStep());
+    //   this._router.navigate([this._processService.getNextStep()]);
+    // }
+
+    
   }
 
   /** Add a spouse to the account. */
@@ -97,7 +110,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
   }
   
   /** Clears (or deletes) a dependent that the user had added to the form, e.g. by mistake. Spouse or children. */
-  clearDependent(dependent){
+  clearDependent(dependent: Person){
     this.addedPersons = this.addedPersons
     .filter(x => x !== dependent);
 
@@ -110,6 +123,19 @@ export class AccountDependentChangeComponent extends BaseComponent {
     .filter(x => x !== dependent);
   }
 
+  clearDependentRemoval(dependent: Person){
+    this.removedPersons = this.removedPersons
+    .filter(x => x !== dependent);
+
+    if (dependent.relationship === Relationship.Spouse){
+      //ARC TODO - Need to verify if this is ADDED spouse or REMOVED spouse? (use id)
+      this.removedSpouse = null;
+    }
+
+    this.removedChildren = this.removedChildren
+    .filter(x => x !== dependent);
+  }
+
 
   /**
    * The account holder wishes to remove a spouse from their account.  For when
@@ -119,9 +145,12 @@ export class AccountDependentChangeComponent extends BaseComponent {
    */
   removeSpouse(){
     const sp = new Person(Relationship.Spouse);
+    //By default these are "British Columbia" and "Canada", but we don't want form fields pre-populated here as it isn't specified in the FDS.
+    sp.residentialAddress.province = null;
+    sp.residentialAddress.country = null;
+
     this.removedPersons.push(sp);
     this.removedSpouse = sp;
-    console.log('removeSpouse done');
   }
 
   /**
@@ -131,8 +160,13 @@ export class AccountDependentChangeComponent extends BaseComponent {
    * account***, for that look at `clearDependents()`.
    */
   removeChild(){
-    console.log('removeChild todo. What relationship?');
+    const child = new Person(Relationship.ChildUnder24);
+    //By default these are "British Columbia" and "Canada", but we don't want form fields pre-populated here as it isn't specified in the FDS.
+    child.residentialAddress.province = null;
+    child.residentialAddress.country = null;
 
+    this.removedPersons.push(child);
+    this.removedChildren.push(child);
   }
 
   /** Spouse to be added to the account. */
@@ -150,6 +184,14 @@ export class AccountDependentChangeComponent extends BaseComponent {
 
   set children(val: Person[]) {
     this.dataService.getMspAccountApp().children = val;
+  }
+
+  get removedChildren(): Person[] {
+    return this.dataService.getMspAccountApp().removedChildren;
+  }
+
+  set removedChildren(val: Person[]) {
+    this.dataService.getMspAccountApp().removedChildren = val;
   }
 
 

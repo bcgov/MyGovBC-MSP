@@ -32,4 +32,5 @@ module.exports = {
   schoolOutsideBC: "Is this school located outside of BC?",
   schoolName: "School Name",
   departureDate: "Departure Date",
+  schoolNameRequired: "School name is required",
 }

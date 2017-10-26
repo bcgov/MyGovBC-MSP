@@ -43,6 +43,8 @@ class MspAccountApp implements ApplicationBase {
     }
 
     private _removedSpouse: Person;
+    private _removedChildren: Array<Person> = [];
+    
 
     get children(): Array<Person> {
         return this._children;
@@ -50,6 +52,14 @@ class MspAccountApp implements ApplicationBase {
 
     set children(value: Array<Person>) {
         this._children = value;
+    }
+
+    get removedChildren(): Array<Person> {
+        return this._removedChildren;
+    }
+
+    set removedChildren(value: Array<Person>) {
+        this._removedChildren = value;
     }
 
     private _addedSpouse: Person;
