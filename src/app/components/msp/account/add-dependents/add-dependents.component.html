@@ -24,7 +24,7 @@
       [id]='person.id' 
       (onChange)="change($event)" 
       embedded=true
-      [hidePHN]="!person.isExistingBeneficiary">
+      [requirePHN]="person.isExistingBeneficiary">
     </msp-account-personal-details>
 
     <!-- Spouse-only Section, marriage date etc. -->

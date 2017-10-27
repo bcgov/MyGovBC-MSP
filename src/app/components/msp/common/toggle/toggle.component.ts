@@ -21,7 +21,6 @@ export class ToggleComponent extends BaseComponent {
 
   //Invalid if boolean is undefined, null, etc. User must make a choice.
   isValid(): boolean {
-    console.log('toggle.Isvalid called', this)
     return this.data === true || this.data === false;
   }
 

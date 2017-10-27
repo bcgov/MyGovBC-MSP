@@ -43,10 +43,10 @@
                     [showError]="showError">
             </msp-birthdate>
         </div>
-        <div class="col-sm-4" *ngIf="!hidePHN">
+        <div class="col-sm-4">
             <msp-phn #phn
                      [phn]="person.previous_phn"
-                     [required]="true"
+                     [required]="requirePHN"
                      [bcPhn]="true"
                      [showError]="showError"
                      (phnChange)="person.previous_phn = $event"
