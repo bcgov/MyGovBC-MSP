@@ -27,11 +27,14 @@ import { MspCountryComponent } from "../../common/country/country.component";
 import { MspDataService } from '../../service/msp-data.service';
 import { Ng2CompleterModule } from "ng2-completer";
 import { MspDepartureDateComponent } from '../../common/departure-date/departure-date.component';
-import {MspReturnDateComponent} from '../../common/return-date/return-date.component';
-
+import {MspReturnDateComponent} from '../../common/return-date/return-date.component';  
 import { Person } from '../../model/person.model';
 import { Relationship } from '../../model/status-activities-documents';
-
+import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
+import {RouterTestingModule} from "@angular/router/testing";
+import { ProcessService } from "../../service/process.service";
+import { CompletenessCheckService } from '../../service/completeness-check.service';
+import { MspValidationService} from '../../service/msp-validation.service';
 
 
 
@@ -44,8 +47,21 @@ describe('RemoveDependentComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [RemoveDependentComponent, ToggleComponent, StatusInCanadaRadioComponent, MspDateComponent, AccountPersonalDetailsComponent, CalendarYearValidator, CalendarMonthValidator, CalendarDayValidator, CalendarYearFormatter, AddNewDependentBeneficiaryComponent, MspNameComponent, MspGenderComponent, MspBirthDateComponent, MspPhnComponent, MspPhoneComponent, MspDischargeDateComponent, MspSchoolDateComponent, MspAddressComponent, MspProvinceComponent, MspArrivalDateComponent, MspOutofBCRecordComponent, Mod11CheckValidator, MspCountryComponent, MspDepartureDateComponent, MspReturnDateComponent],
-      imports: [FormsModule, Ng2CompleterModule],
-      providers: [MspDataService]
+      imports: [
+        FormsModule, 
+        Ng2CompleterModule,
+        LocalStorageModule.withConfig({
+          prefix: 'ca.bc.gov.msp',
+          storageType: 'sessionStorage'
+        }),
+        RouterTestingModule
+      ],
+      providers: [
+        MspDataService,
+        ProcessService,
+        CompletenessCheckService,
+        MspValidationService
+      ]
     })
       .compileComponents();
   }));

@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MspAccordionComponent } from './accordion.component';
+import { AccordionModule} from 'ngx-bootstrap';
 
 describe('MspAccordionComponent', () => {
   let component: MspAccordionComponent;
@@ -8,7 +8,8 @@ describe('MspAccordionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MspAccordionComponent ]
+      declarations: [ MspAccordionComponent ],
+      imports: [AccordionModule.forRoot()]
     })
     .compileComponents();
   }));
