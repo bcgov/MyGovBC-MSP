@@ -5,7 +5,7 @@
 <p [innerHTML]="lang('./en/index.js').sectionBody[person.relationship]"></p>
 
 <label #firstFocus for="isExistingBeneficiary-{{person.id}}" [innerHtml]="lang('./en/index.js').isExistingBeneficiaryQuestion[person.relationship]"></label>
-<msp-toggle [id]="'isExistingBeneficiary-'+ person.id" [(data)]="person.isExistingBeneficiary"></msp-toggle>
+<msp-toggle #isExistingBeneficiary [id]="'isExistingBeneficiary-'+ person.id" [(data)]="person.isExistingBeneficiary"></msp-toggle>
 
 <form #formRef='ngForm' novalidate>
   

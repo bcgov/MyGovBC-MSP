@@ -61,16 +61,6 @@
 
     <hr>
 
-    <pre>
-        canContinue: {{canContinue()}}
-
-        isAllValid: {{isAllValid()}}
-
-        myFormValid: {{myFormValid}}
-
-        isValid: {{isValid()}}
-    </pre>
-
     <div class="row" style="margin-top: 10px;">
         <div class="col-sm-2">
             <button 
@@ -82,10 +72,6 @@
             [innerHTML]="lang('./en/index.js').continueButton"></button>
 
         </div>
-        <!-- <div class="col-sm-6 pull-left" *ngIf="formRef.submitted">
-            <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
-            </p>
-        </div> -->
         <msp-cancel></msp-cancel>
     </div>
 

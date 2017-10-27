@@ -1,11 +1,13 @@
-import { ChangeDetectorRef, Component, Injectable, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Injectable, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { MspDataService } from '../../service/msp-data.service';
 import { Router } from '@angular/router';
 import { BaseComponent } from "../../common/base.component";
 import { ProcessService } from "../../service/process.service";
 import { LocalStorageService } from 'angular-2-local-storage';
-
+import { AccountPersonalDetailsComponent } from '../personal-info/personal-details/personal-details.component'
+import { AddDependentComponent } from '../add-dependents/add-dependents.component';
+import { RemoveDependentComponent } from '../remove-dependents/remove-dependents.component';
 import { Person } from '../../model/application.model';
 import { Relationship } from '../../model/status-activities-documents';
 import { ProcessUrls } from '../../service/process.service'
@@ -29,8 +31,10 @@ export class AccountDependentChangeComponent extends BaseComponent {
   removedPersons: Person[] = [];
 
 
-  //PROBLEM - This is always returning valid, even if child forms are invalid.
   @ViewChild('formRef') form: NgForm;
+  @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
+  @ViewChildren(AddDependentComponent) addDepsComponent: QueryList<AddDependentComponent>;
+  @ViewChildren(RemoveDependentComponent) removeDepsComponent: QueryList<RemoveDependentComponent>;
   
 
 
@@ -59,40 +63,29 @@ export class AccountDependentChangeComponent extends BaseComponent {
     this.dataService.saveMspAccountApp();
   }
 
-  //TODO
   canContinue(): boolean {
-    // return true;
-    // return false;
     return this.isAllValid();
   }
 
-  //TODO
-  hasAnyInvalidStatus(): boolean {
-    return false;
-  }
 
-  //TODO!
+  //TODO - Just has temp solution for now, need better approach for dynamic pages with processSteps.
   continue(): void {
 
-    console.log('continue, form', this.form.valid, this.form);
-
-    //DEV TODO - Just temporarily set this step as completed
     //Note - Maybe add new method to process service? `setStepForUrl(url, boolean)`
-    // this._processService.process.processSteps.forEach((val, i) => {
-    //   if (val.route.indexOf("dependent-change") > -1){
-    //     this._processService.setStep(i, true);
-    //   } 
-    // })
+    this._processService.process.processSteps.forEach((val, i) => {
+      if (val.route.indexOf("dependent-change") > -1) {
+        this._processService.setStep(i, true);
+      }
+    })
 
 
-    // if (!this.isAllValid()) {
-    //   console.log('Please fill in all required fields on the form.');
-    // } else {
-    //   console.log('redirecting to' + this._processService.getNextStep());
-    //   this._router.navigate([this._processService.getNextStep()]);
-    // }
+    if (!this.isAllValid()) {
+      console.log('Please fill in all required fields on the form.');
+    } else {
+      console.log('redirecting to' + this._processService.getNextStep());
+      this._router.navigate([this._processService.getNextStep()]);
+    }
 
-    
   }
 
   /** Add a spouse to the account. */
@@ -115,7 +108,6 @@ export class AccountDependentChangeComponent extends BaseComponent {
     .filter(x => x !== dependent);
 
     if (dependent.relationship === Relationship.Spouse){
-      //ARC TODO - Need to verify if this is ADDED spouse or REMOVED spouse? (use id)
       this.spouse = null;
     }
 
@@ -128,7 +120,6 @@ export class AccountDependentChangeComponent extends BaseComponent {
     .filter(x => x !== dependent);
 
     if (dependent.relationship === Relationship.Spouse){
-      //ARC TODO - Need to verify if this is ADDED spouse or REMOVED spouse? (use id)
       this.removedSpouse = null;
     }
 

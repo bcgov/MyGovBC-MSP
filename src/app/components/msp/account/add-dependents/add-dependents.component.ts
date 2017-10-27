@@ -1,13 +1,23 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ViewChildren, ElementRef, ChangeDetectorRef, QueryList } from '@angular/core';
 import { Person } from '../../model/person.model';
 import { Relationship, StatusInCanada } from '../../model/status-activities-documents';
+import { BaseComponent } from "../../common/base.component";
+import { MspDataService } from '../../service/msp-data.service';
+import { Router } from '@angular/router';
+import { ProcessService } from "../../service/process.service";
+import { LocalStorageService } from 'angular-2-local-storage';
+import { NgForm } from "@angular/forms";
+import { ToggleComponent } from '../../common/toggle/toggle.component';
+import { StatusInCanadaRadioComponent } from '../../common/status-in-canada-radio/status-in-canada-radio.component';
+import { AccountPersonalDetailsComponent } from '../personal-info/personal-details/personal-details.component';
+import { AddNewDependentBeneficiaryComponent } from '../add-new-dependent-beneficiary/add-new-dependent-beneficiary.component'
 
 @Component({
   selector: 'msp-add-dependent',
   templateUrl: './add-dependents.component.html',
   styleUrls: ['./add-dependents.component.less']
 })
-export class AddDependentComponent {
+export class AddDependentComponent extends BaseComponent {
   Relationship: typeof Relationship = Relationship;
   StatusInCanada: typeof StatusInCanada = StatusInCanada;
   Person: typeof Person = Person;
@@ -18,7 +28,21 @@ export class AddDependentComponent {
   @ViewChild('firstFocus') firstFocus: ElementRef;
   lang = require('./i18n');
 
-  constructor() { }
+  @ViewChild('formRef') form: NgForm;
+  @ViewChild('isExistingBeneficiary') toggleComp: ToggleComponent;
+  @ViewChildren(ToggleComponent) toggleComponents: QueryList<ToggleComponent>;
+  @ViewChildren(StatusInCanadaRadioComponent) statusRadioComponents: QueryList<StatusInCanadaRadioComponent>;
+  @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
+  @ViewChildren(AddNewDependentBeneficiaryComponent) newDependentBeneficiaryComponents: QueryList<AddNewDependentBeneficiaryComponent>;
+  
+  constructor(private dataService: MspDataService,
+    private _router: Router,
+    private _processService: ProcessService,
+    private cd: ChangeDetectorRef, private localStorageService: LocalStorageService) {
+
+    super(cd);
+  }
+
 
   change($event){
     this.onChange.emit();
