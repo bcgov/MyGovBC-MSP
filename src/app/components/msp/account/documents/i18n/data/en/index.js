@@ -11,9 +11,13 @@ module.exports = {
     viewSamplesButton: 'Open sample',
     docUploadInstructions: "<i class='fa fa-upload fa icon-upload'></i> Upload your documents",
     docUploadSectonTitle:'If you are changing your name due to marriage, divorce or a legal name change, include one or more of the following:',
-    documentGroupTitle: ['If you are updating your <strong>name or birthdate</strong>, please include  <strong>one</strong> of the following with your update request:',
-        'If you are changing your name due to  <strong>marriage, divorce or a legal name change</strong>, include  <strong>one or more</strong> of the following:',
-        'If you are updating your  <strong>gender</strong>, please include  <strong>one or more</strong> of the following with your update request:',
-        'If you are updating  <strong>your status in Canada</strong>, include  <strong>one or more</strong> of the following:'],
+    documentGroupTitle: [
+        'If you are adding a spouse or child who is an existing MSP beneficiary, you do not need to upload supporting documentation. <br/><br/>If you are adding a spouse or child who is not an MSP beneficiary (has no MSP coverage), please include one of the following supporting documentation:',
+        'If you are removing a child, you do not need to upload supporting documentation. However, the child (0-18) must have coverage under another account. A child 19 years of age or over will be setup on their own account.<br/><br/>If you are removing a spouse, please include one of the following supporting documentation',
+        'If you are updating or correcting Birthdate, please include  <strong>one</strong> of the following supporting documentation:',
+        'If this is a change to last name due to marriage, and if spouse is already on your MSP account, no documentation is needed.',
+        'If you are updating or confirming status in Canada, please include one of the following supporting documentation:',
+        'If you are updating or correcting gender, please include one of the following supporting documentation:',
+    ],
     continueButton: "Continue",
 }

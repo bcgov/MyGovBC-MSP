@@ -17,7 +17,7 @@ import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-
 import {MspIdReqModalComponent} from "../../common/id-req-modal/id-req-modal.component";
 
 @Component({
-    templateUrl: './documents.html'
+    templateUrl: './documents.component.html'
 })
 @Injectable()
 export class AccountDocumentsComponent extends BaseComponent {
@@ -51,6 +51,21 @@ export class AccountDocumentsComponent extends BaseComponent {
     get documents(): DocumentGroup[] {
         return AccountDocumentRules.availiableDocuments();
     }
+
+    /**
+     * An array of integers with the indices of the different documents.  The
+     * reason we have to do this is because of a glitch with ngx-bootstrap's
+     * accordion, which if if passed an object in ngFor will break, but is fine
+     * if you pass it an integer. Essentially, this enables us to ngFor over 
+     * this.documents.
+     * 
+     * @example
+     * [0, 1, 2, 3]
+     */
+    public documentIndices(){
+        return Object.keys(this.documents).map(x => parseInt(x, 10));
+    }
+
 
     addDoc(doc: MspImage) {
         this.mspAccountApp.documents = this.mspAccountApp.documents.concat(doc);
