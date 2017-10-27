@@ -40,10 +40,19 @@
 
     <ng-container *ngIf="person.relationship === Relationship.ChildUnder19 || person.relationship === Relationship.Child19To24">
         <div class="row form-group">
-          <div class="col-md-12">
+          <div class="col-sm-4">
             <label [innerHtml]="lang('./en/index.js').newlyAdopted"></label>
             <msp-toggle [(data)]="person.newlyAdopted"></msp-toggle>
           </div>
+
+          <div class="col-sm-4 form-inline" *ngIf="person.newlyAdopted">
+            <msp-date
+              [label]="lang('./en/index.js').adoptedDate"
+              [showError]='showError'
+              [(date)]="person.adoptedDate"
+            ></msp-date>
+          </div>
+
         </div>
     </ng-container>
 
@@ -73,7 +82,7 @@
         </msp-outof-bc-record>
       </div>
     </div>
-    <div class="row" *ngIf="person.relationship === Relationship.Spouse">      
+    <div class="row" *ngIf="person.livedInBCSinceBirth === false">      
       <div class="col-md-12">
         <label [innerHtml]="lang('./en/index.js').releasedFromArmedForcesOrInstitution"></label>
         <msp-toggle [(data)]="showHasBeenReleasedFromArmedForces"></msp-toggle>

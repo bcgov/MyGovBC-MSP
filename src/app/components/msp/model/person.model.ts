@@ -47,7 +47,20 @@ class Person implements IPerson {
     public cancellationDate: SimpleDate;
 
     /** NEEDS XSD. For child only. */
-    public newlyAdopted: boolean;
+    private _newlyAdopted: boolean;
+
+    get newlyAdopted(): boolean {
+        return this._newlyAdopted;
+    }
+
+    set newlyAdopted(val: boolean){
+        if (!val){
+            this.adoptedDate = null;
+        }
+        this._newlyAdopted = val;
+    }
+
+    public adoptedDate: SimpleDate;
 
     public adoptionDate: SimpleDate;
 
@@ -303,6 +316,8 @@ class Person implements IPerson {
      */
     schoolName: string;
     schoolAddress: Address = new Address();
+    /** Needs XSD.  */
+    schoolOutsideOfBC: boolean;
 
     // for account management , spouse and child can have address
     // Address and Contact Info
@@ -310,6 +325,26 @@ class Person implements IPerson {
     public mailingSameAsResidentialAddress: boolean = true;
     public mailingAddress: Address = new Address();
     public phoneNumber: string;
+
+    /** Only useful if person is spouse. Answers the question: "Do you know your Spouses' current mailing address?" */
+    private _knownMailingAddress: boolean;
+
+    get knownMailingAddress(): boolean {
+        return this._knownMailingAddress;
+    }
+
+    set knownMailingAddress(val: boolean){
+
+        if (!val){
+            //NOTE - FDS page 51 says residentialAddress should be "Unknown" now?
+            this.residentialAddress = new Address();
+            // this.residentialAddress = "Unknown";
+            this.mailingSameAsResidentialAddress = true;
+            this.mailingAddress = new Address();
+        }
+        
+        this._knownMailingAddress = val;
+    }
 
 
     /**
@@ -329,6 +364,32 @@ class Person implements IPerson {
         return regEx.test(this.phoneNumber);
     }
 
+
+    /**
+     * NEEDS XSD.
+     * When the student expects to finish.
+     */
+    studiesBeginYear: number;
+    studiesBeginMonth: number;
+    studiesBeginDay: number;
+
+    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <msp-date> component. */
+    get studiesBeginSimple(): SimpleDate {
+        return {
+            "year": this.studiesBeginYear,
+            "month": this.studiesBeginMonth,
+            "day": this.studiesBeginDay,
+        }
+    }
+
+    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <msp-date> component. */
+    set studiesBeginSimple(date: SimpleDate) {
+        this.studiesBeginYear = date.year;
+        this.studiesBeginMonth = date.month;
+        this.studiesBeginDay = date.day;
+    }
+
+
     /**
      * When the student expects to finish
      */
@@ -346,6 +407,23 @@ class Person implements IPerson {
         return this.parseDate(this.studiesFinishedYear, this.studiesFinishedMonth, this.studiesFinishedDay);
     }
 
+
+    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <msp-date> component. */
+    get studiesFinishedSimple(): SimpleDate {
+        return {
+            "year": this.studiesFinishedYear,
+            "month": this.studiesFinishedMonth,
+            "day": this.studiesFinishedDay,
+        }
+    }
+
+    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <msp-date> component. */
+    set studiesFinishedSimple(date: SimpleDate){
+        this.studiesFinishedYear = date.year;
+        this.studiesFinishedMonth = date.month;
+        this.studiesFinishedDay = date.day;
+    }
+
     /**
      * If school outside BC when did they leave
      */
@@ -361,6 +439,22 @@ class Person implements IPerson {
 
     get studiesDepartureDate() {
         return this.parseDate(this.studiesDepartureYear, this.studiesDepartureMonth, this.studiesDepartureDay);
+    }
+
+    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <msp-date> component. */
+    get studiesDepartureSimple(): SimpleDate {
+        return {
+            "year": this.studiesDepartureYear,
+            "month": this.studiesDepartureMonth,
+            "day": this.studiesDepartureDay,
+        }
+    }
+
+    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <msp-date> component. */
+    set studiesDepartureSimple(date: SimpleDate){
+        this.studiesDepartureYear = date.year;
+        this.studiesDepartureMonth = date.month;
+        this.studiesDepartureDay = date.day;
     }
 
     get status() {

@@ -195,7 +195,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="!hideProvinceAndCountry">
             <div class="form-group col-sm-5">
                 <msp-province #province
                         [provinceLabel]="lang('./en/index.js').provinceStateLabel"

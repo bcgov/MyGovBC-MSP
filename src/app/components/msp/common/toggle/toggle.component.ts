@@ -1,11 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { BaseComponent } from "../base.component";
+
 
 @Component({
   selector: 'msp-toggle',
   templateUrl: './toggle.component.html',
   styleUrls: ['./toggle.component.less']
 })
-export class ToggleComponent implements OnInit {
+export class ToggleComponent extends BaseComponent {
 
   @Input() data: boolean;
   @Output() dataChange: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -13,9 +15,18 @@ export class ToggleComponent implements OnInit {
   @Input() id: string;
   
 
-  constructor() { }
+  constructor(private cd: ChangeDetectorRef) {
+    super(cd);
+  }
 
-  ngOnInit() {
+  //Invalid if boolean is undefined, null, etc. User must make a choice.
+  isValid(): boolean {
+    console.log('toggle.Isvalid called', this)
+    return this.data === true || this.data === false;
+  }
+
+  ngOnChanges(){
+    this.emitIsFormValid();
   }
 
 }
