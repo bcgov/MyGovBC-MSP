@@ -741,7 +741,7 @@ export class MspApiService {
     private convertChildFromAccountChange(from: Person): AccountChangeChildType {
         let to = AccountChangeChildTypeFactory.make();
 
-        to.operationAction = <OperationActionType> OperationActionTypeEnum[from.operationActionType] ;
+        to.operationAction = <OperationActionType> OperationActionTypeEnum[OperationActionTypeEnum.Add] ;
 
         to.name = this.convertName(from);
         if (from.hasDob) {
@@ -761,8 +761,98 @@ export class MspApiService {
 
         }
 
-      //FIXME//TODO ADD Adoption details ..more fields to come..
+        //Has child lived in B.C. since birth?
+        if (from.livedInBCSinceBirth != null) {
+            to.livedInBC = LivedInBCTypeFactory.make();
+            if (from.livedInBCSinceBirth === true) {
+                to.livedInBC.hasLivedInBC = "Y";
+            }
+            else {
+                to.livedInBC.hasLivedInBC = "N";
+            }
 
+            to.livedInBC.isPermanentMove = from.madePermanentMoveToBC === true ? "Y" : "N";
+            if (from.healthNumberFromOtherProvince) {
+                to.livedInBC.prevHealthNumber = from.healthNumberFromOtherProvince; // out of province health numbers
+            }
+
+            if (from.movedFromProvinceOrCountry) {
+                to.livedInBC.prevProvinceOrCountry = from.movedFromProvinceOrCountry;
+            }
+
+            // Arrival dates
+            if (from.hasArrivalToBC) {
+                to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+            }
+
+        }
+        //Is this child newly adopted?
+        if (from.newlyAdopted) {
+            to.adoptionDate =  this.parseDate(from.adoptionDate).format(this.ISO8601DateFormat);
+        }
+
+
+        // Has this family member been outside of BC for more than a total of 30 days during the past 12 months?
+        if (from.declarationForOutsideOver30Days != null) {
+            to.outsideBC = OutsideBCTypeFactory.make();
+            to.outsideBC.beenOutsideBCMoreThan = from.declarationForOutsideOver30Days === true ? "Y" : "N";
+            if (from.outOfBCRecord.hasDeparture) {
+                to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+            }
+            if (from.outOfBCRecord.hasReturn) {
+                to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+            }
+            to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
+            to.outsideBC.destination = from.outOfBCRecord.location;
+
+        }
+
+        //  Will this family member be outside of BC for more than a total of 30 days during the next 6 months?
+
+        if (from.plannedAbsence != null) {
+            to.outsideBCinFuture = OutsideBCTypeFactory.make();
+            to.outsideBCinFuture.beenOutsideBCMoreThan = from.plannedAbsence === true ? "Y" : "N";
+            if (from.planOnBeingOutOfBCRecord.hasDeparture) {
+                to.outsideBCinFuture.departureDate = from.planOnBeingOutOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+            }
+            if (from.planOnBeingOutOfBCRecord.hasReturn) {
+                to.outsideBCinFuture.returnDate = from.planOnBeingOutOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+            }
+            to.outsideBCinFuture.familyMemberReason = from.planOnBeingOutOfBCRecord.reason;
+            to.outsideBCinFuture.destination = from.planOnBeingOutOfBCRecord.location;
+
+        }
+
+
+        // Have they been released from the Canadian Armed Forces or an Institution?
+        if (from.hasDischarge) {
+            to.willBeAway = WillBeAwayTypeFactory.make();
+            to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
+            to.willBeAway.armedForceInstitutionName =  from.nameOfInstitute;
+            to.willBeAway.isFullTimeStudent = "N" ;
+        }
+
+        // Child 19-24
+
+        if (from.relationship === Relationship.Child19To24 ) {
+            if (from.schoolName) {
+                to.schoolName = from.schoolName;
+            }
+
+            if (from.hasStudiesDeparture) {
+                to.departDateSchoolOutside = from.studiesDepartureDate.format(this.ISO8601DateFormat);
+            }
+            if (from.hasStudiesFinished) {
+                to.dateStudiesFinish = from.studiesFinishedDate.format(this.ISO8601DateFormat);
+            }
+
+            //  Departure date if school is outszide BC //TODO
+         /*   to.departDateSchoolOutside = from.departDateSchoolOutside.format(this.ISO8601DateFormat);*/
+
+            // Assemble address string
+            to.schoolAddress = this.convertAddress(from.schoolAddress);
+
+        }
 
         return to;
     }
@@ -900,7 +990,6 @@ export class MspApiService {
             to.cancellationReason = from.reasonForCancellation;
             to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
         }
-
         if (from.mailingAddress) { //TODO ADD IF check to see if address is enterd
             to.mailingAddress = this.convertAddress(from.mailingAddress) ;
         }
