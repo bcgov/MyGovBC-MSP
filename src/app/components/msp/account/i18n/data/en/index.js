@@ -1,5 +1,5 @@
 module.exports = {
-  serviceName: 'Account Maintenance',
+  serviceName: 'MSP Account Change Request',
   progressStepMainMenu: 'Main Menu',
   progressStepDocumentation: 'Supporting Documentation',
   progressStepReview: 'Review & Submit',
