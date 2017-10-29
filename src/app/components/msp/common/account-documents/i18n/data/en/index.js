@@ -22,7 +22,8 @@ module.exports = {
     15:'Landed Immigration Documents Open sample',
     16:'Permit indicating Religious Worker',
     17:'Confirmation of your religious server from your religious order ',
-    18:'Foil from your diplomatic passport'
+    18:'Foil from your diplomatic passport',
+    19:'Verification of Adoption'
 
 
 

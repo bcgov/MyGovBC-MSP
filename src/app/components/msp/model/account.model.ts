@@ -180,7 +180,20 @@ class AccountChangeOptions {
     personInfoUpdate: boolean = false;
     dependentChange: boolean = false;
     addressUpdate: boolean = false;
+
+    get nameChangeDueToMarriage(): boolean {
+        if (this.dependentChange || this.addressUpdate || this.statusUpdate) {
+            this._nameChangeDueToMarriage = false;
+        }
+        return this._nameChangeDueToMarriage;
+    }
+
+    set nameChangeDueToMarriage(value: boolean) {
+        this._nameChangeDueToMarriage = value;
+    }
+
     statusUpdate: boolean = false;
+    private _nameChangeDueToMarriage: boolean = false ;
 
     hasAnyPISelected () :boolean {
         return this.personInfoUpdate || this.statusUpdate;

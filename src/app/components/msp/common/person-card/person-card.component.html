@@ -1,5 +1,6 @@
-<h2 [innerHtml]="(person.operationActionType ? lang('./en/index.js').actionTypeLabel[person.operationActionType]:'') + lang('./en/index.js').relationshipLabel[person.relationship] +
+<h2 *ngIf="!customTitle" [innerHtml]="(person.operationActionType ? lang('./en/index.js').actionTypeLabel[person.operationActionType]:'') + lang('./en/index.js').relationshipLabel[person.relationship] +
     ' ' + lang('./en/index.js').cardSuffix "></h2>
+<h2 *ngIf="customTitle">{{customTitle}}</h2>
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row" *ngIf="person.hasFullName">
@@ -223,7 +224,7 @@
             </div>
         </div>
         <button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
-            [innerHTML]="lang('./en/index.js').editButton.replace('{label}', lang('./en/index.js').relationshipLabel[person.relationship])"
+            [innerHTML]="customLinkTitle?customLinkTitle:lang('./en/index.js').editButton.replace('{label}', lang('./en/index.js').relationshipLabel[person.relationship])"
             tabindex="0">
         </button>
     </div>

@@ -4,8 +4,8 @@ module.exports = {
   progressStepDocumentation: 'Supporting Documentation',
   progressStepReview: 'Review & Submit',
 
-    progressStepPersonalInfo: 'Personal Information <br> Update',
-    progressStepAddressUpdate: 'Address Update',
-    progressStepUpdateStatus: 'Update Status in Canada',
+    progressStepPersonalInfo: 'Update or Correct Personal Information',
+    progressStepAddressUpdate: 'Update Address',
+    progressStepUpdateStatus: 'Update/Confirm status in Canada',
     progressStepDependents: 'Add/Remove Spouse and/or Child(ren)'
 }

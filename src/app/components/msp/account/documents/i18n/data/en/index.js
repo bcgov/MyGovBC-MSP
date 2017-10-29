@@ -1,6 +1,6 @@
 module.exports = {
   pageTitle: 'Documents Required',
-  pageTitle: 'Documents Required',
+    pageNoDocTitle: 'Documents Not Required',
     documentInstructionLabel: ['Your ID Requirements',
         'Spouse\'s ID Requirements',
         'Child\'s ID Requirements',

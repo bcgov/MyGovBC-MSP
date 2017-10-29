@@ -34,6 +34,7 @@ export class AccountPrepareComponent extends BaseComponent {
 
     @ViewChild('addressChangeChkBx') addressChangeChkBx: ElementRef;
     @ViewChild('personalInfoChangeChkBx') personalInfoChangeChkBx: ElementRef;
+    @ViewChild('nameChangeDueToMarriageChkBx') nameChangeDueToMarriageChkBx: ElementRef;
     @ViewChild('dependentChangeChkBx') dependentChangeChkBx: ElementRef;
     @ViewChild('updateStatusInCanadaChkBx') updateStatusInCanadaChkBx: ElementRef;
     @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
@@ -115,6 +116,11 @@ export class AccountPrepareComponent extends BaseComponent {
 
     personInfoUpdateOnChange(event: boolean) {
         this.accountChangeOptions.personInfoUpdate = event;
+        this.dataService.saveMspAccountApp();
+    }
+
+    nameChangeDueToMarriageOnChange(event: boolean) {
+        this.accountChangeOptions.nameChangeDueToMarriage = event;
         this.dataService.saveMspAccountApp();
     }
 

@@ -22,7 +22,8 @@ enum Documents {
     LandedImmigrationDocs,
     ReligiousWorkerPermit,
     ReligiousConfirmationOrder,
-    FoilDiplomaticPassport
+    FoilDiplomaticPassport,
+    AdoptionVerification
 }
 
 
@@ -35,18 +36,40 @@ class AccountDocumentRules {
     static availiableDocuments(): DocumentGroup[] {
 
         //TODO! NOT DONE. MISSING EXAMPLE DOCS
-        const addSpouseOrChildren: DocumentGroup = new DocumentGroup("Add Spouse or Child(ren)",[]);
+        const addSpouseOrChildren: DocumentGroup = new DocumentGroup("Add Spouse or Child(ren)",[
+            Documents.CanadianBirthCertificate,
+            Documents.CanadianCitizenCard,
+            Documents.CanadianPassport,
+            Documents.PermanentResidentCard,
+            Documents.WorkPermit,
+            Documents.StudyPermit,
+            Documents.VisitorVisa,
+            Documents.LandedImmigrationDocs,
+            Documents.ReligiousWorkerPermit,
+            Documents.ReligiousConfirmationOrder,
+            Documents.FoilDiplomaticPassport,
+            Documents.AdoptionVerification
+
+
+        ]);
         //TODO! NOT DONE. MISSING EXAMPLE DOCS
-        const removeSpouseOrChildren: DocumentGroup = new DocumentGroup("Remove Spouse or Child(ren)",[]);
+        const removeSpouseOrChildren: DocumentGroup = new DocumentGroup("Remove Spouse or Child(ren)",[
+            Documents.DivorceDecree,
+            Documents.SeparationAgreement,
+        ]);
         
         let updateBirthdate: DocumentGroup = new DocumentGroup("Update or Correct Birthdate",[
-            Documents.CanadianBirthCertificate, 
+            Documents.CanadianBirthCertificate,
             Documents.CanadianCitizenCard
         ]);
 
         let updateName: DocumentGroup = new DocumentGroup("Update or Correct Name", [
+            Documents.MarriageCertificate,
+            Documents.DivorceDecree,
+            Documents.ChangeOfNameCertificate,
+            Documents.SeparationAgreement,
             Documents.CanadianBirthCertificate,
-            Documents.CanadianCitizenCard
+            Documents.CanadianCitizenCard,
         ]);
 
         let statusInCanada: DocumentGroup = new DocumentGroup("Update or Confirm Status in Canada",[

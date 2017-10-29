@@ -3,5 +3,6 @@ module.exports = {
   phnErrorRequired: 'PHN is required',
   phnErrorMinLength: 'PHN must be at least 10 characters long',
   phnErrorMod11Check: 'PHN is not valid',
-  phnErrorBCPhn: 'PHN is not from B.C.'
+  phnErrorBCPhn: 'PHN is not from B.C.',
+  phnLabelMsgForAccount: ' This number will be used to verify your MSP account'
 }

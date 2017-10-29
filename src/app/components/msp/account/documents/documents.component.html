@@ -1,6 +1,6 @@
 <form #formRef="ngForm" novalidate>
-    <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
-    <div class="row">
+    <h1 [innerHTML]="mspAccountApp.accountChangeOptions.nameChangeDueToMarriage?lang('./en/index.js').pageNoDocTitle:lang('./en/index.js').pageTitle"></h1>
+    <div class="row" *ngIf="!mspAccountApp.accountChangeOptions.nameChangeDueToMarriage">
         <div class="col-xs-6" role="alert" aria-live="assertive">
             <h3>
                 <i class="fa fa-id-card-o" aria-hidden="true"></i> 
@@ -48,7 +48,7 @@
         <div class="col-sm-2">
             <button 
                 [mspLogger]="'msp-accountmanagement_docment-upload_continue'"
-                [disabled] = "!canContinue"
+                [disabled] = "!mspAccountApp.accountChangeOptions.nameChangeDueToMarriage && !canContinue"
                 class="btn btn-primary" type="submit" (click)="continue()"
                 [innerHTML]="lang('./en/index.js').continueButton"></button>
 

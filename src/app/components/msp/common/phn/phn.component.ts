@@ -18,6 +18,7 @@ export class MspPhnComponent extends BaseComponent {
   @Input() showError:boolean;
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
+    @Input() isForAccountChange: boolean = false;
 
   constructor(private cd: ChangeDetectorRef) {
     super(cd);

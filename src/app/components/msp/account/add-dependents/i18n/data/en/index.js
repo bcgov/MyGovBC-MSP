@@ -17,9 +17,9 @@ module.exports = {
   ],
   isExistingBeneficiaryQuestion: [
     '',
-    'Is the spouse an existing MSP Beneficiary?',
-    'Is the child an existing MSP Beneficiary?',
-    'Is the child an existing MSP Beneficiary?',
+    'Is the spouse an existing MSP Beneficiary (has MSP coverage)?',
+    'Is the child an existing MSP Beneficiary (has MSP coverage)?',
+    'Is the child an existing MSP Beneficiary (has MSP coverage)?',
   ],
 
   //Spouse only? Maybe remove the array format?

@@ -12,6 +12,8 @@
                [(mod11Check)]="bcPhn"
                id='phn{{objectId}}' name='phn' #phnRef="ngModel"
                class="form-control">
+        <div *ngIf="isForAccountChange"  style="font-size: smaller" [innerHTML]="lang('./en/index.js').phnLabelMsgForAccount"></div>
+
         <div *ngIf='phnRef.touched || showError' role="alert" aria-live="assertive">
             <div class="text-danger" *ngIf="phnRef.errors?.required"
                  [innerHTML]="lang('./en/index.js').phnErrorRequired"></div>

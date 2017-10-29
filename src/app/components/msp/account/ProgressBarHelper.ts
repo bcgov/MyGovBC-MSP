@@ -25,18 +25,18 @@ export class ProgressBarHelper {
     private constructWidths(): void {
         let isAllFourTabsShown = this._accountChangeOptions.hasAllOptionsSelected() || (this._accountChangeOptions.hasAnyPISelected() && this._accountChangeOptions.dependentChange) ;
         if (isAllFourTabsShown  ) {     // All Four tabs  shown
-            this._widthMainMenu = {'width': '15%'};
+            this._widthMainMenu = {'width': '14%'};
             this._widthDocumentUpload = {'width': '15%'};
-            this._widthPersonalInfo = {'width': '30%'};
+            this._widthPersonalInfo = {'width': '33%'};
             this._widthDependents = {'width': '20%'};
-            this._widthReview  = {'width': '20%'};
+            this._widthReview  = {'width': '18%'};
             return;
         }
         if (this._accountChangeOptions.hasAnyPISelected()){
-            this._widthMainMenu = {'width': '22%'};
+            this._widthMainMenu = {'width': '15%'};
             this._widthDocumentUpload = {'width': '25%'};
-            this._widthPersonalInfo = {'width': '30%'};
-            this._widthReview  = {'width': '23%'};
+            this._widthPersonalInfo = {'width': '35%'};
+            this._widthReview  = {'width': '20%'};
             return ;
         }
         if (this._accountChangeOptions.dependentChange){
@@ -57,7 +57,7 @@ export class ProgressBarHelper {
             return;
         }
         if (this._accountChangeOptions.dependentChange && this._accountChangeOptions.hasAnyPISelected()) {
-            this._height = {'height': '80px'};
+            this._height = {'height': '75px'};
             return;
         }
         if (this._accountChangeOptions.dependentChange && this._accountChangeOptions.addressUpdate) {
