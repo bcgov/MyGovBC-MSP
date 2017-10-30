@@ -43,6 +43,8 @@
                 (click)="addChild(Relationship.Child19To24)">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
+                <!-- Appears below the button via CSS, but must be in button for accessibility purposes (screen readers). -->
+                <span [innerHTML]="lang('./en/index.js').mustBeFullTimeStudent" class='small-print'></span>
             </button>
             <hr>
             <button class="btn btn-default"

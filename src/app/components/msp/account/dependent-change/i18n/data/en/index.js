@@ -11,5 +11,6 @@ module.exports = {
   completesAllHighlightedFields: 'Please complete all highlighted fields on this page and try to continue to next page.',
   badAnswerStudies: 'To qualify for provincial health care benefits a person must be a resident of BC. As you intend to leave BC when your studies are completed, you are not eligible for MSP coverage. Please contact the health care plan in your home province for information about medical coverage while studying in BC.',
   continueButton: "Continue",
+  mustBeFullTimeStudent: 'Must be a full time student',
   
 }

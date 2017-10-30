@@ -5,9 +5,6 @@ h1.page-title {
 
 .panel-primary > .panel-heading {
     color: #fff;
-    //todo - remove
-    // background-color: #036;
-    // border-color: transparent;
 }
 
 .panel-body > .btn {
@@ -18,4 +15,17 @@ h1.page-title {
     border-color: #bbb; //default
     color: #bbb; //old IE
     background-color: #bbb; //other modern browsers
+}
+
+.panel .btn {
+    position: relative;
+}
+
+.panel .small-print {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 0.5em);
+    font-size: 12px;
+    // Without pointer-events, clicking the text counts as clicking the button.
+    pointer-events: none;
 }
