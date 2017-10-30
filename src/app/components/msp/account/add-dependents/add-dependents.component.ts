@@ -10,7 +10,7 @@ import { NgForm } from "@angular/forms";
 import { ToggleComponent } from '../../common/toggle/toggle.component';
 import { StatusInCanadaRadioComponent } from '../../common/status-in-canada-radio/status-in-canada-radio.component';
 import { AccountPersonalDetailsComponent } from '../personal-info/personal-details/personal-details.component';
-import { AddNewDependentBeneficiaryComponent } from '../add-new-dependent-beneficiary/add-new-dependent-beneficiary.component'
+import { AddNewDependentBeneficiaryComponent } from '../add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component'
 
 @Component({
   selector: 'msp-add-dependent',

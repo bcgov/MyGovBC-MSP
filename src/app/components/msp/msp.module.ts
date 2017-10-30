@@ -92,7 +92,7 @@ import { RemoveDependentComponent } from './account/remove-dependents/remove-dep
 import { ToggleComponent } from './common/toggle/toggle.component';
 import { MspDateComponent } from './common/date/date.component';
 import { StatusInCanadaRadioComponent } from './common/status-in-canada-radio/status-in-canada-radio.component';
-import { AddNewDependentBeneficiaryComponent } from './account/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
+import { AddNewDependentBeneficiaryComponent } from './account/add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
 import { MspAccordionComponent } from './common/accordion/accordion.component';
 
 
