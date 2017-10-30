@@ -23,7 +23,7 @@ h1.page-title {
 
 .panel .small-print {
     position: absolute;
-    left: 0;
+    left: 140px;
     top: calc(100% + 0.5em);
     font-size: 12px;
     // Without pointer-events, clicking the text counts as clicking the button.

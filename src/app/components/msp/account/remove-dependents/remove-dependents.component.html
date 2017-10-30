@@ -61,10 +61,13 @@
     <msp-address 
       *ngIf="person.knownMailingAddress"
       [mailingAddressHeading]="lang('./en/index.js').mailingAddr"
-      [mailingAddress]="person.residentialAddress"
+      [mailingAddress]="person.mailingAddress"
       [mailingOnly]="true"
       [showError] = "showError"
     ></msp-address>
+
+
+
 
   </ng-container>
 

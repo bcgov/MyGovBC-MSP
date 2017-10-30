@@ -373,62 +373,15 @@ export class MspApiService {
         let to = DocumentFactory.make();
         to.application = ApplicationTypeFactory.make();
 
-
-
         // UUID
         to.application.uuid = from.uuid;
 
         to.application.accountChangeApplication = AccountChangeApplicationTypeFactory.make();
 
-        to.application.accountChangeApplication.accountHolder = AccountChangeAccountHolderFactory.make();
 
-        to.application.accountChangeApplication.accountHolder.selectedAddRemove = from.accountChangeOptions.dependentChange ? "Y" : "N";
+        to.application.accountChangeApplication.accountHolder = this.convertAccountHolderFromAccountChange(from);
 
-        to.application.accountChangeApplication.accountHolder.selectedAddressChange = from.accountChangeOptions.addressUpdate ? "Y" : "N";
-        to.application.accountChangeApplication.accountHolder.selectedPersonalInfoChange = from.accountChangeOptions.personInfoUpdate ? "Y" : "N";
-        to.application.accountChangeApplication.accountHolder.selectedStatusChange = from.accountChangeOptions.statusUpdate ? "Y" : "N";
-
-        
-
-        to.application.accountChangeApplication.accountHolder.name = this.convertName(from.applicant);
-
-        if (from.applicant.hasDob) {
-            to.application.accountChangeApplication.accountHolder.birthDate = from.applicant.dob.format(this.ISO8601DateFormat);
-        }
-        if (from.applicant.gender != null) {
-            to.application.accountChangeApplication.accountHolder.gender = <GenderType>{};
-            to.application.accountChangeApplication.accountHolder.gender = <GenderType> from.applicant.gender.toString();
-        }
-        if (from.authorizedByApplicant != null) {
-            to.application.accountChangeApplication.accountHolder.authorizedByApplicant = from.authorizedByApplicant ? "Y" : "N";
-            to.application.accountChangeApplication.accountHolder.authorizedByApplicantDate = moment(from.authorizedByApplicantDate)
-                .format(this.ISO8601DateFormat);
-        }
-
-        if (from.authorizedBySpouse != null) {
-            to.application.accountChangeApplication.accountHolder.authorizedBySpouse = from.authorizedBySpouse ? "Y" : "N";
-        }
-
-        if (!from.applicant.mailingSameAsResidentialAddress) {
-            to.application.accountChangeApplication.accountHolder.mailingAddress = this.convertAddress(from.applicant.mailingAddress);
-        }
-
-        to.application.accountChangeApplication.accountHolder.residenceAddress = this.convertAddress(from.applicant.residentialAddress);
-
-
-        if (from.phoneNumber) {
-            to.application.accountChangeApplication.accountHolder.telephone = Number(from.phoneNumber.replace(new RegExp("[^0-9]", "g"), ""));
-        }
-        if (from.applicant.previous_phn) {
-            to.application.accountChangeApplication.accountHolder.phn = Number(from.applicant.previous_phn.replace(new RegExp("[^0-9]", "g"), ""));
-        }
-
-        if (from.applicant.status != null  ) {
-            to.application.accountChangeApplication.accountHolder.citizenship = this.findCitizenShip(from.applicant.status,from.applicant.currentActivity);
-
-        }
-
-
+        //spouses
         to.application.accountChangeApplication.spouses = AccountChangeSpousesTypeFactory.make();
 
 
@@ -854,6 +807,15 @@ export class MspApiService {
 
         }
 
+
+        if (from.reasonForCancellation) {
+            to.cancellationReason = from.reasonForCancellation;
+            to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
+        }
+        if (from.knownMailingAddress) {
+            to.mailingAddress = this.convertAddress(from.mailingAddress) ;
+        }
+
         return to;
     }
 
@@ -887,6 +849,61 @@ export class MspApiService {
                 }
         }
         return citizen;
+    }
+
+
+    private convertAccountHolderFromAccountChange(from: MspAccountApp): AccountChangeAccountHolderType {
+
+      let  accountHolder:AccountChangeAccountHolderType = AccountChangeAccountHolderFactory.make();
+
+        accountHolder.selectedAddRemove = from.accountChangeOptions.dependentChange ? "Y" : "N";
+
+        accountHolder.selectedAddressChange = from.accountChangeOptions.addressUpdate ? "Y" : "N";
+        accountHolder.selectedPersonalInfoChange = from.accountChangeOptions.personInfoUpdate ? "Y" : "N";
+        accountHolder.selectedStatusChange = from.accountChangeOptions.statusUpdate ? "Y" : "N";
+
+        accountHolder.name = this.convertName(from.applicant);
+
+
+        if (from.applicant.hasDob) {
+            accountHolder.birthDate = from.applicant.dob.format(this.ISO8601DateFormat);
+        }
+        if (from.applicant.gender != null) {
+            accountHolder.gender = <GenderType>{};
+            accountHolder.gender = <GenderType> from.applicant.gender.toString();
+        }
+        if (from.authorizedByApplicant != null) {
+            accountHolder.authorizedByApplicant = from.authorizedByApplicant ? "Y" : "N";
+            accountHolder.authorizedByApplicantDate = moment(from.authorizedByApplicantDate)
+                .format(this.ISO8601DateFormat);
+        }
+
+        if (from.authorizedBySpouse != null) {
+            accountHolder.authorizedBySpouse = from.authorizedBySpouse ? "Y" : "N";
+        }
+
+        if (!from.applicant.mailingSameAsResidentialAddress) {
+            accountHolder.mailingAddress = this.convertAddress(from.applicant.mailingAddress);
+        }
+
+        accountHolder.residenceAddress = this.convertAddress(from.applicant.residentialAddress);
+
+
+        if (from.phoneNumber) {
+            accountHolder.telephone = Number(from.phoneNumber.replace(new RegExp("[^0-9]", "g"), ""));
+        }
+        if (from.applicant.previous_phn) {
+            accountHolder.phn = Number(from.applicant.previous_phn.replace(new RegExp("[^0-9]", "g"), ""));
+        }
+
+        if (from.applicant.status != null  ) {
+            accountHolder.citizenship = this.findCitizenShip(from.applicant.status,from.applicant.currentActivity);
+
+        }
+
+
+        return accountHolder;
+
     }
     private convertSpouseFromAccountChange(from: Person): AccountChangeSpouseType {
         let to = AccountChangeSpouseTypeFactory.make();
@@ -990,7 +1007,7 @@ export class MspApiService {
             to.cancellationReason = from.reasonForCancellation;
             to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
         }
-        if (from.mailingAddress) { //TODO ADD IF check to see if address is enterd
+        if (from.knownMailingAddress) {
             to.mailingAddress = this.convertAddress(from.mailingAddress) ;
         }
 
