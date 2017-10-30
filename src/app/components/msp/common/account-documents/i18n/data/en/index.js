@@ -19,7 +19,7 @@ module.exports = {
     12:'Separation Agreement',
     13:'Application for Change of Gender Designation (Adult)',
     14:'Application for Change of Gender Designation (Minor)',
-    15:'Landed Immigration Documents Open sample',
+    15:'Landed Immigration Documents',
     16:'Permit indicating Religious Worker',
     17:'Confirmation of your religious server from your religious order ',
     18:'Foil from your diplomatic passport',
