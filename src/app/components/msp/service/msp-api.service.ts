@@ -807,6 +807,15 @@ export class MspApiService {
 
         }
 
+
+        if (from.reasonForCancellation) {
+            to.cancellationReason = from.reasonForCancellation;
+            to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
+        }
+        if (from.knownMailingAddress) {
+            to.mailingAddress = this.convertAddress(from.mailingAddress) ;
+        }
+
         return to;
     }
 
@@ -998,7 +1007,7 @@ export class MspApiService {
             to.cancellationReason = from.reasonForCancellation;
             to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
         }
-        if (from.mailingAddress) { //TODO ADD IF check to see if address is enterd
+        if (from.knownMailingAddress) {
             to.mailingAddress = this.convertAddress(from.mailingAddress) ;
         }
 
