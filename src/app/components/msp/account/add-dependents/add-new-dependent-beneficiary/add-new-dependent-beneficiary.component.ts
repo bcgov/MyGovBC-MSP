@@ -1,12 +1,12 @@
 import { ChangeDetectorRef, Component, OnInit, Input, Output, EventEmitter, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { Person } from '../../model/person.model';
-import { Relationship, StatusInCanada } from '../../model/status-activities-documents';
-import { BaseComponent } from "../../common/base.component";
-import { ToggleComponent } from '../../common/toggle/toggle.component';
-import { MspProvinceComponent } from '../../common/province/province.component';
-import { MspDateComponent } from '../../common/date/date.component';
-import { MspOutofBCRecordComponent } from '../../common/outof-bc/outof-bc.component';
-import { MspDischargeDateComponent } from '../../common/discharge-date/discharge-date.component';
+import { Person } from '../../../model/person.model';
+import { Relationship, StatusInCanada } from '../../../model/status-activities-documents';
+import { BaseComponent } from "../../../common/base.component";
+import { ToggleComponent } from '../../../common/toggle/toggle.component';
+import { MspProvinceComponent } from '../../../common/province/province.component';
+import { MspDateComponent } from '../../../common/date/date.component';
+import { MspOutofBCRecordComponent } from '../../../common/outof-bc/outof-bc.component';
+import { MspDischargeDateComponent } from '../../../common/discharge-date/discharge-date.component';
 
 
 @Component({

@@ -9,7 +9,7 @@ import { CalendarYearValidator } from '../../common/calendar/calendar-year.valid
 import { CalendarMonthValidator } from '../../common/calendar/calendar-month.validator';
 import { CalendarDayValidator } from '../../common/calendar/calendar-day.validator';
 import { CalendarYearFormatter } from '../../common/calendar/calendar-year-formatter.component';
-import { AddNewDependentBeneficiaryComponent } from '../add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
+import { AddNewDependentBeneficiaryComponent } from '../add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
 import { MspNameComponent } from '../../common/name/name.component';
 import { MspGenderComponent } from "../../common/gender/gender.component";
 import { MspBirthDateComponent } from "../../common/birthdate/birthdate.component";
