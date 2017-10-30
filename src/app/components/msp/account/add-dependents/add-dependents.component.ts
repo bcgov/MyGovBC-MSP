@@ -52,7 +52,7 @@ export class AddDependentComponent extends BaseComponent {
     this.firstFocus.nativeElement.focus();
   }
 
-  cancelDependentRemoval(){
+  cancelDependent(){
     this.onCancel.emit();
   }
 

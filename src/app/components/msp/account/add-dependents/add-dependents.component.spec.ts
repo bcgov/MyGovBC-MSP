@@ -69,4 +69,11 @@ describe('AddDependentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('be able to cancel adding a dependent ', () => {
+    spyOn(component.onCancel, 'emit');
+    expect(component.onCancel.emit).not.toHaveBeenCalled();
+    component.cancelDependent();
+    expect(component.onCancel.emit).toHaveBeenCalled();
+  });
 });
