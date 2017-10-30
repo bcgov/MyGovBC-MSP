@@ -9,7 +9,7 @@ module.exports = {
     personalInfoChange: 'Update/Correct Personal Information for Account Holder or other Individuals on your Account (Name, Date of Birth, or Gender)',
     dependentChange: 'Add/Remove Spouse (includes Common-law) and/or Child(ren)',
     statusChange: 'Update/Confirm status in Canada (e.g., Permanent Resident)',
-    nameChangeDueToMarriage: 'If this is a change to last name due to marriage, check here if spouse is already on your MSP account',
+    nameChangeDueToMarriage: 'If you are <Strong>only</Strong> changing last name due to marriage, check here if spouse is already on your MSP account.',
     continueButton: 'Continue',
     addressRedirecMsg: 'You will be redirected to Address Change BC to complete your request. Please complete the field below and click Continue.'
 }
