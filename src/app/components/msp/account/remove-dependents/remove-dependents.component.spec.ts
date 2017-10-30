@@ -76,4 +76,29 @@ describe('RemoveDependentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should create a cancellationIterable', () => {
+    expect(component.cancellationReasonsIterable).toBeDefined();
+    expect(component.cancellationReasonsIterable.length).toBeDefined();
+    expect(component.cancellationReasonsIterable.length).toBeDefined();
+    expect(component.cancellationReasonsIterable[0].index).toEqual(0);
+    expect(component.cancellationReasonsIterable[0].prop).toBeDefined();
+  });
+
+  it('should return "Other" for reason for cancellation when a custom reason is provided to person', () => {
+    component.person.reasonForCancellation = "random";
+    expect(component.reasonForCancellation).toEqual("Other");
+  });
+
+  it('should return a default reason for cancellation if a default reason is used', () => {
+    let reason = component.cancellationReasonsIterable[0].prop
+    component.onChangeReasonForCancellation(reason);
+    expect(component.reasonForCancellation).toEqual(reason);
+  });
+
+  it('should have an element it focuses on on init', () => {
+    expect(component.firstFocus).toBeDefined();
+    expect(component.firstFocus.nativeElement).toEqual(document.activeElement);
+  });
+  
 });
