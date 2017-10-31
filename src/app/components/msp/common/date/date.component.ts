@@ -140,7 +140,6 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
     }
     //Only emit the date when it's valid and there are no form errors.
     if (!this.hasFormErrors){
-      console.log('EMITTING DATE', this.simpleDate);
       this.dateChange.emit(this.simpleDate);      
     }
     return true;
