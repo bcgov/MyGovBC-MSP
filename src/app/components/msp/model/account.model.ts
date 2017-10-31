@@ -44,7 +44,16 @@ class MspAccountApp implements ApplicationBase {
 
     private _removedSpouse: Person;
     private _removedChildren: Array<Person> = [];
-    
+    private _addedChildren: Array<Person> = [];
+    private _updatedChildren: Array<Person>  = [];
+
+    get addedChildren(): Array<Person> {
+        return this._addedChildren;
+    }
+
+    set addedChildren(value: Array<Person>) {
+        this._addedChildren = value;
+    }
 
     get children(): Array<Person> {
         return this._children;
@@ -64,6 +73,7 @@ class MspAccountApp implements ApplicationBase {
 
     private _addedSpouse: Person;
     private _updatedSpouse: Person;
+    //DEAM doesnt use chidren as such..its either updated/removed/added children
     private _children: Array<Person>  = [];
 
     private _accountChangeOptions :AccountChangeOptions = new AccountChangeOptions ();
@@ -72,9 +82,12 @@ class MspAccountApp implements ApplicationBase {
         this.updatedSpouse = null;
     } ;
 
+
+
     addUpdatedSpouse = (sp:Person)=>{
         if(!this.updatedSpouse){
             this.updatedSpouse = sp;
+            this.updatedSpouse.operationActionType = OperationActionType.Update;
         }else{
             console.log('spouse for updating already added to your coverage.');
         }
@@ -85,18 +98,18 @@ class MspAccountApp implements ApplicationBase {
     }
     addUpdateChild(): Person {
         let c = new Person(Relationship.ChildUnder24,OperationActionType.Update);
-        this.children.length < 30 ? this.children.push(c): console.log('No more than 30 children can be added to one application');
+        this._updatedChildren.length < 30 ? this._updatedChildren.push(c): console.log('No more than 30 children can be added to one application');
         return c;
     }
 
 
     removeUpdateChild(idx: number):void {
-        let removed = this._children.splice(idx,1);
+        let removed = this._updatedChildren.splice(idx,1);
     }
 
     get updateChildren(): Array<Person> {
-        var updateChildren =  this.children.filter( (child:Person) => child.operationActionType === OperationActionType.Update);
-        return updateChildren;
+     //   var updateChildren =  this.children.filter( (child:Person) => child.operationActionType === OperationActionType.Update);
+        return this._updatedChildren;
     }
 
     get applicant(): Person {
@@ -162,6 +175,9 @@ class MspAccountApp implements ApplicationBase {
         });
     }
 
+    getAllChildren():Person[] {
+        return  [...this.updateChildren,...this.addedChildren,...this.removedChildren];
+    }
     /*
     Gets all images for applicant, spouse and all children
    */

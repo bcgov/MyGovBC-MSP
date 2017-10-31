@@ -32,6 +32,13 @@ export class AccountReviewComponent implements OnInit {
     get spousesForAuthorisation(): Person[] {
         return [this.mspAccountApp.addedSpouse, this.mspAccountApp.updatedSpouse].filter(spouse => !!spouse);
     }
+    get accountPIUrl() {
+        return ProcessUrls.ACCOUNT_PERSONAL_INFO_URL;
+    }
+    get accountDependentUrl() {
+        return ProcessUrls.ACCOUNT_DEPENDENTS_URL;
+    }
+
 
     get spouseForAuthorisation(): Person {
         return this.mspAccountApp.addedSpouse ||  this.mspAccountApp.updatedSpouse || undefined;
