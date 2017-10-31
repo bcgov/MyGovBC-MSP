@@ -1,6 +1,6 @@
 module.exports = {
-  pageTitle: 'Submitting your MSP Account Maintenance request',
-  transmissionSuccess: 'You MSP Account Maintenance request has been successfully submitted!',
+  pageTitle: 'Submitting your MSP Account Change request',
+  transmissionSuccess: 'You MSP Account Change request has been successfully submitted!',
   transmissionInProgressMessage: 'Please do not close this browser tab or window, it can take 1-2 minutes to complete the submission.',
   transmissionErrorTitle: 'System error',
   instructionForUserOnErrorLine1: '<p>Sorry, it looks like something happened while your request was being submitted.</p><p>You can try submitting again - the data you&#8217;ve entered is saved on your device until you close the web browser.</p>',
