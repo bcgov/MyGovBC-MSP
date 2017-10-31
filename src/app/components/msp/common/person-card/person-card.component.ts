@@ -18,6 +18,7 @@ export class MspPersonCardComponent {
   @Input() editRouterLink: string;
   @Input() customTitle: string;
   @Input() customLinkTitle: string;
+  @Input() accountCard: boolean = false;
 
   get movedFromLabel():string {
     if (this.person.status == StatusInCanada.TemporaryResident ||

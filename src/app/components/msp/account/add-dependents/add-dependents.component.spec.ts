@@ -33,7 +33,8 @@ import { Relationship } from '../../model/status-activities-documents';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {RouterTestingModule} from "@angular/router/testing";
 import { ProcessService } from "../../service/process.service";
-
+import { CompletenessCheckService } from '../../service/completeness-check.service';
+import { MspValidationService} from '../../service/msp-validation.service';
 
 
 
@@ -54,7 +55,7 @@ describe('AddDependentComponent', () => {
         }),
         RouterTestingModule
       ],
-      providers: [MspDataService, ProcessService]
+      providers: [MspDataService, ProcessService, CompletenessCheckService, MspValidationService]
     })
       .compileComponents();
   }));
@@ -76,4 +77,42 @@ describe('AddDependentComponent', () => {
     component.cancelDependent();
     expect(component.onCancel.emit).toHaveBeenCalled();
   });
+
+  it('should have the Toggle Component visible on init to ask the beneficiary status', () => {
+    expect(component.toggleComp).toBeTruthy();
+  });
+
+  it('should only show the status in canada radio if beneficary status is N', () => {
+    expect(component.statusRadioComponents).toBeUndefined();
+    component.person.isExistingBeneficiary = false;
+    fixture.detectChanges();
+    expect(component.statusRadioComponents).toBeDefined();
+  });
+
+  it('should show the account personal details component if the beneficary status is Y', () => {
+    expect(component.personalDetailsComponent.length).toBe(0);
+    component.person.isExistingBeneficiary = true;
+    fixture.detectChanges();
+    expect(component.personalDetailsComponent.length).toBe(1);
+  });
+
+  it('should show the account personal details component if the beneficary status is N AND the person\'s status is set', () => {
+    expect(component.personalDetailsComponent.length).toBe(0);
+    component.person.isExistingBeneficiary = false;
+    component.person.status = 1;
+    fixture.detectChanges();
+    expect(component.personalDetailsComponent.length).toBe(1);
+  });
+
+  it('should show the new beneficary questions if the beneficary status is N AND the person\'s status is set', () => {
+    expect(component.newDependentBeneficiaryComponents.length).toBe(0);
+    component.person.isExistingBeneficiary = true;
+    fixture.detectChanges();
+    expect(component.newDependentBeneficiaryComponents.length).toBe(0);
+    component.person.isExistingBeneficiary = false;
+    component.person.status = 1;
+    fixture.detectChanges();
+    expect(component.newDependentBeneficiaryComponents.length).toBe(1);
+  });
+  
 });

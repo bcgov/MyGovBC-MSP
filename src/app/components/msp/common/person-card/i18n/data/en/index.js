@@ -36,6 +36,7 @@ module.exports = {
     residentialAddressLabel:'Residential Address',
     mailingAddressLabel:'Mailing Address',
     phoneLabel: 'Phone number:',
-
+    prevLastNameLabel:'Previous Last Name',
+    marriageDateLabel:'Marriage Date',
   editButton: 'Edit {label}',
 };
