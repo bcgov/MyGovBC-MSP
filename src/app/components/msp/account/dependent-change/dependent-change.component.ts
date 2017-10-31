@@ -50,8 +50,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
   }
 
   ngOnInit() { 
-    // TODO TODO RE-ENABLE! DEV ONLY
-    // this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_DEPENDENTS_URL), this._processService);    
+    this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_DEPENDENTS_URL), this._processService);    
   }
 
   /** Only show personal info section if it the applicant has not selected the Personal Info Update option, because if so they've already filled out this section. */
@@ -98,11 +97,12 @@ export class AccountDependentChangeComponent extends BaseComponent {
     this.addedPersons.push(sp);
     this.spouse = sp; 
 
-    //Due to a strange bug we have to wrap this in a setTimeout. Otherwise, when we disable the button it breaks BaseComponent validation logic (specifically validationMap doesn't update).
-    setTimeout(() => {
-      this.disableSpouseButton = true;
-      this.cd.detectChanges();
-    }, 0)
+    //Due to a strange bug we have to use a separate variable here and trigger
+    //change detection.  Otherwise, when we disable the button it breaks
+    //BaseComponent validation logic (specifically validationMap doesn't
+    //update).
+    this.disableSpouseButton = true;
+    this.cd.detectChanges();
   }
   
   /** Add a child to the account */
