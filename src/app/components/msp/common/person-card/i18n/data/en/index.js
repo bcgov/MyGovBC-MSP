@@ -18,6 +18,7 @@ module.exports = {
   arrivedToBCLabel: 'Date arrived in B.C.:',
   arrivedToCanadaLabel: 'Date arrived in Canada:',
   outsideBCLabel: 'Outside BC for more than 30 days:',
+    outsideBCFutureLabel: 'Outside BC for more than 30 days during next 6 months:',
   outsideBCReasonLabel: 'Reason for leaving:',
   outsideBCLocationLabel: 'Location:',
   outsideBCDepartureDateLabel: 'Departure date:',
