@@ -7,7 +7,7 @@ import { BaseComponent } from "../base.component";
   templateUrl: './toggle.component.html',
   styleUrls: ['./toggle.component.less']
 })
-export class ToggleComponent extends BaseComponent {
+export class MspToggleComponent extends BaseComponent {
 
   @Input() data: boolean;
   @Output() dataChange: EventEmitter<boolean> = new EventEmitter<boolean>();

@@ -3,11 +3,11 @@ import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { StatusInCanada } from "../../model/status-activities-documents";
 import { Person } from "../../model/person.model";
 import { Activities, Relationship } from "../../model/status-activities-documents";
-import { StatusInCanadaRadioComponent } from "./status-in-canada-radio.component";
+import { MspStatusInCanadaRadioComponent } from "./status-in-canada-radio.component";
 
 describe("StatusInCanadaRadioComponent", () => {
-    let comp: StatusInCanadaRadioComponent;
-    let fixture: ComponentFixture<StatusInCanadaRadioComponent>;
+    let comp: MspStatusInCanadaRadioComponent;
+    let fixture: ComponentFixture<MspStatusInCanadaRadioComponent>;
 
     beforeEach(() => {
         const statusInCanadaStub = {};
@@ -17,14 +17,14 @@ describe("StatusInCanadaRadioComponent", () => {
             institutionWorkHistory: {}
         };
         TestBed.configureTestingModule({
-            declarations: [ StatusInCanadaRadioComponent ],
+            declarations: [ MspStatusInCanadaRadioComponent ],
             schemas: [ NO_ERRORS_SCHEMA ],
             providers: [
                 { provide: StatusInCanada, useValue: statusInCanadaStub },
                 { provide: Person, useValue: personStub }
             ]
         });
-        fixture = TestBed.createComponent(StatusInCanadaRadioComponent);
+        fixture = TestBed.createComponent(MspStatusInCanadaRadioComponent);
         comp = fixture.componentInstance;
     });
 

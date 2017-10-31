@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit, Input, Output, EventEmitter, View
 import { Person } from '../../../model/person.model';
 import { Relationship, StatusInCanada } from '../../../model/status-activities-documents';
 import { BaseComponent } from "../../../common/base.component";
-import { ToggleComponent } from '../../../common/toggle/toggle.component';
+import { MspToggleComponent } from '../../../common/toggle/toggle.component';
 import { MspProvinceComponent } from '../../../common/province/province.component';
 import { MspDateComponent } from '../../../common/date/date.component';
 import { MspOutofBCRecordComponent } from '../../../common/outof-bc/outof-bc.component';
@@ -22,7 +22,7 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
   lang = require('./i18n');
   public showHasBeenReleasedFromArmedForces: boolean;
 
-  @ViewChildren(ToggleComponent) toggleComponents: QueryList<ToggleComponent>;
+  @ViewChildren(MspToggleComponent) toggleComponents: QueryList<MspToggleComponent>;
   @ViewChildren(MspProvinceComponent) provinceComponents: QueryList<MspProvinceComponent>;
   @ViewChildren(MspDateComponent) dateComponents: QueryList<MspDateComponent>;
   @ViewChildren(MspOutofBCRecordComponent) outOfBCComponents: QueryList<MspOutofBCRecordComponent>;

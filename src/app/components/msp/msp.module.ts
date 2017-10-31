@@ -89,9 +89,9 @@ import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha
 import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
 import { AddDependentComponent } from './account/add-dependents/add-dependents.component';
 import { RemoveDependentComponent } from './account/remove-dependents/remove-dependents.component';
-import { ToggleComponent } from './common/toggle/toggle.component';
+import { MspToggleComponent } from './common/toggle/toggle.component';
 import { MspDateComponent } from './common/date/date.component';
-import { StatusInCanadaRadioComponent } from './common/status-in-canada-radio/status-in-canada-radio.component';
+import { MspStatusInCanadaRadioComponent } from './common/status-in-canada-radio/status-in-canada-radio.component';
 import { AddNewDependentBeneficiaryComponent } from './account/add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
 import { MspAccordionComponent } from './common/accordion/accordion.component';
 
@@ -300,7 +300,7 @@ const APP_ROUTES : Routes = [
         MspIdReqModalComponent,
         MspCancelComponent,
         CaptchaComponent,
-        ToggleComponent,        
+        MspToggleComponent,        
         MspDateComponent,
 
         // View cards
@@ -347,7 +347,7 @@ const APP_ROUTES : Routes = [
         AccountConfirmationComponent,
         AddDependentComponent,
         RemoveDependentComponent,
-        StatusInCanadaRadioComponent,
+        MspStatusInCanadaRadioComponent,
         AddNewDependentBeneficiaryComponent,
         MspAccordionComponent,
     ],

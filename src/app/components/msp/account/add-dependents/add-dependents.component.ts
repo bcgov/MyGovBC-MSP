@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
 import { ProcessService } from "../../service/process.service";
 import { LocalStorageService } from 'angular-2-local-storage';
 import { NgForm } from "@angular/forms";
-import { ToggleComponent } from '../../common/toggle/toggle.component';
-import { StatusInCanadaRadioComponent } from '../../common/status-in-canada-radio/status-in-canada-radio.component';
+import { MspToggleComponent } from '../../common/toggle/toggle.component';
+import { MspStatusInCanadaRadioComponent } from '../../common/status-in-canada-radio/status-in-canada-radio.component';
 import { AccountPersonalDetailsComponent } from '../personal-info/personal-details/personal-details.component';
 import { AddNewDependentBeneficiaryComponent } from '../add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component'
 
@@ -29,9 +29,9 @@ export class AddDependentComponent extends BaseComponent {
   lang = require('./i18n');
 
   @ViewChild('formRef') form: NgForm;
-  @ViewChild('isExistingBeneficiary') toggleComp: ToggleComponent;
-  @ViewChildren(ToggleComponent) toggleComponents: QueryList<ToggleComponent>;
-  @ViewChild(StatusInCanadaRadioComponent) statusRadioComponents: StatusInCanadaRadioComponent;
+  @ViewChild('isExistingBeneficiary') toggleComp: MspToggleComponent;
+  @ViewChildren(MspToggleComponent) toggleComponents: QueryList<MspToggleComponent>;
+  @ViewChild(MspStatusInCanadaRadioComponent) statusRadioComponents: MspStatusInCanadaRadioComponent;
   @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
   @ViewChildren(AddNewDependentBeneficiaryComponent) newDependentBeneficiaryComponents: QueryList<AddNewDependentBeneficiaryComponent>;
   

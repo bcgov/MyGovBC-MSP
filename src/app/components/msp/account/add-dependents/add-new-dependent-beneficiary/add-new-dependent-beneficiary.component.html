@@ -82,7 +82,7 @@
         </msp-outof-bc-record>
       </div>
     </div>
-    <div class="row" *ngIf="person.livedInBCSinceBirth === false">      
+    <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult">
       <div class="col-md-12">
         <label [innerHtml]="lang('./en/index.js').releasedFromArmedForcesOrInstitution"></label>
         <msp-toggle [(data)]="showHasBeenReleasedFromArmedForces"></msp-toggle>

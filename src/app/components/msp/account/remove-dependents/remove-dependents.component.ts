@@ -6,8 +6,8 @@ import { MspDataService } from '../../service/msp-data.service';
 import { Router } from '@angular/router';
 import { ProcessService } from "../../service/process.service";
 import { LocalStorageService } from 'angular-2-local-storage';
-import { ToggleComponent } from '../../common/toggle/toggle.component';
-import { StatusInCanadaRadioComponent } from '../../common/status-in-canada-radio/status-in-canada-radio.component';
+import { MspToggleComponent } from '../../common/toggle/toggle.component';
+import { MspStatusInCanadaRadioComponent } from '../../common/status-in-canada-radio/status-in-canada-radio.component';
 import { AccountPersonalDetailsComponent } from '../personal-info/personal-details/personal-details.component';
 
 
@@ -31,8 +31,8 @@ export class RemoveDependentComponent extends BaseComponent {
   public showError: boolean = false;
   lang = require('./i18n');
 
-  @ViewChildren(ToggleComponent) toggleComponents: QueryList<ToggleComponent>;
-  @ViewChildren(StatusInCanadaRadioComponent) statusRadioComponents: QueryList<StatusInCanadaRadioComponent>;
+  @ViewChildren(MspToggleComponent) toggleComponents: QueryList<MspToggleComponent>;
+  @ViewChildren(MspStatusInCanadaRadioComponent) statusRadioComponents: QueryList<MspStatusInCanadaRadioComponent>;
   @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
 
   constructor(private dataService: MspDataService,

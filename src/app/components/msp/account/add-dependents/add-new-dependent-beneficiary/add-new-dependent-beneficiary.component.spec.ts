@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from "@angular/forms";
-import { ToggleComponent } from '../../../common/toggle/toggle.component';
+import { MspToggleComponent } from '../../../common/toggle/toggle.component';
 import { MspDateComponent } from '../../../common/date/date.component';
 import { MspProvinceComponent } from '../../../common/province/province.component';
 import { MspOutofBCRecordComponent } from '../../../common/outof-bc/outof-bc.component';
@@ -23,7 +23,7 @@ describe('AddNewDependentBeneficiaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AddNewDependentBeneficiaryComponent, ToggleComponent, MspDateComponent, MspProvinceComponent, MspOutofBCRecordComponent, MspDischargeDateComponent, CalendarYearFormatter, 
+      declarations: [AddNewDependentBeneficiaryComponent, MspToggleComponent, MspDateComponent, MspProvinceComponent, MspOutofBCRecordComponent, MspDischargeDateComponent, CalendarYearFormatter, 
         MspReturnDateComponent,
         AddNewDependentBeneficiaryComponent,
         MspDepartureDateComponent],

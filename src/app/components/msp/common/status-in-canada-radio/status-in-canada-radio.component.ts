@@ -10,7 +10,7 @@ import { BaseComponent } from "../../common/base.component";
   templateUrl: './status-in-canada-radio.component.html',
   styleUrls: ['./status-in-canada-radio.component.less']
 })
-export class StatusInCanadaRadioComponent extends BaseComponent {
+export class MspStatusInCanadaRadioComponent extends BaseComponent {
   lang = require('./i18n');
   langAccountActivities = require('../../common/account-activities/i18n');
 
