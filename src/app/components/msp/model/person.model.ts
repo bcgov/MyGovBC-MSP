@@ -157,7 +157,6 @@ class Person implements IPerson {
         return this.parseDate(this.marriageDate.year, this.marriageDate.month, this.marriageDate.day);
     }
 
-
     arrivalToBCDay: number;
     arrivalToBCMonth: number;
     arrivalToBCYear: number;
