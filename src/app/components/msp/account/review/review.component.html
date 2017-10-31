@@ -14,17 +14,18 @@
                              [editRouterLink]="'/msp/account/personal-info'"></msp-person-card>
         </div>
         <div class="col-md-6" *ngFor="let spouse of allSpouses; let i = index;">
+
             <msp-person-card [person]="spouse"
-                             [editRouterLink]="'/msp/account/personal-info'"></msp-person-card>
+                             [editRouterLink]="spouse.operationActionType == 2 ? accountPIUrl :accountDependentUrl "></msp-person-card>
         </div>
     </div>
 
-    <div class="row" *ngIf="mspAccountApp.updateChildren != null && mspAccountApp.updateChildren.length > 0">
-        <div *ngFor="let child of mspAccountApp.updateChildren; let i = index;">
+    <div class="row" *ngIf="mspAccountApp.getAllChildren() != null && mspAccountApp.getAllChildren().length > 0">
+        <div *ngFor="let child of mspAccountApp.getAllChildren(); let i = index;">
             <div class="clearfix" *ngIf="i % 2 == 0"></div>
             <div class="col-md-6">
                 <msp-person-card [person]="child"
-                                 [editRouterLink]="'/msp/account/personal-info'"></msp-person-card>
+                                 [editRouterLink]="child.operationActionType == 2 ? accountPIUrl :accountDependentUrl"></msp-person-card>
             </div>
         </div>
     </div>

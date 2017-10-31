@@ -396,11 +396,11 @@ export class MspApiService {
             to.application.accountChangeApplication.spouses.addedSpouse = this.convertSpouseFromAccountChange(from.addedSpouse);
        }
 
-        // Convert children and dependants
-        if (from.children && from.children.length > 0) {
+       // Convert children and dependants
+        if (from.getAllChildren() && from.getAllChildren().length > 0) {
             to.application.accountChangeApplication.children = AccountChangeChildrenFactory.make();
             to.application.accountChangeApplication.children.child = new Array<AccountChangeChildType>();
-            for (let child of  from.children) {
+            for (let child of  from.getAllChildren()) {
                 to.application.accountChangeApplication.children.child.push(this.convertChildFromAccountChange(child));
             }
 

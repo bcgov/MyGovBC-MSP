@@ -8,7 +8,8 @@ import { LocalStorageService } from 'angular-2-local-storage';
 import { AccountPersonalDetailsComponent } from '../personal-info/personal-details/personal-details.component'
 import { AddDependentComponent } from '../add-dependents/add-dependents.component';
 import { RemoveDependentComponent } from '../remove-dependents/remove-dependents.component';
-import { Person } from '../../model/application.model';
+import { Person , } from '../../model/application.model';
+import {OperationActionType} from "../../model/person.model";
 import { Relationship } from '../../model/status-activities-documents';
 import { ProcessUrls } from '../../service/process.service'
 
@@ -97,7 +98,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
   
   /** Add a child to the account */
   addChild(relationship: Relationship){
-    const child = new Person(relationship);
+    const child = new Person(relationship,OperationActionType.Add);
     this.addedPersons.push(child);
     this.children.push(child);
   }
@@ -151,7 +152,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
    * account***, for that look at `clearDependents()`.
    */
   removeChild(){
-    const child = new Person(Relationship.ChildUnder24);
+    const child = new Person(Relationship.ChildUnder24,OperationActionType.Remove);
     //By default these are "British Columbia" and "Canada", but we don't want form fields pre-populated here as it isn't specified in the FDS.
     child.residentialAddress.province = null;
     child.residentialAddress.country = null;
@@ -170,11 +171,11 @@ export class AccountDependentChangeComponent extends BaseComponent {
   }
 
   get children(): Person[] {
-    return this.dataService.getMspAccountApp().children;
+    return this.dataService.getMspAccountApp().addedChildren;
   }
 
   set children(val: Person[]) {
-    this.dataService.getMspAccountApp().children = val;
+    this.dataService.getMspAccountApp().addedChildren = val;
   }
 
   get removedChildren(): Person[] {
