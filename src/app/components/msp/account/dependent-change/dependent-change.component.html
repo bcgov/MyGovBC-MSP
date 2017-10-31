@@ -1,8 +1,9 @@
 <form #formRef="ngForm" novalidate>
     <h1 class='page-title' [innerHTML]="lang('./en/index.js').pageTitle"></h1>
     
-    <!--  Account holder info, user always fills -->
+    <!--  Account holder info, user fills if they haven't already -->
     <msp-account-personal-details 
+        *ngIf="showPersonalInfo"
         [person]='person' 
         [id]='person.id' 
         (onChange)="onChange()" 

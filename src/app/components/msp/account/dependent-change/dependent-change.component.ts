@@ -161,6 +161,11 @@ export class AccountDependentChangeComponent extends BaseComponent {
     this.removedChildren.push(child);
   }
 
+  /** Only show personal info section if it the applicant has not selected the Personal Info Update option, because if so they've already filled out this section. */
+  get showPersonalInfo(): boolean {
+    return !(this.dataService.getMspAccountApp().accountChangeOptions.personInfoUpdate);
+  }
+
   /** Spouse to be added to the account. */
   get spouse(): Person {
     return this.dataService.getMspAccountApp().addedSpouse;
@@ -185,8 +190,6 @@ export class AccountDependentChangeComponent extends BaseComponent {
   set removedChildren(val: Person[]) {
     this.dataService.getMspAccountApp().removedChildren = val;
   }
-
-
 
   /** Spouse to be removed from the account. */
   get removedSpouse(): Person {
