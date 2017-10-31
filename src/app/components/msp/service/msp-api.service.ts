@@ -694,7 +694,7 @@ export class MspApiService {
     private convertChildFromAccountChange(from: Person): AccountChangeChildType {
         let to = AccountChangeChildTypeFactory.make();
 
-        to.operationAction = <OperationActionType> OperationActionTypeEnum[OperationActionTypeEnum.Add] ;
+        to.operationAction = <OperationActionType> OperationActionTypeEnum[from.operationActionType] ;
 
         to.name = this.convertName(from);
         if (from.hasDob) {

@@ -31,6 +31,11 @@ module.exports = {
   studiesFinishedLabel: 'Date of expected school completion:',
   studiesDepartureLabel: 'Date of departure:',
   schoolAddressLabel: 'School address:',
+  reasonForCancellationLabel:'Reason for Cancellation',
+  cancellationDateLabel:'Cancellation Date',
+    residentialAddressLabel:'Residential Address',
+    mailingAddressLabel:'Mailing Address',
+    phoneLabel: 'Phone number:',
 
   editButton: 'Edit {label}',
 };
