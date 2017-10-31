@@ -148,7 +148,7 @@ class Person implements IPerson {
     get dob() {
         return this.parseDate(this.dob_year, this.dob_month, this.dob_day);
     }
-
+    //TODO fix this..not DRY
     getCancellationDateInMoment (){
         return this.parseDate(this.cancellationDate.year, this.cancellationDate.month, this.cancellationDate.day);
     }
