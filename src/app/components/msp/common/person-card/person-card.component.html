@@ -200,6 +200,55 @@
                 </div>
             </div>
         </div>
+
+        <!-- DEAM has extra question for future absense for next 6 months -->
+
+
+        <div class="row" *ngIf="person.plannedAbsence">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').outsideBCFutureLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.plannedAbsence ? "Yes": "No"}}</strong>
+            </div>
+        </div>
+        <div *ngIf="person.planOnBeingOutOfBCRecord">
+            <div class="row">
+                <div class="col-xs-4">
+                    {{lang('./en/index.js').outsideBCReasonLabel}}
+                </div>
+                <div class="col-xs-8">
+                    <strong>{{person.planOnBeingOutOfBCRecord.reason}}</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    {{lang('./en/index.js').outsideBCLocationLabel}}
+                </div>
+                <div class="col-xs-8">
+                    <strong>{{person.planOnBeingOutOfBCRecord.location}}</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    {{lang('./en/index.js').outsideBCDepartureDateLabel}}
+                </div>
+                <div class="col-xs-8">
+                    <strong>{{person.planOnBeingOutOfBCRecord.departureDate.format("MMMM Do, YYYY")}}</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    {{lang('./en/index.js').outsideBCReturnDateLabel}}
+                </div>
+                <div class="col-xs-8">
+                    <strong>{{person.planOnBeingOutOfBCRecord.returnDate.format("MMMM Do, YYYY")}}</strong>
+                </div>
+            </div>
+        </div>
+
+
+
         <div class="row" *ngIf="person.movedFromProvinceOrCountry">
             <div class="col-xs-4">
                 {{movedFromLabel}}
