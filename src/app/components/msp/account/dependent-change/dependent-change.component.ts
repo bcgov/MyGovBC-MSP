@@ -30,6 +30,8 @@ export class AccountDependentChangeComponent extends BaseComponent {
   addedPersons: Person[] = [];
   /** List of all spouses or dependents that applicant wants to remove. Each corresponds to an open section of the form visible to the user.  */
   removedPersons: Person[] = [];
+  /** Due to a very strange bug, we need to break this out to a separate variable.  All it does is disable the button to add a new spouse. */
+  public disableSpouseButton: boolean = false;
 
 
   @ViewChild('formRef') form: NgForm;
@@ -47,8 +49,13 @@ export class AccountDependentChangeComponent extends BaseComponent {
     super(cd);
   }
 
-  ngOnInit() {    
+  ngOnInit() { 
     this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_DEPENDENTS_URL), this._processService);
+  }
+
+  /** Only show personal info section if it the applicant has not selected the Personal Info Update option, because if so they've already filled out this section. */
+  get showPersonalInfo(): boolean {
+    return !(this.dataService.getMspAccountApp().accountChangeOptions.personInfoUpdate);
   }
 
   get person(): Person {
@@ -91,9 +98,15 @@ export class AccountDependentChangeComponent extends BaseComponent {
 
   /** Add a spouse to the account. */
   addSpouse() {
-    const sp = new Person(Relationship.Spouse);
-    this.spouse = sp;
+    const sp = new Person(Relationship.Spouse);    
     this.addedPersons.push(sp);
+    this.spouse = sp; 
+
+    //Due to a strange bug we have to wrap this in a setTimeout. Otherwise, when we disable the button it breaks BaseComponent validation logic (specifically validationMap doesn't update).
+    setTimeout(() => {
+      this.disableSpouseButton = true;
+      this.cd.detectChanges();
+    }, 0)
   }
   
   /** Add a child to the account */
@@ -110,6 +123,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
 
     if (dependent.relationship === Relationship.Spouse){
       this.spouse = null;
+      this.disableSpouseButton = false;
     }
 
     this.children = this.children
@@ -159,11 +173,6 @@ export class AccountDependentChangeComponent extends BaseComponent {
 
     this.removedPersons.push(child);
     this.removedChildren.push(child);
-  }
-
-  /** Only show personal info section if it the applicant has not selected the Personal Info Update option, because if so they've already filled out this section. */
-  get showPersonalInfo(): boolean {
-    return !(this.dataService.getMspAccountApp().accountChangeOptions.personInfoUpdate);
   }
 
   /** Spouse to be added to the account. */

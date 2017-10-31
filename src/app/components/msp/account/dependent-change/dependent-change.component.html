@@ -30,7 +30,7 @@
         </div>
         <div class="panel-body">
             <button class="btn btn-default" 
-                [disabled]="spouse"
+                [disabled]="disableSpouseButton"
                 (click)="addSpouse()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
