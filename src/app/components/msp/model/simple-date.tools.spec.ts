@@ -12,12 +12,9 @@ describe('SimpleDateTools', () => {
         expect(x._isAMomentObject).toBe(true);
     });
 
-    // NOTE THIS CURRENTLY IS NOT PASSING! 
-    // Expected 'June 11th, 01991' to be 'June 11th, 1991'.
-    // TODO TODO TODO
     it('should be able to string format a SimpleDate object', () => {
         let date: SimpleDate = {day: 11, month: 6, year: 1991};
-        let formatted: String = SimpleDateTools(date).toMoment().format("MMMM Do, YYYYY");
+        let formatted: String = SimpleDateTools(date).toMoment().format("MMMM Do, YYYY");
         expect(formatted).toBe("June 11th, 1991");
     });
 

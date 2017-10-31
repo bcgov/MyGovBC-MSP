@@ -48,7 +48,7 @@ describe("StatusInCanadaRadioComponent", () => {
 
     it("should be valid when person has a set status", () => {
         let applicant = new Person(Relationship.Applicant);
-        applicant.status = StatusInCanada.CitizenAdult;
+        applicant.status = StatusInCanada.CitizenAdult;        
         comp.person = applicant;
         expect(comp.isValid()).toBeTruthy();
     });
@@ -57,8 +57,16 @@ describe("StatusInCanadaRadioComponent", () => {
         let applicant = new Person(Relationship.Applicant);
         comp.person = applicant;
         expect(comp.isValid()).toBeFalsy();
-        applicant.status = StatusInCanada.CitizenAdult;
+        comp.setStatus(StatusInCanada.CitizenAdult, applicant);
         expect(comp.isValid()).toBeTruthy();        
+    });
+
+    it("should be able to set a person's activity if their status is a temporary permit holder or diplomat", () => {    
+        let applicant = new Person(Relationship.Applicant);
+        comp.person = applicant;
+        comp.setStatus(StatusInCanada.TemporaryResident, applicant);
+        comp.setActivity(Activities.WorkingInBC);
+        expect(comp.person.currentActivity).toBe(Activities.WorkingInBC);
     });
 
 });
