@@ -157,11 +157,6 @@ class Person implements IPerson {
         return this.parseDate(this.marriageDate.year, this.marriageDate.month, this.marriageDate.day);
     }
 
-
-    getCancellationDateInMoment (){
-        return this.parseDate(this.cancellationDate.year, this.cancellationDate.month, this.cancellationDate.day);
-    }
-
     arrivalToBCDay: number;
     arrivalToBCMonth: number;
     arrivalToBCYear: number;
