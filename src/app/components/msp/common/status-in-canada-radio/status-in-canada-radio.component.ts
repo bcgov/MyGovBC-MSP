@@ -35,6 +35,12 @@ export class StatusInCanadaRadioComponent extends BaseComponent {
     this.emitIsFormValid();
   }
 
+  setActivity(value:Activities) {
+    this.person.currentActivity = value;
+    this.person.movedFromProvinceOrCountry = '';
+    this.onChange.emit();
+  }
+
   /**
    * Gets the available activities given the known status
    */

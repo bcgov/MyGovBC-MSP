@@ -13,8 +13,6 @@ import {OperationActionType} from "../../model/person.model";
 import { Relationship } from '../../model/status-activities-documents';
 import { ProcessUrls } from '../../service/process.service'
 
-
-
 @Component({
   templateUrl: './dependent-change.component.html',
   styleUrls: ['./dependent-change.component.scss']
