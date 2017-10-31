@@ -8,7 +8,7 @@
                 <label for="">{{lang('./en/index.js').nameLabel}}</label>
             </div>
             <div class="col-xs-8">
-              <span id="{{person.uuid}}-{{person.relationship}}-fullname"><strong>{{person.fullName}}</strong></span>
+                <span id="{{person.uuid}}-{{person.relationship}}-fullname"><strong>{{person.fullName}}</strong></span>
             </div>
         </div>
 
@@ -30,7 +30,8 @@
             </div>
         </div>
 
-        <div class="row" *ngIf="person.status">
+
+      <div class="row" *ngIf="person.status">
             <div class="col-xs-4">
                 {{lang('./en/index.js').statusLabel}}
             </div>
@@ -81,6 +82,44 @@
                 <strong>{{person.sin}}</strong>
             </div>
         </div>
+
+        <!-- DEAM has address for every person..Account holder has address..Cancellation comes with Address -->
+        <msp-address-card-part [address]="person.residentialAddress"
+                               [label]="lang('./en/index.js').residentialAddressLabel"></msp-address-card-part>
+
+
+        <msp-address-card-part [address]="person.mailingAddress"
+                               [label]="lang('./en/index.js').mailingAddressLabel"></msp-address-card-part>
+
+
+        <div class="row" *ngIf="person.phoneNumber">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').phoneLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.phoneNumber}}</strong>
+            </div>
+
+        </div>
+
+        <!-- Only for removals -->
+        <div class="row" *ngIf="person.reasonForCancellation && person.operationActionType == 1">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').reasonForCancellationLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.reasonForCancellation}}</strong>
+            </div>
+        </div>
+        <div class="row" *ngIf="person.cancellationDate && person.operationActionType == 1">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').cancellationDateLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.getCancellationDateInMoment().format("MMMM Do, YYYY")}}</strong>
+            </div>
+        </div>
+
 
         <div class="row" *ngIf="person.hasArrivalToBC">
             <div class="col-xs-4">
@@ -215,17 +254,17 @@
         </div>
 
         <msp-address-card-part [address]="person.schoolAddress"
-            [label]="lang('./en/index.js').schoolAddressLabel"></msp-address-card-part>
+                               [label]="lang('./en/index.js').schoolAddressLabel"></msp-address-card-part>
 
         <div class="person-card-preview-zone">
             <div *ngFor="let mspImage of person.documents.images" class="preview-item">
-                <msp-thumbnail [imageObject] ="mspImage" [reviewMode]="true">
+                <msp-thumbnail [imageObject]="mspImage" [reviewMode]="true">
                 </msp-thumbnail>
             </div>
         </div>
         <button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
-            [innerHTML]="customLinkTitle?customLinkTitle:lang('./en/index.js').editButton.replace('{label}', lang('./en/index.js').relationshipLabel[person.relationship])"
-            tabindex="0">
+                [innerHTML]="customLinkTitle?customLinkTitle:lang('./en/index.js').editButton.replace('{label}', lang('./en/index.js').relationshipLabel[person.relationship])"
+                tabindex="0">
         </button>
     </div>
 </div>
