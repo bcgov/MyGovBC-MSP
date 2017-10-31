@@ -31,7 +31,9 @@ export class AddDependentComponent extends BaseComponent {
   @ViewChild('formRef') form: NgForm;
   @ViewChild('isExistingBeneficiary') toggleComp: ToggleComponent;
   @ViewChildren(ToggleComponent) toggleComponents: QueryList<ToggleComponent>;
-  @ViewChildren(StatusInCanadaRadioComponent) statusRadioComponents: QueryList<StatusInCanadaRadioComponent>;
+  // @ViewChildren(StatusInCanadaRadioComponent) statusRadioComponents: QueryList<StatusInCanadaRadioComponent>;
+  @ViewChild(StatusInCanadaRadioComponent) statusRadioComponents: StatusInCanadaRadioComponent;
+  
   @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
   @ViewChildren(AddNewDependentBeneficiaryComponent) newDependentBeneficiaryComponents: QueryList<AddNewDependentBeneficiaryComponent>;
   

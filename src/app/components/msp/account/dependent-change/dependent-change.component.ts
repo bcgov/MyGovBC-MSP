@@ -50,7 +50,8 @@ export class AccountDependentChangeComponent extends BaseComponent {
   }
 
   ngOnInit() { 
-    this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_DEPENDENTS_URL), this._processService);
+    // TODO TODO RE-ENABLE! DEV ONLY
+    // this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_DEPENDENTS_URL), this._processService);    
   }
 
   /** Only show personal info section if it the applicant has not selected the Personal Info Update option, because if so they've already filled out this section. */
@@ -63,11 +64,6 @@ export class AccountDependentChangeComponent extends BaseComponent {
   }
 
   onChange() {
-    /**
-     * NOT WORKING! THIS IS NOT SAVING `addedSpouse`
-     * I believe the MspAccountDto doesn't handle the `addedSpouse` field,
-     * but does for updatedSpouse.  Discuss with Saravan. TODO.
-     */
     this.dataService.saveMspAccountApp();
   }
 
