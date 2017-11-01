@@ -741,7 +741,7 @@ export class MspApiService {
         }
         //Is this child newly adopted?
         if (from.newlyAdopted) {
-            to.adoptionDate =  this.parseDate(from.adoptionDate).format(this.ISO8601DateFormat);
+            to.adoptionDate =  this.parseDate(from.adoptedDate).format(this.ISO8601DateFormat);
         }
 
 

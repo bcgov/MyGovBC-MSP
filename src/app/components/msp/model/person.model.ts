@@ -62,7 +62,6 @@ class Person implements IPerson {
 
     public adoptedDate: SimpleDate;
 
-    public adoptionDate: SimpleDate;
 
     get operationActionType(): OperationActionType {
         return this._operationActionType;
@@ -156,6 +155,11 @@ class Person implements IPerson {
     getMarriageDateInMoment (){
         return this.parseDate(this.marriageDate.year, this.marriageDate.month, this.marriageDate.day);
     }
+    getAdoptedDateInMoment (){
+        return this.parseDate(this.adoptedDate.year, this.adoptedDate.month, this.adoptedDate.day);
+    }
+
+
 
     arrivalToBCDay: number;
     arrivalToBCMonth: number;

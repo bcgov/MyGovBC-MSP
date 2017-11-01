@@ -140,6 +140,24 @@
             </div>
         </div>
 
+        <div class="row" *ngIf="person.newlyAdopted">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').newlyAdoptedLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.newlyAdopted ? "Yes": "No"}}</strong>
+            </div>
+        </div>
+
+
+        <div class="row" *ngIf="person.newlyAdopted">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').dateAdoptedLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.getAdoptedDateInMoment().format("MMMM Do, YYYY")}}</strong>
+            </div>
+        </div>
 
         <div class="row" *ngIf="person.hasArrivalToBC">
             <div class="col-xs-4">
@@ -279,7 +297,6 @@
                <div class="row" *ngIf="person.hasBeenReleasedFromArmedForces">
                    <div class="col-xs-4">
                        {{lang('./en/index.js').institutionWorkHistoryLabel}}
-                   </div>
                    </div>
                    <div class="col-xs-8">
                        <strong>{{person.hasBeenReleasedFromArmedForces ? "Yes": "No"}}</strong>
