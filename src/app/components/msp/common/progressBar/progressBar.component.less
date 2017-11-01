@@ -158,32 +158,41 @@
     }
 
 
+    
 
-
-    li.activeContainer {      
-
-      @media screen and (min-width: @screen-xs) and (max-width: @screen-sm){
-        @collapsedItemSize: 58px;
-        @finalCollapsedItemSize: 68px;
-
-        // need to escape the calc() so LESS doesn't compile a value
-        width: ~"calc(100% - ("@collapsedItemSize~" * 2) - ("@finalCollapsedItemSize~"))" !important;
-      }
-
-      @media screen and (max-width: @screen-xs) {
-        @collapsedItemSize: 41px;
-        @finalCollapsedItemSize: 59px;
-
-        // need to escape the calc() so LESS doesn't compile a value
-        width: ~"calc(100% - ("@collapsedItemSize~" * 2) - ("@finalCollapsedItemSize~"))" !important;
-      }
-
+    &.progressBarCount-4 li.activeContainer {
+      .responsiveProgressBarItemFunction(2);
     }
 
-    ul>li {
-        // @media screen and (min-width: @screen-sm) {
-            // min-width: 25% !important;
-            // display: table-cell !important;
-        // }
+    &.progressBarCount-5 li.activeContainer {
+      .responsiveProgressBarItemFunction(3);
     }
+    
+}
+
+
+// Copied styles into a function to keep code DRY. Basically, it's a responsive
+// calc(), setting the li.activeContainer to fill up the space so the entire
+// progress bar is full width on smaller breakpoints.
+// @NumOfItems are the total number of collapsed items in the progress bar
+// excluding the last one, which should be 2 less than the total items.
+.responsiveProgressBarItemFunction(@NumOfItems) {
+
+  @media screen and (min-width: @screen-xs) and (max-width: @screen-sm){
+    @collapsedItemSize: 58px;
+    @finalCollapsedItemSize: 68px;
+
+    // need to escape the calc() so LESS doesn't compile a value
+    width: ~"calc(100% - ("@collapsedItemSize~" * "@NumOfItems~") - ("@finalCollapsedItemSize~"))" !important;
+  }
+
+  @media screen and (max-width: @screen-xs) {
+    @collapsedItemSize: 41px;
+    @finalCollapsedItemSize: 59px;
+
+    // need to escape the calc() so LESS doesn't compile a value
+    width: ~"calc(100% - ("@collapsedItemSize~" * "@NumOfItems~") - ("@finalCollapsedItemSize~"))" !important;
+  }
+
+
 }
