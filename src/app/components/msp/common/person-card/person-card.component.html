@@ -340,6 +340,15 @@
                    </div>
                </div>
 
+        <div class="row" *ngIf="person.hasStudiesBegin">
+            <div class="col-xs-4">
+                {{lang('./en/index.js').dateStuduesBeginLabel}}
+            </div>
+            <div class="col-xs-8">
+                <strong>{{person.studiesBeginDate.format("MMMM Do, YYYY")}}</strong>
+            </div>
+        </div>
+
                <div class="row" *ngIf="person.hasStudiesFinished">
                    <div class="col-xs-4">
                        {{lang('./en/index.js').studiesFinishedLabel}}
@@ -348,7 +357,6 @@
                        <strong>{{person.studiesFinishedDate.format("MMMM Do, YYYY")}}</strong>
                    </div>
                </div>
-
                <div class="row" *ngIf="person.hasStudiesDeparture">
                    <div class="col-xs-4">
                        {{lang('./en/index.js').studiesDepartureLabel}}

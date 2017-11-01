@@ -792,11 +792,18 @@ export class MspApiService {
                 to.schoolName = from.schoolName;
             }
 
+
+
             if (from.hasStudiesDeparture) {
                 to.departDateSchoolOutside = from.studiesDepartureDate.format(this.ISO8601DateFormat);
             }
+
             if (from.hasStudiesFinished) {
                 to.dateStudiesFinish = from.studiesFinishedDate.format(this.ISO8601DateFormat);
+            }
+
+            if (from.hasStudiesBegin) {
+                to.dateStudiesBegin = from.studiesBeginDate.format(this.ISO8601DateFormat);
             }
 
             //  Departure date if school is outszide BC //TODO

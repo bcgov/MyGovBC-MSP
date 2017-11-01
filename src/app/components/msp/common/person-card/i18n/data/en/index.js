@@ -34,6 +34,9 @@ module.exports = {
   schoolNameLabel: 'School name:',
   studiesFinishedLabel: 'Date of expected school completion:',
   studiesDepartureLabel: 'Date of departure:',
+
+    dateStuduesBeginLabel:'Date studies begin',
+
   schoolAddressLabel: 'School address:',
   reasonForCancellationLabel:'Reason for Cancellation',
   cancellationDateLabel:'Cancellation Date',

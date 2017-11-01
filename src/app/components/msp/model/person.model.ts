@@ -395,6 +395,10 @@ class Person implements IPerson {
     studiesBeginMonth: number;
     studiesBeginDay: number;
 
+    get studiesBeginDate() {
+        return this.parseDate(this.studiesBeginYear, this.studiesBeginMonth, this.studiesBeginDay);
+    }
+
     /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <msp-date> component. */
     get studiesBeginSimple(): SimpleDate {
         return {
@@ -424,6 +428,13 @@ class Person implements IPerson {
             this.studiesFinishedMonth != null &&
             this.studiesFinishedYear != null);
     }
+
+    get hasStudiesBegin(): boolean {
+        return (this.studiesBeginDay != null &&
+            this.studiesBeginMonth != null &&
+            this.studiesBeginYear != null);
+    }
+
 
     get studiesFinishedDate() {
         return this.parseDate(this.studiesFinishedYear, this.studiesFinishedMonth, this.studiesFinishedDay);
