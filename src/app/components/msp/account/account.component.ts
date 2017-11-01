@@ -80,10 +80,10 @@ export class AccountComponent {
                 //TODO - i18n
                 newProgressBarItems.push(new MspProgressBarItem('Add/Remove Spouse and/or Child(ren)', ProcessUrls.ACCOUNT_DEPENDENTS_URL));
             }
+        
 
 
         }
-
 
 
         let progressBar: MspProgressBarItem[] = [
@@ -93,11 +93,14 @@ export class AccountComponent {
             new MspProgressBarItem(this.lang("./en/index.js").progressStepMainMenu, this.processService.process.processSteps[0].route),
             new MspProgressBarItem(this.lang("./en/index.js").progressStepDocumentation,  ProcessUrls.ACCOUNT_FILE_UPLOADER_URL),
             new MspProgressBarItem(this.lang("./en/index.js").progressStepReview, ProcessUrls.ACCOUNT_REVIEW_URL),
-
         ];
+
+        
         if (newProgressBarItems && newProgressBarItems.length > 0) {
             progressBar.splice(1, 0, ...newProgressBarItems);
         }
+        console.log('AccountComponent, end of generateProgressBarItems', progressBar);
+
         this.dataService.seMspProgressBar(progressBar);
     }
 

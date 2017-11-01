@@ -3,7 +3,7 @@
         <div class="progressBar progressBarCount-{{progressBarList.length}} progressBarType-{{getAppTypeClass()}}">
             <ul>
                 <ng-template ngFor let-item let-i="index" [ngForOf]="progressBarList" >
-                    <li  [ngStyle]="item.width">
+                    <li [class.activeContainer]="isActiveRoute(item.routerLink)">
                         <a routerLink="{{item.routerLink}}" [ngStyle]="item.height"
                            [tabindex]="(isActiveRoute(item.routerLink) || isBeforeActiveRoute(item.routerLink) )? 0 : -1"
                            [class.beforeActive]="isBeforeActiveRoute(item.routerLink)"

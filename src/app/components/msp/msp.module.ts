@@ -211,12 +211,12 @@ const APP_ROUTES : Routes = [
                     {
                         path: 'personal-info',
                         component: AccountPersonalInfoComponent,
-                        canActivate: [ProcessService],
+                        // canActivate: [ProcessService], //TODO RE-ENABLE
                     },
                     {
                         path: 'dependent-change',
                         component: AccountDependentChangeComponent,
-                        canActivate: [ProcessService],
+                        // canActivate: [ProcessService], //TODO RE-ENABLE
 
                     },
                     {

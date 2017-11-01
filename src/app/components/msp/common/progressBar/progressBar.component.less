@@ -1,143 +1,189 @@
 @import "../../../../styles/variables.less";
-
 .progressBar {
-  text-align: left;
-  display: table;
-  table-layout: fixed;
-  width: 100%;
+    text-align: left;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
 }
 
 .progressBar ul {
-  list-style: none;
-  display: table-row;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    display: table-row;
+    margin: 0;
+    padding: 0;
 }
 
 .progressBar ul li {
-  list-style: none;
-  display: inline-block;
-  text-align: center;
-  font-weight: 500;
-  width: auto;
-    
-    @media screen and (min-width:@screen-sm) {
+    list-style: none;
+    display: inline-block;
+    text-align: center;
+    font-weight: 500;
+    width: auto;
+    @media screen and (min-width: @screen-sm) {
         min-width: 25%;
         display: table-cell;
-        }
+    }
 }
 
-
 .progressBar ul li a span:first-of-type {
-     font-weight: 700;
-     padding-right: 5px;
+    font-weight: 700;
+    padding-right: 5px;
 }
 
 .progressBar .beforeActive {
-  background: #C8DCFD;
-  color: #234075;
+    background: #C8DCFD;
+    color: #234075;
 }
 
 .progressBar .beforeActive:after {
-  content: "";
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-  border-left: 20px solid #C8DCFD;
-  position: absolute; right: -20px; top: 0;
-  z-index: 1;
+    content: "";
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid #C8DCFD;
+    position: absolute;
+    right: -20px;
+    top: 0;
+    z-index: 1;
 }
 
 .progressBar .active {
-  background: #FBE78C;
-  cursor: not-allowed;
-  pointer-events: none;
-  color: #234075;
+    background: #FBE78C;
+    cursor: not-allowed;
+    pointer-events: none;
+    color: #234075;
 }
 
-
 .progressBar .active:after {
-  content: "";
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-  border-left: 20px solid #FBE78C;
-  position: absolute; right: -20px; top: 0;
-  z-index: 1;
+    content: "";
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid #FBE78C;
+    position: absolute;
+    right: -20px;
+    top: 0;
+    z-index: 1;
 }
 
 .progressBar .afterActive {
-  background: #E3E4E5;
-  cursor: not-allowed;
-  pointer-events: none;
-  color: @gray-light;
+    background: #E3E4E5;
+    cursor: not-allowed;
+    pointer-events: none;
+    color: @gray-light;
 }
 
 .progressBar .afterActive:after {
-  content: "";
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-  border-left: 20px solid #E3E4E5;
-  position: absolute; right: -20px; top: 0;
-  z-index: 1;
+    content: "";
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid #E3E4E5;
+    position: absolute;
+    right: -20px;
+    top: 0;
+    z-index: 1;
 }
 
 .progressBar ul li a {
-  display: block;
-  float: none;
-  height: 40px;
-  text-align: center;
-  padding: 7px 10px 0 30px;
-  position: relative;
-  margin: 0 5px 0 0;
-
-  font-size: @font-size-h3;
-  text-decoration: none;
-  color: black;
-
-  @media(max-width: @screen-xs) {
-    padding: 7px 2px 0 24px;
-    margin: 0 2px 0 0;
-    text-align: left;
-  }
-    
-  @media(max-width: @screen-md) {
-    font-size: @font-size-h4;
-  }
+    display: block;
+    float: none;
+    height: 40px;
+    text-align: center;
+    padding: 7px 10px 0 30px;
+    position: relative;
+    margin: 0 5px 0 0;
+    font-size: @font-size-h3;
+    text-decoration: none;
+    color: black;
+    @media(max-width: @screen-xs) {
+        padding: 7px 2px 0 24px;
+        margin: 0 2px 0 0;
+        text-align: left;
+    }
+    @media(max-width: @screen-md) {
+        font-size: @font-size-h4;
+    }
 }
 
 .progressBar ul li a:before {
-  content: "";
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-  border-left: 20px solid #fff;
-  position: absolute; left: 0; top: 0;
+    content: "";
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid #fff;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .progressBar ul li:first-child a {
-  border-top-left-radius: 0px; border-bottom-left-radius: @btn-border-radius-base;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: @btn-border-radius-base;
 }
+
 .progressBar ul li:first-child a:before {
-  display: none;
+    display: none;
 }
 
 .progressBar ul li:last-child a {
-  padding-right: 20px;
-  border-top-right-radius: 0px; border-bottom-right-radius: @btn-border-radius-base;
+    padding-right: 20px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: @btn-border-radius-base;
 }
+
 .progressBar ul li:last-child a:after {
-  display: none;
+    display: none;
 }
 
 .progressBar ul li a:hover {
-  background: #234075;
-  color: #fff;
+    background: #234075;
+    color: #fff;
 }
+
 .progressBar ul li a:hover:after {
-  border-left-color: #234075;
-  color: #fff;
+    border-left-color: #234075;
+    color: #fff;
 }
 
 .progressBarType-account {
-  ul > li > a {
-    height: 60px;
-  }
+    ul>li>a {
+        height: 60px;
+
+       position: relative;
+       span:nth-of-type(1){
+         float: left;
+       }
+       span:nth-of-type(2){
+         position: absolute;
+         left: 45px;
+         right: 30px;
+       }
+    }
+
+
+
+
+    li.activeContainer {      
+
+      @media screen and (min-width: @screen-xs) and (max-width: @screen-sm){
+        @collapsedItemSize: 58px;
+        @finalCollapsedItemSize: 68px;
+
+        // need to escape the calc() so LESS doesn't compile a value
+        width: ~"calc(100% - ("@collapsedItemSize~" * 2) - ("@finalCollapsedItemSize~"))" !important;
+      }
+
+      @media screen and (max-width: @screen-xs) {
+        @collapsedItemSize: 41px;
+        @finalCollapsedItemSize: 59px;
+
+        // need to escape the calc() so LESS doesn't compile a value
+        width: ~"calc(100% - ("@collapsedItemSize~" * 2) - ("@finalCollapsedItemSize~"))" !important;
+      }
+
+    }
+
+    ul>li {
+        // @media screen and (min-width: @screen-sm) {
+            // min-width: 25% !important;
+            // display: table-cell !important;
+        // }
+    }
 }

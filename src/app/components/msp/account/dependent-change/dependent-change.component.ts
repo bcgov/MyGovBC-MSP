@@ -48,7 +48,8 @@ export class AccountDependentChangeComponent extends BaseComponent {
   }
 
   ngOnInit() { 
-    this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_DEPENDENTS_URL), this._processService);    
+    // TODO DEV RE-ENABLE! COMMENTED OUT FOR TEMP DEV.
+    // this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_DEPENDENTS_URL), this._processService);    
   }
 
   /** Only show personal info section if it the applicant has not selected the Personal Info Update option, because if so they've already filled out this section. */
