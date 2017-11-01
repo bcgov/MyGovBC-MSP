@@ -25,6 +25,7 @@ module.exports = {
   outsideBCReturnDateLabel: 'Return date:',
   institutionWorkHistoryLabel: 'Released from Canadian Armed Forces or an institution:',
   institutionWorkHistoryValues: {Yes: 'Yes', No: 'No'},
+    nameOfInstituteLabel:'Name of Institute',
   dischargeDateLabel: 'Date discharged:',
   fullTimeStudentLabel: 'Full-time student:',
   inBCafterStudiesLabel: 'Will you reside in BC upon completion of your studies:',

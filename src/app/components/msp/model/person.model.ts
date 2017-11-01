@@ -214,6 +214,16 @@ class Person implements IPerson {
 
     institutionWorkHistory: string;
 
+    private _hasBeenReleasedFromArmedForces: boolean;
+
+    get hasBeenReleasedFromArmedForces(): boolean {
+        return this._hasBeenReleasedFromArmedForces;
+    }
+
+    set hasBeenReleasedFromArmedForces(value: boolean) {
+        this._hasBeenReleasedFromArmedForces = value;
+    }
+
     get hasPreviousBCPhn(): boolean {
         return this._hasPreviousBCPhn;
     }

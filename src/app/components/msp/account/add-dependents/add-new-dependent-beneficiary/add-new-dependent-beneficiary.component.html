@@ -85,11 +85,11 @@
     <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult">
       <div class="col-md-12">
         <label [innerHtml]="lang('./en/index.js').releasedFromArmedForcesOrInstitution"></label>
-        <msp-toggle [(data)]="showHasBeenReleasedFromArmedForces"></msp-toggle>
+        <msp-toggle [(data)]="person.hasBeenReleasedFromArmedForces"></msp-toggle>
       </div>
     </div>
 
-    <div class='row' *ngIf="showHasBeenReleasedFromArmedForces">
+    <div class='row' *ngIf="person.hasBeenReleasedFromArmedForces">
         <div class="col-md-3">
           <msp-discharge-date
             [year]="person.dischargeYear"

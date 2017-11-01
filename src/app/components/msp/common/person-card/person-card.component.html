@@ -275,65 +275,83 @@
                 <strong>{{person.inBCafterStudies ? "Yes": "No"}}</strong>
             </div>
         </div>
+        <!-- DEAM uses a boolean to store Armed forced questions Answer. -->
+               <div class="row" *ngIf="person.hasBeenReleasedFromArmedForces">
+                   <div class="col-xs-4">
+                       {{lang('./en/index.js').institutionWorkHistoryLabel}}
+                   </div>{{person.hasBeenReleasedFromArmedForces}}
+                   <div class="col-xs-8">
+                       <strong>{{person.hasBeenReleasedFromArmedForces ? "Yes": "No"}}</strong>
+                   </div>
+               </div>
+
+               <div class="row" *ngIf="person.institutionWorkHistory">
+                   <div class="col-xs-4">
+                       {{lang('./en/index.js').institutionWorkHistoryLabel}}
+                   </div>
+                   <div class="col-xs-8">
+                       <strong>{{lang('./en/index.js').institutionWorkHistoryValues[person.institutionWorkHistory]}}</strong>
+                   </div>
+               </div>
+
+              <div class="row" *ngIf="person.nameOfInstitute">
+                   <div class="col-xs-4">
+                       {{lang('./en/index.js').nameOfInstituteLabel}}
+                   </div>
+                   <div class="col-xs-8">
+                       <strong>{{person.nameOfInstitute}}</strong>
+                   </div>
+               </div>
+               <div class="row" *ngIf="person.hasDischarge">
+                   <div class="col-xs-4">
+                       {{lang('./en/index.js').dischargeDateLabel}}
+                   </div>
+                   <div class="col-xs-8">
+                       <strong>{{person.dischargeDate.format("MMMM Do, YYYY")}}</strong>
+                   </div>
+               </div>
 
 
-        <div class="row" *ngIf="person.institutionWorkHistory">
-            <div class="col-xs-4">
-                {{lang('./en/index.js').institutionWorkHistoryLabel}}
-            </div>
-            <div class="col-xs-8">
-                <strong>{{lang('./en/index.js').institutionWorkHistoryValues[person.institutionWorkHistory]}}</strong>
-            </div>
-        </div>
 
-        <div class="row" *ngIf="person.hasDischarge">
-            <div class="col-xs-4">
-                {{lang('./en/index.js').dischargeDateLabel}}
-            </div>
-            <div class="col-xs-8">
-                <strong>{{person.dischargeDate.format("MMMM Do, YYYY")}}</strong>
-            </div>
-        </div>
+               <div class="row" *ngIf="person.schoolName">
+                   <div class="col-xs-4">
+                       {{lang('./en/index.js').schoolNameLabel}}
+                   </div>
+                   <div class="col-xs-8">
+                       <strong>{{person.schoolName}}</strong>
+                   </div>
+               </div>
 
-        <div class="row" *ngIf="person.schoolName">
-            <div class="col-xs-4">
-                {{lang('./en/index.js').schoolNameLabel}}
-            </div>
-            <div class="col-xs-8">
-                <strong>{{person.schoolName}}</strong>
-            </div>
-        </div>
+               <div class="row" *ngIf="person.hasStudiesFinished">
+                   <div class="col-xs-4">
+                       {{lang('./en/index.js').studiesFinishedLabel}}
+                   </div>
+                   <div class="col-xs-8">
+                       <strong>{{person.studiesFinishedDate.format("MMMM Do, YYYY")}}</strong>
+                   </div>
+               </div>
 
-        <div class="row" *ngIf="person.hasStudiesFinished">
-            <div class="col-xs-4">
-                {{lang('./en/index.js').studiesFinishedLabel}}
-            </div>
-            <div class="col-xs-8">
-                <strong>{{person.studiesFinishedDate.format("MMMM Do, YYYY")}}</strong>
-            </div>
-        </div>
+               <div class="row" *ngIf="person.hasStudiesDeparture">
+                   <div class="col-xs-4">
+                       {{lang('./en/index.js').studiesDepartureLabel}}
+                   </div>
+                   <div class="col-xs-8">
+                       <strong>{{person.studiesDepartureDate.format("MMMM Do, YYYY")}}</strong>
+                   </div>
+               </div>
 
-        <div class="row" *ngIf="person.hasStudiesDeparture">
-            <div class="col-xs-4">
-                {{lang('./en/index.js').studiesDepartureLabel}}
-            </div>
-            <div class="col-xs-8">
-                <strong>{{person.studiesDepartureDate.format("MMMM Do, YYYY")}}</strong>
-            </div>
-        </div>
+               <msp-address-card-part [address]="person.schoolAddress"
+                                      [label]="lang('./en/index.js').schoolAddressLabel"></msp-address-card-part>
 
-        <msp-address-card-part [address]="person.schoolAddress"
-                               [label]="lang('./en/index.js').schoolAddressLabel"></msp-address-card-part>
-
-        <div class="person-card-preview-zone">
-            <div *ngFor="let mspImage of person.documents.images" class="preview-item">
-                <msp-thumbnail [imageObject]="mspImage" [reviewMode]="true">
-                </msp-thumbnail>
-            </div>
-        </div>
-        <button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
-                [innerHTML]="customLinkTitle?customLinkTitle:lang('./en/index.js').editButton.replace('{label}', lang('./en/index.js').relationshipLabel[person.relationship])"
-                tabindex="0">
-        </button>
-    </div>
-</div>
+               <div class="person-card-preview-zone">
+                   <div *ngFor="let mspImage of person.documents.images" class="preview-item">
+                       <msp-thumbnail [imageObject]="mspImage" [reviewMode]="true">
+                       </msp-thumbnail>
+                   </div>
+               </div>
+               <button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
+                       [innerHTML]="customLinkTitle?customLinkTitle:lang('./en/index.js').editButton.replace('{label}', lang('./en/index.js').relationshipLabel[person.relationship])"
+                       tabindex="0">
+               </button>
+           </div>
+       </div>
