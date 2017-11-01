@@ -106,17 +106,18 @@ export class AccountComponent {
      * 
      */
     private initProcessService() {
-        let isConfiguredForAccountMaintenance = this.processService
-        .getStepNumber(ProcessUrls.ACCOUNT_PREPARE_URL) >= 0;
 
-        // Not configured at all, or is configured for another section
-        if (!isConfiguredForAccountMaintenance) {
+        // Ensure that ProcessService isn't already configured for Account
+        if (this.processService.process === null
+            || this.processService.getStepNumber(ProcessUrls.ACCOUNT_PREPARE_URL) >= 0) {
+
             this.processService.init([
                 new ProcessStep(ProcessUrls.ACCOUNT_PREPARE_URL),
                 new ProcessStep(ProcessUrls.ACCOUNT_FILE_UPLOADER_URL),
                 new ProcessStep(ProcessUrls.ACCOUNT_REVIEW_URL),
                 new ProcessStep(ProcessUrls.ACCOUNT_SENDING_URL)
             ]);
+
         }
     }
 
