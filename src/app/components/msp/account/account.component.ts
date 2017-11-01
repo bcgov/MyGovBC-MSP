@@ -3,7 +3,7 @@ import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.mode
 import {MspProgressBarComponent} from "../common/progressBar/progressBar.component";
 import {ProcessService,ProcessStep,ProcessUrls} from "../service/process.service";
 import {MspAccountApp} from '../model/account.model';
-// import {ProgressBarHelper} from './ProgressBarHelper';
+import {ProgressBarHelper} from './ProgressBarHelper';
 import {MspDataService} from '../service/msp-data.service';
 import { environment } from '../../../../environments/environment';
 
@@ -57,7 +57,7 @@ export class AccountComponent {
 
         if (this.dataService.getMspAccountApp()) {
             const accountChangeOptions = this.dataService.getMspAccountApp().accountChangeOptions;
-            // const progressBarHelper: ProgressBarHelper = new ProgressBarHelper(this.dataService.getMspAccountApp().accountChangeOptions);
+            const progressBarHelper: ProgressBarHelper = new ProgressBarHelper(this.dataService.getMspAccountApp().accountChangeOptions);
 
             // customHeight = progressBarHelper.height;
 
@@ -71,14 +71,16 @@ export class AccountComponent {
 
             if (accountChangeOptions.hasAnyPISelected()) {
                 // newProgressBarItems.push(new MspProgressBarItem(progressBarHelper.personalInfoLabel, ProcessUrls.ACCOUNT_PERSONAL_INFO_URL, customHeight,widthPersonalInfo));
+                newProgressBarItems.push(new MspProgressBarItem(progressBarHelper.personalInfoLabel, ProcessUrls.ACCOUNT_PERSONAL_INFO_URL));
                 //TODO - i18n
-                newProgressBarItems.push(new MspProgressBarItem('Update/Correct Personal Information', ProcessUrls.ACCOUNT_PERSONAL_INFO_URL));
+                // newProgressBarItems.push(new MspProgressBarItem('Update/Correct Personal Information', ProcessUrls.ACCOUNT_PERSONAL_INFO_URL));
             }
 
             if (accountChangeOptions.dependentChange) {
                 // newProgressBarItems.push(new MspProgressBarItem(progressBarHelper.dependentsLabel, ProcessUrls.ACCOUNT_DEPENDENTS_URL, customHeight,widthDependents));
+                newProgressBarItems.push(new MspProgressBarItem(progressBarHelper.dependentsLabel, ProcessUrls.ACCOUNT_DEPENDENTS_URL));
                 //TODO - i18n
-                newProgressBarItems.push(new MspProgressBarItem('Add/Remove Spouse and/or Child(ren)', ProcessUrls.ACCOUNT_DEPENDENTS_URL));
+                // newProgressBarItems.push(new MspProgressBarItem('Add/Remove Spouse and/or Child(ren)', ProcessUrls.ACCOUNT_DEPENDENTS_URL));
             }
         
 
