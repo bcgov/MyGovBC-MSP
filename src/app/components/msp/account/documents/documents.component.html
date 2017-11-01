@@ -48,6 +48,7 @@
         <div class="col-sm-2">
             <button 
                 [mspLogger]="'msp-accountmanagement_docment-upload_continue'"
+                [disabled] = "!mspAccountApp.accountChangeOptions.nameChangeDueToMarriage && !canContinue"
                 class="btn btn-primary" type="submit" (click)="continue()"
                 [innerHTML]="lang('./en/index.js').continueButton"></button>
 
