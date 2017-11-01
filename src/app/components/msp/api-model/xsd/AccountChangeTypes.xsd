@@ -73,6 +73,7 @@
 			<xs:extension base="ct:BasicInfoType">
 				<xs:sequence>
 					<xs:element name="citizenship" type="ct:CitizenshipType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="isExistingBeneficiary" type="ct:YesOrNoType" minOccurs="0" maxOccurs="1"/>	
 					<xs:element name="previousCoverage" type="et:PreviousCoverageType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="livedInBC" type="et:LivedInBCType" minOccurs="0" maxOccurs="1"/>					
 					<xs:element name="outsideBC" type="et:OutsideBCType" minOccurs="0" maxOccurs="1"/>
@@ -83,7 +84,7 @@
 					<xs:element name="marriageDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="phn" type="ct:PHNType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="cancellationReason" type="ac:CancellationReasonType" minOccurs="0" maxOccurs="1"/>
-					<xs:element name="cancellationDate" type="xs:date" minOccurs="0" maxOccurs="1"/>			    
+					<xs:element name="cancellationDate" type="xs:date" minOccurs="0" maxOccurs="1"/>		    
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
@@ -96,6 +97,7 @@
 				<xs:sequence>
 					<xs:element name="operationAction" type="ac:OperationActionType" maxOccurs="1"/>
 					<xs:element name="citizenship" type="ct:CitizenshipType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="isExistingBeneficiary" type="ct:YesOrNoType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="previousCoverage" type="et:PreviousCoverageType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="livedInBC" type="et:LivedInBCType" minOccurs="0" maxOccurs="1"/>					
 					<xs:element name="outsideBC" type="et:OutsideBCType" minOccurs="0" maxOccurs="1"/>

@@ -78,6 +78,7 @@ export class AccountChangeSpousesTypeFactory {
 // Spouse
 interface _AccountChangeSpouseType extends ct._BasicInfoType {
 	citizenship?: ct.CitizenshipType;
+	isExistingBeneficiary?: ct.YesOrNoType;
 	previousCoverage?: et.PreviousCoverageType;
 	livedInBC?: et.LivedInBCType;
 	outsideBC?: et.OutsideBCType;
@@ -98,7 +99,7 @@ export class AccountChangeSpouseTypeFactory {
     static make(): AccountChangeSpouseType {
         let instance = <AccountChangeSpouseType>{};
         instance._sequence = ["name", "gender", "birthDate", "attachmentUuids",
-			"citizenship", "previousCoverage", "livedInBC", "outsideBC", "outsideBCinFuture", "willBeAway",
+			"citizenship", "isExistingBeneficiary", "previousCoverage", "livedInBC", "outsideBC", "outsideBCinFuture", "willBeAway",
 			"previousLastName", "mailingAddress", "marriageDate", "phn", "cancellationReason", "cancellationDate"]
         return instance;
     }
@@ -128,6 +129,7 @@ export class AccountChangeChildrenFactory {
 interface _AccountChangeChildType extends ct._BasicInfoType {
 	operationAction: OperationActionType;
     citizenship?: ct.CitizenshipType;
+    isExistingBeneficiary?: ct.YesOrNoType;
     previousCoverage?: et.PreviousCoverageType;
     livedInBC?: et.LivedInBCType;
     outsideBC?: et.OutsideBCType;
@@ -152,7 +154,7 @@ export class AccountChangeChildTypeFactory {
     static make(): AccountChangeChildType {
         let instance = <AccountChangeChildType>{};
         instance._sequence = ["name", "gender", "birthDate", "attachmentUuids", "operationAction",
-            "citizenship", "previousCoverage", "livedInBC", "outsideBC", "outsideBCinFuture", "willBeAway",
+            "citizenship", "isExistingBeneficiary", "previousCoverage", "livedInBC", "outsideBC", "outsideBCinFuture", "willBeAway",
             "mailingAddress", "phn", "cancellationReason", "cancellationDate", "adoptionDate", "schoolName", "schoolAddress",
             "dateStudiesBegin", "dateStudiesFinish", "departDateSchoolOutside"]
         return instance;
