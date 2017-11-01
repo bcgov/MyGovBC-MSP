@@ -1,6 +1,6 @@
 <div class="container" *ngIf="isAnyRoute()">
     <nav>
-        <div class="progressBar progressBarCount-{{progressBarList.length}}">
+        <div class="progressBar progressBarCount-{{progressBarList.length}} progressBarType-{{getAppTypeClass()}}">
             <ul>
                 <ng-template ngFor let-item let-i="index" [ngForOf]="progressBarList" >
                     <li  [ngStyle]="item.width">
