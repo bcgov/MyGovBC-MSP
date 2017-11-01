@@ -145,6 +145,8 @@
 .progressBarType-account {
     ul>li>a {
         height: 60px;
+
+        //Absolutely position text so that it doesn't linebreak and cause layout to shift.
         @media screen and (max-width: @screen-sm) {
             position: relative;
             span:nth-of-type(1) {
@@ -156,7 +158,20 @@
                 right: 30px;
             }
         }
+
+        @media screen and (min-width: @screen-sm) and (max-width: @screen-md){
+          //Hacky little ways to squeeze every pixel of space we can get.
+          padding: 7px 10px 0 27px;
+          span:first-of-type {padding-right: 0px;}
+        }
     }
+
+    @media screen and(max-width: @screen-sm){
+      ul>li {
+        width: auto !important; //Override angular inline styling on the smaller breakpoints
+      }
+    }
+
     &.progressBarCount-4 li.activeContainer {
         .responsiveProgressBarItemFunction(2);
     }
