@@ -55,4 +55,25 @@ export class MspProgressBarComponent {
     }
     return routeIndex > activeRouteIndex;
   }
+
+
+  /**
+   * Returns a string to be used as a CSS class, meant to provide different
+   * classes for Enrollment, Premium Assistance, and Account Change
+   */
+  getAppTypeClass(): String {
+    if (this.contains(this.router.url, "msp/application")){
+      return "application";
+    }
+    if (this.contains(this.router.url, "msp/assistance")){
+      return "assistance";
+    }
+    if (this.contains(this.router.url, "msp/account")){
+      return "account";
+    }
+  }
+
+  private  contains(subject: string, query: string): Boolean {
+    return subject.indexOf(query) >= 0;
+  }
 }
