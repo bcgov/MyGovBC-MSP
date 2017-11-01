@@ -210,34 +210,35 @@ const APP_ROUTES : Routes = [
                     },
                     {
                         path: 'personal-info',
-                        component: AccountPersonalInfoComponent
+                        component: AccountPersonalInfoComponent,
+                        canActivate: [ProcessService],
                     },
                     {
                         path: 'dependent-change',
-                        component: AccountDependentChangeComponent
+                        component: AccountDependentChangeComponent,
+                        canActivate: [ProcessService],
 
                     },
                     {
                         path: 'documents',
-                        component: AccountDocumentsComponent
-
+                        component: AccountDocumentsComponent,
+                        canActivate: [ProcessService],
                     },
                     {
                         path: 'review',
-                        component: AccountReviewComponent
-
+                        component: AccountReviewComponent,
+                        canActivate: [ProcessService],
                     },
                     {
                         path: 'sending',
-                        component: AccountSendingComponent
+                        component: AccountSendingComponent,
+                        canActivate: [ProcessService],                        
                     },
                     {
                         path: 'confirmation',
-                        canActivate: [],
-                        component: AccountConfirmationComponent
+                        component: AccountConfirmationComponent,
+                        canActivate: [ProcessService],                        
                     }
-
-
             ]
             }
 

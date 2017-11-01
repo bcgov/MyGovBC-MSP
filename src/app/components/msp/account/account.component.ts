@@ -95,12 +95,29 @@ export class AccountComponent {
     }
 
 
+    /**
+     * Sets ProcessService to the static incomplete state ready to be configured
+     * by AccountPrepareComponent as long as ProcessService has not already been
+     * configured by AccountPrepareComponent.  The static incomplete state does
+     * NOT include the dynamic options, like AccountDependentChangeComponent,
+     * which the user selects at runtime via AccountPrepareComponent.
+     * 
+     * ProcessService is stored in LocalStorage and persists through refreshes.
+     * 
+     */
     private initProcessService() {
-        this.processService.init([
-            new ProcessStep(ProcessUrls.ACCOUNT_PREPARE_URL),
-            new ProcessStep(ProcessUrls.ACCOUNT_FILE_UPLOADER_URL),
-            new ProcessStep(ProcessUrls.ACCOUNT_REVIEW_URL),
-            new ProcessStep(ProcessUrls.ACCOUNT_SENDING_URL)]);
+        let isConfiguredForAccountMaintenance = this.processService
+        .getStepNumber(ProcessUrls.ACCOUNT_PREPARE_URL) >= 0;
+
+        // Not configured at all, or is configured for another section
+        if (!isConfiguredForAccountMaintenance) {
+            this.processService.init([
+                new ProcessStep(ProcessUrls.ACCOUNT_PREPARE_URL),
+                new ProcessStep(ProcessUrls.ACCOUNT_FILE_UPLOADER_URL),
+                new ProcessStep(ProcessUrls.ACCOUNT_REVIEW_URL),
+                new ProcessStep(ProcessUrls.ACCOUNT_SENDING_URL)
+            ]);
+        }
     }
 
 
