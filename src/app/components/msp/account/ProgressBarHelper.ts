@@ -27,32 +27,8 @@ export class ProgressBarHelper {
     private constructWidths(): void {
         let isAllFourTabsShown = this._accountChangeOptions.hasAllOptionsSelected() || (this._accountChangeOptions.hasAnyPISelected() && this._accountChangeOptions.dependentChange) ;
 
-        console.log(`'fourTabs? ${isAllFourTabsShown}`, this._accountChangeOptions);
-
-        //TODO FOR TOMORROW
-
-        /**
-         * This logic needs to be updated to take into account the labels.  
-         * 
-         * The labels for Personal Info vary, from one line to three lines. Take
-         * a look at `constructLabels()`
-         * 
-         * Current problem: while the spacing is good if PI is full of labels,
-         *  if it's almost empty it looks bad.
-         * 
-         * Ensure spacing looks good for each configuration at each breakpoint
-         * then push up.  Also there are some "dev todos" that need to be
-         * reverted (msp.module and more). Lastly, there may be some bugs with
-         * processService and Personal Info on refresh.
-         */
 
         if (isAllFourTabsShown  ) {     // All Four tabs  shown
-            // this._widthMainMenu = {'width': '14%'};
-            // // this._widthDocumentUpload = {'width': '18%'};        
-            // this._widthPersonalInfo = {'width': '33%'};
-            // this._widthDependents = {'width': '20%'};
-            // this._widthReview  = {'width': '17%'};
-
             this._widthMainMenu = {'width': '13%'};
             this._widthDocumentUpload = {'width': '20%'};            
             this._widthPersonalInfo = {'width': '34%'};
@@ -111,9 +87,6 @@ export class ProgressBarHelper {
      * Sets personalInfoLabel depending on the account change options.
      */
     private constructPILabel(): void {
-
-        //TODO - Need to also somehow programatically store data about the label, so we can use it for width calculations.
-
         let seperatorString: string = "";
         if (this._accountChangeOptions.hasAnyPISelected()) {
             if (this._accountChangeOptions.personInfoUpdate) {
