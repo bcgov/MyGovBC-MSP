@@ -13,12 +13,10 @@ export class ProgressBarHelper {
     private _widthPersonalInfo: Object = {};
     private _widthDependents: Object = {};
     private _widthDocumentUpload: Object = {};
-
     private _widthReview: Object = {};
 
     constructor(private _accountChangeOptions: AccountChangeOptions) {
         this.constructLabels();
-        this.constructHeight();
         this.constructWidths();
     }
 
@@ -50,30 +48,16 @@ export class ProgressBarHelper {
             this._widthReview  = {'width': '20%'};
             return ;
         }
-
-
     }
 
-    private constructHeight(): void {
-        this._height = {'height': '60px'};
-        if (this._accountChangeOptions.hasAllPISelected() ) {
-            this._height = {'height': '90px'};
-            return;
-        }
-        if (this._accountChangeOptions.dependentChange && this._accountChangeOptions.hasAnyPISelected()) {
-            this._height = {'height': '75px'};
-            return;
-        }
-        if (this._accountChangeOptions.dependentChange && this._accountChangeOptions.addressUpdate) {
-            this._height = {'height': '70px'};
-            return;
-        }
-
-    }
-
+    /**
+     * Fills out label properties on this class depending on account change
+     * options.
+     */
     private constructLabels(): void {
        this.constructPILabel();
 
+        //_dependentsLabel
         if (this._accountChangeOptions.dependentChange) {
             this._dependentsLabel = this.lang('./en/index.js').progressStepDependents;
             if (this._accountChangeOptions.addressUpdate && !this._accountChangeOptions.hasAnyPISelected()) {
@@ -84,7 +68,7 @@ export class ProgressBarHelper {
     }
 
     /**
-     * Sets personalInfoLabel depending on the account change options.
+     * Sets _personalInfoLabel based on account change options.
      */
     private constructPILabel(): void {
         let seperatorString: string = "";
@@ -101,8 +85,6 @@ export class ProgressBarHelper {
                 this._personalInfoLabel = this._personalInfoLabel.concat(seperatorString).concat(this.lang('./en/index.js').progressStepUpdateStatus);
             }
         }
-
-        console.log('Finished constructing PI label', {label: this._personalInfoLabel});
     }
 
 

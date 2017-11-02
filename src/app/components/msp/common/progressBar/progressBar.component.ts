@@ -1,7 +1,9 @@
-import { Component, Input } from '@angular/core';
+// import { Component, Input, ViewChildren, ElementRef, QueryList, HostListener } from '@angular/core';
+import { Component, Input, ViewChildren, ElementRef, QueryList, Renderer } from '@angular/core';
 import { Router } from '@angular/router';
 import { MspProgressBarItem } from "./progressBarDataItem.model";
 import { ProgressBarHelper } from '../../account/ProgressBarHelper';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'msp-progressBar',
@@ -12,7 +14,50 @@ import { ProgressBarHelper } from '../../account/ProgressBarHelper';
 export class MspProgressBarComponent {
   @Input() public progressBarList: MspProgressBarItem[];
 
-  constructor(public router: Router) {
+  resizeEvent$: Subject<Event> = new Subject<Event>();
+  /** The time in ms that must pass before the resize calculations are done. The
+   * lower this number the quicker the UI will be updated,  but at a performance
+   * cost.   */
+  private RESIZE_DEBOUNCE_TIME = 500;
+  public minimumHeight: Number;
+  /** Simply call like this.unregisterResizeListener() to unregister, after it's
+   * been setup. */
+  private unregisterResizeListener: Function;
+
+  @ViewChildren('links') links: QueryList<ElementRef>;
+
+  constructor(public router: Router, private renderer: Renderer) {
+    //Ensure we only process the event once every resizeThrottleTime ms.
+    this.resizeEvent$
+      .debounceTime(this.RESIZE_DEBOUNCE_TIME - 10)
+      .subscribe(_ => {
+        setTimeout(_ => this.calcualteMinHeight());
+      });
+  }
+
+  ngOnInit() {
+    if (this.isAccountSection()) {
+      this.enableResizeListener();
+    }
+  }
+
+  ngAfterViewInit() {
+    if (this.isAccountSection()) {
+      // Force wait one tick, avoid one time data-flow error.
+      //https://angular.io/guide/component-interaction#!#parent-to-view-child
+      setTimeout(() => this.calcualteMinHeight());
+    }
+  }
+
+  /**
+   * Make the progressBar resize it's height and do so on every resize event.
+   * This event is debounced by RESIZE_DEBOUNCE_TIME.
+   */
+  enableResizeListener() {
+    this.unregisterResizeListener = this.renderer.listenGlobal('window', 'resize', () => {
+      //This anonymous function is NOT debounced, so anything done here will massively affect performance on resize.
+      this.resizeEvent$.next();
+    });
   }
 
   /**
@@ -25,7 +70,7 @@ export class MspProgressBarComponent {
     });
   }
 
-  isActiveRoute(route: string):boolean {
+  isActiveRoute(route: string): boolean {
     return this.router.isActive(route, false);
   }
 
@@ -57,6 +102,18 @@ export class MspProgressBarComponent {
     return routeIndex > activeRouteIndex;
   }
 
+
+  /** Updates the min height of the progressBar by finding the height of the tallest element. This only affects the mobile breakpoints. */
+  calcualteMinHeight(): void {
+    /** Span elements are this may px smaller clientHeight than links */
+    const SPAN_HEIGHT_OFFSET = 7;
+
+    // On large breakpoints, the span's height will be 0.
+    const spanHeights = this.links.toArray()
+      .map(x => x.nativeElement.querySelectorAll('span')[1].clientHeight);
+
+    this.minimumHeight = Math.max.apply(Math, spanHeights) + SPAN_HEIGHT_OFFSET;
+  }
 
   /**
    * Returns a string to be used as a CSS class, meant to provide different
@@ -92,16 +149,16 @@ export class MspProgressBarComponent {
       return "progressBar-lg";
     }
 
-    if (length >= 60 && this.progressBarList.length >= 5){
+    if (length >= 60 && this.progressBarList.length >= 5) {
       return "progressBar-md";
     }
 
     if (length >= 40 || this.hasMultiLineLabel || this.progressBarList.length >= 5) {
       return "progressBar-sm";
-      
+
     }
 
-    
+
     return "progressBar-xs";
   }
 
@@ -122,7 +179,9 @@ export class MspProgressBarComponent {
       .sort((x, y) => { return y.length - x.length })[0];
   }
 
-  /** At least one of the labels for the ProgressBarItems has a linebreak in it. */
+  /** 
+   * At least one of the labels for the ProgressBarItems has a linebreak in it.
+   * */
   private get hasMultiLineLabel(): Boolean {
     if (this.progressBarList.length <= 0) {
       return null;
@@ -131,6 +190,10 @@ export class MspProgressBarComponent {
     return !!this.progressBarList.filter(x => {
       return x.displayName.indexOf(ProgressBarHelper.seperator) !== -1
     }).length;
+  }
+
+  private isAccountSection(): Boolean {
+    return this.getAppTypeClass() === "account";
   }
 
 }

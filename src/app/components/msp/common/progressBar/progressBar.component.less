@@ -143,38 +143,48 @@
 }
 
 .progressBarType-account {
+
     ul>li>a {
-        height: 60px; //Absolutely position text so that it doesn't linebreak and cause layout to shift.
-        @media screen and (max-width: @screen-xs-max) {
-            position: relative;
-            span:nth-of-type(1) {
-                float: left;
-            }
-            span:nth-of-type(2) {
-                position: absolute;
-                left: 45px;
-                right: 30px;
-            }
-        }
+        height: 60px; 
+
         @media screen and (min-width: @screen-sm) and (max-width: @screen-sm-max) {
             //Hacky little ways to squeeze every pixel of space we can get.
             padding: 7px 10px 0 27px;
-            span:first-of-type {
-                padding-right: 0px;
+        }
+    }
+
+
+    @media screen and (max-width: @screen-xs-max) {
+        ul {
+            min-height: 80px;
+            height: 100%;
+            //Animate the height transition from angular
+            transition: height 0.2s ease-out;
+        }
+
+        ul>li {
+            width: auto !important; //Override angular inline styling on the smaller breakpoints
+            height: inherit;
+            min-height: inherit;
+
+            > a {
+                // height: 100%;
+                height: inherit;
+                min-height: inherit;
+                > span { display: table-cell; }
             }
         }
     }
-    @media screen and(max-width: @screen-xs-max) {
-        ul>li {
-            width: auto !important; //Override angular inline styling on the smaller breakpoints
-        }
-    }
+
+    
     &.progressBarCount-4 li.activeContainer {
         .responsiveProgressBarItemFunction(2);
     }
     &.progressBarCount-5 li.activeContainer {
         .responsiveProgressBarItemFunction(3);
     }
+
+
     @media screen and (min-width: @screen-sm) {
         &.progressBar-lg>ul>li>a {
             height: 115px;
