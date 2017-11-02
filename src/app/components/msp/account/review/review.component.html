@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="mspAccountApp.documents && mspAccountApp.documents.length >0">
         <div class="col-md-12">
             <h2 [innerHtml]="lang('./en/index.js').docTitle"></h2>
             <h3 [innerHtml]="lang('./en/index.js').docConfirmTitle"></h3>
@@ -38,7 +38,7 @@
 
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="mspAccountApp.documents && mspAccountApp.documents.length >0">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">

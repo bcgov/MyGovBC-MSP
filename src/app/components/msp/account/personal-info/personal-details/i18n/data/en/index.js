@@ -4,13 +4,13 @@ module.exports = {
         'Your Personal Information',
         'Your Spouse/Common-Law Partner\'s Personal Information',
         'Your Child\'s Personal Information',
-        'Your Child\'s Personal Information',
+        'Your Child\'s Personal Information','Your Child\'s Personal Information'
     ],
 
     sectionTitle: ['Account Holder Information',
         'Spouse/Common-Law Partner',
         'Child',
-        'Child'],
+        'Child','Child'],
 
     residentialAddressTitle: "Residential Address",
     residentialAddressSubTitleForPI:"Please provide the Account Holder’s address information. If you are requesting an update or correction to the address, please provide the new address here",
@@ -31,6 +31,7 @@ module.exports = {
     statusLabel: ['Account Holder\’s Current Status in Canada',
         'Spouse\’s Current Status in Canada',
         'Child\’s Current Status in Canada',
+        'Child\’s Current Status in Canada',
         'Child\’s Current Status in Canada'],
 
     canadaStatusLabel: [' Canadian Citizen ',
@@ -40,15 +41,18 @@ module.exports = {
     nameHelpBlock: ['Enter your legal name and gender',
         'Enter your spouse\'s legal name and gender',
         'Enter your child\'s legal name and gender',
+        'Enter your child\'s legal name and gender',
         'Enter your child\'s legal name and gender'],
 
     livedInBCSinceBirth: ['Have you lived in B.C. since birth?',
         'Has your spouse lived in B.C. since birth?',
         'Has your child lived in B.C. since birth?',
+        'Has your child lived in B.C. since birth?',
         'Has your child lived in B.C. since birth?'],
 
     phnLabel: ['Your previous B.C. Personal Health Number',
         'Spouse\'s previous B.C. Personal Health Number',
+        'Child\'s previous B.C. Personal Health Number',
         'Child\'s previous B.C. Personal Health Number',
         'Child\'s previous B.C. Personal Health Number'],
 

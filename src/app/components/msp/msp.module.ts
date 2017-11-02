@@ -237,7 +237,7 @@ const APP_ROUTES : Routes = [
                     {
                         path: 'confirmation',
                         component: AccountConfirmationComponent,
-                        canActivate: [ProcessService],                        
+                        canActivate: [],
                     }
             ]
             }

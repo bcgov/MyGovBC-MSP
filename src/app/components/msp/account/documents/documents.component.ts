@@ -134,7 +134,8 @@ export class AccountDocumentsComponent extends BaseComponent {
     }
 
     get canContinue(): boolean {
-        if (this.mspAccountApp.documents.length > 0) {
+
+        if (this.isDocsNotNeeded || this.mspAccountApp.documents.length > 0) {
             return true;
         }
         return false;

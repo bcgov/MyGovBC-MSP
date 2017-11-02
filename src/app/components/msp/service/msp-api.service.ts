@@ -713,7 +713,9 @@ export class MspApiService {
             to.citizenship = this.findCitizenShip(from.status,from.currentActivity);
 
         }
-
+        if (from.isExistingBeneficiary != null) {
+            to.isExistingBeneficiary = from.isExistingBeneficiary === true ? "Y" : "N";
+        }
         //Has child lived in B.C. since birth?
         if (from.livedInBCSinceBirth != null) {
             to.livedInBC = LivedInBCTypeFactory.make();
@@ -749,15 +751,16 @@ export class MspApiService {
         if (from.declarationForOutsideOver30Days != null) {
             to.outsideBC = OutsideBCTypeFactory.make();
             to.outsideBC.beenOutsideBCMoreThan = from.declarationForOutsideOver30Days === true ? "Y" : "N";
-            if (from.outOfBCRecord.hasDeparture) {
-                to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+            if (from.declarationForOutsideOver30Days) {
+                if (from.outOfBCRecord.hasDeparture) {
+                    to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                }
+                if (from.outOfBCRecord.hasReturn) {
+                    to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                }
+                to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
+                to.outsideBC.destination = from.outOfBCRecord.location;
             }
-            if (from.outOfBCRecord.hasReturn) {
-                to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
-            }
-            to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
-            to.outsideBC.destination = from.outOfBCRecord.location;
-
         }
 
         //  Will this family member be outside of BC for more than a total of 30 days during the next 6 months?
@@ -765,15 +768,16 @@ export class MspApiService {
         if (from.plannedAbsence != null) {
             to.outsideBCinFuture = OutsideBCTypeFactory.make();
             to.outsideBCinFuture.beenOutsideBCMoreThan = from.plannedAbsence === true ? "Y" : "N";
-            if (from.planOnBeingOutOfBCRecord.hasDeparture) {
-                to.outsideBCinFuture.departureDate = from.planOnBeingOutOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+            if (from.plannedAbsence) {
+                if (from.planOnBeingOutOfBCRecord.hasDeparture) {
+                    to.outsideBCinFuture.departureDate = from.planOnBeingOutOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                }
+                if (from.planOnBeingOutOfBCRecord.hasReturn) {
+                    to.outsideBCinFuture.returnDate = from.planOnBeingOutOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                }
+                to.outsideBCinFuture.familyMemberReason = from.planOnBeingOutOfBCRecord.reason;
+                to.outsideBCinFuture.destination = from.planOnBeingOutOfBCRecord.location;
             }
-            if (from.planOnBeingOutOfBCRecord.hasReturn) {
-                to.outsideBCinFuture.returnDate = from.planOnBeingOutOfBCRecord.returnDate.format(this.ISO8601DateFormat);
-            }
-            to.outsideBCinFuture.familyMemberReason = from.planOnBeingOutOfBCRecord.reason;
-            to.outsideBCinFuture.destination = from.planOnBeingOutOfBCRecord.location;
-
         }
 
 
@@ -941,7 +945,9 @@ export class MspApiService {
         if (from.marriageDate) {
             to.marriageDate = this.parseDate(from.marriageDate).format(this.ISO8601DateFormat);
         }
-
+        if (from.isExistingBeneficiary != null) {
+            to.isExistingBeneficiary = from.isExistingBeneficiary === true ? "Y" : "N";
+        }
         //Has spouse lived in B.C. since birth?
         if (from.livedInBCSinceBirth != null) {
             to.livedInBC = LivedInBCTypeFactory.make();
@@ -973,15 +979,17 @@ export class MspApiService {
         if (from.declarationForOutsideOver30Days != null) {
             to.outsideBC = OutsideBCTypeFactory.make();
             to.outsideBC.beenOutsideBCMoreThan = from.declarationForOutsideOver30Days === true ? "Y" : "N";
-            if (from.outOfBCRecord.hasDeparture) {
-                to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+            if ( from.declarationForOutsideOver30Days ) {
+                // No out of CB records if they select No
+                if (from.outOfBCRecord.hasDeparture) {
+                    to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                }
+                if (from.outOfBCRecord.hasReturn) {
+                    to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                }
+                to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
+                to.outsideBC.destination = from.outOfBCRecord.location;
             }
-            if (from.outOfBCRecord.hasReturn) {
-                to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
-            }
-            to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
-            to.outsideBC.destination = from.outOfBCRecord.location;
-
         }
 
       //  Will this family member be outside of BC for more than a total of 30 days during the next 6 months?
@@ -989,15 +997,16 @@ export class MspApiService {
         if (from.plannedAbsence != null) {
             to.outsideBCinFuture = OutsideBCTypeFactory.make();
             to.outsideBCinFuture.beenOutsideBCMoreThan = from.plannedAbsence === true ? "Y" : "N";
-            if (from.planOnBeingOutOfBCRecord.hasDeparture) {
-                to.outsideBCinFuture.departureDate = from.planOnBeingOutOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+            if (from.plannedAbsence) {
+                if (from.planOnBeingOutOfBCRecord.hasDeparture) {
+                    to.outsideBCinFuture.departureDate = from.planOnBeingOutOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                }
+                if (from.planOnBeingOutOfBCRecord.hasReturn) {
+                    to.outsideBCinFuture.returnDate = from.planOnBeingOutOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                }
+                to.outsideBCinFuture.familyMemberReason = from.planOnBeingOutOfBCRecord.reason;
+                to.outsideBCinFuture.destination = from.planOnBeingOutOfBCRecord.location;
             }
-            if (from.planOnBeingOutOfBCRecord.hasReturn) {
-                to.outsideBCinFuture.returnDate = from.planOnBeingOutOfBCRecord.returnDate.format(this.ISO8601DateFormat);
-            }
-            to.outsideBCinFuture.familyMemberReason = from.planOnBeingOutOfBCRecord.reason;
-            to.outsideBCinFuture.destination = from.planOnBeingOutOfBCRecord.location;
-
         }
 
        // Have they been released from the Canadian Armed Forces or an Institution?

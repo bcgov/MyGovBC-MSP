@@ -199,7 +199,7 @@ class MspAccountApp implements ApplicationBase {
             return true;
         }
         var children:Array<Person> = [...this.addedChildren,...this.updateChildren]; ;
-        return ((children.findIndex( child => child.isVisitor())) > 0 );
+        return ((children.findIndex( child => child.isVisitor())) > -1 );
 
     }
 
