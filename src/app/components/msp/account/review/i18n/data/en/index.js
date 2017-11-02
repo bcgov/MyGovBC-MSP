@@ -1,7 +1,7 @@
 module.exports = {
   pageTitle: 'Review your Request',
   changePersonalInfoButton: 'Edit Personal Info & Documents',
-  agreementLabel: 'Authorize your application',
+  agreementLabel: 'Authorize your update request',
   doYouAgreeLabel: '{name}, do you agree?',
   agreeLabel: 'Yes, I agree',
   submitButton: 'Submit Application',

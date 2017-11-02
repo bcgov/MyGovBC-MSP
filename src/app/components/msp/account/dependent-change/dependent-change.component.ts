@@ -31,7 +31,6 @@ export class AccountDependentChangeComponent extends BaseComponent {
   /** Due to a very strange bug, we need to break this out to a separate variable.  All it does is disable the button to add a new spouse. */
   public disableSpouseButton: boolean = false;
 
-
   @ViewChild('formRef') form: NgForm;
   @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
   @ViewChildren(AddDependentComponent) addDepsComponent: QueryList<AddDependentComponent>;
@@ -65,7 +64,11 @@ export class AccountDependentChangeComponent extends BaseComponent {
   }
 
   canContinue(): boolean {
-    return this.isAllValid();
+
+   //enable the buttons only when atleast one Dependent is added/removed..This makes sure the request is meaningful
+    let  atleastOneDepedentAddedOrRemoved:boolean = !!this.removedSpouse || !!this.spouse || (this.children&& this.children.length > 0) || (this.removedChildren&&this.removedChildren.length>0);
+
+    return this.isAllValid() && atleastOneDepedentAddedOrRemoved;
   }
 
 
