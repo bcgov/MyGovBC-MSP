@@ -1,6 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input } from '@angular/core';
 import {Router} from '@angular/router';
 import {MspProgressBarItem} from "./progressBarDataItem.model";
+
+import { ProgressBarHelper } from '../../account/ProgressBarHelper';
 
 @Component({
   selector: 'msp-progressBar',
@@ -73,7 +75,57 @@ export class MspProgressBarComponent {
     }
   }
 
+  /**
+   * Height classes should be responsive following bootstrap styles
+   * 
+   * todo - calculate based on PI label? use helper?
+   * todo?? - don't just look at label, but also # of items
+   * 
+   * Need to define classes!
+   */
+  get heightClass(): string {
+    let str: String  = this.getLongestProgressBarItemLabel();
+    let length: Number;
+    if (!str){ return null; }
+    length = str.length;
+
+    if (length >= 85){
+      return "md-tall";
+    }
+
+    if (length >= 40 || this.hasMultiLineLabel){
+      return "md-medium"
+    }
+
+    return "md-small";
+  }
+
+
   private  contains(subject: string, query: string): Boolean {
     return subject.indexOf(query) >= 0;
   }
+
+  /**
+   * Returns the longest label among the progressBarList.
+   */
+  private getLongestProgressBarItemLabel(): String{
+    if (this.progressBarList.length <= 0){
+      return null;
+    }
+
+    return this.progressBarList.map(x => x.displayName)
+    .sort((x, y) => {return y.length - x.length})[0];
+  }
+
+  /** At least one of the labels for the ProgressBarItems has a linebreak in it. */
+  private get hasMultiLineLabel(): Boolean {
+    if (this.progressBarList.length <= 0){
+      return null;
+    }
+
+    return !!this.progressBarList.filter(x => { 
+      return x.displayName.indexOf(ProgressBarHelper.seperator) !== -1
+    }).length;
+  }
+
 }

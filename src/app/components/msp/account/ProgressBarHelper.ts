@@ -2,8 +2,9 @@ import {AccountChangeOptions} from '../model/account.model';
 
 export class ProgressBarHelper {
 
-    // public static readonly seperator = "<br>";
-    public static readonly seperator = ", ";
+    
+    /** Separator to be used when concatenating strings for labels */
+    public static readonly seperator = "<br>";
     lang = require('./i18n');
     private _height: Object = {'height': '70px'};
     private _dependentsLabel: string = "";
@@ -46,9 +47,15 @@ export class ProgressBarHelper {
          */
 
         if (isAllFourTabsShown  ) {     // All Four tabs  shown
-            this._widthMainMenu = {'width': '14%'};
-            this._widthDocumentUpload = {'width': '18%'};
-            this._widthPersonalInfo = {'width': '33%'};
+            // this._widthMainMenu = {'width': '14%'};
+            // // this._widthDocumentUpload = {'width': '18%'};        
+            // this._widthPersonalInfo = {'width': '33%'};
+            // this._widthDependents = {'width': '20%'};
+            // this._widthReview  = {'width': '17%'};
+
+            this._widthMainMenu = {'width': '13%'};
+            this._widthDocumentUpload = {'width': '20%'};            
+            this._widthPersonalInfo = {'width': '34%'};
             this._widthDependents = {'width': '20%'};
             this._widthReview  = {'width': '17%'};
             return;
@@ -89,20 +96,7 @@ export class ProgressBarHelper {
     }
 
     private constructLabels(): void {
-        let newline: string = "";
-        if (this._accountChangeOptions.hasAnyPISelected()) {
-            if (this._accountChangeOptions.personInfoUpdate) {
-                this._personalInfoLabel = this.lang('./en/index.js').progressStepPersonalInfo;
-                newline = ProgressBarHelper.seperator;
-            }
-            if (this._accountChangeOptions.addressUpdate) {
-                this._personalInfoLabel = this._personalInfoLabel.concat(newline).concat(this.lang('./en/index.js').progressStepAddressUpdate);
-                newline = ProgressBarHelper.seperator;
-            }
-            if (this._accountChangeOptions.statusUpdate) {
-                this._personalInfoLabel = this._personalInfoLabel.concat(newline).concat(this.lang('./en/index.js').progressStepUpdateStatus);
-            }
-        }
+       this.constructPILabel();
 
         if (this._accountChangeOptions.dependentChange) {
             this._dependentsLabel = this.lang('./en/index.js').progressStepDependents;
@@ -113,12 +107,35 @@ export class ProgressBarHelper {
 
     }
 
+    /**
+     * Sets personalInfoLabel depending on the account change options.
+     */
+    private constructPILabel(): void {
+
+        //TODO - Need to also somehow programatically store data about the label, so we can use it for width calculations.
+
+        let seperatorString: string = "";
+        if (this._accountChangeOptions.hasAnyPISelected()) {
+            if (this._accountChangeOptions.personInfoUpdate) {
+                this._personalInfoLabel = this.lang('./en/index.js').progressStepPersonalInfo;
+                seperatorString = ProgressBarHelper.seperator;
+            }
+            if (this._accountChangeOptions.addressUpdate) {
+                this._personalInfoLabel = this._personalInfoLabel.concat(seperatorString).concat(this.lang('./en/index.js').progressStepAddressUpdate);
+                seperatorString = ProgressBarHelper.seperator;
+            }
+            if (this._accountChangeOptions.statusUpdate) {
+                this._personalInfoLabel = this._personalInfoLabel.concat(seperatorString).concat(this.lang('./en/index.js').progressStepUpdateStatus);
+            }
+        }
+
+        console.log('Finished constructing PI label', {label: this._personalInfoLabel});
+    }
+
 
     get personalInfoLabel(): string {
         return this._personalInfoLabel;
     }
-
-
 
     get height(): Object {
         return this._height;

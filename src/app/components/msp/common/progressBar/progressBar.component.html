@@ -1,12 +1,11 @@
 <div class="container" *ngIf="isAnyRoute()">
     <nav>
-        <div class="progressBar progressBarCount-{{progressBarList.length}} progressBarType-{{getAppTypeClass()}}">
+        <div class="progressBar progressBarCount-{{ progressBarList.length }} progressBarType-{{getAppTypeClass() }} {{ heightClass }}">
             <ul>
                 <ng-template ngFor let-item let-i="index" [ngForOf]="progressBarList" >
                     <li [ngStyle]="item.width"
                     [class.activeContainer]="isActiveRoute(item.routerLink)">
-                            
-                        <a routerLink="{{item.routerLink}}" [ngStyle]="item.height"
+                        <a routerLink="{{item.routerLink}}"
                            [tabindex]="(isActiveRoute(item.routerLink) || isBeforeActiveRoute(item.routerLink) )? 0 : -1"
                            [class.beforeActive]="isBeforeActiveRoute(item.routerLink)"
                            [class.active]="isActiveRoute(item.routerLink)"
