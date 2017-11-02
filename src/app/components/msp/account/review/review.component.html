@@ -13,7 +13,7 @@
             <msp-person-card [accountCard]=true [person]="mspAccountApp.applicant" [customTitle]="lang('./en/index.js').applicantTitle" [customLinkTitle]="lang('./en/index.js').applicantLinkTitle"
                              [editRouterLink]="'/msp/account/personal-info'"></msp-person-card>
         </div>
-        <div class="col-md-6" *ngFor="let spouse of allSpouses; let i = index;">
+        <div class="col-md-6" *ngFor="let spouse of mspAccountApp.getallSpouses(); let i = index;">
 
             <msp-person-card  [accountCard]=true [person]="spouse"
                              [editRouterLink]="spouse.operationActionType == 2 ? accountPIUrl :accountDependentUrl "></msp-person-card>

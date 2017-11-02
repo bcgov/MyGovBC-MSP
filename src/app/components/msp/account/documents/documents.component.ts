@@ -10,7 +10,7 @@ import {
     StatusRules, ActivitiesRules, StatusInCanada, Activities,
     DocumentRules, Documents, Relationship
 } from "../../model/status-activities-documents";
-import {ProcessService,ProcessUrls} from "../../service/process.service";
+import {ProcessService, ProcessUrls} from "../../service/process.service";
 import {MspImage} from "../../../msp/model/msp-image";
 import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
@@ -40,6 +40,7 @@ export class AccountDocumentsComponent extends BaseComponent {
         super(cd);
         this.mspAccountApp = dataService.getMspAccountApp();
     }
+
     ngOnInit() {
         AccountDocumentsComponent.ProcessStepNum = this._processService.getStepNumber(ProcessUrls.ACCOUNT_FILE_UPLOADER_URL);
         this.initProcessMembers(AccountDocumentsComponent.ProcessStepNum, this._processService);
@@ -56,13 +57,13 @@ export class AccountDocumentsComponent extends BaseComponent {
      * An array of integers with the indices of the different documents.  The
      * reason we have to do this is because of a glitch with ngx-bootstrap's
      * accordion, which if if passed an object in ngFor will break, but is fine
-     * if you pass it an integer. Essentially, this enables us to ngFor over 
+     * if you pass it an integer. Essentially, this enables us to ngFor over
      * this.documents.
-     * 
+     *
      * @example
      * [0, 1, 2, 3]
      */
-    public documentIndices(){
+    public documentIndices() {
         return Object.keys(this.documents).map(x => parseInt(x, 10));
     }
 
@@ -87,8 +88,49 @@ export class AccountDocumentsComponent extends BaseComponent {
         this.dataService.saveMspAccountApp();
     }
 
-    viewIdReqModal(event:Documents) {
+    viewIdReqModal(event: Documents) {
         this.idReqModal.showFullSizeView(event);
+    }
+
+    /**
+     * To decide if documents are mandatory for upload.
+     * logic is to figure out all conditions which needs document upload.
+     *
+     *  if nameChangeDueToMarriage - No Docs Needed @returns True .Exclusive Condition
+     *  if status update  or PI - Docs needed   @return false
+     *
+     *  if Depdendent option is selected
+     *      if there is removal of spouse , Docs needed  @return false     *
+     *      if any of the  added spouse/children is new beneficiary @returns false
+     *      otherwise[might include removal of child] return true
+     *
+
+     */
+    get isDocsNotNeeded(): boolean {
+        let docsNotNeeded: boolean = false;
+        if (this.mspAccountApp.accountChangeOptions.nameChangeDueToMarriage) {
+            return true;
+        }
+
+        if (this.mspAccountApp.accountChangeOptions.statusUpdate || this.mspAccountApp.accountChangeOptions.personInfoUpdate) {
+            return false;
+        }
+
+        if (this.mspAccountApp.accountChangeOptions.dependentChange) {
+            if (this.mspAccountApp.removedSpouse) {
+                return false;
+            }
+
+            if (this.mspAccountApp.addedSpouse && !this.mspAccountApp.addedSpouse.isExistingBeneficiary) {
+                return false;
+            }
+            if (this.mspAccountApp.addedChildren.filter(person => person.isExistingBeneficiary === false)[0]) {
+                return false;
+            }
+            return true;
+
+        }
+        return false; //Just default..Never reaches here ideally
     }
 
     get canContinue(): boolean {
@@ -101,7 +143,7 @@ export class AccountDocumentsComponent extends BaseComponent {
     continue(): void {
 
         this._processService.setStep(AccountDocumentsComponent.ProcessStepNum, true);
-        console.log('this._processService.getNextStep():'+this._processService.getNextStep());
+        console.log('this._processService.getNextStep():' + this._processService.getNextStep());
         this._router.navigate([this._processService.getNextStep()]);
     }
 

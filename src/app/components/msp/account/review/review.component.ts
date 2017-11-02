@@ -44,10 +44,7 @@ export class AccountReviewComponent implements OnInit {
         return this.mspAccountApp.addedSpouse ||  this.mspAccountApp.updatedSpouse || undefined;
     }
 
-    get allSpouses(): Person[] {
-        //TODO FIXME Make sure this logic is working when add / remove is implemented for Spouses
-        return [this.mspAccountApp.updatedSpouse,this.mspAccountApp.addedSpouse,this.mspAccountApp.removedSpouse].filter(spouse => !!spouse);
-    }
+
 
     get questionApplicant(){
         return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.applicantName);

@@ -175,6 +175,11 @@ class MspAccountApp implements ApplicationBase {
         });
     }
 
+    getallSpouses(): Person[] {
+        //TODO FIXME Make sure this logic is working when add / remove is implemented for Spouses
+        return [this.updatedSpouse,this.addedSpouse,this.removedSpouse].filter(spouse => !!spouse);
+    }
+
     getAllChildren():Person[] {
         return  [...this.updateChildren,...this.addedChildren,...this.removedChildren];
     }
