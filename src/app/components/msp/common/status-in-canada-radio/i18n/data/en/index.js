@@ -30,6 +30,9 @@ module.exports = {
         ' Permanent Resident ',
         ' Temporary Permit Holder or Diplomat '],
 
+    visitorBadInput: 'You have selected Visitor Permit. Please contact HIBC for further processing.',
+    diplomatBadInput: 'You have selected Diplomat. The Regulation requires that the person be accredited to represent a foreign country, and be physically present in the province for at least six months in a calendar year.',
+
     // nameHelpBlock: ['Enter your legal name and gender',
     //     'Enter your spouse\'s legal name and gender',
     //     'Enter your child\'s legal name and gender',

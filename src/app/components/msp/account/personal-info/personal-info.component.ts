@@ -79,12 +79,8 @@ export class AccountPersonalInfoComponent extends BaseComponent {
         if (!this.dataService.getMspAccountApp().accountChangeOptions.statusUpdate) {
             return false;
         }
-        var spouse = this.dataService.getMspAccountApp().updatedSpouse ;
-        if (spouse &&  spouse.status == StatusInCanada.TemporaryResident && spouse.currentActivity === Activities.Visiting) {
-            return true;
-        }
-        var children:Array<Person> = this.dataService.getMspAccountApp().updateChildren ;
-        return ((children.findIndex( child => child.status == StatusInCanada.TemporaryResident && child.currentActivity === Activities.Visiting)) > 0 );
+
+       return this.dataService.getMspAccountApp().hasAnyVisitorInApplication();
 
 
     }

@@ -190,6 +190,19 @@ class MspAccountApp implements ApplicationBase {
         return this.documents;
     }
 
+    hasAnyVisitorInApplication(): boolean {
+
+        if (this.updatedSpouse &&  this.updatedSpouse.isVisitor()) {
+            return true;
+        }
+        if (this.addedSpouse &&  this.addedSpouse.isVisitor()) {
+            return true;
+        }
+        var children:Array<Person> = [...this.addedChildren,...this.updateChildren]; ;
+        return ((children.findIndex( child => child.isVisitor())) > 0 );
+
+    }
+
     constructor(){
         this.id = UUID.UUID();
     }

@@ -22,3 +22,19 @@
         </div>
     </div>
 </div>
+
+<div class="row" *ngIf="person.isVisitor()">
+    <div class="col-md-12">
+        <p class="intro text-danger" [innerHTML]="lang('./en/index.js').visitorBadInput"
+           role="alert" aria-live="assertive">
+        </p>
+    </div>
+
+</div>
+<div class="row" *ngIf="person.isDiplomat()">
+    <div class="col-md-12">
+        <p class="intro text-info" [innerHTML]="lang('./en/index.js').diplomatBadInput"
+           role="alert" aria-live="assertive">
+        </p>
+    </div>
+</div>
