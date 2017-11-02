@@ -529,6 +529,16 @@ class Person implements IPerson {
         return fullName;
     }
 
+    isDiplomat = () =>{
+        return this.status == StatusInCanada.TemporaryResident && this.currentActivity === Activities.Diplomat
+    };
+
+    isVisitor = () =>{
+        return this.status == StatusInCanada.TemporaryResident && this.currentActivity === Activities.Visiting
+    };
+
+
+
     /**
      * Social Insurance Number
      */

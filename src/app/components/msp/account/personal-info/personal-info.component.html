@@ -55,8 +55,7 @@
     <hr>
     <div class="row" style="margin-top: 10px;">
         <div class="col-sm-2">
-
-            <button [disabled] = "hasAnyInvalidStatus()&& !canContinue()" [mspLogger]="'msp-accountmanagement_personal-info_continue'"
+            <button [disabled] = "hasAnyInvalidStatus()|| !canContinue()" [mspLogger]="'msp-accountmanagement_personal-info_continue'"
                     class="btn btn-primary" type="submit"
                     [innerHTML]="lang('./en/index.js').continueButton"></button>
 

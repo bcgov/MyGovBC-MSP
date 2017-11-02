@@ -210,13 +210,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     }
 
 
-    diplomat = (sp:Person) =>{
-        return sp.status == StatusInCanada.TemporaryResident && sp.currentActivity === Activities.Diplomat
-    };
 
-    visitor = (sp:Person) =>{
-        return sp.status == StatusInCanada.TemporaryResident && sp.currentActivity === Activities.Visiting
-    };
 
     isValid(): boolean {
         return true;
