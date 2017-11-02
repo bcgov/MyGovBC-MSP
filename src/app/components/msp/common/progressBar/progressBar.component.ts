@@ -1,7 +1,6 @@
-import {Component, Input } from '@angular/core';
-import {Router} from '@angular/router';
-import {MspProgressBarItem} from "./progressBarDataItem.model";
-
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { MspProgressBarItem } from "./progressBarDataItem.model";
 import { ProgressBarHelper } from '../../account/ProgressBarHelper';
 
 @Component({
@@ -64,66 +63,72 @@ export class MspProgressBarComponent {
    * classes for Enrollment, Premium Assistance, and Account Change
    */
   getAppTypeClass(): String {
-    if (this.contains(this.router.url, "msp/application")){
+    if (this.contains(this.router.url, "msp/application")) {
       return "application";
     }
-    if (this.contains(this.router.url, "msp/assistance")){
+    if (this.contains(this.router.url, "msp/assistance")) {
       return "assistance";
     }
-    if (this.contains(this.router.url, "msp/account")){
+    if (this.contains(this.router.url, "msp/account")) {
       return "account";
     }
   }
 
   /**
-   * Height classes should be responsive following bootstrap styles
+   * Returns a string which matches classes found in progressBar.component.less.
+   * This class should only be responsible for the height of the progress bar
+   * when it's at the -sm- breakpoint or larger in bootstrap.
    * 
-   * todo - calculate based on PI label? use helper?
-   * todo?? - don't just look at label, but also # of items
-   * 
-   * Need to define classes!
+   * Note - A lot of this logic so far has been written with the Account
+   * Maintenence section in mind.
    */
-  get heightClass(): string {
-    let str: String  = this.getLongestProgressBarItemLabel();
+  get heightClass(): String {
+    let str: String = this.getLongestProgressBarItemLabel();
     let length: Number;
-    if (!str){ return null; }
+    if (!str) { return null; }
     length = str.length;
 
-    if (length >= 85){
-      return "md-tall";
+    if (length >= 85) {
+      return "progressBar-lg";
     }
 
-    if (length >= 40 || this.hasMultiLineLabel){
-      return "md-medium"
+    if (length >= 60 && this.progressBarList.length >= 5){
+      return "progressBar-md";
     }
 
-    return "md-small";
+    if (length >= 40 || this.hasMultiLineLabel || this.progressBarList.length >= 5) {
+      return "progressBar-sm";
+      
+    }
+
+    
+    return "progressBar-xs";
   }
 
 
-  private  contains(subject: string, query: string): Boolean {
+  private contains(subject: string, query: string): Boolean {
     return subject.indexOf(query) >= 0;
   }
 
   /**
    * Returns the longest label among the progressBarList.
    */
-  private getLongestProgressBarItemLabel(): String{
-    if (this.progressBarList.length <= 0){
+  private getLongestProgressBarItemLabel(): String {
+    if (this.progressBarList.length <= 0) {
       return null;
     }
 
     return this.progressBarList.map(x => x.displayName)
-    .sort((x, y) => {return y.length - x.length})[0];
+      .sort((x, y) => { return y.length - x.length })[0];
   }
 
   /** At least one of the labels for the ProgressBarItems has a linebreak in it. */
   private get hasMultiLineLabel(): Boolean {
-    if (this.progressBarList.length <= 0){
+    if (this.progressBarList.length <= 0) {
       return null;
     }
 
-    return !!this.progressBarList.filter(x => { 
+    return !!this.progressBarList.filter(x => {
       return x.displayName.indexOf(ProgressBarHelper.seperator) !== -1
     }).length;
   }
