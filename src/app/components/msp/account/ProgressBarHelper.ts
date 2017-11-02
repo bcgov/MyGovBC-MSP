@@ -28,6 +28,23 @@ export class ProgressBarHelper {
 
         console.log(`'fourTabs? ${isAllFourTabsShown}`, this._accountChangeOptions);
 
+        //TODO FOR TOMORROW
+
+        /**
+         * This logic needs to be updated to take into account the labels.  
+         * 
+         * The labels for Personal Info vary, from one line to three lines. Take
+         * a look at `constructLabels()`
+         * 
+         * Current problem: while the spacing is good if PI is full of labels,
+         *  if it's almost empty it looks bad.
+         * 
+         * Ensure spacing looks good for each configuration at each breakpoint
+         * then push up.  Also there are some "dev todos" that need to be
+         * reverted (msp.module and more). Lastly, there may be some bugs with
+         * processService and Personal Info on refresh.
+         */
+
         if (isAllFourTabsShown  ) {     // All Four tabs  shown
             this._widthMainMenu = {'width': '14%'};
             this._widthDocumentUpload = {'width': '18%'};
