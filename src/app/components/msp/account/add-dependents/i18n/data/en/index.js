@@ -7,7 +7,7 @@ module.exports = {
   ],
   sectionBody: [
     '',
-    'A spouse is a resident of B.C. who is married to or is living and cohabiting in a marriage-like relationship with the applicant.',''
+    'A spouse is a resident of B.C. who is married to or is living and cohabiting in a marriage-like relationship with the applicant.','',''
   ],
   clearButton: [
     '',
