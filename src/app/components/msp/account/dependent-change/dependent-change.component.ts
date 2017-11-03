@@ -47,8 +47,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
   }
 
   ngOnInit() { 
-    // TODO DEV RE-ENABLE! COMMENTED OUT FOR TEMP DEV.
-    // this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_DEPENDENTS_URL), this._processService);    
+    this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_DEPENDENTS_URL), this._processService);    
   }
 
   /** Only show personal info section if it the applicant has not selected the Personal Info Update option, because if so they've already filled out this section. */
@@ -81,17 +80,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
   }
 
 
-  //TODO - Just has temp solution for now, need better approach for dynamic pages with processSteps.
   continue(): void {
-
-    //Note - Maybe add new method to process service? `setStepForUrl(url, boolean)`
-    this._processService.process.processSteps.forEach((val, i) => {
-      if (val.route.indexOf("dependent-change") > -1) {
-        this._processService.setStep(i, true);
-      }
-    })
-
-
     if (!this.isAllValid()) {
       console.log('Please fill in all required fields on the form.');
     } else {

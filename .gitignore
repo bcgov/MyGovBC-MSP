@@ -18,3 +18,4 @@ coverage
 DEBUG.ts
 documentation/
 .vscode/
+*.sh
