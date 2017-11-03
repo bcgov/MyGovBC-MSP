@@ -81,55 +81,12 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="mspAccountApp.accountChangeOptions.statusUpdate&&!embedded">
-        <div class="col-xs-12" role="dialog" [attr.aria-label]="lang('./en/index.js').statusLabel[person.relationship]">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h3 [innerHTML]="lang('./en/index.js').statusLabel[person.relationship]"></h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="radio" *ngFor="let st of statusInCanada">
-                    <input type="radio" name="statusInCanada-{{id}}" id="st{{st}}-{{id}}"
-                           (click)="setStatus(st, person)"
-                           [checked]="st === person.status" tabindex="0">
-                    <label for="st{{st}}-{{id}}">
-                        {{lang('./en/index.js').canadaStatusLabel[st]}}
-                    </label>
+    <msp-status-in-canada-radio [showError]="showError"
+            *ngIf="mspAccountApp.accountChangeOptions.statusUpdate&&!embedded"
+            [person]='person'>
+    </msp-status-in-canada-radio>
 
-                    <div *ngIf="st === person.status && st > 1" role="alertdialog"
-                         aria-labelledby="What is your activity?">
-                        <div class="radio" *ngFor="let activity of activities">
-                            <input type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}"
-                                   (click)="setActivity(activity)"
-                                   [checked]="activity === person.currentActivity">
-                            <label for="a{{activity}}-{{id}}" class="shade">
-                                {{langAccountActivities('./en/index.js')[activity]}}
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-        </div>
-
-        <div class="row" *ngIf="person.isVisitor()">
-            <div class="col-md-12">
-                <p class="intro text-danger" [innerHTML]="lang('./en/index.js').visitorBadInput"
-                   role="alert" aria-live="assertive">
-                </p>
-            </div>
-
-        </div>
-        <div class="row" *ngIf="person.isDiplomat()">
-            <div class="col-md-12">
-                <p class="intro text-info" [innerHTML]="lang('./en/index.js').diplomatBadInput"
-                   role="alert" aria-live="assertive">
-                </p>
-            </div>
-        </div>
-
-    </div>
 
 
 </form>

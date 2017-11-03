@@ -216,7 +216,7 @@ class AccountChangeOptions {
     addressUpdate: boolean = false;
 
     get nameChangeDueToMarriage(): boolean {
-        if (this.dependentChange || this.addressUpdate || this.statusUpdate) {
+        if (this.dependentChange || this.statusUpdate) {
             this._nameChangeDueToMarriage = false;
         }
         return this._nameChangeDueToMarriage;

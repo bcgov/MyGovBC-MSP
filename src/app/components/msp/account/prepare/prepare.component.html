@@ -18,7 +18,7 @@
         <label id="q2" for='personalInfoChange' [innerHtml]="lang('./en/index.js').personalInfoChange"></label>
     </div>
     <div role="dialog" aria-labelledby="q3" class="checkbox checkbox-spaced" style="margin-left: 20px;" *ngIf="accountChangeOptions.personInfoUpdate">
-        <input #nameChangeDueToMarriageChkBx class="input-lg" id='nameChangeDueToMarriage' [disabled]="accountChangeOptions.dependentChange ||accountChangeOptions.statusUpdate || accountChangeOptions.addressUpdate" name="nameChangeDueToMarriage" type="checkbox" [(ngModel)]="accountChangeOptions.nameChangeDueToMarriage" (ngModelChange)="nameChangeDueToMarriageOnChange($event)">
+        <input #nameChangeDueToMarriageChkBx class="input-lg" id='nameChangeDueToMarriage' [disabled]="accountChangeOptions.dependentChange ||accountChangeOptions.statusUpdate " name="nameChangeDueToMarriage" type="checkbox" [(ngModel)]="accountChangeOptions.nameChangeDueToMarriage" (ngModelChange)="nameChangeDueToMarriageOnChange($event)">
         <label id="q3" for='nameChangeDueToMarriage' [innerHtml]="lang('./en/index.js').nameChangeDueToMarriage"></label>
     </div>
 
