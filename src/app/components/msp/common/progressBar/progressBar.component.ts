@@ -1,16 +1,15 @@
-// import { Component, Input, ViewChildren, ElementRef, QueryList, HostListener } from '@angular/core';
 import { Component, Input, ViewChildren, ElementRef, QueryList, Renderer } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { MspProgressBarItem } from "./progressBarDataItem.model";
 import { ProgressBarHelper } from '../../account/ProgressBarHelper';
 import { Subject } from 'rxjs';
 
+
 @Component({
   selector: 'msp-progressBar',
   templateUrl: './progressBar.component.html',
-  styleUrls: ['./progressBar.component.less']
+  styleUrls: ['./progressBar.component.less'],
 })
-
 export class MspProgressBarComponent {
   @Input() public progressBarList: MspProgressBarItem[];
 
@@ -38,6 +37,14 @@ export class MspProgressBarComponent {
   ngOnInit() {
     if (this.isAccountSection()) {
       this.enableResizeListener();
+
+      //When route changes so does the displayed label
+      this.router.events.subscribe(val => {
+        if(val instanceof NavigationEnd) {
+          setTimeout(_ => this.calcualteMinHeight());        
+        }
+      });
+
     }
   }
 
