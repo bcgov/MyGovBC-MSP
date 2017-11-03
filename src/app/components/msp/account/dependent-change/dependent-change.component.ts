@@ -63,14 +63,18 @@ export class AccountDependentChangeComponent extends BaseComponent {
   onChange() {
     this.dataService.saveMspAccountApp();
   }
-
+    //the buttons will be disabled till all the fields in the form is valid
+  canAddOrRemoveDepdents(): boolean {
+      return !this.isAllValid();
+  }
 
   canContinue(): boolean {
 
    //enable the buttons only when atleast one Dependent is added/removed..This makes sure the request is meaningful
     let  atleastOneDepedentAddedOrRemoved:boolean = !!this.removedSpouse || !!this.spouse || (this.children&& this.children.length > 0) || (this.removedChildren&&this.removedChildren.length>0);
 
-    return this.isAllValid() && atleastOneDepedentAddedOrRemoved && !this.dataService.getMspAccountApp().hasAnyVisitorInApplication() ;
+      // Enable the button if the form is not filled in yet
+      return !this.isAllValid() ||( atleastOneDepedentAddedOrRemoved && !this.dataService.getMspAccountApp().hasAnyVisitorInApplication()) ;
   }
 
 

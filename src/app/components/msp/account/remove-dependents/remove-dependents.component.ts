@@ -28,9 +28,8 @@ export class RemoveDependentComponent extends BaseComponent {
   @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
   /** The element we focus on when this component is inited, for a11y. */
   @ViewChild('firstFocus') firstFocus: ElementRef;
-  public showError: boolean = false;
   lang = require('./i18n');
-
+    @Input() showError: boolean;
   @ViewChildren(MspToggleComponent) toggleComponents: QueryList<MspToggleComponent>;
   @ViewChildren(MspStatusInCanadaRadioComponent) statusRadioComponents: QueryList<MspStatusInCanadaRadioComponent>;
   @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;

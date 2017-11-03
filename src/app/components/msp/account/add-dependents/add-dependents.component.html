@@ -20,8 +20,8 @@
   <ng-container *ngIf="person.isExistingBeneficiary || (person.status || person.status === 0)">
     
     <msp-account-personal-details 
-      [person]='person' 
-      [id]='person.id' 
+      [person]='person'  [showError]="showError"
+      [id]='person.id'
       (onChange)="change($event)" 
       embedded=true
       [requirePHN]="person.isExistingBeneficiary">

@@ -27,6 +27,7 @@ export class AddDependentComponent extends BaseComponent {
   /** The element we focus on when this component is inited, for a11y. */
   @ViewChild('firstFocus') firstFocus: ElementRef;
   lang = require('./i18n');
+    @Input() showError: boolean;
 
   @ViewChild('formRef') form: NgForm;
   @ViewChild('isExistingBeneficiary') toggleComp: MspToggleComponent;
