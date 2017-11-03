@@ -1,7 +1,9 @@
-<button type="button" class="btn btn-default btn-xs pull-right" (click)="cancelDependent()" [innerHTML]="lang('./en/index.js').clearButton[person.relationship]">
-</button>
 
 <form #formRef='ngForm' novalidate>
+
+  <button type="button" class="btn btn-default btn-xs pull-right" (click)="cancelDependent()" [innerHTML]="lang('./en/index.js').clearButton[person.relationship]">
+  </button>
+
 
   <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]"></h2>
   <p [innerHTML]="lang('./en/index.js').sectionBody[person.relationship]"></p>
@@ -9,7 +11,7 @@
   <label #firstFocus for="isExistingBeneficiary-{{person.id}}" [innerHtml]="lang('./en/index.js').isExistingBeneficiaryQuestion[person.relationship]"></label>
   <msp-toggle #isExistingBeneficiary [id]="'isExistingBeneficiary-'+ person.id" [(data)]="person.isExistingBeneficiary"></msp-toggle>
   
-  <msp-status-in-canada-radio 
+  <msp-status-in-canada-radio
     *ngIf="person.isExistingBeneficiary===false" 
     [person]='person'>
   </msp-status-in-canada-radio>  

@@ -10,17 +10,31 @@
         [showError]="formRef.submitted">
     </msp-account-personal-details>
 
-    <!-- Dependents. Appears only if user clicks button from panel below. -->
-    <msp-add-dependent *ngFor="let dependent of addedPersons"
-        [person]="dependent"
-        (onCancel)="clearDependent(dependent)"
+    <!-- Added Spouse -->
+    <msp-add-dependent *ngIf="addedSpouse" [person]="addedSpouse"
+                       (onCancel)="clearAddedSpouse()"
+                       (onChange)="onChange()" [showError]="formRef.submitted">
+    </msp-add-dependent>
+
+    <!-- Added Children-->
+    <msp-add-dependent *ngFor="let child of addedChildren"
+        [person]="child"
+        (onCancel)="clearAddedChild(child)"
         (onChange)="onChange()" [showError]="formRef.submitted">
-    </msp-add-dependent> 
+    </msp-add-dependent>
 
     <!-- For consistency's sake, removed persons will always be below added persons. -->
-    <msp-remove-dependent *ngFor="let dependent of removedPersons"
-        [person]="dependent"
-        (onCancel)="clearDependentRemoval(dependent)"
+    <!--removed spouse -->
+    <msp-remove-dependent *ngIf="removedSpouse" [person]="removedSpouse"
+                          [person]="dependent"
+                          (onCancel)="clearRemovedSpouse()"
+                          (onChange)="onChange()" [showError]="formRef.submitted">
+    </msp-remove-dependent>
+
+   <!--Removed Childrens -->
+    <msp-remove-dependent *ngFor="let child of removedChildren"
+        [person]="child"
+        (onCancel)="clearRemovedChild(child)"
         (onChange)="onChange()" [showError]="formRef.submitted">
     </msp-remove-dependent> 
 
@@ -30,7 +44,7 @@
         </div>
         <div class="panel-body">
             <button class="btn btn-default" 
-                [disabled]="disableSpouseButton || canAddOrRemoveDepdents()"
+                [disabled]="spouse || canAddOrRemoveDepdents()"
                 (click)="addSpouse()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
