@@ -56,6 +56,12 @@ a {
     border-color:@gray-lighter;    
 }
 
+.panel .btn.disabled, .panel .btn[disabled] {
+  color: @gray-light;
+  background-color:darken(@btn-default-bg, 10);
+  border-color: @gray-lighter;
+}
+
 // Change button hover color
 .btn-primary:hover {
   background-color: lighten(@brand-secondary, 10%);

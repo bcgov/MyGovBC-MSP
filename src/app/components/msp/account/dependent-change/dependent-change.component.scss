@@ -7,6 +7,13 @@ h1.page-title {
     color: #fff;
 }
 
+.panel-body {
+    padding-top: 0; //Bootstrap defaults to 15px
+    > .btn {
+        margin-top: 15px; //Re-implement the panel padding-top here, helps layout on multi-line splits for mobile.
+    }
+}
+
 .panel-body > .btn {
     margin-right: 20px;
 }
