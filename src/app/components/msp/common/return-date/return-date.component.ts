@@ -24,6 +24,7 @@ export class MspReturnDateComponent extends BaseComponent {
   @Input() day: number;
   @Output() dayChange = new EventEmitter<number>();
   @Input() returnLabel: string = this.lang('./en/index.js').returnLabel;
+    @Input() futureDate: boolean;
 
   @ViewChild('formRef') form:NgForm;
 
@@ -59,6 +60,9 @@ export class MspReturnDateComponent extends BaseComponent {
 
   futureCheck(): boolean {
 
+    if (this.futureDate) {
+      return true;
+    }
     // Check not in future
     if (this.inputDate().isAfter(this.today)) {
       return false;

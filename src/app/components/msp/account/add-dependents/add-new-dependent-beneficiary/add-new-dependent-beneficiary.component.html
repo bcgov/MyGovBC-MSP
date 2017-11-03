@@ -76,9 +76,9 @@
         <msp-toggle [(data)]="person.plannedAbsence"></msp-toggle>
       </div>
       <div class="col-md-12">
-          <msp-outof-bc-record *ngIf="person.plannedAbsence"
+          <msp-outof-bc-record *ngIf="person.plannedAbsence" [futureDate]="true"
           [outofBCRecord]="person.planOnBeingOutOfBCRecord"
-          [showError]="showError">
+          [showError]="showError" [futureDate]="true">
         </msp-outof-bc-record>
       </div>
     </div>
