@@ -50,7 +50,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
     }
 
     get children(): Person[] {
-        return this.dataService.getMspAccountApp().updateChildren;
+        return this.dataService.getMspAccountApp().updatedChildren;
 
     }
 
@@ -68,7 +68,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
     };
 
     addUpdateChild(): void {
-        this.dataService.getMspAccountApp().addUpdateChild();
+        this.dataService.getMspAccountApp().addUpdatedChild();
     }
 
     /*

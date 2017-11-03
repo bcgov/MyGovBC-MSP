@@ -50,6 +50,11 @@ export default class PersonDto {
 
 
     children: PersonDto[] = [];
+
+    addedChildren: PersonDto[] = [];
+    removedChildren: PersonDto[] = [];
+    updatedChildren: PersonDto[] = [];
+
     images: MspImage[];
 
     fullTimeStudent: boolean;
