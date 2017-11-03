@@ -332,13 +332,35 @@ export  class MspDataService {
         if (input.updatedSpouse) {
             dto.applicant.updatedSpouse = this.toPersonDto(input.updatedSpouse);
         }
+        if (input.addedSpouse) {
+            dto.applicant.addedSpouse = this.toPersonDto(input.addedSpouse);
+        }
+        if (input.removedSpouse) {
+            dto.applicant.removedSpouse = this.toPersonDto(input.removedSpouse);
+        }
 
-        input.children.forEach(c => {
+        input.addedChildren.forEach(c => {
             let c2: PersonDto = this.toPersonDto(c);
             c2.outOfBCRecord = this.toOutofBCRecordDto(c.outOfBCRecord);
 
             this.convertSchoolAddress(c, c2);
-            dto.applicant.children = [...dto.applicant.children, c2];
+            dto.applicant.addedChildren = [...dto.applicant.addedChildren, c2];
+
+        });
+        input.removedChildren.forEach(c => {
+            let c2: PersonDto = this.toPersonDto(c);
+            c2.outOfBCRecord = this.toOutofBCRecordDto(c.outOfBCRecord);
+
+            this.convertSchoolAddress(c, c2);
+            dto.applicant.removedChildren = [...dto.applicant.removedChildren, c2];
+
+        });
+        input.updatedChildren.forEach(c => {
+            let c2: PersonDto = this.toPersonDto(c);
+            c2.outOfBCRecord = this.toOutofBCRecordDto(c.outOfBCRecord);
+
+            this.convertSchoolAddress(c, c2);
+            dto.applicant.updatedChildren = [...dto.applicant.updatedChildren, c2];
 
         });
         return dto;
@@ -416,6 +438,8 @@ export  class MspDataService {
 
         return rec;
     }
+
+
     private fromMspAccountTransferObject(dto: MspAccountDto): MspAccountApp {
         let output: MspAccountApp = new MspAccountApp();
 
@@ -424,6 +448,37 @@ export  class MspDataService {
         output.accountChangeOptions.dependentChange = dto.dependentChange ;
         output.accountChangeOptions.statusUpdate = dto.statusUpdate ;
         output.applicant = this.fromPersonDto(dto.applicant);
+
+        if (dto.applicant.addedSpouse) {
+            output.addedSpouse = this.fromPersonDto(dto.applicant.addedSpouse);
+        }
+        if (dto.applicant.updatedSpouse) {
+            output.updatedSpouse = this.fromPersonDto(dto.applicant.addedSpouse);
+        }
+        if (dto.applicant.removedSpouse) {
+            output.updatedSpouse = this.fromPersonDto(dto.applicant.removedSpouse);
+        }
+
+        dto.applicant.addedChildren.forEach(c => {
+            let child: Person = this.fromPersonDto(c)
+            child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
+            this.convertSchoolAddress(c, child);
+            output.addedChildren = [...output.addedChildren, child];
+        });
+
+        dto.applicant.removedChildren.forEach(c => {
+            let child: Person = this.fromPersonDto(c)
+            child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
+            this.convertSchoolAddress(c, child);
+            output.removedChildren = [...output.removedChildren, child];
+        });
+
+        dto.applicant.updatedChildren.forEach(c => {
+            let child: Person = this.fromPersonDto(c)
+            child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
+            this.convertSchoolAddress(c, child);
+            output.updatedChildren = [...output.updatedChildren, child];
+        });
 
         return output;
     }

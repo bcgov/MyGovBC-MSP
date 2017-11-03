@@ -7,6 +7,9 @@ import {PhoneNumber} from "./phone.model";
 
 
 class MspAccountApp implements ApplicationBase {
+    set updatedChildren(value: Array<Person>) {
+        this._updatedChildren = value;
+    }
 
     private _uuid = UUID.UUID();
     infoCollectionAgreement: boolean = false;
@@ -96,7 +99,7 @@ class MspAccountApp implements ApplicationBase {
     get hasValidAuthToken(){
         return this.authorizationToken && this.authorizationToken.length > 1;
     }
-    addUpdateChild(): Person {
+    addUpdatedChild(): Person {
         let c = new Person(Relationship.ChildUnder24,OperationActionType.Update);
         this._updatedChildren.length < 30 ? this._updatedChildren.push(c): console.log('No more than 30 children can be added to one application');
         return c;
@@ -107,7 +110,7 @@ class MspAccountApp implements ApplicationBase {
         let removed = this._updatedChildren.splice(idx,1);
     }
 
-    get updateChildren(): Array<Person> {
+    get updatedChildren(): Array<Person> {
      //   var updateChildren =  this.children.filter( (child:Person) => child.operationActionType === OperationActionType.Update);
         return this._updatedChildren;
     }
@@ -181,7 +184,7 @@ class MspAccountApp implements ApplicationBase {
     }
 
     getAllChildren():Person[] {
-        return  [...this.updateChildren,...this.addedChildren,...this.removedChildren];
+        return  [...this.updatedChildren,...this.addedChildren,...this.removedChildren];
     }
     /*
     Gets all images for applicant, spouse and all children
@@ -198,7 +201,7 @@ class MspAccountApp implements ApplicationBase {
         if (this.addedSpouse &&  this.addedSpouse.isVisitor()) {
             return true;
         }
-        var children:Array<Person> = [...this.addedChildren,...this.updateChildren]; ;
+        var children:Array<Person> = [...this.addedChildren,...this.updatedChildren]; ;
         return ((children.findIndex( child => child.isVisitor())) > -1 );
 
     }
