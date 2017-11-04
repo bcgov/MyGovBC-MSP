@@ -24,7 +24,7 @@ module.exports = {
     statusLabel: ['Account Holder\’s Current Status in Canada',
         'Spouse\’s Current Status in Canada',
         'Child\’s Current Status in Canada',
-        'Child\’s Current Status in Canada'],
+        'Child\’s Current Status in Canada','Child\’s Current Status in Canada'],
 
     canadaStatusLabel: [' Canadian Citizen ',
         ' Permanent Resident ',
