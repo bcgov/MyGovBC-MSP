@@ -60,10 +60,11 @@
     <div class="row form-group">
       <div class="col-md-12">
         <label [innerHtml]="lang('./en/index.js').hasBeenOutsideBC30InYear"></label>
-        <msp-toggle [(data)]="person.declarationForOutsideOver30Days"></msp-toggle>
+        <msp-toggle  (dataChange)="onChange.emit($event)" [(data)]="person.declarationForOutsideOver30Days"></msp-toggle>
 
         <msp-outof-bc-record *ngIf="person.declarationForOutsideOver30Days"
-          [outofBCRecord]="person.outOfBCRecord"
+          [outofBCRecord]="person.outOfBCRecord"   (onDelete)="handleDeleteOutofBCRecord($event)"
+                             (onUpdate)="handleOutofBCRecordChange($event)"
           [showError]="showError">
         </msp-outof-bc-record>
       </div>
@@ -73,12 +74,12 @@
     <div class="row form-group">
       <div class="col-md-12">
         <label [innerHtml]="lang('./en/index.js').willBeOutsideBC30InYear"></label>
-        <msp-toggle [(data)]="person.plannedAbsence"></msp-toggle>
+        <msp-toggle [(data)]="person.plannedAbsence"  (dataChange)="onChange.emit($event)"></msp-toggle>
       </div>
       <div class="col-md-12">
           <msp-outof-bc-record *ngIf="person.plannedAbsence" [futureDate]="true"
-          [outofBCRecord]="person.planOnBeingOutOfBCRecord"
-          [showError]="showError" [futureDate]="true">
+          [outofBCRecord]="person.planOnBeingOutOfBCRecord"  (onDelete)="handleDeletePlanOnBeingOutOfBCRecord($event)"  (onUpdate)="handleOutofBCRecordChange($event)"
+          [showError]="showError" [futureDate]="true"   >
         </msp-outof-bc-record>
       </div>
     </div>

@@ -1,38 +1,69 @@
-import { ChangeDetectorRef, Component, OnInit, Input, Output, EventEmitter, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { Person } from '../../../model/person.model';
-import { Relationship, StatusInCanada } from '../../../model/status-activities-documents';
-import { BaseComponent } from "../../../common/base.component";
-import { MspToggleComponent } from '../../../common/toggle/toggle.component';
-import { MspProvinceComponent } from '../../../common/province/province.component';
-import { MspDateComponent } from '../../../common/date/date.component';
-import { MspOutofBCRecordComponent } from '../../../common/outof-bc/outof-bc.component';
-import { MspDischargeDateComponent } from '../../../common/discharge-date/discharge-date.component';
-
+import {
+    ChangeDetectorRef,
+    Component,
+    OnInit,
+    Input,
+    Output,
+    EventEmitter,
+    ViewChild,
+    ViewChildren,
+    QueryList
+} from '@angular/core';
+import {Person} from '../../../model/person.model';
+import {Relationship, StatusInCanada} from '../../../model/status-activities-documents';
+import {BaseComponent} from "../../../common/base.component";
+import {MspToggleComponent} from '../../../common/toggle/toggle.component';
+import {MspProvinceComponent} from '../../../common/province/province.component';
+import {MspDateComponent} from '../../../common/date/date.component';
+import {MspOutofBCRecordComponent} from '../../../common/outof-bc/outof-bc.component';
+import {MspDischargeDateComponent} from '../../../common/discharge-date/discharge-date.component';
+import { OutofBCRecord } from '../../../model/outof-bc-record.model';
 
 @Component({
-  selector: 'msp-add-new-dependent-beneficiary',
-  templateUrl: './add-new-dependent-beneficiary.component.html',
-  styleUrls: ['./add-new-dependent-beneficiary.component.less']
+    selector: 'msp-add-new-dependent-beneficiary',
+    templateUrl: './add-new-dependent-beneficiary.component.html',
+    styleUrls: ['./add-new-dependent-beneficiary.component.less']
 })
 export class AddNewDependentBeneficiaryComponent extends BaseComponent implements OnInit {
-  Relationship: typeof Relationship = Relationship;
-  StatusInCanada: typeof StatusInCanada = StatusInCanada;
-  @Input() person: Person;
-  @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
-  lang = require('./i18n');
+    Relationship: typeof Relationship = Relationship;
+    StatusInCanada: typeof StatusInCanada = StatusInCanada;
+    @Input() person: Person;
+    @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
+    lang = require('./i18n');
 
-  @ViewChildren(MspToggleComponent) toggleComponents: QueryList<MspToggleComponent>;
-  @ViewChildren(MspProvinceComponent) provinceComponents: QueryList<MspProvinceComponent>;
-  @ViewChildren(MspDateComponent) dateComponents: QueryList<MspDateComponent>;
-  @ViewChildren(MspOutofBCRecordComponent) outOfBCComponents: QueryList<MspOutofBCRecordComponent>;
-  @ViewChildren(MspDischargeDateComponent) dischargeDateComponents: QueryList<MspDischargeDateComponent>;
+    @ViewChildren(MspToggleComponent) toggleComponents: QueryList<MspToggleComponent>;
+    @ViewChildren(MspProvinceComponent) provinceComponents: QueryList<MspProvinceComponent>;
+    @ViewChildren(MspDateComponent) dateComponents: QueryList<MspDateComponent>;
+    @ViewChildren(MspOutofBCRecordComponent) outOfBCComponents: QueryList<MspOutofBCRecordComponent>;
+    @ViewChildren(MspDischargeDateComponent) dischargeDateComponents: QueryList<MspDischargeDateComponent>;
 
 
-  constructor(cd: ChangeDetectorRef) {
-    super(cd);
-   }
+    constructor(cd: ChangeDetectorRef) {
+        super(cd);
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
+
+    change($event) {
+        this.onChange.emit();
+    }
+
+    handleDeleteOutofBCRecord(evt:OutofBCRecord){
+        this.person.outOfBCRecord = null;
+        console.log("person in outOfBCRecord"+JSON.stringify( this.person,null,2))
+        this.onChange.emit();   //TODO need evt?
+    }
+
+    handleOutofBCRecordChange(evt:OutofBCRecord){
+        this.onChange.emit(); //TODO need evt?
+    }
+
+    handleDeletePlanOnBeingOutOfBCRecord(evt:OutofBCRecord){
+        this.person.planOnBeingOutOfBCRecord = null;
+        console.log("person in planOnBeingOutOfBCRecord"+JSON.stringify( this.person,null,2))
+        this.onChange.emit();   //TODO need evt?
+    }
+
 
 }

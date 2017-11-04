@@ -23,7 +23,7 @@ export default class PersonDto {
 
     movedFromProvinceOrCountry: string;
     institutionWorkHistory: string;
-
+    nameOfInstitute: string;
     dischargeYear: number;
     dischargeMonth: number;
     dischargeDay: number;
@@ -59,9 +59,10 @@ export default class PersonDto {
 
     reasonForCancellation: string;
     cancellationDate:SimpleDate;
-
+    marriageDate:SimpleDate;
+    prevLastName: string;
     images: MspImage[];
-
+    isExistingBeneficiary: boolean;
     fullTimeStudent: boolean;
     inBCafterStudies: boolean;
 
@@ -73,11 +74,22 @@ export default class PersonDto {
     studiesFinishedMonth: number;
     studiesFinishedDay: number;
 
+    studiesBeginYear: number;
+    studiesBeginMonth: number;
+    studiesBeginDay: number;
+
     studiesDepartureYear: number;
     studiesDepartureMonth: number;
     studiesDepartureDay: number;
 
     declarationForOutsideOver30Days: boolean;
 
+    newlyAdopted: boolean;
+    adoptedDate: SimpleDate;
+
     outOfBCRecord: OutofBCRecordDto;
+    planOnBeingOutOfBCRecord: OutofBCRecordDto;
+
+
+    schoolOutsideOfBC: boolean;
 }

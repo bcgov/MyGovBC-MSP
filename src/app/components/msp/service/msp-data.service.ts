@@ -30,8 +30,7 @@ export  class MspDataService {
     private mspProgressBarKey: string = 'msp-progressbar';  //Progress bar has to be saved since its dynamic .Storing to avoid extra calls in all the getter invocations
 
     private mspAccountStorageKey: string = 'msp-account';
-    private mspAccountKey: string = 'account-process';
-    private mspAccountNavBarKey: string = 'account-navbar';
+
 
     constructor(private localStorageService: LocalStorageService) {
         this._finAssistApp = this.fetchFinAssistApplication();
@@ -89,7 +88,7 @@ export  class MspDataService {
     saveMspAccountApp(): void {
         let dto: MspAccountDto = this.toMspAccountAppTransferObject(this._mspAccountApp);
         // console.log('saving msp app: ', dto);
-        this.localStorageService.set(this.mspAccountKey, dto);
+        this.localStorageService.set(this.mspAccountStorageKey, dto);
     }
 
 
@@ -116,7 +115,6 @@ export  class MspDataService {
             this.localStorageService.get<MspAccountDto>(this.mspAccountStorageKey);
 
         if (dto) {
-            // console.log('MspApplicationDto from local storage: ', dto);
             return this.fromMspAccountTransferObject(dto);
         } else {
             return new MspAccountApp();
@@ -250,10 +248,21 @@ export  class MspDataService {
         dto.studiesFinishedMonth = input.studiesFinishedMonth;
         dto.studiesFinishedDay = input.studiesFinishedDay;
 
+        dto.studiesBeginYear = input.studiesBeginYear;
+        dto.studiesBeginMonth = input.studiesBeginMonth;
+        dto.studiesBeginDay = input.studiesBeginDay;
+
+        dto.schoolOutsideOfBC = input.schoolOutsideOfBC;
+
         dto.declarationForOutsideOver30Days = input.declarationForOutsideOver30Days;
 
         dto.reasonForCancellation = input.reasonForCancellation;
         dto.cancellationDate   =input.cancellationDate ;
+        dto.isExistingBeneficiary = input.isExistingBeneficiary;
+        dto.prevLastName = input.prevLastName ;
+        dto.newlyAdopted = input.newlyAdopted ;
+        dto.adoptedDate = input.adoptedDate ;
+        dto.marriageDate =   input.marriageDate;
 
         if (input.gender) {
             dto.gender = input.gender.valueOf();
@@ -311,9 +320,21 @@ export  class MspDataService {
         output.studiesFinishedMonth = dto.studiesFinishedMonth;
         output.studiesFinishedDay = dto.studiesFinishedDay;
 
+        output.studiesBeginYear = dto.studiesBeginYear;
+        output.studiesBeginMonth = dto.studiesBeginMonth;
+        output.studiesBeginDay = dto.studiesBeginDay;
+
+        output.schoolOutsideOfBC = dto.schoolOutsideOfBC;
+
         output.declarationForOutsideOver30Days = dto.declarationForOutsideOver30Days;
 
+        output.newlyAdopted = dto.newlyAdopted ;
+        output.adoptedDate = dto.adoptedDate ;
+
         output.reasonForCancellation = dto.reasonForCancellation;
+        output.prevLastName = dto.prevLastName;
+        output.isExistingBeneficiary = dto.isExistingBeneficiary;
+        output.marriageDate =   dto.marriageDate;
 
         output.cancellationDate   =dto.cancellationDate ;
         if (dto.gender) {
@@ -360,6 +381,7 @@ export  class MspDataService {
 
         dto.movedFromProvinceOrCountry = input.movedFromProvinceOrCountry;
         dto.institutionWorkHistory = input.institutionWorkHistory;
+        dto.nameOfInstitute  = input.nameOfInstitute
         dto.dischargeYear = input.dischargeYear;
         dto.dischargeMonth = input.dischargeMonth;
         dto.dischargeDay = input.dischargeDay;
@@ -462,6 +484,9 @@ export  class MspDataService {
         }
         if (input.addedSpouse) {
             dto.applicant.addedSpouse = this.toPersonDtoForAccount(input.addedSpouse);
+            dto.applicant.addedSpouse.outOfBCRecord = this.toOutofBCRecordDto(input.addedSpouse.outOfBCRecord);
+            dto.applicant.addedSpouse.planOnBeingOutOfBCRecord = this.toOutofBCRecordDto(input.addedSpouse.planOnBeingOutOfBCRecord);
+
         }
         if (input.removedSpouse) {
             dto.applicant.removedSpouse = this.toPersonDtoForAccount(input.removedSpouse);
@@ -470,7 +495,7 @@ export  class MspDataService {
         input.addedChildren.forEach(c => {
             let c2: PersonDto = this.toPersonDtoForAccount(c);
             c2.outOfBCRecord = this.toOutofBCRecordDto(c.outOfBCRecord);
-
+            c2.planOnBeingOutOfBCRecord = this.toOutofBCRecordDto(c.planOnBeingOutOfBCRecord);
             this.convertSchoolAddress(c, c2);
             dto.applicant.addedChildren = [...dto.applicant.addedChildren, c2];
 
@@ -485,9 +510,6 @@ export  class MspDataService {
         });
         input.updatedChildren.forEach(c => {
             let c2: PersonDto = this.toPersonDtoForAccount(c);
-            c2.outOfBCRecord = this.toOutofBCRecordDto(c.outOfBCRecord);
-
-            this.convertSchoolAddress(c, c2);
             dto.applicant.updatedChildren = [...dto.applicant.updatedChildren, c2];
 
         });
@@ -579,6 +601,8 @@ export  class MspDataService {
 
         if (dto.applicant.addedSpouse) {
             output.addedSpouse = this.fromPersonDtoForAccount(dto.applicant.addedSpouse);
+            output.addedSpouse.planOnBeingOutOfBCRecord = this.toOutofBCRecord(dto.applicant.addedSpouse.planOnBeingOutOfBCRecord);
+            output.addedSpouse.outOfBCRecord = this.toOutofBCRecord(dto.applicant.addedSpouse.outOfBCRecord);
         }
         if (dto.applicant.updatedSpouse) {
             output.updatedSpouse = this.fromPersonDtoForAccount(dto.applicant.addedSpouse);
@@ -590,6 +614,8 @@ export  class MspDataService {
         dto.applicant.addedChildren.forEach(c => {
             let child: Person = this.fromPersonDtoForAccount(c)
             child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
+            child.planOnBeingOutOfBCRecord = this.toOutofBCRecord(c.planOnBeingOutOfBCRecord);
+
             this.convertSchoolAddress(c, child);
             output.addedChildren = [...output.addedChildren, child];
         });
@@ -603,9 +629,7 @@ export  class MspDataService {
 
         dto.applicant.updatedChildren.forEach(c => {
             let child: Person = this.fromPersonDtoForAccount(c)
-            child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
-            this.convertSchoolAddress(c, child);
-            output.updatedChildren = [...output.updatedChildren, child];
+              output.updatedChildren = [...output.updatedChildren, child];
         });
 
         return output;

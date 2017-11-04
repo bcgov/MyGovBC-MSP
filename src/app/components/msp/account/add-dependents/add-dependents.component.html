@@ -12,8 +12,8 @@
   <msp-toggle #isExistingBeneficiary [id]="'isExistingBeneficiary-'+ person.id" [(data)]="person.isExistingBeneficiary"></msp-toggle>
   
   <msp-status-in-canada-radio
-    *ngIf="person.isExistingBeneficiary===false" 
-    [person]='person'>
+    *ngIf="person.isExistingBeneficiary===false"
+    [person]='person' (onChange)="onChange.emit($event)">
   </msp-status-in-canada-radio>  
 
 
@@ -90,7 +90,7 @@
         <div class="col-md-4">
           <label for="isOutsideBC-{{person.id}}" [innerHtml]="lang('./en/index.js').schoolOutsideBC"></label>
       
-          <msp-toggle [id]="'isOutsideBC-'+ person.id" [(data)]="person.schoolOutsideOfBC"></msp-toggle>
+          <msp-toggle [id]="'isOutsideBC-'+ person.id" [(data)]="person.schoolOutsideOfBC" (onChange)="outsideBCchange($event)" ></msp-toggle>
         </div>
 
         <div class="col-md-4 form-inline" *ngIf="person.schoolOutsideOfBC">
@@ -102,14 +102,12 @@
         </div>
       </div>
 
-
-
       <msp-address #schoolAddress
       [mailingAddressHeading]="lang('./en/index.js').schoolAddressLabel"
       [mailingAddress]="person.schoolAddress"
       [mailingOnly]="true"
       [showError] = "showError"
-      hideProvinceAndCountry=true
+      [hideProvinceAndCountry]='!person.schoolOutsideOfBC'
       ></msp-address>
 
       <div class="row">
@@ -135,7 +133,7 @@
     <!-- Contains all questions if the user is a new beneficiary. -->
     <msp-add-new-dependent-beneficiary
       *ngIf="(person.status || person.status === 0)"
-      [person]="person"
+      [person]="person"   (onChange)="change($event)"
     ></msp-add-new-dependent-beneficiary>
 
   </ng-container> <!-- end dependent form container -->
