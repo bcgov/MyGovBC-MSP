@@ -16,6 +16,7 @@ import {Process} from "./process.service";
 import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
 import {Gender} from "../model/person.model";
 import {Address} from "../model/address.model";
+import { SimpleDate } from '../model/simple-date.interface';
 
 @Injectable()
 export  class MspDataService {
@@ -201,6 +202,133 @@ export  class MspDataService {
         this._mspAccountApp = new MspAccountApp();
     }
 
+    private toPersonDtoForAccount(input: Person): PersonDto {
+        let dto: PersonDto = new PersonDto();
+
+        dto.id = input.id;
+        dto.relationship = input.relationship;
+        dto.liveInBC = input.liveInBC;
+        dto.madePermanentMoveToBC = input.madePermanentMoveToBC;
+        dto.plannedAbsence = input.plannedAbsence;
+
+        dto.livedInBCSinceBirth = input.livedInBCSinceBirth;
+        dto.hasPreviousBCPhn = input.hasPreviousBCPhn;
+
+        dto.firstName = input.firstName;
+        dto.middleName = input.middleName;
+        dto.lastName = input.lastName;
+        dto.dob_day = input.dob_day;
+        dto.dob_month = input.dob_month;
+        dto.dob_year = input.dob_year;
+        dto.middleName = input.middleName;
+        dto.previous_phn = input.previous_phn;
+        dto.healthNumberFromOtherProvince = input.healthNumberFromOtherProvince;
+
+        dto.arrivalToCanadaDay = input.arrivalToCanadaDay;
+        dto.arrivalToCanadaMonth = input.arrivalToCanadaMonth;
+        dto.arrivalToCanadaYear = input.arrivalToCanadaYear;
+        dto.arrivalToBCDay = input.arrivalToBCDay;
+        dto.arrivalToBCMonth = input.arrivalToBCMonth;
+        dto.arrivalToBCYear = input.arrivalToBCYear;
+
+        dto.movedFromProvinceOrCountry = input.movedFromProvinceOrCountry;
+        dto.institutionWorkHistory = input.institutionWorkHistory;
+        dto.dischargeYear = input.dischargeYear;
+        dto.dischargeMonth = input.dischargeMonth;
+        dto.dischargeDay = input.dischargeDay;
+
+        dto.fullTimeStudent = input.fullTimeStudent;
+        dto.inBCafterStudies = input.inBCafterStudies;
+
+        dto.schoolName = input.schoolName;
+
+        dto.studiesDepartureYear = input.studiesDepartureYear;
+        dto.studiesDepartureMonth = input.studiesDepartureMonth;
+        dto.studiesDepartureDay = input.studiesDepartureDay;
+
+        dto.studiesFinishedYear = input.studiesFinishedYear;
+        dto.studiesFinishedMonth = input.studiesFinishedMonth;
+        dto.studiesFinishedDay = input.studiesFinishedDay;
+
+        dto.declarationForOutsideOver30Days = input.declarationForOutsideOver30Days;
+
+        dto.reasonForCancellation = input.reasonForCancellation;
+        dto.cancellationDate   =input.cancellationDate ;
+
+        if (input.gender) {
+            dto.gender = input.gender.valueOf();
+        }
+        dto.status = input.status;
+        dto.currentActivity = input.currentActivity;
+
+        dto.images = input.documents.images;
+        return dto;
+    }
+
+    private fromPersonDtoForAccount(dto: PersonDto): Person {
+        let output: Person = new Person(dto.relationship);
+
+        output.id = dto.id;
+        output.liveInBC = dto.liveInBC;
+        output.madePermanentMoveToBC = dto.madePermanentMoveToBC;
+        output.livedInBCSinceBirth = dto.livedInBCSinceBirth;
+        output.hasPreviousBCPhn = dto.hasPreviousBCPhn;
+
+        output.plannedAbsence = dto.plannedAbsence;
+        output.firstName = dto.firstName;
+        output.middleName = dto.middleName;
+        output.lastName = dto.lastName;
+        output.dob_day = dto.dob_day;
+        output.dob_month = dto.dob_month;
+        output.dob_year = dto.dob_year;
+        output.middleName = dto.middleName;
+        output.healthNumberFromOtherProvince = dto.healthNumberFromOtherProvince;
+        output.previous_phn = dto.previous_phn;
+
+        output.arrivalToCanadaDay = dto.arrivalToCanadaDay;
+        output.arrivalToCanadaMonth = dto.arrivalToCanadaMonth;
+        output.arrivalToCanadaYear = dto.arrivalToCanadaYear;
+        output.arrivalToBCDay = dto.arrivalToBCDay;
+        output.arrivalToBCMonth = dto.arrivalToBCMonth;
+        output.arrivalToBCYear = dto.arrivalToBCYear;
+
+        output.movedFromProvinceOrCountry = dto.movedFromProvinceOrCountry;
+        output.institutionWorkHistory = dto.institutionWorkHistory;
+        output.dischargeYear = dto.dischargeYear;
+        output.dischargeMonth = dto.dischargeMonth;
+        output.dischargeDay = dto.dischargeDay;
+
+        output.fullTimeStudent = dto.fullTimeStudent;
+        output.inBCafterStudies = dto.inBCafterStudies;
+
+        output.schoolName = dto.schoolName;
+
+        output.studiesDepartureYear = dto.studiesDepartureYear;
+        output.studiesDepartureMonth = dto.studiesDepartureMonth;
+        output.studiesDepartureDay = dto.studiesDepartureDay;
+
+        output.studiesFinishedYear = dto.studiesFinishedYear;
+        output.studiesFinishedMonth = dto.studiesFinishedMonth;
+        output.studiesFinishedDay = dto.studiesFinishedDay;
+
+        output.declarationForOutsideOver30Days = dto.declarationForOutsideOver30Days;
+
+        output.reasonForCancellation = dto.reasonForCancellation;
+
+        output.cancellationDate   =dto.cancellationDate ;
+        if (dto.gender) {
+            output.gender = dto.gender;
+        }
+        output.status = dto.status;
+        output.currentActivity = dto.currentActivity;
+
+        dto.images.forEach(img => {
+            output.documents.images = [...output.documents.images, img];
+        });
+
+        return output
+    }
+
     private toPersonDto(input: Person): PersonDto {
         let dto: PersonDto = new PersonDto();
 
@@ -330,17 +458,17 @@ export  class MspDataService {
         dto.statusUpdate = input.accountChangeOptions.statusUpdate ;
         dto.applicant = this.toPersonDto(input.applicant);
         if (input.updatedSpouse) {
-            dto.applicant.updatedSpouse = this.toPersonDto(input.updatedSpouse);
+            dto.applicant.updatedSpouse = this.toPersonDtoForAccount(input.updatedSpouse);
         }
         if (input.addedSpouse) {
-            dto.applicant.addedSpouse = this.toPersonDto(input.addedSpouse);
+            dto.applicant.addedSpouse = this.toPersonDtoForAccount(input.addedSpouse);
         }
         if (input.removedSpouse) {
-            dto.applicant.removedSpouse = this.toPersonDto(input.removedSpouse);
+            dto.applicant.removedSpouse = this.toPersonDtoForAccount(input.removedSpouse);
         }
 
         input.addedChildren.forEach(c => {
-            let c2: PersonDto = this.toPersonDto(c);
+            let c2: PersonDto = this.toPersonDtoForAccount(c);
             c2.outOfBCRecord = this.toOutofBCRecordDto(c.outOfBCRecord);
 
             this.convertSchoolAddress(c, c2);
@@ -348,7 +476,7 @@ export  class MspDataService {
 
         });
         input.removedChildren.forEach(c => {
-            let c2: PersonDto = this.toPersonDto(c);
+            let c2: PersonDto = this.toPersonDtoForAccount(c);
             c2.outOfBCRecord = this.toOutofBCRecordDto(c.outOfBCRecord);
 
             this.convertSchoolAddress(c, c2);
@@ -356,7 +484,7 @@ export  class MspDataService {
 
         });
         input.updatedChildren.forEach(c => {
-            let c2: PersonDto = this.toPersonDto(c);
+            let c2: PersonDto = this.toPersonDtoForAccount(c);
             c2.outOfBCRecord = this.toOutofBCRecordDto(c.outOfBCRecord);
 
             this.convertSchoolAddress(c, c2);
@@ -450,31 +578,31 @@ export  class MspDataService {
         output.applicant = this.fromPersonDto(dto.applicant);
 
         if (dto.applicant.addedSpouse) {
-            output.addedSpouse = this.fromPersonDto(dto.applicant.addedSpouse);
+            output.addedSpouse = this.fromPersonDtoForAccount(dto.applicant.addedSpouse);
         }
         if (dto.applicant.updatedSpouse) {
-            output.updatedSpouse = this.fromPersonDto(dto.applicant.addedSpouse);
+            output.updatedSpouse = this.fromPersonDtoForAccount(dto.applicant.addedSpouse);
         }
         if (dto.applicant.removedSpouse) {
-            output.updatedSpouse = this.fromPersonDto(dto.applicant.removedSpouse);
+            output.updatedSpouse = this.fromPersonDtoForAccount(dto.applicant.removedSpouse);
         }
 
         dto.applicant.addedChildren.forEach(c => {
-            let child: Person = this.fromPersonDto(c)
+            let child: Person = this.fromPersonDtoForAccount(c)
             child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
             this.convertSchoolAddress(c, child);
             output.addedChildren = [...output.addedChildren, child];
         });
 
         dto.applicant.removedChildren.forEach(c => {
-            let child: Person = this.fromPersonDto(c)
+            let child: Person = this.fromPersonDtoForAccount(c)
             child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
             this.convertSchoolAddress(c, child);
             output.removedChildren = [...output.removedChildren, child];
         });
 
         dto.applicant.updatedChildren.forEach(c => {
-            let child: Person = this.fromPersonDto(c)
+            let child: Person = this.fromPersonDtoForAccount(c)
             child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
             this.convertSchoolAddress(c, child);
             output.updatedChildren = [...output.updatedChildren, child];

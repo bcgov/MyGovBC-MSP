@@ -48,6 +48,11 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
     if (typeof this.required === "string"){
       this.required = (<any>this.required === 'true' ? true : false)
     }
+    if (this.date) {
+      this.year = this.date.year ;
+      this.month = this.date.month;
+      this.day = this.date.day;
+    }
   }
 
   ngAfterViewInit(): void {

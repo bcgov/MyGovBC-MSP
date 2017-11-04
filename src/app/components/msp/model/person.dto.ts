@@ -1,6 +1,7 @@
 import {MspImage} from './msp-image';
 import AddressDto from './address.dto';
 import {OutofBCRecordDto} from './outof-bc-record.dto';
+import { SimpleDate } from '../model/simple-date.interface';
 
 export default class PersonDto {
     relationship: number;
@@ -30,6 +31,7 @@ export default class PersonDto {
     status: number;
     currentActivity: number;
     healthNumberFromOtherProvince: string;
+
     previous_phn: string;
     gender: number;
 
@@ -54,6 +56,9 @@ export default class PersonDto {
     addedChildren: PersonDto[] = [];
     removedChildren: PersonDto[] = [];
     updatedChildren: PersonDto[] = [];
+
+    reasonForCancellation: string;
+    cancellationDate:SimpleDate;
 
     images: MspImage[];
 

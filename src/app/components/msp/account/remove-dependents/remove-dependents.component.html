@@ -23,10 +23,9 @@
             <option *ngFor="let item of cancellationReasonsIterable" value="{{item.prop}}" [innerHtml]="lang('./en/index.js').cancellationReasons[item.index]"></option>
         </select>
       </div>
-
       <div class="col-sm-4 form-group"
       [ngClass]="{'has-error': !formRef.controls['reasonDetailed-'+person.id]?.valid && (reasonDetailedRef.touched || showError)}"
-      *ngIf="showOtherCancellationReason">
+      *ngIf="reasonForCancellation == 'Other'">
           <label for='reasonDetailed-{{person.id}}' [innerHTML]="lang('./en/index.js').reasonDetailed"></label>
           <input type="text" 
             name="reasonDetailed-{{person.id}}" 
@@ -42,7 +41,6 @@
                 <div class="text-danger" *ngIf="reasonDetailedRef.errors?.required"[innerHtml]="lang('./en/index.js').reasonDetailedRequired"></div>
             </div>
       </div>
-
       <div class="col-sm-4 form-group">
         <msp-date
           [label]="lang('./en/index.js').cancellationDate"
