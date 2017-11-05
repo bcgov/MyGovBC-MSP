@@ -19,6 +19,7 @@ export class MspStatusInCanadaRadioComponent extends BaseComponent {
 
   @Input() person: Person;
   @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
+  @Input() showError: boolean;
 
   constructor(cd: ChangeDetectorRef) { 
     super(cd);
@@ -39,6 +40,7 @@ export class MspStatusInCanadaRadioComponent extends BaseComponent {
     this.person.currentActivity = value;
     this.person.movedFromProvinceOrCountry = '';
     this.onChange.emit();
+      this.emitIsFormValid();
   }
 
   /**
@@ -54,7 +56,15 @@ export class MspStatusInCanadaRadioComponent extends BaseComponent {
 
   /** Valid as long as user has made a choice. Invalid if it's in its default state with no data. */
   isValid(): boolean {
-    return this.person.status !== undefined
+    if (this.person.status == undefined || this.person.status == null) {
+      return false;
+    }
+   if (this.person.status == StatusInCanada.TemporaryResident) {
+      if (this.person.currentActivity  == undefined || this.person.currentActivity == null) {
+        return false;
+      }
+   }
+   return true;
   }
 
 }

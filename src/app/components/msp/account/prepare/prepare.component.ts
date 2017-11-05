@@ -103,7 +103,7 @@ export class AccountPrepareComponent extends BaseComponent {
             this._processService.setStep(0, true);
             this.dataService.emptyMspProgressBar();
             this.dataService.saveMspAccountApp();
-            this._router.navigate([this._processService.getNextStep()]);
+            this._router.navigate([this._processService.getNextStep(AccountPrepareComponent.ProcessStepNum)]);
         }
 
     }

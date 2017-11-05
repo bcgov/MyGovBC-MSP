@@ -142,10 +142,10 @@ export class AccountDocumentsComponent extends BaseComponent {
     }
 
     continue(): void {
-
+        console.log('continue docssssss'+AccountDocumentsComponent.ProcessStepNum,);
         this._processService.setStep(AccountDocumentsComponent.ProcessStepNum, true);
-        console.log('this._processService.getNextStep():' + this._processService.getNextStep());
-        this._router.navigate([this._processService.getNextStep()]);
+        console.log('this._processService.getNextStep():' + this._processService.getNextStep(AccountDocumentsComponent.ProcessStepNum,));
+        this._router.navigate([this._processService.getNextStep(AccountDocumentsComponent.ProcessStepNum,)]);
     }
 
 }

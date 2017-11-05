@@ -33,4 +33,5 @@ module.exports = {
   schoolName: "School Name",
   departureDate: "Departure Date",
   schoolNameRequired: "School name is required",
+    mustAnswerQuestion: "Please answer this question.",
 }

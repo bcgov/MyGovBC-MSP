@@ -1,8 +1,11 @@
 
 <form #formRef='ngForm' novalidate>
-    <div class="form-group" *ngIf="person.status === StatusInCanada.CitizenAdult">
-      <label [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[person.relationship]"></label>
-      <msp-toggle [(data)]="person.livedInBCSinceBirth"></msp-toggle>
+    <div class="form-group" *ngIf="person.status === StatusInCanada.CitizenAdult"
+         [ngClass]="{'has-error': showError && (person.livedInBCSinceBirth !== true && person.livedInBCSinceBirth !== false)}"
+    >
+      <label class="control-label" [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[person.relationship]"></label>
+      <msp-toggle [(data)]="person.livedInBCSinceBirth" (dataChange)="onChange.emit($event)" ></msp-toggle>
+
     </div>
     <ng-container *ngIf="person.livedInBCSinceBirth === false">
       <div class="row">
@@ -57,9 +60,9 @@
     </ng-container>
 
 
-    <div class="row form-group">
+    <div class="row form-group" [ngClass]="{'has-error': showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)}">
       <div class="col-md-12">
-        <label [innerHtml]="lang('./en/index.js').hasBeenOutsideBC30InYear"></label>
+        <label [innerHtml]="lang('./en/index.js').hasBeenOutsideBC30InYear" class="control-label"></label>
         <msp-toggle  (dataChange)="onChange.emit($event)" [(data)]="person.declarationForOutsideOver30Days"></msp-toggle>
 
         <msp-outof-bc-record *ngIf="person.declarationForOutsideOver30Days"
@@ -71,9 +74,9 @@
     </div>
 
 
-    <div class="row form-group">
+    <div class="row form-group"  [ngClass]="{'has-error': showError && (person.plannedAbsence === undefined || person.plannedAbsence === null)}" >
       <div class="col-md-12">
-        <label [innerHtml]="lang('./en/index.js').willBeOutsideBC30InYear"></label>
+        <label [innerHtml]="lang('./en/index.js').willBeOutsideBC30InYear" class="control-label" ></label>
         <msp-toggle [(data)]="person.plannedAbsence"  (dataChange)="onChange.emit($event)"></msp-toggle>
       </div>
       <div class="col-md-12">
@@ -83,14 +86,14 @@
         </msp-outof-bc-record>
       </div>
     </div>
-    <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult">
+    <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult"  [ngClass]="{'has-error': showError && (person.hasBeenReleasedFromArmedForces === undefined || person.hasBeenReleasedFromArmedForces === null)}">
       <div class="col-md-12">
-        <label [innerHtml]="lang('./en/index.js').releasedFromArmedForcesOrInstitution"></label>
+        <label [innerHtml]="lang('./en/index.js').releasedFromArmedForcesOrInstitution" class="control-label"></label>
         <msp-toggle [(data)]="person.hasBeenReleasedFromArmedForces"></msp-toggle>
       </div>
     </div>
 
-    <div class='row' *ngIf="person.hasBeenReleasedFromArmedForces">
+    <div class='row' *ngIf="person.hasBeenReleasedFromArmedForces" >
         <div class="col-md-3">
           <msp-discharge-date
             [year]="person.dischargeYear"

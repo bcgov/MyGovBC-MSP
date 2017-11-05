@@ -81,7 +81,7 @@
         </div>
     </div>
 
-    <msp-status-in-canada-radio (onChange)="onChange.emit($event)"
+    <msp-status-in-canada-radio (onChange)="onChange.emit($event)" [showError]="showError"
             *ngIf="mspAccountApp.accountChangeOptions.statusUpdate&&!embedded"
             [person]='person'>
     </msp-status-in-canada-radio>

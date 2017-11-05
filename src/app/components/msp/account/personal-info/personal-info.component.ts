@@ -101,8 +101,8 @@ export class AccountPersonalInfoComponent extends BaseComponent {
         if(!this.isAllValid()){
             console.log('Please fill in all required fields on the form.');
         }else{
-            console.log('redirecting to'+this._processService.getNextStep());
-            this._router.navigate([this._processService.getNextStep()]);
+            console.log('redirecting to'+this._processService.getNextStep( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL)));
+            this._router.navigate([this._processService.getNextStep( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL))]);
         }
     }
 }

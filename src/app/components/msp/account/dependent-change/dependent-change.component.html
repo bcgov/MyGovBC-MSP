@@ -9,7 +9,6 @@
         (onChange)="onChange()" 
         [showError]="formRef.submitted">
     </msp-account-personal-details>
-
     <!-- Added Spouse -->
     <msp-add-dependent *ngIf="addedSpouse" [person]="addedSpouse"
                        (onCancel)="clearAddedSpouse()"

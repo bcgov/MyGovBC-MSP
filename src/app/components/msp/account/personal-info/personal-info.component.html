@@ -1,6 +1,5 @@
 <form #formRef="ngForm" novalidate (submit)="continue()">
     <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
-
     <msp-account-personal-details [person]='applicant' [id]='applicant.id'
                                   (onChange)="onChange($event)"
                                   [showError]="formRef.submitted">

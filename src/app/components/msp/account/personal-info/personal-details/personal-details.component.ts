@@ -24,6 +24,7 @@ import {MspSchoolDateComponent} from "../../../common/schoolDate/school-date.com
 import {MspPhoneComponent} from "../../../common/phone/phone.component";
 import {HealthNumberComponent} from "../../../common/health-number/health-number.component";
 import {MspDischargeDateComponent} from "../../../common/discharge-date/discharge-date.component";
+import {MspStatusInCanadaRadioComponent} from '../../../common/status-in-canada-radio/status-in-canada-radio.component';
 import {MspAddressComponent} from "../../../common/address/address.component";
 import {Address} from "../../../model/address.model";
 
@@ -94,6 +95,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @ViewChild('phn') phn: MspPhnComponent;
     @ViewChild('phone') phone: MspPhoneComponent;
     @ViewChild('address') address: MspAddressComponent;
+    @ViewChild(MspStatusInCanadaRadioComponent) statusRadioComponents: MspStatusInCanadaRadioComponent;
 
     @Input() person: Person;
     @Input() id: string;

@@ -4,14 +4,25 @@
   <button type="button" class="btn btn-default btn-xs pull-right" (click)="cancelDependent()" [innerHTML]="lang('./en/index.js').clearButton[person.relationship]">
   </button>
 
-
   <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]"></h2>
   <p [innerHTML]="lang('./en/index.js').sectionBody[person.relationship]"></p>
 
-  <label #firstFocus for="isExistingBeneficiary-{{person.id}}" [innerHtml]="lang('./en/index.js').isExistingBeneficiaryQuestion[person.relationship]"></label>
+  <div class="row">
+    <div class="col-md-6 form-group" [ngClass]="{'has-error': showError && (person.isExistingBeneficiary === undefined || person.isExistingBeneficiary === null)}" >
+  <label #firstFocus  for="isExistingBeneficiary-{{person.id}}" [innerHtml]="lang('./en/index.js').isExistingBeneficiaryQuestion[person.relationship]"  class="control-label"></label>
+
+
   <msp-toggle #isExistingBeneficiary [id]="'isExistingBeneficiary-'+ person.id" [(data)]="person.isExistingBeneficiary"></msp-toggle>
-  
-  <msp-status-in-canada-radio
+
+      <div *ngIf='showError && (person.isExistingBeneficiary === undefined || person.isExistingBeneficiary === null)'
+           role="alert" aria-live="assertive">
+        <div class="text-danger"
+             [innerHtml]="lang('./en/index.js').mustAnswerQuestion"></div>
+      </div>
+    </div>
+
+  </div>
+  <msp-status-in-canada-radio [showError]="showError"
     *ngIf="person.isExistingBeneficiary===false"
     [person]='person' (onChange)="onChange.emit($event)">
   </msp-status-in-canada-radio>  
@@ -131,7 +142,7 @@
     </ng-container>
 
     <!-- Contains all questions if the user is a new beneficiary. -->
-    <msp-add-new-dependent-beneficiary
+    <msp-add-new-dependent-beneficiary   [showError]='showError'
       *ngIf="(person.status || person.status === 0)"
       [person]="person"   (onChange)="change($event)"
     ></msp-add-new-dependent-beneficiary>

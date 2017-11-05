@@ -30,6 +30,7 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
     @Input() person: Person;
     @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
     lang = require('./i18n');
+    @Input() showError: boolean;
 
     @ViewChildren(MspToggleComponent) toggleComponents: QueryList<MspToggleComponent>;
     @ViewChildren(MspProvinceComponent) provinceComponents: QueryList<MspProvinceComponent>;

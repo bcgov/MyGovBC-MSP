@@ -77,8 +77,8 @@ export class AccountDependentChangeComponent extends BaseComponent {
         if (!this.isAllValid()) {
             console.log('Please fill in all required fields on the form.');
         } else {
-            console.log('redirecting to' + this._processService.getNextStep());
-            this._router.navigate([this._processService.getNextStep()]);
+            console.log('redirecting to' + this._processService.getNextStep(this._processService.getStepNumber(ProcessUrls.ACCOUNT_DEPENDENTS_URL)));
+            this._router.navigate([this._processService.getNextStep(this._processService.getStepNumber(ProcessUrls.ACCOUNT_DEPENDENTS_URL))]);
         }
 
     }
@@ -95,6 +95,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
     addChild(relationship: Relationship) {
         const child = new Person(relationship, OperationActionType.Add);
         this.addedChildren.push(child);
+        this.cd.detectChanges();
     }
 
 
