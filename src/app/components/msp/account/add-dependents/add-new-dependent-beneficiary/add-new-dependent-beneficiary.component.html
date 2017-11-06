@@ -61,17 +61,17 @@
 
 
     <div class="row form-group" [ngClass]="{'has-error': showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)}">
-      <div class="col-md-12">
+    <div class="col-md-12">
         <label [innerHtml]="lang('./en/index.js').hasBeenOutsideBC30InYear" class="control-label"></label>
         <msp-toggle  (dataChange)="onChange.emit($event)" [(data)]="person.declarationForOutsideOver30Days"></msp-toggle>
 
-        <msp-outof-bc-record *ngIf="person.declarationForOutsideOver30Days"
-          [outofBCRecord]="person.outOfBCRecord"   (onDelete)="handleDeleteOutofBCRecord($event)"
+        <msp-outof-bc-record *ngIf="person.declarationForOutsideOver30Days" [futureDepartureDate]="false" [futureReturnDate]="true"
+                             [outofBCRecord]="person.outOfBCRecord"   (onDelete)="handleDeleteOutofBCRecord($event)"
                              (onUpdate)="handleOutofBCRecordChange($event)"
-          [showError]="showError">
+                             [showError]="showError">
         </msp-outof-bc-record>
-      </div>
     </div>
+</div>
 
 
     <div class="row form-group"  [ngClass]="{'has-error': showError && (person.plannedAbsence === undefined || person.plannedAbsence === null)}" >
@@ -80,9 +80,8 @@
         <msp-toggle [(data)]="person.plannedAbsence"  (dataChange)="onChange.emit($event)"></msp-toggle>
       </div>
       <div class="col-md-12">
-          <msp-outof-bc-record *ngIf="person.plannedAbsence" [futureDate]="true"
-          [outofBCRecord]="person.planOnBeingOutOfBCRecord"  (onDelete)="handleDeletePlanOnBeingOutOfBCRecord($event)"  (onUpdate)="handleOutofBCRecordChange($event)"
-          [showError]="showError" [futureDate]="true"   >
+          <msp-outof-bc-record *ngIf="person.plannedAbsence" [futureDepartureDate]="true" [futureReturnDate]="true"
+                               [outofBCRecord]="person.planOnBeingOutOfBCRecord"  (onDelete)="handleDeletePlanOnBeingOutOfBCRecord($event)"  (onUpdate)="handleOutofBCRecordChange($event)" [showError]="showError" >
         </msp-outof-bc-record>
       </div>
     </div>

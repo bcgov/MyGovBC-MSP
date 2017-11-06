@@ -107,7 +107,7 @@
         <div class="col-md-4 form-inline" *ngIf="person.schoolOutsideOfBC">
           <msp-date
             [label]="lang('./en/index.js').departureDate"
-            [showError]='showError'
+            [showError]='showError' [futureDate]="true"
             [(date)]="person.studiesDepartureSimple"
           ></msp-date>
         </div>
@@ -126,15 +126,15 @@
           <msp-date #studiesBegin
             [label]="lang('./en/index.js').studiesBegin"
             [showError]='showError'
-            [(date)]="person.studiesBeginSimple"
+            [(date)]="person.studiesBeginSimple" [futureDate]="true"
           ></msp-date>
         </div>
 
         <div class="col-md-6">
           <msp-date #studiesFinishedSimple
             [label]="lang('./en/index.js').studiesFinish"
-            [showError]='showError' (onChange) = "onChange.emit($event)"
-            [(date)]="person.studiesFinishedSimple"
+            [showError]='showError' (onChange) = "onChange.emit($event)" [futureDate]="true"
+                    [(date)]="person.studiesFinishedSimple"
           ></msp-date>
         </div>
       </div>

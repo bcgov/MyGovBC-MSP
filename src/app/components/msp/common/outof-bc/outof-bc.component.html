@@ -5,7 +5,7 @@
         <label for="reason{{objectId}}" [innerHtml]="lang('./en/index.js').reasonLabel"></label><br>
         <input type="text" class="form-control"
                [(ngModel)]="outofBCRecord.reason"
-               name="reason" #reasonRef="ngModel"
+               name="reason{{objectId}}" #reasonRef="ngModel"
                id="reason{{objectId}}"
                required
                maxlength="20">
@@ -20,7 +20,7 @@
         <label for="location{{objectId}}" [innerHtml]="lang('./en/index.js').locationLabel"></label><br>
         <input type="text" class="form-control"
                [(ngModel)]="outofBCRecord.location"
-               name="location" #locationRef="ngModel"
+               name="location{{objectId}}" #locationRef="ngModel"
                id="location{{objectId}}"
                required
                maxlength="20">
@@ -41,7 +41,7 @@
           (monthChange)="outofBCRecord.departureMonth = $event"
           [day]="outofBCRecord.departureDay"
           (dayChange)="outofBCRecord.departureDay = $event;"
-          (onChange)="onUpdate.emit($event)" [futureDate]="futureDate"
+          (onChange)="onUpdate.emit($event)" [futureDate]="futureDepartureDate"
           [showError]="showError" ></msp-departure-date>
     </div>
     <div class="col-md-4">
@@ -53,7 +53,7 @@
           (monthChange)="outofBCRecord.returnMonth = $event"
           [day]="outofBCRecord.returnDay"
           (dayChange)="outofBCRecord.returnDay = $event"
-          (onChange)="onUpdate.emit($event)" [futureDate]="futureDate"
+          (onChange)="onUpdate.emit($event)" [futureDate]="futureReturnDate"
           [showError]="showError"></msp-return-date>
     </div>
   </div>

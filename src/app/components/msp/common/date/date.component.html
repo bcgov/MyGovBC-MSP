@@ -74,7 +74,7 @@
                 <div class="text-danger" *ngIf="yearRef.errors?.yearDistantPast"
                      [innerHtml]="lang('./en/index.js').yearErrorDistantPast"></div>
             </div>
-            <div *ngIf='(yearRef.touched || showError)'>
+            <div *ngIf='(!futureDate && (yearRef.touched || showError))' >
                 <div class="text-danger" *ngIf="yearRef.errors?.yearDistantFuture"
                      [innerHtml]="lang('./en/index.js').yearErrorDistantFuture"></div>
             </div>

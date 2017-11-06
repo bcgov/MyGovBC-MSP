@@ -20,6 +20,7 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
   @Input() showError: boolean;
   /** Is this date component required? If false, it can be left blank and it will pass validation. */
   @Input() required: boolean = true;
+  @Input() futureDate: boolean;
 
   public year:  number;
   public month:  number;
@@ -113,7 +114,9 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
 
     // console.log('today is: ' + this.today.format('DD-MM-YYYY') + '  input date is: ' + this.inputDate().format('DD-MM-YYYY'));
     // console.log('isAfter returns ' + this.inputDate().isAfter(this.today));
-
+    if (this.futureDate) {
+      return true;
+    }
     // Check not in future
     if (this.inputDate().isAfter(this.today)) {
       return false;
