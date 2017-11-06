@@ -180,11 +180,38 @@ class MspAccountApp implements ApplicationBase {
 
     getallSpouses(): Person[] {
         //TODO FIXME Make sure this logic is working when add / remove is implemented for Spouses
-        return [this.updatedSpouse,this.addedSpouse,this.removedSpouse].filter(spouse => !!spouse);
+       let allSpouses:Person[] = [] ;
+
+        if ((this.accountChangeOptions.personInfoUpdate || this.accountChangeOptions.statusUpdate)&&this.updatedSpouse) {
+            allSpouses.push(this.updatedSpouse);
+        }
+        if (this.accountChangeOptions.dependentChange ) {
+            if (this.addedSpouse) {
+                allSpouses.push(this.addedSpouse);
+            }
+            if (this.removedSpouse) {
+                allSpouses.push(this.removedSpouse);
+            }
+        }
+        return  allSpouses;
+
     }
 
+    /**
+     * logic to get only children with the correspondin options..
+     * never send Updated children if PI is not selected
+     *
+     * @returns {Person[]}
+     */
     getAllChildren():Person[] {
-        return  [...this.updatedChildren,...this.addedChildren,...this.removedChildren];
+        let allPersons :Person[]  =[];
+        if (this.accountChangeOptions.personInfoUpdate || this.accountChangeOptions.statusUpdate) {
+            allPersons= [...allPersons,...this.updatedChildren];
+        }
+        if (this.accountChangeOptions.dependentChange ) {
+            allPersons= [...allPersons,...this.addedChildren,...this.removedChildren];
+        }
+        return  allPersons;
     }
     /*
     Gets all images for applicant, spouse and all children

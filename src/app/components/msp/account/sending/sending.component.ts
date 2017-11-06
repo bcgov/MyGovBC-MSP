@@ -52,14 +52,26 @@ export class AccountSendingComponent implements AfterContentInit {
           confirmationNumber: this.mspAccountApp.referenceNumber});
 
         let tempRef = this.mspAccountApp.referenceNumber;
+          let anyNewMSPPresent = false;
+        //check any new beneficiary is added
+          if (this.mspAccountApp.accountChangeOptions.dependentChange) {
+              if(this.mspAccountApp.addedSpouse && !this.mspAccountApp.addedSpouse.isExistingBeneficiary) {
+                  anyNewMSPPresent = true
+              }
+      console.log(JSON.stringify(this.mspAccountApp.getAllChildren().filter( child => !child.isExistingBeneficiary)));
+            if (this.mspAccountApp.getAllChildren().filter( child => !child.isExistingBeneficiary).length>0) {
+                anyNewMSPPresent = true
+            }
+          }
 
         //delete the application from storage
         this.dataService.removeMspAccountApp();
 
         //  go to confirmation
 
-        this.router.navigate(["/msp/account/confirmation"],
-          {queryParams: {confirmationNum:tempRef}});
+          this.router.navigate(["/msp/account/confirmation"],
+              {queryParams: {confirmationNum:tempRef,showDepMsg:anyNewMSPPresent}});
+
 
 
       }).catch((error: ResponseType | any) => {

@@ -5,7 +5,7 @@ import {
     AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, AddressTypeFactory
 } from "../api-model/commonTypes";
 import {Address} from "../model/address.model";
-import {Person,OperationActionType as OperationActionTypeEnum} from "../model/person.model";
+import {Person, OperationActionType as OperationActionTypeEnum} from "../model/person.model";
 import {
     ResidencyType,
     EnrolmentApplicationType,
@@ -34,7 +34,7 @@ import {
     AttachmentType, ApplicationTypeFactory, DocumentFactory, AttachmentsTypeFactory, AttachmentTypeFactory
 } from "../api-model/applicationTypes";
 import {MspImage} from "../model/msp-image";
-import { SimpleDate } from '../model/simple-date.interface';
+import {SimpleDate} from '../model/simple-date.interface';
 import {PersonDocuments} from "../model/person-document.model";
 import {ResponseType} from "../api-model/responseTypes";
 import {Http, Response, Headers, RequestOptions} from "@angular/http";
@@ -48,7 +48,7 @@ import {
 
 import {
     AccountChangeApplicationTypeFactory, AccountChangeAccountHolderType, AccountChangeAccountHolderFactory,
-    AccountChangeSpousesTypeFactory, AccountChangeSpouseTypeFactory, AccountChangeSpouseType,OperationActionType,
+    AccountChangeSpousesTypeFactory, AccountChangeSpouseTypeFactory, AccountChangeSpouseType, OperationActionType,
     AccountChangeChildrenFactory, AccountChangeChildType, AccountChangeChildTypeFactory
 } from "../api-model/accountChangeTypes";
 
@@ -384,19 +384,25 @@ export class MspApiService {
         //spouses
         to.application.accountChangeApplication.spouses = AccountChangeSpousesTypeFactory.make();
 
-
-        if (from.updatedSpouse) {
+        /** the account change option check is added so that only data belonging to current selection is sent..
+         *  this avoids uncleared data being sent
+         *  so only if PI or Update status is selected ; send updated spouse and children
+         *  send add/remove only if depdent option is selected
+         *
+         *  The same login shhould in be in review screen as well
+        */
+        if ((from.accountChangeOptions.statusUpdate || from.accountChangeOptions.personInfoUpdate) && from.updatedSpouse) {
             to.application.accountChangeApplication.spouses.updatedSpouse = this.convertSpouseFromAccountChange(from.updatedSpouse);
 
         }
-        if (from.removedSpouse) {
+        if (from.accountChangeOptions.dependentChange && from.removedSpouse) {
             to.application.accountChangeApplication.spouses.removedSpouse = this.convertSpouseFromAccountChange(from.removedSpouse);
         }
-        if (from.addedSpouse) {
+        if (from.accountChangeOptions.dependentChange && from.addedSpouse) {
             to.application.accountChangeApplication.spouses.addedSpouse = this.convertSpouseFromAccountChange(from.addedSpouse);
-       }
+        }
 
-       // Convert children and dependants
+        // Convert children and dependants
         if (from.getAllChildren() && from.getAllChildren().length > 0) {
             to.application.accountChangeApplication.children = AccountChangeChildrenFactory.make();
             to.application.accountChangeApplication.children.child = new Array<AccountChangeChildType>();
@@ -694,7 +700,7 @@ export class MspApiService {
     private convertChildFromAccountChange(from: Person): AccountChangeChildType {
         let to = AccountChangeChildTypeFactory.make();
 
-        to.operationAction = <OperationActionType> OperationActionTypeEnum[from.operationActionType] ;
+        to.operationAction = <OperationActionType> OperationActionTypeEnum[from.operationActionType];
 
         to.name = this.convertName(from);
         if (from.hasDob) {
@@ -709,8 +715,8 @@ export class MspApiService {
         }
 
         //TODO //FIXME once data model is implemented , verify this..Also might need another convertResidency for DEAM
-        if (from.status != null  ) {
-            to.citizenship = this.findCitizenShip(from.status,from.currentActivity);
+        if (from.status != null) {
+            to.citizenship = this.findCitizenShip(from.status, from.currentActivity);
 
         }
         if (from.isExistingBeneficiary != null) {
@@ -743,7 +749,7 @@ export class MspApiService {
         }
         //Is this child newly adopted?
         if (from.newlyAdopted) {
-            to.adoptionDate =  this.parseDate(from.adoptedDate).format(this.ISO8601DateFormat);
+            to.adoptionDate = this.parseDate(from.adoptedDate).format(this.ISO8601DateFormat);
         }
 
 
@@ -785,17 +791,16 @@ export class MspApiService {
         if (from.hasDischarge) {
             to.willBeAway = WillBeAwayTypeFactory.make();
             to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
-            to.willBeAway.armedForceInstitutionName =  from.nameOfInstitute;
-            to.willBeAway.isFullTimeStudent = "N" ;
+            to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
+            to.willBeAway.isFullTimeStudent = "N";
         }
 
         // Child 19-24
 
-        if (from.relationship === Relationship.Child19To24 ) {
+        if (from.relationship === Relationship.Child19To24) {
             if (from.schoolName) {
                 to.schoolName = from.schoolName;
             }
-
 
 
             if (from.hasStudiesDeparture) {
@@ -811,7 +816,7 @@ export class MspApiService {
             }
 
             //  Departure date if school is outszide BC //TODO
-         /*   to.departDateSchoolOutside = from.departDateSchoolOutside.format(this.ISO8601DateFormat);*/
+            /*   to.departDateSchoolOutside = from.departDateSchoolOutside.format(this.ISO8601DateFormat);*/
 
             // Assemble address string
             to.schoolAddress = this.convertAddress(from.schoolAddress);
@@ -824,20 +829,20 @@ export class MspApiService {
             to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
         }
         if (from.knownMailingAddress) {
-            to.mailingAddress = this.convertAddress(from.mailingAddress) ;
+            to.mailingAddress = this.convertAddress(from.mailingAddress);
         }
 
         return to;
     }
 
-    findCitizenShip(statusInCanada:StatusInCanada , currentActivity:Activities) :CitizenshipType {
-        let citizen:CitizenshipType ;
+    findCitizenShip(statusInCanada: StatusInCanada, currentActivity: Activities): CitizenshipType {
+        let citizen: CitizenshipType;
         switch (statusInCanada) {
             case StatusInCanada.CitizenAdult:
                 citizen = "CanadianCitizen";
                 break;
             case StatusInCanada.PermanentResident:
-                citizen= "PermanentResident";
+                citizen = "PermanentResident";
                 break;
             case StatusInCanada.TemporaryResident:
                 switch (currentActivity) {
@@ -865,7 +870,7 @@ export class MspApiService {
 
     private convertAccountHolderFromAccountChange(from: MspAccountApp): AccountChangeAccountHolderType {
 
-      let  accountHolder:AccountChangeAccountHolderType = AccountChangeAccountHolderFactory.make();
+        let accountHolder: AccountChangeAccountHolderType = AccountChangeAccountHolderFactory.make();
 
         accountHolder.selectedAddRemove = from.accountChangeOptions.dependentChange ? "Y" : "N";
 
@@ -907,8 +912,8 @@ export class MspApiService {
             accountHolder.phn = Number(from.applicant.previous_phn.replace(new RegExp("[^0-9]", "g"), ""));
         }
 
-        if (from.applicant.status != null  ) {
-            accountHolder.citizenship = this.findCitizenShip(from.applicant.status,from.applicant.currentActivity);
+        if (from.applicant.status != null) {
+            accountHolder.citizenship = this.findCitizenShip(from.applicant.status, from.applicant.currentActivity);
 
         }
 
@@ -916,6 +921,7 @@ export class MspApiService {
         return accountHolder;
 
     }
+
     private convertSpouseFromAccountChange(from: Person): AccountChangeSpouseType {
         let to = AccountChangeSpouseTypeFactory.make();
         to.name = this.convertName(from);
@@ -933,8 +939,8 @@ export class MspApiService {
 
 
         //TODO //FIXME once data model is implemented , verify this..Also might need another convertResidency for DEAM
-        if (from.status != null  ) {
-            to.citizenship = this.findCitizenShip(from.status,from.currentActivity);
+        if (from.status != null) {
+            to.citizenship = this.findCitizenShip(from.status, from.currentActivity);
 
         }
 
@@ -974,12 +980,12 @@ export class MspApiService {
 
         }
 
-       // Has this family member been outside of BC for more than a total of 30 days during the past 12 months?
+        // Has this family member been outside of BC for more than a total of 30 days during the past 12 months?
 
         if (from.declarationForOutsideOver30Days != null) {
             to.outsideBC = OutsideBCTypeFactory.make();
             to.outsideBC.beenOutsideBCMoreThan = from.declarationForOutsideOver30Days === true ? "Y" : "N";
-            if ( from.declarationForOutsideOver30Days ) {
+            if (from.declarationForOutsideOver30Days) {
                 // No out of CB records if they select No
                 if (from.outOfBCRecord.hasDeparture) {
                     to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
@@ -992,7 +998,7 @@ export class MspApiService {
             }
         }
 
-      //  Will this family member be outside of BC for more than a total of 30 days during the next 6 months?
+        //  Will this family member be outside of BC for more than a total of 30 days during the next 6 months?
 
         if (from.plannedAbsence != null) {
             to.outsideBCinFuture = OutsideBCTypeFactory.make();
@@ -1009,22 +1015,22 @@ export class MspApiService {
             }
         }
 
-       // Have they been released from the Canadian Armed Forces or an Institution?
+        // Have they been released from the Canadian Armed Forces or an Institution?
         if (from.hasDischarge) {
             to.willBeAway = WillBeAwayTypeFactory.make();
             to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
-            to.willBeAway.armedForceInstitutionName =  from.nameOfInstitute;
-            to.willBeAway.isFullTimeStudent = "N" ;
+            to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
+            to.willBeAway.isFullTimeStudent = "N";
         }
 
-            // Removing Spouse
+        // Removing Spouse
 
         if (from.reasonForCancellation) {
             to.cancellationReason = from.reasonForCancellation;
             to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
         }
         if (from.knownMailingAddress) {
-            to.mailingAddress = this.convertAddress(from.mailingAddress) ;
+            to.mailingAddress = this.convertAddress(from.mailingAddress);
         }
 
         return to;
@@ -1296,7 +1302,7 @@ export class MspApiService {
         return jxon.stringToXml(from);
     }
 
-    private parseDate(date : SimpleDate) {
+    private parseDate(date: SimpleDate) {
         return moment.utc({
             year: date.year,
             month: date.month - 1, // moment use 0 index for month :(

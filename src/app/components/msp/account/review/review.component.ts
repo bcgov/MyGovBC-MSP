@@ -28,25 +28,32 @@ export class AccountReviewComponent implements OnInit {
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
     }
 
-   // unused.. logic changed
+    // unused.. logic changed
     get spousesForAuthorisation(): Person[] {
         return [this.mspAccountApp.addedSpouse, this.mspAccountApp.updatedSpouse].filter(spouse => !!spouse);
     }
+
     get accountPIUrl() {
         return ProcessUrls.ACCOUNT_PERSONAL_INFO_URL;
     }
+
     get accountDependentUrl() {
         return ProcessUrls.ACCOUNT_DEPENDENTS_URL;
     }
 
 
     get spouseForAuthorisation(): Person {
-        return this.mspAccountApp.addedSpouse ||  this.mspAccountApp.updatedSpouse || undefined;
+        if (this.mspAccountApp.accountChangeOptions.dependentChange && this.mspAccountApp.addedSpouse) {
+            return this.mspAccountApp.addedSpouse;
+        }
+        if ((this.mspAccountApp.accountChangeOptions.personInfoUpdate || this.mspAccountApp.accountChangeOptions.statusUpdate ) && this.mspAccountApp.updatedSpouse) {
+            return this.mspAccountApp.updatedSpouse;
+        }
+        return undefined;
     }
 
 
-
-    get questionApplicant(){
+    get questionApplicant() {
         return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.applicantName);
     }
 
@@ -70,7 +77,6 @@ export class AccountReviewComponent implements OnInit {
         }
         this.dataService.saveMspAccountApp()
     }
-
 
 
     spouseUpdateAuthorizeOnChange(event: boolean) {
