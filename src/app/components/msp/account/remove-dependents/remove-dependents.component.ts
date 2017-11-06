@@ -10,7 +10,7 @@ import {
     QueryList
 } from '@angular/core';
 import {Person} from '../../model/person.model';
-import {Relationship, StatusInCanada, CancellationReasons} from '../../model/status-activities-documents';
+import {Relationship, StatusInCanada, CancellationReasons ,CancellationReasonsForSpouse} from '../../model/status-activities-documents';
 import {BaseComponent} from "../../common/base.component";
 import {MspDataService} from '../../service/msp-data.service';
 import {Router} from '@angular/router';
@@ -81,13 +81,21 @@ export class RemoveDependentComponent extends BaseComponent {
      *    ]
      * ```
      */
-    get cancellationReasonsIterable() {
+    getCancellationReasonsIterable(relationship:number) {
+       if (relationship == Relationship.ChildUnder24) {
         //CancellationReasons has duplicate keys, so only count half.
         return Object.keys(CancellationReasons)
             .filter(x => isNaN(Number(x)))
             .map((x, i) => {
                 return {index: i, prop: x}
             });
+       } else {
+              return Object.keys(CancellationReasonsForSpouse)
+               .filter(x => isNaN(Number(x)))
+               .map((x, i) => {
+                   return {index: i, prop: x}
+               });
+       }
     }
 
     set reasonForCancellation(val: string) {
@@ -101,7 +109,7 @@ export class RemoveDependentComponent extends BaseComponent {
      * "Other" must remain shown in the <select> dropdown.
      */
     get reasonForCancellation() {
-        const defaultOptions = this.cancellationReasonsIterable
+        const defaultOptions = this.getCancellationReasonsIterable(Relationship.ChildUnder24)
             .map(x => x.prop).concat(null);
 
         const isDefaultOption = defaultOptions.indexOf(this.person.reasonForCancellation) >= 0;

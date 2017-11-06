@@ -58,8 +58,7 @@ export class AccountSendingComponent implements AfterContentInit {
               if(this.mspAccountApp.addedSpouse && !this.mspAccountApp.addedSpouse.isExistingBeneficiary) {
                   anyNewMSPPresent = true
               }
-      console.log(JSON.stringify(this.mspAccountApp.getAllChildren().filter( child => !child.isExistingBeneficiary)));
-            if (this.mspAccountApp.getAllChildren().filter( child => !child.isExistingBeneficiary).length>0) {
+            if (this.mspAccountApp.getAllChildren().filter( child => child.isExistingBeneficiary == false ).length>0) {
                 anyNewMSPPresent = true
             }
           }

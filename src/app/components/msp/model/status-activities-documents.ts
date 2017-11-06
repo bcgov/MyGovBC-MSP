@@ -59,6 +59,14 @@ enum CancellationReasons {
   Other, //user can provide custom string for reason
 }
 
+enum CancellationReasonsForSpouse {
+    Deceased,
+    OutOfProvinceOrCountry,
+    Incarcerated,
+    ArmedForces,
+    Other, //user can provide custom string for reason
+}
+
 /**
  * Business rules for status
  */
@@ -129,4 +137,4 @@ class DocumentRules {
   }
 }
 
-export {Relationship, Activities, StatusInCanada, Documents, ActivitiesRules, StatusRules, DocumentRules, CancellationReasons};
+export {Relationship, Activities, StatusInCanada, Documents, ActivitiesRules, StatusRules, DocumentRules, CancellationReasons ,CancellationReasonsForSpouse};

@@ -9,6 +9,7 @@ export const environment = {
         apiBaseUrl: '/msp/api',
         // apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
         captchaApiBaseUrl: '/msp/api/captcha',
+        addressChangeBCUrl: 'https://www.addresschange.gov.bc.ca/',
         images: {
           maxImagesPerPerson: 50,
           maxWidth: 2600,

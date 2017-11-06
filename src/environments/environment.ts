@@ -22,6 +22,7 @@ export const environment = {
         apiBaseUrl: '/msp/api',
         // apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
         captchaApiBaseUrl: '/msp/api/captcha',
+        addressChangeBCUrl: 'https://www.addresschange.gov.bc.ca/',
         images: {
           maxImagesPerPerson: 50,
           maxWidth: 2600,
@@ -38,7 +39,7 @@ export const environment = {
         mspIsInMaintenanceFlag: process.env.mspIsInMaintenanceFlag,
         mspIsInMaintenanceText: process.env.mspIsInMaintenanceText,
         mspIsInMaintenanceTimes: process.env.mspIsInMaintenanceTimes,
-        AddressChangeBCUrl: 'https://www.addresschange.gov.bc.ca/'
+
 
       }
 }

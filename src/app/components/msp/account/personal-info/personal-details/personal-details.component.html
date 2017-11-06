@@ -1,6 +1,6 @@
 <form #formRef='ngForm' novalidate>
     <div class="row">
-        <div [ngClass]="person.relationship === 0 ? 'col-xs-12' :'col-xs-9'">
+        <div [ngClass]="person.relationship === 0 ? 'col-xs-12' :'col-xs-9'"  *ngIf="!embedded">
             <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]"></h2>
             <ng-container  *ngIf="person.relationship === 0 || person.relationship === 1">
                 <h4 [innerHTML]="mspAccountApp.accountChangeOptions.personInfoUpdate ? lang('./en/index.js').sectionSubTitleforPI[person.relationship] : lang('./en/index.js').sectionSubTitleNoPI[person.relationship]"></h4>

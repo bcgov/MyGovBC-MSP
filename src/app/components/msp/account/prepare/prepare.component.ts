@@ -31,7 +31,7 @@ export class AccountPrepareComponent extends BaseComponent {
     mspAccountApp: MspAccountApp;
     accountChangeOptions: AccountChangeOptions;
     captchaApiBaseUrl: string;
-
+    addressChangeBCUrl: string;
     @ViewChild('addressChangeChkBx') addressChangeChkBx: ElementRef;
     @ViewChild('personalInfoChangeChkBx') personalInfoChangeChkBx: ElementRef;
     @ViewChild('nameChangeDueToMarriageChkBx') nameChangeDueToMarriageChkBx: ElementRef;
@@ -45,6 +45,7 @@ export class AccountPrepareComponent extends BaseComponent {
         this.mspAccountApp = dataService.getMspAccountApp();
         this.accountChangeOptions = this.mspAccountApp.accountChangeOptions;
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
+        this.addressChangeBCUrl = environment.appConstants.addressChangeBCUrl;
     }
 
     get hasOnlyAddressSelected(): boolean {
@@ -83,7 +84,7 @@ export class AccountPrepareComponent extends BaseComponent {
                         confirmationNumber: this.mspAccountApp.referenceNumber
                     });
                     this.dataService.removeMspAccountApp();
-       //             window.location.href = environment.appConstants.AddressChangeBCUrl;
+                    window.location.href =   this.addressChangeBCUrl;
                     return;
                 }).catch((error: ResponseType | any) => {
                 this.logService.log({
@@ -93,7 +94,7 @@ export class AccountPrepareComponent extends BaseComponent {
                 });
 
                 this.dataService.removeMspAccountApp();
-         //       window.location.href = environment.appConstants.AddressChangeBCUrl;
+                window.location.href =this.addressChangeBCUrl;
                 return;
             });
 

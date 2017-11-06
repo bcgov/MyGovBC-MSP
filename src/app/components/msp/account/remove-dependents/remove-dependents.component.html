@@ -9,7 +9,6 @@
 
 
   <ng-container>
-
     <msp-account-personal-details [person]='person' [id]='person.id'  [showError]="showError" (onChange)="change($event)" embedded=true></msp-account-personal-details>
 
     <div class="row">
@@ -19,7 +18,7 @@
           [ngModel]="reasonForCancellation"
           (ngModelChange)="onChangeReasonForCancellation($event)">
             <option value=null [innerHtml]="lang('./en/index.js').pleaseSelect"></option>
-            <option *ngFor="let item of cancellationReasonsIterable" value="{{item.prop}}" [innerHtml]="lang('./en/index.js').cancellationReasons[item.index]"></option>
+            <option *ngFor="let item of getCancellationReasonsIterable(person.relationship)" value="{{item.prop}}" [innerHtml]="(person.relationship == Relationship.ChildUnder24) ? lang('./en/index.js').cancellationReasonsChild[item.index]: lang('./en/index.js').cancellationReasonsSpouse[item.index] "></option>
         </select>
       </div>
       <div class="col-sm-4 form-group"
