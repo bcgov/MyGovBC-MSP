@@ -12,10 +12,9 @@
 
     <msp-account-personal-details [person]='person' [id]='person.id'  [showError]="showError" (onChange)="change($event)" embedded=true></msp-account-personal-details>
 
-
     <div class="row">
-      <div class="col-sm-4 form-group">
-        <label for="reason-{{person.id}}" [innerHtml]="lang('./en/index.js').reason"></label>
+      <div class="col-sm-4 form-group"   [ngClass]="{'has-error': showError && (person.reasonForCancellation === undefined || person.reasonForCancellation === null)}">
+        <label for="reason-{{person.id}}" [innerHtml]="lang('./en/index.js').reason" class="control-label"></label>
         <select class='form-control' name="reason-{{person.id}}" id="reason-{{person.id}}" 
           [ngModel]="reasonForCancellation"
           (ngModelChange)="onChangeReasonForCancellation($event)">
@@ -45,23 +44,22 @@
         <msp-date
           [label]="lang('./en/index.js').cancellationDate"
           [showError]='showError'
-          [(date)]="person.cancellationDate"
+          [(date)]="person.cancellationDate" (onChange) = "onChange.emit($event)"
         ></msp-date>
       </div>
     </div>
 
-
-    <div class="form-group">
-        <label for="knowSpouseCurrentMailing-{{person.id}}" [innerHtml]="lang('./en/index.js').knowSpouseCurrentMailing[person.relationship]"></label>
-        <msp-toggle [id]="'knowSpouseCurrentMailing-'+ person.id" [(data)]="person.knownMailingAddress"></msp-toggle>        
+    <div class="form-group"  [ngClass]="{'has-error': showError && (person.knownMailingAddress === undefined || person.knownMailingAddress === null)}">
+        <label for="knowSpouseCurrentMailing-{{person.id}}" [innerHtml]="lang('./en/index.js').knowSpouseCurrentMailing[person.relationship]" class="control-label" ></label>
+        <msp-toggle [id]="'knowSpouseCurrentMailing-'+ person.id" [(data)]="person.knownMailingAddress" (dataChange)="change($event)"></msp-toggle>
     </div>
 
-    <msp-address 
+    <msp-address  #spouseMailingAddress
       *ngIf="person.knownMailingAddress"
       [mailingAddressHeading]="lang('./en/index.js').mailingAddr"
       [mailingAddress]="person.mailingAddress"
       [mailingOnly]="true"
-      [showError] = "showError"
+      [showError] = "showError"  (onChange)="change($event)"
     ></msp-address>
 
 

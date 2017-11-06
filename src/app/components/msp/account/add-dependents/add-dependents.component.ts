@@ -18,6 +18,7 @@ import {ProcessService} from "../../service/process.service";
 import {LocalStorageService} from 'angular-2-local-storage';
 import {NgForm} from "@angular/forms";
 import {MspToggleComponent} from '../../common/toggle/toggle.component';
+import {MspDateComponent} from '../../common/date/date.component';
 import {MspStatusInCanadaRadioComponent} from '../../common/status-in-canada-radio/status-in-canada-radio.component';
 import {AccountPersonalDetailsComponent} from '../personal-info/personal-details/personal-details.component';
 import {AddNewDependentBeneficiaryComponent} from '../add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component'
@@ -38,6 +39,9 @@ export class AddDependentComponent extends BaseComponent {
     @ViewChild('firstFocus') firstFocus: ElementRef;
     lang = require('./i18n');
     @Input() showError: boolean;
+
+    @ViewChildren(MspDateComponent) dateComponents: QueryList<MspDateComponent>;
+
 
     @ViewChild('formRef') form: NgForm;
     @ViewChild('isExistingBeneficiary') toggleComp: MspToggleComponent;
@@ -78,5 +82,6 @@ export class AddDependentComponent extends BaseComponent {
     cancelDependent() {
         this.onCancel.emit();
     }
+
 
 }

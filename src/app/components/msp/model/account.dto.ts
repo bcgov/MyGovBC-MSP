@@ -1,6 +1,6 @@
 import PersonDto from './person.dto';
 import AddressDto from './address.dto';
-
+import {MspImage} from './msp-image';
 export default class MspAccountDto {
     infoCollectionAgreement: boolean;
     applicant: PersonDto = new PersonDto();
@@ -20,5 +20,6 @@ export default class MspAccountDto {
     dependentChange: boolean ;
     addressUpdate: boolean ;
     statusUpdate: boolean ;
+    documents: MspImage[];
 
 }

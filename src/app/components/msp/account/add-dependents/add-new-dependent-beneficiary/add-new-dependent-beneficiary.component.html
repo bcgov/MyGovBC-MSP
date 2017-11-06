@@ -14,7 +14,7 @@
             [label]="lang('./en/index.js').moveDateToBC"
             [showError]='showError'
             [(date)]="person.arrivalToBCSimple"
-            required=false>
+            required=true>
           </msp-date>
         </div>
         <div class="col-md-4">
@@ -33,19 +33,19 @@
             <input type="text" class='form-control' name="healthNumberFromOtherProvince" [(ngModel)]=person.healthNumberFromOtherProvince>
           </div>
       </div>
-      <div class="row form-group">
+      <div class="row form-group" [ngClass]="{'has-error': showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)}">
         <div class="col-md-12">
-          <label [innerHtml]="lang('./en/index.js').permanentMove"></label>
-          <msp-toggle [(data)]="person.madePermanentMoveToBC"></msp-toggle>
+          <label [innerHtml]="lang('./en/index.js').permanentMove"  class="control-label"></label>
+          <msp-toggle [(data)]="person.madePermanentMoveToBC" (dataChange)="onChange.emit($event)"></msp-toggle>
         </div>
       </div>
     </ng-container>
 
     <ng-container *ngIf="person.relationship === Relationship.ChildUnder19 || person.relationship === Relationship.Child19To24">
-        <div class="row form-group">
+        <div class="row form-group" [ngClass]="{'has-error': showError && (person.newlyAdopted === undefined || person.newlyAdopted === null)}" >
           <div class="col-sm-4">
-            <label [innerHtml]="lang('./en/index.js').newlyAdopted"></label>
-            <msp-toggle [(data)]="person.newlyAdopted"></msp-toggle>
+            <label [innerHtml]="lang('./en/index.js').newlyAdopted"  class="control-label"></label>
+            <msp-toggle [(data)]="person.newlyAdopted" (dataChange)="onChange.emit($event)"></msp-toggle>
           </div>
 
           <div class="col-sm-4 form-inline" *ngIf="person.newlyAdopted">
@@ -89,7 +89,7 @@
     <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult"  [ngClass]="{'has-error': showError && (person.hasBeenReleasedFromArmedForces === undefined || person.hasBeenReleasedFromArmedForces === null)}">
       <div class="col-md-12">
         <label [innerHtml]="lang('./en/index.js').releasedFromArmedForcesOrInstitution" class="control-label"></label>
-        <msp-toggle [(data)]="person.hasBeenReleasedFromArmedForces"></msp-toggle>
+        <msp-toggle [(data)]="person.hasBeenReleasedFromArmedForces" (dataChange)="onChange.emit($event)"></msp-toggle>
       </div>
     </div>
 

@@ -15,6 +15,7 @@ import {puts} from "util";
 import {Process} from "./process.service";
 import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
 import {Gender} from "../model/person.model";
+import {OperationActionType} from "../model/person.model";
 import {Address} from "../model/address.model";
 import { SimpleDate } from '../model/simple-date.interface';
 
@@ -87,7 +88,6 @@ export  class MspDataService {
 
     saveMspAccountApp(): void {
         let dto: MspAccountDto = this.toMspAccountAppTransferObject(this._mspAccountApp);
-        // console.log('saving msp app: ', dto);
         this.localStorageService.set(this.mspAccountStorageKey, dto);
     }
 
@@ -113,7 +113,6 @@ export  class MspDataService {
     private fetchMspAccountApplication(): MspAccountApp {
         let dto: MspAccountDto =
             this.localStorageService.get<MspAccountDto>(this.mspAccountStorageKey);
-
         if (dto) {
             return this.fromMspAccountTransferObject(dto);
         } else {
@@ -228,7 +227,7 @@ export  class MspDataService {
         dto.arrivalToBCDay = input.arrivalToBCDay;
         dto.arrivalToBCMonth = input.arrivalToBCMonth;
         dto.arrivalToBCYear = input.arrivalToBCYear;
-
+        dto.hasBeenReleasedFromArmedForces = input.hasBeenReleasedFromArmedForces;
         dto.movedFromProvinceOrCountry = input.movedFromProvinceOrCountry;
         dto.institutionWorkHistory = input.institutionWorkHistory;
         dto.dischargeYear = input.dischargeYear;
@@ -259,10 +258,21 @@ export  class MspDataService {
         dto.reasonForCancellation = input.reasonForCancellation;
         dto.cancellationDate   =input.cancellationDate ;
         dto.isExistingBeneficiary = input.isExistingBeneficiary;
+        dto.knownMailingAddress = input.knownMailingAddress;
+        dto.nameOfInstitute  = input.nameOfInstitute
+
         dto.prevLastName = input.prevLastName ;
         dto.newlyAdopted = input.newlyAdopted ;
         dto.adoptedDate = input.adoptedDate ;
         dto.marriageDate =   input.marriageDate;
+
+        dto.phoneNumber =   input.phoneNumber;
+        if (input.mailingAddress.isValid) {
+            this.convertMailingAddress(input, dto);
+        }
+        if (input.residentialAddress.isValid){
+            this.convertResidentialAddress(input, dto);
+        }
 
         if (input.gender) {
             dto.gender = input.gender.valueOf();
@@ -302,6 +312,7 @@ export  class MspDataService {
         output.arrivalToBCYear = dto.arrivalToBCYear;
 
         output.movedFromProvinceOrCountry = dto.movedFromProvinceOrCountry;
+        output.hasBeenReleasedFromArmedForces  = dto.hasBeenReleasedFromArmedForces;
         output.institutionWorkHistory = dto.institutionWorkHistory;
         output.dischargeYear = dto.dischargeYear;
         output.dischargeMonth = dto.dischargeMonth;
@@ -335,6 +346,10 @@ export  class MspDataService {
         output.prevLastName = dto.prevLastName;
         output.isExistingBeneficiary = dto.isExistingBeneficiary;
         output.marriageDate =   dto.marriageDate;
+        output.knownMailingAddress = dto.knownMailingAddress;
+
+        output.phoneNumber = dto.phoneNumber;
+
 
         output.cancellationDate   =dto.cancellationDate ;
         if (dto.gender) {
@@ -343,6 +358,13 @@ export  class MspDataService {
         output.status = dto.status;
         output.currentActivity = dto.currentActivity;
 
+
+        if (this.isValidAddress(dto.mailingAddress)) {
+          this.convertMailingAddress(dto, output);
+        }
+         if (this.isValidAddress(dto.residentialAddress)){
+         this.convertResidentialAddress(dto, output);
+        }
         dto.images.forEach(img => {
             output.documents.images = [...output.documents.images, img];
         });
@@ -381,7 +403,6 @@ export  class MspDataService {
 
         dto.movedFromProvinceOrCountry = input.movedFromProvinceOrCountry;
         dto.institutionWorkHistory = input.institutionWorkHistory;
-        dto.nameOfInstitute  = input.nameOfInstitute
         dto.dischargeYear = input.dischargeYear;
         dto.dischargeMonth = input.dischargeMonth;
         dto.dischargeDay = input.dischargeDay;
@@ -478,7 +499,7 @@ export  class MspDataService {
         dto.personInfoUpdate = input.accountChangeOptions.personInfoUpdate ;
         dto.dependentChange = input.accountChangeOptions.dependentChange ;
         dto.statusUpdate = input.accountChangeOptions.statusUpdate ;
-        dto.applicant = this.toPersonDto(input.applicant);
+        dto.applicant = this.toPersonDtoForAccount(input.applicant);
         if (input.updatedSpouse) {
             dto.applicant.updatedSpouse = this.toPersonDtoForAccount(input.updatedSpouse);
         }
@@ -513,6 +534,9 @@ export  class MspDataService {
             dto.applicant.updatedChildren = [...dto.applicant.updatedChildren, c2];
 
         });
+
+        dto.documents = input.documents;
+
         return dto;
 
     }
@@ -597,40 +621,68 @@ export  class MspDataService {
         output.accountChangeOptions.personInfoUpdate = dto.personInfoUpdate ;
         output.accountChangeOptions.dependentChange = dto.dependentChange ;
         output.accountChangeOptions.statusUpdate = dto.statusUpdate ;
-        output.applicant = this.fromPersonDto(dto.applicant);
+
+        output.authorizedByApplicant = dto.authorizedByApplicant;
+        output.authorizedByApplicantDate = dto.authorizedByApplicantDate;
+        output.authorizedBySpouse = dto.authorizedBySpouse;
+
+        output.infoCollectionAgreement = dto.infoCollectionAgreement;
+
+
+/*
+        output.phoneNumber = dto.phoneNumber;
+
+        this.convertMailingAddress(dto, output);
+        this.convertResidentialAddress(dto, output);
+*/
+
+        output.applicant = this.fromPersonDtoForAccount(dto.applicant);
 
         if (dto.applicant.addedSpouse) {
             output.addedSpouse = this.fromPersonDtoForAccount(dto.applicant.addedSpouse);
             output.addedSpouse.planOnBeingOutOfBCRecord = this.toOutofBCRecord(dto.applicant.addedSpouse.planOnBeingOutOfBCRecord);
             output.addedSpouse.outOfBCRecord = this.toOutofBCRecord(dto.applicant.addedSpouse.outOfBCRecord);
+            output.addedSpouse.operationActionType = OperationActionType.Add ;
         }
         if (dto.applicant.updatedSpouse) {
-            output.updatedSpouse = this.fromPersonDtoForAccount(dto.applicant.addedSpouse);
+            output.updatedSpouse = this.fromPersonDtoForAccount(dto.applicant.updatedSpouse);
+            output.updatedSpouse.operationActionType = OperationActionType.Update ;
         }
         if (dto.applicant.removedSpouse) {
-            output.updatedSpouse = this.fromPersonDtoForAccount(dto.applicant.removedSpouse);
+
+            output.removedSpouse = this.fromPersonDtoForAccount(dto.applicant.removedSpouse);
+            output.removedSpouse.operationActionType = OperationActionType.Remove ;
         }
-
         dto.applicant.addedChildren.forEach(c => {
-            let child: Person = this.fromPersonDtoForAccount(c)
-            child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
-            child.planOnBeingOutOfBCRecord = this.toOutofBCRecord(c.planOnBeingOutOfBCRecord);
+            if (c) {
+                let child: Person = this.fromPersonDtoForAccount(c)
+                child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
+                child.planOnBeingOutOfBCRecord = this.toOutofBCRecord(c.planOnBeingOutOfBCRecord);
+                child.operationActionType = OperationActionType.Add ;
+                this.convertSchoolAddress(c, child);
 
-            this.convertSchoolAddress(c, child);
-            output.addedChildren = [...output.addedChildren, child];
+                output.addedChildren = [...output.addedChildren, child];
+            }
         });
 
         dto.applicant.removedChildren.forEach(c => {
             let child: Person = this.fromPersonDtoForAccount(c)
             child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
             this.convertSchoolAddress(c, child);
+            child.operationActionType = OperationActionType.Remove ;
             output.removedChildren = [...output.removedChildren, child];
         });
 
         dto.applicant.updatedChildren.forEach(c => {
             let child: Person = this.fromPersonDtoForAccount(c)
+            child.operationActionType = OperationActionType.Update ;
               output.updatedChildren = [...output.updatedChildren, child];
         });
+
+        dto.documents.forEach(img => {
+            output.documents = [...output.documents, img];
+        });
+
 
         return output;
     }
@@ -673,7 +725,15 @@ export  class MspDataService {
 
         return output;
     }
-
+    //TODO rewrite and make it proper
+    isValidAddress(addressDto:AddressDto): boolean {
+        if (addressDto ) {
+            if (addressDto.addressLine1 && addressDto.addressLine1.length>0) {
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * Convert data model object to data transfer object that is suitable for client
      * side storage (local or session storage)

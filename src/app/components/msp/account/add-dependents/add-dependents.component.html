@@ -12,7 +12,7 @@
   <label #firstFocus  for="isExistingBeneficiary-{{person.id}}" [innerHtml]="lang('./en/index.js').isExistingBeneficiaryQuestion[person.relationship]"  class="control-label"></label>
 
 
-  <msp-toggle #isExistingBeneficiary [id]="'isExistingBeneficiary-'+ person.id" [(data)]="person.isExistingBeneficiary"></msp-toggle>
+  <msp-toggle #isExistingBeneficiary [id]="'isExistingBeneficiary-'+ person.id" (dataChange)="onChange.emit($event)" [(data)]="person.isExistingBeneficiary"></msp-toggle>
 
       <div *ngIf='showError && (person.isExistingBeneficiary === undefined || person.isExistingBeneficiary === null)'
            role="alert" aria-live="assertive">
@@ -97,11 +97,11 @@
         </div>
       </div>
 
-      <div class="row form-group">
+      <div class="row form-group" [ngClass]="{'has-error': showError && (person.schoolOutsideOfBC === undefined || person.schoolOutsideOfBC === null)}">
         <div class="col-md-4">
-          <label for="isOutsideBC-{{person.id}}" [innerHtml]="lang('./en/index.js').schoolOutsideBC"></label>
+          <label for="isOutsideBC-{{person.id}}" [innerHtml]="lang('./en/index.js').schoolOutsideBC" class="control-label"></label>
       
-          <msp-toggle [id]="'isOutsideBC-'+ person.id" [(data)]="person.schoolOutsideOfBC" (onChange)="outsideBCchange($event)" ></msp-toggle>
+          <msp-toggle [id]="'isOutsideBC-'+ person.id" [(data)]="person.schoolOutsideOfBC" (dataChange)="outsideBCchange($event)" ></msp-toggle>
         </div>
 
         <div class="col-md-4 form-inline" *ngIf="person.schoolOutsideOfBC">
@@ -123,7 +123,7 @@
 
       <div class="row">
         <div class="col-md-6">
-          <msp-date
+          <msp-date #studiesBegin
             [label]="lang('./en/index.js').studiesBegin"
             [showError]='showError'
             [(date)]="person.studiesBeginSimple"
@@ -131,9 +131,9 @@
         </div>
 
         <div class="col-md-6">
-          <msp-date
+          <msp-date #studiesFinishedSimple
             [label]="lang('./en/index.js').studiesFinish"
-            [showError]='showError'
+            [showError]='showError' (onChange) = "onChange.emit($event)"
             [(date)]="person.studiesFinishedSimple"
           ></msp-date>
         </div>

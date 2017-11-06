@@ -1,4 +1,4 @@
-<h2 *ngIf="!customTitle" [innerHtml]="(person.operationActionType ? lang('./en/index.js').actionTypeLabel[person.operationActionType]:'') + lang('./en/index.js').relationshipLabel[person.relationship] +
+<h2 *ngIf="!customTitle" [innerHtml]="((person.operationActionType !=null ||person.operationActionType !=undefined)  ? lang('./en/index.js').actionTypeLabel[person.operationActionType]:'') + lang('./en/index.js').relationshipLabel[person.relationship] +
     ' ' + lang('./en/index.js').cardSuffix "></h2>
 <h2 *ngIf="customTitle">{{customTitle}}</h2>
 <div class="panel panel-default">
