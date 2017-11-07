@@ -43,7 +43,7 @@
         <msp-date
           [label]="lang('./en/index.js').cancellationDate"
           [showError]='showError'
-          [(date)]="person.cancellationDate" [futureDate]="true"  (onChange) = "onChange.emit($event)"
+          [(date)]="person.cancellationDate" [futureDate]="false"  (onChange) = "onChange.emit($event)"
         ></msp-date>
       </div>
     </div>

@@ -8,7 +8,7 @@ module.exports = {
   ],
   sectionBody: [
     '',
-    'A spouse is a resident of B.C. who is married to or is living and cohabiting in a marriage-like relationship with the applicant.','','',''
+    'A spouse is a resident of B.C. who is married to or is living and cohabiting in a marriage-like relationship with the applicant.','','','If you are removing a child, you do not need to upload supporting documentation. However, the child (0-18) must have coverage under another account.'
   ],
   clearButton: [
     '',
