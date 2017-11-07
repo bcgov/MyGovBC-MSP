@@ -4,7 +4,7 @@ module.exports = {
   agreementLabel: 'Authorize your update request',
   doYouAgreeLabel: '{name}, do you agree?',
   agreeLabel: 'Yes, I agree',
-  submitButton: 'Submit Application',
+  submitButton: 'Submit Request',
     applicantTitle:'Account Holder Information',
     applicantLinkTitle:'EDIT PERSONAL INFORMATION',
   tryAgainWithCaptcha: 'Please try again to enter the text you see above',
