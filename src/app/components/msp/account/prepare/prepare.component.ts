@@ -39,6 +39,7 @@ export class AccountPrepareComponent extends BaseComponent {
     @ViewChild('updateStatusInCanadaChkBx') updateStatusInCanadaChkBx: ElementRef;
     @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
     @ViewChild('formRef') form: NgForm;
+    transmissionInProcess:boolean;
 
     constructor(private cd: ChangeDetectorRef, private logService: MspLogService, private apiService: MspApiService, private dataService: MspDataService, private _processService: ProcessService, private _router: Router) {
         super(cd);
@@ -72,7 +73,7 @@ export class AccountPrepareComponent extends BaseComponent {
             return this.mspConsentModal.showFullSizeView();
         }
         if (this.accountChangeOptions.hasOnlyAddressSelected()) {
-
+            this.transmissionInProcess = true;
             this.mspAccountApp = this.dataService.getFakeAccountChangeApplication();
 
             this.apiService
@@ -80,21 +81,21 @@ export class AccountPrepareComponent extends BaseComponent {
                 .then((mspAccountApp: MspAccountApp) => {
 
                     this.logService.log({
-                        name: 'MSP Account Maintanence Address Change Only Request received success confirmation from API server',
+                        name: 'MSP Account Maintenance Address Change Only Request received success confirmation from API server',
                         confirmationNumber: this.mspAccountApp.referenceNumber
                     });
-                    this.dataService.removeMspAccountApp();
-                    window.location.href =   this.addressChangeBCUrl;
+               //     this.dataService.removeMspAccountApp();
+                   window.location.href =   this.addressChangeBCUrl;
                     return;
                 }).catch((error: ResponseType | any) => {
                 this.logService.log({
-                    name: 'MSP Account Maintanence Address Change Only Request received failure message from API server',
+                    name: 'MSP Account Maintenance Address Change Only Request received failure message from API server',
                     error: error._body,
                     request: error._requestBody
                 });
 
-                this.dataService.removeMspAccountApp();
-                window.location.href =this.addressChangeBCUrl;
+           //     this.dataService.removeMspAccountApp();
+               window.location.href =this.addressChangeBCUrl;
                 return;
             });
 

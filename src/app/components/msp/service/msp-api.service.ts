@@ -96,9 +96,7 @@ export class MspApiService {
 
                 // second convert to XML
                 let convertedAppXml = this.toXmlString(documentModel);
-                if (app instanceof MspAccountApp) {
-                    console.log("convertedAppXml-" + JSON.stringify(convertedAppXml));
-                }
+
 
                 // if no errors, then we'll sendApplication all attachments
                 return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {

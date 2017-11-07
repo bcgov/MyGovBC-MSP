@@ -2,6 +2,8 @@
                    (onClose)="addressChangeChkBx.focus()">
 </msp-consent-modal>
 
+
+
 <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
 <h4 [innerHtml]="lang('./en/index.js').subTitle"></h4>
 <h4 [innerHtml]="lang('./en/index.js').groupAccoungMsg"></h4>
@@ -9,7 +11,7 @@
 <h3 [innerHtml]="lang('./en/index.js').selectTitle"></h3>
 
 <form #formRef='ngForm' novalidate role="form" >
-    <div role="dialog" aria-labelledby="q1" class="checkbox checkbox-spaced">
+    <div role="dialog" aria-labelledby="q1" class="checkbox checkbox-spaced" >
         <input #addressChangeChkBx class="input-lg" id='addressChange' name="addressChange" type="checkbox" [(ngModel)]="accountChangeOptions.addressUpdate" (ngModelChange)="addressUpdateOnChange($event)" >
         <label id="q1" for='addressChange' [innerHtml]="lang('./en/index.js').addressChange"></label>
     </div>
@@ -31,18 +33,28 @@
         <input #updateStatusInCanadaChkBx class="input-lg" id='statusChange' name="statusChange" type="checkbox" [(ngModel)]="accountChangeOptions.statusUpdate" (ngModelChange)="statusUpdateOnChange($event)" >
         <label id="q5" for='statusChange' [innerHtml]="lang('./en/index.js').statusChange"></label>
     </div>
-    <p class="intro text-danger" *ngIf="hasOnlyAddressSelected" [innerHtml]="lang('./en/index.js').addressRedirecMsg" role="alert"
+    <p class="intro text-danger" *ngIf="hasOnlyAddressSelected && !transmissionInProcess" [innerHtml]="lang('./en/index.js').addressRedirecMsg" role="alert"
        aria-live="assertive"></p>
 </form>
 
 <div class="row" *ngIf="hasOnlyAddressSelected">
-    <div class="col-md-12">
+
+    <div *ngIf="transmissionInProcess" class="center-block" role="alert" aria-live="assertive">
+        <h1 [innerHtml]="lang('./en/index.js').pageTitleRedirect"></h1>
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+
+        <span class="sr-only">Redirecting your request ...</span>
+        <p class="intro" [innerHtml]="lang('./en/index.js').transmissionInProgressMessage">
+        </p>
+    </div>
+
+    <div class="col-md-12" *ngIf="!transmissionInProcess">
         <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="mspAccountApp.uuid"
                  (onValidToken)="mspAccountApp.authorizationToken = $event"></captcha>
     </div>
 </div>
 <hr>
-<button [mspLogger]="'msp-account-management_prepare_continue'" class="btn btn-primary" [disabled]="!canContinue()" (click)="next()"
+<button [mspLogger]="'msp-account-management_prepare_continue'" class="btn btn-primary" [disabled]="!canContinue() || transmissionInProcess" (click)="next()"
         type="button" tabindex="0" [innerHtml]="lang('./en/index.js').continueButton"></button>
 
 <msp-cancel [accountButton]="true"></msp-cancel>
