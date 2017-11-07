@@ -42,18 +42,18 @@
             <h4 class='panel-title' [innerHTML]="lang('./en/index.js').pageTitle"></h4>
         </div>
         <div class="panel-body">
-            <button class="btn btn-default" 
+            <button class="btn btn-default"  type="button"
                 [disabled]="addedSpouse || canAddOrRemoveDepdents()"
                 (click)="addSpouse()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
             </button>
-            <button class="btn btn-default"
+            <button class="btn btn-default" type="button"
                 (click)="addChild(Relationship.ChildUnder19)"  [disabled]="canAddOrRemoveDepdents()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addChildUnder19ButtonSimple"></span>
             </button>
-            <button class="btn btn-default"
+            <button class="btn btn-default" type="button"
                 (click)="addChild(Relationship.Child19To24)"   [disabled]="canAddOrRemoveDepdents()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
@@ -61,13 +61,13 @@
                 <span [innerHTML]="lang('./en/index.js').mustBeFullTimeStudent" class='small-print'></span>
             </button>
             <hr>
-            <button class="btn btn-default"
+            <button class="btn btn-default" type="button"
                 [disabled]="removedSpouse || canAddOrRemoveDepdents()"
                 (click)="removeSpouse()" >
                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').removeSpouseButton"></span>
             </button>
-            <button class="btn btn-default"
+            <button class="btn btn-default" type="button"
                 (click)="removeChild()"   [disabled]="canAddOrRemoveDepdents()">
                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').removeDependentButton"></span>
