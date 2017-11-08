@@ -303,7 +303,7 @@
                    </div>
                </div>
 
-               <div class="row" *ngIf="person.institutionWorkHistory">
+               <div class="row" *ngIf="person.institutionWorkHistory && !accountCard" >
                    <div class="col-xs-4">
                        {{lang('./en/index.js').institutionWorkHistoryLabel}}
                    </div>

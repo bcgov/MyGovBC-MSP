@@ -4,7 +4,8 @@
          [ngClass]="{'has-error': showError && (person.livedInBCSinceBirth !== true && person.livedInBCSinceBirth !== false)}"
     >
       <label class="control-label" [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[person.relationship]"></label>
-      <msp-toggle [(data)]="person.livedInBCSinceBirth" (dataChange)="setLivedInBCSinceBirth($event)" ></msp-toggle>
+   <msp-toggle [(data)]="person.livedInBCSinceBirth" (dataChange)="setLivedInBCSinceBirth($event)" ></msp-toggle>
+
 
     </div>
     <ng-container *ngIf="person.livedInBCSinceBirth === false">
@@ -92,7 +93,7 @@
       </div>
     </div>
 
-    <div class='row' *ngIf="person.hasBeenReleasedFromArmedForces" >
+    <div class='row' *ngIf="person.hasBeenReleasedFromArmedForces && person.status === StatusInCanada.CitizenAdult"  >
         <div class="col-md-3">
           <msp-discharge-date
             [year]="person.dischargeYear"
@@ -101,20 +102,20 @@
             (monthChange)="person.dischargeMonth = $event"
             [day]="person.dischargeDay"
             (dayChange)="person.dischargeDay = $event"
-            (onChange) = "selectInstitution($event)"
+            (onChange) = "onChange.emit($event)"
             [showError]="showError"
           ></msp-discharge-date>
         </div>
 
         <div class="col-md-5 form-group" [ngClass]="{'has-error': !formRef.controls['nameOfInstitute'+person.id]?.valid && (instituteNameRef.touched || showError)}">
-          
-          <label [innerHtml]="lang('./en/index.js').instituteName"></label>     
+
+          <label [innerHtml]="lang('./en/index.js').instituteName"></label>
           <input
             type="text"
             class='form-control'
             name="nameOfInstitute{{person.id}}"
             id="nameOfInstitute{{person.id}}"
-            [(ngModel)]=person.nameOfInstitute
+            [(ngModel)]=person.nameOfInstitute (ngModelChange) = "change($event)"
             #instituteNameRef='ngModel'
             required>
 

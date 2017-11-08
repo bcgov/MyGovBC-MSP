@@ -139,7 +139,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
         p.currentActivity = null;
 
         if (p.status !== StatusInCanada.CitizenAdult) {
-            p.institutionWorkHistory = 'No';
+        //    p.institutionWorkHistory = 'No'; DEAM doesnt use it
         }
         this.onChange.emit(value);
     }

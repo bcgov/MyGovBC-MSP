@@ -38,7 +38,6 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
     @ViewChildren(MspOutofBCRecordComponent) outOfBCComponents: QueryList<MspOutofBCRecordComponent>;
     @ViewChildren(MspDischargeDateComponent) dischargeDateComponents: QueryList<MspDischargeDateComponent>;
 
-
     constructor(cd: ChangeDetectorRef) {
         super(cd);
     }
@@ -48,6 +47,7 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
 
     change($event) {
         this.onChange.emit();
+        this.emitIsFormValid();
     }
 
     handleDeleteOutofBCRecord(evt:OutofBCRecord){
@@ -64,7 +64,10 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
         if (lived) {
             this.person.movedFromProvinceOrCountry = "";
             this.person.healthNumberFromOtherProvince ="";
-            this.person.arrivalToBCSimple = null;
+            this.person.arrivalToBCDay = null;
+            this.person.arrivalToBCMonth = null;
+            this.person.arrivalToBCYear = null;
+
             this.person.madePermanentMoveToBC = null;
         }
 
@@ -91,5 +94,14 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
         this.onChange.emit();   //TODO need evt?
     }
 
+    isValid(): boolean {
+
+        if (!this.person.isExistingBeneficiary && this.person.status == StatusInCanada.CitizenAdult && this.person.hasBeenReleasedFromArmedForces ) {
+            if (!this.person.nameOfInstitute || this.person.nameOfInstitute.length <1 ) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }

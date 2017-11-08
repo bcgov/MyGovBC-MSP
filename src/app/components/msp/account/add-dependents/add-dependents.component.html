@@ -24,7 +24,7 @@
   </div>
   <msp-status-in-canada-radio [showError]="showError"
     *ngIf="person.isExistingBeneficiary===false"
-    [person]='person' (onChange)="onChange.emit($event)">
+    [person]='person' (onChange)="change($event)">
   </msp-status-in-canada-radio>  
 
 

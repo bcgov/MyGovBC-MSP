@@ -43,6 +43,7 @@ export class AddDependentComponent extends BaseComponent {
     @ViewChildren(MspDateComponent) dateComponents: QueryList<MspDateComponent>;
 
 
+
     @ViewChild('formRef') form: NgForm;
     @ViewChild('isExistingBeneficiary') toggleComp: MspToggleComponent;
     @ViewChildren(MspToggleComponent) toggleComponents: QueryList<MspToggleComponent>;
@@ -88,17 +89,21 @@ export class AddDependentComponent extends BaseComponent {
         this.onChange.emit();
         this.emitIsFormValid();
     }
+
     change($event) {
         this.onChange.emit();
+        this.emitIsFormValid();
     }
 
     outsideBCchange($event) {
         if ($event) {
-            this.person.schoolAddress.province = "British Columbia";
-            this.person.schoolAddress.country = "Canada";
-        } else {
             this.person.schoolAddress.province = "";
             this.person.schoolAddress.country = "";
+
+        } else {
+             this.person.schoolAddress.province = "British Columbia";
+            this.person.schoolAddress.country = "Canada";
+
         }
 
         this.onChange.emit();
@@ -111,6 +116,17 @@ export class AddDependentComponent extends BaseComponent {
     cancelDependent() {
         this.onCancel.emit();
     }
+
+
+    isValid(): boolean {
+        if (!this.person.isExistingBeneficiary && this.person.status === StatusInCanada.CitizenAdult) {
+            if (this.person.hasBeenReleasedFromArmedForces == null || this.person.hasBeenReleasedFromArmedForces == undefined) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 
 }
