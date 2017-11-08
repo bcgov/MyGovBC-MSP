@@ -107,10 +107,11 @@ class AccountDocumentRules {
         ]);
 
         let genderChange: DocumentGroup = new DocumentGroup("Changing your Gender Designation",[
-            Documents.GenderDesignationAdult,
-            Documents.GenderDesignationMinor,
+
             Documents.CanadianBirthCertificate,
             Documents.CanadianPassport,
+            Documents.GenderDesignationAdult,
+            Documents.GenderDesignationMinor,
             Documents.PhysicianConfirmationForGenderChange,
             Documents.WaiverParentalConsent
         ]);
