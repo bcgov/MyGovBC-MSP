@@ -96,7 +96,7 @@ class AccountDocumentRules {
 
         ]);
 
-        let genderCorrection: DocumentGroup = new DocumentGroup("Update or Correct Gender",[
+        let genderCorrection: DocumentGroup = new DocumentGroup("Correct Gender",[
             Documents.BCDriverLicense,
             Documents.CanadianBirthCertificate,
             Documents.CanadianCitizenCard,
@@ -106,7 +106,7 @@ class AccountDocumentRules {
             Documents.CurrentImigrationDocs
         ]);
 
-        let genderChange: DocumentGroup = new DocumentGroup("Changing your Gender Designation",[
+        let genderChange: DocumentGroup = new DocumentGroup("Change Gender Designation",[
 
             Documents.CanadianBirthCertificate,
             Documents.CanadianPassport,
