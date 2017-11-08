@@ -2,38 +2,42 @@
 the title of the documents differs for account management and others[enrollment and PA].
 instead of using if's , created a new file.
 
+true ==> document with sample.Show sample documents links
+false ==> no samples can be provided. Dont show sample document link
+
  */
 module.exports = {
-  0: 'Canadian birth certificate',
-  1: 'Canadian passport',
-  2: 'Canadian citizenship card or certificate',
-  3: 'Confirmation of Permanent Residence',
-  4: 'Permanent Resident Card (front and back)',
-  5: 'Work permit',
-  6: 'Study permit',
-  7: 'Visitor permit',
-  8: 'Passport with diplomatic foil',
-  9: 'Marriage Certificate',
-  10: 'Legal Name Change Certificate',
-   11:'Divorce Decree',
-    12:'Separation Agreement',
-    13:'Application for Change of Gender Designation (Adult)',
-    14:'Application for Change of Gender Designation (Minor)',
-    15:'Landed Immigration Documents',
-    16:'Permit indicating Religious Worker',
-    17:'Confirmation of your religious server from your religious order ',
-    18:'Foil from your diplomatic passport',
-    19:'Verification of Adoption'
-
-
-
-
+  0: ['Canadian Birth certificate',true],
+  1: ['Canadian Passport',true],
+  2: ['Canadian Citizenship card or certificate',true],
+  3:['Record of Landing',true],
+  4: ['Confirmation of Permanent Residence',true],
+  5: ['Permanent Resident Card (front and back)',true],
+  6: ['Work permit',true],
+  7: ['Study permit',true],
+  8: ['Visitor permit',true],
+  9: ['Passport with diplomatic foil',true],
+  10: ['Marriage Certificate',true],
+  11: ['Certificate of Name Change ',true],
+   12:['Divorce Decree',false],
+    13:['Separation Agreement',false],
+    14:['Application for Change of Gender Designation (Adult)',true],
+    15:['Application for Change of Gender Designation (Minor)',true],
+    16:['Landed Immigration Documents',true],
+    17:['Permit indicating Religious Worker',false],
+    18:['Confirmation of your religious server from your religious order ',false],
+    19:['Foil from your diplomatic passport',false],
+    20:['Verification of Adoption',false],
+    21:['Current Immigration Documents used by Citizenship and Immigration Canada',false],
+    22:['BC Driver’s License',true],
+    23:['Request for Waiver of Parental Consent (Minor) (for under 19 years )',true],
+    24:['Physician’s or Psychologist’s Confirmation of Change of Gender Designation form',true]
 }
 /**
  * Should Match account-documents.ts ID documents
 
  enum Documents {
-    CanadianBirthCertificate,
+      CanadianBirthCertificate,
     CanadianPassport,
     CanadianCitizenCard,
     RecordOfLanding,
@@ -47,12 +51,16 @@ module.exports = {
     //new docs for account management
     DivorceDecree,
     SeparationAgreement,
-    GenderDesignaitonAdult,
-    GenderDesignaitonMinor,
+    GenderDesignationAdult,
+    GenderDesignationMinor,
     LandedImmigrationDocs,
     ReligiousWorkerPermit,
     ReligiousConfirmationOrder,
-    FoilDiplomaticPassport
+    FoilDiplomaticPassport,
+    AdoptionVerification,
+    CurrentImigrationDocs,
+    BCDriverLicense,
+    WaiverParentalConsent
 }
 
 */

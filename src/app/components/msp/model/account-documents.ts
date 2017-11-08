@@ -7,6 +7,7 @@ enum Documents {
     CanadianPassport,
     CanadianCitizenCard,
     RecordOfLanding,
+    ConfirmationOfPR,
     PermanentResidentCard,
     WorkPermit,
     StudyPermit,
@@ -23,7 +24,11 @@ enum Documents {
     ReligiousWorkerPermit,
     ReligiousConfirmationOrder,
     FoilDiplomaticPassport,
-    AdoptionVerification
+    AdoptionVerification,
+    CurrentImigrationDocs,
+    BCDriverLicense,
+    WaiverParentalConsent,
+    PhysicianConfirmationForGenderChange
 }
 
 
@@ -40,14 +45,12 @@ class AccountDocumentRules {
             Documents.CanadianBirthCertificate,
             Documents.CanadianCitizenCard,
             Documents.CanadianPassport,
-            Documents.PermanentResidentCard,
-            Documents.WorkPermit,
-            Documents.StudyPermit,
-            Documents.VisitorVisa,
             Documents.LandedImmigrationDocs,
-            Documents.ReligiousWorkerPermit,
+            Documents.PermanentResidentCard,
+            Documents.StudyPermit,
+            Documents.WorkPermit,
             Documents.ReligiousConfirmationOrder,
-            Documents.FoilDiplomaticPassport,
+            Documents.ReligiousWorkerPermit,
             Documents.AdoptionVerification
 
 
@@ -60,34 +63,56 @@ class AccountDocumentRules {
         
         let updateBirthdate: DocumentGroup = new DocumentGroup("Update or Correct Birthdate",[
             Documents.CanadianBirthCertificate,
-            Documents.CanadianCitizenCard
+            Documents.CanadianCitizenCard,
+            Documents.CanadianPassport,
+            Documents.LandedImmigrationDocs,
+            Documents.PermanentResidentCard,
+            Documents.CurrentImigrationDocs
         ]);
 
         let updateName: DocumentGroup = new DocumentGroup("Update or Correct Name", [
-            Documents.MarriageCertificate,
-            Documents.DivorceDecree,
-            Documents.ChangeOfNameCertificate,
-            Documents.SeparationAgreement,
             Documents.CanadianBirthCertificate,
             Documents.CanadianCitizenCard,
+            Documents.CanadianPassport,
+            Documents.ChangeOfNameCertificate,
+            Documents.LandedImmigrationDocs,
+            Documents.MarriageCertificate,
+            Documents.PermanentResidentCard,
+            Documents.CurrentImigrationDocs,
+            Documents.DivorceDecree,
+            Documents.SeparationAgreement,
+
         ]);
 
         let statusInCanada: DocumentGroup = new DocumentGroup("Update or Confirm Status in Canada",[
-            Documents.CanadianPassport, 
-            Documents.PermanentResidentCard,
-            Documents.WorkPermit,
-            Documents.StudyPermit, 
-            Documents.VisitorVisa,
+            Documents.CanadianPassport,
             Documents.LandedImmigrationDocs,
-            Documents.ReligiousWorkerPermit, 
+            Documents.PermanentResidentCard,
+            Documents.StudyPermit,
+            Documents.WorkPermit,
             Documents.ReligiousConfirmationOrder,
-            Documents.FoilDiplomaticPassport
+            Documents.FoilDiplomaticPassport,
+            Documents.ReligiousWorkerPermit,
+
         ]);
 
-        let gender: DocumentGroup = new DocumentGroup("Update or Correct Gender",[
+        let genderCorrection: DocumentGroup = new DocumentGroup("Update or Correct Gender",[
+            Documents.BCDriverLicense,
             Documents.CanadianBirthCertificate,
+            Documents.CanadianCitizenCard,
+            Documents.CanadianPassport,
+            Documents.LandedImmigrationDocs,
+            Documents.PermanentResidentCard,
+            Documents.CurrentImigrationDocs
+        ]);
+
+        let genderChange: DocumentGroup = new DocumentGroup("Changing your Gender Designation",[
             Documents.GenderDesignationAdult,
-            Documents.GenderDesignationMinor
+            Documents.GenderDesignationMinor,
+            Documents.CanadianBirthCertificate,
+            Documents.CanadianPassport,
+            Documents.PhysicianConfirmationForGenderChange,
+            Documents.WaiverParentalConsent
         ]);
 
         return [
@@ -96,7 +121,8 @@ class AccountDocumentRules {
             updateBirthdate,
             updateName,
             statusInCanada,
-            gender,            
+            genderCorrection,
+            genderChange
         ];
     }
 }

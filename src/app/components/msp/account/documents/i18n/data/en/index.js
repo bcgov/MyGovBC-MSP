@@ -18,6 +18,7 @@ module.exports = {
         'If this is a change to last name due to marriage, and if spouse is already on your MSP account, no documentation is needed.',
         'If you are updating or confirming status in Canada, please include one of the following supporting documentation:',
         'If you are updating or correcting gender, please include one of the following supporting documentation:',
+        'If you are changing your gender designation, please include one or more of the following supporting documentation'
     ],
     continueButton: "Continue",
 }

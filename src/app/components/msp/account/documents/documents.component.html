@@ -13,8 +13,8 @@
             title="{{documents[idx].title}}">
                 <p [innerHtml]="lang('./en/index.js').documentGroupTitle[idx]"></p>
                 <li *ngFor="let document of documents[idx].docs">
-                    {{langAccountDocuments('./en/index.js')[document]}}
-                    <a role="button"
+                    {{langAccountDocuments('./en/index.js')[document][0]}}
+                    <a role="button" *ngIf="langAccountDocuments('./en/index.js')[document][1] == true"
                         aria-haspopup="true"
                         href="javascript:void(0)"
                         (click)="viewIdReqModal(document)"
