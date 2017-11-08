@@ -12,7 +12,7 @@
   <label #firstFocus  for="isExistingBeneficiary-{{person.id}}" [innerHtml]="lang('./en/index.js').isExistingBeneficiaryQuestion[person.relationship]"  class="control-label"></label>
 
 
-  <msp-toggle #isExistingBeneficiary [id]="'isExistingBeneficiary-'+ person.id" (dataChange)="onChange.emit($event)" [(data)]="person.isExistingBeneficiary"></msp-toggle>
+  <msp-toggle #isExistingBeneficiary [id]="'isExistingBeneficiary-'+ person.id" (dataChange)="handleBeneficiaryChange($event)" [(data)]="person.isExistingBeneficiary"></msp-toggle>
 
       <div *ngIf='showError && (person.isExistingBeneficiary === undefined || person.isExistingBeneficiary === null)'
            role="alert" aria-live="assertive">
@@ -143,7 +143,7 @@
 
     <!-- Contains all questions if the user is a new beneficiary. -->
     <msp-add-new-dependent-beneficiary   [showError]='showError'
-      *ngIf="(person.status || person.status === 0)"
+      *ngIf="(!person.isExistingBeneficiary && (person.status || person.status === 0))"
       [person]="person"   (onChange)="change($event)"
     ></msp-add-new-dependent-beneficiary>
 

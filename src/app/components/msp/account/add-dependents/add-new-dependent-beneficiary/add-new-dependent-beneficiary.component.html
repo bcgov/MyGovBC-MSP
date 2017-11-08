@@ -4,7 +4,7 @@
          [ngClass]="{'has-error': showError && (person.livedInBCSinceBirth !== true && person.livedInBCSinceBirth !== false)}"
     >
       <label class="control-label" [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[person.relationship]"></label>
-      <msp-toggle [(data)]="person.livedInBCSinceBirth" (dataChange)="onChange.emit($event)" ></msp-toggle>
+      <msp-toggle [(data)]="person.livedInBCSinceBirth" (dataChange)="setLivedInBCSinceBirth($event)" ></msp-toggle>
 
     </div>
     <ng-container *ngIf="person.livedInBCSinceBirth === false">
@@ -88,7 +88,7 @@
     <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult"  [ngClass]="{'has-error': showError && (person.hasBeenReleasedFromArmedForces === undefined || person.hasBeenReleasedFromArmedForces === null)}">
       <div class="col-md-12">
         <label [innerHtml]="lang('./en/index.js').releasedFromArmedForcesOrInstitution" class="control-label"></label>
-        <msp-toggle [(data)]="person.hasBeenReleasedFromArmedForces" (dataChange)="onChange.emit($event)"></msp-toggle>
+        <msp-toggle [(data)]="person.hasBeenReleasedFromArmedForces" (dataChange)="selectInstitution($event)"></msp-toggle>
       </div>
     </div>
 
@@ -101,7 +101,7 @@
             (monthChange)="person.dischargeMonth = $event"
             [day]="person.dischargeDay"
             (dayChange)="person.dischargeDay = $event"
-            (onChange) = "onChange.emit($event)" 
+            (onChange) = "selectInstitution($event)"
             [showError]="showError"
           ></msp-discharge-date>
         </div>

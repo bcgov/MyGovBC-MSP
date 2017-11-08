@@ -58,7 +58,36 @@ export class AddDependentComponent extends BaseComponent {
         super(cd);
     }
 
+    /*
+    clear following items When the beneficiary is changed from new to existing
 
+     */
+    handleBeneficiaryChange(isExistingBeneficiary:boolean) {
+        this.person.isExistingBeneficiary = isExistingBeneficiary;
+        if (this.person.isExistingBeneficiary) {
+            this.person.status = null;
+            this.person.livedInBCSinceBirth = null;
+            this.person.movedFromProvinceOrCountry = null;
+            this.person.healthNumberFromOtherProvince = null;
+            this.person.madePermanentMoveToBC = null;
+            this.person.newlyAdopted = null ;
+            this.person.adoptedDate = null;
+            this.person.declarationForOutsideOver30Days = null ;
+            this.person.outOfBCRecord = null ;
+            this.person.plannedAbsence = null ;
+            this.person.planOnBeingOutOfBCRecord = null ;
+            this.person.hasBeenReleasedFromArmedForces = null ;
+            this.person.planOnBeingOutOfBCRecord = null ;
+
+            this.person.hasBeenReleasedFromArmedForces =null;
+            this.person.dischargeDay = null;
+            this.person.dischargeMonth = null;
+            this.person.dischargeYear = null;
+            this.person.nameOfInstitute = "";
+        }
+        this.onChange.emit();
+        this.emitIsFormValid();
+    }
     change($event) {
         this.onChange.emit();
     }

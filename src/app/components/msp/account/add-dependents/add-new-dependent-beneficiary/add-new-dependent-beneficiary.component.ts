@@ -52,7 +52,6 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
 
     handleDeleteOutofBCRecord(evt:OutofBCRecord){
         this.person.outOfBCRecord = null;
-        console.log("person in outOfBCRecord"+JSON.stringify( this.person,null,2))
         this.onChange.emit();   //TODO need evt?
     }
 
@@ -60,9 +59,35 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
         this.onChange.emit(); //TODO need evt?
     }
 
+    setLivedInBCSinceBirth(lived:boolean){
+        this.person.livedInBCSinceBirth = lived;
+        if (lived) {
+            this.person.movedFromProvinceOrCountry = "";
+            this.person.healthNumberFromOtherProvince ="";
+            this.person.arrivalToBCSimple = null;
+            this.person.madePermanentMoveToBC = null;
+        }
+
+        this.onChange.emit();
+        this.emitIsFormValid();
+    }
+
+
+    selectInstitution(evt: boolean) {
+        this.person.hasBeenReleasedFromArmedForces = evt;
+        if (evt == false) {
+            this.person.dischargeDay = null;
+            this.person.dischargeMonth = null;
+            this.person.dischargeYear = null;
+            this.person.nameOfInstitute = "";
+        }
+      //  this.cd.detectChanges();
+        this.onChange.emit();
+        this.emitIsFormValid();
+    }
+
     handleDeletePlanOnBeingOutOfBCRecord(evt:OutofBCRecord){
         this.person.planOnBeingOutOfBCRecord = null;
-        console.log("person in planOnBeingOutOfBCRecord"+JSON.stringify( this.person,null,2))
         this.onChange.emit();   //TODO need evt?
     }
 

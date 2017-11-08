@@ -720,7 +720,53 @@ export class MspApiService {
         if (from.isExistingBeneficiary != null) {
             to.isExistingBeneficiary = from.isExistingBeneficiary === true ? "Y" : "N";
         }
-        //Has child lived in B.C. since birth?
+        // only for new beneficiaries ; these fields are used
+        if (from.isExistingBeneficiary == false) {
+            this.populateNewBeneficiaryDetailsForChild(from, to);
+        }
+        // Child 19-24
+        if (from.relationship === Relationship.Child19To24) {
+            if (from.schoolName) {
+                to.schoolName = from.schoolName;
+            }
+
+
+            if (from.hasStudiesDeparture) {
+                to.departDateSchoolOutside = from.studiesDepartureDate.format(this.ISO8601DateFormat);
+            }
+
+            if (from.hasStudiesFinished) {
+                to.dateStudiesFinish = from.studiesFinishedDate.format(this.ISO8601DateFormat);
+            }
+
+            if (from.hasStudiesBegin) {
+                to.dateStudiesBegin = from.studiesBeginDate.format(this.ISO8601DateFormat);
+            }
+
+            //  Departure date if school is outszide BC //TODO
+            /*   to.departDateSchoolOutside = from.departDateSchoolOutside.format(this.ISO8601DateFormat);*/
+
+            // Assemble address string
+            to.schoolAddress = this.convertAddress(from.schoolAddress);
+
+        }
+
+
+        if (from.reasonForCancellation) {
+            to.cancellationReason = from.reasonForCancellation;
+            to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
+        }
+        if (from.knownMailingAddress) {
+            to.mailingAddress = this.convertAddress(from.mailingAddress);
+        }
+
+        return to;
+    }
+        /*
+        common method for spouse and child
+         */
+    private populateNewBeneficiaryDetailsForChild(from: Person, to: AccountChangeChildType) {
+            //Has person lived in B.C. since birth?
         if (from.livedInBCSinceBirth != null) {
             to.livedInBC = LivedInBCTypeFactory.make();
             if (from.livedInBCSinceBirth === true) {
@@ -730,18 +776,21 @@ export class MspApiService {
                 to.livedInBC.hasLivedInBC = "N";
             }
 
-            to.livedInBC.isPermanentMove = from.madePermanentMoveToBC === true ? "Y" : "N";
-            if (from.healthNumberFromOtherProvince) {
-                to.livedInBC.prevHealthNumber = from.healthNumberFromOtherProvince; // out of province health numbers
-            }
+            if (from.livedInBCSinceBirth === false) {
 
-            if (from.movedFromProvinceOrCountry) {
-                to.livedInBC.prevProvinceOrCountry = from.movedFromProvinceOrCountry;
-            }
+                to.livedInBC.isPermanentMove = from.madePermanentMoveToBC === true ? "Y" : "N";
+                if (from.healthNumberFromOtherProvince) {
+                    to.livedInBC.prevHealthNumber = from.healthNumberFromOtherProvince; // out of province health numbers
+                }
 
-            // Arrival dates
-            if (from.hasArrivalToBC) {
-                to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+                if (from.movedFromProvinceOrCountry) {
+                    to.livedInBC.prevProvinceOrCountry = from.movedFromProvinceOrCountry;
+                }
+
+                // Arrival dates
+                if (from.hasArrivalToBC) {
+                    to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+                }
             }
 
         }
@@ -792,46 +841,83 @@ export class MspApiService {
             to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
             to.willBeAway.isFullTimeStudent = "N";
         }
-
-        // Child 19-24
-
-        if (from.relationship === Relationship.Child19To24) {
-            if (from.schoolName) {
-                to.schoolName = from.schoolName;
-            }
-
-
-            if (from.hasStudiesDeparture) {
-                to.departDateSchoolOutside = from.studiesDepartureDate.format(this.ISO8601DateFormat);
-            }
-
-            if (from.hasStudiesFinished) {
-                to.dateStudiesFinish = from.studiesFinishedDate.format(this.ISO8601DateFormat);
-            }
-
-            if (from.hasStudiesBegin) {
-                to.dateStudiesBegin = from.studiesBeginDate.format(this.ISO8601DateFormat);
-            }
-
-            //  Departure date if school is outszide BC //TODO
-            /*   to.departDateSchoolOutside = from.departDateSchoolOutside.format(this.ISO8601DateFormat);*/
-
-            // Assemble address string
-            to.schoolAddress = this.convertAddress(from.schoolAddress);
-
-        }
-
-
-        if (from.reasonForCancellation) {
-            to.cancellationReason = from.reasonForCancellation;
-            to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
-        }
-        if (from.knownMailingAddress) {
-            to.mailingAddress = this.convertAddress(from.mailingAddress);
-        }
-
-        return to;
     }
+
+    private populateNewBeneficiaryDetailsForSpouse(from: Person, to: AccountChangeSpouseType) {
+        //Has person lived in B.C. since birth?
+        if (from.livedInBCSinceBirth != null) {
+            to.livedInBC = LivedInBCTypeFactory.make();
+            if (from.livedInBCSinceBirth === true) {
+                to.livedInBC.hasLivedInBC = "Y";
+            }
+            else {
+                to.livedInBC.hasLivedInBC = "N";
+            }
+
+            if (from.livedInBCSinceBirth === false) {
+
+                to.livedInBC.isPermanentMove = from.madePermanentMoveToBC === true ? "Y" : "N";
+                if (from.healthNumberFromOtherProvince) {
+                    to.livedInBC.prevHealthNumber = from.healthNumberFromOtherProvince; // out of province health numbers
+                }
+
+                if (from.movedFromProvinceOrCountry) {
+                    to.livedInBC.prevProvinceOrCountry = from.movedFromProvinceOrCountry;
+                }
+
+                // Arrival dates
+                if (from.hasArrivalToBC) {
+                    to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+                }
+            }
+
+        }
+
+
+
+        // Has this family member been outside of BC for more than a total of 30 days during the past 12 months?
+        if (from.declarationForOutsideOver30Days != null) {
+            to.outsideBC = OutsideBCTypeFactory.make();
+            to.outsideBC.beenOutsideBCMoreThan = from.declarationForOutsideOver30Days === true ? "Y" : "N";
+            if (from.declarationForOutsideOver30Days) {
+                if (from.outOfBCRecord.hasDeparture) {
+                    to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                }
+                if (from.outOfBCRecord.hasReturn) {
+                    to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                }
+                to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
+                to.outsideBC.destination = from.outOfBCRecord.location;
+            }
+        }
+
+        //  Will this family member be outside of BC for more than a total of 30 days during the next 6 months?
+
+        if (from.plannedAbsence != null) {
+            to.outsideBCinFuture = OutsideBCTypeFactory.make();
+            to.outsideBCinFuture.beenOutsideBCMoreThan = from.plannedAbsence === true ? "Y" : "N";
+            if (from.plannedAbsence) {
+                if (from.planOnBeingOutOfBCRecord.hasDeparture) {
+                    to.outsideBCinFuture.departureDate = from.planOnBeingOutOfBCRecord.departureDate.format(this.ISO8601DateFormat);
+                }
+                if (from.planOnBeingOutOfBCRecord.hasReturn) {
+                    to.outsideBCinFuture.returnDate = from.planOnBeingOutOfBCRecord.returnDate.format(this.ISO8601DateFormat);
+                }
+                to.outsideBCinFuture.familyMemberReason = from.planOnBeingOutOfBCRecord.reason;
+                to.outsideBCinFuture.destination = from.planOnBeingOutOfBCRecord.location;
+            }
+        }
+
+
+        // Have they been released from the Canadian Armed Forces or an Institution?
+        if (from.hasDischarge) {
+            to.willBeAway = WillBeAwayTypeFactory.make();
+            to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
+            to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
+            to.willBeAway.isFullTimeStudent = "N";
+        }
+    }
+
 
     findCitizenShip(statusInCanada: StatusInCanada, currentActivity: Activities): CitizenshipType {
         let citizen: CitizenshipType;
@@ -952,74 +1038,13 @@ export class MspApiService {
         if (from.isExistingBeneficiary != null) {
             to.isExistingBeneficiary = from.isExistingBeneficiary === true ? "Y" : "N";
         }
-        //Has spouse lived in B.C. since birth?
-        if (from.livedInBCSinceBirth != null) {
-            to.livedInBC = LivedInBCTypeFactory.make();
-            if (from.livedInBCSinceBirth === true) {
-                to.livedInBC.hasLivedInBC = "Y";
-            }
-            else {
-                to.livedInBC.hasLivedInBC = "N";
-            }
 
-            to.livedInBC.isPermanentMove = from.madePermanentMoveToBC === true ? "Y" : "N";
-            if (from.healthNumberFromOtherProvince) {
-                to.livedInBC.prevHealthNumber = from.healthNumberFromOtherProvince; // out of province health numbers
-            }
-
-            if (from.movedFromProvinceOrCountry) {
-                to.livedInBC.prevProvinceOrCountry = from.movedFromProvinceOrCountry;
-            }
-
-            // Arrival dates
-            if (from.hasArrivalToBC) {
-                to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
-            }
-
+        if (from.isExistingBeneficiary == false) {
+            this.populateNewBeneficiaryDetailsForSpouse(from, to);
         }
 
-        // Has this family member been outside of BC for more than a total of 30 days during the past 12 months?
 
-        if (from.declarationForOutsideOver30Days != null) {
-            to.outsideBC = OutsideBCTypeFactory.make();
-            to.outsideBC.beenOutsideBCMoreThan = from.declarationForOutsideOver30Days === true ? "Y" : "N";
-            if (from.declarationForOutsideOver30Days) {
-                // No out of CB records if they select No
-                if (from.outOfBCRecord.hasDeparture) {
-                    to.outsideBC.departureDate = from.outOfBCRecord.departureDate.format(this.ISO8601DateFormat);
-                }
-                if (from.outOfBCRecord.hasReturn) {
-                    to.outsideBC.returnDate = from.outOfBCRecord.returnDate.format(this.ISO8601DateFormat);
-                }
-                to.outsideBC.familyMemberReason = from.outOfBCRecord.reason;
-                to.outsideBC.destination = from.outOfBCRecord.location;
-            }
-        }
 
-        //  Will this family member be outside of BC for more than a total of 30 days during the next 6 months?
-
-        if (from.plannedAbsence != null) {
-            to.outsideBCinFuture = OutsideBCTypeFactory.make();
-            to.outsideBCinFuture.beenOutsideBCMoreThan = from.plannedAbsence === true ? "Y" : "N";
-            if (from.plannedAbsence) {
-                if (from.planOnBeingOutOfBCRecord.hasDeparture) {
-                    to.outsideBCinFuture.departureDate = from.planOnBeingOutOfBCRecord.departureDate.format(this.ISO8601DateFormat);
-                }
-                if (from.planOnBeingOutOfBCRecord.hasReturn) {
-                    to.outsideBCinFuture.returnDate = from.planOnBeingOutOfBCRecord.returnDate.format(this.ISO8601DateFormat);
-                }
-                to.outsideBCinFuture.familyMemberReason = from.planOnBeingOutOfBCRecord.reason;
-                to.outsideBCinFuture.destination = from.planOnBeingOutOfBCRecord.location;
-            }
-        }
-
-        // Have they been released from the Canadian Armed Forces or an Institution?
-        if (from.hasDischarge) {
-            to.willBeAway = WillBeAwayTypeFactory.make();
-            to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
-            to.willBeAway.armedForceInstitutionName = from.nameOfInstitute;
-            to.willBeAway.isFullTimeStudent = "N";
-        }
 
         // Removing Spouse
 
