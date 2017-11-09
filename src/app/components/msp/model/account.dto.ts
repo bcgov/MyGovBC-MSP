@@ -20,6 +20,7 @@ export default class MspAccountDto {
     dependentChange: boolean ;
     addressUpdate: boolean ;
     statusUpdate: boolean ;
+    nameChangeDueToMarriage: boolean ;
     documents: MspImage[];
 
 }
