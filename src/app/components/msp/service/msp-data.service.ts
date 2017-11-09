@@ -497,6 +497,7 @@ export  class MspDataService {
         let dto: MspAccountDto = new MspAccountDto();
         dto.addressUpdate = input.accountChangeOptions.addressUpdate ;
         dto.personInfoUpdate = input.accountChangeOptions.personInfoUpdate ;
+        dto.nameChangeDueToMarriage = input.accountChangeOptions.nameChangeDueToMarriage ;
         dto.dependentChange = input.accountChangeOptions.dependentChange ;
         dto.statusUpdate = input.accountChangeOptions.statusUpdate ;
         dto.applicant = this.toPersonDtoForAccount(input.applicant);
@@ -621,6 +622,7 @@ export  class MspDataService {
         output.accountChangeOptions.personInfoUpdate = dto.personInfoUpdate ;
         output.accountChangeOptions.dependentChange = dto.dependentChange ;
         output.accountChangeOptions.statusUpdate = dto.statusUpdate ;
+        output.accountChangeOptions.nameChangeDueToMarriage = dto.nameChangeDueToMarriage;
 
         output.authorizedByApplicant = dto.authorizedByApplicant;
         output.authorizedByApplicantDate = dto.authorizedByApplicantDate;
