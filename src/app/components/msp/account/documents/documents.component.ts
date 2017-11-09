@@ -109,6 +109,9 @@ export class AccountDocumentsComponent extends BaseComponent {
     get isDocsNotNeeded(): boolean {
         let docsNotNeeded: boolean = false;
         if (this.mspAccountApp.accountChangeOptions.nameChangeDueToMarriage) {
+            if (this.mspAccountApp.updatedChildren && this.mspAccountApp.updatedChildren .length>0) {
+                return false;
+            }
             return true;
         }
 
