@@ -4,7 +4,7 @@
     <!--  Account holder info, user fills if they haven't already -->
     <msp-account-personal-details 
         *ngIf="showPersonalInfo"
-        [person]='person' 
+        [person]='person'
         [id]='person.id' 
         (onChange)="onChange()" 
         [showError]="formRef.submitted">
@@ -25,10 +25,21 @@
     <!-- For consistency's sake, removed persons will always be below added persons. -->
     <!--removed spouse -->
     <msp-remove-dependent *ngIf="removedSpouse" [person]="removedSpouse"
-                          [person]="dependent"
                           (onCancel)="clearRemovedSpouse()"
                           (onChange)="onChange()" [showError]="formRef.submitted">
     </msp-remove-dependent>
+
+
+
+
+    <div class="row" *ngIf="showAddressWarning">
+        <div class="col-md-12">
+            <p class="intro text-danger" [innerHTML]="lang('./en/index.js').badAddress"
+               role="alert" aria-live="assertive">
+            </p>
+        </div>
+
+    </div>
 
    <!--Removed Childrens -->
     <msp-remove-dependent *ngFor="let child of removedChildren"
@@ -43,18 +54,18 @@
         </div>
         <div class="panel-body">
             <button class="btn btn-default"  type="button"
-                [disabled]="addedSpouse || canAddOrRemoveDepdents()"
+                [disabled]="addedSpouse || !canAddOrRemoveDepdents()"
                 (click)="addSpouse()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
             </button>
             <button class="btn btn-default" type="button"
-                (click)="addChild(Relationship.ChildUnder19)"  [disabled]="canAddOrRemoveDepdents()">
+                (click)="addChild(Relationship.ChildUnder19)"  [disabled]="!canAddOrRemoveDepdents()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addChildUnder19ButtonSimple"></span>
             </button>
             <button class="btn btn-default" type="button"
-                (click)="addChild(Relationship.Child19To24)"   [disabled]="canAddOrRemoveDepdents()">
+                (click)="addChild(Relationship.Child19To24)"   [disabled]="!canAddOrRemoveDepdents()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
                 <!-- Appears below the button via CSS, but must be in button for accessibility purposes (screen readers). -->
@@ -62,13 +73,13 @@
             </button>
             <hr>
             <button class="btn btn-default" type="button"
-                [disabled]="removedSpouse || canAddOrRemoveDepdents()"
+                [disabled]="removedSpouse || !canRemoveSpouse()"
                 (click)="removeSpouse()" >
                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').removeSpouseButton"></span>
             </button>
             <button class="btn btn-default" type="button"
-                (click)="removeChild()"   [disabled]="canAddOrRemoveDepdents()">
+                (click)="removeChild()"   [disabled]="!canAddOrRemoveDepdents()">
                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').removeDependentButton"></span>
             </button>

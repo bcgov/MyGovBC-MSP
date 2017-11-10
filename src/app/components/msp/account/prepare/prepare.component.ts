@@ -39,7 +39,7 @@ export class AccountPrepareComponent extends BaseComponent {
     @ViewChild('updateStatusInCanadaChkBx') updateStatusInCanadaChkBx: ElementRef;
     @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
     @ViewChild('formRef') form: NgForm;
-    transmissionInProcess:boolean;
+    transmissionInProcess: boolean;
 
     constructor(private cd: ChangeDetectorRef, private logService: MspLogService, private apiService: MspApiService, private dataService: MspDataService, private _processService: ProcessService, private _router: Router) {
         super(cd);
@@ -72,6 +72,8 @@ export class AccountPrepareComponent extends BaseComponent {
         if (this.mspAccountApp.infoCollectionAgreement !== true) {
             return this.mspConsentModal.showFullSizeView();
         }
+
+
         if (this.accountChangeOptions.hasOnlyAddressSelected()) {
             this.transmissionInProcess = true;
             this.mspAccountApp = this.dataService.getFakeAccountChangeApplication();
@@ -84,8 +86,8 @@ export class AccountPrepareComponent extends BaseComponent {
                         name: 'MSP Account Maintenance Address Change Only Request received success confirmation from API server',
                         confirmationNumber: this.mspAccountApp.referenceNumber
                     });
-               //     this.dataService.removeMspAccountApp();
-                   window.location.href =   this.addressChangeBCUrl;
+                    //     this.dataService.removeMspAccountApp();
+                    window.location.href = this.addressChangeBCUrl;
                     return;
                 }).catch((error: ResponseType | any) => {
                 this.logService.log({
@@ -94,19 +96,48 @@ export class AccountPrepareComponent extends BaseComponent {
                     request: error._requestBody
                 });
 
-           //     this.dataService.removeMspAccountApp();
-               window.location.href =this.addressChangeBCUrl;
+                //     this.dataService.removeMspAccountApp();
+                window.location.href = this.addressChangeBCUrl;
                 return;
             });
 
-
-        } else {
-            this.setupProcessStepsFromSelection();
-            this._processService.setStep(0, true);
-            this.dataService.emptyMspProgressBar();
-            this.dataService.saveMspAccountApp();
-            this._router.navigate([this._processService.getNextStep(AccountPrepareComponent.ProcessStepNum)]);
         }
+
+        /*
+              Account holder section is shared between PI update,Status Update and Add/Remove Dependent
+              If some body selects Status update ; the value always persisted even if he goes back and unticks Status Update option and selects a different option
+              Status value shouldnt be sent unless Update status in canada option is selected.
+
+         */
+        if (!this.accountChangeOptions.statusUpdate) {
+            if (this.mspAccountApp.applicant) {
+                this.mspAccountApp.applicant.status = null;
+                this.mspAccountApp.applicant.currentActivity = null;
+            }
+            if (this.mspAccountApp.updatedSpouse) {
+                this.mspAccountApp.updatedSpouse.status = null;
+                this.mspAccountApp.updatedSpouse.currentActivity = null;
+            }
+            if (this.mspAccountApp.updatedChildren){
+
+                this.mspAccountApp.updatedChildren.forEach((child:Person) => {
+                    if (child) {
+                        child.status = null;
+                        child.currentActivity = null;
+                    }
+                });
+
+
+            }
+        }
+
+
+        this.setupProcessStepsFromSelection();
+        this._processService.setStep(0, true);
+        this.dataService.emptyMspProgressBar();
+        this.dataService.saveMspAccountApp();
+        this._router.navigate([this._processService.getNextStep(AccountPrepareComponent.ProcessStepNum)]);
+
 
     }
 

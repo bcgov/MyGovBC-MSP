@@ -986,8 +986,11 @@ export class MspApiService {
             accountHolder.mailingAddress = this.convertAddress(from.applicant.mailingAddress);
         }
 
-        accountHolder.residenceAddress = this.convertAddress(from.applicant.residentialAddress);
-
+        if(from.applicant.residentialAddress && from.applicant.residentialAddress.isValid) {
+            accountHolder.residenceAddress = this.convertAddress(from.applicant.residentialAddress);
+        } else {
+            accountHolder.residenceAddress = this.unknownAddress();
+        }
 
         if (from.phoneNumber) {
             accountHolder.telephone = Number(from.phoneNumber.replace(new RegExp("[^0-9]", "g"), ""));
@@ -1054,6 +1057,8 @@ export class MspApiService {
         }
         if (from.knownMailingAddress) {
             to.mailingAddress = this.convertAddress(from.mailingAddress);
+        } else {
+            to.mailingAddress = this.unknownAddress();
         }
 
         return to;
@@ -1264,6 +1269,12 @@ export class MspApiService {
             }
         }
 
+        return to;
+    }
+
+    private unknownAddress():AddressType {
+        let to = AddressTypeFactory.make();
+        to.addressLine1 = "UNKNOWN" ;
         return to;
     }
 

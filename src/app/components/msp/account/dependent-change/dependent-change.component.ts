@@ -29,7 +29,6 @@ export class AccountDependentChangeComponent extends BaseComponent {
     @ViewChildren(AddDependentComponent) addDepsComponent: QueryList<AddDependentComponent>;
     @ViewChildren(RemoveDependentComponent) removeDepsComponent: QueryList<RemoveDependentComponent>;
 
-
     constructor(private dataService: MspDataService,
                 private _router: Router,
                 private _processService: ProcessService,
@@ -53,15 +52,39 @@ export class AccountDependentChangeComponent extends BaseComponent {
 
     onChange() {
         this.dataService.saveMspAccountApp();
+        this.emitIsFormValid();
+    }
+
+    /**
+     * If applicant address is invalid And user selects 'No' for Known mailing address question of Removed Spouse  ;show this warning
+     * @returns {boolean}
+     */
+    get showAddressWarning(): boolean {
+
+        if (!this.person.residentialAddress.isValid && this.removedSpouse && this.removedSpouse.knownMailingAddress === false) {
+            return true;
+        }
+        return false;
+    }
+
+    /*
+    Except for Removal of Spouse ; All fields should be valid and Resident Address Should also be validated.
+    Resident address validation is done manually since its not includes in the viewChildren
+     */
+    canAddOrRemoveDepdents(): boolean {
+        return this.isAllValid() && this.person.residentialAddress.isValid;
     }
 
     //the buttons will be disabled till all the fields in the form is valid
-    canAddOrRemoveDepdents(): boolean {
-        return !this.isAllValid();
+    canRemoveSpouse(): boolean {
+        return this.isAllValid();
     }
 
     canContinue(): boolean {
-
+        //Address Warning implies Request is missing the Address..So dont proceed
+        if (this.showAddressWarning) {
+            return false;
+        }
         if (this.dataService.getMspAccountApp().hasAnyVisitorInApplication()) {
             return false;
         }
@@ -72,12 +95,25 @@ export class AccountDependentChangeComponent extends BaseComponent {
         return !this.isAllValid() || atleastOneDepedentAddedOrRemoved;
     }
 
+    isValidAddressScenarios():boolean {
+        console.log("isValidAddressScenarios");
+        if(this.addedSpouse || this.addedChildren.length > 0 || this.removedChildren.length > 0 ) {
+            console.log("iside all spouses");
+            return this.person.residentialAddress.isValid ;
+        }
+
+        if(this.removedSpouse) {
+            console.log("iside all removedspose"+ (this.person.residentialAddress.isValid || this.removedSpouse.mailingAddress.isValid));
+            return this.person.residentialAddress.isValid || this.removedSpouse.mailingAddress.isValid ;
+        }
+
+        return this.person.residentialAddress.isValid;
+    }
 
     continue(): void {
-        if (!this.isAllValid()) {
+        if (!this.isAllValid() || !this.isValidAddressScenarios()) {
             console.log('Please fill in all required fields on the form.');
         } else {
-            console.log('redirecting to' + this._processService.getNextStep(this._processService.getStepNumber(ProcessUrls.ACCOUNT_DEPENDENTS_URL)));
             this._router.navigate([this._processService.getNextStep(this._processService.getStepNumber(ProcessUrls.ACCOUNT_DEPENDENTS_URL))]);
         }
 

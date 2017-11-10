@@ -94,7 +94,6 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @ViewChild('name') name: MspNameComponent;
     @ViewChild('phn') phn: MspPhnComponent;
     @ViewChild('phone') phone: MspPhoneComponent;
-    @ViewChild('address') address: MspAddressComponent;
     @ViewChild(MspStatusInCanadaRadioComponent) statusRadioComponents: MspStatusInCanadaRadioComponent;
 
     @Input() person: Person;
@@ -102,6 +101,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @Input() showError: boolean;
     /** Hides the 'Clear Spouse/Child' button, and the <hr> at the end of the component. Useful in layouts where this form must be embedded in a larger form.. */
     @Input() embedded: boolean = false;
+    @Input() addressRequired: boolean = false;
     /** Is the PHN field required? In cases where the dependent is NOT an existing beneficiary, then PHN is optional, and may not be known. */
     @Input() requirePHN: boolean = true;
     @Output() notifyChildRemoval: EventEmitter<Person> = new EventEmitter<Person>();
@@ -159,8 +159,9 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     }
 
     handleAddressUpdate(evt: any) {
-        // console.log('address update event: %o', evt);
         this.dataService.saveMspAccountApp();
+        this.emitIsFormValid();
+        this.onChange.emit();
     }
 
 
@@ -215,6 +216,12 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
 
 
     isValid(): boolean {
+        if (this.addressRequired) {
+            if (!this.person.residentialAddress || !this.person.residentialAddress.isValid ) {
+                console.log("address validation failed.If u think this is an error , check the addressRequired flag")
+                return false;
+            }
+        }
         return true;
     }
 }
