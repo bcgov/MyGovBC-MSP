@@ -99,8 +99,22 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @Input() person: Person;
     @Input() id: string;
     @Input() showError: boolean;
+
+    /**
+     * Field is generally True.Set it false in special scenarios where address field is optional and need not to show highlighted. 'Removal of spouse' address field is not mandatory where other fields are mandatory.
+     *
+     */
+    @Input() showErrorAddress: boolean = true;
+
+
     /** Hides the 'Clear Spouse/Child' button, and the <hr> at the end of the component. Useful in layouts where this form must be embedded in a larger form.. */
     @Input() embedded: boolean = false;
+
+    /**
+     *
+     * In add/remove screen , address field is not mandatory. To handle , this field is introduced.
+     * This field is set to true in PI update Personal information Page only.Evverywhere else its optional
+     */
     @Input() addressRequired: boolean = false;
     /** Is the PHN field required? In cases where the dependent is NOT an existing beneficiary, then PHN is optional, and may not be known. */
     @Input() requirePHN: boolean = true;

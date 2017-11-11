@@ -70,7 +70,7 @@
             <h2 [innerHTML]="lang('./en/index.js').residentialAddressTitle"></h2>
             <h4 [innerHTML]="mspAccountApp.accountChangeOptions.personInfoUpdate ? lang('./en/index.js').residentialAddressSubTitleForPI:lang('./en/index.js').residentialAddressSubTitleNoPI"></h4>
 
-            <msp-address #address *ngIf="person.relationship === 0" [showError]="showError"
+            <msp-address #address *ngIf="person.relationship === 0" [showError]="showError && showErrorAddress"
                          [residentialAddress]="person.residentialAddress"
                          [mailingAddress]="person.mailingAddress"
                          [mailingSameAsResidentialAddress]="person.mailingSameAsResidentialAddress"
