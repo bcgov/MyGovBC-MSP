@@ -101,7 +101,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @Input() showError: boolean;
 
     /**
-     * Field is generally True.Set it false in special scenarios where address field is optional and need not to show highlighted. 'Removal of spouse' address field is not mandatory where other fields are mandatory.
+     * Field is generally True.Set it false in special scenarios where showError is true but the address field need not to be highighted. .Use this field to overrider showError.  For example:'Removal of spouse' address field is not mandatory where other fields are mandatory.
      *
      */
     @Input() showErrorAddress: boolean = true;

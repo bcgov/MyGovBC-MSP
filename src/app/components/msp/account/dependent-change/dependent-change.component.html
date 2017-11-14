@@ -1,13 +1,13 @@
 <form #formRef="ngForm" novalidate>
     <h1 class='page-title' [innerHTML]="lang('./en/index.js').pageTitle"></h1>
-    
+
     <!--  Account holder info, user fills if they haven't already -->
     <msp-account-personal-details 
         *ngIf="showPersonalInfo"
         [person]='person'
         [id]='person.id' 
         (onChange)="onChange()" 
-        [showError]="formRef.submitted">
+        [showError]="formRef.submitted || showError" [showErrorAddress]="showErrorAddress" >
     </msp-account-personal-details>
     <!-- Added Spouse -->
     <msp-add-dependent *ngIf="addedSpouse" [person]="addedSpouse"
@@ -46,7 +46,16 @@
         [person]="child"
         (onCancel)="clearRemovedChild(child)"
         (onChange)="onChange()" [showError]="formRef.submitted">
-    </msp-remove-dependent> 
+    </msp-remove-dependent>
+
+    <div class="row"  *ngIf="showMandatoryFieldsWarning">
+        <div class="col-md-12">
+            <p class="intro text-danger" [innerHTML]="lang('./en/index.js').fillEverything"
+               role="alert" aria-live="assertive">
+            </p>
+        </div>
+
+    </div>
 
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -54,18 +63,18 @@
         </div>
         <div class="panel-body">
             <button class="btn btn-default"  type="button"
-                [disabled]="addedSpouse || !canAddOrRemoveDepdents()"
+                [disabled]="addedSpouse"
                 (click)="addSpouse()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
             </button>
             <button class="btn btn-default" type="button"
-                (click)="addChild(Relationship.ChildUnder19)"  [disabled]="!canAddOrRemoveDepdents()">
+                (click)="addChild(Relationship.ChildUnder19)" >
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addChildUnder19ButtonSimple"></span>
             </button>
             <button class="btn btn-default" type="button"
-                (click)="addChild(Relationship.Child19To24)"   [disabled]="!canAddOrRemoveDepdents()">
+                (click)="addChild(Relationship.Child19To24)" >
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
                 <!-- Appears below the button via CSS, but must be in button for accessibility purposes (screen readers). -->
@@ -73,13 +82,13 @@
             </button>
             <hr>
             <button class="btn btn-default" type="button"
-                [disabled]="removedSpouse || !canRemoveSpouse()"
+                [disabled]="removedSpouse"
                 (click)="removeSpouse()" >
                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').removeSpouseButton"></span>
             </button>
             <button class="btn btn-default" type="button"
-                (click)="removeChild()"   [disabled]="!canAddOrRemoveDepdents()">
+                (click)="removeChild()">
                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').removeDependentButton"></span>
             </button>

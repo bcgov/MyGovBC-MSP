@@ -388,7 +388,7 @@ export class MspApiService {
          *  send add/remove only if depdent option is selected
          *
          *  The same login shhould in be in review screen as well
-        */
+         */
         if ((from.accountChangeOptions.statusUpdate || from.accountChangeOptions.personInfoUpdate) && from.updatedSpouse) {
             to.application.accountChangeApplication.spouses.updatedSpouse = this.convertSpouseFromAccountChange(from.updatedSpouse);
 
@@ -762,11 +762,12 @@ export class MspApiService {
 
         return to;
     }
-        /*
-        common method for spouse and child
-         */
+
+    /*
+    common method for spouse and child
+     */
     private populateNewBeneficiaryDetailsForChild(from: Person, to: AccountChangeChildType) {
-            //Has person lived in B.C. since birth?
+        //Has person lived in B.C. since birth?
         if (from.livedInBCSinceBirth != null) {
             to.livedInBC = LivedInBCTypeFactory.make();
             if (from.livedInBCSinceBirth === true) {
@@ -872,7 +873,6 @@ export class MspApiService {
             }
 
         }
-
 
 
         // Has this family member been outside of BC for more than a total of 30 days during the past 12 months?
@@ -986,7 +986,7 @@ export class MspApiService {
             accountHolder.mailingAddress = this.convertAddress(from.applicant.mailingAddress);
         }
 
-        if(from.applicant.residentialAddress && from.applicant.residentialAddress.isValid) {
+        if (from.applicant.residentialAddress && from.applicant.residentialAddress.isValid) {
             accountHolder.residenceAddress = this.convertAddress(from.applicant.residentialAddress);
         } else {
             accountHolder.residenceAddress = this.unknownAddress();
@@ -1047,17 +1047,15 @@ export class MspApiService {
         }
 
 
-
-
         // Removing Spouse
 
         if (from.reasonForCancellation) {
             to.cancellationReason = from.reasonForCancellation;
             to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
         }
-        if (from.knownMailingAddress) {
+        if (from.knownMailingAddress === true ) {
             to.mailingAddress = this.convertAddress(from.mailingAddress);
-        } else {
+        } else if (from.knownMailingAddress === false) {
             to.mailingAddress = this.unknownAddress();
         }
 
@@ -1272,9 +1270,15 @@ export class MspApiService {
         return to;
     }
 
-    private unknownAddress():AddressType {
+    private unknownAddress(): AddressType {
         let to = AddressTypeFactory.make();
-        to.addressLine1 = "UNKNOWN" ;
+        to.addressLine1 = "UNKNOWN";
+        to.addressLine2 = "";
+        to.addressLine3 = "";
+        to.city = "";
+        to.provinceOrState = "";
+        to.postalCode = ""
+
         return to;
     }
 
