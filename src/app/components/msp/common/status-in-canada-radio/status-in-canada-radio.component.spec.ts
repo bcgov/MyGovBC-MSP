@@ -55,6 +55,21 @@ describe("StatusInCanadaRadioComponent", () => {
         expect(comp.isValid()).toBeTruthy();
     });
 
+    it("should be invalid when a temporary status is set without an activity", () => {
+        let applicant = new Person(Relationship.Applicant);
+        comp.person = applicant;
+        comp.setStatus(StatusInCanada.TemporaryResident, applicant);
+        expect(comp.isValid()).toBeFalsy();
+    });
+
+    it("should be valid when a temporary status is set with an activity", () => {
+        let applicant = new Person(Relationship.Applicant);
+        comp.person = applicant;
+        comp.setStatus(StatusInCanada.TemporaryResident, applicant);
+        comp.setActivity(Activities.StudyingInBC);
+        expect(comp.isValid()).toBeTruthy();
+    });
+
     it("should be able to go from invalid to valid", () => {
         let applicant = new Person(Relationship.Applicant);
         comp.person = applicant;
