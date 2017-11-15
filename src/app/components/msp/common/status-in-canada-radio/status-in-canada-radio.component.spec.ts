@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { FormsModule } from '@angular/forms';
 import { StatusInCanada } from "../../model/status-activities-documents";
 import { Person } from "../../model/person.model";
 import { Activities, Relationship } from "../../model/status-activities-documents";
@@ -19,6 +20,7 @@ describe("StatusInCanadaRadioComponent", () => {
         TestBed.configureTestingModule({
             declarations: [ MspStatusInCanadaRadioComponent ],
             schemas: [ NO_ERRORS_SCHEMA ],
+            imports: [ FormsModule ],
             providers: [
                 { provide: StatusInCanada, useValue: statusInCanadaStub },
                 { provide: Person, useValue: personStub }

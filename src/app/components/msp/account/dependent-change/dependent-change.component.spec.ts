@@ -39,15 +39,25 @@ describe("AccountDependentChangeComponent", () => {
               })]
         });
         fixture = TestBed.createComponent(AccountDependentChangeComponent);
+
+
         comp = fixture.componentInstance;
+        /**
+         * Enables testing of methods without having applicant address or page
+         * validation passing.
+         * 
+         * TODO - Remove this override and have validation passing.
+         */
+        comp.canAddOrRemoveDepdents = () => true;
     });
 
     it("can load instance", () => {
         expect(comp).toBeTruthy();
     });
 
-    it("addedPersons defaults to: []", () => {
-        expect(comp.addedPersons).toEqual([]);
+    it("addedChildren/removedChildren defaults to: []", () => {
+        expect(comp.addedChildren).toEqual([]);
+        expect(comp.removedChildren).toEqual([]);
     });
 
     describe("onChange", () => {
@@ -61,25 +71,25 @@ describe("AccountDependentChangeComponent", () => {
 
     it("can add a spouse", () => {
         comp.addSpouse();
-        expect(comp.spouse).toBeDefined();
+        expect(comp.addedSpouse).toBeDefined();
     });
 
     it("can clear an added spouse", () => {
         comp.addSpouse();
-        expect(comp.spouse).toBeDefined();
-        let sp = comp.spouse;
-        comp.clearDependent(sp);
-        expect(comp.spouse).toBeNull();
+        expect(comp.addedSpouse).toBeDefined();
+        let sp = comp.addedSpouse;
+        comp.clearAddedSpouse();
+        expect(comp.addedSpouse).toBeNull();
     });
 
     it("can add a child and clear them", () => {
         comp.addChild(Relationship.ChildUnder19);
-        expect(comp.children.length).toBe(1);
+        expect(comp.addedChildren.length).toBe(1);
         comp.addChild(Relationship.Child19To24);
-        expect(comp.children.length).toBe(2);
-        comp.clearDependent(comp.children[0]);
-        comp.clearDependent(comp.children[0]); //second child, as indexes are reset
-        expect(comp.children.length).toBe(0);        
+        expect(comp.addedChildren.length).toBe(2);
+        comp.clearAddedChild(comp.addedChildren[0]);
+        comp.clearAddedChild(comp.addedChildren[0]); //second child, as indexes are reset
+        expect(comp.addedChildren.length).toBe(0);        
     });
 
 });
