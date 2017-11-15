@@ -8,51 +8,107 @@ import { ProcessService } from "../../service/process.service";
 import { LocalStorageModule } from "angular-2-local-storage";
 import { Relationship } from "../../model/status-activities-documents";
 import { AccountDependentChangeComponent } from "./dependent-change.component";
-
-
-
-
+import { Person } from '../../model/person.model';
+import { Address } from '../../model/address.model';
 import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
 import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
+
+import { RouterTestingModule } from "@angular/router/testing";
+import { MspLoggerDirective } from "../../common/logging/msp-logger.directive";
+import { AddDependentComponent } from '../add-dependents/add-dependents.component';
+import { AddNewDependentBeneficiaryComponent } from '../add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component'
+import { RemoveDependentComponent } from '../remove-dependents/remove-dependents.component';
+import { AccountPersonalDetailsComponent } from '../personal-info/personal-details/personal-details.component'
+import { MspCancelComponent } from "../../common/cancel/cancel.component";
+import { MspAddressComponent } from "../../common/address/address.component";
+import { MspDateComponent } from "../../common/date/date.component";
+import { MspToggleComponent } from "../../common/toggle/toggle.component";
+import { MspStatusInCanadaRadioComponent } from '../../common/status-in-canada-radio/status-in-canada-radio.component';
+import { MspNameComponent } from '../../common/name/name.component';
+import { MspGenderComponent } from '../../common/gender/gender.component';
+import { MspPhoneComponent } from '../../common/phone/phone.component';
+import { MspBirthDateComponent } from '../../common/birthdate/birthdate.component';
+import { MspProvinceComponent } from '../../common/province/province.component';
+import { MspCountryComponent } from '../../common/country/country.component';
+import { MspPhnComponent } from '../../common/phn/phn.component';
+import { Ng2BootstrapModule } from "ngx-bootstrap";
+import { CalendarYearValidator } from '../../common/calendar/calendar-year.validator';
+import { CalendarMonthValidator } from '../../common/calendar/calendar-month.validator';
+import { CalendarDayValidator } from '../../common/calendar/calendar-day.validator';
+import { CalendarYearFormatter } from '../../common/calendar/calendar-year-formatter.component';
+import { MspDischargeDateComponent } from "../../common/discharge-date/discharge-date.component";
+import { MspDepartureDateComponent } from "../../common/departure-date/departure-date.component";
+import { MspReturnDateComponent } from "../../common/return-date/return-date.component";
+import { MspOutofBCRecordComponent } from '../../common/outof-bc/outof-bc.component';
+import { Mod11CheckValidator } from "../../common/phn/phn.validator";
+import { Ng2CompleterModule } from "ng2-completer";
+
+import { MspLogService } from '../../service/log.service';
+import { async } from '@angular/core/testing';
+import { CompletenessCheckService } from '../../service/completeness-check.service';
+import { MspValidationService} from '../../service/msp-validation.service';
+
 
 describe("AccountDependentChangeComponent", () => {
     let comp: AccountDependentChangeComponent;
     let fixture: ComponentFixture<AccountDependentChangeComponent>;
 
-    beforeEach(() => {
-        const changeDetectorRefStub = {};
-        const routerStub = {};
-        const processServiceStub = {};
+
+    beforeEach(async(() => {
+        const processServiceStub = {
+            getStepNumber: () => 3,
+            setStep: () => {},
+        };
+
         TestBed.configureTestingModule({
-            declarations: [ AccountDependentChangeComponent, CaptchaComponent ],
-            schemas: [ NO_ERRORS_SCHEMA ],
+            declarations: [AccountDependentChangeComponent, CaptchaComponent, AddDependentComponent, RemoveDependentComponent, AccountPersonalDetailsComponent, MspLoggerDirective, MspCancelComponent, MspAddressComponent, MspToggleComponent, MspDateComponent, AddNewDependentBeneficiaryComponent, MspStatusInCanadaRadioComponent, MspNameComponent, MspGenderComponent, MspBirthDateComponent, MspPhnComponent, MspPhoneComponent, MspProvinceComponent, MspCountryComponent, CalendarYearValidator, CalendarMonthValidator, CalendarDayValidator, CalendarYearFormatter, MspDischargeDateComponent, MspOutofBCRecordComponent, Mod11CheckValidator, MspReturnDateComponent, MspDepartureDateComponent],
             providers: [
-                { provide: ChangeDetectorRef, useValue: changeDetectorRefStub },
                 MspDataService,
-                { provide: Router, useValue: routerStub },
                 { provide: ProcessService, useValue: processServiceStub },
-                CaptchaDataService
+                CaptchaDataService,
+                MspLogService,
+                CompletenessCheckService,
+                MspValidationService
             ],
-            imports: [FormsModule, LocalStorageModule.withConfig({
+            imports: [FormsModule, 
+                LocalStorageModule.withConfig({
                 prefix: 'ca.bc.gov.msp',
                 storageType: 'sessionStorage'
-              })]
-        });
+            }), 
+            RouterTestingModule, Ng2BootstrapModule.forRoot(), Ng2CompleterModule]
+        })
+        .compileComponents();
+    
+    
+    }));
+
+    beforeEach(() => {
         fixture = TestBed.createComponent(AccountDependentChangeComponent);
-
-
         comp = fixture.componentInstance;
-        /**
-         * Enables testing of methods without having applicant address or page
-         * validation passing.
-         * 
-         * TODO - Remove this override and have validation passing.
-         */
-        comp.canAddOrRemoveDepdents = () => true;
+
+        //Pass address validation, necessary to use component methods.
+        let applicant = new Person(Relationship.Applicant);
+        applicant.residentialAddress.addressLine1 = "123 Main Street";
+        applicant.residentialAddress.city = "Victoria";
+        applicant.residentialAddress.province = "British Columbia";
+        applicant.residentialAddress.postal = "V8R 2N9";
+        applicant.residentialAddress.country = "Canada"
+        //Attach to data store, which component uses.
+        let dataService = TestBed.get(MspDataService);
+        dataService.getMspAccountApp().applicant = applicant;
+        fixture.detectChanges();
     });
+
 
     it("can load instance", () => {
         expect(comp).toBeTruthy();
+    });
+
+    it("cannot add or remove dependents before passing validation", () => {
+        // Undo the setup done in the beforeEach().
+        TestBed.get(MspDataService).getMspAccountApp().applicant.residentialAddress = new Address();
+        fixture.detectChanges();
+        expect(comp.canAddOrRemoveDepdents()).toBe(false);
     });
 
     it("addedChildren/removedChildren defaults to: []", () => {

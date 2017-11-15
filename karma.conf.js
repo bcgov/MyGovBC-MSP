@@ -36,9 +36,10 @@ module.exports = function (config) {
                 ? ['progress', 'coverage-istanbul']
                 // : ['progress', 'kjhtml'],
                 : ['spec', 'kjhtml'],
-      specReporters : {
-        maxLogLines: 5,         // limit number of lines logged per test
-        showSpecTiming: true // print the time elapsed for each spec
+      specReporter: {
+        suppressSkipped: true,      // do not print information about skipped tests
+        showSpecTiming: true,      // print the time elapsed for each spec
+        failFast: true              // test would finish with error when a first fail occurs. 
       },
   
       port: 9876,
@@ -46,7 +47,13 @@ module.exports = function (config) {
       logLevel: config.LOG_INFO,
       autoWatch: true,
       browsers: ['ChromeHeadless'],
-      singleRun: false
+      singleRun: false,
+
+      /** * maximum number of tries a browser will attempt in the case of a disconnection */ 
+      browserDisconnectTolerance: 3,
+      /** * How long will Karma wait for a message from a browser before disconnecting from it (in ms). */
+      browserNoActivityTimeout: 30000,
+
     });
   };
   
