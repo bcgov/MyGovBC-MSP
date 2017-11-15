@@ -67,37 +67,44 @@ export class AccountDependentChangeComponent extends BaseComponent {
      * If applicant address is invalid And user selects 'No' for Known mailing address question of Removed Spouse  ;show this warning
      * @returns {boolean}
      */
-    get showAddressWarning(): boolean {
+    get showAddressWarningForChild(): boolean {
 
-        if (this.addedSpouse || this.addedChildren.length > 0 || this.removedChildren.length > 0) {
+        if (this.addedSpouse || this.addedChildren.length > 0 || this.person.residentialAddress.isValid) {
             return false;
         }
 
-        if (!this.person.residentialAddress.isValid && this.removedSpouse && this.removedSpouse.knownMailingAddress === false) {
-            return true;
+        return this.removedChildren.filter(child => child.knownMailingAddress == false).length > 0
+
+
+    }
+
+    get showAddressWarningForSpouse(): boolean {
+
+        if (this.addedSpouse || this.addedChildren.length > 0 || this.person.residentialAddress.isValid) {
+            return false;
         }
-        return false;
+
+        return this.removedSpouse && this.removedSpouse.knownMailingAddress === false;
+
     }
 
     /*
     Except for Removal of Spouse ; All fields should be valid and Resident Address Should also be validated.
     Resident address validation is done manually since its not includes in the viewChildren
      */
-    canAddOrRemoveDepdents(): boolean {
+    canAddDepdents(): boolean {
         let canAdd: boolean = this.isAllValid() && this.person.residentialAddress.isValid;
         this.showError = !canAdd;
         this.showErrorAddress = true;
         this.showMandatoryFieldsWarning = this.showError;
-        //    this.cd.detectChanges();
         return canAdd;
     }
 
-    //the buttons will be disabled till all the fields in the form is valid
-    canRemoveSpouse(): boolean {
+//the buttons will be disabled till all the fields in the form is valid
+    canRemoveDependents(): boolean {
         let canAdd: boolean = this.isAllValid();
         this.showError = !canAdd;
         this.showMandatoryFieldsWarning = !canAdd;
-        ;
         this.showErrorAddress = false;
 
         return canAdd;
@@ -105,7 +112,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
 
     canContinue(): boolean {
         //Address Warning implies Request is missing the Address..So dont proceed
-        if (this.showAddressWarning) {
+        if (this.showAddressWarningForSpouse || this.showAddressWarningForChild) {
             return false;
         }
         if (this.dataService.getMspAccountApp().hasAnyVisitorInApplication()) {
@@ -118,20 +125,10 @@ export class AccountDependentChangeComponent extends BaseComponent {
         return !this.isAllValid() || atleastOneDepedentAddedOrRemoved;
     }
 
-    isValidAddressScenarios(): boolean {
-        if (this.addedSpouse || this.addedChildren.length > 0 || this.removedChildren.length > 0) {
-            return this.person.residentialAddress.isValid;
-        }
 
-        if (this.removedSpouse) {
-            return this.person.residentialAddress.isValid || this.removedSpouse.mailingAddress.isValid;
-        }
-
-        return this.person.residentialAddress.isValid;
-    }
 
     continue(): void {
-        if (!this.isAllValid() || !this.isValidAddressScenarios()) {
+        if (!this.isAllValid() || this.showAddressWarningForSpouse || this.showAddressWarningForChild ) {
             console.log('Please fill in all required fields on the form.');
         } else {
             this._router.navigate([this._processService.getNextStep(this._processService.getStepNumber(ProcessUrls.ACCOUNT_DEPENDENTS_URL))]);
@@ -142,7 +139,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
     /** Add a spouse to the account. */
     addSpouse() {
 
-        if (this.canAddOrRemoveDepdents()) {
+        if (this.canAddDepdents()) {
             const sp = new Person(Relationship.Spouse);
             // this.addedPersons.push(sp);
             this.addedSpouse = sp;
@@ -154,7 +151,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
     /** Add a child to the account */
     addChild(relationship: Relationship) {
 
-        if (this.canAddOrRemoveDepdents()) {
+        if (this.canAddDepdents()) {
             const child = new Person(relationship, OperationActionType.Add);
             this.addedChildren.push(child);
 
@@ -195,7 +192,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
      */
     removeSpouse() {
 
-        if (this.canRemoveSpouse()) {
+        if (this.canRemoveDependents()) {
             const sp = new Person(Relationship.Spouse);
             //By default these are "British Columbia" and "Canada", but we don't want form fields pre-populated here as it isn't specified in the FDS.
             sp.residentialAddress.province = null;
@@ -215,7 +212,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
      */
     removeChild() {
 
-        if (this.canAddOrRemoveDepdents()) {
+        if (this.canRemoveDependents()) {
             const child = new Person(Relationship.ChildUnder24, OperationActionType.Remove);
             //By default these are "British Columbia" and "Canada", but we don't want form fields pre-populated here as it isn't specified in the FDS.
             child.residentialAddress.province = null;

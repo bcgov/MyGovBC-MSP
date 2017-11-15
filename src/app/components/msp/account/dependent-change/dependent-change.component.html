@@ -31,10 +31,9 @@
 
 
 
-
-    <div class="row" *ngIf="showAddressWarning">
+    <div class="row" *ngIf="showAddressWarningForSpouse">
         <div class="col-md-12">
-            <p class="intro text-danger" [innerHTML]="lang('./en/index.js').badAddress"
+            <p class="intro text-danger" [innerHTML]="lang('./en/index.js').badAddressForSpouse"
                role="alert" aria-live="assertive">
             </p>
         </div>
@@ -47,6 +46,16 @@
         (onCancel)="clearRemovedChild(child)"
         (onChange)="onChange()" [showError]="formRef.submitted">
     </msp-remove-dependent>
+
+
+    <div class="row" *ngIf="showAddressWarningForChild">
+        <div class="col-md-12">
+            <p class="intro text-danger" [innerHTML]="lang('./en/index.js').badAddressForChild"
+               role="alert" aria-live="assertive">
+            </p>
+        </div>
+
+    </div>
 
     <div class="row"  *ngIf="showMandatoryFieldsWarning">
         <div class="col-md-12">

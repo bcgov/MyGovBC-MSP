@@ -756,9 +756,14 @@ export class MspApiService {
             to.cancellationReason = from.reasonForCancellation;
             to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
         }
-        if (from.knownMailingAddress) {
+
+        if (from.knownMailingAddress === true ) {
             to.mailingAddress = this.convertAddress(from.mailingAddress);
+        } else if (from.knownMailingAddress === false) {
+            to.mailingAddress = this.unknownAddress();
         }
+
+
 
         return to;
     }

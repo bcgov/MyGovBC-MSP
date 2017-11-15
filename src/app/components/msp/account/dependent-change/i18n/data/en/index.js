@@ -12,6 +12,7 @@ module.exports = {
     badAnswerStudies: 'To qualify for provincial health care benefits a person must be a resident of BC. As you intend to leave BC when your studies are completed, you are not eligible for MSP coverage. Please contact the health care plan in your home province for information about medical coverage while studying in BC.',
     continueButton: "Continue",
     mustBeFullTimeStudent: 'Must be a full time student',
-    badAddress: 'At least one address must be provided to submit your MSP account change request. Please provide the address of the Account Holder or spouse.',
+    badAddressForSpouse: 'At least one address must be provided to submit your MSP account change request. Please provide the address of the Account Holder or spouse.',
+    badAddressForChild: 'At least one address must be provided to submit your MSP account change request. Please provide the address of the Account Holder or child(ren).',
     fillEverything: 'Please complete the highlighted fields in the form to proceed'
 }
