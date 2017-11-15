@@ -19,3 +19,4 @@ DEBUG.ts
 documentation/
 .vscode/
 *.sh
+.scannerwork/
