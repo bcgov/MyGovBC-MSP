@@ -13,6 +13,6 @@ module.exports = {
     continueButton: "Continue",
     mustBeFullTimeStudent: 'Must be a full time student',
     badAddressForSpouse: 'At least one address must be provided to submit your MSP account change request. Please provide the address of the Account Holder or spouse.',
-    badAddressForChild: 'At least one address must be provided to submit your MSP account change request. Please provide the address of the Account Holder or child(ren).',
+    badAddressForChild: 'At least one address must be provided to submit your MSP account change request. Please provide the address of the Account Holder or child.',
     fillEverything: 'Please complete the highlighted fields in the form to proceed'
 }
