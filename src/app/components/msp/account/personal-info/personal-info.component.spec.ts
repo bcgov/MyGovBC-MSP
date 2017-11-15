@@ -10,7 +10,7 @@ import { ProcessService } from "../../service/process.service";
 import { async } from '@angular/core/testing';
 import { StatusInCanada, Activities } from '../../model/status-activities-documents';
 
-fdescribe('AccountPersonalInfoComponent', () => {
+describe('AccountPersonalInfoComponent', () => {
     let fixture: ComponentFixture<AccountPersonalInfoComponent>;
     let comp: AccountPersonalInfoComponent;
 
@@ -58,6 +58,20 @@ fdescribe('AccountPersonalInfoComponent', () => {
         mspAccountApp.updatedSpouse.currentActivity =  Activities.Visiting;
         fixture.detectChanges();
         expect(comp.hasAnyInvalidStatus()).toBe(true, "added spouse is just visiting so hasAnyInvalidStatus should be true");
+    });
+
+    it('should be able to add and remove a spouse', () => {
+        expect(comp.hasAnyInvalidStatus()).toBe(false, 'should have hasAnyInvalidStatus false on init');
+
+        let mspAccountApp =  TestBed.get(MspDataService).getMspAccountApp();
+        mspAccountApp.accountChangeOptions.statusUpdate = true;
+        comp.addUpdateSpouse();
+        mspAccountApp.updatedSpouse.status = StatusInCanada.TemporaryResident;
+        mspAccountApp.updatedSpouse.currentActivity =  Activities.Visiting;
+        expect(comp.hasAnyInvalidStatus()).toBe(true, 'should have hasAnyInvalidStatus true after adding new spouse');
+        comp.removeSpouse();
+
+        expect(comp.hasAnyInvalidStatus()).toBe(false, 'should have hasAnyInvalidStatus false after removing spouse');
     });
 
 })
