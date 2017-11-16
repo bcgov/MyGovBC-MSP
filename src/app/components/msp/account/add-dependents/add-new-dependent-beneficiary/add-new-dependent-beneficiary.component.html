@@ -31,7 +31,7 @@
         </div>
         <div class="col-md-4">
             <label for="healthNumberFromOtherProvince" [innerHtml]="lang('./en/index.js').medicalPlanPreviousResidence"></label>
-            <input type="text" class='form-control' name="healthNumberFromOtherProvince" [(ngModel)]=person.healthNumberFromOtherProvince>
+            <input type="text" class='form-control'   maxlength="50" name="healthNumberFromOtherProvince" [(ngModel)]=person.healthNumberFromOtherProvince>
           </div>
       </div>
       <div class="row form-group" [ngClass]="{'has-error': showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)}">
