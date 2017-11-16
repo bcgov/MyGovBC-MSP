@@ -108,7 +108,8 @@ describe("AccountDependentChangeComponent", () => {
         // Undo the setup done in the beforeEach().
         TestBed.get(MspDataService).getMspAccountApp().applicant.residentialAddress = new Address();
         fixture.detectChanges();
-        expect(comp.canAddOrRemoveDepdents()).toBe(false);
+        expect(comp.canAddDepdents()).toBe(false);
+        expect(comp.canRemoveDependents()).toBe(false);
     });
 
     it("addedChildren/removedChildren defaults to: []", () => {

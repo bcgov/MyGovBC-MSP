@@ -1,0 +1,23 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        // "tslint:recommended",
+        // "tslint-microsoft-contrib"
+    ],
+    // "extends": ["tslint-microsoft-contrib"],
+    "jsRules": {},
+    "rules": {
+        // "missing-jsdoc": true
+        "insecure-random": true,
+        "no-disable-auto-sanitization": true,
+        "no-exec-script": true,
+        "no-http-string": true,
+        "no-inner-html": true,
+        // "no-suspicious-comment": true,
+        "possible-timing-attack": true
+    },
+    // "rulesDirectory": []
+    "rulesDirectory": [
+        "./node_modules/tslint-microsoft-contrib"
+    ]
+}
