@@ -89,7 +89,7 @@
 
             <div *ngIf='(yearRef.touched || showError) && !ageCheck()'>
                 <div class="text-danger"
-                     [innerHtml]="lang('./en/index.js').yearErrorAgeCheck[person.relationship]"></div>
+                     [innerHtml]="isForAccountChange?lang('./en/index.js').yearErrorAgeCheckForAccountChange[person.relationship]:lang('./en/index.js').yearErrorAgeCheck[person.relationship]"></div>
             </div>
         </div>
     </div>
