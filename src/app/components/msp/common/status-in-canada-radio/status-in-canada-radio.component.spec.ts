@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { FormsModule } from '@angular/forms';
 import { StatusInCanada } from "../../model/status-activities-documents";
 import { Person } from "../../model/person.model";
 import { Activities, Relationship } from "../../model/status-activities-documents";
@@ -19,6 +20,7 @@ describe("StatusInCanadaRadioComponent", () => {
         TestBed.configureTestingModule({
             declarations: [ MspStatusInCanadaRadioComponent ],
             schemas: [ NO_ERRORS_SCHEMA ],
+            imports: [ FormsModule ],
             providers: [
                 { provide: StatusInCanada, useValue: statusInCanadaStub },
                 { provide: Person, useValue: personStub }
@@ -50,6 +52,21 @@ describe("StatusInCanadaRadioComponent", () => {
         let applicant = new Person(Relationship.Applicant);
         applicant.status = StatusInCanada.CitizenAdult;        
         comp.person = applicant;
+        expect(comp.isValid()).toBeTruthy();
+    });
+
+    it("should be invalid when a temporary status is set without an activity", () => {
+        let applicant = new Person(Relationship.Applicant);
+        comp.person = applicant;
+        comp.setStatus(StatusInCanada.TemporaryResident, applicant);
+        expect(comp.isValid()).toBeFalsy();
+    });
+
+    it("should be valid when a temporary status is set with an activity", () => {
+        let applicant = new Person(Relationship.Applicant);
+        comp.person = applicant;
+        comp.setStatus(StatusInCanada.TemporaryResident, applicant);
+        comp.setActivity(Activities.StudyingInBC);
         expect(comp.isValid()).toBeTruthy();
     });
 
