@@ -118,6 +118,7 @@
       [mailingAddress]="person.schoolAddress"
       [mailingOnly]="true"
       [showError] = "showError"
+      [isBCPostalCode]='!person.schoolOutsideOfBC'
       [hideProvinceAndCountry]='!person.schoolOutsideOfBC'
       ></msp-address>
 

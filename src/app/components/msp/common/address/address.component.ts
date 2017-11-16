@@ -32,6 +32,7 @@ export class MspAddressComponent extends BaseComponent {
   @Input('hideProvinceAndCountry') hideProvinceAndCountry: boolean = false;
   @Input() mailingAddressHeading:string = this.lang('./en/index.js').mailingAddressHeading;
   @Input() showError: boolean;
+  @Input() isBCPostalCode: boolean = false;
 
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
