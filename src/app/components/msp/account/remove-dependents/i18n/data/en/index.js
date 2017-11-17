@@ -6,9 +6,11 @@ module.exports = {
     '', //children 19-24
     'Remove Children', //children under 24 - catch-all.
   ],
+
+
   sectionBody: [
     '',
-    'A spouse is a resident of B.C. who is married to or is living and cohabiting in a marriage-like relationship with the applicant.','','','If you are removing a child, you do not need to upload supporting documentation. However, the child (0-18) must have coverage under another account.'
+    'A spouse is a resident of B.C. who is married to or is living and cohabiting in a marriage-like relationship with the applicant.','','','If you are removing a child, you do not need to upload supporting documentation. However, a child 0-18 years of age must have coverage under another account. (A child 19 years of age or over will be automatically set up on their own account.)'
   ],
   clearButton: [
     '',
