@@ -142,34 +142,42 @@ export class FileUploaderComponent
     let filesArrayFromInput = browseFileStream.merge(captureFileStream)
       .map(
         (event) => {
+          console.info('$file (1) event.target[\'files\'] - ', event.target['files']);
           event.preventDefault();
           return event.target['files'];
         }
       ).merge(filesArrayFromDrop)
       .filter(files => {
+        console.info('$file (2) filter by length - ', files.length)
         return !!files && files.length && files.length > 0;
       }).flatMap(
         (fileList: FileList) => {
+          console.info('$file (3) fileList[0] - ', fileList[0]);
           return this.observableFromFile(fileList[0], new MspImageScaleFactorsImpl(1, 1));
         }
       )
       .filter(
         (mspImage: MspImage) => {
+          console.info('$file (4.start) after observAbleFromFile - ', mspImage);
           let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
           if (imageExists){
+            console.info('$file (4.i) imageExists, handleError/resetInputs', mspImage)
             this.handleError(MspImageError.AlreadyExists, mspImage);
             this.resetInputFields();
           } 
+          console.info('$file (4.end) !imageExists - ', !imageExists);
           return !imageExists;
         }
       ).filter(
         (mspImage: MspImage) => {
           let imageSizeOk = this.checkImageDimensions(mspImage);
           if (!imageSizeOk) this.handleError(MspImageError.TooSmall, mspImage);
+          console.info('$file (5) imageSizeOk - ', imageSizeOk)          
           return imageSizeOk;
         }
       ).subscribe(
         (file: MspImage) => {
+          console.info('$file (6) Success! Saving file - ', file);
           this.handleImageFile(file);
           this.resetInputFields();
           this.emitIsFormValid(true);
@@ -253,10 +261,15 @@ export class FileUploaderComponent
    */
   observableFromFile(file: File, scaleFactors: MspImageScaleFactors) {
     console.log('Start processing file %s of size %s bytes', file.name, file.size);
+
+    console.info('$fileO (0) observableFromFile start')
+
     // Init
     let self = this;
     // Create our observer
     let fileObservable = Observable.create((observer: Observer<MspImage>) => {
+
+      console.info('$fileO (1) Observable.create', {observer});
 
       scaleFactors = scaleFactors.scaleDown(self.appConstants.images.reductionScaleFactor);
 
@@ -268,6 +281,8 @@ export class FileUploaderComponent
 
       // Load image into img element to read natural height and width
       this.readImage(file, (image: HTMLImageElement) => {
+
+        console.info('$fileO (2) readImage', {file, image});
 
         // While it's still in an image, get it's height and width
         mspImage.naturalWidth = image.naturalWidth;
@@ -286,6 +301,9 @@ export class FileUploaderComponent
           file, // NOTE: we pass the File ref here again even though its already read because we need the XIFF metadata
           function (canvas: HTMLCanvasElement, metadata:any) {
 
+            console.info('$fileO (3) scaledImage/loadImage', {canvas, metadata});
+        
+
             // Canvas may be an Event when errors happens
             if (canvas instanceof Event) {
               self.handleError(MspImageError.WrongType, mspImage);
@@ -293,6 +311,9 @@ export class FileUploaderComponent
             }
             // Convert to blob to get size
             canvas.toBlob((blob: Blob) => {
+
+                console.info('$fileO (4) toBlob', {blob});
+        
 
                 // Copy the blob properties
                 mspImage.size = blob.size;
@@ -322,6 +343,9 @@ export class FileUploaderComponent
                 // call reader with new transformed image
                 reader.onload = function (evt: any) {
 
+                  console.info('$fileO (5) reader.onload', {evt});
+                
+
                   mspImage.fileContent = evt.target.result;
                   mspImage.id = sha1(mspImage.fileContent);
 
@@ -339,12 +363,14 @@ export class FileUploaderComponent
                     imageTooBigError.maxSizeAllowed = self.appConstants.images.maxSizeBytes;
                     imageTooBigError.mspImage = mspImage;
 
+                    console.info('$fileO (6) observer.error', {imageTooBigError});
                     observer.error(imageTooBigError);
                   }
                   else {
                     // log image info
                     self.logImageInfo("msp_file-uploader_after_resize_attributes", self.dataService.getMspUuid(), mspImage);
                   }
+                  console.info('$fileO (7) observer.next', {mspImage});                
                   observer.next(mspImage);
                 };
                 reader.readAsDataURL(blob);
@@ -365,6 +391,7 @@ export class FileUploaderComponent
       },
       
       (error: MspImageProcessingError)=>{
+        console.info('$fileO (8) observer.error2', {error});
         observer.error(error);
       });
     }).retryWhen(this.retryStrategy(32));
