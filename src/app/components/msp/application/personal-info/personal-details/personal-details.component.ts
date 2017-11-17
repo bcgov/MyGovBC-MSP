@@ -170,6 +170,8 @@ export class PersonalDetailsComponent extends BaseComponent {
   addDocument(evt:MspImage){
     // console.log('image added: %s', evt);
     this.person.documents.images = this.person.documents.images.concat(evt);
+    console.info('$fileParent (1) addDocument', {images: this.person.documents.images, evt: evt})
+    
     this.fileUploader.forceRender();
     this.onChange.emit(evt);
   }

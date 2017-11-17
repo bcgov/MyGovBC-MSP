@@ -55,21 +55,19 @@ export class MspLoggerDirective{
   }
 
   private sendLog(entry:LogEntry){
-    // ARC TODO - RENABLE! Removed during Angular4 migration.
-    // this.logService.logIt(entry).subscribe(
-    //   (response)=>{
-    //     // console.log('log rest service response: ');
-    //     // console.log(response);
-    //   },
-    //   (error)=>{
-    //     console.log('HTTP error response from logging service: ');
-    //     console.log(error);
-    //   },
-    //   ()=>{
-    //     // console.log('log rest service completed!');
-    //   }
-    // );
-
+    this.logService.logIt(entry).subscribe(
+      (response)=>{
+        // console.log('log rest service response: ');
+        // console.log(response);
+      },
+      (error)=>{
+        console.log('HTTP error response from logging service: ');
+        console.log(error);
+      },
+      ()=>{
+        // console.log('log rest service completed!');
+      }
+    );
   }
 }
 

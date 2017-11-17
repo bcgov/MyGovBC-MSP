@@ -158,7 +158,7 @@ export class FileUploaderComponent
       )
       .filter(
         (mspImage: MspImage) => {
-          console.info('$file (4.start) after observAbleFromFile - ', mspImage);
+          console.info('$file (4.start) after observAbleFromFile - ', {mspImage});
           let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
           if (imageExists){
             console.info('$file (4.i) imageExists, handleError/resetInputs', mspImage)
@@ -269,7 +269,11 @@ export class FileUploaderComponent
     // Create our observer
     let fileObservable = Observable.create((observer: Observer<MspImage>) => {
 
-      console.info('$fileO (1) Observable.create', {observer});
+      // console.info('$fileO (1) Observable.create', {observer});
+      console.trace('$fileO (1) Observable.create', {observer});
+      // console.trace();
+      // console.trace('$fileO (1.i) Observable.create trace')
+
 
       scaleFactors = scaleFactors.scaleDown(self.appConstants.images.reductionScaleFactor);
 
@@ -369,9 +373,12 @@ export class FileUploaderComponent
                   else {
                     // log image info
                     self.logImageInfo("msp_file-uploader_after_resize_attributes", self.dataService.getMspUuid(), mspImage);
+                    console.info('$fileO (7) observer.next NEW LOCATION', {mspImage});                
+                    observer.next(mspImage);
                   }
-                  console.info('$fileO (7) observer.next', {mspImage});                
-                  observer.next(mspImage);
+                  console.info('$fileO (7) observer.next SKIPPED OLD LOCATION NOT CALLED', {mspImage});                
+                  // console.info('$fileO (7) observer.next BAD LOCATION CALLED', {mspImage});                
+                  // observer.next(mspImage);
                 };
                 reader.readAsDataURL(blob);
               },
@@ -390,10 +397,13 @@ export class FileUploaderComponent
         );
       },
       
+      //can be ignored for bug, the log line is never called
       (error: MspImageProcessingError)=>{
         console.info('$fileO (8) observer.error2', {error});
         observer.error(error);
       });
+
+      //retryWhen is potential issue!
     }).retryWhen(this.retryStrategy(32));
 
     return fileObservable;
@@ -404,9 +414,12 @@ export class FileUploaderComponent
    * Max retry scaling down for maxRetry times.
    */
   retryStrategy(maxRetry: number){
+    console.info('$fileR (0) retryStrategy base call');
     return function (errors:Observable<MspImageProcessingError>){
+      console.info('$fileR (1) errorsObservableFn - ', errors );
       return errors.scan(
         (acc, error, index) => {
+          console.info('$fileR (2) error.scan - ', {acc, error, index});
           // console.log('Error encountered: %o', error);
             console.log('Progressively scaling down the image, step %d.', index);
 
