@@ -35,6 +35,7 @@ module.exports = {
   ],
     cancellationReasonsSpouse: [
         // "Please select",
+        "Separated / Divorced",
         "Deceased",
         "Out of Province / Out of Country",
         "Incarcerated",

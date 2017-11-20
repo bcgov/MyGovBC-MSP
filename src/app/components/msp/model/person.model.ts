@@ -37,12 +37,10 @@ class Person implements IPerson {
     planOnBeingOutOfBCRecord: OutofBCRecord;
     private _operationActionType: OperationActionType;
 
-    /** 
-     * NEEDS XSD.  Reason for cancellation and removal from the account. Likely
-     * to be one of CancellationReasons, but can be a user-provided string if
-     * reason is "Other".
-     */
-    public reasonForCancellation: string = null;    
+   /*
+    given default value so that pleaseSelect is selected on page load
+    */
+    public reasonForCancellation: string = "pleaseSelect";
     /** NEEDS XSD. User provided date for cancellation of spouse or dependent on their plan. */
     public cancellationDate: SimpleDate;
 

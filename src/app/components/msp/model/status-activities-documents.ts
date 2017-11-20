@@ -60,7 +60,8 @@ enum CancellationReasons {
 }
 
 enum CancellationReasonsForSpouse {
-    Deceased,
+   SeparatedDivorced,
+   Deceased,
     OutOfProvinceOrCountry,
     Incarcerated,
     ArmedForces,
