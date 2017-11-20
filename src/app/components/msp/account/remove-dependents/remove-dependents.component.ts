@@ -85,16 +85,12 @@ export class RemoveDependentComponent extends BaseComponent {
        if (relationship == Relationship.ChildUnder24) {
         //CancellationReasons has duplicate keys, so only count half.
         return Object.keys(CancellationReasons)
-            .filter(x => isNaN(Number(x)))
-            .map((x, i) => {
-                return {index: i, prop: x}
-            });
+            .filter(x => isNaN(Number(x)));
+
        } else {
               return Object.keys(CancellationReasonsForSpouse)
-               .filter(x => isNaN(Number(x)))
-               .map((x, i) => {
-                   return {index: i, prop: x}
-               });
+               .filter(x => isNaN(Number(x)));
+
        }
     }
 
@@ -109,8 +105,12 @@ export class RemoveDependentComponent extends BaseComponent {
      * "Other" must remain shown in the <select> dropdown.
      */
     get reasonForCancellation() {
-        const defaultOptions = this.getCancellationReasonsIterable(Relationship.ChildUnder24)
-            .map(x => x.prop).concat(null);
+        //get all options
+        const defaultOptions = this.getCancellationReasonsIterable(Relationship.ChildUnder24).concat(this.getCancellationReasonsIterable(Relationship.Spouse));
+
+        if (this.person.reasonForCancellation ==="pleaseSelect") {
+            return "pleaseSelect";
+        }
 
         const isDefaultOption = defaultOptions.indexOf(this.person.reasonForCancellation) >= 0;
 
@@ -126,7 +126,8 @@ export class RemoveDependentComponent extends BaseComponent {
     isValid(): boolean {
         // Some inputs can be determine via the form.isValid,
         // check these explicitly
-        if (!this.person.reasonForCancellation) {
+
+        if (!this.person.reasonForCancellation || this.person.reasonForCancellation ==="pleaseSelect" ) {
             return false;
         }
         if (!this.person.cancellationDate) {
@@ -147,5 +148,6 @@ export class RemoveDependentComponent extends BaseComponent {
             this.person.reasonForCancellation = "";
         }
         this.onChange.emit();
+        this.emitIsFormValid();
     }
 }
