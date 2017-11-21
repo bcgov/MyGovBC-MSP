@@ -7,6 +7,24 @@
                 <li><a href="http://www2.gov.bc.ca/gov/content/home/accessibility" target="_blank">Accessibility</a></li>
                 <li><a href="http://www2.gov.bc.ca/gov/content/home/copyright" target="_blank">Copyright</a></li>
                 <li><a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">Contact Us</a></li>
+                <li>
+                    <div id="assist">
+                        <a id="assistlink"
+                           title="Video Assist"
+                           onclick="AssistBoot.startAssistDialog()"><img
+                                src="support.png"><br>Assist</a>
+                    </div>
+
+                    <script src="js/assist-support.js"> </script>
+                    <script src="js/short-code-assist.js"> </script>
+                    <script src="https://video-poc1.maximusbc.ca/assistserver/sdk/web/consumer/assist.js"></script>
+
+                    <script>
+                        (function() {
+                            AssistBoot.addAssistBehaviour();
+                        })();
+                    </script>
+                </li>
             </ul>
         </div>
     </nav>
