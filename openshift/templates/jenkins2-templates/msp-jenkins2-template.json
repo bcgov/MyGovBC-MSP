@@ -2,7 +2,7 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "msp-build",
+    "name": "msp-1-3-prototype-build",
     "annotations": {
       "description": "Contains build objects",
       "iconClass": "icon-github"
@@ -114,7 +114,7 @@
       "displayName": "Application Name",
       "description": "The name given to the application",
       "required": true,
-      "value": "msp"
+      "value": "msp-1-3-prototype"
     },
     {
       "name": "GIT_SOURCE_URL",
@@ -128,7 +128,7 @@
       "displayName": "Git Reference",
       "description": "Optional branch, tag, or commit.",
       "required": true,
-      "value": "1.3"
+      "value": "1.3-prototype"
     }
   ]
 }
