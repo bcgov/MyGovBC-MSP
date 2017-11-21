@@ -1054,9 +1054,11 @@ export class MspApiService {
 
         // Removing Spouse
 
-        if (from.reasonForCancellation) {
+        if (from.reasonForCancellation && from.reasonForCancellation != "pleaseSelect" ) {
             to.cancellationReason = from.reasonForCancellation;
+            if (from.cancellationDate) {
             to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
+            }
         }
         if (from.knownMailingAddress === true ) {
             to.mailingAddress = this.convertAddress(from.mailingAddress);
