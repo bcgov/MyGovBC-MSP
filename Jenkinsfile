@@ -1,6 +1,6 @@
 // Edit your app's name below
 def APP_NAME = 'msp'
-def APP_VERSION = '1.3'
+def APP_VERSION = '1.3-prototype'
 
 // Edit your environment TAG names below
 def TAG_NAMES = ['dev', 'test', 'prod']
