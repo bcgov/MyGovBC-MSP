@@ -750,11 +750,13 @@ export class MspApiService {
             to.schoolAddress = this.convertAddress(from.schoolAddress);
 
         }
+      
 
-
-        if (from.reasonForCancellation) {
+        if (from.reasonForCancellation && from.reasonForCancellation != "pleaseSelect") {
             to.cancellationReason = from.reasonForCancellation;
-            to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
+            if (from.cancellationDate) {
+                to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
+            }
         }
 
         if (from.knownMailingAddress === true ) {
