@@ -3,5 +3,10 @@
         "target": "https://mygovbc-msp-dev.pathfinder.gov.bc.ca",
         "changeOrigin": true,
         "secure": false
+    },
+    "/assistserver": {
+        "target": "https://video-poc1.maximusbc.ca",
+        "secure": false,
+        "changeOrigin": true
     }
 }

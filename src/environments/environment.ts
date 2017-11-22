@@ -41,5 +41,8 @@ export const environment = {
         mspIsInMaintenanceTimes: process.env.mspIsInMaintenanceTimes,
 
 
+        assistSDKUrl: 'https://video-poc1.maximusbc.ca/assistserver/sdk/web/consumer/assist.js',
+        // Only accessible via intranet.
+        assistSDKUrlInternal: 'https://video-poc1.maximusbc.ca:8443/assistserver/sdk/web/consumer/assist.js'
       }
 }
