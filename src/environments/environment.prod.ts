@@ -25,6 +25,10 @@ export const environment = {
         // general state of the app, if unavailable, display Unavailable message and don't continue
         mspIsInMaintenanceFlag: process.env.mspIsInMaintenanceFlag,
         mspIsInMaintenanceText: process.env.mspIsInMaintenanceText,
-        mspIsInMaintenanceTimes: process.env.mspIsInMaintenanceTimes
+        mspIsInMaintenanceTimes: process.env.mspIsInMaintenanceTimes,
+
+        assistSDKUrl: 'https://video-poc1.maximusbc.ca/assistserver/sdk/web/consumer/assist.js',
+        // Only accessible via intranet.
+        assistSDKUrlInternal: 'https://video-poc1.maximusbc.ca:8443/assistserver/sdk/web/consumer/assist.js'
       }
 }
