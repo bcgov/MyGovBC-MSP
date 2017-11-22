@@ -25,7 +25,7 @@ module.exports = {
     15:['Confirmation of your religious server from your religious order ',false],
     16:['Foil from your diplomatic passport',false],
     17:['Verification of Adoption',false],
-    18:['Current Immigration Documents used by Citizenship and Immigration Canada',false],
+    18:['Current Immigration Document used by Immigration, Refugees, and Citizenship Canada',false],
     19:['BC Driver’s License',true],
     20:['Application for Change of Gender Designation (Adult)',true],
     21:['Application for Change of Gender Designation (Minor)',true],
