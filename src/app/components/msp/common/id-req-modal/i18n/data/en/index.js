@@ -1,6 +1,6 @@
 module.exports = {
     titleEnrollment: 'ID Requirements for MSP Enrolment',
-    titleAccount: 'ID Requirements for Account Change',
+    titleAccount: 'ID Requirements for Account Change Request',
 
     intro: '',
 
