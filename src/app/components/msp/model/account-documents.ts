@@ -90,6 +90,7 @@ class AccountDocumentRules {
             Documents.StudyPermit,
             Documents.WorkPermit,
             Documents.ReligiousConfirmationOrder,
+            Documents.CurrentImigrationDocs,
             Documents.FoilDiplomaticPassport,
             Documents.ReligiousWorkerPermit,
 
