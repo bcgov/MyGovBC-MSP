@@ -8,5 +8,14 @@
         "target": "https://video-poc1.maximusbc.ca",
         "secure": false,
         "changeOrigin": true
+    },
+    "/assistsdk" : {
+        "target": "https://video-poc1.maximusbc.ca/assistserver/sdk/web/consumer/",
+        "secure": false,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/assistsdk": ""
+        },
+        "logLevel": "debug"
     }
 }
