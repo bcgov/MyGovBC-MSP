@@ -18,7 +18,7 @@ export class MspIdReqModalComponent implements OnInit {
     @ViewChild('accordian') public accordian: AccordionComponent;
     idRequirementContentList: IdRequirementContent[] = this.lang('./en/index.js').idRequirementContentList;
     idRequirementContentListAccountMaintanence: IdRequirementContent[] = this.lang('./en/index.js').idRequirementContentListAccountMaintanence;
-
+    @ViewChild('modalBody') modalBodyRef: ElementRef;
     initialDocument: number;
     @Input() isForAccountChange: boolean = false;
 
@@ -34,6 +34,11 @@ export class MspIdReqModalComponent implements OnInit {
         this.fullSizeViewModal.show();
     }
 
+    scrollToOpenPanel() {
+        if (this.isForAccountChange) {
+         this.modalBodyRef.nativeElement.querySelector(".panel.panel-open").scrollIntoView();
+        }
+    }
     hideFullSizeView() {
         this.fullSizeViewModal.hide();
     }
