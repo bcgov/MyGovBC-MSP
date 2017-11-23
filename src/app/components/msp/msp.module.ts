@@ -1,10 +1,9 @@
 import {NgModule, Injectable} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser'
-
+import { ModalModule, AccordionModule} from 'ngx-bootstrap';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import { ModalModule, AccordionModule} from 'ngx-bootstrap';
 import {Ng2CompleterModule} from "ng2-completer";
 import {MspComponent} from './msp.component';
 import {LandingComponent} from './landing/landing.component';

@@ -15,7 +15,12 @@
         "changeOrigin": true,
         "pathRewrite": {
             "^/assistsdk": ""
-        },
+        }
+    },
+    "/shared": {
+        "target": "https://video-poc1.maximusbc.ca/assistserver/sdk/web/",
+        "secure": false,
+        "changeOrigin": true,
         "logLevel": "debug"
     }
 }

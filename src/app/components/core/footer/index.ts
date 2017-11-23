@@ -1,4 +1,4 @@
-import { Component, OpaqueToken, Inject } from '@angular/core'
+import { Component, OpaqueToken, Inject, ViewChild, ElementRef, NgZone } from '@angular/core'
 import { environment } from '../../../../environments/environment';
 declare var System: any;
 import { Http } from '@angular/http';
@@ -15,7 +15,7 @@ export class CoreFooterComponent {
   /** Defaults to using external assistSdk. Only use internal if we're sure we can get it. */
   private useInternalAssistSdk: boolean = false;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private zone: NgZone) {
     // Determine if we can access the internal assistSDK link. 
     // Should only be accessible on the intranet.
     http.get(environment.appConstants.assistSDKUrlInternal)
@@ -27,6 +27,8 @@ export class CoreFooterComponent {
       err => {
         // console.log('using external assistSDK link');
       });
+
+      console.log('ZONE', zone);
 
   }
 

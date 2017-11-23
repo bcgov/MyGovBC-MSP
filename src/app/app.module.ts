@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router';
 
 import {CoreHeaderComponent} from './components/core/header'
 import {CoreFooterComponent} from './components/core/footer'
-import { ModalModule, AccordionModule} from 'ngx-bootstrap';
+import { ModalModule, AccordionModule, TooltipModule, PopoverModule } from 'ngx-bootstrap';
 import {MspModule} from './components/msp/msp.module'
 import {GeneralAppComponent} from './app.component';
 
@@ -15,6 +15,7 @@ require('./index.less')
     BrowserModule,
     MspModule,
     ModalModule.forRoot(),
+    TooltipModule.forRoot(),
     AccordionModule.forRoot(),
     RouterModule.forRoot([
       { path: '', redirectTo: 'msp', pathMatch: 'full' }
