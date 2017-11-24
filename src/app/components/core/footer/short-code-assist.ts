@@ -1,3 +1,6 @@
+
+import { environment } from '../../../../environments/environment';
+
 /**
  * Support starting a co-browse session by sharing generated short code.
  *
@@ -24,6 +27,7 @@ window.ShortCodeAssist = {
                         }
                         
                         configuration.allowedIframeOrigins = false; // important: disable iframe messaging if not required for security
+                        console.log('Calling startSupport with configuration:', configuration);
                         AssistSDK.startSupport(configuration);
                         callback(shortCode);
                     } else if (tokenRequest.status == 403) {
@@ -34,6 +38,7 @@ window.ShortCodeAssist = {
                 }
             };
           var url = "/assistserver/shortcode/consumer?appkey=" + shortCode;
+
           if (configuration.username) {
               url += "&username=" + configuration.username;
           }

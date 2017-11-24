@@ -12,7 +12,9 @@
     },
     "exclude": [
       "test.ts",
-      "**/*.spec.ts"
+      "**/*.spec.ts",
+      "**/assist-support.ts",
+      "**/short-code-assist.ts"
     ]
   }
   

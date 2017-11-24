@@ -3,11 +3,7 @@ var config;
 var activeSession = false;
 var banner;
 
-/*
-export function testClickedAssist()
-    console.log("clickedAssist in pure js");
-}
-*/
+import { environment } from '../../../../environments/environment';
 
 /**
  * Provides a simple sdk call to integrate assist into the current page.
@@ -63,17 +59,18 @@ window.AssistBoot = {
         /**
          * Place a call to an Agent, cobrowsing can happen after the call is established.
          */
-        document.getElementById('help-call-and-share').addEventListener('click', function () {
-            var helpModal = document.getElementById("assist-modal-help");
-            helpModal.style.opacity = 0;
-            setTimeout(helpModal.style.display = "", 150);
-            config.allowedIframeOrigins = false; // important: disable iframe messaging if not required for security
-            if (AssistSDK.isBrowserSupported()) {
-                AssistSDK.startSupport(config);
-            } else {
-                window.alert("Your browser is not supported!");
-            }
-        });
+        //  This option is DISABLED for the MSP Prototype.
+        // document.getElementById('help-call-and-share').addEventListener('click', function () {
+        //     var helpModal = document.getElementById("assist-modal-help");
+        //     helpModal.style.opacity = 0;
+        //     setTimeout(helpModal.style.display = "", 150);
+        //     config.allowedIframeOrigins = false; // important: disable iframe messaging if not required for security
+        //     if (AssistSDK.isBrowserSupported()) {
+        //         AssistSDK.startSupport(config);
+        //     } else {
+        //         window.alert("Your browser is not supported!");
+        //     }
+        // });
 
         /**
          *  Short Code Assist required.
@@ -83,6 +80,8 @@ window.AssistBoot = {
          */
         document.getElementById('help-want-to-share').addEventListener('click', function () {
             config.cobrowseOnly = true;
+            config.url = environment.appConstants.assistSDKUrl;
+            config.sdkPath = config.url + "/assistserver/sdk/web/consumer"
 
             if (config.destination) {
                 // Remove the desintation attribute as it is not used in Short Code Assist.
@@ -235,9 +234,9 @@ function assistConfig() {
 
         var settings = {shadowCursor: true, auditName:"Consumer (Web)"};
 
-        if (QueryString.remoteServer) {
-            settings.url = QueryString.remoteServer;
-        }
+        // if (QueryString.remoteServer) {
+        //     settings.url = QueryString.remoteServer;
+        // }
 
         if (QueryString.username) {
             settings.username = QueryString.username;
@@ -439,10 +438,10 @@ function getHelpModal() {
         "                    <h4 class=\"modal-title\">Share my screen with the support agent</h4>\n" +
         "                </div>\n" +
         "                <div class=\"modal-body\">\n\n" +
-        "                    <button type=\"button\"\n" +
-        "                            id=\"help-call-and-share\"\n" +
-        "                            class=\"btn btn-success btn-lg btn-block\">Call support and then share</button>\n" +
-        "                    <br>\n" +
+        // "                    <button type=\"button\"\n" +
+        // "                            id=\"help-call-and-share\"\n" +
+        // "                            class=\"btn btn-success btn-lg btn-block\">Call support and then share</button>\n" +
+        // "                    <br>\n" +
         "                    <button type=\"button\"\n" +
         "                            id=\"help-want-to-share\"\n" +
         "                            class=\"code btn btn-success btn-lg btn-block\">Already on the call, want to share</button>\n" +

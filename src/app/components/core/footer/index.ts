@@ -18,7 +18,8 @@ export class CoreFooterComponent {
   constructor(private http: Http, private zone: NgZone) {
     // Determine if we can access the internal assistSDK link. 
     // Should only be accessible on the intranet.
-    http.get(environment.appConstants.assistSDKUrlInternal)
+    const url = environment.appConstants.assistSDKInternalUrl + environment.appConstants.assistPath;
+    http.get(url)
       .timeout(this.QUERY_TIMEOUT)
       .subscribe(data => {
         // console.log('using internal assistSDK link');
@@ -33,21 +34,22 @@ export class CoreFooterComponent {
   }
 
   clickedAssist = () => {
-    // console.log('clickedAssist');
 
     Promise.all([
-      System.import('./assist-support.js'),
-      System.import('./short-code-assist.js')
+      // System.import('./assist-support.js'),
+      System.import('./assist-support.ts'),
+      System.import('./short-code-assist.ts')
     ]).then(modules => {
       (<any>window).AssistBoot.addAssistBehaviour();
       (<any>window).AssistBoot.startAssistDialog();
     }).then(_ => {
-      const url = this.useInternalAssistSdk ?
-        environment.appConstants.assistSDKUrlInternal
-        : environment.appConstants.assistSDKUrl;
+      environment.appConstants.assistSDKUrl = this.useInternalAssistSdk ?
+        environment.appConstants.assistSDKInternalUrl
+        : environment.appConstants.assistSDKExternalUrl;
+
+      const url = environment.appConstants.assistSDKUrl + environment.appConstants.assistPath;
 
       this.addScript(url);
-      // console.log("loaded AssistSDK");
     });
 
   }
