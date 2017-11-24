@@ -39,7 +39,10 @@ window.AssistBoot = {
                 // or to use Short Code Assist.
                 var helpModal = document.getElementById("assist-modal-help");
                 helpModal.style.display = "block";
-                document.getElementById("assist-modal-help").style.opacity = 1.0;
+                // document.getElementById("assist-modal-help").style.opacity = 1.0;
+                helpModal.style.opacity = '1.0';
+                // helpModal.classList.add('in');
+                setTimeout( _ => { helpModal.classList.add('in') }, 0)
             }
 
 
@@ -105,10 +108,12 @@ window.AssistBoot = {
                 ShortCodeAssist.startSupport(function (cid) {
                     var helpModal = document.getElementById("assist-modal-help");
                     helpModal.style.opacity = 0;
+                    helpModal.classList.remove('in');
                     setTimeout(helpModal.style.display = "", 150);
                     dismissCidDisplay = function(){
                         var codeModal = document.getElementById("assist-modal-code");
                         codeModal.style.opacity = 0;
+                        codeModal.classList.remove('in');
                         setTimeout(codeModal.style.display = "", 150);
                     };
                     AssistSDK.onScreenshareRequest = function () {
@@ -118,9 +123,10 @@ window.AssistBoot = {
                         return true;
                     };
                     var codeModal = document.getElementById("assist-modal-code");
-                    codeModal.querySelector('span.code').textContent = cid;
+                    codeModal.querySelector('.code').textContent = cid;
                     codeModal.style.display = "block";
                     codeModal.style.opacity = "1.0";
+                     setTimeout( _ => { codeModal.classList.add('in') }, 0)
                 },
                 function() {
                     AssistSDK.endSupport();
@@ -138,6 +144,7 @@ window.AssistBoot = {
         document.getElementById('help-no-help-needed').addEventListener('click', function () {
             var helpModal = document.getElementById("assist-modal-help");
             helpModal.style.opacity = 0;
+            helpModal.classList.remove('in');
             setTimeout(helpModal.style.display = "", 150);
         });
 
@@ -147,6 +154,7 @@ window.AssistBoot = {
         document.getElementById('code-no-help-needed').addEventListener('click', function () {
             var codeModal = document.getElementById("assist-modal-code");
             codeModal.style.opacity = 0;
+            codeModal.classList.remove('in');            
             setTimeout(codeModal.style.display = "", 150);
             AssistSDK.endSupport();
         });
@@ -154,21 +162,22 @@ window.AssistBoot = {
         /**
          * Cancel...
          */
-        document.getElementById("assist-modal-help-close").addEventListener('click', function() {
-            var helpModal = document.getElementById("assist-modal-help");
-            helpModal.style.opacity = 0;
-            setTimeout(helpModal.style.display = "", 150);
-        });
+        // document.getElementById("assist-modal-help-close").addEventListener('click', function() {
+        //     var helpModal = document.getElementById("assist-modal-help");
+        //     helpModal.style.opacity = 0;
+        //     helpModal.classList.remove('in');
+        //     setTimeout(helpModal.style.display = "", 150);
+        // });
 
         /**
          * Cancel...
          */
-        document.getElementById("assist-modal-code-close").addEventListener('click', function() {
-            var codeModal = document.getElementById("assist-modal-code");
-            codeModal.style.opacity = 0;
-            setTimeout(codeModal.style.display = "", 150);
-            AssistSDK.endSupport();
-        });
+        // document.getElementById("assist-modal-code-close").addEventListener('click', function() {
+        //     var codeModal = document.getElementById("assist-modal-code");
+        //     codeModal.style.opacity = 0;
+        //     setTimeout(codeModal.style.display = "", 150);
+        //     AssistSDK.endSupport();
+        // });
     }
 };
 
@@ -431,13 +440,14 @@ function getHelpModal() {
         "        <div class=\"modal background\"></div>\n" +
         "        <div class=\"modal-dialog text-center\">\n" +
         "            <div class=\"modal-content\">\n" +
-        "                <div class=\"modal-header\">\n" +
-        "                    <button type=\"button\"\n" +
-        "                            class=\"close\"\n" +
-        "                            id=\"assist-modal-help-close\">&times;</button>\n" +
-        "                    <h4 class=\"modal-title\">Share my screen with the support agent</h4>\n" +
+        "                <div class=\"modal-header modal-header-primary\">\n" +
+        "                    <h2>Co-Browsing</h2>\n"+
+        // "                    <button type=\"button\"\n" +
+        // "                            class=\"close\"\n" +
+        // "                            id=\"assist-modal-help-close\">&times;</button>\n" +
         "                </div>\n" +
         "                <div class=\"modal-body\">\n\n" +
+        "                    <p>Share my screen with a support agent</p>\n" +        
         // "                    <button type=\"button\"\n" +
         // "                            id=\"help-call-and-share\"\n" +
         // "                            class=\"btn btn-success btn-lg btn-block\">Call support and then share</button>\n" +
@@ -467,18 +477,20 @@ function getShortCodeModal() {
     shortCodeModal.classList.add("fade");
     shortCodeModal.innerHTML =
         "        <div class=\"modal background\"></div>\n" +
-        "        <div class=\"shortcode-modal-dialog text-center\">\n" +
+        "        <div class=\"shortcode-modal-dialog modal-dialog text-center\">\n" +
         "            <div class=\"modal-content\">\n" +
-        "                <div class=\"modal-header\">\n" +
-        "                    <button type=\"button\"\n" +
-        "                            class=\"close\"\n" +
-        "                            id=\"assist-modal-code-close\">&times;</button>\n" +
-        "                    <div align=\"left\" class=\"shortcode-modal-title\">" +
-        "                        If you are not speaking to an Agent already, please call 800 123 4567 and give your Agent this code" +
-        "                    </div>\n" +
+        "                <div class=\"modal-header modal-header-primary\">\n" +
+        "                    <h2>Shortcode</h2>\n"+        
+        // "                    <button type=\"button\"\n" +
+        // "                            class=\"close\"\n" +
+        // "                            id=\"assist-modal-code-close\">&times;</button>\n" +
+        // "                    <div align=\"left\" class=\"shortcode-modal-title\">" +
+        // "                        If you are not speaking to an Agent already, please call 800 123 4567 and give your Agent this code" +
+        // "                    </div>\n" +
         "                </div>\n" +
         "                <div class=\"modal-body client-title\">\n\n" +
-        "                    <span class=\"code\"></span>\n\n" +
+        "                    <p>If you are not speaking to an Agent already, please call 800 123 4567 and give your Agent this code</p>" +
+        "                    <pre class=\"code\"></pre>\n\n" +
         "                </div>\n" +
         "                <div class=\"modal-footer\">\n" +
         "                    <button type=\"button\"\n" +
