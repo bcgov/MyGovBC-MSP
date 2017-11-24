@@ -29,7 +29,9 @@ export class MspIdReqModalComponent implements OnInit {
     }
 
     showFullSizeView(initialDocument: Documents) {
-        document.body.classList.add('IE11Scroll');
+        if (this.isForAccountChange) {
+            document.body.classList.add('IE11Scroll');
+        }
         this.initialDocument = initialDocument;
         this.fullSizeViewModal.config.backdrop = true;
         this.fullSizeViewModal.show();
