@@ -28,8 +28,9 @@ export class MspIdReqModalComponent implements OnInit {
     ngOnInit() {
     }
 
-    showFullSizeView(document: Documents) {
-        this.initialDocument = document;
+    showFullSizeView(initialDocument: Documents) {
+        document.body.classList.add('IE11Scroll');
+        this.initialDocument = initialDocument;
         this.fullSizeViewModal.config.backdrop = true;
         this.fullSizeViewModal.show();
     }
@@ -40,6 +41,12 @@ export class MspIdReqModalComponent implements OnInit {
         }
     }
     hideFullSizeView() {
-        this.fullSizeViewModal.hide();
+         this.fullSizeViewModal.hide();
+
+    }
+
+    hidePanel() {
+        document.body.classList.remove("IE11Scroll");
+
     }
 }

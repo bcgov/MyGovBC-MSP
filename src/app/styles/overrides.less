@@ -75,6 +75,10 @@ a {
 body, html{
   height:100%;
 }
+// IE11 Scroll not working in Documents page when modal is opened. IE only hack
+body.IE11Scroll {
+  -ms-overflow-style: scrollbar;
+}
 
 .text-danger {
     margin:5px 0 15px 0;
