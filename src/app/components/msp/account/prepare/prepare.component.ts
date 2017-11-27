@@ -100,7 +100,7 @@ export class AccountPrepareComponent extends BaseComponent {
                 window.location.href = this.addressChangeBCUrl;
                 return;
             });
-
+            return;
         }
 
         /*
