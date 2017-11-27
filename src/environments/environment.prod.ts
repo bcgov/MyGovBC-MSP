@@ -10,7 +10,6 @@ export const environment = {
         // apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
         captchaApiBaseUrl: '/msp/api/captcha',
         addressChangeBCUrl: 'https://www.addresschange.gov.bc.ca/',
-        faqUrl:'https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/managing-your-msp-account/msp-account-change-faqs',
         images: {
           maxImagesPerPerson: 50,
           maxWidth: 2600,
