@@ -3,7 +3,7 @@ module.exports = {
     pageTitleRedirect: 'Submitting your request',
     subTitle: 'MSP Account Holders can use this web application to request account changes, corrections and submit supporting documentation to keep your MSP account information current. You will be required to upload supporting documentation to verify this information.',
     groupAccoungMsg: 'Do not use this web application if your MSP Premiums are paid by your employer or you are a member of a group account. Please contact your Group Administrator.',
-    faqMsg: "<a href='http://www2.gov.bc.ca/gov/content/governments/government-id/bc-services-card' target='blank'>If you have questions regarding supporting documentation or other frequently asked questions, please click here.</a>",
+    faqMsg: "If you have questions regarding supporting documentation or other frequently asked questions, please click here.",
     selectTitle: 'Select all that apply',
     addressChange: 'Update Address (Address Update must be done by the Account Holder)',
     consentProcessName: 'MSP Account Change Request',

@@ -32,6 +32,7 @@ export class AccountPrepareComponent extends BaseComponent {
     accountChangeOptions: AccountChangeOptions;
     captchaApiBaseUrl: string;
     addressChangeBCUrl: string;
+    faqUrl: string;
     @ViewChild('addressChangeChkBx') addressChangeChkBx: ElementRef;
     @ViewChild('personalInfoChangeChkBx') personalInfoChangeChkBx: ElementRef;
     @ViewChild('nameChangeDueToMarriageChkBx') nameChangeDueToMarriageChkBx: ElementRef;
@@ -47,6 +48,7 @@ export class AccountPrepareComponent extends BaseComponent {
         this.accountChangeOptions = this.mspAccountApp.accountChangeOptions;
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
         this.addressChangeBCUrl = environment.appConstants.addressChangeBCUrl;
+        this.faqUrl = environment.appConstants.faqUrl;
     }
 
     get hasOnlyAddressSelected(): boolean {
