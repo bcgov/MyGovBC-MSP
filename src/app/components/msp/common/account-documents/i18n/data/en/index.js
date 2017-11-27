@@ -22,7 +22,7 @@ module.exports = {
     12:['Separation Agreement',false],
     13:['Landed Immigration Documents',true],
     14:['Permit indicating Religious Worker',false],
-    15:['Confirmation of your religious server from your religious order ',false],
+    15:['Confirmation of their religious server from their religious order ',false],
     16:['Foil from your diplomatic passport',false],
     17:['Verification of Adoption',false],
     18:['Current Immigration Document used by Immigration, Refugees, and Citizenship Canada',false],
