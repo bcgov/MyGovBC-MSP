@@ -54,6 +54,11 @@ export class MspDepartureDateComponent extends BaseComponent {
       return false;
     }
 
+    let far = (this.today.get('y') - this.inputDate().get('y')) > 150;
+    if(far) {
+      return false;
+    }
+
     return true;
   }
 
