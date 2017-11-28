@@ -81,8 +81,7 @@ describe('RemoveDependentComponent', () => {
     expect(component.getCancellationReasonsIterable(Relationship.Child19To24)).toBeDefined();
     expect(component.getCancellationReasonsIterable(Relationship.Child19To24).length).toBeDefined();
     expect(component.getCancellationReasonsIterable(Relationship.Child19To24).length).toBeDefined();
-    expect(component.getCancellationReasonsIterable(Relationship.Child19To24)[0].index).toEqual(0);
-    expect(component.getCancellationReasonsIterable(Relationship.Child19To24)[0].prop).toBeDefined();
+    expect(component.getCancellationReasonsIterable(Relationship.Child19To24)[0]).toBeDefined();
   });
 
   it('should return "Other" for reason for cancellation when a custom reason is provided to person', () => {
@@ -91,7 +90,7 @@ describe('RemoveDependentComponent', () => {
   });
 
   it('should return a default reason for cancellation if a default reason is used', () => {
-    let reason = component.getCancellationReasonsIterable(Relationship.Child19To24)[0].prop
+    let reason = component.getCancellationReasonsIterable(Relationship.Child19To24)[0];
     component.onChangeReasonForCancellation(reason);
     expect(component.reasonForCancellation).toEqual(reason);
   });
