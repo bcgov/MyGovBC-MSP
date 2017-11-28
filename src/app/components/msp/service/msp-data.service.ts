@@ -640,6 +640,14 @@ export  class MspDataService {
 
         output.applicant = this.fromPersonDtoForAccount(dto.applicant);
 
+        //if page is refreshed before filling address, the province and country is lost..so initialising..
+        if (!output.applicant.residentialAddress.province) {
+            output.applicant.residentialAddress.province = "British Columbia";
+        }
+        if (!output.applicant.residentialAddress.country ){
+            output.applicant.residentialAddress.country = "Canada";
+        }
+
         if (dto.applicant.addedSpouse) {
             output.addedSpouse = this.fromPersonDtoForAccount(dto.applicant.addedSpouse);
             output.addedSpouse.planOnBeingOutOfBCRecord = this.toOutofBCRecord(dto.applicant.addedSpouse.planOnBeingOutOfBCRecord);
