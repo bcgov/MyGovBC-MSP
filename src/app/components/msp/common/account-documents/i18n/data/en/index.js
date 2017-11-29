@@ -22,7 +22,7 @@ module.exports = {
     12:['Separation Agreement',false],
     13:['Landed Immigration Documents',true],
     14:['Permit indicating Religious Worker',false],
-    15:['Confirmation of their religious server from their religious order ',false],
+    15:['Confirmation of their religious service from their religious order ',false],
     16:['Foil from your diplomatic passport',false],
     17:['Verification of Adoption',false],
     18:['Current Immigration Document used by Immigration, Refugees, and Citizenship Canada',false],
@@ -30,7 +30,8 @@ module.exports = {
     20:['Application for Change of Gender Designation (Adult)',true],
     21:['Application for Change of Gender Designation (Minor)',true],
     22:['Request for Waiver of Parental Consent (Minor) (for under 19 years )',true],
-    23:['Physician’s or Psychologist’s Confirmation of Change of Gender Designation form',true]
+    23:['Physician’s or Psychologist’s Confirmation of Change of Gender Designation form',true],
+    24:['A signed written statement indicating your marital status has changed',false]
 }
 /**
  * Should Match account-documents.ts ID documents
