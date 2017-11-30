@@ -39,7 +39,6 @@ import {MspIdReqModalComponent} from "./common/id-req-modal/id-req-modal.compone
 import {MspCancelComponent} from "./common/cancel/cancel.component";
 import {MspLoggerDirective} from "./common/logging/msp-logger.directive";
 import {KeyboardEventListner} from "./common/keyboard-listener/keyboard-listener.directive";
-//import {MspLoggerComponent} from "./common/logging/msp-logger.component";
 
 
 import {MspPersonCardComponent} from './common/person-card/person-card.component';

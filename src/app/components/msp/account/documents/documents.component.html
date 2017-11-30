@@ -47,7 +47,6 @@
     <div class="row" style="margin-top: 10px;">
         <div class="col-sm-2">
             <button 
-                [mspLogger]="'msp-accountmanagement_docment-upload_continue'"
                 [disabled] = "!canContinue"
                 class="btn btn-primary" type="submit" (click)="continue()"
                 [innerHTML]="lang('./en/index.js').continueButton"></button>

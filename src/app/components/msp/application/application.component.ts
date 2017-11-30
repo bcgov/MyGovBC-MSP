@@ -6,6 +6,10 @@ import {ProcessService, ProcessStep} from "../service/process.service";
 
 import { environment } from '../../../../environments/environment';
 
+import { Router, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs/Rx';
+import { MspLogService } from '../service/log.service';
+
 /**
  * Application for MSP
  */
@@ -19,6 +23,7 @@ export class ApplicationComponent  {
   lang = require('./i18n');
 
   @ViewChild('progressBar') progressBar: MspProgressBarComponent;
+  routerSubscription: Subscription;
 
   get applicationProgressBarList(): Array<MspProgressBarItem> {
     if (this.processService.process == null ||
@@ -34,9 +39,31 @@ export class ApplicationComponent  {
     ]
   };
 
-  constructor (private processService: ProcessService) {
+  constructor (private processService: ProcessService,
+              private logService: MspLogService,
+              private router: Router) {
     environment.appConstants.serviceName = this.lang('./en/index.js').serviceName;
     this.initProcessService();
+  }
+
+  ngOnInit() {
+    this.logService.log({
+      name: "Application - Loaded Page",
+      url: this.router.url
+    })
+
+    this.routerSubscription = this.router.events
+      .filter(event => event instanceof NavigationEnd)
+      .subscribe(event => {
+        this.logService.log({
+          name: "Application - Loaded Page",
+          url: this.router.url
+        })
+      });
+  }
+
+  ngOnDestroy() {
+    this.routerSubscription.unsubscribe();
   }
 
   private initProcessService () {

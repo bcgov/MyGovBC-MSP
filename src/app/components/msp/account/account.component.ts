@@ -6,6 +6,10 @@ import { MspAccountApp } from '../model/account.model';
 import { ProgressBarHelper } from './ProgressBarHelper';
 import { MspDataService } from '../service/msp-data.service';
 import { environment } from '../../../../environments/environment';
+import { Router, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs/Rx';
+import { MspLogService } from '../service/log.service';
+
 
 require('./account.component.less');
 /**
@@ -19,11 +23,38 @@ require('./account.component.less');
 export class AccountComponent {
     lang = require('./i18n');
     @ViewChild('progressBar') progressBar: MspProgressBarComponent;
+    routerSubscription: Subscription;
 
-    constructor(private processService: ProcessService, private dataService: MspDataService) {
+
+    constructor(private processService: ProcessService,
+        private dataService: MspDataService,
+        private router: Router,
+        private logService: MspLogService) {
         environment.appConstants.serviceName = this.lang('./en/index.js').serviceName;
         this.initProcessService();
     }
+
+    ngOnInit() {
+
+        this.logService.log({
+            name: "Account - Loaded Page",
+            url: this.router.url
+        })
+
+        this.routerSubscription = this.router.events
+            .filter(event => event instanceof NavigationEnd)
+            .subscribe(event => {
+                this.logService.log({
+                    name: "Account - Loaded Page",
+                    url: this.router.url
+                })
+            });
+    }
+
+    ngOnDestroy() {
+        this.routerSubscription.unsubscribe();
+    }
+
 
     get accountProgressBarList(): Array<MspProgressBarItem> {
 
@@ -51,7 +82,7 @@ export class AccountComponent {
 
         if (this.dataService.getMspAccountApp()) {
             const accountChangeOptions = this.dataService.getMspAccountApp().accountChangeOptions;
-            
+
             const progressBarHelper: ProgressBarHelper = new ProgressBarHelper(this.dataService.getMspAccountApp().accountChangeOptions);
 
             widthMainMenu = progressBarHelper.widthMainMenu;
@@ -67,17 +98,17 @@ export class AccountComponent {
             if (accountChangeOptions.dependentChange) {
                 newProgressBarItems.push(new MspProgressBarItem(progressBarHelper.dependentsLabel, ProcessUrls.ACCOUNT_DEPENDENTS_URL, widthDependents));
             }
-        
+
         }
 
 
         let progressBar: MspProgressBarItem[] = [
-            new MspProgressBarItem(this.lang("./en/index.js").progressStepMainMenu, this.processService.process.processSteps[0].route,  widthMainMenu),
-            new MspProgressBarItem(this.lang("./en/index.js").progressStepDocumentation,  ProcessUrls.ACCOUNT_FILE_UPLOADER_URL,  widthDocumentUpload),
-            new MspProgressBarItem(this.lang("./en/index.js").progressStepReview, ProcessUrls.ACCOUNT_REVIEW_URL,widthReview),
+            new MspProgressBarItem(this.lang("./en/index.js").progressStepMainMenu, this.processService.process.processSteps[0].route, widthMainMenu),
+            new MspProgressBarItem(this.lang("./en/index.js").progressStepDocumentation, ProcessUrls.ACCOUNT_FILE_UPLOADER_URL, widthDocumentUpload),
+            new MspProgressBarItem(this.lang("./en/index.js").progressStepReview, ProcessUrls.ACCOUNT_REVIEW_URL, widthReview),
         ];
 
-        
+
         if (newProgressBarItems && newProgressBarItems.length > 0) {
             progressBar.splice(1, 0, ...newProgressBarItems);
         }

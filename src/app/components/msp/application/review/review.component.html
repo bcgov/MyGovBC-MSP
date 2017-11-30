@@ -64,7 +64,7 @@
       </div>
   </div>
   <hr>
-  <button [mspLogger]="'msp-enrollment_review_continue'"
+  <button
           [disabled]="!application.authorizedByApplicant || (application.spouse && !application.authorizedBySpouse)
             || !application.hasValidAuthToken"
           class="btn btn-primary" type="submit"

@@ -64,7 +64,7 @@
     </div>
 </form>
 <hr>
-<button [mspLogger]="'msp-premium-assistance_submit'"  
+<button
     [disabled]="!canContinue"
     class="btn btn-primary" type="submit" (click)="continue()"
         [innerHTML]="lang('./en/index.js').continueButton"></button>

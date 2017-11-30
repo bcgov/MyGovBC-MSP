@@ -52,7 +52,7 @@
     </div>
 </div>
 <hr>
-<button [mspLogger]="'msp-account-management_prepare_continue'" class="btn btn-primary" [disabled]="!canContinue() || transmissionInProcess" (click)="next()"
+<button class="btn btn-primary" [disabled]="!canContinue() || transmissionInProcess" (click)="next()"
         type="button" tabindex="0" [innerHtml]="lang('./en/index.js').continueButton"></button>
 
 <msp-cancel [accountButton]="true"></msp-cancel>

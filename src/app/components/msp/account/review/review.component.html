@@ -92,7 +92,7 @@
         </div>
     </div>
     <hr>
-    <button [mspLogger]="'msp-accountmanagement_review_continue'"
+    <button
             [disabled]="!mspAccountApp.authorizedByApplicant || ((mspAccountApp.updatedSpouse || mspAccountApp.addedSpouse ) && !mspAccountApp.authorizedBySpouse)
             || !mspAccountApp.hasValidAuthToken"
             class="btn btn-primary" type="submit"
