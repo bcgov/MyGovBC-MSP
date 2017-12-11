@@ -19,7 +19,7 @@ node {
 
   stage('prebuild ' + BUILD_CONFIG) {
     echo "Injecting environment variables"
-    sh 'pwd ; env ; sed "s/process.env.mspIsInMaintenanceFlag/${mspIsInMaintenanceFlag}/;s/process.env.mspIsInMaintenanceText/${mspIsInMaintenanceText}/;s/process.env.mspIsInMaintenanceTimes/${mspIsInMaintenanceTimes}/" ./src/environments/environment.prod.ts.template >./src/environments/environment.prod.ts'
+    sh 'pwd ; find .. -name environment.prod.ts.template ; find .. -name environment.prod.ts ; sed "s/process.env.mspIsInMaintenanceFlag/${mspIsInMaintenanceFlag}/;s/process.env.mspIsInMaintenanceText/${mspIsInMaintenanceText}/;s/process.env.mspIsInMaintenanceTimes/${mspIsInMaintenanceTimes}/" ./src/environments/environment.prod.ts.template >./src/environments/environment.prod.ts'
   }
   stage('build ' + BUILD_CONFIG) {
     echo "Building: " + BUILD_CONFIG
