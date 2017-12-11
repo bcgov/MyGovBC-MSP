@@ -236,6 +236,14 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
                 return false;
             }
         }
+        // residential address if exists , it shud be BC
+
+        if (this.person.residentialAddress && this.person.residentialAddress.isValid) {
+            if (!this.person.residentialAddress.isBCOnly){
+                return false ;
+            }
+        }
+
         return true;
     }
 }

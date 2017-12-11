@@ -23,7 +23,8 @@ export class MspConsentModalComponent {
   public appConstants;
 
   constructor() {
-    this.appConstants = environment.appConstants
+    this.appConstants = environment.appConstants;
+    console.log("mspIsInMaintenanceFlag"+this.appConstants.mspIsInMaintenanceFlag);
   }
 
   agreeCheck: boolean = false;
