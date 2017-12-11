@@ -14,7 +14,7 @@
     "start": "npm run dev",
     "dev": "ng serve -o --proxy-config proxy.conf.json",
     "dev-build": "ng build",
-    "prebuild": "ls -l ./src/environments/environment.prod.ts.template",
+    "prebuild": "sed \"s/process.env.mspIsInMaintenanceFlag/${mspIsInMaintenanceFlag}/;s/process.env.mspIsInMaintenanceText/${mspIsInMaintenanceText}/;s/process.env.mspIsInMaintenanceTimes/${$mspIsInMaintenanceTimes}/\" ./src/environments/environment.prod.ts.template >./src/environments/environment.prod.ts",
     "build": "ng build --prod",
     "test": "ng test",
     "postinstall": "npm run build"
