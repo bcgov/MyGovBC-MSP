@@ -17,6 +17,11 @@ node {
     openshiftBuild bldCfg: NGINX_BUILD_CONFIG, showBuildLogs: 'true'
   }
 
+  stage('prebuild ' + BUILD_CONFIG) {
+    echo "Injecting environment variables"
+    sh 'pwd ; env ; sed "s/process.env.mspIsInMaintenanceFlag/${mspIsInMaintenanceFlag}/;s/process.env.mspIsInMaintenanceText/${mspIsInMaintenanceText}/;s/process.env.mspIsInMaintenanceTimes/${mspIsInMaintenanceTimes}/" ./src/environments/environment.prod.ts.template >./src/environments/environment.prod.ts'
+'
+  }
   stage('build ' + BUILD_CONFIG) {
     echo "Building: " + BUILD_CONFIG
     openshiftBuild bldCfg: BUILD_CONFIG, showBuildLogs: 'true'
