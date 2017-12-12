@@ -23,7 +23,7 @@ export const environment = {
           jpegQuality: 0.5
         },
         // general state of the app, if unavailable, display Unavailable message and don't continue
-        mspIsInMaintenanceFlag: true,
+        mspIsInMaintenanceFlag: false,
         mspIsInMaintenanceText: 'This Application is not available due to scheduled maintenance.',
         mspIsInMaintenanceTimes: 'between 9:00pm and 7:00am'
       }
