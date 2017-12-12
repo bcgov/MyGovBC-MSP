@@ -18,8 +18,6 @@ node {
   }
 
   stage('build ' + BUILD_CONFIG) {
-    echo "Injecting environment variables"
-    sh 'pwd ; sed "s/process.env.mspIsInMaintenanceFlag/${mspIsInMaintenanceFlag}/;s/process.env.mspIsInMaintenanceText/${mspIsInMaintenanceText}/;s/process.env.mspIsInMaintenanceTimes/${mspIsInMaintenanceTimes}/" ../workspace@script/src/environments/environment.prod.ts.template > ../workspace@script/src/environments/environment.prod.ts'
     echo "Building: " + BUILD_CONFIG
     openshiftBuild bldCfg: BUILD_CONFIG, showBuildLogs: 'true'
     openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: '$BUILD_ID', srcStream: IMAGESTREAM_NAME, srcTag: 'latest'
