@@ -17,15 +17,14 @@ node {
     openshiftBuild bldCfg: NGINX_BUILD_CONFIG, showBuildLogs: 'true'
   }
 
-  stage('prebuild ' + BUILD_CONFIG) {
+  stage('build ' + BUILD_CONFIG) {
     echo "Injecting environment variables"
     sh 'pwd ; sed "s/process.env.mspIsInMaintenanceFlag/${mspIsInMaintenanceFlag}/;s/process.env.mspIsInMaintenanceText/${mspIsInMaintenanceText}/;s/process.env.mspIsInMaintenanceTimes/${mspIsInMaintenanceTimes}/" ../workspace@script/src/environments/environment.prod.ts.template > ../workspace@script/src/environments/environment.prod.ts'
-  }
-  stage('build ' + BUILD_CONFIG) {
     echo "Building: " + BUILD_CONFIG
     openshiftBuild bldCfg: BUILD_CONFIG, showBuildLogs: 'true'
     openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: '$BUILD_ID', srcStream: IMAGESTREAM_NAME, srcTag: 'latest'
   }
+
   stage('deploy-' + TAG_NAMES[0]) {
     echo "Deploying to: " + TAG_NAMES[0]
     echo "tag source " + IMAGESTREAM_NAME + " with tag " + '$BUILD_ID' + " to dest " + IMAGESTREAM_NAME
