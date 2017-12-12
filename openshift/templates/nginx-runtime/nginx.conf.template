@@ -73,7 +73,7 @@ http {
 
         # serve our angular app here
         location / {
-	    # rewrite ^/msp(/.*)$ $1;
+	    rewrite ^/msp(/.*)$ $1;
             root   /tmp/app/dist;
             index  index.html index.htm;
             try_files $uri /index.html;
