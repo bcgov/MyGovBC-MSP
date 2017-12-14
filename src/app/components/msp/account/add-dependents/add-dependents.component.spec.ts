@@ -35,7 +35,8 @@ import {RouterTestingModule} from "@angular/router/testing";
 import { ProcessService } from "../../service/process.service";
 import { CompletenessCheckService } from '../../service/completeness-check.service';
 import { MspValidationService} from '../../service/msp-validation.service';
-
+import { ServicesCardDisclaimerModalComponent } from '../../../msp/common/services-card-disclaimer/services-card-disclaimer.component'
+import { ModalModule } from "ngx-bootstrap";
 
 
 
@@ -45,7 +46,7 @@ describe('AddDependentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AddDependentComponent, MspToggleComponent, MspStatusInCanadaRadioComponent, MspDateComponent, AccountPersonalDetailsComponent, CalendarYearValidator, CalendarMonthValidator, CalendarDayValidator, CalendarYearFormatter, AddNewDependentBeneficiaryComponent, MspNameComponent, MspGenderComponent, MspBirthDateComponent, MspPhnComponent, MspPhoneComponent, MspDischargeDateComponent, MspSchoolDateComponent, MspAddressComponent, MspProvinceComponent, MspArrivalDateComponent, MspOutofBCRecordComponent, Mod11CheckValidator, MspCountryComponent, MspDepartureDateComponent, MspReturnDateComponent],
+      declarations: [AddDependentComponent, MspToggleComponent, MspStatusInCanadaRadioComponent, MspDateComponent, AccountPersonalDetailsComponent, CalendarYearValidator, CalendarMonthValidator, CalendarDayValidator, CalendarYearFormatter, AddNewDependentBeneficiaryComponent, MspNameComponent, MspGenderComponent, MspBirthDateComponent, MspPhnComponent, MspPhoneComponent, MspDischargeDateComponent, MspSchoolDateComponent, MspAddressComponent, MspProvinceComponent, MspArrivalDateComponent, MspOutofBCRecordComponent, Mod11CheckValidator, MspCountryComponent, MspDepartureDateComponent, MspReturnDateComponent, ServicesCardDisclaimerModalComponent],
       imports: [
         FormsModule, 
         Ng2CompleterModule, 
@@ -53,6 +54,7 @@ describe('AddDependentComponent', () => {
           prefix: 'ca.bc.gov.msp',
           storageType: 'sessionStorage'
         }),
+        ModalModule.forRoot(),
         RouterTestingModule
       ],
       providers: [MspDataService, ProcessService, CompletenessCheckService, MspValidationService]

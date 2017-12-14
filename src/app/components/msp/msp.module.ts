@@ -94,6 +94,7 @@ import { MspDateComponent } from './common/date/date.component';
 import { MspStatusInCanadaRadioComponent } from './common/status-in-canada-radio/status-in-canada-radio.component';
 import { AddNewDependentBeneficiaryComponent } from './account/add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
 import { MspAccordionComponent } from './common/accordion/accordion.component';
+import { ServicesCardDisclaimerModalComponent } from './common/services-card-disclaimer/services-card-disclaimer.component';
 
 
 const APP_ROUTES : Routes = [
@@ -351,6 +352,7 @@ const APP_ROUTES : Routes = [
         MspStatusInCanadaRadioComponent,
         AddNewDependentBeneficiaryComponent,
         MspAccordionComponent,
+        ServicesCardDisclaimerModalComponent,
     ],
 
     providers: [

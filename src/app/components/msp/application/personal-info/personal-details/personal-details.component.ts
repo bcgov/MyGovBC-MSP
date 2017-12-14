@@ -107,6 +107,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   @Output() notifyChildRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() notifySpouseRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
+
   shrinkOut: string;
   shrinkOutStatus: string;
   genderListSignal: string;
