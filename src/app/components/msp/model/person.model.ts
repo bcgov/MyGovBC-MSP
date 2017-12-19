@@ -316,6 +316,13 @@ class Person implements IPerson {
         }
     }
 
+    get ineligibleForMSP(): boolean {
+        return (this.madePermanentMoveToBC === false && (
+            this.status === StatusInCanada.CitizenAdult ||
+            this.status === StatusInCanada.PermanentResident
+        ));
+    }
+
     /** Used for dependents and spouses to check if they are  an existing MSP Beneficiary. */
     isExistingBeneficiary: boolean;
     /** Only for spouse. Previous last name. */

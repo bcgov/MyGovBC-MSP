@@ -3,6 +3,7 @@ import { NgForm } from "@angular/forms";
 import * as moment from 'moment';
 import { BaseComponent } from "../base.component";
 import { SimpleDate } from '../../model/simple-date.interface';
+import { SimpleDateTools } from '../../model/simple-date.tools';
 
 @Component({
   selector: 'msp-date',
@@ -29,6 +30,10 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
   @Input() label: string;
   @Input() date: SimpleDate;
   @Output() dateChange = new EventEmitter<SimpleDate>();
+
+  @Input() notBeforeDate: SimpleDate;
+  @Input() notBeforeDateErrorLabel: string;
+  public hasErrorBeforeDate: boolean;
 
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
@@ -110,6 +115,20 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
     return false;
   }
 
+  notBeforeDateCheck(): boolean {
+    // console.log('notBeforeDateCheck', {
+    //   inputDate: this.inputDate(),
+    //   notBeforeDate: this.notBeforeDate,
+    //   isBefore: this.inputDate().isBefore(this.notBeforeDate)
+    // });
+    if (this.inputDate().isBefore(this.notBeforeDate)){
+      this.hasErrorBeforeDate = true;
+      return false;
+    }
+    this.hasErrorBeforeDate = false;
+    return true;
+  }
+
   futureCheck(): boolean {
 
     // console.log('today is: ' + this.today.format('DD-MM-YYYY') + '  input date is: ' + this.inputDate().format('DD-MM-YYYY'));
@@ -142,6 +161,11 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
 
     if (this.year || (this.month && this.month != 0) || this.day) {
       let val = this.isCorrectFormat() && this.futureCheck();
+
+      if (this.notBeforeDate !== null){
+        val = val && this.notBeforeDateCheck();
+      }
+
       if (!val) { 
         return val; 
       }

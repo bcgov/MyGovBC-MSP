@@ -21,4 +21,14 @@ module.exports = {
   medicalPlanPreviousResidence: "Medical plan in Previous place of Residence (optional)",
   permanentMove: "Is this a permanent move?",
 
+
+  moveDateBeforeBirthError: [
+    "The applicant's most recent move to BC cannot be before the applicant's date of birth.",
+    "The spouse's most recent move to BC cannot be before the spouse's date of birth.",
+    "The child's most recent move to BC cannot be before the child's date of birth.",
+    "The child's most recent move to BC cannot be before the child's date of birth.",
+  ],
+
+  notEligibleError: "You have indicated that a recent move to B.C. is not permanent. As a result, the above is not eligible for enrollment with MSP. Please contact HIBC for further information."
+
 }

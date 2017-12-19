@@ -35,6 +35,18 @@ export class OutofBCRecord {
     && _.isString(this.returnMonth);
   }
 
+  /**
+   * Check return date is not prior to departure date.
+   * Returns undefined if both dates are not set.
+   */
+  get isDateOrderValid(): boolean {
+    if (this.hasDeparture && this.hasReturn){
+      return this.departureDate.isSameOrBefore(this.returnDate);
+    }
+
+    return undefined;
+  }
+
   private isEmptyString(s:string):boolean {
     return s === null || s === undefined 
     || s.trim().length < 1

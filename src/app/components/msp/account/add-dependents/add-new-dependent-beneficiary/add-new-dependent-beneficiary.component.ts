@@ -46,8 +46,13 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
     }
 
     change($event) {
-        this.onChange.emit();
+        this.onChange.emit($event);
         this.emitIsFormValid();
+    }
+
+    //If false, then we don't want users continuing to further application;
+    checkEligibility(): boolean {
+        return !this.person.ineligibleForMSP;
     }
 
     handleDeleteOutofBCRecord(evt:OutofBCRecord){
@@ -101,7 +106,8 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
                 return false;
             }
         }
-        return true;
+
+        return this.checkEligibility();
     }
 
 }

@@ -60,6 +60,7 @@ export class ServicesCardDisclaimerModalComponent implements AfterViewInit, OnCh
   continue() {
     this.fullSizeViewModal.hide();
     this.onClose.emit();
+    return false; //Stops event propagation which triggers form validation too early.
   }
 
   /**

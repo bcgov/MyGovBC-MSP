@@ -46,15 +46,17 @@
     </div>
     <div class="col-md-4">
       <msp-return-date
-          #mspReturnDate
-          [year]="outofBCRecord.returnYear"
-          (yearChange)="outofBCRecord.returnYear = $event"
-          [month]="outofBCRecord.returnMonth"
-          (monthChange)="outofBCRecord.returnMonth = $event"
-          [day]="outofBCRecord.returnDay"
-          (dayChange)="outofBCRecord.returnDay = $event"
-          (onChange)="onUpdate.emit($event)" [futureDate]="futureReturnDate"
-          [showError]="showError"></msp-return-date>
+        #mspReturnDate
+        [year]="outofBCRecord.returnYear"
+        (yearChange)="outofBCRecord.returnYear = $event"
+        [month]="outofBCRecord.returnMonth"
+        (monthChange)="outofBCRecord.returnMonth = $event"
+        [day]="outofBCRecord.returnDay"
+        (dayChange)="outofBCRecord.returnDay = $event"
+        (onChange)="onUpdate.emit($event)" [futureDate]="futureReturnDate"
+        [showError]="showError"
+        [mustBeAfter]="outofBCRecord.departureDate"
+      ></msp-return-date>
     </div>
   </div>
 </form>

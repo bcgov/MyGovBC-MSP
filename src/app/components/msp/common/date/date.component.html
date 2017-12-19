@@ -2,7 +2,8 @@
     <label [innerHtml]="label" class="control-label" [class.optional]="!required"></label>
     <label class="visuallyhidden" for="month{{objectId}}">{{label}} {{lang('./en/index.js').monthLabel}}</label>
     <div class="form-group" 
-         [ngClass]="{'has-error': formRef.invalid && required && (monthRef.touched || yearRef.touched || dayRef.touched || showError)}">
+         [ngClass]="{'has-error': formRef.invalid && required && (monthRef.touched || yearRef.touched || dayRef.touched || showError)
+            || hasErrorBeforeDate}">
         <select class="form-control monthSelect"
                 [ngModel]="month"
                 (ngModelChange)="setMonthValueOnModel($event)"
@@ -78,6 +79,9 @@
             <div *ngIf='(!futureDate && (yearRef.touched || showError))' >
                 <div class="text-danger" *ngIf="yearRef.errors?.yearDistantFuture"
                      [innerHtml]="lang('./en/index.js').yearErrorDistantFuture"></div>
+            </div>
+            <div *ngIf='hasErrorBeforeDate'>
+                <div class="text-danger"[innerHtml]="notBeforeDateErrorLabel"></div>
             </div>
         </div>
     </div>

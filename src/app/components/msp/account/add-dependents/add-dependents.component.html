@@ -1,5 +1,5 @@
 <!-- Hide modal for children under 19. -->
-<msp-services-card-disclaimer-modal 
+<msp-services-card-disclaimer-modal
   *ngIf="person.relationship === Relationship.Spouse || person.relationship === Relationship.Child19To24"
   #mspServicesCardModal
   [personStatus]="person.status">

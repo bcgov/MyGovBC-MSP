@@ -112,17 +112,29 @@ export class AccountDependentChangeComponent extends BaseComponent {
 
     canContinue(): boolean {
         //Address Warning implies Request is missing the Address..So dont proceed
+        if (this.checkAnyDependentsIneligible()){
+            console.log('checkAnyDependentsIneligible=true, canContinue=false');
+            return false;
+        }
+
         if (this.showAddressWarningForSpouse || this.showAddressWarningForChild) {
             return false;
         }
         if (this.dataService.getMspAccountApp().hasAnyVisitorInApplication()) {
             return false;
         }
+
         //enable the buttons only when atleast one Dependent is added/removed..This makes sure the request is meaningful
         let atleastOneDepedentAddedOrRemoved: boolean = !!this.removedSpouse || !!this.addedSpouse || this.addedChildren.length > 0 || this.removedChildren.length > 0;
 
         // Enable the button if the form is not filled in yet
         return !this.isAllValid() || atleastOneDepedentAddedOrRemoved;
+    }
+
+    private checkAnyDependentsIneligible(): boolean {
+        let target = [this.addedSpouse, ...this.addedChildren]
+        return target.filter(x => x)
+                     .filter(x => x.ineligibleForMSP).length >= 1;
     }
 
 
