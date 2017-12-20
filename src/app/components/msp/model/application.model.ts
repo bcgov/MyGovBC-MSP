@@ -94,6 +94,20 @@ class MspApplication implements ApplicationBase {
     this._spouse = null;
   }
 
+  /**
+   * Returns an array of ALL persons uses in application.
+   *
+   * Useful, for example, to make sure all PHNs are unique.
+   */
+  get allPersons(): Array<Person> {
+    return [
+      this.applicant,
+      ...this.children,
+      this.spouse,
+    ]
+    .filter(x => x); //no 'undefined's
+  }
+
   // Address and Contact Info
   public residentialAddress: Address = new Address();
   public mailingSameAsResidentialAddress: boolean = true;

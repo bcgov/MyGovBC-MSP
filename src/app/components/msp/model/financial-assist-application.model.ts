@@ -122,6 +122,19 @@ export class FinancialAssistApplication implements ApplicationBase {
 
   private _hasSpouseOrCommonLaw: boolean;
 
+  /**
+   * Returns an array of ALL persons uses in financial assistance.
+   *
+   * Useful, for example, to make sure all PHNs are unique.
+   */
+  get allPersons(): Array<Person> {
+    return [
+      this.applicant,
+      this.spouse,
+    ]
+    .filter(x => x); //no 'undefined's
+  }
+
 
   /**
    * Applicant himself or herself eligible for disablity credit flag

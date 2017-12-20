@@ -50,6 +50,24 @@ class MspAccountApp implements ApplicationBase {
     private _addedChildren: Array<Person> = [];
     private _updatedChildren: Array<Person>  = [];
 
+    /**
+     * Returns an array of ALL persons uses in account.
+     *
+     * Useful, for example, to make sure all PHNs are unique.
+     */
+    get allPersons(): Array<Person> {
+        return [
+            this.applicant,
+            ...this.addedChildren,
+            ...this.children,
+            ...this.removedChildren,
+            this.updatedSpouse,
+            this.addedSpouse,
+            this.removedSpouse,
+        ]
+        .filter(x => x); //no 'undefined's
+    }
+
     get addedChildren(): Array<Person> {
         return this._addedChildren;
     }

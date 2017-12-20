@@ -40,4 +40,8 @@ export class AssistancePersonalDetailComponent extends BaseComponent {
       });
   }
 
+  getSinList(): string[]{
+    return this.finApp.allPersons.map(x => x.sin);
+  }
+
 } 
