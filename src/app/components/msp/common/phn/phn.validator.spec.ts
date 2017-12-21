@@ -9,6 +9,7 @@ import { MspDataService } from '../../service/msp-data.service';
 import { MspValidationService } from '../../service/msp-validation.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspPhnComponent} from './phn.component';
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe('PHN Component', () => {
   let fixture:ComponentFixture<MspPhnComponent>;
@@ -25,6 +26,7 @@ describe('PHN Component', () => {
       imports: [BrowserModule,
         CommonModule,
         FormsModule,
+        RouterTestingModule,
         LocalStorageModule.withConfig({
           prefix: 'ca.bc.gov.msp',
           storageType: 'sessionStorage'

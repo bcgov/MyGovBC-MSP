@@ -1,12 +1,29 @@
-import {Directive, forwardRef, Input} from '@angular/core';
-import {Validator, NG_VALIDATORS, FormControl} from '@angular/forms';
-import {MspValidationService} from '../../service/msp-validation.service';
+import { Directive, forwardRef, Input } from '@angular/core';
+import { Validator, NG_VALIDATORS, FormControl } from '@angular/forms';
+import { MspValidationService } from '../../service/msp-validation.service';
 import { errorHandler } from '@angular/platform-browser/src/browser';
 
+
+/**
+ * Validates an input for having a valid SIN number.  Use the (optional)
+ * secondary field "sinList" to provide a list of all SINS to compare against
+ * for uniqueness.
+ *
+ * @example
+ * <input type="text"
+ *      [(ngModel)]="person.sin"
+ *      sinCheck //Check if it's a valid SIN
+ *      [sinList]="getSinList()" //(optional) check if it's a unique SIN
+ *      required
+ *      pattern="[1-9]{1}\d{2}\s?\d{3}\s?\d{3}">
+ * @class SinCheckValidator
+ * @implements {Validator}
+ */
 @Directive({
   selector: '[sinCheck][ngModel]',
   providers: [
-    { provide: NG_VALIDATORS, useExisting: forwardRef(() => SinCheckValidator), multi: true
+    {
+      provide: NG_VALIDATORS, useExisting: forwardRef(() => SinCheckValidator), multi: true
     }
   ]
 })
@@ -14,17 +31,15 @@ import { errorHandler } from '@angular/platform-browser/src/browser';
 export class SinCheckValidator implements Validator {
 
   /**
-   * A list of SINs, which will be used to test uniquness. If the sin on the
-   * element matches any in the sinList, it will fail validation with a
-   * `uniqueSin` error property..
+   * (optional) An array of SINS, used to test uniqueness. If a SIN is a
+   * duplicate, it fails with the `uniqueSin` error property.
    */
   @Input() sinList: string[];
 
-  constructor(private validationService:MspValidationService){
-
+  constructor(private validationService: MspValidationService) {
   }
 
-  validate(control: FormControl): {[key:string]:boolean;}  {
+  validate(control: FormControl): { [key: string]: boolean; } {
 
     // Get value out of control
     const sin = control.value;
@@ -40,17 +55,20 @@ export class SinCheckValidator implements Validator {
     }
 
     //add properties for each validation failure
-    if (this.sinList && this.sinList.length){
+
+    //only check unqiueness if it's been touched. avoids false-positives for
+    //duplicates when refreshing page with values loaded via localStorage
+    if (control.touched && this.sinList && this.sinList.length) {
       errorObj["uniqueSin"] = !this.isUnique(sin);
     }
 
+    //if all error properties are false, return null, because that's what templates expect.
     const hasNoErrors = Object.keys(errorObj)
-    .map(k => { return errorObj[k]})
-    .filter(x => x)
-    .length <= 0;
+      .map(k => { return errorObj[k] })
+      .filter(x => x)
+      .length <= 0;
 
-    //Template code expects "null" to not show any errors in the template.
-    if (hasNoErrors){
+    if (hasNoErrors) {
       return null;
     }
 

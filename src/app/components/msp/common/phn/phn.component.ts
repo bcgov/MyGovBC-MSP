@@ -33,17 +33,19 @@ export class MspPhnComponent extends BaseComponent {
 
   ngAfterViewInit(): void {
     this.form.valueChanges.subscribe(values => {
-      this.isUnique();
       this.onChange.emit(values);
     });
   }
 
   setPhn(value:string){
     this.phn = value;
-    this.phnChange.emit(value);  
+    this.phnChange.emit(value);
   }
 
   isUnique(): boolean {
+    //For tests, router url often isn't mocked.
+    if (!this.getPersonList()) { return null };
+
     return this.getPersonList() //Detect what application person to use
       .map(x => x.previous_phn)
       .filter(x => x) //Filter 'undefined' out

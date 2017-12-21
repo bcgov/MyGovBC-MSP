@@ -44,4 +44,4 @@ export class AssistancePersonalDetailComponent extends BaseComponent {
     return this.finApp.allPersons.map(x => x.sin);
   }
 
-} 
+}

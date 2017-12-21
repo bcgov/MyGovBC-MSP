@@ -21,6 +21,8 @@ import {CalendarYearFormatter} from '../../../common/calendar/calendar-year-form
 import {CalendarYearValidator} from '../../../common/calendar/calendar-year.validator';
 import {CalendarDayValidator} from '../../../common/calendar/calendar-day.validator';
 import { ProcessService } from "../../../service/process.service";
+import { SinCheckValidator } from '../../../common/sin/sin.validator';
+import { RouterTestingModule } from "@angular/router/testing";
 
 
 describe('AssistancePersonalDetailComponent Test', () => {
@@ -30,8 +32,8 @@ describe('AssistancePersonalDetailComponent Test', () => {
       declarations: [AssistancePersonalDetailComponent, MspPhnComponent, MspNameComponent,
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent,
         Mod11CheckValidator, MspGenderComponent, MspCountryComponent,
-        CalendarYearFormatter,CalendarYearValidator,CalendarDayValidator],
-      imports: [FormsModule, Ng2CompleterModule, HttpModule, LocalStorageModule.withConfig({
+        CalendarYearFormatter,CalendarYearValidator,CalendarDayValidator, SinCheckValidator],
+      imports: [FormsModule, RouterTestingModule, Ng2CompleterModule, HttpModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],

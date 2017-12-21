@@ -34,6 +34,7 @@ import {MspValidationService} from '../../../service/msp-validation.service';
 import { ProcessService } from "../../../service/process.service";
 
 import { MspStatusInCanadaRadioComponent } from '../../../common/status-in-canada-radio/status-in-canada-radio.component';
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe('AccountPersonalDetailsComponent', () => {
 
@@ -46,7 +47,7 @@ describe('AccountPersonalDetailsComponent', () => {
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,
         MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspImageErrorModalComponent,
         CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator, MspStatusInCanadaRadioComponent],
-      imports: [FormsModule, Ng2CompleterModule, ModalModule.forRoot(), AccordionModule.forRoot(),LocalStorageModule.withConfig({
+      imports: [FormsModule, RouterTestingModule, Ng2CompleterModule, ModalModule.forRoot(), AccordionModule.forRoot(),LocalStorageModule.withConfig({
           prefix: 'ca.bc.gov.msp',
           storageType: 'sessionStorage'
       })],

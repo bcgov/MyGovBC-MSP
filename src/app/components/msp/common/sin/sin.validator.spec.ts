@@ -22,6 +22,8 @@ import { CalendarDayValidator } from '../../common/calendar/calendar-day.validat
 
 import { Person } from '../../model/person.model';
 import { Relationship } from '../../model/status-activities-documents';
+import { RouterTestingModule } from "@angular/router/testing";
+
 
 describe('SIN Validator Test', () => {
 
@@ -42,6 +44,7 @@ describe('SIN Validator Test', () => {
         CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator],
       imports: [BrowserModule,
         CommonModule,
+        RouterTestingModule,
         FormsModule,
         LocalStorageModule.withConfig({
           prefix: 'ca.bc.gov.msp',
