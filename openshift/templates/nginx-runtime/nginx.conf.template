@@ -95,7 +95,8 @@ http {
               if ( $request_method ~ ^(HEAD|OPTIONS)$ ) {
                 return 200;
               }
-              proxy_pass http://logstash:8080/;
+	      proxy_set_header Authorization Splunk %SPLUNK_AUTH_TOKEN%
+              proxy_pass http://splunk-forwarder:5505/log;
             }
 
             location /api/captcha/ {
