@@ -89,7 +89,11 @@
                   {
                     "name": "HTTP_BASIC_PASSWORD",
                     "value": "${HTTP_BASIC_PASSWORD}"
-                  }
+                  },
+                  {
+                    "name": "SPLUNK_AUTH_TOKEN",
+                    "value": "${SPLUNK_AUTH_TOKEN}"
+                  },
                 ],
                 "resources": {
                   "requests": {
@@ -297,6 +301,13 @@
       "description": "For very simple HTTP Basic authentication, the password of the ONE user",
       "displayName": "HTTP Basic Password",
       "name": "HTTP_PASSWORD",
+      "value": ""
+    },
+    {
+      "description": "Splunk Forwarder AUTH Token",
+      "displayName": "SPLUNK_AUTH_TOKEN",
+      "required": true,
+      "name": "SPLUNK_AUTH_TOKEN",
       "value": ""
     }
   ]
