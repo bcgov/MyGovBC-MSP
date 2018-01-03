@@ -97,7 +97,7 @@ http {
               }
 	      proxy_set_header Authorization "Splunk %SPLUNK_AUTH_TOKEN%";
 	      proxy_pass_header Authorization;
-              proxy_pass http://splunk-forwarder:5505/log;
+              proxy_pass http://splunk-forwarder:8080/log;
             }
 
             location /api/captcha/ {
