@@ -39,7 +39,5 @@ export const environment = {
         mspIsInMaintenanceFlag: process.env.mspIsInMaintenanceFlag,
         mspIsInMaintenanceText: process.env.mspIsInMaintenanceText,
         mspIsInMaintenanceTimes: process.env.mspIsInMaintenanceTimes,
-
-
       }
 }

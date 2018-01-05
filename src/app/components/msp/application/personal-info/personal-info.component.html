@@ -52,7 +52,7 @@
            [innerHtml]="lang('./en/index.js').badAnswerStudies" role="alert" aria-live="assertive">
         </p>
       <div class="col-sm-2">
-        <button [mspLogger]="'msp-enrollment_personal-info_continue'" 
+        <button
             class="btn btn-primary" type="submit" [disabled] = "!documentsReady()|| !isStayinginBCAfterstudies()"
             [innerHTML]="lang('./en/index.js').continueButton"></button>
         

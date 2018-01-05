@@ -39,7 +39,7 @@ module.exports = function (config) {
       specReporter: {
         suppressSkipped: true,      // do not print information about skipped tests
         showSpecTiming: true,      // print the time elapsed for each spec
-        failFast: true              // test would finish with error when a first fail occurs. 
+        failFast: config.angularCli && config.angularCli.singleRun              // test would finish with error when a first fail occurs. 
       },
   
       port: 9876,

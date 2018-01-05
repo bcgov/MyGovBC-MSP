@@ -34,7 +34,7 @@
                [mailingOnly]="true" (onChange)="onChange($event)"></msp-address>
   <hr>
 
-  <button [mspLogger]="'msp-premium-assistance_personal-info_continue'"
+  <button
           class="btn btn-primary" type="submit"
           [disabled]="!canContinue"
           [innerHTML]="lang('./en/index.js').continueButton"></button>

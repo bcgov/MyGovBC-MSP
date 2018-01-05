@@ -9,6 +9,7 @@ import {Gender, Person} from "../../model/person.model";
 import {StatusInCanada, Activities, Relationship} from "../../model/status-activities-documents";
 import {ProcessService, ProcessUrls} from "../../service/process.service";
 import {environment} from '../../../../../environments/environment';
+import { MspLogService } from '../../service/log.service';
 
 @Component({
     templateUrl: './review.component.html',
@@ -23,7 +24,8 @@ export class AccountReviewComponent implements OnInit {
 
     constructor(private dataService: MspDataService,
                 private _router: Router,
-                private processService: ProcessService) {
+                private processService: ProcessService,
+                private logService: MspLogService) {
         this.mspAccountApp = dataService.getMspAccountApp();
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
     }
@@ -97,6 +99,7 @@ export class AccountReviewComponent implements OnInit {
         if (this.mspAccountApp.hasValidAuthToken) {
             console.log('Found valid auth token, transfer to sending screen.');
             this.processService.setStep(this.processService.getStepNumber(ProcessUrls.ACCOUNT_REVIEW_URL), true);
+            this.logService.log({name: "Account - Review Page Before Submit (after CAPTCHA)"})
             this._router.navigate(['/msp/account/sending']);
         } else {
             console.log('Auth token is not valid');

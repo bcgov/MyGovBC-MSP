@@ -21,11 +21,7 @@ export class MspLoggerDirective{
 
   }
   @HostListener('click', ['$event']) onclick($event:any) {
-    // console.log('log on click event');
-    this.sendLog(this.makeGeneralLog());
-  }
-  @HostListener('load', ['$event']) onLoad($event:any) {
-    // console.log('log on load event');
+    console.log('log on click event');
     this.sendLog(this.makeGeneralLog());
   }
 
