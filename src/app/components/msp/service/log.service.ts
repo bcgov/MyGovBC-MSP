@@ -1,6 +1,6 @@
 import {Injectable, Inject} from '@angular/core'
 import {Http, Headers, RequestOptions} from "@angular/http"
-import { Observable } from 'rxjs/Rx';
+import { Observable, Subscription } from 'rxjs/Rx';
 import { environment } from '../../../../environments/environment';
 import { LogEntry } from '../common/logging/log-entry.model';
 import { MspDataService } from './msp-data.service';
@@ -15,12 +15,21 @@ export class MspLogService {
   }
 
   /**
-   * Submit a log which automatically includes meta-data.
+   * 
    *
    * @param logItem JSON to be logged (combined  with meta-data)
    * @returns {Promise<any>}
    */
-  log(logItem: Object): Observable<any>{
+
+  /**
+   * Submit a log which automatically includes meta-data.
+   *
+   * @param {Object} logItem Data to send to log server
+   * @param {() => void} [callback]     OPTIONAL - Success callback.
+   * @param {() => void} [errCallback]  OPTIONAL - Error callback.
+   * @returns {Subscription}
+   */
+  log(logItem: Object, callback?: () => void, errCallback?: () => void): Subscription{
     let baseUrl = this.appConstants['logBaseUrl']
     let headers = new Headers({'Content-Type': 'application/json'})
     let options = new RequestOptions({headers: headers})
@@ -35,7 +44,7 @@ export class MspLogService {
       meta: body.meta
     });
 
-    return this.http.post(baseUrl, body, options);
+    return this.http.post(baseUrl, body, options).subscribe(callback, errCallback);
   }
 
 
