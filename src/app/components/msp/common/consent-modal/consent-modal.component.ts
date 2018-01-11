@@ -1,14 +1,16 @@
 import {Component, EventEmitter, Input, Output, ViewChild, Inject} from '@angular/core'
-import moment = require("moment");
-import {ModalDirective} from "ng2-bootstrap";
+import * as moment from 'moment';
+import {ModalDirective} from "ngx-bootstrap";
 import {ApplicationBase} from "../../model/application-base.model";
 // jam - trying to inject appConstants
-// import appConstants from '../../../../services/appConstants';
+// 
+
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'msp-consent-modal',
   templateUrl: './consent-modal.component.html',
-  // providers: [{provide: 'appConstants', useValue: appConstants}]
+  // providers: []
 })
 export class MspConsentModalComponent {
   lang = require('./i18n');
@@ -18,7 +20,12 @@ export class MspConsentModalComponent {
   @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
   @Output() onClose = new EventEmitter<void>();
 
-  constructor(@Inject('appConstants') private appConstants: any) {}
+  public appConstants;
+
+  constructor() {
+    this.appConstants = environment.appConstants;
+    console.log("mspIsInMaintenanceFlag"+this.appConstants.mspIsInMaintenanceFlag);
+  }
 
   agreeCheck: boolean = false;
 

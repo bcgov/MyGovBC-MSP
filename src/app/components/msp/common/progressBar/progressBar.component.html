@@ -1,17 +1,21 @@
 <div class="container" *ngIf="isAnyRoute()">
     <nav>
-        <div class="progressBar">
-            <ul>
-                <li *ngFor="let item of progressBarList; let itemNum = index">
-                    <a routerLink="{{item.routerLink}}" 
-                       [tabindex]="(isActiveRoute(item.routerLink) || isBeforeActiveRoute(item.routerLink) )? 0 : -1"
-                       [class.beforeActive]="isBeforeActiveRoute(item.routerLink)"
-                       [class.active]="isActiveRoute(item.routerLink)"
-                       [class.afterActive]="isAfterActiveRoute(item.routerLink)">
-                        <span>{{itemNum + 1}}</span>
-                        <span [class.hidden-xs]="!isActiveRoute(item.routerLink)">{{item.displayName}}</span>
-                    </a>
-                </li>
+        <div class="progressBar progressBarCount-{{ progressBarList.length }} progressBarType-{{getAppTypeClass() }} {{ heightClass }}">
+            <ul [style.height]="minimumHeight +'px'">
+                <ng-template ngFor let-item let-i="index" [ngForOf]="progressBarList" >
+                    <li [ngStyle]="item.width"
+                    [class.activeContainer]="isActiveRoute(item.routerLink)">
+                        <a #links
+                            routerLink="{{item.routerLink}}"
+                           [tabindex]="(isActiveRoute(item.routerLink) || isBeforeActiveRoute(item.routerLink) )? 0 : -1"
+                           [class.beforeActive]="isBeforeActiveRoute(item.routerLink)"
+                           [class.active]="isActiveRoute(item.routerLink)"
+                           [class.afterActive]="isAfterActiveRoute(item.routerLink)">
+                            <span>{{i+1}}</span>
+                            <span [class.hidden-xs]="!isActiveRoute(item.routerLink)"  [innerHtml]="item.displayName"></span>
+                        </a>
+                    </li>
+                </ng-template>
             </ul>
         </div>
     </nav>

@@ -1,7 +1,7 @@
 <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
 <p class="helpblock intro" [innerHTML]="lang('./en/index.js').helpBlock"></p>
 <h2 [innerHTML]="lang('./en/index.js').declarationAndConsentTitle"></h2>
-<p [innerHTML]="lang('./en/declaration.md')"></p>
+<p [innerHTML]="lang('./en/index.js').declaration"></p>
 
 <form #form="ngForm">
     <div>
@@ -64,7 +64,7 @@
     </div>
 </form>
 <hr>
-<button [mspLogger]="'msp-premium-assistance_submit'"  
+<button
     [disabled]="!canContinue"
     class="btn btn-primary" type="submit" (click)="continue()"
         [innerHTML]="lang('./en/index.js').continueButton"></button>

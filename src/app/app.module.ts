@@ -2,15 +2,12 @@ import {NgModule, OpaqueToken, Inject, Component} from '@angular/core'
 import {BrowserModule}  from '@angular/platform-browser'
 import {RouterModule} from '@angular/router';
 
-
-import {HomeComponent} from './components/home'
 import {CoreHeaderComponent} from './components/core/header'
 import {CoreFooterComponent} from './components/core/footer'
-import { ModalModule } from 'ng2-bootstrap/modal';
-import { AccordionModule } from 'ng2-bootstrap/accordion';
+import { ModalModule, AccordionModule} from 'ngx-bootstrap';
 import {MspModule} from './components/msp/msp.module'
-import {GeneralAppComponent} from './app.component'
-import appConstants from './services/appConstants'
+import {GeneralAppComponent} from './app.component';
+
 
 require('./index.less')
 @NgModule({
@@ -25,11 +22,9 @@ require('./index.less')
     
   ],
   declarations: [
-    HomeComponent, CoreHeaderComponent, CoreFooterComponent, 
+    CoreHeaderComponent, CoreFooterComponent, 
     GeneralAppComponent
   ],
-  
-  providers: [{provide: 'appConstants', useValue: appConstants}],
   bootstrap: [CoreHeaderComponent, CoreFooterComponent, GeneralAppComponent]
 })
 export class AppModule {

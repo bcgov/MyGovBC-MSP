@@ -3,11 +3,10 @@ import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
 import {BaseComponent} from "../base.component";
 
-require('./school-date.component.less');
-
 @Component({
   selector: 'msp-school-date',
-  templateUrl: './school-date.component.html'
+  templateUrl: './school-date.component.html',
+  styleUrls: ['./school-date.component.less']
 })
 export class MspSchoolDateComponent extends BaseComponent {
 
@@ -34,8 +33,6 @@ export class MspSchoolDateComponent extends BaseComponent {
   }
 
   ngAfterViewInit(): void {
-    super.ngAfterViewInit();
-
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);
     });

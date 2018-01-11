@@ -1,12 +1,12 @@
 import {ChangeDetectorRef, Component, ViewChild} from '@angular/core'
 import {NgForm} from "@angular/forms";
-import DataService from '../../service/msp-data.service';
+import { MspDataService } from '../../service/msp-data.service';
 import {MspApplication} from "../../model/application.model";
 import {Address} from "../../model/address.model";
 import {BaseComponent} from "../../common/base.component";
 import {MspAddressComponent} from "../../common/address/address.component";
 import {MspPhoneComponent} from "../../common/phone/phone.component";
-import ProcessService from "../../service/process.service";
+import {ProcessService} from "../../service/process.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -24,7 +24,7 @@ export class AddressComponent extends BaseComponent {
   
   mspApplication: MspApplication;
 
-  constructor(private dataService: DataService,
+  constructor(private dataService: MspDataService,
               private _router: Router,
               private _processService: ProcessService,
               private cd:ChangeDetectorRef) {
@@ -36,8 +36,6 @@ export class AddressComponent extends BaseComponent {
   }
 
   ngAfterViewInit():void {
-    super.ngAfterViewInit();
-
     this.form.valueChanges.subscribe(values => {
       this.dataService.saveMspApplication();
     });

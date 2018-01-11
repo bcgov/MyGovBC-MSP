@@ -1,6 +1,6 @@
 <form #formRef="ngForm">
 <div class="dropzone" #dropZone>
-  <div [hidden] = "images.length >= MAX_NUM_IMAGES" class="instruction-zone">
+  <div class="instruction-zone">
         <input type="file" id="fileUploadBrowse-{{id}}" #browseFileRef
           accept="image/*" style="display:none;" tabindex="0"
           />
@@ -36,7 +36,7 @@
           #imagePlaceholderRef aria-hidden="true">
 
         </i>
-        <p class="text-upload" *ngIf="images.length > 0 && (!errorStyle || !showError)">Upload another file</p>
+        <p class="text-upload" *ngIf="images.length > 0 && (!showError)">Upload another file</p>
         <p class="text-upload" [ngClass]="{'error-style': showError}"
           *ngIf="images?.length < 1 || noIdImage">
           <ng-content></ng-content>  

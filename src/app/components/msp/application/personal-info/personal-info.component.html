@@ -1,3 +1,6 @@
+<msp-services-card-disclaimer-modal #mspServicesCardModal
+[personStatus]="applicant.status">
+</msp-services-card-disclaimer-modal>
 <form #formRef="ngForm" novalidate (submit)="continue()">
     <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
@@ -49,17 +52,15 @@
            [innerHtml]="lang('./en/index.js').badAnswerStudies" role="alert" aria-live="assertive">
         </p>
       <div class="col-sm-2">
-        <button [mspLogger]="'msp-enrollment_personal-info_continue'" 
+        <button
             class="btn btn-primary" type="submit" [disabled] = "!documentsReady()|| !isStayinginBCAfterstudies()"
             [innerHTML]="lang('./en/index.js').continueButton"></button>
         
       </div>
-      <div class="col-sm-6 pull-left" *ngIf="!formValidStatus && formRef.submitted">
+      <div class="col-sm-6 pull-left" *ngIf="formRef.submitted">
         <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
         </p>
       </div>
       <msp-cancel></msp-cancel>
     </div>
-    <input type="hidden" id="test" name="test" [(ngModel)]="test">
-
 </form>

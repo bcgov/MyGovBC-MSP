@@ -1,12 +1,12 @@
 import { Component, ViewChild, OnInit, AfterViewInit, DoCheck } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import MspDataService from '../../service/msp-data.service';
+import { MspDataService } from '../../service/msp-data.service';
 import {FinancialAssistApplication}from '../../model/financial-assist-application.model';
 import {MspImage} from "../../../msp/model/msp-image";
 import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
 import {Router} from "@angular/router";
-import ProcessService from "../../service/process.service";
+import {ProcessService} from "../../service/process.service";
 
 
 @Component({

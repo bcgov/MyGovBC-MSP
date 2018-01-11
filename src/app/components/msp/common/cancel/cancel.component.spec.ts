@@ -3,30 +3,25 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 
 import { MspCancelComponent } from './cancel.component';
-import MspDataService from '../../service/msp-data.service';
-import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+import {MspDataService} from '../../service/msp-data.service';
+import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspAddressCardPartComponent} from "../address-card-part/address-card-part.component";
 import {RouterTestingModule} from "@angular/router/testing";
-import {Ng2BootstrapModule} from "ng2-bootstrap";
+import {Ng2BootstrapModule} from "ngx-bootstrap";
 
 import { MspLogService } from '../../service/log.service';
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
-import appConstants from '../../../../services/appConstants';
 describe('MspCancelComponent', () => {
-  let localStorageServiceConfig = {
-    prefix: 'ca.bc.gov.msp',
-    storageType: 'localStorage'
-  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MspCancelComponent, MspAddressCardPartComponent, MspLoggerDirective],
-      imports: [FormsModule, RouterTestingModule, Ng2BootstrapModule.forRoot(), HttpModule],
+      imports: [FormsModule, RouterTestingModule, Ng2BootstrapModule.forRoot(), HttpModule,LocalStorageModule.withConfig({
+          prefix: 'ca.bc.gov.msp',
+          storageType: 'sessionStorage'
+      })],
       providers: [MspDataService, MspLogService,
-        LocalStorageService,{
-          provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        },
-        {provide: 'appConstants', useValue: appConstants}
+        LocalStorageService
       ]
     })
   });

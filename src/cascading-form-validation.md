@@ -84,7 +84,7 @@ Unsubcribe the subcription to avoid memory leak.
 
 
 ```
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
 import { Observer } from 'rxjs/Observer';
 import 'rxjs/add/observable/fromEvent';

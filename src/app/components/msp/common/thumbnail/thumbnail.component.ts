@@ -1,13 +1,12 @@
 import {Component, ViewChild, OnInit, Input, Output, EventEmitter, ViewContainerRef } from '@angular/core';
-import { ModalDirective } from 'ng2-bootstrap/modal/modal.component';
+import { ModalDirective } from 'ngx-bootstrap';
 
 import { MspImage } from '../../model/msp-image';
 
-require('./thumbnail.less')
-
 @Component({
   selector: 'msp-thumbnail',
-  templateUrl: './thumbnail.html'
+  templateUrl: './thumbnail.html',
+  styleUrls: ['./thumbnail.less']
 })
 export class ThumbnailComponent implements OnInit {
   @Input() imageObject: MspImage;

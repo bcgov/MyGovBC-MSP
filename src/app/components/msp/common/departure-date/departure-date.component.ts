@@ -3,11 +3,11 @@ import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
 import {BaseComponent} from "../base.component";
 
-require('./departure-date.component.less');
 
 @Component({
   selector: 'msp-departure-date',
-  templateUrl: './departure-date.component.html'
+  templateUrl: './departure-date.component.html',
+  styleUrls: ['./departure-date.component.less']
 })
 export class MspDepartureDateComponent extends BaseComponent {
 
@@ -16,6 +16,7 @@ export class MspDepartureDateComponent extends BaseComponent {
   // Create today for comparison in check later
   today = moment();
 
+    @Input() futureDate: boolean;
   @Input() showError: boolean;
   @Input() year: number;
   @Output() yearChange = new EventEmitter<number>();
@@ -58,6 +59,9 @@ export class MspDepartureDateComponent extends BaseComponent {
 
   futureCheck(): boolean {
 
+    if (this.futureDate){
+      return true;
+    }
     // Check not in future
     if (this.inputDate().isAfter(this.today)) {
       return false;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema version="1.1"
+<xs:schema version="1.3"
     xmlns:at="http://www.gov.bc.ca/hibc/assistanceTypes" 
     xmlns:ct="http://www.gov.bc.ca/hibc/commonTypes" 
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -10,8 +10,8 @@
     <xs:annotation>
     	<xs:documentation xml:lang="en">
     		MSP Premium Assistance Application - Digital Experience
-    		Version: $LastChangedRevision: 4408 $  
-    		LastChanged: $LastChangedDate: 2017-02-10 10:28:03 -0800 (Fri, 10 Feb 2017) $
+    		Version: $LastChangedRevision: 5170 $  
+    		LastChanged: $LastChangedDate: 2017-09-20 12:27:25 -0700 (Wed, 20 Sep 2017) $
     	</xs:documentation>
     </xs:annotation>
 
@@ -48,7 +48,7 @@
 	<xs:complexType name="AssistanceSpouseType">
 		<xs:sequence>
        		<xs:element name="name" type="ct:NameType" maxOccurs="1"/>
-			<xs:element name="birthDate" type="xs:date" minOccurs="0"/>
+       		<xs:element name="birthDate" type="xs:date" minOccurs="0"/>
        		<xs:element name="phn" type="ct:PHNType" minOccurs="0"/>
        		<xs:element name="SIN" type="ct:SINType" minOccurs="0"/>
        		<xs:element name="spouseDeduction" type="xs:decimal" minOccurs="0"/>
@@ -95,7 +95,7 @@
     
     <xs:simpleType name="NumberOfTaxYearsType">
     	<xs:restriction base="xs:positiveInteger">
-          <xs:pattern value="[1-6]" />
+          <xs:pattern value="[1-7]" />
        	</xs:restriction>
     </xs:simpleType>
 </xs:schema>

@@ -1,9 +1,9 @@
 import { Component, Directive, HostBinding,ElementRef,
   OnChanges, OnInit, HostListener, Input, SimpleChanges } from '@angular/core';
-import moment = require("moment");
+  import * as moment from 'moment';
 
 import { MspLogService } from '../../service/log.service';
-import DataService from '../../service/msp-data.service';
+import { MspDataService } from '../../service/msp-data.service';
 import { LogEntry } from './log-entry.model';
 
 @Directive({
@@ -16,16 +16,12 @@ export class MspLoggerDirective{
   @Input() mspLogger:string;
   @Input() confirmationNumber:string;
   constructor(private logService:MspLogService, 
-    private dataService:DataService,
+    private dataService:MspDataService,
     private el:ElementRef){
 
   }
   @HostListener('click', ['$event']) onclick($event:any) {
-    // console.log('log on click event');
-    this.sendLog(this.makeGeneralLog());
-  }
-  @HostListener('load', ['$event']) onLoad($event:any) {
-    // console.log('log on load event');
+    console.log('log on click event');
     this.sendLog(this.makeGeneralLog());
   }
 
@@ -68,7 +64,6 @@ export class MspLoggerDirective{
         // console.log('log rest service completed!');
       }
     );
-
   }
 }
 

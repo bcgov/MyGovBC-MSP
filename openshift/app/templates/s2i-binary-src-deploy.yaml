@@ -58,7 +58,7 @@ objects:
             value: ${IpFilterRules}
           resources:
             limits:
-              cpu: 500m
+              cpu: 250m
               memory: 200Mi
           livenessProbe:
             httpGet:

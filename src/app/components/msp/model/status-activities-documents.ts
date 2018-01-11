@@ -6,6 +6,7 @@ enum Relationship {
   Spouse,
   ChildUnder19,
   Child19To24,
+  ChildUnder24
 }
 
 
@@ -49,6 +50,24 @@ enum Documents {
   ChangeOfNameCertificate
 }
 
+enum CancellationReasons {
+  NoLongerInFullTimeStudies,
+  Deceased,
+  OutOfProvinceOrCountry,
+  Incarcerated,
+  ArmedForces,
+  Other, //user can provide custom string for reason
+}
+
+enum CancellationReasonsForSpouse {
+   SeparatedDivorced,
+   Deceased,
+    OutOfProvinceOrCountry,
+    Incarcerated,
+    ArmedForces,
+    Other, //user can provide custom string for reason
+}
+
 /**
  * Business rules for status
  */
@@ -72,7 +91,7 @@ class ActivitiesRules {
       case StatusInCanada.CitizenAdult:
       case StatusInCanada.PermanentResident:
         if (relationship === Relationship.Child19To24 ||
-            relationship === Relationship.ChildUnder19) {
+            relationship === Relationship.ChildUnder19 || relationship === Relationship.ChildUnder24) {
           return [Activities.MovingFromProvince, Activities.MovingFromCountry, Activities.LivingInBCWithoutMSP];
         }
         else {
@@ -119,4 +138,4 @@ class DocumentRules {
   }
 }
 
-export {Relationship, Activities, StatusInCanada, Documents, ActivitiesRules, StatusRules, DocumentRules};
+export {Relationship, Activities, StatusInCanada, Documents, ActivitiesRules, StatusRules, DocumentRules, CancellationReasons ,CancellationReasonsForSpouse};

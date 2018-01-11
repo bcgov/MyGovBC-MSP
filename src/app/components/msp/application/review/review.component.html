@@ -2,7 +2,7 @@
 
   <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
 
-  <button tabindex="0" class="btn btn-default" onclick="window.print();">
+  <button tabindex="0" class="btn btn-default" onclick="window.print();return false;">
     <i class="fa fa-print fa-lg pointer" 
       aria-hidden="true"></i>
     Print
@@ -33,7 +33,7 @@
                     [phone]="application.phoneNumber"
                     [editRouterLink]="'/msp/application/address'"></msp-contact-card>
   <h2 [innerHtml]="lang('./en/index.js').agreementLabel"></h2>
-  <p [innerHtml]="lang('./en/agreement.md')">
+  <p [innerHtml]="lang('./en/index.js').agreement">
   </p>
   <div class="strong" [innerHTML]="questionApplicant"></div>
   <div class="checkbox checkbox-success checkbox-inline">
@@ -64,7 +64,7 @@
       </div>
   </div>
   <hr>
-  <button [mspLogger]="'msp-enrollment_review_continue'"
+  <button
           [disabled]="!application.authorizedByApplicant || (application.spouse && !application.authorizedBySpouse)
             || !application.hasValidAuthToken"
           class="btn btn-primary" type="submit"

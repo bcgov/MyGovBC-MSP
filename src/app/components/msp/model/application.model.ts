@@ -1,10 +1,10 @@
-import {Address} from "./address.model";
-import {Relationship, StatusInCanada, Activities, Documents} from "./status-activities-documents";
-import {Person} from "./person.model";
-import {UUID} from "angular2-uuid";
-import {MspImage} from "./msp-image";
-import {ApplicationBase} from "./application-base.model";
-import {PhoneNumber} from "./phone.model";
+import { Address } from "./address.model";
+import { Relationship, StatusInCanada, Activities, Documents } from "./status-activities-documents";
+import { Person } from "./person.model";
+import { UUID } from "angular2-uuid";
+import { MspImage } from "./msp-image";
+import { ApplicationBase } from "./application-base.model";
+import { PhoneNumber } from "./phone.model";
 
 /**
  * Overall MSP Application Process Data
@@ -14,7 +14,7 @@ class MspApplication implements ApplicationBase {
   private _uuid = UUID.UUID();
   infoCollectionAgreement: boolean = false;
   authorizationToken: string;
-  phnRequired:boolean = false;
+  phnRequired: boolean = false;
 
   /**
    * Set by the API, not for client use
@@ -22,18 +22,21 @@ class MspApplication implements ApplicationBase {
   referenceNumber: string;
 
   private _applicant: Person = new Person(Relationship.Applicant);
-  
-  private _children: Array<Person>  = [];
+
+  private _children: Array<Person> = [];
+  /** Either the current spouse, or an application to add a new spouse */
   private _spouse: Person;
+  /** An application to remove a spouse.  */
+  private _spouseRemoval: Person;
 
-  unUsualCircumstance:boolean;
+  unUsualCircumstance: boolean;
 
 
-  get uuid():string {
+  get uuid(): string {
     return this._uuid;
   }
-  
-  regenUUID(){
+
+  regenUUID() {
     this._uuid = UUID.UUID();
 
     /**
@@ -42,7 +45,7 @@ class MspApplication implements ApplicationBase {
      */
     let all = this.getAllImages();
 
-    all.forEach( image =>{
+    all.forEach(image => {
       image.uuid = UUID.UUID();
     });
   }
@@ -52,7 +55,7 @@ class MspApplication implements ApplicationBase {
 
   set applicant(apt: Person) {
     this._applicant = apt;
-  } 
+  }
   get spouse(): Person {
     return this._spouse;
   }
@@ -61,34 +64,48 @@ class MspApplication implements ApplicationBase {
     return this._children;
   }
 
-  set children(children:Array<Person>) {
+  set children(children: Array<Person>) {
     this._children = children;
   }
 
-  addSpouse = (sp:Person)=>{
-    if(!this._spouse){
+  addSpouse = (sp: Person) => {
+    if (!this._spouse) {
       this._spouse = sp;
-    }else{
+    } else {
       console.log('spouse already added to your coverage.');
     }
   };
 
   addChild(relationship: Relationship): Person {
     let c = new Person(relationship)
-    if(relationship === Relationship.Child19To24){
+    if (relationship === Relationship.Child19To24) {
       //child between 19-24 must be a full time student to qualify for enrollment
       c.fullTimeStudent = true;
     }
-    this._children.length < 30 ? this._children.push(c): console.log('No more than 30 children can be added to one application');
+    this._children.length < 30 ? this._children.push(c) : console.log('No more than 30 children can be added to one application');
     return c;
   }
-  
-  removeChild(idx: number):void {
-    let removed = this._children.splice(idx,1);
+
+  removeChild(idx: number): void {
+    let removed = this._children.splice(idx, 1);
   }
 
   removeSpouse(): void {
     this._spouse = null;
+  }
+
+  /**
+   * Returns an array of ALL persons uses in application.
+   *
+   * Useful, for example, to make sure all PHNs are unique.
+   */
+  get allPersons(): Array<Person> {
+    return [
+      this.applicant,
+      ...this.children,
+      this.spouse,
+    ]
+    .filter(x => x); //no 'undefined's
   }
 
   // Address and Contact Info
@@ -125,18 +142,18 @@ class MspApplication implements ApplicationBase {
   /**
    * Set this flag if any family member has been outside BC for more than 30 days
    */
-  get outsideBCFor30Days():boolean {
-    return (!!this.applicant && this.applicant.beenOutSideOver30Days) 
+  get outsideBCFor30Days(): boolean {
+    return (!!this.applicant && this.applicant.beenOutSideOver30Days)
       || (!!this._spouse && this._spouse.beenOutSideOver30Days)
-    || this.childBeenOutsideBCFor30Days();
+      || this.childBeenOutsideBCFor30Days();
   }
 
-  set outsideBCFor30Days(out:boolean) {
+  set outsideBCFor30Days(out: boolean) {
     this._outsideBCFor30Days = out;
   }
 
   private childBeenOutsideBCFor30Days(): boolean {
-    return this.children.filter( child => {
+    return this.children.filter(child => {
       return child.beenOutSideOver30Days;
     }).length > 0;
   }
@@ -144,7 +161,7 @@ class MspApplication implements ApplicationBase {
   /*
     Gets all images for applicant, spouse and all children
    */
-  getAllImages():MspImage[] {
+  getAllImages(): MspImage[] {
     let allImages = Array<MspImage>();
 
     // add applicant
@@ -187,11 +204,11 @@ class MspApplication implements ApplicationBase {
     let applicantDocsAvail = this.applicant.hasDocuments;
     let spouseDocsAvail = true;
     let kidsDocsAvail = true;
-    if(this._spouse){
+    if (this._spouse) {
       spouseDocsAvail = this._spouse.hasDocuments;
     }
 
-    let kidsWithNoDocs = this._children.filter( kid => {
+    let kidsWithNoDocs = this._children.filter(kid => {
       return !kid.hasDocuments;
     })
     kidsDocsAvail = kidsWithNoDocs.length === 0;
@@ -199,7 +216,7 @@ class MspApplication implements ApplicationBase {
     return applicantDocsAvail && spouseDocsAvail && kidsDocsAvail;
   }
 
-  get hasValidAuthToken(){
+  get hasValidAuthToken() {
     return this.authorizationToken && this.authorizationToken.length > 1;
   }
   constructor() {
@@ -209,4 +226,4 @@ class MspApplication implements ApplicationBase {
   }
 }
 
-export {MspApplication, Person, StatusInCanada, Activities}
+export { MspApplication, Person, StatusInCanada, Activities }

@@ -5,12 +5,11 @@ import {Gender, Person} from "../model/person.model";
 import {MspImage} from "../model/msp-image";
 import {StatusInCanada, Activities, Relationship} from "../model/status-activities-documents";
 import {HttpModule} from "@angular/http";
-import appConstants from '../../../services/appConstants';
-import {Data} from "./test/image.data";
 import {FinancialAssistApplication} from "../model/financial-assist-application.model";
 import {ApplicationBase} from "../model/application-base.model";
 import {AssistanceYear} from "../model/assistance-year.model";
 import {OutofBCRecord} from "../model/outof-bc-record.model";
+// import appConstants from '../../../services/appConstants';
 
 describe('MspApiService', () => {
 
@@ -18,7 +17,6 @@ describe('MspApiService', () => {
     TestBed.configureTestingModule({
       imports: [HttpModule],
       providers: [
-        {provide: 'appConstants', useValue: appConstants},
         MspApiService
       ]
     })
@@ -234,7 +232,7 @@ describe('MspApiService', () => {
     let applicationType = service.convertMspApplication(app);
     let jsonString = JSON.stringify(applicationType);
     let xmlString = service.toXmlString(applicationType, MspApiService.ApplicationTypeNameSpace);
-    console.log(xmlString);
+    // console.log(xmlString);
     expect(jsonString).toBeDefined();
   });
 
@@ -367,7 +365,7 @@ describe('MspApiService', () => {
 
     expect(document).toBeDefined();
 
-    console.log("pa document: ", service.toXmlString(document));
+    // console.log("pa document: ", service.toXmlString(document));
 
   });
 
@@ -444,7 +442,5 @@ describe('MspApiService', () => {
   //
   //
   // });
-
-
 });
 

@@ -1,0 +1,18 @@
+<div bsModal #fullSizeViewModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" aria-labelledby="ServiceCardModal"
+  aria-hidden="true" [config]="{backdrop: 'static', ignoreBackdropClick: true}">
+
+  <div class="modal-dialog" style="margin-top: 70px;">
+    <div class="modal-content">
+      <div class="modal-header modal-header-primary">
+        <h2 [innerHTML]="lang('./en/index.js').servicesCardTitle"></h2>
+      </div>
+      <div class="modal-body">
+        <p [innerHtml]="lang('./en/index.js').servicesCardBody"></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-block btn-default pull-left" type="submit" (click)="continue()" [innerHTML]="lang('./en/index.js').continueBtn">
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

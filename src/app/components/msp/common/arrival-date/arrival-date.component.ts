@@ -3,11 +3,13 @@ import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
 import {BaseComponent} from "../base.component";
 
-require('./arrival-date.component.less');
+
 
 @Component({
   selector: 'msp-arrival-date',
-  templateUrl: './arrival-date.component.html'
+  templateUrl: './arrival-date.component.html',
+  styleUrls: ['./arrival-date.component.less']
+  
 })
 export class MspArrivalDateComponent extends BaseComponent implements AfterViewInit {
 
@@ -35,8 +37,6 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
   }
 
   ngAfterViewInit(): void {
-    super.ngAfterViewInit();
-
     this.form.valueChanges.subscribe(values => {
       this.onChange.emit(values);
     });
@@ -96,10 +96,7 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
 
   futureCheck(): boolean {
 
-    console.log('today is: ' + this.today.format('DD-MM-YYYY') + '  input date is: ' + this.inputDate().format('DD-MM-YYYY'));
-    console.log('isAfter returns ' + this.inputDate().isAfter(this.today));
-
-    // Check not in future
+   // Check not in future
     if (this.inputDate().isAfter(this.today)) {
       return false;
     }

@@ -1,0 +1,111 @@
+<form #formRef='ngForm' novalidate>
+    <div class="row">
+        <div [ngClass]="person.relationship === 0 ? 'col-xs-12' :'col-xs-9'"  *ngIf="!embedded">
+            <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]"></h2>
+            <ng-container  *ngIf="person.relationship === 0 || person.relationship === 1">
+                <h4 [innerHTML]="mspAccountApp.accountChangeOptions.personInfoUpdate ? lang('./en/index.js').sectionSubTitleforPI[person.relationship] : lang('./en/index.js').sectionSubTitleNoPI[person.relationship]"></h4>
+            </ng-container>
+        </div>
+        <div class="col-xs-3" *ngIf="!embedded">
+            <div *ngIf="person.relationship !== 0" style="margin-top: 18px">
+                <div *ngIf="person.relationship === 1">
+                    <button type="button" class="btn btn-default btn-xs pull-right"
+                            (click)="removeSpouse()"
+                            [innerHTML]="lang('./en/index.js').removeSpouseButton">
+                    </button>
+                </div>
+                <div *ngIf="person.relationship === 4">
+                    <button type="button" class="btn btn-default btn-xs pull-right"
+                            (click)="removeChild()"
+                            [innerHTML]="lang('./en/index.js').removeChildButton">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <msp-name #name [person]="person" (onChange)="onChange.emit($event)" [showError]="showError"></msp-name>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <msp-gender
+                    #gender
+                    [person]="person"
+                    (onChange)="onChange.emit($event)"
+                    [showError]="showError"
+            ></msp-gender>
+        </div>
+        <div class="col-sm-4">
+            <msp-birthdate
+                    #birthDate
+                    [person]="person" [isForAccountChange]="true"
+                    (onChange)="onChange.emit($event)"
+                    [showError]="showError">
+            </msp-birthdate>
+        </div>
+        <div class="col-sm-4">
+            <msp-phn #phn [isForAccountChange]="person.relationship === 0"
+                     [phn]="person.previous_phn"
+                     [required]="requirePHN"
+                     [bcPhn]="true"
+                     [showError]="showError"
+                     (phnChange)="person.previous_phn = $event"
+                     (onChange)="onChange.emit($event)"
+            ></msp-phn>
+        </div>
+
+    </div>
+    <div class="row" *ngIf="person.relationship === 0">
+        <div class="col-sm-4">
+            <msp-phone #phone
+                       [phoneNumber]="person.phoneNumber"
+                       (phoneNumberChange)="handlePhoneNumberChange($event)"></msp-phone>
+
+        </div>
+    </div>
+   <div class="row" *ngIf="person.relationship === 0">
+
+        <div class="col-sm-12">
+
+            <h2 [innerHTML]="lang('./en/index.js').residentialAddressTitle"></h2>
+            <h4 [innerHTML]="mspAccountApp.accountChangeOptions.personInfoUpdate ? lang('./en/index.js').residentialAddressSubTitleForPI:lang('./en/index.js').residentialAddressSubTitleNoPI"></h4>
+
+            <msp-address #address *ngIf="person.relationship === 0" [showError]="showError && showErrorAddress"
+                         [residentialAddress]="person.residentialAddress"
+                         [mailingAddress]="person.mailingAddress"
+                         [mailingSameAsResidentialAddress]="person.mailingSameAsResidentialAddress"
+                         (mailingSameAsResidentialAddressChange)="toggleMailingSameAsResidentialAddress($event)"
+                         (onChange)="handleAddressUpdate($event)">
+
+            </msp-address>
+        </div>
+    </div>
+
+    <msp-status-in-canada-radio (onChange)="onChange.emit($event)" [showError]="showError"
+            *ngIf="mspAccountApp.accountChangeOptions.statusUpdate&&!embedded"
+            [person]='person'>
+    </msp-status-in-canada-radio>
+
+
+
+
+</form>
+<hr class="strong-hr" *ngIf="!embedded">
+
+<!-- switch *ngIf value to true for debugging-->
+<div class="row" *ngIf='false'>
+    <div class="col-md-12">
+        <ul>
+            <li *ngFor='let log of changeLog'>
+                {{log | json}}
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-12">
+        <p>Person Data Model</p>
+        {{this.person| json}}
+        <p>firstname</p>
+        <!--{{ formRef.controls.firstname | json}}-->
+    </div>
+</div>

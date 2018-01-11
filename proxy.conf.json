@@ -1,0 +1,7 @@
+{
+    "/msp/api": {
+        "target": "https://mygovbc-msp-dev.pathfinder.gov.bc.ca",
+        "changeOrigin": true,
+        "secure": false
+    }
+}

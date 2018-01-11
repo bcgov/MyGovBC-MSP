@@ -1,13 +1,13 @@
-import {Component, Input, Output, EventEmitter, ViewChild, OnInit, ChangeDetectorRef} from '@angular/core'
+import {Component, Input, Output, EventEmitter, ViewChild, OnInit, ChangeDetectorRef, SimpleChange} from '@angular/core'
 import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
 import {BaseComponent} from "../base.component";
 
-require('./return-date.component.less');
 
 @Component({
   selector: 'msp-return-date',
-  templateUrl: './return-date.component.html'
+  templateUrl: './return-date.component.html',
+  styleUrls: ['./return-date.component.less']
 })
 export class MspReturnDateComponent extends BaseComponent {
 
@@ -24,6 +24,8 @@ export class MspReturnDateComponent extends BaseComponent {
   @Input() day: number;
   @Output() dayChange = new EventEmitter<number>();
   @Input() returnLabel: string = this.lang('./en/index.js').returnLabel;
+  @Input() futureDate: boolean;
+  @Input() mustBeAfter: moment.Moment;
 
   @ViewChild('formRef') form:NgForm;
 
@@ -45,6 +47,10 @@ export class MspReturnDateComponent extends BaseComponent {
   /**
    * Determine if date of birth is valid for the given person
    *
+   * NOTE: This function will return true even if the user has only filled out
+   * one field, e.g. month. This is because Moment will fill in the the blanks
+   * with the current date.
+   *
    * @returns {boolean}
    */
   isCorrectFormat(): boolean {
@@ -59,6 +65,9 @@ export class MspReturnDateComponent extends BaseComponent {
 
   futureCheck(): boolean {
 
+    if (this.futureDate) {
+      return true;
+    }
     // Check not in future
     if (this.inputDate().isAfter(this.today)) {
       return false;
@@ -67,7 +76,39 @@ export class MspReturnDateComponent extends BaseComponent {
     return true;
   }
 
+  /**
+   * Check that departure date is before return date, or equal.
+   */
+  dateOrderCheck(): boolean {
+    //Don't do validation if input isn't set. Currently, this validation is used everywhere.
+    if (this.mustBeAfter === null){
+      return true;
+    }
+    return this.mustBeAfter.isSameOrBefore(this.inputDate())
+  }
+
+  get showDateOrderError(): boolean {
+    if (!this.allFieldsValid()){
+      return false;
+    }
+
+    return this.dateOrderCheck() === false;
+  }
+
+  /**
+   * Similar idea to 'isValid', but also makes sure all fields are filled.
+   * Currently isValid returns true even if just month is full, since Moment
+   * will create a valid date object with just one property.
+   */
+  private allFieldsValid(): boolean {
+    return this.year !== null
+      && this.day !== null
+      && this.month !== null
+      && this.inputDate().isValid();
+  }
+
+
   isValid(): boolean {
-    return this.isCorrectFormat() && this.futureCheck();
+    return this.isCorrectFormat() && this.futureCheck() && this.dateOrderCheck();
   }
 }

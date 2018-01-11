@@ -1,5 +1,5 @@
 <h1 [innerHTML]="lang('./en/index.js').pageTitle" tabindex="0"></h1>
-<button class="btn btn-default" onclick="window.print();">
+<button class="btn btn-default" onclick="window.print();return false;">
   <i class="fa fa-print fa-lg pointer" 
     aria-hidden="true"></i>
   Print
@@ -34,7 +34,7 @@
 
 
 <hr>
-<button [mspLogger]="'msp-premium-assistance_review'"
+<button
         class="btn btn-primary" type="submit" (click)="continue()"
         [innerHTML]="lang('./en/index.js').continueButton"></button>
 

@@ -1,6 +1,8 @@
 import {UUID} from "angular2-uuid";
 import * as _ from 'lodash';
-import moment = require("moment");
+
+
+import * as moment from 'moment';
 
 export class OutofBCRecord {
   readonly id:string;
@@ -31,6 +33,18 @@ export class OutofBCRecord {
     && _.isNumber(this.returnDay)
     && _.isNumber(this.returnYear)
     && _.isString(this.returnMonth);
+  }
+
+  /**
+   * Check return date is not prior to departure date.
+   * Returns undefined if both dates are not set.
+   */
+  get isDateOrderValid(): boolean {
+    if (this.hasDeparture && this.hasReturn){
+      return this.departureDate.isSameOrBefore(this.returnDate);
+    }
+
+    return undefined;
   }
 
   private isEmptyString(s:string):boolean {

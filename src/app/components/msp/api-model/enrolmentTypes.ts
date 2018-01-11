@@ -29,7 +29,7 @@ export class DependentTypeFactory {
 	}
 }
 
-interface _EnrolmentApplicantType extends ct._BasicInfoType {
+export interface _EnrolmentApplicantType extends ct._BasicInfoType {
 	authorizedByApplicant: ct.YesOrNoType;
 	authorizedByApplicantDate: string;
 	authorizedBySpouse?: ct.YesOrNoType;
@@ -182,6 +182,7 @@ export class ResidencyTypeFactory {
 
 interface _WillBeAwayType extends BaseType {
 	armedDischargeDate?: string;
+	armedForceInstitutionName?: string;
 	isFullTimeStudent: ct.YesOrNoType;
 	isInBCafterStudies?: ct.YesOrNoType;
 }
@@ -191,7 +192,7 @@ export var WillBeAwayType: { new(): WillBeAwayType };
 export class WillBeAwayTypeFactory {
 	static make(): WillBeAwayType {
 		let instance = <WillBeAwayType>{};
-		instance._sequence = ["isFullTimeStudent", "isInBCafterStudies", "armedDischargeDate"];
+		instance._sequence = ["isFullTimeStudent", "isInBCafterStudies", "armedDischargeDate", "armedForceInstitutionName"];
 		return instance;
 	}
 }

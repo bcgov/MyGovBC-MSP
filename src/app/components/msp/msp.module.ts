@@ -1,17 +1,11 @@
 import {NgModule, Injectable} from '@angular/core';
-import {BrowserModule}  from '@angular/platform-browser'
+import {BrowserModule} from '@angular/platform-browser'
 
-import {RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-
-import { AlertModule } from 'ng2-bootstrap/alert';
-import { ProgressbarModule } from 'ng2-bootstrap/progressbar';
-import { ModalModule } from 'ng2-bootstrap/modal';
-import { AccordionModule } from 'ng2-bootstrap/accordion';
-import { Ng2CompleterModule } from "ng2-completer";
-let CaptchaComponent = require("mygovbc-captcha-widget/component").CaptchaComponent;
-
+import { ModalModule, AccordionModule} from 'ngx-bootstrap';
+import {Ng2CompleterModule} from "ng2-completer";
 import {MspComponent} from './msp.component';
 import {LandingComponent} from './landing/landing.component';
 import {MspNameComponent} from './common/name/name.component';
@@ -45,15 +39,15 @@ import {MspIdReqModalComponent} from "./common/id-req-modal/id-req-modal.compone
 import {MspCancelComponent} from "./common/cancel/cancel.component";
 import {MspLoggerDirective} from "./common/logging/msp-logger.directive";
 import {KeyboardEventListner} from "./common/keyboard-listener/keyboard-listener.directive";
-//import {MspLoggerComponent} from "./common/logging/msp-logger.component";
+
 
 import {MspPersonCardComponent} from './common/person-card/person-card.component';
 import {MspContactCardComponent} from './common/contact-card/contact-card.component';
 import {MspAddressCardPartComponent} from './common/address-card-part/address-card-part.component';
 
-import MspDataService from './service/msp-data.service';
-import ValidationService from './service/msp-validation.service';
-import CompletenessCheckService from './service/completeness-check.service';
+import {MspDataService} from './service/msp-data.service';
+import { MspValidationService } from './service/msp-validation.service';
+import { CompletenessCheckService } from './service/completeness-check.service';
 
 import {ApplicationComponent} from './application/application.component';
 import {PersonalDetailsComponent} from './application/personal-info/personal-details/personal-details.component';
@@ -76,217 +70,302 @@ import {AssistanceConfirmationComponent} from './assistance/confirmation/confirm
 import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calculator/deduction-calculator.component';
 import {MspAssistanceYearComponent} from './assistance/prepare/assistance-year/assistance-year.component';
 import {EligibilityCardComponent} from './assistance/prepare/eligibility-card/eligibility-card.component';
-import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+import { LocalStorageModule } from 'angular-2-local-storage';
 import {MspApiService} from "./service/msp-api.service";
 import {MspLogService} from "./service/log.service"
-import ProcessService from "./service/process.service";
+import {ProcessService} from "./service/process.service";
 
-let localStorageServiceConfig = {
-    prefix: 'ca.bc.gov.msp',
-    storageType: 'sessionStorage'
-};
+import {AccountComponent} from './account/account.component';
+import {AccountPrepareComponent} from "./account/prepare/prepare.component";
+import {AccountPersonalInfoComponent} from "./account/personal-info/personal-info.component";
+import {AccountPersonalDetailsComponent} from "./account/personal-info/personal-details/personal-details.component"
+import {AccountDependentChangeComponent} from "./account/dependent-change/dependent-change.component";
+import {AccountDocumentsComponent} from "./account/documents/documents.component";
+import {AccountReviewComponent} from "./account/review/review.component";
+import {AccountSendingComponent} from "./account/sending/sending.component";
+import {AccountConfirmationComponent} from "./account/confirmation/confirmation.component";
+import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
+import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
+import { AddDependentComponent } from './account/add-dependents/add-dependents.component';
+import { RemoveDependentComponent } from './account/remove-dependents/remove-dependents.component';
+import { MspToggleComponent } from './common/toggle/toggle.component';
+import { MspDateComponent } from './common/date/date.component';
+import { MspStatusInCanadaRadioComponent } from './common/status-in-canada-radio/status-in-canada-radio.component';
+import { AddNewDependentBeneficiaryComponent } from './account/add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
+import { MspAccordionComponent } from './common/accordion/accordion.component';
+import { ServicesCardDisclaimerModalComponent } from './common/services-card-disclaimer/services-card-disclaimer.component';
+
+
+const APP_ROUTES : Routes = [
+    {
+        path: 'msp',
+        children: [
+            {
+                path: '',
+                component: LandingComponent
+            },
+
+            {
+                path: 'application',
+                component: ApplicationComponent,
+                children: [
+                    {
+                        path: '',
+                        canActivate: [],
+                        redirectTo: 'prepare',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'prepare',
+                        component: PrepareComponent
+                    },
+                    {
+                        path: 'personal-info',
+                        canActivate: [ProcessService],
+                        component: PersonalInfoComponent
+                    },
+                    {
+                        path: 'address',
+                        canActivate: [ProcessService],
+                        component: AddressComponent
+                    },
+                    {
+                        path: 'review',
+                        canActivate: [ProcessService],
+                        component: ReviewComponent
+                    },
+                    {
+                        path: 'sending',
+                        canActivate: [ProcessService],
+                        component: SendingComponent
+                    },
+                    {
+                        path: 'confirmation',
+                        canActivate: [],
+                        component: ConfirmationComponent
+                    },
+
+                ],
+            },
+            {
+                path: 'assistance',
+                component: AssistanceComponent,
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'prepare',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'prepare',
+                        component: AssistancePrepareComponent
+                    },
+                    {
+                        path: 'personal-info',
+                        canActivate: [ProcessService],
+                        component: AssistancePersonalInfoComponent,
+
+                    },
+                    {
+                        path: 'retro',
+                        canActivate: [ProcessService],
+                        component: AssistanceRetroYearsComponent
+                    },
+                    {
+                        path: 'review',
+                        canActivate: [ProcessService],
+                        component: AssistanceReviewComponent
+                    },
+                    {
+                        path: 'authorize-submit',
+                        canActivate: [ProcessService],
+                        component: AssistanceAuthorizeSubmitComponent
+                    },
+                    {
+                        path: 'sending',
+                        canActivate: [ProcessService],
+                        component: AssistanceSendingComponent
+                    },
+                    {
+                        path: 'confirmation',
+                        canActivate: [],
+                        component: AssistanceConfirmationComponent
+                    }
+                ]
+            },
+            // Start of Account Routes
+            {
+                path: 'account',
+                component: AccountComponent,
+                children: [
+                    {
+                        path: '',
+                        canActivate: [],
+                        redirectTo: 'prepare',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'prepare',
+                        component: AccountPrepareComponent
+                    },
+                    {
+                        path: 'personal-info',
+                        component: AccountPersonalInfoComponent,
+                        canActivate: [ProcessService],
+                    },
+                    {
+                        path: 'dependent-change',
+                        component: AccountDependentChangeComponent,
+                        canActivate: [ProcessService],
+
+                    },
+                    {
+                        path: 'documents',
+                        component: AccountDocumentsComponent,
+                        canActivate: [ProcessService],
+                    },
+                    {
+                        path: 'review',
+                        component: AccountReviewComponent,
+                        canActivate: [ProcessService],
+                    },
+                    {
+                        path: 'sending',
+                        component: AccountSendingComponent,
+                        canActivate: [ProcessService],                        
+                    },
+                    {
+                        path: 'confirmation',
+                        component: AccountConfirmationComponent,
+                        canActivate: [],
+                    }
+            ]
+            }
+
+        ]
+    },
+    {path: '**', redirectTo: '/msp'}
+];
 
 /**
  * The overall progress layout is created based on 'msp-prepare-v3-a.jpeg' in
  * https://apps.gcpe.gov.bc.ca/jira/browse/PSPDN-255?filter=16000
  */
 @NgModule({
-  imports: [
-    BrowserModule,
-    CommonModule,
-    FormsModule,
+    imports: [
+        BrowserModule,
+        CommonModule,
+        FormsModule,
+        ModalModule,
+        AccordionModule,
+        Ng2CompleterModule,
+        RouterModule.forChild(APP_ROUTES),
+        LocalStorageModule.withConfig({
+            prefix: 'ca.bc.gov.msp',
+            storageType: 'sessionStorage'
+        })
+    ],
+    declarations: [
+        MspLoggerDirective,
+        KeyboardEventListner,
+        // General
+        MspComponent,
+        LandingComponent,
+        MspNameComponent,
+        MspBirthDateComponent,
+        CalendarYearFormatter,
+        CalendarYearValidator,
+        CalendarDayValidator,
+        CalendarMonthValidator,
+        MspAddressComponent,
+        MspProvinceComponent,
+        MspCountryComponent,
+        MspPhoneComponent,
+        MspPhnComponent,
+        HealthNumberComponent,
+        MspArrivalDateComponent,
+        MspDischargeDateComponent,
+        MspDepartureDateComponent,
+        MspReturnDateComponent,
+        MspSchoolDateComponent,
+        Mod11CheckValidator,
+        SinCheckValidator,
+        MspGenderComponent,
+        MspProgressBarComponent,
+        FileUploaderComponent,
+        MspImageErrorModalComponent,
+        ThumbnailComponent,
+        TransmissionErrorView,
+        MspOutofBCRecordComponent,
+        MspConsentModalComponent,
+        MspIdReqModalComponent,
+        MspCancelComponent,
+        CaptchaComponent,
+        MspToggleComponent,        
+        MspDateComponent,
 
-    AlertModule,
-    ProgressbarModule,
-    ModalModule,
-    AccordionModule,
-    Ng2CompleterModule,
+        // View cards
+        MspPersonCardComponent,
+        MspContactCardComponent,
+        MspAddressCardPartComponent,
 
-    RouterModule.forChild([
-      {
-        path: 'msp',
-        children: [
-          {
-            path: '',
-            component: LandingComponent
-          },
+        // Application
+        ApplicationComponent,
+        PersonalDetailsComponent,
+        PrepareComponent,
+        PersonalInfoComponent,
+        AddressComponent,
+        ReviewComponent,
+        SendingComponent,
+        ConfirmationComponent,
+        
 
-          {
-            path: 'application',
-            component: ApplicationComponent,
-            children: [
-              {
-                path: '',
-                canActivate: [],
-                redirectTo: 'prepare',
-                pathMatch: 'full'
-              },
-              {
-                path: 'prepare',
-                component: PrepareComponent
-              },
-              {
-                path: 'personal-info',
-                canActivate: [ProcessService],
-                component: PersonalInfoComponent
-              },
-              {
-                path: 'address',
-                canActivate: [ProcessService],
-                component: AddressComponent
-              },
-              {
-                path: 'review',
-                canActivate: [ProcessService],
-                component: ReviewComponent
-              },
-              {
-                path: 'sending',
-                canActivate: [ProcessService],
-                component: SendingComponent
-              },
-              {
-                path: 'confirmation',
-                canActivate: [],
-                component: ConfirmationComponent
-              },
+        // Assistance
+        AssistanceComponent,
+        AssistancePrepareComponent,
+        AssistancePersonalInfoComponent,
+        AssistancePersonalDetailComponent,
+        AssistanceReviewComponent,
+        AssistanceRetroYearsComponent,
+        AssistanceAuthorizeSubmitComponent,
+        AssistanceSendingComponent,
+        AssistanceConfirmationComponent,
+        DeductionCalculatorComponent,
+        MspAssistanceYearComponent,
 
-            ],
-          },
-          {
-            path: 'assistance',
-            component: AssistanceComponent,
-            children: [
-              {
-                path: '',
-                redirectTo: 'prepare',
-                pathMatch: 'full'
-              },
-              {
-                path: 'prepare',
-                component: AssistancePrepareComponent
-              },
-              {
-                path: 'personal-info',
-                canActivate: [ProcessService],
-                component: AssistancePersonalInfoComponent,
+        EligibilityCardComponent,
 
-              },
-              {
-                path: 'retro',
-                canActivate: [ProcessService],
-                component: AssistanceRetroYearsComponent
-              },
-              {
-                path: 'review',
-                canActivate: [ProcessService],
-                component: AssistanceReviewComponent
-              },
-              {
-                path: 'authorize-submit',
-                canActivate: [ProcessService],
-                component: AssistanceAuthorizeSubmitComponent
-              },
-              {
-                path: 'sending',
-                canActivate: [ProcessService],
-                component: AssistanceSendingComponent
-              },
-              {
-                path: 'confirmation',
-                canActivate: [],
-                component: AssistanceConfirmationComponent
-              }
-            ]
-          }
-        ]
-      },
-      { path: '**', redirectTo: '/msp' }
-    ])
+        //Account
 
-  ],
-  declarations: [
-    MspLoggerDirective,
-    KeyboardEventListner,
-    // General
-    MspComponent,
-    LandingComponent,
-    MspNameComponent,
-    MspBirthDateComponent,
-    CalendarYearFormatter,
-    CalendarYearValidator,
-    CalendarDayValidator,
-    CalendarMonthValidator,
-    MspAddressComponent,
-    MspProvinceComponent,
-    MspCountryComponent,
-    MspPhoneComponent,
-    MspPhnComponent,
-    HealthNumberComponent,
-    MspArrivalDateComponent,
-    MspDischargeDateComponent,
-    MspDepartureDateComponent,
-    MspReturnDateComponent,
-    MspSchoolDateComponent,
-    Mod11CheckValidator,
-    SinCheckValidator,
-    MspGenderComponent,
-    MspProgressBarComponent,
-    FileUploaderComponent,
-    MspImageErrorModalComponent,
-    ThumbnailComponent,
-    TransmissionErrorView,
-    MspOutofBCRecordComponent,
-    MspConsentModalComponent,
-    MspIdReqModalComponent,
-    MspCancelComponent,
-    CaptchaComponent,
+        AccountComponent,
+        AccountPrepareComponent,
+        AccountPersonalInfoComponent,
+        AccountDependentChangeComponent,
+        AccountPersonalDetailsComponent,
+        AccountDocumentsComponent,
+        AccountReviewComponent,
+        AccountSendingComponent,
+        AccountConfirmationComponent,
+        AddDependentComponent,
+        RemoveDependentComponent,
+        MspStatusInCanadaRadioComponent,
+        AddNewDependentBeneficiaryComponent,
+        MspAccordionComponent,
+        ServicesCardDisclaimerModalComponent,
+    ],
 
-    // View cards
-    MspPersonCardComponent,
-    MspContactCardComponent,
-    MspAddressCardPartComponent,
+    providers: [
+        // Services
+        MspDataService,
+        MspValidationService,
 
-    // Application
-    ApplicationComponent,
-    PersonalDetailsComponent,
-    PrepareComponent,
-    PersonalInfoComponent,
-    AddressComponent,
-    ReviewComponent,
-    SendingComponent,
-    ConfirmationComponent,
 
-    // Assistance
-    AssistanceComponent,
-    AssistancePrepareComponent,
-    AssistancePersonalInfoComponent,
-    AssistancePersonalDetailComponent,
-    AssistanceReviewComponent,
-    AssistanceRetroYearsComponent,
-    AssistanceAuthorizeSubmitComponent,
-    AssistanceSendingComponent,
-    AssistanceConfirmationComponent,
-    DeductionCalculatorComponent,
-    MspAssistanceYearComponent,
-
-    EligibilityCardComponent
-  ],
-
-  providers: [
-    // Services
-    MspDataService,
-    ValidationService,
-    CompletenessCheckService,
-    MspApiService,
-    MspLogService,
-    ProcessService,
-
-    LocalStorageService,
-    {
-        provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-    }
-  ]
+        CompletenessCheckService,
+        MspApiService,
+        MspLogService,
+        ProcessService,
+        CaptchaDataService
+    ]
 })
 @Injectable()
 export class MspModule {

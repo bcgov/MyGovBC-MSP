@@ -1,10 +1,10 @@
 import {Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ViewChild, ElementRef} from '@angular/core';
 import {AssistanceYear} from '../../../model/assistance-year.model';
-import './assistance-year.component.less';
 
 @Component({
   selector: 'msp-assistance-year',
-  templateUrl: './assistance-year.component.html'
+  templateUrl: './assistance-year.component.html',
+  styleUrls: ['./assistance-year.component.less']
 })
 export class MspAssistanceYearComponent implements OnChanges{
 

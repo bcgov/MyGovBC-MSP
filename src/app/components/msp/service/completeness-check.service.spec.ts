@@ -2,39 +2,34 @@ import {TestBed, inject} from '@angular/core/testing';
 import {FormsModule} from '@angular/forms';
 import {BrowserModule} from "@angular/platform-browser";
 import {CommonModule} from "@angular/common";
-import CompletenessCheckService from './completeness-check.service';
-import MspDataService from './msp-data.service';
-import ValidtionService from './msp-validation.service';
-import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+import { CompletenessCheckService } from './completeness-check.service';
+import { MspDataService } from './msp-data.service';
+import {MspValidationService} from './msp-validation.service';
+import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 
 describe('PHN Component', () => {
   let service:CompletenessCheckService;
   let dataService:MspDataService;
-  let validationService:ValidtionService;
+  let validationService:MspValidationService
 
-
-  let localStorageServiceConfig = {
-    prefix: 'ca.bc.gov.msp',
-    storageType: 'localStorage'
-  };
   
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [],
       imports: [BrowserModule,
         CommonModule,
-        FormsModule],
+        FormsModule,
+        LocalStorageModule.withConfig({
+          prefix: 'ca.bc.gov.msp',
+          storageType: 'sessionStorage'
+        })],
       providers: [
-        CompletenessCheckService, MspDataService,ValidtionService,
-        LocalStorageService,{
-          provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        }
-        
-      ]
+        CompletenessCheckService, MspDataService,MspValidationService,
+        LocalStorageService]
     })
   });
-  it('should validate PHN properly', inject([CompletenessCheckService, MspDataService, ValidtionService],
-      (c:CompletenessCheckService, d:MspDataService, v:ValidtionService) => {
+  it('should validate PHN properly', inject([CompletenessCheckService, MspDataService, MspValidationService],
+      (c:CompletenessCheckService, d:MspDataService, v:MspValidationService) => {
     service = c;
     dataService = d;
     validationService = v;

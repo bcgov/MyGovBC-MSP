@@ -23,5 +23,14 @@ module.exports = {
         'An applicant must be 16 years or older',
         '',
         'A child must be less than 19 years old',
-        'A post-secondary student must be between 19 and 24 years']
+        'A post-secondary student must be between 19 and 24 years',
+        'A child/dependent post-secondary student must be less than 24 years old',
+    ] ,
+    yearErrorAgeCheckForAccountChange: [
+        'Account Holder must be 16 years or older',
+        '',
+        'A child must be less than 19 years old',
+        'A post-secondary student must be between 19 and 24 years',
+        'A child/dependent post-secondary student must be less than 24 years old',
+    ]
 }

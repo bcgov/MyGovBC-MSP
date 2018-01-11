@@ -2,14 +2,19 @@ import {Component, Injectable, ViewChild, ViewChildren,
   ChangeDetectorRef, QueryList, AfterViewInit, OnInit} from '@angular/core';
 import {MspApplication, Person} from '../../model/application.model';
 
-import DataService from '../../service/msp-data.service';
+// import {MspDataService} from '../../service/msp-data.service';
+import { MspDataService } from '../../service/msp-data.service';
+
 import { Router } from '@angular/router';
 import {Relationship} from "../../model/status-activities-documents";
 import {NgForm} from "@angular/forms";
 import {PersonalDetailsComponent} from "./personal-details/personal-details.component";
 import {BaseComponent} from "../../common/base.component";
-import ProcessService from "../../service/process.service";
+import {ProcessService} from "../../service/process.service";
 import { StatusInCanada} from "../../model/status-activities-documents";
+
+import { ServicesCardDisclaimerModalComponent  } from '../../common/services-card-disclaimer/services-card-disclaimer.component'
+
 @Component({
   templateUrl: './personal-info.component.html'
 })
@@ -21,9 +26,10 @@ export class PersonalInfoComponent extends BaseComponent {
   Relationship: typeof Relationship = Relationship;
 
   @ViewChild('formRef') form: NgForm;
+  @ViewChild('mspServicesCardModal') mspServicesCardModal: ServicesCardDisclaimerModalComponent;
   @ViewChildren(PersonalDetailsComponent) personalDetailsComponent: QueryList<PersonalDetailsComponent>;
 
-  constructor(private dataService: DataService,
+  constructor(private dataService: MspDataService,
     private _router: Router,
     private _processService: ProcessService,
     private cd:ChangeDetectorRef) {
@@ -38,6 +44,7 @@ export class PersonalInfoComponent extends BaseComponent {
   onChange(values:any){
     this.dataService.saveMspApplication();
   }
+
 
   get application(): MspApplication {
     return this.dataService.getMspApplication();
@@ -82,7 +89,7 @@ export class PersonalInfoComponent extends BaseComponent {
 
   // fix for DEF-90
   isStayinginBCAfterstudies(): boolean {
-   let stayingInBc = true;
+    let stayingInBc = true;
     if (this.personalDetailsComponent) {  // initial page load..empty object
       this.personalDetailsComponent.forEach((personalDetailsComponent) => {
         if (personalDetailsComponent && personalDetailsComponent.person) {  //dependent can be empty object..ignore them
@@ -96,9 +103,9 @@ export class PersonalInfoComponent extends BaseComponent {
           }
         }
      });
-
-      return stayingInBc;
     }
+
+    return stayingInBc;
   }
   canContinue():boolean {
     return this.isAllValid();

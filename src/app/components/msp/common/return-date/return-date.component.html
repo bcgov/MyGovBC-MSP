@@ -1,7 +1,7 @@
 <form #formRef='ngForm' novalidate>
 
     <div class="form-group"
-         [ngClass]="{'has-error': !formRef.controls.month?.valid && (monthRef.touched || showError)}">
+         [ngClass]="{'has-error': showDateOrderError || !formRef.controls.month?.valid && (monthRef.touched || showError)}">
         <label [innerHtml]="returnLabel" class="control-label" for="year"></label>
         <label class="visuallyhidden" for="month{{objectId}}">{{returnLabel}} {{lang('./en/index.js').monthLabel}}</label>
         <br/>
@@ -63,6 +63,11 @@
             <div *ngIf='(yearRef.touched || showError) && !futureCheck()'>
                 <div class="text-danger"
                      [innerHtml]="lang('./en/index.js').yearErrorFutureCheck"></div>
+            </div>
+
+            <div *ngIf='showDateOrderError'>
+                <div class="text-danger"
+                        [innerHtml]="lang('./en/index.js').datesOutOfOrder"></div>
             </div>
         </div>
     </div>

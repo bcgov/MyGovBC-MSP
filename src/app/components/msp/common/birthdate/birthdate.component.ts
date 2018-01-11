@@ -6,11 +6,12 @@ import {Relationship} from "../../model/status-activities-documents";
 import * as moment from 'moment';
 import {BaseComponent} from "../base.component";
 
-require('./birthdate.component.less');
 
 @Component({
   selector: 'msp-birthdate',
-  templateUrl: './birthdate.component.html'
+  templateUrl: './birthdate.component.html',
+  styleUrls: ['./birthdate.component.less']
+  
 })
 export class MspBirthDateComponent extends BaseComponent {
 
@@ -18,7 +19,7 @@ export class MspBirthDateComponent extends BaseComponent {
 
   // Create today for comparison in check later
   today:any;
-
+  @Input() isForAccountChange: boolean = false;
   constructor(private cd: ChangeDetectorRef) {
     super(cd);
     this.today = moment();
@@ -76,6 +77,12 @@ export class MspBirthDateComponent extends BaseComponent {
       let lessThan19 = this.person.dob.isAfter(moment().subtract(19, 'years'))
       return lessThan19;
       
+    }
+    // ChildUnder24 rules - Account Management Child
+    else if (this.person.relationship === Relationship.ChildUnder24) {
+        let tooOld = this.person.dob.isBefore(moment().subtract(24, 'years'));
+        return !tooOld;
+
     }
     else if (this.person.relationship === Relationship.Child19To24) {
       // if child student must be between 19 and 24

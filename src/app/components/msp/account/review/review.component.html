@@ -1,0 +1,101 @@
+<form #formRef="ngForm" novalidate (submit)="handleFormSubmission($event)">
+
+    <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
+
+    <button tabindex="0" class="btn btn-default" onclick="window.print();return false;">
+        <i class="fa fa-print fa-lg pointer"
+           aria-hidden="true"></i>
+        Print
+    </button>
+    <h3 [innerHtml]="lang('./en/index.js').printForRecord"></h3>
+
+    <div class="row">
+        <div class="col-md-6">
+            <msp-person-card [accountCard]=true [person]="mspAccountApp.applicant" [customTitle]="lang('./en/index.js').applicantTitle" [customLinkTitle]="lang('./en/index.js').applicantLinkTitle"
+                             [editRouterLink]="mspAccountApp.accountChangeOptions.hasAnyPISelected()  ? accountPIUrl :accountDependentUrl"></msp-person-card>
+        </div>
+        <div class="col-md-6" *ngFor="let spouse of mspAccountApp.getallSpouses(); let i = index;">
+
+            <msp-person-card  [accountCard]=true [person]="spouse"
+                             [editRouterLink]="spouse.operationActionType == 2 ? accountPIUrl :accountDependentUrl "></msp-person-card>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="mspAccountApp.getAllChildren() != null && mspAccountApp.getAllChildren().length > 0">
+        <div *ngFor="let child of mspAccountApp.getAllChildren(); let i = index;">
+            <div class="clearfix" *ngIf="i % 2 == 0"></div>
+            <div class="col-md-6">
+                <msp-person-card [person]="child" [accountCard]=true
+                                 [editRouterLink]="child.operationActionType == 2 ? accountPIUrl :accountDependentUrl"></msp-person-card>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="mspAccountApp.documents && mspAccountApp.documents.length >0">
+        <div class="col-md-12">
+            <h2 [innerHtml]="lang('./en/index.js').docTitle"></h2>
+            <h3 [innerHtml]="lang('./en/index.js').docConfirmTitle"></h3>
+        </div>
+
+    </div>
+
+    <div class="row" *ngIf="mspAccountApp.documents && mspAccountApp.documents.length >0">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="person-card-preview-zone">
+                        <div *ngFor="let mspImage of mspAccountApp.documents" class="preview-item">
+                            <msp-thumbnail [imageObject]="mspImage" [reviewMode]="true">
+                            </msp-thumbnail>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 [innerHtml]="lang('./en/index.js').agreementLabel"></h2>
+    <p [innerHtml]="lang('./en/index.js').agreement">
+    </p>
+    <div class="strong" [innerHTML]="questionApplicant"></div>
+    <div class="checkbox checkbox-success checkbox-inline">
+        <input class="input-lg" id="firstPersonAuthorize" name="firstPersonAuthorize"
+               type="checkbox" [ngModel]="mspAccountApp.authorizedByApplicant"
+               (ngModelChange)="applicantAuthorizeOnChange($event)">
+        <label for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+    </div>
+    <br><br>
+
+     <div *ngIf="spouseForAuthorisation">
+            <div class="strong" [innerHTML]="questionSpouse()"></div>
+            <div class="checkbox checkbox-success checkbox-inline">
+                <input class="input-lg" id="secondPersonAuthorize-{{i}}" type="checkbox" name="secondPersonAuthorize"
+                       [ngModel]="mspAccountApp.authorizedBySpouse"
+                       (ngModelChange)="spouseUpdateAuthorizeOnChange($event)">
+                <label for="secondPersonAuthorize-{{i}}" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+            </div>
+     </div>
+
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="mspAccountApp.uuid"
+                     (onValidToken)="mspAccountApp.authorizationToken = $event"></captcha>
+        </div>
+    </div>
+    <div class="row" *ngIf="form.submitted && !mspAccountApp.hasValidAuthToken">
+        <div class="col-md-6">
+            <div class="text-danger"
+                 [innerHtml]="lang('./en/index.js').tryAgainWithCaptcha"></div>
+        </div>
+    </div>
+    <hr>
+    <button
+            [disabled]="!mspAccountApp.authorizedByApplicant || ((mspAccountApp.updatedSpouse || mspAccountApp.addedSpouse ) && !mspAccountApp.authorizedBySpouse)
+            || !mspAccountApp.hasValidAuthToken"
+            class="btn btn-primary" type="submit"
+            [innerHtml]="lang('./en/index.js').submitButton"></button>
+    <msp-cancel></msp-cancel>
+</form>

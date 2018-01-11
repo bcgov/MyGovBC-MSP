@@ -1,0 +1,36 @@
+// Because we use ViewEncapsulation.None for this component, all styles must be
+// within msp-accordion.  We use ViewEncapsulation.None because it lets us style
+// the embedded accordion widget.
+@import '../../../../styles/variables.less';
+
+msp-accordion {
+    .fa {
+        //the "out - back" bezier fn.
+        transition: transform 0.33s  cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+    .fa.isOpen {
+        transform: rotate(90deg);
+    }
+    
+    @panelColor: #ebebeb;
+    
+    .panel {
+        background-color: @panelColor;
+        .show {
+            background-color: lighten(@panelColor, 5);
+        }
+    }
+
+    .control-text {
+        font-size: 12px;
+        padding-left: 1em;
+        white-space: nowrap;
+
+        //Right-align text when enough space, but when smaller we don't want to float because it breaks.
+        @media(min-width: @screen-md-min){
+            float: right;
+            padding-right: 1em;
+            padding-left: 0;
+        }
+    }
+}

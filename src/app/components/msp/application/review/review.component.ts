@@ -4,10 +4,12 @@ import { ActivatedRouteSnapshot, Router } from '@angular/router';
 
 import {MspApplication} from "../../model/application.model";
 
-import DataService from '../../service/msp-data.service';
+import { MspDataService } from '../../service/msp-data.service';
 import {Gender, Person} from "../../model/person.model";
 import {StatusInCanada, Activities, Relationship} from "../../model/status-activities-documents";
-import ProcessService from "../../service/process.service";
+import {ProcessService} from "../../service/process.service";
+import { environment } from '../../../../../environments/environment';
+import { MspLogService } from '../../service/log.service';
 
 @Component({
   templateUrl: './review.component.html'
@@ -19,12 +21,12 @@ export class ReviewComponent implements OnInit{
   captchaApiBaseUrl:string;
   @ViewChild(NgForm) form: NgForm;
 
-  constructor(private dataService: DataService,
+  constructor(private dataService: MspDataService,
               private _router: Router,
               private processService:ProcessService,
-              @Inject('appConstants') private appConstants: Object) {
+              private logService: MspLogService) {
     this.application = this.dataService.getMspApplication();
-    this.captchaApiBaseUrl = this.appConstants["captchaApiBaseUrl"];
+    this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
   }
 
 
@@ -69,6 +71,7 @@ export class ReviewComponent implements OnInit{
     if(this.application.hasValidAuthToken){
       console.log('Found valid auth token, transfer to sending screen.');
       this.processService.setStep(3, true);
+      this.logService.log({name: "Application - Review Page Before Submit (after CAPTCHA)"})
       this._router.navigate(['/msp/application/sending']);
     }else{
       console.log('Auth token is not valid');

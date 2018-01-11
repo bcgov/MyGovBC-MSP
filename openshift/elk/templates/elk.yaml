@@ -44,6 +44,7 @@ objects:
       app: ${NAME}
   spec:
     strategy:
+      activeDeadlineSeconds: 61600
       type: Rolling
       rollingParams:
         updatePeriodSeconds: 1

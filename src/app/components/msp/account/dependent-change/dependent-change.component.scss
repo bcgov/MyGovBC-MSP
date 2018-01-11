@@ -1,0 +1,42 @@
+h1.page-title {
+    //In order to match the prototype's layout we must clear this margin. In the prototype, it has the h1 and h2 in the same div so the margins collapse, but here the h2 is in a separate component/div.
+    margin-bottom: 0px;
+}
+
+.panel-primary > .panel-heading {
+    color: #fff;
+}
+
+.panel-body {
+    padding-top: 0; //Bootstrap defaults to 15px
+    > .btn {
+        margin-top: 15px; //Re-implement the panel padding-top here, helps layout on multi-line splits for mobile.
+    }
+}
+
+.panel-body > .btn {
+    margin-right: 20px;
+}
+
+.panel-primary hr {
+    border-color: #bbb; //default
+    color: #bbb; //old IE
+    background-color: #bbb; //other modern browsers
+}
+
+.panel-primary span {
+    white-space: normal;
+}
+
+.panel .btn {
+    position: relative;
+}
+
+.panel .small-print {
+    position: absolute;
+    left: 140px;
+    top: calc(100% + 0.5em);
+    font-size: 12px;
+    // Without pointer-events, clicking the text counts as clicking the button.
+    pointer-events: none;
+}

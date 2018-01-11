@@ -3,7 +3,7 @@ import {
   Inject, NgZone, SimpleChanges, ChangeDetectorRef, ContentChild, AfterContentInit
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import {MspImage, MspImageError, MspImageProcessingError,
    MspImageScaleFactors, MspImageScaleFactorsImpl} from '../../model/msp-image';
 import {Observable} from 'rxjs/Observable';
@@ -14,24 +14,27 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import {BaseComponent} from "../base.component";
 import {MspLogService} from "../../service/log.service";
-import DataService from "../../service/msp-data.service";
+import { MspDataService } from "../../service/msp-data.service";
 import {LogEntry} from "../logging/log-entry.model";
-import moment = require("moment");
+import * as moment from 'moment';
+
+import { environment } from '../../../../../environments/environment';
 
 let loadImage = require('blueimp-load-image');
 
 var sha1 = require('sha1');
 
-require('./file-uploader.component.less');
 @Component({
   selector: 'msp-file-uploader',
-  templateUrl: './file-uploader.html'
+  templateUrl: './file-uploader.html',
+  styleUrls: ['./file-uploader.component.less']
 })
 export class FileUploaderComponent 
   extends BaseComponent 
   implements OnInit, OnChanges, AfterContentInit {
   lang = require('./i18n');
   noIdImage: Boolean = false;
+  private appConstants;
 
   @ViewChild('formRef') form: NgForm;
   @ViewChild('dropZone') dropZone: ElementRef;
@@ -51,12 +54,12 @@ export class FileUploaderComponent
   @Output() onErrorDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
   @Output() onDeleteDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
 
-  constructor(@Inject('appConstants') private appConstants: any,
-              private dataService: DataService,
+  constructor(private dataService: MspDataService,
               private logService:MspLogService,
               private zone: NgZone,
               private cd: ChangeDetectorRef) {
     super(cd);
+    this.appConstants = environment.appConstants;
   }
 
   /**
@@ -70,8 +73,14 @@ export class FileUploaderComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['images'] && (changes['images'].currentValue.length === 0 &&
-      changes['images'].previousValue.length > 0)) {
+    console.log('fileuploader onChanges', changes['images']);
+    // if (changes['images'] && (changes['images'].currentValue.length === 0 &&
+    //   changes['images'].previousValue.length > 0)) {
+    if (changes['images'] && (
+      changes['images'].currentValue.length === 0 
+      && changes['images'].previousValue
+      && changes['images'].previousValue.length > 0)
+    ) {
       this.noIdImage = true;
     } else {
       this.noIdImage = false;
@@ -244,10 +253,14 @@ export class FileUploaderComponent
    */
   observableFromFile(file: File, scaleFactors: MspImageScaleFactors) {
     console.log('Start processing file %s of size %s bytes', file.name, file.size);
+
+
     // Init
     let self = this;
     // Create our observer
     let fileObservable = Observable.create((observer: Observer<MspImage>) => {
+
+
 
       scaleFactors = scaleFactors.scaleDown(self.appConstants.images.reductionScaleFactor);
 
@@ -259,6 +272,7 @@ export class FileUploaderComponent
 
       // Load image into img element to read natural height and width
       this.readImage(file, (image: HTMLImageElement) => {
+
 
         // While it's still in an image, get it's height and width
         mspImage.naturalWidth = image.naturalWidth;
@@ -277,6 +291,8 @@ export class FileUploaderComponent
           file, // NOTE: we pass the File ref here again even though its already read because we need the XIFF metadata
           function (canvas: HTMLCanvasElement, metadata:any) {
 
+        
+
             // Canvas may be an Event when errors happens
             if (canvas instanceof Event) {
               self.handleError(MspImageError.WrongType, mspImage);
@@ -284,7 +300,6 @@ export class FileUploaderComponent
             }
             // Convert to blob to get size
             canvas.toBlob((blob: Blob) => {
-
                 // Copy the blob properties
                 mspImage.size = blob.size;
 
@@ -311,7 +326,7 @@ export class FileUploaderComponent
                 mspImage.sizeTxt = sOutput;
 
                 // call reader with new transformed image
-                reader.onload = function (evt: any) {
+                reader.onload = function (evt: any) {                
 
                   mspImage.fileContent = evt.target.result;
                   mspImage.id = sha1(mspImage.fileContent);
@@ -334,9 +349,9 @@ export class FileUploaderComponent
                   }
                   else {
                     // log image info
-                    self.logImageInfo("msp_file-uploader_after_resize_attributes", self.dataService.getMspUuid(), mspImage);
-                  }
-                  observer.next(mspImage);
+                    self.logImageInfo("msp_file-uploader_after_resize_attributes", self.dataService.getMspUuid(), mspImage);            
+                    observer.next(mspImage);
+                  }       
                 };
                 reader.readAsDataURL(blob);
               },
@@ -355,9 +370,12 @@ export class FileUploaderComponent
         );
       },
       
+      //can be ignored for bug, the log line is never called
       (error: MspImageProcessingError)=>{
         observer.error(error);
       });
+
+      //retryWhen is potential issue!
     }).retryWhen(this.retryStrategy(32));
 
     return fileObservable;
@@ -371,8 +389,7 @@ export class FileUploaderComponent
     return function (errors:Observable<MspImageProcessingError>){
       return errors.scan(
         (acc, error, index) => {
-          // console.log('Error encountered: %o', error);
-            console.log('Progressively scaling down the image, step %d.', index);
+          // console.log('Error encountered: %o', error);;
 
           /**
            * If the error is about file too big and we have not reach max retry 

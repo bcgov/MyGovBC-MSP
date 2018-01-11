@@ -2,25 +2,20 @@ import { TestBed } from '@angular/core/testing'
 import { FormsModule} from '@angular/forms';
 
 import {EligibilityCardComponent} from './eligibility-card.component';
-import MspDataService from '../../../service/msp-data.service';
-import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+import { MspDataService } from '../../../service/msp-data.service';
+import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {RouterTestingModule} from "@angular/router/testing";
 
 describe('DeductionCalculatorComponent', () => {
-  let localStorageServiceConfig = {
-    prefix: 'ca.bc.gov.msp',
-    storageType: 'localStorage'
-  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [EligibilityCardComponent],
-      imports: [FormsModule, RouterTestingModule],
-      providers: [MspDataService,
-        LocalStorageService,{
-          provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        }
-      ]
+      imports: [FormsModule, RouterTestingModule, LocalStorageModule.withConfig({
+        prefix: 'ca.bc.gov.msp',
+        storageType: 'sessionStorage'
+      })],
+      providers: [MspDataService]
     })
   });
   it ('should work', () => {

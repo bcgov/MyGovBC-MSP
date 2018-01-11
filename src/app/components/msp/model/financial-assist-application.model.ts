@@ -4,7 +4,7 @@ import {Relationship} from "./status-activities-documents";
 import {Eligibility} from "./eligibility.model";
 import {UUID} from "angular2-uuid";
 import { MspImage } from "./msp-image";
-import moment = require("moment");
+import * as moment from 'moment';
 import {ApplicationBase} from "./application-base.model";
 import {AssistanceYear} from './assistance-year.model';
 import * as _ from 'lodash';
@@ -121,6 +121,19 @@ export class FinancialAssistApplication implements ApplicationBase {
   spouseAgeOver65: boolean;
 
   private _hasSpouseOrCommonLaw: boolean;
+
+  /**
+   * Returns an array of ALL persons uses in financial assistance.
+   *
+   * Useful, for example, to make sure all PHNs are unique.
+   */
+  get allPersons(): Array<Person> {
+    return [
+      this.applicant,
+      this.spouse,
+    ]
+    .filter(x => x); //no 'undefined's
+  }
 
 
   /**

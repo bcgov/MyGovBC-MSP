@@ -1,0 +1,123 @@
+<form #formRef="ngForm" novalidate>
+    <h1 class='page-title' [innerHTML]="lang('./en/index.js').pageTitle"></h1>
+
+    <!--  Account holder info, user fills if they haven't already -->
+    <msp-account-personal-details 
+        *ngIf="showPersonalInfo"
+        [person]='person'
+        [id]='person.id' 
+        (onChange)="onChange()" 
+        [showError]="formRef.submitted || showError" [showErrorAddress]="showErrorAddress" >
+    </msp-account-personal-details>
+    <!-- Added Spouse -->
+    <msp-add-dependent *ngIf="addedSpouse" [person]="addedSpouse"
+                       (onCancel)="clearAddedSpouse()"
+                       (onChange)="onChange()" [showError]="formRef.submitted">
+    </msp-add-dependent>
+
+    <!-- Added Children-->
+    <msp-add-dependent *ngFor="let child of addedChildren"
+        [person]="child"
+        (onCancel)="clearAddedChild(child)"
+        (onChange)="onChange()" [showError]="formRef.submitted">
+    </msp-add-dependent>
+
+    <!-- For consistency's sake, removed persons will always be below added persons. -->
+    <!--removed spouse -->
+    <msp-remove-dependent *ngIf="removedSpouse" [person]="removedSpouse"
+                          (onCancel)="clearRemovedSpouse()"
+                          (onChange)="onChange()" [showError]="formRef.submitted">
+    </msp-remove-dependent>
+
+
+
+    <div class="row" *ngIf="showAddressWarningForSpouse">
+        <div class="col-md-12">
+            <p class="intro text-danger" [innerHTML]="lang('./en/index.js').badAddressForSpouse"
+               role="alert" aria-live="assertive">
+            </p>
+        </div>
+
+    </div>
+
+   <!--Removed Childrens -->
+    <msp-remove-dependent *ngFor="let child of removedChildren"
+        [person]="child"
+        (onCancel)="clearRemovedChild(child)"
+        (onChange)="onChange()" [showError]="formRef.submitted">
+    </msp-remove-dependent>
+
+
+    <div class="row" *ngIf="showAddressWarningForChild">
+        <div class="col-md-12">
+            <p class="intro text-danger" [innerHTML]="lang('./en/index.js').badAddressForChild"
+               role="alert" aria-live="assertive">
+            </p>
+        </div>
+
+    </div>
+
+    <div class="row"  *ngIf="showMandatoryFieldsWarning">
+        <div class="col-md-12">
+            <p class="intro text-danger" [innerHTML]="lang('./en/index.js').fillEverything"
+               role="alert" aria-live="assertive">
+            </p>
+        </div>
+
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class='panel-title' [innerHTML]="lang('./en/index.js').pageTitle"></h4>
+        </div>
+        <div class="panel-body">
+            <button class="btn btn-default"  type="button"
+                [disabled]="addedSpouse"
+                (click)="addSpouse()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
+            </button>
+            <button class="btn btn-default" type="button"
+                (click)="addChild(Relationship.ChildUnder19)" >
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').addChildUnder19ButtonSimple"></span>
+            </button>
+            <button class="btn btn-default" type="button"
+                (click)="addChild(Relationship.Child19To24)" >
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
+                <!-- Appears below the button via CSS, but must be in button for accessibility purposes (screen readers). -->
+                <span [innerHTML]="lang('./en/index.js').mustBeFullTimeStudent" class='small-print'></span>
+            </button>
+            <hr>
+            <button class="btn btn-default" type="button"
+                [disabled]="removedSpouse"
+                (click)="removeSpouse()" >
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').removeSpouseButton"></span>
+            </button>
+            <button class="btn btn-default" type="button"
+                (click)="removeChild()">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').removeDependentButton"></span>
+            </button>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-sm-2">
+            <button 
+            (click)="continue()"
+            [disabled]="!canContinue()"
+            class="btn btn-primary" 
+            type="submit"
+            [innerHTML]="lang('./en/index.js').continueButton"></button>
+
+        </div>
+        <msp-cancel></msp-cancel>
+    </div>
+
+
+</form>

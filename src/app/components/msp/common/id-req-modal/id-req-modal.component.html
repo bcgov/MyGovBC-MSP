@@ -1,18 +1,17 @@
 <div bsModal #fullSizeViewModal="bs-modal" class="modal fade" tabindex="-1" role="alertdialog"
      aria-labelledby="title"
-     aria-hidden="true" [config]="{backdrop: false}"
+     aria-hidden="true" [config]="{backdrop: false}" (onShown)="scrollToOpenPanel()"  (onHide)="hidePanel()"
      >
-  <div id="idReq" class="modal-dialog modal-lg">
+  <div id="idReq" class="modal-dialog modal-lg" #modalBody>
     <div class="modal-content">
       <div class="modal-body">
         <a class="pull-right" (click)="hideFullSizeView()" aria-label="Close">
           <i class="fa fa-2x fa-times"></i>
         </a>
         <h1 id="title">{{lang('./en/index.js').title}}</h1>
-        <p class="help-block" [innerHTML]="lang('./en/index.js').intro"></p>
-
-        <div *ngFor="let idReq of idRequirementContentList">
-          <h2>{{idReq.residency}}</h2>
+        <p class="help-block" [innerHTML]="isForAccountChange? lang('./en/index.js').titleAccount: lang('./en/index.js').titleEnrollment"></p>
+        <div *ngFor="let idReq of (isForAccountChange?idRequirementContentListAccountMaintanence:idRequirementContentList)">
+          <h2 *ngIf="!isForAccountChange">{{idReq.residency}}</h2>
 
           <accordion [closeOthers]="true">
             <accordion-group #group

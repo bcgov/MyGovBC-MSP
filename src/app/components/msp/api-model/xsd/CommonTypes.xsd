@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema version="1.2"
+<xs:schema version="1.3"
 	xmlns:ct="http://www.gov.bc.ca/hibc/commonTypes" 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 	targetNamespace="http://www.gov.bc.ca/hibc/commonTypes">
@@ -8,8 +8,8 @@
     	<xs:documentation xml:lang="en">
     		Common Types - Digital Experience
     		Supports EnrollmentTypes, AssistanceTypes, NameChangeTypes.
-    		Version: $LastChangedRevision: 4971 $  
-    		LastChanged: $LastChangedDate: 2017-06-06 17:42:04 -0400 (Tue, 06 Jun 2017) $
+    		Version: $LastChangedRevision: 5170 $  
+    		LastChanged: $LastChangedDate: 2017-09-20 12:27:25 -0700 (Wed, 20 Sep 2017) $
     	</xs:documentation>
     </xs:annotation>
     
@@ -154,6 +154,12 @@
 	</xs:simpleType>
 	
 	<xs:simpleType name="SchoolNameType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="InstitutionNameType">
 		<xs:restriction base="xs:string">
 			<xs:maxLength value="50"/>
 		</xs:restriction>

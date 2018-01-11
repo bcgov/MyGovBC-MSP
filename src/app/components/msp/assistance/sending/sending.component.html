@@ -7,10 +7,10 @@
     </p>
 </div>
 
-<div class="h1" *ngIf="!transmissionInProcess && !errorCode"
+<div class="h1" *ngIf="!transmissionInProcess && !hasError"
       [innerHtml]="lang('./en/index.js').transmissionSuccess"></div>
 
-<div class="row" *ngIf="!transmissionInProcess && errorCode">
+<div class="row" *ngIf="!transmissionInProcess && hasError">
   <div class="col-xs-12 col-md-6">
     <h1 [innerHtml]="lang('./en/index.js').transmissionErrorTitle"></h1>
     <h3 [innerHtml]="lang('./en/index.js').instructionForUserOnError"></h3>
@@ -28,7 +28,7 @@
   </div>
 </div>
 
-<div class="row" *ngIf="!transmissionInProcess && errorCode" style="margin-top: 30px;">
+<div class="row" *ngIf="!transmissionInProcess && hasError" style="margin-top: 30px;">
   <msp-transmission-error-view [rawError]="rawError"></msp-transmission-error-view>
 </div>
 

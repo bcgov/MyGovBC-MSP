@@ -27,18 +27,18 @@ import {MspAddressComponent} from "../../../common/address/address.component";
 import {MspArrivalDateComponent} from "../../../common/arrival-date/arrival-date.component";
 import {MspOutofBCRecordComponent} from "../../../common/outof-bc/outof-bc.component";
 import {MspProvinceComponent} from "../../../common/province/province.component";
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
-import './personal-details.component.less';
 import {BaseComponent} from "../../../common/base.component";
 import {MspCountryComponent} from "../../../common/country/country.component";
 @Component({
     selector: 'msp-personal-details',
     templateUrl: './personal-details.component.html',
+    styleUrls: ['./personal-details.component.less'],
 
     animations: [
       trigger('shrinkOut', [
@@ -107,6 +107,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   @Output() notifyChildRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() notifySpouseRemoval: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
+
   shrinkOut: string;
   shrinkOutStatus: string;
   genderListSignal: string;
@@ -170,6 +171,8 @@ export class PersonalDetailsComponent extends BaseComponent {
   addDocument(evt:MspImage){
     // console.log('image added: %s', evt);
     this.person.documents.images = this.person.documents.images.concat(evt);
+    console.info('$fileParent (1) addDocument', {images: this.person.documents.images, evt: evt})
+    
     this.fileUploader.forceRender();
     this.onChange.emit(evt);
   }
@@ -189,8 +192,8 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.imageErrorModal.forceRender();
   }
 
-  ngAfterViewInit() {
-    super.ngAfterViewInit();
+  ngAfterContentInit() {
+    super.ngAfterContentInit();
 
     this.cd.detectChanges();
     /**

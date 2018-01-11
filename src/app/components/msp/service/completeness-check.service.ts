@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import DataService from './msp-data.service';
+import { MspDataService } from './msp-data.service';
 import {FinancialAssistApplication} from '../model/financial-assist-application.model';
 import {MspApplication} from '../model/application.model';
-import ValidtionService from './msp-validation.service';
+import { MspValidationService }  from './msp-validation.service';
 import {Person} from '../model/person.model';
 
 import * as _ from 'lodash';
 
 @Injectable()
-export default class CompletenessCheckService {
+export class CompletenessCheckService {
     private get finApp():FinancialAssistApplication {
       return this.dataService.finAssistApp;
     }
 
-    constructor(private dataService: DataService,
-        private validationService:ValidtionService) {
+    constructor(private dataService: MspDataService,
+        private validationService:MspValidationService) {
     }
 
     private isNumber(arg:any){

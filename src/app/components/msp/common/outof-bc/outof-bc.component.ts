@@ -20,6 +20,8 @@ export class MspOutofBCRecordComponent extends BaseComponent {
 
   @Input() outofBCRecord: OutofBCRecord;
 
+  @Input()futureReturnDate: boolean;
+  @Input()futureDepartureDate: boolean;
   @Input()showError: boolean;
   @Output() onUpdate: EventEmitter<OutofBCRecord> = new EventEmitter<OutofBCRecord>();
   @Output() onDelete: EventEmitter<OutofBCRecord> = new EventEmitter<OutofBCRecord>();

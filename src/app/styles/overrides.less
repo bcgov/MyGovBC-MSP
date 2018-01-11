@@ -56,6 +56,12 @@ a {
     border-color:@gray-lighter;    
 }
 
+.panel .btn.disabled, .panel .btn[disabled] {
+  color: @gray-light;
+  background-color:darken(@btn-default-bg, 10);
+  border-color: @gray-lighter;
+}
+
 // Change button hover color
 .btn-primary:hover {
   background-color: lighten(@brand-secondary, 10%);
@@ -68,6 +74,10 @@ a {
 // body
 body, html{
   height:100%;
+}
+// IE11 Scroll not working in Documents page when modal is opened. IE only hack
+body.IE11Scroll {
+  -ms-overflow-style: scrollbar;
 }
 
 .text-danger {

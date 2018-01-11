@@ -4,30 +4,26 @@ import { Component, ViewChild, AfterViewInit, OnInit, ElementRef} from '@angular
 import { FormsModule, FormGroup, NgForm, AbstractControl } from '@angular/forms';
 import { MspLogService } from '../../../service/log.service';
 import {DeductionCalculatorComponent} from './deduction-calculator.component';
-import MspDataService from '../../../service/msp-data.service';
-import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+import { MspDataService } from '../../../service/msp-data.service';
+import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspCancelComponent} from "../../../common/cancel/cancel.component";
-import {ModalModule} from "ng2-bootstrap";
-import appConstants from '../../../../../services/appConstants';
+import {ModalModule} from "ngx-bootstrap";
 import {MspLoggerDirective} from "../../../common/logging/msp-logger.directive";
 import {RouterTestingModule} from "@angular/router/testing";
-import ProcessService from "../../../service/process.service";
+import { ProcessService } from "../../../service/process.service";
 
 describe('DeductionCalculatorComponent', () => {
-  let localStorageServiceConfig = {
-    prefix: 'ca.bc.gov.msp',
-    storageType: 'localStorage'
-  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [DeductionCalculatorComponent, MspCancelComponent, MspLoggerDirective],
-      imports: [RouterTestingModule, FormsModule, ModalModule.forRoot(), HttpModule],
+      imports: [RouterTestingModule, FormsModule, ModalModule.forRoot(), HttpModule, LocalStorageModule.withConfig({
+        prefix: 'ca.bc.gov.msp',
+        storageType: 'sessionStorage'
+      })],
       providers: [MspDataService,MspLogService, ProcessService,
-        LocalStorageService,{
-          provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        },
-        {provide: 'appConstants', useValue: appConstants}
+        
+        
       ]
     })
   });

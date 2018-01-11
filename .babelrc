@@ -1,4 +1,0 @@
-{
-	"plugins": ["transform-runtime", "add-module-exports"],
-    "presets": ["angular", "es2017"]
-}

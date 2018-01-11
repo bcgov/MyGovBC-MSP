@@ -24,7 +24,7 @@ export class MspCountryComponent extends BaseComponent {
   /**
    * Auto complete for country
    */
-  private dataService: CompleterData;
+  public dataService: CompleterData;
   countryData:Array<{code:string, name:string}> = this.lang('./en/index.js').countryData;
 
   constructor(private completerService: CompleterService,
