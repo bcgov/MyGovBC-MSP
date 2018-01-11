@@ -111,7 +111,14 @@ export class PersonalInfoComponent extends BaseComponent {
     return this.isAllValid();
   }
 
-  continue():void {
+  checkAnyDependentsIneligible(): boolean {
+        let target = [this.dataService.getMspApplication().applicant,this.dataService.getMspApplication().spouse ,...this.dataService.getMspApplication().children]
+        return target.filter(x => x)
+            .filter(x => x.ineligibleForMSP).length >= 1;
+    }
+
+
+    continue():void {
 
     // console.log('personal info form itself valid: %s', this.form.valid);
     console.log('combinedValidationState on personal info: %s', this.isAllValid());

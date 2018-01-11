@@ -327,6 +327,10 @@ export class PersonalDetailsComponent extends BaseComponent {
   handleOutofBCRecordChange(evt:OutofBCRecord){
     this.onChange.emit(evt);
   }
+    //If false, then we don't want users continuing to further application;
+  checkEligibility(): boolean {
+        return !this.person.ineligibleForMSP;
+  }
 
   setMovedToBCPermanently(moved:boolean){
     this.person.madePermanentMoveToBC = moved;

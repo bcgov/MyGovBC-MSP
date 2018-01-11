@@ -160,8 +160,11 @@
               </div>
 
             </div>
+
           </div>
+
       </div>
+        <h3 class="intro text-danger" *ngIf="!checkEligibility()" class="text-danger" [innerHtml]="lang('./en/index.js').notEligibleError" role="alert" aria-live="assertive"></h3>
 
         <div class="row" *ngIf="!(person.status === StatusInCanada.CitizenAdult &&
                 person.currentActivity === Activities.LivingInBCWithoutMSP &&

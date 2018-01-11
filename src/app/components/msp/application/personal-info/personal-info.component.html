@@ -53,7 +53,7 @@
         </p>
       <div class="col-sm-2">
         <button
-            class="btn btn-primary" type="submit" [disabled] = "!documentsReady()|| !isStayinginBCAfterstudies()"
+            class="btn btn-primary" type="submit" [disabled] = "!documentsReady()|| !isStayinginBCAfterstudies() ||checkAnyDependentsIneligible()"
             [innerHTML]="lang('./en/index.js').continueButton"></button>
         
       </div>

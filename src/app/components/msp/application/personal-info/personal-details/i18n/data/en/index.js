@@ -94,5 +94,7 @@ module.exports = {
   mustAnswerQuestionAboutPermMoveToBC: 'You must answer this question about your move to B.C.',
   mustDeclareStudentStatus: "Are you a full time student right now?",
   mustDeclareInstitutionWorkHistory: "Please answer this question.",
-  mustAnswerQuestion: "This question has to be answered in order to continue with the application."
+  mustAnswerQuestion: "This question has to be answered in order to continue with the application.",
+    notEligibleError: "You have indicated that a recent move to B.C. is not permanent. As a result, the above is not eligible for enrollment with MSP. Please contact HIBC for further information."
+
 }
