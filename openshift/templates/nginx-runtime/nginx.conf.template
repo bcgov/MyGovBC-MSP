@@ -85,25 +85,26 @@ http {
             # %HTTP_BASIC%
         }
 
-	location /api {
-	    proxy_pass http://mygovbc-msp-service:8080/;
+        location /api {
+            proxy_pass http://mygovbc-msp-service:8080/;
 
-	    location /api/logging {
-              if ( $request_method !~ ^(POST|HEAD|OPTIONS)$ ) {
-                return 405;
-              }
-              if ( $request_method ~ ^(HEAD|OPTIONS)$ ) {
-                return 200;
-              }
-	      proxy_set_header Authorization "Splunk %SPLUNK_AUTH_TOKEN%";
-	      proxy_pass_header Authorization;
-              proxy_pass http://splunk-forwarder:8080/log;
+            location /api/logging {
+                if ( $request_method !~ ^(POST|HEAD|OPTIONS)$ ) {
+                    return 405;
+                }
+                if ( $request_method ~ ^(HEAD|OPTIONS)$ ) {
+                    return 200;
+                }
+
+                proxy_set_header Authorization "Splunk %SPLUNK_AUTH_TOKEN%";
+                proxy_pass_header Authorization;
+                proxy_pass http://splunk-forwarder:8080/log;
             }
 
             location /api/captcha/ {
-              proxy_pass http://mygovbc-captcha-service:8080/;
+                proxy_pass http://mygovbc-captcha-service:8080/;
             }
-	}
+        }
 
         # redirect server error pages to the static page /50x.html
         error_page   500 502 503 504  /50x.html;
