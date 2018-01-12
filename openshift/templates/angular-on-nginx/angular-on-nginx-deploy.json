@@ -278,6 +278,13 @@
       "value": "allow 0.0.0.0/0; deny all;"
     },
     {
+      "description": "If true use the Splunk Forwarder, if false use logstash for MSP logs",
+      "displayName": "USE_SPLUNK_FORWARDER",
+      "name": "USE_SPLUNK_FORWARDER",
+      "required": true,
+      "value": "false"
+    },
+    {
       "description": "The exposed hostname that will route to the service, e.g., myappname.pathfinder.gov.bc.ca, if left blank a value will be defaulted.",
       "displayName": "Application Hostname",
       "name": "APPLICATION_DOMAIN",
