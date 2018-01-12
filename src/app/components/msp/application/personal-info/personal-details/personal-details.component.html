@@ -180,6 +180,8 @@
                                   (dayChange)="person.arrivalToBCDay = $event"
                                   (onChange) = "onChange.emit($event)"
                                   [showError]="showError"
+                                  [notBeforeDate]="person.dob"
+                                  [notBeforeDateErrorLabel]="lang('./en/index.js').moveDateBeforeBirthError[person.relationship]"
                                   [required] = "true">
                 </msp-arrival-date>
             </div>

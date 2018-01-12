@@ -65,6 +65,13 @@
                 <div class="text-danger"
                      [innerHtml]="lang('./en/index.js').yearErrorFutureCheck"></div>
             </div>
+
+            <div *ngIf='(yearRef.touched || showError) && !isBeforeNMonths()'>
+                <div class="text-danger"
+                    >{{maxMonthsRangeErrorMsg}}</div>
+            </div>
+
+
         </div>
     </div>
 </form>
