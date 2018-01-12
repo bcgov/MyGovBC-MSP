@@ -79,6 +79,10 @@
                     "value": "${IpFilterRules}"
                   },
                   {
+                    "name": "USE_SPLUNK_FORWARDER",
+                    "value": "${USE_SPLUNK_FORWARDER}"
+                  },
+                  {
                     "name": "HTTP_BASIC",
                     "value": "${HTTP_BASIC}"
                   },
