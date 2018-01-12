@@ -96,11 +96,14 @@ http {
                     return 200;
                 }
 
-                %START_USE_SPLUNK_FORWARDER%
-                proxy_set_header Authorization "Splunk %SPLUNK_AUTH_TOKEN%";
-                proxy_pass_header Authorization;
-                proxy_pass http://splunk-forwarder:8080/log;
-                %END_USE_SPLUNK_FORWARDER%
+		if ( %START_USE_SPLUNK_FORWARDER% = true) {
+                    proxy_set_header Authorization "Splunk %SPLUNK_AUTH_TOKEN%";
+                    proxy_pass_header Authorization;
+                    proxy_pass http://splunk-forwarder:8080/log;
+		}
+		if ( %START_USE_SPLUNK_FORWARDER% != true) {
+                    proxy_pass http://logstash:8080;
+		}
             }
 
             location /api/captcha/ {
