@@ -96,12 +96,12 @@ http {
                     return 200;
                 }
 
-		if ( %USE_SPLUNK_FORWARDER% = true) {
+		if ( X%USE_SPLUNK_FORWARDER% ~ Xtrue) {
                     proxy_set_header Authorization "Splunk %SPLUNK_AUTH_TOKEN%";
                     proxy_pass_header Authorization;
                     proxy_pass http://splunk-forwarder:8080/log;
 		}
-		if ( %USE_SPLUNK_FORWARDER% != true) {
+		if ( X%USE_SPLUNK_FORWARDER% !~ Xtrue) {
                     proxy_pass http://logstash:8080;
 		}
             }
