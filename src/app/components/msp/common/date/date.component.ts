@@ -162,7 +162,7 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
     if (this.year || (this.month && this.month != 0) || this.day) {
       let val = this.isCorrectFormat() && this.futureCheck();
 
-      if (this.notBeforeDate !== null){
+      if (this.notBeforeDate){
         val = val && this.notBeforeDateCheck();
       }
 
