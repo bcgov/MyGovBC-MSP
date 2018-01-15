@@ -79,7 +79,7 @@
         <msp-toggle [(data)]="person.plannedAbsence" (dataChange)="onChange.emit($event)"></msp-toggle>
       </div>
       <div class="col-md-12">
-        <msp-outof-bc-record *ngIf="person.plannedAbsence" [futureDepartureDate]="true" [futureReturnDate]="true" [outofBCRecord]="person.planOnBeingOutOfBCRecord"
+        <msp-outof-bc-record *ngIf="person.plannedAbsence" [futureDepartureDate]="true" [futureReturnDate]="true" [outofBCRecord]="person.planOnBeingOutOfBCRecord" [maxMonthsRange]="6"  [maxMonthsRangeErrorMsg]="lang('./en/index.js').maxMonthsSixMonths"
           (onDelete)="handleDeletePlanOnBeingOutOfBCRecord($event)" (onUpdate)="handleOutofBCRecordChange($event)" [showError]="showError">
         </msp-outof-bc-record>
       </div>

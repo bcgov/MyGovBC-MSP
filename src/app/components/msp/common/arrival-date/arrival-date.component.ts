@@ -2,6 +2,7 @@ import {Component, Input, Output, EventEmitter, ViewChild, AfterViewInit, Change
 import {NgForm} from "@angular/forms";
 import * as moment from 'moment';
 import {BaseComponent} from "../base.component";
+import {SimpleDate} from "../../model/simple-date.interface";
 
 
 
@@ -27,6 +28,10 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
   @Input() day: number | string;
   @Output() dayChange = new EventEmitter<number|string>();
   @Input() arrivalLabel: string = this.lang('./en/index.js').arrivalDateLabel;
+
+    @Input() notBeforeDate: SimpleDate;
+    @Input() notBeforeDateErrorLabel: string;
+    public hasErrorBeforeDate: boolean;
 
   @Output() onChange = new EventEmitter<any>();
 
@@ -104,6 +109,16 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
     return true;
   }
 
+    notBeforeDateCheck(): boolean {
+
+
+        if (this.notBeforeDate && this.inputDate().isBefore(this.notBeforeDate)){
+            this.hasErrorBeforeDate = true;
+            return false;
+        }
+        this.hasErrorBeforeDate = false;
+        return true;
+    }
   isValid(): boolean {
     if (this.required) {
       if (!this.year || !this.month || !this.day) {
@@ -111,8 +126,10 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
       }
     }
     if (this.year || (this.month && this.month != 0) || this.day) {
-      return this.isCorrectFormat() && this.futureCheck();
+      return this.isCorrectFormat() && this.futureCheck() && this.notBeforeDateCheck();
     }
+
+
     return true;
   }
 }

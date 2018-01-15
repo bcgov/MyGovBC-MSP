@@ -116,11 +116,7 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
   }
 
   notBeforeDateCheck(): boolean {
-    // console.log('notBeforeDateCheck', {
-    //   inputDate: this.inputDate(),
-    //   notBeforeDate: this.notBeforeDate,
-    //   isBefore: this.inputDate().isBefore(this.notBeforeDate)
-    // });
+
     if (this.inputDate().isBefore(this.notBeforeDate)){
       this.hasErrorBeforeDate = true;
       return false;
@@ -162,7 +158,7 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
     if (this.year || (this.month && this.month != 0) || this.day) {
       let val = this.isCorrectFormat() && this.futureCheck();
 
-      if (this.notBeforeDate !== null){
+      if (this.notBeforeDate){
         val = val && this.notBeforeDateCheck();
       }
 

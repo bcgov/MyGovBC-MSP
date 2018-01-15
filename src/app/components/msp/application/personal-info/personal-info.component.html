@@ -1,6 +1,3 @@
-<msp-services-card-disclaimer-modal #mspServicesCardModal
-[personStatus]="applicant.status">
-</msp-services-card-disclaimer-modal>
 <form #formRef="ngForm" novalidate (submit)="continue()">
     <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
@@ -53,7 +50,7 @@
         </p>
       <div class="col-sm-2">
         <button
-            class="btn btn-primary" type="submit" [disabled] = "!documentsReady()|| !isStayinginBCAfterstudies()"
+            class="btn btn-primary" type="submit" [disabled] = "!documentsReady()|| !isStayinginBCAfterstudies() ||checkAnyDependentsIneligible()   "
             [innerHTML]="lang('./en/index.js').continueButton"></button>
         
       </div>

@@ -28,6 +28,8 @@ export class MspOutofBCRecordComponent extends BaseComponent {
   @ViewChild('mspDepartureDate') mspDepartureDate: MspDepartureDateComponent;
   @ViewChild('mspReturnDate') mspReturnDate: MspReturnDateComponent;
   @ViewChild('formRef') form:NgForm;
+    @Input()maxMonthsRange: number;
+    @Input()maxMonthsRangeErrorMsg: string;
 
   constructor(private cd: ChangeDetectorRef) {
     super(cd);

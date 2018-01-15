@@ -36,7 +36,11 @@
           #imagePlaceholderRef aria-hidden="true">
 
         </i>
-        <p class="text-upload" *ngIf="images.length > 0 && (!showError)">Upload another file</p>
+
+
+          <p  *ngIf="images.length > 0 && (!showError)">
+              <label class="text-upload" for="fileUploadBrowse-{{id}}" tabindex="0">  Upload another file</label>
+          </p>
         <p class="text-upload" [ngClass]="{'error-style': showError}"
           *ngIf="images?.length < 1 || noIdImage">
           <ng-content></ng-content>  
