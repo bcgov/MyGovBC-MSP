@@ -1,3 +1,6 @@
+<msp-services-card-disclaimer-modal #mspServicesCardModal
+                                    [personStatus]="person.status" *ngIf="person.currentActivity &&  person.relationship != 3" ></msp-services-card-disclaimer-modal>
+{{person.currentActivity}}---{{ person.relationship }}
 <form #formRef='ngForm' novalidate>
     <div class="row">
         <div class="col-xs-8">
