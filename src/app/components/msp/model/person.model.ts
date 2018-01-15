@@ -323,6 +323,12 @@ class Person implements IPerson {
         ));
     }
 
+    get bcServiceCardShowStatus(): boolean {
+
+        return this.status === StatusInCanada.CitizenAdult
+            || this.status === StatusInCanada.PermanentResident ;
+    }
+
     /** Used for dependents and spouses to check if they are  an existing MSP Beneficiary. */
     isExistingBeneficiary: boolean;
     /** Only for spouse. Previous last name. */
