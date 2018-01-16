@@ -8,6 +8,7 @@ import { environment } from '../../../../environments/environment';
  */
 window.ShortCodeAssist = {
     startSupport: function(callback, failure, configuration, shortCode) {
+        console.log('ShortCodeAssit startSupport');
         // get a cid/session token via the short code servlet
         var startWithShortCode = function(shortCode) {
             var tokenRequest = new XMLHttpRequest();
@@ -55,6 +56,7 @@ window.ShortCodeAssist = {
         if (shortCode) {
             startWithShortCode(shortCode);
         } else {
+            console.log('Making short code request');
             var shortCodeRequest = new XMLHttpRequest();
             shortCodeRequest.onreadystatechange = function () {
                 if (shortCodeRequest.readyState == 4) {
@@ -64,6 +66,7 @@ window.ShortCodeAssist = {
                         startWithShortCode(shortCode);
                     } else {
                         // TODO Report failure to start
+                        console.error('SHORT CODE REQUEST FAILURE');
                     }
                 }
             };

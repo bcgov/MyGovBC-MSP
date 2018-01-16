@@ -29,6 +29,11 @@ window.AssistBoot = {
                 // Both the cobrowseOnly and cid URL parameters have been specified.
                 // Start support immediately.
                 config.allowedIframeOrigins = false; // important: disable iframe messaging if not required for security
+
+                if (!AssistSDK){
+                    console.error('startAssistDialog error, AssistSDK is not defined.');
+                }
+
                 if (AssistSDK.isBrowserSupported()) {
                     AssistSDK.startSupport(config);
                 } else {
@@ -102,6 +107,10 @@ window.AssistBoot = {
                 // The Correlation ID (short code) will be auto-generated, as such a pre-configured
                 // Correlation ID that has been passed into the sample is cleared/ignored.
                 delete config.correlationId;
+            }
+
+            if (!AssistSDK){
+                console.error('want-to-share listener error, AssistSDK is not defined.');
             }
 
             if (AssistSDK.isBrowserSupported()) {
@@ -549,3 +558,15 @@ function removeEndSupportGui() {
         cidGui.parentNode.removeChild(cidGui);
     }
 };
+
+
+//Automatically close session on tab close.
+//Doesn't work on all browsers, but better than nothing.
+window.onbeforeunload = closingCode;
+function closingCode(){
+    if (AssistSDK){
+        console.log('Page close event - ending support');
+        AssistSDK.endSupport();
+    }
+    return null;
+}
