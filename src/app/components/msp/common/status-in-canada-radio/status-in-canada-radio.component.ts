@@ -23,6 +23,8 @@ export class MspStatusInCanadaRadioComponent extends BaseComponent {
     @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
     @Input() showError: boolean;
     @ViewChild('mspServicesCardModal') servicesCardDisclaimerModalComponent: ServicesCardDisclaimerModalComponent;
+    @Input() showServicesCardModal: boolean;
+
 
     constructor(cd: ChangeDetectorRef) {
         super(cd);
@@ -39,10 +41,12 @@ export class MspStatusInCanadaRadioComponent extends BaseComponent {
             p.dischargeMonth = null;
             p.dischargeDay = null;
         }
-        // For account change , applicant and children under 19 are excluded from showing pop up
-        var isCorrectRelationShip:boolean = this.person.relationship != this.Relationship.ChildUnder19 && this.person.relationship != this.Relationship.Applicant ;
-        if ( this.person.bcServiceCardShowStatus && isCorrectRelationShip) {
-            this.servicesCardDisclaimerModalComponent.showModal();
+        if (this.showServicesCardModal) {
+            // For account change ,  children under 19 are excluded from showing pop up
+            var isCorrectRelationShip:boolean = this.person.relationship != this.Relationship.ChildUnder19  ;
+            if ( this.person.bcServiceCardShowStatus && isCorrectRelationShip ) {
+                this.servicesCardDisclaimerModalComponent.showModal();
+            }
         }
 
         this.onChange.emit();

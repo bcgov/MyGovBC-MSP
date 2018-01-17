@@ -6,6 +6,7 @@ import {ResponseType} from "../../api-model/responseTypes";
 import {MspLogService} from '../../service/log.service'
 import {ProcessService} from "../../service/process.service";
 import {MspAccountApp} from '../../model/account.model';
+import {Relationship} from "../../model/status-activities-documents";
 
 @Component({
   templateUrl: 'sending.component.html',
@@ -52,14 +53,20 @@ export class AccountSendingComponent implements AfterContentInit {
           confirmationNumber: this.mspAccountApp.referenceNumber});
 
         let tempRef = this.mspAccountApp.referenceNumber;
-          let anyNewMSPPresent = false;
+          let bcServicesCardElgible = false;
+          //check if there is status in canada selected
+          if (this.mspAccountApp.accountChangeOptions.statusUpdate) {
+              bcServicesCardElgible = true ;
+          }
+
+
         //check any new beneficiary is added
-          if (this.mspAccountApp.accountChangeOptions.dependentChange) {
-              if(this.mspAccountApp.addedSpouse && !this.mspAccountApp.addedSpouse.isExistingBeneficiary) {
-                  anyNewMSPPresent = true
+          if (!bcServicesCardElgible && this.mspAccountApp.accountChangeOptions.dependentChange) {
+              if(this.mspAccountApp.addedSpouse && !this.mspAccountApp.addedSpouse.isExistingBeneficiary && this.mspAccountApp.addedSpouse.bcServiceCardShowStatus ) {
+                  bcServicesCardElgible = true
               }
-            if (this.mspAccountApp.getAllChildren().filter( child => child.isExistingBeneficiary == false ).length>0) {
-                anyNewMSPPresent = true
+            if (this.mspAccountApp.getAllChildren().filter( child => (child.relationship == Relationship.Child19To24 && !child.isExistingBeneficiary) ).length>0) {
+                bcServicesCardElgible = true
             }
           }
 
@@ -69,7 +76,7 @@ export class AccountSendingComponent implements AfterContentInit {
         //  go to confirmation
 
           this.router.navigate(["/msp/account/confirmation"],
-              {queryParams: {confirmationNum:tempRef,showDepMsg:anyNewMSPPresent}});
+              {queryParams: {confirmationNum:tempRef,showDepMsg:bcServicesCardElgible}});
 
 
 
