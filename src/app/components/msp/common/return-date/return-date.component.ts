@@ -84,7 +84,7 @@ export class MspReturnDateComponent extends BaseComponent {
     if (this.mustBeAfter === null){
       return true;
     }
-    return this.mustBeAfter.isSameOrBefore(this.inputDate())
+    return this.mustBeAfter.isBefore(this.inputDate());
   }
 
   get showDateOrderError(): boolean {

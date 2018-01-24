@@ -294,4 +294,7 @@ export class DeductionCalculatorComponent implements DoCheck {
   get currentCalendarYear(): Number {
     return moment().year();
   }
+    get nextCalendarYear(): Number {
+        return moment().year()+1;
+    }
 }
