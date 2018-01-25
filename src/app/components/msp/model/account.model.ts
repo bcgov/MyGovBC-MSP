@@ -59,6 +59,7 @@ class MspAccountApp implements ApplicationBase {
         return [
             this.applicant,
             ...this.addedChildren,
+            ...this.updatedChildren,
             ...this.children,
             ...this.removedChildren,
             this.updatedSpouse,
