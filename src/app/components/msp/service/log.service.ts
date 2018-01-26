@@ -30,9 +30,17 @@ export class MspLogService {
    * @returns {Subscription}
    */
   log(logItem: Object, callback?: () => void, errCallback?: () => void): Subscription{
-    let baseUrl = this.appConstants['logBaseUrl']
-    let headers = new Headers({'Content-Type': 'application/json'})
-    let options = new RequestOptions({headers: headers})
+    let baseUrl = this.appConstants['logBaseUrl'];
+    let headers = new Headers({
+        'Content-Type': 'application/json',
+        'logsource' : window.location.hostname,
+        'timestamp' : moment().toISOString(),
+        'program' : 'msp',
+        'severity' : 'info',
+        'referenceNumber' : this.dataService.getMspApplication().referenceNumber || this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber,
+        'applicationId' : this.dataService. getMspApplication().uuid || this.dataService.finAssistApp.uuid
+  });
+    let options = new RequestOptions({headers: headers});
     let body = {
       meta: this.createMetaData(),
       body: logItem,
@@ -56,9 +64,17 @@ export class MspLogService {
    * @param urlPath OPTIONAL - Additional URL path for logger.
    */
   logIt(logItem: Object, urlPath?: string):Observable<any> {
-    let baseUrl = this.appConstants['logBaseUrl']
-    let headers = new Headers({'Content-Type': 'application/json'})
-    let options = new RequestOptions({headers: headers})
+    let baseUrl = this.appConstants['logBaseUrl'];
+    let headers = new Headers({
+        'Content-Type': 'application/json',
+        'logsource' : window.location.hostname,
+        'timestamp' : moment().toISOString(),
+        'program' : 'msp',
+        'severity' : 'info',
+        'referenceNumber' : this.dataService.getMspApplication().referenceNumber || this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber,
+        'applicationId' : this.dataService. getMspApplication().uuid || this.dataService.finAssistApp.uuid
+    });
+    let options = new RequestOptions({headers: headers});
     return this.http.post(baseUrl + (urlPath || ''), logItem, options);
   }
 
