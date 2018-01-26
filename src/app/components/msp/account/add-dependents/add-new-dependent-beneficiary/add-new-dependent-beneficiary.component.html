@@ -13,7 +13,7 @@
           [label]="lang('./en/index.js').moveDateToBC"
           [showError]='showError'
           [(date)]="person.arrivalToBCSimple"
-          [notBeforeDate]="person.dob"
+          [notBeforeDate]="person.dobSimple"
           [notBeforeDateErrorLabel]="lang('./en/index.js').moveDateBeforeBirthError[person.relationship]"
           required=true>
         </msp-date>
