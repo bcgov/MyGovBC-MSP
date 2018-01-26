@@ -56,6 +56,10 @@ export class AssistancePersonalInfoComponent extends BaseComponent{
    this._router.navigate(['/msp/assistance/retro']);
   }
 
+    isValid(): boolean {
+        return this.dataService.finAssistApp.isUniquePhns;
+    }
+
   get canContinue():boolean{
     return this.isAllValid();
   }

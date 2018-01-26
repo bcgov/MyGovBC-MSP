@@ -216,7 +216,11 @@ export class AccountDependentChangeComponent extends BaseComponent {
 
     }
 
-    /**
+    isValid(): boolean {
+        return this.dataService.getMspAccountApp().isUniquePhns ;
+    }
+
+        /**
      * The account holder wishes to remove a child or dependent from their
      * account. For when a dependent already exists on the account. This is ***not
      * to be confused with deleting or cancelling adding a new dependent to the

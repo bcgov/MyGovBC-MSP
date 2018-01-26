@@ -111,6 +111,10 @@ export class PersonalInfoComponent extends BaseComponent {
     return this.isAllValid();
   }
 
+  isValid(): boolean {
+     return this.dataService.getMspApplication().isUniquePhns;
+  }
+
   checkAnyDependentsIneligible(): boolean {
         let target = [this.dataService.getMspApplication().applicant,this.dataService.getMspApplication().spouse ,...this.dataService.getMspApplication().children]
         return target.filter(x => x)

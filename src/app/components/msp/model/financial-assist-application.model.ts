@@ -67,6 +67,11 @@ export class FinancialAssistApplication implements ApplicationBase {
     }
   }
 
+   get isUniquePhns () {
+        let allPhs:string[] = this.allPersons.map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
+        return new Set(allPhs).size === allPhs.length ;
+    }
+
   set attendantCareExpense(n:number) {
     this._attendantCareExpense = n || 0;
   }
