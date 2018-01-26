@@ -65,7 +65,7 @@ class MspApplication implements ApplicationBase {
   }
 
   get isUniquePhns () {
-        let allPhs:string[] = this.allPersons.map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
+        let allPhs:string[] = this.allPersons.filter(x => x).map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
         return new Set(allPhs).size === allPhs.length ;
   }
 

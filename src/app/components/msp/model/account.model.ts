@@ -147,7 +147,7 @@ class MspAccountApp implements ApplicationBase {
         When PI and Dependents page is coming in two pages and if there are duplications ,PI page continue should be enabled.
      */
     get isUniquePhnsInPI () {
-        let allPhs:string[] = [this.applicant, ...this.updatedChildren,this.updatedSpouse] .map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
+        let allPhs:string[] = [this.applicant, ...this.updatedChildren,this.updatedSpouse].filter(x => x) .map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
         return new Set(allPhs).size === allPhs.length ;
     }
 
