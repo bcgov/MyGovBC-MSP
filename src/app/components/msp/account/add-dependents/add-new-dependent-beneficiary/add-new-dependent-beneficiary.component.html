@@ -65,7 +65,7 @@
         <label [innerHtml]="lang('./en/index.js').hasBeenOutsideBC30InYear" class="control-label"></label>
         <msp-toggle (dataChange)="onChange.emit($event)" [(data)]="person.declarationForOutsideOver30Days"></msp-toggle>
 
-        <msp-outof-bc-record *ngIf="person.declarationForOutsideOver30Days" [futureDepartureDate]="false" [futureReturnDate]="true"
+        <msp-outof-bc-record *ngIf="person.declarationForOutsideOver30Days" [futureDepartureDate]="false" [futureReturnDate]="true" [minMonthsRange]="12"  [minMonthsRangeErrorMsg]="lang('./en/index.js').minMonths"
           [outofBCRecord]="person.outOfBCRecord" (onDelete)="handleDeleteOutofBCRecord($event)" (onUpdate)="handleOutofBCRecordChange($event)"
           [showError]="showError">
         </msp-outof-bc-record>

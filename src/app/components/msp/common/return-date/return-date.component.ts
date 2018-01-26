@@ -27,6 +27,10 @@ export class MspReturnDateComponent extends BaseComponent {
   @Input() futureDate: boolean;
   @Input() mustBeAfter: moment.Moment;
 
+    // departure date might have restirctions on the months. ie have you returned in the last 12 months.pass 12 here then
+    @Input() minMonthsRange: number;
+    @Input() minMonthsRangeErrorMsg: string;
+
   @ViewChild('formRef') form:NgForm;
 
   @Output() onChange = new EventEmitter<any>();
@@ -43,6 +47,18 @@ export class MspReturnDateComponent extends BaseComponent {
       day: this.day,
     });
   }
+
+    // deaprture date has months restriction. It could be either six months or 12 months depenidng on the question.
+    isWithinNMonths(): boolean {
+        if (!this.minMonthsRange || this.minMonthsRange == 0) {
+            return true;
+        }
+        let datebeforeNMonths = moment().subtract(this.minMonthsRange,'months') ;
+        if (this.inputDate().isBefore(datebeforeNMonths)) {
+            return false;
+        }
+        return true;
+    }
 
   /**
    * Determine if date of birth is valid for the given person
@@ -109,6 +125,6 @@ export class MspReturnDateComponent extends BaseComponent {
 
 
   isValid(): boolean {
-    return this.isCorrectFormat() && this.futureCheck() && this.dateOrderCheck();
+    return this.isCorrectFormat() && this.futureCheck() && this.dateOrderCheck() && this.isWithinNMonths();;
   }
 }

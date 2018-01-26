@@ -30,6 +30,8 @@ export class MspOutofBCRecordComponent extends BaseComponent {
   @ViewChild('formRef') form:NgForm;
     @Input()maxMonthsRange: number;
     @Input()maxMonthsRangeErrorMsg: string;
+    @Input()minMonthsRange: number;
+    @Input()minMonthsRangeErrorMsg: string;
 
   constructor(private cd: ChangeDetectorRef) {
     super(cd);

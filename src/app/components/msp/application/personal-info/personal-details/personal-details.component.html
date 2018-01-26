@@ -182,7 +182,7 @@
                                   (dayChange)="person.arrivalToBCDay = $event"
                                   (onChange) = "onChange.emit($event)"
                                   [showError]="showError"
-                                  [notBeforeDate]="person.dob"
+                                  [notBeforeDate]="person.dobSimple"
                                   [notBeforeDateErrorLabel]="lang('./en/index.js').moveDateBeforeBirthError[person.relationship]"
                                   [required] = "true">
                 </msp-arrival-date>
@@ -254,7 +254,7 @@
             </div>
             <div *ngIf="person.declarationForOutsideOver30Days === true" class="row" style="margin-bottom: 20px">
                 <div class="col-sm-12">
-                    <msp-outof-bc-record #outOfBCRecord
+                    <msp-outof-bc-record #outOfBCRecord [minMonthsRange]="12"  [minMonthsRangeErrorMsg]="lang('./en/index.js').minMonths"
                                          [outofBCRecord]="person.outOfBCRecord"
                                          (onDelete)="handleDeleteOutofBCRecord($event)"
                                          (onUpdate)="handleOutofBCRecordChange($event)"

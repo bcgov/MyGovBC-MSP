@@ -59,6 +59,16 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
     });
   }
 
+    // Parse person's date
+    toDate(simpleDate:SimpleDate) {
+        return moment({
+            year: simpleDate.year,
+            month: simpleDate.month - 1, // moment use 0 index for month :(
+            day: simpleDate.day,
+        });
+    }
+
+
   setYearValueOnModel(value:string){
     if(value){
       this.year = parseInt(value);
@@ -111,8 +121,7 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
 
     notBeforeDateCheck(): boolean {
 
-
-        if (this.notBeforeDate && this.inputDate().isBefore(this.notBeforeDate)){
+        if (this.notBeforeDate && this.inputDate().isSameOrBefore( this.toDate(this.notBeforeDate))){
             this.hasErrorBeforeDate = true;
             return false;
         }
