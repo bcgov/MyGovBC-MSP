@@ -134,7 +134,7 @@
         <div class="col-md-6">
           <msp-date #studiesFinishedSimple
             [label]="lang('./en/index.js').studiesFinish"
-                    [notBeforeDate]="person.studiesBeginSimple"
+                    [notBeforeDate]="person.studiesBeginDate"
                     [notBeforeDateErrorLabel]="lang('./en/index.js').dateStudiesStartBeforeEndError"
                     [showError]='showError' (onChange) = "onChange.emit($event)" [futureDate]="true"
                     [(date)]="person.studiesFinishedSimple"
