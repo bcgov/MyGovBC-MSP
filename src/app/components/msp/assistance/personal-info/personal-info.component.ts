@@ -38,7 +38,6 @@ export class AssistancePersonalInfoComponent extends BaseComponent{
   ngAfterViewInit() {
     this.personalInfoForm.valueChanges.debounceTime(250)
       .distinctUntilChanged().subscribe( values => {
-        // console.log('Personal info form change triggering save: ', values);
         this.dataService.saveFinAssistApplication();
       });
   }
@@ -57,7 +56,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent{
   }
 
     isValid(): boolean {
-        return this.dataService.finAssistApp.isUniquePhns;
+        return this.dataService.finAssistApp.isUniquePhns && this.dataService.finAssistApp.isUniqueSin;
     }
 
   get canContinue():boolean{

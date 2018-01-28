@@ -72,6 +72,11 @@ export class FinancialAssistApplication implements ApplicationBase {
         return new Set(allPhs).size === allPhs.length ;
     }
 
+    get isUniqueSin () {
+        let allPhs:string[] = this.allPersons.filter(x => x) .map(x => x.sin).filter(x => x)  ;
+        return new Set(allPhs).size === allPhs.length ;
+    }
+
   set attendantCareExpense(n:number) {
     this._attendantCareExpense = n || 0;
   }
