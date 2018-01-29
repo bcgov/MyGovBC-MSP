@@ -94,7 +94,7 @@ http {
                     return 200;
                 }
 
-                XXX1proxy_set_header Authorization "Splunk %SPLUNK_AUTH_TOKEN%"; proxy_set_header http_host $hostname; proxy_pass_header Authorization; proxy_pass_header http_host proxy_pass http://splunk-forwarder:8080/log;XXX2
+                XXX1proxy_set_header Authorization "Splunk %SPLUNK_AUTH_TOKEN%"; proxy_set_header http_host "%HOSTNAME%"; proxy_pass_header Authorization; proxy_pass_header http_host proxy_pass http://splunk-forwarder:8080/log;XXX2
                 XXX3proxy_pass http://logstash:8080;XXX4
             }
 
