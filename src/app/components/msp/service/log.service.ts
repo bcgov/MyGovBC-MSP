@@ -72,7 +72,7 @@ export class MspLogService {
         'program' : 'msp',
         'severity' : 'info',
         'referenceNumber' : this.dataService.getMspApplication().referenceNumber || this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber,
-        'applicationId' : this.dataService. getMspApplication().uuid || this.dataService.finAssistApp.uuid
+        'applicationId' : this.dataService. getMspApplication().uuid || this.dataService.finAssistApp.uuid || this.dataService.getMspAccountApp().uuid
     });
     let options = new RequestOptions({headers: headers});
     return this.http.post(baseUrl + (urlPath || ''), logItem, options);
@@ -84,6 +84,8 @@ export class MspLogService {
     log.mspTimestamp = moment().toISOString();
     log.refNumberEnrollment = this.dataService.getMspApplication().referenceNumber;
     log.refNumberPremiumAssistance = this.dataService.finAssistApp.referenceNumber;
+    log.refNumberAccountChange = this.dataService.getMspAccountApp().referenceNumber;
+
     return log;
   }
 

@@ -19,6 +19,7 @@ export class LogEntry {
   browserType?:string;
   refNumberEnrollment?:string;
   refNumberPremiumAssistance?:string;
+  refNumberAccountChange?:string;
   /**
    * Optional 
    */
