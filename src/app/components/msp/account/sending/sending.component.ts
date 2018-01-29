@@ -45,12 +45,13 @@ export class AccountSendingComponent implements AfterContentInit {
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
     this.hasError = undefined;
+    this.logService.log({name: 'Account Change submitting request'},"Account Change : Submission Request");
     this.service
       .sendApplication(this.mspAccountApp)
       .then((mspAccountApp: MspAccountApp) => {
         this.mspAccountApp = mspAccountApp;
         this.logService.log({name: 'MSP Account Change request received success confirmation from API server',
-          confirmationNumber: this.mspAccountApp.referenceNumber});
+          confirmationNumber: this.mspAccountApp.referenceNumber},"Account Change:Submission Response:Success");
 
         let tempRef = this.mspAccountApp.referenceNumber;
           let bcServicesCardElgible = false;
@@ -88,7 +89,7 @@ export class AccountSendingComponent implements AfterContentInit {
         this.rawRequest = error._requestBody
         this.logService.log({name: 'MSP Account Change request received failure message from API server',
           error: error._body,
-          request: error._requestBody});
+          request: error._requestBody},"Account Change:Submission Response:Failure");
         this.transmissionInProcess = false;
 
         this.mspAccountApp.authorizationToken = null;

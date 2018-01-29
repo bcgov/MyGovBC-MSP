@@ -548,7 +548,7 @@ export class FileUploaderComponent
       + (additionalInfo ? "  " + additionalInfo : "");
 
     // send it while subscribing to response
-    this.logService.logIt(log).subscribe(
+    this.logService.logIt(log,title).subscribe(
         (response)=>{
           // console.log('log rest service response: ');
           // console.log(response);

@@ -78,6 +78,11 @@ export class AccountPrepareComponent extends BaseComponent {
             this.transmissionInProcess = true;
             this.mspAccountApp = this.dataService.getFakeAccountChangeApplication();
 
+            this.logService.log({
+                name: 'Sending MSP Account Maintenance Address Change Only Request',
+                confirmationNumber: this.mspAccountApp.referenceNumber
+            },"Account -Address Change Request Submission request");
+
             this.apiService
                 .sendApplication(this.mspAccountApp)
                 .then((mspAccountApp: MspAccountApp) => {
@@ -85,7 +90,7 @@ export class AccountPrepareComponent extends BaseComponent {
                     this.logService.log({
                         name: 'MSP Account Maintenance Address Change Only Request received success confirmation from API server',
                         confirmationNumber: this.mspAccountApp.referenceNumber
-                    });
+                    },"Account -Address Change Request submission response Success");
                     //     this.dataService.removeMspAccountApp();
                     window.location.href = this.addressChangeBCUrl;
                     return;
@@ -94,7 +99,7 @@ export class AccountPrepareComponent extends BaseComponent {
                     name: 'MSP Account Maintenance Address Change Only Request received failure message from API server',
                     error: error._body,
                     request: error._requestBody
-                });
+                },"Account -Address Change Request submission response Error");
 
                 //     this.dataService.removeMspAccountApp();
                 window.location.href = this.addressChangeBCUrl;

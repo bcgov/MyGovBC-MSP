@@ -49,9 +49,9 @@ export class MspLoggerDirective{
 
   ngOnInit(){
   }
-
+  //unused method
   private sendLog(entry:LogEntry){
-    this.logService.logIt(entry).subscribe(
+    this.logService.logIt(entry,"mspLogger").subscribe(
       (response)=>{
         // console.log('log rest service response: ');
         // console.log(response);

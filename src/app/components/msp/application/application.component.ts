@@ -50,7 +50,7 @@ export class ApplicationComponent  {
     this.logService.log({
       name: "Application - Loaded Page",
       url: this.router.url
-    })
+    },"Application - Load Page")
 
     this.routerSubscription = this.router.events
       .filter(event => event instanceof NavigationEnd)
@@ -58,7 +58,7 @@ export class ApplicationComponent  {
         this.logService.log({
           name: "Application - Loaded Page",
           url: this.router.url
-        })
+        },"Application - Loaded Page")
       });
   }
 

@@ -29,7 +29,7 @@ export class MspLogService {
    * @param {() => void} [errCallback]  OPTIONAL - Error callback.
    * @returns {Subscription}
    */
-  log(logItem: Object, callback?: () => void, errCallback?: () => void): Subscription{
+  log(logItem: Object, request_method:String , callback?: () => void, errCallback?: () => void): Subscription{
     let baseUrl = this.appConstants['logBaseUrl'];
     let headers = new Headers({
         'Content-Type': 'application/json',
@@ -38,7 +38,8 @@ export class MspLogService {
         'program' : 'msp',
         'severity' : 'info',
         'referenceNumber' : this.dataService.getMspApplication().referenceNumber || this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber,
-        'applicationId' : this.dataService. getMspApplication().uuid || this.dataService.finAssistApp.uuid
+        'applicationId' : this.dataService. getMspApplication().uuid || this.dataService.finAssistApp.uuid,
+        'request_method' :request_method
   });
     let options = new RequestOptions({headers: headers});
     let body = {
@@ -63,7 +64,7 @@ export class MspLogService {
    * @param logItem JSON to be logged
    * @param urlPath OPTIONAL - Additional URL path for logger.
    */
-  logIt(logItem: Object, urlPath?: string):Observable<any> {
+  logIt(logItem: Object,request_method:String , urlPath?: string):Observable<any> {
     let baseUrl = this.appConstants['logBaseUrl'];
     let headers = new Headers({
         'Content-Type': 'application/json',
