@@ -20,3 +20,4 @@ documentation/
 .vscode/
 *.sh
 .scannerwork/
+package-lock.json
