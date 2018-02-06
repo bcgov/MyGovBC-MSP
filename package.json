@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@angular/cli": "1.6.0",
-    "angular-dev-kit": "^1.0.0",
+    "@angular-devkit/core": "^0.2.0",
     "async": "^2.0.1",
     "autoprefixer": "^6.0.0",
     "core-js": "^2.4.1",
