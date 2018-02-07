@@ -31,10 +31,10 @@ export class ReviewComponent implements OnInit{
 
 
   ngOnInit(){
-    let oldUUID = this.application.uuid;
+   /* let oldUUID = this.application.uuid;
     this.application.regenUUID();
     this.dataService.saveMspApplication();
-    console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
+    console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);*/
   }
   
   applicantAuthorizeOnChange(event: boolean) {

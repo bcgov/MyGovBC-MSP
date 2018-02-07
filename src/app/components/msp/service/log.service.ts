@@ -5,12 +5,14 @@ import { environment } from '../../../../environments/environment';
 import { LogEntry } from '../common/logging/log-entry.model';
 import { MspDataService } from './msp-data.service';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
+
 
 
 @Injectable()
 export class MspLogService {
   appConstants;
-  constructor(private http: Http, private dataService: MspDataService) {
+  constructor(private http: Http, private dataService: MspDataService ,private router: Router) {
     this.appConstants = environment.appConstants;
   }
 
@@ -38,23 +40,19 @@ export class MspLogService {
         'program' : 'msp',
         'severity' : 'info',
         'referenceNumber' : this.dataService.getMspApplication().referenceNumber || this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber,
-        'applicationId' : this.dataService. getMspApplication().uuid || this.dataService.finAssistApp.uuid,
+        'applicationId' : this.getApplicationId(),
         'request_method' :request_method
   });
+
     let options = new RequestOptions({headers: headers});
     let body = {
       meta: this.createMetaData(),
       body: logItem,
     }
 
-    console.info("Logging", {
-      url: baseUrl,
-      body: body.body,
-      meta: body.meta
-    });
-
     return this.http.post(baseUrl, body, options).subscribe(callback, errCallback);
   }
+
 
 
   /**
@@ -73,7 +71,7 @@ export class MspLogService {
         'program' : 'msp',
         'severity' : 'info',
         'referenceNumber' : this.dataService.getMspApplication().referenceNumber || this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber,
-        'applicationId' : this.dataService. getMspApplication().uuid || this.dataService.finAssistApp.uuid || this.dataService.getMspAccountApp().uuid
+        'applicationId' : this.getApplicationId()
     });
     let options = new RequestOptions({headers: headers});
     return this.http.post(baseUrl + (urlPath || ''), logItem, options);
@@ -81,7 +79,7 @@ export class MspLogService {
 
   createMetaData(){
     let log:LogEntry = new LogEntry();
-    log.applicationId = this.dataService. getMspApplication().uuid || this.dataService.finAssistApp.uuid;
+    log.applicationId = this.getApplicationId();
     log.mspTimestamp = moment().toISOString();
     log.refNumberEnrollment = this.dataService.getMspApplication().referenceNumber;
     log.refNumberPremiumAssistance = this.dataService.finAssistApp.referenceNumber;
@@ -90,5 +88,18 @@ export class MspLogService {
     return log;
   }
 
+    getApplicationId():string {
+
+        console.log(this.router.url);
+        if (this.router.url.indexOf("/application/") !== -1){
+            return  this.dataService.getMspApplication().uuid;
+        }
+        if (this.router.url.indexOf("/assistance/") !== -1){
+            return  this.dataService.finAssistApp.uuid ;
+        }
+        if (this.router.url.indexOf("/account/") !== -1){
+            return  this.dataService.getMspAccountApp().uuid;
+        }
+    }
 
 }

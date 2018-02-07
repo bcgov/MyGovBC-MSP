@@ -65,11 +65,11 @@ export class AccountReviewComponent implements OnInit {
 
 
     ngOnInit() {
-        let oldUUID = this.mspAccountApp.uuid;
+      /*  let oldUUID = this.mspAccountApp.uuid;
         this.mspAccountApp.regenUUID();
         this.dataService.saveMspAccountApp();
         console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspAccountApp().uuid);
-
+*/
     }
 
     applicantAuthorizeOnChange(event: boolean) {

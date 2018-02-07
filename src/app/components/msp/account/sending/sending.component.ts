@@ -92,7 +92,13 @@ export class AccountSendingComponent implements AfterContentInit {
           request: error._requestBody},"Account Change:Submission Response:Failure");
         this.transmissionInProcess = false;
 
+        let oldUUID = this.mspAccountApp.uuid;
+       this.mspAccountApp.regenUUID();
+
+       console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspAccountApp().uuid);
+
         this.mspAccountApp.authorizationToken = null;
+        this.dataService.saveMspAccountApp();
       });
 
   }

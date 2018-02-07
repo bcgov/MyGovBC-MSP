@@ -75,7 +75,13 @@ export class SendingComponent implements AfterContentInit {
           request: error._requestBody},"Enrollment : Submission Response:Error");
         this.transmissionInProcess = false;
 
+        let oldUUID = this.application.uuid;
+        this.application.regenUUID();
+
+        console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
+
         this.application.authorizationToken = null;
+        this.dataService.saveMspApplication();
       });
 
   }

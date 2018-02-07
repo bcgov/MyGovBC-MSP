@@ -35,10 +35,10 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit{
   @ViewChild('form') form: NgForm;
 
   ngOnInit(){
-    let oldUUID = this.application.uuid;
+  /*  let oldUUID = this.application.uuid;
     this.application.regenUUID();
     this.dataService.saveFinAssistApplication();
-    console.log('PA uuid updated: from %s to %s', oldUUID, this.dataService.finAssistApp.uuid);
+    console.log('PA uuid updated: from %s to %s', oldUUID, this.dataService.finAssistApp.uuid);*/
   }
 
   ngAfterViewInit(): void {
