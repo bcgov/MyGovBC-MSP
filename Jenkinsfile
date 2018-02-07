@@ -1,6 +1,8 @@
 // Edit your app's name below
 def APP_NAME = 'msp'
 def APP_VERSION = '1.3'
+// msp-1.3-build-angular-app-build
+def CHAINED_ANGULAR_BUILD = APP_NAME + '-' + APP_VERSION + '-build-angular-app-build'
 
 // Edit your environment TAG names below
 def TAG_NAMES = ['dev', 'test', 'prod']
@@ -15,6 +17,11 @@ node {
   stage('build nginx runtime') {
     echo "Building: " + NGINX_BUILD_CONFIG
     openshiftBuild bldCfg: NGINX_BUILD_CONFIG, showBuildLogs: 'true'
+  }
+
+  stage('build ' + CHAINED_ANGULAR_BUILD) {
+    echo "Building Chained Angular Build: " + CHAINED_ANGULAR_BUILD
+    openshiftBuild bldCfg: CHAINED_ANGULAR_BUILD, showBuildLogs: 'true'
   }
 
   stage('build ' + BUILD_CONFIG) {
