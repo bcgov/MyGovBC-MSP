@@ -1,7 +1,7 @@
 // Edit your app's name below
 def APP_NAME = 'msp'
 def APP_VERSION = '1.3-prototype'
-def CHAINED_ANGULAR_BUILD = APP_NAME + APP_VERSION + '-build-angular-app-build'
+def CHAINED_ANGULAR_BUILD = APP_NAME + '-' + APP_VERSION + '-build-angular-app-build'
 
 // Edit your environment TAG names below
 def TAG_NAMES = ['dev', 'test', 'prod']
