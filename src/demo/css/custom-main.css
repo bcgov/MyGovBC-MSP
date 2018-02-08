@@ -1,0 +1,877 @@
+/* BC Gov Font workaround for Cross-Origin Resource Sharing block by CL and RT */
+
+@font-face {
+    font-family: 'Myriad-Pro';
+    src: url('../fonts/MyriadWebPro.ttf');
+}
+
+
+/* background image */
+
+body,
+html {
+    /**    background: url(../img/air-background.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover; 
+    background-size: cover; **/
+    background-color: #f1f1f1;
+    color: #494949;
+}
+
+#footer {
+    margin-top: -44px;
+}
+
+.template {
+    background-color: #fff;
+}
+
+body {
+    color: #494949;
+    font-family: Myriad-Pro, Calibri, Arial, "sans serif";
+    font-size: 13px;
+}
+
+
+/* logo whitespace */
+
+#header .bcgov-title h1 {
+    color: #fff;
+    font-size: 35px;
+    margin-bottom: 0;
+    margin-left: 15px;
+    margin-top: 20px;
+}
+
+.bcgov-title {
+    margin-left: -35px;
+    padding-bottom: 10px;
+}
+
+#gov-user-container {
+    position: relative;
+    text-align: right;
+    width: 50%;
+    float: right;
+}
+
+.header-main-right {
+    margin-top: 16px;
+}
+
+.header-main-right > label {
+    color: #fff;
+    padding-right: 20px;
+}
+
+.navbar-fixed-top {
+    position: absolute;
+}
+
+a.gov-authenticate {
+    margin-left: 10px;
+    border: 1px solid #fff;
+}
+
+a.gov-pmt-list {
+    border: 1px solid #fff;
+}
+
+a label.gov-username {
+    font-style: normal;
+    -webkit-text-decoration: wavy !important;
+            text-decoration: wavy !important;
+    color: #fff;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.gov-user {
+    margin: 25px 0;
+}
+
+.gov-user label {
+    color: #fff;
+}
+
+#breadcrumbContainer {
+    width: 100%;
+    float: left;
+    height: 30px;
+    padding: 0;
+}
+
+.header-main-left {
+    white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+    .gov-container {
+        padding-top: 10px !important;
+        position: relative;
+    }
+    #header #logo img {
+        width: 95%;
+        height: 95%;
+        padding-left: 15px;
+    }
+    #breadcrumbContainer {
+        height: auto;
+        padding: 10px 0;
+    }
+}
+
+@media (max-width:1200px) {
+    .bcgov-title {
+        margin-left: 0px;
+    }
+}
+
+@media (min-width: 768px) {
+    .gov-container {
+        padding-top: 150px !important;
+        position: relative;
+    }
+    #breadcrumbContainer {
+        padding: 0;
+    }
+}
+
+
+/* fix navbar button to resemble standard button toggle control */
+
+button.navbar-toggle {
+    background-color: transparent !important;
+}
+
+button.gov-button-custom {
+    border: none;
+    right: 30px;
+    padding-bottom: 15px;
+}
+
+
+/* accurate colours for navbar links */
+
+#navbar > ul.nav > li > a {
+    color: #fff;
+}
+
+#navbar > ul.nav > li.active > a {
+    color: #1a5a96;
+}
+
+#navbar > ul.nav > li:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #1a5a96;
+}
+
+
+/* adjust spacing for small screens */
+
+@media (max-width: 767px) {
+    #gov-logo {
+        margin: 5px 0 5px 15px;
+    }
+    .navigationRibbon {
+        visibility: hidden;
+        height: 0;
+    }
+    #navbar {
+        width: 100%;
+        border-top: none;
+    }
+    .navbar-toggle {
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+    
+}
+
+
+/* remove navigation for all but small screens */
+
+@media (min-width: 768px) {
+    #navbar,
+    #navbar ul {
+        visibility: hidden;
+        height: 0;
+    }
+    .navbar-collapse {
+        padding: 0 !important;
+    }
+}
+
+
+/* reset padding for dropdown menu controls */
+
+.contentPageMainColumn ul.dropdown-menu {
+    padding-left: 0 !important;
+}
+
+.contentPageMainColumn ul.list-group {
+    padding-left: 0;
+}
+
+
+/* remove block image for dropdown menu <li> items */
+
+ul.dropdown-menu > li {
+    background-image: none !important;
+    padding-left: 0 !important;
+}
+
+
+/* Bring back the Bootstrap Column Padding*/
+
+.col-xs-1,
+.col-sm-1,
+.col-md-1,
+.col-lg-1,
+.col-xs-2,
+.col-sm-2,
+.col-md-2,
+.col-lg-2,
+.col-xs-3,
+.col-sm-3,
+.col-md-3,
+.col-lg-3,
+.col-xs-4,
+.col-sm-4,
+.col-md-4,
+.col-lg-4,
+.col-xs-5,
+.col-sm-5,
+.col-md-5,
+.col-lg-5,
+.col-xs-6,
+.col-sm-6,
+.col-md-6,
+.col-lg-6,
+.col-xs-7,
+.col-sm-7,
+.col-md-7,
+.col-lg-7,
+.col-xs-8,
+.col-sm-8,
+.col-md-8,
+.col-lg-8,
+.col-xs-9,
+.col-sm-9,
+.col-md-9,
+.col-lg-9,
+.col-xs-10,
+.col-sm-10,
+.col-md-10,
+.col-lg-10,
+.col-xs-11,
+.col-sm-11,
+.col-md-11,
+.col-lg-11,
+.col-xs-12,
+.col-sm-12,
+.col-md-12,
+.col-lg-12 {
+    position: relative;
+    min-height: 1px;
+    /** padding-right: 10px; **/
+    /** padding-left: 10px; **/
+}
+
+
+/* Modal Window Dressing */
+
+h4.modal-title {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.modal-header {
+    color: #ffffff;
+    background-color: #003366;
+    border-color: #003366;
+}
+
+.modal-header > button {
+    color: #fff;
+    margin-top: 0 !important;
+    opacity: initial;
+    text-shadow: initial;
+}
+
+.close:focus, .close:hover {
+    color:#fcba19;
+    opacity: initial;
+    text-decoration: underline;
+}
+
+
+/* Bring back Responsive Table Responsiveness (e.g., horizonal scroll bar) */
+
+.table-responsive {
+    min-height: 0.01% !important;
+    overflow-x: auto !important;
+}
+
+
+/* Remove bullets from Datatable pagination control <li> items */
+
+div#bs-datatables_paginate > ul > li,
+ul.nav.nav-tabs > li,
+ul.nav.nav-pills > li,
+ul.pagination > li,
+ul.pager > li,
+ul.breadcrumb > li {
+    list-style-type: none !important;
+    list-style-image: none !important;
+    background-image: none !important;
+    padding-left: 0 !important;
+}
+
+
+/* disable wrapping and left-align table header content for prettier responsive tables */
+
+th {
+    white-space: nowrap;
+    text-align: left;
+}
+
+
+/* remove bullets from list-group-item <li> items */
+
+ul.list-group > li.list-group-item {
+    list-style-type: none !important;
+    list-style-image: none !important;
+    background-image: none !important;
+    padding-left: 15px;
+    margin-bottom: -1px;
+}
+
+
+/* tweak nav tab spacing */
+
+.nav-tabs > li {
+    margin-bottom: -1px !important;
+}
+
+
+/* restore panel styles */
+
+.panel-heading {
+    cursor: default !important;
+}
+
+.panel-env {
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+    border: 0px solid #335c85;
+    border-radius: 0 0 5px 5px;
+}
+
+.panel-env > .panel-footer {
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4) inset;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4) inset;
+    border: 0px solid #335c85;
+    border-radius: 0 0 5px 5px;
+    background-color: #ebebeb;
+}
+
+.panel-env > .panel-heading {
+    color: #ffffff;
+    background-color: #335c85;
+    border-color: #335c85;
+}
+
+.panel-env > .panel-body {
+    background-color: #f1f1f2;
+}
+
+.panel-primary > .panel-heading {
+    color: #ffffff;
+    background-color: #003366;
+    border-color: #003366;
+}
+
+.panel-success > .panel-heading {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.panel-warning > .panel-heading {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+.panel-danger > .panel-heading {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.panel-info > .panel-heading {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.panel-info > .panel-body {
+    background-color: #f1f1f2;
+}
+
+.panel-default > .panel-heading {
+    color: #fff;
+    background-color: #666;
+    border-color: #222;
+}
+
+.panel-default > .panel-body {
+    background-color: #f1f1f2;
+}
+
+.panel > .gov-payment-list > .dataTables_wrapper {
+    padding-top: 10px;
+    border-top: solid 1px #ddd;
+}
+
+h3.panel-title {
+    padding: 0 15px;
+    font-size: 180%;
+}
+
+#pageIntro {
+    margin-bottom: 20px;
+}
+
+.gov-login-options .row {}
+
+.gov-login-option {
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.gov-login-option img {
+    -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0 2px 2px;
+            box-shadow: rgba(0, 0, 0, 0.4) 0 2px 2px;
+    margin-bottom: 15px;
+}
+
+
+/* env Icons */
+
+i.text-env {
+    color: #f4bd48;
+    text-shadow: 0 1px 0 #000;
+}
+
+.panel-info h3.panel-title small {
+    color: #000;
+}
+
+h3.panel-title small {
+    color: #fff;
+}
+
+.panel > .panel-body + .table,
+.panel > .panel-body + .table-responsive,
+.panel > .table + .panel-body,
+.panel > .table-responsive + .panel-body {
+    border-top: none;
+}
+
+
+/* Payment List */
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+
+/*  ALERTS */
+
+.gov-alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 5px solid transparent;
+    border-radius: 7px;
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4), 0 0 45px rgba(255, 255, 255, 0.7) inset;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4), 0 0 45px rgba(255, 255, 255, 0.7) inset;
+}
+
+.gov-alert a {
+    text-decoration: underline;
+}
+
+.gov-alert li {
+    list-style-type: none !important;
+    list-style-image: none !important;
+    background-image: none !important;
+}
+
+.gov-alert h4 {
+    margin-top: 0;
+    color: inherit;
+}
+
+.gov-alert .gov-alert-link {
+    font-weight: bold;
+}
+
+.gov-alert > p,
+.gov-alert > ul {
+    margin-bottom: 0;
+}
+
+.gov-alert > p + p {
+    margin-top: 5px;
+}
+
+.gov-alert-dismissable,
+.gov-alert-dismissible {
+    padding-right: 35px;
+}
+
+.gov-alert-dismissable .close,
+.gov-alert-dismissible .close {
+    position: relative;
+    top: -2px;
+    right: -21px;
+    color: inherit;
+}
+
+.gov-alert-default {
+    color: rgba(0, 0, 0, 0.8);
+    background-color: #ccc;
+    border-color: #999;
+}
+
+.gov-alert-default hr {
+    border-top-color: #999;
+}
+
+.gov-alert-default .gov-alert-link {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.gov-alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #5d884b;
+}
+
+.gov-alert-success hr {
+    border-top-color: #c9e2b3;
+}
+
+.gov-alert-success .gov-alert-link {
+    color: #2b542c;
+}
+
+.gov-alert-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #38598a;
+}
+
+.gov-alert-info hr {
+    border-top-color: #a6e1ec;
+}
+
+.gov-alert-info .gov-alert-link {
+    color: #245269;
+}
+
+.gov-alert-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #f4bd48;
+}
+
+.gov-alert-warning hr {
+    border-top-color: #f7e1b5;
+}
+
+.gov-alert-warning .gov-alert-link {
+    color: #66512c;
+}
+
+.gov-alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #c81212;
+}
+
+.gov-alert-danger hr {
+    border-top-color: #e4b9c0;
+}
+
+.gov-alert-danger .gov-alert-link {
+    color: #843534;
+}
+
+.payment-list-alert {
+    font-size: 130%;
+}
+
+.text-default {
+    color: #444;
+}
+
+
+/* LEGAL STATEMENT */
+
+.gov-legal {
+    height: 300px;
+    overflow: scroll;
+    border: 2px solid #ccc;
+    padding: 20px;
+    background-color: #fff;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.4) -10px 0 20px inset;
+            box-shadow: rgba(0, 0, 0, 0.4) -10px 0 20px inset;
+}
+
+
+
+/* CONTACT US */
+
+/* .content {
+    color: blue;
+} */
+.content {
+    margin-top: 2em;
+}
+.content > .row + .row {
+    /* margin-top: 3em; */
+}
+.sbc-title {
+    text-align: center;
+    color: #003366;
+    -webkit-transition: 0.3s ease;
+    -o-transition: 0.3s ease;
+    transition: 0.3s ease;
+}
+.sbc-section:hover .sbc-title {
+    color:  hsl(210, 100%, 35%);;
+}
+
+.sbc-section {
+    /* padding: 2em; */
+    cursor: pointer;
+    /* transition: 0.3s ease; */
+    z-index: 1;
+    background-color: white;
+}
+
+.sbc-section .thumbnail {
+    -webkit-transition: 0.3s ease;
+    -o-transition: 0.3s ease;
+    transition: 0.3s ease;
+    -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+            transform: translateY(0);
+}
+
+.sbc-section .thumbnail:hover {
+    background-color: #f9fafb;
+    -webkit-transform: translateY(-5px);
+        -ms-transform: translateY(-5px);
+            transform: translateY(-5px);
+    border-color: hsla(210, 100%, 35%, 0.5);
+}
+
+.sbc-svg {
+    width: calc(100% - 40px);
+    padding-top: 10px;
+    margin: 0 auto;
+    display: block;
+}
+
+
+.sbc-svg, .sbc-svg path  {
+    -webkit-transition: 0.3s ease;
+    -o-transition: 0.3s ease;
+    transition: 0.3s ease;
+    fill: #003366;
+}
+.sbc-section:hover .sbc-svg path, .sbc-section:hover .sbc-svg {
+    /* fill: hsl(210, 100%, 35%); */
+    fill-opacity: 0.75;
+}
+
+.sbc-svg-text {
+    position: relative;
+    left: 15px;
+}
+
+/* .expanding-row .col-sm-4 {} */
+
+/* TODO: REMOVE! Remove html first */
+.expanding-section {
+        height: 0;
+        overflow: hidden;
+        -webkit-transition: 0.3s ease;
+        -o-transition: 0.3s ease;
+        transition: 0.3s ease;
+}
+.expanding-col {
+    overflow: hidden;
+    -webkit-transition: 0.3s ease;
+    -o-transition: 0.3s ease;
+    transition: 0.3s ease;
+    -webkit-transform: translateX(-133%);
+        -ms-transform: translateX(-133%);
+            transform: translateX(-133%);
+}
+
+.caption p {
+    max-width: 410px;
+    margin: 10px auto;
+    margin-bottom: 10px;
+}
+
+
+#call-section td + td {
+    border-left: 1px solid #969696;
+}
+
+#call-section td:first-of-type {
+    width: 85px;
+}
+
+.phone-table {
+    margin-left: 45px;
+}
+.phone-table tr:nth-of-type(even) {
+    background-color: #e6e6e6;
+}
+.phone-table td {
+    min-width: 90px;
+}
+
+.sbc-table-icon {
+    /* color: #003365; */
+    font-size: 32px !important;
+    margin-top: 10px;
+}
+
+.well {
+    cursor: default;
+}
+
+.well.warning {
+    background-color: #fcf8e3;
+}
+.well.info {
+    background-color: #d9edf7;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+
+.required:after {
+    content: "*";
+    color: red;
+}
+
+#email-section .radio {
+    margin-left: 2em;
+}
+
+.sbc-fa {
+    display: block !important;
+    font-size: 120px !important;
+    text-align: center !important;
+}
+
+.header-search-bar  {
+    margin-top: 1em;
+}
+
+.bcgov-blue {
+    background-color: #26639c;
+    color: white;
+}
+
+
+.nav-options {
+    margin-right: 65px;
+}
+
+.modal-header-primary h2 {
+    color: white;
+}
+
+.sbc-section .collapse {
+    position: relative;
+}
+
+
+@media (max-width: 767px) {
+
+    .sbc-svg {
+        max-width: 100px;
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .sbc-section .collapse {
+        width: 100% !important;
+        left: 0 !important;
+    }
+
+    .sbc-section .caption .btn-primary {
+        width: 100%;
+        max-width: 410px; 
+        display: block;
+        margin: 0 auto;
+    }
+
+    .navigationRibbon .level2Navigation .nav-options {
+        height: 20px;
+    }
+
+}
+
+#collapseInPerson {
+    /* Override js width, as this is a unique collapse section */
+    width: 100% !important;
+}
+
+@media (min-width: 768px) {
+    .sbc-section .thumbnail {
+        height: 460px;
+    }
+
+    .sbc-section .caption .btn-primary {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+    }
+
+    .sbc-section .thumbnail:hover {
+        -webkit-transform: translateY(-15px);
+            -ms-transform: translateY(-15px);
+                transform: translateY(-15px);
+        -webkit-box-shadow: 0px 10px 10px 0px rgba(128, 128, 128, 0.1);
+                box-shadow: 0px 10px 10px 0px rgba(128, 128, 128, 0.1);
+        z-index: 2;
+    }
+
+    .sbc-section .thumbnail:active {
+        -webkit-transform: translateY(-12px);
+            -ms-transform: translateY(-12px);
+                transform: translateY(-12px);
+    }
+
+    /* .caption p {
+        max-height: 50px;
+        overflow: hidden;
+        text-overflow:  
+    } */
+
+}

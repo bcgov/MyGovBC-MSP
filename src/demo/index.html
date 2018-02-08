@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+     <meta name="navigaton_title" content=""/>
+    <meta name="dcterms.publisher" content="Province of British Columbia"/>
+    <meta name="dcterms.created" content="2015-06-05"/>
+    <meta name="dcterms.modified" content="2016-12-30"/>
+    <meta name="security_label" content="Public"/>
+    <meta name="security_classification" content="Low"/>
+    <meta name="dcterms.subject" content=""/>
+    <meta name="dcterms.subject" content=""/>
+    <meta name="dcterms.creator" content=""/>
+    <meta name="dcsext.creator" content=""/>
+    <meta name="dcterms.language" content="eng"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content="">
+    <link rel="apple-touch-icon" sizes="57x57" href="icons/apple-icon-57x57.png"/>
+    <link rel="apple-touch-icon" sizes="60x60" href="icons/apple-icon-60x60.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="icons/apple-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="icons/apple-icon-76x76.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="icons/apple-icon-114x114.png"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="icons/apple-icon-120x120.png"/>
+    <link rel="apple-touch-icon" sizes="144x144" href="icons/apple-icon-144x144.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/apple-icon-152x152.png"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-icon-180x180.png"/>
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/android-icon-192x192.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96x96.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png"/>
+    <link rel="manifest" href="icons/manifest.json"/>
+    <link rel="icon" type="image/png" href="images/favicon.ico"/>
+    <meta name="msapplication-TileColor" content="#ffffff"/>
+    <meta name="msapplication-TileImage" content="icons/ms-icon-144x144.png"/>
+    <meta name="theme-color" content="#ffffff"/>
+
+    <title>Contact Us Demo - Province of British Columbia</title>
+
+    <!-- BOOTSTRAP CORE CSS v3.3.6 -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" href="css/ie10-viewport-bug-workaround.css"/>
+
+    <!-- STANDARD CSS -->
+    <link type="text/css" href="css/main.css" rel="stylesheet"/>
+
+    <!-- FONTS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+
+    <!-- CUSTOM CSS -->
+    <link href="css/custom-main.css" rel="stylesheet"/>
+    <link href="css/custom-form.css" rel="stylesheet"/>
+
+    <script src="https://use.fontawesome.com/d177c78996.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+<!-- HEADER -->
+    <div id="header" role="banner">
+        <div id="header-main" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div id="header-main-row" class="row">
+                    <!-- GOV & ENV TITLE -->
+                    <div class="col-sm-3 col-md-2 col-lg-2 header-main-left">
+                        <div id="logo">
+                            <a href="http://gov.bc.ca"><img src="images/gov3_bc_logo.png" alt="Province of British Columbia" title="Province of British Columbia logo" /></a>
+                        </div>
+                        <div id="access">
+                            <ul>
+                                <li aria-label="Keyboard Tab Skip">
+                                    <a accesskey="0" href="#main-content-anchor" aria-label="Skip to main content">Skip to main content</a>
+                                </li>
+                                <li aria-label="Keyboard Tab Skip">
+                                    <a accesskey="0" href="#navigation-anchor" aria-label="Skip to navigation" aria-label="Skip to navigation">Skip to navigation</a>
+                                </li>
+                                <li aria-label="Keyboard Tab Skip">
+                                    <a accesskey="0" href="http://gov.bc.ca/webaccessibility/" aria-label="Accessibility Statement">Accessibility Statement</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <button type="button" class="navbar-toggle gov-button-custom collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-label="Burger Navigation">
+                            <img src="images/menu-open-mobile.png" />
+                        </button>
+                    </div>
+                    <div class="col-sm-5 col-md-6 col-lg-6 hidden-xs">
+                        <div class="bcgov-title">
+                            <!-- Workaround for spacing. -->
+                            <h1>&nbsp;</h1>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                            <input type="text" class="header-search-bar form-control" placeholder="Search for...">
+                    </div>
+                    <!-- GOV TITLE -->
+
+                    <!-- COLLAPSING NAVBAR -->
+                    <div id="navbar" class="collapse navbar-collapse" role="navigation">
+                        <a id="navigation-anchor"></a>
+                        <ul class="nav navbar-nav">
+                            <li><a href="#">Careers &amp; MyHR</a></li>
+                            <li><a href="#">Services A-Z</a></li>
+                            <li><a href="#">Organizations A-Z</a></li>
+                            <li><a href="#">Forms A-Z</a></li>
+                            <li><a href="#">News</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <!-- /COLLAPSING NAVBAR -->
+                </div>
+            </div>
+            <div class="navigationRibbon">
+                <div class="level2Navigation">
+                    <div class="pull-right nav-options">
+                        <a href="#">Careers &amp; MyHR</a>
+                        <a href="#">Services A-Z</a>
+                        <a href="#">Organizations A-Z</a>
+                        <a href="#">Forms A-Z</a>
+                        <a href="#">News</a>
+                        <a href="#">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /HEADER -->
+    <!-- BODY CONTENT -->
+    <div id="topicTemplate" class="template container gov-container">
+        <div id="breadcrumbContainer">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#">Home</a>
+                </li>
+                <li>
+                    <a href="#">Contact Us</a>
+                </li>
+                <!-- <li>
+                    <a href="#">Breadcrumb Link</a>
+                </li>
+                <li>
+                    <a href="#">Breadcrumb Link</a>
+                </li> -->
+            </ol>
+        </div>
+
+        <!-- PAGE CONTENT -->
+        <div class="row">
+
+
+
+            <div id="main-content" role="main" class=" col-md-9 col-lg-9">
+                <a id="main-content-anchor"></a>
+                <h1>Contact Us</h1>
+
+
+
+
+                <div id="introduction">
+                    <p>Can't find what you're looking for? Have a question about a program or service? Contact us Monday through Friday, 7:30am to 5:00pm Pacific Time.</p>
+                </div>
+
+
+                <h2>How would you like to get in touch?</h2>
+
+                <div class="content">
+                    <div class="row">
+
+                        <div class="col-sm-4 sbc-section" id='phone'>
+
+                            <div class="thumbnail"
+                                data-toggle="collapse" href="#collapsePhone" aria-expanded="false" aria-controls="collapsePhone">
+
+                                <svg class='sbc-svg'br version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"	 viewBox="0 0 473.806 473.806" style="enable-background:new 0 0 473.806 473.806;" xml:space="preserve"><g>
+                                        <g>		<path d="M374.456,293.506c-9.7-10.1-21.4-15.5-33.8-15.5c-12.3,0-24.1,5.3-34.2,15.4l-31.6,31.5c-2.6-1.4-5.2-2.7-7.7-4			c-3.6-1.8-7-3.5-9.9-5.3c-29.6-18.8-56.5-43.3-82.3-75c-12.5-15.8-20.9-29.1-27-42.6c8.2-7.5,15.8-15.3,23.2-22.8			c2.8-2.8,5.6-5.7,8.4-8.5c21-21,21-48.2,0-69.2l-27.3-27.3c-3.1-3.1-6.3-6.3-9.3-9.5c-6-6.2-12.3-12.6-18.8-18.6			c-9.7-9.6-21.3-14.7-33.5-14.7s-24,5.1-34,14.7c-0.1,0.1-0.1,0.1-0.2,0.2l-34,34.3c-12.8,12.8-20.1,28.4-21.7,46.5			c-2.4,29.2,6.2,56.4,12.8,74.2c16.2,43.7,40.4,84.2,76.5,127.6c43.8,52.3,96.5,93.6,156.7,122.7c23,10.9,53.7,23.8,88,26			c2.1,0.1,4.3,0.2,6.3,0.2c23.1,0,42.5-8.3,57.7-24.8c0.1-0.2,0.3-0.3,0.4-0.5c5.2-6.3,11.2-12,17.5-18.1c4.3-4.1,8.7-8.4,13-12.9			c9.9-10.3,15.1-22.3,15.1-34.6c0-12.4-5.3-24.3-15.4-34.3L374.456,293.506z M410.256,398.806			C410.156,398.806,410.156,398.906,410.256,398.806c-3.9,4.2-7.9,8-12.2,12.2c-6.5,6.2-13.1,12.7-19.3,20			c-10.1,10.8-22,15.9-37.6,15.9c-1.5,0-3.1,0-4.6-0.1c-29.7-1.9-57.3-13.5-78-23.4c-56.6-27.4-106.3-66.3-147.6-115.6			c-34.1-41.1-56.9-79.1-72-119.9c-9.3-24.9-12.7-44.3-11.2-62.6c1-11.7,5.5-21.4,13.8-29.7l34.1-34.1c4.9-4.6,10.1-7.1,15.2-7.1			c6.3,0,11.4,3.8,14.6,7c0.1,0.1,0.2,0.2,0.3,0.3c6.1,5.7,11.9,11.6,18,17.9c3.1,3.2,6.3,6.4,9.5,9.7l27.3,27.3			c10.6,10.6,10.6,20.4,0,31c-2.9,2.9-5.7,5.8-8.6,8.6c-8.4,8.6-16.4,16.6-25.1,24.4c-0.2,0.2-0.4,0.3-0.5,0.5			c-8.6,8.6-7,17-5.2,22.7c0.1,0.3,0.2,0.6,0.3,0.9c7.1,17.2,17.1,33.4,32.3,52.7l0.1,0.1c27.6,34,56.7,60.5,88.8,80.8			c4.1,2.6,8.3,4.7,12.3,6.7c3.6,1.8,7,3.5,9.9,5.3c0.4,0.2,0.8,0.5,1.2,0.7c3.4,1.7,6.6,2.5,9.9,2.5c8.3,0,13.5-5.2,15.2-6.9			l34.2-34.2c3.4-3.4,8.8-7.5,15.1-7.5c6.2,0,11.3,3.9,14.4,7.3c0.1,0.1,0.1,0.1,0.2,0.2l55.1,55.1C420.456,377.706,420.456,388.206,410.256,398.806z"/>		<path d="M256.056,112.706c26.2,4.4,50,16.8,69,35.8s31.3,42.8,35.8,69c1.1,6.6,6.8,11.2,13.3,11.2c0.8,0,1.5-0.1,2.3-0.2			c7.4-1.2,12.3-8.2,11.1-15.6c-5.4-31.7-20.4-60.6-43.3-83.5s-51.8-37.9-83.5-43.3c-7.4-1.2-14.3,3.7-15.6,11S248.656,111.506,256.056,112.706z"/>		<path d="M473.256,209.006c-8.9-52.2-33.5-99.7-71.3-137.5s-85.3-62.4-137.5-71.3c-7.3-1.3-14.2,3.7-15.5,11			c-1.2,7.4,3.7,14.3,11.1,15.6c46.6,7.9,89.1,30,122.9,63.7c33.8,33.8,55.8,76.3,63.7,122.9c1.1,6.6,6.8,11.2,13.3,11.2			c0.8,0,1.5-0.1,2.3-0.2C469.556,223.306,474.556,216.306,473.256,209.006z"/>
+                                        </g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+                                </svg>
+
+                                <div class="caption">
+                                    <h3 class='sbc-title'>Phone</h3>
+                                    <!-- <p>A customer service representive is available to assist from Monday to Friday 7:30am to 5:00pm Pacific Time. An automated service with general information is available 24/7.</p> -->
+                                    <p>A customer service representive is available to assist during scheduled hours. An automated service with general information is available 24/7. Toll-free and hearing-impaired options are available.</p>
+
+                                    <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapsePhone" aria-expanded="false" aria-controls="collapsePhone">
+                                            View More
+                                    </a>
+
+                                </div>
+                            </div>
+
+                            <div class="collapse" id="collapsePhone">
+                                <div class="well">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            
+                                            <i class="fa fa-map-marker sbc-table-icon pull-left" aria-hidden="true"></i>
+        
+                                            <table class='phone-table'>
+                                                <tr>
+                                                    <td>Victoria</td>
+                                                    <td>
+                                                        <a href="tel:250-387-6121">250-387-6121</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Vancovuer</td>
+                                                    <td>
+                                                        <a href="tel:604-660-2421">604-660-2421</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Inside B.C.</td>
+                                                    <td>
+                                                        <a href="tel:1-800-663-7867">1-800-663-7867</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Outside B.C.</td>
+                                                    <td>
+                                                        <a href="tel:604-660-2421">604-660-2421</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+        
+                                            <i class="fa fa-deaf sbc-table-icon pull-left" aria-hidden="true"></i>
+                                            <table class='phone-table'>
+                                                <tr>
+                                                    <td>Vancouver</td>
+                                                    <td>
+                                                        <a href="tel:604-775-0303">604-775-0303</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Inside B.C.</td>
+                                                    <td>
+                                                        <a href="tel:1-800-661-8773">1-800-661-8773</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+        
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <p>A customer service representive is available to assist during scheduled hours. An automated service with general information is available 24/7. Toll-free and hearing-impaired options are available. </p>
+                                            <p>Mollit dolore ea pariatur pariatur anim sint consectetur quis reprehenderit qui do. Eu laboris quis duis eu sit qui. Eu aliqua et quis enim dolor eiusmod enim incididunt incididunt.</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-4 sbc-section" id='text'>
+                                <div class="thumbnail" data-toggle="collapse" href="#collapseText" aria-expanded="false" aria-controls="collapseText">
+                                    <svg version="1.1" class='sbc-svg 
+                                        sbc-svg-text' id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                        viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><g><g><path d="M467,122H332V45c0-24.813-20.187-45-45-45H45C20.187,0,0,20.187,0,45v422c0,24.813,20.187,45,45,45h242c24.813,0,45-20.187,45-45v-83.787L383.213,332H467c24.813,0,45-20.187,45-45V167C512,142.187,491.813,122,467,122z M30,45c0-8.271,6.729-15,15-15h242c8.271,0,15,6.729,15,15v15H30V45z M302,467c0,8.271-6.729,15-15,15H45c-8.271,0-15-6.729-15-15v-45h272V467z M302,392H30V90h272v32h-15c-24.813,0-45,20.187-45,45v120c0,24.813,20.187,45,45,45h15C302,338.893,302,385.533,302,392z M482,287c0,8.271-6.729,15-15,15h-90c-3.978,0-7.793,1.58-10.606,4.393L332,340.787v-23.784V317c0-8.284-6.716-15-15-15h-30c-8.271,0-15-6.729-15-15V167c0-8.271,6.729-15,15-15h180c8.271,0,15,6.729,15,15V287z"/></g></g><g><g><path d="M437,182H317c-8.284,0-15,6.716-15,15s6.716,15,15,15h120c8.284,0,15-6.716,15-15S445.284,182,437,182z"/></g></g><g><g><path d="M377,242h-60c-8.284,0-15,6.716-15,15s6.716,15,15,15h60c8.284,0,15-6.716,15-15S385.284,242,377,242z"/></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+                                     </svg>
+        
+        
+
+    
+                                    <div class="caption">
+                                        <h3 class='sbc-title'>Text</h3>
+                                        <p>Eu sunt ut velit anim enim commodo in est in sunt. Ipsum laboris minim enim ut proident reprehenderit anim exercitation dolor dolor ad sint. Labore reprehenderit veniam veniam ex amet voluptate pariatur....</p>
+    
+                                        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseText" aria-expanded="false" aria-controls="collapseText">
+                                                View More
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="collapse" id="collapseText">
+                                    <div class="well">
+                                            <i class="fa fa-map-marker sbc-table-icon pull-left" aria-hidden="true"></i>
+
+                                            <table class='phone-table'>
+                                                <tr>
+                                                    <td>SMS1</td>
+                                                    <td>
+                                                        <a href="tel:250-410-1030">250-410-1030</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>SMS2</td>
+                                                    <td>
+                                                        <a href="tel:250-410-1031">250-410-1031</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                    </div>
+                                </div>
+                        </div>
+
+                        <div class="col-sm-4 sbc-section" id='email'>
+                            <div class="thumbnail" data-toggle="collapse" href="#collapseEmail" aria-expanded="false" aria-controls="collapseEmail">
+                                <svg version="1.1" class='sbc-svg' 
+                                    id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                    viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                                    <g><g><path d="M256,60c-57.897,0-105,47.103-105,105c0,35.943,18.126,69.015,48.487,88.467c31.003,19.863,69.06,21.974,104.426,5.703c7.525-3.462,10.82-12.37,7.357-19.896c-3.462-7.525-12.369-10.82-19.896-7.358c-25.86,11.898-53.454,10.545-75.703-3.709C193.961,214.298,181,190.669,181,165c0-41.355,33.645-75,75-75s75,33.645,75,75c0,8.271-6.729,15-15,15c-7.558,0-14.618-5.732-14.998-14.772C301.001,165.152,301,165.076,301,165c0-24.813-20.187-45-45-45s-45,20.187-45,45s20.187,45,45,45c11.516,0,22.031-4.353,29.999-11.494C293.966,205.648,304.483,210,316,210c24.813,0,45-20.187,45-45C361,107.103,313.897,60,256,60z M270.789,167.406C269.631,174.535,263.45,180,256,180c-8.271,0-15-6.729-15-15s6.729-15,15-15c7.691,0,14.04,5.82,14.895,13.285C270.671,164.648,270.634,166.035,270.789,167.406z"/></g></g><g><g><path d="M480.999,196.976c-0.004-3.879-1.566-7.756-4.393-10.583L421,130.787V15c0-8.284-6.716-15-15-15H106c-8.284,0-15,6.716-15,15v115.787l-55.606,55.606c-0.052,0.052-0.096,0.11-0.147,0.163c-2.811,2.896-4.24,6.709-4.246,10.42c0,0.01-0.001,0.019-0.001,0.029V467c0,24.845,20.216,45,45,45h360c24.839,0,45-20.207,45-45V197.005C481,196.995,480.999,196.986,480.999,196.976z M421,173.213L444.787,197L421,220.787V173.213z M121,137.005c0-0.003,0-0.007,0-0.01V30h270v106.995c0,0.003,0,0.007,0,0.01v113.782L309.787,332H202.213L121,250.787V137.005z M91,173.213v47.574L67.213,197L91,173.213z M61,460.787V233.213L174.787,347L61,460.787z M82.214,482l119.999-120h107.574l119.999,120H82.214z M451,460.787L337.213,347L451,233.213V460.787z"/></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+                                </svg>
+
+                                <div class="caption">
+                                    <h3 class='sbc-title'>Email</h3>
+                                    <p>Eu sunt ut velit anim enim commodo in est in sunt. Ipsum laboris minim enim ut proident reprehenderit anim exercitation dolor dolor ad sint. Labore reprehenderit veniam veniam ex amet voluptate pariatur....</p>
+
+                                    <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseEmail" aria-expanded="false" aria-controls="collapseEmail">
+                                            View More
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="collapse" id="collapseEmail">
+                                <div class="well">
+                                    <div class="well warning">Fields marked with an<span class="required"></span> are required. </div>
+                                    <form>
+                                        <p class="required">My question is about </p>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked> Government of B.C. programs and services
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"> Technical difficulties or feedback about this website
+                                            </label>
+                                        </div>
+                                        <p class="required">Message </p>
+                                        <textarea class="form-control" rows="3"></textarea>
+                                        <br/>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1" class='required'>Email </label>
+                                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="">
+                                        </div>
+                                        <div class='well info'>
+                                            The information on this form is collected under the authority of Sections 26(c) and 27(1)(c) of the Freedom of Information
+                                            and Protection of Privacy Act [RSBC 1996 c.165], and will help us to assess and respond to your enquiry.
+                                            By consenting to submit this form you are confirming that you are authorized to provide information of individuals/organizations/businesses
+                                            for the purpose of your enquiry.
+                                        </div>
+                                        <div class="checkbox">
+                                            <p class="required">Consent </p>
+                                            <label>
+                                                <input type="checkbox"> I consent
+                                            </label>
+                                        </div>
+
+                                        <button type="submit" class='btn btn-primary btn-block btn-lg'>
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            Email
+                                        </button>
+                                    </form>
+                                </div>
+                            </div> <!-- .collapse -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <!-- Temporarily adding link to INTRANET ONLY LINK! For DEMO ONLY!  Also, commented out data-sbc-target to open section. -->
+
+                        <div class="col-sm-4 sbc-section" id='live-chat'>
+                                <div class="thumbnail" data-toggle="collapse" href="#collapseChat" aria-expanded="false" aria-controls="collapseChat">
+                                        <svg version="1.1" class='sbc-svg' id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                        viewBox="0 0 511.999 511.999" style="enable-background:new 0 0 511.999 511.999;" xml:space="preserve"><g><g><path d="M467,150.991H362v-75c0-24.813-20.187-45-45-45H45c-24.813,0-45,20.187-45,45v180c0,24.813,20.187,45,45,45h15v45c0,12.013,13.418,19.081,23.32,12.481L150,314.019v61.972c0,24.813,20.187,45,45,45h147.458l86.221,57.481c9.916,6.611,23.32-0.465,23.32-12.481v-45h15c24.813,0,45-20.187,45-45v-180C512,171.178,491.813,150.991,467,150.991z M156.638,273.538c-0.014,0.01-0.029,0.019-0.043,0.028L90,317.963v-31.972c0-8.284-6.716-15-15-15H45c-8.271,0-15-6.729-15-15v-180c0-8.271,6.729-15,15-15h272c8.271,0,15,6.729,15,15v180c0,8.271-6.729,15-15,15H165C162.097,270.991,159.097,271.889,156.638,273.538z M482,375.991c0,8.271-6.729,15-15,15h-30c-8.284,0-15,6.716-15,15v31.972l-66.68-44.453c-2.464-1.643-5.359-2.519-8.32-2.519H195c-8.271,0-15-6.729-15-15v-75h137c24.813,0,45-20.187,45-45v-75h105c8.271,0,15,6.729,15,15V375.991z"/></g></g><g><g><path d="M195,180.991H75c-8.284,0-15,6.716-15,15s6.716,15,15,15h120c8.284,0,15-6.716,15-15S203.284,180.991,195,180.991z"/></g></g><g><g><path d="M287,120.991H75c-8.284,0-15,6.716-15,15s6.716,15,15,15h212c8.284,0,15-6.716,15-15S295.284,120.991,287,120.991z"/></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+                                   </svg>
+
+
+                                    <div class="caption">
+                                        <h3 class='sbc-title'>Live-Chat</h3>
+                                        <p>Eu sunt ut velit anim enim commodo in est in sunt. Ipsum laboris minim enim ut proident reprehenderit anim exercitation dolor dolor ad sint. Labore reprehenderit veniam veniam ex amet voluptate pariatur....</p>
+
+                                        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseChat" aria-expanded="false" aria-controls="collapseChat">
+                                                View More
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="collapse" id="collapseChat">
+                                    <div class="well">
+                                        <!-- <h1>LIVE CHAT SECTION</h1> -->
+
+
+                                        <!--
+                                                                FQDN to use:
+                                                                http://vs-uccd-013.maximusbchealth.local:84
+                                                                note, this will only work on intranet
+                                                                TODO: use smsdev link.
+                                                             -->
+                                        <form target="print_popup" onsubmit="window.open('about:blank','print_popup','width=400,height=400');" action="http://devchatservices.maximusbc.ca/Home/Chat"
+                                            method="post" class='form-horizontal'>
+
+                                            <div class="form-group">
+                                                <label class='col-sm-2 control-label'>First Name</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="FirstName" name="FirstName" class='form-control' />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class='col-sm-2 control-label'>Last Name</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="LastName" name="LastName" class='form-control' />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class='col-sm-2 control-label'>Email</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="Email" name="Email" class='form-control' />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class='col-sm-2 control-label'>Account #</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="CustomerId" name="CustomerId" class='form-control' />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class='col-sm-2 control-label'>Phone #</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="Phone" name="Phone" class='form-control' />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class='col-sm-2 control-label'>Message</label>
+                                                <div class="col-sm-8">
+                                                    <textarea type="text" id="Message" name="Message" class='form-control'></textarea>
+                                                </div>
+                                            </div>
+
+                             <!-- 
+                                <div class="form-group hidden">
+                                    <label class='col-sm-2 control-label'>Source</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="Source" name="Source" value="Sales" class='form-control' />
+                                    </div>
+                                </div> -->
+
+                                            <div class="form-group">
+                                                <label class='col-sm-2 control-label'>Language</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="Language" name="Language" class='form-control' />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group hidden">
+                                                <label class='col-sm-2 control-label'>Reason</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="Reason" name="Reason" class='form-control' value="Sales" />
+                                                </div>
+                                            </div>
+
+                                            <input type="hidden" name="UserLanguage" value="en">
+                                            <input type="hidden" name="Parameters[TimeZoneOffset]" value="8">
+                                                <button type="submit" class='btn btn-primary btn-block btn-lg'>
+                                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                                    Chat
+                                                </button>
+
+                                        </form>
+                                    </div>
+                                    </div>
+                        </div>
+
+                        <div class="col-sm-4 sbc-section js-cobrowse" id='video-chat'>
+                                <div class="thumbnail">
+                                        <svg version="1.1" class='sbc-svg' id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                        viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><g><g><path d="M504.488,243.003c-4.646-2.677-10.37-2.67-15.012,0.02L420,283.299V271c0-23.443-18.022-42.747-40.938-44.808C404.14,204.182,420,171.91,420,136c0-66.168-53.832-120-120-120c-49.466,0-92.033,30.087-110.373,72.92C170.497,62.913,139.689,46,105,46C47.103,46,0,93.103,0,151c0,30.168,12.793,57.4,33.234,76.57C14.111,232.757,0,250.257,0,271v180c0,24.813,20.187,45,45,45h330c24.813,0,45-20.187,45-45v-12.299l69.478,40.276c4.638,2.69,10.365,2.697,15.011,0.02C509.136,476.319,512,471.364,512,466V256C512,250.636,509.136,245.681,504.488,243.003z M300,46c49.626,0,90,40.374,90,90s-40.374,90-90,90c-49.626,0-90-40.374-90-90C210,86.374,250.374,46,300,46z M198.16,199.397c6.204,9.931,13.818,18.892,22.561,26.603h-42.317C186.309,218.262,192.999,209.29,198.16,199.397z M30,151c0-41.355,33.645-75,75-75s75,33.645,75,75s-33.645,75-75,75S30,192.355,30,151z M390,451c0,8.271-6.729,15-15,15H45c-8.271,0-15-6.729-15-15V271c0-8.271,6.729-15,15-15h330c8.271,0,15,6.729,15,15V451z M482,439.967l-62-35.941v-86.049l62-35.943V439.967z"/></g></g><g><g><path d="M105,106c-24.393,0-45,20.607-45,45s20.607,45,45,45s45-20.607,45-45S129.393,106,105,106z M105,166c-7.99,0-15-7.009-15-15c0-7.991,7.01-15,15-15s15,7.009,15,15C120,158.991,112.99,166,105,166z"/></g></g><g><g><path d="M300,76c-33.084,0-60,26.916-60,60s26.916,60,60,60s60-26.916,60-60S333.084,76,300,76z M300,166c-16.542,0-30-13.458-30-30s13.458-30,30-30s30,13.458,30,30S316.542,166,300,166z"/></g></g><g><g><path d="M225,286H75c-8.284,0-15,6.716-15,15v60c0,8.284,6.716,15,15,15h150c8.284,0,15-6.716,15-15v-60C240,292.716,233.284,286,225,286z M210,346H90v-30h120V346z"/></g></g><g><g><path d="M345,376c-8.284,0-15,6.716-15,15v30c0,8.284,6.716,15,15,15s15-6.716,15-15v-30C360,382.716,353.284,376,345,376z"/></g></g><g><g><path d="M285,376c-8.284,0-15,6.716-15,15v30c0,8.284,6.716,15,15,15s15-6.716,15-15v-30C300,382.716,293.284,376,285,376z"/></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+                                    </svg>
+        
+        
+
+    
+                                    <div class="caption">
+                                        <h3 class='sbc-title'>Video-Chat</h3>
+                                        <p>Eu sunt ut velit anim enim commodo in est in sunt. Ipsum laboris minim enim ut proident reprehenderit anim exercitation dolor dolor ad sint. Labore reprehenderit veniam veniam ex amet voluptate pariatur....</p>
+    
+                                        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseText" aria-expanded="false" aria-controls="collapseText">
+                                                View More
+                                        </a>
+                                    </div>
+                                </div>
+
+                        </div>
+
+                        <div class="col-sm-4 sbc-section" id='translation-services'>
+                            <div class="thumbnail" data-toggle="collapse" href="#collapseTranslation" aria-expanded="false" aria-controls="collapseTranslation">
+                                <svg version="1.1" class='sbc-svg' id="Capa_1" 
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                    viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><g><g><path d="M271,241V67h0.068c63.618,0,116.614,46.318,127.057,107H363l50,50l50-50h-34.52C417.763,96.707,351.263,37,271.068,37H271V0H0v271h241v174h-0.068c-64.316,0-117.78-47.338-127.39-109H147l-50-50l-50,50h36.247c9.836,78.261,76.799,139,157.685,139H241v37h271V241H271z M241,241H30V30h211V241z M482,482H271V271h211V482z"/></g></g><g><g><path d="M95.181,92.9h-17.38L48.651,171h22.77l4.62-15.29h20.79l4.73,15.29h22.66L95.181,92.9z M79.231,141.41l7.26-26.18l6.93,26.18H79.231z"/></g></g><g><g><path d="M213.925,137.835c-2.604-3.262-6.143-5.555-10.615-6.875c3.74-1.687,6.545-4.197,8.415-7.535c1.87-3.336,2.805-6.837,2.805-10.505c0-2.492-0.423-4.931-1.265-7.314c-0.844-2.383-2.035-4.511-3.575-6.381c-1.54-1.869-3.41-3.391-5.61-4.564c-2.2-1.172-4.658-1.76-7.37-1.76h-45.32V171h38.39c3.812,0,7.425-0.385,10.835-1.155c3.41-0.77,6.397-1.961,8.965-3.575c2.566-1.611,4.583-3.685,6.05-6.215c1.466-2.529,2.2-5.555,2.2-9.074C217.83,145.481,216.527,141.099,213.925,137.835z M172.84,111.16L172.84,111.16h15.29c1.392,0,2.602,0.459,3.63,1.375c1.026,0.918,1.54,2.438,1.54,4.564c0,2.42-0.605,4.034-1.815,4.841c-1.21,0.808-2.549,1.21-4.015,1.21h-14.63V111.16zM194.235,151.31c-1.21,1.101-2.695,1.65-4.455,1.65h-16.94v-13.09h17.71c1.612,0,2.932,0.643,3.96,1.925c1.026,1.284,1.54,2.879,1.54,4.785C196.05,148.634,195.445,150.21,194.235,151.31z"/></g></g><g><g><path d="M364,368c0,7.067-1.329,13.826-3.729,20.058l-36.165-36.165l-21.213,21.213l39.242,39.242C332.678,419.645,320.841,424,308,424v30c47.42,0,86-38.579,86-86H364z"/></g></g><g><g><polygon points="368,307 368,292 338,292 338,307 305,307 305,337 453,337 453,307 		"/></g></g><g><g><rect x="411" y="356" width="30" height="97"/></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
+                                </svg>
+
+                                <div class="caption">
+                                    <h3 class='sbc-title'>Translation Services</h3>
+                                    <p>Eu sunt ut velit anim enim commodo in est in sunt. Ipsum laboris minim enim ut proident reprehenderit anim exercitation dolor dolor ad sint. Labore reprehenderit veniam veniam ex amet voluptate pariatur....</p>
+
+                                    <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseTranslation" aria-expanded="false" aria-controls="collapseTranslation">
+                                            View More
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-sm-4 sbc-section" id="in-person">
+                                <div class="thumbnail" data-toggle="collapse" href="#collapseInPerson" aria-expanded="false" aria-controls="collapseInPerson">
+                                <svg 
+                                    class='sbc-svg' version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    x="0px" y="0px" viewBox="0 0 511.999 511.999" style="enable-background:new 0 0 511.999 511.999;" xml:space="preserve">
+                                        <g>
+                                            <g>
+                                                <path d="M425.629,305.585c-0.208-0.07-0.418-0.135-0.63-0.195l-56.049-15.982l-39.785-37.952v-10.202c19.039-19.017,31.034-45.285,31.034-74.256v-62C360.2,47.258,313.436,0,255.4,0c-57.897,0-104.999,47.103-104.999,104.999v62c0,28.971,11.995,55.239,31.034,74.256v10.202l-39.531,37.899l-54.997,16.062c-0.181,0.053-0.36,0.109-0.538,0.168c-24.143,8.047-38.275,33.594-32.331,58.293l26.518,135.989c1.396,7.162,7.674,12.132,14.706,12.132c0.417,0,0.837-0.025,1.258-0.061c0.379,0.03,0.757,0.059,1.143,0.059h317.62c7.12,0,13.26-5.006,14.693-11.98l27.964-136.058C463.937,339.235,449.8,313.642,425.629,305.585z M340.968,304.104l-42.899,64.35l-23.386-23.386l42.432-63.948L340.968,304.104zM255.399,30c24.494,0,46.28,11.805,59.976,30.021c-14.071,18.679-36.314,29.979-59.976,29.979h-73.491C188.878,55.808,219.18,30,255.399,30z M180.2,166.999v-47h75.2c27.739,0,54.083-11.091,73.482-30.047c0.994,4.863,1.518,9.895,1.518,15.047v62c0,41.355-33.645,75-75,75C214.044,241.999,180.2,208.354,180.2,166.999zM193.685,281.12l42.433,63.948l-23.386,23.386l-42.899-64.35L193.685,281.12z M240.4,481.997H107.636c-0.112-0.572-24.248-124.413-24.392-124.978c-2.409-9.637,3.023-19.645,12.383-22.896l48.684-14.218l53.609,80.414c5.24,7.863,16.387,8.988,23.087,2.286l19.394-19.394V481.997z M219.422,265.647c11.228,4.108,23.346,6.351,35.978,6.351c12.632,0,24.75-2.243,35.978-6.351l-35.978,54.221L219.422,265.647z M428.612,357.637l-25.559,124.36H270.199v-98.786l19.594,19.394c6.693,6.696,17.842,5.583,23.087-2.286l53.611-80.417l49.92,14.235C424.607,337.004,431.147,345.425,428.612,357.637z"
+                                                />
+                                            </g>
+                                        </g>
+                                        <g>
+                                            <g>
+                                                <path d="M375.399,421.998h-30c-8.284,0-15,6.716-15,15s6.716,15,15,15h30c8.284,0,15-6.716,15-15S383.684,421.998,375.399,421.998z"
+                                                />
+                                            </g>
+                                        </g>
+                                        <g></g>
+                                        <g></g>
+                                        <g></g>
+                                        <g></g>
+                                        <g></g>
+                                        <g></g>
+                                        <g></g>
+                                        <g></g>
+                                        <g></g>
+                                        <g></g>
+                                        <g></g>
+                                        <g></g>
+                                        <g></g>
+                                        <g></g>
+                                        <g></g>
+                                </svg>
+
+                                    <div class="caption">
+                                        <h3 class='sbc-title'>In Person</h3>
+                                        <p>Eu sunt ut velit anim enim commodo in est in sunt. Ipsum laboris minim enim ut proident reprehenderit anim exercitation dolor dolor ad sint. Labore reprehenderit veniam veniam ex amet voluptate pariatur....</p>
+    
+                                        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseInPerson" aria-expanded="false" aria-controls="collapseInPerson">
+                                                View More
+                                        </a>
+                                    </div>
+                                </div>
+                        </div>
+
+                        <div class="col-sm-8">
+                            <div class="collapse" id="collapseInPerson" data-parent="#in-person">
+                                <div class="well">
+                                    <p>Search services</p>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="inPersonInput" placeholder="" autocomplete="false">
+                                        <div class="input-group-addon bcgov-blue">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                            Search
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div id="rightcolumn" role="complementary" class="contentPageRightColumn col-sm-12 col-md-3 col-lg-3 col-sm-offset-0 col-md-offset-0">
+                <div id="replicantData_FEDF0DDD688042CA88C2BEB828F4D4FA" data-order="0">
+                    <h2 class="blue-heading-bar">Related Contacts</h2>
+                    <div class="promoBox rightColumnBox">
+                        <!-- <p>See an error or have a suggestion? <a href="#" target="_self">Let us know.</a></p> -->
+                        <ul>
+                            <li><a href="#">Email the Premier</a></li>
+                            <li><a href="#">Contact your MLA</a></li>
+                            <li><a href="#">BC Government Staff Directory</a></li>
+                            <li><a href="#">Freedom of Information requests or questions</a></li>
+                            <li><a href="#">Key Contact List</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- PAGE CONTENT -->
+    </div>
+    <!-- /BODY CONTENT -->
+    <div id="shareIcons">
+
+    </div>
+
+    <!-- FOOTER -->
+    <div id="footer" role="contentinfo">
+        <img class="back-to-top" src="images/back-to-top.png" alt="Back to top" title="Back to top" style="display: inline;">
+        <div id="footerWrapper">
+            <div id="footerAdminSection">
+                <div id="footerAdminLinksContainer" class="container">
+                    <div id="footerAdminLinks" class="row">
+                        <ul class="inline">
+                            <li>
+                                <a href="#" target="_self">Home</a>
+                            </li>
+                            <li>
+                                <a href="#" target="_self">About this site</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/disclaimer/" target="_self">Disclaimer</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/privacy/" target="_self">Privacy</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/webaccessibility/" target="_self">Accessibility</a>
+                            </li>
+                            <li>
+                                <a href="http://gov.bc.ca/copyright" target="_self">Copyright</a>
+                            </li>
+                            <li>
+                                <a href="#" target="_self">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /FOOTER -->
+  
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/misc.js"></script>
+    <script src="js/navMenu.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+
+
+    <script src="js/assist-support.js"></script>
+    <script src="js/short-code-assist.js"></script>
+    <script src="js/bootstrap3-typeahead.min.js"></script>
+    
+
+    <script src="js/main.js"></script>
+
+
+
+</body>
+
+</html>

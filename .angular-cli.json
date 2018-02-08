@@ -9,7 +9,8 @@
     "assets": [
       "app/images",
       "app/fonts",
-      "favicon.ico"
+      "favicon.ico",
+      "demo"
     ],
     "index": "index.html",
     "main": "main.ts",
