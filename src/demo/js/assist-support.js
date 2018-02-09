@@ -575,7 +575,7 @@ function removeEndSupportGui() {
 //May not work on all browsers, but better than nothing.
 window.onbeforeunload = closingCode;
 function closingCode(){
-    if (AssistSDK){
+    if (AssistSDK & AssistSDK.endSupport){
         console.log('Page close event - ending support');
         AssistSDK.endSupport();
     }

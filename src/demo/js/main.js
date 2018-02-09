@@ -1,12 +1,14 @@
 var EXPAND_CLASS = 'expanded';
 var MOBILE_MAX_WIDTH = 767; //px
+var ASSISTJS_URL = 'https://video-poc1.maximusbc.ca/assistserver/sdk/web/consumer/assist.js';
 
 
 $(document).ready(function(event) {
 
     //Co-Browse Setup -----
-    addScript('https://video-poc1.maximusbc.ca/assistserver/sdk/web/consumer/assist.js');
-    $('.js-cobrowse').on('click', initCobrowse);
+    addScript(ASSISTJS_URL)
+    .done(initCobrowse)
+    .fail(onCobrowseFailToLoad);
 
     $('#main-content .collapse').on('show.bs.collapse', onExpandSection)
 
@@ -23,21 +25,36 @@ $(document).ready(function(event) {
         return false;
     });
 
+    //Improvement: use addScript() to load typeahead script, keeps first page load quicker.
     initTypeahead();
 });
 
 function initCobrowse(){
     console.log('initCobrowse called');
     AssistBoot.addAssistBehaviour();
-    AssistBoot.startAssistDialog();
+    $('.js-cobrowse').on('click', AssistBoot.startAssistDialog);
+}
+
+function onCobrowseFailToLoad(){
+    console.error("Network error, unable to load assist.js", ASSISTJS_URL);
+    $('.js-cobrowse').on('click', function(){
+        alert("Network error: Unable to load assist.js from " + ASSISTJS_URL);
+    });
 }
 
 
-function addScript(url)  {
-    console.log("adding script: ", url);
-    var tt = document.createElement('script');
-    tt.setAttribute('src', url);
-    document.head.appendChild(tt);
+function addScript(url) {
+    return $.ajax({
+        url: url,
+        dataType: "script",
+        timeout: 3 * 1000,
+    })
+    // .done(function (script, textStatus) {
+    //     console.log("Added script " + url, textStatus);
+    // })
+    // .fail(function (jqxhr, settings, exception) {
+    //     console.error("Unable to load script" + url, "Reason: " + exception);
+    // });
 }
 
 function scrollTo($el, scrollTime){
@@ -50,27 +67,47 @@ function scrollTo($el, scrollTime){
 }
 
 function initTypeahead(){
+    var url;
     $('#inPersonInput').typeahead({
         showHintOnFocus: true,
         fitToElement: true,
         autoSelect: false,
         source: [
+            {id: "help desk", name: "Help Desk"},
+            {id: "help desk number", name: "Help Desk Number"},
+            {id: "helpline for childrin", name: "Helpline for Children"},
+            {id: "help kit", name: "Help Kit"},
+            {id: "msp", name: "MSP"},
+            {id: "msp account", name: "MSP Account"},
+            {id: "msp premium assistance plan", name: "MSP Premium Assistance Plan"},
+            {id: "msp premiums", name: "MSP premiums"},
+            {id: "msp payment", name: "MSP payment"},
+            {id: "msp forms", name: "MSP forms"},
+            {id: "msp coverage", name: "MSP coverage"},
+            {id: "msp account login", name: "MSP Account Login"},
             {id: "phone", name: "Phone"},
             {id: "text", name: "Text"},
             {id: "email", name: "Email"},
-            {id: "live-chat", name: "Live-Chat"},
-            {id: "video-chat", name: "Video-Chat"},
-            {id: "translation-services", name: "Translation Services"},
+            {id: "live chat", name: "Live-Chat"},
+            {id: "video chat", name: "Video-Chat"},
+            {id: "translation services", name: "Translation Services"}
        ],
        afterSelect: function(item){
-        //    console.log('afterSelect', item, item.id)
-           scrollTo($('#'+item.id), 1000)
+            url = "https://www2.gov.bc.ca/gov/search?id=2E4C7D6BCAA4470AAAD2DCADF662E6A0&tab=1&q="
+            url += item.id
+            // console.log("Setting URL", url);
        }
+    })
+
+    $('#inPersonSubmit').click(function(e){
+        if (url.length){
+            window.open(url);
+        }
     })
 }
 
 function onExpandSection(){
-    //1. Make sure it's full-width (on desktop breakpoints)
+    //1. Make sure it's full-width (for desktop breakpoints)
     //2. Make sure it starts at the left (matching #main-content)
     var $el = $(this);
 
@@ -87,8 +124,8 @@ function onExpandSection(){
     var width = baseWidth - position;
     $(this).css('width', width);
 
+    //Start on left matching #main-content
     if ( $(window).width() > MOBILE_MAX_WIDTH ){
-        //Start on left:
         var mainOffset = $('#main-content').offset().left
         // let dataParent = $(this).attr('data-parent');
         var parent = $(this).parents('.sbc-section');
@@ -101,7 +138,4 @@ function onExpandSection(){
         }
     }
 
-
-    //Bad UX? Unsure.
-    // scrollTo($el);
 }
