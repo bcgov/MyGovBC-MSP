@@ -730,10 +730,13 @@ label {
 
 .caption p {
     max-width: 410px;
-    margin: 10px auto;
+    margin: 10px auto;  
     margin-bottom: 10px;
 }
 
+.caption p .badge {
+    background: #336699;
+}
 
 #call-section td + td {
     border-left: 1px solid #969696;
