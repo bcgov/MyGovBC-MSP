@@ -207,9 +207,7 @@ class Person implements IPerson {
     }
 
     get hasArrivalToCanada(): boolean {
-        return (this.arrivalToCanadaDay != null &&
-            this.arrivalToCanadaMonth != null &&
-            this.arrivalToCanadaYear != null);
+        return !!(this.arrivalToCanadaDay && this.arrivalToCanadaMonth &&this.arrivalToCanadaYear) ;
     }
 
     /**
