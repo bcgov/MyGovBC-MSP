@@ -12,6 +12,7 @@ http {
     include       /etc/nginx/mime.types;
     default_type  application/octet-stream;
     server_tokens off;
+    underscores_in_headers on;
 
     # ip filtering
     %IpFilterRules%
