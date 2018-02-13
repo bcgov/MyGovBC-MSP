@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  creationTimestamp: 2017-11-21T22:31:50Z
+  labels:
+    app: angular-builder-1.3-prototype
+  name: angular-builder-1.3-prototype
+  namespace: gcpe-mygovbc-msp-tools
+  resourceVersion: "269544582"
+  selfLink: /oapi/v1/namespaces/gcpe-mygovbc-msp-tools/buildconfigs/angular-builder-1.3-prototype
+  uid: c48c201c-cf0b-11e7-837a-0050568379a2
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: angular-builder-1.3-prototype:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    contextDir: openshift/templates/angular-builder
+    git:
+      ref: 1.3-prototype
+      uri: https://github.com/bcgov/MyGovBC-MSP.git
+    type: Git
+  strategy:
+    dockerStrategy: {}
+    type: Docker
+  triggers: []
+status:
+  lastVersion: 1
