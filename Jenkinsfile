@@ -4,7 +4,7 @@ def APP_VERSION = '1.3-prototype'
 def CHAINED_ANGULAR_BUILD = APP_NAME + '-' + APP_VERSION + '-build-angular-app-build'
 
 // Edit your environment TAG names below
-def TAG_NAMES = ['demo']
+def TAG_NAMES = ['dev', 'demo', 'test']
 
 // You shouldn't have to edit these if you're following the conventions
 def NGINX_BUILD_CONFIG = 'nginx-runtime'
@@ -32,4 +32,17 @@ node {
   }
 }
 
+node {
+  stage('deploy-' + TAG_NAMES[1]) {
+    input "Deploy to " + TAG_NAMES[1] + "?"
+    openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[1], srcStream: IMAGESTREAM_NAME, srcTag: '$BUILD_ID'
+  }
+}
+
+node {
+  stage('deploy-'  + TAG_NAMES[2]) {
+    input "Deploy to " + TAG_NAMES[2] + "?"
+    openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[2], srcStream: IMAGESTREAM_NAME, srcTag: '$BUILD_ID'
+  }
+}
 
