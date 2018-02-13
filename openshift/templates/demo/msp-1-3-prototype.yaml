@@ -6,10 +6,9 @@ metadata:
   labels:
     app: msp-1-3-prototype
   name: msp-1-3-prototype
-  namespace: gcpe-mygovbc-msp-dev
-  resourceVersion: "335614471"
-  selfLink: /oapi/v1/namespaces/gcpe-mygovbc-msp-dev/deploymentconfigs/msp-1-3-prototype
-  uid: 8522ffcd-cf0e-11e7-837a-0050568379a2
+  namespace: gcpe-mygovbc-msp-demo
+  selfLink: /oapi/v1/namespaces/gcpe-mygovbc-msp-demo/deploymentconfigs/msp-1-3-prototype
+  uid: 8522ffcd-cf0e-11e7-837a-0050568379b2
 spec:
   replicas: 2
   selector:
@@ -94,7 +93,7 @@ spec:
       - msp-1-3-prototype
       from:
         kind: ImageStreamTag
-        name: msp-1.3-prototype:dev
+        name: msp-1.3-prototype:demo
         namespace: gcpe-mygovbc-msp-demo
       lastTriggeredImage: 172.50.0.2:5000/gcpe-mygovbc-msp-demo/msp-1.3-prototype@sha256:fc48a7e693df58b9208dd7a57bcc04a1fd04c68ca54fff7e864967bc0029136e
     type: ImageChange
@@ -117,7 +116,7 @@ status:
     - imageTrigger:
         from:
           kind: ImageStreamTag
-          name: msp-1.3-prototype:dev
+          name: msp-1.3-prototype:demo
           namespace: gcpe-mygovbc-msp-demo
       type: ImageChange
     message: image change

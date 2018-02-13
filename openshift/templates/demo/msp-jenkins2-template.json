@@ -1,0 +1,134 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "msp-build",
+    "annotations": {
+      "description": "Contains build objects",
+      "iconClass": "icon-github"
+    }
+  },
+  "objects": [
+    {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${APPLICATION_NAME}-${GIT_REFERENCE}"
+      }
+    },
+    {
+      "kind": "BuildConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${APPLICATION_NAME}-${GIT_REFERENCE}",
+        "creationTimestamp": null,
+        "labels": {
+          "app": "${APPLICATION_NAME}-${GIT_REFERENCE}"
+        },
+        "annotations": {
+          "openshift.io/generated-by": "OpenShiftWebConsole"
+        }
+      },
+      "spec": {
+        "triggers": [
+          {
+            "type": "ImageChange",
+            "imageChange": {}
+          },
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "runPolicy": "Serial",
+        "source": {
+          "type": "Git",
+          "git": {
+            "uri": "${GIT_SOURCE_URL}",
+            "ref": "${GIT_REFERENCE}"
+          }
+        },
+        "strategy": {
+          "type": "Source",
+          "sourceStrategy": {
+            "from": {
+              "kind": "ImageStreamTag",
+              "namespace": "openshift",
+              "name": "nodejs:6"
+            }
+          }
+        },
+        "output": {
+          "to": {
+            "kind": "ImageStreamTag",
+            "name": "${APPLICATION_NAME}-${GIT_REFERENCE}:latest"
+          }
+        },
+        "resources": {},
+        "postCommit": {},
+        "nodeSelector": null
+      },
+      "status": {
+        "lastVersion": 0
+      }
+    },
+    {
+      "kind": "BuildConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${APPLICATION_NAME}-${GIT_REFERENCE}-pipeline",
+        "creationTimestamp": null,
+        "labels": {
+          "app": "${APPLICATION_NAME}-${GIT_REFERENCE}-pipeline",
+          "name": "${APPLICATION_NAME}-${GIT_REFERENCE}-pipeline",
+          "template": "${APPLICATION_NAME}-${GIT_REFERENCE}-pipeline"
+        }
+      },
+      "spec": {
+        "runPolicy": "Parallel",
+        "source": {
+          "type": "Git",
+          "git": {
+            "uri": "${GIT_SOURCE_URL}",
+            "ref": "${GIT_REFERENCE}"
+          }
+        },
+        "strategy": {
+          "type": "JenkinsPipeline",
+          "jenkinsPipelineStrategy": {
+            "jenkinsfilePath": "Jenkinsfile"
+          }
+        },
+        "output": {},
+        "resources": {},
+        "postCommit": {},
+        "nodeSelector": null
+      },
+      "status": {
+        "lastVersion": 0
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "APPLICATION_NAME",
+      "displayName": "Application Name",
+      "description": "The name given to the application",
+      "required": true,
+      "value": "msp"
+    },
+    {
+      "name": "GIT_SOURCE_URL",
+      "displayName": "Source Repository",
+      "description": "The source repository to use for the builds.",
+      "required": true,
+      "value": "https://github.com/bcgov/MyGovBC-MSP.git"
+    },
+    {
+      "name": "GIT_REFERENCE",
+      "displayName": "Git Reference",
+      "description": "Optional branch, tag, or commit.",
+      "required": true,
+      "value": "1.3-prototype"
+    }
+  ]
+}

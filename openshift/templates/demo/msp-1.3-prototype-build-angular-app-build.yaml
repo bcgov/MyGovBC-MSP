@@ -6,9 +6,8 @@ metadata:
     build: msp-1.3-prototype-build-angular-app-build
   name: msp-1.3-prototype-build-angular-app-build
   namespace: gcpe-mygovbc-msp-demo
-  resourceVersion: "335610207"
   selfLink: /oapi/v1/namespaces/gcpe-mygovbc-msp-demo/buildconfigs/msp-1.3-prototype-build-angular-app-build
-  uid: d4db3523-0b9d-11e8-b39a-0050568348cc
+  uid: d4db3523-0b9d-11e8-b39a-0050568348bb
 spec:
   failedBuildsHistoryLimit: 5
   nodeSelector: null
