@@ -97,22 +97,7 @@ http {
 	}
 
 	location /api {
-	    proxy_pass http://mygovbc-msp-service:8080/;
-
-	    location /api/logging {
-              if ( $request_method !~ ^(POST|HEAD|OPTIONS)$ ) {
-                return 405;
-              }
-              if ( $request_method ~ ^(HEAD|OPTIONS)$ ) {
-                return 200;
-              }
-              # proxy_pass http://logstash:8080/;
-	      return 200;
-            }
-
-            location /api/captcha/ {
-              proxy_pass http://mygovbc-captcha-service:8080/;
-            }
+	    return 404;
 	}
 
         # redirect server error pages to the static page /50x.html
