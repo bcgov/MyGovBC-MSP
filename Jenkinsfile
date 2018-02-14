@@ -7,7 +7,7 @@ def CHAINED_ANGULAR_BUILD = APP_NAME + '-' + APP_VERSION + '-build-angular-app-b
 def TAG_NAMES = ['dev', 'demo', 'test']
 
 // You shouldn't have to edit these if you're following the conventions
-def NGINX_BUILD_CONFIG = 'nginx-runtime'
+def NGINX_BUILD_CONFIG = 'nginx-runtime-1.3-prototype'
 def BUILD_CONFIG = APP_NAME + '-' + APP_VERSION + '-build'
 def IMAGESTREAM_NAME = APP_NAME + '-' + APP_VERSION
 
