@@ -813,6 +813,58 @@ label {
 }
 
 
+/* Co-Browse UI */
+#cid-gui {
+    position: fixed;
+    left: 1em;
+    background: rgba(0, 0, 0, 0.80);
+    padding: 2em;
+    bottom: 1em;
+    z-index: 10;
+    color: white;
+    transition: 0.5s ease-in-out;
+    max-width: 185px;
+    border-radius: 5px;
+}
+
+#cid-gui.closed {
+    transition: 0.5s cubic-bezier(0.6, -0.28, 0.74, 0.05) !important;
+    left: -185px !important;
+}
+
+#cid-gui.collapsed {
+    transition: 0.3s ease;
+    padding-right: 1em;
+    left: -120px;
+}
+
+#cid-gui.collapsed > button > i {
+    float: right;
+    font-size: 18px;
+    margin-left: 20px;
+}
+
+#cid-gui > #minimize-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: transform 0.5s;
+}
+
+#cid-gui.collapsed > #minimize-button {
+    -webkit-transform: rotateY(180deg);
+        -ms-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+}
+
+#cid-gui > button {margin-top: 1em;}
+#cid-gui > h4 { transition: 0.3s;}
+#cid-gui h4 {color: white;}
+#cid-gui.collapsed > h4 { opacity: 0; height: 0;}
+#cid-gui.collapsed > #minimize-button {right: 1em;}
+#cid-gui > #minimize-button > button { color: white;}
+#cid-gui > #minimize-button > button:focus { outline: none;}
+
 @media (max-width: 767px) {
 
     .sbc-svg {
@@ -847,7 +899,7 @@ label {
 
 @media (min-width: 768px) {
     .sbc-section .thumbnail {
-        height: 460px;
+        min-height: 460px;
     }
 
     .sbc-section .caption .btn-primary {

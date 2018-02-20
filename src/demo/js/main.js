@@ -5,6 +5,10 @@ var ASSISTJS_URL = 'https://video-poc1.maximusbc.ca/assistserver/sdk/web/consume
 
 $(document).ready(function(event) {
 
+    //Remove all Live-Assist sessions. Can't restore sessions, but no bugs from
+    //failed restorations.
+    clearAllStorageData();
+
     //Co-Browse Setup -----
     addScript(ASSISTJS_URL)
     .done(initCobrowse)
@@ -14,6 +18,7 @@ $(document).ready(function(event) {
 
     //Close collapsible sections when clicking outside.
     $('body').on('click', function(){
+        //Improvement: Only do for desktop? Check MOBILE_MAX_WIDTH?
         $('#main-content .collapse.in').collapse('hide');
     });
 
@@ -25,7 +30,7 @@ $(document).ready(function(event) {
         return false;
     });
 
-    //Improvement: use addScript() to load typeahead script, keeps first page load quicker.
+    //FIXME: use addScript() to load typeahead script, keeps first page load quicker.
     initTypeahead();
 });
 
@@ -48,6 +53,7 @@ function addScript(url) {
         url: url,
         dataType: "script",
         timeout: 3 * 1000,
+        cache: true,
     })
     // .done(function (script, textStatus) {
     //     console.log("Added script " + url, textStatus);
@@ -139,3 +145,25 @@ function onExpandSection(){
     }
 
 }
+
+
+/**
+ * Deletes ALL local storage and returns to a pristie state.
+ *
+ * This deletes all Live-Assist sessions, meaning they can no longer be
+ * restored, but it also likely reduces runtime bugs. Useful for demo, but will
+ * likely need a gentler touch for a production solution.
+ */
+function clearAllStorageData(){
+    if (localStorage) {
+        localStorage.clear();
+    }
+
+    if (sessionStorage) {
+        sessionStorage.clear();
+    }
+}
+
+// function enableCoBrowseUI(){
+
+// }

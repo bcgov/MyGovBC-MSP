@@ -50,12 +50,7 @@ window.AssistBoot = {
         } else {
             // Present the User with a dialog to choose to make Voice & Vide call,
             // or to use Short Code Assist.
-            var helpModal = document.getElementById("assist-modal-help");
-            helpModal.style.display = "block";
-            // document.getElementById("assist-modal-help").style.opacity = 1.0;
-            helpModal.style.opacity = '1.0';
-            // helpModal.classList.add('in');
-            setTimeout( _ => { helpModal.classList.add('in') }, 0)
+            $('#assist-modal-help').modal();
         }
 
 
@@ -76,9 +71,8 @@ window.AssistBoot = {
          * Place a call to an Agent, cobrowsing can happen after the call is established.
          */
         document.getElementById('help-call-and-share').addEventListener('click', function () {
-            var helpModal = document.getElementById("assist-modal-help");
-            helpModal.style.opacity = 0;
-            setTimeout(helpModal.style.display = "", 150);
+            $('#assist-modal-help').modal('hide')
+
             config.allowedIframeOrigins = false; // important: disable iframe messaging if not required for security
             if (AssistSDK.isBrowserSupported()) {
                 AssistSDK.startSupport(config);
@@ -120,15 +114,10 @@ window.AssistBoot = {
 
             if (AssistSDK.isBrowserSupported()) {
                 ShortCodeAssist.startSupport(function (cid) {
-                    var helpModal = document.getElementById("assist-modal-help");
-                    helpModal.style.opacity = 0;
-                    helpModal.classList.remove('in');
-                    setTimeout(helpModal.style.display = "", 150);
+                    $('#assist-modal-help').modal('hide');
+
                     dismissCidDisplay = function(){
-                        var codeModal = document.getElementById("assist-modal-code");
-                        codeModal.style.opacity = 0;
-                        codeModal.classList.remove('in');
-                        setTimeout(codeModal.style.display = "", 150);
+                        $('#assist-modal-code').modal('hide');
                     };
                     AssistSDK.onScreenshareRequest = function () {
                         dismissCidDisplay();
@@ -136,11 +125,8 @@ window.AssistBoot = {
                         inSupport = true;
                         return true;
                     };
-                    var codeModal = document.getElementById("assist-modal-code");
-                    codeModal.querySelector('.code').textContent = cid;
-                    codeModal.style.display = "block";
-                    codeModal.style.opacity = "1.0";
-                     setTimeout( _ => { codeModal.classList.add('in') }, 0)
+                    $('#assist-modal-code').find('.code').text(cid);
+                    $('#assist-modal-code').modal('show')
                 },
                 function() {
                     AssistSDK.endSupport();
@@ -156,20 +142,14 @@ window.AssistBoot = {
          * Cancel...
          */
         document.getElementById('help-no-help-needed').addEventListener('click', function () {
-            var helpModal = document.getElementById("assist-modal-help");
-            helpModal.style.opacity = 0;
-            helpModal.classList.remove('in');
-            setTimeout(helpModal.style.display = "", 150);
+            $('#assist-modal-help').modal('hide');
         });
 
         /**
          * Cancel...
          */
         document.getElementById('code-no-help-needed').addEventListener('click', function () {
-            var codeModal = document.getElementById("assist-modal-code");
-            codeModal.style.opacity = 0;
-            codeModal.classList.remove('in');            
-            setTimeout(codeModal.style.display = "", 150);
+            $('#assist-modal-code').modal('hide')
             AssistSDK.endSupport();
         });
 
@@ -537,12 +517,38 @@ function addEndSupportGui() {
         var endSupportDiv = document.createElement("div");
         endSupportDiv.id = "cid-gui";
 
+        var minimizeButton = document.createElement("button")
+        minimizeButton.innerHTML = '<i class="fa fa-chevron-left"></i>'
+        minimizeButton.title = "Minimize Co-Browse Panel"
+        minimizeButton.classList.add("btn", "btn-link");
+        // minimizeButton.id = "minimize-button";
+        minimizeButton.addEventListener("click", function (event) {
+            console.log('Collapse clicked');
+            document.getElementById("cid-gui").classList.toggle('collapsed');
+        }, false);
+
+        var span = document.createElement('span');
+        span.id = "minimize-button";
+
+        span.appendChild(minimizeButton);
+
+
+        // endSupportDiv.appendChild(minimizeButton);
+        endSupportDiv.appendChild(span);
+
+        var title = document.createElement('h4');
+        title.textContent = "Co-Browse: Enabled";
+        endSupportDiv.appendChild(title);
+
         var zoomButton = document.createElement("button");
         zoomButton.id = "zoom-button";
         zoomButton.title = "Open zoom window";
-        zoomButton.classList.add("assist-no-show");
+        // zoomButton.textContent = "Zoom";
+        zoomButton.innerHTML = '<i class="fa fa-search-plus"></i> Zoom'
+        zoomButton.classList.add("assist-no-show", "btn", "btn-default", "btn-block");
 
         zoomButton.addEventListener("click", function (event) {
+            console.log('Zoom clicked');
             AssistSDK.startZoom();
         }, false);
 
@@ -551,10 +557,16 @@ function addEndSupportGui() {
         var endButton = document.createElement("button");
         endButton.id = "end-support-button";
         endButton.title = "End support";
-        endButton.classList.add("assist-no-show");
+        // endButton.textContent = "End support";
+        endButton   .innerHTML = '<i class="fa fa-times-circle"></i> End Support'
+        endButton.classList.add("assist-no-show", "btn", "btn-danger", "btn-block");
 
         endButton.addEventListener("click", function (event) {
             AssistSDK.endSupport();
+
+            //Always remove UI after, even if endSupport() failed.
+            //TODO: Check if necessary! endSupport() should call supportEnded, just can't test during local dev.
+            supportEnded();
         }, false);
 
         endSupportDiv.appendChild(endButton);
@@ -566,7 +578,12 @@ function removeEndSupportGui() {
     var cidGui = document.getElementById("cid-gui");
 
     if (cidGui) {
-        cidGui.parentNode.removeChild(cidGui);
+        // Animate out then delete.
+        cidGui.classList.add('closed');
+        setTimeout(function(){
+            console.log('removing support gui after animation');
+            cidGui.parentNode.removeChild(cidGui);
+        }, 1 * 1000);
     }
 };
 
