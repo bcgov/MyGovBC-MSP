@@ -88,7 +88,7 @@ http {
 
         location /demo {
             root /tmp/app/dist/;
-            index index.html;
+            index /demo/index.html;
             try_files $uri /index.html;
             gzip            on;
             gzip_min_length 1000;
