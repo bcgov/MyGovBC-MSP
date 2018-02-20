@@ -86,14 +86,6 @@ http {
             # %HTTP_BASIC%
         }
 
-        location /demo {
-            root /tmp/app/dist/;
-            index /demo/index.html;
-            try_files $uri /index.html;
-            gzip            on;
-            gzip_min_length 1000;
-            gzip_types      *;
-        }
 
 	location /api {
 	    return 404;
