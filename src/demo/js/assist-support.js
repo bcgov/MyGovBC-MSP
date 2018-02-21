@@ -537,7 +537,7 @@ function addEndSupportGui() {
         endSupportDiv.appendChild(span);
 
         var title = document.createElement('h4');
-        title.textContent = "Co-Browse: Enabled";
+        title.textContent = "Assistance Options";
         endSupportDiv.appendChild(title);
 
         var zoomButton = document.createElement("button");
