@@ -370,7 +370,6 @@ export class MspApiService {
     convertMspAccountApp(from: MspAccountApp): document {
         let to = DocumentFactory.make();
         to.application = ApplicationTypeFactory.make();
-
         // UUID
         to.application.uuid = from.uuid;
 
@@ -999,8 +998,8 @@ export class MspApiService {
             accountHolder.residenceAddress = this.unknownAddress();
         }
 
-        if (from.phoneNumber) {
-            accountHolder.telephone = Number(from.phoneNumber.replace(new RegExp("[^0-9]", "g"), ""));
+        if (from.applicant.phoneNumber) {
+            accountHolder.telephone = Number(from.applicant.phoneNumber.replace(new RegExp("[^0-9]", "g"), ""));
         }
         if (from.applicant.previous_phn) {
             accountHolder.phn = Number(from.applicant.previous_phn.replace(new RegExp("[^0-9]", "g"), ""));

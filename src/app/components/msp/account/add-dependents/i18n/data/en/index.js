@@ -34,4 +34,5 @@ module.exports = {
   departureDate: "Departure Date",
   schoolNameRequired: "School name is required",
     mustAnswerQuestion: "Please answer this question.",
+    dateStudiesStartBeforeEndError:"Date studies finish cannot be before Date studies begin"
 }

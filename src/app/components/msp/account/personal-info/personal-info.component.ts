@@ -94,6 +94,11 @@ export class AccountPersonalInfoComponent extends BaseComponent {
         this.dataService.saveMspAccountApp();
     }
 
+    isValid(): boolean {
+      return this.dataService.getMspAccountApp().isUniquePhnsInPI ;
+
+    }
+
     continue():void {
 
         // console.log('personal info form itself valid: %s', this.form.valid);

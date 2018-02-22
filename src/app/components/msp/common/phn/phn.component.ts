@@ -72,7 +72,5 @@ export class MspPhnComponent extends BaseComponent {
 
   }
 
-  isValid(): boolean {
-    return this.isUnique();
-  }
+
 }

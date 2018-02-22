@@ -252,7 +252,9 @@ export class FileUploaderComponent
    * @param scaleFactors 
    */
   observableFromFile(file: File, scaleFactors: MspImageScaleFactors) {
-    console.log('Start processing file %s of size %s bytes', file.name, file.size);
+    console.log('Start processing file %s of size %s bytes %s type', file.name, file.size ,file.type);
+
+
 
 
     // Init
@@ -269,6 +271,11 @@ export class FileUploaderComponent
 
       // Copy file properties
       mspImage.name = file.name;
+
+     if (file.type=="application/pdf"){
+         self.handleError(MspImageError.WrongType, mspImage);
+         return;
+      }
 
       // Load image into img element to read natural height and width
       this.readImage(file, (image: HTMLImageElement) => {
@@ -548,7 +555,7 @@ export class FileUploaderComponent
       + (additionalInfo ? "  " + additionalInfo : "");
 
     // send it while subscribing to response
-    this.logService.logIt(log).subscribe(
+    this.logService.logIt(log,title).subscribe(
         (response)=>{
           // console.log('log rest service response: ');
           // console.log(response);

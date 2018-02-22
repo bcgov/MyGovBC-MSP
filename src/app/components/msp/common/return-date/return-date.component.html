@@ -69,6 +69,11 @@
                 <div class="text-danger"
                         [innerHtml]="lang('./en/index.js').datesOutOfOrder"></div>
             </div>
+            <div *ngIf='(yearRef.touched || showError) && !isWithinNMonths()'>
+                <div class="text-danger"
+                >{{minMonthsRangeErrorMsg}}</div>
+            </div>
+
         </div>
     </div>
 </form>

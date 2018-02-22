@@ -34,7 +34,7 @@
   <div class="row">
     <div class="col-md-4">
       <msp-departure-date
-          #mspDepartureDate
+          #mspDepartureDate [maxMonthsRange]="maxMonthsRange" [maxMonthsRangeErrorMsg]="maxMonthsRangeErrorMsg"
           [year]="outofBCRecord.departureYear"
           (yearChange)="outofBCRecord.departureYear = $event"
           [month]="outofBCRecord.departureMonth"
@@ -46,7 +46,7 @@
     </div>
     <div class="col-md-4">
       <msp-return-date
-        #mspReturnDate
+        #mspReturnDate [minMonthsRange]="minMonthsRange" [minMonthsRangeErrorMsg]="minMonthsRangeErrorMsg"
         [year]="outofBCRecord.returnYear"
         (yearChange)="outofBCRecord.returnYear = $event"
         [month]="outofBCRecord.returnMonth"

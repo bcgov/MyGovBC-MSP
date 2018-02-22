@@ -1,3 +1,9 @@
+<msp-services-card-disclaimer-modal
+        #mspServicesCardModal
+        >
+</msp-services-card-disclaimer-modal>
+
+
 <form #formRef='ngForm' novalidate>
 <h3  [ngClass]="{'text-danger': showError && (person.status === undefined || person.status === null)}" [innerHTML]="lang('./en/index.js').statusLabel[person.relationship]" ></h3>
 

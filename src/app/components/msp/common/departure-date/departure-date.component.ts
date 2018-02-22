@@ -16,7 +16,7 @@ export class MspDepartureDateComponent extends BaseComponent {
   // Create today for comparison in check later
   today = moment();
 
-    @Input() futureDate: boolean;
+  @Input() futureDate: boolean;
   @Input() showError: boolean;
   @Input() year: number;
   @Output() yearChange = new EventEmitter<number>();
@@ -28,6 +28,9 @@ export class MspDepartureDateComponent extends BaseComponent {
   @Output() onChange = new EventEmitter<any>();
 
   @ViewChild('formRef') form:NgForm;
+  // departure date might have restirctions on the months. ie have you departed in the next 6 months.pass 6 here then
+  @Input() maxMonthsRange: number;
+    @Input() maxMonthsRangeErrorMsg: string;
 
   constructor(private cd: ChangeDetectorRef) {
     super(cd);
@@ -57,6 +60,18 @@ export class MspDepartureDateComponent extends BaseComponent {
     return true;
   }
 
+  // deaprture date has months restriction. It could be either six months or 12 months depenidng on the question.
+  isBeforeNMonths(): boolean {
+    if (!this.maxMonthsRange || this.maxMonthsRange == 0) {
+      return true;
+    }
+    let dateAfterNMonths = moment().add(this.maxMonthsRange,'months') ;
+      if (this.inputDate().isAfter(dateAfterNMonths)) {
+          return false;
+      }
+      return true;
+  }
+
   futureCheck(): boolean {
 
     if (this.futureDate){
@@ -71,6 +86,6 @@ export class MspDepartureDateComponent extends BaseComponent {
   }
 
   isValid(): boolean {
-    return this.isCorrectFormat() && this.futureCheck();
+    return this.isCorrectFormat() && this.futureCheck() && this.isBeforeNMonths();
   }
 }

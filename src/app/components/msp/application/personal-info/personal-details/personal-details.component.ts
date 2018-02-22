@@ -23,6 +23,7 @@ import {MspSchoolDateComponent} from "../../../common/schoolDate/school-date.com
 import {HealthNumberComponent} from "../../../common/health-number/health-number.component";
 import {MspDischargeDateComponent} from "../../../common/discharge-date/discharge-date.component";
 import {MspAddressComponent} from "../../../common/address/address.component";
+import {ServicesCardDisclaimerModalComponent} from "../../../common/services-card-disclaimer/services-card-disclaimer.component"
 
 import {MspArrivalDateComponent} from "../../../common/arrival-date/arrival-date.component";
 import {MspOutofBCRecordComponent} from "../../../common/outof-bc/outof-bc.component";
@@ -100,6 +101,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   @ViewChild('inBCAfterStudiesQuestion') inBCAfterStudiesQuestion: HTMLElement;
   @ViewChild('schoolAddress') schoolAddress: MspAddressComponent;
   @ViewChild('schoolDate') schoolDate: MspSchoolDateComponent;
+  @ViewChild('mspServicesCardModal') servicesCardDisclaimerModalComponent: ServicesCardDisclaimerModalComponent;
 
   @Input() person: Person;
   @Input() id: string;
@@ -112,6 +114,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   shrinkOutStatus: string;
   genderListSignal: string;
   institutionWorkSignal: string;
+  showServicesCardModal: boolean = false;
 
   constructor(private el:ElementRef,
     private cd: ChangeDetectorRef){
@@ -138,13 +141,21 @@ export class PersonalDetailsComponent extends BaseComponent {
     if(p.status !== StatusInCanada.CitizenAdult){
       p.institutionWorkHistory = 'No';
     }
+    this.showServicesCardModal = true ;
+
     this.onChange.emit(value);
   }
 
   setActivity(value:Activities) {
-    this.person.currentActivity = value;
-    this.person.movedFromProvinceOrCountry = '';
-    this.onChange.emit(value);
+
+      if (this.showServicesCardModal && this.person.bcServiceCardShowStatus && this.person.relationship != this.Relationship.ChildUnder19) {
+          this.servicesCardDisclaimerModalComponent.showModal();
+          this.showServicesCardModal = false;
+      }
+
+      this.person.currentActivity = value;
+      this.person.movedFromProvinceOrCountry = '';
+      this.onChange.emit(value);
   }
 
   /**
@@ -326,6 +337,10 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   handleOutofBCRecordChange(evt:OutofBCRecord){
     this.onChange.emit(evt);
+  }
+    //If false, then we don't want users continuing to further application;
+  checkEligibility(): boolean {
+        return !this.person.ineligibleForMSP;
   }
 
   setMovedToBCPermanently(moved:boolean){

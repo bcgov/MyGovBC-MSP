@@ -39,7 +39,7 @@ export class AccountComponent {
         this.logService.log({
             name: "Account - Loaded Page",
             url: this.router.url
-        })
+        },"Account -Page Load")
 
         this.routerSubscription = this.router.events
             .filter(event => event instanceof NavigationEnd)
@@ -47,7 +47,7 @@ export class AccountComponent {
                 this.logService.log({
                     name: "Account - Loaded Page",
                     url: this.router.url
-                })
+                },"Account -Page Loaded")
             });
     }
 

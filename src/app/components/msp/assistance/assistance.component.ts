@@ -46,7 +46,7 @@ export class AssistanceComponent {
     this.logService.log({
       name: "Assistance - Loaded Page",
       url: this.router.url
-    })
+    },"Assistance - Page Load")
 
     this.routerSubscription = this.router.events
       .filter(event => event instanceof NavigationEnd)
@@ -54,7 +54,7 @@ export class AssistanceComponent {
         this.logService.log({
           name: "Assistance - Loaded Page",
           url: this.router.url
-        })
+        },"Assistance - Page Loaded")
       });
   }
 

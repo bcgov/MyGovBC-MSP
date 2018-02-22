@@ -65,11 +65,11 @@ export class AccountReviewComponent implements OnInit {
 
 
     ngOnInit() {
-        let oldUUID = this.mspAccountApp.uuid;
+      /*  let oldUUID = this.mspAccountApp.uuid;
         this.mspAccountApp.regenUUID();
         this.dataService.saveMspAccountApp();
         console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspAccountApp().uuid);
-
+*/
     }
 
     applicantAuthorizeOnChange(event: boolean) {
@@ -99,7 +99,7 @@ export class AccountReviewComponent implements OnInit {
         if (this.mspAccountApp.hasValidAuthToken) {
             console.log('Found valid auth token, transfer to sending screen.');
             this.processService.setStep(this.processService.getStepNumber(ProcessUrls.ACCOUNT_REVIEW_URL), true);
-            this.logService.log({name: "Account - Review Page Before Submit (after CAPTCHA)"})
+            this.logService.log({name: "Account - Review Page Before Submit (after CAPTCHA)"},"Account-Captcha Success")
             this._router.navigate(['/msp/account/sending']);
         } else {
             console.log('Auth token is not valid');

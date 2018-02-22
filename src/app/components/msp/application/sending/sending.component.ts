@@ -45,12 +45,13 @@ export class SendingComponent implements AfterContentInit {
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
     this.hasError = undefined;
+      this.logService.log({name: 'Enrollment application submitting request'},"Enrollment : Submission Request");
     this.service
       .sendApplication(this.application)
       .then((application: MspApplication) => {
         this.application = application;
-        this.logService.log({name: 'enrollment application received success confirmation from API server', 
-          confirmationNumber: this.application.referenceNumber});
+        this.logService.log({name: 'Enrollment application received success confirmation from API server',
+          confirmationNumber: this.application.referenceNumber},"Enrollment : Submission Response:Success");
 
         let tempRef = this.application.referenceNumber;
 
@@ -69,12 +70,18 @@ export class SendingComponent implements AfterContentInit {
         this.rawUrl = error.url;
         this.rawError = error;
         this.rawRequest = error._requestBody
-        this.logService.log({name: 'enrollment application received failure message from API server', 
+        this.logService.log({name: 'Enrollment application received failure message from API server',
           error: error._body,
-          request: error._requestBody});
+          request: error._requestBody},"Enrollment : Submission Response:Error");
         this.transmissionInProcess = false;
 
+        let oldUUID = this.application.uuid;
+        this.application.regenUUID();
+
+        console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
+
         this.application.authorizationToken = null;
+        this.dataService.saveMspApplication();
       });
 
   }

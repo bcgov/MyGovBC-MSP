@@ -5,12 +5,14 @@ import { environment } from '../../../../environments/environment';
 import { LogEntry } from '../common/logging/log-entry.model';
 import { MspDataService } from './msp-data.service';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
+
 
 
 @Injectable()
 export class MspLogService {
   appConstants;
-  constructor(private http: Http, private dataService: MspDataService) {
+  constructor(private http: Http, private dataService: MspDataService ,private router: Router) {
     this.appConstants = environment.appConstants;
   }
 
@@ -29,23 +31,28 @@ export class MspLogService {
    * @param {() => void} [errCallback]  OPTIONAL - Error callback.
    * @returns {Subscription}
    */
-  log(logItem: Object, callback?: () => void, errCallback?: () => void): Subscription{
-    let baseUrl = this.appConstants['logBaseUrl']
-    let headers = new Headers({'Content-Type': 'application/json'})
-    let options = new RequestOptions({headers: headers})
+  log(logItem: Object, request_method:String , callback?: () => void, errCallback?: () => void): Subscription{
+    let baseUrl = this.appConstants['logBaseUrl'];
+    let headers = new Headers({
+        'Content-Type': 'application/json',
+        'logsource' : window.location.hostname,
+        'timestamp' : moment().toISOString(),
+        'program' : 'msp',
+        'severity' : 'info',
+        'referenceNumber' : this.dataService.getMspApplication().referenceNumber || this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber,
+        'applicationId' : this.getApplicationId(),
+        'request_method' :request_method
+  });
+
+    let options = new RequestOptions({headers: headers});
     let body = {
       meta: this.createMetaData(),
       body: logItem,
     }
 
-    console.info("Logging", {
-      url: baseUrl,
-      body: body.body,
-      meta: body.meta
-    });
-
     return this.http.post(baseUrl, body, options).subscribe(callback, errCallback);
   }
+
 
 
   /**
@@ -55,21 +62,44 @@ export class MspLogService {
    * @param logItem JSON to be logged
    * @param urlPath OPTIONAL - Additional URL path for logger.
    */
-  logIt(logItem: Object, urlPath?: string):Observable<any> {
-    let baseUrl = this.appConstants['logBaseUrl']
-    let headers = new Headers({'Content-Type': 'application/json'})
-    let options = new RequestOptions({headers: headers})
+  logIt(logItem: Object,request_method:String , urlPath?: string):Observable<any> {
+    let baseUrl = this.appConstants['logBaseUrl'];
+    let headers = new Headers({
+        'Content-Type': 'application/json',
+        'logsource' : window.location.hostname,
+        'timestamp' : moment().toISOString(),
+        'program' : 'msp',
+        'severity' : 'info',
+        'referenceNumber' : this.dataService.getMspApplication().referenceNumber || this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber,
+        'applicationId' : this.getApplicationId()
+    });
+    let options = new RequestOptions({headers: headers});
     return this.http.post(baseUrl + (urlPath || ''), logItem, options);
   }
 
   createMetaData(){
     let log:LogEntry = new LogEntry();
-    log.applicationId = this.dataService. getMspApplication().uuid || this.dataService.finAssistApp.uuid;
+    log.applicationId = this.getApplicationId();
     log.mspTimestamp = moment().toISOString();
     log.refNumberEnrollment = this.dataService.getMspApplication().referenceNumber;
     log.refNumberPremiumAssistance = this.dataService.finAssistApp.referenceNumber;
+    log.refNumberAccountChange = this.dataService.getMspAccountApp().referenceNumber;
+
     return log;
   }
 
+    getApplicationId():string {
+
+        console.log(this.router.url);
+        if (this.router.url.indexOf("/application/") !== -1){
+            return  this.dataService.getMspApplication().uuid;
+        }
+        if (this.router.url.indexOf("/assistance/") !== -1){
+            return  this.dataService.finAssistApp.uuid ;
+        }
+        if (this.router.url.indexOf("/account/") !== -1){
+            return  this.dataService.getMspAccountApp().uuid;
+        }
+    }
 
 }

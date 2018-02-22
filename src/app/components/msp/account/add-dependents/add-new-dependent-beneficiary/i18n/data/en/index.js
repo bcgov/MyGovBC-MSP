@@ -29,6 +29,9 @@ module.exports = {
     "The child's most recent move to BC cannot be before the child's date of birth.",
   ],
 
-  notEligibleError: "You have indicated that a recent move to B.C. is not permanent. As a result, the above is not eligible for enrollment with MSP. Please contact HIBC for further information."
+  notEligibleError: "You have indicated that a recent move to B.C. is not permanent. As a result, the above is not eligible for enrolment with MSP. Please contact HIBC for further information.",
+
+    maxMonthsSixMonths:"The departure date cannot be greater than 6 months in future",
+    minMonths:"The return date should be with in past 12 months"
 
 }

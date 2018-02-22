@@ -1,3 +1,5 @@
+<msp-services-card-disclaimer-modal #mspServicesCardModal
+                                    ></msp-services-card-disclaimer-modal>
 <form #formRef='ngForm' novalidate>
     <div class="row">
         <div class="col-xs-8">
@@ -160,8 +162,11 @@
               </div>
 
             </div>
+
           </div>
+
       </div>
+        <h3 class="intro text-danger" *ngIf="!checkEligibility()" class="text-danger" [innerHtml]="lang('./en/index.js').notEligibleError" role="alert" aria-live="assertive"></h3>
 
         <div class="row" *ngIf="!(person.status === StatusInCanada.CitizenAdult &&
                 person.currentActivity === Activities.LivingInBCWithoutMSP &&
@@ -177,6 +182,8 @@
                                   (dayChange)="person.arrivalToBCDay = $event"
                                   (onChange) = "onChange.emit($event)"
                                   [showError]="showError"
+                                  [notBeforeDate]="person.dobSimple"
+                                  [notBeforeDateErrorLabel]="lang('./en/index.js').moveDateBeforeBirthError[person.relationship]"
                                   [required] = "true">
                 </msp-arrival-date>
             </div>
@@ -247,7 +254,7 @@
             </div>
             <div *ngIf="person.declarationForOutsideOver30Days === true" class="row" style="margin-bottom: 20px">
                 <div class="col-sm-12">
-                    <msp-outof-bc-record #outOfBCRecord
+                    <msp-outof-bc-record #outOfBCRecord [minMonthsRange]="12"  [minMonthsRangeErrorMsg]="lang('./en/index.js').minMonths"
                                          [outofBCRecord]="person.outOfBCRecord"
                                          (onDelete)="handleDeleteOutofBCRecord($event)"
                                          (onUpdate)="handleOutofBCRecordChange($event)"

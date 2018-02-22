@@ -1,7 +1,12 @@
 #!/bin/bash
 
 echo "---> replacing configuration"
-sed "s~%RealIpFrom%~${RealIpFrom:-172.51.0.0/16}~g; s~%IpFilterRules%~${IpFilterRules}~g; s~%AdditionalRealIpFromRules%~${AdditionalRealIpFromRules}~g; s~%HTTP_BASIC%~${HTTP_BASIC}~g; ; s~%SPLUNK_AUTH_TOKEN%~${SPLUNK_AUTH_TOKEN}~g" /tmp/nginx.conf.template > /etc/nginx/nginx.conf
+echo "USE_SPLUNK_FORWARDER=${USE_SPLUNK_FORWARDER}"
+if [ "X$USE_SPLUNK_FORWARDER" = "Xtrue" ] ; then
+  sed "s~%RealIpFrom%~${RealIpFrom:-172.51.0.0/16}~g; s~%HOSTNAME%~${HOSTNAME}~g; s~%IpFilterRules%~${IpFilterRules}~g; s~%AdditionalRealIpFromRules%~${AdditionalRealIpFromRules}~g; s~%HTTP_BASIC%~${HTTP_BASIC}~g; s~XXX3.*XXX4~~g; s~XXX[1-4]~~g; s~%SPLUNK_AUTH_TOKEN%~${SPLUNK_AUTH_TOKEN}~g" /tmp/nginx.conf.template > /etc/nginx/nginx.conf
+else
+  sed "s~%RealIpFrom%~${RealIpFrom:-172.51.0.0/16}~g; s~%IpFilterRules%~${IpFilterRules}~g; s~%AdditionalRealIpFromRules%~${AdditionalRealIpFromRules}~g; s~%HTTP_BASIC%~${HTTP_BASIC}~g; s~XXX1.*XXX2~~g; s~XXX[1-4]~~g; s~%SPLUNK_AUTH_TOKEN%~${SPLUNK_AUTH_TOKEN}~g" /tmp/nginx.conf.template > /etc/nginx/nginx.conf
+fi
 
 if [ -n "$HTTP_BASIC_USERNAME" ] && [ "$HTTP_BASIC_USERNAME" != "\${HTTP_BASIC_USERNAME}" ] && [ -n "$HTTP_BASIC_PASSWORD" ]; then
     echo "---> Generating .htpasswd file"

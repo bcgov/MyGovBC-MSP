@@ -31,10 +31,10 @@ export class ReviewComponent implements OnInit{
 
 
   ngOnInit(){
-    let oldUUID = this.application.uuid;
+   /* let oldUUID = this.application.uuid;
     this.application.regenUUID();
     this.dataService.saveMspApplication();
-    console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
+    console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);*/
   }
   
   applicantAuthorizeOnChange(event: boolean) {
@@ -71,7 +71,7 @@ export class ReviewComponent implements OnInit{
     if(this.application.hasValidAuthToken){
       console.log('Found valid auth token, transfer to sending screen.');
       this.processService.setStep(3, true);
-      this.logService.log({name: "Application - Review Page Before Submit (after CAPTCHA)"})
+      this.logService.log({name: "Application - Review Page Before Submit (after CAPTCHA)"},"Application-Captcha Success")
       this._router.navigate(['/msp/application/sending']);
     }else{
       console.log('Auth token is not valid');

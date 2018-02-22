@@ -58,9 +58,11 @@ export class SinCheckValidator implements Validator {
 
     //only check unqiueness if it's been touched. avoids false-positives for
     //duplicates when refreshing page with values loaded via localStorage
+  /*
     if (control.touched && this.sinList && this.sinList.length) {
       errorObj["uniqueSin"] = !this.isUnique(sin);
     }
+    */
 
     //if all error properties are false, return null, because that's what templates expect.
     const hasNoErrors = Object.keys(errorObj)

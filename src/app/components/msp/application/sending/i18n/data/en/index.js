@@ -1,6 +1,6 @@
 module.exports = {
-  pageTitle: 'Submitting your MSP enrollment application',
-  transmissionSuccess: 'You MSP enrollment application has been successfully submitted!',
+  pageTitle: 'Submitting your MSP enrolment application',
+  transmissionSuccess: 'You MSP enrolment application has been successfully submitted!',
   transmissionInProgressMessage: 'Please do not close this browser tab or window, it can take 1-2 minutes to complete the submission.',
   transmissionErrorTitle: 'System error',
   instructionForUserOnErrorLine1: '<p>Sorry, it looks like something happened while your application was being submitted.</p><p>You can try submitting again - the data you&#8217;ve entered is saved on your device until you close the web browser.</p>',

@@ -1,9 +1,4 @@
 <!-- Hide modal for children under 19. -->
-<msp-services-card-disclaimer-modal
-  *ngIf="person.relationship === Relationship.Spouse || person.relationship === Relationship.Child19To24"
-  #mspServicesCardModal
-  [personStatus]="person.status">
-</msp-services-card-disclaimer-modal>
 <form #formRef='ngForm' novalidate>
 
   <button type="button" class="btn btn-default btn-xs pull-right" (click)="cancelDependent()" [innerHTML]="lang('./en/index.js').clearButton[person.relationship]">
@@ -27,7 +22,7 @@
     </div>
 
   </div>
-  <msp-status-in-canada-radio [showError]="showError"
+  <msp-status-in-canada-radio [showError]="showError" [showServicesCardModal]="true"
     *ngIf="person.isExistingBeneficiary===false"
     [person]='person' (onChange)="change($event)">
   </msp-status-in-canada-radio>  
@@ -133,13 +128,15 @@
             [label]="lang('./en/index.js').studiesBegin"
             [showError]='showError'
             [(date)]="person.studiesBeginSimple" [futureDate]="true"
-          ></msp-date>
+               ></msp-date>
         </div>
 
         <div class="col-md-6">
           <msp-date #studiesFinishedSimple
             [label]="lang('./en/index.js').studiesFinish"
-            [showError]='showError' (onChange) = "onChange.emit($event)" [futureDate]="true"
+                    [notBeforeDate]="person.studiesBeginSimple"
+                    [notBeforeDateErrorLabel]="lang('./en/index.js').dateStudiesStartBeforeEndError"
+                    [showError]='showError' (onChange) = "onChange.emit($event)" [futureDate]="true"
                     [(date)]="person.studiesFinishedSimple"
           ></msp-date>
         </div>
