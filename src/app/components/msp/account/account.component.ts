@@ -14,7 +14,7 @@ import { MspLogService } from '../service/log.service';
 require('./account.component.less');
 /**
  * AccountComponent for MSP, this houses everything that happens under the
- * Account Change section.  This component contains the ProgressBar and the
+ * Account Change section..  This component contains the ProgressBar and the
  * RouterOutlet, and through the Router it contains every account page.
  */
 @Component({
