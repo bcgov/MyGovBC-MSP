@@ -87,7 +87,7 @@ export class PersonalInfoComponent extends BaseComponent {
     return this.dataService.getMspApplication().documentsReady;
   }
 
-  // fix for DEF-90
+  // .fix for DEF-90
   isStayinginBCAfterstudies(): boolean {
     let stayingInBc = true;
     if (this.personalDetailsComponent) {  // initial page load..empty object
