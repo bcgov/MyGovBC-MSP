@@ -21,7 +21,7 @@ export class AssistanceReviewComponent {
 
   continue() {
     this._processService.setStep(AssistanceReviewComponent.ProcessStepNum, true);
-    this.logService.log({name: "Assistance - Review Page Before Submit (after CAPTCHA)"},"Assistance-Captcha Success")
+   // this.logService.log({name: "Assistance - Review Page Before Submit (after CAPTCHA)"},"Assistance-Captcha Success")
     this._router.navigate(['/msp/assistance/authorize-submit']);
   }
 }

@@ -33,7 +33,7 @@ export class AssistanceSendingComponent implements AfterContentInit  {
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
     this.hasError = false;
-      this.logService.log({name: 'Premium Assistance application submitting request'},"Premium Assistance : Submission Request");
+     // this.logService.log({name: 'Premium Assistance application submitting request'},"Premium Assistance : Submission Request");
     // After view inits, begin sending the application
     this.service
       .sendApplication(this.application)

@@ -45,7 +45,7 @@ export class SendingComponent implements AfterContentInit {
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
     this.hasError = undefined;
-      this.logService.log({name: 'Enrollment application submitting request'},"Enrollment : Submission Request");
+    //  this.logService.log({name: 'Enrollment application submitting request'},"Enrollment : Submission Request");
     this.service
       .sendApplication(this.application)
       .then((application: MspApplication) => {

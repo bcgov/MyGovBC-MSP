@@ -34,7 +34,7 @@ export class AccountChangeAccountHolderFactory {
 	static make(): AccountChangeAccountHolderType {
 		let instance = <AccountChangeAccountHolderType>{};
         instance._sequence = ["name", "gender", "birthDate", "attachmentUuids", "phn", "telephone", "residenceAddress", "mailingAddress", "citizenship", "authorizedByApplicant",
-            "authorizedByApplicantDate", "authorizedBySpouse", "selectedAddressChange", "selectedPersonalInfoChange", "selectedAddRemove", "selectedStatusChange", "phn"]
+            "authorizedByApplicantDate", "authorizedBySpouse", "selectedAddressChange", "selectedPersonalInfoChange", "selectedAddRemove", "selectedStatusChange"]
 		return instance;
 	}
 }

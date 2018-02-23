@@ -43,18 +43,20 @@ export class AssistanceComponent {
   }
 
   ngOnInit() {
-    this.logService.log({
+    /*this.logService.log({
       name: "Assistance - Loaded Page",
       url: this.router.url
-    },"Assistance - Page Load")
+    },"Assistance - Page Load")*/
 
     this.routerSubscription = this.router.events
       .filter(event => event instanceof NavigationEnd)
       .subscribe(event => {
-        this.logService.log({
-          name: "Assistance - Loaded Page",
-          url: this.router.url
-        },"Assistance - Page Loaded")
+          if (this.router.url.indexOf("/confirmation/") === -1) {//toned down logs.no log for confirmation page
+              this.logService.log({
+                  name: "Assistance - Loaded Page",
+                  url: this.router.url
+              }, "Assistance - Page Loaded")
+          }
       });
   }
 

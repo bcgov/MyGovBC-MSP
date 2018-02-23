@@ -45,7 +45,7 @@ export class AccountSendingComponent implements AfterContentInit {
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
     this.hasError = undefined;
-    this.logService.log({name: 'Account Change submitting request'},"Account Change : Submission Request");
+  //  this.logService.log({name: 'Account Change submitting request'},"Account Change : Submission Request");
     this.service
       .sendApplication(this.mspAccountApp)
       .then((mspAccountApp: MspAccountApp) => {

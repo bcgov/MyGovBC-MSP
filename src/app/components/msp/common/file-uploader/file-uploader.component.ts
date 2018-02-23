@@ -356,7 +356,7 @@ export class FileUploaderComponent
                   }
                   else {
                     // log image info
-                    self.logImageInfo("msp_file-uploader_after_resize_attributes", self.dataService.getMspUuid(), mspImage);            
+                 //   self.logImageInfo("msp_file-uploader_after_resize_attributes", self.dataService.getMspUuid(), mspImage);
                     observer.next(mspImage);
                   }       
                 };
