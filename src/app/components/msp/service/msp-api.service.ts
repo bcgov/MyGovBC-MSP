@@ -56,13 +56,14 @@ import {ApplicationBase} from "../model/application-base.model";
 import {AssistanceYear} from "../model/assistance-year.model";
 import {environment} from '../../../../environments/environment';
 import {MspAccountApp} from "../model/account.model";
+import { MspLogService } from './log.service';
 
 let jxon = require("jxon/jxon");
 
 @Injectable()
 export class MspApiService {
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private logService: MspLogService) {
     }
 
     /**
@@ -119,9 +120,17 @@ export class MspApiService {
                 })
                     .catch((error: Response | any) => {
                         console.log("sent all attachments rejected: ", error);
+                        this.logService.log({
+                            text: "Send All Attachments Rejected",
+                            response: error,
+                        }, "Send All Attachments Rejected")
                         return reject(error);
                     });
             } catch (error) {
+                this.logService.log({
+                    text: "Send Application Failure - Caught Exception",
+                    exception: error,
+                }, "Send Application Failure - Caught Exception")
                 console.log("error: ", error);
                 return reject(error);
             }
@@ -141,17 +150,35 @@ export class MspApiService {
             for (let attachment of attachments) {
                 attachmentPromises.push(this.sendAttachment(token, applicationUUID, attachment));
             }
+            this.logService.log({
+                text: "Send All Attachments - Before Sending",
+                numberOfAttachments: attachmentPromises.length
+            }, "Send Attachments - Before Sending")
+
             // Execute all promises are waiting for results
             return Promise.all(attachmentPromises).then(
                 (responses: ResponseType[]) => {
+                    //ARC TODO: Necessary?
+                    // this.logService.log({
+                    //     text: "Send All Attachments - Success",
+                    //     response: responses,
+                    // }, "Send All Attachments - Success")
                     return resolve();
                 },
                 (error: Response | any) => {
+                    this.logService.log({
+                        text: "Send All Attachments - Error (response from server)",
+                        error: error,
+                    }, "Send All Attachments - Error (response from server)")
                     console.log("error sending attachment: ", error);
                     return reject(error);
                 }
             )
                 .catch((error: Response | any) => {
+                    this.logService.log({
+                        text: "Send All Attachments - Error (catch)",
+                        error: error,
+                    }, "Send All Attachments - Error (catch)")
                     console.log("error sending attachment: ", error);
                     return reject(error);
                 });
@@ -202,17 +229,29 @@ export class MspApiService {
                 .post(url, blob, options)
                 .toPromise()
                 .then((response: Response) => {
+                        this.logService.log({
+                            text: "Send Individual Attachment - Success",
+                            response: response,
+                        }, "Send Individual Attachment - Success")
                         return resolve(<ResponseType>{
                             status: response.status + ''
                         });
                     },
                     (error: Response | any) => {
                         console.log('error response in its origin form: ', error);
+                        this.logService.log({
+                            text: "Send Individual Attachment - Error (response from server)",
+                            response: error,
+                        }, "Send Individual Attachment - Error (response from server)")
                         return reject(error);
                     }
                 )
                 .catch((error: Response | any) => {
                     console.log("Error in sending individual attachment: ", error);
+                    this.logService.log({
+                        text: "Send Individual Attachment - Error (general)",
+                        response: error,
+                    }, "Send Individual Attachment - Error (general)")
                     let response = this.convertResponse(error);
                     reject(response || error);
                 });
@@ -248,10 +287,18 @@ export class MspApiService {
             return this.http.post(url, documentXmlString, options)
                 .toPromise()
                 .then((response: Response) => {
+                    this.logService.log({
+                        text: "Send Document XML - Success",
+                        response: response,
+                    }, "Send Document XML - Success")
                     console.log("sent application resolved");
                     return resolve(this.convertResponse(response.text()));
                 })
                 .catch((error: Response | any) => {
+                    this.logService.log({
+                        text: "Send Document XML - Error",
+                        response: error,
+                    }, "Send Document XML - Error")
                     console.log("full error: ", error)
                     return reject(error);
                 });
