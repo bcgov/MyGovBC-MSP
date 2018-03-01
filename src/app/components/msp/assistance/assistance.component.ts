@@ -53,9 +53,9 @@ export class AssistanceComponent {
       .subscribe(event => {
           if (this.router.url.indexOf("/confirmation/") === -1) {//toned down logs.no log for confirmation page
               this.logService.log({
-                  name: "Assistance - Loaded Page",
+                  name: "PA - Loaded Page ",
                   url: this.router.url
-              }, "Assistance - Page Loaded")
+              }, "PA - Loaded Page ")
           }
       });
   }

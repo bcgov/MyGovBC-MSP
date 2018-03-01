@@ -121,16 +121,16 @@ export class MspApiService {
                     .catch((error: Response | any) => {
                         console.log("sent all attachments rejected: ", error);
                         this.logService.log({
-                            text: "Send All Attachments Rejected",
+                            text: "Attachment - Send All Rejected ",
                             response: error,
-                        }, "Send All Attachments Rejected")
+                        }, "Attachment - Send All Rejected ")
                         return reject(error);
                     });
             } catch (error) {
                 this.logService.log({
-                    text: "Send Application Failure - Caught Exception",
+                    text: "Application - Send Failure ",
                     exception: error,
-                }, "Send Application Failure - Caught Exception")
+                }, "Application - Send Failure ")
                 console.log("error: ", error);
                 return reject(error);
             }
@@ -150,10 +150,10 @@ export class MspApiService {
             for (let attachment of attachments) {
                 attachmentPromises.push(this.sendAttachment(token, applicationUUID, attachment));
             }
-            this.logService.log({
-                text: "Send All Attachments - Before Sending",
-                numberOfAttachments: attachmentPromises.length
-            }, "Send Attachments - Before Sending")
+            // this.logService.log({
+            //    text: "Send All Attachments - Before Sending",
+            //     numberOfAttachments: attachmentPromises.length
+            // }, "Send Attachments - Before Sending")
 
             // Execute all promises are waiting for results
             return Promise.all(attachmentPromises).then(
@@ -167,18 +167,18 @@ export class MspApiService {
                 },
                 (error: Response | any) => {
                     this.logService.log({
-                        text: "Send All Attachments - Error (response from server)",
+                        text: "Attachments - Send Error ",
                         error: error,
-                    }, "Send All Attachments - Error (response from server)")
+                    }, "Attachments - Send Error ")
                     console.log("error sending attachment: ", error);
                     return reject(error);
                 }
             )
                 .catch((error: Response | any) => {
                     this.logService.log({
-                        text: "Send All Attachments - Error (catch)",
+                        text: "Attachments - Send Error ",
                         error: error,
-                    }, "Send All Attachments - Error (catch)")
+                    }, "Attachments - Send Error ")
                     console.log("error sending attachment: ", error);
                     return reject(error);
                 });
@@ -229,10 +229,10 @@ export class MspApiService {
                 .post(url, blob, options)
                 .toPromise()
                 .then((response: Response) => {
-                        this.logService.log({
-                            text: "Send Individual Attachment - Success",
-                            response: response,
-                        }, "Send Individual Attachment - Success")
+                        // this.logService.log({
+                        //     text: "Send Individual Attachment - Success",
+                        //     response: response,
+                        // }, "Send Individual Attachment - Success")
                         return resolve(<ResponseType>{
                             status: response.status + ''
                         });
@@ -240,18 +240,18 @@ export class MspApiService {
                     (error: Response | any) => {
                         console.log('error response in its origin form: ', error);
                         this.logService.log({
-                            text: "Send Individual Attachment - Error (response from server)",
+                            text: "Attachment - Send Error ",
                             response: error,
-                        }, "Send Individual Attachment - Error (response from server)")
+                        }, "Attachment - Send Error ")
                         return reject(error);
                     }
                 )
                 .catch((error: Response | any) => {
                     console.log("Error in sending individual attachment: ", error);
                     this.logService.log({
-                        text: "Send Individual Attachment - Error (general)",
+                        text: "Attachment - Send Error ",
                         response: error,
-                    }, "Send Individual Attachment - Error (general)")
+                    }, "Attachment - Send Error ")
                     let response = this.convertResponse(error);
                     reject(response || error);
                 });
@@ -287,18 +287,18 @@ export class MspApiService {
             return this.http.post(url, documentXmlString, options)
                 .toPromise()
                 .then((response: Response) => {
-                    this.logService.log({
-                        text: "Send Document XML - Success",
-                        response: response,
-                    }, "Send Document XML - Success")
+                    // this.logService.log({
+                    //    text: "Send Document XML - Success",
+                    //    response: response,
+                    // }, "Send Document XML - Success")
                     console.log("sent application resolved");
                     return resolve(this.convertResponse(response.text()));
                 })
                 .catch((error: Response | any) => {
                     this.logService.log({
-                        text: "Send Document XML - Error",
+                        text: "Application - XML Send Error ",
                         response: error,
-                    }, "Send Document XML - Error")
+                    }, "Application - XML Send Error ")
                     console.log("full error: ", error)
                     return reject(error);
                 });

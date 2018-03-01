@@ -57,9 +57,9 @@ export class ApplicationComponent  {
       .subscribe(event => {
           if (this.router.url.indexOf("/confirmation/") === -1) {//toned down logs.no log for confirmation page
               this.logService.log({
-                  name: "Application - Loaded Page",
+                  name: "Enrolment - Loaded Page ",
                   url: this.router.url
-              }, "Application - Loaded Page")
+              }, "Enrolment - Loaded Page ")
           }
       });
   }

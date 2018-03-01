@@ -78,28 +78,27 @@ export class AccountPrepareComponent extends BaseComponent {
             this.transmissionInProcess = true;
             this.mspAccountApp = this.dataService.getFakeAccountChangeApplication();
 
-            this.logService.log({
-                name: 'Sending MSP Account Maintenance Address Change Only Request',
-                confirmationNumber: this.mspAccountApp.referenceNumber
-            },"Account -Address Change Request Submission request");
+            // this.logService.log({
+            //    name: 'Account - Address Change Only Request ',
+            //    confirmationNumber: this.mspAccountApp.referenceNumber
+            //},"Account - Address Change Only Request ");
 
             this.apiService
                 .sendApplication(this.mspAccountApp)
                 .then((mspAccountApp: MspAccountApp) => {
-
                     this.logService.log({
-                        name: 'MSP Account Maintenance Address Change Only Request received success confirmation from API server',
+                        name: 'Account - Address Change Success ',
                         confirmationNumber: this.mspAccountApp.referenceNumber
-                    },"Account -Address Change Request submission response Success");
+                    },"Account - Address Change Success ");
                     //     this.dataService.removeMspAccountApp();
                     window.location.href = this.addressChangeBCUrl;
                     return;
                 }).catch((error: ResponseType | any) => {
                 this.logService.log({
-                    name: 'MSP Account Maintenance Address Change Only Request received failure message from API server',
+                    name: 'Account - Address Change Failure ',
                     error: error._body,
                     request: error._requestBody
-                },"Account -Address Change Request submission response Error");
+                },"Account - Address Change Failure");
 
                 //     this.dataService.removeMspAccountApp();
                 window.location.href = this.addressChangeBCUrl;
