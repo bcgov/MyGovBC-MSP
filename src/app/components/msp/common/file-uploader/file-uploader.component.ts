@@ -27,7 +27,7 @@ var sha1 = require('sha1');
 @Component({
   selector: 'msp-file-uploader',
   templateUrl: './file-uploader.html',
-  styleUrls: ['./file-uploader.component.less']
+  styleUrls: ['./file-uploader.component.scss']
 })
 export class FileUploaderComponent 
   extends BaseComponent 

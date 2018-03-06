@@ -39,7 +39,7 @@ import {MspCountryComponent} from "../../../common/country/country.component";
 @Component({
     selector: 'msp-personal-details',
     templateUrl: './personal-details.component.html',
-    styleUrls: ['./personal-details.component.less'],
+    styleUrls: ['./personal-details.component.scss'],
 
     animations: [
       trigger('shrinkOut', [

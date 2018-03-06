@@ -10,7 +10,7 @@ import {Relationship} from "../../model/status-activities-documents";
 
 @Component({
   templateUrl: 'sending.component.html',
-  styleUrls: ['./sending.component.less']
+  styleUrls: ['./sending.component.scss']
 })
 @Injectable()
 export class AccountSendingComponent implements AfterContentInit {

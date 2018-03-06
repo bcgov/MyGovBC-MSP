@@ -3,7 +3,7 @@ import {Component, Input} from '@angular/core';
 @Component({
   selector: 'msp-transmission-error-view',
   templateUrl: './transmission-error-view.component.html',
-  styleUrls: ['./transmission-error-view.less']
+  styleUrls: ['./transmission-error-view.scss']
 })
 export class TransmissionErrorView {
 

@@ -13,7 +13,7 @@ import { MspLogService } from '../../service/log.service';
 
 @Component({
     templateUrl: './review.component.html',
-    styleUrls: ['./review.component.less']
+    styleUrls: ['./review.component.scss']
 })
 export class AccountReviewComponent implements OnInit {
     lang = require('./i18n');

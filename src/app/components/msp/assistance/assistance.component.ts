@@ -12,7 +12,7 @@ import { MspLogService } from '../service/log.service';
  */
 @Component({
   templateUrl: './assistance.component.html',
-  styleUrls: ['./assistance.component.less']
+  styleUrls: ['./assistance.component.scss']
 })
 export class AssistanceComponent {
   lang = require('./i18n');

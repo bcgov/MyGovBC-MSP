@@ -9,7 +9,7 @@ import {ServicesCardDisclaimerModalComponent} from "../services-card-disclaimer/
 @Component({
     selector: 'msp-status-in-canada-radio',
     templateUrl: './status-in-canada-radio.component.html',
-    styleUrls: ['./status-in-canada-radio.component.less']
+    styleUrls: ['./status-in-canada-radio.component.scss']
 })
 export class MspStatusInCanadaRadioComponent extends BaseComponent {
     lang = require('./i18n');

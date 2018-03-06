@@ -22,7 +22,7 @@ import { OutofBCRecord } from '../../../model/outof-bc-record.model';
 @Component({
     selector: 'msp-add-new-dependent-beneficiary',
     templateUrl: './add-new-dependent-beneficiary.component.html',
-    styleUrls: ['./add-new-dependent-beneficiary.component.less']
+    styleUrls: ['./add-new-dependent-beneficiary.component.scss']
 })
 export class AddNewDependentBeneficiaryComponent extends BaseComponent implements OnInit {
     Relationship: typeof Relationship = Relationship;

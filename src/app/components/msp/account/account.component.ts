@@ -11,7 +11,7 @@ import {Subscription} from 'rxjs/Rx';
 import {MspLogService} from '../service/log.service';
 
 
-require('./account.component.less');
+require('./account.component.scss');
 
 /**
  * AccountComponent for MSP, this houses everything that happens under the

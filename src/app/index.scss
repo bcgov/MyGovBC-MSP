@@ -55,8 +55,8 @@
 
 
 
-@import "~font-awesome/scss/variables.less";
-@import "~font-awesome/scss/mixins.less";
+@import "~font-awesome/scss/variables";
+@import "~font-awesome/scss/mixins";
 
 $fa-font-path: '~font-awesome/fonts';
 @font-face {
@@ -66,21 +66,21 @@ $fa-font-path: '~font-awesome/fonts';
   font-style: normal;
 }
 
-@import "~font-awesome/scss/core.less";
-@import "~font-awesome/scss/larger.less";
-@import "~font-awesome/scss/fixed-width.less";
-@import "~font-awesome/scss/list.less";
-@import "~font-awesome/scss/bordered-pulled.less";
-@import "~font-awesome/scss/animated.less";
-@import "~font-awesome/scss/rotated-flipped.less";
-@import "~font-awesome/scss/stacked.less";
-@import "~font-awesome/scss/icons.less";
-@import "~font-awesome/scss/screen-reader.less";
+@import "~font-awesome/scss/core";
+@import "~font-awesome/scss/larger";
+@import "~font-awesome/scss/fixed-width";
+@import "~font-awesome/scss/list";
+@import "~font-awesome/scss/bordered-pulled";
+@import "~font-awesome/scss/animated";
+@import "~font-awesome/scss/rotated-flipped";
+@import "~font-awesome/scss/stacked";
+@import "~font-awesome/scss/icons";
+@import "~font-awesome/scss/screen-reader";
 
 
 $icon-font-path: '~bootstrap/fonts/';
 
 
-@import 'styles/overrides.less';
-@import 'styles/additions.less';
+@import 'styles/overrides.scss';
+@import 'styles/additions.scss';
 

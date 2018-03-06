@@ -10,7 +10,7 @@ import {ProcessService} from "../../service/process.service";
 
 @Component({
   templateUrl: 'sending.component.html',
-  styleUrls: ['./sending.component.less']
+  styleUrls: ['./sending.component.scss']
 })
 @Injectable()
 export class SendingComponent implements AfterContentInit {

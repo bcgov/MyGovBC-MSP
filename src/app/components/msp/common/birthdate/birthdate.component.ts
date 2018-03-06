@@ -19,7 +19,7 @@ import {BaseComponent} from "../base.component";
 @Component({
     selector: 'msp-birthdate',
     templateUrl: './birthdate.component.html',
-    styleUrls: ['./birthdate.component.less']
+    styleUrls: ['./birthdate.component.scss']
 
 })
 export class MspBirthDateComponent extends BaseComponent {

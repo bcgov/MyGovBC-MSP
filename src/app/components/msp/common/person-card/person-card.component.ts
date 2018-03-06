@@ -6,7 +6,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'msp-person-card',
   templateUrl: './person-card.component.html',
-  styleUrls: ['./person-card.component.less']
+  styleUrls: ['./person-card.component.scss']
 })
 export class MspPersonCardComponent {
   lang = require('./i18n');

@@ -8,7 +8,7 @@ import { SimpleDateTools } from '../../model/simple-date.tools';
 @Component({
   selector: 'msp-date',
   templateUrl: './date.component.html',
-  styleUrls: ['./date.component.less']
+  styleUrls: ['./date.component.scss']
 
 })
 export class MspDateComponent extends BaseComponent implements AfterViewInit {
@@ -46,7 +46,7 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
     /**
      * 'Required' should be a boolean, but it is possible to pass it a string
      * which leads to a difficult to debug issue. Ideally, pass a raw boolean,
-     * but regardless this code will make sure both work.
+     * but regar.scss code will make sure both work.
      * 
      * BAD:   <msp-date required="false">
      * GOOD:  <msp-date required=false>

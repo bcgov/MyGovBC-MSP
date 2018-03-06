@@ -5,7 +5,7 @@ import { BaseComponent } from "../base.component";
 @Component({
   selector: 'msp-toggle',
   templateUrl: './toggle.component.html',
-  styleUrls: ['./toggle.component.less']
+  styleUrls: ['./toggle.component.scss']
 })
 export class MspToggleComponent extends BaseComponent {
 

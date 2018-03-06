@@ -16,7 +16,7 @@ import {FileUploaderComponent} from "../common/file-uploader/file-uploader.compo
  */
 @Component({
     templateUrl: './landing.component.html',
-    styleUrls: ['./landing.component.less']
+    styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent {
     lang = require('./i18n')

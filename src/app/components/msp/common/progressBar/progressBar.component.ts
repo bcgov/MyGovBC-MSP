@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'msp-progressBar',
   templateUrl: './progressBar.component.html',
-  styleUrls: ['./progressBar.component.less'],
+  styleUrls: ['./progressBar.component.scss'],
 })
 export class MspProgressBarComponent {
   @Input() public progressBarList: MspProgressBarItem[];
