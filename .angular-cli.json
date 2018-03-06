@@ -19,7 +19,7 @@
     "testTsconfig": "tsconfig.spec.json",
     "prefix": "msp",
     "styles": [
-      "app/index.less"
+      "app/index.scss"
     ],
     "scripts": [],
     "environmentSource": "environments/environment.ts",
@@ -44,7 +44,7 @@
     }
   },
   "defaults": {
-    "styleExt": "less",
+    "styleExt": "scss",
     "component": {},
     "serve": {
       "port": 4300
