@@ -41,9 +41,7 @@ a {
 .msp-app .btn-default {
     margin-right: 15px;
     
-    $media screen and (max-width:$screen-sm) {
-        margin-top:15px;
-    }  
+
 }
 
 .btn-link {
@@ -53,7 +51,7 @@ a {
 .btn.disabled, .btn[disabled] {
     color:$gray-light;
     background-color:$gray-lighter;
-    border-color:$gray-lighter;    
+    border-color:$gray-lighter;
 }
 
 .panel .btn.disabled, .panel .btn[disabled] {
@@ -123,35 +121,36 @@ footer .navbar-nav > li > a {
 // Checkboxes
 // --------------------------------------------------
 
-$font-family-icon: 'FontAwesome';
-$fa-var-check: "\f00c";
-$check-icon: $fa-var-check;
+$font-family-icon: 'FontAwesome' !default;
+$fa-var-check: "\f00c" !default;
+$check-icon: $fa-var-check !default;
 
-.checkbox-variant($parent, $color) {
-  .${parent} input[type="checkbox"]:checked + label,
-  .${parent} input[type="radio"]:checked + label {
+@mixin checkbox-variant($parent, $color) {
+  #{$parent} input[type="checkbox"]:checked + label,
+  #{$parent} input[type="radio"]:checked + label {
     &::before {
       background-color: $color;
       border-color: $color;
     }
-    &::after {
+    &::after{
       color: #fff;
     }
   }
 }
 
-.checkbox-variant-indeterminate($parent, $color) {
-  .${parent} input[type="checkbox"]:indeterminate + label,
-  .${parent} input[type="radio"]:indeterminate + label {
+@mixin checkbox-variant-indeterminate($parent, $color) {
+  #{$parent} input[type="checkbox"]:indeterminate + label,
+  #{$parent} input[type="radio"]:indeterminate + label {
     &::before {
       background-color: $color;
       border-color: $color;
     }
-    &::after {
+    &::after{
       background-color: #fff;
     }
   }
 }
+
 
 
 .checkbox{
@@ -174,7 +173,7 @@ $check-icon: $fa-var-check;
       border: 1px solid $input-border;
       border-radius: 3px;
       background-color: #fff;
-      .transition(~"border 0.15s ease-in-out, color 0.15s ease-in-out");
+      @include transition(border 0.15s ease-in-out, color 0.15s ease-in-out);
     }
 
     &::after{
@@ -193,12 +192,12 @@ $check-icon: $fa-var-check;
   }
 
   input[type="checkbox"],
-  input[type="radio"]{
+  input[type="radio"] {
     opacity: 0;
     z-index: 1;
 
     &:focus + label::before{
-      .tab-focus();
+      @include tab-focus();
     }
 
     &:checked + label::after{
@@ -208,7 +207,7 @@ $check-icon: $fa-var-check;
 
     &:indeterminate + label::after{
       display: block;
-      content: " ";
+      content: "";
       width: 10px;
       height: 3px;
       background-color: #555555;
@@ -216,6 +215,7 @@ $check-icon: $fa-var-check;
       margin-left: -16.5px;
       margin-top: 7px;
     }
+
 
     &:disabled + label{
       opacity: 0.65;
@@ -237,25 +237,26 @@ $check-icon: $fa-var-check;
   }
 }
 
-.checkbox-variant(checkbox-primary, $brand-primary);
-.checkbox-variant(checkbox-danger, $brand-danger);
-.checkbox-variant(checkbox-info, $brand-info);
-.checkbox-variant(checkbox-warning, $brand-warning);
-.checkbox-variant(checkbox-success, $brand-success);
+@include checkbox-variant('.checkbox-primary', $brand-primary);
+@include checkbox-variant('.checkbox-danger', $brand-danger);
+@include checkbox-variant('.checkbox-info', $brand-info);
+@include checkbox-variant('.checkbox-warning', $brand-warning);
+@include checkbox-variant('.checkbox-success', $brand-success);
 
-.checkbox-variant-indeterminate(checkbox-primary, $brand-primary);
-.checkbox-variant-indeterminate(checkbox-danger, $brand-danger);
-.checkbox-variant-indeterminate(checkbox-info, $brand-info);
-.checkbox-variant-indeterminate(checkbox-warning, $brand-warning);
-.checkbox-variant-indeterminate(checkbox-success, $brand-success);
+
+@include checkbox-variant-indeterminate('.checkbox-primary', $brand-primary);
+@include checkbox-variant-indeterminate('.checkbox-danger', $brand-danger);
+@include checkbox-variant-indeterminate('.checkbox-info', $brand-info);
+@include checkbox-variant-indeterminate('.checkbox-warning', $brand-warning);
+@include checkbox-variant-indeterminate('.checkbox-success', $brand-success);
 
 //
 // Radios
 // --------------------------------------------------
 
-.radio-variant($parent, $color) {
-  .${parent} input[type="radio"]{
-    & + label{
+@mixin radio-variant($parent, $color) {
+  #{$parent} input[type="radio"]{
+    + label{
       &::after{
         background-color: $color;
       }
@@ -291,7 +292,7 @@ $check-icon: $fa-var-check;
       border: 1px solid $input-border;
       border-radius: 50%;
       background-color: #fff;
-      .transition(border 0.15s ease-in-out);
+      @include transition(border 0.15s ease-in-out);
     }
 
     &::after{
@@ -305,9 +306,9 @@ $check-icon: $fa-var-check;
       margin-left: -20px;
       border-radius: 50%;
       background-color: $input-color;
-      .scale(0, 0);
+      @include scale(0, 0);
 
-      .transition-transform(.1s cubic-bezier(.8,-0.33,.2,1.33));
+      @include transition-transform(.1s cubic-bezier(.8,-0.33,.2,1.33));
       //curve - http://cubic-bezier.com/#.8,-0.33,.2,1.33
     }
   }
@@ -317,12 +318,13 @@ $check-icon: $fa-var-check;
     z-index: 1;
 
     &:focus + label::before{
-      .tab-focus();
+      @include tab-focus();
     }
 
     &:checked + label::after{
-      .scale(1, 1);
+      @include scale(1, 1);
     }
+
 
     &:disabled + label{
       opacity: 0.65;
@@ -339,11 +341,12 @@ $check-icon: $fa-var-check;
   }
 }
 
-.radio-variant(radio-primary, $brand-primary);
-.radio-variant(radio-danger, $brand-danger);
-.radio-variant(radio-info, $brand-info);
-.radio-variant(radio-warning, $brand-warning);
-.radio-variant(radio-success, $brand-success);
+@include radio-variant('.radio-primary', $brand-primary);
+@include radio-variant('.radio-danger', $brand-danger);
+@include radio-variant('.radio-info', $brand-info);
+@include radio-variant('.radio-warning', $brand-warning);
+@include radio-variant('.radio-success', $brand-success);
+
 
 input[type="checkbox"],
 input[type="radio"] {
@@ -351,7 +354,7 @@ input[type="radio"] {
     font-family: $font-family-icon;
     content: $check-icon;
   }
-  & .styled:checked + label {
+  .styled:checked + label {
     &::before {
       color: #fff;
     }
