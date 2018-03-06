@@ -139,7 +139,7 @@ export class MspProgressBarComponent {
   }
 
   /**
-   * Returns a string which matches classes found in progressBar.component.less.
+   * Returns a string which matches classes found in progressBar.component.scss.
    * This class should only be responsible for the height of the progress bar
    * when it's at the -sm- breakpoint or larger in bootstrap.
    * 
