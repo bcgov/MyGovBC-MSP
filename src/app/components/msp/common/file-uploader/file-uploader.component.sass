@@ -1,0 +1,84 @@
+// label.btn {
+//   input {
+//     display: none;
+//   }
+// }
+
+// form {
+//   input {
+//     display: none;
+//   }
+// }
+
+
+.dropzone {
+  border: 2px dashed lightgrey;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  height: 15%;
+  .instruction-zone {
+    margin: 10px 5px 5px;
+    /*height: 300px;*/
+    text-align: center;
+    input {
+      display: none;
+    }
+    .file-upload-label {
+      color: darkblue;
+    }  
+    .file-upload-label:hover {
+      text-decoration: underline;
+      cursor: pointer;
+
+    }
+  }
+
+  .preview-zone {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+    
+    .preview-item {
+      /*width: 200px; */
+      position:relative;
+      height: 120px; 
+      // border: 2px solid red;
+
+      /* top | horizontal | bottom */
+      /*margin: 5px;*/
+
+      /* vertical | horizontal */
+      margin: 5px auto;
+      text-align: center;
+      /* Upload Icon CSS*/
+      .icon-upload{
+        opacity: 0.3;
+        margin: 0 auto 15px auto;
+        &:hover {
+          cursor: pointer;
+          opacity: 0.6;
+        }
+      }
+
+      .text-upload{
+        text-decoration: underline;
+        &:hover{
+          cursor: pointer;
+        }
+      }
+    }
+
+    .error-style {
+      color:red;
+      font-weight: bold;
+    }
+    
+  }
+  /* Hide take photo CSS*/
+  .mobileShow{display:none;}
+  @media only screen
+  and (min-device-width : 320px)
+  and (max-device-width : 480px){ .mobileShow { display: inline;}}
+}
+
