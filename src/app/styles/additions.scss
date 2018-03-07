@@ -17,7 +17,7 @@
 #pad {
   height: 75px;
 
-  $media (max-width: 768px) {
+  @media (max-width: 768px) {
     height: 100px;
   }
 }
@@ -40,11 +40,11 @@
 }
 
 .success {
-  color: $brand-success;
+  color: $success;
 }
 
 .danger {
-  color: $brand-danger;
+  color: $danger;
 }
 
 // Upper cases text and input fields
@@ -82,12 +82,12 @@
 /* Apply our bootstrap theme form-control to the input of the component using some
    some less magic */
 .completer-holder input {
-  .form-control;
+ // .form-control;//TODO boostrap.verify this
 }
 
 /* Add modal header color */
 .modal-header-primary {
-  background: $brand-primary;
+  background: $primary;
 
   h2 {
     color: white;
@@ -122,7 +122,7 @@ h3 i {
 
 }
 p.intro {
-    font-size: $font-size-large;
+    font-size: $font-size-lg;
     margin-top: 20px;
 }
 

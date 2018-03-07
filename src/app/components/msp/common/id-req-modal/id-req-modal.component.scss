@@ -6,12 +6,12 @@
   }
   .panel-heading a {
     text-decoration: none !important;
-    color: $brand-primary;
+    color: $primary;
     font-weight: bold;
     outline : none;
   }
 
   img {
-    border:3px solid $brand-danger;
+    border:3px solid $danger;
   }
 }
