@@ -118,9 +118,6 @@
     background: #E3E4E5;
     cursor: not-allowed;
     pointer-events: none;
-    //Bootstrap 3 to 4: Change access of brand colours
-    // color: $gray-light; //TODO: Remove
-    color: map-get($theme-colors, primary);
 }
 
 .progressBar .afterActive:after {
