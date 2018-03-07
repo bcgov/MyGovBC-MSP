@@ -1,4 +1,9 @@
 @import "../../../styles/variables.scss";
+// Bootstrap 3 to 4: Included imports
+// @import "~/bootstrap/scss/mixins/breakpoints";
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
 
 .title {
   font-size: 30px;
@@ -8,19 +13,25 @@
   position: relative;
   white-space: nowrap;
 
-  @media (max-width: $screen-xs) {
+  //Bootstrap 3 to 4: Using breakpoint mixin.
+  @include media-breakpoint-down(xs){
+  // @media (max-width: $screen-xs) { //TODO:
     font-size: 14px;
   }
 }
 
 // Header
 header {
-  background-color: $brand-primary;
+  //Bootstrap 3 to 4: Change access of brand colours
+  // background-color: $brand-primary; //TODO: Remove
+  background-color: map-get($theme-colors, primary);
   border-bottom: 2px solid #fcba19;
   padding-top: 10px;
   padding-bottom: 20px;
 
-  @media (max-width: 767px) {
+  //Bootstrap 3 to 4: Using breakpoint mixin.
+  @include media-breakpoint-down(md) {
+  // @media (max-width: 767px) { //TODO:
     padding-top: 2px;
     padding-bottom: 8px;
   }
@@ -31,7 +42,9 @@ header {
   height: 45px;
   margin-right: 18px;
 
-  @media (max-width: 767px) {
+  //Bootstrap 3 to 4: Using breakpoint mixin.
+  @include media-breakpoint-down(md){ 
+  // @media (max-width: 767px) { //TODO:
     width: 110px;
     height: 30px;
   }

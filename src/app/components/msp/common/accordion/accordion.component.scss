@@ -1,7 +1,14 @@
 // Because we use ViewEncapsulation.None for this component, all styles must be
 // within msp-accordion.  We use ViewEncapsulation.None because it lets us style
 // the embedded accordion widget.
-@import '../../../../styles/variables.scss';
+
+// Bootstrap 3 to 4: Included imports
+// @import "~/bootstrap/scss/mixins/breakpoints";
+
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
 
 msp-accordion {
     .fa {
@@ -27,7 +34,8 @@ msp-accordion {
         white-space: nowrap;
 
         //Right-align text when enough space, but when smaller we don't want to float because it breaks.
-        @media(min-width: $screen-md-min){
+        //Bootstrap 3 to 4: Using breakpoint mixin.
+        @include media-breakpoint-up(md){
             float: right;
             padding-right: 1em;
             padding-left: 0;

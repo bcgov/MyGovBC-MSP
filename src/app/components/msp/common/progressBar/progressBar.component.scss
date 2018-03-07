@@ -1,4 +1,42 @@
 @import "../../../../styles/variables.scss";
+// Bootstrap 3 to 4: Included imports
+// @import "~/bootstrap/scss/mixins/breakpoints";
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+// Copied styles into a function to keep code DRY. Basically, it's a responsive
+// calc(), setting the li.activeContainer to fill up the space so the entire
+// progress bar is full width on smaller breakpoints.
+// @NumOfItems are the total number of collapsed items in the progress bar
+// excluding the last one, which should be 2 less than the total items.
+
+//Bootstrap 3 to 4: Convert function to Mixin. Moved to file top (no hoisting).
+//TODO: Test mixin works properly, specifically whether the string concatenation happening in the `width` attr is correct.  Currently believe it is
+@mixin responsiveProgressBarItemFunction($NumOfItems) {
+
+    //Bootstrap 3 to 4: Using breakpoint mixin.
+    @include media-breakpoint-between(xs, sm){
+    // @media screen and (min-width: $screen-xs) and (max-width: $screen-xs-max) { //TODO: Remove
+        $collapsedItemSize: 58px;
+        $finalCollapsedItemSize: 68px; // need to escape the calc() so LESS doesn't compile a value
+        // width: ~"calc(100% - ("$collapsedItemSize~" * "$NumOfItems~") - ("$finalCollapsedItemSize~"))" !important;
+        //TODO: TEST BELOW WORKS!
+        width: "calc(100% - ( "$collapsedItemSize" * "$NumOfItems") - ("$finalCollapsedItemSize"))" !important;
+    }
+
+    //Bootstrap 3 to 4: Using breakpoint mixin.
+    @include media-breakpoint-down(xs){
+    // @media screen and (max-width: $screen-xs) { //TODO: Remove
+        $collapsedItemSize: 41px;
+        $finalCollapsedItemSize: 59px; // need to escape the calc() so LESS doesn't compile a value
+        // width: ~"calc(100% - ("$collapsedItemSize~" * "$NumOfItems~") - ("$finalCollapsedItemSize~"))" !important;
+        //TODO: TEST BELOW WORKS!
+        width: "calc(100% - ("$collapsedItemSize" * "$NumOfItems") - ("$finalCollapsedItemSize"))" !important;
+    }
+}
+
+
 .progressBar {
     text-align: left;
     display: table;
@@ -18,19 +56,25 @@
     display: inline-block;
     text-align: center;
     width: auto;
-    @media screen and (min-width: $screen-sm) {
+    //Bootstrap 3 to 4: Using breakpoint mixin.
+    // @media screen and (min-width: $screen-sm) { //TODO:
+    @include media-breakpoint-up(sm){
         min-width: 25%;
         display: table-cell;
     }
 }
 
-@media screen and (max-width: $screen-xs-max){
+//Bootstrap 3 to 4: Using breakpoint mixin.
+@include media-breakpoint-down(sm){
+// @media screen and (max-width: $screen-xs-max){ /TODO:
     .progressBar ul li a.active span:first-of-type {
         padding-right: 5px;
     }
 }
 
-@media screen and (max-width: $screen-xs){
+//Bootstrap 3 to 4: Using breakpoint mixin.
+@include media-breakpoint-down(xs){
+// @media screen and (max-width: $screen-xs){ //TODO:
     .progressBar ul li a span:first-of-type {
         display: none;
     }
@@ -75,7 +119,9 @@
     background: #E3E4E5;
     cursor: not-allowed;
     pointer-events: none;
-    color: $gray-light;
+    //Bootstrap 3 to 4: Change access of brand colours
+    // color: $gray-light; //TODO: Remove
+    color: map-get($theme-colors, primary);
 }
 
 .progressBar .afterActive:after {
@@ -97,16 +143,24 @@
     padding: 7px 10px 0 30px;
     position: relative;
     margin: 0 5px 0 0;
-    font-size: $font-size-h3;
+    //Bootstrap 3 to 4: Changed variable from $font-size-h3 to $h3-font-size
+    // font-size: $font-size-h3;
+    font-size: $h3-font-size;
     text-decoration: none;
     color: black;
-    @media(max-width: $screen-xs) {
+    // @media(max-width: $screen-xs) { //TODO:
+    //Bootstrap 3 to 4: Using breakpoint mixin.
+    @include media-breakpoint-down(xs){
         padding: 7px 2px 0 24px;
         margin: 0 2px 0 0;
         text-align: left;
     }
-    @media(max-width: $screen-md) {
-        font-size: $font-size-h4;
+    //Bootstrap 3 to 4: Using breakpoint mixin.
+    @include media-breakpoint-down(md){
+    // @media(max-width: $screen-md) { //TODO:
+        //Bootstrap 3 to 4: Changed variable from $font-size-h4 to $h4-font-size
+        // font-size: $font-size-h4; //TODO: Remove
+        font-size: $h4-font-size;
     }
 }
 
@@ -122,7 +176,9 @@
 
 .progressBar ul li:first-child a {
     border-top-left-radius: 0px;
-    border-bottom-left-radius: $btn-border-radius-base;
+    //Bootstrap 3 to 4: Changed $btn-border-radius-base to $btn-border-radius
+    // border-bottom-left-radius: $btn-border-radius-base;//TODO: Remove
+    border-bottom-left-radius: $btn-border-radius;
 }
 
 .progressBar ul li:first-child a:before {
@@ -132,7 +188,9 @@
 .progressBar ul li:last-child a {
     padding-right: 20px;
     border-top-right-radius: 0px;
-    border-bottom-right-radius: $btn-border-radius-base;
+    //Bootstrap 3 to 4: Changed $btn-border-radius-base to $btn-border-radius
+    // border-bottom-right-radius: $btn-border-radius-base; //TODO: Remove
+    border-bottom-right-radius: $btn-border-radius;
 }
 
 .progressBar ul li:last-child a:after {
@@ -154,14 +212,18 @@
     ul>li>a {
         height: 60px; 
 
-        @media screen and (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+        //Bootstrap 3 to 4: Using breakpoint mixin.
+        @include media-breakpoint-between(sm, md){
+        // @media screen and (min-width: $screen-sm) and (max-width: $screen-sm-max) { //TODO:
             //Hacky little ways to squeeze every pixel of space we can get.
             padding: 7px 10px 0 27px;
         }
     }
 
 
-    @media screen and (max-width: $screen-xs-max) {
+    //Bootstrap 3 to 4: Using breakpoint mixin.
+    @include media-breakpoint-down(xs){
+    // @media screen and (max-width: $screen-xs-max) { //TODO:
         ul {
             min-height: 80px;
             height: 100%;
@@ -183,16 +245,17 @@
         }
     }
 
-    
+
     &.progressBarCount-4 li.activeContainer {
-        .responsiveProgressBarItemFunction(2);
+        @include responsiveProgressBarItemFunction(2);
     }
     &.progressBarCount-5 li.activeContainer {
-        .responsiveProgressBarItemFunction(3);
+        @include responsiveProgressBarItemFunction(3);
     }
 
-
-    @media screen and (min-width: $screen-sm) {
+    //Bootstrap 3 to 4: Using breakpoint mixin.
+    @include media-breakpoint-up(sm){
+    // @media screen and (min-width: $screen-sm) { //TODO:
         &.progressBar-lg>ul>li>a {
             height: 115px;
         }
@@ -205,23 +268,5 @@
         &.progressBar-xs>ul>li>a {
             height: 60px;
         }
-    }
-}
-
-// Copied styles into a function to keep code DRY. Basically, it's a responsive
-// calc(), setting the li.activeContainer to fill up the space so the entire
-// progress bar is full width on smaller breakpoints.
-// @NumOfItems are the total number of collapsed items in the progress bar
-// excluding the last one, which should be 2 less than the total items.
-.responsiveProgressBarItemFunction($NumOfItems) {
-    @media screen and (min-width: $screen-xs) and (max-width: $screen-xs-max) {
-        $collapsedItemSize: 58px;
-        $finalCollapsedItemSize: 68px; // need to escape the calc() so LESS doesn't compile a value
-        width: ~"calc(100% - ("$collapsedItemSize~" * "$NumOfItems~") - ("$finalCollapsedItemSize~"))" !important;
-    }
-    @media screen and (max-width: $screen-xs) {
-        $collapsedItemSize: 41px;
-        $finalCollapsedItemSize: 59px; // need to escape the calc() so LESS doesn't compile a value
-        width: ~"calc(100% - ("$collapsedItemSize~" * "$NumOfItems~") - ("$finalCollapsedItemSize~"))" !important;
     }
 }
