@@ -13,5 +13,10 @@ if [ -n "$HTTP_BASIC_USERNAME" ] && [ "$HTTP_BASIC_USERNAME" != "\${HTTP_BASIC_U
     `echo "$HTTP_BASIC_USERNAME:$(openssl passwd -crypt $HTTP_BASIC_PASSWORD)" > /tmp/.htpasswd`
 fi
 
+if [ -f /tmp/app/dist/Dockerfile ] ; then
+  echo "---> Removing Dockerfile from nginx"
+  rm -f /tmp/app/dist/Dockerfile
+fi
+
 echo "---> starting nginx"
 /usr/sbin/nginx -g "daemon off;"
