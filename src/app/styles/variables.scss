@@ -13,19 +13,19 @@
 //------------------------------------------------------------------------------
 // Bootstrap Overrides
 //------------------------------------------------------------------------------
-$font-size-base : 1rem;
-$h1-font-size: $font-size-base * 2;
-$h2-font-size: $font-size-base * 1.5;
-$h3-font-size: $font-size-base * 1.25;
-$h4-font-size: $font-size-base * 1.07;
-$h5-font-size: $font-size-base * 1;
-$h6-font-size: $font-size-base * 0.85;
+$font-size-base : 1rem; //14px;
+$h1-font-size: $font-size-base * 2; //28px
+$h2-font-size: $font-size-base * 1.5; //21px
+$h3-font-size: $font-size-base * 1.25; //17.5px
+$h4-font-size: $font-size-base * 1.1; //15px
+$h5-font-size: $font-size-base * 1; //14px;
+$h6-font-size: $font-size-base * 0.85; //12px
 
 $container-max-widths: (
     // Bootstrap 3 to 4: Customize container widths to match previous behaviour
     // `sm`, a new BS4 container width. We set it high effectively disabling it.
     sm: 719px, //orig: 540px;
-    md: 720px,
+    md: 750px, //orig: 720px, increased for spacing of .progressBarType-account
     lg: 960px,
     xl: 1140px
 );
