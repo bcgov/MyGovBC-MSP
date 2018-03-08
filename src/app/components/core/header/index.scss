@@ -14,7 +14,6 @@
 
   //Bootstrap 3 to 4: Using breakpoint mixin.
   @include media-breakpoint-down(xs){
-  // @media (max-width: $screen-xs) { //TODO:
     font-size: 14px;
   }
 }
@@ -22,7 +21,6 @@
 // Header
 header {
   //Bootstrap 3 to 4: Change access of brand colours
-  // background-color: $brand-primary; //TODO: Remove
   background-color: $color-primary;
   border-bottom: 2px solid #fcba19;
   padding-top: 10px;
@@ -30,7 +28,6 @@ header {
 
   //Bootstrap 3 to 4: Using breakpoint mixin.
   @include media-breakpoint-down(md) {
-  // @media (max-width: 767px) { //TODO:
     padding-top: 2px;
     padding-bottom: 8px;
   }
@@ -43,7 +40,6 @@ header {
 
   //Bootstrap 3 to 4: Using breakpoint mixin.
   @include media-breakpoint-down(md){ 
-  // @media (max-width: 767px) { //TODO:
     width: 110px;
     height: 30px;
   }

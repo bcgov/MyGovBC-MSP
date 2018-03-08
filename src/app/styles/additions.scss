@@ -148,3 +148,20 @@ input[type=number]::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance:textfield;
 }
+
+// Bootstrap has deprecated these helper classes, replacing them with their
+// "display" helpers, e.g. d-none or d-sm-block.  We should try to use the new
+// helpers wherever possible, but currently some of our implementations (such as
+// the ProgressBar) require these classes.
+@include media-breakpoint-down(sm){
+  .hidden-xs { display: none !important;}
+}
+@include media-breakpoint-down(md){
+  .hidden-sm { display: none !important;}
+}
+@include media-breakpoint-down(lg){
+  .hidden-md { display: none !important;}
+}
+@include media-breakpoint-down(xl){
+  .hidden-lg { display: none !important;}
+}

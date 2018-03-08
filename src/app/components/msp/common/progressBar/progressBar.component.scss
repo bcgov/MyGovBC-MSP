@@ -198,7 +198,6 @@
     ul>li>a {
         height: 4.25rem;
 
-        //TODO: Remove after testing it's no-longer necessary. From current testing it looks like it's fine to remove, but need to test all edge cases.
         //Bootstrap 3 to 4: Using breakpoint mixin.
         @include media-breakpoint-between(sm, md){
             //Hacky little ways to squeeze every pixel of space we can get.
@@ -239,7 +238,6 @@
 
     //Bootstrap 3 to 4: Using breakpoint mixin.
     @include media-breakpoint-up(md){
-    // @media screen and (min-width: $screen-sm) { //TODO:
         &.progressBar-lg>ul>li>a {
             height: 8.25rem;
         }
