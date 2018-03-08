@@ -23,7 +23,7 @@
 header {
   //Bootstrap 3 to 4: Change access of brand colours
   // background-color: $brand-primary; //TODO: Remove
-  background-color: map-get($theme-colors, primary);
+  background-color: $color-primary;
   border-bottom: 2px solid #fcba19;
   padding-top: 10px;
   padding-bottom: 20px;

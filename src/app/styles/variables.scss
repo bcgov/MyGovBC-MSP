@@ -7,20 +7,16 @@
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 
-// Change theme-colors
-$theme-colors: ();
-$theme-colors: map-merge((
-        primary: #036,
-        secondary: #fcba19,
-        success: #486446,
-        info: #96c0e6,
-        warning: #f3cd65,
-        danger: #d8292f,
-        light: $gray-100,
-        dark: $gray-800,
-        primary-nav: #38598a,  // This is new
-        secondary-nav: #5475a7 // This is new too
-), $theme-colors);
+$color-primary: #036;
+$color-secondary: #fcba19;
+$color-success: #486446;
+$color-info: #96c0e6;
+$color-warning: #f3cd65;
+$color-danger: #d8292f;
+$color-light: $gray-100;
+$color-dark: $gray-800;
+$color-primary-nav: #38598a;  // This is new from Bootstrap 4 theme
+$color-secondary-nav: #5475a7; // This is new too Bootstrap 4 theme
 
 // Add our font as default
 $font-family-sans-serif: Myriad-Pro, Calibri, Arial, sans serif;
