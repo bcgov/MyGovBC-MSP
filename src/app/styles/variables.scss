@@ -19,6 +19,7 @@ $color-primary-nav: #38598a;  // This is new from Bootstrap 4 theme
 $color-secondary-nav: #5475a7; // This is new too Bootstrap 4 theme
 
 // Change theme-colors
+$theme-colors: ();
 $theme-colors: map-merge((
         primary: $color-primary,
         secondary: $color-secondary,
