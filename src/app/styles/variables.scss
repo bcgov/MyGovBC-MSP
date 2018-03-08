@@ -21,6 +21,15 @@ $h4-font-size: $font-size-base * 1.07;
 $h5-font-size: $font-size-base * 1;
 $h6-font-size: $font-size-base * 0.85;
 
+$container-max-widths: (
+    // Bootstrap 3 to 4: Customize container widths to match previous behaviour
+    // `sm`, a new BS4 container width. We set it high effectively disabling it.
+    sm: 720px, //orig: 540px;
+    md: 720px,
+    lg: 960px,
+    xl: 1140px
+);
+
 //------------------------------------------------------------------------------
 // Custom Variables
 //------------------------------------------------------------------------------
