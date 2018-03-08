@@ -21,7 +21,7 @@
       </msp-personal-details>
     </div>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-lg-12">
         <div class="msp-app">
           <div class="button-group">
             <button type="button" class="btn btn-default" (click)= 'addSpouse()'
@@ -48,13 +48,13 @@
         <p class="intro text-danger" *ngIf="!isStayinginBCAfterstudies()"
            [innerHtml]="lang('./en/index.js').badAnswerStudies" role="alert" aria-live="assertive">
         </p>
-      <div class="col-sm-2">
+      <div class="col-md-2">
         <button
             class="btn btn-primary" type="submit" [disabled] = "!documentsReady()|| !isStayinginBCAfterstudies() ||checkAnyDependentsIneligible()   "
             [innerHTML]="lang('./en/index.js').continueButton"></button>
         
       </div>
-      <div class="col-sm-6 pull-left" *ngIf="formRef.submitted">
+      <div class="col-md-6 pull-left" *ngIf="formRef.submitted">
         <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
         </p>
       </div>

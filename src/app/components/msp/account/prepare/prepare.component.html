@@ -46,7 +46,7 @@
         <span class="sr-only">Redirecting your request ...</span>
     </div>
 
-    <div class="col-md-12" *ngIf="!transmissionInProcess">
+    <div class="col-lg-12" *ngIf="!transmissionInProcess">
         <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="mspAccountApp.uuid"
                  (onValidToken)="mspAccountApp.authorizationToken = $event"></captcha>
     </div>

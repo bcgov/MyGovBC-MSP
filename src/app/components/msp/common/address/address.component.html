@@ -1,7 +1,7 @@
 <form #formRef='ngForm' novalidate>
     <div *ngIf="!mailingOnly">
     <div class="row">
-        <div class="form-group col-sm-5"
+        <div class="form-group col-md-5"
              [ngClass]="{'has-error': !formRef.controls.residentialAddressLine1?.valid && (residentialAddressLine1Ref.touched || showError)}">
             <label for="residentialAddressLine1{{objectId}}" [innerHtml]="lang('./en/index.js').addressLine1Label"></label>
             <input [(ngModel)]="residentialAddress.addressLine1" type="text" class="form-control msp-addressline"
@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-sm-4"
+        <div class="form-group col-md-4"
              [ngClass]="{'has-error': !formRef.controls.residentialAddressCity?.valid && (residentialAddressCityRef.touched || showError)}">
             <label for="residentialAddressCity{{objectId}}" [innerHtml]="lang('./en/index.js').cityLabel"></label>
             <input [(ngModel)]='residentialAddress.city' type="text" class="form-control"
@@ -55,7 +55,7 @@
             </div>
         </div>
 
-        <div class="form-group col-sm-3"
+        <div class="form-group col-md-3"
              [ngClass]="{'has-error': !formRef.controls.residentialAddressPostalCode?.valid &&
              (residentialAddressPostalCodeRef.touched  || showError)}">
             <label for="residentialAddressPostalCode{{objectId}}" [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
@@ -73,7 +73,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="form-group col-sm-5">
+        <div class="form-group col-md-5">
             <label for="residentialAddressProvince{{objectId}}" [innerHtml]="lang('./en/index.js').provinceLabel"></label>
             <input [(ngModel)]='residentialAddress.province'
                    type="text" class="form-control"
@@ -81,7 +81,7 @@
                    value="British Columbia"
                    readonly>
         </div>
-        <div class="form-group col-sm-4">
+        <div class="form-group col-md-4">
             <label for="residentialAddressCountry{{objectId}}" [innerHtml]="lang('./en/index.js').countryLabel"></label>
             <input type="text" [(ngModel)]="residentialAddress.country"
                    class="form-control"
@@ -92,7 +92,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="form-group col-xs-12">
+        <div class="form-group col-sm-12">
             <div class="checkbox checkbox-success checkbox-inline" 
                 (click) = "useSameMailingAddress()">
                 <input type="checkbox" 
@@ -104,7 +104,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="form-group col-xs-12">
+        <div class="form-group col-sm-12">
             <div class="checkbox checkbox-success checkbox-inline" 
                 (click) = "useDifferentMailingAddress()">
                 <input type="checkbox" 
@@ -123,7 +123,7 @@
         <h2 [innerHtml]="mailingAddressHeading"></h2>
 
         <div class="row">
-            <div class="form-group col-sm-5"
+            <div class="form-group col-md-5"
                  [ngClass]="{'has-error': !formRef.controls.mailingAddressLine1?.valid &&
                     (mailingAddressLine1Ref.touched || showError)}">
                 <label [innerHtml]="lang('./en/index.js').addressLine1Label"></label>
@@ -163,7 +163,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group col-sm-4"
+            <div class="form-group col-md-4"
                  [ngClass]="{'has-error': !formRef.controls.mailingAddressCity?.valid &&
                     (mailingAddressCityRef.touched || showError)}">
                 <label [innerHtml]="lang('./en/index.js').cityLabel"></label>
@@ -179,7 +179,7 @@
                          [innerHtml]="lang('./en/index.js').cityErrorMaxLength.replace('{length}', mailingAddressCityRef.maxLength)"></div>
                 </div>
             </div>
-            <div class="form-group col-sm-3"
+            <div class="form-group col-md-3"
                  [ngClass]="{'has-error': !formRef.controls.mailingAddressPostalCode?.valid &&
                     (mailingAddressPostalCodeRef.touched || showError)}">
                 <label [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
@@ -198,7 +198,7 @@
             </div>
         </div>
         <div class="row" *ngIf="!hideProvinceAndCountry">
-            <div class="form-group col-sm-5">
+            <div class="form-group col-md-5">
                 <msp-province #province
                         [provinceLabel]="lang('./en/index.js').provinceStateLabel"
                         [province]="mailingAddress.province"
@@ -207,7 +207,7 @@
                         [showError]="showError">
                 </msp-province>
             </div>
-            <div class="form-group col-sm-4">
+            <div class="form-group col-md-4">
                 <msp-country #country
                     [country]="mailingAddress.country"
                     (onChange)="countryUpdate($event)"

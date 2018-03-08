@@ -8,7 +8,7 @@
   <p [innerHTML]="lang('./en/index.js').sectionBody[person.relationship]"></p>
 
   <div class="row">
-    <div class="col-md-6 form-group" [ngClass]="{'has-error': showError && (person.isExistingBeneficiary === undefined || person.isExistingBeneficiary === null)}" >
+    <div class="col-lg-6 form-group" [ngClass]="{'has-error': showError && (person.isExistingBeneficiary === undefined || person.isExistingBeneficiary === null)}" >
   <label #firstFocus  for="isExistingBeneficiary-{{person.id}}" [innerHtml]="lang('./en/index.js').isExistingBeneficiaryQuestion[person.relationship]"  class="control-label"></label>
 
 
@@ -43,7 +43,7 @@
     <!-- Spouse-only Section, marriage date etc. -->
     <ng-container *ngIf="person.relationship === Relationship.Spouse">
       <div class="row">
-        <div class="col-md-4 form-group"
+        <div class="col-lg-4 form-group"
           [ngClass]="{'has-error': !formRef.controls['spousePrevLastname-'+person.id]?.valid && (prevNameRef.touched || showError)}">
           
           <label for='addSpousePreviousLastName-{{person.id}}' [innerHTML]="lang('./en/index.js').previousName"></label>
@@ -61,7 +61,7 @@
           </div>
 
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-4">
           <msp-date
             [label]="lang('./en/index.js').marriageDate"
             [showError]='showError'
@@ -76,7 +76,7 @@
     <!-- School information for child 19 to 24 -->
     <ng-container *ngIf="person.relationship === Relationship.Child19To24">
       <div class="row form-group">
-        <div class="col-md-4">
+        <div class="col-lg-4">
             <label for='schoolName-{{person.id}}' [innerHTML]="lang('./en/index.js').schoolName"></label>
 
             <input type="text" 
@@ -98,13 +98,13 @@
       </div>
 
       <div class="row form-group" [ngClass]="{'has-error': showError && (person.schoolOutsideOfBC === undefined || person.schoolOutsideOfBC === null)}">
-        <div class="col-md-4">
+        <div class="col-lg-4">
           <label for="isOutsideBC-{{person.id}}" [innerHtml]="lang('./en/index.js').schoolOutsideBC" class="control-label"></label>
       
           <msp-toggle [id]="'isOutsideBC-'+ person.id" [(data)]="person.schoolOutsideOfBC" (dataChange)="outsideBCchange($event)" ></msp-toggle>
         </div>
 
-        <div class="col-md-4 form-inline" *ngIf="person.schoolOutsideOfBC">
+        <div class="col-lg-4 form-inline" *ngIf="person.schoolOutsideOfBC">
           <msp-date
             [label]="lang('./en/index.js').departureDate"
             [showError]='showError' [futureDate]="true"
@@ -123,7 +123,7 @@
       ></msp-address>
 
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-lg-6">
           <msp-date #studiesBegin
             [label]="lang('./en/index.js').studiesBegin"
             [showError]='showError'
@@ -131,7 +131,7 @@
                ></msp-date>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-lg-6">
           <msp-date #studiesFinishedSimple
             [label]="lang('./en/index.js').studiesFinish"
                     [notBeforeDate]="person.studiesBeginSimple"

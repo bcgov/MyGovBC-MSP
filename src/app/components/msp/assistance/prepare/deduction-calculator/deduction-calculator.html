@@ -198,16 +198,16 @@
   </div>
 
   <div class="row" *ngIf="false">
-    <div class="col-md-2" tabindex="0">
+    <div class="col-lg-2" tabindex="0">
       {{incomeUnderThreshhold}}
     </div>
-    <div class="col-md-2" tabindex="0">
+    <div class="col-lg-2" tabindex="0">
       {{canContinue}}
     </div>
   </div>
   <div class="row" *ngIf="canContinue"
     style="margin-top: 10px;">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       <button type="submit"
         class="btn btn-primary btn-block">
         Continue to apply for Premium Assistance
@@ -216,19 +216,19 @@
   </div>
   <div class="row" *ngIf="(!canContinue && !isPristine)||(formRef.submitted)"
     style="margin-top: 10px;">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       <div class="before-continue-warning" tabindex="0">
         Please answer all highlighted questions on the form before continuing.
       </div>
     </div>
   </div>
   <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       <msp-cancel [btnBlock]="true"></msp-cancel>
     </div>
   </div>
     <!--<div class="row">
-        <div class="col-xs-12">
+        <div class="col-sm-12">
             <button class="btn btn-primary btn-block" type="submit" routerLink="/msp/assistance/personal-info"
                     style="font-size: smaller"></button>
         </div>

@@ -15,7 +15,7 @@ export class MspCountryComponent extends BaseComponent {
    * Model Inputs
    */
   @Input() showError:boolean;
-  @Input() colSize: string = "col-sm-5";
+  @Input() colSize: string = "col-md-5";
   @Input() label: string = this.lang('./en/index.js').countryLabel;
   @Input() country: string;
   @Output() onChange = new EventEmitter<string>();

@@ -12,7 +12,7 @@
     <msp-account-personal-details [person]='person' [id]='person.id'  [showError]="showError" (onChange)="change($event)" embedded=true></msp-account-personal-details>
 
     <div class="row">
-      <div class="col-sm-4 form-group"   [ngClass]="{'has-error': showError && (person.reasonForCancellation === undefined || person.reasonForCancellation === null || person.reasonForCancellation === 'pleaseSelect')}">
+      <div class="col-md-4 form-group"   [ngClass]="{'has-error': showError && (person.reasonForCancellation === undefined || person.reasonForCancellation === null || person.reasonForCancellation === 'pleaseSelect')}">
         <label for="reason-{{person.id}}" [innerHtml]="lang('./en/index.js').reason" class="control-label"></label>
         <select class='form-control' name="reason-{{person.id}}" id="reason-{{person.id}}" 
           [ngModel]="reasonForCancellation"
@@ -21,7 +21,7 @@
             <option *ngFor="let item of getCancellationReasonsIterable(person.relationship);let i=index" value="{{item}}" [innerHtml]="(person.relationship == Relationship.ChildUnder24) ? lang('./en/index.js').cancellationReasonsChild[i]: lang('./en/index.js').cancellationReasonsSpouse[i] "></option>
         </select>
       </div>
-      <div class="col-sm-4 form-group"
+      <div class="col-md-4 form-group"
       [ngClass]="{'has-error': !formRef.controls['reasonDetailed-'+person.id]?.valid && (reasonDetailedRef.touched || showError)}"
       *ngIf="reasonForCancellation == 'Other'">
           <label for='reasonDetailed-{{person.id}}' [innerHTML]="lang('./en/index.js').reasonDetailed"></label>
@@ -39,7 +39,7 @@
                 <div class="text-danger" *ngIf="reasonDetailedRef.errors?.required"[innerHtml]="lang('./en/index.js').reasonDetailedRequired"></div>
             </div>
       </div>
-      <div class="col-sm-4 form-group">
+      <div class="col-md-4 form-group">
         <msp-date
           [label]="lang('./en/index.js').cancellationDate"
           [showError]='showError'

@@ -6,13 +6,13 @@
     <msp-address-card-part [address]="mailingAddress"
                            [label]="lang('./en/index.js').mailingAddressLabel"></msp-address-card-part>
     <div class="row" *ngIf="phone">
-      <div class="col-xs-4">
+      <div class="col-sm-4">
         {{lang('./en/index.js').phoneLabel}}
       </div>
-      <div class="col-xs-8">
+      <div class="col-sm-8">
         <strong>{{phone}}</strong>
       </div>
-      <div class="col-xs-8" *ngIf="altPhone">
+      <div class="col-sm-8" *ngIf="altPhone">
         <strong>{{altPhone}}</strong>
       </div>
     </div>
