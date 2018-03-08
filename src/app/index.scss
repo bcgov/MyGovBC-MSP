@@ -4,12 +4,6 @@
     src: url('fonts/MyriadWebPro.ttf');
 }
 
-// Set a base font-size in px to ensure that we don't just use the browser's
-// default text size. We use rems for font-sizes everywhere else.
-html {
-  font-size: 14px;
-}
-
 //------------------------------------------------------------------------------
 // Customizing which bootstrap files get imported, copied from bootstrap.scss
 // Overriding the "variables.scss" file with our custom theme
@@ -89,3 +83,17 @@ $fa-font-path: '~font-awesome/fonts';
 $icon-font-path: '~bootstrap/fonts/';
 @import 'styles/overrides.scss';
 @import 'styles/additions.scss';
+
+// Set a base font-size in px to ensure that we don't just use the browser's
+// default text size. We use rems for font-sizes everywhere else.
+html {
+  font-size: 16px;
+
+  // Optional - This may be removed!
+  // Left in because it really demonstrates the value of rem based designs. We
+  // can scale the entire layout, from element sizing to padding, just by
+  // changing font-size here.
+  @include media-breakpoint-up(sm){
+    font-size: 14px;
+  }
+}
