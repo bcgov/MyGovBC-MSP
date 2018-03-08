@@ -18,6 +18,20 @@ $color-dark: $gray-800;
 $color-primary-nav: #38598a;  // This is new from Bootstrap 4 theme
 $color-secondary-nav: #5475a7; // This is new too Bootstrap 4 theme
 
+// Change theme-colors
+$theme-colors: map-merge((
+        primary: $color-primary,
+        secondary: $color-secondary,
+        success: $color-success,
+        info: $color-info,
+        warning: $color-warning,
+        danger: $color-danger,
+        light: $color-light,
+        dark: $color-dark,
+        primary-nav: $color-primary-nav,  // This is new
+        secondary-nav: $color-secondary-nav // This is new too
+), $theme-colors);
+
 // Add our font as default
 $font-family-sans-serif: Myriad-Pro, Calibri, Arial, sans serif;
 $font-family-base: $font-family-sans-serif;
@@ -26,6 +40,7 @@ $body-color: #494949;
 // Headings
 $headings-font-weight:   600;
 $headings-color: #494949;
+
 
 // Links
 $link-color:            #1a5a96;
