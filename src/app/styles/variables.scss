@@ -1,11 +1,29 @@
-//---------------------------------------------------------------------------------------
-// Variables from Bootstrap are change here, only CHANGED variables are here,
-// so if your looking for something, check out the varibles.scss file in bootstrap
-//---------------------------------------------------------------------------------------
-// Reference: http://www2.gov.bc.ca/gov/content/governments/services-for-government/policies-procedures/web-content-development-guides/developers-guide/css-elements
+//------------------------------------------------------------------------------
+// Variables to override Bootstrap should be placed here.  Consult the Bootstrap
+// _variables.scss file or documentation  to see what changes you can make.
+// Additionally, our custom variables can be defined here, but do so separately
+// from the Bootstrap overrides.
+//------------------------------------------------------------------------------
+// Reference:
+// http://www2.gov.bc.ca/gov/content/governments/services-for-government/policies-procedures/web-content-development-guides/developers-guide/css-elements
 
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
+
+//------------------------------------------------------------------------------
+// Bootstrap Overrides
+//------------------------------------------------------------------------------
+$font-size-base : 1rem;
+$h1-font-size: $font-size-base * 2;
+$h2-font-size: $font-size-base * 1.5;
+$h3-font-size: $font-size-base * 1.25;
+$h4-font-size: $font-size-base * 1.07;
+$h5-font-size: $font-size-base * 1;
+$h6-font-size: $font-size-base * 0.85;
+
+//------------------------------------------------------------------------------
+// Custom Variables
+//------------------------------------------------------------------------------
 
 $color-primary: #036;
 $color-secondary: #fcba19;
