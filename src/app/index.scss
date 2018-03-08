@@ -1,13 +1,27 @@
 // Declare primary font
 @font-face {
-  font-family: 'Myriad-Pro';
-  src: url('fonts/MyriadWebPro.ttf');
+    font-family: 'Myriad-Pro';
+    src: url('fonts/MyriadWebPro.ttf');
 }
 
-//---------------------------------------------------------------------------------
+// Set a base font-size in px to ensure that we don't just use the browser's
+// default text size. We use rems for font-sizes everywhere else.
+html {
+  font-size: 14px;
+}
+
+//------------------------------------------------------------------------------
 // Customizing which bootstrap files get imported, copied from bootstrap.scss
 // Overriding the "variables.scss" file with our custom theme
-//---------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
+$font-size-base : 1rem;
+$h1-font-size: $font-size-base * 2;
+$h2-font-size: $font-size-base * 1.5;
+$h3-font-size: $font-size-base * 1.25;
+$h4-font-size: $font-size-base * 1.07;
+$h5-font-size: $font-size-base * 1;
+$h6-font-size: $font-size-base * 0.85;
 
 // Core variables and mixins
 @import "styles/variables.scss";
@@ -45,7 +59,6 @@
 @import "~bootstrap/scss/carousel";
 @import "~bootstrap/scss/utilities";
 @import "~bootstrap/scss/print";
-
 //---------------------------------------------------------------------------------
 
 /*!
@@ -53,17 +66,14 @@
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
 
-
-
 @import "~font-awesome/scss/variables";
 @import "~font-awesome/scss/mixins";
-
 $fa-font-path: '~font-awesome/fonts';
 @font-face {
-  font-family: 'FontAwesome';
-  src: url('${fa-font-path}/fontawesome-webfont.ttf?v=${fa-version}') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'FontAwesome';
+    src: url('${fa-font-path}/fontawesome-webfont.ttf?v=${fa-version}') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @import "~font-awesome/scss/core";
@@ -76,11 +86,6 @@ $fa-font-path: '~font-awesome/fonts';
 @import "~font-awesome/scss/stacked";
 @import "~font-awesome/scss/icons";
 @import "~font-awesome/scss/screen-reader";
-
-
 $icon-font-path: '~bootstrap/fonts/';
-
-
 @import 'styles/overrides.scss';
 @import 'styles/additions.scss';
-

@@ -6,6 +6,7 @@
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
+@import "variables";
 
 // Only paragraph links should be underlined
 p a {
@@ -63,4 +64,13 @@ body {
   height: 60px;
   //line-height: 40px; /* Vertically center the text there */
 
+}
+
+h1, h2, h3 {
+  // color: @brand-primary;
+  color: map-get($theme-colors, primary);
+}
+
+h1 {
+  margin-top: 30px;
 }
