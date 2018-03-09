@@ -9,6 +9,10 @@
 // Overriding the "variables.scss" file with our custom theme
 //------------------------------------------------------------------------------
 
+// TODO: Look into removing unneeded component styles below.
+// Potential includes: badge, jumbotron, alert, progress, code, tooltip,
+// popover, carousel.
+
 // Core variables and mixins
 @import "styles/variables.scss";
 @import "~bootstrap/scss/functions";

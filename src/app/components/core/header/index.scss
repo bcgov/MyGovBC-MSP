@@ -27,7 +27,7 @@ header {
   padding-bottom: 20px;
 
   //Bootstrap 3 to 4: Using breakpoint mixin.
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(sm) {
     padding-top: 2px;
     padding-bottom: 8px;
   }
@@ -39,7 +39,7 @@ header {
   margin-right: 18px;
 
   //Bootstrap 3 to 4: Using breakpoint mixin.
-  @include media-breakpoint-down(md){ 
+  @include media-breakpoint-down(sm){
     width: 110px;
     height: 30px;
   }
