@@ -70,6 +70,11 @@ $headings-color: $body-color;
 $headings-line-height:    1.1;
 $headings-font-family:        inherit;
 
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius:         4px;
+$btn-border-radius-lg:        8px;
+$btn-border-radius-sm:        2px;
+
 
 
 // Links
