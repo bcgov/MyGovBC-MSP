@@ -6,12 +6,13 @@
   }
   .panel-heading a {
     text-decoration: none !important;
-    color: $primary;
+    color: $color-primary;
     font-weight: bold;
     outline : none;
   }
 
   img {
-    border:3px solid $danger;
+    border:3px solid $color-danger;
+
   }
 }

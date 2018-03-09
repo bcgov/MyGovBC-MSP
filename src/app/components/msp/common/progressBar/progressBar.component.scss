@@ -1,7 +1,6 @@
 @import "../../../../styles/variables.scss";
 // Bootstrap 3 to 4: Included imports
 @import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins";
 
 // Calculates the width for the .activeContainer element so that it takes up
@@ -251,9 +250,4 @@
             height: 4.25rem;
         }
     }
-}
-
-//TODO: rename to hidden-sm. Also make general to all classes, since other component uses it?
-@include media-breakpoint-down(sm){
-    .hidden-xs { display: none !important;}
 }

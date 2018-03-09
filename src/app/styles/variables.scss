@@ -7,9 +7,6 @@
 // Reference:
 // http://www2.gov.bc.ca/gov/content/governments/services-for-government/policies-procedures/web-content-development-guides/developers-guide/css-elements
 
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-
 //------------------------------------------------------------------------------
 // Bootstrap Overrides
 //------------------------------------------------------------------------------
@@ -40,8 +37,8 @@ $color-success: #486446;
 $color-info: #96c0e6;
 $color-warning: #f3cd65;
 $color-danger: #d8292f;
-$color-light: $gray-100;
-$color-dark: $gray-800;
+$color-light: #f8f9fa; //$gray-100 in Bootstrap4
+$color-dark: #343a40; //$gray-800 in Bootstrap4
 $color-primary-nav: #38598a;  // This is new from Bootstrap 4 theme
 $color-secondary-nav: #5475a7; // This is new too Bootstrap 4 theme
 
@@ -60,6 +57,7 @@ $theme-colors: map-merge((
         secondary-nav: $color-secondary-nav // This is new too
 ), $theme-colors);
 
+$blue: $color-primary; // Change bootstrap blue to our theme blue
 // Add our font as default
 $font-family-sans-serif: Myriad-Pro, Calibri, Arial, sans serif;
 $font-family-base: $font-family-sans-serif;
@@ -76,3 +74,7 @@ $link-hover-color:      #00F;
 
 // Breadcrumbs
 $breadcrumb-bg: transparent;
+
+// Now that we've set the variables, we can override them in Bootstrap
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
