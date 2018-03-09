@@ -65,8 +65,11 @@ $font-family-base: $font-family-sans-serif;
 $body-color: #494949;
 
 // Headings
-$headings-font-weight:   600;
-$headings-color: #494949;
+$headings-font-weight:   500;
+$headings-color: $body-color;
+$headings-line-height:    1.1;
+$headings-font-family:        inherit;
+
 
 
 // Links
