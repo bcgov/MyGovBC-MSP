@@ -57,6 +57,7 @@ $theme-colors: map-merge((
         secondary-nav: $color-secondary-nav // This is new too
 ), $theme-colors);
 
+
 $blue: $color-primary; // Change bootstrap blue to our theme blue
 // Add our font as default
 $font-family-sans-serif: Myriad-Pro, Calibri, Arial, sans serif;
@@ -74,6 +75,9 @@ $link-hover-color:      #00F;
 
 // Breadcrumbs
 $breadcrumb-bg: transparent;
+
+// Modals
+$modal-md: 600px;
 
 // Now that we've set the variables, we can override them in Bootstrap
 @import "~bootstrap/scss/functions";

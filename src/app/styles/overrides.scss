@@ -65,10 +65,26 @@ body {
 
 }
 
-h1, h2, h3 {
+h1, h2, h3,
+.h1, .h2, .h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
   color: $color-primary;
 }
 
-h1 {
-  margin-top: 2.1rem;
+// Re-implement disabled button styles from Bootstrap 3
+.btn-primary[disabled], .btn-primary.disabled {
+  color: #777;
+  background-color: #eee;
+  border-color: #eee;
+}
+.btn[disabled] {
+  cursor: not-allowed;
+  opacity: .65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.btn-primary[disabled]:hover, .btn-primary.disabled:hover {
+  border-color: $color-secondary;
 }
