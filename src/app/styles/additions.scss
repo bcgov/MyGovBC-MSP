@@ -165,3 +165,20 @@ input[type=number] {
 @include media-breakpoint-down(xl){
   .hidden-lg { display: none !important;}
 }
+
+// Re-implement disabled button styles from Bootstrap 3
+.btn-primary[disabled], .btn-primary.disabled {
+  color: #777;
+  background-color: #eee;
+  border-color: #eee;
+}
+.btn[disabled] {
+  cursor: not-allowed;
+  opacity: .65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.btn-primary[disabled]:hover, .btn-primary.disabled:hover {
+  border-color: $color-secondary;
+}
