@@ -88,3 +88,10 @@ h1, h2, h3,
 .btn-primary[disabled]:hover, .btn-primary.disabled:hover {
   border-color: $color-secondary;
 }
+
+
+@import "~bootstrap/scss/buttons";
+// Make .btn-primary yellow.  The primary colour stays blue.
+.btn-primary {
+    @include button-variant($color-secondary, $color-secondary);
+}
