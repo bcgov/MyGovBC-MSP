@@ -20,6 +20,8 @@
   },
   "devDependencies": {
     "@angular/cli": "^1.7.3",
+    "@types/jasmine": "2.5.38",
+    "@types/lodash": "^4.14.104",
     "async": "^2.0.1",
     "autoprefixer": "^6.0.0",
     "core-js": "^2.4.1",
@@ -57,8 +59,6 @@
     "@angular/platform-browser-dynamic": "4.4.4",
     "@angular/platform-server": "4.4.4",
     "@angular/router": "4.4.4",
-    "@types/jasmine": "2.5.38",
-    "@types/lodash": "^4.14.104",
     "angular-2-local-storage": "1.0.1",
     "angular2-template-loader": "^0.6.0",
     "angular2-uuid": "^1.1.0",
