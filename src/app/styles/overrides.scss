@@ -5,7 +5,13 @@
 // Reference: http://www2.gov.bc.ca/gov/content/governments/services-for-government/policies-procedures/web-content-development-guides/developers-guide/css-elements
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/buttons"; // for button-variant()
 @import "variables";
+
+// Make .btn-primary yellow.  The primary colour stays blue.
+.btn-primary {
+    @include button-variant($color-secondary, $color-secondary);
+}
 
 // Only paragraph links should be underlined
 p a {
@@ -73,7 +79,7 @@ h1, h2, h3,
 }
 
 // Re-implement disabled button styles from Bootstrap 3
-.btn-primary[disabled], .btn-primary.disabled {
+.btn-primary[disabled], .btn-primary.disabled, .btn-primary:disabled {
   color: #777;
   background-color: #eee;
   border-color: #eee;
@@ -87,11 +93,4 @@ h1, h2, h3,
 }
 .btn-primary[disabled]:hover, .btn-primary.disabled:hover {
   border-color: $color-secondary;
-}
-
-
-@import "~bootstrap/scss/buttons";
-// Make .btn-primary yellow.  The primary colour stays blue.
-.btn-primary {
-    @include button-variant($color-secondary, $color-secondary);
 }
