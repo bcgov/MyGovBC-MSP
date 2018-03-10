@@ -29,7 +29,7 @@
                     <h3>{{statusLabel()}}</h3>
                 </div>
             </div>
-            <div class="radio" *ngFor="let st of statusInCanada">
+            <div class="abc-radio" *ngFor="let st of statusInCanada">
                 <input type="radio" name="statusInCanada-{{id}}" id="st{{st}}-{{id}}"
                        (click)="setStatus(st, person)"
                        [checked]="st === person.status" tabindex="0">
@@ -38,7 +38,7 @@
                 </label>
 
                 <div *ngIf="st === person.status" role="alertdialog" aria-labelledby="What is your activity?">
-                    <div class="radio" *ngFor="let activity of activities">
+                    <div class="abc-radio" *ngFor="let activity of activities">
                         <input type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}"
                                (click)="setActivity(activity)"
                                [checked]="activity === person.currentActivity">

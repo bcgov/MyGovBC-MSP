@@ -6,7 +6,7 @@
     <span *ngIf='showError && (person.gender === undefined || person.gender === null)' 
       class="text-danger" role="alert" aria-live="assertive">(Please specify gender)</span>
 
-    <div class="radio">
+    <div class="abc-radio">
       <input type="radio" name="gender" id="genderMale{{uuid}}" 
         (click)="person.gender = Gender.Male" [checked]="Gender.Male === person.gender"
         (change)="genderChange(Gender.Male)">
@@ -14,7 +14,7 @@
           {{lang('./en/index.js').maleLabel}}
       </label>
     </div>
-    <div class="radio">
+    <div class="abc-radio">
       <input type="radio" name="gender" id="genderFemale{{uuid}}" (click)="person.gender = Gender.Female" [checked]="Gender.Female === person.gender"
         (change)="genderChange(Gender.Female)">
         <label for="genderFemale{{uuid}}">

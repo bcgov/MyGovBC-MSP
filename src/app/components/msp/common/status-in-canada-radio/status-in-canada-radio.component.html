@@ -9,7 +9,7 @@
 
 <div class="clearfix"></div> <!-- avoid collapsing margins here -->
 
-<div class="radio" *ngFor="let st of statusInCanada"  [ngClass]="{'has-error': showError && (person.status === undefined || person.status === null)}"
+<div class="abc-radio" *ngFor="let st of statusInCanada"  [ngClass]="{'has-error': showError && (person.status === undefined || person.status === null)}"
   >
     <input type="radio" name="statusInCanada-{{id}}-{{person.uuid}}" id="st{{st}}-{{id}}-{{person.uuid}}"
            (click)="setStatus(st, person)"
@@ -20,7 +20,7 @@
 
     <div *ngIf="st === person.status && st > 1" role="alertdialog"
          aria-labelledby="What is your activity?">
-        <div class="radio" *ngFor="let activity of activities"
+        <div class="abc-radio" *ngFor="let activity of activities"
              [ngClass]="{'has-error': st > 1 && showError && (person.currentActivity === undefined || person.currentActivity === null)}">
             <input type="radio" name="activity-{{id}}-{{person.uuid}}" id="a{{activity}}-{{id}}-{{person.uuid}}"
                    (click)="setActivity(activity)"
