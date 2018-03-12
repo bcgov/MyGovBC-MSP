@@ -82,7 +82,7 @@
 /* Apply our bootstrap theme form-control to the input of the component using some
    some less magic */
 .completer-holder input {
- // .form-control;//TODO boostrap.verify this
+ @extend .form-control;
 }
 
 /* Add modal header color */
