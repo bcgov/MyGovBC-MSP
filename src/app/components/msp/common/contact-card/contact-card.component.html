@@ -1,6 +1,6 @@
 <h2 [innerHtml]="lang('./en/index.js').cardTitle"></h2>
-<div class="panel panel-default">
-  <div class="panel-body">
+<div class="card">
+  <div class="card-body">
     <msp-address-card-part [address]="residentialAddress"
                            [label]="lang('./en/index.js').residentialAddressLabel"></msp-address-card-part>
     <msp-address-card-part [address]="mailingAddress"
@@ -18,7 +18,7 @@
     </div>
 
     <button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
-            [innerHTML]="lang('./en/index.js').editButton">
+      [innerHTML]="lang('./en/index.js').editButton">
     </button>
   </div>
 </div>

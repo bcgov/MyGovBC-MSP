@@ -38,8 +38,14 @@
     box-shadow: none;
 }
 
+
+
 // Only paragraph links should be underlined
 p a {
+  text-decoration: underline;
+}
+
+.btn-link {
   text-decoration: underline;
 }
 

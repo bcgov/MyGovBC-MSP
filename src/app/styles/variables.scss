@@ -41,6 +41,7 @@ $color-light: #f8f9fa; //$gray-100 in Bootstrap4
 $color-dark: #343a40; //$gray-800 in Bootstrap4
 $color-primary-nav: #38598a;  // This is new from Bootstrap 4 theme
 $color-secondary-nav: #5475a7; // This is new too Bootstrap 4 theme
+$gray-lighter:#eee;
 
 // Change theme-colors
 $theme-colors: ();
@@ -80,12 +81,24 @@ $btn-border-radius-sm:        2px;
 // Links
 $link-color:            #1a5a96;
 $link-hover-color:      #00F;
+$link-hover-decoration:   underline;
 
 // Breadcrumbs
 $breadcrumb-bg: transparent;
 
 // Modals
 $modal-md: 600px;
+
+
+$card-bg: $gray-lighter;
+$card-spacer-x: 15px;
+$card-spacer-y: 8px;
+$card-inner-border-radius: 0px;
+$card-border-radius: 0px;
+$card-border-width: 0px;
+
+
+
 
 // Now that we've set the variables, we can override them in Bootstrap
 @import "~bootstrap/scss/functions";
