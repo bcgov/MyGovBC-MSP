@@ -43,6 +43,7 @@ $color-primary-nav: #38598a;  // This is new from Bootstrap 4 theme
 $color-secondary-nav: #5475a7; // This is new too Bootstrap 4 theme
 $gray-lighter:#eee;
 
+
 // Change theme-colors
 $theme-colors: ();
 $theme-colors: map-merge((
@@ -89,14 +90,14 @@ $breadcrumb-bg: transparent;
 // Modals
 $modal-md: 600px;
 
-
+//cards
 $card-bg: $gray-lighter;
 $card-spacer-x: 15px;
 $card-spacer-y: 8px;
 $card-inner-border-radius: 0px;
 $card-border-radius: 0px;
 $card-border-width: 0px;
-
+$card-cap-bg: $color-primary;
 
 
 

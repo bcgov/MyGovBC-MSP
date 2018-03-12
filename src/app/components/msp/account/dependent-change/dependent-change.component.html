@@ -66,25 +66,25 @@
 
     </div>
 
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h4 class='panel-title' [innerHTML]="lang('./en/index.js').pageTitle"></h4>
+    <div class="card">
+        <div class="card-header">
+            <h4 class='card-title' [innerHTML]="lang('./en/index.js').pageTitle"></h4>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
             <button class="btn btn-default"  type="button"
                 [disabled]="addedSpouse"
                 (click)="addSpouse()">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span class="fa fa-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
             </button>
             <button class="btn btn-default" type="button"
                 (click)="addChild(Relationship.ChildUnder19)" >
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span class="fa fa-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addChildUnder19ButtonSimple"></span>
             </button>
             <button class="btn btn-default" type="button"
                 (click)="addChild(Relationship.Child19To24)" >
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span class="fa fa-plus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
                 <!-- Appears below the button via CSS, but must be in button for accessibility purposes (screen readers). -->
                 <span [innerHTML]="lang('./en/index.js').mustBeFullTimeStudent" class='small-print'></span>
@@ -93,12 +93,12 @@
             <button class="btn btn-default" type="button"
                 [disabled]="removedSpouse"
                 (click)="removeSpouse()" >
-                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span class="fa fa-minus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').removeSpouseButton"></span>
             </button>
             <button class="btn btn-default" type="button"
                 (click)="removeChild()">
-                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <span class="fa fa-minus" aria-hidden="true"></span>
                 <span [innerHTML]="lang('./en/index.js').removeDependentButton"></span>
             </button>
         </div>
