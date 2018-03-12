@@ -19,7 +19,7 @@ msp-accordion {
     
     $panelColor: #ebebeb;
     
-    .panel {
+    .card {
         background-color: $panelColor;
         .show {
             background-color: lighten($panelColor, 5);
