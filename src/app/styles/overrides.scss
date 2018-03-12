@@ -45,6 +45,17 @@ a {
   text-decoration: none;
 }
 
+.btn-group {
+  margin-left: 10px;
+}
+
+.msp-app .btn-default {
+  margin-right: 15px;
+
+  @media screen and (max-width:map-get($grid-breakpoints, small)) {
+    margin-top:15px;
+  }
+}
 
 
 // Only paragraph links should be underlined
