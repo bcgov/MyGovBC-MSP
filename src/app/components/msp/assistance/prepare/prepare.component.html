@@ -132,26 +132,28 @@
             </div>
         </div>
 
-        <div class="row" tabindex="-1"
+        <div  tabindex="-1"
             [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
-        <hr>
-            <div class="col-lg-6">
-                <div (click)="showChildrenInfo=true" *ngIf="!showChildrenInfo"
-                    [mspKeyboard] = "'Enter'" (keyboardAction) = "showChildrenInfo=true"
-                    class="msp-toggle" tabindex="0" role="button">
-                    <span class="glyphicon glyphicon-collapse-up"
-                        aria-hidden="true"></span>
-                    <span
-                    [innerHTML]="lang('./en/index.js').childrenInfo"
-                    ></span>
-                </div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div (click)="showChildrenInfo=true" *ngIf="!showChildrenInfo"
+                        [mspKeyboard] = "'Enter'" (keyboardAction) = "showChildrenInfo=true"
+                        class="msp-toggle" tabindex="0" role="button">
+                        <span class="fa fa-caret-square-o-up"
+                            aria-hidden="true"></span>
+                        <span
+                        [innerHTML]="lang('./en/index.js').childrenInfo"
+                        ></span>
+                    </div>
 
-                <div (click)="showChildrenInfo=false" *ngIf="showChildrenInfo"
-                    [mspKeyboard] = "'Enter'" (keyboardAction) = "showChildrenInfo=false"
-                    class="msp-toggle" tabindex="0" role="button">
-                    <span class="glyphicon glyphicon-collapse-down"
-                    aria-hidden="true"></span>
-                    <span [innerHTML]="lang('./en/index.js').childrenInfo"></span>
+                    <div (click)="showChildrenInfo=false" *ngIf="showChildrenInfo"
+                        [mspKeyboard] = "'Enter'" (keyboardAction) = "showChildrenInfo=false"
+                        class="msp-toggle" tabindex="0" role="button">
+                        <span class="fa fa-caret-square-o-down"
+                        aria-hidden="true"></span>
+                        <span [innerHTML]="lang('./en/index.js').childrenInfo"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -226,14 +228,14 @@
                     <div class="msp-toggle" tabindex="0" role="button"
                         [mspKeyboard] = "['Enter','space']" (keyboardAction) = "showDisabilityInfo=true"
                         *ngIf="!showDisabilityInfo" (click)="showDisabilityInfo=true">
-                        <span class="glyphicon glyphicon-collapse-up msp-toggle"
+                        <span class="fa fa-caret-square-o-up msp-toggle"
                         aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').disabilityInfo"></span>
                     </div>
                     <div class="msp-toggle" tabindex="0" role="button"
                         [mspKeyboard] = "['Enter','space']" (keyboardAction) = "showDisabilityInfo=false"
                         *ngIf="showDisabilityInfo" (click)="showDisabilityInfo=false">
-                        <span class="glyphicon glyphicon-collapse-down msp-toggle"
+                        <span class="fa fa-caret-square-o-down msp-toggle"
                         aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').disabilityInfo"></span>
                     </div>
@@ -327,7 +329,7 @@
                     <div class="msp-toggle" tabindex="0"
                         [mspKeyboard] = "'Enter'" (keyboardAction) = "showAttendantCareInfo=true"
                         *ngIf="!showAttendantCareInfo" (click)="showAttendantCareInfo=true">
-                        <span class="glyphicon glyphicon-collapse-up msp-toggle"
+                        <span class="fa fa-caret-square-o-up msp-toggle"
                         aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').nursingHomeLabel" tabindex="0"></span>
 
@@ -335,7 +337,7 @@
                     <div class="msp-toggle" tabindex="0"
                         [mspKeyboard] = "'Enter'" (keyboardAction) = "showAttendantCareInfo=false"
                          *ngIf="showAttendantCareInfo" (click)="showAttendantCareInfo=false">
-                        <span class="glyphicon glyphicon-collapse-down msp-toggle"
+                        <span class="fa fa-caret-square-o-down msp-toggle"
                         aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').nursingHomeLabel" tabindex="0"></span>
                     </div>
