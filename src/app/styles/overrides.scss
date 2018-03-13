@@ -147,6 +147,12 @@ h1, h2, h3,
   color: $color-primary;
 }
 
+// Modal
+
+.modal-content {
+  //Bootstrap 3 to 4: Re-implement bootstrap box-shadow
+  box-shadow: 0 5px 15px rgba(0,0,0,.5);
+}
 //TODO validate this approach
 .panel-group {
   margin-bottom:20px;
