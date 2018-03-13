@@ -190,7 +190,7 @@ $check-icon: $fa-var-check !default;
 
 .abc-checkbox{
   cursor: default;
-  padding-left: 4px;
+  padding-left: 1.25rem;
 
   label{
     cursor: pointer;
@@ -322,7 +322,7 @@ $check-icon: $fa-var-check !default;
 
 .abc-radio{
   cursor: default;
-  padding-left: 4px;
+  padding-left: 1.25rem;
 
   label{
     cursor: pointer;
@@ -426,4 +426,9 @@ $check-icon: $fa-var-check !default;
 accordion-group + accordion-group {
   //Bootstrap 3 to 4: Re-implement spacing, due to removing .panels and replacing with .cards
   margin-top: 0.35em;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin-left: -1.25rem !important;
 }
