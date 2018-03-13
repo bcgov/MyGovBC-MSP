@@ -152,6 +152,9 @@ h1, h2, h3,
 .modal-content {
   //Bootstrap 3 to 4: Re-implement bootstrap box-shadow
   box-shadow: 0 5px 15px rgba(0,0,0,.5);
+
+  // Close icon should be primary colour
+  a > .fa-times { color: $color-primary; }
 }
 //TODO validate this approach
 .panel-group {
