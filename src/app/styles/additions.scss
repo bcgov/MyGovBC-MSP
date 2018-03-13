@@ -101,6 +101,12 @@
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 }
 
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #eee;
+}
 
 /* A more visually important HR */
 .strong-hr {
