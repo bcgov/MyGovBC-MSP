@@ -172,3 +172,11 @@ input[type=number] {
 @include media-breakpoint-down(xl){
   .hidden-lg { display: none !important;}
 }
+
+.help-block {
+  display: block;
+  margin-top: 0.35rem;
+  margin-bottom: 0.7rem;
+  color: green;
+  color: $gray-600;
+}
