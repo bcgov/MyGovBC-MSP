@@ -186,3 +186,9 @@ input[type=number] {
   color: green;
   color: $gray-600;
 }
+
+// Bootstrap 3 to 4: Re-add has-error label effects, so the question label
+// becomes highlighted red, not just the field.
+.has-error .checkbox, .has-error .checkbox-inline, .has-error.checkbox-inline label, .has-error.checkbox label, .has-error .control-label, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.radio-inline label, .has-error.radio label {
+  color: $color-danger;
+}
