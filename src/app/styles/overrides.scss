@@ -90,7 +90,7 @@ header .nav-link {
   border-top: 2px solid $color-secondary;
 
   & > .navbar {
-    height: 3.65rem;
+    min-height: 3.65rem;
     padding: 0 !important;
     flex-flow: column;
   }
@@ -108,6 +108,7 @@ footer li+li  {
 
 footer .nav-link {
   color: white !important;
+  padding-left: 1rem !important;
 }
 
 footer .navbar {
