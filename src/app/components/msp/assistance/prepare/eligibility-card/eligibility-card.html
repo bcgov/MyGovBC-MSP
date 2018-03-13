@@ -1,13 +1,13 @@
 <h2>Financial info</h2>
-<div class="panel panel-default">
-  <div class="panel-body">
+<div class="card panel-default">
+  <div class="card-body">
     <div class="row">
       <div class="col-sm-8">
           {{lang('./en/index.js').netAnnualIncome}}
       </div>
       <div class="col-sm-4">
         <small>
-          <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+          <span class="fa fa-usd" aria-hidden="true"></span>
         </small>
           <strong>{{this.application.netIncomelastYear}}</strong>
       </div>
@@ -42,7 +42,7 @@
       </div>
       <div class="col-sm-4">
           <small>
-            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+            <span class="fa fa-usd" aria-hidden="true"></span>
           </small>
           <strong>{{this.application.spouseIncomeLine236}}</strong>
       </div>
@@ -61,7 +61,7 @@
       </div>
       <div class="col-sm-4">
           <small>
-            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+            <span class="fa fa-usd" aria-hidden="true"></span>
           </small>
           <strong>{{this.application.claimedChildCareExpense_line214}}</strong>
       </div>
@@ -73,7 +73,7 @@
       </div>
       <div class="col-sm-4">
           <small>
-            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+            <span class="fa fa-usd" aria-hidden="true"></span>
           </small>
           <strong>{{this.application.reportedUCCBenefit_line117}}</strong>
       </div>
@@ -83,7 +83,7 @@
           {{lang('./en/index.js').disabilityCredit}}
       </div>
       <div class="col-sm-4">
-          <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+          <span class="fa fa-usd" aria-hidden="true"></span>
           <strong >{{_mainDisabilityCredit}}</strong>
       </div>
     </div>
@@ -92,7 +92,7 @@
           {{lang('./en/index.js').spouseDisabilityCredit}}
       </div>
       <div class="col-sm-4">
-          <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+          <span class="fa fa-usd" aria-hidden="true"></span>
           <strong>{{_spouseDisabilityCredit}}</strong>
       </div>
     </div>
@@ -101,7 +101,7 @@
             {{lang('./en/index.js').childrenDisabilityCredit}}
         </div>
         <div class="col-sm-4">
-            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+            <span class="fa fa-usd" aria-hidden="true"></span>
             <strong>{{_childrenDisabilityCredit}}</strong>
         </div>
     </div>
@@ -111,7 +111,7 @@
       </div>
       <div class="col-sm-4">
           <small>
-            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+            <span class="fa fa-usd" aria-hidden="true"></span>
           </small>
           <strong>
             {{this.application.spouseDSPAmount_line125}}
@@ -124,7 +124,7 @@
       </div>
       <div class="col-sm-4">
           <small>
-            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+            <span class="fa fa-usd" aria-hidden="true"></span>
           </small>
           <strong>{{this.application.eligibility.totalDeductions}}</strong>
       </div>
@@ -135,16 +135,22 @@
       </div>
       <div class="col-sm-4">
           <small>
-            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+            <span class="fas fa-dollar-sign" aria-hidden="true"></span>
           </small>
           <strong>{{this.application.eligibility.adjustedNetIncome}}</strong>
       </div>
     </div>
     <div class="row" style="margin-top: 10px;">
       <div class="col-sm-12">
-        <a *ngIf="editRouterLink" class="text-uppercase" type="submit" [routerLink]="editRouterLink"
-            [innerHTML]="lang('./en/index.js').editEligibilityInfo">
-        </a>
+
+
+          <button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
+                  [innerHTML]="lang('./en/index.js').editEligibilityInfo">
+          </button>
+
+
+
+
       </div>
     </div>
 
