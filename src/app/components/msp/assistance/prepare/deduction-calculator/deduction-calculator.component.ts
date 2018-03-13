@@ -21,7 +21,8 @@ import {ProcessService} from "../../../service/process.service";
 
 @Component({
   selector: 'deduction-calculator',
-  templateUrl: './deduction-calculator.html'
+  templateUrl: './deduction-calculator.html',
+    styleUrls: ['./deduction-calculator.scss']
 })
 
 export class DeductionCalculatorComponent implements DoCheck {
