@@ -1,5 +1,14 @@
 @import "variables.scss";
 
+html {
+  min-height: 100%;
+}
+
+html, body {
+  position: relative;
+  height: 100%;
+}
+
 // Helpers and other classes not found in bootstrap
 .browserupgrade {
   margin: 0.2em 0;
