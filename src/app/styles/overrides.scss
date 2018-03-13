@@ -104,21 +104,23 @@ html {
   min-height: 100%;
 }
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 65px !important;
+  /* For .footer positioning  */
+  position: relative;
 }
 
 .footer {
   position: absolute;
   bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 60px;
+  height: 3.65em;
   //line-height: 40px; /* Vertically center the text there */
   border-color: #fcba19;
   border-top: 2px solid $color-secondary;
-
 }
+
 footer .navbar {
   margin-bottom: 0;
 }
