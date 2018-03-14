@@ -20,13 +20,13 @@
       </div>
   </div>
   <div class="row" *ngIf="application.children != null && application.children.length > 0">
-      <div *ngFor="let child of application.children; let i = index;">
+      <ng-container *ngFor="let child of application.children; let i = index;">
           <div class="clearfix" *ngIf="i % 2 == 0"></div>
           <div class="col-lg-6">
               <msp-person-card [person]="child"
                               [editRouterLink]="'/msp/application/personal-info'"></msp-person-card>
           </div>
-      </div>
+      </ng-container>
   </div>
   <msp-contact-card [residentialAddress]="application.residentialAddress"
                     [mailingAddress]="application.mailingAddress"
