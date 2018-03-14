@@ -206,6 +206,8 @@ input[type=number] {
   color: $color-danger;
 }
 
-.checkbox label, .radio label {
+.checkbox label, .radio label,
+input[type=checkbox] + label,
+input[type=radio] + label, {
   font-weight: 400;
 }
