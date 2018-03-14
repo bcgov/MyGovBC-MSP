@@ -24,7 +24,7 @@
         <div *ngIf="!appConstants.mspIsInMaintenanceFlag" [innerHtml]="lang('./en/index.js').body"></div>
 
         <br>
-        <div *ngIf="!appConstants.mspIsInMaintenanceFlag" class="abc-checkbox abc-checkbox-success">
+        <div *ngIf="!appConstants.mspIsInMaintenanceFlag">
           <input class="input-lg" id="agree" type="checkbox" [(ngModel)]="agreeCheck">
           <label class="" for="agree"><strong>{{lang('./en/index.js').agreeLabel}}</strong></label>
         </div>
