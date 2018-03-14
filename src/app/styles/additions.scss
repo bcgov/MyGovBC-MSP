@@ -9,6 +9,10 @@ html, body {
   height: 100%;
 }
 
+label {
+  font-weight: 800;
+}
+
 // Helpers and other classes not found in bootstrap
 .browserupgrade {
   margin: 0.2em 0;
