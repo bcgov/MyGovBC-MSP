@@ -45,13 +45,13 @@
     </div>
 
     <div class="row" style="margin-top: 10px;">
-        <div class="col-md-2">
+        <div class="col-2">
             <button 
                 [disabled] = "!canContinue"
                 class="btn btn-primary" type="submit" (click)="continue()"
                 [innerHTML]="lang('./en/index.js').continueButton"></button>
 
         </div>
-        <msp-cancel [accountButton]="true"></msp-cancel>
+        <msp-cancel class='col' [accountButton]="true"></msp-cancel>
     </div>
 </form>

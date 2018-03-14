@@ -48,7 +48,7 @@
         <p class="intro text-danger" *ngIf="!isStayinginBCAfterstudies()"
            [innerHtml]="lang('./en/index.js').badAnswerStudies" role="alert" aria-live="assertive">
         </p>
-      <div class="col-md-2">
+      <div class="col-2">
         <button
             class="btn btn-primary" type="submit" [disabled] = "!documentsReady()|| !isStayinginBCAfterstudies() ||checkAnyDependentsIneligible()   "
             [innerHTML]="lang('./en/index.js').continueButton"></button>
@@ -58,6 +58,6 @@
         <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
         </p>
       </div>
-      <msp-cancel></msp-cancel>
+      <msp-cancel class='col'></msp-cancel>
     </div>
 </form>
