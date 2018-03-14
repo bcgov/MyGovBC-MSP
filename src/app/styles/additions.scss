@@ -205,3 +205,7 @@ input[type=number] {
 .has-error .checkbox, .has-error .checkbox-inline, .has-error.checkbox-inline label, .has-error.checkbox label, .has-error .control-label, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.radio-inline label, .has-error.radio label {
   color: $color-danger;
 }
+
+.checkbox label, .radio label {
+  font-weight: 400;
+}
