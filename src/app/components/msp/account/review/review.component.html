@@ -22,13 +22,13 @@
     </div>
 
     <div class="row" *ngIf="mspAccountApp.getAllChildren() != null && mspAccountApp.getAllChildren().length > 0">
-        <div *ngFor="let child of mspAccountApp.getAllChildren(); let i = index;">
+        <ng-container *ngFor="let child of mspAccountApp.getAllChildren(); let i = index;">
             <div class="clearfix" *ngIf="i % 2 == 0"></div>
             <div class="col-lg-6">
                 <msp-person-card [person]="child" [accountCard]=true
                                  [editRouterLink]="child.operationActionType == 2 ? accountPIUrl :accountDependentUrl"></msp-person-card>
             </div>
-        </div>
+        </ng-container>
     </div>
 
     <div class="row" *ngIf="mspAccountApp.documents && mspAccountApp.documents.length >0">
