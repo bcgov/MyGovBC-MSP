@@ -1,4 +1,4 @@
-<a [class.btn-block]="btnBlock" class="btn btn-default pull-right" href="javascript:void(0)"
+<a [class.btn-block]="btnBlock" class="btn btn-default float-right" href="javascript:void(0)"
         [innerHtml]="accountButton?lang('./en/index.js').accountcancelButton : lang('./en/index.js').cancelButton"
         (click)="showFullSizeView()" role="button"></a>
 
@@ -9,11 +9,11 @@
       <div class="modal-body">
         <h2 [innerHtml]="accountButton?lang('./en/index.js').accountbody : lang('./en/index.js').body"></h2>
       </div>
-      <div class="modal-footer">
-        <a class="btn btn-danger pull-left" role="button" href="javascript:void(0)"
+      <div class="modal-footer justify-content-between">
+        <a class="btn btn-danger float-left" role="button" href="javascript:void(0)"
                 [innerHtml]="lang('./en/index.js').yesButton"
                 (click)="yesButtonClick()"></a>
-        <a class="btn btn-primary pull-right" role="button" href="javascript:void(0)"
+        <a class="btn btn-primary float-right" role="button" href="javascript:void(0)"
                 [innerHtml]="accountButton? lang('./en/index.js').accountnoButton : lang('./en/index.js').noButton"
                 (click)="noButtonClick()"></a>
 

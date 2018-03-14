@@ -1,4 +1,17 @@
-@import "../styles/variables.less";
+@import "variables.scss";
+
+html {
+  min-height: 100%;
+}
+
+html, body {
+  position: relative;
+  height: 100%;
+}
+
+label {
+  font-weight: 800;
+}
 
 // Helpers and other classes not found in bootstrap
 .browserupgrade {
@@ -40,11 +53,11 @@
 }
 
 .success {
-  color: @brand-success;
+  color: $success;
 }
 
 .danger {
-  color: @brand-danger;
+  color: $danger;
 }
 
 // Upper cases text and input fields
@@ -82,17 +95,30 @@
 /* Apply our bootstrap theme form-control to the input of the component using some
    some less magic */
 .completer-holder input {
-  .form-control;
+ @extend .form-control;
 }
 
 /* Add modal header color */
 .modal-header-primary {
-  background: @brand-primary;
+  background: $primary;
 
   h2 {
     color: white;
     font-weight: 600;
   }
+}
+// this is used across forms to show error message..this is as in bootstrap 3
+.has-error .form-control {
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #eee;
 }
 
 /* A more visually important HR */
@@ -122,7 +148,7 @@ h3 i {
 
 }
 p.intro {
-    font-size: @font-size-large;
+    font-size: $font-size-lg;
     margin-top: 20px;
 }
 
@@ -147,4 +173,35 @@ input[type=number]::-webkit-inner-spin-button {
 
 input[type=number] {
   -moz-appearance:textfield;
+}
+
+// Bootstrap has deprecated these helper classes, replacing them with their
+// "display" helpers, e.g. d-none or d-sm-block.  We should try to use the new
+// helpers wherever possible, but currently some of our implementations (such as
+// the ProgressBar) require these classes.
+@include media-breakpoint-down(sm){
+  .hidden-xs { display: none !important;}
+}
+@include media-breakpoint-down(md){
+  .hidden-sm { display: none !important;}
+}
+@include media-breakpoint-down(lg){
+  .hidden-md { display: none !important;}
+}
+@include media-breakpoint-down(xl){
+  .hidden-lg { display: none !important;}
+}
+
+.help-block {
+  display: block;
+  margin-top: 0.35rem;
+  margin-bottom: 0.7rem;
+  color: green;
+  color: $gray-600;
+}
+
+// Bootstrap 3 to 4: Re-add has-error label effects, so the question label
+// becomes highlighted red, not just the field.
+.has-error .checkbox, .has-error .checkbox-inline, .has-error.checkbox-inline label, .has-error.checkbox label, .has-error .control-label, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.radio-inline label, .has-error.radio label {
+  color: $color-danger;
 }

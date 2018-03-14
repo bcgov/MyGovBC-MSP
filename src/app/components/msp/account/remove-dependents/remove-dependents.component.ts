@@ -25,7 +25,7 @@ import {AccountPersonalDetailsComponent} from '../personal-info/personal-details
 @Component({
     selector: 'msp-remove-dependent',
     templateUrl: './remove-dependents.component.html',
-    styleUrls: ['./remove-dependents.component.less']
+    styleUrls: ['./remove-dependents.component.scss']
 })
 export class RemoveDependentComponent extends BaseComponent {
     Relationship: typeof Relationship = Relationship;

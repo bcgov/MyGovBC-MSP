@@ -21,7 +21,7 @@ import {MspAssistanceYearComponent} from "./assistance-year/assistance-year.comp
 
 @Component({
   templateUrl: './prepare.component.html',
-  styleUrls: ["./prepare.component.less"]
+  styleUrls: ["./prepare.component.scss"]
 })
 export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoCheck{
   @ViewChild('formRef') prepForm: NgForm;

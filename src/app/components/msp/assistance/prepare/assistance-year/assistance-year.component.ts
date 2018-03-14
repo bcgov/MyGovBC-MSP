@@ -4,7 +4,7 @@ import {AssistanceYear} from '../../../model/assistance-year.model';
 @Component({
   selector: 'msp-assistance-year',
   templateUrl: './assistance-year.component.html',
-  styleUrls: ['./assistance-year.component.less']
+  styleUrls: ['./assistance-year.component.scss']
 })
 export class MspAssistanceYearComponent implements OnChanges{
 

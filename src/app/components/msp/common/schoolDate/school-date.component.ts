@@ -6,7 +6,7 @@ import {BaseComponent} from "../base.component";
 @Component({
   selector: 'msp-school-date',
   templateUrl: './school-date.component.html',
-  styleUrls: ['./school-date.component.less']
+  styleUrls: ['./school-date.component.scss']
 })
 export class MspSchoolDateComponent extends BaseComponent {
 

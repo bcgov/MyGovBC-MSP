@@ -5,7 +5,7 @@
   Print
 </button>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-lg-6">
         <msp-person-card [person]="application.applicant"
                          [editRouterLink]="'/msp/assistance/personal-info'"></msp-person-card>
         <msp-person-card [person]="application.spouse" *ngIf="application.hasSpouseOrCommonLaw"
@@ -19,7 +19,7 @@
                 [editRouterLink]="'/msp/assistance/personal-info'"></msp-contact-card>
 
     </div>
-    <div class="col-md-6">
+    <div class="col-lg-6">
         <div class="person-card-preview-zone">
             <div *ngFor="let mspImage of application.assistYeaDocs" class="preview-item">
                 <msp-thumbnail [imageObject] ="mspImage" [reviewMode]="true">

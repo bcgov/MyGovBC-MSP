@@ -16,12 +16,13 @@ import { MspDataService } from '../../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../../model/financial-assist-application.model';
 import * as moment from 'moment';
 
-import'./deduction-calculator.less';
+import'./deduction-calculator.scss';
 import {ProcessService} from "../../../service/process.service";
 
 @Component({
   selector: 'deduction-calculator',
-  templateUrl: './deduction-calculator.html'
+  templateUrl: './deduction-calculator.html',
+    styleUrls: ['./deduction-calculator.scss']
 })
 
 export class DeductionCalculatorComponent implements DoCheck {

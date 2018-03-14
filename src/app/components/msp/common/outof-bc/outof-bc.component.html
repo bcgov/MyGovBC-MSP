@@ -1,6 +1,6 @@
 <form #formRef='ngForm' novalidate>
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-md-4">
       <div class="form-group" [ngClass]="{'has-error': !formRef.controls['reason'+objectId]?.valid && (reasonRef.touched || showError)}">
         <label for="reason{{objectId}}" [innerHtml]="lang('./en/index.js').reasonLabel"></label><br>
         <input type="text" class="form-control"
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-md-4">
       <div class="form-group" [ngClass]="{'has-error': !formRef.controls['location'+objectId]?.valid && (locationRef.touched || showError)}">
         <label for="location{{objectId}}" [innerHtml]="lang('./en/index.js').locationLabel"></label><br>
         <input type="text" class="form-control"
@@ -32,7 +32,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-lg-4">
       <msp-departure-date
           #mspDepartureDate [maxMonthsRange]="maxMonthsRange" [maxMonthsRangeErrorMsg]="maxMonthsRangeErrorMsg"
           [year]="outofBCRecord.departureYear"
@@ -44,7 +44,7 @@
           (onChange)="onUpdate.emit($event)" [futureDate]="futureDepartureDate"
           [showError]="showError" ></msp-departure-date>
     </div>
-    <div class="col-md-4">
+    <div class="col-lg-4">
       <msp-return-date
         #mspReturnDate [minMonthsRange]="minMonthsRange" [minMonthsRangeErrorMsg]="minMonthsRangeErrorMsg"
         [year]="outofBCRecord.returnYear"

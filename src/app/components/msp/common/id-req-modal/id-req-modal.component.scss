@@ -1,4 +1,4 @@
-@import "../../../../styles/variables.less";
+@import "variables.scss";
 
 #idReq {
   .panel-body {
@@ -6,12 +6,13 @@
   }
   .panel-heading a {
     text-decoration: none !important;
-    color: @brand-primary;
+    color: $color-primary;
     font-weight: bold;
     outline : none;
   }
 
   img {
-    border:3px solid @brand-danger;
+    border:3px solid $color-danger;
+
   }
 }

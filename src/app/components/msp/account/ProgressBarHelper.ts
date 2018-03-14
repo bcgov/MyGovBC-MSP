@@ -30,7 +30,7 @@ export class ProgressBarHelper {
             this._widthMainMenu = {'width': '13%'};
             this._widthDocumentUpload = {'width': '20%'};            
             this._widthPersonalInfo = {'width': '34%'};
-            this._widthDependents = {'width': '20%'};
+            this._widthDependents = {'width': '21%'};
             this._widthReview  = {'width': '17%'};
             return;
         }

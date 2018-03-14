@@ -7,7 +7,7 @@ import {BaseComponent} from "../base.component";
 @Component({
   selector: 'msp-return-date',
   templateUrl: './return-date.component.html',
-  styleUrls: ['./return-date.component.less']
+  styleUrls: ['./return-date.component.scss']
 })
 export class MspReturnDateComponent extends BaseComponent {
 

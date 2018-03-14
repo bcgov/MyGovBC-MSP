@@ -13,7 +13,7 @@ export class MspProvinceComponent extends BaseComponent implements OnInit {
   lang = require('./i18n');
 
   @Input() showError: boolean;
-  @Input() colSize: string = "col-sm-5";
+  @Input() colSize: string = "col-md-5";
   @Input() province: string;
   /**
    * Include states from USA in the list.

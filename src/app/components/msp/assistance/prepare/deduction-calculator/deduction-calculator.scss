@@ -1,29 +1,29 @@
-.border-radius(@radius: 5px) {
-  -webkit-border-radius: @radius;
-     -moz-border-radius: @radius;
-          border-radius: @radius;
+@mixin border-radius($radius: 5px){
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
 }
 
-@table-border-height: 0;
+$table-border-height: 0;
 .deduction-calc-spacer-lg {
-  margin-top: 55%; 
+  margin-top: 55%;
 }
 .deduction-calc-spacer-md {
-  margin-top: 45%; 
+  margin-top: 45%;
 }
 
 .deduction-calc-spacer-sm {
-  margin-top: 10px; 
+  margin-top: 10px;
 }
 .deduction-calc {
   /*border: 1px solid red; */
-  padding: 10px 10px 25px 25px; 
+  padding: 10px 10px 25px 25px;
   background: #ECEFF1;
 
   border-radius: 8px 8px 8px 8px;
   -moz-border-radius: 8px 8px 8px 8px;
   -webkit-border-radius: 8px 8px 8px 8px;
-  border: 0px solid #ECEFF1;    
+  border: 0px solid #ECEFF1;
 }
 
 .deduction-table-cell-padding {
@@ -39,7 +39,7 @@
   color: green;
   padding: 5px;
   margin:0;
-  .border-radius;
+  @include border-radius;
   margin-right: 5px;
 }
 
@@ -54,7 +54,7 @@
   border: 1px solid #B71C1C;
   padding: 5px;
   margin:0;
-  .border-radius;
+  @include border-radius;
   margin-right: 5px;
   font-size: smaller;
 }
@@ -65,15 +65,15 @@ table {
 }
 
 tr {
-  border: @table-border-height solid green;
+  border: $table-border-height solid green;
 }
 
 td {
-  border: @table-border-height solid blue;
+  border: $table-border-height solid blue;
 }
 
 thead {
-  border: @table-border-height+1 dashed orangered;
+  border: $table-border-height+1 dashed orangered;
 }
 
 .msp-calc {

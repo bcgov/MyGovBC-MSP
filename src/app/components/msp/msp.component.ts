@@ -3,7 +3,7 @@ import { Component,ViewContainerRef } from '@angular/core';
 @Component({
   selector: 'msp-app',
   templateUrl: './msp.component.html',
-  styleUrls: ['./msp.component.less']
+  styleUrls: ['./msp.component.scss']
 })
 export class MspComponent {
   private viewContainerRef: ViewContainerRef;

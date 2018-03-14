@@ -11,7 +11,7 @@ import {MspCountryComponent} from "../country/country.component";
 @Component({
   selector: 'msp-address',
   templateUrl: './address.component.html',
-  styleUrls: ['./address.component.less']
+  styleUrls: ['./address.component.scss']
 })
 
 export class MspAddressComponent extends BaseComponent {

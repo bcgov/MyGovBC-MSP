@@ -6,7 +6,8 @@ import {MspDataService} from "../../service/msp-data.service";
 
 @Component({
   selector: 'msp-cancel',
-  templateUrl: './cancel.component.html'
+  templateUrl: './cancel.component.html',
+  styleUrls: ['./cancel.component.scss']
 })
 export class MspCancelComponent {
   lang = require('./i18n');

@@ -9,7 +9,7 @@ import {MspModule} from './components/msp/msp.module'
 import {GeneralAppComponent} from './app.component';
 
 
-require('./index.less')
+require('./index.scss')
 @NgModule({
   imports: [
     BrowserModule,

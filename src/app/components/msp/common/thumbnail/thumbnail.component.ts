@@ -6,7 +6,7 @@ import { MspImage } from '../../model/msp-image';
 @Component({
   selector: 'msp-thumbnail',
   templateUrl: './thumbnail.html',
-  styleUrls: ['./thumbnail.less']
+  styleUrls: ['./thumbnail.scss']
 })
 export class ThumbnailComponent implements OnInit {
   @Input() imageObject: MspImage;

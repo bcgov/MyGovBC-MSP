@@ -1,6 +1,6 @@
 <form #formRef='ngForm' novalidate>
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-md-4">
             <div class="form-group"
                  [ngClass]="{'has-error': !formRef.controls.firstName?.valid && (firstNameRef.touched || showError)}">
                 <label class="control-label" for="firstName{{objectId}}"
@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-md-4">
             <div class="form-group"
                  [ngClass]="{'has-error': !formRef.controls.middleName?.valid && middleNameRef.touched}">
                 <label class="control-label if-applicable" for="middleName{{objectId}}" [innerHtml]="lang('./en/index.js').middleNameLabel"></label>
@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-md-4">
             <div class="form-group"
                  [ngClass]="{'has-error': !formRef.controls.lastName?.valid && (lastNameRef.touched || showError)}">
                 <label class="control-label" for="lastName{{objectId}}" [innerHtml]="lang('./en/index.js').lastNameLabel"></label>

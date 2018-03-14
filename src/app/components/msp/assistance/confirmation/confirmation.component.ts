@@ -7,7 +7,7 @@ import { Subscription} from 'rxjs/Subscription';
 
 @Component({
   templateUrl: './confirmation.component.html',
-  styleUrls: ['./confirmation.component.less']
+  styleUrls: ['./confirmation.component.scss']
   
 })
 export class AssistanceConfirmationComponent {

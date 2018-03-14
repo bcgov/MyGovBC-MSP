@@ -8,7 +8,7 @@ import {Documents} from "../../model/status-activities-documents";
 @Component({
     selector: 'msp-id-req-modal',
     templateUrl: './id-req-modal.component.html',
-    styleUrls: ['./id-req-modal.component.less']
+    styleUrls: ['./id-req-modal.component.scss']
 })
 
 export class MspIdReqModalComponent implements OnInit {

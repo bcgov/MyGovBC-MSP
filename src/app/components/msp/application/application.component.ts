@@ -15,7 +15,7 @@ import { MspLogService } from '../service/log.service';
  */
 @Component({
   templateUrl: './application.component.html',
-  styleUrls: ['./application.component.less']
+  styleUrls: ['./application.component.scss']
 })
 
 export class ApplicationComponent  {

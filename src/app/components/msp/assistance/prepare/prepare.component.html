@@ -1,5 +1,5 @@
 <div class="row" style="margin-top: 0px; margin-bottom: 15px">
-    <div class="col-md-8" style="border: 1px solid transparent">
+    <div class="col-lg-8" style="border: 1px solid transparent">
       <div [ngClass]="{'tax-year-missing': (taxYearInfoMissing && !taxYearsSpecified)}">
         <h2 [innerHTML]="lang('./en/index.js').whatYearsToApplyFor" tabindex="0">
         </h2>
@@ -23,11 +23,13 @@
         <div class="form-group"
             [ngClass]="{'has-error': !formRef.controls.netIncome?.valid && incomeRef.touched}">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-lg-12">
                     <label for="netIncome">Enter your net income – see Line 236 of your Notice of Assessment or Reassessment from Canada Revenue Agency.</label>
 
-                    <div class="col-md-3 col-sm-4 col-xs-6 input-group">
-                        <span class="input-group-addon">$</span>
+                    <div class="col-lg-3 col-md-4 col-sm-6 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
                         <input type="text" class="form-control" name="netIncome" id="netIncome"
                             [(ngModel)]="finAssistApp.netIncomelastYear"
                             #incomeRef="ngModel" 
@@ -48,7 +50,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-lg-10">
                 <div class="form-group">
                   <div role="dialog" aria-labelledby="q1">
                       <p id="q1" class="intro" [innerHtml]="lang('./en/index.js').areYou65OrOlder"></p>
@@ -69,7 +71,7 @@
         </div>
         <div class="row" tabindex="-1"
             [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
-            <div class="col-md-10">
+            <div class="col-lg-10">
                 <div class="form-group">
                   <div role="dialog" aria-labelledby="q2">
                     <p id="q2" class="intro" [innerHtml]="lang('./en/index.js').doYouHaveASpouseOrPartner"></p>
@@ -109,8 +111,10 @@
                     [ngClass]="{'has-error': !formRef.controls.spouseIncomeLine236?.valid}">
                   <label for="spouseIncomeLine236" [innerHtml]="lang('./en/index.js').whatIsYourSpouseOrPartnerIncome">
                   </label>
-                  <div class="col-md-4 col-sm-5 col-xs-6 input-group">
-                      <span class="input-group-addon">$</span>
+                  <div class="col-lg-4 col-md-5 col-sm-6 input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">$</span>
+                      </div>
                       <input type="text" class="form-control" name="spouseIncomeLine236" id="spouseIncomeLine236" 
                         required maxlength="12" #spouseIncomeRef="ngModel" 
                         pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
@@ -128,26 +132,28 @@
             </div>
         </div>
 
-        <div class="row" tabindex="-1"
+        <div  tabindex="-1"
             [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
-        <hr>
-            <div class="col-md-6">
-                <div (click)="showChildrenInfo=true" *ngIf="!showChildrenInfo"
-                    [mspKeyboard] = "'Enter'" (keyboardAction) = "showChildrenInfo=true"
-                    class="msp-toggle" tabindex="0" role="button">
-                    <span class="glyphicon glyphicon-collapse-up"
-                        aria-hidden="true"></span>
-                    <span
-                    [innerHTML]="lang('./en/index.js').childrenInfo"
-                    ></span>
-                </div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div (click)="showChildrenInfo=true" *ngIf="!showChildrenInfo"
+                        [mspKeyboard] = "'Enter'" (keyboardAction) = "showChildrenInfo=true"
+                        class="msp-toggle" tabindex="0" role="button">
+                        <span class="fa fa-caret-square-o-up"
+                            aria-hidden="true"></span>
+                        <span
+                        [innerHTML]="lang('./en/index.js').childrenInfo"
+                        ></span>
+                    </div>
 
-                <div (click)="showChildrenInfo=false" *ngIf="showChildrenInfo"
-                    [mspKeyboard] = "'Enter'" (keyboardAction) = "showChildrenInfo=false"
-                    class="msp-toggle" tabindex="0" role="button">
-                    <span class="glyphicon glyphicon-collapse-down"
-                    aria-hidden="true"></span>
-                    <span [innerHTML]="lang('./en/index.js').childrenInfo"></span>
+                    <div (click)="showChildrenInfo=false" *ngIf="showChildrenInfo"
+                        [mspKeyboard] = "'Enter'" (keyboardAction) = "showChildrenInfo=false"
+                        class="msp-toggle" tabindex="0" role="button">
+                        <span class="fa fa-caret-square-o-down"
+                        aria-hidden="true"></span>
+                        <span [innerHTML]="lang('./en/index.js').childrenInfo"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -155,14 +161,14 @@
 
         <div class="row" style="margin-left: 5px;"
             [hidden]="!showChildrenInfo || incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
-            <div class="col-md-12">
+            <div class="col-lg-12">
                 <div class="form-horizontal">
                     <div class="form-group">
                         <label for="childrenCount"
-                          class="col-xs-8 col-md-8 control-label" style="text-align:left; padding-right: 0;"
+                          class="col-sm-8 col-lg-8 control-label" style="text-align:left; padding-right: 0;"
                             [innerHtml]="lang('./en/index.js').howManyChildrenDoYouHaveOnYourMSP">
                           </label>
-                        <div class="col-xs-3 col-md-2" style="text-align:left; padding-left: 3px;">
+                        <div class="col-sm-3 col-lg-2" style="text-align:left; padding-left: 3px;">
                             <input type="text" class="form-control" name="childrenCount" 
                                 id="childrenCount"
                                 maxlength="2"
@@ -176,8 +182,10 @@
                               [innerHtml]="lang('./en/index.js').howMuchDidYouClaimForChildCareExpenseLastYear">
                             </label>
 
-                            <div class="col-md-3 col-sm-4 col-xs-6 input-group">
-                                <span class="input-group-addon">$</span>
+                            <div class="col-lg-3 col-md-4 col-sm-6 input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
                                 <input type="text" class="form-control" id="line214" name="line214" placeholder=""
                                 pattern="(?=.)^(([1-9][0-9]{0,5}(,[0-9]{5})*)|[0-9]+)?(\.[0-9]{1,5})?$"
                                 #line214Ref="ngModel"
@@ -188,13 +196,15 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-lg-12">
                             <label for="line117" 
                               [innerHtml]="lang('./en/index.js').howMuchDidYouReportForUCC">
                             </label>
 
-                            <div class="col-md-3 col-sm-4 col-xs-6 input-group">
-                                <span class="input-group-addon">$</span>
+                            <div class="col-lg-3 col-md-4 col-sm-6 input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
                                 <input type="text" class="form-control" name="line117" id="line117" placeholder=""
                                 pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
                                 #line117Ref="ngModel"
@@ -214,18 +224,18 @@
             
             <hr>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <div class="msp-toggle" tabindex="0" role="button"
                         [mspKeyboard] = "['Enter','space']" (keyboardAction) = "showDisabilityInfo=true"
                         *ngIf="!showDisabilityInfo" (click)="showDisabilityInfo=true">
-                        <span class="glyphicon glyphicon-collapse-up msp-toggle"
+                        <span class="fa fa-caret-square-o-up msp-toggle"
                         aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').disabilityInfo"></span>
                     </div>
                     <div class="msp-toggle" tabindex="0" role="button"
                         [mspKeyboard] = "['Enter','space']" (keyboardAction) = "showDisabilityInfo=false"
                         *ngIf="showDisabilityInfo" (click)="showDisabilityInfo=false">
-                        <span class="glyphicon glyphicon-collapse-down msp-toggle"
+                        <span class="fa fa-caret-square-o-down msp-toggle"
                         aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').disabilityInfo"></span>
                     </div>
@@ -234,7 +244,7 @@
 
 
             <div class="row" [hidden]="!showDisabilityInfo" style="margin-left: 5px; margin-top: 15px;">
-                <div class="col-md-12">
+                <div class="col-lg-12">
 
                   <div role="dialog" aria-labelledby="anyoneClaimeDisabilityQ">
                     <label id="anyoneClaimeDisabilityQ" style="margin-bottom: 5px"
@@ -266,10 +276,10 @@
                         </div>     
                     </div>
                     <div class="form-group" *ngIf="(finAssistApp.childrenCount > 0)">
-                        <label for="childWithDisabilityCount" class="col-sm-7"> 
+                        <label for="childWithDisabilityCount" class="col-md-7"> 
                           Number of chilldren who are eligible for disability credit
                         </label>
-                        <select name="childWithDisabilityCount" id="childWithDisabilityCount" class="col-sm-1" role="Option"
+                        <select name="childWithDisabilityCount" id="childWithDisabilityCount" class="col-md-1" role="Option"
                             #childDisabilityCreditCreditMultiplierSelect
                             [ngModel] = "finAssistApp.childWithDisabilityCount"
                             (ngModelChange) = "updateChildDisabilityCreditCreditMultiplier($event)">
@@ -286,17 +296,19 @@
 
           <div class="row" [hidden]="!showDisabilityInfo" style="margin-left: 5px; margin-top: 15px;">
               
-              <div class="col-md-12">
+              <div class="col-lg-12">
                   <div class="form-group">
                       <div class="row">
-                          <div class="col-md-12">
+                          <div class="col-lg-12">
                               <label for="line125">
                                   How much did you (or your spouse / common-law partner) report for a Registered Disability
                                   Savings Plan on your income tax return (Line 125)?
                               </label>
 
-                              <div class="col-md-3 col-sm-4 col-xs-6 input-group">
-                                  <span class="input-group-addon">$</span>
+                              <div class="col-lg-3 col-md-4 col-sm-6 input-group">
+                                  <div class="input-group-prepend">
+                                      <span class="input-group-text">$</span>
+                                  </div>
                                   <input type="text" class="form-control" name="line125" id="line125"
                                   pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
                                   #line125Ref="ngModel"
@@ -313,11 +325,11 @@
             
             <hr>
             <div class="row" style="margin-top: 12px">
-                <div class="col-sm-10">
+                <div class="col-md-10">
                     <div class="msp-toggle" tabindex="0"
                         [mspKeyboard] = "'Enter'" (keyboardAction) = "showAttendantCareInfo=true"
                         *ngIf="!showAttendantCareInfo" (click)="showAttendantCareInfo=true">
-                        <span class="glyphicon glyphicon-collapse-up msp-toggle"
+                        <span class="fa fa-caret-square-o-up msp-toggle"
                         aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').nursingHomeLabel" tabindex="0"></span>
 
@@ -325,7 +337,7 @@
                     <div class="msp-toggle" tabindex="0"
                         [mspKeyboard] = "'Enter'" (keyboardAction) = "showAttendantCareInfo=false"
                          *ngIf="showAttendantCareInfo" (click)="showAttendantCareInfo=false">
-                        <span class="glyphicon glyphicon-collapse-down msp-toggle"
+                        <span class="fa fa-caret-square-o-down msp-toggle"
                         aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').nursingHomeLabel" tabindex="0"></span>
                     </div>
@@ -335,14 +347,14 @@
             <div [hidden]="!showAttendantCareInfo" style="margin-left: 15px; margin-top: 10px;" 
               role="dialog" aria-labelledby="anyoneClaimeAttendantCareQ">
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div class="col-sm-12">
                       <label id="anyoneClaimeAttendantCareQ" style="margin-bottom: 5px"
                         [innerHtml]="lang('./en/index.js').didAnyoneClaimAttendantCareLastYear">
                       </label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 col-md-offset-1">
+                    <div class="col-lg-3 col-lg-offset-1">
                         <div class="form-group">
                             <div class="checkbox checkbox-success checkbox-inline">
                                     <input type="checkbox" tabindex="0"
@@ -356,7 +368,7 @@
                             </div>     
                         </div>
                     </div>
-                    <div class="col-md-8" *ngIf="finAssistApp.hasSpouseOrCommonLaw === true">
+                    <div class="col-lg-8" *ngIf="finAssistApp.hasSpouseOrCommonLaw === true">
                         <div class="checkbox checkbox-success checkbox-inline">
                             <div class="form-group">
                                 <input type="checkbox" tabindex="0"
@@ -372,7 +384,7 @@
                     </div>
                 </div>
                 <div class="row" style="margin-top:10px" *ngIf="!!finAssistApp.childrenCount">
-                    <div class="col-md-3 col-md-offset-1">
+                    <div class="col-lg-3 col-lg-offset-1">
                         <div class="checkbox checkbox-success checkbox-inline">
                                 <input type="checkbox" tabindex="0"
                                 name="childClaimForAttendantCareExpense"
@@ -384,9 +396,9 @@
                                 </label>
                         </div>                        
                     </div>    
-                    <div class="col-md-8" [hidden]="!finAssistApp.childClaimForAttendantCareExpense || finAssistApp.childrenCount < 2">
+                    <div class="col-lg-8" [hidden]="!finAssistApp.childClaimForAttendantCareExpense || finAssistApp.childrenCount < 2">
                         <div class="row">
-                            <div class="col-xs-12">
+                            <div class="col-sm-12">
                                 <span>Number of children who claimed for attendant care expense</span>
                                 <span style="margin-left: 5px">
                                     <select name="childClaimForAttendantCareExpenseCount" 
@@ -403,7 +415,7 @@
                     </div>
                 </div>
                 <div class="row" style="margin-top: 15px;" *ngIf="requireAttendantCareReceipts">
-                    <div class="col-md-12">
+                    <div class="col-lg-12">
                         <label for="netIncome">Please upload your attendant care receipts for the expense entered above (required).</label>
                         <msp-file-uploader #fileUploader
                             [images]="finAssistApp.attendantCareExpenseReceipts" 
@@ -427,7 +439,7 @@
     </form>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-lg-4">
         <deduction-calculator [application]="finAssistApp" [qualificationThreshhold] = "qualificationThreshhold"
           (taxYearInfoMissing)= "onTaxYearInfoMissing()">
         </deduction-calculator>
@@ -436,7 +448,7 @@
 </div>
 
 <div class="row">
-    <div class="col-xs-2 col-xs-offset-7">
+    <div class="col-sm-2 col-sm-offset-7">
     </div>
 </div>
 

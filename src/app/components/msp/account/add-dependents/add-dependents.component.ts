@@ -26,7 +26,7 @@ import {AddNewDependentBeneficiaryComponent} from '../add-dependents/add-new-dep
 @Component({
     selector: 'msp-add-dependent',
     templateUrl: './add-dependents.component.html',
-    styleUrls: ['./add-dependents.component.less']
+    styleUrls: ['./add-dependents.component.scss']
 })
 export class AddDependentComponent extends BaseComponent {
     Relationship: typeof Relationship = Relationship;

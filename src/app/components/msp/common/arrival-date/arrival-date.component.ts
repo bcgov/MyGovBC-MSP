@@ -9,7 +9,7 @@ import {SimpleDate} from "../../model/simple-date.interface";
 @Component({
   selector: 'msp-arrival-date',
   templateUrl: './arrival-date.component.html',
-  styleUrls: ['./arrival-date.component.less']
+  styleUrls: ['./arrival-date.component.scss']
   
 })
 export class MspArrivalDateComponent extends BaseComponent implements AfterViewInit {
