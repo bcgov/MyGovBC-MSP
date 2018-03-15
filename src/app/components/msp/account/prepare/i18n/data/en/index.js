@@ -5,7 +5,7 @@ module.exports = {
     groupAccoungMsg: 'Do not use this web application if your MSP Premiums are paid by your employer or you are a member of a group account. Please contact your Group Administrator.',
     faqMsg: "<a href='https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/managing-your-msp-account/msp-account-change-faqs' target='blank'>If you have questions regarding supporting documentation or other frequently asked questions, please click here.</a>",
     selectTitle: 'Select all that apply',
-    addressChange: 'Update Address (Address Update must be done by the Account Holder)',
+    addressChange: 'Update Address within BC (Address Update must be done by the Account Holder). If permanently moving outside BC, visit gov.bc.ca/leavingbcpermanently',
     consentProcessName: 'MSP Account Change Request',
     personalInfoChange: 'Update/Correct Personal Information for Account Holder or other Individuals on your Account (Name, Date of Birth, or Gender)',
     dependentChange: 'Add/Remove Spouse (includes Common-law) and/or Child(ren)',
