@@ -21,7 +21,7 @@
       <tbody>
         <tr>
           <td class="deduction-table-cell-margin">
-            <h4 [innerHTML]="lang('./en/index.js').totalHouseholdIncome" tabindex="0"></h4>
+            <span  [innerHTML]="lang('./en/index.js').totalHouseholdIncome" tabindex="0"></span>
           </td>
           <td class="deduction-table-cell-padding deduction-table-cell-margin">
             <span *ngIf="applicantIncomeInfoProvided" tabindex="0">
@@ -152,7 +152,7 @@
       </tr>
           
       <tr>
-        <td>
+        <td class="deduction-table-cell-margin">
           <h4 tabindex="0">Total deductions</h4>
         </td>
         <td class="deduction-table-cell-padding deduction-table-cell-margin">
@@ -169,8 +169,8 @@
     <table>
       <tbody>
         <tr>
-          <td style="column-width: 100px;">
-            <h4 tabindex="0"><strong>Adjusted income:</strong></h4>
+          <td style="column-width: 100px;" class="deduction-table-cell-margin">
+            <span tabindex="0"><strong>Adjusted income:</strong></span>
           </td>
           <td class="deduction-table-cell-padding deduction-table-cell-margin">
             <span *ngIf="applicantIncomeInfoProvided" tabindex="0">        
