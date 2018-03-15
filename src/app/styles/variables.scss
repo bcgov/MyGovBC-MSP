@@ -24,7 +24,7 @@ $container-max-widths: (
     sm: 719px, //orig: 540px;
     md: 750px, //orig: 720px, increased for spacing of .progressBarType-account
     lg: 960px,
-    xl: 1140px
+    xl: 1170px //orig: 1140px, Bootstrap 3 to 4: Match BS3 container size
 );
 
 //------------------------------------------------------------------------------
