@@ -22,7 +22,7 @@
     "@angular/cli": "^1.7.3",
     "@types/jasmine": "2.5.38",
     "@types/lodash": "^4.14.104",
-    "async": "^2.0.1",
+    "async": "^2.6.0",
     "autoprefixer": "^6.0.0",
     "core-js": "^2.4.1",
     "cross-env": "^3.1.3",
