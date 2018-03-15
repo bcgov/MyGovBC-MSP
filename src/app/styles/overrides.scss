@@ -167,3 +167,14 @@ accordion-group + accordion-group {
   //Bootstrap 3 to 4: Re-implement spacing, due to removing .panels and replacing with .cards
   margin-top: 0.35em;
 }
+
+//Bootstrap 3 to 4: Copying over BS3 styling of input group cols
+.input-group[class*=col-]{
+  padding-left: 0;
+  padding-right: 0;
+}
+//Bootstrap 3 to 4: BS3 styling of input-group-text to match input-group-addon
+.input-group-text {
+  border-radius: 0;
+  padding: 0.425rem 0.85rem; //6px 14px
+}
