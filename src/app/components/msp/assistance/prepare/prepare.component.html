@@ -385,6 +385,7 @@
                 </div>
                 <div class="row" style="margin-top:10px" *ngIf="!!finAssistApp.childrenCount">
                     <div class="col-lg-3 col-lg-offset-1">
+                        <div class="form-group">
                         <div class="checkbox checkbox-success checkbox-inline">
                                 <input type="checkbox" tabindex="0"
                                 name="childClaimForAttendantCareExpense"
@@ -394,7 +395,8 @@
                                 <label for="childClaimForAttendantCareExpense">
                                     My child
                                 </label>
-                        </div>                        
+                        </div>
+                    </div>
                     </div>    
                     <div class="col-lg-8" [hidden]="!finAssistApp.childClaimForAttendantCareExpense || finAssistApp.childrenCount < 2">
                         <div class="row">
