@@ -103,6 +103,8 @@ export class RemoveDependentComponent extends BaseComponent {
      * special logic regarding "Other", as when the user selects "Other" we have
      * to show a text box allowing the user to select a custom string while
      * "Other" must remain shown in the <select> dropdown.
+     *
+     * Update - Other reason is removed during SLS changes
      */
     get reasonForCancellation() {
         //get all options

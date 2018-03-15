@@ -54,18 +54,17 @@ enum CancellationReasons {
   NoLongerInFullTimeStudies,
   Deceased,
   OutOfProvinceOrCountry,
-  Incarcerated,
   ArmedForces,
-  Other, //user can provide custom string for reason
+  Incarcerated
 }
 
 enum CancellationReasonsForSpouse {
    SeparatedDivorced,
+   RemoveFromAccountButStillMarriedOrCommomLaw,
    Deceased,
     OutOfProvinceOrCountry,
-    Incarcerated,
     ArmedForces,
-    Other, //user can provide custom string for reason
+   Incarcerated,
 }
 
 /**
