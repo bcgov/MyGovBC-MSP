@@ -49,6 +49,11 @@ a {
   margin-left: 10px;
 }
 
+//Bootstrap 3 to 4: Was 20px in BS3, but BS4 had it as ~14px. Made to match BS3.
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
 .msp-app .btn-default {
   margin-right: 15px;
 
