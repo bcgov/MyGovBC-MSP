@@ -1,12 +1,14 @@
 import {UUID} from "angular2-uuid";
 
+// NOTE: If you change anything in this enum, check image-error-modal.component.html for tests and file-uploader.component.ts:
 export enum MspImageError {
   WrongType,
   TooSmall,
   TooBig,
   AlreadyExists,
   Unknown,
-  CannotOpen
+  CannotOpen,
+  PDFnotSupported
 }
 
 export class MspImageProcessingError {

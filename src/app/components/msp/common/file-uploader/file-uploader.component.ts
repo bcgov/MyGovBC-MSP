@@ -165,7 +165,10 @@ export class FileUploaderComponent
       ).filter(
         (mspImage: MspImage) => {
           let imageSizeOk = this.checkImageDimensions(mspImage);
-          if (!imageSizeOk) this.handleError(MspImageError.TooSmall, mspImage);
+          if (!imageSizeOk) {
+            this.handleError(MspImageError.TooSmall, mspImage);
+            this.resetInputFields();
+          }
           return imageSizeOk;
         }
       ).subscribe(
@@ -273,7 +276,8 @@ export class FileUploaderComponent
       mspImage.name = file.name;
 
      if (file.type=="application/pdf"){
-         self.handleError(MspImageError.WrongType, mspImage);
+         self.handleError(MspImageError.PDFnotSupported, mspImage);
+         this.resetInputFields();
          return;
       }
 
@@ -298,11 +302,10 @@ export class FileUploaderComponent
           file, // NOTE: we pass the File ref here again even though its already read because we need the XIFF metadata
           function (canvas: HTMLCanvasElement, metadata:any) {
 
-        
-
             // Canvas may be an Event when errors happens
             if (canvas instanceof Event) {
               self.handleError(MspImageError.WrongType, mspImage);
+              self.resetInputFields();
               return;
             }
             // Convert to blob to get size
@@ -512,8 +515,11 @@ export class FileUploaderComponent
     mspImage.error = error;
 
     // log the error
-    this.logImageInfo("msp_file-uploader_error", this.dataService.getMspUuid(), mspImage,
-        "  mspImageFile: " + mspImage.name + "  mspError: " + error);
+    if (error != MspImageError.PDFnotSupported) {
+        this.logImageInfo("msp_file-uploader_error", this.dataService.getMspUuid(), mspImage,
+            "  mspImageFile: " + mspImage.name + "  mspErrorNum: " + error + "  mspError: " +
+            MspImageError[error]);
+    }
 
     // console.log("error with image: ", mspImage);
     this.onErrorDocument.emit(mspImage);
