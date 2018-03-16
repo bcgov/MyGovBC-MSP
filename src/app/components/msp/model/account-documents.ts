@@ -60,8 +60,8 @@ class AccountDocumentRules {
         const removeSpouseOrChildren: DocumentGroup = new DocumentGroup("Remove Spouse or Child(ren)",[
             Documents.DivorceDecree,
             Documents.SeparationAgreement,
-            Documents.MaritalStatusSignedWrittenStatement,
-            Documents.NotarizedStatmentAffidavit
+            Documents.NotarizedStatmentAffidavit,
+            Documents.MaritalStatusSignedWrittenStatement
         ]);
         
         let updateBirthdate: DocumentGroup = new DocumentGroup("Update or Correct Birthdate",[

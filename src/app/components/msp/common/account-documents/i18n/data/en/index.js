@@ -31,7 +31,11 @@ module.exports = {
     21:['Application for Change of Gender Designation (Minor)',true],
     22:['Request for Waiver of Parental Consent (Minor) (for under 19 years )',true],
     23:['Physician’s or Psychologist’s Confirmation of Change of Gender Designation form',true],
-    24:['A signed written statement indicating your marital status has changed',false],
+    24:['A Statement dated and signed by you and/or your spouse, including:' +
+    '<ul><li class="roundbullet">The date of divorce/separation;</li>' +
+    '<li class="roundbullet">Full names of you and your former spouse;</li>' +
+    '<li class="roundbullet">Your former spouse’s current address, or an indication that the new address is unknown; and</li>' +
+    '<li class="roundbullet">Account numbers or PHNs for you and your former spouse</li></ul>',false],
     25:['Notarized statement or affidavit (signed by at least one spouse)(formerly married or common-law)',false]
 }
 /**
