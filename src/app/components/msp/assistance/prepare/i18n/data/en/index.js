@@ -1,6 +1,7 @@
 module.exports = {
   areYou65OrOlder: 'Are you 65 or older this year?',
   doYouHaveASpouseOrPartner: 'Do you have a spouse or common-law partner?',
+    notifySpouseWarning:'Note:  Failure to notify HIBC when you marry or begin living in a marriage-like relationship may impact eligibility for Regular Premium Assistance.',
   isYourSpouseOrPartner65OrOlder: 'Is your spouse/common-law partner 65 or older this year?',
   whatIsYourSpouseOrPartnerIncome: 'What is your spouse’s / common-law partner’s net income (Line 236) on last year’s Notice of Assessment (or Reassessment) from Canada Revenue Agency?',
   howManyChildrenDoYouHaveOnYourMSP: 'How many children do you have on your Medical Services Plan?',

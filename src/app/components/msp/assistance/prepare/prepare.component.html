@@ -81,6 +81,7 @@
                         <button #negativeHasSpouse [class.msp-btn-radio]="finAssistApp.hasSpouseOrCommonLaw === false" 
                              type="button" class="btn btn-default">No&nbsp;</button>
                     </div>
+
                   </div>                    
                     <div *ngIf='(incomeRef.dirty || incomeRef.touched || (!!incomeRef.value && incomeRef.value.trim().length>0) ||
                         finAssistApp.spouseEligibleForDisabilityCredit === true ) && 
@@ -88,6 +89,7 @@
                         <div class="text-danger" tabindex="0"
                                 [innerHTML]="lang('./en/index.js').spouseCommonLawStatusRequired"></div>
                     </div>
+                    <div class="padded" tabindex="0" [innerHtml]="lang('./en/index.js').notifySpouseWarning"></div>
                 </div>
                 <div class="form-group" [hidden]="!finAssistApp.hasSpouseOrCommonLaw">
                   <div role="dialog" aria-labelledby="q3">

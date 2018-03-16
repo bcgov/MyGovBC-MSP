@@ -3,7 +3,7 @@
     <div class="row">
         <div class="form-group col-md-5"
              [ngClass]="{'has-error': !formRef.controls.residentialAddressLine1?.valid && (residentialAddressLine1Ref.touched || showError)}">
-            <label for="residentialAddressLine1{{objectId}}" [innerHtml]="lang('./en/index.js').addressLine1Label"></label>
+            <label for="residentialAddressLine1{{objectId}}" [innerHtml]="lang('./en/index.js').addressLine1LabelResidence"></label>
             <input [(ngModel)]="residentialAddress.addressLine1" type="text" class="form-control msp-addressline"
                    id="residentialAddressLine1{{objectId}}" name="residentialAddressLine1" #residentialAddressLine1Ref="ngModel"
                    required tabindex="0"
@@ -126,8 +126,8 @@
             <div class="form-group col-md-5"
                  [ngClass]="{'has-error': !formRef.controls.mailingAddressLine1?.valid &&
                     (mailingAddressLine1Ref.touched || showError)}">
-                <label [innerHtml]="lang('./en/index.js').addressLine1Label"></label>
-                <label class="visuallyhidden" for="mailingAddressLine1{{objectId}}">{{mailingAddressHeading}} {{lang('./en/index.js').addressLine1Label}}</label>
+                <label [innerHtml]="lang('./en/index.js').addressLine1LabelMailing"></label>
+                <label class="visuallyhidden" for="mailingAddressLine1{{objectId}}">{{mailingAddressHeading}} {{lang('./en/index.js').addressLine1LabelMailing}}</label>
                 <input [(ngModel)]="mailingAddress.addressLine1" type="text" class="form-control"
                        id="mailingAddressLine1{{objectId}}" name="mailingAddressLine1" #mailingAddressLine1Ref="ngModel"
                        required
