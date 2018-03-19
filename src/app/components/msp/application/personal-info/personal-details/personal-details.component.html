@@ -213,6 +213,8 @@
                                   [day]="person.arrivalToCanadaDay"
                                   (dayChange)="person.arrivalToCanadaDay = $event"
                                   (onChange) = "onChange.emit($event)"
+                                  [notBeforeDate]="person.dobSimple"
+                                  [notBeforeDateErrorLabel]="lang('./en/index.js').moveDateBeforeBirthError[person.relationship]"
                                   [showError]="showError">
                 </msp-arrival-date>
 
