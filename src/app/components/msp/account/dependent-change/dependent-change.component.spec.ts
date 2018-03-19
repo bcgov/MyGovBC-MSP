@@ -31,7 +31,6 @@ import { MspBirthDateComponent } from '../../common/birthdate/birthdate.componen
 import { MspProvinceComponent } from '../../common/province/province.component';
 import { MspCountryComponent } from '../../common/country/country.component';
 import { MspPhnComponent } from '../../common/phn/phn.component';
-import { Ng2BootstrapModule } from "ngx-bootstrap";
 import { CalendarYearValidator } from '../../common/calendar/calendar-year.validator';
 import { CalendarMonthValidator } from '../../common/calendar/calendar-month.validator';
 import { CalendarDayValidator } from '../../common/calendar/calendar-day.validator';
@@ -77,7 +76,7 @@ describe("AccountDependentChangeComponent", () => {
                 prefix: 'ca.bc.gov.msp',
                 storageType: 'sessionStorage'
             }), 
-            RouterTestingModule, Ng2BootstrapModule.forRoot(), Ng2CompleterModule]
+            RouterTestingModule, Ng2CompleterModule]
         })
         .compileComponents();
     

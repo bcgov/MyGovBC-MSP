@@ -6,7 +6,6 @@ import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
 import {ThumbnailComponent} from "../../common/thumbnail/thumbnail.component";
-import {Ng2BootstrapModule} from "ngx-bootstrap";
 import {MspCancelComponent} from "../../common/cancel/cancel.component";
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
@@ -25,7 +24,7 @@ describe('AssistanceAuthorizeSubmitComponent Test', () => {
     TestBed.configureTestingModule({
       declarations: [AssistanceAuthorizeSubmitComponent, FileUploaderComponent, ThumbnailComponent, MspCancelComponent,
         MspImageErrorModalComponent,MspLoggerDirective, MspLoggerDirective, CaptchaComponent],
-      imports: [FormsModule, Ng2BootstrapModule.forRoot(), HttpModule, RouterTestingModule, LocalStorageModule.withConfig({
+      imports: [FormsModule,  HttpModule, RouterTestingModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],
