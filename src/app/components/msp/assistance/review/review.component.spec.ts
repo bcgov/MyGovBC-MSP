@@ -14,6 +14,7 @@ import {MspCancelComponent} from "../../common/cancel/cancel.component";
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import {MspLogService} from "../../service/log.service";
 import {HttpModule} from "@angular/http";
+import { ModalModule } from "ngx-bootstrap";
 
 import { ProcessService } from "../../service/process.service";
 
@@ -27,7 +28,7 @@ describe('AssistanceReviewComponent', () => {
       imports: [FormsModule, RouterTestingModule,  HttpModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
-      })],
+      })  ,ModalModule.forRoot()],
       providers: [MspDataService,MspLogService, ProcessService,
         
         

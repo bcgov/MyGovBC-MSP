@@ -10,6 +10,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 
 import { MspLogService } from '../../service/log.service';
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
+import {ModalModule} from "ngx-bootstrap";
 describe('MspCancelComponent', () => {
 
   beforeEach(() => {
@@ -18,7 +19,8 @@ describe('MspCancelComponent', () => {
       imports: [FormsModule, RouterTestingModule,  HttpModule,LocalStorageModule.withConfig({
           prefix: 'ca.bc.gov.msp',
           storageType: 'sessionStorage'
-      })],
+      }),
+          ModalModule.forRoot()],
       providers: [MspDataService, MspLogService,
         LocalStorageService
       ]

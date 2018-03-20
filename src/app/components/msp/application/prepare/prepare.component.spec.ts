@@ -12,6 +12,7 @@ import { MspLogService } from '../../service/log.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ProcessService } from "../../service/process.service";
+import { ModalModule } from "ngx-bootstrap";
 
 describe('PrepareComponent', () => {
   beforeEach(() => {
@@ -20,7 +21,7 @@ describe('PrepareComponent', () => {
       imports: [FormsModule,  HttpModule, RouterTestingModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
-      })],
+      }),  ModalModule.forRoot()],
       providers: [MspDataService, MspLogService, ProcessService,
         
         

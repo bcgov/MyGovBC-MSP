@@ -35,8 +35,8 @@ import {RouterTestingModule} from "@angular/router/testing";
 import { ProcessService } from "../../service/process.service";
 import { CompletenessCheckService } from '../../service/completeness-check.service';
 import { MspValidationService} from '../../service/msp-validation.service';
-
-
+import { ServicesCardDisclaimerModalComponent } from '../../../msp/common/services-card-disclaimer/services-card-disclaimer.component';
+import {ModalModule} from "ngx-bootstrap";
 
 
 
@@ -46,7 +46,7 @@ describe('RemoveDependentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [RemoveDependentComponent, MspToggleComponent, MspStatusInCanadaRadioComponent, MspDateComponent, AccountPersonalDetailsComponent, CalendarYearValidator, CalendarMonthValidator, CalendarDayValidator, CalendarYearFormatter, AddNewDependentBeneficiaryComponent, MspNameComponent, MspGenderComponent, MspBirthDateComponent, MspPhnComponent, MspPhoneComponent, MspDischargeDateComponent, MspSchoolDateComponent, MspAddressComponent, MspProvinceComponent, MspArrivalDateComponent, MspOutofBCRecordComponent, Mod11CheckValidator, MspCountryComponent, MspDepartureDateComponent, MspReturnDateComponent],
+      declarations: [RemoveDependentComponent, MspToggleComponent, MspStatusInCanadaRadioComponent, MspDateComponent, AccountPersonalDetailsComponent, CalendarYearValidator, CalendarMonthValidator, CalendarDayValidator, CalendarYearFormatter, AddNewDependentBeneficiaryComponent, MspNameComponent, MspGenderComponent, MspBirthDateComponent, MspPhnComponent, MspPhoneComponent, MspDischargeDateComponent, MspSchoolDateComponent, MspAddressComponent, MspProvinceComponent, MspArrivalDateComponent, MspOutofBCRecordComponent, Mod11CheckValidator, MspCountryComponent, MspDepartureDateComponent, ServicesCardDisclaimerModalComponent,MspReturnDateComponent],
       imports: [
         FormsModule, 
         Ng2CompleterModule,
@@ -54,7 +54,8 @@ describe('RemoveDependentComponent', () => {
           prefix: 'ca.bc.gov.msp',
           storageType: 'sessionStorage'
         }),
-        RouterTestingModule
+        RouterTestingModule,
+          ModalModule.forRoot()
       ],
       providers: [
         MspDataService,

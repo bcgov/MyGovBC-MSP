@@ -15,6 +15,7 @@ import { MspApiService } from '../../service/msp-api.service';
 
 import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
 import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
+import { ModalModule } from "ngx-bootstrap";
 
 describe('AccountPrepareComponent', () => {
 
@@ -25,7 +26,7 @@ describe('AccountPrepareComponent', () => {
       imports: [FormsModule, HttpModule, RouterTestingModule, LocalStorageModule.withConfig({
           prefix: 'ca.bc.gov.msp',
           storageType: 'sessionStorage'
-      })],
+      }), ModalModule.forRoot()],
       providers: [MspDataService, MspLogService, ProcessService,
         LocalStorageService, CaptchaDataService, MspApiService
         
