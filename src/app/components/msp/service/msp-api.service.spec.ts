@@ -1,4 +1,4 @@
-import {TestBed, fakeAsync, inject} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 import {MspApiService} from "./msp-api.service";
 import {MspApplication} from "../model/application.model";
 import {Gender, Person} from "../model/person.model";
@@ -6,18 +6,23 @@ import {MspImage} from "../model/msp-image";
 import {StatusInCanada, Activities, Relationship} from "../model/status-activities-documents";
 import {HttpModule} from "@angular/http";
 import {FinancialAssistApplication} from "../model/financial-assist-application.model";
-import {ApplicationBase} from "../model/application-base.model";
 import {AssistanceYear} from "../model/assistance-year.model";
 import {OutofBCRecord} from "../model/outof-bc-record.model";
-// import appConstants from '../../../services/appConstants';
+import {MspLogService} from "./log.service";
+import {MspDataService} from "./msp-data.service";
+import {LocalStorageModule} from "angular-2-local-storage";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('MspApiService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [HttpModule, LocalStorageModule.withConfig({
+          prefix: 'ca.bc.gov.msp',
+          storageType: 'sessionStorage'
+      }),RouterTestingModule],
       providers: [
-        MspApiService
+        MspApiService,MspLogService,MspDataService
       ]
     })
   });
