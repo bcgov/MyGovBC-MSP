@@ -29,18 +29,14 @@
   <!-- The sole purpose of this element is to maintain the drop zone to an 
       large size to display on screen.
    -->
-  <div [hidden]= "images.length > 0" class="preview-zone">
+  <div class="preview-zone">
       <div class="preview-item"
           [ngClass]="{'error-style': noIdImage}">
         <i class="fa fa-file-image-o fa-5x icon-upload" tabindex="0"
           #imagePlaceholderRef aria-hidden="true">
 
         </i>
-
-
-          <p  *ngIf="images.length > 0 && (!showError)">
-              <label class="text-upload" for="fileUploadBrowse-{{id}}" tabindex="0">  Upload another file</label>
-          </p>
+        <p class="text-upload" *ngIf="images.length > 0 && (!showError)">Upload another file</p>
         <p class="text-upload" [ngClass]="{'error-style': showError}"
           *ngIf="images?.length < 1 || noIdImage">
           <ng-content></ng-content>  
