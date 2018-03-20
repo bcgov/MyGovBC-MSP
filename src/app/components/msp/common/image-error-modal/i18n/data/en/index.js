@@ -17,6 +17,6 @@ module.exports = {
         'Unknown error, try uploading the file again or if the problem persists contact help',
         'Cannot read this image. This image is likely an invalid image file or you don\'t have permission to read it.' +
         '  Please refresh your browser once you close this dialog.',
-        'PDF files are not supported, try converting to JPEG, PNG, GIF or BMP and try again'
+        'Please submit a JPG, PNG, GIF or BMP file (not a PDF)'
     ]
 }
