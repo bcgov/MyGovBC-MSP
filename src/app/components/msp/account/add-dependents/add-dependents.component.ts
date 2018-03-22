@@ -124,6 +124,10 @@ export class AddDependentComponent extends BaseComponent {
                 return false;
             }
         }
+
+        if (this.person.isArrivalToBcBeforeDob || this.person.isStudyDatesInValid) {
+            return false;
+        }
         return true;
     }
 

@@ -134,11 +134,12 @@
         <div class="col-lg-6">
           <msp-date #studiesFinishedSimple
             [label]="lang('./en/index.js').studiesFinish"
-                    [notBeforeDate]="person.studiesBeginSimple"
-                    [notBeforeDateErrorLabel]="lang('./en/index.js').dateStudiesStartBeforeEndError"
                     [showError]='showError' (onChange) = "onChange.emit($event)" [futureDate]="true"
                     [(date)]="person.studiesFinishedSimple"
           ></msp-date>
+          <div *ngIf='person.isStudyDatesInValid'>
+            <div class="text-danger"[innerHtml]="lang('./en/index.js').dateStudiesStartBeforeEndError"></div>
+          </div>
         </div>
       </div>
 

@@ -265,6 +265,13 @@ class Person implements IPerson {
         return this.parseDate(this.dischargeYear, this.dischargeMonth, this.dischargeDay);
     }
 
+    get isArrivalToBcBeforeDob(): boolean {
+        return this.dob.isSameOrAfter(this.arrivalToBC);
+    }
+
+    get isStudyDatesInValid() : boolean {
+        return this.studiesBeginDate.isSameOrAfter(this.studiesFinishedDate);
+    }
     /**
      * Which province the person has moved from
      */

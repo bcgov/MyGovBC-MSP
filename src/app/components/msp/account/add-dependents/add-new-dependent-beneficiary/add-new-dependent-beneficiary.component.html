@@ -13,10 +13,11 @@
           [label]="lang('./en/index.js').moveDateToBC"
           [showError]='showError'
           [(date)]="person.arrivalToBCSimple"
-          [notBeforeDate]="person.dobSimple"
-          [notBeforeDateErrorLabel]="lang('./en/index.js').moveDateBeforeBirthError[person.relationship]"
           required=true>
         </msp-date>
+        <div *ngIf='person.isArrivalToBcBeforeDob'>
+          <div class="text-danger"[innerHtml]="lang('./en/index.js').moveDateBeforeBirthError[person.relationship]"></div>
+        </div>
       </div>
       <div class="col-lg-4">
         <msp-province [provinceLabel]="lang('./en/index.js').movedFromProvinceOrCountry"
