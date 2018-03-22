@@ -29,8 +29,10 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
   @Output() dayChange = new EventEmitter<number|string>();
   @Input() arrivalLabel: string = this.lang('./en/index.js').arrivalDateLabel;
 
-    @Input() notBeforeDate: SimpleDate;
-    @Input() notBeforeDateErrorLabel: string;
+  //approach changed
+  // @Input() notBeforeDate: SimpleDate;
+ //   @Input() notBeforeDateErrorLabel: string;
+
     public hasErrorBeforeDate: boolean;
 
   @Output() onChange = new EventEmitter<any>();
@@ -119,7 +121,7 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
     return true;
   }
 
-    notBeforeDateCheck(): boolean {
+   /* notBeforeDateCheck(): boolean {
 
         if (this.notBeforeDate && this.inputDate().isSameOrBefore( this.toDate(this.notBeforeDate))){
             this.hasErrorBeforeDate = true;
@@ -127,7 +129,7 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
         }
         this.hasErrorBeforeDate = false;
         return true;
-    }
+    }*/
   isValid(): boolean {
     if (this.required) {
       if (!this.year || !this.month || !this.day) {
@@ -135,7 +137,7 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
       }
     }
     if (this.year || (this.month && this.month != 0) || this.day) {
-      return this.isCorrectFormat() && this.futureCheck() && this.notBeforeDateCheck();
+      return this.isCorrectFormat() && this.futureCheck();
     }
 
 

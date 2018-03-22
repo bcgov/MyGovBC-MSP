@@ -182,10 +182,11 @@
                                   (dayChange)="person.arrivalToBCDay = $event"
                                   (onChange) = "onChange.emit($event)"
                                   [showError]="showError"
-                                  [notBeforeDate]="person.dobSimple"
-                                  [notBeforeDateErrorLabel]="lang('./en/index.js').moveDateBeforeBirthError[person.relationship]"
                                   [required] = "true">
                 </msp-arrival-date>
+                <div *ngIf='person.isArrivalToBcBeforeDob'>
+                    <div class="text-danger"[innerHtml]="lang('./en/index.js').moveDateBeforeBirthError[person.relationship]"></div>
+                </div>
             </div>
             <div class="col-lg-4" *ngIf="person.status === StatusInCanada.CitizenAdult &&
                 person.currentActivity === Activities.LivingInBCWithoutMSP &&
@@ -213,10 +214,11 @@
                                   [day]="person.arrivalToCanadaDay"
                                   (dayChange)="person.arrivalToCanadaDay = $event"
                                   (onChange) = "onChange.emit($event)"
-                                  [notBeforeDate]="person.dobSimple"
-                                  [notBeforeDateErrorLabel]="lang('./en/index.js').moveDateBeforeBirthError[person.relationship]"
                                   [showError]="showError">
                 </msp-arrival-date>
+                <div *ngIf='person.isArrivalToCanadaBeforeDob'>
+                    <div class="text-danger"[innerHtml]="lang('./en/index.js').moveDateCanadaBeforeBirthError[person.relationship]"></div>
+                </div>
 
             </div>
 

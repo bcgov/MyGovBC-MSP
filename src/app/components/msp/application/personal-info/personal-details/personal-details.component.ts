@@ -393,6 +393,10 @@ export class PersonalDetailsComponent extends BaseComponent {
       return false;
     }
 
+    if (this.person.isArrivalToBcBeforeDob){
+      return false;
+    }
+
     // school
     if (this.schoolQuestion != null &&
       this.person.fullTimeStudent == null) {

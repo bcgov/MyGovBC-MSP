@@ -123,8 +123,8 @@ export class MspReturnDateComponent extends BaseComponent {
       && this.inputDate().isValid();
   }
 
-
+ // the date order validation with return and departure date is moved to out of bc component
   isValid(): boolean {
-    return this.isCorrectFormat() && this.futureCheck() && this.dateOrderCheck() && this.isWithinNMonths();;
+    return this.isCorrectFormat() && this.futureCheck()  && this.isWithinNMonths();;
   }
 }

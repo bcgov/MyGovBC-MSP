@@ -103,7 +103,7 @@ module.exports = {
         "The child's most recent move to BC cannot be before the child's date of birth.",
         "The child's most recent move to BC cannot be before the child's date of birth.",
     ],
-    moveDateBeforeBirthError: [
+    moveDateCanadaBeforeBirthError: [
         "The applicant's most recent move to Canada cannot be before the applicant's date of birth.",
         "The spouse's most recent move to Canada cannot be before the spouse's date of birth.",
         "The child's most recent move to Canada cannot be before the child's date of birth.",

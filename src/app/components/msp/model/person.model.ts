@@ -268,6 +268,9 @@ class Person implements IPerson {
     get isArrivalToBcBeforeDob(): boolean {
         return this.dob.isSameOrAfter(this.arrivalToBC);
     }
+    get isArrivalToCanadaBeforeDob(): boolean {
+        return this.dob.isSameOrAfter(this.arrivalToCanada);
+    }
 
     get isStudyDatesInValid() : boolean {
         return this.studiesBeginDate.isSameOrAfter(this.studiesFinishedDate);

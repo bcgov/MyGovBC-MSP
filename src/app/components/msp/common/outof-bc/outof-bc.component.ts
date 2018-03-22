@@ -40,4 +40,9 @@ export class MspOutofBCRecordComponent extends BaseComponent {
   delete(id:string){
     this.onDelete.emit(this.outofBCRecord);
   }
+
+    isValid(): boolean {
+        return this.mspReturnDate.inputDate().isAfter(this.mspDepartureDate.inputDate());
+    }
+
 }
