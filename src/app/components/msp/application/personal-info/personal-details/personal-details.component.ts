@@ -397,6 +397,10 @@ export class PersonalDetailsComponent extends BaseComponent {
       return false;
     }
 
+      if (this.person.isArrivalToCanadaBeforeDob){
+          return false;
+      }
+
     // school
     if (this.schoolQuestion != null &&
       this.person.fullTimeStudent == null) {
