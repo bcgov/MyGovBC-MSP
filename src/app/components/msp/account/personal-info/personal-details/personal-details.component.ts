@@ -244,6 +244,13 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
             }
         }
 
+
+        if (!this.person.mailingSameAsResidentialAddress) {
+            if (!this.person.mailingAddress.isValid){
+                return false;
+            }
+        }
+    
         return true;
     }
 }
