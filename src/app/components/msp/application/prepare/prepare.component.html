@@ -3,6 +3,11 @@
                    (onClose)="liveInBCBtn.focus()">
 </msp-consent-modal>
 
+<p class="intro text-danger"
+   [innerHtml]="lang('./en/index.js').servicesCardMsg" role="heading" >
+</p>
+
+
 <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
 
 <form #formRef='ngForm' novalidate role="form" >
