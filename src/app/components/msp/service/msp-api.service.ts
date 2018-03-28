@@ -98,12 +98,11 @@ export class MspApiService {
                 // second convert to XML
                 let convertedAppXml = this.toXmlString(documentModel);
 
-
                 // if no errors, then we'll sendApplication all attachments
                 return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
 
                     // once all attachments are done we can sendApplication in the data
-                    return this.sendDocument(app.authorizationToken, documentModel).then(
+                    return this.sendDocument(app.authorizationToken, documentModel, convertedAppXml).then(
                         (response: ResponseType) => {
                             console.log("sent application resolved");
                             // Add reference number
@@ -264,7 +263,7 @@ export class MspApiService {
      * @param document
      * @returns {Promise<ResponseType>}
      */
-    private sendDocument(token: string, document: document): Promise<ResponseType> {
+    private sendDocument(token: string, document: document, documentXmlString: string): Promise<ResponseType> {
         return new Promise<ResponseType>((resolve, reject) => {
             /*
              Create URL
@@ -282,7 +281,7 @@ export class MspApiService {
             let options = new RequestOptions({headers: headers});
 
             // Convert doc to XML
-            let documentXmlString = this.toXmlString(document);
+            // let documentXmlString = this.toXmlString(document);
 
             return this.http.post(url, documentXmlString, options)
                 .toPromise()
@@ -1365,7 +1364,6 @@ export class MspApiService {
     }
 
     static ApplicationTypeNameSpace = _ApplicationTypeNameSpace;
-    private static XmlDocumentType = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
 
     /**
      * Converts any JS object to XML with optional namespace
@@ -1376,10 +1374,7 @@ export class MspApiService {
     toXmlString(from: any): string {
         let xml = jxon.jsToXml(from);
         let xmlString = jxon.xmlToString(xml);
-        //TODO: namespace not working properly, fix it and remove this hack
-        xmlString = xmlString.replace("<application>", '<ns2:application xmlns:ns2="http://www.gov.bc.ca/hibc/applicationTypes">');
-        xmlString = xmlString.replace("</application>", '</ns2:application>');
-        return MspApiService.XmlDocumentType + xmlString;
+        return this.correctNSinXmlString (xmlString);
     }
 
     stringToJs<T>(from: string): T {
@@ -1401,6 +1396,67 @@ export class MspApiService {
             month: date.month - 1, // moment use 0 index for month :(
             day: date.day,
         }); // use UTC mode to prevent browser timezone shifting
+    }
+
+    // trim in the XML the leading <xx:application xmlns="xx"> and trailing </xx:application>
+    // note that xx: might be missing
+
+    private static XmlRootSimple = '<application';
+    private static XmlRootNS = ':application';
+    private static XmlDocumentHeader = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:application xmlns:ns2="http://www.gov.bc.ca/hibc/applicationTypes">';
+    private static XmlDocumentFooter = '</ns2:application>';
+
+    correctNSinXmlString(xmlString : string) : string {
+
+        // deal with the beginning
+        // check the simple case
+        let beginIndex = xmlString.indexOf(MspApiService.XmlRootSimple);
+        if (beginIndex >= 0) {
+            for (var i = beginIndex; i < xmlString.length; i++) {
+                if (xmlString.charAt(i) == '>') {
+                    beginIndex = i + 1;
+                    break;
+                }
+            }
+            if (beginIndex == xmlString.length)
+                beginIndex = 0;
+        }
+        // not the simple case, check to see the NS case, ie <xx:application>
+        else {
+            beginIndex = xmlString.indexOf(MspApiService.XmlRootNS);
+            if (beginIndex > 0) {
+                for (var i = beginIndex; i < xmlString.length; i++) {
+                    if (xmlString.charAt(i) == '>') {
+                        beginIndex = i + 1;
+                        break;
+                    }
+                }
+                if (beginIndex == xmlString.length)
+                    beginIndex = 0;
+            }
+            // cannot find the element <xx:applicationxx> or <applicationxx>
+            else {
+                let endHeader = xmlString.indexOf("Application>");
+                let headerns = "Header after jxon : " + xmlString.substring(0, endHeader);
+                this.logService.log({
+                    text: headerns
+                }, "Application - Header Info")
+            }
+        }
+
+        // deal with the end
+        var endre = /<\/application>/;
+        let endIndex = xmlString.search(endre);
+        if (endIndex < 0) {
+            endre = /<\/[a-z,A-Z,0-9]+:application>/;
+            endIndex = xmlString.search(endre);
+        }
+
+        if (beginIndex < 0 || endIndex <= 0)
+            return xmlString;
+        else {
+            return MspApiService.XmlDocumentHeader + xmlString.substring(beginIndex, endIndex) + MspApiService.XmlDocumentFooter;
+        }
     }
 
     readonly ISO8601DateFormat = "YYYY-MM-DD";
