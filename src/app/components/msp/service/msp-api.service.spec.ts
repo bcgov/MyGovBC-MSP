@@ -11,7 +11,7 @@ import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage
 import {MspApiService} from "./msp-api.service";
 import { HttpModule }    from '@angular/http';
 
-fdescribe('msp-api XML NS', () => {
+describe('msp-api XML NS', () => {
     let apiService:MspApiService;
 
     beforeEach(() => {
