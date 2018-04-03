@@ -63,15 +63,18 @@
 
 
     <div class="row" style="margin-top: 10px;">
-      <div class="col-2">
+      <div class="col-md-2 col-4">
         <button
                 [disabled] = "!canContinue"
                 class="btn btn-primary" type="submit" (click)="continue()"
                 [innerHTML]="lang('./en/index.js').continueButton"></button>
       </div>
-      <div class="col-md-6 pull-left" *ngIf="docRequired && application.assistYeaDocs.length < 1">
+      <div class="col-md-8 col-12 pull-left" *ngIf="docRequired && application.assistYeaDocs.length < 1">
         <p class="text-danger" [innerHTML]="lang('./en/index.js').noaDocRequired" tabindex="0">
         </p>
       </div>
+        <div class="col-md-2 col-12 pull-right">
+        <msp-cancel></msp-cancel>
     </div>
-<msp-cancel></msp-cancel>
+    </div>
+
