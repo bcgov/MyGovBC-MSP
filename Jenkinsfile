@@ -5,6 +5,7 @@ def CHAINED_ANGULAR_BUILD = APP_NAME + '-' + APP_VERSION + '-build-angular-app-b
 
 // Edit your environment TAG names below
 def TAG_NAMES = ['dev', 'demo', 'test']
+def TAG_NAMES_BACKUP = ['devbackup', 'testbackup', 'prodbackup']
 
 // You shouldn't have to edit these if you're following the conventions
 def NGINX_BUILD_CONFIG = 'nginx-runtime-1.3-prototype'
