@@ -341,6 +341,12 @@ export class FileUploaderComponent
                   mspImage.fileContent = evt.target.result;
                   mspImage.id = sha1(mspImage.fileContent);
 
+                    if (mspImage.size < self.appConstants.images.minSizeBytes) {
+                        self.handleError(MspImageError.TooSmall, mspImage);
+                        self.resetInputFields();
+                        return;
+                    }
+
                   // keep scaling down the image until the image size is
                   // under max image size
                   
