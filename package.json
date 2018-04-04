@@ -40,6 +40,7 @@
     "karma-spec-reporter": "^0.0.31",
     "node-sass": "^3.13.0",
     "open": "0.0.5",
+    "pdfjs-dist": "^2.0.480",
     "pluralize": "^3.0.0",
     "rimraf": "^2.5.2"
   },
