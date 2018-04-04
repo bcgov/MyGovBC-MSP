@@ -16,7 +16,6 @@ export const environment = {
           maxHeight: 3300,
           minWidth: 0,
           minHeight: 0,
-          minSizeBytes: 20000,
           maxSizeBytes: 1048576,
           reductionScaleFactor: 0.8,
           acceptMimeType: "image/*",
