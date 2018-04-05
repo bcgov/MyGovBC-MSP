@@ -17,7 +17,7 @@ import {MspLogService} from "../../service/log.service";
 import { MspDataService } from "../../service/msp-data.service";
 import {LogEntry} from "../logging/log-entry.model";
 import * as moment from 'moment';
-declare var System: any;
+import * as pdfjs from 'pdfjs-dist';
 
 import { environment } from '../../../../../environments/environment';
 
@@ -467,49 +467,30 @@ export class FileUploaderComponent
     reader.readAsDataURL(imageFile);
   }
 
-    private readPDF(pdfFile: File,
+
+  private readPDF(pdfFile: File,
                       callback: (image: HTMLImageElement) => void) {
+        let reader = new FileReader();
 
-        Promise.all([System.import('pdfjs/lib/display/api'),
-            System.import('pdfjs/lib/display/worker_options'),
-            System.import('pdfjs/lib/display/network')])
-            .then(function (modules) {
-                var api = modules[0];
-                var GlobalWorkerOptions = modules[1].GlobalWorkerOptions;
-                var network = modules[2];
-                api.setPDFNetworkStreamFactory((params) => {
-                    return new network.PDFNetworkStream(params);
-                });
+        reader.onload = function (progressEvt: ProgressEvent) {
 
-                // In production, change this to point to the built `pdf.worker.js` file.
-                GlobalWorkerOptions.workerSrc = System.import('pdfjs/lib/pdf.worker');
+            console.log('reading pdf file: %o', progressEvt);
 
-                // Fetch the PDF document from the URL using promises.
-                api.getDocument(pdfFile).then(function (pdf) {
-                    // Fetch the page.
-                    pdf.getPage(1).then(function (page) {
-                        var scale = 1.5;
-                        var viewport = page.getViewport(scale);
-
-                        // Prepare canvas using PDF page dimensions.
-                        var canvas = document.getElementById('the-canvas');
-
-                        /*
-                        var context = canvas.getContext('2d');
-                        canvas.height = viewport.height;
-                        canvas.width = viewport.width;
-
-                        // Render PDF page into canvas context.
-                        var renderContext = {
-                            canvasContext: context,
-                            viewport: viewport
-                        };
-                        page.render(renderContext);
-                        */
-                    });
+            pdfjs.disableStream = true;
+            var docInitParams = { data: reader.result };
+            return new Promise((resolve, reject) => {
+                pdfjs.getDocument(docInitParams).then((pdfdoc) => {
+                    console.log("loaded pdf document");
+                    resolve(pdfdoc);
+                }, (error) => {
+                    console.log("could not load pdf document: " + error.toString());
+                    reject(error);
                 });
             });
-    }
+            // populate canvas
+        };
+        reader.readAsArrayBuffer(pdfFile);
+  }
 
   /**
    * Non reversible image filter to take an existing canvas and make it gray scale
