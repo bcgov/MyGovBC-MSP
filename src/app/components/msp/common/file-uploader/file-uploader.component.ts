@@ -281,11 +281,11 @@ export class FileUploaderComponent
 
             // Copy file properties
             mspImage.name = file.name;
-            const canvas: HTMLCanvasElement = this.canvas.nativeElement;
+       //     const canvas: HTMLCanvasElement = this.canvas.nativeElement;
+            var canvas = document.createElement('canvas');
             if (file.type == "application/pdf") {
-                this.readPDF(file, canvas, (image: HTMLImageElement) => {
-                    console.log("PDF-----------------");
-                    this.resizeImage(mspImage, image, self, file, scaleFactors, reader, observer);
+                this.readPDF(file, (image: HTMLImageElement[]) => {
+                   this.resizeImage(mspImage, image[0], self, file, scaleFactors, reader, observer);
                 });
             } else {
 
@@ -303,7 +303,6 @@ export class FileUploaderComponent
 
             //retryWhen is potential issue!
         }).retryWhen(this.retryStrategy(32));
-
         return fileObservable;
     }
 
@@ -474,10 +473,62 @@ export class FileUploaderComponent
 
         reader.readAsDataURL(imageFile);
     }
+    private readPDF(pdfFile: File ,
+                     callback: (image: HTMLImageElement[]) => void) {
 
+        let reader = new FileReader();
+        var  currentPage = 1 ;
+        var canvas = document.createElement('canvas');
+        let imgElsArray: HTMLImageElement[] = [];
+        var ctx = canvas.getContext('2d');
+        reader.onload = function (progressEvt: ProgressEvent) {
+            pdfjs.disableWorker = true;
+            pdfjs.disableStream = true;
+            var docInitParams = {data: reader.result};
+            return new Promise((resolve, reject) => {
+                pdfjs.getDocument(docInitParams).then((pdfdoc) => {
+                    var numPages = pdfdoc.numPages;
+                    if (currentPage <= pdfdoc.numPages) getPage();
 
-    private readPDF(pdfFile: File, mycanvas: HTMLCanvasElement,
-                    callback: (image: HTMLImageElement) => void) {
+                    function getPage() {
+                        pdfdoc.getPage(currentPage).then(function(page) {
+                            var scale = 1.5;
+                            var viewport = page.getViewport(scale);
+
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
+
+                            var renderContext = {
+                                canvasContext: ctx,
+                                viewport: viewport
+                            };
+
+                            page.render(renderContext).then(function() {
+                                console.log("currentPage:"+currentPage);
+                                let imgEl: HTMLImageElement = document.createElement('img');
+                                imgEl.src = canvas.toDataURL();
+                                imgElsArray.push(imgEl);
+                                if (currentPage < numPages) {
+                                    currentPage++;
+                                    getPage();
+                                } else {
+                                    callback(imgElsArray);
+                                }
+
+                            });
+                        });
+                    }
+                });
+            });
+
+        };
+        reader.readAsArrayBuffer(pdfFile);
+
+    }
+
+   /*
+ unused    private readPDF1(pdfFile: File ,
+                    callback: (image: HTMLImageElement[]) => void) {
         let reader = new FileReader();
 
 
@@ -489,13 +540,14 @@ export class FileUploaderComponent
             var docInitParams = {data: reader.result};
             return new Promise((resolve, reject) => {
                 pdfjs.getDocument(docInitParams).then((pdfdoc) => {
-                    pdfdoc.getPage(1).then(function getImage(page) {
+                  /!*  pdfdoc.getPage(1).then(function getImage(page) {
                         var scale = 1.5;
                         var viewport = page.getViewport(scale);
                         var context = mycanvas.getContext('2d');
                         mycanvas.height = viewport.height;
                         mycanvas.width = viewport.width;
                         var task = page.render({canvasContext: context, viewport: viewport})
+                        let imgElsArray: HTMLImageElement[] =[];
                         task.then(function () {
                             console.log("task:");
                             let imgEl: HTMLImageElement = document.createElement('img');
@@ -503,12 +555,45 @@ export class FileUploaderComponent
 
                             // Wait for onload so all properties are populated
                             imgEl.onload = (args) => {
-                                return callback(imgEl);
+                                imgElsArray.push(imgEl);
+                                return callback(imgElsArray);
                             };
 
                         });
 
-                    });
+                    });*!/
+
+
+                    var scale = 1.5;
+
+                    var numPages = pdfdoc.numPages;
+                    let imgElsArray: HTMLImageElement[] = [];
+                    console.log("numPages"+numPages);
+                    for (var i = 1; i <= numPages; ) {
+                        console.log("i:-------"+i);
+                        pdfdoc.getPage(i).then(function getImage(page) {
+                            var mycanvas = document.createElement('canvas');
+                            var viewport = page.getViewport(scale);
+                            var context = mycanvas.getContext('2d');
+                            mycanvas.height = viewport.height;
+                            mycanvas.width = viewport.width;
+                            var task = page.render({canvasContext: context, viewport: viewport});
+                            task.then(function () {
+
+                                let imgEl: HTMLImageElement = document.createElement('img');
+                                imgEl.src = mycanvas.toDataURL();
+                                console.log("imgEl"+imgEl+"i:"+i);
+                                imgElsArray.push(imgEl);
+
+                                if (i==numPages) { //last page
+                                    console.log("callback"+JSON.stringify(imgElsArray));
+                                    callback(imgElsArray);
+                                }
+                                i++;
+                            });
+                        });
+                    }
+
 
                     console.log("loaded pdf document");
                     resolve(pdfdoc);
@@ -520,7 +605,7 @@ export class FileUploaderComponent
             // populate canvas
         };
         reader.readAsArrayBuffer(pdfFile);
-    }
+    }*/
 
     /**
      * Non reversible image filter to take an existing canvas and make it gray scale

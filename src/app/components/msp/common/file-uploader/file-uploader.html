@@ -1,7 +1,7 @@
 <form #formRef="ngForm">
 <div class="dropzone" #dropZone>
   <div class="instruction-zone">
-        <input type="file" id="fileUploadBrowse-{{id}}" #browseFileRef
+        <input type="file" id="fileUploadBrowse-{{id}}" #browseFileRef  accept="image/* , application/pdf"
            style="display:none;" tabindex="0"
           />
         <label for="fileUploadBrowse-{{id}}" class="file-upload-label"
