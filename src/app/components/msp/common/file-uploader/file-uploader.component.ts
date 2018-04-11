@@ -309,18 +309,33 @@ export class FileUploaderComponent
 
                 scaleFactors = scaleFactors.scaleDown(self.appConstants.images.reductionScaleFactor);
 
-                let mspImage: MspImage = new MspImage();
-                let reader: FileReader = new FileReader();
+                // let mspImage: MspImage = new MspImage();
+                // let reader: FileReader = new FileReader();
 
-                // Copy file properties
-                mspImage.name = file.name;
+                // // Copy file properties
+                // mspImage.name = file.name;
                 const canvas: HTMLCanvasElement = this.canvas.nativeElement;
                 if (file.type == "application/pdf") {
-                    this.readPDFs(mspImage, file, canvas, (image: HTMLImageElement) => {
+                    this.readPDF(file,  (images: HTMLImageElement[]) => {
                         console.log("PDF-----------------");
-                        this.resizeImage(mspImage, image, self, file, scaleFactors, reader, observer);
+                        images.map(image => {
+                          let mspImage: MspImage = new MspImage();
+                          let reader: FileReader = new FileReader();
+          
+                          // Copy file properties
+                          mspImage.name = file.name
+                          //Temporary so we don't have duplicate file names. TODO: Improve.
+                          mspImage.name += Math.ceil(Math.random()*100);
+
+                          this.resizeImage(mspImage, image, self, file, scaleFactors, reader, observer);
+                        })
                     });
                 } else {
+                  let mspImage: MspImage = new MspImage();
+                  let reader: FileReader = new FileReader();
+  
+                  // Copy file properties
+                  mspImage.name = file.name;
 
                     // Load image into img element to read natural height and width
                     this.readImage(file, (image: HTMLImageElement) => {
