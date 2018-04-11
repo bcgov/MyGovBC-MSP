@@ -141,9 +141,35 @@ export class FileUploaderComponent
 
         let browseFileStream = Observable.fromEvent<Event>(this.browseFileRef.nativeElement, 'change');
         let captureFileStream = Observable.fromEvent<Event>(this.captureFileRef.nativeElement, 'change');
-        let brosweFileInputElement = this.browseFileRef.nativeElement;
-        let captureFileInputElement = this.captureFileRef.nativeElement;
+        // let brosweFileInputElement = this.browseFileRef.nativeElement;
+        // let captureFileInputElement = this.captureFileRef.nativeElement;
+        let pdfFileList = new Array<Observable<File>>();
 
+        // obtain the PDF observables
+        /* let filesArrayFromInput = browseFileStream.merge(captureFileStream)
+            .map((event) => {
+                  event.preventDefault();
+                  return event.target['files'];
+                }
+            ).merge(filesArrayFromDrop).filter(files => {
+                  return !!files && files.length && files.length > 0;
+                }
+            ).flatMap((fileList: FileList) => {
+                  console.info("getting files");
+                  for (var i = 0; i < fileList.length; i++) {
+                    console.info("loading " + i + " image of " + fileList.length + " file: " + fileList[i]);
+                    // if (fileList[i].type == "application/pdf") {
+                        console.info("  --> pdf file");
+                        pdfFileList.push(this.observableFromFile(fileList[i], new MspImageScaleFactorsImpl(1, 1)));
+                    // }
+                  }
+                  return pdfFileList;
+                }
+            // ).flatMap((fileIn: Observable<File>) => {
+            //    console.info("getting files again");
+            //    return this.observableFromFile(fileIn, new MspImageScaleFactorsImpl(1, 1));
+            //    }
+            */
         let filesArrayFromInput = browseFileStream.merge(captureFileStream)
             .map(
                 (event) => {
@@ -155,16 +181,19 @@ export class FileUploaderComponent
                 return !!files && files.length && files.length > 0;
             }).flatMap(
                 (fileList: FileList) => {
-                    if (fileList[0].type == "application/pdf") {
-                        return this.observableFromFile(fileList[0], new MspImageScaleFactorsImpl(1, 1));
-                    } else {
-                        return this.observableFromFile(fileList[0], new MspImageScaleFactorsImpl(1, 1));
-                    }
-
+                    return this.observableFromFiles(fileList, new MspImageScaleFactorsImpl(1, 1));
                 }
-            ) ;
-        let filesFilter =   filesArrayFromInput.filter(
+            )
+            .filter(
                 (mspImage: MspImage) => {
+                    let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
+                    if (imageExists){
+                        this.handleError(MspImageError.AlreadyExists, mspImage);
+                        this.resetInputFields();
+                    }
+                    return !imageExists;
+                }
+            ).filter((mspImage: MspImage) => {
                     let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
                     if (imageExists) {
                         this.handleError(MspImageError.AlreadyExists, mspImage);
@@ -172,8 +201,7 @@ export class FileUploaderComponent
                     }
                     return !imageExists;
                 }
-            ).filter(
-                (mspImage: MspImage) => {
+            ).filter((mspImage: MspImage) => {
                     let imageSizeOk = this.checkImageDimensions(mspImage);
                     if (!imageSizeOk) {
                         this.handleError(MspImageError.TooSmall, mspImage);
@@ -264,42 +292,47 @@ export class FileUploaderComponent
      * @param file
      * @param scaleFactors
      */
-    observableFromFile(file: File, scaleFactors: MspImageScaleFactors) {
-        console.log('Start processing file %s of size %s bytes %s type', file.name, file.size, file.type);
+    observableFromFiles(fileList: FileList, scaleFactors: MspImageScaleFactors) {
 
 
         // Init
         let self = this;
+
         // Create our observer
         let fileObservable = Observable.create((observer: Observer<MspImage>) => {
 
+            let mspImages = [];
+            for (var fileIndex=0; fileIndex<fileList.length; fileIndex++) {
 
-            scaleFactors = scaleFactors.scaleDown(self.appConstants.images.reductionScaleFactor);
+                var file=fileList[fileIndex];
+                console.log('Start processing file ' + fileIndex + ' of ' + fileList.length + ' %s of size %s bytes %s type', file.name, file.size, file.type);
 
-            let reader: FileReader = new FileReader();
-            let mspImage: MspImage = new MspImage();
+                scaleFactors = scaleFactors.scaleDown(self.appConstants.images.reductionScaleFactor);
 
-            // Copy file properties
-            mspImage.name = file.name;
-       //     const canvas: HTMLCanvasElement = this.canvas.nativeElement;
-            var canvas = document.createElement('canvas');
-            if (file.type == "application/pdf") {
-                this.readPDF(file, (image: HTMLImageElement[]) => {
-                   this.resizeImage(mspImage, image[0], self, file, scaleFactors, reader, observer);
-                });
-            } else {
+                let mspImage: MspImage = new MspImage();
+                let reader: FileReader = new FileReader();
 
+                // Copy file properties
+                mspImage.name = file.name;
+                const canvas: HTMLCanvasElement = this.canvas.nativeElement;
+                if (file.type == "application/pdf") {
+                    this.readPDFs(mspImage, file, canvas, (image: HTMLImageElement) => {
+                        console.log("PDF-----------------");
+                        this.resizeImage(mspImage, image, self, file, scaleFactors, reader, observer);
+                    });
+                } else {
 
-            // Load image into img element to read natural height and width
-            this.readImage(file, (image: HTMLImageElement) => {
-                    this.resizeImage(mspImage, image, self, file, scaleFactors, reader, observer);
-                },
+                    // Load image into img element to read natural height and width
+                    this.readImage(file, (image: HTMLImageElement) => {
+                            this.resizeImage(mspImage, image, self, file, scaleFactors, reader, observer);
+                        },
 
-                //can be ignored for bug, the log line is never called
-                (error: MspImageProcessingError) => {
-                    observer.error(error);
-                });
-          }
+                        //can be ignored for bug, the log line is never called
+                        (error: MspImageProcessingError) => {
+                            observer.error(error);
+                        });
+                }
+            }
 
             //retryWhen is potential issue!
         }).retryWhen(this.retryStrategy(32));
