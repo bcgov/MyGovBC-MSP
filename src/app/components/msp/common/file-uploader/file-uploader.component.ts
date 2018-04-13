@@ -19,13 +19,15 @@ import {MspLogService} from "../../service/log.service";
 import {MspDataService} from "../../service/msp-data.service";
 import {LogEntry} from "../logging/log-entry.model";
 import * as moment from 'moment';
-import * as pdfjs from 'pdfjs-dist';
+import { PDFJSStatic } from 'pdfjs-dist';
 
 import {environment} from '../../../../../environments/environment';
 
 let loadImage = require('blueimp-load-image');
 
+
 var sha1 = require('sha1');
+const PDFJS: PDFJSStatic = require('pdfjs-dist');
 
 @Component({
     selector: 'msp-file-uploader',
@@ -38,7 +40,6 @@ export class FileUploaderComponent
     lang = require('./i18n');
     noIdImage: Boolean = false;
     private appConstants;
-
     @ViewChild('formRef') form: NgForm;
     @ViewChild('dropZone') dropZone: ElementRef;
     @ViewChild('browseFileRef') browseFileRef: ElementRef;
@@ -54,6 +55,8 @@ export class FileUploaderComponent
     @Input() required: boolean = false;
 
     @ViewChild('canvas') canvas: ElementRef;
+
+
 
     @Output() onAddDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
     @Output() onErrorDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
@@ -76,6 +79,7 @@ export class FileUploaderComponent
         this.zone.run(() => {
         });
     }
+
 
     ngOnChanges(changes: SimpleChanges): void {
         console.log('fileuploader onChanges', changes['images']);
@@ -117,7 +121,8 @@ export class FileUploaderComponent
      */
 
     ngOnInit(): void {
-        // console.log('subscribe to drop event.');
+
+
         let dragOverStream =
             Observable.fromEvent<DragEvent>(this.dropZone.nativeElement, "dragover");
 
@@ -314,18 +319,15 @@ export class FileUploaderComponent
 
                 // // Copy file properties
                 // mspImage.name = file.name;
-                const canvas: HTMLCanvasElement = this.canvas.nativeElement;
                 if (file.type == "application/pdf") {
                     this.readPDF(file,  (images: HTMLImageElement[]) => {
-                        console.log("PDF-----------------");
-                        images.map(image => {
+                        images.map((image,index) => {
                           let mspImage: MspImage = new MspImage();
                           let reader: FileReader = new FileReader();
-          
                           // Copy file properties
-                          mspImage.name = file.name
+                          mspImage.name = file.name+"-page"+index;
                           //Temporary so we don't have duplicate file names. TODO: Improve.
-                          mspImage.name += Math.ceil(Math.random()*100);
+                       //   mspImage.name += Math.ceil(Math.random()*100);
 
                           this.resizeImage(mspImage, image, self, file, scaleFactors, reader, observer);
                         })
@@ -333,7 +335,7 @@ export class FileUploaderComponent
                 } else {
                   let mspImage: MspImage = new MspImage();
                   let reader: FileReader = new FileReader();
-  
+
                   // Copy file properties
                   mspImage.name = file.name;
 
@@ -530,11 +532,11 @@ export class FileUploaderComponent
         let imgElsArray: HTMLImageElement[] = [];
         var ctx = canvas.getContext('2d');
         reader.onload = function (progressEvt: ProgressEvent) {
-            pdfjs.disableWorker = true;
-            pdfjs.disableStream = true;
+            PDFJS.disableWorker = true;
+            PDFJS.disableStream = true;
             var docInitParams = {data: reader.result};
             return new Promise((resolve, reject) => {
-                pdfjs.getDocument(docInitParams).then((pdfdoc) => {
+                PDFJS.getDocument(docInitParams).then((pdfdoc) => {
                     var numPages = pdfdoc.numPages;
                     if (currentPage <= pdfdoc.numPages) getPage();
 
