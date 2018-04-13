@@ -8,7 +8,8 @@ export enum MspImageError {
   AlreadyExists,
   Unknown,
   CannotOpen,
-  PDFnotSupported
+  PDFnotSupported,
+  CannotOpenPDF,
 }
 
 export class MspImageProcessingError {

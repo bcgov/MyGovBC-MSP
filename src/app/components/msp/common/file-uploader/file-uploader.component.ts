@@ -238,7 +238,9 @@ export class FileUploaderComponent
                                     error.image.name = error.rawImageFile.name;
                             }
                             this.handleError(MspImageError.CannotOpen, error.image);
-                        } else {
+                        }  else if (MspImageError.CannotOpenPDF === error.errorCode) {
+                        this.handleError(MspImageError.CannotOpenPDF, error.image);
+                    }  else {
                             throw error;
                         }
                     }
@@ -321,31 +323,20 @@ export class FileUploaderComponent
                 if (file.type == "application/pdf") {
                     this.readPDF(file, (images: HTMLImageElement[]) => {
                         images.map((image, index) => {
-                            let mspImage: MspImage = new MspImage();
-                            let reader: FileReader = new FileReader();
-                            // Copy file properties
-                            mspImage.name = file.name + "-page" + index;
-                            //Temporary so we don't have duplicate file names. TODO: Improve.
-                            //   mspImage.name += Math.ceil(Math.random()*100);
-
-                            this.resizeImage(mspImage, image, self, file, scaleFactors, reader, observer);
+                            image.name = file.name;
+                            this.resizeImage( image, self, scaleFactors, observer,index);
                         })
                     }, (error) => {
-                        console.log("----" + error);
                         let imageReadError: MspImageProcessingError =
-                            new MspImageProcessingError(MspImageError.CannotOpen);
+                            new MspImageProcessingError(MspImageError.CannotOpenPDF);
                         observer.error(imageReadError);
                     });
                 } else {
-                    let mspImage: MspImage = new MspImage();
-                    let reader: FileReader = new FileReader();
-
-                    // Copy file properties
-                    mspImage.name = file.name;
 
                     // Load image into img element to read natural height and width
                     this.readImage(file, (image: HTMLImageElement) => {
-                            this.resizeImage(mspImage, image, self, file, scaleFactors, reader, observer);
+                           image.name = file.name;
+                            this.resizeImage(image, self, scaleFactors, observer);
                         },
 
                         //can be ignored for bug, the log line is never called
@@ -361,8 +352,19 @@ export class FileUploaderComponent
     }
 
 
-    private resizeImage(mspImage: MspImage, image: HTMLImageElement, self: this, file: File, scaleFactors: MspImageScaleFactors, reader: FileReader, observer: Observer<MspImage>) {
+    private resizeImage( image: HTMLImageElement, self: this, scaleFactors: MspImageScaleFactors, observer: Observer<MspImage>, pageNumber: number = 0) {
 // While it's still in an image, get it's height and width
+        let mspImage: MspImage = new MspImage();
+        let reader: FileReader = new FileReader();
+        // Copy file properties
+        if(pageNumber != 0) {
+             mspImage.name = image.name + "-page" + pageNumber;
+        }
+        //Temporary so we don't have duplicate file names. TODO: Improve.
+        //   mspImage.name += Math.ceil(Math.random()*100);
+
+
+
         mspImage.naturalWidth = image.naturalWidth;
         mspImage.naturalHeight = image.naturalHeight;
 
@@ -392,7 +394,7 @@ export class FileUploaderComponent
 
                         // log image info (but only for the first time before any scaling)
                         if (scaleFactors.widthFactor == self.appConstants.images.reductionScaleFactor)
-                            self.logImageInfo("msp_file-uploader_before_resize_attributes", self.dataService.getMspUuid(), mspImage, "  mspImagefileName: " + file.name);
+                            self.logImageInfo("msp_file-uploader_before_resize_attributes", self.dataService.getMspUuid(), mspImage, "  mspImagefileName: " + mspImage.name);
 
                         let fileName = mspImage.name;
                         let nBytes = mspImage.size;
