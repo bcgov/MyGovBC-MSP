@@ -19,7 +19,7 @@ import {MspLogService} from "../../service/log.service";
 import {MspDataService} from "../../service/msp-data.service";
 import {LogEntry} from "../logging/log-entry.model";
 import * as moment from 'moment';
-import { PDFJSStatic } from 'pdfjs-dist';
+import {PDFJSStatic} from 'pdfjs-dist';
 
 import {environment} from '../../../../../environments/environment';
 
@@ -55,7 +55,6 @@ export class FileUploaderComponent
     @Input() required: boolean = false;
 
     @ViewChild('canvas') canvas: ElementRef;
-
 
 
     @Output() onAddDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
@@ -192,7 +191,7 @@ export class FileUploaderComponent
             .filter(
                 (mspImage: MspImage) => {
                     let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
-                    if (imageExists){
+                    if (imageExists) {
                         this.handleError(MspImageError.AlreadyExists, mspImage);
                         this.resetInputFields();
                     }
@@ -307,9 +306,9 @@ export class FileUploaderComponent
         let fileObservable = Observable.create((observer: Observer<MspImage>) => {
 
             let mspImages = [];
-            for (var fileIndex=0; fileIndex<fileList.length; fileIndex++) {
+            for (var fileIndex = 0; fileIndex < fileList.length; fileIndex++) {
 
-                var file=fileList[fileIndex];
+                var file = fileList[fileIndex];
                 console.log('Start processing file ' + fileIndex + ' of ' + fileList.length + ' %s of size %s bytes %s type', file.name, file.size, file.type);
 
                 scaleFactors = scaleFactors.scaleDown(self.appConstants.images.reductionScaleFactor);
@@ -320,24 +319,29 @@ export class FileUploaderComponent
                 // // Copy file properties
                 // mspImage.name = file.name;
                 if (file.type == "application/pdf") {
-                    this.readPDF(file,  (images: HTMLImageElement[]) => {
-                        images.map((image,index) => {
-                          let mspImage: MspImage = new MspImage();
-                          let reader: FileReader = new FileReader();
-                          // Copy file properties
-                          mspImage.name = file.name+"-page"+index;
-                          //Temporary so we don't have duplicate file names. TODO: Improve.
-                       //   mspImage.name += Math.ceil(Math.random()*100);
+                    this.readPDF(file, (images: HTMLImageElement[]) => {
+                        images.map((image, index) => {
+                            let mspImage: MspImage = new MspImage();
+                            let reader: FileReader = new FileReader();
+                            // Copy file properties
+                            mspImage.name = file.name + "-page" + index;
+                            //Temporary so we don't have duplicate file names. TODO: Improve.
+                            //   mspImage.name += Math.ceil(Math.random()*100);
 
-                          this.resizeImage(mspImage, image, self, file, scaleFactors, reader, observer);
+                            this.resizeImage(mspImage, image, self, file, scaleFactors, reader, observer);
                         })
+                    }, (error) => {
+                        console.log("----" + error);
+                        let imageReadError: MspImageProcessingError =
+                            new MspImageProcessingError(MspImageError.CannotOpen);
+                        observer.error(imageReadError);
                     });
                 } else {
-                  let mspImage: MspImage = new MspImage();
-                  let reader: FileReader = new FileReader();
+                    let mspImage: MspImage = new MspImage();
+                    let reader: FileReader = new FileReader();
 
-                  // Copy file properties
-                  mspImage.name = file.name;
+                    // Copy file properties
+                    mspImage.name = file.name;
 
                     // Load image into img element to read natural height and width
                     this.readImage(file, (image: HTMLImageElement) => {
@@ -523,52 +527,56 @@ export class FileUploaderComponent
 
         reader.readAsDataURL(imageFile);
     }
-    private readPDF(pdfFile: File ,
-                     callback: (image: HTMLImageElement[]) => void) {
 
+    private readPDF(pdfFile: File,
+                    callback: (image: HTMLImageElement[]) => void, error: (errorReason: any) => void) {
+
+        PDFJS.disableWorker = true;
+        PDFJS.disableStream = true;
         let reader = new FileReader();
-        var  currentPage = 1 ;
+        var currentPage = 1;
         var canvas = document.createElement('canvas');
         let imgElsArray: HTMLImageElement[] = [];
         var ctx = canvas.getContext('2d');
         reader.onload = function (progressEvt: ProgressEvent) {
-            PDFJS.disableWorker = true;
-            PDFJS.disableStream = true;
+
             var docInitParams = {data: reader.result};
-            return new Promise((resolve, reject) => {
-                PDFJS.getDocument(docInitParams).then((pdfdoc) => {
-                    var numPages = pdfdoc.numPages;
-                    if (currentPage <= pdfdoc.numPages) getPage();
+            PDFJS.getDocument(docInitParams).then((pdfdoc) => {
+                var numPages = pdfdoc.numPages;
+                if (currentPage <= pdfdoc.numPages) getPage();
 
-                    function getPage() {
-                        pdfdoc.getPage(currentPage).then(function(page) {
-                            var scale = 1.5;
-                            var viewport = page.getViewport(scale);
+                function getPage() {
+                    pdfdoc.getPage(currentPage).then(function (page) {
+                        var scale = 1.5;
+                        var viewport = page.getViewport(scale);
 
-                            canvas.height = viewport.height;
-                            canvas.width = viewport.width;
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
 
-                            var renderContext = {
-                                canvasContext: ctx,
-                                viewport: viewport
-                            };
+                        var renderContext = {
+                            canvasContext: ctx,
+                            viewport: viewport
+                        };
 
-                            page.render(renderContext).then(function() {
-                                console.log("currentPage:"+currentPage);
-                                let imgEl: HTMLImageElement = document.createElement('img');
-                                imgEl.src = canvas.toDataURL();
-                                imgElsArray.push(imgEl);
-                                if (currentPage < numPages) {
-                                    currentPage++;
-                                    getPage();
-                                } else {
-                                    callback(imgElsArray);
-                                }
+                        page.render(renderContext).then(function () {
+                            let imgEl: HTMLImageElement = document.createElement('img');
+                            imgEl.src = canvas.toDataURL();
+                            imgElsArray.push(imgEl);
+                            if (currentPage < numPages) {
+                                currentPage++;
+                                getPage();
+                            } else {
+                                callback(imgElsArray);
+                            }
 
-                            });
                         });
-                    }
-                });
+                    }, function (errorReason) {
+                        error(errorReason);
+
+                    });
+                }
+            }, function (errorReason) {
+                error(errorReason);
             });
 
         };
@@ -576,86 +584,6 @@ export class FileUploaderComponent
 
     }
 
-   /*
- unused    private readPDF1(pdfFile: File ,
-                    callback: (image: HTMLImageElement[]) => void) {
-        let reader = new FileReader();
-
-
-        reader.onload = function (progressEvt: ProgressEvent) {
-
-
-            pdfjs.disableWorker = true;
-            pdfjs.disableStream = true;
-            var docInitParams = {data: reader.result};
-            return new Promise((resolve, reject) => {
-                pdfjs.getDocument(docInitParams).then((pdfdoc) => {
-                  /!*  pdfdoc.getPage(1).then(function getImage(page) {
-                        var scale = 1.5;
-                        var viewport = page.getViewport(scale);
-                        var context = mycanvas.getContext('2d');
-                        mycanvas.height = viewport.height;
-                        mycanvas.width = viewport.width;
-                        var task = page.render({canvasContext: context, viewport: viewport})
-                        let imgElsArray: HTMLImageElement[] =[];
-                        task.then(function () {
-                            console.log("task:");
-                            let imgEl: HTMLImageElement = document.createElement('img');
-                            imgEl.src = mycanvas.toDataURL();
-
-                            // Wait for onload so all properties are populated
-                            imgEl.onload = (args) => {
-                                imgElsArray.push(imgEl);
-                                return callback(imgElsArray);
-                            };
-
-                        });
-
-                    });*!/
-
-
-                    var scale = 1.5;
-
-                    var numPages = pdfdoc.numPages;
-                    let imgElsArray: HTMLImageElement[] = [];
-                    console.log("numPages"+numPages);
-                    for (var i = 1; i <= numPages; ) {
-                        console.log("i:-------"+i);
-                        pdfdoc.getPage(i).then(function getImage(page) {
-                            var mycanvas = document.createElement('canvas');
-                            var viewport = page.getViewport(scale);
-                            var context = mycanvas.getContext('2d');
-                            mycanvas.height = viewport.height;
-                            mycanvas.width = viewport.width;
-                            var task = page.render({canvasContext: context, viewport: viewport});
-                            task.then(function () {
-
-                                let imgEl: HTMLImageElement = document.createElement('img');
-                                imgEl.src = mycanvas.toDataURL();
-                                console.log("imgEl"+imgEl+"i:"+i);
-                                imgElsArray.push(imgEl);
-
-                                if (i==numPages) { //last page
-                                    console.log("callback"+JSON.stringify(imgElsArray));
-                                    callback(imgElsArray);
-                                }
-                                i++;
-                            });
-                        });
-                    }
-
-
-                    console.log("loaded pdf document");
-                    resolve(pdfdoc);
-                }, (error) => {
-                    console.log("could not load pdf document: " + error.toString());
-                    reject(error);
-                });
-            });
-            // populate canvas
-        };
-        reader.readAsArrayBuffer(pdfFile);
-    }*/
 
     /**
      * Non reversible image filter to take an existing canvas and make it gray scale
