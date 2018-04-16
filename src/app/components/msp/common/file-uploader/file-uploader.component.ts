@@ -286,6 +286,7 @@ export class FileUploaderComponent
                 console.log('Start processing file ' + fileIndex + ' of ' + fileList.length + ' %s of size %s bytes %s type', file.name, file.size, file.type);
 
                 scaleFactors = scaleFactors.scaleDown(self.appConstants.images.reductionScaleFactor);
+                var pdfScaleFactor = self.appConstants.images.pdfScaleFactor;
 
                 // let mspImage: MspImage = new MspImage();
                 // let reader: FileReader = new FileReader();
@@ -293,7 +294,7 @@ export class FileUploaderComponent
                 // // Copy file properties
                 // mspImage.name = file.name;
                 if (file.type == "application/pdf") {
-                    this.readPDF(file, (images: HTMLImageElement[]) => {
+                    this.readPDF(file, pdfScaleFactor,(images: HTMLImageElement[]) => {
                         images.map((image, index) => {
                             image.name = file.name;
                             this.resizeImage( image, self, scaleFactors, observer,index);
@@ -502,7 +503,7 @@ export class FileUploaderComponent
         reader.readAsDataURL(imageFile);
     }
 
-    private readPDF(pdfFile: File,
+    private readPDF(pdfFile: File, pdfScaleFactor: Number,
                     callback: (image: HTMLImageElement[]) => void, error: (errorReason: any) => void) {
 
         PDFJS.disableWorker = true;
@@ -521,8 +522,7 @@ export class FileUploaderComponent
 
                 function getPage() {
                     pdfdoc.getPage(currentPage).then(function (page) {
-                        var scale = 1.5;
-                        var viewport = page.getViewport(scale);
+                        var viewport = page.getViewport(pdfScaleFactor);
 
                         canvas.height = viewport.height;
                         canvas.width = viewport.width;
