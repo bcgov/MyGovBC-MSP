@@ -39,6 +39,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-spec-reporter": "^0.0.31",
     "open": "0.0.5",
+    "pdfjs-dist": "^2.0.489",
     "pluralize": "^3.0.0",
     "rimraf": "^2.5.2"
   },
@@ -58,6 +59,7 @@
     "@angular/platform-browser-dynamic": "4.4.4",
     "@angular/platform-server": "4.4.4",
     "@angular/router": "4.4.4",
+    "@types/pdfjs-dist": "^0.1.2",
     "angular-2-local-storage": "1.0.1",
     "angular2-template-loader": "^0.6.0",
     "angular2-uuid": "^1.1.0",
