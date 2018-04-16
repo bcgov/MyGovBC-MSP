@@ -145,35 +145,7 @@ export class FileUploaderComponent
 
         let browseFileStream = Observable.fromEvent<Event>(this.browseFileRef.nativeElement, 'change');
         let captureFileStream = Observable.fromEvent<Event>(this.captureFileRef.nativeElement, 'change');
-        // let brosweFileInputElement = this.browseFileRef.nativeElement;
-        // let captureFileInputElement = this.captureFileRef.nativeElement;
-        let pdfFileList = new Array<Observable<File>>();
 
-        // obtain the PDF observables
-        /* let filesArrayFromInput = browseFileStream.merge(captureFileStream)
-            .map((event) => {
-                  event.preventDefault();
-                  return event.target['files'];
-                }
-            ).merge(filesArrayFromDrop).filter(files => {
-                  return !!files && files.length && files.length > 0;
-                }
-            ).flatMap((fileList: FileList) => {
-                  console.info("getting files");
-                  for (var i = 0; i < fileList.length; i++) {
-                    console.info("loading " + i + " image of " + fileList.length + " file: " + fileList[i]);
-                    // if (fileList[i].type == "application/pdf") {
-                        console.info("  --> pdf file");
-                        pdfFileList.push(this.observableFromFile(fileList[i], new MspImageScaleFactorsImpl(1, 1)));
-                    // }
-                  }
-                  return pdfFileList;
-                }
-            // ).flatMap((fileIn: Observable<File>) => {
-            //    console.info("getting files again");
-            //    return this.observableFromFile(fileIn, new MspImageScaleFactorsImpl(1, 1));
-            //    }
-            */
         let filesArrayFromInput = browseFileStream.merge(captureFileStream)
             .map(
                 (event) => {
