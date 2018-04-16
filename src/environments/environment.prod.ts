@@ -21,7 +21,7 @@ export const environment = {
           acceptMimeType: "image/*",
           convertToMimeType: "image/jpeg",
           jpegQuality: 0.5,
-          pdfScaleFactory: 3.0
+          pdfScaleFactor: 2.0
         },
         // general state of the app, if unavailable, display Unavailable message and don't continue
         mspIsInMaintenanceFlag: false,
