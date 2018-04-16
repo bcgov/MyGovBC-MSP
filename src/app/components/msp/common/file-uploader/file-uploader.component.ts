@@ -503,7 +503,7 @@ export class FileUploaderComponent
         reader.readAsDataURL(imageFile);
     }
 
-    private readPDF(pdfFile: File, pdfScaleFactor: Number,
+    private readPDF(pdfFile: File, pdfScaleFactor: number,
                     callback: (image: HTMLImageElement[]) => void, error: (errorReason: any) => void) {
 
         PDFJS.disableWorker = true;
