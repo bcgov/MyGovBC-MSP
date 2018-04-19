@@ -285,7 +285,7 @@ export class FileUploaderComponent
                 var file = fileList[fileIndex];
                 console.log('Start processing file ' + fileIndex + ' of ' + fileList.length + ' %s of size %s bytes %s type', file.name, file.size, file.type);
 
-                scaleFactors = scaleFactors.scaleDown(self.appConstants.images.reductionScaleFactor);
+                           scaleFactors = scaleFactors.scaleDown(self.appConstants.images.reductionScaleFactor);
                 var pdfScaleFactor = self.appConstants.images.pdfScaleFactor;
 
                 // let mspImage: MspImage = new MspImage();
@@ -294,9 +294,11 @@ export class FileUploaderComponent
                 // // Copy file properties
                 // mspImage.name = file.name;
                 if (file.type == "application/pdf") {
-                    this.readPDF(file, pdfScaleFactor,(images: HTMLImageElement[]) => {
+                    console.log("application/pdf: file.name----"+ file.name);
+                    this.readPDF(file, pdfScaleFactor,(images: HTMLImageElement[] ,pdfFile: File) => {
                         images.map((image, index) => {
-                            image.name = file.name;
+                            console.log("readPDF: file.name----"+ pdfFile.name);
+                            image.name = pdfFile.name;
                             this.resizeImage( image, self, scaleFactors, observer,index);
                         })
                     }, (error) => {
@@ -305,10 +307,11 @@ export class FileUploaderComponent
                         observer.error(imageReadError);
                     });
                 } else {
-
+                    console.log(" readImage:file.name--outside--"+ file.name);
                     // Load image into img element to read natural height and width
-                    this.readImage(file, (image: HTMLImageElement) => {
-                           image.name = file.name;
+                    this.readImage(file, (image: HTMLImageElement ,imageFile: File)  => {
+                            console.log(" readImage:file.name----"+ imageFile.name);
+                           image.name = imageFile.name;
                             this.resizeImage(image, self, scaleFactors, observer);
                         },
 
@@ -329,9 +332,11 @@ export class FileUploaderComponent
 // While it's still in an image, get it's height and width
         let mspImage: MspImage = new MspImage();
         let reader: FileReader = new FileReader();
+        console.log("image.name:"+image.name);
         // Copy file properties
-        if(pageNumber != 0) {
-             mspImage.name = image.name + "-page" + pageNumber;
+        mspImage.name = image.name ;
+        if(pageNumber != 0) { //PDF ..append page page number
+            mspImage.name += "-page" + pageNumber;
         }
         //Temporary so we don't have duplicate file names. TODO: Improve.
         //   mspImage.name += Math.ceil(Math.random()*100);
@@ -467,7 +472,7 @@ export class FileUploaderComponent
     };
 
     private readImage(imageFile: File,
-                      callback: (image: HTMLImageElement) => void,
+                      callback: (image: HTMLImageElement,imageFile: File) => void,
                       invalidImageHanlder: (error: MspImageProcessingError) => void) {
         let reader = new FileReader();
 
@@ -481,7 +486,7 @@ export class FileUploaderComponent
             // Wait for onload so all properties are populated
             imgEl.onload = (args) => {
                 console.log('Completed image loading into an img tag: %o', args);
-                return callback(imgEl);
+                return callback(imgEl ,imageFile  );
             };
 
             imgEl.onerror =
@@ -504,7 +509,7 @@ export class FileUploaderComponent
     }
 
     private readPDF(pdfFile: File, pdfScaleFactor: number,
-                    callback: (image: HTMLImageElement[]) => void, error: (errorReason: any) => void) {
+                    callback: (image: HTMLImageElement[],pdfFile: File) => void, error: (errorReason: any) => void) {
 
         PDFJS.disableWorker = true;
         PDFJS.disableStream = true;
@@ -540,7 +545,7 @@ export class FileUploaderComponent
                                 currentPage++;
                                 getPage();
                             } else {
-                                callback(imgElsArray);
+                                callback(imgElsArray,pdfFile);
                             }
 
                         });
@@ -633,6 +638,7 @@ export class FileUploaderComponent
     }
 
     deleteImage(mspImage: MspImage) {
+        console.log("FileUploaderComponent delete image:"+JSON.stringify(mspImage,null ,2));
         // this.staticModalRef.show();
         this.resetInputFields();
         this.onDeleteDocument.emit(mspImage);
