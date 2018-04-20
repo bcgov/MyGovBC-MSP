@@ -280,12 +280,13 @@ export class FileUploaderComponent
         let fileObservable = Observable.create((observer: Observer<MspImage>) => {
 
             let mspImages = [];
+            scaleFactors = scaleFactors.scaleDown(self.appConstants.images.reductionScaleFactor);
             for (var fileIndex = 0; fileIndex < fileList.length; fileIndex++) {
 
                 var file = fileList[fileIndex];
                 console.log('Start processing file ' + fileIndex + ' of ' + fileList.length + ' %s of size %s bytes %s type', file.name, file.size, file.type);
 
-                           scaleFactors = scaleFactors.scaleDown(self.appConstants.images.reductionScaleFactor);
+
                 var pdfScaleFactor = self.appConstants.images.pdfScaleFactor;
 
                 // let mspImage: MspImage = new MspImage();
@@ -638,7 +639,6 @@ export class FileUploaderComponent
     }
 
     deleteImage(mspImage: MspImage) {
-        console.log("FileUploaderComponent delete image:"+JSON.stringify(mspImage,null ,2));
         // this.staticModalRef.show();
         this.resetInputFields();
         this.onDeleteDocument.emit(mspImage);
