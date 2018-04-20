@@ -16,7 +16,8 @@ export class MspImageProcessingError {
   mspImage?:MspImage;
   rawImageFile?: File;
   maxSizeAllowed?: number;
-  constructor(public errorCode:MspImageError){
+  // added errorDescription.PDF.JS gives proper error messages as invalid pdf structure or password protected pdf.Good for splunk tracking
+  constructor(public errorCode:MspImageError,public errorDescription?:string){
 
   }
 }

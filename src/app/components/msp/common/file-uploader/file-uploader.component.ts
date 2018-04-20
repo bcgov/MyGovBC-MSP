@@ -29,6 +29,7 @@ let loadImage = require('blueimp-load-image');
 var sha1 = require('sha1');
 const PDFJS: PDFJSStatic = require('pdfjs-dist');
 
+
 @Component({
     selector: 'msp-file-uploader',
     templateUrl: './file-uploader.html',
@@ -211,7 +212,7 @@ export class FileUploaderComponent
                             }
                             this.handleError(MspImageError.CannotOpen, error.image);
                         }  else if (MspImageError.CannotOpenPDF === error.errorCode) {
-                        this.handleError(MspImageError.CannotOpenPDF, error.image);
+                                    this.handleError(MspImageError.CannotOpenPDF, error.image ,error.errorDescription);
                     }  else {
                             throw error;
                         }
@@ -295,29 +296,35 @@ export class FileUploaderComponent
                 // // Copy file properties
                 // mspImage.name = file.name;
                 if (file.type == "application/pdf") {
-                    console.log("application/pdf: file.name----"+ file.name);
+                    this.logService.log({name: file.name + ' Received in Upload',
+                        UUID: self.dataService.getMspUuid()},"File_Upload");
+
                     this.readPDF(file, pdfScaleFactor,(images: HTMLImageElement[] ,pdfFile: File) => {
+
+
+                        this.logService.log({name: file.name + 'is successfully split into '+images.length +" images",
+                            UUID: self.dataService.getMspUuid()},"File_Upload");
+
                         images.map((image, index) => {
-                            console.log("readPDF: file.name----"+ pdfFile.name);
                             image.name = pdfFile.name;
                             this.resizeImage( image, self, scaleFactors, observer,index);
                         })
-                    }, (error) => {
+                    }, (error: string) => {
+                        console.log("error"+JSON.stringify(error));
                         let imageReadError: MspImageProcessingError =
-                            new MspImageProcessingError(MspImageError.CannotOpenPDF);
+                            new MspImageProcessingError(MspImageError.CannotOpenPDF,error);
                         observer.error(imageReadError);
                     });
                 } else {
-                    console.log(" readImage:file.name--outside--"+ file.name);
                     // Load image into img element to read natural height and width
                     this.readImage(file, (image: HTMLImageElement ,imageFile: File)  => {
-                            console.log(" readImage:file.name----"+ imageFile.name);
                            image.name = imageFile.name;
                             this.resizeImage(image, self, scaleFactors, observer);
                         },
 
                         //can be ignored for bug, the log line is never called
                         (error: MspImageProcessingError) => {
+                            console.log("error"+JSON.stringify(error));
                             observer.error(error);
                         });
                 }
@@ -514,6 +521,7 @@ export class FileUploaderComponent
 
         PDFJS.disableWorker = true;
         PDFJS.disableStream = true;
+
         let reader = new FileReader();
         var currentPage = 1;
         var canvas = document.createElement('canvas');
@@ -550,12 +558,12 @@ export class FileUploaderComponent
                             }
 
                         });
-                    }, function (errorReason) {
+                    }, function (errorReason: string) {
                         error(errorReason);
 
                     });
                 }
-            }, function (errorReason) {
+            }, function (errorReason: string) {
                 error(errorReason);
             });
 
@@ -608,7 +616,7 @@ export class FileUploaderComponent
         }
     }
 
-    handleError(error: MspImageError, mspImage: MspImage) {
+    handleError(error: MspImageError, mspImage: MspImage, errorDescription?:string) {
 
         if (!mspImage) {
             mspImage = new MspImage();
@@ -620,7 +628,7 @@ export class FileUploaderComponent
         if (error != MspImageError.PDFnotSupported) {
             this.logImageInfo("msp_file-uploader_error", this.dataService.getMspUuid(), mspImage,
                 "  mspImageFile: " + mspImage.name + "  mspErrorNum: " + error + "  mspError: " +
-                MspImageError[error]);
+                error+"-"+errorDescription);
         }
 
         // console.log("error with image: ", mspImage);

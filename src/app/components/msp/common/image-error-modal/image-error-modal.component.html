@@ -18,7 +18,7 @@
             <img *ngIf="imageWithError && imageWithError.fileContent && imageWithError.error == 3"
               [src]="imageWithError.fileContent" 
               alt="" 
-              class="center-block img-fluid">s
+              class="center-block img-fluid">
             <p *ngIf="imageWithError && imageWithError.error < 5">
               Filename: <strong>{{imageWithError.name}}</strong><br>
               Width: <strong>{{imageWithError.naturalWidth}} pixels</strong><br>
