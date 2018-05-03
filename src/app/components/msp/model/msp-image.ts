@@ -1,19 +1,23 @@
 import {UUID} from "angular2-uuid";
 
+// NOTE: If you change anything in this enum, check image-error-modal.component.html for tests and file-uploader.component.ts:
 export enum MspImageError {
   WrongType,
   TooSmall,
   TooBig,
   AlreadyExists,
   Unknown,
-  CannotOpen
+  CannotOpen,
+  PDFnotSupported,
+  CannotOpenPDF,
 }
 
 export class MspImageProcessingError {
   mspImage?:MspImage;
   rawImageFile?: File;
   maxSizeAllowed?: number;
-  constructor(public errorCode:MspImageError){
+  // added errorDescription.PDF.JS gives proper error messages as invalid pdf structure or password protected pdf.Good for splunk tracking
+  constructor(public errorCode:MspImageError,public errorDescription?:string){
 
   }
 }

@@ -6,7 +6,7 @@ import { MspImage } from '../../model/msp-image';
 @Component({
   selector: 'msp-thumbnail',
   templateUrl: './thumbnail.html',
-  styleUrls: ['./thumbnail.less']
+  styleUrls: ['./thumbnail.scss']
 })
 export class ThumbnailComponent implements OnInit {
   @Input() imageObject: MspImage;
@@ -24,16 +24,22 @@ export class ThumbnailComponent implements OnInit {
     let scaledWidthString:string = (180*this.imageObject.naturalWidth/this.imageObject.naturalHeight).toFixed(0);
     // console.log('scaled width: ' + scaledWidthString);
     this.scaledWidth = parseInt(scaledWidthString);
+
     if(this.scaledWidth > 250){
       // console.log('Scaled width > 250, drop it down to 250');
       this.scaledWidth = 250;
     }else if(this.scaledWidth < 30){
       this.scaledWidth = 100;
     }
+
+    if (isNaN(this.scaledWidth)){
+      this.scaledWidth = 300;
+    }
   }
 
   delete(evt:any) {
-    // console.log('Delete from thumbnail: %o', evt);
+      console.log('ThumbnailComponent:Delete from thumbnail: %o', evt);
+      console.log('ThumbnailComponent:imageObject:', JSON.stringify(this.imageObject,null ,2));
     this.deleteImage.emit(this.imageObject);
   }
 

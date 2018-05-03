@@ -110,6 +110,11 @@ http {
             root   /usr/share/nginx/html;
         }
 
+	# no serving Dockerfile
+ 	location = /Dockerfile {
+            root   /usr/share/nginx/html;
+	}
+
         # For status of ngnix service, OpenShift is configured to call this
         location /nginx_status {
             # Enable Nginx stats

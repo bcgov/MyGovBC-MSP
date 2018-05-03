@@ -1,7 +1,7 @@
 <div *ngIf="!docRequired">
   <h1 [innerHTML]="lang('./en/index.js').retroYearsTitleDocsNotRequired" tabindex="0"></h1>
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       <p [innerHTML]="getDocNotRequiredInstruction()" tabindex="0">
       </p>
     </div>
@@ -11,13 +11,13 @@
 <div *ngIf="docRequired">
   <h1 [innerHTML]="lang('./en/index.js').retroYearsTitle" tabindex="0"></h1>
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       <p [innerHTML]="docRequiredInstruction.applicant" tabindex="0">
       </p>
     </div>
   </div>
   <div class="row" *ngIf="hasSpouse">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       <p [innerHTML]="docRequiredInstruction.spouse" tabindex="0">
       </p>
     </div>
@@ -27,7 +27,7 @@
 <form #formRef='ngForm' novalidate>
 
   <div class="row">
-    <div class="col-md-8" *ngIf="docRequired">
+    <div class="col-lg-8" *ngIf="docRequired">
         <h2 [innerHTML]="lang('./en/index.js').docUploadInstructions" tabindex="0"></h2>
         <label [innerHTML]="lang('./en/index.js').docUploadInstruction" tabindex="0">
         </label>
@@ -53,7 +53,7 @@
 
 <hr>
 
-      <div class="col-sm-6 pull-left" *ngIf="!canContinue && formRef.submitted">
+      <div class="col-md-6 pull-left" *ngIf="!canContinue && formRef.submitted">
         <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields"
           tabindex="0">
         </p>
@@ -63,15 +63,18 @@
 
 
     <div class="row" style="margin-top: 10px;">
-      <div class="col-sm-2">
+      <div class="col-md-2 col-4">
         <button
                 [disabled] = "!canContinue"
                 class="btn btn-primary" type="submit" (click)="continue()"
                 [innerHTML]="lang('./en/index.js').continueButton"></button>
       </div>
-      <div class="col-sm-6 pull-left" *ngIf="docRequired && application.assistYeaDocs.length < 1">
+      <div class="col-md-8 col-12 pull-left" *ngIf="docRequired && application.assistYeaDocs.length < 1">
         <p class="text-danger" [innerHTML]="lang('./en/index.js').noaDocRequired" tabindex="0">
         </p>
       </div>
+        <div class="col-md-2 col-12 pull-right">
+        <msp-cancel></msp-cancel>
     </div>
-<msp-cancel></msp-cancel>
+    </div>
+

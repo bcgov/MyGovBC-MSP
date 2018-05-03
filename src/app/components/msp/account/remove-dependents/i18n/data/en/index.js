@@ -29,18 +29,18 @@ module.exports = {
     "No longer in full time studies",
     "Deceased",
     "Out of Province / Out of Country",
-    "Incarcerated",
     "Armed Forces",
-    "Other",
+    "Incarcerated"
+
   ],
     cancellationReasonsSpouse: [
         // "Please select",
         "Separated / Divorced",
+        "Remove from account but still married/common-law",
         "Deceased",
         "Out of Province / Out of Country",
-        "Incarcerated",
         "Armed Forces",
-        "Other",
+        "Incarcerated"
     ],
   pleaseSelect: "Please select",
   knowSpouseCurrentMailing: [

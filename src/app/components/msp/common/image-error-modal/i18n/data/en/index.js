@@ -6,7 +6,8 @@ module.exports = {
      TooBig,
      AlreadyExists,
      Unknown,
-     CannotOpen
+     CannotOpen,
+     PDFnotSupported
      */
     imageError: [
         'This image is the wrong type, only JPEG, PNG, GIF, BMP are supported',
@@ -15,6 +16,9 @@ module.exports = {
         'You have already uploaded this image',
         'Unknown error, try uploading the file again or if the problem persists contact help',
         'Cannot read this image. This image is likely an invalid image file or you don\'t have permission to read it.' +
-        '  Please refresh your browser once you close this dialog.'
+        '  Please refresh your browser once you close this dialog.',
+        'Please submit a JPG, PNG, GIF or BMP file (not a PDF)',
+        'Cannot read this PDF. This image is likely an invalid PDF file or you don\'t have permission to read it.' +
+        '  Please refresh your browser once you close this dialog.',
     ]
 }

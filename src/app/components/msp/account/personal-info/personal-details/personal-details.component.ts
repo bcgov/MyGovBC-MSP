@@ -39,7 +39,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
-import './personal-details.component.less';
+import './personal-details.component.scss';
 import {BaseComponent} from "../../../common/base.component";
 import {MspCountryComponent} from "../../../common/country/country.component";
 
@@ -244,6 +244,13 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
             }
         }
 
+
+        if (!this.person.mailingSameAsResidentialAddress) {
+            if (!this.person.mailingAddress.isValid){
+                return false;
+            }
+        }
+    
         return true;
     }
 }

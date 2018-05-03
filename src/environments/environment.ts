@@ -33,7 +33,8 @@ export const environment = {
           reductionScaleFactor: 0.8,
           acceptMimeType: "image/*",
           convertToMimeType: "image/jpeg",
-          jpegQuality: 0.5
+          jpegQuality: 0.5,
+          pdfScaleFactor: 2.0
         },
         // general state of the app, if unavailable, display Unavailable message and don't continue
         mspIsInMaintenanceFlag: process.env.mspIsInMaintenanceFlag,

@@ -10,23 +10,23 @@
 
 
   <div class="row">
-      <div class="col-md-6">
+      <div class="col-lg-6">
           <msp-person-card [person]="application.applicant"
                           [editRouterLink]="'/msp/application/personal-info'"></msp-person-card>
       </div>
-      <div class="col-md-6" *ngIf="application.spouse != null">
+      <div class="col-lg-6" *ngIf="application.spouse != null">
           <msp-person-card [person]="application.spouse"
                           [editRouterLink]="'/msp/application/personal-info'"></msp-person-card>
       </div>
   </div>
   <div class="row" *ngIf="application.children != null && application.children.length > 0">
-      <div *ngFor="let child of application.children; let i = index;">
+      <ng-container *ngFor="let child of application.children; let i = index;">
           <div class="clearfix" *ngIf="i % 2 == 0"></div>
-          <div class="col-md-6">
+          <div class="col-lg-6">
               <msp-person-card [person]="child"
                               [editRouterLink]="'/msp/application/personal-info'"></msp-person-card>
           </div>
-      </div>
+      </ng-container>
   </div>
   <msp-contact-card [residentialAddress]="application.residentialAddress"
                     [mailingAddress]="application.mailingAddress"
@@ -52,19 +52,20 @@
       </div>
   </div>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-lg-12">
       <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
               (onValidToken)="application.authorizationToken = $event"></captcha>
     </div>
   </div>
   <div class="row" *ngIf="form.submitted && !application.hasValidAuthToken">
-      <div class="col-md-6">
+      <div class="col-lg-6">
         <div class="text-danger" 
              [innerHtml]="lang('./en/index.js').tryAgainWithCaptcha"></div>        
       </div>
   </div>
   <hr>
   <button
+  
           [disabled]="!application.authorizedByApplicant || (application.spouse && !application.authorizedBySpouse)
             || !application.hasValidAuthToken"
           class="btn btn-primary" type="submit"

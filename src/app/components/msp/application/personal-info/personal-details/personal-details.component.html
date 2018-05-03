@@ -2,10 +2,10 @@
                                     ></msp-services-card-disclaimer-modal>
 <form #formRef='ngForm' novalidate>
     <div class="row">
-        <div class="col-xs-8">
+        <div class="col-sm-8">
             <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]"></h2>
         </div>
-        <div class="col-xs-4">
+        <div class="col-sm-4">
             <div *ngIf="person.relationship !== 0" style="margin-top: 18px">
                 <div *ngIf="person.relationship === 1">
                     <button type="button" class="btn btn-default btn-xs pull-right"
@@ -23,33 +23,33 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4" role="dialog" [attr.aria-label]="statusLabel()">
+        <div class="col-lg-4" role="dialog" [attr.aria-label]="statusLabel()">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-lg-12">
                     <h3>{{statusLabel()}}</h3>
                 </div>
             </div>
-            <div class="radio" *ngFor="let st of statusInCanada">
-                <input type="radio" name="statusInCanada-{{id}}" id="st{{st}}-{{id}}"
+            <div class="form-check" *ngFor="let st of statusInCanada">
+                <input class='form-check-input' type="radio" name="statusInCanada-{{id}}" id="st{{st}}-{{id}}"
                        (click)="setStatus(st, person)"
                        [checked]="st === person.status" tabindex="0">
-                <label for="st{{st}}-{{id}}">
+                <label class='form-check-label' for="st{{st}}-{{id}}">
                     {{langStatus('./en/index.js')[st]}}
                 </label>
 
                 <div *ngIf="st === person.status" role="alertdialog" aria-labelledby="What is your activity?">
-                    <div class="radio" *ngFor="let activity of activities">
-                        <input type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}"
+                    <div class="form-check" *ngFor="let activity of activities">
+                        <input class='form-check-input' type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}"
                                (click)="setActivity(activity)"
                                [checked]="activity === person.currentActivity">
-                        <label for="a{{activity}}-{{id}}" class="shade">
+                        <label class='form-check-label shade' for="a{{activity}}-{{id}}">
                             {{langActivities('./en/index.js')[activity]}}
                         </label>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null" role="alert" aria-live="assertive">
+        <div class="col-lg-4" *ngIf="person.status != null && person.currentActivity != null" role="alert" aria-live="assertive">
             <h3><i class="fa fa-id-card-o" aria-hidden="true"></i> {{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
             <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
             <ul>
@@ -69,7 +69,7 @@
             </ul>
             <msp-id-req-modal #idReqModal></msp-id-req-modal>
         </div>
-        <div class="col-md-4" *ngIf="person.status != null && person.currentActivity != null">
+        <div class="col-lg-4" *ngIf="person.status != null && person.currentActivity != null">
 
             <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel[this.person.relationship]"></h3>
             <div [innerHtml]="lang('./en/index.js').documentInstructionsNote"></div>
@@ -96,7 +96,7 @@
         <msp-name #name [person]="person" (onChange) = "onChange.emit($event)" [showError]="showError"></msp-name>
 
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-md-4">
                 <msp-gender
                   #gender
                   [person]="person"
@@ -104,7 +104,7 @@
                   [showError] = "showError"
                   ></msp-gender>
             </div>
-            <div class="col-sm-8">
+            <div class="col-md-8">
                 <msp-birthdate
                   #birthDate
                   [person]="person" 
@@ -116,7 +116,7 @@
         <div class="row" 
           *ngIf="person.status === StatusInCanada.CitizenAdult &&
             person.currentActivity === Activities.LivingInBCWithoutMSP" style="margin-bottom: 5px">
-            <div class="col-sm-12">
+            <div class="col-md-12">
               <div class="form-group"
                 [ngClass]="{'msp-has-error': showError && (person.livedInBCSinceBirth !== true && person.livedInBCSinceBirth !== false)}"
                    role="dialog" [attr.aria-labelledby]="'livedInBCSinceBirth' + objectId">
@@ -133,23 +133,23 @@
         </div>
 
       <div class="row" *ngIf="person.documents.images.length > 0">
-            <div class="col-md-4" *ngIf="person.currentActivity == Activities.MovingFromCountry || person.status == StatusInCanada.TemporaryResident">
+            <div class="col-lg-4" *ngIf="person.currentActivity == Activities.MovingFromCountry || person.status == StatusInCanada.TemporaryResident">
               <msp-country #country [label]="lang('./en/index.js').movedFromCountryLabel"
                   [country]="person.movedFromProvinceOrCountry" 
                   (onChange)="person.movedFromProvinceOrCountry = $event; onChange.emit($event)"
                   [showError]="showError">
               </msp-country>
             </div>
-            <div class="col-md-4" *ngIf="person.currentActivity === Activities.MovingFromProvince">
+            <div class="col-lg-4" *ngIf="person.currentActivity === Activities.MovingFromProvince">
               <msp-province #province [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
                             [province]="person.movedFromProvinceOrCountry"
                             (onChange)="provinceUpdate($event)"
                             [hideStates]="true"
                             [exceptBC]="true" [showError]="showError"
-                            colSize="col-sm-4"></msp-province>
+                            colSize="col-md-4"></msp-province>
             </div>
         
-          <div class="col-md-4" style="margin-top: 15px;" role="dialog" [attr.aria-labelledby]="'movedPermLabel' + objectId">
+          <div class="col-lg-4" style="margin-top: 15px;" role="dialog" [attr.aria-labelledby]="'movedPermLabel' + objectId">
             <div class="form-group" [ngClass]="{'has-error': showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)}">
               <label [attr.id]="'movedPermLabel'" [innerHtml]="lang('./en/index.js').haveYouMovedToBCPermanently[this.person.relationship]" class="control-label"></label>
               <div class="btn-group" role="group">
@@ -171,7 +171,7 @@
         <div class="row" *ngIf="!(person.status === StatusInCanada.CitizenAdult &&
                 person.currentActivity === Activities.LivingInBCWithoutMSP &&
                 person.livedInBCSinceBirth === true)">
-            <div class="col-md-4">
+            <div class="col-lg-4">
                 <msp-arrival-date #arrivalDateBC
                                   [arrivalLabel]="arrivalDateLabel"
                                   [year]="person.arrivalToBCYear"
@@ -182,12 +182,13 @@
                                   (dayChange)="person.arrivalToBCDay = $event"
                                   (onChange) = "onChange.emit($event)"
                                   [showError]="showError"
-                                  [notBeforeDate]="person.dobSimple"
-                                  [notBeforeDateErrorLabel]="lang('./en/index.js').moveDateBeforeBirthError[person.relationship]"
                                   [required] = "true">
                 </msp-arrival-date>
+                <div *ngIf='person.isArrivalToBcBeforeDob'>
+                    <div class="text-danger"[innerHtml]="lang('./en/index.js').moveDateBeforeBirthError[person.relationship]"></div>
+                </div>
             </div>
-            <div class="col-md-4" *ngIf="person.status === StatusInCanada.CitizenAdult &&
+            <div class="col-lg-4" *ngIf="person.status === StatusInCanada.CitizenAdult &&
                 person.currentActivity === Activities.LivingInBCWithoutMSP &&
                 !person.livedInBCSinceBirth">
                 <msp-province #province
@@ -199,7 +200,7 @@
                               [showError]="showError">
                 </msp-province>
             </div>
-            <div class="col-md-4">
+            <div class="col-lg-4">
                 <!--For canadian citizen, returning to BC after an absence or moving from another province, the arrival date in canada
                 is not required.-->
                 <msp-arrival-date #arrivalDateCanada
@@ -215,12 +216,15 @@
                                   (onChange) = "onChange.emit($event)"
                                   [showError]="showError">
                 </msp-arrival-date>
+                <div *ngIf='person.isArrivalToCanadaBeforeDob'>
+                    <div class="text-danger"[innerHtml]="lang('./en/index.js').moveDateCanadaBeforeBirthError[person.relationship]"></div>
+                </div>
 
             </div>
 
         </div>
         <div class="row" *ngIf="person.currentActivity === Activities.MovingFromProvince">
-            <div class="col-sm-4" >
+            <div class="col-md-4" >
                 <msp-health-number #healthNumber
                                     [healthNumber]="person.healthNumberFromOtherProvince"
                                    (healthNumberChange)="handleHealthNumberChange($event)"
@@ -232,7 +236,7 @@
         </div>
         <div style="margin-bottom: 20px">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-md-12">
                     <div class="form-group"
                          [ngClass]="{'has-error': showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)}"
                          role="dialog" [attr.aria-labelledby]="'outsideBCLabel' + objectId">
@@ -253,7 +257,7 @@
                 </div>
             </div>
             <div *ngIf="person.declarationForOutsideOver30Days === true" class="row" style="margin-bottom: 20px">
-                <div class="col-sm-12">
+                <div class="col-md-12">
                     <msp-outof-bc-record #outOfBCRecord [minMonthsRange]="12"  [minMonthsRangeErrorMsg]="lang('./en/index.js').minMonths"
                                          [outofBCRecord]="person.outOfBCRecord"
                                          (onDelete)="handleDeleteOutofBCRecord($event)"
@@ -265,7 +269,7 @@
             </div>
         </div>
         <div class="row" style="margin-bottom: 20px">
-            <div class="col-md-6">
+            <div class="col-lg-6">
               <div class="form-group"
                  [ngClass]="{'has-error': (person.hasPreviousBCPhn === undefined || person.hasPreviousBCPhn === null) && showError}"
                  role="dialog" [attr.aria-labelledby]="'previousBCHealthNumber' + objectId">
@@ -285,7 +289,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6" *ngIf="person.hasPreviousBCPhn === true">
+            <div class="col-lg-6" *ngIf="person.hasPreviousBCPhn === true">
                 <msp-phn #phn
                          [phn]="person.previous_phn"
                          (phnChange)="person.previous_phn = $event"
@@ -303,7 +307,7 @@
         *ngIf="person.documents.images.length > 0 && person.status === StatusInCanada.CitizenAdult" 
         style="margin-top: 10px; margin-bottom: 10px;"
          role="dialog" [attr.aria-labelledby]="'canadianForcesQuestionLabel' + objectId">
-        <div class="col-md-8">
+        <div class="col-lg-8">
             <div class="form-group"
               [ngClass]="{'has-error': (person.institutionWorkHistory === undefined ||  person.institutionWorkHistory === null) 
                 && showError}">
@@ -340,7 +344,7 @@
     <div #schoolQuestion class="row" *ngIf="person.documents.images.length > 0 &&
                             (person.relationship === Relationship.Applicant ||
                             person.relationship === Relationship.Child19To24)">
-        <div class="form-group col-md-4" *ngIf="person.relationship === Relationship.Applicant"
+        <div class="form-group col-lg-4" *ngIf="person.relationship === Relationship.Applicant"
             [ngClass]="{'has-error': showError && (person.fullTimeStudent === undefined || person.fullTimeStudent === null)}"
             role="dialog" [attr.aria-labelledby]="'fullTimeStudentLabel' + objectId">
             <label id="fullTimeStudentLabel{{objectId}}" [innerHtml]="lang('./en/index.js').fullTimeStudentLabel" class="control-label"></label>
@@ -364,7 +368,7 @@
 
     <div class="row" *ngIf="person.documents.images.length > 0 &&
                             person.relationship === Relationship.Child19To24">
-        <div class="form-group col-md-6"
+        <div class="form-group col-lg-6"
             [ngClass]="{'has-error': !formRef.controls.schoolName?.valid && (schoolNameRef.touched || showError)}">
             <h2 [innerHtml]="lang('./en/index.js').nameOfSchool"></h2>
             <label [innerHtml]="lang('./en/index.js').fullAttendanceLabel"></label>
@@ -391,7 +395,7 @@
 
     <div class="row" *ngIf="person.documents.images.length > 0 &&
                             person.relationship === Relationship.Child19To24">
-        <div class="form-group col-md-6">
+        <div class="form-group col-lg-6">
             <msp-school-date #schoolDate
                             [departureDate]="true"
                             [year]="person.studiesDepartureYear"
@@ -406,7 +410,7 @@
                             >
             </msp-school-date>
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-lg-4">
             <msp-school-date [year]="person.studiesFinishedYear"
                             (yearChange)="person.studiesFinishedYear = $event"
                             [month]="person.studiesFinishedMonth"
@@ -421,7 +425,7 @@
         
     </div>
     <div class="row" *ngIf="person.documents.images.length > 0">
-        <div #inBCAfterStudiesQuestion *ngIf="person.fullTimeStudent" class="col-md-6"
+        <div #inBCAfterStudiesQuestion *ngIf="person.fullTimeStudent" class="col-lg-6"
           role="dialog" [attr.aria-labelledby]="'inBCAfterStudiesLabel' + objectId">
           <div class="form-group"
              [ngClass]="{'has-error': (person.inBCafterStudies===undefined || person.inBCafterStudies===null) && showError}">
@@ -452,7 +456,7 @@
 
 <!-- switch *ngIf value to true for debugging-->
 <div class="row" *ngIf='false'>
-    <div class="col-md-12">
+    <div class="col-lg-12">
         <ul>
             <li *ngFor='let log of changeLog'>
                 {{log | json}}
@@ -460,7 +464,7 @@
         </ul>
     </div>
 
-    <div class="col-md-12">
+    <div class="col-lg-12">
         <p>Person Data Model</p>
         {{this.person| json}}
         <p>firstname</p>

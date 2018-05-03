@@ -1,12 +1,12 @@
 <form #formRef='ngForm' novalidate>
     <div class="row">
-        <div [ngClass]="person.relationship === 0 ? 'col-xs-12' :'col-xs-9'"  *ngIf="!embedded">
+        <div [ngClass]="person.relationship === 0 ? 'col-sm-12' :'col-sm-9'"  *ngIf="!embedded">
             <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]"></h2>
             <ng-container  *ngIf="person.relationship === 0 || person.relationship === 1">
                 <h4 [innerHTML]="mspAccountApp.accountChangeOptions.personInfoUpdate ? lang('./en/index.js').sectionSubTitleforPI[person.relationship] : lang('./en/index.js').sectionSubTitleNoPI[person.relationship]"></h4>
             </ng-container>
         </div>
-        <div class="col-xs-3" *ngIf="!embedded">
+        <div class="col-sm-3" *ngIf="!embedded">
             <div *ngIf="person.relationship !== 0" style="margin-top: 18px">
                 <div *ngIf="person.relationship === 1">
                     <button type="button" class="btn btn-default btn-xs pull-right"
@@ -27,7 +27,7 @@
     <msp-name #name [person]="person" (onChange)="onChange.emit($event)" [showError]="showError"></msp-name>
 
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-md-4">
             <msp-gender
                     #gender
                     [person]="person"
@@ -35,7 +35,7 @@
                     [showError]="showError"
             ></msp-gender>
         </div>
-        <div class="col-sm-4">
+        <div class="col-md-4">
             <msp-birthdate
                     #birthDate
                     [person]="person" [isForAccountChange]="true"
@@ -43,7 +43,7 @@
                     [showError]="showError">
             </msp-birthdate>
         </div>
-        <div class="col-sm-4">
+        <div class="col-md-4">
             <msp-phn #phn [isForAccountChange]="person.relationship === 0"
                      [phn]="person.previous_phn"
                      [required]="requirePHN"
@@ -56,7 +56,7 @@
 
     </div>
     <div class="row" *ngIf="person.relationship === 0">
-        <div class="col-sm-4">
+        <div class="col-md-4">
             <msp-phone #phone
                        [phoneNumber]="person.phoneNumber"
                        (phoneNumberChange)="handlePhoneNumberChange($event)"></msp-phone>
@@ -65,7 +65,7 @@
     </div>
    <div class="row" *ngIf="person.relationship === 0">
 
-        <div class="col-sm-12">
+        <div class="col-md-12">
 
             <h2 [innerHTML]="lang('./en/index.js').residentialAddressTitle"></h2>
             <h4 [innerHTML]="mspAccountApp.accountChangeOptions.personInfoUpdate ? lang('./en/index.js').residentialAddressSubTitleForPI:lang('./en/index.js').residentialAddressSubTitleNoPI"></h4>
@@ -94,7 +94,7 @@
 
 <!-- switch *ngIf value to true for debugging-->
 <div class="row" *ngIf='false'>
-    <div class="col-md-12">
+    <div class="col-lg-12">
         <ul>
             <li *ngFor='let log of changeLog'>
                 {{log | json}}
@@ -102,7 +102,7 @@
         </ul>
     </div>
 
-    <div class="col-md-12">
+    <div class="col-lg-12">
         <p>Person Data Model</p>
         {{this.person| json}}
         <p>firstname</p>

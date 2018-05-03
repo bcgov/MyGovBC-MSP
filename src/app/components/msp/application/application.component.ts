@@ -15,7 +15,7 @@ import { MspLogService } from '../service/log.service';
  */
 @Component({
   templateUrl: './application.component.html',
-  styleUrls: ['./application.component.less']
+  styleUrls: ['./application.component.scss']
 })
 
 export class ApplicationComponent  {
@@ -47,18 +47,20 @@ export class ApplicationComponent  {
   }
 
   ngOnInit() {
-    this.logService.log({
+    /*this.logService.log({
       name: "Application - Loaded Page",
       url: this.router.url
-    },"Application - Load Page")
+    },"Application - Load Page")*/
 
     this.routerSubscription = this.router.events
       .filter(event => event instanceof NavigationEnd)
       .subscribe(event => {
-        this.logService.log({
-          name: "Application - Loaded Page",
-          url: this.router.url
-        },"Application - Loaded Page")
+          if (this.router.url.indexOf("/confirmation/") === -1) {//toned down logs.no log for confirmation page
+              this.logService.log({
+                  name: "Enrolment - Loaded Page ",
+                  url: this.router.url
+              }, "Enrolment - Loaded Page ")
+          }
       });
   }
 

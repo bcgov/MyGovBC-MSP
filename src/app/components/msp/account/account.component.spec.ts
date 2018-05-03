@@ -6,6 +6,8 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {ProcessService } from "../service/process.service";
 import { AccountComponent } from './account.component';
 import {MspProgressBarComponent} from "../common/progressBar/progressBar.component";
+import {MspLogService} from "../service/log.service";
+import {HttpModule} from "@angular/http";
 
 describe('AccountComponent', () => {
 
@@ -13,11 +15,11 @@ describe('AccountComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AccountComponent,MspProgressBarComponent],
-      imports: [FormsModule, RouterTestingModule ,LocalStorageModule.withConfig({
+      imports: [FormsModule, RouterTestingModule ,HttpModule, LocalStorageModule.withConfig({
           prefix: 'ca.bc.gov.msp',
           storageType: 'sessionStorage'
       })],
-      providers: [MspDataService, ProcessService
+      providers: [MspDataService, ProcessService ,MspLogService
 
       ]
     })

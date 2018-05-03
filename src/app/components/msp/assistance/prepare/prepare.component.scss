@@ -15,3 +15,13 @@
    color: #B71C1C;
   }
 }
+
+.form-group .checkbox-inline{
+  //Override inline styling
+  margin-left: 2rem !important;
+  margin-top: 0.25rem;
+}
+
+.padded{
+  margin-top:1rem !important;
+}

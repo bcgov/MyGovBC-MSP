@@ -18,8 +18,8 @@ module.exports = {
   8: ['Passport with diplomatic foil',true],
   9: ['Marriage Certificate',true],
   10: ['Certificate of Name Change ',true],
-   11:['Divorce Decree',false],
-    12:['Separation Agreement',false],
+   11:['Divorce Decree (formerly married)',false],
+    12:['Separation Agreement (formerly married or common-law)',false],
     13:['Landed Immigration Documents',true],
     14:['Permit indicating Religious Worker',false],
     15:['Confirmation of their religious service from their religious order ',false],
@@ -31,7 +31,12 @@ module.exports = {
     21:['Application for Change of Gender Designation (Minor)',true],
     22:['Request for Waiver of Parental Consent (Minor) (for under 19 years )',true],
     23:['Physician’s or Psychologist’s Confirmation of Change of Gender Designation form',true],
-    24:['A signed written statement indicating your marital status has changed',false]
+    24:['A Statement dated and signed by you and/or your spouse, including:' +
+    '<ul><li class="roundbullet">The date of divorce/separation;</li>' +
+    '<li class="roundbullet">Full names of you and your former spouse;</li>' +
+    '<li class="roundbullet">Your former spouse’s current address, or an indication that the new address is unknown; and</li>' +
+    '<li class="roundbullet">Account numbers or PHNs for you and your former spouse</li></ul>',false],
+    25:['Notarized statement or affidavit (signed by at least one spouse)(formerly married or common-law)',false]
 }
 /**
  * Should Match account-documents.ts ID documents

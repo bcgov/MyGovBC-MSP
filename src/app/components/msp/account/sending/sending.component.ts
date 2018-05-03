@@ -10,7 +10,7 @@ import {Relationship} from "../../model/status-activities-documents";
 
 @Component({
   templateUrl: 'sending.component.html',
-  styleUrls: ['./sending.component.less']
+  styleUrls: ['./sending.component.scss']
 })
 @Injectable()
 export class AccountSendingComponent implements AfterContentInit {
@@ -45,13 +45,13 @@ export class AccountSendingComponent implements AfterContentInit {
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
     this.hasError = undefined;
-    this.logService.log({name: 'Account Change submitting request'},"Account Change : Submission Request");
+  //  this.logService.log({name: 'Account - Submitting Request'},"Account - Submission Request");
     this.service
       .sendApplication(this.mspAccountApp)
       .then((mspAccountApp: MspAccountApp) => {
         this.mspAccountApp = mspAccountApp;
-        this.logService.log({name: 'MSP Account Change request received success confirmation from API server',
-          confirmationNumber: this.mspAccountApp.referenceNumber},"Account Change:Submission Response:Success");
+        this.logService.log({name: 'Account - Received refNo ',
+          confirmationNumber: this.mspAccountApp.referenceNumber},"Account - Submission Response Success ");
 
         let tempRef = this.mspAccountApp.referenceNumber;
           let bcServicesCardElgible = false;
@@ -87,9 +87,9 @@ export class AccountSendingComponent implements AfterContentInit {
         this.rawUrl = error.url;
         this.rawError = error;
         this.rawRequest = error._requestBody
-        this.logService.log({name: 'MSP Account Change request received failure message from API server',
+        this.logService.log({name: 'Account - Received Failure ',
           error: error._body,
-          request: error._requestBody},"Account Change:Submission Response:Failure");
+          request: error._requestBody},"Account - Submission Response Failure");
         this.transmissionInProcess = false;
 
         let oldUUID = this.mspAccountApp.uuid;

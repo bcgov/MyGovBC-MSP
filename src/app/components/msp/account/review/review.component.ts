@@ -13,7 +13,7 @@ import { MspLogService } from '../../service/log.service';
 
 @Component({
     templateUrl: './review.component.html',
-    styleUrls: ['./review.component.less']
+    styleUrls: ['./review.component.scss']
 })
 export class AccountReviewComponent implements OnInit {
     lang = require('./i18n');
@@ -99,7 +99,7 @@ export class AccountReviewComponent implements OnInit {
         if (this.mspAccountApp.hasValidAuthToken) {
             console.log('Found valid auth token, transfer to sending screen.');
             this.processService.setStep(this.processService.getStepNumber(ProcessUrls.ACCOUNT_REVIEW_URL), true);
-            this.logService.log({name: "Account - Review Page Before Submit (after CAPTCHA)"},"Account-Captcha Success")
+            //  this.logService.log({name: "Account - Review Page after CAPTCHA"},"Account - Captcha Success")
             this._router.navigate(['/msp/account/sending']);
         } else {
             console.log('Auth token is not valid');

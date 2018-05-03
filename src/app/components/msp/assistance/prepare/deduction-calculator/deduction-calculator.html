@@ -21,7 +21,7 @@
       <tbody>
         <tr>
           <td class="deduction-table-cell-margin">
-            <h4 [innerHTML]="lang('./en/index.js').totalHouseholdIncome" tabindex="0"></h4>
+            <span  [innerHTML]="lang('./en/index.js').totalHouseholdIncome" tabindex="0"></span>
           </td>
           <td class="deduction-table-cell-padding deduction-table-cell-margin">
             <span *ngIf="applicantIncomeInfoProvided" tabindex="0">
@@ -152,7 +152,7 @@
       </tr>
           
       <tr>
-        <td>
+        <td class="deduction-table-cell-margin">
           <h4 tabindex="0">Total deductions</h4>
         </td>
         <td class="deduction-table-cell-padding deduction-table-cell-margin">
@@ -169,8 +169,8 @@
     <table>
       <tbody>
         <tr>
-          <td style="column-width: 100px;">
-            <h4 tabindex="0"><strong>Adjusted income:</strong></h4>
+          <td style="column-width: 100px;" class="deduction-table-cell-margin">
+            <span tabindex="0"><strong>Adjusted income:</strong></span>
           </td>
           <td class="deduction-table-cell-padding deduction-table-cell-margin">
             <span *ngIf="applicantIncomeInfoProvided" tabindex="0">        
@@ -198,16 +198,16 @@
   </div>
 
   <div class="row" *ngIf="false">
-    <div class="col-md-2" tabindex="0">
+    <div class="col-lg-2" tabindex="0">
       {{incomeUnderThreshhold}}
     </div>
-    <div class="col-md-2" tabindex="0">
+    <div class="col-lg-2" tabindex="0">
       {{canContinue}}
     </div>
   </div>
   <div class="row" *ngIf="canContinue"
     style="margin-top: 10px;">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       <button type="submit"
         class="btn btn-primary btn-block">
         Continue to apply for Premium Assistance
@@ -216,19 +216,19 @@
   </div>
   <div class="row" *ngIf="(!canContinue && !isPristine)||(formRef.submitted)"
     style="margin-top: 10px;">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       <div class="before-continue-warning" tabindex="0">
         Please answer all highlighted questions on the form before continuing.
       </div>
     </div>
   </div>
   <div class="row" style="margin-top: 10px;">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       <msp-cancel [btnBlock]="true"></msp-cancel>
     </div>
   </div>
     <!--<div class="row">
-        <div class="col-xs-12">
+        <div class="col-sm-12">
             <button class="btn btn-primary btn-block" type="submit" routerLink="/msp/assistance/personal-info"
                     style="font-size: smaller"></button>
         </div>

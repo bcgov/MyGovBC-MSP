@@ -13,7 +13,7 @@ module.exports = {
     docUploadSectonTitle:'If you are changing your name due to marriage, divorce or a legal name change, include one or more of the following:',
     documentGroupTitle: [
         'If you are adding a spouse or child who is an existing MSP beneficiary, you do not need to upload supporting documentation. <br/><br/>If you are adding a spouse or child who is not an MSP beneficiary (has no MSP coverage), please include one of the following supporting documentation:',
-        'If you are removing a child, you do not need to upload supporting documentation. However, the child (0-18) must have coverage under another account. A child 19 years of age or over will be setup on their own account.<br/><br/>If you are removing a spouse, please include one of the following supporting documentation',
+        'If you are removing a child, you do not need to upload supporting documentation. However, the child (0-18) must have coverage under another account. A child 19 years of age or over will be setup on their own account.<br/><br/>If you are removing a married or common-law spouse, please include one the following documentation',
         'If you are updating or correcting Birthdate, please include  <strong>one</strong> of the following supporting documentation:',
         'If this is a change to last name due to marriage, and if spouse is already on your MSP account, no documentation is needed.',
         'If you are updating or confirming status in Canada, please include one of the following supporting documentation:',

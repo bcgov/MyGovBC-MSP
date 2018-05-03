@@ -6,9 +6,11 @@ import { LocalStorageModule, LocalStorageService } from "angular-2-local-storage
 
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { AccountComponent } from '../account/account.component';
+import {MspLogService} from "./log.service";
+import {HttpModule} from "@angular/http";
 
 
-fdescribe('ProcessService', () => {
+describe('ProcessService', () => {
     let processService: ProcessService;
 
     beforeEach(async(() => {
@@ -16,9 +18,11 @@ fdescribe('ProcessService', () => {
             providers: [
                 ProcessService,
                 MspDataService,
-                LocalStorageService
+                LocalStorageService,
+                MspLogService
             ],
             imports: [
+                HttpModule,
                 RouterTestingModule,
                 LocalStorageModule.withConfig({
                     prefix: 'ca.bc.gov.msp',

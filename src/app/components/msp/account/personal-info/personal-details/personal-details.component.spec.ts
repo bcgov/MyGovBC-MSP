@@ -32,7 +32,7 @@ import {CalendarDayValidator} from '../../../common/calendar/calendar-day.valida
 import { MspLogService } from '../../../service/log.service';
 import {MspValidationService} from '../../../service/msp-validation.service';
 import { ProcessService } from "../../../service/process.service";
-
+import { ServicesCardDisclaimerModalComponent } from '../../../common/services-card-disclaimer/services-card-disclaimer.component';
 import { MspStatusInCanadaRadioComponent } from '../../../common/status-in-canada-radio/status-in-canada-radio.component';
 import { RouterTestingModule } from "@angular/router/testing";
 
@@ -46,7 +46,7 @@ describe('AccountPersonalDetailsComponent', () => {
         MspBirthDateComponent,MspPhoneComponent, MspSchoolDateComponent, FileUploaderComponent, MspAddressComponent,
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,
         MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspImageErrorModalComponent,
-        CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator, MspStatusInCanadaRadioComponent],
+        CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator, MspStatusInCanadaRadioComponent,ServicesCardDisclaimerModalComponent],
       imports: [FormsModule, RouterTestingModule, Ng2CompleterModule, ModalModule.forRoot(), AccordionModule.forRoot(),LocalStorageModule.withConfig({
           prefix: 'ca.bc.gov.msp',
           storageType: 'sessionStorage'

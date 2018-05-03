@@ -1,5 +1,7 @@
 module.exports = {
   addressLine1Label: 'Street',
+  addressLine1LabelResidence: 'Full street address or rural route',
+  addressLine1LabelMailing: 'Full street address, rural route, PO Box or general delivery',
   addressLine1ErrorIsRequired: 'Street is required',
   addressLine1ErrorMaxLength: 'Address Line cannot be more than {length} characters',
 

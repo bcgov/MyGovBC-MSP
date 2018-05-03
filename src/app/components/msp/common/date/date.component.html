@@ -80,9 +80,9 @@
                 <div class="text-danger" *ngIf="yearRef.errors?.yearDistantFuture"
                      [innerHtml]="lang('./en/index.js').yearErrorDistantFuture"></div>
             </div>
-            <div *ngIf='hasErrorBeforeDate'>
+          <!--  <div *ngIf='hasErrorBeforeDate'>
                 <div class="text-danger"[innerHtml]="notBeforeDateErrorLabel"></div>
-            </div>
+            </div>-->
         </div>
     </div>
 </form>

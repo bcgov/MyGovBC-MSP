@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import {RouterTestingModule} from "@angular/router/testing";
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { ProcessService } from "../service/process.service";
+import {MspLogService} from "../service/log.service";
 
 describe('AssistanceComponent', () => {
 
@@ -19,7 +20,7 @@ describe('AssistanceComponent', () => {
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],
-      providers: [MspDataService, ProcessService,
+      providers: [MspDataService, ProcessService,MspLogService
         
         
       ]

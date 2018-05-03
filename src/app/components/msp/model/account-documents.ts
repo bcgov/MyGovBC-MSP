@@ -28,7 +28,8 @@ enum Documents {
     GenderDesignationMinor,//21
     WaiverParentalConsent,//22
     PhysicianConfirmationForGenderChange,//23
-    MaritalStatusSignedWrittenStatement//24
+    MaritalStatusSignedWrittenStatement,//24
+    NotarizedStatmentAffidavit//25
 }
 
 
@@ -59,6 +60,7 @@ class AccountDocumentRules {
         const removeSpouseOrChildren: DocumentGroup = new DocumentGroup("Remove Spouse or Child(ren)",[
             Documents.DivorceDecree,
             Documents.SeparationAgreement,
+            Documents.NotarizedStatmentAffidavit,
             Documents.MaritalStatusSignedWrittenStatement
         ]);
         

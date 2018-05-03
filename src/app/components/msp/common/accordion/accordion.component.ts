@@ -4,7 +4,7 @@ import { AccordionConfig } from 'ngx-bootstrap/accordion';
 @Component({
   selector: 'msp-accordion',
   templateUrl: './accordion.component.html',
-  styleUrls: ['./accordion.component.less'],
+  styleUrls: ['./accordion.component.scss'],
   //Enables us to style the embedded component from ngx-bootstrap
   encapsulation: ViewEncapsulation.None
 })

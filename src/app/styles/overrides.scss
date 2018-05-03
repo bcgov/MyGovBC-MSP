@@ -1,0 +1,185 @@
+//---------------------------------------------------------------------------------------
+// Overrides Bootstrap classes are change here, consider changing a variable before
+// overriding classes.
+//---------------------------------------------------------------------------------------
+// Reference: http://www2.gov.bc.ca/gov/content/governments/services-for-government/policies-procedures/web-content-development-guides/developers-guide/css-elements
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/buttons"; // for button-variant()
+@import "variables";
+
+// Make .btn-primary yellow.  The primary colour stays blue.
+.btn-primary {
+    @include button-variant($color-secondary, #f8b103);
+
+    &.disabled, &:disabled, &[disabled] {
+        color: #777;
+        background-color: #eee;
+        border-color: #eee;
+        &:hover { border-color: $color-secondary; }
+    }
+}
+.btn-default {
+    @include button-variant(#f4f6f9, #ccc);
+
+    &.disabled, &:disabled, &[disabled] {
+        color: #777;
+        background-color: #eee;
+        border-color: #eee;
+    }
+}
+
+// Re-implement disabled button styles from Bootstrap 3
+.btn[disabled] {
+    cursor: not-allowed;
+    opacity: .65;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+a {
+  text-decoration: underline;
+}
+.btn {
+  text-decoration: none;
+}
+
+.btn-group {
+  margin-left: 10px;
+}
+
+//Bootstrap 3 to 4: Was 20px in BS3, but BS4 had it as ~14px. Made to match BS3.
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.msp-app .btn-default {
+  margin-right: 15px;
+
+  @media screen and (max-width:map-get($grid-breakpoints, small)) {
+    margin-top:15px;
+  }
+}
+
+
+
+// Only paragraph links should be underlined
+p a {
+  text-decoration: underline;
+}
+
+.btn-link {
+  text-decoration: underline;
+}
+
+// Header, adds the gold bottom border and shadow
+header nav {
+  background-color: $color-primary;
+  border-bottom: 2px solid $color-secondary;
+
+  -webkit-box-shadow: 0 3px 3px 1px rgba(51, 51, 51, 0.5);
+  -moz-box-shadow: 0 3px 3px 1px rgba(51, 51, 51, 0.5);
+  box-shadow: 0 3px 3px 1px rgba(51, 51, 51, 0.5);
+  margin-bottom: 20px;
+}
+
+header .nav-link {
+  color: white !important;
+}
+
+
+.footer {
+  width: 100%;
+  border-color: $color-secondary;
+  border-top: 2px solid $color-secondary;
+
+  & > .navbar {
+    min-height: 3.65rem;
+    padding: 0 !important;
+    flex-flow: column;
+  }
+}
+
+
+// Only sibling list items in footer get left border
+footer li+li  {
+  @include media-breakpoint-up(lg) {
+    border-left: 1px solid #4b5e73;
+  }
+}
+
+// Have to ensure footer nav links are white
+
+footer .nav-link {
+  color: white !important;
+  padding-left: 1rem !important;
+}
+
+footer .navbar {
+  margin-bottom: 0;
+}
+
+footer a {
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline !important;
+}
+footer li {
+  border-left: 1px solid #4b5e73;
+  padding: 2px 17px;
+  margin-top: 10px;
+}
+footer .navbar-nav > li > a {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+
+h1, h2, h3,
+.h1, .h2, .h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: $color-primary;
+}
+
+// Modal
+
+.modal-content {
+  //Bootstrap 3 to 4: Re-implement bootstrap box-shadow
+  box-shadow: 0 5px 15px rgba(0,0,0,.5);
+
+  // Close icon should be primary colour
+  a > .fa-times { color: $color-primary; }
+}
+//TODO validate this approach
+.panel-group {
+  margin-bottom:20px;
+}
+
+//
+// Checkboxes
+// --------------------------------------------------
+
+
+$font-family-icon: 'FontAwesome' !default;
+$fa-var-check: "\f00c" !default;
+$check-icon: $fa-var-check !default;
+
+
+accordion-group + accordion-group {
+  //Bootstrap 3 to 4: Re-implement spacing, due to removing .panels and replacing with .cards
+  margin-top: 0.35em;
+}
+
+//Bootstrap 3 to 4: Copying over BS3 styling of input group cols
+.input-group[class*=col-]{
+  padding-left: 0;
+  padding-right: 0;
+}
+//Bootstrap 3 to 4: BS3 styling of input-group-text to match input-group-addon
+.input-group-text {
+  border-radius: 0;
+  padding: 0.425rem 0.85rem; //6px 14px
+}

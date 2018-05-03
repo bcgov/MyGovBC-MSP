@@ -8,7 +8,7 @@ import {MspAccountApp, AccountChangeOptions} from '../../model/account.model';
 import {AccountDocumentRules, DocumentGroup} from '../../model/account-documents';
 import {
     StatusRules, ActivitiesRules, StatusInCanada, Activities,
-    DocumentRules, Documents, Relationship
+    DocumentRules, Documents, Relationship ,CancellationReasonsForSpouse
 } from "../../model/status-activities-documents";
 import {ProcessService, ProcessUrls} from "../../service/process.service";
 import {MspImage} from "../../../msp/model/msp-image";
@@ -103,7 +103,7 @@ export class AccountDocumentsComponent extends BaseComponent {
      *      if there is removal of spouse , Docs needed  @return false     *
      *      if any of the  added spouse/children is new beneficiary @returns false
      *      otherwise[might include removal of child] return true
-     *
+     *  Removing Spouse - No documentation needed except for the divorce
 
      */
     get isDocsNotNeeded(): boolean {
@@ -119,8 +119,9 @@ export class AccountDocumentsComponent extends BaseComponent {
             return false;
         }
 
+
         if (this.mspAccountApp.accountChangeOptions.dependentChange) {
-            if (this.mspAccountApp.removedSpouse) {
+            if (this.mspAccountApp.removedSpouse && this.mspAccountApp.removedSpouse.reasonForCancellation ==   CancellationReasonsForSpouse[CancellationReasonsForSpouse.SeparatedDivorced] ) {
                 return false;
             }
 

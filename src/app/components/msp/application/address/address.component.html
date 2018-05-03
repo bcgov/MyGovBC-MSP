@@ -9,7 +9,7 @@
                  (onChange)="handleAddressUpdate($event)">
     </msp-address>
     <div class="row">
-        <div class="form-group col-sm-5">
+        <div class="form-group col-md-5">
             <msp-phone #phone
                        [phoneNumber]="mspApplication.phoneNumber"
                        (phoneNumberChange)="handlePhoneNumberChange($event)"></msp-phone>
@@ -21,7 +21,7 @@
             [innerHTML]="lang('./en/index.js').continueButton"
             [disabled]="!canContinue()">
     </button>
+    <msp-cancel></msp-cancel>
 </form>
 
 
-<msp-cancel></msp-cancel>

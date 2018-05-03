@@ -20,7 +20,7 @@ import { StatusInCanada } from "../../model/status-activities-documents";
 @ Component({
   selector: 'msp-services-card-disclaimer-modal',
   templateUrl: './services-card-disclaimer.component.html',
-  styleUrls: ['./services-card-disclaimer.component.less']
+  styleUrls: ['./services-card-disclaimer.component.scss']
 })
 export class ServicesCardDisclaimerModalComponent  {
   @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;

@@ -1,7 +1,7 @@
 <form #formRef='ngForm' novalidate>
     <label [innerHtml]="schoolLabel()"></label>
     <div class="form-group"
-         [ngClass]="{'has-error': !formRef.valid}">
+         [ngClass]="{'has-error': formRef.invalid && (monthRef.touched || showError)}">
         <label class="visuallyhidden" for="month{{objectId}}">{{schoolLabel()}} {{lang('./en/index.js').monthLabel}}</label>
         <select class="form-control monthSelect"
                 [ngModel]="month"

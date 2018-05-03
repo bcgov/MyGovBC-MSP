@@ -7,16 +7,18 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <!--<h2>{{lang('./en/index.js').errorModelTitle}}</h2>-->
-        <h2 *ngIf="imageWithError && imageWithError.error != null">{{getErrorMessage()}}</h2>
+
       </div>
       <div class="modal-body">
+
         <div class="row">
-          <div class="col-sm-12">
+          <div class="col-md-12" style="text-align: center" >
+            <h2 *ngIf="imageWithError && imageWithError.error != null">{{getErrorMessage()}}</h2>
             <!--<h2 *ngIf="imageWithError && imageWithError.error != null">{{getErrorMessage()}}</h2>-->
-            <img *ngIf="imageWithError && imageWithError.fileContent && imageWithError.error < 5" 
+            <img *ngIf="imageWithError && imageWithError.fileContent && imageWithError.error == 3"
               [src]="imageWithError.fileContent" 
               alt="" 
-              class="center-block img-responsive">
+              class="center-block img-fluid">
             <p *ngIf="imageWithError && imageWithError.error < 5">
               Filename: <strong>{{imageWithError.name}}</strong><br>
               Width: <strong>{{imageWithError.naturalWidth}} pixels</strong><br>

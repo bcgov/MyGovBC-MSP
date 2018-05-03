@@ -8,7 +8,7 @@ import { SimpleDateTools } from '../../model/simple-date.tools';
 @Component({
   selector: 'msp-date',
   templateUrl: './date.component.html',
-  styleUrls: ['./date.component.less']
+  styleUrls: ['./date.component.scss']
 
 })
 export class MspDateComponent extends BaseComponent implements AfterViewInit {
@@ -31,8 +31,10 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
   @Input() date: SimpleDate;
   @Output() dateChange = new EventEmitter<SimpleDate>();
 
-  @Input() notBeforeDate: SimpleDate;
-  @Input() notBeforeDateErrorLabel: string;
+  //no longer user.valdiation moved to component classes
+ /* @Input() notBeforeDate: SimpleDate;
+  @Input() notBeforeDtaeErrorLabel: string;*/
+
   public hasErrorBeforeDate: boolean;
 
   @Output() onChange = new EventEmitter<any>();
@@ -46,7 +48,7 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
     /**
      * 'Required' should be a boolean, but it is possible to pass it a string
      * which leads to a difficult to debug issue. Ideally, pass a raw boolean,
-     * but regardless this code will make sure both work.
+     * but regar.scss code will make sure both work.
      * 
      * BAD:   <msp-date required="false">
      * GOOD:  <msp-date required=false>
@@ -124,14 +126,14 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
     return false;
   }
 
-  notBeforeDateCheck(): boolean {
+ /* notBeforeDateCheck(): boolean {
     if (this.inputDate().isSameOrBefore(this.toDate(this.notBeforeDate))){
       this.hasErrorBeforeDate = true;
       return false;
     }
     this.hasErrorBeforeDate = false;
     return true;
-  }
+  }*/
 
   futureCheck(): boolean {
 
@@ -166,9 +168,9 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
     if (this.year || (this.month && this.month != 0) || this.day) {
       let val = this.isCorrectFormat() && this.futureCheck();
 
-      if (this.notBeforeDate){
+     /* if (this.notBeforeDate){
         val = val && this.notBeforeDateCheck();
-      }
+      }*/
 
       if (!val) { 
         return val; 
