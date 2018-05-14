@@ -27,7 +27,7 @@
         </select>
         <label class="visuallyhidden" for="day{{objectId}}">{{departureLabel}} {{lang('./en/index.js').dayLabel}}</label>
         <input type="number" class="form-control dayInput"
-               [ngModel]="day"
+               [ngModel]="day" validateCalendarDay
                (ngModelChange)="day=$event;dayChange.emit($event)"
                id="day{{objectId}}" name="day" #dayRef="ngModel"
                placeholder="day"
@@ -37,7 +37,7 @@
         <label class="visuallyhidden" for="year{{objectId}}">{{departureLabel}} {{lang('./en/index.js').yearLabel}}</label>
         <input type="number"
                class="form-control yearInput"
-               [ngModel]="year"
+               [ngModel]="year" validateCalendarYear
                (ngModelChange)="year=$event;yearChange.emit($event)"
                id="year{{objectId}}" name="year" #yearRef="ngModel"
                placeholder="year"
@@ -69,6 +69,19 @@
             <div *ngIf='(yearRef.touched || showError) && !isBeforeNMonths()'>
                 <div class="text-danger"
                     >{{maxMonthsRangeErrorMsg}}</div>
+            </div>
+
+            <div *ngIf='(dayRef.touched || showError)'>
+                <div class="text-danger" *ngIf="dayRef.errors?.calendarDayOutOfRange"
+                     [innerHtml]="lang('./en/index.js').calendarDayOutOfRange"></div>
+            </div>
+            <div *ngIf='(yearRef.touched || showError)'>
+                <div class="text-danger" *ngIf="yearRef.errors?.yearDistantPast"
+                     [innerHtml]="lang('./en/index.js').yearErrorDistantPast"></div>
+            </div>
+            <div *ngIf='(!futureDate && (yearRef.touched || showError))' >
+                <div class="text-danger" *ngIf="yearRef.errors?.yearDistantFuture"
+                     [innerHtml]="lang('./en/index.js').yearErrorDistantFuture"></div>
             </div>
 
 
