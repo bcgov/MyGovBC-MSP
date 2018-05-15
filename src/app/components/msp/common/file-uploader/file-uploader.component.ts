@@ -1,27 +1,21 @@
-import {
-    Component, ViewChild, ElementRef, OnInit, OnChanges, EventEmitter, Output, Input,
-    Inject, NgZone, SimpleChanges, ChangeDetectorRef, ContentChild, AfterContentInit
-} from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {ModalDirective} from "ngx-bootstrap";
-import {
-    MspImage, MspImageError, MspImageProcessingError,
-    MspImageScaleFactors, MspImageScaleFactorsImpl
-} from '../../model/msp-image';
-import {Observable} from 'rxjs/Observable';
-import {Observer} from 'rxjs/Observer';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-import {BaseComponent} from "../base.component";
-import {MspLogService} from "../../service/log.service";
-import {MspDataService} from "../../service/msp-data.service";
-import {LogEntry} from "../logging/log-entry.model";
+import { AfterContentInit, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import * as moment from 'moment';
-import {PDFJSStatic} from 'pdfjs-dist';
+import { ModalDirective } from "ngx-bootstrap";
+import { PDFJSStatic } from 'pdfjs-dist';
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
+import { environment } from '../../../../../environments/environment';
+import { MspImage, MspImageError, MspImageProcessingError, MspImageScaleFactors, MspImageScaleFactorsImpl } from '../../model/msp-image';
+import { MspLogService } from "../../service/log.service";
+import { MspDataService } from "../../service/msp-data.service";
+import { BaseComponent } from "../base.component";
+import { LogEntry } from "../logging/log-entry.model";
 
-import {environment} from '../../../../../environments/environment';
 
 let loadImage = require('blueimp-load-image');
 

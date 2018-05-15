@@ -1,11 +1,9 @@
-import { Directive, ElementRef, AfterContentInit, EventEmitter,
-  Renderer, HostListener, HostBinding, Input, Output } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Observer} from 'rxjs/Observer';
+import { AfterContentInit, Directive, ElementRef, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
 
 /**
  * A keyboard event that matches the mspKeyboard input value will 
@@ -23,7 +21,7 @@ export class KeyboardEventListner implements AfterContentInit{
   @Output() keyboardAction:EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private el: ElementRef, 
-    private renderer:Renderer){
+    private renderer:Renderer2){
 
   }
   // @HostListener('keyup', ['$event']) 

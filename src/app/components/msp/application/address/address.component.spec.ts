@@ -1,6 +1,6 @@
 import {TestBed, inject, async} from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
-import { HttpModule }    from '@angular/http';
+import { HttpClientModule }    from '@angular/http';
 import { AddressComponent } from './address.component'
 import { MspDataService } from '../../service/msp-data.service';
 import { CompletenessCheckService } from '../../service/completeness-check.service';
@@ -28,7 +28,7 @@ describe('Application Address Component Test', () => {
             declarations: [AddressComponent, MspAddressComponent, MspPhoneComponent, MspProvinceComponent,
                 MspDepartureDateComponent, MspReturnDateComponent, MspCountryComponent,
                 MspCancelComponent, MspLoggerDirective],
-            imports: [FormsModule, Ng2CompleterModule, ModalModule.forRoot(), HttpModule, RouterTestingModule, LocalStorageModule.withConfig({
+            imports: [FormsModule, Ng2CompleterModule, ModalModule.forRoot(), HttpClientModule, RouterTestingModule, LocalStorageModule.withConfig({
                 prefix: 'ca.bc.gov.msp',
                 storageType: 'sessionStorage'
               })],

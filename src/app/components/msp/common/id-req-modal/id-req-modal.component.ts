@@ -1,8 +1,7 @@
-import {Component, Input, ViewChild, ElementRef, OnInit, Renderer} from '@angular/core'
-import * as moment from 'moment';
-import {ModalDirective, AccordionComponent} from "ngx-bootstrap";
-import {IdRequirementContent} from "./id-req-content.model.component";
-import {Documents} from "../../model/status-activities-documents";
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AccordionComponent, ModalDirective } from "ngx-bootstrap";
+import { Documents } from "../../model/status-activities-documents";
+import { IdRequirementContent } from "./id-req-content.model.component";
 
 
 @Component({

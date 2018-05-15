@@ -9,7 +9,7 @@ import { MspDataService } from './msp-data.service';
 import {MspValidationService} from './msp-validation.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspApiService} from "./msp-api.service";
-import { HttpModule }    from '@angular/http';
+import { HttpClientModule }    from '@angular/http';
 
 describe('msp-api XML NS', () => {
     let apiService:MspApiService;
@@ -19,7 +19,7 @@ describe('msp-api XML NS', () => {
             declarations: [],
             imports: [BrowserModule,
                 CommonModule,
-                HttpModule,
+                HttpClientModule,
                 RouterTestingModule,
                 FormsModule,
                 LocalStorageModule.withConfig({

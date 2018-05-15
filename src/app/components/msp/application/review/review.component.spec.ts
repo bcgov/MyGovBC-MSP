@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
-import { HttpModule }    from '@angular/http';
+import { HttpClientModule }    from '@angular/http';
 import { ReviewComponent } from './review.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
@@ -25,7 +25,7 @@ describe('ReviewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ReviewComponent, MspPersonCardComponent, MspAddressCardPartComponent,
         MspContactCardComponent, ThumbnailComponent, MspCancelComponent, MspLoggerDirective, CaptchaComponent],
-      imports: [FormsModule, ModalModule.forRoot(), RouterTestingModule, HttpModule, LocalStorageModule.withConfig({
+      imports: [FormsModule, ModalModule.forRoot(), RouterTestingModule, HttpClientModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],

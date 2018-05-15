@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
-import { HttpModule }    from '@angular/http';
+import { HttpClientModule }    from '@angular/http';
 import { AssistancePersonalDetailComponent } from './personal-details.component';
 import { MspDataService } from '../../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
@@ -33,7 +33,7 @@ describe('AssistancePersonalDetailComponent Test', () => {
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent,
         Mod11CheckValidator, MspGenderComponent, MspCountryComponent,
         CalendarYearFormatter,CalendarYearValidator,CalendarDayValidator, SinCheckValidator],
-      imports: [FormsModule, RouterTestingModule, Ng2CompleterModule, HttpModule, LocalStorageModule.withConfig({
+      imports: [FormsModule, RouterTestingModule, Ng2CompleterModule, HttpClientModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
-import { HttpModule }    from '@angular/http';
+import { HttpClientModule }    from '@angular/http';
 import { AccountPrepareComponent } from './prepare.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
@@ -23,7 +23,7 @@ describe('AccountPrepareComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AccountPrepareComponent, MspConsentModalComponent, MspCancelComponent, MspLoggerDirective, CaptchaComponent],
-      imports: [FormsModule, HttpModule, RouterTestingModule, LocalStorageModule.withConfig({
+      imports: [FormsModule, HttpClientModule, RouterTestingModule, LocalStorageModule.withConfig({
           prefix: 'ca.bc.gov.msp',
           storageType: 'sessionStorage'
       }), ModalModule.forRoot()],

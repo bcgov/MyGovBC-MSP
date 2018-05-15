@@ -1,18 +1,18 @@
-import {Injectable, Inject} from '@angular/core'
-import {Http, Headers, RequestOptions} from "@angular/http"
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { environment } from '../../../../environments/environment';
 import { LogEntry } from '../common/logging/log-entry.model';
 import { MspDataService } from './msp-data.service';
-import * as moment from 'moment';
-import { Router } from '@angular/router';
 
 
 
 @Injectable()
 export class MspLogService {
   appConstants;
-  constructor(private http: Http, private dataService: MspDataService ,private router: Router) {
+  constructor(private http: HttpClient, private dataService: MspDataService ,private router: Router) {
     this.appConstants = environment.appConstants;
   }
 
@@ -31,20 +31,25 @@ export class MspLogService {
    * @param {() => void} [errCallback]  OPTIONAL - Error callback.
    * @returns {Subscription}
    */
-  log(logItem: Object, request_method:String , callback?: () => void, errCallback?: () => void): Subscription{
+  log(logItem: Object, request_method:string , callback?: () => void, errCallback?: () => void): Subscription{
     let baseUrl = this.appConstants['logBaseUrl'];
-    let headers = new Headers({
+    // With Angular 5 we can't pass in undefined to the headers without runtime
+    // errors, so now we default to 'n/a'.
+    const refNumber = this.dataService.getMspApplication().referenceNumber ||
+      this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber || 'n/a'
+
+    let headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'logsource' : window.location.hostname,
         'timestamp' : moment().toISOString(),
         'program' : 'msp',
         'severity' : 'info',
-        'referenceNumber' : this.dataService.getMspApplication().referenceNumber || this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber,
+        'referenceNumber' : refNumber,
         'applicationId' : this.getApplicationId(),
         'request_method' :request_method
-  });
+    });
+    let options = { headers: headers, responseType: "text" as "text" }
 
-    let options = new RequestOptions({headers: headers});
     let body = {
       meta: this.createMetaData(),
       body: logItem,
@@ -64,16 +69,21 @@ export class MspLogService {
    */
   logIt(logItem: Object,request_method:String , urlPath?: string):Observable<any> {
     let baseUrl = this.appConstants['logBaseUrl'];
-    let headers = new Headers({
+    // With Angular 5 we can't pass in undefined to the headers without runtime
+    // errors, so now we default to 'n/a'.
+    const refNumber = this.dataService.getMspApplication().referenceNumber ||
+      this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber || 'n/a'
+
+    let headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'logsource' : window.location.hostname,
         'timestamp' : moment().toISOString(),
         'program' : 'msp',
         'severity' : 'info',
-        'referenceNumber' : this.dataService.getMspApplication().referenceNumber || this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber,
+        'referenceNumber' : refNumber,
         'applicationId' : this.getApplicationId()
     });
-    let options = new RequestOptions({headers: headers});
+    let options = { headers: headers, responseType: "text" as "text" }
     return this.http.post(baseUrl + (urlPath || ''), logItem, options);
   }
 

@@ -19,7 +19,8 @@
     ],
     "paths": {
       "@angular/*": ["../node_modules/@angular/*"],
-      "pdfjs/*": ["../node_modules/pdfjs-dist/*"]
+      "pdfjs/*": ["../node_modules/pdfjs-dist/*"],
+      "mygovbc-captcha-widget/*" : ["../node_modules/mygovbc-captcha-widget/*"]
     }
   }
 }

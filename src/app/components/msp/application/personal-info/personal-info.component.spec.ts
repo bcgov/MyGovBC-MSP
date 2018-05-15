@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
-import { HttpModule }    from '@angular/http';
+import { HttpClientModule }    from '@angular/http';
 import { PersonalInfoComponent } from './personal-info.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 import { MspDataService } from '../../service/msp-data.service';
@@ -54,7 +54,7 @@ describe('PersonalInfoComponent', () => {
         MspImageErrorModalComponent, MspLoggerDirective, CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator,
         ServicesCardDisclaimerModalComponent
         ],
-      imports: [FormsModule, Ng2CompleterModule, ModalModule.forRoot(), AccordionModule.forRoot(), HttpModule, RouterTestingModule, LocalStorageModule.withConfig({
+      imports: [FormsModule, Ng2CompleterModule, ModalModule.forRoot(), AccordionModule.forRoot(), HttpClientModule, RouterTestingModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],

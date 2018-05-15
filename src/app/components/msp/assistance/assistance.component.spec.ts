@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
-import { HttpModule }    from '@angular/http';
+import { HttpClientModule }    from '@angular/http';
 import { AssistanceComponent } from './assistance.component';
 import { MspDataService } from '../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
@@ -16,7 +16,7 @@ describe('AssistanceComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AssistanceComponent, MspProgressBarComponent],
-      imports: [FormsModule, RouterTestingModule, HttpModule, RouterModule, LocalStorageModule.withConfig({
+      imports: [FormsModule, RouterTestingModule, HttpClientModule, RouterModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],

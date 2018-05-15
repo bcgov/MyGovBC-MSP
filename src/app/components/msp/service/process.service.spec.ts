@@ -7,7 +7,7 @@ import { LocalStorageModule, LocalStorageService } from "angular-2-local-storage
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { AccountComponent } from '../account/account.component';
 import {MspLogService} from "./log.service";
-import {HttpModule} from "@angular/http";
+import {HttpClientModule} from "@angular/http";
 
 
 describe('ProcessService', () => {
@@ -22,7 +22,7 @@ describe('ProcessService', () => {
                 MspLogService
             ],
             imports: [
-                HttpModule,
+                HttpClientModule,
                 RouterTestingModule,
                 LocalStorageModule.withConfig({
                     prefix: 'ca.bc.gov.msp',

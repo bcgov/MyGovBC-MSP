@@ -1,69 +1,33 @@
-import {Injectable, Inject} from '@angular/core';
-import {MspApplication} from "../model/application.model";
-import {
-    GenderType, NameType, AttachmentUuidsType, AddressType, NameTypeFactory,
-    AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, AddressTypeFactory
-} from "../api-model/commonTypes";
-import {Address} from "../model/address.model";
-import {Person, OperationActionType as OperationActionTypeEnum} from "../model/person.model";
-import {
-    ResidencyType,
-    EnrolmentApplicationType,
-    EnrolmentApplicantType,
-    EnrolmentChildrenType,
-    PersonTypeFactory,
-    ResidencyTypeFactory,
-    LivedInBCTypeFactory,
-    EnrolmentApplicationTypeFactory,
-    EnrolmentApplicantTypeFactory,
-    EnrolmentChildrenTypeFactory,
-    PreviousCoverageTypeFactory,
-    OutsideBCTypeFactory,
-    WillBeAwayTypeFactory,
-    DependentType,
-    DependentTypeFactory,
-    EnrolmentDependentsTypeFactory
-} from "../api-model/enrolmentTypes";
-import {StatusInCanada, Activities, Relationship} from "../model/status-activities-documents";
-import {CitizenshipType} from "../api-model/commonTypes";
-import {BasicCitizenshipType} from "../api-model/commonTypes";
-import {LivedInBCType} from "../api-model/enrolmentTypes";
-import {PersonType} from "../api-model/enrolmentTypes";
-import {
-    ApplicationType, AttachmentsType, document, _ApplicationTypeNameSpace,
-    AttachmentType, ApplicationTypeFactory, DocumentFactory, AttachmentsTypeFactory, AttachmentTypeFactory
-} from "../api-model/applicationTypes";
-import {MspImage} from "../model/msp-image";
-import {SimpleDate} from '../model/simple-date.interface';
-import {PersonDocuments} from "../model/person-document.model";
-import {ResponseType} from "../api-model/responseTypes";
-import {Http, Response, Headers, RequestOptions} from "@angular/http";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import * as moment from "moment";
-import ISO_8601 = moment.ISO_8601;
-import {FinancialAssistApplication, AssistanceApplicationType} from "../model/financial-assist-application.model";
-import {
-    AssistanceApplicationTypeFactory, AssistanceApplicantType,
-    AssistanceApplicantTypeFactory, FinancialsType, FinancialsTypeFactory, AssistanceSpouseTypeFactory
-} from "../api-model/assistanceTypes";
-
-import {
-    AccountChangeApplicationTypeFactory, AccountChangeAccountHolderType, AccountChangeAccountHolderFactory,
-    AccountChangeSpousesTypeFactory, AccountChangeSpouseTypeFactory, AccountChangeSpouseType, OperationActionType,
-    AccountChangeChildrenFactory, AccountChangeChildType, AccountChangeChildTypeFactory
-} from "../api-model/accountChangeTypes";
-
-import {ApplicationBase} from "../model/application-base.model";
-import {AssistanceYear} from "../model/assistance-year.model";
-import {environment} from '../../../../environments/environment';
-import {MspAccountApp} from "../model/account.model";
+import { environment } from '../../../../environments/environment';
+import { AccountChangeAccountHolderFactory, AccountChangeAccountHolderType, AccountChangeApplicationTypeFactory, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from "../api-model/accountChangeTypes";
+import { ApplicationTypeFactory, AttachmentType, AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory, DocumentFactory, _ApplicationTypeNameSpace, document } from "../api-model/applicationTypes";
+import { AssistanceApplicantTypeFactory, AssistanceApplicationTypeFactory, AssistanceSpouseTypeFactory, FinancialsType, FinancialsTypeFactory } from "../api-model/assistanceTypes";
+import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from "../api-model/commonTypes";
+import { DependentType, DependentTypeFactory, EnrolmentApplicantTypeFactory, EnrolmentApplicationTypeFactory, EnrolmentChildrenTypeFactory, EnrolmentDependentsTypeFactory, LivedInBCTypeFactory, OutsideBCTypeFactory, PersonType, PersonTypeFactory, PreviousCoverageTypeFactory, ResidencyType, ResidencyTypeFactory, WillBeAwayTypeFactory } from "../api-model/enrolmentTypes";
+import { ResponseType } from "../api-model/responseTypes";
+import { MspAccountApp } from "../model/account.model";
+import { Address } from "../model/address.model";
+import { ApplicationBase } from "../model/application-base.model";
+import { MspApplication } from "../model/application.model";
+import { AssistanceApplicationType, FinancialAssistApplication } from "../model/financial-assist-application.model";
+import { MspImage } from "../model/msp-image";
+import { OperationActionType as OperationActionTypeEnum, Person } from "../model/person.model";
+import { SimpleDate } from '../model/simple-date.interface';
+import { Activities, Relationship, StatusInCanada } from "../model/status-activities-documents";
 import { MspLogService } from './log.service';
+import ISO_8601 = moment.ISO_8601;
+
+
 
 let jxon = require("jxon/jxon");
 
 @Injectable()
 export class MspApiService {
 
-    constructor(private http: Http, private logService: MspLogService) {
+    constructor(private http: HttpClient, private logService: MspLogService) {
     }
 
     /**
@@ -157,7 +121,6 @@ export class MspApiService {
             // Execute all promises are waiting for results
             return Promise.all(attachmentPromises).then(
                 (responses: ResponseType[]) => {
-                    //ARC TODO: Necessary?
                     // this.logService.log({
                     //     text: "Send All Attachments - Success",
                     //     response: responses,
@@ -210,12 +173,12 @@ export class MspApiService {
             // description - UI does NOT collect this property
 
             // Setup headers
-            let headers = new Headers({
+            let headers = new HttpHeaders({
                 'Content-Type': attachment.contentType,
                 'Access-Control-Allow-Origin': '*',
                 'X-Authorization': 'Bearer ' + token
             });
-            let options = new RequestOptions({headers: headers});
+            let options = {headers: headers, responseType: "text" as "text"};
 
             let binary = atob(attachment.fileContent.split(',')[1]);
             let array = <any>[];
@@ -227,14 +190,12 @@ export class MspApiService {
             return this.http
                 .post(url, blob, options)
                 .toPromise()
-                .then((response: Response) => {
+                .then((response) => {
                         // this.logService.log({
                         //     text: "Send Individual Attachment - Success",
                         //     response: response,
                         // }, "Send Individual Attachment - Success")
-                        return resolve(<ResponseType>{
-                            status: response.status + ''
-                        });
+                        return resolve();
                     },
                     (error: Response | any) => {
                         console.log('error response in its origin form: ', error);
@@ -274,26 +235,27 @@ export class MspApiService {
                 + "?programArea=enrolment";
 
             // Setup headers
-            let headers = new Headers({
+            let headers = new HttpHeaders({
                 'Content-Type': 'application/xml',
-                'X-Authorization': 'Bearer ' + token
+                'Response-Type': 'application/xml',
+                'X-Authorization': 'Bearer ' + token,
             });
-            let options = new RequestOptions({headers: headers});
+            let options = {headers: headers, responseType: "text" as "text"};
 
             // Convert doc to XML
             // let documentXmlString = this.toXmlString(document);
 
             return this.http.post(url, documentXmlString, options)
                 .toPromise()
-                .then((response: Response) => {
+                .then((response: string) => {
                     // this.logService.log({
                     //    text: "Send Document XML - Success",
                     //    response: response,
                     // }, "Send Document XML - Success")
-                    console.log("sent application resolved");
-                    return resolve(this.convertResponse(response.text()));
+                    console.log("sent application resolved")
+                    return resolve(this.convertResponse(response));
                 })
-                .catch((error: Response | any) => {
+                .catch((error) => {
                     this.logService.log({
                         text: "Application - XML Send Error ",
                         response: error,

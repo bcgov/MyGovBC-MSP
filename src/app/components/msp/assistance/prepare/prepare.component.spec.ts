@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing'
 import {Component, ViewChild, AfterViewInit, OnInit, ElementRef} from '@angular/core';
 import {FormsModule, FormGroup, NgForm, AbstractControl} from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/http';
 
 import {AssistancePrepareComponent} from './prepare.component'
 import {DeductionCalculatorComponent} from './deduction-calculator/deduction-calculator.component';
@@ -26,7 +26,7 @@ describe('AssistancePrepareComponent', () => {
         DeductionCalculatorComponent, MspCancelComponent, FileUploaderComponent, ThumbnailComponent,
         MspImageErrorModalComponent, MspLoggerDirective],
 
-      imports: [FormsModule, ModalModule.forRoot(), HttpModule, LocalStorageModule.withConfig({
+      imports: [FormsModule, ModalModule.forRoot(), HttpClientModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],

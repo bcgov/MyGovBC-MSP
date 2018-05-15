@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing'
-import { HttpModule }    from '@angular/http';
+import { HttpClientModule }    from '@angular/http';
 import { Component, ViewChild, AfterViewInit, OnInit, ElementRef} from '@angular/core';
 import { FormsModule, FormGroup, NgForm, AbstractControl } from '@angular/forms';
 import { MspLogService } from '../../../service/log.service';
@@ -17,7 +17,7 @@ describe('DeductionCalculatorComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [DeductionCalculatorComponent, MspCancelComponent, MspLoggerDirective],
-      imports: [RouterTestingModule, FormsModule, ModalModule.forRoot(), HttpModule, LocalStorageModule.withConfig({
+      imports: [RouterTestingModule, FormsModule, ModalModule.forRoot(), HttpClientModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],

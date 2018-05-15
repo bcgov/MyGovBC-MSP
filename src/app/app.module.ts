@@ -1,12 +1,12 @@
-import {NgModule, OpaqueToken, Inject, Component} from '@angular/core'
-import {BrowserModule}  from '@angular/platform-browser'
-import {RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { AccordionModule, ModalModule } from 'ngx-bootstrap';
+import { GeneralAppComponent } from './app.component';
+import { CoreFooterComponent } from './components/core/footer';
+import { CoreHeaderComponent } from './components/core/header';
+import { MspModule } from './components/msp/msp.module';
 
-import {CoreHeaderComponent} from './components/core/header'
-import {CoreFooterComponent} from './components/core/footer'
-import { ModalModule, AccordionModule} from 'ngx-bootstrap';
-import {MspModule} from './components/msp/msp.module'
-import {GeneralAppComponent} from './app.component';
 
 
 require('./index.scss')
