@@ -11,9 +11,7 @@ def TAG_NAMES_BACKUP = ['devbackup', 'testbackup', 'prodbackup']
 // You shouldn't have to edit these if you're following the conventions
 def NGINX_BUILD_CONFIG = 'nginx-runtime'
 def BUILD_CONFIG = APP_NAME + '-' + APP_VERSION + '-build'
-def SPLASH_CONFIG = APP_NAME + '-splash-build'
 def IMAGESTREAM_NAME = APP_NAME + '-' + APP_VERSION
-def IMAGESTREAM_SPLASH_NAME = APP_NAME + '-splash'
 
 node {
 
@@ -39,21 +37,10 @@ node {
     echo ">> IMAGE_HASH: $IMAGE_HASH"
   }
 
-  stage('build splash' + BUILD_CONFIG) {
-        echo "Building: Splash " + BUILD_CONFIG
-        openshiftBuild bldCfg: SPLASH_CONFIG, showBuildLogs: 'true', env: [ [ name: 'buildSplash', value : 'true' ] ]
-
-        IMAGE_SPLASH_HASH = sh (
-           script: """oc get istag ${IMAGESTREAM_SPLASH_NAME}:latest -o template --template=\"{{.image.dockerImageReference}}\"|awk -F \":\" \'{print \$3}\'""",
-     	  returnStdout: true).trim()
-        echo ">> IMAGE_SPLASH_HASH: $IMAGE_SPLASH_HASH"
-  }
-
   stage('deploy-' + TAG_NAMES[0]) {
     echo "Deploying to: " + TAG_NAMES[0]
     // new tag
     openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[0], srcStream: IMAGESTREAM_NAME, srcTag: "${IMAGE_HASH}"
-    openshiftTag destStream: IMAGESTREAM_SPLASH_NAME, verbose: 'true', destTag: TAG_NAMES[0], srcStream: IMAGESTREAM_SPLASH_NAME, srcTag: "${IMAGE_SPLASH_HASH}"
   }
 }
 
