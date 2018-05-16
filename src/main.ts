@@ -4,7 +4,7 @@ import {AppModule} from './app/app.module'
 import 'file-loader?name=[name].[ext]!./favicon.ico'
 import 'file-loader?name=[name].[ext]!./robots.txt'
 import { environment } from './environments/environment';
-if (environment.appConstants.runtimeEnv === 'production') {
+if (environment.runtimeEnv === 'production') {
   enableProdMode()
 }
 platformBrowserDynamic().bootstrapModule(AppModule)

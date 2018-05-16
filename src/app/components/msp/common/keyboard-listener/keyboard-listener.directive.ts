@@ -1,9 +1,9 @@
 import { AfterContentInit, Directive, ElementRef, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
+
+
+
+
 
 /**
  * A keyboard event that matches the mspKeyboard input value will 

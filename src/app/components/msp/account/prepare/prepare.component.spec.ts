@@ -13,8 +13,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ProcessService } from "../../service/process.service";
 import { MspApiService } from '../../service/msp-api.service';
 
-import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
-import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
+import { CaptchaDataService } from '../../../mygovbc-captcha-widget/src/app/captcha-data.service'
+import { CaptchaComponent } from '../../../mygovbc-captcha-widget/src/app/captcha/captcha.component'
+
 import { ModalModule } from "ngx-bootstrap";
 
 describe('AccountPrepareComponent', () => {

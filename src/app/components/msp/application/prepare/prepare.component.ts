@@ -1,17 +1,11 @@
 import {ChangeDetectorRef, Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
-
 import {MspApplication, Person} from '../../model/application.model';
 import * as _ from 'lodash';
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-
+import { fromEvent } from 'rxjs';
+import { merge } from 'rxjs';
+import { map } from 'rxjs/operators';
 import {MspDataService} from '../../service/msp-data.service';
 import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
 import {ProcessService} from "../../service/process.service";
@@ -56,37 +50,43 @@ export class PrepareComponent extends BaseComponent {
       this.mspConsentModal.showFullSizeView();
     }
 
-    let liveInBC$ = Observable.fromEvent<MouseEvent>(this.liveInBCBtn.nativeElement, 'click')
-      .map( x=>{
+    let liveInBC$ = fromEvent<MouseEvent>(this.liveInBCBtn.nativeElement, 'click')
+      .pipe(map( x=>{
         this.dataService.getMspApplication().applicant.liveInBC = true;
-      });
-    let notLiveInBC$ = Observable.fromEvent<MouseEvent>(this.notLiveInBCBtn.nativeElement, 'click')
-      .map( x=>{
+      }));
+    let notLiveInBC$ = fromEvent<MouseEvent>(this.notLiveInBCBtn.nativeElement, 'click')
+      .pipe(map( x=>{
         this.dataService.getMspApplication().applicant.liveInBC = false;
-      });
+      }));
 
-    let unUsualCircumstance$ = Observable.fromEvent<MouseEvent>(this.unUsualCircumstanceBtn.nativeElement, 'click')
-      .map( x=>{
+    let unUsualCircumstance$ = fromEvent<MouseEvent>(this.unUsualCircumstanceBtn.nativeElement, 'click')
+      .pipe(map( x=>{
         this.dataService.getMspApplication().unUsualCircumstance = true;
-      });
-    let noUnUsualCircumstance$ = Observable.fromEvent<MouseEvent>(this.noUnusualCircustanceBtn.nativeElement, 'click')
-      .map( x=>{
+      }));
+    let noUnUsualCircumstance$ = fromEvent<MouseEvent>(this.noUnusualCircustanceBtn.nativeElement, 'click')
+      .pipe(map( x=>{
         this.dataService.getMspApplication().unUsualCircumstance = false;
-      });
+      }));
 
-    let plannedAbsenceBtn$ = Observable.fromEvent<MouseEvent>(this.plannedAbsenceBtn.nativeElement, 'click')
-      .map( x=>{
+    let plannedAbsenceBtn$ = fromEvent<MouseEvent>(this.plannedAbsenceBtn.nativeElement, 'click')
+      .pipe(map( x=>{
         this.dataService.getMspApplication().applicant.plannedAbsence = true;
-      });
-    let noPlannedAbsenceBtn$ = Observable.fromEvent<MouseEvent>(this.noPlannedAbsenceBtn.nativeElement, 'click')
-      .map( x=>{
+      }));
+    let noPlannedAbsenceBtn$ = fromEvent<MouseEvent>(this.noPlannedAbsenceBtn.nativeElement, 'click')
+      .pipe(map( x=>{
         this.dataService.getMspApplication().applicant.plannedAbsence = false;
-      });
+      }));
 
     if(this.form){
-      this.form.valueChanges.merge(liveInBC$).merge(notLiveInBC$)
-      .merge(unUsualCircumstance$).merge(noUnUsualCircumstance$)
-      .merge(plannedAbsenceBtn$).merge(noPlannedAbsenceBtn$)
+      merge(
+        this.form.valueChanges,
+        liveInBC$,
+        notLiveInBC$,
+        unUsualCircumstance$,
+        noUnUsualCircumstance$,
+        plannedAbsenceBtn$,
+        noPlannedAbsenceBtn$,
+      )
       .subscribe(values => {
         this.dataService.saveMspApplication();
         this.emitIsFormValid();

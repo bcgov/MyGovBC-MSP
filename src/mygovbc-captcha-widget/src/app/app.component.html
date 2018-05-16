@@ -1,0 +1,20 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    BC Gov. CAPTCHA Widget Source Code and Demo
+  </h1>
+  <div>
+
+    <captcha 
+      apiBaseUrl="https://captcha-service-gcpe-mygovbc-demo.pathfinder.gov.bc.ca" 
+      nonce="BCGov Captcha Demo" 
+      successMessage="You can save or submit form now."
+      eagerFetchAudio = "true"
+      userPromptMessage = "Enter the text you either see in the box above or what you hear using the Play Audio button"
+      (onValidToken)="handleAuthToken($event)">
+    </captcha>    
+
+  </div>
+
+</div>
+

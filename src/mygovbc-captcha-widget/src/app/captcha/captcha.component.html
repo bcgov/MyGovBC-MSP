@@ -1,0 +1,200 @@
+<div class="bcgov-captcha">
+
+
+  <svg style="position: absolute; width: 0; height: 0; overflow: hidden" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <symbol id="icon-play-def" viewBox="0 0 32 32">
+            <path d="M16 0c-8.837 0-16 7.163-16 16s7.163 16 16 16 16-7.163 16-16-7.163-16-16-16zM16 29c-7.18 0-13-5.82-13-13s5.82-13 13-13 13 5.82 13 13-5.82 13-13 13zM12 9l12 7-12 7z"></path>
+        </symbol>  
+
+        <symbol id="icon-loop-def" viewBox="0 0 32 32">
+          <path d="M27.802 5.197c-2.925-3.194-7.13-5.197-11.803-5.197-8.837 0-16 7.163-16 16h3c0-7.18 5.82-13 13-13 3.844 0 7.298 1.669 9.678 4.322l-4.678 4.678h11v-11l-4.198 4.197z"></path>
+          <path d="M29 16c0 7.18-5.82 13-13 13-3.844 0-7.298-1.669-9.678-4.322l4.678-4.678h-11v11l4.197-4.197c2.925 3.194 7.13 5.197 11.803 5.197 8.837 0 16-7.163 16-16h-3z"></path>
+        </symbol>  
+        
+        <symbol id="icon-check-def" viewBox="0 0 24 24">
+          <path d="M9 16.172l10.594-10.594 1.406 1.406-12 12-5.578-5.578 1.406-1.406z"></path>
+        </symbol>    
+        
+        <symbol id="icon-exclamation-triangle-def" viewBox="0 0 28 28">
+            <path d="M16 21.484v-2.969c0-0.281-0.219-0.516-0.5-0.516h-3c-0.281 0-0.5 0.234-0.5 0.516v2.969c0 0.281 0.219 0.516 0.5 0.516h3c0.281 0 0.5-0.234 0.5-0.516zM15.969 15.641l0.281-7.172c0-0.094-0.047-0.219-0.156-0.297-0.094-0.078-0.234-0.172-0.375-0.172h-3.437c-0.141 0-0.281 0.094-0.375 0.172-0.109 0.078-0.156 0.234-0.156 0.328l0.266 7.141c0 0.203 0.234 0.359 0.531 0.359h2.891c0.281 0 0.516-0.156 0.531-0.359zM15.75 1.047l12 22c0.344 0.609 0.328 1.359-0.031 1.969s-1.016 0.984-1.719 0.984h-24c-0.703 0-1.359-0.375-1.719-0.984s-0.375-1.359-0.031-1.969l12-22c0.344-0.641 1.016-1.047 1.75-1.047s1.406 0.406 1.75 1.047z"></path>
+        </symbol>
+        
+    </defs>
+  </svg>
+
+
+
+  <form style="clear:both" #formRef="ngForm">
+    <div [ngClass]="{'has-error': !!incorrectAnswer}">
+      <div>
+        
+        <div class="spinner-box" *ngIf="!state || state === 1">
+         <div style="float:left; margin: 2px 0 1px 8px">
+            <svg class="lds-spinner" width="45px"  height="45px"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="background: none;"><g transform="rotate(0 50 50)">
+                <rect x="47" y="22" rx="9.4" ry="4.4" width="6" height="16" fill="#1d3f72">
+                  <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.8888888888888888s" repeatCount="indefinite"></animate>
+                </rect>
+              </g><g transform="rotate(40 50 50)">
+                <rect x="47" y="22" rx="9.4" ry="4.4" width="6" height="16" fill="#1d3f72">
+                  <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.7777777777777778s" repeatCount="indefinite"></animate>
+                </rect>
+              </g><g transform="rotate(80 50 50)">
+                <rect x="47" y="22" rx="9.4" ry="4.4" width="6" height="16" fill="#1d3f72">
+                  <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.6666666666666666s" repeatCount="indefinite"></animate>
+                </rect>
+              </g><g transform="rotate(120 50 50)">
+                <rect x="47" y="22" rx="9.4" ry="4.4" width="6" height="16" fill="#1d3f72">
+                  <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.5555555555555556s" repeatCount="indefinite"></animate>
+                </rect>
+              </g><g transform="rotate(160 50 50)">
+                <rect x="47" y="22" rx="9.4" ry="4.4" width="6" height="16" fill="#1d3f72">
+                  <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.4444444444444444s" repeatCount="indefinite"></animate>
+                </rect>
+              </g><g transform="rotate(200 50 50)">
+                <rect x="47" y="22" rx="9.4" ry="4.4" width="6" height="16" fill="#1d3f72">
+                  <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.3333333333333333s" repeatCount="indefinite"></animate>
+                </rect>
+              </g><g transform="rotate(240 50 50)">
+                <rect x="47" y="22" rx="9.4" ry="4.4" width="6" height="16" fill="#1d3f72">
+                  <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.2222222222222222s" repeatCount="indefinite"></animate>
+                </rect>
+              </g><g transform="rotate(280 50 50)">
+                <rect x="47" y="22" rx="9.4" ry="4.4" width="6" height="16" fill="#1d3f72">
+                  <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.1111111111111111s" repeatCount="indefinite"></animate>
+                </rect>
+              </g><g transform="rotate(320 50 50)">
+                <rect x="47" y="22" rx="9.4" ry="4.4" width="6" height="16" fill="#1d3f72">
+                  <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animate>
+                </rect>
+              </g></svg>
+         </div>
+         <div style="float:left; margin: 16px 0 1px 3px">
+            Loading CAPTCHA image
+         </div>
+         <div style="clear:both"></div>
+        </div>
+        
+        <div [ngClass]="{'captcha-box-visible': state === 2, 'captcha-box-invisible': state !== 2}">
+          <div>
+            <div style="float: left;" #image class="captcha-image"></div>
+            <audio #audioElement *ngIf="audio && audio.length > 0" id="audioElement" [src]="audio">
+              Your browser does not support the audio element.
+            </audio>
+            <div style="float: left; margin-top: 8px">
+              <a class="play-audio" href="javascript:void(0)" (click)="playAudio()" role="button">
+                <svg *ngIf="!fetchingAudioInProgress" class="icon-play"><use xlink:href="#icon-play-def"></use></svg>
+                
+                <svg *ngIf="fetchingAudioInProgress" class="lds-spinner" width="15px"  height="15px"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="background: none;"><g transform="rotate(0 50 50)">
+                  <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#1d3f72">
+                    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.8888888888888888s" repeatCount="indefinite"></animate>
+                  </rect>
+                </g><g transform="rotate(40 50 50)">
+                  <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#1d3f72">
+                    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.7777777777777778s" repeatCount="indefinite"></animate>
+                  </rect>
+                </g><g transform="rotate(80 50 50)">
+                  <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#1d3f72">
+                    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.6666666666666666s" repeatCount="indefinite"></animate>
+                  </rect>
+                </g><g transform="rotate(120 50 50)">
+                  <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#1d3f72">
+                    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.5555555555555556s" repeatCount="indefinite"></animate>
+                  </rect>
+                </g><g transform="rotate(160 50 50)">
+                  <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#1d3f72">
+                    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.4444444444444444s" repeatCount="indefinite"></animate>
+                  </rect>
+                </g><g transform="rotate(200 50 50)">
+                  <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#1d3f72">
+                    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.3333333333333333s" repeatCount="indefinite"></animate>
+                  </rect>
+                </g><g transform="rotate(240 50 50)">
+                  <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#1d3f72">
+                    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.2222222222222222s" repeatCount="indefinite"></animate>
+                  </rect>
+                </g><g transform="rotate(280 50 50)">
+                  <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#1d3f72">
+                    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.1111111111111111s" repeatCount="indefinite"></animate>
+                  </rect>
+                </g><g transform="rotate(320 50 50)">
+                  <rect x="45" y="9" rx="2.7" ry="0.54" width="10" height="22" fill="#1d3f72">
+                    <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animate>
+                  </rect>
+                </g></svg>
+
+                Play Audio
+              </a>
+              <div style="clear:both;"></div>
+              
+              <a class="try-another-image" href="javascript:void(0)" (click)="retryFetchCaptcha()" role="button">
+                  <svg class="icon-loop icon-loop-def"><use xlink:href="#icon-loop-def"></use></svg>                
+                Try another image
+              </a>
+            </div>
+          </div>
+          <div style="clear:both; margin-bottom: 8px;"></div>
+          <div style="float:left;">
+            <label for="answer">
+                {{userPromptMessage}}
+              <input id="answer" type="text"
+                #userAnswerRef = "ngModel"
+                [(ngModel)]="answer"
+                (input)="answerChanged($event)"
+                [ngClass]="{'captcha-wrong-answer': userAnswerRef.dirty && incorrectAnswer}"
+                name="answer"
+                maxlength="6"
+                required
+                autocorrect="off" 
+                autocapitalize="none">
+            </label>
+          </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div style="float:left;">
+
+        <div class="error-captcha" *ngIf="state === 3" role="alert" aria-live="assertive">
+          <div style="float:left; margin-left: 5px;">
+            <svg class="icon-exclamation-triangle"><use xlink:href="#icon-exclamation-triangle-def"></use></svg>
+  
+            <span> Error happened while retreiving CAPTCHA image. please 
+              <a href="javascript:void(0)" (click)="retryFetchCaptcha()">click here</a> 
+                to try again
+            </span>
+          </div>
+          <div style="clear:both"></div>
+          
+          <div style="float:left; margin-left: 25px;">
+              {{errorFetchingImg}}
+          </div>
+          <div style="clear:both"></div>
+        </div>
+        
+        <div class="spinner-box" *ngIf="state == 4" role="alert" aria-live="assertive">
+          <span>Verifying your answer...</span>
+        </div>
+        <div class="error-captcha" *ngIf="state === 6"  role="alert" aria-live="assertive">
+          <svg class="icon-exclamation-triangle"><use xlink:href="#icon-exclamation-triangle-def"></use></svg>
+          <span> Error happened while verifying your answer. please 
+            <a href="javascript:void(0)" (click)="retryFetchCaptcha()">click here</a> 
+              to try again
+          </span>
+          <p>
+          </p>
+        </div>
+        
+        <div class="captcha-error" style="margin-top: 2px" *ngIf="incorrectAnswer === true" role="alert" aria-live="assertive">
+          Incorrect answer, please try again.
+        </div>
+      </div>
+      
+      </div>
+    </div>
+  </form>
+
+  <div class="confirm-correct-answer" style="float:left" *ngIf="state === 5" role="alert" aria-live="assertive">
+    <svg class="icon-check"><use xlink:href="#icon-check-def"></use></svg>
+    Correct. <span>{{successMessage}}</span>
+  </div>
+  <div style="clear:both;"></div>
+</div>

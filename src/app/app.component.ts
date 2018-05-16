@@ -1,6 +1,7 @@
 import {Component, ViewContainerRef} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'general-app',
@@ -18,9 +19,10 @@ export class GeneralAppComponent {
 
   ngOnInit() {
     this.routerSubscription = this.router.events
-      .filter(event => event instanceof NavigationEnd)
-      .subscribe(event => {
-        document.body.scrollTop = 0;
+      .pipe(
+        filter(event => event instanceof NavigationEnd)
+      ).subscribe(event => {
+          document.body.scrollTop = 0;
       });
   }
 

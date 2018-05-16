@@ -3,10 +3,10 @@ import {
 } from '@angular/core'
 import {OutofBCRecord} from "../../model/outof-bc-record.model";
 import {NgForm} from "@angular/forms";
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
+
+
+
+
 import {BaseComponent} from "../base.component";
 import {MspDepartureDateComponent} from "../departure-date/departure-date.component";
 import {MspReturnDateComponent} from "../return-date/return-date.component";

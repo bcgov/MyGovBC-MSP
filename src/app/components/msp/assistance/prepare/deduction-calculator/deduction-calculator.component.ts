@@ -3,12 +3,12 @@ import {
   SimpleChange, ViewChild, AfterViewInit, OnChanges, SimpleChanges, DoCheck
 } from '@angular/core';
 import {Router} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/pluck';
-import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs';
+
+
+
+
+
 import * as _ from 'lodash';
 
 import {Eligibility} from '../../../model/eligibility.model';

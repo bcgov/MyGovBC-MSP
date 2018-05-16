@@ -3,12 +3,9 @@ import { NgForm } from '@angular/forms';
 import * as moment from 'moment';
 import { ModalDirective } from "ngx-bootstrap";
 import { PDFJSStatic } from 'pdfjs-dist';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/map';
+import { Observable ,  Observer, fromEvent, merge } from 'rxjs';
+import { map, filter, flatMap, scan } from 'rxjs/operators';
+import { merge as pipeMerge }  from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
 import { MspImage, MspImageError, MspImageProcessingError, MspImageScaleFactors, MspImageScaleFactorsImpl } from '../../model/msp-image';
 import { MspLogService } from "../../service/log.service";
@@ -16,13 +13,9 @@ import { MspDataService } from "../../service/msp-data.service";
 import { BaseComponent } from "../base.component";
 import { LogEntry } from "../logging/log-entry.model";
 
-
 let loadImage = require('blueimp-load-image');
-
-
 var sha1 = require('sha1');
 const PDFJS: PDFJSStatic = require('pdfjs-dist');
-
 
 @Component({
     selector: 'msp-file-uploader',
@@ -118,68 +111,74 @@ export class FileUploaderComponent
 
 
         let dragOverStream =
-            Observable.fromEvent<DragEvent>(this.dropZone.nativeElement, "dragover");
+            fromEvent<DragEvent>(this.dropZone.nativeElement, "dragover");
 
         /**
          * Must cancel the dragover event in order for the drop event to work.
          */
-        dragOverStream.map(evt => {
+        dragOverStream.pipe(map(evt => {
             return event;
-        }).subscribe(evt => {
+        })).subscribe(evt => {
             // console.log('Cancel dragover event.');
             evt.preventDefault();
         });
 
-        let dropStream = Observable.fromEvent<DragEvent>(this.dropZone.nativeElement, "drop");
-        let filesArrayFromDrop = dropStream.map(
+        let dropStream = fromEvent<DragEvent>(this.dropZone.nativeElement, "drop");
+        let filesArrayFromDrop = dropStream.pipe(map(
             function (event) {
                 event.preventDefault();
                 return event.dataTransfer.files;
             }
-        );
+        ));
 
-        let browseFileStream = Observable.fromEvent<Event>(this.browseFileRef.nativeElement, 'change');
-        let captureFileStream = Observable.fromEvent<Event>(this.captureFileRef.nativeElement, 'change');
+        let browseFileStream = fromEvent<Event>(this.browseFileRef.nativeElement, 'change');
+        let captureFileStream = fromEvent<Event>(this.captureFileRef.nativeElement, 'change');
 
-        let filesArrayFromInput = browseFileStream.merge(captureFileStream)
-            .map(
-                (event) => {
-                    event.preventDefault();
-                    return event.target['files'];
-                }
-            ).merge(filesArrayFromDrop)
-            .filter(files => {
-                return !!files && files.length && files.length > 0;
-            }).flatMap(
-                (fileList: FileList) => {
-                    return this.observableFromFiles(fileList, new MspImageScaleFactorsImpl(1, 1));
-                }
-            )
-            .filter(
-                (mspImage: MspImage) => {
-                    let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
-                    if (imageExists) {
-                        this.handleError(MspImageError.AlreadyExists, mspImage);
-                        this.resetInputFields();
+        let filesArrayFromInput = merge(browseFileStream, captureFileStream)
+            .pipe(
+                map(
+                    (event) => {
+                        event.preventDefault();
+                        return event.target['files'];
                     }
-                    return !imageExists;
-                }
-            ).filter((mspImage: MspImage) => {
-                    let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
-                    if (imageExists) {
-                        this.handleError(MspImageError.AlreadyExists, mspImage);
-                        this.resetInputFields();
+                ),
+                pipeMerge(filesArrayFromDrop),
+                filter(files => {
+                    return !!files && files.length && files.length > 0;
+                }),
+                flatMap(
+                    (fileList: FileList) => {
+                        return this.observableFromFiles(fileList, new MspImageScaleFactorsImpl(1, 1));
                     }
-                    return !imageExists;
-                }
-            ).filter((mspImage: MspImage) => {
-                    let imageSizeOk = this.checkImageDimensions(mspImage);
-                    if (!imageSizeOk) {
-                        this.handleError(MspImageError.TooSmall, mspImage);
-                        this.resetInputFields();
+                ),
+                filter(
+                    (mspImage: MspImage) => {
+                        let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
+                        if (imageExists) {
+                            this.handleError(MspImageError.AlreadyExists, mspImage);
+                            this.resetInputFields();
+                        }
+                        return !imageExists;
                     }
-                    return imageSizeOk;
-                }
+                ),
+                filter((mspImage: MspImage) => {
+                        let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
+                        if (imageExists) {
+                            this.handleError(MspImageError.AlreadyExists, mspImage);
+                            this.resetInputFields();
+                        }
+                        return !imageExists;
+                    }
+                ),
+                filter((mspImage: MspImage) => {
+                        let imageSizeOk = this.checkImageDimensions(mspImage);
+                        if (!imageSizeOk) {
+                            this.handleError(MspImageError.TooSmall, mspImage);
+                            this.resetInputFields();
+                        }
+                        return imageSizeOk;
+                    }
+                    )
             ).subscribe(
                 (file: MspImage) => {
                     this.handleImageFile(file);
@@ -223,30 +222,23 @@ export class FileUploaderComponent
     }
 
     ngAfterContentInit() {
-        let imagePlaceholderEnterKeyStream = Observable.fromEvent<Event>(this.imagePlaceholderRef.nativeElement, 'keyup')
-            .merge(
-                Observable.fromEvent<Event>(this.selectFileLabelRef.nativeElement, 'keyup')
-            )
-            .merge(
-                Observable.fromEvent<Event>(this.uploadInstructionRef.nativeElement, 'keyup')
-            )
-            .filter((evt: KeyboardEvent) => {
-                return evt.key === 'Enter';
-            });
 
-        Observable.fromEvent<Event>(this.imagePlaceholderRef.nativeElement, 'click')
-            .merge(
-                Observable.fromEvent<Event>(this.uploadInstructionRef.nativeElement, 'click')
-            )
-            .merge(imagePlaceholderEnterKeyStream)
-            .map((event) => {
+        let imagePlaceholderEnterKeyStream = merge(
+            fromEvent<Event>(this.imagePlaceholderRef.nativeElement, 'keyup'),
+            fromEvent<Event>(this.selectFileLabelRef.nativeElement, 'keyup'),
+            fromEvent<Event>(this.uploadInstructionRef.nativeElement, 'keyup')
+        ).pipe(filter((evt: KeyboardEvent) => {return evt.key === 'Enter';}))
+
+        merge(
+            fromEvent<Event>(this.imagePlaceholderRef.nativeElement, 'click'),
+            fromEvent<Event>(this.uploadInstructionRef.nativeElement, 'click'),
+            imagePlaceholderEnterKeyStream
+        ).pipe(
+            map((event) => {
                 event.preventDefault();
                 return event;
-            }).subscribe(
-            (event) => {
-                this.browseFileRef.nativeElement.click();
-            }
-        );
+            })
+        ).subscribe( (event) => { this.browseFileRef.nativeElement.click();})
     }
 
     /**
@@ -444,7 +436,23 @@ export class FileUploaderComponent
      */
     retryStrategy(maxRetry: number) {
         return function (errors: Observable<MspImageProcessingError>) {
+
+            // TODO: COMPLETE THIS! For some reason can't get scan() to work, types always malformed.
+
+            // return errors.pipe(
+            //     // scan((acc, curr) => {acc + curr}, 0)
+            //     scan((acc, error, index) => {
+            //         return acc + error;
+            //     }, 0)
+            // );
+
+            // TODO: Unsure if we have to re-implement this line. It causes errors, but simply removing it may not be appropriate.
+            // NOTE: RxJS-compat might be saving us here and "fixing" the errors. See if errors return when we remove rxjs-compat.
+            // return errors.pipe(scan((acc, curr) => acc + curr, 0))
+
+
             return errors.scan(
+            // return errors.pipe(
                 (acc, error, index) => {
                     // console.log('Error encountered: %o', error);;
 

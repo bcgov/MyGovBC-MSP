@@ -2,8 +2,7 @@ import {Component} from '@angular/core';
 import { MspDataService } from '../../service/msp-data.service';
 import {FinancialAssistApplication} from "../../model/financial-assist-application.model";
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Observable} from 'rxjs/Observable';
-import { Subscription} from 'rxjs/Subscription';
+import { Observable,  Subscription} from 'rxjs';
 
 @Component({
   templateUrl: './confirmation.component.html',

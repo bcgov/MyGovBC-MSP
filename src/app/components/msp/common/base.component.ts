@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, DoCheck, EventEmitter, 
   Output, QueryList, SimpleChanges, Optional} from "@angular/core";
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import {NgForm} from "@angular/forms";
 import {UUID} from "angular2-uuid";
 import {ProcessService} from "../service/process.service";

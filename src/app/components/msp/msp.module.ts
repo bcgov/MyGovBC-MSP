@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { LocalStorageModule } from 'angular-2-local-storage';
-import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
-import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
+import { CaptchaDataService } from '../../../mygovbc-captcha-widget/src/app/captcha-data.service'
+import { CaptchaComponent } from '../../../mygovbc-captcha-widget/src/app/captcha/captcha.component'
 import { Ng2CompleterModule } from "ng2-completer";
 import { AccordionModule, ModalModule } from 'ngx-bootstrap';
 import { AccountComponent } from './account/account.component';

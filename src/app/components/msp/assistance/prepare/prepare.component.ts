@@ -2,11 +2,11 @@ import { Component, ViewChild, AfterViewInit, OnInit, ElementRef, DoCheck} from 
 import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
+
+
+
+
+
 
 import { ModalDirective } from 'ngx-bootstrap';
 

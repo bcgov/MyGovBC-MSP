@@ -7,7 +7,8 @@ import {ProgressBarHelper} from './ProgressBarHelper';
 import {MspDataService} from '../service/msp-data.service';
 import {environment} from '../../../../environments/environment';
 import {Router, NavigationEnd} from '@angular/router';
-import {Subscription} from 'rxjs/Rx';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import {MspLogService} from '../service/log.service';
 
 
@@ -43,8 +44,8 @@ export class AccountComponent {
           },"Account -Page Load")
         */
         this.routerSubscription = this.router.events
-            .filter(event => event instanceof NavigationEnd)
-            .subscribe(event => {
+          .pipe(filter(event => event instanceof NavigationEnd))
+          .subscribe(event => {
                 if (this.router.url.indexOf("/confirmation/") === -1) {//toned down logs.no log for confirmation page
                     this.logService.log({
                         name: "Account - Loaded Page ",

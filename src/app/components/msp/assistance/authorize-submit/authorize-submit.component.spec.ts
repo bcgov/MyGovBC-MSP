@@ -15,8 +15,8 @@ import { MspValidationService } from '../../service/msp-validation.service';
 import { CompletenessCheckService } from '../../service/completeness-check.service';
 import { ProcessService } from "../../service/process.service";
 import {RouterTestingModule} from "@angular/router/testing";
-import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
-import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
+import { CaptchaDataService } from '../../../mygovbc-captcha-widget/src/app/captcha-data.service'
+import { CaptchaComponent } from '../../../mygovbc-captcha-widget/src/app/captcha/captcha.component'
 import { ModalModule } from "ngx-bootstrap";
 
 describe('AssistanceAuthorizeSubmitComponent Test', () => {
