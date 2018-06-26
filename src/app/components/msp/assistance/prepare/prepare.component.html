@@ -49,26 +49,26 @@
                     [innerHTML]="lang('./en/index.js').incomeDataMaxLength" tabindex="0"></div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-10">
-                <div class="form-group">
-                  <div role="dialog" aria-labelledby="q1">
-                      <p id="q1" class="intro" [innerHtml]="lang('./en/index.js').areYou65OrOlder"></p>
-                      <div class="btn-group" role="group">
-                          <button #ageOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === true" 
-                              type="button" class="btn btn-default">Yes</button>
-                          <button #ageNotOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === false" 
-                              type="button" class="btn btn-default">No&nbsp;</button>
-                      </div>
-                  </div>                    
-                    <div *ngIf='(incomeRef.touched || incomeRef.dirty || (!!incomeRef.value && incomeRef.value.trim().length>0) || finAssistApp.spouseEligibleForDisabilityCredit || formRef.controls.spouseIncomeLine236?.valid ) && 
+            <div class="row">
+                <div class="col-lg-10">
+                    <div class="form-group">
+                        <div role="dialog" aria-labelledby="q1">
+                            <p id="q1" class="intro" [innerHtml]="lang('./en/index.js').areYou65OrOlder"></p>
+                            <div class="btn-group" role="group">
+                                <button #ageOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === true"
+                                        type="button" class="btn btn-default">Yes</button>
+                                <button #ageNotOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === false"
+                                        type="button" class="btn btn-default">No&nbsp;</button>
+                            </div>
+                        </div>
+                        <div *ngIf='(incomeRef.touched || incomeRef.dirty || (!!incomeRef.value && incomeRef.value.trim().length>0) || finAssistApp.spouseEligibleForDisabilityCredit || formRef.controls.spouseIncomeLine236?.valid ) &&
                         (finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined)'>
-                        <div class="text-danger"
-                                [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
+                            <div class="text-danger"
+                                 [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         <div class="row" tabindex="-1"
             [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
             <div class="col-lg-10">

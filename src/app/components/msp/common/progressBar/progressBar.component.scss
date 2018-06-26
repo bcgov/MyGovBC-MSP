@@ -1,7 +1,7 @@
-@import "variables.scss";
+@import "../../../../styles/variables.scss";
 // Bootstrap 3 to 4: Included imports
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/mixins";
+@import "../../../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../../../node_modules/bootstrap/scss/mixins";
 
 // Calculates the width for the .activeContainer element so that it takes up
 // 100% of the remaining space left over from it's collapsed siblings.  Only for the mobile layout.

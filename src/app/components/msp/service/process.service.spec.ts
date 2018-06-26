@@ -7,7 +7,7 @@ import { LocalStorageModule, LocalStorageService } from "angular-2-local-storage
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { AccountComponent } from '../account/account.component';
 import {MspLogService} from "./log.service";
-import {HttpClientModule} from "@angular/http";
+import { HttpClientModule} from "@angular/common/http";
 
 
 describe('ProcessService', () => {

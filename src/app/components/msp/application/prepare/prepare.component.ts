@@ -1,11 +1,11 @@
 import {ChangeDetectorRef, Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { NgForm } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
 import {MspApplication, Person} from '../../model/application.model';
 import * as _ from 'lodash';
-import { fromEvent } from 'rxjs';
-import { merge } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { fromEvent} from "rxjs/internal/observable/fromEvent";
+import { merge} from "rxjs/internal/observable/merge";
+import { map} from "rxjs/operators";
 import {MspDataService} from '../../service/msp-data.service';
 import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
 import {ProcessService} from "../../service/process.service";

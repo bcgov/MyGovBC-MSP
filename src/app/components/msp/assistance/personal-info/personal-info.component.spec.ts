@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import {RouterTestingModule} from "@angular/router/testing";
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule }    from '@angular/http';
 import { AssistancePersonalInfoComponent } from './personal-info.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { CompletenessCheckService } from '../../service/completeness-check.service';
@@ -28,6 +27,7 @@ import {CalendarYearValidator} from '../../common/calendar/calendar-year.validat
 import {CalendarDayValidator} from '../../common/calendar/calendar-day.validator';
 import { ProcessService } from "../../service/process.service";
 import { SinCheckValidator } from '../../common/sin/sin.validator';
+import {HttpClientModule} from "@angular/common/http";
 
 
 describe('AssistancePersonalInfoComponent Test', () => {

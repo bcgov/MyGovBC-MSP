@@ -2,7 +2,8 @@ import { Component, Input, ViewChildren, ElementRef, QueryList, Renderer } from 
 import { Router, NavigationEnd } from '@angular/router';
 import { MspProgressBarItem } from "./progressBarDataItem.model";
 import { ProgressBarHelper } from '../../account/ProgressBarHelper';
-import { Subject } from 'rxjs';
+import {Subject} from "rxjs/internal/Subject";
+import {debounceTime} from "rxjs/operators";
 
 
 @Component({
@@ -27,9 +28,9 @@ export class MspProgressBarComponent {
 
   constructor(public router: Router, private renderer: Renderer) {
     //Ensure we only process the event once every resizeThrottleTime ms.
-    this.resizeEvent$
-      .debounceTime(this.RESIZE_DEBOUNCE_TIME - 10)
-      .subscribe(_ => {
+    this.resizeEvent$.pipe(
+      debounceTime(this.RESIZE_DEBOUNCE_TIME - 10))
+        .subscribe(_ => {
         setTimeout(_ => this.calcualteMinHeight());
       });
   }

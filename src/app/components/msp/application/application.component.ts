@@ -66,7 +66,9 @@ export class ApplicationComponent  {
   }
 
   ngOnDestroy() {
-    this.routerSubscription.unsubscribe();
+      if(this.routerSubscription && !this.routerSubscription.closed) {
+          this.routerSubscription.unsubscribe();
+      }
   }
 
   private initProcessService () {

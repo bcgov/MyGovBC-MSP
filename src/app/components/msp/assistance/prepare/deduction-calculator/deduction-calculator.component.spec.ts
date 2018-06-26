@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing'
-import { HttpClientModule }    from '@angular/http';
 import { Component, ViewChild, AfterViewInit, OnInit, ElementRef} from '@angular/core';
 import { FormsModule, FormGroup, NgForm, AbstractControl } from '@angular/forms';
 import { MspLogService } from '../../../service/log.service';
@@ -11,6 +10,7 @@ import {ModalModule} from "ngx-bootstrap";
 import {MspLoggerDirective} from "../../../common/logging/msp-logger.directive";
 import {RouterTestingModule} from "@angular/router/testing";
 import { ProcessService } from "../../../service/process.service";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('DeductionCalculatorComponent', () => {
 

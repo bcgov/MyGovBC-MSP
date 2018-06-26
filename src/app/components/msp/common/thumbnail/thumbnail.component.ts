@@ -21,6 +21,7 @@ export class ThumbnailComponent implements OnInit {
 
   scaledWidth:number = 300;
   ngOnInit(){
+
     let scaledWidthString:string = (180*this.imageObject.naturalWidth/this.imageObject.naturalHeight).toFixed(0);
     // console.log('scaled width: ' + scaledWidthString);
     this.scaledWidth = parseInt(scaledWidthString);

@@ -1,10 +1,11 @@
+///<reference path="../../../../node_modules/@types/jasmine/index.d.ts"/>
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { CaptchaComponent } from './captcha/captcha.component';
 import { CaptchaDataService } from './captcha-data.service';
 
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import {HttpClientModule} from "@angular/common/http";
 import { FormsModule } from '@angular/forms';
 
 describe('AppComponent', () => {
@@ -16,13 +17,13 @@ describe('AppComponent', () => {
       ],
 
       imports: [
-        HttpModule,
+        HttpClientModule,
         FormsModule
       ],
-      
+
       providers: [
         CaptchaDataService
-      ]      
+      ]
     }).compileComponents();
   }));
   it('should create the app', async(() => {

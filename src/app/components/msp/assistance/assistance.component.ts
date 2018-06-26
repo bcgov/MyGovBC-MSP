@@ -62,7 +62,9 @@ export class AssistanceComponent {
   }
 
   ngOnDestroy() {
-    this.routerSubscription.unsubscribe();
+      if(this.routerSubscription && !this.routerSubscription.closed) {
+          this.routerSubscription.unsubscribe();
+      }
   }
 
   private initProcessService () {

@@ -1,5 +1,6 @@
 import {Component, Input, EventEmitter, Output, ViewChild, OnInit, ChangeDetectorRef} from '@angular/core';
-import {CompleterService, CompleterData} from 'ng2-completer';
+//import {CompleterService, CompleterData} from "../../../../../../ng2-completer";
+import {CompleterService, CompleterData} from "ng2-completer";
 import {NgForm, FormControl} from "@angular/forms";
 import {BaseComponent} from "../base.component";
 

@@ -5,7 +5,7 @@ import { SendingComponent } from './sending.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspApiService} from "../../service/msp-api.service";
-import {Http, HttpClientModule} from "@angular/http";
+import {HttpClientModule} from "@angular/common/http";
 import { ProcessService } from "../../service/process.service";
 
 describe('SendingComponent', () => {

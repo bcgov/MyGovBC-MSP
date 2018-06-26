@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule }    from '@angular/http';
 import { AssistancePersonalDetailComponent } from './personal-details.component';
 import { MspDataService } from '../../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
@@ -23,6 +22,7 @@ import {CalendarDayValidator} from '../../../common/calendar/calendar-day.valida
 import { ProcessService } from "../../../service/process.service";
 import { SinCheckValidator } from '../../../common/sin/sin.validator';
 import { RouterTestingModule } from "@angular/router/testing";
+import {HttpClientModule} from "@angular/common/http";
 
 
 describe('AssistancePersonalDetailComponent Test', () => {

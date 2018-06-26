@@ -7,7 +7,7 @@ import {MspProgressBarComponent} from "../common/progressBar/progressBar.compone
 import {RouterTestingModule} from "@angular/router/testing";
 import { ProcessService } from "../service/process.service";
 import {MspLogService} from "../service/log.service";
-import { HttpClientModule }    from '@angular/http';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('ApplicationComponent', () => {
 

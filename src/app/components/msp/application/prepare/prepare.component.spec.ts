@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule }    from '@angular/http';
+import { HttpClientModule } from "@angular/common/http";
 import { PrepareComponent } from './prepare.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';

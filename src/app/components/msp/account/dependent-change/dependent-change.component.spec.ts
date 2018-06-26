@@ -10,7 +10,6 @@ import { Relationship } from "../../model/status-activities-documents";
 import { AccountDependentChangeComponent } from "./dependent-change.component";
 import { Person } from '../../model/person.model';
 import { Address } from '../../model/address.model';
-import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
 import { CaptchaDataService } from "../../../../../mygovbc-captcha-widget/src/app/captcha-data.service";
 import { CaptchaComponent } from "../../../../../mygovbc-captcha-widget/src/app/captcha/captcha.component";
 

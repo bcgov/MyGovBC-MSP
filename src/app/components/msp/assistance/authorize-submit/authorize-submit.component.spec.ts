@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule }    from '@angular/http';
 import { AssistanceAuthorizeSubmitComponent } from './authorize-submit.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
@@ -15,9 +14,12 @@ import { MspValidationService } from '../../service/msp-validation.service';
 import { CompletenessCheckService } from '../../service/completeness-check.service';
 import { ProcessService } from "../../service/process.service";
 import {RouterTestingModule} from "@angular/router/testing";
-import { CaptchaDataService } from '../../../mygovbc-captcha-widget/src/app/captcha-data.service'
-import { CaptchaComponent } from '../../../mygovbc-captcha-widget/src/app/captcha/captcha.component'
+//import { CaptchaDataService } from '../../../mygovbc-captcha-widget/src/app/captcha-data.service'
+//import { CaptchaComponent } from '../../../mygovbc-captcha-widget/src/app/captcha/captcha.component'
+import { CaptchaDataService} from "../../../../../mygovbc-captcha-widget/src/app/captcha-data.service";
 import { ModalModule } from "ngx-bootstrap";
+import {HttpClientModule} from "@angular/common/http";
+import {CaptchaComponent} from "../../../../../mygovbc-captcha-widget/src/app/captcha/captcha.component";
 
 describe('AssistanceAuthorizeSubmitComponent Test', () => {
 

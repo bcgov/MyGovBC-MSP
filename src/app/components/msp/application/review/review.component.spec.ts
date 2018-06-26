@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule }    from '@angular/http';
+import { HttpClientModule} from "@angular/common/http";
 import { ReviewComponent } from './review.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
@@ -15,9 +15,9 @@ import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
 
 import { ProcessService } from "../../service/process.service";
+import {CaptchaDataService} from "../../../../../mygovbc-captcha-widget/src/app/captcha-data.service";
+import {CaptchaComponent} from "../../../../../mygovbc-captcha-widget/src/app/captcha/captcha.component";
 
-import { CaptchaDataService } from '../../../mygovbc-captcha-widget/src/app/captcha-data.service'
-import { CaptchaComponent } from '../../../mygovbc-captcha-widget/src/app/captcha/captcha.component'
 
 describe('ReviewComponent', () => {
 

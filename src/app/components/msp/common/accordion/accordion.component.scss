@@ -3,9 +3,9 @@
 // the embedded accordion widget.
 
 // Bootstrap 3 to 4: Included imports
-@import "bootstrap/scss/functions";
-@import "variables.scss";
-@import "bootstrap/scss/mixins";
+@import "../../../../../../node_modules/bootstrap/scss/functions";
+@import "../../../../styles/variables.scss";
+@import "../../../../../../node_modules/bootstrap/scss/mixins";
 
 
 msp-accordion {

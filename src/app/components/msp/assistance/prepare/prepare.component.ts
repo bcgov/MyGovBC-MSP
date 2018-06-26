@@ -1,11 +1,8 @@
 import { Component, ViewChild, AfterViewInit, OnInit, ElementRef, DoCheck} from '@angular/core';
 import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
-import { Observable } from 'rxjs/Rx';
-
-
-
-
+//import { Observable } from 'rxjs/internal';
+import { Observable} from "rxjs/internal/Observable";
 
 
 import { ModalDirective } from 'ngx-bootstrap';
@@ -18,6 +15,9 @@ import {AssistanceYear} from '../../model/assistance-year.model';
 import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
 import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
 import {MspAssistanceYearComponent} from "./assistance-year/assistance-year.component";
+import {fromEvent} from "rxjs/internal/observable/fromEvent";
+import {debounceTime, distinctUntilChanged, filter, map, tap} from "rxjs/operators";
+import { merge} from "rxjs/internal/observable/merge";
 
 @Component({
   templateUrl: './prepare.component.html',
@@ -39,8 +39,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
   @ViewChild('disabilityNursingHomeChoiceModal') public disabilityNursingHomeChoiceModal: ModalDirective;
 
-  
-  lang = require('./i18n');
+    lang = require('./i18n');
   _showDisabilityInfo:boolean = false;
   showAttendantCareInfo = true;
   private _showChildrenInfo:boolean = false;
@@ -115,24 +114,28 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
       this.mspConsentModal.showFullSizeView();
     }
 
-    let ageOver$ = Observable.fromEvent<MouseEvent>(this.ageOver65Btn.nativeElement, 'click')
-      .map( x=>{
+    //removing subscribe wont register clicks
+    let ageOver$ = fromEvent<MouseEvent>(this.ageOver65Btn.nativeElement, 'click').pipe(
+      map( x=>{
         this.dataService.finAssistApp.ageOver65 = true;
-      });
-    let ageUnder$ = Observable.fromEvent<MouseEvent>(this.ageNotOver65Btn.nativeElement, 'click')
-      .map( x=>{
-        this.dataService.finAssistApp.ageOver65 = false;
-      });
+      }));
 
-    this.prepForm.valueChanges.debounceTime(250)
-      .distinctUntilChanged()
-      .filter(
+
+    let ageUnder$ = fromEvent<MouseEvent>(this.ageNotOver65Btn.nativeElement, 'click').pipe(
+      map( x=>{
+        this.dataService.finAssistApp.ageOver65 = false;
+      }));
+
+
+    merge(this.prepForm.valueChanges.pipe(debounceTime(250),
+      distinctUntilChanged(),
+      filter(
         (values) => {
           // console.log('value changes: ', values);
           let isEmptyObj = _.isEmpty(values);
           return !isEmptyObj;
         }
-      ).do(
+      ),tap(
         (value)=>{
           // console.log('form value: ', value);
           if(!value.netIncome || value.netIncome.trim().length === 0){
@@ -158,32 +161,32 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
 
           return value;
         }
-      )
-      .merge(ageOver$).merge(ageUnder$)
-      .merge(
-          Observable.fromEvent<MouseEvent>(this.spouseOver65Btn.nativeElement, 'click')
-            .map(x => {
+      )),ageOver$,ageUnder$,
+
+      merge(
+          fromEvent<MouseEvent>(this.spouseOver65Btn.nativeElement, 'click').pipe(
+            map(x => {
               this.finAssistApp.spouseAgeOver65 = true;
-            })
-      )
-      .merge(
-          Observable.fromEvent<MouseEvent>(this.spouseOver65NegativeBtn.nativeElement, 'click')
-            .map(x => {
+            }))
+      ),
+      merge(
+          fromEvent<MouseEvent>(this.spouseOver65NegativeBtn.nativeElement, 'click').pipe(
+            map(x => {
               this.finAssistApp.spouseAgeOver65 = false;
-            })
-      )
-      .merge(
-          Observable.fromEvent<MouseEvent>(this.hasSpouse.nativeElement, 'click')
-            .map(x => {
+            }))
+      ),
+      merge(
+          fromEvent<MouseEvent>(this.hasSpouse.nativeElement, 'click').pipe(
+            map(x => {
               this.dataService.finAssistApp.setSpouse = true;
-            })
-        )
-      .merge(
-          Observable.fromEvent<MouseEvent>(this.negativeHasSpouse.nativeElement, 'click')
-            .map(x => {
+            }))
+      ),
+      merge(
+          fromEvent<MouseEvent>(this.negativeHasSpouse.nativeElement, 'click').pipe(
+            map(x => {
               this.finAssistApp.setSpouse = false;
-            })
-      )
+            }))
+      ))
       .subscribe(
         values => {
           // console.log('values before saving: ', values);

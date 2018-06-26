@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule }    from '@angular/http';
+import { HttpClientModule} from "@angular/common/http";
 import { PersonalInfoComponent } from './personal-info.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 import { MspDataService } from '../../service/msp-data.service';

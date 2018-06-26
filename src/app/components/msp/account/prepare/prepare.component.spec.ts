@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule }    from '@angular/http';
+import { HttpClientModule} from "@angular/common/http";
 import { AccountPrepareComponent } from './prepare.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
@@ -13,9 +13,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ProcessService } from "../../service/process.service";
 import { MspApiService } from '../../service/msp-api.service';
 
-import { CaptchaDataService } from '../../../mygovbc-captcha-widget/src/app/captcha-data.service'
-import { CaptchaComponent } from '../../../mygovbc-captcha-widget/src/app/captcha/captcha.component'
-
+import {CaptchaDataService} from "../../../../../mygovbc-captcha-widget/src/app/captcha-data.service";
+import {CaptchaComponent} from "../../../../../mygovbc-captcha-widget/src/app/captcha/captcha.component";
 import { ModalModule } from "ngx-bootstrap";
 
 describe('AccountPrepareComponent', () => {

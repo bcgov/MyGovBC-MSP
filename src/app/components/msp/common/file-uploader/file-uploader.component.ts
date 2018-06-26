@@ -1,11 +1,10 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm } from "@angular/forms";
 import * as moment from 'moment';
-import { ModalDirective } from "ngx-bootstrap";
+import { ModalDirective} from "ngx-bootstrap";
 import { PDFJSStatic } from 'pdfjs-dist';
 import { Observable ,  Observer, fromEvent, merge } from 'rxjs';
-import { map, filter, flatMap, scan } from 'rxjs/operators';
-import { merge as pipeMerge }  from 'rxjs/operators';
+import {map, filter, flatMap, scan, delay, retryWhen} from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
 import { MspImage, MspImageError, MspImageProcessingError, MspImageScaleFactors, MspImageScaleFactorsImpl } from '../../model/msp-image';
 import { MspLogService } from "../../service/log.service";
@@ -15,8 +14,6 @@ import { LogEntry } from "../logging/log-entry.model";
 
 let loadImage = require('blueimp-load-image');
 var sha1 = require('sha1');
-const PDFJS: PDFJSStatic = require('pdfjs-dist');
-
 @Component({
     selector: 'msp-file-uploader',
     templateUrl: './file-uploader.html',
@@ -73,9 +70,9 @@ export class FileUploaderComponent
         // if (changes['images'] && (changes['images'].currentValue.length === 0 &&
         //   changes['images'].previousValue.length > 0)) {
         if (changes['images'] && (
-                changes['images'].currentValue.length === 0
-                && changes['images'].previousValue
-                && changes['images'].previousValue.length > 0)
+            changes['images'].currentValue.length === 0
+            && changes['images'].previousValue
+            && changes['images'].previousValue.length > 0)
         ) {
             this.noIdImage = true;
         } else {
@@ -124,35 +121,38 @@ export class FileUploaderComponent
         });
 
         let dropStream = fromEvent<DragEvent>(this.dropZone.nativeElement, "drop");
-        let filesArrayFromDrop = dropStream.pipe(map(
-            function (event) {
-                event.preventDefault();
-                return event.dataTransfer.files;
-            }
-        ));
+        let filesArrayFromDrop = dropStream.pipe(
+            map(
+                function (event) {
+                    event.preventDefault();
+                    return event.dataTransfer.files;
+                }
+            ));
 
         let browseFileStream = fromEvent<Event>(this.browseFileRef.nativeElement, 'change');
         let captureFileStream = fromEvent<Event>(this.captureFileRef.nativeElement, 'change');
 
-        let filesArrayFromInput = merge(browseFileStream, captureFileStream)
-            .pipe(
-                map(
-                    (event) => {
-                        event.preventDefault();
-                        return event.target['files'];
-                    }
-                ),
-                pipeMerge(filesArrayFromDrop),
+        merge(merge(browseFileStream, captureFileStream).pipe(
+            map(
+                (event) => {
+                    event.preventDefault();
+                    return event.target['files'];
+
+                }
+            )),
+            filesArrayFromDrop).pipe(
                 filter(files => {
                     return !!files && files.length && files.length > 0;
                 }),
                 flatMap(
                     (fileList: FileList) => {
+
                         return this.observableFromFiles(fileList, new MspImageScaleFactorsImpl(1, 1));
                     }
                 ),
                 filter(
                     (mspImage: MspImage) => {
+
                         let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
                         if (imageExists) {
                             this.handleError(MspImageError.AlreadyExists, mspImage);
@@ -162,7 +162,8 @@ export class FileUploaderComponent
                     }
                 ),
                 filter((mspImage: MspImage) => {
-                        let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
+
+                    let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
                         if (imageExists) {
                             this.handleError(MspImageError.AlreadyExists, mspImage);
                             this.resetInputFields();
@@ -171,57 +172,62 @@ export class FileUploaderComponent
                     }
                 ),
                 filter((mspImage: MspImage) => {
-                        let imageSizeOk = this.checkImageDimensions(mspImage);
+
+                    let imageSizeOk = this.checkImageDimensions(mspImage);
                         if (!imageSizeOk) {
                             this.handleError(MspImageError.TooSmall, mspImage);
                             this.resetInputFields();
                         }
                         return imageSizeOk;
                     }
-                    )
+                )
             ).subscribe(
-                (file: MspImage) => {
-                    this.handleImageFile(file);
-                    this.resetInputFields();
-                    this.emitIsFormValid(true);
-                },
+            (file: MspImage) => {
 
-                (error) => {
-                    console.log('Error in loading image: %o', error);
+                this.handleImageFile(file);
+                this.resetInputFields();
+                this.emitIsFormValid(true);
+            },
 
-                    /**
-                     * Handle the error if the image is gigantic that after
-                     * 100 times of scaling down by 30% on each step, the image
-                     * is still over 1 MB.
-                     */
-                    if (error.errorCode) {
-                        if (MspImageError.TooBig === error.errorCode) {
-                            this.handleError(MspImageError.TooBig, error.image);
-                        } else if (MspImageError.CannotOpen === error.errorCode) {
-                            if (!error.image) {
-                                error.image = new MspImage();
-                                if (error.rawImageFile)
-                                    error.image.name = error.rawImageFile.name;
-                            }
-                            this.handleError(MspImageError.CannotOpen, error.image);
-                        }  else if (MspImageError.CannotOpenPDF === error.errorCode) {
-                                    this.handleError(MspImageError.CannotOpenPDF, error.image ,error.errorDescription);
-                    }  else {
-                            throw error;
+            (error) => {
+                console.log('Error in loading image: %o', error);
+
+                /**
+                 * Handle the error if the image is gigantic that after
+                 * 100 times of scaling down by 30% on each step, the image
+                 * is still over 1 MB.
+                 */
+                if (error.errorCode) {
+                    if (MspImageError.TooBig === error.errorCode) {
+                        this.handleError(MspImageError.TooBig, error.image);
+                    } else if (MspImageError.CannotOpen === error.errorCode) {
+                        if (!error.image) {
+                            error.image = new MspImage();
+                            if (error.rawImageFile)
+                                error.image.name = error.rawImageFile.name;
                         }
+                        this.handleError(MspImageError.CannotOpen, error.image);
+                    } else if (MspImageError.CannotOpenPDF === error.errorCode) {
+                        this.handleError(MspImageError.CannotOpenPDF, error.image, error.errorDescription);
+                    } else {
+                        throw error;
                     }
-
-                    this.emitIsFormValid();
-
-                },
-                () => {
-                    console.log('completed loading image');
                 }
-            )
 
+                this.emitIsFormValid();
+
+            },
+            () => {
+                console.log('completed loading image');
+            }
+        );
+    };
+
+    test(var1) {
+        console.log(var1);
     }
 
-    ngAfterContentInit() {
+    ngAfterContentInit(){
 
         let imagePlaceholderEnterKeyStream = merge(
             fromEvent<Event>(this.imagePlaceholderRef.nativeElement, 'keyup'),
@@ -265,11 +271,9 @@ export class FileUploaderComponent
 
         // Create our observer
         let fileObservable = Observable.create((observer: Observer<MspImage>) => {
-
             let mspImages = [];
             scaleFactors = scaleFactors.scaleDown(self.appConstants.images.reductionScaleFactor);
             for (var fileIndex = 0; fileIndex < fileList.length; fileIndex++) {
-
                 var file = fileList[fileIndex];
                 console.log('Start processing file ' + fileIndex + ' of ' + fileList.length + ' %s of size %s bytes %s type', file.name, file.size, file.type);
 
@@ -304,7 +308,7 @@ export class FileUploaderComponent
                 } else {
                     // Load image into img element to read natural height and width
                     this.readImage(file, (image: HTMLImageElement ,imageFile: File)  => {
-                           image.name = imageFile.name;
+                            image.id = imageFile.name; //.name deprecated, changed image.name to image.id
                             this.resizeImage(image, self, scaleFactors, observer);
                         },
 
@@ -317,7 +321,7 @@ export class FileUploaderComponent
             }
 
             //retryWhen is potential issue!
-        }).retryWhen(this.retryStrategy(32));
+        }).pipe(retryWhen(this.retryStrategy(32)));
         return fileObservable;
     }
 
@@ -326,9 +330,9 @@ export class FileUploaderComponent
 // While it's still in an image, get it's height and width
         let mspImage: MspImage = new MspImage();
         let reader: FileReader = new FileReader();
-        console.log("image.name:"+image.name);
+        console.log("image.name:"+image.id); //.name deprecated, changed image.name to image.id
         // Copy file properties
-        mspImage.name = image.name ;
+        mspImage.name = image.id ;
         if(pageNumber != 0) { //PDF ..append page page number
             mspImage.name += "-page" + pageNumber;
         }
@@ -437,7 +441,7 @@ export class FileUploaderComponent
     retryStrategy(maxRetry: number) {
         return function (errors: Observable<MspImageProcessingError>) {
 
-            // TODO: COMPLETE THIS! For some reason can't get scan() to work, types always malformed.
+            /**Done: COMPLETE THIS! For some reason can't get scan() to work, types always malformed.*/
 
             // return errors.pipe(
             //     // scan((acc, curr) => {acc + curr}, 0)
@@ -446,14 +450,14 @@ export class FileUploaderComponent
             //     }, 0)
             // );
 
-            // TODO: Unsure if we have to re-implement this line. It causes errors, but simply removing it may not be appropriate.
+            // Done: Unsure if we have to re-implement this line. It causes errors, but simply removing it may not be appropriate.
             // NOTE: RxJS-compat might be saving us here and "fixing" the errors. See if errors return when we remove rxjs-compat.
             // return errors.pipe(scan((acc, curr) => acc + curr, 0))
 
 
-            return errors.scan(
-            // return errors.pipe(
-                (acc, error, index) => {
+            return errors.pipe(scan(
+                // return errors.pipe(
+                (acc, error:any, index) => {
                     // console.log('Error encountered: %o', error);;
 
                     /**
@@ -477,7 +481,7 @@ export class FileUploaderComponent
                         throw error;
                     }
                 }, 0
-            ).delay(2);
+            ),delay(2));
         }
     };
 
@@ -729,3 +733,5 @@ export class FileUploaderComponent
     }
 
 }
+
+const PDFJS: PDFJSStatic = require('pdfjs-dist');

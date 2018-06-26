@@ -1,7 +1,6 @@
 import {TestBed} from '@angular/core/testing'
 import {Component, ViewChild, AfterViewInit, OnInit, ElementRef} from '@angular/core';
 import {FormsModule, FormGroup, NgForm, AbstractControl} from '@angular/forms';
-import { HttpClientModule } from '@angular/http';
 
 import {AssistancePrepareComponent} from './prepare.component'
 import {DeductionCalculatorComponent} from './deduction-calculator/deduction-calculator.component';
@@ -16,6 +15,7 @@ import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-
 import {MspAssistanceYearComponent} from "./assistance-year/assistance-year.component";
 import { MspLogService } from '../../service/log.service';
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
+import {HttpClientModule} from "@angular/common/http";
 
 
 describe('AssistancePrepareComponent', () => {

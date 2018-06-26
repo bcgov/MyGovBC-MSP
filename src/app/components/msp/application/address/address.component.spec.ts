@@ -1,6 +1,5 @@
 import {TestBed, inject, async} from '@angular/core/testing'
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule }    from '@angular/http';
 import { AddressComponent } from './address.component'
 import { MspDataService } from '../../service/msp-data.service';
 import { CompletenessCheckService } from '../../service/completeness-check.service';
@@ -20,6 +19,7 @@ import { MspLogService } from '../../service/log.service';
 import { MspValidationService } from '../../service/msp-validation.service';
 import { ProcessService } from "../../service/process.service";
 import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('Application Address Component Test', () => {
 

@@ -7,9 +7,9 @@ import {ProgressBarHelper} from './ProgressBarHelper';
 import {MspDataService} from '../service/msp-data.service';
 import {environment} from '../../../../environments/environment';
 import {Router, NavigationEnd} from '@angular/router';
-import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import {MspLogService} from '../service/log.service';
+import {Subscription} from "rxjs/internal/Subscription";
 
 
 require('./account.component.scss');
@@ -56,7 +56,10 @@ export class AccountComponent {
     }
 
     ngOnDestroy() {
-        this.routerSubscription.unsubscribe();
+        if(this.routerSubscription && !this.routerSubscription.closed) {
+            this.routerSubscription.unsubscribe();
+        }
+        /*this.routerSubscription.unsubscribe();*/
     }
 
 

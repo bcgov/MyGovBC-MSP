@@ -1,6 +1,9 @@
 import {Component, ElementRef, ViewChild, SimpleChanges, NgZone,
-  ChangeDetectorRef, Output, Input, AfterViewInit, OnInit, OnChanges, EventEmitter} from '@angular/core';
-import { Http, Response } from '@angular/http';
+  ChangeDetectorRef, Output, Input, AfterViewInit, OnInit, OnChanges, EventEmitter} from '@angular/core/';
+/*
+import { Response } from '@angular/http';
+*/
+import { HttpClient, HttpResponse} from "@angular/common/http";
 import { CaptchaDataService } from '../captcha-data.service';
 
 @Component({
@@ -52,7 +55,7 @@ export class CaptchaComponent implements AfterViewInit, OnInit, OnChanges {
     window['ca.bcgov.captchaRefresh'] = this.publicForceRefresh.bind(this);
 
     // if(!this.userPromptMessage){
-    //   this.userPromptMessage = "Enter the text you either see in the box or you hear in the audio";      
+    //   this.userPromptMessage = "Enter the text you either see in the box or you hear in the audio";
     // }
   }
   ngAfterViewInit() {
@@ -63,7 +66,7 @@ export class CaptchaComponent implements AfterViewInit, OnInit, OnChanges {
       && (changes.reloadCaptcha.currentValue != changes.reloadCaptcha.previousValue)){
         this.getNewCaptcha(false);
       }
-  }  
+  }
 
   forceRefresh(){
     this.getNewCaptcha(false);
@@ -72,7 +75,7 @@ export class CaptchaComponent implements AfterViewInit, OnInit, OnChanges {
 
   publicForceRefresh() {
     this.ngZone.run(() => this.forceRefresh());
-  }  
+  }
 
   answerChanged (event:any) {
     if(this.answer.length < 6){
@@ -82,10 +85,10 @@ export class CaptchaComponent implements AfterViewInit, OnInit, OnChanges {
       this.state = CAPTCHA_STATE.VERIFYING_ANSWER;
       this.incorrectAnswer = null;
       this.dataService.verifyCaptcha(this.apiBaseUrl, this.nonce, this.answer, this.validation).subscribe(
-        (res:Response) => {
-          let payload = res.json();
-          if( this.isValidPayload(payload)){
-            this.handleVerify(payload);
+        (res: any) => {
+
+          if( this.isValidPayload(res)){
+            this.handleVerify(res);
           }else{
             this.state = CAPTCHA_STATE.ERROR_VERIFY;
             this.errorVerifyAnswer = this.createErrorTextLine(res);
@@ -118,7 +121,7 @@ export class CaptchaComponent implements AfterViewInit, OnInit, OnChanges {
   /**
    * Case where HTTP 200 response code is received by the payload is incorrect or corrupt.
    * The occurance of this type of case should be rare.
-   * @param payload 
+   * @param payload
    */
   private isValidPayload(payload){
     // console.debug('Response payload: %o', payload);
@@ -161,10 +164,10 @@ export class CaptchaComponent implements AfterViewInit, OnInit, OnChanges {
     if(!this.fetchingAudioInProgress){
       this.fetchingAudioInProgress = true;
       this.dataService.fetchAudio(this.apiBaseUrl, this.validation).subscribe(
-        (response: Response) => {
+        (response: any) => {
           this.fetchingAudioInProgress = false;
-          let payload = response.json();
-          this.audio = payload.audio;
+
+          this.audio = response.audio;
           this.cd.detectChanges();
           if(playImmediately){
             this.audioElement.nativeElement.play();
@@ -191,12 +194,13 @@ export class CaptchaComponent implements AfterViewInit, OnInit, OnChanges {
     }
 
     this.dataService.fetchData(this.apiBaseUrl, this.nonce).subscribe(
-      (response:Response) => {
+      (response: any) => {
         this.state = CAPTCHA_STATE.SUCCESS_FETCH_IMG;
 
-        let payload = response.json();
-        this.imageContainer.nativeElement.innerHTML = payload.captcha;
-        this.validation = payload.validation;
+        let payload = response;//.json();
+
+        this.imageContainer.nativeElement.innerHTML = response.captcha;
+        this.validation = response.validation;
         this.cd.detectChanges();
 
         if(this.eagerFetchAudio === 'true'){

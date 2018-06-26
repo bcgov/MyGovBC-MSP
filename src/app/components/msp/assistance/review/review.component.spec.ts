@@ -13,10 +13,10 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MspCancelComponent} from "../../common/cancel/cancel.component";
 import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import {MspLogService} from "../../service/log.service";
-import {HttpClientModule} from "@angular/http";
 import { ModalModule } from "ngx-bootstrap";
 
 import { ProcessService } from "../../service/process.service";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('AssistanceReviewComponent', () => {
 
