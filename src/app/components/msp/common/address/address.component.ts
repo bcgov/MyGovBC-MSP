@@ -7,6 +7,7 @@ import {Address} from "../../model/address.model";
 import {BaseComponent} from "../base.component";
 import {MspProvinceComponent} from "../province/province.component";
 import {MspCountryComponent} from "../country/country.component";
+import {debounceTime} from "rxjs/operators";
 
 @Component({
   selector: 'msp-address',
@@ -46,8 +47,9 @@ export class MspAddressComponent extends BaseComponent {
   }
 
   ngAfterViewInit(): void {
-    this.form.valueChanges.subscribe(values => {
-      this.onChange.emit(values);
+    // https://github.com/angular/angular/issues/24818
+      this.form.valueChanges.pipe(debounceTime(0)).subscribe((values) => {
+          this.onChange.emit(values);
     });
   }
 
