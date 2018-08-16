@@ -15,8 +15,9 @@ import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
 import { MspLogService } from '../../service/log.service';
 
 import { ProcessService } from "../../service/process.service";
-import {CaptchaDataService} from "../../../../../mygovbc-captcha-widget/src/app/captcha-data.service";
-import {CaptchaComponent} from "../../../../../mygovbc-captcha-widget/src/app/captcha/captcha.component";
+import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
+import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
+
 
 
 describe('ReviewComponent', () => {

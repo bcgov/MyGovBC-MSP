@@ -16,10 +16,12 @@ import { ProcessService } from "../../service/process.service";
 import {RouterTestingModule} from "@angular/router/testing";
 //import { CaptchaDataService } from '../../../mygovbc-captcha-widget/src/app/captcha-data.service'
 //import { CaptchaComponent } from '../../../mygovbc-captcha-widget/src/app/captcha/captcha.component'
-import { CaptchaDataService} from "../../../../../mygovbc-captcha-widget/src/app/captcha-data.service";
+
 import { ModalModule } from "ngx-bootstrap";
 import {HttpClientModule} from "@angular/common/http";
-import {CaptchaComponent} from "../../../../../mygovbc-captcha-widget/src/app/captcha/captcha.component";
+import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
+import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
+
 
 describe('AssistanceAuthorizeSubmitComponent Test', () => {
 

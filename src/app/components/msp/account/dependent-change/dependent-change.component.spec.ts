@@ -10,8 +10,8 @@ import { Relationship } from "../../model/status-activities-documents";
 import { AccountDependentChangeComponent } from "./dependent-change.component";
 import { Person } from '../../model/person.model';
 import { Address } from '../../model/address.model';
-import { CaptchaDataService } from "../../../../../mygovbc-captcha-widget/src/app/captcha-data.service";
-import { CaptchaComponent } from "../../../../../mygovbc-captcha-widget/src/app/captcha/captcha.component";
+import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
+import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
 
 import { RouterTestingModule } from "@angular/router/testing";
 import { MspLoggerDirective } from "../../common/logging/msp-logger.directive";
