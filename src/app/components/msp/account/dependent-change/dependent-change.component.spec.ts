@@ -40,7 +40,7 @@ import { MspDepartureDateComponent } from "../../common/departure-date/departure
 import { MspReturnDateComponent } from "../../common/return-date/return-date.component";
 import { MspOutofBCRecordComponent } from '../../common/outof-bc/outof-bc.component';
 import { Mod11CheckValidator } from "../../common/phn/phn.validator";
-import { Ng2CompleterModule } from "ng2-completer";
+import { TypeaheadModule } from 'ngx-bootstrap'
 import { ModalModule } from "ngx-bootstrap";
 
 import { MspLogService } from '../../service/log.service';
@@ -77,7 +77,7 @@ describe("AccountDependentChangeComponent", () => {
                 prefix: 'ca.bc.gov.msp',
                 storageType: 'sessionStorage'
             }), 
-            RouterTestingModule, Ng2CompleterModule, ModalModule.forRoot()]
+            RouterTestingModule, TypeaheadModule, ModalModule.forRoot()]
         })
         .compileComponents();
     

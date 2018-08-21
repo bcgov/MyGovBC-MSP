@@ -7,7 +7,7 @@ import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage
 import {MspApplication} from "../../model/application.model";
 import {MspAddressComponent} from "../../common/address/address.component";
 import {MspPhoneComponent} from "../../common/phone/phone.component";
-import {Ng2CompleterModule} from "ng2-completer";
+import { TypeaheadModule } from 'ngx-bootstrap';
 import {MspProvinceComponent} from "../../common/province/province.component";
 import {MspDepartureDateComponent} from "../../common/departure-date/departure-date.component";
 import {MspReturnDateComponent} from "../../common/return-date/return-date.component";
@@ -28,7 +28,7 @@ describe('Application Address Component Test', () => {
             declarations: [AddressComponent, MspAddressComponent, MspPhoneComponent, MspProvinceComponent,
                 MspDepartureDateComponent, MspReturnDateComponent, MspCountryComponent,
                 MspCancelComponent, MspLoggerDirective],
-            imports: [FormsModule, Ng2CompleterModule, ModalModule.forRoot(), HttpClientModule, RouterTestingModule, LocalStorageModule.withConfig({
+            imports: [FormsModule, TypeaheadModule, ModalModule.forRoot(), HttpClientModule, RouterTestingModule, LocalStorageModule.withConfig({
                 prefix: 'ca.bc.gov.msp',
                 storageType: 'sessionStorage'
               })],

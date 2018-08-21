@@ -4,7 +4,7 @@ import { MspAddressComponent } from './address.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspProvinceComponent} from "../province/province.component";
-import {Ng2CompleterModule} from "ng2-completer";
+import { TypeaheadModule } from 'ngx-bootstrap';
 import {MspCountryComponent} from "../country/country.component";
 
 describe('MspAddressComponent', () => {
@@ -12,7 +12,7 @@ describe('MspAddressComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MspAddressComponent, MspProvinceComponent, MspCountryComponent],
-      imports: [FormsModule, Ng2CompleterModule, LocalStorageModule.withConfig({
+      imports: [FormsModule, TypeaheadModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],

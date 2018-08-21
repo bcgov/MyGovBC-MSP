@@ -25,7 +25,7 @@ import { MspOutofBCRecordComponent } from '../../common/outof-bc/outof-bc.compon
 import { Mod11CheckValidator } from "../../common/phn/phn.validator";
 import { MspCountryComponent } from "../../common/country/country.component";
 import { MspDataService } from '../../service/msp-data.service';
-import { Ng2CompleterModule } from "ng2-completer";
+import { TypeaheadModule } from 'ngx-bootstrap'
 import { MspDepartureDateComponent } from '../../common/departure-date/departure-date.component';
 import {MspReturnDateComponent} from '../../common/return-date/return-date.component';
 import { Person } from '../../model/person.model';
@@ -49,7 +49,7 @@ describe('AddDependentComponent', () => {
       declarations: [AddDependentComponent, MspToggleComponent, MspStatusInCanadaRadioComponent, MspDateComponent, AccountPersonalDetailsComponent, CalendarYearValidator, CalendarMonthValidator, CalendarDayValidator, CalendarYearFormatter, AddNewDependentBeneficiaryComponent, MspNameComponent, MspGenderComponent, MspBirthDateComponent, MspPhnComponent, MspPhoneComponent, MspDischargeDateComponent, MspSchoolDateComponent, MspAddressComponent, MspProvinceComponent, MspArrivalDateComponent, MspOutofBCRecordComponent, Mod11CheckValidator, MspCountryComponent, MspDepartureDateComponent, MspReturnDateComponent, ServicesCardDisclaimerModalComponent],
       imports: [
         FormsModule, 
-        Ng2CompleterModule, 
+        TypeaheadModule,
         LocalStorageModule.withConfig({
           prefix: 'ca.bc.gov.msp',
           storageType: 'sessionStorage'

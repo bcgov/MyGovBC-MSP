@@ -16,7 +16,7 @@ import {MspSchoolDateComponent} from "../../../common/schoolDate/school-date.com
 import {FileUploaderComponent} from "../../../common/file-uploader/file-uploader.component";
 import {MspAddressComponent} from "../../../common/address/address.component";
 import {Mod11CheckValidator} from "../../../common/phn/phn.validator";
-import {Ng2CompleterModule} from "ng2-completer";
+import { TypeaheadModule } from 'ngx-bootstrap';
 import {ThumbnailComponent} from "../../../common/thumbnail/thumbnail.component";
 import {ModalModule, AccordionModule} from "ngx-bootstrap";
 import {HealthNumberComponent} from "../../../common/health-number/health-number.component";
@@ -40,7 +40,7 @@ describe('PersonalDetailsComponent', () => {
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,
         MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspImageErrorModalComponent,ServicesCardDisclaimerModalComponent,
         CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator],
-      imports: [FormsModule, Ng2CompleterModule, ModalModule.forRoot(), AccordionModule.forRoot(), LocalStorageModule.withConfig({
+      imports: [FormsModule, TypeaheadModule, ModalModule.forRoot(), AccordionModule.forRoot(), LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],

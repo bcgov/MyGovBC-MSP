@@ -6,7 +6,7 @@ import { MspProvinceComponent } from '../../../common/province/province.componen
 import { MspOutofBCRecordComponent } from '../../../common/outof-bc/outof-bc.component';
 import { MspDischargeDateComponent } from '../../../common/discharge-date/discharge-date.component';
 import { CalendarYearFormatter } from '../../../common/calendar/calendar-year-formatter.component';
-import { Ng2CompleterModule } from "ng2-completer";
+import { TypeaheadModule } from 'ngx-bootstrap'
 import { MspDepartureDateComponent } from '../../../common/departure-date/departure-date.component';
 import { Person } from '../../../model/person.model';
 import { Relationship } from '../../../model/status-activities-documents';
@@ -27,7 +27,7 @@ describe('AddNewDependentBeneficiaryComponent', () => {
         MspReturnDateComponent,
         AddNewDependentBeneficiaryComponent,
         MspDepartureDateComponent],
-      imports: [FormsModule, Ng2CompleterModule]
+      imports: [FormsModule, TypeaheadModule]
     })
       .compileComponents();
   }));

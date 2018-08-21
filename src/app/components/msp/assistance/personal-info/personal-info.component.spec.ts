@@ -11,7 +11,7 @@ import {MspBirthDateComponent} from "../../common/birthdate/birthdate.component"
 import {MspAddressComponent} from "../../common/address/address.component";
 import {Mod11CheckValidator} from "../../common/phn/phn.validator";
 import {MspProvinceComponent} from "../../common/province/province.component";
-import {Ng2CompleterModule} from "ng2-completer";
+import { TypeaheadModule } from 'ngx-bootstrap';
 import {AssistancePersonalDetailComponent} from "./personal-details/personal-details.component";
 import {MspPhoneComponent} from "../../common/phone/phone.component";
 import {MspGenderComponent} from "../../common/gender/gender.component";
@@ -39,7 +39,7 @@ describe('AssistancePersonalInfoComponent Test', () => {
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent, MspCountryComponent,
         Mod11CheckValidator, MspGenderComponent, MspCancelComponent, MspLoggerDirective,
         CalendarYearFormatter,CalendarYearValidator,CalendarDayValidator, SinCheckValidator],
-      imports: [FormsModule, Ng2CompleterModule, ModalModule.forRoot(), HttpClientModule,RouterTestingModule, LocalStorageModule.withConfig({
+      imports: [FormsModule, TypeaheadModule, ModalModule.forRoot(), HttpClientModule,RouterTestingModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],
