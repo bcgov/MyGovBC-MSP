@@ -79,7 +79,7 @@
     "ngx-bootstrap": "3.0.1",
     "nodemailer": "^4.6.7",
     "popper.js": "^1.14.3",
-    "protractor": "~5.1.0",
+    "protractor": "^5.4.0",
     "rx-dom": "^7.0.3",
     "rxjs": "^6.1.0",
     "sha1": "^1.1.1",
