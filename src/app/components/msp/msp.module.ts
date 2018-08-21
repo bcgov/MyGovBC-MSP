@@ -7,7 +7,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { CaptchaDataService } from 'mygovbc-captcha-widget/src/app/captcha-data.service'
 import { CaptchaComponent } from 'mygovbc-captcha-widget/src/app/captcha/captcha.component'
-import { Ng2CompleterModule } from "ng2-completer";
 import { AccordionModule, ModalModule } from 'ngx-bootstrap';
 import { AccountComponent } from './account/account.component';
 import { AddDependentComponent } from './account/add-dependents/add-dependents.component';
@@ -88,7 +87,7 @@ import { MspApiService } from "./service/msp-api.service";
 import { MspDataService } from './service/msp-data.service';
 import { MspValidationService } from './service/msp-validation.service';
 import { ProcessService } from "./service/process.service";
-
+import { TypeaheadModule } from 'ngx-bootstrap';
 
 
 
@@ -260,9 +259,9 @@ const APP_ROUTES : Routes = [
         FormsModule,
         ModalModule,
         AccordionModule,
-        Ng2CompleterModule,
         HttpClientModule,
         RouterModule.forChild(APP_ROUTES),
+        TypeaheadModule.forRoot(),
         LocalStorageModule.withConfig({
             prefix: 'ca.bc.gov.msp',
             storageType: 'sessionStorage'

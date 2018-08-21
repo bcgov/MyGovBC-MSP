@@ -7,7 +7,7 @@ import { CoreFooterComponent } from './components/core/footer';
 import { CoreHeaderComponent } from './components/core/header';
 import { MspModule } from './components/msp/msp.module';
 import { HttpClientModule} from "@angular/common/http";
-import { Ng2CompleterModule } from "ng2-completer";
+
 
 require('./index.scss');
 @NgModule({
@@ -17,7 +17,6 @@ require('./index.scss');
     HttpClientModule,
     ModalModule.forRoot(),
     AccordionModule.forRoot(),
-    Ng2CompleterModule,
     TooltipModule.forRoot(),
     RouterModule.forRoot([
       { path: '', redirectTo: 'msp', pathMatch: 'full' }

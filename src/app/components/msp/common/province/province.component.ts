@@ -1,8 +1,7 @@
 import {Component, Input, EventEmitter, Output, ViewChild, OnInit, ChangeDetectorRef} from '@angular/core';
-//import {CompleterService, CompleterData} from "../../../../../../ng2-completer";
-import {CompleterService, CompleterData} from "ng2-completer";
 import {NgForm, FormControl} from "@angular/forms";
 import {BaseComponent} from "../base.component";
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 
 @Component({
   selector: 'msp-province',
@@ -29,13 +28,13 @@ export class MspProvinceComponent extends BaseComponent implements OnInit {
    */
   @Input() showCountries: boolean = false;
 
-  @ViewChild('formRef') form: NgForm;
+   provinceAndCountryData:Array<{code:string, name:string}> ;
+
+
+    @ViewChild('formRef') form: NgForm;
   @ViewChild('provinceInput') inputField: FormControl;
 
-  updateModel(event:string){
-    this.province=event;
-    this.onChange.emit(event)    
-  }
+
   handleKeyboard(event:KeyboardEvent){
     const input = event.target as HTMLInputElement;
     if(!input.value){
@@ -48,10 +47,7 @@ export class MspProvinceComponent extends BaseComponent implements OnInit {
    */
   @Input() exceptBC: boolean = false;
 
-  /**
-   * Auto complete
-   */
-  public dataService: CompleterData;
+
   private provinceData = this.lang('./en/index.js').provinceData;
   private stateData = this.lang('./en/index.js').stateData;
   private countryData = this.lang('./en/index.js').countryData;
@@ -60,8 +56,7 @@ export class MspProvinceComponent extends BaseComponent implements OnInit {
     return Array().concat(this.provinceData, this.stateData);
   }
 
-  constructor(private completerService: CompleterService,
-    private cd: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef) {
     super(cd);
   }
 
@@ -74,8 +69,31 @@ export class MspProvinceComponent extends BaseComponent implements OnInit {
       data = Array().concat(data, this.countryData);
     }
 
-    this.dataService = this.completerService.local(data, 'name', 'name');
+    this.provinceAndCountryData = data ;
   }
-  
-  
+
+    // to handle user typing a non-dropdown value.. used in mailing address where province cant be a drop down item for non-canada countires
+    typeaheadNoResults(event: boolean): void {
+        if (event) {
+          this.onChange.emit(this.province.trim());
+        }
+    }
+
+    updateModel(event: TypeaheadMatch): void {
+        if(event && event.item) {
+            let eventVal: string = event.item['name'].trim();
+            this.province=eventVal;
+            this.onChange.emit(eventVal)
+        }
+    }
+
+    isValid(): boolean {
+
+        if (this.province && this.province.trim().length >0 ) {
+          return true;
+        }
+        return false;
+    }
+
+
 }

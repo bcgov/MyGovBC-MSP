@@ -76,7 +76,6 @@
     "lodash": "^4.17.5",
     "moment": "^2.19.3",
     "mygovbc-captcha-widget": "3.0.0",
-    "ng2-completer": "3.0.0-beta.1",
     "ngx-bootstrap": "3.0.1",
     "nodemailer": "^4.6.7",
     "popper.js": "^1.14.3",
