@@ -7,22 +7,24 @@ import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage
 import {MspApiService} from "../../service/msp-api.service";
 import { ProcessService } from "../../service/process.service";
 import {HttpClientModule} from "@angular/common/http";
+import {TransmissionErrorView} from "../../common/transmission-error-view/transmission-error-view.component";
+import {MspLogService} from "../../service/log.service";
 
 describe('SendingComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AccountSendingComponent],
+      declarations: [AccountSendingComponent ,TransmissionErrorView],
       imports: [FormsModule, HttpClientModule, RouterTestingModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],
-      providers: [MspDataService, MspApiService, ProcessService,]
+      providers: [MspDataService, MspApiService, ProcessService,MspLogService]
     })
   });
   it ('should work', () => {
-    // let fixture = TestBed.createComponent(AccountSendingComponent);
-    // expect(fixture.componentInstance instanceof AccountSendingComponent).toBe(true, 'should create AccountSendingComponent');
+     let fixture = TestBed.createComponent(AccountSendingComponent);
+     expect(fixture.componentInstance instanceof AccountSendingComponent).toBe(true, 'should create AccountSendingComponent');
 
   });
 })
