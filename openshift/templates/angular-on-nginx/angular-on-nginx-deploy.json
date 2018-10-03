@@ -243,14 +243,14 @@
       "displayName": "Source Name",
       "name": "SOURCE_NAME",
       "required": true,
-      "value": "msp-1.3"
+      "value": "msp"
     },
     {
       "description": "The name assigned to all of the openshift objects defined in this template. It is also the name of runtime image you want.",
       "displayName": "Name",
       "name": "NAME",
       "required": true,
-      "value": "msp-1-3"
+      "value": "msp"
     },
     {
       "description": "The namespace where to get the above image name",
@@ -288,7 +288,7 @@
       "description": "The exposed hostname that will route to the service, e.g., myappname.pathfinder.gov.bc.ca, if left blank a value will be defaulted.",
       "displayName": "Application Hostname",
       "name": "APPLICATION_DOMAIN",
-      "value": "gcpe-mygovbc-msp-1-3-dev.pathfinder.gov.bc.ca"
+      "value": "gcpe-mygovbc-msp-dev.pathfinder.gov.bc.ca"
     },
     {
       "description": "The TAG name for this environment, e.g., dev, test, prod",
