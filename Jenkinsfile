@@ -1,8 +1,12 @@
 // Edit your app's name below
 def APP_NAME = 'msp'
-def APP_VERSION = '1.3'
+
+/// def APP_VERSION = '1.3'
+
 // msp-1.3-build-angular-app-build
-def CHAINED_ANGULAR_BUILD = APP_NAME + '-' + APP_VERSION + '-build-angular-app-build'
+
+/// def CHAINED_ANGULAR_BUILD = APP_NAME + '-' + APP_VERSION + '-build-angular-app-build'
+def CHAINED_ANGULAR_BUILD = APP_NAME + '-build-angular-app-build'
 
 // Edit your environment TAG names below
 def TAG_NAMES = ['dev', 'test', 'prod']
@@ -10,8 +14,11 @@ def TAG_NAMES_BACKUP = ['devbackup', 'testbackup', 'prodbackup']
 
 // You shouldn't have to edit these if you're following the conventions
 def NGINX_BUILD_CONFIG = 'nginx-runtime'
-def BUILD_CONFIG = APP_NAME + '-' + APP_VERSION + '-build'
-def IMAGESTREAM_NAME = APP_NAME + '-' + APP_VERSION
+
+/// def BUILD_CONFIG = APP_NAME + '-' + APP_VERSION + '-build'
+/// def IMAGESTREAM_NAME = APP_NAME + '-' + APP_VERSION
+def BUILD_CONFIG = APP_NAME + '-build'
+def IMAGESTREAM_NAME = APP_NAME 
 
 node {
 
