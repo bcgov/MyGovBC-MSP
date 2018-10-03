@@ -15,8 +15,7 @@
     "dev": "ng serve -o",
     "dev-build": "ng build",
     "build": "ng build --prod",
-    "test": "ng test",
-    "postinstall": "npm run build"
+    "test": "ng test"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.7.4",
