@@ -11,6 +11,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "deployUrl": "/msp/",
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -18,7 +19,6 @@
             "polyfills": "src/polyfills.ts",
             "stylePreprocessorOptions": {
               "includePaths": [
-                "node_modules",
                 "src/app/styles"
               ]
             },
@@ -34,18 +34,19 @@
           },
           "configurations": {
             "production": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
-                }
-              ]
-            },
-            "test": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.test.ts"
                 }
               ]
             }
@@ -55,14 +56,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "msp:build",
-            "port": 4300
+            "port": 4300,
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
               "browserTarget": "msp:build:production"
-            },
-            "test": {
-              "browserTarget": "msp:build:test"
             }
           }
         },
@@ -80,6 +79,11 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/app/styles"
+              ]
+            },
             "styles": [
               "src/app/index.scss"
             ],
@@ -94,7 +98,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "tsconfig.app.json"
+              "tsconfig.app.json",
+              "tsconfig.spec.json"
             ],
             "exclude": []
           }
@@ -121,6 +126,11 @@
           }
         }
       }
+    }
+  },
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false
     }
   },
   "defaultProject": "msp",

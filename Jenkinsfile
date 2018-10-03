@@ -15,12 +15,12 @@ def IMAGESTREAM_NAME = APP_NAME + '-' + APP_VERSION
 
 node {
 
-  stage('build nginx runtime') {
+  stage('build nginx') {
     echo "Building: " + NGINX_BUILD_CONFIG
     openshiftBuild bldCfg: NGINX_BUILD_CONFIG, showBuildLogs: 'true'
   }
 
-  stage('build ' + CHAINED_ANGULAR_BUILD) {
+  stage('build chained app ' + CHAINED_ANGULAR_BUILD) {
     echo "Building Chained Angular Build: " + CHAINED_ANGULAR_BUILD
     openshiftBuild bldCfg: CHAINED_ANGULAR_BUILD, showBuildLogs: 'true'
   }
@@ -28,9 +28,6 @@ node {
   stage('build ' + BUILD_CONFIG) {
     echo "Building: " + BUILD_CONFIG
     openshiftBuild bldCfg: BUILD_CONFIG, showBuildLogs: 'true'
-    // old tag
-    // openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: '$BUILD_ID', srcStream: IMAGESTREAM_NAME, srcTag: 'latest'
-    // new tag
     IMAGE_HASH = sh (
        script: """oc get istag ${IMAGESTREAM_NAME}:latest -o template --template=\"{{.image.dockerImageReference}}\"|awk -F \":\" \'{print \$3}\'""",
  	  returnStdout: true).trim()
@@ -39,10 +36,6 @@ node {
 
   stage('deploy-' + TAG_NAMES[0]) {
     echo "Deploying to: " + TAG_NAMES[0]
-    // old tag
-    // echo "tag source " + IMAGESTREAM_NAME + " with tag " + '$BUILD_ID' + " to dest " + IMAGESTREAM_NAME
-    // openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[0], srcStream: IMAGESTREAM_NAME, srcTag: '$BUILD_ID'
-    // new tag
     openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[0], srcStream: IMAGESTREAM_NAME, srcTag: "${IMAGE_HASH}"
   }
 }
@@ -50,9 +43,6 @@ node {
 node {
   stage('deploy-' + TAG_NAMES[1]) {
     input "Deploy to " + TAG_NAMES[1] + "?"
-    // old tag
-    // openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[1], srcStream: IMAGESTREAM_NAME, srcTag: '$BUILD_ID'
-    // new tag
     echo "Deploy to " + TAG_NAMES[1] + " " + IMAGESTREAM_NAME + ":" + "${IMAGE_HASH}"
     openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES_BACKUP[1], srcStream: IMAGESTREAM_NAME, srcTag: TAG_NAMES[1]
     openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[1], srcStream: IMAGESTREAM_NAME, srcTag: "${IMAGE_HASH}"
@@ -62,9 +52,6 @@ node {
 node {
   stage('deploy-'  + TAG_NAMES[2]) {
     input "Deploy to " + TAG_NAMES[2] + "?"
-    // old tag
-    // openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[2], srcStream: IMAGESTREAM_NAME, srcTag: '$BUILD_ID'
-    // new tag
     echo "Deploy to " + TAG_NAMES[2] + " " + IMAGESTREAM_NAME + ":" + "${IMAGE_HASH}"
     openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES_BACKUP[2], srcStream: IMAGESTREAM_NAME, srcTag: TAG_NAMES[2]
     openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[2], srcStream: IMAGESTREAM_NAME, srcTag: "${IMAGE_HASH}"

@@ -12,9 +12,9 @@
   "scripts": {
     "prestart": "npm install",
     "start": "npm run dev",
-    "dev": "ng serve --o --proxy-config proxy.conf.json",
+    "dev": "ng serve -o",
     "dev-build": "ng build",
-    "build": "ng build --prod --deploy-url /msp",
+    "build": "ng build --prod",
     "test": "ng test",
     "postinstall": "npm run build"
   },
