@@ -13,17 +13,17 @@
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${APPLICATION_NAME}-${GIT_REFERENCE}"
+        "name": "${APPLICATION_NAME}"
       }
     },
     {
       "kind": "BuildConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${APPLICATION_NAME}-${GIT_REFERENCE}",
+        "name": "${APPLICATION_NAME}",
         "creationTimestamp": null,
         "labels": {
-          "app": "${APPLICATION_NAME}-${GIT_REFERENCE}"
+          "app": "${APPLICATION_NAME}"
         },
         "annotations": {
           "openshift.io/generated-by": "OpenShiftWebConsole"
@@ -53,14 +53,14 @@
             "from": {
               "kind": "ImageStreamTag",
               "namespace": "openshift",
-              "name": "nodejs:6"
+              "name": "nodejs:8"
             }
           }
         },
         "output": {
           "to": {
             "kind": "ImageStreamTag",
-            "name": "${APPLICATION_NAME}-${GIT_REFERENCE}:latest"
+            "name": "${APPLICATION_NAME}:latest"
           }
         },
         "resources": {},
@@ -75,12 +75,12 @@
       "kind": "BuildConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "${APPLICATION_NAME}-${GIT_REFERENCE}-pipeline",
+        "name": "${APPLICATION_NAME}-pipeline",
         "creationTimestamp": null,
         "labels": {
-          "app": "${APPLICATION_NAME}-${GIT_REFERENCE}-pipeline",
-          "name": "${APPLICATION_NAME}-${GIT_REFERENCE}-pipeline",
-          "template": "${APPLICATION_NAME}-${GIT_REFERENCE}-pipeline"
+          "app": "${APPLICATION_NAME}-pipeline",
+          "name": "${APPLICATION_NAME}-pipeline",
+          "template": "${APPLICATION_NAME}-pipeline"
         }
       },
       "spec": {
