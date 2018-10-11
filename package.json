@@ -41,7 +41,9 @@
     "pluralize": "^3.0.0",
     "pdfjs-dist": "^2.0.550",
     "rimraf": "^2.5.2",
-    "protractor": "^5.4.0"
+    "protractor": "^5.4.0",
+    "@types/node": "^10.11.5",
+    "@types/pdfjs-dist": "^0.1.2"
   },
   "engines": {
     "node": ">=4.2.5"
@@ -59,16 +61,12 @@
     "@angular/platform-browser-dynamic": "^6.1.9",
     "@angular/platform-server": "^6.1.9",
     "@angular/router": "^6.1.9",
-    "@types/node": "^10.11.5",
-    "@types/pdfjs-dist": "^0.1.2",
-    "ajv": "^6.5.4",
     "angular-2-local-storage": "^2.0.0",
     "angular2-template-loader": "^0.6.2",
     "angular2-uuid": "^1.1.1",
     "blueimp-canvas-to-blob": "^3.14.0",
     "blueimp-load-image": "^2.19.0",
     "bootstrap": "4.1.3",
-    "browserify-zlib": "^0.2.0",
     "css-loader": "^1.0.0",
     "jquery": "^3.3.1",
     "jxon": "git+https://github.com/bcgov/jxon.git",
@@ -76,12 +74,10 @@
     "moment": "^2.22.2",
     "mygovbc-captcha-widget": "3.0.1",
     "ngx-bootstrap": "3.0.1",
-    "nodemailer": "^4.6.8",
     "popper.js": "^1.14.4",
     "rx-dom": "^7.0.3",
     "rxjs": "^6.3.3",
     "sha1": "^1.1.1",
-    "socks": "^2.2.1",
     "typescript": "2.7.2",
     "url": "^0.11.0",
     "zone.js": "~0.8.26"
