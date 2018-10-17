@@ -529,7 +529,7 @@ export class FileUploaderComponent
         PDFJS.disableStream = true;
 
         const reader = new FileReader();
-        let currentPage = 1;
+        var currentPage = 1;
         const canvas = document.createElement('canvas');
         const imgElsArray: HTMLImageElement[] = [];
         const ctx = canvas.getContext('2d');
