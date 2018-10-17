@@ -102,7 +102,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
     continue(): void {
 
         // console.log('personal info form itself valid: %s', this.form.valid);
-        console.log('==Abhi==combinedValidationState on personal info: %s', this.isAllValid());
+        console.log('combinedValidationState on personal info: %s', this.isAllValid());
         if (!this.isAllValid()){
             console.log('Please fill in all required fields on the form.');
         }else{
