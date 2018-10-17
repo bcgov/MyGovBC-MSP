@@ -1,12 +1,12 @@
 import {Component, Inject, Injectable, AfterContentInit, ViewChild, ElementRef} from '@angular/core';
 import { MspDataService } from '../../service/msp-data.service';
-import {MspApiService} from "../../service/msp-api.service";
-import {Router} from "@angular/router";
-import {ResponseType} from "../../api-model/responseTypes";
-import {MspLogService} from '../../service/log.service'
-import {ProcessService} from "../../service/process.service";
+import {MspApiService} from '../../service/msp-api.service';
+import {Router} from '@angular/router';
+import {ResponseType} from '../../api-model/responseTypes';
+import {MspLogService} from '../../service/log.service';
+import {ProcessService} from '../../service/process.service';
 import {MspAccountApp} from '../../model/account.model';
-import {Relationship} from "../../model/status-activities-documents";
+import {Relationship} from '../../model/status-activities-documents';
 
 @Component({
   templateUrl: 'sending.component.html',
@@ -21,11 +21,11 @@ export class AccountSendingComponent implements AfterContentInit {
   rawError: string;
   rawRequest: string;
 
-  transmissionInProcess:boolean;
-  hasError:boolean;
-  showMoreErrorDetails:boolean;
-  
-  constructor(private dataService: MspDataService, private service: MspApiService, private processService:ProcessService,
+  transmissionInProcess: boolean;
+  hasError: boolean;
+  showMoreErrorDetails: boolean;
+
+  constructor(private dataService: MspDataService, private service: MspApiService, private processService: ProcessService,
     public router: Router, private logService: MspLogService) {
     this.mspAccountApp = this.dataService.getMspAccountApp();
     this.transmissionInProcess = undefined;
@@ -34,7 +34,7 @@ export class AccountSendingComponent implements AfterContentInit {
   }
 
   /**
-   * always regnerate uuid for application and its images 
+   * always regnerate uuid for application and its images
    * When user use browser back button, the uuid are guaranteed to be unique for API server.
    */
   ngAfterContentInit() {
@@ -51,9 +51,9 @@ export class AccountSendingComponent implements AfterContentInit {
       .then((mspAccountApp: MspAccountApp) => {
         this.mspAccountApp = mspAccountApp;
         this.logService.log({name: 'Account - Received refNo ',
-          confirmationNumber: this.mspAccountApp.referenceNumber},"Account - Submission Response Success ");
+          confirmationNumber: this.mspAccountApp.referenceNumber}, 'Account - Submission Response Success ');
 
-        let tempRef = this.mspAccountApp.referenceNumber;
+        const tempRef = this.mspAccountApp.referenceNumber;
           let bcServicesCardElgible = false;
           //check if there is status in canada selected
           if (this.mspAccountApp.accountChangeOptions.statusUpdate) {
@@ -63,11 +63,11 @@ export class AccountSendingComponent implements AfterContentInit {
 
         //check any new beneficiary is added
           if (!bcServicesCardElgible && this.mspAccountApp.accountChangeOptions.dependentChange) {
-              if(this.mspAccountApp.addedSpouse && !this.mspAccountApp.addedSpouse.isExistingBeneficiary && this.mspAccountApp.addedSpouse.bcServiceCardShowStatus ) {
-                  bcServicesCardElgible = true
+              if (this.mspAccountApp.addedSpouse && !this.mspAccountApp.addedSpouse.isExistingBeneficiary && this.mspAccountApp.addedSpouse.bcServiceCardShowStatus ) {
+                  bcServicesCardElgible = true;
               }
-            if (this.mspAccountApp.getAllChildren().filter( child => (child.relationship == Relationship.Child19To24 && !child.isExistingBeneficiary) ).length>0) {
-                bcServicesCardElgible = true
+            if (this.mspAccountApp.getAllChildren().filter( child => (child.relationship == Relationship.Child19To24 && !child.isExistingBeneficiary) ).length > 0) {
+                bcServicesCardElgible = true;
             }
           }
 
@@ -76,8 +76,8 @@ export class AccountSendingComponent implements AfterContentInit {
 
         //  go to confirmation
 
-          this.router.navigate(["/msp/account/confirmation"],
-              {queryParams: {confirmationNum:tempRef,showDepMsg:bcServicesCardElgible}});
+          this.router.navigate(['/msp/account/confirmation'],
+              {queryParams: {confirmationNum: tempRef, showDepMsg: bcServicesCardElgible}});
 
 
 
@@ -86,13 +86,13 @@ export class AccountSendingComponent implements AfterContentInit {
         this.hasError = true;
         this.rawUrl = error.url;
         this.rawError = error;
-        this.rawRequest = error._requestBody
+        this.rawRequest = error._requestBody;
         this.logService.log({name: 'Account - Received Failure ',
           error: error._body,
-          request: error._requestBody},"Account - Submission Response Failure");
+          request: error._requestBody}, 'Account - Submission Response Failure');
         this.transmissionInProcess = false;
 
-        let oldUUID = this.mspAccountApp.uuid;
+        const oldUUID = this.mspAccountApp.uuid;
        this.mspAccountApp.regenUUID();
 
        console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspAccountApp().uuid);

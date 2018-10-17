@@ -8,13 +8,13 @@ export class EligibilityCardComponent {
   lang = require('./i18n');
   @Input() application: FinancialAssistApplication;
   @Input() editRouterLink: string;
-  get _mainDisabilityCredit():number {
+  get _mainDisabilityCredit(): number {
     return this.application.applicantDisabilityCredit;
   }
-  get _spouseDisabilityCredit():number {
+  get _spouseDisabilityCredit(): number {
     return this.application.spouseDisabilityCredit;
   }
-  get _childrenDisabilityCredit():number {
+  get _childrenDisabilityCredit(): number {
     return this.application.childrenDisabilityCredit;
   }
 }

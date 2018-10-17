@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MspDischargeDateComponent } from './discharge-date.component';
 import { MspDataService } from '../../service/msp-data.service';
@@ -15,14 +15,14 @@ describe('MspDischargeDateComponent', () => {
         storageType: 'sessionStorage'
       })],
       providers: [MspDataService,
-        
-        
+
+
       ]
-    })
+    });
   });
   it ('should work', () => {
-    let fixture = TestBed.createComponent(MspDischargeDateComponent);
+    const fixture = TestBed.createComponent(MspDischargeDateComponent);
     expect(fixture.componentInstance instanceof MspDischargeDateComponent).toBe(true, 'should create MspDischargeDateComponent');
 
   });
-})
+});

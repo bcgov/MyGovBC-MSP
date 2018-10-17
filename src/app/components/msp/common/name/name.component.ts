@@ -1,7 +1,7 @@
-import {Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef} from '@angular/core'
-import {Person} from "../../model/person.model";
-import {NgForm} from "@angular/forms";
-import {BaseComponent} from "../base.component";
+import {Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef} from '@angular/core';
+import {Person} from '../../model/person.model';
+import {NgForm} from '@angular/forms';
+import {BaseComponent} from '../base.component';
 
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { AccordionComponent, ModalDirective } from "ngx-bootstrap";
-import { Documents } from "../../model/status-activities-documents";
-import { IdRequirementContent } from "./id-req-content.model.component";
+import { AccordionComponent, ModalDirective } from 'ngx-bootstrap';
+import { Documents } from '../../model/status-activities-documents';
+import { IdRequirementContent } from './id-req-content.model.component';
 
 
 @Component({
@@ -38,7 +38,7 @@ export class MspIdReqModalComponent implements OnInit {
 
     scrollToOpenPanel() {
         if (this.isForAccountChange) {
-         this.modalBodyRef.nativeElement.querySelector(".panel.panel-open").scrollIntoView();
+         this.modalBodyRef.nativeElement.querySelector('.panel.panel-open').scrollIntoView();
         }
     }
     hideFullSizeView() {
@@ -47,7 +47,7 @@ export class MspIdReqModalComponent implements OnInit {
     }
 
     hidePanel() {
-        document.body.classList.remove("IE11Scroll");
+        document.body.classList.remove('IE11Scroll');
 
     }
 }

@@ -1,19 +1,19 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { NgForm } from "@angular/forms";
+import { NgForm } from '@angular/forms';
 import * as moment from 'moment';
-import { ModalDirective} from "ngx-bootstrap";
+import { ModalDirective} from 'ngx-bootstrap';
 import { PDFJSStatic } from 'pdfjs-dist';
 import { Observable ,  Observer, fromEvent, merge } from 'rxjs';
 import {map, filter, flatMap, scan, delay, retryWhen} from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
 import { MspImage, MspImageError, MspImageProcessingError, MspImageScaleFactors, MspImageScaleFactorsImpl } from '../../model/msp-image';
-import { MspLogService } from "../../service/log.service";
-import { MspDataService } from "../../service/msp-data.service";
-import { BaseComponent } from "../base.component";
-import { LogEntry } from "../logging/log-entry.model";
+import { MspLogService } from '../../service/log.service';
+import { MspDataService } from '../../service/msp-data.service';
+import { BaseComponent } from '../base.component';
+import { LogEntry } from '../logging/log-entry.model';
 
-let loadImage = require('blueimp-load-image');
-var sha1 = require('sha1');
+const loadImage = require('blueimp-load-image');
+const sha1 = require('sha1');
 @Component({
     selector: 'msp-file-uploader',
     templateUrl: './file-uploader.html',
@@ -107,8 +107,8 @@ export class FileUploaderComponent
     ngOnInit(): void {
 
 
-        let dragOverStream =
-            fromEvent<DragEvent>(this.dropZone.nativeElement, "dragover");
+        const dragOverStream =
+            fromEvent<DragEvent>(this.dropZone.nativeElement, 'dragover');
 
         /**
          * Must cancel the dragover event in order for the drop event to work.
@@ -120,8 +120,8 @@ export class FileUploaderComponent
             evt.preventDefault();
         });
 
-        let dropStream = fromEvent<DragEvent>(this.dropZone.nativeElement, "drop");
-        let filesArrayFromDrop = dropStream.pipe(
+        const dropStream = fromEvent<DragEvent>(this.dropZone.nativeElement, 'drop');
+        const filesArrayFromDrop = dropStream.pipe(
             map(
                 function (event) {
                     event.preventDefault();
@@ -129,8 +129,8 @@ export class FileUploaderComponent
                 }
             ));
 
-        let browseFileStream = fromEvent<Event>(this.browseFileRef.nativeElement, 'change');
-        let captureFileStream = fromEvent<Event>(this.captureFileRef.nativeElement, 'change');
+        const browseFileStream = fromEvent<Event>(this.browseFileRef.nativeElement, 'change');
+        const captureFileStream = fromEvent<Event>(this.captureFileRef.nativeElement, 'change');
 
         merge(merge(browseFileStream, captureFileStream).pipe(
             map(
@@ -153,7 +153,7 @@ export class FileUploaderComponent
                 filter(
                     (mspImage: MspImage) => {
 
-                        let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
+                        const imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
                         if (imageExists) {
                             this.handleError(MspImageError.AlreadyExists, mspImage);
                             this.resetInputFields();
@@ -163,7 +163,7 @@ export class FileUploaderComponent
                 ),
                 filter((mspImage: MspImage) => {
 
-                    let imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
+                    const imageExists = FileUploaderComponent.checkImageExists(mspImage, this.images);
                         if (imageExists) {
                             this.handleError(MspImageError.AlreadyExists, mspImage);
                             this.resetInputFields();
@@ -173,7 +173,7 @@ export class FileUploaderComponent
                 ),
                 filter((mspImage: MspImage) => {
 
-                    let imageSizeOk = this.checkImageDimensions(mspImage);
+                    const imageSizeOk = this.checkImageDimensions(mspImage);
                         if (!imageSizeOk) {
                             this.handleError(MspImageError.TooSmall, mspImage);
                             this.resetInputFields();
@@ -221,7 +221,7 @@ export class FileUploaderComponent
                 console.log('completed loading image');
             }
         );
-    };
+    }
 
     test(var1) {
         console.log(var1);
@@ -229,11 +229,11 @@ export class FileUploaderComponent
 
     ngAfterContentInit(){
 
-        let imagePlaceholderEnterKeyStream = merge(
+        const imagePlaceholderEnterKeyStream = merge(
             fromEvent<Event>(this.imagePlaceholderRef.nativeElement, 'keyup'),
             fromEvent<Event>(this.selectFileLabelRef.nativeElement, 'keyup'),
             fromEvent<Event>(this.uploadInstructionRef.nativeElement, 'keyup')
-        ).pipe(filter((evt: KeyboardEvent) => {return evt.key === 'Enter';}))
+        ).pipe(filter((evt: KeyboardEvent) => {return evt.key === 'Enter'; }));
 
         merge(
             fromEvent<Event>(this.imagePlaceholderRef.nativeElement, 'click'),
@@ -244,7 +244,7 @@ export class FileUploaderComponent
                 event.preventDefault();
                 return event;
             })
-        ).subscribe( (event) => { this.browseFileRef.nativeElement.click();})
+        ).subscribe( (event) => { this.browseFileRef.nativeElement.click(); });
     }
 
     /**
@@ -267,54 +267,54 @@ export class FileUploaderComponent
 
 
         // Init
-        let self = this;
+        const self = this;
 
         // Create our observer
-        let fileObservable = Observable.create((observer: Observer<MspImage>) => {
-            let mspImages = [];
+        const fileObservable = Observable.create((observer: Observer<MspImage>) => {
+            const mspImages = [];
             scaleFactors = scaleFactors.scaleDown(self.appConstants.images.reductionScaleFactor);
-            for (var fileIndex = 0; fileIndex < fileList.length; fileIndex++) {
-                var file = fileList[fileIndex];
+            for (let fileIndex = 0; fileIndex < fileList.length; fileIndex++) {
+                const file = fileList[fileIndex];
                 console.log('Start processing file ' + fileIndex + ' of ' + fileList.length + ' %s of size %s bytes %s type', file.name, file.size, file.type);
 
 
-                var pdfScaleFactor = self.appConstants.images.pdfScaleFactor;
+                const pdfScaleFactor = self.appConstants.images.pdfScaleFactor;
 
                 // let mspImage: MspImage = new MspImage();
                 // let reader: FileReader = new FileReader();
 
                 // // Copy file properties
                 // mspImage.name = file.name;
-                if (file.type == "application/pdf") {
+                if (file.type == 'application/pdf') {
                     this.logService.log({name: file.name + ' Received in Upload',
-                        UUID: self.dataService.getMspUuid()},"File_Upload");
+                        UUID: self.dataService.getMspUuid()}, 'File_Upload');
 
-                    this.readPDF(file, pdfScaleFactor,(images: HTMLImageElement[] ,pdfFile: File) => {
+                    this.readPDF(file, pdfScaleFactor, (images: HTMLImageElement[] , pdfFile: File) => {
 
 
-                        this.logService.log({name: file.name + 'is successfully split into '+images.length +" images",
-                            UUID: self.dataService.getMspUuid()},"File_Upload");
+                        this.logService.log({name: file.name + 'is successfully split into ' + images.length + ' images',
+                            UUID: self.dataService.getMspUuid()}, 'File_Upload');
 
                         images.map((image, index) => {
                             image.name = pdfFile.name;
-                            this.resizeImage( image, self, scaleFactors, observer,index);
-                        })
+                            this.resizeImage( image, self, scaleFactors, observer, index);
+                        });
                     }, (error: string) => {
-                        console.log("error"+JSON.stringify(error));
-                        let imageReadError: MspImageProcessingError =
-                            new MspImageProcessingError(MspImageError.CannotOpenPDF,error);
+                        console.log('error' + JSON.stringify(error));
+                        const imageReadError: MspImageProcessingError =
+                            new MspImageProcessingError(MspImageError.CannotOpenPDF, error);
                         observer.error(imageReadError);
                     });
                 } else {
                     // Load image into img element to read natural height and width
-                    this.readImage(file, (image: HTMLImageElement ,imageFile: File)  => {
+                    this.readImage(file, (image: HTMLImageElement , imageFile: File)  => {
                             image.id = imageFile.name; //.name deprecated, changed image.name to image.id
                             this.resizeImage(image, self, scaleFactors, observer);
                         },
 
                         //can be ignored for bug, the log line is never called
                         (error: MspImageProcessingError) => {
-                            console.log("error"+JSON.stringify(error));
+                            console.log('error' + JSON.stringify(error));
                             observer.error(error);
                         });
                 }
@@ -328,13 +328,13 @@ export class FileUploaderComponent
 
     private resizeImage( image: HTMLImageElement, self: this, scaleFactors: MspImageScaleFactors, observer: Observer<MspImage>, pageNumber: number = 0) {
 // While it's still in an image, get it's height and width
-        let mspImage: MspImage = new MspImage();
-        let reader: FileReader = new FileReader();
-        console.log("image.name:"+image.id); //.name deprecated, changed image.name to image.id
+        const mspImage: MspImage = new MspImage();
+        const reader: FileReader = new FileReader();
+        console.log('image.name:' + image.id); //.name deprecated, changed image.name to image.id
         // Copy file properties
         mspImage.name = image.id ;
-        if(pageNumber != 0) { //PDF ..append page page number
-            mspImage.name += "-page" + pageNumber;
+        if (pageNumber != 0) { //PDF ..append page page number
+            mspImage.name += '-page' + pageNumber;
         }
         //Temporary so we don't have duplicate file names. TODO: Improve.
         //   mspImage.name += Math.ceil(Math.random()*100);
@@ -344,7 +344,7 @@ export class FileUploaderComponent
         mspImage.naturalWidth = image.naturalWidth;
         mspImage.naturalHeight = image.naturalHeight;
 
-        console.log(`image file natural height and width: 
+        console.log(`image file natural height and width:
             ${mspImage.naturalHeight} x ${mspImage.naturalWidth}`);
 
         // Canvas will force the change to a JPEG
@@ -353,7 +353,7 @@ export class FileUploaderComponent
         // Scale the image by loading into a canvas
 
         console.log('Start scaling down the image using blueimp-load-image lib: ');
-        let scaledImage = loadImage(
+        const scaledImage = loadImage(
             image.src, // NOTE: we pass the File ref here again even though its already read because we need the XIFF metadata
             function (canvas: HTMLCanvasElement, metadata: any) {
 
@@ -370,18 +370,18 @@ export class FileUploaderComponent
 
                         // log image info (but only for the first time before any scaling)
                         if (scaleFactors.widthFactor == self.appConstants.images.reductionScaleFactor)
-                            self.logImageInfo("msp_file-uploader_before_resize_attributes", self.dataService.getMspUuid(), mspImage, "  mspImagefileName: " + mspImage.name);
+                            self.logImageInfo('msp_file-uploader_before_resize_attributes', self.dataService.getMspUuid(), mspImage, '  mspImagefileName: ' + mspImage.name);
 
-                        let fileName = mspImage.name;
-                        let nBytes = mspImage.size;
+                        const fileName = mspImage.name;
+                        const nBytes = mspImage.size;
                         let fileSize = '';
                         let fileSizeUnit = '';
-                        let sOutput: string = nBytes + " bytes";
+                        let sOutput: string = nBytes + ' bytes';
                         // optional code for multiples approximation
-                        for (let aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"],
+                        for (let aMultiples = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'],
                                  nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
 
-                            sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
+                            sOutput = nApprox.toFixed(3) + ' ' + aMultiples[nMultiple] + ' (' + nBytes + ' bytes)';
                             fileSize = nApprox.toFixed(0);
                             fileSizeUnit = aMultiples[nMultiple];
                             mspImage.sizeUnit = fileSizeUnit;
@@ -404,7 +404,7 @@ export class FileUploaderComponent
                                 console.log('File size after scaling down: %d, max file size allowed: %d',
                                     mspImage.size, self.appConstants.images.maxSizeBytes);
 
-                                let imageTooBigError: MspImageProcessingError =
+                                const imageTooBigError: MspImageProcessingError =
                                     new MspImageProcessingError(MspImageError.TooBig);
 
                                 imageTooBigError.maxSizeAllowed = self.appConstants.images.maxSizeBytes;
@@ -457,7 +457,7 @@ export class FileUploaderComponent
 
             return errors.pipe(scan(
                 // return errors.pipe(
-                (acc, error:any, index) => {
+                (acc, error: any, index) => {
                     // console.log('Error encountered: %o', error);;
 
                     /**
@@ -481,26 +481,26 @@ export class FileUploaderComponent
                         throw error;
                     }
                 }, 0
-            ),delay(2));
-        }
-    };
+            ), delay(2));
+        };
+    }
 
     private readImage(imageFile: File,
-                      callback: (image: HTMLImageElement,imageFile: File) => void,
+                      callback: (image: HTMLImageElement, imageFile: File) => void,
                       invalidImageHanlder: (error: MspImageProcessingError) => void) {
-        let reader = new FileReader();
+        const reader = new FileReader();
 
         reader.onload = function (progressEvt: ProgressEvent) {
 
             console.log('loading image into an img tag: %o', progressEvt);
             // Load into an image element
-            let imgEl: HTMLImageElement = document.createElement('img');
+            const imgEl: HTMLImageElement = document.createElement('img');
             imgEl.src = reader.result;
 
             // Wait for onload so all properties are populated
             imgEl.onload = (args) => {
                 console.log('Completed image loading into an img tag: %o', args);
-                return callback(imgEl ,imageFile  );
+                return callback(imgEl , imageFile  );
             };
 
             imgEl.onerror =
@@ -510,7 +510,7 @@ export class FileUploaderComponent
                     console.log('This image cannot be opened/read, it is probably an invalid image. %o', args);
 
                     // throw new Error('This image cannot be opened/read');
-                    let imageReadError: MspImageProcessingError =
+                    const imageReadError: MspImageProcessingError =
                         new MspImageProcessingError(MspImageError.CannotOpen);
 
                     imageReadError.rawImageFile = imageFile;
@@ -523,44 +523,44 @@ export class FileUploaderComponent
     }
 
     private readPDF(pdfFile: File, pdfScaleFactor: number,
-                    callback: (image: HTMLImageElement[],pdfFile: File) => void, error: (errorReason: any) => void) {
+                    callback: (image: HTMLImageElement[], pdfFile: File) => void, error: (errorReason: any) => void) {
 
         PDFJS.disableWorker = true;
         PDFJS.disableStream = true;
 
-        let reader = new FileReader();
-        var currentPage = 1;
-        var canvas = document.createElement('canvas');
-        let imgElsArray: HTMLImageElement[] = [];
-        var ctx = canvas.getContext('2d');
+        const reader = new FileReader();
+        let currentPage = 1;
+        const canvas = document.createElement('canvas');
+        const imgElsArray: HTMLImageElement[] = [];
+        const ctx = canvas.getContext('2d');
         reader.onload = function (progressEvt: ProgressEvent) {
 
-            var docInitParams = {data: reader.result};
+            const docInitParams = {data: reader.result};
             PDFJS.getDocument(docInitParams).then((pdfdoc) => {
-                var numPages = pdfdoc.numPages;
+                const numPages = pdfdoc.numPages;
                 if (currentPage <= pdfdoc.numPages) getPage();
 
                 function getPage() {
                     pdfdoc.getPage(currentPage).then(function (page) {
-                        var viewport = page.getViewport(pdfScaleFactor);
+                        const viewport = page.getViewport(pdfScaleFactor);
 
                         canvas.height = viewport.height;
                         canvas.width = viewport.width;
 
-                        var renderContext = {
+                        const renderContext = {
                             canvasContext: ctx,
                             viewport: viewport
                         };
 
                         page.render(renderContext).then(function () {
-                            let imgEl: HTMLImageElement = document.createElement('img');
+                            const imgEl: HTMLImageElement = document.createElement('img');
                             imgEl.src = canvas.toDataURL();
                             imgElsArray.push(imgEl);
                             if (currentPage < numPages) {
                                 currentPage++;
                                 getPage();
                             } else {
-                                callback(imgElsArray,pdfFile);
+                                callback(imgElsArray, pdfFile);
                             }
 
                         });
@@ -584,13 +584,13 @@ export class FileUploaderComponent
      * @param canvas
      */
     makeGrayScale(canvas: HTMLCanvasElement): void {
-        let context = canvas.getContext('2d');
+        const context = canvas.getContext('2d');
 
-        let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-        let data = imageData.data;
+        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
 
         for (let i = 0; i < data.length; i += 4) {
-            let brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
+            const brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
             // red
             data[i] = brightness;
             // green
@@ -609,11 +609,11 @@ export class FileUploaderComponent
         if (this.images.length >= this.appConstants.images.maxImagesPerPerson) {
 
             // log it
-            this.logImageInfo("msp_file-uploader_error", this.dataService.getMspUuid(),
+            this.logImageInfo('msp_file-uploader_error', this.dataService.getMspUuid(),
                 mspImage, `Number of image files exceeds max of ${this.appConstants.images.maxImagesPerPerson}`);
 
             // log to console
-            console.log(`Max number of image file you can upload is ${this.appConstants.images.maxImagesPerPerson}. 
+            console.log(`Max number of image file you can upload is ${this.appConstants.images.maxImagesPerPerson}.
       This file ${mspImage.name} was not uploaded.`);
         } else {
             this.onAddDocument.emit(mspImage);
@@ -622,7 +622,7 @@ export class FileUploaderComponent
         }
     }
 
-    handleError(error: MspImageError, mspImage: MspImage, errorDescription?:string) {
+    handleError(error: MspImageError, mspImage: MspImage, errorDescription?: string) {
 
         if (!mspImage) {
             mspImage = new MspImage();
@@ -632,9 +632,9 @@ export class FileUploaderComponent
 
         // log the error
         if (error != MspImageError.PDFnotSupported) {
-            this.logImageInfo("msp_file-uploader_error", this.dataService.getMspUuid(), mspImage,
-                "  mspImageFile: " + mspImage.name + "  mspErrorNum: " + error + "  mspError: " +
-                error+"-"+errorDescription);
+            this.logImageInfo('msp_file-uploader_error', this.dataService.getMspUuid(), mspImage,
+                '  mspImageFile: ' + mspImage.name + '  mspErrorNum: ' + error + '  mspError: ' +
+                error + '-' + errorDescription);
         }
 
         // console.log("error with image: ", mspImage);
@@ -648,8 +648,8 @@ export class FileUploaderComponent
     resetInputFields() {
         // let brosweFileInputElement = this.browseFileRef.nativeElement;
         // let captureFileInputElement = this.captureFileRef.nativeElement;
-        this.browseFileRef.nativeElement.value = "";
-        this.captureFileRef.nativeElement.value = "";
+        this.browseFileRef.nativeElement.value = '';
+        this.captureFileRef.nativeElement.value = '';
     }
 
     deleteImage(mspImage: MspImage) {
@@ -665,17 +665,17 @@ export class FileUploaderComponent
     private logImageInfo(title: string, applicationId: string, mspImage: MspImage, additionalInfo?: string) {
 
         // create log entry
-        let log: LogEntry = new LogEntry();
+        const log: LogEntry = new LogEntry();
         log.applicationId = applicationId;
-        var now = moment();
+        const now = moment();
         log.mspTimestamp = now.toISOString();
-        log.applicationPhase = title + ":  mspImageId: " + mspImage.id
-            + "  mspImageUuid: " + mspImage.uuid
-            + "  mspImageSize: " + mspImage.size
-            + "  mspImageWidth: " + mspImage.naturalWidth
-            + "  mspImageHeight: " + mspImage.naturalHeight
-            + "  mspImageContentType: " + mspImage.contentType
-            + (additionalInfo ? "  " + additionalInfo : "");
+        log.applicationPhase = title + ':  mspImageId: ' + mspImage.id
+            + '  mspImageUuid: ' + mspImage.uuid
+            + '  mspImageSize: ' + mspImage.size
+            + '  mspImageWidth: ' + mspImage.naturalWidth
+            + '  mspImageHeight: ' + mspImage.naturalHeight
+            + '  mspImageContentType: ' + mspImage.contentType
+            + (additionalInfo ? '  ' + additionalInfo : '');
 
         // send it while subscribing to response
         this.logService.logIt(log, title).subscribe(
@@ -701,7 +701,7 @@ export class FileUploaderComponent
             return false;
         } else {
 
-            let sha1Sum = sha1(file.fileContent);
+            const sha1Sum = sha1(file.fileContent);
             for (let i = imageList.length - 1; i >= 0; i--) {
                 // console.log(`compare  ${imageList[i].id} with ${sha1Sum}, result ${imageList[i].id === sha1Sum}`);
                 if (imageList[i].id === sha1Sum) {

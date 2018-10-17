@@ -2,19 +2,19 @@ import {ChangeDetectorRef, Component, Injectable, ViewChild} from '@angular/core
 
 import {MspDataService} from '../../service/msp-data.service';
 import {Router} from '@angular/router';
-import {BaseComponent} from "../../common/base.component";
+import {BaseComponent} from '../../common/base.component';
 import {LocalStorageService} from 'angular-2-local-storage';
 import {MspAccountApp, AccountChangeOptions} from '../../model/account.model';
 import {AccountDocumentRules, DocumentGroup} from '../../model/account-documents';
 import {
     StatusRules, ActivitiesRules, StatusInCanada, Activities,
-    DocumentRules, Documents, Relationship ,CancellationReasonsForSpouse
-} from "../../model/status-activities-documents";
-import {ProcessService, ProcessUrls} from "../../service/process.service";
-import {MspImage} from "../../../msp/model/msp-image";
-import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
-import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
-import {MspIdReqModalComponent} from "../../common/id-req-modal/id-req-modal.component";
+    DocumentRules, Documents, Relationship , CancellationReasonsForSpouse
+} from '../../model/status-activities-documents';
+import {ProcessService, ProcessUrls} from '../../service/process.service';
+import {MspImage} from '../../../msp/model/msp-image';
+import {FileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
+import {MspImageErrorModalComponent} from '../../common/image-error-modal/image-error-modal.component';
+import {MspIdReqModalComponent} from '../../common/id-req-modal/id-req-modal.component';
 
 @Component({
     templateUrl: './documents.component.html'
@@ -107,9 +107,9 @@ export class AccountDocumentsComponent extends BaseComponent {
 
      */
     get isDocsNotNeeded(): boolean {
-        let docsNotNeeded: boolean = false;
+        const docsNotNeeded: boolean = false;
         if (this.mspAccountApp.accountChangeOptions.nameChangeDueToMarriage) {
-            if (this.mspAccountApp.updatedChildren && this.mspAccountApp.updatedChildren .length>0) {
+            if (this.mspAccountApp.updatedChildren && this.mspAccountApp.updatedChildren .length > 0) {
                 return false;
             }
             return true;
@@ -147,7 +147,7 @@ export class AccountDocumentsComponent extends BaseComponent {
 
     continue(): void {
         this._processService.setStep(AccountDocumentsComponent.ProcessStepNum, true);
-        this._router.navigate([this._processService.getNextStep(AccountDocumentsComponent.ProcessStepNum,)]);
+        this._router.navigate([this._processService.getNextStep(AccountDocumentsComponent.ProcessStepNum, )]);
     }
 
 }

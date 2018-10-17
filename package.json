@@ -15,7 +15,9 @@
     "dev": "ng serve -o",
     "dev-build": "ng build",
     "build": "ng build --prod",
-    "test": "ng test"
+    "test": "ng test",
+    "lint-fix": "ng lint --fix",
+    "lint": "ng lint"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.8.4",

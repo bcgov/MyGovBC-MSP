@@ -1,10 +1,10 @@
-import { TestBed } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing';
 import { FormsModule} from '@angular/forms';
 
 import {EligibilityCardComponent} from './eligibility-card.component';
 import { MspDataService } from '../../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {RouterTestingModule} from "@angular/router/testing";
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('DeductionCalculatorComponent', () => {
 
@@ -16,10 +16,10 @@ describe('DeductionCalculatorComponent', () => {
         storageType: 'sessionStorage'
       })],
       providers: [MspDataService]
-    })
+    });
   });
   it ('should work', () => {
-    let fixture = TestBed.createComponent(EligibilityCardComponent);
+    const fixture = TestBed.createComponent(EligibilityCardComponent);
     expect(fixture.componentInstance instanceof EligibilityCardComponent).toBe(true, 'should create EligibilityCardComponent');
   });
-})
+});

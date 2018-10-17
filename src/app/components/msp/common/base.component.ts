@@ -1,9 +1,9 @@
-import {ChangeDetectorRef, DoCheck, EventEmitter, 
-  Output, QueryList, SimpleChanges, Optional} from "@angular/core";
+import {ChangeDetectorRef, DoCheck, EventEmitter,
+  Output, QueryList, SimpleChanges, Optional} from '@angular/core';
 import { Subscription } from 'rxjs';
-import {NgForm} from "@angular/forms";
-import {UUID} from "angular2-uuid";
-import {ProcessService} from "../service/process.service";
+import {NgForm} from '@angular/forms';
+import {UUID} from 'angular2-uuid';
+import {ProcessService} from '../service/process.service';
 
 export class ValidEvent {
   id: string;
@@ -26,33 +26,33 @@ export class BaseComponent implements DoCheck {
    * An identifier for parents to keep track of components
    * @type {string}
    */
-  objectId:string = UUID.UUID().toString();
+  objectId: string = UUID.UUID().toString();
 
   @Output() isFormValid = new EventEmitter<ValidEvent>();
   @Output() registerComponent = new EventEmitter<BaseComponent>();
   @Output() unRegisterComponent = new EventEmitter<BaseComponent>();
 
   //private
-  subscriptionList:Subscription[] = [];
+  subscriptionList: Subscription[] = [];
   private validationMap = {};
-  private myFormValid:boolean = true;
+  private myFormValid: boolean = true;
 
   private linkedProcessStepNumber: number;
-  private processService:ProcessService;
+  private processService: ProcessService;
 
   constructor(public changeDetectorRef: ChangeDetectorRef) {
     // A linked process step auto sets in when invalid or valid is determine
   }
 
-  initProcessMembers(processStepNum: number, processService:ProcessService){
+  initProcessMembers(processStepNum: number, processService: ProcessService){
     this.linkedProcessStepNumber = processStepNum;
     this.processService = processService;
   }
   /**
    * Wire up all children and self by looking for properties of type
    * BaseComponent
-   * 
-   * Angular 4 Upgrade Notes 
+   *
+   * Angular 4 Upgrade Notes
    * Previously this used to be ngAfterViewInit but when upgrading to Angular 4
    * that lead to ExpressionChangedAfterItHasBeenCheckedError errors. This is
    * because the dynamic component instantiation must be done prior to
@@ -64,10 +64,10 @@ export class BaseComponent implements DoCheck {
     this.registerChildren();
 
     // Listen to NgForm members of this form
-    let propertyNames = Object.getOwnPropertyNames(this);
-    propertyNames.forEach((property:string) => {
+    const propertyNames = Object.getOwnPropertyNames(this);
+    propertyNames.forEach((property: string) => {
       if (this[property] instanceof NgForm) {
-        let form:NgForm = this[property];
+        const form: NgForm = this[property];
 
         this.myFormValid = form.valid;
         this.emitIsFormValid();
@@ -86,17 +86,17 @@ export class BaseComponent implements DoCheck {
 
   private registerChildren () {
     // Listen for children registering themselves
-    let propertyNames = Object.getOwnPropertyNames(this);
-    propertyNames.forEach((property:string) => {
+    const propertyNames = Object.getOwnPropertyNames(this);
+    propertyNames.forEach((property: string) => {
       // If the child is a single instance
       if (this[property] instanceof BaseComponent) {
-        let child:BaseComponent = this[property];
+        const child: BaseComponent = this[property];
         this.registerBaseComponent(child);
       }
       // If the children is in a collection
       else if (this[property] instanceof QueryList) {
-        let children:QueryList<BaseComponent> = this[property];
-        children.forEach((child:BaseComponent) => {
+        const children: QueryList<BaseComponent> = this[property];
+        children.forEach((child: BaseComponent) => {
           this.registerBaseComponent(child);
         });
       }
@@ -107,22 +107,22 @@ export class BaseComponent implements DoCheck {
    * Registers a subscription and validation value for each child base component
    * @param comp
    */
-  private registerBaseComponent(comp:BaseComponent) {
-    let self:BaseComponent = this;
-    
+  private registerBaseComponent(comp: BaseComponent) {
+    const self: BaseComponent = this;
+
     if (self.validationMap[comp.objectId] == null) {
       //console.log(this.constructor.name + " is adding: " + comp.constructor.name + " (" + comp.objectId + ") in state: " + comp.isAllValid());
       self.validationMap[comp.objectId] = comp.isAllValid();
       self.emitIsFormValid();
-      let subscription = comp.isFormValid
-        .subscribe( (event:ValidEvent) => {
+      const subscription = comp.isFormValid
+        .subscribe( (event: ValidEvent) => {
           self.validationMap[event.id] = event.isValid;
           self.emitIsFormValid();
         });
       self.subscriptionList.push(subscription);
 
       // Listen for the unsubscribe and delete it from the validation map
-      comp.unRegisterComponent.subscribe( (event:BaseComponent) => {
+      comp.unRegisterComponent.subscribe( (event: BaseComponent) => {
         //console.log(this.constructor.name + " is removing: " + event.constructor.name + ": " + event.objectId);
         delete self.validationMap[event.objectId];
         subscription.unsubscribe();
@@ -158,8 +158,8 @@ export class BaseComponent implements DoCheck {
     //console.log(this.constructor.name + "(" + this.objectId + "): children: " + this.childrenIsValid() + "(" + Object.keys(this.validationMap).length
     //  + "); myFormValid: " + this.myFormValid +
     //  "; this.isValid: " + this.isValid());
-    for (let key of Object.keys(this.validationMap)) {
-      let item = this.validationMap[key];
+    for (const key of Object.keys(this.validationMap)) {
+      const item = this.validationMap[key];
       //console.log("key: " + key + "; value: " + item);
       if (item === false) {
         //console.log(this.constructor.name + ": child is invalid: " + key);
@@ -167,7 +167,7 @@ export class BaseComponent implements DoCheck {
     }
 
     // Determine if all is valid
-    let isAllValid = this.isAllValid();
+    const isAllValid = this.isAllValid();
 
     // If we have a process step, mark it with the current state
     if (this.linkedProcessStepNumber != null &&
@@ -182,7 +182,7 @@ export class BaseComponent implements DoCheck {
    * A placeholder to derive in inherited component to provide custom validation beyond templates
    * @returns {boolean}
    */
-  isValid():boolean { return true; }
+  isValid(): boolean { return true; }
 
   /**
    * Validates all children
@@ -190,8 +190,8 @@ export class BaseComponent implements DoCheck {
    */
   childrenIsValid (): boolean {
 
-    for (let key of Object.keys(this.validationMap)) {
-      let item = this.validationMap[key];
+    for (const key of Object.keys(this.validationMap)) {
+      const item = this.validationMap[key];
       if (item === false) {
         return false;
       }
@@ -204,7 +204,7 @@ export class BaseComponent implements DoCheck {
    * Combines all validations
    * @returns {boolean}
    */
-  isAllValid():boolean {
+  isAllValid(): boolean {
     return this.childrenIsValid() && this.myFormValid && this.isValid();
   }
 
@@ -224,7 +224,7 @@ export class BaseComponent implements DoCheck {
    */
   unsubscribeAll(){
     this.subscriptionList.forEach(
-      (sub:Subscription) => {
+      (sub: Subscription) => {
         sub.unsubscribe();
       }
     );

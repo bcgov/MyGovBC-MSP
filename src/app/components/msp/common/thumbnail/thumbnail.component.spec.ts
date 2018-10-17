@@ -1,9 +1,9 @@
-import { TestBed } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { ThumbnailComponent } from './thumbnail.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {ModalModule} from "ngx-bootstrap";
+import {ModalModule} from 'ngx-bootstrap';
 
 describe('ThumbnailComponent', () => {
 
@@ -16,10 +16,10 @@ describe('ThumbnailComponent', () => {
       })],
       providers: [MspDataService,
         LocalStorageService]
-    })
+    });
   });
   it ('should work', () => {
-    let fixture = TestBed.createComponent(ThumbnailComponent);
+    const fixture = TestBed.createComponent(ThumbnailComponent);
     expect(fixture.componentInstance instanceof ThumbnailComponent).toBe(true, 'should create ThumbnailComponent');
   });
-})
+});

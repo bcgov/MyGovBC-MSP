@@ -19,7 +19,7 @@ export default class PersonDto {
     arrivalToBCYear: number;
     arrivalToBCMonth: number;
     arrivalToBCDay: number;
-    hasBeenReleasedFromArmedForces:boolean;
+    hasBeenReleasedFromArmedForces: boolean;
     movedFromProvinceOrCountry: string;
     institutionWorkHistory: string;
     nameOfInstitute: string;
@@ -40,7 +40,7 @@ export default class PersonDto {
 
     madePermanentMoveToBC: boolean;
     plannedAbsence: boolean;
-    id: string
+    id: string;
 
     spouse: PersonDto;
 
@@ -57,16 +57,16 @@ export default class PersonDto {
     updatedChildren: PersonDto[] = [];
 
     reasonForCancellation: string;
-    cancellationDate:SimpleDate;
-    marriageDate:SimpleDate;
+    cancellationDate: SimpleDate;
+    marriageDate: SimpleDate;
     prevLastName: string;
     phoneNumber: string;
     images: MspImage[];
     isExistingBeneficiary: boolean;
-    knownMailingAddress:boolean;
+    knownMailingAddress: boolean;
     fullTimeStudent: boolean;
     inBCafterStudies: boolean;
-    mailingAddress:AddressDto = new AddressDto();
+    mailingAddress: AddressDto = new AddressDto();
     residentialAddress: AddressDto = new AddressDto();
 
     schoolName: string;

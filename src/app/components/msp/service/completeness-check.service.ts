@@ -9,39 +9,39 @@ import * as _ from 'lodash';
 
 @Injectable()
 export class CompletenessCheckService {
-    private get finApp():FinancialAssistApplication {
+    private get finApp(): FinancialAssistApplication {
       return this.dataService.finAssistApp;
     }
 
     constructor(private dataService: MspDataService,
-        private validationService:MspValidationService) {
+        private validationService: MspValidationService) {
     }
 
-    private isNumber(arg:any){
+    private isNumber(arg: any){
       return _.isNumber(arg) || this.isStringBeParsedToNumber(arg);
     }
 
     /**
      * Is it a string that can be parsed to a number?
      */
-    private isStringBeParsedToNumber(input:any){
-      let v = parseFloat(input);
+    private isStringBeParsedToNumber(input: any){
+      const v = parseFloat(input);
       return _.isNumber(v);
     }
 
-    finAppPrepCompleted():boolean{
-        let basics:boolean = this.isNumber(this.finApp.netIncomelastYear) && 
+    finAppPrepCompleted(): boolean{
+        const basics: boolean = this.isNumber(this.finApp.netIncomelastYear) &&
         this.finApp.netIncomelastYear >= 0 &&
         _.isBoolean(this.finApp.ageOver65) &&
         _.isBoolean(this.finApp.hasSpouseOrCommonLaw);
-        
-        let spouseInfo:boolean = true;
-        if(basics){
-            if(this.finApp.spouseEligibleForDisabilityCredit){
+
+        let spouseInfo: boolean = true;
+        if (basics){
+            if (this.finApp.spouseEligibleForDisabilityCredit){
               spouseInfo = this.finApp.hasSpouseOrCommonLaw;
             }
-            if(spouseInfo){
-              if(this.finApp.hasSpouseOrCommonLaw){
+            if (spouseInfo){
+              if (this.finApp.hasSpouseOrCommonLaw){
                   spouseInfo = this.isNumber(this.finApp.spouseIncomeLine236) &&
                   this.finApp.spouseIncomeLine236 >= 0;
               }
@@ -51,16 +51,16 @@ export class CompletenessCheckService {
     }
 
     validatePhnForPremiumAssistance(): boolean{
-      let applicantValidPhn = this.validationService.validatePHN(this.finApp.applicant.previous_phn, true, !this.finApp.phnRequired);
+      const applicantValidPhn = this.validationService.validatePHN(this.finApp.applicant.previous_phn, true, !this.finApp.phnRequired);
       let spouseValidPhn = true;
-      if(this.finApp.hasSpouseOrCommonLaw){
+      if (this.finApp.hasSpouseOrCommonLaw){
         spouseValidPhn = this.validationService.validatePHN(this.finApp.spouse.previous_phn, true, !this.finApp.phnRequired);
       }
 
       return applicantValidPhn === true && spouseValidPhn === true;
     }
-    
-    finAppPersonalInfoCompleted():boolean {
+
+    finAppPersonalInfoCompleted(): boolean {
       let completed = true;
 
       let basics = !_.isEmpty(this.finApp.applicant.firstName)
@@ -75,7 +75,7 @@ export class CompletenessCheckService {
         && !(this.finApp.applicant.dob_month == 0);
 
       // Check applicant name regexs
-      let regEx = new RegExp(Person.NameRegEx);
+      const regEx = new RegExp(Person.NameRegEx);
       basics = basics && regEx.test(this.finApp.applicant.firstName);
       if (this.finApp.applicant.middleName &&
         this.finApp.applicant.middleName.length > 0) {
@@ -83,13 +83,13 @@ export class CompletenessCheckService {
       }
       basics = basics && regEx.test(this.finApp.applicant.lastName);
 
-      if(this.finApp.hasSpouseOrCommonLaw === true){
+      if (this.finApp.hasSpouseOrCommonLaw === true){
 
         // Check spouses name regexs
 
         completed = basics && !_.isEmpty(this.finApp.spouse.firstName)
         && !_.isEmpty(this.finApp.spouse.lastName)
-        && !_.isEmpty(this.finApp.spouse.sin)
+        && !_.isEmpty(this.finApp.spouse.sin);
 
         completed = completed && regEx.test(this.finApp.spouse.firstName);
         if (this.finApp.spouse.middleName &&
@@ -101,25 +101,25 @@ export class CompletenessCheckService {
         completed = basics;
       }
 
-      var hasValidPhn = this.validatePhnForPremiumAssistance();
-      var hasValidSin = this.validateSinForPremiumAssistance();
-      if(!hasValidSin){
+      const hasValidPhn = this.validatePhnForPremiumAssistance();
+      const hasValidSin = this.validateSinForPremiumAssistance();
+      if (!hasValidSin){
         console.log('SIN not valid for spouse or applicant in PA');
       }
-      
 
-      if(!hasValidPhn){
+
+      if (!hasValidPhn){
         console.log('PHN not valid for spouse or applicant in PA');
       }
 
-      return completed && hasValidPhn && hasValidSin;      
+      return completed && hasValidPhn && hasValidSin;
     }
 
-    validateSinForPremiumAssistance():boolean{
-      let applicantValidSin = this.validationService.validateSIN(this.finApp.applicant.sin);
+    validateSinForPremiumAssistance(): boolean{
+      const applicantValidSin = this.validationService.validateSIN(this.finApp.applicant.sin);
       let spouseValidSin = true;
 
-      if(this.finApp.hasSpouseOrCommonLaw){
+      if (this.finApp.hasSpouseOrCommonLaw){
         spouseValidSin = this.validationService.validateSIN(this.finApp.spouse.sin);
       }
 
@@ -127,21 +127,21 @@ export class CompletenessCheckService {
     }
 
 
-    finAppReviewCompleted():boolean {
+    finAppReviewCompleted(): boolean {
       return true;
     }
 
-    finAppAuthorizationCompleted():boolean {
-      let familyAuth = (this.finApp.authorizedByApplicant &&
+    finAppAuthorizationCompleted(): boolean {
+      const familyAuth = (this.finApp.authorizedByApplicant &&
         (this.finApp.hasSpouseOrCommonLaw && this.finApp.authorizedBySpouse || !this.finApp.hasSpouseOrCommonLaw));
 
-      if(!familyAuth){
+      if (!familyAuth){
         // console.log('PA application not authorized by applicant and spouse');
       }else{
         // console.log('PA application authorized by applicant and spouse');
-      }  
-      let attorneyAUth = this.finApp.authorizedByAttorney && this.finApp.powerOfAttorneyDocs.length > 0;
-      if(!attorneyAUth){
+      }
+      const attorneyAUth = this.finApp.authorizedByAttorney && this.finApp.powerOfAttorneyDocs.length > 0;
+      if (!attorneyAUth){
         // console.log('PA application not authorized by attorney');
       }else{
         // console.log('PA application authorized by attorney');

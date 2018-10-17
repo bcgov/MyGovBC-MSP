@@ -5,30 +5,30 @@
 enum Documents {
     CanadianBirthCertificate,   //0
     CanadianPassport,           //1
-    CanadianCitizenCard,//2
-    RecordOfLanding,//3
-    PermanentResidentCard,//4
-    WorkPermit,//5
-    StudyPermit,//6
-    VisitorVisa,//7
-    PassportWithDiplomaticFoil,//8
-    MarriageCertificate,//9
-    ChangeOfNameCertificate,//10
+    CanadianCitizenCard, //2
+    RecordOfLanding, //3
+    PermanentResidentCard, //4
+    WorkPermit, //5
+    StudyPermit, //6
+    VisitorVisa, //7
+    PassportWithDiplomaticFoil, //8
+    MarriageCertificate, //9
+    ChangeOfNameCertificate, //10
     //new docs for account management
-    DivorceDecree,//11
-    SeparationAgreement,//12
-    LandedImmigrationDocs,//13
-    ReligiousWorkerPermit,//14
-    ReligiousConfirmationOrder,//15
-    FoilDiplomaticPassport,//16
-    AdoptionVerification,//17
-    CurrentImigrationDocs,//18
-    BCDriverLicense,//19
-    GenderDesignationAdult,//20
-    GenderDesignationMinor,//21
-    WaiverParentalConsent,//22
-    PhysicianConfirmationForGenderChange,//23
-    MaritalStatusSignedWrittenStatement,//24
+    DivorceDecree, //11
+    SeparationAgreement, //12
+    LandedImmigrationDocs, //13
+    ReligiousWorkerPermit, //14
+    ReligiousConfirmationOrder, //15
+    FoilDiplomaticPassport, //16
+    AdoptionVerification, //17
+    CurrentImigrationDocs, //18
+    BCDriverLicense, //19
+    GenderDesignationAdult, //20
+    GenderDesignationMinor, //21
+    WaiverParentalConsent, //22
+    PhysicianConfirmationForGenderChange, //23
+    MaritalStatusSignedWrittenStatement, //24
     NotarizedStatmentAffidavit//25
 }
 
@@ -42,7 +42,7 @@ class AccountDocumentRules {
     static availiableDocuments(): DocumentGroup[] {
 
         //TODO! NOT DONE. MISSING EXAMPLE DOCS
-        const addSpouseOrChildren: DocumentGroup = new DocumentGroup("Add Spouse or Child(ren)",[
+        const addSpouseOrChildren: DocumentGroup = new DocumentGroup('Add Spouse or Child(ren)', [
             Documents.CanadianBirthCertificate,
             Documents.CanadianCitizenCard,
             Documents.CanadianPassport,
@@ -57,14 +57,14 @@ class AccountDocumentRules {
 
         ]);
         //TODO! NOT DONE. MISSING EXAMPLE DOCS
-        const removeSpouseOrChildren: DocumentGroup = new DocumentGroup("Remove Spouse or Child(ren)",[
+        const removeSpouseOrChildren: DocumentGroup = new DocumentGroup('Remove Spouse or Child(ren)', [
             Documents.DivorceDecree,
             Documents.SeparationAgreement,
             Documents.NotarizedStatmentAffidavit,
             Documents.MaritalStatusSignedWrittenStatement
         ]);
-        
-        let updateBirthdate: DocumentGroup = new DocumentGroup("Update or Correct Birthdate",[
+
+        const updateBirthdate: DocumentGroup = new DocumentGroup('Update or Correct Birthdate', [
             Documents.CanadianBirthCertificate,
             Documents.CanadianCitizenCard,
             Documents.CanadianPassport,
@@ -73,7 +73,7 @@ class AccountDocumentRules {
             Documents.CurrentImigrationDocs
         ]);
 
-        let updateName: DocumentGroup = new DocumentGroup("Update or Correct Name", [
+        const updateName: DocumentGroup = new DocumentGroup('Update or Correct Name', [
             Documents.CanadianBirthCertificate,
             Documents.CanadianCitizenCard,
             Documents.CanadianPassport,
@@ -87,7 +87,7 @@ class AccountDocumentRules {
 
         ]);
 
-        let statusInCanada: DocumentGroup = new DocumentGroup("Update or Confirm Status in Canada",[
+        const statusInCanada: DocumentGroup = new DocumentGroup('Update or Confirm Status in Canada', [
             Documents.CanadianPassport,
             Documents.LandedImmigrationDocs,
             Documents.PermanentResidentCard,
@@ -100,7 +100,7 @@ class AccountDocumentRules {
 
         ]);
 
-        let genderCorrection: DocumentGroup = new DocumentGroup("Correct Gender",[
+        const genderCorrection: DocumentGroup = new DocumentGroup('Correct Gender', [
             Documents.BCDriverLicense,
             Documents.CanadianBirthCertificate,
             Documents.CanadianCitizenCard,
@@ -110,7 +110,7 @@ class AccountDocumentRules {
             Documents.CurrentImigrationDocs
         ]);
 
-        let genderChange: DocumentGroup = new DocumentGroup("Change Gender Designation",[
+        const genderChange: DocumentGroup = new DocumentGroup('Change Gender Designation', [
 
             Documents.CanadianBirthCertificate,
             Documents.CanadianPassport,

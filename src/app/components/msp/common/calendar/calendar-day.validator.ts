@@ -11,18 +11,18 @@ import * as moment from 'moment';
 })
 export class CalendarDayValidator {
 
-  validate(control: FormControl): {[key:string]:boolean;}  {
+  validate(control: FormControl): {[key: string]: boolean; }  {
 
     // Get value out of control
-    let day:string = control.value;
+    const day: string = control.value;
 
-    let d:number = parseInt(day);
+    const d: number = parseInt(day);
 
-    if(d > 31 || d< 1){
-      return {"calendarDayOutOfRange": true}
+    if (d > 31 || d < 1){
+      return {'calendarDayOutOfRange': true};
     }
 
     return null;
   }
-  
+
 }

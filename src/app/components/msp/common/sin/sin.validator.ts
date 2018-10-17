@@ -51,8 +51,8 @@ export class SinCheckValidator implements Validator {
     }
 
     const errorObj = {
-      "sinCheck": !this.validationService.validateSIN(sin),
-    }
+      'sinCheck': !this.validationService.validateSIN(sin),
+    };
 
     //add properties for each validation failure
 
@@ -66,7 +66,7 @@ export class SinCheckValidator implements Validator {
 
     //if all error properties are false, return null, because that's what templates expect.
     const hasNoErrors = Object.keys(errorObj)
-      .map(k => { return errorObj[k] })
+      .map(k => { return errorObj[k]; })
       .filter(x => x)
       .length <= 0;
 

@@ -21,10 +21,10 @@ export class Mod11CheckValidator implements Validator {
 
   }
 
-  validate(control: FormControl): {[key:string]:boolean;}  {
+  validate(control: FormControl): {[key: string]: boolean; }  {
 
     // Get value out of control
-    let phn = control.value;
+    const phn = control.value;
 
     // pre req checks
     if (phn == null ||
@@ -36,7 +36,7 @@ export class Mod11CheckValidator implements Validator {
     }
     else {
       // return "true" if we have errors
-      return {"mod11Check": true}
+      return {'mod11Check': true};
     }
   }
 

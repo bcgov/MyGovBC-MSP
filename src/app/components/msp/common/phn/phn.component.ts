@@ -1,6 +1,6 @@
 import {Component, Input, EventEmitter, Output, ViewChild, ChangeDetectorRef} from '@angular/core';
-import {NgForm} from "@angular/forms";
-import {BaseComponent} from "../base.component";
+import {NgForm} from '@angular/forms';
+import {BaseComponent} from '../base.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { MspAccountApp } from '../../model/account.model';
 import { MspApplication, Person } from '../../model/application.model';
@@ -16,11 +16,11 @@ export class MspPhnComponent extends BaseComponent {
   lang = require('./i18n');
 
   @Input() required: boolean = false;
-  @Input() phnLabel: string = this.lang("./en/index.js").phnLabel;
+  @Input() phnLabel: string = this.lang('./en/index.js').phnLabel;
   @Input() phn: string;
   @Output() phnChange = new EventEmitter<string>();
   @Input() bcPhn: boolean = false;
-  @Input() showError:boolean;
+  @Input() showError: boolean;
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
   @Input() isForAccountChange: boolean = false;
@@ -37,14 +37,14 @@ export class MspPhnComponent extends BaseComponent {
     });
   }
 
-  setPhn(value:string){
+  setPhn(value: string){
     this.phn = value;
     this.phnChange.emit(value);
   }
 
   isUnique(): boolean {
     //For tests, router url often isn't mocked.
-    if (!this.getPersonList()) { return null };
+    if (!this.getPersonList()) { return null; }
 
     return this.getPersonList() //Detect what application person to use
       .map(x => x.previous_phn)
@@ -60,13 +60,13 @@ export class MspPhnComponent extends BaseComponent {
    * begin filling out others.
    */
   private getPersonList(): Person[]{
-    if (this.router.url.indexOf("/assistance/") !== -1){
+    if (this.router.url.indexOf('/assistance/') !== -1){
       return this.dataService.finAssistApp.allPersons;
     }
-    if (this.router.url.indexOf("/application/") !== -1){
+    if (this.router.url.indexOf('/application/') !== -1){
       return this.dataService.getMspApplication().allPersons;
     }
-    if (this.router.url.indexOf("/account/") !== -1){
+    if (this.router.url.indexOf('/account/') !== -1){
       return this.dataService.getMspAccountApp().allPersons;
     }
 

@@ -2,13 +2,13 @@ import {AccountChangeOptions} from '../model/account.model';
 
 export class ProgressBarHelper {
 
-    
+
     /** Separator to be used when concatenating strings for labels */
-    public static readonly seperator = "<br>";
+    public static readonly seperator = '<br>';
     lang = require('./i18n');
     private _height: Object = {'height': '70px'};
-    private _dependentsLabel: string = "";
-    private _personalInfoLabel: string = "";
+    private _dependentsLabel: string = '';
+    private _personalInfoLabel: string = '';
     private _widthMainMenu: Object = {};
     private _widthPersonalInfo: Object = {};
     private _widthDependents: Object = {};
@@ -23,12 +23,12 @@ export class ProgressBarHelper {
 
 
     private constructWidths(): void {
-        let isAllFourTabsShown = this._accountChangeOptions.hasAllOptionsSelected() || (this._accountChangeOptions.hasAnyPISelected() && this._accountChangeOptions.dependentChange) ;
+        const isAllFourTabsShown = this._accountChangeOptions.hasAllOptionsSelected() || (this._accountChangeOptions.hasAnyPISelected() && this._accountChangeOptions.dependentChange) ;
 
 
         if (isAllFourTabsShown  ) {     // All Four tabs  shown
             this._widthMainMenu = {'width': '13%'};
-            this._widthDocumentUpload = {'width': '20%'};            
+            this._widthDocumentUpload = {'width': '20%'};
             this._widthPersonalInfo = {'width': '34%'};
             this._widthDependents = {'width': '21%'};
             this._widthReview  = {'width': '17%'};
@@ -71,7 +71,7 @@ export class ProgressBarHelper {
      * Sets _personalInfoLabel based on account change options.
      */
     private constructPILabel(): void {
-        let seperatorString: string = "";
+        let seperatorString: string = '';
         if (this._accountChangeOptions.hasAnyPISelected()) {
             if (this._accountChangeOptions.personInfoUpdate) {
                 this._personalInfoLabel = this.lang('./en/index.js').progressStepPersonalInfo;

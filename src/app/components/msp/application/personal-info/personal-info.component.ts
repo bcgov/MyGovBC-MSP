@@ -1,4 +1,4 @@
-import {Component, Injectable, ViewChild, ViewChildren, 
+import {Component, Injectable, ViewChild, ViewChildren,
   ChangeDetectorRef, QueryList, AfterViewInit, OnInit} from '@angular/core';
 import {MspApplication, Person} from '../../model/application.model';
 
@@ -6,14 +6,14 @@ import {MspApplication, Person} from '../../model/application.model';
 import { MspDataService } from '../../service/msp-data.service';
 
 import { Router } from '@angular/router';
-import {Relationship} from "../../model/status-activities-documents";
-import {NgForm} from "@angular/forms";
-import {PersonalDetailsComponent} from "./personal-details/personal-details.component";
-import {BaseComponent} from "../../common/base.component";
-import {ProcessService} from "../../service/process.service";
-import { StatusInCanada} from "../../model/status-activities-documents";
+import {Relationship} from '../../model/status-activities-documents';
+import {NgForm} from '@angular/forms';
+import {PersonalDetailsComponent} from './personal-details/personal-details.component';
+import {BaseComponent} from '../../common/base.component';
+import {ProcessService} from '../../service/process.service';
+import { StatusInCanada} from '../../model/status-activities-documents';
 
-import { ServicesCardDisclaimerModalComponent  } from '../../common/services-card-disclaimer/services-card-disclaimer.component'
+import { ServicesCardDisclaimerModalComponent  } from '../../common/services-card-disclaimer/services-card-disclaimer.component';
 
 @Component({
   templateUrl: './personal-info.component.html'
@@ -32,7 +32,7 @@ export class PersonalInfoComponent extends BaseComponent {
   constructor(private dataService: MspDataService,
     private _router: Router,
     private _processService: ProcessService,
-    private cd:ChangeDetectorRef) {
+    private cd: ChangeDetectorRef) {
 
     super(cd);
   }
@@ -41,7 +41,7 @@ export class PersonalInfoComponent extends BaseComponent {
     this.initProcessMembers(PersonalInfoComponent.ProcessStepNum, this._processService);
   }
 
-  onChange(values:any){
+  onChange(values: any){
     this.dataService.saveMspApplication();
   }
 
@@ -57,10 +57,10 @@ export class PersonalInfoComponent extends BaseComponent {
     return this.dataService.getMspApplication().spouse;
   }
 
-  addSpouse = () =>{
-    let sp:Person = new Person(Relationship.Spouse)    
+  addSpouse = () => {
+    const sp: Person = new Person(Relationship.Spouse);
     this.dataService.getMspApplication().addSpouse(sp);
-  };
+  }
 
   addChild(relationship: Relationship): void {
     this.dataService.getMspApplication().addChild(relationship);
@@ -72,9 +72,9 @@ export class PersonalInfoComponent extends BaseComponent {
 
   removeChild(event: Object, idx: number): void{
     // console.log('remove child ' + JSON.stringify(event));
-    this.dataService.getMspApplication().removeChild(idx);    
+    this.dataService.getMspApplication().removeChild(idx);
     this.dataService.saveMspApplication();
-    
+
   }
 
   removeSpouse(event: Object): void{
@@ -94,7 +94,7 @@ export class PersonalInfoComponent extends BaseComponent {
       this.personalDetailsComponent.forEach((personalDetailsComponent) => {
         if (personalDetailsComponent && personalDetailsComponent.person) {  //dependent can be empty object..ignore them
 
-          let currentApplicant: Person = personalDetailsComponent.person;
+          const currentApplicant: Person = personalDetailsComponent.person;
           if (currentApplicant.status === StatusInCanada.CitizenAdult || currentApplicant.status === StatusInCanada.PermanentResident) {
             if (currentApplicant.fullTimeStudent && currentApplicant.inBCafterStudies == false) {
               this._processService.setStep(1, false);
@@ -107,7 +107,7 @@ export class PersonalInfoComponent extends BaseComponent {
 
     return stayingInBc;
   }
-  canContinue():boolean {
+  canContinue(): boolean {
     return this.isAllValid();
   }
 
@@ -116,17 +116,17 @@ export class PersonalInfoComponent extends BaseComponent {
   }
 
   checkAnyDependentsIneligible(): boolean {
-        let target = [this.dataService.getMspApplication().applicant,this.dataService.getMspApplication().spouse ,...this.dataService.getMspApplication().children]
+        const target = [this.dataService.getMspApplication().applicant, this.dataService.getMspApplication().spouse , ...this.dataService.getMspApplication().children];
         return target.filter(x => x)
             .filter(x => x.ineligibleForMSP).length >= 1;
     }
 
 
-    continue():void {
+    continue(): void {
 
     // console.log('personal info form itself valid: %s', this.form.valid);
-    console.log('combinedValidationState on personal info: %s', this.isAllValid());
-    if(!this.isAllValid()){
+    console.log('Abhi---combinedValidationState on personal info: %s', this.isAllValid());
+    if (!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{
       this._router.navigate(['/msp/application/address']);

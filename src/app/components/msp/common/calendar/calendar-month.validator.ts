@@ -11,21 +11,21 @@ import * as moment from 'moment';
 })
 export class CalendarMonthValidator {
 
-  validate(control: FormControl): {[key:string]:boolean;}  {
+  validate(control: FormControl): {[key: string]: boolean; }  {
 
     // Get value out of control
-    let month:string = control.value;
+    const month: string = control.value;
 
-    if(month){
-      let m:number = parseInt(month);
+    if (month){
+      const m: number = parseInt(month);
 
-      if(!(m > 0 && m < 13)){
-        return {"calendarMonthOutOfRange": true}
+      if (!(m > 0 && m < 13)){
+        return {'calendarMonthOutOfRange': true};
       }
       return null;
     }else{
-        return {"calendarMonthEmptyValue": true}
+        return {'calendarMonthEmptyValue': true};
     }
   }
-  
+
 }

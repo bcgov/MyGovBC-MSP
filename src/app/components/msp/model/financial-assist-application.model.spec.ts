@@ -1,5 +1,5 @@
-import {FinancialAssistApplication, AssistanceApplicationType} from "./financial-assist-application.model";
-import {AssistanceYear} from "./assistance-year.model";
+import {FinancialAssistApplication, AssistanceApplicationType} from './financial-assist-application.model';
+import {AssistanceYear} from './assistance-year.model';
 import * as moment from 'moment';
 
 describe('FinancialAssistApplication Component', () => {
@@ -7,13 +7,13 @@ describe('FinancialAssistApplication Component', () => {
 
   it('should return the correct application type and year properly', () => {
 
-    let fixture = new FinancialAssistApplication();
+    const fixture = new FinancialAssistApplication();
 
-    let thisYear:number = fixture.MostRecentTaxYear;
+    const thisYear: number = fixture.MostRecentTaxYear;
     let pre = thisYear;
-    while(pre > thisYear - 6) {
+    while (pre > thisYear - 6) {
 
-      let assistYr: AssistanceYear = new AssistanceYear();
+      const assistYr: AssistanceYear = new AssistanceYear();
       assistYr.year = pre;
       assistYr.apply = false;
 
@@ -61,7 +61,7 @@ describe('FinancialAssistApplication Component', () => {
 
   it('should calculate the numDisabled', () => {
 
-    let fixture = new FinancialAssistApplication();
+    const fixture = new FinancialAssistApplication();
 
     expect(fixture.numDisabled).toBe(0);
     fixture.selfDisabilityCredit = true;
@@ -77,7 +77,7 @@ describe('FinancialAssistApplication Component', () => {
   });
 
   it('should calculate the disabilityDeduction', () => {
-    let fixture = new FinancialAssistApplication();
+    const fixture = new FinancialAssistApplication();
 
     expect(fixture.disabilityDeduction).toBe(0);
     fixture.applicantDisabilityCredit = 3000;

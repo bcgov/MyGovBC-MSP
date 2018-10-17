@@ -10,7 +10,7 @@ import * as ac from './accountChangeTypes';
 interface BaseType {
   _exists: boolean;
   _namespace: string;
-  _sequence:Array<string>
+  _sequence: Array<string>;
 }
 interface _ApplicationType extends BaseType {
   assistanceApplication: at.AssistanceApplicationType;
@@ -28,8 +28,8 @@ export interface ApplicationType extends _ApplicationType {
 }
 export class ApplicationTypeFactory {
   static make(): ApplicationType {
-    let instance = <ApplicationType>{};
-    instance._sequence = ["assistanceApplication", "enrolmentApplication", "accountChangeApplication", "uuid", "attachments", "comment"];
+    const instance = <ApplicationType>{};
+    instance._sequence = ['assistanceApplication', 'enrolmentApplication', 'accountChangeApplication', 'uuid', 'attachments', 'comment'];
     //instance.$xmlns = _ApplicationTypeNameSpace;
     return instance;
   }
@@ -42,8 +42,8 @@ export interface AttachmentsType extends _AttachmentsType { constructor: {new():
 }
 export class AttachmentsTypeFactory {
   static make(): AttachmentsType {
-    let instance = <AttachmentsType>{};
-    instance._sequence = ["attachment"];
+    const instance = <AttachmentsType>{};
+    instance._sequence = ['attachment'];
     return instance;
   }
 }
@@ -58,13 +58,13 @@ export interface AttachmentType extends _AttachmentType { constructor: {new(): A
 }
 export class AttachmentTypeFactory {
   static make(): AttachmentType {
-    let instance = <AttachmentType>{};
-    instance._sequence = ["contentType", "attachmentDocumentType", "attachmentUuid", "description"];
+    const instance = <AttachmentType>{};
+    instance._sequence = ['contentType', 'attachmentDocumentType', 'attachmentUuid', 'description'];
     return instance;
   }
 }
 
-export type ContentType = ("image/jpeg" | "application/pdf");
+export type ContentType = ('image/jpeg' | 'application/pdf');
 interface _ContentType extends Primitive._string { content: ContentType;
 }
 
@@ -74,10 +74,10 @@ export interface document extends BaseType {
 }
 export class DocumentFactory {
   static make(): document {
-    let instance = <document>{};
-    instance._sequence = ["application"];
+    const instance = <document>{};
+    instance._sequence = ['application'];
     return instance;
   }
 }
 
-export const _ApplicationTypeNameSpace = "http://www.gov.bc.ca/hibc/applicationTypes";
+export const _ApplicationTypeNameSpace = 'http://www.gov.bc.ca/hibc/applicationTypes';

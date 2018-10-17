@@ -1,7 +1,7 @@
-import {Component, Input, Output, EventEmitter, ViewChild, OnInit, ChangeDetectorRef, SimpleChange} from '@angular/core'
-import {NgForm} from "@angular/forms";
+import {Component, Input, Output, EventEmitter, ViewChild, OnInit, ChangeDetectorRef, SimpleChange} from '@angular/core';
+import {NgForm} from '@angular/forms';
 import * as moment from 'moment';
-import {BaseComponent} from "../base.component";
+import {BaseComponent} from '../base.component';
 
 
 @Component({
@@ -31,7 +31,7 @@ export class MspReturnDateComponent extends BaseComponent {
     @Input() minMonthsRange: number;
     @Input() minMonthsRangeErrorMsg: string;
 
-  @ViewChild('formRef') form:NgForm;
+  @ViewChild('formRef') form: NgForm;
 
   @Output() onChange = new EventEmitter<any>();
 
@@ -53,7 +53,7 @@ export class MspReturnDateComponent extends BaseComponent {
         if (!this.minMonthsRange || this.minMonthsRange == 0) {
             return true;
         }
-        let datebeforeNMonths = moment().subtract(this.minMonthsRange,'months') ;
+        const datebeforeNMonths = moment().subtract(this.minMonthsRange, 'months') ;
         if (this.inputDate().isBefore(datebeforeNMonths)) {
             return false;
         }
@@ -125,6 +125,6 @@ export class MspReturnDateComponent extends BaseComponent {
 
  // the date order validation with return and departure date is moved to out of bc component
   isValid(): boolean {
-    return this.isCorrectFormat() && this.futureCheck()  && this.isWithinNMonths();;
+    return this.isCorrectFormat() && this.futureCheck()  && this.isWithinNMonths();
   }
 }

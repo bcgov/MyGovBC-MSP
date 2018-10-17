@@ -1,10 +1,10 @@
 import {Component, Inject, Injectable, AfterContentInit, ViewChild, ElementRef} from '@angular/core';
 import { MspDataService } from '../../service/msp-data.service';
-import {MspApiService} from "../../service/msp-api.service";
-import {Router} from "@angular/router";
-import {ResponseType} from "../../api-model/responseTypes";
-import {FinancialAssistApplication} from "../../model/financial-assist-application.model";
-import {MspLogService} from '../../service/log.service'
+import {MspApiService} from '../../service/msp-api.service';
+import {Router} from '@angular/router';
+import {ResponseType} from '../../api-model/responseTypes';
+import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
+import {MspLogService} from '../../service/log.service';
 
 @Component({
   templateUrl: 'sending.component.html'
@@ -13,19 +13,19 @@ import {MspLogService} from '../../service/log.service'
 export class AssistanceSendingComponent implements AfterContentInit  {
   lang = require('./i18n');
 
-  application:FinancialAssistApplication;
+  application: FinancialAssistApplication;
   rawUrl: string;
   rawError: string;
   rawRequest: string;
 
-  transmissionInProcess:boolean;
-  hasError:boolean;
-  showMoreErrorDetails:boolean;
+  transmissionInProcess: boolean;
+  hasError: boolean;
+  showMoreErrorDetails: boolean;
 
-  constructor(private dataService: MspDataService, 
-              private service:MspApiService, 
+  constructor(private dataService: MspDataService,
+              private service: MspApiService,
               public router: Router,
-              public logService:MspLogService) {
+              public logService: MspLogService) {
     this.application = this.dataService.finAssistApp;
   }
 
@@ -37,34 +37,34 @@ export class AssistanceSendingComponent implements AfterContentInit  {
     // After view inits, begin sending the application
     this.service
       .sendApplication(this.application)
-      .then((application:FinancialAssistApplication) => {
+      .then((application: FinancialAssistApplication) => {
         this.application = application;
 
         this.logService.log({name: 'PA - received refNo ',
-          confirmationNumber: this.application.referenceNumber},"PA - Submission Response Success ");
+          confirmationNumber: this.application.referenceNumber}, 'PA - Submission Response Success ');
 
         //delete the premium assistance application content from local storage
         this.dataService.removeFinAssistApplication();
 
         //  go to confirmation
-        this.router.navigate(["/msp/assistance/confirmation"], 
-          {queryParams: {confirmationNum:this.application.referenceNumber}});
-        
+        this.router.navigate(['/msp/assistance/confirmation'],
+          {queryParams: {confirmationNum: this.application.referenceNumber}});
+
       })
       .catch((error: ResponseType | any) => {
         console.log('Error in sending PA: %o', error);
         this.hasError = true;
-        
+
         this.rawUrl = error.url;
         this.rawError = error;
         this.rawRequest = error._requestBody;
 
         this.logService.log({name: 'PA - Received Failure ',
           error: error._body,
-          request: error._requestBody},"PA - Submission Response Error" );
+          request: error._requestBody}, 'PA - Submission Response Error' );
         this.transmissionInProcess = false;
         // this.router.navigate(["/msp/assistance/confirmation"]);
-          let oldUUID = this.application.uuid;
+          const oldUUID = this.application.uuid;
           this.application.regenUUID();
 
           console.log('PA uuid updated: from %s to %s', oldUUID, this.dataService.finAssistApp.uuid);
@@ -77,9 +77,9 @@ export class AssistanceSendingComponent implements AfterContentInit  {
   toggleErrorDetails(){
     this.showMoreErrorDetails = !this.showMoreErrorDetails;
   }
-  
+
   retrySubmission(){
     this.router.navigate(['/msp/assistance/authorize-submit']);
   }
-  
+
 }

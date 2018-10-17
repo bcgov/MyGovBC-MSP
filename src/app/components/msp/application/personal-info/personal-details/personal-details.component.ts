@@ -9,32 +9,32 @@ import { OutofBCRecord } from '../../../model/outof-bc-record.model';
 import {
   StatusRules, ActivitiesRules, StatusInCanada, Activities,
   DocumentRules, Documents, Relationship
-} from "../../../model/status-activities-documents";
+} from '../../../model/status-activities-documents';
 import { MspImage } from '../../../model/msp-image';
 import * as _ from 'lodash';
-import {MspIdReqModalComponent} from "../../../common/id-req-modal/id-req-modal.component";
-import {MspImageErrorModalComponent} from "../../../common/image-error-modal/image-error-modal.component";
-import {FileUploaderComponent} from "../../../common/file-uploader/file-uploader.component";
-import {MspBirthDateComponent} from "../../../common/birthdate/birthdate.component";
-import {MspNameComponent} from "../../../common/name/name.component";
-import {MspGenderComponent} from "../../../common/gender/gender.component";
-import {MspPhnComponent} from "../../../common/phn/phn.component";
-import {MspSchoolDateComponent} from "../../../common/schoolDate/school-date.component";
-import {HealthNumberComponent} from "../../../common/health-number/health-number.component";
-import {MspDischargeDateComponent} from "../../../common/discharge-date/discharge-date.component";
-import {MspAddressComponent} from "../../../common/address/address.component";
-import {ServicesCardDisclaimerModalComponent} from "../../../common/services-card-disclaimer/services-card-disclaimer.component"
+import {MspIdReqModalComponent} from '../../../common/id-req-modal/id-req-modal.component';
+import {MspImageErrorModalComponent} from '../../../common/image-error-modal/image-error-modal.component';
+import {FileUploaderComponent} from '../../../common/file-uploader/file-uploader.component';
+import {MspBirthDateComponent} from '../../../common/birthdate/birthdate.component';
+import {MspNameComponent} from '../../../common/name/name.component';
+import {MspGenderComponent} from '../../../common/gender/gender.component';
+import {MspPhnComponent} from '../../../common/phn/phn.component';
+import {MspSchoolDateComponent} from '../../../common/schoolDate/school-date.component';
+import {HealthNumberComponent} from '../../../common/health-number/health-number.component';
+import {MspDischargeDateComponent} from '../../../common/discharge-date/discharge-date.component';
+import {MspAddressComponent} from '../../../common/address/address.component';
+import {ServicesCardDisclaimerModalComponent} from '../../../common/services-card-disclaimer/services-card-disclaimer.component';
 
-import {MspArrivalDateComponent} from "../../../common/arrival-date/arrival-date.component";
-import {MspOutofBCRecordComponent} from "../../../common/outof-bc/outof-bc.component";
-import {MspProvinceComponent} from "../../../common/province/province.component";
-
-
+import {MspArrivalDateComponent} from '../../../common/arrival-date/arrival-date.component';
+import {MspOutofBCRecordComponent} from '../../../common/outof-bc/outof-bc.component';
+import {MspProvinceComponent} from '../../../common/province/province.component';
 
 
 
-import {BaseComponent} from "../../../common/base.component";
-import {MspCountryComponent} from "../../../common/country/country.component";
+
+
+import {BaseComponent} from '../../../common/base.component';
+import {MspCountryComponent} from '../../../common/country/country.component';
 @Component({
     selector: 'msp-personal-details',
     templateUrl: './personal-details.component.html',
@@ -58,14 +58,14 @@ import {MspCountryComponent} from "../../../common/country/country.component";
         state('out', style({ display: 'block'}))
         // transition('* => *', animate(500))
       ]),
-      
+
       trigger('institutionWorkSignal', [
         state('in', style({ display: 'none' })),
         state('out', style({ display: 'block'}))
         // transition('* => *', animate(500))
       ])
     ]
-    
+
   }
 )
 
@@ -115,13 +115,13 @@ export class PersonalDetailsComponent extends BaseComponent {
   institutionWorkSignal: string;
   showServicesCardModal: boolean = false;
 
-  constructor(private el:ElementRef,
+  constructor(private el: ElementRef,
     private cd: ChangeDetectorRef){
     super(cd);
   }
 
   statusLabel(): string {
-    return this.lang('./en/index.js').statusLabel[this.person.relationship]
+    return this.lang('./en/index.js').statusLabel[this.person.relationship];
   }
 
   institutionList: string[] = ['Yes', 'No'];
@@ -133,11 +133,11 @@ export class PersonalDetailsComponent extends BaseComponent {
     return StatusRules.availableStatus(this.person.relationship);
   }
 
-  setStatus(value:StatusInCanada, p: Person) {
+  setStatus(value: StatusInCanada, p: Person) {
     p.status = value;
     p.currentActivity = null;
 
-    if(p.status !== StatusInCanada.CitizenAdult){
+    if (p.status !== StatusInCanada.CitizenAdult){
       p.institutionWorkHistory = 'No';
     }
     this.showServicesCardModal = true ;
@@ -145,7 +145,7 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.onChange.emit(value);
   }
 
-  setActivity(value:Activities) {
+  setActivity(value: Activities) {
 
       if (this.showServicesCardModal && this.person.bcServiceCardShowStatus && this.person.relationship != this.Relationship.ChildUnder19) {
           this.servicesCardDisclaimerModalComponent.showModal();
@@ -178,25 +178,25 @@ export class PersonalDetailsComponent extends BaseComponent {
     return DocumentRules.nameChangeDocument();
   }
 
-  addDocument(evt:MspImage){
+  addDocument(evt: MspImage){
     // console.log('image added: %s', evt);
     this.person.documents.images = this.person.documents.images.concat(evt);
-    console.info('$fileParent (1) addDocument', {images: this.person.documents.images, evt: evt})
-    
+    console.info('$fileParent (1) addDocument', {images: this.person.documents.images, evt: evt});
+
     this.fileUploader.forceRender();
     this.onChange.emit(evt);
   }
 
-  deleteDocument(evt:MspImage){
-    this.person.documents.images = this.person.documents.images.filter( 
-      (mspImage:MspImage) => {
+  deleteDocument(evt: MspImage){
+    this.person.documents.images = this.person.documents.images.filter(
+      (mspImage: MspImage) => {
         return evt.uuid !== mspImage.uuid;
       }
     );
     this.onChange.emit(evt);
   }
 
-  errorDocument(evt:MspImage) {
+  errorDocument(evt: MspImage) {
     this.imageErrorModal.imageWithError = evt;
     this.imageErrorModal.showFullSizeView();
     this.imageErrorModal.forceRender();
@@ -207,28 +207,28 @@ export class PersonalDetailsComponent extends BaseComponent {
 
     this.cd.detectChanges();
     /**
-     * Load an empty row to screen 
+     * Load an empty row to screen
      */
-    if(this.person.relationship === Relationship.Spouse){
-      window.scrollTo(0,this.el.nativeElement.offsetTop);
+    if (this.person.relationship === Relationship.Spouse){
+      window.scrollTo(0, this.el.nativeElement.offsetTop);
     }
   }
 
-  get arrivalDateLabel():string {
+  get arrivalDateLabel(): string {
     if (this.person.currentActivity == Activities.LivingInBCWithoutMSP) {
       return this.lang('./en/index.js').arrivalDateToBCLabelForReturning;
     }
     return this.lang('./en/index.js').arrivalDateToBCLabel;
   }
 
-  provinceUpdate(evt:string){
+  provinceUpdate(evt: string){
     this.person.movedFromProvinceOrCountry = evt;
     this.onChange.emit(evt);
   }
 
-  get schoolInBC():boolean {
+  get schoolInBC(): boolean {
     return this.person.schoolAddress
-      && this.person.schoolAddress.province 
+      && this.person.schoolAddress.province
       && this.person.schoolAddress.province.toLowerCase() === 'british columbia';
   }
   setFullTimeStudent(event: boolean) {
@@ -239,25 +239,25 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.onChange.emit(event);
     this.emitIsFormValid();
   }
-  setStayInBCAfterStudy(event:boolean){
-    this.person.inBCafterStudies = event; 
-    this.onChange.emit(event)
+  setStayInBCAfterStudy(event: boolean){
+    this.person.inBCafterStudies = event;
+    this.onChange.emit(event);
     this.emitIsFormValid();
     this.emitIsFormValid();
   }
 
-  schoolAddressUpdate(evt:any){
+  schoolAddressUpdate(evt: any){
     this.onChange.emit(evt);
   }
 
 
-  setHasPreviousPhn(value:boolean){
+  setHasPreviousPhn(value: boolean){
     this.person.hasPreviousBCPhn = value;
     this.onChange.emit(value);
     this.cd.detectChanges();
     this.emitIsFormValid();
   }
-  updateSchoolExpectedCompletionDate(evt:any){
+  updateSchoolExpectedCompletionDate(evt: any){
     // console.log('school expected completion date updated: %o', evt);
     this.person.studiesFinishedDay = evt.day;
     this.person.studiesFinishedMonth = evt.month;
@@ -265,13 +265,13 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.onChange.emit(evt);
   }
 
-  updateSchoolDepartureDate(evt:any){
+  updateSchoolDepartureDate(evt: any){
     // console.log('school departure date updated: %o', evt);
     this.person.studiesDepartureDay = evt.day;
     this.person.studiesDepartureMonth = evt.month;
     this.person.studiesDepartureYear = evt.year;
     this.onChange.emit(evt);
-  }  
+  }
 
   removeChild(): void {
     this.notifyChildRemoval.emit(this.person);
@@ -299,11 +299,11 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   toggleInstituationList() {
-    this.institutionWorkSignal === 'out' ? this.institutionWorkSignal = 'in' : this.institutionWorkSignal = 'out';    
+    this.institutionWorkSignal === 'out' ? this.institutionWorkSignal = 'in' : this.institutionWorkSignal = 'out';
   }
 
   get hasValidCurrentActivity(): boolean{
-    let v = _.isNumber(this.person.currentActivity);
+    const v = _.isNumber(this.person.currentActivity);
     return v;
   }
 
@@ -311,15 +311,15 @@ export class PersonalDetailsComponent extends BaseComponent {
     return this.institutionWorkSignal === 'out';
   }
 
-  handleHealthNumberChange(evt:string){
+  handleHealthNumberChange(evt: string){
     this.person.healthNumberFromOtherProvince = evt;
     this.onChange.emit(evt);
-    
+
   }
 
-  setBeenOutsideForOver30Days(out:boolean){
+  setBeenOutsideForOver30Days(out: boolean){
     this.person.declarationForOutsideOver30Days = out;
-    if(out){
+    if (out){
       this.person.outOfBCRecord = new OutofBCRecord();
     }else {
       this.person.outOfBCRecord = null;
@@ -329,12 +329,12 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.emitIsFormValid();
   }
 
-  handleDeleteOutofBCRecord(evt:OutofBCRecord){
+  handleDeleteOutofBCRecord(evt: OutofBCRecord){
     this.person.outOfBCRecord = null;
     this.onChange.emit(evt);
   }
 
-  handleOutofBCRecordChange(evt:OutofBCRecord){
+  handleOutofBCRecordChange(evt: OutofBCRecord){
     this.onChange.emit(evt);
   }
     //If false, then we don't want users continuing to further application;
@@ -342,19 +342,19 @@ export class PersonalDetailsComponent extends BaseComponent {
         return !this.person.ineligibleForMSP;
   }
 
-  setMovedToBCPermanently(moved:boolean){
+  setMovedToBCPermanently(moved: boolean){
     this.person.madePermanentMoveToBC = moved;
     this.onChange.emit(moved);
     this.emitIsFormValid();
   }
-  setLivedInBCSinceBirth(lived:boolean){
+  setLivedInBCSinceBirth(lived: boolean){
     this.person.livedInBCSinceBirth = lived;
     this.onChange.emit(lived);
     this.emitIsFormValid();
     this.cd.detectChanges();
   }
 
-  viewIdReqModal(event:Documents) {
+  viewIdReqModal(event: Documents) {
     this.idReqModal.showFullSizeView(event);
   }
 
@@ -369,26 +369,26 @@ export class PersonalDetailsComponent extends BaseComponent {
 
     // moved to bc permanently
     if (this.person.madePermanentMoveToBC == null) {
-      console.log("madePermanentMoveToBC invalid");
+      console.log('madePermanentMoveToBC invalid');
       return false;
     }
 
     // outside bc 30 days
     if (this.person.declarationForOutsideOver30Days == null) {
-      console.log("declarationForOutsideOver30Days invalid");
+      console.log('declarationForOutsideOver30Days invalid');
       return false;
     }
 
     // previous PHN
     if (this.person.hasPreviousBCPhn == null) {
-      console.log("hasPreviousBCPhn invalid");
+      console.log('hasPreviousBCPhn invalid');
       return false;
     }
 
     // armed forces
     if (this.armedForcedQuestion != null &&
       this.person.institutionWorkHistory == null) {
-      console.log("institutionWorkHistory invalid");
+      console.log('institutionWorkHistory invalid');
       return false;
     }
 
@@ -403,12 +403,12 @@ export class PersonalDetailsComponent extends BaseComponent {
     // school
     if (this.schoolQuestion != null &&
       this.person.fullTimeStudent == null) {
-      console.log("schoolQuestion invalid");
+      console.log('schoolQuestion invalid');
       return false;
     }
     if (this.person.fullTimeStudent &&
       this.person.inBCafterStudies == null) {
-      console.log("inBCafterStudies invalid");
+      console.log('inBCafterStudies invalid');
       return false;
     }
 

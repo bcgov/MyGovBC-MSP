@@ -1,11 +1,11 @@
-import {UUID} from "angular2-uuid";
+import {UUID} from 'angular2-uuid';
 import * as _ from 'lodash';
 
 
 import * as moment from 'moment';
 
 export class OutofBCRecord {
-  readonly id:string;
+  readonly id: string;
 
   constructor(){
     this.id = UUID.UUID();
@@ -13,17 +13,17 @@ export class OutofBCRecord {
   reason: string;
   location: string;
   departureDay: number;
-  departureMonth:number;
-  departureYear:number;
-  
-  returnDay:number;
+  departureMonth: number;
+  departureYear: number;
+
+  returnDay: number;
   returnMonth: number;
-  returnYear:number;
+  returnYear: number;
 
   /**
    * All fields provided with value
    */
-  isValid():boolean {
+  isValid(): boolean {
     return !this.isEmpty && !!this.reason
     && !this.isEmptyString(this.reason)
     && !this.isEmptyString(this.location)
@@ -47,16 +47,16 @@ export class OutofBCRecord {
     return undefined;
   }
 
-  private isEmptyString(s:string):boolean {
-    return s === null || s === undefined 
-    || s.trim().length < 1
+  private isEmptyString(s: string): boolean {
+    return s === null || s === undefined
+    || s.trim().length < 1;
   }
 
-  private isNotNumber(n:any){
-    return n === null || n === undefined || !_.isNumber(n)
+  private isNotNumber(n: any){
+    return n === null || n === undefined || !_.isNumber(n);
   }
 
-  get isEmpty():boolean {
+  get isEmpty(): boolean {
     return this.isEmptyString(this.reason)
     && this.isNotNumber(this.departureMonth)
     && this.isNotNumber(this.returnMonth)

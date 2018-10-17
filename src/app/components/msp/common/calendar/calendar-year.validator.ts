@@ -11,21 +11,21 @@ import * as moment from 'moment';
 })
 export class CalendarYearValidator {
 
-  validate(control: FormControl): {[key:string]:boolean;}  {
+  validate(control: FormControl): {[key: string]: boolean; }  {
     // console.log('year value at validator: ' + control.value);
     // Get value out of control
-    let year:string = control.value;
+    const year: string = control.value;
 
-    let y:number = parseInt(year);
+    const y: number = parseInt(year);
 
-    if( moment().get('y') - y > 150){
-      return {"yearDistantPast": true}
+    if ( moment().get('y') - y > 150){
+      return {'yearDistantPast': true};
     }
-    if( y - moment().get('y') > 150){
-      return {"yearDistantFuture": true}
+    if ( y - moment().get('y') > 150){
+      return {'yearDistantFuture': true};
     }
 
     return null;
   }
-  
+
 }

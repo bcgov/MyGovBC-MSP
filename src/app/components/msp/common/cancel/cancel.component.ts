@@ -1,7 +1,7 @@
 import {Component, Input, ViewChild} from '@angular/core';
 import * as moment from 'moment';
-import {ModalDirective} from "ngx-bootstrap";
-import {MspDataService} from "../../service/msp-data.service";
+import {ModalDirective} from 'ngx-bootstrap';
+import {MspDataService} from '../../service/msp-data.service';
 
 
 @Component({

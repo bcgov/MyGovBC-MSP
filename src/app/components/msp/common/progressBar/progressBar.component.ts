@@ -1,9 +1,9 @@
 import { Component, Input, ViewChildren, ElementRef, QueryList, Renderer } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { MspProgressBarItem } from "./progressBarDataItem.model";
+import { MspProgressBarItem } from './progressBarDataItem.model';
 import { ProgressBarHelper } from '../../account/ProgressBarHelper';
-import {Subject} from "rxjs/internal/Subject";
-import {debounceTime} from "rxjs/operators";
+import {Subject} from 'rxjs/internal/Subject';
+import {debounceTime} from 'rxjs/operators';
 
 
 @Component({
@@ -41,8 +41,8 @@ export class MspProgressBarComponent {
 
       //When route changes so does the displayed label
       this.router.events.subscribe(val => {
-        if(val instanceof NavigationEnd) {
-          setTimeout(_ => this.calcualteMinHeight());        
+        if (val instanceof NavigationEnd) {
+          setTimeout(_ => this.calcualteMinHeight());
         }
       });
 
@@ -128,14 +128,14 @@ export class MspProgressBarComponent {
    * classes for Enrollment, Premium Assistance, and Account Change
    */
   getAppTypeClass(): String {
-    if (this.contains(this.router.url, "msp/application")) {
-      return "application";
+    if (this.contains(this.router.url, 'msp/application')) {
+      return 'application';
     }
-    if (this.contains(this.router.url, "msp/assistance")) {
-      return "assistance";
+    if (this.contains(this.router.url, 'msp/assistance')) {
+      return 'assistance';
     }
-    if (this.contains(this.router.url, "msp/account")) {
-      return "account";
+    if (this.contains(this.router.url, 'msp/account')) {
+      return 'account';
     }
   }
 
@@ -143,31 +143,31 @@ export class MspProgressBarComponent {
    * Returns a string which matches classes found in progressBar.component.scss.
    * This class should only be responsible for the height of the progress bar
    * when it's at the -sm- breakpoint or larger in bootstrap.
-   * 
+   *
    * Note - A lot of this logic so far has been written with the Account
    * Maintenence section in mind.
    */
   get heightClass(): String {
-    let str: String = this.getLongestProgressBarItemLabel();
+    const str: String = this.getLongestProgressBarItemLabel();
     let length: Number;
     if (!str) { return null; }
     length = str.length;
 
     if (length >= 85) {
-      return "progressBar-lg";
+      return 'progressBar-lg';
     }
 
     if (length >= 60 && this.progressBarList.length >= 5) {
-      return "progressBar-md";
+      return 'progressBar-md';
     }
 
     if (length >= 40 || this.hasMultiLineLabel || this.progressBarList.length >= 5) {
-      return "progressBar-sm";
+      return 'progressBar-sm';
 
     }
 
 
-    return "progressBar-xs";
+    return 'progressBar-xs';
   }
 
 
@@ -184,10 +184,10 @@ export class MspProgressBarComponent {
     }
 
     return this.progressBarList.map(x => x.displayName)
-      .sort((x, y) => { return y.length - x.length })[0];
+      .sort((x, y) => { return y.length - x.length; })[0];
   }
 
-  /** 
+  /**
    * At least one of the labels for the ProgressBarItems has a linebreak in it.
    * */
   private get hasMultiLineLabel(): Boolean {
@@ -196,12 +196,12 @@ export class MspProgressBarComponent {
     }
 
     return !!this.progressBarList.filter(x => {
-      return x.displayName.indexOf(ProgressBarHelper.seperator) !== -1
+      return x.displayName.indexOf(ProgressBarHelper.seperator) !== -1;
     }).length;
   }
 
   private isAccountSection(): Boolean {
-    return this.getAppTypeClass() === "account";
+    return this.getAppTypeClass() === 'account';
   }
 
 }

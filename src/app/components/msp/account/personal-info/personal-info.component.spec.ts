@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { ChangeDetectorRef } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { AccountPersonalInfoComponent } from './personal-info.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ProcessService } from "../../service/process.service";
+import { ProcessService } from '../../service/process.service';
 import { async } from '@angular/core/testing';
 import { StatusInCanada, Activities } from '../../model/status-activities-documents';
 
@@ -29,12 +29,12 @@ describe('AccountPersonalInfoComponent', () => {
                 storageType: 'sessionStorage'
             })],
             providers: [
-                MspDataService, 
+                MspDataService,
                 { provide: ProcessService, useValue: processServiceStub },
             ]
-        })
+        });
 
-    }))
+    }));
 
 
     beforeEach(() => {
@@ -51,19 +51,19 @@ describe('AccountPersonalInfoComponent', () => {
     });
 
     it('should have a valid status without a status update', () => {
-        let mspAccountApp =  TestBed.get(MspDataService).getMspAccountApp();
+        const mspAccountApp =  TestBed.get(MspDataService).getMspAccountApp();
         mspAccountApp.accountChangeOptions.statusUpdate = true;
         comp.addUpdateSpouse();
         mspAccountApp.updatedSpouse.status = StatusInCanada.TemporaryResident;
         mspAccountApp.updatedSpouse.currentActivity =  Activities.Visiting;
         fixture.detectChanges();
-        expect(comp.hasAnyInvalidStatus()).toBe(true, "added spouse is just visiting so hasAnyInvalidStatus should be true");
+        expect(comp.hasAnyInvalidStatus()).toBe(true, 'added spouse is just visiting so hasAnyInvalidStatus should be true');
     });
 
     it('should be able to add and remove a spouse', () => {
         expect(comp.hasAnyInvalidStatus()).toBe(false, 'should have hasAnyInvalidStatus false on init');
 
-        let mspAccountApp =  TestBed.get(MspDataService).getMspAccountApp();
+        const mspAccountApp =  TestBed.get(MspDataService).getMspAccountApp();
         mspAccountApp.accountChangeOptions.statusUpdate = true;
         comp.addUpdateSpouse();
         mspAccountApp.updatedSpouse.status = StatusInCanada.TemporaryResident;
@@ -74,4 +74,4 @@ describe('AccountPersonalInfoComponent', () => {
         expect(comp.hasAnyInvalidStatus()).toBe(false, 'should have hasAnyInvalidStatus false after removing spouse');
     });
 
-})
+});

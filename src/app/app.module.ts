@@ -6,7 +6,7 @@ import { GeneralAppComponent } from './app.component';
 import { CoreFooterComponent } from './components/core/footer';
 import { CoreHeaderComponent } from './components/core/header';
 import { MspModule } from './components/msp/msp.module';
-import { HttpClientModule} from "@angular/common/http";
+import { HttpClientModule} from '@angular/common/http';
 
 
 require('./index.scss');
@@ -21,10 +21,10 @@ require('./index.scss');
     RouterModule.forRoot([
       { path: '', redirectTo: 'msp', pathMatch: 'full' }
     ])
-    
+
   ],
   declarations: [
-    CoreHeaderComponent, CoreFooterComponent, 
+    CoreHeaderComponent, CoreFooterComponent,
     GeneralAppComponent
   ],
   bootstrap: [CoreHeaderComponent, CoreFooterComponent, GeneralAppComponent]

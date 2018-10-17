@@ -1,13 +1,13 @@
 import {Component, AfterViewInit, ViewChild, Output, Inject, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../service/msp-data.service';
-import {FinancialAssistApplication} from "../../model/financial-assist-application.model";
+import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import {MspImage} from '../../model/msp-image';
-import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
-import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
+import {MspImageErrorModalComponent} from '../../common/image-error-modal/image-error-modal.component';
+import {FileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
 import {CompletenessCheckService} from '../../service/completeness-check.service';
-import {ProcessService} from "../../service/process.service";
-import {Router} from "@angular/router";
+import {ProcessService} from '../../service/process.service';
+import {Router} from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 
 @Component({
@@ -16,7 +16,7 @@ import { environment } from '../../../../../environments/environment';
 export class AssistanceAuthorizeSubmitComponent implements OnInit{
   static ProcessStepNum = 4;
   lang = require('./i18n');
-  captchaApiBaseUrl:string;
+  captchaApiBaseUrl: string;
 
   application: FinancialAssistApplication;
 
@@ -24,12 +24,12 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit{
   @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
   constructor(private dataService: MspDataService,
-              private completenessCheck:CompletenessCheckService,
+              private completenessCheck: CompletenessCheckService,
               private _router: Router,
               private _processService: ProcessService){
     this.application = this.dataService.finAssistApp;
     this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
-    
+
   }
 
   @ViewChild('form') form: NgForm;
@@ -48,55 +48,55 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit{
       this.dataService.saveFinAssistApplication();
     });
   }
-  
-  addDocument(mspImage:MspImage) {
+
+  addDocument(mspImage: MspImage) {
     this.application.powerOfAttorneyDocs = this.application.powerOfAttorneyDocs.concat(mspImage);
     this.fileUploader.forceRender();
     this.dataService.saveFinAssistApplication();
   }
 
-  errorDocument(evt:MspImage) {
+  errorDocument(evt: MspImage) {
     this.mspImageErrorModal.imageWithError = evt;
     this.mspImageErrorModal.showFullSizeView();
     this.mspImageErrorModal.forceRender();
   }
 
-  deleteDocument(mspImage:MspImage) {
+  deleteDocument(mspImage: MspImage) {
     // console.log('doc to be deleted: %o', mspImage);
     this.application.powerOfAttorneyDocs = this.application.powerOfAttorneyDocs.filter(
-      (doc:MspImage) => {
+      (doc: MspImage) => {
         return doc.uuid !== mspImage.uuid;
       }
     );
     this.dataService.saveFinAssistApplication();
   }
 
-  deleteAllDocs(doDelete:boolean){
-    if(doDelete){
+  deleteAllDocs(doDelete: boolean){
+    if (doDelete){
       this.application.powerOfAttorneyDocs = [];
       this.dataService.saveFinAssistApplication();
     }
   }
 
-  handleAuthorizedByAttorney(byAttorney:boolean){
+  handleAuthorizedByAttorney(byAttorney: boolean){
     // console.log('Power of Attorney, %o', byAttorney);
-    if(!byAttorney){
-      this.deleteAllDocs(!byAttorney);      
+    if (!byAttorney){
+      this.deleteAllDocs(!byAttorney);
     }
   }
 
-  get authorized():boolean {
+  get authorized(): boolean {
     return this.completenessCheck.finAppAuthorizationCompleted();
   }
 
   get questionApplicant(){
-    return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.applicantName);    
+    return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.applicantName);
   }
   get questionSpouse(){
-    return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.spouseName);    
+    return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.spouseName);
   }
   get questionForAttorney(){
-    return this.lang('./en/index.js').attorneyDoYouAgreeLabel.replace('{applicantName}', this.applicantName);    
+    return this.lang('./en/index.js').attorneyDoYouAgreeLabel.replace('{applicantName}', this.applicantName);
   }
   get applicantName(){
     return this.application.applicant.firstName + ' ' + this.application.applicant.lastName;
@@ -105,7 +105,7 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit{
     return this.application.spouse.firstName + ' ' + this.application.spouse.lastName;
   }
 
-  get canContinue():boolean {
+  get canContinue(): boolean {
     return this.authorized &&
       this.application.authorizationToken &&
       this.application.authorizationToken.length > 1;

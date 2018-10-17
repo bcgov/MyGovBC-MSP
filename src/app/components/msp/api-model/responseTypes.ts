@@ -14,9 +14,9 @@ interface _ResponseType extends BaseType {
 	status: string;
 }
 export interface ResponseType extends _ResponseType { constructor: { new(): ResponseType }; }
-export var ResponseType: { new(): ResponseType };
+export let ResponseType: { new(): ResponseType };
 
 export interface document extends BaseType {
 	response: ResponseType;
 }
-export var document: document;
+export let document: document;

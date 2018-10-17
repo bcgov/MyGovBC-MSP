@@ -1,16 +1,16 @@
-import {ChangeDetectorRef, Component, Injectable ,ViewChild, ViewChildren ,QueryList } from '@angular/core';
-import {NgForm} from "@angular/forms";
+import {ChangeDetectorRef, Component, Injectable , ViewChild, ViewChildren , QueryList } from '@angular/core';
+import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
-import {BaseComponent} from "../../common/base.component";
-import {ProcessService,ProcessUrls} from "../../service/process.service";
+import {BaseComponent} from '../../common/base.component';
+import {ProcessService, ProcessUrls} from '../../service/process.service';
 import {LocalStorageService} from 'angular-2-local-storage';
 import {MspAccountApp, Person} from '../../model/account.model';
 import {MspDataService} from '../../service/msp-data.service';
-import {AccountPersonalDetailsComponent} from "./personal-details/personal-details.component";
+import {AccountPersonalDetailsComponent} from './personal-details/personal-details.component';
 import {
     StatusRules, ActivitiesRules, StatusInCanada, Activities,
     DocumentRules, Documents, Relationship
-} from "../../model/status-activities-documents";
+} from '../../model/status-activities-documents';
 
 @Component({
   templateUrl: './personal-info.component.html'
@@ -28,12 +28,12 @@ export class AccountPersonalInfoComponent extends BaseComponent {
   constructor(private dataService: MspDataService,
               private _router: Router,
               private _processService: ProcessService,
-              private cd:ChangeDetectorRef, private localStorageService: LocalStorageService) {
+              private cd: ChangeDetectorRef, private localStorageService: LocalStorageService) {
 
     super(cd);
   }
 
-    onChange(values:any){
+    onChange(values: any){
         this.dataService.saveMspAccountApp();
     }
 
@@ -62,10 +62,10 @@ export class AccountPersonalInfoComponent extends BaseComponent {
     }
 
 
-    addUpdateSpouse = () =>{
-        let sp:Person = new Person(Relationship.Spouse)
+    addUpdateSpouse = () => {
+        const sp: Person = new Person(Relationship.Spouse);
         this.dataService.getMspAccountApp().addUpdatedSpouse(sp);
-    };
+    }
 
     addUpdateChild(): void {
         this.dataService.getMspAccountApp().addUpdatedChild();
@@ -85,11 +85,11 @@ export class AccountPersonalInfoComponent extends BaseComponent {
 
     }
 
-    canContinue():boolean {
+    canContinue(): boolean {
         return this.isAllValid();
     }
 
-    removeSpouse = () =>{
+    removeSpouse = () => {
         this.dataService.getMspAccountApp().removeUpdatedSpouse();
         this.dataService.saveMspAccountApp();
     }
@@ -99,14 +99,14 @@ export class AccountPersonalInfoComponent extends BaseComponent {
 
     }
 
-    continue():void {
+    continue(): void {
 
         // console.log('personal info form itself valid: %s', this.form.valid);
-        console.log('combinedValidationState on personal info: %s', this.isAllValid());
-        if(!this.isAllValid()){
+        console.log('==Abhi==combinedValidationState on personal info: %s', this.isAllValid());
+        if (!this.isAllValid()){
             console.log('Please fill in all required fields on the form.');
         }else{
-            console.log('redirecting to'+this._processService.getNextStep( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL)));
+            console.log('redirecting to' + this._processService.getNextStep( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL)));
             this._router.navigate([this._processService.getNextStep( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL))]);
         }
     }

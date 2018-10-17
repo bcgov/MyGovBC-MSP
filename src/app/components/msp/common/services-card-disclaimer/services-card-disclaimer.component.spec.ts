@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { StatusInCanada } from "../../model/status-activities-documents";
-import { ModalModule } from "ngx-bootstrap";
+import { StatusInCanada } from '../../model/status-activities-documents';
+import { ModalModule } from 'ngx-bootstrap';
 
 import { ServicesCardDisclaimerModalComponent } from './services-card-disclaimer.component';
 
@@ -88,7 +88,7 @@ describe('ServicesCardDisclaimerComponent', () => {
     fixture.detectChanges();
     tick();
 
-    fixture.whenStable().then(() => {  
+    fixture.whenStable().then(() => {
       expect(component.fullSizeViewModal.isShown).toBe(true, 'modal show when status is *changed* to PermanentResident');
     });
   }));
@@ -102,7 +102,7 @@ describe('ServicesCardDisclaimerComponent', () => {
       fixture.whenStable().then(() => {
         expect(component.fullSizeViewModal.isShown).toBe(false, 'modal show when status is *changed* to TemporaryResident');
       });
-    })
+    });
   });
 
   it('should show modal when status changed to CitizenAdult at runtime', () => {

@@ -4,9 +4,9 @@ import {MspDataService} from '../service/msp-data.service';
 
 
 import {Router} from '@angular/router';
-import {MspImage} from "../model/msp-image";
-import {MspImageErrorModalComponent} from "../common/image-error-modal/image-error-modal.component";
-import {FileUploaderComponent} from "../common/file-uploader/file-uploader.component";
+import {MspImage} from '../model/msp-image';
+import {MspImageErrorModalComponent} from '../common/image-error-modal/image-error-modal.component';
+import {FileUploaderComponent} from '../common/file-uploader/file-uploader.component';
 
 /**
  * Application for MSP
@@ -19,7 +19,7 @@ import {FileUploaderComponent} from "../common/file-uploader/file-uploader.compo
     styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent {
-    lang = require('./i18n')
+    lang = require('./i18n');
 
     constructor(private mspDataService: MspDataService, private router: Router) {}
 

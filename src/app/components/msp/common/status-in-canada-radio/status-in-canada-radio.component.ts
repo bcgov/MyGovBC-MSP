@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {
     StatusInCanada, StatusRules, Activities, ActivitiesRules, Relationship
-} from '../../model/status-activities-documents'
+} from '../../model/status-activities-documents';
 import {Person} from '../../model/person.model';
-import {BaseComponent} from "../../common/base.component";
-import {ServicesCardDisclaimerModalComponent} from "../services-card-disclaimer/services-card-disclaimer.component";
+import {BaseComponent} from '../../common/base.component';
+import {ServicesCardDisclaimerModalComponent} from '../services-card-disclaimer/services-card-disclaimer.component';
 
 @Component({
     selector: 'msp-status-in-canada-radio',
@@ -43,7 +43,7 @@ export class MspStatusInCanadaRadioComponent extends BaseComponent {
         }
         if (this.showServicesCardModal) {
             // For account change ,  children under 19 are excluded from showing pop up
-            var isCorrectRelationShip:boolean = this.person.relationship != this.Relationship.ChildUnder19  ;
+            const isCorrectRelationShip: boolean = this.person.relationship != this.Relationship.ChildUnder19  ;
             if ( this.person.bcServiceCardShowStatus && isCorrectRelationShip ) {
                 this.servicesCardDisclaimerModalComponent.showModal();
             }

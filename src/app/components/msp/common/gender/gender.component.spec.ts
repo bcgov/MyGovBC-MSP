@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MspGenderComponent } from './gender.component';
 import { MspDataService } from '../../service/msp-data.service';
@@ -14,10 +14,10 @@ describe('MspGenderComponent', () => {
         storageType: 'sessionStorage'
       })],
       providers: [MspDataService]
-    })
+    });
   });
   it ('should work', () => {
-    let fixture = TestBed.createComponent(MspGenderComponent);
+    const fixture = TestBed.createComponent(MspGenderComponent);
     expect(fixture.componentInstance instanceof MspGenderComponent).toBe(true, 'should create MspGenderComponent');
   });
-})
+});

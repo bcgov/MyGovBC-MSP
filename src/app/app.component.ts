@@ -1,7 +1,7 @@
 import {Component, ViewContainerRef} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { filter} from "rxjs/operators";
+import { filter} from 'rxjs/operators';
 
 @Component({
   selector: 'general-app',
@@ -11,7 +11,7 @@ export class GeneralAppComponent {
   private viewContainerRef: ViewContainerRef;
   routerSubscription: Subscription;
 
-  public constructor(viewContainerRef:ViewContainerRef, private router: Router) {
+  public constructor(viewContainerRef: ViewContainerRef, private router: Router) {
     // You need this small hack in order to catch application root view container ref
     this.viewContainerRef = viewContainerRef;
   }

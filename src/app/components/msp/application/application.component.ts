@@ -1,8 +1,8 @@
 import {Component, Inject, ViewChild} from '@angular/core';
 import { MspProgressBarItem } from '../common/progressBar/progressBarDataItem.model';
-import {MspProgressBarComponent} from "../common/progressBar/progressBar.component";
+import {MspProgressBarComponent} from '../common/progressBar/progressBar.component';
 // import ProcessService, {ProcessStep} from "../service/process.service";
-import {ProcessService, ProcessStep} from "../service/process.service";
+import {ProcessService, ProcessStep} from '../service/process.service';
 
 import { environment } from '../../../../environments/environment';
 
@@ -33,12 +33,12 @@ export class ApplicationComponent  {
     }
 
     return [
-      new MspProgressBarItem(this.lang("./en/index.js").progressStep1, this.processService.process.processSteps[0].route),
-      new MspProgressBarItem(this.lang("./en/index.js").progressStep2, this.processService.process.processSteps[1].route),
-      new MspProgressBarItem(this.lang("./en/index.js").progressStep3, this.processService.process.processSteps[2].route),
-      new MspProgressBarItem(this.lang("./en/index.js").progressStep4, this.processService.process.processSteps[3].route)
-    ]
-  };
+      new MspProgressBarItem(this.lang('./en/index.js').progressStep1, this.processService.process.processSteps[0].route),
+      new MspProgressBarItem(this.lang('./en/index.js').progressStep2, this.processService.process.processSteps[1].route),
+      new MspProgressBarItem(this.lang('./en/index.js').progressStep3, this.processService.process.processSteps[2].route),
+      new MspProgressBarItem(this.lang('./en/index.js').progressStep4, this.processService.process.processSteps[3].route)
+    ];
+  }
 
   constructor (private processService: ProcessService,
               private logService: MspLogService,
@@ -56,28 +56,28 @@ export class ApplicationComponent  {
     this.routerSubscription = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(event => {
-          if (this.router.url.indexOf("/confirmation/") === -1) {//toned down logs.no log for confirmation page
+          if (this.router.url.indexOf('/confirmation/') === -1) {//toned down logs.no log for confirmation page
               this.logService.log({
-                  name: "Enrolment - Loaded Page ",
+                  name: 'Enrolment - Loaded Page ',
                   url: this.router.url
-              }, "Enrolment - Loaded Page ")
+              }, 'Enrolment - Loaded Page ');
           }
       });
   }
 
   ngOnDestroy() {
-      if(this.routerSubscription && !this.routerSubscription.closed) {
+      if (this.routerSubscription && !this.routerSubscription.closed) {
           this.routerSubscription.unsubscribe();
       }
   }
 
   private initProcessService () {
     this.processService.init([
-      new ProcessStep("/msp/application/prepare"),
-      new ProcessStep("/msp/application/personal-info"),
-      new ProcessStep("/msp/application/address"),
-      new ProcessStep("/msp/application/review"),
-      new ProcessStep("/msp/application/sending")]);
+      new ProcessStep('/msp/application/prepare'),
+      new ProcessStep('/msp/application/personal-info'),
+      new ProcessStep('/msp/application/address'),
+      new ProcessStep('/msp/application/review'),
+      new ProcessStep('/msp/application/sending')]);
   }
 
 }

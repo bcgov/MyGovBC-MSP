@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MspNameComponent } from './name.component';
 import { MspDataService } from '../../service/msp-data.service';
@@ -13,10 +13,10 @@ describe('MspNameComponent', () => {
         storageType: 'sessionStorage'
       })],
       providers: [MspDataService]
-    })
+    });
   });
   it ('should work', () => {
-    let fixture = TestBed.createComponent(MspNameComponent);
+    const fixture = TestBed.createComponent(MspNameComponent);
     expect(fixture.componentInstance instanceof MspNameComponent).toBe(true, 'should create MspNameComponent');
   });
-})
+});

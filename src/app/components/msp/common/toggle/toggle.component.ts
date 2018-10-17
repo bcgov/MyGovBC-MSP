@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { BaseComponent } from "../base.component";
+import { BaseComponent } from '../base.component';
 
 
 @Component({
@@ -13,7 +13,7 @@ export class MspToggleComponent extends BaseComponent {
   @Output() dataChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @Input() id: string;
-  
+
 
   constructor(private cd: ChangeDetectorRef) {
     super(cd);

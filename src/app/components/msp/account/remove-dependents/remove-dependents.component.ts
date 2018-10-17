@@ -10,15 +10,15 @@ import {
     QueryList
 } from '@angular/core';
 import {Person} from '../../model/person.model';
-import {Relationship, StatusInCanada, CancellationReasons ,CancellationReasonsForSpouse} from '../../model/status-activities-documents';
-import {BaseComponent} from "../../common/base.component";
+import {Relationship, StatusInCanada, CancellationReasons , CancellationReasonsForSpouse} from '../../model/status-activities-documents';
+import {BaseComponent} from '../../common/base.component';
 import {MspDataService} from '../../service/msp-data.service';
 import {Router} from '@angular/router';
-import {ProcessService} from "../../service/process.service";
+import {ProcessService} from '../../service/process.service';
 import {LocalStorageService} from 'angular-2-local-storage';
 import {MspToggleComponent} from '../../common/toggle/toggle.component';
 import {MspStatusInCanadaRadioComponent} from '../../common/status-in-canada-radio/status-in-canada-radio.component';
-import {MspAddressComponent} from "../../common/address/address.component";
+import {MspAddressComponent} from '../../common/address/address.component';
 import {AccountPersonalDetailsComponent} from '../personal-info/personal-details/personal-details.component';
 
 
@@ -81,7 +81,7 @@ export class RemoveDependentComponent extends BaseComponent {
      *    ]
      * ```
      */
-    getCancellationReasonsIterable(relationship:number) {
+    getCancellationReasonsIterable(relationship: number) {
        if (relationship == Relationship.ChildUnder24) {
         //CancellationReasons has duplicate keys, so only count half.
         return Object.keys(CancellationReasons)
@@ -110,8 +110,8 @@ export class RemoveDependentComponent extends BaseComponent {
         //get all options
         const defaultOptions = this.getCancellationReasonsIterable(Relationship.ChildUnder24).concat(this.getCancellationReasonsIterable(Relationship.Spouse));
 
-        if (this.person.reasonForCancellation ==="pleaseSelect") {
-            return "pleaseSelect";
+        if (this.person.reasonForCancellation === 'pleaseSelect') {
+            return 'pleaseSelect';
         }
 
         const isDefaultOption = defaultOptions.indexOf(this.person.reasonForCancellation) >= 0;
@@ -120,7 +120,7 @@ export class RemoveDependentComponent extends BaseComponent {
             return this.person.reasonForCancellation;
         }
         else {
-            return "Other";
+            return 'Other';
         }
 
     }
@@ -129,7 +129,7 @@ export class RemoveDependentComponent extends BaseComponent {
         // Some inputs can be determine via the form.isValid,
         // check these explicitly
 
-        if (!this.person.reasonForCancellation || this.person.reasonForCancellation ==="pleaseSelect" ) {
+        if (!this.person.reasonForCancellation || this.person.reasonForCancellation === 'pleaseSelect' ) {
             return false;
         }
         if (!this.person.cancellationDate) {
@@ -142,12 +142,12 @@ export class RemoveDependentComponent extends BaseComponent {
     }
 
     onChangeReasonForCancellation(event: string) {
-        this.showOtherCancellationReason = event.toLowerCase() === "other";
+        this.showOtherCancellationReason = event.toLowerCase() === 'other';
         if (!this.showOtherCancellationReason) {
             this.person.reasonForCancellation = event;
         }
         else {
-            this.person.reasonForCancellation = "";
+            this.person.reasonForCancellation = '';
         }
         this.onChange.emit();
         this.emitIsFormValid();

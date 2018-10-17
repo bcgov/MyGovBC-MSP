@@ -1,14 +1,14 @@
-import { TestBed } from '@angular/core/testing'
-import { LandingComponent } from './landing.component'
+import { TestBed } from '@angular/core/testing';
+import { LandingComponent } from './landing.component';
 import { Router, RouterModule } from '@angular/router';
 import { MspDataService } from '../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 
 /*
 describe('LandingComponent', () => {
-  
+
   beforeEach(() => {
-    TestBed.configureTestingModule({ 
+    TestBed.configureTestingModule({
       declarations: [LandingComponent],
       imports:[RouterModule, LocalStorageModule.withConfig({
           prefix: 'ca.bc.gov.msp',

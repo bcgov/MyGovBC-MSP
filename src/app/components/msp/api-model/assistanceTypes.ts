@@ -8,7 +8,7 @@ import * as ct from './commonTypes';
 interface BaseType {
 	_exists: boolean;
 	_namespace: string;
-	_sequence:Array<string>
+	_sequence: Array<string>;
 }
 interface _AssistanceApplicantType extends ct.BasicInfoType {
 	financials: FinancialsType;
@@ -20,13 +20,13 @@ interface _AssistanceApplicantType extends ct.BasicInfoType {
 	telephone: number;
 }
 export interface AssistanceApplicantType extends _AssistanceApplicantType { constructor: { new(): AssistanceApplicantType }; }
-export var AssistanceApplicantType: { new(): AssistanceApplicantType };
+export let AssistanceApplicantType: { new(): AssistanceApplicantType };
 
 export class AssistanceApplicantTypeFactory {
 	static make(): AssistanceApplicantType {
-		let instance = <AssistanceApplicantType>{};
-		instance._sequence = ["name", "gender", "birthDate", "attachmentUuids", "telephone", "residenceAddress",
-			"mailingAddress", "financials", "phn","SIN","powerOfAttorney"];
+		const instance = <AssistanceApplicantType>{};
+		instance._sequence = ['name', 'gender', 'birthDate', 'attachmentUuids', 'telephone', 'residenceAddress',
+			'mailingAddress', 'financials', 'phn', 'SIN', 'powerOfAttorney'];
 		return instance;
 	}
 }
@@ -39,14 +39,14 @@ interface _AssistanceApplicationType extends BaseType {
 	spouse?: AssistanceSpouseType;
 }
 export interface AssistanceApplicationType extends _AssistanceApplicationType { constructor: { new(): AssistanceApplicationType }; }
-export var AssistanceApplicationType: { new(): AssistanceApplicationType };
+export let AssistanceApplicationType: { new(): AssistanceApplicationType };
 
 
 export class AssistanceApplicationTypeFactory {
 	static make(): AssistanceApplicationType {
-		let instance = <AssistanceApplicationType>{};
-		instance._sequence = ["applicant", "spouse", "authorizedByApplicant", "authorizedByApplicantDate",
-			"authorizedBySpouse"];
+		const instance = <AssistanceApplicationType>{};
+		instance._sequence = ['applicant', 'spouse', 'authorizedByApplicant', 'authorizedByApplicantDate',
+			'authorizedBySpouse'];
 		return instance;
 	}
 }
@@ -60,18 +60,18 @@ interface _AssistanceSpouseType extends BaseType {
 	spouseSixtyFiveDeduction?: number;
 }
 export interface AssistanceSpouseType extends _AssistanceSpouseType { constructor: { new(): AssistanceSpouseType }; }
-export var AssistanceSpouseType: { new(): AssistanceSpouseType };
+export let AssistanceSpouseType: { new(): AssistanceSpouseType };
 
 export class AssistanceSpouseTypeFactory {
 	static make(): AssistanceSpouseType {
-		let instance = <AssistanceSpouseType>{};
-		instance._sequence = ["name", "birthDate", "phn", "SIN", "spouseDeduction",
-			"spouseSixtyFiveDeduction"];
+		const instance = <AssistanceSpouseType>{};
+		instance._sequence = ['name', 'birthDate', 'phn', 'SIN', 'spouseDeduction',
+			'spouseSixtyFiveDeduction'];
 		return instance;
 	}
 }
 
-export type AssistanceYearType = ("CurrentPA" | "PreviousTwo" | "MultiYear");
+export type AssistanceYearType = ('CurrentPA' | 'PreviousTwo' | 'MultiYear');
 interface _AssistanceYearType extends Primitive._string { content: AssistanceYearType; }
 
 interface _FinancialsType extends BaseType {
@@ -94,14 +94,14 @@ interface _FinancialsType extends BaseType {
 	uccb?: number;
 }
 export interface FinancialsType extends _FinancialsType { constructor: { new(): FinancialsType }; }
-export var FinancialsType: { new(): FinancialsType };
+export let FinancialsType: { new(): FinancialsType };
 
 export class FinancialsTypeFactory {
 	static make(): FinancialsType {
-		let instance = <FinancialsType>{};
-		instance._sequence = ["taxYear", "assistanceYear", "numberOfTaxYears", "netIncome", "spouseNetIncome",
-			"totalNetIncome", "sixtyFiveDeduction", "numChildren", "childDeduction", "childCareExpense", "deductions",
-			"uccb", "numDisabled", "disabilityDeduction", "disabilitySavingsPlan", "totalDeductions", "adjustedNetIncome"];
+		const instance = <FinancialsType>{};
+		instance._sequence = ['taxYear', 'assistanceYear', 'numberOfTaxYears', 'netIncome', 'spouseNetIncome',
+			'totalNetIncome', 'sixtyFiveDeduction', 'numChildren', 'childDeduction', 'childCareExpense', 'deductions',
+			'uccb', 'numDisabled', 'disabilityDeduction', 'disabilitySavingsPlan', 'totalDeductions', 'adjustedNetIncome'];
 		return instance;
 	}
 }
@@ -109,12 +109,12 @@ export class FinancialsTypeFactory {
 export interface document extends BaseType {
 	assistanceApplication: AssistanceApplicationType;
 }
-export var document: document;
+export let document: document;
 
 export class DocumentFactory {
 	static make(): document {
-		let instance = <document>{};
-		instance._sequence = ["assistanceApplication"];
+		const instance = <document>{};
+		instance._sequence = ['assistanceApplication'];
 		return instance;
 	}
 }

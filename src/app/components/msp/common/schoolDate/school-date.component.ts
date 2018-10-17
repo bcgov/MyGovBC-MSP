@@ -1,7 +1,7 @@
 import {Component, Input, EventEmitter, Output, ViewChild, ChangeDetectorRef} from '@angular/core';
-import {NgForm} from "@angular/forms";
+import {NgForm} from '@angular/forms';
 import * as moment from 'moment';
-import {BaseComponent} from "../base.component";
+import {BaseComponent} from '../base.component';
 
 @Component({
   selector: 'msp-school-date',
@@ -22,7 +22,7 @@ export class MspSchoolDateComponent extends BaseComponent {
   @Input() day: number;
   @Output() dayChange = new EventEmitter<number>();
   @Input() departureDate: boolean = false;
-  @Input() required:boolean;
+  @Input() required: boolean;
   @Output() onChange = new EventEmitter<any>();
   @Input() showError: boolean;
 
@@ -71,10 +71,10 @@ export class MspSchoolDateComponent extends BaseComponent {
    * @returns {boolean}
    */
   isCorrectFormat(): boolean {
-    if(!this.year || !this.month || !this.day){
+    if (!this.year || !this.month || !this.day){
       return false;
     }else{
-      let valid = this.inputDate().isValid();
+      const valid = this.inputDate().isValid();
 
       return valid;
     }

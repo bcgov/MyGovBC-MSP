@@ -2,11 +2,11 @@ import { Component, ViewChild, OnInit, AfterViewInit, DoCheck } from '@angular/c
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../service/msp-data.service';
 import {FinancialAssistApplication}from '../../model/financial-assist-application.model';
-import {MspImage} from "../../../msp/model/msp-image";
-import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
-import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
-import {Router} from "@angular/router";
-import {ProcessService} from "../../service/process.service";
+import {MspImage} from '../../../msp/model/msp-image';
+import {FileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
+import {MspImageErrorModalComponent} from '../../common/image-error-modal/image-error-modal.component';
+import {Router} from '@angular/router';
+import {ProcessService} from '../../service/process.service';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class AssistanceRetroYearsComponent implements AfterViewInit, DoCheck{
   }
 
   ngDoCheck(): void {
-    let valid = this.canContinue;
+    const valid = this.canContinue;
     this._processService.setStep(AssistanceRetroYearsComponent.ProcessStepNum, valid);
   }
 
@@ -41,10 +41,10 @@ export class AssistanceRetroYearsComponent implements AfterViewInit, DoCheck{
   }
 
   get docRequiredInstruction(): any{
-    let docsRequiredYears:string = this.application.getAppliedForTaxYears().reduce(
+    const docsRequiredYears: string = this.application.getAppliedForTaxYears().reduce(
       function(acc, value, idx){
-        if(value.docsRequired){
-          if(acc.length > 0){
+        if (value.docsRequired){
+          if (acc.length > 0){
             return acc + ', ' + value.year;
           }else{
             return acc + value.year;
@@ -54,25 +54,25 @@ export class AssistanceRetroYearsComponent implements AfterViewInit, DoCheck{
         }
       }, ''
     );
-    let applicantLine = this.lang('./en/index.js').applicantDocsRequired
+    const applicantLine = this.lang('./en/index.js').applicantDocsRequired
       .replace('{taxYearsAppliedFor}', docsRequiredYears);
 
-    let spouseLine = this.lang('./en/index.js').spouseDocsRequired
+    const spouseLine = this.lang('./en/index.js').spouseDocsRequired
       .replace('{taxYearsAppliedFor}', docsRequiredYears);
-    
+
     return {
       applicant: applicantLine,
       spouse: spouseLine
-    }
-      
+    };
+
   }
 
   getDocNotRequiredInstruction(){
 
-    let docsNotRequiredYears:string = this.application.getAppliedForTaxYears().reduce(
+    const docsNotRequiredYears: string = this.application.getAppliedForTaxYears().reduce(
       function(acc, value, idx){
-        if(!value.docsRequired){
-          if(acc.length > 0){
+        if (!value.docsRequired){
+          if (acc.length > 0){
             return acc + ', ' + value.year;
           }else{
             return acc + value.year;
@@ -84,37 +84,37 @@ export class AssistanceRetroYearsComponent implements AfterViewInit, DoCheck{
     );
     return this.lang('./en/index.js').docNotRequiredInstruction
       .replace('{notRequiredYears}', docsNotRequiredYears);
-    
+
   }
 
-  addDoc(doc:MspImage){
+  addDoc(doc: MspImage){
     this.application.assistYeaDocs = this.application.assistYeaDocs.concat(doc);
     this.fileUploader.forceRender();
     this.dataService.saveFinAssistApplication();
   }
 
-  errorDoc(evt:MspImage) {
+  errorDoc(evt: MspImage) {
     this.mspImageErrorModal.imageWithError = evt;
     this.mspImageErrorModal.showFullSizeView();
     this.mspImageErrorModal.forceRender();
   }
 
-  deleteDoc(doc:MspImage){
+  deleteDoc(doc: MspImage){
     this.application.assistYeaDocs = this.application.assistYeaDocs
-      .filter( d=> {
+      .filter( d => {
         return d.id !== doc.id;
       });
     this.dataService.saveFinAssistApplication();
   }
 
-  get hasSpouse():boolean {
+  get hasSpouse(): boolean {
     return this.application.hasSpouseOrCommonLaw;
   }
-  
-  get docRequired():boolean {
-    let required = false;
-    for(let i=0; i<this.application.getAppliedForTaxYears().length; i++){
-      if(this.application.getAppliedForTaxYears()[i].apply && this.application.getAppliedForTaxYears()[i].docsRequired){
+
+  get docRequired(): boolean {
+    const required = false;
+    for (let i = 0; i < this.application.getAppliedForTaxYears().length; i++){
+      if (this.application.getAppliedForTaxYears()[i].apply && this.application.getAppliedForTaxYears()[i].docsRequired){
         return true;
       }
     }

@@ -1,9 +1,9 @@
-import {UUID} from "angular2-uuid";
-import {ApplicationBase} from "./application-base.model";
-import {MspImage} from "./msp-image";
-import {Person,OperationActionType} from "./person.model";
-import {Relationship, StatusInCanada, Activities, Documents} from "./status-activities-documents";
-import {PhoneNumber} from "./phone.model";
+import {UUID} from 'angular2-uuid';
+import {ApplicationBase} from './application-base.model';
+import {MspImage} from './msp-image';
+import {Person, OperationActionType} from './person.model';
+import {Relationship, StatusInCanada, Activities, Documents} from './status-activities-documents';
+import {PhoneNumber} from './phone.model';
 
 
 class MspAccountApp implements ApplicationBase {
@@ -21,8 +21,8 @@ class MspAccountApp implements ApplicationBase {
     referenceNumber: string;
     private _applicant: Person = new Person(Relationship.Applicant);
     public phoneNumber: string;
-    documents:MspImage[] = [];
-    id:string;
+    documents: MspImage[] = [];
+    id: string;
 
     authorizedByApplicant: boolean;
     authorizedByApplicantDate: Date;
@@ -41,7 +41,7 @@ class MspAccountApp implements ApplicationBase {
         }
 
         // But if it's provided is must be valid
-        let regEx = new RegExp(PhoneNumber.PhoneNumberRegEx);
+        const regEx = new RegExp(PhoneNumber.PhoneNumberRegEx);
         return regEx.test(this.phoneNumber);
     }
 
@@ -97,35 +97,35 @@ class MspAccountApp implements ApplicationBase {
     //DEAM doesnt use chidren as such..its either updated/removed/added children
     private _children: Array<Person>  = [];
 
-    private _accountChangeOptions :AccountChangeOptions = new AccountChangeOptions ();
+    private _accountChangeOptions: AccountChangeOptions = new AccountChangeOptions ();
 
-    removeUpdatedSpouse =() => {
+    removeUpdatedSpouse = () => {
         this.updatedSpouse = null;
-    } ;
+    }
 
 
 
-    addUpdatedSpouse = (sp:Person)=>{
-        if(!this.updatedSpouse){
+    addUpdatedSpouse = (sp: Person) => {
+        if (!this.updatedSpouse){
             this.updatedSpouse = sp;
             this.updatedSpouse.operationActionType = OperationActionType.Update;
         }else{
             console.log('spouse for updating already added to your coverage.');
         }
-    };
+    }
 
     get hasValidAuthToken(){
         return this.authorizationToken && this.authorizationToken.length > 1;
     }
     addUpdatedChild(): Person {
-        let c = new Person(Relationship.ChildUnder24,OperationActionType.Update);
-        this._updatedChildren.length < 30 ? this._updatedChildren.push(c): console.log('No more than 30 children can be added to one application');
+        const c = new Person(Relationship.ChildUnder24, OperationActionType.Update);
+        this._updatedChildren.length < 30 ? this._updatedChildren.push(c) : console.log('No more than 30 children can be added to one application');
         return c;
     }
 
 
-    removeUpdateChild(idx: number):void {
-        let removed = this._updatedChildren.splice(idx,1);
+    removeUpdateChild(idx: number): void {
+        const removed = this._updatedChildren.splice(idx, 1);
     }
 
     get updatedChildren(): Array<Person> {
@@ -138,7 +138,7 @@ class MspAccountApp implements ApplicationBase {
     }
 
     get isUniquePhns () {
-        let allPhs:string[] = this.allPersons .map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
+        const allPhs: string[] = this.allPersons .map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
         return new Set(allPhs).size === allPhs.length ;
     }
 
@@ -147,7 +147,7 @@ class MspAccountApp implements ApplicationBase {
         When PI and Dependents page is coming in two pages and if there are duplications ,PI page continue should be enabled.
      */
     get isUniquePhnsInPI () {
-        let allPhs:string[] = [this.applicant, ...this.updatedChildren,this.updatedSpouse].filter(x => x) .map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
+        const allPhs: string[] = [this.applicant, ...this.updatedChildren, this.updatedSpouse].filter(x => x) .map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
         return new Set(allPhs).size === allPhs.length ;
     }
 
@@ -179,7 +179,7 @@ class MspAccountApp implements ApplicationBase {
 
     set updatedSpouse(value: Person) {
         this._updatedSpouse = value;
-        if (value){ 
+        if (value){
             this._updatedSpouse.operationActionType = OperationActionType.Update;
         }
     }
@@ -202,7 +202,7 @@ class MspAccountApp implements ApplicationBase {
          * Each image will have a uuid that starts with application uuid
          * followed by [index]-of-[total]
          */
-        let all = this.getAllImages();
+        const all = this.getAllImages();
         all.forEach(image => {
             image.uuid = UUID.UUID();
         });
@@ -210,9 +210,9 @@ class MspAccountApp implements ApplicationBase {
 
     getallSpouses(): Person[] {
         //TODO FIXME Make sure this logic is working when add / remove is implemented for Spouses
-       let allSpouses:Person[] = [] ;
+       const allSpouses: Person[] = [] ;
 
-        if ((this.accountChangeOptions.personInfoUpdate || this.accountChangeOptions.statusUpdate)&&this.updatedSpouse) {
+        if ((this.accountChangeOptions.personInfoUpdate || this.accountChangeOptions.statusUpdate) && this.updatedSpouse) {
             allSpouses.push(this.updatedSpouse);
         }
         if (this.accountChangeOptions.dependentChange ) {
@@ -233,13 +233,13 @@ class MspAccountApp implements ApplicationBase {
      *
      * @returns {Person[]}
      */
-    getAllChildren():Person[] {
-        let allPersons :Person[]  =[];
+    getAllChildren(): Person[] {
+        let allPersons: Person[]  = [];
         if (this.accountChangeOptions.personInfoUpdate || this.accountChangeOptions.statusUpdate) {
-            allPersons= [...allPersons,...this.updatedChildren];
+            allPersons = [...allPersons, ...this.updatedChildren];
         }
         if (this.accountChangeOptions.dependentChange ) {
-            allPersons= [...allPersons,...this.addedChildren,...this.removedChildren];
+            allPersons = [...allPersons, ...this.addedChildren, ...this.removedChildren];
         }
         return  allPersons;
     }
@@ -258,7 +258,7 @@ class MspAccountApp implements ApplicationBase {
         if (this.addedSpouse &&  this.addedSpouse.isVisitor()) {
             return true;
         }
-        var children:Array<Person> = [...this.addedChildren,...this.updatedChildren]; ;
+        const children: Array<Person> = [...this.addedChildren, ...this.updatedChildren];
         return ((children.findIndex( child => child.isVisitor())) > -1 );
 
     }
@@ -289,10 +289,10 @@ class AccountChangeOptions {
     statusUpdate: boolean = false;
     private _nameChangeDueToMarriage: boolean = false ;
 
-    hasAnyPISelected () :boolean {
+    hasAnyPISelected (): boolean {
         return this.personInfoUpdate || this.statusUpdate;
     }
-    hasAllOptionsSelected () :boolean {
+    hasAllOptionsSelected (): boolean {
         return this.personInfoUpdate && this.dependentChange && this.addressUpdate && this.statusUpdate ;
     }
     hasAllPISelected () {
@@ -307,4 +307,4 @@ class AccountChangeOptions {
     }
 }
 
-export {MspAccountApp,AccountChangeOptions,Person}
+export {MspAccountApp, AccountChangeOptions, Person};

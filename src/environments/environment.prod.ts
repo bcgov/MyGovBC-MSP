@@ -1,7 +1,7 @@
-// var NODE_ENV = process.env.NODE_ENV || 
+// var NODE_ENV = process.env.NODE_ENV ||
 
 export const environment = {
-    runtimeEnv: "production",
+    runtimeEnv: 'production',
     appConstants: {
         coreApiBaseUrl: 'http://localhost:9000/api',
         serviceName: 'Apply for BC Health Care',
@@ -18,8 +18,8 @@ export const environment = {
           minHeight: 0,
           maxSizeBytes: 1048576,
           reductionScaleFactor: 0.8,
-          acceptMimeType: "image/*",
-          convertToMimeType: "image/jpeg",
+          acceptMimeType: 'image/*',
+          convertToMimeType: 'image/jpeg',
           jpegQuality: 0.5,
           pdfScaleFactor: 2.0
         },
@@ -28,4 +28,4 @@ export const environment = {
         mspIsInMaintenanceText: 'This Application is not available due to scheduled maintenance.',
         mspIsInMaintenanceTimes: 'between 9:00pm and 7:00am'
       }
-}
+};
