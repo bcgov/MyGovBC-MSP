@@ -98,6 +98,10 @@
                     "name": "SPLUNK_AUTH_TOKEN",
                     "value": "${SPLUNK_AUTH_TOKEN}"
                   },
+                  {
+                    "name": "SPA_ENV_AUTH_TOKEN",
+                    "value": "${SPA_ENV_AUTH_TOKEN}"
+                  }
                 ],
                 "resources": {
                   "requests": {
@@ -258,7 +262,7 @@
       "value": "allow 0.0.0.0/0; deny all;"
     },
     {
-      "description": "If true use the Splunk Forwarder, if false use logstash for MSP logs",
+      "description": "If true use the Splunk Forwarder",
       "displayName": "USE_SPLUNK_FORWARDER",
       "name": "USE_SPLUNK_FORWARDER",
       "required": true,
@@ -299,6 +303,13 @@
       "displayName": "SPLUNK_AUTH_TOKEN",
       "required": true,
       "name": "SPLUNK_AUTH_TOKEN",
+      "value": ""
+    },
+    {
+      "description": "SPA Environment Server AUTH Token",
+      "displayName": "SPA_ENV_AUTH_TOKEN",
+      "required": true,
+      "name": "SPA_ENV_AUTH_TOKEN",
       "value": ""
     }
   ]
