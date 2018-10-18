@@ -428,7 +428,7 @@ export  class MspDataService {
         dto.status = input.status;
         dto.currentActivity = input.currentActivity;
 
-        dto.images = input.documents.images;
+        dto.images = input.documents.images.sort((a, b) =>  a.attachmentOrder - b.attachmentOrder);
         return dto;
     }
 
@@ -536,7 +536,7 @@ export  class MspDataService {
 
         });
 
-        dto.documents = input.documents;
+        dto.documents = input.documents.sort((a, b) =>  a.attachmentOrder - b.attachmentOrder);
 
         return dto;
 

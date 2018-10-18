@@ -46,6 +46,7 @@ export class MspImage {
   id: string;
 
   error?: MspImageError;
+  attachmentOrder: number = 0  ;
 }
 
 export interface MspImageScaleFactors {

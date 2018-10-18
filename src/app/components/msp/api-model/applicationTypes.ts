@@ -52,6 +52,7 @@ interface _AttachmentType extends BaseType {
   attachmentDocumentType: string;
   attachmentUuid: string;
   contentType: ContentType;
+  attachmentOrder?: string;
   description?: string;
 }
 export interface AttachmentType extends _AttachmentType { constructor: {new(): AttachmentType};
@@ -59,7 +60,7 @@ export interface AttachmentType extends _AttachmentType { constructor: {new(): A
 export class AttachmentTypeFactory {
   static make(): AttachmentType {
     const instance = <AttachmentType>{};
-    instance._sequence = ['contentType', 'attachmentDocumentType', 'attachmentUuid', 'description'];
+    instance._sequence = ['contentType', 'attachmentDocumentType', 'attachmentUuid', 'attachmentOrder', 'description'];
     return instance;
   }
 }
