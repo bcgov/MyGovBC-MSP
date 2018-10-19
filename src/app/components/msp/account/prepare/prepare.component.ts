@@ -18,7 +18,8 @@ import {MspApiService} from '../../service/msp-api.service';
 import {environment} from '../../../../../environments/environment';
 
 @Component({
-    templateUrl: './prepare.component.html'
+    templateUrl: './prepare.component.html',
+    styleUrls: ['./prepare.component.scss']
 })
 @Injectable()
 export class AccountPrepareComponent extends BaseComponent {
