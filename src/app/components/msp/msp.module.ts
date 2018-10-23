@@ -88,13 +88,7 @@ import { MspDataService } from './service/msp-data.service';
 import { MspValidationService } from './service/msp-validation.service';
 import { ProcessService } from './service/process.service';
 import { TypeaheadModule } from 'ngx-bootstrap';
-
-
-
-
-
-
-
+import { MspMaintenanceService } from "./service/msp-maintenance.service";
 
 
 const APP_ROUTES: Routes = [
@@ -118,6 +112,7 @@ const APP_ROUTES: Routes = [
                     },
                     {
                         path: 'prepare',
+                        canActivate: [],
                         component: PrepareComponent
                     },
                     {
@@ -360,8 +355,7 @@ const APP_ROUTES: Routes = [
         // Services
         MspDataService,
         MspValidationService,
-
-
+        MspMaintenanceService,
         CompletenessCheckService,
         MspApiService,
         MspLogService,

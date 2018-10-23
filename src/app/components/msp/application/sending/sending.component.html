@@ -13,6 +13,11 @@
 <div class="row" *ngIf="!transmissionInProcess && hasError" role="alert" aria-live="assertive">
   <div class="col-sm-12 col-lg-6">
     <h1 [innerHtml]="lang('./en/index.js').transmissionErrorTitle"></h1>
+    <!--<p><strong>{{rawError}}</strong></p>-->
+    <div *ngIf="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true'">
+      <p><strong>{{spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE}}</strong></p>
+    </div>
+    
     <h3 [innerHtml]="lang('./en/index.js').instructionForUserOnErrorLine1"></h3>
     <div style="font-size: 18px">
       <ul>

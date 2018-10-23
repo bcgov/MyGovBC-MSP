@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {ResponseType} from '../../api-model/responseTypes';
 import {MspLogService} from '../../service/log.service';
 import {ProcessService} from '../../service/process.service';
+import {ISpaEnvResponse} from '../../model/spa-env-response.interface';
 
 @Component({
   templateUrl: 'sending.component.html',
@@ -20,6 +21,7 @@ export class SendingComponent implements AfterContentInit {
   rawUrl: string;
   rawError: string;
   rawRequest: string;
+  public spaEnvRes: ISpaEnvResponse;
 
   transmissionInProcess: boolean;
   hasError: boolean;
@@ -66,6 +68,8 @@ export class SendingComponent implements AfterContentInit {
 
       }).catch((error: ResponseType | any) => {
         console.log('error in sending application: ', error);
+        this.spaEnvRes = <ISpaEnvResponse> error;
+        
         this.hasError = true;
         this.rawUrl = error.url;
         this.rawError = error;
@@ -83,7 +87,7 @@ export class SendingComponent implements AfterContentInit {
         this.application.authorizationToken = null;
         this.dataService.saveMspApplication();
       });
-
+  
   }
 
   toggleErrorDetails(){

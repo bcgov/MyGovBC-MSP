@@ -19,15 +19,20 @@ import { SimpleDate } from '../model/simple-date.interface';
 import { Activities, Relationship, StatusInCanada } from '../model/status-activities-documents';
 import { MspLogService } from './log.service';
 import ISO_8601 = moment.ISO_8601;
+import { MspMaintenanceService } from "../service/msp-maintenance.service";
+import { Http, Response } from '@angular/http';
+import {ISpaEnvResponse} from '../model/spa-env-response.interface';
+
+
 
 
 
 const jxon = require('jxon/jxon');
-
 @Injectable()
 export class MspApiService {
+    spaEnvRes: ISpaEnvResponse;
 
-    constructor(private http: HttpClient, private logService: MspLogService) {
+    constructor(private http: HttpClient, private logService: MspLogService,private maintenanceService: MspMaintenanceService) {
     }
 
     /**
@@ -39,9 +44,8 @@ export class MspApiService {
 
         return new Promise<ApplicationBase>((resolve, reject) => {
             console.log('Start sending...');
-
             try {
-
+                
                 let documentModel: document;
                 if (app instanceof MspApplication) {
                     documentModel = this.convertMspApplication(app);
@@ -61,34 +65,49 @@ export class MspApiService {
 
                 // second convert to XML
                 const convertedAppXml = this.toXmlString(documentModel);
+                
+                // checking if the system is in Maintenance 
+                return this.maintenanceService.checkMaintenance()
+                    .then((response: any) => {
+                        this.spaEnvRes = <ISpaEnvResponse> response;
+                        console.log("=====MSP Maintenance==="+this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG+'----'+this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
+                        if(this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG === "true"){
+                            console.log('Error: ', this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
+                            return reject(this.spaEnvRes);
+                        } else {
+                           
+                            // if no errors and no maintenance, then we'll sendApplication all attachments
+                            return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
 
-                // if no errors, then we'll sendApplication all attachments
-                return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
+                                // once all attachments are done we can sendApplication in the data
+                                return this.sendDocument(app.authorizationToken, documentModel, convertedAppXml).then(
+                                    (response: ResponseType) => {
+                                        console.log('sent application resolved');
+                                        // Add reference number
+                                        app.referenceNumber = response.referenceNumber.toString();
 
-                    // once all attachments are done we can sendApplication in the data
-                    return this.sendDocument(app.authorizationToken, documentModel, convertedAppXml).then(
-                        (response: ResponseType) => {
-                            console.log('sent application resolved');
-                            // Add reference number
-                            app.referenceNumber = response.referenceNumber.toString();
+                                        // Let our caller know were done passing back the application
+                                        return resolve(app);
+                                    },
 
-                            // Let our caller know were done passing back the application
-                            return resolve(app);
-                        },
+                                    (error: Response | any) => {
+                                        return reject(error);
+                                    }
+                                );
+                            })
+                            .catch((error: Response | any) => {
+                                console.log('sent all attachments rejected: ', error);
+                                this.logService.log({
+                                    text: 'Attachment - Send All Rejected ',
+                                    response: error,
+                                }, 'Attachment - Send All Rejected ');
+                                return reject(error);
+                            });         
 
-                        (error: Response | any) => {
-                            return reject(error);
                         }
-                    );
-                })
-                    .catch((error: Response | any) => {
-                        console.log('sent all attachments rejected: ', error);
-                        this.logService.log({
-                            text: 'Attachment - Send All Rejected ',
-                            response: error,
-                        }, 'Attachment - Send All Rejected ');
-                        return reject(error);
-                    });
+                    }
+                );
+
             } catch (error) {
                 this.logService.log({
                     text: 'Application - Send Failure ',
@@ -1422,4 +1441,5 @@ export class MspApiService {
     }
 
     readonly ISO8601DateFormat = 'YYYY-MM-DD';
+   
 }
