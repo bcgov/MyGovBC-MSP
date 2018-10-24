@@ -10,6 +10,8 @@ import {MspValidationService} from './msp-validation.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspApiService} from './msp-api.service';
 import {HttpClientModule} from '@angular/common/http';
+import {MspMaintenanceService} from './msp-maintenance.service';
+
 
 describe('msp-api XML NS', () => {
     let apiService: MspApiService;
@@ -27,7 +29,7 @@ describe('msp-api XML NS', () => {
                     storageType: 'sessionStorage'
                 })],
             providers: [
-                MspApiService, MspDataService, MspLogService]
+                MspApiService, MspDataService, MspLogService, MspMaintenanceService]
         });
     });
 

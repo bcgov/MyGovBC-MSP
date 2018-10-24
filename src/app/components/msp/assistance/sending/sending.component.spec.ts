@@ -9,6 +9,7 @@ import { ProcessService } from '../../service/process.service';
 import {HttpClientModule} from '@angular/common/http';
 import {MspLogService} from '../../service/log.service';
 import {TransmissionErrorView} from '../../common/transmission-error-view/transmission-error-view.component';
+import {MspMaintenanceService} from '../../service/msp-maintenance.service';
 
 describe('AssistanceSendingComponent', () => {
 
@@ -20,7 +21,7 @@ describe('AssistanceSendingComponent', () => {
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],
-      providers: [MspDataService, MspApiService, ProcessService , MspLogService]
+      providers: [MspDataService, MspApiService, ProcessService , MspLogService, MspMaintenanceService]
     });
   });
   it ('should work', () => {
