@@ -22,19 +22,16 @@ export class MspMaintenanceService  {
     }
     
     checkMaintenance(): Promise<ResponseType> {
-        const token = '5993117a-2384-4b70-ad42-1e9b9e6044d9';
-        const envName = '{"SPA_ENV_MSP_MAINTENANCE_FLAG":"","SPA_ENV_MSP_MAINTENANCE_MESSAGE":""}';
          
         return new Promise<ResponseType>((resolve, reject) => {
 			
 			// Getting the url
             let url = environment.appConstants['envServerBaseUrl']
+            const envName = '{"SPA_ENV_MSP_MAINTENANCE_FLAG":"","SPA_ENV_MSP_MAINTENANCE_MESSAGE":""}';
             
             // Setup headers
             let headers = new HttpHeaders({
-                'SPA_ENV_NAME': envName,
-                'Authorization': 'spaenv ' + token
-               
+                'SPA_ENV_NAME': envName
             });
 			
 			// Setting the options for the rest call 
@@ -47,18 +44,18 @@ export class MspMaintenanceService  {
                     },
                     (error: Response | any) => {
                         console.log('error response in its origin form: ', error);
-                        return error;
+                        return resolve(error);
                     }
                 )
                 .catch((error: Response | any) => {
                     console.log("Error when calling the MSP Maintenance: ", error);
                     this.logService.log({
-                    //    text: "MSP Maintenance API - Error ",
+                        text: "MSP Maintenance API - Error ",
                         response: error,
                     }, "")
                     let response = this.convertResponse(error);
                     reject(response || error);
-                    return error;
+                    return resolve(error);
                 });
         });
     }
