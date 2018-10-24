@@ -45,41 +45,33 @@ export class MspApiService {
         return new Promise<ApplicationBase>((resolve, reject) => {
             console.log('Start sending...');
             try {
-                
-                let documentModel: document;
-                if (app instanceof MspApplication) {
-                    documentModel = this.convertMspApplication(app);
-                } else if (app instanceof FinancialAssistApplication) {
-                    documentModel = this.convertAssistance(app);
-                } else if (app instanceof MspAccountApp) {
-                    documentModel = this.convertMspAccountApp(app);
-                } else {
-                    throw new Error('Unknown document type');
-                }
-
-                // Check for authorization token
-                if (app.authorizationToken == null ||
-                    app.authorizationToken.length < 1) {
-                    throw new Error('Missing authorization token.');
-                }
-
-                // second convert to XML
-                const convertedAppXml = this.toXmlString(documentModel);
-                
                 // checking if the system is in Maintenance 
                 return this.maintenanceService.checkMaintenance()
                     .then((response: any) => {
                         this.spaEnvRes = <ISpaEnvResponse> response;
-                        if(this.spaEnvRes && this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG === "true"){
-                            //if(this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG != undefined && this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG != null) {
-                                console.log("=====MSP Maintenance==="+this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG+'----'+this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
-                               // if(this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG === "true"){
-                                    console.log('Error: ', this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
-                                    return reject(this.spaEnvRes);
-                               // } else return;  
-                            //}     
+                        if(this.spaEnvRes && this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG && this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG === "true"){
+                            console.log('Maintenance: ', this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
+                            return reject(this.spaEnvRes);
                         } else {
-                           
+                            let documentModel: document;
+                            if (app instanceof MspApplication) {
+                                documentModel = this.convertMspApplication(app);
+                            } else if (app instanceof FinancialAssistApplication) {
+                                documentModel = this.convertAssistance(app);
+                            } else if (app instanceof MspAccountApp) {
+                                documentModel = this.convertMspAccountApp(app);
+                            } else {
+                                throw new Error('Unknown document type');
+                            }
+
+                            // Check for authorization token
+                            if (app.authorizationToken == null ||
+                                app.authorizationToken.length < 1) {
+                                throw new Error('Missing authorization token.');
+                            }
+                            // second convert to XML
+                            const convertedAppXml = this.toXmlString(documentModel);
+                        
                             // if no errors and no maintenance, then we'll sendApplication all attachments
                             return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
 
