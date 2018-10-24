@@ -70,10 +70,14 @@ export class MspApiService {
                 return this.maintenanceService.checkMaintenance()
                     .then((response: any) => {
                         this.spaEnvRes = <ISpaEnvResponse> response;
-                        console.log("=====MSP Maintenance==="+this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG+'----'+this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
-                        if(this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG === "true"){
-                            console.log('Error: ', this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
-                            return reject(this.spaEnvRes);
+                        if(this.spaEnvRes && this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG === "true"){
+                            //if(this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG != undefined && this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG != null) {
+                                console.log("=====MSP Maintenance==="+this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG+'----'+this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
+                               // if(this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG === "true"){
+                                    console.log('Error: ', this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
+                                    return reject(this.spaEnvRes);
+                               // } else return;  
+                            //}     
                         } else {
                            
                             // if no errors and no maintenance, then we'll sendApplication all attachments
