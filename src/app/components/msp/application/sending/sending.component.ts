@@ -72,7 +72,7 @@ export class SendingComponent implements AfterContentInit {
         
         this.hasError = true;
         this.rawUrl = error.url;
-        this.rawError = error;
+        this.rawError = this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG === 'true' ? this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE : error;
         this.rawRequest = error._requestBody;
         this.logService.log({name: 'Enrolment - Received Failure ',
           error: error._body,

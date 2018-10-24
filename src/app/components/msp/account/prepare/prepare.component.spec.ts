@@ -17,6 +17,7 @@ import { CaptchaComponent } from 'mygovbc-captcha-widget/src/app/captcha/captcha
 import { CaptchaDataService } from 'mygovbc-captcha-widget/src/app/captcha-data.service';
 
 import { ModalModule } from 'ngx-bootstrap';
+import { MspMaintenanceService} from '../../service/msp-maintenance.service';
 
 describe('AccountPrepareComponent', () => {
 
@@ -29,7 +30,7 @@ describe('AccountPrepareComponent', () => {
           storageType: 'sessionStorage'
       }), ModalModule.forRoot()],
       providers: [MspDataService, MspLogService, ProcessService,
-        LocalStorageService, CaptchaDataService, MspApiService
+        LocalStorageService, CaptchaDataService, MspApiService, MspMaintenanceService
 
       ]
     });

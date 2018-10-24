@@ -112,7 +112,6 @@ const APP_ROUTES: Routes = [
                     },
                     {
                         path: 'prepare',
-                        canActivate: [],
                         component: PrepareComponent
                     },
                     {

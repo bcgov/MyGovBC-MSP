@@ -1,21 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
 import {Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
-import {Observable} from "rxjs";
-import { MspDataService } from "./msp-data.service";
 import { environment } from '../../../../environments/environment';
-import * as moment from "moment";
-import { AccountChangeAccountHolderFactory, AccountChangeAccountHolderType, AccountChangeApplicationTypeFactory, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from "../api-model/accountChangeTypes";
 import { ApplicationTypeFactory, AttachmentType, AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory, DocumentFactory, _ApplicationTypeNameSpace, document } from "../api-model/applicationTypes";
-import { AssistanceApplicantTypeFactory, AssistanceApplicationTypeFactory, AssistanceSpouseTypeFactory, FinancialsType, FinancialsTypeFactory } from "../api-model/assistanceTypes";
-import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from "../api-model/commonTypes";
-import { DependentType, DependentTypeFactory, EnrolmentApplicantTypeFactory, EnrolmentApplicationTypeFactory, EnrolmentChildrenTypeFactory, EnrolmentDependentsTypeFactory, LivedInBCTypeFactory, OutsideBCTypeFactory, PersonType, PersonTypeFactory, PreviousCoverageTypeFactory, ResidencyType, ResidencyTypeFactory, WillBeAwayTypeFactory } from "../api-model/enrolmentTypes";
 import { ResponseType } from "../api-model/responseTypes";
-import { ApplicationBase } from "../model/application-base.model";
-import { MspApplication } from "../model/application.model";
-import { MspLogService } from './log.service';
 import {ISpaEnvResponse} from '../model/spa-env-response.interface';
+import { MspLogService } from './log.service';
 const jxon = require('jxon/jxon');
 
 
@@ -24,7 +13,7 @@ export class MspMaintenanceService  {
 
     spaResponse: ISpaEnvResponse;    
     
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private logService: MspLogService) {
                 
     }  
 
@@ -63,14 +52,23 @@ export class MspMaintenanceService  {
                 )
                 .catch((error: Response | any) => {
                     console.log("Error when calling the MSP Maintenance: ", error);
-                    /*this.logService.log({
+                    this.logService.log({
                     //    text: "MSP Maintenance API - Error ",
                         response: error,
                     }, "")
                     let response = this.convertResponse(error);
-                    reject(response || error);*/
+                    reject(response || error);
                     return error;
                 });
         });
+    }
+
+    convertResponse(responseBody: string): ResponseType {
+        return this.stringToJs<ResponseType>(responseBody)['ns2:response'];
+    }
+
+    stringToJs<T>(from: string): T {
+        const converted = jxon.stringToJs(from) as T;
+        return converted;
     }
 }
