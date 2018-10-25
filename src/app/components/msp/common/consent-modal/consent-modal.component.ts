@@ -11,7 +11,7 @@ import { MspMaintenanceService } from "../../service/msp-maintenance.service";
 import { Http, Response } from '@angular/http';
 import {ISpaEnvResponse} from '../../model/spa-env-response.interface';
 import { ResponseType } from '../../api-model/responseTypes';
-
+import { MspLogService } from '../../service/log.service';
 
 @Component({
   selector: 'msp-consent-modal',
@@ -29,9 +29,9 @@ export class MspConsentModalComponent {
   @Output() onClose = new EventEmitter<void>();
 
   public appConstants;
-  public spaEnvRes: ISpaEnvResponse;
+  
 
-  constructor(private maintenanceService: MspMaintenanceService) {
+  constructor(private maintenanceService: MspMaintenanceService, private logService: MspLogService) {
     this.appConstants = environment.appConstants;
     this.inMaintenance();
   }
@@ -51,16 +51,22 @@ export class MspConsentModalComponent {
   }
 
   inMaintenance() {
+    let spaEnvRes: ISpaEnvResponse;
     this.maintenanceService.checkMaintenance()
-      .then((response: any) => {
-        this.spaEnvRes = <ISpaEnvResponse> response;
-        console.log("=====MSP Maintenance==="+this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG+'----'+this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
-        this.appConstants.mspIsInMaintenanceFlag = this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG === "true" ? true: false;
-        this.appConstants.mspIsInMaintenanceText = this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE;
+      .then((response: ISpaEnvResponse) => {
+        spaEnvRes =  response;
+        console.log("Is system in maintenance : "+spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG+'MSP Maintenance Api Message : '+spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
+        this.appConstants.mspIsInMaintenanceFlag = spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG === "true" ? true: false;
+        this.appConstants.mspIsInMaintenanceText = spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE;
       },
       (error: Response | any) => {
         this.appConstants.mspIsInMaintenanceFlag = false;
+        this.logService.log({
+          text: "Error when calling the Maintenance Service. Unable to connect to the API",
+          response: error,
+        }, "")
         console.log('error application resolved'+error);
+
       }
     );
 

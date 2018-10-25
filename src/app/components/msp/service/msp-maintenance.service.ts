@@ -11,8 +11,6 @@ const jxon = require('jxon/jxon');
 @Injectable()
 export class MspMaintenanceService  {
 
-    spaResponse: ISpaEnvResponse;    
-    
     constructor(private http: HttpClient, private logService: MspLogService) {
                 
     }  
@@ -21,9 +19,10 @@ export class MspMaintenanceService  {
       console.log("Initiating the service");
     }
     
-    checkMaintenance(): Promise<ResponseType> {
-         
-        return new Promise<ResponseType>((resolve, reject) => {
+    checkMaintenance(): Promise<ISpaEnvResponse> {
+        let spaResponse: ISpaEnvResponse;  
+
+        return new Promise<ISpaEnvResponse>((resolve, reject) => {
 			
 			// Getting the url
             let url = environment.appConstants['envServerBaseUrl']
@@ -40,32 +39,25 @@ export class MspMaintenanceService  {
                 .toPromise()
                 .then((response: string) => {
                         console.log("SPA Environment Response "+response);
-                        return resolve(JSON.parse(response));
+                        //return resolve(JSON.parse(response));
+                        spaResponse = <ISpaEnvResponse> JSON.parse(response);
+                        return resolve(spaResponse);
                     },
                     (error: Response | any) => {
-                        console.log('error response in its origin form: ', error);
+                        console.log('Unable to get the proper response from the SPA Maintenance API: ', error);
                         return resolve(error);
                     }
                 )
                 .catch((error: Response | any) => {
                     console.log("Error when calling the MSP Maintenance: ", error);
                     this.logService.log({
-                        text: "MSP Maintenance API - Error ",
+                        text: "Error when calling the Maintenance Service. Unable to connect to the API",
                         response: error,
                     }, "")
-                    let response = this.convertResponse(error);
-                    reject(response || error);
                     return resolve(error);
                 });
         });
     }
 
-    convertResponse(responseBody: string): ResponseType {
-        return this.stringToJs<ResponseType>(responseBody)['ns2:response'];
-    }
 
-    stringToJs<T>(from: string): T {
-        const converted = jxon.stringToJs(from) as T;
-        return converted;
-    }
 }
