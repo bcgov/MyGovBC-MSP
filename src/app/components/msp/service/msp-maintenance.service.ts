@@ -1,18 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Injectable} from "@angular/core";
+import { Injectable } from "@angular/core";
 import { environment } from '../../../../environments/environment';
-import { ApplicationTypeFactory, AttachmentType, AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory, DocumentFactory, _ApplicationTypeNameSpace, document } from "../api-model/applicationTypes";
-import { ResponseType } from "../api-model/responseTypes";
-import {ISpaEnvResponse} from '../model/spa-env-response.interface';
+import { _ApplicationTypeNameSpace } from "../api-model/applicationTypes";
+import { ISpaEnvResponse } from '../model/spa-env-response.interface';
 import { MspLogService } from './log.service';
+import * as moment from 'moment';
 
 
 @Injectable()
 export class MspMaintenanceService  {
 
-    constructor(private http: HttpClient, private logService: MspLogService) {
-                
-    }  
+    constructor(private http: HttpClient, private logService: MspLogService) { }  
 
     init(): void {
       console.log("Initiating the service");
@@ -30,7 +28,7 @@ export class MspMaintenanceService  {
             // Setup headers
             let headers = new HttpHeaders({
                 'program': 'msp',
-                'times': '',
+                'timestamp' : moment().toISOString(),
                 'method': 'checkMaintenance',
                 'severity': 'info',
                 'SPA_ENV_NAME': envName

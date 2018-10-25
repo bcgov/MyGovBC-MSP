@@ -5,12 +5,10 @@ import {ApplicationBase} from '../../model/application-base.model';
 // jam - trying to inject appConstants
 //
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { MspMaintenanceService } from "../../service/msp-maintenance.service";
-import { Http, Response } from '@angular/http';
+import { Response } from '@angular/http';
 import {ISpaEnvResponse} from '../../model/spa-env-response.interface';
-import { ResponseType } from '../../api-model/responseTypes';
 import { MspLogService } from '../../service/log.service';
 
 @Component({
@@ -61,12 +59,11 @@ export class MspConsentModalComponent {
       },
       (error: Response | any) => {
         this.appConstants.mspIsInMaintenanceFlag = false;
+        console.log('Error when calling the MSP Maintenance: '+error);
         this.logService.log({
-          text: "Error when calling the Maintenance Service. Unable to connect to the API",
+          text: "Error when calling the MSP Maintenance:",
           response: error,
-        }, "")
-        console.log('error application resolved'+error);
-
+        }, "");
       }
     );
 
