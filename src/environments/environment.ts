@@ -20,7 +20,7 @@ export const environment = {
         serviceName: 'Apply for BC Health Care',
         logBaseUrl: '/msp/api/logging',
         apiBaseUrl: '/msp/api',
-        envServerBaseUrl: '/env',
+        envServerBaseUrl: '/msp/api/env',
         // apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
         captchaApiBaseUrl: '/msp/api/captcha',
         addressChangeBCUrl: 'https://www.addresschange.gov.bc.ca/',
