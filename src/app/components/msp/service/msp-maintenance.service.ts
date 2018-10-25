@@ -16,10 +16,9 @@ export class MspMaintenanceService  {
       console.log("Initiating the service");
     }
     
-    checkMaintenance(): Promise<ISpaEnvResponse> {
-        let spaResponse: ISpaEnvResponse;  
+    checkMaintenance(): Promise<string> {
 
-        return new Promise<ISpaEnvResponse>((resolve, reject) => {
+        return new Promise<string>((resolve, reject) => {
 			
 			// Getting the url
             let url = environment.appConstants['envServerBaseUrl']
@@ -41,12 +40,18 @@ export class MspMaintenanceService  {
                 .then((response: string) => {
                         console.log("SPA Environment Response " + response);
                         //return resolve(JSON.parse(response));
-                        spaResponse = <ISpaEnvResponse> JSON.parse(response);
-                        return resolve(spaResponse);
+                        let spaResponse = <ISpaEnvResponse> JSON.parse(response);
+                        return resolve(
+                            (spaResponse.SPA_ENV_MSP_MAINTENANCE_FLAG && spaResponse.SPA_ENV_MSP_MAINTENANCE_FLAG.toLowerCase() === 'true')
+                            ? spaResponse.SPA_ENV_MSP_MAINTENANCE_MESSAGE : '' );
                     },
                     (error: Response | any) => {
-                        console.log('Cannot get maintenance flag: ', error);
-                        return resolve(error);
+                        console.log('Cannot get maintenance flag from spa-env-server: ', error);
+                        this.logService.log({
+                            text: "Cannot get maintenance flag from spa-env-server",
+                            response: error,
+                        }, "")
+                        return resolve('');
                     }
                 )
                 .catch((error: Response | any) => {
@@ -55,10 +60,8 @@ export class MspMaintenanceService  {
                         text: "Cannot connect to spa-env-server",
                         response: error,
                     }, "")
-                    return resolve(error);
+                    return resolve('');
                 });
         });
     }
-
-
 }

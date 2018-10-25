@@ -6,6 +6,7 @@ export const environment = {
         coreApiBaseUrl: 'http://localhost:9000/api',
         serviceName: 'Apply for BC Health Care',
         logBaseUrl: '/msp/api/logging',
+        envServerBaseUrl: '/msp/api/env',
         apiBaseUrl: '/msp/api',
         // apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
         captchaApiBaseUrl: '/msp/api/captcha',
