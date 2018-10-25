@@ -12,11 +12,11 @@
 
 <form #formRef='ngForm' novalidate role="form" >
     <div role="dialog" aria-labelledby="q1" class="form-check mb-2">
-        <input #addressChangeChkBx class="input-lg form-check-input" id='addressChange' name="addressChange" type="checkbox" [(ngModel)]="accountChangeOptions.addressUpdate" (ngModelChange)="addressUpdateOnChange($event)" >
+        <input #addressChangeChkBx class="input-lg form-check-input" id='addressChange' name="addressChange" type="checkbox"  [(ngModel)]="accountChangeOptions.addressUpdate" (ngModelChange)="addressUpdateOnChange($event)" >
         <label id="q1" class="form-check-label" for='addressChange' [innerHtml]="lang('./en/index.js').addressChange"></label>
     </div>
     <div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
-        <input #personalInfoChangeChkBx class="input-lg form-check-input" id='personalInfoChange' name="personalInfoChange" type="checkbox" [(ngModel)]="accountChangeOptions.personInfoUpdate" (ngModelChange)="personInfoUpdateOnChange($event)">
+        <input #personalInfoChangeChkBx class="input-lg form-check-input" id='personalInfoChange' name="personalInfoChange" type="checkbox" [(ngModel)]="accountChangeOptions.personInfoUpdate" [disabled]="accountChangeOptions.nameChangeDueToMarriage" (ngModelChange)="personInfoUpdateOnChange($event)">
         <label id="q2" class="form-check-label" for='personalInfoChange' [innerHtml]="lang('./en/index.js').personalInfoChange"></label>
     </div>
     <div role="dialog" aria-labelledby="q3" class="form-check  mb-2" >
@@ -24,8 +24,8 @@
         <label id="q3" class="form-check-label" for='dependentChange' [innerHtml]="lang('./en/index.js').dependentChange"></label>
     </div>
 
-    <div role="dialog" aria-labelledby="q4" style="margin-left: 20px;" class="form-check  mb-2" >
-        <input #nameChangeDueToMarriageChkBx class="input-lg align-top form-check-input" id='nameChangeDueToMarriage' [disabled]="accountChangeOptions.dependentChange ||accountChangeOptions.statusUpdate " name="nameChangeDueToMarriage" type="checkbox" [(ngModel)]="accountChangeOptions.nameChangeDueToMarriage" (ngModelChange)="nameChangeDueToMarriageOnChange($event)">
+    <div role="dialog" aria-labelledby="q4" style="margin-left: 20px;" class="form-check  mb-2" *ngIf="accountChangeOptions.dependentChange">
+        <input #nameChangeDueToMarriageChkBx class="input-lg align-top form-check-input" id='nameChangeDueToMarriage' [disabled]="!accountChangeOptions.dependentChange" name="nameChangeDueToMarriage" type="checkbox" [(ngModel)]="accountChangeOptions.nameChangeDueToMarriage" (ngModelChange)="nameChangeDueToMarriageOnChange($event)">
         <label id="q4" class="form-check-label" for='nameChangeDueToMarriage' [innerHtml]="lang('./en/index.js').nameChangeDueToMarriage"></label>
     </div>
 
