@@ -8,6 +8,8 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {ModalModule} from 'ngx-bootstrap';
 import {MspMaintenanceService} from '../../service/msp-maintenance.service';
 import {HttpClientModule} from '@angular/common/http';
+import {MspLogService} from '../../service/log.service';
+
 
 describe('MspConsentModalComponent', () => {
 
@@ -19,7 +21,7 @@ describe('MspConsentModalComponent', () => {
         storageType: 'sessionStorage'
       }),
         ModalModule.forRoot()],
-        providers: [MspDataService, MspMaintenanceService]
+        providers: [MspDataService, MspMaintenanceService, MspLogService]
     });
   });
   it ('should work', () => {

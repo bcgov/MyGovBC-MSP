@@ -30,8 +30,8 @@ import {ISpaEnvResponse} from '../model/spa-env-response.interface';
 const jxon = require('jxon/jxon');
 @Injectable()
 export class MspApiService {
-    spaEnvRes: ISpaEnvResponse;
-
+    
+    //spaEnvRes: ISpaEnvResponse;
     constructor(private http: HttpClient, private logService: MspLogService,private maintenanceService: MspMaintenanceService) {
     }
 
@@ -41,17 +41,20 @@ export class MspApiService {
      * @returns {Promise<MspApplication>}
      */
     sendApplication(app: ApplicationBase): Promise<ApplicationBase> {
-
+        let spaEnvRes: ISpaEnvResponse;
         return new Promise<ApplicationBase>((resolve, reject) => {
             console.log('Start sending...');
             try {
+                
                 // checking if the system is in Maintenance 
                 return this.maintenanceService.checkMaintenance()
-                    .then((response: any) => {
-                        this.spaEnvRes = <ISpaEnvResponse> response;
-                        if(this.spaEnvRes && this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG && this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG === "true"){
-                            console.log('Maintenance: ', this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
-                            return reject(this.spaEnvRes);
+                    .then((response: ISpaEnvResponse) => {
+                        spaEnvRes = response;
+                        console.log('-----Maintenance -----'+spaEnvRes+'****'+spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG);
+                        
+                        if(spaEnvRes && spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG && spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG === "true"){
+                            console.log('In Maintenance Mode. Maintenance Message : ', spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
+                            return reject(spaEnvRes);
                         } else {
                             let documentModel: document;
                             if (app instanceof MspApplication) {
