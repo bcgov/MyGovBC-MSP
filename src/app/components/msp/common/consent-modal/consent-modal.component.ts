@@ -8,8 +8,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { MspMaintenanceService } from "../../service/msp-maintenance.service";
 import { Response } from '@angular/http';
-import {ISpaEnvResponse} from '../../model/spa-env-response.interface';
 import { MspLogService } from '../../service/log.service';
+import {ISpaEnvResponse} from '../../model/spa-env-response.interface'
 
 @Component({
   selector: 'msp-consent-modal',
@@ -20,16 +20,13 @@ export class MspConsentModalComponent {
   lang = require('./i18n');
 
   @Input() processName: string;
- // maintenanceService : MspMaintenanceService;
-  http: HttpClient;
   @Input() application: ApplicationBase;
   @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
   @Output() onClose = new EventEmitter<void>();
 
   public appConstants;
-  
 
-  constructor(private maintenanceService: MspMaintenanceService, private logService: MspLogService) {
+  constructor(protected http: HttpClient,  private logService: MspLogService, private maintenanceService: MspMaintenanceService) {
     this.appConstants = environment.appConstants;
     this.inMaintenance();
   }
@@ -47,25 +44,21 @@ export class MspConsentModalComponent {
     this.fullSizeViewModal.hide();
     this.onClose.emit();
   }
-
+  
   inMaintenance() {
-    let spaEnvRes: ISpaEnvResponse;
-    this.maintenanceService.checkMaintenance()
-      .then((response: ISpaEnvResponse) => {
-        spaEnvRes =  response;
-        console.log("Is system in maintenance : "+spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG+'MSP Maintenance Api Message : '+spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
-        this.appConstants.mspIsInMaintenanceFlag = spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG === "true" ? true: false;
-        this.appConstants.mspIsInMaintenanceText = spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE;
-      },
-      (error: Response | any) => {
-        this.appConstants.mspIsInMaintenanceFlag = false;
-        console.log('Error when calling the MSP Maintenance: '+error);
-        this.logService.log({
-          text: "Error when calling the MSP Maintenance:",
-          response: error,
-        }, "");
-      }
-    );
-
+    this.maintenanceService.checkMaintenance().subscribe(response => {
+      const spaResponse = <ISpaEnvResponse> response;
+      console.log("=====MSP Maintenance Flag==="+spaResponse.SPA_ENV_MSP_MAINTENANCE_FLAG+'----'+spaResponse.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
+      this.appConstants.mspIsInMaintenanceFlag = spaResponse.SPA_ENV_MSP_MAINTENANCE_FLAG === "true" ? true: false;
+      this.appConstants.mspIsInMaintenanceText = spaResponse.SPA_ENV_MSP_MAINTENANCE_MESSAGE;
+    },
+    (error: Response | any) => {
+      this.appConstants.mspIsInMaintenanceFlag = false;
+      console.log('Error when calling the MSP Maintenance: '+error);
+      this.logService.log({
+        text: "Error when calling the MSP Maintenance:",
+        response: error,
+      }, "");
+    });
   }
 }
