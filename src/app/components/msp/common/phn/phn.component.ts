@@ -66,8 +66,11 @@ export class MspPhnComponent extends BaseComponent {
     if (this.router.url.indexOf('/application/') !== -1){
       return this.dataService.getMspApplication().allPersons;
     }
-    if (this.router.url.indexOf('/account/') !== -1){
-      return this.dataService.getMspAccountApp().allPersons;
+    if (this.router.url.indexOf('/account/personal-info') !== -1){
+      return this.dataService.getMspAccountApp().allPersonsInPI;
+    }
+    if (this.router.url.indexOf('/account/dependent-change') !== -1){
+      return this.dataService.getMspAccountApp().allPersonsInDep;
     }
 
   }
