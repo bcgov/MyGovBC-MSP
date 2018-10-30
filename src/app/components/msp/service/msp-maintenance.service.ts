@@ -67,7 +67,10 @@ export class  MspMaintenanceService extends AbstractHttpService {
             console.error(`Backend returned error code: ${error.status}.  Error body: ${error.error}`);
         }
         
-        //this.logService.logHttpError(error);
+        this.logService.log({
+            text: 'Cannot get maintenance flag from spa-env-server',
+            response: error,
+        }, 'Cannot get maintenance flag from spa-env-server');
         // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
         return of([]);
     }
