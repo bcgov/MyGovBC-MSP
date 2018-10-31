@@ -6,30 +6,21 @@
   <div class="modal-dialog" style="margin-top: 70px;">
     <div class="modal-content">
       <div class="modal-header modal-header-primary">
-        <h2 id="myLargeModalLabel">{{appConstants.mspIsInMaintenanceFlag? lang('./en/indexMaintenance.js').title : lang('./en/index.js').title}}</h2>
+        <h2 id="myLargeModalLabel">{{spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true' ? lang('./en/indexMaintenance.js').title : lang('./en/index.js').title}}</h2>
       </div>
       <div class="modal-body">
-        <!-- jam app unavailable message -->
-        <div *ngIf="appConstants.mspIsInMaintenanceFlag">
-          <p><strong>{{appConstants.mspIsInMaintenanceText}}</strong></p>
-          <p>The online system for MSP enrolment and Regular Premium Assistance is currently unavailable {{appConstants.mspIsInMaintenanceTimes}}. We apologize for the inconvenience.</p>
-          <p>Please try again later, or submit a paper application using print-and-mail PDF forms:</p>
-          <ul>
-            <li><strong>MSP Enrolment:</strong> <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/how-to-enrol">HLTH 102: Application For Enrolment</a>
-            </li>
-            <li><strong>Regular Premium Assistance:</strong> <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/premiums/regular-premium-assistance">HLTH 119: Application For Regular Premium Assistance</a>
-            </li>
-          </ul>
-        </div>
-        <div *ngIf="!appConstants.mspIsInMaintenanceFlag" [innerHtml]="lang('./en/index.js').body"></div>
+        <div *ngIf="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true'">
+            <p><strong>{{spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE}}</strong></p>
+        </div>   
+        <div [innerHtml]="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true' ? lang('./en/index.js').SystemMaintenanceBody : lang('./en/index.js').body"></div>
 
         <br>
-        <div *ngIf="!appConstants.mspIsInMaintenanceFlag">
+        <div *ngIf="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG != 'true'">
           <input class="input-lg" id="agree" type="checkbox" [(ngModel)]="agreeCheck">
           <label class="" for="agree"><strong>{{lang('./en/index.js').agreeLabel}}</strong></label>
         </div>
       </div>
-      <div *ngIf="!appConstants.mspIsInMaintenanceFlag" class="modal-footer">
+      <div *ngIf="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG != 'true'" class="modal-footer">
         <button [disabled]="!agreeCheck" class="btn btn-block btn-primary pull-left"
                 type="submit" (click)="continue()">
           {{lang('./en/index.js').continueButton}}</button>
