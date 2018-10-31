@@ -15,9 +15,11 @@
 
 export const environment = {
     runtimeEnv: 'development',
+    logHTTPRequestsToConsole: true,
     appConstants: {
         coreApiBaseUrl: 'http://localhost:9000/api',
         serviceName: 'Apply for BC Health Care',
+        enableLogging: true,
         logBaseUrl: '/msp/api/logging',
         apiBaseUrl: '/msp/api',
         envServerBaseUrl: '/msp/api/env',

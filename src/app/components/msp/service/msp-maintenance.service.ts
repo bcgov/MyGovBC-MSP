@@ -40,11 +40,11 @@ export class  MspMaintenanceService extends AbstractHttpService {
     protected handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
             //Client-side / network error occured
-            console.error('An error occured: ', error.error.message);
+            console.error('MspMaintenanceService error: ', error.error.message);
         }
         else {
             // The backend returned an unsuccessful response code
-            console.error(`Backend returned error code: ${error.status}.  Error body: ${error.error}`);
+            console.error(`MspMaintenanceService backend error: ${error.status}.  Error body: ${error.error}`);
         }
         
         this.logService.log({
