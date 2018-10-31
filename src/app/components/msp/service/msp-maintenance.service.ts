@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { environment } from '../../../../environments/environment';
 import { _ApplicationTypeNameSpace } from "../api-model/applicationTypes";
 import { ISpaEnvResponse } from '../model/spa-env-response.interface';
-import { MspLogService } from './log.service';
+import { MspLog2Service } from './log2.service';
 import * as moment from 'moment';
 import { AbstractHttpService } from './abstract-api.service';
 import { throwError, BehaviorSubject, Observable } from 'rxjs';
@@ -20,7 +20,7 @@ import { of } from 'rxjs';
 
 export class  MspMaintenanceService extends AbstractHttpService {
     
-    constructor(protected http: HttpClient, private logService: MspLogService) {
+    constructor(protected http: HttpClient, private logService: MspLog2Service) {
         super(http);  
     }
 
@@ -34,7 +34,7 @@ export class  MspMaintenanceService extends AbstractHttpService {
             'method': 'checkMaintenance',
             'severity': 'info',
             'SPA_ENV_NAME': envName
-        });
+        })
     }
     
     protected handleError(error: HttpErrorResponse) {
@@ -44,13 +44,10 @@ export class  MspMaintenanceService extends AbstractHttpService {
         }
         else {
             // The backend returned an unsuccessful response code
-            console.error(`MspMaintenanceService backend error: ${error.status}.  Error body: ${error.error}`);
+            console.error(`MspMaintenanceService Backend returned error code: ${error.status}.  Error body: ${error.error}`);
         }
         
-        this.logService.log({
-            text: 'Cannot get maintenance flag from spa-env-server',
-            response: error,
-        }, 'Cannot get maintenance flag from spa-env-server');
+        this.logService.log({event: 'error', key: 'Cannot get maintenance flag from spa-env-server'});
         
         // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
         return of([]);
