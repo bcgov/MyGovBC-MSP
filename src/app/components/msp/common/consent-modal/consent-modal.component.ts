@@ -8,7 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { MspMaintenanceService } from "../../service/msp-maintenance.service";
 import { Response } from '@angular/http';
-import { MspLogService } from '../../service/log.service';
+import { MspLog2Service } from '../../service/log2.service';
 import {ISpaEnvResponse} from '../../model/spa-env-response.interface'
 
 @Component({
@@ -27,7 +27,7 @@ export class MspConsentModalComponent {
   //public appConstants;
   public spaEnvRes: ISpaEnvResponse;
 
-  constructor(protected http: HttpClient,  private logService: MspLogService, private maintenanceService: MspMaintenanceService) {
+  constructor(protected http: HttpClient,  private logService: MspLog2Service, private maintenanceService: MspMaintenanceService) {
     //this.appConstants = environment.appConstants;
     this.inMaintenance();
   }
@@ -57,10 +57,8 @@ export class MspConsentModalComponent {
     (error: Response | any) => {
       //this.appConstants.mspIsInMaintenanceFlag = false;
       console.log('Error when calling the MSP Maintenance: '+error);
-      this.logService.log({
-        text: "Error when calling the MSP Maintenance:",
-        response: error,
-      }, "");
+      this.logService.log({event: 'error', key: 'Error when calling the Maintenance API'});
+        
     });
   }
 }
