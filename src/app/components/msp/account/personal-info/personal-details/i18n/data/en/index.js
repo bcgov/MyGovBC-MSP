@@ -15,7 +15,7 @@ module.exports = {
     residentialAddressTitle: "Residential Address",
     residentialAddressSubTitleForPI:"Please provide the Account Holder’s address information. If you are requesting an update or correction to the address, please provide the new address here",
     residentialAddressSubTitleNoPI:"Please provide the Account Holder’s address information",
-    sectionSubTitleforPI: ['Please provide the Account Holder’s personal information. If you are requesting an update or correction to the Account Holder’s name,  birthdate or gender, please provide the new information here.',
+    sectionSubTitleforPI: ['Please provide the Account Holder’s personal information. If you are requesting an update or correction to the Account Holder’s name (including a name change as a result of marriage ,separation or divorce),  birthdate or gender, please provide the new information here.',
         'A spouse is a resident of B.C. who is married to or is living and cohabiting in a marriage-like relationship with the applicant.',
         '',
         ''],

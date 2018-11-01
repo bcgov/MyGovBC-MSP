@@ -67,6 +67,34 @@ class MspAccountApp implements ApplicationBase {
         ]
         .filter(x => x); //no 'undefined's
     }
+    /*
+        for phn valdation purpose
+     */
+    get allPersonsInPI(): Array<Person> {
+        return [
+            this.applicant,
+            ...this.updatedChildren,
+            this.updatedSpouse,
+           ]
+            .filter(x => x); //no 'undefined's
+    }
+
+    /*
+       for phn valdation purpose.. Applicatn , ADD/Update/Remove children , Add/Remove Spouse
+        Update spouse can have same phn as added/remove spouse
+     */
+    get allPersonsInDep(): Array<Person> {
+        return [
+            this.applicant,
+            ...this.addedChildren,
+            ...this.removedChildren,
+            this.addedSpouse,
+            this.removedSpouse,
+            ...this.updatedChildren,
+        ]
+            .filter(x => x); //no 'undefined's
+    }
+
 
     get addedChildren(): Array<Person> {
         return this._addedChildren;
@@ -137,8 +165,8 @@ class MspAccountApp implements ApplicationBase {
         return this._applicant;
     }
 
-    get isUniquePhns () {
-        const allPhs: string[] = this.allPersons .map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
+    get isUniquePhnsinDependents () {
+        const allPhs: string[] = this.allPersonsInDep.filter(x => x) .map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
         return new Set(allPhs).size === allPhs.length ;
     }
 
@@ -147,7 +175,7 @@ class MspAccountApp implements ApplicationBase {
         When PI and Dependents page is coming in two pages and if there are duplications ,PI page continue should be enabled.
      */
     get isUniquePhnsInPI () {
-        const allPhs: string[] = [this.applicant, ...this.updatedChildren, this.updatedSpouse].filter(x => x) .map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
+        const allPhs: string[] = this.allPersonsInPI.filter(x => x) .map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
         return new Set(allPhs).size === allPhs.length ;
     }
 
@@ -276,9 +304,6 @@ class AccountChangeOptions {
     addressUpdate: boolean = false;
 
     get nameChangeDueToMarriage(): boolean {
-        if (this.dependentChange || this.statusUpdate) {
-            this._nameChangeDueToMarriage = false;
-        }
         return this._nameChangeDueToMarriage;
     }
 

@@ -18,7 +18,8 @@ import {MspApiService} from '../../service/msp-api.service';
 import {environment} from '../../../../../environments/environment';
 
 @Component({
-    templateUrl: './prepare.component.html'
+    templateUrl: './prepare.component.html',
+    styleUrls: ['./prepare.component.scss']
 })
 @Injectable()
 export class AccountPrepareComponent extends BaseComponent {
@@ -36,7 +37,8 @@ export class AccountPrepareComponent extends BaseComponent {
     @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
     @ViewChild('formRef') form: NgForm;
     transmissionInProcess: boolean;
-
+    // PI gets automatically ticked and unticked depending on the namechangeduetomarriage option.. this flag is used to idenity if PI is checked by user or by namechange option
+    isPICheckedByUser = true;
     constructor(private cd: ChangeDetectorRef, private logService: MspLogService, private apiService: MspApiService, private dataService: MspDataService, private _processService: ProcessService, private _router: Router) {
         super(cd);
         this.mspAccountApp = dataService.getMspAccountApp();
@@ -148,16 +150,42 @@ export class AccountPrepareComponent extends BaseComponent {
     }
 
     personInfoUpdateOnChange(event: boolean) {
+        this.isPICheckedByUser = true;
         this.accountChangeOptions.personInfoUpdate = event;
         this.dataService.saveMspAccountApp();
     }
 
+    /*
+     *  When nameChangeDueToMarriageOnChange -> true
+     *           if personInfoUpdate is not already updated by user , make isPICheckedByUser = false
+     *          update personInfoUpdate = true
+     *
+     *
+     *  When nameChangeDueToMarriageOnChange -> false
+     *          check if personInfoUpdate is updated by user , or else make it false
+     */
     nameChangeDueToMarriageOnChange(event: boolean) {
         this.accountChangeOptions.nameChangeDueToMarriage = event;
+
+        if (event === true) {
+            if (!this.accountChangeOptions.personInfoUpdate) {
+                this.isPICheckedByUser = false ;
+            }
+            this.accountChangeOptions.personInfoUpdate = true ;
+        }
+        if (event === false && !this.isPICheckedByUser){ //reset to false if not checked by user
+            this.accountChangeOptions.personInfoUpdate = false ;
+        }
         this.dataService.saveMspAccountApp();
     }
 
     dependentChangeOnChange(event: boolean) {
+        if (!event) { //unselect nameChangeDueToMarriage and personInfoUpdate
+            this.accountChangeOptions.nameChangeDueToMarriage = false ;
+            if ( !this.isPICheckedByUser) {  //reset to false if not checked by user
+                this.accountChangeOptions.personInfoUpdate = false ;
+            }
+        }
         this.accountChangeOptions.dependentChange = event;
         this.dataService.saveMspAccountApp();
     }

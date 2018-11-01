@@ -217,7 +217,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
     }
 
     isValid(): boolean {
-        return this.dataService.getMspAccountApp().isUniquePhns ;
+        return this.dataService.getMspAccountApp().isUniquePhnsinDependents ;
     }
 
         /**
