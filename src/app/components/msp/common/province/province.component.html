@@ -6,6 +6,7 @@
 
             <input  [(ngModel)]='province'
                 (typeaheadOnSelect)="updateModel($event)"
+                    (typeaheadOnBlur)="updateModel($event)"
                 [typeahead]="provinceAndCountryData"
                 typeaheadOptionField="name" [minlength]="1"
                 [typeaheadMinLength] = "0" [typeaheadScrollable] = "false"

@@ -5,6 +5,7 @@
 
         <input  [(ngModel)]='country'
                 (typeaheadOnSelect)="updateModel($event)"
+                (typeaheadOnBlur)="updateModel($event)"
                 [typeahead]="countryData"
                 typeaheadOptionField="name"
                 [minlength]="1"
