@@ -83,6 +83,7 @@ import { LandingComponent } from './landing/landing.component';
 import { MspComponent } from './msp.component';
 import { CompletenessCheckService } from './service/completeness-check.service';
 import { MspLogService } from './service/log.service';
+import { MspLog2Service } from './service/log2.service';
 import { MspApiService } from './service/msp-api.service';
 import { MspDataService } from './service/msp-data.service';
 import { MspValidationService } from './service/msp-validation.service';
@@ -358,6 +359,7 @@ const APP_ROUTES: Routes = [
         CompletenessCheckService,
         MspApiService,
         MspLogService,
+        MspLog2Service,
         ProcessService,
         CaptchaDataService
     ]
