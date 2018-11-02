@@ -24,11 +24,9 @@ export class MspConsentModalComponent {
   @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
   @Output() onClose = new EventEmitter<void>();
 
-  //public appConstants;
-  public spaEnvRes: ISpaEnvResponse;
-
+  public spaEnvRes: ISpaEnvResponse = {} as any;
+  
   constructor(protected http: HttpClient,  private logService: MspLog2Service, private maintenanceService: MspMaintenanceService) {
-    //this.appConstants = environment.appConstants;
     this.inMaintenance();
   }
 
@@ -48,17 +46,12 @@ export class MspConsentModalComponent {
   
   inMaintenance() {
     this.maintenanceService.checkMaintenance().subscribe(response => {
-      const spaResponse = <ISpaEnvResponse> response;
-      this.spaEnvRes = <ISpaEnvResponse> response;
-      console.log("=====MSP Maintenance Flag==="+spaResponse.SPA_ENV_MSP_MAINTENANCE_FLAG+'----'+spaResponse.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
-      //this.appConstants.mspIsInMaintenanceFlag = spaResponse.SPA_ENV_MSP_MAINTENANCE_FLAG === "true" ? true: false;
-      //this.appConstants.mspIsInMaintenanceText = spaResponse.SPA_ENV_MSP_MAINTENANCE_MESSAGE;
-    },
-    (error: Response | any) => {
-      //this.appConstants.mspIsInMaintenanceFlag = false;
+    this.spaEnvRes = <ISpaEnvResponse> response;
+    console.log("=====MSP Maintenance Flag==="+this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG+'----'+this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
+    }, (error: Response | any) => {
       console.log('Error when calling the MSP Maintenance: '+error);
+      console.log(this.logService.log({event: 'error', key: 'Error when calling the Maintenance API'}));
       this.logService.log({event: 'error', key: 'Error when calling the Maintenance API'});
-        
     });
   }
 }
