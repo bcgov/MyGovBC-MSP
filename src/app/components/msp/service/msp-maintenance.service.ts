@@ -20,20 +20,21 @@ import { of } from 'rxjs';
 
 export class  MspMaintenanceService extends AbstractHttpService {
     
+    protected _headers: HttpHeaders = new HttpHeaders({
+        'SPA_ENV_NAME': '{"SPA_ENV_MSP_MAINTENANCE_FLAG":"","SPA_ENV_MSP_MAINTENANCE_MESSAGE":""}',
+        'program': 'msp',
+        'timestamp' : moment().toISOString(),
+        'method': 'checkMaintenance',
+        'severity': 'info',
+    });
+    
     constructor(protected http: HttpClient, private logService: MspLog2Service) {
         super(http);  
     }
 
     checkMaintenance(): Observable<ISpaEnvResponse> {
         const url = environment.appConstants['envServerBaseUrl'];
-        
-        return this.post<ISpaEnvResponse>(url, {
-            'program': 'msp',
-            'timestamp' : moment().toISOString(),
-            'method': 'checkMaintenance',
-            'severity': 'info',
-            'SPA_ENV_NAME': '{"SPA_ENV_MSP_MAINTENANCE_FLAG":"","SPA_ENV_MSP_MAINTENANCE_MESSAGE":""}'
-        })
+        return this.post<ISpaEnvResponse>(url, null);
     }
     
     protected handleError(error: HttpErrorResponse) {
@@ -45,7 +46,7 @@ export class  MspMaintenanceService extends AbstractHttpService {
             // The backend returned an unsuccessful response code
             console.error(`MspMaintenanceService Backend returned error code: ${error.status}.  Error body: ${error.error}`);
         }
-        
+        console.log(this.logService.log({event: 'error', key: 'Cannot get maintenance flag from spa-env-server'}));
         this.logService.log({event: 'error', key: 'Cannot get maintenance flag from spa-env-server'});
         
         // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
