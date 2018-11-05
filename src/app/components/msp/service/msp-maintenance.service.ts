@@ -20,14 +20,6 @@ import { of } from 'rxjs';
 
 export class  MspMaintenanceService extends AbstractHttpService {
     
-    protected _headers: HttpHeaders = new HttpHeaders({
-        'SPA_ENV_NAME': '{"SPA_ENV_MSP_MAINTENANCE_FLAG":"","SPA_ENV_MSP_MAINTENANCE_MESSAGE":""}',
-        'program': 'msp',
-        'timestamp' : moment().toISOString(),
-        'method': 'checkMaintenance',
-        'severity': 'info',
-    });
-    
     constructor(protected http: HttpClient, private logService: MspLog2Service) {
         super(http);  
     }
@@ -53,5 +45,10 @@ export class  MspMaintenanceService extends AbstractHttpService {
     }
     
     protected _headers: HttpHeaders = new HttpHeaders({
+        'SPA_ENV_NAME': '{"SPA_ENV_MSP_MAINTENANCE_FLAG":"","SPA_ENV_MSP_MAINTENANCE_MESSAGE":""}',
+        'program': 'msp',
+        'timestamp' : moment().toISOString(),
+        'method': 'checkMaintenance',
+        'severity': 'info',
     });
 }
