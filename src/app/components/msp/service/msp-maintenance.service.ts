@@ -26,14 +26,13 @@ export class  MspMaintenanceService extends AbstractHttpService {
 
     checkMaintenance(): Observable<ISpaEnvResponse> {
         const url = environment.appConstants['envServerBaseUrl'];
-        const envName = '{"SPA_ENV_MSP_MAINTENANCE_FLAG":"","SPA_ENV_MSP_MAINTENANCE_MESSAGE":""}';
         
         return this.post<ISpaEnvResponse>(url, {
             'program': 'msp',
             'timestamp' : moment().toISOString(),
             'method': 'checkMaintenance',
             'severity': 'info',
-            'SPA_ENV_NAME': envName
+            'SPA_ENV_NAME': '{"SPA_ENV_MSP_MAINTENANCE_FLAG":"","SPA_ENV_MSP_MAINTENANCE_MESSAGE":""}'
         })
     }
     
