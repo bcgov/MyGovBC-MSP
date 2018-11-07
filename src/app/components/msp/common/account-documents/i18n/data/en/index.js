@@ -18,12 +18,12 @@ module.exports = {
   8: ['Passport with diplomatic foil',true],
   9: ['Marriage Certificate',true],
   10: ['Certificate of Name Change ',true],
-   11:['Divorce Decree (formerly married)',false],
-    12:['Separation Agreement (formerly married or common-law)',false],
+   11:['Divorce Decree (required for retroactive requests)',false],
+    12:['Legal Separation Agreement (required for retroactive requests)',false],
     13:['Landed Immigration Documents',true],
-    14:['Permit indicating Religious Worker',false],
+    14:['Permit indicating Religious Worker or confirmation of service for religious order',false],
     15:['Confirmation of their religious service from their religious order ',false],
-    16:['Foil from your diplomatic passport',false],
+    16:['Acceptance Foil from your diplomatic passport ',false],
     17:['Verification of Adoption',false],
     18:['Current Immigration Document used by Immigration, Refugees, and Citizenship Canada',false],
     19:['BC Driver’s License',true],
@@ -36,7 +36,19 @@ module.exports = {
     '<li class="roundbullet">Full names of you and your former spouse;</li>' +
     '<li class="roundbullet">Your former spouse’s current address, or an indication that the new address is unknown; and</li>' +
     '<li class="roundbullet">Account numbers or PHNs for you and your former spouse</li></ul>',false],
-    25:['Notarized statement or affidavit (signed by at least one spouse)(formerly married or common-law)',false]
+    25:['Notarized statement or affidavit (signed by at least one spouse)(formerly married or common-law)',false],
+    26:['Confirmation of Permanent Residence',false],
+    27:['Authorization to work in Canada under the Working Holiday program or International Experience Canada program: a letter confirming employment details including start date, end date and hours of work per week.',false],
+    28:['Notice of Decision for Convention Refugee status',false],
+    29:['A visitor permit is acceptable for the spouse of an Account Holder on a Work or Study permit. If you are sponsoring your spouse for Permanent Residence, please contact HIBC',false],
+    30:['A visitor permit is acceptable for the child of an Account Holder on a Work or Study permit',false],
+    31:['Foreign long form birth certificate (if child born outside of Canada to a Canadian parent and awaiting Canadian Citizenship)',false],
+    32:['For a newly adopted child or new guardianship: Contact HIBC',false],
+    33:['Sworn Affidavit',false],
+    34:['Signed Statement (including both Personal Health Numbers, separate addresses and signed by at least one party)'],
+    35:['Divorce Decree',false],
+
+
 }
 /**
  * Should Match account-documents.ts ID documents
