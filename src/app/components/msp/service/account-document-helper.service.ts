@@ -6,7 +6,7 @@ import {StatusInCanada} from '../model/status-activities-documents';
 
 
 export class AccountCollection {
-    static readonly UPDATE_NAME_DOCSLIST: DocumentGroup = new DocumentGroup('CORRECT/UPDATE SURNAME', [
+    static readonly UPDATE_NAME_DOCSLIST: DocumentGroup = new DocumentGroup('CORRECT/UPDATE NAME', [
         Documents.CanadianBirthCertificate,
         Documents.CanadianCitizenCard,
         Documents.CanadianPassport,
@@ -123,17 +123,16 @@ export class AccountDocumentHelperService {
         this.mspAccountApp = this.dataService.getMspAccountApp();
     }
 
-    /*
-    Logic to determine the documents to upload based on users inputs
-
-    User Selected PI -- All PI Docs
-     */
-
-    availiableDocuments(): DocumentGroup[] {
+    getApplicableDocuments(): DocumentGroup[] {
 
 
         let documentGroup: DocumentGroup[] = [];
 
+        /*
+        these methods are written to avoid lot of if's
+        They return blank Documents if conditions don't satisfy.. the blanks will be later removed while returning from method
+        if the conditions satisfy , they return the relevant docs for the users action
+         */
         documentGroup = documentGroup.concat(this.addIfPIIsSelected());
         documentGroup.push(this.addIfStatusIsUpdated());
         documentGroup.push(this.addIfSpouseIsAdded());
@@ -146,7 +145,7 @@ export class AccountDocumentHelperService {
     }
 
 
-    addIfPIIsSelected(): DocumentGroup [] {
+    private addIfPIIsSelected(): DocumentGroup [] {
         const documentGroup: DocumentGroup[] = [];
 
         if (this.mspAccountApp.accountChangeOptions.personInfoUpdate) {
@@ -161,7 +160,7 @@ export class AccountDocumentHelperService {
         return documentGroup;
     }
 
-    addIfStatusIsUpdated(): DocumentGroup {
+    private addIfStatusIsUpdated(): DocumentGroup {
         if (this.mspAccountApp.accountChangeOptions.statusUpdate) {
             const statusInCanada: DocumentGroup = new DocumentGroup('UPDATE OR CONFIRM STATUS IN CANADA', []);
 
@@ -181,7 +180,7 @@ export class AccountDocumentHelperService {
         return AccountCollection.BLANK;
     }
 
-    addIfSpouseIsAdded(): DocumentGroup {
+    private addIfSpouseIsAdded(): DocumentGroup {
         const addSpouse: DocumentGroup = new DocumentGroup('ADD SPOUSE', [], this.NAME_CHANGE_TEXT);
 
         if (!this.mspAccountApp.accountChangeOptions.dependentChange || !this.mspAccountApp.addedSpouse) {
@@ -205,7 +204,7 @@ export class AccountDocumentHelperService {
     }
 
 
-    addIfChildIsAdded(): DocumentGroup {
+    private addIfChildIsAdded(): DocumentGroup {
         if (!this.mspAccountApp.accountChangeOptions.dependentChange || this.mspAccountApp.addedChildren.length <= 0) {
             return AccountCollection.BLANK;
         }
@@ -233,7 +232,7 @@ export class AccountDocumentHelperService {
     }
 
 
-    addIfChildrenIsRemoved(): DocumentGroup {
+    private addIfChildrenIsRemoved(): DocumentGroup {
         const removeChild: DocumentGroup = new DocumentGroup('REMOVE CHILD(REN)', [], this.REMOVE_CHILD_TEXT);
 
         if (this.mspAccountApp.removedChildren && this.mspAccountApp.removedChildren.length > 0) {
@@ -242,7 +241,7 @@ export class AccountDocumentHelperService {
         return AccountCollection.BLANK;
     }
 
-    addIfSpouseIsRemoved(): DocumentGroup {
+    private addIfSpouseIsRemoved(): DocumentGroup {
 
         if (this.mspAccountApp.removedSpouse && this.mspAccountApp.removedSpouse.firstName.length > 0) {
             return AccountCollection.REMOVE_SPOUSE;

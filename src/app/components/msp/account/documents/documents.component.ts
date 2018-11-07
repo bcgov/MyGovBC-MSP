@@ -54,7 +54,7 @@ export class AccountDocumentsComponent extends BaseComponent {
 
 
     get documentsApplicable(): DocumentGroup[] {
-        return this.accountDocumentHelperService.availiableDocuments();
+        return this.accountDocumentHelperService.getApplicableDocuments();
     }
 
 
@@ -69,7 +69,7 @@ export class AccountDocumentsComponent extends BaseComponent {
      * [0, 1, 2, 3]
      */
     public documentIndices() {
-        return Object.keys(this.accountDocumentHelperService.availiableDocuments()).map(x => parseInt(x, 10));
+        return Object.keys(this.accountDocumentHelperService.getApplicableDocuments()).map(x => parseInt(x, 10));
     }
 
 
