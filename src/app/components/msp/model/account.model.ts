@@ -95,6 +95,20 @@ class MspAccountApp implements ApplicationBase {
             .filter(x => x); //no 'undefined's
     }
 
+    public isMembersPresentWithStatus(personList: Array<Person>, statusInCanada: StatusInCanada): boolean {
+       return personList.filter(person => person.status === statusInCanada).length > 0 ;
+    }
+    public isAnyPRinPersonalInfoPage (): boolean  {
+        return this.isMembersPresentWithStatus(this.allPersonsInPI , StatusInCanada.PermanentResident) ;
+    }
+    public isAnyCanadianCitizeinPersonalInfoPage (): boolean  {
+        return this.isMembersPresentWithStatus(this.allPersonsInPI , StatusInCanada.CitizenAdult) ;
+    }
+    public isAnyTempPersonalInfoPage (): boolean  {
+        return this.isMembersPresentWithStatus(this.allPersonsInPI , StatusInCanada.TemporaryResident) ;
+    }
+
+
 
     get addedChildren(): Array<Person> {
         return this._addedChildren;

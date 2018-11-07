@@ -15,7 +15,7 @@ enum Documents {
     MarriageCertificate, //9
     ChangeOfNameCertificate, //10
     //new docs for account management
-    DivorceDecree, //11
+    DivorceDecreeRequiredForRetro, //11
     SeparationAgreement, //12
     LandedImmigrationDocs, //13
     ReligiousWorkerPermit, //14
@@ -29,7 +29,17 @@ enum Documents {
     WaiverParentalConsent, //22
     PhysicianConfirmationForGenderChange, //23
     MaritalStatusSignedWrittenStatement, //24
-    NotarizedStatmentAffidavit//25
+    NotarizedStatmentAffidavit, //25
+    ConfirmationofPermanentResidence, //26
+    AuthorisationToWorkInCanada , //27
+    NoticeOfDecisionForConventionRefugeeStatus , //28
+    VisitorPermitSpouse , //29
+    VisitorPermitChild , //30
+    ForeignLongFormBirthCertificate , //31
+    NewlyAdoptedKidContactHIBC,
+    SwornAffidavit,
+    SignedStatement,
+    DivorceDecree
 }
 
 
@@ -142,10 +152,12 @@ class DocumentGroup {
     title: String;
     /** A list of all possible documents which satisfy the requirement for the DocumentGroup */
     docs: Documents[];
+    label: String;
 
-    constructor(title: String, docs: Documents[]) {
+    constructor(title: String, docs: Documents[] , label?: String ) {
         this.title = title;
         this.docs = docs;
+        this.label = label ;
     }
 }
 

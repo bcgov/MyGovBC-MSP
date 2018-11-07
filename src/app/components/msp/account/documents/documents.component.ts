@@ -15,6 +15,7 @@ import {MspImage} from '../../../msp/model/msp-image';
 import {FileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
 import {MspImageErrorModalComponent} from '../../common/image-error-modal/image-error-modal.component';
 import {MspIdReqModalComponent} from '../../common/id-req-modal/id-req-modal.component';
+import {AccountDocumentHelperService} from '../../service/account-document-helper.service';
 
 @Component({
     templateUrl: './documents.component.html'
@@ -35,6 +36,7 @@ export class AccountDocumentsComponent extends BaseComponent {
     constructor(private dataService: MspDataService,
                 private _router: Router,
                 private _processService: ProcessService,
+                private accountDocumentHelperService: AccountDocumentHelperService ,
                 private cd: ChangeDetectorRef, private localStorageService: LocalStorageService) {
 
         super(cd);
@@ -49,9 +51,12 @@ export class AccountDocumentsComponent extends BaseComponent {
     /**
      * Gets the available documents given the known status and activity
      */
-    get documents(): DocumentGroup[] {
-        return AccountDocumentRules.availiableDocuments();
+
+
+    get documentsApplicable(): DocumentGroup[] {
+        return this.accountDocumentHelperService.availiableDocuments();
     }
+
 
     /**
      * An array of integers with the indices of the different documents.  The
@@ -64,7 +69,7 @@ export class AccountDocumentsComponent extends BaseComponent {
      * [0, 1, 2, 3]
      */
     public documentIndices() {
-        return Object.keys(this.documents).map(x => parseInt(x, 10));
+        return Object.keys(this.accountDocumentHelperService.availiableDocuments()).map(x => parseInt(x, 10));
     }
 
 

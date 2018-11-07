@@ -88,6 +88,7 @@ import { MspDataService } from './service/msp-data.service';
 import { MspValidationService } from './service/msp-validation.service';
 import { ProcessService } from './service/process.service';
 import { TypeaheadModule } from 'ngx-bootstrap';
+import {AccountDocumentHelperService} from './service/account-document-helper.service';
 
 
 
@@ -366,7 +367,8 @@ const APP_ROUTES: Routes = [
         MspApiService,
         MspLogService,
         ProcessService,
-        CaptchaDataService
+        CaptchaDataService,
+        AccountDocumentHelperService
     ]
 })
 @Injectable()
