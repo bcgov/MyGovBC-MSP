@@ -233,7 +233,6 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     isValid(): boolean {
         if (this.addressRequired) {
             if (!this.person.residentialAddress || !this.person.residentialAddress.isValid ) {
-                console.log('address validation failed.If u think this is an error , check the addressRequired flag');
                 return false;
             }
         }
