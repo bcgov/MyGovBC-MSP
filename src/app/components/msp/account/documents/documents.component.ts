@@ -113,12 +113,13 @@ export class AccountDocumentsComponent extends BaseComponent {
      */
     get isDocsNotNeeded(): boolean {
         const docsNotNeeded: boolean = false;
-        if (this.mspAccountApp.accountChangeOptions.nameChangeDueToMarriage) {
+        // reduntant logic.. the option moved to dependent change checkbox.
+        /*if (this.mspAccountApp.accountChangeOptions.nameChangeDueToMarriage) {
             if (this.mspAccountApp.updatedChildren && this.mspAccountApp.updatedChildren .length > 0) {
                 return false;
             }
             return true;
-        }
+        }*/
 
         if (this.mspAccountApp.accountChangeOptions.statusUpdate || this.mspAccountApp.accountChangeOptions.personInfoUpdate) {
             return false;
