@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {MspDataService} from './msp-data.service';
 import {DocumentGroup, Documents} from '../model/account-documents';
 import {MspAccountApp} from '../model/account.model';
-import {StatusInCanada} from '../model/status-activities-documents';
+import {CancellationReasonsForSpouse, StatusInCanada} from '../model/status-activities-documents';
 
 
 export class AccountCollection {
@@ -91,12 +91,12 @@ export class AccountCollection {
         Documents.NewlyAdoptedKidContactHIBC
     ];
 
-    static readonly REMOVE_SPOUSE: DocumentGroup = new DocumentGroup('REMOVE SPOUSE', [
+    static readonly REMOVE_SPOUSE: Documents[] =  [
         Documents.DivorceDecreeRequiredForRetro,
         Documents.SeparationAgreement,
         Documents.SwornAffidavit,
         Documents.SignedStatement
-    ]);
+    ];
 
     static readonly BLANK: DocumentGroup = new DocumentGroup('', []);
 
@@ -116,6 +116,9 @@ export class AccountDocumentHelperService {
         '<li>For a newly adopted child or new guardianship: Contact HIBC</li></ul>';
 
     readonly REMOVE_CHILD_TEXT = 'No documentation required (note: child will not be removed unless  currently covered under another MSP account)';
+    readonly REMOVE_SPOUSE_TEXT = 'No documentation required ';
+
+
     private mspAccountApp: MspAccountApp;
 
 
@@ -243,8 +246,15 @@ export class AccountDocumentHelperService {
 
     private addIfSpouseIsRemoved(): DocumentGroup {
 
-        if (this.mspAccountApp.removedSpouse && this.mspAccountApp.removedSpouse.firstName.length > 0) {
-            return AccountCollection.REMOVE_SPOUSE;
+    const removeSpouse: DocumentGroup = new DocumentGroup('REMOVE SPOUSE', []);
+        if (this.mspAccountApp.removedSpouse) {
+            console.log(CancellationReasonsForSpouse[this.mspAccountApp.removedSpouse.reasonForCancellation]) ;
+            if (this.mspAccountApp.removedSpouse.reasonForCancellation === CancellationReasonsForSpouse[CancellationReasonsForSpouse.SeparatedDivorced]) {
+                removeSpouse.docs = AccountCollection.REMOVE_SPOUSE;
+            } else {
+                removeSpouse.label = this.REMOVE_SPOUSE_TEXT;
+            }
+            return removeSpouse;
         }
         return AccountCollection.BLANK;
     }
