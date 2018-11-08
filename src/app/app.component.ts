@@ -12,6 +12,7 @@ export class GeneralAppComponent {
   routerSubscription: Subscription;
 
   public constructor(viewContainerRef: ViewContainerRef, private router: Router) {
+      console.log('%c PA-INTERIM', 'color: green; font-weight: bold;');
     // You need this small hack in order to catch application root view container ref
     this.viewContainerRef = viewContainerRef;
   }
