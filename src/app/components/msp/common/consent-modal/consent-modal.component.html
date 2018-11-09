@@ -25,8 +25,9 @@
 
         <br>
         <div *ngIf="!appConstants.mspIsInMaintenanceFlag">
-          <input class="input-lg" id="agree" type="checkbox" [(ngModel)]="agreeCheck">
-          <label class="" for="agree"><strong>{{lang('./en/index.js').agreeLabel}}</strong></label>
+          <div class="form-check form-check-inline">
+          <input class="input-lg form-check-input" id="agree" type="checkbox" [(ngModel)]="agreeCheck">
+          <label class="form-check-label" for="agree"><strong>{{lang('./en/index.js').agreeLabel}}</strong></label>
         </div>
       </div>
       <div *ngIf="!appConstants.mspIsInMaintenanceFlag" class="modal-footer">
