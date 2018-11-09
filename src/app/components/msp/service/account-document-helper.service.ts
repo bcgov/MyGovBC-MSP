@@ -236,7 +236,7 @@ export class AccountDocumentHelperService {
     private addIfChildrenIsRemoved(): DocumentGroup {
         const removeChild: DocumentGroup = new DocumentGroup('REMOVE CHILD(REN)', [], this.REMOVE_CHILD_TEXT);
 
-        if (this.mspAccountApp.removedChildren && this.mspAccountApp.removedChildren.length > 0) {
+        if (this.mspAccountApp.accountChangeOptions.dependentChange && this.mspAccountApp.removedChildren && this.mspAccountApp.removedChildren.length > 0) {
             return removeChild;
         }
         return AccountCollection.BLANK;
@@ -245,7 +245,7 @@ export class AccountDocumentHelperService {
     private addIfSpouseIsRemoved(): DocumentGroup {
 
     const removeSpouse: DocumentGroup = new DocumentGroup('REMOVE SPOUSE', []);
-        if (this.mspAccountApp.removedSpouse) {
+        if (this.mspAccountApp.accountChangeOptions.dependentChange && this.mspAccountApp.removedSpouse) {
             console.log(CancellationReasonsForSpouse[this.mspAccountApp.removedSpouse.reasonForCancellation]) ;
             if (this.mspAccountApp.removedSpouse.reasonForCancellation === CancellationReasonsForSpouse[CancellationReasonsForSpouse.SeparatedDivorced]) {
                 removeSpouse.docs = AccountCollection.REMOVE_SPOUSE;

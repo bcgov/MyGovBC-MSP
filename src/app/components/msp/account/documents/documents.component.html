@@ -13,7 +13,7 @@
             title="{{documentsApplicable[idx].title}}" [isOpen]="documentsApplicable.length == 1">
                 <p [innerHtml]="documentsApplicable[idx].label" *ngIf="documentsApplicable[idx].label"></p>
                 <li *ngFor="let document of documentsApplicable[idx].docs">
-                    <span [innerHtml]="langAccountDocuments('./en/index.js')[document][0]"> </span>
+                    <span [innerHtml]="langAccountDocuments('./en/index.js')[document][0]"></span>&nbsp;
                     <a role="button" *ngIf="langAccountDocuments('./en/index.js')[document][1] == true"
                         aria-haspopup="true"
                         href="javascript:void(0)"
