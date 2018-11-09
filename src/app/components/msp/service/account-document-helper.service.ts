@@ -127,8 +127,6 @@ export class AccountDocumentHelperService {
     }
 
     getApplicableDocuments(): DocumentGroup[] {
-
-
         let documentGroup: DocumentGroup[] = [];
 
         /*

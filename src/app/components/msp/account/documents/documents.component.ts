@@ -32,7 +32,7 @@ export class AccountDocumentsComponent extends BaseComponent {
     langAccountDocuments = require('../../common/account-documents/i18n');
     langStatus = require('../../common/status/i18n');
     langActivities = require('../../common/activities/i18n');
-
+    documentsList: DocumentGroup[] ;
     constructor(private dataService: MspDataService,
                 private _router: Router,
                 private _processService: ProcessService,
@@ -44,8 +44,10 @@ export class AccountDocumentsComponent extends BaseComponent {
     }
 
     ngOnInit() {
+
         AccountDocumentsComponent.ProcessStepNum = this._processService.getStepNumber(ProcessUrls.ACCOUNT_FILE_UPLOADER_URL);
         this.initProcessMembers(AccountDocumentsComponent.ProcessStepNum, this._processService);
+        this.documentsList = this.accountDocumentHelperService.getApplicableDocuments() ;
     }
 
     /**
@@ -54,7 +56,7 @@ export class AccountDocumentsComponent extends BaseComponent {
 
 
     get documentsApplicable(): DocumentGroup[] {
-        return this.accountDocumentHelperService.getApplicableDocuments();
+        return this.documentsList;
     }
 
 
@@ -69,7 +71,7 @@ export class AccountDocumentsComponent extends BaseComponent {
      * [0, 1, 2, 3]
      */
     public documentIndices() {
-        return Object.keys(this.accountDocumentHelperService.getApplicableDocuments()).map(x => parseInt(x, 10));
+        return Object.keys(this.documentsList).map(x => parseInt(x, 10));
     }
 
 
