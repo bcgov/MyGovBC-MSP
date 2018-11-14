@@ -11,6 +11,9 @@ import { MspLogService } from '../../service/log.service';
 import { MspDataService } from '../../service/msp-data.service';
 import { BaseComponent } from '../base.component';
 import { LogEntry } from '../logging/log-entry.model';
+import {Person} from "../../model/application.model";
+import {Router} from "@angular/router";
+import {ApplicationBase} from "../../model/application-base.model";
 
 const loadImage = require('blueimp-load-image');
 const sha1 = require('sha1');
@@ -45,13 +48,15 @@ export class FileUploaderComponent
     @Output() onAddDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
     @Output() onErrorDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
     @Output() onDeleteDocument: EventEmitter<MspImage> = new EventEmitter<MspImage>();
+    application: ApplicationBase ;
 
     constructor(private dataService: MspDataService,
                 private logService: MspLogService,
                 private zone: NgZone,
-                private cd: ChangeDetectorRef) {
+                private cd: ChangeDetectorRef , private router: Router) {
         super(cd);
         this.appConstants = environment.appConstants;
+        this.application = this.getApplicationType();
     }
 
     /**
@@ -267,7 +272,7 @@ export class FileUploaderComponent
 
         // Init
         const self = this;
-        let  pageNumber = Math.max(...self.images.map(function(o){return o.attachmentOrder; }), 0) + 1 ;
+       let  pageNumber = Math.max(...self.images.concat( self.application.getAllImages()).map(function(o){return o.attachmentOrder; }), 0) + 1 ;
         // Create our observer
         const fileObservable = Observable.create((observer: Observer<MspImage>) => {
             const mspImages = [];
@@ -740,6 +745,18 @@ export class FileUploaderComponent
         }
         return true;
     }
+    getApplicationType(): ApplicationBase  {
+        if (this.router.url.indexOf('/assistance/') !== -1){
+            return this.dataService.finAssistApp;
+        }
+        if (this.router.url.indexOf('/application/') !== -1){
+            return this.dataService.getMspApplication();
+        }
+        if (this.router.url.indexOf('/account/') !== -1){
+            return this.dataService.getMspAccountApp();
+        }
+    }
+
 
 }
 
