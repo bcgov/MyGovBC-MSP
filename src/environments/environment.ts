@@ -15,12 +15,14 @@
 
 export const environment = {
     runtimeEnv: 'development',
+    logHTTPRequestsToConsole: true,
     appConstants: {
         coreApiBaseUrl: 'http://localhost:9000/api',
         serviceName: 'Apply for BC Health Care',
+	enableLogging: true,
         logBaseUrl: '/msp/api/logging',
         apiBaseUrl: '/msp/api',
-        // apiBaseUrl: 'https://mygovbc-msp-dev.pathfinder.gov.bc.ca/api',
+	envServerBaseUrl: '/msp/api/env',
         captchaApiBaseUrl: '/msp/api/captcha',
         addressChangeBCUrl: 'https://www.addresschange.gov.bc.ca/',
         images: {
@@ -35,10 +37,9 @@ export const environment = {
           convertToMimeType: 'image/jpeg',
           jpegQuality: 0.5,
           pdfScaleFactor: 2.0
-        },
-        mspIsInMaintenanceFlag: false,
-        // These values are never used as long as the flag is False.
-        mspIsInMaintenanceText: null,
-        mspIsInMaintenanceTimes: null,
+        }
+        // mspIsInMaintenanceFlag: false,
+        // mspIsInMaintenanceText: null,
+        // mspIsInMaintenanceTimes: null,
       }
 };

@@ -89,14 +89,7 @@ import { MspValidationService } from './service/msp-validation.service';
 import { ProcessService } from './service/process.service';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import {AccountDocumentHelperService} from './service/account-document-helper.service';
-
-
-
-
-
-
-
-
+import { MspMaintenanceService } from "./service/msp-maintenance.service";
 
 const APP_ROUTES: Routes = [
     {
@@ -361,8 +354,7 @@ const APP_ROUTES: Routes = [
         // Services
         MspDataService,
         MspValidationService,
-
-
+	MspMaintenanceService,
         CompletenessCheckService,
         MspApiService,
         MspLogService,

@@ -19,7 +19,9 @@ import { SimpleDate } from '../model/simple-date.interface';
 import { Activities, Relationship, StatusInCanada } from '../model/status-activities-documents';
 import { MspLogService } from './log.service';
 import ISO_8601 = moment.ISO_8601;
-
+import { MspMaintenanceService } from "../service/msp-maintenance.service";
+import { Http, Response } from '@angular/http';
+import {ISpaEnvResponse} from '../model/spa-env-response.interface';
 
 
 const jxon = require('jxon/jxon');
@@ -27,7 +29,7 @@ const jxon = require('jxon/jxon');
 @Injectable()
 export class MspApiService {
 
-    constructor(private http: HttpClient, private logService: MspLogService) {
+    constructor(private http: HttpClient, private logService: MspLogService, private maintenanceService: MspMaintenanceService) {
     }
 
     /**
@@ -36,59 +38,70 @@ export class MspApiService {
      * @returns {Promise<MspApplication>}
      */
     sendApplication(app: ApplicationBase): Promise<ApplicationBase> {
-
         return new Promise<ApplicationBase>((resolve, reject) => {
-            console.log('Start sending...');
-
             try {
+                return this.maintenanceService.checkMaintenance().subscribe(response => {
+                    const spaResponse = <ISpaEnvResponse> response;
+                    if(spaResponse && spaResponse.SPA_ENV_MSP_MAINTENANCE_FLAG && spaResponse.SPA_ENV_MSP_MAINTENANCE_FLAG === "true"){
+			this.logService.log({
+                                    text: 'In Maintenance Mode: ' + spaResponse.SPA_ENV_MSP_MAINTENANCE_MESSAGE,
+                                    response: info,
+                                }, 'In Maintenance Mode: ' + spaResponse.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
 
-                let documentModel: document;
-                if (app instanceof MspApplication) {
-                    documentModel = this.convertMspApplication(app);
-                } else if (app instanceof FinancialAssistApplication) {
-                    documentModel = this.convertAssistance(app);
-                } else if (app instanceof MspAccountApp) {
-                    documentModel = this.convertMspAccountApp(app);
-                } else {
-                    throw new Error('Unknown document type');
-                }
+                        console.log('In Maintenance Mode: ', spaResponse.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
+                        return reject(spaResponse);
+                    } else {
 
-                // Check for authorization token
-                if (app.authorizationToken == null ||
-                    app.authorizationToken.length < 1) {
-                    throw new Error('Missing authorization token.');
-                }
-
-                // second convert to XML
-                const convertedAppXml = this.toXmlString(documentModel);
-
-                // if no errors, then we'll sendApplication all attachments
-                return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
-
-                    // once all attachments are done we can sendApplication in the data
-                    return this.sendDocument(app.authorizationToken, documentModel, convertedAppXml).then(
-                        (response: ResponseType) => {
-                            console.log('sent application resolved');
-                            // Add reference number
-                            app.referenceNumber = response.referenceNumber.toString();
-
-                            // Let our caller know were done passing back the application
-                            return resolve(app);
-                        },
-
-                        (error: Response | any) => {
-                            return reject(error);
+                        console.log('Start sending...');
+                        let documentModel: document;
+                        if (app instanceof MspApplication) {
+                            documentModel = this.convertMspApplication(app);
+                        } else if (app instanceof FinancialAssistApplication) {
+                            documentModel = this.convertAssistance(app);
+                        } else if (app instanceof MspAccountApp) {
+                            documentModel = this.convertMspAccountApp(app);
+                        } else {
+                            throw new Error('Unknown document type');
                         }
-                    );
-                })
-                    .catch((error: Response | any) => {
-                        console.log('sent all attachments rejected: ', error);
-                        this.logService.log({
-                            text: 'Attachment - Send All Rejected ',
-                            response: error,
-                        }, 'Attachment - Send All Rejected ');
-                        return reject(error);
-                    });
+
+                        // Check for authorization token
+                        if (app.authorizationToken == null ||
+                            app.authorizationToken.length < 1) {
+                            throw new Error('Missing authorization token.');
+                        }
+
+                        // second convert to XML
+                        const convertedAppXml = this.toXmlString(documentModel);
+
+                        // if no errors, then we'll sendApplication all attachments
+                        return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
+
+                            // once all attachments are done we can sendApplication in the data
+                            return this.sendDocument(app.authorizationToken, documentModel, convertedAppXml).then(
+                                (response: ResponseType) => {
+                                    console.log('sent application resolved');
+                                    // Add reference number
+                                    app.referenceNumber = response.referenceNumber.toString();
+
+                                    // Let our caller know were done passing back the application
+                                    return resolve(app);
+                                },
+
+                                (error: Response | any) => {
+                                    return reject(error);
+                                }
+                            );
+                        }).catch((error: Response | any) => {
+                                console.log('sent all attachments rejected: ', error);
+                                this.logService.log({
+                                    text: 'Attachment - Send All Rejected ',
+                                    response: error,
+                                }, 'Attachment - Send All Rejected ');
+                                return reject(error);
+                            });
+                    } // end of else
+
+                }); // end of the return maintenance api
             } catch (error) {
                 this.logService.log({
                     text: 'Application - Send Failure ',
@@ -99,6 +112,7 @@ export class MspApiService {
             }
         });
     }
+
 
     private sendAttachments(token: string, applicationUUID: string, attachments: MspImage[]): Promise<void> {
         return new Promise<void>((resolve, reject) => {
