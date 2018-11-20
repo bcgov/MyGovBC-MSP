@@ -9,7 +9,7 @@ false ==> no samples can be provided. Dont show sample document link
 module.exports = {
   0: ['Canadian Birth certificate',true],
   1: ['Canadian Passport',true],
-  2: ['Canadian Citizenship card or certificate',true],
+  2: ['Canadian Citizenship card or certificate (front and back)',true],
   3:['Record of Landing',true],
   4: ['Permanent Resident Card (front and back)',true],
   5: ['Work permit',true],
@@ -19,7 +19,7 @@ module.exports = {
   9: ['Marriage Certificate',true],
   10: ['Certificate of Name Change',true],
    11:['Divorce Decree (required for retroactive requests)',false],
-    12:['Legal Separation Agreement (required for retroactive requests)',false],
+    12:['Separation Agreement (formerly married or common-law)',false],
     13:['Landed Immigration Documents',true],
     14:['Permit indicating Religious Worker or confirmation of service for religious order',false],
     15:['Confirmation of their religious service from their religious order',false],
@@ -44,7 +44,7 @@ module.exports = {
     30:['A visitor permit is acceptable for the child of an Account Holder on a Work or Study permit',false],
     31:['Foreign long form birth certificate (if child born outside of Canada to a Canadian parent and awaiting Canadian Citizenship)',false],
     32:['For a newly adopted child or new guardianship: Contact HIBC',false],
-    33:['Sworn Affidavit',false],
+    33:['Notarized statement or affidavit (signed by at least one spouse; formerly married or common-law)',false],
     34:['Signed Statement (including both Personal Health Numbers, separate addresses and signed by at least one party)'],
     35:['Divorce Decree',false],
 

@@ -6,41 +6,69 @@ import {CancellationReasonsForSpouse, StatusInCanada} from '../model/status-acti
 
 
 export class AccountCollection {
-    static readonly UPDATE_NAME_DOCSLIST: DocumentGroup = new DocumentGroup('CORRECT/UPDATE NAME', [
-        Documents.CanadianBirthCertificate,
-        Documents.CanadianCitizenCard,
-        Documents.CanadianPassport,
-        Documents.ChangeOfNameCertificate,
-        Documents.RecordOfLanding,
-        Documents.ConfirmationofPermanentResidence,
-        Documents.MarriageCertificate,
-        Documents.PermanentResidentCard,
-        Documents.DivorceDecree,
-        Documents.SeparationAgreement]);
 
-    //TODO - check 		Confirmation of Permanent Residenc doc
-    static readonly UPDATE_BIRTH_DOCSLIST: DocumentGroup = new DocumentGroup('CORRECT BIRTHDATE', [
+    static readonly UPDATE_NAME_DOCS: Documents[] = [
         Documents.CanadianBirthCertificate,
         Documents.CanadianCitizenCard,
         Documents.CanadianPassport,
-        Documents.RecordOfLanding,
+        Documents.PermanentResidentCard,
         Documents.ConfirmationofPermanentResidence,
-        Documents.PermanentResidentCard]);
-    static readonly CORRECT_GENDER: DocumentGroup = new DocumentGroup('CORRECT GENDER', [
-        Documents.BCDriverLicense,
-        Documents.CanadianBirthCertificate,
-        Documents.CanadianCitizenCard,
-        Documents.CanadianPassport,
         Documents.RecordOfLanding,
-        Documents.ConfirmationofPermanentResidence,
-        Documents.PermanentResidentCard]);
-    static readonly UPDATE_GENDER_DESIGNATION_DOCSLIST: DocumentGroup = new DocumentGroup('CHANGE GENDER DESIGNATION', [
-        Documents.CanadianBirthCertificate,
-        Documents.CanadianPassport,
-        Documents.GenderDesignationAdult,
-        Documents.GenderDesignationMinor,
-        Documents.PhysicianConfirmationForGenderChange,
-        Documents.WaiverParentalConsent]);
+        Documents.StudyPermit,
+        Documents.WorkPermit,
+        Documents.VisitorVisa,
+        Documents.ChangeOfNameCertificate
+    ];
+
+    static readonly UPDATE_NAME_MARRIAGE: Documents[] = [
+        Documents.ChangeOfNameCertificate,
+        Documents.MarriageCertificate,
+        Documents.DivorceDecree
+    ];
+
+    static readonly UPDATE_NAME_MARRIAGEORCOMMONLAW: Documents[] = [
+        Documents.ChangeOfNameCertificate,
+        Documents.MarriageCertificate
+    ];
+
+    //TODO - check 		Confirmation of Permanent Residence doc
+    static readonly UPDATE_BIRTH_DOCSLIST: DocumentGroup = new DocumentGroup('CORRECT BIRTHDATE', [{
+        docs: [
+            Documents.BCDriverLicense,
+            Documents.CanadianBirthCertificate,
+            Documents.CanadianCitizenCard,
+            Documents.CanadianPassport,
+            Documents.PermanentResidentCard,
+            Documents.ConfirmationofPermanentResidence,
+            Documents.RecordOfLanding,
+            Documents.StudyPermit,
+            Documents.WorkPermit,
+            Documents.VisitorVisa,
+        ]
+    }]);
+    static readonly CORRECT_GENDER: DocumentGroup = new DocumentGroup('CORRECT GENDER', [{
+        docs: [
+            Documents.BCDriverLicense,
+            Documents.CanadianBirthCertificate,
+            Documents.CanadianCitizenCard,
+            Documents.CanadianPassport,
+            Documents.PermanentResidentCard,
+            Documents.ConfirmationofPermanentResidence,
+            Documents.RecordOfLanding,
+            Documents.StudyPermit,
+            Documents.WorkPermit,
+            Documents.VisitorVisa,
+        ]
+    }]);
+    static readonly UPDATE_GENDER_DESIGNATION_DOCSLIST: DocumentGroup = new DocumentGroup('CHANGE GENDER DESIGNATION', [{
+        docs: [
+            Documents.CanadianBirthCertificate,
+            Documents.GenderDesignationAdult,
+            Documents.GenderDesignationMinor,
+            Documents.PhysicianConfirmationForGenderChange,
+            Documents.WaiverParentalConsent
+        ]
+    }]);
     static readonly UPDATE_STATUS_TEMP: Documents[] = [
         Documents.StudyPermit,
         Documents.WorkPermit,
@@ -49,18 +77,19 @@ export class AccountCollection {
         Documents.ReligiousWorkerPermit,
         Documents.NoticeOfDecisionForConventionRefugeeStatus];
     static readonly UPDATE_STATUS_PR: Documents[] = [
-        Documents.RecordOfLanding,
         Documents.PermanentResidentCard,
-        Documents.ConfirmationofPermanentResidence
+        Documents.ConfirmationofPermanentResidence,
+        Documents.RecordOfLanding,
     ];
     static readonly UPDATE_STATUS_CITIZEN: Documents[] = [
         Documents.CanadianBirthCertificate,
+        Documents.CanadianCitizenCard,
         Documents.CanadianPassport];
 
     static readonly ADD_SPOUSE_DOCUMENTS_PR: Documents[] = [
-        Documents.RecordOfLanding,
+        Documents.PermanentResidentCard,
         Documents.ConfirmationofPermanentResidence,
-        Documents.PermanentResidentCard
+        Documents.RecordOfLanding
     ];
     static readonly ADD_SPOUSE_DOCUMENTS_CITIZEN: Documents[] = [
         Documents.CanadianBirthCertificate,
@@ -76,12 +105,13 @@ export class AccountCollection {
     static readonly ADD_CHILD_DOCUMENTS_PR: Documents[] = [
         Documents.PermanentResidentCard,
         Documents.ConfirmationofPermanentResidence,
-        Documents.LandedImmigrationDocs,
+        Documents.RecordOfLanding,
 
     ];
     static readonly ADD_CHILD_DOCUMENTS_CITIZEN: Documents[] = [
         Documents.CanadianBirthCertificate,
-        Documents.CanadianCitizenCard
+        Documents.CanadianCitizenCard,
+        Documents.CanadianPassport
     ];
     static readonly ADD_CHILD_DOCUMENTS_TEMP: Documents[] = [
         Documents.WorkPermit,
@@ -91,11 +121,11 @@ export class AccountCollection {
         Documents.NewlyAdoptedKidContactHIBC
     ];
 
-    static readonly REMOVE_SPOUSE: Documents[] =  [
-        Documents.DivorceDecreeRequiredForRetro,
+    static readonly REMOVE_SPOUSE: Documents[] = [
+        Documents.DivorceDecree,
         Documents.SeparationAgreement,
         Documents.SwornAffidavit,
-        Documents.SignedStatement
+        Documents.MaritalStatusSignedWrittenStatement
     ];
 
     static readonly BLANK: DocumentGroup = new DocumentGroup('', []);
@@ -108,10 +138,9 @@ export class AccountCollection {
 
 export class AccountDocumentHelperService {
 
-    readonly NAME_CHANGE_TEXT = 'If you or your spouse’s name has changed as a result of a marriage or common-law relationship, please include one of the following documents:\n' +
-        '<ul><li>Certificate of Name Change</li>' +
-        '<li>Marriage Certificate</li></ul>';
-
+    readonly NAME_CHANGE_TEXT_SPOUSE = 'If you or your spouse’s name has changed as a result of a marriage or common-law relationship, please include one of the following documents:';
+    readonly NAME_CHANGE_TEXT_MARRIAGE = 'If your name has changed as a result of a marriage, please include one of the following documents:';
+    readonly ALSO_INCLUDE_TEXT = '<u>Also</u> include the following';
     readonly ADD_CHILD_TEXT = '<ul><li>No documentation required</li>' +
         '<li>For a newly adopted child or new guardianship: Contact HIBC</li></ul>';
 
@@ -150,7 +179,10 @@ export class AccountDocumentHelperService {
         const documentGroup: DocumentGroup[] = [];
 
         if (this.mspAccountApp.accountChangeOptions.personInfoUpdate) {
-            documentGroup.push(AccountCollection.UPDATE_NAME_DOCSLIST);
+            documentGroup.push(new DocumentGroup('CORRECT/UPDATE NAME',
+                [{docs: AccountCollection.UPDATE_NAME_DOCS},
+                    {label: this.NAME_CHANGE_TEXT_MARRIAGE, docs: AccountCollection.UPDATE_NAME_MARRIAGE}
+                ]));
             documentGroup.push(AccountCollection.UPDATE_BIRTH_DOCSLIST);
             documentGroup.push(AccountCollection.CORRECT_GENDER);
             documentGroup.push(AccountCollection.UPDATE_GENDER_DESIGNATION_DOCSLIST);
@@ -161,20 +193,23 @@ export class AccountDocumentHelperService {
         return documentGroup;
     }
 
+
     private addIfStatusIsUpdated(): DocumentGroup {
         if (this.mspAccountApp.accountChangeOptions.statusUpdate) {
-            const statusInCanada: DocumentGroup = new DocumentGroup('UPDATE OR CONFIRM STATUS IN CANADA', []);
 
+            const statusInCanada: DocumentGroup = new DocumentGroup('UPDATE OR CONFIRM STATUS IN CANADA', []);
+            let docs: Documents[] = [];
             if (this.mspAccountApp.isAnyCanadianCitizeinPersonalInfoPage()) {
-                statusInCanada.docs = statusInCanada.docs.concat(AccountCollection.UPDATE_STATUS_CITIZEN);
+                docs = docs.concat(AccountCollection.UPDATE_STATUS_CITIZEN);
             }
             if (this.mspAccountApp.isAnyPRinPersonalInfoPage()) {
-                statusInCanada.docs = statusInCanada.docs.concat(AccountCollection.UPDATE_STATUS_PR);
+                docs = docs.concat(AccountCollection.UPDATE_STATUS_PR);
             }
             if (this.mspAccountApp.isAnyTempPersonalInfoPage()) {
-                statusInCanada.docs = statusInCanada.docs.concat(AccountCollection
+                docs = docs.concat(AccountCollection
                     .UPDATE_STATUS_TEMP);
             }
+            statusInCanada.section.push({docs: docs});
             return statusInCanada;
         }
 
@@ -182,25 +217,24 @@ export class AccountDocumentHelperService {
     }
 
     private addIfSpouseIsAdded(): DocumentGroup {
-        const addSpouse: DocumentGroup = new DocumentGroup('ADD SPOUSE', [], this.NAME_CHANGE_TEXT);
+        const nameChangeSection =    {label: this.NAME_CHANGE_TEXT_SPOUSE, docs: AccountCollection.UPDATE_NAME_MARRIAGEORCOMMONLAW};
+        const addSpouse: DocumentGroup = new DocumentGroup('ADD SPOUSE' , [nameChangeSection]);
 
-        if (!this.mspAccountApp.accountChangeOptions.dependentChange || !this.mspAccountApp.addedSpouse) {
-            return AccountCollection.BLANK;
-        }
+         if (!this.mspAccountApp.accountChangeOptions.dependentChange || !this.mspAccountApp.addedSpouse) {
+             return AccountCollection.BLANK;
+         }
 
-        if (!this.mspAccountApp.addedSpouse.isExistingBeneficiary) {
-            addSpouse.label =   addSpouse.label.concat( '<u>Also</u> include the following');
-            if (this.mspAccountApp.addedSpouse.status === StatusInCanada.CitizenAdult) {
-                addSpouse.docs = addSpouse.docs.concat(AccountCollection.ADD_SPOUSE_DOCUMENTS_CITIZEN);
-            } else if (this.mspAccountApp.addedSpouse.status === StatusInCanada.PermanentResident) {
-                addSpouse.docs = addSpouse.docs.concat(AccountCollection.ADD_SPOUSE_DOCUMENTS_PR);
-            } else if (this.mspAccountApp.addedSpouse.status === StatusInCanada.TemporaryResident) {
-                addSpouse.docs = addSpouse.docs.concat(AccountCollection.ADD_SPOUSE_DOCUMENTS_TEMP);
-            }
-            return addSpouse;
-        } else {
-            return addSpouse;
-        }
+         if (!this.mspAccountApp.addedSpouse.isExistingBeneficiary) {
+             if (this.mspAccountApp.addedSpouse.status === StatusInCanada.CitizenAdult) {
+                 addSpouse.section.push( {label: this.ALSO_INCLUDE_TEXT, docs: AccountCollection.ADD_SPOUSE_DOCUMENTS_CITIZEN});
+             } else if (this.mspAccountApp.addedSpouse.status === StatusInCanada.PermanentResident) {
+                 addSpouse.section.push( {label: this.ALSO_INCLUDE_TEXT, docs: AccountCollection.ADD_SPOUSE_DOCUMENTS_PR});
+             } else if (this.mspAccountApp.addedSpouse.status === StatusInCanada.TemporaryResident) {
+                 addSpouse.section.push( {label: this.ALSO_INCLUDE_TEXT, docs: AccountCollection.ADD_SPOUSE_DOCUMENTS_TEMP});
+             }
+
+         }
+          return addSpouse;
 
     }
 
@@ -210,50 +244,45 @@ export class AccountDocumentHelperService {
             return AccountCollection.BLANK;
         }
 
-        const addChild: DocumentGroup = new DocumentGroup('ADD CHILD(REN)', []);
-        if (this.mspAccountApp.addedChildren.filter(person => person.isExistingBeneficiary === false)[0]) {
-            if (this.mspAccountApp.addedChildren.filter(person => person.status === StatusInCanada.CitizenAdult)[0]) {
-                addChild.docs = addChild.docs.concat(AccountCollection.ADD_CHILD_DOCUMENTS_CITIZEN);
-            }
+          const addChild: DocumentGroup = new DocumentGroup('ADD CHILD(REN)', []);
+            let docs: Documents[] = [];
+              if (this.mspAccountApp.addedChildren.filter(person => person.isExistingBeneficiary === false)[0]) {
+                  if (this.mspAccountApp.addedChildren.filter(person => person.status === StatusInCanada.CitizenAdult)[0]) {
+                      docs = docs.concat(AccountCollection.ADD_CHILD_DOCUMENTS_CITIZEN);
+                  }
 
-            if (this.mspAccountApp.addedChildren.filter(person => person.status === StatusInCanada.PermanentResident)[0]) {
-                addChild.docs = addChild.docs.concat(AccountCollection.ADD_CHILD_DOCUMENTS_PR);
-            }
+                  if (this.mspAccountApp.addedChildren.filter(person => person.status === StatusInCanada.PermanentResident)[0]) {
+                      docs = docs.concat(AccountCollection.ADD_CHILD_DOCUMENTS_PR);
+                  }
 
-            if (this.mspAccountApp.addedChildren.filter(person => person.status === StatusInCanada.TemporaryResident)[0]) {
-                addChild.docs = addChild.docs.concat(AccountCollection.ADD_CHILD_DOCUMENTS_TEMP);
-            }
-
-            return addChild;
-        } else {
-            addChild.label = this.ADD_CHILD_TEXT;
-            return addChild;
-        }
-
+                  if (this.mspAccountApp.addedChildren.filter(person => person.status === StatusInCanada.TemporaryResident)[0]) {
+                      docs = docs.concat(AccountCollection.ADD_CHILD_DOCUMENTS_TEMP);
+                  }
+                  addChild.section = [{docs : docs}];
+              } else {
+                  addChild.section = [{label : this.ADD_CHILD_TEXT}];
+              }
+          return addChild;
     }
 
 
     private addIfChildrenIsRemoved(): DocumentGroup {
-        const removeChild: DocumentGroup = new DocumentGroup('REMOVE CHILD(REN)', [], this.REMOVE_CHILD_TEXT);
-
         if (this.mspAccountApp.accountChangeOptions.dependentChange && this.mspAccountApp.removedChildren && this.mspAccountApp.removedChildren.length > 0) {
-            return removeChild;
+              return  new DocumentGroup('REMOVE CHILD(REN)', [{label: this.REMOVE_CHILD_TEXT}]);
         }
         return AccountCollection.BLANK;
     }
 
     private addIfSpouseIsRemoved(): DocumentGroup {
-
-    const removeSpouse: DocumentGroup = new DocumentGroup('REMOVE SPOUSE', []);
-        if (this.mspAccountApp.accountChangeOptions.dependentChange && this.mspAccountApp.removedSpouse) {
-            console.log(CancellationReasonsForSpouse[this.mspAccountApp.removedSpouse.reasonForCancellation]) ;
-            if (this.mspAccountApp.removedSpouse.reasonForCancellation === CancellationReasonsForSpouse[CancellationReasonsForSpouse.SeparatedDivorced]) {
-                removeSpouse.docs = AccountCollection.REMOVE_SPOUSE;
-            } else {
-                removeSpouse.label = this.REMOVE_SPOUSE_TEXT;
-            }
-            return removeSpouse;
-        }
+          if (this.mspAccountApp.accountChangeOptions.dependentChange && this.mspAccountApp.removedSpouse) {
+              const removeSpouse: DocumentGroup = new DocumentGroup('REMOVE SPOUSE', []);
+              if (this.mspAccountApp.removedSpouse.reasonForCancellation === CancellationReasonsForSpouse[CancellationReasonsForSpouse.SeparatedDivorced]) {
+                  removeSpouse.section = [{docs: AccountCollection.REMOVE_SPOUSE}];
+              } else {
+                  removeSpouse.section = [{label: this.REMOVE_SPOUSE_TEXT}];
+              }
+              return removeSpouse;
+          }
         return AccountCollection.BLANK;
     }
 }

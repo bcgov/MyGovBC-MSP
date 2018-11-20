@@ -46,7 +46,7 @@ enum Documents {
 /**
  * Account change has a different structure for documents section..
  * This can be modified if requirements changes
- */
+
 class AccountDocumentRules {
 
     static availiableDocuments(): DocumentGroup[] {
@@ -141,25 +141,27 @@ class AccountDocumentRules {
         ];
     }
 }
+ */
+
 
 /**
  * A collection of documents which satisfy an account change, e.g. adding a
  * dependent, getting married/divorced, updating status in Canada.  Usually one
  * of the documents is sufficient for the user to provide.
+ * Documents are put into Section because one set of documents might have two different sections
  */
-class DocumentGroup {
-    /** Human readable name, displayed to user. */
-    title: String;
-    /** A list of all possible documents which satisfy the requirement for the DocumentGroup */
-    docs: Documents[];
-    label: String;
 
-    constructor(title: String, docs: Documents[] , label?: String ) {
+class DocumentGroup {
+    /** Human readable Title/Name, displayed to user. Title of the Accordion or group...*/
+    title: String;
+
+    section: {  label?: String ,  docs?: Documents[]}[];
+
+    constructor(title: String ,  section?: {  label?: String ,  docs?: Documents[]}[]) {
         this.title = title;
-        this.docs = docs;
-        this.label = label ;
+        this.section = section;
     }
 }
 
 
-export {AccountDocumentRules, Documents, DocumentGroup};
+export {Documents, DocumentGroup};

@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {BaseComponent} from '../../common/base.component';
 import {LocalStorageService} from 'angular-2-local-storage';
 import {MspAccountApp, AccountChangeOptions} from '../../model/account.model';
-import {AccountDocumentRules, DocumentGroup} from '../../model/account-documents';
+import {DocumentGroup} from '../../model/account-documents';
 import {
     StatusRules, ActivitiesRules, StatusInCanada, Activities,
     DocumentRules, Documents, Relationship , CancellationReasonsForSpouse

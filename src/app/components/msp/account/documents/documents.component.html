@@ -8,19 +8,23 @@
             </h3>
             <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
 
-            <msp-accordion 
-            *ngFor="let idx of documentIndices()"            
-            title="{{documentsApplicable[idx].title}}" [isOpen]="documentsApplicable.length == 1">
-                <p [innerHtml]="documentsApplicable[idx].label" *ngIf="documentsApplicable[idx].label"></p>
-                <li *ngFor="let document of documentsApplicable[idx].docs">
-                    <span [innerHtml]="langAccountDocuments('./en/index.js')[document][0]"></span>&nbsp;
-                    <a role="button" *ngIf="langAccountDocuments('./en/index.js')[document][1] == true"
-                        aria-haspopup="true"
-                        href="javascript:void(0)"
-                        (click)="viewIdReqModal(document)"
-                        tabindex="0" [innerHtml]="lang('./en/index.js').viewSamplesButton">
-                    </a>
-                </li>
+            <msp-accordion
+                    *ngFor="let idx of documentIndices()"
+                    title="{{documentsApplicable[idx].title}}" [isOpen]="documentsApplicable.length == 1">
+
+                <ng-container *ngFor="let docSection of documentsApplicable[idx].section; let i = index">
+                    <br *ngIf="i == 1"/>
+                    <span [innerHtml]="docSection.label" *ngIf="docSection.label"></span>
+                    <li *ngFor="let document of docSection.docs">
+                        <span [innerHtml]="langAccountDocuments('./en/index.js')[document][0]"></span>&nbsp;
+                        <a role="button" *ngIf="langAccountDocuments('./en/index.js')[document][1] == true"
+                           aria-haspopup="true"
+                           href="javascript:void(0)"
+                           (click)="viewIdReqModal(document)"
+                           tabindex="0" [innerHtml]="lang('./en/index.js').viewSamplesButton">
+                        </a>
+                    </li>
+                </ng-container>
             </msp-accordion>
 
             <msp-id-req-modal [isForAccountChange]="true" #idReqModal></msp-id-req-modal>
