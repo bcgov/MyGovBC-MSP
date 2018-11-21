@@ -7,7 +7,11 @@ import * as moment from 'moment';
 import {MspDataService} from "./msp-data.service";
 import {Router} from "@angular/router";
 
-@Injectable()
+
+@Injectable({
+    providedIn: 'root'
+})
+
 export class MspLog2Service extends AbstractHttpService {
     /**
      * The headers that are consistent across all requests (i.e. they do not
