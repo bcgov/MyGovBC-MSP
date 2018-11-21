@@ -43,11 +43,6 @@ export class MspApiService {
                 return this.maintenanceService.checkMaintenance().subscribe(response => {
                     const spaResponse = <ISpaEnvResponse> response;
                     if(spaResponse && spaResponse.SPA_ENV_MSP_MAINTENANCE_FLAG && spaResponse.SPA_ENV_MSP_MAINTENANCE_FLAG === "true"){
-			this.logService.log({
-                                    text: 'In Maintenance Mode: ' + spaResponse.SPA_ENV_MSP_MAINTENANCE_MESSAGE,
-                                    response: info,
-                                }, 'In Maintenance Mode: ' + spaResponse.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
-
                         console.log('In Maintenance Mode: ', spaResponse.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
                         return reject(spaResponse);
                     } else {
