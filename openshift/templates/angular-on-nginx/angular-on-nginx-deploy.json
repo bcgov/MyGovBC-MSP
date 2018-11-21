@@ -304,6 +304,12 @@
       "required": true,
       "name": "SPLUNK_AUTH_TOKEN",
       "value": ""
+    },
+    {
+      "description": "SPA Environment Server Authentication Token",
+      "displayName": "SPA_ENV_AUTH_TOKEN",
+      "name": "SPA_ENV_AUTH_TOKEN",
+      "value": ""
     }
   ]
 }
