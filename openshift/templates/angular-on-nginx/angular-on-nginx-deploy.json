@@ -98,6 +98,10 @@
                     "name": "SPLUNK_AUTH_TOKEN",
                     "value": "${SPLUNK_AUTH_TOKEN}"
                   },
+                  {
+                    "name": "SPA_ENV_AUTH_TOKEN",
+                    "value": "${SPA_ENV_AUTH_TOKEN}"
+                  }
                 ],
                 "resources": {
                   "requests": {
