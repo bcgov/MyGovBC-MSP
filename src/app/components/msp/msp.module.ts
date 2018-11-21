@@ -84,7 +84,7 @@ import { MspComponent } from './msp.component';
 import { CompletenessCheckService } from './service/completeness-check.service';
 import { MspLogService } from './service/log.service';
 import { MspApiService } from './service/msp-api.service';
-import {MspLog2Service} from './service/msp-api.service';
+import { MspLog2Service } from './service/log2.service';
 import { MspDataService } from './service/msp-data.service';
 import { MspValidationService } from './service/msp-validation.service';
 import { ProcessService } from './service/process.service';

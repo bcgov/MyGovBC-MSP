@@ -7,10 +7,6 @@ import * as moment from 'moment';
 import {MspDataService} from "./msp-data.service";
 import {Router} from "@angular/router";
 
-@Injectable({
-    providedIn: 'root',
-})
-
 @Injectable()
 export class MspLog2Service extends AbstractHttpService {
     /**
