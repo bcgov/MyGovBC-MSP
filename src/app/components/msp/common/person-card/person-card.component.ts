@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core'
-import {Person, Gender} from "../../model/person.model";
-import {Relationship, Activities, StatusInCanada} from "../../model/status-activities-documents";
+import {Component, Input} from '@angular/core';
+import {Person, Gender} from '../../model/person.model';
+import {Relationship, Activities, StatusInCanada} from '../../model/status-activities-documents';
 import * as moment from 'moment';
 
 @Component({
@@ -20,7 +20,7 @@ export class MspPersonCardComponent {
   @Input() customLinkTitle: string;
   @Input() accountCard: boolean = false;
 
-  get movedFromLabel():string {
+  get movedFromLabel(): string {
     if (this.person.status == StatusInCanada.TemporaryResident ||
       this.person.currentActivity == Activities.MovingFromCountry) {
       return this.lang('./en/index.js').movedFromCountryLabel;

@@ -1,7 +1,7 @@
-import { Component, Input, Output, EventEmitter, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core'
-import { NgForm } from "@angular/forms";
+import { Component, Input, Output, EventEmitter, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import * as moment from 'moment';
-import { BaseComponent } from "../base.component";
+import { BaseComponent } from '../base.component';
 import { SimpleDate } from '../../model/simple-date.interface';
 import { SimpleDateTools } from '../../model/simple-date.tools';
 
@@ -49,12 +49,12 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
      * 'Required' should be a boolean, but it is possible to pass it a string
      * which leads to a difficult to debug issue. Ideally, pass a raw boolean,
      * but regar.scss code will make sure both work.
-     * 
+     *
      * BAD:   <msp-date required="false">
      * GOOD:  <msp-date required=false>
      */
-    if (typeof this.required === "string"){
-      this.required = (<any>this.required === 'true' ? true : false)
+    if (typeof this.required === 'string'){
+      this.required = (<any>this.required === 'true' ? true : false);
     }
     if (this.date) {
       this.year = this.date.year ;
@@ -71,9 +71,9 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
 
   // Parse person's date
   inputDate() {
-    let y: number = this.year as number;
-    let m: number = this.month as number;
-    let d: number = this.day as number;
+    const y: number = this.year as number;
+    const m: number = this.month as number;
+    const d: number = this.day as number;
     return moment({
       year: y,
       month: m - 1, // moment use 0 index for month :(
@@ -82,7 +82,7 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
   }
 
     // Parse person's date
-    toDate(simpleDate:SimpleDate) {
+    toDate(simpleDate: SimpleDate) {
         return moment({
             year: simpleDate.year,
             month: simpleDate.month - 1, // moment use 0 index for month :(
@@ -166,19 +166,19 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
 
 
     if (this.year || (this.month && this.month != 0) || this.day) {
-      let val = this.isCorrectFormat() && this.futureCheck();
+      const val = this.isCorrectFormat() && this.futureCheck();
 
      /* if (this.notBeforeDate){
         val = val && this.notBeforeDateCheck();
       }*/
 
-      if (!val) { 
-        return val; 
+      if (!val) {
+        return val;
       }
     }
     //Only emit the date when it's valid and there are no form errors.
     if (!this.hasFormErrors){
-      this.dateChange.emit(this.simpleDate);      
+      this.dateChange.emit(this.simpleDate);
     }
     return true;
   }
@@ -188,19 +188,19 @@ export class MspDateComponent extends BaseComponent implements AfterViewInit {
       year: this.year,
       month: this.month,
       day: this.day
-    }
+    };
   }
 
-  /** 
+  /**
    * Checks for the presence of form errors created by validation directives
    * like calendar-year.validator.ts, which puts the errors directly on the
-   * controls. 
+   * controls.
    * */
   get hasFormErrors(): boolean {
     return [
       this.form.controls.year ? this.form.controls.year.errors : null,
       this.form.controls.month ? this.form.controls.month.errors : null,
       this.form.controls.day ? this.form.controls.day.errors : null
-    ].filter(x => x).length >= 1
+    ].filter(x => x).length >= 1;
   }
 }

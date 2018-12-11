@@ -1,4 +1,4 @@
-import {MspImage} from "./msp-image";
+import {MspImage} from './msp-image';
 
 /**
  * A persons ID documents
@@ -11,8 +11,8 @@ class PersonDocuments {
   }
 
   get images(): MspImage[]{
-    if(!this._images){
-      this._images = new Array<MspImage>();;
+    if (!this._images){
+      this._images = new Array<MspImage>();
     }
     return this._images;
   }

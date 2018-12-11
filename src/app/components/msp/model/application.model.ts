@@ -1,10 +1,10 @@
-import { Address } from "./address.model";
-import { Relationship, StatusInCanada, Activities, Documents } from "./status-activities-documents";
-import { Person } from "./person.model";
-import { UUID } from "angular2-uuid";
-import { MspImage } from "./msp-image";
-import { ApplicationBase } from "./application-base.model";
-import { PhoneNumber } from "./phone.model";
+import { Address } from './address.model';
+import { Relationship, StatusInCanada, Activities, Documents } from './status-activities-documents';
+import { Person } from './person.model';
+import { UUID } from 'angular2-uuid';
+import { MspImage } from './msp-image';
+import { ApplicationBase } from './application-base.model';
+import { PhoneNumber } from './phone.model';
 
 /**
  * Overall MSP Application Process Data
@@ -43,7 +43,7 @@ class MspApplication implements ApplicationBase {
      * Each image will have a uuid that starts with application uuid
      * followed by [index]-of-[total]
      */
-    let all = this.getAllImages();
+    const all = this.getAllImages();
 
     all.forEach(image => {
       image.uuid = UUID.UUID();
@@ -65,7 +65,7 @@ class MspApplication implements ApplicationBase {
   }
 
   get isUniquePhns () {
-        let allPhs:string[] = this.allPersons.filter(x => x).map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
+        const allPhs: string[] = this.allPersons.filter(x => x).map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
         return new Set(allPhs).size === allPhs.length ;
   }
 
@@ -79,10 +79,10 @@ class MspApplication implements ApplicationBase {
     } else {
       console.log('spouse already added to your coverage.');
     }
-  };
+  }
 
   addChild(relationship: Relationship): Person {
-    let c = new Person(relationship)
+    const c = new Person(relationship);
     if (relationship === Relationship.Child19To24) {
       //child between 19-24 must be a full time student to qualify for enrollment
       c.fullTimeStudent = true;
@@ -92,7 +92,7 @@ class MspApplication implements ApplicationBase {
   }
 
   removeChild(idx: number): void {
-    let removed = this._children.splice(idx, 1);
+    const removed = this._children.splice(idx, 1);
   }
 
   removeSpouse(): void {
@@ -133,7 +133,7 @@ class MspApplication implements ApplicationBase {
     }
 
     // But if it's provided is must be valid
-    let regEx = new RegExp(PhoneNumber.PhoneNumberRegEx);
+    const regEx = new RegExp(PhoneNumber.PhoneNumberRegEx);
     return regEx.test(this.phoneNumber);
   }
 
@@ -175,7 +175,7 @@ class MspApplication implements ApplicationBase {
     if (this.spouse) {
       allImages = allImages.concat(this.spouse.documents.images);
     }
-    for (let child of this.children) {
+    for (const child of this.children) {
       allImages = allImages.concat(child.documents.images);
     }
 
@@ -196,7 +196,7 @@ class MspApplication implements ApplicationBase {
         return this.spouse;
       }
     }
-    for (let child of this.children) {
+    for (const child of this.children) {
       if (child.uuid === uuid) {
         return child;
       }
@@ -206,16 +206,16 @@ class MspApplication implements ApplicationBase {
 
 
   get documentsReady(): boolean {
-    let applicantDocsAvail = this.applicant.hasDocuments;
+    const applicantDocsAvail = this.applicant.hasDocuments;
     let spouseDocsAvail = true;
     let kidsDocsAvail = true;
     if (this._spouse) {
       spouseDocsAvail = this._spouse.hasDocuments;
     }
 
-    let kidsWithNoDocs = this._children.filter(kid => {
+    const kidsWithNoDocs = this._children.filter(kid => {
       return !kid.hasDocuments;
-    })
+    });
     kidsDocsAvail = kidsWithNoDocs.length === 0;
 
     return applicantDocsAvail && spouseDocsAvail && kidsDocsAvail;
@@ -226,9 +226,9 @@ class MspApplication implements ApplicationBase {
   }
   constructor() {
     // Set some defaults
-    this.residentialAddress.province = "British Columbia";
-    this.residentialAddress.country = "Canada";
+    this.residentialAddress.province = 'British Columbia';
+    this.residentialAddress.country = 'Canada';
   }
 }
 
-export { MspApplication, Person, StatusInCanada, Activities }
+export { MspApplication, Person, StatusInCanada, Activities };

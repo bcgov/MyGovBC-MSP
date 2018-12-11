@@ -12,7 +12,7 @@ export default class AddressDto {
 
   // canadian postal code
   postal: string;
-  
+
   // Full english spelling of country
   country: string;
 

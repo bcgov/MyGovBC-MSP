@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {Person} from '../../../model/person.model';
 import {Relationship, StatusInCanada} from '../../../model/status-activities-documents';
-import {BaseComponent} from "../../../common/base.component";
+import {BaseComponent} from '../../../common/base.component';
 import {MspToggleComponent} from '../../../common/toggle/toggle.component';
 import {MspProvinceComponent} from '../../../common/province/province.component';
 import {MspDateComponent} from '../../../common/date/date.component';
@@ -55,20 +55,20 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
         return !this.person.ineligibleForMSP;
     }
 
-    handleDeleteOutofBCRecord(evt:OutofBCRecord){
+    handleDeleteOutofBCRecord(evt: OutofBCRecord){
         this.person.outOfBCRecord = null;
         this.onChange.emit();   //TODO need evt?
     }
 
-    handleOutofBCRecordChange(evt:OutofBCRecord){
+    handleOutofBCRecordChange(evt: OutofBCRecord){
         this.onChange.emit(); //TODO need evt?
     }
 
-    setLivedInBCSinceBirth(lived:boolean){
+    setLivedInBCSinceBirth(lived: boolean){
         this.person.livedInBCSinceBirth = lived;
         if (lived) {
-            this.person.movedFromProvinceOrCountry = "";
-            this.person.healthNumberFromOtherProvince ="";
+            this.person.movedFromProvinceOrCountry = '';
+            this.person.healthNumberFromOtherProvince = '';
             this.person.arrivalToBCDay = null;
             this.person.arrivalToBCMonth = null;
             this.person.arrivalToBCYear = null;
@@ -87,14 +87,14 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
             this.person.dischargeDay = null;
             this.person.dischargeMonth = null;
             this.person.dischargeYear = null;
-            this.person.nameOfInstitute = "";
+            this.person.nameOfInstitute = '';
         }
       //  this.cd.detectChanges();
         this.onChange.emit();
         this.emitIsFormValid();
     }
 
-    handleDeletePlanOnBeingOutOfBCRecord(evt:OutofBCRecord){
+    handleDeletePlanOnBeingOutOfBCRecord(evt: OutofBCRecord){
         this.person.planOnBeingOutOfBCRecord = null;
         this.onChange.emit();   //TODO need evt?
     }
@@ -102,7 +102,7 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
     isValid(): boolean {
 
         if (!this.person.isExistingBeneficiary && this.person.status == StatusInCanada.CitizenAdult && this.person.hasBeenReleasedFromArmedForces ) {
-            if (!this.person.nameOfInstitute || this.person.nameOfInstitute.length <1 ) {
+            if (!this.person.nameOfInstitute || this.person.nameOfInstitute.length < 1 ) {
                 return false;
             }
         }

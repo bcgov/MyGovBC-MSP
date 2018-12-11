@@ -99,6 +99,16 @@ http {
                 XXX3proxy_pass http://logstash:8080;XXX4
             }
 
+             location /api/env {
+                  if ( $request_method !~ ^(POST|HEAD|OPTIONS)$ ) {
+                     return 405;
+                  }
+                   if ( $request_method ~ ^(HEAD|OPTIONS)$ ) {
+                     return 200;
+                   }
+             proxy_set_header Authorization "spaenv %SPA_ENV_AUTH_TOKEN%"; proxy_set_header http_host "%HOSTNAME%"; proxy_pass_header Authorization; proxy_pass_header http_host; proxy_pass_header request_method; proxy_pass_header http_x_forwarded_host; proxy_pass_header SPA_ENV_NAME; proxy_pass http://spa-env-server:8080/env;
+            	    }
+
             location /api/captcha/ {
                 proxy_pass http://mygovbc-captcha-service:8080/;
             }

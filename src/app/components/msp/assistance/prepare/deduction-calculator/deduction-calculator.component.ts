@@ -3,12 +3,12 @@ import {
   SimpleChange, ViewChild, AfterViewInit, OnChanges, SimpleChanges, DoCheck
 } from '@angular/core';
 import {Router} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/pluck';
-import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs';
+
+
+
+
+
 import * as _ from 'lodash';
 
 import {Eligibility} from '../../../model/eligibility.model';
@@ -17,7 +17,7 @@ import {FinancialAssistApplication} from '../../../model/financial-assist-applic
 import * as moment from 'moment';
 
 import'./deduction-calculator.scss';
-import {ProcessService} from "../../../service/process.service";
+import {ProcessService} from '../../../service/process.service';
 
 @Component({
   selector: 'deduction-calculator',
@@ -41,7 +41,7 @@ export class DeductionCalculatorComponent implements DoCheck {
   }
 
   ngDoCheck(): void {
-    let valid = this.canContinue && this.application.taxtYearsProvided;
+    const valid = this.canContinue && this.application.taxtYearsProvided;
     this._processService.setStep(DeductionCalculatorComponent.ProcessStepNum, valid);
   }
 
@@ -61,13 +61,13 @@ export class DeductionCalculatorComponent implements DoCheck {
    * Children amount has been reduced with 50% of child care expense claimed on income tax
    */
   get adjustedChildrenAmt(): number {
-    let amt = this.childrenAmt + this.childCareExpense;
+    const amt = this.childrenAmt + this.childCareExpense;
     return amt > 0 ? amt : 0;
   }
 
   get childrenAmt(): number {
-    let cnt: number = (!!this.application.childrenCount && this.application.childrenCount > 0) ? this.application.childrenCount : 0;
-    let amt = cnt * 3000;
+    const cnt: number = (!!this.application.childrenCount && this.application.childrenCount > 0) ? this.application.childrenCount : 0;
+    const amt = cnt * 3000;
     return amt > 0 ? amt : 0;
   }
 
@@ -80,20 +80,20 @@ export class DeductionCalculatorComponent implements DoCheck {
   }
 
   get disabilityCreditAmt(): number {
-    let amt = !!this.application.selfDisabilityCredit ? 3000 : 0;
+    const amt = !!this.application.selfDisabilityCredit ? 3000 : 0;
     this.application.applicantDisabilityCredit = amt;
     return amt;
   }
 
   get spouseDisabilityCreditAmt(): number {
-    let amt = !!this.application.spouseEligibleForDisabilityCredit ? 3000 : 0;
+    const amt = !!this.application.spouseEligibleForDisabilityCredit ? 3000 : 0;
     this.application.spouseDisabilityCredit = amt;
     return amt;
   }
 
   get childrenDisabilityCreditAmt(): number {
-    let m = this.application.childWithDisabilityCount;
-    let amt = !!m ? 3000 * m : 0;
+    const m = this.application.childWithDisabilityCount;
+    const amt = !!m ? 3000 * m : 0;
     this.application.childrenDisabilityCredit = amt;
     return amt;
   }
@@ -138,7 +138,7 @@ export class DeductionCalculatorComponent implements DoCheck {
   }
 
   get totalDeductions(): number {
-    let total = this.ageOver65Amt
+    const total = this.ageOver65Amt
       + this.spouseAmt
       + this.spouseAgeOver65Amt
       + this.adjustedChildrenAmt
@@ -162,7 +162,7 @@ export class DeductionCalculatorComponent implements DoCheck {
     this.application.eligibility.adjustedNetIncome = adjusted;
     this.application.eligibility.totalDeductions = this.totalDeductions;
 
-    this.application.eligibility.childDeduction = this.childrenAmt
+    this.application.eligibility.childDeduction = this.childrenAmt;
     this.application.eligibility.disabilityDeduction = this.childrenDisabilityCreditAmt;
     this.application.eligibility.totalDeductions = this.totalDeductions;
     this.application.eligibility.totalNetIncome = parseFloat(this.totalHouseholdIncome);
@@ -187,15 +187,15 @@ export class DeductionCalculatorComponent implements DoCheck {
   }
 
   get applicantIncomeInfoProvided() {
-    let result = (!!this.application.netIncomelastYear && !isNaN(this.application.netIncomelastYear) && (this.application.netIncomelastYear + '').trim() !== '');
-    let stamp = new Date().getTime();
+    const result = (!!this.application.netIncomelastYear && !isNaN(this.application.netIncomelastYear) && (this.application.netIncomelastYear + '').trim() !== '');
+    const stamp = new Date().getTime();
     // console.log( stamp + '- income info number : ' + this.application.netIncomelastYear);
     // console.log(stamp + '- income info provided? : ' + result);
     return result;
   }
 
   get spouseIncomeInfoProvided() {
-    let result = (!!this.application.spouseIncomeLine236 && !isNaN(this.application.spouseIncomeLine236) && (this.application.spouseIncomeLine236 + '').trim() !== '');
+    const result = (!!this.application.spouseIncomeLine236 && !isNaN(this.application.spouseIncomeLine236) && (this.application.spouseIncomeLine236 + '').trim() !== '');
     return result;
   }
 
@@ -206,28 +206,28 @@ export class DeductionCalculatorComponent implements DoCheck {
   }
 
   get canContinue() {
-    let spouseSpecified =
+    const spouseSpecified =
       !(this.application.hasSpouseOrCommonLaw === null || this.application.hasSpouseOrCommonLaw === undefined);
 
-    let spouseAgeSpecified = !(this.application.spouseAgeOver65 === null || this.application.spouseAgeOver65 === undefined);
-    let applicantAgeSpecified = !(this.application.ageOver65 === null || this.application.ageOver65 === undefined);
+    const spouseAgeSpecified = !(this.application.spouseAgeOver65 === null || this.application.spouseAgeOver65 === undefined);
+    const applicantAgeSpecified = !(this.application.ageOver65 === null || this.application.ageOver65 === undefined);
 
     // check the net income with pattern "^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
-    let patt = /^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2}){0,1}$/g;
+    const patt = /^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2}){0,1}$/g;
     let netIncomeValid = false;
     if (this.application.netIncomelastYear === null || this.application.netIncomelastYear === undefined) {
       netIncomeValid = false;
     }
     else {
-      let pm = this.application.netIncomelastYear.toString().match(patt);
+      const pm = this.application.netIncomelastYear.toString().match(patt);
       if (pm && !(pm === null) && pm[0] && ! (pm[0] === null)) {
         netIncomeValid = this.application.netIncomelastYear.toString() === pm[0];
       }
     }
       // added for DEAM-2 fix Invalid comma in money decimal fields
-      let isSpouseIncomeValid = !spouseSpecified || !this.application || !this.application.spouseIncomeLine236 || this.application.spouseIncomeLine236.toString().match(patt);
+      const isSpouseIncomeValid = !spouseSpecified || !this.application || !this.application.spouseIncomeLine236 || this.application.spouseIncomeLine236.toString().match(patt);
 
-      if (this.applicantIncomeInfoProvided && applicantAgeSpecified && spouseSpecified && netIncomeValid &&isSpouseIncomeValid) {
+      if (this.applicantIncomeInfoProvided && applicantAgeSpecified && spouseSpecified && netIncomeValid && isSpouseIncomeValid) {
       if (this.application.hasSpouseOrCommonLaw) {
         return spouseAgeSpecified && this.attendantCareExpenseReceiptsProvided;
       } else {
@@ -240,7 +240,7 @@ export class DeductionCalculatorComponent implements DoCheck {
 
 
   navigateToPersonalInfo() {
-    let taxYearSpecified = this.application.taxtYearsProvided;
+    const taxYearSpecified = this.application.taxtYearsProvided;
     if (taxYearSpecified) {
       this._router.navigate(['/msp/assistance/personal-info']);
     } else {
@@ -271,20 +271,20 @@ export class DeductionCalculatorComponent implements DoCheck {
     if (this.application.netIncomelastYear === null) {
       return null;
     }
-    let n = (!!this.application.netIncomelastYear &&
+    const n = (!!this.application.netIncomelastYear &&
     !isNaN(this.application.netIncomelastYear)) ? this.application.netIncomelastYear : 0;
     //console.log("application net income: " + this.application.netIncomelastYear);
     return parseFloat(n + '');
   }
 
   get spouseIncome(): number {
-    let n = this.spouseIncomeInfoProvided ? this.application.spouseIncomeLine236 : 0;
+    const n = this.spouseIncomeInfoProvided ? this.application.spouseIncomeLine236 : 0;
     return parseFloat(n + '');
   }
 
   get totalHouseholdIncome(): string {
-    let t: number = this.personalIncome + this.spouseIncome;
-    let total: string = new Number(t).toFixed(2);
+    const t: number = this.personalIncome + this.spouseIncome;
+    const total: string = new Number(t).toFixed(2);
     return total;
   }
 
@@ -296,6 +296,6 @@ export class DeductionCalculatorComponent implements DoCheck {
     return moment().year();
   }
     get nextCalendarYear(): Number {
-        return moment().year()+1;
+        return moment().year() + 1;
     }
 }

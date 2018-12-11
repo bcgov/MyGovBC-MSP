@@ -1,8 +1,9 @@
 import {
     Component, Input, Output, OnChanges, EventEmitter,
     SimpleChange, ViewChild, AfterViewInit, OnInit, OnDestroy,
-    state, trigger, style, ElementRef, QueryList, ViewChildren, ChangeDetectorRef
+    ElementRef, QueryList, ViewChildren, ChangeDetectorRef
 } from '@angular/core';
+import { state, trigger, style, } from '@angular/animations';
 import {NgForm} from '@angular/forms';
 import {Person} from '../../../model/person.model';
 import {MspAccountApp} from '../../../model/account.model';
@@ -10,38 +11,38 @@ import {OutofBCRecord} from '../../../model/outof-bc-record.model';
 import {
     StatusRules, ActivitiesRules, StatusInCanada, Activities,
     DocumentRules, Documents, Relationship
-} from "../../../model/status-activities-documents";
+} from '../../../model/status-activities-documents';
 import {MspImage} from '../../../model/msp-image';
 import * as _ from 'lodash';
-import {MspIdReqModalComponent} from "../../../common/id-req-modal/id-req-modal.component";
-import {MspImageErrorModalComponent} from "../../../common/image-error-modal/image-error-modal.component";
-import {FileUploaderComponent} from "../../../common/file-uploader/file-uploader.component";
-import {MspBirthDateComponent} from "../../../common/birthdate/birthdate.component";
-import {MspNameComponent} from "../../../common/name/name.component";
-import {MspGenderComponent} from "../../../common/gender/gender.component";
-import {MspPhnComponent} from "../../../common/phn/phn.component";
-import {MspSchoolDateComponent} from "../../../common/schoolDate/school-date.component";
-import {MspPhoneComponent} from "../../../common/phone/phone.component";
-import {HealthNumberComponent} from "../../../common/health-number/health-number.component";
-import {MspDischargeDateComponent} from "../../../common/discharge-date/discharge-date.component";
+import {MspIdReqModalComponent} from '../../../common/id-req-modal/id-req-modal.component';
+import {MspImageErrorModalComponent} from '../../../common/image-error-modal/image-error-modal.component';
+import {FileUploaderComponent} from '../../../common/file-uploader/file-uploader.component';
+import {MspBirthDateComponent} from '../../../common/birthdate/birthdate.component';
+import {MspNameComponent} from '../../../common/name/name.component';
+import {MspGenderComponent} from '../../../common/gender/gender.component';
+import {MspPhnComponent} from '../../../common/phn/phn.component';
+import {MspSchoolDateComponent} from '../../../common/schoolDate/school-date.component';
+import {MspPhoneComponent} from '../../../common/phone/phone.component';
+import {HealthNumberComponent} from '../../../common/health-number/health-number.component';
+import {MspDischargeDateComponent} from '../../../common/discharge-date/discharge-date.component';
 import {MspStatusInCanadaRadioComponent} from '../../../common/status-in-canada-radio/status-in-canada-radio.component';
-import {MspAddressComponent} from "../../../common/address/address.component";
-import {Address} from "../../../model/address.model";
+import {MspAddressComponent} from '../../../common/address/address.component';
+import {Address} from '../../../model/address.model';
 
 import {MspDataService} from '../../../service/msp-data.service';
 
-import {MspArrivalDateComponent} from "../../../common/arrival-date/arrival-date.component";
-import {MspOutofBCRecordComponent} from "../../../common/outof-bc/outof-bc.component";
-import {MspProvinceComponent} from "../../../common/province/province.component";
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
+import {MspArrivalDateComponent} from '../../../common/arrival-date/arrival-date.component';
+import {MspOutofBCRecordComponent} from '../../../common/outof-bc/outof-bc.component';
+import {MspProvinceComponent} from '../../../common/province/province.component';
+import {Observable} from 'rxjs';
+
+
+
+
 
 import './personal-details.component.scss';
-import {BaseComponent} from "../../../common/base.component";
-import {MspCountryComponent} from "../../../common/country/country.component";
+import {BaseComponent} from '../../../common/base.component';
+import {MspCountryComponent} from '../../../common/country/country.component';
 
 @Component({
         selector: 'msp-account-personal-details',
@@ -212,7 +213,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
 
 
     get hasValidCurrentActivity(): boolean {
-        let v = _.isNumber(this.person.currentActivity);
+        const v = _.isNumber(this.person.currentActivity);
         return v;
     }
 
@@ -232,7 +233,6 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     isValid(): boolean {
         if (this.addressRequired) {
             if (!this.person.residentialAddress || !this.person.residentialAddress.isValid ) {
-                console.log("address validation failed.If u think this is an error , check the addressRequired flag")
                 return false;
             }
         }
@@ -250,7 +250,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
                 return false;
             }
         }
-    
+
         return true;
     }
 }

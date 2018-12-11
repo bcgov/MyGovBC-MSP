@@ -1,10 +1,11 @@
 import { Component, Inject, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MspProgressBarItem } from '../common/progressBar/progressBarDataItem.model';
-import { MspProgressBarComponent } from "../common/progressBar/progressBar.component";
-import { ProcessService, ProcessStep } from "../service/process.service";
+import { MspProgressBarComponent } from '../common/progressBar/progressBar.component';
+import { ProcessService, ProcessStep } from '../service/process.service';
 import { environment } from '../../../../environments/environment';
 import { Router, NavigationEnd } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { MspLogService } from '../service/log.service';
 
 /**
@@ -26,11 +27,11 @@ export class AssistanceComponent {
       this.initProcessService();
     }
 
-    return [ new MspProgressBarItem(this.lang("./en/index.js").progressStep1, this.processService.process.processSteps[0].route),
-      new MspProgressBarItem(this.lang("./en/index.js").progressStep2, this.processService.process.processSteps[1].route),
-      new MspProgressBarItem(this.lang("./en/index.js").progressStep3, this.processService.process.processSteps[2].route),
-      new MspProgressBarItem(this.lang("./en/index.js").progressStep4, this.processService.process.processSteps[3].route),
-      new MspProgressBarItem(this.lang("./en/index.js").progressStep5, this.processService.process.processSteps[4].route)
+    return [ new MspProgressBarItem(this.lang('./en/index.js').progressStep1, this.processService.process.processSteps[0].route),
+      new MspProgressBarItem(this.lang('./en/index.js').progressStep2, this.processService.process.processSteps[1].route),
+      new MspProgressBarItem(this.lang('./en/index.js').progressStep3, this.processService.process.processSteps[2].route),
+      new MspProgressBarItem(this.lang('./en/index.js').progressStep4, this.processService.process.processSteps[3].route),
+      new MspProgressBarItem(this.lang('./en/index.js').progressStep5, this.processService.process.processSteps[4].route)
     ];
   }
 
@@ -49,28 +50,30 @@ export class AssistanceComponent {
     },"Assistance - Page Load")*/
 
     this.routerSubscription = this.router.events
-      .filter(event => event instanceof NavigationEnd)
+      .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(event => {
-          if (this.router.url.indexOf("/confirmation/") === -1) {//toned down logs.no log for confirmation page
+          if (this.router.url.indexOf('/confirmation/') === -1) {//toned down logs.no log for confirmation page
               this.logService.log({
-                  name: "PA - Loaded Page ",
+                  name: 'PA - Loaded Page ',
                   url: this.router.url
-              }, "PA - Loaded Page ")
+              }, 'PA - Loaded Page ');
           }
       });
   }
 
   ngOnDestroy() {
-    this.routerSubscription.unsubscribe();
+      if (this.routerSubscription && !this.routerSubscription.closed) {
+          this.routerSubscription.unsubscribe();
+      }
   }
 
   private initProcessService () {
     this.processService.init([
-      new ProcessStep("/msp/assistance/prepare"),
-      new ProcessStep("/msp/assistance/personal-info"),
-      new ProcessStep("/msp/assistance/retro"),
-      new ProcessStep("/msp/assistance/review"),
-      new ProcessStep("/msp/assistance/authorize-submit"),
-      new ProcessStep("/msp/assistance/sending")]);
+      new ProcessStep('/msp/assistance/prepare'),
+      new ProcessStep('/msp/assistance/personal-info'),
+      new ProcessStep('/msp/assistance/retro'),
+      new ProcessStep('/msp/assistance/review'),
+      new ProcessStep('/msp/assistance/authorize-submit'),
+      new ProcessStep('/msp/assistance/sending')]);
   }
 }

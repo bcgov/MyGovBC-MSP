@@ -2,8 +2,8 @@ import {
     Component, AfterViewInit, OnChanges, ViewChild, EventEmitter, Output, Input, SimpleChange,
     ChangeDetectorRef, ElementRef
 } from '@angular/core';
-import { ModalDirective } from "ngx-bootstrap";
-import { StatusInCanada } from "../../model/status-activities-documents";
+import { ModalDirective } from 'ngx-bootstrap';
+import { StatusInCanada } from '../../model/status-activities-documents';
 
 /**
  * Modal responsible for showing a disclaimer to citizens and permanent

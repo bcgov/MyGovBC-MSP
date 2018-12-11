@@ -3,11 +3,11 @@ import { NgForm } from '@angular/forms';
 // import { IPerson } from "../../../model/person.interface";
 import { Person } from '../../../model/person.model';
 import { MspDataService } from '../../../service/msp-data.service';
-import {FinancialAssistApplication} from "../../../model/financial-assist-application.model";
-import {BaseComponent} from "../../../common/base.component";
-import {MspBirthDateComponent} from "../../../common/birthdate/birthdate.component";
-import {MspPhnComponent} from "../../../common/phn/phn.component";
-import {MspNameComponent} from "../../../common/name/name.component";
+import {FinancialAssistApplication} from '../../../model/financial-assist-application.model';
+import {BaseComponent} from '../../../common/base.component';
+import {MspBirthDateComponent} from '../../../common/birthdate/birthdate.component';
+import {MspPhnComponent} from '../../../common/phn/phn.component';
+import {MspNameComponent} from '../../../common/name/name.component';
 
 @Component({
   selector: 'msp-assistance-personal-details',
@@ -15,7 +15,7 @@ import {MspNameComponent} from "../../../common/name/name.component";
 })
 export class AssistancePersonalDetailComponent extends BaseComponent {
   lang = require('./i18n');
-  private finApp:FinancialAssistApplication;
+  private finApp: FinancialAssistApplication;
 
   @Input() person: Person;
   @ViewChild('name') name: MspNameComponent;

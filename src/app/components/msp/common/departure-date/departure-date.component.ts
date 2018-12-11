@@ -1,7 +1,7 @@
-import {Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef} from '@angular/core'
-import {NgForm} from "@angular/forms";
+import {Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef} from '@angular/core';
+import {NgForm} from '@angular/forms';
 import * as moment from 'moment';
-import {BaseComponent} from "../base.component";
+import {BaseComponent} from '../base.component';
 
 
 @Component({
@@ -27,7 +27,7 @@ export class MspDepartureDateComponent extends BaseComponent {
   @Input() departureLabel: string = this.lang('./en/index.js').departureLabel;
   @Output() onChange = new EventEmitter<any>();
 
-  @ViewChild('formRef') form:NgForm;
+  @ViewChild('formRef') form: NgForm;
   // departure date might have restirctions on the months. ie have you departed in the next 6 months.pass 6 here then
   @Input() maxMonthsRange: number;
     @Input() maxMonthsRangeErrorMsg: string;
@@ -65,7 +65,7 @@ export class MspDepartureDateComponent extends BaseComponent {
     if (!this.maxMonthsRange || this.maxMonthsRange == 0) {
       return true;
     }
-    let dateAfterNMonths = moment().add(this.maxMonthsRange,'months') ;
+    const dateAfterNMonths = moment().add(this.maxMonthsRange, 'months') ;
       if (this.inputDate().isAfter(dateAfterNMonths)) {
           return false;
       }

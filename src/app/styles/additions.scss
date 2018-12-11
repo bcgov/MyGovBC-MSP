@@ -1,4 +1,4 @@
-@import "variables.scss";
+@import "./variables.scss";
 
 html {
   min-height: 100%;
@@ -84,7 +84,7 @@ label {
     background: #2962FF;
     color: white;
   }
-  &:selection {
+  &::selection {
     background: #2962FF;
   }
   &:active {
@@ -208,7 +208,7 @@ input[type=number] {
 
 .checkbox label, .radio label,
 input[type=checkbox] + label,
-input[type=radio] + label, {
+input[type=radio] + label {
   font-weight: 400;
 }
 

@@ -1,6 +1,6 @@
 export class AssistanceYear {
   year: number;
-  apply:boolean;
+  apply: boolean;
   docsRequired: boolean = true;
   currentYear: number;
 }

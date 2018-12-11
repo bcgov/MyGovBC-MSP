@@ -1,28 +1,25 @@
 import {ChangeDetectorRef, Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MspLogService} from '../../service/log.service'
+import {MspLogService} from '../../service/log.service';
 
 import {MspAccountApp, AccountChangeOptions} from '../../model/account.model';
 import * as _ from 'lodash';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-import {Gender, Person} from "../../model/person.model";
+
+
+import {Gender, Person} from '../../model/person.model';
 import {MspDataService} from '../../service/msp-data.service';
-import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
-import {ProcessService, ProcessStep} from "../../service/process.service";
-import {ProcessUrls} from "../../service/process.service";
-import {BaseComponent} from "../../common/base.component";
-import {Address} from "../../model/address.model";
-import {MspApiService} from "../../service/msp-api.service";
+import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
+import {ProcessService, ProcessStep} from '../../service/process.service';
+import {ProcessUrls} from '../../service/process.service';
+import {BaseComponent} from '../../common/base.component';
+import {Address} from '../../model/address.model';
+import {MspApiService} from '../../service/msp-api.service';
 import {environment} from '../../../../../environments/environment';
 
 @Component({
-    templateUrl: './prepare.component.html'
+    templateUrl: './prepare.component.html',
+    styleUrls: ['./prepare.component.scss']
 })
 @Injectable()
 export class AccountPrepareComponent extends BaseComponent {
@@ -40,7 +37,8 @@ export class AccountPrepareComponent extends BaseComponent {
     @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
     @ViewChild('formRef') form: NgForm;
     transmissionInProcess: boolean;
-
+    // PI gets automatically ticked and unticked depending on the namechangeduetomarriage option.. this flag is used to idenity if PI is checked by user or by namechange option
+    isPICheckedByUser = true;
     constructor(private cd: ChangeDetectorRef, private logService: MspLogService, private apiService: MspApiService, private dataService: MspDataService, private _processService: ProcessService, private _router: Router) {
         super(cd);
         this.mspAccountApp = dataService.getMspAccountApp();
@@ -89,7 +87,7 @@ export class AccountPrepareComponent extends BaseComponent {
                     this.logService.log({
                         name: 'Account - Address Change Success ',
                         confirmationNumber: this.mspAccountApp.referenceNumber
-                    },"Account - Address Change Success ");
+                    }, 'Account - Address Change Success ');
                     //     this.dataService.removeMspAccountApp();
                     window.location.href = this.addressChangeBCUrl;
                     return;
@@ -98,7 +96,7 @@ export class AccountPrepareComponent extends BaseComponent {
                     name: 'Account - Address Change Failure ',
                     error: error._body,
                     request: error._requestBody
-                },"Account - Address Change Failure");
+                }, 'Account - Address Change Failure');
 
                 //     this.dataService.removeMspAccountApp();
                 window.location.href = this.addressChangeBCUrl;
@@ -124,7 +122,7 @@ export class AccountPrepareComponent extends BaseComponent {
             }
             if (this.mspAccountApp.updatedChildren){
 
-                this.mspAccountApp.updatedChildren.forEach((child:Person) => {
+                this.mspAccountApp.updatedChildren.forEach((child: Person) => {
                     if (child) {
                         child.status = null;
                         child.currentActivity = null;
@@ -152,16 +150,42 @@ export class AccountPrepareComponent extends BaseComponent {
     }
 
     personInfoUpdateOnChange(event: boolean) {
+        this.isPICheckedByUser = true;
         this.accountChangeOptions.personInfoUpdate = event;
         this.dataService.saveMspAccountApp();
     }
 
+    /*
+     *  When nameChangeDueToMarriageOnChange -> true
+     *           if personInfoUpdate is not already updated by user , make isPICheckedByUser = false
+     *          update personInfoUpdate = true
+     *
+     *
+     *  When nameChangeDueToMarriageOnChange -> false
+     *          check if personInfoUpdate is updated by user , or else make it false
+     */
     nameChangeDueToMarriageOnChange(event: boolean) {
         this.accountChangeOptions.nameChangeDueToMarriage = event;
+
+        if (event === true) {
+            if (!this.accountChangeOptions.personInfoUpdate) {
+                this.isPICheckedByUser = false ;
+            }
+            this.accountChangeOptions.personInfoUpdate = true ;
+        }
+        if (event === false && !this.isPICheckedByUser){ //reset to false if not checked by user
+            this.accountChangeOptions.personInfoUpdate = false ;
+        }
         this.dataService.saveMspAccountApp();
     }
 
     dependentChangeOnChange(event: boolean) {
+        if (!event) { //unselect nameChangeDueToMarriage and personInfoUpdate
+            this.accountChangeOptions.nameChangeDueToMarriage = false ;
+            if ( !this.isPICheckedByUser) {  //reset to false if not checked by user
+                this.accountChangeOptions.personInfoUpdate = false ;
+            }
+        }
         this.accountChangeOptions.dependentChange = event;
         this.dataService.saveMspAccountApp();
     }
@@ -198,7 +222,7 @@ export class AccountPrepareComponent extends BaseComponent {
             new ProcessStep(ProcessUrls.ACCOUNT_REVIEW_URL),
             new ProcessStep(ProcessUrls.ACCOUNT_SENDING_URL)]);
 
-        var stepNumber: number = 1;
+        let stepNumber: number = 1;
 
         if (this.accountChangeOptions.personInfoUpdate || this.accountChangeOptions.statusUpdate) {
             this._processService.addStep(new ProcessStep(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL), stepNumber);

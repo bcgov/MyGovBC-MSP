@@ -2,19 +2,20 @@ import {ChangeDetectorRef, Component, Injectable, ViewChild} from '@angular/core
 
 import {MspDataService} from '../../service/msp-data.service';
 import {Router} from '@angular/router';
-import {BaseComponent} from "../../common/base.component";
+import {BaseComponent} from '../../common/base.component';
 import {LocalStorageService} from 'angular-2-local-storage';
 import {MspAccountApp, AccountChangeOptions} from '../../model/account.model';
-import {AccountDocumentRules, DocumentGroup} from '../../model/account-documents';
+import {DocumentGroup} from '../../model/account-documents';
 import {
     StatusRules, ActivitiesRules, StatusInCanada, Activities,
-    DocumentRules, Documents, Relationship ,CancellationReasonsForSpouse
-} from "../../model/status-activities-documents";
-import {ProcessService, ProcessUrls} from "../../service/process.service";
-import {MspImage} from "../../../msp/model/msp-image";
-import {FileUploaderComponent} from "../../common/file-uploader/file-uploader.component";
-import {MspImageErrorModalComponent} from "../../common/image-error-modal/image-error-modal.component";
-import {MspIdReqModalComponent} from "../../common/id-req-modal/id-req-modal.component";
+    DocumentRules, Documents, Relationship , CancellationReasonsForSpouse
+} from '../../model/status-activities-documents';
+import {ProcessService, ProcessUrls} from '../../service/process.service';
+import {MspImage} from '../../../msp/model/msp-image';
+import {FileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
+import {MspImageErrorModalComponent} from '../../common/image-error-modal/image-error-modal.component';
+import {MspIdReqModalComponent} from '../../common/id-req-modal/id-req-modal.component';
+import {AccountDocumentHelperService} from '../../service/account-document-helper.service';
 
 @Component({
     templateUrl: './documents.component.html'
@@ -31,10 +32,11 @@ export class AccountDocumentsComponent extends BaseComponent {
     langAccountDocuments = require('../../common/account-documents/i18n');
     langStatus = require('../../common/status/i18n');
     langActivities = require('../../common/activities/i18n');
-
+    documentsList: DocumentGroup[] ;
     constructor(private dataService: MspDataService,
                 private _router: Router,
                 private _processService: ProcessService,
+                private accountDocumentHelperService: AccountDocumentHelperService ,
                 private cd: ChangeDetectorRef, private localStorageService: LocalStorageService) {
 
         super(cd);
@@ -42,16 +44,21 @@ export class AccountDocumentsComponent extends BaseComponent {
     }
 
     ngOnInit() {
+
         AccountDocumentsComponent.ProcessStepNum = this._processService.getStepNumber(ProcessUrls.ACCOUNT_FILE_UPLOADER_URL);
         this.initProcessMembers(AccountDocumentsComponent.ProcessStepNum, this._processService);
+        this.documentsList = this.accountDocumentHelperService.getApplicableDocuments() ;
     }
 
     /**
      * Gets the available documents given the known status and activity
      */
-    get documents(): DocumentGroup[] {
-        return AccountDocumentRules.availiableDocuments();
+
+
+    get documentsApplicable(): DocumentGroup[] {
+        return this.documentsList;
     }
+
 
     /**
      * An array of integers with the indices of the different documents.  The
@@ -64,7 +71,7 @@ export class AccountDocumentsComponent extends BaseComponent {
      * [0, 1, 2, 3]
      */
     public documentIndices() {
-        return Object.keys(this.documents).map(x => parseInt(x, 10));
+        return Object.keys(this.documentsList).map(x => parseInt(x, 10));
     }
 
 
@@ -107,13 +114,14 @@ export class AccountDocumentsComponent extends BaseComponent {
 
      */
     get isDocsNotNeeded(): boolean {
-        let docsNotNeeded: boolean = false;
-        if (this.mspAccountApp.accountChangeOptions.nameChangeDueToMarriage) {
-            if (this.mspAccountApp.updatedChildren && this.mspAccountApp.updatedChildren .length>0) {
+        const docsNotNeeded: boolean = false;
+        // reduntant logic.. the option moved to dependent change checkbox.
+        /*if (this.mspAccountApp.accountChangeOptions.nameChangeDueToMarriage) {
+            if (this.mspAccountApp.updatedChildren && this.mspAccountApp.updatedChildren .length > 0) {
                 return false;
             }
             return true;
-        }
+        }*/
 
         if (this.mspAccountApp.accountChangeOptions.statusUpdate || this.mspAccountApp.accountChangeOptions.personInfoUpdate) {
             return false;
@@ -147,7 +155,7 @@ export class AccountDocumentsComponent extends BaseComponent {
 
     continue(): void {
         this._processService.setStep(AccountDocumentsComponent.ProcessStepNum, true);
-        this._router.navigate([this._processService.getNextStep(AccountDocumentsComponent.ProcessStepNum,)]);
+        this._router.navigate([this._processService.getNextStep(AccountDocumentsComponent.ProcessStepNum, )]);
     }
 
 }

@@ -1,17 +1,21 @@
 <form #formRef='ngForm' novalidate>
     <div class="form-group"
-         [ngClass]="{'has-error': (province === undefined || province === null || province?.length <1) && (provinceRef.touched || showError)}">
+         [ngClass]="{'has-error': (province === undefined || province === null || province?.trim().length <1) && (provinceRef.touched || showError)}">
         <label class="control-label" for="province{{objectId}}"
               [innerHtml]="provinceLabel"></label>
-        
-        <ng2-completer [(ngModel)]="province" (ngModelChange)="updateModel($event)"
-                      (keyup) = "handleKeyboard($event)"
-                       [dataService]="dataService" [minSearchLength]="1"
-                       #provinceInput = "ngModel"
-                       [overrideSuggested]="true"
-                       [maxChars]="25"
-                       required
-                       [inputId]="'province' + objectId" name="province" #provinceRef="ngModel"></ng2-completer>
+
+            <input  [(ngModel)]='province'
+                (typeaheadOnSelect)="updateModel($event)"
+                    (typeaheadOnBlur)="updateModel($event)"
+                [typeahead]="provinceAndCountryData"
+                typeaheadOptionField="name" [minlength]="1"
+                [typeaheadMinLength] = "0" [typeaheadScrollable] = "false"
+                [maxlength]="25"  (typeaheadNoResults)="typeaheadNoResults($event)"
+                [required]="true"
+                class="form-control" id="province{{objectId}}" name="province" #provinceRef="ngModel" />
+
+
+
         <div *ngIf='(provinceRef.touched || showError) && (province === undefined || province === null || province?.length < 1)'
             role="alert" aria-live="assertive">
             <div class="text-danger" *ngIf="provinceRef.errors?.required"

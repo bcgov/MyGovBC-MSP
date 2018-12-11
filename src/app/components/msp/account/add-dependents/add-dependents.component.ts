@@ -11,17 +11,17 @@ import {
 } from '@angular/core';
 import {Person} from '../../model/person.model';
 import {Relationship, StatusInCanada} from '../../model/status-activities-documents';
-import {BaseComponent} from "../../common/base.component";
+import {BaseComponent} from '../../common/base.component';
 import {MspDataService} from '../../service/msp-data.service';
 import {Router} from '@angular/router';
-import {ProcessService} from "../../service/process.service";
+import {ProcessService} from '../../service/process.service';
 import {LocalStorageService} from 'angular-2-local-storage';
-import {NgForm} from "@angular/forms";
+import {NgForm} from '@angular/forms';
 import {MspToggleComponent} from '../../common/toggle/toggle.component';
 import {MspDateComponent} from '../../common/date/date.component';
 import {MspStatusInCanadaRadioComponent} from '../../common/status-in-canada-radio/status-in-canada-radio.component';
 import {AccountPersonalDetailsComponent} from '../personal-info/personal-details/personal-details.component';
-import {AddNewDependentBeneficiaryComponent} from '../add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component'
+import {AddNewDependentBeneficiaryComponent} from '../add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
 
 @Component({
     selector: 'msp-add-dependent',
@@ -63,7 +63,7 @@ export class AddDependentComponent extends BaseComponent {
     clear following items When the beneficiary is changed from new to existing
 
      */
-    handleBeneficiaryChange(isExistingBeneficiary:boolean) {
+    handleBeneficiaryChange(isExistingBeneficiary: boolean) {
         this.person.isExistingBeneficiary = isExistingBeneficiary;
         if (this.person.isExistingBeneficiary) {
             this.person.status = null;
@@ -80,11 +80,11 @@ export class AddDependentComponent extends BaseComponent {
             this.person.hasBeenReleasedFromArmedForces = null ;
             this.person.planOnBeingOutOfBCRecord = null ;
 
-            this.person.hasBeenReleasedFromArmedForces =null;
+            this.person.hasBeenReleasedFromArmedForces = null;
             this.person.dischargeDay = null;
             this.person.dischargeMonth = null;
             this.person.dischargeYear = null;
-            this.person.nameOfInstitute = "";
+            this.person.nameOfInstitute = '';
         }
         this.onChange.emit();
         this.emitIsFormValid();
@@ -97,12 +97,12 @@ export class AddDependentComponent extends BaseComponent {
 
     outsideBCchange($event) {
         if ($event) {
-            this.person.schoolAddress.province = "";
-            this.person.schoolAddress.country = "";
+            this.person.schoolAddress.province = '';
+            this.person.schoolAddress.country = '';
 
         } else {
-             this.person.schoolAddress.province = "British Columbia";
-            this.person.schoolAddress.country = "Canada";
+             this.person.schoolAddress.province = 'British Columbia';
+            this.person.schoolAddress.country = 'Canada';
 
         }
 

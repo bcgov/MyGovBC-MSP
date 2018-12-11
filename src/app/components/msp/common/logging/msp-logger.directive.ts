@@ -1,4 +1,4 @@
-import { Component, Directive, HostBinding,ElementRef,
+import { Component, Directive, HostBinding, ElementRef,
   OnChanges, OnInit, HostListener, Input, SimpleChanges } from '@angular/core';
   import * as moment from 'moment';
 
@@ -13,23 +13,23 @@ export class MspLoggerDirective{
   /**
    * Phase of the application process
    */
-  @Input() mspLogger:string;
-  @Input() confirmationNumber:string;
-  constructor(private logService:MspLogService, 
-    private dataService:MspDataService,
-    private el:ElementRef){
+  @Input() mspLogger: string;
+  @Input() confirmationNumber: string;
+  constructor(private logService: MspLogService,
+    private dataService: MspDataService,
+    private el: ElementRef){
 
   }
-  @HostListener('click', ['$event']) onclick($event:any) {
+  @HostListener('click', ['$event']) onclick($event: any) {
     console.log('log on click event');
     this.sendLog(this.makeGeneralLog());
   }
 
-  makeGeneralLog():LogEntry{
-    let log:LogEntry = new LogEntry();
+  makeGeneralLog(): LogEntry{
+    const log: LogEntry = new LogEntry();
     log.applicationId = this.dataService. getMspApplication().uuid || this.dataService.finAssistApp.uuid;
     // log.mspTimestamp = new Date().getTime() + '';
-    var now = moment();
+    const now = moment();
     log.mspTimestamp = now.toISOString();
     log.applicationPhase = this.mspLogger;
     log.refNumberEnrollment = this.dataService.getMspApplication().referenceNumber;
@@ -38,29 +38,29 @@ export class MspLoggerDirective{
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    let chng = changes['confirmationNumber'];
-    if(!!chng){
-      let cur  = JSON.stringify(chng.currentValue);
-      if(!!cur){
+    const chng = changes['confirmationNumber'];
+    if (!!chng){
+      const cur  = JSON.stringify(chng.currentValue);
+      if (!!cur){
         this.sendLog(this.makeGeneralLog());
       }
     }
-  }  
+  }
 
   ngOnInit(){
   }
   //unused method
-  private sendLog(entry:LogEntry){
-    this.logService.logIt(entry,"mspLogger").subscribe(
-      (response)=>{
+  private sendLog(entry: LogEntry){
+    this.logService.logIt(entry, 'mspLogger').subscribe(
+      (response) => {
         // console.log('log rest service response: ');
         // console.log(response);
       },
-      (error)=>{
+      (error) => {
         console.log('HTTP error response from logging service: ');
         console.log(error);
       },
-      ()=>{
+      () => {
         // console.log('log rest service completed!');
       }
     );

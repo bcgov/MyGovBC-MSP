@@ -157,7 +157,13 @@ module.exports = {
 
                 },
 
-
+                {
+                    document: 3,
+                    title: "Record of Landing",
+                    body: "<ul><li>Must include full legal document, corner to corner, including date and signature</li><li>Must be signed by Canadian Immigration</li><li>Ensure all text is legible and photo is in focus</li></ul>",
+                    image: "",
+                    imageAlt: ""
+                },
                 {
                     document: 4,
                     title: "Permanent Resident Card",

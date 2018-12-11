@@ -9,7 +9,7 @@ import {AssistanceYear} from '../../../model/assistance-year.model';
 export class MspAssistanceYearComponent implements OnChanges{
 
   @Input() assistanceYear: AssistanceYear;
-  @Output() updateAssistanceYear:EventEmitter<AssistanceYear> = new EventEmitter<AssistanceYear>();
+  @Output() updateAssistanceYear: EventEmitter<AssistanceYear> = new EventEmitter<AssistanceYear>();
   @ViewChild('yearInput') yearInput: ElementRef;
 
   ngOnChanges(changes: SimpleChanges) {
@@ -21,8 +21,8 @@ export class MspAssistanceYearComponent implements OnChanges{
     this.assistanceYear.currentYear = changes['assistanceYear'].currentValue['currentYear'];
 
   }
-  
-  update(value:boolean){
+
+  update(value: boolean){
     this.assistanceYear.apply = value;
     this.updateAssistanceYear.emit(this.assistanceYear);
   }

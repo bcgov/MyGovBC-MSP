@@ -1,27 +1,27 @@
 export class MspValidationService {
 
-  
+
     /**
-     * 
+     *
      * @param phn Empty value (null, undefined, empty string) are treated as invalid.
-     * @param isBCPhn 
+     * @param isBCPhn
      */
-  validatePHN (phn: string, isBCPhn:boolean = true, allowEmptyValue:boolean = false): boolean {
+  validatePHN (phn: string, isBCPhn: boolean = true, allowEmptyValue: boolean = false): boolean {
     // pre req checks
     if (phn === null || phn === undefined || phn.trim().length < 1){
-      return allowEmptyValue;      
+      return allowEmptyValue;
     }
 
     // Init weights and other stuff
-    let weights:number[] = [-1, 2, 4, 8, 5, 10, 9, 7, 3, -1];
+    const weights: number[] = [-1, 2, 4, 8, 5, 10, 9, 7, 3, -1];
     let sumOfRemainders = 0;
 
     // Clean up string
     phn = phn.trim();
 
     // Rip off leading zeros with a regex
-    let regexp = new RegExp('^0+');
-    phn = phn.replace(regexp, "");
+    const regexp = new RegExp('^0+');
+    phn = phn.replace(regexp, '');
 
     // Test for length
     if (phn.length != 10) {
@@ -42,10 +42,10 @@ export class MspValidationService {
     for (let i = 0; i < phn.length; i++) {
 
       // pull out char
-      let char = phn.charAt(i);
+      const char = phn.charAt(i);
 
       // parse the number
-      let num = Number(char);
+      const num = Number(char);
       if (Number.isNaN(num)) return false;
 
       // Only use the multiplier if weight is greater than zero
@@ -63,19 +63,19 @@ export class MspValidationService {
     }
 
     // mod by 11
-    let checkDigit = 11 - (sumOfRemainders % 11);
+    const checkDigit = 11 - (sumOfRemainders % 11);
 
     // if the result is 10 or 11, it is an invalid PHN
     if (checkDigit === 10 || checkDigit === 11) return false;
 
     // Compare against 10th digit
-    let finalDigit = Number(phn.substring(9,10));
+    const finalDigit = Number(phn.substring(9, 10));
     if (checkDigit !== finalDigit) return false;
 
     // All done!
     return true;
-  }    
-  
+  }
+
 
   validateSIN (sin: string): boolean {
     // pre req checks
@@ -83,15 +83,15 @@ export class MspValidationService {
       sin.length < 1) return false;
 
     // Init weights and other stuff
-    let weights:number[] = [1,2,1,2,1,2,1,2,1];
+    const weights: number[] = [1, 2, 1, 2, 1, 2, 1, 2, 1];
     let sum = 0;
 
     // Clean up string
     sin = sin.trim();
 
     // Rip off spaces a regex
-    let regexp = new RegExp('[ ]', 'g');
-    sin = sin.replace(regexp, "");
+    const regexp = new RegExp('[ ]', 'g');
+    sin = sin.replace(regexp, '');
 
     // Test for length
     if (sin.length != 9) return false;
@@ -101,10 +101,10 @@ export class MspValidationService {
     for (let i = 0; i < sin.length; i++) {
 
       // pull out char
-      let char = sin.charAt(i);
+      const char = sin.charAt(i);
 
       // parse the number
-      let num = Number(char);
+      const num = Number(char);
       if (Number.isNaN(num)) return false;
 
       // multiply the value against the weight
@@ -127,5 +127,5 @@ export class MspValidationService {
     // All done!
     return true;
   }
-  
+
 }

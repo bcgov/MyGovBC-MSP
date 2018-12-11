@@ -19,16 +19,17 @@ export class ThumbnailComponent implements OnInit {
     this.viewContainerRef = viewContainerRef;
   }
 
-  scaledWidth:number = 300;
+  scaledWidth: number = 300;
   ngOnInit(){
-    let scaledWidthString:string = (180*this.imageObject.naturalWidth/this.imageObject.naturalHeight).toFixed(0);
+
+    const scaledWidthString: string = (180 * this.imageObject.naturalWidth / this.imageObject.naturalHeight).toFixed(0);
     // console.log('scaled width: ' + scaledWidthString);
     this.scaledWidth = parseInt(scaledWidthString);
 
-    if(this.scaledWidth > 250){
+    if (this.scaledWidth > 250){
       // console.log('Scaled width > 250, drop it down to 250');
       this.scaledWidth = 250;
-    }else if(this.scaledWidth < 30){
+    }else if (this.scaledWidth < 30){
       this.scaledWidth = 100;
     }
 
@@ -37,9 +38,9 @@ export class ThumbnailComponent implements OnInit {
     }
   }
 
-  delete(evt:any) {
+  delete(evt: any) {
       console.log('ThumbnailComponent:Delete from thumbnail: %o', evt);
-      console.log('ThumbnailComponent:imageObject:', JSON.stringify(this.imageObject,null ,2));
+      console.log('ThumbnailComponent:imageObject:', JSON.stringify(this.imageObject, null , 2));
     this.deleteImage.emit(this.imageObject);
   }
 
@@ -51,5 +52,5 @@ export class ThumbnailComponent implements OnInit {
   hideFullSizeView(){
     this.fullSizeViewModal.hide();
   }
-  
+
 }

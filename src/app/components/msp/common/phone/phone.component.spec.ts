@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MspPhoneComponent } from './phone.component';
 import { MspDataService } from '../../service/msp-data.service';
@@ -14,10 +14,10 @@ describe('MspPhoneComponent', () => {
       })],
       providers: [MspDataService,
         LocalStorageService]
-    })
+    });
   });
   it ('should work', () => {
-    let fixture = TestBed.createComponent(MspPhoneComponent);
+    const fixture = TestBed.createComponent(MspPhoneComponent);
     expect(fixture.componentInstance instanceof MspPhoneComponent).toBe(true, 'should create MspPhoneComponent');
   });
-})
+});

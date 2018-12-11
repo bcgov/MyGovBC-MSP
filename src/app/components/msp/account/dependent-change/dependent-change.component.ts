@@ -1,17 +1,17 @@
 import {ChangeDetectorRef, Component, Injectable, ViewChild, ViewChildren, QueryList} from '@angular/core';
-import {NgForm} from "@angular/forms";
+import {NgForm} from '@angular/forms';
 import {MspDataService} from '../../service/msp-data.service';
 import {Router} from '@angular/router';
-import {BaseComponent} from "../../common/base.component";
-import {ProcessService} from "../../service/process.service";
+import {BaseComponent} from '../../common/base.component';
+import {ProcessService} from '../../service/process.service';
 import {LocalStorageService} from 'angular-2-local-storage';
-import {AccountPersonalDetailsComponent} from '../personal-info/personal-details/personal-details.component'
+import {AccountPersonalDetailsComponent} from '../personal-info/personal-details/personal-details.component';
 import {AddDependentComponent} from '../add-dependents/add-dependents.component';
 import {RemoveDependentComponent} from '../remove-dependents/remove-dependents.component';
-import {Person,} from '../../model/application.model';
-import {OperationActionType} from "../../model/person.model";
+import {Person, } from '../../model/application.model';
+import {OperationActionType} from '../../model/person.model';
 import {Relationship} from '../../model/status-activities-documents';
-import {ProcessUrls} from '../../service/process.service'
+import {ProcessUrls} from '../../service/process.service';
 
 @Component({
     templateUrl: './dependent-change.component.html',
@@ -73,7 +73,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
             return false;
         }
 
-        return this.removedChildren.filter(child => child.knownMailingAddress == false).length > 0
+        return this.removedChildren.filter(child => child.knownMailingAddress == false).length > 0;
 
 
     }
@@ -93,7 +93,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
     Resident address validation is done manually since its not includes in the viewChildren
      */
     canAddDepdents(): boolean {
-        let canAdd: boolean = this.isAllValid() && this.person.residentialAddress.isValid;
+        const canAdd: boolean = this.isAllValid() && this.person.residentialAddress.isValid;
         this.showError = !canAdd;
         this.showErrorAddress = true;
         this.showMandatoryFieldsWarning = this.showError;
@@ -102,7 +102,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
 
 //the buttons will be disabled till all the fields in the form is valid
     canRemoveDependents(): boolean {
-        let canAdd: boolean = this.isAllValid();
+        const canAdd: boolean = this.isAllValid();
         this.showError = !canAdd;
         this.showMandatoryFieldsWarning = !canAdd;
         this.showErrorAddress = false;
@@ -125,14 +125,14 @@ export class AccountDependentChangeComponent extends BaseComponent {
         }
 
         //enable the buttons only when atleast one Dependent is added/removed..This makes sure the request is meaningful
-        let atleastOneDepedentAddedOrRemoved: boolean = !!this.removedSpouse || !!this.addedSpouse || this.addedChildren.length > 0 || this.removedChildren.length > 0;
+        const atleastOneDepedentAddedOrRemoved: boolean = !!this.removedSpouse || !!this.addedSpouse || this.addedChildren.length > 0 || this.removedChildren.length > 0;
 
         // Enable the button if the form is not filled in yet
         return !this.isAllValid() || atleastOneDepedentAddedOrRemoved;
     }
 
     private checkAnyDependentsIneligible(): boolean {
-        let target = [this.addedSpouse, ...this.addedChildren]
+        const target = [this.addedSpouse, ...this.addedChildren];
         return target.filter(x => x)
                      .filter(x => x.ineligibleForMSP).length >= 1;
     }
@@ -217,7 +217,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
     }
 
     isValid(): boolean {
-        return this.dataService.getMspAccountApp().isUniquePhns ;
+        return this.dataService.getMspAccountApp().isUniquePhnsinDependents ;
     }
 
         /**

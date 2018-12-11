@@ -11,17 +11,17 @@
  * 10. Errors (technical only)
  */
 export class LogEntry {
-  mspTimestamp:string;
-  applicationId:string;
-  attachmentId:string[];
-  statusOfApplication?:string;
-  ipAddress?:string;
-  browserType?:string;
-  refNumberEnrollment?:string;
-  refNumberPremiumAssistance?:string;
-  refNumberAccountChange?:string;
+  mspTimestamp: string;
+  applicationId: string;
+  attachmentId: string[];
+  statusOfApplication?: string;
+  ipAddress?: string;
+  browserType?: string;
+  refNumberEnrollment?: string;
+  refNumberPremiumAssistance?: string;
+  refNumberAccountChange?: string;
   /**
-   * Optional 
+   * Optional
    */
-  applicationPhase?:string;
+  applicationPhase?: string;
 }

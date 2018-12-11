@@ -1,21 +1,15 @@
 import {ChangeDetectorRef, Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
-
 import {MspApplication, Person} from '../../model/application.model';
 import * as _ from 'lodash';
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-
+import { fromEvent} from 'rxjs/internal/observable/fromEvent';
+import { merge} from 'rxjs/internal/observable/merge';
+import { map} from 'rxjs/operators';
 import {MspDataService} from '../../service/msp-data.service';
-import {MspConsentModalComponent} from "../../common/consent-modal/consent-modal.component";
-import {ProcessService} from "../../service/process.service";
-import {BaseComponent} from "../../common/base.component";
+import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
+import {ProcessService} from '../../service/process.service';
+import {BaseComponent} from '../../common/base.component';
 
 
 @Component({
@@ -38,7 +32,7 @@ export class PrepareComponent extends BaseComponent {
   mspApplication: MspApplication;
 
   constructor(private dataService: MspDataService,
-    private _processService:ProcessService,
+    private _processService: ProcessService,
     private _router: Router,
     private cd: ChangeDetectorRef) {
     super(cd);
@@ -56,37 +50,43 @@ export class PrepareComponent extends BaseComponent {
       this.mspConsentModal.showFullSizeView();
     }
 
-    let liveInBC$ = Observable.fromEvent<MouseEvent>(this.liveInBCBtn.nativeElement, 'click')
-      .map( x=>{
+    const liveInBC$ = fromEvent<MouseEvent>(this.liveInBCBtn.nativeElement, 'click')
+      .pipe(map( x => {
         this.dataService.getMspApplication().applicant.liveInBC = true;
-      });
-    let notLiveInBC$ = Observable.fromEvent<MouseEvent>(this.notLiveInBCBtn.nativeElement, 'click')
-      .map( x=>{
+      }));
+    const notLiveInBC$ = fromEvent<MouseEvent>(this.notLiveInBCBtn.nativeElement, 'click')
+      .pipe(map( x => {
         this.dataService.getMspApplication().applicant.liveInBC = false;
-      });
+      }));
 
-    let unUsualCircumstance$ = Observable.fromEvent<MouseEvent>(this.unUsualCircumstanceBtn.nativeElement, 'click')
-      .map( x=>{
+    const unUsualCircumstance$ = fromEvent<MouseEvent>(this.unUsualCircumstanceBtn.nativeElement, 'click')
+      .pipe(map( x => {
         this.dataService.getMspApplication().unUsualCircumstance = true;
-      });
-    let noUnUsualCircumstance$ = Observable.fromEvent<MouseEvent>(this.noUnusualCircustanceBtn.nativeElement, 'click')
-      .map( x=>{
+      }));
+    const noUnUsualCircumstance$ = fromEvent<MouseEvent>(this.noUnusualCircustanceBtn.nativeElement, 'click')
+      .pipe(map( x => {
         this.dataService.getMspApplication().unUsualCircumstance = false;
-      });
+      }));
 
-    let plannedAbsenceBtn$ = Observable.fromEvent<MouseEvent>(this.plannedAbsenceBtn.nativeElement, 'click')
-      .map( x=>{
+    const plannedAbsenceBtn$ = fromEvent<MouseEvent>(this.plannedAbsenceBtn.nativeElement, 'click')
+      .pipe(map( x => {
         this.dataService.getMspApplication().applicant.plannedAbsence = true;
-      });
-    let noPlannedAbsenceBtn$ = Observable.fromEvent<MouseEvent>(this.noPlannedAbsenceBtn.nativeElement, 'click')
-      .map( x=>{
+      }));
+    const noPlannedAbsenceBtn$ = fromEvent<MouseEvent>(this.noPlannedAbsenceBtn.nativeElement, 'click')
+      .pipe(map( x => {
         this.dataService.getMspApplication().applicant.plannedAbsence = false;
-      });
+      }));
 
-    if(this.form){
-      this.form.valueChanges.merge(liveInBC$).merge(notLiveInBC$)
-      .merge(unUsualCircumstance$).merge(noUnUsualCircumstance$)
-      .merge(plannedAbsenceBtn$).merge(noPlannedAbsenceBtn$)
+    if (this.form){
+      merge(
+        this.form.valueChanges,
+        liveInBC$,
+        notLiveInBC$,
+        unUsualCircumstance$,
+        noUnUsualCircumstance$,
+        plannedAbsenceBtn$,
+        noPlannedAbsenceBtn$,
+      )
       .subscribe(values => {
         this.dataService.saveMspApplication();
         this.emitIsFormValid();
@@ -95,12 +95,12 @@ export class PrepareComponent extends BaseComponent {
   }
 
   goToPersonalInfo(){
-    if(this.mspApplication.infoCollectionAgreement !== true){
+    if (this.mspApplication.infoCollectionAgreement !== true){
       console.log('user agreement not accepted yet, show user dialog box.');
       this.mspConsentModal.showFullSizeView();
     } else {
       this._processService.setStep(0, true);
-      this._router.navigate(["/msp/application/personal-info"]);
+      this._router.navigate(['/msp/application/personal-info']);
     }
   }
 
@@ -128,7 +128,7 @@ export class PrepareComponent extends BaseComponent {
   }
 
   isValid(): boolean {
-    let app = this.dataService.getMspApplication();
+    const app = this.dataService.getMspApplication();
     return app.applicant.plannedAbsence === false
       && app.applicant.liveInBC === true
       && app.unUsualCircumstance === false;

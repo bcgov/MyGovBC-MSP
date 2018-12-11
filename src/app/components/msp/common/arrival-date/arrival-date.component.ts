@@ -1,8 +1,8 @@
-import {Component, Input, Output, EventEmitter, ViewChild, AfterViewInit, ChangeDetectorRef} from '@angular/core'
-import {NgForm} from "@angular/forms";
+import {Component, Input, Output, EventEmitter, ViewChild, AfterViewInit, ChangeDetectorRef} from '@angular/core';
+import {NgForm} from '@angular/forms';
 import * as moment from 'moment';
-import {BaseComponent} from "../base.component";
-import {SimpleDate} from "../../model/simple-date.interface";
+import {BaseComponent} from '../base.component';
+import {SimpleDate} from '../../model/simple-date.interface';
 
 
 
@@ -10,7 +10,7 @@ import {SimpleDate} from "../../model/simple-date.interface";
   selector: 'msp-arrival-date',
   templateUrl: './arrival-date.component.html',
   styleUrls: ['./arrival-date.component.scss']
-  
+
 })
 export class MspArrivalDateComponent extends BaseComponent implements AfterViewInit {
 
@@ -51,9 +51,9 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
 
   // Parse person's date
   inputDate() {
-    let y:number = this.year as number;
-    let m:number = this.month as number;
-    let d:number = this.day as number;
+    const y: number = this.year as number;
+    const m: number = this.month as number;
+    const d: number = this.day as number;
     return moment({
       year: y,
       month: m - 1, // moment use 0 index for month :(
@@ -62,7 +62,7 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
   }
 
     // Parse person's date
-    toDate(simpleDate:SimpleDate) {
+    toDate(simpleDate: SimpleDate) {
         return moment({
             year: simpleDate.year,
             month: simpleDate.month - 1, // moment use 0 index for month :(
@@ -71,8 +71,8 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
     }
 
 
-  setYearValueOnModel(value:string){
-    if(value){
+  setYearValueOnModel(value: string){
+    if (value){
       this.year = parseInt(value);
     }else{
       this.year = value;
@@ -80,8 +80,8 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
     this.yearChange.emit(this.year);
   }
 
-  setDayValueOnModel(value:string){
-    if(value){
+  setDayValueOnModel(value: string){
+    if (value){
       this.day = parseInt(value);
     }else{
       this.day = value;
@@ -89,14 +89,14 @@ export class MspArrivalDateComponent extends BaseComponent implements AfterViewI
     this.dayChange.emit(this.day);
   }
 
-  setMonthValueOnModel(value:string){
-    if(value){
+  setMonthValueOnModel(value: string){
+    if (value){
       this.month = parseInt(value);
     }else{
       this.month = NaN;
     }
     this.monthChange.emit(this.month);
-    
+
   }
 
   /**

@@ -98,10 +98,10 @@ class ActivitiesRules {
         }
       case StatusInCanada.TemporaryResident:
         if (relationship === Relationship.Applicant) {
-          return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat]
+          return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat];
         } else {
           return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat,
-            Activities.Visiting]
+            Activities.Visiting];
         }
     }
   }
@@ -126,15 +126,15 @@ class DocumentRules {
       case Activities.ReligiousWorker:
         return [Documents.VisitorVisa];
       case Activities.Diplomat:
-        return [Documents.PassportWithDiplomaticFoil]
+        return [Documents.PassportWithDiplomaticFoil];
       case Activities.Visiting:
         return [Documents.VisitorVisa];
     }
   }
 
   static nameChangeDocument() {
-    return [Documents.MarriageCertificate, Documents.ChangeOfNameCertificate]
+    return [Documents.MarriageCertificate, Documents.ChangeOfNameCertificate];
   }
 }
 
-export {Relationship, Activities, StatusInCanada, Documents, ActivitiesRules, StatusRules, DocumentRules, CancellationReasons ,CancellationReasonsForSpouse};
+export {Relationship, Activities, StatusInCanada, Documents, ActivitiesRules, StatusRules, DocumentRules, CancellationReasons , CancellationReasonsForSpouse};

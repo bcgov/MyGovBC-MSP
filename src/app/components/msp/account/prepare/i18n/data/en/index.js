@@ -9,8 +9,8 @@ module.exports = {
     consentProcessName: 'MSP Account Change Request',
     personalInfoChange: 'Update/Correct Personal Information for Account Holder or other Individuals on your Account (Name, Date of Birth, or Gender)',
     dependentChange: 'Add/Remove Spouse (includes Common-law) and/or Child(ren)',
-    statusChange: 'Update/Confirm status in Canada (e.g., Permanent Resident)',
-    nameChangeDueToMarriage: 'If you are <Strong>only</Strong> changing last name due to marriage, check here if spouse is already on your MSP account.',
+    statusChange: 'Update/Confirm status in Canada for Account Holder or other individuals on your Account<ul><li>New Temporary Permit (e.g. Study or Work Permit)</li><li>New Permanent Resident status</li><li>New Canadian Citizenship</li></ul>',
+    nameChangeDueToMarriage: 'Check here if you or your spouse’s last name has changed as a result of marriage, divorce or separation. <br><i>(You will be required to update this information under “Update/Correct Personal Information for Account Holder or other individuals on your Account”.)</i>',
     continueButton: 'Continue',
     addressRedirecMsg: 'You will be redirected to Address Change BC to complete your request. Please complete the field below and click Continue.'
 }

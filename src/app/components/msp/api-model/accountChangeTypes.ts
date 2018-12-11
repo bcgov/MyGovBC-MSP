@@ -1,14 +1,14 @@
 import * as Primitive from './xml-primitives';
 import * as ct from './commonTypes';
 import * as et from './enrolmentTypes';
-import {BasicInfoTypeFactory} from "./commonTypes";
-import {EnrolmentApplicantType} from "./enrolmentTypes";
+import {BasicInfoTypeFactory} from './commonTypes';
+import {EnrolmentApplicantType} from './enrolmentTypes';
 
 // BaseType
 interface BaseType {
 	_exists: boolean;
 	_namespace: string;
-	_sequence:Array<string>;
+	_sequence: Array<string>;
 }
 
 // accountChangeAccountHolderType
@@ -28,13 +28,13 @@ interface _AccountChangeAccountHolderType extends ct._BasicInfoType {
 }
 export interface AccountChangeAccountHolderType extends _AccountChangeAccountHolderType { constructor: { new(): AccountChangeAccountHolderType }; }
 
-export var AccountChangeAccountHolderType: { new(): AccountChangeAccountHolderType };
+export let AccountChangeAccountHolderType: { new(): AccountChangeAccountHolderType };
 
 export class AccountChangeAccountHolderFactory {
 	static make(): AccountChangeAccountHolderType {
-		let instance = <AccountChangeAccountHolderType>{};
-        instance._sequence = ["name", "gender", "birthDate", "attachmentUuids", "phn", "telephone", "residenceAddress", "mailingAddress", "citizenship", "authorizedByApplicant",
-            "authorizedByApplicantDate", "authorizedBySpouse", "selectedAddressChange", "selectedPersonalInfoChange", "selectedAddRemove", "selectedStatusChange"]
+		const instance = <AccountChangeAccountHolderType>{};
+        instance._sequence = ['name', 'gender', 'birthDate', 'attachmentUuids', 'phn', 'telephone', 'residenceAddress', 'mailingAddress', 'citizenship', 'authorizedByApplicant',
+            'authorizedByApplicantDate', 'authorizedBySpouse', 'selectedAddressChange', 'selectedPersonalInfoChange', 'selectedAddRemove', 'selectedStatusChange'];
 		return instance;
 	}
 }
@@ -47,12 +47,12 @@ interface _AccountChangeApplicationType extends BaseType {
 }
 export interface AccountChangeApplicationType extends _AccountChangeApplicationType { constructor: { new(): AccountChangeApplicationType }; }
 
-export var AccountChangeApplicationType: { new(): AccountChangeApplicationType };
+export let AccountChangeApplicationType: { new(): AccountChangeApplicationType };
 
 export class AccountChangeApplicationTypeFactory {
 	static make(): AccountChangeApplicationType {
-		let instance = <AccountChangeApplicationType>{};
-		instance._sequence = ["accountHolder", "spouses", "children"]
+		const instance = <AccountChangeApplicationType>{};
+		instance._sequence = ['accountHolder', 'spouses', 'children'];
 		return instance;
 	}
 }
@@ -65,12 +65,12 @@ interface _AccountChangeSpousesType extends BaseType {
 }
 export interface AccountChangeSpousesType extends _AccountChangeSpousesType { constructor: { new(): AccountChangeSpousesType }; }
 
-export var AccountChangeSpousesType: { new(): AccountChangeSpousesType };
+export let AccountChangeSpousesType: { new(): AccountChangeSpousesType };
 
 export class AccountChangeSpousesTypeFactory {
     static make(): AccountChangeSpousesType {
-        let instance = <AccountChangeSpousesType>{};
-        instance._sequence = ["removedSpouse", "addedSpouse", "updatedSpouse"]
+        const instance = <AccountChangeSpousesType>{};
+        instance._sequence = ['removedSpouse', 'addedSpouse', 'updatedSpouse'];
         return instance;
     }
 }
@@ -93,14 +93,14 @@ interface _AccountChangeSpouseType extends ct._BasicInfoType {
 }
 export interface AccountChangeSpouseType extends _AccountChangeSpouseType { constructor: { new(): AccountChangeSpouseType }; }
 
-export var AccountChangeSpouseType: { new(): AccountChangeSpouseType };
+export let AccountChangeSpouseType: { new(): AccountChangeSpouseType };
 
 export class AccountChangeSpouseTypeFactory {
     static make(): AccountChangeSpouseType {
-        let instance = <AccountChangeSpouseType>{};
-        instance._sequence = ["name", "gender", "birthDate", "attachmentUuids",
-			"citizenship", "isExistingBeneficiary", "previousCoverage", "livedInBC", "outsideBC", "outsideBCinFuture", "willBeAway",
-			"previousLastName", "mailingAddress", "marriageDate", "phn", "cancellationReason", "cancellationDate"]
+        const instance = <AccountChangeSpouseType>{};
+        instance._sequence = ['name', 'gender', 'birthDate', 'attachmentUuids',
+			'citizenship', 'isExistingBeneficiary', 'previousCoverage', 'livedInBC', 'outsideBC', 'outsideBCinFuture', 'willBeAway',
+			'previousLastName', 'mailingAddress', 'marriageDate', 'phn', 'cancellationReason', 'cancellationDate'];
         return instance;
     }
 }
@@ -115,12 +115,12 @@ interface _AccountChangeChildrenType extends BaseType {
 }
 export interface AccountChangeChildrenType extends _AccountChangeChildrenType { constructor: { new(): AccountChangeChildrenType }; }
 
-export var AccountChangeChildrenType: { new(): AccountChangeChildrenType };
+export let AccountChangeChildrenType: { new(): AccountChangeChildrenType };
 
 export class AccountChangeChildrenFactory {
     static make(): AccountChangeChildrenType {
-        let instance = <AccountChangeChildrenType>{};
-        instance._sequence = ["child"]
+        const instance = <AccountChangeChildrenType>{};
+        instance._sequence = ['child'];
         return instance;
     }
 }
@@ -148,21 +148,21 @@ interface _AccountChangeChildType extends ct._BasicInfoType {
 }
 export interface AccountChangeChildType extends _AccountChangeChildType { constructor: { new(): AccountChangeChildType }; }
 
-export var AccountChangeChildType: { new(): AccountChangeChildType };
+export let AccountChangeChildType: { new(): AccountChangeChildType };
 
 export class AccountChangeChildTypeFactory {
     static make(): AccountChangeChildType {
-        let instance = <AccountChangeChildType>{};
-        instance._sequence = ["name", "gender", "birthDate", "attachmentUuids", "operationAction",
-            "citizenship", "isExistingBeneficiary", "previousCoverage", "livedInBC", "outsideBC", "outsideBCinFuture", "willBeAway",
-            "mailingAddress", "phn", "cancellationReason", "cancellationDate", "adoptionDate", "schoolName", "schoolAddress",
-            "dateStudiesBegin", "dateStudiesFinish", "departDateSchoolOutside"]
+        const instance = <AccountChangeChildType>{};
+        instance._sequence = ['name', 'gender', 'birthDate', 'attachmentUuids', 'operationAction',
+            'citizenship', 'isExistingBeneficiary', 'previousCoverage', 'livedInBC', 'outsideBC', 'outsideBCinFuture', 'willBeAway',
+            'mailingAddress', 'phn', 'cancellationReason', 'cancellationDate', 'adoptionDate', 'schoolName', 'schoolAddress',
+            'dateStudiesBegin', 'dateStudiesFinish', 'departDateSchoolOutside'];
         return instance;
     }
 }
 
 // operationType
-export type OperationActionType = ("Add" | "Remove" | "Update");
+export type OperationActionType = ('Add' | 'Remove' | 'Update');
 interface _OperationActionType extends Primitive._string { content: OperationActionType; }
 
 // livedInBC
@@ -176,13 +176,13 @@ interface _LivedInBCType extends BaseType {
 }
 export interface LivedInBCType extends _LivedInBCType { constructor: { new(): LivedInBCType }; }
 
-export var LivedInBCType: { new(): LivedInBCType };
+export let LivedInBCType: { new(): LivedInBCType };
 
 export class LivedInBCTypeFactory {
 	static make(): LivedInBCType {
-		let instance = <LivedInBCType>{};
-		instance._sequence = ["hasLivedInBC", "recentBCMoveDate", "recentCanadaMoveDate", "isPermanentMove",
-			"prevProvinceOrCountry", "prevHealthNumber"];
+		const instance = <LivedInBCType>{};
+		instance._sequence = ['hasLivedInBC', 'recentBCMoveDate', 'recentCanadaMoveDate', 'isPermanentMove',
+			'prevProvinceOrCountry', 'prevHealthNumber'];
 		return instance;
 	}
 }
@@ -197,12 +197,12 @@ interface _OutsideBCType extends BaseType {
 }
 export interface OutsideBCType extends _OutsideBCType { constructor: { new(): OutsideBCType }; }
 
-export var OutsideBCType: { new(): OutsideBCType };
+export let OutsideBCType: { new(): OutsideBCType };
 
 export class OutsideBCTypeFactory {
 	static make(): OutsideBCType {
-		let instance = <OutsideBCType>{};
-		instance._sequence = ["beenOutsideBCMoreThan", "departureDate", "returnDate", "familyMemberReason", "destination"];
+		const instance = <OutsideBCType>{};
+		instance._sequence = ['beenOutsideBCMoreThan', 'departureDate', 'returnDate', 'familyMemberReason', 'destination'];
 		return instance;
 	}
 }
@@ -214,12 +214,12 @@ interface _PreviousCoverageType extends BaseType {
 }
 export interface PreviousCoverageType extends _PreviousCoverageType { constructor: { new(): PreviousCoverageType }; }
 
-export var PreviousCoverageType: { new(): PreviousCoverageType };
+export let PreviousCoverageType: { new(): PreviousCoverageType };
 
 export class PreviousCoverageTypeFactory {
 	static make(): PreviousCoverageType {
-		let instance = <PreviousCoverageType>{};
-		instance._sequence = ["hasPreviousCoverage", "prevPHN"];
+		const instance = <PreviousCoverageType>{};
+		instance._sequence = ['hasPreviousCoverage', 'prevPHN'];
 		return instance;
 	}
 }
@@ -233,12 +233,12 @@ interface _WillBeAwayType extends BaseType {
 }
 export interface WillBeAwayType extends _WillBeAwayType { constructor: { new(): WillBeAwayType }; }
 
-export var WillBeAwayType: { new(): WillBeAwayType };
+export let WillBeAwayType: { new(): WillBeAwayType };
 
 export class WillBeAwayTypeFactory {
 	static make(): WillBeAwayType {
-		let instance = <WillBeAwayType>{};
-		instance._sequence = ["isFullTimeStudent", "isInBCafterStudies", "armedDischargeDate", "armedForceInstitutionName"]
+		const instance = <WillBeAwayType>{};
+		instance._sequence = ['isFullTimeStudent', 'isInBCafterStudies', 'armedDischargeDate', 'armedForceInstitutionName'];
 		return instance;
 	}
 }
@@ -247,15 +247,15 @@ export class WillBeAwayTypeFactory {
 export interface document extends BaseType {
 	accountChangeApplication: AccountChangeApplicationType;
 }
-export var document: document;
+export let document: document;
 
 export class DocumentTypeFactory {
 	static make(): document {
-		let instance = <document>{};
-		instance._sequence = ["accountChangeApplication"]
+		const instance = <document>{};
+		instance._sequence = ['accountChangeApplication'];
 		return instance;
 	}
 }
 
-export type CitizenshipType = ("CanadianCitizen" | "PermanentResident" | "WorkPermit" | "StudyPermit" | "Diplomat" | "ReligiousWorker" | "VisitorPermit");
+export type CitizenshipType = ('CanadianCitizen' | 'PermanentResident' | 'WorkPermit' | 'StudyPermit' | 'Diplomat' | 'ReligiousWorker' | 'VisitorPermit');
 interface _CitizenshipType extends Primitive._string { content: CitizenshipType; }

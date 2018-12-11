@@ -1,21 +1,21 @@
-import {Component, Input, EventEmitter, Output, ViewChild, ChangeDetectorRef} from '@angular/core'
+import {Component, Input, EventEmitter, Output, ViewChild, ChangeDetectorRef} from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import * as moment from 'moment';
-import {BaseComponent} from "../base.component";
+import {BaseComponent} from '../base.component';
 
 
 @Component({
   selector: 'msp-discharge-date',
   templateUrl: './discharge-date.component.html',
   styleUrls: ['./discharge-date.component.scss']
-  
+
 })
 export class MspDischargeDateComponent extends BaseComponent {
 
   lang = require('./i18n');
   @Output() onChange = new EventEmitter<any>();
-  @Input() showError:boolean;
+  @Input() showError: boolean;
   @Input() year: number;
   @Output() yearChange = new EventEmitter<number>();
   @Input() month: number;
@@ -24,7 +24,7 @@ export class MspDischargeDateComponent extends BaseComponent {
   @Output() dayChange = new EventEmitter<number>();
 
   @ViewChild('formRef') form: NgForm;
-  
+
   // Create today for comparison in check later
   today = moment();
 

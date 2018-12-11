@@ -1,7 +1,7 @@
 @import "variables.scss";
 // Bootstrap 3 to 4: Included imports
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/mixins";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/mixins";
 
 .title {
   font-size: 30px;

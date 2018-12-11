@@ -1,102 +1,99 @@
-import {NgModule, Injectable} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser'
-
-import {RouterModule, Routes} from '@angular/router';
-import {FormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
-import { ModalModule, AccordionModule} from 'ngx-bootstrap';
-import {Ng2CompleterModule} from "ng2-completer";
-import {MspComponent} from './msp.component';
-import {LandingComponent} from './landing/landing.component';
-import {MspNameComponent} from './common/name/name.component';
-import {MspBirthDateComponent} from './common/birthdate/birthdate.component';
-import {CalendarYearFormatter} from './common/calendar/calendar-year-formatter.component';
-import {CalendarYearValidator} from './common/calendar/calendar-year.validator';
-import {CalendarDayValidator} from './common/calendar/calendar-day.validator';
-import {CalendarMonthValidator} from './common/calendar/calendar-month.validator';
-import {MspAddressComponent} from './common/address/address.component';
-import {MspProvinceComponent} from './common/province/province.component';
-import {MspCountryComponent} from './common/country/country.component';
-import {MspPhoneComponent} from './common/phone/phone.component';
-import {MspProgressBarComponent} from './common/progressBar/progressBar.component';
-import {MspPhnComponent} from './common/phn/phn.component';
-import {HealthNumberComponent} from './common/health-number/health-number.component';
-import {MspArrivalDateComponent} from './common/arrival-date/arrival-date.component';
-import {MspDischargeDateComponent} from './common/discharge-date/discharge-date.component';
-import {MspDepartureDateComponent} from './common/departure-date/departure-date.component';
-import {MspReturnDateComponent} from "./common/return-date/return-date.component";
-import {MspSchoolDateComponent} from './common/schoolDate/school-date.component';
-import {Mod11CheckValidator} from './common/phn/phn.validator';
-import {SinCheckValidator} from './common/sin/sin.validator';
-import {MspGenderComponent} from './common/gender/gender.component';
-import {FileUploaderComponent} from './common/file-uploader/file-uploader.component';
-import {MspImageErrorModalComponent} from './common/image-error-modal/image-error-modal.component';
-import {ThumbnailComponent} from './common/thumbnail/thumbnail.component';
-import {TransmissionErrorView} from './common/transmission-error-view/transmission-error-view.component';
-import {MspOutofBCRecordComponent} from "./common/outof-bc/outof-bc.component";
-import {MspConsentModalComponent} from "./common/consent-modal/consent-modal.component";
-import {MspIdReqModalComponent} from "./common/id-req-modal/id-req-modal.component";
-import {MspCancelComponent} from "./common/cancel/cancel.component";
-import {MspLoggerDirective} from "./common/logging/msp-logger.directive";
-import {KeyboardEventListner} from "./common/keyboard-listener/keyboard-listener.directive";
-
-
-import {MspPersonCardComponent} from './common/person-card/person-card.component';
-import {MspContactCardComponent} from './common/contact-card/contact-card.component';
-import {MspAddressCardPartComponent} from './common/address-card-part/address-card-part.component';
-
-import {MspDataService} from './service/msp-data.service';
-import { MspValidationService } from './service/msp-validation.service';
-import { CompletenessCheckService } from './service/completeness-check.service';
-
-import {ApplicationComponent} from './application/application.component';
-import {PersonalDetailsComponent} from './application/personal-info/personal-details/personal-details.component';
-import {PrepareComponent} from './application/prepare/prepare.component';
-import {PersonalInfoComponent} from './application/personal-info/personal-info.component';
-import {AddressComponent} from './application/address/address.component';
-import {ReviewComponent} from './application/review/review.component';
-import {SendingComponent} from './application/sending/sending.component';
-import {ConfirmationComponent} from './application/confirmation/confirmation.component';
-
-import {AssistanceComponent} from './assistance/assistance.component';
-import {AssistancePrepareComponent} from './assistance/prepare/prepare.component';
-import {AssistancePersonalInfoComponent} from './assistance/personal-info/personal-info.component';
-import {AssistancePersonalDetailComponent} from './assistance/personal-info/personal-details/personal-details.component';
-import {AssistanceReviewComponent} from './assistance/review/review.component';
-import {AssistanceRetroYearsComponent} from './assistance/retro-years/retro-years.component';
-import {AssistanceAuthorizeSubmitComponent} from './assistance/authorize-submit/authorize-submit.component';
-import {AssistanceSendingComponent} from './assistance/sending/sending.component';
-import {AssistanceConfirmationComponent} from './assistance/confirmation/confirmation.component';
-import {DeductionCalculatorComponent} from './assistance/prepare/deduction-calculator/deduction-calculator.component';
-import {MspAssistanceYearComponent} from './assistance/prepare/assistance-year/assistance-year.component';
-import {EligibilityCardComponent} from './assistance/prepare/eligibility-card/eligibility-card.component';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { Injectable, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
 import { LocalStorageModule } from 'angular-2-local-storage';
-import {MspApiService} from "./service/msp-api.service";
-import {MspLogService} from "./service/log.service"
-import {ProcessService} from "./service/process.service";
-
-import {AccountComponent} from './account/account.component';
-import {AccountPrepareComponent} from "./account/prepare/prepare.component";
-import {AccountPersonalInfoComponent} from "./account/personal-info/personal-info.component";
-import {AccountPersonalDetailsComponent} from "./account/personal-info/personal-details/personal-details.component"
-import {AccountDependentChangeComponent} from "./account/dependent-change/dependent-change.component";
-import {AccountDocumentsComponent} from "./account/documents/documents.component";
-import {AccountReviewComponent} from "./account/review/review.component";
-import {AccountSendingComponent} from "./account/sending/sending.component";
-import {AccountConfirmationComponent} from "./account/confirmation/confirmation.component";
-import { CaptchaComponent } from "mygovbc-captcha-widget/src/app/captcha/captcha.component";
-import { CaptchaDataService } from "mygovbc-captcha-widget/src/app/captcha-data.service";
+import { CaptchaDataService } from 'mygovbc-captcha-widget/src/app/captcha-data.service';
+import { CaptchaComponent } from 'mygovbc-captcha-widget/src/app/captcha/captcha.component';
+import { AccordionModule, ModalModule } from 'ngx-bootstrap';
+import { AccountComponent } from './account/account.component';
 import { AddDependentComponent } from './account/add-dependents/add-dependents.component';
-import { RemoveDependentComponent } from './account/remove-dependents/remove-dependents.component';
-import { MspToggleComponent } from './common/toggle/toggle.component';
-import { MspDateComponent } from './common/date/date.component';
-import { MspStatusInCanadaRadioComponent } from './common/status-in-canada-radio/status-in-canada-radio.component';
 import { AddNewDependentBeneficiaryComponent } from './account/add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
+import { AccountConfirmationComponent } from './account/confirmation/confirmation.component';
+import { AccountDependentChangeComponent } from './account/dependent-change/dependent-change.component';
+import { AccountDocumentsComponent } from './account/documents/documents.component';
+import { AccountPersonalDetailsComponent } from './account/personal-info/personal-details/personal-details.component';
+import { AccountPersonalInfoComponent } from './account/personal-info/personal-info.component';
+import { AccountPrepareComponent } from './account/prepare/prepare.component';
+import { RemoveDependentComponent } from './account/remove-dependents/remove-dependents.component';
+import { AccountReviewComponent } from './account/review/review.component';
+import { AccountSendingComponent } from './account/sending/sending.component';
+import { AddressComponent } from './application/address/address.component';
+import { ApplicationComponent } from './application/application.component';
+import { ConfirmationComponent } from './application/confirmation/confirmation.component';
+import { PersonalDetailsComponent } from './application/personal-info/personal-details/personal-details.component';
+import { PersonalInfoComponent } from './application/personal-info/personal-info.component';
+import { PrepareComponent } from './application/prepare/prepare.component';
+import { ReviewComponent } from './application/review/review.component';
+import { SendingComponent } from './application/sending/sending.component';
+import { AssistanceComponent } from './assistance/assistance.component';
+import { AssistanceAuthorizeSubmitComponent } from './assistance/authorize-submit/authorize-submit.component';
+import { AssistanceConfirmationComponent } from './assistance/confirmation/confirmation.component';
+import { AssistancePersonalDetailComponent } from './assistance/personal-info/personal-details/personal-details.component';
+import { AssistancePersonalInfoComponent } from './assistance/personal-info/personal-info.component';
+import { MspAssistanceYearComponent } from './assistance/prepare/assistance-year/assistance-year.component';
+import { DeductionCalculatorComponent } from './assistance/prepare/deduction-calculator/deduction-calculator.component';
+import { EligibilityCardComponent } from './assistance/prepare/eligibility-card/eligibility-card.component';
+import { AssistancePrepareComponent } from './assistance/prepare/prepare.component';
+import { AssistanceRetroYearsComponent } from './assistance/retro-years/retro-years.component';
+import { AssistanceReviewComponent } from './assistance/review/review.component';
+import { AssistanceSendingComponent } from './assistance/sending/sending.component';
 import { MspAccordionComponent } from './common/accordion/accordion.component';
+import { MspAddressCardPartComponent } from './common/address-card-part/address-card-part.component';
+import { MspAddressComponent } from './common/address/address.component';
+import { MspArrivalDateComponent } from './common/arrival-date/arrival-date.component';
+import { MspBirthDateComponent } from './common/birthdate/birthdate.component';
+import { CalendarDayValidator } from './common/calendar/calendar-day.validator';
+import { CalendarMonthValidator } from './common/calendar/calendar-month.validator';
+import { CalendarYearFormatter } from './common/calendar/calendar-year-formatter.component';
+import { CalendarYearValidator } from './common/calendar/calendar-year.validator';
+import { MspCancelComponent } from './common/cancel/cancel.component';
+import { MspConsentModalComponent } from './common/consent-modal/consent-modal.component';
+import { MspContactCardComponent } from './common/contact-card/contact-card.component';
+import { MspCountryComponent } from './common/country/country.component';
+import { MspDateComponent } from './common/date/date.component';
+import { MspDepartureDateComponent } from './common/departure-date/departure-date.component';
+import { MspDischargeDateComponent } from './common/discharge-date/discharge-date.component';
+import { FileUploaderComponent } from './common/file-uploader/file-uploader.component';
+import { MspGenderComponent } from './common/gender/gender.component';
+import { HealthNumberComponent } from './common/health-number/health-number.component';
+import { MspIdReqModalComponent } from './common/id-req-modal/id-req-modal.component';
+import { MspImageErrorModalComponent } from './common/image-error-modal/image-error-modal.component';
+import { KeyboardEventListner } from './common/keyboard-listener/keyboard-listener.directive';
+import { MspLoggerDirective } from './common/logging/msp-logger.directive';
+import { MspNameComponent } from './common/name/name.component';
+import { MspOutofBCRecordComponent } from './common/outof-bc/outof-bc.component';
+import { MspPersonCardComponent } from './common/person-card/person-card.component';
+import { MspPhnComponent } from './common/phn/phn.component';
+import { Mod11CheckValidator } from './common/phn/phn.validator';
+import { MspPhoneComponent } from './common/phone/phone.component';
+import { MspProgressBarComponent } from './common/progressBar/progressBar.component';
+import { MspProvinceComponent } from './common/province/province.component';
+import { MspReturnDateComponent } from './common/return-date/return-date.component';
+import { MspSchoolDateComponent } from './common/schoolDate/school-date.component';
 import { ServicesCardDisclaimerModalComponent } from './common/services-card-disclaimer/services-card-disclaimer.component';
+import { SinCheckValidator } from './common/sin/sin.validator';
+import { MspStatusInCanadaRadioComponent } from './common/status-in-canada-radio/status-in-canada-radio.component';
+import { ThumbnailComponent } from './common/thumbnail/thumbnail.component';
+import { MspToggleComponent } from './common/toggle/toggle.component';
+import { TransmissionErrorView } from './common/transmission-error-view/transmission-error-view.component';
+import { LandingComponent } from './landing/landing.component';
+import { MspComponent } from './msp.component';
+import { CompletenessCheckService } from './service/completeness-check.service';
+import { MspLogService } from './service/log.service';
+import { MspApiService } from './service/msp-api.service';
+import { MspLog2Service } from './service/log2.service';
+import { MspDataService } from './service/msp-data.service';
+import { MspValidationService } from './service/msp-validation.service';
+import { ProcessService } from './service/process.service';
+import { TypeaheadModule } from 'ngx-bootstrap';
+import {AccountDocumentHelperService} from './service/account-document-helper.service';
+import { MspMaintenanceService } from "./service/msp-maintenance.service";
 
 
-const APP_ROUTES : Routes = [
+const APP_ROUTES: Routes = [
     {
         path: 'msp',
         children: [
@@ -232,7 +229,7 @@ const APP_ROUTES : Routes = [
                     {
                         path: 'sending',
                         component: AccountSendingComponent,
-                        canActivate: [ProcessService],                        
+                        canActivate: [ProcessService],
                     },
                     {
                         path: 'confirmation',
@@ -258,8 +255,9 @@ const APP_ROUTES : Routes = [
         FormsModule,
         ModalModule,
         AccordionModule,
-        Ng2CompleterModule,
+        HttpClientModule,
         RouterModule.forChild(APP_ROUTES),
+        TypeaheadModule.forRoot(),
         LocalStorageModule.withConfig({
             prefix: 'ca.bc.gov.msp',
             storageType: 'sessionStorage'
@@ -301,7 +299,7 @@ const APP_ROUTES : Routes = [
         MspIdReqModalComponent,
         MspCancelComponent,
         CaptchaComponent,
-        MspToggleComponent,        
+        MspToggleComponent,
         MspDateComponent,
 
         // View cards
@@ -318,7 +316,7 @@ const APP_ROUTES : Routes = [
         ReviewComponent,
         SendingComponent,
         ConfirmationComponent,
-        
+
 
         // Assistance
         AssistanceComponent,
@@ -358,13 +356,14 @@ const APP_ROUTES : Routes = [
         // Services
         MspDataService,
         MspValidationService,
-
-
+	MspMaintenanceService,
         CompletenessCheckService,
         MspApiService,
         MspLogService,
+        MspLog2Service,
         ProcessService,
-        CaptchaDataService
+        CaptchaDataService,
+        AccountDocumentHelperService
     ]
 })
 @Injectable()

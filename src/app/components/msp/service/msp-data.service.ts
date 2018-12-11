@@ -11,12 +11,12 @@ import AddressDto from '../model/address.dto';
 import {OutofBCRecordDto} from '../model/outof-bc-record.dto';
 import {OutofBCRecord} from '../model/outof-bc-record.model';
 import {StatusInCanada, Relationship} from '../model/status-activities-documents';
-import {puts} from "util";
-import {Process} from "./process.service";
+import {puts} from 'util';
+import {Process} from './process.service';
 import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
-import {Gender} from "../model/person.model";
-import {OperationActionType} from "../model/person.model";
-import {Address} from "../model/address.model";
+import {Gender} from '../model/person.model';
+import {OperationActionType} from '../model/person.model';
+import {Address} from '../model/address.model';
 import { SimpleDate } from '../model/simple-date.interface';
 
 @Injectable()
@@ -78,7 +78,7 @@ export  class MspDataService {
 
     // return the application or assistance uuid
     getMspUuid(): string {
-        let uuid = "";
+        let uuid = '';
         if (this._mspApplication)
             uuid = this._mspApplication.uuid;
         else if (this._finAssistApp)
@@ -87,19 +87,19 @@ export  class MspDataService {
     }
 
     saveMspAccountApp(): void {
-        let dto: MspAccountDto = this.toMspAccountAppTransferObject(this._mspAccountApp);
+        const dto: MspAccountDto = this.toMspAccountAppTransferObject(this._mspAccountApp);
         this.localStorageService.set(this.mspAccountStorageKey, dto);
     }
 
 
     saveMspApplication(): void {
-        let dto: MspApplicationDto = this.toMspApplicationTransferObject(this._mspApplication);
+        const dto: MspApplicationDto = this.toMspApplicationTransferObject(this._mspApplication);
         // console.log('saving msp app: ', dto);
         this.localStorageService.set(this.mspAppStorageKey, dto);
     }
 
     private fetchMspApplication(): MspApplication {
-        let dto: MspApplicationDto =
+        const dto: MspApplicationDto =
             this.localStorageService.get<MspApplicationDto>(this.mspAppStorageKey);
 
         if (dto) {
@@ -111,7 +111,7 @@ export  class MspDataService {
     }
 
     private fetchMspAccountApplication(): MspAccountApp {
-        let dto: MspAccountDto =
+        const dto: MspAccountDto =
             this.localStorageService.get<MspAccountDto>(this.mspAccountStorageKey);
         if (dto) {
             return this.fromMspAccountTransferObject(dto);
@@ -123,13 +123,13 @@ export  class MspDataService {
     saveFinAssistApplication(): void {
         // console.log('this._finAssistApp before conversion and saving: ');
         // console.log(this._finAssistApp);
-        let dto: FinancialAssistApplicationDto = this.toFinAssistDataTransferObject(this._finAssistApp);
+        const dto: FinancialAssistApplicationDto = this.toFinAssistDataTransferObject(this._finAssistApp);
         this.localStorageService.set(this.finAssistAppStorageKey, dto);
         // this.localStorageService.set(this.finAssistMailingAddressStorageKey,dto.mailingAddress);
     }
 
     private fetchFinAssistApplication(): FinancialAssistApplication {
-        let dto: FinancialAssistApplicationDto =
+        const dto: FinancialAssistApplicationDto =
             this.localStorageService.get<FinancialAssistApplicationDto>(this.finAssistAppStorageKey);
 
         // let mailAddressDto:AddressDto =
@@ -144,18 +144,18 @@ export  class MspDataService {
     }
 
     public getFakeAccountChangeApplication(): MspAccountApp {
-       let mspAccountApp:MspAccountApp = this._mspAccountApp;
+       const mspAccountApp: MspAccountApp = this._mspAccountApp;
         mspAccountApp.accountChangeOptions.addressUpdate = true;
-        mspAccountApp.applicant.firstName = "NA";
-        mspAccountApp.applicant.lastName = "NA";
+        mspAccountApp.applicant.firstName = 'NA';
+        mspAccountApp.applicant.lastName = 'NA';
         mspAccountApp.applicant.gender = Gender.Male;
         mspAccountApp.applicant.dob_day = 1;
         mspAccountApp.applicant.dob_month = 1;
         mspAccountApp.applicant.dob_year = 2000;
-        mspAccountApp.applicant.previous_phn = "1234567890";
-        mspAccountApp.phoneNumber = "2501234567";
-        let dumyAddress: Address = new Address();
-        dumyAddress.addressLine1 = "NA";
+        mspAccountApp.applicant.previous_phn = '1234567890';
+        mspAccountApp.phoneNumber = '2501234567';
+        const dumyAddress: Address = new Address();
+        dumyAddress.addressLine1 = 'NA';
         mspAccountApp.authorizedByApplicant = true;
         mspAccountApp.authorizedByApplicantDate = new Date();
         mspAccountApp.applicant.residentialAddress = dumyAddress;
@@ -200,7 +200,7 @@ export  class MspDataService {
     }
 
     private toPersonDtoForAccount(input: Person): PersonDto {
-        let dto: PersonDto = new PersonDto();
+        const dto: PersonDto = new PersonDto();
 
         dto.id = input.id;
         dto.relationship = input.relationship;
@@ -256,10 +256,10 @@ export  class MspDataService {
         dto.declarationForOutsideOver30Days = input.declarationForOutsideOver30Days;
 
         dto.reasonForCancellation = input.reasonForCancellation;
-        dto.cancellationDate   =input.cancellationDate ;
+        dto.cancellationDate   = input.cancellationDate ;
         dto.isExistingBeneficiary = input.isExistingBeneficiary;
         dto.knownMailingAddress = input.knownMailingAddress;
-        dto.nameOfInstitute  = input.nameOfInstitute
+        dto.nameOfInstitute  = input.nameOfInstitute;
 
         dto.prevLastName = input.prevLastName ;
         dto.newlyAdopted = input.newlyAdopted ;
@@ -285,7 +285,7 @@ export  class MspDataService {
     }
 
     private fromPersonDtoForAccount(dto: PersonDto): Person {
-        let output: Person = new Person(dto.relationship);
+        const output: Person = new Person(dto.relationship);
 
         output.id = dto.id;
         output.liveInBC = dto.liveInBC;
@@ -351,7 +351,7 @@ export  class MspDataService {
         output.phoneNumber = dto.phoneNumber;
 
 
-        output.cancellationDate   =dto.cancellationDate ;
+        output.cancellationDate   = dto.cancellationDate ;
         if (dto.gender) {
             output.gender = dto.gender;
         }
@@ -369,11 +369,11 @@ export  class MspDataService {
             output.documents.images = [...output.documents.images, img];
         });
 
-        return output
+        return output;
     }
 
     private toPersonDto(input: Person): PersonDto {
-        let dto: PersonDto = new PersonDto();
+        const dto: PersonDto = new PersonDto();
 
         dto.id = input.id;
         dto.relationship = input.relationship;
@@ -428,12 +428,12 @@ export  class MspDataService {
         dto.status = input.status;
         dto.currentActivity = input.currentActivity;
 
-        dto.images = input.documents.images;
+        dto.images = input.documents.images.sort((a, b) =>  a.attachmentOrder - b.attachmentOrder);
         return dto;
     }
 
     private fromPersonDto(dto: PersonDto): Person {
-        let output: Person = new Person(dto.relationship);
+        const output: Person = new Person(dto.relationship);
 
         output.id = dto.id;
         output.liveInBC = dto.liveInBC;
@@ -490,11 +490,11 @@ export  class MspDataService {
             output.documents.images = [...output.documents.images, img];
         });
 
-        return output
+        return output;
     }
 
     toMspAccountAppTransferObject(input: MspAccountApp): MspAccountDto {
-        let dto: MspAccountDto = new MspAccountDto();
+        const dto: MspAccountDto = new MspAccountDto();
         dto.addressUpdate = input.accountChangeOptions.addressUpdate ;
         dto.personInfoUpdate = input.accountChangeOptions.personInfoUpdate ;
         dto.nameChangeDueToMarriage = input.accountChangeOptions.nameChangeDueToMarriage ;
@@ -515,7 +515,7 @@ export  class MspDataService {
         }
 
         input.addedChildren.forEach(c => {
-            let c2: PersonDto = this.toPersonDtoForAccount(c);
+            const c2: PersonDto = this.toPersonDtoForAccount(c);
             c2.outOfBCRecord = this.toOutofBCRecordDto(c.outOfBCRecord);
             c2.planOnBeingOutOfBCRecord = this.toOutofBCRecordDto(c.planOnBeingOutOfBCRecord);
             this.convertSchoolAddress(c, c2);
@@ -523,7 +523,7 @@ export  class MspDataService {
 
         });
         input.removedChildren.forEach(c => {
-            let c2: PersonDto = this.toPersonDtoForAccount(c);
+            const c2: PersonDto = this.toPersonDtoForAccount(c);
             c2.outOfBCRecord = this.toOutofBCRecordDto(c.outOfBCRecord);
 
             this.convertSchoolAddress(c, c2);
@@ -531,19 +531,19 @@ export  class MspDataService {
 
         });
         input.updatedChildren.forEach(c => {
-            let c2: PersonDto = this.toPersonDtoForAccount(c);
+            const c2: PersonDto = this.toPersonDtoForAccount(c);
             dto.applicant.updatedChildren = [...dto.applicant.updatedChildren, c2];
 
         });
 
-        dto.documents = input.documents;
+        dto.documents = input.documents.sort((a, b) =>  a.attachmentOrder - b.attachmentOrder);
 
         return dto;
 
     }
 
     toMspApplicationTransferObject(input: MspApplication): MspApplicationDto {
-        let dto: MspApplicationDto = new MspApplicationDto();
+        const dto: MspApplicationDto = new MspApplicationDto();
 
         dto.authorizedByApplicant = input.authorizedByApplicant;
         dto.authorizedByApplicantDate = input.authorizedByApplicantDate;
@@ -560,7 +560,7 @@ export  class MspDataService {
         }
 
         input.children.forEach(c => {
-            let c2: PersonDto = this.toPersonDto(c);
+            const c2: PersonDto = this.toPersonDto(c);
             c2.outOfBCRecord = this.toOutofBCRecordDto(c.outOfBCRecord);
 
             this.convertSchoolAddress(c, c2);
@@ -585,7 +585,7 @@ export  class MspDataService {
     private toOutofBCRecordDto(outofBCRecord: OutofBCRecord) {
         if (outofBCRecord == null) return null;
 
-        let dto: OutofBCRecordDto = new OutofBCRecordDto();
+        const dto: OutofBCRecordDto = new OutofBCRecordDto();
         dto.reason = outofBCRecord.reason;
         dto.location = outofBCRecord.location;
         dto.departureDay = outofBCRecord.departureDay;
@@ -601,7 +601,7 @@ export  class MspDataService {
     private toOutofBCRecord(dto: OutofBCRecordDto) {
         if (dto == null) return null;
 
-        let rec: OutofBCRecord = new OutofBCRecord();
+        const rec: OutofBCRecord = new OutofBCRecord();
         rec.reason = dto.reason;
         rec.location = dto.location;
         rec.departureDay = dto.departureDay;
@@ -616,7 +616,7 @@ export  class MspDataService {
 
 
     private fromMspAccountTransferObject(dto: MspAccountDto): MspAccountApp {
-        let output: MspAccountApp = new MspAccountApp();
+        const output: MspAccountApp = new MspAccountApp();
 
         output.accountChangeOptions.addressUpdate = dto.addressUpdate ;
         output.accountChangeOptions.personInfoUpdate = dto.personInfoUpdate ;
@@ -642,10 +642,10 @@ export  class MspDataService {
 
         //if page is refreshed before filling address, the province and country is lost..so initialising..
         if (!output.applicant.residentialAddress.province) {
-            output.applicant.residentialAddress.province = "British Columbia";
+            output.applicant.residentialAddress.province = 'British Columbia';
         }
         if (!output.applicant.residentialAddress.country ){
-            output.applicant.residentialAddress.country = "Canada";
+            output.applicant.residentialAddress.country = 'Canada';
         }
 
         if (dto.applicant.addedSpouse) {
@@ -665,7 +665,7 @@ export  class MspDataService {
         }
         dto.applicant.addedChildren.forEach(c => {
             if (c) {
-                let child: Person = this.fromPersonDtoForAccount(c)
+                const child: Person = this.fromPersonDtoForAccount(c);
                 child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
                 child.planOnBeingOutOfBCRecord = this.toOutofBCRecord(c.planOnBeingOutOfBCRecord);
                 child.operationActionType = OperationActionType.Add ;
@@ -676,7 +676,7 @@ export  class MspDataService {
         });
 
         dto.applicant.removedChildren.forEach(c => {
-            let child: Person = this.fromPersonDtoForAccount(c)
+            const child: Person = this.fromPersonDtoForAccount(c);
             child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
             this.convertSchoolAddress(c, child);
             child.operationActionType = OperationActionType.Remove ;
@@ -684,7 +684,7 @@ export  class MspDataService {
         });
 
         dto.applicant.updatedChildren.forEach(c => {
-            let child: Person = this.fromPersonDtoForAccount(c)
+            const child: Person = this.fromPersonDtoForAccount(c);
             child.operationActionType = OperationActionType.Update ;
               output.updatedChildren = [...output.updatedChildren, child];
         });
@@ -698,7 +698,7 @@ export  class MspDataService {
     }
 
     private fromMspApplicationTransferObject(dto: MspApplicationDto): MspApplication {
-        let output: MspApplication = new MspApplication();
+        const output: MspApplication = new MspApplication();
 
         output.authorizedByApplicant = dto.authorizedByApplicant;
         output.authorizedByApplicantDate = dto.authorizedByApplicantDate;
@@ -707,7 +707,7 @@ export  class MspDataService {
         output.unUsualCircumstance = dto.unUsualCircumstance;
         output.applicant = this.fromPersonDto(dto.applicant);
         output.infoCollectionAgreement = dto.infoCollectionAgreement;
-        output.mailingSameAsResidentialAddress = dto.mailingSameAsResidentialAddress
+        output.mailingSameAsResidentialAddress = dto.mailingSameAsResidentialAddress;
 
         output.phoneNumber = dto.phoneNumber;
 
@@ -716,7 +716,7 @@ export  class MspDataService {
         }
 
         dto.applicant.children.forEach(c => {
-            let child: Person = this.fromPersonDto(c)
+            const child: Person = this.fromPersonDto(c);
             child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
             this.convertSchoolAddress(c, child);
             output.children = [...output.children, child];
@@ -736,9 +736,9 @@ export  class MspDataService {
         return output;
     }
     //TODO rewrite and make it proper
-    isValidAddress(addressDto:AddressDto): boolean {
+    isValidAddress(addressDto: AddressDto): boolean {
         if (addressDto ) {
-            if (addressDto.addressLine1 && addressDto.addressLine1.length>0) {
+            if (addressDto.addressLine1 && addressDto.addressLine1.length > 0) {
                 return true;
             }
         }
@@ -751,7 +751,7 @@ export  class MspDataService {
      * For financial assistance application.
      */
     toFinAssistDataTransferObject(input: FinancialAssistApplication): FinancialAssistApplicationDto {
-        let dto: FinancialAssistApplicationDto = new FinancialAssistApplicationDto();
+        const dto: FinancialAssistApplicationDto = new FinancialAssistApplicationDto();
 
         dto.infoCollectionAgreement = input.infoCollectionAgreement;
 
@@ -806,7 +806,7 @@ export  class MspDataService {
         if (!dto.mailingAddress) {
             dto.mailingAddress = new AddressDto();
         }
-        let output: FinancialAssistApplication = new FinancialAssistApplication();
+        const output: FinancialAssistApplication = new FinancialAssistApplication();
 
         output.infoCollectionAgreement = dto.infoCollectionAgreement;
 

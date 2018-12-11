@@ -185,7 +185,7 @@
       </tbody>
     </table>
     <p class="qualify-message" *ngIf="applicantIncomeInfoProvided && incomeUnderThreshhold" tabindex="0">
-      It is likely that you will qualify for Premium Assistance.
+      It is likely that you will qualify for Premium Assistance and Supplementary Benefits.
     </p>
     <div *ngIf="applicantIncomeInfoProvided && !incomeUnderThreshhold" style="margin-right: 5px;">
       <p class="disqualify-message" tabindex="0"
@@ -209,9 +209,8 @@
     style="margin-top: 10px;">
     <div class="col-sm-12">
       <button type="submit"
-        class="btn btn-primary btn-block">
-        Continue to apply for Premium Assistance
-      </button>
+        class="btn btn-primary btn-block break-word" [innerHtml]="lang('./en/index.js').continueButtonLabel">
+       </button>
     </div>
   </div>
   <div class="row" *ngIf="(!canContinue && !isPristine)||(formRef.submitted)"

@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { ChangeDetectorRef } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { AccountDocumentsComponent } from './documents.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ProcessService } from "../../service/process.service";
+import { ProcessService } from '../../service/process.service';
 import { async } from '@angular/core/testing';
 
 describe('AccountDocumentsComponent', () => {
@@ -22,9 +22,9 @@ describe('AccountDocumentsComponent', () => {
                 storageType: 'sessionStorage'
             })],
             providers: [MspDataService, ProcessService]
-        })
+        });
 
-    }))
+    }));
 
 
     beforeEach(() => {
@@ -49,16 +49,16 @@ describe('AccountDocumentsComponent', () => {
     });
 
     it('doesn\'t require docs when name change due to marriage', () => {
-        let dataService = TestBed.get(MspDataService);
+        const dataService = TestBed.get(MspDataService);
         dataService.getMspAccountApp().accountChangeOptions.nameChangeDueToMarriage = true;
         expect(comp.isDocsNotNeeded).toBeTruthy();
     });
 
     it('doesn\'t require docs when its changing an existing beneficiary child', () => {
-        let dataService = TestBed.get(MspDataService);
+        const dataService = TestBed.get(MspDataService);
         dataService.getMspAccountApp().accountChangeOptions.dependentChange = true;
         expect(comp.isDocsNotNeeded).toBeTruthy();
     });
 
 
-})
+});

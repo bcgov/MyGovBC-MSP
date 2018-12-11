@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core'
-import {Address} from "../../model/address.model";
+import {Component, Input} from '@angular/core';
+import {Address} from '../../model/address.model';
 
 @Component({
   selector: 'msp-address-card-part',

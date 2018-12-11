@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 // import { RouterTestingModule } from '@angular/router/testing';
@@ -7,13 +7,12 @@ import {LandingComponent} from '../../landing/landing.component';
 import {AssistanceComponent} from '../assistance.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {MspLoggerDirective} from "../../common/logging/msp-logger.directive";
-import {MspLogService} from "../../service/log.service";
-import {HttpModule} from "@angular/http";
-
+import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';
+import {MspLogService} from '../../service/log.service';
+import { HttpClientModule} from '@angular/common/http';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Observable} from 'rxjs/Observable';
-import { Subscription} from 'rxjs/Subscription';
+import { Observable} from 'rxjs/internal/Observable';
+import { Subscription} from 'rxjs/internal/Subscription';
 
 
 describe('AssistanceConfirmationComponent', () => {
@@ -21,11 +20,11 @@ describe('AssistanceConfirmationComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AssistanceConfirmationComponent, MspLoggerDirective],
-      imports: [FormsModule, HttpModule, 
+      imports: [FormsModule, HttpClientModule,
       LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
-      }), 
+      }),
       RouterModule.forRoot(
         [
           {
@@ -50,15 +49,15 @@ describe('AssistanceConfirmationComponent', () => {
           }
         ]
       )],
-      providers: [MspDataService,MspLogService,ActivatedRoute,
-        
-        
+      providers: [MspDataService, MspLogService, ActivatedRoute,
+
+
       ]
-    })
+    });
   });
   // it ('should work', () => {
   //   let fixture = TestBed.createComponent(AssistanceConfirmationComponent);
   //   expect(fixture.componentInstance instanceof AssistanceConfirmationComponent).toBe(true, 'should create AssistanceConfirmationComponent');
 
   // });
-})
+});

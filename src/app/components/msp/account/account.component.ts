@@ -1,14 +1,15 @@
 import {Component, Inject, ViewChild} from '@angular/core';
 import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
-import {MspProgressBarComponent} from "../common/progressBar/progressBar.component";
-import {ProcessService, ProcessStep, ProcessUrls} from "../service/process.service";
+import {MspProgressBarComponent} from '../common/progressBar/progressBar.component';
+import {ProcessService, ProcessStep, ProcessUrls} from '../service/process.service';
 import {MspAccountApp} from '../model/account.model';
 import {ProgressBarHelper} from './ProgressBarHelper';
 import {MspDataService} from '../service/msp-data.service';
 import {environment} from '../../../../environments/environment';
 import {Router, NavigationEnd} from '@angular/router';
-import {Subscription} from 'rxjs/Rx';
+import { filter } from 'rxjs/operators';
 import {MspLogService} from '../service/log.service';
+import {Subscription} from 'rxjs/internal/Subscription';
 
 
 require('./account.component.scss');
@@ -43,19 +44,22 @@ export class AccountComponent {
           },"Account -Page Load")
         */
         this.routerSubscription = this.router.events
-            .filter(event => event instanceof NavigationEnd)
-            .subscribe(event => {
-                if (this.router.url.indexOf("/confirmation/") === -1) {//toned down logs.no log for confirmation page
+          .pipe(filter(event => event instanceof NavigationEnd))
+          .subscribe(event => {
+                if (this.router.url.indexOf('/confirmation/') === -1) {//toned down logs.no log for confirmation page
                     this.logService.log({
-                        name: "Account - Loaded Page ",
+                        name: 'Account - Loaded Page ',
                         url: this.router.url
-                    }, "Account - Loaded Page ")
+                    }, 'Account - Loaded Page ');
                 }
             });
     }
 
     ngOnDestroy() {
-        this.routerSubscription.unsubscribe();
+        if (this.routerSubscription && !this.routerSubscription.closed) {
+            this.routerSubscription.unsubscribe();
+        }
+        /*this.routerSubscription.unsubscribe();*/
     }
 
 
@@ -71,11 +75,11 @@ export class AccountComponent {
         }
 
         return this.dataService.getMspProgressBar();
-    };
+    }
 
 
     private generateProgressBarItems() {
-        var newProgressBarItems: MspProgressBarItem[] = [];
+        const newProgressBarItems: MspProgressBarItem[] = [];
 
         let widthMainMenu: Object = {};
         let widthPersonalInfo: Object = {};
@@ -105,10 +109,10 @@ export class AccountComponent {
         }
 
 
-        let progressBar: MspProgressBarItem[] = [
-            new MspProgressBarItem(this.lang("./en/index.js").progressStepMainMenu, this.processService.process.processSteps[0].route, widthMainMenu),
-            new MspProgressBarItem(this.lang("./en/index.js").progressStepDocumentation, ProcessUrls.ACCOUNT_FILE_UPLOADER_URL, widthDocumentUpload),
-            new MspProgressBarItem(this.lang("./en/index.js").progressStepReview, ProcessUrls.ACCOUNT_REVIEW_URL, widthReview),
+        const progressBar: MspProgressBarItem[] = [
+            new MspProgressBarItem(this.lang('./en/index.js').progressStepMainMenu, this.processService.process.processSteps[0].route, widthMainMenu),
+            new MspProgressBarItem(this.lang('./en/index.js').progressStepDocumentation, ProcessUrls.ACCOUNT_FILE_UPLOADER_URL, widthDocumentUpload),
+            new MspProgressBarItem(this.lang('./en/index.js').progressStepReview, ProcessUrls.ACCOUNT_REVIEW_URL, widthReview),
         ];
 
 

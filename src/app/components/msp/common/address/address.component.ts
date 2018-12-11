@@ -2,11 +2,12 @@ import {
   Component, Input, Output, SimpleChanges,
   EventEmitter, ViewChild, ChangeDetectorRef
 } from '@angular/core';
-import {NgForm} from "@angular/forms";
-import {Address} from "../../model/address.model";
-import {BaseComponent} from "../base.component";
-import {MspProvinceComponent} from "../province/province.component";
-import {MspCountryComponent} from "../country/country.component";
+import {NgForm} from '@angular/forms';
+import {Address} from '../../model/address.model';
+import {BaseComponent} from '../base.component';
+import {MspProvinceComponent} from '../province/province.component';
+import {MspCountryComponent} from '../country/country.component';
+import {debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'msp-address',
@@ -30,7 +31,7 @@ export class MspAddressComponent extends BaseComponent {
   @Input() mailingAddress: Address;
   @Input('mailingOnly') mailingOnly: boolean;
   @Input('hideProvinceAndCountry') hideProvinceAndCountry: boolean = false;
-  @Input() mailingAddressHeading:string = this.lang('./en/index.js').mailingAddressHeading;
+  @Input() mailingAddressHeading: string = this.lang('./en/index.js').mailingAddressHeading;
   @Input() showError: boolean;
   @Input() isBCPostalCode: boolean = false;
 
@@ -46,26 +47,27 @@ export class MspAddressComponent extends BaseComponent {
   }
 
   ngAfterViewInit(): void {
-    this.form.valueChanges.subscribe(values => {
-      this.onChange.emit(values);
+    // https://github.com/angular/angular/issues/24818
+      this.form.valueChanges.pipe(debounceTime(0)).subscribe((values) => {
+          this.onChange.emit(values);
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
 
-    if(!changes['mailingOnly'] && !!changes['mailingSameAsResidentialAddress']){
-      if(changes['mailingSameAsResidentialAddress'].currentValue === null 
+    if (!changes['mailingOnly'] && !!changes['mailingSameAsResidentialAddress']){
+      if (changes['mailingSameAsResidentialAddress'].currentValue === null
         || changes['mailingSameAsResidentialAddress'].currentValue === undefined){
           this.mailingSameAsResidentialAddress = true;
       }
     }
   }
 
-  provinceUpdate(event:string){
+  provinceUpdate(event: string){
     this.mailingAddress.province = event;
     this.onChange.emit(event);
   }
-  countryUpdate(event:string) {
+  countryUpdate(event: string) {
     this.mailingAddress.country = event;
     this.onChange.emit(event);
   }
@@ -97,7 +99,7 @@ export class MspAddressComponent extends BaseComponent {
   set useResidentialAddressLine2(value: boolean) {
     this._useResidentialAddressLine2 = value;
     if (!this._useResidentialAddressLine2) {
-      this.residentialAddress.addressLine2 = "";
+      this.residentialAddress.addressLine2 = '';
     }
   }
 
@@ -112,7 +114,7 @@ export class MspAddressComponent extends BaseComponent {
   set useResidentialAddressLine3(value: boolean) {
     this._useResidentialAddressLine3 = value;
     if (!this._useResidentialAddressLine3) {
-      this.residentialAddress.addressLine3 = "";
+      this.residentialAddress.addressLine3 = '';
     }
   }
 
@@ -139,7 +141,7 @@ export class MspAddressComponent extends BaseComponent {
   set useMailingAddressLine2(value: boolean) {
     this._useMailingAddressLine2 = value;
     if (!this._useMailingAddressLine2) {
-      this.mailingAddress.addressLine2 = "";
+      this.mailingAddress.addressLine2 = '';
     }
   }
 
@@ -154,7 +156,7 @@ export class MspAddressComponent extends BaseComponent {
   set useMailingAddressLine3(value: boolean) {
     this._useMailingAddressLine3 = value;
     if (!this._useMailingAddressLine3) {
-      this.mailingAddress.addressLine3 = "";
+      this.mailingAddress.addressLine3 = '';
     }
   }
 

@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {MspApplication} from "../../model/application.model";
+import {MspApplication} from '../../model/application.model';
 import {MspDataService} from '../../service/msp-data.service';
 import {ActivatedRoute, Router, Params} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
+import {Observable, Subscription} from 'rxjs';
 
 @Component({
     templateUrl: './confirmation.component.html'
@@ -24,7 +23,7 @@ export class AccountConfirmationComponent implements OnInit {
                 this.confirmationNum = params['confirmationNum'],
                     this.showDepMsg = params['showDepMsg'];
             }
-        )
+        );
     }
 
     ngOnDestroy() {
