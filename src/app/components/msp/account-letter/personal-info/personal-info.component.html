@@ -1,0 +1,125 @@
+<msp-consent-modal #mspConsentModal [application]="accountLetterApplication"
+                   [processName]="lang('./en/index.js').consentProcessName"
+                   >
+</msp-consent-modal>
+
+
+<form #formRef="ngForm" novalidate>
+
+<div class="col-md-10">
+<h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
+<p class="intro"
+   [innerHtml]="lang('./en/index.js').servicesCardMsg" role="heading" >
+</p>
+
+
+<h2 [innerHTML]="lang('./en/index.js').applicantInfo"></h2>
+
+<hr>
+<div class="card panel-default col-md-6">
+    <div class="card-body">
+<!------------------------------------------ Phn------------------------------------------------>
+            <msp-phn #phn 
+                [phn]="person.previous_phn"
+                (phnChange)="person.previous_phn = $event"
+                (onChange)="onChange.emit($event); saveApplication($event);"
+                [bcPhn]="true"
+                [required]="requirePHN"
+                [bcPhn]="true"
+                [showError] = "false">
+
+            </msp-phn>
+            
+<!------------------------------------------ Birthdate ----------------------------------------------->    
+            <msp-birthdate
+                    #birthDate
+                    [person]="person" 
+                    (onChange)="onChange.emit($event);saveApplication($event);"
+                    [showError]="showError">
+            </msp-birthdate>
+        
+<!---------------------------------- Residential Address Postal Code -------------------------------->
+            <label for="residentialAddressPostalCode{{objectId}}" [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
+            <input [(ngModel)]='address.postal' type="text" class="form-control to-upper"
+                    id="residentialAddressPostalCode{{objectId}}" name="residentialAddressPostalCode"
+                    #residentialAddressPostalCodeRef="ngModel" required tabindex="0" (onChange)="saveApplication($event);" 
+                    [pattern]="Address.PostalCodeBCRegEx">
+            <div *ngIf='residentialAddressPostalCodeRef.touched || showError'
+                role="alert" aria-live="assertive">
+                <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.required"
+                    [innerHtml]="lang('./en/index.js').postalCodeErrorIsRequired"></div>
+                <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.pattern"
+                    [innerHtml]="lang('./en/index.js').postalCodeErrorPattern"></div>
+            </div>
+            
+    </div>
+    
+</div>
+<hr>
+
+<!------------------------------------------ Specific Member Radio ----------------------------------------->
+
+<label [innerHTML]="lang('./en/index.js').MSPEnrollment"></label>
+            
+<div class="form-check" *ngFor="let st of MSPEnrollementMember">
+        <input class='form-check-input' type="radio" name="MSPEnrollementMember-{{id}}" id="st{{st}}-{{id}}"
+            (click)="setStatus(st); saveApplication($event);"
+            [checked]="st === person.enrollmentStatus" tabindex="0">
+        <label class='form-check-label' for="st{{st}}-{{id}}">
+            {{langStatus('./en/index.js')[st]}}
+        </label>
+</div>
+
+
+<!------------------------------------------ Specific Member Text ----------------------------------------->
+<div *ngIf="person.showSpecificMember">
+    <h2>Specific Member Information</h2>
+    <h4>Please provide additional information for the specific member</h4>
+    <div class="row" >   
+    <div class="card panel-default col-md-6">
+            <div class="card-body">
+
+            <msp-phn [phn]="person.specificMember_phn"
+                (phnChange)="person.specificMember_phn = $event"
+                (onChange)="onChange.emit($event); saveApplication($event);"
+                [required]="true"
+                [bcPhn]="true"
+                 >
+            </msp-phn>
+
+        </div>
+    </div>
+    </div>
+</div>
+<br/>
+
+<!------------------------------------------ Captcha Code ----------------------------------------->
+<div *ngIf="person.showCaptcha" class="row">
+        <div class="col-lg-12">
+          <captcha [apiBaseUrl]="captchaApiBaseUrl" 
+                  (onValidToken)="accountLetterApplication.authorizationToken = $event;"></captcha>
+        </div>
+    </div>
+    
+</div>	
+
+<div class="row" *ngIf="form.submitted && !accountLetterApplication.hasValidAuthToken">
+    <div class="col-lg-6">
+        <div class="text-danger" 
+            [innerHtml]="lang('./en/index.js').tryAgainWithCaptcha">
+        </div>        
+    </div>
+</div>
+<hr>
+
+<!------------------------------------------ Submit Button ----------------------------------------->
+<fpcare-form-action-bar  [canContinue] = "accountLetterApplication.hasValidAuthToken"
+          (btnClick)="handleFormSubmission($event)">
+</fpcare-form-action-bar>
+<!--
+    <button [disabled]="!accountLetterApplication.hasValidAuthToken" class="btn btn-primary" type="submit"
+            [innerHtml]="lang('./en/index.js').confirmation"></button> -->
+  
+    
+
+</form>

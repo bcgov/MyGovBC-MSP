@@ -59,6 +59,11 @@ class Person implements IPerson {
     }
 
     public adoptedDate: SimpleDate;
+    public enrollmentStatus: string;
+
+    public showSpecificMember: boolean;
+    public showCaptcha: boolean;
+  
 
 
     get operationActionType(): OperationActionType {
@@ -214,6 +219,8 @@ class Person implements IPerson {
      * BC Personal Health Number
      */
     previous_phn: string;
+    specificMember_phn: string;
+
     private _hasPreviousBCPhn: boolean;
 
     /**

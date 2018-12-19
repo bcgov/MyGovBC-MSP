@@ -1,0 +1,53 @@
+<!--<msp-consent-modal #mspConsentModal [application]="mspApplication"
+                   [processName]="lang('./en/index.js').consentProcessName">
+</msp-consent-modal> -->
+
+<div *ngIf="transmissionInProcess" class="center-block" role="alert" aria-live="assertive">
+    <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+
+    <span class="sr-only">Submitting your application...</span>
+    <p class="intro" [innerHtml]="lang('./en/index.js').transmissionInProgressMessage">
+    </p>
+</div>
+
+<div class="h1" *ngIf="!transmissionInProcess && !hasError"
+      [innerHtml]="lang('./en/index.js').transmissionSuccess"></div>
+
+<div class="row" *ngIf="!transmissionInProcess && hasError" role="alert" aria-live="assertive">
+  <div class="col-sm-12 col-lg-6">
+    <h1> {{ spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true' ? lang('./en/index.js').systemMaintenanceTitle : lang('./en/index.js').transmissionErrorTitle }} </h1>
+    <div *ngIf="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true'">
+      <p><strong>{{spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE}}</strong>
+    </div>
+    
+    <!-- <h3 [innerHtml]="lang('./en/index.js').instructionForUserOnErrorLine1"></h3> -->
+    <h3 [innerHtml]="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true' ? lang('./en/index.js').instructionForUserOnMaintenanceLine1 : lang('./en/index.js').instructionForUserOnErrorLine1"></h3>
+    <div *ngIf="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG != 'true'">
+      <div style="font-size: 18px">
+        <ul>
+          <li> 
+            <a href="javascript:void(0)" (click) = "retrySubmission()"[innerHtml]="lang('./en/index.js').tryToSumitAgain" role="button"></a>
+          </li>
+        </ul>
+      </div>
+      <h3 [innerHtml]="lang('./en/index.js').instructionForUserOnErrorLine2"></h3>
+    </div>
+  </div>
+</div>
+
+<div class="row" *ngIf="!transmissionInProcess && hasError && spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG != 'true'" style="margin-top: 30px;">
+  <msp-transmission-error-view [rawError]="rawError"></msp-transmission-error-view>
+</div>
+<div *ngIf="false">
+    <h3>Dev/Test Temporary Debug Section</h3>
+    <p>Copy and paste the contents of each text area into the issue</p>
+    URL:
+    <textarea class="form-control" rows="2">{{rawUrl}}</textarea><br>
+    Error
+    <textarea class="form-control" rows="5">{{rawError}}</textarea><br>
+    Request
+    <textarea class="form-control" rows="20">{{rawRequest}}</textarea><br>
+    <hr>
+    <button class="btn btn-primary" type="submit" routerLink="/msp/application/confirmation">Skip to confirmation</button>
+</div>

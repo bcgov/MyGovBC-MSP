@@ -25,6 +25,8 @@ export class MspPhnComponent extends BaseComponent {
   @ViewChild('formRef') form: NgForm;
   @Input() isForAccountChange: boolean = false;
 
+  //@Input() isPhnDuplicate: boolean = false;
+
   constructor(private cd: ChangeDetectorRef,
     private dataService: MspDataService,
     private router: Router) {
@@ -44,13 +46,28 @@ export class MspPhnComponent extends BaseComponent {
 
   isUnique(): boolean {
     //For tests, router url often isn't mocked.
-    if (!this.getPersonList()) { return null; }
+    if (!this.getPersonList()) { console.log('====='); return null; }
 
     return this.getPersonList() //Detect what application person to use
       .map(x => x.previous_phn)
       .filter(x => x) //Filter 'undefined' out
       .filter(x => x.length >= 10) //PHN are 10 long. Don't process before.
       .filter(x => x === this.phn).length <= 1; //Allow for one, i.e. itself
+     
+  }
+
+
+  isPhnDuplicate(): boolean {
+    
+    console.log(this.getPersonList()[0].previous_phn);
+    console.log(this.getPersonList()[0].specificMember_phn);
+    if(this.getPersonList()[0].previous_phn && this.getPersonList()[0].specificMember_phn) {
+
+        if(this.getPersonList()[0].previous_phn == this.getPersonList()[0].specificMember_phn) {
+          return true;
+        } else return false;
+    } else return false;
+     
   }
 
   /**
@@ -72,6 +89,10 @@ export class MspPhnComponent extends BaseComponent {
     if (this.router.url.indexOf('/account/dependent-change') !== -1){
       return this.dataService.getMspAccountApp().allPersonsInDep;
     }
+    if (this.router.url.indexOf('/account-letter/personal-info') !== -1){
+      return this.dataService.accountLetterApp.allPersons;
+    }
+    
 
   }
 

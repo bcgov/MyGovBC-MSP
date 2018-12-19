@@ -22,6 +22,7 @@ import ISO_8601 = moment.ISO_8601;
 import { MspMaintenanceService } from "../service/msp-maintenance.service";
 import { Http, Response } from '@angular/http';
 import {ISpaEnvResponse} from '../model/spa-env-response.interface';
+import { AccountLetterApplication } from '../model/account-letter-application.model';
 
 
 const jxon = require('jxon/jxon');
@@ -55,15 +56,19 @@ export class MspApiService {
                             documentModel = this.convertAssistance(app);
                         } else if (app instanceof MspAccountApp) {
                             documentModel = this.convertMspAccountApp(app);
+                        } else if (app instanceof AccountLetterApplication) {
+                            documentModel = this.convertAccountLetterApp(app);
                         } else {
                             throw new Error('Unknown document type');
                         }
-
+                        console.log(app.authorizationToken);
                         // Check for authorization token
                         if (app.authorizationToken == null ||
                             app.authorizationToken.length < 1) {
+                            console.log(app.authorizationToken);
                             throw new Error('Missing authorization token.');
                         }
+                        console.log('---d---'+app.authorizationToken);
 
                         // second convert to XML
                         const convertedAppXml = this.toXmlString(documentModel);
@@ -611,6 +616,17 @@ export class MspApiService {
         if (from.spouseDSPAmount_line125 != null) to.disabilitySavingsPlan = from.spouseDSPAmount_line125;
 
 
+        return to;
+    }
+
+
+    private convertAccountLetterApp(from: AccountLetterApplication): document {
+        const to = DocumentFactory.make();
+		
+        to.application = ApplicationTypeFactory.make();
+        
+		// UUID
+        to.application.uuid = from.uuid;
         return to;
     }
 

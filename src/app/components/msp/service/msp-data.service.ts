@@ -18,13 +18,18 @@ import {Gender} from '../model/person.model';
 import {OperationActionType} from '../model/person.model';
 import {Address} from '../model/address.model';
 import { SimpleDate } from '../model/simple-date.interface';
+import { AccountLetterApplication } from '../model/account-letter-application.model';
+import AccountLetterDto from '../model/account-letter.dto';
+
 
 @Injectable()
 export  class MspDataService {
     private _mspApplication: MspApplication;
+    private _accountLetterApp: AccountLetterApplication;
     private _finAssistApp: FinancialAssistApplication;
     private _mspAccountApp: MspAccountApp;
     private finAssistAppStorageKey: string = 'financial-assist';
+    private accountLetterAppStorageKey: string = 'account-letter';
     // private finAssistMailingAddressStorageKey:string = 'financial-assist-mailing-address';
     private mspAppStorageKey: string = 'msp-application';
     private mspProcessKey: string = 'msp-process';
@@ -35,6 +40,7 @@ export  class MspDataService {
 
     constructor(private localStorageService: LocalStorageService) {
         this._finAssistApp = this.fetchFinAssistApplication();
+        this._accountLetterApp = this.fetchAccountLetterApplication();
         this._mspApplication = this.fetchMspApplication();
         this._mspAccountApp = this.fetchMspAccountApplication();
     }
@@ -76,6 +82,10 @@ export  class MspDataService {
         return this._finAssistApp;
     }
 
+    get accountLetterApp(): AccountLetterApplication {
+        return this._accountLetterApp;
+    }
+
     // return the application or assistance uuid
     getMspUuid(): string {
         let uuid = '';
@@ -109,6 +119,7 @@ export  class MspDataService {
             return new MspApplication();
         }
     }
+    
 
     private fetchMspAccountApplication(): MspAccountApp {
         const dto: MspAccountDto =
@@ -119,6 +130,25 @@ export  class MspDataService {
             return new MspAccountApp();
         }
     }
+
+    // Saving Account Letter into local storage 
+    saveAccountLetterApplication(): void {
+        const dto: AccountLetterDto = this.toAccoutLetterTransferObject(this._accountLetterApp);
+        this.localStorageService.set(this.accountLetterAppStorageKey, dto);
+        // this.localStorageService.set(this.finAssistMailingAddressStorageKey,dto.mailingAddress);
+    }
+
+
+    private fetchAccountLetterApplication(): AccountLetterApplication {
+        const dto: MspAccountDto =
+            this.localStorageService.get<MspAccountDto>(this.mspAccountStorageKey);
+        if (dto) {
+           // return this.fromMspAccountTransferObject(dto);
+        } else {
+            return new AccountLetterApplication();
+        }
+    }
+    //private _accountLetterApp: AccountLetterApplication;
 
     saveFinAssistApplication(): void {
         // console.log('this._finAssistApp before conversion and saving: ');
@@ -579,6 +609,20 @@ export  class MspDataService {
 
         dto.outsideBCFor30Days = input.outsideBCFor30Days;
 
+        return dto;
+    }
+
+    // Account letter
+    toAccoutLetterTransferObject(input: AccountLetterApplication): AccountLetterDto {
+        const dto: AccountLetterDto = new AccountLetterDto();
+
+        dto.authorizedByApplicant = input.authorizedByApplicant;
+        dto.authorizedByApplicantDate = input.authorizedByApplicantDate;
+
+        dto.infoCollectionAgreement = input.infoCollectionAgreement;
+ 
+        dto.applicant = this.toPersonDto(input.applicant);
+		
         return dto;
     }
 

@@ -41,6 +41,7 @@ import { AssistanceRetroYearsComponent } from './assistance/retro-years/retro-ye
 import { AssistanceReviewComponent } from './assistance/review/review.component';
 import { AssistanceSendingComponent } from './assistance/sending/sending.component';
 import { MspAccordionComponent } from './common/accordion/accordion.component';
+import { FormActionBarComponent } from './common/form-action-bar/form-action-bar.component';
 import { MspAddressCardPartComponent } from './common/address-card-part/address-card-part.component';
 import { MspAddressComponent } from './common/address/address.component';
 import { MspArrivalDateComponent } from './common/arrival-date/arrival-date.component';
@@ -67,6 +68,7 @@ import { MspNameComponent } from './common/name/name.component';
 import { MspOutofBCRecordComponent } from './common/outof-bc/outof-bc.component';
 import { MspPersonCardComponent } from './common/person-card/person-card.component';
 import { MspPhnComponent } from './common/phn/phn.component';
+
 import { Mod11CheckValidator } from './common/phn/phn.validator';
 import { MspPhoneComponent } from './common/phone/phone.component';
 import { MspProgressBarComponent } from './common/progressBar/progressBar.component';
@@ -91,6 +93,11 @@ import { ProcessService } from './service/process.service';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import {AccountDocumentHelperService} from './service/account-document-helper.service';
 import { MspMaintenanceService } from "./service/msp-maintenance.service";
+
+import { AccountLetterComponent } from './account-letter/account-letter.component';
+import { AccountLetterPersonalInfoComponent } from './account-letter/personal-info/personal-info.component';
+import { AccountLetterSendingComponent } from './account-letter/sending/sending.component';
+import { AccountLetterConfirmationComponent } from './account-letter/confirmation/confirmation.component';
 
 
 const APP_ROUTES: Routes = [
@@ -237,6 +244,33 @@ const APP_ROUTES: Routes = [
                         canActivate: [],
                     }
             ]
+            },
+
+            {
+                path: 'account-letter',
+                component: AccountLetterComponent,
+                children: [
+                    {
+                        path: '',
+                        canActivate: [],
+                        redirectTo: 'personal-info',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'personal-info',
+                        component: AccountLetterPersonalInfoComponent
+                    },
+                    {
+                        path: 'sending',
+                        component: AccountLetterSendingComponent
+                    },
+                    {
+                        path: 'confirmation',
+                        component: AccountLetterConfirmationComponent,
+                        canActivate: [],
+                    }
+
+                ],
             }
 
         ]
@@ -350,6 +384,15 @@ const APP_ROUTES: Routes = [
         AddNewDependentBeneficiaryComponent,
         MspAccordionComponent,
         ServicesCardDisclaimerModalComponent,
+
+
+        // Account Letter
+        AccountLetterComponent,
+        AccountLetterPersonalInfoComponent,
+        AccountLetterSendingComponent,
+        AccountLetterConfirmationComponent,
+        FormActionBarComponent
+
     ],
 
     providers: [

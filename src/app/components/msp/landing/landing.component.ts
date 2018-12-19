@@ -40,4 +40,9 @@ export class LandingComponent {
         this.router.navigate(['/msp/account/prepare']);
     }
 
+    clearSavedAccountLetterApp() {
+     //   this.mspDataService.removeMspAccountApp();
+        this.router.navigate(['/msp/account-letter/personal-info']);
+    }
+
 }

@@ -13,8 +13,8 @@
                id='phn{{objectId}}' name='phn' #phnRef="ngModel"
                class="form-control">
         <div *ngIf="isForAccountChange"  style="font-size: smaller" [innerHTML]="lang('./en/index.js').phnLabelMsgForAccount"></div>
-
-        <div *ngIf='phnRef.touched || showError || !isUnique()' role="alert" aria-live="assertive">
+          
+          <div *ngIf='phnRef.touched || showError || !isUnique()' role="alert" aria-live="assertive">
             <div class="text-danger" *ngIf="phnRef.errors?.required"
                  [innerHTML]="lang('./en/index.js').phnErrorRequired"></div>
             <div class="text-danger" *ngIf="phnRef.errors?.minlength"
@@ -23,6 +23,9 @@
                  [innerHTML]="lang('./en/index.js').phnErrorMod11Check"></div>
             <div class="text-danger" *ngIf="!isUnique()"
                 [innerHTML]="lang('./en/index.js').phnErrorUnique"></div>
-        </div>
+            
+           <div *ngIf="isPhnDuplicate()" class="text-danger"
+                [innerHTML]="lang('./en/index.js').duplicatePhnError"></div>
+        </div> 
     </div>
 </form>
