@@ -10,7 +10,7 @@ module.exports = {
   postalCodeLabel: 'Postal or zip code',
   postalCodeErrorIsRequired: 'Postal or zip code is required',
   postalCodeErrorPattern: 'Postal code must be a valid BC postal code',
-
+  completesAllHighlightedFields: 'Please complete all highlighted fields on this page and try to continue to next page.',
   
   consentProcessName: 'apply for MSP',
 

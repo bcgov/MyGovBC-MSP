@@ -93,6 +93,8 @@ export  class MspDataService {
             uuid = this._mspApplication.uuid;
         else if (this._finAssistApp)
             uuid = this._finAssistApp.uuid;
+        else if (this._accountLetterApp)
+             uuid = this._accountLetterApp.uuid;
         return uuid;
     }
 
@@ -138,12 +140,12 @@ export  class MspDataService {
         // this.localStorageService.set(this.finAssistMailingAddressStorageKey,dto.mailingAddress);
     }
 
-
+     // Fetch Account Letter into local storage 
     private fetchAccountLetterApplication(): AccountLetterApplication {
-        const dto: MspAccountDto =
-            this.localStorageService.get<MspAccountDto>(this.mspAccountStorageKey);
+        const dto: AccountLetterDto =
+            this.localStorageService.get<AccountLetterDto>(this.accountLetterAppStorageKey);
         if (dto) {
-           // return this.fromMspAccountTransferObject(dto);
+            return this.fromAccoutLetterTransferObject(dto);
         } else {
             return new AccountLetterApplication();
         }
@@ -422,6 +424,9 @@ export  class MspDataService {
         dto.dob_year = input.dob_year;
         dto.middleName = input.middleName;
         dto.previous_phn = input.previous_phn;
+
+        dto.specificMember_phn = input.specificMember_phn;
+
         dto.healthNumberFromOtherProvince = input.healthNumberFromOtherProvince;
 
         dto.arrivalToCanadaDay = input.arrivalToCanadaDay;
@@ -481,6 +486,7 @@ export  class MspDataService {
         output.middleName = dto.middleName;
         output.healthNumberFromOtherProvince = dto.healthNumberFromOtherProvince;
         output.previous_phn = dto.previous_phn;
+        output.specificMember_phn = dto.specificMember_phn;
 
         output.arrivalToCanadaDay = dto.arrivalToCanadaDay;
         output.arrivalToCanadaMonth = dto.arrivalToCanadaMonth;
@@ -612,17 +618,19 @@ export  class MspDataService {
         return dto;
     }
 
-    // Account letter
+    // Account letter to method 
     toAccoutLetterTransferObject(input: AccountLetterApplication): AccountLetterDto {
         const dto: AccountLetterDto = new AccountLetterDto();
-
         dto.authorizedByApplicant = input.authorizedByApplicant;
+        dto.enrollmentMember = input.enrollmentMember;
         dto.authorizedByApplicantDate = input.authorizedByApplicantDate;
-
         dto.infoCollectionAgreement = input.infoCollectionAgreement;
- 
+        dto.postalCode = input.postalCode;
+        dto.showCaptcha = input.showCaptcha;
+        dto.showSpecificMember = input.showSpecificMember;
+
         dto.applicant = this.toPersonDto(input.applicant);
-		
+        this.convertResidentialAddress(input, dto);
         return dto;
     }
 
@@ -779,6 +787,26 @@ export  class MspDataService {
 
         return output;
     }
+
+    //Account letter from method
+    private fromAccoutLetterTransferObject(dto: AccountLetterDto): AccountLetterApplication {
+        
+        const output: AccountLetterApplication = new AccountLetterApplication();
+        output.authorizedByApplicant = dto.authorizedByApplicant;
+        output.authorizedByApplicantDate = dto.authorizedByApplicantDate;
+        output.unUsualCircumstance = dto.unUsualCircumstance;
+        output.applicant = this.fromPersonDto(dto.applicant);
+        output.infoCollectionAgreement = dto.infoCollectionAgreement;
+        output.postalCode = dto.postalCode;
+        output.enrollmentMember = dto.enrollmentMember;
+        output.showCaptcha = dto.showCaptcha;
+        output.showSpecificMember = dto.showSpecificMember;
+        
+        this.convertResidentialAddress(dto, output);
+        return output;
+    }
+
+
     //TODO rewrite and make it proper
     isValidAddress(addressDto: AddressDto): boolean {
         if (addressDto ) {

@@ -32,6 +32,8 @@ export default class PersonDto {
     healthNumberFromOtherProvince: string;
 
     previous_phn: string;
+    specificMember_phn: string;
+    
     gender: number;
 
     liveInBC: boolean;

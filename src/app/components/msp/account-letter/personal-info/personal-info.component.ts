@@ -21,8 +21,6 @@ import {
 } from '../../model/status-activities-documents';
 import { environment } from '../../../../../environments/environment';
 
-
-
 @Component({
   templateUrl: './personal-info.component.html',
   styleUrls: ['./personal-info.component.scss']
@@ -50,33 +48,25 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent {
   // hide and show fields 
   showSpecificMember: boolean;
   showCaptcha: boolean;
-  
-
   Address: typeof Address = Address;
 
-  //MSPEnrollementMember: typeof MSPEnrollementMember = MSPEnrollementMember;
-
   langStatus = require('../../common/enrollmentMember/i18n');
-  langActivities = require('../../common/activities/i18n');
 
-  Activities: typeof Activities = Activities;
 
   constructor(private dataService: MspDataService,
     private _processService: ProcessService,
     private _router: Router,
     private cd: ChangeDetectorRef) {
     super(cd);
-    //this.accountLetterApplication = this.dataService.getaccountLetterApplication();
     this.accountLetterApplication = this.dataService.accountLetterApp ;
     this.person = this.dataService.accountLetterApp.applicant;
-    console.log(this.person);
-    this.address = this.dataService.accountLetterApp.applicant.residentialAddress ;
+    console.log(this.accountLetterApplication);
   }
 
   ngOnInit(){
     this.initProcessMembers(AccountLetterPersonalInfoComponent.ProcessStepNum, this._processService);
     this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
-    //this.setHasPreviousPhn(true);
+    
   }
 
   saveApplication(values: any){
@@ -85,35 +75,37 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent {
   }
 
   ngAfterViewInit() {
-
-    console.log(this.accountLetterApplication.infoCollectionAgreement);
-
+    
     if (!this.accountLetterApplication.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();
     }
-
   } 
 
   get MSPEnrollementMember(): MSPEnrollementMember[] {
+    console.log('Enrollment status '+EnrollmentStatusRules.availableStatus());
     return EnrollmentStatusRules.availableStatus();
   }
 
   setStatus(value: string) {
-    this.person.enrollmentStatus = value;
-    console.log(this.person.enrollmentStatus);
-    this.person.showSpecificMember = this.person.enrollmentStatus == '2' ? true: false;
-    this.person.showCaptcha = true;
+    this.accountLetterApplication.enrollmentMember = value; 
+    console.log(this.accountLetterApplication.enrollmentMember);
+    this.accountLetterApplication.showSpecificMember = this.accountLetterApplication.enrollmentMember == '2' ? true: false;
+    this.accountLetterApplication.showCaptcha = true;
     this.onChange.emit(value);
+    this.dataService.saveAccountLetterApplication();
   }
 
   handleFormSubmission(evt: any){
-    console.log('review form submitted, %o', evt);
-    this.dataService.saveAccountLetterApplication();
-    if (this.accountLetterApplication.hasValidAuthToken){
+    console.log('review form formRef.submitted %o', this.form.submitted);
+    console.log('combinedValidationState on personal info: %s', this.isAllValid());
+        
+    if (this.accountLetterApplication.hasValidAuthToken && this.isAllValid()){
       this._router.navigate(['/msp/account-letter/sending']);
     }else{
       console.log('Auth token is not valid');
+      console.log('Please fill in all required fields on the form.');
     }
+    //this.dataService.saveAccountLetterApplication();
   }
  
 }

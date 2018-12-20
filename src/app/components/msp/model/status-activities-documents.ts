@@ -25,7 +25,7 @@ enum StatusInCanada {
 enum MSPEnrollementMember {
   MyselfOnly, // adult
   AllMembers,
-  SpecificMember,
+  SpecificMember
 }
 
 
