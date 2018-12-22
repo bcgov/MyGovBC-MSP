@@ -231,6 +231,11 @@ export  class MspDataService {
         this._mspAccountApp = new MspAccountApp();
     }
 
+    removeMspAccountLetterApp(): void {
+        this.destroyAll();
+        this._accountLetterApp = new AccountLetterApplication();
+    }
+
     private toPersonDtoForAccount(input: Person): PersonDto {
         const dto: PersonDto = new PersonDto();
 

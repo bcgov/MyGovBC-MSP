@@ -41,7 +41,7 @@ export class LandingComponent {
     }
 
     clearSavedAccountLetterApp() {
-     //   this.mspDataService.removeMspAccountApp();
+        this.mspDataService.removeMspAccountLetterApp();
         this.router.navigate(['/msp/account-letter/personal-info']);
     }
 
