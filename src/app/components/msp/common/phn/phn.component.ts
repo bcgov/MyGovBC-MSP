@@ -1,4 +1,4 @@
-import {Component, Input, EventEmitter, Output, ViewChild, ChangeDetectorRef} from '@angular/core';
+import {Component, ElementRef, Input, EventEmitter, Output, ViewChild, ChangeDetectorRef} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {BaseComponent} from '../base.component';
 import { MspDataService } from '../../service/msp-data.service';
@@ -23,6 +23,7 @@ export class MspPhnComponent extends BaseComponent {
   @Input() showError: boolean;
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
+  @ViewChild('phnRef') phnRef: ElementRef;
   @Input() isForAccountChange: boolean = false;
 
   //@Input() isPhnDuplicate: boolean = false;
@@ -96,5 +97,7 @@ export class MspPhnComponent extends BaseComponent {
 
   }
 
-
+  focus() {
+    this.phnRef.nativeElement.focus();
+  }
 }

@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {MspApplication} from '../../model/application.model';
 import { MspDataService } from '../../service/msp-data.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Observable,  Subscription} from 'rxjs';
+import { Subscription} from 'rxjs';
 
 @Component({
   templateUrl: './confirmation.component.html'

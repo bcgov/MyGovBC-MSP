@@ -1,6 +1,4 @@
 import {Component, Inject, Injectable, AfterContentInit, ViewChild, ElementRef} from '@angular/core';
-import {MspApplication, Person} from '../../model/application.model';
-
 import { MspDataService } from '../../service/msp-data.service';
 import {MspApiService} from '../../service/msp-api.service';
 import {Router} from '@angular/router';
@@ -14,10 +12,9 @@ import { AccountLetterApplication } from '../../model/account-letter-application
   templateUrl: 'sending.component.html',
   styleUrls: ['./sending.component.scss']
 })
+
 @Injectable()
 export class AccountLetterSendingComponent implements AfterContentInit {
-  lang = require('./i18n');
-
   application: AccountLetterApplication ;
   rawUrl: string;
   rawError: string;
@@ -46,19 +43,16 @@ export class AccountLetterSendingComponent implements AfterContentInit {
 
   transmitApplication(){
     // After view inits, begin sending the application
-    console.log('---a------');
     this.transmissionInProcess = true;
     this.hasError = undefined;
-    //  this.logService.log({name: 'Enrollment application submitting request'},"Enrollment : Submission Request");
-    console.log('---b-----');
+    this.logService.log({name: 'ACL application submitting request'},"ACL : Submission Request");
     
     this.service
       .sendApplication(this.application)
       .then((application: AccountLetterApplication) => {
         this.application = application;
-        console.log('---c-----');
-        this.logService.log({name: 'Enrolment - Received refNo ',
-          confirmationNumber: this.application.referenceNumber}, 'Enrolment - Submission Response Success');
+        this.logService.log({name: 'ACL - Received refNo ',
+          confirmationNumber: this.application.referenceNumber}, 'ACL - Submission Response Success');
 
         const tempRef = this.application.referenceNumber;
 
@@ -79,9 +73,9 @@ export class AccountLetterSendingComponent implements AfterContentInit {
         this.rawUrl = error.url;
         this.rawError = this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG === 'true' ? this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE : error;
         this.rawRequest = error._requestBody;
-        this.logService.log({name: 'Enrolment - Received Failure ',
+        this.logService.log({name: 'ACL - Received Failure ',
           error: error._body,
-          request: error._requestBody}, 'Enrolment - Submission Response Error');
+          request: error._requestBody}, 'ACL - Submission Response Error');
         this.transmissionInProcess = false;
 
         const oldUUID = this.application.uuid;
