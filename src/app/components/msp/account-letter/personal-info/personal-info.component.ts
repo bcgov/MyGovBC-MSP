@@ -1,11 +1,8 @@
-import {ChangeDetectorRef,OnChanges, EventEmitter, Output, Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef, Input} from '@angular/core';
+import {ChangeDetectorRef, EventEmitter, Output, Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef, Input, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import {Person} from '../../model/application.model';
 import * as _ from 'lodash';
-import { fromEvent} from 'rxjs/internal/observable/fromEvent';
-import { merge} from 'rxjs/internal/observable/merge';
-import { map} from 'rxjs/operators';
 import {MspDataService} from '../../service/msp-data.service';
 import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
 import {ProcessService} from '../../service/process.service';
@@ -13,11 +10,9 @@ import {BaseComponent} from '../../common/base.component';
 import { AccountLetterApplication } from '../../model/account-letter-application.model';
 import {MspPhnComponent} from '../../common/phn/phn.component';
 import {MspBirthDateComponent} from '../../common/birthdate/birthdate.component';
-import {MspAddressComponent} from "../../common/address/address.component";
 import {Address} from "../../model/address.model";
 import {
-  StatusRules, ActivitiesRules, Activities, MSPEnrollementMember,
-  DocumentRules, Documents, Relationship, EnrollmentStatusRules
+  MSPEnrollementMember, DocumentRules, Documents, Relationship, EnrollmentStatusRules
 } from '../../model/status-activities-documents';
 import { environment } from '../../../../../environments/environment';
 
@@ -25,8 +20,9 @@ import { environment } from '../../../../../environments/environment';
   templateUrl: './personal-info.component.html',
   styleUrls: ['./personal-info.component.scss']
 })
+
 @Injectable()
-export class AccountLetterPersonalInfoComponent extends BaseComponent {
+export class AccountLetterPersonalInfoComponent extends BaseComponent implements OnInit  {
   static ProcessStepNum = 0;
   lang = require('./i18n');
 
@@ -34,7 +30,7 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent {
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
   @ViewChild('phn') phn: MspPhnComponent;	
   @ViewChild('birthDate') birthdate: MspBirthDateComponent;	
-
+  @Input() showError: boolean;
   @Input() person: Person;
   @Input() requirePHN: boolean = true;
 
@@ -43,7 +39,7 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent {
   accountLetterApplication: AccountLetterApplication ;
   address: Address;
   captchaApiBaseUrl: string;
-  previousPhn: string;
+  //previousPhn: string;
 
   // hide and show fields 
   showSpecificMember: boolean;
@@ -70,19 +66,17 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent {
   }
 
   saveApplication(values: any){
-    console.log('--app on change working--');
     this.dataService.saveAccountLetterApplication();
   }
 
   ngAfterViewInit() {
-    
     if (!this.accountLetterApplication.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();
     }
   } 
 
   get MSPEnrollementMember(): MSPEnrollementMember[] {
-    console.log('Enrollment status '+EnrollmentStatusRules.availableStatus());
+    console.log('ACL status '+EnrollmentStatusRules.availableStatus());
     return EnrollmentStatusRules.availableStatus();
   }
 
@@ -96,12 +90,11 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent {
   }
 
   handleFormSubmission(evt: any){
-    console.log('review form formRef.submitted %o', this.form.submitted);
-    console.log('combinedValidationState on personal info: %s', this.isAllValid());
-        
+
     if (this.accountLetterApplication.hasValidAuthToken && this.isAllValid()){
       this._router.navigate(['/msp/account-letter/sending']);
     }else{
+      this.showError = true; 
       console.log('Auth token is not valid');
       console.log('Please fill in all required fields on the form.');
     }
