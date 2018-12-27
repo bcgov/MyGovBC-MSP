@@ -2,6 +2,7 @@ import {Component, Input, EventEmitter, Output, ViewChild, ChangeDetectorRef} fr
 import {NgForm} from '@angular/forms';
 import {PhoneNumber} from '../../model/phone.model';
 import {BaseComponent} from '../base.component';
+import {debounceTime} from "rxjs/operators";
 
 @Component({
   selector: 'msp-phone',
@@ -23,7 +24,8 @@ export class MspPhoneComponent extends BaseComponent {
     }
 
     ngAfterViewInit(): void {
-      this.form.valueChanges.subscribe(values => {
+      // https://github.com/angular/angular/issues/24818
+      this.form.valueChanges.pipe(debounceTime(0)).subscribe((values) => {
         this.onChange.emit(values);
       });
     }
