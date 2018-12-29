@@ -15,6 +15,8 @@ import { AccountLetterApplication } from '../../model/account-letter-application
 
 @Injectable()
 export class AccountLetterSendingComponent implements AfterContentInit {
+  lang = require('./i18n');
+
   application: AccountLetterApplication ;
   rawUrl: string;
   rawError: string;
@@ -60,7 +62,6 @@ export class AccountLetterSendingComponent implements AfterContentInit {
         this.dataService.removeMspApplication();
 
         //  go to confirmation
-
         this.router.navigate(['/msp/account-letter/confirmation'],
           {queryParams: {confirmationNum: tempRef}});
 
