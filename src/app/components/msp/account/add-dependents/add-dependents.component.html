@@ -54,7 +54,7 @@
             maxlength="30"
             [pattern]="Person.NameRegEx"
             #prevNameRef="ngModel"
-            [(ngModel)]="person.prevLastName">
+            [(ngModel)]="person.prevLastName"   (ngModelChange)="change($event)" >
           
           <div *ngIf='prevNameRef.touched || showError' role="alert" aria-live="assertive">
               <div class="text-danger" *ngIf="prevNameRef.errors?.pattern"[innerHtml]="lang('./en/index.js').previousNameErrorPattern"></div>
