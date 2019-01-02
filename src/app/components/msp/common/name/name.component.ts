@@ -25,7 +25,6 @@ export class MspNameComponent extends BaseComponent {
   ngAfterViewInit(): void {
       // https://github.com/angular/angular/issues/24818
       this.form.valueChanges.pipe(debounceTime(0)).subscribe((values) => {
-        console.log("name value is " + values);
         this.onChange.emit(values);
       }
     );
