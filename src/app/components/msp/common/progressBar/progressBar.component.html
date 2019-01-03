@@ -11,7 +11,7 @@
                            [class.beforeActive]="isBeforeActiveRoute(item.routerLink)"
                            [class.active]="isActiveRoute(item.routerLink)"
                            [class.afterActive]="isAfterActiveRoute(item.routerLink)">
-                            <span>{{i+1}}</span>
+                            <span style="margin-right: .2rem;">{{i+1}}</span>
                             <span [class.hidden-xs]="!isActiveRoute(item.routerLink)"  [innerHtml]="item.displayName"></span>
                         </a>
                     </li>
