@@ -8,6 +8,7 @@ import {BaseComponent} from '../../../common/base.component';
 import {MspBirthDateComponent} from '../../../common/birthdate/birthdate.component';
 import {MspPhnComponent} from '../../../common/phn/phn.component';
 import {MspNameComponent} from '../../../common/name/name.component';
+import {debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'msp-assistance-personal-details',
@@ -33,7 +34,8 @@ export class AssistancePersonalDetailComponent extends BaseComponent {
   }
 
   ngAfterViewInit() {
-    this.personalDetailsForm.valueChanges
+
+    this.personalDetailsForm.valueChanges.pipe(debounceTime(0))
       .subscribe( values => {
         this.onChange.emit(values);
       });
