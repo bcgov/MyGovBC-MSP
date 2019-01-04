@@ -93,26 +93,26 @@
     </div>
     <div class="row">
         <div class="form-group col-sm-12">
-            <div class="checkbox checkbox-success checkbox-inline" 
+            <div class="form-check form-check-inline"
                 (click) = "useSameMailingAddress()">
-                <input type="checkbox" 
+                <input type="checkbox" class="form-check-input"
                 name="mailAddressSameAsResidential-yes"
                 id="mailAddressSameAsResidential-yes"
                 [ngModel] = "mailingSameAsResidentialAddress">
-                <label for="mailAddressSameAsResidential-yes" [innerHTML]="lang('./en/index.js').useResidentialAsMailing"></label>
+                <label for="mailAddressSameAsResidential-yes" [innerHTML]="lang('./en/index.js').useResidentialAsMailing" class="form-check-label"></label>
             </div>                        
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-12">
-            <div class="checkbox checkbox-success checkbox-inline" 
+            <div class="form-check form-check-inline"
                 (click) = "useDifferentMailingAddress()">
-                <input type="checkbox" 
+                <input type="checkbox"  class="form-check-input"
                 name="mailAddressSameAsResidential-no"
                 id="mailAddressSameAsResidential-no"
                 [ngModel] = "!mailingSameAsResidentialAddress"
                 >
-                <label for="mailAddressSameAsResidential-no" [innerHTML]="lang('./en/index.js').useOtherMailing"></label>
+                <label class="form-check-label" for="mailAddressSameAsResidential-no" [innerHTML]="lang('./en/index.js').useOtherMailing"></label>
             </div>                        
         </div>
     </div>

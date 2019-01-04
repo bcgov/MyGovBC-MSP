@@ -16,8 +16,10 @@
 
         <br>
         <div *ngIf="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG != 'true'">
-          <input class="input-lg" id="agree" type="checkbox" [(ngModel)]="agreeCheck">
-          <label class="" for="agree"><strong>{{lang('./en/index.js').agreeLabel}}</strong></label>
+          <div class="form-check form-check-inline">
+          <input class="input-lg form-check-input" id="agree" type="checkbox" [(ngModel)]="agreeCheck">
+          <label class="form-check-label" for="agree"><strong>{{lang('./en/index.js').agreeLabel}}</strong></label>
+          </div>
         </div>
       </div>
       <div *ngIf="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG != 'true'" class="modal-footer">

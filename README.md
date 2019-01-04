@@ -1,4 +1,3 @@
-[![Build Status](https://jenkins-gcpe-mygovbc-msp-tools.pathfinder.gov.bc.ca/buildStatus/icon?job=msp-dev)](https://jenkins-gcpe-mygovbc-msp-tools.pathfinder.gov.bc.ca/job/msp-dev)
 
 # MyGovBC-MSP
 

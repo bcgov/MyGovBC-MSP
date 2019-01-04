@@ -58,21 +58,19 @@
     <p [innerHtml]="lang('./en/index.js').agreement">
     </p>
     <div class="strong" [innerHTML]="questionApplicant"></div>
-    <div class="checkbox checkbox-success checkbox-inline">
-        <input class="input-lg" id="firstPersonAuthorize" name="firstPersonAuthorize"
+    <div class="form-check form-check-inline mb-5">
+        <input class="input-lg form-check-input" id="firstPersonAuthorize" name="firstPersonAuthorize"
                type="checkbox" [ngModel]="mspAccountApp.authorizedByApplicant"
                (ngModelChange)="applicantAuthorizeOnChange($event)">
-        <label for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+        <label class="form-check-label" for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
     </div>
-    <br>
-
-     <div *ngIf="spouseForAuthorisation">
+    <div *ngIf="spouseForAuthorisation" >
             <div class="strong" [innerHTML]="questionSpouse()"></div>
-            <div class="checkbox checkbox-success checkbox-inline">
-                <input class="input-lg" id="secondPersonAuthorize-{{i}}" type="checkbox" name="secondPersonAuthorize"
+            <div class="form-check form-check-inline">
+                <input class="input-lg form-check-input" id="secondPersonAuthorize-{{i}}" type="checkbox" name="secondPersonAuthorize"
                        [ngModel]="mspAccountApp.authorizedBySpouse"
                        (ngModelChange)="spouseUpdateAuthorizeOnChange($event)">
-                <label for="secondPersonAuthorize-{{i}}" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+                <label class="form-check-label" for="secondPersonAuthorize-{{i}}" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
             </div>
      </div>
 
