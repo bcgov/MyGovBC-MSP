@@ -142,7 +142,7 @@
                     <div (click)="showChildrenInfo=true" *ngIf="!showChildrenInfo"
                         [mspKeyboard] = "'Enter'" (keyboardAction) = "showChildrenInfo=true"
                         class="msp-toggle" tabindex="0" role="button">
-                        <span class="fa fa-caret-square-o-up"
+                        <span class="fa fa-caret-square-o-up mr-1"
                             aria-hidden="true"></span>
                         <span
                         [innerHTML]="lang('./en/index.js').childrenInfo"
@@ -152,7 +152,7 @@
                     <div (click)="showChildrenInfo=false" *ngIf="showChildrenInfo"
                         [mspKeyboard] = "'Enter'" (keyboardAction) = "showChildrenInfo=false"
                         class="msp-toggle" tabindex="0" role="button">
-                        <span class="fa fa-caret-square-o-down"
+                        <span class="fa fa-caret-square-o-down mr-1"
                         aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').childrenInfo"></span>
                     </div>
@@ -230,14 +230,14 @@
                     <div class="msp-toggle" tabindex="0" role="button"
                         [mspKeyboard] = "['Enter','space']" (keyboardAction) = "showDisabilityInfo=true"
                         *ngIf="!showDisabilityInfo" (click)="showDisabilityInfo=true">
-                        <span class="fa fa-caret-square-o-up msp-toggle"
+                        <span class="fa fa-caret-square-o-up msp-toggle mr-1"
                         aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').disabilityInfo"></span>
                     </div>
                     <div class="msp-toggle" tabindex="0" role="button"
                         [mspKeyboard] = "['Enter','space']" (keyboardAction) = "showDisabilityInfo=false"
                         *ngIf="showDisabilityInfo" (click)="showDisabilityInfo=false">
-                        <span class="fa fa-caret-square-o-down msp-toggle"
+                        <span class="fa fa-caret-square-o-down msp-toggle mr-1"
                         aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').disabilityInfo"></span>
                     </div>
@@ -331,7 +331,7 @@
                     <div class="msp-toggle" tabindex="0"
                         [mspKeyboard] = "'Enter'" (keyboardAction) = "showAttendantCareInfo=true"
                         *ngIf="!showAttendantCareInfo" (click)="showAttendantCareInfo=true">
-                        <span class="fa fa-caret-square-o-up msp-toggle"
+                        <span class="fa fa-caret-square-o-up msp-toggle mr-1"
                         aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').nursingHomeLabel" tabindex="0"></span>
 
@@ -339,7 +339,7 @@
                     <div class="msp-toggle" tabindex="0"
                         [mspKeyboard] = "'Enter'" (keyboardAction) = "showAttendantCareInfo=false"
                          *ngIf="showAttendantCareInfo" (click)="showAttendantCareInfo=false">
-                        <span class="fa fa-caret-square-o-down msp-toggle"
+                        <span class="fa fa-caret-square-o-down msp-toggle mr-1"
                         aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').nursingHomeLabel" tabindex="0"></span>
                     </div>

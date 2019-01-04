@@ -58,7 +58,7 @@
     <p [innerHtml]="lang('./en/index.js').agreement">
     </p>
     <div class="strong" [innerHTML]="questionApplicant"></div>
-    <div class="form-check form-check-inline" style="margin-bottom: 2rem;">
+    <div class="form-check form-check-inline mb-5">
         <input class="input-lg form-check-input" id="firstPersonAuthorize" name="firstPersonAuthorize"
                type="checkbox" [ngModel]="mspAccountApp.authorizedByApplicant"
                (ngModelChange)="applicantAuthorizeOnChange($event)">
