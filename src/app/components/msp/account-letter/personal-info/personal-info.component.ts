@@ -29,10 +29,12 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent implements
   @ViewChild('formRef') form: NgForm;
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
   @ViewChild('phn') phn: MspPhnComponent;	
+  @ViewChild('addtionalMemberphn') addtionalMemberphn: MspPhnComponent;	
   @ViewChild('birthDate') birthdate: MspBirthDateComponent;	
   @Input() showError: boolean;
   @Input() person: Person;
   @Input() requirePHN: boolean = true;
+  @Input() requireSpecificMemberPHN: boolean = true;
 
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 
@@ -76,13 +78,11 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent implements
   } 
 
   get MSPEnrollementMember(): MSPEnrollementMember[] {
-    console.log('ACL status '+EnrollmentStatusRules.availableStatus());
     return EnrollmentStatusRules.availableStatus();
   }
 
   setStatus(value: string) {
     this.accountLetterApplication.enrollmentMember = value; 
-    console.log(this.accountLetterApplication.enrollmentMember);
     this.accountLetterApplication.showSpecificMember = this.accountLetterApplication.enrollmentMember == '2' ? true: false;
     this.accountLetterApplication.showCaptcha = true;
     this.onChange.emit(value);

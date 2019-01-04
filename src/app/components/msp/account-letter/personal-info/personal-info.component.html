@@ -22,15 +22,15 @@
 <div class="card panel-default col-md-6">
     <div class="card-body">
 <!------------------------------------------ Phn-------------------------------------------------------->
-            <msp-phn #phn 
+            <msp-phn #phn
                 [phn]="person.previous_phn"
                 (phnChange)="person.previous_phn = $event"
                 (onChange)="onChange.emit($event); saveApplication($event);"
                 [bcPhn]="true"
                 [required]="requirePHN"
-                [bcPhn]="true"
                 [showError] = "showError">
             </msp-phn>
+            
             
 <!------------------------------------------ Birthdate -------------------------------------------------->    
             <msp-birthdate
@@ -80,13 +80,15 @@
     <div class="row" >   
         <div class="card panel-default col-md-6">
                 <div class="card-body">
-                    <msp-phn [phn]="person.specificMember_phn"
+                    <msp-phn #addtionalMemberphn [phn]="person.specificMember_phn"
                         (phnChange)="person.specificMember_phn = $event"
                         (onChange)="onChange.emit($event); saveApplication($event);"
-                        [required]="true"
+                        [required]="requireSpecificMemberPHN"
                         [bcPhn]="true"
+                        [showError] = "showError"
                         >
                     </msp-phn>
+            
                 </div>
         </div>
     </div>
@@ -119,7 +121,7 @@
 </div>
 
 <!------------------------------------------ Submit Button ----------------------------------------------->
-<fpcare-form-action-bar  [canContinue] = "accountLetterApplication.hasValidAuthToken"
+<fpcare-form-action-bar [submitLabel] = "lang('./en/index.js').buttonLabel" [canContinue] = "accountLetterApplication.hasValidAuthToken"
           (btnClick)="handleFormSubmission($event)">
 </fpcare-form-action-bar>
 <!--

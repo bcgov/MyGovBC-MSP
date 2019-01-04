@@ -12,7 +12,7 @@
         <div *ngIf="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true'">
             <p><strong>{{spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE}}</strong></p>
         </div>   
-        <div [innerHtml]="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true' ? lang('./en/index.js').SystemMaintenanceBody : lang('./en/index.js').body"></div>
+        <div [innerHtml]="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true' ? lang('./en/index.js').SystemMaintenanceBody : processName == 'ACL' ? lang('./en/index.js').ACLbody : lang('./en/index.js').body"></div>
 
         <br>
         <div *ngIf="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG != 'true'">

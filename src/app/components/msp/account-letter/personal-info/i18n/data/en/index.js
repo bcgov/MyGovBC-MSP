@@ -4,15 +4,17 @@ module.exports = {
   applicantInfo:'Your Information',
   postalCodeLabel: 'Postal Code',
   MSPEnrollment:'Whose MSP enrolment information should be included in the MSP Account Confirmation Letter?',
-  
+  buttonLabel:'Request Confirmation',
 
 
   postalCodeLabel: 'Postal or zip code',
   postalCodeErrorIsRequired: 'Postal or zip code is required',
+  phnErrorIsRequired: 'PHN is required',
+  phnErrorPattern: 'PHN must be a valid Health Number',
   postalCodeErrorPattern: 'Postal code must be a valid BC postal code',
   completesAllHighlightedFields: 'Please complete all highlighted fields on this page and try to continue to next page.',
   
-  consentProcessName: 'apply for MSP',
+  consentProcessName: 'ACL',
 
   confirmation: 'Request Confirmation'
 }
