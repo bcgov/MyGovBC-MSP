@@ -6,36 +6,36 @@
 <form #form="ngForm">
     <div>
         <div class="strong" [innerHTML]="questionApplicant"></div>
-        <div class="checkbox checkbox-success checkbox-inline">
-            <input class="input-lg" 
+        <div class="form-check form-check-inline mb-5" >
+            <input class="input-lg form-check-input"
                 name="authorizedByApplicant" 
                 [(ngModel)] = "application.authorizedByApplicant"
                 (ngModelChange) = "deleteAllDocs($event)"
                 id="firstPersonAuthorize" type="checkbox">
-            <label for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+            <label class="form-check-label" for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
         </div>
         <br><br>
         <div *ngIf="application.hasSpouseOrCommonLaw">
             <div class="strong" [innerHTML]="questionSpouse"></div>
-            <div class="checkbox checkbox-success checkbox-inline">
-                <input class="input-lg" 
+            <div class="form-check form-check-inline">
+                <input class="input-lg form-check-input"
                 name="authorizedBySpouse" 
                 [(ngModel)] = "application.authorizedBySpouse"
                 (ngModelChange) = "deleteAllDocs($event)"
                 id="secondPersonAuthorize" type="checkbox">
-                <label for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+                <label class="form-check-label" for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
             </div>
         </div>
     </div>
     <div style="margin-top: 20px;">
         <div class="strong" [innerHTML]="questionForAttorney"></div>
-        <div class="checkbox checkbox-success checkbox-inline">
-            <input class="input-lg" 
+        <div class="form-check form-check-inline">
+            <input class="input-lg form-check-input"
                 name="authorizedByAttorney" 
                 [(ngModel)] = "application.authorizedByAttorney"
                 (ngModelChange) = "handleAuthorizedByAttorney($event)"
                 id="authByAttorney" type="checkbox">
-            <label for="authByAttorney" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+            <label class="form-check-label" for="authByAttorney" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
         </div>
     </div>
 

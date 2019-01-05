@@ -36,19 +36,19 @@
   <p [innerHtml]="lang('./en/index.js').agreement">
   </p>
   <div class="strong" [innerHTML]="questionApplicant"></div>
-  <div class="checkbox checkbox-success checkbox-inline">
-      <input class="input-lg" id="firstPersonAuthorize" name="firstPersonAuthorize"
+  <div class="form-check form-check-inline mb-5">
+      <input class="input-lg form-check-input" id="firstPersonAuthorize" name="firstPersonAuthorize"
             type="checkbox" [ngModel]="application.authorizedByApplicant"
             (ngModelChange)="applicantAuthorizeOnChange($event)">
-      <label for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+      <label class="form-check-label" for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
   </div>
-  <br><br>
+
   <div *ngIf="application.spouse != null">
       <div class="strong" [innerHTML]="questionSpouse"></div>
-      <div class="checkbox checkbox-success checkbox-inline">
-          <input class="input-lg" id="secondPersonAuthorize" type="checkbox" name="secondPersonAuthorize"
+      <div class="form-check form-check-inline">
+          <input class="input-lg form-check-input" id="secondPersonAuthorize" type="checkbox" name="secondPersonAuthorize"
                 [ngModel]="application.authorizedBySpouse" (ngModelChange)="spouseAuthorizeOnChange($event)">
-          <label for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+          <label class="form-check-label" for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
       </div>
   </div>
   <div class="row">

@@ -6,6 +6,7 @@ import { MspAccountApp } from '../../model/account.model';
 import { MspApplication, Person } from '../../model/application.model';
 import { FinancialAssistApplication } from '../../model/financial-assist-application.model';
 import { Router } from '@angular/router';
+import {debounceTime} from "rxjs/operators";
 
 @Component({
   selector: 'msp-phn',
@@ -35,7 +36,9 @@ export class MspPhnComponent extends BaseComponent {
   }
 
   ngAfterViewInit(): void {
-    this.form.valueChanges.subscribe(values => {
+
+    // https://github.com/angular/angular/issues/24818
+    this.form.valueChanges.pipe(debounceTime(0)).subscribe((values) => {
       this.onChange.emit(values);
     });
   }
