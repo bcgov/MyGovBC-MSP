@@ -4,7 +4,6 @@
                    (onClose)="phn.focus()"
                    >
 </msp-consent-modal>
-<!---------------------------------------Consent Modal-------------------------------------------------->
 
 <form #formRef="ngForm" novalidate>
 
@@ -16,10 +15,11 @@
 
 
 <h2 [innerHTML]="lang('./en/index.js').applicantInfo"></h2>
-
 <hr>
           
 <div class="card panel-default col-md-6">
+    
+
     <div class="card-body">
 <!------------------------------------------ Phn-------------------------------------------------------->
             <msp-phn #phn

@@ -91,10 +91,10 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent implements
 
   handleFormSubmission(evt: any){
 
-    if (this.accountLetterApplication.hasValidAuthToken && this.isAllValid()){
+    if (this.accountLetterApplication.hasValidAuthToken && this.isAllValid() && !this.phn.isPhnDuplicate()){
       this._router.navigate(['/msp/account-letter/sending']);
     }else{
-      this.showError = true; 
+       
       console.log('Auth token is not valid');
       console.log('Please fill in all required fields on the form.');
     }
