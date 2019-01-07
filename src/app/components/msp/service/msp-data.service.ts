@@ -633,7 +633,7 @@ export  class MspDataService {
         dto.postalCode = input.postalCode;
 
         dto.applicant = this.toPersonDto(input.applicant);
-        this.convertResidentialAddress(input, dto);
+
         return dto;
     }
 
@@ -803,8 +803,6 @@ export  class MspDataService {
         output.postalCode = dto.postalCode;
         output.applicant.enrollmentMember = dto.enrollmentMember;
 
-        
-        this.convertResidentialAddress(dto, output);
         return output;
     }
 

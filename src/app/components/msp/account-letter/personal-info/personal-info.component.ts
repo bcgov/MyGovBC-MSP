@@ -45,13 +45,8 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent implements
     @ViewChild('addtionalMemberphn') addtionalMemberphn: MspPhnComponent;
     @ViewChild('birthDate') birthdate: MspBirthDateComponent;
     @ViewChild('specificMember') specificMember: SpecificMemberComponent;
-
-    showError: boolean;
-
     captchaApiBaseUrl: string;
 
-    showSpecificMember: boolean;
-    showCaptcha: boolean;
     Address: typeof Address = Address;
 
     langStatus = require('../../common/enrollmentMember/i18n');
@@ -68,7 +63,7 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent implements
     ngOnInit() {
         this.initProcessMembers(AccountLetterPersonalInfoComponent.ProcessStepNum, this._processService);
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
-
+       
     }
 
     saveApplication(values: any) {
@@ -94,9 +89,7 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent implements
     }
 
     setStatus(value: string) {
-        console.log('setStatus'+value);
         this.applicant.enrollmentMember = value;
-        this.showCaptcha = true;
         this.dataService.saveAccountLetterApplication();
     }
 

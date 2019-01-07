@@ -71,8 +71,6 @@ class AccountLetterApplication implements ApplicationBase {
     .filter(x => x); //no 'undefined's
   }
 
-  // Address and Contact Info
-  public residentialAddress: Address = new Address();
 
   authorizedByApplicant: boolean;
   authorizedByApplicantDate: Date;
@@ -90,11 +88,7 @@ class AccountLetterApplication implements ApplicationBase {
   }
 
   getAllImages(): MspImage[] {
-
-    let allImages = Array<MspImage>();
-    // add applicant
-    allImages = allImages.concat(this.applicant.documents.images);
-    return allImages;
+    return null;
   }
 
   get hasValidAuthToken() {
@@ -102,9 +96,7 @@ class AccountLetterApplication implements ApplicationBase {
   }
 
   constructor() {
-    // Set some defaults
-    this.residentialAddress.province = 'British Columbia';
-    this.residentialAddress.country = 'Canada';
+
   }
 }
 
