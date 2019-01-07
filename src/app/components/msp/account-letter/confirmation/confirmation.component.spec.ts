@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 // import { RouterTestingModule } from '@angular/router/testing';
 
-import { ConfirmationComponent } from './confirmation.component';
+import { AccountLetterConfirmationComponent } from './confirmation.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';
@@ -18,7 +18,7 @@ describe('Component Test', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ConfirmationComponent, MspLoggerDirective],
+      declarations: [AccountLetterConfirmationComponent, MspLoggerDirective],
       imports: [HttpClientModule, RouterModule, RouterTestingModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
