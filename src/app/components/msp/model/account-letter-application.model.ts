@@ -15,13 +15,7 @@ class AccountLetterApplication implements ApplicationBase {
   authorizationToken: string;
   phnRequired: boolean = false;
 
-  // Hide and show belo blocks on user's selection
-  showSpecificMember: boolean = false;
-  showCaptcha: boolean = false;
 
-  // Capture the additional PHn and the postal code 
-  specificMember_phn: string;
-  enrollmentMember: string;
   postalCode: string;
 
   /**
@@ -30,9 +24,6 @@ class AccountLetterApplication implements ApplicationBase {
   referenceNumber: string;
 
   private _applicant: Person = new Person(Relationship.Applicant);
-
-  unUsualCircumstance: boolean;
-
 
   get uuid(): string {
     return this._uuid;

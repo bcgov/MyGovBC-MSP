@@ -36,7 +36,7 @@ class Person implements IPerson {
     /** NEEDS XSD. Departure information for the question regarding if the person will be out of BC for more than 30 days in the next 6 months. */
     planOnBeingOutOfBCRecord: OutofBCRecord;
     private _operationActionType: OperationActionType;
-
+    enrollmentMember: string;
    /*
     given default value so that pleaseSelect is selected on page load
     */
@@ -59,12 +59,6 @@ class Person implements IPerson {
     }
 
     public adoptedDate: SimpleDate;
-    public enrollmentStatus: string;
-
-    public showSpecificMember: boolean;
-    public showCaptcha: boolean;
-  
-
 
     get operationActionType(): OperationActionType {
         return this._operationActionType;

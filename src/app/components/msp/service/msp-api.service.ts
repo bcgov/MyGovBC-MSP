@@ -703,11 +703,11 @@ export class MspApiService  {
         to.RequesterPHN = from.applicant.previous_phn;
         to.RequesterBirthdate = from.applicant.dob_month+'-'+from.applicant.dob_day+'-'+from.applicant.dob_year;
 
-        if(from.enrollmentMember == '0') {
+        if(from.applicant.enrollmentMember == '0') {
             to.LetterSelection = 'M';
-        } else if(from.enrollmentMember == '1') {
+        } else if(from.applicant.enrollmentMember == '1') {
             to.LetterSelection = 'A';
-        } else if(from.enrollmentMember == '2') {
+        } else if(from.applicant.enrollmentMember == '2') {
             to.LetterSelection = 'S';
             to.SpecificPHN = from.applicant.specificMember_phn;
         } 

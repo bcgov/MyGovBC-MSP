@@ -627,12 +627,10 @@ export  class MspDataService {
     toAccoutLetterTransferObject(input: AccountLetterApplication): AccountLetterDto {
         const dto: AccountLetterDto = new AccountLetterDto();
         dto.authorizedByApplicant = input.authorizedByApplicant;
-        dto.enrollmentMember = input.enrollmentMember;
+        dto.enrollmentMember = input.applicant.enrollmentMember;
         dto.authorizedByApplicantDate = input.authorizedByApplicantDate;
         dto.infoCollectionAgreement = input.infoCollectionAgreement;
         dto.postalCode = input.postalCode;
-        dto.showCaptcha = input.showCaptcha;
-        dto.showSpecificMember = input.showSpecificMember;
 
         dto.applicant = this.toPersonDto(input.applicant);
         this.convertResidentialAddress(input, dto);
@@ -799,13 +797,12 @@ export  class MspDataService {
         const output: AccountLetterApplication = new AccountLetterApplication();
         output.authorizedByApplicant = dto.authorizedByApplicant;
         output.authorizedByApplicantDate = dto.authorizedByApplicantDate;
-        output.unUsualCircumstance = dto.unUsualCircumstance;
+
         output.applicant = this.fromPersonDto(dto.applicant);
         output.infoCollectionAgreement = dto.infoCollectionAgreement;
         output.postalCode = dto.postalCode;
-        output.enrollmentMember = dto.enrollmentMember;
-        output.showCaptcha = dto.showCaptcha;
-        output.showSpecificMember = dto.showSpecificMember;
+        output.applicant.enrollmentMember = dto.enrollmentMember;
+
         
         this.convertResidentialAddress(dto, output);
         return output;

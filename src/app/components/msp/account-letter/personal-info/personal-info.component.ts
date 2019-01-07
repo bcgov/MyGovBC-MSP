@@ -91,9 +91,9 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent implements
     }
 
     setStatus(value: string) {
-        this.accountLetterApplication.enrollmentMember = value;
-        this.accountLetterApplication.showSpecificMember = this.accountLetterApplication.enrollmentMember == '2' ? true : false;
-        this.accountLetterApplication.showCaptcha = true;
+        console.log('setStatus'+value);
+        this.applicant.enrollmentMember = value;
+        this.showCaptcha = true;
         this.dataService.saveAccountLetterApplication();
     }
 
