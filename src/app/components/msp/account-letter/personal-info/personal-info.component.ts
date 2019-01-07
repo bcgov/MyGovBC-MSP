@@ -118,6 +118,6 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent implements
         //this.dataService.saveAccountLetterApplication();
     }
     isValid(): boolean {
-       return this.applicant.enrollmentMember != undefined ;
+       return this.applicant.enrollmentMember != undefined && this.accountLetterApplication.isUniquePhns;
     }
 }
