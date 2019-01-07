@@ -62,8 +62,11 @@ class AccountLetterApplication implements ApplicationBase {
    * Useful, for example, to make sure all PHNs are unique.
    */
   get allPersons(): Array<Person> {
+    var specificMember:Person = new Person(Relationship.Spouse);
+    specificMember.previous_phn = this.applicant.specificMember_phn;
+
     return [
-      this.applicant
+      this.applicant,specificMember
     ]
     .filter(x => x); //no 'undefined's
   }

@@ -1,6 +1,6 @@
 <msp-consent-modal #mspConsentModal [application]="accountLetterApplication"
                    [processName]="lang('./en/index.js').consentProcessName"
-                   (onClose)="phn.focus()"
+
 >
 </msp-consent-modal>
 
@@ -56,7 +56,9 @@
         </div>
         <hr>
 
-    <msp-specific-member [person]="applicant"  (onStatusChange)="setStatus($event);" (onChange)="saveApplication($event);"> </msp-specific-member>
+    <msp-specific-member [person]="applicant" #specificMember (onStatusChange)="setStatus($event);" (onChange)="saveApplication($event);"> </msp-specific-member>
+
+
     <!--    <label [innerHTML]="lang('./en/index.js').MSPEnrollment"></label>
 
         <div class="form-check" *ngFor="let st of MSPEnrollementMember">
@@ -117,7 +119,7 @@
 
 
     <fpcare-form-action-bar [submitLabel]="lang('./en/index.js').buttonLabel"
-                            [canContinue]="accountLetterApplication.hasValidAuthToken"
+                            [canContinue]="canContinue()"
                             (btnClick)="handleFormSubmission($event)">
     </fpcare-form-action-bar>
     <!--

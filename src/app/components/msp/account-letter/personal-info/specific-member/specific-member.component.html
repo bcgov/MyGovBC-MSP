@@ -17,7 +17,7 @@
         <div class="card-body">
           <msp-phn #addtionalMemberphn [phn]="person.specificMember_phn"
                    (phnChange)="person.specificMember_phn = $event"
-                   (onChange)="onChange.emit();"
+                   (onChange)="onphnChange();"
                    [required]="true"
                    [bcPhn]="true"
                    [showError]="showError"

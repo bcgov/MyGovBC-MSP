@@ -61,19 +61,6 @@ export class MspPhnComponent extends BaseComponent {
   }
 
 
-  isPhnDuplicate(): boolean {
-    
-    console.log(this.getPersonList()[0].previous_phn);
-    console.log(this.getPersonList()[0].specificMember_phn);
-    if(this.getPersonList()[0].previous_phn && this.getPersonList()[0].specificMember_phn) {
-
-        if(this.getPersonList()[0].previous_phn == this.getPersonList()[0].specificMember_phn) {
-          return true;
-        } else return false;
-    } else return false;
-     
-  }
-
   /**
    * Only get the Persons relevant to the section the user is on.
    *
