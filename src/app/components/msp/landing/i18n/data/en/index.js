@@ -5,5 +5,6 @@ module.exports = {
     continueEnrollApp: 'Continue enrolment application',
     continuePaApp: 'Continue premium assistance application',
     newAccountApp: 'MSP Account Change Request',
-    continueAccountApp: 'Continue MSP Account Change Request'
+    continueAccountApp: 'Continue MSP Account Change Request',
+    continueAccountLetter: 'Continue Account Confirmation letter application'
 }
