@@ -4,7 +4,8 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Subscription} from 'rxjs';
 
 @Component({
-  templateUrl: './confirmation.component.html'
+  templateUrl: './confirmation.component.html',
+  styleUrls: ['./confirmation.component.scss']
 })
 export class AccountLetterConfirmationComponent implements OnInit{
   lang = require('./i18n');

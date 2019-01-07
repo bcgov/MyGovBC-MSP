@@ -25,14 +25,14 @@ export class AccountLetterSendingComponent implements AfterContentInit {
 
   transmissionInProcess: boolean;
   hasError: boolean;
-  showMoreErrorDetails: boolean;
+  //showMoreErrorDetails: boolean;
 
   constructor(private dataService: MspDataService, private service: MspApiService, private processService: ProcessService,
     public router: Router, private logService: MspLogService) {
     this.application = this.dataService.accountLetterApp ;
     this.transmissionInProcess = undefined;
     this.hasError = undefined;
-    this.showMoreErrorDetails = undefined;
+    //this.showMoreErrorDetails = ;;
   }
 
   /**
@@ -90,11 +90,4 @@ export class AccountLetterSendingComponent implements AfterContentInit {
   
   }
 
-  toggleErrorDetails(){
-    this.showMoreErrorDetails = !this.showMoreErrorDetails;
-  }
-
-  retrySubmission(){
-    this.router.navigate(['/msp/account-letter/personal-info']);
-  }
 }
