@@ -27,6 +27,7 @@ import {
     MSPEnrollementMember, DocumentRules, Documents, Relationship, EnrollmentStatusRules
 } from '../../model/status-activities-documents';
 import {environment} from '../../../../../environments/environment';
+import {SpecificMemberComponent} from "./specific-member/specific-member.component";
 
 @Component({
     templateUrl: './personal-info.component.html',
@@ -43,6 +44,8 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent implements
     @ViewChild('phn') phn: MspPhnComponent;
     @ViewChild('addtionalMemberphn') addtionalMemberphn: MspPhnComponent;
     @ViewChild('birthDate') birthdate: MspBirthDateComponent;
+    @ViewChild('specificMember') specificMember: SpecificMemberComponent;
+
     showError: boolean;
 
     captchaApiBaseUrl: string;
@@ -97,9 +100,15 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent implements
         this.dataService.saveAccountLetterApplication();
     }
 
+
+    canContinue(): boolean {
+        return this.accountLetterApplication.hasValidAuthToken && this.isAllValid() ;
+    }
+
+
     handleFormSubmission(evt: any) {
 
-        if (this.accountLetterApplication.hasValidAuthToken && this.isAllValid() && !this.phn.isPhnDuplicate()) {
+        if (this.canContinue()) {
             this._router.navigate(['/msp/account-letter/sending']);
         } else {
 
@@ -108,5 +117,7 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent implements
         }
         //this.dataService.saveAccountLetterApplication();
     }
-
+    isValid(): boolean {
+       return this.applicant.enrollmentMember != undefined && this.accountLetterApplication.isUniquePhns;
+    }
 }
