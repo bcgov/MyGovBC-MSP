@@ -63,7 +63,7 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent implements
     ngOnInit() {
         this.initProcessMembers(AccountLetterPersonalInfoComponent.ProcessStepNum, this._processService);
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
-       
+
     }
 
     saveApplication(values: any) {
