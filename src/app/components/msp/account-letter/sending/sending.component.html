@@ -20,10 +20,20 @@
     <h3 [innerHtml]="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true' ? lang('./en/index.js').instructionForUserOnMaintenanceLine1 : lang('./en/index.js').instructionForUserOnErrorLine1"></h3>
     <div *ngIf="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG != 'true'">
       <div style="font-size: 12px">
-        <div class="alert alert-info" role="alert">
-            <h2>
+        <div *ngIf="!hasError" class="alert alert-info" role="alert">
+            <h2 >
                 {{this.rawError.message}}
             </h2>
+        </div>
+        <div *ngIf="hasError" class="alert alert-info col-lg-9" role="alert">
+            <h4 [innerHtml]="lang('./en/index.js').systemErrorText"></h4>
+            <ul>
+                <li> 
+                  <a href="javascript:void(0)" (click) = "retrySubmission()"[innerHtml]="lang('./en/index.js').tryToSubmitAgain" role="button"></a>
+                </li>
+            </ul>
+            <h4  [innerHtml]="lang('./en/index.js').contactHealthInsuranceBC"></h4>
+            
         </div>
       </div>
       

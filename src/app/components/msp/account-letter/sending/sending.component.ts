@@ -25,6 +25,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
 
   transmissionInProcess: boolean;
   hasError: boolean;
+  
   //showMoreErrorDetails: boolean;
 
   constructor(private dataService: MspDataService, private service: MspApiService, private processService: ProcessService,
@@ -88,6 +89,10 @@ export class AccountLetterSendingComponent implements AfterContentInit {
         this.dataService.saveAccountLetterApplication();
       });
   
+  }
+
+  retrySubmission(){
+    this.router.navigate(['/msp/account-letter/personal-info']);
   }
 
 }
