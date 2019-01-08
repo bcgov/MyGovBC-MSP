@@ -93,7 +93,7 @@
         <br/>
 
 
-        <div *ngIf="showCaptcha" class="row">
+        <div *ngIf="applicant.enrollmentMember != undefined" class="row">
             <div class="col-lg-12">
                 <captcha [apiBaseUrl]="captchaApiBaseUrl"
                          (onValidToken)="accountLetterApplication.authorizationToken = $event;"></captcha>
