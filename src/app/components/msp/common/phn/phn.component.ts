@@ -25,6 +25,7 @@ export class MspPhnComponent extends BaseComponent {
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
   @ViewChild('phnRef') phnRef: ElementRef;
+  @ViewChild('phnfocus') phnFocus: ElementRef;
   @Input() isForAccountChange: boolean = false;
 
   //@Input() isPhnDuplicate: boolean = false;
@@ -88,6 +89,6 @@ export class MspPhnComponent extends BaseComponent {
   }
 
   focus() {
-    this.phnRef.nativeElement.focus();
+    this.phnFocus.nativeElement.focus();
   }
 }

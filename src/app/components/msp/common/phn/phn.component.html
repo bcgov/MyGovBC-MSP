@@ -3,7 +3,7 @@
          [ngClass]="{'has-error': !isUnique() || !formRef.controls.phn?.valid && (phnRef.touched || showError)}">
         <label [class.optional]="!required" class="control-label" for="phn{{objectId}}"
                [innerHTML]="phnLabel"></label>
-        <input #phnRef type="text"
+        <input #phnfocus type="text"
                [ngModel]="phn"
                (ngModelChange)="setPhn($event)"
                minlength="10"
