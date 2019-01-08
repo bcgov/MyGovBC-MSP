@@ -59,7 +59,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
         const tempRef = this.application.referenceNumber;
 
         //delete the application from storage
-        this.dataService.removeMspApplication();
+        this.dataService.removeMspAccountLetterApp();
 
         //  go to confirmation
         this.router.navigate(['/msp/account-letter/confirmation'],
