@@ -4,8 +4,8 @@ def APP_NAME = 'msp'
 def CHAINED_ANGULAR_BUILD = APP_NAME + '-build-angular-app-build'
 
 // Edit your environment TAG names below
-def TAG_NAMES = ['dev', 'test', 'prod']
-def TAG_NAMES_BACKUP = ['devbackup', 'testbackup', 'prodbackup']
+def TAG_NAMES = ['dev', 'test']
+def TAG_NAMES_BACKUP = ['devbackup', 'testbackup']
 
 // You shouldn't have to edit these if you're following the conventions
 def NGINX_BUILD_CONFIG = 'nginx-runtime'
@@ -48,12 +48,4 @@ node {
   }
 }
 
-node {
-  stage('deploy-'  + TAG_NAMES[2]) {
-    input "Deploy to " + TAG_NAMES[2] + "?"
-    echo "Deploy to " + TAG_NAMES[2] + " " + IMAGESTREAM_NAME + ":" + "${IMAGE_HASH}"
-    openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES_BACKUP[2], srcStream: IMAGESTREAM_NAME, srcTag: TAG_NAMES[2]
-    openshiftTag destStream: IMAGESTREAM_NAME, verbose: 'true', destTag: TAG_NAMES[2], srcStream: IMAGESTREAM_NAME, srcTag: "${IMAGE_HASH}"
-  }
-}
 
