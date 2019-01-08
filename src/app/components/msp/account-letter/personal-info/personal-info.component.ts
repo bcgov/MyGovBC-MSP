@@ -46,7 +46,7 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent implements
     @ViewChild('birthDate') birthdate: MspBirthDateComponent;
     @ViewChild('specificMember') specificMember: SpecificMemberComponent;
     captchaApiBaseUrl: string;
-
+    showError:boolean = false;
     Address: typeof Address = Address;
 
     langStatus = require('../../common/enrollmentMember/i18n');
