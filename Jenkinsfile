@@ -8,7 +8,7 @@ def TAG_NAMES = ['dev', 'test']
 def TAG_NAMES_BACKUP = ['devbackup', 'testbackup']
 
 // You shouldn't have to edit these if you're following the conventions
-def NGINX_BUILD_CONFIG = 'nginx-account-letter'
+def NGINX_BUILD_CONFIG = 'nginx-runtime-account-letter'
 def BUILD_CONFIG = APP_NAME + '-build'
 def IMAGESTREAM_NAME = APP_NAME 
 
