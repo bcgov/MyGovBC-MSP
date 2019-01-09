@@ -1,5 +1,5 @@
 // Edit your app's name below
-def APP_NAME = 'msp'
+def APP_NAME = 'msp-account-letter'
 
 def CHAINED_ANGULAR_BUILD = APP_NAME + '-build-angular-app-build'
 
@@ -8,7 +8,7 @@ def TAG_NAMES = ['dev', 'test']
 def TAG_NAMES_BACKUP = ['devbackup', 'testbackup']
 
 // You shouldn't have to edit these if you're following the conventions
-def NGINX_BUILD_CONFIG = 'nginx-runtime'
+def NGINX_BUILD_CONFIG = 'nginx-account-letter'
 def BUILD_CONFIG = APP_NAME + '-build'
 def IMAGESTREAM_NAME = APP_NAME 
 
