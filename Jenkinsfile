@@ -1,7 +1,7 @@
 // Edit your app's name below
 def APP_NAME = 'msp-account-letter'
 
-def CHAINED_ANGULAR_BUILD = APP_NAME + '-build-angular-app-build'
+def CHAINED_ANGULAR_BUILD = 'msp-account-letter-build-angular-app'
 
 // Edit your environment TAG names below
 def TAG_NAMES = ['dev', 'test']
