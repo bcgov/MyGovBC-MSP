@@ -67,19 +67,25 @@ export class MspACLService extends AbstractHttpService {
 		to.AclTransactionId = from.uuid;
         to.RequesterPostalCode  = from.postalCode;
         to.RequesterPHN = from.applicant.previous_phn;
-        to.RequesterBirthdate = from.applicant.dob_month+'-'+from.applicant.dob_day+'-'+from.applicant.dob_year;
 
-        if(from.applicant.enrollmentMember == '0') {
-            to.LetterSelection = 'M';
-        } else if(from.applicant.enrollmentMember == '1') {
-            to.LetterSelection = 'A';
-        } else if(from.applicant.enrollmentMember == '2') {
-            to.LetterSelection = 'S';
-            to.SpecificPHN = from.applicant.specificMember_phn;
+        to.RequesterBirthdate = from.applicant.dob.format(this.ISO8601DateFormat); ;
+
+        switch (from.applicant.enrollmentMember ) {
+            case '0' :
+                to.LetterSelection = 'M';
+                break;
+            case '1' :
+                to.LetterSelection = 'A';
+                break;
+            case '2' :
+                to.LetterSelection = 'S';
+                to.SpecificPHN = from.applicant.specificMember_phn;
+                break;
         }
 
         to.Valid = 'Y';
         console.log(from);
         return to;
     }
+    readonly ISO8601DateFormat = 'YYYY-MM-DD';
 }
