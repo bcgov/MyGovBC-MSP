@@ -86,6 +86,7 @@ import { MspComponent } from './msp.component';
 import { CompletenessCheckService } from './service/completeness-check.service';
 import { MspLogService } from './service/log.service';
 import { MspApiService } from './service/msp-api.service';
+import { MspACLService } from './service/msp-acl-api.service';
 import { MspLog2Service } from './service/log2.service';
 import { MspDataService } from './service/msp-data.service';
 import { MspValidationService } from './service/msp-validation.service';
@@ -404,6 +405,7 @@ const APP_ROUTES: Routes = [
 	MspMaintenanceService,
         CompletenessCheckService,
         MspApiService,
+        MspACLService,
         MspLogService,
         MspLog2Service,
         ProcessService,

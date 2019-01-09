@@ -1,7 +1,6 @@
 <div *ngIf="transmissionInProcess" class="center-block" role="alert" aria-live="assertive">
     <h3><b> {{ lang('./en/index.js').pageTitle }} </b></h3>
     <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-
     <span class="sr-only">Submitting your application...</span>
       <p class="intro" [innerHtml]="lang('./en/index.js').transmissionInProgressMessage">
     </p>
@@ -12,20 +11,15 @@
 
 <div class="row" *ngIf="!transmissionInProcess && hasError" role="alert" aria-live="assertive">
   <div class="col-sm-12 col-lg-10">
-    <h3><b> {{ spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true' ? lang('./en/index.js').systemMaintenanceTitle : lang('./en/index.js').pageTitle }} </b></h3>
-    <div *ngIf="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true'">
-      <p><strong>{{spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE}}</strong>
-    </div>
-    
-    <h3 [innerHtml]="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true' ? lang('./en/index.js').instructionForUserOnMaintenanceLine1 : lang('./en/index.js').instructionForUserOnErrorLine1"></h3>
-    <div *ngIf="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG != 'true'">
-      <div style="font-size: 12px">
+    <h2><b> {{lang('./en/index.js').pageTitle }} </b></h2>
+     <h2 [innerHtml]="lang('./en/index.js').instructionForUserOnErrorLine1"></h2>
+      <div style="font-size: 13 px">
         <div *ngIf="!hasError" class="alert alert-info" role="alert">
             <h2 >
                 {{this.rawError.message}}
             </h2>
         </div>
-        <div *ngIf="hasError" class="alert alert-info col-lg-9" role="alert">
+        <div *ngIf="hasError" class="alert alert-info col-lg-10" role="alert">
             <h4 [innerHtml]="lang('./en/index.js').systemErrorText"></h4>
             <ul>
                 <li> 
@@ -38,7 +32,7 @@
       </div>
       
       <h3 [innerHtml]="lang('./en/index.js').instructionForUserOnErrorLine2"></h3>
-    </div>
+    
   </div>
 </div>
 
