@@ -40,9 +40,8 @@
                        [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
                 <input [(ngModel)]='accountLetterApplication.postalCode' type="text" class="form-control to-upper"
                        id="residentialAddressPostalCode{{objectId}}" name="residentialAddressPostalCode"
-                       #residentialAddressPostalCodeRef="ngModel" required tabindex="0"
-                       (onChange)="saveApplication($event);"
-                       [pattern]="Address.PostalCodeBCRegEx">
+                       #residentialAddressPostalCodeRef="ngModel" required tabindex="0" maxlength="8"
+                       (onChange)="saveApplication($event);">
                 <div *ngIf='residentialAddressPostalCodeRef.touched || showError'
                      role="alert" aria-live="assertive">
                     <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.required"

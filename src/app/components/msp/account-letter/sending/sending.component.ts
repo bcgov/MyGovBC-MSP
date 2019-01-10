@@ -60,9 +60,9 @@ export class AccountLetterSendingComponent implements AfterContentInit {
     
     this.logService.log({name: 'ACL application submitting request'},"ACL : Submission Request");
     
-    this.accountLetterModel = this.aclService.convertAccountLetterApp(this.application);
+   // this.accountLetterModel = this.aclService.convertAccountLetterApp(this.application);
     this.aclService
-      .sendAccountLetterApp(JSON.parse(JSON.stringify(this.accountLetterModel)), this.application.uuid)
+      .sendAccountLetterApp(this.application, this.application.uuid)
       .subscribe(response => {
 
         // When the server is down or any other system failure

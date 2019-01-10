@@ -28,7 +28,9 @@ export class MspACLService extends AbstractHttpService {
         super(http);  
     }
 
-    sendAccountLetterApp(AccountLetterJsonResponse: AccountLetterType, uuid: string): Observable<AccountLetterType> {
+    sendAccountLetterApp(accountLetterApplication: AccountLetterApplication, uuid: string): Observable<AccountLetterType> {
+        console.log(accountLetterApplication);
+        const AccountLetterJsonResponse = this.convertAccountLetterApp(accountLetterApplication); 
         const url = environment.appConstants['apiBaseUrl']
                 + '/MSPDESubmitApplication/' + uuid;
                 + '?programArea=accountLetter';
@@ -62,10 +64,10 @@ export class MspACLService extends AbstractHttpService {
 
 
     // Added by Abhi This method is used to convert the response from user into a JSOn object
-    public convertAccountLetterApp(from: AccountLetterApplication): AccountLetterType {
+    private convertAccountLetterApp(from: AccountLetterApplication): AccountLetterType {
         const to = AccountLetterApplicantTypeFactory.make();
-		to.AclTransactionId = from.uuid;
-        to.RequesterPostalCode  = from.postalCode;
+        to.AclTransactionId = from.uuid;
+        to.RequesterPostalCode  = from.postalCode.toUpperCase().replace(' ', '');;
         to.RequesterPHN = from.applicant.previous_phn;
         to.RequesterBirthdate = from.applicant.dob_month+'-'+from.applicant.dob_day+'-'+from.applicant.dob_year;
 
