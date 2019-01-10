@@ -5,7 +5,6 @@ import { environment } from '../../../../environments/environment';
 import { AccountChangeAccountHolderFactory, AccountChangeAccountHolderType, AccountChangeApplicationTypeFactory, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from '../api-model/accountChangeTypes';
 import { ApplicationTypeFactory, AttachmentType, AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory, DocumentFactory, _ApplicationTypeNameSpace, document } from '../api-model/applicationTypes';
 import { AssistanceApplicantTypeFactory, AssistanceApplicationTypeFactory, AssistanceSpouseTypeFactory, FinancialsType, FinancialsTypeFactory } from '../api-model/assistanceTypes';
-import { AccountLetterApplicantTypeFactory, AccountLetterType,  } from '../api-model/accountLetterTypes';
 import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../api-model/commonTypes';
 import { DependentType, DependentTypeFactory, EnrolmentApplicantTypeFactory, EnrolmentApplicationTypeFactory, EnrolmentChildrenTypeFactory, EnrolmentDependentsTypeFactory, LivedInBCTypeFactory, OutsideBCTypeFactory, PersonType, PersonTypeFactory, PreviousCoverageTypeFactory, ResidencyType, ResidencyTypeFactory, WillBeAwayTypeFactory } from '../api-model/enrolmentTypes';
 import { ResponseType } from '../api-model/responseTypes';
@@ -23,13 +22,12 @@ import ISO_8601 = moment.ISO_8601;
 import { MspMaintenanceService } from "../service/msp-maintenance.service";
 import { Http, Response } from '@angular/http';
 import {ISpaEnvResponse} from '../model/spa-env-response.interface';
-import { AccountLetterApplication } from '../model/account-letter-application.model';
 
 
 const jxon = require('jxon/jxon');
 
 @Injectable()
-export class MspApiService  {
+export class MspApiService {
 
     constructor(private http: HttpClient, private logService: MspLogService, private maintenanceService: MspMaintenanceService) {
     }
@@ -51,52 +49,27 @@ export class MspApiService  {
 
                         console.log('Start sending...');
                         let documentModel: document;
-                        let accountLetterModel : AccountLetterType;
-                        
                         if (app instanceof MspApplication) {
                             documentModel = this.convertMspApplication(app);
                         } else if (app instanceof FinancialAssistApplication) {
                             documentModel = this.convertAssistance(app);
                         } else if (app instanceof MspAccountApp) {
                             documentModel = this.convertMspAccountApp(app);
-                        } else if (app instanceof AccountLetterApplication) {
-                            accountLetterModel = this.convertAccountLetterApp(app);
-                            console.log(app);
-                            console.log(app.uuid);
                         } else {
                             throw new Error('Unknown document type');
                         }
-                        console.log(app.authorizationToken);
+
                         // Check for authorization token
-                        if ((app.authorizationToken == undefined) || app.authorizationToken == null ) {
-                            console.log(app.authorizationToken);
+                        if (app.authorizationToken == null ||
+                            app.authorizationToken.length < 1) {
                             throw new Error('Missing authorization token.');
                         }
 
-
                         // second convert to XML
-                        //const convertedAppXml = this.toXmlString(documentModel);
-                        const convertedAppXml  = JSON.stringify(accountLetterModel); 
-                        //console.log(convertedAppXml1);
-                        console.log(convertedAppXml);
-                        if (app instanceof AccountLetterApplication) {
-                            return this.sendAccountLetterApp(app.authorizationToken,convertedAppXml,app.uuid).then(
-                                (response: ResponseType) => {
-                                    console.log('sent application resolved');
-                                    // Add reference number
-                                    //app.referenceNumber = response.referenceNumber.toString();
+                        const convertedAppXml = this.toXmlString(documentModel);
 
-                                    // Let our caller know were done passing back the application
-                                    return resolve(app);
-                                },
-                                (error: Response | any) => {
-                                    return reject(error);
-                                }
-                            );
-                       
-                        } else {
-                           // if no errors, then we'll sendApplication all attachments
-                            return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
+                        // if no errors, then we'll sendApplication all attachments
+                        return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
 
                             // once all attachments are done we can sendApplication in the data
                             return this.sendDocument(app.authorizationToken, documentModel, convertedAppXml).then(
@@ -121,10 +94,10 @@ export class MspApiService  {
                                 }, 'Attachment - Send All Rejected ');
                                 return reject(error);
                             });
-                    } // end of else for appinstance
-                } // end of else for maintenanceapi if   
-            }); // end of the return maintenance api
-        } catch (error) {
+                    } // end of else
+
+                }); // end of the return maintenance api
+            } catch (error) {
                 this.logService.log({
                     text: 'Application - Send Failure ',
                     exception: error,
@@ -133,7 +106,6 @@ export class MspApiService  {
                 return reject(error);
             }
         });
-    
     }
 
 
@@ -297,59 +269,6 @@ export class MspApiService  {
                         text: 'Application - XML Send Error ',
                         response: error,
                     }, 'Application - XML Send Error ');
-                    console.log('full error: ', error);
-                    return reject(error);
-                });
-        });
-    }
-
-    /**
-     * Sends the application XML, last step in overall transaction
-     * @param document
-     * @returns {Promise<ResponseType>}
-     */
-    private sendAccountLetterApp(token: string, AccountLetterJsonResponse: string, uuid: string): Promise<ResponseType> {
-        return new Promise<ResponseType>((resolve, reject) => {
-            /*
-             Create URL
-             /{applicationUUID}
-             */
-            const url = environment.appConstants['apiBaseUrl']
-                + '/MSPDESubmitApplication/' + uuid
-                + '?programArea=accountLetter';
-
-            // Setup headers
-            const headers = new HttpHeaders({
-                'Content-Type': 'application/json',
-                'Response-Type': 'application/json',
-                'X-Authorization': 'Bearer ' + token,
-            });
-            const options = {headers: headers, responseType: 'text' as 'text'};
-
-
-            return this.http.post(url, AccountLetterJsonResponse, options)
-                .toPromise()
-                .then((response) => {
-                    console.log('Sent application resolved');
-                    return resolve(this.convertResponse(AccountLetterJsonResponse));
-                },
-				(error: Response | any) => {
-                        console.log('ACL error response in its origin form: ', error);
-                        this.logService.log({
-                            text: 'ACL - Send Error ',
-                            response: error,
-                        }, 'ACL - Send Error ');
-                        return reject(error);
-                    }
-				
-				)
-                .catch((error) => {
-                    console.log('ACL - JSON  error response in its origin form: ', error);
-                        
-                    this.logService.log({
-                        text: 'ACL - JSON Send Error ',
-                        response: error,
-                    }, 'ACL - XML Send Error ');
                     console.log('full error: ', error);
                     return reject(error);
                 });
@@ -692,28 +611,6 @@ export class MspApiService  {
         if (from.spouseDSPAmount_line125 != null) to.disabilitySavingsPlan = from.spouseDSPAmount_line125;
 
 
-        return to;
-    }
-
-    // Added by Abhi This method is used to convert the response from user into a JSOn object
-    private convertAccountLetterApp(from: AccountLetterApplication): AccountLetterType {
-        const to = AccountLetterApplicantTypeFactory.make();
-		to.AclTransactionId = from.uuid;
-        to.RequesterPostalCode  = from.postalCode;
-        to.RequesterPHN = from.applicant.previous_phn;
-        to.RequesterBirthdate = from.applicant.dob_month+'-'+from.applicant.dob_day+'-'+from.applicant.dob_year;
-
-        if(from.applicant.enrollmentMember == '0') {
-            to.LetterSelection = 'M';
-        } else if(from.applicant.enrollmentMember == '1') {
-            to.LetterSelection = 'A';
-        } else if(from.applicant.enrollmentMember == '2') {
-            to.LetterSelection = 'S';
-            to.SpecificPHN = from.applicant.specificMember_phn;
-        } 
-
-        to.Valid = 'Y';
-        console.log(from);
         return to;
     }
 
