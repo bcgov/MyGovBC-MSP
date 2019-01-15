@@ -18,6 +18,7 @@ export class MspPhnComponent extends BaseComponent {
 
   @Input() required: boolean = false;
   @Input() phnLabel: string = this.lang('./en/index.js').phnLabel;
+  @Input() inputMask: string ;
   @Input() phn: string;
   @Output() phnChange = new EventEmitter<string>();
   @Input() bcPhn: boolean = false;

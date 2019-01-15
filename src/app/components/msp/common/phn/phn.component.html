@@ -11,7 +11,7 @@
                [required]="required"
                [(mod11Check)]="bcPhn"
                id='phn{{objectId}}' name='phn' #phnRef="ngModel"
-               class="form-control">
+               class="form-control" placeholder="{{inputMask}}">
         <div *ngIf="isForAccountChange"  style="font-size: smaller" [innerHTML]="lang('./en/index.js').phnLabelMsgForAccount"></div>
           
           <div *ngIf='phnRef.touched || showError || !isUnique()' role="alert" aria-live="assertive">

@@ -5,11 +5,13 @@ module.exports = {
   postalCodeLabel: 'Postal Code',
   MSPEnrollment:'Whose MSP enrolment information should be included in the MSP Account Confirmation Letter?',
   buttonLabel:'Request Confirmation',
-  postalCodeLabel: 'Postal or zip code',
+  postalCodeLabel: 'Mailing Postal Code',
   postalCodeErrorIsRequired: 'Postal or zip code is required',
   phnErrorIsRequired: 'PHN is required',
   phnErrorPattern: 'PHN must be a valid Health Number',
   postalCodeErrorPattern: 'Postal code must be a valid BC postal code',
   completesAllHighlightedFields: 'Please complete all highlighted fields on this page and try to continue to next page.',
-  consentProcessName: 'ACL'
+  consentProcessName: 'ACL',
+  phnPlaceHolder: '1111 111 111',
+  phnlabel:'Personal Health Number'
 }

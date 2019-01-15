@@ -16,5 +16,8 @@ module.exports = {
   
   consentProcessName: 'ACL',
 
-  confirmation: 'Request Confirmation'
+  confirmation: 'Request Confirmation',
+  
+  phnPlaceHolder: '1111 111 111',
+  phnlabel:'Personal Health Number'
 }

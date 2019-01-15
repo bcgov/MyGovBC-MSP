@@ -1,3 +1,3 @@
 module.exports = {
-  serviceName: 'Apply for ACL'
+  serviceName: 'Medical Services Plan (MSP)'
 }

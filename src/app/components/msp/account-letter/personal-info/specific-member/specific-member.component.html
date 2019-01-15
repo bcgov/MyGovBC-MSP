@@ -11,7 +11,9 @@
   </div>
   <div *ngIf="person.enrollmentMember == '2'">
     <h2>Specific Member Information</h2>
+    <hr>
     <h4>Please provide additional information for the specific member</h4>
+    
     <div class="row">
       <div class="card panel-default col-md-6">
         <div class="card-body">
@@ -21,6 +23,8 @@
                    [required]="true"
                    [bcPhn]="true"
                    [showError]="showError"
+                   [inputMask] ="lang('./en/index.js').phnPlaceHolder"
+                   [phnLabel]="lang('./en/index.js').phnlabel"
           >
           </msp-phn>
 

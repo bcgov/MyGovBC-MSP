@@ -24,24 +24,36 @@
                          (onChange)="saveApplication($event);"
                          [bcPhn]="true"
                          [required]="true"
-                         [showError]="showError">
+                         [showError]="showError"
+                         [inputMask] ="lang('./en/index.js').phnPlaceHolder"
+                         [phnLabel]="lang('./en/index.js').phnlabel">
                 </msp-phn>
 
 
-                <msp-birthdate
+              <!--  <msp-birthdate
                         #birthDate
-                        [person]="applicant"
+                        id="acl_dob"
                         (onChange)="saveApplication($event);"
-                        [showError]="showError">
+                        [showError]="showError"
+                        [(person)]="applicant">
                 </msp-birthdate>
-
+                -->
+               <acl-birthdate
+                        #birthDate
+                        id="acl_dob"
+                        [useCurrentDate]="false"
+                        [(date)]="applicant.dateOfBirth"
+                        [restrictDate]="'past'"
+                        [label]="'Birthdate'">
+                </acl-birthdate>
+                
 
                 <label for="residentialAddressPostalCode{{objectId}}"
                        [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
                 <input [(ngModel)]='accountLetterApplication.postalCode' type="text" class="form-control to-upper"
                        id="residentialAddressPostalCode{{objectId}}" name="residentialAddressPostalCode"
                        #residentialAddressPostalCodeRef="ngModel" required tabindex="0" maxlength="8"
-                       (onChange)="saveApplication($event);">
+                       (onChange)="saveApplication($event);" placeholder="A1A 1A1">
                 <div *ngIf='residentialAddressPostalCodeRef.touched || showError'
                      role="alert" aria-live="assertive">
                     <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.required"

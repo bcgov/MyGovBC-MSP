@@ -59,6 +59,8 @@ class Person implements IPerson {
     }
 
     public adoptedDate: SimpleDate;
+    public dateOfBirth: SimpleDate = { year: null, month: null, day: null };
+
 
     get operationActionType(): OperationActionType {
         return this._operationActionType;
