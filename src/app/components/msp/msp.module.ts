@@ -47,7 +47,7 @@ import { MspAddressComponent } from './common/address/address.component';
 import { MspArrivalDateComponent } from './common/arrival-date/arrival-date.component';
 import { MspBirthDateComponent } from './common/birthdate/birthdate.component';
 import { ACLDateComponent } from './common/acl-birthdate/date.component';
-
+import { TextMaskModule } from 'angular2-text-mask';
 import { CalendarDayValidator } from './common/calendar/calendar-day.validator';
 import { CalendarMonthValidator } from './common/calendar/calendar-month.validator';
 import { CalendarYearFormatter } from './common/calendar/calendar-year-formatter.component';
@@ -294,6 +294,7 @@ const APP_ROUTES: Routes = [
         ModalModule,
         AccordionModule,
         HttpClientModule,
+        TextMaskModule,
         RouterModule.forChild(APP_ROUTES),
         TypeaheadModule.forRoot(),
         LocalStorageModule.withConfig({

@@ -24,12 +24,12 @@ export class Mod11CheckValidator implements Validator {
   validate(control: FormControl): {[key: string]: boolean; }  {
 
     // Get value out of control
-    const phn = control.value;
+    const phn = control.value.replace(/\s/g, '');
 
     // pre req checks
     if (phn == null ||
       phn.length < 1) return null;
-
+    
     if (this.validationService.validatePHN(phn, this.bcPhn)) {
       // return null for no errors
       return null;

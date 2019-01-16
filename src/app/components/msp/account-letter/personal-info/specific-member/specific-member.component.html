@@ -23,8 +23,10 @@
                    [required]="true"
                    [bcPhn]="true"
                    [showError]="showError"
-                   [inputMask] ="lang('./en/index.js').phnPlaceHolder"
+                   [placeholder] ="lang('./en/index.js').phnPlaceHolder"
                    [phnLabel]="lang('./en/index.js').phnlabel"
+                   [textMask]="{mask: mask}"
+                   [isACL]="true"
           >
           </msp-phn>
 

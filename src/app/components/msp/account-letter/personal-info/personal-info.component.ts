@@ -28,6 +28,7 @@ import {
 } from '../../model/status-activities-documents';
 import {environment} from '../../../../../environments/environment';
 import {SpecificMemberComponent} from "./specific-member/specific-member.component";
+import {LETTER, Masking, NUMBER, SPACE} from '../../model/masking.model';
 
 @Component({
     templateUrl: './personal-info.component.html',
@@ -35,7 +36,7 @@ import {SpecificMemberComponent} from "./specific-member/specific-member.compone
 })
 
 @Injectable()
-export class AccountLetterPersonalInfoComponent extends BaseComponent implements OnInit {
+export class AccountLetterPersonalInfoComponent extends Masking  implements OnInit {
     static ProcessStepNum = 0;
     lang = require('./i18n');
 
@@ -48,6 +49,8 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent implements
     captchaApiBaseUrl: string;
     showError:boolean = false;
     Address: typeof Address = Address;
+    public mask = [LETTER, NUMBER, LETTER, SPACE, NUMBER, LETTER, NUMBER];
+    public regex: RegExp = /^[A-Za-z][0-9][A-Za-z]\s?[0-9][A-Za-z][0-9]$/;
 
     langStatus = require('../../common/enrollmentMember/i18n');
 
@@ -113,4 +116,6 @@ export class AccountLetterPersonalInfoComponent extends BaseComponent implements
     isValid(): boolean {
        return this.applicant.enrollmentMember != undefined && this.accountLetterApplication.isUniquePhns;
     }
+
+    
 }

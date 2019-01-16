@@ -1,6 +1,8 @@
 module.exports = {
   phnLabel: 'Personal Health Number (PHN)',
   phnErrorRequired: 'PHN is required',
+  phnAclErrorMod11Check: 'Personal Health Number is invalid',
+  phnAclErrorRequired: 'Personal Health Number is required',
   phnErrorMinLength: 'PHN must be at least 10 characters long',
   phnErrorMod11Check: 'PHN is not valid',
   phnErrorBCPhn: 'PHN is not from B.C.',

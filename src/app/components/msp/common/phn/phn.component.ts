@@ -7,18 +7,19 @@ import { MspApplication, Person } from '../../model/application.model';
 import { FinancialAssistApplication } from '../../model/financial-assist-application.model';
 import { Router } from '@angular/router';
 import {debounceTime} from "rxjs/operators";
+import {Masking, NUMBER, SPACE} from '../../../msp/model/masking.model';
 
 @Component({
   selector: 'msp-phn',
   templateUrl: './phn.component.html',
 })
 
-export class MspPhnComponent extends BaseComponent {
+export class MspPhnComponent extends Masking {
   lang = require('./i18n');
 
   @Input() required: boolean = false;
   @Input() phnLabel: string = this.lang('./en/index.js').phnLabel;
-  @Input() inputMask: string ;
+  @Input() placeholder: string ;
   @Input() phn: string;
   @Output() phnChange = new EventEmitter<string>();
   @Input() bcPhn: boolean = false;
@@ -28,6 +29,11 @@ export class MspPhnComponent extends BaseComponent {
   @ViewChild('phnRef') phnRef: ElementRef;
   @ViewChild('phnfocus') phnFocus: ElementRef;
   @Input() isForAccountChange: boolean = false;
+  @Input() isACL: boolean = false;
+  
+  // Input Masking 
+  public mask ; //= [NUMBER, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER];
+  
 
   //@Input() isPhnDuplicate: boolean = false;
 
@@ -43,6 +49,9 @@ export class MspPhnComponent extends BaseComponent {
     this.form.valueChanges.pipe(debounceTime(0)).subscribe((values) => {
       this.onChange.emit(values);
     });
+    if(this.isACL) {
+      this.mask = [NUMBER, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER];
+    }
   }
 
   setPhn(value: string){
