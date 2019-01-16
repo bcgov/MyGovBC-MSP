@@ -30,77 +30,77 @@
                 </msp-phn>
 
 
-              <!--  <msp-birthdate
+              <msp-birthdate [isACL]="true"
                         #birthDate
                         id="acl_dob"
                         (onChange)="saveApplication($event);"
                         [showError]="showError"
                         [(person)]="applicant">
                 </msp-birthdate>
-                -->
-               <acl-birthdate
-                        #birthDate
-                        id="acl_dob"
-                        [useCurrentDate]="false"
-                        [(date)]="applicant.dateOfBirth"
-                        [restrictDate]="'past'"
-                        [label]="'Birthdate'">
-                </acl-birthdate>
-                
 
-                <label for="residentialAddressPostalCode{{objectId}}"
-                       [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
-                <input [(ngModel)]='accountLetterApplication.postalCode' type="text" class="form-control to-upper"
-                       id="residentialAddressPostalCode{{objectId}}" name="residentialAddressPostalCode"
-                       #residentialAddressPostalCodeRef="ngModel" required tabindex="0" maxlength="8"
-                       (onChange)="saveApplication($event);" placeholder="A1A 1A1">
-                <div *ngIf='residentialAddressPostalCodeRef.touched || showError'
-                     role="alert" aria-live="assertive">
-                    <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.required"
-                         [innerHtml]="lang('./en/index.js').postalCodeErrorIsRequired"></div>
-                    <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.pattern"
-                         [innerHtml]="lang('./en/index.js').postalCodeErrorPattern"></div>
-                </div>
-
-            </div>
-
-        </div>
-        <hr>
-
-    <msp-specific-member [person]="applicant" #specificMember (onStatusChange)="setStatus($event);" (onChange)="saveApplication($event);"> </msp-specific-member>
+                <!--    <acl-birthdate
+                             #birthDate
+                             id="acl_dob"
+                             [useCurrentDate]="false"
+                             [(date)]="applicant.dateOfBirth"
+                             [restrictDate]="'past'"
+                             [label]="'Birthdate'">
+                     </acl-birthdate>-->
 
 
-    <!--    <label [innerHTML]="lang('./en/index.js').MSPEnrollment"></label>
+                     <label for="residentialAddressPostalCode{{objectId}}"
+                            [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
+                     <input [(ngModel)]='accountLetterApplication.postalCode' type="text" class="form-control to-upper"
+                            id="residentialAddressPostalCode{{objectId}}" name="residentialAddressPostalCode"
+                            #residentialAddressPostalCodeRef="ngModel" required tabindex="0" maxlength="8"
+                            (onChange)="saveApplication($event);" placeholder="A1A 1A1">
+                     <div *ngIf='residentialAddressPostalCodeRef.touched || showError'
+                          role="alert" aria-live="assertive">
+                         <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.required"
+                              [innerHtml]="lang('./en/index.js').postalCodeErrorIsRequired"></div>
+                         <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.pattern"
+                              [innerHtml]="lang('./en/index.js').postalCodeErrorPattern"></div>
+                     </div>
 
-        <div class="form-check" *ngFor="let st of MSPEnrollementMember">
-            <input class='form-check-input' type="radio" name="MSPEnrollementMember-{{id}}" id="st{{st}}-{{id}}"
-                   (click)="setStatus(st);"
-                   [checked]="st === accountLetterApplication.enrollmentMember" tabindex="0">
-            <label class='form-check-label' for="st{{st}}-{{id}}">
-                {{langStatus('./en/index.js')[st]}}
-            </label>
-        </div>
+                 </div>
+
+             </div>
+             <hr>
+
+         <msp-specific-member [person]="applicant" #specificMember (onStatusChange)="setStatus($event);" (onChange)="saveApplication($event);"> </msp-specific-member>
 
 
-        <div *ngIf="accountLetterApplication.showSpecificMember">
-            <h2>Specific Member Information</h2>
-            <h4>Please provide additional information for the specific member</h4>
-            <div class="row">
-                <div class="card panel-default col-md-6">
-                    <div class="card-body">
-                        <msp-phn #addtionalMemberphn [phn]="applicant.specificMember_phn"
-                                 (phnChange)="applicant.specificMember_phn = $event"
-                                 (onChange)="saveApplication($event);"
-                                 [required]="true"
-                                 [bcPhn]="true"
-                                 [showError]="showError"
-                        >
-                        </msp-phn>
+         <!--    <label [innerHTML]="lang('./en/index.js').MSPEnrollment"></label>
 
-                    </div>
-                </div>
-            </div>
-        </div>-->
+             <div class="form-check" *ngFor="let st of MSPEnrollementMember">
+                 <input class='form-check-input' type="radio" name="MSPEnrollementMember-{{id}}" id="st{{st}}-{{id}}"
+                        (click)="setStatus(st);"
+                        [checked]="st === accountLetterApplication.enrollmentMember" tabindex="0">
+                 <label class='form-check-label' for="st{{st}}-{{id}}">
+                     {{langStatus('./en/index.js')[st]}}
+                 </label>
+             </div>
+
+
+             <div *ngIf="accountLetterApplication.showSpecificMember">
+                 <h2>Specific Member Information</h2>
+                 <h4>Please provide additional information for the specific member</h4>
+                 <div class="row">
+                     <div class="card panel-default col-md-6">
+                         <div class="card-body">
+                             <msp-phn #addtionalMemberphn [phn]="applicant.specificMember_phn"
+                                      (phnChange)="applicant.specificMember_phn = $event"
+                                      (onChange)="saveApplication($event);"
+                                      [required]="true"
+                                      [bcPhn]="true"
+                                      [showError]="showError"
+                             >
+                             </msp-phn>
+
+                         </div>
+                     </div>
+                 </div>
+             </div>-->
         <br/>
 
 
