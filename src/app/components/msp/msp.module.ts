@@ -253,6 +253,7 @@ const APP_ROUTES: Routes = [
             {
                 path: 'account-letter',
                 component: AccountLetterComponent,
+                data: { title: 'MSP Account Confirmation Letter' },
                 children: [
                     {
                         path: '',

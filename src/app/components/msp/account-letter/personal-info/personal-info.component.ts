@@ -60,13 +60,16 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
                 private _router: Router,
                 private cd: ChangeDetectorRef) {
         super(cd);
+        console.log(this.applicant);
+       
 
     }
 
     ngOnInit() {
         this.initProcessMembers(AccountLetterPersonalInfoComponent.ProcessStepNum, this._processService);
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
-
+        this.accountLetterApplication.authorizationToken = null;
+       
     }
 
     saveApplication(values: any) {
