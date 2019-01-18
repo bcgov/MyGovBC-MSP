@@ -50,6 +50,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     showError:boolean = false;
     Address: typeof Address = Address;
     public mask = [LETTER, NUMBER, LETTER, SPACE, NUMBER, LETTER, NUMBER];
+    public phnMask = [NUMBER, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER];
     public regex: RegExp = /^[A-Za-z][0-9][A-Za-z]\s?[0-9][A-Za-z][0-9]$/;
 
     langStatus = require('../../common/enrollmentMember/i18n');

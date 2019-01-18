@@ -12,7 +12,7 @@
                [required]="required"
                [(mod11Check)]="bcPhn"
                id='phn{{objectId}}' name='phn' #phnRef="ngModel"
-               class="form-control" placeholder="{{placeholder}}" [textMask]="{mask: mask}">
+               class="form-control" placeholder="{{placeholder}}" [textMask]="{mask: phnTextmask}">
 
         <div *ngIf="isForAccountChange"  style="font-size: smaller" [innerHTML]="lang('./en/index.js').phnLabelMsgForAccount"></div>
           

@@ -19,25 +19,17 @@ export class SpecificMemberComponent extends Masking {
     @ViewChild('addtionalMemberphn') phn: MspPhnComponent;
     @Input() isACL: boolean = false;
 
-    public mask ;
-
-
+   // public mask;
+    public phnMask = [NUMBER, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER];
+    
+   
     lang = require('./i18n');
     langStatus = require('../../../common/enrollmentMember/i18n');
 
     constructor(cd: ChangeDetectorRef) {
         super(cd);
     }
-
-    ngAfterViewInit(): void {
-        //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-        //Add 'implements OnInit' to the class.
-        if(this.isACL) {
-            this.mask = [NUMBER, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER];
-        }
-        
-    }
-
+    
     get MSPEnrollementMember(): MSPEnrollementMember[] {
         return EnrollmentStatusRules.availableStatus();
     }

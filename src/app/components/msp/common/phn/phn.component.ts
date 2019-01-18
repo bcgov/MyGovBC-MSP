@@ -30,7 +30,8 @@ export class MspPhnComponent extends Masking {
   @ViewChild('phnfocus') phnFocus: ElementRef;
   @Input() isForAccountChange: boolean = false;
   @Input() isACL: boolean = false;
-  
+  @Input() phnTextmask: Array<any>;
+
   // Input Masking 
   public mask ; //= [NUMBER, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER];
   
@@ -43,21 +44,25 @@ export class MspPhnComponent extends Masking {
     super(cd);
   }
 
+  
   ngAfterViewInit(): void {
 
     // https://github.com/angular/angular/issues/24818
     this.form.valueChanges.pipe(debounceTime(0)).subscribe((values) => {
       this.onChange.emit(values);
     });
+
     if(this.isACL) {
       this.mask = [NUMBER, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER];
     }
+    
   }
 
   setPhn(value: string){
     this.phn = value;
     this.phnChange.emit(value);
   }
+
 
   isUnique(): boolean {
     //For tests, router url often isn't mocked.
