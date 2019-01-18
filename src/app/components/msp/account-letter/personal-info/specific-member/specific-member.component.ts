@@ -35,6 +35,12 @@ export class SpecificMemberComponent extends Masking {
     }
 
     setStatus(value: string) {
+        console.log(value);
+        console.log(this.person.specificMember_phn)
+        if(value != '2' && this.person.specificMember_phn != undefined) {
+            this.person.specificMember_phn = '';
+        }
+
         this.onStatusChange.emit(value);
         this.emitIsFormValid();
     }
