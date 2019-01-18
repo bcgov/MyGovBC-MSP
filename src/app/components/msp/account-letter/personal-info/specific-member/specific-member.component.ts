@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, ElementRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {EnrollmentStatusRules, MSPEnrollementMember} from "../../../model/status-activities-documents";
 import {Person} from "../../../model/person.model";
 import {AccountLetterApplication} from "../../../model/account-letter-application.model";
@@ -17,10 +17,11 @@ export class SpecificMemberComponent extends Masking {
     @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
     @Output() onStatusChange: EventEmitter<string> = new EventEmitter<string>();
     @ViewChild('addtionalMemberphn') phn: MspPhnComponent;
+    @ViewChild('phnFocus') phnFocus : ElementRef;
     @Input() isACL: boolean = false;
 
    // public mask;
-    public phnMask = [NUMBER, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER];
+    //public phnMask = [NUMBER, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER];
     
    
     lang = require('./i18n');
@@ -40,6 +41,10 @@ export class SpecificMemberComponent extends Masking {
         if(value != '2' && this.person.specificMember_phn != undefined) {
             this.person.specificMember_phn = '';
         }
+        // When the user selects specific phn 
+        /*if(value == '2'){
+            this.phn.focus();
+        }*/
 
         this.onStatusChange.emit(value);
         this.emitIsFormValid();

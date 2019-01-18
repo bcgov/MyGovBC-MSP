@@ -33,7 +33,7 @@ export class MspPhnComponent extends Masking {
   @Input() phnTextmask: Array<any>;
 
   // Input Masking 
-  public mask ; //= [NUMBER, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER];
+  public mask = [NUMBER, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER];
   
 
   //@Input() isPhnDuplicate: boolean = false;
@@ -52,10 +52,6 @@ export class MspPhnComponent extends Masking {
       this.onChange.emit(values);
     });
 
-    if(this.isACL) {
-      this.mask = [NUMBER, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER];
-    }
-    
   }
 
   setPhn(value: string){
