@@ -10,18 +10,18 @@
                 required>
             <option value=undefined disabled hidden *ngIf="isACL">month</option>
             <option value=0 *ngIf="!isACL" >&nbsp;</option>
-            <option value=1>January</option>
-            <option value=2>February</option>
-            <option value=3>March</option>
-            <option value=4>April</option>
-            <option value=5>May</option>
-            <option value=6>June</option>
-            <option value=7>July</option>
-            <option value=8>August</option>
-            <option value=9>September</option>
-            <option value=10>October</option>
-            <option value=11>November</option>
-            <option value=12>December</option>
+            <option class="form-control monthSelect" value=1>January</option>
+            <option class="form-control monthSelect" value=2>February</option>
+            <option class="form-control monthSelect" value=3>March</option>
+            <option class="form-control monthSelect" value=4>April</option>
+            <option class="form-control monthSelect" value=5>May</option>
+            <option class="form-control monthSelect" value=6>June</option>
+            <option class="form-control monthSelect" value=7>July</option>
+            <option class="form-control monthSelect" value=8>August</option>
+            <option class="form-control monthSelect" value=9>September</option>
+            <option class="form-control monthSelect" value=10>October</option>
+            <option class="form-control monthSelect" value=11>November</option>
+            <option class="form-control monthSelect" value=12>December</option>
         </select>
         <label class="visuallyhidden" for="day{{objectId}}">{{lang('./en/index.js').birthdateLabel}} {{lang('./en/index.js').dayLabel}}</label>
         <input type="number" class="form-control dayInput"

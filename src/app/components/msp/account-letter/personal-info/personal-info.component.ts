@@ -30,6 +30,7 @@ import {environment} from '../../../../../environments/environment';
 import {SpecificMemberComponent} from "./specific-member/specific-member.component";
 import {LETTER, Masking, NUMBER, SPACE} from '../../model/masking.model';
 
+
 @Component({
     templateUrl: './personal-info.component.html',
     styleUrls: ['./personal-info.component.scss']
@@ -50,7 +51,6 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     showError:boolean = false;
     Address: typeof Address = Address;
     public mask = [LETTER, NUMBER, LETTER, SPACE, NUMBER, LETTER, NUMBER];
-    //public phnMask = [NUMBER, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER];
     public regex: RegExp = /^[A-Za-z][0-9][A-Za-z]\s?[0-9][A-Za-z][0-9]$/;
 
     langStatus = require('../../common/enrollmentMember/i18n');
@@ -117,8 +117,12 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
         }
         //this.dataService.saveAccountLetterApplication();
     }
+
+    
     isValid(): boolean {
-       return this.applicant.enrollmentMember != undefined && this.accountLetterApplication.isUniquePhns;
+
+        return this.applicant.enrollmentMember != undefined && this.accountLetterApplication.isUniquePhns && (this.applicant.enrollmentMember == '2' ? this.applicant.specificMember_phn != undefined : true);
+       
     }
 
     

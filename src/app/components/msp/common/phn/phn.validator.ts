@@ -24,7 +24,7 @@ export class Mod11CheckValidator implements Validator {
   validate(control: FormControl): {[key: string]: boolean; }  {
 
     // Get value out of control
-    const phn = control.value.replace(/\s/g, '');
+    const phn =  control.value != null ? control.value.replace(/\s/g, '') : '';
 
     // pre req checks
     if (phn == null ||

@@ -50,8 +50,8 @@ export class MspConsentModalComponent {
             console.log("=====MSP Maintenance Flag==="+this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG+'----'+this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
         }, (error: Response | any) => {
             console.log('Error when calling the MSP Maintenance: '+error);
-            console.log(this.logService.log({event: 'error', key: 'Error when calling the Maintenance API'}));
-            this.logService.log({event: 'error', key: 'Error when calling the Maintenance API'});
+            //console.log(this.logService.log({event: 'error', key: 'Error when calling the Maintenance API'}));
+            //this.logService.log({event: 'error', key: 'Error when calling the Maintenance API'});
         });
     }
 }
