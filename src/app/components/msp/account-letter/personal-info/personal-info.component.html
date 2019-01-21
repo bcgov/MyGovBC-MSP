@@ -1,6 +1,5 @@
 <msp-consent-modal #mspConsentModal [application]="accountLetterApplication"
                    [processName]="lang('./en/index.js').consentProcessName"
-                   (onClose)="phn.focus()"
 >
 </msp-consent-modal>
 
@@ -18,6 +17,7 @@
 
         <div class="card panel-default col-md-6">
             <div class="card-body">
+               
                 <msp-phn #phn
                          [phn]="applicant.previous_phn"
                          (phnChange)="applicant.previous_phn = $event"
@@ -26,8 +26,7 @@
                          [required]="true"
                          [showError]="showError"
                          [placeholder] ="lang('./en/index.js').phnPlaceHolder"
-                         [phnLabel]="lang('./en/index.js').phnlabel"
-                         [isACL]="true">
+                         [phnLabel]="lang('./en/index.js').phnlabel">
                 </msp-phn>
 
 
@@ -62,40 +61,8 @@
              </div>
              <hr>
 
-         <msp-specific-member [isACL]="true" [person]="applicant" #specificMember (onStatusChange)="setStatus($event);" (onChange)="saveApplication($event);"> </msp-specific-member>
+        <msp-specific-member [isACL]="true" [person]="applicant" #specificMember (onStatusChange)="setStatus($event);" (onChange)="saveApplication($event);"> </msp-specific-member>
 
-
-         <!--    <label [innerHTML]="lang('./en/index.js').MSPEnrollment"></label>
-
-             <div class="form-check" *ngFor="let st of MSPEnrollementMember">
-                 <input class='form-check-input' type="radio" name="MSPEnrollementMember-{{id}}" id="st{{st}}-{{id}}"
-                        (click)="setStatus(st);"
-                        [checked]="st === accountLetterApplication.enrollmentMember" tabindex="0">
-                 <label class='form-check-label' for="st{{st}}-{{id}}">
-                     {{langStatus('./en/index.js')[st]}}
-                 </label>
-             </div>
-
-
-             <div *ngIf="accountLetterApplication.showSpecificMember">
-                 <h2>Specific Member Information</h2>
-                 <h4>Please provide additional information for the specific member</h4>
-                 <div class="row">
-                     <div class="card panel-default col-md-6">
-                         <div class="card-body">
-                             <msp-phn #addtionalMemberphn [phn]="applicant.specificMember_phn"
-                                      (phnChange)="applicant.specificMember_phn = $event"
-                                      (onChange)="saveApplication($event);"
-                                      [required]="true"
-                                      [bcPhn]="true"
-                                      [showError]="showError"
-                             >
-                             </msp-phn>
-
-                         </div>
-                     </div>
-                 </div>
-             </div>-->
         <br/>
 
 
