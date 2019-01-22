@@ -30,10 +30,10 @@ export class MspACLService extends AbstractHttpService {
     }
 
     sendAccountLetterApp(accountLetterApplication: AccountLetterApplication, uuid: string): Observable<AccountLetterType> {
-        console.log("Trying to hit--------------------------------");
+        console.log("Trying to hit-----MSPDESubmitApplication---------------------------");
         const accountLetterJsonResponse = this.convertAccountLetterApp(accountLetterApplication);
         const url = environment.appConstants['apiBaseUrl']
-                + '/accLetterIntegration/' + uuid;
+                + '/MSPDESubmitApplication/' + uuid;
                 + '?programArea=accountLetter';
         // Setup headers
         this._headers = new HttpHeaders({
