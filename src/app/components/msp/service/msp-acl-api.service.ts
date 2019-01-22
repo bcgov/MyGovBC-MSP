@@ -22,23 +22,31 @@ import { AccountLetterApplicantTypeFactory, AccountLetterType  } from '../api-mo
 })
 
 export class MspACLService extends AbstractHttpService {
-    
-    
+
+    protected _headers: HttpHeaders = new HttpHeaders();
+
     constructor(protected http: HttpClient, private logService: MspLogService) {
         super(http);  
     }
 
     sendAccountLetterApp(accountLetterApplication: AccountLetterApplication, uuid: string): Observable<AccountLetterType> {
-        console.log(accountLetterApplication);
-        const AccountLetterJsonResponse = this.convertAccountLetterApp(accountLetterApplication); 
+        console.log("Trying to hit--------------------------------");
+        const accountLetterJsonResponse = this.convertAccountLetterApp(accountLetterApplication);
         const url = environment.appConstants['apiBaseUrl']
-                + '/MSPDESubmitApplication/' + uuid;
+                + '/accLetterIntegration/' + uuid;
                 + '?programArea=accountLetter';
+        // Setup headers
+        this._headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Response-Type': 'application/json',
+            'X-Authorization': 'Bearer ' + accountLetterApplication.authorizationToken,
+        });
 
-        return this.post<AccountLetterType>(url, AccountLetterJsonResponse);
+        return this.post<AccountLetterType>(url, accountLetterJsonResponse );
     }
     
     protected handleError(error: HttpErrorResponse) {
+        console.log("handleError", JSON.stringify(error));
         if (error.error instanceof ErrorEvent) {
             //Client-side / network error occured
             console.error('MspMaintenanceService error: ', error.error.message);
@@ -53,14 +61,7 @@ export class MspACLService extends AbstractHttpService {
         return of(error);
     }
     
-    protected _headers: HttpHeaders = new HttpHeaders({
-        'program': 'MSP-ACL',
-        'timestamp' : moment().toISOString(),
-        'method': 'sendAccountLetterApp',
-        'severity': 'info',
-        'Content-Type': 'application/json',
-        'Response-Type': 'application/json',
-    });
+
 
 
     // Added by Abhi This method is used to convert the response from user into a JSOn object
