@@ -12,7 +12,7 @@ export class GeneralAppComponent {
   routerSubscription: Subscription;
 
   public constructor(viewContainerRef: ViewContainerRef, private router: Router) {
-      console.log('%c ACL', 'color: green; font-weight: bold;');
+      console.log('%c ACL', 'color: blue; font-weight: bold;');
     // You need this small hack in order to catch application root view container ref
     this.viewContainerRef = viewContainerRef;
   }
