@@ -6,7 +6,8 @@ enum Relationship {
   Spouse,
   ChildUnder19,
   Child19To24,
-  ChildUnder24
+  ChildUnder24,
+  AllAgeApplicant,
 }
 
 
