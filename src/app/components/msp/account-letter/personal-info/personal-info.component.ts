@@ -70,6 +70,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
         this.initProcessMembers(AccountLetterPersonalInfoComponent.ProcessStepNum, this._processService);
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
         this.accountLetterApplication.authorizationToken = null;
+        this.applicant.relationship = Relationship.AllAgeApplicant; 
        
     }
 
@@ -82,6 +83,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     }
 
     get applicant(): Person {
+        
         return this.dataService.accountLetterApp.applicant;
     }
 
