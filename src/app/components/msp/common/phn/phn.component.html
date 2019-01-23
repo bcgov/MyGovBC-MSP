@@ -18,11 +18,11 @@
           
           <div *ngIf='phnRef.touched || showError || !isUnique()' role="alert" aria-live="assertive">
             <div class="text-danger" *ngIf="phnRef.errors?.required"
-                 [innerHTML]="isACL? lang('./en/index.js').phnAclErrorRequired : lang('./en/index.js').phnErrorRequired"></div>
+                 [innerHTML]="lang('./en/index.js').phnErrorRequired"></div>
             <div class="text-danger" *ngIf="phnRef.errors?.minlength"
                  [innerHTML]="lang('./en/index.js').phnErrorMinLength"></div>
             <div class="text-danger" *ngIf="!phnRef.errors?.required && !phnRef.errors?.minlength && phnRef.errors?.mod11Check"
-                 [innerHTML]="isACL? lang('./en/index.js').phnAclErrorMod11Check : lang('./en/index.js').phnErrorMod11Check"></div>
+                 [innerHTML]="lang('./en/index.js').phnErrorMod11Check"></div>
             <div class="text-danger" *ngIf="!isUnique()"
                 [innerHTML]="lang('./en/index.js').phnErrorUnique"></div>
 
