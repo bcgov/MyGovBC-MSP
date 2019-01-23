@@ -33,7 +33,7 @@ export class MspACLService extends AbstractHttpService {
         console.log("Trying to hit---------------accLetterIntegration-----------------");
         const accountLetterJsonResponse = this.convertAccountLetterApp(accountLetterApplication);
         const url = environment.appConstants['apiBaseUrl']
-                    + '/accLetterIntegration/rest/callRapid/' + uuid;
+                    + '/accLetterIntegration/rest/callRapid';
                 + '?programArea=accountLetter';
         // Setup headers
         this._headers = new HttpHeaders({
