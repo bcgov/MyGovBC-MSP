@@ -34,7 +34,7 @@ export class MspACLService extends AbstractHttpService {
     sendAccountLetterApp(accountLetterApplication: AccountLetterApplication, uuid: string): Observable<any> {
         const accountLetterJsonResponse = this.convertAccountLetterApp(accountLetterApplication);
         const url = environment.appConstants['apiBaseUrl']
-                    + '/accLetterIntegration/callRapid';
+                    + '/accLetterIntegration/callRapid/';
 
         // Setup headers
         this._headers = new HttpHeaders({
