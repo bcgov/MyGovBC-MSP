@@ -33,7 +33,7 @@ export interface AclTransactionId {
     description: string;
 }
 
-export interface Properties {
+export interface ACLApiResponse {
     /*rapidResponse: RapidResponse;
     dberrorCode: DBErrorCode;
     dberrorMessage: DBErrorMessage;
@@ -51,7 +51,7 @@ export interface RootObject {
     $schema: string;
     title: string;
     type: string;
-    properties: Properties;
+    properties: ACLApiResponse;
 }
 
 

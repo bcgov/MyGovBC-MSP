@@ -9,7 +9,7 @@ import {ProcessService} from '../../service/process.service';
 import {ISpaEnvResponse} from '../../model/spa-env-response.interface';
 import { AccountLetterApplication } from '../../model/account-letter-application.model';
 import { AccountLetterType  } from '../../api-model/accountLetterTypes';
-import { Properties } from '../../model/account-letter-response.interface';
+import { ACLApiResponse } from '../../model/account-letter-response.interface';
 
 
 
@@ -33,7 +33,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
 
   accountLetterModel : AccountLetterType;
 
-  responseProperties : Properties; 
+  responseProperties : ACLApiResponse; 
 
   constructor(private aclService: MspACLService, private dataService: MspDataService, private processService: ProcessService,
     public router: Router, private logService: MspLogService) {
@@ -60,11 +60,11 @@ export class AccountLetterSendingComponent implements AfterContentInit {
       .sendAccountLetterApp(this.application, this.application.uuid)
       .subscribe(response => {
         console.log(response);
-        
+
         // Success response from the server
         if(!(response instanceof HttpErrorResponse)) {
           
-          this.responseProperties = <Properties> response;
+          this.responseProperties = <ACLApiResponse> response;
           
           // For DB error Code and DB error message  
           if(this.responseProperties.dberrorCode != undefined && this.responseProperties.dberrorMessage != undefined) {
