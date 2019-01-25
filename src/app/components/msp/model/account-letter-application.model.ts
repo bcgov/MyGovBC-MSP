@@ -32,15 +32,6 @@ class AccountLetterApplication implements ApplicationBase {
   regenUUID() {
     this._uuid = UUID.UUID();
 
-    /**
-     * Each image will have a uuid that starts with application uuid
-     * followed by [index]-of-[total]
-     */
-    const all = this.getAllImages();
-
-    all.forEach(image => {
-      image.uuid = UUID.UUID();
-    });
   }
   
   get applicant(): Person {

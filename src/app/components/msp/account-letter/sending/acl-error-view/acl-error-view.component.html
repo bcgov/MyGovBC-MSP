@@ -1,3 +1,28 @@
-<p>
-  acl-error-view works!
-</p>
+<div>
+<div class="row" role="alert" aria-live="assertive">
+    <div class="col-sm-12 col-lg-10">
+        <h2><b> {{lang('./en/index.js').pageTitle }} </b></h2>
+        <h2 [innerHtml]="lang('./en/index.js').instructionForUserOnErrorLine1"></h2>
+    </div>
+</div>
+<div class="row">
+
+    <div *ngIf="rapidError == undefined" class="alert alert-info col-sm-12" role="alert">
+        <h4 [innerHtml]="lang('./en/index.js').systemErrorText"></h4>
+        <ul>
+            <li>
+                <a href="javascript:void(0)" (click)="retrySubmission()"
+                   [innerHtml]="lang('./en/index.js').tryToSubmitAgain" role="button"></a>
+            </li>
+        </ul>
+        <h4 [innerHtml]="lang('./en/index.js').contactHealthInsuranceBC"></h4>
+    </div>
+
+    <div *ngIf="rapidError != undefined" class="alert alert-info col-sm-10" role="alert">
+        <h4> {{this.rawError}} </h4>
+    </div>
+
+</div>
+
+<h3 [innerHtml]="lang('./en/index.js').instructionForUserOnErrorLine2"></h3>
+</div>

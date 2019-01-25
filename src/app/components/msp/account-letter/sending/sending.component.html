@@ -2,57 +2,14 @@
     <h3><b> {{ lang('./en/index.js').pageTitle }} </b></h3>
     <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
     <span class="sr-only">Submitting your application...</span>
-      <p class="intro" [innerHtml]="lang('./en/index.js').transmissionInProgressMessage">
+    <p class="intro" [innerHtml]="lang('./en/index.js').transmissionInProgressMessage">
     </p>
 </div>
 
 <div class="h1" *ngIf="!transmissionInProcess && !hasError"
-      [innerHtml]="lang('./en/index.js').transmissionSuccess"></div>
+     [innerHtml]="lang('./en/index.js').transmissionSuccess"></div>
 
 <div class="row" *ngIf="!transmissionInProcess && hasError" role="alert" aria-live="assertive">
-  <div class="col-sm-12 col-lg-10">
-    <h2><b> {{lang('./en/index.js').pageTitle }} </b></h2>
-     <h2 [innerHtml]="lang('./en/index.js').instructionForUserOnErrorLine1"></h2>
-      <div style="font-size: 13 px">
-        <div *ngIf="!hasError" class="alert alert-info" role="alert">
-            <h2 >
-                {{this.rawError.message}}
-            </h2>
-        </div>
-        <div *ngIf="hasError">
-        
-            <div *ngIf="rawError == undefined" class="alert alert-info col-lg-10" role="alert">
-                <h4 [innerHtml]="lang('./en/index.js').systemErrorText"></h4>
-                <ul>
-                    <li> 
-                    <a href="javascript:void(0)" (click) = "retrySubmission()"[innerHtml]="lang('./en/index.js').tryToSubmitAgain" role="button"></a>
-                    </li>
-                </ul>
-                <h4  [innerHtml]="lang('./en/index.js').contactHealthInsuranceBC"></h4>
-            </div>
-
-            <div *ngIf="rawError != undefined" class="alert alert-info col-lg-10" role="alert">
-                    <h4> {{this.rawError}}  </h4>
-                    
-            </div>
-
-        </div>
-      </div>
-      
-      <h3 [innerHtml]="lang('./en/index.js').instructionForUserOnErrorLine2"></h3>
-    
-  </div>
+    <msp-acl-error-view [response]="aclApiResponse" ></msp-acl-error-view>
 </div>
 
-<div *ngIf="false">
-    <h3>Dev/Test Temporary Debug Section</h3>
-    <p>Copy and paste the contents of each text area into the issue</p>
-    URL:
-    <textarea class="form-control" rows="2">{{rawUrl}}</textarea><br>
-    Error
-    <textarea class="form-control" rows="5">{{rawError}}</textarea><br>
-    Request
-    <textarea class="form-control" rows="20">{{rawRequest}}</textarea><br>
-    <hr>
-    <button class="btn btn-primary" type="submit" routerLink="/msp/application/confirmation">Skip to confirmation</button>
-</div>
