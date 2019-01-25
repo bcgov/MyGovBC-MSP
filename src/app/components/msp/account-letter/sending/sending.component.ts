@@ -73,7 +73,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
           } 
 
           // If got any rapid error, making the call to the spa env server
-          if(this.responseProperties.rapidResponse != undefined) {
+          if(this.responseProperties.rapidResponse != 'Y') {
              
             this.aclService
                 .sendSpaEnvServer(this.responseProperties.rapidResponse)
@@ -93,8 +93,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
                 //delete the application from storage
                 this.dataService.removeMspAccountLetterApp();
                 this.logService.log({name: 'ACL - Received refNo ',
-                confirmationNumber: this.application.referenceNumber}, 'ACL - Submission Response Success');
-             
+                  confirmationNumber: refNumber}, 'ACL - Submission Response Success');
                 this.router.navigate(['/msp/account-letter/confirmation'],
                   {queryParams: {confirmationNum: refNumber}});
               } else {
