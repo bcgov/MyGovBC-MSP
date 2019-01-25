@@ -1,6 +1,6 @@
 import {IPerson} from './person.interface';
 
-import {Relationship, StatusInCanada, Activities} from './status-activities-documents';
+import {Relationship, StatusInCanada, Activities, MSPEnrollementMember} from './status-activities-documents';
 import {PersonDocuments} from './person-document.model';
 import {Address} from './address.model';
 import {OutofBCRecord} from './outof-bc-record.model';
@@ -36,7 +36,7 @@ class Person implements IPerson {
     /** NEEDS XSD. Departure information for the question regarding if the person will be out of BC for more than 30 days in the next 6 months. */
     planOnBeingOutOfBCRecord: OutofBCRecord;
     private _operationActionType: OperationActionType;
-    enrollmentMember: string;
+    enrollmentMember: MSPEnrollementMember;
    /*
     given default value so that pleaseSelect is selected on page load
     */

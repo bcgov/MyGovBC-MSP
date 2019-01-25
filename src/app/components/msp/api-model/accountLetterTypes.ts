@@ -18,14 +18,14 @@ export class AccountLetterApplicantTypeFactory {
 }
 
 interface _AccountLetterType extends BaseType {
-	RequesterPHN: string;
-    RequesterBirthdate: string;
-	RequesterPostalCode: string;
-	LetterSelection: string;
-	SpecificPHN: string;
-	AclTransactionId: string;
-	Valid: string;
-	ErrorCode: string;
-	ErrorMessage: string;
+	requesterPHN: string;
+    requesterBirthdate: string;
+	requesterPostalCode: string;
+	letterSelection: string;
+	specificPHN: string;
+	aclTransactionId: string;
+	valid: string;
+	errorCode: string;
+	errorMessage: string;
 }
 

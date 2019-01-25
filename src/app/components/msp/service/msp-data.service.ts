@@ -10,7 +10,7 @@ import MspAccountDto from '../model/account.dto';
 import AddressDto from '../model/address.dto';
 import {OutofBCRecordDto} from '../model/outof-bc-record.dto';
 import {OutofBCRecord} from '../model/outof-bc-record.model';
-import {StatusInCanada, Relationship} from '../model/status-activities-documents';
+import {StatusInCanada, Relationship, MSPEnrollementMember} from '../model/status-activities-documents';
 import {puts} from 'util';
 import {Process} from './process.service';
 import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
@@ -20,7 +20,6 @@ import {Address} from '../model/address.model';
 import { SimpleDate } from '../model/simple-date.interface';
 import { AccountLetterApplication } from '../model/account-letter-application.model';
 import AccountLetterDto from '../model/account-letter.dto';
-
 
 @Injectable()
 export  class MspDataService {
@@ -801,7 +800,7 @@ export  class MspDataService {
         output.applicant = this.fromPersonDto(dto.applicant);
         output.infoCollectionAgreement = dto.infoCollectionAgreement;
         output.postalCode = dto.postalCode;
-        output.applicant.enrollmentMember = dto.enrollmentMember;
+        //output.applicant.enrollmentMember = dto.enrollmentMember;
 
         return output;
     }

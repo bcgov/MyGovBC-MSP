@@ -2,8 +2,6 @@ import {Component, Inject, Injectable, AfterContentInit, ViewChild, ElementRef} 
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { MspDataService } from '../../service/msp-data.service';
 import { MspACLService } from '../../service/msp-acl-api.service';
-
-import {MspApiService} from '../../service/msp-api.service';
 import {Router} from '@angular/router';
 import {ResponseType} from '../../api-model/responseTypes';
 import {MspLogService} from '../../service/log.service';
@@ -11,6 +9,7 @@ import {ProcessService} from '../../service/process.service';
 import {ISpaEnvResponse} from '../../model/spa-env-response.interface';
 import { AccountLetterApplication } from '../../model/account-letter-application.model';
 import { AccountLetterType  } from '../../api-model/accountLetterTypes';
+import { Properties } from '../../model/account-letter-response.interface';
 
 
 
@@ -25,7 +24,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
 
   application: AccountLetterApplication ;
   rawUrl: string;
-  rawError: string;
+  public rawError: string;
   rawRequest: string;
   public spaEnvRes: ISpaEnvResponse;
 
@@ -34,14 +33,13 @@ export class AccountLetterSendingComponent implements AfterContentInit {
 
   accountLetterModel : AccountLetterType;
 
-  //showMoreErrorDetails: boolean;
+  responseProperties : Properties; 
 
-  constructor(private aclService: MspACLService, private dataService: MspDataService, private service: MspApiService, private processService: ProcessService,
+  constructor(private aclService: MspACLService, private dataService: MspDataService, private processService: ProcessService,
     public router: Router, private logService: MspLogService) {
     this.application = this.dataService.accountLetterApp ;
     this.transmissionInProcess = undefined;
     this.hasError = undefined;
-    //this.showMoreErrorDetails = ;;
   }
 
   /**
@@ -55,38 +53,87 @@ export class AccountLetterSendingComponent implements AfterContentInit {
   transmitApplication(){
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
-    
     this.hasError = undefined;
-    
     this.logService.log({name: 'ACL application submitting request'},"ACL : Submission Request");
     
-   // this.accountLetterModel = this.aclService.convertAccountLetterApp(this.application);
     this.aclService
       .sendAccountLetterApp(this.application, this.application.uuid)
       .subscribe(response => {
 
-        // When the server is down or any other system failure
-        if(response instanceof HttpErrorResponse) {
-          const aclResponse = <HttpErrorResponse> response;
-          this.hasError = true;
-          this.transmissionInProcess = false;
-          const oldUUID = this.application.uuid;
-          this.application.regenUUID();
-          console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
-          this.application.authorizationToken = null;
-          this.dataService.saveAccountLetterApplication();
-          this.logService.log({name: 'ACL - System Error',
-          confirmationNumber: this.application.referenceNumber}, 'ACL - Submission Response Error');
-        } else { // Successfull response from the server 
-          const aclResponse = <AccountLetterType> response;
-          this.logService.log({name: 'ACL - Received refNo ',
-          confirmationNumber: this.application.referenceNumber}, 'ACL - Submission Response Success');
-          const tempRef = this.application.referenceNumber;
+        console.log(response);
 
-          //delete the application from storage
-          this.dataService.removeMspAccountLetterApp();
-          this.router.navigate(['/msp/account-letter/confirmation'],
-            {queryParams: {confirmationNum: tempRef}});
+        // Success response from the server
+        if(!(response instanceof HttpErrorResponse)) {
+          
+          this.responseProperties = <Properties> response;
+          console.log('Rapid Code '+this.responseProperties.rapidResponse+'ACl transaction ID '+this.responseProperties.aclTransactionId+'Reference Number '+this.responseProperties.referenceNumber);
+          
+          // For DB error Code and DB error message  
+          if(this.responseProperties.dberrorCode != undefined && this.responseProperties.dberrorMessage != undefined) {
+            this.processErrorResponse(null, this.responseProperties.dberrorMessage);
+          } 
+
+          // If got any rapid error, making the call to the spa env server
+          if(this.responseProperties.rapidResponse != undefined) {
+             
+            this.aclService
+                .sendSpaEnvServer(this.responseProperties.rapidResponse)
+                .subscribe(response => { 
+                  console.log(response);
+                  this.processErrorResponse(response, response.message);
+
+                  /*this.hasError = true;
+                  this.rawError = response.message;
+                  this.transmissionInProcess = false;
+                  const oldUUID = this.application.uuid;
+                  console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
+                  this.application.authorizationToken = null;
+                  this.dataService.saveAccountLetterApplication();
+                  */
+                });
+
+          // If there is no Rapid response code and the application is successfully submitted       
+          } else {
+
+              const refNumber = this.responseProperties.referenceNumber; 
+
+              // If the application has recieved successfull Reference number from the server 
+              if(refNumber != undefined && refNumber != '' && refNumber != null) {
+                
+                //delete the application from storage
+                this.dataService.removeMspAccountLetterApp();
+                this.logService.log({name: 'ACL - Received refNo ',
+                confirmationNumber: this.application.referenceNumber}, 'ACL - Submission Response Success');
+             
+                this.router.navigate(['/msp/account-letter/confirmation'],
+                  {queryParams: {confirmationNum: refNumber}});
+              } else {
+                this.processErrorResponse(null, null);
+                /*this.hasError = true;
+                this.transmissionInProcess = false;
+                const oldUUID = this.application.uuid;
+                console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
+                this.application.authorizationToken = null;
+                this.dataService.saveAccountLetterApplication();
+                */
+
+              }
+          }
+          
+         } else {    // When the server is down or any other system failure 
+
+          this.processErrorResponse(response, null);
+          /*  const aclResponse = <HttpErrorResponse> response;
+            this.hasError = true;
+            this.transmissionInProcess = false;
+            const oldUUID = this.application.uuid;
+            this.application.regenUUID();
+            console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
+            this.application.authorizationToken = null;
+            this.dataService.saveAccountLetterApplication();
+            this.logService.log({name: 'ACL - System Error',
+            confirmationNumber: this.application.referenceNumber}, 'ACL - Submission Response Error');
+          */
         
         }
         
@@ -95,6 +142,23 @@ export class AccountLetterSendingComponent implements AfterContentInit {
 
   retrySubmission(){
     this.router.navigate(['/msp/account-letter/personal-info']);
+  }
+
+  processErrorResponse(response: HttpErrorResponse, errorMessage: string) {
+      //const aclResponse = <HttpErrorResponse> response;
+      if(errorMessage != null && errorMessage != 'undefined') {
+
+        this.rawError = errorMessage;
+      }
+      this.hasError = true;
+      this.transmissionInProcess = false;
+      const oldUUID = this.application.uuid;
+      this.application.regenUUID();
+      console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
+      this.application.authorizationToken = null;
+      this.dataService.saveAccountLetterApplication();
+      this.logService.log({name: 'ACL - System Error',
+      confirmationNumber: this.application.referenceNumber}, 'ACL - Submission Response Error');
   }
 
 }

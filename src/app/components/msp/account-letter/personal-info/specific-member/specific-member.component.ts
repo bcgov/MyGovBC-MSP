@@ -19,7 +19,7 @@ export class SpecificMemberComponent extends Masking {
     @ViewChild('addtionalMemberphn') phn: MspPhnComponent;
     @ViewChild('phnFocus') phnFocus : ElementRef;
     @Input() isACL: boolean = false;
-    
+
    // public mask;
     //public phnMask = [NUMBER, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER];
     
@@ -38,7 +38,9 @@ export class SpecificMemberComponent extends Masking {
     setStatus(value: string) {
         console.log(value);
         console.log(this.person.specificMember_phn);
-        if(value != '2' && this.person.specificMember_phn != undefined) {
+
+        // Showing specific member Phn when the user selects that option  
+        if(value != MSPEnrollementMember.SpecificMember.toString() && this.person.specificMember_phn != undefined) {
             this.person.specificMember_phn = '';
         }
         this.onStatusChange.emit(value);

@@ -97,7 +97,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
         return EnrollmentStatusRules.availableStatus();
     }
 
-    setStatus(value: string) {
+    setStatus(value: MSPEnrollementMember) {
         this.applicant.enrollmentMember = value;
         this.dataService.saveAccountLetterApplication();
     }
@@ -123,7 +123,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     
     isValid(): boolean {
 
-        return this.applicant.enrollmentMember != undefined && this.accountLetterApplication.isUniquePhns && (this.applicant.enrollmentMember == '2' ? this.applicant.specificMember_phn != undefined : true);
+        return this.applicant.enrollmentMember != undefined && this.accountLetterApplication.isUniquePhns && (this.applicant.enrollmentMember == MSPEnrollementMember.SpecificMember ? this.applicant.specificMember_phn != undefined : true);
        
     }
 

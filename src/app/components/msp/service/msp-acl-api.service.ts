@@ -8,6 +8,8 @@ import * as moment from 'moment';
 import { AbstractHttpService } from './abstract-api.service';
 import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { of } from 'rxjs';
+import {
+    MSPEnrollementMember } from '../model/status-activities-documents';
 import { AccountLetterApplication } from '../model/account-letter-application.model';
 import { AccountLetterApplicantTypeFactory, AccountLetterType  } from '../api-model/accountLetterTypes';
 
@@ -29,12 +31,11 @@ export class MspACLService extends AbstractHttpService {
         super(http);  
     }
 
-    sendAccountLetterApp(accountLetterApplication: AccountLetterApplication, uuid: string): Observable<AccountLetterType> {
-        console.log("Trying to hit---------------accLetterIntegration-----------------");
+    sendAccountLetterApp(accountLetterApplication: AccountLetterApplication, uuid: string): Observable<any> {
         const accountLetterJsonResponse = this.convertAccountLetterApp(accountLetterApplication);
         const url = environment.appConstants['apiBaseUrl']
-                    + '/accLetterIntegration/rest/callRapid';
-                + '?programArea=accountLetter';
+                    + '/accLetterIntegration/callRapid';
+
         // Setup headers
         this._headers = new HttpHeaders({
             'Content-Type': 'application/json',
@@ -45,6 +46,17 @@ export class MspACLService extends AbstractHttpService {
         return this.post<AccountLetterType>(url, accountLetterJsonResponse );
     }
     
+    // Api callout to get the message from the Rapid code  
+    sendSpaEnvServer(rapidResponseCode: string): Observable<any> {
+        console.log(rapidResponseCode);
+        this._headers = this._headers.set('errorCode', rapidResponseCode);
+        const url = environment.appConstants['envServerBaseUrl']; 
+        return this.post<any>(url, null);
+    }
+    
+
+
+
     protected handleError(error: HttpErrorResponse) {
         console.log("handleError", JSON.stringify(error));
         if (error.error instanceof ErrorEvent) {
@@ -67,26 +79,28 @@ export class MspACLService extends AbstractHttpService {
     // Added by Abhi This method is used to convert the response from user into a JSOn object
     private convertAccountLetterApp(from: AccountLetterApplication): AccountLetterType {
         const to = AccountLetterApplicantTypeFactory.make();
-        to.AclTransactionId = from.uuid;
-        to.RequesterPostalCode  = from.postalCode.toUpperCase().replace(' ', '');;
-        to.RequesterPHN = from.applicant.previous_phn;
-
-        to.RequesterBirthdate = from.applicant.dob.format(this.ISO8601DateFormat); ;
-
+        to.aclTransactionId = from.uuid;
+        to.requesterPostalCode  = from.postalCode.toUpperCase().replace(' ', '');
+        to.requesterPHN = from.applicant.previous_phn.replace(/\s/g, "");
+        to.requesterBirthdate = from.applicant.dob.format(this.ISO8601DateFormat);
+       
         switch (from.applicant.enrollmentMember ) {
-            case '0' :
-                to.LetterSelection = 'M';
+            
+            case MSPEnrollementMember.MyselfOnly :
+                to.letterSelection = 'M';
                 break;
-            case '1' :
-                to.LetterSelection = 'A';
+
+            case MSPEnrollementMember.AllMembers :
+                to.letterSelection = 'A';
                 break;
-            case '2' :
-                to.LetterSelection = 'S';
-                to.SpecificPHN = from.applicant.specificMember_phn;
+
+            case MSPEnrollementMember.SpecificMember :
+                to.letterSelection = 'S';
+                to.specificPHN = from.applicant.specificMember_phn.replace(/\s/g, "");
                 break;
         }
 
-        to.Valid = 'Y';
+       // to.Valid = 'Y';
         console.log(from);
         return to;
     }

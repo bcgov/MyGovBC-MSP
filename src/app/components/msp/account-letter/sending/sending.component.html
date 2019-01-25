@@ -19,15 +19,23 @@
                 {{this.rawError.message}}
             </h2>
         </div>
-        <div *ngIf="hasError" class="alert alert-info col-lg-10" role="alert">
-            <h4 [innerHtml]="lang('./en/index.js').systemErrorText"></h4>
-            <ul>
-                <li> 
-                  <a href="javascript:void(0)" (click) = "retrySubmission()"[innerHtml]="lang('./en/index.js').tryToSubmitAgain" role="button"></a>
-                </li>
-            </ul>
-            <h4  [innerHtml]="lang('./en/index.js').contactHealthInsuranceBC"></h4>
-            
+        <div *ngIf="hasError">
+        
+            <div *ngIf="rawError == 'undefined'" class="alert alert-info col-lg-10" role="alert">
+                <h4 [innerHtml]="lang('./en/index.js').systemErrorText"></h4>
+                <ul>
+                    <li> 
+                    <a href="javascript:void(0)" (click) = "retrySubmission()"[innerHtml]="lang('./en/index.js').tryToSubmitAgain" role="button"></a>
+                    </li>
+                </ul>
+                <h4  [innerHtml]="lang('./en/index.js').contactHealthInsuranceBC"></h4>
+            </div>
+
+            <div *ngIf="rawError != 'undefined'" class="alert alert-info col-lg-10" role="alert">
+                    <h4> {{this.rawError}}  </h4>
+                    
+            </div>
+
         </div>
       </div>
       

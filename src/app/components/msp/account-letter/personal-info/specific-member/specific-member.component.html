@@ -9,7 +9,8 @@
       {{langStatus('./en/index.js')[st]}}
     </label>
   </div>
-  <div *ngIf="person.enrollmentMember == '2'">
+
+  <div *ngIf="person.enrollmentMember == MSPEnrollementMember[2]">
     <h2>Specific Member Information</h2>
     <hr>
     <h4>Please provide additional information for the specific member</h4>
