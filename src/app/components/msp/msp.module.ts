@@ -101,6 +101,7 @@ import { AccountLetterPersonalInfoComponent } from './account-letter/personal-in
 import { AccountLetterSendingComponent } from './account-letter/sending/sending.component';
 import { AccountLetterConfirmationComponent } from './account-letter/confirmation/confirmation.component';
 import { SpecificMemberComponent } from './account-letter/personal-info/specific-member/specific-member.component';
+import { AclErrorViewComponent } from './account-letter/sending/acl-error-view/acl-error-view.component';
 
 
 const APP_ROUTES: Routes = [
@@ -396,7 +397,8 @@ const APP_ROUTES: Routes = [
         AccountLetterSendingComponent,
         AccountLetterConfirmationComponent,
         FormActionBarComponent,
-        SpecificMemberComponent
+        SpecificMemberComponent,
+        AclErrorViewComponent
 
     ],
 

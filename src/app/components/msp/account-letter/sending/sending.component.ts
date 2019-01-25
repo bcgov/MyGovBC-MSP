@@ -59,8 +59,6 @@ export class AccountLetterSendingComponent implements AfterContentInit {
     this.aclService
       .sendAccountLetterApp(this.application, this.application.uuid)
       .subscribe(response => {
-        console.log(response);
-        console.log(response instanceof HttpErrorResponse);
 
         // Success response from the server
         if(!(response instanceof HttpErrorResponse)) {
