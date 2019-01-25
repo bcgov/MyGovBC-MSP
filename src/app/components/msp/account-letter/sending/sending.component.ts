@@ -60,6 +60,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
       .sendAccountLetterApp(this.application, this.application.uuid)
       .subscribe(response => {
         console.log(response);
+        console.log(response instanceof HttpErrorResponse);
 
         // Success response from the server
         if(!(response instanceof HttpErrorResponse)) {
@@ -97,13 +98,13 @@ export class AccountLetterSendingComponent implements AfterContentInit {
                 this.router.navigate(['/msp/account-letter/confirmation'],
                   {queryParams: {confirmationNum: refNumber}});
               } else {
-                this.processErrorResponse(null, null);
+                this.processErrorResponse(null, undefined);
               }
           }
           
          } else {    // When the server is down or any other system failure 
 
-          this.processErrorResponse(response, null);
+          this.processErrorResponse(response, undefined);
         }
         
       });
@@ -115,10 +116,8 @@ export class AccountLetterSendingComponent implements AfterContentInit {
 
   processErrorResponse(response: HttpErrorResponse, errorMessage: string) {
       //const aclResponse = <HttpErrorResponse> response;
-      if(errorMessage != null && errorMessage != 'undefined') {
-
-        this.rawError = errorMessage;
-      }
+      console.log('Error Response :'+response);
+      this.rawError = (errorMessage != null && errorMessage != 'undefined') ? errorMessage : undefined;
       this.hasError = true;
       this.transmissionInProcess = false;
       const oldUUID = this.application.uuid;

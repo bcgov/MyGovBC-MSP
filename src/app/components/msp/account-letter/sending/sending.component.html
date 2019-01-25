@@ -21,7 +21,7 @@
         </div>
         <div *ngIf="hasError">
         
-            <div *ngIf="rawError == 'undefined'" class="alert alert-info col-lg-10" role="alert">
+            <div *ngIf="rawError == undefined" class="alert alert-info col-lg-10" role="alert">
                 <h4 [innerHtml]="lang('./en/index.js').systemErrorText"></h4>
                 <ul>
                     <li> 
@@ -31,7 +31,7 @@
                 <h4  [innerHtml]="lang('./en/index.js').contactHealthInsuranceBC"></h4>
             </div>
 
-            <div *ngIf="rawError != 'undefined'" class="alert alert-info col-lg-10" role="alert">
+            <div *ngIf="rawError != undefined" class="alert alert-info col-lg-10" role="alert">
                     <h4> {{this.rawError}}  </h4>
                     
             </div>
