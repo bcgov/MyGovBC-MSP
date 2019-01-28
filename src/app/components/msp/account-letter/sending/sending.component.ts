@@ -56,7 +56,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
         this.aclService
             .sendAccountLetterApp(this.application, this.application.uuid)
             .subscribe(response => {
-                if (response instanceof HttpErrorResponse) {
+                if (response instanceof HttpErrorResponse) { // probable network errors..middleware could be down
                     this.processErrorResponse(response, response.message);
                     this.logService.log({
                         name: 'ACL - System Error',
@@ -65,7 +65,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
 
                     return;
                 }
-
+                // business errors.. Might be either a RAPID validation failure or DB error
                 this.aclApiResponse = <ACLApiResponse> response;
                 if (this.isFailure(this.aclApiResponse)) {
                     this.processErrorResponse(response, undefined);
@@ -106,8 +106,10 @@ export class AccountLetterSendingComponent implements AfterContentInit {
         this.dataService.saveAccountLetterApplication();
 
     }
-
-    isFailure(aCLApiResponse: ACLApiResponse) {
+    /*
+    Handle all the failure conditions here
+     */
+    isFailure(aCLApiResponse: ACLApiResponse):boolean {
         if (aCLApiResponse.dberrorCode || aCLApiResponse.dberrorMessage || aCLApiResponse.rapidResponse != 'Y') {
             return true;
         }
