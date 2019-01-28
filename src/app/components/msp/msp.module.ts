@@ -102,6 +102,7 @@ import { AccountLetterSendingComponent } from './account-letter/sending/sending.
 import { AccountLetterConfirmationComponent } from './account-letter/confirmation/confirmation.component';
 import { SpecificMemberComponent } from './account-letter/personal-info/specific-member/specific-member.component';
 import { AclErrorViewComponent } from './account-letter/sending/acl-error-view/acl-error-view.component';
+import { ReplacewithlinksPipe } from './common/replace-link-pipe/replacewithlinks.pipe';
 
 
 const APP_ROUTES: Routes = [
@@ -398,7 +399,8 @@ const APP_ROUTES: Routes = [
         AccountLetterConfirmationComponent,
         FormActionBarComponent,
         SpecificMemberComponent,
-        AclErrorViewComponent
+        AclErrorViewComponent,
+        ReplacewithlinksPipe
 
     ],
 
