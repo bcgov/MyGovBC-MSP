@@ -800,7 +800,7 @@ export  class MspDataService {
         output.applicant = this.fromPersonDto(dto.applicant);
         output.infoCollectionAgreement = dto.infoCollectionAgreement;
         output.postalCode = dto.postalCode;
-        //output.applicant.enrollmentMember = dto.enrollmentMember;
+        output.applicant.enrollmentMember = dto.enrollmentMember;
 
         return output;
     }

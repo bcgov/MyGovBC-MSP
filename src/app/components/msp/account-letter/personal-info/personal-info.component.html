@@ -61,7 +61,7 @@
              </div>
              <hr>
 
-        <msp-specific-member [isACL]="true" [person]="applicant" #specificMember (onStatusChange)="setStatus($event);" (onChange)="saveApplication($event);"> </msp-specific-member>
+        <msp-specific-member  [person]="applicant" #specificMember (onStatusChange)="setStatus($event);" (onChange)="saveApplication($event);"> </msp-specific-member>
 
         <br/>
 
