@@ -17,8 +17,7 @@ export class SpecificMemberComponent extends Masking {
     @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
     @Output() onStatusChange: EventEmitter<string> = new EventEmitter<string>();
     @ViewChild('addtionalMemberphn') phn: MspPhnComponent;
-    @ViewChild('phnFocus') phnFocus : ElementRef;
-
+    
     lang = require('./i18n');
     langStatus = require('../../../common/enrollmentMember/i18n');
 
@@ -31,9 +30,6 @@ export class SpecificMemberComponent extends Masking {
     }
 
     setStatus(value: string) {
-        console.log(value);
-        console.log(this.person.specificMember_phn);
-
         // Resetting the value of the specific phn textBox if the user selects Myself or All members 
         if(value != MSPEnrollementMember.SpecificMember.toString() && this.person.specificMember_phn != undefined) {
             this.person.specificMember_phn = '';

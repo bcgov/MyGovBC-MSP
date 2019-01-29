@@ -30,7 +30,7 @@
                 </msp-phn>
 
 
-              <msp-birthdate [isACL]="true"
+                <msp-birthdate [isACL]="true"
                         #birthDate
                         id="acl_dob"
                         (onChange)="saveApplication($event);"
@@ -41,25 +41,25 @@
               
 
 
-                     <label for="residentialAddressPostalCode{{objectId}}"
-                            [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
-                     <input [(ngModel)]='accountLetterApplication.postalCode' type="text" class="form-control to-upper"
-                            id="residentialAddressPostalCode{{objectId}}" name="residentialAddressPostalCode"
-                            #residentialAddressPostalCodeRef="ngModel" required tabindex="0" maxlength="8"
-                            (onChange)="saveApplication($event);" [pattern]="regex" placeholder="A1A 1A1" [textMask]="{mask: mask, pipe: upperCasePipe}">
-                     <div *ngIf='residentialAddressPostalCodeRef.touched || showError'
-                          role="alert" aria-live="assertive">
+                <label for="residentialAddressPostalCode{{objectId}}"
+                    [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
+                <input [(ngModel)]='accountLetterApplication.postalCode' type="text" class="form-control to-upper"
+                    id="residentialAddressPostalCode{{objectId}}" name="residentialAddressPostalCode"
+                    #residentialAddressPostalCodeRef="ngModel" required tabindex="0" maxlength="8"
+                    (onChange)="saveApplication($event);" [pattern]="regex" placeholder="A1A 1A1" [textMask]="{mask: mask, pipe: upperCasePipe}">
+                <div *ngIf='residentialAddressPostalCodeRef.touched || showError'
+                    role="alert" aria-live="assertive">
 
                          <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.required"
                               [innerHtml]="lang('./en/index.js').postalCodeErrorIsRequired"></div>
                          <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.pattern"
                               [innerHtml]="lang('./en/index.js').postalCodeErrorPattern"></div>
-                     </div>
+                </div>
 
-                 </div>
+            </div>
 
-             </div>
-             <hr>
+        </div>
+        <hr>
 
         <msp-specific-member  [person]="applicant" #specificMember (onStatusChange)="setStatus($event);" (onChange)="saveApplication($event);"> </msp-specific-member>
 

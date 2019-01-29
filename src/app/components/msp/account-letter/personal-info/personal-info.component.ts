@@ -61,9 +61,6 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
                 private _router: Router,
                 private cd: ChangeDetectorRef) {
         super(cd);
-        console.log(this.applicant);
-       
-
     }
 
     ngOnInit() {
@@ -71,7 +68,6 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
         this.accountLetterApplication.authorizationToken = null;
         this.applicant.relationship = Relationship.AllAgeApplicant; 
-       
     }
 
     saveApplication(values: any) {
@@ -83,7 +79,6 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     }
 
     get applicant(): Person {
-        
         return this.dataService.accountLetterApp.applicant;
     }
 
@@ -102,11 +97,9 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
         this.dataService.saveAccountLetterApplication();
     }
 
-
     canContinue(): boolean {
         return this.accountLetterApplication.hasValidAuthToken && this.isAllValid() ;
     }
-
 
     handleFormSubmission(evt: any) {
 
