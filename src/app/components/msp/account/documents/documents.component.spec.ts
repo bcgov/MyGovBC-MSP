@@ -8,6 +8,12 @@ import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage
 import { RouterTestingModule } from '@angular/router/testing';
 import { ProcessService } from '../../service/process.service';
 import { async } from '@angular/core/testing';
+import { AccountDocumentHelperService } from '../../service/account-document-helper.service';
+import {DocumentGroup} from '../../model/account-documents';
+import {
+    StatusRules, ActivitiesRules, StatusInCanada, Activities,
+    DocumentRules, Documents, Relationship , CancellationReasonsForSpouse
+} from '../../model/status-activities-documents';
 
 describe('AccountDocumentsComponent', () => {
     let fixture: ComponentFixture<AccountDocumentsComponent>;
@@ -21,7 +27,7 @@ describe('AccountDocumentsComponent', () => {
                 prefix: 'ca.bc.gov.msp',
                 storageType: 'sessionStorage'
             })],
-            providers: [MspDataService, ProcessService]
+            providers: [MspDataService, ProcessService, AccountDocumentHelperService]
         });
 
     }));
@@ -37,11 +43,20 @@ describe('AccountDocumentsComponent', () => {
     });
 
     it('should have document types on init', () => {
-        expect(comp.documents.length).toBeGreaterThan(2);
+        const accountDocument = TestBed.get(AccountDocumentHelperService);
+        accountDocument.addIfSpouseIsAdded();
+        accountDocument.addIfPIIsSelected();
+        accountDocument.addIfStatusIsUpdated();
+       // comp.documentsList = accountDocument.getApplicableDocuments();
+        fixture.detectChanges();
+        expect(comp.documentsList.length).toBeCloseTo(0);
     });
 
     it('should have document type indices on init', () => {
-        expect(comp.documentIndices().length).toBeGreaterThan(2);
+        const accountDocument = TestBed.get(AccountDocumentHelperService);
+        comp.documentsList = accountDocument.getApplicableDocuments();
+        fixture.detectChanges();
+        expect(comp.documentIndices().length).toBeCloseTo(0);
     });
 
     it('does require docs by default', () => {
@@ -50,7 +65,7 @@ describe('AccountDocumentsComponent', () => {
 
     it('doesn\'t require docs when name change due to marriage', () => {
         const dataService = TestBed.get(MspDataService);
-        dataService.getMspAccountApp().accountChangeOptions.nameChangeDueToMarriage = true;
+        dataService.getMspAccountApp().accountChangeOptions.dependentChange = true;
         expect(comp.isDocsNotNeeded).toBeTruthy();
     });
 

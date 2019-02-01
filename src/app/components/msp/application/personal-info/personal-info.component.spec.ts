@@ -31,6 +31,7 @@ import {MspImageErrorModalComponent} from '../../common/image-error-modal/image-
 import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';
 import { MspLogService } from '../../service/log.service';
 import {MspValidationService} from '../../service/msp-validation.service';
+import {TextMaskModule} from 'angular2-text-mask';
 
 
 import {RouterTestingModule} from '@angular/router/testing';
@@ -54,7 +55,7 @@ describe('PersonalInfoComponent', () => {
         MspImageErrorModalComponent, MspLoggerDirective, CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator,
         ServicesCardDisclaimerModalComponent
         ],
-      imports: [FormsModule, TypeaheadModule, ModalModule.forRoot(), AccordionModule.forRoot(), HttpClientModule, RouterTestingModule, LocalStorageModule.withConfig({
+      imports: [TextMaskModule, FormsModule, TypeaheadModule, ModalModule.forRoot(), AccordionModule.forRoot(), HttpClientModule, RouterTestingModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],
