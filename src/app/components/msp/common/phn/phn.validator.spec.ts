@@ -10,6 +10,7 @@ import { MspValidationService } from '../../service/msp-validation.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspPhnComponent} from './phn.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import {TextMaskModule} from 'angular2-text-mask';
 
 describe('PHN Component', () => {
   let fixture: ComponentFixture<MspPhnComponent>;
@@ -24,6 +25,7 @@ describe('PHN Component', () => {
     TestBed.configureTestingModule({
       declarations: [Mod11CheckValidator, MspPhnComponent],
       imports: [BrowserModule,
+        TextMaskModule,
         CommonModule,
         FormsModule,
         RouterTestingModule,

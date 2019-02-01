@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ProcessService } from '../../service/process.service';
 import { async } from '@angular/core/testing';
 import { StatusInCanada, Activities } from '../../model/status-activities-documents';
+import {TextMaskModule} from 'angular2-text-mask';
 
 describe('AccountPersonalInfoComponent', () => {
     let fixture: ComponentFixture<AccountPersonalInfoComponent>;
@@ -24,7 +25,7 @@ describe('AccountPersonalInfoComponent', () => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             declarations: [AccountPersonalInfoComponent],
-            imports: [FormsModule, RouterTestingModule, LocalStorageModule.withConfig({
+            imports: [ TextMaskModule, FormsModule, RouterTestingModule, LocalStorageModule.withConfig({
                 prefix: 'ca.bc.gov.msp',
                 storageType: 'sessionStorage'
             })],

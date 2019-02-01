@@ -10,8 +10,7 @@
         <p class="intro"
            [innerHtml]="lang('./en/index.js').servicesCardMsg" role="heading">
         </p>
-
-
+        
         <h2 [innerHTML]="lang('./en/index.js').applicantInfo"></h2>
         <hr>
 
@@ -29,7 +28,6 @@
                          [phnLabel]="lang('./en/index.js').phnlabel">
                 </msp-phn>
 
-
                 <msp-birthdate [isACL]="true"
                         #birthDate
                         id="acl_dob"
@@ -37,9 +35,6 @@
                         [showError]="showError"
                         [person]="applicant">
                 </msp-birthdate>
-
-              
-
 
                 <label for="residentialAddressPostalCode{{objectId}}"
                     [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
@@ -97,10 +92,5 @@
                             (btnClick)="handleFormSubmission($event)">
     </fpcare-form-action-bar>
     </div>
-
-    <!--
-        <button [disabled]="!accountLetterApplication.hasValidAuthToken" class="btn btn-primary" type="submit"
-                [innerHtml]="lang('./en/index.js').confirmation"></button> -->
-
 
 </form>

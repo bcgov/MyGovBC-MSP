@@ -23,7 +23,7 @@ class AccountLetterApplication implements ApplicationBase {
    */
   referenceNumber: string;
 
-  private _applicant: Person = new Person(Relationship.Applicant);
+  private _applicant: Person = new Person(Relationship.AllAgeApplicant);
 
   get uuid(): string {
     return this._uuid;

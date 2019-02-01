@@ -7,11 +7,12 @@ import { CoreFooterComponent } from './components/core/footer';
 import { CoreHeaderComponent } from './components/core/header';
 import { MspModule } from './components/msp/msp.module';
 import { HttpClientModule} from '@angular/common/http';
+import {TextMaskModule} from 'angular2-text-mask';
 
 
 require('./index.scss');
 @NgModule({
-  imports: [
+  imports: [ TextMaskModule,
     BrowserModule,
     MspModule,
     HttpClientModule,

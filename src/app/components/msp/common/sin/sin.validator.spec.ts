@@ -23,6 +23,7 @@ import { CalendarDayValidator } from '../../common/calendar/calendar-day.validat
 import { Person } from '../../model/person.model';
 import { Relationship } from '../../model/status-activities-documents';
 import { RouterTestingModule } from '@angular/router/testing';
+import {TextMaskModule} from 'angular2-text-mask';
 
 
 describe('SIN Validator Test', () => {
@@ -42,7 +43,8 @@ describe('SIN Validator Test', () => {
       declarations: [SinCheckValidator, AssistancePersonalDetailComponent,
         MspBirthDateComponent, MspNameComponent, MspPhnComponent, Mod11CheckValidator,
         CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator],
-      imports: [BrowserModule,
+      imports: [TextMaskModule,
+        BrowserModule,
         CommonModule,
         RouterTestingModule,
         FormsModule,

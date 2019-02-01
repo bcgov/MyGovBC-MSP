@@ -35,6 +35,7 @@ import { ProcessService } from '../../../service/process.service';
 import { ServicesCardDisclaimerModalComponent } from '../../../common/services-card-disclaimer/services-card-disclaimer.component';
 import { MspStatusInCanadaRadioComponent } from '../../../common/status-in-canada-radio/status-in-canada-radio.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import {TextMaskModule} from 'angular2-text-mask';
 
 describe('AccountPersonalDetailsComponent', () => {
 
@@ -47,7 +48,7 @@ describe('AccountPersonalDetailsComponent', () => {
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,
         MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspImageErrorModalComponent,
         CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator, MspStatusInCanadaRadioComponent, ServicesCardDisclaimerModalComponent],
-      imports: [FormsModule, RouterTestingModule, TypeaheadModule, ModalModule.forRoot(), AccordionModule.forRoot(), LocalStorageModule.withConfig({
+      imports: [ TextMaskModule, FormsModule, RouterTestingModule, TypeaheadModule, ModalModule.forRoot(), AccordionModule.forRoot(), LocalStorageModule.withConfig({
           prefix: 'ca.bc.gov.msp',
           storageType: 'sessionStorage'
       })],
