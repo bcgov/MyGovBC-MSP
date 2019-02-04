@@ -19,27 +19,28 @@ export const environment = {
     appConstants: {
         coreApiBaseUrl: 'http://localhost:9000/api',
         serviceName: 'Apply for BC Health Care',
-	enableLogging: true,
+        enableLogging: true,
         logBaseUrl: '/msp/api/logging',
         apiBaseUrl: '/msp/api',
-	envServerBaseUrl: '/msp/api/env',
+        aclContextPath: '/accLetterIntegration/',
+        envServerBaseUrl: '/msp/api/env',
         captchaApiBaseUrl: '/msp/api/captcha',
         addressChangeBCUrl: 'https://www.addresschange.gov.bc.ca/',
         images: {
-          maxImagesPerPerson: 50,
-          maxWidth: 2600,
-          maxHeight: 3300,
-          minWidth: 0,
-          minHeight: 0,
-          maxSizeBytes: 1048576,
-          reductionScaleFactor: 0.8,
-          acceptMimeType: 'image/*',
-          convertToMimeType: 'image/jpeg',
-          jpegQuality: 0.5,
-          pdfScaleFactor: 2.0
+            maxImagesPerPerson: 50,
+            maxWidth: 2600,
+            maxHeight: 3300,
+            minWidth: 0,
+            minHeight: 0,
+            maxSizeBytes: 1048576,
+            reductionScaleFactor: 0.8,
+            acceptMimeType: 'image/*',
+            convertToMimeType: 'image/jpeg',
+            jpegQuality: 0.5,
+            pdfScaleFactor: 2.0
         }
         // mspIsInMaintenanceFlag: false,
         // mspIsInMaintenanceText: null,
         // mspIsInMaintenanceTimes: null,
-      }
+    }
 };
