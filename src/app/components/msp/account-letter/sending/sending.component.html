@@ -10,6 +10,6 @@
      [innerHtml]="lang('./en/index.js').transmissionSuccess"></div>
 
 <div class="row" *ngIf="!transmissionInProcess && hasError" role="alert" aria-live="assertive">
-    <msp-acl-error-view [response]="aclApiResponse" ></msp-acl-error-view>
+    <msp-acl-error-view [response]="aclApiResponse" #aclerrorview></msp-acl-error-view>
 </div>
 

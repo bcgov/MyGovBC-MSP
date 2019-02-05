@@ -10,6 +10,8 @@ import {ISpaEnvResponse} from '../../model/spa-env-response.interface';
 import {AccountLetterApplication} from '../../model/account-letter-application.model';
 import {AccountLetterType} from '../../api-model/accountLetterTypes';
 import {ACLApiResponse} from '../../model/account-letter-response.interface';
+import {ServicesCardDisclaimerModalComponent} from "../../common/services-card-disclaimer/services-card-disclaimer.component";
+import {AclErrorViewComponent} from "./acl-error-view/acl-error-view.component";
 
 
 @Component({
@@ -30,7 +32,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
     hasError: boolean;
     accountLetterModel: AccountLetterType;
     aclApiResponse: ACLApiResponse;
-
+    @ViewChild('aclerrorview') aclerrorview: AclErrorViewComponent;
 
     constructor(private aclService: MspACLService, private dataService: MspDataService, private processService: ProcessService,
                 public router: Router, private logService: MspLogService) {
@@ -68,7 +70,9 @@ export class AccountLetterSendingComponent implements AfterContentInit {
                 // business errors.. Might be either a RAPID validation failure or DB error
                 this.aclApiResponse = <ACLApiResponse> response;
                 if (this.isFailure(this.aclApiResponse)) {
+                    console.log('this.aclApiResponse------------------------'+JSON.stringify(this.aclApiResponse));
                     this.processErrorResponse(response, undefined);
+                    AclErrorViewComponent.aclApiResponse.next(this.aclApiResponse );
                     this.logService.log({
                         name: 'ACL - RAPID/DB Error',
                         confirmationNumber: this.application.uuid

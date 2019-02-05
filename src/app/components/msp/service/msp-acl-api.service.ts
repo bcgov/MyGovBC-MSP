@@ -75,7 +75,7 @@ export class MspACLService extends AbstractHttpService {
 
 
 
-    // Added by Abhi This method is used to convert the response from user into a JSOn object
+    // This method is used to convert the response from user into a JSOn object
     private convertAccountLetterApp(from: AccountLetterApplication): AccountLetterType {
         const to = AccountLetterApplicantTypeFactory.make();
         to.aclTransactionId = from.uuid;
