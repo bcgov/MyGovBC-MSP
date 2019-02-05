@@ -110,9 +110,13 @@ export class AccountLetterSendingComponent implements AfterContentInit {
     Handle all the failure conditions here
      */
     isFailure(aCLApiResponse: ACLApiResponse):boolean {
-        if (aCLApiResponse.dberrorCode || aCLApiResponse.dberrorMessage || aCLApiResponse.rapidResponse != 'Y') {
-            return true;
+        console.log('isFailure'+aCLApiResponse.referenceNumber);
+        if (aCLApiResponse.referenceNumber ) {
+            return false;
         }
-        return false;
+      /*  if (aCLApiResponse.dberrorCode.toUpperCase() ==='N' || aCLApiResponse.dberrorMessage || aCLApiResponse.rapidResponse.toUpperCase() != 'Y') {
+            return true;
+        }*/
+        return true;
     }
 }

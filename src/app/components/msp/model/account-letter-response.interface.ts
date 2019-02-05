@@ -39,7 +39,7 @@ export interface ACLApiResponse {
     dberrorMessage: DBErrorMessage;
     referenceNumber: ReferenceNumber;
     aclTransactionId: AclTransactionId;*/
-    referenceNumber: any;
+    referenceNumber: string;
     aclTransactionId: string;
     dberrorMessage: string;
     rapidResponse: string;
