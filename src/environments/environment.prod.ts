@@ -10,7 +10,7 @@ export const environment = {
         logBaseUrl: '/msp/api/logging',
         apiBaseUrl: '/msp/api',
         envServerBaseUrl: '/msp/api/env',
-        ACLContextPath: '/accLetterIntegration/',
+        aclContextPath: '/accLetterIntegration/',
         captchaApiBaseUrl: '/msp/api/captcha',
         addressChangeBCUrl: 'https://www.addresschange.gov.bc.ca/',
         images: {
