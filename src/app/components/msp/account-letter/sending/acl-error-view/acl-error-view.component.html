@@ -4,7 +4,7 @@
         <h2><b> {{lang('./en/index.js').pageTitle }} </b></h2>
         <h2 [innerHtml]="lang('./en/index.js').instructionForUserOnErrorLine1"></h2>
     
-        <div style="font-size: 13 px">
+        <div>
 
         <div *ngIf="rapidError == undefined" class="alert alert-info col-lg-14" role="alert">
             <h4 [innerHtml]="lang('./en/index.js').systemErrorText"></h4>

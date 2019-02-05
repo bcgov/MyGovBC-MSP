@@ -9,6 +9,7 @@ import {ProcessService} from "../../../service/process.service";
 import {BaseComponent} from "../../../common/base.component";
 import {Subject} from 'rxjs/internal/Subject';
 import {debounceTime} from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'msp-acl-error-view',
@@ -24,13 +25,20 @@ export class AclErrorViewComponent extends BaseComponent{
 
     public rapidError: string;
 
-    constructor(private aclService: MspACLService, private cd: ChangeDetectorRef ,private router: Router) {
+    constructor(private aclService: MspACLService, private cd: ChangeDetectorRef ,private router: Router, private logService: MspLogService) {
         super(cd);
         AclErrorViewComponent.aclApiResponse.subscribe(res => {
             if (res && res.rapidResponse) {
                 this.aclService
                     .sendSpaEnvServer(res.rapidResponse)
                     .subscribe(response => {
+                    
+                    if (response instanceof HttpErrorResponse) { // probable network errors..Spa Env server could be down
+                        this.logService.log({
+                            name: 'ACL - SPA Env System Error'
+                        }, 'ACL - SPA Env Rapid Response Error' + response.message);
+                        return;
+                    }
                         console.log(response);
                         this.rapidError =  response.message;
                     });
