@@ -68,7 +68,6 @@ export class AccountLetterSendingComponent implements AfterContentInit {
                 // business errors.. Might be either a RAPID validation failure or DB error
                 this.aclApiResponse = <ACLApiResponse> response;
                 if (this.isFailure(this.aclApiResponse)) {
-                    console.log('this.aclApiResponse------------------------'+JSON.stringify(this.aclApiResponse));
                     this.processErrorResponse(response, undefined);
                     this.logService.log({
                         name: 'ACL - RAPID/DB Error',
@@ -111,7 +110,6 @@ export class AccountLetterSendingComponent implements AfterContentInit {
     Handle all the failure conditions here
      */
     isFailure(aCLApiResponse: ACLApiResponse):boolean {
-        console.log('isFailure'+aCLApiResponse.referenceNumber);
         if (aCLApiResponse.referenceNumber ) {
             return false;
         }

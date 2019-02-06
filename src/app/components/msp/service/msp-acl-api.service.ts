@@ -41,19 +41,19 @@ export class MspACLService extends AbstractHttpService {
             'Response-Type': 'application/json',
             'X-Authorization': 'Bearer ' + accountLetterApplication.authorizationToken,
         });
-
+        
         return this.post<AccountLetterType>(url, accountLetterJsonResponse );
     }
     
     // Api callout to get the message from the Rapid code  
     sendSpaEnvServer(rapidResponseCode: string): Observable<any> {
-        console.log(rapidResponseCode);
-        this._headers = this._headers.set('SPA_ENV_NAME', 'SPA_ENV_MSP_'+rapidResponseCode);
+        const spaRapidHeader = '{"SPA_ENV_MSP_'+rapidResponseCode+'":""}';
+        this._headers = new HttpHeaders({
+            'SPA_ENV_NAME': spaRapidHeader
+        });
         const url = environment.appConstants['envServerBaseUrl']; 
         return this.post<any>(url, null);
     }
-    
-
 
 
     protected handleError(error: HttpErrorResponse) {
@@ -71,10 +71,8 @@ export class MspACLService extends AbstractHttpService {
         // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
         return of(error);
     }
-    
 
-
-
+   
     // This method is used to convert the response from user into a JSOn object
     private convertAccountLetterApp(from: AccountLetterApplication): AccountLetterType {
         const to = AccountLetterApplicantTypeFactory.make();

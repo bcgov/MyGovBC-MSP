@@ -37,8 +37,8 @@ export class AclErrorViewComponent extends BaseComponent{
                         }, 'ACL - SPA Env Rapid Response Error' + response.message);
                         return;
                     }
-                    console.log(response);
-                    this.rapidError =  response.message;
+                    var key = Object.keys(response)[0];
+                    this.rapidError = response[key];
                 });
         }
     }
