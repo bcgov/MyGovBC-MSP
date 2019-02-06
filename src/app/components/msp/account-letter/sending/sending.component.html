@@ -9,7 +9,7 @@
 <div class="h1" *ngIf="!transmissionInProcess && !hasError"
      [innerHtml]="lang('./en/index.js').transmissionSuccess"></div>
 
-<div class="row" *ngIf="!transmissionInProcess && hasError" role="alert" aria-live="assertive">
-    <msp-acl-error-view [response]="aclApiResponse" #aclerrorview></msp-acl-error-view>
+<div class="row" *ngIf="hasError" role="alert" aria-live="assertive">
+    <msp-acl-error-view [response]="aclApiResponse" (stopProcessing)="stopProcessing();" #aclerrorview></msp-acl-error-view>
 </div>
 

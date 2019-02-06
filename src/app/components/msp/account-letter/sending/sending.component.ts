@@ -22,13 +22,10 @@ export class AccountLetterSendingComponent implements AfterContentInit {
     lang = require('./i18n');
 
     application: AccountLetterApplication;
-    rawUrl: string;
-    public rawError: string;
+  //  public rawError: string;
     rawRequest: string;
-    public spaEnvRes: ISpaEnvResponse;
     transmissionInProcess: boolean;
     hasError: boolean;
-    accountLetterModel: AccountLetterType;
     aclApiResponse: ACLApiResponse;
 
 
@@ -57,7 +54,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
             .sendAccountLetterApp(this.application, this.application.uuid)
             .subscribe(response => {
                 if (response instanceof HttpErrorResponse) { // probable network errors..middleware could be down
-                    this.processErrorResponse(response, response.message);
+                    this.processErrorResponse(response, response.message, false);
                     this.logService.log({
                         name: 'ACL - System Error',
                         confirmationNumber: this.application.uuid
@@ -68,7 +65,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
                 // business errors.. Might be either a RAPID validation failure or DB error
                 this.aclApiResponse = <ACLApiResponse> response;
                 if (this.isFailure(this.aclApiResponse)) {
-                    this.processErrorResponse(response, undefined);
+                    this.processErrorResponse(response, undefined ,true);
                     this.logService.log({
                         name: 'ACL - RAPID/DB Error',
                         confirmationNumber: this.application.uuid
@@ -93,12 +90,16 @@ export class AccountLetterSendingComponent implements AfterContentInit {
         this.router.navigate(['/msp/account-letter/personal-info']);
     }
 
-
-    processErrorResponse(response: HttpErrorResponse, errorMessage: string) {
-        console.log('Error Response :' + response);
-        this.rawError = (errorMessage != null && errorMessage != 'undefined') ? errorMessage : undefined;
-        this.hasError = true;
+    // if there is a RAPID_ERROD code , show the spinner till SPA_ENV server reponse is fetched
+    stopProcessing() {
         this.transmissionInProcess = false;
+    }
+
+    processErrorResponse(response: HttpErrorResponse, errorMessage: string , transmissionInProcess: boolean) {
+        console.log('Error Response :' + response);
+       // this.rawError = (errorMessage != null && errorMessage != 'undefined') ? errorMessage : undefined;
+        this.hasError = true;
+        this.transmissionInProcess = transmissionInProcess;
         const oldUUID = this.application.uuid;
         this.application.regenUUID();
         console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
