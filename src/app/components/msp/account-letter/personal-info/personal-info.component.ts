@@ -67,7 +67,6 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
         this.initProcessMembers(AccountLetterPersonalInfoComponent.ProcessStepNum, this._processService);
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
         this.accountLetterApplication.authorizationToken = null;
-        //this.applicant.relationship = Relationship.AllAgeApplicant; 
     }
 
     saveApplication(values: any) {
@@ -81,6 +80,16 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     get applicant(): Person {
         return this.dataService.accountLetterApp.applicant;
     }
+
+    /*
+       implemented to handle the glitch with user submitting an already failed application using forward and backward of browser..
+       When
+     */
+    saveToken($event){
+        this.accountLetterApplication.authorizationToken = $event;
+        this.emitIsFormValid();
+    }
+
 
     ngAfterViewInit() {
         if (!this.accountLetterApplication.infoCollectionAgreement) {
@@ -110,13 +119,22 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
             console.log('Auth token is not valid');
             console.log('Please fill in all required fields on the form.');
         }
-        //this.dataService.saveAccountLetterApplication();
+
     }
+    /*
+   handles two checks
+   1.if the enrollmentMember drop down is selected
+   2. if Specific member is selected and phn is entered
 
-    
+     */
+    isValidMemberSelected() {
+       return this.applicant.enrollmentMember != undefined && (this.applicant.enrollmentMember == MSPEnrollementMember.SpecificMember ? this.applicant.specificMember_phn != undefined : true) ;
+    }
+    /*
+     the hasValidAuthToken == true is implemented to handle the glitch with user submitting an already failed application using forward and backward of browser..
+     */
     isValid(): boolean {
-
-        return this.applicant.enrollmentMember != undefined && this.accountLetterApplication.isUniquePhns && (this.applicant.enrollmentMember == MSPEnrollementMember.SpecificMember ? this.applicant.specificMember_phn != undefined : true);
+        return (this.accountLetterApplication.hasValidAuthToken == true) &&  this.accountLetterApplication.isUniquePhns && this.isValidMemberSelected();
        
     }
 

@@ -267,7 +267,8 @@ const APP_ROUTES: Routes = [
                     },
                     {
                         path: 'sending',
-                        component: AccountLetterSendingComponent
+                        component: AccountLetterSendingComponent,
+                        canActivate: [ProcessService]
                     },
                     {
                         path: 'confirmation',

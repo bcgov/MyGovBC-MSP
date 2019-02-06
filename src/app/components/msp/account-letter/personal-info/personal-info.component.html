@@ -64,7 +64,7 @@
         <div *ngIf="applicant.enrollmentMember != undefined" class="row">
             <div class="col-lg-12">
                 <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="accountLetterApplication.uuid"
-                         (onValidToken)="accountLetterApplication.authorizationToken = $event;"></captcha>
+                         (onValidToken)="saveToken($event)"></captcha>
             </div>
         </div>
 
