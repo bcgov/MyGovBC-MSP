@@ -2,7 +2,6 @@
     <div class="col-sm-12 col-lg-12">
         <h2><b> {{lang('./en/index.js').pageTitle }} </b></h2>
         <h2 [innerHtml]="lang('./en/index.js').instructionForUserOnErrorLine1"></h2>
-
         <div>
 
             <div *ngIf="!rapidError" class="alert alert-info col-lg-14" role="alert">
@@ -17,7 +16,7 @@
             </div>
 
             <div *ngIf="rapidError" class="alert alert-info col-sm-10" role="alert">
-                <h4> {{rapidError}} </h4>
+                <h4 [innerHtml]="rapidError|replacewithlinks"></h4>
             </div>
 
         </div>
