@@ -47,9 +47,9 @@ export class MspACLService extends AbstractHttpService {
     
     // Api callout to get the message from the Rapid code  
     sendSpaEnvServer(rapidResponseCode: string): Observable<any> {
-        const spaRapidHeader = '{"SPA_ENV_MSP_ACL_'+rapidResponseCode+'":""}';
+       // const spaRapidHeader = '{"SPA_ENV_MSP_ACL_'+rapidResponseCode+'":""}';
         this._headers = new HttpHeaders({
-            'SPA_ENV_NAME': spaRapidHeader
+            'SPA_ENV_NAME': rapidResponseCode
         });
         const url = environment.appConstants['envServerBaseUrl']; 
         return this.post<any>(url, null);
