@@ -1,8 +1,8 @@
-<div class="row" role="alert" aria-live="assertive" *ngIf="doneProcessing">
-    <div class="col-sm-12 col-lg-12">
+<div role="alert" aria-live="assertive" *ngIf="doneProcessing">
+    <div>
         <h2><b> {{lang('./en/index.js').pageTitle }} </b></h2>
         <h2 [innerHtml]="lang('./en/index.js').instructionForUserOnErrorLine1"></h2>
-        <div>
+        <div class="col-lg-14" >
 
             <div *ngIf="!rapidError" class="alert alert-info col-lg-14" role="alert">
                 <h4 [innerHtml]="lang('./en/index.js').systemErrorText"></h4>
