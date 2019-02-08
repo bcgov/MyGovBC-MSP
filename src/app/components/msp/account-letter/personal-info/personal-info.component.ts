@@ -18,7 +18,6 @@ import * as _ from 'lodash';
 import {MspDataService} from '../../service/msp-data.service';
 import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
 import {ProcessService} from '../../service/process.service';
-import {BaseComponent} from '../../common/base.component';
 import {AccountLetterApplication} from '../../model/account-letter-application.model';
 import {MspPhnComponent} from '../../common/phn/phn.component';
 import {MspBirthDateComponent} from '../../common/birthdate/birthdate.component';
@@ -29,6 +28,7 @@ import {
 import {environment} from '../../../../../environments/environment';
 import {SpecificMemberComponent} from "./specific-member/specific-member.component";
 import {LETTER, Masking, NUMBER, SPACE} from '../../model/masking.model';
+import {MspLogService} from '../../service/log.service';
 
 
 @Component({
@@ -50,8 +50,8 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     captchaApiBaseUrl: string;
     showError:boolean = false;
     Address: typeof Address = Address;
-    public mask = [LETTER, NUMBER, LETTER, SPACE, NUMBER, LETTER, NUMBER];
-    public regex: RegExp = /^[A-Za-z][0-9][A-Za-z]\s?[0-9][A-Za-z][0-9]$/;
+    public postalCodeMask = [LETTER, NUMBER, LETTER, SPACE, NUMBER, LETTER, NUMBER];
+    public phnRegex: RegExp = /^[A-Za-z][0-9][A-Za-z]\s?[0-9][A-Za-z][0-9]$/;
 
     langStatus = require('../../common/enrollmentMember/i18n');
 
@@ -59,7 +59,8 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     constructor(private dataService: MspDataService,
                 private _processService: ProcessService,
                 private _router: Router,
-                private cd: ChangeDetectorRef) {
+                private cd: ChangeDetectorRef,
+                private logService: MspLogService) {
         super(cd);
     }
 
@@ -67,6 +68,10 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
         this.initProcessMembers(AccountLetterPersonalInfoComponent.ProcessStepNum, this._processService);
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
         this.accountLetterApplication.authorizationToken = null;
+        this.logService.log({
+            name: 'ACL - Loaded Page',
+            url: this._router.url
+        }, 'ACL - Loaded Page');
     }
 
     saveApplication(values: any) {

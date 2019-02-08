@@ -35,14 +35,7 @@ export class AccountLetterComponent {
                Fixed the bug: After a successful submission , when user press back button no process service exists ,so it throws NPE
                 This wont create overhead since it creates only if process service is empty
                 */
-
                 this.initProcessService();
-                if (this.router.url.indexOf('/confirmation/') === -1) {//toned down logs.no log for confirmation page
-                    this.logService.log({
-                        name: 'ACL - Loaded Page ',
-                        url: this.router.url
-                    }, 'ACL - Loaded Page ');
-                }
             });
     }
 

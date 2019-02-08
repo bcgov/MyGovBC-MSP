@@ -35,7 +35,7 @@ export class AclErrorViewComponent extends BaseComponent{
 
     ngOnChanges(changes: SimpleChanges) {
         // RAPID Response..GOTO SPA_ENV server and get the user message
-        if (changes&& changes.response && changes.response.currentValue && changes.response.currentValue.rapidResponse) {
+        if (changes&& changes.response && changes.response.currentValue && changes.response.currentValue.rapidResponse && changes.response.currentValue.rapidResponse != 'N') {
             const spaRapidHeader = '{"SPA_ENV_MSP_ACL_'+this.response.rapidResponse+'":""}';
             this.aclService
                 .sendSpaEnvServer(spaRapidHeader)

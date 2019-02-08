@@ -41,7 +41,7 @@
                 <input [(ngModel)]='accountLetterApplication.postalCode' type="text" class="form-control to-upper"
                     id="residentialAddressPostalCode{{objectId}}" name="residentialAddressPostalCode"
                     #residentialAddressPostalCodeRef="ngModel" required tabindex="0" maxlength="8"
-                    (onChange)="saveApplication($event);" [pattern]="regex" placeholder="A1A 1A1" [textMask]="{mask: mask, pipe: upperCasePipe}">
+                    (onChange)="saveApplication($event);" [pattern]="phnRegex" placeholder="A1A 1A1" [textMask]="{mask: postalCodeMask, pipe: upperCasePipe}">
                 <div *ngIf='residentialAddressPostalCodeRef.touched || showError'
                     role="alert" aria-live="assertive">
 
