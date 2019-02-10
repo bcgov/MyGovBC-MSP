@@ -20,12 +20,14 @@ import {Address} from '../model/address.model';
 import { SimpleDate } from '../model/simple-date.interface';
 import { AccountLetterApplication } from '../model/account-letter-application.model';
 import AccountLetterDto from '../model/account-letter.dto';
+import {BenefitApplication} from '../model/benefit-application.model';
 
 @Injectable()
 export  class MspDataService {
     private _mspApplication: MspApplication;
     private _accountLetterApp: AccountLetterApplication;
     private _finAssistApp: FinancialAssistApplication;
+
     private _mspAccountApp: MspAccountApp;
     private finAssistAppStorageKey: string = 'financial-assist';
     private accountLetterAppStorageKey: string = 'account-letter';
@@ -37,7 +39,7 @@ export  class MspDataService {
     private mspAccountStorageKey: string = 'msp-account';
 
 
-    constructor(private localStorageService: LocalStorageService) {
+    constructor(public localStorageService: LocalStorageService) {
         this._finAssistApp = this.fetchFinAssistApplication();
         this._accountLetterApp = this.fetchAccountLetterApplication();
         this._mspApplication = this.fetchMspApplication();
@@ -80,6 +82,8 @@ export  class MspDataService {
     get finAssistApp(): FinancialAssistApplication {
         return this._finAssistApp;
     }
+
+
 
     get accountLetterApp(): AccountLetterApplication {
         return this._accountLetterApp;
@@ -235,11 +239,6 @@ export  class MspDataService {
         this._accountLetterApp = new AccountLetterApplication();
     }
 
-    //TODO Benefit
-    removeMspBenefitApp(): void {
-        this.destroyAll();
-        this._accountLetterApp = new AccountLetterApplication();
-    }
 
     private toPersonDtoForAccount(input: Person): PersonDto {
         const dto: PersonDto = new PersonDto();
