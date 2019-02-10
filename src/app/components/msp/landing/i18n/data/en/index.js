@@ -6,5 +6,7 @@ module.exports = {
     continuePaApp: 'Continue premium assistance application',
     newAccountApp: 'MSP Account Change Request',
     continueAccountApp: 'Continue MSP Account Change Request',
-    continueAccountLetter: 'Continue Account Confirmation letter application'
+    continueAccountLetter: 'Continue Account Confirmation letter application',
+    newBenefitApp: 'New Supplementary Benefits application',
+    continueBenefitApp: 'Continue Supplementary Benefits application',
 }

@@ -235,6 +235,12 @@ export  class MspDataService {
         this._accountLetterApp = new AccountLetterApplication();
     }
 
+    //TODO Benefit
+    removeMspBenefitApp(): void {
+        this.destroyAll();
+        this._accountLetterApp = new AccountLetterApplication();
+    }
+
     private toPersonDtoForAccount(input: Person): PersonDto {
         const dto: PersonDto = new PersonDto();
 

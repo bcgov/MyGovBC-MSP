@@ -45,4 +45,9 @@ export class LandingComponent {
         this.router.navigate(['/msp/account-letter/personal-info']);
     }
 
+    clearSavedBenefitAssisApp() {
+        this.mspDataService.removeMspBenefitApp();
+        this.router.navigate(['/msp/benefit/personal-info']);
+    }
+
 }

@@ -103,6 +103,7 @@ import { AccountLetterConfirmationComponent } from './account-letter/confirmatio
 import { SpecificMemberComponent } from './account-letter/personal-info/specific-member/specific-member.component';
 import { AclErrorViewComponent } from './account-letter/sending/acl-error-view/acl-error-view.component';
 import { ReplacewithlinksPipe } from './common/replace-link-pipe/replacewithlinks.pipe';
+import { BenefitComponent } from './benefit/benefit.component';
 
 
 const APP_ROUTES: Routes = [
@@ -401,7 +402,8 @@ const APP_ROUTES: Routes = [
         FormActionBarComponent,
         SpecificMemberComponent,
         AclErrorViewComponent,
-        ReplacewithlinksPipe
+        ReplacewithlinksPipe,
+        BenefitComponent
 
     ],
 
