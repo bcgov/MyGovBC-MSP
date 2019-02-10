@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {MspImage} from '../model/msp-image';
 import {MspImageErrorModalComponent} from '../common/image-error-modal/image-error-modal.component';
 import {FileUploaderComponent} from '../common/file-uploader/file-uploader.component';
+import {MspBenefitDataService} from '../service/msp-benefit-data.service';
 
 /**
  * Application for MSP
@@ -21,7 +22,7 @@ import {FileUploaderComponent} from '../common/file-uploader/file-uploader.compo
 export class LandingComponent {
     lang = require('./i18n');
 
-    constructor(private mspDataService: MspDataService, private router: Router) {}
+    constructor(private mspDataService: MspDataService, private mspBenefitDataService: MspBenefitDataService , private router: Router) {}
 
     clearSavedFinAssisApp() {
         console.log('deleting saved fin assist app.');
@@ -46,8 +47,8 @@ export class LandingComponent {
     }
 
     clearSavedBenefitAssisApp() {
-        this.mspDataService.removeMspBenefitApp();
-        this.router.navigate(['/msp/benefit/personal-info']);
+        this.mspBenefitDataService.removeMspBenefitApp();
+        this.router.navigate(['/msp/benefit/prepare']);
     }
 
 }

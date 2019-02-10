@@ -104,6 +104,8 @@ import { SpecificMemberComponent } from './account-letter/personal-info/specific
 import { AclErrorViewComponent } from './account-letter/sending/acl-error-view/acl-error-view.component';
 import { ReplacewithlinksPipe } from './common/replace-link-pipe/replacewithlinks.pipe';
 import { BenefitComponent } from './benefit/benefit.component';
+import {BenefitPrepareComponent} from './benefit/prepare/prepare.component';
+import {MspBenefitDataService} from './service/msp-benefit-data.service';
 
 
 const APP_ROUTES: Routes = [
@@ -278,7 +280,53 @@ const APP_ROUTES: Routes = [
                     }
 
                 ],
-            }
+            },
+            {
+                path: 'benefit',
+                component: BenefitComponent,
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'prepare',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'prepare',
+                        component: BenefitPrepareComponent
+                    },
+                   /* {
+                        path: 'personal-info',
+                        canActivate: [ProcessService],
+                        component: AssistancePersonalInfoComponent,
+
+                    },
+                    {
+                        path: 'retro',
+                        canActivate: [ProcessService],
+                        component: AssistanceRetroYearsComponent
+                    },
+                    {
+                        path: 'review',
+                        canActivate: [ProcessService],
+                        component: AssistanceReviewComponent
+                    },
+                    {
+                        path: 'authorize-submit',
+                        canActivate: [ProcessService],
+                        component: AssistanceAuthorizeSubmitComponent
+                    },
+                    {
+                        path: 'sending',
+                        canActivate: [ProcessService],
+                        component: AssistanceSendingComponent
+                    },
+                    {
+                        path: 'confirmation',
+                        canActivate: [],
+                        component: AssistanceConfirmationComponent
+                    }*/
+                ]
+            },
 
         ]
     },
@@ -403,15 +451,16 @@ const APP_ROUTES: Routes = [
         SpecificMemberComponent,
         AclErrorViewComponent,
         ReplacewithlinksPipe,
-        BenefitComponent
 
+        BenefitComponent,
+        BenefitPrepareComponent
     ],
 
     providers: [
         // Services
         MspDataService,
         MspValidationService,
-	MspMaintenanceService,
+	    MspMaintenanceService,
         CompletenessCheckService,
         MspApiService,
         MspACLService,
@@ -419,7 +468,8 @@ const APP_ROUTES: Routes = [
         MspLog2Service,
         ProcessService,
         CaptchaDataService,
-        AccountDocumentHelperService
+        AccountDocumentHelperService,
+        MspBenefitDataService
     ]
 })
 @Injectable()

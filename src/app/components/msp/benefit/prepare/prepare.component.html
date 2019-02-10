@@ -1,0 +1,36 @@
+<h2 [innerHTML]="getFinanialInfoSectionTitle" tabindex="0">
+</h2>
+<form #formRef='ngForm' novalidate>
+
+
+    <div class="form-group"
+         [ngClass]="{'has-error': !formRef.controls.netIncome?.valid && incomeRef.touched}">
+        <div class="row">
+            <div class="col-lg-12">
+                <label for="netIncome">Enter your net income – see Line 236 of your Notice of Assessment or Reassessment from Canada Revenue Agency.</label>
+
+                <div class="col-lg-3 col-md-4 col-sm-6 input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="text" class="form-control" name="netIncome" id="netIncome"
+                           [(ngModel)]="benefitApp.netIncomelastYear"
+                           #incomeRef="ngModel"
+                           pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
+                           required maxlength="12">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="(incomeRef.touched || incomeRef.dirty || (!!incomeRef.value && incomeRef.value.trim().length>0) || formRef.touched || !(benefitApp.ageOver65 === null || benefitApp.ageOver65 === undefined) ||
+                         formRef.controls.spouseIncomeLine236?.valid || benefitApp.spouseEligibleForDisabilityCredit)">
+        <div class="text-danger" *ngIf="incomeRef.errors?.required"
+             [innerHTML]="lang('./en/index.js').incomeDataRequired" tabindex="0"></div>
+        <div class="text-danger" *ngIf="incomeRef.errors?.pattern"
+             [innerHTML]="lang('./en/index.js').invalidNumber" tabindex="0"></div>
+        <div class="text-danger" *ngIf="incomeRef.errors?.maxlength"
+             [innerHTML]="lang('./en/index.js').incomeDataMaxLength" tabindex="0"></div>
+    </div>
+
+
+</form>
