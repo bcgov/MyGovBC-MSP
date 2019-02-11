@@ -106,6 +106,7 @@ import { ReplacewithlinksPipe } from './common/replace-link-pipe/replacewithlink
 import { BenefitComponent } from './benefit/benefit.component';
 import {BenefitPrepareComponent} from './benefit/prepare/prepare.component';
 import {MspBenefitDataService} from './service/msp-benefit-data.service';
+import { BenefitDeductionCalculatorComponent } from './benefit/prepare/benefit-deduction-calculator/benefit-deduction-calculator.component';
 
 
 const APP_ROUTES: Routes = [
@@ -453,7 +454,8 @@ const APP_ROUTES: Routes = [
         ReplacewithlinksPipe,
 
         BenefitComponent,
-        BenefitPrepareComponent
+        BenefitPrepareComponent,
+        BenefitDeductionCalculatorComponent
     ],
 
     providers: [
