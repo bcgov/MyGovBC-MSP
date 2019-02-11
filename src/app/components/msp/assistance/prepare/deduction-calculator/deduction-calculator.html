@@ -25,7 +25,7 @@
           </td>
           <td class="deduction-table-cell-padding deduction-table-cell-margin">
             <span *ngIf="applicantIncomeInfoProvided" tabindex="0">
-              {{totalHouseholdIncome | currency: 'USD': true}}
+              {{totalHouseholdIncome | currency: 'USD': 'symbol'}}
             </span>
             <span *ngIf="!applicantIncomeInfoProvided">
               - -
