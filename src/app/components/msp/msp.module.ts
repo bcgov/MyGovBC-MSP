@@ -94,7 +94,7 @@ import { MspValidationService } from './service/msp-validation.service';
 import { ProcessService } from './service/process.service';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import {AccountDocumentHelperService} from './service/account-document-helper.service';
-import { MspMaintenanceService } from "./service/msp-maintenance.service";
+import { MspMaintenanceService } from './service/msp-maintenance.service';
 
 import { AccountLetterComponent } from './account-letter/account-letter.component';
 import { AccountLetterPersonalInfoComponent } from './account-letter/personal-info/personal-info.component';
@@ -107,6 +107,7 @@ import { BenefitComponent } from './benefit/benefit.component';
 import {BenefitPrepareComponent} from './benefit/prepare/prepare.component';
 import {MspBenefitDataService} from './service/msp-benefit-data.service';
 import { BenefitDeductionCalculatorComponent } from './benefit/prepare/benefit-deduction-calculator/benefit-deduction-calculator.component';
+import {BenefitPersonalInfoComponent} from './benefit/personal-info/personal-info.component';
 
 
 const APP_ROUTES: Routes = [
@@ -295,37 +296,37 @@ const APP_ROUTES: Routes = [
                         path: 'prepare',
                         component: BenefitPrepareComponent
                     },
-                   /* {
+                   {
                         path: 'personal-info',
                         canActivate: [ProcessService],
-                        component: AssistancePersonalInfoComponent,
+                        component: BenefitPersonalInfoComponent,
 
                     },
-                    {
-                        path: 'retro',
-                        canActivate: [ProcessService],
-                        component: AssistanceRetroYearsComponent
-                    },
-                    {
-                        path: 'review',
-                        canActivate: [ProcessService],
-                        component: AssistanceReviewComponent
-                    },
-                    {
-                        path: 'authorize-submit',
-                        canActivate: [ProcessService],
-                        component: AssistanceAuthorizeSubmitComponent
-                    },
-                    {
-                        path: 'sending',
-                        canActivate: [ProcessService],
-                        component: AssistanceSendingComponent
-                    },
-                    {
-                        path: 'confirmation',
-                        canActivate: [],
-                        component: AssistanceConfirmationComponent
-                    }*/
+                    /*  {
+                         path: 'retro',
+                         canActivate: [ProcessService],
+                         component: AssistanceRetroYearsComponent
+                     },
+                     {
+                         path: 'review',
+                         canActivate: [ProcessService],
+                         component: AssistanceReviewComponent
+                     },
+                     {
+                         path: 'authorize-submit',
+                         canActivate: [ProcessService],
+                         component: AssistanceAuthorizeSubmitComponent
+                     },
+                     {
+                         path: 'sending',
+                         canActivate: [ProcessService],
+                         component: AssistanceSendingComponent
+                     },
+                     {
+                         path: 'confirmation',
+                         canActivate: [],
+                         component: AssistanceConfirmationComponent
+                     }*/
                 ]
             },
 
@@ -455,6 +456,7 @@ const APP_ROUTES: Routes = [
 
         BenefitComponent,
         BenefitPrepareComponent,
+        BenefitPersonalInfoComponent,
         BenefitDeductionCalculatorComponent
     ],
 
