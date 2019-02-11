@@ -30,8 +30,7 @@ export class BenefitDeductionCalculatorComponent implements DoCheck {
     }
 
     ngDoCheck(): void {
-        const valid = this.canContinue && this.application.taxtYearsProvided;
-        this._processService.setStep(BenefitDeductionCalculatorComponent.ProcessStepNum, valid);
+        this._processService.setStep(BenefitDeductionCalculatorComponent.ProcessStepNum, this.canContinue);
     }
 
     get ageOver65Amt(): number {
@@ -229,17 +228,9 @@ export class BenefitDeductionCalculatorComponent implements DoCheck {
 
 
     navigateToPersonalInfo() {
-        const taxYearSpecified = this.application.taxtYearsProvided;
-        if (taxYearSpecified) {
             this._router.navigate(['/msp/benefit/personal-info']);
-        } else {
-            this.taxYearInfoMissing.emit(true);
-        }
     }
 
-    get taxYearsSpecified() {
-        return this.application.taxtYearsProvided;
-    }
 
     private get attendantCareExpenseReceiptsProvided(): boolean {
         let provided = true;
