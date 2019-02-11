@@ -354,9 +354,6 @@ export class BenefitApplication implements ApplicationBase {
         });
     }
 
-    get taxtYearsProvided(): boolean {
-        return !!this.getAppliedForTaxYears() && this.getAppliedForTaxYears().length > 0;
-    }
     /**
      * Sorts descending the applied for tax years
      */
