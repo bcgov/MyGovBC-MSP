@@ -43,7 +43,8 @@ export class BenefitComponent {
     }
 
     ngOnInit() {
-        this.routerSubscription = this.router.events
+        //TODO make logs working
+      /*  this.routerSubscription = this.router.events
             .pipe(filter(event => event instanceof NavigationEnd))
             .subscribe(event => {
                 if (this.router.url.indexOf('/confirmation/') === -1) {//toned down logs.no log for confirmation page
@@ -52,7 +53,7 @@ export class BenefitComponent {
                         url: this.router.url
                     }, 'PA - Loaded Page ');
                 }
-            });
+            });*/
     }
 
     ngOnDestroy() {
@@ -65,7 +66,7 @@ export class BenefitComponent {
         this.processService.init([
             new ProcessStep('/msp/benefit/prepare'),
             new ProcessStep('/msp/benefit/personal-info'),
-            new ProcessStep('/msp/benefit/retro'),
+            new ProcessStep('/msp/benefit/documents'),
             new ProcessStep('/msp/benefit/review'),
             new ProcessStep('/msp/benefit/authorize-submit'),
             new ProcessStep('/msp/benefit/sending')]);
