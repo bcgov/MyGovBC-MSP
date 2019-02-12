@@ -403,9 +403,9 @@ export class BenefitPrepareComponent implements AfterViewInit, OnInit, DoCheck {
         }
     }
 
-    get taxYearsSpecified(){
+   /* get taxYearsSpecified(){
         return this.benefitApp.taxtYearsProvided;
-    }
+    }*/
 
     get userSelectedMostRecentTaxYear(): number {
         let max = 0;

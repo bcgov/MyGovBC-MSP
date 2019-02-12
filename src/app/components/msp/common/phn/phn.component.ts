@@ -8,6 +8,7 @@ import { FinancialAssistApplication } from '../../model/financial-assist-applica
 import { Router } from '@angular/router';
 import {debounceTime} from "rxjs/operators";
 import {Masking, NUMBER, SPACE} from '../../../msp/model/masking.model';
+import {MspBenefitDataService} from '../../service/msp-benefit-data.service';
 
 @Component({
   selector: 'msp-phn',
@@ -39,7 +40,7 @@ export class MspPhnComponent extends Masking {
   //@Input() isPhnDuplicate: boolean = false;
 
   constructor(private cd: ChangeDetectorRef,
-    private dataService: MspDataService,
+    private dataService: MspDataService, private benefitDataService: MspBenefitDataService,
     private router: Router) {
     super(cd);
   }
@@ -95,8 +96,10 @@ export class MspPhnComponent extends Masking {
     if (this.router.url.indexOf('/account-letter/personal-info') !== -1){
       return this.dataService.accountLetterApp.allPersons;
     }
-    
 
+      if (this.router.url.indexOf('/benefit/personal-info') !== -1){
+          return this.benefitDataService.benefitApp.allPersons;
+      }
   }
 
   focus() {
