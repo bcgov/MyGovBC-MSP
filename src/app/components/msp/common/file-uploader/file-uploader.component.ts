@@ -14,6 +14,7 @@ import { LogEntry } from '../logging/log-entry.model';
 import {Person} from "../../model/application.model";
 import {Router} from "@angular/router";
 import {ApplicationBase} from "../../model/application-base.model";
+import {MspBenefitDataService} from '../../service/msp-benefit-data.service';
 
 const loadImage = require('blueimp-load-image');
 const sha1 = require('sha1');
@@ -51,6 +52,7 @@ export class FileUploaderComponent
     application: ApplicationBase ;
 
     constructor(private dataService: MspDataService,
+                private benefitDataService: MspBenefitDataService,
                 private logService: MspLogService,
                 private zone: NgZone,
                 private cd: ChangeDetectorRef , private router: Router) {
@@ -754,6 +756,9 @@ export class FileUploaderComponent
         }
         if (this.router.url.indexOf('/account/') !== -1){
             return this.dataService.getMspAccountApp();
+        }
+        if (this.router.url.indexOf('/benefit/') !== -1){
+            return this.benefitDataService.benefitApp;
         }
     }
 
