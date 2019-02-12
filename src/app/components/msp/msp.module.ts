@@ -108,6 +108,7 @@ import {BenefitPrepareComponent} from './benefit/prepare/prepare.component';
 import {MspBenefitDataService} from './service/msp-benefit-data.service';
 import { BenefitDeductionCalculatorComponent } from './benefit/prepare/benefit-deduction-calculator/benefit-deduction-calculator.component';
 import {BenefitPersonalInfoComponent} from './benefit/personal-info/personal-info.component';
+import {BenefitPersonalDetailComponent} from './benefit/personal-info/personal-detail/personal-detail.component';
 
 
 const APP_ROUTES: Routes = [
@@ -457,7 +458,9 @@ const APP_ROUTES: Routes = [
         BenefitComponent,
         BenefitPrepareComponent,
         BenefitPersonalInfoComponent,
+        BenefitPersonalDetailComponent,
         BenefitDeductionCalculatorComponent
+
     ],
 
     providers: [
