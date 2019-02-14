@@ -110,7 +110,8 @@ import { BenefitDeductionCalculatorComponent } from './benefit/prepare/benefit-d
 import {BenefitPersonalInfoComponent} from './benefit/personal-info/personal-info.component';
 import {BenefitPersonalDetailComponent} from './benefit/personal-info/personal-detail/personal-detail.component';
 import {BenefitDocumentsComponent} from './benefit/documents/documents.component';
-
+import {BenefitReviewComponent} from './benefit/review/review.component';
+import {BenefitEligibilityCardComponent} from './benefit/prepare/eligibility-card/eligibility-card.component';
 
 const APP_ROUTES: Routes = [
     {
@@ -309,26 +310,26 @@ const APP_ROUTES: Routes = [
                          canActivate: [ProcessService],
                          component: BenefitDocumentsComponent
                      },
-                    /* {
+                    {
                         path: 'review',
                         canActivate: [ProcessService],
-                        component: AssistanceReviewComponent
+                        component: BenefitReviewComponent
                     },
-                    {
-                        path: 'authorize-submit',
-                        canActivate: [ProcessService],
-                        component: AssistanceAuthorizeSubmitComponent
-                    },
-                    {
-                        path: 'sending',
-                        canActivate: [ProcessService],
-                        component: AssistanceSendingComponent
-                    },
-                    {
-                        path: 'confirmation',
-                        canActivate: [],
-                        component: AssistanceConfirmationComponent
-                    }*/
+                    /*  {
+                         path: 'authorize-submit',
+                         canActivate: [ProcessService],
+                         component: AssistanceAuthorizeSubmitComponent
+                     },
+                     {
+                         path: 'sending',
+                         canActivate: [ProcessService],
+                         component: AssistanceSendingComponent
+                     },
+                     {
+                         path: 'confirmation',
+                         canActivate: [],
+                         component: AssistanceConfirmationComponent
+                     }*/
                 ]
             },
 
@@ -461,7 +462,9 @@ const APP_ROUTES: Routes = [
         BenefitPersonalInfoComponent,
         BenefitPersonalDetailComponent,
         BenefitDeductionCalculatorComponent,
-        BenefitDocumentsComponent
+        BenefitDocumentsComponent,
+        BenefitReviewComponent,
+        BenefitEligibilityCardComponent
 
     ],
 
@@ -469,7 +472,7 @@ const APP_ROUTES: Routes = [
         // Services
         MspDataService,
         MspValidationService,
-	    MspMaintenanceService,
+        MspMaintenanceService,
         CompletenessCheckService,
         MspApiService,
         MspACLService,

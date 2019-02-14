@@ -6,8 +6,9 @@ import {FinancialAssistApplication} from '../../model/financial-assist-applicati
 import {NgForm} from '@angular/forms';
 import {MspImage} from '../../model/msp-image';
 import {MspImageErrorModalComponent} from '../../common/image-error-modal/image-error-modal.component';
-import {AssistanceRetroYearsComponent} from '../../assistance/retro-years/retro-years.component';
 import {ProcessService} from '../../service/process.service';
+import {BenefitApplication} from '../../model/benefit-application.model';
+import {MspBenefitDataService} from '../../service/msp-benefit-data.service';
 
 @Component({
   selector: 'msp-benefit-documents',
@@ -18,27 +19,27 @@ export class BenefitDocumentsComponent  implements AfterViewInit, DoCheck {
 
     static ProcessStepNum = 2;
     lang = require('./i18n');
-    application: FinancialAssistApplication;
+    application: BenefitApplication;
 
     @ViewChild('formRef') form: NgForm;
     @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
 
-    constructor(private dataService: MspDataService,
+    constructor(private dataService: MspBenefitDataService,
                 private _router: Router,
                 private _processService: ProcessService){
-        this.application = this.dataService.finAssistApp;
+        this.application = this.dataService.benefitApp;
     }
 
     ngDoCheck(): void {
         const valid = this.canContinue;
-        this._processService.setStep(AssistanceRetroYearsComponent.ProcessStepNum, valid);
+        this._processService.setStep(BenefitDocumentsComponent.ProcessStepNum, valid);
     }
 
     ngAfterViewInit(){
         this.form.valueChanges.subscribe( value => {
-            this.dataService.saveFinAssistApplication();
+            this.dataService.saveBenefitApplication();
         });
     }
 
@@ -134,8 +135,8 @@ export class BenefitDocumentsComponent  implements AfterViewInit, DoCheck {
     }
 
     continue(): void {
-        this._processService.setStep(AssistanceRetroYearsComponent.ProcessStepNum, true);
-        this._router.navigate(['/msp/assistance/review']);
+        this._processService.setStep(BenefitDocumentsComponent.ProcessStepNum, true);
+        this._router.navigate(['/msp/benefit/review']);
     }
 
 }
