@@ -42,7 +42,7 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
             debounceTime(250),
             distinctUntilChanged()
         ).subscribe( values => {
-            this.dataService.saveFinAssistApplication();
+            this.dataService.saveBenefitApplication();
         });
     }
 
@@ -52,7 +52,7 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
 
     onChange(values: any) {
         // console.log('changes from child component triggering save: ', values);
-        this.dataService.saveFinAssistApplication();
+        this.dataService.saveBenefitApplication();
     }
 
     onSubmit(form: NgForm){
@@ -60,7 +60,7 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     }
 
     isValid(): boolean {
-        return this.dataService.finAssistApp.isUniquePhns && this.dataService.finAssistApp.isUniqueSin;
+        return this.dataService.benefitApp.isUniquePhns && this.dataService.benefitApp.isUniqueSin;
     }
 
     get canContinue(): boolean{

@@ -113,6 +113,6 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit{
 
   continue() {
     this._processService.setStep(AssistanceAuthorizeSubmitComponent.ProcessStepNum, true);
-    this._router.navigate(['/msp/assistance/sending']);
+    this._router.navigate(['/msp/benefit/sending']);
   }
 }

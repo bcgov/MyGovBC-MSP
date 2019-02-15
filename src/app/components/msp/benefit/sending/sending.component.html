@@ -1,0 +1,46 @@
+<div *ngIf="transmissionInProcess" class="center-block">
+  <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
+  <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+
+  <span class="sr-only">Submitting your application...</span>
+  <p class="intro" [innerHtml]="lang('./en/index.js').transmissionInProgressMessage">
+  </p>
+</div>
+
+<div class="h1" *ngIf="!transmissionInProcess && !hasError"
+     [innerHtml]="lang('./en/index.js').transmissionSuccess"></div>
+
+<div class="row" *ngIf="!transmissionInProcess && hasError">
+  <div class="col-sm-12 col-lg-6">
+    <h1 [innerHtml]="lang('./en/index.js').transmissionErrorTitle"></h1>
+    <h3 [innerHtml]="lang('./en/index.js').instructionForUserOnError"></h3>
+
+    <h3 [innerHtml]="lang('./en/index.js').pa_instructionForUserOnErrorLine1"></h3>
+    <div style="font-size: 18px">
+      <ul>
+        <li>
+          <a href="javascript:void(0)" (click)="retrySubmission()" [innerHtml]="lang('./en/index.js').pa_tryToSumitAgain"></a>
+        </li>
+      </ul>
+    </div>
+    <h3 [innerHtml]="lang('./en/index.js').pa_instructionForUserOnErrorLine2"></h3>
+
+  </div>
+</div>
+
+<div class="row" *ngIf="!transmissionInProcess && hasError" style="margin-top: 30px;">
+  <msp-transmission-error-view [rawError]="rawError"></msp-transmission-error-view>
+</div>
+
+<div *ngIf="false">
+  <h3>Dev/Test Temporary Debug Section</h3>
+  <p>Copy and paste the contents of each text area into the issue</p>
+  URL:
+  <textarea class="form-control" rows="2">{{rawUrl}}</textarea><br>
+  Error
+  <textarea class="form-control" rows="5">{{rawError}}</textarea><br>
+  Request
+  <textarea class="form-control" rows="20">{{rawRequest}}</textarea><br>
+  <hr>
+  <button class="btn btn-primary" type="submit" routerLink="/msp/benefit/confirmation">Skip to confirmation</button>
+</div>

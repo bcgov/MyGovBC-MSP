@@ -197,11 +197,11 @@ export  class MspDataService {
         return mspAccountApp;
     }
 
-    private convertMailingAddress(input: any, output: any) {
+    convertMailingAddress(input: any, output: any) {
         this.convertAddress(input, output, 'mailingAddress');
     }
 
-    private convertResidentialAddress(input: any, output: any) {
+    convertResidentialAddress(input: any, output: any) {
         this.convertAddress(input, output, 'residentialAddress');
     }
 
@@ -924,7 +924,7 @@ export  class MspDataService {
         return output;
     }
 
-    private convertToPersonDto(input: Person, output: PersonDto) {
+     convertToPersonDto(input: Person, output: PersonDto) {
         output.dob_day = input.dob_day;
         output.dob_month = input.dob_month;
         output.dob_year = input.dob_year;
@@ -940,7 +940,7 @@ export  class MspDataService {
         output.plannedAbsence = input.plannedAbsence;
     }
 
-    private convertToPerson(input: PersonDto, output: Person) {
+     convertToPerson(input: PersonDto, output: Person) {
         output.dob_day = input.dob_day;
         output.dob_month = input.dob_month;
         output.dob_year = input.dob_year;

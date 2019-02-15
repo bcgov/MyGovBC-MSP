@@ -112,6 +112,9 @@ import {BenefitPersonalDetailComponent} from './benefit/personal-info/personal-d
 import {BenefitDocumentsComponent} from './benefit/documents/documents.component';
 import {BenefitReviewComponent} from './benefit/review/review.component';
 import {BenefitEligibilityCardComponent} from './benefit/prepare/eligibility-card/eligibility-card.component';
+import { BenefitAuthorizeSubmitComponent } from './benefit/authorize-submit/authorize-submit.component';
+import {BenefitSendingComponent} from './benefit/sending/sending.component';
+import {BenefitConfirmationComponent} from './benefit/confirmation/confirmation.component';
 
 const APP_ROUTES: Routes = [
     {
@@ -315,21 +318,21 @@ const APP_ROUTES: Routes = [
                         canActivate: [ProcessService],
                         component: BenefitReviewComponent
                     },
-                    /*  {
+                     {
                          path: 'authorize-submit',
                          canActivate: [ProcessService],
-                         component: AssistanceAuthorizeSubmitComponent
+                         component: BenefitAuthorizeSubmitComponent
                      },
-                     {
-                         path: 'sending',
-                         canActivate: [ProcessService],
-                         component: AssistanceSendingComponent
-                     },
-                     {
-                         path: 'confirmation',
-                         canActivate: [],
-                         component: AssistanceConfirmationComponent
-                     }*/
+                       {
+                          path: 'sending',
+                          canActivate: [ProcessService],
+                          component: BenefitSendingComponent
+                      },
+                      {
+                          path: 'confirmation',
+                          canActivate: [],
+                          component: BenefitConfirmationComponent
+                      }
                 ]
             },
 
@@ -464,8 +467,10 @@ const APP_ROUTES: Routes = [
         BenefitDeductionCalculatorComponent,
         BenefitDocumentsComponent,
         BenefitReviewComponent,
-        BenefitEligibilityCardComponent
-
+        BenefitEligibilityCardComponent,
+        BenefitAuthorizeSubmitComponent,
+        BenefitSendingComponent,
+        BenefitConfirmationComponent
     ],
 
     providers: [
