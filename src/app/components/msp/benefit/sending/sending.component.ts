@@ -5,6 +5,7 @@ import {ResponseType} from '../../api-model/responseTypes';
 import {MspApiService} from '../../service/msp-api.service';
 import {BenefitApplication} from '../../model/benefit-application.model';
 import {MspBenefitDataService} from '../../service/msp-benefit-data.service';
+import {MspApiBenefitService} from '../../service/msp-api-benefit.service';
 
 @Component({
   selector: 'msp-benefit-sending',
@@ -24,7 +25,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
     showMoreErrorDetails: boolean;
 
     constructor(private dataService: MspBenefitDataService,
-                private service: MspApiService,
+                private service: MspApiBenefitService,
                 public router: Router,
                 public logService: MspLogService) {
         this.application = this.dataService.benefitApp;

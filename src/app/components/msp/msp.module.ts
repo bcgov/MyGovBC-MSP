@@ -115,6 +115,7 @@ import {BenefitEligibilityCardComponent} from './benefit/prepare/eligibility-car
 import { BenefitAuthorizeSubmitComponent } from './benefit/authorize-submit/authorize-submit.component';
 import {BenefitSendingComponent} from './benefit/sending/sending.component';
 import {BenefitConfirmationComponent} from './benefit/confirmation/confirmation.component';
+import { TaxYearComponent } from './benefit/prepare/tax-year/tax-year.component';
 
 const APP_ROUTES: Routes = [
     {
@@ -470,7 +471,8 @@ const APP_ROUTES: Routes = [
         BenefitEligibilityCardComponent,
         BenefitAuthorizeSubmitComponent,
         BenefitSendingComponent,
-        BenefitConfirmationComponent
+        BenefitConfirmationComponent,
+        TaxYearComponent
     ],
 
     providers: [

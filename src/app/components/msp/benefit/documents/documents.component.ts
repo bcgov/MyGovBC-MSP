@@ -44,24 +44,12 @@ export class BenefitDocumentsComponent  implements AfterViewInit, DoCheck {
     }
 
     get docRequiredInstruction(): any{
-        const docsRequiredYears: string = this.application.getAppliedForTaxYears().reduce(
-            function(acc, value, idx){
-                if (value.docsRequired){
-                    if (acc.length > 0){
-                        return acc + ', ' + value.year;
-                    }else{
-                        return acc + value.year;
-                    }
-                }else{
-                    return acc;
-                }
-            }, ''
-        );
+
         const applicantLine = this.lang('./en/index.js').applicantDocsRequired
-            .replace('{taxYearsAppliedFor}', docsRequiredYears);
+            .replace('{taxYearsAppliedFor}', this.application.taxYear);
 
         const spouseLine = this.lang('./en/index.js').spouseDocsRequired
-            .replace('{taxYearsAppliedFor}', docsRequiredYears);
+            .replace('{taxYearsAppliedFor}', this.application.taxYear);
 
         return {
             applicant: applicantLine,
@@ -70,7 +58,8 @@ export class BenefitDocumentsComponent  implements AfterViewInit, DoCheck {
 
     }
 
-    getDocNotRequiredInstruction(){
+   /* Not needed
+   getDocNotRequiredInstruction(){
 
         const docsNotRequiredYears: string = this.application.getAppliedForTaxYears().reduce(
             function(acc, value, idx){
@@ -88,7 +77,7 @@ export class BenefitDocumentsComponent  implements AfterViewInit, DoCheck {
         return this.lang('./en/index.js').docNotRequiredInstruction
             .replace('{notRequiredYears}', docsNotRequiredYears);
 
-    }
+    }*/
 
     addDoc(doc: MspImage){
         this.application.assistYeaDocs = this.application.assistYeaDocs.concat(doc);

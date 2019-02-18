@@ -23,7 +23,7 @@ import {fromEvent} from 'rxjs/internal/observable/fromEvent';
     templateUrl: './prepare.component.html',
     styleUrls: ['./prepare.component.scss']
 })
-export class BenefitPrepareComponent implements AfterViewInit, OnInit, DoCheck {
+export class BenefitPrepareComponent  extends BaseComponent  {
 
     @ViewChild('formRef') prepForm: NgForm;
     @ViewChild('incomeRef') incomeRef: ElementRef;
@@ -64,7 +64,8 @@ export class BenefitPrepareComponent implements AfterViewInit, OnInit, DoCheck {
      */
     pastYears: number[] = [];
 
-    constructor(public dataService: MspBenefitDataService){
+    constructor(public dataService: MspBenefitDataService , private cd: ChangeDetectorRef){
+        super(cd);
         this.showAttendantCareInfo = this.benefitApp.applicantClaimForAttendantCareExpense
             || this.benefitApp.spouseClaimForAttendantCareExpense
             || this.benefitApp.childClaimForAttendantCareExpense;
@@ -84,7 +85,7 @@ export class BenefitPrepareComponent implements AfterViewInit, OnInit, DoCheck {
             (!_.isNil(this.benefitApp.claimedChildCareExpense_line214) && this.benefitApp.claimedChildCareExpense_line214 > 0) ||
             ((!_.isNil(this.benefitApp.reportedUCCBenefit_line117) && (this.benefitApp.reportedUCCBenefit_line117 > 0)) );
 
-        this.initYearsList();
+
 
     }
 
@@ -359,78 +360,8 @@ export class BenefitPrepareComponent implements AfterViewInit, OnInit, DoCheck {
     }
 
 
-    initYearsList(){
-        this.pastYears = [];
-        const recentTaxYear = this.benefitApp.MostRecentTaxYear;
-        this.pastYears.push(recentTaxYear);
-
-        let i = 1;
-        while (i < 7){
-            this.pastYears.push(recentTaxYear - i);
-            i++;
-        }
-
-        if (!this.benefitApp.assistYears || this.benefitApp.assistYears.length < 7){
-            this.benefitApp.assistYears = this.pastYears.reduce(
-                (tally, yearNum) => {
-                    const assistYear: AssistanceYear = new AssistanceYear();
-                    assistYear.apply = false;
-                    assistYear.year = yearNum;
-                    assistYear.docsRequired = true;
-                    assistYear.currentYear = this.benefitApp.MostRecentTaxYear;
-
-                    if (yearNum === this.benefitApp.MostRecentTaxYear){
-                        assistYear.docsRequired = false;
-                    }
-                    tally.push(assistYear);
-
-                    return tally;
-                }, []);
-        }
-        this.dataService.saveBenefitApplication();
-    }
-
-    get assistanceYearsList(): AssistanceYear[] {
-        return this.benefitApp.assistYears;
-    }
-
-    get getFinanialInfoSectionTitle(){
-        if (!!this.userSelectedMostRecentTaxYear){
-            return this.lang('./en/index.js').checkEligibilityScreenTitle.replace('{userSelectedMostRecentTaxYear}',
-                this.userSelectedMostRecentTaxYear);
-        }else{
-            return this.lang('./en/index.js').checkEligibilityScreenTitleDefault;
-        }
-    }
-
-   /* get taxYearsSpecified(){
-        return this.benefitApp.taxtYearsProvided;
-    }*/
-
-    get userSelectedMostRecentTaxYear(): number {
-        let max = 0;
-        if (this.benefitApp.assistYears && this.benefitApp.assistYears.length > 0){
-            this.benefitApp.assistYears.forEach(
-                assistYear => {
-                    if (assistYear.apply && assistYear.year > max){
-                        max = assistYear.year;
-                    }
-                }
-            );
-        }
-
-        return max;
-
-    }
-    onAssistanceYearUpdate(assistYearParam: AssistanceYear){
-        this.benefitApp.assistYears.forEach(
-            assistYear => {
-                if (assistYear.year + '' === assistYearParam.year + ''){
-                    assistYear.apply = assistYearParam.apply;
-                }
-            }
-        );
-
+    onTaxYearUpdate(taxYear: number){
+        this.benefitApp.taxYear = taxYear;
         this.dataService.saveBenefitApplication();
     }
 

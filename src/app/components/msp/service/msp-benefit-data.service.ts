@@ -86,7 +86,7 @@ export class MspBenefitDataService extends MspDataService{
 
         dto.phoneNumber = input.phoneNumber;
 
-        dto.assistYears = input.assistYears;
+        dto.taxYear = input.taxYear;
         dto.assistYeaDocs = input.assistYeaDocs;
 
         super.convertToPersonDto(input.applicant, dto.applicant);
@@ -137,7 +137,7 @@ export class MspBenefitDataService extends MspDataService{
         output.powerOfAttorneyDocs = dto.powerOfAttorneyDocs;
         output.attendantCareExpenseReceipts = dto.attendantCareExpenseReceipts;
 
-        output.assistYears = dto.assistYears || [];
+        output.taxYear = dto.taxYear;
         output.assistYeaDocs = dto.assistYeaDocs || [];
 
         this.convertToPerson(dto.applicant, output.applicant);

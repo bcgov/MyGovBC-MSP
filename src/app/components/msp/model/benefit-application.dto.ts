@@ -4,6 +4,7 @@ import {MspImage} from './msp-image';
 
 import {AssistanceYear} from './assistance-year.model';
 export default class BenefitApplicationDto {
+
   infoCollectionAgreement: boolean;
   incomeLine236: number;
   ageOver65: boolean;
@@ -16,7 +17,7 @@ export default class BenefitApplicationDto {
   selfDisabilityCredit: boolean;
   spouseEligibleForDisabilityCredit: boolean;
   spouseDSPAmount_line125: number;
-
+  taxYear: number;
   childWithDisabilityCount: number;
   phoneNumber: string;
   mailingAddress = new AddressDto();
