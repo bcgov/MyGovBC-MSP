@@ -1,7 +1,7 @@
 <div class="row" style="margin-top: 0px; margin-bottom: 15px">
     <div class="col-lg-8" style="border: 1px solid transparent">
         <msp-tax-year [currentTaxYear]="benefitApp.taxYear" (onTaxYearChange)="onTaxYearUpdate($event);"></msp-tax-year>
-        <h2 [innerHTML]="getFinanialInfoSectionTitle" tabindex="0">
+        <h2 [innerHTML]="this.lang('./en/index.js').checkEligibilityScreenTitleDefault" tabindex="0">
         </h2>
         <form #formRef='ngForm' novalidate>
 

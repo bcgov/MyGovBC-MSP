@@ -1,4 +1,4 @@
-<label id="qTaxYear" class="intro" [innerHtml]="lang('./en/index.js').taxYearTitle"></label>
+<label id="qTaxYear" class="intro control-label mt-3" [innerHtml]="lang('./en/index.js').taxYearTitle"></label>
 <div class="form-check" *ngFor="let year of taxYears;  let i = index">
 
     <input class="form-check-input" type="radio" name="year-{{i}}" id="year-{{i}}"

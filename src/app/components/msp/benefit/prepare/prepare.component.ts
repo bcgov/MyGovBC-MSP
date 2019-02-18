@@ -215,7 +215,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         }
     }
 
-    get showDisabilityInfo(){
+   get showDisabilityInfo(){
         return this._showDisabilityInfo;
     }
 
