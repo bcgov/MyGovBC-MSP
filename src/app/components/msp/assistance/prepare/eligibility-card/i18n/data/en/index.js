@@ -11,7 +11,7 @@ module.exports = {
   registeredDSP: 'Registered Disability Savings Plan amount',
   totalDeductions: 'Total deductions',
   adjustedIncome: 'Adjusted income',
-  reportedUCCBenefit_line117: 'Universal child card benefit income',
+  reportedUCCBenefit_line117: 'Universal child care benefit income',
   claimedChildCareExpense_line214: 'Child care expense',
   editEligibilityInfo: 'Edit Financial Information'
 }

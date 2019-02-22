@@ -31,7 +31,7 @@ export class MspConsentModalComponent {
     public maintenanceFlag: string ;
     public maintenanceMessage: string;
 
-    private _applicationHeaderMap:Map<string, string> = new Map([["ACL", '{"SPA_ENV_ACL_MAINTENANCE_FLAG":"","SPA_ENV_ACL_MAINTENANCE_MESSAGE":""}'], ["MSP", '{"SPA_ENV_MSP_MAINTENANCE_FLAG":"","SPA_ENV_MSP_MAINTENANCE_MESSAGE":""}']]);
+    private _applicationHeaderMap:Map<string, string> = new Map([["ACL", '{"SPA_ENV_MSP_ACL_MAINTENANCE_FLAG":"","SPA_ENV_MSP_ACL_MAINTENANCE_MESSAGE":""}'], ["MSP", '{"SPA_ENV_MSP_MAINTENANCE_FLAG":"","SPA_ENV_MSP_MAINTENANCE_MESSAGE":""}'],["PA", '{"SPA_ENV_PACUTOFF_MAINTENANCE_START":"","SPA_ENV_PACUTOFF_MAINTENANCE_END":"","SPA_ENV_PACUTOFF_MAINTENANCE_MESSAGE":""}']]);
 
     
     constructor(private aclService: MspACLService, protected http: HttpClient,  private logService: MspLogService, private maintenanceService: MspMaintenanceService) {

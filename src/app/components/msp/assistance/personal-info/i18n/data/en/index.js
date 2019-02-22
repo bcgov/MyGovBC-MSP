@@ -7,5 +7,7 @@ module.exports = {
   spouseInfo: 'Your spouse or common-law partner\'s information',
   contactInfo: 'Contact information',
 
-  continueButton: 'Continue'
+  continueButton: 'Continue',
+  
+  mailingAddressLabel:'Current Mailing Address',
 }

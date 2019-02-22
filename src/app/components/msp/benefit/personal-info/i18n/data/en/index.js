@@ -1,5 +1,5 @@
 module.exports = {
-  pageTitle: 'Tell us a bit about who’s applying for assistance',
+  pageTitle: 'Tell us a bit about who’s applying for Supplementary Benefits',
   helpBlock: 'Enter each person\'s legal name as it appears on their official Canadian identity documents, e.g., birth' +
   ' certificate, permanent resident card, passport.',
 

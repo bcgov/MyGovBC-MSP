@@ -25,7 +25,6 @@ export class AssistancePersonalInfoComponent extends BaseComponent{
   @ViewChildren(AssistancePersonalDetailComponent) personalDetailsComponent: QueryList<AssistancePersonalDetailComponent>;
   @ViewChild('address') address: MspAddressComponent;
   @ViewChild('phone') phone: MspPhoneComponent;
-
   financialAssistApplication: FinancialAssistApplication;
 
   constructor(private dataService: MspDataService,

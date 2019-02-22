@@ -114,6 +114,7 @@ export class AssistanceRetroYearsComponent implements AfterViewInit, DoCheck{
   get docRequired(): boolean {
     const required = false;
     for (let i = 0; i < this.application.getAppliedForTaxYears().length; i++){
+      console.log(this.application.getAppliedForTaxYears()[i]);
       if (this.application.getAppliedForTaxYears()[i].apply && this.application.getAppliedForTaxYears()[i].docsRequired){
         return true;
       }

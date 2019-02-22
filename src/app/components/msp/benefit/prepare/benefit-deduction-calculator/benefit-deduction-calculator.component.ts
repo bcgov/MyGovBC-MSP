@@ -272,8 +272,12 @@ export class BenefitDeductionCalculatorComponent implements DoCheck {
         return this.application.eligibility;
     }
 
-    get currentCalendarYear(): Number {
-        return moment().year();
+    get currentCalendarYear(): string {
+        console.log('===Abhi 11121212===='+this.application.taxYear);
+        if(this.application.taxYear) {
+            return this.application.taxYear.toString();   
+        }    else return '';
+        
     }
     get nextCalendarYear(): Number {
         return moment().year() + 1;

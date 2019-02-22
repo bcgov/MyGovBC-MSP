@@ -20,6 +20,9 @@ export class BenefitApplication implements ApplicationBase {
   //  assistYears: AssistanceYear[] = [];
     assistYeaDocs: MspImage[] = [];
     taxYear: number ;
+    userSelectedMostRecentTaxYear: number;
+    
+    cutOffDate: Date
 
     infoCollectionAgreement: boolean = false;
 
@@ -388,7 +391,7 @@ export class BenefitApplication implements ApplicationBase {
     }*/
 
     get MostRecentTaxYear(): number {
-        return moment().year() - 1;
+        return moment().year();
     }
 
     /**

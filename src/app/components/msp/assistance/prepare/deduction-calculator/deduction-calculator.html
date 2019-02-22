@@ -86,7 +86,7 @@
       </tr>
       <tr *ngIf="application.reportedUCCBenefit_line117">
         <td class="deduction-table-cell-margin" tabindex="0">
-          Universal child card benefit income
+          Universal child care benefit income
         </td>
         <td class="deduction-table-cell-padding deduction-table-cell-margin" tabindex="0">
           {{uCCBenefitAmt| currency: 'USD' : true}}
@@ -185,7 +185,7 @@
       </tbody>
     </table>
     <p class="qualify-message" *ngIf="applicantIncomeInfoProvided && incomeUnderThreshhold" tabindex="0">
-      It is likely that you will qualify for Premium Assistance and Supplementary Benefits.
+      Based on xxxx rates, you will qualify for previous year Retroactive Premium Assistance.
     </p>
     <div *ngIf="applicantIncomeInfoProvided && !incomeUnderThreshhold" style="margin-right: 5px;">
       <p class="disqualify-message" tabindex="0"

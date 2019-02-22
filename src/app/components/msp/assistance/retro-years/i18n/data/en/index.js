@@ -8,7 +8,6 @@ module.exports = {
    applicantDocsRequired: "Your Notice of Assessment or Reassessment from Canada Revenue Agency for: <strong>{taxYearsAppliedFor}</strong>.",
    spouseDocsRequired: "Your spouse or common-law partner’s Notice of Assessment or Reassessment from Canada Revenue Agency for: <strong>{taxYearsAppliedFor}</strong>.",
    noaDocRequired: "Copies of your Notice of Assessment from CRA are required for each previous year assistance you are applying for.",
-
-
+  notAcceptingCopies: "We are unable to accept copies of your T1 General Tax Forms, Tax Return Summaries, or T4 slips as verification of income.",
   docNotRequiredInstruction: "Documents are not required for {notRequiredYears}.",  
 }

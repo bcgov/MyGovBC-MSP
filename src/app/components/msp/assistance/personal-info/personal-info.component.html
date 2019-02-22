@@ -29,7 +29,7 @@
     </div>
   </div>
   <hr>
-  <msp-address #address
+  <msp-address  #address [mailingAddressHeading]="lang('./en/index.js').mailingAddressLabel"
                [mailingAddress]="financialAssistApplication.mailingAddress"
                [mailingOnly]="true" (onChange)="onChange($event)"></msp-address>
   <hr>

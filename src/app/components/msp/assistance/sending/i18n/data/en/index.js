@@ -1,5 +1,5 @@
 module.exports = {
-  pageTitle: 'Submitting your MSP premium assistance application',
+  pageTitle: 'Submitting your MSP retroactive premium assistance application',
   transmissionSuccess: 'You MSP premium assistance application has been successfully submitted!',
   transmissionInProgressMessage: 'Please do not close this browser tab or window, it can take 1-2 minutes to complete the submission.',
   transmissionErrorTitle: 'System error',

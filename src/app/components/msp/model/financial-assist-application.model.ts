@@ -421,7 +421,7 @@ export class FinancialAssistApplication implements ApplicationBase {
   }
 
   get MostRecentTaxYear(): number {
-    return moment().year() - 1;
+    return moment().year() ;
   }
 
   /**

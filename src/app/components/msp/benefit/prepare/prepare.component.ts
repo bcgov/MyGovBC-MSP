@@ -16,7 +16,8 @@ import {MspAssistanceYearComponent} from '../../assistance/prepare/assistance-ye
 import * as _ from 'lodash';
 import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
-
+//import moment = require('moment');
+import * as moment from 'moment';
 
 @Component({
     selector: 'msp-prepare',
@@ -43,17 +44,21 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     _showDisabilityInfo: boolean = false;
     showAttendantCareInfo = true;
     private _showChildrenInfo: boolean = false;
-
+    today: any; 
     private _likelyQualify: boolean = false;
     private changeLog: string[] = [];
     qualifiedForAssistance = false;
     requireAttendantCareReceipts = false;
     taxYearInfoMissing = false;
     qualificationThreshhold: number = 42000;
-
+    userSelectedMostRecentTaxYear: number;
     counterClaimCategory: string;
     claimCategory: string;
     claimant: string;
+
+    public spaEnvMonth:  number = 2;
+    public spanEnvDay:  number = 21;
+    
 
     CREDIT_CLAIM_CATEGORY: string[] = ['disability credit', 'attendant or nursing home expense credit'];
     CREDIT_CLAIMANT: string[] = ['yourself', 'spouse or common law partner'];
@@ -84,8 +89,8 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             !_.isNil(this.dataService.benefitApp.childrenCount) ||
             (!_.isNil(this.benefitApp.claimedChildCareExpense_line214) && this.benefitApp.claimedChildCareExpense_line214 > 0) ||
             ((!_.isNil(this.benefitApp.reportedUCCBenefit_line117) && (this.benefitApp.reportedUCCBenefit_line117 > 0)) );
-
-
+        this.today= moment();
+       // this.initYearsList();
 
     }
 
@@ -206,6 +211,13 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         }
     }
 
+    setYear(assistYearParam: AssistanceYear) {
+        console.log('abhiiiii'+assistYearParam.year);
+        this.userSelectedMostRecentTaxYear = assistYearParam.year;
+        this.benefitApp.userSelectedMostRecentTaxYear = assistYearParam.year;
+
+    }
+
     toggleClaimForSpouseDisabilityCredit($event: Event): void{
         if (this.benefitApp.spouseClaimForAttendantCareExpense && !this.benefitApp.spouseEligibleForDisabilityCredit){
             $event.preventDefault();
@@ -215,7 +227,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         }
     }
 
-   get showDisabilityInfo(){
+    get showDisabilityInfo(){
         return this._showDisabilityInfo;
     }
 
@@ -359,6 +371,98 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
     }
 
+   
+/*    initYearsList(){
+        this.pastYears = [];
+        const recentTaxYear = this.benefitApp.MostRecentTaxYear;
+        this.pastYears.push(recentTaxYear);
+            
+        let i = 1;
+        while (i < 2){
+            console.log(recentTaxYear);
+            this.pastYears.push(recentTaxYear - i);
+            console.log(recentTaxYear);
+            i++;
+        }
+
+        if (!this.benefitApp.assistYears || this.benefitApp.assistYears.length < 7){
+            this.benefitApp.assistYears = this.pastYears.reduce(
+                (tally, yearNum) => {
+                    const assistYear: AssistanceYear = new AssistanceYear();
+                    assistYear.apply = false;
+                    assistYear.year = yearNum;
+                    assistYear.docsRequired = true;
+                    assistYear.currentYear = this.benefitApp.MostRecentTaxYear;
+                    console.log('cutOffDate()'+this.cutOffDate().format());
+                    // checking the cutoff Date and disabling the last year
+                    if(this.cutOffDate().isSameOrBefore(this.today) && assistYear.year == this.benefitApp.MostRecentTaxYear - 1) {
+                        assistYear.disabled =  true; //  (assistYear.year == this.benefitApp.MostRecentTaxYear - 1) ? true : false;
+                    } else {
+                        assistYear.disabled =  false;
+                    }
+                    
+                    if (yearNum === this.benefitApp.MostRecentTaxYear){
+                        assistYear.docsRequired = false;
+                    }
+                    tally.push(assistYear);
+
+                    return tally;
+                }, []);
+        }
+        this.dataService.saveBenefitApplication();
+    } */
+
+   cutOffDate() {
+        return moment({
+          year: moment().year(),
+          month: this.spaEnvMonth - 1 , // moment use 0 index for month, so adding - 1 to get the correct month:(
+          day: this.spanEnvDay,
+        }).utc();
+    }
+    
+    /*get assistanceYearsList(): AssistanceYear[] {
+
+        return this.benefitApp.assistYears;
+    }*/
+
+    get getFinanialInfoSectionTitle(){
+        if (!!this.userSelectedMostRecentTaxYear){
+            return this.lang('./en/index.js').checkEligibilityScreenTitle.replace('{userSelectedMostRecentTaxYear}',
+                this.userSelectedMostRecentTaxYear);
+        }else{
+            return this.lang('./en/index.js').checkEligibilityScreenTitleDefault;
+        }
+    }
+
+   /* get taxYearsSpecified(){
+        return this.benefitApp.taxtYearsProvided;
+    }*/
+
+    /*get userSelectedMostRecentTaxYear(): number {
+        let max = 0;
+        if (this.benefitApp.assistYears && this.benefitApp.assistYears.length > 0){
+            this.benefitApp.assistYears.forEach(
+                assistYear => {
+                    if (assistYear.apply && assistYear.year > max){
+                        max = assistYear.year;
+                    }
+                }
+            );
+        }
+
+        return max;
+
+    }
+    onAssistanceYearUpdate(assistYearParam: AssistanceYear){
+        this.benefitApp.assistYears.forEach(
+            assistYear => {
+                if (assistYear.year + '' === assistYearParam.year + ''){
+                    assistYear.apply = assistYearParam.apply;
+                }
+            }
+        );
+     
+    } */
 
     onTaxYearUpdate(taxYear: number){
         this.benefitApp.taxYear = taxYear;
@@ -368,5 +472,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     onTaxYearInfoMissing(){
         this.taxYearInfoMissing = true;
     }
+
+    
 
 }

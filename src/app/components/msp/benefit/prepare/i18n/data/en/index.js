@@ -22,7 +22,7 @@ module.exports = {
   nursingHomeLabel: 'Add attendant or nursing home expense information',
   childrenInfo: 'Add children information',
   invalidNumber: 'Invalid number, use numbers and a period only, e.g., 12345.67',
-  consentProcessName: 'apply for Supplementary Benefits',
+  consentProcessName: 'PA',
   whatYearsToApplyFor: 'What years would you like to apply for?',
   whatYearsToApplyForDetails: 'Apply for any years you may have qualified for. In step 3, you will need to include your Notice of Assessment or Reassessment from Canada Revenue Agency.',
   declaration: "I hereby consent to the release of information from my income tax returns, and other taxpayer information, by the Canada Revenue Agency to the Ministry of Health and/or Health Insurance BC. The information obtained will be relevant to and used solely for the purpose of determining and verifying my initial and ongoing entitlement to the premium assistance program under the Medicare Protection Act, and will not be disclosed to any other party.\

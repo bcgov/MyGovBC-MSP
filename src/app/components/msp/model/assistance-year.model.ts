@@ -3,4 +3,5 @@ export class AssistanceYear {
   apply: boolean;
   docsRequired: boolean = true;
   currentYear: number;
+  disabled: boolean ;
 }

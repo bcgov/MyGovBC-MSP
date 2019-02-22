@@ -7,7 +7,7 @@
           <p [innerHTML]="lang('./en/index.js').whatYearsToApplyForDetails" tabindex="0">
           </p>
         </div>
-
+  
         <div *ngIf="assistanceYearsList && assistanceYearsList.length > 0">
           <msp-assistance-year #assistanceYearComp *ngFor="let assistanceYear of assistanceYearsList"
             [assistanceYear]='assistanceYear'
@@ -16,7 +16,7 @@
         </div>
       </div>
 
-        <h2 [innerHTML]="getFinanialInfoSectionTitle" tabindex="0">
+        <h2 [innerHTML]="lang('./en/index.js').checkEligibilityScreenTitle.replace('{userSelectedMostRecentTaxYear}',this.userSelectedMostRecentTaxYear)" tabindex="0">
         </h2>
         <form #formRef='ngForm' novalidate>
 
@@ -53,8 +53,8 @@
                 <div class="col-lg-10">
                     <div class="form-group">
                         <div role="dialog" aria-labelledby="q1">
-                            <p id="q1" class="intro" [innerHtml]="lang('./en/index.js').areYou65OrOlder"></p>
-                            <div class="btn-group" role="group">
+                           <p id="q1" class="intro" [innerHTML] ="lang('./en/index.js').areYou65OrOlder.replace('{userSelectedMostRecentTaxYear}',this.userSelectedMostRecentTaxYear)"></p>
+                           <div class="btn-group" role="group">
                                 <button #ageOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === true"
                                         type="button" class="btn btn-default">Yes</button>
                                 <button #ageNotOver65Btn [class.msp-btn-radio]="finAssistApp.ageOver65 === false"
@@ -74,7 +74,7 @@
             <div class="col-lg-10">
                 <div class="form-group">
                   <div role="dialog" aria-labelledby="q2">
-                    <p id="q2" class="intro" [innerHtml]="lang('./en/index.js').doYouHaveASpouseOrPartner"></p>
+                    <p id="q2" class="intro" [innerHtml]="lang('./en/index.js').doYouHaveASpouseOrPartner.replace('{userSelectedMostRecentTaxYear}',this.userSelectedMostRecentTaxYear)"></p>
                     <div class="btn-group" role="group">
                         <button #hasSpouse [class.msp-btn-radio]="finAssistApp.hasSpouseOrCommonLaw === true" 
                              type="button" class="btn btn-default">Yes</button>
@@ -93,7 +93,7 @@
                 </div>
                 <div class="form-group" [hidden]="!finAssistApp.hasSpouseOrCommonLaw">
                   <div role="dialog" aria-labelledby="q3">
-                    <p id="q3" class="intro" [innerHtml]="lang('./en/index.js').isYourSpouseOrPartner65OrOlder"></p>
+                    <p id="q3" class="intro" [innerHtml]="lang('./en/index.js').isYourSpouseOrPartner65OrOlder.replace('{userSelectedMostRecentTaxYear}',this.userSelectedMostRecentTaxYear)"></p>
                     <div class="btn-group" role="group">
                         <button #spouseOver65Btn [class.msp-btn-radio]="finAssistApp.spouseAgeOver65 === true" 
                                 type="button" class="btn btn-default">Yes</button>
@@ -168,7 +168,7 @@
                     <div class="form-group row">
                         <label for="childrenCount"
                           class="col-sm-8 col-lg-8 col-form-label" style="text-align:left; padding-right: 0;"
-                            [innerHtml]="lang('./en/index.js').howManyChildrenDoYouHaveOnYourMSP">
+                            [innerHtml]="lang('./en/index.js').howManyChildrenDoYouHaveOnYourMSP.replace('{userSelectedMostRecentTaxYear}',this.userSelectedMostRecentTaxYear)">
                           </label>
                         <div class="col-sm-3 col-lg-2" style="text-align:left; padding-left: 3px;">
                             <input type="text" class="form-control" name="childrenCount" 
@@ -181,7 +181,7 @@
                 
                 <div class="form-group">
                             <label for="line214" 
-                              [innerHtml]="lang('./en/index.js').howMuchDidYouClaimForChildCareExpenseLastYear">
+                              [innerHtml]="lang('./en/index.js').howMuchDidYouClaimForChildCareExpenseLastYear.replace('{userSelectedMostRecentTaxYear}',this.userSelectedMostRecentTaxYear)">
                             </label>
 
                             <div class="col-lg-3 col-md-4 col-sm-6 input-group">
@@ -200,7 +200,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <label for="line117" 
-                              [innerHtml]="lang('./en/index.js').howMuchDidYouReportForUCC">
+                              [innerHtml]="lang('./en/index.js').howMuchDidYouReportForUCC.replace('{userSelectedMostRecentTaxYear}',this.userSelectedMostRecentTaxYear)">
                             </label>
 
                             <div class="col-lg-3 col-md-4 col-sm-6 input-group">
@@ -250,7 +250,7 @@
 
                   <div role="dialog" aria-labelledby="anyoneClaimeDisabilityQ">
                     <label id="anyoneClaimeDisabilityQ" style="margin-bottom: 5px"
-                      [innerHtml]="lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear">
+                      [innerHtml]="lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear.replace('{userSelectedMostRecentTaxYear}',this.userSelectedMostRecentTaxYear)">
                     </label>
                     <div class="form-group">
                         <div class="checkbox checkbox-success checkbox-inline" style="margin-left: 15px">
@@ -303,8 +303,8 @@
                       <div class="row">
                           <div class="col-lg-12">
                               <label for="line125">
-                                  How much did you (or your spouse / common-law partner) report for a Registered Disability
-                                  Savings Plan on your income tax return (Line 125)?
+                                How much did you (or your spouse / common-law partner) report for a Registered Disability Savings Plan on 
+                                your income tax return in year {{userSelectedMostRecentTaxYear}} (Line 125)?
                               </label>
 
                               <div class="col-lg-3 col-md-4 col-sm-6 input-group">
@@ -351,7 +351,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                       <label id="anyoneClaimeAttendantCareQ" style="margin-bottom: 5px"
-                        [innerHtml]="lang('./en/index.js').didAnyoneClaimAttendantCareLastYear">
+                        [innerHtml]="lang('./en/index.js').didAnyoneClaimAttendantCareLastYear.replace('{userSelectedMostRecentTaxYear}',this.userSelectedMostRecentTaxYear)">
                       </label>
                     </div>
                 </div>

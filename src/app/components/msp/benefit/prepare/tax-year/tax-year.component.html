@@ -1,7 +1,7 @@
 <label id="qTaxYear" class="intro control-label mt-3" [innerHtml]="lang('./en/index.js').taxYearTitle"></label>
 <div class="form-check" *ngFor="let year of taxYears;  let i = index">
 
-    <input class="form-check-input" type="radio" name="year-{{i}}" id="year-{{i}}"
+    <input [disabled]="year.disabled" class="form-check-input" type="radio" name="year-{{i}}" id="year-{{i}}"
            (click)="setTaxYear(year)"
            [checked]="currentTaxYear === year" tabindex="0"   >
     <label class="form-check-label" for="year-{{i}}">
