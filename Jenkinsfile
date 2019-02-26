@@ -24,8 +24,10 @@ node {
   }
 
   stage('build chained app ' + CHAINED_ANGULAR_BUILD) {
-    echo "Building Chained Angular Build: " + CHAINED_ANGULAR_BUILD
-    openshiftBuild bldCfg: CHAINED_ANGULAR_BUILD, showBuildLogs: 'true'
+    timeout (time: 1, unit: 'HOURS') {
+      echo "Building Chained Angular Build: " + CHAINED_ANGULAR_BUILD
+      openshiftBuild bldCfg: CHAINED_ANGULAR_BUILD, showBuildLogs: 'true'
+    }
   }
 
   stage('build ' + BUILD_CONFIG) {
