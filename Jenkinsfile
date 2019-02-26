@@ -14,6 +14,10 @@ def IMAGESTREAM_NAME = APP_NAME
 
 node {
 
+  options {
+	timeout(time: 1, unit: 'HOURS')
+  }
+
   stage('build nginx') {
     echo "Building: " + NGINX_BUILD_CONFIG
     openshiftBuild bldCfg: NGINX_BUILD_CONFIG, showBuildLogs: 'true'
