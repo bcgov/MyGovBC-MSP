@@ -164,7 +164,7 @@ export class MspAddressComponent extends BaseComponent {
     this.mailingSameAsResidentialAddress = false;
     this.mailingSameAsResidentialAddressChange.emit(this.mailingSameAsResidentialAddress);
     // DEF- 153 , If the country is blank or undefined, then assigning Canada as default
-    if(!this.mailingAddress.country || this.mailingAddress.country.trim().length == 0) {
+    if(!this.mailingAddress.country || this.mailingAddress.country.trim().length === 0) {
       this.mailingAddress.country  = 'Canada';
     }
   }
