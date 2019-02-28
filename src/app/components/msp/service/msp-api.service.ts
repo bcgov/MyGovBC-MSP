@@ -420,12 +420,17 @@ export class MspApiService {
         if (from.getAllChildren() && from.getAllChildren().length > 0) {
             to.application.accountChangeApplication.children = AccountChangeChildrenFactory.make();
             to.application.accountChangeApplication.children.child = new Array<AccountChangeChildType>();
-            for (const child of  from.getAllChildren()) {
-                to.application.accountChangeApplication.children.child.push(this.convertChildFromAccountChange(child));
+            for (const child of from.getAllChildren()) {
+                if(child && child.firstName && child.lastName && child.gender) {
+                    to.application.accountChangeApplication.children.child.push(this.convertChildFromAccountChange(child));
+                }
             }
 
         }
-        to.application.attachments = this.convertAttachments(from.getAllImages());
+
+        if(from.getAllImages() && from.getAllImages().length > 0){
+            to.application.attachments = this.convertAttachments(from.getAllImages());
+        }        
 
         return to;
     }
