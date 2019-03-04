@@ -33,6 +33,10 @@ export class AssistancePersonalInfoComponent extends BaseComponent{
     private cd: ChangeDetectorRef) {
     super(cd);
     this.financialAssistApplication = this.dataService.finAssistApp;
+    // if the country is blank or null or undefined then assign Canada By Default //DEF-153
+    if(!this.financialAssistApplication.mailingAddress.country || this.financialAssistApplication.mailingAddress.country.trim().length === 0 ) {
+        this.financialAssistApplication.mailingAddress.country = 'Canada';
+    } 
   }
 
   ngAfterViewInit() {
@@ -58,12 +62,22 @@ export class AssistancePersonalInfoComponent extends BaseComponent{
    this._router.navigate(['/msp/assistance/retro']);
   }
 
-    isValid(): boolean {
-        return this.dataService.finAssistApp.isUniquePhns && this.dataService.finAssistApp.isUniqueSin;
-    }
+  isValid(): boolean {
+    return this.dataService.finAssistApp.isUniquePhns && this.dataService.finAssistApp.isUniqueSin;
+  }
 
   get canContinue(): boolean{
-    return this.isAllValid();
+    return this.isAllValid() && this.hasCountry();
+  }
+
+  // Final check to see if the country is present // DEF 153
+  hasCountry(): boolean {
+    if(this.financialAssistApplication.mailingAddress.country && this.financialAssistApplication.mailingAddress.country.trim().length > 0) {
+      return true;
+    } else { 
+      return false;
+    }
+ 
   }
 
 }
