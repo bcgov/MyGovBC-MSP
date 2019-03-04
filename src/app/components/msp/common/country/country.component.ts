@@ -2,6 +2,7 @@ import {Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef} fr
 import {NgForm} from '@angular/forms';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 import {BaseComponent} from '../base.component';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'msp-country',
@@ -21,12 +22,20 @@ export class MspCountryComponent extends BaseComponent {
   @Output() onChange = new EventEmitter<string>();
   @ViewChild('formRef') form: NgForm;
 
-
   countryData: Array<{code: string, name: string}> = this.lang('./en/index.js').countryData;
 
   constructor( private cd: ChangeDetectorRef) {
     super(cd);
   }
+
+  ngAfterViewInit(): void {
+    this.form.valueChanges.pipe(debounceTime(0), distinctUntilChanged()).subscribe((values) => {
+        if (this.country && this.country.length > 0) {
+            this.onChange.emit(this.country.trim());
+        }
+    });
+  }
+
 
     // to handle user typing a non-dropdown value..emit event.. used in mailing address where province cant be a drop down item for non-canada countires
     typeaheadNoResults(event: boolean): void {
@@ -43,11 +52,14 @@ export class MspCountryComponent extends BaseComponent {
             this.onChange.emit(eventVal);
         }
     }
+
     isValid(): boolean {
        if (this.country && this.country.trim().length > 0 ) {
-                return true;
+          return true;
+        } else {
+          return false;
         }
-         return false;
+    
     }
 
 }

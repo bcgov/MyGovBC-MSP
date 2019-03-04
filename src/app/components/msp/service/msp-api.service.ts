@@ -420,12 +420,17 @@ export class MspApiService {
         if (from.getAllChildren() && from.getAllChildren().length > 0) {
             to.application.accountChangeApplication.children = AccountChangeChildrenFactory.make();
             to.application.accountChangeApplication.children.child = new Array<AccountChangeChildType>();
-            for (const child of  from.getAllChildren()) {
-                to.application.accountChangeApplication.children.child.push(this.convertChildFromAccountChange(child));
+            for (const child of from.getAllChildren()) {
+                if(child && child.firstName && child.lastName && child.gender) {
+                    to.application.accountChangeApplication.children.child.push(this.convertChildFromAccountChange(child));
+                }
             }
 
         }
-        to.application.attachments = this.convertAttachments(from.getAllImages());
+
+        if(from.getAllImages() && from.getAllImages().length > 0){
+            to.application.attachments = this.convertAttachments(from.getAllImages());
+        }        
 
         return to;
     }
@@ -683,29 +688,31 @@ export class MspApiService {
 
         // Convert each one
         for (const attachment of attachments) {
-            // Init new attachment with defaults
-            const toAttachment = AttachmentTypeFactory.make();
-            toAttachment.attachmentDocumentType = MspApiService.AttachmentDocumentType;
+            if (attachment && attachment.uuid) {
+                // Init new attachment with defaults
+                const toAttachment = AttachmentTypeFactory.make();
+                toAttachment.attachmentDocumentType = MspApiService.AttachmentDocumentType;
 
-            // Content type
-            switch (attachment.contentType) {
-                case 'image/jpeg':
-                    toAttachment.contentType = 'image/jpeg';
-                    break;
-                case 'application/pdf':
-                    toAttachment.contentType = 'application/pdf';
-                    break;
-                default:
-                //TODO: throw error on bad content type
+                // Content type
+                switch (attachment.contentType) {
+                    case 'image/jpeg':
+                        toAttachment.contentType = 'image/jpeg';
+                        break;
+                    case 'application/pdf':
+                        toAttachment.contentType = 'application/pdf';
+                        break;
+                    default:
+                    //TODO: throw error on bad content type
+                }
+
+                // uuid
+                toAttachment.attachmentUuid = attachment.uuid;
+                toAttachment.attachmentOrder = String(attachment.attachmentOrder);
+                // user does NOT provide description so it's left blank for now, may be used in future
+
+                // Add to array
+                to.attachment.push(toAttachment);
             }
-
-            // uuid
-            toAttachment.attachmentUuid = attachment.uuid;
-            toAttachment.attachmentOrder = String(attachment.attachmentOrder) ;
-            // user does NOT provide description so it's left blank for now, may be used in future
-
-            // Add to array
-            to.attachment.push(toAttachment);
         }
 
         return to;

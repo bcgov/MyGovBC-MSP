@@ -4,6 +4,7 @@
     <label for="country{{objectId}}" [innerHtml]="label" class="control-label"></label>
 
         <input  [(ngModel)]='country'
+                placeholder="Canada"
                 (typeaheadOnSelect)="updateModel($event)"
                 (typeaheadOnBlur)="updateModel($event)"
                 [typeahead]="countryData"
