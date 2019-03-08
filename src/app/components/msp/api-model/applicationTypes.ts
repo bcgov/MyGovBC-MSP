@@ -2,7 +2,6 @@ import * as Primitive from './xml-primitives';
 import * as at from './assistanceTypes';
 import * as et from './enrolmentTypes';
 import * as ac from './accountChangeTypes';
-import * as bt from './benefitTypes';
 
 // Source files:
 // https://raw.githubusercontent.com/bcgov/MyGovBC-MSP/master/src/app/components/msp/api-model/xsd-flat/ApplicationTypes.xsd
@@ -17,7 +16,6 @@ interface _ApplicationType extends BaseType {
   assistanceApplication: at.AssistanceApplicationType;
   enrolmentApplication: et.EnrolmentApplicationType;
   accountChangeApplication: ac.AccountChangeApplicationType;
-  benefitApplication: bt.BenefitApplicationType;
   uuid: string;
   attachments: AttachmentsType;
   comment?: string;
@@ -31,7 +29,7 @@ export interface ApplicationType extends _ApplicationType {
 export class ApplicationTypeFactory {
   static make(): ApplicationType {
     const instance = <ApplicationType>{};
-    instance._sequence = ['assistanceApplication', 'enrolmentApplication', 'accountChangeApplication', 'benefitApplication', 'uuid', 'attachments', 'comment'];
+    instance._sequence = ['assistanceApplication', 'enrolmentApplication', 'accountChangeApplication', 'uuid', 'attachments', 'comment'];
     //instance.$xmlns = _ApplicationTypeNameSpace;
     return instance;
   }

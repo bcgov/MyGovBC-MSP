@@ -384,7 +384,6 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
             assistYear.docsRequired = false;
           }
           tally.push(assistYear);
-          console.log('Abhi---->'+assistYear);
 
           return tally;
       }, []);

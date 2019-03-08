@@ -34,6 +34,10 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
                 private cd: ChangeDetectorRef) {
         super(cd);
         this.benefitApplication = this.dataService.benefitApp;
+        // if the country is blank or null or undefined then assign Canada By Default //DEF-153
+        if(!this.benefitApplication.mailingAddress.country || this.benefitApplication.mailingAddress.country.trim().length === 0 ) {
+            this.benefitApplication.mailingAddress.country = 'Canada';
+        }
     }
 
     ngAfterViewInit() {

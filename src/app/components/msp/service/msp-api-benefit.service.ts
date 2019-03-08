@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MspLogService } from './log.service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { BenefitApplication } from '../model/benefit-application.model';
-import { BenefitApplicationTypeFactory  } from '../api-model/benefitTypes';
+import { BenefitApplicationTypeFactory,BenefitApplicationType  } from '../api-model/benefitTypes';
 import { AssistanceApplicationType } from '../model/financial-assist-application.model';
 import { ApplicationType, AttachmentType, _ApplicationTypeNameSpace, document } from '../api-model/applicationTypes';
 import { environment } from '../../../../environments/environment';
@@ -35,22 +35,16 @@ export class MspApiBenefitService extends AbstractHttpService {
     static readonly ApplicationType = 'benefitApplication';
 
     sendApplication(app: BenefitApplication): Observable<any>{
-        let documentModel: document;
-        if (app instanceof BenefitApplication) {
-            documentModel = this.convertBenefitApplication(app);
-        } else {
-            throw new Error('Unknown document type');
-        }
-        const accountLetterJsonResponse = JSON.stringify(documentModel);
+        const suppBenefitResponse = this.convertBenefitApplication(app);
         const url =  environment.appConstants.apiBaseUrl + environment.appConstants.suppBenefitAPIUrl;
 
-      // Setup headers
-      this._headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Response-Type': 'application/json',
-      });
-      
-      return this.post<BenefitApplication>(url, accountLetterJsonResponse);
+        // Setup headers
+        this._headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Response-Type': 'application/json',
+        });
+        
+        return this.post<BenefitApplication>(url, suppBenefitResponse);
       
     }
 
@@ -77,31 +71,27 @@ export class MspApiBenefitService extends AbstractHttpService {
 
 
     // This method is used to convert the response from user into a JSON object
-    private convertBenefitApplication(from: BenefitApplication): document {
-        // Instantiate new object from interface
-        const to = <document>{}; 
-        to.application = <ApplicationType>{};
+    private convertBenefitApplication(from: BenefitApplication): BenefitApplicationType {
         
-        // Init assistance
-        to.application.benefitApplication = BenefitApplicationTypeFactory.make();
-        to.application.benefitApplication.applicationType = MspApiBenefitService.ApplicationType;
-        to.application.benefitApplication.applicationUuid = from.uuid;
+        // Init BenefitApplication
+        const to = BenefitApplicationTypeFactory.make();
+        to.applicationType = MspApiBenefitService.ApplicationType;
+        to.applicationUuid = from.uuid;
    
         /*
-         attachmentUuids: AttachmentUuidsType;
          birthDate: string;
          gender: GenderType;
          name: NameType;
          */
-        to.application.benefitApplication.applicantFirstName = from.applicant.firstName;
-        to.application.benefitApplication.applicantSecondName = from.applicant.middleName;
-        to.application.benefitApplication.applicantLastName = from.applicant.lastName;
+        to.applicantFirstName = from.applicant.firstName;
+        to.applicantSecondName = from.applicant.middleName;
+        to.applicantLastName = from.applicant.lastName;
    
         if (from.applicant.hasDob) {
-            to.application.benefitApplication.applicantBirthdate = from.applicant.dob.format(this.ISO8601DateFormat);
+            to.applicantBirthdate = from.applicant.dob.format(this.ISO8601DateFormat);
         }
         if (from.applicant.gender != null) {
-            to.application.benefitApplication.applicantGender = <GenderType> from.applicant.gender.toString();
+            to.applicantGender = <GenderType> from.applicant.gender.toString();
         }
 
         /*
@@ -116,76 +106,76 @@ export class MspApiBenefitService extends AbstractHttpService {
        
         switch (from.getBenefitApplicationType()) {
             case AssistanceApplicationType.CurrentYear:
-                to.application.benefitApplication.assistanceYear = 'CurrentPA';
+                to.assistanceYear = 'CurrentPA';
                 break;
             case AssistanceApplicationType.PreviousTwoYears:
-                to.application.benefitApplication.assistanceYear = 'PreviousTwo';
+                to.assistanceYear = 'PreviousTwo';
                 break;
                 case AssistanceApplicationType.MultiYear:
-                to.application.benefitApplication.assistanceYear = 'MultiYear';
+                to.assistanceYear = 'MultiYear';
                 break;
         }
-        to.application.benefitApplication.taxYear = from.getTaxYear();
-        to.application.benefitApplication.numberOfTaxYears = from.numberOfTaxYears();
-        if (from.eligibility.adjustedNetIncome != null) to.application.benefitApplication.adjustedNetIncome = from.eligibility.adjustedNetIncome;
-        if (from.eligibility.childDeduction != null) to.application.benefitApplication.childDeduction = from.eligibility.childDeduction;
-        if (from.eligibility.deductions != null) to.application.benefitApplication.deductions = from.eligibility.deductions;
-        if (from.disabilityDeduction > 0) to.application.benefitApplication.disabilityDeduction = from.disabilityDeduction;
-        if (from.eligibility.sixtyFiveDeduction != null) to.application.benefitApplication.sixtyFiveDeduction = from.eligibility.sixtyFiveDeduction;
-        if (from.eligibility.totalDeductions != null) to.application.benefitApplication.totalDeductions = from.eligibility.totalDeductions;
-        if (from.eligibility.totalNetIncome != null) to.application.benefitApplication.totalNetIncome = from.eligibility.totalNetIncome;
-        if (from.claimedChildCareExpense_line214 != null) to.application.benefitApplication.childCareExpense = from.claimedChildCareExpense_line214;
-        if (from.netIncomelastYear != null) to.application.benefitApplication.netIncomeLastYear = from.netIncomelastYear;
-        if (from.childrenCount != null && from.childrenCount > 0) to.application.benefitApplication.numChildren = from.childrenCount;
-        if (from.numDisabled > 0) to.application.benefitApplication.numDisabled = from.numDisabled;
-        if (from.spouseIncomeLine236 != null) to.application.benefitApplication.spouseIncomeLine236 = from.spouseIncomeLine236;
-        if (from.netIncomelastYear != null) to.application.benefitApplication.totalNetIncome = from.netIncomelastYear;
-        if (from.reportedUCCBenefit_line117 != null) to.application.benefitApplication.reportedUCCBenefit = from.reportedUCCBenefit_line117;
-        if (from.spouseDSPAmount_line125 != null) to.application.benefitApplication.spouseDSPAmount = from.spouseDSPAmount_line125;
+        to.taxYear = from.getTaxYear();
+        to.numberOfTaxYears = from.numberOfTaxYears();
+        if (from.eligibility.adjustedNetIncome != null) to.adjustedNetIncome = from.eligibility.adjustedNetIncome;
+        if (from.eligibility.childDeduction != null) to.childDeduction = from.eligibility.childDeduction;
+        if (from.eligibility.deductions != null) to.deductions = from.eligibility.deductions;
+        if (from.disabilityDeduction > 0) to.disabilityDeduction = from.disabilityDeduction;
+        if (from.eligibility.sixtyFiveDeduction != null) to.sixtyFiveDeduction = from.eligibility.sixtyFiveDeduction;
+        if (from.eligibility.totalDeductions != null) to.totalDeductions = from.eligibility.totalDeductions;
+        if (from.eligibility.totalNetIncome != null) to.totalNetIncome = from.eligibility.totalNetIncome;
+        if (from.claimedChildCareExpense_line214 != null) to.childCareExpense = from.claimedChildCareExpense_line214;
+        if (from.netIncomelastYear != null) to.netIncomeLastYear = from.netIncomelastYear;
+        if (from.childrenCount != null && from.childrenCount > 0) to.numChildren = from.childrenCount;
+        if (from.numDisabled > 0) to.numDisabled = from.numDisabled;
+        if (from.spouseIncomeLine236 != null) to.spouseIncomeLine236 = from.spouseIncomeLine236;
+        if (from.netIncomelastYear != null) to.totalNetIncome = from.netIncomelastYear;
+        if (from.reportedUCCBenefit_line117 != null) to.reportedUCCBenefit = from.reportedUCCBenefit_line117;
+        if (from.spouseDSPAmount_line125 != null) to.spouseDSPAmount = from.spouseDSPAmount_line125;
 
         
         // Capturing Mailing Address 
-        to.application.benefitApplication.applicantAddressLine1 = from.mailingAddress.addressLine1;
-        to.application.benefitApplication.applicantAddressLine2 = from.mailingAddress.addressLine2;
-        to.application.benefitApplication.applicantAddressLine3 = from.mailingAddress.addressLine3;
-        to.application.benefitApplication.applicantCity = from.mailingAddress.city;
-        to.application.benefitApplication.applicantCountry = from.mailingAddress.country;
+        to.applicantAddressLine1 = from.mailingAddress.addressLine1;
+        to.applicantAddressLine2 = from.mailingAddress.addressLine2;
+        to.applicantAddressLine3 = from.mailingAddress.addressLine3;
+        to.applicantCity = from.mailingAddress.city;
+        to.applicantCountry = from.mailingAddress.country;
         if (from.mailingAddress.postal) {
-            to.application.benefitApplication.applicantPostalCode = from.mailingAddress.postal.toUpperCase().replace(' ', '');
+            to.applicantPostalCode = from.mailingAddress.postal.toUpperCase().replace(' ', '');
         }
-        to.application.benefitApplication.applicantProvinceOrState = from.mailingAddress.province;
+        to.applicantProvinceOrState = from.mailingAddress.province;
         
         // Capturing Previous pHn , Power of attorney, SIn and Phone number   
         if (from.applicant.previous_phn) {
-            to.application.benefitApplication.applicantPHN = Number(from.applicant.previous_phn.replace(new RegExp('[^0-9]', 'g'), ''));
+            to.applicantPHN = Number(from.applicant.previous_phn.replace(new RegExp('[^0-9]', 'g'), ''));
         }
         if (from.hasPowerOfAttorney)
-            to.application.benefitApplication.powerOfAttorney = 'Y';
+            to.powerOfAttorney = 'Y';
         else {
-            to.application.benefitApplication.powerOfAttorney = 'N';
+            to.powerOfAttorney = 'N';
         }
 
         if (from.applicant.sin) {
-            to.application.benefitApplication.applicantSIN = Number(from.applicant.sin.replace(new RegExp('[^0-9]', 'g'), ''));
+            to.applicantSIN = Number(from.applicant.sin.replace(new RegExp('[^0-9]', 'g'), ''));
         }
         if (from.phoneNumber) {
-            to.application.benefitApplication.applicantTelephone = Number(from.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
+            to.applicantTelephone = Number(from.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
         }
         
         // Capturing AuthorizedbyapplicantDate, Autorizedby Spouse, AuthorizedbyApplicant
-        to.application.benefitApplication.authorizedByApplicantDate =
+        to.authorizedByApplicantDate =
             moment(from.authorizedByApplicantDate).format(this.ISO8601DateFormat);
         if (from.authorizedByApplicant) {
-            to.application.benefitApplication.authorizedByApplicant = 'Y';
+            to.authorizedByApplicant = 'Y';
         }
         else {
-            to.application.benefitApplication.authorizedByApplicant = 'N';
+            to.authorizedByApplicant = 'N';
         }
         if (from.authorizedBySpouse) {
-            to.application.benefitApplication.authorizedBySpouse = 'Y';
+            to.authorizedBySpouse = 'Y';
         }
         else {
-            to.application.benefitApplication.authorizedBySpouse = 'N';
+            to.authorizedBySpouse = 'N';
         }
     
         if (from.hasSpouseOrCommonLaw) {
@@ -197,18 +187,18 @@ export class MspApiBenefitService extends AbstractHttpService {
                 spouseDeduction?: number;
                 spouseSixtyFiveDeduction?: number;
             */
-            to.application.benefitApplication.spouseFirstName = from.spouse.firstName;
-            to.application.benefitApplication.spouseSecondName = from.spouse.middleName;
-            to.application.benefitApplication.spouseLastName = from.spouse.lastName;
+            to.spouseFirstName = from.spouse.firstName;
+            to.spouseSecondName = from.spouse.middleName;
+            to.spouseLastName = from.spouse.lastName;
 
             if (from.spouse.hasDob) {
-                to.application.benefitApplication.spouseBirthdate = from.spouse.dob.format(this.ISO8601DateFormat);
+                to.spouseBirthdate = from.spouse.dob.format(this.ISO8601DateFormat);
             }
             if (from.spouse.previous_phn) {
-                to.application.benefitApplication.spousePHN = Number(from.spouse.previous_phn.replace(new RegExp('[^0-9]', 'g'), ''));
+                to.spousePHN = Number(from.spouse.previous_phn.replace(new RegExp('[^0-9]', 'g'), ''));
             }
             if (from.spouse.sin) {
-                to.application.benefitApplication.spouseSIN = Number(from.spouse.sin.replace(new RegExp('[^0-9]', 'g'), ''));
+                to.spouseSIN = Number(from.spouse.sin.replace(new RegExp('[^0-9]', 'g'), ''));
             }
 
             /*
@@ -216,15 +206,15 @@ export class MspApiBenefitService extends AbstractHttpService {
                 spouseSixtyFiveDeduction?: number;
             */
             if (from.eligibility.spouseDeduction != null) {
-                to.application.benefitApplication.spouseDeduction = from.eligibility.spouseDeduction;
+                to.spouseDeduction = from.eligibility.spouseDeduction;
             }
             if (from.eligibility.spouseSixtyFiveDeduction != null) {
-                to.application.benefitApplication.spouseSixtyFiveDeduction = from.eligibility.spouseSixtyFiveDeduction;
+                to.spouseSixtyFiveDeduction = from.eligibility.spouseSixtyFiveDeduction;
             }
         }
         
         // Capturing Attachments
-        to.application.benefitApplication.attachments = new Array<AttachmentType>();
+        to.attachments = new Array<AttachmentType>();
 
         // assemble all attachments
         const attachments = from.getAllImages();
@@ -257,7 +247,7 @@ export class MspApiBenefitService extends AbstractHttpService {
             toAttachment.attachmentOrder = String(attachment.attachmentOrder) ;
             
             // Add to array
-            to.application.benefitApplication.attachments.push(toAttachment);
+            to.attachments.push(toAttachment);
         }
         
         console.log(to);
