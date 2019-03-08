@@ -31,7 +31,7 @@ export interface ApplicationType extends _ApplicationType {
 export class ApplicationTypeFactory {
   static make(): ApplicationType {
     const instance = <ApplicationType>{};
-     //**  instance._sequence = ['benefitApplication','assistanceApplication', 'enrolmentApplication', 'accountChangeApplication', 'uuid', 'attachments', 'comment'];
+    instance._sequence = ['assistanceApplication', 'enrolmentApplication', 'accountChangeApplication', 'benefitApplication', 'uuid', 'attachments', 'comment'];
     //instance.$xmlns = _ApplicationTypeNameSpace;
     return instance;
   }
@@ -78,7 +78,7 @@ export interface document extends BaseType {
 export class DocumentFactory {
   static make(): document {
     const instance = <document>{};
-    //*instance._sequence = ['application'];
+    instance._sequence = ['application'];
     return instance;
   }
 }
