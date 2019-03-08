@@ -44,7 +44,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
      // this.logService.log({name: 'PA - application submitting request'},"PA : Submission Request");
     // After view inits, begin sending the application
     this.service
-      .sendApplication(this.application)
+      .sendApplication(this.application, this.application.uuid)
       .subscribe(response => {
         if (response instanceof HttpErrorResponse) { // probable network errors..middleware could be down
             this.processErrorResponse(response, response.message, false);

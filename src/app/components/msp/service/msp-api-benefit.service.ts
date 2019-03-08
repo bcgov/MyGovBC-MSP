@@ -34,10 +34,10 @@ export class MspApiBenefitService extends AbstractHttpService {
     static readonly AttachmentDocumentType = 'SupportDocument';
     static readonly ApplicationType = 'benefitApplication';
 
-    sendApplication(app: BenefitApplication): Observable<any>{
+    sendApplication(app: BenefitApplication, uuid: string): Observable<any>{
         const suppBenefitResponse = this.convertBenefitApplication(app);
-        const url =  environment.appConstants.apiBaseUrl + environment.appConstants.suppBenefitAPIUrl;
-
+        const url =  environment.appConstants.apiBaseUrl + environment.appConstants.suppBenefitAPIUrl + uuid ;
+        
         // Setup headers
         this._headers = new HttpHeaders({
             'Content-Type': 'application/json',
