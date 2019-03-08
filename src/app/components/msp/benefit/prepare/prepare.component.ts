@@ -56,10 +56,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     claimCategory: string;
     claimant: string;
 
-    public spaEnvMonth:  number = 2;
-    public spanEnvDay:  number = 21;
-    
-
     CREDIT_CLAIM_CATEGORY: string[] = ['disability credit', 'attendant or nursing home expense credit'];
     CREDIT_CLAIMANT: string[] = ['yourself', 'spouse or common law partner'];
 
@@ -101,6 +97,12 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         this.dataService.saveBenefitApplication();
     }
 
+    spaEnvCutOffDate(evt: any){
+        console.log('Date added: %s', evt);
+        this.benefitApp.spaEnvRes = evt;
+        console.log(evt);
+    } 
+
     errorReceipts(evt: MspImage) {
         this.mspImageErrorModal.imageWithError = evt;
         this.mspImageErrorModal.showFullSizeView();
@@ -119,6 +121,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     ngAfterViewInit() {
         if (!this.dataService.benefitApp.infoCollectionAgreement) {
             this.mspConsentModal.showFullSizeView();
+            console.log(this.mspConsentModal.spaEnvRes);
         }
 
         //removing subscribe wont register clicks
@@ -368,11 +371,9 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         }
 
         this.disabilityNursingHomeChoiceModal.hide();
-
     }
-
    
-/*    initYearsList(){
+    /* initYearsList(){
         this.pastYears = [];
         const recentTaxYear = this.benefitApp.MostRecentTaxYear;
         this.pastYears.push(recentTaxYear);
@@ -412,19 +413,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         this.dataService.saveBenefitApplication();
     } */
 
-   cutOffDate() {
-        return moment({
-          year: moment().year(),
-          month: this.spaEnvMonth - 1 , // moment use 0 index for month, so adding - 1 to get the correct month:(
-          day: this.spanEnvDay,
-        }).utc();
-    }
-    
-    /*get assistanceYearsList(): AssistanceYear[] {
-
-        return this.benefitApp.assistYears;
-    }*/
-
     get getFinanialInfoSectionTitle(){
         if (!!this.userSelectedMostRecentTaxYear){
             return this.lang('./en/index.js').checkEligibilityScreenTitle.replace('{userSelectedMostRecentTaxYear}',
@@ -434,36 +422,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         }
     }
 
-   /* get taxYearsSpecified(){
-        return this.benefitApp.taxtYearsProvided;
-    }*/
-
-    /*get userSelectedMostRecentTaxYear(): number {
-        let max = 0;
-        if (this.benefitApp.assistYears && this.benefitApp.assistYears.length > 0){
-            this.benefitApp.assistYears.forEach(
-                assistYear => {
-                    if (assistYear.apply && assistYear.year > max){
-                        max = assistYear.year;
-                    }
-                }
-            );
-        }
-
-        return max;
-
-    }
-    onAssistanceYearUpdate(assistYearParam: AssistanceYear){
-        this.benefitApp.assistYears.forEach(
-            assistYear => {
-                if (assistYear.year + '' === assistYearParam.year + ''){
-                    assistYear.apply = assistYearParam.apply;
-                }
-            }
-        );
-     
-    } */
-
     onTaxYearUpdate(taxYear: number){
         this.benefitApp.taxYear = taxYear;
         this.dataService.saveBenefitApplication();
@@ -472,7 +430,5 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     onTaxYearInfoMissing(){
         this.taxYearInfoMissing = true;
     }
-
-    
 
 }

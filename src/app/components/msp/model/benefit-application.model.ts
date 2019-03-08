@@ -9,6 +9,9 @@ import {AssistanceYear} from './assistance-year.model';
 import {AssistanceApplicationType} from './financial-assist-application.model';
 import {Relationship} from './status-activities-documents';
 import {Eligibility} from './eligibility.model';
+import {ISpaEnvResponse} from '../model/spa-env-response.interface';
+
+
 
 export class BenefitApplication implements ApplicationBase {
 
@@ -17,10 +20,12 @@ export class BenefitApplication implements ApplicationBase {
     authorizationToken: string;
     phnRequired: boolean = true;
 
-  //  assistYears: AssistanceYear[] = [];
+    assistYears: AssistanceYear[] = [];
     assistYeaDocs: MspImage[] = [];
     taxYear: number ;
     userSelectedMostRecentTaxYear: number;
+    public spaEnvCutOffDate: string;
+    public spaEnvRes: ISpaEnvResponse;
     
     cutOffDate: Date
 
@@ -380,7 +385,7 @@ export class BenefitApplication implements ApplicationBase {
      * It ALWAYS returns most recent applied for year which is always this year
      * @returns {number}
      */
-   /* getTaxYear(): number {
+    getTaxYear(): number {
         const mostRecentAppliedForTaxYears = this.getMostRecentAppliedForTaxYears();
         if (mostRecentAppliedForTaxYears.length > 0) {
             return mostRecentAppliedForTaxYears[0].year;
@@ -388,7 +393,7 @@ export class BenefitApplication implements ApplicationBase {
         else {
             return this.MostRecentTaxYear;
         }
-    }*/
+    }
 
     get MostRecentTaxYear(): number {
         return moment().year();
@@ -398,9 +403,10 @@ export class BenefitApplication implements ApplicationBase {
      * Counts the number of tax years
      * @returns {number}
      */
-    /*numberOfTaxYears(): number {
+    
+     numberOfTaxYears(): number {
         return this.getAppliedForTaxYears().length;
-    }*/
+    }
 
     /**
      * Counts up total number of disabled including children, applicant and spouse
@@ -427,6 +433,50 @@ export class BenefitApplication implements ApplicationBase {
         }
 
         return numDisabled;
+    }
+
+    getAppliedForTaxYears (): AssistanceYear[] {
+        return this.assistYears.filter((value: AssistanceYear) => {
+          return value.apply;
+        });
+    }
+        
+    getMostRecentAppliedForTaxYears(): AssistanceYear[] {
+        return this.getAppliedForTaxYears().sort((a: AssistanceYear, b: AssistanceYear) => {
+          return b.year - a.year;
+        });
+      }
+
+
+
+    getBenefitApplicationType (): AssistanceApplicationType {
+        const mostRecentAppliedForTaxYears = this.getMostRecentAppliedForTaxYears();
+    
+        // If we only have one and it's last year
+        if (mostRecentAppliedForTaxYears == null ||
+          mostRecentAppliedForTaxYears.length == 1 &&
+          mostRecentAppliedForTaxYears[0].year == this.MostRecentTaxYear) {
+          return AssistanceApplicationType.CurrentYear;
+        }
+    
+        // If we only have two and it's last year
+        if (mostRecentAppliedForTaxYears &&
+          mostRecentAppliedForTaxYears.length === 2 &&
+          mostRecentAppliedForTaxYears[0].year == this.MostRecentTaxYear &&
+          mostRecentAppliedForTaxYears[1].year == this.MostRecentTaxYear - 1) {
+          return AssistanceApplicationType.PreviousTwoYears;
+        }
+    
+        // If we only have one and it's last year - 1
+        if (mostRecentAppliedForTaxYears &&
+          mostRecentAppliedForTaxYears.length === 1 &&
+          mostRecentAppliedForTaxYears[0].year == this.MostRecentTaxYear - 1) {
+          return AssistanceApplicationType.PreviousTwoYears;
+        }
+    
+        // In all other cases it's multi year
+        return AssistanceApplicationType.MultiYear;
+    
     }
 
     /**

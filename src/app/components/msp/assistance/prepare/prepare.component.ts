@@ -361,11 +361,13 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   initYearsList(){
     this.pastYears = [];
     const recentTaxYear = this.finAssistApp.MostRecentTaxYear;
-    this.pastYears.push(recentTaxYear);
-
-    let i = 1;
-    while (i < 7){
-      this.pastYears.push(recentTaxYear - i);
+    const cutOffYear = 2020;
+    
+    this.pastYears.push(cutOffYear - 1);
+    const numberOfYears = (7 - (recentTaxYear - cutOffYear));
+    let i = 2;
+    while (i <= numberOfYears){
+      this.pastYears.push(cutOffYear - i);
       i++;
     }
 
@@ -382,6 +384,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
             assistYear.docsRequired = false;
           }
           tally.push(assistYear);
+          console.log('Abhi---->'+assistYear);
 
           return tally;
       }, []);

@@ -26,6 +26,7 @@ export class MspConsentModalComponent {
     @Input() application: ApplicationBase;
     @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
     @Output() onClose = new EventEmitter<void>();
+    @Output() cutOffDate: EventEmitter<ISpaEnvResponse> = new EventEmitter<ISpaEnvResponse>();
 
     public spaEnvRes: ISpaEnvResponse = {} as any;
     public maintenanceFlag: string ;
@@ -71,6 +72,9 @@ export class MspConsentModalComponent {
                         this.maintenanceMessage = this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE;
                     }
                     console.log(this.spaEnvRes);
+                    if(this.spaEnvRes.SPA_ENV_PACUTOFF_MAINTENANCE_START) {
+                        this.cutOffDate.emit(this.spaEnvRes);;
+                    }
                     
 			}, (error: Response | any) => {
                 console.log('Error when calling the MSP Maintenance: '+error);
