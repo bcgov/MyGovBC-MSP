@@ -42,6 +42,7 @@ export class MspApiBenefitService extends AbstractHttpService {
         this._headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Response-Type': 'application/json',
+            'X-Authorization': 'Bearer ' +app.authorizationToken,
         });
         
         return this.post<BenefitApplication>(url, suppBenefitResponse);
