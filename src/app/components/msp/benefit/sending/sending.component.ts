@@ -51,23 +51,25 @@ export class BenefitSendingComponent implements AfterContentInit  {
             this.logService.log({
                 name: 'ACL - System Error',
                 confirmationNumber: this.application.uuid
-            }, 'ACL - Submission Response Error' + response.message);
+            }, 'ACL - Submission Response Error' + response.message); 
 
             return;
         }
-         // business errors.. Might be either a RAPID validation failure or DB error
-         this.suppBenefitResponse = <SuppBenefitApiResponse> response;
-         if (this.isFailure(this.suppBenefitResponse)) {
-          this.processErrorResponse(response, undefined ,true);
+        console.log(response);
+         // business errors.. Might be either a DB error
+        this.suppBenefitResponse = <SuppBenefitApiResponse> response;
+        console.log(this.suppBenefitResponse);
+        if (this.isFailure(this.suppBenefitResponse)) {
+          this.processErrorResponse(response, undefined ,false);
           this.logService.log({
               name: 'ACL - RAPID/DB Error',
               confirmationNumber: this.application.uuid
           }, 'ACL - Submission Response Error' + JSON.stringify(this.suppBenefitResponse));
-
+          
           return;
       } else {
           //delete the application from storage
-          this.dataService.removeMspAccountLetterApp();
+          this.dataService.removeMspBenefitApp();
           const refNumber = this.suppBenefitResponse.referenceNumber;
           this.logService.log({
               name: 'ACL - Received refNo ',
@@ -89,7 +91,7 @@ processErrorResponse(response: HttpErrorResponse, errorMessage: string , transmi
   this.application.regenUUID();
   console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
   this.application.authorizationToken = null;
-  this.dataService.saveAccountLetterApplication();
+  this.dataService.saveBenefitApplication();
 
 }
 

@@ -8,13 +8,14 @@ import { Subscription} from 'rxjs/internal/Subscription';
 import { environment } from '../../../../environments/environment';
 import { LogEntry } from '../common/logging/log-entry.model';
 import { MspDataService } from './msp-data.service';
+import { MspBenefitDataService } from './msp-benefit-data.service';
 
 
 
 @Injectable()
 export class MspLogService {
   appConstants;
-  constructor(private http: HttpClient, private dataService: MspDataService , private router: Router) {
+  constructor(private http: HttpClient, private dataService: MspDataService , private router: Router, private benefitDataService: MspBenefitDataService) {
     this.appConstants = environment.appConstants;
   }
 
@@ -114,7 +115,10 @@ export class MspLogService {
         }
         if (this.router.url.indexOf('/account-letter/') !== -1){
           return  this.dataService.accountLetterApp.uuid ;
-      }
+        }
+        if (this.router.url.indexOf('/benefit/') !== -1){
+          return  this.benefitDataService.benefitApp.uuid ;
+        }
     }
 
 }
