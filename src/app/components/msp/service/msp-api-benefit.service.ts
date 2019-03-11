@@ -8,9 +8,14 @@ import { ApplicationType, AttachmentType, _ApplicationTypeNameSpace, document } 
 import { environment } from '../../../../environments/environment';
 import * as moment from 'moment';
 import { AbstractHttpService } from './abstract-api.service';
-import { Observable } from 'rxjs';
-import { of } from 'rxjs';
+import { Observable, from } from 'rxjs';
+import { of, zip } from 'rxjs';
 import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../api-model/commonTypes';
+import { ResponseType } from '../api-model/responseTypes';
+import { MspImage } from '../model/msp-image';
+import { Http, Response } from '@angular/http';
+import {MspApiService} from '../../msp/service/msp-api.service';
+import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +27,7 @@ export class MspApiBenefitService extends AbstractHttpService {
 
     protected _headers: HttpHeaders = new HttpHeaders();
     readonly ISO8601DateFormat = 'YYYY-MM-DD';
+    public apiService: MspApiService;
 
     constructor(protected http: HttpClient, private logService: MspLogService) {
         super(http);  
@@ -34,7 +40,60 @@ export class MspApiBenefitService extends AbstractHttpService {
     static readonly AttachmentDocumentType = 'SupportDocument';
     static readonly ApplicationType = 'benefitApplication';
 
+
+    sendRequest(app: BenefitApplication, uuid: string) {
+        // if no errors, then we'll sendApplication all attachments
+        /*return this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages()).subscribe(response => {
+            
+            this.sendApplication(app, app.uuid);
+        
+        })*/
+        return this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages()).then(() => { 
+	
+	
+	
+        }).catch((error: Response | any) => {
+                    console.log('sent all attachments rejected: ', error);
+                    this.logService.log({
+                        text: 'Attachment - Send All Rejected ',
+                        response: error,
+                    }, 'Attachment - Send All Rejected ');
+                    return error;
+                });
+        } // end of else
+        
+        
+        /*.catch((error: Response | any) => {
+                    console.log('sent all attachments rejected: ', error);
+                    this.logService.log({
+                        text: 'Attachment - Send All Rejected ',
+                        response: error,
+                    }, 'Attachment - Send All Rejected ');
+                    return;
+                });*/
+    //} // end of else
+            
+
+    
     sendApplication(app: BenefitApplication, uuid: string): Observable<any>{
+        
+       /* this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages()).subscribe(response => {
+            
+            //this.sendApplication(app, app.uuid);
+            console.log(response);
+        });
+        const attachments = from(this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages())).subscribe(response => {  
+            console.log(response);
+            Observable.throw(response);
+            //return true;
+         })
+         .catch(error => {
+            console.log(error);
+            return Observable.throw(error);
+         }); //.subscribe(response => console.log(response), error => console.log(error));
+        
+       // attachments.subscribe(response => console.log(response), error => console.log(error));
+*/
         const suppBenefitResponse = this.convertBenefitApplication(app);
         const url =  environment.appConstants.apiBaseUrl + environment.appConstants.suppBenefitAPIUrl + uuid ;
         
@@ -48,6 +107,125 @@ export class MspApiBenefitService extends AbstractHttpService {
         return this.post<BenefitApplication>(url, suppBenefitResponse);
       
     }
+
+    public sendAttachments(token: string, applicationUUID: string, attachments: MspImage[]): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+
+            // Instantly resolve if no attachments
+            if (!attachments || attachments.length < 1) {
+                resolve();
+            }
+
+            // Make a list of promises for each attachment
+            const attachmentPromises = new Array<Promise<ResponseType>>();
+            for (const attachment of attachments) {
+                attachmentPromises.push(this.sendAttachment(token, applicationUUID, attachment));
+            }
+            // this.logService.log({
+            //    text: "Send All Attachments - Before Sending",
+            //     numberOfAttachments: attachmentPromises.length
+            // }, "Send Attachments - Before Sending")
+
+            // Execute all promises are waiting for results
+            return Promise.all(attachmentPromises).then(
+                (responses: ResponseType[]) => {
+                    // this.logService.log({
+                    //     text: "Send All Attachments - Success",
+                    //     response: responses,
+                    // }, "Send All Attachments - Success")
+                    return resolve();
+                },
+                (error: Response | any) => {
+                    this.logService.log({
+                        text: 'Attachments - Send Error ',
+                        error: error,
+                    }, 'Attachments - Send Error ');
+                    console.log('error sending attachment: ', error);
+                    return reject(error);
+                }
+            )
+                .catch((error: Response | any) => {
+                    this.logService.log({
+                        text: 'Attachments - Send Error ',
+                        error: error,
+                    }, 'Attachments - Send Error ');
+                    console.log('error sending attachment: ', error);
+                    return reject(error);
+                });
+        });
+    }
+
+    private sendAttachment(token: string, applicationUUID: string, attachment: MspImage): Promise<ResponseType> {
+        return new Promise<ResponseType>((resolve, reject) => {
+
+            /*
+             Create URL
+             /{applicationUUID}/attachment/{attachmentUUID}
+             */
+            let url = environment.appConstants['apiBaseUrl']
+                + '/MSPDESubmitAttachment/' + applicationUUID
+                + '/attachment/' + attachment.uuid;
+
+            // programArea
+            url += '?programArea=enrolment';
+
+            // attachmentDocumentType - UI does NOT collect this property
+            url += '&attachmentDocumentType=' + MspApiService.AttachmentDocumentType;
+
+            // contentType
+            url += '&contentType=' + attachment.contentType;
+
+            // imageSize
+            url += '&imageSize=' + attachment.size;
+
+            // description - UI does NOT collect this property
+
+            // Setup headers
+            const headers = new HttpHeaders({
+                'Content-Type': attachment.contentType,
+                'Access-Control-Allow-Origin': '*',
+                'X-Authorization': 'Bearer ' + token
+            });
+            const options = {headers: headers, responseType: 'text' as 'text'};
+
+            const binary = atob(attachment.fileContent.split(',')[1]);
+            const array = <any>[];
+            for (let i = 0; i < binary.length; i++) {
+                array.push(binary.charCodeAt(i));
+            }
+            const blob = new Blob([new Uint8Array(array)], {type: attachment.contentType});
+
+            return this.http
+                .post(url, blob, options)
+                .toPromise()
+                .then((response) => {
+                        // this.logService.log({
+                        //     text: "Send Individual Attachment - Success",
+                        //     response: response,
+                        // }, "Send Individual Attachment - Success")
+                        return resolve();
+                    },
+                    (error: Response | any) => {
+                        console.log('error response in its origin form: ', error);
+                        this.logService.log({
+                            text: 'Attachment - Send Error ',
+                            response: error,
+                        }, 'Attachment - Send Error ');
+                        return reject(error);
+                    }
+                )
+                .catch((error: Response | any) => {
+                    console.log('Error in sending individual attachment: ', error);
+                    this.logService.log({
+                        text: 'Attachment - Send Error ',
+                        response: error,
+                    }, 'Attachment - Send Error ');
+                  
+                    reject(error);
+                });
+        });
+    }
+
 
     protected handleError(error: HttpErrorResponse) {
       console.log("handleError", JSON.stringify(error));

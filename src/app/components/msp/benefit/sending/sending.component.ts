@@ -44,40 +44,48 @@ export class BenefitSendingComponent implements AfterContentInit  {
      // this.logService.log({name: 'PA - application submitting request'},"PA : Submission Request");
     // After view inits, begin sending the application
     this.service
-      .sendApplication(this.application, this.application.uuid)
-      .subscribe(response => {
-        if (response instanceof HttpErrorResponse) { // probable network errors..middleware could be down
-            this.processErrorResponse(response, response.message, false);
-            this.logService.log({
-                name: 'ACL - System Error',
-                confirmationNumber: this.application.uuid
-            }, 'ACL - Submission Response Error' + response.message); 
-
-            return;
-        }
+      .sendRequest(this.application, this.application.uuid)
+      .then(response => {
         console.log(response);
          // business errors.. Might be either a DB error
-        this.suppBenefitResponse = <SuppBenefitApiResponse> response;
-        console.log(this.suppBenefitResponse);
-        if (this.isFailure(this.suppBenefitResponse)) {
-          this.processErrorResponse(response, undefined ,false);
-          this.logService.log({
-              name: 'ACL - RAPID/DB Error',
-              confirmationNumber: this.application.uuid
-          }, 'ACL - Submission Response Error' + JSON.stringify(this.suppBenefitResponse));
+        this.service
+         .sendApplication(this.application, this.application.uuid)
+         .subscribe(response => { 
+           // probable network errors..middleware could be down
+            if (response instanceof HttpErrorResponse) { 
+                this.processErrorResponse(response, response.message, false);
+                this.logService.log({
+                    name: 'SuppBenefit - System Error',
+                    confirmationNumber: this.application.uuid
+                }, 'SuppBenefit - Submission Response Error' + response.message); 
+
+                return;
+            }
+          this.suppBenefitResponse = <SuppBenefitApiResponse> response;
+          console.log(this.suppBenefitResponse);
+          if (this.isFailure(this.suppBenefitResponse)) {
+            this.processErrorResponse(response, undefined ,false);
+            this.logService.log({
+                name: 'SuppBenefit - DB Error',
+                confirmationNumber: this.application.uuid
+            }, 'SuppBenefit - Submission Response Error' + JSON.stringify(this.suppBenefitResponse));
+            
+              return;
+          } else {
+              //delete the application from storage
+              this.dataService.removeMspBenefitApp();
+              const refNumber = this.suppBenefitResponse.referenceNumber;
+              console.log(refNumber);
+              this.logService.log({
+                  name: 'SuppBenefit - Received refNo ',
+                  confirmationNumber: refNumber
+              }, 'SuppBenefit - Submission Response Success');
+              this.router.navigate(['/msp/benefit/confirmation'],
+                  {queryParams: {confirmationNum: refNumber}});
+          }
           
-          return;
-      } else {
-          //delete the application from storage
-          this.dataService.removeMspBenefitApp();
-          const refNumber = this.suppBenefitResponse.referenceNumber;
-          this.logService.log({
-              name: 'ACL - Received refNo ',
-              confirmationNumber: refNumber
-          }, 'ACL - Submission Response Success');
-          this.router.navigate(['/msp/account-letter/confirmation'],
-              {queryParams: {confirmationNum: refNumber}});
-      }
+         });
+     
   });
   
 }
@@ -103,9 +111,9 @@ retrySubmission(){
   this.router.navigate(['/msp/benefit/authorize-submit']);
 }
 
-isFailure(aCLApiResponse: SuppBenefitApiResponse):boolean {
+isFailure(suppBenefitApiResponse: SuppBenefitApiResponse):boolean {
   // has a reference number , is DB error code Y , is RAPID response Y then its not a failure
-  if (aCLApiResponse.referenceNumber && aCLApiResponse.dberrorCode ==='Y') {
+  if (suppBenefitApiResponse.referenceNumber && !suppBenefitApiResponse.dberrorMessage) {
       return false;
   }
 
