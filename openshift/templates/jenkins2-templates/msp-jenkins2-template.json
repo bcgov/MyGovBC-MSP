@@ -2,7 +2,7 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "msp-build",
+    "name": "msp-supp-benefit-build",
     "annotations": {
       "description": "Contains build objects",
       "iconClass": "icon-github"
@@ -128,7 +128,7 @@
       "displayName": "Git Reference",
       "description": "Optional branch, tag, or commit.",
       "required": true,
-      "value": "account-letter"
+      "value": "supp-benefit"
     }
   ]
 }
