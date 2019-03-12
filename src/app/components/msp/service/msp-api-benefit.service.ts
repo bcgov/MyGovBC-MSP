@@ -16,6 +16,7 @@ import { MspImage } from '../model/msp-image';
 import { Http, Response } from '@angular/http';
 import {MspApiService} from '../../msp/service/msp-api.service';
 import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
+import {SuppBenefitApiResponse} from '../model/suppBenefit-response.interface'
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class MspApiBenefitService extends AbstractHttpService {
 
     protected _headers: HttpHeaders = new HttpHeaders();
     readonly ISO8601DateFormat = 'YYYY-MM-DD';
-    public apiService: MspApiService;
+    suppBenefitResponse: SuppBenefitApiResponse;
 
     constructor(protected http: HttpClient, private logService: MspLogService) {
         super(http);  
@@ -40,60 +41,36 @@ export class MspApiBenefitService extends AbstractHttpService {
     static readonly AttachmentDocumentType = 'SupportDocument';
     static readonly ApplicationType = 'benefitApplication';
 
+    sendRequest(app: BenefitApplication): Promise<any> {
+        return new Promise<SuppBenefitApiResponse>((resolve, reject) => {
+            console.log('Start sending...');
 
-    sendRequest(app: BenefitApplication, uuid: string) {
-        // if no errors, then we'll sendApplication all attachments
-        /*return this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages()).subscribe(response => {
-            
-            this.sendApplication(app, app.uuid);
-        
-        })*/
-        return this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages()).then(() => { 
+			// if no errors, then we'll sendApplication all attachments
+			return this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages()).then(() => {
 	
-	
-	
-        }).catch((error: Response | any) => {
-                    console.log('sent all attachments rejected: ', error);
-                    this.logService.log({
-                        text: 'Attachment - Send All Rejected ',
-                        response: error,
-                    }, 'Attachment - Send All Rejected ');
-                    return error;
+                // once all attachments are done we can sendApplication in the data
+                return this.sendApplication(app, app.uuid).subscribe( response  => {
+                    
+                    // Add reference number
+                    app.referenceNumber = response.referenceNumber.toString();
+                    // Let our caller know were done passing back the application
+                    return resolve(response);
                 });
-        } // end of else
-        
-        
-        /*.catch((error: Response | any) => {
-                    console.log('sent all attachments rejected: ', error);
-                    this.logService.log({
-                        text: 'Attachment - Send All Rejected ',
-                        response: error,
-                    }, 'Attachment - Send All Rejected ');
-                    return;
-                });*/
-    //} // end of else
-            
+			}).catch((error: Response | any) => {
+					console.log('sent all attachments rejected: ', error);
+					this.logService.log({
+						text: 'Attachment - Send All Rejected ',
+						response: error,
+					}, 'Attachment - Send All Rejected ');
+					return reject(error);
+			});
+           
+        });
+    }
 
     
     sendApplication(app: BenefitApplication, uuid: string): Observable<any>{
         
-       /* this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages()).subscribe(response => {
-            
-            //this.sendApplication(app, app.uuid);
-            console.log(response);
-        });
-        const attachments = from(this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages())).subscribe(response => {  
-            console.log(response);
-            Observable.throw(response);
-            //return true;
-         })
-         .catch(error => {
-            console.log(error);
-            return Observable.throw(error);
-         }); //.subscribe(response => console.log(response), error => console.log(error));
-        
-       // attachments.subscribe(response => console.log(response), error => console.log(error));
-*/
         const suppBenefitResponse = this.convertBenefitApplication(app);
         const url =  environment.appConstants.apiBaseUrl + environment.appConstants.suppBenefitAPIUrl + uuid ;
         
@@ -103,9 +80,7 @@ export class MspApiBenefitService extends AbstractHttpService {
             'Response-Type': 'application/json',
             'X-Authorization': 'Bearer ' +app.authorizationToken,
         });
-        
         return this.post<BenefitApplication>(url, suppBenefitResponse);
-      
     }
 
     public sendAttachments(token: string, applicationUUID: string, attachments: MspImage[]): Promise<void> {
@@ -228,7 +203,7 @@ export class MspApiBenefitService extends AbstractHttpService {
 
 
     protected handleError(error: HttpErrorResponse) {
-      console.log("handleError", JSON.stringify(error));
+     // console.log("handleError", JSON.stringify(error));
       if (error.error instanceof ErrorEvent) {
           //Client-side / network error occured
           console.error('MSP Supp Benefit API error: ', error.error.message);
