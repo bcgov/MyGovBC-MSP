@@ -62,8 +62,6 @@ export class TaxYearComponent extends BaseComponent {
                 assistYear.year = yearNum;
                 assistYear.docsRequired = true;
                 assistYear.currentYear = this.benefitApp.MostRecentTaxYear;
-                console.log('cutoffDate --> '+this.cutOffDate().toDate()) ;
-                console.log('today --> '+this.today.toDate());
                 
                 // checking the cutoff Date and disabling the last year
                 if(this.cutOffDate() && this.cutOffDate().isSameOrBefore(this.today) && assistYear.year == this.benefitApp.MostRecentTaxYear - 1) {
@@ -85,7 +83,6 @@ export class TaxYearComponent extends BaseComponent {
     cutOffDate() {
         if(this.spaEnvResponse && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START) {
             console.log(this.spaEnvResponse);
-            //this.suppBenefitCutOffDate = '2019-11-01';
             const myDate = moment(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START, 'YYYY-MM-DD HH:mm:ss').toDate();
             return moment({
               year: myDate.getFullYear(),

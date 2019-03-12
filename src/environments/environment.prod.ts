@@ -11,6 +11,7 @@ export const environment = {
         apiBaseUrl: '/msp/api',
         envServerBaseUrl: '/msp/api/env',
         aclContextPath: '/accLetterIntegration/',
+        suppBenefitAPIUrl: '/accLetterIntegration/suppbenefit/',
         captchaApiBaseUrl: '/msp/api/captcha',
         addressChangeBCUrl: 'https://www.addresschange.gov.bc.ca/',
         images: {

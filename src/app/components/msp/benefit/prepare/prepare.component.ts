@@ -98,9 +98,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     spaEnvCutOffDate(evt: any){
-        console.log('Date added: %s', evt);
         this.benefitApp.spaEnvRes = evt;
-        console.log(evt);
     } 
 
     errorReceipts(evt: MspImage) {
@@ -121,7 +119,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     ngAfterViewInit() {
         if (!this.dataService.benefitApp.infoCollectionAgreement) {
             this.mspConsentModal.showFullSizeView();
-            console.log(this.mspConsentModal.spaEnvRes);
         }
 
         //removing subscribe wont register clicks
@@ -215,7 +212,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     setYear(assistYearParam: AssistanceYear) {
-        console.log('abhiiiii'+assistYearParam.year);
         this.userSelectedMostRecentTaxYear = assistYearParam.year;
         this.benefitApp.userSelectedMostRecentTaxYear = assistYearParam.year;
 
@@ -372,46 +368,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
         this.disabilityNursingHomeChoiceModal.hide();
     }
-   
-    /* initYearsList(){
-        this.pastYears = [];
-        const recentTaxYear = this.benefitApp.MostRecentTaxYear;
-        this.pastYears.push(recentTaxYear);
-            
-        let i = 1;
-        while (i < 2){
-            console.log(recentTaxYear);
-            this.pastYears.push(recentTaxYear - i);
-            console.log(recentTaxYear);
-            i++;
-        }
-
-        if (!this.benefitApp.assistYears || this.benefitApp.assistYears.length < 7){
-            this.benefitApp.assistYears = this.pastYears.reduce(
-                (tally, yearNum) => {
-                    const assistYear: AssistanceYear = new AssistanceYear();
-                    assistYear.apply = false;
-                    assistYear.year = yearNum;
-                    assistYear.docsRequired = true;
-                    assistYear.currentYear = this.benefitApp.MostRecentTaxYear;
-                    console.log('cutOffDate()'+this.cutOffDate().format());
-                    // checking the cutoff Date and disabling the last year
-                    if(this.cutOffDate().isSameOrBefore(this.today) && assistYear.year == this.benefitApp.MostRecentTaxYear - 1) {
-                        assistYear.disabled =  true; //  (assistYear.year == this.benefitApp.MostRecentTaxYear - 1) ? true : false;
-                    } else {
-                        assistYear.disabled =  false;
-                    }
-                    
-                    if (yearNum === this.benefitApp.MostRecentTaxYear){
-                        assistYear.docsRequired = false;
-                    }
-                    tally.push(assistYear);
-
-                    return tally;
-                }, []);
-        }
-        this.dataService.saveBenefitApplication();
-    } */
 
     get getFinanialInfoSectionTitle(){
         if (!!this.userSelectedMostRecentTaxYear){

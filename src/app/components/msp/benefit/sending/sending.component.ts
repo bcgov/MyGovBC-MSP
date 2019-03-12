@@ -42,7 +42,6 @@ export class BenefitSendingComponent implements AfterContentInit  {
         this.service
           .sendRequest(this.application)
           .then(response => {
-            console.log(response);  
             // probable network errors..middleware could be down
             if (response instanceof HttpErrorResponse) { 
                 this.processErrorResponse(response, response.message, false);
@@ -68,7 +67,6 @@ export class BenefitSendingComponent implements AfterContentInit  {
             
             this.dataService.removeMspBenefitApp();
             const refNumber = response.referenceNumber;
-            console.log(refNumber);
             this.logService.log({
                 name: 'SuppBenefit - Received refNo ',
                 confirmationNumber: refNumber
@@ -79,7 +77,6 @@ export class BenefitSendingComponent implements AfterContentInit  {
   }
 
   processErrorResponse(response: HttpErrorResponse, errorMessage: string , transmissionInProcess: boolean) {
-      console.log('Error Response :' + response);
       this.hasError = true;
       this.transmissionInProcess = transmissionInProcess;
       const oldUUID = this.application.uuid;

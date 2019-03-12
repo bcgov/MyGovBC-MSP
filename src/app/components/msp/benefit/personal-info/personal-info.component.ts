@@ -55,7 +55,6 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     }
 
     onChange(values: any) {
-        // console.log('changes from child component triggering save: ', values);
         this.dataService.saveBenefitApplication();
     }
 
