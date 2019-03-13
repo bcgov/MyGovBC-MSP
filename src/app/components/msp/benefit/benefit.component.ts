@@ -44,7 +44,7 @@ export class BenefitComponent {
 
     ngOnInit() {
         //TODO make logs working
-      /*  this.routerSubscription = this.router.events
+        this.routerSubscription = this.router.events
             .pipe(filter(event => event instanceof NavigationEnd))
             .subscribe(event => {
                 if (this.router.url.indexOf('/confirmation/') === -1) {//toned down logs.no log for confirmation page
@@ -53,7 +53,7 @@ export class BenefitComponent {
                         url: this.router.url
                     }, 'PA - Loaded Page ');
                 }
-            });*/
+            });
     }
 
     ngOnDestroy() {

@@ -46,9 +46,9 @@ export class BenefitSendingComponent implements AfterContentInit  {
             if (response instanceof HttpErrorResponse) { 
                 this.processErrorResponse(response, response.message, false);
                 this.logService.log({
-                    name: 'SuppBenefit - System Error',
+                    name: 'Supplementary Benefit - System Error',
                     confirmationNumber: this.application.uuid
-                }, 'SuppBenefit - Submission Response Error' + response.message);
+                }, 'Supplementary Benefit - Submission Response Error' + response.message);
                 return;
             }
 
@@ -58,9 +58,9 @@ export class BenefitSendingComponent implements AfterContentInit  {
             if (this.isFailure(this.suppBenefitResponse)) {
                 this.processErrorResponse(response, undefined ,false);
                 this.logService.log({
-                    name: 'SuppBenefit - DB Error',
+                    name: 'Supplementary Benefit - DB Error',
                     confirmationNumber: this.application.uuid
-                }, 'SuppBenefit - Submission Response Error' + JSON.stringify(this.suppBenefitResponse));
+                }, 'Supplementary Benefit - Submission Response Error' + JSON.stringify(this.suppBenefitResponse));
                 
                 return;
             }
@@ -68,9 +68,9 @@ export class BenefitSendingComponent implements AfterContentInit  {
             this.dataService.removeMspBenefitApp();
             const refNumber = response.referenceNumber;
             this.logService.log({
-                name: 'SuppBenefit - Received refNo ',
+                name: 'Supplementary Benefit - Received refNo ',
                 confirmationNumber: refNumber
-            }, 'SuppBenefit - Submission Response Success');
+            }, 'Supplementary Benefit - Submission Response Success');
             this.router.navigate(['/msp/benefit/confirmation'],
                 {queryParams: {confirmationNum: refNumber}});
       });
