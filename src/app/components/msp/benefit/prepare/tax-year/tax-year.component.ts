@@ -27,15 +27,16 @@ export class TaxYearComponent extends BaseComponent {
     @Input() spaEnvResponse: ISpaEnvResponse;
     @Output() onTaxYearChange: EventEmitter<number> = new EventEmitter<number>();
     today: any; 
+    cutOffStartDate: any;
+    cutOffEndDate: any;
+
 
     constructor(cd: ChangeDetectorRef, public dataService: MspBenefitDataService) {
         super(cd);
     }
 
     ngOnInit() {
-        this.today = moment();
         this.taxYears = this.getTaxYears ();
-
     }
     setTaxYear(value: number) {
         this.onTaxYearChange.emit(value);
@@ -62,9 +63,10 @@ export class TaxYearComponent extends BaseComponent {
                 assistYear.year = yearNum;
                 assistYear.docsRequired = true;
                 assistYear.currentYear = this.benefitApp.MostRecentTaxYear;
-                
+                this.cutOffDate();
+
                 // checking the cutoff Date and disabling the last year
-                if(this.cutOffDate() && this.cutOffDate().isSameOrBefore(this.today) && assistYear.year == this.benefitApp.MostRecentTaxYear - 1) {
+                if(this.cutOffStartDate && moment(this.cutOffStartDate).isSameOrBefore(this.today) && assistYear.year == this.benefitApp.MostRecentTaxYear - 1 && moment(this.cutOffEndDate).isSameOrAfter(this.today)) {
                     assistYear.disabled =  true; //  (assistYear.year == this.benefitApp.MostRecentTaxYear - 1) ? true : false;
                 } else {
                     assistYear.disabled =  false;
@@ -79,18 +81,13 @@ export class TaxYearComponent extends BaseComponent {
             }, []);
     }
 
-    // Calculates the cutoff date  
+    // Gets the cutoff date time frame from SPA-ENV server  
     cutOffDate() {
-        if(this.spaEnvResponse && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START) {
-            console.log(this.spaEnvResponse);
-            const myDate = moment(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START, 'YYYY-MM-DD HH:mm:ss').toDate();
-            return moment({
-              year: myDate.getFullYear(),
-              month: myDate.getUTCMonth()  , //this.spaEnvMonth - 1 , // moment use 0 index for month, so adding - 1 to get the correct month:(
-              day: myDate.getUTCDate() //this.spanEnvDay,
-            }).utc();
-
-        } else {return ;}
+        if(this.spaEnvResponse && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END && this.spaEnvResponse.SPA_ENV_NOW) {
+            this.today = this.spaEnvResponse.SPA_ENV_NOW;
+            this.cutOffStartDate = this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START;
+            this.cutOffEndDate  = this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END;
+        }
        
     }
 

@@ -4,4 +4,6 @@ export interface ISpaEnvResponse {
     SPA_ENV_ACL_MAINTENANCE_FLAG: string;
     SPA_ENV_ACL_MAINTENANCE_MESSAGE: string;
     SPA_ENV_PACUTOFF_MAINTENANCE_START: string;
+    SPA_ENV_NOW: string;
+    SPA_ENV_PACUTOFF_MAINTENANCE_END: string;
 }

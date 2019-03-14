@@ -32,7 +32,7 @@ export class MspConsentModalComponent {
     public maintenanceFlag: string ;
     public maintenanceMessage: string;
 
-    private _applicationHeaderMap:Map<string, string> = new Map([["ACL", '{"SPA_ENV_MSP_ACL_MAINTENANCE_FLAG":"","SPA_ENV_MSP_ACL_MAINTENANCE_MESSAGE":""}'], ["MSP", '{"SPA_ENV_MSP_MAINTENANCE_FLAG":"","SPA_ENV_MSP_MAINTENANCE_MESSAGE":""}'],["PA", '{"SPA_ENV_PACUTOFF_MAINTENANCE_START":"","SPA_ENV_PACUTOFF_MAINTENANCE_END":"","SPA_ENV_PACUTOFF_MAINTENANCE_MESSAGE":""}']]);
+    private _applicationHeaderMap:Map<string, string> = new Map([["ACL", '{"SPA_ENV_MSP_ACL_MAINTENANCE_FLAG":"","SPA_ENV_MSP_ACL_MAINTENANCE_MESSAGE":""}'], ["MSP", '{"SPA_ENV_MSP_MAINTENANCE_FLAG":"","SPA_ENV_MSP_MAINTENANCE_MESSAGE":""}'],["PA", '{"SPA_ENV_PACUTOFF_MAINTENANCE_START":"","SPA_ENV_PACUTOFF_MAINTENANCE_END":"","SPA_ENV_NOW":""}']]);
 
     
     constructor(private aclService: MspACLService, protected http: HttpClient,  private logService: MspLogService, private maintenanceService: MspMaintenanceService) {
@@ -71,7 +71,6 @@ export class MspConsentModalComponent {
                         this.maintenanceFlag = 'true';
                         this.maintenanceMessage = this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE;
                     }
-                    console.log(this.spaEnvRes);
                     if(this.spaEnvRes.SPA_ENV_PACUTOFF_MAINTENANCE_START) {
                         this.cutOffDate.emit(this.spaEnvRes);;
                     }
