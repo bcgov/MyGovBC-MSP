@@ -47,14 +47,14 @@ export class MspApiBenefitService extends AbstractHttpService {
 
 			// if no errors, then we'll sendApplication all attachments
 			return this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages()).then(() => {
-	
                 // once all attachments are done we can sendApplication in the data
                 return this.sendApplication(app, app.uuid).subscribe( response  => {
-                    
                     // Add reference number
-                    app.referenceNumber = response.referenceNumber.toString();
+                    if(response && response.referenceNumber) {
+                        app.referenceNumber = response.referenceNumber.toString();
+                    }     
                     // Let our caller know were done passing back the application
-                    return resolve(response);
+                    return resolve(response);       
                 });
 			}).catch((error: Response | any) => {
 					console.log('sent all attachments rejected: ', error);
@@ -62,7 +62,7 @@ export class MspApiBenefitService extends AbstractHttpService {
 						text: 'Attachment - Send All Rejected ',
 						response: error,
 					}, 'Attachment - Send All Rejected ');
-					return reject(error);
+					return resolve(error);
 			});
            
         });
@@ -116,16 +116,15 @@ export class MspApiBenefitService extends AbstractHttpService {
                         error: error,
                     }, 'Attachments - Send Error ');
                     console.log('error sending attachment: ', error);
-                    return reject(error);
+                    return reject();
                 }
-            )
-                .catch((error: Response | any) => {
+            ).catch((error: Response | any) => {
                     this.logService.log({
                         text: 'Attachments - Send Error ',
                         error: error,
                     }, 'Attachments - Send Error ');
                     console.log('error sending attachment: ', error);
-                    return reject(error);
+                    return error;
                 });
         });
     }
@@ -220,6 +219,7 @@ export class MspApiBenefitService extends AbstractHttpService {
     
       // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
       return of(error);
+     // return of([]);
     }
 
 

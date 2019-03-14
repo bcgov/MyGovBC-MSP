@@ -96,7 +96,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
 
   isFailure(suppBenefitApiResponse: SuppBenefitApiResponse):boolean {
       // has a reference number , is DB error code Y , is RAPID response Y then its not a failure
-      if (suppBenefitApiResponse.referenceNumber && !suppBenefitApiResponse.dberrorMessage) {
+      if (suppBenefitApiResponse && suppBenefitApiResponse.referenceNumber && !suppBenefitApiResponse.dberrorMessage) {
           return false;
       }
       return true;
