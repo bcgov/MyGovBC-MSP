@@ -37,6 +37,8 @@ export class AssistancePersonalInfoComponent extends BaseComponent{
     // if the country is blank or null or undefined then assign Canada By Default //DEF-153
     if(!this.financialAssistApplication.mailingAddress.country || this.financialAssistApplication.mailingAddress.country.trim().length === 0 ) {
         this.financialAssistApplication.mailingAddress.country = 'Canada';
+        this.financialAssistApplication.mailingAddress.province = 'British Columbia';
+
     } 
   }
 
