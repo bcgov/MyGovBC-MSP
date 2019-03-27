@@ -112,6 +112,9 @@ export class MspLogService {
         if (this.router.url.indexOf('/account/') !== -1){
             return  this.dataService.getMspAccountApp().uuid;
         }
+        if (this.router.url.indexOf('/account-letter/') !== -1){
+          return  this.dataService.accountLetterApp.uuid ;
+      }
     }
 
 }

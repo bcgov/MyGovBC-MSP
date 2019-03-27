@@ -35,6 +35,19 @@ label {
   }
 }
 
+.fa-check-circle {
+  color: #83D31D;
+}
+
+.fa-exclamation-triangle {
+  color: darkred;
+}
+
+
+button.disabled {
+  cursor: not-allowed;
+}
+
 // To unbold form labels, auto add optional string
 .optional {
   font-weight: normal;

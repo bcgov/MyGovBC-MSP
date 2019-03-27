@@ -37,6 +37,7 @@ import { CompletenessCheckService } from '../../service/completeness-check.servi
 import { MspValidationService} from '../../service/msp-validation.service';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp/common/services-card-disclaimer/services-card-disclaimer.component';
 import { ModalModule } from 'ngx-bootstrap';
+import {TextMaskModule} from 'angular2-text-mask';
 
 
 
@@ -47,7 +48,7 @@ describe('AddDependentComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AddDependentComponent, MspToggleComponent, MspStatusInCanadaRadioComponent, MspDateComponent, AccountPersonalDetailsComponent, CalendarYearValidator, CalendarMonthValidator, CalendarDayValidator, CalendarYearFormatter, AddNewDependentBeneficiaryComponent, MspNameComponent, MspGenderComponent, MspBirthDateComponent, MspPhnComponent, MspPhoneComponent, MspDischargeDateComponent, MspSchoolDateComponent, MspAddressComponent, MspProvinceComponent, MspArrivalDateComponent, MspOutofBCRecordComponent, Mod11CheckValidator, MspCountryComponent, MspDepartureDateComponent, MspReturnDateComponent, ServicesCardDisclaimerModalComponent],
-      imports: [
+      imports: [ TextMaskModule,
         FormsModule,
         TypeaheadModule,
         LocalStorageModule.withConfig({

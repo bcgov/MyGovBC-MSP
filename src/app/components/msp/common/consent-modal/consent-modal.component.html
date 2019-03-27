@@ -3,26 +3,28 @@
      aria-labelledby="myLargeModalLabel" aria-hidden="true" 
      [config]="{backdrop: 'static', ignoreBackdropClick: true}">
 
-  <div class="modal-dialog" style="margin-top: 70px;">
+  <div class="modal-dialog" style="margin-top: 90px;">
     <div class="modal-content">
       <div class="modal-header modal-header-primary">
-        <h2 id="myLargeModalLabel">{{spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true' ? lang('./en/indexMaintenance.js').title : lang('./en/index.js').title}}</h2>
+        <h2 id="myLargeModalLabel">{{maintenanceFlag == 'true' ? lang('./en/indexMaintenance.js').title : lang('./en/index.js').title}}</h2>
       </div>
       <div class="modal-body">
-        <div *ngIf="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true'">
-            <p><strong>{{spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE}}</strong></p>
+        <div *ngIf="maintenanceFlag == 'true'">
+            <h4 [innerHtml]="maintenanceMessage|replacewithlinks"></h4>
         </div>   
-        <div [innerHtml]="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true' ? lang('./en/index.js').SystemMaintenanceBody : lang('./en/index.js').body"></div>
+        <div *ngIf="maintenanceFlag != 'true'">
+            <p [innerHtml]="processName == 'ACL' ? lang('./en/index.js').ACLbody : lang('./en/index.js').body" ></p>
+        </div>
 
         <br>
-        <div *ngIf="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG != 'true'">
+        <div *ngIf="maintenanceFlag != 'true'">
           <div class="form-check form-check-inline">
           <input class="input-lg form-check-input" id="agree" type="checkbox" [(ngModel)]="agreeCheck">
           <label class="form-check-label" for="agree"><strong>{{lang('./en/index.js').agreeLabel}}</strong></label>
           </div>
         </div>
       </div>
-      <div *ngIf="spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG != 'true'" class="modal-footer">
+      <div *ngIf="maintenanceFlag != 'true'" class="modal-footer">
         <button [disabled]="!agreeCheck" class="btn btn-block btn-primary pull-left"
                 type="submit" (click)="continue()">
           {{lang('./en/index.js').continueButton}}</button>

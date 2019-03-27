@@ -17,7 +17,9 @@
   ],
     "include": [
       "**/*.spec.ts",
-      "**/*.d.ts"
+      "**/*.d.ts",
+      "../node_modules/mygovbc-captcha-widget/src/app/captcha/captcha.component.ts",
+      "../node_modules/mygovbc-captcha-widget/src/app/captcha-data.service.ts"
     ]
   }
   

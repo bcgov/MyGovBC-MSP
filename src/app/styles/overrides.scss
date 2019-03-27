@@ -27,6 +27,13 @@
         background-color: #eee;
         border-color: #eee;
     }
+    
+    &:hover:not(:disabled),
+    &.active:not(:disabled) {
+      color: #333;
+      background-color: #d3dbe7;
+      border-color: #adadad;
+    }
 }
 
 // Re-implement disabled button styles from Bootstrap 3

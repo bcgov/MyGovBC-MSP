@@ -3,7 +3,8 @@
          [ngClass]="{'has-error': !isUnique() || !formRef.controls.phn?.valid && (phnRef.touched || showError)}">
         <label [class.optional]="!required" class="control-label" for="phn{{objectId}}"
                [innerHTML]="phnLabel"></label>
-        <input type="text"
+        <input class="form-control"
+               spellcheck="false" #phnfocus type="text"
                [ngModel]="phn"
                (ngModelChange)="setPhn($event)"
                minlength="10"
@@ -11,10 +12,11 @@
                [required]="required"
                [(mod11Check)]="bcPhn"
                id='phn{{objectId}}' name='phn' #phnRef="ngModel"
-               class="form-control">
-        <div *ngIf="isForAccountChange"  style="font-size: smaller" [innerHTML]="lang('./en/index.js').phnLabelMsgForAccount"></div>
+               class="form-control" placeholder="{{placeholder}}" [textMask]="{mask: mask}">
 
-        <div *ngIf='phnRef.touched || showError || !isUnique()' role="alert" aria-live="assertive">
+        <div *ngIf="isForAccountChange"  style="font-size: smaller" [innerHTML]="lang('./en/index.js').phnLabelMsgForAccount"></div>
+          
+          <div *ngIf='phnRef.touched || showError || !isUnique()' role="alert" aria-live="assertive">
             <div class="text-danger" *ngIf="phnRef.errors?.required"
                  [innerHTML]="lang('./en/index.js').phnErrorRequired"></div>
             <div class="text-danger" *ngIf="phnRef.errors?.minlength"
@@ -23,6 +25,7 @@
                  [innerHTML]="lang('./en/index.js').phnErrorMod11Check"></div>
             <div class="text-danger" *ngIf="!isUnique()"
                 [innerHTML]="lang('./en/index.js').phnErrorUnique"></div>
-        </div>
+
+        </div> 
     </div>
 </form>

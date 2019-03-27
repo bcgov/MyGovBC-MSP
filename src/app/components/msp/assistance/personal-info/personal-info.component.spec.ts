@@ -28,7 +28,7 @@ import {CalendarDayValidator} from '../../common/calendar/calendar-day.validator
 import { ProcessService } from '../../service/process.service';
 import { SinCheckValidator } from '../../common/sin/sin.validator';
 import {HttpClientModule} from '@angular/common/http';
-
+import {TextMaskModule} from 'angular2-text-mask';
 
 describe('AssistancePersonalInfoComponent Test', () => {
 
@@ -39,7 +39,7 @@ describe('AssistancePersonalInfoComponent Test', () => {
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent, MspCountryComponent,
         Mod11CheckValidator, MspGenderComponent, MspCancelComponent, MspLoggerDirective,
         CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator, SinCheckValidator],
-      imports: [FormsModule, TypeaheadModule, ModalModule.forRoot(), HttpClientModule, RouterTestingModule, LocalStorageModule.withConfig({
+      imports: [TextMaskModule, FormsModule, TypeaheadModule, ModalModule.forRoot(), HttpClientModule, RouterTestingModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],

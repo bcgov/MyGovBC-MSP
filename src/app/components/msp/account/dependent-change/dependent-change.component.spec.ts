@@ -12,7 +12,7 @@ import { Person } from '../../model/person.model';
 import { Address } from '../../model/address.model';
 import { CaptchaComponent } from 'mygovbc-captcha-widget/src/app/captcha/captcha.component';
 import { CaptchaDataService } from 'mygovbc-captcha-widget/src/app/captcha-data.service';
-
+import {TextMaskModule} from 'angular2-text-mask';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MspLoggerDirective } from '../../common/logging/msp-logger.directive';
 import { AddDependentComponent } from '../add-dependents/add-dependents.component';
@@ -72,7 +72,7 @@ describe('AccountDependentChangeComponent', () => {
                 CompletenessCheckService,
                 MspValidationService
             ],
-            imports: [FormsModule,
+            imports: [FormsModule,TextMaskModule,
                 LocalStorageModule.withConfig({
                 prefix: 'ca.bc.gov.msp',
                 storageType: 'sessionStorage'

@@ -1,0 +1,96 @@
+<msp-consent-modal #mspConsentModal [application]="accountLetterApplication"
+                   [processName]="lang('./en/index.js').consentProcessName"
+>
+</msp-consent-modal>
+
+<form #formRef="ngForm" novalidate>
+
+    <div class="col-md-10">
+        <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
+        <p class="intro"
+           [innerHtml]="lang('./en/index.js').servicesCardMsg" role="heading">
+        </p>
+        
+        <h2 [innerHTML]="lang('./en/index.js').applicantInfo"></h2>
+        <hr>
+
+        <div class="card panel-default col-md-6">
+            <div class="card-body">
+               
+                <msp-phn #phn
+                         [phn]="applicant.previous_phn"
+                         (phnChange)="applicant.previous_phn = $event"
+                         (onChange)="saveApplication($event);"
+                         [bcPhn]="true"
+                         [required]="true"
+                         [showError]="showError"
+                         [placeholder] ="lang('./en/index.js').phnPlaceHolder"
+                         [phnLabel]="lang('./en/index.js').phnlabel">
+                </msp-phn>
+
+                <msp-birthdate [isACL]="true"
+                        #birthDate
+                        id="acl_dob"
+                        (onChange)="saveApplication($event);"
+                        [showError]="showError"
+                        [person]="applicant">
+                </msp-birthdate>
+
+                <label for="residentialAddressPostalCode{{objectId}}"
+                    [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
+                <input [(ngModel)]='accountLetterApplication.postalCode' type="text" class="form-control to-upper"
+                    id="residentialAddressPostalCode{{objectId}}" name="residentialAddressPostalCode"
+                    #residentialAddressPostalCodeRef="ngModel" required tabindex="0" maxlength="8"
+                    (onChange)="saveApplication($event);" [pattern]="phnRegex" placeholder="A1A 1A1" [textMask]="{mask: postalCodeMask, pipe: upperCasePipe}">
+                <div *ngIf='residentialAddressPostalCodeRef.touched || showError'
+                    role="alert" aria-live="assertive">
+
+                         <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.required"
+                              [innerHtml]="lang('./en/index.js').postalCodeErrorIsRequired"></div>
+                         <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.pattern"
+                              [innerHtml]="lang('./en/index.js').postalCodeErrorPattern"></div>
+                </div>
+
+            </div>
+
+        </div>
+        <hr>
+
+        <msp-specific-member  [person]="applicant" #specificMember (onStatusChange)="setStatus($event);" (onChange)="saveApplication($event);"> </msp-specific-member>
+
+        <br/>
+
+
+        <div *ngIf="applicant.enrollmentMember != undefined" class="row">
+            <div class="col-lg-12">
+                <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="accountLetterApplication.uuid"
+                         (onValidToken)="saveToken($event)"></captcha>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row" *ngIf="form.submitted && !accountLetterApplication.hasValidAuthToken">
+        <div class="col-lg-6">
+            <div class="text-danger"
+                 [innerHtml]="lang('./en/index.js').tryAgainWithCaptcha">
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <!-- Highlighted field Error message -->
+    <div class="col-lg-6" *ngIf="formRef.submitted">
+        <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
+        </p>
+    </div>
+   
+    <div class="col-lg-12"> 
+
+    <fpcare-form-action-bar [submitLabel]="lang('./en/index.js').buttonLabel"
+                            [canContinue]="canContinue()"
+                            (btnClick)="handleFormSubmission($event)">
+    </fpcare-form-action-bar>
+    </div>
+
+</form>

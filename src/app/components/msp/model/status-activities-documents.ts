@@ -6,7 +6,8 @@ enum Relationship {
   Spouse,
   ChildUnder19,
   Child19To24,
-  ChildUnder24
+  ChildUnder24,
+  AllAgeApplicant,
 }
 
 
@@ -18,6 +19,17 @@ enum StatusInCanada {
   PermanentResident,
   TemporaryResident,
 }
+
+/**
+ * Whose MSP Enrollement for ACL 
+ */
+enum MSPEnrollementMember {
+  MyselfOnly, // adult
+  AllMembers,
+  SpecificMember
+}
+
+
 
 /**
  * Reasons for returning to Canada
@@ -81,6 +93,14 @@ class StatusRules {
   }
 }
 
+class EnrollmentStatusRules {
+  static availableStatus(): MSPEnrollementMember[] {
+        return [MSPEnrollementMember.MyselfOnly,
+            MSPEnrollementMember.AllMembers,
+            MSPEnrollementMember.SpecificMember];
+      }
+}
+
 /**
  * Business rules for activities
  */
@@ -137,4 +157,4 @@ class DocumentRules {
   }
 }
 
-export {Relationship, Activities, StatusInCanada, Documents, ActivitiesRules, StatusRules, DocumentRules, CancellationReasons , CancellationReasonsForSpouse};
+export {MSPEnrollementMember,EnrollmentStatusRules, Relationship, Activities, StatusInCanada, Documents, ActivitiesRules, StatusRules, DocumentRules, CancellationReasons , CancellationReasonsForSpouse};

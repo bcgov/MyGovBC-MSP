@@ -24,7 +24,7 @@ import {MspCountryComponent} from '../../../common/country/country.component';
 import {MspIdReqModalComponent} from '../../../common/id-req-modal/id-req-modal.component';
 import {MspOutofBCRecordComponent} from '../../../common/outof-bc/outof-bc.component';
 import {MspImageErrorModalComponent} from '../../../common/image-error-modal/image-error-modal.component';
-
+import {TextMaskModule} from 'angular2-text-mask';
 import {CalendarYearFormatter} from '../../../common/calendar/calendar-year-formatter.component';
 import {CalendarYearValidator} from '../../../common/calendar/calendar-year.validator';
 import {CalendarDayValidator} from '../../../common/calendar/calendar-day.validator';
@@ -40,7 +40,7 @@ describe('PersonalDetailsComponent', () => {
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,
         MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspImageErrorModalComponent, ServicesCardDisclaimerModalComponent,
         CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator],
-      imports: [FormsModule, TypeaheadModule, ModalModule.forRoot(), AccordionModule.forRoot(), LocalStorageModule.withConfig({
+      imports: [TextMaskModule, FormsModule, TypeaheadModule, ModalModule.forRoot(), AccordionModule.forRoot(), LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],

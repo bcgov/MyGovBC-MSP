@@ -23,6 +23,7 @@ import { ProcessService } from '../../../service/process.service';
 import { SinCheckValidator } from '../../../common/sin/sin.validator';
 import { RouterTestingModule } from '@angular/router/testing';
 import {HttpClientModule} from '@angular/common/http';
+import {TextMaskModule} from 'angular2-text-mask';
 
 
 describe('AssistancePersonalDetailComponent Test', () => {
@@ -33,9 +34,14 @@ describe('AssistancePersonalDetailComponent Test', () => {
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent,
         Mod11CheckValidator, MspGenderComponent, MspCountryComponent,
         CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator, SinCheckValidator],
-      imports: [FormsModule, RouterTestingModule, TypeaheadModule, HttpClientModule, LocalStorageModule.withConfig({
-        prefix: 'ca.bc.gov.msp',
-        storageType: 'sessionStorage'
+      imports: [TextMaskModule, 
+        FormsModule, 
+        RouterTestingModule, 
+        TypeaheadModule, 
+        HttpClientModule, 
+        LocalStorageModule.withConfig({
+          prefix: 'ca.bc.gov.msp',
+          storageType: 'sessionStorage'
       })],
       providers: [MspDataService, CompletenessCheckService, MspValidationService, ProcessService,
 
