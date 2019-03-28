@@ -42,8 +42,9 @@ export class AclErrorViewComponent extends BaseComponent{
                 .subscribe(response => {
                     if (response instanceof HttpErrorResponse) { // probable network errors..Spa Env server could be down
                         this.logService.log({
-                            name: 'ACL - SPA Env System Error'
-                        }, 'ACL - SPA Env Rapid Response Error' + response.message);
+                            name: 'account-letter - SPA Env System Error',
+                            url: this.router.url
+                        }, 'account-letter - SPA Env Rapid Response Error' + response.message);
                         this.stopSpinner();
                         return;
                     }

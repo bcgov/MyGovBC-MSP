@@ -68,10 +68,6 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
         this.initProcessMembers(AccountLetterPersonalInfoComponent.ProcessStepNum, this._processService);
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
         this.accountLetterApplication.authorizationToken = null;
-        this.logService.log({
-            name: 'ACL - Loaded Page',
-            url: this._router.url
-        }, 'ACL - Loaded Page');
     }
 
     saveApplication(values: any) {

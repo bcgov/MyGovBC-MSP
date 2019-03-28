@@ -48,40 +48,41 @@ export class AccountLetterSendingComponent implements AfterContentInit {
         // After view inits, begin sending the application
         this.transmissionInProcess = true;
         this.hasError = undefined;
-        this.logService.log({name: 'ACL application submitting request'}, "ACL : Submission Request");
+        this.logService.log({name: 'account-letter application submitting request', url: this.router.url}, "account-letter : Submission Request");
 
         this.aclService
             .sendAccountLetterApp(this.application, this.application.uuid)
             .subscribe(response => {
                 if (response instanceof HttpErrorResponse) { // probable network errors..middleware could be down
-                    this.processErrorResponse(response, response.message, false);
                     this.logService.log({
-                        name: 'ACL - System Error',
-                        confirmationNumber: this.application.uuid
-                    }, 'ACL - Submission Response Error' + response.message);
-
+                        name: 'account-letter - System Error',
+                        url: this.router.url,
+                        ApplicationID: this.application.uuid
+                    }, 'account-letter - Submission Response Error' + response.message);
+                    this.processErrorResponse(response, response.message, false);
                     return;
                 }
                 // business errors.. Might be either a RAPID validation failure or DB error
                 this.aclApiResponse = <ACLApiResponse> response;
                 if (this.isFailure(this.aclApiResponse)) {
-                    this.processErrorResponse(response, undefined ,true);
                     this.logService.log({
-                        name: 'ACL - RAPID/DB Error',
-                        confirmationNumber: this.application.uuid
-                    }, 'ACL - Submission Response Error' + JSON.stringify(this.aclApiResponse));
-
+                        name: 'account-letter - RAPID/DB Error',
+                        url: this.router.url
+                    }, 'account-letter - Submission Response Error' + JSON.stringify(this.aclApiResponse));
+                    this.processErrorResponse(response, undefined ,true);
                     return;
                 } else {
                     //delete the application from storage
-                    this.dataService.removeMspAccountLetterApp();
                     const refNumber = this.aclApiResponse.referenceNumber;
                     this.logService.log({
-                        name: 'ACL - Received refNo ',
+                        name: 'account-letter - Received refNo ',
+                        url: this.router.url,
                         confirmationNumber: refNumber
-                    }, 'ACL - Submission Response Success');
+                    }, 'account-letter - Submission Response Success');
+                    this.dataService.removeMspAccountLetterApp();
                     this.router.navigate(['/msp/account-letter/confirmation'],
                         {queryParams: {confirmationNum: refNumber}});
+                        
                 }
             });
     }
