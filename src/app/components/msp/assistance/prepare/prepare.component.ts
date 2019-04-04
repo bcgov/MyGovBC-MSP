@@ -360,12 +360,11 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
 
   initYearsList(){
     this.pastYears = [];
-    const recentTaxYear =  (this.finAssistApp.MostRecentTaxYear) < 2020 ? 2020 : this.finAssistApp.MostRecentTaxYear;
+    const recentTaxYear = this.finAssistApp.MostRecentTaxYear; //< 2020 ? 2020 : this.finAssistApp.MostRecentTaxYear;
     const cutOffYear = 2020;
 
-    //this.pastYears.push(cutOffYear - 1);
     const numberOfYears = (7 - (recentTaxYear - cutOffYear));
-    let i = 1;
+    let i = 3;
     while (i <= numberOfYears){
       this.pastYears.push(cutOffYear - i);
       i++;

@@ -15,7 +15,7 @@ import {MspBenefitDataService} from '../../service/msp-benefit-data.service';
   templateUrl: './authorize-submit.component.html',
   styleUrls: ['./authorize-submit.component.scss']
 })
-export class BenefitAuthorizeSubmitComponent implements OnInit {
+export class BenefitAuthorizeSubmitComponent {
 
     static ProcessStepNum = 4;
     lang = require('./i18n');
@@ -36,13 +36,6 @@ export class BenefitAuthorizeSubmitComponent implements OnInit {
     }
 
     @ViewChild('form') form: NgForm;
-
-    ngOnInit(){
-        /*  let oldUUID = this.application.uuid;
-          this.application.regenUUID();
-          this.dataService.saveFinAssistApplication();
-          console.log('PA uuid updated: from %s to %s', oldUUID, this.dataService.finAssistApp.uuid);*/
-    }
 
     ngAfterViewInit(): void {
         this.form.valueChanges.subscribe(values => {

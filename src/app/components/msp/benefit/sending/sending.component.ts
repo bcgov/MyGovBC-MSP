@@ -44,11 +44,12 @@ export class BenefitSendingComponent implements AfterContentInit  {
           .then(response => {
             // probable network errors..middleware could be down
             if (response instanceof HttpErrorResponse) { 
-                this.processErrorResponse(response, response.message, false);
                 this.logService.log({
                     name: 'Supplementary Benefit - System Error',
-                    confirmationNumber: this.application.uuid
+                    confirmationNumber: this.application.uuid,
+                    url: this.router.url
                 }, 'Supplementary Benefit - Submission Response Error' + response.message);
+                this.processErrorResponse(response, response.message, false);
                 return;
             }
 
@@ -56,21 +57,22 @@ export class BenefitSendingComponent implements AfterContentInit  {
             this.suppBenefitResponse = <SuppBenefitApiResponse> response;
           
             if (this.isFailure(this.suppBenefitResponse)) {
-                this.processErrorResponse(response, undefined ,false);
                 this.logService.log({
                     name: 'Supplementary Benefit - DB Error',
-                    confirmationNumber: this.application.uuid
+                    confirmationNumber: this.application.uuid,
+                    url: this.router.url
                 }, 'Supplementary Benefit - Submission Response Error' + JSON.stringify(this.suppBenefitResponse));
-                
+                this.processErrorResponse(response, undefined ,false);
                 return;
             }
-            
-            this.dataService.removeMspBenefitApp();
             const refNumber = response.referenceNumber;
             this.logService.log({
                 name: 'Supplementary Benefit - Received refNo ',
-                confirmationNumber: refNumber
+                confirmationNumber: refNumber,
+                url: this.router.url
             }, 'Supplementary Benefit - Submission Response Success');
+            this.dataService.removeMspBenefitApp();
+           
             this.router.navigate(['/msp/benefit/confirmation'],
                 {queryParams: {confirmationNum: refNumber}});
       });
