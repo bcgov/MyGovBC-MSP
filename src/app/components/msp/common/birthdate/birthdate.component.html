@@ -1,4 +1,9 @@
 <form #formRef='ngForm' novalidate>
+<common-date [label]="dateLabel" [restrictDate]="'past'"
+        [(date)]="person.dateOfBirth" (dateChange)= "onChange.emit($event)"></common-date>
+</form>
+
+<!--form #formRef='ngForm' novalidate>
     <label class="control-label" [innerHtml]="lang('./en/index.js').birthdateLabel"></label>
     <label class="visuallyhidden" for="month{{objectId}}">{{lang('./en/index.js').birthdateLabel}} {{lang('./en/index.js').monthLabel}}</label>
     <div class="form-group"
@@ -8,7 +13,9 @@
                 validateCalendarMonth
                 id="month{{objectId}}" name="month" #monthRef="ngModel"
                 required>
-            <option value=undefined disabled hidden *ngIf="isACL">month</option>
+            <opti
+            N
+            on value=undefined disabled hidden *ngIf="isACL">month</option>
             <option value=0 *ngIf="!isACL" >&nbsp;</option>
             <option class="form-control monthSelect" value=1>January</option>
             <option class="form-control monthSelect" value=2>February</option>
@@ -94,4 +101,4 @@
             </div>
         </div>
     </div>
-</form>
+</form> -->

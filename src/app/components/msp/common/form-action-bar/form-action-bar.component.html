@@ -1,4 +1,9 @@
-<div class="form-action-bar" [ngClass]="{disabled: !canContinue}">
+<common-form-action-bar [submitLabel]="label"
+[canContinue]="canContinue()"
+(btnClick)="onClick($event)">
+</common-form-action-bar>
+
+<!-- <div class="form-action-bar" [ngClass]="{disabled: !canContinue}">
     <button class="btn btn-lg {{defaultColor ? 'btn-primary' : 'btn-secondary' }} submit"
             (click)="onClick($event)"
             [ngClass]="{disabled: !canContinue || isLoading}">
@@ -9,4 +14,4 @@
 
 <ng-template #loadingSpinner>
     <i class="fa fa-spinner fa-pulse fa-fw"></i>
-</ng-template>
+</ng-template>-->

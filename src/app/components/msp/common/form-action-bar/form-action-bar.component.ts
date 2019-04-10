@@ -6,11 +6,12 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./form-action-bar.component.scss']
 })
 export class FormActionBarComponent implements OnInit {
-  @Input() submitLabel: string = 'Continue';
-  @Input() canContinue: boolean = true;
+ // @Input() submitLabel: string = 'Continue';
+  public label = 'Continue';
+ /* @Input() canContinue: boolean = true;
   @Input() isLoading: boolean = false;
   @Input() defaultColor: boolean = true;
-  @Output() btnClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() btnClick: EventEmitter<any> = new EventEmitter<any>();*/
 
   constructor() { }
 
@@ -18,9 +19,9 @@ export class FormActionBarComponent implements OnInit {
   }
 
   onClick($event){
-    if (!this.isLoading && this.canContinue){
+ /*   if (!this.isLoading && this.canContinue){
       this.btnClick.emit($event);
-    }
+    }*/
     $event.stopPropagation();
     return false;
   }

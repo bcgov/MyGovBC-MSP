@@ -16,6 +16,7 @@ import {BaseComponent} from '../../common/base.component';
 import {Address} from '../../model/address.model';
 import {MspApiService} from '../../service/msp-api.service';
 import {environment} from '../../../../../environments/environment';
+import {CommonCheckboxComponent} from '../../common/common-checkbox/common-checkbox.component';
 
 @Component({
     templateUrl: './prepare.component.html',
@@ -25,15 +26,16 @@ import {environment} from '../../../../../environments/environment';
 export class AccountPrepareComponent extends BaseComponent {
     static ProcessStepNum = 0;
     lang = require('./i18n');
+    public addressChangeLabel = 'Update Address';
     mspAccountApp: MspAccountApp;
     accountChangeOptions: AccountChangeOptions;
     captchaApiBaseUrl: string;
     addressChangeBCUrl: string;
-    @ViewChild('addressChangeChkBx') addressChangeChkBx: ElementRef;
-    @ViewChild('personalInfoChangeChkBx') personalInfoChangeChkBx: ElementRef;
-    @ViewChild('nameChangeDueToMarriageChkBx') nameChangeDueToMarriageChkBx: ElementRef;
-    @ViewChild('dependentChangeChkBx') dependentChangeChkBx: ElementRef;
-    @ViewChild('updateStatusInCanadaChkBx') updateStatusInCanadaChkBx: ElementRef;
+    @ViewChild('addressChangeChkBx') addressChangeChkBx: CommonCheckboxComponent;
+    @ViewChild('personalInfoChangeChkBx') personalInfoChangeChkBx: CommonCheckboxComponent;
+    @ViewChild('nameChangeDueToMarriageChkBx') nameChangeDueToMarriageChkBx: CommonCheckboxComponent;
+    @ViewChild('dependentChangeChkBx') dependentChangeChkBx: CommonCheckboxComponent;
+    @ViewChild('updateStatusInCanadaChkBx') updateStatusInCanadaChkBx: CommonCheckboxComponent;
     @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
     @ViewChild('formRef') form: NgForm;
     transmissionInProcess: boolean;
@@ -145,11 +147,17 @@ export class AccountPrepareComponent extends BaseComponent {
 
 
     addressUpdateOnChange(event: boolean) {
+        console.log(event);
+        console.log(this.accountChangeOptions.addressUpdate);
+
         this.accountChangeOptions.addressUpdate = event;
         this.dataService.saveMspAccountApp();
     }
 
     personInfoUpdateOnChange(event: boolean) {
+        
+        console.log(event);
+
         this.isPICheckedByUser = true;
         this.accountChangeOptions.personInfoUpdate = event;
         this.dataService.saveMspAccountApp();

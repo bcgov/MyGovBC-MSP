@@ -18,8 +18,9 @@ import {MspBenefitDataService} from '../../../service/msp-benefit-data.service';
 export class BenefitPersonalDetailComponent extends BaseComponent {
 
     lang = require('./i18n');
+    public dateLabel = 'BirthDate1'
     private benefitApp: BenefitApplication;
-
+    
     @Input() person: Person;
     @ViewChild('name') name: MspNameComponent;
     @ViewChild('formRef') personalDetailsForm: NgForm;
@@ -33,12 +34,17 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
         super(cd);
         this.benefitApp = this.dataService.benefitApp;
         this.person = this.dataService.benefitApp.applicant;
+        console.log(this.person);
     }
 
     ngAfterViewInit() {
-
+        console.log(this.birthdate);
         this.personalDetailsForm.valueChanges.pipe(debounceTime(0))
             .subscribe( values => {
+                console.log(this.person.dob_day);
+                console.log(this.person.dob_month);
+                console.log(this.person.dob_year);
+                console.log(this.person.dob);
                 this.onChange.emit(values);
             });
     }

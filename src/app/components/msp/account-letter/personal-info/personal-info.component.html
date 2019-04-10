@@ -87,10 +87,16 @@
    
     <div class="col-lg-12"> 
 
-    <fpcare-form-action-bar [submitLabel]="lang('./en/index.js').buttonLabel"
+    <common-form-action-bar [submitLabel]="lang('./en/index.js').buttonLabel"
+            [canContinue]="canContinue()"
+            (btnClick)="handleFormSubmission($event)">
+    </common-form-action-bar>
+            
+
+    <!--<fpcare-form-action-bar [submitLabel]="lang('./en/index.js').buttonLabel"
                             [canContinue]="canContinue()"
                             (btnClick)="handleFormSubmission($event)">
-    </fpcare-form-action-bar>
+    </fpcare-form-action-bar>-->
     </div>
 
 </form>

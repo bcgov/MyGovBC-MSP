@@ -69,6 +69,7 @@ import { MspNameComponent } from './common/name/name.component';
 import { MspOutofBCRecordComponent } from './common/outof-bc/outof-bc.component';
 import { MspPersonCardComponent } from './common/person-card/person-card.component';
 import { MspPhnComponent } from './common/phn/phn.component';
+import { SharedCoreModule } from 'moh-common-lib';
 
 import { Mod11CheckValidator } from './common/phn/phn.validator';
 import { MspPhoneComponent } from './common/phone/phone.component';
@@ -116,6 +117,7 @@ import { BenefitAuthorizeSubmitComponent } from './benefit/authorize-submit/auth
 import {BenefitSendingComponent} from './benefit/sending/sending.component';
 import {BenefitConfirmationComponent} from './benefit/confirmation/confirmation.component';
 import { TaxYearComponent } from './benefit/prepare/tax-year/tax-year.component';
+import { CommonCheckboxComponent } from './common/common-checkbox/common-checkbox.component';
 
 const APP_ROUTES: Routes = [
     {
@@ -352,6 +354,7 @@ const APP_ROUTES: Routes = [
         CommonModule,
         FormsModule,
         ModalModule,
+        SharedCoreModule,
         AccordionModule,
         HttpClientModule,
         TextMaskModule,
@@ -472,7 +475,8 @@ const APP_ROUTES: Routes = [
         BenefitAuthorizeSubmitComponent,
         BenefitSendingComponent,
         BenefitConfirmationComponent,
-        TaxYearComponent
+        TaxYearComponent,
+        CommonCheckboxComponent
     ],
 
     providers: [

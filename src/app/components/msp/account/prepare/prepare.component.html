@@ -12,16 +12,22 @@
 
 <form #formRef='ngForm' novalidate role="form" >
     <div role="dialog" aria-labelledby="q1" class="form-check mb-2">
-        <input #addressChangeChkBx class="input-lg form-check-input" id='addressChange' name="addressChange" type="checkbox"  [(ngModel)]="accountChangeOptions.addressUpdate" (ngModelChange)="addressUpdateOnChange($event)" >
-        <label id="q1" class="form-check-label" for='addressChange' [innerHtml]="lang('./en/index.js').addressChange"></label>
+       
+        <msp-common-checkbox #addressChangeChkBx [label]="lang('./en/index.js').addressChange" (dataChange)="addressUpdateOnChange($event)" [model]="accountChangeOptions.addressUpdate"  ></msp-common-checkbox>
+        <!-- <input #addressChangeChkBx class="input-lg form-check-input" id='addressChange' name="addressChange" type="checkbox"  [(ngModel)]="accountChangeOptions.addressUpdate" (ngModelChange)="addressUpdateOnChange($event)" >
+        <label id="q1" class="form-check-label" for='addressChange' [innerHtml]="lang('./en/index.js').addressChange"></label>-->
     </div>
     <div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
-        <input #personalInfoChangeChkBx class="input-lg form-check-input" id='personalInfoChange' name="personalInfoChange" type="checkbox" [(ngModel)]="accountChangeOptions.personInfoUpdate" [disabled]="accountChangeOptions.nameChangeDueToMarriage" (ngModelChange)="personInfoUpdateOnChange($event)">
-        <label id="q2" class="form-check-label" for='personalInfoChange' [innerHtml]="lang('./en/index.js').personalInfoChange"></label>
+        <msp-common-checkbox  #personalInfoChangeChkBx [label]="lang('./en/index.js').personalInfoChange" (dataChange)="personInfoUpdateOnChange($event)" [model]="accountChangeOptions.personInfoUpdate" [disabled]="accountChangeOptions.nameChangeDueToMarriage" ></msp-common-checkbox>
+       
+        <!-- <input #personalInfoChangeChkBx class="input-lg form-check-input" id='personalInfoChange' name="personalInfoChange" type="checkbox" [(ngModel)]="accountChangeOptions.personInfoUpdate" [disabled]="accountChangeOptions.nameChangeDueToMarriage" (ngModelChange)="personInfoUpdateOnChange($event)">
+        <label id="q2" class="form-check-label" for='personalInfoChange' [innerHtml]="lang('./en/index.js').personalInfoChange"></label>-->
     </div>
     <div role="dialog" aria-labelledby="q3" class="form-check  mb-2" >
-        <input #dependentChangeChkBx class="input-lg form-check-input" id='dependentChange' name="dependentChange" type="checkbox" [(ngModel)]="accountChangeOptions.dependentChange" (ngModelChange)="dependentChangeOnChange($event)">
-        <label id="q3" class="form-check-label" for='dependentChange' [innerHtml]="lang('./en/index.js').dependentChange"></label>
+        <msp-common-checkbox #dependentChangeChkBx [label]="lang('./en/index.js').dependentChange" (dataChange)="dependentChangeOnChange($event)" [model]="accountChangeOptions.dependentChange" ></msp-common-checkbox>
+       
+        <!--<input #dependentChangeChkBx class="input-lg form-check-input" id='dependentChange' name="dependentChange" type="checkbox" [(ngModel)]="accountChangeOptions.dependentChange" (ngModelChange)="dependentChangeOnChange($event)">
+        <label id="q3" class="form-check-label" for='dependentChange' [innerHtml]="lang('./en/index.js').dependentChange"></label>-->
     </div>
 
     <div role="dialog" aria-labelledby="q4" style="margin-left: 20px;" class="form-check  mb-2" *ngIf="accountChangeOptions.dependentChange">

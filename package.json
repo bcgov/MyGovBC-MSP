@@ -77,12 +77,16 @@
     "moment": "^2.22.2",
     "mygovbc-captcha-widget": "3.0.1",
     "ngx-bootstrap": "3.0.1",
+    "@ng-select/ng-select": "^2.16.2",
+    "ngx-mydatepicker": "2.4.5",
+    "pdfjs-dist": "^2.0.550",
     "popper.js": "^1.14.4",
     "rx-dom": "^7.0.3",
     "rxjs": "^6.3.3",
     "sha1": "^1.1.1",
     "typescript": "2.8",
     "url": "^0.11.0",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.8.26",
+    "moh-common-lib": "0.0.21"
   }
 }

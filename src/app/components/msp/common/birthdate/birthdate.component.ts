@@ -24,28 +24,43 @@ import {BaseComponent} from '../base.component';
 })
 export class MspBirthDateComponent extends BaseComponent {
 
-    lang = require('./i18n');
+    //lang = require('./i18n');
+    public dateLabel = 'Birthdate';
 
     // Create today for comparison in check later
-    today: any;
+   today: any;
     @Input() isForAccountChange: boolean = false;
     @Input() isACL:boolean = false;
-    constructor(private cd: ChangeDetectorRef) {
-        super(cd);
-        this.today = moment();
-    }
-
     @Input() person: Person;
     @Input() showError: boolean;
     @Output() onChange = new EventEmitter<any>();
+
+    constructor(private cd: ChangeDetectorRef) {
+        super(cd);
+        console.log(this.person);
+    }
+
+    
     @ViewChild('formRef') form: NgForm;
 
     ngAfterViewInit(): void {
+        
+        this.person.dateOfBirth =  { year: this.person.dob_year , month: this.person.dob_month, day: this.person.dob_day};
+    
         this.form.valueChanges.subscribe(values => {
-            this.onChange.emit(values);
+            if(this.person.dateOfBirth.month) {
+                this.person.dob_month = this.person.dateOfBirth.month;  
+            }
+            if(this.person.dateOfBirth.day) {
+                this.person.dob_day = this.person.dateOfBirth.day;  
+            }
+            if(this.person.dateOfBirth.year) {
+                this.person.dob_year = this.person.dateOfBirth.year;  
+            }
         });
     }
 
+    /**
     setYearValueOnModel(value: number) {
         this.person.dob_year = value;
     }
@@ -54,11 +69,11 @@ export class MspBirthDateComponent extends BaseComponent {
         this.person.dob_day = value;
     }
 
-    /**
+    
      * Determine if date of birth is valid for the given person
      *
-     * @returns {boolean}
-     */
+     * 
+     
     isCorrectFormat(): boolean {
 
         // Validate
@@ -124,5 +139,5 @@ export class MspBirthDateComponent extends BaseComponent {
     isValid(): boolean {
         return this.isCorrectFormat() && !this.isInTheFuture() && !this.tooFarInThePast() && this.ageCheck();
     }
-
+    */
 }

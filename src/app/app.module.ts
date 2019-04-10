@@ -8,6 +8,7 @@ import { CoreHeaderComponent } from './components/core/header';
 import { MspModule } from './components/msp/msp.module';
 import { HttpClientModule} from '@angular/common/http';
 import {TextMaskModule} from 'angular2-text-mask';
+import { SharedCoreModule } from 'moh-common-lib';
 
 
 require('./index.scss');
@@ -16,6 +17,7 @@ require('./index.scss');
     BrowserModule,
     MspModule,
     HttpClientModule,
+    SharedCoreModule,
     ModalModule.forRoot(),
     AccordionModule.forRoot(),
     TooltipModule.forRoot(),

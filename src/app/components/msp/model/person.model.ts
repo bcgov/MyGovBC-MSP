@@ -59,7 +59,7 @@ class Person implements IPerson {
     }
 
     public adoptedDate: SimpleDate;
-    public dateOfBirth: SimpleDate = { year: null, month: null, day: null };
+
 
 
     get operationActionType(): OperationActionType {
@@ -154,6 +154,8 @@ class Person implements IPerson {
             'year': this.dob_year,
         };
     }
+
+    public dateOfBirth: SimpleDate = { year: null, month: null, day: null };
 
     //TODO fix this..not DRY
     getCancellationDateInMoment (){
