@@ -10,7 +10,7 @@ import {MspDataService} from '../../service/msp-data.service';
 import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
 import {ProcessService} from '../../service/process.service';
 import {BaseComponent} from '../../common/base.component';
-
+import {CommonButtonGroupComponent} from "../../common/common-button-group/common-button-group.component";
 
 @Component({
   templateUrl: './prepare.component.html'
@@ -20,12 +20,12 @@ export class PrepareComponent extends BaseComponent {
   static ProcessStepNum = 0;
   lang = require('./i18n');
   @ViewChild('formRef') form: NgForm;
-  @ViewChild('liveInBCBtn') liveInBCBtn: ElementRef;
-  @ViewChild('notLiveInBCBtn') notLiveInBCBtn: ElementRef;
-  @ViewChild('unUsualCircumstanceBtn') unUsualCircumstanceBtn: ElementRef;
-  @ViewChild('noUnusualCircustanceBtn') noUnusualCircustanceBtn: ElementRef;
-  @ViewChild('plannedAbsenceBtn') plannedAbsenceBtn: ElementRef;
-  @ViewChild('noPlannedAbsenceBtn') noPlannedAbsenceBtn: ElementRef;
+  @ViewChild('liveInBCBtn') liveInBCBtn: CommonButtonGroupComponent ;
+ // @ViewChild('notLiveInBCBtn') notLiveInBCBtn: ElementRef;
+//  @ViewChild('unUsualCircumstanceBtn') unUsualCircumstanceBtn: ElementRef;
+//  @ViewChild('noUnusualCircustanceBtn') noUnusualCircustanceBtn: ElementRef;
+//  @ViewChild('plannedAbsenceBtn') plannedAbsenceBtn: ElementRef;
+//  @ViewChild('noPlannedAbsenceBtn') noPlannedAbsenceBtn: ElementRef;
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
 
   private apt: Person;
@@ -50,7 +50,7 @@ export class PrepareComponent extends BaseComponent {
       this.mspConsentModal.showFullSizeView();
     }
 
-    const liveInBC$ = fromEvent<MouseEvent>(this.liveInBCBtn.nativeElement, 'click')
+    /*const liveInBC$ = fromEvent<MouseEvent>(this.liveInBCBtn.nativeElement, 'click')
       .pipe(map( x => {
         this.dataService.getMspApplication().applicant.liveInBC = true;
       }));
@@ -58,7 +58,7 @@ export class PrepareComponent extends BaseComponent {
       .pipe(map( x => {
         this.dataService.getMspApplication().applicant.liveInBC = false;
       }));
-
+     
     const unUsualCircumstance$ = fromEvent<MouseEvent>(this.unUsualCircumstanceBtn.nativeElement, 'click')
       .pipe(map( x => {
         this.dataService.getMspApplication().unUsualCircumstance = true;
@@ -76,16 +76,16 @@ export class PrepareComponent extends BaseComponent {
       .pipe(map( x => {
         this.dataService.getMspApplication().applicant.plannedAbsence = false;
       }));
-
+ */
     if (this.form){
       merge(
         this.form.valueChanges,
-        liveInBC$,
-        notLiveInBC$,
+       /* liveInBC$,
+       // notLiveInBC$,
         unUsualCircumstance$,
         noUnUsualCircumstance$,
         plannedAbsenceBtn$,
-        noPlannedAbsenceBtn$,
+        noPlannedAbsenceBtn$,*/
       )
       .subscribe(values => {
         this.dataService.saveMspApplication();
@@ -105,6 +105,7 @@ export class PrepareComponent extends BaseComponent {
   }
 
   get liveInBC() {
+
     return this.apt.liveInBC;
   }
 
@@ -117,8 +118,22 @@ export class PrepareComponent extends BaseComponent {
   }
 
   setLiveInBC(live: boolean) {
-    return this.apt.liveInBC = live;
+    this.dataService.getMspApplication().applicant.liveInBC = live;
+    this.apt.liveInBC = live;
+    this.dataService.saveMspApplication();
   }
+
+  setPlannedAbsence(live: boolean) {
+    this.dataService.getMspApplication().applicant.plannedAbsence = live;
+    this.apt.plannedAbsence = live;
+    this.dataService.saveMspApplication();
+  }
+
+  setUnusualCircumstance(live: boolean) {
+    this.dataService.getMspApplication().unUsualCircumstance = live;
+    this.dataService.saveMspApplication();
+  }
+
   get applicant(): Person {
     return this.apt;
   }

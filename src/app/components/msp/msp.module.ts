@@ -118,6 +118,7 @@ import {BenefitSendingComponent} from './benefit/sending/sending.component';
 import {BenefitConfirmationComponent} from './benefit/confirmation/confirmation.component';
 import { TaxYearComponent } from './benefit/prepare/tax-year/tax-year.component';
 import { CommonCheckboxComponent } from './common/common-checkbox/common-checkbox.component';
+import { CommonButtonGroupComponent } from './common/common-button-group/common-button-group.component';
 
 const APP_ROUTES: Routes = [
     {
@@ -476,7 +477,8 @@ const APP_ROUTES: Routes = [
         BenefitSendingComponent,
         BenefitConfirmationComponent,
         TaxYearComponent,
-        CommonCheckboxComponent
+        CommonCheckboxComponent,
+        CommonButtonGroupComponent
     ],
 
     providers: [

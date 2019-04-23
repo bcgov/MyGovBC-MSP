@@ -6,10 +6,13 @@
   </div>
   <div class="row">
     <div class="col-lg-4">
+       <!-- <common-date [label]="dateLabel" [restrictDate]="'past'"
+        [(date)]="person.dateOfBirth" (dateChange)= "onChange.emit($event)"></common-date> -->
       <msp-birthdate #birthdate
                      [person]="person"
                      (onChange)="onChange.emit($event)">
       </msp-birthdate>
+
       <!-- KPS Removed ngif to expose birthdate for spouse
       <msp-birthdate #birthdate
                      [person]="person"
