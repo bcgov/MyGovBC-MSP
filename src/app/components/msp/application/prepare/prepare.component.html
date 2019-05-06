@@ -11,7 +11,7 @@
 <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
 
 <form #formRef='ngForm' novalidate role="form" >
-    <msp-common-button-group #liveInBCBtn [label]="lang('./en/index.js').question1" [data]="liveInBC" (dataChange)="setLiveInBC($event)" ></msp-common-button-group>
+    <common-button-group  #liveInBCBtn [label]="lang('./en/index.js').question1" [data]="liveInBC" (dataChange)="setLiveInBC($event)" ></common-button-group>
     <!--
         <div role="dialog" aria-labelledby="q1">
             <p id="q1" class="intro" [innerHtml]="lang('./en/index.js').question1"></p>
@@ -25,7 +25,7 @@
     -->
 
     <div [hidden]="liveInBC !== true" role="dialog" aria-labelledby="q2">
-        <msp-common-button-group [label]="lang('./en/index.js').plannedAwayForOver30DaysQuestion" [data]="plannedAbsence" (dataChange)="setPlannedAbsence($event)" ></msp-common-button-group>
+        <common-button-group [label]="lang('./en/index.js').plannedAwayForOver30DaysQuestion" [data]="plannedAbsence" (dataChange)="setPlannedAbsence($event)" ></common-button-group>
    
         <!-- <p id="q2" class="intro" [innerHtml]="lang('./en/index.js').plannedAwayForOver30DaysQuestion"></p>
         <div class="btn-group" role="group">
@@ -41,7 +41,7 @@
         </p>
     </div>
     <div [hidden]= "plannedAbsence !== false || !liveInBC" role="dialog" aria-labelledby="q3">
-        <msp-common-button-group [label]="lang('./en/index.js').specialCircumstanceQuestion" [data]="unUsualCircumstance" (dataChange)="setUnusualCircumstance($event)" ></msp-common-button-group>
+        <common-button-group [label]="lang('./en/index.js').specialCircumstanceQuestion" [data]="unUsualCircumstance" (dataChange)="setUnusualCircumstance($event)" ></common-button-group>
    
         <!--
         <p id="q3" class="intro" [innerHtml]="lang('./en/index.js').specialCircumstanceQuestion"></p>
@@ -66,12 +66,18 @@
 </form>
 <hr>
 
-<button class="btn btn-primary"
+<common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
+            [canContinue]="canContinue()"
+            (btnClick)="goToPersonalInfo()">
+</common-form-action-bar>
+    
+
+<!--<button class="btn btn-primary"
         [disabled] = "!canContinue()"
         (click) = "goToPersonalInfo()"
         type="button" tabindex="0"
         [innerHtml]="lang('./en/index.js').continueButton"></button>
 
-<msp-cancel></msp-cancel>
+<msp-cancel></msp-cancel>-->
 
 

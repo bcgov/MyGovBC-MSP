@@ -5,7 +5,7 @@ import { _ApplicationTypeNameSpace } from "../api-model/applicationTypes";
 import { ISpaEnvResponse } from '../model/spa-env-response.interface';
 import { MspLogService } from './log.service';
 import * as moment from 'moment';
-import { AbstractHttpService } from './abstract-api.service';
+import { AbstractHttpService } from '../service/abstract-api.service';
 import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { of } from 'rxjs';
 import {
@@ -32,7 +32,8 @@ export class MspACLService extends AbstractHttpService {
     }
 
     sendAccountLetterApp(accountLetterApplication: AccountLetterApplication, uuid: string): Observable<any> {
-        const accountLetterJsonResponse = this.convertAccountLetterApp(accountLetterApplication);
+        console.log(accountLetterApplication);
+         const accountLetterJsonResponse = this.convertAccountLetterApp(accountLetterApplication);
         const url = environment.appConstants.apiBaseUrl+environment.appConstants.aclContextPath+ uuid;
 
         // Setup headers
@@ -74,23 +75,24 @@ export class MspACLService extends AbstractHttpService {
    
     // This method is used to convert the response from user into a JSOn object
     private convertAccountLetterApp(from: AccountLetterApplication): AccountLetterType {
+        console.log(from);
         const to = AccountLetterApplicantTypeFactory.make();
         to.aclTransactionId = from.uuid;
-        to.requesterPostalCode  = from.postalCode.toUpperCase().replace(' ', '');
+        //to.requesterPostalCode  = from.postalCode.toUpperCase().replace(' ', '');
         to.requesterPHN = from.applicant.previous_phn.replace(/\s/g, "");
         to.requesterBirthdate = from.applicant.dob.format(this.ISO8601DateFormat);
        
         switch (from.applicant.enrollmentMember ) {
             
-            case MSPEnrollementMember.MyselfOnly :
+            case 'MyselfOnly' :
                 to.letterSelection = 'M';
                 break;
 
-            case MSPEnrollementMember.AllMembers :
+            case 'AllMembers' :
                 to.letterSelection = 'A';
                 break;
 
-            case MSPEnrollementMember.SpecificMember :
+            case 'SpecificMember' :
                 to.letterSelection = 'S';
                 to.specificPHN = from.applicant.specificMember_phn.replace(/\s/g, "");
                 break;

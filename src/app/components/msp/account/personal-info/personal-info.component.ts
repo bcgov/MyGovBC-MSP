@@ -23,7 +23,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
 
     @ViewChild('formRef') form: NgForm;
     @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
-
+    public buttonstyle:string = 'btn btn-default';
 
   constructor(private dataService: MspDataService,
               private _router: Router,

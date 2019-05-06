@@ -109,5 +109,8 @@ module.exports = {
         "The child's most recent move to Canada cannot be before the child's date of birth.",
         "The child's most recent move to Canada cannot be before the child's date of birth.",
     ],
-    minMonths:"The return date should be with in past 12 months"
+    minMonths:"The return date should be with in past 12 months",
+    schoolCompletionDateLabel: 'Expected school completion date',
+    schoolDepartureDateLabel: 'Original departure date from B.C. (if school is outside B.C.)'
+  
 }

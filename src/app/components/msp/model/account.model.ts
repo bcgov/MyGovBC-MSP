@@ -12,7 +12,7 @@ class MspAccountApp implements ApplicationBase {
     }
 
     private _uuid = UUID.UUID();
-    infoCollectionAgreement: boolean = false;
+    public infoCollectionAgreement: boolean = false;
     authorizationToken: string;
     phnRequired: boolean = false;
     /**

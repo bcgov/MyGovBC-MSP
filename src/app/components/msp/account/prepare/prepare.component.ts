@@ -9,14 +9,16 @@ import * as _ from 'lodash';
 
 import {Gender, Person} from '../../model/person.model';
 import {MspDataService} from '../../service/msp-data.service';
-import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
+import {ConsentModalComponent} from 'moh-common-lib';
+
 import {ProcessService, ProcessStep} from '../../service/process.service';
 import {ProcessUrls} from '../../service/process.service';
 import {BaseComponent} from '../../common/base.component';
 import {Address} from '../../model/address.model';
 import {MspApiService} from '../../service/msp-api.service';
 import {environment} from '../../../../../environments/environment';
-import {CommonCheckboxComponent} from '../../common/common-checkbox/common-checkbox.component';
+//import {CheckboxComponent} from '../../../../../../node_modules/moh-common-lib/lib/components/checkbox/checkbox.component';
+
 
 @Component({
     templateUrl: './prepare.component.html',
@@ -31,12 +33,12 @@ export class AccountPrepareComponent extends BaseComponent {
     accountChangeOptions: AccountChangeOptions;
     captchaApiBaseUrl: string;
     addressChangeBCUrl: string;
-    @ViewChild('addressChangeChkBx') addressChangeChkBx: CommonCheckboxComponent;
-    @ViewChild('personalInfoChangeChkBx') personalInfoChangeChkBx: CommonCheckboxComponent;
-    @ViewChild('nameChangeDueToMarriageChkBx') nameChangeDueToMarriageChkBx: CommonCheckboxComponent;
-    @ViewChild('dependentChangeChkBx') dependentChangeChkBx: CommonCheckboxComponent;
-    @ViewChild('updateStatusInCanadaChkBx') updateStatusInCanadaChkBx: CommonCheckboxComponent;
-    @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
+    @ViewChild('addressChangeChkBx') addressChangeChkBx: ElementRef;
+    @ViewChild('personalInfoChangeChkBx') personalInfoChangeChkBx: ElementRef;
+    @ViewChild('nameChangeDueToMarriageChkBx') nameChangeDueToMarriageChkBx: ElementRef;
+    @ViewChild('dependentChangeChkBx') dependentChangeChkBx: ElementRef;
+    @ViewChild('updateStatusInCanadaChkBx') updateStatusInCanadaChkBx: ElementRef;
+    @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
     @ViewChild('formRef') form: NgForm;
     transmissionInProcess: boolean;
     // PI gets automatically ticked and unticked depending on the namechangeduetomarriage option.. this flag is used to idenity if PI is checked by user or by namechange option

@@ -30,6 +30,7 @@ export class PrepareComponent extends BaseComponent {
 
   private apt: Person;
   mspApplication: MspApplication;
+  public styleClass:string = 'control-label';
 
   constructor(private dataService: MspDataService,
     private _processService: ProcessService,

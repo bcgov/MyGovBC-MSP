@@ -93,7 +93,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
     Resident address validation is done manually since its not includes in the viewChildren
      */
     canAddDepdents(): boolean {
-        const canAdd: boolean = this.isAllValid() && this.person.residentialAddress.isValid;
+        const canAdd: boolean = this.isAllValid() ; // && this.person.residentialAddress.isValid
         this.showError = !canAdd;
         this.showErrorAddress = true;
         this.showMandatoryFieldsWarning = this.showError;

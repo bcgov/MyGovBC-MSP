@@ -18,6 +18,7 @@ import {MspAssistanceYearComponent} from './assistance-year/assistance-year.comp
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
 import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
 import { merge} from 'rxjs/internal/observable/merge';
+import { CommonIncomeInputtextComponent} from '../../common/common-income-inputtext/common-income-inputtext.component';
 
 @Component({
   templateUrl: './prepare.component.html',
@@ -25,7 +26,7 @@ import { merge} from 'rxjs/internal/observable/merge';
 })
 export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoCheck{
   @ViewChild('formRef') prepForm: NgForm;
-  @ViewChild('incomeRef') incomeRef: ElementRef;
+  @ViewChild('incomeRef') incomeRef: CommonIncomeInputtextComponent;
   @ViewChild('ageOver65Btn') ageOver65Btn: ElementRef;
   @ViewChild('ageNotOver65Btn') ageNotOver65Btn: ElementRef;
   @ViewChild('spouseOver65Btn') spouseOver65Btn: ElementRef;
@@ -50,6 +51,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   requireAttendantCareReceipts = false;
   taxYearInfoMissing = false;
   qualificationThreshhold: number = 42000;
+  incomePattern: string = "^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$";
 
   counterClaimCategory: string;
   claimCategory: string;
@@ -110,6 +112,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   }
 
   ngAfterViewInit() {
+    console.log("asasasas"+this.finAssistApp.netIncomelastYear);
     if (!this.dataService.finAssistApp.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();
     }
@@ -137,24 +140,31 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
         }
       ), tap(
         (value) => {
-          // console.log('form value: ', value);
+           console.log('form value: ', value.netIncome);
           if (!value.netIncome || value.netIncome.trim().length === 0){
-            this.finAssistApp.netIncomelastYear = null;
+            console.log('form value:11 ', value);
+             this.finAssistApp.netIncomelastYear = null;
           }else{
+            console.log('form value:22 ', value);
             this.finAssistApp.netIncomelastYear = value.netIncome;
           }
+
           if (!value.spouseIncomeLine236 || value.spouseIncomeLine236.trim().length === 0){
-            this.finAssistApp.spouseIncomeLine236 = null;
+             this.finAssistApp.spouseIncomeLine236 = null;
           }
+
           if (!value.line125){
             this.finAssistApp.spouseDSPAmount_line125 = null;
           }
+
           if (!value.line214){
             this.finAssistApp.claimedChildCareExpense_line214 = null;
           }
+
           if (!value.line117){
             this.finAssistApp.reportedUCCBenefit_line117 = null;
           }
+
           if (!value.childrenCount || value.childrenCount.trim().length === 0){
             this.finAssistApp.childrenCount = null;
           }

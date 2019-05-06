@@ -1,13 +1,14 @@
-import {ChangeDetectorRef, Component, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ViewChild, ElementRef} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { MspDataService } from '../../service/msp-data.service';
 import {MspApplication} from '../../model/application.model';
-import {Address} from '../../model/address.model';
+//import {Address} from '../../model/address.model';
 import {BaseComponent} from '../../common/base.component';
 import {MspAddressComponent} from '../../common/address/address.component';
 import {MspPhoneComponent} from '../../common/phone/phone.component';
 import {ProcessService} from '../../service/process.service';
 import {Router} from '@angular/router';
+import {Address,Person} from 'moh-common-lib/models';
 
 @Component({
   templateUrl: './address.component.html'
@@ -19,8 +20,9 @@ export class AddressComponent extends BaseComponent {
   lang = require('./i18n');
 
   @ViewChild('formRef') form: NgForm;
-  @ViewChild('address') address: MspAddressComponent;
-  @ViewChild('phone') phone: MspPhoneComponent;
+  @ViewChild('address') address: ElementRef;
+  @ViewChild('mailingAddress') mailingAddress: ElementRef;
+  @ViewChild('phone') phone: ElementRef;
 
   mspApplication: MspApplication;
 
@@ -42,6 +44,7 @@ export class AddressComponent extends BaseComponent {
   }
 
   handlePhoneNumberChange(evt: any) {
+    console.log('Abhi phone num--'+evt);
     this.mspApplication.phoneNumber = evt;
     this.dataService.saveMspApplication();
   }
@@ -55,6 +58,7 @@ export class AddressComponent extends BaseComponent {
   }
 
   handleAddressUpdate(evt: any){
+    console.log(evt);
     // console.log('address update event: %o', evt);
     this.dataService.saveMspApplication();
   }

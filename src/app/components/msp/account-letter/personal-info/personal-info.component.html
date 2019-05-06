@@ -16,8 +16,9 @@
 
         <div class="card panel-default col-md-6">
             <div class="card-body">
-               
-                <msp-phn #phn
+                <common-phn #phn [label]="lang('./en/index.js').phnlabel"
+                            [(value)]="applicant.previous_phn"></common-phn>
+              <!--  <msp-phn #phn
                          [phn]="applicant.previous_phn"
                          (phnChange)="applicant.previous_phn = $event"
                          (onChange)="saveApplication($event);"
@@ -26,7 +27,7 @@
                          [showError]="showError"
                          [placeholder] ="lang('./en/index.js').phnPlaceHolder"
                          [phnLabel]="lang('./en/index.js').phnlabel">
-                </msp-phn>
+                </msp-phn> -->
 
                 <msp-birthdate [isACL]="true"
                         #birthDate
@@ -35,7 +36,11 @@
                         [showError]="showError"
                         [person]="applicant">
                 </msp-birthdate>
-
+                
+                <common-postal-code [label]="lang('./en/index.js').postalCodeLabel"
+                    [postalCode]="accountLetterApplication.postalCode" (onChange)="saveApplication($event);">
+                </common-postal-code>
+                <!--    
                 <label for="residentialAddressPostalCode{{objectId}}"
                     [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
                 <input [(ngModel)]='accountLetterApplication.postalCode' type="text" class="form-control to-upper"
@@ -50,7 +55,7 @@
                          <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.pattern"
                               [innerHtml]="lang('./en/index.js').postalCodeErrorPattern"></div>
                 </div>
-
+                 -->   
             </div>
 
         </div>
@@ -63,8 +68,10 @@
 
         <div *ngIf="applicant.enrollmentMember != undefined" class="row">
             <div class="col-lg-12">
-                <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="accountLetterApplication.uuid"
-                         (onValidToken)="saveToken($event)"></captcha>
+                    <common-captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="accountLetterApplication.uuid"
+                    (onValidToken)="saveToken($event)"></common-captcha>
+             <!--   <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="accountLetterApplication.uuid"
+                         (onValidToken)="saveToken($event)"></captcha>-->
             </div>
         </div>
 
@@ -86,7 +93,8 @@
     </div>
    
     <div class="col-lg-12"> 
-
+      <!--  <common-radio [label]="'Test Radio'" (onStatusChange)="checkRadio($event)"></common-radio>
+-->
     <common-form-action-bar [submitLabel]="lang('./en/index.js').buttonLabel"
             [canContinue]="canContinue()"
             (btnClick)="handleFormSubmission($event)">

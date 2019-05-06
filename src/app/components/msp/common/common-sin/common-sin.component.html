@@ -1,0 +1,18 @@
+<div class='form-group'>
+    <label for="sin_{{objectId}}">{{label}}</label>
+    <input class="form-control"
+           spellcheck="false"
+           type="text"
+           id="sin_{{objectId}}"
+           name="sin_{{objectId}}"
+           [placeholder]="placeholder"
+           fpcareRequired="required,sin-check"
+           [ngModel]="value"
+           (ngModelChange)="onUpdate($event)"
+           [textMask]="{mask: mask}"
+           [disabled]="disabled" />
+  </div>
+  
+  <div *ngIf="!uniqueSins" role="alert" aria-live="assertive">
+    <div class="text-danger">{{uniqueSinErrMsg}}</div>
+  </div>

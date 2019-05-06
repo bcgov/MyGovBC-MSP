@@ -1,4 +1,12 @@
 module.exports = {
+  eligibilityCalculatorTitle: 'Adjusted Net Income Calculator',
+  yourIncome: 'Enter your net income – see Line 236 of your Notice of Assessment or Reassessment from Canada Revenue Agency.',
+  totalHouseholdIncome: 'Total household income:',
+  mayNotQualifyText:'Based on {currentCalendarYear} rates, you might not qualify for assistance.',
+  // mayNotQualifyText:'Based on {currentCalendarYear} rates, you might not qualify for assistance. Please <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us">contact Health Insurance BC</a> for more information.',
+  youShouldContinue: 'If you entered information from a previous year, you should continue to apply. Your eligibility will be based on the rates from that year.',
+  comingSoonText:'In {nextCalendarYear}, MSP monthly premiums will be reduced for most households. <a href="http://www2.gov.bc.ca/gov/content/health" target="_blank" alt="clicking this link will open a new window or tab">Learn more and subscribe to updates</a>',
+  continueButtonLabel : 'Continue to apply for previous year Retroactive Premium Assistance',
   areYou65OrOlder: "Were you 65 or older in year {userSelectedMostRecentTaxYear} ? ",
   doYouHaveASpouseOrPartner: 'Did you have a spouse or common-law partner in year {userSelectedMostRecentTaxYear}?',
   notifySpouseWarning:'Note: Failure to notify HIBC when you marry or begin living in a marriage-like relationship may impact eligibility for previous year Retroactive Premium Assistance.',
@@ -31,6 +39,7 @@ module.exports = {
   \
   I am a resident of British Columbia as defined by the Medicare Protection Act.\
   \
-  I have resided in Canada as a Canadian citizen or holder of permanent resident status (landed immigrant) for at least the last 12 months immediately preceding this application; I am not exempt from liability to pay income tax by reason of any other Act; and I am not the child of another beneficiary."
+  I have resided in Canada as a Canadian citizen or holder of permanent resident status (landed immigrant) for at least the last 12 months immediately preceding this application; I am not exempt from liability to pay income tax by reason of any other Act; and I am not the child of another beneficiary.",
+  registeredDisabilitySavingPlan: ' How much did you (or your spouse / common-law partner) report for a Registered Disability Savings Plan on your income tax return in year {{userSelectedMostRecentTaxYear}} (Line 125)?'
 }
 

@@ -43,7 +43,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
 
     @ViewChild('formRef') form: NgForm;
     @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
-    @ViewChild('phn') phn: MspPhnComponent;
+    @ViewChild('phn') phn: ElementRef;
     @ViewChild('addtionalMemberphn') addtionalMemberphn: MspPhnComponent;
     @ViewChild('birthDate') birthdate: MspBirthDateComponent;
     @ViewChild('specificMember') specificMember: SpecificMemberComponent;
@@ -75,6 +75,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     }
 
     saveApplication(values: any) {
+        this.accountLetterApplication.postalCode = values;
         this.dataService.saveAccountLetterApplication();
     }
 
@@ -106,9 +107,14 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
         return EnrollmentStatusRules.availableStatus();
     }
 
-    setStatus(value: MSPEnrollementMember) {
+    setStatus(value: string) {
         this.applicant.enrollmentMember = value;
         this.dataService.saveAccountLetterApplication();
+    }
+
+    checkRadio($event) {
+
+        console.log($event);
     }
 
     canContinue(): boolean {
@@ -133,7 +139,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
 
      */
     isValidMemberSelected() {
-       return this.applicant.enrollmentMember != undefined && (this.applicant.enrollmentMember == MSPEnrollementMember.SpecificMember ? this.applicant.specificMember_phn != undefined : true) ;
+       return this.applicant.enrollmentMember != undefined && (this.applicant.enrollmentMember == 'SpecificMember' ? this.applicant.specificMember_phn != undefined : true) ;
     }
     /*
      the hasValidAuthToken == true is implemented to handle the glitch with user submitting an already failed application using forward and backward of browser..

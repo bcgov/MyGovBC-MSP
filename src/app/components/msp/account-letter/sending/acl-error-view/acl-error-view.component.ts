@@ -22,6 +22,8 @@ export class AclErrorViewComponent extends BaseComponent{
     lang = require('./i18n');
 
     @Input()response: ACLApiResponse;
+    
+    @Input() retryUrl: string;
 
     public rapidError: string;
 

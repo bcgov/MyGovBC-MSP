@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import {debounceTime} from "rxjs/operators";
 import {Masking, NUMBER, SPACE} from '../../../msp/model/masking.model';
 import {MspBenefitDataService} from '../../service/msp-benefit-data.service';
+import {PasswordErrorMsg} from '../../model/PasswordErrorMsg.interface';
 
 @Component({
   selector: 'msp-phn',
@@ -35,7 +36,7 @@ export class MspPhnComponent extends Masking {
 
   // Input Masking 
   public mask = [NUMBER, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER, SPACE, NUMBER, NUMBER, NUMBER];
-  
+  public errMsg: PasswordErrorMsg ;
 
   //@Input() isPhnDuplicate: boolean = false;
 
@@ -45,7 +46,11 @@ export class MspPhnComponent extends Masking {
     super(cd);
   }
 
-  
+  ngOnInit() {
+   
+  }
+
+
   ngAfterViewInit(): void {
 
     // https://github.com/angular/angular/issues/24818

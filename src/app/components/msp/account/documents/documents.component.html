@@ -8,7 +8,7 @@
             </h3>
             <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
 
-            <msp-accordion
+            <common-accordion
                     *ngFor="let idx of documentIndices()"
                     title="{{documentsApplicable[idx].title}}" [isOpen]="documentsApplicable.length == 1">
 
@@ -25,7 +25,7 @@
                         </a>
                     </li>
                 </ng-container>
-            </msp-accordion>
+            </common-accordion>
 
             <msp-id-req-modal [isForAccountChange]="true" #idReqModal></msp-id-req-modal>
         </div>
@@ -33,22 +33,20 @@
             <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel"></h3>
             <div [innerHtml]="lang('./en/index.js').documentInstructionsNote"></div>
 
-            <msp-file-uploader #fileUploader
+            <common-file-uploader #fileUploader
             [images]="mspAccountApp.documents"
             [id]='mspAccountApp.id'
-            (onAddDocument)="addDoc($event)"
-            (onErrorDocument)="errorDoc($event)"
-            (onDeleteDocument)="deleteDoc($event)">
+            > 
                 <span id="uploadInstruction" tabindex="0" #uploadInstruction>
                     Please upload Required documents
                 </span>
-            </msp-file-uploader>
+            </common-file-uploader>
 
             <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
         </div>
     </div>
 
-    <div class="row" style="margin-top: 10px;">
+ <!--<div class="row" style="margin-top: 10px;">
         <div class="col-2">
             <button 
                 [disabled] = "!canContinue"
@@ -57,5 +55,10 @@
 
         </div>
         <msp-cancel class='col' [accountButton]="true"></msp-cancel>
+    </div> --> 
+    <div class="position: inherit;">
+            <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
+            [canContinue]="canContinue" (btnClick)="continue()">
+            </common-form-action-bar>
     </div>
 </form>

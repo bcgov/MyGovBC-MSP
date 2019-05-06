@@ -1,4 +1,4 @@
-<form #formRef="ngForm" novalidate (submit)="continue()">
+<form #formRef="ngForm" novalidate>
     <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
     <msp-account-personal-details [person]='applicant' [id]='applicant.id' [addressRequired]="true"
                                   (onChange)="onChange($event)"
@@ -34,16 +34,18 @@
         <div class="col-lg-12">
             <div class="msp-app">
                 <div class="button-group">
-                    <button type="button" class="btn btn-default" (click)='addUpdateSpouse()'
+                    <common-button [label]="lang('./en/index.js').UpdateSpouseButton" [(styleClass)]="buttonstyle" (btnClick)='addUpdateSpouse()' [disabled]="spouse || !canContinue()"></common-button>
+                   <!-- <button type="button" class="btn btn-default" (click)='addUpdateSpouse()'
                             [disabled]="spouse || !canContinue()"  >
                         <span class="glyphicon" aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').UpdateSpouseButton"></span>
-                    </button>
-
-                    <button type="button" class="btn btn-default" (click)='addUpdateChild()' [disabled] = "!canContinue()">
+                    </button>-->
+                    <common-button [label]="lang('./en/index.js').addChildUnder19Button" [(styleClass)]="buttonstyle" (btnClick)='addUpdateChild()' [disabled]="!canContinue()"></common-button>
+                      
+                  <!--  <button type="button" class="btn btn-default" (click)='addUpdateChild()' [disabled] = "!canContinue()">
                         <span class="glyphicon" aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').addChildUnder19Button"></span>
-                    </button>
+                    </button> -->
 
 
                 </div>
@@ -52,8 +54,10 @@
     </div>
 
     <hr>
-    <div class="row" style="margin-top: 10px;">
-        <div class="col-2">
+   
+   
+        
+        <!--<div class="col-2">
             <button [disabled] = "hasAnyInvalidStatus()"
                     class="btn btn-primary" type="submit"
                     [innerHTML]="lang('./en/index.js').continueButton"></button>
@@ -63,6 +67,11 @@
             <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
             </p>
         </div>
-        <msp-cancel class='col'></msp-cancel>
-    </div>
+        <msp-cancel class='col'></msp-cancel> -->
 </form>
+
+<div class="position: inherit;">
+    <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
+    [canContinue]="hasAnyInvalidStatus()" (btnClick)="continue()">
+    </common-form-action-bar>
+</div>

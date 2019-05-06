@@ -429,9 +429,11 @@
         </div>
     
         <div class="col-lg-4">
-           <benefit-deduction-calculator [application]="benefitApp" [qualificationThreshhold] = "qualificationThreshhold"
-                                  (taxYearInfoMissing)= "onTaxYearInfoMissing()">
-            </benefit-deduction-calculator>
+            <msp-common-deduction-calculator [eligibilityCalculatorTitle]="lang('./en/index.js').eligibilityCalculatorTitle"   [application]="benefitApp" [qualificationThreshhold] = "qualificationThreshhold"
+                [totalHouseholdIncomeLabel] = "lang('./en/index.js').totalHouseholdIncome" [continueButtonLabel] = "lang('./en/index.js').continueButtonLabel"  [NotQualifyText] = "lang('./en/index.js').mayNotQualifyText"
+                (taxYearInfoMissing)= "onTaxYearInfoMissing()"></msp-common-deduction-calculator>
+            <!-- <benefit-deduction-calculator >
+            </benefit-deduction-calculator>-->
             <p></p>
         </div>
     </div>

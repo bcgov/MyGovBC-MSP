@@ -24,6 +24,7 @@ export class PersonalInfoComponent extends BaseComponent {
   static ProcessStepNum = 1;
   lang = require('./i18n');
   Relationship: typeof Relationship = Relationship;
+  public buttonClass: string = 'btn btn-default';
 
   @ViewChild('formRef') form: NgForm;
   @ViewChild('mspServicesCardModal') mspServicesCardModal: ServicesCardDisclaimerModalComponent;

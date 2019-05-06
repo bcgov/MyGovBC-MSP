@@ -76,7 +76,16 @@ export class MspValidationService {
     return true;
   }
 
+  isUnique( list: string[] ): boolean {
+    const sortedList = list.sort().filter( x => x );
+    const uniqueList = sortedList.filter( this.filterUnique );
+    return ( uniqueList.length === sortedList.length );
+  }
 
+    private filterUnique(x, i, a): boolean {
+      return x && a.indexOf( x ) === i;
+    }
+    
   validateSIN (sin: string): boolean {
     // pre req checks
     if (sin === null || sin === undefined ||

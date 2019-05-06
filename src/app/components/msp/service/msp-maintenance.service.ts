@@ -5,7 +5,7 @@ import { _ApplicationTypeNameSpace } from "../api-model/applicationTypes";
 import { ISpaEnvResponse } from '../model/spa-env-response.interface';
 import { MspLog2Service } from './log2.service';
 import * as moment from 'moment';
-import { AbstractHttpService } from './abstract-api.service';
+import { AbstractHttpService } from '../service/abstract-api.service';
 import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { of } from 'rxjs';
 

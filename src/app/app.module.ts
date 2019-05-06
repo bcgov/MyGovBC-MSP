@@ -9,6 +9,7 @@ import { MspModule } from './components/msp/msp.module';
 import { HttpClientModule} from '@angular/common/http';
 import {TextMaskModule} from 'angular2-text-mask';
 import { SharedCoreModule } from 'moh-common-lib';
+import { CaptchaModule } from 'moh-common-lib/captcha';
 
 
 require('./index.scss');
@@ -18,6 +19,7 @@ require('./index.scss');
     MspModule,
     HttpClientModule,
     SharedCoreModule,
+    CaptchaModule,
     ModalModule.forRoot(),
     AccordionModule.forRoot(),
     TooltipModule.forRoot(),

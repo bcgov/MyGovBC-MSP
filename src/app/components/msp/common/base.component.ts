@@ -205,6 +205,10 @@ export class BaseComponent implements DoCheck {
    * @returns {boolean}
    */
   isAllValid(): boolean {
+    console.log(this.childrenIsValid());
+    console.log(this.myFormValid);
+    console.log( this.isValid());
+
     return this.childrenIsValid() && this.myFormValid && this.isValid();
   }
 

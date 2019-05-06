@@ -71,6 +71,8 @@ import { MspPersonCardComponent } from './common/person-card/person-card.compone
 import { MspPhnComponent } from './common/phn/phn.component';
 import { SharedCoreModule } from 'moh-common-lib';
 
+import { CaptchaModule } from 'moh-common-lib/captcha';
+
 import { Mod11CheckValidator } from './common/phn/phn.validator';
 import { MspPhoneComponent } from './common/phone/phone.component';
 import { MspProgressBarComponent } from './common/progressBar/progressBar.component';
@@ -119,6 +121,10 @@ import {BenefitConfirmationComponent} from './benefit/confirmation/confirmation.
 import { TaxYearComponent } from './benefit/prepare/tax-year/tax-year.component';
 import { CommonCheckboxComponent } from './common/common-checkbox/common-checkbox.component';
 import { CommonButtonGroupComponent } from './common/common-button-group/common-button-group.component';
+import { CommonDeductionCalculatorComponent } from './common/common-deduction-calculator/common-deduction-calculator.component';
+import { CommonIncomeInputtextComponent } from './common/common-income-inputtext/common-income-inputtext.component';
+import { CommonSinComponent } from './common/common-sin/common-sin.component';
+import { CommonButtonComponent } from './common/common-button/common-button.component';
 
 const APP_ROUTES: Routes = [
     {
@@ -356,6 +362,7 @@ const APP_ROUTES: Routes = [
         FormsModule,
         ModalModule,
         SharedCoreModule,
+        CaptchaModule,
         AccordionModule,
         HttpClientModule,
         TextMaskModule,
@@ -478,7 +485,11 @@ const APP_ROUTES: Routes = [
         BenefitConfirmationComponent,
         TaxYearComponent,
         CommonCheckboxComponent,
-        CommonButtonGroupComponent
+        CommonButtonGroupComponent,
+        CommonDeductionCalculatorComponent,
+        CommonIncomeInputtextComponent,
+        CommonSinComponent,
+        CommonButtonComponent
     ],
 
     providers: [

@@ -1,4 +1,6 @@
 
-<input #checkbox type="checkbox" class="input-lg form-check-input" name="{{objectId}}" id="{{objectId}}" [ngModel]='model' (ngModelChange)='setCheckboxVal($event);dataChange.emit($event);' [disabled] = 'disabled'>
-<label for="{{objectId}}" [innerHTML]="label" class="form-check-label"></label>
+<!--<input #checkbox type="checkbox" class="input-lg form-check-input" name="{{objectId}}" id="{{objectId}}" [ngModel]='model' (ngModelChange)='setCheckboxVal($event);dataChange.emit($event);' [disabled] = 'disabled'>
+<label for="{{objectId}}" [innerHTML]="label" class="form-check-label"></label>-->
+<common-checkbox [label]="label" (dataChange)="addressUpdateOnChange($event)" [model]="accountChangeOptions.addressUpdate"  ></common-checkbox>
+       
 	

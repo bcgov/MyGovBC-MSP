@@ -13,7 +13,7 @@ import { MspBenefitDataService } from './msp-benefit-data.service';
 
 
 @Injectable()
-export class MspLogService {
+export class MspLogService  {
   appConstants;
   constructor(private http: HttpClient, private dataService: MspDataService , private router: Router, private benefitDataService: MspBenefitDataService) {
     this.appConstants = environment.appConstants;

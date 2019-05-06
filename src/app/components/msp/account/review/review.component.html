@@ -45,8 +45,8 @@
                 <div class="panel-body">
                     <div class="person-card-preview-zone">
                         <div *ngFor="let mspImage of mspAccountApp.documents" class="preview-item">
-                            <msp-thumbnail [imageObject]="mspImage" [reviewMode]="true">
-                            </msp-thumbnail>
+                            <common-thumbnail [imageObject]="mspImage" [reviewMode]="true">
+                            </common-thumbnail>
                         </div>
                     </div>
                 </div>
@@ -59,18 +59,25 @@
     </p>
     <div class="strong" [innerHTML]="questionApplicant"></div>
     <div class="form-check form-check-inline mb-5">
-        <input class="input-lg form-check-input" id="firstPersonAuthorize" name="firstPersonAuthorize"
+        <common-checkbox [label]="lang('./en/index.js').agreeLabel" (dataChange)="applicantAuthorizeOnChange($event)" [model]="mspAccountApp.authorizedByApplicant"></common-checkbox>
+       
+      
+        <!--        <input class="input-lg form-check-input" id="firstPersonAuthorize" name="firstPersonAuthorize"
                type="checkbox" [ngModel]="mspAccountApp.authorizedByApplicant"
                (ngModelChange)="applicantAuthorizeOnChange($event)">
-        <label class="form-check-label" for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+        <label class="form-check-label" for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label> -->
+
     </div>
     <div *ngIf="spouseForAuthorisation" >
             <div class="strong" [innerHTML]="questionSpouse()"></div>
             <div class="form-check form-check-inline">
-                <input class="input-lg form-check-input" id="secondPersonAuthorize-{{i}}" type="checkbox" name="secondPersonAuthorize"
+               
+                <common-checkbox [label]="lang('./en/index.js').agreeLabel" (dataChange)="spouseUpdateAuthorizeOnChange($event)" [model]="mspAccountApp.authorizedBySpouse"></common-checkbox>
+       
+               <!-- <input class="input-lg form-check-input" id="secondPersonAuthorize-{{i}}" type="checkbox" name="secondPersonAuthorize"
                        [ngModel]="mspAccountApp.authorizedBySpouse"
                        (ngModelChange)="spouseUpdateAuthorizeOnChange($event)">
-                <label class="form-check-label" for="secondPersonAuthorize-{{i}}" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+                <label class="form-check-label" for="secondPersonAuthorize-{{i}}" [innerHTML]="lang('./en/index.js').agreeLabel"></label>-->
             </div>
      </div>
 
@@ -79,8 +86,8 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="mspAccountApp.uuid"
-                     (onValidToken)="mspAccountApp.authorizationToken = $event"></captcha>
+            <common-captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="mspAccountApp.uuid"
+                     (onValidToken)="mspAccountApp.authorizationToken = $event"></common-captcha>
         </div>
     </div>
     <div class="row" *ngIf="form.submitted && !mspAccountApp.hasValidAuthToken">
@@ -90,10 +97,16 @@
         </div>
     </div>
     <hr>
-    <button
+
+    <div class="position: inherit;">
+            <common-form-action-bar [submitLabel]="lang('./en/index.js').submitButton"
+                [canContinue]="mspAccountApp.authorizedByApplicant || ((mspAccountApp.updatedSpouse || mspAccountApp.addedSpouse ) && !mspAccountApp.authorizedBySpouse)" (btnClick)="handleFormSubmission($event)">
+            </common-form-action-bar>
+    </div>
+   <!-- <button
             [disabled]="!mspAccountApp.authorizedByApplicant || ((mspAccountApp.updatedSpouse || mspAccountApp.addedSpouse ) && !mspAccountApp.authorizedBySpouse)
             || !mspAccountApp.hasValidAuthToken"
             class="btn btn-primary" type="submit"
             [innerHtml]="lang('./en/index.js').submitButton"></button>
-    <msp-cancel></msp-cancel>
+    <msp-cancel></msp-cancel>-->
 </form>

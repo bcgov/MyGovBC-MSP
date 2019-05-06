@@ -5,7 +5,8 @@ import {
 } from '@angular/core';
 import { state, trigger, style, } from '@angular/animations';
 import {NgForm} from '@angular/forms';
-import {Person} from '../../../model/person.model';
+//import {Person} from '../../../model/person.model';
+
 import {MspAccountApp} from '../../../model/account.model';
 import {OutofBCRecord} from '../../../model/outof-bc-record.model';
 import {
@@ -27,7 +28,9 @@ import {HealthNumberComponent} from '../../../common/health-number/health-number
 import {MspDischargeDateComponent} from '../../../common/discharge-date/discharge-date.component';
 import {MspStatusInCanadaRadioComponent} from '../../../common/status-in-canada-radio/status-in-canada-radio.component';
 import {MspAddressComponent} from '../../../common/address/address.component';
-import {Address} from '../../../model/address.model';
+//import {Address} from '../../../model/address.model';
+import {Address,Person} from 'moh-common-lib/models';
+
 
 import {MspDataService} from '../../../service/msp-data.service';
 
@@ -90,9 +93,9 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
 
     @ViewChild('formRef') form: NgForm;
 
-    @ViewChild('gender') gender: MspGenderComponent;
+    @ViewChild('gender') gender: ElementRef;
     @ViewChild('birthDate') birthdate: MspBirthDateComponent;
-    @ViewChild('name') name: MspNameComponent;
+    @ViewChild('name') name: ElementRef;
     @ViewChild('phn') phn: MspPhnComponent;
     @ViewChild('phone') phone: MspPhoneComponent;
     @ViewChild(MspStatusInCanadaRadioComponent) statusRadioComponents: MspStatusInCanadaRadioComponent;
@@ -100,6 +103,8 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @Input() person: Person;
     @Input() id: string;
     @Input() showError: boolean;
+    public buttonClass: string = 'btn btn-default btn-xs pull-right';
+
 
     /**
      * Field is generally True.Set it false in special scenarios where showError is true but the address field need not to be highighted. .Use this field to overrider showError.  For example:'Removal of spouse' address field is not mandatory where other fields are mandatory.
@@ -127,6 +132,9 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     genderListSignal: string;
     institutionWorkSignal: string;
     mspAccountApp: MspAccountApp;
+    public label: string = 'PHN 333';
+    public defaultCountry = 'CAN';
+    public defaultProvince = 'British Columbia';
 
     constructor(private el: ElementRef,
                 private cd: ChangeDetectorRef, private dataService: MspDataService) {
@@ -166,7 +174,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     }
 
     toggleMailingSameAsResidentialAddress(evt: boolean) {
-        this.person.mailingSameAsResidentialAddress = evt;
+        //this.person.mailingSameAsResidentialAddress = evt;
         if (evt) {
             this.person.mailingAddress = new Address();
         }
@@ -174,6 +182,8 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     }
 
     handleAddressUpdate(evt: any) {
+        console.log("Abhi Address --> ");
+        console.log(evt);
         this.dataService.saveMspAccountApp();
         this.emitIsFormValid();
         this.onChange.emit();
@@ -232,24 +242,24 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
 
     isValid(): boolean {
         if (this.addressRequired) {
-            if (!this.person.residentialAddress || !this.person.residentialAddress.isValid ) {
+            if (!this.person.residentialAddress ) { //|| !this.person.residentialAddress.isValid ) {
                 return false;
             }
         }
         // residential address if exists , it shud be BC
 
-        if (this.person.residentialAddress && this.person.residentialAddress.isValid) {
-            if (!this.person.residentialAddress.isBCOnly){
+        if (this.person.residentialAddress ) { // && this.person.residentialAddress.isValid) {
+           /* if (!this.person.residentialAddress){
                 return false ;
-            }
+            }*/
         }
 
 
-        if (!this.person.mailingSameAsResidentialAddress) {
+        /*if (!this.person.mailingSameAsResidentialAddress) {
             if (!this.person.mailingAddress.isValid){
                 return false;
             }
-        }
+        }*/
 
         return true;
     }

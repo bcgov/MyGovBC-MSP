@@ -79,7 +79,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   Activities: typeof Activities = Activities;
   Relationship: typeof Relationship = Relationship;
   StatusInCanada: typeof StatusInCanada = StatusInCanada;
-
+  public styleClass = 'control-label';
   @ViewChild('formRef') form: NgForm;
   @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
   @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;

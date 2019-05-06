@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { AbstractHttpService } from './abstract-api.service';
+import { AbstractHttpService } from 'moh-common-lib/services';
 import { throwError } from 'rxjs';
 import * as moment from 'moment';
 import {MspDataService} from "./msp-data.service";

@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Injectable, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, Injectable, ViewChild, ElementRef} from '@angular/core';
 
 import {MspDataService} from '../../service/msp-data.service';
 import {Router} from '@angular/router';
@@ -12,7 +12,7 @@ import {
 } from '../../model/status-activities-documents';
 import {ProcessService, ProcessUrls} from '../../service/process.service';
 import {MspImage} from '../../../msp/model/msp-image';
-import {FileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
+//import {FileUploaderComponent} from 'moh-common-lib/lib/components';
 import {MspImageErrorModalComponent} from '../../common/image-error-modal/image-error-modal.component';
 import {MspIdReqModalComponent} from '../../common/id-req-modal/id-req-modal.component';
 import {AccountDocumentHelperService} from '../../service/account-document-helper.service';
@@ -26,9 +26,10 @@ export class AccountDocumentsComponent extends BaseComponent {
     static ProcessStepNum = 1;
     lang = require('./i18n');
     mspAccountApp: MspAccountApp;
-    @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
+    @ViewChild('fileUploader') fileUploader: ElementRef;
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
     @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
+
     langAccountDocuments = require('../../common/account-documents/i18n');
     langStatus = require('../../common/status/i18n');
     langActivities = require('../../common/activities/i18n');
@@ -74,12 +75,16 @@ export class AccountDocumentsComponent extends BaseComponent {
         return Object.keys(this.documentsList).map(x => parseInt(x, 10));
     }
 
-
-    addDoc(doc: MspImage) {
-        this.mspAccountApp.documents = this.mspAccountApp.documents.concat(doc);
-        this.fileUploader.forceRender();
-        this.dataService.saveMspAccountApp();
+    onImagesChange(doc: Document, img: MspImage) {
+        console.log('onImagesChanges', img);
+       // this.documentsChange.emit( this.documents ); // Not sure this will work
     }
+
+    /*addDoc(doc: MspImage) {
+        this.mspAccountApp.documents = this.mspAccountApp.documents.concat(doc);
+        //this.fileUploader.forceRender();
+        this.dataService.saveMspAccountApp();
+    }*/
 
     errorDoc(evt: MspImage) {
         this.mspImageErrorModal.imageWithError = evt;

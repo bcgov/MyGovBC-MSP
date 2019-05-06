@@ -19,27 +19,31 @@
         <h2 [innerHTML]="lang('./en/index.js').checkEligibilityScreenTitle.replace('{userSelectedMostRecentTaxYear}',this.userSelectedMostRecentTaxYear)" tabindex="0">
         </h2>
         <form #formRef='ngForm' novalidate>
-
         <div class="form-group"
-            [ngClass]="{'has-error': !formRef.controls.netIncome?.valid && incomeRef.touched}">
+            [ngClass]="{'has-error': !formRef.controls.netIncome?.valid}">
             <div class="row">
-                <div class="col-lg-12">
-                    <label for="netIncome">Enter your net income – see Line 236 of your Notice of Assessment or Reassessment from Canada Revenue Agency.</label>
+                <div class="col-lg-12"> 
+                <!--    <msp-common-income-inputtext #incomeRef [label]="lang('./en/index.js').yourIncome"
+                        [required]=true [data]="finAssistApp.netIncomelastYear" 
+                        (incomeChange)="finAssistApp.netIncomelastYear=$event">
+                    </msp-common-income-inputtext>
+                -->
+                   <label for="netIncome">Enter your net income – see Line 236 of your Notice of Assessment or Reassessment from Canada Revenue Agency.</label>
 
                     <div class="col-lg-3 col-md-4 col-sm-6 input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
-                        </div>
+                        </div> 
                         <input type="text" class="form-control" name="netIncome" id="netIncome"
                             [(ngModel)]="finAssistApp.netIncomelastYear"
                             #incomeRef="ngModel" 
                             pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
                             required maxlength="12">
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>
-        <div *ngIf="(incomeRef.touched || incomeRef.dirty || (!!incomeRef.value && incomeRef.value.trim().length>0) || formRef.touched || !(finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined) ||
+     <div *ngIf="(incomeRef.touched || incomeRef.dirty || (!!incomeRef.value && incomeRef.value.trim().length>0) || formRef.touched || !(finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined) ||
                          formRef.controls.spouseIncomeLine236?.valid || finAssistApp.spouseEligibleForDisabilityCredit)">
             <div class="text-danger" *ngIf="incomeRef.errors?.required"
                     [innerHTML]="lang('./en/index.js').incomeDataRequired" tabindex="0"></div>
@@ -47,7 +51,7 @@
                     [innerHTML]="lang('./en/index.js').invalidNumber" tabindex="0"></div>
             <div class="text-danger" *ngIf="incomeRef.errors?.maxlength"
                     [innerHTML]="lang('./en/index.js').incomeDataMaxLength" tabindex="0"></div>
-        </div>
+        </div> 
 
             <div class="row">
                 <div class="col-lg-10">
@@ -61,7 +65,7 @@
                                         type="button" class="btn btn-default">No&nbsp;</button>
                             </div>
                         </div>
-                        <div *ngIf='(incomeRef.touched || incomeRef.dirty || (!!incomeRef.value && incomeRef.value.trim().length>0) || finAssistApp.spouseEligibleForDisabilityCredit || formRef.controls.spouseIncomeLine236?.valid ) &&
+                        <div *ngIf='(incomeRef?.touched || incomeRef?.dirty || (!!incomeRef?.value && incomeRef?.value.trim().length>0) || finAssistApp.spouseEligibleForDisabilityCredit || formRef.controls.spouseIncomeLine236?.valid ) &&
                         (finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined)'>
                             <div class="text-danger"
                                  [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
@@ -70,7 +74,7 @@
                 </div>
             </div>
         <div class="row" tabindex="-1"
-            [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
+            [hidden]="finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
             <div class="col-lg-10">
                 <div class="form-group">
                   <div role="dialog" aria-labelledby="q2">
@@ -83,7 +87,7 @@
                     </div>
 
                   </div>                    
-                    <div *ngIf='(incomeRef.dirty || incomeRef.touched || (!!incomeRef.value && incomeRef.value.trim().length>0) ||
+                    <div *ngIf='(incomeRef?.dirty || incomeRef?.touched || (!!incomeRef?.value && incomeRef?.value.trim().length>0) ||
                         finAssistApp.spouseEligibleForDisabilityCredit === true ) && 
                         (finAssistApp.hasSpouseOrCommonLaw === null || finAssistApp.hasSpouseOrCommonLaw === undefined)'>
                         <div class="text-danger" tabindex="0"
@@ -111,7 +115,12 @@
 
                 <div class="form-group" [hidden]="!finAssistApp.hasSpouseOrCommonLaw"
                     [ngClass]="{'has-error': !formRef.controls.spouseIncomeLine236?.valid}">
-                  <label for="spouseIncomeLine236" [innerHtml]="lang('./en/index.js').whatIsYourSpouseOrPartnerIncome">
+                   <!-- <msp-common-income-inputtext #spouseIncomeRef [label]="lang('./en/index.js').whatIsYourSpouseOrPartnerIncome"
+                    [required]=true [data]="finAssistApp.spouseIncomeLine236" 
+                    (incomeChange)="finAssistApp.spouseIncomeLine236=$event">
+                     </msp-common-income-inputtext> -->
+                 
+                     <label for="spouseIncomeLine236" [innerHtml]="lang('./en/index.js').whatIsYourSpouseOrPartnerIncome">
                   </label>
                   <div class="col-lg-4 col-md-5 col-sm-6 input-group">
                       <div class="input-group-prepend">
@@ -122,6 +131,7 @@
                         pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
                         [(ngModel)]="finAssistApp.spouseIncomeLine236">
                   </div>
+                  
                     <div *ngIf='!formRef.controls.spouseIncomeLine236?.valid'>
                         <div class="text-danger" *ngIf="formRef.controls.spouseIncomeLine236?.errors?.required"
                                 [innerHTML]="lang('./en/index.js').incomeDataRequired" tabindex="0"></div>
@@ -130,12 +140,13 @@
                         <div class="text-danger" *ngIf="spouseIncomeRef.errors?.pattern"
                                 [innerHTML]="lang('./en/index.js').invalidNumber" tabindex="0"></div>
                     </div>
+                    
                 </div>
             </div>
         </div>
 
         <div  tabindex="-1"
-            [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
+            [hidden]="finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
             <hr>
             <div class="row">
                 <div class="col-lg-6">
@@ -162,7 +173,7 @@
         <p></p>
 
         <div class="row" style="margin-left: 5px;"
-            [hidden]="!showChildrenInfo || incomeRef.invalid || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
+            [hidden]="!showChildrenInfo || finAssistApp.ageOver65 === null || finAssistApp.ageOver65 === undefined">
             <div class="col-lg-12">
                 <div class="form-horizontal">
                     <div class="form-group row">
@@ -180,7 +191,12 @@
                 </div>
                 
                 <div class="form-group">
-                            <label for="line214" 
+                    <!-- <msp-common-income-inputtext #incomeRef [label]="lang('./en/index.js').howMuchDidYouClaimForChildCareExpenseLastYear"
+                        [required]=true [data]="finAssistApp.claimedChildCareExpense_line214" 
+                        (incomeChange)="finAssistApp.claimedChildCareExpense_line214=$event">
+                    </msp-common-income-inputtext> -->       
+                    
+                   <label for="line214" 
                               [innerHtml]="lang('./en/index.js').howMuchDidYouClaimForChildCareExpenseLastYear.replace('{userSelectedMostRecentTaxYear}',this.userSelectedMostRecentTaxYear)">
                             </label>
 
@@ -198,6 +214,11 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
+                       <!--  <msp-common-income-inputtext #incomeRef [label]="lang('./en/index.js').howMuchDidYouReportForUCC.replace('{userSelectedMostRecentTaxYear}',this.userSelectedMostRecentTaxYear)"
+                        [required]=true [data]="finAssistApp.reportedUCCBenefit_line117" 
+                        (incomeChange)="finAssistApp.reportedUCCBenefit_line117=$event">
+                       </msp-common-income-inputtext>     -->
+                        
                         <div class="col-lg-12">
                             <label for="line117" 
                               [innerHtml]="lang('./en/index.js').howMuchDidYouReportForUCC.replace('{userSelectedMostRecentTaxYear}',this.userSelectedMostRecentTaxYear)">
@@ -214,14 +235,14 @@
                             </div>
                             <div class="text-danger" *ngIf="line117Ref.errors?.pattern" [innerHTML]="lang('./en/index.js').invalidNumber"></div>
                             
-                        </div>
+                        </div> 
                     </div>
                 </div>
 
             </div>
         </div>
 
-    <div [hidden]="incomeRef.invalid || finAssistApp.ageOver65 === null 
+    <div [hidden]="finAssistApp.ageOver65 === null 
             || finAssistApp.ageOver65 === undefined">
             
             <hr>
@@ -301,7 +322,11 @@
               <div class="col-lg-12">
                   <div class="form-group">
                       <div class="row">
-                          <div class="col-lg-12">
+                     <!--   <msp-common-income-inputtext #incomeRef [label]="lang('./en/index.js').registeredDisabilitySavingPlan"
+                            [required]=true [data]="finAssistApp.spouseDSPAmount_line125" 
+                            (incomeChange)="finAssistApp.spouseDSPAmount_line125=$event">
+                       </msp-common-income-inputtext>    --> 
+                         <div class="col-lg-12">
                               <label for="line125">
                                 How much did you (or your spouse / common-law partner) report for a Registered Disability Savings Plan on 
                                 your income tax return in year {{userSelectedMostRecentTaxYear}} (Line 125)?
@@ -444,9 +469,16 @@
     </div>
 
     <div class="col-lg-4">
-        <deduction-calculator [application]="finAssistApp" [qualificationThreshhold] = "qualificationThreshhold"
+        
+        <msp-common-deduction-calculator [application]="finAssistApp" [qualificationThreshhold] = "qualificationThreshhold"
+        (taxYearInfoMissing)= "onTaxYearInfoMissing()" [eligibilityCalculatorTitle]="lang('./en/index.js').eligibilityCalculatorTitle" 
+        [totalHouseholdIncomeLabel] = "lang('./en/index.js').totalHouseholdIncome" [continueButtonLabel] = "lang('./en/index.js').continueButtonLabel"  
+        [NotQualifyText] = "lang('./en/index.js').mayNotQualifyText">
+        </msp-common-deduction-calculator>
+        
+        <!-- <deduction-calculator [application]="finAssistApp" [qualificationThreshhold] = "qualificationThreshhold"
           (taxYearInfoMissing)= "onTaxYearInfoMissing()">
-        </deduction-calculator>
+        </deduction-calculator>-->
         <p></p>
     </div>
 </div>

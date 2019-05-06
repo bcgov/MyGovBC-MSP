@@ -19,5 +19,20 @@ module.exports = {
   confirmation: 'Request Confirmation',
   
   phnPlaceHolder: '1111 111 111',
-  phnlabel:'Personal Health Number (PHN)'
+  phnlabel:'Personal Health Number (PHN)',
+  radioLabel: [
+    {
+      "label": "Myself only",
+      "value": "MyselfOnly"
+    },
+    {
+      "label": "All members on my MSP account",
+      "value": "AllMembers"
+    },
+    {
+      "label": "One specific member on my MSP account",
+      "value": "SpecificMember"
+    }
+  ]
+  
 }

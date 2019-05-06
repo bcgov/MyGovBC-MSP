@@ -33,7 +33,7 @@ describe('SpecificMemberComponent', () => {
     fixture = TestBed.createComponent(SpecificMemberComponent);
     component = fixture.componentInstance;
     component.person = new Person(Relationship.AllAgeApplicant);
-    component.person.enrollmentMember = MSPEnrollementMember.AllMembers;
+    component.person.enrollmentMember = MSPEnrollementMember.AllMembers.toString();
     fixture.detectChanges();
   });
 

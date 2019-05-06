@@ -16,7 +16,7 @@ import {Process} from './process.service';
 import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
 import {Gender} from '../model/person.model';
 import {OperationActionType} from '../model/person.model';
-import {Address} from '../model/address.model';
+import {Address} from 'moh-common-lib/models';
 import { SimpleDate } from '../model/simple-date.interface';
 import { AccountLetterApplication } from '../model/account-letter-application.model';
 import AccountLetterDto from '../model/account-letter.dto';
@@ -103,6 +103,7 @@ export  class MspDataService {
 
     saveMspAccountApp(): void {
         const dto: MspAccountDto = this.toMspAccountAppTransferObject(this._mspAccountApp);
+        console.log(dto);
         this.localStorageService.set(this.mspAccountStorageKey, dto);
     }
 
@@ -190,10 +191,10 @@ export  class MspDataService {
         mspAccountApp.applicant.previous_phn = '1234567890';
         mspAccountApp.phoneNumber = '2501234567';
         const dumyAddress: Address = new Address();
-        dumyAddress.addressLine1 = 'NA';
+        dumyAddress.street = 'NA';
         mspAccountApp.authorizedByApplicant = true;
         mspAccountApp.authorizedByApplicantDate = new Date();
-        mspAccountApp.applicant.residentialAddress = dumyAddress;
+       // mspAccountApp.applicant.residentialAddress = dumyAddress;
         return mspAccountApp;
     }
 
@@ -582,6 +583,7 @@ export  class MspDataService {
         });
 
         dto.documents = input.documents.sort((a, b) =>  a.attachmentOrder - b.attachmentOrder);
+        dto.infoCollectionAgreement = input.infoCollectionAgreement;
 
         return dto;
 

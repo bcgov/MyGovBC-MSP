@@ -1,27 +1,60 @@
-<form #formRef="ngForm" novalidate (submit)="continue()">
+<form #formRef="ngForm" novalidate >
     <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
     <p class="help-block" [innerHTML]="lang('./en/index.js').helpBlock"></p>
-    <msp-address #address
+    <common-address  #address
+                         [(address)]="mspApplication.residentialAddress"
+                         (addressChange)="handleAddressUpdate($event)"
+                         [defaultProvince]="defaultProvince"
+                         [defaultCountry]="defaultCountry"
+                         [isRequired]="true">
+
+    </common-address>
+
+    <common-checkbox  [label]="lang('./en/index.js').sameMailingAddress" [model]="mspApplication.mailingSameAsResidentialAddress"></common-checkbox><br/>
+    <common-checkbox  [label]="lang('./en/index.js').provideDifferentMailingAddress" (dataChange)="toggleMailingSameAsResidentialAddress($event)" [model]="mspApplication.mailingSameAsResidentialAddressChange"></common-checkbox>
+       
+<b>{{ this.mspApplication.mailingSameAsResidentialAddress}}</b>
+    <div *ngIf="this.mspApplication.mailingSameAsResidentialAddress">
+            <h2>Mailing Address</h2>
+    
+            <common-address  #mailingAddress
+                    [(address)]="mspApplication.mailingAddress"
+                    (addressChange)="handleAddressUpdate($event)"
+                    [defaultProvince]="defaultProvince"
+                    [defaultCountry]="defaultCountry"
+                    [isRequired]="true">
+
+            </common-address>    
+
+            </div>
+    
+    <!--<msp-address #address
                  [residentialAddress]="mspApplication.residentialAddress"
                  [mailingAddress]="mspApplication.mailingAddress"
                  [mailingSameAsResidentialAddress]="mspApplication.mailingSameAsResidentialAddress"
                  (mailingSameAsResidentialAddressChange)="toggleMailingSameAsResidentialAddress($event)"
                  (onChange)="handleAddressUpdate($event)">
-    </msp-address>
+    </msp-address> -->
     <div class="row">
         <div class="form-group col-md-5">
-            <msp-phone #phone
+            <common-phone-number #phone [label]="'Phone Number'"
                        [phoneNumber]="mspApplication.phoneNumber"
-                       (phoneNumberChange)="handlePhoneNumberChange($event)"></msp-phone>
+                       (onChange)="handlePhoneNumberChange($event)"></common-phone-number>
         </div>
     </div>
     <hr>
-    <button
+
+
+    <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
+        [canContinue]="canContinue()"
+        (btnClick)="continue()">
+    </common-form-action-bar>
+   <!-- <button
             class="btn btn-primary" type="submit"
             [innerHTML]="lang('./en/index.js').continueButton"
             [disabled]="!canContinue()">
     </button>
-    <msp-cancel></msp-cancel>
+    <msp-cancel></msp-cancel> -->
 </form>
 
 

@@ -10,6 +10,7 @@ interface BaseType {
 	_sequence: Array<string>;
 }
 interface _AddressType extends BaseType {
+	street: string
 	addressLine1: string;
 	addressLine2?: string;
 	addressLine3?: string;

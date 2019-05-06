@@ -7,7 +7,7 @@ import { AssistanceApplicationType } from '../model/financial-assist-application
 import { ApplicationType, AttachmentType, _ApplicationTypeNameSpace, document } from '../api-model/applicationTypes';
 import { environment } from '../../../../environments/environment';
 import * as moment from 'moment';
-import { AbstractHttpService } from './abstract-api.service';
+import { AbstractHttpService } from 'moh-common-lib/services';
 import { Observable, from } from 'rxjs';
 import { of, zip } from 'rxjs';
 import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../api-model/commonTypes';

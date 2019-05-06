@@ -511,7 +511,7 @@ export class FileUploaderComponent
             console.log('loading image into an img tag: %o', progressEvt);
             // Load into an image element
             const imgEl: HTMLImageElement = document.createElement('img');
-            imgEl.src = reader.result;
+            imgEl.src = reader.result as string;
 
             // Wait for onload so all properties are populated
             imgEl.onload = (args) => {
@@ -551,7 +551,7 @@ export class FileUploaderComponent
         const ctx = canvas.getContext('2d');
         reader.onload = function (progressEvt: ProgressEvent) {
 
-            const docInitParams = {data: reader.result};
+            const docInitParams = {data: reader.result as Uint8Array};
             PDFJS.getDocument(docInitParams).then((pdfdoc) => {
                 const numPages = pdfdoc.numPages;
                 if (currentPage <= pdfdoc.numPages) getPage();

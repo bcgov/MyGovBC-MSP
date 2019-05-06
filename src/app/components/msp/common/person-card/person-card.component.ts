@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {Person, Gender} from '../../model/person.model';
-import {Relationship, Activities, StatusInCanada} from '../../model/status-activities-documents';
-import * as moment from 'moment';
+import {Person} from '../../model/person.model';
+import {Activities, StatusInCanada} from '../../model/status-activities-documents';
+
 
 @Component({
   selector: 'msp-person-card',

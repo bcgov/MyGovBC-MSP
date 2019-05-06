@@ -17,10 +17,10 @@ export class SpecificMemberComponent extends Masking {
     @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
     @Output() onStatusChange: EventEmitter<string> = new EventEmitter<string>();
     @ViewChild('addtionalMemberphn') phn: MspPhnComponent;
-    
+    public checked: boolean = false;
     lang = require('./i18n');
     langStatus = require('../../../common/enrollmentMember/i18n');
-
+    
     constructor(cd: ChangeDetectorRef) {
         super(cd);
     }
@@ -29,13 +29,17 @@ export class SpecificMemberComponent extends Masking {
         return EnrollmentStatusRules.availableStatus();
     }
 
+
     setStatus(value: string) {
-        // Resetting the value of the specific phn textBox if the user selects Myself or All members 
+        console.log(value);
+        /// Resetting the value of the specific phn textBox if the user selects Myself or All members 
         if(value != MSPEnrollementMember.SpecificMember.toString() && this.person.specificMember_phn != undefined) {
             this.person.specificMember_phn = '';
         }
+        this.person.enrollmentMember  = value;
         this.onStatusChange.emit(value);
         this.emitIsFormValid();
+
     }
 
     onPHNChange(){

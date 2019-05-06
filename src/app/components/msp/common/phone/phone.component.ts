@@ -11,10 +11,11 @@ import {debounceTime} from "rxjs/operators";
 export class MspPhoneComponent extends BaseComponent {
     lang = require('./i18n');
 
-    @Input() phoneNumber: string;
+    @Input() phoneNumber: string = 'Phone number';
     @Output() phoneNumberChange = new EventEmitter<string>();
     @Input('alternative') alternative = false;
     PhoneNumber: typeof PhoneNumber = PhoneNumber;
+    @Input() label: string = 'Postal Code';
 
     @Output() onChange = new EventEmitter<any>();
     @ViewChild('formRef') form: NgForm;

@@ -49,7 +49,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
         this.transmissionInProcess = true;
         this.hasError = undefined;
         this.logService.log({name: 'ACL application submitting request'}, "ACL : Submission Request");
-
+        console.log(this.application);
         this.aclService
             .sendAccountLetterApp(this.application, this.application.uuid)
             .subscribe(response => {

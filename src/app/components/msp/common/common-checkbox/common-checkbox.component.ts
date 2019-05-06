@@ -1,7 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef, forwardRef } from '@angular/core';
-import { ControlContainer, NgForm, NgModel } from '@angular/forms';
-import * as moment_ from 'moment';
-const moment = moment_;
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
 
 @Component({
   selector: 'msp-common-checkbox',
