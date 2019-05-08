@@ -4,11 +4,16 @@
     <div class="col-sm-12">
       <p [innerHTML]="docRequiredInstruction.applicant" tabindex="0">
       </p>
+
+      <p [innerHTML]="lang('./en/index.js').notice" tabindex="0">
+      </p>
     </div>
   </div>
   <div class="row" *ngIf="hasSpouse">
     <div class="col-sm-12">
       <p [innerHTML]="docRequiredInstruction.spouse" tabindex="0">
+      </p>
+      <p [innerHTML]="lang('./en/index.js').notice" tabindex="0">
       </p>
     </div>
   </div>

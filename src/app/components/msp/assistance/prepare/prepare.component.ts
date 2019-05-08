@@ -18,6 +18,7 @@ import {MspAssistanceYearComponent} from './assistance-year/assistance-year.comp
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
 import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
 import { merge} from 'rxjs/internal/observable/merge';
+import * as moment from 'moment';
 
 @Component({
   templateUrl: './prepare.component.html',
@@ -360,11 +361,11 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
 
   initYearsList(){
     this.pastYears = [];
-    const recentTaxYear = this.finAssistApp.MostRecentTaxYear; //< 2020 ? 2020 : this.finAssistApp.MostRecentTaxYear;
+    const recentTaxYear =  moment().year(); // this.finAssistApp.MostRecentTaxYear; //< 2020 ? 2020 : this.finAssistApp.MostRecentTaxYear;
     const cutOffYear = 2020;
+    const numberOfYears = (6 - (recentTaxYear - cutOffYear));
+    let i = recentTaxYear < cutOffYear ? 2  : 1 ;
 
-    const numberOfYears = (7 - (recentTaxYear - cutOffYear));
-    let i = 3;
     while (i <= numberOfYears){
       this.pastYears.push(cutOffYear - i);
       i++;
@@ -398,6 +399,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
     if (!!this.userSelectedMostRecentTaxYear){
       return this.lang('./en/index.js').checkEligibilityScreenTitle.replace('{userSelectedMostRecentTaxYear}',
         this.userSelectedMostRecentTaxYear);
+        
     }else{
       return this.lang('./en/index.js').checkEligibilityScreenTitleDefault;
     }
@@ -407,21 +409,21 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
     return this.finAssistApp.taxtYearsProvided;
   }
 
-  get userSelectedMostRecentTaxYear(): number {
+  get userSelectedMostRecentTaxYear(): string {
     let max = 0;
     if (this.finAssistApp.assistYears && this.finAssistApp.assistYears.length > 0){
       this.finAssistApp.assistYears.forEach(
         assistYear => {
           if (assistYear.apply && assistYear.year > max){
-            max = assistYear.year;
+            max = assistYear.year - 1 ;
           }
         }
       );
     }
-
-    return max;
-
+    return max == 0 ? '' : max.toString();
+    
   }
+
   onAssistanceYearUpdate(assistYearParam: AssistanceYear){
     this.finAssistApp.assistYears.forEach(
       assistYear => {

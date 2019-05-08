@@ -23,6 +23,7 @@ export class MspConsentModalComponent {
     lang = require('./i18n');
 
     @Input() processName: string;
+    @Input() body: string = this.lang('./en/index.js').body;
     @Input() application: ApplicationBase;
     @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
     @Output() onClose = new EventEmitter<void>();

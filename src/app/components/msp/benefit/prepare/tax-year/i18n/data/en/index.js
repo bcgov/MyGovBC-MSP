@@ -1,4 +1,4 @@
 module.exports = {
-  taxYearTitle: 'To apply for supplementary benefits , you will need to include in Step 3 your most recent notice of assessment or Reassessment from Canada Revenue Agency. Select the tax year provided:',
+  taxYearTitle: 'Select the tax year of your Canada Revenue Agency (CRA) Notice of Assessment (NOA) or Notice of Reassessment (NORA). <br/> <br/> Your application must be based on income from the most recent NOA or NORA available from CRA. You will be required during this application to upload a copy of your NOA or NORA (and your spouse’s, if applicable). <br/> Select the NOA/NORA tax year you are submitting.',
 
 }
