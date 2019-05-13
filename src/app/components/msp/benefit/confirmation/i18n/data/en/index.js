@@ -5,7 +5,7 @@ module.exports = {
   emailAddressLabel: 'Email address',
   sendEmailButton: 'Send a copy',
   //generalInstructions1: '<strong>If you qualify</strong>, the monthly premium you need to pay will be adjusted.  Depending on the level of assistance you\'re qualified for, you may still need to pay a small amount - a monthly invoice will be sent to you.<br><br>If there\'s a credit on your account, it will be applied to your monthly premium until the credit is used up.  A refund cheque will only be mailed to you if there\'s a credit on your account and you do not owe a monthly premium',
-  generalInstructions1:'After your application is processed, notification will be sent to your address on record, indicating whether you and your family are eligible for supplementary benefits.',
+  generalInstructions1:'<b>After your application is processed</b>, notification will be sent to your address on record, indicating whether you and your family are eligible for supplementary benefits.',
   //generalInstructions2: '<strong>File your taxes</strong> by April 30 every year so that you do not have to reapply for assistance',
   generalInstructions2:'File your taxes every year so that you do not have to reapply for supplementary benefits.',
   generalInstructions3: 'BC residents must fulfill their MSP obligations under the Medicare Protection Act.',
