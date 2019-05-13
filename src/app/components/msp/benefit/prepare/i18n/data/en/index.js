@@ -25,7 +25,7 @@ module.exports = {
   invalidNumber: 'Invalid number, use numbers and a period only, e.g., 12345.67',
   consentProcessName: 'PA',
   whatYearsToApplyFor:'Select the tax year of your Canada Revenue Agency (CRA) Notice of Assessment (NOA) or Notice of Reassessment (NORA)',
-  whatYearsToApplyForDetails:'Your application must be based on income from the most recent NOA or NORA available from CRA. You will be required during this application to upload a copy of your NOA or NORA (and your spouse’s, if applicable). <b>Select the NOA/NORA tax year you are submitting.</b>',
+  whatYearsToApplyForDetails:'Your application must be based on income from the most recent NOA or NORA available from CRA. You will be required during this application to upload a copy of your NOA or NORA (and your spouse’s, if applicable).', // <b>Select the NOA/NORA tax year you are submitting.</b>
   declaration: "I hereby consent to the release of information from my income tax returns, and other taxpayer information, by the Canada Revenue Agency to the Ministry of Health and/or Health Insurance BC. The information obtained will be relevant to and used solely for the purpose of determining and verifying my initial and ongoing entitlement to the premium assistance program under the Medicare Protection Act, and will not be disclosed to any other party.\
   \
   This authorization is valid for the taxation year prior to the signature of this application, the year of the signature and for each subsequent consecutive taxation year for which premium assistance is requested. It may be revoked by sending a written notice to Health Insurance BC.\
