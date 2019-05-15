@@ -167,6 +167,10 @@ export class MspAddressComponent extends BaseComponent {
     if(!this.mailingAddress.country || this.mailingAddress.country.trim().length === 0) {
       this.mailingAddress.country  = 'Canada';
     }
+    // if the province is undefined or null
+    if(!this.mailingAddress.province || this.mailingAddress.province.trim().length === 0) {
+      this.mailingAddress.province  = 'British Columbia';
+    }
   }
 
   useSameMailingAddress() {
