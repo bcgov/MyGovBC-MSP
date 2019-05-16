@@ -42,9 +42,13 @@ export class AssistancePersonalDetailComponent extends BaseComponent {
   }
 
 
-    isSinUnique(): boolean {
+  isSinUnique(): boolean {
     return this.dataService.finAssistApp.isUniqueSin;
-}
+  }
+
+  isPHNUnique(): boolean {
+    return this.dataService.finAssistApp.isUniquePhns;
+  }
 
   getSinList(): string[]{
     return this.finApp.allPersons.map(x => x.sin);

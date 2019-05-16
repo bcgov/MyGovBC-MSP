@@ -40,6 +40,8 @@ module.exports = {
   I am a resident of British Columbia as defined by the Medicare Protection Act.\
   \
   I have resided in Canada as a Canadian citizen or holder of permanent resident status (landed immigrant) for at least the last 12 months immediately preceding this application; I am not exempt from liability to pay income tax by reason of any other Act; and I am not the child of another beneficiary.",
-  registeredDisabilitySavingPlan: ' How much did you (or your spouse / common-law partner) report for a Registered Disability Savings Plan on your income tax return in year {{userSelectedMostRecentTaxYear}} (Line 125)?'
+  registeredDisabilitySavingPlan: ' How much did you (or your spouse / common-law partner) report for a Registered Disability Savings Plan on your income tax return in year {{userSelectedMostRecentTaxYear}} (Line 125)?',
+  
+
 }
 

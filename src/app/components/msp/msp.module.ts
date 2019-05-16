@@ -125,6 +125,7 @@ import { CommonDeductionCalculatorComponent } from './common/common-deduction-ca
 import { CommonIncomeInputtextComponent } from './common/common-income-inputtext/common-income-inputtext.component';
 import { CommonSinComponent } from './common/common-sin/common-sin.component';
 import { CommonButtonComponent } from './common/common-button/common-button.component';
+import { CommonPhnComponent } from './common/common-phn/common-phn.component';
 
 const APP_ROUTES: Routes = [
     {
@@ -489,7 +490,8 @@ const APP_ROUTES: Routes = [
         CommonDeductionCalculatorComponent,
         CommonIncomeInputtextComponent,
         CommonSinComponent,
-        CommonButtonComponent
+        CommonButtonComponent,
+       CommonPhnComponent
     ],
 
     providers: [

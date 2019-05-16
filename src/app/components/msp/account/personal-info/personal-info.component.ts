@@ -75,7 +75,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
     If the application contains any Visting status , application shouldnt be sumbitted
      */
     hasAnyInvalidStatus(): boolean {
-
+        console.log(this.dataService.getMspAccountApp().accountChangeOptions.statusUpdate);
         if (!this.dataService.getMspAccountApp().accountChangeOptions.statusUpdate) {
             return false;
         }

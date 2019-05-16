@@ -19,21 +19,28 @@
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <msp-phn #phn
+           <msp-common-phn [uniquePHN] = "isPHNUnique()"
+             [phn]="person.previous_phn" 
+            (phnChange)="person.previous_phn = $event; onChange.emit($event)">
+          </msp-common-phn> 
+        <!-- <msp-phn #phn
                  [phn]="person.previous_phn"
                  (phnChange)="person.previous_phn = $event"
                  (onChange)="onChange.emit($event)"
                  [required]="true"
-                 [bcPhn]="true"></msp-phn>
+                 [bcPhn]="true"></msp-phn>  -->
       </div>
     </div>
     <div class="col-md-4">
-      <div class="form-group"
+      <common-sin (sinChange)="person.sin = $event; onChange.emit($event)"  [uniqueSins]="isSinUnique()" [required]="true" label='SIN Number' [data]="person.sin"  ></common-sin> 
+       
+   <!-- 
+   <div class="form-group"
            [ngClass]="{'has-error': !formRef.controls.sin?.valid && sinRef.touched}">
-        <label class="control-label" for="sin"
-               [innerHTML]="lang('./en/index.js').sinLabel"></label>
-        <input type="text"
-               [(ngModel)]="person.sin"
+          <label class="control-label" for="sin"
+                [innerHTML]="lang('./en/index.js').sinLabel"></label>
+          <input type="text"
+                [(ngModel)]="person.sin"
                sinCheck
                required
                pattern="[1-9]{1}\d{2}\s?\d{3}\s?\d{3}"
@@ -41,17 +48,17 @@
                #sinRef="ngModel"
                class="form-control"
                placeholder="046 454 286">
-        <div *ngIf='sinRef.touched'>
-          <div class="text-danger" *ngIf="sinRef.errors?.required"
-               [innerHTML]="lang('./en/index.js').sinErrorRequired"></div>
-          <div class="text-danger" *ngIf="sinRef.errors?.pattern"
-               [innerHTML]="lang('./en/index.js').sinErrorPattern"></div>
-          <div class="text-danger" *ngIf="!sinRef.errors?.pattern && sinRef.errors?.sinCheck"
-               [innerHTML]="lang('./en/index.js').sinCheckErrorPattern"></div>
-        </div>
-        <div class="text-danger" *ngIf="!isSinUnique()"
-             [innerHTML]="lang('./en/index.js').sinUniqueError"></div>
-      </div>
-    </div>
+            <div *ngIf='sinRef.touched'>
+              <div class="text-danger" *ngIf="sinRef.errors?.required"
+                  [innerHTML]="lang('./en/index.js').sinErrorRequired"></div>
+              <div class="text-danger" *ngIf="sinRef.errors?.pattern"
+                  [innerHTML]="lang('./en/index.js').sinErrorPattern"></div>
+              <div class="text-danger" *ngIf="!sinRef.errors?.pattern && sinRef.errors?.sinCheck"
+                  [innerHTML]="lang('./en/index.js').sinCheckErrorPattern"></div>
+            </div>
+           <div class="text-danger" *ngIf="!isSinUnique()"
+             [innerHTML]="lang('./en/index.js').sinUniqueError"></div>  
+        </div>  -->
+    </div> 
   </div>
 </form>

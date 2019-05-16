@@ -1,5 +1,6 @@
 <msp-consent-modal #mspConsentModal [application]="accountLetterApplication"
                    [processName]="lang('./en/index.js').consentProcessName"
+                   
 >
 </msp-consent-modal>
 
@@ -38,7 +39,7 @@
                 </msp-birthdate>
                 
                 <common-postal-code [label]="lang('./en/index.js').postalCodeLabel"
-                    [postalCode]="accountLetterApplication.postalCode" (onChange)="saveApplication($event);">
+                    [value]="accountLetterApplication.postalCode" (valueChange)="saveApplication($event);">
                 </common-postal-code>
                 <!--    
                 <label for="residentialAddressPostalCode{{objectId}}"

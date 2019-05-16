@@ -38,7 +38,7 @@
   
   <div class="strong" [innerHTML]="questionApplicant"></div>
   <div class="form-check form-check-inline mb-5">
-      <common-checkbox [label]="lang('./en/index.js').agreeLabel" (dataChange)="applicantAuthorizeOnChange($event)" [model]="application.authorizedByApplicant"></common-checkbox>
+      <common-checkbox [label]="lang('./en/index.js').agreeLabel" (dataChange)="applicantAuthorizeOnChange($event)" [data]="application.authorizedByApplicant"></common-checkbox>
        
       <!--<input class="input-lg form-check-input" id="firstPersonAuthorize" name="firstPersonAuthorize"
             type="checkbox" [ngModel]="application.authorizedByApplicant"
@@ -49,7 +49,7 @@
   <div *ngIf="application.spouse != null">
       <div class="strong" [innerHTML]="questionSpouse"></div>
       <div class="form-check form-check-inline">
-          <common-checkbox [label]="lang('./en/index.js').agreeLabel" (dataChange)="spouseAuthorizeOnChange($event)" [model]="application.authorizedBySpouse"></common-checkbox>
+          <common-checkbox [label]="lang('./en/index.js').agreeLabel" (dataChange)="spouseAuthorizeOnChange($event)" [data]="application.authorizedBySpouse"></common-checkbox>
       
           <!-- <input class="input-lg form-check-input" id="secondPersonAuthorize" type="checkbox" name="secondPersonAuthorize"
                 [ngModel]="application.authorizedBySpouse" (ngModelChange)="spouseAuthorizeOnChange($event)">

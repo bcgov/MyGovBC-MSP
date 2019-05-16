@@ -87,17 +87,25 @@
         <h3 [innerHtml]="lang('./en/index.js').applicationPersonalInfo[person.relationship]"></h3>
         <p class="help-block" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
       <!--  <msp-name #name [person]="person" (onChange) = "onChange.emit($event)" [showError]="showError"></msp-name>-->
-        <common-name #name [person]="person" (onChange)="onChange.emit($event)" ></common-name>
+        <common-name  [person]="person" (onChange)="onChange.emit($event)" [showError]="showError" ></common-name>
+        <b>{{person.gender}}</b>   
         <div class="row">
             <div class="col-md-4">
-                <common-gender
-                    #gender
+                  
+                <common-radio [value]="person.gender" 
+                              label='Gender' 
+                              [radioLabels]='[{"label": "Male", "value": "M"},{ "label": "Female", "value": "F"}]' 
+                              (onStatusChange)="setGenderVal($event)"
+                              [showError]="showError">
+                </common-radio>   
+       <!--         <common-gender
+                    
                     [person]="person"
                     (onChange)="onChange.emit($event)"
                     [showError]="showError"
-                ></common-gender>
+                ></common-gender>   -->
 
-              <!--  <msp-gender
+            <!-- <msp-gender
                   #gender
                   [person]="person"
                   (onChange) = "onChange.emit($event)" 
@@ -152,13 +160,13 @@
           <div class="col-lg-4" style="margin-top: 15px;" role="dialog" [attr.aria-labelledby]="'movedPermLabel' + objectId">
             <div class="form-group" [ngClass]="{'has-error': showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)}">
                 <div class="control-label">
-                    <common-button-group [styleClass]="styleClass" 
+                   <!--  <common-button-group [styleClass]="styleClass" 
                         [label]="lang('./en/index.js').haveYouMovedToBCPermanently[this.person.relationship]" 
                         [data]="person.madePermanentMoveToBC " (dataChange)="setMovedToBCPermanently($event)" >
-                    </common-button-group>
+                    </common-button-group> -->
                 </div>
               
-                <!--<label [attr.id]="'movedPermLabel'" [innerHtml]="lang('./en/index.js').haveYouMovedToBCPermanently[this.person.relationship]" class="control-label"></label>
+               <label [attr.id]="'movedPermLabel'" [innerHtml]="lang('./en/index.js').haveYouMovedToBCPermanently[this.person.relationship]" class="control-label"></label>
               <div class="btn-group" role="group">
                 <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]' [class.msp-btn-radio]="person.madePermanentMoveToBC === answer.value"
                   (click)="setMovedToBCPermanently(answer.value)" type="button" class="btn btn-default">{{answer.label}}
@@ -166,7 +174,7 @@
               </div>
               <div *ngIf='showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)'>
                 <div class="text-danger" [innerHtml]="lang('./en/index.js').mustAnswerQuestionAboutPermMoveToBC"></div>
-              </div> -->
+              </div> 
 
             </div>
 
@@ -248,11 +256,11 @@
                          [ngClass]="{'has-error': showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)}"
                          role="dialog" [attr.aria-labelledby]="'outsideBCLabel' + objectId">
                          
-                         <common-button-group  [styleClass]="styleClass" [label]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months" 
+                        <common-button-group  [label]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months" 
                             [data]="person.declarationForOutsideOver30Days " 
                             (dataChange)="setBeenOutsideForOver30Days($event)" >
-                        </common-button-group>   
-                 <!--   <label id="outsideBCLabel{{objectId}}" [innerHtml]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months" class="control-label"></label>
+                        </common-button-group>    
+                  <!--   <label id="outsideBCLabel{{objectId}}" [innerHtml]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months" class="control-label"></label>
                       <div class="btn-group" role="group">
                           <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
                                   [class.msp-btn-radio]="person.declarationForOutsideOver30Days === answer.value"
@@ -264,7 +272,7 @@
                            role="alert" aria-live="assertive">
                           <div class="text-danger" 
                               [innerHtml]="lang('./en/index.js').mustAnswerQuestionAboutBeenOutsideBC"></div>
-                      </div>--> 
+                      </div> --> 
                     </div>
                 </div>
             </div>
@@ -286,12 +294,12 @@
                  [ngClass]="{'has-error': (person.hasPreviousBCPhn === undefined || person.hasPreviousBCPhn === null) && showError}"
                  role="dialog" [attr.aria-labelledby]="'previousBCHealthNumber' + objectId">
                 
-                <common-button-group  [styleClass]="styleClass" [label]="lang('./en/index.js').previousBCHealthNumber[this.person.relationship]" 
+               <common-button-group   [label]="lang('./en/index.js').previousBCHealthNumber[this.person.relationship]" 
                             [data]="person.hasPreviousBCPhn " 
                             (dataChange)="setHasPreviousPhn($event)" >
-                </common-button-group>
-                 <!-- 
-                <label id="previousBCHealthNumber{{objectId}}" [innerHtml]="lang('./en/index.js').previousBCHealthNumber[this.person.relationship]"
+                </common-button-group> 
+                 
+            <!--      <label id="previousBCHealthNumber{{objectId}}" [innerHtml]="lang('./en/index.js').previousBCHealthNumber[this.person.relationship]"
                   class="control-label"></label>
                 <div class="btn-group" role="group">
                     <button [class.msp-btn-radio]="person.hasPreviousBCPhn"
@@ -300,7 +308,7 @@
                     <button [class.msp-btn-radio]="person.hasPreviousBCPhn === false"
                             (click)="setHasPreviousPhn(false)"
                             type="button" class="btn btn-default">No&nbsp;</button>
-                </div>-->
+                </div> -->
 
               </div>
             </div>
@@ -332,12 +340,12 @@
               [ngClass]="{'has-error': (person.institutionWorkHistory === undefined ||  person.institutionWorkHistory === null) 
                 && showError}">
 
-                <common-button-group  [styleClass]="styleClass" [label]="lang('./en/index.js').canadianForcesQuestion[this.person.relationship]" 
+                <common-button-group   [label]="lang('./en/index.js').canadianForcesQuestion[this.person.relationship]" 
                             [data]="person.institutionWorkHistory " 
                             (dataChange)="selectInstitution($event)" >
-                </common-button-group>
-              <!--  
-              <label id="canadianForcesQuestionLabel{{objectId}}" [innerHtml]="lang('./en/index.js').canadianForcesQuestion[this.person.relationship]" class="control-label"></label>
+                </common-button-group> 
+            
+               <!--   <label id="canadianForcesQuestionLabel{{objectId}}" [innerHtml]="lang('./en/index.js').canadianForcesQuestion[this.person.relationship]" class="control-label"></label>
               <div class="btn-group" role="group">
                   <button *ngFor='let institution of institutionList'
                           [class.msp-btn-radio]="person.institutionWorkHistory == institution"
@@ -349,7 +357,7 @@
                    role="alert" aria-live="assertive">
                   <p class="text-danger" 
                       [innerHtml]="lang('./en/index.js').mustDeclareInstitutionWorkHistory"></p>
-              </div> -->
+              </div>  -->
               
             </div>
             <div *ngIf="person.institutionWorkHistory === 'Yes'" style="margin-top: 10px">
@@ -374,12 +382,12 @@
             [ngClass]="{'has-error': showError && (person.fullTimeStudent === undefined || person.fullTimeStudent === null)}"
             role="dialog" [attr.aria-labelledby]="'fullTimeStudentLabel' + objectId">
             
-            <common-button-group  [styleClass]="styleClass" [label]="lang('./en/index.js').fullTimeStudentLabel" 
+            <common-button-group  [label]="lang('./en/index.js').fullTimeStudentLabel" 
                             [data]="person.fullTimeStudent " 
                             (dataChange)="setFullTimeStudent($event)" >
-            </common-button-group>
+            </common-button-group> 
 
-            <!-- <label id="fullTimeStudentLabel{{objectId}}" [innerHtml]="lang('./en/index.js').fullTimeStudentLabel" class="control-label"></label>
+                <!--   <label id="fullTimeStudentLabel{{objectId}}" [innerHtml]="lang('./en/index.js').fullTimeStudentLabel" class="control-label"></label>
             <div class="btn-group" role="group">
                 <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
                         [class.msp-btn-radio]="person.fullTimeStudent === answer.value"
@@ -392,7 +400,7 @@
                  role="alert" aria-live="assertive">
                 <div class="text-danger" 
                     [innerHtml]="lang('./en/index.js').mustDeclareStudentStatus"></div>
-            </div>-->
+            </div> -->
         </div>
 
     </div>
@@ -468,29 +476,29 @@
           role="dialog" [attr.aria-labelledby]="'inBCAfterStudiesLabel' + objectId">
           <div class="form-group"
              [ngClass]="{'has-error': (person.inBCafterStudies===undefined || person.inBCafterStudies===null) && showError}">
-            <label id="inBCAfterStudiesLabel{{objectId}}" *ngIf="person.relationship === Relationship.Applicant"
-                [innerHtml]="lang('./en/index.js').inBCAfterStudiesLabel" class="control-label"></label>
+           <!-- <label id="inBCAfterStudiesLabel{{objectId}}" *ngIf="person.relationship === Relationship.Applicant"
+                [innerHtml]="lang('./en/index.js').inBCAfterStudiesLabel" class="control-label"></label> -->
             
-                <common-button-group [styleClass]="styleClass" 
-                    [label]="lang('./en/index.js').childStayInBCAfterStudiesLabel" 
+                <common-button-group 
+                    [label]="lang('./en/index.js').inBCAfterStudiesLabel" 
                     [data]="person.inBCafterStudies " (dataChange)="setStayInBCAfterStudy($event)" >
                 </common-button-group>
 
 
-            <!--    <label id="inBCAfterStudiesLabel{{objectId}}" *ngIf="person.relationship === Relationship.Child19To24" class="control-label"
+                 <label id="inBCAfterStudiesLabel{{objectId}}" *ngIf="person.relationship === Relationship.Child19To24" class="control-label"
                 [innerHtml]="lang('./en/index.js').childStayInBCAfterStudiesLabel"></label>
-            <div class="btn-group" role="group">
+         <!--   <div class="btn-group" role="group">
                 <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
                         [class.msp-btn-radio]="person.inBCafterStudies === answer.value"
                         (click)="setStayInBCAfterStudy(answer.value)"
                         type="button" class="btn btn-default">{{answer.label}}
                 </button>
-            </div>
+            </div> -->
             <div *ngIf="(person.inBCafterStudies===undefined || person.inBCafterStudies===null) && showError"
                  role="alert" aria-live="assertive">
                 <p class="text-danger" 
                     [innerHtml]="lang('./en/index.js').mustAnswerQuestion"></p>
-            </div> -->
+            </div>   
 
           </div>
         </div>

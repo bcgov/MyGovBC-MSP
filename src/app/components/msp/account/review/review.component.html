@@ -59,7 +59,7 @@
     </p>
     <div class="strong" [innerHTML]="questionApplicant"></div>
     <div class="form-check form-check-inline mb-5">
-        <common-checkbox [label]="lang('./en/index.js').agreeLabel" (dataChange)="applicantAuthorizeOnChange($event)" [model]="mspAccountApp.authorizedByApplicant"></common-checkbox>
+        <common-checkbox [label]="lang('./en/index.js').agreeLabel" (dataChange)="applicantAuthorizeOnChange($event)" [data]="mspAccountApp.authorizedByApplicant"></common-checkbox>
        
       
         <!--        <input class="input-lg form-check-input" id="firstPersonAuthorize" name="firstPersonAuthorize"
@@ -72,7 +72,7 @@
             <div class="strong" [innerHTML]="questionSpouse()"></div>
             <div class="form-check form-check-inline">
                
-                <common-checkbox [label]="lang('./en/index.js').agreeLabel" (dataChange)="spouseUpdateAuthorizeOnChange($event)" [model]="mspAccountApp.authorizedBySpouse"></common-checkbox>
+                <common-checkbox [label]="lang('./en/index.js').agreeLabel" (dataChange)="spouseUpdateAuthorizeOnChange($event)" [data]="mspAccountApp.authorizedBySpouse"></common-checkbox>
        
                <!-- <input class="input-lg form-check-input" id="secondPersonAuthorize-{{i}}" type="checkbox" name="secondPersonAuthorize"
                        [ngModel]="mspAccountApp.authorizedBySpouse"

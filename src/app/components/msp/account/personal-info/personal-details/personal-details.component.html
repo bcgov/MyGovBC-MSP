@@ -28,7 +28,7 @@
         </div>
     </div>
 
-<common-name #name [person]="person" (onChange)="onChange.emit($event)" ></common-name>
+<common-name #name [person]="person" (onChange)="setName($event)" ></common-name>
     <!--
     <msp-name #name [person]="person" (onChange)="onChange.emit($event)" [showError]="showError"></msp-name>
     -->
@@ -75,24 +75,32 @@
             <h2 [innerHTML]="lang('./en/index.js').residentialAddressTitle"></h2>
             <h4 [innerHTML]="mspAccountApp.accountChangeOptions.personInfoUpdate ? lang('./en/index.js').residentialAddressSubTitleForPI:lang('./en/index.js').residentialAddressSubTitleNoPI"></h4>
 
-            <common-address *ngIf="person.relationship === 0"
+           <!-- <common-address *ngIf="person.relationship === 0"
                          [(address)]="person.residentialAddress"
                          (addressChange)="handleAddressUpdate($event)"
                          [defaultProvince]="defaultProvince"
                          [defaultCountry]="defaultCountry"
                          [isRequired]="true">
 
-            </common-address>
+            </common-address> 
+
+            <common-address *ngIf="person.relationship === 0"
+                  [address]="person?.residentialAddress"
+                  (addressChange)="handleAddressUpdate($event)"
+                  [defaultCountry]="defaultCountry"
+                  [defaultProvince]="defaultProvince"
+                  [isRequired]="true">
+            </common-address> -->
 
 
-          <!--  <msp-address #address *ngIf="person.relationship === 0" [showError]="showError && showErrorAddress"
+          <msp-address #address *ngIf="person.relationship === 0" [showError]="showError && showErrorAddress"
                          [residentialAddress]="person.residentialAddress"
                          [mailingAddress]="person.mailingAddress"
                          [mailingSameAsResidentialAddress]="person.mailingSameAsResidentialAddress"
                          (mailingSameAsResidentialAddressChange)="toggleMailingSameAsResidentialAddress($event)"
                          (onChange)="handleAddressUpdate($event)">
 
-            </msp-address> -->
+            </msp-address> 
         </div>
     </div>
 

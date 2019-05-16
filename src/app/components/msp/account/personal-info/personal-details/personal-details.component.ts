@@ -104,6 +104,8 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @Input() id: string;
     @Input() showError: boolean;
     public buttonClass: string = 'btn btn-default btn-xs pull-right';
+    public defaultCountry = 'CANADA';
+    public defaultProvince = 'BRITISH COLUMBIA';
 
 
     /**
@@ -133,8 +135,6 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     institutionWorkSignal: string;
     mspAccountApp: MspAccountApp;
     public label: string = 'PHN 333';
-    public defaultCountry = 'CAN';
-    public defaultProvince = 'British Columbia';
 
     constructor(private el: ElementRef,
                 private cd: ChangeDetectorRef, private dataService: MspDataService) {
@@ -172,6 +172,14 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
         this.person.movedFromProvinceOrCountry = '';
         this.onChange.emit(value);
     }
+    
+    setName(evt: any) {
+        this.person = evt;
+        console.log(this.person);
+        console.log(evt);
+        this.onChange.emit(evt);
+    }
+
 
     toggleMailingSameAsResidentialAddress(evt: boolean) {
         //this.person.mailingSameAsResidentialAddress = evt;

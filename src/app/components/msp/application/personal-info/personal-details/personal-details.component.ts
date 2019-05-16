@@ -4,7 +4,7 @@ import  {
 } from '@angular/core';
 import { state, trigger, style } from '@angular/animations';
 import { NgForm } from '@angular/forms';
-import { Person } from '../../../model/person.model';
+import { Person, Gender } from '../../../model/person.model';
 import { OutofBCRecord } from '../../../model/outof-bc-record.model';
 import {
   StatusRules, ActivitiesRules, StatusInCanada, Activities,
@@ -239,6 +239,12 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.onChange.emit(event);
     this.emitIsFormValid();
   }
+
+  setGenderVal(event: string) {
+    this.person.gender = (event === 'M') ? Gender.Male : Gender.Female;
+    this.onChange.emit(event);
+  }
+
   setStayInBCAfterStudy(event: boolean){
     this.person.inBCafterStudies = event;
     this.onChange.emit(event);
