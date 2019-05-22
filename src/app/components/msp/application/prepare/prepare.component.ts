@@ -7,7 +7,7 @@ import { fromEvent} from 'rxjs/internal/observable/fromEvent';
 import { merge} from 'rxjs/internal/observable/merge';
 import { map} from 'rxjs/operators';
 import {MspDataService} from '../../service/msp-data.service';
-import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
+import {ConsentModalComponent} from 'moh-common-lib';
 import {ProcessService} from '../../service/process.service';
 import {BaseComponent} from '../../common/base.component';
 import {CommonButtonGroupComponent} from "../../common/common-button-group/common-button-group.component";
@@ -26,7 +26,7 @@ export class PrepareComponent extends BaseComponent {
 //  @ViewChild('noUnusualCircustanceBtn') noUnusualCircustanceBtn: ElementRef;
 //  @ViewChild('plannedAbsenceBtn') plannedAbsenceBtn: ElementRef;
 //  @ViewChild('noPlannedAbsenceBtn') noPlannedAbsenceBtn: ElementRef;
-  @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
+  @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
 
   private apt: Person;
   mspApplication: MspApplication;

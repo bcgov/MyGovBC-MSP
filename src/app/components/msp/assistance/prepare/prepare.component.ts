@@ -9,7 +9,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 
 import { MspDataService } from '../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
-import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
+import {ConsentModalComponent} from 'moh-common-lib';
 import {MspImage} from '../../model/msp-image';
 import {AssistanceYear} from '../../model/assistance-year.model';
 import {FileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
@@ -37,7 +37,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
   @ViewChild('assistanceYearComp') assistanceYearComp: MspAssistanceYearComponent;
 
-  @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
+  @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
   @ViewChild('disabilityNursingHomeChoiceModal') public disabilityNursingHomeChoiceModal: ModalDirective;
 
     lang = require('./i18n');

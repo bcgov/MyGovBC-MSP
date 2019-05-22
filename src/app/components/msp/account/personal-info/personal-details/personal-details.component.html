@@ -34,13 +34,20 @@
     -->
     <div class="row">
         <div class="col-md-4">
-            <msp-gender
+
+                <common-radio [value]="person.gender" 
+                    label='Gender' 
+                    [radioLabels]='[{"label": "Male", "value": "M"},{ "label": "Female", "value": "F"}]' 
+                    (onStatusChange)="setGender($event)"
+                    [showError]="showError">
+                </common-radio> 
+            <!-- <msp-gender
                 #gender
                 [person]="person"
                 (onChange) = "onChange.emit($event)" 
                 [showError] = "showError">
             </msp-gender>
-           <!--  <common-gender
+           <common-gender
                     #gender
                     [person]="person"
                     (onChange)="onChange.emit($event)"

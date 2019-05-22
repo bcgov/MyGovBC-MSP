@@ -1,8 +1,14 @@
-<msp-consent-modal #mspConsentModal [application]="accountLetterApplication"
+<!--<msp-consent-modal #mspConsentModal [application]="accountLetterApplication"
                    [processName]="lang('./en/index.js').consentProcessName"
                    
 >
-</msp-consent-modal>
+</msp-consent-modal> -->
+
+<common-consent-modal #mspConsentModal [body]="lang('./en/index.js').body" [isUnderMaintenance]="true"
+        [title]="'Information collection notice'" [application]="accountLetterApplication" 
+        [processName]="lang('./en/index.js').consentProcessName">
+</common-consent-modal> 
+
 
 <form #formRef="ngForm" novalidate>
 
@@ -37,9 +43,9 @@
                         [showError]="showError"
                         [person]="applicant">
                 </msp-birthdate>
-                
-                <common-postal-code [label]="lang('./en/index.js').postalCodeLabel"
-                    [value]="accountLetterApplication.postalCode" (valueChange)="saveApplication($event);">
+                <b>{{postalCode}}</b>
+                <common-postal-code [label]="lang('./en/index.js').postalCodeLabel" [displayMask]="true"
+                    [value]="postalCode" (valueChange)="saveApplication($event);">
                 </common-postal-code>
                 <!--    
                 <label for="residentialAddressPostalCode{{objectId}}"

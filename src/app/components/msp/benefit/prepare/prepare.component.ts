@@ -14,7 +14,7 @@ import {AssistanceYear} from '../../model/assistance-year.model';
 import {merge} from 'rxjs/internal/observable/merge';
 import {MspAssistanceYearComponent} from '../../assistance/prepare/assistance-year/assistance-year.component';
 import * as _ from 'lodash';
-import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
+import {ConsentModalComponent} from 'moh-common-lib';
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
 //import moment = require('moment');
 import * as moment from 'moment';
@@ -37,7 +37,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
-    @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
+    @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
     @ViewChild('disabilityNursingHomeChoiceModal') public disabilityNursingHomeChoiceModal: ModalDirective;
 
     lang = require('./i18n');

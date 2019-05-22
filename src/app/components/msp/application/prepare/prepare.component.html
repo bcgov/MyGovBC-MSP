@@ -1,7 +1,11 @@
-<msp-consent-modal #mspConsentModal [application]="mspApplication"
+<!--<msp-consent-modal #mspConsentModal [application]="mspApplication"
                    [processName]="lang('./en/index.js').consentProcessName"
                    (onClose)="liveInBCBtn.focus()">
-</msp-consent-modal>
+</msp-consent-modal>-->
+<common-consent-modal #mspConsentModal [isUnderMaintenance]="true" [title]="'Information collection notice'" 
+               [application]="mspApplication"  (onClose)="liveInBCBtn.focus()"
+                [processName]="lang('./en/index.js').consentProcessName">
+</common-consent-modal> 
 
 <p class="intro"
    [innerHtml]="lang('./en/index.js').servicesCardMsg" role="heading" >

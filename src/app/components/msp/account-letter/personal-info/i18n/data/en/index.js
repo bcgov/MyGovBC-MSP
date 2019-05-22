@@ -13,5 +13,6 @@ module.exports = {
   completesAllHighlightedFields: 'Please complete all highlighted fields on this page and try to continue to next page.',
   consentProcessName: 'ACL',
   phnPlaceHolder: '1111 111 111',
-  phnlabel:'Personal Health Number (PHN)'
+  phnlabel:'Personal Health Number (PHN)',
+  body: '<p>Keep your personal information secure - especially when using a shared computer at a library, school or cafe. To remove any information you entered, either complete the application and submit it or, if you don’t finish, close the web browser.</p><p>Need to take a break and come back later? The data you enter on this form is saved on the computer or device you are using until you close the web browser or submit your application. </p><p>Personal information is collected, used, disclosed and provided security in accordance with the British Columbia Freedom of Information and Protection of Privacy Act. If you have any questions about the collection or use of this information, please contact <a href="https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/pharmacare-for-bc-residents/contact-us" target="_blank">Health Insurance BC.<i class="fa fa-external-link" aria-hidden="true"></i></a>.</p>'
 }

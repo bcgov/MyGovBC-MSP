@@ -488,9 +488,14 @@
     </div>
 </div>
 
-<msp-consent-modal #mspConsentModal [application]="dataService.finAssistApp"
-                   [processName]="lang('./en/index.js').consentProcessName"
-                    (onClose)="assistanceYearComp.focus()"></msp-consent-modal>
+<!--<msp-consent-modal #mspConsentModal [application]="dataService.finAssistApp"
+                   [processName]="lang('./en/index.js').consentProcessName" 
+                    (onClose)="assistanceYearComp.focus()"></msp-consent-modal>-->
+
+<common-consent-modal #mspConsentModal [isUnderMaintenance]="true"   [title]="'Information collection notice'" 
+               [application]="dataService.finAssistApp"  (onClose)="assistanceYearComp.focus()"
+                [processName]="lang('./en/index.js').consentProcessName">
+</common-consent-modal> 
 
 <div bsModal #disabilityNursingHomeChoiceModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}"
     tabindex="0" role="dialog" aria-labelledby="disabilityNursingHomeChoiceModalLabel">

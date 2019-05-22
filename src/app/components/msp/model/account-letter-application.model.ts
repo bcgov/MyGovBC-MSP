@@ -16,7 +16,7 @@ class AccountLetterApplication implements ApplicationBase {
   phnRequired: boolean = false;
 
 
-  postalCode: string;
+  postalCode: string = null; 
 
   /**
    * Set by the API, not for client use

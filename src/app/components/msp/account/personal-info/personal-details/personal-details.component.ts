@@ -180,6 +180,13 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
         this.onChange.emit(evt);
     }
 
+    setGender(evt: any) {
+        this.person.gender = evt;
+        console.log(this.person);
+        console.log(evt);
+        this.onChange.emit(evt);
+    }
+
 
     toggleMailingSameAsResidentialAddress(evt: boolean) {
         //this.person.mailingSameAsResidentialAddress = evt;

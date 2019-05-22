@@ -17,6 +17,8 @@ import {MspApplication, Person} from '../../model/application.model';
 import * as _ from 'lodash';
 import {MspDataService} from '../../service/msp-data.service';
 import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
+
+import {ConsentModalComponent} from 'moh-common-lib';
 import {ProcessService} from '../../service/process.service';
 import {AccountLetterApplication} from '../../model/account-letter-application.model';
 import {MspPhnComponent} from '../../common/phn/phn.component';
@@ -42,13 +44,14 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     lang = require('./i18n');
 
     @ViewChild('formRef') form: NgForm;
-    @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
+    @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
     @ViewChild('phn') phn: ElementRef;
     @ViewChild('addtionalMemberphn') addtionalMemberphn: MspPhnComponent;
     @ViewChild('birthDate') birthdate: MspBirthDateComponent;
     @ViewChild('specificMember') specificMember: SpecificMemberComponent;
     captchaApiBaseUrl: string;
     showError:boolean = false;
+    postalCode: string = 'V8V 1l8';
     Address: typeof Address = Address;
     public postalCodeMask = [LETTER, NUMBER, LETTER, SPACE, NUMBER, LETTER, NUMBER];
     public phnRegex: RegExp = /^[A-Za-z][0-9][A-Za-z]\s?[0-9][A-Za-z][0-9]$/;
@@ -62,19 +65,22 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
                 private cd: ChangeDetectorRef,
                 private logService: MspLogService) {
         super(cd);
+        
     }
 
     ngOnInit() {
         this.initProcessMembers(AccountLetterPersonalInfoComponent.ProcessStepNum, this._processService);
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
         this.accountLetterApplication.authorizationToken = null;
+        console.log(this.accountLetterApplication.postalCode);
         this.logService.log({
             name: 'ACL - Loaded Page',
             url: this._router.url
         }, 'ACL - Loaded Page');
     }
 
-    saveApplication(values: any) {
+    saveApplication(values: string) {
+        this.postalCode = values;
         this.accountLetterApplication.postalCode = values;
         this.dataService.saveAccountLetterApplication();
     }

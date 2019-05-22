@@ -443,9 +443,14 @@
         </div>
     </div>
     
-    <msp-consent-modal #mspConsentModal [application]="dataService.benefitApp"
+    <!--<msp-consent-modal #mspConsentModal [application]="dataService.benefitApp"
                        [processName]="lang('./en/index.js').consentProcessName"
-                       (cutOffDate)= spaEnvCutOffDate($event)></msp-consent-modal>
+                       (cutOffDate)= spaEnvCutOffDate($event)></msp-consent-modal>-->
+    
+    <common-consent-modal #mspConsentModal [isUnderMaintenance]="true"   [title]="'Information collection notice'" [application]="dataService.benefitApp" (cutOffDate)= spaEnvCutOffDate($event)
+                [processName]="lang('./en/index.js').consentProcessName">
+    </common-consent-modal> 
+        
     
     <div bsModal #disabilityNursingHomeChoiceModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}"
          tabindex="0" role="dialog" aria-labelledby="disabilityNursingHomeChoiceModalLabel">
