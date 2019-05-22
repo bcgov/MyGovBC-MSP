@@ -1,15 +1,16 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http';
-import { environment } from 'environments/environment';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { Base } from '../common/base/base.class';
 
 
-export abstract class AbstractHttpService extends Base {
+/**
+ * Abstract class for HTTP Service
+ */
+export abstract class AbstractHttpService {
 
-  constructor(protected http: HttpClient) {
-    super();
-  }
+  protected logHTTPRequestsToConsole: boolean = false;
+
+  constructor(protected http: HttpClient) {}
 
   /** The headers to send along with every GET and POST. */
   protected abstract _headers: HttpHeaders;
@@ -27,6 +28,9 @@ export abstract class AbstractHttpService extends Base {
   }
 
   protected post<T>(url, body): Observable<T> {
+    if (this.logHTTPRequestsToConsole) {
+      console.log( 'Post Request: ', body );
+    }
     const observable = this.http.post(url, body, this.httpOptions);
     return this.setupRequest(observable);
   }
@@ -35,10 +39,10 @@ export abstract class AbstractHttpService extends Base {
     // All failed requests should trigger the abstract method handleError
     observable = observable.pipe(catchError(this.handleError.bind(this)));
     // Optionally add console logging
-    if (environment.logHTTPRequestsToConsole) {
+    if (this.logHTTPRequestsToConsole) {
       observable = observable.pipe(tap(
         data => console.log('HTTP Success: ', data),
-        error => observable = new Observable()
+        error => console.log('HTTP Error: ', error)
       ));
     }
     return observable;

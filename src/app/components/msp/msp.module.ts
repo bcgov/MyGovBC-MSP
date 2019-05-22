@@ -123,7 +123,7 @@ import { CommonCheckboxComponent } from './common/common-checkbox/common-checkbo
 import { CommonButtonGroupComponent } from './common/common-button-group/common-button-group.component';
 import { CommonDeductionCalculatorComponent } from './common/common-deduction-calculator/common-deduction-calculator.component';
 import { CommonIncomeInputtextComponent } from './common/common-income-inputtext/common-income-inputtext.component';
-import { CommonSinComponent } from './common/common-sin/common-sin.component';
+//import { CommonSinComponent } from './common/common-sin/common-sin.component';
 import { CommonButtonComponent } from './common/common-button/common-button.component';
 import { CommonPhnComponent } from './common/common-phn/common-phn.component';
 
@@ -489,9 +489,8 @@ const APP_ROUTES: Routes = [
         CommonButtonGroupComponent,
         CommonDeductionCalculatorComponent,
         CommonIncomeInputtextComponent,
-        CommonSinComponent,
         CommonButtonComponent,
-       CommonPhnComponent
+        CommonPhnComponent
     ],
 
     providers: [

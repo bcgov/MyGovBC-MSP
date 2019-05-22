@@ -32,9 +32,9 @@
       </div>
     </div>
     <div class="col-md-4">
-      <common-sin (sinChange)="person.sin = $event; onChange.emit($event)"  [uniqueSins]="isSinUnique()" [required]="true" label='SIN Number' [data]="person.sin"  ></common-sin> 
+    <!--   <common-sin (sinChange)="person.sin = $event; onChange.emit($event)"  [uniqueSins]="isSinUnique()" [required]="true" label='SIN Number' [data]="person.sin"  ></common-sin>  -->
        
-   <!-- 
+   
    <div class="form-group"
            [ngClass]="{'has-error': !formRef.controls.sin?.valid && sinRef.touched}">
           <label class="control-label" for="sin"
@@ -58,7 +58,7 @@
             </div>
            <div class="text-danger" *ngIf="!isSinUnique()"
              [innerHTML]="lang('./en/index.js').sinUniqueError"></div>  
-        </div>  -->
+        </div>  
     </div> 
   </div>
 </form>

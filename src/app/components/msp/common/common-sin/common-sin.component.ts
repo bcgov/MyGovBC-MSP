@@ -25,7 +25,7 @@ import { ControlContainer, ControlValueAccessor, NgForm, NG_VALUE_ACCESSOR } fro
   ]
 })
 
-export class CommonSinComponent extends Masking implements OnInit, ControlValueAccessor {
+export class CommonSinComponent extends Masking implements ControlValueAccessor {
 
   @Input() sinList: string[] = [];
   @Input() label: string = 'Social Insurance Number (SIN)';
@@ -50,10 +50,8 @@ export class CommonSinComponent extends Masking implements OnInit, ControlValueA
   public _onChange = (_: any) => {};
   public _onTouched = () => {};
 
-  constructor( private cdref: ChangeDetectorRef ) {
-    super(cdref);
-  }
-
+  
+/*
   ngOnInit() {
     // Setup listener
     this.checkSinUniqueness
@@ -74,7 +72,7 @@ export class CommonSinComponent extends Masking implements OnInit, ControlValueA
             this.cdref.detectChanges();
           }
         });
-  }
+  }*/
 
   isUnique( list: string[] ): boolean {
     const sortedList = list.sort().filter( x => x );

@@ -34,12 +34,18 @@
     -->
     <div class="row">
         <div class="col-md-4">
-            <common-gender
+            <msp-gender
+                #gender
+                [person]="person"
+                (onChange) = "onChange.emit($event)" 
+                [showError] = "showError">
+            </msp-gender>
+           <!--  <common-gender
                     #gender
                     [person]="person"
                     (onChange)="onChange.emit($event)"
                     [showError]="showError"
-            ></common-gender>
+            ></common-gender> -->
         </div>
         <div class="col-md-4">
             <msp-birthdate
@@ -50,9 +56,9 @@
             </msp-birthdate>
         </div>
         <div class="col-md-4">
-            <common-phn #phn [label]="label" 
+           <!-- <common-phn #phn [label]="label" 
                      [(value)]="person.previous_phn" 
-            ></common-phn>
+            ></common-phn> -->
         </div>
 
     </div>

@@ -124,8 +124,6 @@ export class CommonPhnComponent  {
   }
 
   isPhnValid() {
-
-    
     
     //this.phn =  this.phn != null ? this.phn.replace(/\s/g, '') : '';
     

@@ -315,17 +315,17 @@
         </div>
         <div class="row">
             <div class="col-lg-6" *ngIf="person.hasPreviousBCPhn === true">
-                <common-phn #phn [label]="lang('./en/index.js').phnLabel[this.person.relationship]" 
+               <!-- <common-phn #phn [label]="lang('./en/index.js').phnLabel[this.person.relationship]" 
                     [(value)]="person.previous_phn" 
-                ></common-phn>
-                <!-- <msp-phn #phn
+                ></common-phn>  -->
+                 <msp-phn #phn
                          [phn]="person.previous_phn"
                          (phnChange)="person.previous_phn = $event"
                          [required]="false"
                          [bcPhn]="true"
                          [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"
                          (onChange) = "onChange.emit($event)"
-                         [showError] = "showError"></msp-phn> -->
+                         [showError] = "showError"></msp-phn>
             </div>
         </div>
 
