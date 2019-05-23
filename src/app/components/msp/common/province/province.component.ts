@@ -73,7 +73,6 @@ export class MspProvinceComponent extends BaseComponent implements OnInit {
     }
 
     this.provinceAndCountryData = data;
-    console.log(data);
   }
 
   // to handle user typing a non-dropdown value.. used in mailing address where province cant be a drop down item for non-canada countires
