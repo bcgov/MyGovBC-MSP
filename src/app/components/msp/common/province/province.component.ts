@@ -94,7 +94,11 @@ export class MspProvinceComponent extends BaseComponent implements OnInit {
     const res = this.provinceAndCountryData.filter(
       itm => itm.name === this.province
     );
-    if (this.province && this.province.trim().length > 0 && res.length > 0) {
+    if (
+      this.province &&
+      this.province.trim().length > 0
+      // && res.length > 0
+    ) {
       return true;
     }
     return false;
