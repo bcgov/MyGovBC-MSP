@@ -40,6 +40,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   @ViewChild('disabilityNursingHomeChoiceModal') public disabilityNursingHomeChoiceModal: ModalDirective;
 
     lang = require('./i18n');
+  public modalBody : string = this.lang('./en/index.js').body;
   _showDisabilityInfo: boolean = false;
   showAttendantCareInfo = true;
   private _showChildrenInfo: boolean = false;
