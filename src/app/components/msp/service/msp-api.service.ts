@@ -68,6 +68,25 @@ export class MspApiService {
 
                         // second convert to XML
                         const convertedAppXml = this.toXmlString(documentModel);
+
+                        /*
+                          this validates that if the XML is an assistance application type it will check to make sure all the required
+                          fields are present in the compiled XML, and if they're not log an error and update the UX message to show
+                          that error.
+                        */
+                        if ( convertedAppXml.match(/(assistanceApplication)/)) {
+                          const valid = ValidateAssistance.validate(convertedAppXml)
+                          if (typeof valid === 'string') {
+                            const mssg =`Your application is missing the ${valid} field`
+                            const error = new Error(mssg)
+                            this.logService.log({
+                              text: mssg,
+                              response: {mssg},
+                          }, 'submission failed');
+                          return reject({mssg});
+                          }
+                        }
+
                         // console.log(convertedAppXml);
                         // if no errors, then we'll sendApplication all attachments
                         return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
@@ -1358,13 +1377,13 @@ export class MspApiService {
 
         // if it is run this validation check
         console.log(xmlString)
-        if (xmlString.match(/(assistanceApplication)/)) {
-          return ValidateAssistance.validate(xmlString) ?
-          this.correctNSinXmlString (xmlString) :
-          null
-        } else {
+        // if (xmlString.match(/(assistanceApplication)/)) {
+          // return ValidateAssistance.validate(xmlString) ?
+          // this.correctNSinXmlString (xmlString) :
+          // null
+        // } else {
           return this.correctNSinXmlString (xmlString);
-        }
+        // }
     }
 
     stringToJs<T>(from: string): T {
