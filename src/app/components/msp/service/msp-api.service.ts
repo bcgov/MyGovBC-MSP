@@ -77,7 +77,7 @@ export class MspApiService {
                         if ( convertedAppXml.match(/(assistanceApplication)/)) {
                           const valid = ValidateAssistance.validate(convertedAppXml)
                           if (typeof valid === 'string') {
-                            const mssg =`Your application is missing the ${valid} field`
+                            const mssg =`Your application is missing the ${valid} field. Please go back and check all fields to ensure that nothing is missing.`
                             const error = new Error(mssg)
                             this.logService.log({
                               text: mssg,
