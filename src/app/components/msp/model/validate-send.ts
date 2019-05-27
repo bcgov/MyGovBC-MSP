@@ -34,10 +34,12 @@ const spouseFields = [
   'spouseSixtyFiveDeduction'
 ];
 
+const childrenFields = ['childDeduction', 'childCareExpense', 'uccb'];
+
 export abstract class ValidateAssistance {
-  static exportAssistance(xml: string) {
+  static exportAssistance(xml: string, fields: string[]) {
     let valid = true;
-    for (const field of ensureFields) {
+    for (const field of fields) {
       let reg = new RegExp(`(${field})`);
       if (!xml.match(reg)) {
         console.log(field);
@@ -47,21 +49,21 @@ export abstract class ValidateAssistance {
     console.log('valid', valid);
     return valid;
   }
-  static exportSpouseAssistance(xml: string) {
-    let valid = true;
-    for (const field of spouseFields) {
-      const reg = new RegExp(`(${spouseFields})`);
-      if (!xml.match(reg)) return (valid = false);
-    }
-    return valid;
-  }
 
   static validate(xml: string) {
+    const childReg = new RegExp('(numChildren)');
+    if (xml.match(childReg)) {
+      if (!this.exportAssistance(xml, childrenFields)) {
+        console.log('invalid children');
+        return false;
+      }
+    }
     const spouseReg = new RegExp(`(spouse)`);
-    let valid;
+
     return xml.match(spouseReg)
-      ? this.exportSpouseAssistance(xml) && this.exportAssistance(xml)
-      : this.exportAssistance(xml);
+      ? this.exportAssistance(xml, spouseFields) &&
+          this.exportAssistance(xml, ensureFields)
+      : this.exportAssistance(xml, ensureFields);
   }
 }
 

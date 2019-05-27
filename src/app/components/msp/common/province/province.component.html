@@ -4,7 +4,7 @@
     <label class="control-label" for="province{{objectId}}" [innerHtml]="provinceLabel"></label>
 
     <input [(ngModel)]='province' (typeaheadOnSelect)="updateModel($event)" (typeaheadOnBlur)="updateModel($event)"
-      [typeahead]="provinceAndCountryData" typeaheadOptionField="name" [minlength]="2" [typeaheadMinLength]="0"
+      [typeahead]="provinceAndCountryData" typeaheadOptionField="name" [minlength]="1" [typeaheadMinLength]="0"
       [typeaheadScrollable]="false" [maxlength]="25" (typeaheadNoResults)="typeaheadNoResults($event)" [required]="true"
       class="form-control" id="province{{objectId}}" name="province" #provinceRef="ngModel" />
 

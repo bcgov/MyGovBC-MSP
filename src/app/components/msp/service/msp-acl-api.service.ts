@@ -28,7 +28,7 @@ export class MspACLService extends AbstractHttpService {
     protected _headers: HttpHeaders = new HttpHeaders();
 
     constructor(protected http: HttpClient, private logService: MspLogService) {
-        super(http);  
+        super(http);
     }
 
     sendAccountLetterApp(accountLetterApplication: AccountLetterApplication, uuid: string): Observable<any> {
@@ -41,22 +41,22 @@ export class MspACLService extends AbstractHttpService {
             'Response-Type': 'application/json',
             'X-Authorization': 'Bearer ' + accountLetterApplication.authorizationToken,
         });
-        
+
         return this.post<AccountLetterType>(url, accountLetterJsonResponse );
     }
-    
-    // Api callout to get the message from the Rapid code  
+
+    // Api callout to get the message from the Rapid code
     sendSpaEnvServer(rapidResponseCode: string): Observable<any> {
         this._headers = new HttpHeaders({
             'SPA_ENV_NAME': rapidResponseCode
         });
-        const url = environment.appConstants['envServerBaseUrl']; 
+        const url = environment.appConstants['envServerBaseUrl'];
         return this.post<any>(url, null);
     }
 
 
     protected handleError(error: HttpErrorResponse) {
-        console.log("handleError", JSON.stringify(error));
+        console.log('handleError', JSON.stringify(error));
         if (error.error instanceof ErrorEvent) {
             //Client-side / network error occured
             console.error('MspMaintenanceService error: ', error.error.message);
@@ -66,12 +66,12 @@ export class MspACLService extends AbstractHttpService {
             console.error(`MspMaintenanceService Backend returned error code: ${error.status}.  Error body: ${error.error}`);
         }
         //this.logService.log({event: 'error', key: 'Cannot get maintenance flag from spa-env-server'});
-        
+
         // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
         return of(error);
     }
 
-   
+
     // This method is used to convert the response from user into a JSOn object
     private convertAccountLetterApp(from: AccountLetterApplication): AccountLetterType {
         const to = AccountLetterApplicantTypeFactory.make();
@@ -79,9 +79,9 @@ export class MspACLService extends AbstractHttpService {
         to.requesterPostalCode  = from.postalCode.toUpperCase().replace(' ', '');
         to.requesterPHN = from.applicant.previous_phn.replace(/\s/g, "");
         to.requesterBirthdate = from.applicant.dob.format(this.ISO8601DateFormat);
-       
+
         switch (from.applicant.enrollmentMember ) {
-            
+
             case MSPEnrollementMember.MyselfOnly :
                 to.letterSelection = 'M';
                 break;

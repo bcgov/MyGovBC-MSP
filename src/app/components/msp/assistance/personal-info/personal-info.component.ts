@@ -19,6 +19,7 @@ import { MspAddressComponent } from '../../common/address/address.component';
 import { MspPhoneComponent } from '../../common/phone/phone.component';
 import { ProcessService } from '../../service/process.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { findSafariExecutable } from 'selenium-webdriver/safari';
 
 @Component({
   templateUrl: './personal-info.component.html'
@@ -76,10 +77,8 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
 
   onChange(values: any) {
     // console.log('changes from child component triggering save: ', values);
-    // console.log(this.dataService);
     this.dataService.saveFinAssistApplication();
   }
-
   onSubmit(form: NgForm) {
     this._router.navigate(['/msp/assistance/retro']);
   }
@@ -94,8 +93,9 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   get canContinue(): boolean {
     return this.isAllValid() && this.hasCountry();
   }
+  ß;
 
-  // Final check to see if the country is present // DEF 153
+  // Final check to see if the country is present // DEF 153 ra
   hasCountry(): boolean {
     if (
       this.financialAssistApplication.mailingAddress.country &&

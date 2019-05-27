@@ -22,6 +22,7 @@ import ISO_8601 = moment.ISO_8601;
 import { MspMaintenanceService } from "../service/msp-maintenance.service";
 import { Http, Response } from '@angular/http';
 import {ISpaEnvResponse} from '../model/spa-env-response.interface';
+import { ValidateAssistance } from '../model/validate-send';
 
 
 const jxon = require('jxon/jxon');
@@ -67,7 +68,7 @@ export class MspApiService {
 
                         // second convert to XML
                         const convertedAppXml = this.toXmlString(documentModel);
-
+                        // console.log(convertedAppXml);
                         // if no errors, then we'll sendApplication all attachments
                         return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
 
@@ -91,7 +92,7 @@ export class MspApiService {
                                 this.logService.log({
                                     text: 'Attachment - Send All Rejected ',
                                     response: error,
-                                }, 'Attachment - Send All Rejected ');
+                                }, 'Attachm123ent - Send All Rejected ');
                                 return reject(error);
                             });
                     } // end of else
@@ -430,7 +431,7 @@ export class MspApiService {
 
         if(from.getAllImages() && from.getAllImages().length > 0){
             to.application.attachments = this.convertAttachments(from.getAllImages());
-        }        
+        }
 
         return to;
     }
@@ -1349,10 +1350,21 @@ export class MspApiService {
      * @param namespace
      * @returns {any}
      */
-    toXmlString(from: any): string {
+    toXmlString(from: any): string | Error {
         const xml = jxon.jsToXml(from);
         const xmlString = jxon.xmlToString(xml);
-        return this.correctNSinXmlString (xmlString);
+
+        // check to see whether is assistanceApplication
+
+        // if it is run this validation check
+        console.log(xmlString)
+        if (xmlString.match(/(assistanceApplication)/)) {
+          return ValidateAssistance.validate(xmlString) ?
+          this.correctNSinXmlString (xmlString) :
+          null
+        } else {
+          return this.correctNSinXmlString (xmlString);
+        }
     }
 
     stringToJs<T>(from: string): T {
@@ -1430,8 +1442,9 @@ export class MspApiService {
             endIndex = xmlString.search(endre);
         }
 
-        if (beginIndex < 0 || endIndex <= 0)
+        if (beginIndex < 0 || endIndex <= 0) {
             return xmlString;
+        }
         else {
             return MspApiService.XmlDocumentHeader + xmlString.substring(beginIndex, endIndex) + MspApiService.XmlDocumentFooter;
         }

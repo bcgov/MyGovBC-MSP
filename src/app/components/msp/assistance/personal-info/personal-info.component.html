@@ -3,15 +3,12 @@
 
 <h2 [innerHTML]="lang('./en/index.js').applicantInfo"></h2>
 <form #formRef='ngForm' (ngSubmit)="onSubmit(formRef)" novalidate>
-  <msp-assistance-personal-details
-      [(person)]="financialAssistApplication.applicant"
-      (onChange)="onChange($event)">
+  <msp-assistance-personal-details [(person)]="financialAssistApplication.applicant" (onChange)="onChange($event)">
   </msp-assistance-personal-details>
 
   <h2 *ngIf="financialAssistApplication.hasSpouseOrCommonLaw" [innerHTML]="lang('./en/index.js').spouseInfo"></h2>
   <msp-assistance-personal-details *ngIf="financialAssistApplication.hasSpouseOrCommonLaw"
-                                   [person]="financialAssistApplication.spouse"
-                                   (onChange)="onChange($event)">
+    [person]="financialAssistApplication.spouse" (onChange)="onChange($event)">
   </msp-assistance-personal-details>
 
   <h2 [innerHTML]="lang('./en/index.js').contactInfo"></h2>
@@ -20,23 +17,19 @@
     <div class="col-lg-8">
       <div class="row">
         <div class="col-md-4">
-          <msp-phone #phone
-                     [phoneNumber]="financialAssistApplication.phoneNumber"
-                     (phoneNumberChange)="financialAssistApplication.phoneNumber = $event"
-                     (onChange)="onChange($event)"></msp-phone>
+          <msp-phone #phone [phoneNumber]="financialAssistApplication.phoneNumber"
+            (phoneNumberChange)="financialAssistApplication.phoneNumber = $event" (onChange)="onChange($event)">
+          </msp-phone>
         </div>
       </div>
     </div>
   </div>
   <hr>
-  <msp-address #address
-               [mailingAddress]="financialAssistApplication.mailingAddress"
-               [mailingOnly]="true" (onChange)="onChange($event)"></msp-address>
+  <msp-address #address [mailingAddress]="financialAssistApplication.mailingAddress" [mailingOnly]="true"
+    (onChange)="onChange($event)"></msp-address>
   <hr>
 
-  <button
-          class="btn btn-primary" type="submit"
-          [disabled]="!canContinue"
-          [innerHTML]="lang('./en/index.js').continueButton"></button>
+  <button class="btn btn-primary" type="submit" [disabled]="!canContinue"
+    [innerHTML]="lang('./en/index.js').continueButton"></button>
   <msp-cancel></msp-cancel>
 </form>
