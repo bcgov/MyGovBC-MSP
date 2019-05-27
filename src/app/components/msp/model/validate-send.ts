@@ -36,6 +36,19 @@ const spouseFields = [
 
 const childrenFields = ['childDeduction', 'childCareExpense', 'uccb'];
 
+const disabilityFields = [
+  'numDisabled',
+  'disabilityDeduction',
+  'disabilitySavingsPlan'
+];
+
+const fields = [spouseFields, childrenFields, disabilityFields];
+const spouseReg = new RegExp(`(spouse)`);
+const childReg = new RegExp('(numChildren)');
+const disabilityReg = new RegExp('(disablityReg)');
+
+const regexes = [spouseReg, childReg, disabilityReg];
+
 export abstract class ValidateAssistance {
   static exportAssistance(xml: string, fields: string[]) {
     let valid = true;
@@ -50,25 +63,17 @@ export abstract class ValidateAssistance {
     return valid;
   }
 
+  // TODO: replace these with a json validation instead of XML at the appropriate time. Change teh match fields to be an object.keys validation
   static validate(xml: string) {
-    const childReg = new RegExp('(numChildren)');
-    if (xml.match(childReg)) {
-      if (!this.exportAssistance(xml, childrenFields)) {
-        console.log('invalid children');
-        return false;
+    for (const reg of regexes) {
+      if (xml.match(reg)) {
+        const index = regexes.indexOf(reg);
+        if (!this.exportAssistance(xml, fields[index])) {
+          console.log('invalid', reg);
+          return false;
+        }
       }
     }
-    const spouseReg = new RegExp(`(spouse)`);
-
-    return xml.match(spouseReg)
-      ? this.exportAssistance(xml, spouseFields) &&
-          this.exportAssistance(xml, ensureFields)
-      : this.exportAssistance(xml, ensureFields);
+    return this.exportAssistance(xml, ensureFields);
   }
 }
-
-// check ensure fields
-
-// what does the spouse object look like?
-
-// if spouse exists check spouse fields

@@ -1350,7 +1350,7 @@ export class MspApiService {
      * @param namespace
      * @returns {any}
      */
-    toXmlString(from: any): string | Error {
+    toXmlString(from: any): string {
         const xml = jxon.jsToXml(from);
         const xmlString = jxon.xmlToString(xml);
 
