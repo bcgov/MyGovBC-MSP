@@ -145,7 +145,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
             + this.spouseClaimForAttendantCareExpenseAmt
             + this.childClaimForAttendantCareExpenseAmt;
 
-        this.dataService.saveFinAssistApplication();
+        //this.dataService.saveFinAssistApplication();
         return total;
     }
 

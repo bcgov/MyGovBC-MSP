@@ -66,6 +66,12 @@ export class AccountPrepareComponent extends BaseComponent {
 
     }
 
+    onAccept(event: boolean) {
+        console.log(event);
+        this.mspAccountApp.infoCollectionAgreement = event;
+        this.dataService.saveMspAccountApp();
+    }
+
     canContinue(): boolean {
         return this.isAllValid();
     }

@@ -115,6 +115,12 @@ export class PersonalDetailsComponent extends BaseComponent {
   institutionWorkSignal: string;
   showServicesCardModal: boolean = false;
 
+  public statusIn = [
+    { value: 1, label: ' Canadian Citizen' },
+    { value: 2, label: 'Permanent Resident' },
+    { value: 3, label: 'Temporary Permit Holder or Diplomat' }
+  ];
+
   constructor(private el: ElementRef,
     private cd: ChangeDetectorRef){
     super(cd);
@@ -132,6 +138,8 @@ export class PersonalDetailsComponent extends BaseComponent {
   get statusInCanada(): StatusInCanada[] {
     return StatusRules.availableStatus(this.person.relationship);
   }
+
+ 
 
   setStatus(value: StatusInCanada, p: Person) {
     p.status = value;
@@ -231,7 +239,8 @@ export class PersonalDetailsComponent extends BaseComponent {
       && this.person.schoolAddress.province
       && this.person.schoolAddress.province.toLowerCase() === 'british columbia';
   }
-  setFullTimeStudent(event: boolean) {
+  setFullTimeStudent(event: any) {
+    event = (event == 'True') ? true: false;
     this.person.fullTimeStudent = event;
     if (!this.person.fullTimeStudent) {
       this.person.inBCafterStudies = null;
@@ -245,7 +254,8 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.onChange.emit(event);
   }
 
-  setStayInBCAfterStudy(event: boolean){
+  setStayInBCAfterStudy(event: any){
+    event = event == 'True' ? true : false; 
     this.person.inBCafterStudies = event;
     this.onChange.emit(event);
     this.emitIsFormValid();
@@ -257,7 +267,8 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
 
-  setHasPreviousPhn(value: boolean){
+  setHasPreviousPhn(value: any){
+    value = (value == 'True') ? true : false;
     this.person.hasPreviousBCPhn = value;
     this.onChange.emit(value);
     this.cd.detectChanges();
@@ -323,7 +334,8 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   }
 
-  setBeenOutsideForOver30Days(out: boolean){
+  setBeenOutsideForOver30Days(out: any){
+    out = (out == 'True') ? true: false;
     this.person.declarationForOutsideOver30Days = out;
     if (out){
       this.person.outOfBCRecord = new OutofBCRecord();
@@ -348,7 +360,8 @@ export class PersonalDetailsComponent extends BaseComponent {
         return !this.person.ineligibleForMSP;
   }
 
-  setMovedToBCPermanently(moved: boolean){
+  setMovedToBCPermanently(moved: any){
+    moved = (moved == 'True')? true: false;
     this.person.madePermanentMoveToBC = moved;
     this.onChange.emit(moved);
     this.emitIsFormValid();

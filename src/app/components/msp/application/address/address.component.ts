@@ -32,6 +32,7 @@ export class AddressComponent extends BaseComponent {
               private cd: ChangeDetectorRef) {
     super(cd);
     this.mspApplication = this.dataService.getMspApplication();
+    this.mspApplication.mailingSameAsResidentialAddress = true;
   }
   ngOnInit(){
     this.initProcessMembers(AddressComponent.ProcessStepNum, this._processService);
@@ -50,7 +51,7 @@ export class AddressComponent extends BaseComponent {
   }
 
   toggleMailingSameAsResidentialAddress(evt: boolean){
-    this.mspApplication.mailingSameAsResidentialAddress = evt;
+    this.mspApplication.mailingSameAsResidentialAddress = !evt;
     if (evt){
       this.mspApplication.mailingAddress = new Address();
     }

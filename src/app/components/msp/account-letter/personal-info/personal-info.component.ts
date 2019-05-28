@@ -79,6 +79,12 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
         }, 'ACL - Loaded Page');
     }
 
+   /* onAccept(event: boolean) {
+        console.log(event);
+        this.accountLetterApplication.infoCollectionAgreement = event;
+    }*/
+
+
     saveApplication(values: string) {
         this.postalCode = values;
         this.accountLetterApplication.postalCode = values;

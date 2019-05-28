@@ -26,17 +26,17 @@
           <div class="button-group">
 
               <common-button *ngIf = '!spouse' [label]="lang('./en/index.js').addSpouseButton" 
-                [(styleClass)]="buttonClass" [disabled] = "!canContinue()"
+                [buttonType]="buttonClass" [disabled] = "!canContinue()"
                 (btnClick)='addSpouse()'>
               </common-button>
 
               <common-button [label]="lang('./en/index.js').addChildUnder19Button" 
-                [(styleClass)]="buttonClass" [disabled] = "!canContinue()"
+                [buttonType]="buttonClass" [disabled] = "!canContinue()"
                 (btnClick)='addChild(Relationship.ChildUnder19)'>
               </common-button>
               
               <common-button [label]="lang('./en/index.js').addChild19To24Button" 
-                [(styleClass)]="buttonClass" [disabled] = "!canContinue()"
+                [buttonType]="buttonClass" [disabled] = "!canContinue()"
                 (btnClick)='addChild(Relationship.Child19To24)'>
               </common-button>
 
@@ -87,7 +87,7 @@
   </div>
     <div class="position: inherit;">
     <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
-        [canContinue]="!(!documentsReady()|| !isStayinginBCAfterstudies() ||checkAnyDependentsIneligible())"
+        [canContinue]="!(!documentsReady()|| !isStayinginBCAfterstudies() ||checkAnyDependentsIneligible() || !isAllValid())"
         (btnClick)="continue()">
     </common-form-action-bar>
     </div> 

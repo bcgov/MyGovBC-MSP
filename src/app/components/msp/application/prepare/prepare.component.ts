@@ -118,19 +118,23 @@ export class PrepareComponent extends BaseComponent {
     return this.dataService.getMspApplication().unUsualCircumstance;
   }
 
-  setLiveInBC(live: boolean) {
+  setLiveInBC(live: any) {
+    live = (live == 'True') ? true : false;
+
     this.dataService.getMspApplication().applicant.liveInBC = live;
     this.apt.liveInBC = live;
     this.dataService.saveMspApplication();
   }
 
-  setPlannedAbsence(live: boolean) {
+  setPlannedAbsence(live: any) {
+    live = (live == 'True') ? true : false;
     this.dataService.getMspApplication().applicant.plannedAbsence = live;
     this.apt.plannedAbsence = live;
     this.dataService.saveMspApplication();
   }
 
-  setUnusualCircumstance(live: boolean) {
+  setUnusualCircumstance(live: any) {
+    live = (live == 'True') ? true : false;
     this.dataService.getMspApplication().unUsualCircumstance = live;
     this.dataService.saveMspApplication();
   }

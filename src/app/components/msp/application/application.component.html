@@ -1,4 +1,8 @@
-<msp-progressBar #progressBar [progressBarList]="applicationProgressBarList" ></msp-progressBar>
+<!--<msp-progressBar #progressBar [progressBarList]="applicationProgressBarList" ></msp-progressBar>-->
+<common-wizard-progress-bar
+    #progressBar
+    [progressSteps]="applicationProgressBarList">
+  </common-wizard-progress-bar>
 <div class="container" role="main">
     <router-outlet></router-outlet>
 </div>

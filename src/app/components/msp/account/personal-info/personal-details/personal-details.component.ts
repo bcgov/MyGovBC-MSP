@@ -28,8 +28,8 @@ import {HealthNumberComponent} from '../../../common/health-number/health-number
 import {MspDischargeDateComponent} from '../../../common/discharge-date/discharge-date.component';
 import {MspStatusInCanadaRadioComponent} from '../../../common/status-in-canada-radio/status-in-canada-radio.component';
 import {MspAddressComponent} from '../../../common/address/address.component';
-//import {Address} from '../../../model/address.model';
-import {Address,Person} from 'moh-common-lib/models';
+import {Address} from '../../../model/address.model';
+import {Person} from '../../../model/Person.model';
 
 
 import {MspDataService} from '../../../service/msp-data.service';

@@ -126,6 +126,8 @@ import { CommonIncomeInputtextComponent } from './common/common-income-inputtext
 //import { CommonSinComponent } from './common/common-sin/common-sin.component';
 import { CommonButtonComponent } from './common/common-button/common-button.component';
 import { CommonPhnComponent } from './common/common-phn/common-phn.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 const APP_ROUTES: Routes = [
     {
@@ -359,6 +361,7 @@ const APP_ROUTES: Routes = [
 @NgModule({
     imports: [
         BrowserModule,
+        NgSelectModule,
         CommonModule,
         FormsModule,
         ModalModule,

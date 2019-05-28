@@ -11,10 +11,11 @@
     </common-address>
 
     <common-checkbox  [label]="lang('./en/index.js').sameMailingAddress" [data]="mspApplication.mailingSameAsResidentialAddress"></common-checkbox><br/>
-    <common-checkbox  [label]="lang('./en/index.js').provideDifferentMailingAddress" (dataChange)="toggleMailingSameAsResidentialAddress($event)" [data]="mspApplication.mailingSameAsResidentialAddressChange"></common-checkbox>
+    
+    <common-checkbox  [label]="lang('./en/index.js').provideDifferentMailingAddress" (dataChange)="toggleMailingSameAsResidentialAddress($event)" [data]="!mspApplication.mailingSameAsResidentialAddress"></common-checkbox>
        
-<b>{{ this.mspApplication.mailingSameAsResidentialAddress}}</b>
-    <div *ngIf="this.mspApplication.mailingSameAsResidentialAddress">
+
+    <div *ngIf="!this.mspApplication.mailingSameAsResidentialAddress">
             <h2>Mailing Address</h2>
     
             <common-address  #mailingAddress

@@ -1,16 +1,19 @@
-import {Component, Inject, Injectable, AfterContentInit, ViewChild, ElementRef} from '@angular/core';
+import {Component, ChangeDetectorRef, Inject, Injectable, AfterContentInit, ViewChild, ElementRef} from '@angular/core';
 import { MspDataService } from '../../service/msp-data.service';
 import {MspApiService} from '../../service/msp-api.service';
 import {Router} from '@angular/router';
 import {ResponseType} from '../../api-model/responseTypes';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import {MspLogService} from '../../service/log.service';
+import {ProcessService, ProcessUrls, ProcessStep} from '../../service/process.service';
+import {BaseComponent} from '../../common/base.component';
+
 
 @Component({
   templateUrl: 'sending.component.html'
 })
 @Injectable()
-export class AssistanceSendingComponent implements AfterContentInit  {
+export class AssistanceSendingComponent implements AfterContentInit   {
   lang = require('./i18n');
 
   application: FinancialAssistApplication;
@@ -22,10 +25,11 @@ export class AssistanceSendingComponent implements AfterContentInit  {
   hasError: boolean;
   showMoreErrorDetails: boolean;
 
-  constructor(private dataService: MspDataService,
+  constructor(private processService: ProcessService, private cd: ChangeDetectorRef, private dataService: MspDataService,
               private service: MspApiService,
               public router: Router,
               public logService: MspLogService) {
+               
     this.application = this.dataService.finAssistApp;
   }
 
@@ -33,6 +37,8 @@ export class AssistanceSendingComponent implements AfterContentInit  {
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
     this.hasError = false;
+    console.log(this.dataService.getMspProcess());
+    
      // this.logService.log({name: 'PA - application submitting request'},"PA : Submission Request");
     // After view inits, begin sending the application
     this.service
