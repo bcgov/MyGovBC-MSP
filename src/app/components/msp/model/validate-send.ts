@@ -1,4 +1,4 @@
-const ensureFields = [
+const primaryFields = [
   'firstName',
   'secondName',
   'lastName',
@@ -31,8 +31,8 @@ const spouseFields = [
   'SIN',
   'spouseDeduction',
   'spouseNetIncome',
-  'spouseSixtyFiveDeduction'
-  // 'taco'
+  'spouseSixtyFiveDeduction',
+  'taco'
 ];
 
 const childrenFields = ['childDeduction', 'childCareExpense', 'uccb'];
@@ -51,18 +51,16 @@ const disabilityReg = new RegExp('(disablityReg)');
 const regexes = [spouseReg, childReg, disabilityReg];
 
 export abstract class ValidateAssistance {
-  static exportAssistance(xml: string, fields: string[]): boolean | string {
+  static validateFields(xml: string, fields: string[]): boolean | string {
     let valid = true;
     for (const field of fields) {
       // change this to Object.hasOwnProperty(field) for a JSON validation
       //  regex statement can go away
       let reg = new RegExp(`(${field})`);
       if (!xml.match(reg)) {
-        // console.log(field);
         return field;
       }
     }
-    // console.log('valid', valid);
     return valid;
   }
 
@@ -79,15 +77,13 @@ export abstract class ValidateAssistance {
       */
       if (xml.match(reg)) {
         const index = regexes.indexOf(reg);
-        const valid = this.exportAssistance(xml, fields[index]);
+        const valid = this.validateFields(xml, fields[index]);
         if (typeof valid === 'string') {
-          // console.log('valid', valid);
           return valid;
         }
       }
     }
-    const valid = this.exportAssistance(xml, ensureFields);
-    // console.log('second valid', valid);
+    const valid = this.validateFields(xml, primaryFields);
     return valid;
   }
 }
