@@ -1,4 +1,6 @@
-export abstract class AssistanceFieldMap {
+import { ProcessStep } from '../service/process.service';
+
+export class AssistanceFieldMap {
   prepare = [
     'taxYear',
     'assistanceYear',
@@ -13,7 +15,13 @@ export abstract class AssistanceFieldMap {
     'deductions',
     'uccb',
     'totalDeductions',
-    'adjustedNetIncome'
+    'adjustedNetIncome',
+    'numDisabled',
+    'disabilityDeduction',
+    'disabilitySavingsPlan',
+    'totalDeductions',
+    'adjustedNetIncome',
+    'taco'
   ];
 
   retro = [
@@ -32,9 +40,34 @@ export abstract class AssistanceFieldMap {
 
   review = [];
 
-  authorizeSubmit = ['powerOfAttorney'];
+  authorizeSubmit = [
+    'powerOfAttorney',
+    'authorizedByApplicant',
+    'authorizedByApplicantDate',
+    'authorizedBySpouse'
+  ];
 
   sending = [];
+  url: string[];
+  fields: any[][];
+
+  constructor() {
+    this.fields = [
+      this.prepare,
+      this.retro,
+      this.review,
+      this.authorizeSubmit,
+      this.sending
+    ];
+  }
+
+  findStep(field: string) {
+    for (const list of this.fields) {
+      const val = list.indexOf(field);
+      console.log(val);
+      if (val >= 0) return val;
+    }
+  }
 
   // urls located somewhere
 }

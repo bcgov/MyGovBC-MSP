@@ -23,6 +23,10 @@ import { MspMaintenanceService } from "../service/msp-maintenance.service";
 import { Http, Response } from '@angular/http';
 import {ISpaEnvResponse} from '../model/spa-env-response.interface';
 import { ValidateAssistance } from '../model/validate-send';
+import { Router } from '@angular/router';
+import { AssistanceFieldMap } from '../model/validate-field-map';
+import { ProcessUrls } from './process.service';
+import { MspDataService } from './msp-data.service';
 
 
 const jxon = require('jxon/jxon');
@@ -30,7 +34,7 @@ const jxon = require('jxon/jxon');
 @Injectable()
 export class MspApiService {
 
-    constructor(private http: HttpClient, private logService: MspLogService, private maintenanceService: MspMaintenanceService) {
+    constructor(private http: HttpClient, private logService: MspLogService, private maintenanceService: MspMaintenanceService, private dataSvc: MspDataService, private router: Router) {
     }
 
     /**
@@ -83,6 +87,13 @@ export class MspApiService {
                               text: mssg,
                               response: {mssg},
                           }, 'submission failed');
+                          const mapper = new AssistanceFieldMap();
+                          const index = mapper.findStep(valid)
+                          const urls = this.dataSvc.getMspProcess().processSteps;
+                          console.log(urls)
+                          const url = urls[index].route
+                          console.log('url', url)
+                          this.router.navigate([url])
                           return reject({mssg});
                           }
                         }
@@ -1372,18 +1383,7 @@ export class MspApiService {
     toXmlString(from: any): string {
         const xml = jxon.jsToXml(from);
         const xmlString = jxon.xmlToString(xml);
-
-        // check to see whether is assistanceApplication
-
-        // if it is run this validation check
-        console.log(xmlString)
-        // if (xmlString.match(/(assistanceApplication)/)) {
-          // return ValidateAssistance.validate(xmlString) ?
-          // this.correctNSinXmlString (xmlString) :
-          // null
-        // } else {
-          return this.correctNSinXmlString (xmlString);
-        // }
+        return this.correctNSinXmlString (xmlString);
     }
 
     stringToJs<T>(from: string): T {
