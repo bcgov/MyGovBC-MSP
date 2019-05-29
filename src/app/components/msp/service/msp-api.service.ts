@@ -72,7 +72,6 @@ export class MspApiService {
 
                         // second convert to XML
                         let convertedAppXml = this.toXmlString(documentModel);
-                        console.log(convertedAppXml)
                         /*
                           this validates that if the XML is an assistance application type it will check to make sure all the required
                           fields are present in the compiled XML, and if they're not log an error and update the UX message to show
@@ -94,7 +93,6 @@ export class MspApiService {
                           const index = mapper.findStep(valid)
                           const urls = this.dataSvc.getMspProcess().processSteps;
                           const url = urls[index].route
-                          console.log('url', url)
                           this.router.navigate([url])
                           return reject({mssg});
                           }
