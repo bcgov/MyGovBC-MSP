@@ -1,6 +1,6 @@
 const primaryFields = [
   'firstName',
-  'secondName',
+  // 'secondName',
   'lastName',
   'addressLine1',
   'city',
@@ -24,15 +24,14 @@ const primaryFields = [
 
 const spouseFields = [
   'firstName',
-  'secondName',
+  // 'secondName',
   'lastName',
   'birthDate',
   'phn',
   'SIN',
   'spouseDeduction',
   'spouseNetIncome',
-  'spouseSixtyFiveDeduction',
-  'taco'
+  'spouseSixtyFiveDeduction'
 ];
 
 const childrenFields = ['childDeduction', 'childCareExpense', 'uccb'];

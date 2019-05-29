@@ -65,7 +65,7 @@ export class AssistanceFieldMap {
     for (const list of this.fields) {
       const val = list.indexOf(field);
       console.log(val);
-      if (val >= 0) return val;
+      if (val >= 0) return this.fields.indexOf(list);
     }
   }
 

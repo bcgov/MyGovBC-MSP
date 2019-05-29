@@ -71,15 +71,18 @@ export class MspApiService {
                         }
 
                         // second convert to XML
-                        const convertedAppXml = this.toXmlString(documentModel);
-
+                        let convertedAppXml = this.toXmlString(documentModel);
+                        console.log(convertedAppXml)
                         /*
                           this validates that if the XML is an assistance application type it will check to make sure all the required
                           fields are present in the compiled XML, and if they're not log an error and update the UX message to show
                           that error.
                         */
                         if ( convertedAppXml.match(/(assistanceApplication)/)) {
+                          // convertedAppXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:application xmlns:ns2="http://www.gov.bc.ca/hibc/applicationTypes"><assistanceApplication><applicant><lastName>Ham</lastName></name><birthDate>1983-01-01</birthDate><mailingAddress><addressLine1>123 fake street</addressLine1><city>Victoria</city><postalCode>A1A1A1</postalCode><provinceOrState>British Columbia</provinceOrState><country>Canada</country></mailingAddress><financials><taxYear>2018</taxYear><assistanceYear>CurrentPA</assistanceYear><numberOfTaxYears>1</numberOfTaxYears><netIncome>1</netIncome><totalNetIncome>1</totalNetIncome><sixtyFiveDeduction>0</sixtyFiveDeduction><childDeduction>0</childDeduction><deductions>0</deductions><totalDeductions>0</totalDeductions><adjustedNetIncome>1</adjustedNetIncome></financials><phn>9329979953</phn><SIN>999999998</SIN><powerOfAttorney>N</powerOfAttorney></applicant><authorizedByApplicant>Y</authorizedByApplicant><authorizedByApplicantDate>2019-05-29</authorizedByApplicantDate><authorizedBySpouse>N</authorizedBySpouse></assistanceApplication><uuid>8ac4b02e-230c-12e0-d578-67460e3de240</uuid></ns2:application>'
+
                           const valid = ValidateAssistance.validate(convertedAppXml)
+                          // console.log('valid', valid)
                           if (typeof valid === 'string') {
                             const mssg =`Your application is missing the ${valid} field. Please go back and check all fields to ensure that nothing is missing.`
                             const error = new Error(mssg)
@@ -90,7 +93,6 @@ export class MspApiService {
                           const mapper = new AssistanceFieldMap();
                           const index = mapper.findStep(valid)
                           const urls = this.dataSvc.getMspProcess().processSteps;
-                          console.log(urls)
                           const url = urls[index].route
                           console.log('url', url)
                           this.router.navigate([url])
