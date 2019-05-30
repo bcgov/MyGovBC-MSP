@@ -67,7 +67,7 @@ export abstract class ValidateAssistance {
   static validate(xml: string) {
     // we need to slice out spouse fields as they include duplicate logic
     const spouseIndex = xml.indexOf('<spouse>');
-    const spouseSlice = xml.slice(spouseIndex);
+    const spouseSlice = xml.slice(spouseIndex, xml.length);
     console.log('spouse slice', spouseSlice);
     const slice =
       xml.slice(0, spouseIndex) + xml.slice(xml.indexOf('</spouse>'));
@@ -85,7 +85,7 @@ export abstract class ValidateAssistance {
       if (reg === spouseReg) {
         if (reg.test(spouseSlice)) {
           const index = regexes.indexOf(reg);
-          const valid = this.validateFields(xml, fields[index]);
+          const valid = this.validateFields(spouseSlice, fields[index]);
           if (typeof valid === 'string') {
             return valid;
           }
