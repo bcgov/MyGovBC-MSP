@@ -457,7 +457,7 @@
 </div>
 
 <msp-consent-modal [body]="modalBody" #mspConsentModal [application]="dataService.finAssistApp"
-                   [processName]="lang('./en/index.js').consentProcessName"
+                   [processName]="'MSP'"
                     (onClose)="assistanceYearComp.focus()"></msp-consent-modal>
 
 <div bsModal #disabilityNursingHomeChoiceModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}"
