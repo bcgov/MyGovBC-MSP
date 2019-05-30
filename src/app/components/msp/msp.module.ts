@@ -116,6 +116,8 @@ import { BenefitAuthorizeSubmitComponent } from './benefit/authorize-submit/auth
 import {BenefitSendingComponent} from './benefit/sending/sending.component';
 import {BenefitConfirmationComponent} from './benefit/confirmation/confirmation.component';
 import { TaxYearComponent } from './benefit/prepare/tax-year/tax-year.component';
+import { ChildInfoComponent } from './application/child-info/child-info.component';
+import { CitizenStatusComponent } from './common/citizen-status/citizen-status.component';
 
 const APP_ROUTES: Routes = [
     {
@@ -472,7 +474,9 @@ const APP_ROUTES: Routes = [
         BenefitAuthorizeSubmitComponent,
         BenefitSendingComponent,
         BenefitConfirmationComponent,
-        TaxYearComponent
+        TaxYearComponent,
+        ChildInfoComponent,
+        CitizenStatusComponent
     ],
 
     providers: [
