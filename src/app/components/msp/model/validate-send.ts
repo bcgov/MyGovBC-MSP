@@ -65,6 +65,14 @@ export abstract class ValidateAssistance {
 
   // TODO: replace these with a json validation instead of XML at the appropriate time. Change teh match fields to be an object.keys validation
   static validate(xml: string) {
+    // we need to slice out spouse fields as they include duplicate logic
+    const spouseIndex = xml.indexOf('<spouse>');
+    const spouseSlice = xml.slice(spouseIndex);
+    console.log('spouse slice', spouseSlice);
+    const slice =
+      xml.slice(0, spouseIndex) + xml.slice(xml.indexOf('</spouse>'));
+    console.log('slice', slice);
+
     /*
       @Future developer - to change this to a function to validate the JSON object instead of an XML object
       instead of passing in an XML psas in an object of the appropriate type
@@ -74,15 +82,26 @@ export abstract class ValidateAssistance {
         instead of a regex xml match do Object.hasOwnProperty(prop)
         if it has that value the same code below applies
       */
-      if (xml.match(reg)) {
-        const index = regexes.indexOf(reg);
-        const valid = this.validateFields(xml, fields[index]);
-        if (typeof valid === 'string') {
-          return valid;
+      if (reg === spouseReg) {
+        if (reg.test(spouseSlice)) {
+          const index = regexes.indexOf(reg);
+          const valid = this.validateFields(xml, fields[index]);
+          if (typeof valid === 'string') {
+            return valid;
+          }
+        }
+      } else {
+        if (xml.match(reg)) {
+          const index = regexes.indexOf(reg);
+          const valid = this.validateFields(xml, fields[index]);
+          if (typeof valid === 'string') {
+            return valid;
+          }
         }
       }
+
+      const valid = this.validateFields(slice, primaryFields);
+      return valid;
     }
-    const valid = this.validateFields(xml, primaryFields);
-    return valid;
   }
 }
