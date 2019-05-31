@@ -93,7 +93,7 @@ import { MspDataService } from './service/msp-data.service';
 import { MspValidationService } from './service/msp-validation.service';
 import { ProcessService } from './service/process.service';
 import { TypeaheadModule } from 'ngx-bootstrap';
-import {AccountDocumentHelperService} from './service/account-document-helper.service';
+import { AccountDocumentHelperService } from './service/account-document-helper.service';
 import { MspMaintenanceService } from './service/msp-maintenance.service';
 
 import { AccountLetterComponent } from './account-letter/account-letter.component';
@@ -104,244 +104,244 @@ import { SpecificMemberComponent } from './account-letter/personal-info/specific
 import { AclErrorViewComponent } from './account-letter/sending/acl-error-view/acl-error-view.component';
 import { ReplacewithlinksPipe } from './common/replace-link-pipe/replacewithlinks.pipe';
 import { BenefitComponent } from './benefit/benefit.component';
-import {BenefitPrepareComponent} from './benefit/prepare/prepare.component';
-import {MspBenefitDataService} from './service/msp-benefit-data.service';
+import { BenefitPrepareComponent } from './benefit/prepare/prepare.component';
+import { MspBenefitDataService } from './service/msp-benefit-data.service';
 import { BenefitDeductionCalculatorComponent } from './benefit/prepare/benefit-deduction-calculator/benefit-deduction-calculator.component';
-import {BenefitPersonalInfoComponent} from './benefit/personal-info/personal-info.component';
-import {BenefitPersonalDetailComponent} from './benefit/personal-info/personal-detail/personal-detail.component';
-import {BenefitDocumentsComponent} from './benefit/documents/documents.component';
-import {BenefitReviewComponent} from './benefit/review/review.component';
-import {BenefitEligibilityCardComponent} from './benefit/prepare/eligibility-card/eligibility-card.component';
+import { BenefitPersonalInfoComponent } from './benefit/personal-info/personal-info.component';
+import { BenefitPersonalDetailComponent } from './benefit/personal-info/personal-detail/personal-detail.component';
+import { BenefitDocumentsComponent } from './benefit/documents/documents.component';
+import { BenefitReviewComponent } from './benefit/review/review.component';
+import { BenefitEligibilityCardComponent } from './benefit/prepare/eligibility-card/eligibility-card.component';
 import { BenefitAuthorizeSubmitComponent } from './benefit/authorize-submit/authorize-submit.component';
-import {BenefitSendingComponent} from './benefit/sending/sending.component';
-import {BenefitConfirmationComponent} from './benefit/confirmation/confirmation.component';
+import { BenefitSendingComponent } from './benefit/sending/sending.component';
+import { BenefitConfirmationComponent } from './benefit/confirmation/confirmation.component';
 import { TaxYearComponent } from './benefit/prepare/tax-year/tax-year.component';
 import { ChildInfoComponent } from './application/child-info/child-info.component';
 import { CitizenStatusComponent } from './common/citizen-status/citizen-status.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SharedCoreModule } from 'moh-common-lib';
 
 const APP_ROUTES: Routes = [
-    {
-        path: 'msp',
+  {
+    path: 'msp',
+    children: [
+      {
+        path: '',
+        component: LandingComponent
+      },
+
+      {
+        path: 'application',
+        component: ApplicationComponent,
         children: [
-            {
-                path: '',
-                component: LandingComponent
-            },
-
-            {
-                path: 'application',
-                component: ApplicationComponent,
-                children: [
-                    {
-                        path: '',
-                        canActivate: [],
-                        redirectTo: 'prepare',
-                        pathMatch: 'full'
-                    },
-                    {
-                        path: 'prepare',
-                        component: PrepareComponent
-                    },
-                    {
-                        path: 'personal-info',
-                        canActivate: [ProcessService],
-                        component: PersonalInfoComponent
-                    },
-                    {
-                        path: 'address',
-                        canActivate: [ProcessService],
-                        component: AddressComponent
-                    },
-                    {
-                        path: 'review',
-                        canActivate: [ProcessService],
-                        component: ReviewComponent
-                    },
-                    {
-                        path: 'sending',
-                        canActivate: [ProcessService],
-                        component: SendingComponent
-                    },
-                    {
-                        path: 'confirmation',
-                        canActivate: [],
-                        component: ConfirmationComponent
-                    },
-
-                ],
-            },
-            {
-                path: 'assistance',
-                component: AssistanceComponent,
-                children: [
-                    {
-                        path: '',
-                        redirectTo: 'prepare',
-                        pathMatch: 'full'
-                    },
-                    {
-                        path: 'prepare',
-                        component: AssistancePrepareComponent
-                    },
-                    {
-                        path: 'personal-info',
-                        canActivate: [ProcessService],
-                        component: AssistancePersonalInfoComponent,
-
-                    },
-                    {
-                        path: 'retro',
-                        canActivate: [ProcessService],
-                        component: AssistanceRetroYearsComponent
-                    },
-                    {
-                        path: 'review',
-                        canActivate: [ProcessService],
-                        component: AssistanceReviewComponent
-                    },
-                    {
-                        path: 'authorize-submit',
-                        canActivate: [ProcessService],
-                        component: AssistanceAuthorizeSubmitComponent
-                    },
-                    {
-                        path: 'sending',
-                        canActivate: [ProcessService],
-                        component: AssistanceSendingComponent
-                    },
-                    {
-                        path: 'confirmation',
-                        canActivate: [],
-                        component: AssistanceConfirmationComponent
-                    }
-                ]
-            },
-            // Start of Account Routes
-            {
-                path: 'account',
-                component: AccountComponent,
-                children: [
-                    {
-                        path: '',
-                        canActivate: [],
-                        redirectTo: 'prepare',
-                        pathMatch: 'full'
-                    },
-                    {
-                        path: 'prepare',
-                        component: AccountPrepareComponent
-                    },
-                    {
-                        path: 'personal-info',
-                        component: AccountPersonalInfoComponent,
-                        canActivate: [ProcessService],
-                    },
-                    {
-                        path: 'dependent-change',
-                        component: AccountDependentChangeComponent,
-                        canActivate: [ProcessService],
-
-                    },
-                    {
-                        path: 'documents',
-                        component: AccountDocumentsComponent,
-                        canActivate: [ProcessService],
-                    },
-                    {
-                        path: 'review',
-                        component: AccountReviewComponent,
-                        canActivate: [ProcessService],
-                    },
-                    {
-                        path: 'sending',
-                        component: AccountSendingComponent,
-                        canActivate: [ProcessService],
-                    },
-                    {
-                        path: 'confirmation',
-                        component: AccountConfirmationComponent,
-                        canActivate: [],
-                    }
-            ]
-            },
-
-            {
-                path: 'account-letter',
-                component: AccountLetterComponent,
-                children: [
-                    {
-                        path: '',
-                        canActivate: [],
-                        redirectTo: 'personal-info',
-                        pathMatch: 'full'
-                    },
-                    {
-                        path: 'personal-info',
-                        component: AccountLetterPersonalInfoComponent
-                    },
-                    {
-                        path: 'sending',
-                        component: AccountLetterSendingComponent,
-                        canActivate: [ProcessService]
-                    },
-                    {
-                        path: 'confirmation',
-                        component: AccountLetterConfirmationComponent,
-                        canActivate: [],
-                    }
-
-                ],
-            },
-            {
-                path: 'benefit',
-                component: BenefitComponent,
-                children: [
-                    {
-                        path: '',
-                        redirectTo: 'prepare',
-                        pathMatch: 'full'
-                    },
-                    {
-                        path: 'prepare',
-                        component: BenefitPrepareComponent
-                    },
-                   {
-                        path: 'personal-info',
-                        canActivate: [ProcessService],
-                        component: BenefitPersonalInfoComponent,
-
-                    },
-                     {
-                         path: 'documents',
-                         canActivate: [ProcessService],
-                         component: BenefitDocumentsComponent
-                     },
-                    {
-                        path: 'review',
-                        canActivate: [ProcessService],
-                        component: BenefitReviewComponent
-                    },
-                     {
-                         path: 'authorize-submit',
-                         canActivate: [ProcessService],
-                         component: BenefitAuthorizeSubmitComponent
-                     },
-                       {
-                          path: 'sending',
-                          canActivate: [ProcessService],
-                          component: BenefitSendingComponent
-                      },
-                      {
-                          path: 'confirmation',
-                          canActivate: [],
-                          component: BenefitConfirmationComponent
-                      }
-                ]
-            },
-
+          {
+            path: '',
+            canActivate: [],
+            redirectTo: 'prepare',
+            pathMatch: 'full'
+          },
+          {
+            path: 'prepare',
+            component: PrepareComponent
+          },
+          {
+            path: 'personal-info',
+            canActivate: [ProcessService],
+            component: PersonalInfoComponent
+          },
+          {
+            path: 'address',
+            canActivate: [ProcessService],
+            component: AddressComponent
+          },
+          {
+            path: 'review',
+            canActivate: [ProcessService],
+            component: ReviewComponent
+          },
+          {
+            path: 'sending',
+            canActivate: [ProcessService],
+            component: SendingComponent
+          },
+          {
+            path: 'confirmation',
+            canActivate: [],
+            component: ConfirmationComponent
+          },
+          {
+            path: 'child-info',
+            component: ChildInfoComponent
+          }
         ]
-    },
-    {path: '**', redirectTo: '/msp'}
+      },
+      {
+        path: 'assistance',
+        component: AssistanceComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'prepare',
+            pathMatch: 'full'
+          },
+          {
+            path: 'prepare',
+            component: AssistancePrepareComponent
+          },
+          {
+            path: 'personal-info',
+            canActivate: [ProcessService],
+            component: AssistancePersonalInfoComponent
+          },
+          {
+            path: 'retro',
+            canActivate: [ProcessService],
+            component: AssistanceRetroYearsComponent
+          },
+          {
+            path: 'review',
+            canActivate: [ProcessService],
+            component: AssistanceReviewComponent
+          },
+          {
+            path: 'authorize-submit',
+            canActivate: [ProcessService],
+            component: AssistanceAuthorizeSubmitComponent
+          },
+          {
+            path: 'sending',
+            canActivate: [ProcessService],
+            component: AssistanceSendingComponent
+          },
+          {
+            path: 'confirmation',
+            canActivate: [],
+            component: AssistanceConfirmationComponent
+          }
+        ]
+      },
+      // Start of Account Routes
+      {
+        path: 'account',
+        component: AccountComponent,
+        children: [
+          {
+            path: '',
+            canActivate: [],
+            redirectTo: 'prepare',
+            pathMatch: 'full'
+          },
+          {
+            path: 'prepare',
+            component: AccountPrepareComponent
+          },
+          {
+            path: 'personal-info',
+            component: AccountPersonalInfoComponent,
+            canActivate: [ProcessService]
+          },
+          {
+            path: 'dependent-change',
+            component: AccountDependentChangeComponent,
+            canActivate: [ProcessService]
+          },
+          {
+            path: 'documents',
+            component: AccountDocumentsComponent,
+            canActivate: [ProcessService]
+          },
+          {
+            path: 'review',
+            component: AccountReviewComponent,
+            canActivate: [ProcessService]
+          },
+          {
+            path: 'sending',
+            component: AccountSendingComponent,
+            canActivate: [ProcessService]
+          },
+          {
+            path: 'confirmation',
+            component: AccountConfirmationComponent,
+            canActivate: []
+          }
+        ]
+      },
+
+      {
+        path: 'account-letter',
+        component: AccountLetterComponent,
+        children: [
+          {
+            path: '',
+            canActivate: [],
+            redirectTo: 'personal-info',
+            pathMatch: 'full'
+          },
+          {
+            path: 'personal-info',
+            component: AccountLetterPersonalInfoComponent
+          },
+          {
+            path: 'sending',
+            component: AccountLetterSendingComponent,
+            canActivate: [ProcessService]
+          },
+          {
+            path: 'confirmation',
+            component: AccountLetterConfirmationComponent,
+            canActivate: []
+          }
+        ]
+      },
+      {
+        path: 'benefit',
+        component: BenefitComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'prepare',
+            pathMatch: 'full'
+          },
+          {
+            path: 'prepare',
+            component: BenefitPrepareComponent
+          },
+          {
+            path: 'personal-info',
+            canActivate: [ProcessService],
+            component: BenefitPersonalInfoComponent
+          },
+          {
+            path: 'documents',
+            canActivate: [ProcessService],
+            component: BenefitDocumentsComponent
+          },
+          {
+            path: 'review',
+            canActivate: [ProcessService],
+            component: BenefitReviewComponent
+          },
+          {
+            path: 'authorize-submit',
+            canActivate: [ProcessService],
+            component: BenefitAuthorizeSubmitComponent
+          },
+          {
+            path: 'sending',
+            canActivate: [ProcessService],
+            component: BenefitSendingComponent
+          },
+          {
+            path: 'confirmation',
+            canActivate: [],
+            component: BenefitConfirmationComponent
+          }
+        ]
+      }
+    ]
+  },
+  { path: '**', redirectTo: '/msp' }
 ];
 
 /**
@@ -349,153 +349,151 @@ const APP_ROUTES: Routes = [
  * https://apps.gcpe.gov.bc.ca/jira/browse/PSPDN-255?filter=16000
  */
 @NgModule({
-    imports: [
-        BrowserModule,
-        CommonModule,
-        FormsModule,
-        ModalModule,
-        AccordionModule,
-        HttpClientModule,
-        TextMaskModule,
-        RouterModule.forChild(APP_ROUTES),
-        TypeaheadModule.forRoot(),
-        LocalStorageModule.withConfig({
-            prefix: 'ca.bc.gov.msp',
-            storageType: 'sessionStorage'
-        })
-    ],
-    declarations: [
-        MspLoggerDirective,
-        KeyboardEventListner,
-        // General
-        MspComponent,
-        LandingComponent,
-        MspNameComponent,
-        MspBirthDateComponent,
-        CalendarYearFormatter,
-        CalendarYearValidator,
-        CalendarDayValidator,
-        CalendarMonthValidator,
-        MspAddressComponent,
-        MspProvinceComponent,
-        MspCountryComponent,
-        MspPhoneComponent,
-        MspPhnComponent,
-        HealthNumberComponent,
-        MspArrivalDateComponent,
-        MspDischargeDateComponent,
-        MspDepartureDateComponent,
-        MspReturnDateComponent,
-        MspSchoolDateComponent,
-        Mod11CheckValidator,
-        SinCheckValidator,
-        MspGenderComponent,
-        MspProgressBarComponent,
-        FileUploaderComponent,
-        MspImageErrorModalComponent,
-        ThumbnailComponent,
-        TransmissionErrorView,
-        MspOutofBCRecordComponent,
-        MspConsentModalComponent,
-        MspIdReqModalComponent,
-        MspCancelComponent,
-        CaptchaComponent,
-        MspToggleComponent,
-        MspDateComponent,
+  imports: [
+    BrowserModule,
+    CommonModule,
+    FormsModule,
+    ModalModule,
+    AccordionModule,
+    HttpClientModule,
+    TextMaskModule,
+    NgSelectModule,
+    SharedCoreModule,
+    RouterModule.forChild(APP_ROUTES),
+    TypeaheadModule.forRoot(),
+    LocalStorageModule.withConfig({
+      prefix: 'ca.bc.gov.msp',
+      storageType: 'sessionStorage'
+    })
+  ],
+  declarations: [
+    MspLoggerDirective,
+    KeyboardEventListner,
+    // General
+    MspComponent,
+    LandingComponent,
+    MspNameComponent,
+    MspBirthDateComponent,
+    CalendarYearFormatter,
+    CalendarYearValidator,
+    CalendarDayValidator,
+    CalendarMonthValidator,
+    MspAddressComponent,
+    MspProvinceComponent,
+    MspCountryComponent,
+    MspPhoneComponent,
+    MspPhnComponent,
+    HealthNumberComponent,
+    MspArrivalDateComponent,
+    MspDischargeDateComponent,
+    MspDepartureDateComponent,
+    MspReturnDateComponent,
+    MspSchoolDateComponent,
+    Mod11CheckValidator,
+    SinCheckValidator,
+    MspGenderComponent,
+    MspProgressBarComponent,
+    FileUploaderComponent,
+    MspImageErrorModalComponent,
+    ThumbnailComponent,
+    TransmissionErrorView,
+    MspOutofBCRecordComponent,
+    MspConsentModalComponent,
+    MspIdReqModalComponent,
+    MspCancelComponent,
+    CaptchaComponent,
+    MspToggleComponent,
+    MspDateComponent,
 
-        // View cards
-        MspPersonCardComponent,
-        MspContactCardComponent,
-        MspAddressCardPartComponent,
+    // View cards
+    MspPersonCardComponent,
+    MspContactCardComponent,
+    MspAddressCardPartComponent,
 
-        // Application
-        ApplicationComponent,
-        PersonalDetailsComponent,
-        PrepareComponent,
-        PersonalInfoComponent,
-        AddressComponent,
-        ReviewComponent,
-        SendingComponent,
-        ConfirmationComponent,
+    // Application
+    ApplicationComponent,
+    PersonalDetailsComponent,
+    PrepareComponent,
+    PersonalInfoComponent,
+    AddressComponent,
+    ReviewComponent,
+    SendingComponent,
+    ConfirmationComponent,
 
+    // Assistance
+    AssistanceComponent,
+    AssistancePrepareComponent,
+    AssistancePersonalInfoComponent,
+    AssistancePersonalDetailComponent,
+    AssistanceReviewComponent,
+    AssistanceRetroYearsComponent,
+    AssistanceAuthorizeSubmitComponent,
+    AssistanceSendingComponent,
+    AssistanceConfirmationComponent,
+    DeductionCalculatorComponent,
+    MspAssistanceYearComponent,
 
-        // Assistance
-        AssistanceComponent,
-        AssistancePrepareComponent,
-        AssistancePersonalInfoComponent,
-        AssistancePersonalDetailComponent,
-        AssistanceReviewComponent,
-        AssistanceRetroYearsComponent,
-        AssistanceAuthorizeSubmitComponent,
-        AssistanceSendingComponent,
-        AssistanceConfirmationComponent,
-        DeductionCalculatorComponent,
-        MspAssistanceYearComponent,
+    EligibilityCardComponent,
 
-        EligibilityCardComponent,
+    //Account
 
-        //Account
+    AccountComponent,
+    AccountPrepareComponent,
+    AccountPersonalInfoComponent,
+    AccountDependentChangeComponent,
+    AccountPersonalDetailsComponent,
+    AccountDocumentsComponent,
+    AccountReviewComponent,
+    AccountSendingComponent,
+    AccountConfirmationComponent,
+    AddDependentComponent,
+    RemoveDependentComponent,
+    MspStatusInCanadaRadioComponent,
+    AddNewDependentBeneficiaryComponent,
+    MspAccordionComponent,
+    ServicesCardDisclaimerModalComponent,
 
-        AccountComponent,
-        AccountPrepareComponent,
-        AccountPersonalInfoComponent,
-        AccountDependentChangeComponent,
-        AccountPersonalDetailsComponent,
-        AccountDocumentsComponent,
-        AccountReviewComponent,
-        AccountSendingComponent,
-        AccountConfirmationComponent,
-        AddDependentComponent,
-        RemoveDependentComponent,
-        MspStatusInCanadaRadioComponent,
-        AddNewDependentBeneficiaryComponent,
-        MspAccordionComponent,
-        ServicesCardDisclaimerModalComponent,
+    // Account Letter
+    AccountLetterComponent,
+    AccountLetterPersonalInfoComponent,
+    AccountLetterSendingComponent,
+    AccountLetterConfirmationComponent,
+    FormActionBarComponent,
+    SpecificMemberComponent,
+    AclErrorViewComponent,
+    ReplacewithlinksPipe,
 
+    BenefitComponent,
+    BenefitPrepareComponent,
+    BenefitPersonalInfoComponent,
+    BenefitPersonalDetailComponent,
+    BenefitDeductionCalculatorComponent,
+    BenefitDocumentsComponent,
+    BenefitReviewComponent,
+    BenefitEligibilityCardComponent,
+    BenefitAuthorizeSubmitComponent,
+    BenefitSendingComponent,
+    BenefitConfirmationComponent,
+    TaxYearComponent,
+    ChildInfoComponent,
+    CitizenStatusComponent
+  ],
 
-        // Account Letter
-        AccountLetterComponent,
-        AccountLetterPersonalInfoComponent,
-        AccountLetterSendingComponent,
-        AccountLetterConfirmationComponent,
-        FormActionBarComponent,
-        SpecificMemberComponent,
-        AclErrorViewComponent,
-        ReplacewithlinksPipe,
-
-        BenefitComponent,
-        BenefitPrepareComponent,
-        BenefitPersonalInfoComponent,
-        BenefitPersonalDetailComponent,
-        BenefitDeductionCalculatorComponent,
-        BenefitDocumentsComponent,
-        BenefitReviewComponent,
-        BenefitEligibilityCardComponent,
-        BenefitAuthorizeSubmitComponent,
-        BenefitSendingComponent,
-        BenefitConfirmationComponent,
-        TaxYearComponent,
-        ChildInfoComponent,
-        CitizenStatusComponent
-    ],
-
-    providers: [
-        // Services
-        MspDataService,
-        MspValidationService,
-        MspMaintenanceService,
-        CompletenessCheckService,
-        MspApiService,
-        MspACLService,
-        MspLogService,
-        MspLog2Service,
-        ProcessService,
-        CaptchaDataService,
-        AccountDocumentHelperService,
-        MspBenefitDataService
-    ]
+  providers: [
+    // Services
+    MspDataService,
+    MspValidationService,
+    MspMaintenanceService,
+    CompletenessCheckService,
+    MspApiService,
+    MspACLService,
+    MspLogService,
+    MspLog2Service,
+    ProcessService,
+    CaptchaDataService,
+    AccountDocumentHelperService,
+    MspBenefitDataService
+  ]
 })
 @Injectable()
-export class MspModule {
-
-}
+export class MspModule {}
