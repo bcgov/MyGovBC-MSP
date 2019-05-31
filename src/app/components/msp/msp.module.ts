@@ -120,6 +120,7 @@ import { ChildInfoComponent } from './application/child-info/child-info.componen
 import { CitizenStatusComponent } from './common/citizen-status/citizen-status.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedCoreModule } from 'moh-common-lib';
+import { CitizenSubStatusComponent } from './common/citizen-sub-status/citizen-sub-status.component';
 
 const APP_ROUTES: Routes = [
   {
@@ -476,7 +477,8 @@ const APP_ROUTES: Routes = [
     BenefitConfirmationComponent,
     TaxYearComponent,
     ChildInfoComponent,
-    CitizenStatusComponent
+    CitizenStatusComponent,
+    CitizenSubStatusComponent
   ],
 
   providers: [
@@ -493,7 +495,9 @@ const APP_ROUTES: Routes = [
     CaptchaDataService,
     AccountDocumentHelperService,
     MspBenefitDataService
-  ]
+  ],
+
+  exports: [CitizenSubStatusComponent]
 })
 @Injectable()
 export class MspModule {}
