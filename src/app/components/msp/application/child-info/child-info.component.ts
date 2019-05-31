@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./child-info.component.scss']
 })
 export class ChildInfoComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
+
+/*
+      <msp-personal-details *ngFor = "let child of children; let idx = index"
+        [person] = 'child'
+        [id] = 'child.id'
+        (notifyChildRemoval)="removeChild($event,idx)"
+        (onChange) = "onChange($event)"
+        [showError] = "formRef.submitted">
+      </msp-personal-details>
+
+*/
