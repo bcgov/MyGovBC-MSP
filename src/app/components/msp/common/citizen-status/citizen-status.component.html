@@ -1,4 +1,4 @@
 <div class="form-group">
   <label for={{id}} class="control-label">{{label}}</label>
-  <ng-select [id]="id" [items]="items$ | async"></ng-select>
+  <ng-select [id]="id" [items]="items$ | async" (change)="changed($event)"></ng-select>
 </div>

@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, ViewChild, forwardRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  forwardRef,
+  EventEmitter,
+  Output
+} from '@angular/core';
 import { NgForm, NG_VALIDATORS, ControlContainer } from '@angular/forms';
 import { Subject, Observable, of } from 'rxjs';
 
@@ -19,6 +27,7 @@ export class CitizenStatusComponent implements OnInit {
   @Input() label;
   @Input() id;
   @Input() items;
+  @Output() change: EventEmitter<number> = new EventEmitter<number>();
   items$: Observable<string[]>;
 
   // items = [
@@ -43,5 +52,13 @@ export class CitizenStatusComponent implements OnInit {
 
   getValue(i: number) {
     return this.items[i];
+  }
+  changed(itm) {
+    console.log(itm);
+    const arr = [];
+    for (const key in this.items) {
+      arr.push(this.items[key]);
+    }
+    this.change.emit(arr.indexOf(itm));
   }
 }

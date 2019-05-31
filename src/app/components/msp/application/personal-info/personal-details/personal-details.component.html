@@ -21,34 +21,44 @@
   </div>
   <div class="row">
     <div class="col-lg-4" role="dialog" [attr.aria-label]="statusLabel()">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-lg-12">
           <h3>{{statusLabel()}}</h3>
         </div>
-      </div>
-      <msp-citizen-status id="primary" label="Your Status in Canada" [items]="langStatus('./en/index.js')">
+      </div> -->
+      <msp-citizen-status id="primary" [label]="statusLabel()" [items]="langStatus('./en/index.js')"
+        (change)="setStatus($event, person)">
       </msp-citizen-status>
 
-
-      <div class="form-check" *ngFor="let st of statusInCanada">
-
-
-        <input class='form-check-input' type="radio" name="statusInCanada-{{id}}" id="st{{st}}-{{id}}"
-          (click)="setStatus(st, person)" [checked]="st === person.status" tabindex="0">
-        <label class='form-check-label' for="st{{st}}-{{id}}">
-          {{langStatus('./en/index.js')[st]}}
+      <!-- <div *ngIf="st === person.status" role="alertdialog" aria-labelledby="What is your activity?"> -->
+      <div class="form-check" *ngFor="let activity of activities">
+        <input class='form-check-input' type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}"
+          (click)="setActivity(activity)" [checked]="activity === person.currentActivity">
+        <label class='form-check-label shade' for="a{{activity}}-{{id}}">
+          {{langActivities('./en/index.js')[activity]}}
         </label>
-
-        <div *ngIf="st === person.status" role="alertdialog" aria-labelledby="What is your activity?">
-          <div class="form-check" *ngFor="let activity of activities">
-            <input class='form-check-input' type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}"
-              (click)="setActivity(activity)" [checked]="activity === person.currentActivity">
-            <label class='form-check-label shade' for="a{{activity}}-{{id}}">
-              {{langActivities('./en/index.js')[activity]}}
-            </label>
-          </div>
-        </div>
       </div>
+      <!-- </div> -->
+
+      <!-- <div class="form-check" *ngFor="let st of statusInCanada"> -->
+      <!--  -->
+      <!--  -->
+      <!-- <input class='form-check-input' type="radio" name="statusInCanada-{{id}}" id="st{{st}}-{{id}}" -->
+      <!-- (click)="setStatus(st, person)" [checked]="st === person.status" tabindex="0"> -->
+      <!-- <label class='form-check-label' for="st{{st}}-{{id}}"> -->
+      <!-- {{langStatus('./en/index.js')[st]}} -->
+      <!-- </label> -->
+      <!--  -->
+      <!-- <div *ngIf="st === person.status" role="alertdialog" aria-labelledby="What is your activity?"> -->
+      <!-- <div class="form-check" *ngFor="let activity of activities"> -->
+      <!-- <input class='form-check-input' type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}" -->
+      <!-- (click)="setActivity(activity)" [checked]="activity === person.currentActivity"> -->
+      <!-- <label class='form-check-label shade' for="a{{activity}}-{{id}}"> -->
+      <!-- {{langActivities('./en/index.js')[activity]}} -->
+      <!-- </label> -->
+      <!-- </div> -->
+      <!-- </div> -->
+      <!-- </div> -->
     </div>
     <div class="col-lg-4" *ngIf="person.status != null && person.currentActivity != null" role="alert"
       aria-live="assertive">
