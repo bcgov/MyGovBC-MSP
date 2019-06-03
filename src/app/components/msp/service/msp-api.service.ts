@@ -77,13 +77,11 @@ export class MspApiService {
                           fields are present in the compiled XML, and if they're not log an error and update the UX message to show
                           that error.
                         */
-                       console.log(convertedAppXml)
+                        //console.log(convertedAppXml);
                         if ( convertedAppXml.match(/(assistanceApplication)/)) {
-                          // convertedAppXml = '<?xml version="1.0"encoding="UTF-8"standalone="yes"?><ns2:application xmlns:ns2="http://www.gov.bc.ca/hibc/applicationTypes"><assistanceApplication><applicant><name><firstName>Abhi</firstName><lastName>Test</lastName></name><telephone>2345525252</telephone><mailingAddress><addressLine1>100 wharf st</addressLine1><city>victoria</city><postalCode>V8V1L9</postalCode><provinceOrState>British Columbia</provinceOrState><country>Canada</country></mailingAddress><financials><taxYear>2016</taxYear><assistanceYear>MultiYear</assistanceYear><numberOfTaxYears>2</numberOfTaxYears><netIncome>2000</netIncome><spouseNetIncome>111111</spouseNetIncome><totalNetIncome>113111</totalNetIncome><sixtyFiveDeduction>3000</sixtyFiveDeduction><numChildren>4</numChildren><childDeduction>12000</childDeduction><childCareExpense>12333</childCareExpense><deductions>5833.5</deductions><uccb>2221</uccb><numDisabled>2</numDisabled><disabilityDeduction>6000</disabilityDeduction><disabilitySavingsPlan>33232</disabilitySavingsPlan><totalDeductions>59286.5</totalDeductions><adjustedNetIncome>53824.5</adjustedNetIncome></financials><phn>9214213255</phn><SIN>291576593</SIN><powerOfAttorney>N</powerOfAttorney></applicant><spouse><name><firstName>rin</firstName><lastName>test</lastName></name><birthDate>2009-12-11</birthDate><phn>9999999998</phn><SIN>539387274</SIN><spouseDeduction>3000</spouseDeduction><spouseSixtyFiveDeduction>3000</spouseSixtyFiveDeduction></spouse><authorizedByApplicant>Y</authorizedByApplicant><authorizedByApplicantDate>2019-05-31</authorizedByApplicantDate><authorizedBySpouse>Y</authorizedBySpouse></assistanceApplication><uuid>54cf5fff-e6d7-6b4f-d92b-43b0c7f29c24</uuid><attachments><attachment><contentType>image/jpeg</contentType><attachmentDocumentType>SupportDocument</attachmentDocumentType><attachmentUuid>96fc0f2e-59c7-8e28-c9b2-34ee93c438dc</attachmentUuid><attachmentOrder>1</attachmentOrder></attachment><attachment><contentType>image/jpeg</contentType><attachmentDocumentType>SupportDocument</attachmentDocumentType><attachmentUuid>c150299d-69c3-8e98-8e75-cb1ab9727ee0</attachmentUuid><attachmentOrder>2</attachmentOrder></attachment></attachments></ns2:application>'
-
-
+                        
                           const valid = ValidateAssistance.validate(convertedAppXml)
-                          // console.log('valid', valid)
+                          //console.log('valid', valid)
                           if (typeof valid === 'string') {
                             const mssg =`Your application is missing the ${valid} field. Please go back and check all fields to ensure that nothing is missing.`
                             const error = new Error(mssg)

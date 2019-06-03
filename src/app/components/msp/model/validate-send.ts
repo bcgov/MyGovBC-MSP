@@ -68,10 +68,10 @@ export abstract class ValidateAssistance {
     // we need to slice out spouse fields as they include duplicate logic
     const spouseIndex = xml.indexOf('<spouse>');
     const spouseSlice = xml.slice(xml.indexOf('<financials>'), xml.length);
-    console.log('spouse slice', spouseSlice);
+    //console.log('spouse slice', spouseSlice);
     const slice =
       xml.slice(0, spouseIndex) + xml.slice(xml.indexOf('</spouse>'));
-    console.log('slice', slice);
+   // console.log('slice', slice);
 
     /*
       @Future developer - to change this to a function to validate the JSON object instead of an XML object
