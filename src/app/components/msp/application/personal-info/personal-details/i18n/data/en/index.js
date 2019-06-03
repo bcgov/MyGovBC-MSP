@@ -9,7 +9,7 @@ module.exports = {
 
   sectionTitle: ['Main Applicant (Account Holder)',
       'Spouse/Common-Law Partner',
-      'Child (0-18)',
+      'Child',
       'Child (19-24) who is a full-time student'],
 
   /*

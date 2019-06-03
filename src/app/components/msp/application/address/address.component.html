@@ -1,7 +1,58 @@
 <form #formRef="ngForm" novalidate >
     <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
     <p class="help-block" [innerHTML]="lang('./en/index.js').helpBlock"></p>
-    <common-address  #address
+    
+    <common-page-section layout='double'>
+        <h2 class="border-bottom">Address</h2>
+        <!--common-country name="country_{{objectId}}"
+                    label="Country"
+                    [countryList]="countryList"
+                    [ngModel]="mspApplication?.residentialAddress.country"
+                    (ngModelChange)="handleAddressUpdate($event)"
+                    [required]="true"
+                    [disabled]="false" ></common-country> -->
+
+        <common-address #address [disabled]="!editIdentityInfo"
+                        [address]="mspApplication?.residentialAddress"
+                        (addressChange)="handleAddressUpdate($event)"
+                        [defaultCountry]="defaultCountry"
+                        [countryList]="countryList"
+                        [defaultProvince]="defaultProvince"
+                        [provinceList]="provinceList"
+                        [isRequired]="true">
+        </common-address>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox"
+                class="custom-control-input"
+                id="isMailingAddress"
+                [checked]="mspApplication.mailingSameAsResidentialAddress"
+                (click)="toggleCheckBox()" />
+            <label class="custom-control-label" for="isMailingAddress">
+            This is my mailing address.
+            </label>
+        </div>
+        <aside>
+            <h2 class="border-bottom">Mailing Address</h2>
+            <div *ngIf="!mspApplication.mailingSameAsResidentialAddress; else NoMailingAddress">
+            <common-address [address]="mspApplication?.mailingAddress"
+                            (addressChange)="handleAddressUpdate($event)"
+                            [defaultCountry]="defaultCountry"
+                            [countryList]="countryList"
+                            [defaultProvince]="defaultProvince"
+                            [provinceList]="provinceList"
+                            [isRequired]="true"></common-address>
+            </div>
+        </aside>
+    </common-page-section>
+    <ng-template #NoMailingAddress>
+        <div class="mail-address-container">
+            <button type="button" class="btn btn-lg btn-warning mx-auto d-block" (click)="toggleCheckBox()">My mailing address
+            is different.</button>
+        </div>
+    </ng-template>
+    
+    
+    <!-- <common-address  #address
                          [(address)]="mspApplication.residentialAddress"
                          (addressChange)="handleAddressUpdate($event)"
                          [defaultProvince]="defaultProvince"
@@ -56,6 +107,6 @@
             [disabled]="!canContinue()">
     </button>
     <msp-cancel></msp-cancel> -->
+
+
 </form>
-
-

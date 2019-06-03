@@ -27,7 +27,7 @@ export class PrepareComponent extends BaseComponent {
 //  @ViewChild('plannedAbsenceBtn') plannedAbsenceBtn: ElementRef;
 //  @ViewChild('noPlannedAbsenceBtn') noPlannedAbsenceBtn: ElementRef;
   @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
-
+  public radioLabels = [{"label": "Yes", "value": true},{ "label": "No", "value": false}];
   private apt: Person;
   mspApplication: MspApplication;
   public styleClass:string = 'control-label';
@@ -119,7 +119,8 @@ export class PrepareComponent extends BaseComponent {
   }
 
   setLiveInBC(live: any) {
-    live = (live == 'True') ? true : false;
+    console.log(live);
+    //live = (live == true) ? true : false;
 
     this.dataService.getMspApplication().applicant.liveInBC = live;
     this.apt.liveInBC = live;
@@ -127,14 +128,14 @@ export class PrepareComponent extends BaseComponent {
   }
 
   setPlannedAbsence(live: any) {
-    live = (live == 'True') ? true : false;
+    //live = (live == true) ? true : false;
     this.dataService.getMspApplication().applicant.plannedAbsence = live;
     this.apt.plannedAbsence = live;
     this.dataService.saveMspApplication();
   }
 
   setUnusualCircumstance(live: any) {
-    live = (live == 'True') ? true : false;
+    //live = (live == true) ? true : false;
     this.dataService.getMspApplication().unUsualCircumstance = live;
     this.dataService.saveMspApplication();
   }

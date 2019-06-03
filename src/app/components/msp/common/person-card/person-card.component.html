@@ -1,11 +1,20 @@
+
+
 <h2 *ngIf="!customTitle" [innerHtml]="((person.operationActionType !=null ||person.operationActionType !=undefined)  ? lang('./en/index.js').actionTypeLabel[person.operationActionType]:'') + lang('./en/index.js').relationshipLabel[person.relationship] +
-    ' ' + lang('./en/index.js').cardSuffix "></h2>
-<h2 *ngIf="customTitle">{{customTitle}}</h2>
+    ' ' + lang('./en/index.js').cardSuffix">
+    
+</h2>
+    <h2 *ngIf="customTitle">{{customTitle}} </h2>
+
+              
 <div class="card panel-default">
     <div class="card-body">
         <div class="row" *ngIf="person.hasFullName">
+
             <div class="col-sm-4">
-                <label for="">{{lang('./en/index.js').nameLabel}}</label>
+                <label for="">{{lang('./en/index.js').nameLabel}}
+                       
+                </label>
             </div>
             <div class="col-sm-8">
                 <span id="{{person.uuid}}-{{person.relationship}}-fullname"><strong>{{person.fullName}}</strong></span>

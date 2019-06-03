@@ -1,0 +1,20 @@
+<form #formRef="ngForm" novalidate>
+  <div class="button-group">
+      <common-button *ngIf = '!spouse' [label]="'Add Spouse'" 
+        [buttonType]="buttonClass" (btnClick)='addSpouse()'>
+      </common-button>
+  </div>  
+
+  <div *ngIf = 'spouse'>
+      <msp-personal-details [person] = 'spouse' [id] = 'spouse.id'
+        (notifySpouseRemoval)="removeSpouse($event)"
+        (onChange) = "onChange($event)"
+        [showError] = "formRef.submitted">
+      </msp-personal-details>
+  </div>
+  
+  <common-form-action-bar [submitLabel]="spouse? 'Continue':'No Spouse'"
+      [canContinue]="!(!documentsReady() || checkAnyDependentsIneligible() || !isAllValid())"
+      (btnClick)="nextStep()">
+    </common-form-action-bar>
+</form>

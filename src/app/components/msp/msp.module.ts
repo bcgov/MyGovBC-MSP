@@ -127,6 +127,9 @@ import { CommonIncomeInputtextComponent } from './common/common-income-inputtext
 import { CommonButtonComponent } from './common/common-button/common-button.component';
 import { CommonPhnComponent } from './common/common-phn/common-phn.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SpouseInfoComponent } from './application/spouse-info/spouse-info.component';
+import { ChildInfoComponent } from './application/child-info/child-info.component';
+import { AuthorizeComponent } from './application/authorize/authorize.component';
 
 
 const APP_ROUTES: Routes = [
@@ -158,6 +161,16 @@ const APP_ROUTES: Routes = [
                         component: PersonalInfoComponent
                     },
                     {
+                        path: 'spouse-info',
+                        canActivate: [ProcessService],
+                        component: SpouseInfoComponent
+                    },
+                    {
+                        path: 'child-info',
+                        canActivate: [ProcessService],
+                        component: ChildInfoComponent
+                    },
+                    {
                         path: 'address',
                         canActivate: [ProcessService],
                         component: AddressComponent
@@ -166,6 +179,11 @@ const APP_ROUTES: Routes = [
                         path: 'review',
                         canActivate: [ProcessService],
                         component: ReviewComponent
+                    },
+                    {
+                        path: 'authorize',
+                        canActivate: [ProcessService],
+                        component: AuthorizeComponent
                     },
                     {
                         path: 'sending',
@@ -493,7 +511,10 @@ const APP_ROUTES: Routes = [
         CommonDeductionCalculatorComponent,
         CommonIncomeInputtextComponent,
         CommonButtonComponent,
-        CommonPhnComponent
+        CommonPhnComponent,
+        SpouseInfoComponent,
+        ChildInfoComponent,
+        AuthorizeComponent
     ],
 
     providers: [

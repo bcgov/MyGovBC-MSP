@@ -1,8 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Person} from '../../model/person.model';
 import {Activities, StatusInCanada} from '../../model/status-activities-documents';
-
-
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
 @Component({
   selector: 'msp-person-card',
   templateUrl: './person-card.component.html',
@@ -19,6 +18,14 @@ export class MspPersonCardComponent {
   @Input() customTitle: string;
   @Input() customLinkTitle: string;
   @Input() accountCard: boolean = false;
+  constructor(private _router: Router) {
+
+  }
+
+  editPersonalInfo() {
+
+    this._router.navigate([this.editRouterLink]);
+  }
 
   get movedFromLabel(): string {
     if (this.person.status == StatusInCanada.TemporaryResident ||

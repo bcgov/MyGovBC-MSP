@@ -95,6 +95,6 @@ export class SendingComponent implements AfterContentInit {
   }
 
   retrySubmission(){
-    this.router.navigate(['/msp/application/review']);
+    this.router.navigate(['/msp/application/authorize']);
   }
 }

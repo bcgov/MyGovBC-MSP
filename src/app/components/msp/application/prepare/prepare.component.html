@@ -19,14 +19,25 @@
 <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
 
 <form #formRef='ngForm' novalidate role="form" >
-   <!--<common-button-group  #liveInBCBtn [label]="lang('./en/index.js').question1" [data]="liveInBC" (dataChange)="setLiveInBC($event)" ></common-button-group> -->  
     
     <common-radio [value]="liveInBC"  [label]="lang('./en/index.js').question1" 
-         [radioLabels]='[{"label": "Yes", "value": "True"},{ "label": "No", "value": "False"}]'
+        [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
         (onStatusChange)="setLiveInBC($event)">
-    </common-radio>
+    </common-radio> 
+    <!--<label for="{{objectId}}" class="control-label" [innerHtml]="lang('./en/index.js').question1" ></label><br/>
+    <div *ngFor="let val of radioLabels" >
+        <div class="md-radio md-radio-inline">
+        <input type="radio"   name="{{val}}-{{objectId}}" 
+            id="{{val.label}}-{{objectId}}" 
+            (click)="setLiveInBC(val.value);" value="val.value" 
+            tabindex="0">
+        <label for="{{val.label}}-{{objectId}}">
+             {{val.label}} -- {{val.value}}
+        </label>
+        </div>
+    </div> -->
 
-        <!--  <div role="dialog" aria-labelledby="q1">
+      <!-- <div role="dialog" aria-labelledby="q1">
             <p id="q1" class="intro" [innerHtml]="lang('./en/index.js').question1"></p>
             <div class="btn-group" role="group">
                 <button [class.msp-btn-radio]="liveInBC === true" (click)="setLiveInBC(true)"
@@ -34,12 +45,12 @@
                 <button [class.msp-btn-radio]="liveInBC === false" (click)="setLiveInBC(false)"
                     #notLiveInBCBtn type="button" class="btn btn-default" tabindex="0">No&nbsp;</button>
             </div>
-        </div> -->
-  
+        </div> 
+  -->
 
     <div [hidden]="liveInBC !== true" role="dialog" aria-labelledby="q2">
         <common-radio [value]="plannedAbsence"  [label]="lang('./en/index.js').plannedAwayForOver30DaysQuestion" 
-            [radioLabels]='[{"label": "Yes", "value": "True"},{ "label": "No", "value": "False"}]'
+            [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
            (onStatusChange)="setPlannedAbsence($event)">
         </common-radio>
    
@@ -65,7 +76,7 @@
     <div [hidden]= "plannedAbsence !== false || !liveInBC" role="dialog" aria-labelledby="q3">
 
         <common-radio [value]="unUsualCircumstance"  [label]="lang('./en/index.js').specialCircumstanceQuestion" 
-            [radioLabels]='[{"label": "Yes", "value": "True"},{ "label": "No", "value": "False"}]'
+            [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
             (onStatusChange)="setUnusualCircumstance($event)">
         </common-radio>
       <!--    <common-button-group [label]="lang('./en/index.js').specialCircumstanceQuestion" 

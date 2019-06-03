@@ -1,0 +1,20 @@
+<form #formRef="ngForm" novalidate>
+
+
+  <common-button [label]="'Add Child'" 
+    [buttonType]="buttonClass" (btnClick)='addChild(Relationship.ChildUnder19)'>
+  </common-button>
+  
+  <div *ngIf = 'children.length > 0'>
+      <msp-personal-details *ngFor = "let child of children; let idx = index"
+        [person] = 'child'
+        [id] = 'child.id'
+        (notifyChildRemoval)="removeChild($event,idx)"
+        (onChange) = "onChange($event)"
+        [showError] = "formRef.submitted">
+      </msp-personal-details>
+    </div>
+  <common-form-action-bar [submitLabel]="children.length > 0? 'Continue':'No Child'"
+    [canContinue]="!(!documentsReady() || checkAnyDependentsIneligible() || !isAllValid())" (btnClick)="nextStep()">
+  </common-form-action-bar>
+</form>

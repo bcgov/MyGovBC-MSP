@@ -117,7 +117,7 @@ export class PersonalInfoComponent extends BaseComponent {
   }
 
   checkAnyDependentsIneligible(): boolean {
-        const target = [this.dataService.getMspApplication().applicant, this.dataService.getMspApplication().spouse , ...this.dataService.getMspApplication().children];
+        const target = [this.dataService.getMspApplication().applicant];
         return target.filter(x => x)
             .filter(x => x.ineligibleForMSP).length >= 1;
     }
@@ -130,7 +130,7 @@ export class PersonalInfoComponent extends BaseComponent {
     if (!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{
-      this._router.navigate(['/msp/application/address']);
+      this._router.navigate(['/msp/application/spouse-info']);
     }
   }
 }

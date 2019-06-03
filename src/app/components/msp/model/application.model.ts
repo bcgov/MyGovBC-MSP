@@ -221,6 +221,31 @@ class MspApplication implements ApplicationBase {
     return applicantDocsAvail && spouseDocsAvail && kidsDocsAvail;
   }
 
+  get childDocumentsReady(): boolean {
+    
+    let kidsDocsAvail = true;
+    const kidsWithNoDocs = this._children.filter(kid => {
+      return !kid.hasDocuments;
+    });
+
+    kidsDocsAvail = kidsWithNoDocs.length === 0;
+
+    return kidsDocsAvail;
+  }
+
+  get spouseDocumentsReady(): boolean {
+
+    let spouseDocsAvail = true;
+    if (this._spouse) {
+      spouseDocsAvail = this._spouse.hasDocuments;
+    }
+    return spouseDocsAvail;
+  }
+
+
+
+
+
   get hasValidAuthToken() {
     return this.authorizationToken && this.authorizationToken.length > 1;
   }

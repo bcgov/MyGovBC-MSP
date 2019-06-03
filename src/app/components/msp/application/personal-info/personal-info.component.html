@@ -1,16 +1,16 @@
-<form #formRef="ngForm" novalidate (submit)="continue()">
+<form #formRef="ngForm" novalidate>
     <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
       (onChange) = "onChange($event)"
       [showError] = "formRef.submitted">
       </msp-personal-details>
-    <div *ngIf = 'spouse'>
+    <!--<div *ngIf = 'spouse'>
       <msp-personal-details [person] = 'spouse' [id] = 'spouse.id'
         (notifySpouseRemoval)="removeSpouse($event)"
         (onChange) = "onChange($event)"
         [showError] = "formRef.submitted">
       </msp-personal-details>
-    </div>
+    </div> 
     <div *ngIf = 'children.length > 0'>
       <msp-personal-details *ngFor = "let child of children; let idx = index"
         [person] = 'child'
@@ -19,17 +19,18 @@
         (onChange) = "onChange($event)"
         [showError] = "formRef.submitted">
       </msp-personal-details>
-    </div>
+    </div> -->
     <div class="row">
       <div class="col-lg-12">
         <div class="msp-app">
           <div class="button-group">
 
-              <common-button *ngIf = '!spouse' [label]="lang('./en/index.js').addSpouseButton" 
+             <!-- <common-button *ngIf = '!spouse' [label]="lang('./en/index.js').addSpouseButton" 
                 [buttonType]="buttonClass" [disabled] = "!canContinue()"
                 (btnClick)='addSpouse()'>
               </common-button>
-
+              -->
+              
               <common-button [label]="lang('./en/index.js').addChildUnder19Button" 
                 [buttonType]="buttonClass" [disabled] = "!canContinue()"
                 (btnClick)='addChild(Relationship.ChildUnder19)'>
@@ -87,7 +88,7 @@
   </div>
     <div class="position: inherit;">
     <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
-        [canContinue]="!(!documentsReady()|| !isStayinginBCAfterstudies() ||checkAnyDependentsIneligible() || !isAllValid())"
+        [canContinue]="!(!isStayinginBCAfterstudies() ||checkAnyDependentsIneligible() || !isAllValid())"
         (btnClick)="continue()">
     </common-form-action-bar>
     </div> 

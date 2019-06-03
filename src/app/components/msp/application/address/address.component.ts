@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ViewChild, ElementRef} from '@angular/core';
+import {ChangeDetectorRef, Input, Component, ViewChild, ElementRef} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { MspDataService } from '../../service/msp-data.service';
 import {MspApplication} from '../../model/application.model';
@@ -9,13 +9,19 @@ import {MspPhoneComponent} from '../../common/phone/phone.component';
 import {ProcessService} from '../../service/process.service';
 import {Router} from '@angular/router';
 import {Address,Person} from 'moh-common-lib/models';
+import {
+  CountryList,
+  ProvinceList,
+  CANADA,
+  BRITISH_COLUMBIA
+} from 'moh-common-lib';
 
 @Component({
   templateUrl: './address.component.html'
 })
 export class AddressComponent extends BaseComponent {
 
-  static ProcessStepNum = 2;
+  static ProcessStepNum = 4;
 
   lang = require('./i18n');
 
@@ -23,6 +29,14 @@ export class AddressComponent extends BaseComponent {
   @ViewChild('address') address: ElementRef;
   @ViewChild('mailingAddress') mailingAddress: ElementRef;
   @ViewChild('phone') phone: ElementRef;
+  @Input() editIdentityInfo: boolean = true;
+  @Input() countryList: CountryList[] = this.lang('./en/index.js').countryData;
+  @Input() provinceList: ProvinceList[] = this.lang('./en/index.js').provinceData;
+
+  
+  public defaultCountry = CANADA;
+  public defaultProvince = BRITISH_COLUMBIA;
+
 
   mspApplication: MspApplication;
 
@@ -58,9 +72,15 @@ export class AddressComponent extends BaseComponent {
     this.dataService.saveMspApplication();
   }
 
+  toggleCheckBox(){
+    this.mspApplication.mailingSameAsResidentialAddress = !this.mspApplication.mailingSameAsResidentialAddress;
+    this.dataService.saveMspApplication();
+  }
+
   handleAddressUpdate(evt: any){
     console.log(evt);
-    // console.log('address update event: %o', evt);
+    console.log('address update event: %o', evt);
+    evt.addressLine1 = evt.street;
     this.dataService.saveMspApplication();
   }
 
@@ -71,9 +91,11 @@ export class AddressComponent extends BaseComponent {
   continue() {
     // console.log('personal info form itself valid: %s', this.form.valid);
     console.log('combinedValidationState on address: %s', this.isAllValid());
+    
     if (!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{
+     // this._processService.setStep(4, true);
       this._router.navigate(['/msp/application/review']);
     }
   }
