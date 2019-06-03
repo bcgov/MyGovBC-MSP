@@ -4,7 +4,7 @@
     <div class="col-sm-8">
       <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]"></h2>
     </div>
-    <div class="col-sm-4">
+    <!-- <div class="col-sm-4">
       <div *ngIf="person.relationship !== 0" style="margin-top: 18px">
         <div *ngIf="person.relationship === 1">
           <button type="button" class="btn btn-default btn-xs pull-right" (click)="removeSpouse()"
@@ -17,7 +17,7 @@
           </button>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="row">
     <div class="col-lg-4" role="dialog" [attr.aria-label]="statusLabel()">
@@ -29,7 +29,6 @@
       <msp-citizen-status id="primary" [label]="statusLabel()" [items]="langStatus('./en/index.js')"
         (change)="setStatus($event, person)">
       </msp-citizen-status>
-
       <!-- <div *ngIf="st === person.status" role="alertdialog" aria-labelledby="What is your activity?"> -->
       <div class="form-check" *ngFor="let activity of activities">
         <input class='form-check-input' type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}"

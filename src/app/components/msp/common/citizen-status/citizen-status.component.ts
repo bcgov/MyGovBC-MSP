@@ -30,19 +30,9 @@ export class CitizenStatusComponent implements OnInit {
   @Output() change: EventEmitter<number> = new EventEmitter<number>();
   items$: Observable<string[]>;
 
-  // items = [
-  //   'Canadian citizen',
-  //   'Permanent resident',
-  //   'Temporary permit holder or diplomat'
-  // ];
-
   constructor() {}
 
   ngOnInit() {
-    // console.log(this.items);
-    // this.items.map((itm, i, arr) => {
-    //   this.items$.next(itm[i]);
-    // });
     const arr = [];
     for (const key in this.items) {
       arr.push(this.items[key]);
@@ -54,7 +44,6 @@ export class CitizenStatusComponent implements OnInit {
     return this.items[i];
   }
   changed(itm) {
-    console.log(itm);
     const arr = [];
     for (const key in this.items) {
       arr.push(this.items[key]);
