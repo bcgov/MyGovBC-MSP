@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'msp-transmission-error-view',
@@ -6,13 +6,11 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./transmission-error-view.scss']
 })
 export class TransmissionErrorView {
-
   @Input('rawError')
   rawError: any;
   public showMoreErrorDetails: boolean;
 
-  toggleErrorDetails(){
+  toggleErrorDetails() {
     this.showMoreErrorDetails = !this.showMoreErrorDetails;
   }
-
 }

@@ -22,6 +22,11 @@ import ISO_8601 = moment.ISO_8601;
 import { MspMaintenanceService } from "../service/msp-maintenance.service";
 import { Http, Response } from '@angular/http';
 import {ISpaEnvResponse} from '../model/spa-env-response.interface';
+import { ValidateAssistance } from '../model/validate-send';
+import { Router } from '@angular/router';
+import { AssistanceFieldMap } from '../model/validate-field-map';
+import { ProcessUrls } from './process.service';
+import { MspDataService } from './msp-data.service';
 
 
 const jxon = require('jxon/jxon');
@@ -29,7 +34,7 @@ const jxon = require('jxon/jxon');
 @Injectable()
 export class MspApiService {
 
-    constructor(private http: HttpClient, private logService: MspLogService, private maintenanceService: MspMaintenanceService) {
+    constructor(private http: HttpClient, private logService: MspLogService, private maintenanceService: MspMaintenanceService, private dataSvc: MspDataService, private router: Router) {
     }
 
     /**
@@ -66,8 +71,34 @@ export class MspApiService {
                         }
 
                         // second convert to XML
-                        const convertedAppXml = this.toXmlString(documentModel);
+                        let convertedAppXml = this.toXmlString(documentModel);
+                        /*
+                          this validates that if the XML is an assistance application type it will check to make sure all the required
+                          fields are present in the compiled XML, and if they're not log an error and update the UX message to show
+                          that error.
+                        */
+                        //console.log(convertedAppXml);
+                        if ( convertedAppXml.match(/(assistanceApplication)/)) {
+                        
+                          const valid = ValidateAssistance.validate(convertedAppXml)
+                          //console.log('valid', valid)
+                          if (typeof valid === 'string') {
+                            const mssg =`Your application is missing the ${valid} field. Please go back and check all fields to ensure that nothing is missing.`
+                            const error = new Error(mssg)
+                            this.logService.log({
+                              text: mssg,
+                              response: {mssg},
+                          }, 'submission failed');
+                          const mapper = new AssistanceFieldMap();
+                          const index = mapper.findStep(valid)
+                          const urls = this.dataSvc.getMspProcess().processSteps;
+                          const url = urls[index].route
+                          this.router.navigate([url])
+                          return reject({mssg});
+                          }
+                        }
 
+                        // console.log(convertedAppXml);
                         // if no errors, then we'll sendApplication all attachments
                         return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
 
@@ -91,7 +122,7 @@ export class MspApiService {
                                 this.logService.log({
                                     text: 'Attachment - Send All Rejected ',
                                     response: error,
-                                }, 'Attachment - Send All Rejected ');
+                                }, 'Attachm123ent - Send All Rejected ');
                                 return reject(error);
                             });
                     } // end of else
@@ -430,7 +461,7 @@ export class MspApiService {
 
         if(from.getAllImages() && from.getAllImages().length > 0){
             to.application.attachments = this.convertAttachments(from.getAllImages());
-        }        
+        }
 
         return to;
     }
@@ -1430,8 +1461,9 @@ export class MspApiService {
             endIndex = xmlString.search(endre);
         }
 
-        if (beginIndex < 0 || endIndex <= 0)
+        if (beginIndex < 0 || endIndex <= 0) {
             return xmlString;
+        }
         else {
             return MspApiService.XmlDocumentHeader + xmlString.substring(beginIndex, endIndex) + MspApiService.XmlDocumentFooter;
         }
