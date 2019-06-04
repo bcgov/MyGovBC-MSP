@@ -132,8 +132,8 @@ export class CompletenessCheckService {
     }
 
     finAppAuthorizationCompleted(): boolean {
-      const familyAuth = (this.finApp.authorizedByApplicant &&
-        (this.finApp.hasSpouseOrCommonLaw && this.finApp.authorizedBySpouse || !this.finApp.hasSpouseOrCommonLaw));
+      const familyAuth = this.finApp.authorizedByApplicant; 
+        //&& ( this.finApp.hasSpouseOrCommonLaw && this.finApp.authorizedBySpouse || !this.finApp.hasSpouseOrCommonLaw));
 
       if (!familyAuth){
         // console.log('PA application not authorized by applicant and spouse');

@@ -106,6 +106,7 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit{
   }
 
   get canContinue(): boolean {
+
     return this.authorized &&
       this.application.authorizationToken &&
       this.application.authorizationToken.length > 1;
