@@ -30,13 +30,15 @@
         (change)="setStatus($event, person)">
       </msp-citizen-status>
       <!-- <div *ngIf="st === person.status" role="alertdialog" aria-labelledby="What is your activity?"> -->
-      <div class="form-check" *ngFor="let activity of activities">
+      <common-radio [radioLabels]='activitiesTable' [label]="" [value]="activity" (statusChange)="setActivity($event)"
+        display="table-row-group"></common-radio>
+      <!-- <div class="form-check" *ngFor="let activity of activities">
         <input class='form-check-input' type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}"
           (click)="setActivity(activity)" [checked]="activity === person.currentActivity">
         <label class='form-check-label shade' for="a{{activity}}-{{id}}">
           {{langActivities('./en/index.js')[activity]}}
         </label>
-      </div>
+      </div> -->
       <!-- </div> -->
 
       <!-- <div class="form-check" *ngFor="let st of statusInCanada"> -->

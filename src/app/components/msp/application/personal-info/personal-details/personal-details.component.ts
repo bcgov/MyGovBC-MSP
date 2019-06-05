@@ -174,6 +174,17 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.onChange.emit(value);
   }
 
+  get activitiesTable() {
+    console.log('activities', this.activities);
+    return this.activities.map(itm => {
+      const label = this.langActivities('./en/index.js')[itm];
+      return {
+        label,
+        value: itm
+      };
+    });
+  }
+
   /**
    * Gets the available activities given the known status
    */
