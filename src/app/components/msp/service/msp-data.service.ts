@@ -16,7 +16,7 @@ import {Process} from './process.service';
 import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
 import {Gender} from '../model/person.model';
 import {OperationActionType} from '../model/person.model';
-import {Address} from 'moh-common-lib/models';
+import {Address} from 'moh-common-lib';
 import { SimpleDate } from '../model/simple-date.interface';
 import { AccountLetterApplication } from '../model/account-letter-application.model';
 import AccountLetterDto from '../model/account-letter.dto';
