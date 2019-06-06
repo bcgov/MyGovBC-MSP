@@ -7,7 +7,7 @@ import {MspAddressComponent} from '../../common/address/address.component';
 import {MspPhoneComponent} from '../../common/phone/phone.component';
 import {ProcessService} from '../../service/process.service';
 import {Router} from '@angular/router';
-import {Address} from 'moh-common-lib';
+import {Address} from 'moh-common-lib/models';
 //import {Address} from '../../model/address.model';
 
 import {
