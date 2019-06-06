@@ -1,17 +1,13 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { _ApplicationTypeNameSpace } from "../api-model/applicationTypes";
-import { ISpaEnvResponse } from '../model/spa-env-response.interface';
+import { _ApplicationTypeNameSpace } from '../api-model/applicationTypes';
 import { MspLogService } from './log.service';
-import * as moment from 'moment';
-import { AbstractHttpService } from '../service/abstract-api.service';
-import { throwError, BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { of } from 'rxjs';
-import {
-    MSPEnrollementMember } from '../model/status-activities-documents';
 import { AccountLetterApplication } from '../model/account-letter-application.model';
 import { AccountLetterApplicantTypeFactory, AccountLetterType  } from '../api-model/accountLetterTypes';
+import { AbstractHttpService } from 'moh-common-lib';
 
 
 /**
@@ -28,13 +24,13 @@ export class MspACLService extends AbstractHttpService {
     protected _headers: HttpHeaders = new HttpHeaders();
 
     constructor(protected http: HttpClient, private logService: MspLogService) {
-        super(http);  
+        super(http);
     }
 
     sendAccountLetterApp(accountLetterApplication: AccountLetterApplication, uuid: string): Observable<any> {
         console.log(accountLetterApplication);
          const accountLetterJsonResponse = this.convertAccountLetterApp(accountLetterApplication);
-        const url = environment.appConstants.apiBaseUrl+environment.appConstants.aclContextPath+ uuid;
+        const url = environment.appConstants.apiBaseUrl + environment.appConstants.aclContextPath + uuid;
 
         // Setup headers
         this._headers = new HttpHeaders({
@@ -42,22 +38,22 @@ export class MspACLService extends AbstractHttpService {
             'Response-Type': 'application/json',
             'X-Authorization': 'Bearer ' + accountLetterApplication.authorizationToken,
         });
-        
+
         return this.post<AccountLetterType>(url, accountLetterJsonResponse );
     }
-    
-    // Api callout to get the message from the Rapid code  
+
+    // Api callout to get the message from the Rapid code
     sendSpaEnvServer(rapidResponseCode: string): Observable<any> {
         this._headers = new HttpHeaders({
             'SPA_ENV_NAME': rapidResponseCode
         });
-        const url = environment.appConstants['envServerBaseUrl']; 
+        const url = environment.appConstants['envServerBaseUrl'];
         return this.post<any>(url, null);
     }
 
 
     protected handleError(error: HttpErrorResponse) {
-        console.log("handleError", JSON.stringify(error));
+        console.log('handleError', JSON.stringify(error));
         if (error.error instanceof ErrorEvent) {
             //Client-side / network error occured
             console.error('MspMaintenanceService error: ', error.error.message);
@@ -67,23 +63,23 @@ export class MspACLService extends AbstractHttpService {
             console.error(`MspMaintenanceService Backend returned error code: ${error.status}.  Error body: ${error.error}`);
         }
         //this.logService.log({event: 'error', key: 'Cannot get maintenance flag from spa-env-server'});
-        
+
         // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
         return of(error);
     }
 
-   
+
     // This method is used to convert the response from user into a JSOn object
     private convertAccountLetterApp(from: AccountLetterApplication): AccountLetterType {
         console.log(from);
         const to = AccountLetterApplicantTypeFactory.make();
         to.aclTransactionId = from.uuid;
         //to.requesterPostalCode  = from.postalCode.toUpperCase().replace(' ', '');
-        to.requesterPHN = from.applicant.previous_phn.replace(/\s/g, "");
+        to.requesterPHN = from.applicant.previous_phn.replace(/\s/g, '');
         to.requesterBirthdate = from.applicant.dob.format(this.ISO8601DateFormat);
-       
+
         switch (from.applicant.enrollmentMember ) {
-            
+
             case 'MyselfOnly' :
                 to.letterSelection = 'M';
                 break;
@@ -94,7 +90,7 @@ export class MspACLService extends AbstractHttpService {
 
             case 'SpecificMember' :
                 to.letterSelection = 'S';
-                to.specificPHN = from.applicant.specificMember_phn.replace(/\s/g, "");
+                to.specificPHN = from.applicant.specificMember_phn.replace(/\s/g, '');
                 break;
         }
 
