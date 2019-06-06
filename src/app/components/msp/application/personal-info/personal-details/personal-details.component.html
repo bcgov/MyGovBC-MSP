@@ -6,26 +6,29 @@
         <div class="col-sm-8">
             <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]"></h2>
         </div>
-        <div class="col-sm-4">
-            <div *ngIf="person.relationship !== 0" style="margin-top: 18px">
-                <div *ngIf="person.relationship === 1">
-                    <common-button [label]="lang('./en/index.js').removeSpouseButton"
-                            [buttonType]="'btn btn-default btn-xs pull-right'" (btnClick)='removeSpouse()'>
-                    </common-button>
-                </div>
-                <div *ngIf="person.relationship === 2 || person.relationship === 3 ">
-                    <common-button [label]="lang('./en/index.js').removeChildButton"
-                        [buttonType]="'btn btn-default btn-xs pull-right'" (btnClick)='removeChild()'>
-                   </common-button>
-                    
-                </div>
-            </div>
-        </div>
     </div>
     <div class="row" >
-        <div class="col-lg-12">
-                <h3>{{statusLabel()}}</h3>
+        <div class="col-lg-4" role="dialog" [attr.aria-label]="statusLabel()">
+            <msp-citizen-status id="primary" [label]="statusLabel()" [items]="langStatus('./en/index.js')"
+                (change)="setStatus($event, person)">
+            </msp-citizen-status>
+        
+            <div class="form-check" *ngFor="let activity of activities">
+              
+                <input class='form-check-input' type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}"
+                  (click)="setActivity(activity)" [checked]="activity === person.currentActivity">
+                <label class='form-check-label shade' for="a{{activity}}-{{id}}">
+                  {{langActivities('./en/index.js')[activity]}}
+                </label> 
+            </div>
+
+
+
+             
+        
         </div>
+    </div>
+<!--
         <div class="col-lg-4">
                 <ng-select class="custom" [clearable]="true"
                             [items]="statusinCanada"
@@ -34,7 +37,7 @@
                             (removed)="removed($event)"
                             (typed)="typed($event)">
                 </ng-select>
-               <!-- <common-dropdown label="Your Status" [items]="statusIn" [required]="true"></common-dropdown> -->
+               <!-- <common-dropdown label="Your Status" [items]="statusIn" [required]="true"></common-dropdown> 
         </div>
 
     </div>
@@ -65,7 +68,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
+
+
         <div class="col-lg-4" *ngIf="person.status != null && person.currentActivity != null" role="alert" aria-live="assertive">
             <h3><i class="fa fa-id-card-o" aria-hidden="true"></i> {{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
             <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
@@ -98,13 +103,13 @@
 
             <msp-image-error-modal #imageErrorModal></msp-image-error-modal>
         </div>
-    </div>
+    
 <div *ngIf="hasValidCurrentActivity">
 
     <div *ngIf="person.documents.images.length > 0">
         <h3 [innerHtml]="lang('./en/index.js').applicationPersonalInfo[person.relationship]"></h3>
         <p class="help-block" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
-      <!--  <msp-name #name [person]="person" (onChange) = "onChange.emit($event)" [showError]="showError"></msp-name>-->
+       <!--  <msp-name #name [person]="person" (onChange) = "onChange.emit($event)" [showError]="showError"></msp-name>-->
        
         <common-full-name #name [person]="person" (onChange)="onChange.emit($event)" [showError]="showError" ></common-full-name>
        
@@ -115,7 +120,7 @@
                 <common-radio [value]="person.gender" 
                               label='Gender' 
                               [radioLabels]='[{"label": "Male", "value": "M"},{ "label": "Female", "value": "F"}]' 
-                              (onStatusChange)="setGenderVal($event)"
+                              (statusChange)="setGenderVal($event)"
                               [showError]="showError">
                 </common-radio>   
        <!--         <common-gender
@@ -186,7 +191,7 @@
                     </common-button-group> -->
                 <common-radio [value]="person.madePermanentMoveToBC"  [label]="lang('./en/index.js').haveYouMovedToBCPermanently[this.person.relationship]" 
                     [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
-                    (onStatusChange)="setMovedToBCPermanently($event)">
+                    (statusChange)="setMovedToBCPermanently($event)">
                 </common-radio>
 
                 </div>
@@ -288,7 +293,7 @@
                         
                         <common-radio [value]="person.declarationForOutsideOver30Days"  [label]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months" 
                             [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
-                            (onStatusChange)="setBeenOutsideForOver30Days($event)">
+                            (statusChange)="setBeenOutsideForOver30Days($event)">
                         </common-radio>
 
                   <!--   <label id="outsideBCLabel{{objectId}}" [innerHtml]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months" class="control-label"></label>
@@ -328,7 +333,7 @@
 
                 <common-radio [value]="person.hasPreviousBCPhn"  [label]="lang('./en/index.js').previousBCHealthNumber[this.person.relationship]" 
                     [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
-                    (onStatusChange)="setHasPreviousPhn($event)">
+                    (statusChange)="setHasPreviousPhn($event)">
                 </common-radio>
              <!--   <common-button-group   [label]="lang('./en/index.js').previousBCHealthNumber[this.person.relationship]" 
                             [data]="person.hasPreviousBCPhn " 
@@ -380,7 +385,7 @@
                 && showError}">
                 <common-radio [value]="person.institutionWorkHistory"  [label]="lang('./en/index.js').canadianForcesQuestion[this.person.relationship]" 
                     [radioLabels]='[{"label": "Yes", "value": "Yes"},{ "label": "No", "value": "No"}]'
-                     (onStatusChange)="selectInstitution($event)">
+                     (statusChange)="selectInstitution($event)">
                 </common-radio>
 
                  <!--   <common-button-group   [label]="lang('./en/index.js').canadianForcesQuestion[this.person.relationship]" 
@@ -427,7 +432,7 @@
            
             <common-radio [value]="person.fullTimeStudent"  [label]="lang('./en/index.js').fullTimeStudentLabel" 
                     [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
-                     (onStatusChange)="setFullTimeStudent($event)">
+                     (statusChange)="setFullTimeStudent($event)">
             </common-radio>
 
                   <!--  <common-button-group  [label]="lang('./en/index.js').fullTimeStudentLabel" 
@@ -529,7 +534,7 @@
             
             <common-radio [value]="person.inBCafterStudies"  [label]="lang('./en/index.js').inBCAfterStudiesLabel" 
                 [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
-                 (onStatusChange)="setStayInBCAfterStudy($event)">
+                 (statusChange)="setStayInBCAfterStudy($event)">
             </common-radio>
 
                <!-- <common-button-group 

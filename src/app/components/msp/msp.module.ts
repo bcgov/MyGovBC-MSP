@@ -71,6 +71,9 @@ import { MspPersonCardComponent } from './common/person-card/person-card.compone
 import { MspPhnComponent } from './common/phn/phn.component';
 import { SharedCoreModule } from 'moh-common-lib';
 
+
+import { CitizenStatusComponent } from './common/citizen-status/citizen-status.component';
+
 import { CaptchaModule } from 'moh-common-lib/captcha';
 
 import { Mod11CheckValidator } from './common/phn/phn.validator';
@@ -448,6 +451,7 @@ const APP_ROUTES: Routes = [
         ReviewComponent,
         SendingComponent,
         ConfirmationComponent,
+        CitizenStatusComponent,
 
 
         // Assistance

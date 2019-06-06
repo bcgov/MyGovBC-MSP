@@ -75,6 +75,41 @@ export class PersonalDetailsComponent extends BaseComponent {
   langActivities = require('../../../common/activities/i18n');
   langDocuments = require('../../../common/documents/i18n');
 
+  radioLabel = [ 
+    {
+      "label": "0",
+      "value": "Not new to B.C. but need to apply for MSP"
+    },
+    {
+      "label": "1",
+      "value": "Moved to B.C. from another province"
+    },
+    {
+      "label": "2",
+      "value": "Moved to B.C. from another country"
+    },
+    {
+      "label": "3",
+      "value": "Working in B.C."
+    },
+    {
+      "label": "4",
+      "value": "Studying in B.C."
+    },
+    {
+      "label": "5",
+      "value": "Religious worker"
+    },
+    {
+      "label": "6",
+      "value": "Diplomat"
+    },
+    {
+      "label": "7",
+      "value": "Visiting"
+    }
+  ]
+
   // Expose some types to template
   Activities: typeof Activities = Activities;
   Relationship: typeof Relationship = Relationship;
