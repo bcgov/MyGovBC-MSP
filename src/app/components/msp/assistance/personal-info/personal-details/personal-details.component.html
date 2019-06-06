@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-lg-12">
       <!-- <msp-name #name [person]="person" (onChange)="onChange.emit($event)"></msp-name> -->
-      <common-full-name #name [person]="person" (onChange)="onChange.emit($event)" ></common-full-name> 
+      <msp-full-name [ngModel]="person" (ngModelChange)="onChange.emit($event)" ></msp-full-name> 
      <!-- <common-name #name [person]='person'></common-name>  -->
     </div>
   </div>
@@ -19,20 +19,25 @@
       (onChange)="onChange.emit($event)">
       </msp-birthdate>-->
     </div>
-    <div class="col-md-4">
+
+    <!-- TODO: Need to check for unique PHN, do we have a list to compare against-->
+    <common-phn name="phn"
+                [(ngModel)]="person.previous_phn"
+                (ngModelChange)="onChange.emit($event)"></common-phn>
+  <!-- <div class="col-md-4">
       <div class="form-group">
            <msp-common-phn [uniquePHN] = "isPHNUnique()"
              [phn]="person.previous_phn" 
             (phnChange)="person.previous_phn = $event; onChange.emit($event)">
-          </msp-common-phn> 
+          </msp-common-phn> --> 
         <!-- <msp-phn #phn
                  [phn]="person.previous_phn"
                  (phnChange)="person.previous_phn = $event"
                  (onChange)="onChange.emit($event)"
                  [required]="true"
-                 [bcPhn]="true"></msp-phn>  -->
+                 [bcPhn]="true"></msp-phn>  
       </div>
-    </div>
+    </div>-->
     <div class="col-md-4">
     <!--   <common-sin (sinChange)="person.sin = $event; onChange.emit($event)"  [uniqueSins]="isSinUnique()" [required]="true" label='SIN Number' [data]="person.sin"  ></common-sin>  -->
        

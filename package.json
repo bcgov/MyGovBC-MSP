@@ -12,7 +12,7 @@
   "scripts": {
     "prestart": "npm install",
     "start": "npm run dev",
-    "dev": "ng serve -o",
+    "dev": "ng serve --host='0.0.0.0' -o",
     "dev-build": "ng build",
     "build": "ng build --prod",
     "test": "ng test"
@@ -75,7 +75,7 @@
     "jquery": "^3.3.1",
     "jxon": "git+https://github.com/bcgov/jxon.git",
     "lodash": "^4.17.11",
-    "moh-common-lib": "0.0.34",
+    "moh-common-lib": "^1.0.2",
     "moment": "^2.22.2",
     "mygovbc-captcha-widget": "3.0.1",
     "ngx-bootstrap": "3.0.1",

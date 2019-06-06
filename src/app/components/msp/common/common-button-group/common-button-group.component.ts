@@ -15,7 +15,7 @@ export class CommonButtonGroupComponent implements OnInit {
   @Output() dataChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild('buttonGroup') buttonGroup: ElementRef;
 
-  constructor() { 
+  constructor() {
 
   }
 
@@ -26,4 +26,7 @@ export class CommonButtonGroupComponent implements OnInit {
     this.buttonGroup.nativeElement.focus();
   }
   
+  canContinue(){ // TODO: Temporary to get code to build - need to figure out where component used
+    return false;
+  }
 }

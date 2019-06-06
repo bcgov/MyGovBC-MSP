@@ -41,7 +41,6 @@ import { AssistanceRetroYearsComponent } from './assistance/retro-years/retro-ye
 import { AssistanceReviewComponent } from './assistance/review/review.component';
 import { AssistanceSendingComponent } from './assistance/sending/sending.component';
 import { MspAccordionComponent } from './common/accordion/accordion.component';
-import { FormActionBarComponent } from './common/form-action-bar/form-action-bar.component';
 import { MspAddressCardPartComponent } from './common/address-card-part/address-card-part.component';
 import { MspAddressComponent } from './common/address/address.component';
 import { MspArrivalDateComponent } from './common/arrival-date/arrival-date.component';
@@ -122,17 +121,16 @@ import { BenefitAuthorizeSubmitComponent } from './benefit/authorize-submit/auth
 import {BenefitSendingComponent} from './benefit/sending/sending.component';
 import {BenefitConfirmationComponent} from './benefit/confirmation/confirmation.component';
 import { TaxYearComponent } from './benefit/prepare/tax-year/tax-year.component';
-import { CommonCheckboxComponent } from './common/common-checkbox/common-checkbox.component';
 import { CommonButtonGroupComponent } from './common/common-button-group/common-button-group.component';
 import { CommonDeductionCalculatorComponent } from './common/common-deduction-calculator/common-deduction-calculator.component';
 import { CommonIncomeInputtextComponent } from './common/common-income-inputtext/common-income-inputtext.component';
-//import { CommonSinComponent } from './common/common-sin/common-sin.component';
+import { CommonSinComponent } from './common/common-sin/common-sin.component';
 import { CommonButtonComponent } from './common/common-button/common-button.component';
-import { CommonPhnComponent } from './common/common-phn/common-phn.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SpouseInfoComponent } from './application/spouse-info/spouse-info.component';
 import { ChildInfoComponent } from './application/child-info/child-info.component';
 import { AuthorizeComponent } from './application/authorize/authorize.component';
+import { MspCoreModule } from '../../module/msp-core/msp-core.module';
 
 
 const APP_ROUTES: Routes = [
@@ -396,7 +394,8 @@ const APP_ROUTES: Routes = [
         LocalStorageModule.withConfig({
             prefix: 'ca.bc.gov.msp',
             storageType: 'sessionStorage'
-        })
+        }),
+        MspCoreModule
     ],
     declarations: [
         MspLoggerDirective,
@@ -493,7 +492,6 @@ const APP_ROUTES: Routes = [
         AccountLetterPersonalInfoComponent,
         AccountLetterSendingComponent,
         AccountLetterConfirmationComponent,
-        FormActionBarComponent,
         SpecificMemberComponent,
         AclErrorViewComponent,
         ReplacewithlinksPipe,
@@ -510,12 +508,12 @@ const APP_ROUTES: Routes = [
         BenefitSendingComponent,
         BenefitConfirmationComponent,
         TaxYearComponent,
-        CommonCheckboxComponent,
+
         CommonButtonGroupComponent,
         CommonDeductionCalculatorComponent,
         CommonIncomeInputtextComponent,
         CommonButtonComponent,
-        CommonPhnComponent,
+        CommonSinComponent,
         SpouseInfoComponent,
         ChildInfoComponent,
         AuthorizeComponent
