@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-lg-12">
       <!-- <msp-name #name [person]="person" (onChange)="onChange.emit($event)"></msp-name> -->
-      <msp-full-name [ngModel]="person" (ngModelChange)="onChange.emit($event)" ></msp-full-name> 
+      <msp-full-name [data]="person" (dataChange)="onChange.emit($event)" ></msp-full-name> 
      <!-- <common-name #name [person]='person'></common-name>  -->
     </div>
   </div>
