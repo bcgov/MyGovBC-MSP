@@ -18,7 +18,7 @@
     "test": "ng test"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.800.1",
+    "@angular-devkit/build-angular": "~0.8.4",
     "@angular/cli": "^6.2.4",
     "@angular/compiler-cli": "^6.1.1",
     "@types/jasmine": "2.8.9",
@@ -72,7 +72,7 @@
     "blueimp-load-image": "^2.19.0",
     "bootstrap": "4.3.1",
     "css-loader": "^1.0.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.3.1",
     "jxon": "git+https://github.com/bcgov/jxon.git",
     "lodash": "^4.17.11",
     "moh-common-lib": "1.0.0",
