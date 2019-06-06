@@ -1,4 +1,4 @@
-<h2 [innerHtml]="lang('./en/index.js').cardTitle"></h2>
+<h2>{{lang('./en/index.js').cardTitle}} <i class="fa fa-pencil edit--icon float-right" aria-hidden="true" (click)="editPersonalInfo()"></i></h2>
 <div class="card">
   <div class="card-body">
     <msp-address-card-part [address]="residentialAddress"
@@ -17,8 +17,8 @@
       </div>
     </div>
 
-    <button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
+    <!--<button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
       [innerHTML]="lang('./en/index.js').editButton">
-    </button>
+    </button> -->
   </div>
 </div>
