@@ -1,0 +1,13 @@
+import { browser } from 'protractor';
+
+describe('MSP Enrolment - Authorize', () => {
+
+    beforeEach(() => {
+
+    });
+
+    it('01. should load the page without issue', () => {
+        console.log("MSP ENROLMENT");
+    });
+
+});
