@@ -82,7 +82,6 @@ import { MspProvinceComponent } from './common/province/province.component';
 import { MspReturnDateComponent } from './common/return-date/return-date.component';
 import { MspSchoolDateComponent } from './common/schoolDate/school-date.component';
 import { ServicesCardDisclaimerModalComponent } from './common/services-card-disclaimer/services-card-disclaimer.component';
-import { SinCheckValidator } from './common/sin/sin.validator';
 import { MspStatusInCanadaRadioComponent } from './common/status-in-canada-radio/status-in-canada-radio.component';
 import { ThumbnailComponent } from './common/thumbnail/thumbnail.component';
 import { MspToggleComponent } from './common/toggle/toggle.component';
@@ -124,7 +123,6 @@ import { TaxYearComponent } from './benefit/prepare/tax-year/tax-year.component'
 import { CommonButtonGroupComponent } from './common/common-button-group/common-button-group.component';
 import { CommonDeductionCalculatorComponent } from './common/common-deduction-calculator/common-deduction-calculator.component';
 import { CommonIncomeInputtextComponent } from './common/common-income-inputtext/common-income-inputtext.component';
-import { CommonSinComponent } from './common/common-sin/common-sin.component';
 import { CommonButtonComponent } from './common/common-button/common-button.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SpouseInfoComponent } from './application/spouse-info/spouse-info.component';
@@ -421,7 +419,6 @@ const APP_ROUTES: Routes = [
         MspReturnDateComponent,
         MspSchoolDateComponent,
         Mod11CheckValidator,
-        SinCheckValidator,
         MspGenderComponent,
         MspProgressBarComponent,
         FileUploaderComponent,
@@ -513,7 +510,6 @@ const APP_ROUTES: Routes = [
         CommonDeductionCalculatorComponent,
         CommonIncomeInputtextComponent,
         CommonButtonComponent,
-        CommonSinComponent,
         SpouseInfoComponent,
         ChildInfoComponent,
         AuthorizeComponent
