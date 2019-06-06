@@ -46,6 +46,7 @@
     "pluralize": "^3.0.0",
     "protractor": "^5.4.0",
     "rimraf": "^2.5.2",
+    "ts-node": "^8.2.0",
     "tslint": "~5.9.1"
   },
   "engines": {
@@ -64,6 +65,7 @@
     "@angular/platform-server": "^6.1.9",
     "@angular/router": "^6.1.9",
     "@ng-select/ng-select": "^2.16.2",
+    "@types/faker": "^4.1.5",
     "angular-2-local-storage": "^2.0.0",
     "angular2-template-loader": "^0.6.2",
     "angular2-text-mask": "^9.0.0",
@@ -72,6 +74,7 @@
     "blueimp-load-image": "^2.19.0",
     "bootstrap": "4.3.1",
     "css-loader": "^1.0.0",
+    "faker": "^4.1.0",
     "jquery": "^3.3.1",
     "jxon": "git+https://github.com/bcgov/jxon.git",
     "lodash": "^4.17.11",
