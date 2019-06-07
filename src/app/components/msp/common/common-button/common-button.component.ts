@@ -11,6 +11,7 @@ export class CommonButtonComponent implements OnInit {
   @Input() disabled: boolean = false;
   @Input() label: string = 'Default Checkbox';
   @Input() checked: boolean =  false ;
+  @Input() spouse: boolean = false;
   @Output() btnClick: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('button') button: ElementRef;
 
@@ -23,6 +24,9 @@ export class CommonButtonComponent implements OnInit {
     this.btnClick.emit($event);
   }
 
-
+  // TODO: Figure out what this is to do? - Temporary fix to get code to compile
+  canContinue() {
+    return false;
+  }
 
 }

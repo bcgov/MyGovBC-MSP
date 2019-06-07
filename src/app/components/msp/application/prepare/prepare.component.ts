@@ -10,7 +10,7 @@ import {MspDataService} from '../../service/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
 import {ProcessService} from '../../service/process.service';
 import {BaseComponent} from '../../common/base.component';
-import {CommonButtonGroupComponent} from "../../common/common-button-group/common-button-group.component";
+import {CommonButtonGroupComponent} from '../../common/common-button-group/common-button-group.component';
 
 @Component({
   templateUrl: './prepare.component.html'
@@ -20,19 +20,19 @@ export class PrepareComponent extends BaseComponent {
   static ProcessStepNum = 0;
   lang = require('./i18n');
   @ViewChild('formRef') form: NgForm;
-  @ViewChild('liveInBCBtn') liveInBCBtn: CommonButtonGroupComponent ;
+   @ViewChild('liveInBCBtn') liveInBCBtn: CommonButtonGroupComponent ;
  // @ViewChild('notLiveInBCBtn') notLiveInBCBtn: ElementRef;
 //  @ViewChild('unUsualCircumstanceBtn') unUsualCircumstanceBtn: ElementRef;
 //  @ViewChild('noUnusualCircustanceBtn') noUnusualCircustanceBtn: ElementRef;
 //  @ViewChild('plannedAbsenceBtn') plannedAbsenceBtn: ElementRef;
 //  @ViewChild('noPlannedAbsenceBtn') noPlannedAbsenceBtn: ElementRef;
   @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
-  public radioLabels = [{"label": "Yes", "value": true},{ "label": "No", "value": false}];
+  public radioLabels = [{'label': 'Yes', 'value': true}, { 'label': 'No', 'value': false}];
   private apt: Person;
   mspApplication: MspApplication;
-  public styleClass:string = 'control-label';
+  public styleClass: string = 'control-label';
 
-  constructor(private dataService: MspDataService,
+  constructor(public dataService: MspDataService,
     private _processService: ProcessService,
     private _router: Router,
     private cd: ChangeDetectorRef) {

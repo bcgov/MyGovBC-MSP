@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <common-full-name #name [person]="person" (onChange)="setName($event)" ></common-full-name>
+    <msp-full-name [data]="person" (dataChange="setName($event)" ></msp-full-name>
   <!-- 
     <msp-name #name [person]="person" (onChange)="onChange.emit($event)" [showError]="showError"></msp-name>
     -->

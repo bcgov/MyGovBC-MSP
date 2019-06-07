@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { _ApplicationTypeNameSpace } from "../api-model/applicationTypes";
+import { _ApplicationTypeNameSpace } from '../api-model/applicationTypes';
 import { ISpaEnvResponse } from '../model/spa-env-response.interface';
 import { MspLog2Service } from './log2.service';
 import * as moment from 'moment';
-import { AbstractHttpService } from '../service/abstract-api.service';
-import { throwError, BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { of } from 'rxjs';
+import { AbstractHttpService } from 'moh-common-lib';
 
 /**
  * Responsible for retrieving values from the spa-env-server on OpenShift.
@@ -19,9 +19,9 @@ import { of } from 'rxjs';
 })
 
 export class  MspMaintenanceService extends AbstractHttpService {
-    
+
     constructor(protected http: HttpClient, private logService: MspLog2Service) {
-        super(http);  
+        super(http);
     }
 
     checkMaintenance(): Observable<ISpaEnvResponse> {

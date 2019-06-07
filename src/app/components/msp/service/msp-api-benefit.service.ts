@@ -2,22 +2,20 @@ import { Injectable } from '@angular/core';
 import { MspLogService } from './log.service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { BenefitApplication } from '../model/benefit-application.model';
-import { BenefitApplicationTypeFactory,BenefitApplicationType  } from '../api-model/benefitTypes';
+import { BenefitApplicationTypeFactory, BenefitApplicationType  } from '../api-model/benefitTypes';
 import { AssistanceApplicationType } from '../model/financial-assist-application.model';
-import { ApplicationType, AttachmentType, _ApplicationTypeNameSpace, document } from '../api-model/applicationTypes';
+import { AttachmentType, _ApplicationTypeNameSpace } from '../api-model/applicationTypes';
 import { environment } from '../../../../environments/environment';
 import * as moment from 'moment';
-//import { AbstractHttpService } from 'moh-common-lib/services';
-import { AbstractHttpService } from '../service/abstract-api.service';
-import { Observable, from } from 'rxjs';
-import { of, zip } from 'rxjs';
-import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../api-model/commonTypes';
+import { AbstractHttpService } from 'moh-common-lib';
+import { Observable } from 'rxjs';
+import { of } from 'rxjs';
+import { GenderType } from '../api-model/commonTypes';
 import { ResponseType } from '../api-model/responseTypes';
 import { MspImage } from '../model/msp-image';
-import { Http, Response } from '@angular/http';
+import { Response } from '@angular/http';
 import {MspApiService} from '../../msp/service/msp-api.service';
-import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
-import {SuppBenefitApiResponse} from '../model/suppBenefit-response.interface'
+import {SuppBenefitApiResponse} from '../model/suppBenefit-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +30,9 @@ export class MspApiBenefitService extends AbstractHttpService {
     suppBenefitResponse: SuppBenefitApiResponse;
 
     constructor(protected http: HttpClient, private logService: MspLogService) {
-        super(http);  
+        super(http);
     }
-    
+
     /**
      * User does NOT specify document type therefore we always say its a supporting document
      * @type {string}
@@ -46,40 +44,40 @@ export class MspApiBenefitService extends AbstractHttpService {
         return new Promise<SuppBenefitApiResponse>((resolve, reject) => {
             console.log('Start sending...');
 
-			// if no errors, then we'll sendApplication all attachments
-			return this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages()).then(() => {
+            // if no errors, then we'll sendApplication all attachments
+            return this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages()).then(() => {
                 // once all attachments are done we can sendApplication in the data
                 return this.sendApplication(app, app.uuid).subscribe( response  => {
                     // Add reference number
-                    if(response && response.referenceNumber) {
+                    if (response && response.referenceNumber) {
                         app.referenceNumber = response.referenceNumber.toString();
-                    }     
+                    }
                     // Let our caller know were done passing back the application
-                    return resolve(response);       
+                    return resolve(response);
                 });
-			}).catch((error: Response | any) => {
-					console.log('sent all attachments rejected: ', error);
-					this.logService.log({
-						text: 'Attachment - Send All Rejected ',
-						response: error,
-					}, 'Attachment - Send All Rejected ');
-					return resolve(error);
-			});
-           
+            }).catch((error: Response | any) => {
+                    console.log('sent all attachments rejected: ', error);
+                    this.logService.log({
+                        text: 'Attachment - Send All Rejected ',
+                        response: error,
+                    }, 'Attachment - Send All Rejected ');
+                    return resolve(error);
+            });
+
         });
     }
 
-    
+
     sendApplication(app: BenefitApplication, uuid: string): Observable<any>{
-        
+
         const suppBenefitResponse = this.convertBenefitApplication(app);
         const url =  environment.appConstants.apiBaseUrl + environment.appConstants.suppBenefitAPIUrl + uuid ;
-        
+
         // Setup headers
         this._headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Response-Type': 'application/json',
-            'X-Authorization': 'Bearer ' +app.authorizationToken,
+            'X-Authorization': 'Bearer ' + app.authorizationToken,
         });
         return this.post<BenefitApplication>(url, suppBenefitResponse);
     }
@@ -195,7 +193,7 @@ export class MspApiBenefitService extends AbstractHttpService {
                         text: 'Attachment - Send Error ',
                         response: error,
                     }, 'Attachment - Send Error ');
-                  
+
                     reject(error);
                 });
         });
@@ -217,7 +215,7 @@ export class MspApiBenefitService extends AbstractHttpService {
         text: 'Cannot get Suppbenefit API response',
         response: error,
         }, 'Cannot get Suppbenefit API response');
-    
+
       // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
       return of(error);
      // return of([]);
@@ -227,12 +225,12 @@ export class MspApiBenefitService extends AbstractHttpService {
 
     // This method is used to convert the response from user into a JSON object
     private convertBenefitApplication(from: BenefitApplication): BenefitApplicationType {
-        
+
         // Init BenefitApplication
         const to = BenefitApplicationTypeFactory.make();
         to.applicationType = MspApiBenefitService.ApplicationType;
         to.applicationUuid = from.uuid;
-   
+
         /*
          birthDate: string;
          gender: GenderType;
@@ -241,7 +239,7 @@ export class MspApiBenefitService extends AbstractHttpService {
         to.applicantFirstName = from.applicant.firstName;
         to.applicantSecondName = from.applicant.middleName;
         to.applicantLastName = from.applicant.lastName;
-   
+
         if (from.applicant.hasDob) {
             to.applicantBirthdate = from.applicant.dob.format(this.ISO8601DateFormat);
         }
@@ -258,7 +256,7 @@ export class MspApiBenefitService extends AbstractHttpService {
          SIN: number;
          telephone: number;
          */
-       
+
         switch (from.getBenefitApplicationType()) {
             case AssistanceApplicationType.CurrentYear:
                 to.assistanceYear = 'CurrentPA';
@@ -288,8 +286,8 @@ export class MspApiBenefitService extends AbstractHttpService {
         if (from.reportedUCCBenefit_line117 != null) to.reportedUCCBenefit = from.reportedUCCBenefit_line117;
         if (from.spouseDSPAmount_line125 != null) to.spouseDSPAmount = from.spouseDSPAmount_line125;
 
-        
-        // Capturing Mailing Address 
+
+        // Capturing Mailing Address
         to.applicantAddressLine1 = from.mailingAddress.addressLine1;
         to.applicantAddressLine2 = from.mailingAddress.addressLine2;
         to.applicantAddressLine3 = from.mailingAddress.addressLine3;
@@ -299,8 +297,8 @@ export class MspApiBenefitService extends AbstractHttpService {
             to.applicantPostalCode = from.mailingAddress.postal.toUpperCase().replace(' ', '');
         }
         to.applicantProvinceOrState = from.mailingAddress.province;
-        
-        // Capturing Previous pHn , Power of attorney, SIn and Phone number   
+
+        // Capturing Previous pHn , Power of attorney, SIn and Phone number
         if (from.applicant.previous_phn) {
             to.applicantPHN = Number(from.applicant.previous_phn.replace(new RegExp('[^0-9]', 'g'), ''));
         }
@@ -316,7 +314,7 @@ export class MspApiBenefitService extends AbstractHttpService {
         if (from.phoneNumber) {
             to.applicantTelephone = Number(from.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
         }
-        
+
         // Capturing AuthorizedbyapplicantDate, Autorizedby Spouse, AuthorizedbyApplicant
         to.authorizedByApplicantDate =
             moment(from.authorizedByApplicantDate).format(this.ISO8601DateFormat);
@@ -332,9 +330,9 @@ export class MspApiBenefitService extends AbstractHttpService {
         else {
             to.authorizedBySpouse = 'N';
         }
-    
+
         if (from.hasSpouseOrCommonLaw) {
-            
+
             /*  name: ct.NameType;
                 birthDate?: string;
                 phn?: number;
@@ -367,13 +365,13 @@ export class MspApiBenefitService extends AbstractHttpService {
                 to.spouseSixtyFiveDeduction = from.eligibility.spouseSixtyFiveDeduction;
             }
         }
-        
+
         // Capturing Attachments
         to.attachments = new Array<AttachmentType>();
 
         // assemble all attachments
         const attachments = from.getAllImages();
-       
+
         // If no attachments just return
         if (!attachments || attachments.length < 1) {
             return null;
@@ -400,11 +398,11 @@ export class MspApiBenefitService extends AbstractHttpService {
             // uuid
             toAttachment.attachmentUuid = attachment.uuid;
             toAttachment.attachmentOrder = String(attachment.attachmentOrder) ;
-            
+
             // Add to array
             to.attachments.push(toAttachment);
         }
-        
+
         console.log(to);
         return to;
     }

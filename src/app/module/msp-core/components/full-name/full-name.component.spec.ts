@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormActionBarComponent } from './form-action-bar.component';
+import { MspFullNameComponent } from './full-name.component';
 
-describe('FormActionBarComponent', () => {
-  let component: FormActionBarComponent;
-  let fixture: ComponentFixture<FormActionBarComponent>;
+describe('MspFullNameComponent', () => {
+  let component: MspFullNameComponent;
+  let fixture: ComponentFixture<MspFullNameComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormActionBarComponent ]
+      declarations: [ MspFullNameComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormActionBarComponent);
+    fixture = TestBed.createComponent(MspFullNameComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

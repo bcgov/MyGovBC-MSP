@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-lg-12">
       <!-- <msp-name #name [person]="person" (onChange)="onChange.emit($event)"></msp-name> -->
-      <common-full-name #name [person]="person" (onChange)="onChange.emit($event)" ></common-full-name> 
+      <msp-full-name [data]="person" (dataChange)="onChange.emit($event)" ></msp-full-name> 
      <!-- <common-name #name [person]='person'></common-name>  -->
     </div>
   </div>
@@ -19,48 +19,22 @@
       (onChange)="onChange.emit($event)">
       </msp-birthdate>-->
     </div>
+
+
     <div class="col-md-4">
-      <div class="form-group">
-           <msp-common-phn [uniquePHN] = "isPHNUnique()"
-             [phn]="person.previous_phn" 
-            (phnChange)="person.previous_phn = $event; onChange.emit($event)">
-          </msp-common-phn> 
-        <!-- <msp-phn #phn
-                 [phn]="person.previous_phn"
-                 (phnChange)="person.previous_phn = $event"
-                 (onChange)="onChange.emit($event)"
-                 [required]="true"
-                 [bcPhn]="true"></msp-phn>  -->
-      </div>
+      <!-- TODO: Need to check for unique PHN, do we have a list to compare against-->
+      <common-phn name="phn"
+                  [(ngModel)]="person.previous_phn"
+                  (ngModelChange)="onChange.emit($event)"></common-phn>
     </div>
     <div class="col-md-4">
-    <!--   <common-sin (sinChange)="person.sin = $event; onChange.emit($event)"  [uniqueSins]="isSinUnique()" [required]="true" label='SIN Number' [data]="person.sin"  ></common-sin>  -->
-       
-   
-   <div class="form-group"
-           [ngClass]="{'has-error': !formRef.controls.sin?.valid && sinRef.touched}">
-          <label class="control-label" for="sin"
-                [innerHTML]="lang('./en/index.js').sinLabel"></label>
-          <input type="text"
-                [(ngModel)]="person.sin"
-               sinCheck
-               required
-               pattern="[1-9]{1}\d{2}\s?\d{3}\s?\d{3}"
-               id='sin' name='sin'
-               #sinRef="ngModel"
-               class="form-control"
-               placeholder="046 454 286">
-            <div *ngIf='sinRef.touched'>
-              <div class="text-danger" *ngIf="sinRef.errors?.required"
-                  [innerHTML]="lang('./en/index.js').sinErrorRequired"></div>
-              <div class="text-danger" *ngIf="sinRef.errors?.pattern"
-                  [innerHTML]="lang('./en/index.js').sinErrorPattern"></div>
-              <div class="text-danger" *ngIf="!sinRef.errors?.pattern && sinRef.errors?.sinCheck"
-                  [innerHTML]="lang('./en/index.js').sinCheckErrorPattern"></div>
-            </div>
-           <div class="text-danger" *ngIf="!isSinUnique()"
-             [innerHTML]="lang('./en/index.js').sinUniqueError"></div>  
-        </div>  
-    </div> 
+      <!--TODO: Do we have unique SINs to compare against-->
+      <common-sin name="sin_number"
+                  label="'SIN Number'"
+                  [ngModel]="person.sin"
+                  (ngModelChange)="person.sin = $event; onChange.emit($event)"
+                  [placeholder]="'046 454 286'"
+                  required></common-sin>
+    </div>
   </div>
 </form>
