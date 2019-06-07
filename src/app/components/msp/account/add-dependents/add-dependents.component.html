@@ -1,15 +1,15 @@
 <!-- Hide modal for children under 19. -->
 <form #formRef='ngForm' novalidate>
 
-  <button type="button" class="btn btn-default btn-xs pull-right" (click)="cancelDependent()" [innerHTML]="lang('./en/index.js').clearButton[person.relationship]">
+  <button type="button" class="btn btn-default btn-xs pull-right" (click)="cancelDependent()" [innerHTML]="clearButton[person.relationship]">
   </button>
 
-  <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]"></h2>
-  <p [innerHTML]="lang('./en/index.js').sectionBody[person.relationship]"></p>
+  <h2 [innerHTML]="sectionTitle[person.relationship]"></h2>
+  <p [innerHTML]="sectionBody[person.relationship]"></p>
 
   <div class="row">
     <div class="col-lg-6 form-group" [ngClass]="{'has-error': showError && (person.isExistingBeneficiary === undefined || person.isExistingBeneficiary === null)}" >
-  <label #firstFocus  for="isExistingBeneficiary-{{person.id}}" [innerHtml]="lang('./en/index.js').isExistingBeneficiaryQuestion[person.relationship]"  class="control-label"></label>
+  <label #firstFocus  for="isExistingBeneficiary-{{person.id}}" [innerHtml]="isExistingBeneficiaryQuestion[person.relationship]"  class="control-label"></label>
 
 
   <msp-toggle #isExistingBeneficiary [id]="'isExistingBeneficiary-'+ person.id" (dataChange)="handleBeneficiaryChange($event)" [(data)]="person.isExistingBeneficiary"></msp-toggle>
@@ -17,7 +17,7 @@
       <div *ngIf='showError && (person.isExistingBeneficiary === undefined || person.isExistingBeneficiary === null)'
            role="alert" aria-live="assertive">
         <div class="text-danger"
-             [innerHtml]="lang('./en/index.js').mustAnswerQuestion"></div>
+             [innerHtml]="mustAnswerQuestion"></div>
       </div>
     </div>
 
@@ -46,7 +46,7 @@
         <div class="col-lg-4 form-group"
           [ngClass]="{'has-error': !formRef.controls['spousePrevLastname-'+person.id]?.valid && (prevNameRef.touched || showError)}">
           
-          <label for='addSpousePreviousLastName-{{person.id}}' [innerHTML]="lang('./en/index.js').previousName"></label>
+          <label for='addSpousePreviousLastName-{{person.id}}' [innerHTML]="previousName"></label>
           <input type="text" 
             name="spousePrevLastname-{{person.id}}" 
             class="form-control" 
@@ -57,13 +57,13 @@
             [(ngModel)]="person.prevLastName"   (ngModelChange)="change($event)" >
           
           <div *ngIf='prevNameRef.touched || showError' role="alert" aria-live="assertive">
-              <div class="text-danger" *ngIf="prevNameRef.errors?.pattern"[innerHtml]="lang('./en/index.js').previousNameErrorPattern"></div>
+              <div class="text-danger" *ngIf="prevNameRef.errors?.pattern"[innerHtml]="previousNameErrorPattern"></div>
           </div>
 
         </div>
         <div class="col-lg-4">
           <msp-date
-            [label]="lang('./en/index.js').marriageDate"
+            [label]="marriageDate"
             [showError]='showError'
             [(date)]="person.marriageDate"
             required=false
@@ -77,7 +77,7 @@
     <ng-container *ngIf="person.relationship === Relationship.Child19To24">
       <div class="row form-group">
         <div class="col-lg-4">
-            <label for='schoolName-{{person.id}}' [innerHTML]="lang('./en/index.js').schoolName"></label>
+            <label for='schoolName-{{person.id}}' [innerHTML]="schoolName"></label>
 
             <input type="text" 
             name="schoolName-{{person.id}}" 
@@ -91,22 +91,22 @@
 
             <div *ngIf='schoolNameRef.touched || showError' role="alert" aria-live="assertive">
                 <div class="text-danger" *ngIf="schoolNameRef.errors?.required"
-                [innerHtml]="lang('./en/index.js').schoolNameRequired"></div>
-                <div class="text-danger" *ngIf="schoolNameRef.errors?.pattern"[innerHtml]="lang('./en/index.js').previousNameErrorPattern"></div>
+                [innerHtml]="schoolNameRequired"></div>
+                <div class="text-danger" *ngIf="schoolNameRef.errors?.pattern"[innerHtml]="previousNameErrorPattern"></div>
             </div>
         </div>
       </div>
 
       <div class="row form-group" [ngClass]="{'has-error': showError && (person.schoolOutsideOfBC === undefined || person.schoolOutsideOfBC === null)}">
         <div class="col-lg-4">
-          <label for="isOutsideBC-{{person.id}}" [innerHtml]="lang('./en/index.js').schoolOutsideBC" class="control-label"></label>
+          <label for="isOutsideBC-{{person.id}}" [innerHtml]="schoolOutsideBC" class="control-label"></label>
       
           <msp-toggle [id]="'isOutsideBC-'+ person.id" [(data)]="person.schoolOutsideOfBC" (dataChange)="outsideBCchange($event)" ></msp-toggle>
         </div>
 
         <div class="col-lg-4 form-inline" *ngIf="person.schoolOutsideOfBC">
           <msp-date
-            [label]="lang('./en/index.js').departureDate"
+            [label]="departureDate"
             [showError]='showError' [futureDate]="true"
             [(date)]="person.studiesDepartureSimple"
           ></msp-date>
@@ -114,7 +114,7 @@
       </div>
 
       <msp-address #schoolAddress
-      [mailingAddressHeading]="lang('./en/index.js').schoolAddressLabel"
+      [mailingAddressHeading]="schoolAddressLabel"
       [mailingAddress]="person.schoolAddress"
       [mailingOnly]="true"
       [showError] = "showError"
@@ -125,7 +125,7 @@
       <div class="row">
         <div class="col-lg-6">
           <msp-date #studiesBegin
-            [label]="lang('./en/index.js').studiesBegin"
+            [label]="studiesBegin"
             [showError]='showError'
             [(date)]="person.studiesBeginSimple" [futureDate]="true"
                ></msp-date>
@@ -133,12 +133,12 @@
 
         <div class="col-lg-6">
           <msp-date #studiesFinishedSimple
-            [label]="lang('./en/index.js').studiesFinish"
+            [label]="studiesFinish"
                     [showError]='showError' (onChange) = "onChange.emit($event)" [futureDate]="true"
                     [(date)]="person.studiesFinishedSimple"
           ></msp-date>
           <div *ngIf='person.isStudyDatesInValid'>
-            <div class="text-danger"[innerHtml]="lang('./en/index.js').dateStudiesStartBeforeEndError"></div>
+            <div class="text-danger"[innerHtml]="dateStudiesStartBeforeEndError"></div>
           </div>
         </div>
       </div>
