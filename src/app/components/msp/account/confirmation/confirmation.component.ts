@@ -3,12 +3,14 @@ import {MspApplication} from '../../model/application.model';
 import {MspDataService} from '../../service/msp-data.service';
 import {ActivatedRoute, Router, Params} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
     templateUrl: './confirmation.component.html'
 })
 export class AccountConfirmationComponent implements OnInit {
-    lang = require('./i18n');
+    public links = environment.links;
+    
     confirmationNum: string;
     subscription: Subscription;
     showDepMsg: string;
