@@ -27,11 +27,13 @@
         </div>
       </div> -->
       <msp-citizen-status id="primary" [label]="statusLabel()" [items]="langStatus('./en/index.js')"
-        (change)="setStatus($event, person)">
+        (change)="setStatus($event, person)" [selected]="person.status">
       </msp-citizen-status>
       <!-- <div *ngIf="st === person.status" role="alertdialog" aria-labelledby="What is your activity?"> -->
-      <common-radio [radioLabels]='activitiesTable' [label]="" [value]="activity" (statusChange)="setActivity($event)"
-        display="table-row-group"></common-radio>
+      <common-radio *ngIf="person.status != null" [radioLabels]='activitiesTable' [label]="" [value]="activity"
+        (statusChange)="setActivity($event)" display="table-row-group">
+      </common-radio>
+      <common-file-uploader *ngIf="person.status != null && person.currentActivity != null"></common-file-uploader>
       <!-- <div class="form-check" *ngFor="let activity of activities">
         <input class='form-check-input' type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}"
           (click)="setActivity(activity)" [checked]="activity === person.currentActivity">
@@ -61,7 +63,7 @@
       <!-- </div> -->
       <!-- </div> -->
     </div>
-    <div class="col-lg-4" *ngIf="person.status != null && person.currentActivity != null" role="alert"
+    <!-- <div class="col-lg-4" *ngIf="person.status != null && person.currentActivity != null" role="alert"
       aria-live="assertive">
       <h3><i class="fa fa-id-card-o" aria-hidden="true"></i>
         {{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
@@ -82,7 +84,7 @@
         </li>
       </ul>
       <msp-id-req-modal #idReqModal></msp-id-req-modal>
-    </div>
+    </div> -->
     <div class="col-lg-4" *ngIf="person.status != null && person.currentActivity != null">
 
       <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel[this.person.relationship]"></h3>
