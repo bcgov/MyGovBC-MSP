@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites disabled="9" errors="0" failures="0" tests="11" time="13.856">
+ <testsuite name="chrome.MSP Enrolment - Child Info" timestamp="2019-06-07T17:26:44" hostname="localhost" time="7.157" errors="0" tests="1" skipped="0" disabled="0" failures="0">
+  <testcase classname="chrome.MSP Enrolment - Child Info" name="01. should load the page without issue" time="7.156" />
+ </testsuite>
+ <testsuite name="chrome.MSP Enrolment - Spouse Info" timestamp="2019-06-07T17:26:51" hostname="localhost" time="6.696" errors="0" tests="1" skipped="0" disabled="0" failures="0">
+  <testcase classname="chrome.MSP Enrolment - Spouse Info" name="01. should load the page without issue" time="6.695" />
+ </testsuite>
+ <testsuite name="chrome.MSP Enrolment - Check Eligibility" timestamp="2019-06-07T17:26:58" hostname="localhost" time="0.003" errors="0" tests="5" skipped="0" disabled="5" failures="0">
+  <testcase classname="chrome.MSP Enrolment - Check Eligibility" name="01. should load the page without issue" time="0.001">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Check Eligibility" name="02. should NOT let the user to proceed if the user has not agreeed to the info collection notice" time="0">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Check Eligibility" name="03. should let the user to proceed if the user has agreeed to the info collection notice" time="0">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Check Eligibility" name="04. should NOT let the user continue if not all questions have been answered" time="0">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Check Eligibility" name="05. should be able to continue after answering all the questions" time="0">
+   <skipped />
+  </testcase>
+ </testsuite>
+ <testsuite name="chrome.MSP Enrolment - Personal Info" timestamp="2019-06-07T17:26:58" hostname="localhost" time="0" errors="0" tests="4" skipped="0" disabled="4" failures="0">
+  <testcase classname="chrome.MSP Enrolment - Personal Info" name="01. should load the page without issue" time="0">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Personal Info" name="02. should be able to select status by typing it in the field" time="0">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Personal Info" name="03. should be able to select status by clicking it in the field" time="0">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Personal Info" name="04. should be able to continue when user answer all required questions" time="0">
+   <skipped />
+  </testcase>
+ </testsuite>
+</testsuites>

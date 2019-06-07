@@ -34,6 +34,7 @@
     "eslint": "^3.10.2",
     "font-awesome": "^4.7.0",
     "jasmine-core": "~2.5.2",
+    "jasmine-reporters": "^2.3.2",
     "jasmine-spec-reporter": "~3.2.0",
     "karma": "^3.0.0",
     "karma-chrome-launcher": "~2.2.0",

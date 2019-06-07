@@ -4,7 +4,7 @@ export class FakeDataEnrolment {
 
     private static seedVal: number = Math.floor(Math.random() * Math.floor(1000));
 
-    profileInfo(): ProfilePageTest {
+    personalInfo(): PersonalInfoPageTest {
         return {
             firstName: faker.name.firstName(),
             middleName: Math.random() > 0.5 ? faker.name.firstName() : undefined,
@@ -37,7 +37,7 @@ export class FakeDataEnrolment {
     }
 }
 
-export interface ProfilePageTest {
+export interface PersonalInfoPageTest {
   firstName: string;
   middleName: string;
   lastName: string;
