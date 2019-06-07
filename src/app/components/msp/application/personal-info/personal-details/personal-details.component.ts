@@ -1,4 +1,4 @@
-import  {
+import {
   Component, Input, Output, OnChanges, EventEmitter,
   SimpleChange, ViewChild, AfterViewInit, OnInit, OnDestroy, ElementRef, QueryList, ViewChildren, ChangeDetectorRef
 } from '@angular/core';
@@ -75,6 +75,41 @@ export class PersonalDetailsComponent extends BaseComponent {
   langActivities = require('../../../common/activities/i18n');
   langDocuments = require('../../../common/documents/i18n');
 
+  radioLabel = [
+    {
+      'label': '0',
+      'value': 'Not new to B.C. but need to apply for MSP'
+    },
+    {
+      'label': '1',
+      'value': 'Moved to B.C. from another province'
+    },
+    {
+      'label': '2',
+      'value': 'Moved to B.C. from another country'
+    },
+    {
+      'label': '3',
+      'value': 'Working in B.C.'
+    },
+    {
+      'label': '4',
+      'value': 'Studying in B.C.'
+    },
+    {
+      'label': '5',
+      'value': 'Religious worker'
+    },
+    {
+      'label': '6',
+      'value': 'Diplomat'
+    },
+    {
+      'label': '7',
+      'value': 'Visiting'
+    }
+  ];
+
   // Expose some types to template
   Activities: typeof Activities = Activities;
   Relationship: typeof Relationship = Relationship;
@@ -114,9 +149,9 @@ export class PersonalDetailsComponent extends BaseComponent {
   genderListSignal: string;
   institutionWorkSignal: string;
   showServicesCardModal: boolean = false;
-  private value:any = {};
+  private value: any = {};
 
-  public statusinCanada:Array<any> = [
+  public statusinCanada: Array<any> = [
       { value: 1, label: ' Canadian Citizen' },
       { value: 2, label: 'Permanent Resident' },
       { value: 3, label: 'Temporary Permit Holder or Diplomat' }
@@ -145,24 +180,24 @@ export class PersonalDetailsComponent extends BaseComponent {
   get statusInCanada(): StatusInCanada[] {
     return StatusRules.availableStatus(this.person.relationship);
   }
-  
 
-  public refreshValue(value:any):void {
+
+  public refreshValue(value: any): void {
     this.value = value;
   }
-  
-  public removed(value:any):void {
+
+  public removed(value: any): void {
     console.log('Removed value is: ', value);
   }
 
-  public selected(value:any):void {
+  public selected(value: any): void {
     console.log('Selected value is: ', value);
   }
-  
-  public typed(value:any):void {
+
+  public typed(value: any): void {
     console.log('New search input: ', value);
   }
- 
+
 
   setStatus(value: StatusInCanada, p: Person) {
     p.status = value;
@@ -178,7 +213,7 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   setActivity(value: Activities) {
 
-      if (this.showServicesCardModal && this.person.bcServiceCardShowStatus && this.person.relationship != this.Relationship.ChildUnder19) {
+      if (this.showServicesCardModal && this.person.bcServiceCardShowStatus && this.person.relationship !== this.Relationship.ChildUnder19) {
           this.servicesCardDisclaimerModalComponent.showModal();
           this.showServicesCardModal = false;
       }
@@ -246,7 +281,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   get arrivalDateLabel(): string {
-    if (this.person.currentActivity == Activities.LivingInBCWithoutMSP) {
+    if (this.person.currentActivity === Activities.LivingInBCWithoutMSP) {
       return this.lang('./en/index.js').arrivalDateToBCLabelForReturning;
     }
     return this.lang('./en/index.js').arrivalDateToBCLabel;
@@ -277,7 +312,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   setStayInBCAfterStudy(event: any){
-    event = event == 'True' ? true : false; 
+    event = event === 'True' ? true : false;
     this.person.inBCafterStudies = event;
     this.onChange.emit(event);
     this.emitIsFormValid();
@@ -326,7 +361,7 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   selectInstitution(history: string) {
     this.person.institutionWorkHistory = history;
-    if (history == 'No') {
+    if (history === 'No') {
       this.person.dischargeDay = null;
       this.person.dischargeMonth = null;
       this.person.dischargeYear = null;

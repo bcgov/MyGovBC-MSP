@@ -16,7 +16,7 @@ import {Process} from './process.service';
 import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
 import {Gender} from '../model/person.model';
 import {OperationActionType} from '../model/person.model';
-import {Address} from 'moh-common-lib/models';
+import {Address} from 'moh-common-lib';
 import { SimpleDate } from '../model/simple-date.interface';
 import { AccountLetterApplication } from '../model/account-letter-application.model';
 import AccountLetterDto from '../model/account-letter.dto';
@@ -125,7 +125,7 @@ export  class MspDataService {
             return new MspApplication();
         }
     }
-    
+
 
     private fetchMspAccountApplication(): MspAccountApp {
         const dto: MspAccountDto =
@@ -137,14 +137,14 @@ export  class MspDataService {
         }
     }
 
-    // Saving Account Letter into local storage 
+    // Saving Account Letter into local storage
     saveAccountLetterApplication(): void {
         const dto: AccountLetterDto = this.toAccoutLetterTransferObject(this._accountLetterApp);
         this.localStorageService.set(this.accountLetterAppStorageKey, dto);
         // this.localStorageService.set(this.finAssistMailingAddressStorageKey,dto.mailingAddress);
     }
 
-     // Fetch Account Letter into local storage 
+     // Fetch Account Letter into local storage
     private fetchAccountLetterApplication(): AccountLetterApplication {
         const dto: AccountLetterDto =
             this.localStorageService.get<AccountLetterDto>(this.accountLetterAppStorageKey);
@@ -629,7 +629,7 @@ export  class MspDataService {
         return dto;
     }
 
-    // Account letter to method 
+    // Account letter to method
     toAccoutLetterTransferObject(input: AccountLetterApplication): AccountLetterDto {
         const dto: AccountLetterDto = new AccountLetterDto();
         dto.authorizedByApplicant = input.authorizedByApplicant;
@@ -799,7 +799,7 @@ export  class MspDataService {
 
     //Account letter from method
     private fromAccoutLetterTransferObject(dto: AccountLetterDto): AccountLetterApplication {
-        
+
         const output: AccountLetterApplication = new AccountLetterApplication();
         output.authorizedByApplicant = dto.authorizedByApplicant;
         output.authorizedByApplicantDate = dto.authorizedByApplicantDate;

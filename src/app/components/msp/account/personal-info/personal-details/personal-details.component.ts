@@ -95,7 +95,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
 
     @ViewChild('gender') gender: ElementRef;
     @ViewChild('birthDate') birthdate: MspBirthDateComponent;
-    @ViewChild('name') name: ElementRef;
+ //   @ViewChild('name') name: ElementRef;
     @ViewChild('phn') phn: MspPhnComponent;
     @ViewChild('phone') phone: MspPhoneComponent;
     @ViewChild(MspStatusInCanadaRadioComponent) statusRadioComponents: MspStatusInCanadaRadioComponent;

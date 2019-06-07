@@ -1,10 +1,13 @@
 <form #formRef="ngForm" novalidate>
 
+  <h1>Tell us about your Dependants and upload official documents</h1>
+  <hr>
+  <div class="col-sm-4">
+    <common-button [label]="'Add Child'" 
+      [buttonType]="'btn btn-primary'" (btnClick)='addChild(Relationship.ChildUnder19)'>
+    </common-button>
+  </div>
 
-  <common-button [label]="'Add Child'" 
-    [buttonType]="buttonClass" (btnClick)='addChild(Relationship.ChildUnder19)'>
-  </common-button>
-  
   <div *ngIf = 'children.length > 0'>
       <msp-personal-details *ngFor = "let child of children; let idx = index"
         [person] = 'child'
@@ -14,7 +17,10 @@
         [showError] = "formRef.submitted">
       </msp-personal-details>
     </div>
-  <common-form-action-bar [submitLabel]="children.length > 0? 'Continue':'No Child'"
-    [canContinue]="!(!documentsReady() || checkAnyDependentsIneligible() || !isAllValid())" (btnClick)="nextStep()">
-  </common-form-action-bar>
+
+  <div class="container">
+      <common-form-action-bar [submitLabel]="children.length > 0? 'Continue':'No Child'"
+        [canContinue]="!(!documentsReady() || checkAnyDependentsIneligible() || !isAllValid())" (btnClick)="nextStep()">
+      </common-form-action-bar>
+  </div>
 </form>

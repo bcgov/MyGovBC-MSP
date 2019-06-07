@@ -6,7 +6,8 @@
 
 <common-consent-modal #mspConsentModal [isUnderMaintenance]="true" (onClose)="liveInBCBtn.focus()"
         [title]="'Information collection notice'" agreeLabel="I have read and understand this information"
-        [processName]="lang('./en/index.js').consentProcessName" (accept)="mspApplication.infoCollectionAgreement = $event;  this.dataService.saveMspApplication();">
+        [processName]="lang('./en/index.js').consentProcessName" 
+        (accept)="mspApplication.infoCollectionAgreement = $event;  this.dataService.saveMspApplication();">
         <p><strong>Keep your personal information secure – especially when using a shared device like a computer at a library, school or café.</strong> To delete any information that was entered, either complete the application and submit it or, if you don’t finish, close the web browser.</p><p><strong>Need to take a break and come back later?</strong> The data you enter on this form is saved locally to the computer or device you are using until you close the web browser or submit your application.</p><p><strong>Information in this application is collected by the Ministry of Health</strong> under section 26(a), (c) and (e) of the Freedom of Information and Protection of Privacy Act and will be used to determine eligibility for provincial health care benefits in BC and administer Premium Assistance. Should you have any questions about the collection of this personal information please <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">contact Health Insurance BC <i class="fa fa-external-link" aria-hidden="true"></i></a>.</p>
 </common-consent-modal> 
 
@@ -22,7 +23,7 @@
     
     <common-radio [value]="liveInBC"  [label]="lang('./en/index.js').question1" 
         [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
-        (onStatusChange)="setLiveInBC($event)">
+        (statusChange)="setLiveInBC($event)">
     </common-radio> 
     <!--<label for="{{objectId}}" class="control-label" [innerHtml]="lang('./en/index.js').question1" ></label><br/>
     <div *ngFor="let val of radioLabels" >
@@ -51,7 +52,7 @@
     <div [hidden]="liveInBC !== true" role="dialog" aria-labelledby="q2">
         <common-radio [value]="plannedAbsence"  [label]="lang('./en/index.js').plannedAwayForOver30DaysQuestion" 
             [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
-           (onStatusChange)="setPlannedAbsence($event)">
+           (statusChange)="setPlannedAbsence($event)">
         </common-radio>
    
         <!--     <common-button-group [label]="lang('./en/index.js').plannedAwayForOver30DaysQuestion" 
@@ -77,7 +78,7 @@
 
         <common-radio [value]="unUsualCircumstance"  [label]="lang('./en/index.js').specialCircumstanceQuestion" 
             [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
-            (onStatusChange)="setUnusualCircumstance($event)">
+            (statusChange)="setUnusualCircumstance($event)">
         </common-radio>
       <!--    <common-button-group [label]="lang('./en/index.js').specialCircumstanceQuestion" 
             [data]="unUsualCircumstance" (dataChange)="setUnusualCircumstance($event)" >
@@ -105,11 +106,14 @@
 
 </form>
 <hr>
-
-<common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
-            [canContinue]="canContinue()"
-            (btnClick)="goToPersonalInfo()">
-</common-form-action-bar>
+<!--<div class="position: inherit;"> -->
+<div class="container">
+    <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
+                [canContinue]="canContinue()"
+                (btnClick)="goToPersonalInfo()">
+    </common-form-action-bar>
+</div>
+<!--</div> -->
     
 
 <!--<button class="btn btn-primary"

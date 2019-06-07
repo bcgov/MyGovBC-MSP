@@ -16,7 +16,7 @@ import { MspBirthDateComponent } from '../../common/birthdate/birthdate.componen
 import { MspPhnComponent } from '../../common/phn/phn.component';
 import { MspPhoneComponent } from '../../common/phone/phone.component';
 import { MspDischargeDateComponent } from '../../common/discharge-date/discharge-date.component';
-'../../common/birthdate/birthdate.component';
+// '../../common/birthdate/birthdate.component';
 import { MspSchoolDateComponent } from '../../common/schoolDate/school-date.component';
 import { MspAddressComponent } from '../../common/address/address.component';
 import { MspProvinceComponent } from '../../common/province/province.component';

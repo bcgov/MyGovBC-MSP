@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MspDataService } from './msp-data.service';
 import {FinancialAssistApplication} from '../model/financial-assist-application.model';
-import {MspApplication} from '../model/application.model';
-import { MspValidationService }  from './msp-validation.service';
+//import {MspApplication} from '../model/application.model';
+import { MspValidationService } from './msp-validation.service';
 import {Person} from '../model/person.model';
 
 import * as _ from 'lodash';
@@ -72,7 +72,7 @@ export class CompletenessCheckService {
         && !_.isEmpty(this.finApp.applicant.sin)
         && this.finApp.mailingAddress.isValid
         && this.finApp.phoneNumberIsValid
-        && !(this.finApp.applicant.dob_month == 0);
+        && !(this.finApp.applicant.dob_month === 0);
 
       // Check applicant name regexs
       const regEx = new RegExp(Person.NameRegEx);

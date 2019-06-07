@@ -28,8 +28,13 @@
         </div>
     </div>
 
+<<<<<<< HEAD
 <!-- <common-full-name #name [person]="person" (onChange)="setName($event)" ></common-full-name> -->
     <!--
+=======
+    <msp-full-name [data]="person" (dataChange="setName($event)" ></msp-full-name>
+  <!-- 
+>>>>>>> 8d2e805fbab764850da1325e82dea1410b8dc538
     <msp-name #name [person]="person" (onChange)="onChange.emit($event)" [showError]="showError"></msp-name>
     -->
     <div class="row">
@@ -38,7 +43,7 @@
                 <common-radio [value]="person.gender" 
                     label='Gender' 
                     [radioLabels]='[{"label": "Male", "value": "M"},{ "label": "Female", "value": "F"}]' 
-                    (onStatusChange)="setGender($event)"
+                    (statusChange)="setGender($event)"
                     [showError]="showError">
                 </common-radio> 
             <!-- <msp-gender

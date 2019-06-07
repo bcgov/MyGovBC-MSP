@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CommonCheckboxComponent } from './common-checkbox.component';
+import { CitizenStatusComponent } from './citizen-status.component';
 
-describe('CommonCheckboxComponent', () => {
-  let component: CommonCheckboxComponent;
-  let fixture: ComponentFixture<CommonCheckboxComponent>;
+describe('CitizenStatusComponent', () => {
+  let component: CitizenStatusComponent;
+  let fixture: ComponentFixture<CitizenStatusComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommonCheckboxComponent ]
+      declarations: [ CitizenStatusComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CommonCheckboxComponent);
+    fixture = TestBed.createComponent(CitizenStatusComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

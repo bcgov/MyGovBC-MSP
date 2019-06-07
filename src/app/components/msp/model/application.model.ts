@@ -1,4 +1,4 @@
-import {Address} from 'moh-common-lib/models';
+import {Address} from 'moh-common-lib';
 import { Relationship, StatusInCanada, Activities, Documents } from './status-activities-documents';
 import { Person } from './person.model';
 import { UUID } from 'angular2-uuid';

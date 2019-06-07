@@ -23,12 +23,12 @@
               ]
             },
             "assets": [
-              "src/app/images",
-              "src/app/fonts",
+              "src/assets",
+              "src/fonts",
               "src/favicon.ico"
             ],
             "styles": [
-              "src/app/index.scss"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -85,11 +85,11 @@
               ]
             },
             "styles": [
-              "src/app/index.scss"
+              "src/styles.scss"
             ],
             "assets": [
-              "src/app/images",
-              "src/app/fonts",
+              "src/assets",
+              "src/fonts",
               "src/favicon.ico"
             ]
           }

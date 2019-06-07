@@ -1,14 +1,14 @@
-import {ChangeDetectorRef, Input, Component, ViewChild, ElementRef} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import { ChangeDetectorRef, Input, Component, ViewChild, ElementRef } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../service/msp-data.service';
-import {MspApplication} from '../../model/application.model';
-//import {Address} from '../../model/address.model';
-import {BaseComponent} from '../../common/base.component';
-import {MspAddressComponent} from '../../common/address/address.component';
-import {MspPhoneComponent} from '../../common/phone/phone.component';
-import {ProcessService} from '../../service/process.service';
-import {Router} from '@angular/router';
-import {Address,Person} from 'moh-common-lib/models';
+import { MspApplication } from '../../model/application.model';
+import { BaseComponent } from '../../common/base.component';
+import { MspAddressComponent } from '../../common/address/address.component';
+import { MspPhoneComponent } from '../../common/phone/phone.component';
+import { ProcessService } from '../../service/process.service';
+import { Router } from '@angular/router';
+import { Address } from 'moh-common-lib';
+
 import {
   CountryList,
   ProvinceList,

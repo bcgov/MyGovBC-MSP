@@ -15,7 +15,7 @@ export class SpouseInfoComponent extends BaseComponent implements OnInit {
   static ProcessStepNum = 2;
   lang = require('./i18n');
   Relationship: typeof Relationship = Relationship;
-  public buttonClass: string = 'btn btn-default';
+  public buttonClass: string = 'btn btn-primary';
 
 
   constructor(private dataService: MspDataService, private _router: Router, private _processService: ProcessService, private cd: ChangeDetectorRef) { 

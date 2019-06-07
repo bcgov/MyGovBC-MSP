@@ -1,5 +1,6 @@
 import {Component, OnChanges, DoCheck, EventEmitter, Input, OnInit, Output, ChangeDetectorRef} from '@angular/core';
 import { BaseComponent } from '../base.component';
+import { Base } from 'moh-common-lib';
 
 
 export interface PasswordErrorMsg {
@@ -14,13 +15,13 @@ export interface PasswordErrorMsg {
   templateUrl: './common-income-inputtext.component.html',
   styleUrls: ['./common-income-inputtext.component.scss']
 })
-export class CommonIncomeInputtextComponent implements OnInit, OnChanges {
+export class CommonIncomeInputtextComponent extends Base implements OnInit, OnChanges {
 
   
   @Input() required: boolean = true;
   @Input() data: string;
-  @Input() pattern: string = "^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$";
-  @Input() maxLen: string = "12";
+  @Input() pattern: string = '^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$';
+  @Input() maxLen: string = '12';
   @Input() label: string;
 
   public errMsg: PasswordErrorMsg ;
@@ -32,7 +33,7 @@ export class CommonIncomeInputtextComponent implements OnInit, OnChanges {
   private invalid: string = 'Invalid number, use numbers and a period only, e.g., 12345.67';
   
   constructor() {
-    
+    super();
   }
 
   ngOnInit() {
