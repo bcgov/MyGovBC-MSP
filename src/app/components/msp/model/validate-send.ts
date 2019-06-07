@@ -101,11 +101,10 @@ export abstract class ValidateAssistance {
           }
         }
       }
-
       const valid = this.validateFields(slice, primaryFields);
       const bl = this.validateFields(xml, blacklist);
       if (bl === true) return 'blacklist';
-      console.log('blacklist', bl);
+      //console.log('blacklist', bl);
       return valid;
     }
   }
