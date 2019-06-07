@@ -75,7 +75,7 @@
     "jquery": "^3.3.1",
     "jxon": "git+https://github.com/bcgov/jxon.git",
     "lodash": "^4.17.11",
-    "moh-common-lib": "^1.0.2",
+    "moh-common-lib": "^1.1.1",
     "moment": "^2.22.2",
     "mygovbc-captcha-widget": "3.0.1",
     "ngx-bootstrap": "3.0.1",
