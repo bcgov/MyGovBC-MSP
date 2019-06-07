@@ -8,10 +8,11 @@ import { HttpClientModule} from '@angular/common/http';
 import {TextMaskModule} from 'angular2-text-mask';
 import { SharedCoreModule } from 'moh-common-lib';
 import { CaptchaModule } from 'moh-common-lib/captcha';
-import { MspCoreModule } from './module/msp-core/msp-core.module';
+import { MspCoreModule } from './modules/msp-core/msp-core.module';
 
 @NgModule({
-  imports: [ TextMaskModule,
+  imports: [
+    TextMaskModule,
     BrowserModule,
     MspModule,
     HttpClientModule,

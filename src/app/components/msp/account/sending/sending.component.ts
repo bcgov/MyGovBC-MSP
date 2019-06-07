@@ -2,7 +2,7 @@ import {Component, Inject, Injectable, AfterContentInit, ViewChild, ElementRef} 
 import { MspDataService } from '../../service/msp-data.service';
 import {MspApiService} from '../../service/msp-api.service';
 import {Router} from '@angular/router';
-import {ResponseType} from '../../api-model/responseTypes';
+import {ResponseType} from '../../../../modules/enrolment/pages/api-model/responseTypes';
 import {MspLogService} from '../../service/log.service';
 import {ProcessService} from '../../service/process.service';
 import {MspAccountApp} from '../../model/account.model';

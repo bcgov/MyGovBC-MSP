@@ -20,14 +20,13 @@ import { AccountPrepareComponent } from './account/prepare/prepare.component';
 import { RemoveDependentComponent } from './account/remove-dependents/remove-dependents.component';
 import { AccountReviewComponent } from './account/review/review.component';
 import { AccountSendingComponent } from './account/sending/sending.component';
-import { AddressComponent } from './application/address/address.component';
-import { ApplicationComponent } from './application/application.component';
-import { ConfirmationComponent } from './application/confirmation/confirmation.component';
-import { PersonalDetailsComponent } from './application/personal-info/personal-details/personal-details.component';
-import { PersonalInfoComponent } from './application/personal-info/personal-info.component';
-import { PrepareComponent } from './application/prepare/prepare.component';
-import { ReviewComponent } from './application/review/review.component';
-import { SendingComponent } from './application/sending/sending.component';
+import { AddressComponent } from '../../modules/enrolment/pages/address/address.component';
+import { ConfirmationComponent } from '../../modules/enrolment/pages/confirmation/confirmation.component';
+import { PersonalDetailsComponent } from '../../modules/enrolment/pages/personal-info/personal-details/personal-details.component';
+import { PersonalInfoComponent } from '../../modules/enrolment/pages/personal-info/personal-info.component';
+import { PrepareComponent } from '../../modules/enrolment/pages/prepare/prepare.component';
+import { ReviewComponent } from '../../modules/enrolment/pages/review/review.component';
+import { SendingComponent } from '../../modules/enrolment/pages/sending/sending.component';
 import { AssistanceComponent } from './assistance/assistance.component';
 import { AssistanceAuthorizeSubmitComponent } from './assistance/authorize-submit/authorize-submit.component';
 import { AssistanceConfirmationComponent } from './assistance/confirmation/confirmation.component';
@@ -125,10 +124,11 @@ import { CommonDeductionCalculatorComponent } from './common/common-deduction-ca
 import { CommonIncomeInputtextComponent } from './common/common-income-inputtext/common-income-inputtext.component';
 import { CommonButtonComponent } from './common/common-button/common-button.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { SpouseInfoComponent } from './application/spouse-info/spouse-info.component';
-import { ChildInfoComponent } from './application/child-info/child-info.component';
-import { AuthorizeComponent } from './application/authorize/authorize.component';
-import { MspCoreModule } from '../../module/msp-core/msp-core.module';
+import { SpouseInfoComponent } from '../../modules/enrolment/pages/spouse-info/spouse-info.component';
+import { ChildInfoComponent } from '../../modules/enrolment/pages/child-info/child-info.component';
+import { AuthorizeComponent } from '../../modules/enrolment/pages/authorize/authorize.component';
+import { MspCoreModule } from '../../modules/msp-core/msp-core.module';
+
 
 
 const APP_ROUTES: Routes = [
@@ -139,63 +139,9 @@ const APP_ROUTES: Routes = [
                 path: '',
                 component: LandingComponent
             },
-
             {
-                path: 'application',
-                component: ApplicationComponent,
-                children: [
-                    {
-                        path: '',
-                        canActivate: [],
-                        redirectTo: 'prepare',
-                        pathMatch: 'full'
-                    },
-                    {
-                        path: 'prepare',
-                        component: PrepareComponent
-                    },
-                    {
-                        path: 'personal-info',
-                        canActivate: [ProcessService],
-                        component: PersonalInfoComponent
-                    },
-                    {
-                        path: 'spouse-info',
-                        canActivate: [ProcessService],
-                        component: SpouseInfoComponent
-                    },
-                    {
-                        path: 'child-info',
-                        canActivate: [ProcessService],
-                        component: ChildInfoComponent
-                    },
-                    {
-                        path: 'address',
-                        canActivate: [ProcessService],
-                        component: AddressComponent
-                    },
-                    {
-                        path: 'review',
-                        canActivate: [ProcessService],
-                        component: ReviewComponent
-                    },
-                    {
-                        path: 'authorize',
-                        canActivate: [ProcessService],
-                        component: AuthorizeComponent
-                    },
-                    {
-                        path: 'sending',
-                        canActivate: [ProcessService],
-                        component: SendingComponent
-                    },
-                    {
-                        path: 'confirmation',
-                        canActivate: [],
-                        component: ConfirmationComponent
-                    },
-
-                ],
+                path: 'enrolment',
+                loadChildren: 'app/modules/enrolment/enrolment.module#EnrolmentModule'
             },
             {
                 path: 'assistance',
@@ -439,7 +385,6 @@ const APP_ROUTES: Routes = [
         MspAddressCardPartComponent,
 
         // Application
-        ApplicationComponent,
         PersonalDetailsComponent,
         PrepareComponent,
         PersonalInfoComponent,

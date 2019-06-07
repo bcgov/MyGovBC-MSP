@@ -10,7 +10,7 @@ import { environment } from '../../../../../environments/environment';
 })
 export class AccountConfirmationComponent implements OnInit {
     public links = environment.links;
-    
+
     confirmationNum: string;
     subscription: Subscription;
     showDepMsg: string;
