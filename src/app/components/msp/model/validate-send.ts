@@ -42,6 +42,8 @@ const disabilityFields = [
   'disabilitySavingsPlan'
 ];
 
+const blacklist = ['prototype'];
+
 const fields = [spouseFields, childrenFields, disabilityFields];
 const spouseReg = new RegExp(`(spouse)`);
 const childReg = new RegExp('(numChildren)');
@@ -71,7 +73,7 @@ export abstract class ValidateAssistance {
     //console.log('spouse slice', spouseSlice);
     const slice =
       xml.slice(0, spouseIndex) + xml.slice(xml.indexOf('</spouse>'));
-   // console.log('slice', slice);
+    // console.log('slice', slice);
 
     /*
       @Future developer - to change this to a function to validate the JSON object instead of an XML object
@@ -101,6 +103,9 @@ export abstract class ValidateAssistance {
       }
 
       const valid = this.validateFields(slice, primaryFields);
+      const bl = this.validateFields(xml, blacklist);
+      if (bl === true) return 'blacklist';
+      console.log('blacklist', bl);
       return valid;
     }
   }

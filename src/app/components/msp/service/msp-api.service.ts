@@ -78,11 +78,30 @@ export class MspApiService {
                           that error.
                         */
                         //console.log(convertedAppXml);
+
                         if ( convertedAppXml.match(/(assistanceApplication)/)) {
-                        
+                          // convertedAppXml = '<?xml version="1.0"encoding="UTF-8"standalone="yes"?><ns2:application xmlns:ns2="http://www.gov.bc.ca/hibc/applicationTypes"><assistanceApplication><applicant><name><firstName></firstName><secondName></secondName><lastName></lastName></name><birthDate></birthDate><telephone></telephone><mailingAddress><addressLine1></addressLine1><city></city><postalCode></postalCode><provinceOrState></provinceOrState><country>Canada</country></mailingAddress><financials><taxYear>2014</taxYear><assistanceYear>MultiYear</assistanceYear><numberOfTaxYears>1</numberOfTaxYears><netIncome></netIncome><totalNetIncome></totalNetIncome><sixtyFiveDeduction>0</sixtyFiveDeduction><childDeduction>0</childDeduction><deductions>0</deductions><totalDeductions>0</totalDeductions><adjustedNetIncome>18414</adjustedNetIncome></financials><phn></phn><SIN></SIN><powerOfAttorney>N</powerOfAttorney></applicant><authorizedByApplicant>Y</authorizedByApplicant><authorizedByApplicantDate>2019-06-07</authorizedByApplicantDate><authorizedBySpouse>N</authorizedBySpouse></assistanceApplication><uuid>dc1b46f7-3283-1736-aeef-f2b8d5caee5e</uuid><attachments><attachment><contentType>image/jpeg</contentType><attachmentDocumentType>SupportDocument</attachmentDocumentType><attachmentUuid>787b21c0-d089-01b8-07bb-7f3eb93553df</attachmentUuid><attachmentOrder>1</attachmentOrder></attachment><attachment><contentType>image/jpeg</contentType><attachmentDocumentType>SupportDocument</attachmentDocumentType><attachmentUuid>51fce61b-d5d3-7935-beb7-1b038fe1b5e7</attachmentUuid><attachmentOrder>2</attachmentOrder></attachment><attachment><contentType>image/jpeg</contentType><attachmentDocumentType>SupportDocument</attachmentDocumentType><attachmentUuid>2b4c634a-ba30-cd0e-ec73-5c422c5cef2c</attachmentUuid><attachmentOrder>4</attachmentOrder></attachment><attachment><contentType>image/jpeg</contentType><attachmentDocumentType>SupportDocument</attachmentDocumentType><attachmentUuid>45d5535f-8e14-2739-2f46-deacf4ec34b3</attachmentUuid><attachmentOrder>3</attachmentOrder></attachment><attachment><length>1</length><name/><arguments/><caller/><prototype/></attachment><attachment><length>0</length><name/><arguments/><caller/><prototype/></attachment></attachments></ns2:application>'
                           const valid = ValidateAssistance.validate(convertedAppXml)
                           //console.log('valid', valid)
                           if (typeof valid === 'string') {
+                            console.log('valid', valid)
+                            if (valid === 'blacklist') {
+                              // const snipped = convertedAppXml.indexOf('prototype')
+                              let transformed = [...convertedAppXml.split('<attachment>')]
+                              let arr = []
+                              for (let itm of transformed) {
+                                console.log('index', itm.indexOf('length'))
+                                const index = itm.indexOf('length');
+                                if (index < 0) arr.push(itm)
+                              }
+                              convertedAppXml = arr.reduce((a, b) => a + b + '<attachment>');
+                              console.log('arr', arr)
+                              // const revertedAppXML = jxon.unbuild(convertedAppXml)
+                              console.log('blacklisted xml', convertedAppXml)
+
+
+                            } else {
+
                             const mssg =`Your application is missing the ${valid} field. Please go back and check all fields to ensure that nothing is missing.`
                             const error = new Error(mssg)
                             this.logService.log({
@@ -94,6 +113,7 @@ export class MspApiService {
                           const urls = this.dataSvc.getMspProcess().processSteps;
                           const url = urls[index].route
                           this.router.navigate([url])
+
                           return reject({mssg});
                           }
                         }
@@ -122,7 +142,7 @@ export class MspApiService {
                                 this.logService.log({
                                     text: 'Attachment - Send All Rejected ',
                                     response: error,
-                                }, 'Attachm123ent - Send All Rejected ');
+                                }, 'Attachment - Send All Rejected ');
                                 return reject(error);
                             });
                     } // end of else
