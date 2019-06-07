@@ -1,8 +1,14 @@
 <form #formRef="ngForm" novalidate>
-  <div class="button-group">
+
+  <h1>Tell us about your Spouse and upload official documents</h1>
+  <hr>
+    
+  <div class="row">
+    <div class="col-sm-8">
       <common-button *ngIf = '!spouse' [label]="'Add Spouse'" 
         [buttonType]="buttonClass" (btnClick)='addSpouse()'>
       </common-button>
+    </div>
   </div>  
 
   <div *ngIf = 'spouse'>
@@ -12,9 +18,11 @@
         [showError] = "formRef.submitted">
       </msp-personal-details>
   </div>
-  
+
+  <div class="container">
   <common-form-action-bar [submitLabel]="spouse? 'Continue':'No Spouse'"
       [canContinue]="!(!documentsReady() || checkAnyDependentsIneligible() || !isAllValid())"
       (btnClick)="nextStep()">
     </common-form-action-bar>
+  </div>
 </form>
