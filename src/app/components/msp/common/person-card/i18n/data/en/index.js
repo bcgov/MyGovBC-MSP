@@ -1,7 +1,7 @@
 module.exports = {
   relationshipLabel: ['Applicant', 'Spouse', 'Child', 'Child' ,'Child'],
     actionTypeLabel: ['Add ', 'Remove ', 'Update '],
-  cardSuffix: 'info <i class="fa fa-pencil edit--icon" aria-hidden="true" (click)="editPersonalInfo()"></i>',
+  cardSuffix: 'info',
 
   nameLabel: 'Name:',
   genderLabel: 'Gender:',
