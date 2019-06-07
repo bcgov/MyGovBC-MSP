@@ -44,13 +44,12 @@ describe('MSP Enrolment - Check Eligibility', () => {
         expect(browser.getCurrentUrl()).toContain(ELIGIBILITY_PAGE_URL, 'should stay on page');
     });
 
-    // This test will work when changes in Continue button has been made
     it('04. should NOT let the user continue if not all questions have been answered', () => {
-        page.navigateTo();
+        basePage.navigateTo();
+        basePage.clickButton();
         page.clickCheckBox();
         page.clickModalContinue();
-        // Remove comment below once Continue button is working
-        // page.clickContinue();
+        page.clickContinue();
         // TODO: insert expect that checks if there are errors in the page
         expect(browser.getCurrentUrl()).toContain(ELIGIBILITY_PAGE_URL, 'should stay on page since there are errors');
     });
@@ -63,8 +62,9 @@ describe('MSP Enrolment - Check Eligibility', () => {
         page.clickCheckBox();
         page.clickModalContinue();
         page.clickRadioButton('Do you currently live in Briti', 'true');
-        // Remove comment below once Continue button is working
-        // page.clickContinue();
+        page.clickRadioButton('Will you or anyone in your imm', 'false');
+        page.clickRadioButton('Is anyone you\'re applying for', 'false');
+        page.clickContinue();
         expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL, 'should navigate to the next page');
     });
 });

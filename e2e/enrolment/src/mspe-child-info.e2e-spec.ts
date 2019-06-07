@@ -2,12 +2,12 @@ import { browser, element, by } from 'protractor';
 import { ChildInfoPage } from './mspe-enrolment.po';
 import { FakeDataEnrolment } from './mspe-enrolment.data';
 
-fdescribe('MSP Enrolment - Child Info', () => {
+describe('MSP Enrolment - Child Info', () => {
     let page: ChildInfoPage;
     const data = new FakeDataEnrolment();
     let perData;
     const CHILD_PAGE_URL = `msp/application/child-info`;
-    const CONTACT_PAGE_URL = `msp/application/contact-info`;
+    const CONTACT_PAGE_URL = `msp/application/address`;
 
     beforeEach(() => {
         page = new ChildInfoPage();

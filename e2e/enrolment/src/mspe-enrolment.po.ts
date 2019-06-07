@@ -102,3 +102,39 @@ export class ChildInfoPage extends BaseMSPEnrolmentTestPage {
     }
     
 }
+
+export class ContactInfoPage extends BaseMSPEnrolmentTestPage {
+
+    constructor() {
+        super();
+    }
+
+    navigateTo() {
+        return browser.get('/msp/application/address');
+    }
+    
+}
+
+export class ReviewPage extends BaseMSPEnrolmentTestPage {
+
+    constructor() {
+        super();
+    }
+
+    navigateTo() {
+        return browser.get('/msp/application/review');
+    }
+    
+}
+
+export class AuthorizePage extends BaseMSPEnrolmentTestPage {
+
+    constructor() {
+        super();
+    }
+
+    navigateTo() {
+        return browser.get('/msp/application/authorize');
+    }
+    
+}
