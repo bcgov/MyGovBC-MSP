@@ -10,8 +10,6 @@ import { SharedCoreModule } from 'moh-common-lib';
 import { CaptchaModule } from 'moh-common-lib/captcha';
 import { MspCoreModule } from './module/msp-core/msp-core.module';
 
-
-require('./index.scss');
 @NgModule({
   imports: [ TextMaskModule,
     BrowserModule,
