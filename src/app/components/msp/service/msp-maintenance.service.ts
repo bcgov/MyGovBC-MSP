@@ -28,7 +28,7 @@ export class  MspMaintenanceService extends AbstractHttpService {
         const url = environment.appConstants['envServerBaseUrl'];
         return this.post<ISpaEnvResponse>(url, null);
     }
-    
+
     protected handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
             //Client-side / network error occured
@@ -39,11 +39,11 @@ export class  MspMaintenanceService extends AbstractHttpService {
             console.error(`MspMaintenanceService Backend returned error code: ${error.status}.  Error body: ${error.error}`);
         }
         this.logService.log({event: 'error', key: 'Cannot get maintenance flag from spa-env-server'});
-        
+
         // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
         return of([]);
     }
-    
+
     protected _headers: HttpHeaders = new HttpHeaders({
         'SPA_ENV_NAME': '{"SPA_ENV_MSP_MAINTENANCE_FLAG":"","SPA_ENV_MSP_MAINTENANCE_MESSAGE":""}',
         'program': 'msp',

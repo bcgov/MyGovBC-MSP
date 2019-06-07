@@ -19,7 +19,7 @@ import { SimpleDate } from '../model/simple-date.interface';
 import { Activities, Relationship, StatusInCanada } from '../model/status-activities-documents';
 import { MspLogService } from './log.service';
 import ISO_8601 = moment.ISO_8601;
-import { MspMaintenanceService } from "../service/msp-maintenance.service";
+import { MspMaintenanceService } from '../service/msp-maintenance.service';
 import { Http, Response } from '@angular/http';
 import {ISpaEnvResponse} from '../model/spa-env-response.interface';
 
@@ -42,7 +42,7 @@ export class MspApiService {
             try {
                 return this.maintenanceService.checkMaintenance().subscribe(response => {
                     const spaResponse = <ISpaEnvResponse> response;
-                    if(spaResponse && spaResponse.SPA_ENV_MSP_MAINTENANCE_FLAG && spaResponse.SPA_ENV_MSP_MAINTENANCE_FLAG === "true"){
+                    if (spaResponse && spaResponse.SPA_ENV_MSP_MAINTENANCE_FLAG && spaResponse.SPA_ENV_MSP_MAINTENANCE_FLAG === 'true'){
                         console.log('In Maintenance Mode: ', spaResponse.SPA_ENV_MSP_MAINTENANCE_MESSAGE);
                         return reject(spaResponse);
                     } else {
@@ -421,16 +421,16 @@ export class MspApiService {
             to.application.accountChangeApplication.children = AccountChangeChildrenFactory.make();
             to.application.accountChangeApplication.children.child = new Array<AccountChangeChildType>();
             for (const child of from.getAllChildren()) {
-                if(child && child.firstName && child.lastName && child.gender) {
+                if (child && child.firstName && child.lastName && child.gender) {
                     to.application.accountChangeApplication.children.child.push(this.convertChildFromAccountChange(child));
                 }
             }
 
         }
 
-        if(from.getAllImages() && from.getAllImages().length > 0){
+        if (from.getAllImages() && from.getAllImages().length > 0){
             to.application.attachments = this.convertAttachments(from.getAllImages());
-        }        
+        }
 
         return to;
     }
@@ -744,7 +744,7 @@ export class MspApiService {
             to.isExistingBeneficiary = from.isExistingBeneficiary === true ? 'Y' : 'N';
         }
         // only for new beneficiaries ; these fields are used
-        if (from.isExistingBeneficiary == false) {
+        if (from.isExistingBeneficiary === false) {
             this.populateNewBeneficiaryDetailsForChild(from, to);
         }
         // Child 19-24
@@ -775,7 +775,7 @@ export class MspApiService {
         }
 
 
-        if (from.reasonForCancellation && from.reasonForCancellation != 'pleaseSelect') {
+        if (from.reasonForCancellation && from.reasonForCancellation !== 'pleaseSelect') {
             to.cancellationReason = from.reasonForCancellation;
             if (from.cancellationDate) {
                 to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
@@ -1072,14 +1072,14 @@ export class MspApiService {
             to.isExistingBeneficiary = from.isExistingBeneficiary === true ? 'Y' : 'N';
         }
 
-        if (from.isExistingBeneficiary == false) {
+        if (from.isExistingBeneficiary === false) {
             this.populateNewBeneficiaryDetailsForSpouse(from, to);
         }
 
 
         // Removing Spouse
 
-        if (from.reasonForCancellation && from.reasonForCancellation != 'pleaseSelect' ) {
+        if (from.reasonForCancellation && from.reasonForCancellation !== 'pleaseSelect' ) {
             to.cancellationReason = from.reasonForCancellation;
             if (from.cancellationDate) {
             to.cancellationDate = this.parseDate(from.cancellationDate).format(this.ISO8601DateFormat);
@@ -1391,12 +1391,12 @@ export class MspApiService {
         let beginIndex = xmlString.indexOf(MspApiService.XmlRootSimple);
         if (beginIndex >= 0) {
             for (let i = beginIndex; i < xmlString.length; i++) {
-                if (xmlString.charAt(i) == '>') {
+                if (xmlString.charAt(i) === '>') {
                     beginIndex = i + 1;
                     break;
                 }
             }
-            if (beginIndex == xmlString.length)
+            if (beginIndex === xmlString.length)
                 beginIndex = 0;
         }
         // not the simple case, check to see the NS case, ie <xx:application>
@@ -1404,12 +1404,12 @@ export class MspApiService {
             beginIndex = xmlString.indexOf(MspApiService.XmlRootNS);
             if (beginIndex > 0) {
                 for (let i = beginIndex; i < xmlString.length; i++) {
-                    if (xmlString.charAt(i) == '>') {
+                    if (xmlString.charAt(i) === '>') {
                         beginIndex = i + 1;
                         break;
                     }
                 }
-                if (beginIndex == xmlString.length)
+                if (beginIndex === xmlString.length)
                     beginIndex = 0;
             }
             // cannot find the element <xx:applicationxx> or <applicationxx>
