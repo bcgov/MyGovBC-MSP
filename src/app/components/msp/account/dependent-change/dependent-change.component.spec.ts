@@ -72,7 +72,8 @@ describe('AccountDependentChangeComponent', () => {
                 CompletenessCheckService,
                 MspValidationService
             ],
-            imports: [FormsModule,TextMaskModule,
+            imports: [FormsModule,
+                TextMaskModule,
                 LocalStorageModule.withConfig({
                 prefix: 'ca.bc.gov.msp',
                 storageType: 'sessionStorage'

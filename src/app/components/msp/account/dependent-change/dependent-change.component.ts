@@ -73,7 +73,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
             return false;
         }
 
-        return this.removedChildren.filter(child => child.knownMailingAddress == false).length > 0;
+        return this.removedChildren.filter(child => child.knownMailingAddress === false).length > 0;
 
 
     }

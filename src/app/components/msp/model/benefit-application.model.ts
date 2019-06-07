@@ -403,7 +403,7 @@ export class BenefitApplication implements ApplicationBase {
      * Counts the number of tax years
      * @returns {number}
      */
-    
+
      numberOfTaxYears(): number {
         return this.getAppliedForTaxYears().length;
     }
@@ -440,7 +440,7 @@ export class BenefitApplication implements ApplicationBase {
           return value.apply;
         });
     }
-        
+
     getMostRecentAppliedForTaxYears(): AssistanceYear[] {
         return this.getAppliedForTaxYears().sort((a: AssistanceYear, b: AssistanceYear) => {
           return b.year - a.year;
@@ -451,32 +451,32 @@ export class BenefitApplication implements ApplicationBase {
 
     getBenefitApplicationType (): AssistanceApplicationType {
         const mostRecentAppliedForTaxYears = this.getMostRecentAppliedForTaxYears();
-    
+
         // If we only have one and it's last year
         if (mostRecentAppliedForTaxYears == null ||
-          mostRecentAppliedForTaxYears.length == 1 &&
-          mostRecentAppliedForTaxYears[0].year == this.MostRecentTaxYear) {
+          mostRecentAppliedForTaxYears.length === 1 &&
+          mostRecentAppliedForTaxYears[0].year === this.MostRecentTaxYear) {
           return AssistanceApplicationType.CurrentYear;
         }
-    
+
         // If we only have two and it's last year
         if (mostRecentAppliedForTaxYears &&
           mostRecentAppliedForTaxYears.length === 2 &&
-          mostRecentAppliedForTaxYears[0].year == this.MostRecentTaxYear &&
-          mostRecentAppliedForTaxYears[1].year == this.MostRecentTaxYear - 1) {
+          mostRecentAppliedForTaxYears[0].year === this.MostRecentTaxYear &&
+          mostRecentAppliedForTaxYears[1].year === this.MostRecentTaxYear - 1) {
           return AssistanceApplicationType.PreviousTwoYears;
         }
-    
+
         // If we only have one and it's last year - 1
         if (mostRecentAppliedForTaxYears &&
           mostRecentAppliedForTaxYears.length === 1 &&
-          mostRecentAppliedForTaxYears[0].year == this.MostRecentTaxYear - 1) {
+          mostRecentAppliedForTaxYears[0].year === this.MostRecentTaxYear - 1) {
           return AssistanceApplicationType.PreviousTwoYears;
         }
-    
+
         // In all other cases it's multi year
         return AssistanceApplicationType.MultiYear;
-    
+
     }
 
     /**

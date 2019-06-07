@@ -5,7 +5,6 @@ import {
     Input,
     Output,
     EventEmitter,
-    ViewChild,
     ViewChildren,
     QueryList
 } from '@angular/core';
@@ -25,11 +24,48 @@ import { OutofBCRecord } from '../../../model/outof-bc-record.model';
     styleUrls: ['./add-new-dependent-beneficiary.component.scss']
 })
 export class AddNewDependentBeneficiaryComponent extends BaseComponent implements OnInit {
+
+    // Constants for page - TODO: figure out which ones are common throughout application
+    livedInBCSinceBirth = [
+        '',
+        'Has spouse lived in B.C. since birth?',
+        'Has child lived in B.C. since birth?',
+        'Has child lived in B.C. since birth?',
+      ];
+
+      newlyAdopted = 'Is this child newly adopted?';
+
+      hasBeenOutsideBC30InYear = 'Has this family member been outside of BC for more than a total of 30 days during the past 12 months?';
+      willBeOutsideBC30InYear = 'Will this family member be outside of BC for more than a total of 30 days during the next 6 months?';
+      releasedFromArmedForcesOrInstitution = 'Have they been released from the Canadian Armed Forces or an Institution?';
+      instituteName = 'Name of Institute';
+      instituteNameRequired = 'Name of Institute is required.';
+
+      moveDateToBC = 'Most recent move date to B.C. 7637467364';
+      adoptedDate = 'Adopted Date';
+      movedFromProvinceOrCountry = 'From (province or country)';
+      medicalPlanPreviousResidence = 'Medical plan in Previous place of Residence (optional)';
+      permanentMove = 'Is this a permanent move?';
+
+
+      moveDateBeforeBirthError = [
+        'The applicant\'s most recent move to BC cannot be before the applicant\'s date of birth.',
+        'The spouse\'s most recent move to BC cannot be before the spouse\'s date of birth.',
+        'The child\'s most recent move to BC cannot be before the child\'s date of birth.',
+        'The child\'s most recent move to BC cannot be before the child\'s date of birth.',
+      ];
+
+      notEligibleError = 'You have indicated that a recent move to B.C. is not permanent. As a result, the above is not eligible for enrolment with MSP. Please contact HIBC for further information.';
+
+        maxMonthsSixMonths = 'The departure date cannot be greater than 6 months in future';
+        minMonths = 'The return date should be with in past 12 months';
+
+
+
     Relationship: typeof Relationship = Relationship;
     StatusInCanada: typeof StatusInCanada = StatusInCanada;
     @Input() person: Person;
     @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
-    lang = require('./i18n');
     @Input() showError: boolean;
 
     @ViewChildren(MspToggleComponent) toggleComponents: QueryList<MspToggleComponent>;
@@ -83,7 +119,7 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
 
     selectInstitution(evt: boolean) {
         this.person.hasBeenReleasedFromArmedForces = evt;
-        if (evt == false) {
+        if (evt === false) {
             this.person.dischargeDay = null;
             this.person.dischargeMonth = null;
             this.person.dischargeYear = null;
@@ -101,7 +137,7 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
 
     isValid(): boolean {
 
-        if (!this.person.isExistingBeneficiary && this.person.status == StatusInCanada.CitizenAdult && this.person.hasBeenReleasedFromArmedForces ) {
+        if (!this.person.isExistingBeneficiary && this.person.status === StatusInCanada.CitizenAdult && this.person.hasBeenReleasedFromArmedForces ) {
             if (!this.person.nameOfInstitute || this.person.nameOfInstitute.length < 1 ) {
                 return false;
             }

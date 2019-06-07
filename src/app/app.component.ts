@@ -2,6 +2,7 @@ import {Component, ViewContainerRef} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter} from 'rxjs/operators';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'general-app',
@@ -29,5 +30,9 @@ export class GeneralAppComponent {
 
   ngOnDestroy() {
     this.routerSubscription.unsubscribe();
+  }
+
+  get serviceName(): string {
+    return environment.appConstants.serviceName;
   }
 }

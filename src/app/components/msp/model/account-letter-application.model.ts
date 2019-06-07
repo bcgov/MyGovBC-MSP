@@ -16,7 +16,7 @@ class AccountLetterApplication implements ApplicationBase {
   phnRequired: boolean = false;
 
 
-  postalCode: string = null; 
+  postalCode: string = null;
 
   /**
    * Set by the API, not for client use
@@ -33,7 +33,7 @@ class AccountLetterApplication implements ApplicationBase {
     this._uuid = UUID.UUID();
 
   }
-  
+
   get applicant(): Person {
     return this._applicant;
   }
@@ -41,7 +41,7 @@ class AccountLetterApplication implements ApplicationBase {
   set applicant(apt: Person) {
     this._applicant = apt;
   }
-  
+
   get isUniquePhns () {
         const allPhs: string[] = this.allPersons.filter(x => x).map(x => x.previous_phn).filter(x => x)  .filter(x => x.length >= 10) ;
         return new Set(allPhs).size === allPhs.length ;
@@ -53,11 +53,11 @@ class AccountLetterApplication implements ApplicationBase {
    * Useful, for example, to make sure all PHNs are unique.
    */
   get allPersons(): Array<Person> {
-    var specificMember:Person = new Person(Relationship.Spouse);
+    const specificMember: Person = new Person(Relationship.Spouse);
     specificMember.previous_phn = this.applicant.specificMember_phn;
 
     return [
-      this.applicant,specificMember
+      this.applicant, specificMember
     ]
     .filter(x => x); //no 'undefined's
   }
