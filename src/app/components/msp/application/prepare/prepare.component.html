@@ -106,12 +106,14 @@
 
 </form>
 <hr>
-<div class="position: inherit;">
-<common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
-            [canContinue]="canContinue()"
-            (btnClick)="goToPersonalInfo()">
-</common-form-action-bar>
+<!--<div class="position: inherit;"> -->
+<div class="container">
+    <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
+                [canContinue]="canContinue()"
+                (btnClick)="goToPersonalInfo()">
+    </common-form-action-bar>
 </div>
+<!--</div> -->
     
 
 <!--<button class="btn btn-primary"
