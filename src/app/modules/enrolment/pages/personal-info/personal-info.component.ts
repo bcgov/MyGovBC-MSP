@@ -8,12 +8,11 @@ import { MspDataService } from '../../../../components/msp/service/msp-data.serv
 import { Router } from '@angular/router';
 import {Relationship} from '../../../../components/msp/model/status-activities-documents';
 import {NgForm} from '@angular/forms';
-import {PersonalDetailsComponent} from './personal-details/personal-details.component';
+import {PersonalDetailsComponent} from '../../../msp-core/components/personal-details/personal-details.component';
 import {BaseComponent} from '../../../../components/msp/common/base.component';
 import {ProcessService} from '../../../../components/msp/service/process.service';
 import { StatusInCanada} from '../../../../components/msp/model/status-activities-documents';
-
-import { ServicesCardDisclaimerModalComponent  } from '../../../../components/msp/common/services-card-disclaimer/services-card-disclaimer.component';
+import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
 
 @Component({
   templateUrl: './personal-info.component.html'
@@ -97,7 +96,7 @@ export class PersonalInfoComponent extends BaseComponent {
 
           const currentApplicant: Person = personalDetailsComponent.person;
           if (currentApplicant.status === StatusInCanada.CitizenAdult || currentApplicant.status === StatusInCanada.PermanentResident) {
-            if (currentApplicant.fullTimeStudent && currentApplicant.inBCafterStudies == false) {
+            if (currentApplicant.fullTimeStudent && currentApplicant.inBCafterStudies === false) {
               this._processService.setStep(1, false);
               stayingInBc = false;
             }

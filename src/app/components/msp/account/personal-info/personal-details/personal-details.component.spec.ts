@@ -33,7 +33,7 @@ import { MspLogService } from '../../../service/log.service';
 import {MspValidationService} from '../../../service/msp-validation.service';
 import { ProcessService } from '../../../service/process.service';
 import { ServicesCardDisclaimerModalComponent } from '../../../common/services-card-disclaimer/services-card-disclaimer.component';
-import { MspStatusInCanadaRadioComponent } from '../../../common/status-in-canada-radio/status-in-canada-radio.component';
+import { MspStatusInCanadaRadioComponent } from '../../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import {TextMaskModule} from 'angular2-text-mask';
 

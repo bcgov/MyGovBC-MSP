@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { AddDependentComponent } from './add-dependents.component';
 import { MspToggleComponent } from '../../common/toggle/toggle.component';
-import { MspStatusInCanadaRadioComponent } from '../../common/status-in-canada-radio/status-in-canada-radio.component';
+import { MspStatusInCanadaRadioComponent } from '../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
 import { MspDateComponent } from '../../common/date/date.component';
 import { AccountPersonalDetailsComponent } from '../personal-info/personal-details/personal-details.component';
 import { CalendarYearValidator } from '../../common/calendar/calendar-year.validator';

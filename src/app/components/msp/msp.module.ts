@@ -20,13 +20,6 @@ import { AccountPrepareComponent } from './account/prepare/prepare.component';
 import { RemoveDependentComponent } from './account/remove-dependents/remove-dependents.component';
 import { AccountReviewComponent } from './account/review/review.component';
 import { AccountSendingComponent } from './account/sending/sending.component';
-import { AddressComponent } from '../../modules/enrolment/pages/address/address.component';
-import { ConfirmationComponent } from '../../modules/enrolment/pages/confirmation/confirmation.component';
-import { PersonalDetailsComponent } from '../../modules/enrolment/pages/personal-info/personal-details/personal-details.component';
-import { PersonalInfoComponent } from '../../modules/enrolment/pages/personal-info/personal-info.component';
-import { PrepareComponent } from '../../modules/enrolment/pages/prepare/prepare.component';
-import { ReviewComponent } from '../../modules/enrolment/pages/review/review.component';
-import { SendingComponent } from '../../modules/enrolment/pages/sending/sending.component';
 import { AssistanceComponent } from './assistance/assistance.component';
 import { AssistanceAuthorizeSubmitComponent } from './assistance/authorize-submit/authorize-submit.component';
 import { AssistanceConfirmationComponent } from './assistance/confirmation/confirmation.component';
@@ -66,22 +59,12 @@ import { MspLoggerDirective } from './common/logging/msp-logger.directive';
 import { MspNameComponent } from './common/name/name.component';
 import { MspOutofBCRecordComponent } from './common/outof-bc/outof-bc.component';
 import { MspPersonCardComponent } from './common/person-card/person-card.component';
-import { MspPhnComponent } from './common/phn/phn.component';
-import { SharedCoreModule } from 'moh-common-lib';
 
-
-import { CitizenStatusComponent } from './common/citizen-status/citizen-status.component';
-
-import { CaptchaModule } from 'moh-common-lib/captcha';
-
-import { Mod11CheckValidator } from './common/phn/phn.validator';
 import { MspPhoneComponent } from './common/phone/phone.component';
 import { MspProgressBarComponent } from './common/progressBar/progressBar.component';
 import { MspProvinceComponent } from './common/province/province.component';
 import { MspReturnDateComponent } from './common/return-date/return-date.component';
 import { MspSchoolDateComponent } from './common/schoolDate/school-date.component';
-import { ServicesCardDisclaimerModalComponent } from './common/services-card-disclaimer/services-card-disclaimer.component';
-import { MspStatusInCanadaRadioComponent } from './common/status-in-canada-radio/status-in-canada-radio.component';
 import { ThumbnailComponent } from './common/thumbnail/thumbnail.component';
 import { MspToggleComponent } from './common/toggle/toggle.component';
 import { TransmissionErrorView } from './common/transmission-error-view/transmission-error-view.component';
@@ -126,8 +109,9 @@ import { CommonButtonComponent } from './common/common-button/common-button.comp
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SpouseInfoComponent } from '../../modules/enrolment/pages/spouse-info/spouse-info.component';
 import { ChildInfoComponent } from '../../modules/enrolment/pages/child-info/child-info.component';
-import { AuthorizeComponent } from '../../modules/enrolment/pages/authorize/authorize.component';
+// import { AuthorizeComponent } from '../../modules/enrolment/pages/authorize/authorize.component';
 import { MspCoreModule } from '../../modules/msp-core/msp-core.module';
+import { SharedCoreModule } from 'moh-common-lib';
 
 
 
@@ -327,9 +311,8 @@ const APP_ROUTES: Routes = [
         NgSelectModule,
         CommonModule,
         FormsModule,
+        MspCoreModule,
         ModalModule,
-        SharedCoreModule,
-        CaptchaModule,
         AccordionModule,
         HttpClientModule,
         TextMaskModule,
@@ -338,8 +321,7 @@ const APP_ROUTES: Routes = [
         LocalStorageModule.withConfig({
             prefix: 'ca.bc.gov.msp',
             storageType: 'sessionStorage'
-        }),
-        MspCoreModule
+        })
     ],
     declarations: [
         MspLoggerDirective,
@@ -357,14 +339,12 @@ const APP_ROUTES: Routes = [
         MspProvinceComponent,
         MspCountryComponent,
         MspPhoneComponent,
-        MspPhnComponent,
         HealthNumberComponent,
         MspArrivalDateComponent,
         MspDischargeDateComponent,
         MspDepartureDateComponent,
         MspReturnDateComponent,
         MspSchoolDateComponent,
-        Mod11CheckValidator,
         MspGenderComponent,
         MspProgressBarComponent,
         FileUploaderComponent,
@@ -383,17 +363,6 @@ const APP_ROUTES: Routes = [
         MspPersonCardComponent,
         MspContactCardComponent,
         MspAddressCardPartComponent,
-
-        // Application
-        PersonalDetailsComponent,
-        PrepareComponent,
-        PersonalInfoComponent,
-        AddressComponent,
-        ReviewComponent,
-        SendingComponent,
-        ConfirmationComponent,
-        CitizenStatusComponent,
-
 
         // Assistance
         AssistanceComponent,
@@ -423,10 +392,8 @@ const APP_ROUTES: Routes = [
         AccountConfirmationComponent,
         AddDependentComponent,
         RemoveDependentComponent,
-        MspStatusInCanadaRadioComponent,
         AddNewDependentBeneficiaryComponent,
         MspAccordionComponent,
-        ServicesCardDisclaimerModalComponent,
 
 
         // Account Letter
@@ -455,9 +422,6 @@ const APP_ROUTES: Routes = [
         CommonDeductionCalculatorComponent,
         CommonIncomeInputtextComponent,
         CommonButtonComponent,
-        SpouseInfoComponent,
-        ChildInfoComponent,
-        AuthorizeComponent
     ],
 
     providers: [

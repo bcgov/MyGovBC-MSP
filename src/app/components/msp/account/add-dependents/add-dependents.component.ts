@@ -19,7 +19,7 @@ import {LocalStorageService} from 'angular-2-local-storage';
 import {NgForm} from '@angular/forms';
 import {MspToggleComponent} from '../../common/toggle/toggle.component';
 import {MspDateComponent} from '../../common/date/date.component';
-import {MspStatusInCanadaRadioComponent} from '../../common/status-in-canada-radio/status-in-canada-radio.component';
+import {MspStatusInCanadaRadioComponent} from '../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
 import {AccountPersonalDetailsComponent} from '../personal-info/personal-details/personal-details.component';
 import {AddNewDependentBeneficiaryComponent} from '../add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
 

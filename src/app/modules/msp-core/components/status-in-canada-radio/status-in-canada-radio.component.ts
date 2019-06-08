@@ -1,9 +1,9 @@
 import {ChangeDetectorRef, Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {
     StatusInCanada, StatusRules, Activities, ActivitiesRules, Relationship
-} from '../../model/status-activities-documents';
-import {Person} from '../../model/person.model';
-import {BaseComponent} from '../../common/base.component';
+} from '../../../../components/msp/model/status-activities-documents';
+import {Person} from '../../../../components/msp/model/person.model';
+import {BaseComponent} from '../../../../components/msp/common/base.component';
 import {ServicesCardDisclaimerModalComponent} from '../services-card-disclaimer/services-card-disclaimer.component';
 
 @Component({

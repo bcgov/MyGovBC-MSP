@@ -22,12 +22,12 @@
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <msp-phn #phn
-                 [phn]="person.previous_phn"
-                 (phnChange)="person.previous_phn = $event"
-                 (onChange)="onChange.emit($event)"
-                 [required]="true"
-                 [bcPhn]="true"></msp-phn>
+        <common-phn #phn
+                 name="phn"
+                 [ngModel]="person.previous_phn"
+                 (ngModelChange)="person.previous_phn = $event"
+                 (ngModelChange)="onChange.emit($event)"
+                 required></common-phn>
       </div>
     </div>
     <div class="col-md-4">

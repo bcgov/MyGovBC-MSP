@@ -13,25 +13,30 @@ import {
   CANADA,
   BRITISH_COLUMBIA
 } from 'moh-common-lib';
+import { countryData, provinceData } from '../../../../models/msp-constants';
 
 @Component({
   templateUrl: './address.component.html'
 })
-export class AddressComponent extends BaseComponent {
+export class EnrolAddressComponent extends BaseComponent {
+
+  // Constants TODO: Figure out whether used in html
+  outsideBCFor30DaysLabel = 'Have you or any family member been outside BC for more than 30 days in total during the past 12 months?';
+  addAnotherOutsideBCPersonButton = 'Add Another Person';
+  sameMailingAddress = 'Use this as my mailing address.';
+  provideDifferentMailingAddress = 'I want to provide a mailing address that is different from the residential address above.';
+
 
   static ProcessStepNum = 4;
-
-  lang = require('./i18n');
 
   @ViewChild('formRef') form: NgForm;
   @ViewChild('address') address: ElementRef;
   @ViewChild('mailingAddress') mailingAddress: ElementRef;
   @ViewChild('phone') phone: ElementRef;
-  @Input() editIdentityInfo: boolean = true;
-  @Input() countryList: CountryList[] = this.lang('./en/index.js').countryData;
-  @Input() provinceList: ProvinceList[] = this.lang('./en/index.js').provinceData;
-
   
+  countryList: CountryList[] = countryData;
+  provinceList: ProvinceList[] = provinceData;
+
   public defaultCountry = CANADA;
   public defaultProvince = BRITISH_COLUMBIA;
 
@@ -47,7 +52,7 @@ export class AddressComponent extends BaseComponent {
     this.mspApplication.mailingSameAsResidentialAddress = true;
   }
   ngOnInit(){
-    this.initProcessMembers(AddressComponent.ProcessStepNum, this._processService);
+    this.initProcessMembers(EnrolAddressComponent.ProcessStepNum, this._processService);
   }
 
   ngAfterViewInit(): void {

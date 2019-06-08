@@ -4,7 +4,7 @@ import { ProcessService } from '../../components/msp/service/process.service';
 import { PersonalInfoComponent } from './pages/personal-info/personal-info.component';
 import { SpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { ChildInfoComponent } from './pages/child-info/child-info.component';
-import { AddressComponent } from './pages/address/address.component';
+import { EnrolAddressComponent } from './pages/address/address.component';
 import { ReviewComponent } from './pages/review/review.component';
 import { AuthorizeComponent } from './pages/authorize/authorize.component';
 import { SendingComponent } from './pages/sending/sending.component';
@@ -33,7 +33,7 @@ export const enrolPages: Routes = [
     {
         path: 'address',
         canActivate: [ProcessService],
-        component: AddressComponent
+        component: EnrolAddressComponent
     },
     {
         path: 'review',

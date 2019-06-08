@@ -26,7 +26,7 @@ import {MspSchoolDateComponent} from '../../../common/schoolDate/school-date.com
 import {MspPhoneComponent} from '../../../common/phone/phone.component';
 import {HealthNumberComponent} from '../../../common/health-number/health-number.component';
 import {MspDischargeDateComponent} from '../../../common/discharge-date/discharge-date.component';
-import {MspStatusInCanadaRadioComponent} from '../../../common/status-in-canada-radio/status-in-canada-radio.component';
+import {MspStatusInCanadaRadioComponent} from '../../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
 import {MspAddressComponent} from '../../../common/address/address.component';
 import {Address} from '../../../model/address.model';
 import {Person} from '../../../model/person.model';

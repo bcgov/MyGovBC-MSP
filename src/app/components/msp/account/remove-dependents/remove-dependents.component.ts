@@ -17,7 +17,7 @@ import {Router} from '@angular/router';
 import {ProcessService} from '../../service/process.service';
 import {LocalStorageService} from 'angular-2-local-storage';
 import {MspToggleComponent} from '../../common/toggle/toggle.component';
-import {MspStatusInCanadaRadioComponent} from '../../common/status-in-canada-radio/status-in-canada-radio.component';
+import {MspStatusInCanadaRadioComponent} from '../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
 import {MspAddressComponent} from '../../common/address/address.component';
 import {AccountPersonalDetailsComponent} from '../personal-info/personal-details/personal-details.component';
 

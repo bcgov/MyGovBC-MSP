@@ -23,7 +23,7 @@ import { MspCancelComponent } from '../../common/cancel/cancel.component';
 import { MspAddressComponent } from '../../common/address/address.component';
 import { MspDateComponent } from '../../common/date/date.component';
 import { MspToggleComponent } from '../../common/toggle/toggle.component';
-import { MspStatusInCanadaRadioComponent } from '../../common/status-in-canada-radio/status-in-canada-radio.component';
+import { MspStatusInCanadaRadioComponent } from '../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
 import { MspNameComponent } from '../../common/name/name.component';
 import { MspGenderComponent } from '../../common/gender/gender.component';
 import { MspPhoneComponent } from '../../common/phone/phone.component';

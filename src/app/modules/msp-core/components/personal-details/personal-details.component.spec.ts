@@ -1,8 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule} from '@angular/common/http';
-import { PersonalInfoComponent } from './personal-info.component';
-import { PersonalDetailsComponent } from '../../../msp-core/components/personal-details/personal-details.component';
+import { PersonalDetailsComponent } from './personal-details.component';
 import { MspDataService } from '../../../../components/msp/service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspPhnComponent} from '../../../../components/msp/common/phn/phn.component';
@@ -22,53 +20,36 @@ import { TypeaheadModule } from 'ngx-bootstrap';
 import {ThumbnailComponent} from '../../../../components/msp/common/thumbnail/thumbnail.component';
 import {ModalModule, AccordionModule} from 'ngx-bootstrap';
 import {HealthNumberComponent} from '../../../../components/msp/common/health-number/health-number.component';
-import { CompletenessCheckService } from '../../../../components/msp/service/completeness-check.service';
 import {MspCountryComponent} from '../../../../components/msp/common/country/country.component';
 import {MspIdReqModalComponent} from '../../../../components/msp/common/id-req-modal/id-req-modal.component';
 import {MspOutofBCRecordComponent} from '../../../../components/msp/common/outof-bc/outof-bc.component';
-import {MspCancelComponent} from '../../../../components/msp/common/cancel/cancel.component';
 import {MspImageErrorModalComponent} from '../../../../components/msp/common/image-error-modal/image-error-modal.component';
-import {MspLoggerDirective} from '../../../../components/msp/common/logging/msp-logger.directive';
-import { MspLogService } from '../../../../components/msp/service/log.service';
-import {MspValidationService} from '../../../../components/msp/service/msp-validation.service';
 import {TextMaskModule} from 'angular2-text-mask';
-
-
-import {RouterTestingModule} from '@angular/router/testing';
-
 import {CalendarYearFormatter} from '../../../../components/msp/common/calendar/calendar-year-formatter.component';
 import {CalendarYearValidator} from '../../../../components/msp/common/calendar/calendar-year.validator';
 import {CalendarDayValidator} from '../../../../components/msp/common/calendar/calendar-day.validator';
-import { ProcessService } from '../../../../components/msp/service/process.service';
-import { ServicesCardDisclaimerModalComponent  } from '../../../../components/msp/common/services-card-disclaimer/services-card-disclaimer.component';
+import { ServicesCardDisclaimerModalComponent } from '../../../../components/msp/common/services-card-disclaimer/services-card-disclaimer.component';
 
-
-describe('PersonalInfoComponent', () => {
+describe('PersonalDetailsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PersonalInfoComponent, PersonalDetailsComponent, MspPhnComponent, MspNameComponent, MspProvinceComponent,
+      declarations: [PersonalDetailsComponent, MspPhnComponent, MspNameComponent, MspProvinceComponent,
         MspArrivalDateComponent, MspArrivalDateComponent, MspGenderComponent, MspDischargeDateComponent,
         MspBirthDateComponent, MspSchoolDateComponent, FileUploaderComponent, MspAddressComponent,
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,
-        MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspCancelComponent,
-        MspImageErrorModalComponent, MspLoggerDirective, CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator,
-        ServicesCardDisclaimerModalComponent
-        ],
-      imports: [TextMaskModule, FormsModule, TypeaheadModule, ModalModule.forRoot(), AccordionModule.forRoot(), HttpClientModule, RouterTestingModule, LocalStorageModule.withConfig({
+        MspOutofBCRecordComponent, MspDepartureDateComponent, MspReturnDateComponent, MspImageErrorModalComponent, ServicesCardDisclaimerModalComponent,
+        CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator],
+      imports: [TextMaskModule, FormsModule, TypeaheadModule, ModalModule.forRoot(), AccordionModule.forRoot(), LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'
       })],
-      providers: [MspDataService, MspLogService, MspValidationService, ProcessService,
-        CompletenessCheckService,
-
-
-      ]
+      providers: [MspDataService, ]
     });
   });
   it ('should work', () => {
-    const fixture = TestBed.createComponent(PersonalInfoComponent);
-    expect(fixture.componentInstance instanceof PersonalInfoComponent).toBe(true, 'should create PersonalInfoComponent');
+    const fixture = TestBed.createComponent(PersonalDetailsComponent);
+    expect(fixture.componentInstance instanceof PersonalDetailsComponent).toBe(true, 'should create PersonalDetailsComponent');
 
   });
 });

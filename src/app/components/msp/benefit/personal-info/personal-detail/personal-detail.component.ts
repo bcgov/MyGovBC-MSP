@@ -1,8 +1,7 @@
 import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {debounceTime} from 'rxjs/operators';
-import {MspDataService} from '../../../service/msp-data.service';
 import {Person} from '../../../model/person.model';
-import {MspPhnComponent} from '../../../common/phn/phn.component';
+import {PhnComponent} from 'moh-common-lib';
 import {NgForm} from '@angular/forms';
 import {MspNameComponent} from '../../../common/name/name.component';
 import {MspBirthDateComponent} from '../../../common/birthdate/birthdate.component';
@@ -25,7 +24,7 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
     @ViewChild('name') name: MspNameComponent;
     @ViewChild('formRef') personalDetailsForm: NgForm;
     @ViewChild('birthdate') birthdate: MspBirthDateComponent;
-    @ViewChild('phn') phn: MspPhnComponent;
+    @ViewChild('phn') phn: PhnComponent;
 
     @Output() onChange = new EventEmitter<any>();
 

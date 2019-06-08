@@ -1,40 +1,35 @@
 import {
-  Component, Input, Output, OnChanges, EventEmitter,
-  SimpleChange, ViewChild, AfterViewInit, OnInit, OnDestroy, ElementRef, QueryList, ViewChildren, ChangeDetectorRef
+  Component, Input, Output, EventEmitter,
+  ViewChild, ElementRef, ChangeDetectorRef
 } from '@angular/core';
 import { state, trigger, style } from '@angular/animations';
 import { NgForm } from '@angular/forms';
-import { Person, Gender } from '../../../../../components/msp/model/person.model';
-import { OutofBCRecord } from '../../../../../components/msp/model/outof-bc-record.model';
+import { Person, Gender } from '../../../../components/msp/model/person.model';
+import { OutofBCRecord } from '../../../../components/msp/model/outof-bc-record.model';
 import {
   StatusRules, ActivitiesRules, StatusInCanada, Activities,
   DocumentRules, Documents, Relationship
-} from '../../../../../components/msp/model/status-activities-documents';
-import { MspImage } from '../../../../../components/msp/model/msp-image';
+} from '../../../../components/msp/model/status-activities-documents';
+import { MspImage } from '../../../../components/msp/model/msp-image';
 import * as _ from 'lodash';
-import {MspIdReqModalComponent} from '../../../../../components/msp/common/id-req-modal/id-req-modal.component';
-import {MspImageErrorModalComponent} from '../../../../../components/msp/common/image-error-modal/image-error-modal.component';
-import {FileUploaderComponent} from '../../../../../components/msp/common/file-uploader/file-uploader.component';
-import {MspBirthDateComponent} from '../../../../../components/msp/common/birthdate/birthdate.component';
-import {MspNameComponent} from '../../../../../components/msp/common/name/name.component';
-import {MspGenderComponent} from '../../../../../components/msp/common/gender/gender.component';
-import {MspPhnComponent} from '../../../../../components/msp/common/phn/phn.component';
-import {MspSchoolDateComponent} from '../../../../../components/msp/common/schoolDate/school-date.component';
-import {HealthNumberComponent} from '../../../../../components/msp/common/health-number/health-number.component';
-import {MspDischargeDateComponent} from '../../../../../components/msp/common/discharge-date/discharge-date.component';
-import {MspAddressComponent} from '../../../../../components/msp/common/address/address.component';
-import {ServicesCardDisclaimerModalComponent} from '../../../../../components/msp/common/services-card-disclaimer/services-card-disclaimer.component';
+import {MspIdReqModalComponent} from '../../../../components/msp/common/id-req-modal/id-req-modal.component';
+import {MspImageErrorModalComponent} from '../../../../components/msp/common/image-error-modal/image-error-modal.component';
+import {FileUploaderComponent} from '../../../../components/msp/common/file-uploader/file-uploader.component';
+import {MspBirthDateComponent} from '../../../../components/msp/common/birthdate/birthdate.component';
+import {MspNameComponent} from '../../../../components/msp/common/name/name.component';
+import {MspGenderComponent} from '../../../../components/msp/common/gender/gender.component';
+import {MspSchoolDateComponent} from '../../../../components/msp/common/schoolDate/school-date.component';
+import {HealthNumberComponent} from '../../../../components/msp/common/health-number/health-number.component';
+import {MspDischargeDateComponent} from '../../../../components/msp/common/discharge-date/discharge-date.component';
+import {MspAddressComponent} from '../../../../components/msp/common/address/address.component';
 
-import {MspArrivalDateComponent} from '../../../../../components/msp/common/arrival-date/arrival-date.component';
-import {MspOutofBCRecordComponent} from '../../../../../components/msp/common/outof-bc/outof-bc.component';
-import {MspProvinceComponent} from '../../../../../components/msp/common/province/province.component';
-
-
-
-
-
-import {BaseComponent} from '../../../../../components/msp/common/base.component';
-import {MspCountryComponent} from '../../../../../components/msp/common/country/country.component';
+import {MspArrivalDateComponent} from '../../../../components/msp/common/arrival-date/arrival-date.component';
+import {MspOutofBCRecordComponent} from '../../../../components/msp/common/outof-bc/outof-bc.component';
+import {MspProvinceComponent} from '../../../../components/msp/common/province/province.component';
+import {BaseComponent} from '../../../../components/msp/common/base.component';
+import {MspCountryComponent} from '../../../../components/msp/common/country/country.component';
+import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
+import { PhnComponent } from 'moh-common-lib';
 @Component({
     selector: 'msp-personal-details',
     templateUrl: './personal-details.component.html',
@@ -71,9 +66,9 @@ import {MspCountryComponent} from '../../../../../components/msp/common/country/
 
 export class PersonalDetailsComponent extends BaseComponent {
   lang = require('./i18n');
-  langStatus = require('../../../../../components/msp/common/status/i18n');
-  langActivities = require('../../../../../components/msp/common/activities/i18n');
-  langDocuments = require('../../../../../components/msp/common/documents/i18n');
+  langStatus = require('../../../../components/msp/common/status/i18n');
+  langActivities = require('../../../../components/msp/common/activities/i18n');
+  langDocuments = require('../../../../components/msp/common/documents/i18n');
 
   radioLabel = [
     {
@@ -128,7 +123,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   @ViewChild('arrivalDateBC') arrivalDateBC: MspArrivalDateComponent;
   @ViewChild('arrivalDateCanada') arrivalDateCanada: MspArrivalDateComponent;
   @ViewChild('healthNumber') healthNumber: HealthNumberComponent;
-  @ViewChild('phn') phn: MspPhnComponent;
+  @ViewChild('phn') phn: PhnComponent;
   @ViewChild('armedForcedQuestion') armedForcedQuestion: HTMLElement;
   @ViewChild('dischargeDate') dischargeDate: MspDischargeDateComponent;
   @ViewChild('schoolQuestion') schoolQuestion: HTMLElement;
@@ -247,7 +242,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   addDocument(evt: MspImage){
     // console.log('image added: %s', evt);
     this.person.documents.images = this.person.documents.images.concat(evt);
-    console.info('$fileParent (1) addDocument', {images: this.person.documents.images, evt: evt});
+    console.log('$fileParent (1) addDocument', {images: this.person.documents.images, evt: evt});
 
     this.fileUploader.forceRender();
     this.onChange.emit(evt);
