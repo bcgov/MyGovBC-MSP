@@ -167,19 +167,18 @@
 
       <div class="row" *ngIf="person.documents.images.length > 0">
             <div class="col-lg-4" *ngIf="person.currentActivity == Activities.MovingFromCountry || person.status == StatusInCanada.TemporaryResident">
-              <msp-country #country [label]="lang('./en/index.js').movedFromCountryLabel"
-                  [country]="person.movedFromProvinceOrCountry" 
-                  (onChange)="person.movedFromProvinceOrCountry = $event; onChange.emit($event)"
-                  [showError]="showError">
-              </msp-country>
+              <common-country #country name='msp-country'
+                  [label]="lang('./en/index.js').movedFromCountryLabel"
+                  [ngModel]="person.movedFromProvinceOrCountry" 
+                  (ngModelChange)="person.movedFromProvinceOrCountry = $event; onChange.emit($event)">
+              </common-country>
             </div>
             <div class="col-lg-4" *ngIf="person.currentActivity === Activities.MovingFromProvince">
-              <msp-province #province [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
-                            [province]="person.movedFromProvinceOrCountry"
-                            (onChange)="provinceUpdate($event)"
-                            [hideStates]="true"
-                            [exceptBC]="true" [showError]="showError"
-                            colSize="col-md-4"></msp-province>
+                <!--TODO: no states, only BC-->
+                <common-province #province name="msp-province"
+                            [label]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
+                            [ngModel]="person.movedFromProvinceOrCountry"
+                            (ngModelChange)="provinceUpdate($event)"></common-province>
             </div>
         
           <div class="col-lg-4" style="margin-top: 15px;" role="dialog" [attr.aria-labelledby]="'movedPermLabel' + objectId">

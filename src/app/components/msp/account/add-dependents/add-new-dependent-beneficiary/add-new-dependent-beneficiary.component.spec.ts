@@ -8,7 +8,7 @@ import { MspDischargeDateComponent } from '../../../common/discharge-date/discha
 import { CalendarYearFormatter } from '../../../common/calendar/calendar-year-formatter.component';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import { MspDepartureDateComponent } from '../../../common/departure-date/departure-date.component';
-import { Person } from '../../../model/person.model';
+import { Person } from '../../../model/msp-person.model';
 import { Relationship } from '../../../model/status-activities-documents';
 
 //Weirdly, including MspReturnDateComponent in declarations leads to ALL of the tests failing to run because it can't load the component factory.

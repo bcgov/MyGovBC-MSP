@@ -1,6 +1,6 @@
 import { Address } from './address.model';
 import { Relationship } from './status-activities-documents';
-import { Person } from './person.model';
+import { Person } from './msp-person.model';
 import { UUID } from 'angular2-uuid';
 import { MspImage } from './msp-image';
 import { ApplicationBase } from './application-base.model';

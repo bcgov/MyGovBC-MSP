@@ -63,8 +63,8 @@
     </div>
 
     <div class="col-lg-12" *ngIf="!transmissionInProcess">
-        <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="mspAccountApp.uuid"
-                 (onValidToken)="mspAccountApp.authorizationToken = $event"></captcha>
+        <common-captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="mspAccountApp.uuid"
+                 (onValidToken)="mspAccountApp.authorizationToken = $event"></common-captcha>
     </div>
 </div>
 <hr>

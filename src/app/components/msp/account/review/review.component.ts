@@ -1,15 +1,12 @@
-import {Component, Inject, ViewChild, ElementRef, OnInit} from '@angular/core';
+import {Component, ViewChild, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {ActivatedRouteSnapshot, Router} from '@angular/router';
+import { Router} from '@angular/router';
 
-import {MspApplication} from '../../model/application.model';
 import {MspAccountApp} from '../../model/account.model';
 import {MspDataService} from '../../service/msp-data.service';
-import {Gender, Person} from '../../model/person.model';
-import {StatusInCanada, Activities, Relationship} from '../../model/status-activities-documents';
+import {MspPerson} from '../../model/msp-person.model';
 import {ProcessService, ProcessUrls} from '../../service/process.service';
 import {environment} from '../../../../../environments/environment';
-import { MspLogService } from '../../service/log.service';
 
 @Component({
     templateUrl: './review.component.html',
@@ -24,14 +21,13 @@ export class AccountReviewComponent implements OnInit {
 
     constructor(private dataService: MspDataService,
                 private _router: Router,
-                private processService: ProcessService,
-                private logService: MspLogService) {
+                private processService: ProcessService) {
         this.mspAccountApp = dataService.getMspAccountApp();
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
     }
 
     // unused.. logic changed
-    get spousesForAuthorisation(): Person[] {
+    get spousesForAuthorisation(): MspPerson[] {
         return [this.mspAccountApp.addedSpouse, this.mspAccountApp.updatedSpouse].filter(spouse => !!spouse);
     }
 
@@ -44,7 +40,7 @@ export class AccountReviewComponent implements OnInit {
     }
 
 
-    get spouseForAuthorisation(): Person {
+    get spouseForAuthorisation(): MspPerson {
         if (this.mspAccountApp.accountChangeOptions.dependentChange && this.mspAccountApp.addedSpouse) {
             return this.mspAccountApp.addedSpouse;
         }
@@ -94,7 +90,7 @@ export class AccountReviewComponent implements OnInit {
         return this.spouseForAuthorisation.firstName + ' ' + this.spouseForAuthorisation.lastName;
     }
 
-    handleFormSubmission(evt: any) {
+    handleFormSubmission() {
 
         if (this.mspAccountApp.hasValidAuthToken) {
             console.log('Found valid auth token, transfer to sending screen.');

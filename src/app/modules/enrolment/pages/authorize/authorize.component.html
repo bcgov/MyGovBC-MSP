@@ -31,9 +31,6 @@
     <div class="col-lg-12">
         <common-captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
         (onValidToken)="application.authorizationToken = $event"></common-captcha>
-        <!--
-      <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
-              (onValidToken)="application.authorizationToken = $event"></captcha> -->
     </div>
   </div>
   <div class="row" *ngIf="form.submitted && !application.hasValidAuthToken">

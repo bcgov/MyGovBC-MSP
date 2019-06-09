@@ -9,7 +9,7 @@ import {
     ViewChildren,
     QueryList
 } from '@angular/core';
-import {Person} from '../../model/person.model';
+import {Person} from '../../model/msp-person.model';
 import {Relationship, StatusInCanada, CancellationReasons , CancellationReasonsForSpouse} from '../../model/status-activities-documents';
 import {BaseComponent} from '../../common/base.component';
 import {MspDataService} from '../../service/msp-data.service';

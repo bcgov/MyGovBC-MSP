@@ -8,7 +8,7 @@ import {
     ViewChildren,
     QueryList
 } from '@angular/core';
-import {Person} from '../../../model/person.model';
+import {Person} from '../../../model/msp-person.model';
 import {Relationship, StatusInCanada} from '../../../model/status-activities-documents';
 import {BaseComponent} from '../../../common/base.component';
 import {MspToggleComponent} from '../../../common/toggle/toggle.component';

@@ -7,7 +7,7 @@ import {MspAccountApp, AccountChangeOptions} from '../../model/account.model';
 import * as _ from 'lodash';
 
 
-import {Gender, Person} from '../../model/person.model';
+import {Gender, Person} from '../../model/msp-person.model';
 import {MspDataService} from '../../service/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
 

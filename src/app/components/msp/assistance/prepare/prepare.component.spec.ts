@@ -11,7 +11,7 @@ import {ModalModule} from 'ngx-bootstrap';
 import {MspCancelComponent} from '../../common/cancel/cancel.component';
 import {FileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
 import {ThumbnailComponent} from '../../common/thumbnail/thumbnail.component';
-import {MspImageErrorModalComponent} from '../../common/image-error-modal/image-error-modal.component';
+import {MspImageErrorModalComponent} from '../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';
 import {MspAssistanceYearComponent} from './assistance-year/assistance-year.component';
 import { MspLogService } from '../../service/log.service';
 import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';

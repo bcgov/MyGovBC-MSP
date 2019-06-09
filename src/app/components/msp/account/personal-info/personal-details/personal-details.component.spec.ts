@@ -12,7 +12,7 @@ import {MspDepartureDateComponent} from '../../../common/departure-date/departur
 import {MspReturnDateComponent} from '../../../common/return-date/return-date.component';
 import {MspGenderComponent} from '../../../common/gender/gender.component';
 import {MspDischargeDateComponent} from '../../../common/discharge-date/discharge-date.component';
-import {MspBirthDateComponent} from '../../../common/birthdate/birthdate.component';
+import {MspBirthDateComponent} from '../../../../../modules/msp-core/components/birthdate/birthdate.component';
 import {MspSchoolDateComponent} from '../../../common/schoolDate/school-date.component';
 import {FileUploaderComponent} from '../../../common/file-uploader/file-uploader.component';
 import {MspAddressComponent} from '../../../common/address/address.component';
@@ -22,9 +22,9 @@ import {ThumbnailComponent} from '../../../common/thumbnail/thumbnail.component'
 import {ModalModule, AccordionModule} from 'ngx-bootstrap';
 import {HealthNumberComponent} from '../../../common/health-number/health-number.component';
 import {MspCountryComponent} from '../../../common/country/country.component';
-import {MspIdReqModalComponent} from '../../../common/id-req-modal/id-req-modal.component';
+import {MspIdReqModalComponent} from '../../../../../modules/msp-core/components/id-req-modal/id-req-modal.component';
 import {MspOutofBCRecordComponent} from '../../../common/outof-bc/outof-bc.component';
-import {MspImageErrorModalComponent} from '../../../common/image-error-modal/image-error-modal.component';
+import {MspImageErrorModalComponent} from '../../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';
 import { CompletenessCheckService } from '../../../service/completeness-check.service';
 import {CalendarYearFormatter} from '../../../common/calendar/calendar-year-formatter.component';
 import {CalendarYearValidator} from '../../../common/calendar/calendar-year.validator';

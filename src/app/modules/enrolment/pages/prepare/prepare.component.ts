@@ -1,11 +1,9 @@
 import {ChangeDetectorRef, Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import {MspApplication, Person} from '../../../../components/msp/model/application.model';
+import {  Router } from '@angular/router';
+import {MspApplication, MspPerson} from '../../../../components/msp/model/application.model';
 import * as _ from 'lodash';
-import { fromEvent} from 'rxjs/internal/observable/fromEvent';
 import { merge} from 'rxjs/internal/observable/merge';
-import { map} from 'rxjs/operators';
 import {MspDataService} from '../../../../components/msp/service/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
 import {ProcessService} from '../../../../components/msp/service/process.service';
@@ -28,7 +26,7 @@ export class PrepareComponent extends BaseComponent {
 //  @ViewChild('noPlannedAbsenceBtn') noPlannedAbsenceBtn: ElementRef;
   @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
   public radioLabels = [{'label': 'Yes', 'value': true}, { 'label': 'No', 'value': false}];
-  private apt: Person;
+  private apt: MspPerson;
   mspApplication: MspApplication;
   public styleClass: string = 'control-label';
 
@@ -140,7 +138,7 @@ export class PrepareComponent extends BaseComponent {
     this.dataService.saveMspApplication();
   }
 
-  get applicant(): Person {
+  get applicant(): MspPerson {
     return this.apt;
   }
 

@@ -3,7 +3,7 @@ import { MspDataService } from './msp-data.service';
 import {FinancialAssistApplication} from '../model/financial-assist-application.model';
 //import {MspApplication} from '../model/application.model';
 import { MspValidationService } from './msp-validation.service';
-import {Person} from '../model/person.model';
+import {Person} from '../model/msp-person.model';
 
 import * as _ from 'lodash';
 

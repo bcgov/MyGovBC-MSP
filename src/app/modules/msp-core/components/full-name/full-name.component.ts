@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, forwardRef, OnDestroy, Output, EventEmitter, Optional, Host } from '@angular/core';
-import { Person } from '../../../../components/msp/model/person.model';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { Subscription, Observable, of } from 'rxjs';
 
@@ -17,9 +17,9 @@ import { Subscription, Observable, of } from 'rxjs';
 export class MspFullNameComponent implements OnDestroy {
 
   // TODO: Change PERSON to MspPerson extend from Person in moh-common-lib
-  @Input() data: Person;
+  @Input() data: MspPerson;
   @Input() disabled: boolean = false;
-  @Output() dataChange: EventEmitter<Person> = new EventEmitter<Person>();
+  @Output() dataChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
 
   subscriptions: Subscription[];
   newObs = new Observable();

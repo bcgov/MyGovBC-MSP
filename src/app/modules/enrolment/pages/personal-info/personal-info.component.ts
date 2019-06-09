@@ -1,6 +1,6 @@
 import {Component, Injectable, ViewChild, ViewChildren,
   ChangeDetectorRef, QueryList, AfterViewInit, OnInit} from '@angular/core';
-import {MspApplication, Person} from '../../../../components/msp/model/application.model';
+import {MspApplication, MspPerson} from '../../../../components/msp/model/application.model';
 
 // import {MspDataService} from '../../service/msp-data.service';
 import { MspDataService } from '../../../../components/msp/service/msp-data.service';
@@ -49,16 +49,16 @@ export class PersonalInfoComponent extends BaseComponent {
   get application(): MspApplication {
     return this.dataService.getMspApplication();
   }
-  get applicant(): Person {
+  get applicant(): MspPerson {
     return this.dataService.getMspApplication().applicant;
   }
 
-  get spouse(): Person {
+  get spouse(): MspPerson {
     return this.dataService.getMspApplication().spouse;
   }
 
   addSpouse = () => {
-    const sp: Person = new Person(Relationship.Spouse);
+    const sp: MspPerson = new MspPerson(Relationship.Spouse);
     this.dataService.getMspApplication().addSpouse(sp);
   }
 
@@ -66,7 +66,7 @@ export class PersonalInfoComponent extends BaseComponent {
     this.dataService.getMspApplication().addChild(relationship);
   }
 
-  get children(): Person[] {
+  get children(): MspPerson[] {
     return this.dataService.getMspApplication().children;
   }
 
@@ -94,7 +94,7 @@ export class PersonalInfoComponent extends BaseComponent {
       this.personalDetailsComponent.forEach((personalDetailsComponent) => {
         if (personalDetailsComponent && personalDetailsComponent.person) {  //dependent can be empty object..ignore them
 
-          const currentApplicant: Person = personalDetailsComponent.person;
+          const currentApplicant: MspPerson = personalDetailsComponent.person;
           if (currentApplicant.status === StatusInCanada.CitizenAdult || currentApplicant.status === StatusInCanada.PermanentResident) {
             if (currentApplicant.fullTimeStudent && currentApplicant.inBCafterStudies === false) {
               this._processService.setStep(1, false);

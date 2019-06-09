@@ -9,11 +9,11 @@ import {
     ChangeDetectorRef
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Person} from '../../model/person.model';
-import {Relationship} from '../../model/status-activities-documents';
+import {Person} from '../../../../components/msp/model/msp-person.model';
+import {Relationship} from '../../../../components/msp/model/status-activities-documents';
 
 import * as moment from 'moment';
-import {BaseComponent} from '../base.component';
+import {BaseComponent} from '../../../../components/msp/common/base.component';
 
 
 @Component({

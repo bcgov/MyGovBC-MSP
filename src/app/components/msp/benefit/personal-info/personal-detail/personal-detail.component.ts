@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {debounceTime} from 'rxjs/operators';
-import {Person} from '../../../model/person.model';
-import {PhnComponent} from 'moh-common-lib';
+import {MspPerson} from '../../../model/msp-person.model';
+//import {PhnComponent} from 'moh-common-lib';
 import {NgForm} from '@angular/forms';
 import {MspNameComponent} from '../../../common/name/name.component';
-import {MspBirthDateComponent} from '../../../common/birthdate/birthdate.component';
+import {MspBirthDateComponent} from '../../../../../modules/msp-core/components/birthdate/birthdate.component';
 import {BaseComponent} from '../../../common/base.component';
 import {BenefitApplication} from '../../../model/benefit-application.model';
 import {MspBenefitDataService} from '../../../service/msp-benefit-data.service';
@@ -17,14 +17,14 @@ import {MspBenefitDataService} from '../../../service/msp-benefit-data.service';
 export class BenefitPersonalDetailComponent extends BaseComponent {
 
     lang = require('./i18n');
-    public dateLabel = 'BirthDate1'
+    public dateLabel = 'BirthDate1';
     private benefitApp: BenefitApplication;
-    
-    @Input() person: Person;
+
+    @Input() person: MspPerson;
     @ViewChild('name') name: MspNameComponent;
     @ViewChild('formRef') personalDetailsForm: NgForm;
     @ViewChild('birthdate') birthdate: MspBirthDateComponent;
-    @ViewChild('phn') phn: PhnComponent;
+    //@ViewChild('phn') phn: PhnComponent;
 
     @Output() onChange = new EventEmitter<any>();
 

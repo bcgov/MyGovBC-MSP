@@ -12,7 +12,7 @@ import { CalendarYearFormatter } from '../../common/calendar/calendar-year-forma
 import { AddNewDependentBeneficiaryComponent } from '../add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
 import { MspNameComponent } from '../../common/name/name.component';
 import { MspGenderComponent } from '../../common/gender/gender.component';
-import { MspBirthDateComponent } from '../../common/birthdate/birthdate.component';
+import { MspBirthDateComponent } from '../../../../modules/msp-core/components/birthdate/birthdate.component';
 import { MspPhnComponent } from '../../common/phn/phn.component';
 import { MspPhoneComponent } from '../../common/phone/phone.component';
 import { MspDischargeDateComponent } from '../../common/discharge-date/discharge-date.component';
@@ -28,7 +28,7 @@ import { MspDataService } from '../../service/msp-data.service';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import { MspDepartureDateComponent } from '../../common/departure-date/departure-date.component';
 import {MspReturnDateComponent} from '../../common/return-date/return-date.component';
-import { Person } from '../../model/person.model';
+import { Person } from '../../model/msp-person.model';
 import { Relationship } from '../../model/status-activities-documents';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {RouterTestingModule} from '@angular/router/testing';

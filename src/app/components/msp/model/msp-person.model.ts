@@ -1,6 +1,6 @@
 import {IPerson} from './person.interface';
 
-import {Relationship, StatusInCanada, Activities, MSPEnrollementMember} from './status-activities-documents';
+import {Relationship, StatusInCanada, Activities} from './status-activities-documents';
 import {PersonDocuments} from './person-document.model';
 import {Address} from './address.model';
 import {OutofBCRecord} from './outof-bc-record.model';
@@ -24,7 +24,7 @@ enum OperationActionType {
 }
 
 
-class Person implements IPerson {
+class MspPerson implements IPerson {
 
     readonly uuid = UUID.UUID();
 
@@ -563,11 +563,11 @@ class Person implements IPerson {
     }
 
     isDiplomat = () => {
-        return this.status == StatusInCanada.TemporaryResident && this.currentActivity === Activities.Diplomat;
+        return this.status === StatusInCanada.TemporaryResident && this.currentActivity === Activities.Diplomat;
     }
 
     isVisitor = () => {
-        return this.status == StatusInCanada.TemporaryResident && this.currentActivity === Activities.Visiting;
+        return this.status === StatusInCanada.TemporaryResident && this.currentActivity === Activities.Visiting;
     }
 
 
@@ -614,18 +614,18 @@ class Person implements IPerson {
 
         let basic = _.isString(this.gender)
             && _.isString(this.firstName) && this.firstName.length > 0 && _.isString(this.lastName) && this.lastName.length > 0
-            && _.isNumber(this.dob_day) && _.isString(this.dob_month) && _.isNumber(this.dob_year) && !(this.dob_month == 0)
+            && _.isNumber(this.dob_day) && _.isString(this.dob_month) && _.isNumber(this.dob_year) && !(this.dob_month === 0)
             && _.isNumber(this._status) && _.isNumber(this._currentActivity) && this.documents.images.length > 0
-            && !(this.studiesDepartureMonth == 0)
-            && !(this.studiesFinishedMonth == 0)
+            && !(this.studiesDepartureMonth === 0)
+            && !(this.studiesFinishedMonth === 0)
             && _.isBoolean(this._declarationForOutsideOver30Days)
-            && !(this.outOfBCRecord && this.outOfBCRecord.departureMonth == 0)
-            && !(this.outOfBCRecord && this.outOfBCRecord.returnMonth == 0)
-            && !(this.dischargeDate && this.dischargeMonth == 0);
+            && !(this.outOfBCRecord && this.outOfBCRecord.departureMonth === 0)
+            && !(this.outOfBCRecord && this.outOfBCRecord.returnMonth === 0)
+            && !(this.dischargeDate && this.dischargeMonth === 0);
         let returningToBCComplete = true;
 
         // Check name regexs
-        const regEx = new RegExp(Person.NameRegEx);
+        const regEx = new RegExp(MspPerson.NameRegEx);
         basic = basic && regEx.test(this.firstName);
         if (this.middleName &&
             this.middleName.length > 0) {
@@ -739,4 +739,4 @@ class Person implements IPerson {
     }
 }
 
-export {Person, Gender, OperationActionType};
+export {MspPerson, Gender, OperationActionType};

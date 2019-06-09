@@ -3,7 +3,7 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Person, Gender} from '../../model/person.model';
+import {Person, Gender} from '../../model/msp-person.model';
 import {UUID} from 'angular2-uuid';
 import {BaseComponent} from '../base.component';
 

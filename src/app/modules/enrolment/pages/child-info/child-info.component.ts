@@ -1,15 +1,13 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import {Component, Injectable, ViewChild, ViewChildren,
   ChangeDetectorRef, QueryList, AfterViewInit, OnInit} from '@angular/core';
-import {MspApplication, Person} from '../../../../components/msp/model/application.model';
+import {MspPerson} from '../../../../components/msp/model/application.model';
 
 // import {MspDataService} from '../../service/msp-data.service';
 import { MspDataService } from '../../../../components/msp/service/msp-data.service';
 import {Relationship} from '../../../../components/msp/model/status-activities-documents';
-import {NgForm} from '@angular/forms';
 import {BaseComponent} from '../../../../components/msp/common/base.component';
 import {ProcessService} from '../../../../components/msp/service/process.service';
-import { StatusInCanada} from '../../../../components/msp/model/status-activities-documents';
 
 @Component({
   selector: 'msp-child-info',
@@ -33,14 +31,14 @@ export class ChildInfoComponent extends BaseComponent implements OnInit {
   nextStep(){
     this._processService.setStep(3, true);
     this._router.navigate(['/msp/application/address']);
-  
+
   }
 
   addChild(relationship: Relationship): void {
     this.dataService.getMspApplication().addChild(relationship);
   }
 
-  get children(): Person[] {
+  get children(): MspPerson[] {
     console.log(this.dataService.getMspApplication().children);
     return this.dataService.getMspApplication().children;
   }
@@ -60,6 +58,6 @@ export class ChildInfoComponent extends BaseComponent implements OnInit {
 
   documentsReady(): boolean {
     return this.dataService.getMspApplication().childDocumentsReady;
-  }  
+  }
 
 }

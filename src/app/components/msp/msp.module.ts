@@ -5,8 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { LocalStorageModule } from 'angular-2-local-storage';
-import { CaptchaDataService } from 'mygovbc-captcha-widget/src/app/captcha-data.service';
-import { CaptchaComponent } from 'mygovbc-captcha-widget/src/app/captcha/captcha.component';
 import { AccordionModule, ModalModule } from 'ngx-bootstrap';
 import { AccountComponent } from './account/account.component';
 import { AddDependentComponent } from './account/add-dependents/add-dependents.component';
@@ -34,42 +32,12 @@ import { AssistanceReviewComponent } from './assistance/review/review.component'
 import { AssistanceSendingComponent } from './assistance/sending/sending.component';
 import { MspAccordionComponent } from './common/accordion/accordion.component';
 import { MspAddressCardPartComponent } from './common/address-card-part/address-card-part.component';
-import { MspAddressComponent } from './common/address/address.component';
-import { MspArrivalDateComponent } from './common/arrival-date/arrival-date.component';
-import { MspBirthDateComponent } from './common/birthdate/birthdate.component';
 import { TextMaskModule } from 'angular2-text-mask';
-import { CalendarDayValidator } from './common/calendar/calendar-day.validator';
-import { CalendarMonthValidator } from './common/calendar/calendar-month.validator';
-import { CalendarYearFormatter } from './common/calendar/calendar-year-formatter.component';
-import { CalendarYearValidator } from './common/calendar/calendar-year.validator';
-import { MspCancelComponent } from './common/cancel/cancel.component';
-import { MspConsentModalComponent } from './common/consent-modal/consent-modal.component';
 import { MspContactCardComponent } from './common/contact-card/contact-card.component';
-import { MspCountryComponent } from './common/country/country.component';
-import { MspDateComponent } from './common/date/date.component';
-import { MspDepartureDateComponent } from './common/departure-date/departure-date.component';
-import { MspDischargeDateComponent } from './common/discharge-date/discharge-date.component';
-import { FileUploaderComponent } from './common/file-uploader/file-uploader.component';
-import { MspGenderComponent } from './common/gender/gender.component';
-import { HealthNumberComponent } from './common/health-number/health-number.component';
-import { MspIdReqModalComponent } from './common/id-req-modal/id-req-modal.component';
-import { MspImageErrorModalComponent } from './common/image-error-modal/image-error-modal.component';
 import { KeyboardEventListner } from './common/keyboard-listener/keyboard-listener.directive';
 import { MspLoggerDirective } from './common/logging/msp-logger.directive';
-import { MspNameComponent } from './common/name/name.component';
-import { MspOutofBCRecordComponent } from './common/outof-bc/outof-bc.component';
 import { MspPersonCardComponent } from './common/person-card/person-card.component';
-
-import { MspPhoneComponent } from './common/phone/phone.component';
-import { MspProgressBarComponent } from './common/progressBar/progressBar.component';
-import { MspProvinceComponent } from './common/province/province.component';
-import { MspReturnDateComponent } from './common/return-date/return-date.component';
-import { MspSchoolDateComponent } from './common/schoolDate/school-date.component';
-import { ThumbnailComponent } from './common/thumbnail/thumbnail.component';
-import { MspToggleComponent } from './common/toggle/toggle.component';
-import { TransmissionErrorView } from './common/transmission-error-view/transmission-error-view.component';
 import { LandingComponent } from './landing/landing.component';
-import { MspComponent } from './msp.component';
 import { CompletenessCheckService } from './service/completeness-check.service';
 import { MspLogService } from './service/log.service';
 import { MspApiService } from './service/msp-api.service';
@@ -305,6 +273,8 @@ const APP_ROUTES: Routes = [
  * The overall progress layout is created based on 'msp-prepare-v3-a.jpeg' in
  * https://apps.gcpe.gov.bc.ca/jira/browse/PSPDN-255?filter=16000
  */
+
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -326,38 +296,6 @@ const APP_ROUTES: Routes = [
     declarations: [
         MspLoggerDirective,
         KeyboardEventListner,
-        // General
-        MspComponent,
-        LandingComponent,
-        MspNameComponent,
-        MspBirthDateComponent,
-        CalendarYearFormatter,
-        CalendarYearValidator,
-        CalendarDayValidator,
-        CalendarMonthValidator,
-        MspAddressComponent,
-        MspProvinceComponent,
-        MspCountryComponent,
-        MspPhoneComponent,
-        HealthNumberComponent,
-        MspArrivalDateComponent,
-        MspDischargeDateComponent,
-        MspDepartureDateComponent,
-        MspReturnDateComponent,
-        MspSchoolDateComponent,
-        MspGenderComponent,
-        MspProgressBarComponent,
-        FileUploaderComponent,
-        MspImageErrorModalComponent,
-        ThumbnailComponent,
-        TransmissionErrorView,
-        MspOutofBCRecordComponent,
-        MspConsentModalComponent,
-        MspIdReqModalComponent,
-        MspCancelComponent,
-        CaptchaComponent,
-        MspToggleComponent,
-        MspDateComponent,
 
         // View cards
         MspPersonCardComponent,
@@ -403,7 +341,6 @@ const APP_ROUTES: Routes = [
         AccountLetterConfirmationComponent,
         SpecificMemberComponent,
         AclErrorViewComponent,
-        ReplacewithlinksPipe,
 
         BenefitComponent,
         BenefitPrepareComponent,
@@ -435,7 +372,6 @@ const APP_ROUTES: Routes = [
         MspLogService,
         MspLog2Service,
         ProcessService,
-        CaptchaDataService,
         AccountDocumentHelperService,
         MspBenefitDataService
     ]

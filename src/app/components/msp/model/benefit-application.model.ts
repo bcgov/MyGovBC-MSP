@@ -4,7 +4,7 @@ import {MspImage} from './msp-image';
 import * as moment from 'moment';
 import {Address} from './address.model';
 import {PhoneNumber} from './phone.model';
-import {Person} from './person.model';
+import {Person} from './msp-person.model';
 import {AssistanceYear} from './assistance-year.model';
 import {AssistanceApplicationType} from './financial-assist-application.model';
 import {Relationship} from './status-activities-documents';

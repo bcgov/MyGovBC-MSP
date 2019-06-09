@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {Person} from '../../model/person.model';
+import {Person} from '../../model/msp-person.model';
 import {Activities, StatusInCanada} from '../../model/status-activities-documents';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'msp-person-card',
   templateUrl: './person-card.component.html',

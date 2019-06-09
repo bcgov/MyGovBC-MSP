@@ -1,25 +1,19 @@
 import {
     ChangeDetectorRef,
-    EventEmitter,
-    Output,
     Component,
-    Inject,
     Injectable,
-    AfterViewInit,
     ViewChild,
     ElementRef,
-    Input,
     OnInit
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
-import {Person} from '../../model/application.model';
 import * as _ from 'lodash';
 import {MspDataService} from '../../service/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
 import {ProcessService} from '../../service/process.service';
-import {AccountLetterApplication} from '../../model/account-letter-application.model';
-import {MspBirthDateComponent} from '../../common/birthdate/birthdate.component';
+import {AccountLetterApplication, Person} from '../../model/account-letter-application.model';
+import {MspBirthDateComponent} from '../../../../modules/msp-core/components/birthdate/birthdate.component';
 import {Address} from '../../model/address.model';
 import {
     MSPEnrollementMember, EnrollmentStatusRules
@@ -28,8 +22,8 @@ import {environment} from '../../../../../environments/environment';
 import {SpecificMemberComponent} from './specific-member/specific-member.component';
 import {LETTER, Masking, NUMBER, SPACE} from '../../model/masking.model';
 import {MspLogService} from '../../service/log.service';
-import { PhnComponent } from 'moh-common-lib';
-
+import { MspPerson } from '../../model/application.model';
+//import { PhnComponent } from 'moh-common-lib';
 
 @Component({
     templateUrl: './personal-info.component.html',
@@ -44,7 +38,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     @ViewChild('formRef') form: NgForm;
     @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
     @ViewChild('phn') phn: ElementRef;
-    @ViewChild('addtionalMemberphn') addtionalMemberphn: PhnComponent;
+    //@ViewChild('addtionalMemberphn') addtionalMemberphn: PhnComponent;
     @ViewChild('birthDate') birthdate: MspBirthDateComponent;
     @ViewChild('specificMember') specificMember: SpecificMemberComponent;
     captchaApiBaseUrl: string;
@@ -93,7 +87,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
         return this.dataService.accountLetterApp;
     }
 
-    get applicant(): Person {
+    get applicant(): MspPerson {
         return this.dataService.accountLetterApp.applicant;
     }
 

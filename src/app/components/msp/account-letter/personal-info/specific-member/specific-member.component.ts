@@ -1,8 +1,8 @@
-import {ChangeDetectorRef, ElementRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, Output} from '@angular/core';
 import {EnrollmentStatusRules, MSPEnrollementMember} from '../../../model/status-activities-documents';
-import {Person} from '../../../model/person.model';
+import {MspPerson} from '../../../model/msp-person.model';
 import {Masking} from '../../../model/masking.model';
-import { PhnComponent } from 'moh-common-lib';
+//import { PhnComponent } from 'moh-common-lib';
 
 @Component({
     selector: 'msp-specific-member',
@@ -11,10 +11,10 @@ import { PhnComponent } from 'moh-common-lib';
 })
 export class SpecificMemberComponent extends Masking {
 
-    @Input() person: Person;
+    @Input() person: MspPerson;
     @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
     @Output() onStatusChange: EventEmitter<string> = new EventEmitter<string>();
-    @ViewChild('addtionalMemberphn') phn: PhnComponent;
+   // @ViewChild('addtionalMemberphn') phn: PhnComponent;
     public checked: boolean = false;
     lang = require('./i18n');
     langStatus = require('../../../common/enrollmentMember/i18n');

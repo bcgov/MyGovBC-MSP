@@ -3,15 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import {AccordionModule, ModalModule, TooltipModule} from 'ngx-bootstrap';
 import { GeneralAppComponent } from './app.component';
-import { MspModule } from './components/msp/msp.module';
 import { HttpClientModule} from '@angular/common/http';
 import {TextMaskModule} from 'angular2-text-mask';
+import { SharedCoreModule } from 'moh-common-lib';
 
 @NgModule({
   imports: [
     TextMaskModule,
     BrowserModule,
-    MspModule,
+    SharedCoreModule,
     HttpClientModule,
     ModalModule.forRoot(),
     AccordionModule.forRoot(),

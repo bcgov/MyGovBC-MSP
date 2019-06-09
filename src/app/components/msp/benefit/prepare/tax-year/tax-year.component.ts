@@ -1,11 +1,8 @@
 import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {StatusInCanada, StatusRules} from '../../../model/status-activities-documents';
 import * as moment from 'moment';
 import {BaseComponent} from '../../../common/base.component';
-import {Person} from '../../../model/person.model';
 import {AssistanceYear} from '../../../model/assistance-year.model';
 import {BenefitApplication} from '../../../model/benefit-application.model';
-import {MspDataService} from '../../../service/msp-data.service';
 import {MspBenefitDataService} from '../../../service/msp-benefit-data.service';
 import {ISpaEnvResponse} from '../../../model/spa-env-response.interface';
 
@@ -26,7 +23,7 @@ export class TaxYearComponent extends BaseComponent {
     @Input() currentTaxYear: boolean;
     @Input() spaEnvResponse: ISpaEnvResponse;
     @Output() onTaxYearChange: EventEmitter<number> = new EventEmitter<number>();
-    today: any; 
+    today: any;
     cutOffStartDate: any;
     cutOffEndDate: any;
 
@@ -55,7 +52,7 @@ export class TaxYearComponent extends BaseComponent {
     }
 
     get assistanceYearsList(): AssistanceYear[] {
-        
+
         return this.benefitApp.assistYears = this.getTaxYears().reduce(
             (tally, yearNum) => {
                 const assistYear: AssistanceYear = new AssistanceYear();
@@ -66,12 +63,12 @@ export class TaxYearComponent extends BaseComponent {
                 this.cutOffDate();
 
                 // checking the cutoff Date and disabling the last year
-                if(this.cutOffStartDate && moment(this.cutOffStartDate).isSameOrBefore(this.today) && assistYear.year == this.benefitApp.MostRecentTaxYear - 1 && moment(this.cutOffEndDate).isSameOrAfter(this.today)) {
+                if (this.cutOffStartDate && moment(this.cutOffStartDate).isSameOrBefore(this.today) && assistYear.year === this.benefitApp.MostRecentTaxYear - 1 && moment(this.cutOffEndDate).isSameOrAfter(this.today)) {
                     assistYear.disabled =  true; //  (assistYear.year == this.benefitApp.MostRecentTaxYear - 1) ? true : false;
                 } else {
                     assistYear.disabled =  false;
                 }
-                
+
                 if (yearNum === this.benefitApp.MostRecentTaxYear){
                     assistYear.docsRequired = false;
                 }
@@ -81,14 +78,14 @@ export class TaxYearComponent extends BaseComponent {
             }, []);
     }
 
-    // Gets the cutoff date time frame from SPA-ENV server  
+    // Gets the cutoff date time frame from SPA-ENV server
     cutOffDate() {
-        if(this.spaEnvResponse && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END && this.spaEnvResponse.SPA_ENV_NOW) {
+        if (this.spaEnvResponse && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END && this.spaEnvResponse.SPA_ENV_NOW) {
             this.today = this.spaEnvResponse.SPA_ENV_NOW;
             this.cutOffStartDate = this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START;
             this.cutOffEndDate  = this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END;
         }
-       
+
     }
 
 }

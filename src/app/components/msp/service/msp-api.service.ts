@@ -14,7 +14,7 @@ import { ApplicationBase } from '../model/application-base.model';
 import { MspApplication } from '../model/application.model';
 import { AssistanceApplicationType, FinancialAssistApplication } from '../model/financial-assist-application.model';
 import { MspImage } from '../model/msp-image';
-import { OperationActionType as OperationActionTypeEnum, Person } from '../model/person.model';
+import { OperationActionType as OperationActionTypeEnum, Person } from '../model/msp-person.model';
 import { SimpleDate } from '../model/simple-date.interface';
 import { Activities, Relationship, StatusInCanada } from '../model/status-activities-documents';
 import { MspLogService } from './log.service';

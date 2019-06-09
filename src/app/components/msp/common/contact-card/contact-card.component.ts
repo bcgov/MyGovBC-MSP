@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Address} from '../../model/address.model';
-import {Person} from '../../model/person.model';
+import {Person} from '../../model/msp-person.model';
 import * as moment from 'moment';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 

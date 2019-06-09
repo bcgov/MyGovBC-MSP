@@ -8,8 +8,8 @@ import {LocalStorageService} from 'angular-2-local-storage';
 import {AccountPersonalDetailsComponent} from '../personal-info/personal-details/personal-details.component';
 import {AddDependentComponent} from '../add-dependents/add-dependents.component';
 import {RemoveDependentComponent} from '../remove-dependents/remove-dependents.component';
-import {Person, } from '../../model/application.model';
-import {OperationActionType} from '../../model/person.model';
+import {MspPerson} from '../../model/application.model';
+import {OperationActionType} from '../../model/msp-person.model';
 import {Relationship} from '../../model/status-activities-documents';
 import {ProcessUrls} from '../../service/process.service';
 
@@ -52,7 +52,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
         return !(this.dataService.getMspAccountApp().accountChangeOptions.personInfoUpdate || this.dataService.getMspAccountApp().accountChangeOptions.statusUpdate);
     }
 
-    get person(): Person {
+    get person(): MspPerson {
         return this.dataService.getMspAccountApp().applicant;
     }
 
@@ -152,7 +152,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
     addSpouse() {
 
         if (this.canAddDepdents()) {
-            const sp = new Person(Relationship.Spouse);
+            const sp = new MspPerson(Relationship.Spouse);
             // this.addedPersons.push(sp);
             this.addedSpouse = sp;
 
@@ -164,7 +164,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
     addChild(relationship: Relationship) {
 
         if (this.canAddDepdents()) {
-            const child = new Person(relationship, OperationActionType.Add);
+            const child = new MspPerson(relationship, OperationActionType.Add);
             this.addedChildren.push(child);
 
         }
@@ -184,13 +184,13 @@ export class AccountDependentChangeComponent extends BaseComponent {
     }
 
 
-    clearRemovedChild(dependent: Person) {
+    clearRemovedChild(dependent: MspPerson) {
 
         this.removedChildren = this.removedChildren
             .filter(x => x !== dependent);
     }
 
-    clearAddedChild(dependent: Person) {
+    clearAddedChild(dependent: MspPerson) {
 
         this.addedChildren = this.addedChildren
             .filter(x => x !== dependent);
@@ -205,7 +205,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
     removeSpouse() {
 
         if (this.canRemoveDependents()) {
-            const sp = new Person(Relationship.Spouse);
+            const sp = new MspPerson(Relationship.Spouse);
             //By default these are "British Columbia" and "Canada", but we don't want form fields pre-populated here as it isn't specified in the FDS.
             sp.residentialAddress.province = null;
             sp.residentialAddress.country = null;
@@ -229,7 +229,7 @@ export class AccountDependentChangeComponent extends BaseComponent {
     removeChild() {
 
         if (this.canRemoveDependents()) {
-            const child = new Person(Relationship.ChildUnder24, OperationActionType.Remove);
+            const child = new MspPerson(Relationship.ChildUnder24, OperationActionType.Remove);
             //By default these are "British Columbia" and "Canada", but we don't want form fields pre-populated here as it isn't specified in the FDS.
             child.residentialAddress.province = null;
             child.residentialAddress.country = null;
@@ -238,36 +238,36 @@ export class AccountDependentChangeComponent extends BaseComponent {
         this.cd.detectChanges();
     }
 
-    get addedSpouse(): Person {
+    get addedSpouse(): MspPerson {
         return this.dataService.getMspAccountApp().addedSpouse;
     }
 
-    set addedSpouse(sp: Person) {
+    set addedSpouse(sp: MspPerson) {
         this.dataService.getMspAccountApp().addedSpouse = sp;
     }
 
-    get removedSpouse(): Person {
+    get removedSpouse(): MspPerson {
         return this.dataService.getMspAccountApp().removedSpouse;
     }
 
-    set removedSpouse(sp: Person) {
+    set removedSpouse(sp: MspPerson) {
         this.dataService.getMspAccountApp().removedSpouse = sp;
     }
 
 
-    get addedChildren(): Person[] {
+    get addedChildren(): MspPerson[] {
         return this.dataService.getMspAccountApp().addedChildren;
     }
 
-    set addedChildren(val: Person[]) {
+    set addedChildren(val: MspPerson[]) {
         this.dataService.getMspAccountApp().addedChildren = val;
     }
 
-    get removedChildren(): Person[] {
+    get removedChildren(): MspPerson[] {
         return this.dataService.getMspAccountApp().removedChildren;
     }
 
-    set removedChildren(val: Person[]) {
+    set removedChildren(val: MspPerson[]) {
         this.dataService.getMspAccountApp().removedChildren = val;
     }
 

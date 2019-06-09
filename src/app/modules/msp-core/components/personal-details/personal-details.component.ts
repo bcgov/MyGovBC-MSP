@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { state, trigger, style } from '@angular/animations';
 import { NgForm } from '@angular/forms';
-import { Person, Gender } from '../../../../components/msp/model/person.model';
+import { Person, Gender } from '../../../../components/msp/model/msp-person.model';
 import { OutofBCRecord } from '../../../../components/msp/model/outof-bc-record.model';
 import {
   StatusRules, ActivitiesRules, StatusInCanada, Activities,
@@ -12,10 +12,10 @@ import {
 } from '../../../../components/msp/model/status-activities-documents';
 import { MspImage } from '../../../../components/msp/model/msp-image';
 import * as _ from 'lodash';
-import {MspIdReqModalComponent} from '../../../../components/msp/common/id-req-modal/id-req-modal.component';
-import {MspImageErrorModalComponent} from '../../../../components/msp/common/image-error-modal/image-error-modal.component';
-import {FileUploaderComponent} from '../../../../components/msp/common/file-uploader/file-uploader.component';
-import {MspBirthDateComponent} from '../../../../components/msp/common/birthdate/birthdate.component';
+import {MspIdReqModalComponent} from '../id-req-modal/id-req-modal.component';
+import {MspImageErrorModalComponent} from '../image-error-modal/image-error-modal.component';
+import {MspFileUploaderComponent} from '../../../../components/msp/common/file-uploader/file-uploader.component';
+import {MspBirthDateComponent} from '../birthdate/birthdate.component';
 import {MspNameComponent} from '../../../../components/msp/common/name/name.component';
 import {MspGenderComponent} from '../../../../components/msp/common/gender/gender.component';
 import {MspSchoolDateComponent} from '../../../../components/msp/common/schoolDate/school-date.component';
@@ -29,7 +29,7 @@ import {MspProvinceComponent} from '../../../../components/msp/common/province/p
 import {BaseComponent} from '../../../../components/msp/common/base.component';
 import {MspCountryComponent} from '../../../../components/msp/common/country/country.component';
 import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
-import { PhnComponent } from 'moh-common-lib';
+//import { PhnComponent } from 'moh-common-lib';
 @Component({
     selector: 'msp-personal-details',
     templateUrl: './personal-details.component.html',
@@ -111,7 +111,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   StatusInCanada: typeof StatusInCanada = StatusInCanada;
   public styleClass = 'control-label';
   @ViewChild('formRef') form: NgForm;
-  @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
+  @ViewChild('fileUploader') fileUploader: MspFileUploaderComponent;
   @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
   @ViewChild('imageErrorModal') imageErrorModal: MspImageErrorModalComponent;
   @ViewChild('outOfBCRecord') outOfBCRecord: MspOutofBCRecordComponent;
@@ -123,7 +123,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   @ViewChild('arrivalDateBC') arrivalDateBC: MspArrivalDateComponent;
   @ViewChild('arrivalDateCanada') arrivalDateCanada: MspArrivalDateComponent;
   @ViewChild('healthNumber') healthNumber: HealthNumberComponent;
-  @ViewChild('phn') phn: PhnComponent;
+ // @ViewChild('phn') phn: PhnComponent;
   @ViewChild('armedForcedQuestion') armedForcedQuestion: HTMLElement;
   @ViewChild('dischargeDate') dischargeDate: MspDischargeDateComponent;
   @ViewChild('schoolQuestion') schoolQuestion: HTMLElement;

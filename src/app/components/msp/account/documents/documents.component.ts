@@ -13,8 +13,8 @@ import {
 import {ProcessService, ProcessUrls} from '../../service/process.service';
 import {MspImage} from '../../../msp/model/msp-image';
 //import {FileUploaderComponent} from 'moh-common-lib/lib/components';
-import {MspImageErrorModalComponent} from '../../common/image-error-modal/image-error-modal.component';
-import {MspIdReqModalComponent} from '../../common/id-req-modal/id-req-modal.component';
+import {MspImageErrorModalComponent} from '../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';
+import {MspIdReqModalComponent} from '../../../../modules/msp-core/components/id-req-modal/id-req-modal.component';
 import {AccountDocumentHelperService} from '../../service/account-document-helper.service';
 
 @Component({

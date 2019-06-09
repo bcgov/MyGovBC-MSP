@@ -13,39 +13,24 @@ import {
     StatusRules, ActivitiesRules, StatusInCanada, Activities,
     DocumentRules, Documents, Relationship
 } from '../../../model/status-activities-documents';
-import {MspImage} from '../../../model/msp-image';
 import * as _ from 'lodash';
-import {MspIdReqModalComponent} from '../../../common/id-req-modal/id-req-modal.component';
-import {MspImageErrorModalComponent} from '../../../common/image-error-modal/image-error-modal.component';
-import {FileUploaderComponent} from '../../../common/file-uploader/file-uploader.component';
-import {MspBirthDateComponent} from '../../../common/birthdate/birthdate.component';
-import {MspNameComponent} from '../../../common/name/name.component';
+import {MspBirthDateComponent} from '../../../../../modules/msp-core/components/birthdate/birthdate.component';
 import {MspGenderComponent} from '../../../common/gender/gender.component';
-import {MspPhnComponent} from '../../../common/phn/phn.component';
+//import {MspPhnComponent} from '../../../common/phn/phn.component';
 import {MspSchoolDateComponent} from '../../../common/schoolDate/school-date.component';
 import {MspPhoneComponent} from '../../../common/phone/phone.component';
 import {HealthNumberComponent} from '../../../common/health-number/health-number.component';
-import {MspDischargeDateComponent} from '../../../common/discharge-date/discharge-date.component';
 import {MspStatusInCanadaRadioComponent} from '../../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
 import {MspAddressComponent} from '../../../common/address/address.component';
 import {Address} from '../../../model/address.model';
-import {Person} from '../../../model/person.model';
+import {Person} from '../../../model/msp-person.model';
 
 
 import {MspDataService} from '../../../service/msp-data.service';
 
-import {MspArrivalDateComponent} from '../../../common/arrival-date/arrival-date.component';
-import {MspOutofBCRecordComponent} from '../../../common/outof-bc/outof-bc.component';
-import {MspProvinceComponent} from '../../../common/province/province.component';
-import {Observable} from 'rxjs';
-
-
-
-
 
 import './personal-details.component.scss';
 import {BaseComponent} from '../../../common/base.component';
-import {MspCountryComponent} from '../../../common/country/country.component';
 
 @Component({
         selector: 'msp-account-personal-details',
@@ -96,7 +81,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @ViewChild('gender') gender: ElementRef;
     @ViewChild('birthDate') birthdate: MspBirthDateComponent;
  //   @ViewChild('name') name: ElementRef;
-    @ViewChild('phn') phn: MspPhnComponent;
+  //  @ViewChild('phn') phn: MspPhnComponent;
     @ViewChild('phone') phone: MspPhoneComponent;
     @ViewChild(MspStatusInCanadaRadioComponent) statusRadioComponents: MspStatusInCanadaRadioComponent;
 

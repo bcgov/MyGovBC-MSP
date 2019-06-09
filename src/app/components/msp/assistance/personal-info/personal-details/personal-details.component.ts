@@ -1,12 +1,12 @@
 import { Component, Input, Output, ViewChild, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 // import { IPerson } from "../../../model/person.interface";
-import { Person } from '../../../model/person.model';
+import { Person } from '../../../model/msp-person.model';
 import { MspDataService } from '../../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../../model/financial-assist-application.model';
 import {BaseComponent} from '../../../common/base.component';
-import {MspBirthDateComponent} from '../../../common/birthdate/birthdate.component';
-import {MspPhnComponent} from '../../../common/phn/phn.component';
+import {MspBirthDateComponent} from '../../../../../modules/msp-core/components/birthdate/birthdate.component';
+//import {MspPhnComponent} from '../../../common/phn/phn.component';
 import {MspNameComponent} from '../../../common/name/name.component';
 import {debounceTime} from 'rxjs/operators';
 
@@ -22,7 +22,7 @@ export class AssistancePersonalDetailComponent extends BaseComponent {
   @ViewChild('name') name: MspNameComponent;
   @ViewChild('formRef') personalDetailsForm: NgForm;
   @ViewChild('birthdate') birthdate: MspBirthDateComponent;
-  @ViewChild('phn') phn: MspPhnComponent;
+  //@ViewChild('phn') phn: MspPhnComponent;
 
   @Output() onChange = new EventEmitter<any>();
 

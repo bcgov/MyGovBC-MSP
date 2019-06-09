@@ -1,12 +1,10 @@
-import {Component, Inject, ViewChild, ElementRef, OnInit} from '@angular/core';
+import {Component, ViewChild, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import {MspApplication} from '../../../../components/msp/model/application.model';
 
 import { MspDataService } from '../../../../components/msp/service/msp-data.service';
-import {Gender, Person} from '../../../../components/msp/model/person.model';
-import {StatusInCanada, Activities, Relationship} from '../../../../components/msp/model/status-activities-documents';
 import {ProcessService} from '../../../../components/msp/service/process.service';
 import { environment } from '../../../../../environments/environment';
 import { MspLogService } from '../../../../components/msp/service/log.service';
@@ -67,7 +65,7 @@ export class ReviewComponent implements OnInit{
   }
 
   handleFormSubmission(evt: any){
-    
+
     // console.log('review form submitted, %o', evt);
     this.processService.setStep(5, true);
     this._router.navigate(['/msp/application/authorize']);
@@ -75,7 +73,7 @@ export class ReviewComponent implements OnInit{
       console.log('Found valid auth token, transfer to sending screen.');
       this.processService.setStep(5, true);
       // this.logService.log({name: "Application - Review Page Before Submit (after CAPTCHA)"},"Application-Captcha Success")
-    
+
     }else{
       console.log('Auth token is not valid');
     }*/

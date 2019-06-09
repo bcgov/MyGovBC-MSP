@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 // import { ToggleComponent } from './toggle.component';
-import { Person } from './person.model';
+import { Person } from './msp-person.model';
 import { Relationship, StatusInCanada, Activities } from './status-activities-documents';
 import { SimpleDate } from './simple-date.interface';
 
