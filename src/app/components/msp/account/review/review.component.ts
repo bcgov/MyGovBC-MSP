@@ -90,7 +90,7 @@ export class AccountReviewComponent implements OnInit {
         return this.spouseForAuthorisation.firstName + ' ' + this.spouseForAuthorisation.lastName;
     }
 
-    handleFormSubmission() {
+    handleFormSubmission($event) {
 
         if (this.mspAccountApp.hasValidAuthToken) {
             console.log('Found valid auth token, transfer to sending screen.');

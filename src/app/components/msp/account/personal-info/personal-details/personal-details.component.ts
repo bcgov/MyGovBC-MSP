@@ -1,29 +1,22 @@
 import {
-    Component, Input, Output, OnChanges, EventEmitter,
-    SimpleChange, ViewChild, AfterViewInit, OnInit, OnDestroy,
-    ElementRef, QueryList, ViewChildren, ChangeDetectorRef
+    Component, Input, Output, EventEmitter,
+    ViewChild, ElementRef, ChangeDetectorRef
 } from '@angular/core';
 import { state, trigger, style, } from '@angular/animations';
 import {NgForm} from '@angular/forms';
 //import {Person} from '../../../model/person.model';
 
 import {MspAccountApp} from '../../../model/account.model';
-import {OutofBCRecord} from '../../../model/outof-bc-record.model';
 import {
     StatusRules, ActivitiesRules, StatusInCanada, Activities,
-    DocumentRules, Documents, Relationship
+    Relationship
 } from '../../../model/status-activities-documents';
 import * as _ from 'lodash';
 import {MspBirthDateComponent} from '../../../../../modules/msp-core/components/birthdate/birthdate.component';
-import {MspGenderComponent} from '../../../common/gender/gender.component';
-//import {MspPhnComponent} from '../../../common/phn/phn.component';
-import {MspSchoolDateComponent} from '../../../common/schoolDate/school-date.component';
 import {MspPhoneComponent} from '../../../common/phone/phone.component';
-import {HealthNumberComponent} from '../../../common/health-number/health-number.component';
 import {MspStatusInCanadaRadioComponent} from '../../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
-import {MspAddressComponent} from '../../../common/address/address.component';
 import {Address} from '../../../model/address.model';
-import {Person} from '../../../model/msp-person.model';
+import {MspPerson} from '../../../model/msp-person.model';
 
 
 import {MspDataService} from '../../../service/msp-data.service';
@@ -85,7 +78,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @ViewChild('phone') phone: MspPhoneComponent;
     @ViewChild(MspStatusInCanadaRadioComponent) statusRadioComponents: MspStatusInCanadaRadioComponent;
 
-    @Input() person: Person;
+    @Input() person: MspPerson;
     @Input() id: string;
     @Input() showError: boolean;
     public buttonClass: string = 'btn btn-default btn-xs pull-right';
@@ -111,8 +104,8 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @Input() addressRequired: boolean = false;
     /** Is the PHN field required? In cases where the dependent is NOT an existing beneficiary, then PHN is optional, and may not be known. */
     @Input() requirePHN: boolean = true;
-    @Output() notifyChildRemoval: EventEmitter<Person> = new EventEmitter<Person>();
-    @Output() notifySpouseRemoval: EventEmitter<Person> = new EventEmitter<Person>();
+    @Output() notifyChildRemoval: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
+    @Output() notifySpouseRemoval: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
     @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
     shrinkOut: string;
     shrinkOutStatus: string;
@@ -142,7 +135,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
         this.dataService.saveMspAccountApp();
     }
 
-    setStatus(value: StatusInCanada, p: Person) {
+    setStatus(value: StatusInCanada, p: MspPerson) {
         p.status = value;
         p.currentActivity = null;
 
@@ -157,7 +150,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
         this.person.movedFromProvinceOrCountry = '';
         this.onChange.emit(value);
     }
-    
+
     setName(evt: any) {
         this.person = evt;
         console.log(this.person);
@@ -182,7 +175,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     }
 
     handleAddressUpdate(evt: any) {
-        console.log("Abhi Address --> ");
+        console.log('Abhi Address --> ');
         console.log(evt);
         this.dataService.saveMspAccountApp();
         this.emitIsFormValid();

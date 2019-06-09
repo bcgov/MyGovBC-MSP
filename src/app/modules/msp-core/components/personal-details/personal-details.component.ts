@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { state, trigger, style } from '@angular/animations';
 import { NgForm } from '@angular/forms';
-import { Person, Gender } from '../../../../components/msp/model/msp-person.model';
+import { MspPerson, Gender } from '../../../../components/msp/model/msp-person.model';
 import { OutofBCRecord } from '../../../../components/msp/model/outof-bc-record.model';
 import {
   StatusRules, ActivitiesRules, StatusInCanada, Activities,
@@ -132,11 +132,11 @@ export class PersonalDetailsComponent extends BaseComponent {
   @ViewChild('schoolDate') schoolDate: MspSchoolDateComponent;
   @ViewChild('mspServicesCardModal') servicesCardDisclaimerModalComponent: ServicesCardDisclaimerModalComponent;
 
-  @Input() person: Person;
+  @Input() person: MspPerson;
   @Input() id: string;
   @Input() showError: boolean;
-  @Output() notifyChildRemoval: EventEmitter<Person> = new EventEmitter<Person>();
-  @Output() notifySpouseRemoval: EventEmitter<Person> = new EventEmitter<Person>();
+  @Output() notifyChildRemoval: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
+  @Output() notifySpouseRemoval: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 
   shrinkOut: string;
@@ -194,7 +194,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
 
-  setStatus(value: StatusInCanada, p: Person) {
+  setStatus(value: StatusInCanada, p: MspPerson) {
     p.status = value;
     p.currentActivity = null;
 

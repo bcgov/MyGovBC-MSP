@@ -9,7 +9,7 @@ import {
     ChangeDetectorRef
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Person} from '../../../../components/msp/model/msp-person.model';
+import {MspPerson} from '../../../../components/msp/model/msp-person.model';
 import {Relationship} from '../../../../components/msp/model/status-activities-documents';
 
 import * as moment from 'moment';
@@ -30,8 +30,8 @@ export class MspBirthDateComponent extends BaseComponent {
     // Create today for comparison in check later
    today: any;
     @Input() isForAccountChange: boolean = false;
-    @Input() isACL:boolean = false;
-    @Input() person: Person;
+    @Input() isACL: boolean = false;
+    @Input() person: MspPerson;
     @Input() showError: boolean;
     @Output() onChange = new EventEmitter<any>();
 
@@ -40,22 +40,22 @@ export class MspBirthDateComponent extends BaseComponent {
         console.log(this.person);
     }
 
-    
+
     @ViewChild('formRef') form: NgForm;
 
     ngAfterViewInit(): void {
-        
+
         this.person.dateOfBirth =  { year: this.person.dob_year , month: this.person.dob_month, day: this.person.dob_day};
-    
+
         this.form.valueChanges.subscribe(values => {
-            if(this.person.dateOfBirth.month) {
-                this.person.dob_month = this.person.dateOfBirth.month;  
+            if (this.person.dateOfBirth.month) {
+                this.person.dob_month = this.person.dateOfBirth.month;
             }
-            if(this.person.dateOfBirth.day) {
-                this.person.dob_day = this.person.dateOfBirth.day;  
+            if (this.person.dateOfBirth.day) {
+                this.person.dob_day = this.person.dateOfBirth.day;
             }
-            if(this.person.dateOfBirth.year) {
-                this.person.dob_year = this.person.dateOfBirth.year;  
+            if (this.person.dateOfBirth.year) {
+                this.person.dob_year = this.person.dateOfBirth.year;
             }
         });
     }
@@ -69,11 +69,11 @@ export class MspBirthDateComponent extends BaseComponent {
         this.person.dob_day = value;
     }
 
-    
+
      * Determine if date of birth is valid for the given person
      *
-     * 
-     
+     *
+
     isCorrectFormat(): boolean {
 
         // Validate

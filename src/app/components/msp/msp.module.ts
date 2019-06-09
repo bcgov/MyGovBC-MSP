@@ -31,12 +31,12 @@ import { AssistanceRetroYearsComponent } from './assistance/retro-years/retro-ye
 import { AssistanceReviewComponent } from './assistance/review/review.component';
 import { AssistanceSendingComponent } from './assistance/sending/sending.component';
 import { MspAccordionComponent } from './common/accordion/accordion.component';
-import { MspAddressCardPartComponent } from './common/address-card-part/address-card-part.component';
+//import { MspAddressCardPartComponent } from './common/address-card-part/address-card-part.component';
 import { TextMaskModule } from 'angular2-text-mask';
-import { MspContactCardComponent } from './common/contact-card/contact-card.component';
+//import { MspContactCardComponent } from './common/contact-card/contact-card.component';
 import { KeyboardEventListner } from './common/keyboard-listener/keyboard-listener.directive';
 import { MspLoggerDirective } from './common/logging/msp-logger.directive';
-import { MspPersonCardComponent } from './common/person-card/person-card.component';
+//import { MspPersonCardComponent } from './common/person-card/person-card.component';
 import { LandingComponent } from './landing/landing.component';
 import { CompletenessCheckService } from './service/completeness-check.service';
 import { MspLogService } from './service/log.service';
@@ -298,9 +298,9 @@ const APP_ROUTES: Routes = [
         KeyboardEventListner,
 
         // View cards
-        MspPersonCardComponent,
-        MspContactCardComponent,
-        MspAddressCardPartComponent,
+     //   MspPersonCardComponent,
+     //   MspContactCardComponent,
+     //   MspAddressCardPartComponent,
 
         // Assistance
         AssistanceComponent,

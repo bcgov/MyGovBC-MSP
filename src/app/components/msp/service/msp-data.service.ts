@@ -922,7 +922,7 @@ export  class MspDataService {
         return output;
     }
 
-     convertToPersonDto(input: Person, output: PersonDto) {
+     convertToPersonDto(input: MspPerson, output: PersonDto) {
         output.dob_day = input.dob_day;
         output.dob_month = input.dob_month;
         output.dob_year = input.dob_year;

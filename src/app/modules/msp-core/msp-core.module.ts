@@ -47,6 +47,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ModalModule, AccordionModule, TypeaheadModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { ReplacewithlinksPipe } from '../../components/msp/common/replace-link-pipe/replacewithlinks.pipe';
+import { MspPersonCardComponent } from '../../components/msp/common/person-card/person-card.component';
+import { MspContactCardComponent } from '../../components/msp/common/contact-card/contact-card.component';
+import { MspAddressCardPartComponent } from '../../components/msp/common/address-card-part/address-card-part.component';
 
 
 const componentList = [
@@ -93,7 +96,10 @@ const templistCore = [
   MspToggleComponent,
   MspDateComponent,
   HealthNumberComponent,
-  ReplacewithlinksPipe
+  ReplacewithlinksPipe,
+  MspPersonCardComponent,
+  MspContactCardComponent,
+  MspAddressCardPartComponent,
 ];
 @NgModule({
   imports: [

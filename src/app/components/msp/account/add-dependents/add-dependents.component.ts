@@ -9,7 +9,7 @@ import {
     ChangeDetectorRef,
     QueryList
 } from '@angular/core';
-import {Person} from '../../model/msp-person.model';
+import {MspPerson} from '../../model/msp-person.model';
 import {Relationship, StatusInCanada} from '../../model/status-activities-documents';
 import {BaseComponent} from '../../common/base.component';
 import {MspDataService} from '../../service/msp-data.service';
@@ -70,8 +70,8 @@ export class AddDependentComponent extends BaseComponent {
 
     Relationship: typeof Relationship = Relationship;
     StatusInCanada: typeof StatusInCanada = StatusInCanada;
-    Person: typeof Person = Person;
-    @Input() person: Person;
+    Person: typeof MspPerson = MspPerson;
+    @Input() person: MspPerson;
     @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
     @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
     /** The element we focus on when this component is inited, for a11y. */

@@ -8,7 +8,7 @@ import {
     ViewChildren,
     QueryList
 } from '@angular/core';
-import {Person} from '../../../model/msp-person.model';
+import {MspPerson} from '../../../model/msp-person.model';
 import {Relationship, StatusInCanada} from '../../../model/status-activities-documents';
 import {BaseComponent} from '../../../common/base.component';
 import {MspToggleComponent} from '../../../common/toggle/toggle.component';
@@ -64,7 +64,7 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
 
     Relationship: typeof Relationship = Relationship;
     StatusInCanada: typeof StatusInCanada = StatusInCanada;
-    @Input() person: Person;
+    @Input() person: MspPerson;
     @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
     @Input() showError: boolean;
 

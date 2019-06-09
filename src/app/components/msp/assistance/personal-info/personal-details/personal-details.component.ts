@@ -1,7 +1,7 @@
 import { Component, Input, Output, ViewChild, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 // import { IPerson } from "../../../model/person.interface";
-import { Person } from '../../../model/msp-person.model';
+import { MspPerson } from '../../../model/msp-person.model';
 import { MspDataService } from '../../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../../model/financial-assist-application.model';
 import {BaseComponent} from '../../../common/base.component';
@@ -18,7 +18,7 @@ export class AssistancePersonalDetailComponent extends BaseComponent {
   lang = require('./i18n');
   private finApp: FinancialAssistApplication;
 
-  @Input() person: Person;
+  @Input() person: MspPerson;
   @ViewChild('name') name: MspNameComponent;
   @ViewChild('formRef') personalDetailsForm: NgForm;
   @ViewChild('birthdate') birthdate: MspBirthDateComponent;

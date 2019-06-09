@@ -9,7 +9,8 @@
 
 
   <ng-container>
-    <msp-account-personal-details [person]='person' [id]='person.id'  [showError]="showError" (onChange)="change($event)" embedded=true></msp-account-personal-details>
+    <msp-account-personal-details [person]='person' [id]='person.id'  [showError]="showError"
+     (onChange)="change($event)" embedded=true></msp-account-personal-details>
 
     <div class="row">
       <div class="col-md-4 form-group"   [ngClass]="{'has-error': showError && (person.reasonForCancellation === undefined || person.reasonForCancellation === null || person.reasonForCancellation === 'pleaseSelect')}">

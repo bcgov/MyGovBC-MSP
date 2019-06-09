@@ -12,7 +12,7 @@ import * as _ from 'lodash';
 import {MspDataService} from '../../service/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
 import {ProcessService} from '../../service/process.service';
-import {AccountLetterApplication, Person} from '../../model/account-letter-application.model';
+import {AccountLetterApplication, MspPerson} from '../../model/account-letter-application.model';
 import {MspBirthDateComponent} from '../../../../modules/msp-core/components/birthdate/birthdate.component';
 import {Address} from '../../model/address.model';
 import {
@@ -22,7 +22,6 @@ import {environment} from '../../../../../environments/environment';
 import {SpecificMemberComponent} from './specific-member/specific-member.component';
 import {LETTER, Masking, NUMBER, SPACE} from '../../model/masking.model';
 import {MspLogService} from '../../service/log.service';
-import { MspPerson } from '../../model/application.model';
 //import { PhnComponent } from 'moh-common-lib';
 
 @Component({

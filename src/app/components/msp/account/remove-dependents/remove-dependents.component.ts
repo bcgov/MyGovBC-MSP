@@ -9,16 +9,11 @@ import {
     ViewChildren,
     QueryList
 } from '@angular/core';
-import {Person} from '../../model/msp-person.model';
+import {MspPerson} from '../../model/msp-person.model';
 import {Relationship, StatusInCanada, CancellationReasons , CancellationReasonsForSpouse} from '../../model/status-activities-documents';
 import {BaseComponent} from '../../common/base.component';
-import {MspDataService} from '../../service/msp-data.service';
-import {Router} from '@angular/router';
-import {ProcessService} from '../../service/process.service';
-import {LocalStorageService} from 'angular-2-local-storage';
 import {MspToggleComponent} from '../../common/toggle/toggle.component';
 import {MspStatusInCanadaRadioComponent} from '../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
-import {MspAddressComponent} from '../../common/address/address.component';
 import {AccountPersonalDetailsComponent} from '../personal-info/personal-details/personal-details.component';
 
 
@@ -89,8 +84,8 @@ export class RemoveDependentComponent extends BaseComponent {
     CancellationReasons: typeof CancellationReasons = CancellationReasons;
     public showOtherCancellationReason: boolean = false;
 
-    Person: typeof Person = Person;
-    @Input() person: Person;
+    Person: typeof MspPerson = MspPerson;
+    @Input() person: MspPerson;
     @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
     @Output() onChange: EventEmitter<void> = new EventEmitter<void>();
     /** The element we focus on when this component is inited, for a11y. */
@@ -100,10 +95,7 @@ export class RemoveDependentComponent extends BaseComponent {
     @ViewChildren(MspStatusInCanadaRadioComponent) statusRadioComponents: QueryList<MspStatusInCanadaRadioComponent>;
     @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
 
-    constructor(private dataService: MspDataService,
-                private _router: Router,
-                private _processService: ProcessService,
-                private cd: ChangeDetectorRef, private localStorageService: LocalStorageService) {
+    constructor(cd: ChangeDetectorRef) {
 
         super(cd);
     }

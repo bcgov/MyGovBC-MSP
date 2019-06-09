@@ -1,20 +1,19 @@
-import {ChangeDetectorRef, Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
+import {ChangeDetectorRef, Component, Injectable, ViewChild, ElementRef} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {MspLogService} from '../../service/log.service';
 
 import {MspAccountApp, AccountChangeOptions} from '../../model/account.model';
 import * as _ from 'lodash';
 
 
-import {Gender, Person} from '../../model/msp-person.model';
+import {MspPerson} from '../../model/msp-person.model';
 import {MspDataService} from '../../service/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
 
 import {ProcessService, ProcessStep} from '../../service/process.service';
 import {ProcessUrls} from '../../service/process.service';
 import {BaseComponent} from '../../common/base.component';
-import {Address} from '../../model/address.model';
 import {MspApiService} from '../../service/msp-api.service';
 import {environment} from '../../../../../environments/environment';
 //import {CheckboxComponent} from '../../../../../../node_modules/moh-common-lib/lib/components/checkbox/checkbox.component';
@@ -43,7 +42,7 @@ export class AccountPrepareComponent extends BaseComponent {
     transmissionInProcess: boolean;
     // PI gets automatically ticked and unticked depending on the namechangeduetomarriage option.. this flag is used to idenity if PI is checked by user or by namechange option
     isPICheckedByUser = true;
-    constructor(private cd: ChangeDetectorRef, private logService: MspLogService, private apiService: MspApiService, private dataService: MspDataService, private _processService: ProcessService, private _router: Router) {
+    constructor(cd: ChangeDetectorRef, private logService: MspLogService, private apiService: MspApiService, private dataService: MspDataService, private _processService: ProcessService, private _router: Router) {
         super(cd);
         this.mspAccountApp = dataService.getMspAccountApp();
         this.accountChangeOptions = this.mspAccountApp.accountChangeOptions;
@@ -93,7 +92,7 @@ export class AccountPrepareComponent extends BaseComponent {
 
             this.apiService
                 .sendApplication(this.mspAccountApp)
-                .then((mspAccountApp: MspAccountApp) => {
+                .then(() => {
                     this.logService.log({
                         name: 'Account - Address Change Success ',
                         confirmationNumber: this.mspAccountApp.referenceNumber
@@ -132,7 +131,7 @@ export class AccountPrepareComponent extends BaseComponent {
             }
             if (this.mspAccountApp.updatedChildren){
 
-                this.mspAccountApp.updatedChildren.forEach((child: Person) => {
+                this.mspAccountApp.updatedChildren.forEach((child: MspPerson) => {
                     if (child) {
                         child.status = null;
                         child.currentActivity = null;
@@ -163,7 +162,7 @@ export class AccountPrepareComponent extends BaseComponent {
     }
 
     personInfoUpdateOnChange(event: boolean) {
-        
+
         console.log(event);
 
         this.isPICheckedByUser = true;
