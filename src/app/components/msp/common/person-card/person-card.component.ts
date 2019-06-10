@@ -23,7 +23,7 @@ export class MspPersonCardComponent {
   }
 
   editPersonalInfo() {
-
+    console.log(this.editRouterLink);
     this._router.navigate([this.editRouterLink]);
   }
 
