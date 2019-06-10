@@ -207,6 +207,7 @@ export  class MspDataService {
     }
 
     private convertAddress(input: any, output: any, property: string) {
+        output[property].street = input[property].street;
         output[property].addressLine1 = input[property].addressLine1;
         output[property].addressLine2 = input[property].addressLine2;
         output[property].addressLine3 = input[property].addressLine3;
