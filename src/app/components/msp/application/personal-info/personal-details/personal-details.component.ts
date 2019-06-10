@@ -227,12 +227,14 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.onChange.emit(evt);
   }
 
-  deleteDocument(evt: MspImage) {
-    this.person.documents.images = this.person.documents.images.filter(
-      (mspImage: MspImage) => {
-        return evt.uuid !== mspImage.uuid;
-      }
-    );
+  deleteDocument(evt: Array<any>) {
+    console.log('evt', evt);
+    this.person.documents.images = evt;
+    // this.person.documents.images = this.person.documents.images.filter(
+    //   (mspImage: MspImage) => {
+    //     return evt.uuid !== mspImage.uuid;
+    //   }
+    // );
     this.onChange.emit(evt);
   }
 
