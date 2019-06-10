@@ -88,11 +88,12 @@
         </p>
     </div>
   </div>
-    <div class="position: inherit;">
+</common-page-framework>
+    <!--<div class="position: inherit;"> -->
     <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
         [canContinue]="!(!isStayinginBCAfterstudies() ||checkAnyDependentsIneligible() || !isAllValid())"
         (btnClick)="continue()">
     </common-form-action-bar>
-    </div> 
-  </common-page-framework>
+    <!-- </div> --> 
+ 
 </form>

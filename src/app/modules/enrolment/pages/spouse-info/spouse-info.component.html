@@ -19,12 +19,12 @@
         [showError] = "formRef.submitted">
       </msp-personal-details>
   </div>
-
-  <div class="container">
+</common-page-framework>
+ 
   <common-form-action-bar [submitLabel]="spouse? 'Continue':'No Spouse'"
       [canContinue]="!(!documentsReady() || checkAnyDependentsIneligible() || !isAllValid())"
       (btnClick)="nextStep()">
     </common-form-action-bar>
-  </div>
-  </common-page-framework>
+ 
+  
 </form>

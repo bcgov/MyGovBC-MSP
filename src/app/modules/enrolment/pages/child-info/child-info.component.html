@@ -17,11 +17,11 @@
         [showError] = "formRef.submitted">
       </msp-personal-details>
     </div>
+  </common-page-framework>
 
-  <div class="container">
-      <common-form-action-bar [submitLabel]="children.length > 0? 'Continue':'No Child'"
-        [canContinue]="!(!documentsReady() || checkAnyDependentsIneligible() || !isAllValid())" (btnClick)="nextStep()">
-      </common-form-action-bar>
-  </div>
-</common-page-framework>
+  <common-form-action-bar [submitLabel]="children.length > 0? 'Continue':'No Child'"
+    [canContinue]="!(!documentsReady() || checkAnyDependentsIneligible() || !isAllValid())" (btnClick)="nextStep()">
+  </common-form-action-bar>
+ 
+
 </form>
