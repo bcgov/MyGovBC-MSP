@@ -1,5 +1,5 @@
 <form #formRef="ngForm" novalidate>
-
+    <common-page-framework layout="blank" >
   <h1>Tell us about your Dependants and upload official documents</h1>
   <hr>
   <div class="col-sm-4">
@@ -23,4 +23,5 @@
         [canContinue]="!(!documentsReady() || checkAnyDependentsIneligible() || !isAllValid())" (btnClick)="nextStep()">
       </common-form-action-bar>
   </div>
+</common-page-framework>
 </form>

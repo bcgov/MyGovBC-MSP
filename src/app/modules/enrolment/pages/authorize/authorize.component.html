@@ -1,5 +1,7 @@
 
 <form #formRef="ngForm" novalidate >
+    <common-page-framework layout="blank">
+        <div class="col-lg-6"> 
   <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
 
 
@@ -46,4 +48,6 @@
         || !application.hasValidAuthToken)"
         (btnClick)="handleFormSubmission($event)">
   </common-form-action-bar>
+  </div>
+  </common-page-framework>
 </form>

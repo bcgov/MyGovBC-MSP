@@ -1,4 +1,5 @@
 <form #formRef="ngForm" novalidate >
+        <common-page-framework layout="blank">
     <h1>Your Address</h1>
     <p class="help-block">
         Enter your residential address &ndash; that’s the address you live at in B.C.
@@ -52,6 +53,7 @@
 
     <common-form-action-bar [canContinue]="canContinue()"
                             (btnClick)="continue()"></common-form-action-bar>
+    </common-page-framework>
 </form>
 
 <ng-template #NoMailingAddress>

@@ -1,4 +1,6 @@
+
 <form #formRef="ngForm" novalidate>
+    <common-page-framework layout="blank">
     <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
       (onChange) = "onChange($event)"
@@ -92,5 +94,5 @@
         (btnClick)="continue()">
     </common-form-action-bar>
     </div> 
-   
+  </common-page-framework>
 </form>
