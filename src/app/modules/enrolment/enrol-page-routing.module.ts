@@ -17,37 +17,37 @@ export const enrolPages: Routes = [
     },
     {
         path: 'personal-info',
-        canActivate: [ProcessService],
+        // canActivate: [ProcessService],
         component: PersonalInfoComponent
     },
     {
         path: 'spouse-info',
-        canActivate: [ProcessService],
+        // canActivate: [ProcessService],
         component: SpouseInfoComponent
     },
     {
         path: 'child-info',
-        canActivate: [ProcessService],
+        // canActivate: [ProcessService],
         component: ChildInfoComponent
     },
     {
         path: 'address',
-        canActivate: [ProcessService],
+        // canActivate: [ProcessService],
         component: EnrolAddressComponent
     },
     {
         path: 'review',
-        canActivate: [ProcessService],
+        // canActivate: [ProcessService],
         component: ReviewComponent
     },
     {
         path: 'authorize',
-        canActivate: [ProcessService],
+        // canActivate: [ProcessService],
         component: AuthorizeComponent
     },
     {
         path: 'sending',
-        canActivate: [ProcessService],
+        // canActivate: [ProcessService],
         component: SendingComponent
     },
     {
