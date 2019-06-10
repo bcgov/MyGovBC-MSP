@@ -73,7 +73,7 @@ export class AuthorizeComponent implements OnInit {
       console.log('Found valid auth token, transfer to sending screen.');
       this.processService.setStep(6, true);
       // this.logService.log({name: "Application - Review Page Before Submit (after CAPTCHA)"},"Application-Captcha Success")
-      this._router.navigate(['/msp/application/sending']);
+      this._router.navigate(['/enrolment/sending']);
     }else{
       console.log('Auth token is not valid');
     }

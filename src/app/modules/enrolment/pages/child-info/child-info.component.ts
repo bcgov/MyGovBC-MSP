@@ -30,7 +30,7 @@ export class ChildInfoComponent extends BaseComponent implements OnInit {
 
   nextStep(){
     this._processService.setStep(3, true);
-    this._router.navigate(['/msp/application/address']);
+    this._router.navigate(['/enrolment/address']);
 
   }
 

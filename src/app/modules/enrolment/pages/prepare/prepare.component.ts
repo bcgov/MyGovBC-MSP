@@ -77,15 +77,16 @@ export class PrepareComponent extends BaseComponent {
       }));
  */
     if (this.form){
-      merge(
-        this.form.valueChanges,
-       /* liveInBC$,
-       // notLiveInBC$,
-        unUsualCircumstance$,
-        noUnUsualCircumstance$,
-        plannedAbsenceBtn$,
-        noPlannedAbsenceBtn$,*/
-      )
+      // merge(
+      //   this.form.valueChanges,
+      //  /* liveInBC$,
+      //  // notLiveInBC$,
+      //   unUsualCircumstance$,
+      //   noUnUsualCircumstance$,
+      //   plannedAbsenceBtn$,
+      //   noPlannedAbsenceBtn$,*/
+      // )
+      this.form.valueChanges
       .subscribe(values => {
         this.dataService.saveMspApplication();
         this.emitIsFormValid();
@@ -99,7 +100,7 @@ export class PrepareComponent extends BaseComponent {
       this.mspConsentModal.showFullSizeView();
     } else {
       this._processService.setStep(0, true);
-      this._router.navigate(['/msp/application/personal-info']);
+      this._router.navigate(['/enrolment/personal-info']);
     }
   }
 

@@ -28,7 +28,7 @@ export class SpouseInfoComponent extends BaseComponent implements OnInit {
 
   nextStep(){
     this._processService.setStep(2, true);
-    this._router.navigate(['/msp/application/child-info']);
+    this._router.navigate(['/enrolment/child-info']);
 
   }
 

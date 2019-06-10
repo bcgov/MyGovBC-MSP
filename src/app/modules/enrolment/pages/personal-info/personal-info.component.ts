@@ -129,7 +129,7 @@ export class PersonalInfoComponent extends BaseComponent {
     if (!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{
-      this._router.navigate(['/msp/application/spouse-info']);
+      this._router.navigate(['/enrolment/spouse-info']);
     }
   }
 }

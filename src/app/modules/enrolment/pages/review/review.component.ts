@@ -68,7 +68,7 @@ export class ReviewComponent implements OnInit{
 
     // console.log('review form submitted, %o', evt);
     this.processService.setStep(5, true);
-    this._router.navigate(['/msp/application/authorize']);
+    this._router.navigate(['/enrolment/authorize']);
     /*if (this.application.hasValidAuthToken){
       console.log('Found valid auth token, transfer to sending screen.');
       this.processService.setStep(5, true);

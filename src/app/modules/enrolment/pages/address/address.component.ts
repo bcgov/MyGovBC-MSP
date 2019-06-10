@@ -99,7 +99,7 @@ export class EnrolAddressComponent extends BaseComponent {
       console.log('Please fill in all required fields on the form.');
     }else{
      // this._processService.setStep(4, true);
-      this._router.navigate(['/msp/application/review']);
+      this._router.navigate(['/enrolment/review']);
     }
   }
 }
