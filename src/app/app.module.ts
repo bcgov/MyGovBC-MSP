@@ -10,6 +10,7 @@ import { LandingComponent } from './pages/landing/landing.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MspDataService } from './components/msp/service/msp-data.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
+import { ProcessService } from './components/msp/service/process.service';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { LocalStorageModule } from 'angular-2-local-storage';
     GeneralAppComponent
   ],
   providers: [
-    MspDataService
+    MspDataService,
+    ProcessService
   ],
 
   bootstrap: [GeneralAppComponent]

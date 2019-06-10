@@ -84,18 +84,18 @@ import { SharedCoreModule } from 'moh-common-lib';
 
 
 const APP_ROUTES: Routes = [
-    {
-        path: 'msp',
-        children: [
-            {
-/*                path: '',
+   // {
+     //   path: 'msp',
+     //   children: [
+    /*        {
+                path: '',
                 component: LandingComponent
             },
             {
                 path: 'enrolment',
                 loadChildren: 'app/modules/enrolment/enrolment.module#EnrolmentModule'
-            },
-            {*/
+            },*/
+            {
                 path: 'assistance',
                 component: AssistanceComponent,
                 children: [
@@ -264,9 +264,9 @@ const APP_ROUTES: Routes = [
                 ]
             },
 
-        ]
-    },
-    {path: '**', redirectTo: '/msp'}
+   //     ]
+ //   },
+    {path: '**', redirectTo: '/'}
 ];
 
 /**
@@ -277,7 +277,7 @@ const APP_ROUTES: Routes = [
 
 @NgModule({
     imports: [
-        BrowserModule,
+     //   BrowserModule,
         NgSelectModule,
         CommonModule,
         FormsModule,
@@ -371,7 +371,7 @@ const APP_ROUTES: Routes = [
         MspACLService,
         MspLogService,
         MspLog2Service,
-        ProcessService,
+      //  ProcessService,
         AccountDocumentHelperService,
         MspBenefitDataService
     ]

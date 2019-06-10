@@ -13,6 +13,10 @@ const routes: Routes = [
     loadChildren: 'app/modules/enrolment/enrolment.module#EnrolmentModule'
   },
   {
+    path: 'old-msp',
+    loadChildren: 'app/components/msp/msp.module#MspModule'
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full',

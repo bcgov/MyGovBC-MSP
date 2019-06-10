@@ -36,28 +36,28 @@ export class LandingComponent {
     clearSavedFinAssisApp() {
         console.log('deleting saved fin assist app.');
         this.mspDataService.removeFinAssistApplication();
-        this.router.navigate(['/msp/assistance/prepare']);
+        this.router.navigate(['/old-msp/assistance/prepare']);
 
     }
 
     clearSavedMspApp() {
         this.mspDataService.removeMspApplication();
-        this.router.navigate(['/msp/enrolment/prepare']);
+        this.router.navigate(['/enrolment/prepare']);
     }
 
     clearSavedAccountApp() {
         this.mspDataService.removeMspAccountApp();
-        this.router.navigate(['/msp/account/prepare']);
+        this.router.navigate(['/0ld-msp/account/prepare']);
     }
 
     clearSavedAccountLetterApp() {
         this.mspDataService.removeMspAccountLetterApp();
-        this.router.navigate(['/msp/account-letter/personal-info']);
+        this.router.navigate(['/old-msp/account-letter/personal-info']);
     }
 
     clearSavedBenefitAssisApp() {
         this.mspBenefitDataService.removeMspBenefitApp();
-        this.router.navigate(['/msp/benefit/prepare']);
+        this.router.navigate(['/old-msp/benefit/prepare']);
     }
 
 }

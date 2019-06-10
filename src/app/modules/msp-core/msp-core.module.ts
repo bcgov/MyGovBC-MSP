@@ -49,6 +49,7 @@ import { ReplacewithlinksPipe } from '../../components/msp/common/replace-link-p
 import { MspPersonCardComponent } from '../../components/msp/common/person-card/person-card.component';
 import { MspContactCardComponent } from '../../components/msp/common/contact-card/contact-card.component';
 import { MspAddressCardPartComponent } from '../../components/msp/common/address-card-part/address-card-part.component';
+import { BaseComponent } from '../../components/msp/common/base.component';
 
 
 const componentList = [
