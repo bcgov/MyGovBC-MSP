@@ -16,8 +16,12 @@ export class BaseMSPEnrolmentTestPage extends AbstractTestPage {
         return browser.get('/msp');
     }
 
-    clickButton() {
+    selectMSPEnrolment() {
         element(by.cssContainingText('button', 'New MSP enrolment application')).click();
+    }
+
+    clickButton(val: string) {
+        element(by.css(`common-button[ng-reflect-label="${val}"]`)).element(by.cssContainingText('span', `${val}`)).click();
     }
 
     clickRadioButton(labelVal: string, forVal: string){
@@ -26,6 +30,10 @@ export class BaseMSPEnrolmentTestPage extends AbstractTestPage {
     
     clickContinue() {
         element(by.css('button[class*="submit"]')).click();
+    }
+
+    clickModalContinue() {
+        element(by.css('div[class="modal-footer"]')).element(by.css('button[type="submit"]')).click();
     }
 
 }
@@ -42,10 +50,6 @@ export class EligibilityPage extends BaseMSPEnrolmentTestPage {
 
     clickCheckBox() {
         element(by.css('label[for="agree"]')).element(by.css('strong')).click();
-    }
-
-    clickModalContinue() {
-        element(by.css('div[class="modal-footer"]')).element(by.css('button[type="submit"]')).click();
     }
 
     checkModal() {
@@ -77,9 +81,13 @@ export class PersonalInfoPage extends BaseMSPEnrolmentTestPage {
         // return element(by.css('div[class="ng-value"]')).element(by.css('span[class="ng-value-label"]')).getAttribute('value');
         return element(by.css('input[role="combobox"]')).getAttribute('value');
     }
+
+    clickRadioButton(ariaVal: string, labelVal: string) {
+       // element(by.css(`div[aria-label*="${ariaVal}"]`)).element(by.cssContainingText('label', `${labelVal}`)).click();
+    }
 }
 
-export class SpouseInfoPage extends BaseMSPEnrolmentTestPage {
+export class SpouseInfoPage extends PersonalInfoPage {
 
     constructor() {
         super();

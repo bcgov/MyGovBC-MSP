@@ -17,6 +17,30 @@ describe('MSP Enrolment - Spouse Info', () => {
     it('01. should load the page without issue', () => {
         page.navigateTo();
         expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL);
+        page.formErrors().count().then(function(val) {
+            expect(val).toBe(0, 'should be no errors on page load');
+        });
+    });
+
+    it('02. should be able to continue when user has no spouse', () => {
+        page.navigateTo();
+        page.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(CHILD_PAGE_URL, 'should navigate to the next page');
+    });
+
+    it('03. should be able to add spouse', () => {
+        page.navigateTo();
+        page.clickButton('Add Spouse');
+        page.typeOption('Canadian citizen');
+        // page.clickRadioButton('Spouse\'s Status in Canada', 'Moved to B.C. from another province');
+        // page.clickModalContinue();
+        // Remove comment below once File Upload is working
+        // page.uploadFile();
+        // page.clickContinue();
+        // expect(browser.getCurrentUrl()).toContain(CHILD_PAGE_URL);
+        page.formErrors().count().then(function(val) {
+            expect(val).toBe(0, 'should be no errors after answering all required questions');
+        });
     });
 
 });

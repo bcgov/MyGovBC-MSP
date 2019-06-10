@@ -46,7 +46,7 @@ describe('MSP Enrolment - Check Eligibility', () => {
 
     it('04. should NOT let the user continue if not all questions have been answered', () => {
         basePage.navigateTo();
-        basePage.clickButton();
+        basePage.selectMSPEnrolment();
         page.clickCheckBox();
         page.clickModalContinue();
         page.clickContinue();
@@ -58,7 +58,7 @@ describe('MSP Enrolment - Check Eligibility', () => {
     it('05. should be able to continue after answering all the questions', () => {
         // Need to go to base page when modal is clicked previously
         basePage.navigateTo();
-        basePage.clickButton();
+        basePage.selectMSPEnrolment();
         page.clickCheckBox();
         page.clickModalContinue();
         page.clickRadioButton('Do you currently live in Briti', 'true');
