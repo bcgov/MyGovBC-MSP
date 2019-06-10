@@ -7,8 +7,8 @@ describe('MSP Enrolment - Check Eligibility', () => {
     let basePage: BaseMSPEnrolmentTestPage;
     const data = new FakeDataEnrolment();
     let eliData;
-    const ELIGIBILITY_PAGE_URL = `msp/application/prepare`;
-    const PERSONAL_PAGE_URL = `msp/application/personal-info`;
+    const ELIGIBILITY_PAGE_URL = `msp/enrolment/prepare`
+    const PERSONAL_PAGE_URL = `msp/enrolment/personal-info`;
 
     beforeAll(() => {
         console.log('START OF E2E ENROLMENT' + '\nThis test uses Seed #: ' + data.getSeed());
@@ -21,7 +21,7 @@ describe('MSP Enrolment - Check Eligibility', () => {
     });
 
     it('01. should load the page without issue', () => {
-        page.navigateTo();
+        page.navigateTo()
         expect(browser.getCurrentUrl()).toContain(ELIGIBILITY_PAGE_URL);
     });
 

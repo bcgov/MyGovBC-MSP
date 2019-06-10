@@ -6,8 +6,8 @@ describe('MSP Enrolment - Spouse Info', () => {
     let page: SpouseInfoPage;
     const data = new FakeDataEnrolment();
     let perData;
-    const SPOUSE_PAGE_URL = `msp/application/spouse-info`;
-    const CHILD_PAGE_URL = `msp/application/child-info`;
+    const SPOUSE_PAGE_URL = `msp/enrolment/spouse-info`;
+    const CHILD_PAGE_URL = `msp/enrolment/child-info`;
 
     beforeEach(() => {
         page = new SpouseInfoPage();
@@ -32,8 +32,8 @@ describe('MSP Enrolment - Spouse Info', () => {
         page.navigateTo();
         page.clickButton('Add Spouse');
         page.typeOption('Canadian citizen');
-        // page.clickRadioButton('Spouse\'s Status in Canada', 'Moved to B.C. from another province');
-        // page.clickModalContinue();
+        page.clickRadioButton('Spouse\'s Status in Canada', 'Moved to B.C. from another province');
+        page.clickModalContinue();
         // Remove comment below once File Upload is working
         // page.uploadFile();
         // page.clickContinue();

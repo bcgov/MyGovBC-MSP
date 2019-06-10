@@ -6,8 +6,8 @@ describe('MSP Enrolment - Personal Info', () => {
     let page: PersonalInfoPage;
     const data = new FakeDataEnrolment();
     let perData;
-    const PERSONAL_PAGE_URL = `msp/application/personal-info`;
-    const SPOUSE_PAGE_URL = `msp/application/spouse-info`;
+    const PERSONAL_PAGE_URL = `msp/enrolment/personal-info`;
+    const SPOUSE_PAGE_URL = `msp/enrolment/spouse-info`;
 
     beforeEach(() => {
         page = new PersonalInfoPage();
@@ -40,8 +40,8 @@ describe('MSP Enrolment - Personal Info', () => {
     it('04. should be able to continue when user answer all required questions', () => {
         page.navigateTo();
         page.clickOption('Canadian citizen');
-        // page.clickRadioButton('Your Status in Canada', 'Moved to B.C. from another province');
-        // page.clickModalContinue();
+        page.clickRadioButton('Your Status in Canada', 'Moved to B.C. from another province');
+        page.clickModalContinue();
         // Remove comment below once File Upload is working
         // page.uploadFile();
         // page.clickContinue();

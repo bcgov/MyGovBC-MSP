@@ -4,27 +4,13 @@ export class FakeDataEnrolment {
 
     private static seedVal: number = Math.floor(Math.random() * Math.floor(1000));
 
-    personalInfo(): PersonalInfoPageTest {
+    contactInfo(): ContactPageTest {
         return {
-            firstName: faker.name.firstName(),
-            middleName: Math.random() > 0.5 ? faker.name.firstName() : undefined,
-            lastName: faker.name.lastName(),
-            preferredFirstName: faker.name.firstName(),
-            preferredMiddleName: Math.random() > 0.5 ? faker.name.firstName() : undefined,
-            preferredLastName: faker.name.lastName(),
-            birthDate: faker.date.past(),
             country: faker.address.country(),
             address: faker.address.streetAddress(),
             city: faker.address.city(),
             postal: faker.address.zipCode('?#? #?#'),
-        };
-    }
-
-    contactInfo(): ContactPageTest {
-        return {
-            email: faker.internet.email(),
-            mobile: faker.phone.phoneNumberFormat(2),
-            extension: faker.random.number(3)
+            mobile: faker.phone.phoneNumberFormat(2)
         };
     }
 
@@ -37,23 +23,11 @@ export class FakeDataEnrolment {
     }
 }
 
-export interface PersonalInfoPageTest {
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  preferredFirstName: string;
-  preferredMiddleName: string;
-  preferredLastName: string;
-  birthDate: Date;
-  country: string;
-  address: string;
-  city: string;
-  postal: string;
-  province?: string;
-}
-
 export interface ContactPageTest {
-    email: string;
+    country: string;
+    address: string;
+    city: string;
+    postal: string;
     mobile: string;
-    extension: number;
+    province?: string;
 }

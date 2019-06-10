@@ -6,8 +6,8 @@ describe('MSP Enrolment - Authorize', () => {
     let page: AuthorizePage;
     const data = new FakeDataEnrolment();
     let perData;
-    const AUTHORIZE_PAGE_URL = `msp/application/authorize`;
-    const SENDING_PAGE_URL = `msp/application/sending`;
+    const AUTHORIZE_PAGE_URL = `msp/enrolment/authorize`;
+    const SENDING_PAGE_URL = `msp/enrolment/sending`;
 
     beforeEach(() => {
         page = new AuthorizePage();
