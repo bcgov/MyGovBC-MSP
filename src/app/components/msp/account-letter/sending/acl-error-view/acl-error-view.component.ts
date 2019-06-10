@@ -1,12 +1,9 @@
-import {AfterContentInit, ChangeDetectorRef, Component, Input, OnInit,SimpleChanges,Output,EventEmitter} from '@angular/core';
-import {ACLApiResponse} from "../../../model/account-letter-response.interface";
-import {Person} from "../../../model/person.model";
-import {MspACLService} from "../../../service/msp-acl-api.service";
-import {MspDataService} from "../../../service/msp-data.service";
-import {MspLogService} from "../../../service/log.service";
-import {Router} from "@angular/router";
-import {ProcessService} from "../../../service/process.service";
-import {BaseComponent} from "../../../common/base.component";
+import { ChangeDetectorRef, Component, Input, SimpleChanges, Output, EventEmitter} from '@angular/core';
+import {ACLApiResponse} from '../../../model/account-letter-response.interface';
+import {MspACLService} from '../../../service/msp-acl-api.service';
+import {MspLogService} from '../../../service/log.service';
+import {Router} from '@angular/router';
+import {BaseComponent} from '../../../common/base.component';
 import {HttpErrorResponse} from '@angular/common/http';
 
 /*
@@ -22,7 +19,7 @@ export class AclErrorViewComponent extends BaseComponent{
     lang = require('./i18n');
 
     @Input()response: ACLApiResponse;
-    
+
     @Input() retryUrl: string;
 
     public rapidError: string;
@@ -31,14 +28,14 @@ export class AclErrorViewComponent extends BaseComponent{
 
     doneProcessing = false;
 
-    constructor(private aclService: MspACLService, private cd: ChangeDetectorRef ,private router: Router, private logService: MspLogService) {
+    constructor(private aclService: MspACLService, private cd: ChangeDetectorRef , private router: Router, private logService: MspLogService) {
         super(cd);
     }
 
     ngOnChanges(changes: SimpleChanges) {
         // RAPID Response..GOTO SPA_ENV server and get the user message
-        if (changes&& changes.response && changes.response.currentValue && changes.response.currentValue.rapidResponse && changes.response.currentValue.rapidResponse != 'N') {
-            const spaRapidHeader = '{"SPA_ENV_ACL_'+this.response.rapidResponse+'":""}';
+        if (changes && changes.response && changes.response.currentValue && changes.response.currentValue.rapidResponse && changes.response.currentValue.rapidResponse !== 'N') {
+            const spaRapidHeader = '{"SPA_ENV_ACL_' + this.response.rapidResponse + '":""}';
             this.aclService
                 .sendSpaEnvServer(spaRapidHeader)
                 .subscribe(response => {
@@ -49,12 +46,12 @@ export class AclErrorViewComponent extends BaseComponent{
                         this.stopSpinner();
                         return;
                     }
-                    var key = Object.keys(response)[0];
+                    const key = Object.keys(response)[0];
                     this.rapidError = response[key];
                     this.stopSpinner();
                 });
         } else {
-           this.stopSpinner()
+           this.stopSpinner();
         }
     }
 

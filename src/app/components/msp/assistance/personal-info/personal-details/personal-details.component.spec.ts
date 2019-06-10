@@ -5,7 +5,7 @@ import { MspDataService } from '../../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspPhnComponent} from '../../../common/phn/phn.component';
 import {MspNameComponent} from '../../../common/name/name.component';
-import {MspBirthDateComponent} from '../../../common/birthdate/birthdate.component';
+import {MspBirthDateComponent} from '../../../../../modules/msp-core/components/birthdate/birthdate.component';
 import {MspAddressComponent} from '../../../common/address/address.component';
 import {Mod11CheckValidator} from '../../../common/phn/phn.validator';
 import {MspProvinceComponent} from '../../../common/province/province.component';

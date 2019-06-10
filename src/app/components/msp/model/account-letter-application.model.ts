@@ -1,6 +1,5 @@
-import { Address } from './address.model';
 import { Relationship } from './status-activities-documents';
-import { Person } from './person.model';
+import { MspPerson } from './msp-person.model';
 import { UUID } from 'angular2-uuid';
 import { MspImage } from './msp-image';
 import { ApplicationBase } from './application-base.model';
@@ -23,7 +22,7 @@ class AccountLetterApplication implements ApplicationBase {
    */
   referenceNumber: string;
 
-  private _applicant: Person = new Person(Relationship.AllAgeApplicant);
+  private _applicant: MspPerson = new MspPerson(Relationship.AllAgeApplicant);
 
   get uuid(): string {
     return this._uuid;
@@ -34,11 +33,11 @@ class AccountLetterApplication implements ApplicationBase {
 
   }
 
-  get applicant(): Person {
+  get applicant(): MspPerson {
     return this._applicant;
   }
 
-  set applicant(apt: Person) {
+  set applicant(apt: MspPerson) {
     this._applicant = apt;
   }
 
@@ -52,8 +51,8 @@ class AccountLetterApplication implements ApplicationBase {
    *
    * Useful, for example, to make sure all PHNs are unique.
    */
-  get allPersons(): Array<Person> {
-    const specificMember: Person = new Person(Relationship.Spouse);
+  get allPersons(): Array<MspPerson> {
+    const specificMember: MspPerson = new MspPerson(Relationship.Spouse);
     specificMember.previous_phn = this.applicant.specificMember_phn;
 
     return [
@@ -71,7 +70,7 @@ class AccountLetterApplication implements ApplicationBase {
    * @param uuid
    * @returns {any}
    */
-  findPerson(uuid: string): Person {
+  findPerson(uuid: string): MspPerson {
     if (this.applicant.uuid === uuid) {
       return this.applicant;
     }
@@ -91,4 +90,4 @@ class AccountLetterApplication implements ApplicationBase {
   }
 }
 
-export { AccountLetterApplication, Person };
+export { AccountLetterApplication, MspPerson };

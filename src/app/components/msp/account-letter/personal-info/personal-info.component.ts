@@ -1,37 +1,28 @@
 import {
     ChangeDetectorRef,
-    EventEmitter,
-    Output,
     Component,
-    Inject,
     Injectable,
-    AfterViewInit,
     ViewChild,
     ElementRef,
-    Input,
     OnInit
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
-import {MspApplication, Person} from '../../model/application.model';
 import * as _ from 'lodash';
 import {MspDataService} from '../../service/msp-data.service';
-import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
-
 import {ConsentModalComponent} from 'moh-common-lib';
 import {ProcessService} from '../../service/process.service';
-import {AccountLetterApplication} from '../../model/account-letter-application.model';
-import {MspPhnComponent} from '../../common/phn/phn.component';
-import {MspBirthDateComponent} from '../../common/birthdate/birthdate.component';
-import {Address} from "../../model/address.model";
+import {AccountLetterApplication, MspPerson} from '../../model/account-letter-application.model';
+import {MspBirthDateComponent} from '../../../../modules/msp-core/components/birthdate/birthdate.component';
+import {Address} from '../../model/address.model';
 import {
-    MSPEnrollementMember, DocumentRules, Documents, Relationship, EnrollmentStatusRules
+    MSPEnrollementMember, EnrollmentStatusRules
 } from '../../model/status-activities-documents';
 import {environment} from '../../../../../environments/environment';
-import {SpecificMemberComponent} from "./specific-member/specific-member.component";
+import {SpecificMemberComponent} from './specific-member/specific-member.component';
 import {LETTER, Masking, NUMBER, SPACE} from '../../model/masking.model';
 import {MspLogService} from '../../service/log.service';
-
+//import { PhnComponent } from 'moh-common-lib';
 
 @Component({
     templateUrl: './personal-info.component.html',
@@ -46,11 +37,11 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     @ViewChild('formRef') form: NgForm;
     @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
     @ViewChild('phn') phn: ElementRef;
-    @ViewChild('addtionalMemberphn') addtionalMemberphn: MspPhnComponent;
+    //@ViewChild('addtionalMemberphn') addtionalMemberphn: PhnComponent;
     @ViewChild('birthDate') birthdate: MspBirthDateComponent;
     @ViewChild('specificMember') specificMember: SpecificMemberComponent;
     captchaApiBaseUrl: string;
-    showError:boolean = false;
+    showError: boolean = false;
     postalCode: string = 'V8V 1l8';
     Address: typeof Address = Address;
     public postalCodeMask = [LETTER, NUMBER, LETTER, SPACE, NUMBER, LETTER, NUMBER];
@@ -65,7 +56,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
                 private cd: ChangeDetectorRef,
                 private logService: MspLogService) {
         super(cd);
-        
+
     }
 
     ngOnInit() {
@@ -95,7 +86,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
         return this.dataService.accountLetterApp;
     }
 
-    get applicant(): Person {
+    get applicant(): MspPerson {
         return this.dataService.accountLetterApp.applicant;
     }
 
@@ -151,15 +142,15 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
 
      */
     isValidMemberSelected() {
-       return this.applicant.enrollmentMember != undefined && (this.applicant.enrollmentMember == 'SpecificMember' ? this.applicant.specificMember_phn != undefined : true) ;
+       return this.applicant.enrollmentMember !== undefined && (this.applicant.enrollmentMember === 'SpecificMember' ? this.applicant.specificMember_phn !== undefined : true) ;
     }
     /*
      the hasValidAuthToken == true is implemented to handle the glitch with user submitting an already failed application using forward and backward of browser..
      */
     isValid(): boolean {
-        return (this.accountLetterApplication.hasValidAuthToken == true) &&  this.accountLetterApplication.isUniquePhns && this.isValidMemberSelected();
-       
+        return (this.accountLetterApplication.hasValidAuthToken === true) &&  this.accountLetterApplication.isUniquePhns && this.isValidMemberSelected();
+
     }
 
-    
+
 }

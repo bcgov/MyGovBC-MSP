@@ -32,18 +32,12 @@
 
         <div class="card panel-default col-md-6">
             <div class="card-body">
-              <!--  <common-phn #phn [label]="lang('./en/index.js').phnlabel"
-                            [(value)]="applicant.previous_phn"></common-phn>-->
-              <msp-phn #phn
-                         [phn]="applicant.previous_phn"
-                         (phnChange)="applicant.previous_phn = $event"
-                         (onChange)="saveApplication($event);"
-                         [bcPhn]="true"
-                         [required]="true"
-                         [showError]="showError"
-                         [placeholder] ="lang('./en/index.js').phnPlaceHolder"
-                         [phnLabel]="lang('./en/index.js').phnlabel">
-                </msp-phn> 
+              <common-phn #phn name="previous_phn"
+                            [label]="lang('./en/index.js').phnlabel"
+                            [(ngModel)]="applicant.previous_phn"
+                            (ngModelChange)=saveApplication($event)
+                            [placeholder]="lang('./en/index.js').phnPlaceHolder"
+                            required></common-phn>
 
                 <msp-birthdate [isACL]="true"
                         #birthDate
@@ -86,8 +80,6 @@
             <div class="col-lg-12">
                     <common-captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="accountLetterApplication.uuid"
                     (onValidToken)="saveToken($event)"></common-captcha>
-             <!--   <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="accountLetterApplication.uuid"
-                         (onValidToken)="saveToken($event)"></captcha>-->
             </div>
         </div>
 

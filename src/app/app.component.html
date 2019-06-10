@@ -1,7 +1,6 @@
 <div id="app">
   <div id="wrap">
-    <common-header serviceName="{{serviceName}}" logoSrc="msp/assets/gov3_bc_logo.png"></common-header>
-  
+  <common-header [serviceName]="serviceName" urlBaseName="msp"></common-header>
     <main class="container-fluid" id="content">
       <router-outlet></router-outlet>
     </main>

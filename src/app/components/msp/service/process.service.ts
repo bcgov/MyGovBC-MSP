@@ -47,9 +47,11 @@ export class ProcessService implements CanActivate {
     }
 
     setStep(stepNumber: number, complete: boolean) {
-        const process = this.process;
-        process.processSteps[stepNumber].complete = complete;
-        this.dataService.setMspProcess(process);
+        // const process = this.process;
+        // process.processSteps[stepNumber].complete = complete;
+        // this.dataService.setMspProcess(process);
+        console.log('ProcessService is being deprecated.');
+        return null;
     }
 
     getNextStep(stepNumber: number): String {

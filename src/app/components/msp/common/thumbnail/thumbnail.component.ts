@@ -8,7 +8,7 @@ import { MspImage } from '../../model/msp-image';
   templateUrl: './thumbnail.html',
   styleUrls: ['./thumbnail.scss']
 })
-export class ThumbnailComponent implements OnInit {
+export class MspThumbnailComponent implements OnInit {
   @Input() imageObject: MspImage;
   @Input() reviewMode: boolean = false;
   @Output('delete') deleteImage: EventEmitter<MspImage> = new EventEmitter<MspImage>();

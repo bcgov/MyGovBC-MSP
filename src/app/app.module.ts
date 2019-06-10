@@ -3,30 +3,40 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import {AccordionModule, ModalModule, TooltipModule} from 'ngx-bootstrap';
 import { GeneralAppComponent } from './app.component';
-import { MspModule } from './components/msp/msp.module';
 import { HttpClientModule} from '@angular/common/http';
 import {TextMaskModule} from 'angular2-text-mask';
 import { SharedCoreModule } from 'moh-common-lib';
-import { CaptchaModule } from 'moh-common-lib/captcha';
-import { MspCoreModule } from './module/msp-core/msp-core.module';
+import { LandingComponent } from './pages/landing/landing.component';
+import { AppRoutingModule } from './app-routing.module';
+import { MspDataService } from './components/msp/service/msp-data.service';
+import { LocalStorageModule } from 'angular-2-local-storage';
+import { ProcessService } from './components/msp/service/process.service';
 
 @NgModule({
-  imports: [ TextMaskModule,
+  imports: [
+    //TextMaskModule,
     BrowserModule,
-    MspModule,
-    HttpClientModule,
     SharedCoreModule,
-    CaptchaModule,
+    HttpClientModule,
     ModalModule.forRoot(),
     AccordionModule.forRoot(),
     TooltipModule.forRoot(),
-    RouterModule.forRoot([
-      { path: '', redirectTo: 'msp', pathMatch: 'full' }
-    ]),
-    MspCoreModule
+    AppRoutingModule,
+  //  RouterModule.forRoot([
+    //  { path: '', redirectTo: 'msp', pathMatch: 'full' }
+    //]),
+    LocalStorageModule.withConfig({
+      prefix: 'ca.bc.gov.msp',
+      storageType: 'sessionStorage'
+  })
   ],
   declarations: [
+    LandingComponent,
     GeneralAppComponent
+  ],
+  providers: [
+    MspDataService,
+    ProcessService
   ],
 
   bootstrap: [GeneralAppComponent]

@@ -3,12 +3,12 @@ import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import {MspDataService} from '../../service/msp-data.service';
 import {MspACLService} from '../../service/msp-acl-api.service';
 import {Router} from '@angular/router';
-import {ResponseType} from '../../api-model/responseTypes';
+import {ResponseType} from '../../../../modules/enrolment/pages/api-model/responseTypes';
 import {MspLogService} from '../../service/log.service';
 import {ProcessService} from '../../service/process.service';
 import {ISpaEnvResponse} from '../../model/spa-env-response.interface';
 import {AccountLetterApplication} from '../../model/account-letter-application.model';
-import {AccountLetterType} from '../../api-model/accountLetterTypes';
+import {AccountLetterType} from '../../../../modules/enrolment/pages/api-model/accountLetterTypes';
 import {ACLApiResponse} from '../../model/account-letter-response.interface';
 
 

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MspApplication, Person} from '../model/application.model';
+import {MspApplication, MspPerson} from '../model/application.model';
 import {MspAccountApp} from '../model/account.model';
 import PersonDto from '../model/person.dto';
 import {FinancialAssistApplication} from '../model/financial-assist-application.model';
@@ -10,17 +10,13 @@ import MspAccountDto from '../model/account.dto';
 import AddressDto from '../model/address.dto';
 import {OutofBCRecordDto} from '../model/outof-bc-record.dto';
 import {OutofBCRecord} from '../model/outof-bc-record.model';
-import {StatusInCanada, Relationship, MSPEnrollementMember} from '../model/status-activities-documents';
-import {puts} from 'util';
 import {Process} from './process.service';
 import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
-import {Gender} from '../model/person.model';
-import {OperationActionType} from '../model/person.model';
+import {Gender} from '../model/msp-person.model';
+import {OperationActionType} from '../model/msp-person.model';
 import {Address} from 'moh-common-lib';
-import { SimpleDate } from '../model/simple-date.interface';
 import { AccountLetterApplication } from '../model/account-letter-application.model';
 import AccountLetterDto from '../model/account-letter.dto';
-import {BenefitApplication} from '../model/benefit-application.model';
 
 @Injectable()
 export  class MspDataService {
@@ -241,7 +237,7 @@ export  class MspDataService {
     }
 
 
-    private toPersonDtoForAccount(input: Person): PersonDto {
+    private toPersonDtoForAccount(input: MspPerson): PersonDto {
         const dto: PersonDto = new PersonDto();
 
         dto.id = input.id;
@@ -326,8 +322,8 @@ export  class MspDataService {
         return dto;
     }
 
-    private fromPersonDtoForAccount(dto: PersonDto): Person {
-        const output: Person = new Person(dto.relationship);
+    private fromPersonDtoForAccount(dto: PersonDto): MspPerson {
+        const output: MspPerson = new MspPerson(dto.relationship);
 
         output.id = dto.id;
         output.liveInBC = dto.liveInBC;
@@ -414,7 +410,7 @@ export  class MspDataService {
         return output;
     }
 
-    private toPersonDto(input: Person): PersonDto {
+    private toPersonDto(input: MspPerson): PersonDto {
         const dto: PersonDto = new PersonDto();
 
         dto.id = input.id;
@@ -477,8 +473,8 @@ export  class MspDataService {
         return dto;
     }
 
-    private fromPersonDto(dto: PersonDto): Person {
-        const output: Person = new Person(dto.relationship);
+    private fromPersonDto(dto: PersonDto): MspPerson {
+        const output: MspPerson = new MspPerson(dto.relationship);
 
         output.id = dto.id;
         output.liveInBC = dto.liveInBC;
@@ -726,7 +722,7 @@ export  class MspDataService {
         }
         dto.applicant.addedChildren.forEach(c => {
             if (c) {
-                const child: Person = this.fromPersonDtoForAccount(c);
+                const child: MspPerson = this.fromPersonDtoForAccount(c);
                 child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
                 child.planOnBeingOutOfBCRecord = this.toOutofBCRecord(c.planOnBeingOutOfBCRecord);
                 child.operationActionType = OperationActionType.Add ;
@@ -737,7 +733,7 @@ export  class MspDataService {
         });
 
         dto.applicant.removedChildren.forEach(c => {
-            const child: Person = this.fromPersonDtoForAccount(c);
+            const child: MspPerson = this.fromPersonDtoForAccount(c);
             child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
             this.convertSchoolAddress(c, child);
             child.operationActionType = OperationActionType.Remove ;
@@ -745,7 +741,7 @@ export  class MspDataService {
         });
 
         dto.applicant.updatedChildren.forEach(c => {
-            const child: Person = this.fromPersonDtoForAccount(c);
+            const child: MspPerson = this.fromPersonDtoForAccount(c);
             child.operationActionType = OperationActionType.Update ;
               output.updatedChildren = [...output.updatedChildren, child];
         });
@@ -777,7 +773,7 @@ export  class MspDataService {
         }
 
         dto.applicant.children.forEach(c => {
-            const child: Person = this.fromPersonDto(c);
+            const child: MspPerson = this.fromPersonDto(c);
             child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
             this.convertSchoolAddress(c, child);
             output.children = [...output.children, child];
@@ -926,7 +922,7 @@ export  class MspDataService {
         return output;
     }
 
-     convertToPersonDto(input: Person, output: PersonDto) {
+     convertToPersonDto(input: MspPerson, output: PersonDto) {
         output.dob_day = input.dob_day;
         output.dob_month = input.dob_month;
         output.dob_year = input.dob_year;
@@ -942,7 +938,7 @@ export  class MspDataService {
         output.plannedAbsence = input.plannedAbsence;
     }
 
-     convertToPerson(input: PersonDto, output: Person) {
+     convertToPerson(input: PersonDto, output: MspPerson) {
         output.dob_day = input.dob_day;
         output.dob_month = input.dob_month;
         output.dob_year = input.dob_year;
@@ -957,6 +953,4 @@ export  class MspDataService {
         output.madePermanentMoveToBC = input.madePermanentMoveToBC;
         output.plannedAbsence = input.plannedAbsence;
     }
-
-
 }

@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, DoCheck, OnInit, ViewChild} from '@angular/core';
 import {MspDataService} from '../../service/msp-data.service';
-import {FileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
+import {MspFileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
 import {Router} from '@angular/router';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import {NgForm} from '@angular/forms';
 import {MspImage} from '../../model/msp-image';
-import {MspImageErrorModalComponent} from '../../common/image-error-modal/image-error-modal.component';
+import {MspImageErrorModalComponent} from '../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';
 import {ProcessService} from '../../service/process.service';
 import {BenefitApplication} from '../../model/benefit-application.model';
 import {MspBenefitDataService} from '../../service/msp-benefit-data.service';
@@ -22,7 +22,7 @@ export class BenefitDocumentsComponent  implements AfterViewInit, DoCheck {
     application: BenefitApplication;
 
     @ViewChild('formRef') form: NgForm;
-    @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
+    @ViewChild('fileUploader') fileUploader: MspFileUploaderComponent;
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
 

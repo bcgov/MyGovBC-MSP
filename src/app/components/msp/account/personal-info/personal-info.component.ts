@@ -3,13 +3,11 @@ import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {BaseComponent} from '../../common/base.component';
 import {ProcessService, ProcessUrls} from '../../service/process.service';
-import {LocalStorageService} from 'angular-2-local-storage';
-import {MspAccountApp, Person} from '../../model/account.model';
+import {MspPerson} from '../../model/account.model';
 import {MspDataService} from '../../service/msp-data.service';
 import {AccountPersonalDetailsComponent} from './personal-details/personal-details.component';
 import {
-    StatusRules, ActivitiesRules, StatusInCanada, Activities,
-    DocumentRules, Documents, Relationship
+    Relationship
 } from '../../model/status-activities-documents';
 
 @Component({
@@ -23,17 +21,17 @@ export class AccountPersonalInfoComponent extends BaseComponent {
 
     @ViewChild('formRef') form: NgForm;
     @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
-    public buttonstyle:string = 'btn btn-default';
+    public buttonstyle: string = 'btn btn-default';
 
   constructor(private dataService: MspDataService,
               private _router: Router,
               private _processService: ProcessService,
-              private cd: ChangeDetectorRef, private localStorageService: LocalStorageService) {
+              cd: ChangeDetectorRef) {
 
     super(cd);
   }
 
-    onChange(values: any){
+    onChange($event){
         this.dataService.saveMspAccountApp();
     }
 
@@ -41,20 +39,20 @@ export class AccountPersonalInfoComponent extends BaseComponent {
       this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL), this._processService);
   }
 
-    get applicant(): Person {
+    get applicant(): MspPerson {
         return this.dataService.getMspAccountApp().applicant;
     }
 
-    get spouse(): Person {
+    get spouse(): MspPerson {
         return this.dataService.getMspAccountApp().updatedSpouse;
     }
 
-    get children(): Person[] {
+    get children(): MspPerson[] {
         return this.dataService.getMspAccountApp().updatedChildren;
 
     }
 
-    removeUpdateChild(event: Object, idx: number): void{
+    removeUpdateChild(idx: number): void{
         // console.log('remove child ' + JSON.stringify(event));
         this.dataService.getMspAccountApp().removeUpdateChild(idx);
         this.dataService.saveMspAccountApp();
@@ -63,7 +61,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
 
 
     addUpdateSpouse = () => {
-        const sp: Person = new Person(Relationship.Spouse);
+        const sp: MspPerson = new MspPerson(Relationship.Spouse);
         this.dataService.getMspAccountApp().addUpdatedSpouse(sp);
     }
 

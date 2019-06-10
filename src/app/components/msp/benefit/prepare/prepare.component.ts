@@ -4,9 +4,9 @@ import {MspDataService} from '../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import {BenefitApplication} from '../../model/benefit-application.model';
 import {MspBenefitDataService} from '../../service/msp-benefit-data.service';
-import {FileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
+import {MspFileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
 import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
-import {MspImageErrorModalComponent} from '../../common/image-error-modal/image-error-modal.component';
+import {MspImageErrorModalComponent} from '../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';
 import {ModalDirective} from 'ngx-bootstrap';
 import {NgForm} from '@angular/forms';
 import {MspImage} from '../../model/msp-image';
@@ -34,7 +34,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     @ViewChild('spouseOver65NegativeBtn') spouseOver65NegativeBtn: ElementRef;
     @ViewChild('hasSpouse') hasSpouse: ElementRef;
     @ViewChild('negativeHasSpouse') negativeHasSpouse: ElementRef;
-    @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
+    @ViewChild('fileUploader') fileUploader: MspFileUploaderComponent;
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
     @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
