@@ -80,11 +80,11 @@ export class MspApiService {
                         //console.log(convertedAppXml);
 
                         if ( convertedAppXml.match(/(assistanceApplication)/)) {
-                          // convertedAppXml = '<?xml version="1.0"encoding="UTF-8"standalone="yes"?><ns2:application xmlns:ns2="http://www.gov.bc.ca/hibc/applicationTypes"><assistanceApplication><applicant><name><firstName></firstName><secondName></secondName><lastName></lastName></name><birthDate></birthDate><telephone></telephone><mailingAddress><addressLine1></addressLine1><city></city><postalCode></postalCode><provinceOrState></provinceOrState><country>Canada</country></mailingAddress><financials><taxYear>2014</taxYear><assistanceYear>MultiYear</assistanceYear><numberOfTaxYears>1</numberOfTaxYears><netIncome></netIncome><totalNetIncome></totalNetIncome><sixtyFiveDeduction>0</sixtyFiveDeduction><childDeduction>0</childDeduction><deductions>0</deductions><totalDeductions>0</totalDeductions><adjustedNetIncome>18414</adjustedNetIncome></financials><phn></phn><SIN></SIN><powerOfAttorney>N</powerOfAttorney></applicant><authorizedByApplicant>Y</authorizedByApplicant><authorizedByApplicantDate>2019-06-07</authorizedByApplicantDate><authorizedBySpouse>N</authorizedBySpouse></assistanceApplication><uuid>dc1b46f7-3283-1736-aeef-f2b8d5caee5e</uuid><attachments><attachment><contentType>image/jpeg</contentType><attachmentDocumentType>SupportDocument</attachmentDocumentType><attachmentUuid>787b21c0-d089-01b8-07bb-7f3eb93553df</attachmentUuid><attachmentOrder>1</attachmentOrder></attachment><attachment><contentType>image/jpeg</contentType><attachmentDocumentType>SupportDocument</attachmentDocumentType><attachmentUuid>51fce61b-d5d3-7935-beb7-1b038fe1b5e7</attachmentUuid><attachmentOrder>2</attachmentOrder></attachment><attachment><contentType>image/jpeg</contentType><attachmentDocumentType>SupportDocument</attachmentDocumentType><attachmentUuid>2b4c634a-ba30-cd0e-ec73-5c422c5cef2c</attachmentUuid><attachmentOrder>4</attachmentOrder></attachment><attachment><contentType>image/jpeg</contentType><attachmentDocumentType>SupportDocument</attachmentDocumentType><attachmentUuid>45d5535f-8e14-2739-2f46-deacf4ec34b3</attachmentUuid><attachmentOrder>3</attachmentOrder></attachment><attachment><length>1</length><name/><arguments/><caller/><prototype/></attachment><attachment><length>0</length><name/><arguments/><caller/><prototype/></attachment></attachments></ns2:application>'
+                          //convertedAppXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:application xmlns:ns2="http://www.gov.bc.ca/hibc/applicationTypes"><assistanceApplication><applicant><name><firstName>Abhi</firstName><lastName>Test</lastName></name><telephone>2345525252</telephone><mailingAddress><addressLine1>100 wharf st</addressLine1><city>victoria</city><postalCode>V8V1L9</postalCode><provinceOrState>British Columbia</provinceOrState><country>Canada</country></mailingAddress><financials><taxYear>2016</taxYear><assistanceYear>MultiYear</assistanceYear><numberOfTaxYears>2</numberOfTaxYears><spouseNetIncome>111111</spouseNetIncome><totalNetIncome>113111</totalNetIncome><sixtyFiveDeduction>3000</sixtyFiveDeduction><numChildren>4</numChildren><childDeduction>12000</childDeduction><childCareExpense>12333</childCareExpense><deductions>5833.5</deductions><uccb>2221</uccb><numDisabled>2</numDisabled><disabilityDeduction>6000</disabilityDeduction><disabilitySavingsPlan>33232</disabilitySavingsPlan><totalDeductions>59286.5</totalDeductions><adjustedNetIncome>53824.5</adjustedNetIncome></financials><phn>9214213255</phn><SIN>291576593</SIN><powerOfAttorney>N</powerOfAttorney></applicant><spouse><name><firstName>rin</firstName><lastName>test</lastName></name><birthDate>2009-12-11</birthDate><phn>9999999998</phn><SIN>539387274</SIN><spouseDeduction>3000</spouseDeduction><spouseSixtyFiveDeduction>3000</spouseSixtyFiveDeduction></spouse><authorizedByApplicant>Y</authorizedByApplicant><authorizedByApplicantDate>2019-05-31</authorizedByApplicantDate><authorizedBySpouse>Y</authorizedBySpouse></assistanceApplication><uuid>54cf5fff-e6d7-6b4f-d92b-43b0c7f29c24</uuid><attachments><attachment><contentType>image/jpeg</contentType><attachmentDocumentType>SupportDocument</attachmentDocumentType><attachmentUuid>96fc0f2e-59c7-8e28-c9b2-34ee93c438dc</attachmentUuid><attachmentOrder>1</attachmentOrder></attachment><attachment><contentType>image/jpeg</contentType><attachmentDocumentType>SupportDocument</attachmentDocumentType><attachmentUuid>c150299d-69c3-8e98-8e75-cb1ab9727ee0</attachmentUuid><attachmentOrder>2</attachmentOrder></attachment><attachment><length>1</length><name/><arguments/><caller/><prototype/></attachment><attachment><length>0</length><name/><arguments/><caller/><prototype/></attachment></attachments></ns2:application>'
                           const valid = ValidateAssistance.validate(convertedAppXml)
                           //console.log('valid', valid)
                           if (typeof valid === 'string') {
-                            console.log('valid', valid)
+                            //console.log('valid', valid)
                             if (valid === 'blacklist') {
                               // const snipped = convertedAppXml.indexOf('prototype')
                               let transformed = [...convertedAppXml.split('<attachment>')]
@@ -95,27 +95,25 @@ export class MspApiService {
                                 if (index < 0) arr.push(itm)
                               }
                               convertedAppXml = arr.reduce((a, b) => a + b + '<attachment>');
-                              console.log('arr', arr)
                               // const revertedAppXML = jxon.unbuild(convertedAppXml)
-                              console.log('blacklisted xml', convertedAppXml)
+                              //console.log('blacklisted xml', convertedAppXml)
 
 
                             } else {
 
-                            const mssg =`Your application is missing the ${valid} field. Please go back and check all fields to ensure that nothing is missing.`
-                            const error = new Error(mssg)
-                            this.logService.log({
-                              text: mssg,
-                              response: {mssg},
-                          }, 'submission failed');
-                          const mapper = new AssistanceFieldMap();
-                          const index = mapper.findStep(valid)
-                          const urls = this.dataSvc.getMspProcess().processSteps;
-                          const url = urls[index].route
-                          this.router.navigate([url])
-
-                          return reject({mssg});
-                          }
+                                const mssg =`Your application is missing the ${valid} field. Please go back and check all fields to ensure that nothing is missing.`
+                                const error = new Error(mssg)
+                                this.logService.log({
+                                text: mssg,
+                                response: {mssg},
+                                }, 'submission failed');
+                                const mapper = new AssistanceFieldMap();
+                                const index = mapper.findStep(valid)
+                                const urls = this.dataSvc.getMspProcess().processSteps;
+                                const url = urls[index].route
+                                this.router.navigate([url])
+                                return reject({mssg});
+                            }
                         }
 
                         // console.log(convertedAppXml);
@@ -145,8 +143,9 @@ export class MspApiService {
                                 }, 'Attachment - Send All Rejected ');
                                 return reject(error);
                             });
-                    } // end of else
+                      } // end of else
 
+                    } 
                 }); // end of the return maintenance api
             } catch (error) {
                 this.logService.log({
