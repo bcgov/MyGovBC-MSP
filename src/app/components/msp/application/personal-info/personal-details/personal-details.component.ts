@@ -84,6 +84,10 @@ export class PersonalDetailsComponent extends BaseComponent {
   langStatus = require('../../../common/status/i18n');
   langActivities = require('../../../common/activities/i18n');
   langDocuments = require('../../../common/documents/i18n');
+  genderLabels = [
+    { label: 'Female', value: 'Female' },
+    { label: 'Male', value: 'Male' }
+  ];
 
   // Expose some types to template
   Activities: typeof Activities = Activities;
@@ -457,5 +461,8 @@ export class PersonalDetailsComponent extends BaseComponent {
     }
 
     return true;
+  }
+  setGender(evt: string) {
+    console.log(evt);
   }
 }

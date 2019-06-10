@@ -50,6 +50,7 @@
           </aside>
         </common-page-section>
       </ng-container>
+
       <!--
       <div class="col-lg-4" *ngIf="person.status != null && person.currentActivity != null">
 
@@ -125,54 +126,66 @@
         <p class="row border-bottom" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
         <div *ngIf="person.documents.images.length > 0">
           <!-- <h3 [innerHtml]="lang('./en/index.js').applicationPersonalInfo[person.relationship]"></h3> -->
-          <msp-name #name [person]="person" (onChange)="onChange.emit($event)" [showError]="showError"></msp-name>
+          <!-- <msp-name #name [person]="person" (onChange)="onChange.emit($event)" [showError]="showError" class="row">
+          </msp-name> -->
+          {{ lang('./en/index.js').firstNameLabel}}
+          <common-name class="row" label="First Name"></common-name>
+          <common-name class="row" label="Middle Name"></common-name>
+          <common-name class="row" label="Last Name"></common-name>
 
-          <div class="row">
-            <div class="col-md-4">
-              <msp-gender #gender [person]="person" (onChange)="onChange.emit($event)" [showError]="showError">
-              </msp-gender>
-            </div>
-            <div class="col-md-8">
-              <msp-birthdate #birthDate [person]="person" (onChange)="onChange.emit($event)" [showError]="showError">
-              </msp-birthdate>
-            </div>
+          <!-- <div class="row"> -->
+          <!-- <div class="col-md-4"> -->
+          <!-- <msp-gender #gender [person]="person" (onChange)="onChange.emit($event)" [showError]="showError">
+          </msp-gender> -->
+
+          <!-- </div> -->
+          <!-- <div class="col-md-8"> -->
+          <msp-birthdate #birthDate [person]="person" (onChange)="onChange.emit($event)" [showError]="showError">
+          </msp-birthdate>
+
+          <div class="form-control row">
+
+            <label class="control-label">Gender</label>
+            <!-- <common-toggle ></common-toggle> -->
+            <common-radio class="row" [radioLabels]='genderLabels' (statusChange)="setGender($event)">
+            </common-radio>
           </div>
-          <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult &&
-            person.currentActivity === Activities.LivingInBCWithoutMSP" style="margin-bottom: 5px">
-            <div class="col-md-12">
-              <div class="form-group"
-                [ngClass]="{'msp-has-error': showError && (person.livedInBCSinceBirth !== true && person.livedInBCSinceBirth !== false)}"
-                role="dialog" [attr.aria-labelledby]="'livedInBCSinceBirth' + objectId">
-                <label [attr.id]="'livedInBCSinceBirth' + objectId"
-                  [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[this.person.relationship]"></label>
-                <div class="btn-group" role="group">
-                  <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
-                    [class.msp-btn-radio]="person.livedInBCSinceBirth === answer.value"
-                    (click)="setLivedInBCSinceBirth(answer.value)" type="button"
-                    class="btn btn-default">{{answer.label}}
-                  </button>
-                </div>
+          <!-- </div> -->
+          <!-- </div> -->
+          <div *ngIf="person.status === StatusInCanada.CitizenAdult &&
+            person.currentActivity === Activities.LivingInBCWithoutMSP">
+            <!-- <div class="col-md-12"> -->
+            <div class="form-group"
+              [ngClass]="{'msp-has-error': showError && (person.livedInBCSinceBirth !== true && person.livedInBCSinceBirth !== false)}"
+              role="dialog" [attr.aria-labelledby]="'livedInBCSinceBirth' + objectId">
+              <label [attr.id]="'livedInBCSinceBirth' + objectId"
+                [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[this.person.relationship]"></label>
+              <div class="btn-group" role="group">
+                <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
+                  [class.msp-btn-radio]="person.livedInBCSinceBirth === answer.value"
+                  (click)="setLivedInBCSinceBirth(answer.value)" type="button" class="btn btn-default">{{answer.label}}
+                </button>
               </div>
             </div>
+            <!-- </div> -->
           </div>
 
           <div class="row" *ngIf="person.documents.images.length > 0">
-            <div class="col-lg-4"
-              *ngIf="person.currentActivity == Activities.MovingFromCountry || person.status == StatusInCanada.TemporaryResident">
+            <div *ngIf="person.currentActivity == Activities.MovingFromCountry || person.status ==
+            StatusInCanada.TemporaryResident">
               <msp-country #country [label]="lang('./en/index.js').movedFromCountryLabel"
                 [country]="person.movedFromProvinceOrCountry"
                 (onChange)="person.movedFromProvinceOrCountry = $event; onChange.emit($event)" [showError]="showError">
               </msp-country>
             </div>
-            <div class="col-lg-4" *ngIf="person.currentActivity === Activities.MovingFromProvince">
+            <div *ngIf="person.currentActivity === Activities.MovingFromProvince">
               <msp-province #province
                 [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
                 [province]="person.movedFromProvinceOrCountry" (onChange)="provinceUpdate($event)" [hideStates]="true"
                 [exceptBC]="true" [showError]="showError" colSize="col-md-4"></msp-province>
             </div>
 
-            <div class="col-lg-4" style="margin-top: 15px;" role="dialog"
-              [attr.aria-labelledby]="'movedPermLabel' + objectId">
+            <div style="margin-top: 15px;" role="dialog" [attr.aria-labelledby]="'movedPermLabel' + objectId">
               <div class="form-group"
                 [ngClass]="{'has-error': showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)}">
                 <label [attr.id]="'movedPermLabel'"

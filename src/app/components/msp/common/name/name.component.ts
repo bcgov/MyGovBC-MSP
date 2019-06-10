@@ -1,9 +1,15 @@
-import {Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef} from '@angular/core';
-import {Person} from '../../model/person.model';
-import {NgForm} from '@angular/forms';
-import {BaseComponent} from '../base.component';
-import {debounceTime} from "rxjs/operators";
-
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ChangeDetectorRef
+} from '@angular/core';
+import { Person } from '../../model/person.model';
+import { NgForm } from '@angular/forms';
+import { BaseComponent } from '../base.component';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'msp-name',
@@ -23,10 +29,9 @@ export class MspNameComponent extends BaseComponent {
   }
 
   ngAfterViewInit(): void {
-      // https://github.com/angular/angular/issues/24818
-      this.form.valueChanges.pipe(debounceTime(0)).subscribe((values) => {
-        this.onChange.emit(values);
-      }
-    );
+    // https://github.com/angular/angular/issues/24818
+    this.form.valueChanges.pipe(debounceTime(0)).subscribe(values => {
+      this.onChange.emit(values);
+    });
   }
 }
