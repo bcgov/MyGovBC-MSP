@@ -28,6 +28,8 @@ describe('MSP Enrolment - Review', () => {
     // The pencil icon will redirect you to the homepage instead of that specific page
     xit('03. should be able to edit/modify info', () => {
         page.navigateTo();
+        page.clickIcon('msp-contact-card');
+        
         expect(browser.getCurrentUrl()).toContain(REVIEW_PAGE_URL);
     });
 

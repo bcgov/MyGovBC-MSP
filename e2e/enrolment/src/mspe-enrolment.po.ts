@@ -158,8 +158,8 @@ export class ReviewPage extends BaseMSPEnrolmentTestPage {
         return browser.get('/msp/enrolment/review');
     }
 
-    clickIcon() {
-        // element(by.css('msp-contact-card'));
+    clickIcon(tagName: string) {
+        element(by.css(`${tagName}`)).element(by.css('i')).click();
     }
     
 }
