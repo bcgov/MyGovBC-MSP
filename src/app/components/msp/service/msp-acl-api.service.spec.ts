@@ -19,7 +19,7 @@ import {FormsModule} from '@angular/forms';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import {ISpaEnvResponse} from '../model/spa-env-response.interface';
 import { AccountLetterApplication } from '../model/account-letter-application.model';
-import { AccountLetterApplicantTypeFactory, AccountLetterType  } from '../api-model/accountLetterTypes';
+import { AccountLetterApplicantTypeFactory, AccountLetterType  } from '../../../modules/enrolment/pages/api-model/accountLetterTypes';
 
 
 describe('MspACLService', () => {

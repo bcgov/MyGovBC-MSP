@@ -3,7 +3,7 @@ import { MspDataService } from './msp-data.service';
 import {FinancialAssistApplication} from '../model/financial-assist-application.model';
 //import {MspApplication} from '../model/application.model';
 import { MspValidationService } from './msp-validation.service';
-import {Person} from '../model/person.model';
+import {MspPerson} from '../model/msp-person.model';
 
 import * as _ from 'lodash';
 
@@ -75,7 +75,7 @@ export class CompletenessCheckService {
         && !(this.finApp.applicant.dob_month === 0);
 
       // Check applicant name regexs
-      const regEx = new RegExp(Person.NameRegEx);
+      const regEx = new RegExp(MspPerson.NameRegEx);
       basics = basics && regEx.test(this.finApp.applicant.firstName);
       if (this.finApp.applicant.middleName &&
         this.finApp.applicant.middleName.length > 0) {

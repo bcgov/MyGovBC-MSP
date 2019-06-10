@@ -17,17 +17,13 @@
     <div class="row">
       <div class="card panel-default col-md-6">
         <div class="card-body">
-          <msp-phn #addtionalMemberphn [phn]="person.specificMember_phn"
-                   (phnChange)="person.specificMember_phn = $event"
-                   (onChange)="onPHNChange();"
-                   [required]="true"
-                   [bcPhn]="true"
-                   [showError]="showError"
+          <common-phn #addtionalMemberphn name="additional_member_phn"
+                   [(ngModel)]="person.specificMember_phn"
+                   (ngModelChange)="onPHNChange();"
+                   required
                    [placeholder] ="lang('./en/index.js').phnPlaceHolder"
-                   [phnLabel]="lang('./en/index.js').phnlabel"
-                   [isACL]="true"
-          >
-          </msp-phn>
+                   [label]="lang('./en/index.js').phnlabel">
+          </common-phn>
 
         </div>
       </div>

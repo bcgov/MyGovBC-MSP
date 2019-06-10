@@ -38,7 +38,6 @@
       <label class="form-check-label" for="authByAttorney" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
     </div>
   </div>
-
   <div style="margin-top: 20px;" *ngIf="application.authorizedByAttorney">
     <label for="">Power of Attorney Document (required)</label>
     <msp-file-uploader #fileUploader
@@ -58,8 +57,8 @@
   </div>
   <div class="row">
     <div class="col-lg-8">
-      <captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
-               (onValidToken)="application.authorizationToken = $event"></captcha>
+      <common-captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
+      (onValidToken)="application.authorizationToken = $event"></common-captcha>
     </div>
   </div>
 </form>

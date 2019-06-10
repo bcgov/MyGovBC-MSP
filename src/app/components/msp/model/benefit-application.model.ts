@@ -4,7 +4,7 @@ import {MspImage} from './msp-image';
 import * as moment from 'moment';
 import {Address} from './address.model';
 import {PhoneNumber} from './phone.model';
-import {Person} from './person.model';
+import {MspPerson} from './msp-person.model';
 import {AssistanceYear} from './assistance-year.model';
 import {AssistanceApplicationType} from './financial-assist-application.model';
 import {Relationship} from './status-activities-documents';
@@ -26,8 +26,8 @@ export class BenefitApplication implements ApplicationBase {
     userSelectedMostRecentTaxYear: number;
     public spaEnvCutOffDate: string;
     public spaEnvRes: ISpaEnvResponse;
-    
-    cutOffDate: Date
+
+    cutOffDate: Date;
 
     infoCollectionAgreement: boolean = false;
 
@@ -100,13 +100,13 @@ export class BenefitApplication implements ApplicationBase {
      * Person applying for assistance
      * @type {Person}
      */
-    applicant: Person = new Person(Relationship.Applicant);
+    applicant: MspPerson = new MspPerson(Relationship.Applicant);
 
     /**
      * Spouse of person applying
      * @type {Person}
      */
-    spouse: Person = new Person(Relationship.Spouse);
+    spouse: MspPerson = new MspPerson(Relationship.Spouse);
 
     private _netIncomelastYear: number;
     /**
@@ -140,7 +140,7 @@ export class BenefitApplication implements ApplicationBase {
      *
      * Useful, for example, to make sure all PHNs are unique.
      */
-    get allPersons(): Array<Person> {
+    get allPersons(): Array<MspPerson> {
         return [
             this.applicant,
             this.spouse,

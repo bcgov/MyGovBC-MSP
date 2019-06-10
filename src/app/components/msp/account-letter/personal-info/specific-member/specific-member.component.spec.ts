@@ -11,7 +11,7 @@ import { MspDataService } from '../../../service/msp-data.service';
 import { MspLogService } from '../../../service/log.service';
 import {Mod11CheckValidator} from '../../../common/phn/phn.validator';
 import {TextMaskModule} from 'angular2-text-mask';
-import {Person} from "../../../model/person.model";
+import {Person} from "../../../model/msp-person.model";
 
 
 describe('SpecificMemberComponent', () => {

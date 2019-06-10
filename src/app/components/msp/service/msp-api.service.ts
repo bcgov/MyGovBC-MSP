@@ -2,25 +2,24 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { environment } from '../../../../environments/environment';
-import { AccountChangeAccountHolderFactory, AccountChangeAccountHolderType, AccountChangeApplicationTypeFactory, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from '../api-model/accountChangeTypes';
-import { ApplicationTypeFactory, AttachmentType, AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory, DocumentFactory, _ApplicationTypeNameSpace, document } from '../api-model/applicationTypes';
-import { AssistanceApplicantTypeFactory, AssistanceApplicationTypeFactory, AssistanceSpouseTypeFactory, FinancialsType, FinancialsTypeFactory } from '../api-model/assistanceTypes';
-import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../api-model/commonTypes';
-import { DependentType, DependentTypeFactory, EnrolmentApplicantTypeFactory, EnrolmentApplicationTypeFactory, EnrolmentChildrenTypeFactory, EnrolmentDependentsTypeFactory, LivedInBCTypeFactory, OutsideBCTypeFactory, PersonType, PersonTypeFactory, PreviousCoverageTypeFactory, ResidencyType, ResidencyTypeFactory, WillBeAwayTypeFactory } from '../api-model/enrolmentTypes';
-import { ResponseType } from '../api-model/responseTypes';
+import { AccountChangeAccountHolderFactory, AccountChangeAccountHolderType, AccountChangeApplicationTypeFactory, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from '../../../modules/enrolment/pages/api-model/accountChangeTypes';
+import { ApplicationTypeFactory, AttachmentType, AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory, DocumentFactory, _ApplicationTypeNameSpace, document } from '../../../modules/enrolment/pages/api-model/applicationTypes';
+import { AssistanceApplicantTypeFactory, AssistanceApplicationTypeFactory, AssistanceSpouseTypeFactory, FinancialsType, FinancialsTypeFactory } from '../../../modules/enrolment/pages/api-model/assistanceTypes';
+import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../../../modules/enrolment/pages/api-model/commonTypes';
+import { DependentType, DependentTypeFactory, EnrolmentApplicantTypeFactory, EnrolmentApplicationTypeFactory, EnrolmentChildrenTypeFactory, EnrolmentDependentsTypeFactory, LivedInBCTypeFactory, OutsideBCTypeFactory, PersonType, PersonTypeFactory, PreviousCoverageTypeFactory, ResidencyType, ResidencyTypeFactory, WillBeAwayTypeFactory } from '../../../modules/enrolment/pages/api-model/enrolmentTypes';
+import { ResponseType } from '../../../modules/enrolment/pages/api-model/responseTypes';
 import { MspAccountApp } from '../model/account.model';
 import { Address } from '../model/address.model';
 import { ApplicationBase } from '../model/application-base.model';
 import { MspApplication } from '../model/application.model';
 import { AssistanceApplicationType, FinancialAssistApplication } from '../model/financial-assist-application.model';
 import { MspImage } from '../model/msp-image';
-import { OperationActionType as OperationActionTypeEnum, Person } from '../model/person.model';
+import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../model/msp-person.model';
 import { SimpleDate } from '../model/simple-date.interface';
 import { Activities, Relationship, StatusInCanada } from '../model/status-activities-documents';
 import { MspLogService } from './log.service';
-import ISO_8601 = moment.ISO_8601;
 import { MspMaintenanceService } from '../service/msp-maintenance.service';
-import { Http, Response } from '@angular/http';
+import { Response } from '@angular/http';
 import {ISpaEnvResponse} from '../model/spa-env-response.interface';
 
 
@@ -129,7 +128,7 @@ export class MspApiService {
 
             // Execute all promises are waiting for results
             return Promise.all(attachmentPromises).then(
-                (responses: ResponseType[]) => {
+                () => {
                     // this.logService.log({
                     //     text: "Send All Attachments - Success",
                     //     response: responses,
@@ -199,7 +198,7 @@ export class MspApiService {
             return this.http
                 .post(url, blob, options)
                 .toPromise()
-                .then((response) => {
+                .then(() => {
                         // this.logService.log({
                         //     text: "Send Individual Attachment - Success",
                         //     response: response,
@@ -352,10 +351,10 @@ export class MspApiService {
             from.children.length > 0) {
 
             // Filter out children vs dependants
-            const children = from.children.filter((child: Person) => {
+            const children = from.children.filter((child: MspPerson) => {
                 return child.relationship === Relationship.ChildUnder19;
             });
-            const dependants = from.children.filter((child: Person) => {
+            const dependants = from.children.filter((child: MspPerson) => {
                 return child.relationship === Relationship.Child19To24;
             });
 
@@ -718,7 +717,7 @@ export class MspApiService {
         return to;
     }
 
-    private convertChildFromAccountChange(from: Person): AccountChangeChildType {
+    private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
         const to = AccountChangeChildTypeFactory.make();
 
         to.operationAction = <OperationActionType> OperationActionTypeEnum[from.operationActionType];
@@ -796,7 +795,7 @@ export class MspApiService {
     /*
     common method for spouse and child
      */
-    private populateNewBeneficiaryDetailsForChild(from: Person, to: AccountChangeChildType) {
+    private populateNewBeneficiaryDetailsForChild(from: MspPerson, to: AccountChangeChildType) {
         //Has person lived in B.C. since birth?
         if (from.livedInBCSinceBirth != null) {
             to.livedInBC = LivedInBCTypeFactory.make();
@@ -874,7 +873,7 @@ export class MspApiService {
         }
     }
 
-    private populateNewBeneficiaryDetailsForSpouse(from: Person, to: AccountChangeSpouseType) {
+    private populateNewBeneficiaryDetailsForSpouse(from: MspPerson, to: AccountChangeSpouseType) {
         //Has person lived in B.C. since birth?
         if (from.livedInBCSinceBirth != null) {
             to.livedInBC = LivedInBCTypeFactory.make();
@@ -1039,7 +1038,7 @@ export class MspApiService {
 
     }
 
-    private convertSpouseFromAccountChange(from: Person): AccountChangeSpouseType {
+    private convertSpouseFromAccountChange(from: MspPerson): AccountChangeSpouseType {
         const to = AccountChangeSpouseTypeFactory.make();
         to.name = this.convertName(from);
 
@@ -1096,7 +1095,7 @@ export class MspApiService {
     }
 
 
-    private convertPersonFromEnrollment(from: Person): PersonType {
+    private convertPersonFromEnrollment(from: MspPerson): PersonType {
         const to = PersonTypeFactory.make();
 
         to.name = this.convertName(from);
@@ -1113,7 +1112,7 @@ export class MspApiService {
         return to;
     }
 
-    private convertDependantFromEnrollment(from: Person): DependentType {
+    private convertDependantFromEnrollment(from: MspPerson): DependentType {
         // Do base type first
         const to = <DependentType>this.convertPersonFromEnrollment(from);
 
@@ -1134,7 +1133,7 @@ export class MspApiService {
         return to;
     }
 
-    private convertName(from: Person): NameType {
+    private convertName(from: MspPerson): NameType {
         const to = NameTypeFactory.make();
 
         /*
@@ -1160,7 +1159,7 @@ export class MspApiService {
         return to;
     }
 
-    private convertResidency(from: Person): ResidencyType {
+    private convertResidency(from: MspPerson): ResidencyType {
         const to = ResidencyTypeFactory.make();
 
         /*

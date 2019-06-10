@@ -1,6 +1,6 @@
 import {Address} from 'moh-common-lib';
 import { Relationship, StatusInCanada, Activities, Documents } from './status-activities-documents';
-import { Person } from './person.model';
+import { MspPerson } from './msp-person.model';
 import { UUID } from 'angular2-uuid';
 import { MspImage } from './msp-image';
 import { ApplicationBase } from './application-base.model';
@@ -21,13 +21,13 @@ class MspApplication implements ApplicationBase {
    */
   referenceNumber: string;
 
-  private _applicant: Person = new Person(Relationship.Applicant);
+  private _applicant: MspPerson = new MspPerson(Relationship.Applicant);
 
-  private _children: Array<Person> = [];
+  private _children: Array<MspPerson> = [];
   /** Either the current spouse, or an application to add a new spouse */
-  private _spouse: Person;
+  private _spouse: MspPerson;
   /** An application to remove a spouse.  */
-  private _spouseRemoval: Person;
+  private _spouseRemoval: MspPerson;
 
   unUsualCircumstance: boolean;
 
@@ -49,18 +49,18 @@ class MspApplication implements ApplicationBase {
       image.uuid = UUID.UUID();
     });
   }
-  get applicant(): Person {
+  get applicant(): MspPerson {
     return this._applicant;
   }
 
-  set applicant(apt: Person) {
+  set applicant(apt: MspPerson) {
     this._applicant = apt;
   }
-  get spouse(): Person {
+  get spouse(): MspPerson {
     return this._spouse;
   }
 
-  get children(): Array<Person> {
+  get children(): Array<MspPerson> {
     return this._children;
   }
 
@@ -69,11 +69,11 @@ class MspApplication implements ApplicationBase {
         return new Set(allPhs).size === allPhs.length ;
   }
 
-  set children(children: Array<Person>) {
+  set children(children: Array<MspPerson>) {
     this._children = children;
   }
 
-  addSpouse = (sp: Person) => {
+  addSpouse = (sp: MspPerson) => {
     if (!this._spouse) {
       this._spouse = sp;
     } else {
@@ -81,8 +81,8 @@ class MspApplication implements ApplicationBase {
     }
   }
 
-  addChild(relationship: Relationship): Person {
-    const c = new Person(relationship);
+  addChild(relationship: Relationship): MspPerson {
+    const c = new MspPerson(relationship);
     if (relationship === Relationship.Child19To24) {
       //child between 19-24 must be a full time student to qualify for enrollment
       c.fullTimeStudent = true;
@@ -104,7 +104,7 @@ class MspApplication implements ApplicationBase {
    *
    * Useful, for example, to make sure all PHNs are unique.
    */
-  get allPersons(): Array<Person> {
+  get allPersons(): Array<MspPerson> {
     return [
       this.applicant,
       ...this.children,
@@ -187,7 +187,7 @@ class MspApplication implements ApplicationBase {
    * @param uuid
    * @returns {any}
    */
-  findPerson(uuid: string): Person {
+  findPerson(uuid: string): MspPerson {
     if (this.applicant.uuid === uuid) {
       return this.applicant;
     }
@@ -222,7 +222,6 @@ class MspApplication implements ApplicationBase {
   }
 
   get childDocumentsReady(): boolean {
-    
     let kidsDocsAvail = true;
     const kidsWithNoDocs = this._children.filter(kid => {
       return !kid.hasDocuments;
@@ -251,9 +250,10 @@ class MspApplication implements ApplicationBase {
   }
   constructor() {
     // Set some defaults
-    this.residentialAddress.province = 'British Columbia';
-    this.residentialAddress.country = 'Canada';
+    this.residentialAddress.province = 'British Columbia'; // TODO: Should this be constant BRITISH_COLUMBIA
+    this.residentialAddress.country = 'Canada'; // TODO: Should this be constant CANADA
   }
 }
 
-export { MspApplication, Person, StatusInCanada, Activities };
+// Exports item from different files within msp/models
+export { MspApplication, MspPerson, StatusInCanada, Activities };

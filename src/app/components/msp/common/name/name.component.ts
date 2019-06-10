@@ -1,8 +1,8 @@
 import {Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef} from '@angular/core';
-import {Person} from '../../model/person.model';
+import {MspPerson} from '../../model/msp-person.model';
 import {NgForm} from '@angular/forms';
 import {BaseComponent} from '../base.component';
-import {debounceTime} from "rxjs/operators";
+import {debounceTime} from 'rxjs/operators';
 
 
 @Component({
@@ -12,11 +12,11 @@ import {debounceTime} from "rxjs/operators";
 export class MspNameComponent extends BaseComponent {
   lang = require('./i18n');
 
-  @Input() person: Person;
+  @Input() person: MspPerson;
   @Input() showError: boolean;
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
-  Person: typeof Person = Person;
+  Person: typeof MspPerson = MspPerson;
 
   constructor(private cd: ChangeDetectorRef) {
     super(cd);

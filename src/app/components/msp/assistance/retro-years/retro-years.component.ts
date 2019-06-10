@@ -1,10 +1,10 @@
 import { Component, ViewChild, OnInit, AfterViewInit, DoCheck } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../service/msp-data.service';
-import {FinancialAssistApplication}from '../../model/financial-assist-application.model';
+import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import {MspImage} from '../../../msp/model/msp-image';
-import {FileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
-import {MspImageErrorModalComponent} from '../../common/image-error-modal/image-error-modal.component';
+import {MspFileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
+import {MspImageErrorModalComponent} from '../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';
 import {Router} from '@angular/router';
 import {ProcessService} from '../../service/process.service';
 
@@ -19,7 +19,7 @@ export class AssistanceRetroYearsComponent implements AfterViewInit, DoCheck{
   application: FinancialAssistApplication;
 
   @ViewChild('formRef') form: NgForm;
-  @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
+  @ViewChild('fileUploader') fileUploader: MspFileUploaderComponent;
   @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
 

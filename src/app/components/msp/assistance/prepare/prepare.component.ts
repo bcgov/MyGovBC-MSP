@@ -12,8 +12,8 @@ import {FinancialAssistApplication} from '../../model/financial-assist-applicati
 import {ConsentModalComponent} from 'moh-common-lib';
 import {MspImage} from '../../model/msp-image';
 import {AssistanceYear} from '../../model/assistance-year.model';
-import {FileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
-import {MspImageErrorModalComponent} from '../../common/image-error-modal/image-error-modal.component';
+import {MspFileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
+import {MspImageErrorModalComponent} from '../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';
 import {MspAssistanceYearComponent} from './assistance-year/assistance-year.component';
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
 import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
@@ -33,7 +33,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   @ViewChild('spouseOver65NegativeBtn') spouseOver65NegativeBtn: ElementRef;
   @ViewChild('hasSpouse') hasSpouse: ElementRef;
   @ViewChild('negativeHasSpouse') negativeHasSpouse: ElementRef;
-  @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
+  @ViewChild('fileUploader') fileUploader: MspFileUploaderComponent;
   @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
   @ViewChild('assistanceYearComp') assistanceYearComp: MspAssistanceYearComponent;
 

@@ -1,5 +1,5 @@
 import {Address} from './address.model';
-import {Person} from './person.model';
+import {MspPerson} from './msp-person.model';
 import {Relationship} from './status-activities-documents';
 import {Eligibility} from './eligibility.model';
 import {UUID} from 'angular2-uuid';
@@ -97,13 +97,13 @@ export class FinancialAssistApplication implements ApplicationBase {
    * Person applying for assistance
    * @type {Person}
    */
-  applicant: Person = new Person(Relationship.Applicant);
+  applicant: MspPerson = new MspPerson(Relationship.Applicant);
 
   /**
    * Spouse of person applying
    * @type {Person}
    */
-  spouse: Person = new Person(Relationship.Spouse);
+  spouse: MspPerson = new MspPerson(Relationship.Spouse);
 
   private _netIncomelastYear: number;
   /**
@@ -137,7 +137,7 @@ export class FinancialAssistApplication implements ApplicationBase {
    *
    * Useful, for example, to make sure all PHNs are unique.
    */
-  get allPersons(): Array<Person> {
+  get allPersons(): Array<MspPerson> {
     return [
       this.applicant,
       this.spouse,
