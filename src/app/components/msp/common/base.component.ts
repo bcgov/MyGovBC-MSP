@@ -172,7 +172,8 @@ export class BaseComponent implements DoCheck {
     // If we have a process step, mark it with the current state
     if (this.linkedProcessStepNumber != null &&
       this.processService != null) {
-      this.processService.setStep(this.linkedProcessStepNumber, isAllValid);
+        // TODO - REVIEW THIS LINE
+      // this.processService.setStep(this.linkedProcessStepNumber, isAllValid);
     }
 
     this.isFormValid.emit({id: this.objectId, isValid: isAllValid});
