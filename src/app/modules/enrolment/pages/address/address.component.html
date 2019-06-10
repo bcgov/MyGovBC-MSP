@@ -39,14 +39,12 @@
             </div>
         </aside>
     </common-page-section>
-    
     <div class="row">
         <div class="form-group col-md-5">
             <common-phone-number name="phone_number"
-                                #phone 
                                 [label]="'Phone Number'"
-                                [ngModel]="mspApplication.phoneNumber"
-                                (ngModelChange)="handlePhoneNumberChange($event)"></common-phone-number>
+                                [phoneNumber]="mspApplication.phoneNumber"
+                                (ngModelChange)="this.mspApplication.phoneNumber = $event"></common-phone-number>
         </div>
     </div>
     <hr>
