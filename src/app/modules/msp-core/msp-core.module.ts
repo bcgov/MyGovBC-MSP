@@ -18,7 +18,6 @@ import { MspImageErrorModalComponent } from './components/image-error-modal/imag
 // TOBE REVIEWED
 import { HealthNumberComponent } from '../../components/msp/common/health-number/health-number.component';
 import { MspComponent } from '../../components/msp/msp.component';
-import { LandingComponent } from '../../components/msp/landing/landing.component';
 import { MspNameComponent } from '../../components/msp/common/name/name.component';
 import { CalendarYearFormatter } from '../../components/msp/common/calendar/calendar-year-formatter.component';
 import { CalendarYearValidator } from '../../components/msp/common/calendar/calendar-year.validator';
@@ -70,7 +69,6 @@ const componentList = [
 const templistCore = [
   // General
   MspComponent,
-  LandingComponent,
   MspNameComponent,
   CalendarYearFormatter,
   CalendarYearValidator,

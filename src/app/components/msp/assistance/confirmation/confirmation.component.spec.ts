@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 // import { RouterTestingModule } from '@angular/router/testing';
 import { AssistanceConfirmationComponent } from './confirmation.component';
-import {LandingComponent} from '../../landing/landing.component';
+import {LandingComponent} from '../../../../pages/landing/landing.component';
 import {AssistanceComponent} from '../assistance.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';

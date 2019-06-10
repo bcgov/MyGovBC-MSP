@@ -37,7 +37,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { KeyboardEventListner } from './common/keyboard-listener/keyboard-listener.directive';
 import { MspLoggerDirective } from './common/logging/msp-logger.directive';
 //import { MspPersonCardComponent } from './common/person-card/person-card.component';
-import { LandingComponent } from './landing/landing.component';
+//import { LandingComponent } from '../../pages/landing/landing.component';
 import { CompletenessCheckService } from './service/completeness-check.service';
 import { MspLogService } from './service/log.service';
 import { MspApiService } from './service/msp-api.service';
@@ -88,14 +88,14 @@ const APP_ROUTES: Routes = [
         path: 'msp',
         children: [
             {
-                path: '',
+/*                path: '',
                 component: LandingComponent
             },
             {
                 path: 'enrolment',
                 loadChildren: 'app/modules/enrolment/enrolment.module#EnrolmentModule'
             },
-            {
+            {*/
                 path: 'assistance',
                 component: AssistanceComponent,
                 children: [
@@ -288,10 +288,10 @@ const APP_ROUTES: Routes = [
         TextMaskModule,
         RouterModule.forChild(APP_ROUTES),
         TypeaheadModule.forRoot(),
-        LocalStorageModule.withConfig({
-            prefix: 'ca.bc.gov.msp',
-            storageType: 'sessionStorage'
-        })
+ //       LocalStorageModule.withConfig({
+ //           prefix: 'ca.bc.gov.msp',
+  //          storageType: 'sessionStorage'
+ //       })
     ],
     declarations: [
         MspLoggerDirective,
@@ -363,7 +363,7 @@ const APP_ROUTES: Routes = [
 
     providers: [
         // Services
-        MspDataService,
+        //MspDataService,
         MspValidationService,
         MspMaintenanceService,
         CompletenessCheckService,

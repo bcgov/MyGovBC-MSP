@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { LandingComponent } from './landing.component';
 import { Router, RouterModule } from '@angular/router';
-import { MspDataService } from '../service/msp-data.service';
+import { MspDataService } from '../../components/msp/service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 
 /*
