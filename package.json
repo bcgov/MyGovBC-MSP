@@ -15,7 +15,12 @@
     "dev": "ng serve --host='0.0.0.0' -o",
     "dev-build": "ng build",
     "build": "ng build --prod",
-    "test": "ng test"
+    "test": "ng test",
+    "e2e": "ng e2e",
+    "e2e:all": "npm run e2e -- --protractorConfig=e2e/protractor.full-tests.conf.js",
+    "e2e:chrome": "npm run e2e -- --protractorConfig=e2e/protractor.conf.js",
+    "e2e:enrolment": "npm run e2e -- --protractorConfig=e2e/protractor.enrolment.conf.js",
+    "e2e:supp-benefits": "npm run e2e -- --protractorConfig=e2e/protractor.supp-benefits.conf.js"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.8.4",

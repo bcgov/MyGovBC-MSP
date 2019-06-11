@@ -43,7 +43,9 @@ describe('MSP Enrolment - Personal Info', () => {
         page.clickRadioButton('Your Status in Canada', 'Moved to B.C. from another province');
         page.clickModalContinue();
         // Remove comment below once File Upload is working
+        // browser.sleep(2000);
         // page.uploadFile();
+        // browser.sleep(2000);
         // page.clickContinue();
         // expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL);
         page.formErrors().count().then(function(val) {

@@ -1,16 +1,17 @@
 import { browser, element, by } from 'protractor';
-import { ReviewPage } from './mspe-enrolment.po';
+import { ReviewPage, PersonalInfoPage } from './mspe-enrolment.po';
 import { FakeDataEnrolment } from './mspe-enrolment.data';
 
 describe('MSP Enrolment - Review', () => {
     let page: ReviewPage;
+    let personalPage: PersonalInfoPage;
     const data = new FakeDataEnrolment();
-    let perData;
     const REVIEW_PAGE_URL = `msp/enrolment/review`;
     const AUTHORIZE_PAGE_URL = `msp/enrolment/authorize`;
 
     beforeEach(() => {
         page = new ReviewPage();
+        personalPage = new PersonalInfoPage();
         data.setSeed();
     });
 
@@ -25,12 +26,16 @@ describe('MSP Enrolment - Review', () => {
         expect(browser.getCurrentUrl()).toContain(AUTHORIZE_PAGE_URL);
     });
 
-    // The pencil icon will redirect you to the homepage instead of that specific page
-    xit('03. should be able to edit/modify info', () => {
+    it('03. should be able to edit/modify info', () => {
         page.navigateTo();
-        page.clickIcon('msp-contact-card');
-        
-        expect(browser.getCurrentUrl()).toContain(REVIEW_PAGE_URL);
+        page.clickIcon('msp-person-card', 'personal-info');
+        personalPage.clickOption('Canadian citizen');
+        personalPage.clickRadioButton('Your Status in Canada', 'Moved to B.C. from another province');
+        personalPage.clickModalContinue();
+        browser.sleep(1000);
+        personalPage.clickProgressBar('review');
+        page.clickContinue();
+        expect(browser.getCurrentUrl()).toContain(AUTHORIZE_PAGE_URL);
     });
 
 });

@@ -9,9 +9,11 @@ exports.config = {
     './enrolment/src/*.e2e-spec.ts',
     './supp-benefits/src/*.e2e-spec.ts'
   ],
-  capabilities: {
+  multiCapabilities: [{
+    'browserName': 'firefox'
+  }, {
     'browserName': 'chrome'
-  },
+  }],
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
   framework: 'jasmine2',
@@ -46,18 +48,4 @@ exports.config = {
         jasmine.getEnv().addReporter(junitReporter);
     });
   }
-  /*
-  framework: 'jasmine',
-  jasmineNodeOpts: {
-    showColors: true,
-    defaultTimeoutInterval: 30000,
-    print: function() {}
-  },
-  onPrepare() {
-    require('ts-node').register({
-      project: require('path').join(__dirname, './tsconfig.e2e.json')
-    });
-    jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
-  }
-  */
 };

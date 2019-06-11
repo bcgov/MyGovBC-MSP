@@ -19,4 +19,14 @@ describe('MSP Enrolment - Authorize', () => {
         expect(browser.getCurrentUrl()).toContain(AUTHORIZE_PAGE_URL);
     });
 
+    // Problem: How to bypass captcha in e2e testing
+    it('02. should let user to continue when they agree', () => {
+        page.navigateTo();
+        page.checkAgree();
+        // Missing method to write captcha using e2e here
+        expect(browser.getCurrentUrl()).toContain(AUTHORIZE_PAGE_URL);
+    });
+
+  
+
 });

@@ -48,6 +48,10 @@ export class BaseMSPEnrolmentTestPage extends AbstractTestPage {
         this.diffMailAddressCheckbox.click();
     }
 
+    clickProgressBar(hrefVal: string){
+        element(by.css(`a[href*="${hrefVal}"]`)).element(by.css('span')).click();
+    }
+
 }
 
 export class EligibilityPage extends BaseMSPEnrolmentTestPage {
@@ -98,6 +102,17 @@ export class PersonalInfoPage extends BaseMSPEnrolmentTestPage {
     clickRadioButton(ariaVal: string, labelVal: string) {
        element(by.css(`div[aria-label*="${ariaVal}"]`)).element(by.cssContainingText('label', `${labelVal}`)).click();
     }
+
+    // Sample file : file:///space/workspace/MyGovBC-MSP/e2e/sample.jpg
+    uploadFile() {
+        element(by.css('common-file-uploader')).element(by.css('i')).click();
+        var path = require('path');
+        var fileToUpload = '/space/workspace/MyGovBC-MSP/e2e/sample.jpg',
+        absolutePath = path.resolve(__dirname, fileToUpload);
+
+        element(by.css('input[type="file"]')).sendKeys(absolutePath); 
+        element(by.css('input[type="file"]')).sendKeys(protractor.Key.ENTER); 
+    }
 }
 
 export class SpouseInfoPage extends PersonalInfoPage {
@@ -144,8 +159,6 @@ export class ContactInfoPage extends BaseMSPEnrolmentTestPage {
         element(by.css('input[id^="phone"]')).sendKeys(data.mobile);
     }
 
-    
-    
 }
 
 export class ReviewPage extends BaseMSPEnrolmentTestPage {
@@ -158,10 +171,10 @@ export class ReviewPage extends BaseMSPEnrolmentTestPage {
         return browser.get('/msp/enrolment/review');
     }
 
-    clickIcon(tagName: string) {
-        element(by.css(`${tagName}`)).element(by.css('i')).click();
+    clickIcon(tagName: string, val: string) {
+        element(by.css(`${tagName}[ng-reflect-edit-router-link*="${val}"]`)).element(by.css('i')).click();
     }
-    
+
 }
 
 export class AuthorizePage extends BaseMSPEnrolmentTestPage {
@@ -172,6 +185,10 @@ export class AuthorizePage extends BaseMSPEnrolmentTestPage {
 
     navigateTo() {
         return browser.get('/msp/enrolment/authorize');
+    }
+
+    checkAgree() {
+        element(by.css('common-checkbox[ng-reflect-label*="Yes"]')).element(by.css('input')).click();
     }
     
 }

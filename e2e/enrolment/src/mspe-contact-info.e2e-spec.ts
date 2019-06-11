@@ -2,7 +2,7 @@ import { browser, element, by } from 'protractor';
 import { ContactInfoPage } from './mspe-enrolment.po';
 import { FakeDataEnrolment } from './mspe-enrolment.data';
 
-fdescribe('MSP Enrolment - Contact Info', () => {
+describe('MSP Enrolment - Contact Info', () => {
 
     let page: ContactInfoPage;
     const data = new FakeDataEnrolment();
@@ -59,7 +59,7 @@ fdescribe('MSP Enrolment - Contact Info', () => {
         page.checkDiffMailAddress();
         page.fillContactNumber(contactData);
         page.continue();
-
+        
         expect(browser.getCurrentUrl()).toContain(REVIEW_PAGE_URL, 'should navigate to the Review page');
         page.formErrors().count().then(function(val) {
             expect(val).toBe(3, 'should have 3 errors for incomplete address');
