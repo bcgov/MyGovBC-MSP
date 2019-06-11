@@ -41,11 +41,10 @@
             </div>
       </div>
       <div class="col-md-4 form-group">
-        <msp-date
+        <common-date
           [label]="cancellationDate"
-          [showError]='showError'
-          [(date)]="person.cancellationDate" [futureDate]="false"  (onChange) = "change($event)"
-        ></msp-date>
+          [(date)]="person.cancellationDate" [restrictDate]="'future'"  (onChange) = "change($event)"
+        ></common-date>
       </div>
     </div>
 

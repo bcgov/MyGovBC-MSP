@@ -14,9 +14,7 @@ import { MspImage } from '../../../../models/msp-image';
 import * as _ from 'lodash';
 import {MspIdReqModalComponent} from '../id-req-modal/id-req-modal.component';
 import {MspImageErrorModalComponent} from '../image-error-modal/image-error-modal.component';
-import {MspFileUploaderComponent} from '../../../../components/msp/common/file-uploader/file-uploader.component';
 import {MspBirthDateComponent} from '../birthdate/birthdate.component';
-import {MspNameComponent} from '../../../../components/msp/common/name/name.component';
 import {MspGenderComponent} from '../../../../components/msp/common/gender/gender.component';
 import {MspSchoolDateComponent} from '../../../../components/msp/common/schoolDate/school-date.component';
 import {HealthNumberComponent} from '../../../../components/msp/common/health-number/health-number.component';
@@ -29,7 +27,7 @@ import {MspProvinceComponent} from '../../../../components/msp/common/province/p
 import {BaseComponent} from '../../../../models/base.component';
 import {MspCountryComponent} from '../../../../components/msp/common/country/country.component';
 import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
-//import { PhnComponent } from 'moh-common-lib';
+
 @Component({
     selector: 'msp-personal-details',
     templateUrl: './personal-details.component.html',
@@ -111,13 +109,13 @@ export class PersonalDetailsComponent extends BaseComponent {
   StatusInCanada: typeof StatusInCanada = StatusInCanada;
   public styleClass = 'control-label';
   @ViewChild('formRef') form: NgForm;
-  @ViewChild('fileUploader') fileUploader: MspFileUploaderComponent;
+  //@ViewChild('fileUploader') fileUploader: FileUploaderComponent;
   @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
   @ViewChild('imageErrorModal') imageErrorModal: MspImageErrorModalComponent;
   @ViewChild('outOfBCRecord') outOfBCRecord: MspOutofBCRecordComponent;
   @ViewChild('gender') gender: MspGenderComponent;
   @ViewChild('birthDate') birthdate: MspBirthDateComponent;
-  @ViewChild('name') name: MspNameComponent;
+ // @ViewChild('name') name: MspFullNameComponent;
   @ViewChild('country') country: MspCountryComponent;
   @ViewChild('province') province: MspProvinceComponent;
   @ViewChild('arrivalDateBC') arrivalDateBC: MspArrivalDateComponent;
@@ -144,7 +142,6 @@ export class PersonalDetailsComponent extends BaseComponent {
   genderListSignal: string;
   institutionWorkSignal: string;
   showServicesCardModal: boolean = false;
-  private value: any = {};
 
   public statusinCanada: Array<any> = [
       { value: 1, label: ' Canadian Citizen' },
@@ -178,7 +175,6 @@ export class PersonalDetailsComponent extends BaseComponent {
 
 
   public refreshValue(value: any): void {
-    this.value = value;
   }
 
   public removed(value: any): void {
@@ -244,7 +240,7 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.person.documents.images = this.person.documents.images.concat(evt);
     console.log('$fileParent (1) addDocument', {images: this.person.documents.images, evt: evt});
 
-    this.fileUploader.forceRender();
+    //this.fileUploader.forceRender();
     this.onChange.emit(evt);
   }
 

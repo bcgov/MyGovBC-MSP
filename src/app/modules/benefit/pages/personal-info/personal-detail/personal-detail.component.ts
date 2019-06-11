@@ -1,9 +1,7 @@
 import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {debounceTime} from 'rxjs/operators';
 import {MspPerson} from '../../../../../components/msp/model/msp-person.model';
-//import {PhnComponent} from 'moh-common-lib';
 import {NgForm} from '@angular/forms';
-import {MspNameComponent} from '../../../../../components/msp/common/name/name.component';
 import {MspBirthDateComponent} from '../../../../msp-core/components/birthdate/birthdate.component';
 import {BaseComponent} from '../../../../../models/base.component';
 import {BenefitApplication} from '../../../models/benefit-application.model';
@@ -21,7 +19,7 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
     private benefitApp: BenefitApplication;
 
     @Input() person: MspPerson;
-    @ViewChild('name') name: MspNameComponent;
+   // @ViewChild('name') name: MspFullNameComponent;
     @ViewChild('formRef') personalDetailsForm: NgForm;
     @ViewChild('birthdate') birthdate: MspBirthDateComponent;
     //@ViewChild('phn') phn: PhnComponent;

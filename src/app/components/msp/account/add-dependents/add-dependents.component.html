@@ -62,12 +62,11 @@
 
         </div>
         <div class="col-lg-4">
-          <msp-date
+          <common-date
             [label]="marriageDate"
-            [showError]='showError'
             [(date)]="person.marriageDate"
             required=false
-          ></msp-date>
+          ></common-date>
         </div>
       </div>
     </ng-container> 
@@ -105,11 +104,11 @@
         </div>
 
         <div class="col-lg-4 form-inline" *ngIf="person.schoolOutsideOfBC">
-          <msp-date
+          <common-date
             [label]="departureDate"
-            [showError]='showError' [futureDate]="true"
+            [restrictDate]="'future'"
             [(date)]="person.studiesDepartureSimple"
-          ></msp-date>
+          ></common-date>
         </div>
       </div>
 
@@ -124,19 +123,18 @@
 
       <div class="row">
         <div class="col-lg-6">
-          <msp-date #studiesBegin
+          <common-date #studiesBegin
             [label]="studiesBegin"
-            [showError]='showError'
-            [(date)]="person.studiesBeginSimple" [futureDate]="true"
-               ></msp-date>
+            [(date)]="person.studiesBeginSimple" [restrictDate]="'future'"
+               ></common-date>
         </div>
 
         <div class="col-lg-6">
-          <msp-date #studiesFinishedSimple
+          <common-date #studiesFinishedSimple
             [label]="studiesFinish"
-                    [showError]='showError' (onChange) = "onChange.emit($event)" [futureDate]="true"
-                    [(date)]="person.studiesFinishedSimple"
-          ></msp-date>
+            (onChange) = "onChange.emit($event)" [restrictDate]="'future'"
+            [(date)]="person.studiesFinishedSimple"
+          ></common-date>
           <div *ngIf='person.isStudyDatesInValid'>
             <div class="text-danger"[innerHtml]="dateStudiesStartBeforeEndError"></div>
           </div>

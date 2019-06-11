@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, ViewChild, Output, Inject, OnInit} from '@angular/core';
+import {Component, ViewChild, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
@@ -7,8 +7,6 @@ import {CompletenessCheckService} from '../../../../services/completeness-check.
 import {Router} from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
-import { MspFileUploaderComponent } from '../../../../components/msp/common/file-uploader/file-uploader.component';
-import { ProcessService } from '../../../../components/msp/service/process.service';
 import { MspImage } from '../../../../models/msp-image';
 
 @Component({
@@ -21,7 +19,7 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit{
 
   application: FinancialAssistApplication;
 
-  @ViewChild('fileUploader') fileUploader: MspFileUploaderComponent;
+  //@ViewChild('fileUploader') fileUploader: FileUploaderComponent;
   @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
   constructor(private dataService: MspDataService,
@@ -44,7 +42,7 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit{
   }
 
   ngAfterViewInit(): void {
-    this.form.valueChanges.subscribe(values => {
+    this.form.valueChanges.subscribe(() => {
       // console.log('authorization form change: %o', values);
       // this.onChange.emit(values);
       this.dataService.saveFinAssistApplication();
@@ -53,7 +51,7 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit{
 
   addDocument(mspImage: MspImage) {
     this.application.powerOfAttorneyDocs = this.application.powerOfAttorneyDocs.concat(mspImage);
-    this.fileUploader.forceRender();
+    //this.fileUploader.forceRender();
     this.dataService.saveFinAssistApplication();
   }
 

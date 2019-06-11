@@ -8,7 +8,6 @@ import {debounceTime} from 'rxjs/operators';
 import { BaseComponent } from '../../../../../models/base.component';
 import { FinancialAssistApplication } from '../../../models/financial-assist-application.model';
 import { MspPerson } from '../../../../enrolment/models/application.model';
-import { MspNameComponent } from '../../../../../components/msp/common/name/name.component';
 
 @Component({
   selector: 'msp-assistance-personal-details',
@@ -19,7 +18,7 @@ export class AssistancePersonalDetailComponent extends BaseComponent {
   private finApp: FinancialAssistApplication;
 
   @Input() person: MspPerson;
-  @ViewChild('name') name: MspNameComponent;
+  //@ViewChild('name') name: MspFullNameComponent;
   @ViewChild('formRef') personalDetailsForm: NgForm;
   @ViewChild('birthdate') birthdate: MspBirthDateComponent;
   //@ViewChild('phn') phn: MspPhnComponent;

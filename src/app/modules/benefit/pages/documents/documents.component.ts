@@ -1,8 +1,5 @@
-import {AfterViewInit, Component, DoCheck, OnInit, ViewChild} from '@angular/core';
-import {MspDataService} from '../../../../services/msp-data.service';
-import {MspFileUploaderComponent} from '../../../../components/msp/common/file-uploader/file-uploader.component';
+import {AfterViewInit, Component, DoCheck, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {FinancialAssistApplication} from '../../../assistance/models/financial-assist-application.model';
 import {NgForm} from '@angular/forms';
 import {MspImage} from '../../../../models/msp-image';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
@@ -22,7 +19,7 @@ export class BenefitDocumentsComponent  implements AfterViewInit, DoCheck {
     application: BenefitApplication;
 
     @ViewChild('formRef') form: NgForm;
-    @ViewChild('fileUploader') fileUploader: MspFileUploaderComponent;
+    //@ViewChild('fileUploader') fileUploader: FileUploaderComponent;
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
 
@@ -38,7 +35,7 @@ export class BenefitDocumentsComponent  implements AfterViewInit, DoCheck {
     }
 
     ngAfterViewInit(){
-        this.form.valueChanges.subscribe( value => {
+        this.form.valueChanges.subscribe( () => {
             this.dataService.saveBenefitApplication();
         });
     }
@@ -81,7 +78,7 @@ export class BenefitDocumentsComponent  implements AfterViewInit, DoCheck {
 
     addDoc(doc: MspImage){
         this.application.assistYeaDocs = this.application.assistYeaDocs.concat(doc);
-        this.fileUploader.forceRender();
+       // this.fileUploader.forceRender();
         this.dataService.saveFinAssistApplication();
     }
 

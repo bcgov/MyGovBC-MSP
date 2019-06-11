@@ -1,11 +1,10 @@
-import { Component, ViewChild, OnInit, AfterViewInit, DoCheck } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, DoCheck } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
 import {Router} from '@angular/router';
 //import {ProcessService} from '../../service/process.service';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
-import { MspFileUploaderComponent } from '../../../../components/msp/common/file-uploader/file-uploader.component';
 import { MspImage } from '../../../../models/msp-image';
 
 
@@ -19,7 +18,7 @@ export class AssistanceRetroYearsComponent implements AfterViewInit, DoCheck{
   application: FinancialAssistApplication;
 
   @ViewChild('formRef') form: NgForm;
-  @ViewChild('fileUploader') fileUploader: MspFileUploaderComponent;
+  //@ViewChild('fileUploader') fileUploader: FileUploaderComponent;
   @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
 
@@ -90,7 +89,7 @@ export class AssistanceRetroYearsComponent implements AfterViewInit, DoCheck{
 
   addDoc(doc: MspImage){
     this.application.assistYeaDocs = this.application.assistYeaDocs.concat(doc);
-    this.fileUploader.forceRender();
+    //this.fileUploader.forceRender();
     this.dataService.saveFinAssistApplication();
   }
 

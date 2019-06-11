@@ -18,7 +18,6 @@ import { MspImageErrorModalComponent } from './components/image-error-modal/imag
 // TOBE REVIEWED
 import { HealthNumberComponent } from '../../components/msp/common/health-number/health-number.component';
 import { MspComponent } from '../../components/msp/msp.component';
-import { MspNameComponent } from '../../components/msp/common/name/name.component';
 import { CalendarYearFormatter } from '../../components/msp/common/calendar/calendar-year-formatter.component';
 import { CalendarYearValidator } from '../../components/msp/common/calendar/calendar-year.validator';
 import { CalendarDayValidator } from '../../components/msp/common/calendar/calendar-day.validator';
@@ -39,8 +38,6 @@ import { MspOutofBCRecordComponent } from '../../components/msp/common/outof-bc/
 import { MspConsentModalComponent } from './components/consent-modal/consent-modal.component';
 import { MspCancelComponent } from '../../components/msp/common/cancel/cancel.component';
 import { MspToggleComponent } from '../../components/msp/common/toggle/toggle.component';
-import { MspDateComponent } from '../../components/msp/common/date/date.component';
-import { MspFileUploaderComponent } from '../../components/msp/common/file-uploader/file-uploader.component';
 import { MspThumbnailComponent } from '../../components/msp/common/thumbnail/thumbnail.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ModalModule, AccordionModule, TypeaheadModule } from 'ngx-bootstrap';
@@ -77,7 +74,6 @@ const componentList = [
 const templistCore = [
   // General
   MspComponent,
-  MspNameComponent,
   CalendarYearFormatter,
   CalendarYearValidator,
   CalendarDayValidator,
@@ -93,14 +89,12 @@ const templistCore = [
   MspSchoolDateComponent,
   MspGenderComponent,
   MspProgressBarComponent,
-  MspFileUploaderComponent,
   MspThumbnailComponent,
   TransmissionErrorView,
   MspOutofBCRecordComponent,
   MspConsentModalComponent,
   MspCancelComponent,
   MspToggleComponent,
-  MspDateComponent,
   HealthNumberComponent,
   ReplacewithlinksPipe,
   MspPersonCardComponent,

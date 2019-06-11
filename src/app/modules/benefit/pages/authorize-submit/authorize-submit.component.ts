@@ -1,9 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {CompletenessCheckService} from '../../../../services/completeness-check.service';
 import {ProcessService} from '../../../../components/msp/service/process.service';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
-import {MspFileUploaderComponent} from '../../../../components/msp/common/file-uploader/file-uploader.component';
 import {environment} from '../../../../../environments/environment';
 import {NgForm} from '@angular/forms';
 import {MspImage} from '../../../../models/msp-image';
@@ -23,7 +22,7 @@ export class BenefitAuthorizeSubmitComponent {
 
     application: BenefitApplication;
 
-    @ViewChild('fileUploader') fileUploader: MspFileUploaderComponent;
+   // @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
     constructor(private dataService: MspBenefitDataService,
@@ -47,7 +46,7 @@ export class BenefitAuthorizeSubmitComponent {
 
     addDocument(mspImage: MspImage) {
         this.application.powerOfAttorneyDocs = this.application.powerOfAttorneyDocs.concat(mspImage);
-        this.fileUploader.forceRender();
+     //   this.fileUploader.forceRender();
         this.dataService.saveBenefitApplication();
     }
 

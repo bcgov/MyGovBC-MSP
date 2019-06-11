@@ -40,7 +40,7 @@
   </div>
   <div style="margin-top: 20px;" *ngIf="application.authorizedByAttorney">
     <label for="">Power of Attorney Document (required)</label>
-    <msp-file-uploader #fileUploader
+    <common-file-uploader #fileUploader
                        [images]="application.powerOfAttorneyDocs"
                        [id]='application.id'
                        (onAddDocument)="addDocument($event)"
@@ -52,7 +52,7 @@
               Please upload required power of attorney documents
             </span>
 
-    </msp-file-uploader>
+    </common-file-uploader>
     <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
   </div>
   <div class="row">

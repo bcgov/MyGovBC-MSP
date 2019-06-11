@@ -446,7 +446,7 @@
                 <div class="row" style="margin-top: 15px;" *ngIf="requireAttendantCareReceipts">
                     <div class="col-lg-12">
                         <label for="netIncome">Please upload your attendant care receipts for the expense entered above (required).</label>
-                        <msp-file-uploader #fileUploader
+                        <common-file-uploader #fileUploader
                             [images]="finAssistApp.attendantCareExpenseReceipts" 
                             [id]='finAssistApp.id'
                             (onAddDocument)="addReceipts($event)"
@@ -457,7 +457,7 @@
                             Please upload documents for your expenses
                           </span>
                             
-                        </msp-file-uploader>
+                        </common-file-uploader>
                         <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
                     </div>
                 </div>

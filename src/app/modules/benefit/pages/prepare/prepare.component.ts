@@ -2,7 +2,6 @@ import {ChangeDetectorRef, Component, ElementRef, ViewChild} from '@angular/core
 import {BaseComponent} from '../../../../models/base.component';
 import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
-import {MspFileUploaderComponent} from '../../../../components/msp/common/file-uploader/file-uploader.component';
 import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
 import {ModalDirective} from 'ngx-bootstrap';
@@ -31,7 +30,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     @ViewChild('spouseOver65NegativeBtn') spouseOver65NegativeBtn: ElementRef;
     @ViewChild('hasSpouse') hasSpouse: ElementRef;
     @ViewChild('negativeHasSpouse') negativeHasSpouse: ElementRef;
-    @ViewChild('fileUploader') fileUploader: MspFileUploaderComponent;
+    //@ViewChild('fileUploader') fileUploader: FileUploaderComponent;
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
 
     @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
@@ -89,7 +88,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     addReceipts(evt: any){
         // console.log('image added: %s', evt);
         this.benefitApp.attendantCareExpenseReceipts = this.benefitApp.attendantCareExpenseReceipts.concat(evt);
-        this.fileUploader.forceRender();
+        //this.fileUploader.forceRender();
         this.dataService.saveBenefitApplication();
     }
 

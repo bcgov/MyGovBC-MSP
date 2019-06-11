@@ -432,7 +432,7 @@ class MspPerson implements IPerson {
         return this.parseDate(this.studiesBeginYear, this.studiesBeginMonth, this.studiesBeginDay);
     }
 
-    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <msp-date> component. */
+    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <common-date> component. */
     get studiesBeginSimple(): SimpleDate {
         return {
             'year': this.studiesBeginYear,
@@ -441,7 +441,7 @@ class MspPerson implements IPerson {
         };
     }
 
-    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <msp-date> component. */
+    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <common-date> component. */
     set studiesBeginSimple(date: SimpleDate) {
         this.studiesBeginYear = date.year;
         this.studiesBeginMonth = date.month;
@@ -474,7 +474,7 @@ class MspPerson implements IPerson {
     }
 
 
-    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <msp-date> component. */
+    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <common-date> component. */
     get studiesFinishedSimple(): SimpleDate {
         return {
             'year': this.studiesFinishedYear,
@@ -483,7 +483,7 @@ class MspPerson implements IPerson {
         };
     }
 
-    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <msp-date> component. */
+    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <common-date> component. */
     set studiesFinishedSimple(date: SimpleDate){
         this.studiesFinishedYear = date.year;
         this.studiesFinishedMonth = date.month;
@@ -507,7 +507,7 @@ class MspPerson implements IPerson {
         return this.parseDate(this.studiesDepartureYear, this.studiesDepartureMonth, this.studiesDepartureDay);
     }
 
-    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <msp-date> component. */
+    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <common-date> component. */
     get studiesDepartureSimple(): SimpleDate {
         return {
             'year': this.studiesDepartureYear,
@@ -516,7 +516,7 @@ class MspPerson implements IPerson {
         };
     }
 
-    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <msp-date> component. */
+    /** A wrapper of the studies finished dates, so that we can easily setup two-way data binding with the <common-date> component. */
     set studiesDepartureSimple(date: SimpleDate){
         this.studiesDepartureYear = date.year;
         this.studiesDepartureMonth = date.month;

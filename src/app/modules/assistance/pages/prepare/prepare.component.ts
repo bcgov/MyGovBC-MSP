@@ -1,12 +1,9 @@
 import { Component, ViewChild, AfterViewInit, OnInit, ElementRef, DoCheck} from '@angular/core';
-import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import * as _ from 'lodash';
-//import { Observable } from 'rxjs/internal';
-import { Observable} from 'rxjs/internal/Observable';
 
 
 import { ModalDirective } from 'ngx-bootstrap';
-
 import { MspDataService } from '../../../../services/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
@@ -15,7 +12,6 @@ import {fromEvent} from 'rxjs/internal/observable/fromEvent';
 import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
 import { merge} from 'rxjs/internal/observable/merge';
 import { CommonIncomeInputtextComponent } from '../../../../components/msp/common/common-income-inputtext/common-income-inputtext.component';
-import { MspFileUploaderComponent } from '../../../../components/msp/common/file-uploader/file-uploader.component';
 import { MspImage } from '../../../../models/msp-image';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 import { AssistanceYear } from '../../models/assistance-year.model';
@@ -33,7 +29,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   @ViewChild('spouseOver65NegativeBtn') spouseOver65NegativeBtn: ElementRef;
   @ViewChild('hasSpouse') hasSpouse: ElementRef;
   @ViewChild('negativeHasSpouse') negativeHasSpouse: ElementRef;
-  @ViewChild('fileUploader') fileUploader: MspFileUploaderComponent;
+  //@ViewChild('fileUploader') fileUploader: FileUploaderComponent;
   @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
   @ViewChild('assistanceYearComp') assistanceYearComp: MspAssistanceYearComponent;
 
@@ -46,12 +42,11 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   private _showChildrenInfo: boolean = false;
 
   private _likelyQualify: boolean = false;
-  private changeLog: string[] = [];
   qualifiedForAssistance = false;
   requireAttendantCareReceipts = false;
   taxYearInfoMissing = false;
   qualificationThreshhold: number = 42000;
-  incomePattern: string = "^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$";
+  incomePattern: string = '^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$';
 
   counterClaimCategory: string;
   claimCategory: string;
@@ -92,7 +87,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   addReceipts(evt: any){
     // console.log('image added: %s', evt);
     this.finAssistApp.attendantCareExpenseReceipts = this.finAssistApp.attendantCareExpenseReceipts.concat(evt);
-    this.fileUploader.forceRender();
+    //this.fileUploader.forceRender();
     this.dataService.saveFinAssistApplication();
   }
 
@@ -105,27 +100,27 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   deleteReceipts(evt: MspImage){
     this.finAssistApp.attendantCareExpenseReceipts = this.finAssistApp.attendantCareExpenseReceipts.filter(
       receipt => {
-        return receipt.id != evt.id;
+        return receipt.id !== evt.id;
       }
     );
     this.dataService.saveFinAssistApplication();
   }
 
   ngAfterViewInit() {
-    console.log("asasasas"+this.finAssistApp.netIncomelastYear);
+    console.log('asasasas' + this.finAssistApp.netIncomelastYear);
     if (!this.dataService.finAssistApp.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();
     }
 
     //removing subscribe wont register clicks
     const ageOver$ = fromEvent<MouseEvent>(this.ageOver65Btn.nativeElement, 'click').pipe(
-      map( x => {
+      map( () => {
         this.dataService.finAssistApp.ageOver65 = true;
       }));
 
 
     const ageUnder$ = fromEvent<MouseEvent>(this.ageNotOver65Btn.nativeElement, 'click').pipe(
-      map( x => {
+      map( () => {
         this.dataService.finAssistApp.ageOver65 = false;
       }));
 
@@ -175,30 +170,30 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
 
       merge(
           fromEvent<MouseEvent>(this.spouseOver65Btn.nativeElement, 'click').pipe(
-            map(x => {
+            map(() => {
               this.finAssistApp.spouseAgeOver65 = true;
             }))
       ),
       merge(
           fromEvent<MouseEvent>(this.spouseOver65NegativeBtn.nativeElement, 'click').pipe(
-            map(x => {
+            map(() => {
               this.finAssistApp.spouseAgeOver65 = false;
             }))
       ),
       merge(
           fromEvent<MouseEvent>(this.hasSpouse.nativeElement, 'click').pipe(
-            map(x => {
+            map(() => {
               this.dataService.finAssistApp.setSpouse = true;
             }))
       ),
       merge(
           fromEvent<MouseEvent>(this.negativeHasSpouse.nativeElement, 'click').pipe(
-            map(x => {
+            map(() => {
               this.finAssistApp.setSpouse = false;
             }))
       ))
       .subscribe(
-        values => {
+        () => {
           // console.log('values before saving: ', values);
           this.dataService.saveFinAssistApplication();
         }
@@ -267,7 +262,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
     this.finAssistApp.spouseClaimForAttendantCareExpense || this.finAssistApp.childClaimForAttendantCareExpense;
   }
 
-  applicantClaimForAttendantCareExpense($event: Event){
+  applicantClaimForAttendantCareExpense($event){
     if (!this.finAssistApp.applicantClaimForAttendantCareExpense
         && this.finAssistApp.selfDisabilityCredit === true){
       event.preventDefault();
@@ -283,7 +278,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
     }
   }
 
-  spouseClaimForAttendantCareExpense($event: Event){
+  spouseClaimForAttendantCareExpense(){
     if (!this.finAssistApp.spouseClaimForAttendantCareExpense
         && (this.finAssistApp.spouseDSPAmount_line125 || this.finAssistApp.spouseEligibleForDisabilityCredit)){
       event.preventDefault();
@@ -299,7 +294,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
     }
   }
 
-  childClaimForAttendantCareExpense(evt: boolean){
+  childClaimForAttendantCareExpense(){
     this.finAssistApp.childClaimForAttendantCareExpense = !this.finAssistApp.childClaimForAttendantCareExpense;
 
     // if(!this.finAssistApp.childClaimForAttendantCareExpense && this.finAssistApp.childWithDisabilityCount){

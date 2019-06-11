@@ -22,7 +22,7 @@
       <label [innerHTML]="lang('./en/index.js').docUploadInstruction" tabindex="0">
       </label>
 
-      <msp-file-uploader #fileUploader
+      <common-file-uploader #fileUploader
                          [images]="application.assistYeaDocs"
                          [id]='application.id'
                          (onAddDocument)="addDoc($event)"
@@ -34,7 +34,7 @@
           Please upload Notice of Assessment documents
         </span>
 
-      </msp-file-uploader>
+      </common-file-uploader>
       <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
     </div>
   </div>

@@ -13,7 +13,6 @@ import {Relationship, StatusInCanada} from '../../../model/status-activities-doc
 import {BaseComponent} from '../../../../../models/base.component';
 import {MspToggleComponent} from '../../../common/toggle/toggle.component';
 import {MspProvinceComponent} from '../../../common/province/province.component';
-import {MspDateComponent} from '../../../common/date/date.component';
 import {MspOutofBCRecordComponent} from '../../../common/outof-bc/outof-bc.component';
 import {MspDischargeDateComponent} from '../../../common/discharge-date/discharge-date.component';
 import { OutofBCRecord } from '../../../model/outof-bc-record.model';
@@ -70,7 +69,7 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
 
     @ViewChildren(MspToggleComponent) toggleComponents: QueryList<MspToggleComponent>;
     @ViewChildren(MspProvinceComponent) provinceComponents: QueryList<MspProvinceComponent>;
-    @ViewChildren(MspDateComponent) dateComponents: QueryList<MspDateComponent>;
+    //@ViewChildren(DateComponent) dateComponents: QueryList<DateComponent>;
     @ViewChildren(MspOutofBCRecordComponent) outOfBCComponents: QueryList<MspOutofBCRecordComponent>;
     @ViewChildren(MspDischargeDateComponent) dischargeDateComponents: QueryList<MspDischargeDateComponent>;
 
