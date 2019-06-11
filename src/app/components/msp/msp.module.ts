@@ -34,17 +34,17 @@ import { MspAccordionComponent } from './common/accordion/accordion.component';
 //import { MspAddressCardPartComponent } from './common/address-card-part/address-card-part.component';
 import { TextMaskModule } from 'angular2-text-mask';
 //import { MspContactCardComponent } from './common/contact-card/contact-card.component';
-import { KeyboardEventListner } from './common/keyboard-listener/keyboard-listener.directive';
+import { KeyboardEventListner } from '../../modules/msp-core/components/keyboard-listener/keyboard-listener.directive';
 import { MspLoggerDirective } from './common/logging/msp-logger.directive';
 //import { MspPersonCardComponent } from './common/person-card/person-card.component';
 //import { LandingComponent } from '../../pages/landing/landing.component';
-import { CompletenessCheckService } from './service/completeness-check.service';
-import { MspLogService } from './service/log.service';
+import { CompletenessCheckService } from '../../services/completeness-check.service';
+import { MspLogService } from '../../services/log.service';
 import { MspApiService } from './service/msp-api.service';
 import { MspACLService } from './service/msp-acl-api.service';
 import { MspLog2Service } from './service/log2.service';
 import { MspDataService } from './service/msp-data.service';
-import { MspValidationService } from './service/msp-validation.service';
+import { MspValidationService } from '../../services/msp-validation.service';
 import { ProcessService } from './service/process.service';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import {AccountDocumentHelperService} from './service/account-document-helper.service';
@@ -57,21 +57,20 @@ import { AccountLetterConfirmationComponent } from './account-letter/confirmatio
 import { SpecificMemberComponent } from './account-letter/personal-info/specific-member/specific-member.component';
 import { AclErrorViewComponent } from './account-letter/sending/acl-error-view/acl-error-view.component';
 import { ReplacewithlinksPipe } from './common/replace-link-pipe/replacewithlinks.pipe';
-import { BenefitComponent } from './benefit/benefit.component';
-import {BenefitPrepareComponent} from './benefit/prepare/prepare.component';
+import {BenefitPrepareComponent} from '../../modules/benefit/pages/prepare/prepare.component';
 import {MspBenefitDataService} from './service/msp-benefit-data.service';
-import { BenefitDeductionCalculatorComponent } from './benefit/prepare/benefit-deduction-calculator/benefit-deduction-calculator.component';
-import {BenefitPersonalInfoComponent} from './benefit/personal-info/personal-info.component';
-import {BenefitPersonalDetailComponent} from './benefit/personal-info/personal-detail/personal-detail.component';
-import {BenefitDocumentsComponent} from './benefit/documents/documents.component';
-import {BenefitReviewComponent} from './benefit/review/review.component';
-import {BenefitEligibilityCardComponent} from './benefit/prepare/eligibility-card/eligibility-card.component';
-import { BenefitAuthorizeSubmitComponent } from './benefit/authorize-submit/authorize-submit.component';
-import {BenefitSendingComponent} from './benefit/sending/sending.component';
-import {BenefitConfirmationComponent} from './benefit/confirmation/confirmation.component';
-import { TaxYearComponent } from './benefit/prepare/tax-year/tax-year.component';
+import { BenefitDeductionCalculatorComponent } from '../../modules/benefit/pages/prepare/benefit-deduction-calculator/benefit-deduction-calculator.component';
+import {BenefitPersonalInfoComponent} from '../../modules/benefit/pages/personal-info/personal-info.component';
+import {BenefitPersonalDetailComponent} from '../../modules/benefit/pages/personal-info/personal-detail/personal-detail.component';
+import {BenefitDocumentsComponent} from '../../modules/benefit/pages/documents/documents.component';
+import {BenefitReviewComponent} from '../../modules/benefit/pages/review/review.component';
+import {BenefitEligibilityCardComponent} from '../../modules/benefit/pages/prepare/eligibility-card/eligibility-card.component';
+import { BenefitAuthorizeSubmitComponent } from '../../modules/benefit/pages/authorize-submit/authorize-submit.component';
+import {BenefitSendingComponent} from '../../modules/benefit/pages/sending/sending.component';
+import {BenefitConfirmationComponent} from '../../modules/benefit/pages/confirmation/confirmation.component';
+import { TaxYearComponent } from '../../modules/benefit/pages/prepare/tax-year/tax-year.component';
 import { CommonButtonGroupComponent } from './common/common-button-group/common-button-group.component';
-import { CommonDeductionCalculatorComponent } from './common/common-deduction-calculator/common-deduction-calculator.component';
+import { CommonDeductionCalculatorComponent } from '../../modules/msp-core/components/common-deduction-calculator/common-deduction-calculator.component';
 import { CommonIncomeInputtextComponent } from './common/common-income-inputtext/common-income-inputtext.component';
 import { CommonButtonComponent } from './common/common-button/common-button.component';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -217,52 +216,6 @@ const APP_ROUTES: Routes = [
 
                 ],
             },
-            {
-                path: 'benefit',
-                component: BenefitComponent,
-                children: [
-                    {
-                        path: '',
-                        redirectTo: 'prepare',
-                        pathMatch: 'full'
-                    },
-                    {
-                        path: 'prepare',
-                        component: BenefitPrepareComponent
-                    },
-                   {
-                        path: 'personal-info',
-                        canActivate: [ProcessService],
-                        component: BenefitPersonalInfoComponent,
-
-                    },
-                     {
-                         path: 'documents',
-                         canActivate: [ProcessService],
-                         component: BenefitDocumentsComponent
-                     },
-                    {
-                        path: 'review',
-                        canActivate: [ProcessService],
-                        component: BenefitReviewComponent
-                    },
-                     {
-                         path: 'authorize-submit',
-                         canActivate: [ProcessService],
-                         component: BenefitAuthorizeSubmitComponent
-                     },
-                       {
-                          path: 'sending',
-                          canActivate: [ProcessService],
-                          component: BenefitSendingComponent
-                      },
-                      {
-                          path: 'confirmation',
-                          canActivate: [],
-                          component: BenefitConfirmationComponent
-                      }
-                ]
-            },
 
    //     ]
  //   },
@@ -295,7 +248,7 @@ const APP_ROUTES: Routes = [
     ],
     declarations: [
         MspLoggerDirective,
-        KeyboardEventListner,
+        //KeyboardEventListner,
 
         // View cards
      //   MspPersonCardComponent,
@@ -342,21 +295,21 @@ const APP_ROUTES: Routes = [
         SpecificMemberComponent,
         AclErrorViewComponent,
 
-        BenefitComponent,
-        BenefitPrepareComponent,
-        BenefitPersonalInfoComponent,
-        BenefitPersonalDetailComponent,
-        BenefitDeductionCalculatorComponent,
-        BenefitDocumentsComponent,
-        BenefitReviewComponent,
-        BenefitEligibilityCardComponent,
-        BenefitAuthorizeSubmitComponent,
-        BenefitSendingComponent,
-        BenefitConfirmationComponent,
-        TaxYearComponent,
+       //BenefitComponent,
+        //BenefitPrepareComponent,
+        //BenefitPersonalInfoComponent,
+        //BenefitPersonalDetailComponent,
+        //BenefitDeductionCalculatorComponent,
+        //BenefitDocumentsComponent,
+        //BenefitReviewComponent,
+        //BenefitEligibilityCardComponent,
+        //BenefitAuthorizeSubmitComponent,
+        //BenefitSendingComponent,
+        //BenefitConfirmationComponent,
+        //TaxYearComponent,
 
         CommonButtonGroupComponent,
-        CommonDeductionCalculatorComponent,
+        //CommonDeductionCalculatorComponent,
         CommonIncomeInputtextComponent,
         CommonButtonComponent,
     ],
@@ -369,11 +322,11 @@ const APP_ROUTES: Routes = [
         CompletenessCheckService,
         MspApiService,
         MspACLService,
-        MspLogService,
+        //MspLogService,
         MspLog2Service,
       //  ProcessService,
         AccountDocumentHelperService,
-        MspBenefitDataService
+        //MspBenefitDataService
     ]
 })
 @Injectable()

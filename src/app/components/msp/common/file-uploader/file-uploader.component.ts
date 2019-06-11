@@ -7,7 +7,7 @@ import { Observable ,  Observer, fromEvent, merge } from 'rxjs';
 import {map, filter, flatMap, scan, delay, retryWhen} from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
 import { MspImage, MspImageError, MspImageProcessingError, MspImageScaleFactors, MspImageScaleFactorsImpl } from '../../model/msp-image';
-import { MspLogService } from '../../service/log.service';
+import { MspLogService } from '../../../../services/log.service';
 import { MspDataService } from '../../service/msp-data.service';
 import { BaseComponent } from '../base.component';
 import { LogEntry } from '../logging/log-entry.model';

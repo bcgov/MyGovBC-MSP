@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MspLogService } from './log.service';
+import { MspLogService } from '../../../services/log.service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { BenefitApplication } from '../model/benefit-application.model';
 import { BenefitApplicationTypeFactory, BenefitApplicationType  } from '../../../modules/enrolment/pages/api-model/benefitTypes';

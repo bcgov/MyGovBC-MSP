@@ -1,12 +1,12 @@
 import {TestBed, inject} from '@angular/core/testing';
 import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
-import {MspLogService} from './log.service';
+import {MspLogService} from '../../../services/log.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {CommonModule} from '@angular/common';
-import { CompletenessCheckService } from './completeness-check.service';
+import { CompletenessCheckService } from '../../../services/completeness-check.service';
 import { MspDataService } from './msp-data.service';
-import {MspValidationService} from './msp-validation.service';
+import {MspValidationService} from '../../../services/msp-validation.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspApiService} from './msp-api.service';
 import {HttpClientModule} from '@angular/common/http';

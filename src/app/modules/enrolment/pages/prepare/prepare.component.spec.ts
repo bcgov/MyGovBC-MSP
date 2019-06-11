@@ -7,7 +7,7 @@ import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage
 import {MspConsentModalComponent} from '../../../../components/msp/common/consent-modal/consent-modal.component';
 import {MspCancelComponent} from '../../../../components/msp/common/cancel/cancel.component';
 import {MspLoggerDirective} from '../../../../components/msp/common/logging/msp-logger.directive';
-import { MspLogService } from '../../../../components/msp/service/log.service';
+import { MspLogService } from '../../../../services/log.service';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';

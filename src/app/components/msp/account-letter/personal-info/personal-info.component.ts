@@ -21,7 +21,7 @@ import {
 import {environment} from '../../../../../environments/environment';
 import {SpecificMemberComponent} from './specific-member/specific-member.component';
 import {LETTER, Masking, NUMBER, SPACE} from '../../model/masking.model';
-import {MspLogService} from '../../service/log.service';
+import {MspLogService} from '../../../../services/log.service';
 //import { PhnComponent } from 'moh-common-lib';
 
 @Component({

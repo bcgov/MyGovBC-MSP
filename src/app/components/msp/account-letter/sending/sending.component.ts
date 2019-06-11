@@ -4,7 +4,7 @@ import {MspDataService} from '../../service/msp-data.service';
 import {MspACLService} from '../../service/msp-acl-api.service';
 import {Router} from '@angular/router';
 import {ResponseType} from '../../../../modules/enrolment/pages/api-model/responseTypes';
-import {MspLogService} from '../../service/log.service';
+import {MspLogService} from '../../../../services/log.service';
 import {ProcessService} from '../../service/process.service';
 import {ISpaEnvResponse} from '../../model/spa-env-response.interface';
 import {AccountLetterApplication} from '../../model/account-letter-application.model';

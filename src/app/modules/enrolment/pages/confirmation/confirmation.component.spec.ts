@@ -7,7 +7,7 @@ import { ConfirmationComponent } from './confirmation.component';
 import { MspDataService } from '../../../../components/msp/service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspLoggerDirective} from '../../../../components/msp/common/logging/msp-logger.directive';
-import { MspLogService } from '../../../../components/msp/service/log.service';
+import { MspLogService } from '../../../../services/log.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {HttpClientModule} from '@angular/common/http';

@@ -7,7 +7,7 @@ import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage
 import {MspApiService} from '../../service/msp-api.service';
 import { ProcessService } from '../../service/process.service';
 import {HttpClientModule} from '@angular/common/http';
-import {MspLogService} from '../../service/log.service';
+import {MspLogService} from '../../../../services/log.service';
 import {TransmissionErrorView} from '../../common/transmission-error-view/transmission-error-view.component';
 import {MspMaintenanceService} from '../../service/msp-maintenance.service';
 

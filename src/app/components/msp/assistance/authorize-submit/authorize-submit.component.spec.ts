@@ -8,10 +8,10 @@ import {ThumbnailComponent} from '../../common/thumbnail/thumbnail.component';
 import {MspCancelComponent} from '../../common/cancel/cancel.component';
 import {MspImageErrorModalComponent} from '../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';
 import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';
-import { MspLogService } from '../../service/log.service';
-import { MspValidationService } from '../../service/msp-validation.service';
+import { MspLogService } from '../../../../services/log.service';
+import { MspValidationService } from '../../../../services/msp-validation.service';
 
-import { CompletenessCheckService } from '../../service/completeness-check.service';
+import { CompletenessCheckService } from '../../../../services/completeness-check.service';
 import { ProcessService } from '../../service/process.service';
 import {RouterTestingModule} from '@angular/router/testing';
 //import { CaptchaDataService } from '../../../mygovbc-captcha-widget/src/app/captcha-data.service'

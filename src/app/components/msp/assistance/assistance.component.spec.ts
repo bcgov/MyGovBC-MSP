@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import {RouterTestingModule} from '@angular/router/testing';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { ProcessService } from '../service/process.service';
-import {MspLogService} from '../service/log.service';
+import {MspLogService} from '../../../services/log.service';
 import {HttpClientModule} from '@angular/common/http';
 
 describe('AssistanceComponent', () => {

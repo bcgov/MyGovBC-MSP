@@ -6,7 +6,7 @@ import { AccountConfirmationComponent } from './confirmation.component';
 import { MspDataService } from '../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';
-import { MspLogService } from '../../service/log.service';
+import { MspLogService } from '../../../../services/log.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable} from 'rxjs/internal/Observable';
 import { Subscription} from 'rxjs/internal/Subscription';

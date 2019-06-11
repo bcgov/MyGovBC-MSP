@@ -9,7 +9,7 @@ import {
 } from "@angular/http";
 import {TestBed, getTestBed, inject} from '@angular/core/testing';
 import {MspMaintenanceService} from './msp-maintenance.service';
-import {MspLogService} from './log.service';
+import {MspLogService} from '../../../services/log.service';
 import {MspDataService} from './msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {HttpClientModule} from '@angular/common/http';

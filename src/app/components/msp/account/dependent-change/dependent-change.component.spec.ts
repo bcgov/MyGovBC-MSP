@@ -41,10 +41,10 @@ import { Mod11CheckValidator } from '../../common/phn/phn.validator';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 
-import { MspLogService } from '../../service/log.service';
+import { MspLogService } from '../../../../services/log.service';
 import { async } from '@angular/core/testing';
-import { CompletenessCheckService } from '../../service/completeness-check.service';
-import { MspValidationService} from '../../service/msp-validation.service';
+import { CompletenessCheckService } from '../../../../services/completeness-check.service';
+import { MspValidationService} from '../../../../services/msp-validation.service';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp/common/services-card-disclaimer/services-card-disclaimer.component';
 
 

@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MspDataService } from '../../../service/msp-data.service';
 import {HttpClientModule} from '@angular/common/http';
 import { ProcessService } from '../../../service/process.service';
-import { MspLogService } from '../../../service/log.service';
+import { MspLogService } from '../../../../../services/log.service';
 import { MspACLService } from '../../../service/msp-acl-api.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import { LocalStorageModule } from 'angular-2-local-storage';

@@ -17,7 +17,7 @@ import { MspImage } from '../model/msp-image';
 import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../model/msp-person.model';
 import { SimpleDate } from '../model/simple-date.interface';
 import { Activities, Relationship, StatusInCanada } from '../model/status-activities-documents';
-import { MspLogService } from './log.service';
+import { MspLogService } from '../../../services/log.service';
 import { MspMaintenanceService } from '../service/msp-maintenance.service';
 import { Response } from '@angular/http';
 import {ISpaEnvResponse} from '../model/spa-env-response.interface';

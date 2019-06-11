@@ -8,7 +8,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {ModalModule} from 'ngx-bootstrap';
 import {MspMaintenanceService} from '../../service/msp-maintenance.service';
 import {HttpClientModule} from '@angular/common/http';
-import {MspLogService} from '../../service/log.service';
+import {MspLogService} from '../../../../services/log.service';
 
 
 describe('MspConsentModalComponent', () => {

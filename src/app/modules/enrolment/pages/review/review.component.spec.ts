@@ -12,7 +12,7 @@ import {ModalModule} from 'ngx-bootstrap';
 import {RouterTestingModule} from '@angular/router/testing';
 import {MspCancelComponent} from '../../../../components/msp/common/cancel/cancel.component';
 import {MspLoggerDirective} from '../../../../components/msp/common/logging/msp-logger.directive';
-import { MspLogService } from '../../../../components/msp/service/log.service';
+import { MspLogService } from '../../../../services/log.service';
 
 import { ProcessService } from '../../../../components/msp/service/process.service';
 import { CaptchaComponent } from 'mygovbc-captcha-widget/src/app/captcha/captcha.component';

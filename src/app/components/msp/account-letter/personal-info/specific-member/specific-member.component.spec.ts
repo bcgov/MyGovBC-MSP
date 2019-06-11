@@ -8,7 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ProcessService } from '../../../service/process.service';
 import { MspACLService } from '../../../service/msp-acl-api.service';
 import { MspDataService } from '../../../service/msp-data.service';
-import { MspLogService } from '../../../service/log.service';
+import { MspLogService } from '../../../../../services/log.service';
 import {Mod11CheckValidator} from '../../../common/phn/phn.validator';
 import {TextMaskModule} from 'angular2-text-mask';
 import {Person} from "../../../model/msp-person.model";

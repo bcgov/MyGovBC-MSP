@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, Injectable, ViewChild, ElementRef} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
-import {MspLogService} from '../../service/log.service';
+import {MspLogService} from '../../../../services/log.service';
 
 import {MspAccountApp, AccountChangeOptions} from '../../model/account.model';
 import * as _ from 'lodash';

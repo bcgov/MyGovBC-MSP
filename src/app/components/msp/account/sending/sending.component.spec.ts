@@ -8,7 +8,7 @@ import {MspApiService} from '../../service/msp-api.service';
 import { ProcessService } from '../../service/process.service';
 import {HttpClientModule} from '@angular/common/http';
 import {TransmissionErrorView} from '../../common/transmission-error-view/transmission-error-view.component';
-import {MspLogService} from '../../service/log.service';
+import {MspLogService} from '../../../../services/log.service';
 import {MspMaintenanceService} from '../../service/msp-maintenance.service';
 
 describe('SendingComponent', () => {

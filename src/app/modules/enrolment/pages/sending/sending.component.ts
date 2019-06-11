@@ -5,7 +5,7 @@ import { ISpaEnvResponse } from 'moh-common-lib/lib/components/consent-modal/con
 import { MspDataService } from '../../../../components/msp/service/msp-data.service';
 import { MspApiService } from '../../../../components/msp/service/msp-api.service';
 import { ProcessService } from '../../../../components/msp/service/process.service';
-import { MspLogService } from '../../../../components/msp/service/log.service';
+import { MspLogService } from '../../../../services/log.service';
 
 @Component({
   templateUrl: 'sending.component.html',

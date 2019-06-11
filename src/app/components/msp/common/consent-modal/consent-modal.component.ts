@@ -9,7 +9,7 @@ import { environment } from '../../../../../environments/environment';
 import { MspMaintenanceService } from "../../service/msp-maintenance.service";
 import { Response } from '@angular/http';
 import { MspLog2Service } from '../../service/log2.service';
-import { MspLogService } from '../../service/log.service';
+import { MspLogService } from '../../../../services/log.service';
 import {MspACLService} from "../../service/msp-acl-api.service";
 import {ISpaEnvResponse} from '../../model/spa-env-response.interface'
 

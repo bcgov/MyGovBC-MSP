@@ -13,7 +13,7 @@ import {FileUploaderComponent} from '../../common/file-uploader/file-uploader.co
 import {ThumbnailComponent} from '../../common/thumbnail/thumbnail.component';
 import {MspImageErrorModalComponent} from '../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';
 import {MspAssistanceYearComponent} from './assistance-year/assistance-year.component';
-import { MspLogService } from '../../service/log.service';
+import { MspLogService } from '../../../../services/log.service';
 import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';
 import {HttpClientModule} from '@angular/common/http';
 

@@ -50,6 +50,8 @@ import { MspPersonCardComponent } from '../../components/msp/common/person-card/
 import { MspContactCardComponent } from '../../components/msp/common/contact-card/contact-card.component';
 import { MspAddressCardPartComponent } from '../../components/msp/common/address-card-part/address-card-part.component';
 import { BaseComponent } from '../../components/msp/common/base.component';
+import { CommonDeductionCalculatorComponent } from './components/common-deduction-calculator/common-deduction-calculator.component';
+import { KeyboardEventListner } from './components/keyboard-listener/keyboard-listener.directive';
 
 
 const componentList = [
@@ -60,7 +62,12 @@ const componentList = [
   MspStatusInCanadaRadioComponent,
   MspIdReqModalComponent,
   MspBirthDateComponent,
-  MspImageErrorModalComponent
+  MspImageErrorModalComponent,
+  CommonDeductionCalculatorComponent,
+
+
+  // Directives
+  KeyboardEventListner
 ];
 
 

@@ -12,9 +12,9 @@ import {MspProvinceComponent} from '../../../common/province/province.component'
 import { TypeaheadModule } from 'ngx-bootstrap';
 import {MspGenderComponent} from '../../../common/gender/gender.component';
 import {MspCountryComponent} from '../../../common/country/country.component';
-import { MspLogService } from '../../../service/log.service';
-import { MspValidationService } from '../../../service/msp-validation.service';
-import { CompletenessCheckService } from '../../../service/completeness-check.service';
+import { MspLogService } from '../../../../../services/log.service';
+import { MspValidationService } from '../../../../../services/msp-validation.service';
+import { CompletenessCheckService } from '../../../../../services/completeness-check.service';
 
 import {CalendarYearFormatter} from '../../../common/calendar/calendar-year-formatter.component';
 import {CalendarYearValidator} from '../../../common/calendar/calendar-year.validator';

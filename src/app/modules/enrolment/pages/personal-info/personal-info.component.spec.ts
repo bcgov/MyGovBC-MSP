@@ -22,15 +22,15 @@ import { TypeaheadModule } from 'ngx-bootstrap';
 import {ThumbnailComponent} from '../../../../components/msp/common/thumbnail/thumbnail.component';
 import {ModalModule, AccordionModule} from 'ngx-bootstrap';
 import {HealthNumberComponent} from '../../../../components/msp/common/health-number/health-number.component';
-import { CompletenessCheckService } from '../../../../components/msp/service/completeness-check.service';
+import { CompletenessCheckService } from '../../../../services/completeness-check.service';
 import {MspCountryComponent} from '../../../../components/msp/common/country/country.component';
 import {MspIdReqModalComponent} from '../../../msp-core/components/id-req-modal/id-req-modal.component';
 import {MspOutofBCRecordComponent} from '../../../../components/msp/common/outof-bc/outof-bc.component';
 import {MspCancelComponent} from '../../../../components/msp/common/cancel/cancel.component';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
 import {MspLoggerDirective} from '../../../../components/msp/common/logging/msp-logger.directive';
-import { MspLogService } from '../../../../components/msp/service/log.service';
-import {MspValidationService} from '../../../../components/msp/service/msp-validation.service';
+import { MspLogService } from '../../../../services/log.service';
+import {MspValidationService} from '../../../../services/msp-validation.service';
 import {TextMaskModule} from 'angular2-text-mask';
 
 

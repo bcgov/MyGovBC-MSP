@@ -13,7 +13,7 @@ import {
 } from "@angular/http";
 import {TestBed, getTestBed, fakeAsync, tick} from '@angular/core/testing';
 import {MspACLService} from './msp-acl-api.service';
-import {MspLogService} from './log.service';
+import {MspLogService} from '../../../services/log.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterTestingModule} from '@angular/router/testing';

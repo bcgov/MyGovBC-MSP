@@ -8,7 +8,7 @@ import {MspDataService} from '../service/msp-data.service';
 import {environment} from '../../../../environments/environment';
 import {Router, NavigationEnd} from '@angular/router';
 import { filter } from 'rxjs/operators';
-import {MspLogService} from '../service/log.service';
+import {MspLogService} from '../../../services/log.service';
 import {Subscription} from 'rxjs/internal/Subscription';
 
 

@@ -13,6 +13,10 @@ const routes: Routes = [
     loadChildren: 'app/modules/enrolment/enrolment.module#EnrolmentModule'
   },
   {
+    path: 'benefit',
+    loadChildren: 'app/modules/benefit/benefit.module#BenefitModule'
+  },
+  {
     path: 'old-msp',
     loadChildren: 'app/components/msp/msp.module#MspModule'
   },

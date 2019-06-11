@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Component, ViewChild, AfterViewInit, OnInit, ElementRef} from '@angular/core';
 import { FormsModule, FormGroup, NgForm, AbstractControl } from '@angular/forms';
-import { MspLogService } from '../../../service/log.service';
+import { MspLogService } from '../../../../../services/log.service';
 import {DeductionCalculatorComponent} from './deduction-calculator.component';
 import { MspDataService } from '../../../service/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';

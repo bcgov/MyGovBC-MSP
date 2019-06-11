@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, ViewChild, AfterViewInit, OnInit, ViewChil
 import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
 
 import { MspDataService } from '../../service/msp-data.service';
-import { CompletenessCheckService}  from '../../service/completeness-check.service';
+import { CompletenessCheckService}  from '../../../../services/completeness-check.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import { Router } from '@angular/router';
 import {BaseComponent} from '../../common/base.component';

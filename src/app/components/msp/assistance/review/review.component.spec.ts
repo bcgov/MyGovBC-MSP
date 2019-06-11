@@ -12,7 +12,7 @@ import {ThumbnailComponent} from '../../common/thumbnail/thumbnail.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {MspCancelComponent} from '../../common/cancel/cancel.component';
 import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';
-import {MspLogService} from '../../service/log.service';
+import {MspLogService} from '../../../../services/log.service';
 import { ModalModule } from 'ngx-bootstrap';
 
 import { ProcessService } from '../../service/process.service';

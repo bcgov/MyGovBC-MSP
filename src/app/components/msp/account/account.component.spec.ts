@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { MspProgressBarComponent } from '../common/progressBar/progressBar.component';
-import { MspLogService } from '../service/log.service';
+import { MspLogService } from '../../../services/log.service';
 import { MspDataService } from '../service/msp-data.service';
 import { ProcessService } from '../service/process.service';
 import { AccountComponent } from './account.component';

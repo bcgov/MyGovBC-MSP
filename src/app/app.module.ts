@@ -11,6 +11,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { MspDataService } from './components/msp/service/msp-data.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { ProcessService } from './components/msp/service/process.service';
+import { MspLogService } from './services/log.service';
+import { CompletenessCheckService } from './services/completeness-check.service';
+import { MspValidationService } from './services/msp-validation.service';
 
 @NgModule({
   imports: [
@@ -36,7 +39,13 @@ import { ProcessService } from './components/msp/service/process.service';
   ],
   providers: [
     MspDataService,
-    ProcessService
+    ProcessService,
+    MspLogService,
+    CompletenessCheckService,
+
+    // Called by Completeness Check Service - PHN check, probably can be removed once
+    // phn component from common lib is use - will require re-factoring
+    MspValidationService 
   ],
 
   bootstrap: [GeneralAppComponent]

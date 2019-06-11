@@ -5,7 +5,7 @@ import {FinancialAssistApplication} from '../../model/financial-assist-applicati
 import {MspImage} from '../../model/msp-image';
 import {MspImageErrorModalComponent} from '../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';
 import {MspFileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
-import {CompletenessCheckService} from '../../service/completeness-check.service';
+import {CompletenessCheckService} from '../../../../services/completeness-check.service';
 import {ProcessService} from '../../service/process.service';
 import {Router} from '@angular/router';
 import { environment } from '../../../../../environments/environment';

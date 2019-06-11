@@ -3,7 +3,7 @@ import { MspDataService } from '../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import {ProcessService} from '../../service/process.service';
 import { Router, NavigationEnd } from '@angular/router';
-import { MspLogService } from '../../service/log.service';
+import { MspLogService } from '../../../../services/log.service';
 @Component({
   templateUrl: './review.component.html'
 })
