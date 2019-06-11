@@ -1,8 +1,10 @@
 <form #formRef="ngForm" novalidate >
     <common-page-framework layout="blank">
+  <a onclick="window.print();return false;" >   
   <b class="float-right">Print <i class="fa fa-print fa-lg pointer" 
     aria-hidden="true"></i>
   </b> 
+ </a> 
   
   <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
   
