@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MspDataService } from './msp-data.service';
-import {FinancialAssistApplication} from '../components/msp/model/financial-assist-application.model';
+import {FinancialAssistApplication} from '../modules/assistance/models/financial-assist-application.model';
 //import {MspApplication} from '../model/application.model';
 import { MspValidationService } from './msp-validation.service';
 import {MspPerson} from '../components/msp/model/msp-person.model';

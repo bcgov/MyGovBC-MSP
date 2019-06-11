@@ -23,7 +23,7 @@ import {MspDataService} from '../../../../../services/msp-data.service';
 
 
 import './personal-details.component.scss';
-import {BaseComponent} from '../../../common/base.component';
+import {BaseComponent} from '../../../../../models/base.component';
 
 @Component({
         selector: 'msp-account-personal-details',

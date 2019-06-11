@@ -1,8 +1,8 @@
 import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import * as moment from 'moment';
-import {BaseComponent} from '../../../../../components/msp/common/base.component';
-import {AssistanceYear} from '../../../../../components/msp/model/assistance-year.model';
-import {BenefitApplication} from '../../../../../components/msp/model/benefit-application.model';
+import {BaseComponent} from '../../../../../models/base.component';
+import {AssistanceYear} from '../../../../assistance/models/assistance-year.model';
+import {BenefitApplication} from '../../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../../services/msp-benefit-data.service';
 import {ISpaEnvResponse} from '../../../../../components/msp/model/spa-env-response.interface';
 

@@ -5,8 +5,8 @@ import {MspPerson} from '../../../../../components/msp/model/msp-person.model';
 import {NgForm} from '@angular/forms';
 import {MspNameComponent} from '../../../../../components/msp/common/name/name.component';
 import {MspBirthDateComponent} from '../../../../msp-core/components/birthdate/birthdate.component';
-import {BaseComponent} from '../../../../../components/msp/common/base.component';
-import {BenefitApplication} from '../../../../../components/msp/model/benefit-application.model';
+import {BaseComponent} from '../../../../../models/base.component';
+import {BenefitApplication} from '../../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../../services/msp-benefit-data.service';
 
 @Component({

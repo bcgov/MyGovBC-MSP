@@ -1,13 +1,13 @@
 import {ChangeDetectorRef, Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {  Router } from '@angular/router';
-import {MspApplication, MspPerson} from '../../../../components/msp/model/application.model';
+import {MspApplication, MspPerson} from '../../models/application.model';
 import * as _ from 'lodash';
 import { merge} from 'rxjs/internal/observable/merge';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
 import {ProcessService} from '../../../../components/msp/service/process.service';
-import {BaseComponent} from '../../../../components/msp/common/base.component';
+import {BaseComponent} from '../../../../models/base.component';
 import {CommonButtonGroupComponent} from '../../../../components/msp/common/common-button-group/common-button-group.component';
 
 @Component({

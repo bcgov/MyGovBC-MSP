@@ -1,6 +1,6 @@
 import {Component, Injectable, ViewChild, ViewChildren,
   ChangeDetectorRef, QueryList, AfterViewInit, OnInit} from '@angular/core';
-import {MspApplication, MspPerson} from '../../../../components/msp/model/application.model';
+import {MspApplication, MspPerson} from '../../models/application.model';
 
 // import {MspDataService} from '../../service/msp-data.service';
 import { MspDataService } from '../../../../services/msp-data.service';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import {Relationship} from '../../../../components/msp/model/status-activities-documents';
 import {NgForm} from '@angular/forms';
 import {PersonalDetailsComponent} from '../../../msp-core/components/personal-details/personal-details.component';
-import {BaseComponent} from '../../../../components/msp/common/base.component';
+import {BaseComponent} from '../../../../models/base.component';
 import {ProcessService} from '../../../../components/msp/service/process.service';
 import { StatusInCanada} from '../../../../components/msp/model/status-activities-documents';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';

@@ -17,7 +17,7 @@ import { MspPhnComponent } from '../../common/phn/phn.component';
 import { MspPhoneComponent } from '../../common/phone/phone.component';
 import { MspDischargeDateComponent } from '../../common/discharge-date/discharge-date.component';
 import { MspSchoolDateComponent } from '../../common/schoolDate/school-date.component';
-import { MspAddressComponent } from '../../common/address/address.component';
+import { MspAddressComponent } from '../../../../modules/msp-core/components/address/address.component';
 import { MspProvinceComponent } from '../../common/province/province.component';
 import { MspArrivalDateComponent } from '../../common/arrival-date/arrival-date.component';
 import { MspOutofBCRecordComponent } from '../../common/outof-bc/outof-bc.component';

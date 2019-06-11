@@ -23,7 +23,7 @@ import { CalendarYearFormatter } from '../../components/msp/common/calendar/cale
 import { CalendarYearValidator } from '../../components/msp/common/calendar/calendar-year.validator';
 import { CalendarDayValidator } from '../../components/msp/common/calendar/calendar-day.validator';
 import { CalendarMonthValidator } from '../../components/msp/common/calendar/calendar-month.validator';
-import { MspAddressComponent } from '../../components/msp/common/address/address.component';
+import { MspAddressComponent } from './components/address/address.component';
 import { MspProvinceComponent } from '../../components/msp/common/province/province.component';
 import { MspCountryComponent } from '../../components/msp/common/country/country.component';
 import { MspPhoneComponent } from '../../components/msp/common/phone/phone.component';
@@ -36,7 +36,7 @@ import { MspGenderComponent } from '../../components/msp/common/gender/gender.co
 import { MspProgressBarComponent } from '../../components/msp/common/progressBar/progressBar.component';
 import { TransmissionErrorView } from '../../components/msp/common/transmission-error-view/transmission-error-view.component';
 import { MspOutofBCRecordComponent } from '../../components/msp/common/outof-bc/outof-bc.component';
-import { MspConsentModalComponent } from '../../components/msp/common/consent-modal/consent-modal.component';
+import { MspConsentModalComponent } from './components/consent-modal/consent-modal.component';
 import { MspCancelComponent } from '../../components/msp/common/cancel/cancel.component';
 import { MspToggleComponent } from '../../components/msp/common/toggle/toggle.component';
 import { MspDateComponent } from '../../components/msp/common/date/date.component';
@@ -48,10 +48,9 @@ import { RouterModule } from '@angular/router';
 import { ReplacewithlinksPipe } from '../../components/msp/common/replace-link-pipe/replacewithlinks.pipe';
 import { MspPersonCardComponent } from '../../components/msp/common/person-card/person-card.component';
 import { MspContactCardComponent } from '../../components/msp/common/contact-card/contact-card.component';
-import { MspAddressCardPartComponent } from '../../components/msp/common/address-card-part/address-card-part.component';
-import { BaseComponent } from '../../components/msp/common/base.component';
 import { CommonDeductionCalculatorComponent } from './components/common-deduction-calculator/common-deduction-calculator.component';
 import { KeyboardEventListner } from './components/keyboard-listener/keyboard-listener.directive';
+import { MspAddressCardPartComponent } from './components/address-card-part/address-card-part.component';
 
 
 const componentList = [
@@ -64,6 +63,7 @@ const componentList = [
   MspBirthDateComponent,
   MspImageErrorModalComponent,
   CommonDeductionCalculatorComponent,
+  MspAddressCardPartComponent,
 
 
   // Directives
@@ -105,7 +105,6 @@ const templistCore = [
   ReplacewithlinksPipe,
   MspPersonCardComponent,
   MspContactCardComponent,
-  MspAddressCardPartComponent,
 ];
 @NgModule({
   imports: [

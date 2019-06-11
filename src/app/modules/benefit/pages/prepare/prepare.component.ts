@@ -1,18 +1,15 @@
-import {AfterViewInit, ChangeDetectorRef, Component, DoCheck, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {BaseComponent} from '../../../../components/msp/common/base.component';
-import {MspDataService} from '../../../../services/msp-data.service';
-import {FinancialAssistApplication} from '../../../../components/msp/model/financial-assist-application.model';
-import {BenefitApplication} from '../../../../components/msp/model/benefit-application.model';
+import {ChangeDetectorRef, Component, ElementRef, ViewChild} from '@angular/core';
+import {BaseComponent} from '../../../../models/base.component';
+import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 import {MspFileUploaderComponent} from '../../../../components/msp/common/file-uploader/file-uploader.component';
 import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
 import {ModalDirective} from 'ngx-bootstrap';
 import {NgForm} from '@angular/forms';
-import {MspImage} from '../../../../components/msp/model/msp-image';
-import {AssistanceYear} from '../../../../components/msp/model/assistance-year.model';
+import {MspImage} from '../../../../models/msp-image';
+import {AssistanceYear} from '../../../assistance/models/assistance-year.model';
 import {merge} from 'rxjs/internal/observable/merge';
-import {MspAssistanceYearComponent} from '../../../../components/msp/assistance/prepare/assistance-year/assistance-year.component';
 import * as _ from 'lodash';
 import {ConsentModalComponent} from 'moh-common-lib';
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
@@ -46,7 +43,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     private _showChildrenInfo: boolean = false;
     today: any;
     private _likelyQualify: boolean = false;
-    private changeLog: string[] = [];
     qualifiedForAssistance = false;
     requireAttendantCareReceipts = false;
     taxYearInfoMissing = false;
@@ -65,7 +61,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
      */
     pastYears: number[] = [];
 
-    constructor(public dataService: MspBenefitDataService , private cd: ChangeDetectorRef){
+    constructor(public dataService: MspBenefitDataService , cd: ChangeDetectorRef){
         super(cd);
         this.showAttendantCareInfo = this.benefitApp.applicantClaimForAttendantCareExpense
             || this.benefitApp.spouseClaimForAttendantCareExpense
@@ -123,13 +119,13 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
         //removing subscribe wont register clicks
         const ageOver$ = fromEvent<MouseEvent>(this.ageOver65Btn.nativeElement, 'click').pipe(
-            map( x => {
+            map( () => {
                 this.dataService.benefitApp.ageOver65 = true;
             }));
 
 
         const ageUnder$ = fromEvent<MouseEvent>(this.ageNotOver65Btn.nativeElement, 'click').pipe(
-            map( x => {
+            map( () => {
                 this.dataService.benefitApp.ageOver65 = false;
             }));
 
@@ -172,30 +168,30 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
             merge(
                 fromEvent<MouseEvent>(this.spouseOver65Btn.nativeElement, 'click').pipe(
-                    map(x => {
+                    map(() => {
                         this.benefitApp.spouseAgeOver65 = true;
                     }))
             ),
             merge(
                 fromEvent<MouseEvent>(this.spouseOver65NegativeBtn.nativeElement, 'click').pipe(
-                    map(x => {
+                    map(() => {
                         this.benefitApp.spouseAgeOver65 = false;
                     }))
             ),
             merge(
                 fromEvent<MouseEvent>(this.hasSpouse.nativeElement, 'click').pipe(
-                    map(x => {
+                    map(() => {
                         this.dataService.benefitApp.setSpouse = true;
                     }))
             ),
             merge(
                 fromEvent<MouseEvent>(this.negativeHasSpouse.nativeElement, 'click').pipe(
-                    map(x => {
+                    map(() => {
                         this.benefitApp.setSpouse = false;
                     }))
             ))
             .subscribe(
-                values => {
+                () => {
                     // console.log('values before saving: ', values);
                     this.dataService.saveBenefitApplication();
                 }
@@ -270,7 +266,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             this.benefitApp.spouseClaimForAttendantCareExpense || this.benefitApp.childClaimForAttendantCareExpense;
     }
 
-    applicantClaimForAttendantCareExpense($event: Event){
+    applicantClaimForAttendantCareExpense($event){
         if (!this.benefitApp.applicantClaimForAttendantCareExpense
             && this.benefitApp.selfDisabilityCredit === true){
             event.preventDefault();
@@ -286,7 +282,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         }
     }
 
-    spouseClaimForAttendantCareExpense($event: Event){
+    spouseClaimForAttendantCareExpense(){
         if (!this.benefitApp.spouseClaimForAttendantCareExpense
             && (this.benefitApp.spouseDSPAmount_line125 || this.benefitApp.spouseEligibleForDisabilityCredit)){
             event.preventDefault();
@@ -302,7 +298,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         }
     }
 
-    childClaimForAttendantCareExpense(evt: boolean){
+    childClaimForAttendantCareExpense(){
         this.benefitApp.childClaimForAttendantCareExpense = !this.benefitApp.childClaimForAttendantCareExpense;
 
         // if(!this.benefitApp.childClaimForAttendantCareExpense && this.benefitApp.childWithDisabilityCount){

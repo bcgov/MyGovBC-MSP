@@ -1,7 +1,7 @@
 import {AfterContentInit, Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {MspLogService} from '../../../../services/log.service';
-import {BenefitApplication} from '../../../../components/msp/model/benefit-application.model';
+import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 import {MspApiBenefitService} from '../../services/msp-api-benefit.service';
 import {HttpErrorResponse} from '@angular/common/http';

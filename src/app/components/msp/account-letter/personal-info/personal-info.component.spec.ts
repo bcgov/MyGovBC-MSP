@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
+import {MspConsentModalComponent} from '../../../../modules/msp-core/components/consent-modal/consent-modal.component';
 import {MspCancelComponent} from '../../common/cancel/cancel.component';
 import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';
 import { MspLogService } from '../../../../services/log.service';

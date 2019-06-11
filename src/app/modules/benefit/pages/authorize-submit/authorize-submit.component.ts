@@ -6,8 +6,8 @@ import {MspImageErrorModalComponent} from '../../../msp-core/components/image-er
 import {MspFileUploaderComponent} from '../../../../components/msp/common/file-uploader/file-uploader.component';
 import {environment} from '../../../../../environments/environment';
 import {NgForm} from '@angular/forms';
-import {MspImage} from '../../../../components/msp/model/msp-image';
-import {BenefitApplication} from '../../../../components/msp/model/benefit-application.model';
+import {MspImage} from '../../../../models/msp-image';
+import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 
 @Component({

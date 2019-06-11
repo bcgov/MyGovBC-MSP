@@ -2,10 +2,10 @@ import {Component, DoCheck, EventEmitter, Input, OnInit, Output} from '@angular/
 import {MspDataService} from '../../../../../services/msp-data.service';
 import {Router} from '@angular/router';
 import * as _ from 'lodash';
-import {Eligibility} from '../../../../../components/msp/model/eligibility.model';
+import {Eligibility} from '../../../../assistance/models/eligibility.model';
 import {ProcessService} from '../../../../../components/msp/service/process.service';
 import {MspBenefitDataService} from '../../../services/msp-benefit-data.service';
-import {BenefitApplication} from '../../../../../components/msp/model/benefit-application.model';
+import {BenefitApplication} from '../../../models/benefit-application.model';
 import * as moment from 'moment';
 
 @Component({

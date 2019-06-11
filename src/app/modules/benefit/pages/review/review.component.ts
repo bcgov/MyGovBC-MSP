@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {MspLogService} from '../../../../services/log.service';
 import {ProcessService} from '../../../../components/msp/service/process.service';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
-import {BenefitApplication} from '../../../../components/msp/model/benefit-application.model';
+import {BenefitApplication} from '../../models/benefit-application.model';
 
 @Component({
   selector: 'msp-review',

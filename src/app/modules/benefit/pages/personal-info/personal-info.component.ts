@@ -5,9 +5,9 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {ProcessService} from '../../../../components/msp/service/process.service';
 import {NgForm} from '@angular/forms';
 import {BenefitPersonalDetailComponent} from './personal-detail/personal-detail.component';
-import {MspAddressComponent} from '../../../../components/msp/common/address/address.component';
-import {BaseComponent} from '../../../../components/msp/common/base.component';
-import {BenefitApplication} from '../../../../components/msp/model/benefit-application.model';
+import {MspAddressComponent} from '../../../msp-core/components/address/address.component';
+import {BaseComponent} from '../../../../models/base.component';
+import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 
 

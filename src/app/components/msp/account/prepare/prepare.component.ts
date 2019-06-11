@@ -13,7 +13,7 @@ import {ConsentModalComponent} from 'moh-common-lib';
 
 import {ProcessService, ProcessStep} from '../../service/process.service';
 import {ProcessUrls} from '../../service/process.service';
-import {BaseComponent} from '../../common/base.component';
+import {BaseComponent} from '../../../../models/base.component';
 import {MspApiService} from '../../../../services/msp-api.service';
 import {environment} from '../../../../../environments/environment';
 //import {CheckboxComponent} from '../../../../../../node_modules/moh-common-lib/lib/components/checkbox/checkbox.component';

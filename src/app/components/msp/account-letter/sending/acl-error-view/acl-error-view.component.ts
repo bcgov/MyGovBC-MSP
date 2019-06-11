@@ -3,7 +3,7 @@ import {ACLApiResponse} from '../../../model/account-letter-response.interface';
 import {MspACLService} from '../../../service/msp-acl-api.service';
 import {MspLogService} from '../../../../../services/log.service';
 import {Router} from '@angular/router';
-import {BaseComponent} from '../../../common/base.component';
+import {BaseComponent} from '../../../../../models/base.component';
 import {HttpErrorResponse} from '@angular/common/http';
 
 /*

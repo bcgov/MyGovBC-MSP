@@ -15,7 +15,7 @@ import {MspDischargeDateComponent} from '../../../common/discharge-date/discharg
 import {MspBirthDateComponent} from '../../../../../modules/msp-core/components/birthdate/birthdate.component';
 import {MspSchoolDateComponent} from '../../../common/schoolDate/school-date.component';
 import {FileUploaderComponent} from '../../../common/file-uploader/file-uploader.component';
-import {MspAddressComponent} from '../../../common/address/address.component';
+import {MspAddressComponent} from '../../../../../modules/msp-core/components/address/address.component';
 import {Mod11CheckValidator} from '../../../common/phn/phn.validator';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import {ThumbnailComponent} from '../../../common/thumbnail/thumbnail.component';

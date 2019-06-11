@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import {MspPerson} from '../../../model/msp-person.model';
 import {Relationship, StatusInCanada} from '../../../model/status-activities-documents';
-import {BaseComponent} from '../../../common/base.component';
+import {BaseComponent} from '../../../../../models/base.component';
 import {MspToggleComponent} from '../../../common/toggle/toggle.component';
 import {MspProvinceComponent} from '../../../common/province/province.component';
 import {MspDateComponent} from '../../../common/date/date.component';

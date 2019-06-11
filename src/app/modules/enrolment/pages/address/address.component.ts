@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Input, Component, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { MspApplication } from '../../../../components/msp/model/application.model';
-import { BaseComponent } from '../../../../components/msp/common/base.component';
+import { MspApplication } from '../../models/application.model';
+import { BaseComponent } from '../../../../models/base.component';
 import { ProcessService } from '../../../../components/msp/service/process.service';
 import { Router } from '@angular/router';
 import { Address } from 'moh-common-lib';

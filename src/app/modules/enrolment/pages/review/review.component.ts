@@ -2,7 +2,7 @@ import {Component, ViewChild, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import {MspApplication} from '../../../../components/msp/model/application.model';
+import {MspApplication} from '../../models/application.model';
 
 import { MspDataService } from '../../../../services/msp-data.service';
 import {ProcessService} from '../../../../components/msp/service/process.service';

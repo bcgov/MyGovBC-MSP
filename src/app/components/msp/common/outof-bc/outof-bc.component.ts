@@ -7,7 +7,7 @@ import {NgForm} from '@angular/forms';
 
 
 
-import {BaseComponent} from '../base.component';
+import {BaseComponent} from '../../../../models/base.component';
 import {MspDepartureDateComponent} from '../departure-date/departure-date.component';
 import {MspReturnDateComponent} from '../return-date/return-date.component';
 

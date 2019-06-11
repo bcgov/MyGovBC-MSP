@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {MspPerson} from '../../model/msp-person.model';
 import {Relationship, StatusInCanada} from '../../model/status-activities-documents';
-import {BaseComponent} from '../../common/base.component';
+import {BaseComponent} from '../../../../models/base.component';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {Router} from '@angular/router';
 import {ProcessService} from '../../service/process.service';

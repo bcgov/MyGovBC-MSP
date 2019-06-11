@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BenefitApplication} from '../../../../../components/msp/model/benefit-application.model';
+import {BenefitApplication} from '../../../models/benefit-application.model';
 
 @Component({
   selector: 'msp-benefit-eligibility-card',

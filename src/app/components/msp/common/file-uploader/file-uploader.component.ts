@@ -6,13 +6,13 @@ import { PDFJSStatic } from 'pdfjs-dist';
 import { Observable ,  Observer, fromEvent, merge } from 'rxjs';
 import {map, filter, flatMap, scan, delay, retryWhen} from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import { MspImage, MspImageError, MspImageProcessingError, MspImageScaleFactors, MspImageScaleFactorsImpl } from '../../model/msp-image';
+import { MspImage, MspImageError, MspImageProcessingError, MspImageScaleFactors, MspImageScaleFactorsImpl } from '../../../../models/msp-image';
 import { MspLogService } from '../../../../services/log.service';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { BaseComponent } from '../base.component';
+import { BaseComponent } from '../../../../models/base.component';
 import { LogEntry } from '../logging/log-entry.model';
 import {Router} from '@angular/router';
-import {ApplicationBase} from '../../model/application-base.model';
+import {ApplicationBase} from '../../../../modules/enrolment/models/application-base.model';
 import {MspBenefitDataService} from '../../../../modules/benefit/services/msp-benefit-data.service';
 
 const loadImage = require('blueimp-load-image');

@@ -18,7 +18,7 @@ import { AddNewDependentBeneficiaryComponent } from '../add-dependents/add-new-d
 import { RemoveDependentComponent } from '../remove-dependents/remove-dependents.component';
 import { AccountPersonalDetailsComponent } from '../personal-info/personal-details/personal-details.component';
 import { MspCancelComponent } from '../../common/cancel/cancel.component';
-import { MspAddressComponent } from '../../common/address/address.component';
+import { MspAddressComponent } from '../../../../modules/msp-core/components/address/address.component';
 import { MspDateComponent } from '../../common/date/date.component';
 import { MspToggleComponent } from '../../common/toggle/toggle.component';
 import { MspStatusInCanadaRadioComponent } from '../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';

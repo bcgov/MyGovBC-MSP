@@ -2,13 +2,13 @@ import {ChangeDetectorRef, Component, Injectable, ViewChild, ViewChildren, Query
 import {NgForm} from '@angular/forms';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {Router} from '@angular/router';
-import {BaseComponent} from '../../common/base.component';
+import {BaseComponent} from '../../../../models/base.component';
 import {ProcessService} from '../../service/process.service';
 import {LocalStorageService} from 'angular-2-local-storage';
 import {AccountPersonalDetailsComponent} from '../personal-info/personal-details/personal-details.component';
 import {AddDependentComponent} from '../add-dependents/add-dependents.component';
 import {RemoveDependentComponent} from '../remove-dependents/remove-dependents.component';
-import {MspPerson} from '../../model/application.model';
+import {MspPerson} from '../../../../modules/enrolment/models/application.model';
 import {OperationActionType} from '../../model/msp-person.model';
 import {Relationship} from '../../model/status-activities-documents';
 import {ProcessUrls} from '../../service/process.service';

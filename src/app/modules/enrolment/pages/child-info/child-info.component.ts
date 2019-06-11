@@ -1,12 +1,12 @@
 import { Router } from '@angular/router';
 import {Component, Injectable, ViewChild, ViewChildren,
   ChangeDetectorRef, QueryList, AfterViewInit, OnInit} from '@angular/core';
-import {MspPerson} from '../../../../components/msp/model/application.model';
+import {MspPerson} from '../../models/application.model';
 
 // import {MspDataService} from '../../service/msp-data.service';
 import { MspDataService } from '../../../../services/msp-data.service';
 import {Relationship} from '../../../../components/msp/model/status-activities-documents';
-import {BaseComponent} from '../../../../components/msp/common/base.component';
+import {BaseComponent} from '../../../../models/base.component';
 import {ProcessService} from '../../../../components/msp/service/process.service';
 
 @Component({

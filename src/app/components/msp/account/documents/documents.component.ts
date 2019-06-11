@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, Injectable, ViewChild, ElementRef} from '@
 
 import {MspDataService} from '../../../../services/msp-data.service';
 import {Router} from '@angular/router';
-import {BaseComponent} from '../../common/base.component';
+import {BaseComponent} from '../../../../models/base.component';
 import {LocalStorageService} from 'angular-2-local-storage';
 import {MspAccountApp, AccountChangeOptions} from '../../model/account.model';
 import {DocumentGroup} from '../../model/account-documents';
@@ -11,7 +11,7 @@ import {
     DocumentRules, Documents, Relationship , CancellationReasonsForSpouse
 } from '../../model/status-activities-documents';
 import {ProcessService, ProcessUrls} from '../../service/process.service';
-import {MspImage} from '../../../msp/model/msp-image';
+import {MspImage} from '../../../../models/msp-image';
 //import {FileUploaderComponent} from 'moh-common-lib/lib/components';
 import {MspImageErrorModalComponent} from '../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';
 import {MspIdReqModalComponent} from '../../../../modules/msp-core/components/id-req-modal/id-req-modal.component';

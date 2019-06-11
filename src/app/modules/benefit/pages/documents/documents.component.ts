@@ -2,12 +2,12 @@ import {AfterViewInit, Component, DoCheck, OnInit, ViewChild} from '@angular/cor
 import {MspDataService} from '../../../../services/msp-data.service';
 import {MspFileUploaderComponent} from '../../../../components/msp/common/file-uploader/file-uploader.component';
 import {Router} from '@angular/router';
-import {FinancialAssistApplication} from '../../../../components/msp/model/financial-assist-application.model';
+import {FinancialAssistApplication} from '../../../assistance/models/financial-assist-application.model';
 import {NgForm} from '@angular/forms';
-import {MspImage} from '../../../../components/msp/model/msp-image';
+import {MspImage} from '../../../../models/msp-image';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
 import {ProcessService} from '../../../../components/msp/service/process.service';
-import {BenefitApplication} from '../../../../components/msp/model/benefit-application.model';
+import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 
 @Component({

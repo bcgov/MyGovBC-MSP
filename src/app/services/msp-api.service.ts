@@ -10,10 +10,10 @@ import { DependentType, DependentTypeFactory, EnrolmentApplicantTypeFactory, Enr
 import { ResponseType } from '../modules/enrolment/pages/api-model/responseTypes';
 import { MspAccountApp } from '../components/msp/model/account.model';
 import { Address } from '../components/msp/model/address.model';
-import { ApplicationBase } from '../components/msp/model/application-base.model';
-import { MspApplication } from '../components/msp/model/application.model';
-import { AssistanceApplicationType, FinancialAssistApplication } from '../components/msp/model/financial-assist-application.model';
-import { MspImage } from '../components/msp/model/msp-image';
+import { ApplicationBase } from '../modules/enrolment/models/application-base.model';
+import { MspApplication } from '../modules/enrolment/models/application.model';
+import { AssistanceApplicationType, FinancialAssistApplication } from '../modules/assistance/models/financial-assist-application.model';
+import { MspImage } from '../models/msp-image';
 import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../components/msp/model/msp-person.model';
 import { SimpleDate } from '../components/msp/model/simple-date.interface';
 import { Activities, Relationship, StatusInCanada } from '../components/msp/model/status-activities-documents';

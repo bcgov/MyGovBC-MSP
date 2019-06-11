@@ -1,4 +1,4 @@
-import {MspImage} from './msp-image';
+import {MspImage} from '../../../models/msp-image';
 import AddressDto from './address.dto';
 import {OutofBCRecordDto} from './outof-bc-record.dto';
 import { SimpleDate } from '../model/simple-date.interface';

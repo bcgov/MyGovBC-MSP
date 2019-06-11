@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef} from '@angular/core';
 import {MspPerson} from '../../model/msp-person.model';
 import {NgForm} from '@angular/forms';
-import {BaseComponent} from '../base.component';
+import {BaseComponent} from '../../../../models/base.component';
 import {debounceTime} from 'rxjs/operators';
 
 

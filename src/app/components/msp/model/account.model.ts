@@ -1,6 +1,6 @@
 import {UUID} from 'angular2-uuid';
-import {ApplicationBase} from './application-base.model';
-import {MspImage} from './msp-image';
+import {ApplicationBase} from '../../../modules/enrolment/models/application-base.model';
+import {MspImage} from '../../../models/msp-image';
 import {MspPerson, OperationActionType} from './msp-person.model';
 import {Relationship, StatusInCanada} from './status-activities-documents';
 import {PhoneNumber} from './phone.model';

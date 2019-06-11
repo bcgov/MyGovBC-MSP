@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {MspPerson} from '../../model/msp-person.model';
 import {Relationship, StatusInCanada, CancellationReasons , CancellationReasonsForSpouse} from '../../model/status-activities-documents';
-import {BaseComponent} from '../../common/base.component';
+import {BaseComponent} from '../../../../models/base.component';
 import {MspToggleComponent} from '../../common/toggle/toggle.component';
 import {MspStatusInCanadaRadioComponent} from '../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
 import {AccountPersonalDetailsComponent} from '../personal-info/personal-details/personal-details.component';

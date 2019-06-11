@@ -1,6 +1,6 @@
 import {Component, Injectable, AfterContentInit } from '@angular/core';
 import {Router} from '@angular/router';
-import { MspApplication } from '../../../../components/msp/model/application.model';
+import { MspApplication } from '../../models/application.model';
 import { ISpaEnvResponse } from 'moh-common-lib/lib/components/consent-modal/consent-modal.component';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { ProcessService } from '../../../../components/msp/service/process.service';

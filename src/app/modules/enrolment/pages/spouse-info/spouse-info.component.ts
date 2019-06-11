@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {ProcessService} from '../../../../components/msp/service/process.service';
-import {BaseComponent} from '../../../../components/msp/common/base.component';
+import {BaseComponent} from '../../../../models/base.component';
 import { Router } from '@angular/router';
-import {MspApplication, MspPerson} from '../../../../components/msp/model/application.model';
+import {MspApplication, MspPerson} from '../../models/application.model';
 import { MspDataService } from '../../../../services/msp-data.service';
 import {Relationship} from '../../../../components/msp/model/status-activities-documents';
 

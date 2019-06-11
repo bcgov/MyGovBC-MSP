@@ -1,5 +1,5 @@
-import {FinancialAssistApplication, AssistanceApplicationType} from './financial-assist-application.model';
-import {AssistanceYear} from './assistance-year.model';
+import {FinancialAssistApplication, AssistanceApplicationType} from '../../../modules/assistance/models/financial-assist-application.model';
+import {AssistanceYear} from '../../../modules/assistance/models/assistance-year.model';
 import * as moment from 'moment';
 
 describe('FinancialAssistApplication Component', () => {
