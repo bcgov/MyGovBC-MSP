@@ -4,14 +4,14 @@ import {Observable} from 'rxjs';
 import { MspDataService } from './msp-data.service';
 
 export class ProcessUrls {
-    public static readonly ACCOUNT_PREPARE_URL = '/msp/account/prepare' ;
-    public static readonly ACCOUNT_FILE_UPLOADER_URL = '/msp/account/documents' ;
-    public static readonly ACCOUNT_REVIEW_URL = '/msp/account/review' ;
-    public static readonly ACCOUNT_PERSONAL_INFO_URL = '/msp/account/personal-info' ;
-    public static readonly ACCOUNT_DEPENDENTS_URL = '/msp/account/dependent-change' ;
-    public static readonly ACCOUNT_SENDING_URL = '/msp/account/sending' ;
-    public static readonly ACCOUNT_SPOUSE_INFO_URL = '/msp/account/spouse-info' ;
-    public static readonly ACCOUNT_CHILD_INFO_URL = '/msp/account/child-info' ;
+    public static readonly ACCOUNT_PREPARE_URL = '/account/prepare' ;
+    public static readonly ACCOUNT_FILE_UPLOADER_URL = '/account/documents' ;
+    public static readonly ACCOUNT_REVIEW_URL = '/account/review' ;
+    public static readonly ACCOUNT_PERSONAL_INFO_URL = '/account/personal-info' ;
+    public static readonly ACCOUNT_DEPENDENTS_URL = '/account/dependent-change' ;
+    public static readonly ACCOUNT_SENDING_URL = '/account/sending' ;
+    public static readonly ACCOUNT_SPOUSE_INFO_URL = '/account/spouse-info' ;
+    public static readonly ACCOUNT_CHILD_INFO_URL = '/account/child-info' ;
 
 
 }

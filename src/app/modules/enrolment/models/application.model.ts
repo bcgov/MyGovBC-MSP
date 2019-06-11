@@ -1,5 +1,5 @@
 import {Address} from 'moh-common-lib';
-import { Relationship, StatusInCanada, Activities, Documents } from '../../../components/msp/model/status-activities-documents';
+import { Relationship, StatusInCanada, Activities, Documents } from '../../../models/status-activities-documents';
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
 import { UUID } from 'angular2-uuid';
 import { MspImage } from '../../../models/msp-image';

@@ -5,7 +5,7 @@ import {MspPerson} from '../../models/application.model';
 
 // import {MspDataService} from '../../service/msp-data.service';
 import { MspDataService } from '../../../../services/msp-data.service';
-import {Relationship} from '../../../../components/msp/model/status-activities-documents';
+import {Relationship} from '../../../../models/status-activities-documents';
 import {BaseComponent} from '../../../../models/base.component';
 import {ProcessService} from '../../../../services/process.service';
 

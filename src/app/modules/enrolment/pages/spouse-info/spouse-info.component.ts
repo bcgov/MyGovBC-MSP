@@ -4,7 +4,7 @@ import {BaseComponent} from '../../../../models/base.component';
 import { Router } from '@angular/router';
 import {MspApplication, MspPerson} from '../../models/application.model';
 import { MspDataService } from '../../../../services/msp-data.service';
-import {Relationship} from '../../../../components/msp/model/status-activities-documents';
+import {Relationship} from '../../../../models/status-activities-documents';
 
 @Component({
   selector: 'msp-spouse-info',

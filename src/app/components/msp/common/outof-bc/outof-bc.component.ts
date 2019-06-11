@@ -1,7 +1,7 @@
 import {
   Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef
 } from '@angular/core';
-import {OutofBCRecord} from '../../model/outof-bc-record.model';
+import {OutofBCRecord} from '../../../../models/outof-bc-record.model';
 import {NgForm} from '@angular/forms';
 
 

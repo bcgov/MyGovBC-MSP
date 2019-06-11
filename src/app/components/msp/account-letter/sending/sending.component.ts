@@ -1,14 +1,11 @@
-import {Component, Inject, Injectable, AfterContentInit, ViewChild, ElementRef} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import {Component, Injectable, AfterContentInit} from '@angular/core';
+import {HttpErrorResponse} from '@angular/common/http';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {MspACLService} from '../../service/msp-acl-api.service';
 import {Router} from '@angular/router';
-import {ResponseType} from '../../../../modules/enrolment/pages/api-model/responseTypes';
 import {MspLogService} from '../../../../services/log.service';
 import {ProcessService} from '../../../../services/process.service';
-import {ISpaEnvResponse} from '../../model/spa-env-response.interface';
 import {AccountLetterApplication} from '../../model/account-letter-application.model';
-import {AccountLetterType} from '../../../../modules/enrolment/pages/api-model/accountLetterTypes';
 import {ACLApiResponse} from '../../model/account-letter-response.interface';
 
 
@@ -29,8 +26,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
     aclApiResponse: ACLApiResponse;
 
 
-    constructor(private aclService: MspACLService, private dataService: MspDataService, private processService: ProcessService,
-                public router: Router, private logService: MspLogService) {
+    constructor(private aclService: MspACLService, private dataService: MspDataService, public router: Router, private logService: MspLogService) {
         this.application = this.dataService.accountLetterApp;
         this.transmissionInProcess = undefined;
         this.hasError = undefined;
@@ -54,7 +50,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
             .sendAccountLetterApp(this.application, this.application.uuid)
             .subscribe(response => {
                 if (response instanceof HttpErrorResponse) { // probable network errors..middleware could be down
-                    this.processErrorResponse(response, response.message, false);
+                    this.processErrorResponse(response, false);
                     this.logService.log({
                         name: 'ACL - System Error',
                         confirmationNumber: this.application.uuid
@@ -65,7 +61,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
                 // business errors.. Might be either a RAPID validation failure or DB error
                 this.aclApiResponse = <ACLApiResponse> response;
                 if (this.isFailure(this.aclApiResponse)) {
-                    this.processErrorResponse(response, undefined ,true);
+                    this.processErrorResponse(response, true);
                     this.logService.log({
                         name: 'ACL - RAPID/DB Error',
                         confirmationNumber: this.application.uuid
@@ -95,7 +91,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
         this.transmissionInProcess = false;
     }
 
-    processErrorResponse(response: HttpErrorResponse, errorMessage: string , transmissionInProcess: boolean) {
+    processErrorResponse(response: HttpErrorResponse, transmissionInProcess: boolean) {
         console.log('Error Response :' + response);
        // this.rawError = (errorMessage != null && errorMessage != 'undefined') ? errorMessage : undefined;
         this.hasError = true;

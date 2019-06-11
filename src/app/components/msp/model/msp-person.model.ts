@@ -1,9 +1,9 @@
 import {IPerson} from './msp-person.interface';
 
-import {Relationship, StatusInCanada, Activities} from './status-activities-documents';
+import {Relationship, StatusInCanada, Activities} from '../../../models/status-activities-documents';
 import {PersonDocuments} from './person-document.model';
 import {Address} from './address.model';
-import {OutofBCRecord} from './outof-bc-record.model';
+import {OutofBCRecord} from '../../../models/outof-bc-record.model';
 import * as moment from 'moment';
 import {UUID} from 'angular2-uuid';
 import * as _ from 'lodash';

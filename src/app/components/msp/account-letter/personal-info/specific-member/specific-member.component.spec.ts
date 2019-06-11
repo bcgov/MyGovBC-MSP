@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SpecificMemberComponent } from './specific-member.component';
-import {EnrollmentStatusRules, Relationship, MSPEnrollementMember} from "../../../model/status-activities-documents";
+import {EnrollmentStatusRules, Relationship, MSPEnrollementMember} from "../../../../../models/status-activities-documents";
 import {MspPhnComponent} from '../../../common/phn/phn.component';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';

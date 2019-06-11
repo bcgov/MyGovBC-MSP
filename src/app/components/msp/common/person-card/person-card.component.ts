@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {MspPerson} from '../../model/msp-person.model';
-import {Activities, StatusInCanada} from '../../model/status-activities-documents';
+import {Activities, StatusInCanada} from '../../../../models/status-activities-documents';
 import { Router } from '@angular/router';
 @Component({
   selector: 'msp-person-card',

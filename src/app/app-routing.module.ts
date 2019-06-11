@@ -21,6 +21,10 @@ const routes: Routes = [
     loadChildren: 'app/modules/assistance/assistance.module#AssistanceModule'
   },
   {
+    path: 'account',
+    loadChildren: 'app/mdoules/account/account.module#AccountModule'
+  },
+  {
     path: 'old-msp',
     loadChildren: 'app/components/msp/msp.module#MspModule'
   },

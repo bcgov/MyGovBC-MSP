@@ -4,19 +4,6 @@ import { Injectable, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { AccordionModule, ModalModule } from 'ngx-bootstrap';
-import { AccountComponent } from './account/account.component';
-import { AddDependentComponent } from './account/add-dependents/add-dependents.component';
-import { AddNewDependentBeneficiaryComponent } from './account/add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
-import { AccountConfirmationComponent } from './account/confirmation/confirmation.component';
-import { AccountDependentChangeComponent } from './account/dependent-change/dependent-change.component';
-import { AccountDocumentsComponent } from './account/documents/documents.component';
-import { AccountPersonalDetailsComponent } from './account/personal-info/personal-details/personal-details.component';
-import { AccountPersonalInfoComponent } from './account/personal-info/personal-info.component';
-import { AccountPrepareComponent } from './account/prepare/prepare.component';
-import { RemoveDependentComponent } from './account/remove-dependents/remove-dependents.component';
-import { AccountReviewComponent } from './account/review/review.component';
-import { AccountSendingComponent } from './account/sending/sending.component';
-import { MspAccordionComponent } from './common/accordion/accordion.component';
 //import { MspAddressCardPartComponent } from './common/address-card-part/address-card-part.component';
 import { TextMaskModule } from 'angular2-text-mask';
 import { MspLoggerDirective } from './common/logging/msp-logger.directive';
@@ -48,53 +35,6 @@ const APP_ROUTES: Routes = [
      //   path: 'msp',
      //   children: [
             // Start of Account Routes
-            {
-                path: 'account',
-                component: AccountComponent,
-                children: [
-                    {
-                        path: '',
-                        canActivate: [],
-                        redirectTo: 'prepare',
-                        pathMatch: 'full'
-                    },
-                    {
-                        path: 'prepare',
-                        component: AccountPrepareComponent
-                    },
-                    {
-                        path: 'personal-info',
-                        component: AccountPersonalInfoComponent,
-                        canActivate: [ProcessService],
-                    },
-                    {
-                        path: 'dependent-change',
-                        component: AccountDependentChangeComponent,
-                        canActivate: [ProcessService],
-
-                    },
-                    {
-                        path: 'documents',
-                        component: AccountDocumentsComponent,
-                        canActivate: [ProcessService],
-                    },
-                    {
-                        path: 'review',
-                        component: AccountReviewComponent,
-                        canActivate: [ProcessService],
-                    },
-                    {
-                        path: 'sending',
-                        component: AccountSendingComponent,
-                        canActivate: [ProcessService],
-                    },
-                    {
-                        path: 'confirmation',
-                        component: AccountConfirmationComponent,
-                        canActivate: [],
-                    }
-            ]
-            },
 
             {
                 path: 'account-letter',
@@ -143,7 +83,6 @@ const APP_ROUTES: Routes = [
         FormsModule,
         MspCoreModule,
         ModalModule,
-        AccordionModule,
         HttpClientModule,
         TextMaskModule,
         RouterModule.forChild(APP_ROUTES),
@@ -155,43 +94,7 @@ const APP_ROUTES: Routes = [
     ],
     declarations: [
         MspLoggerDirective,
-        //KeyboardEventListner,
 
-        // View cards
-     //   MspPersonCardComponent,
-     //   MspContactCardComponent,
-     //   MspAddressCardPartComponent,
-
-        // Assistance
-        //AssistanceComponent,
-        //AssistancePrepareComponent,
-       // AssistancePersonalInfoComponent,
-       // AssistancePersonalDetailComponent,
-       // AssistanceReviewComponent,
-       // AssistanceRetroYearsComponent,
-       // AssistanceAuthorizeSubmitComponent,
-       // AssistanceSendingComponent,
-        //AssistanceConfirmationComponent,
-        //DeductionCalculatorComponent,
-        //MspAssistanceYearComponent,
-
-       // EligibilityCardComponent,
-
-        //Account
-
-        AccountComponent,
-        AccountPrepareComponent,
-        AccountPersonalInfoComponent,
-        AccountDependentChangeComponent,
-        AccountPersonalDetailsComponent,
-        AccountDocumentsComponent,
-        AccountReviewComponent,
-        AccountSendingComponent,
-        AccountConfirmationComponent,
-        AddDependentComponent,
-        RemoveDependentComponent,
-        AddNewDependentBeneficiaryComponent,
-        MspAccordionComponent,
 
 
         // Account Letter
@@ -202,38 +105,20 @@ const APP_ROUTES: Routes = [
         SpecificMemberComponent,
         AclErrorViewComponent,
 
-       //BenefitComponent,
-        //BenefitPrepareComponent,
-        //BenefitPersonalInfoComponent,
-        //BenefitPersonalDetailComponent,
-        //BenefitDeductionCalculatorComponent,
-        //BenefitDocumentsComponent,
-        //BenefitReviewComponent,
-        //BenefitEligibilityCardComponent,
-        //BenefitAuthorizeSubmitComponent,
-        //BenefitSendingComponent,
-        //BenefitConfirmationComponent,
-        //TaxYearComponent,
 
         CommonButtonGroupComponent,
-        //CommonDeductionCalculatorComponent,
+
         CommonIncomeInputtextComponent,
         CommonButtonComponent,
     ],
 
     providers: [
-        // Services
-        //MspDataService,
+
         MspValidationService,
         MspMaintenanceService,
-        //CompletenessCheckService,
-        //MspApiService,
         MspACLService,
-        //MspLogService,
         MspLog2Service,
-      //  ProcessService,
         AccountDocumentHelperService,
-        //MspBenefitDataService
     ]
 })
 @Injectable()

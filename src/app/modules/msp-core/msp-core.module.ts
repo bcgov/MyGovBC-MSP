@@ -32,7 +32,7 @@ import { MspDepartureDateComponent } from '../../components/msp/common/departure
 import { MspReturnDateComponent } from '../../components/msp/common/return-date/return-date.component';
 import { MspSchoolDateComponent } from '../../components/msp/common/schoolDate/school-date.component';
 import { MspGenderComponent } from '../../components/msp/common/gender/gender.component';
-import { MspProgressBarComponent } from '../../components/msp/common/progressBar/progressBar.component';
+import { MspProgressBarComponent } from '../account/components/progressBar/progressBar.component';
 import { TransmissionErrorView } from '../../components/msp/common/transmission-error-view/transmission-error-view.component';
 import { MspOutofBCRecordComponent } from '../../components/msp/common/outof-bc/outof-bc.component';
 import { MspConsentModalComponent } from './components/consent-modal/consent-modal.component';

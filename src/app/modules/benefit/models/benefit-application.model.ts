@@ -7,7 +7,7 @@ import {PhoneNumber} from '../../../components/msp/model/phone.model';
 import {MspPerson} from '../../../components/msp/model/msp-person.model';
 import {AssistanceYear} from '../../assistance/models/assistance-year.model';
 import {AssistanceApplicationType} from '../../assistance/models/financial-assist-application.model';
-import {Relationship} from '../../../components/msp/model/status-activities-documents';
+import {Relationship} from '../../../models/status-activities-documents';
 import {Eligibility} from '../../assistance/models/eligibility.model';
 import {ISpaEnvResponse} from '../../../components/msp/model/spa-env-response.interface';
 

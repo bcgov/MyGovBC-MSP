@@ -17,7 +17,7 @@ import {MspBirthDateComponent} from '../../../../modules/msp-core/components/bir
 import {Address} from '../../model/address.model';
 import {
     MSPEnrollementMember, EnrollmentStatusRules
-} from '../../model/status-activities-documents';
+} from '../../../../models/status-activities-documents';
 import {environment} from '../../../../../environments/environment';
 import {SpecificMemberComponent} from './specific-member/specific-member.component';
 import {LETTER, Masking, NUMBER, SPACE} from '../../model/masking.model';

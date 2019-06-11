@@ -47,7 +47,7 @@ export class LandingComponent {
 
     clearSavedAccountApp() {
         this.mspDataService.removeMspAccountApp();
-        this.router.navigate(['/0ld-msp/account/prepare']);
+        this.router.navigate(['/account/prepare']);
     }
 
     clearSavedAccountLetterApp() {

@@ -5,11 +5,11 @@ import {
 import { state, trigger, style } from '@angular/animations';
 import { NgForm } from '@angular/forms';
 import { MspPerson, Gender } from '../../../../components/msp/model/msp-person.model';
-import { OutofBCRecord } from '../../../../components/msp/model/outof-bc-record.model';
+import { OutofBCRecord } from '../../../../models/outof-bc-record.model';
 import {
   StatusRules, ActivitiesRules, StatusInCanada, Activities,
   DocumentRules, Documents, Relationship
-} from '../../../../components/msp/model/status-activities-documents';
+} from '../../../../models/status-activities-documents';
 import { MspImage } from '../../../../models/msp-image';
 import * as _ from 'lodash';
 import {MspIdReqModalComponent} from '../id-req-modal/id-req-modal.component';

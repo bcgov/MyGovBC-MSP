@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {MspDataService} from '../../../services/msp-data.service';
 import {DocumentGroup, Documents} from '../model/account-documents';
-import {MspAccountApp} from '../model/account.model';
-import {CancellationReasonsForSpouse, StatusInCanada} from '../model/status-activities-documents';
+import {MspAccountApp} from '../../../modules/account/models/account.model';
+import {CancellationReasonsForSpouse, StatusInCanada} from '../../../models/status-activities-documents';
 
 
 export class AccountCollection {

@@ -3,18 +3,18 @@ import {LocalStorageService} from 'angular-2-local-storage';
 import { MspApplication } from '../modules/enrolment/models/application.model';
 import { AccountLetterApplication } from '../components/msp/model/account-letter-application.model';
 import { FinancialAssistApplication } from '../modules/assistance/models/financial-assist-application.model';
-import { MspAccountApp, MspPerson } from '../components/msp/model/account.model';
+import { MspAccountApp, MspPerson } from '../modules/account/models/account.model';
 import { Process } from './process.service';
-import { MspProgressBarItem } from '../components/msp/common/progressBar/progressBarDataItem.model';
-import MspAccountDto from '../components/msp/model/account.dto';
+import { MspProgressBarItem } from '../modules/account/components/progressBar/progressBarDataItem.model';
+import MspAccountDto from '../modules/account/models/account.dto';
 import MspApplicationDto from '../modules/enrolment/models/application.dto';
 import AccountLetterDto from '../components/msp/model/account-letter.dto';
 import FinancialAssistApplicationDto from '../modules/assistance/models/financial-assist-application.dto';
 import { Gender, OperationActionType } from '../components/msp/model/msp-person.model';
 import { Address } from 'moh-common-lib';
 import PersonDto from '../components/msp/model/msp-person.dto';
-import { OutofBCRecord } from '../components/msp/model/outof-bc-record.model';
-import { OutofBCRecordDto } from '../components/msp/model/outof-bc-record.dto';
+import { OutofBCRecord } from '../models/outof-bc-record.model';
+import { OutofBCRecordDto } from '../models/outof-bc-record.dto';
 import AddressDto from '../components/msp/model/address.dto';
 
 
