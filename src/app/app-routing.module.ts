@@ -22,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'account',
-    loadChildren: 'app/mdoules/account/account.module#AccountModule'
+    loadChildren: 'app/modules/account/account.module#AccountModule'
   },
   {
     path: 'old-msp',
