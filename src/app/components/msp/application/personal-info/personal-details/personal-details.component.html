@@ -50,7 +50,6 @@
           </aside>
         </common-page-section>
       </ng-container>
-
       <!--
       <div class="col-lg-4" *ngIf="person.status != null && person.currentActivity != null">
 
@@ -126,12 +125,12 @@
         <p class="row border-bottom" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
         <div *ngIf="person.documents.images.length > 0">
           <!-- <h3 [innerHtml]="lang('./en/index.js').applicationPersonalInfo[person.relationship]"></h3> -->
-          <!-- <msp-name #name [person]="person" (onChange)="onChange.emit($event)" [showError]="showError" class="row">
-          </msp-name> -->
-          {{ lang('./en/index.js').firstNameLabel}}
+          <msp-name #name [person]="person" (onChange)="onChange.emit($event)" [showError]="showError">
+          </msp-name>
+          <!-- {{ lang('./en/index.js').firstNameLabel}}
           <common-name class="row" label="First Name"></common-name>
           <common-name class="row" label="Middle Name"></common-name>
-          <common-name class="row" label="Last Name"></common-name>
+          <common-name class="row" label="Last Name"></common-name> -->
 
           <!-- <div class="row"> -->
           <!-- <div class="col-md-4"> -->

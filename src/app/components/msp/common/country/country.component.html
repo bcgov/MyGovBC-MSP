@@ -1,19 +1,54 @@
-<form #formRef='ngForm' novalidate>
-  <div class="form-group"
-    [ngClass]="{'has-error': (country === undefined || country === null || country?.trim().length <1) && (countryRef.touched || showError)}">
-    <label for="country{{objectId}}" [innerHtml]="label" class="control-label"></label>
+<form #formRef="ngForm" novalidate>
+  <div
+    class="form-group"
+    [ngClass]="{
+      'has-error':
+        (country === undefined ||
+          country === null ||
+          country?.trim().length < 1) &&
+        (countryRef.touched || showError)
+    }"
+  >
+    <label
+      for="country{{ objectId }}"
+      [innerHtml]="label"
+      class="control-label"
+    ></label>
 
-    <input [(ngModel)]='country' placeholder="Canada" (typeaheadOnSelect)="updateModel($event)"
-      (typeaheadOnBlur)="updateModel($event)" [typeahead]="countryData" typeaheadOptionField="name" [minlength]="1"
-      [typeaheadMinLength]="0" [typeaheadScrollable]="false" [maxlength]="25"
-      (typeaheadNoResults)="typeaheadNoResults($event)" [required]="true" class="form-control" id="country{{objectId}}"
-      name="country" #countryRef="ngModel" />
+    <input
+      [(ngModel)]="country"
+      placeholder="Canada"
+      (typeaheadOnSelect)="updateModel($event)"
+      (typeaheadOnBlur)="updateModel($event)"
+      [typeahead]="countryData"
+      typeaheadOptionField="name"
+      [minlength]="1"
+      [typeaheadMinLength]="0"
+      [typeaheadScrollable]="false"
+      [maxlength]="25"
+      (typeaheadNoResults)="typeaheadNoResults($event)"
+      [required]="true"
+      class="form-control"
+      id="country{{ objectId }}"
+      name="country"
+      #countryRef="ngModel"
+    />
 
-    <div *ngIf='countryRef.touched || showError' role="alert" aria-live="assertive">
-      <div class="text-danger" *ngIf="countryRef.errors?.required"
-        [innerHtml]="lang('./en/index.js').countryErrorIsRequired"></div>
-      <div class="text-danger" *ngIf="countryRef.errors?.pattern"
-        [innerHtml]="lang('./en/index.js').countryErrorPattern"></div>
+    <div
+      *ngIf="countryRef.touched || showError"
+      role="alert"
+      aria-live="assertive"
+    >
+      <div
+        class="text-danger"
+        *ngIf="countryRef.errors?.required"
+        [innerHtml]="lang('./en/index.js').countryErrorIsRequired"
+      ></div>
+      <div
+        class="text-danger"
+        *ngIf="countryRef.errors?.pattern"
+        [innerHtml]="lang('./en/index.js').countryErrorPattern"
+      ></div>
     </div>
   </div>
 </form>
