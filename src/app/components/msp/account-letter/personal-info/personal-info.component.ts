@@ -9,7 +9,7 @@ import {
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import * as _ from 'lodash';
-import {MspDataService} from '../../service/msp-data.service';
+import {MspDataService} from '../../../../services/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
 import {ProcessService} from '../../service/process.service';
 import {AccountLetterApplication, MspPerson} from '../../model/account-letter-application.model';

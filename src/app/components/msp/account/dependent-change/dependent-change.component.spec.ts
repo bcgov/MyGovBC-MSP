@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { Router } from '@angular/router';
 import { ProcessService } from '../../service/process.service';
 import { LocalStorageModule } from 'angular-2-local-storage';

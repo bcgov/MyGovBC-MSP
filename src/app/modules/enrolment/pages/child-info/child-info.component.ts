@@ -4,7 +4,7 @@ import {Component, Injectable, ViewChild, ViewChildren,
 import {MspPerson} from '../../../../components/msp/model/application.model';
 
 // import {MspDataService} from '../../service/msp-data.service';
-import { MspDataService } from '../../../../components/msp/service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import {Relationship} from '../../../../components/msp/model/status-activities-documents';
 import {BaseComponent} from '../../../../components/msp/common/base.component';
 import {ProcessService} from '../../../../components/msp/service/process.service';

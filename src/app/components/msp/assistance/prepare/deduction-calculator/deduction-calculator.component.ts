@@ -12,7 +12,7 @@ import {Observable} from 'rxjs';
 import * as _ from 'lodash';
 
 import {Eligibility} from '../../../model/eligibility.model';
-import { MspDataService } from '../../../service/msp-data.service';
+import { MspDataService } from '../../../../../services/msp-data.service';
 import {FinancialAssistApplication} from '../../../model/financial-assist-application.model';
 import * as moment from 'moment';
 

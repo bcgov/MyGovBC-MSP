@@ -3,7 +3,7 @@ import { Component, ViewChild, AfterViewInit, OnInit, ElementRef} from '@angular
 import { FormsModule, FormGroup, NgForm, AbstractControl } from '@angular/forms';
 import { MspLogService } from '../../../../../services/log.service';
 import {DeductionCalculatorComponent} from './deduction-calculator.component';
-import { MspDataService } from '../../../service/msp-data.service';
+import { MspDataService } from '../../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspCancelComponent} from '../../../common/cancel/cancel.component';
 import {ModalModule} from 'ngx-bootstrap';

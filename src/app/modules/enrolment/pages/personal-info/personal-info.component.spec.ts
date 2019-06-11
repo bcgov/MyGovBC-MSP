@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 import { PersonalInfoComponent } from './personal-info.component';
 import { PersonalDetailsComponent } from '../../../msp-core/components/personal-details/personal-details.component';
-import { MspDataService } from '../../../../components/msp/service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspPhnComponent} from '../../../../components/msp/common/phn/phn.component';
 import {MspNameComponent} from '../../../../components/msp/common/name/name.component';

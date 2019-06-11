@@ -1,10 +1,10 @@
-import {AfterContentInit, Component, OnInit} from '@angular/core';
+import {AfterContentInit, Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {MspLogService} from '../../../../services/log.service';
 import {BenefitApplication} from '../../../../components/msp/model/benefit-application.model';
-import {MspBenefitDataService} from '../../../../components/msp/service/msp-benefit-data.service';
-import {MspApiBenefitService} from '../../../../components/msp/service/msp-api-benefit.service';
-import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
+import {MspApiBenefitService} from '../../services/msp-api-benefit.service';
+import {HttpErrorResponse} from '@angular/common/http';
 import {SuppBenefitApiResponse} from '../../../../components/msp/model/suppBenefit-response.interface';
 
 
@@ -43,26 +43,26 @@ export class BenefitSendingComponent implements AfterContentInit  {
           .sendRequest(this.application)
           .then(response => {
             // probable network errors..middleware could be down
-            if (response instanceof HttpErrorResponse) { 
+            if (response instanceof HttpErrorResponse) {
                 this.logService.log({
                     name: 'Supplementary Benefit - System Error',
                     confirmationNumber: this.application.uuid,
                     url: this.router.url
                 }, 'Supplementary Benefit - Submission Response Error' + response.message);
-                this.processErrorResponse(response, response.message, false);
+                this.processErrorResponse(false);
                 return;
             }
 
             // Business errors. Might be either a DB error.
             this.suppBenefitResponse = <SuppBenefitApiResponse> response;
-          
+
             if (this.isFailure(this.suppBenefitResponse)) {
                 this.logService.log({
                     name: 'Supplementary Benefit - DB Error',
                     confirmationNumber: this.application.uuid,
                     url: this.router.url
                 }, 'Supplementary Benefit - Submission Response Error' + JSON.stringify(this.suppBenefitResponse));
-                this.processErrorResponse(response, undefined ,false);
+                this.processErrorResponse(false);
                 return;
             }
             const refNumber = response.referenceNumber;
@@ -72,13 +72,13 @@ export class BenefitSendingComponent implements AfterContentInit  {
                 url: this.router.url
             }, 'Supplementary Benefit - Submission Response Success');
             this.dataService.removeMspBenefitApp();
-           
+
             this.router.navigate(['/msp/benefit/confirmation'],
                 {queryParams: {confirmationNum: refNumber}});
       });
   }
 
-  processErrorResponse(response: HttpErrorResponse, errorMessage: string , transmissionInProcess: boolean) {
+  processErrorResponse(transmissionInProcess: boolean) {
       this.hasError = true;
       this.transmissionInProcess = transmissionInProcess;
       const oldUUID = this.application.uuid;
@@ -96,7 +96,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
       this.router.navigate(['/msp/benefit/authorize-submit']);
   }
 
-  isFailure(suppBenefitApiResponse: SuppBenefitApiResponse):boolean {
+  isFailure(suppBenefitApiResponse: SuppBenefitApiResponse): boolean {
       // has a reference number , is DB error code Y , is RAPID response Y then its not a failure
       if (suppBenefitApiResponse && suppBenefitApiResponse.referenceNumber && !suppBenefitApiResponse.dberrorMessage) {
           return false;

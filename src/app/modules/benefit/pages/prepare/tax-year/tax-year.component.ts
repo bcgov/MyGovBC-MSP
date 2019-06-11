@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import {BaseComponent} from '../../../../../components/msp/common/base.component';
 import {AssistanceYear} from '../../../../../components/msp/model/assistance-year.model';
 import {BenefitApplication} from '../../../../../components/msp/model/benefit-application.model';
-import {MspBenefitDataService} from '../../../../../components/msp/service/msp-benefit-data.service';
+import {MspBenefitDataService} from '../../../services/msp-benefit-data.service';
 import {ISpaEnvResponse} from '../../../../../components/msp/model/spa-env-response.interface';
 
 @Component({

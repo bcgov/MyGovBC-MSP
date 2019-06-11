@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import {MspDataService} from './msp-data.service';
+import {MspDataService} from '../../../services/msp-data.service';
 import {LocalStorageService} from 'angular-2-local-storage';
-import {BenefitApplication} from '../model/benefit-application.model';
-import {AccountLetterApplication} from '../model/account-letter-application.model';
-import FinancialAssistApplicationDto from '../model/financial-assist-application.dto';
-import {FinancialAssistApplication} from '../model/financial-assist-application.model';
-import BenefitApplicationDto from '../model/benefit-application.dto';
-import AddressDto from '../model/address.dto';
+import {BenefitApplication} from '../../../components/msp/model/benefit-application.model';
+import {AccountLetterApplication} from '../../../components/msp/model/account-letter-application.model';
+import FinancialAssistApplicationDto from '../../../components/msp/model/financial-assist-application.dto';
+import {FinancialAssistApplication} from '../../../components/msp/model/financial-assist-application.model';
+import BenefitApplicationDto from '../../../components/msp/model/benefit-application.dto';
+import AddressDto from '../../../components/msp/model/address.dto';
 
 @Injectable({
   providedIn: 'root'

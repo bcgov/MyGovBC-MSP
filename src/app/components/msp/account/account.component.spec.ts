@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { MspProgressBarComponent } from '../common/progressBar/progressBar.component';
 import { MspLogService } from '../../../services/log.service';
-import { MspDataService } from '../service/msp-data.service';
+import { MspDataService } from '../../../services/msp-data.service';
 import { ProcessService } from '../service/process.service';
 import { AccountComponent } from './account.component';
 import {HttpClientModule} from '@angular/common/http';

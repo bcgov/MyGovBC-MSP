@@ -3,7 +3,7 @@ import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {CommonModule} from '@angular/common';
 import { CompletenessCheckService } from './completeness-check.service';
-import { MspDataService } from '../components/msp/service/msp-data.service';
+import { MspDataService } from './msp-data.service';
 import {MspValidationService} from './msp-validation.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 

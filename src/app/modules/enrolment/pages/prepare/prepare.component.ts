@@ -4,7 +4,7 @@ import {  Router } from '@angular/router';
 import {MspApplication, MspPerson} from '../../../../components/msp/model/application.model';
 import * as _ from 'lodash';
 import { merge} from 'rxjs/internal/observable/merge';
-import {MspDataService} from '../../../../components/msp/service/msp-data.service';
+import {MspDataService} from '../../../../services/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
 import {ProcessService} from '../../../../components/msp/service/process.service';
 import {BaseComponent} from '../../../../components/msp/common/base.component';

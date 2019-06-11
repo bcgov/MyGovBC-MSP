@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {MspDataService} from './msp-data.service';
+import {MspDataService} from '../../../services/msp-data.service';
 import {DocumentGroup, Documents} from '../model/account-documents';
 import {MspAccountApp} from '../model/account.model';
 import {CancellationReasonsForSpouse, StatusInCanada} from '../model/status-activities-documents';

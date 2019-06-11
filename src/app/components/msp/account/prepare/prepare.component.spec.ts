@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 import { AccountPrepareComponent } from './prepare.component';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
 import {MspCancelComponent} from '../../common/cancel/cancel.component';
@@ -11,7 +11,7 @@ import { MspLogService } from '../../../../services/log.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ProcessService } from '../../service/process.service';
-import { MspApiService } from '../../service/msp-api.service';
+import { MspApiService } from '../../../../services/msp-api.service';
 
 import { CaptchaComponent } from 'mygovbc-captcha-widget/src/app/captcha/captcha.component';
 import { CaptchaDataService } from 'mygovbc-captcha-widget/src/app/captcha-data.service';

@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PrepareComponent } from './prepare.component';
-import { MspDataService } from '../../../../components/msp/service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspConsentModalComponent} from '../../../../components/msp/common/consent-modal/consent-modal.component';
 import {MspCancelComponent} from '../../../../components/msp/common/cancel/cancel.component';

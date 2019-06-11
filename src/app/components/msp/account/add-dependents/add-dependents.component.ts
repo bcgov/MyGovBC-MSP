@@ -12,7 +12,7 @@ import {
 import {MspPerson} from '../../model/msp-person.model';
 import {Relationship, StatusInCanada} from '../../model/status-activities-documents';
 import {BaseComponent} from '../../common/base.component';
-import {MspDataService} from '../../service/msp-data.service';
+import {MspDataService} from '../../../../services/msp-data.service';
 import {Router} from '@angular/router';
 import {ProcessService} from '../../service/process.service';
 import {LocalStorageService} from 'angular-2-local-storage';

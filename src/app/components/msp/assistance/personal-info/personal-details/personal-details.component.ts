@@ -2,7 +2,7 @@ import { Component, Input, Output, ViewChild, EventEmitter, ChangeDetectorRef } 
 import { NgForm } from '@angular/forms';
 // import { IPerson } from "../../../model/person.interface";
 import { MspPerson } from '../../../model/msp-person.model';
-import { MspDataService } from '../../../service/msp-data.service';
+import { MspDataService } from '../../../../../services/msp-data.service';
 import {FinancialAssistApplication} from '../../../model/financial-assist-application.model';
 import {BaseComponent} from '../../../common/base.component';
 import {MspBirthDateComponent} from '../../../../../modules/msp-core/components/birthdate/birthdate.component';

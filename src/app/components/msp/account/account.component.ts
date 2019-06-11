@@ -4,7 +4,7 @@ import {MspProgressBarComponent} from '../common/progressBar/progressBar.compone
 import {ProcessService, ProcessStep, ProcessUrls} from '../service/process.service';
 import {MspAccountApp} from '../model/account.model';
 import {ProgressBarHelper} from './ProgressBarHelper';
-import {MspDataService} from '../service/msp-data.service';
+import {MspDataService} from '../../../services/msp-data.service';
 import {environment} from '../../../../environments/environment';
 import {Router, NavigationEnd} from '@angular/router';
 import { filter } from 'rxjs/operators';

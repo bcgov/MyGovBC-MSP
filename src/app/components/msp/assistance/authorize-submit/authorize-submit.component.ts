@@ -1,6 +1,6 @@
 import {Component, AfterViewInit, ViewChild, Output, Inject, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import {MspImage} from '../../model/msp-image';
 import {MspImageErrorModalComponent} from '../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';

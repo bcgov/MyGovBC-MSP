@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MspArrivalDateComponent } from './arrival-date.component';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import {CalendarYearFormatter} from '../../common/calendar/calendar-year-formatter.component';

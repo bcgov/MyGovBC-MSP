@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, DoCheck, OnInit, ViewChild} from '@angular/core';
-import {MspDataService} from '../../../../components/msp/service/msp-data.service';
+import {MspDataService} from '../../../../services/msp-data.service';
 import {MspFileUploaderComponent} from '../../../../components/msp/common/file-uploader/file-uploader.component';
 import {Router} from '@angular/router';
 import {FinancialAssistApplication} from '../../../../components/msp/model/financial-assist-application.model';
@@ -8,7 +8,7 @@ import {MspImage} from '../../../../components/msp/model/msp-image';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
 import {ProcessService} from '../../../../components/msp/service/process.service';
 import {BenefitApplication} from '../../../../components/msp/model/benefit-application.model';
-import {MspBenefitDataService} from '../../../../components/msp/service/msp-benefit-data.service';
+import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 
 @Component({
   selector: 'msp-benefit-documents',

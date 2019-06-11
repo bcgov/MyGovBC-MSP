@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Subscription} from 'rxjs';
-import {MspDataService} from '../../../../components/msp/service/msp-data.service';
+import {MspDataService} from '../../../../services/msp-data.service';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({

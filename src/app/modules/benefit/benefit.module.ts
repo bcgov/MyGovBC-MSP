@@ -16,7 +16,7 @@ import { MspCoreModule } from '../msp-core/msp-core.module';
 import { BenefitDeductionCalculatorComponent } from './pages/prepare/benefit-deduction-calculator/benefit-deduction-calculator.component';
 import { BenefitEligibilityCardComponent } from './pages/prepare/eligibility-card/eligibility-card.component';
 import { TaxYearComponent } from './pages/prepare/tax-year/tax-year.component';
-import { MspBenefitDataService } from '../../components/msp/service/msp-benefit-data.service';
+import { MspBenefitDataService } from './services/msp-benefit-data.service';
 import { ModalModule } from 'ngx-bootstrap';
 
 @NgModule({

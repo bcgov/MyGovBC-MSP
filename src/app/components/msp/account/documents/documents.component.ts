@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, Injectable, ViewChild, ElementRef} from '@angular/core';
 
-import {MspDataService} from '../../service/msp-data.service';
+import {MspDataService} from '../../../../services/msp-data.service';
 import {Router} from '@angular/router';
 import {BaseComponent} from '../../common/base.component';
 import {LocalStorageService} from 'angular-2-local-storage';

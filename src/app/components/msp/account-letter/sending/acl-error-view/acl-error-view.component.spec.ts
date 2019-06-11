@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AclErrorViewComponent } from './acl-error-view.component';
 import { FormsModule } from '@angular/forms';
-import { MspDataService } from '../../../service/msp-data.service';
+import { MspDataService } from '../../../../../services/msp-data.service';
 import {HttpClientModule} from '@angular/common/http';
 import { ProcessService } from '../../../service/process.service';
 import { MspLogService } from '../../../../../services/log.service';

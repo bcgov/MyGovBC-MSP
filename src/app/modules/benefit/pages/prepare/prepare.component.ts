@@ -1,9 +1,9 @@
 import {AfterViewInit, ChangeDetectorRef, Component, DoCheck, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {BaseComponent} from '../../../../components/msp/common/base.component';
-import {MspDataService} from '../../../../components/msp/service/msp-data.service';
+import {MspDataService} from '../../../../services/msp-data.service';
 import {FinancialAssistApplication} from '../../../../components/msp/model/financial-assist-application.model';
 import {BenefitApplication} from '../../../../components/msp/model/benefit-application.model';
-import {MspBenefitDataService} from '../../../../components/msp/service/msp-benefit-data.service';
+import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 import {MspFileUploaderComponent} from '../../../../components/msp/common/file-uploader/file-uploader.component';
 import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';

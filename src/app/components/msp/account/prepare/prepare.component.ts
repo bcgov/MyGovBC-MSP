@@ -8,13 +8,13 @@ import * as _ from 'lodash';
 
 
 import {MspPerson} from '../../model/msp-person.model';
-import {MspDataService} from '../../service/msp-data.service';
+import {MspDataService} from '../../../../services/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
 
 import {ProcessService, ProcessStep} from '../../service/process.service';
 import {ProcessUrls} from '../../service/process.service';
 import {BaseComponent} from '../../common/base.component';
-import {MspApiService} from '../../service/msp-api.service';
+import {MspApiService} from '../../../../services/msp-api.service';
 import {environment} from '../../../../../environments/environment';
 //import {CheckboxComponent} from '../../../../../../node_modules/moh-common-lib/lib/components/checkbox/checkbox.component';
 

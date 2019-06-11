@@ -8,7 +8,7 @@ import {environment} from '../../../../../environments/environment';
 import {NgForm} from '@angular/forms';
 import {MspImage} from '../../../../components/msp/model/msp-image';
 import {BenefitApplication} from '../../../../components/msp/model/benefit-application.model';
-import {MspBenefitDataService} from '../../../../components/msp/service/msp-benefit-data.service';
+import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 
 @Component({
   selector: 'msp-authorize-submit',

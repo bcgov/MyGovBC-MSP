@@ -8,7 +8,7 @@ import {BenefitPersonalDetailComponent} from './personal-detail/personal-detail.
 import {MspAddressComponent} from '../../../../components/msp/common/address/address.component';
 import {BaseComponent} from '../../../../components/msp/common/base.component';
 import {BenefitApplication} from '../../../../components/msp/model/benefit-application.model';
-import {MspBenefitDataService} from '../../../../components/msp/service/msp-benefit-data.service';
+import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 
 
 @Component({

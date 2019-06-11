@@ -1,6 +1,6 @@
 import {Component, Inject, Injectable, AfterContentInit, ViewChild, ElementRef} from '@angular/core';
-import { MspDataService } from '../../service/msp-data.service';
-import {MspApiService} from '../../service/msp-api.service';
+import { MspDataService } from '../../../../services/msp-data.service';
+import {MspApiService} from '../../../../services/msp-api.service';
 import {Router} from '@angular/router';
 import {ResponseType} from '../../../../modules/enrolment/pages/api-model/responseTypes';
 import {MspLogService} from '../../../../services/log.service';

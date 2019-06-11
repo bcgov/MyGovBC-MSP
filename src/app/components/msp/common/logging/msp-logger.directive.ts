@@ -3,7 +3,7 @@ import { Component, Directive, HostBinding, ElementRef,
   import * as moment from 'moment';
 
 import { MspLogService } from '../../../../services/log.service';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LogEntry } from './log-entry.model';
 
 @Directive({

@@ -1,26 +1,27 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { environment } from '../../../../environments/environment';
-import { AccountChangeAccountHolderFactory, AccountChangeAccountHolderType, AccountChangeApplicationTypeFactory, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from '../../../modules/enrolment/pages/api-model/accountChangeTypes';
-import { ApplicationTypeFactory, AttachmentType, AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory, DocumentFactory, _ApplicationTypeNameSpace, document } from '../../../modules/enrolment/pages/api-model/applicationTypes';
-import { AssistanceApplicantTypeFactory, AssistanceApplicationTypeFactory, AssistanceSpouseTypeFactory, FinancialsType, FinancialsTypeFactory } from '../../../modules/enrolment/pages/api-model/assistanceTypes';
-import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../../../modules/enrolment/pages/api-model/commonTypes';
-import { DependentType, DependentTypeFactory, EnrolmentApplicantTypeFactory, EnrolmentApplicationTypeFactory, EnrolmentChildrenTypeFactory, EnrolmentDependentsTypeFactory, LivedInBCTypeFactory, OutsideBCTypeFactory, PersonType, PersonTypeFactory, PreviousCoverageTypeFactory, ResidencyType, ResidencyTypeFactory, WillBeAwayTypeFactory } from '../../../modules/enrolment/pages/api-model/enrolmentTypes';
-import { ResponseType } from '../../../modules/enrolment/pages/api-model/responseTypes';
-import { MspAccountApp } from '../model/account.model';
-import { Address } from '../model/address.model';
-import { ApplicationBase } from '../model/application-base.model';
-import { MspApplication } from '../model/application.model';
-import { AssistanceApplicationType, FinancialAssistApplication } from '../model/financial-assist-application.model';
-import { MspImage } from '../model/msp-image';
-import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../model/msp-person.model';
-import { SimpleDate } from '../model/simple-date.interface';
-import { Activities, Relationship, StatusInCanada } from '../model/status-activities-documents';
-import { MspLogService } from '../../../services/log.service';
-import { MspMaintenanceService } from '../service/msp-maintenance.service';
+
+import { AccountChangeAccountHolderFactory, AccountChangeAccountHolderType, AccountChangeApplicationTypeFactory, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from '../modules/enrolment/pages/api-model/accountChangeTypes';
+import { ApplicationTypeFactory, AttachmentType, AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory, DocumentFactory, _ApplicationTypeNameSpace, document } from '../modules/enrolment/pages/api-model/applicationTypes';
+import { AssistanceApplicantTypeFactory, AssistanceApplicationTypeFactory, AssistanceSpouseTypeFactory, FinancialsType, FinancialsTypeFactory } from '../modules/enrolment/pages/api-model/assistanceTypes';
+import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../modules/enrolment/pages/api-model/commonTypes';
+import { DependentType, DependentTypeFactory, EnrolmentApplicantTypeFactory, EnrolmentApplicationTypeFactory, EnrolmentChildrenTypeFactory, EnrolmentDependentsTypeFactory, LivedInBCTypeFactory, OutsideBCTypeFactory, PersonType, PersonTypeFactory, PreviousCoverageTypeFactory, ResidencyType, ResidencyTypeFactory, WillBeAwayTypeFactory } from '../modules/enrolment/pages/api-model/enrolmentTypes';
+import { ResponseType } from '../modules/enrolment/pages/api-model/responseTypes';
+import { MspAccountApp } from '../components/msp/model/account.model';
+import { Address } from '../components/msp/model/address.model';
+import { ApplicationBase } from '../components/msp/model/application-base.model';
+import { MspApplication } from '../components/msp/model/application.model';
+import { AssistanceApplicationType, FinancialAssistApplication } from '../components/msp/model/financial-assist-application.model';
+import { MspImage } from '../components/msp/model/msp-image';
+import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../components/msp/model/msp-person.model';
+import { SimpleDate } from '../components/msp/model/simple-date.interface';
+import { Activities, Relationship, StatusInCanada } from '../components/msp/model/status-activities-documents';
+import { MspLogService } from './log.service';
+import { MspMaintenanceService } from '../components/msp/service/msp-maintenance.service';
 import { Response } from '@angular/http';
-import {ISpaEnvResponse} from '../model/spa-env-response.interface';
+import {ISpaEnvResponse} from '../components/msp/model/spa-env-response.interface';
+import { environment } from '../../environments/environment';
 
 
 const jxon = require('jxon/jxon');

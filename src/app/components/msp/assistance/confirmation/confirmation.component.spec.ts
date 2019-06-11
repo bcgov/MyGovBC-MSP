@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AssistanceConfirmationComponent } from './confirmation.component';
 import {LandingComponent} from '../../../../pages/landing/landing.component';
 import {AssistanceComponent} from '../assistance.component';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';
 import {MspLogService} from '../../../../services/log.service';

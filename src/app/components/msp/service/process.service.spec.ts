@@ -1,5 +1,5 @@
 import { ProcessService, Process } from './process.service';
-import { MspDataService } from './msp-data.service';
+import { MspDataService } from '../../../services/msp-data.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, TestBed, getTestBed } from '@angular/core/testing';
 import { LocalStorageModule, LocalStorageService } from 'angular-2-local-storage';

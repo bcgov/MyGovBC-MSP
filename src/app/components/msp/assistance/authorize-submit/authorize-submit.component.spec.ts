@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { AssistanceAuthorizeSubmitComponent } from './authorize-submit.component';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {FileUploaderComponent} from '../../common/file-uploader/file-uploader.component';
 import {ThumbnailComponent} from '../../common/thumbnail/thumbnail.component';

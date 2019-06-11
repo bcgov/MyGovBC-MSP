@@ -24,7 +24,7 @@ import { MspArrivalDateComponent } from '../../common/arrival-date/arrival-date.
 import { MspOutofBCRecordComponent } from '../../common/outof-bc/outof-bc.component';
 import { Mod11CheckValidator } from '../../common/phn/phn.validator';
 import { MspCountryComponent } from '../../common/country/country.component';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import { MspDepartureDateComponent } from '../../common/departure-date/departure-date.component';
 import {MspReturnDateComponent} from '../../common/return-date/return-date.component';

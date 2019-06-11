@@ -19,7 +19,7 @@ import {Address} from '../../../model/address.model';
 import {MspPerson} from '../../../model/msp-person.model';
 
 
-import {MspDataService} from '../../../service/msp-data.service';
+import {MspDataService} from '../../../../../services/msp-data.service';
 
 
 import './personal-details.component.scss';

@@ -7,7 +7,7 @@ import { Observable} from 'rxjs/internal/Observable';
 
 import { ModalDirective } from 'ngx-bootstrap';
 
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import {ConsentModalComponent} from 'moh-common-lib';
 import {MspImage} from '../../model/msp-image';

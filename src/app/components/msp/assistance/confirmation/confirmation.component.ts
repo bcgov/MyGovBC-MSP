@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable,  Subscription} from 'rxjs';

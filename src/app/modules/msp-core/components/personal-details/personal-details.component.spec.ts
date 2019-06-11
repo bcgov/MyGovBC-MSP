@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { PersonalDetailsComponent } from './personal-details.component';
-import { MspDataService } from '../../../../components/msp/service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import {PhnComponent} from 'moh-common-lib';
 import {MspNameComponent} from '../../../../components/msp/common/name/name.component';

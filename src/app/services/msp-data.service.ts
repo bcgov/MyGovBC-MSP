@@ -1,22 +1,22 @@
 import {Injectable} from '@angular/core';
-import {MspApplication, MspPerson} from '../model/application.model';
-import {MspAccountApp} from '../model/account.model';
-import PersonDto from '../model/person.dto';
-import {FinancialAssistApplication} from '../model/financial-assist-application.model';
 import {LocalStorageService} from 'angular-2-local-storage';
-import FinancialAssistApplicationDto from '../model/financial-assist-application.dto';
-import MspApplicationDto from '../model/application.dto';
-import MspAccountDto from '../model/account.dto';
-import AddressDto from '../model/address.dto';
-import {OutofBCRecordDto} from '../model/outof-bc-record.dto';
-import {OutofBCRecord} from '../model/outof-bc-record.model';
-import {Process} from './process.service';
-import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
-import {Gender} from '../model/msp-person.model';
-import {OperationActionType} from '../model/msp-person.model';
-import {Address} from 'moh-common-lib';
-import { AccountLetterApplication } from '../model/account-letter-application.model';
-import AccountLetterDto from '../model/account-letter.dto';
+import { MspApplication } from '../components/msp/model/application.model';
+import { AccountLetterApplication } from '../components/msp/model/account-letter-application.model';
+import { FinancialAssistApplication } from '../components/msp/model/financial-assist-application.model';
+import { MspAccountApp, MspPerson } from '../components/msp/model/account.model';
+import { Process } from '../components/msp/service/process.service';
+import { MspProgressBarItem } from '../components/msp/common/progressBar/progressBarDataItem.model';
+import MspAccountDto from '../components/msp/model/account.dto';
+import MspApplicationDto from '../components/msp/model/application.dto';
+import AccountLetterDto from '../components/msp/model/account-letter.dto';
+import FinancialAssistApplicationDto from '../components/msp/model/financial-assist-application.dto';
+import { Gender, OperationActionType } from '../components/msp/model/msp-person.model';
+import { Address } from 'moh-common-lib';
+import PersonDto from '../components/msp/model/person.dto';
+import { OutofBCRecord } from '../components/msp/model/outof-bc-record.model';
+import { OutofBCRecordDto } from '../components/msp/model/outof-bc-record.dto';
+import AddressDto from '../components/msp/model/address.dto';
+
 
 @Injectable()
 export  class MspDataService {

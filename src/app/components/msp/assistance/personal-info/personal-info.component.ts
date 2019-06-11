@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, ViewChild, AfterViewInit, OnInit, ViewChildren, QueryList} from '@angular/core';
 import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
 
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { CompletenessCheckService}  from '../../../../services/completeness-check.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import { Router } from '@angular/router';

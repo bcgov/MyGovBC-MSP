@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { MspLogService } from '../../../services/log.service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { BenefitApplication } from '../model/benefit-application.model';
-import { BenefitApplicationTypeFactory, BenefitApplicationType  } from '../../../modules/enrolment/pages/api-model/benefitTypes';
-import { AssistanceApplicationType } from '../model/financial-assist-application.model';
-import { AttachmentType, _ApplicationTypeNameSpace } from '../../../modules/enrolment/pages/api-model/applicationTypes';
+import { BenefitApplication } from '../../../components/msp/model/benefit-application.model';
+import { BenefitApplicationTypeFactory, BenefitApplicationType  } from '../../enrolment/pages/api-model/benefitTypes';
+import { AssistanceApplicationType } from '../../../components/msp/model/financial-assist-application.model';
+import { AttachmentType, _ApplicationTypeNameSpace } from '../../enrolment/pages/api-model/applicationTypes';
 import { environment } from '../../../../environments/environment';
 import * as moment from 'moment';
 import { AbstractHttpService } from 'moh-common-lib';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
-import { GenderType } from '../../../modules/enrolment/pages/api-model/commonTypes';
-import { ResponseType } from '../../../modules/enrolment/pages/api-model/responseTypes';
-import { MspImage } from '../model/msp-image';
+import { GenderType } from '../../enrolment/pages/api-model/commonTypes';
+import { ResponseType } from '../../enrolment/pages/api-model/responseTypes';
+import { MspImage } from '../../../components/msp/model/msp-image';
 import { Response } from '@angular/http';
-import {MspApiService} from '../../msp/service/msp-api.service';
-import {SuppBenefitApiResponse} from '../model/suppBenefit-response.interface';
+import {MspApiService} from '../../../services/msp-api.service';
+import {SuppBenefitApiResponse} from '../../../components/msp/model/suppBenefit-response.interface';
 
 @Injectable({
   providedIn: 'root'

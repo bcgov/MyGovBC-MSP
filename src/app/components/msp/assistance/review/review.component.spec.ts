@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { AssistanceReviewComponent } from './review.component';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspPersonCardComponent} from '../../common/person-card/person-card.component';
 import {MspContactCardComponent} from '../../common/contact-card/contact-card.component';

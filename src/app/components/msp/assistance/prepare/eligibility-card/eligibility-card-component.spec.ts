@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule} from '@angular/forms';
 
 import {EligibilityCardComponent} from './eligibility-card.component';
-import { MspDataService } from '../../../service/msp-data.service';
+import { MspDataService } from '../../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {RouterTestingModule} from '@angular/router/testing';
 

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
-import { MspDataService } from './msp-data.service';
+import { MspDataService } from '../../../services/msp-data.service';
 
 export class ProcessUrls {
     public static readonly ACCOUNT_PREPARE_URL = '/msp/account/prepare' ;

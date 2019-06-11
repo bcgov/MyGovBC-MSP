@@ -1,6 +1,6 @@
 import { AccountDocumentHelperService } from './account-document-helper.service';
 import {MspLog2Service} from './log2.service';
-import {MspDataService} from './msp-data.service';
+import {MspDataService} from '../../../services/msp-data.service';
 import {MspPhnComponent} from '../../msp/common/phn/phn.component';
 /* tslint:disable:no-unused-variable */
 import {

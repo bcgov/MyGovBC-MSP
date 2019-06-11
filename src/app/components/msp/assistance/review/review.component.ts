@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import {ProcessService} from '../../service/process.service';
 import { Router, NavigationEnd } from '@angular/router';

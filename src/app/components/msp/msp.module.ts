@@ -40,10 +40,10 @@ import { MspLoggerDirective } from './common/logging/msp-logger.directive';
 //import { LandingComponent } from '../../pages/landing/landing.component';
 import { CompletenessCheckService } from '../../services/completeness-check.service';
 import { MspLogService } from '../../services/log.service';
-import { MspApiService } from './service/msp-api.service';
+import { MspApiService } from '../../services/msp-api.service';
 import { MspACLService } from './service/msp-acl-api.service';
 import { MspLog2Service } from './service/log2.service';
-import { MspDataService } from './service/msp-data.service';
+import { MspDataService } from '../../services/msp-data.service';
 import { MspValidationService } from '../../services/msp-validation.service';
 import { ProcessService } from './service/process.service';
 import { TypeaheadModule } from 'ngx-bootstrap';
@@ -58,7 +58,7 @@ import { SpecificMemberComponent } from './account-letter/personal-info/specific
 import { AclErrorViewComponent } from './account-letter/sending/acl-error-view/acl-error-view.component';
 import { ReplacewithlinksPipe } from './common/replace-link-pipe/replacewithlinks.pipe';
 import {BenefitPrepareComponent} from '../../modules/benefit/pages/prepare/prepare.component';
-import {MspBenefitDataService} from './service/msp-benefit-data.service';
+import {MspBenefitDataService} from '../../modules/benefit/services/msp-benefit-data.service';
 import { BenefitDeductionCalculatorComponent } from '../../modules/benefit/pages/prepare/benefit-deduction-calculator/benefit-deduction-calculator.component';
 import {BenefitPersonalInfoComponent} from '../../modules/benefit/pages/personal-info/personal-info.component';
 import {BenefitPersonalDetailComponent} from '../../modules/benefit/pages/personal-info/personal-detail/personal-detail.component';
@@ -319,8 +319,8 @@ const APP_ROUTES: Routes = [
         //MspDataService,
         MspValidationService,
         MspMaintenanceService,
-        CompletenessCheckService,
-        MspApiService,
+        //CompletenessCheckService,
+        //MspApiService,
         MspACLService,
         //MspLogService,
         MspLog2Service,

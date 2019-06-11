@@ -7,7 +7,7 @@ import {
 import {TestBed, getTestBed, async, fakeAsync, tick, inject } from '@angular/core/testing';
 import {MspMaintenanceService} from './msp-maintenance.service';
 import {MspLog2Service} from './log2.service';
-import {MspDataService} from './msp-data.service';
+import {MspDataService} from '../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterTestingModule} from '@angular/router/testing';

@@ -4,7 +4,7 @@ import {FormsModule, FormGroup, NgForm, AbstractControl} from '@angular/forms';
 
 import {AssistancePrepareComponent} from './prepare.component';
 import {DeductionCalculatorComponent} from './deduction-calculator/deduction-calculator.component';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import {LocalStorageService, LocalStorageModule} from 'angular-2-local-storage';
 import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
 import {ModalModule} from 'ngx-bootstrap';

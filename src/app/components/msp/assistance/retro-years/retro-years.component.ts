@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit, AfterViewInit, DoCheck } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import {MspImage} from '../../../msp/model/msp-image';
 import {MspFileUploaderComponent} from '../../common/file-uploader/file-uploader.component';

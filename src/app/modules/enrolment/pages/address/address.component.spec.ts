@@ -1,7 +1,7 @@
 import {TestBed, inject, async} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { AddressComponent } from './address.component';
-import { MspDataService } from '../../../../components/msp/service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { CompletenessCheckService } from '../../../../services/completeness-check.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspApplication} from '../../../../components/msp/model/application.model';

@@ -1,10 +1,10 @@
 import {Component, ViewChild} from '@angular/core';
 // import { MspDataService } from '../service/msp-data.service';
-import {MspDataService} from '../../components/msp/service/msp-data.service';
+import {MspDataService} from '../../services/msp-data.service';
 
 
 import {Router} from '@angular/router';
-import {MspBenefitDataService} from '../../components/msp/service/msp-benefit-data.service';
+import {MspBenefitDataService} from '../../modules/benefit/services/msp-benefit-data.service';
 
 /**
  * Application for MSP
