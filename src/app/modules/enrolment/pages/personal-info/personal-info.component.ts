@@ -10,7 +10,7 @@ import {Relationship} from '../../../../components/msp/model/status-activities-d
 import {NgForm} from '@angular/forms';
 import {PersonalDetailsComponent} from '../../../msp-core/components/personal-details/personal-details.component';
 import {BaseComponent} from '../../../../models/base.component';
-import {ProcessService} from '../../../../components/msp/service/process.service';
+import {ProcessService} from '../../../../services/process.service';
 import { StatusInCanada} from '../../../../components/msp/model/status-activities-documents';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
 

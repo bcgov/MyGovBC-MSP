@@ -6,7 +6,7 @@ import { AccountDocumentsComponent } from './documents.component';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ProcessService } from '../../service/process.service';
+import { ProcessService } from '../../../../services/process.service';
 import { async } from '@angular/core/testing';
 import { AccountDocumentHelperService } from '../../service/account-document-helper.service';
 import {DocumentGroup} from '../../model/account-documents';

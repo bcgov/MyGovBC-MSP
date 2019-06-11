@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {MspImage} from '../../../../models/msp-image';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
-import {ProcessService} from '../../../../components/msp/service/process.service';
+import {ProcessService} from '../../../../services/process.service';
 import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 

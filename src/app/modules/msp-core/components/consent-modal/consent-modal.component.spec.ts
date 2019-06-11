@@ -6,7 +6,7 @@ import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage
 import {MspAddressCardPartComponent} from '../../../../components/msp/common/address-card-part/address-card-part.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ModalModule} from 'ngx-bootstrap';
-import {MspMaintenanceService} from '../../../../components/msp/service/msp-maintenance.service';
+import {MspMaintenanceService} from '../../../../services/msp-maintenance.service';
 import {HttpClientModule} from '@angular/common/http';
 import {MspLogService} from '../../../../services/log.service';
 

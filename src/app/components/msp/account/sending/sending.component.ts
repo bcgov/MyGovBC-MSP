@@ -4,7 +4,7 @@ import {MspApiService} from '../../../../services/msp-api.service';
 import {Router} from '@angular/router';
 import {ResponseType} from '../../../../modules/enrolment/pages/api-model/responseTypes';
 import {MspLogService} from '../../../../services/log.service';
-import {ProcessService} from '../../service/process.service';
+import {ProcessService} from '../../../../services/process.service';
 import {MspAccountApp} from '../../model/account.model';
 import {Relationship} from '../../model/status-activities-documents';
 

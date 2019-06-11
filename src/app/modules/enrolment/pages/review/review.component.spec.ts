@@ -14,7 +14,7 @@ import {MspCancelComponent} from '../../../../components/msp/common/cancel/cance
 import {MspLoggerDirective} from '../../../../components/msp/common/logging/msp-logger.directive';
 import { MspLogService } from '../../../../services/log.service';
 
-import { ProcessService } from '../../../../components/msp/service/process.service';
+import { ProcessService } from '../../../../services/process.service';
 import { CaptchaComponent } from 'mygovbc-captcha-widget/src/app/captcha/captcha.component';
 import { CaptchaDataService } from 'mygovbc-captcha-widget/src/app/captcha-data.service';
 

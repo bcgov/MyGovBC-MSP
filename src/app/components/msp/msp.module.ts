@@ -23,10 +23,10 @@ import { MspLoggerDirective } from './common/logging/msp-logger.directive';
 import { MspACLService } from './service/msp-acl-api.service';
 import { MspLog2Service } from './service/log2.service';
 import { MspValidationService } from '../../services/msp-validation.service';
-import { ProcessService } from './service/process.service';
+import { ProcessService } from '../../services/process.service';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import {AccountDocumentHelperService} from './service/account-document-helper.service';
-import { MspMaintenanceService } from './service/msp-maintenance.service';
+import { MspMaintenanceService } from '../../services/msp-maintenance.service';
 
 import { AccountLetterComponent } from './account-letter/account-letter.component';
 import { AccountLetterPersonalInfoComponent } from './account-letter/personal-info/personal-info.component';

@@ -1,7 +1,7 @@
 import {Component, Inject, ViewChild} from '@angular/core';
 import {MspProgressBarItem} from '../common/progressBar/progressBarDataItem.model';
 import {MspProgressBarComponent} from '../common/progressBar/progressBar.component';
-import {ProcessService, ProcessStep, ProcessUrls} from '../service/process.service';
+import {ProcessService, ProcessStep, ProcessUrls} from '../../../services/process.service';
 import {MspAccountApp} from '../model/account.model';
 import {ProgressBarHelper} from './ProgressBarHelper';
 import {MspDataService} from '../../../services/msp-data.service';

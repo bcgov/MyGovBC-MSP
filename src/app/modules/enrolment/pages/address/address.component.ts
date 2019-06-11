@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { MspApplication } from '../../models/application.model';
 import { BaseComponent } from '../../../../models/base.component';
-import { ProcessService } from '../../../../components/msp/service/process.service';
+import { ProcessService } from '../../../../services/process.service';
 import { Router } from '@angular/router';
 import { Address } from 'moh-common-lib';
 

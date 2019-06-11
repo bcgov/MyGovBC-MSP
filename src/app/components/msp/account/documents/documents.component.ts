@@ -10,7 +10,7 @@ import {
     StatusRules, ActivitiesRules, StatusInCanada, Activities,
     DocumentRules, Documents, Relationship , CancellationReasonsForSpouse
 } from '../../model/status-activities-documents';
-import {ProcessService, ProcessUrls} from '../../service/process.service';
+import {ProcessService, ProcessUrls} from '../../../../services/process.service';
 import {MspImage} from '../../../../models/msp-image';
 //import {FileUploaderComponent} from 'moh-common-lib/lib/components';
 import {MspImageErrorModalComponent} from '../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';

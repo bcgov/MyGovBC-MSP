@@ -3,7 +3,7 @@ import {NgForm} from '@angular/forms';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {Router} from '@angular/router';
 import {BaseComponent} from '../../../../models/base.component';
-import {ProcessService} from '../../service/process.service';
+import {ProcessService} from '../../../../services/process.service';
 import {LocalStorageService} from 'angular-2-local-storage';
 import {AccountPersonalDetailsComponent} from '../personal-info/personal-details/personal-details.component';
 import {AddDependentComponent} from '../add-dependents/add-dependents.component';
@@ -11,7 +11,7 @@ import {RemoveDependentComponent} from '../remove-dependents/remove-dependents.c
 import {MspPerson} from '../../../../modules/enrolment/models/application.model';
 import {OperationActionType} from '../../model/msp-person.model';
 import {Relationship} from '../../model/status-activities-documents';
-import {ProcessUrls} from '../../service/process.service';
+import {ProcessUrls} from '../../../../services/process.service';
 
 @Component({
     templateUrl: './dependent-change.component.html',

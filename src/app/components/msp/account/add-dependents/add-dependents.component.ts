@@ -14,7 +14,7 @@ import {Relationship, StatusInCanada} from '../../model/status-activities-docume
 import {BaseComponent} from '../../../../models/base.component';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {Router} from '@angular/router';
-import {ProcessService} from '../../service/process.service';
+import {ProcessService} from '../../../../services/process.service';
 import {LocalStorageService} from 'angular-2-local-storage';
 import {NgForm} from '@angular/forms';
 import {MspToggleComponent} from '../../common/toggle/toggle.component';

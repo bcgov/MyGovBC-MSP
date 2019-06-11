@@ -1,5 +1,5 @@
 import AddressDto from '../../../components/msp/model/address.dto';
-import PersonDto from '../../../components/msp/model/person.dto';
+import PersonDto from '../../../components/msp/model/msp-person.dto';
 import {MspImage} from '../../../models/msp-image';
 
 import {AssistanceYear} from '../../assistance/models/assistance-year.model';

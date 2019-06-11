@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import { MspApplication } from '../../models/application.model';
 import { ISpaEnvResponse } from 'moh-common-lib/lib/components/consent-modal/consent-modal.component';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { ProcessService } from '../../../../components/msp/service/process.service';
+import { ProcessService } from '../../../../services/process.service';
 import { MspLogService } from '../../../../services/log.service';
 import { MspApiService } from '../../../../services/msp-api.service';
 

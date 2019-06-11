@@ -17,7 +17,7 @@ import {ModalModule} from 'ngx-bootstrap';
 import {MspLoggerDirective} from '../../../../components/msp/common/logging/msp-logger.directive';
 import { MspLogService } from '../../../../services/log.service';
 import { MspValidationService } from '../../../../services/msp-validation.service';
-import { ProcessService } from '../../../../components/msp/service/process.service';
+import { ProcessService } from '../../../../services/process.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientModule} from '@angular/common/http';
 

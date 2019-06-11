@@ -39,7 +39,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {CalendarYearFormatter} from '../../../../components/msp/common/calendar/calendar-year-formatter.component';
 import {CalendarYearValidator} from '../../../../components/msp/common/calendar/calendar-year.validator';
 import {CalendarDayValidator} from '../../../../components/msp/common/calendar/calendar-day.validator';
-import { ProcessService } from '../../../../components/msp/service/process.service';
+import { ProcessService } from '../../../../services/process.service';
 import { ServicesCardDisclaimerModalComponent  } from '../../../../components/msp/common/services-card-disclaimer/services-card-disclaimer.component';
 
 

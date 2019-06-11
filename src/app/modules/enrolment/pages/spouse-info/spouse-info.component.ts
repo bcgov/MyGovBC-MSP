@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import {ProcessService} from '../../../../components/msp/service/process.service';
+import {ProcessService} from '../../../../services/process.service';
 import {BaseComponent} from '../../../../models/base.component';
 import { Router } from '@angular/router';
 import {MspApplication, MspPerson} from '../../models/application.model';

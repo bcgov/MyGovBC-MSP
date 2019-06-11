@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, Injectable , ViewChild, ViewChildren , Que
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {BaseComponent} from '../../../../models/base.component';
-import {ProcessService, ProcessUrls} from '../../service/process.service';
+import {ProcessService, ProcessUrls} from '../../../../services/process.service';
 import {MspPerson} from '../../model/account.model';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {AccountPersonalDetailsComponent} from './personal-details/personal-details.component';

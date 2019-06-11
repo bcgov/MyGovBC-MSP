@@ -7,7 +7,7 @@ import {MspPerson} from '../../models/application.model';
 import { MspDataService } from '../../../../services/msp-data.service';
 import {Relationship} from '../../../../components/msp/model/status-activities-documents';
 import {BaseComponent} from '../../../../models/base.component';
-import {ProcessService} from '../../../../components/msp/service/process.service';
+import {ProcessService} from '../../../../services/process.service';
 
 @Component({
   selector: 'msp-child-info',

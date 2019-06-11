@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {CompletenessCheckService} from '../../../../services/completeness-check.service';
-import {ProcessService} from '../../../../components/msp/service/process.service';
+import {ProcessService} from '../../../../services/process.service';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
 import {environment} from '../../../../../environments/environment';
 import {NgForm} from '@angular/forms';

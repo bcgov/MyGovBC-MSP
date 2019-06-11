@@ -6,10 +6,10 @@ import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspApiService} from '../../../../services/msp-api.service';
 import {HttpClientModule} from '@angular/common/http';
-import { ProcessService } from '../../../../components/msp/service/process.service';
+import { ProcessService } from '../../../../services/process.service';
 import {TransmissionErrorView} from '../../../../components/msp/common/transmission-error-view/transmission-error-view.component';
 import { MspLogService } from '../../../../services/log.service';
-import {MspMaintenanceService} from '../../../../components/msp/service/msp-maintenance.service';
+import {MspMaintenanceService} from '../../../../services/msp-maintenance.service';
 
 describe('SendingComponent', () => {
 

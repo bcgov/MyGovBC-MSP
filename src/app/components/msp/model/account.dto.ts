@@ -1,4 +1,4 @@
-import PersonDto from './person.dto';
+import PersonDto from './msp-person.dto';
 import AddressDto from './address.dto';
 import {MspImage} from '../../../models/msp-image';
 export default class MspAccountDto {

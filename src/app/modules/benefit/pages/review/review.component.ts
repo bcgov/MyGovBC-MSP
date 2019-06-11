@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {MspLogService} from '../../../../services/log.service';
-import {ProcessService} from '../../../../components/msp/service/process.service';
+import {ProcessService} from '../../../../services/process.service';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 import {BenefitApplication} from '../../models/benefit-application.model';
 

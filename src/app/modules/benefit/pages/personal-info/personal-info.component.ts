@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, QueryList, ViewChild, ViewChildren} from '
 import {Router} from '@angular/router';
 import {MspPhoneComponent} from '../../../../components/msp/common/phone/phone.component';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
-import {ProcessService} from '../../../../components/msp/service/process.service';
+import {ProcessService} from '../../../../services/process.service';
 import {NgForm} from '@angular/forms';
 import {BenefitPersonalDetailComponent} from './personal-detail/personal-detail.component';
 import {MspAddressComponent} from '../../../msp-core/components/address/address.component';

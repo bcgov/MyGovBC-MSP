@@ -5,11 +5,11 @@ import { AccountSendingComponent } from './sending.component';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspApiService} from '../../../../services/msp-api.service';
-import { ProcessService } from '../../service/process.service';
+import { ProcessService } from '../../../../services/process.service';
 import {HttpClientModule} from '@angular/common/http';
 import {TransmissionErrorView} from '../../common/transmission-error-view/transmission-error-view.component';
 import {MspLogService} from '../../../../services/log.service';
-import {MspMaintenanceService} from '../../service/msp-maintenance.service';
+import {MspMaintenanceService} from '../../../../services/msp-maintenance.service';
 
 describe('SendingComponent', () => {
 

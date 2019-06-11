@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 import * as _ from 'lodash';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
-import {ProcessService} from '../../service/process.service';
+import {ProcessService} from '../../../../services/process.service';
 import {AccountLetterApplication, MspPerson} from '../../model/account-letter-application.model';
 import {MspBirthDateComponent} from '../../../../modules/msp-core/components/birthdate/birthdate.component';
 import {Address} from '../../model/address.model';

@@ -3,7 +3,7 @@ import {MspDataService} from '../../../../../services/msp-data.service';
 import {Router} from '@angular/router';
 import * as _ from 'lodash';
 import {Eligibility} from '../../../../assistance/models/eligibility.model';
-import {ProcessService} from '../../../../../components/msp/service/process.service';
+import {ProcessService} from '../../../../../services/process.service';
 import {MspBenefitDataService} from '../../../services/msp-benefit-data.service';
 import {BenefitApplication} from '../../../models/benefit-application.model';
 import * as moment from 'moment';

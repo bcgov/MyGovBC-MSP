@@ -10,14 +10,14 @@ import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';
 import { MspLogService } from '../../../../services/log.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ProcessService } from '../../service/process.service';
+import { ProcessService } from '../../../../services/process.service';
 import { MspApiService } from '../../../../services/msp-api.service';
 
 import { CaptchaComponent } from 'mygovbc-captcha-widget/src/app/captcha/captcha.component';
 import { CaptchaDataService } from 'mygovbc-captcha-widget/src/app/captcha-data.service';
 
 import { ModalModule } from 'ngx-bootstrap';
-import { MspMaintenanceService} from '../../service/msp-maintenance.service';
+import { MspMaintenanceService} from '../../../../services/msp-maintenance.service';
 
 describe('AccountPrepareComponent', () => {
 

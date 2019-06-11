@@ -9,15 +9,15 @@ import {
 } from "@angular/http";
 import {TestBed, getTestBed, inject} from '@angular/core/testing';
 import {MspMaintenanceService} from './msp-maintenance.service';
-import {MspLogService} from '../../../services/log.service';
-import {MspDataService} from '../../../services/msp-data.service';
+import {MspLogService} from './log.service';
+import {MspDataService} from './msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FormsModule} from '@angular/forms';
 
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import {ISpaEnvResponse} from '../model/spa-env-response.interface';
+import {ISpaEnvResponse} from '../components/msp/model/spa-env-response.interface';
 
 describe('MspMaintenanceService', () => {
     let injector: TestBed;

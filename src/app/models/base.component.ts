@@ -3,7 +3,7 @@ import {ChangeDetectorRef, DoCheck, EventEmitter,
 import { Subscription } from 'rxjs';
 import {NgForm} from '@angular/forms';
 import {UUID} from 'angular2-uuid';
-import {ProcessService} from '../components/msp/service/process.service';
+import {ProcessService} from '../services/process.service';
 
 export class ValidEvent {
   id: string;

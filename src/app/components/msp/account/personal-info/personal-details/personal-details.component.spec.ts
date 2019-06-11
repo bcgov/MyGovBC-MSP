@@ -31,7 +31,7 @@ import {CalendarYearValidator} from '../../../common/calendar/calendar-year.vali
 import {CalendarDayValidator} from '../../../common/calendar/calendar-day.validator';
 import { MspLogService } from '../../../../../services/log.service';
 import {MspValidationService} from '../../../../../services/msp-validation.service';
-import { ProcessService } from '../../../service/process.service';
+import { ProcessService } from '../../../../../services/process.service';
 import { ServicesCardDisclaimerModalComponent } from '../../../common/services-card-disclaimer/services-card-disclaimer.component';
 import { MspStatusInCanadaRadioComponent } from '../../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
 import { RouterTestingModule } from '@angular/router/testing';

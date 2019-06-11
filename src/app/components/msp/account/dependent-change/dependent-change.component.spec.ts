@@ -4,7 +4,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { Router } from '@angular/router';
-import { ProcessService } from '../../service/process.service';
+import { ProcessService } from '../../../../services/process.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { Relationship } from '../../model/status-activities-documents';
 import { AccountDependentChangeComponent } from './dependent-change.component';

@@ -32,7 +32,7 @@ import { Person } from '../../model/msp-person.model';
 import { Relationship } from '../../model/status-activities-documents';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {RouterTestingModule} from '@angular/router/testing';
-import { ProcessService } from '../../service/process.service';
+import { ProcessService } from '../../../../services/process.service';
 import { CompletenessCheckService } from '../../../../services/completeness-check.service';
 import { MspValidationService} from '../../../../services/msp-validation.service';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp/common/services-card-disclaimer/services-card-disclaimer.component';

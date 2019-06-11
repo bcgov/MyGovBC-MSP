@@ -11,9 +11,9 @@ import { MspLogService } from '../../../../services/log.service';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ProcessService } from '../../../../components/msp/service/process.service';
+import { ProcessService } from '../../../../services/process.service';
 import { ModalModule } from 'ngx-bootstrap';
-import {MspMaintenanceService} from '../../../../components/msp/service/msp-maintenance.service';
+import {MspMaintenanceService} from '../../../../services/msp-maintenance.service';
 
 describe('PrepareComponent', () => {
   beforeEach(() => {

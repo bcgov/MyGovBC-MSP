@@ -1,8 +1,8 @@
 import {MspImage} from '../../../models/msp-image';
 import AddressDto from './address.dto';
 import {OutofBCRecordDto} from './outof-bc-record.dto';
-import { SimpleDate } from '../model/simple-date.interface';
-import {MSPEnrollementMember} from '../model/status-activities-documents';
+import { SimpleDate } from 'moh-common-lib';
+import {MSPEnrollementMember} from './status-activities-documents';
 
 export default class PersonDto {
     relationship: number;

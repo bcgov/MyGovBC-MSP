@@ -11,8 +11,8 @@ import {MspPerson} from '../../model/msp-person.model';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
 
-import {ProcessService, ProcessStep} from '../../service/process.service';
-import {ProcessUrls} from '../../service/process.service';
+import {ProcessService, ProcessStep} from '../../../../services/process.service';
+import {ProcessUrls} from '../../../../services/process.service';
 import {BaseComponent} from '../../../../models/base.component';
 import {MspApiService} from '../../../../services/msp-api.service';
 import {environment} from '../../../../../environments/environment';

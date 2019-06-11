@@ -1,4 +1,4 @@
-import {IPerson} from './person.interface';
+import {IPerson} from './msp-person.interface';
 
 import {Relationship, StatusInCanada, Activities} from './status-activities-documents';
 import {PersonDocuments} from './person-document.model';
@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import {UUID} from 'angular2-uuid';
 import * as _ from 'lodash';
 import {PhoneNumber} from './phone.model';
-import { SimpleDate } from './simple-date.interface';
+import { SimpleDate } from 'moh-common-lib';
 
 const sha1 = require('sha1');
 

@@ -2,7 +2,7 @@ import {Component, Input, Output, EventEmitter, ViewChild, AfterViewInit, Change
 import {NgForm} from '@angular/forms';
 import * as moment from 'moment';
 import {BaseComponent} from '../../../../models/base.component';
-import {SimpleDate} from '../../model/simple-date.interface';
+import {SimpleDate} from 'moh-common-lib';
 
 
 

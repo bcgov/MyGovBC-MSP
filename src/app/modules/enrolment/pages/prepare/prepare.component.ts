@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 import { merge} from 'rxjs/internal/observable/merge';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
-import {ProcessService} from '../../../../components/msp/service/process.service';
+import {ProcessService} from '../../../../services/process.service';
 import {BaseComponent} from '../../../../models/base.component';
 import {CommonButtonGroupComponent} from '../../../../components/msp/common/common-button-group/common-button-group.component';
 

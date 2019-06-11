@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import {MspApplication} from '../../models/application.model';
 
 import { MspDataService } from '../../../../services/msp-data.service';
-import {ProcessService} from '../../../../components/msp/service/process.service';
+import {ProcessService} from '../../../../services/process.service';
 import { environment } from '../../../../../environments/environment';
 import { MspLogService } from '../../../../services/log.service';
 

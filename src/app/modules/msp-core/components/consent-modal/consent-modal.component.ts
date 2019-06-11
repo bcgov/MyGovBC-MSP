@@ -6,7 +6,7 @@ import {ApplicationBase} from '../../../enrolment/models/application-base.model'
 //
 import { HttpClient, HttpHeaders,HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
-import { MspMaintenanceService } from "../../../../components/msp/service/msp-maintenance.service";
+import { MspMaintenanceService } from "../../../../services/msp-maintenance.service";
 import { Response } from '@angular/http';
 import { MspLog2Service } from '../../../../components/msp/service/log2.service';
 import { MspLogService } from '../../../../services/log.service';
