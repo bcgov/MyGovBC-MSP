@@ -44,12 +44,12 @@ export const enrolPages: Routes = [
         path: 'authorize',
         // canActivate: [ProcessService],
         component: AuthorizeComponent
-    },
+    },/*
     {
         path: 'sending',
         // canActivate: [ProcessService],
         component: SendingComponent
-    },
+    },*/
     {
         path: 'confirmation',
         canActivate: [],

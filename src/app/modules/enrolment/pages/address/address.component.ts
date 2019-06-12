@@ -61,11 +61,10 @@ export class EnrolAddressComponent extends BaseComponent {
     });
   }
 
-  handlePhoneNumberChange(evt: any) {
-    console.log('Abhi phone num--'+evt);
+  /*handlePhoneNumberChange(evt: any) {
     this.mspApplication.phoneNumber = evt;
-    this.dataService.saveMspApplication();
-  }
+    //this.dataService.saveMspApplication();
+  }*/
 
   toggleMailingSameAsResidentialAddress(evt: boolean){
     this.mspApplication.mailingSameAsResidentialAddress = !evt;

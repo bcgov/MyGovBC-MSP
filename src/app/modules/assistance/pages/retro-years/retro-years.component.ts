@@ -41,13 +41,14 @@ export class AssistanceRetroYearsComponent implements AfterViewInit, DoCheck{
   }
 
   get docRequiredInstruction(): any{
+  
+
     const docsRequiredYears: string = this.application.getAppliedForTaxYears().reduce(
-      function(acc, value, idx){
-        if (value.docsRequired){
+      function(acc, value, idx){        if (value.docsRequired){
           if (acc.length > 0){
-            return acc + ', ' + value.year;
+            return acc  + ', ' + (value.year - 1);
           }else{
-            return acc + value.year;
+            return acc + (value.year - 1);
           }
         }else{
           return acc;
@@ -72,8 +73,9 @@ export class AssistanceRetroYearsComponent implements AfterViewInit, DoCheck{
     const docsNotRequiredYears: string = this.application.getAppliedForTaxYears().reduce(
       function(acc, value, idx){
         if (!value.docsRequired){
+          
           if (acc.length > 0){
-            return acc + ', ' + value.year;
+            return acc + ', ' + value.year ;
           }else{
             return acc + value.year;
           }
@@ -114,7 +116,6 @@ export class AssistanceRetroYearsComponent implements AfterViewInit, DoCheck{
   get docRequired(): boolean {
     const required = false;
     for (let i = 0; i < this.application.getAppliedForTaxYears().length; i++){
-      console.log(this.application.getAppliedForTaxYears()[i]);
       if (this.application.getAppliedForTaxYears()[i].apply && this.application.getAppliedForTaxYears()[i].docsRequired){
         return true;
       }

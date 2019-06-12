@@ -3,6 +3,7 @@ import {MspApplication} from '../../models/application.model';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable,  Subscription} from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
   templateUrl: './confirmation.component.html'
@@ -25,6 +26,14 @@ export class ConfirmationComponent implements OnInit{
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  /**
+   * Today's date
+   * @returns {string}
+   */
+  get dateStamp(): string {
+    return moment().format('MMMM DD, YYYY');
   }
 
 }
