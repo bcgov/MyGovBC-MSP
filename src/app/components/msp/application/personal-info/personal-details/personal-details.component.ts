@@ -136,7 +136,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   institutionWorkSignal: string;
   showServicesCardModal: boolean = false;
 
-  documentUploadLabel: [
+  documentUploadLabel = [
     'Upload your documents',
     "Upload your spouse's documents",
     "Upload your child's documents",
