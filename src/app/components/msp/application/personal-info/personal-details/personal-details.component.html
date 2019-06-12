@@ -2,37 +2,11 @@
 <common-page-framework layout="blank">
   <common-page-section layout="noTips">
     <form #formRef='ngForm' novalidate>
-      <!-- <div class="row"> -->
-      <!-- <div class="col-sm-8"> -->
       <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]" class="row border-bottom"></h2>
-      <!-- </div> -->
-      <!-- <div class="col-sm-4">
-      <div *ngIf="person.relationship !== 0" style="margin-top: 18px">
-        <div *ngIf="person.relationship === 1">
-          <button type="button" class="btn btn-default btn-xs pull-right" (click)="removeSpouse()"
-            [innerHTML]="lang('./en/index.js').removeSpouseButton">
-          </button>
-        </div>
-        <div *ngIf="person.relationship === 2 || person.relationship === 3 ">
-          <button type="button" class="btn btn-default btn-xs pull-right" (click)="removeChild()"
-            [innerHTML]="lang('./en/index.js').removeChildButton">
-          </button>
-        </div>
-      </div>
-    </div> -->
-      <!-- </div> -->
-      <!-- <div > -->
-      <!-- <div class="col-lg-4" role="dialog" [attr.aria-label]="statusLabel()"> -->
-      <!-- <div class="row">
-        <div class="col-lg-12">
-          <h3>{{statusLabel()}}</h3>
-        </div>
-      </div> -->
+
       <msp-citizen-status class="row" id="primary" [label]="statusLabel()" [items]="langStatus('./en/index.js')"
         (change)="setStatus($event, person)" [selected]="person.status">
       </msp-citizen-status>
-      <!-- </div> -->
-      <!-- <div *ngIf="st === person.status" role="alertdialog" aria-labelledby="What is your activity?"> -->
       <common-radio class="row" *ngIf="person.status != null" [radioLabels]='activitiesTable' [label]=""
         [value]="activity" (statusChange)="setActivity($event)" display="table-row-group">
       </common-radio>
@@ -49,95 +23,15 @@
           </aside>
         </common-page-section>
       </ng-container>
-      <!--
-      <div class="col-lg-4" *ngIf="person.status != null && person.currentActivity != null">
 
-        <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel[this.person.relationship]"></h3>
-        <div [innerHtml]="lang('./en/index.js').documentInstructionsNote"></div> -->
-
-      <!-- <msp-file-uploader #fileUploader [images]="person.documents.images" [id]='id'
-          (onAddDocument)="addDocument($event)" (onErrorDocument)="errorDocument($event)"
-          (onDeleteDocument)="deleteDocument($event)" [required]="true" [showError]="showError">
-
-          <span id="uploadInstruction" #uploadInstruction tabindex="0">Please upload required ID documents</span>
-        </msp-file-uploader>
-
-        <msp-image-error-modal #imageErrorModal></msp-image-error-modal>
-      </div> -->
-      <!-- <div class="form-check" *ngFor="let activity of activities">
-        <input class='form-check-input' type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}"
-          (click)="setActivity(activity)" [checked]="activity === person.currentActivity">
-        <label class='form-check-label shade' for="a{{activity}}-{{id}}">
-          {{langActivities('./en/index.js')[activity]}}
-        </label>
-      </div> -->
-      <!-- </div> -->
-
-      <!-- <div class="form-check" *ngFor="let st of statusInCanada"> -->
-      <!--  -->
-      <!--  -->
-      <!-- <input class='form-check-input' type="radio" name="statusInCanada-{{id}}" id="st{{st}}-{{id}}" -->
-      <!-- (click)="setStatus(st, person)" [checked]="st === person.status" tabindex="0"> -->
-      <!-- <label class='form-check-label' for="st{{st}}-{{id}}"> -->
-      <!-- {{langStatus('./en/index.js')[st]}} -->
-      <!-- </label> -->
-      <!--  -->
-      <!-- <div *ngIf="st === person.status" role="alertdialog" aria-labelledby="What is your activity?"> -->
-      <!-- <div class="form-check" *ngFor="let activity of activities"> -->
-      <!-- <input class='form-check-input' type="radio" name="activity-{{id}}" id="a{{activity}}-{{id}}" -->
-      <!-- (click)="setActivity(activity)" [checked]="activity === person.currentActivity"> -->
-      <!-- <label class='form-check-label shade' for="a{{activity}}-{{id}}"> -->
-      <!-- {{langActivities('./en/index.js')[activity]}} -->
-      <!-- </label> -->
-      <!-- </div> -->
-      <!-- </div> -->
-      <!-- </div> -->
-      <!-- </div> -->
-      <!-- <div class="col-lg-4" *ngIf="person.status != null && person.currentActivity != null" role="alert"
-      aria-live="assertive">
-      <h3><i class="fa fa-id-card-o" aria-hidden="true"></i>
-        {{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
-      <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
-      <ul>
-        <li *ngFor="let document of documents">
-          {{langDocuments('./en/index.js')[document]}}
-          <a role="button" aria-haspopup="true" href="javascript:void(0)" (click)="viewIdReqModal(document)"
-            tabindex="0" [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
-        </li>
-      </ul>
-      <p [innerHtml]="lang('./en/index.js').documentInstructionsMarriage"></p>
-      <ul>
-        <li *ngFor="let document of nameChangeDocuments">
-          {{langDocuments('./en/index.js')[document]}}
-          <a role="button" aria-haspopup="true" href="javascript:void(0)" (click)="viewIdReqModal(document)"
-            tabindex="0" [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
-        </li>
-      </ul>
-      <msp-id-req-modal #idReqModal></msp-id-req-modal>
-    </div> -->
-
-      <!-- </div> -->
 
       <div *ngIf="hasValidCurrentActivity">
-        <!-- <h2 class="row">Your Information</h2> -->
         <h2 class="row" [innerHtml]="lang('./en/index.js').applicationPersonalInfo[person.relationship]"></h2>
         <p class="row border-bottom" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
         <div *ngIf="person.documents.images.length > 0">
-          <!-- <h3 [innerHtml]="lang('./en/index.js').applicationPersonalInfo[person.relationship]"></h3> -->
           <msp-name #name [person]="person" (onChange)="onChange.emit($event)" [showError]="showError">
           </msp-name>
-          <!-- {{ lang('./en/index.js').firstNameLabel}}
-          <common-name class="row" label="First Name"></common-name>
-          <common-name class="row" label="Middle Name"></common-name>
-          <common-name class="row" label="Last Name"></common-name> -->
 
-          <!-- <div class="row"> -->
-          <!-- <div class="col-md-4"> -->
-          <!-- <msp-gender #gender [person]="person" (onChange)="onChange.emit($event)" [showError]="showError">
-          </msp-gender> -->
-
-          <!-- </div> -->
-          <!-- <div class="col-md-8"> -->
           <msp-birthdate #birthDate [person]="person" class="row" (onChange)="onChange.emit($event)"
             [showError]="showError">
           </msp-birthdate>
@@ -147,22 +41,12 @@
           </common-radio>
           <div *ngIf="person.status === StatusInCanada.CitizenAdult &&
             person.currentActivity === Activities.LivingInBCWithoutMSP">
-            <!-- <div class="col-md-12"> -->
             <div class="form-group" role="dialog" [attr.aria-labelledby]="'livedInBCSinceBirth' + objectId">
-              <!-- <label [attr.id]="'livedInBCSinceBirth' + objectId"
-                [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[this.person.relationship]"></label> -->
-              <!-- <div class="btn-group" role="group">
-                <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
-                  [class.msp-btn-radio]="person.livedInBCSinceBirth === answer.value"
-                  (click)="setLivedInBCSinceBirth(answer.value)" type="button" class="btn btn-default">{{answer.label}}
-                </button>
 
-              </div> -->
               <common-toggle [data]="person.livedInBCSinceBirth" (dataChange)="setLivedInBCSinceBirth($event)"
                 label="Have you moved to BC permanently?">
               </common-toggle>
             </div>
-            <!-- </div> -->
           </div>
 
           <div *ngIf="person.documents.images.length > 0">
@@ -186,13 +70,7 @@
                 <label [attr.id]="'movedPermLabel'"
                   [innerHtml]="lang('./en/index.js').haveYouMovedToBCPermanently[this.person.relationship]"
                   class="control-label"></label>
-                <!-- <div class="btn-group" role="group">
-                  <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
-                    [class.msp-btn-radio]="person.madePermanentMoveToBC === answer.value"
-                    (click)="setMovedToBCPermanently(answer.value)" type="button"
-                    class="btn btn-default">{{answer.label}}
-                  </button>
-                </div> -->
+
                 <common-toggle [data]="person.madePermanentMoveToBC" (dataChange)="setMovedToBCPermanently($event)">
                 </common-toggle>
                 <div
@@ -212,7 +90,6 @@
           <div *ngIf="!(person.status === StatusInCanada.CitizenAdult &&
                 person.currentActivity === Activities.LivingInBCWithoutMSP &&
                 person.livedInBCSinceBirth === true)">
-            <!-- <div class="col-lg-4"> -->
             <msp-arrival-date class="row" #arrivalDateBC [arrivalLabel]="arrivalDateLabel"
               [year]="person.arrivalToBCYear" (yearChange)="person.arrivalToBCYear = $event"
               [month]="person.arrivalToBCMonth" (monthChange)="person.arrivalToBCMonth = $event"
@@ -223,7 +100,6 @@
               <div class="text-danger"
                 [innerHtml]="lang('./en/index.js').moveDateBeforeBirthError[person.relationship]">
               </div>
-              <!-- </div> -->
             </div>
             <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult &&
                 person.currentActivity === Activities.LivingInBCWithoutMSP &&
@@ -233,7 +109,6 @@
                 [exceptBC]="true" [showError]="showError">
               </msp-province>
             </div>
-            <!-- <div class="col-lg-4"> -->
             <!--For canadian citizen, returning to BC after an absence or moving from another province, the arrival date in canada
                 is not required.-->
             <msp-arrival-date #arrivalDateCanada class='row'
@@ -250,32 +125,19 @@
                 [innerHtml]="lang('./en/index.js').moveDateCanadaBeforeBirthError[person.relationship]"></div>
             </div>
 
-            <!-- </div> -->
 
           </div>
           <div class="row" *ngIf="person.currentActivity === Activities.MovingFromProvince">
-            <!-- <div class="col-md-4"> -->
             <msp-health-number #healthNumber [healthNumber]="person.healthNumberFromOtherProvince"
               (healthNumberChange)="handleHealthNumberChange($event)" [required]="false" [showError]="showError">
             </msp-health-number>
-            <!-- </div> -->
           </div>
           <div style="margin-bottom: 20px">
             <div class="row" style="width: 100%;">
-              <!-- <div class="col-md-12"> -->
               <div class="form-group"
                 [ngClass]="{'has-error': showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)}"
                 role="dialog" [attr.aria-labelledby]="'outsideBCLabel' + objectId">
-                <!-- <label id="outsideBCLabel{{objectId}}"
-                  [innerHtml]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months"
-                  class="control-label"></label> -->
-                <!-- <div class="btn-group" role="group">
-                  <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
-                    [class.msp-btn-radio]="person.declarationForOutsideOver30Days === answer.value"
-                    (click)="setBeenOutsideForOver30Days(answer.value)" type="button"
-                    class="btn btn-default">{{answer.label}}
-                  </button>
-                </div> -->
+
                 <common-toggle [label]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months"
                   id="outsideBCLabel{{objectId}}" (dataChange)="setBeenOutsideForOver30Days($event)"></common-toggle>
                 <div
@@ -284,11 +146,9 @@
                   <div class="text-danger" [innerHtml]="lang('./en/index.js').mustAnswerQuestionAboutBeenOutsideBC">
                   </div>
                 </div>
-                <!-- </div> -->
               </div>
             </div>
             <div *ngIf="person.declarationForOutsideOver30Days === true" class="row" style="margin-bottom: 20px">
-              <!-- <div class="col-md-12"> -->
               <msp-outof-bc-record #outOfBCRecord [minMonthsRange]="12" class="col-12"
                 [minMonthsRangeErrorMsg]="lang('./en/index.js').minMonths" [outofBCRecord]="person.outOfBCRecord"
                 (onDelete)="handleDeleteOutofBCRecord($event)" (onUpdate)="handleOutofBCRecordChange($event)"
@@ -296,7 +156,6 @@
               </msp-outof-bc-record>
 
 
-              <!-- </div> -->
             </div>
           </div>
           <div class="row" style="margin-bottom: 20px">
@@ -305,15 +164,6 @@
                 [ngClass]="{'has-error': (person.hasPreviousBCPhn === undefined || person.hasPreviousBCPhn === null) && showError}"
                 role="dialog" [attr.aria-labelledby]="'previousBCHealthNumber' + objectId">
 
-                <!-- <label id="previousBCHealthNumber{{objectId}}"
-                  [innerHtml]="lang('./en/index.js').previousBCHealthNumber[this.person.relationship]"
-                  class="control-label"></label> -->
-                <!-- <div class="btn-group" role="group">
-                  <button [class.msp-btn-radio]="person.hasPreviousBCPhn" (click)="setHasPreviousPhn(true)"
-                    type="button" class="btn btn-default">Yes</button>
-                  <button [class.msp-btn-radio]="person.hasPreviousBCPhn === false" (click)="setHasPreviousPhn(false)"
-                    type="button" class="btn btn-default">No&nbsp;</button>
-                </div> -->
                 <common-toggle label="Do you have a previous BC Health Number?"
                   (dataChange)="setHasPreviousPhn($event)"></common-toggle>
               </div>
