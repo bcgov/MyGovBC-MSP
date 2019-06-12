@@ -16,8 +16,12 @@
         </div>
       </div>
 
+       <!-- <h2 [innerHTML]="getFinanialInfoSectionTitle" tabindex="0">
+        </h2> --> 
         <h2 [innerHTML]="lang('./en/index.js').checkEligibilityScreenTitle.replace('{userSelectedMostRecentTaxYear}',this.userSelectedMostRecentTaxYear)" tabindex="0">
         </h2>
+        
+
         <form #formRef='ngForm' novalidate>
         <div class="form-group"
             [ngClass]="{'has-error': !formRef.controls.netIncome?.valid}">

@@ -445,7 +445,7 @@
     
    <!--   <msp-consent-modal #mspConsentModal [application]="dataService.benefitApp"
                        [processName]="lang('./en/index.js').consentProcessName"
-                       (cutOffDate)= spaEnvCutOffDate($event)></msp-consent-modal>
+                       (cutOffDate)= spaEnvCutOffDate($event) [body]="lang('./en/index.js').consentModalBody"></msp-consent-modal>
     
   <common-consent-modal #mspConsentModal [isUnderMaintenance]="true"   [title]="'Information collection notice'" (cutOffDate)= spaEnvCutOffDate($event)
                 [processName]="lang('./en/index.js').consentProcessName">

@@ -96,20 +96,29 @@ const APP_ROUTES: Routes = [
         MspLoggerDirective,
 
 
+    // Account Letter
+    AccountLetterComponent,
+    AccountLetterPersonalInfoComponent,
+    AccountLetterSendingComponent,
+    AccountLetterConfirmationComponent,
+    // FormActionBarComponent,
+    SpecificMemberComponent,
+    AclErrorViewComponent,
+    // ReplacewithlinksPipe,
 
-        // Account Letter
-        AccountLetterComponent,
-        AccountLetterPersonalInfoComponent,
-        AccountLetterSendingComponent,
-        AccountLetterConfirmationComponent,
-        SpecificMemberComponent,
-        AclErrorViewComponent,
+    // Account Letter
+    AccountLetterComponent,
+    AccountLetterPersonalInfoComponent,
+    AccountLetterSendingComponent,
+    AccountLetterConfirmationComponent,
+    SpecificMemberComponent,
+    AclErrorViewComponent,
 
 
-        CommonButtonGroupComponent,
+    CommonButtonGroupComponent,
 
-        CommonIncomeInputtextComponent,
-        CommonButtonComponent,
+    CommonIncomeInputtextComponent,
+    CommonButtonComponent,
     ],
 
     providers: [
@@ -122,6 +131,4 @@ const APP_ROUTES: Routes = [
     ]
 })
 @Injectable()
-export class MspModule {
-
-}
+export class MspModule {}

@@ -13,7 +13,7 @@
             <h4 [innerHtml]="maintenanceMessage|replacewithlinks"></h4>
         </div>   
         <div *ngIf="maintenanceFlag != 'true'">
-            <p [innerHtml]="processName == 'ACL' ? lang('./en/index.js').ACLbody : lang('./en/index.js').body" ></p>
+            <p [innerHtml]="body"></p>
         </div>
 
         <br>

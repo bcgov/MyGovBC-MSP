@@ -4,15 +4,21 @@
     <div class="col-sm-12">
       <p [innerHTML]="docRequiredInstruction.applicant" tabindex="0">
       </p>
+
+      
     </div>
   </div>
   <div class="row" *ngIf="hasSpouse">
     <div class="col-sm-12">
       <p [innerHTML]="docRequiredInstruction.spouse" tabindex="0">
       </p>
+    <!--  <p [innerHTML]="lang('./en/index.js').notice" tabindex="0">
+      </p> -->
     </div>
   </div>
 </div>
+<p [innerHTML]="lang('./en/index.js').notice" tabindex="0">
+</p>
 
 <form #formRef='ngForm' novalidate>
 
@@ -60,8 +66,8 @@
             [innerHTML]="lang('./en/index.js').continueButton"></button>
   </div>
   <div class="col-md-8 col-12 pull-left" *ngIf="application.assistYeaDocs.length < 1">
-    <p class="text-danger" [innerHTML]="lang('./en/index.js').noaDocRequired"> tabindex="0">
-    </p>
+    <!--<p class="text-danger" [innerHTML]="lang('./en/index.js').noaDocRequired"> tabindex="0">
+    </p>-->
   </div>
   <div class="col-md-2 col-12 pull-right">
     <msp-cancel></msp-cancel>
