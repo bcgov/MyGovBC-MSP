@@ -36,11 +36,6 @@ export class MspGenderComponent extends BaseComponent {
    */
   uuid = UUID.UUID();
 
-  genderLabels = [
-    { label: 'Female', value: this.Gender.Female },
-    { label: 'Male', value: this.Gender.Male }
-  ];
-
   constructor(private cd: ChangeDetectorRef) {
     super(cd);
   }

@@ -42,8 +42,7 @@
         <common-page-section layout="tips">
 
           <common-file-uploader class="row" [images]="person.documents.images" (imagesChange)="deleteDocument($event)"
-            id="uploader" [required]="true"
-            [instructionText]="lang('./en/index.js').documentUploadLabel[this.person.relationship]">
+            id="uploader" [required]="true" [instructionText]="documentUploadLabel[this.person.relationship]">
           </common-file-uploader>
           <aside class="mt-0">
             <div [innerHtml]="lang('./en/index.js').documentInstructionsNote" class="mt-0"></div>
@@ -255,63 +254,68 @@
 
           </div>
           <div class="row" *ngIf="person.currentActivity === Activities.MovingFromProvince">
-            <div class="col-md-4">
-              <msp-health-number #healthNumber [healthNumber]="person.healthNumberFromOtherProvince"
-                (healthNumberChange)="handleHealthNumberChange($event)" [required]="false" [showError]="showError">
-              </msp-health-number>
-            </div>
+            <!-- <div class="col-md-4"> -->
+            <msp-health-number #healthNumber [healthNumber]="person.healthNumberFromOtherProvince"
+              (healthNumberChange)="handleHealthNumberChange($event)" [required]="false" [showError]="showError">
+            </msp-health-number>
+            <!-- </div> -->
           </div>
           <div style="margin-bottom: 20px">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group"
-                  [ngClass]="{'has-error': showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)}"
-                  role="dialog" [attr.aria-labelledby]="'outsideBCLabel' + objectId">
-                  <label id="outsideBCLabel{{objectId}}"
-                    [innerHtml]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months"
-                    class="control-label"></label>
-                  <div class="btn-group" role="group">
-                    <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
-                      [class.msp-btn-radio]="person.declarationForOutsideOver30Days === answer.value"
-                      (click)="setBeenOutsideForOver30Days(answer.value)" type="button"
-                      class="btn btn-default">{{answer.label}}
-                    </button>
-                  </div>
-                  <div
-                    *ngIf='showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)'
-                    role="alert" aria-live="assertive">
-                    <div class="text-danger" [innerHtml]="lang('./en/index.js').mustAnswerQuestionAboutBeenOutsideBC">
-                    </div>
+            <div class="row" style="width: 100%;">
+              <!-- <div class="col-md-12"> -->
+              <div class="form-group"
+                [ngClass]="{'has-error': showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)}"
+                role="dialog" [attr.aria-labelledby]="'outsideBCLabel' + objectId">
+                <!-- <label id="outsideBCLabel{{objectId}}"
+                  [innerHtml]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months"
+                  class="control-label"></label> -->
+                <!-- <div class="btn-group" role="group">
+                  <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
+                    [class.msp-btn-radio]="person.declarationForOutsideOver30Days === answer.value"
+                    (click)="setBeenOutsideForOver30Days(answer.value)" type="button"
+                    class="btn btn-default">{{answer.label}}
+                  </button>
+                </div> -->
+                <common-toggle [label]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months"
+                  id="outsideBCLabel{{objectId}}" (dataChange)="setBeenOutsideForOver30Days($event)"></common-toggle>
+                <div
+                  *ngIf='showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)'
+                  role="alert" aria-live="assertive">
+                  <div class="text-danger" [innerHtml]="lang('./en/index.js').mustAnswerQuestionAboutBeenOutsideBC">
                   </div>
                 </div>
+                <!-- </div> -->
               </div>
             </div>
             <div *ngIf="person.declarationForOutsideOver30Days === true" class="row" style="margin-bottom: 20px">
-              <div class="col-md-12">
-                <msp-outof-bc-record #outOfBCRecord [minMonthsRange]="12"
-                  [minMonthsRangeErrorMsg]="lang('./en/index.js').minMonths" [outofBCRecord]="person.outOfBCRecord"
-                  (onDelete)="handleDeleteOutofBCRecord($event)" (onUpdate)="handleOutofBCRecordChange($event)"
-                  [showError]="showError">
-                </msp-outof-bc-record>
-              </div>
+              <!-- <div class="col-md-12"> -->
+              <msp-outof-bc-record #outOfBCRecord [minMonthsRange]="12" class="col-12"
+                [minMonthsRangeErrorMsg]="lang('./en/index.js').minMonths" [outofBCRecord]="person.outOfBCRecord"
+                (onDelete)="handleDeleteOutofBCRecord($event)" (onUpdate)="handleOutofBCRecordChange($event)"
+                [showError]="showError">
+              </msp-outof-bc-record>
+
+
+              <!-- </div> -->
             </div>
           </div>
           <div class="row" style="margin-bottom: 20px">
-            <div class="col-lg-6">
-              <div class="form-group"
+            <div>
+              <div
                 [ngClass]="{'has-error': (person.hasPreviousBCPhn === undefined || person.hasPreviousBCPhn === null) && showError}"
                 role="dialog" [attr.aria-labelledby]="'previousBCHealthNumber' + objectId">
 
-                <label id="previousBCHealthNumber{{objectId}}"
+                <!-- <label id="previousBCHealthNumber{{objectId}}"
                   [innerHtml]="lang('./en/index.js').previousBCHealthNumber[this.person.relationship]"
-                  class="control-label"></label>
-                <div class="btn-group" role="group">
+                  class="control-label"></label> -->
+                <!-- <div class="btn-group" role="group">
                   <button [class.msp-btn-radio]="person.hasPreviousBCPhn" (click)="setHasPreviousPhn(true)"
                     type="button" class="btn btn-default">Yes</button>
                   <button [class.msp-btn-radio]="person.hasPreviousBCPhn === false" (click)="setHasPreviousPhn(false)"
                     type="button" class="btn btn-default">No&nbsp;</button>
-                </div>
-
+                </div> -->
+                <common-toggle label="Do you have a previous BC Health Number?"
+                  (dataChange)="setHasPreviousPhn($event)"></common-toggle>
               </div>
             </div>
           </div>
