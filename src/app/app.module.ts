@@ -20,9 +20,9 @@ import { MspApiService } from './services/msp-api.service';
     BrowserModule,
     SharedCoreModule,
     HttpClientModule,
-    ModalModule.forRoot(),
-    AccordionModule.forRoot(),
-    TooltipModule.forRoot(),
+    //ModalModule.forRoot(),
+    //AccordionModule.forRoot(),
+    //TooltipModule.forRoot(),
     AppRoutingModule,
   //  RouterModule.forRoot([
     //  { path: '', redirectTo: 'msp', pathMatch: 'full' }

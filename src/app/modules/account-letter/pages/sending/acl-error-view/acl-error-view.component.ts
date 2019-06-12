@@ -62,7 +62,7 @@ export class AclErrorViewComponent extends BaseComponent{
     }
 
     retrySubmission() {
-        this.router.navigate(['/msp/account-letter/personal-info']);
+        this.router.navigate(['/account-letter/personal-info']);
     }
 
 }

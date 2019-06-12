@@ -51,7 +51,7 @@ export class AssistanceSendingComponent implements AfterContentInit   {
         this.dataService.removeFinAssistApplication();
 
         //  go to confirmation
-        this.router.navigate(['/msp/assistance/confirmation'],
+        this.router.navigate(['/enrolment/confirmation'],
           {queryParams: {confirmationNum: this.application.referenceNumber}});
 
       })

@@ -34,7 +34,7 @@ export class AccountDocumentsComponent extends BaseComponent {
     documentsList: DocumentGroup[] ;
     constructor(private dataService: MspDataService,
                 private _router: Router,
-                private _processService: ProcessService,
+                //private _processService: ProcessService,
                 private accountDocumentHelperService: AccountDocumentHelperService ,
                 private cd: ChangeDetectorRef, private localStorageService: LocalStorageService) {
 
@@ -44,8 +44,8 @@ export class AccountDocumentsComponent extends BaseComponent {
 
     ngOnInit() {
 
-        AccountDocumentsComponent.ProcessStepNum = this._processService.getStepNumber(ProcessUrls.ACCOUNT_FILE_UPLOADER_URL);
-        this.initProcessMembers(AccountDocumentsComponent.ProcessStepNum, this._processService);
+       // AccountDocumentsComponent.ProcessStepNum = this._processService.getStepNumber(ProcessUrls.ACCOUNT_FILE_UPLOADER_URL);
+       // this.initProcessMembers(AccountDocumentsComponent.ProcessStepNum, this._processService);
         this.documentsList = this.accountDocumentHelperService.getApplicableDocuments() ;
     }
 
@@ -157,8 +157,9 @@ export class AccountDocumentsComponent extends BaseComponent {
     }
 
     continue(): void {
-        this._processService.setStep(AccountDocumentsComponent.ProcessStepNum, true);
-        this._router.navigate([this._processService.getNextStep(AccountDocumentsComponent.ProcessStepNum, )]);
+        //this._processService.setStep(AccountDocumentsComponent.ProcessStepNum, true);
+       // this._router.navigate([this._processService.getNextStep(AccountDocumentsComponent.ProcessStepNum, )]);
+        this._router.navigate(['/account/review']);
     }
 
 }

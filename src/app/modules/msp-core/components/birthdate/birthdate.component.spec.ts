@@ -2,8 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MspBirthDateComponent } from './birthdate.component';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {Person} from '../../../../components/msp/model/msp-person.model';
+import { LocalStorageModule } from 'angular-2-local-storage';
 import {Relationship} from '../../../../models/status-activities-documents';
 import {CalendarYearFormatter} from '../../../../components/msp/common/calendar/calendar-year-formatter.component';
 import {CalendarYearValidator} from '../../../../components/msp/common/calendar/calendar-year.validator';
@@ -26,7 +25,7 @@ describe('MspBirthDateComponent', () => {
   it ('should work', () => {
     const fixture = TestBed.createComponent(MspBirthDateComponent);
 
-    fixture.componentInstance.person = new Person(Relationship.Applicant);
+    fixture.componentInstance.person = new MspPerson(Relationship.Applicant);
     expect(fixture.componentInstance instanceof MspBirthDateComponent).toBe(true, 'should create MspBirthDateComponent');
 
   });

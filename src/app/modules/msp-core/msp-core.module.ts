@@ -51,6 +51,7 @@ import { CommonButtonGroupComponent } from './components/common-button-group/com
 import { CommonIncomeInputtextComponent } from './components/common-income-inputtext/common-income-inputtext.component';
 import { CommonButtonComponent } from './components/common-button/common-button.component';
 import { MspLoggerDirective } from './components/logging/msp-logger.directive';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const componentList = [
@@ -117,6 +118,7 @@ const templistCore = [
     RouterModule,
     TypeaheadModule.forRoot(),
     CaptchaModule,
+    HttpClientModule
   ],
   declarations: [
     componentList,
@@ -128,6 +130,7 @@ const templistCore = [
     SharedCoreModule,
     CaptchaModule,
 
+    // TODO: Be reviewed
     templistCore
   ]
 })
