@@ -28,9 +28,9 @@ export class AccountDocumentsComponent extends BaseComponent {
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
     @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
 
-    langAccountDocuments = require('../../common/account-documents/i18n');
-    langStatus = require('../../common/status/i18n');
-    langActivities = require('../../common/activities/i18n');
+    langAccountDocuments = require('../../../../components/msp/common/account-documents/i18n');
+    langStatus = require('../../../../components/msp/common/status/i18n');
+    langActivities = require('../../../../components/msp/common/activities/i18n');
     documentsList: DocumentGroup[] ;
     constructor(private dataService: MspDataService,
                 private _router: Router,

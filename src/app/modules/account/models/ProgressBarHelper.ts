@@ -6,7 +6,7 @@ export class ProgressBarHelper {
 
     /** Separator to be used when concatenating strings for labels */
     public static readonly seperator = '<br>';
-    lang = require('./i18n');
+    lang = require('../pages/i18n');
     private _height: Object = {'height': '70px'};
     private _dependentsLabel: string = '';
     private _personalInfoLabel: string = '';
