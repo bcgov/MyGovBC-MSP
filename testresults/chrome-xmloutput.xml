@@ -1,6 +1,89 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites disabled="0" errors="0" failures="0" tests="1" time="0.009">
- <testsuite name="chrome.MSP Supp Benefits - Authorize Page" timestamp="2019-06-11T12:08:22" hostname="localhost" time="0.009" errors="0" tests="1" skipped="0" disabled="0" failures="0">
-  <testcase classname="chrome.MSP Supp Benefits - Authorize Page" name="01. should load the page without issue" time="0.007" />
+<testsuites disabled="21" errors="0" failures="0" tests="26" time="32.315">
+ <testsuite name="chrome.MSP Enrolment - End-to-End" timestamp="2019-06-12T18:27:27" hostname="localhost" time="9.792" errors="0" tests="1" skipped="0" disabled="0" failures="0">
+  <testcase classname="chrome.MSP Enrolment - End-to-End" name="01. should be able to navigate from end to end - no spouse and no children" time="9.791" />
+ </testsuite>
+ <testsuite name="chrome.MSP Enrolment - Personal Info" timestamp="2019-06-12T18:27:37" hostname="localhost" time="22.513" errors="0" tests="4" skipped="0" disabled="0" failures="0">
+  <testcase classname="chrome.MSP Enrolment - Personal Info" name="01. should load the page without issue" time="4.61" />
+  <testcase classname="chrome.MSP Enrolment - Personal Info" name="02. should be able to select status by typing it in the field" time="5.268" />
+  <testcase classname="chrome.MSP Enrolment - Personal Info" name="03. should be able to select status by clicking it in the field" time="5.673" />
+  <testcase classname="chrome.MSP Enrolment - Personal Info" name="04. should be able to continue when user answer all required questions" time="6.962" />
+ </testsuite>
+ <testsuite name="chrome.MSP Enrolment - Authorize" timestamp="2019-06-12T18:28:00" hostname="localhost" time="0.003" errors="0" tests="2" skipped="0" disabled="2" failures="0">
+  <testcase classname="chrome.MSP Enrolment - Authorize" name="01. should load the page without issue" time="0.001">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Authorize" name="02. should let user to continue when they agree" time="0">
+   <skipped />
+  </testcase>
+ </testsuite>
+ <testsuite name="chrome.MSP Enrolment - Child Info" timestamp="2019-06-12T18:28:00" hostname="localhost" time="0.001" errors="0" tests="3" skipped="0" disabled="3" failures="0">
+  <testcase classname="chrome.MSP Enrolment - Child Info" name="01. should load the page without issue" time="0.001">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Child Info" name="02. should be able to continue when user has no children" time="0">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Child Info" name="03. should be able to add child/children" time="0">
+   <skipped />
+  </testcase>
+ </testsuite>
+ <testsuite name="chrome.MSP Enrolment - Contact Info" timestamp="2019-06-12T18:28:00" hostname="localhost" time="0.001" errors="0" tests="4" skipped="0" disabled="4" failures="0">
+  <testcase classname="chrome.MSP Enrolment - Contact Info" name="01. should load the page without issue" time="0">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Contact Info" name="02. should let users set their own mailing address by filling out the Mailling Address field" time="0.001">
+   <skipped message="Temporarily disabled with xit" />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Contact Info" name="03. should NOT let users continue with an incomplete mailing address" time="0">
+   <skipped message="Temporarily disabled with xit" />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Contact Info" name="04. should let users partially fill out a mailing address but uncheck it, and continue" time="0">
+   <skipped message="Temporarily disabled with xit" />
+  </testcase>
+ </testsuite>
+ <testsuite name="chrome.MSP Enrolment - Check Eligibility" timestamp="2019-06-12T18:28:00" hostname="localhost" time="0.002" errors="0" tests="5" skipped="0" disabled="5" failures="0">
+  <testcase classname="chrome.MSP Enrolment - Check Eligibility" name="01. should load the page without issue" time="0.001">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Check Eligibility" name="02. should NOT let the user to proceed if the user has not agreeed to the info collection notice" time="0.001">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Check Eligibility" name="03. should let the user to proceed if the user has agreeed to the info collection notice" time="0">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Check Eligibility" name="04. should NOT let the user continue if not all questions have been answered" time="0">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Check Eligibility" name="05. should be able to continue after answering all the questions" time="0">
+   <skipped />
+  </testcase>
+ </testsuite>
+ <testsuite name="chrome.MSP Enrolment - Review" timestamp="2019-06-12T18:28:00" hostname="localhost" time="0.001" errors="0" tests="3" skipped="0" disabled="3" failures="0">
+  <testcase classname="chrome.MSP Enrolment - Review" name="01. should load the page without issue" time="0">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Review" name="02. should be able to continue without editing any info" time="0.001">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Review" name="03. should be able to edit/modify info" time="0">
+   <skipped />
+  </testcase>
+ </testsuite>
+ <testsuite name="chrome.MSP Enrolment - Spouse Info" timestamp="2019-06-12T18:28:00" hostname="localhost" time="0.002" errors="0" tests="3" skipped="0" disabled="3" failures="0">
+  <testcase classname="chrome.MSP Enrolment - Spouse Info" name="01. should load the page without issue" time="0.001">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Spouse Info" name="02. should be able to continue when user has no spouse" time="0">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Enrolment - Spouse Info" name="03. should be able to add spouse" time="0">
+   <skipped />
+  </testcase>
+ </testsuite>
+ <testsuite name="chrome.MSP Supp Benefits - Authorize Page" timestamp="2019-06-12T18:28:00" hostname="localhost" time="0" errors="0" tests="1" skipped="0" disabled="1" failures="0">
+  <testcase classname="chrome.MSP Supp Benefits - Authorize Page" name="01. should load the page without issue" time="0">
+   <skipped />
+  </testcase>
  </testsuite>
 </testsuites>

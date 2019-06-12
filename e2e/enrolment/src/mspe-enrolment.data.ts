@@ -14,6 +14,16 @@ export class FakeDataEnrolment {
         };
     }
 
+    personalInfo(): PersonalInfoPageTest {
+        return {
+            birthDate: faker.date.past(),
+            province: faker.address.state(),
+            arrivalDateBC:  faker.date.past(),
+            arrivalDateCAN: Math.random() > 0.5 ? faker.date.past() : undefined,
+            healthNum: faker.random.number()
+        }
+    }
+
     getSeed() {
         return FakeDataEnrolment.seedVal;
     }
@@ -30,4 +40,12 @@ export interface ContactPageTest {
     postal: string;
     mobile: string;
     province?: string;
+}
+
+export interface PersonalInfoPageTest {
+    birthDate: Date;
+    province?: string;
+    arrivalDateBC: Date;
+    arrivalDateCAN: Date;
+    healthNum: number;
 }

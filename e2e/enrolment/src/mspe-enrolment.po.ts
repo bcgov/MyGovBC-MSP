@@ -103,15 +103,12 @@ export class PersonalInfoPage extends BaseMSPEnrolmentTestPage {
        element(by.css(`div[aria-label*="${ariaVal}"]`)).element(by.cssContainingText('label', `${labelVal}`)).click();
     }
 
+    // TODO - Move over to lib
     // Sample file : file:///space/workspace/MyGovBC-MSP/e2e/sample.jpg
-    uploadFile() {
-        element(by.css('common-file-uploader')).element(by.css('i')).click();
-        var path = require('path');
-        var fileToUpload = '/space/workspace/MyGovBC-MSP/e2e/sample.jpg',
-        absolutePath = path.resolve(__dirname, fileToUpload);
-
-        element(by.css('input[type="file"]')).sendKeys(absolutePath); 
-        element(by.css('input[type="file"]')).sendKeys(protractor.Key.ENTER); 
+    uploadFile(absolutePath = '/space/workspace/MyGovBC-MSP/e2e/sample.jpg') {
+        element(by.css('common-file-uploader input[type="file"]')).sendKeys(absolutePath); 
+        // element(by.css('input[type="file"]')).sendKeys(protractor.Key.ENTER);  // Causes error?
+        // element(by.css('common-file-uploader')).element(by.css('i')).click();
     }
 }
 

@@ -27,6 +27,4 @@ describe('MSP Enrolment - Authorize', () => {
         expect(browser.getCurrentUrl()).toContain(AUTHORIZE_PAGE_URL);
     });
 
-  
-
 });

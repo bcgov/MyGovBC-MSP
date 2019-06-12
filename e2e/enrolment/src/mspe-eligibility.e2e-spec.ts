@@ -54,7 +54,6 @@ describe('MSP Enrolment - Check Eligibility', () => {
         expect(browser.getCurrentUrl()).toContain(ELIGIBILITY_PAGE_URL, 'should stay on page since there are errors');
     });
 
-    // This test will work when changes in Continue button has been made
     it('05. should be able to continue after answering all the questions', () => {
         // Need to go to base page when modal is clicked previously
         basePage.navigateTo();
