@@ -152,6 +152,17 @@ export class PersonalDetailsComponent extends BaseComponent {
     'Have they been released from the Canadian Armed Forces or an Institution?'
   ];
 
+  resideAfterStudiesLabel = [
+    'Will this child reside in B.C. after completing study in this school?',
+    'Will you reside in B.C. upon completion of your studies?'
+  ];
+
+  stayInBCAfterStudiesLabel() {
+    const label = this.resideAfterStudiesLabel;
+    if (this.person.relationship === Relationship.Child19To24) return label[0];
+    return label[1];
+  }
+
   constructor(private el: ElementRef, private cd: ChangeDetectorRef) {
     super(cd);
   }

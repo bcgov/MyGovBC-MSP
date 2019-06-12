@@ -215,18 +215,20 @@
         <div #schoolQuestion class="row" *ngIf="person.documents.images.length > 0 &&
                             (person.relationship === Relationship.Applicant ||
                             person.relationship === Relationship.Child19To24)">
-          <div class="form-group col-lg-4" *ngIf="person.relationship === Relationship.Applicant"
+          <div *ngIf="person.relationship === Relationship.Applicant"
             [ngClass]="{'has-error': showError && (person.fullTimeStudent === undefined || person.fullTimeStudent === null)}"
             role="dialog" [attr.aria-labelledby]="'fullTimeStudentLabel' + objectId">
-            <label id="fullTimeStudentLabel{{objectId}}" [innerHtml]="lang('./en/index.js').fullTimeStudentLabel"
-              class="control-label"></label>
-            <div class="btn-group" role="group">
+            <!-- <label id="fullTimeStudentLabel{{objectId}}" [innerHtml]="lang('./en/index.js').fullTimeStudentLabel"
+              class="control-label"></label> -->
+            <!-- <div class="btn-group" role="group">
               <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
                 [class.msp-btn-radio]="person.fullTimeStudent === answer.value"
                 (click)="setFullTimeStudent(answer.value)" type="button" class="btn btn-default">{{answer.label}}
               </button>
 
-            </div>
+            </div> -->
+            <common-toggle label="Are you a full-time student in B.C.?" (dataChange)="setFullTimeStudent($event)">
+            </common-toggle>
             <div *ngIf='showError && (person.fullTimeStudent === undefined || person.fullTimeStudent === null)'
               role="alert" aria-live="assertive">
               <div class="text-danger" [innerHtml]="lang('./en/index.js').mustDeclareStudentStatus"></div>
@@ -238,10 +240,10 @@
 
         <div class="row" *ngIf="person.documents.images.length > 0 &&
                             person.relationship === Relationship.Child19To24">
-          <div class="form-group col-lg-6"
+          <div class="form-group"
             [ngClass]="{'has-error': !formRef.controls.schoolName?.valid && (schoolNameRef.touched || showError)}">
             <h2 [innerHtml]="lang('./en/index.js').nameOfSchool"></h2>
-            <label [innerHtml]="lang('./en/index.js').fullAttendanceLabel"></label>
+            <!-- <label [innerHtml]="lang('./en/index.js').fullAttendanceLabel"></label> -->
             <label class="visuallyhidden" for="schoolName{{objectId}}">{{lang('./en/index.js').nameOfSchool}}
               {{lang('./en/index.js').fullAttendanceLabel}}></label>
             <input [(ngModel)]='person.schoolName' type="text" class="form-control" id="schoolName{{objectId}}"
@@ -277,20 +279,23 @@
 
         </div>
         <div class="row" *ngIf="person.documents.images.length > 0">
-          <div #inBCAfterStudiesQuestion *ngIf="person.fullTimeStudent" class="col-lg-6" role="dialog"
+          <div #inBCAfterStudiesQuestion *ngIf="person.fullTimeStudent" role="dialog"
             [attr.aria-labelledby]="'inBCAfterStudiesLabel' + objectId">
-            <div class="form-group"
+            <div
               [ngClass]="{'has-error': (person.inBCafterStudies===undefined || person.inBCafterStudies===null) && showError}">
-              <label id="inBCAfterStudiesLabel{{objectId}}" *ngIf="person.relationship === Relationship.Applicant"
-                [innerHtml]="lang('./en/index.js').inBCAfterStudiesLabel" class="control-label"></label>
-              <label id="inBCAfterStudiesLabel{{objectId}}" *ngIf="person.relationship === Relationship.Child19To24"
-                class="control-label" [innerHtml]="lang('./en/index.js').childStayInBCAfterStudiesLabel"></label>
-              <div class="btn-group" role="group">
+              <!-- <label id="inBCAfterStudiesLabel{{objectId}}" *ngIf="person.relationship === Relationship.Applicant"
+                [innerHtml]="lang('./en/index.js').inBCAfterStudiesLabel" class="control-label"></label> -->
+              <!-- <label id="inBCAfterStudiesLabel{{objectId}}" *ngIf="person.relationship === Relationship.Child19To24"
+                class="control-label" [innerHtml]="lang('./en/index.js').childStayInBCAfterStudiesLabel"></label> -->
+              <!-- <div class="btn-group" role="group">
                 <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
                   [class.msp-btn-radio]="person.inBCafterStudies === answer.value"
                   (click)="setStayInBCAfterStudy(answer.value)" type="button" class="btn btn-default">{{answer.label}}
                 </button>
-              </div>
+              </div> -->
+              <common-toggle [label]="stayInBCAfterStudiesLabel()" (dataChange)="setStayInBCAfterStudy($event)">
+              </common-toggle>
+
               <div *ngIf="(person.inBCafterStudies===undefined || person.inBCafterStudies===null) && showError"
                 role="alert" aria-live="assertive">
                 <p class="text-danger" [innerHtml]="lang('./en/index.js').mustAnswerQuestion"></p>

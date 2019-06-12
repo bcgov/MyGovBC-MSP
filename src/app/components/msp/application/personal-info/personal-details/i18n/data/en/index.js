@@ -74,7 +74,6 @@ module.exports = {
     "Since you arrived, have they been outside B.C. for more than 30 days in total?"
   ],
   beenOutsideBCForMoreThan30DaysInTotalInThePast12Months: "Have you been outside B.C. for more than 30 days in total in the past 12 months",
-  fullTimeStudentLabel: 'Are you a full-time student in B.C.?',
   haveYouMovedToBCPermanently: ['Have you moved to BC permanently?',
     'Have they moved to BC permanently?',
     'Have they moved to BC permanently?',
@@ -82,13 +81,6 @@ module.exports = {
   ],
   assertChildBeFullTimeStudent: 'School Information for Full-time Student Child',
   inBCAfterStudiesLabel: 'Will you reside in B.C. upon completion of your studies?',
-  childStayInBCAfterStudiesLabel: 'Will this child reside in B.C. after completing study in this school?',
-
-  canadianForcesQuestion: ['Have you been released from the Canadian Armed Forces or an Institution?',
-    'Have they been released from the Canadian Armed Forces or an Institution?',
-    'Have they been released from the Canadian Armed Forces or an Institution?',
-    'Have they been released from the Canadian Armed Forces or an Institution?'
-  ],
 
   nameOfSchool: 'Name of school that this child is attending',
   fullAttendanceLabel: '(must be in full-time attendance)',
