@@ -1,4 +1,5 @@
 <form #formRef="ngForm" novalidate>
+    <common-page-framework layout="blank">
 
   <h1>Tell us about your Spouse and upload official documents</h1>
   <hr>
@@ -18,11 +19,12 @@
         [showError] = "formRef.submitted">
       </msp-personal-details>
   </div>
-
-  <div class="container">
+</common-page-framework>
+ 
   <common-form-action-bar [submitLabel]="spouse? 'Continue':'No Spouse'"
       [canContinue]="!(!documentsReady() || checkAnyDependentsIneligible() || !isAllValid())"
       (btnClick)="nextStep()">
     </common-form-action-bar>
-  </div>
+ 
+  
 </form>

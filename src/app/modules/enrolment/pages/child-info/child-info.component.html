@@ -1,5 +1,5 @@
 <form #formRef="ngForm" novalidate>
-
+    <common-page-framework layout="blank" >
   <h1>Tell us about your Dependants and upload official documents</h1>
   <hr>
   <div class="col-sm-4">
@@ -17,10 +17,11 @@
         [showError] = "formRef.submitted">
       </msp-personal-details>
     </div>
+  </common-page-framework>
 
-  <div class="container">
-      <common-form-action-bar [submitLabel]="children.length > 0? 'Continue':'No Child'"
-        [canContinue]="!(!documentsReady() || checkAnyDependentsIneligible() || !isAllValid())" (btnClick)="nextStep()">
-      </common-form-action-bar>
-  </div>
+  <common-form-action-bar [submitLabel]="children.length > 0? 'Continue':'No Child'"
+    [canContinue]="!(!documentsReady() || checkAnyDependentsIneligible() || !isAllValid())" (btnClick)="nextStep()">
+  </common-form-action-bar>
+ 
+
 </form>

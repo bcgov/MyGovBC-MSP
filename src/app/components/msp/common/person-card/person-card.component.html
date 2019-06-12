@@ -4,7 +4,8 @@
     ' ' + lang('./en/index.js').cardSuffix"><i class="fa fa-pencil edit--icon float-right" aria-hidden="true" (click)="editPersonalInfo()"></i>
     
 </h2>-->
-<h2 *ngIf="!customTitle" >{{lang('./en/index.js').relationshipLabel[person.relationship]}}  {{lang('./en/index.js').cardSuffix}} <i class="fa fa-pencil edit--icon float-right" aria-hidden="true" (click)="editPersonalInfo()"></i>
+<h2 *ngIf="!customTitle" >{{lang('./en/index.js').relationshipLabel[person.relationship]}}  {{lang('./en/index.js').cardSuffix}} 
+    <i class="fa fa-pencil edit--icon float-right" aria-hidden="true" (click)="editPersonalInfo()"></i>
     
 </h2>
 

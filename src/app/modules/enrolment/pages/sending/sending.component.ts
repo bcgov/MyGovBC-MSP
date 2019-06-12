@@ -60,7 +60,7 @@ export class SendingComponent implements AfterContentInit {
 
         //  go to confirmation
 
-        this.router.navigate(['/msp/application/confirmation'],
+        this.router.navigate(['/enrolment/confirmation'],
           {queryParams: {confirmationNum: tempRef}});
 
 
@@ -93,6 +93,6 @@ export class SendingComponent implements AfterContentInit {
   }
 
   retrySubmission(){
-    this.router.navigate(['/msp/application/authorize']);
+    this.router.navigate(['/enrolment/authorize']);
   }
 }
