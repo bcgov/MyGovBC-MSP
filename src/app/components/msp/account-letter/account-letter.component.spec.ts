@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { AccountLetterComponent } from './account-letter.component';
-import { MspDataService } from '../service/msp-data.service';
+import { MspDataService } from '../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {MspProgressBarComponent} from '../common/progressBar/progressBar.component';
+import {MspProgressBarComponent} from '../../../modules/account/components/progressBar/progressBar.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import { ProcessService } from '../service/process.service';
-import {MspLogService} from '../service/log.service';
+import { ProcessService } from '../../../services/process.service';
+import {MspLogService} from '../../../services/log.service';
 import {HttpClientModule} from '@angular/common/http';
 
 describe('AccountLetterComponent', () => {

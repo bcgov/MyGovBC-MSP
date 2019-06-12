@@ -2,12 +2,12 @@ import { TestBed } from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { AccountLetterSendingComponent } from './sending.component';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import {HttpClientModule} from '@angular/common/http';
-import { ProcessService } from '../../service/process.service';
+import { ProcessService } from '../../../../services/process.service';
 import {TransmissionErrorView} from '../../common/transmission-error-view/transmission-error-view.component';
-import { MspLogService } from '../../service/log.service';
+import { MspLogService } from '../../../../services/log.service';
 import { MspACLService } from '../../service/msp-acl-api.service';
 import {AclErrorViewComponent} from '../../account-letter/sending/acl-error-view/acl-error-view.component';
 

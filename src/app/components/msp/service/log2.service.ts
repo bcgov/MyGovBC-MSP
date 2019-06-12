@@ -4,7 +4,7 @@ import { environment } from '../../../../environments/environment';
 import { AbstractHttpService } from 'moh-common-lib';
 import { throwError } from 'rxjs';
 import * as moment from 'moment';
-import {MspDataService} from './msp-data.service';
+import {MspDataService} from '../../../services/msp-data.service';
 import { Router } from '@angular/router';
 
 

@@ -1,10 +1,10 @@
 import {Component, Inject, ViewChild} from '@angular/core';
-import {ProcessService, ProcessStep} from '../service/process.service';
+import {ProcessService, ProcessStep} from '../../../services/process.service';
 import {environment} from '../../../../environments/environment';
 import {Router, NavigationEnd} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
-import {MspLogService} from '../service/log.service';
+import {MspLogService} from '../../../services/log.service';
 
 /**
  * Application for MSP

@@ -2,8 +2,8 @@ import { Component, Directive, HostBinding, ElementRef,
   OnChanges, OnInit, HostListener, Input, SimpleChanges } from '@angular/core';
   import * as moment from 'moment';
 
-import { MspLogService } from '../../service/log.service';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspLogService } from '../../../../services/log.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LogEntry } from './log-entry.model';
 
 @Directive({

@@ -1,7 +1,7 @@
 import {Component, Input, EventEmitter, Output, ViewChild, ChangeDetectorRef} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {PhoneNumber} from '../../model/phone.model';
-import {BaseComponent} from '../base.component';
+import {BaseComponent} from '../../../../models/base.component';
 import {debounceTime} from "rxjs/operators";
 
 @Component({

@@ -1,7 +1,7 @@
 import {Component, ViewChild, OnInit, Input, Output, EventEmitter, ViewContainerRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 
-import { MspImage } from '../../model/msp-image';
+import { MspImage } from '../../../../models/msp-image';
 
 @Component({
   selector: 'msp-thumbnail',

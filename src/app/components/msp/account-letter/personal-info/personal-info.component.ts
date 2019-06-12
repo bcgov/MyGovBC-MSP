@@ -9,19 +9,19 @@ import {
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import * as _ from 'lodash';
-import {MspDataService} from '../../service/msp-data.service';
+import {MspDataService} from '../../../../services/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
-import {ProcessService} from '../../service/process.service';
+import {ProcessService} from '../../../../services/process.service';
 import {AccountLetterApplication, MspPerson} from '../../model/account-letter-application.model';
 import {MspBirthDateComponent} from '../../../../modules/msp-core/components/birthdate/birthdate.component';
 import {Address} from '../../model/address.model';
 import {
     MSPEnrollementMember, EnrollmentStatusRules
-} from '../../model/status-activities-documents';
+} from '../../../../models/status-activities-documents';
 import {environment} from '../../../../../environments/environment';
 import {SpecificMemberComponent} from './specific-member/specific-member.component';
 import {LETTER, Masking, NUMBER, SPACE} from '../../model/masking.model';
-import {MspLogService} from '../../service/log.service';
+import {MspLogService} from '../../../../services/log.service';
 //import { PhnComponent } from 'moh-common-lib';
 
 @Component({

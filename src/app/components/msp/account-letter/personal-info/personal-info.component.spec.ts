@@ -1,18 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
+import {MspConsentModalComponent} from '../../../../modules/msp-core/components/consent-modal/consent-modal.component';
 import {MspCancelComponent} from '../../common/cancel/cancel.component';
 import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';
-import { MspLogService } from '../../service/log.service';
+import { MspLogService } from '../../../../services/log.service';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ProcessService } from '../../service/process.service';
+import { ProcessService } from '../../../../services/process.service';
 import { ModalModule } from 'ngx-bootstrap';
-import {MspMaintenanceService} from '../../service/msp-maintenance.service';
+import {MspMaintenanceService} from '../../../../services/msp-maintenance.service';
 /*
 describe('PrepareComponent', () => {
   beforeEach(() => {

@@ -1,5 +1,5 @@
 import {Component, OnChanges, DoCheck, EventEmitter, Input, OnInit, Output, ChangeDetectorRef} from '@angular/core';
-import { BaseComponent } from '../base.component';
+import { BaseComponent } from '../../../../models/base.component';
 import { Base } from 'moh-common-lib';
 
 

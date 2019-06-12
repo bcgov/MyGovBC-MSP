@@ -1,6 +1,6 @@
 import {Component, Input, EventEmitter, Output, ViewChild, OnInit, ChangeDetectorRef} from '@angular/core';
 import {NgForm, FormControl} from '@angular/forms';
-import {BaseComponent} from '../base.component';
+import {BaseComponent} from '../../../../models/base.component';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 
 @Component({

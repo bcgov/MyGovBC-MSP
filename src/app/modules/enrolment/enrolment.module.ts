@@ -15,7 +15,6 @@ import { SendingComponent } from './pages/sending/sending.component';
 import { SpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { FormsModule } from '@angular/forms';
 import { CaptchaModule } from 'moh-common-lib/captcha';
-import { MspLogService } from '../../components/msp/service/log.service';
 
 
 @NgModule({
@@ -39,7 +38,6 @@ import { MspLogService } from '../../components/msp/service/log.service';
     SpouseInfoComponent
   ],
   providers: [
-    MspLogService
   ]
 })
 export class EnrolmentModule { }

@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { PersonalDetailsComponent } from './personal-details.component';
-import { MspDataService } from '../../../../components/msp/service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import {PhnComponent} from 'moh-common-lib';
 import {MspNameComponent} from '../../../../components/msp/common/name/name.component';
@@ -14,7 +14,7 @@ import {MspDischargeDateComponent} from '../../../../components/msp/common/disch
 import {MspBirthDateComponent} from '../birthdate/birthdate.component';
 import {MspSchoolDateComponent} from '../../../../components/msp/common/schoolDate/school-date.component';
 import {FileUploaderComponent} from '../../../../components/msp/common/file-uploader/file-uploader.component';
-import {MspAddressComponent} from '../../../../components/msp/common/address/address.component';
+import {MspAddressComponent} from '../address/address.component';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import {ThumbnailComponent} from '../../../../components/msp/common/thumbnail/thumbnail.component';
 import {ModalModule, AccordionModule} from 'ngx-bootstrap';

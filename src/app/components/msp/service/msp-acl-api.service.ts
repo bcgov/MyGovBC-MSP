@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { _ApplicationTypeNameSpace } from '../../../modules/enrolment/pages/api-model/applicationTypes';
-import { MspLogService } from './log.service';
+import { MspLogService } from '../../../services/log.service';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { AccountLetterApplication } from '../model/account-letter-application.model';

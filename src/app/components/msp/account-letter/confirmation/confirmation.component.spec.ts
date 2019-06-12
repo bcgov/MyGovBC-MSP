@@ -4,10 +4,10 @@ import { RouterModule } from '@angular/router';
 // import { RouterTestingModule } from '@angular/router/testing';
 
 import { AccountLetterConfirmationComponent } from './confirmation.component';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';
-import { MspLogService } from '../../service/log.service';
+import { MspLogService } from '../../../../services/log.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {HttpClientModule} from '@angular/common/http';

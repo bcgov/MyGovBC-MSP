@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {MspApplication} from '../../../../components/msp/model/application.model';
-import { MspDataService } from '../../../../components/msp/service/msp-data.service';
+import {MspApplication} from '../../models/application.model';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable,  Subscription} from 'rxjs';
 import * as moment from 'moment';

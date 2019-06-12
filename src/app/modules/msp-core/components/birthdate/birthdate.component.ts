@@ -10,10 +10,10 @@ import {
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {MspPerson} from '../../../../components/msp/model/msp-person.model';
-import {Relationship} from '../../../../components/msp/model/status-activities-documents';
+import {Relationship} from '../../../../models/status-activities-documents';
 
 import * as moment from 'moment';
-import {BaseComponent} from '../../../../components/msp/common/base.component';
+import {BaseComponent} from '../../../../models/base.component';
 
 
 @Component({

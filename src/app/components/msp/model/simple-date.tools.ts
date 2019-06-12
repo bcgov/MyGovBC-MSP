@@ -1,4 +1,4 @@
-import { SimpleDate } from './simple-date.interface';
+import { SimpleDate } from 'moh-common-lib';
 import * as moment from 'moment';
 
 /**

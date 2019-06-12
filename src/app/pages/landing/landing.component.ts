@@ -1,10 +1,10 @@
 import {Component, ViewChild} from '@angular/core';
 // import { MspDataService } from '../service/msp-data.service';
-import {MspDataService} from '../../components/msp/service/msp-data.service';
+import {MspDataService} from '../../services/msp-data.service';
 
 
 import {Router} from '@angular/router';
-import {MspBenefitDataService} from '../../components/msp/service/msp-benefit-data.service';
+import {MspBenefitDataService} from '../../modules/benefit/services/msp-benefit-data.service';
 
 /**
  * Application for MSP
@@ -36,7 +36,7 @@ export class LandingComponent {
     clearSavedFinAssisApp() {
         console.log('deleting saved fin assist app.');
         this.mspDataService.removeFinAssistApplication();
-        this.router.navigate(['/old-msp/assistance/prepare']);
+        this.router.navigate(['/assistance/prepare']);
 
     }
 
@@ -47,7 +47,7 @@ export class LandingComponent {
 
     clearSavedAccountApp() {
         this.mspDataService.removeMspAccountApp();
-        this.router.navigate(['/0ld-msp/account/prepare']);
+        this.router.navigate(['/account/prepare']);
     }
 
     clearSavedAccountLetterApp() {
@@ -57,7 +57,7 @@ export class LandingComponent {
 
     clearSavedBenefitAssisApp() {
         this.mspBenefitDataService.removeMspBenefitApp();
-        this.router.navigate(['/old-msp/benefit/prepare']);
+        this.router.navigate(['/benefit/prepare']);
     }
 
 }
