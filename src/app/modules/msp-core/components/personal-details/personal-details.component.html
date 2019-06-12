@@ -149,11 +149,13 @@
               </common-country>
             </div>
             <div class="col-lg-4" *ngIf="person.currentActivity === Activities.MovingFromProvince">
-                <!--TODO: no states, only BC-->
                 <common-province #province name="msp-province"
                             [label]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
                             [ngModel]="person.movedFromProvinceOrCountry"
-                            (ngModelChange)="provinceUpdate($event)"></common-province>
+                            (ngModelChange)="provinceUpdate($event)"
+                            [provinceList]=provinceData
+                            placeholder="{{ isCanada(person.movedFromProvinceOrCountry)? 'Select a Province': 'Select a State' }}"
+                            [useDropDownList]="isCanada(person.movedFromProvinceOrCountry)"></common-province>
             </div>
             <br><br><br>
             <div class="row">

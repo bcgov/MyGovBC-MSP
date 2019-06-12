@@ -3,7 +3,7 @@ import {
   EventEmitter, ViewChild, ChangeDetectorRef
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Address} from '../../../../components/msp/model/address.model';
+import {Address} from 'moh-common-lib';
 import {BaseComponent} from '../../../../models/base.component';
 import {MspProvinceComponent} from '../../../../components/msp/common/province/province.component';
 import {MspCountryComponent} from '../../../../components/msp/common/country/country.component';

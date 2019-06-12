@@ -39,6 +39,8 @@ import {MspProvinceComponent} from '../../../../components/msp/common/province/p
 import {BaseComponent} from '../../../../models/base.component';
 import {MspCountryComponent} from '../../../../components/msp/common/country/country.component';
 import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
+import { provinceData } from '../../../../models/msp-constants';
+import { CANADA, Address } from 'moh-common-lib';
 
 @Component({
   selector: 'msp-personal-details',
@@ -125,6 +127,10 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   /** Hides the 'Clear Spouse/Child' button, and the <hr> at the end of the component. Useful in layouts where this form must be embedded in a larger form.. */
   @Input() embedded: boolean = false;
+
+
+  // Address Country/Provinces
+  provList = provinceData;
 
   constructor(private el: ElementRef, private cd: ChangeDetectorRef) {
     super(cd);
@@ -458,5 +464,9 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
   setGender(evt: string) {
     console.log(evt);
+  }
+
+  isCanada( addr: Address): boolean {
+    return addr && CANADA === addr.country;
   }
 }
