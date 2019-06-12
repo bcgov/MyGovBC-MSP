@@ -17,7 +17,7 @@ export class SpecificMemberComponent extends Masking {
    // @ViewChild('addtionalMemberphn') phn: PhnComponent;
     public checked: boolean = false;
     lang = require('./i18n');
-    langStatus = require('../../../common/enrollmentMember/i18n');
+    langStatus = require('../../../../../components/msp/common/enrollmentMember/i18n');
 
     constructor(cd: ChangeDetectorRef) {
         super(cd);

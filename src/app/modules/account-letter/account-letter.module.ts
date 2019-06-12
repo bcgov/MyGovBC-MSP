@@ -12,6 +12,7 @@ import { AccountLetterSendingComponent } from './pages/sending/sending.component
 import { AccountLetterConfirmationComponent } from './pages/confirmation/confirmation.component';
 import { SpecificMemberComponent } from './pages/personal-info/specific-member/specific-member.component';
 import { AclErrorViewComponent } from './pages/sending/acl-error-view/acl-error-view.component';
+import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { AclErrorViewComponent } from './pages/sending/acl-error-view/acl-error-
     FormsModule,
     MspCoreModule,
     ModalModule,
+    TextMaskModule,
   ],
   declarations: [
     AccletContainerComponent,

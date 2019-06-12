@@ -47,7 +47,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     public postalCodeMask = [LETTER, NUMBER, LETTER, SPACE, NUMBER, LETTER, NUMBER];
     public phnRegex: RegExp = /^[A-Za-z][0-9][A-Za-z]\s?[0-9][A-Za-z][0-9]$/;
 
-    langStatus = require('../../common/enrollmentMember/i18n');
+    langStatus = require('../../../../components/msp/common/enrollmentMember/i18n');
 
 
     constructor(private dataService: MspDataService,
