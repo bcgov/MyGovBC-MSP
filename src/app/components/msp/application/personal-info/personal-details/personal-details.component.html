@@ -170,7 +170,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-6" *ngIf="person.hasPreviousBCPhn === true">
+            <div *ngIf="person.hasPreviousBCPhn === true">
               <msp-phn #phn [phn]="person.previous_phn" (phnChange)="person.previous_phn = $event" [required]="false"
                 [bcPhn]="true" [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"
                 (onChange)="onChange.emit($event)" [showError]="showError"></msp-phn>
@@ -183,25 +183,25 @@
           *ngIf="person.documents.images.length > 0 && person.status === StatusInCanada.CitizenAdult"
           style="margin-top: 10px; margin-bottom: 10px;" role="dialog"
           [attr.aria-labelledby]="'canadianForcesQuestionLabel' + objectId">
-          <div class="col-lg-8">
-            <div class="form-group" [ngClass]="{'has-error': (person.institutionWorkHistory === undefined ||  person.institutionWorkHistory === null)
+          <div [ngClass]="{'has-error': (person.institutionWorkHistory === undefined ||  person.institutionWorkHistory === null)
                 && showError}">
-              <label id="canadianForcesQuestionLabel{{objectId}}"
-                [innerHtml]="lang('./en/index.js').canadianForcesQuestion[this.person.relationship]"
-                class="control-label"></label>
-              <div class="btn-group" role="group">
-                <button *ngFor='let institution of institutionList'
-                  [class.msp-btn-radio]="person.institutionWorkHistory == institution"
-                  (click)="selectInstitution(institution)" type="button" class="btn btn-default">{{institution}}
-                </button>
-              </div>
-              <div
-                *ngIf='(person.institutionWorkHistory === undefined ||  person.institutionWorkHistory === null) && showError'
-                role="alert" aria-live="assertive">
-                <p class="text-danger" [innerHtml]="lang('./en/index.js').mustDeclareInstitutionWorkHistory"></p>
-              </div>
-
+            <!-- <label id="canadianForcesQuestionLabel{{objectId}}"
+              [innerHtml]="lang('./en/index.js').canadianForcesQuestion[this.person.relationship]"
+              class="control-label"></label> -->
+            <!-- <div class="btn-group" role="group">
+              <button *ngFor='let institution of institutionList'
+                [class.msp-btn-radio]="person.institutionWorkHistory == institution"
+                (click)="selectInstitution(institution)" type="button" class="btn btn-default">{{institution}}
+              </button>
+            </div> -->
+            <common-toggle [label]="canadianForcesQuestion[this.person.relationship]"
+              (dataChange)="selectInstitution($event)"></common-toggle>
+            <div
+              *ngIf='(person.institutionWorkHistory === undefined ||  person.institutionWorkHistory === null) && showError'
+              role="alert" aria-live="assertive">
+              <p class="text-danger" [innerHtml]="lang('./en/index.js').mustDeclareInstitutionWorkHistory"></p>
             </div>
+
             <div *ngIf="person.institutionWorkHistory === 'Yes'" style="margin-top: 10px">
               <msp-discharge-date #dischargeDate [year]="person.dischargeYear"
                 (yearChange)="person.dischargeYear = $event" [month]="person.dischargeMonth"

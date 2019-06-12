@@ -136,12 +136,22 @@ export class PersonalDetailsComponent extends BaseComponent {
   institutionWorkSignal: string;
   showServicesCardModal: boolean = false;
 
+  // TODO: Move these to a separate constants folder.
+
   documentUploadLabel = [
     'Upload your documents',
     "Upload your spouse's documents",
     "Upload your child's documents",
     "Upload your child's documents"
   ];
+
+  canadianForcesQuestion = [
+    'Have you been released from the Canadian Armed Forces or an Institution?',
+    'Have they been released from the Canadian Armed Forces or an Institution?',
+    'Have they been released from the Canadian Armed Forces or an Institution?',
+    'Have they been released from the Canadian Armed Forces or an Institution?'
+  ];
+
   constructor(private el: ElementRef, private cd: ChangeDetectorRef) {
     super(cd);
   }
@@ -341,16 +351,21 @@ export class PersonalDetailsComponent extends BaseComponent {
     return this.person.institutionWorkHistory;
   }
 
-  selectInstitution(history: string) {
+  selectInstitution(evt: boolean) {
+    if (!evt) this.person = this.clearHistory(this.person);
+    let history = evt ? 'Yes' : 'No';
     this.person.institutionWorkHistory = history;
-    if (history == 'No') {
-      this.person.dischargeDay = null;
-      this.person.dischargeMonth = null;
-      this.person.dischargeYear = null;
-    }
+
     this.cd.detectChanges();
     this.onChange.emit(history);
     this.emitIsFormValid();
+  }
+
+  clearHistory(person: Person) {
+    person.dischargeDay = null;
+    person.dischargeMonth = null;
+    person.dischargeYear = null;
+    return person;
   }
 
   toggleInstituationList() {
