@@ -5,7 +5,7 @@ import { PersonalInfoComponent } from './personal-info.component';
 import { PersonalDetailsComponent } from '../../../msp-core/components/personal-details/personal-details.component';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {MspPhnComponent} from '../../../../components/msp/common/phn/phn.component';
+
 import {MspProvinceComponent} from '../../../../components/msp/common/province/province.component';
 import {MspArrivalDateComponent} from '../../../../components/msp/common/arrival-date/arrival-date.component';
 import {MspDepartureDateComponent} from '../../../../components/msp/common/departure-date/departure-date.component';

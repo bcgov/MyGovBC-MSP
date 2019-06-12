@@ -72,7 +72,7 @@ import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaime
   ]
 })
 export class PersonalDetailsComponent extends BaseComponent {
- // lang = require('./i18n');
+  lang = require('./i18n');
   // langStatus = require('../../../common/status/i18n');
   langStatus = require('../../../../components/msp/common/status/i18n');
   langActivities = require('../../../../components/msp/common/activities/i18n');
@@ -131,8 +131,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   statusLabel(): string {
-    return 'todo';
-    // return this.lang('./en/index.js').statusLabel[this.person.relationship];
+    return this.lang('./en/index.js').statusLabel[this.person.relationship];
   }
 
   institutionList: string[] = ['Yes', 'No'];
@@ -163,7 +162,7 @@ export class PersonalDetailsComponent extends BaseComponent {
     if (
       this.showServicesCardModal &&
       this.person.bcServiceCardShowStatus &&
-      this.person.relationship != this.Relationship.ChildUnder19
+      this.person.relationship !== this.Relationship.ChildUnder19
     ) {
       this.servicesCardDisclaimerModalComponent.showModal();
       this.showServicesCardModal = false;

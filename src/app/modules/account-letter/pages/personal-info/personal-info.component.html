@@ -47,9 +47,13 @@
                         [person]="applicant">
                 </msp-birthdate>
                 <b>{{postalCode}}</b>
-                <!--  <common-postal-code [label]="lang('./en/index.js').postalCodeLabel" [displayMask]="true"
-                    [value]="postalCode" (valueChange)="saveApplication($event);">
-                </common-postal-code> -->   
+                <common-postal-code name="residental_postal_code" 
+                                    [label]="lang('./en/index.js').postalCodeLabel" 
+                                    [displayMask]="true"
+                                    [ngModel]="postalCode" 
+                                    (ngModelChange)="saveApplication($event);"
+                                    placeholder="A1A 1A1">
+                </common-postal-code>  
                   
                 <label for="residentialAddressPostalCode{{objectId}}"
                     [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
