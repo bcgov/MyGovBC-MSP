@@ -4,7 +4,6 @@ import { PersonalDetailsComponent } from './personal-details.component';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import {PhnComponent} from 'moh-common-lib';
-import {MspNameComponent} from '../../../../components/msp/common/name/name.component';
 import {MspProvinceComponent} from '../../../../components/msp/common/province/province.component';
 import {MspArrivalDateComponent} from '../../../../components/msp/common/arrival-date/arrival-date.component';
 import {MspDepartureDateComponent} from '../../../../components/msp/common/departure-date/departure-date.component';
@@ -13,7 +12,6 @@ import {MspGenderComponent} from '../../../../components/msp/common/gender/gende
 import {MspDischargeDateComponent} from '../../../../components/msp/common/discharge-date/discharge-date.component';
 import {MspBirthDateComponent} from '../birthdate/birthdate.component';
 import {MspSchoolDateComponent} from '../../../../components/msp/common/schoolDate/school-date.component';
-import {FileUploaderComponent} from '../../../../components/msp/common/file-uploader/file-uploader.component';
 import {MspAddressComponent} from '../address/address.component';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import {ThumbnailComponent} from '../../../../components/msp/common/thumbnail/thumbnail.component';
@@ -28,12 +26,13 @@ import {CalendarYearFormatter} from '../../../../components/msp/common/calendar/
 import {CalendarYearValidator} from '../../../../components/msp/common/calendar/calendar-year.validator';
 import {CalendarDayValidator} from '../../../../components/msp/common/calendar/calendar-day.validator';
 import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
+import { FileUploaderComponent } from 'moh-common-lib';
 
 describe('PersonalDetailsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PersonalDetailsComponent, PhnComponent, MspNameComponent, MspProvinceComponent,
+      declarations: [PersonalDetailsComponent, PhnComponent, MspProvinceComponent,
         MspArrivalDateComponent, MspArrivalDateComponent, MspGenderComponent, MspDischargeDateComponent,
         MspBirthDateComponent, MspSchoolDateComponent, FileUploaderComponent, MspAddressComponent,
         ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,

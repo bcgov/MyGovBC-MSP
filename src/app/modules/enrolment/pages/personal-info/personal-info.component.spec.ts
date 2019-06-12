@@ -6,7 +6,6 @@ import { PersonalDetailsComponent } from '../../../msp-core/components/personal-
 import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspPhnComponent} from '../../../../components/msp/common/phn/phn.component';
-import {MspNameComponent} from '../../../../components/msp/common/name/name.component';
 import {MspProvinceComponent} from '../../../../components/msp/common/province/province.component';
 import {MspArrivalDateComponent} from '../../../../components/msp/common/arrival-date/arrival-date.component';
 import {MspDepartureDateComponent} from '../../../../components/msp/common/departure-date/departure-date.component';
@@ -47,7 +46,7 @@ describe('PersonalInfoComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PersonalInfoComponent, PersonalDetailsComponent, MspPhnComponent, MspNameComponent, MspProvinceComponent,
+      declarations: [PersonalInfoComponent, PersonalDetailsComponent, MspPhnComponent, MspProvinceComponent,
         MspArrivalDateComponent, MspArrivalDateComponent, MspGenderComponent, MspDischargeDateComponent,
         MspBirthDateComponent, MspSchoolDateComponent, FileUploaderComponent, MspAddressComponent,
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,

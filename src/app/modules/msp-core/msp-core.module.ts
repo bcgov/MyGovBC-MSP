@@ -52,10 +52,6 @@ import { CommonIncomeInputtextComponent } from './components/common-income-input
 import { CommonButtonComponent } from './components/common-button/common-button.component';
 import { MspLoggerDirective } from './components/logging/msp-logger.directive';
 
-// TODO: Need to review
-import { MspNameComponent } from '../../components/msp/common/name/name.component';
-import { CitizenSubStatusComponent } from '../../components/msp/common/citizen-sub-status/citizen-sub-status.component';
-
 
 const componentList = [
   MspFullNameComponent,
@@ -71,11 +67,6 @@ const componentList = [
   CommonButtonGroupComponent,
   CommonIncomeInputtextComponent,
   CommonButtonComponent,
-
-  // TODO - REVIEW THESE 2. May need to refactor or move elsewhere.
-  MspNameComponent,
-  CitizenSubStatusComponent,
-
 
   // Directives
   KeyboardEventListner,

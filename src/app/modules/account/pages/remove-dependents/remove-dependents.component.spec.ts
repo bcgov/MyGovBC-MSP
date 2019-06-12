@@ -1,42 +1,38 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RemoveDependentComponent } from './remove-dependents.component';
-import { MspToggleComponent } from '../../common/toggle/toggle.component';
 import { MspStatusInCanadaRadioComponent } from '../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
-import { MspDateComponent } from '../../common/date/date.component';
 import { AccountPersonalDetailsComponent } from '../personal-info/personal-details/personal-details.component';
-import { CalendarYearValidator } from '../../common/calendar/calendar-year.validator';
-import { CalendarMonthValidator } from '../../common/calendar/calendar-month.validator';
-import { CalendarDayValidator } from '../../common/calendar/calendar-day.validator';
-import { CalendarYearFormatter } from '../../common/calendar/calendar-year-formatter.component';
 import { AddNewDependentBeneficiaryComponent } from '../add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
-import { MspNameComponent } from '../../common/name/name.component';
-import { MspGenderComponent } from '../../common/gender/gender.component';
 import { MspBirthDateComponent } from '../../../../modules/msp-core/components/birthdate/birthdate.component';
-import { MspPhnComponent } from '../../common/phn/phn.component';
-import { MspPhoneComponent } from '../../common/phone/phone.component';
-import { MspDischargeDateComponent } from '../../common/discharge-date/discharge-date.component';
-import { MspSchoolDateComponent } from '../../common/schoolDate/school-date.component';
 import { MspAddressComponent } from '../../../../modules/msp-core/components/address/address.component';
-import { MspProvinceComponent } from '../../common/province/province.component';
-import { MspArrivalDateComponent } from '../../common/arrival-date/arrival-date.component';
-import { MspOutofBCRecordComponent } from '../../common/outof-bc/outof-bc.component';
-import { Mod11CheckValidator } from '../../common/phn/phn.validator';
-import { MspCountryComponent } from '../../common/country/country.component';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { TypeaheadModule } from 'ngx-bootstrap';
-import { MspDepartureDateComponent } from '../../common/departure-date/departure-date.component';
-import {MspReturnDateComponent} from '../../common/return-date/return-date.component';
-import { Person } from '../../model/msp-person.model';
-import { Relationship } from '../../model/status-activities-documents';
-import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
+import { LocalStorageModule } from 'angular-2-local-storage';
 import {RouterTestingModule} from '@angular/router/testing';
 import { ProcessService } from '../../../../services/process.service';
 import { CompletenessCheckService } from '../../../../services/completeness-check.service';
 import { MspValidationService} from '../../../../services/msp-validation.service';
-import { ServicesCardDisclaimerModalComponent } from '../../../msp/common/services-card-disclaimer/services-card-disclaimer.component';
 import {ModalModule} from 'ngx-bootstrap';
 import {TextMaskModule} from 'angular2-text-mask';
+import { MspToggleComponent } from '../../../../components/msp/common/toggle/toggle.component';
+import { CalendarYearValidator } from '../../../../components/msp/common/calendar/calendar-year.validator';
+import { CalendarMonthValidator } from '../../../../components/msp/common/calendar/calendar-month.validator';
+import { CalendarDayValidator } from '../../../../components/msp/common/calendar/calendar-day.validator';
+import { CalendarYearFormatter } from '../../../../components/msp/common/calendar/calendar-year-formatter.component';
+import { MspGenderComponent } from '../../../../components/msp/common/gender/gender.component';
+import { MspPhoneComponent } from '../../../../components/msp/common/phone/phone.component';
+import { MspDischargeDateComponent } from '../../../../components/msp/common/discharge-date/discharge-date.component';
+import { MspSchoolDateComponent } from '../../../../components/msp/common/schoolDate/school-date.component';
+import { MspProvinceComponent } from '../../../../components/msp/common/province/province.component';
+import { MspArrivalDateComponent } from '../../../../components/msp/common/arrival-date/arrival-date.component';
+import { MspOutofBCRecordComponent } from '../../../../components/msp/common/outof-bc/outof-bc.component';
+import { MspCountryComponent } from '../../../../components/msp/common/country/country.component';
+import { MspDepartureDateComponent } from '../../../../components/msp/common/departure-date/departure-date.component';
+import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
+import { MspReturnDateComponent } from '../../../../components/msp/common/return-date/return-date.component';
+import { Person } from 'moh-common-lib';
+import { Relationship } from '../../../../models/status-activities-documents';
 
 
 
@@ -46,7 +42,7 @@ describe('RemoveDependentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RemoveDependentComponent, MspToggleComponent, MspStatusInCanadaRadioComponent, MspDateComponent, AccountPersonalDetailsComponent, CalendarYearValidator, CalendarMonthValidator, CalendarDayValidator, CalendarYearFormatter, AddNewDependentBeneficiaryComponent, MspNameComponent, MspGenderComponent, MspBirthDateComponent, MspPhnComponent, MspPhoneComponent, MspDischargeDateComponent, MspSchoolDateComponent, MspAddressComponent, MspProvinceComponent, MspArrivalDateComponent, MspOutofBCRecordComponent, Mod11CheckValidator, MspCountryComponent, MspDepartureDateComponent, ServicesCardDisclaimerModalComponent, MspReturnDateComponent],
+      declarations: [ RemoveDependentComponent, MspToggleComponent, MspStatusInCanadaRadioComponent, MspDateComponent, AccountPersonalDetailsComponent, CalendarYearValidator, CalendarMonthValidator, CalendarDayValidator, CalendarYearFormatter, AddNewDependentBeneficiaryComponent, MspGenderComponent, MspBirthDateComponent, MspPhnComponent, MspPhoneComponent, MspDischargeDateComponent, MspSchoolDateComponent, MspAddressComponent, MspProvinceComponent, MspArrivalDateComponent, MspOutofBCRecordComponent, Mod11CheckValidator, MspCountryComponent, MspDepartureDateComponent, ServicesCardDisclaimerModalComponent, MspReturnDateComponent],
       imports: [
         FormsModule,
         TextMaskModule,

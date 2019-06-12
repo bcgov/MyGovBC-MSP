@@ -2,35 +2,29 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { AssistancePersonalDetailComponent } from './personal-details.component';
 import { MspDataService } from '../../../../../services/msp-data.service';
-import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {MspPhnComponent} from '../../../common/phn/phn.component';
-import {MspNameComponent} from '../../../common/name/name.component';
+import { LocalStorageModule } from 'angular-2-local-storage';
 import {MspBirthDateComponent} from '../../../../msp-core/components/birthdate/birthdate.component';
-import {MspAddressComponent} from '../../../common/address/address.component';
-import {Mod11CheckValidator} from '../../../common/phn/phn.validator';
-import {MspProvinceComponent} from '../../../common/province/province.component';
 import { TypeaheadModule } from 'ngx-bootstrap';
-import {MspGenderComponent} from '../../../common/gender/gender.component';
-import {MspCountryComponent} from '../../../common/country/country.component';
-import { MspLogService } from '../../../../../services/log.service';
 import { MspValidationService } from '../../../../../services/msp-validation.service';
 import { CompletenessCheckService } from '../../../../../services/completeness-check.service';
-
-import {CalendarYearFormatter} from '../../../common/calendar/calendar-year-formatter.component';
-import {CalendarYearValidator} from '../../../common/calendar/calendar-year.validator';
-import {CalendarDayValidator} from '../../../common/calendar/calendar-day.validator';
-import { ProcessService } from '../../../service/process.service';
-import { SinCheckValidator } from '../../../common/sin/sin.validator';
 import { RouterTestingModule } from '@angular/router/testing';
 import {HttpClientModule} from '@angular/common/http';
 import {TextMaskModule} from 'angular2-text-mask';
+import { MspAddressComponent } from '../../../../msp-core/components/address/address.component';
+import { MspProvinceComponent } from '../../../../../components/msp/common/province/province.component';
+import { MspGenderComponent } from '../../../../../components/msp/common/gender/gender.component';
+import { MspCountryComponent } from '../../../../../components/msp/common/country/country.component';
+import { CalendarYearFormatter } from '../../../../../components/msp/common/calendar/calendar-year-formatter.component';
+import { CalendarYearValidator } from '../../../../../components/msp/common/calendar/calendar-year.validator';
+import { CalendarDayValidator } from '../../../../../components/msp/common/calendar/calendar-day.validator';
+import { ProcessService } from '../../../../../services/process.service';
 
 
 describe('AssistancePersonalDetailComponent Test', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AssistancePersonalDetailComponent, MspPhnComponent, MspNameComponent,
+      declarations: [AssistancePersonalDetailComponent, MspPhnComponent,
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent,
         Mod11CheckValidator, MspGenderComponent, MspCountryComponent,
         CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator, SinCheckValidator],

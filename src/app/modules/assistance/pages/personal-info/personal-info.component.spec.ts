@@ -6,7 +6,6 @@ import { MspDataService } from '../../../../services/msp-data.service';
 import { CompletenessCheckService } from '../../../../services/completeness-check.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspPhnComponent} from '../../common/phn/phn.component';
-import {MspNameComponent} from '../../common/name/name.component';
 import {MspBirthDateComponent} from '../../../msp-core/components/birthdate/birthdate.component';
 import {MspAddressComponent} from '../../common/address/address.component';
 import {Mod11CheckValidator} from '../../common/phn/phn.validator';
@@ -35,7 +34,7 @@ describe('AssistancePersonalInfoComponent Test', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AssistancePersonalInfoComponent, AssistancePersonalDetailComponent,
-        MspPhnComponent, MspNameComponent, MspPhoneComponent,
+        MspPhnComponent, MspPhoneComponent,
         MspBirthDateComponent, MspAddressComponent, MspProvinceComponent, MspCountryComponent,
         Mod11CheckValidator, MspGenderComponent, MspCancelComponent, MspLoggerDirective,
         CalendarYearFormatter, CalendarYearValidator, CalendarDayValidator, SinCheckValidator],

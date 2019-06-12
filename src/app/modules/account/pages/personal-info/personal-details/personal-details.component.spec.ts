@@ -2,47 +2,46 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { AccountPersonalDetailsComponent } from './personal-details.component';
 import {MspDataService} from '../../../../../services/msp-data.service';
-import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {MspPhnComponent} from '../../../common/phn/phn.component';
-import {MspPhoneComponent} from '../../../common/phone/phone.component';
-import {MspNameComponent} from '../../../common/name/name.component';
-import {MspProvinceComponent} from '../../../common/province/province.component';
-import {MspArrivalDateComponent} from '../../../common/arrival-date/arrival-date.component';
-import {MspDepartureDateComponent} from '../../../common/departure-date/departure-date.component';
-import {MspReturnDateComponent} from '../../../common/return-date/return-date.component';
-import {MspGenderComponent} from '../../../common/gender/gender.component';
-import {MspDischargeDateComponent} from '../../../common/discharge-date/discharge-date.component';
+import {LocalStorageModule } from 'angular-2-local-storage';
 import {MspBirthDateComponent} from '../../../../../modules/msp-core/components/birthdate/birthdate.component';
-import {MspSchoolDateComponent} from '../../../common/schoolDate/school-date.component';
-import {FileUploaderComponent} from '../../../common/file-uploader/file-uploader.component';
 import {MspAddressComponent} from '../../../../../modules/msp-core/components/address/address.component';
-import {Mod11CheckValidator} from '../../../common/phn/phn.validator';
+
 import { TypeaheadModule } from 'ngx-bootstrap';
 import {ThumbnailComponent} from '../../../common/thumbnail/thumbnail.component';
 import {ModalModule, AccordionModule} from 'ngx-bootstrap';
-import {HealthNumberComponent} from '../../../common/health-number/health-number.component';
-import {MspCountryComponent} from '../../../common/country/country.component';
+
 import {MspIdReqModalComponent} from '../../../../../modules/msp-core/components/id-req-modal/id-req-modal.component';
-import {MspOutofBCRecordComponent} from '../../../common/outof-bc/outof-bc.component';
 import {MspImageErrorModalComponent} from '../../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';
 import { CompletenessCheckService } from '../../../../../services/completeness-check.service';
-import {CalendarYearFormatter} from '../../../common/calendar/calendar-year-formatter.component';
-import {CalendarYearValidator} from '../../../common/calendar/calendar-year.validator';
-import {CalendarDayValidator} from '../../../common/calendar/calendar-day.validator';
 import { MspLogService } from '../../../../../services/log.service';
 import {MspValidationService} from '../../../../../services/msp-validation.service';
 import { ProcessService } from '../../../../../services/process.service';
-import { ServicesCardDisclaimerModalComponent } from '../../../common/services-card-disclaimer/services-card-disclaimer.component';
 import { MspStatusInCanadaRadioComponent } from '../../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import {TextMaskModule} from 'angular2-text-mask';
+import { MspProvinceComponent } from '../../../../../components/msp/common/province/province.component';
+import { MspArrivalDateComponent } from '../../../../../components/msp/common/arrival-date/arrival-date.component';
+import { MspGenderComponent } from '../../../../../components/msp/common/gender/gender.component';
+import { MspDischargeDateComponent } from '../../../../../components/msp/common/discharge-date/discharge-date.component';
+import { MspPhoneComponent } from '../../../../../components/msp/common/phone/phone.component';
+import { MspSchoolDateComponent } from '../../../../../components/msp/common/schoolDate/school-date.component';
+import { FileUploaderComponent } from 'moh-common-lib/lib/components/file-uploader/file-uploader.component';
+import { HealthNumberComponent } from '../../../../../components/msp/common/health-number/health-number.component';
+import { MspCountryComponent } from '../../../../../components/msp/common/country/country.component';
+import { MspOutofBCRecordComponent } from '../../../../../components/msp/common/outof-bc/outof-bc.component';
+import { MspDepartureDateComponent } from '../../../../../components/msp/common/departure-date/departure-date.component';
+import { MspReturnDateComponent } from '../../../../../components/msp/common/return-date/return-date.component';
+import { CalendarYearFormatter } from '../../../../../components/msp/common/calendar/calendar-year-formatter.component';
+import { CalendarYearValidator } from '../../../../../components/msp/common/calendar/calendar-year.validator';
+import { CalendarDayValidator } from '../../../../../components/msp/common/calendar/calendar-day.validator';
+import { ServicesCardDisclaimerModalComponent } from '../../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
 
 describe('AccountPersonalDetailsComponent', () => {
 
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AccountPersonalDetailsComponent, MspPhnComponent, MspNameComponent, MspProvinceComponent,
+      declarations: [AccountPersonalDetailsComponent, MspPhnComonent, MspProvinceComponent,
         MspArrivalDateComponent, MspArrivalDateComponent, MspGenderComponent, MspDischargeDateComponent,
         MspBirthDateComponent, MspPhoneComponent, MspSchoolDateComponent, FileUploaderComponent, MspAddressComponent,
         Mod11CheckValidator, ThumbnailComponent, HealthNumberComponent, MspCountryComponent, MspIdReqModalComponent,
