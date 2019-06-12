@@ -14,7 +14,7 @@ import {MspReturnDateComponent} from '../../../../components/msp/common/return-d
 import {MspCountryComponent} from '../../../../components/msp/common/country/country.component';
 import {MspCancelComponent} from '../../../../components/msp/common/cancel/cancel.component';
 import {ModalModule} from 'ngx-bootstrap';
-import {MspLoggerDirective} from '../../../../components/msp/common/logging/msp-logger.directive';
+import {MspLoggerDirective} from '../../../msp-core/components/logging/msp-logger.directive';
 import { MspLogService } from '../../../../services/log.service';
 import { MspValidationService } from '../../../../services/msp-validation.service';
 import { ProcessService } from '../../../../services/process.service';

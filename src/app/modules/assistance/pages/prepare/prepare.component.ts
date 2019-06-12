@@ -11,10 +11,10 @@ import {MspAssistanceYearComponent} from './assistance-year/assistance-year.comp
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
 import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
 import { merge} from 'rxjs/internal/observable/merge';
-import { CommonIncomeInputtextComponent } from '../../../../components/msp/common/common-income-inputtext/common-income-inputtext.component';
 import { MspImage } from '../../../../models/msp-image';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 import { AssistanceYear } from '../../models/assistance-year.model';
+import { CommonIncomeInputtextComponent } from '../../../msp-core/components/common-income-inputtext/common-income-inputtext.component';
 
 @Component({
   templateUrl: './prepare.component.html',

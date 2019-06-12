@@ -28,7 +28,7 @@ import {MspIdReqModalComponent} from '../../../msp-core/components/id-req-modal/
 import {MspOutofBCRecordComponent} from '../../../../components/msp/common/outof-bc/outof-bc.component';
 import {MspCancelComponent} from '../../../../components/msp/common/cancel/cancel.component';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
-import {MspLoggerDirective} from '../../../../components/msp/common/logging/msp-logger.directive';
+import {MspLoggerDirective} from '../../../msp-core/components/logging/msp-logger.directive';
 import { MspLogService } from '../../../../services/log.service';
 import {MspValidationService} from '../../../../services/msp-validation.service';
 import {TextMaskModule} from 'angular2-text-mask';

@@ -8,9 +8,9 @@ import { HttpClient, HttpHeaders,HttpErrorResponse } from '@angular/common/http'
 import { environment } from '../../../../../environments/environment';
 import { MspMaintenanceService } from "../../../../services/msp-maintenance.service";
 import { Response } from '@angular/http';
-import { MspLog2Service } from '../../../../components/msp/service/log2.service';
+import { MspLog2Service } from '../../../../services/log2.service';
 import { MspLogService } from '../../../../services/log.service';
-import {MspACLService} from "../../../../components/msp/service/msp-acl-api.service";
+import {MspACLService} from "../../../account-letter/services/msp-acl-api.service";
 import {ISpaEnvResponse} from '../../../../components/msp/model/spa-env-response.interface'
 
 

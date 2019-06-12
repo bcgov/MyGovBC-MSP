@@ -5,7 +5,7 @@ import * as moment from 'moment';
 //import { Observable, Subscription } from 'rxjs/Rx';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription} from 'rxjs/internal/Subscription';
-import { LogEntry } from '../components/msp/common/logging/log-entry.model';
+import { LogEntry } from '../modules/msp-core/components/logging/log-entry.model';
 import { MspDataService } from './msp-data.service';
 import { MspBenefitDataService } from '../modules/benefit/services/msp-benefit-data.service';
 import { environment } from '../../environments/environment';

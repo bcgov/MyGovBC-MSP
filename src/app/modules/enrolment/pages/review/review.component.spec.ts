@@ -11,7 +11,7 @@ import {ThumbnailComponent} from '../../../../components/msp/common/thumbnail/th
 import {ModalModule} from 'ngx-bootstrap';
 import {RouterTestingModule} from '@angular/router/testing';
 import {MspCancelComponent} from '../../../../components/msp/common/cancel/cancel.component';
-import {MspLoggerDirective} from '../../../../components/msp/common/logging/msp-logger.directive';
+import {MspLoggerDirective} from '../../../msp-core/components/logging/msp-logger.directive';
 import { MspLogService } from '../../../../services/log.service';
 
 import { ProcessService } from '../../../../services/process.service';

@@ -52,7 +52,7 @@ export class LandingComponent {
 
     clearSavedAccountLetterApp() {
         this.mspDataService.removeMspAccountLetterApp();
-        this.router.navigate(['/old-msp/account-letter/personal-info']);
+        this.router.navigate(['/account-letter/personal-info']);
     }
 
     clearSavedBenefitAssisApp() {

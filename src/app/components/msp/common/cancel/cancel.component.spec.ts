@@ -8,7 +8,7 @@ import {MspAddressCardPartComponent} from '../address-card-part/address-card-par
 import {RouterTestingModule} from '@angular/router/testing';
 
 import { MspLogService } from '../../../../services/log.service';
-import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';
+import {MspLoggerDirective} from '../../../../modules/msp-core/components/logging/msp-logger.directive';
 import {ModalModule} from 'ngx-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
 describe('MspCancelComponent', () => {

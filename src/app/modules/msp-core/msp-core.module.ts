@@ -17,7 +17,6 @@ import { MspImageErrorModalComponent } from './components/image-error-modal/imag
 
 // TOBE REVIEWED
 import { HealthNumberComponent } from '../../components/msp/common/health-number/health-number.component';
-import { MspComponent } from '../../components/msp/msp.component';
 import { CalendarYearFormatter } from '../../components/msp/common/calendar/calendar-year-formatter.component';
 import { CalendarYearValidator } from '../../components/msp/common/calendar/calendar-year.validator';
 import { CalendarDayValidator } from '../../components/msp/common/calendar/calendar-day.validator';
@@ -48,6 +47,10 @@ import { MspContactCardComponent } from '../../components/msp/common/contact-car
 import { CommonDeductionCalculatorComponent } from './components/common-deduction-calculator/common-deduction-calculator.component';
 import { KeyboardEventListner } from './components/keyboard-listener/keyboard-listener.directive';
 import { MspAddressCardPartComponent } from './components/address-card-part/address-card-part.component';
+import { CommonButtonGroupComponent } from './components/common-button-group/common-button-group.component';
+import { CommonIncomeInputtextComponent } from './components/common-income-inputtext/common-income-inputtext.component';
+import { CommonButtonComponent } from './components/common-button/common-button.component';
+import { MspLoggerDirective } from './components/logging/msp-logger.directive';
 
 
 const componentList = [
@@ -61,10 +64,13 @@ const componentList = [
   MspImageErrorModalComponent,
   CommonDeductionCalculatorComponent,
   MspAddressCardPartComponent,
-
+  CommonButtonGroupComponent,
+  CommonIncomeInputtextComponent,
+  CommonButtonComponent,
 
   // Directives
-  KeyboardEventListner
+  KeyboardEventListner,
+  MspLoggerDirective
 ];
 
 
@@ -73,7 +79,6 @@ const componentList = [
     // support functionality
 const templistCore = [
   // General
-  MspComponent,
   CalendarYearFormatter,
   CalendarYearValidator,
   CalendarDayValidator,

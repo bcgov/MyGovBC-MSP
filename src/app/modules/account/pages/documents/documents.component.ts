@@ -12,7 +12,7 @@ import {MspImageErrorModalComponent} from '../../../../modules/msp-core/componen
 import {MspIdReqModalComponent} from '../../../../modules/msp-core/components/id-req-modal/id-req-modal.component';
 import { MspAccountApp } from '../../models/account.model';
 import { DocumentGroup } from '../../../../components/msp/model/account-documents';
-import { AccountDocumentHelperService } from '../../../../components/msp/service/account-document-helper.service';
+import { AccountDocumentHelperService } from '../../../benefit/services/account-document-helper.service';
 import { Documents, CancellationReasonsForSpouse } from '../../../../models/status-activities-documents';
 
 @Component({

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { _ApplicationTypeNameSpace } from '../modules/enrolment/pages/api-model/applicationTypes';
 import { ISpaEnvResponse } from '../components/msp/model/spa-env-response.interface';
-import { MspLog2Service } from '../components/msp/service/log2.service';
+import { MspLog2Service } from './log2.service';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';

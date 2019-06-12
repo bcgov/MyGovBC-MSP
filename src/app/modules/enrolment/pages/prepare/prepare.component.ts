@@ -1,14 +1,13 @@
-import {ChangeDetectorRef, Component, Inject, Injectable, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
+import {ChangeDetectorRef, Component, Injectable, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {  Router } from '@angular/router';
 import {MspApplication, MspPerson} from '../../models/application.model';
 import * as _ from 'lodash';
-import { merge} from 'rxjs/internal/observable/merge';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
 import {ProcessService} from '../../../../services/process.service';
 import {BaseComponent} from '../../../../models/base.component';
-import {CommonButtonGroupComponent} from '../../../../components/msp/common/common-button-group/common-button-group.component';
+import { CommonButtonGroupComponent } from '../../../msp-core/components/common-button-group/common-button-group.component';
 
 @Component({
   templateUrl: './prepare.component.html'
@@ -33,7 +32,7 @@ export class PrepareComponent extends BaseComponent {
   constructor(public dataService: MspDataService,
     private _processService: ProcessService,
     private _router: Router,
-    private cd: ChangeDetectorRef) {
+    cd: ChangeDetectorRef) {
     super(cd);
     this.mspApplication = this.dataService.getMspApplication();
     this.apt = this.mspApplication.applicant;
@@ -87,7 +86,7 @@ export class PrepareComponent extends BaseComponent {
       //   noPlannedAbsenceBtn$,*/
       // )
       this.form.valueChanges
-      .subscribe(values => {
+      .subscribe(() => {
         this.dataService.saveMspApplication();
         this.emitIsFormValid();
       });
