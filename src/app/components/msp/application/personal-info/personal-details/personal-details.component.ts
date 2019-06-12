@@ -16,7 +16,7 @@ import {
 } from '@angular/core';
 import { state, trigger, style } from '@angular/animations';
 import { NgForm } from '@angular/forms';
-import { Person } from '../../../model/person.model';
+import { Person, Gender } from '../../../model/person.model';
 import { OutofBCRecord } from '../../../model/outof-bc-record.model';
 import {
   StatusRules,
@@ -84,15 +84,17 @@ export class PersonalDetailsComponent extends BaseComponent {
   langStatus = require('../../../common/status/i18n');
   langActivities = require('../../../common/activities/i18n');
   langDocuments = require('../../../common/documents/i18n');
-  genderLabels = [
-    { label: 'Female', value: 'Female' },
-    { label: 'Male', value: 'Male' }
-  ];
 
   // Expose some types to template
   Activities: typeof Activities = Activities;
   Relationship: typeof Relationship = Relationship;
   StatusInCanada: typeof StatusInCanada = StatusInCanada;
+  Gender: typeof Gender = Gender;
+
+  genderLabels = [
+    { label: 'Female', value: this.Gender.Female },
+    { label: 'Male', value: this.Gender.Male }
+  ];
 
   @ViewChild('formRef') form: NgForm;
   @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
@@ -462,7 +464,7 @@ export class PersonalDetailsComponent extends BaseComponent {
 
     return true;
   }
-  setGender(evt: string) {
-    console.log(evt);
+  setGender(evt: Gender) {
+    this.person.gender = evt;
   }
 }

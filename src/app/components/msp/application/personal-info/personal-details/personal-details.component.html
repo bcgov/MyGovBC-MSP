@@ -144,18 +144,14 @@
           </msp-birthdate>
 
 
-          <!-- <label class="control-label">Gender</label> -->
-          <!-- <common-toggle ></common-toggle> -->
           <common-radio class="row" [radioLabels]='genderLabels' (statusChange)="setGender($event)" label="Gender">
           </common-radio>
-          <!-- </div> -->
-          <!-- </div> -->
           <div *ngIf="person.status === StatusInCanada.CitizenAdult &&
             person.currentActivity === Activities.LivingInBCWithoutMSP">
             <!-- <div class="col-md-12"> -->
             <div class="form-group" role="dialog" [attr.aria-labelledby]="'livedInBCSinceBirth' + objectId">
-              <label [attr.id]="'livedInBCSinceBirth' + objectId"
-                [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[this.person.relationship]"></label>
+              <!-- <label [attr.id]="'livedInBCSinceBirth' + objectId"
+                [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[this.person.relationship]"></label> -->
               <!-- <div class="btn-group" role="group">
                 <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
                   [class.msp-btn-radio]="person.livedInBCSinceBirth === answer.value"
@@ -163,7 +159,8 @@
                 </button>
 
               </div> -->
-              <common-toggle [data]="person.livedInBCSinceBirth" (dataChange)="setLivedInBCSinceBirth($event)">
+              <common-toggle [data]="person.livedInBCSinceBirth" (dataChange)="setLivedInBCSinceBirth($event)"
+                label="Have you moved to BC permanently?">
               </common-toggle>
             </div>
             <!-- </div> -->
@@ -184,7 +181,7 @@
                 [exceptBC]="true" [showError]="showError" colSize="col-md-4"></msp-province>
             </div>
 
-            <div role="dialog" [attr.aria-labelledby]="'movedPermLabel' + objectId">
+            <div role="dialog" [attr.aria-labelledby]="'movedPermLabel' + objectId" class="row">
               <div class="form-group"
                 [ngClass]="{'has-error': showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)}">
                 <label [attr.id]="'movedPermLabel'"
@@ -213,23 +210,23 @@
           <h3 class="intro text-danger" *ngIf="!checkEligibility()" class="text-danger"
             [innerHtml]="lang('./en/index.js').notEligibleError" role="alert" aria-live="assertive"></h3>
 
-          <div class="row" *ngIf="!(person.status === StatusInCanada.CitizenAdult &&
+          <div *ngIf="!(person.status === StatusInCanada.CitizenAdult &&
                 person.currentActivity === Activities.LivingInBCWithoutMSP &&
                 person.livedInBCSinceBirth === true)">
-            <div class="col-lg-4">
-              <msp-arrival-date #arrivalDateBC [arrivalLabel]="arrivalDateLabel" [year]="person.arrivalToBCYear"
-                (yearChange)="person.arrivalToBCYear = $event" [month]="person.arrivalToBCMonth"
-                (monthChange)="person.arrivalToBCMonth = $event" [day]="person.arrivalToBCDay"
-                (dayChange)="person.arrivalToBCDay = $event" (onChange)="onChange.emit($event)" [showError]="showError"
-                [required]="true">
-              </msp-arrival-date>
-              <div *ngIf='person.isArrivalToBcBeforeDob'>
-                <div class="text-danger"
-                  [innerHtml]="lang('./en/index.js').moveDateBeforeBirthError[person.relationship]">
-                </div>
+            <!-- <div class="col-lg-4"> -->
+            <msp-arrival-date class="row" #arrivalDateBC [arrivalLabel]="arrivalDateLabel"
+              [year]="person.arrivalToBCYear" (yearChange)="person.arrivalToBCYear = $event"
+              [month]="person.arrivalToBCMonth" (monthChange)="person.arrivalToBCMonth = $event"
+              [day]="person.arrivalToBCDay" (dayChange)="person.arrivalToBCDay = $event"
+              (onChange)="onChange.emit($event)" [showError]="showError" [required]="true">
+            </msp-arrival-date>
+            <div *ngIf='person.isArrivalToBcBeforeDob'>
+              <div class="text-danger"
+                [innerHtml]="lang('./en/index.js').moveDateBeforeBirthError[person.relationship]">
               </div>
+              <!-- </div> -->
             </div>
-            <div class="col-lg-4" *ngIf="person.status === StatusInCanada.CitizenAdult &&
+            <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult &&
                 person.currentActivity === Activities.LivingInBCWithoutMSP &&
                 !person.livedInBCSinceBirth">
               <msp-province #province [provinceLabel]="lang('./en/index.js').movedFromAnotherProvinceLabel"
@@ -237,23 +234,24 @@
                 [exceptBC]="true" [showError]="showError">
               </msp-province>
             </div>
-            <div class="col-lg-4">
-              <!--For canadian citizen, returning to BC after an absence or moving from another province, the arrival date in canada
+            <!-- <div class="col-lg-4"> -->
+            <!--For canadian citizen, returning to BC after an absence or moving from another province, the arrival date in canada
                 is not required.-->
-              <msp-arrival-date #arrivalDateCanada [arrivalLabel]="lang('./en/index.js').arrivalDateToCanadaLabel"
-                [required]="!(person.status === StatusInCanada.CitizenAdult
+            <msp-arrival-date #arrivalDateCanada class='row'
+              [arrivalLabel]="lang('./en/index.js').arrivalDateToCanadaLabel"
+              [required]="!(person.status === StatusInCanada.CitizenAdult
                                     && (person.currentActivity == Activities.LivingInBCWithoutMSP || person.currentActivity == Activities.MovingFromProvince))"
-                [year]="person.arrivalToCanadaYear" (yearChange)="person.arrivalToCanadaYear = $event"
-                [month]="person.arrivalToCanadaMonth" (monthChange)="person.arrivalToCanadaMonth = $event"
-                [day]="person.arrivalToCanadaDay" (dayChange)="person.arrivalToCanadaDay = $event"
-                (onChange)="onChange.emit($event)" [showError]="showError">
-              </msp-arrival-date>
-              <div *ngIf='person.isArrivalToCanadaBeforeDob'>
-                <div class="text-danger"
-                  [innerHtml]="lang('./en/index.js').moveDateCanadaBeforeBirthError[person.relationship]"></div>
-              </div>
-
+              [year]="person.arrivalToCanadaYear" (yearChange)="person.arrivalToCanadaYear = $event"
+              [month]="person.arrivalToCanadaMonth" (monthChange)="person.arrivalToCanadaMonth = $event"
+              [day]="person.arrivalToCanadaDay" (dayChange)="person.arrivalToCanadaDay = $event"
+              (onChange)="onChange.emit($event)" [showError]="showError">
+            </msp-arrival-date>
+            <div *ngIf='person.isArrivalToCanadaBeforeDob'>
+              <div class="text-danger"
+                [innerHtml]="lang('./en/index.js').moveDateCanadaBeforeBirthError[person.relationship]"></div>
             </div>
+
+            <!-- </div> -->
 
           </div>
           <div class="row" *ngIf="person.currentActivity === Activities.MovingFromProvince">
