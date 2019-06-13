@@ -295,7 +295,7 @@
                         <div class="control-label">
                             
                         <common-radio [value]="person.madePermanentMoveToBC"  [label]="lang('./en/index.js').haveYouMovedToBCPermanently[this.person.relationship]" 
-                            [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
+                            [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
                             (statusChange)="setMovedToBCPermanently($event)">
                         </common-radio>
         
@@ -392,7 +392,7 @@
                                     role="dialog" [attr.aria-labelledby]="'outsideBCLabel' + objectId">
                                 
                                 <common-radio [value]="person.declarationForOutsideOver30Days"  [label]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months" 
-                                    [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
+                                    [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
                                     (statusChange)="setBeenOutsideForOver30Days($event)">
                                 </common-radio>
         
@@ -419,7 +419,7 @@
                         
         
                         <common-radio [value]="person.hasPreviousBCPhn"  [label]="lang('./en/index.js').previousBCHealthNumber[this.person.relationship]" 
-                            [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
+                            [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
                             (statusChange)="setHasPreviousPhn($event)">
                         </common-radio>
         
@@ -457,7 +457,7 @@
                         [ngClass]="{'has-error': (person.institutionWorkHistory === undefined ||  person.institutionWorkHistory === null) 
                         && showError}">
                         <common-radio [value]="person.institutionWorkHistory"  [label]="lang('./en/index.js').canadianForcesQuestion[this.person.relationship]" 
-                            [radioLabels]='[{"label": "Yes", "value": "Yes"},{ "label": "No", "value": "No"}]'
+                            [radioLabels]='[{ "label": "No", "value": "No"}, {"label": "Yes", "value": "Yes"}]'
                                 (statusChange)="selectInstitution($event)">
                         </common-radio>
                     </div>
@@ -484,7 +484,7 @@
                     role="dialog" [attr.aria-labelledby]="'fullTimeStudentLabel' + objectId">
                     
                     <common-radio [value]="person.fullTimeStudent"  [label]="lang('./en/index.js').fullTimeStudentLabel" 
-                            [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
+                            [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
                                 (statusChange)="setFullTimeStudent($event)">
                     </common-radio>
         
@@ -586,7 +586,7 @@
                         [innerHtml]="lang('./en/index.js').inBCAfterStudiesLabel" class="control-label"></label> -->
                     
                     <common-radio [value]="person.inBCafterStudies"  [label]="lang('./en/index.js').inBCAfterStudiesLabel" 
-                        [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
+                        [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
                             (statusChange)="setStayInBCAfterStudy($event)">
                     </common-radio>
         
@@ -618,7 +618,7 @@
         </div>
     <!-- </form> -->
 
-<hr class="strong-hr">
+
 
 <!-- switch *ngIf value to true for debugging-->
 <div class="row" *ngIf='false'>

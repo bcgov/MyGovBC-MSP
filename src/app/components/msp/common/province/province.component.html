@@ -1,26 +1,21 @@
 <form #formRef='ngForm' novalidate>
-    <div class="form-group"
-         [ngClass]="{'has-error': (province === undefined || province === null || province?.trim().length <1) && (provinceRef.touched || showError)}">
-        <label class="control-label" for="province{{objectId}}"
-              [innerHtml]="provinceLabel"></label>
+  <div class="form-group row"
+    [ngClass]="{'has-error': (province === undefined || province === null || province?.trim().length <1) && (provinceRef.touched || showError)}">
+    <label class="control-label" for="province{{objectId}}" [innerHtml]="provinceLabel"></label>
 
-            <input  [(ngModel)]='province'
-                (typeaheadOnSelect)="updateModel($event)"
-                    (typeaheadOnBlur)="updateModel($event)"
-                [typeahead]="provinceAndCountryData"
-                typeaheadOptionField="name" [minlength]="1"
-                [typeaheadMinLength] = "0" [typeaheadScrollable] = "false"
-                [maxlength]="25"  (typeaheadNoResults)="typeaheadNoResults($event)"
-                [required]="true"
-                class="form-control" id="province{{objectId}}" name="province" #provinceRef="ngModel" />
+    <input [(ngModel)]='province' (typeaheadOnSelect)="updateModel($event)" (typeaheadOnBlur)="updateModel($event)"
+      [typeahead]="provinceAndCountryData" typeaheadOptionField="name" [minlength]="1" [typeaheadMinLength]="0"
+      [typeaheadScrollable]="false" [maxlength]="25" (typeaheadNoResults)="typeaheadNoResults($event)" [required]="true"
+      class="form-control" id="province{{objectId}}" name="province" #provinceRef="ngModel" />
 
 
 
-        <div *ngIf='(provinceRef.touched || showError) && (province === undefined || province === null || province?.length < 1)'
-            role="alert" aria-live="assertive">
-            <div class="text-danger" *ngIf="provinceRef.errors?.required"
-                 [innerHtml]="lang('./en/index.js').provinceErrorIsRequired"></div>
-        </div>
+    <div
+      *ngIf='(provinceRef.touched || showError) && (province === undefined || province === null || province?.length < 1)'
+      role="alert" aria-live="assertive">
+      <div class="text-danger" *ngIf="provinceRef.errors?.required"
+        [innerHtml]="lang('./en/index.js').provinceErrorIsRequired"></div>
     </div>
+  </div>
 
 </form>
