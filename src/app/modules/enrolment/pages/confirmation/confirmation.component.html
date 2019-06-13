@@ -1,0 +1,52 @@
+<common-page-framework layout="blank">
+    <a onclick="window.print();return false;" >   
+    <b class="float-right">Print <i class="fa fa-print fa-lg pointer" 
+        aria-hidden="true"></i>
+    </b>
+    </a>
+    <h2>Confirmation Message</h2>
+    <hr>
+    <div style="border-style: solid; color:#83D31D" >
+        <div class="container">
+            <h1>
+                <i class="fa fa-check-circle" aria-hidden="true"></i> Your application has been submitted
+            </h1>
+            <p class="font-weight-normal h4">{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}</p>
+        </div>
+    </div>
+    
+    <h2>Next Steps</h2>
+    <hr>
+    <div class="col-lg-6">
+    
+        <ul>
+            <li>
+                <h3 [innerHTML]="lang('./en/index.js').nextStep1" onclick="window.print();" class="pointer"></h3>
+            </li>
+            <li>
+                <h3 [innerHTML]="lang('./en/index.js').nextStep2"></h3>
+            </li>
+            <li>
+                <h3 [innerHTML]="lang('./en/index.js').nextStep3"></h3>
+            </li>
+            <li>
+                <h3 [innerHTML]="lang('./en/index.js').nextStep4"></h3>
+            </li>
+            <li>
+                <h3 [innerHTML]="lang('./en/index.js').nextStep5"></h3>
+            </li>
+            <li>
+                <h3 [innerHTML]="lang('./en/index.js').nextStep6"></h3>
+            </li>
+            <li>
+                <h3 [innerHTML]="lang('./en/index.js').nextStep7"></h3>
+            </li>
+            <li>
+                <h3 [innerHTML]="lang('./en/index.js').nextStep8"></h3>
+            </li>
+            <li>
+                <h3 [innerHTML]="lang('./en/index.js').nextStep9"></h3>
+            </li>
+        </ul>
+    </div>
+</common-page-framework>

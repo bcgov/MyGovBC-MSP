@@ -1,14 +1,14 @@
 import {Component, ViewChild, OnInit, Input, Output, EventEmitter, ViewContainerRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 
-import { MspImage } from '../../model/msp-image';
+import { MspImage } from '../../../../models/msp-image';
 
 @Component({
   selector: 'msp-thumbnail',
   templateUrl: './thumbnail.html',
   styleUrls: ['./thumbnail.scss']
 })
-export class ThumbnailComponent implements OnInit {
+export class MspThumbnailComponent implements OnInit {
   @Input() imageObject: MspImage;
   @Input() reviewMode: boolean = false;
   @Output('delete') deleteImage: EventEmitter<MspImage> = new EventEmitter<MspImage>();

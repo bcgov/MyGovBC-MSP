@@ -1,0 +1,310 @@
+// TODO: Remove at end of development - to be used it leave notes of issues encountered
+.todo:before {
+  content: 'TODO - Hover to Show';
+  font-size: 1rem;
+  &:hover { color: Green; }
+}
+
+.todo {
+  // Temporarily removing prior to deploy.  Note - we eventually want this
+  // controlled by environment variable, but that's taken some time.
+  display: none !important;
+  color: red;
+  font-size: 0;
+  &:hover {
+    font-size: 12px;
+    .done { font-size: 10px; }
+  }
+  .done {
+    text-decoration: line-through;
+  }
+}
+// END OF DEV css
+
+.pointer {
+  cursor: pointer;
+}
+
+//TODO: Include font. Currently missing.
+// Declare primary font
+@font-face {
+  font-family: 'Myriad-Pro';
+  src: url('app/fonts/MyriadWebPro.ttf');
+}
+
+//------------------------------------------------------------------------------
+// Customizing which bootstrap files get imported, copied from bootstrap.scss
+// Overriding the "variables.scss" file with our custom theme
+//------------------------------------------------------------------------------
+
+// Comment out unused component styles, so they won't be bundled in final CSS.
+// If they're ever used in the future we can just un-comment.
+
+
+
+@import "variables.scss";
+@import "~bootstrap/scss/bootstrap";
+
+//TODO: Import bootstrap piecemeal
+
+// @import "~bootstrap/scss/functions";
+// @import "~bootstrap/scss/mixins";
+// @import "~bootstrap/scss/root";
+// @import "~bootstrap/scss/reboot";
+// @import "~bootstrap/scss/type";
+// @import "~bootstrap/scss/images";
+// // @import "~bootstrap/scss/code";
+// @import "~bootstrap/scss/grid";
+// @import "~bootstrap/scss/tables";
+// @import "~bootstrap/scss/forms";
+// @import "~bootstrap/scss/buttons";
+// @import "~bootstrap/scss/transitions";
+// @import "~bootstrap/scss/dropdown";
+// @import "~bootstrap/scss/button-group";
+// @import "~bootstrap/scss/input-group";
+// @import "~bootstrap/scss/custom-forms";
+// @import "~bootstrap/scss/nav";
+// @import "~bootstrap/scss/navbar";
+// @import "~bootstrap/scss/card";
+// // @import "~bootstrap/scss/breadcrumb";
+// // @import "~bootstrap/scss/pagination";
+// // @import "~bootstrap/scss/badge";
+// // @import "~bootstrap/scss/jumbotron";
+// @import "~bootstrap/scss/alert";
+// // @import "~bootstrap/scss/progress";
+// @import "~bootstrap/scss/media";
+// // @import "~bootstrap/scss/list-group";
+// @import "~bootstrap/scss/close";
+// @import "~bootstrap/scss/modal";
+// // @import "~bootstrap/scss/tooltip";
+// // @import "~bootstrap/scss/popover";
+// // @import "~bootstrap/scss/carousel";
+// @import "~bootstrap/scss/utilities";
+// @import "~bootstrap/scss/print";
+
+
+
+ @import "~font-awesome/scss/variables";
+ @import "~font-awesome/scss/mixins";
+ $fa-font-path: '~font-awesome/fonts';
+ @font-face {
+     font-family: 'FontAwesome';
+     src: url('#{$fa-font-path}/fontawesome-webfont.ttf?v=${fa-version}') format('truetype');
+     font-weight: normal;
+     font-style: normal;
+ }
+
+ @import "~font-awesome/scss/core";
+ @import "~font-awesome/scss/larger";
+ @import "~font-awesome/scss/fixed-width";
+ @import "~font-awesome/scss/list";
+ @import "~font-awesome/scss/bordered-pulled";
+ @import "~font-awesome/scss/animated";
+ @import "~font-awesome/scss/rotated-flipped";
+ @import "~font-awesome/scss/stacked";
+ @import "~font-awesome/scss/icons";
+ @import "~font-awesome/scss/screen-reader";
+
+@import "overrides";
+@import "additions";
+
+// Set a base font-size in px to ensure that we don't just use the browser's
+// default text size. We use rems for font-sizes everywhere else.
+html {
+  font-size: 16px;
+
+  // Optional - This may be removed!
+  // Left in because it really demonstrates the value of rem based designs. We
+  // can scale the entire layout, from element sizing to padding, just by
+  // changing font-size here.
+  @include media-breakpoint-up(sm){
+    font-size: 14px;
+  }
+}
+
+html, body {
+  @include media-breakpoint-up(md){
+    background-color: $gray;
+  }
+  // Content colour is determined in page framework
+}
+label:not(.no-bold) {
+  font-weight: bold;
+}
+
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+.ng-select.ng-select-disabled {
+  &>.ng-select-container {
+    background-color: $gray-200;
+  }
+
+  .ng-arrow-wrapper {
+    display: none;
+  }
+}
+
+.ng-select {
+  min-width: 10rem;
+}
+
+//TODO: Move below to new file - 'additions.scss'?
+
+
+.modal-header-primary {
+  background: $color-primary;
+
+  h2 {
+    color: white;
+    font-weight: 600;
+  }
+}
+
+/*
+Special accessibility class to hide things like labels but still have the readable by screen readers
+ */
+.visuallyhidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px; width: 1px;
+  margin: -1px; padding: 0; border: 0;
+}
+
+
+/* Re-implementing .btn-default after 0.4.0 of mygovbc-bootstrap-theme
+ * made it identical to .btn-primary.
+ *
+ * GitHub Issue:
+ * https://github.com/bcgov/mygovbc-bootstrap-theme/issues/4#issuecomment-327599375
+ */
+
+.btn-default {
+  color: #333;
+  background-color: #f4f6f9;
+  border-color: #ccc;
+  &:hover:not(:disabled),
+  &.active:not(:disabled) {
+    color: #333;
+    background-color: #d3dbe7;
+    border-color: #adadad;
+  }
+  //Make btn-toggles selected colour match new primary colour.
+  //If we want to make the change permanent after issue resolves,
+  //Move into toggle.scss.
+  &.btn-radio {
+    background-color: #38598a !important;
+  }
+}
+//Related to same mygovbc-bootstrap-theme 0.4.0 issue as above.
+.btn-primary:hover {
+  background-color: #294266;
+}
+
+.btn-primary {
+  transition: background-color 0.3s;
+ }
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+  background-color: desaturate($color-primary, 50%);
+  border-color: transparent;
+}
+
+// Style select2 to match look and feel of other form elements
+select2 {
+  display: block;
+  .select2-container, .select2-selection {
+    //override element styling that happens via js.
+    width: 100% !important;
+    min-height: 36px !important;
+    height: auto !important; //when label is two lines
+  }
+  .select2-selection {
+    padding-right: 8px !important; //Same as the padding-left default
+  }
+  .select2-selection__rendered {
+    //Ensure selected text isn't cut off on smaller view sizes.
+    white-space: normal !important;
+  }
+}
+
+ng2-smart-table tbody {
+  tr:nth-of-type(even){background-color: #f9f9f9;}
+  tr {
+    transition: 0.15s;
+    border: 1px solid #ededed;
+    &:hover {background-color: #f0f6ff}
+  }
+
+  //Selected is triggered when user taps on a row. Since we're read-only, selection would only serve to confuse the user.
+  .ng2-smart-row .selected {background-color: transparent;}
+}
+
+thead tr.ng2-smart-filters .ng2-smart-th,
+thead tr.ng2-smart-titles .ng2-smart-th {padding-left: 0}
+
+.intro {
+  font-size: 18px;
+  margin-top: 20px;
+  font-weight: 400;
+  display: block;
+}
+
+
+.has-success .form-control {
+  border-color: #1b926c !important;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+@include media-breakpoint-up(xs){
+// @media(min-width: $screen-sm) {
+  .nowrap-sm { white-space: nowrap;}
+  .wrap-sm {white-space: normal;}
+}
+@include media-breakpoint-up(sm){
+// @media(min-width: $screen-md) {
+  .nowrap-md { white-space: nowrap;}
+  .wrap-md { white-space: normal;}
+}
+@include media-breakpoint-up(md){
+// @media(min-width: $screen-lg) {
+  .nowrap-lg { white-space: nowrap;}
+  .wrap-lg { white-space: normal;}
+}
+
+
+button.disabled {
+  cursor: not-allowed;
+}
+
+// Makes .label styled identically to the label element. Useful in cases where
+// you want to display a label but can't use one for a11y purposes, e.g. the
+// DateComponent.
+.label {
+  @extend label;
+}
+
+
+// Cross app styling when validation errors out, orig from BS3 and now MSP app.
+.has-error .form-control,
+.has-error.form-control {
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+// Bootstrap 3 to 4: Re-add has-error label effects, so the question label
+// becomes highlighted red, not just the field.
+.has-error .checkbox, .has-error .checkbox-inline, .has-error.checkbox-inline label, .has-error.checkbox label, .has-error .control-label, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.radio-inline label, .has-error.radio label {
+  color: $color-danger;
+}
+
+// Remove the up/down arrows beside number inputs, specifically date
+input[type=number] {
+  -moz-appearance:textfield;
+}

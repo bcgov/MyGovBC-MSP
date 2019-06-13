@@ -1,0 +1,81 @@
+<common-consent-modal #mspConsentModal [isUnderMaintenance]="true"
+        [title]="lang('./en/index.js').title"  [processName]="'MSP'"
+        [agreeLabel]="lang('./en/index.js').agreeLabel" (accept)="onAccept($event)" (onClose)="addressChangeChkBx.focus()">
+        <p><strong>Keep your personal information secure – especially when using a shared device like a computer at a library, school or café.</strong> To delete any information that was entered, either complete the application and submit it or, if you don’t finish, close the web browser.</p><p><strong>Need to take a break and come back later?</strong> The data you enter on this form is saved locally to the computer or device you are using until you close the web browser or submit your application.</p><p><strong>Information in this application is collected by the Ministry of Health</strong> under section 26(a), (c) and (e) of the Freedom of Information and Protection of Privacy Act and will be used to determine eligibility for provincial health care benefits in BC and administer Premium Assistance. Should you have any questions about the collection of this personal information please <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">contact Health Insurance BC <i class="fa fa-external-link" aria-hidden="true"></i></a>.</p> 
+        
+</common-consent-modal>
+
+
+
+<h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
+<h4 [innerHtml]="lang('./en/index.js').subTitle"></h4>
+<h4 [innerHtml]="lang('./en/index.js').groupAccoungMsg"></h4>
+<h3 [innerHtml]="lang('./en/index.js').faqMsg"></h3>
+<h3 [innerHtml]="lang('./en/index.js').selectTitle"></h3>
+
+<form #formRef='ngForm' novalidate role="form" >
+    <div role="dialog" aria-labelledby="q1" class="form-check mb-2">
+       
+        <common-checkbox #addressChangeChkBx [label]="lang('./en/index.js').addressChange" (dataChange)="addressUpdateOnChange($event)" [data]="accountChangeOptions.addressUpdate"></common-checkbox>
+        <!-- <input #addressChangeChkBx class="input-lg form-check-input" id='addressChange' name="addressChange" type="checkbox"  [(ngModel)]="accountChangeOptions.addressUpdate" (ngModelChange)="addressUpdateOnChange($event)" >
+        <label id="q1" class="form-check-label" for='addressChange' [innerHtml]="lang('./en/index.js').addressChange"></label>-->
+    </div>
+    <div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
+        <common-checkbox  #personalInfoChangeChkBx [label]="lang('./en/index.js').personalInfoChange" (dataChange)="personInfoUpdateOnChange($event)" [data]="accountChangeOptions.personInfoUpdate" [disabled]="accountChangeOptions.nameChangeDueToMarriage" ></common-checkbox>
+       
+        <!-- <input #personalInfoChangeChkBx class="input-lg form-check-input" id='personalInfoChange' name="personalInfoChange" type="checkbox" [(ngModel)]="accountChangeOptions.personInfoUpdate" [disabled]="accountChangeOptions.nameChangeDueToMarriage" (ngModelChange)="personInfoUpdateOnChange($event)">
+        <label id="q2" class="form-check-label" for='personalInfoChange' [innerHtml]="lang('./en/index.js').personalInfoChange"></label>-->
+    </div>
+    <div role="dialog" aria-labelledby="q3" class="form-check  mb-2" >
+        <common-checkbox #dependentChangeChkBx [label]="lang('./en/index.js').dependentChange" (dataChange)="dependentChangeOnChange($event)" [data]="accountChangeOptions.dependentChange" ></common-checkbox>
+       
+        <!--<input #dependentChangeChkBx class="input-lg form-check-input" id='dependentChange' name="dependentChange" type="checkbox" [(ngModel)]="accountChangeOptions.dependentChange" (ngModelChange)="dependentChangeOnChange($event)">
+        <label id="q3" class="form-check-label" for='dependentChange' [innerHtml]="lang('./en/index.js').dependentChange"></label>-->
+    </div>
+
+    <div role="dialog" aria-labelledby="q4" style="margin-left: 20px;" class="form-check  mb-2" *ngIf="accountChangeOptions.dependentChange">
+        <common-checkbox #dependentChangeChkBx [label]="lang('./en/index.js').nameChangeDueToMarriage" (dataChange)="nameChangeDueToMarriageOnChange($event)" [data]="accountChangeOptions.nameChangeDueToMarriage" ></common-checkbox>
+       
+       
+        <!-- <input #nameChangeDueToMarriageChkBx class="input-lg align-top form-check-input" id='nameChangeDueToMarriage' [disabled]="!accountChangeOptions.dependentChange" name="nameChangeDueToMarriage" type="checkbox" [(ngModel)]="accountChangeOptions.nameChangeDueToMarriage" (ngModelChange)="nameChangeDueToMarriageOnChange($event)">
+        <label id="q4" class="form-check-label" for='nameChangeDueToMarriage' [innerHtml]="lang('./en/index.js').nameChangeDueToMarriage"></label>-->
+    </div>
+
+
+    <div role="dialog" aria-labelledby="q5" class="form-check  mb-2" >
+        <common-checkbox #updateStatusInCanadaChkBx [label]="lang('./en/index.js').statusChange" (dataChange)="statusUpdateOnChange($event)" [data]="accountChangeOptions.statusUpdate" ></common-checkbox>
+       
+       
+        <!-- <input #updateStatusInCanadaChkBx class="input-lg align-top form-check-input" id='statusChange' name="statusChange" type="checkbox" [(ngModel)]="accountChangeOptions.statusUpdate" (ngModelChange)="statusUpdateOnChange($event)" >
+        <label id="q5" class="form-check-label" for='statusChange' [innerHtml]="lang('./en/index.js').statusChange"></label>-->
+    </div>
+    <p class="intro text-danger" *ngIf="hasOnlyAddressSelected && !transmissionInProcess" [innerHtml]="lang('./en/index.js').addressRedirecMsg" role="alert"
+       aria-live="assertive"></p>
+</form>
+
+<div class="row" *ngIf="hasOnlyAddressSelected">
+
+    <div *ngIf="transmissionInProcess" class="center-block" role="alert" aria-live="assertive">
+        <h1 [innerHtml]="lang('./en/index.js').pageTitleRedirect"></h1>
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+
+        <span class="sr-only">Redirecting your request ...</span>
+    </div>
+
+    <div class="col-lg-12" *ngIf="!transmissionInProcess">
+        <common-captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="mspAccountApp.uuid"
+                 (onValidToken)="mspAccountApp.authorizationToken = $event"></common-captcha>
+    </div>
+</div>
+<hr>
+<common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
+            [canContinue]="!(!canContinue() || transmissionInProcess)"
+            (btnClick)="next()">
+</common-form-action-bar>
+<!--
+<button class="btn btn-primary" [disabled]="!canContinue() || transmissionInProcess" (click)="next()"
+        type="button" tabindex="0" [innerHtml]="lang('./en/index.js').continueButton"></button>
+
+<msp-cancel [accountButton]="true"></msp-cancel> -->
+
+
