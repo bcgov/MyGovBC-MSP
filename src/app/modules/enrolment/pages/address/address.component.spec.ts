@@ -1,11 +1,11 @@
 import {TestBed, inject, async} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { AddressComponent } from './address.component';
-import { MspDataService } from '../../../../components/msp/service/msp-data.service';
-import { CompletenessCheckService } from '../../../../components/msp/service/completeness-check.service';
+import { MspDataService } from '../../../../services/msp-data.service';
+import { CompletenessCheckService } from '../../../../services/completeness-check.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {MspApplication} from '../../../../components/msp/model/application.model';
-import {MspAddressComponent} from '../../../../components/msp/common/address/address.component';
+import {MspApplication} from '../../models/application.model';
+import {MspAddressComponent} from '../../../msp-core/components/address/address.component';
 import {MspPhoneComponent} from '../../../../components/msp/common/phone/phone.component';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import {MspProvinceComponent} from '../../../../components/msp/common/province/province.component';
@@ -14,10 +14,10 @@ import {MspReturnDateComponent} from '../../../../components/msp/common/return-d
 import {MspCountryComponent} from '../../../../components/msp/common/country/country.component';
 import {MspCancelComponent} from '../../../../components/msp/common/cancel/cancel.component';
 import {ModalModule} from 'ngx-bootstrap';
-import {MspLoggerDirective} from '../../../../components/msp/common/logging/msp-logger.directive';
-import { MspLogService } from '../../../../components/msp/service/log.service';
-import { MspValidationService } from '../../../../components/msp/service/msp-validation.service';
-import { ProcessService } from '../../../../components/msp/service/process.service';
+import {MspLoggerDirective} from '../../../msp-core/components/logging/msp-logger.directive';
+import { MspLogService } from '../../../../services/log.service';
+import { MspValidationService } from '../../../../services/msp-validation.service';
+import { ProcessService } from '../../../../services/process.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientModule} from '@angular/common/http';
 

@@ -2,12 +2,12 @@ import {Component, ViewChild, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import {MspApplication} from '../../../../components/msp/model/application.model';
+import {MspApplication} from '../../models/application.model';
 
-import { MspDataService } from '../../../../components/msp/service/msp-data.service';
-import {ProcessService} from '../../../../components/msp/service/process.service';
+import { MspDataService } from '../../../../services/msp-data.service';
+import {ProcessService} from '../../../../services/process.service';
 import { environment } from '../../../../../environments/environment';
-import { MspLogService } from '../../../../components/msp/service/log.service';
+import { MspLogService } from '../../../../services/log.service';
 
 @Component({
   templateUrl: './review.component.html'

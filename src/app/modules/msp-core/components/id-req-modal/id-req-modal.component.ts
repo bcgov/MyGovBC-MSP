@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { AccordionComponent, ModalDirective } from 'ngx-bootstrap';
-import { Documents } from '../../../../components/msp/model/status-activities-documents';
+import { Documents } from '../../../../models/status-activities-documents';
 import { IdRequirementContent } from './id-req-content.model.component';
 
 

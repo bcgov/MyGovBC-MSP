@@ -1,8 +1,8 @@
-import { Relationship } from './status-activities-documents';
+import { Relationship } from '../../../models/status-activities-documents';
 import { MspPerson } from './msp-person.model';
 import { UUID } from 'angular2-uuid';
-import { MspImage } from './msp-image';
-import { ApplicationBase } from './application-base.model';
+import { MspImage } from '../../../models/msp-image';
+import { ApplicationBase } from '../../../modules/enrolment/models/application-base.model';
 
 /**
  * Overall MSP Application Process Data

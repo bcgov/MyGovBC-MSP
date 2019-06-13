@@ -1,0 +1,71 @@
+<button type="button" class="btn btn-default btn-xs pull-right" (click)="cancelDependentRemoval()" [innerHTML]="clearButton[person.relationship]">
+</button>
+
+<h2 #firstFocus tabindex="0" [innerHTML]="sectionTitle[person.relationship]"></h2>
+<p [innerHTML]="sectionBody[person.relationship]"></p>
+
+
+<form #formRef='ngForm' novalidate>
+
+
+  <ng-container>
+    <msp-account-personal-details [person]='person' [id]='person.id'  [showError]="showError"
+     (onChange)="change($event)" embedded=true></msp-account-personal-details>
+
+    <div class="row">
+      <div class="col-md-4 form-group"   [ngClass]="{'has-error': showError && (person.reasonForCancellation === undefined || person.reasonForCancellation === null || person.reasonForCancellation === 'pleaseSelect')}">
+        <label for="reason-{{person.id}}" [innerHtml]="reason" class="control-label"></label>
+        <select class='form-control' name="reason-{{person.id}}" id="reason-{{person.id}}" 
+          [ngModel]="reasonForCancellation"
+          (ngModelChange)="onChangeReasonForCancellation($event)">
+            <option value="pleaseSelect" [innerHtml]="pleaseSelect"></option>
+            <option *ngFor="let item of getCancellationReasonsIterable(person.relationship);let i=index" value="{{item}}" [innerHtml]="(person.relationship == Relationship.ChildUnder24) ? cancellationReasonsChild[i]: cancellationReasonsSpouse[i] "></option>
+        </select>
+      </div>
+      <div class="col-md-4 form-group"
+      [ngClass]="{'has-error': !formRef.controls['reasonDetailed-'+person.id]?.valid && (reasonDetailedRef.touched || showError)}"
+      *ngIf="reasonForCancellation == 'Other'">
+          <label for='reasonDetailed-{{person.id}}' [innerHTML]="reasonDetailed"></label>
+          <input type="text" 
+            name="reasonDetailed-{{person.id}}" 
+            class="form-control" 
+            id='reasonDetailed-{{person.id}}' 
+            maxlength="30"
+            #reasonDetailedRef="ngModel"  (ngModelChange) = 'change($event)'
+            required
+            [(ngModel)]="person.reasonForCancellation">
+
+                      
+            <div *ngIf='reasonDetailedRef.touched || showError' role="alert" aria-live="assertive">
+                <div class="text-danger" *ngIf="reasonDetailedRef.errors?.required"[innerHtml]="reasonDetailedRequired"></div>
+            </div>
+      </div>
+      <div class="col-md-4 form-group">
+        <common-date
+          [label]="cancellationDate"
+          [(date)]="person.cancellationDate" [restrictDate]="'future'"  (onChange) = "change($event)"
+        ></common-date>
+      </div>
+    </div>
+
+    <div class="form-group"  [ngClass]="{'has-error': showError && (person.knownMailingAddress === undefined || person.knownMailingAddress === null)}">
+        <label for="knowSpouseCurrentMailing-{{person.id}}" [innerHtml]="knowSpouseCurrentMailing[person.relationship]" class="control-label" ></label>
+        <msp-toggle [id]="'knowSpouseCurrentMailing-'+ person.id" [(data)]="person.knownMailingAddress" (dataChange)="change($event)"></msp-toggle>
+    </div>
+
+    <msp-address  #spouseMailingAddress
+      *ngIf="person.knownMailingAddress"
+      [mailingAddressHeading]="mailingAddr"
+      [mailingAddress]="person.mailingAddress"
+      [mailingOnly]="true"
+      [showError] = "showError"  (onChange)="change($event)"
+    ></msp-address>
+
+
+
+
+  </ng-container>
+
+</form>
+
+<hr class='strong-hr'>

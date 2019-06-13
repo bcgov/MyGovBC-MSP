@@ -4,7 +4,7 @@
     <form #formRef='ngForm' novalidate>
             <div class="row">
                 <div class="col-sm-8">
-                    <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]"></h2>
+                    <h2>{{lang('./en/index.js').sectionTitle[person.relationship]}}</h2>
                 </div>
             </div>
         
@@ -25,7 +25,7 @@
             
             <div class="row" >
                 <div class="col-lg-4" role="dialog" [attr.aria-label]="statusLabel()">
-                    <msp-citizen-status id="primary" [label]="statusLabel()" [items]="statusinCanada"
+                    <msp-citizen-status id="primary" [label]="statusLabel()" [items]="StatusInCanada"
                         (change)="setStatus($event, person)">
                     </msp-citizen-status>
                 
@@ -44,21 +44,116 @@
                         </label>  -->
                     </div>
                 </div>
+            <!-- </div> -->
+        </div> 
+
+
+        <div class="col-lg-4" *ngIf="person.status != null && person.currentActivity != null" role="alert" aria-live="assertive">
+            <h3><i class="fa fa-id-card-o" aria-hidden="true"></i> {{lang('./en/index.js').documentInstructionLabel[this.person.relationship]}}</h3>
+            <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
+            <ul>
+                <li *ngFor="let document of documents">
+                    {{langDocuments('./en/index.js')[document]}}
+                    <a role="button" aria-haspopup="true" href="javascript:void(0)" (click)="viewIdReqModal(document)" tabindex="0"
+                       [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
+                </li>
+            </ul>
+            <p [innerHtml]="lang('./en/index.js').documentInstructionsMarriage"></p>
+            <ul>
+                <li *ngFor="let document of nameChangeDocuments">
+                    {{langDocuments('./en/index.js')[document]}}
+                    <a role="button" aria-haspopup="true" href="javascript:void(0)" (click)="viewIdReqModal(document)" tabindex="0"
+                       [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
+                </li>
+            </ul>
+            <msp-id-req-modal #idReqModal></msp-id-req-modal>
+        </div>
+        <div class="col-lg-4" *ngIf="person.status != null && person.currentActivity != null">
+
+            <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel[this.person.relationship]"></h3>
+            <div [innerHtml]="lang('./en/index.js').documentInstructionsNote"></div>
+
+            <common-file-uploader #fileUploader
+                [images]="person.documents.images" [id]='id'>
+                <span id="uploadInstruction" #uploadInstruction tabindex="0">Please upload required ID documents</span>
+            </common-file-uploader>
+
+            <msp-image-error-modal #imageErrorModal></msp-image-error-modal>
+        </div>
+    
+<div *ngIf="hasValidCurrentActivity">
+
+    <div *ngIf="person.documents.images.length > 0">
+        <h3 [innerHtml]="lang('./en/index.js').applicationPersonalInfo[person.relationship]"></h3>
+        <p class="help-block" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
+        <msp-full-name [data]="person" (dataChange)="onChange.emit($event)" ></msp-full-name>
+       
+        
+        <div class="row">
+            <div class="col-md-4">
+                  
+                <common-radio [value]="person.gender" 
+                              label='Gender' 
+                              [radioLabels]='[{"label": "Male", "value": "M"},{ "label": "Female", "value": "F"}]' 
+                              (statusChange)="setGenderVal($event)"
+                              [showError]="showError">
+                </common-radio>   
+       <!--         <common-gender
+                    
+                    [person]="person"
+                    (onChange)="onChange.emit($event)"
+                    [showError]="showError"
+                ></common-gender>   -->
+
+            <!-- <msp-gender
+                  #gender
+                  [person]="person"
+                  (onChange) = "onChange.emit($event)" 
+                  [showError] = "showError"
+                  ></msp-gender> -->
             </div>
-        
-            
-        <!--
-                <div class="col-lg-4">
-                        <ng-select class="custom" [clearable]="true"
-                                    [items]="statusinCanada"
-                                    (data)="refreshValue($event)"
-                                    (selected)="selected($event)"
-                                    (removed)="removed($event)"
-                                    (typed)="typed($event)">
-                        </ng-select>
-                        <!-- <common-dropdown label="Your Status" [items]="statusIn" [required]="true"></common-dropdown> 
-                </div>
-        
+            <div class="col-md-4">
+                <msp-birthdate
+                  #birthDate
+                  [person]="person" 
+                  (onChange) = "onChange.emit($event)"
+                  [showError] = "showError">
+                </msp-birthdate>
+            </div>
+        </div>
+        <div class="row" 
+          *ngIf="person.status === StatusInCanada.CitizenAdult &&
+            person.currentActivity === Activities.LivingInBCWithoutMSP" style="margin-bottom: 5px">
+            <div class="col-md-12">
+              <div class="form-group"
+                [ngClass]="{'msp-has-error': showError && (person.livedInBCSinceBirth !== true && person.livedInBCSinceBirth !== false)}"
+                   role="dialog" [attr.aria-labelledby]="'livedInBCSinceBirth' + objectId">
+                  <label [attr.id]="'livedInBCSinceBirth' + objectId" [innerHtml]="lang('./en/index.js').livedInBCSinceBirth[this.person.relationship]"></label>
+                  <div class="btn-group" role="group">
+                      <button *ngFor='let answer of [{"value": true, "label": "Yes"}, {"value": false, "label": "No"}]'
+                              [class.msp-btn-radio]="person.livedInBCSinceBirth === answer.value"
+                              (click)="setLivedInBCSinceBirth(answer.value)"
+                              type="button" class="btn btn-default">{{answer.label}}
+                      </button>
+                  </div>
+              </div>
+            </div>
+        </div>
+
+      <div class="row" *ngIf="person.documents.images.length > 0">
+            <div class="col-lg-4" *ngIf="person.currentActivity == Activities.MovingFromCountry || person.status == StatusInCanada.TemporaryResident">
+              <common-country #country name='msp-country'
+                  [label]="lang('./en/index.js').movedFromCountryLabel"
+                  [ngModel]="person.movedFromProvinceOrCountry" 
+                  (ngModelChange)="person.movedFromProvinceOrCountry = $event; onChange.emit($event)">
+              </common-country>
+            </div>
+            <div class="col-lg-4" *ngIf="person.currentActivity === Activities.MovingFromProvince">
+                <!--TODO: no states, only BC-->
+                <common-province #province name="msp-province"
+                            [label]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
+                            [ngModel]="person.movedFromProvinceOrCountry"
+                            (ngModelChange)="provinceUpdate($event)"></common-province>
             </div>
             <br><br><br>
             <div class="row">
@@ -69,7 +164,7 @@
                         </div>
                     </div>
                     <div class="form-check" *ngFor="let st of statusInCanada">
-                        <input class='form-check-input' type="radio" name="statusInCanada-{{id}}" id="st{{st}}-{{id}}"
+                        <input class='form-check-input' type="radio" name="StatusInCanada-{{id}}" id="st{{st}}-{{id}}"
                                 (click)="setStatus(st, person)"
                                 [checked]="st === person.status" tabindex="0">
                         <label class='form-check-label' for="st{{st}}-{{id}}">
@@ -519,7 +614,7 @@
             </div>
         
         </div>
-        </form>
+    <!-- </form> -->
 
 
 

@@ -9,7 +9,7 @@ const routes: Routes = [
     component: EnrolContainerComponent,
     children: enrolPages,
     canActivateChild: []
-  },
+  }
 ];
 
 @NgModule({

@@ -2,13 +2,13 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { MspCancelComponent } from './cancel.component';
-import {MspDataService} from '../../service/msp-data.service';
+import {MspDataService} from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspAddressCardPartComponent} from '../address-card-part/address-card-part.component';
 import {RouterTestingModule} from '@angular/router/testing';
 
-import { MspLogService } from '../../service/log.service';
-import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';
+import { MspLogService } from '../../../../services/log.service';
+import {MspLoggerDirective} from '../../../../modules/msp-core/components/logging/msp-logger.directive';
 import {ModalModule} from 'ngx-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
 describe('MspCancelComponent', () => {

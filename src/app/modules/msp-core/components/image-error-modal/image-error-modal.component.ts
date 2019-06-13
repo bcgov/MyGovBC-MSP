@@ -1,7 +1,7 @@
 import {Component, Input, ViewChild, NgZone, Inject} from '@angular/core';
 import * as moment from 'moment';
 import {ModalDirective} from 'ngx-bootstrap';
-import {MspImage, MspImageError} from '../../../../components/msp/model/msp-image';
+import {MspImage, MspImageError} from '../../../../models/msp-image';
 import { environment } from '../../../../../environments/environment';
 
 @Component({

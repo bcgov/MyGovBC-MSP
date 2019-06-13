@@ -1,92 +1,77 @@
 <form #formRef='ngForm' novalidate>
 
-    <div class="form-group"
-         [ngClass]="{'has-error': showDateOrderError || !formRef.controls.month?.valid && (monthRef.touched || showError)}">
-        <label [innerHtml]="returnLabel" class="control-label" for="year"></label>
-        <label class="visuallyhidden" for="month{{objectId}}">{{returnLabel}} {{lang('./en/index.js').monthLabel}}</label>
-        <br/>
-        <select class="form-control monthSelect"
-                [ngModel]="month"
-                (ngModelChange)="month=$event;monthChange.emit($event)"
-                id="month{{objectId}}" name="month" #monthRef="ngModel"
-                required>
-            <option value="0">&nbsp;</option>
-            <option value="1">January</option>
-            <option value="2">February</option>
-            <option value="3">March</option>
-            <option value="4">April</option>
-            <option value="5">May</option>
-            <option value="6">June</option>
-            <option value="7">July</option>
-            <option value="8">August</option>
-            <option value="9">September</option>
-            <option value="10">October</option>
-            <option value="11">November</option>
-            <option value="12">December</option>
-        </select>
-        <label class="visuallyhidden" for="day{{objectId}}">{{returnLabel}} {{lang('./en/index.js').dayLabel}}</label>
-        <input type="number" class="form-control dayInput"
-               [ngModel]="day"
-               (ngModelChange)="day=$event;dayChange.emit($event)"
-               id="day{{objectId}}" name="day" #dayRef="ngModel"
-               placeholder="day" validateCalendarDay
-               required
-               min="1900"
-               max="2300">
-        <label class="visuallyhidden" for="year{{objectId}}">{{returnLabel}} {{lang('./en/index.js').yearLabel}}</label>
-        <input type="number"
-               class="form-control yearInput"
-               [ngModel]="year" validateCalendarYear
-               (ngModelChange)="year=$event;yearChange.emit($event)"
-               id="year{{objectId}}" name="year" #yearRef="ngModel"
-               placeholder="year"
-               required
-               min="1900"
-               max="2300">
-        <div role="alert" aria-live="assertive">
-            <div *ngIf='monthRef.touched || showError'>
-                <div class="text-danger" *ngIf="monthRef.errors?.required"
-                     [innerHtml]="lang('./en/index.js').monthErrorRequired"></div>
-            </div>
-            <div *ngIf='dayRef.touched || showError'>
-                <div class="text-danger" *ngIf="dayRef.errors?.required"
-                     [innerHtml]="lang('./en/index.js').dayErrorRequired"></div>
-            </div>
-            <div *ngIf='yearRef.touched || showError'>
-                <div class="text-danger" *ngIf="yearRef.errors?.required"
-                     [innerHtml]="lang('./en/index.js').yearErrorRequired"></div>
-            </div>
-            <div *ngIf='(yearRef.touched || showError) && !isCorrectFormat()'>
-                <div class="text-danger"
-                     [innerHtml]="lang('./en/index.js').yearErrorBadFormat"></div>
-            </div>
-            <div *ngIf='(yearRef.touched || showError) && !futureCheck()'>
-                <div class="text-danger"
-                     [innerHtml]="lang('./en/index.js').yearErrorFutureCheck"></div>
-            </div>
-
-            <div *ngIf='showDateOrderError'>
-                <div class="text-danger"
-                        [innerHtml]="lang('./en/index.js').datesOutOfOrder"></div>
-            </div>
-            <div *ngIf='(yearRef.touched || showError) && !isWithinNMonths()'>
-                <div class="text-danger"
-                >{{minMonthsRangeErrorMsg}}</div>
-            </div>
-
-            <div *ngIf='(dayRef.touched || showError)'>
-                <div class="text-danger" *ngIf="dayRef.errors?.calendarDayOutOfRange"
-                     [innerHtml]="lang('./en/index.js').calendarDayOutOfRange"></div>
-            </div>
-            <div *ngIf='(yearRef.touched || showError)'>
-                <div class="text-danger" *ngIf="yearRef.errors?.yearDistantPast"
-                     [innerHtml]="lang('./en/index.js').yearErrorDistantPast"></div>
-            </div>
-            <div *ngIf='(!futureDate && (yearRef.touched || showError))' >
-                <div class="text-danger" *ngIf="yearRef.errors?.yearDistantFuture"
-                     [innerHtml]="lang('./en/index.js').yearErrorDistantFuture"></div>
-            </div>
-
+  <div class="form-group"
+    [ngClass]="{'has-error': showDateOrderError || !formRef.controls.month?.valid && (monthRef.touched || showError)}">
+    <label class="control-label mr-2" for="year" [innerHtml]="returnLabel"></label>
+    <label class="visuallyhidden mr-2" for="month{{objectId}}">{{returnLabel}}
+      {{lang('./en/index.js').monthLabel}}</label>
+    <br />
+    <select class="form-control monthSelect mr-2" [ngModel]="month"
+      (ngModelChange)="month=$event;monthChange.emit($event)" id="month{{objectId}}" name="month" #monthRef="ngModel"
+      required>
+      <option value="0">&nbsp;</option>
+      <option value="1">January</option>
+      <option value="2">February</option>
+      <option value="3">March</option>
+      <option value="4">April</option>
+      <option value="5">May</option>
+      <option value="6">June</option>
+      <option value="7">July</option>
+      <option value="8">August</option>
+      <option value="9">September</option>
+      <option value="10">October</option>
+      <option value="11">November</option>
+      <option value="12">December</option>
+    </select>
+    <label class="visuallyhidden mr-2" for="day{{objectId}}">{{returnLabel}} {{lang('./en/index.js').dayLabel}}</label>
+    <input type="number" class="form-control dayInput mr-2" [ngModel]="day"
+      (ngModelChange)="day=$event;dayChange.emit($event)" id="day{{objectId}}" name="day" #dayRef="ngModel"
+      placeholder="day" validateCalendarDay required min="1900" max="2300">
+    <label class="visuallyhidden mr-2" for="year{{objectId}}">{{returnLabel}}
+      {{lang('./en/index.js').yearLabel}}</label>
+    <input type="number" class="form-control yearInput  mr-2" [ngModel]="year" validateCalendarYear
+      (ngModelChange)="year=$event;yearChange.emit($event)" id="year{{objectId}}" name="year" #yearRef="ngModel"
+      placeholder="year" required min="1900" max="2300">
+    <div role="alert" aria-live="assertive">
+      <div *ngIf='monthRef.touched || showError'>
+        <div class="text-danger" *ngIf="monthRef.errors?.required"
+          [innerHtml]="lang('./en/index.js').monthErrorRequired"></div>
+      </div>
+      <div *ngIf='dayRef.touched || showError'>
+        <div class="text-danger" *ngIf="dayRef.errors?.required" [innerHtml]="lang('./en/index.js').dayErrorRequired">
         </div>
+      </div>
+      <div *ngIf='yearRef.touched || showError'>
+        <div class="text-danger" *ngIf="yearRef.errors?.required" [innerHtml]="lang('./en/index.js').yearErrorRequired">
+        </div>
+      </div>
+      <div *ngIf='(yearRef.touched || showError) && !isCorrectFormat()'>
+        <div class="text-danger" [innerHtml]="lang('./en/index.js').yearErrorBadFormat"></div>
+      </div>
+      <div *ngIf='(yearRef.touched || showError) && !futureCheck()'>
+        <div class="text-danger" [innerHtml]="lang('./en/index.js').yearErrorFutureCheck"></div>
+      </div>
+
+      <div *ngIf='showDateOrderError'>
+        <div class="text-danger" [innerHtml]="lang('./en/index.js').datesOutOfOrder"></div>
+      </div>
+      <div *ngIf='(yearRef.touched || showError) && !isWithinNMonths()'>
+        <div class="text-danger">{{minMonthsRangeErrorMsg}}</div>
+      </div>
+
+      <div *ngIf='(dayRef.touched || showError)'>
+        <div class="text-danger" *ngIf="dayRef.errors?.calendarDayOutOfRange"
+          [innerHtml]="lang('./en/index.js').calendarDayOutOfRange"></div>
+      </div>
+      <div *ngIf='(yearRef.touched || showError)'>
+        <div class="text-danger" *ngIf="yearRef.errors?.yearDistantPast"
+          [innerHtml]="lang('./en/index.js').yearErrorDistantPast"></div>
+      </div>
+      <div *ngIf='(!futureDate && (yearRef.touched || showError))'>
+        <div class="text-danger" *ngIf="yearRef.errors?.yearDistantFuture"
+          [innerHtml]="lang('./en/index.js').yearErrorDistantFuture"></div>
+      </div>
+
     </div>
+  </div>
 </form>
