@@ -11,7 +11,7 @@ import {MspImage} from '../../../../models/msp-image';
 import {MspImageErrorModalComponent} from '../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';
 import {MspIdReqModalComponent} from '../../../../modules/msp-core/components/id-req-modal/id-req-modal.component';
 import { MspAccountApp } from '../../models/account.model';
-import { DocumentGroup } from '../../../../components/msp/model/account-documents';
+import { DocumentGroup, LangAccountDocuments } from '../../../../models/account-documents';
 import { AccountDocumentHelperService } from '../../../benefit/services/account-document-helper.service';
 import { Documents, CancellationReasonsForSpouse } from '../../../../models/status-activities-documents';
 
@@ -28,10 +28,12 @@ export class AccountDocumentsComponent extends BaseComponent {
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
     @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
 
-    langAccountDocuments = require('../../../../components/msp/common/account-documents/i18n');
     langStatus = require('../../../../components/msp/common/status/i18n');
     langActivities = require('../../../../components/msp/common/activities/i18n');
     documentsList: DocumentGroup[] ;
+
+    langAccountDocuments = LangAccountDocuments;
+
     constructor(private dataService: MspDataService,
                 private _router: Router,
                 //private _processService: ProcessService,

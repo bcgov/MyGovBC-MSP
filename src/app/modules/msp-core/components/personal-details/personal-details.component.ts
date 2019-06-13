@@ -39,7 +39,7 @@ import {MspProvinceComponent} from '../../../../components/msp/common/province/p
 import {BaseComponent} from '../../../../models/base.component';
 import {MspCountryComponent} from '../../../../components/msp/common/country/country.component';
 import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
-import { provinceData } from '../../../../models/msp-constants';
+import { provinceData } from '../../../../models/msp-address.constants';
 import { CANADA, Address } from 'moh-common-lib';
 
 @Component({

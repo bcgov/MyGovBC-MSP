@@ -1,3 +1,5 @@
+// File contains constants used for address
+
 export const provinceData = [
   { provinceCode: 'AB', description: 'Alberta' },
   { provinceCode: 'BC', description: 'British Columbia' },

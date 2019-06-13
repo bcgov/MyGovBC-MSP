@@ -13,7 +13,7 @@ import {
   CANADA,
   BRITISH_COLUMBIA
 } from 'moh-common-lib';
-import { countryData, provinceData } from '../../../../models/msp-constants';
+import { countryData, provinceData } from '../../../../models/msp-address.constants';
 
 @Component({
   templateUrl: './address.component.html'
