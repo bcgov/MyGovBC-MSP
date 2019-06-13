@@ -44,10 +44,10 @@
             <common-phone-number name="phone_number"
                                 [label]="'Phone Number'"
                                 [phoneNumber]="mspApplication.phoneNumber"
-                                (ngModelChange)="this.mspApplication.phoneNumber = $event"></common-phone-number>
+                                (onChange)="handlePhoneNumberChange($event)"></common-phone-number>
         </div>
     </div>
-    <hr>
+    
 
     <common-form-action-bar [canContinue]="canContinue()"
                             (btnClick)="continue()"></common-form-action-bar>

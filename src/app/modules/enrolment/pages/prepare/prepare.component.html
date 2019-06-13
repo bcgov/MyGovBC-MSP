@@ -23,7 +23,7 @@
     <form #formRef='ngForm' novalidate role="form" >
         
         <common-radio [value]="liveInBC"  [label]="lang('./en/index.js').question1" 
-            [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
+            [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
             (statusChange)="setLiveInBC($event)">
         </common-radio> 
         <!--<label for="{{objectId}}" class="control-label" [innerHtml]="lang('./en/index.js').question1" ></label><br/>
@@ -52,7 +52,7 @@
 
         <div [hidden]="liveInBC !== true" role="dialog" aria-labelledby="q2">
             <common-radio [value]="plannedAbsence"  [label]="lang('./en/index.js').plannedAwayForOver30DaysQuestion" 
-                [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
+                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
             (statusChange)="setPlannedAbsence($event)">
             </common-radio>
     
@@ -78,7 +78,7 @@
         <div [hidden]= "plannedAbsence !== false || !liveInBC" role="dialog" aria-labelledby="q3">
 
             <common-radio [value]="unUsualCircumstance"  [label]="lang('./en/index.js').specialCircumstanceQuestion" 
-                [radioLabels]='[{"label": "Yes", "value": true},{ "label": "No", "value": false}]'
+                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
                 (statusChange)="setUnusualCircumstance($event)">
             </common-radio>
         <!--    <common-button-group [label]="lang('./en/index.js').specialCircumstanceQuestion" 
@@ -106,7 +106,7 @@
         </p>
 
     </form>
-    <hr>
+    
     <!--<div class="position: inherit;"> -->
 
 </common-page-framework>
