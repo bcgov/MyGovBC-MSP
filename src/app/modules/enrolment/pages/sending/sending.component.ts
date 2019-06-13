@@ -1,11 +1,12 @@
 import {Component, Injectable, AfterContentInit } from '@angular/core';
 import {Router} from '@angular/router';
-import { MspApplication } from '../../../../components/msp/model/application.model';
+import { MspApplication } from '../../models/application.model';
 import { ISpaEnvResponse } from 'moh-common-lib/lib/components/consent-modal/consent-modal.component';
-import { MspDataService } from '../../../../components/msp/service/msp-data.service';
-import { MspApiService } from '../../../../components/msp/service/msp-api.service';
-import { ProcessService } from '../../../../components/msp/service/process.service';
-import { MspLogService } from '../../../../components/msp/service/log.service';
+import { MspDataService } from '../../../../services/msp-data.service';
+import { ProcessService } from '../../../../services/process.service';
+import { MspLogService } from '../../../../services/log.service';
+import { MspApiService } from '../../../../services/msp-api.service';
+
 
 @Component({
   templateUrl: 'sending.component.html',
@@ -25,7 +26,8 @@ export class SendingComponent implements AfterContentInit {
   hasError: boolean;
   showMoreErrorDetails: boolean;
 
-  constructor(private dataService: MspDataService, private service: MspApiService, private processService: ProcessService,
+  constructor(private dataService: MspDataService, private service: MspApiService, 
+    //private processService: ProcessService,
     public router: Router, private logService: MspLogService) {
     this.application = this.dataService.getMspApplication();
     this.transmissionInProcess = undefined;
@@ -60,7 +62,7 @@ export class SendingComponent implements AfterContentInit {
 
         //  go to confirmation
 
-        this.router.navigate(['/msp/application/confirmation'],
+        this.router.navigate(['/enrolment/confirmation'],
           {queryParams: {confirmationNum: tempRef}});
 
 
@@ -93,6 +95,6 @@ export class SendingComponent implements AfterContentInit {
   }
 
   retrySubmission(){
-    this.router.navigate(['/msp/application/authorize']);
+    this.router.navigate(['/enrolment/authorize']);
   }
 }

@@ -2,14 +2,14 @@ import { TestBed } from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { SendingComponent } from './sending.component';
-import { MspDataService } from '../../../../components/msp/service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {MspApiService} from '../../../../components/msp/service/msp-api.service';
+import {MspApiService} from '../../../../services/msp-api.service';
 import {HttpClientModule} from '@angular/common/http';
-import { ProcessService } from '../../../../components/msp/service/process.service';
+import { ProcessService } from '../../../../services/process.service';
 import {TransmissionErrorView} from '../../../../components/msp/common/transmission-error-view/transmission-error-view.component';
-import { MspLogService } from '../../../../components/msp/service/log.service';
-import {MspMaintenanceService} from '../../../../components/msp/service/msp-maintenance.service';
+import { MspLogService } from '../../../../services/log.service';
+import {MspMaintenanceService} from '../../../../services/msp-maintenance.service';
 
 describe('SendingComponent', () => {
 

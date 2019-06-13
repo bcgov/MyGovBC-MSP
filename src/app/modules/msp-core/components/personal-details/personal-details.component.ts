@@ -1,108 +1,85 @@
 import {
-  Component, Input, Output, EventEmitter,
-  ViewChild, ElementRef, ChangeDetectorRef
+  Component,
+  Input,
+  Output,
+  OnChanges,
+  EventEmitter,
+  SimpleChange,
+  ViewChild,
+  AfterViewInit,
+  OnInit,
+  OnDestroy,
+  ElementRef,
+  QueryList,
+  ViewChildren,
+  ChangeDetectorRef
 } from '@angular/core';
 import { state, trigger, style } from '@angular/animations';
 import { NgForm } from '@angular/forms';
 import { MspPerson, Gender } from '../../../../components/msp/model/msp-person.model';
-import { OutofBCRecord } from '../../../../components/msp/model/outof-bc-record.model';
+import { OutofBCRecord } from '../../../../models/outof-bc-record.model';
 import {
   StatusRules, ActivitiesRules, StatusInCanada, Activities,
   DocumentRules, Documents, Relationship
-} from '../../../../components/msp/model/status-activities-documents';
-import { MspImage } from '../../../../components/msp/model/msp-image';
+} from '../../../../models/status-activities-documents';
+import { MspImage } from '../../../../models/msp-image';
 import * as _ from 'lodash';
 import {MspIdReqModalComponent} from '../id-req-modal/id-req-modal.component';
 import {MspImageErrorModalComponent} from '../image-error-modal/image-error-modal.component';
-import {MspFileUploaderComponent} from '../../../../components/msp/common/file-uploader/file-uploader.component';
 import {MspBirthDateComponent} from '../birthdate/birthdate.component';
-import {MspNameComponent} from '../../../../components/msp/common/name/name.component';
 import {MspGenderComponent} from '../../../../components/msp/common/gender/gender.component';
 import {MspSchoolDateComponent} from '../../../../components/msp/common/schoolDate/school-date.component';
 import {HealthNumberComponent} from '../../../../components/msp/common/health-number/health-number.component';
 import {MspDischargeDateComponent} from '../../../../components/msp/common/discharge-date/discharge-date.component';
-import {MspAddressComponent} from '../../../../components/msp/common/address/address.component';
+import {MspAddressComponent} from '../address/address.component';
 
 import {MspArrivalDateComponent} from '../../../../components/msp/common/arrival-date/arrival-date.component';
 import {MspOutofBCRecordComponent} from '../../../../components/msp/common/outof-bc/outof-bc.component';
 import {MspProvinceComponent} from '../../../../components/msp/common/province/province.component';
-import {BaseComponent} from '../../../../components/msp/common/base.component';
+import {BaseComponent} from '../../../../models/base.component';
 import {MspCountryComponent} from '../../../../components/msp/common/country/country.component';
 import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
-//import { PhnComponent } from 'moh-common-lib';
+
 @Component({
-    selector: 'msp-personal-details',
-    templateUrl: './personal-details.component.html',
-    styleUrls: ['./personal-details.component.scss'],
+  selector: 'msp-personal-details',
+  templateUrl: './personal-details.component.html',
+  styleUrls: ['./personal-details.component.scss'],
 
-    animations: [
-      trigger('shrinkOut', [
-        state('in', style({ display: 'none'})),
-        state('out', style({ display: 'block'}))
-        // transition('* => *', animate(500))
-      ]),
+  animations: [
+    trigger('shrinkOut', [
+      state('in', style({ display: 'none' })),
+      state('out', style({ display: 'block' }))
+      // transition('* => *', animate(500))
+    ]),
 
-      trigger('shrinkOutStatus', [
-        state('in', style({ display: 'none' })),
-        state('out', style({ display: 'block'}))
-        // transition('* => *', animate(500))
-      ]),
+    trigger('shrinkOutStatus', [
+      state('in', style({ display: 'none' })),
+      state('out', style({ display: 'block' }))
+      // transition('* => *', animate(500))
+    ]),
 
-      trigger('genderListSignal', [
-        state('in', style({ display: 'none' })),
-        state('out', style({ display: 'block'}))
-        // transition('* => *', animate(500))
-      ]),
+    trigger('genderListSignal', [
+      state('in', style({ display: 'none' })),
+      state('out', style({ display: 'block' }))
+      // transition('* => *', animate(500))
+    ]),
 
-      trigger('institutionWorkSignal', [
-        state('in', style({ display: 'none' })),
-        state('out', style({ display: 'block'}))
-        // transition('* => *', animate(500))
-      ])
-    ]
-
-  }
-)
-
+    trigger('institutionWorkSignal', [
+      state('in', style({ display: 'none' })),
+      state('out', style({ display: 'block' }))
+      // transition('* => *', animate(500))
+    ])
+  ]
+})
 export class PersonalDetailsComponent extends BaseComponent {
   lang = require('./i18n');
+  // langStatus = require('../../../common/status/i18n');
   langStatus = require('../../../../components/msp/common/status/i18n');
   langActivities = require('../../../../components/msp/common/activities/i18n');
   langDocuments = require('../../../../components/msp/common/documents/i18n');
-
-  radioLabel = [
-    {
-      'label': '0',
-      'value': 'Not new to B.C. but need to apply for MSP'
-    },
-    {
-      'label': '1',
-      'value': 'Moved to B.C. from another province'
-    },
-    {
-      'label': '2',
-      'value': 'Moved to B.C. from another country'
-    },
-    {
-      'label': '3',
-      'value': 'Working in B.C.'
-    },
-    {
-      'label': '4',
-      'value': 'Studying in B.C.'
-    },
-    {
-      'label': '5',
-      'value': 'Religious worker'
-    },
-    {
-      'label': '6',
-      'value': 'Diplomat'
-    },
-    {
-      'label': '7',
-      'value': 'Visiting'
-    }
+  genderLabels = [
+    { label: 'Female', value: 'Female' },
+    { label: 'Male', value: 'Male' }
   ];
 
   // Expose some types to template
@@ -111,13 +88,13 @@ export class PersonalDetailsComponent extends BaseComponent {
   StatusInCanada: typeof StatusInCanada = StatusInCanada;
   public styleClass = 'control-label';
   @ViewChild('formRef') form: NgForm;
-  @ViewChild('fileUploader') fileUploader: MspFileUploaderComponent;
+  //@ViewChild('fileUploader') fileUploader: FileUploaderComponent;
   @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
   @ViewChild('imageErrorModal') imageErrorModal: MspImageErrorModalComponent;
   @ViewChild('outOfBCRecord') outOfBCRecord: MspOutofBCRecordComponent;
   @ViewChild('gender') gender: MspGenderComponent;
   @ViewChild('birthDate') birthdate: MspBirthDateComponent;
-  @ViewChild('name') name: MspNameComponent;
+ // @ViewChild('name') name: MspFullNameComponent;
   @ViewChild('country') country: MspCountryComponent;
   @ViewChild('province') province: MspProvinceComponent;
   @ViewChild('arrivalDateBC') arrivalDateBC: MspArrivalDateComponent;
@@ -130,7 +107,8 @@ export class PersonalDetailsComponent extends BaseComponent {
   @ViewChild('inBCAfterStudiesQuestion') inBCAfterStudiesQuestion: HTMLElement;
   @ViewChild('schoolAddress') schoolAddress: MspAddressComponent;
   @ViewChild('schoolDate') schoolDate: MspSchoolDateComponent;
-  @ViewChild('mspServicesCardModal') servicesCardDisclaimerModalComponent: ServicesCardDisclaimerModalComponent;
+  @ViewChild('mspServicesCardModal')
+  servicesCardDisclaimerModalComponent: ServicesCardDisclaimerModalComponent;
 
   @Input() person: MspPerson;
   @Input() id: string;
@@ -144,22 +122,11 @@ export class PersonalDetailsComponent extends BaseComponent {
   genderListSignal: string;
   institutionWorkSignal: string;
   showServicesCardModal: boolean = false;
-  private value: any = {};
 
-  public statusinCanada: Array<any> = [
-      { value: 1, label: ' Canadian Citizen' },
-      { value: 2, label: 'Permanent Resident' },
-      { value: 3, label: 'Temporary Permit Holder or Diplomat' }
-  ];
-  /*
-  public statusIn = [
-    { value: 1, label: ' Canadian Citizen' },
-    { value: 2, label: 'Permanent Resident' },
-    { value: 3, label: 'Temporary Permit Holder or Diplomat' }
-  ];*/
+  /** Hides the 'Clear Spouse/Child' button, and the <hr> at the end of the component. Useful in layouts where this form must be embedded in a larger form.. */
+  @Input() embedded: boolean = false;
 
-  constructor(private el: ElementRef,
-    private cd: ChangeDetectorRef){
+  constructor(private el: ElementRef, private cd: ChangeDetectorRef) {
     super(cd);
   }
 
@@ -176,60 +143,65 @@ export class PersonalDetailsComponent extends BaseComponent {
     return StatusRules.availableStatus(this.person.relationship);
   }
 
-
-  public refreshValue(value: any): void {
-    this.value = value;
-  }
-
-  public removed(value: any): void {
-    console.log('Removed value is: ', value);
-  }
-
-  public selected(value: any): void {
-    console.log('Selected value is: ', value);
-  }
-
-  public typed(value: any): void {
-    console.log('New search input: ', value);
-  }
-
-
   setStatus(value: StatusInCanada, p: MspPerson) {
+    if (typeof value === 'object') return;
+    // console.log(value);
+    // console.log(p);
     p.status = value;
     p.currentActivity = null;
 
-    if (p.status !== StatusInCanada.CitizenAdult){
+    if (p.status !== StatusInCanada.CitizenAdult) {
       p.institutionWorkHistory = 'No';
     }
-    this.showServicesCardModal = true ;
+    this.showServicesCardModal = true;
 
     this.onChange.emit(value);
   }
 
   setActivity(value: Activities) {
+    if (
+      this.showServicesCardModal &&
+      this.person.bcServiceCardShowStatus &&
+      this.person.relationship !== this.Relationship.ChildUnder19
+    ) {
+      this.servicesCardDisclaimerModalComponent.showModal();
+      this.showServicesCardModal = false;
+    }
 
-      if (this.showServicesCardModal && this.person.bcServiceCardShowStatus && this.person.relationship !== this.Relationship.ChildUnder19) {
-          this.servicesCardDisclaimerModalComponent.showModal();
-          this.showServicesCardModal = false;
-      }
+    this.person.currentActivity = value;
+    this.person.movedFromProvinceOrCountry = '';
+    this.onChange.emit(value);
+  }
 
-      this.person.currentActivity = value;
-      this.person.movedFromProvinceOrCountry = '';
-      this.onChange.emit(value);
+  get activitiesTable() {
+    if (!this.activities) return;
+    return this.activities.map(itm => {
+      const label = this.langActivities('./en/index.js')[itm];
+      return {
+        label,
+        value: itm
+      };
+    });
   }
 
   /**
    * Gets the available activities given the known status
    */
   get activities(): Activities[] {
-    return ActivitiesRules.availableActivities(this.person.relationship, this.person.status);
+    return ActivitiesRules.availableActivities(
+      this.person.relationship,
+      this.person.status
+    );
   }
 
   /**
    * Gets the available documents given the known status and activity
    */
   get documents(): Documents[] {
-    return DocumentRules.availiableDocuments(this.person.status, this.person.currentActivity);
+    return DocumentRules.availiableDocuments(
+      this.person.status,
+      this.person.currentActivity
+    );
   }
 
   /**
@@ -239,21 +211,26 @@ export class PersonalDetailsComponent extends BaseComponent {
     return DocumentRules.nameChangeDocument();
   }
 
-  addDocument(evt: MspImage){
+  addDocument(evt: MspImage) {
     // console.log('image added: %s', evt);
     this.person.documents.images = this.person.documents.images.concat(evt);
-    console.log('$fileParent (1) addDocument', {images: this.person.documents.images, evt: evt});
+    console.log('$fileParent (1) addDocument', {
+      images: this.person.documents.images,
+      evt: evt
+    });
 
-    this.fileUploader.forceRender();
+    //this.fileUploader.forceRender();
     this.onChange.emit(evt);
   }
 
-  deleteDocument(evt: MspImage){
-    this.person.documents.images = this.person.documents.images.filter(
-      (mspImage: MspImage) => {
-        return evt.uuid !== mspImage.uuid;
-      }
-    );
+  deleteDocument(evt: Array<any>) {
+    console.log('evt', evt);
+    this.person.documents.images = evt;
+    // this.person.documents.images = this.person.documents.images.filter(
+    //   (mspImage: MspImage) => {
+    //     return evt.uuid !== mspImage.uuid;
+    //   }
+    // );
     this.onChange.emit(evt);
   }
 
@@ -270,27 +247,31 @@ export class PersonalDetailsComponent extends BaseComponent {
     /**
      * Load an empty row to screen
      */
-    if (this.person.relationship === Relationship.Spouse){
+    if (this.person.relationship === Relationship.Spouse) {
       window.scrollTo(0, this.el.nativeElement.offsetTop);
     }
   }
 
   get arrivalDateLabel(): string {
     if (this.person.currentActivity === Activities.LivingInBCWithoutMSP) {
-      return this.lang('./en/index.js').arrivalDateToBCLabelForReturning;
+      // return this.lang('./en/index.js').arrivalDateToBCLabelForReturning;
+      return 'arrivalDateToBCLabelForReturning';
     }
-    return this.lang('./en/index.js').arrivalDateToBCLabel;
+    // return this.lang('./en/index.js').arrivalDateToBCLabel;
+    return 'arrivalDateToBCLabel';
   }
 
-  provinceUpdate(evt: string){
+  provinceUpdate(evt: string) {
     this.person.movedFromProvinceOrCountry = evt;
     this.onChange.emit(evt);
   }
 
   get schoolInBC(): boolean {
-    return this.person.schoolAddress
-      && this.person.schoolAddress.province
-      && this.person.schoolAddress.province.toLowerCase() === 'british columbia';
+    return (
+      this.person.schoolAddress &&
+      this.person.schoolAddress.province &&
+      this.person.schoolAddress.province.toLowerCase() === 'british columbia'
+    );
   }
   setFullTimeStudent(event: any) {
     this.person.fullTimeStudent = event;
@@ -300,32 +281,24 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.onChange.emit(event);
     this.emitIsFormValid();
   }
-
-  setGenderVal(event: string) {
-    this.person.gender = (event === 'M') ? Gender.Male : Gender.Female;
-    this.onChange.emit(event);
-  }
-
-  setStayInBCAfterStudy(event: any){
-    event = event === 'True' ? true : false;
+  setStayInBCAfterStudy(event: boolean) {
     this.person.inBCafterStudies = event;
     this.onChange.emit(event);
     this.emitIsFormValid();
     this.emitIsFormValid();
   }
 
-  schoolAddressUpdate(evt: any){
+  schoolAddressUpdate(evt: any) {
     this.onChange.emit(evt);
   }
 
-
-  setHasPreviousPhn(value: any){
+  setHasPreviousPhn(value: boolean) {
     this.person.hasPreviousBCPhn = value;
     this.onChange.emit(value);
     this.cd.detectChanges();
     this.emitIsFormValid();
   }
-  updateSchoolExpectedCompletionDate(evt: any){
+  updateSchoolExpectedCompletionDate(evt: any) {
     // console.log('school expected completion date updated: %o', evt);
     this.person.studiesFinishedDay = evt.day;
     this.person.studiesFinishedMonth = evt.month;
@@ -333,7 +306,7 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.onChange.emit(evt);
   }
 
-  updateSchoolDepartureDate(evt: any){
+  updateSchoolDepartureDate(evt: any) {
     // console.log('school departure date updated: %o', evt);
     this.person.studiesDepartureDay = evt.day;
     this.person.studiesDepartureMonth = evt.month;
@@ -367,10 +340,12 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   toggleInstituationList() {
-    this.institutionWorkSignal === 'out' ? this.institutionWorkSignal = 'in' : this.institutionWorkSignal = 'out';
+    this.institutionWorkSignal === 'out'
+      ? (this.institutionWorkSignal = 'in')
+      : (this.institutionWorkSignal = 'out');
   }
 
-  get hasValidCurrentActivity(): boolean{
+  get hasValidCurrentActivity(): boolean {
     const v = _.isNumber(this.person.currentActivity);
     return v;
   }
@@ -379,17 +354,16 @@ export class PersonalDetailsComponent extends BaseComponent {
     return this.institutionWorkSignal === 'out';
   }
 
-  handleHealthNumberChange(evt: string){
+  handleHealthNumberChange(evt: string) {
     this.person.healthNumberFromOtherProvince = evt;
     this.onChange.emit(evt);
-
   }
 
-  setBeenOutsideForOver30Days(out: any){
+  setBeenOutsideForOver30Days(out: boolean) {
     this.person.declarationForOutsideOver30Days = out;
-    if (out){
+    if (out) {
       this.person.outOfBCRecord = new OutofBCRecord();
-    }else {
+    } else {
       this.person.outOfBCRecord = null;
     }
     this.cd.detectChanges();
@@ -397,25 +371,25 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.emitIsFormValid();
   }
 
-  handleDeleteOutofBCRecord(evt: OutofBCRecord){
+  handleDeleteOutofBCRecord(evt: OutofBCRecord) {
     this.person.outOfBCRecord = null;
     this.onChange.emit(evt);
   }
 
-  handleOutofBCRecordChange(evt: OutofBCRecord){
+  handleOutofBCRecordChange(evt: OutofBCRecord) {
     this.onChange.emit(evt);
   }
-    //If false, then we don't want users continuing to further application;
+  //If false, then we don't want users continuing to further application;
   checkEligibility(): boolean {
-        return !this.person.ineligibleForMSP;
+    return !this.person.ineligibleForMSP;
   }
 
-  setMovedToBCPermanently(moved: any){
+  setMovedToBCPermanently(moved: boolean) {
     this.person.madePermanentMoveToBC = moved;
     this.onChange.emit(moved);
     this.emitIsFormValid();
   }
-  setLivedInBCSinceBirth(lived: boolean){
+  setLivedInBCSinceBirth(lived: boolean) {
     this.person.livedInBCSinceBirth = lived;
     this.onChange.emit(lived);
     this.emitIsFormValid();
@@ -454,32 +428,35 @@ export class PersonalDetailsComponent extends BaseComponent {
     }
 
     // armed forces
-    if (this.armedForcedQuestion != null &&
-      this.person.institutionWorkHistory == null) {
+    if (
+      this.armedForcedQuestion != null &&
+      this.person.institutionWorkHistory == null
+    ) {
       console.log('institutionWorkHistory invalid');
       return false;
     }
 
-    if (this.person.isArrivalToBcBeforeDob){
+    if (this.person.isArrivalToBcBeforeDob) {
       return false;
     }
 
-      if (this.person.isArrivalToCanadaBeforeDob){
-          return false;
-      }
+    if (this.person.isArrivalToCanadaBeforeDob) {
+      return false;
+    }
 
     // school
-    if (this.schoolQuestion != null &&
-      this.person.fullTimeStudent == null) {
+    if (this.schoolQuestion != null && this.person.fullTimeStudent == null) {
       console.log('schoolQuestion invalid');
       return false;
     }
-    if (this.person.fullTimeStudent &&
-      this.person.inBCafterStudies == null) {
+    if (this.person.fullTimeStudent && this.person.inBCafterStudies == null) {
       console.log('inBCafterStudies invalid');
       return false;
     }
 
     return true;
+  }
+  setGender(evt: string) {
+    console.log(evt);
   }
 }

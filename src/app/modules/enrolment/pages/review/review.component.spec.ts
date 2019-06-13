@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 import { ReviewComponent } from './review.component';
-import { MspDataService } from '../../../../components/msp/service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspPersonCardComponent} from '../../../../components/msp/common/person-card/person-card.component';
 import {MspAddressCardPartComponent} from '../../../../components/msp/common/address-card-part/address-card-part.component';
@@ -11,10 +11,10 @@ import {ThumbnailComponent} from '../../../../components/msp/common/thumbnail/th
 import {ModalModule} from 'ngx-bootstrap';
 import {RouterTestingModule} from '@angular/router/testing';
 import {MspCancelComponent} from '../../../../components/msp/common/cancel/cancel.component';
-import {MspLoggerDirective} from '../../../../components/msp/common/logging/msp-logger.directive';
-import { MspLogService } from '../../../../components/msp/service/log.service';
+import {MspLoggerDirective} from '../../../msp-core/components/logging/msp-logger.directive';
+import { MspLogService } from '../../../../services/log.service';
 
-import { ProcessService } from '../../../../components/msp/service/process.service';
+import { ProcessService } from '../../../../services/process.service';
 import { CaptchaComponent } from 'mygovbc-captcha-widget/src/app/captcha/captcha.component';
 import { CaptchaDataService } from 'mygovbc-captcha-widget/src/app/captcha-data.service';
 

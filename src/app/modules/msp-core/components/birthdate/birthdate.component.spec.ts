@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MspBirthDateComponent } from './birthdate.component';
-import { MspDataService } from '../../../../components/msp/service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {Person} from '../../../../components/msp/model/msp-person.model';
-import {Relationship} from '../../../../components/msp/model/status-activities-documents';
+import {Relationship} from '../../../../models/status-activities-documents';
 import {CalendarYearFormatter} from '../../../../components/msp/common/calendar/calendar-year-formatter.component';
 import {CalendarYearValidator} from '../../../../components/msp/common/calendar/calendar-year.validator';
 import {CalendarDayValidator} from '../../../../components/msp/common/calendar/calendar-day.validator';

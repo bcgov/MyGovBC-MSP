@@ -1,26 +1,30 @@
-<form #formRef="ngForm" novalidate>
+<p>
+  child-info works!
+</p>
 
-  <h1>Tell us about your Dependants and upload official documents</h1>
-  <hr>
-  <div class="col-sm-4">
-    <common-button [label]="'Add Child'" 
-      [buttonType]="'btn btn-primary'" (btnClick)='addChild(Relationship.ChildUnder19)'>
-    </common-button>
-  </div>
 
-  <div *ngIf = 'children.length > 0'>
-      <msp-personal-details *ngFor = "let child of children; let idx = index"
-        [person] = 'child'
-        [id] = 'child.id'
-        (notifyChildRemoval)="removeChild($event,idx)"
-        (onChange) = "onChange($event)"
-        [showError] = "formRef.submitted">
-      </msp-personal-details>
-    </div>
+<!--
+  Title Bar: Tell us about your Dependants and upload official documents
 
-  <div class="container">
-      <common-form-action-bar [submitLabel]="children.length > 0? 'Continue':'No Child'"
-        [canContinue]="!(!documentsReady() || checkAnyDependentsIneligible() || !isAllValid())" (btnClick)="nextStep()">
-      </common-form-action-bar>
-  </div>
-</form>
+  Add Child button (yellow)
+
+  Is your child a full time student?
+
+  Yes / no radios
+
+  Dependents status in Canada
+
+  Canadian Citizen
+  Permanent Resident
+  Not new to BC but need to apply for MSP
+
+  optional radios
+  Moved to BC from another province
+  Moved to BC from antoher country
+  Not new to BC but need to apply for MSP
+
+
+ -->
+<!-- <common-page-framework layout="blank"> -->
+<msp-citizen-status [id]="123" label="Dependants status in Canada"></msp-citizen-status>
+<!-- </common-page-framework> -->

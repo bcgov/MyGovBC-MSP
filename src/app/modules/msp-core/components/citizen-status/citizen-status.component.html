@@ -1,4 +1,11 @@
 <div class="form-group">
   <label for={{id}} class="control-label">{{label}}</label>
-  <ng-select [id]="id" [items]="items$ | async" (change)="changed($event)"></ng-select>
+  <!-- <ng-select [id]="id" [items]="items$ | async" (change)="changed($event)" [(ngModel)]="selected"> -->
+  <!-- </ng-select> -->
+  <select class="custom-select" [id]="id" (change)="changed($event.srcElement.options.selectedIndex)">
+    <ng-container *ngIf="items$ | async as items">
+
+      <option *ngFor="let item of items" [selected]="selected === item">{{ item }}</option>
+    </ng-container>
+  </select>
 </div>

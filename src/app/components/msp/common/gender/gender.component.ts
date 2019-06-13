@@ -5,7 +5,7 @@ import {
 import {NgForm} from '@angular/forms';
 import {MspPerson, Gender} from '../../model/msp-person.model';
 import {UUID} from 'angular2-uuid';
-import {BaseComponent} from '../base.component';
+import {BaseComponent} from '../../../../models/base.component';
 
 @Component({
   selector: 'msp-gender',

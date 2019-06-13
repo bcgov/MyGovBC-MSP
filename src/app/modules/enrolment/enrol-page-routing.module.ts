@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { PrepareComponent } from './pages/prepare/prepare.component';
-import { ProcessService } from '../../components/msp/service/process.service';
+import { ProcessService } from '../../services/process.service';
 import { PersonalInfoComponent } from './pages/personal-info/personal-info.component';
 import { SpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { ChildInfoComponent } from './pages/child-info/child-info.component';
@@ -44,12 +44,12 @@ export const enrolPages: Routes = [
         path: 'authorize',
         // canActivate: [ProcessService],
         component: AuthorizeComponent
-    },
+    },/*
     {
         path: 'sending',
         // canActivate: [ProcessService],
         component: SendingComponent
-    },
+    },*/
     {
         path: 'confirmation',
         canActivate: [],

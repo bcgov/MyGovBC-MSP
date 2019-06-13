@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MspIdReqModalComponent } from './id-req-modal.component';
-import { MspDataService } from '../../../../components/msp/service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AccordionModule, ModalModule} from 'ngx-bootstrap';

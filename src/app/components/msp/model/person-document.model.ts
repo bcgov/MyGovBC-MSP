@@ -1,4 +1,4 @@
-import {MspImage} from './msp-image';
+import {MspImage} from '../../../models/msp-image';
 
 /**
  * A persons ID documents

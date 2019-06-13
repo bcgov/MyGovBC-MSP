@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
-import {BaseComponent} from '../base.component';
+import {BaseComponent} from '../../../../models/base.component';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
