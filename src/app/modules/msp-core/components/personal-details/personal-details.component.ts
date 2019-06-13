@@ -86,6 +86,8 @@ export class PersonalDetailsComponent extends BaseComponent {
   Activities: typeof Activities = Activities;
   Relationship: typeof Relationship = Relationship;
   StatusInCanada: typeof StatusInCanada = StatusInCanada;
+  Gender: typeof Gender = Gender;
+
   public styleClass = 'control-label';
   @ViewChild('formRef') form: NgForm;
   //@ViewChild('fileUploader') fileUploader: FileUploaderComponent;
@@ -327,16 +329,20 @@ export class PersonalDetailsComponent extends BaseComponent {
     return this.person.institutionWorkHistory;
   }
 
-  selectInstitution(history: string) {
+  selectInstitution(evt: boolean) {
+    if (!evt) this.person = this.clearHistory(this.person);
+    const history = evt ? 'Yes' : 'No';
     this.person.institutionWorkHistory = history;
-    if (history === 'No') {
-      this.person.dischargeDay = null;
-      this.person.dischargeMonth = null;
-      this.person.dischargeYear = null;
-    }
     this.cd.detectChanges();
     this.onChange.emit(history);
     this.emitIsFormValid();
+  }
+
+  clearHistory(person: MspPerson) {
+    person.dischargeDay = null;
+    person.dischargeMonth = null;
+    person.dischargeYear = null;
+    return person;
   }
 
   toggleInstituationList() {
@@ -456,7 +462,7 @@ export class PersonalDetailsComponent extends BaseComponent {
 
     return true;
   }
-  setGender(evt: string) {
-    console.log(evt);
+  setGender(evt: Gender) {
+    this.person.gender = evt;
   }
 }
