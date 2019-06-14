@@ -92,7 +92,6 @@ export class PersonalDetailsComponent extends BaseComponent {
   lang = require('./i18n');
   langStatus = require('../../../../components/msp/common/status/i18n');
   langActivities = require('../../../../components/msp/common/activities/i18n');
-
   genderLabels = [
     { label: 'Female', value: 'Female' },
     { label: 'Male', value: 'Male' }
