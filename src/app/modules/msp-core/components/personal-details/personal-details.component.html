@@ -432,17 +432,6 @@
                             [(ngModel)]="person.previous_phn"
                             [label]="lang('./en/index.js').phnLabel[this.person.relationship]"
                             (ngModelChange) = "onChange.emit($event)"> </common-phn>
-                        <!-- <common-phn #phn [label]="lang('./en/index.js').phnLabel[this.person.relationship]" 
-                            [(value)]="person.previous_phn" 
-                        ></common-phn>  
-                            <msp-phn #phn
-                                    [phn]="person.previous_phn"
-                                    (phnChange)="person.previous_phn = $event"
-                                    [required]="false"
-                                    [bcPhn]="true"
-                                    [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"
-                                    (onChange) = "onChange.emit($event)"
-                                    [showError] = "showError"></msp-phn> -->
                     </div>
                 </div>
         
