@@ -20,7 +20,6 @@ module.exports = {
   provinceLabel: 'Province',
   provinceStateLabel: 'Province or state',
 
-  countryLabel: 'Country',
 
   postalCodeLabel: 'Postal or zip code',
   postalCodeErrorIsRequired: 'Postal or zip code is required',

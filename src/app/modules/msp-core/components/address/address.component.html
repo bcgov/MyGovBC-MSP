@@ -199,17 +199,18 @@
         </div>
         <div class="row" *ngIf="!hideProvinceAndCountry">
             <div class="form-group col-md-5">
-                <common-province name="msp-province" #province
-                        [label]="lang('./en/index.js').provinceStateLabel"
-                        [(ngModel)]="mailingAddress.province"
-                        (ngModelChange)="provinceUpdate($event)">
-                </common-province>
+                <!--TODO: Determine if this has a max length-->
+                <common-province name="province"
+                                 label="Province or state"
+                                 [(ngModel)]="mailingAddress.province"
+                                 (ngModelChange)="provinceUpdate($event)"></common-province>
             </div>
             <div class="form-group col-md-4">
-                <common-country #country
+                <!--TODO: Determine if this has a max length-->
+                <common-country name="country"
                     [ngModel]="mailingAddress.country"
-                    (ngModelChange)="countryUpdate($event)">
-                </common-country>
+                    (ngModelChange)="countryUpdate($event)"
+                    [countryList]="countryData"></common-country>
             </div>
         </div>
     </div>

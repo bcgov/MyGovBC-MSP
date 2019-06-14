@@ -37,8 +37,9 @@ import {MspArrivalDateComponent} from '../../../../components/msp/common/arrival
 import {MspOutofBCRecordComponent} from '../../../../components/msp/common/outof-bc/outof-bc.component';
 import {BaseComponent} from '../../../../models/base.component';
 import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
-import { ProvinceData, MovedFromCountryLabel, MovedFromProvinceLabel } from '../../../../models/msp-address.constants';
 import { CANADA, Address, ProvinceList, BRITISH_COLUMBIA } from 'moh-common-lib';
+import { MspAddressConstants } from '../../../../models/msp-address.constants';
+import { MspDocumentConstants } from '../../../../models/msp-document.constants';
 
 @Component({
   selector: 'msp-personal-details',
@@ -78,15 +79,20 @@ export class PersonalDetailsComponent extends BaseComponent {
    *
    * NOTE: Address information should be a separate component as its elements are repeated on this page
    */
-    movedFromCountryLabel = MovedFromCountryLabel;
-    movedFromProvinceLabel = MovedFromProvinceLabel;
+  movedFromCountryLabel = 'Which country are you moving from?';
+  movedFromProvinceLabel = [
+   'Which province are you moving from?',
+   'Which province are they moving from?',
+   'Which province are they moving from?',
+   'Which province are they moving from?'
+  ];
 
-
+  langDocuments = MspDocumentConstants.documentList;
 
   lang = require('./i18n');
   langStatus = require('../../../../components/msp/common/status/i18n');
   langActivities = require('../../../../components/msp/common/activities/i18n');
-  langDocuments = require('../../../../components/msp/common/documents/i18n');
+
   genderLabels = [
     { label: 'Female', value: 'Female' },
     { label: 'Male', value: 'Male' }
@@ -475,16 +481,8 @@ export class PersonalDetailsComponent extends BaseComponent {
     return addr && CANADA === addr.country;
   }
 
-  // Address Country/Provinces
+  // Province list
   provList( exceptBC: boolean = false ): ProvinceList[] {
-
-    if (!exceptBC) {
-      return ProvinceData;
-    }
-    return ProvinceData.map( x => {
-      if ( x.provinceCode !== BRITISH_COLUMBIA ) {
-        return x;
-      }
-    });
+    return MspAddressConstants.provList( exceptBC );
   }
 }

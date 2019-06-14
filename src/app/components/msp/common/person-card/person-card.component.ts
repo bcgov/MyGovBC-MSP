@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {MspPerson} from '../../model/msp-person.model';
 import {Activities, StatusInCanada} from '../../../../models/status-activities-documents';
 import { Router } from '@angular/router';
-import { MovedFromProvinceLabel } from '../../../../models/msp-address.constants';
+
 @Component({
   selector: 'msp-person-card',
   templateUrl: './person-card.component.html',
@@ -34,10 +34,10 @@ export class MspPersonCardComponent {
   get movedFromLabel(): string {
     if (this.person.status === StatusInCanada.TemporaryResident ||
       this.person.currentActivity === Activities.MovingFromCountry) {
-      return this.lang('./en/index.js').movedFromCountryLabel;
+      return 'Moved from country:';
     }
     else {
-      return this.lang('./en/index.js').movedFromProvinceLabel;
+      return 'Moved from province:';
     }
   }
 }

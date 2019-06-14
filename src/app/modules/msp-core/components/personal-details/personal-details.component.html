@@ -53,17 +53,17 @@
             <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
             <ul>
                 <li *ngFor="let document of documents">
-                    {{langDocuments('./en/index.js')[document]}}
-                    <a role="button" aria-haspopup="true" href="javascript:void(0)" (click)="viewIdReqModal(document)" tabindex="0"
-                       [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
+                    {{langDocuments[document]}}
+                    <a role="button" aria-haspopup="true" href="javascript:void(0)" (click)="viewIdReqModal(document)" tabindex="0">
+                    Open sample</a>
                 </li>
             </ul>
             <p [innerHtml]="lang('./en/index.js').documentInstructionsMarriage"></p>
             <ul>
                 <li *ngFor="let document of nameChangeDocuments">
-                    {{langDocuments('./en/index.js')[document]}}
-                    <a role="button" aria-haspopup="true" href="javascript:void(0)" (click)="viewIdReqModal(document)" tabindex="0"
-                       [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
+                    {{langDocuments[document]}}
+                    <a role="button" aria-haspopup="true" href="javascript:void(0)" (click)="viewIdReqModal(document)" tabindex="0">
+                            Open sample</a>
                 </li>
             </ul>
             <msp-id-req-modal #idReqModal></msp-id-req-modal>
@@ -142,7 +142,7 @@
 
       <div class="row" *ngIf="person.documents.images.length > 0">
             <div class="col-lg-4" *ngIf="person.currentActivity == Activities.MovingFromCountry || person.status == StatusInCanada.TemporaryResident">
-              <common-country #country name='msp_country_1'
+              <common-country name='msp_country_1'
                   [label]="movedFromCountryLabel"
                   [ngModel]="person.movedFromProvinceOrCountry" 
                   (ngModelChange)="person.movedFromProvinceOrCountry = $event; onChange.emit($event)">

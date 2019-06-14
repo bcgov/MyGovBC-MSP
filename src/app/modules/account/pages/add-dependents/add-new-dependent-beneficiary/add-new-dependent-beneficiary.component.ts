@@ -16,8 +16,8 @@ import { MspToggleComponent } from '../../../../../components/msp/common/toggle/
 import { MspOutofBCRecordComponent } from '../../../../../components/msp/common/outof-bc/outof-bc.component';
 import { MspDischargeDateComponent } from '../../../../../components/msp/common/discharge-date/discharge-date.component';
 import { OutofBCRecord } from '../../../../../models/outof-bc-record.model';
-import { ProvinceList, BRITISH_COLUMBIA } from 'moh-common-lib';
-import { ProvinceData } from '../../../../../models/msp-address.constants';
+import { ProvinceList } from 'moh-common-lib';
+import { MspAddressConstants } from '../../../../../models/msp-address.constants';
 
 
 @Component({
@@ -148,16 +148,8 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
         return this.checkEligibility();
     }
 
-      // Address Country/Provinces
+  // Province list
   provList( exceptBC: boolean = false ): ProvinceList[] {
-
-    if (!exceptBC) {
-      return ProvinceData;
-    }
-    return ProvinceData.map( x => {
-      if ( x.provinceCode !== BRITISH_COLUMBIA ) {
-        return x;
-      }
-    });
+    return MspAddressConstants.provList( exceptBC );
   }
 }
