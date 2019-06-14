@@ -1,6 +1,6 @@
 // File contains constants used for address
 
-export const provinceData = [
+export const ProvinceData = [
   { provinceCode: 'AB', description: 'Alberta' },
   { provinceCode: 'BC', description: 'British Columbia' },
   { provinceCode: 'MB', description: 'Manitoba' },
@@ -16,7 +16,7 @@ export const provinceData = [
   { provinceCode: 'YT', description: 'Yukon' }
 ];
 
-export const countryData =  [
+export const CountryData =  [
   {
     'countryCode': 'AF',
     'description': 'Afghanistan'
@@ -1009,4 +1009,13 @@ export const countryData =  [
     'countryCode': 'ZW',
     'description': 'Zimbabwe'
   }
+];
+
+// labels for address information
+export const MovedFromCountryLabel = 'Which country are you moving from?';
+export const MovedFromProvinceLabel = [
+  'Which province are you moving from?',
+  'Which province are they moving from?',
+  'Which province are they moving from?',
+  'Which province are they moving from?'
 ];

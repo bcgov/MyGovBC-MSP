@@ -55,17 +55,10 @@ module.exports = {
     'Does your child have a previous B.C. Personal Health Number?'
   ],
 
-  movedFromProvinceLabel: ['Which province are you moving from?',
-    'Which province are they moving from?',
-    'Which province are they moving from?',
-    'Which province are they moving from?'
-  ],
-
-  movedFromAnotherProvinceLabel: 'Which province did you move from?',
+  movedFromAnotherProvinceLabel: 'Which province did you move from?', 
 
   movedFromCountryLabel: 'Which country are you moving from?',
-  arrivalDateToBCLabel: 'Arrival date in B.C.',
-  arrivalDateToBCLabelForReturning: 'Most recent move to B.C.',
+
   arrivalDateToCanadaLabel: 'Arrival date in Canada',
 
   beenOutsideBCOver30DaysLabel: ["Since you arrived, have you been outside B.C. for more than 30 days in total?",

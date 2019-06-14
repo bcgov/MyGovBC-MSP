@@ -2,8 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MspCountryComponent } from './country.component';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {MspProvinceComponent} from '../province/province.component';
+import { LocalStorageModule } from 'angular-2-local-storage';
 import { TypeaheadModule } from 'ngx-bootstrap';
 
 describe('MspCountryComponent', () => {

@@ -17,15 +17,12 @@
         </div>
       </div>
       <div class="col-lg-4">
-        <msp-province [provinceLabel]="movedFromProvinceOrCountry"
-          [province]="person.movedFromProvinceOrCountry"
-          (onChange)="person.movedFromProvinceOrCountry = $event"
-          hideStates=true
-          exceptBC=true 
-          [showError]="showError"
-          showCountries=true
+        <common-province name="msp-province"
+          [label]="movedFromProvinceOrCountry"
+          [(ngModel)]="person.movedFromProvinceOrCountry"
+          [provinceList]=provinceData(true)
           colSize="col-md-4">
-        </msp-province>
+        </common-province>
       </div>
       <div class="col-lg-4">
           <label for="healthNumberFromOtherProvince" [innerHtml]="medicalPlanPreviousResidence"></label>

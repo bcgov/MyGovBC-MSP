@@ -5,7 +5,6 @@ import {
 import {NgForm} from '@angular/forms';
 import {Address} from 'moh-common-lib';
 import {BaseComponent} from '../../../../models/base.component';
-import {MspProvinceComponent} from '../../../../components/msp/common/province/province.component';
 import {MspCountryComponent} from '../../../../components/msp/common/country/country.component';
 import {debounceTime} from 'rxjs/operators';
 
@@ -37,7 +36,7 @@ export class MspAddressComponent extends BaseComponent {
 
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
-  @ViewChild('province') province: MspProvinceComponent;
+  //@ViewChild('province') province: MspProvinceComponent;
   @ViewChild('country') country: MspCountryComponent;
 
   Address: typeof Address = Address;

@@ -35,12 +35,10 @@ import {MspAddressComponent} from '../address/address.component';
 
 import {MspArrivalDateComponent} from '../../../../components/msp/common/arrival-date/arrival-date.component';
 import {MspOutofBCRecordComponent} from '../../../../components/msp/common/outof-bc/outof-bc.component';
-import {MspProvinceComponent} from '../../../../components/msp/common/province/province.component';
 import {BaseComponent} from '../../../../models/base.component';
-import {MspCountryComponent} from '../../../../components/msp/common/country/country.component';
 import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
-import { provinceData } from '../../../../models/msp-address.constants';
-import { CANADA, Address } from 'moh-common-lib';
+import { ProvinceData, MovedFromCountryLabel, MovedFromProvinceLabel } from '../../../../models/msp-address.constants';
+import { CANADA, Address, ProvinceList, BRITISH_COLUMBIA } from 'moh-common-lib';
 
 @Component({
   selector: 'msp-personal-details',
@@ -74,8 +72,18 @@ import { CANADA, Address } from 'moh-common-lib';
   ]
 })
 export class PersonalDetailsComponent extends BaseComponent {
+  /**
+   * Constant values for this component
+   * TODO: Determine if any of these constants are common to other components
+   *
+   * NOTE: Address information should be a separate component as its elements are repeated on this page
+   */
+    movedFromCountryLabel = MovedFromCountryLabel;
+    movedFromProvinceLabel = MovedFromProvinceLabel;
+
+
+
   lang = require('./i18n');
-  // langStatus = require('../../../common/status/i18n');
   langStatus = require('../../../../components/msp/common/status/i18n');
   langActivities = require('../../../../components/msp/common/activities/i18n');
   langDocuments = require('../../../../components/msp/common/documents/i18n');
@@ -98,9 +106,6 @@ export class PersonalDetailsComponent extends BaseComponent {
   @ViewChild('outOfBCRecord') outOfBCRecord: MspOutofBCRecordComponent;
   @ViewChild('gender') gender: MspGenderComponent;
   @ViewChild('birthDate') birthdate: MspBirthDateComponent;
- // @ViewChild('name') name: MspFullNameComponent;
-  @ViewChild('country') country: MspCountryComponent;
-  @ViewChild('province') province: MspProvinceComponent;
   @ViewChild('arrivalDateBC') arrivalDateBC: MspArrivalDateComponent;
   @ViewChild('arrivalDateCanada') arrivalDateCanada: MspArrivalDateComponent;
   @ViewChild('healthNumber') healthNumber: HealthNumberComponent;
@@ -129,10 +134,6 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   /** Hides the 'Clear Spouse/Child' button, and the <hr> at the end of the component. Useful in layouts where this form must be embedded in a larger form.. */
   @Input() embedded: boolean = false;
-
-
-  // Address Country/Provinces
-  provList = provinceData;
 
   constructor(private el: ElementRef, private cd: ChangeDetectorRef) {
     super(cd);
@@ -262,11 +263,9 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   get arrivalDateLabel(): string {
     if (this.person.currentActivity === Activities.LivingInBCWithoutMSP) {
-      // return this.lang('./en/index.js').arrivalDateToBCLabelForReturning;
-      return 'arrivalDateToBCLabelForReturning';
+      return 'Most recent move to B.C.';
     }
-    // return this.lang('./en/index.js').arrivalDateToBCLabel;
-    return 'arrivalDateToBCLabel';
+    return 'Arrival date in B.C.';
   }
 
   provinceUpdate(evt: string) {
@@ -474,5 +473,18 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   isCanada( addr: Address): boolean {
     return addr && CANADA === addr.country;
+  }
+
+  // Address Country/Provinces
+  provList( exceptBC: boolean = false ): ProvinceList[] {
+
+    if (!exceptBC) {
+      return ProvinceData;
+    }
+    return ProvinceData.map( x => {
+      if ( x.provinceCode !== BRITISH_COLUMBIA ) {
+        return x;
+      }
+    });
   }
 }

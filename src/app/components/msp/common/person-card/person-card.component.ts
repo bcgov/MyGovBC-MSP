@@ -2,16 +2,20 @@ import {Component, Input} from '@angular/core';
 import {MspPerson} from '../../model/msp-person.model';
 import {Activities, StatusInCanada} from '../../../../models/status-activities-documents';
 import { Router } from '@angular/router';
+import { MovedFromProvinceLabel } from '../../../../models/msp-address.constants';
 @Component({
   selector: 'msp-person-card',
   templateUrl: './person-card.component.html',
   styleUrls: ['./person-card.component.scss']
 })
 export class MspPersonCardComponent {
+
+
+
   lang = require('./i18n');
   langStatus = require('../status/i18n');
   langActivities = require('../activities/i18n');
-  langProvince = require('../province/i18n');
+ // langProvince = require('../province/i18n');
 
   @Input() person: MspPerson;
   @Input() editRouterLink: string;
