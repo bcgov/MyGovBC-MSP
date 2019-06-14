@@ -49,7 +49,7 @@ export class EnrolAddressComponent extends BaseComponent {
               private cd: ChangeDetectorRef) {
     super(cd);
     this.mspApplication = this.dataService.getMspApplication();
-    this.mspApplication.mailingSameAsResidentialAddress = true;
+    //this.mspApplication.mailingSameAsResidentialAddress = true;
   }
   ngOnInit(){
     this.initProcessMembers(EnrolAddressComponent.ProcessStepNum, this._processService);
