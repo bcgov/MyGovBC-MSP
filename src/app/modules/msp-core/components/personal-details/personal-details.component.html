@@ -70,7 +70,8 @@
         </div>
         <div class="col-lg-4" *ngIf="person.status != null && person.currentActivity != null">
 
-            <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel[this.person.relationship]"></h3>
+            <h3>
+                <i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> {{documentUploadLabel[this.person.relationship]}}</h3>
             <div [innerHtml]="lang('./en/index.js').documentInstructionsNote"></div>
 
             <common-file-uploader #fileUploader
@@ -153,9 +154,9 @@
                             [label]="movedFromProvinceLabel[this.person.relationship]"
                             [ngModel]="person.movedFromProvinceOrCountry"
                             (ngModelChange)="provinceUpdate($event)"
-                            [provinceList]=provinceData()
-                            placeholder="{{ isCanada(person.movedFromProvinceOrCountry)? 'Select a Province': 'Select a State' }}"
-                            [useDropDownList]="isCanada(person.movedFromProvinceOrCountry)"></common-province>
+                            [provinceList]=provList()></common-province>
+                            <!--laceholder="{{ isCanada(person.movedFromProvinceOrCountry)? 'Select a Province': 'Select a State' }}">
+                            [useDropDownList]="isCanada(person.movedFromProvinceOrCountry)">-->
             </div>
             <br><br><br>
             <div class="row">
@@ -170,7 +171,7 @@
                                 (click)="setStatus(st, person)"
                                 [checked]="st === person.status" tabindex="0">
                         <label class='form-check-label' for="st{{st}}-{{id}}">
-                            {{langStatus('./en/index.js')[st]}}
+                            {{langStatus[st]}}
                         </label>
         
                         <div *ngIf="st === person.status" role="alertdialog" aria-labelledby="What is your activity?">
@@ -286,9 +287,9 @@
                                         [label]="movedFromProvinceLabel[this.person.relationship]"
                                     [ngModel]="person.movedFromProvinceOrCountry"
                                     (ngModelChange)="provinceUpdate($event)"
-                                    [provinceList]=provinceData(true)
-                                    [useDropDownList]="isCanada(person.movedFromProvinceOrCountry)"
-                                    colSize="col-md-4"></common-province>
+                                    [provinceList]=provList(true)></common-province>
+                                 <!--  [useDropDownList]="isCanada(person.movedFromProvinceOrCountry)"
+                                    colSize="col-md-4"></common-province>-->
                     </div>
                 
                     <div class="col-lg-4" style="margin-top: 15px;" role="dialog" [attr.aria-labelledby]="'movedPermLabel' + objectId">
@@ -346,8 +347,8 @@
                                         label="Which province did you move from?"
                                         [ngModel]="person.movedFromProvinceOrCountry"
                                         (ngModelChange)="provinceUpdate($event)"
-                                        [provinceList]=provinceData(true)
-                                        [useDropDownList]="isCanada(person.movedFromProvinceOrCountry)">
+                                        [provinceList]=provList(true)>
+                                   <!--     [useDropDownList]="isCanada(person.movedFromProvinceOrCountry)">-->
                         </common-province>
                     </div>
                     <div class="col-lg-4">

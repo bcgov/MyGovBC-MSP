@@ -280,6 +280,6 @@ export class MspAddressConstants {
       if ( x.provinceCode !== BRITISH_COLUMBIA ) {
         return x;
       }
-    });
+    }).filter( x => x );
   }
 }

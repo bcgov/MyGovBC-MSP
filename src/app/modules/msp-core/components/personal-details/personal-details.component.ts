@@ -40,6 +40,7 @@ import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaime
 import { CANADA, Address, ProvinceList, BRITISH_COLUMBIA } from 'moh-common-lib';
 import { MspAddressConstants } from '../../../../models/msp-address.constants';
 import { MspDocumentConstants } from '../../../../models/msp-document.constants';
+import { legalStatus } from '../../../../models/msp.contants';
 
 @Component({
   selector: 'msp-personal-details',
@@ -87,10 +88,18 @@ export class PersonalDetailsComponent extends BaseComponent {
    'Which province are they moving from?'
   ];
 
+
+  documentUploadLabel = [
+    'Upload your documents',
+    ' Upload your spouse\'s documents',
+    'Upload your child\'s documents',
+    '<\Upload your child\'s documents'
+  ];
+
   langDocuments = MspDocumentConstants.documentList;
+  langStatus = legalStatus;
 
   lang = require('./i18n');
-  langStatus = require('../../../../components/msp/common/status/i18n');
   langActivities = require('../../../../components/msp/common/activities/i18n');
   genderLabels = [
     { label: 'Female', value: 'Female' },
@@ -482,6 +491,7 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   // Province list
   provList( exceptBC: boolean = false ): ProvinceList[] {
+    console.log( 'provlist: ',  MspAddressConstants.provList( exceptBC ));
     return MspAddressConstants.provList( exceptBC );
   }
 }
