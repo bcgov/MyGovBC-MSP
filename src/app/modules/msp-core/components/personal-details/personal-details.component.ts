@@ -379,7 +379,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   setBeenOutsideForOver30Days(out: boolean) {
-    this.person.declarationForOutsideOver30Days = out;
+    // this.person.declarationForOutsideOver30Days = out;
     if (out) {
       this.person.outOfBCRecord = new OutofBCRecord();
     } else {

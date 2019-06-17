@@ -37,7 +37,8 @@
           </msp-birthdate>
 
 
-          <common-radio class="row" [radioLabels]='genderLabels' (statusChange)="setGender($event)" label="Gender">
+          <common-radio class="row" [radioLabels]='genderLabels' (statusChange)="setGender($event)"
+            [(ngModel)]="person.gender" name="gender" label="Gender">
           </common-radio>
           <div *ngIf="person.status === StatusInCanada.CitizenAdult &&
             person.currentActivity === Activities.LivingInBCWithoutMSP">
@@ -138,7 +139,7 @@
                 role="dialog" [attr.aria-labelledby]="'outsideBCLabel' + objectId">
 
                 <common-toggle [label]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months"
-                  id="outsideBCLabel{{objectId}}" (dataChange)="setBeenOutsideForOver30Days($event)"></common-toggle>
+                  [(ngModel)]="person.declarationForOutsideOver30Days" name="outSideBC"></common-toggle>
                 <div
                   *ngIf='showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)'
                   role="alert" aria-live="assertive">
@@ -292,7 +293,8 @@
                   (click)="setStayInBCAfterStudy(answer.value)" type="button" class="btn btn-default">{{answer.label}}
                 </button>
               </div> -->
-              <common-toggle [label]="stayInBCAfterStudiesLabel()" [(ngModel)]="person.inBCAfterStudies">
+              <common-toggle label="Will you reside in B.C. upon completion of your studies?"
+                [(ngModel)]="person.inBCAfterStudies" name="inBCAfterStudies">
               </common-toggle>
 
               <div *ngIf="(person.inBCafterStudies===undefined || person.inBCafterStudies===null) && showError"
