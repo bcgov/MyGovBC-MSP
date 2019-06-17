@@ -139,7 +139,8 @@
                 role="dialog" [attr.aria-labelledby]="'outsideBCLabel' + objectId">
 
                 <common-toggle [label]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months"
-                  [(ngModel)]="person.declarationForOutsideOver30Days" name="outSideBC"></common-toggle>
+                  [(ngModel)]="person.declarationForOutsideOver30Days" [ngModelOptions]="{standalone: true}">
+                </common-toggle>
                 <div
                   *ngIf='showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)'
                   role="alert" aria-live="assertive">
@@ -227,7 +228,7 @@
               </button>
 
             </div> -->
-            <common-toggle label="Are you a full-time student in B.C.?" (dataChange)="setFullTimeStudent($event)">
+            <common-toggle label="Are you a full-time student in B.C.?" [(ngModel)]="person.fullTimeStudent">
             </common-toggle>
             <div *ngIf='showError && (person.fullTimeStudent === undefined || person.fullTimeStudent === null)'
               role="alert" aria-live="assertive">
