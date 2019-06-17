@@ -5,7 +5,7 @@ import { MspApplication } from '../../models/application.model';
 import { BaseComponent } from '../../../../models/base.component';
 import { ProcessService } from '../../../../services/process.service';
 import { Router } from '@angular/router';
-import { Address } from 'moh-common-lib';
+import { Address, PROVINCE_LIST, COUNTRY_LIST } from 'moh-common-lib';
 
 import {
   CountryList,
@@ -34,8 +34,8 @@ export class EnrolAddressComponent extends BaseComponent {
   @ViewChild('mailingAddress') mailingAddress: ElementRef;
   @ViewChild('phone') phone: ElementRef;
 
-  countryList: CountryList[] = MspAddressConstants.countryData;
-  provinceList: ProvinceList[] = MspAddressConstants.provinceData;
+  countryList: CountryList[] = COUNTRY_LIST;
+  provinceList: ProvinceList[] = PROVINCE_LIST;
 
   public defaultCountry = CANADA;
   public defaultProvince = BRITISH_COLUMBIA;

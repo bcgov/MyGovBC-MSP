@@ -20,7 +20,7 @@
         <common-province name="msp-province"
           [label]="movedFromProvinceOrCountry"
           [(ngModel)]="person.movedFromProvinceOrCountry"
-          [provinceList]=provinceData(true)
+          [provinceList]="provList(true)"
           colSize="col-md-4">
         </common-province>
       </div>
