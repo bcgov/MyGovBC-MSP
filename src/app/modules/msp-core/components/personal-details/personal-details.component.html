@@ -67,11 +67,12 @@
             <div role="dialog" [attr.aria-labelledby]="'movedPermLabel' + objectId" class="row">
               <div class="form-group"
                 [ngClass]="{'has-error': showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)}">
-                <label [attr.id]="'movedPermLabel'"
+                <!-- <label [attr.id]="'movedPermLabel'"
                   [innerHtml]="lang('./en/index.js').haveYouMovedToBCPermanently[this.person.relationship]"
-                  class="control-label"></label>
+                  class="control-label"></label> -->
 
-                <common-toggle [data]="person.madePermanentMoveToBC" (dataChange)="setMovedToBCPermanently($event)">
+                <common-toggle [label]="lang('./en/index.js').haveYouMovedToBCPermanently[this.person.relationship]"
+                  [data]="person.madePermanentMoveToBC" (dataChange)="setMovedToBCPermanently($event)">
                 </common-toggle>
                 <div
                   *ngIf='showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)'>
@@ -139,7 +140,7 @@
                 role="dialog" [attr.aria-labelledby]="'outsideBCLabel' + objectId">
 
                 <common-toggle [label]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months"
-                  [(ngModel)]="person.declarationForOutsideOver30Days" [ngModelOptions]="{standalone: true}">
+                  [data]="person.declarationForOutsideOver30Days" (dataChange)="setBeenOutsideForOver30Days($evt)">
                 </common-toggle>
                 <div
                   *ngIf='showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)'
@@ -165,7 +166,7 @@
                 [ngClass]="{'has-error': (person.hasPreviousBCPhn === undefined || person.hasPreviousBCPhn === null) && showError}"
                 role="dialog" [attr.aria-labelledby]="'previousBCHealthNumber' + objectId">
 
-                <common-toggle label="Do you have a previous BC Health Number?"
+                <common-toggle label="Do you have a previous BC Health Number?" [data]="person.hasPreviousBCPhn"
                   (dataChange)="setHasPreviousPhn($event)"></common-toggle>
               </div>
             </div>
@@ -228,7 +229,8 @@
               </button>
 
             </div> -->
-            <common-toggle label="Are you a full-time student in B.C.?" [(ngModel)]="person.fullTimeStudent">
+            <common-toggle label="Are you a full-time student in B.C.?" [data]="person.fullTimeStudent"
+              (dataChange)="setFullTimeStudent($event)">
             </common-toggle>
             <div *ngIf='showError && (person.fullTimeStudent === undefined || person.fullTimeStudent === null)'
               role="alert" aria-live="assertive">
