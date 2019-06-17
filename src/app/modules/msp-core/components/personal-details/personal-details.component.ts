@@ -16,28 +16,36 @@ import {
 } from '@angular/core';
 import { state, trigger, style } from '@angular/animations';
 import { NgForm } from '@angular/forms';
-import { MspPerson, Gender } from '../../../../components/msp/model/msp-person.model';
+import {
+  MspPerson,
+  Gender
+} from '../../../../components/msp/model/msp-person.model';
 import { OutofBCRecord } from '../../../../models/outof-bc-record.model';
 import {
-  StatusRules, ActivitiesRules, StatusInCanada, Activities,
-  DocumentRules, Documents, Relationship
+  StatusRules,
+  ActivitiesRules,
+  StatusInCanada,
+  Activities,
+  DocumentRules,
+  Documents,
+  Relationship
 } from '../../../../models/status-activities-documents';
 import { MspImage } from '../../../../models/msp-image';
 import * as _ from 'lodash';
-import {MspIdReqModalComponent} from '../id-req-modal/id-req-modal.component';
-import {MspImageErrorModalComponent} from '../image-error-modal/image-error-modal.component';
-import {MspBirthDateComponent} from '../birthdate/birthdate.component';
-import {MspGenderComponent} from '../../../../components/msp/common/gender/gender.component';
-import {MspSchoolDateComponent} from '../../../../components/msp/common/schoolDate/school-date.component';
-import {HealthNumberComponent} from '../../../../components/msp/common/health-number/health-number.component';
-import {MspDischargeDateComponent} from '../../../../components/msp/common/discharge-date/discharge-date.component';
-import {MspAddressComponent} from '../address/address.component';
+import { MspIdReqModalComponent } from '../id-req-modal/id-req-modal.component';
+import { MspImageErrorModalComponent } from '../image-error-modal/image-error-modal.component';
+import { MspBirthDateComponent } from '../birthdate/birthdate.component';
+import { MspGenderComponent } from '../../../../components/msp/common/gender/gender.component';
+import { MspSchoolDateComponent } from '../../../../components/msp/common/schoolDate/school-date.component';
+import { HealthNumberComponent } from '../../../../components/msp/common/health-number/health-number.component';
+import { MspDischargeDateComponent } from '../../../../components/msp/common/discharge-date/discharge-date.component';
+import { MspAddressComponent } from '../address/address.component';
 
-import {MspArrivalDateComponent} from '../../../../components/msp/common/arrival-date/arrival-date.component';
-import {MspOutofBCRecordComponent} from '../../../../components/msp/common/outof-bc/outof-bc.component';
-import {MspProvinceComponent} from '../../../../components/msp/common/province/province.component';
-import {BaseComponent} from '../../../../models/base.component';
-import {MspCountryComponent} from '../../../../components/msp/common/country/country.component';
+import { MspArrivalDateComponent } from '../../../../components/msp/common/arrival-date/arrival-date.component';
+import { MspOutofBCRecordComponent } from '../../../../components/msp/common/outof-bc/outof-bc.component';
+import { MspProvinceComponent } from '../../../../components/msp/common/province/province.component';
+import { BaseComponent } from '../../../../models/base.component';
+import { MspCountryComponent } from '../../../../components/msp/common/country/country.component';
 import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
 
 @Component({
@@ -96,13 +104,13 @@ export class PersonalDetailsComponent extends BaseComponent {
   @ViewChild('outOfBCRecord') outOfBCRecord: MspOutofBCRecordComponent;
   @ViewChild('gender') gender: MspGenderComponent;
   @ViewChild('birthDate') birthdate: MspBirthDateComponent;
- // @ViewChild('name') name: MspFullNameComponent;
+  // @ViewChild('name') name: MspFullNameComponent;
   @ViewChild('country') country: MspCountryComponent;
   @ViewChild('province') province: MspProvinceComponent;
   @ViewChild('arrivalDateBC') arrivalDateBC: MspArrivalDateComponent;
   @ViewChild('arrivalDateCanada') arrivalDateCanada: MspArrivalDateComponent;
   @ViewChild('healthNumber') healthNumber: HealthNumberComponent;
- // @ViewChild('phn') phn: PhnComponent;
+  // @ViewChild('phn') phn: PhnComponent;
   @ViewChild('armedForcedQuestion') armedForcedQuestion: HTMLElement;
   @ViewChild('dischargeDate') dischargeDate: MspDischargeDateComponent;
   @ViewChild('schoolQuestion') schoolQuestion: HTMLElement;
@@ -115,8 +123,12 @@ export class PersonalDetailsComponent extends BaseComponent {
   @Input() person: MspPerson;
   @Input() id: string;
   @Input() showError: boolean;
-  @Output() notifyChildRemoval: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
-  @Output() notifySpouseRemoval: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
+  @Output() notifyChildRemoval: EventEmitter<MspPerson> = new EventEmitter<
+    MspPerson
+  >();
+  @Output() notifySpouseRemoval: EventEmitter<MspPerson> = new EventEmitter<
+    MspPerson
+  >();
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 
   shrinkOut: string;
@@ -161,6 +173,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   setActivity(value: Activities) {
+    console.log("I'm defined you nit", value);
     if (
       this.showServicesCardModal &&
       this.person.bcServiceCardShowStatus &&
