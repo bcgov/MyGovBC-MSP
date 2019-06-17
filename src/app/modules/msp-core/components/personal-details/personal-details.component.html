@@ -402,8 +402,9 @@
                     </div>
                     <div *ngIf="person.declarationForOutsideOver30Days === true" class="row" style="margin-bottom: 20px">
                         <div class="col-md-12">
-                            <msp-outof-bc-record #outOfBCRecord [minMonthsRange]="12"  [minMonthsRangeErrorMsg]="lang('./en/index.js').minMonths"
-                                                    [outofBCRecord]="person.outOfBCRecord"
+                            <msp-outof-bc-record #outOfBCRecord [minMonthsRange]="12" 
+                                                [minMonthsRangeErrorMsg]="The return date should be with in past 12 months."
+                                                    [outofBCRecord]="person.outOfBCReco rd"
                                                     (onDelete)="handleDeleteOutofBCRecord($event)"
                                                     (onUpdate)="handleOutofBCRecordChange($event)"
                                                     [showError]="showError"
