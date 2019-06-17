@@ -2,7 +2,7 @@ import {Component, Input, EventEmitter, Output, ViewChild, ChangeDetectorRef} fr
 import { NgForm } from '@angular/forms';
 
 import * as moment from 'moment';
-import {BaseComponent} from '../base.component';
+import {BaseComponent} from '../../../../models/base.component';
 
 
 @Component({

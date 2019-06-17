@@ -29,8 +29,8 @@
         <h2 class="row" [innerHtml]="lang('./en/index.js').applicationPersonalInfo[person.relationship]"></h2>
         <p class="row border-bottom" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
         <div *ngIf="person.documents.images.length > 0">
-          <msp-name #name [person]="person" (onChange)="onChange.emit($event)" [showError]="showError">
-          </msp-name>
+          <common-name #name [person]="person" (onChange)="onChange.emit($event)" [showError]="showError">
+          </common-name>
 
           <msp-birthdate #birthDate [person]="person" class="row" (onChange)="onChange.emit($event)"
             [showError]="showError">
@@ -171,9 +171,9 @@
           </div>
           <div class="row">
             <div *ngIf="person.hasPreviousBCPhn === true">
-              <msp-phn #phn [phn]="person.previous_phn" (phnChange)="person.previous_phn = $event" [required]="false"
+              <common-phn #phn [phn]="person.previous_phn" (phnChange)="person.previous_phn = $event" [required]="false"
                 [bcPhn]="true" [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"
-                (onChange)="onChange.emit($event)" [showError]="showError"></msp-phn>
+                (onChange)="onChange.emit($event)" [showError]="showError"></common-phn>
             </div>
           </div>
 

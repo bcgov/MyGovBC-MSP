@@ -9,9 +9,9 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Person, Gender } from '../../model/person.model';
+import { MspPerson, Gender } from '../../model/msp-person.model';
 import { UUID } from 'angular2-uuid';
-import { BaseComponent } from '../base.component';
+import { BaseComponent } from '../../../../models/base.component';
 
 @Component({
   selector: 'msp-gender',
@@ -25,7 +25,7 @@ export class MspGenderComponent extends BaseComponent {
   // Expose type to template
   Gender: typeof Gender = Gender;
 
-  @Input('person') person: Person;
+  @Input('person') person: MspPerson;
   @Input() showError: boolean;
 
   @Output() onChange = new EventEmitter<any>();

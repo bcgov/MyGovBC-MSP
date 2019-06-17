@@ -1,0 +1,113 @@
+
+<form #formRef='ngForm' novalidate>
+  <div class="form-group" *ngIf="person.status === StatusInCanada.CitizenAdult"
+        [ngClass]="{'has-error': showError && (person.livedInBCSinceBirth !== true && person.livedInBCSinceBirth !== false)}">
+
+    <common-toggle [(data)]="person.livedInBCSinceBirth" (dataChange)="setLivedInBCSinceBirth($event)" [label]="livedInBCSinceBirth[person.relationship]" ></common-toggle>
+  </div>
+
+  <ng-container *ngIf="person.livedInBCSinceBirth === false">
+    <div class="row">
+      <div class="col-lg-3">
+          <common-date [label]="moveDateToBC" 
+            required=true [(date)]="person.arrivalToBCSimple" 
+            (dateChange)="onChange.emit($event)"></common-date>  
+        <div *ngIf='person.isArrivalToBcBeforeDob'>
+          <div class="text-danger"[innerHtml]="moveDateBeforeBirthError[person.relationship]"></div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <msp-province [provinceLabel]="movedFromProvinceOrCountry"
+          [province]="person.movedFromProvinceOrCountry"
+          (onChange)="person.movedFromProvinceOrCountry = $event"
+          hideStates=true
+          exceptBC=true 
+          [showError]="showError"
+          showCountries=true
+          colSize="col-md-4">
+        </msp-province>
+      </div>
+      <div class="col-lg-4">
+          <label for="healthNumberFromOtherProvince" [innerHtml]="medicalPlanPreviousResidence"></label>
+          <input type="text" class='form-control'   maxlength="50" name="healthNumberFromOtherProvince" [(ngModel)]=person.healthNumberFromOtherProvince>
+        </div>
+    </div>
+    <div class="row form-group" [ngClass]="{'has-error': showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)}">
+      <div class="col-lg-12">
+        
+        <common-toggle [(data)]="person.madePermanentMoveToBC" (dataChange)="change($event)" [label]="permanentMove" ></common-toggle>
+      </div>
+    </div>
+    <h3 class="intro text-danger" *ngIf="!checkEligibility()" class="text-danger" [innerHtml]="notEligibleError" role="alert" aria-live="assertive"></h3>
+  </ng-container>
+
+  <!-- We want to disable the user progressing through the form if they are adding an inelligible dependent. -->
+  <ng-container *ngIf="checkEligibility()">
+    <ng-container *ngIf="person.relationship === Relationship.ChildUnder19 || person.relationship === Relationship.Child19To24">
+      <div class="row form-group" [ngClass]="{'has-error': showError && (person.newlyAdopted === undefined || person.newlyAdopted === null)}">
+        <div class="col-md-4">
+          <common-toggle [(data)]="person.newlyAdopted" (dataChange)="onChange.emit($event)" [label]="newlyAdopted" ></common-toggle>
+        </div>
+
+        <div class="col-md-4 form-inline" *ngIf="person.newlyAdopted">
+            <common-date [label]="adoptedDate" 
+               required=true [(date)]="person.adoptedDate" 
+               (dateChange)="onChange.emit($event)"></common-date> 
+        </div>
+
+      </div>
+    </ng-container>
+
+
+    <div class="row form-group" [ngClass]="{'has-error': showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)}">
+      <div class="col-lg-12">
+        
+        <common-toggle [(data)]="person.declarationForOutsideOver30Days" (dataChange)="onChange.emit($event)" [label]="hasBeenOutsideBC30InYear" ></common-toggle>
+
+        <msp-outof-bc-record *ngIf="person.declarationForOutsideOver30Days" [futureDepartureDate]="false" [futureReturnDate]="true" [minMonthsRange]="12"  [minMonthsRangeErrorMsg]="minMonths"
+          [outofBCRecord]="person.outOfBCRecord" (onDelete)="handleDeleteOutofBCRecord($event)" (onUpdate)="handleOutofBCRecordChange($event)"
+          [showError]="showError">
+        </msp-outof-bc-record>
+      </div>
+    </div>
+
+
+    <div class="row form-group" [ngClass]="{'has-error': showError && (person.plannedAbsence === undefined || person.plannedAbsence === null)}">
+      <div class="col-lg-12">
+          <common-toggle [(data)]="person.plannedAbsence" (dataChange)="onChange.emit($event)" [label]="willBeOutsideBC30InYear" ></common-toggle>
+     </div>
+      <div class="col-lg-12">
+        <msp-outof-bc-record *ngIf="person.plannedAbsence" [futureDepartureDate]="true" [futureReturnDate]="true" [outofBCRecord]="person.planOnBeingOutOfBCRecord" [maxMonthsRange]="6"  [maxMonthsRangeErrorMsg]="maxMonthsSixMonths"
+          (onDelete)="handleDeletePlanOnBeingOutOfBCRecord($event)" (onUpdate)="handleOutofBCRecordChange($event)" [showError]="showError">
+        </msp-outof-bc-record>
+      </div>
+    </div>
+    <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult" [ngClass]="{'has-error': showError && (person.hasBeenReleasedFromArmedForces === undefined || person.hasBeenReleasedFromArmedForces === null)}">
+      <div class="col-lg-12">
+          <common-toggle [(data)]="person.hasBeenReleasedFromArmedForces" (dataChange)="selectInstitution($event)" [label]="releasedFromArmedForcesOrInstitution" ></common-toggle>
+      </div>
+    </div>
+
+    <div class='row' *ngIf="person.hasBeenReleasedFromArmedForces && person.status === StatusInCanada.CitizenAdult">
+      <div class="col-lg-3">
+        <msp-discharge-date [year]="person.dischargeYear" (yearChange)="person.dischargeYear = $event" [month]="person.dischargeMonth"
+          (monthChange)="person.dischargeMonth = $event" [day]="person.dischargeDay" (dayChange)="person.dischargeDay = $event"
+          (onChange)="onChange.emit($event)" [showError]="showError"></msp-discharge-date>
+      </div>
+
+      <div class="col-lg-5 form-group" [ngClass]="{'has-error': !formRef.controls['nameOfInstitute'+person.id]?.valid && (instituteNameRef.touched || showError)}">
+
+        <label [innerHtml]="instituteName"></label>
+        <input type="text" maxlength="25" class='form-control' name="nameOfInstitute{{person.id}}" id="nameOfInstitute{{person.id}}"
+          [(ngModel)]=person.nameOfInstitute (ngModelChange)="change($event)" #instituteNameRef='ngModel' required>
+
+        <div *ngIf='instituteNameRef.touched || showError' role="alert" aria-live="assertive">
+          <div class="text-danger" *ngIf="instituteNameRef.errors?.required" [innerHtml]="instituteNameRequired"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </ng-container>
+
+</form>

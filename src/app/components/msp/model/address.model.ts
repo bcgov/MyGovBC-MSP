@@ -14,25 +14,26 @@ class Address {
   province: string;
 
   // canadian postal code
-  private _postal: string;
+  //private _postal: string;
 
   static PostalCodeBCRegEx = '^[Vv]\\d[ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][ ]?\\d[ABCEGHJ-NPRSTV-Zabceghj-nprstv-z]\\d$';
 
-  // postal accessors
+  /* postal accessors
   get postal(): string {
     return this._postal;
-  }
-  //@Input('postal')
+  }*/
+  /*@Input('postal')
   set postal(value: string) {
     if (!!value){
       this._postal = value.toUpperCase();
     }else {
         this._postal = null;
     }
-  }
+  }*/
 
   // Full english spelling of country
   country: string;
+  postal: string;
 
   get hasValue(): boolean {
     return (this.addressLine1 != null);

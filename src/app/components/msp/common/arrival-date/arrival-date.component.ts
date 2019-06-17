@@ -9,8 +9,10 @@ import {
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import * as moment from 'moment';
-import { BaseComponent } from '../base.component';
-import { SimpleDate } from '../../model/simple-date.interface';
+import { BaseComponent } from '../../../../models/base.component';
+import { SimpleDate } from 'moh-common-lib';
+
+
 
 @Component({
   selector: 'msp-arrival-date',

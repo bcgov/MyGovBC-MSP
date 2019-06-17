@@ -1,0 +1,99 @@
+
+<form #formRef="ngForm" novalidate>
+    <common-page-framework layout="blank">
+    <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
+    <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
+      (onChange) = "onChange($event)"
+      [showError] = "formRef.submitted">
+      </msp-personal-details>
+    <!--<div *ngIf = 'spouse'>
+      <msp-personal-details [person] = 'spouse' [id] = 'spouse.id'
+        (notifySpouseRemoval)="removeSpouse($event)"
+        (onChange) = "onChange($event)"
+        [showError] = "formRef.submitted">
+      </msp-personal-details>
+    </div> 
+    <div *ngIf = 'children.length > 0'>
+      <msp-personal-details *ngFor = "let child of children; let idx = index"
+        [person] = 'child'
+        [id] = 'child.id'
+        (notifyChildRemoval)="removeChild($event,idx)"
+        (onChange) = "onChange($event)"
+        [showError] = "formRef.submitted">
+      </msp-personal-details>
+    </div> -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="msp-app">
+          <div class="button-group">
+
+             <!-- <common-button *ngIf = '!spouse' [label]="lang('./en/index.js').addSpouseButton" 
+                [buttonType]="buttonClass" [disabled] = "!canContinue()"
+                (btnClick)='addSpouse()'>
+              </common-button>
+             
+              
+              <common-button [label]="lang('./en/index.js').addChildUnder19Button" 
+                [buttonType]="buttonClass" [disabled] = "!canContinue()"
+                (btnClick)='addChild(Relationship.ChildUnder19)'>
+              </common-button>
+              
+              <common-button [label]="lang('./en/index.js').addChild19To24Button" 
+                [buttonType]="buttonClass" [disabled] = "!canContinue()"
+                (btnClick)='addChild(Relationship.Child19To24)'>
+              </common-button>  -->
+
+            <!-- <button type="button" class="btn btn-default" (click)= 'addSpouse()'
+              *ngIf = '!spouse'  [disabled] = "!canContinue()">
+              <span class="fa fa-plus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').addSpouseButton"></span>
+            </button>
+            
+            <button type="button" class="btn btn-default" (click) = 'addChild(Relationship.ChildUnder19)'  [disabled] = "!canContinue()">
+              <span class="fa fa-plus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').addChildUnder19Button"></span>
+            </button>
+            
+            <button type="button" class="btn btn-default" (click) = 'addChild(Relationship.Child19To24)'  [disabled] = "!canContinue()">
+                <span class="fa fa-plus" aria-hidden="true"></span>
+                <span [innerHTML]="lang('./en/index.js').addChild19To24Button"></span>
+            </button>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    
+    <div class="row" style="margin-top: 10px;">
+        <p class="intro text-danger" *ngIf="!isStayinginBCAfterstudies()"
+           [innerHtml]="lang('./en/index.js').badAnswerStudies" role="alert" aria-live="assertive">
+        </p>
+   <!--   <div class="col-2">
+        <button
+            class="btn btn-primary" type="submit" [disabled] = "!documentsReady()|| !isStayinginBCAfterstudies() ||checkAnyDependentsIneligible()   "
+            [innerHTML]="lang('./en/index.js').continueButton"></button>
+        
+      </div>
+      <div class="col-md-6 pull-left" *ngIf="formRef.submitted">
+        <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
+        </p>
+      </div>
+      <msp-cancel class='col'></msp-cancel>-->
+   
+    <div class="col-md-6 pull-left" *ngIf="formRef.submitted">
+        <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
+        </p>
+    </div>
+  </div>
+</common-page-framework>
+    <!--<div class="position: inherit;"> -->
+    <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
+        [canContinue]="!(!isStayinginBCAfterstudies() ||checkAnyDependentsIneligible() || !isAllValid())"
+        (btnClick)="continue()">
+    </common-form-action-bar>
+    <!-- </div> --> 
+ 
+</form>
