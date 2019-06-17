@@ -4,7 +4,7 @@
   <!-- </ng-select> -->
   <select class="custom-select" [id]="id" (change)="changed($event.srcElement.options.selectedIndex)">
     <ng-container *ngIf="items$ | async as items">
-
+      <option selected value="null" disabled="true">--- choose an option ---</option>
       <option *ngFor="let item of items" [selected]="selected === item">{{ item }}</option>
     </ng-container>
   </select>
