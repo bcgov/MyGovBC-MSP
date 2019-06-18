@@ -4,7 +4,7 @@
     <form #formRef='ngForm' novalidate>
       <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]" class="row border-bottom"></h2>
 
-      <msp-citizen-status class="row" id="primary" [label]="statusLabel()" [items]="langStatus"
+      <msp-citizen-status class="row" id="primary" [label]="statusLabel()" [items]="langStatus('./en/index.js')"
         (change)="setStatus($event, person)" [selected]="person.status">
       </msp-citizen-status>
       <common-radio class="row" *ngIf="person.status != null" [radioLabels]='activitiesTable' [label]=""
@@ -16,7 +16,7 @@
         <common-page-section layout="tips">
 
           <common-file-uploader class="row" [images]="person.documents.images" (imagesChange)="deleteDocument($event)"
-            id="uploader" [required]="true" instructionText="Please upload required ID documents">
+            id="uploader" [required]="true" [instructionText]="documentUploadLabel[this.person.relationship]">
           </common-file-uploader>
           <aside class="mt-0">
             <div [innerHtml]="lang('./en/index.js').documentInstructionsNote" class="mt-0"></div>
@@ -25,28 +25,28 @@
       </ng-container>
 
 
-      <div *ngIf="hasValidCurrentActivity && person.documents.images.length > 0">
+      <div *ngIf="hasValidCurrentActivity">
         <h2 class="row" [innerHtml]="lang('./en/index.js').applicationPersonalInfo[person.relationship]"></h2>
         <p class="row border-bottom" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
         <div *ngIf="person.documents.images.length > 0">
-          <msp-full-name #name [data]="person" (dataChange)="onChange.emit($event)">
-          </msp-full-name>
+          <common-name #name [person]="person" (onChange)="onChange.emit($event)" [showError]="showError">
+          </common-name>
 
           <msp-birthdate #birthDate [person]="person" class="row" (onChange)="onChange.emit($event)"
             [showError]="showError">
           </msp-birthdate>
 
 
-          <common-radio class="row" [radioLabels]='genderLabels' (statusChange)="setGender($event)"
-            [(ngModel)]="person.gender" name="gender" label="Gender">
+          <common-radio class="row" [radioLabels]='genderLabels' (statusChange)="setGender($event)" label="Gender">
           </common-radio>
           <div *ngIf="person.status === StatusInCanada.CitizenAdult &&
             person.currentActivity === Activities.LivingInBCWithoutMSP">
-            <!-- <div class="form-group" role="dialog" [attr.aria-labelledby]="'livedInBCSinceBirth' + objectId"> -->
+            <div class="form-group" role="dialog" [attr.aria-labelledby]="'livedInBCSinceBirth' + objectId">
 
-            <common-toggle label="Have you moved to BC permanently?" [(ngModel)]="person.livedInBCSinceBirth">
-            </common-toggle>
-            <!-- </div> -->
+              <common-toggle [data]="person.livedInBCSinceBirth" (dataChange)="setLivedInBCSinceBirth($event)"
+                label="Have you moved to BC permanently?">
+              </common-toggle>
+            </div>
           </div>
 
           <div *ngIf="person.documents.images.length > 0">
@@ -67,12 +67,11 @@
             <div role="dialog" [attr.aria-labelledby]="'movedPermLabel' + objectId" class="row">
               <div class="form-group"
                 [ngClass]="{'has-error': showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)}">
-                <!-- <label [attr.id]="'movedPermLabel'"
+                <label [attr.id]="'movedPermLabel'"
                   [innerHtml]="lang('./en/index.js').haveYouMovedToBCPermanently[this.person.relationship]"
-                  class="control-label"></label> -->
+                  class="control-label"></label>
 
-                <common-toggle [label]="lang('./en/index.js').haveYouMovedToBCPermanently[this.person.relationship]"
-                  [data]="person.madePermanentMoveToBC" (dataChange)="setMovedToBCPermanently($event)">
+                <common-toggle [data]="person.madePermanentMoveToBC" (dataChange)="setMovedToBCPermanently($event)">
                 </common-toggle>
                 <div
                   *ngIf='showError && (person.madePermanentMoveToBC === undefined || person.madePermanentMoveToBC === null)'>
@@ -91,7 +90,7 @@
           <div *ngIf="!(person.status === StatusInCanada.CitizenAdult &&
                 person.currentActivity === Activities.LivingInBCWithoutMSP &&
                 person.livedInBCSinceBirth === true)">
-            <msp-arrival-date class="row" #arrivalDateBC arrivalLabel="Arrival date in BC"
+            <msp-arrival-date class="row" #arrivalDateBC [arrivalLabel]="arrivalDateLabel"
               [year]="person.arrivalToBCYear" (yearChange)="person.arrivalToBCYear = $event"
               [month]="person.arrivalToBCMonth" (monthChange)="person.arrivalToBCMonth = $event"
               [day]="person.arrivalToBCDay" (dayChange)="person.arrivalToBCDay = $event"
@@ -140,8 +139,7 @@
                 role="dialog" [attr.aria-labelledby]="'outsideBCLabel' + objectId">
 
                 <common-toggle [label]="lang('./en/index.js').beenOutsideBCForMoreThan30DaysInTotalInThePast12Months"
-                  [data]="person.declarationForOutsideOver30Days" (dataChange)="setBeenOutsideForOver30Days($evt)">
-                </common-toggle>
+                  id="outsideBCLabel{{objectId}}" (dataChange)="setBeenOutsideForOver30Days($event)"></common-toggle>
                 <div
                   *ngIf='showError && (person.declarationForOutsideOver30Days === undefined || person.declarationForOutsideOver30Days === null)'
                   role="alert" aria-live="assertive">
@@ -166,16 +164,16 @@
                 [ngClass]="{'has-error': (person.hasPreviousBCPhn === undefined || person.hasPreviousBCPhn === null) && showError}"
                 role="dialog" [attr.aria-labelledby]="'previousBCHealthNumber' + objectId">
 
-                <common-toggle label="Do you have a previous BC Health Number?" [data]="person.hasPreviousBCPhn"
+                <common-toggle label="Do you have a previous BC Health Number?"
                   (dataChange)="setHasPreviousPhn($event)"></common-toggle>
               </div>
             </div>
           </div>
           <div class="row">
             <div *ngIf="person.hasPreviousBCPhn === true">
-              <common-phn #phn [required]="false" [(ngModel)]="person.previous_phn"
-                [label]="lang('./en/index.js').phnLabel[this.person.relationship]" placeholder="1111 111 111"
-                (ngModelChange)="person.previous_phn = $event"></common-phn>
+              <common-phn #phn [phn]="person.previous_phn" (phnChange)="person.previous_phn = $event" [required]="false"
+                [bcPhn]="true" [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"
+                (onChange)="onChange.emit($event)" [showError]="showError"></common-phn>
             </div>
           </div>
 
@@ -229,8 +227,7 @@
               </button>
 
             </div> -->
-            <common-toggle label="Are you a full-time student in B.C.?" [data]="person.fullTimeStudent"
-              (dataChange)="setFullTimeStudent($event)">
+            <common-toggle label="Are you a full-time student in B.C.?" (dataChange)="setFullTimeStudent($event)">
             </common-toggle>
             <div *ngIf='showError && (person.fullTimeStudent === undefined || person.fullTimeStudent === null)'
               role="alert" aria-live="assertive">
@@ -296,8 +293,7 @@
                   (click)="setStayInBCAfterStudy(answer.value)" type="button" class="btn btn-default">{{answer.label}}
                 </button>
               </div> -->
-              <common-toggle label="Will you reside in B.C. upon completion of your studies?"
-                [(ngModel)]="person.inBCAfterStudies" name="inBCAfterStudies">
+              <common-toggle [label]="stayInBCAfterStudiesLabel()" (dataChange)="setStayInBCAfterStudy($event)">
               </common-toggle>
 
               <div *ngIf="(person.inBCafterStudies===undefined || person.inBCafterStudies===null) && showError"

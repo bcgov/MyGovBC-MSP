@@ -6,7 +6,7 @@
       <label class="visuallyhidden mr-2" for="month{{objectId}}">{{departureLabel}}
         {{lang('./en/index.js').monthLabel}}</label>
     </div>
-    <br />
+    <!-- <br /> -->
     <select class="form-control monthSelect mr-2" [ngModel]="month"
       (ngModelChange)="month=$event;monthChange.emit($event)" id="month{{objectId}}" name="month" #monthRef="ngModel"
       required>

@@ -16,28 +16,42 @@ import {
 } from '@angular/core';
 import { state, trigger, style } from '@angular/animations';
 import { NgForm } from '@angular/forms';
-import { MspPerson, Gender } from '../../../../components/msp/model/msp-person.model';
+import {
+  MspPerson,
+  Gender
+} from '../../../../components/msp/model/msp-person.model';
 import { OutofBCRecord } from '../../../../models/outof-bc-record.model';
 import {
-  StatusRules, ActivitiesRules, StatusInCanada, Activities,
-  DocumentRules, Documents, Relationship
+  StatusRules,
+  ActivitiesRules,
+  StatusInCanada,
+  Activities,
+  DocumentRules,
+  Documents,
+  Relationship
 } from '../../../../models/status-activities-documents';
 import { MspImage } from '../../../../models/msp-image';
 import * as _ from 'lodash';
-import {MspIdReqModalComponent} from '../id-req-modal/id-req-modal.component';
-import {MspImageErrorModalComponent} from '../image-error-modal/image-error-modal.component';
-import {MspBirthDateComponent} from '../birthdate/birthdate.component';
-import {MspGenderComponent} from '../../../../components/msp/common/gender/gender.component';
-import {MspSchoolDateComponent} from '../../../../components/msp/common/schoolDate/school-date.component';
-import {HealthNumberComponent} from '../../../../components/msp/common/health-number/health-number.component';
-import {MspDischargeDateComponent} from '../../../../components/msp/common/discharge-date/discharge-date.component';
-import {MspAddressComponent} from '../address/address.component';
 
-import {MspArrivalDateComponent} from '../../../../components/msp/common/arrival-date/arrival-date.component';
-import {MspOutofBCRecordComponent} from '../../../../components/msp/common/outof-bc/outof-bc.component';
-import {BaseComponent} from '../../../../models/base.component';
+import { MspIdReqModalComponent } from '../id-req-modal/id-req-modal.component';
+import { MspImageErrorModalComponent } from '../image-error-modal/image-error-modal.component';
+import { MspBirthDateComponent } from '../birthdate/birthdate.component';
+import { MspGenderComponent } from '../../../../components/msp/common/gender/gender.component';
+import { MspSchoolDateComponent } from '../../../../components/msp/common/schoolDate/school-date.component';
+import { HealthNumberComponent } from '../../../../components/msp/common/health-number/health-number.component';
+import { MspDischargeDateComponent } from '../../../../components/msp/common/discharge-date/discharge-date.component';
+import { MspAddressComponent } from '../address/address.component';
+
+import { MspArrivalDateComponent } from '../../../../components/msp/common/arrival-date/arrival-date.component';
+import { MspOutofBCRecordComponent } from '../../../../components/msp/common/outof-bc/outof-bc.component';
+import { BaseComponent } from '../../../../models/base.component';
 import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
-import { CANADA, Address, ProvinceList, BRITISH_COLUMBIA } from 'moh-common-lib';
+import {
+  CANADA,
+  Address,
+  ProvinceList,
+  BRITISH_COLUMBIA
+} from 'moh-common-lib';
 import { MspAddressConstants } from '../../../../models/msp-address.constants';
 import { MspDocumentConstants } from '../../../../models/msp-document.constants';
 import { legalStatus } from '../../../../models/msp.contants';
@@ -82,18 +96,17 @@ export class PersonalDetailsComponent extends BaseComponent {
    */
   movedFromCountryLabel = 'Which country are you moving from?';
   movedFromProvinceLabel = [
-   'Which province are you moving from?',
-   'Which province are they moving from?',
-   'Which province are they moving from?',
-   'Which province are they moving from?'
+    'Which province are you moving from?',
+    'Which province are they moving from?',
+    'Which province are they moving from?',
+    'Which province are they moving from?'
   ];
-
 
   documentUploadLabel = [
     'Upload your documents',
-    ' Upload your spouse\'s documents',
-    'Upload your child\'s documents',
-    '<\Upload your child\'s documents'
+    " Upload your spouse's documents",
+    "Upload your child's documents",
+    "<Upload your child's documents"
   ];
 
   langDocuments = MspDocumentConstants.documentList;
@@ -123,7 +136,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   @ViewChild('arrivalDateBC') arrivalDateBC: MspArrivalDateComponent;
   @ViewChild('arrivalDateCanada') arrivalDateCanada: MspArrivalDateComponent;
   @ViewChild('healthNumber') healthNumber: HealthNumberComponent;
- // @ViewChild('phn') phn: PhnComponent;
+  // @ViewChild('phn') phn: PhnComponent;
   @ViewChild('armedForcedQuestion') armedForcedQuestion: HTMLElement;
   @ViewChild('dischargeDate') dischargeDate: MspDischargeDateComponent;
   @ViewChild('schoolQuestion') schoolQuestion: HTMLElement;
@@ -136,8 +149,12 @@ export class PersonalDetailsComponent extends BaseComponent {
   @Input() person: MspPerson;
   @Input() id: string;
   @Input() showError: boolean;
-  @Output() notifyChildRemoval: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
-  @Output() notifySpouseRemoval: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
+  @Output() notifyChildRemoval: EventEmitter<MspPerson> = new EventEmitter<
+    MspPerson
+  >();
+  @Output() notifySpouseRemoval: EventEmitter<MspPerson> = new EventEmitter<
+    MspPerson
+  >();
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 
   shrinkOut: string;
@@ -182,6 +199,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   setActivity(value: Activities) {
+    console.log("I'm defined you nit", value);
     if (
       this.showServicesCardModal &&
       this.person.bcServiceCardShowStatus &&
@@ -301,6 +319,7 @@ export class PersonalDetailsComponent extends BaseComponent {
     }
     this.onChange.emit(event);
     this.emitIsFormValid();
+    console.log('event', event);
   }
   setStayInBCAfterStudy(event: boolean) {
     this.person.inBCafterStudies = event;
@@ -485,13 +504,13 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.person.gender = evt;
   }
 
-  isCanada( addr: Address): boolean {
+  isCanada(addr: Address): boolean {
     return addr && CANADA === addr.country;
   }
 
   // Province list
-  provList( exceptBC: boolean = false ): ProvinceList[] {
-    console.log( 'provlist: ',  MspAddressConstants.provList( exceptBC ));
-    return MspAddressConstants.provList( exceptBC );
+  provList(exceptBC: boolean = false): ProvinceList[] {
+    console.log('provlist: ', MspAddressConstants.provList(exceptBC));
+    return MspAddressConstants.provList(exceptBC);
   }
 }

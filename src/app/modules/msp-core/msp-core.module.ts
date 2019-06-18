@@ -49,6 +49,8 @@ import { CommonIncomeInputtextComponent } from './components/common-income-input
 import { CommonButtonComponent } from './components/common-button/common-button.component';
 import { MspLoggerDirective } from './components/logging/msp-logger.directive';
 import { HttpClientModule } from '@angular/common/http';
+import { CountryComponent } from './components/country/country.component';
+import { ProvinceComponent } from './components/province/province.component';
 
 
 const componentList = [
@@ -117,7 +119,11 @@ const templistCore = [
   declarations: [
     componentList,
 
-    templistCore
+    templistCore,
+
+    CountryComponent,
+
+    ProvinceComponent
   ],
   exports: [
     componentList,
@@ -125,7 +131,11 @@ const templistCore = [
     CaptchaModule,
 
     // TODO: Be reviewed
-    templistCore
+    templistCore,
+
+    CountryComponent,
+
+    ProvinceComponent
   ]
 })
 export class MspCoreModule { }
