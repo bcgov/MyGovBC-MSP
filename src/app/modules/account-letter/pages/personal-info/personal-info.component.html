@@ -49,13 +49,11 @@
                 <b>{{postalCode}}</b>
                 <common-postal-code name="residental_postal_code" 
                                     [label]="lang('./en/index.js').postalCodeLabel" 
-                                    [displayMask]="true"
                                     [ngModel]="postalCode" 
-                                    (ngModelChange)="saveApplication($event);"
-                                    placeholder="A1A 1A1">
+                                    (ngModelChange)="saveApplication($event);">
                 </common-postal-code>  
                   
-                <label for="residentialAddressPostalCode{{objectId}}"
+              <!--  <label for="residentialAddressPostalCode{{objectId}}"
                     [innerHtml]="lang('./en/index.js').postalCodeLabel"></label>
                 <input [(ngModel)]='accountLetterApplication.postalCode' type="text" class="form-control to-upper"
                     id="residentialAddressPostalCode{{objectId}}" name="residentialAddressPostalCode"
@@ -68,7 +66,7 @@
                               [innerHtml]="lang('./en/index.js').postalCodeErrorIsRequired"></div>
                          <div class="text-danger" *ngIf="residentialAddressPostalCodeRef.errors?.pattern"
                               [innerHtml]="lang('./en/index.js').postalCodeErrorPattern"></div>
-                </div>
+                </div> -->
                  
             </div>
 

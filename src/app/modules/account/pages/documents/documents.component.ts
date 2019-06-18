@@ -11,7 +11,7 @@ import {MspImage} from '../../../../models/msp-image';
 import {MspImageErrorModalComponent} from '../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';
 import {MspIdReqModalComponent} from '../../../../modules/msp-core/components/id-req-modal/id-req-modal.component';
 import { MspAccountApp } from '../../models/account.model';
-import { DocumentGroup } from '../../../../components/msp/model/account-documents';
+import { DocumentGroup, LangAccountDocuments } from '../../../../models/account-documents';
 import { AccountDocumentHelperService } from '../../../benefit/services/account-document-helper.service';
 import { Documents, CancellationReasonsForSpouse } from '../../../../models/status-activities-documents';
 
@@ -28,13 +28,15 @@ export class AccountDocumentsComponent extends BaseComponent {
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
     @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
 
-    langAccountDocuments = require('../../../../components/msp/common/account-documents/i18n');
     langStatus = require('../../../../components/msp/common/status/i18n');
     langActivities = require('../../../../components/msp/common/activities/i18n');
     documentsList: DocumentGroup[] ;
+
+    langAccountDocuments = LangAccountDocuments;
+
     constructor(private dataService: MspDataService,
                 private _router: Router,
-                private _processService: ProcessService,
+                //private _processService: ProcessService,
                 private accountDocumentHelperService: AccountDocumentHelperService ,
                 private cd: ChangeDetectorRef, private localStorageService: LocalStorageService) {
 
@@ -44,8 +46,8 @@ export class AccountDocumentsComponent extends BaseComponent {
 
     ngOnInit() {
 
-        AccountDocumentsComponent.ProcessStepNum = this._processService.getStepNumber(ProcessUrls.ACCOUNT_FILE_UPLOADER_URL);
-        this.initProcessMembers(AccountDocumentsComponent.ProcessStepNum, this._processService);
+       // AccountDocumentsComponent.ProcessStepNum = this._processService.getStepNumber(ProcessUrls.ACCOUNT_FILE_UPLOADER_URL);
+       // this.initProcessMembers(AccountDocumentsComponent.ProcessStepNum, this._processService);
         this.documentsList = this.accountDocumentHelperService.getApplicableDocuments() ;
     }
 
@@ -157,8 +159,9 @@ export class AccountDocumentsComponent extends BaseComponent {
     }
 
     continue(): void {
-        this._processService.setStep(AccountDocumentsComponent.ProcessStepNum, true);
-        this._router.navigate([this._processService.getNextStep(AccountDocumentsComponent.ProcessStepNum, )]);
+        //this._processService.setStep(AccountDocumentsComponent.ProcessStepNum, true);
+       // this._router.navigate([this._processService.getNextStep(AccountDocumentsComponent.ProcessStepNum, )]);
+        this._router.navigate(['/account/review']);
     }
 
 }

@@ -16,7 +16,6 @@ import { AccountSendingComponent } from './pages/sending/sending.component';
 import { AccountConfirmationComponent } from './pages/confirmation/confirmation.component';
 import { RemoveDependentComponent } from './pages/remove-dependents/remove-dependents.component';
 import { AddNewDependentBeneficiaryComponent } from './pages/add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
-import { MspAccordionComponent } from './components/accordion/accordion.component';
 import { AddDependentComponent } from './pages/add-dependents/add-dependents.component';
 
 @NgModule({
@@ -25,8 +24,7 @@ import { AddDependentComponent } from './pages/add-dependents/add-dependents.com
     AccountRoutingModule,
     FormsModule,
     MspCoreModule,
-    ModalModule,
-    AccordionModule
+    ModalModule
   ],
   declarations: [
     AccountContainerComponent,
@@ -40,9 +38,7 @@ import { AddDependentComponent } from './pages/add-dependents/add-dependents.com
     AccountConfirmationComponent,
     AddDependentComponent,
     RemoveDependentComponent,
-    AddNewDependentBeneficiaryComponent,
-    MspAccordionComponent,
-    
+    AddNewDependentBeneficiaryComponent
   ]
 })
 export class AccountModule { }

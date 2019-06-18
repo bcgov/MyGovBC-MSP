@@ -36,7 +36,7 @@ describe('AccountDependentChangeComponent', () => {
         };
 
         TestBed.configureTestingModule({
-            declarations: [AccountDependentChangeComponent, CaptchaComponent, AddDependentComponent, RemoveDependentComponent, AccountPersonalDetailsComponent, MspLoggerDirective, MspCancelComponent, MspAddressComponent, MspToggleComponent, AddNewDependentBeneficiaryComponent, MspStatusInCanadaRadioComponent, MspGenderComponent, MspBirthDateComponent, MspPhnComponent, MspPhoneComponent, MspProvinceComponent, MspCountryComponent, CalendarYearValidator, CalendarMonthValidator, CalendarDayValidator, CalendarYearFormatter, MspDischargeDateComponent, MspOutofBCRecordComponent, MspReturnDateComponent, MspDepartureDateComponent, ServicesCardDisclaimerModalComponent],
+            declarations: [AccountDependentChangeComponent, CaptchaComponent, AddDependentComponent, RemoveDependentComponent, AccountPersonalDetailsComponent, MspLoggerDirective, MspCancelComponent, MspAddressComponent, MspToggleComponent, AddNewDependentBeneficiaryComponent, MspStatusInCanadaRadioComponent, MspGenderComponent, MspBirthDateComponent, MspPhnComponent, MspPhoneComponent, MspCountryComponent, CalendarYearValidator, CalendarMonthValidator, CalendarDayValidator, CalendarYearFormatter, MspDischargeDateComponent, MspOutofBCRecordComponent, MspReturnDateComponent, MspDepartureDateComponent, ServicesCardDisclaimerModalComponent],
             providers: [
                 MspDataService,
                 { provide: ProcessService, useValue: processServiceStub },

@@ -59,7 +59,7 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     }
 
     onSubmit(form: NgForm){
-        this._router.navigate(['/msp/benefit/documents']);
+        this._router.navigate(['/benefit/documents']);
     }
 
     isValid(): boolean {

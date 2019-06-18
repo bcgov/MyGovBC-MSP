@@ -4,7 +4,7 @@
     <form #formRef='ngForm' novalidate>
       <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]" class="row border-bottom"></h2>
 
-      <msp-citizen-status class="row" id="primary" [label]="statusLabel()" [items]="langStatus('./en/index.js')"
+      <msp-citizen-status class="row" id="primary" [label]="statusLabel()" [items]="langStatus"
         (change)="setStatus($event, person)" [selected]="person.status">
       </msp-citizen-status>
       <common-radio class="row" *ngIf="person.status != null" [radioLabels]='activitiesTable' [label]=""

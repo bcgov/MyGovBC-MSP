@@ -24,7 +24,6 @@ import { MspPhoneComponent } from '../../../../components/msp/common/phone/phone
 import { MspDischargeDateComponent } from '../../../../components/msp/common/discharge-date/discharge-date.component';
 import { MspSchoolDateComponent } from '../../../../components/msp/common/schoolDate/school-date.component';
 import { MspAddressComponent } from '../../../msp-core/components/address/address.component';
-import { MspProvinceComponent } from '../../../../components/msp/common/province/province.component';
 import { MspArrivalDateComponent } from '../../../../components/msp/common/arrival-date/arrival-date.component';
 import { MspOutofBCRecordComponent } from '../../../../components/msp/common/outof-bc/outof-bc.component';
 import { MspCountryComponent } from '../../../../components/msp/common/country/country.component';
@@ -43,7 +42,7 @@ describe('AddDependentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AddDependentComponent, MspToggleComponent, MspStatusInCanadaRadioComponent, MspDateComponent, AccountPersonalDetailsComponent, CalendarYearValidator, CalendarMonthValidator, CalendarDayValidator, CalendarYearFormatter, AddNewDependentBeneficiaryComponent, MspGenderComponent, MspBirthDateComponent, MspPhnComponent, MspPhoneComponent, MspDischargeDateComponent, MspSchoolDateComponent, MspAddressComponent, MspProvinceComponent, MspArrivalDateComponent, MspOutofBCRecordComponent, Mod11CheckValidator, MspCountryComponent, MspDepartureDateComponent, MspReturnDateComponent, ServicesCardDisclaimerModalComponent],
+      declarations: [AddDependentComponent, MspToggleComponent, MspStatusInCanadaRadioComponent, MspDateComponent, AccountPersonalDetailsComponent, CalendarYearValidator, CalendarMonthValidator, CalendarDayValidator, CalendarYearFormatter, AddNewDependentBeneficiaryComponent, MspGenderComponent, MspBirthDateComponent, MspPhnComponent, MspPhoneComponent, MspDischargeDateComponent, MspSchoolDateComponent, MspAddressComponent, MspArrivalDateComponent, MspOutofBCRecordComponent, Mod11CheckValidator, MspCountryComponent, MspDepartureDateComponent, MspReturnDateComponent, ServicesCardDisclaimerModalComponent],
       imports: [ TextMaskModule,
         FormsModule,
         TypeaheadModule,

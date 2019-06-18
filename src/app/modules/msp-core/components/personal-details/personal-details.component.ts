@@ -32,6 +32,7 @@ import {
 } from '../../../../models/status-activities-documents';
 import { MspImage } from '../../../../models/msp-image';
 import * as _ from 'lodash';
+
 import { MspIdReqModalComponent } from '../id-req-modal/id-req-modal.component';
 import { MspImageErrorModalComponent } from '../image-error-modal/image-error-modal.component';
 import { MspBirthDateComponent } from '../birthdate/birthdate.component';
@@ -43,10 +44,17 @@ import { MspAddressComponent } from '../address/address.component';
 
 import { MspArrivalDateComponent } from '../../../../components/msp/common/arrival-date/arrival-date.component';
 import { MspOutofBCRecordComponent } from '../../../../components/msp/common/outof-bc/outof-bc.component';
-import { MspProvinceComponent } from '../../../../components/msp/common/province/province.component';
 import { BaseComponent } from '../../../../models/base.component';
-import { MspCountryComponent } from '../../../../components/msp/common/country/country.component';
 import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
+import {
+  CANADA,
+  Address,
+  ProvinceList,
+  BRITISH_COLUMBIA
+} from 'moh-common-lib';
+import { MspAddressConstants } from '../../../../models/msp-address.constants';
+import { MspDocumentConstants } from '../../../../models/msp-document.constants';
+import { legalStatus } from '../../../../models/msp.contants';
 
 @Component({
   selector: 'msp-personal-details',
@@ -80,11 +88,32 @@ import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaime
   ]
 })
 export class PersonalDetailsComponent extends BaseComponent {
+  /**
+   * Constant values for this component
+   * TODO: Determine if any of these constants are common to other components
+   *
+   * NOTE: Address information should be a separate component as its elements are repeated on this page
+   */
+  movedFromCountryLabel = 'Which country are you moving from?';
+  movedFromProvinceLabel = [
+    'Which province are you moving from?',
+    'Which province are they moving from?',
+    'Which province are they moving from?',
+    'Which province are they moving from?'
+  ];
+
+  documentUploadLabel = [
+    'Upload your documents',
+    " Upload your spouse's documents",
+    "Upload your child's documents",
+    "<Upload your child's documents"
+  ];
+
+  langDocuments = MspDocumentConstants.documentList;
+  langStatus = legalStatus;
+
   lang = require('./i18n');
-  // langStatus = require('../../../common/status/i18n');
-  langStatus = require('../../../../components/msp/common/status/i18n');
   langActivities = require('../../../../components/msp/common/activities/i18n');
-  langDocuments = require('../../../../components/msp/common/documents/i18n');
   genderLabels = [
     { label: 'Female', value: 'Female' },
     { label: 'Male', value: 'Male' }
@@ -104,9 +133,6 @@ export class PersonalDetailsComponent extends BaseComponent {
   @ViewChild('outOfBCRecord') outOfBCRecord: MspOutofBCRecordComponent;
   @ViewChild('gender') gender: MspGenderComponent;
   @ViewChild('birthDate') birthdate: MspBirthDateComponent;
-  // @ViewChild('name') name: MspFullNameComponent;
-  @ViewChild('country') country: MspCountryComponent;
-  @ViewChild('province') province: MspProvinceComponent;
   @ViewChild('arrivalDateBC') arrivalDateBC: MspArrivalDateComponent;
   @ViewChild('arrivalDateCanada') arrivalDateCanada: MspArrivalDateComponent;
   @ViewChild('healthNumber') healthNumber: HealthNumberComponent;
@@ -269,11 +295,9 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   get arrivalDateLabel(): string {
     if (this.person.currentActivity === Activities.LivingInBCWithoutMSP) {
-      // return this.lang('./en/index.js').arrivalDateToBCLabelForReturning;
-      return 'arrivalDateToBCLabelForReturning';
+      return 'Most recent move to B.C.';
     }
-    // return this.lang('./en/index.js').arrivalDateToBCLabel;
-    return 'arrivalDateToBCLabel';
+    return 'Arrival date in B.C.';
   }
 
   provinceUpdate(evt: string) {
@@ -478,5 +502,15 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
   setGender(evt: Gender) {
     this.person.gender = evt;
+  }
+
+  isCanada(addr: Address): boolean {
+    return addr && CANADA === addr.country;
+  }
+
+  // Province list
+  provList(exceptBC: boolean = false): ProvinceList[] {
+    console.log('provlist: ', MspAddressConstants.provList(exceptBC));
+    return MspAddressConstants.provList(exceptBC);
   }
 }

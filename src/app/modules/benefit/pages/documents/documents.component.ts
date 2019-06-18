@@ -122,7 +122,7 @@ export class BenefitDocumentsComponent  implements AfterViewInit, DoCheck {
 
     continue(): void {
         this._processService.setStep(BenefitDocumentsComponent.ProcessStepNum, true);
-        this._router.navigate(['/msp/benefit/review']);
+        this._router.navigate(['/benefit/review']);
     }
 
 }

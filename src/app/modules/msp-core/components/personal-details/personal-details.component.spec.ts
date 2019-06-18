@@ -14,7 +14,6 @@ import {MspBirthDateComponent} from '../birthdate/birthdate.component';
 import {MspSchoolDateComponent} from '../../../../components/msp/common/schoolDate/school-date.component';
 import {MspAddressComponent} from '../address/address.component';
 import { TypeaheadModule } from 'ngx-bootstrap';
-import {ThumbnailComponent} from '../../../../components/msp/common/thumbnail/thumbnail.component';
 import {ModalModule, AccordionModule} from 'ngx-bootstrap';
 import {HealthNumberComponent} from '../../../../components/msp/common/health-number/health-number.component';
 import {MspCountryComponent} from '../../../../components/msp/common/country/country.component';
@@ -26,7 +25,7 @@ import {CalendarYearFormatter} from '../../../../components/msp/common/calendar/
 import {CalendarYearValidator} from '../../../../components/msp/common/calendar/calendar-year.validator';
 import {CalendarDayValidator} from '../../../../components/msp/common/calendar/calendar-day.validator';
 import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
-import { FileUploaderComponent } from 'moh-common-lib';
+import { FileUploaderComponent, ThumbnailComponent } from 'moh-common-lib';
 
 describe('PersonalDetailsComponent', () => {
 

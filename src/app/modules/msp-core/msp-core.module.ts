@@ -22,8 +22,6 @@ import { CalendarYearValidator } from '../../components/msp/common/calendar/cale
 import { CalendarDayValidator } from '../../components/msp/common/calendar/calendar-day.validator';
 import { CalendarMonthValidator } from '../../components/msp/common/calendar/calendar-month.validator';
 import { MspAddressComponent } from './components/address/address.component';
-import { MspProvinceComponent } from '../../components/msp/common/province/province.component';
-import { MspCountryComponent } from '../../components/msp/common/country/country.component';
 import { MspPhoneComponent } from '../../components/msp/common/phone/phone.component';
 import { MspArrivalDateComponent } from '../../components/msp/common/arrival-date/arrival-date.component';
 import { MspDischargeDateComponent } from '../../components/msp/common/discharge-date/discharge-date.component';
@@ -37,7 +35,6 @@ import { MspOutofBCRecordComponent } from '../../components/msp/common/outof-bc/
 import { MspConsentModalComponent } from './components/consent-modal/consent-modal.component';
 import { MspCancelComponent } from '../../components/msp/common/cancel/cancel.component';
 import { MspToggleComponent } from '../../components/msp/common/toggle/toggle.component';
-import { MspThumbnailComponent } from '../../components/msp/common/thumbnail/thumbnail.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ModalModule, AccordionModule, TypeaheadModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
@@ -51,6 +48,9 @@ import { CommonButtonGroupComponent } from './components/common-button-group/com
 import { CommonIncomeInputtextComponent } from './components/common-income-inputtext/common-income-inputtext.component';
 import { CommonButtonComponent } from './components/common-button/common-button.component';
 import { MspLoggerDirective } from './components/logging/msp-logger.directive';
+import { HttpClientModule } from '@angular/common/http';
+import { CountryComponent } from './components/country/country.component';
+import { ProvinceComponent } from './components/province/province.component';
 
 
 const componentList = [
@@ -84,8 +84,6 @@ const templistCore = [
   CalendarDayValidator,
   CalendarMonthValidator,
   MspAddressComponent,
-  MspProvinceComponent,
-  MspCountryComponent,
   MspPhoneComponent,
   MspArrivalDateComponent,
   MspDischargeDateComponent,
@@ -94,7 +92,6 @@ const templistCore = [
   MspSchoolDateComponent,
   MspGenderComponent,
   MspProgressBarComponent,
-  MspThumbnailComponent,
   TransmissionErrorView,
   MspOutofBCRecordComponent,
   MspConsentModalComponent,
@@ -117,18 +114,28 @@ const templistCore = [
     RouterModule,
     TypeaheadModule.forRoot(),
     CaptchaModule,
+    HttpClientModule
   ],
   declarations: [
     componentList,
 
-    templistCore
+    templistCore,
+
+    CountryComponent,
+
+    ProvinceComponent
   ],
   exports: [
     componentList,
     SharedCoreModule,
     CaptchaModule,
 
-    templistCore
+    // TODO: Be reviewed
+    templistCore,
+
+    CountryComponent,
+
+    ProvinceComponent
   ]
 })
 export class MspCoreModule { }

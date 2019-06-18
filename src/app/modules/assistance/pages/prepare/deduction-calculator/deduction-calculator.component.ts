@@ -236,7 +236,7 @@ export class DeductionCalculatorComponent implements DoCheck {
   navigateToPersonalInfo() {
     const taxYearSpecified = this.application.taxtYearsProvided;
     if (taxYearSpecified) {
-      this._router.navigate(['/msp/assistance/personal-info']);
+      this._router.navigate(['/enrolment/personal-info']);
     } else {
       this.taxYearInfoMissing.emit(true);
     }

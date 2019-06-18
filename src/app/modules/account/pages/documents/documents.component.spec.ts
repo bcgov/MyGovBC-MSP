@@ -1,19 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountDocumentsComponent } from './documents.component';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
+import { LocalStorageModule } from 'angular-2-local-storage';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ProcessService } from '../../../../services/process.service';
 import { async } from '@angular/core/testing';
-import { AccountDocumentHelperService } from '../../service/account-document-helper.service';
-import {DocumentGroup} from '../../model/account-documents';
-import {
-    StatusRules, ActivitiesRules, StatusInCanada, Activities,
-    DocumentRules, Documents, Relationship , CancellationReasonsForSpouse
-} from '../../model/status-activities-documents';
+import { AccountDocumentHelperService } from '../../../benefit/services/account-document-helper.service';
 
 describe('AccountDocumentsComponent', () => {
     let fixture: ComponentFixture<AccountDocumentsComponent>;

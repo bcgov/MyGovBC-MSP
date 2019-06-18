@@ -228,7 +228,7 @@ export class BenefitDeductionCalculatorComponent implements DoCheck {
 
 
     navigateToPersonalInfo() {
-            this._router.navigate(['/msp/benefit/personal-info']);
+            this._router.navigate(['/benefit/personal-info']);
     }
 
 
