@@ -5,7 +5,7 @@ import { MspApplication } from '../../models/application.model';
 import { BaseComponent } from '../../../../models/base.component';
 import { ProcessService } from '../../../../services/process.service';
 import { Router } from '@angular/router';
-import { Address } from 'moh-common-lib';
+import { Address, PROVINCE_LIST, COUNTRY_LIST, CheckCompleteBaseService } from 'moh-common-lib';
 
 import {
   CountryList,
@@ -34,8 +34,8 @@ export class EnrolAddressComponent extends BaseComponent {
   @ViewChild('mailingAddress') mailingAddress: ElementRef;
   @ViewChild('phone') phone: ElementRef;
 
-  countryList: CountryList[] = MspAddressConstants.countryData;
-  provinceList: ProvinceList[] = MspAddressConstants.provinceData;
+  countryList: CountryList[] = COUNTRY_LIST;
+  provinceList: ProvinceList[] = PROVINCE_LIST;
 
   public defaultCountry = CANADA;
   public defaultProvince = BRITISH_COLUMBIA;
@@ -45,14 +45,17 @@ export class EnrolAddressComponent extends BaseComponent {
 
   constructor(private dataService: MspDataService,
               private _router: Router,
-              private _processService: ProcessService,
-              private cd: ChangeDetectorRef) {
+             // private _processService: ProcessService,
+              private cd: ChangeDetectorRef, 
+             // private checkCompleteBaseService: CheckCompleteBaseService
+               ) {
     super(cd);
     this.mspApplication = this.dataService.getMspApplication();
     this.mspApplication.mailingSameAsResidentialAddress = true;
   }
   ngOnInit(){
-    this.initProcessMembers(EnrolAddressComponent.ProcessStepNum, this._processService);
+   // this.initProcessMembers(EnrolAddressComponent.ProcessStepNum, this._processService);
+    //this.checkCompleteBaseService.setPageIncomplete();
   }
 
   ngAfterViewInit(): void {
@@ -98,6 +101,7 @@ export class EnrolAddressComponent extends BaseComponent {
       console.log('Please fill in all required fields on the form.');
     }else{
      // this._processService.setStep(4, true);
+     // this.checkCompleteBaseService.setPageComplete();
       this._router.navigate(['/enrolment/review']);
     }
   }
