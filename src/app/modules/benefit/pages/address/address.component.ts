@@ -6,7 +6,6 @@ import {BenefitApplication} from '../../models/benefit-application.model';
 import { BaseComponent } from '../../../../models/base.component';
 import { ProcessService } from '../../../../services/process.service';
 import { Router } from '@angular/router';
-import { Address } from 'moh-common-lib';
 
 import {
   CountryList,
@@ -14,7 +13,7 @@ import {
   CANADA,
   BRITISH_COLUMBIA
 } from 'moh-common-lib';
-import { MspAddressConstants } from '../../../../models/msp-address.constants';
+import { Address, PROVINCE_LIST, COUNTRY_LIST, CheckCompleteBaseService } from 'moh-common-lib';
 //import { countryData, provinceData } from '../../../../models/msp-constants';
 
 @Component({
@@ -36,8 +35,8 @@ export class BenefitAddressComponent extends BaseComponent {
   @ViewChild('mailingAddress') mailingAddress: ElementRef;
   @ViewChild('phone') phone: ElementRef;
   
-  countryList: CountryList[] = MspAddressConstants.countryData;
-  provinceList: ProvinceList[] = MspAddressConstants.provinceData;
+  countryList: CountryList[] = COUNTRY_LIST;
+  provinceList: ProvinceList[] = PROVINCE_LIST;
 
   public defaultCountry = CANADA;
   public defaultProvince = BRITISH_COLUMBIA;

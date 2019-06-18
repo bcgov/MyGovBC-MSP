@@ -114,7 +114,7 @@
                                 </div>
                             </div> -->
 
-                        </div>
+                        
                       <!--  <div class="form-group" [hidden]="!benefitApp.hasSpouseOrCommonLaw"
                              [ngClass]="{'has-error': !formRef.controls.spouseIncomeLine236?.valid}"> -->
                             <label for="spouseIncomeLine236" [innerHtml]="lang('./en/index.js').whatIsYourSpouseOrPartnerIncome">
@@ -128,6 +128,7 @@
                                        pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
                                        [(ngModel)]="benefitApp.spouseIncomeLine236">
                             </div>
+                        </div>
                             <!--
                             <div *ngIf='!formRef.controls.spouseIncomeLine236?.valid && benefitApp.spouseIncomeLine236.touched'>
                                 <div class="text-danger" *ngIf="formRef.controls.spouseIncomeLine236?.errors?.required"
