@@ -48,14 +48,16 @@ export class MspBirthDateComponent extends BaseComponent {
         this.person.dateOfBirth =  { year: this.person.dob_year , month: this.person.dob_month, day: this.person.dob_day};
 
         this.form.valueChanges.subscribe(values => {
-            if (this.person.dateOfBirth.month) {
-                this.person.dob_month = this.person.dateOfBirth.month;
-            }
-            if (this.person.dateOfBirth.day) {
-                this.person.dob_day = this.person.dateOfBirth.day;
-            }
-            if (this.person.dateOfBirth.year) {
-                this.person.dob_year = this.person.dateOfBirth.year;
+            if ( this.person.dateOfBirth  ) {
+                if (this.person.dateOfBirth.month) {
+                    this.person.dob_month = this.person.dateOfBirth.month;
+                }
+                if (this.person.dateOfBirth.day) {
+                    this.person.dob_day = this.person.dateOfBirth.day;
+                }
+                if (this.person.dateOfBirth.year) {
+                    this.person.dob_year = this.person.dateOfBirth.year;
+                }
             }
         });
     }

@@ -21,7 +21,7 @@ enum StatusInCanada {
 }
 
 /**
- * Whose MSP Enrollement for ACL 
+ * Whose MSP Enrollement for ACL
  */
 enum MSPEnrollementMember {
   MyselfOnly, // adult

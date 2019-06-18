@@ -15,7 +15,7 @@ import { ResponseType } from '../../enrolment/pages/api-model/responseTypes';
 import { MspImage } from '../../../models/msp-image';
 import { Response } from '@angular/http';
 import {MspApiService} from '../../../services/msp-api.service';
-import {SuppBenefitApiResponse} from '../../../components/msp/model/suppBenefit-response.interface';
+import {SuppBenefitApiResponse} from '../models/suppBenefit-response.interface';
 
 @Injectable({
   providedIn: 'root'

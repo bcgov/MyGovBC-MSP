@@ -3,11 +3,10 @@ import {
   EventEmitter, ViewChild, ChangeDetectorRef
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Address} from '../../../../components/msp/model/address.model';
+import {Address, CANADA} from 'moh-common-lib';
 import {BaseComponent} from '../../../../models/base.component';
-import {MspProvinceComponent} from '../../../../components/msp/common/province/province.component';
-import {MspCountryComponent} from '../../../../components/msp/common/country/country.component';
 import {debounceTime} from 'rxjs/operators';
+import { MspAddressConstants } from '../../../../models/msp-address.constants';
 
 @Component({
   selector: 'msp-address',
@@ -37,10 +36,11 @@ export class MspAddressComponent extends BaseComponent {
 
   @Output() onChange = new EventEmitter<any>();
   @ViewChild('formRef') form: NgForm;
-  @ViewChild('province') province: MspProvinceComponent;
-  @ViewChild('country') country: MspCountryComponent;
+  //@ViewChild('province') province: MspProvinceComponent;
+  //@ViewChild('country') country: MspCountryComponent;
 
   Address: typeof Address = Address;
+  countryData = MspAddressConstants.countryData;
 
   constructor(private cd: ChangeDetectorRef) {
     super(cd);
@@ -164,8 +164,8 @@ export class MspAddressComponent extends BaseComponent {
     this.mailingSameAsResidentialAddress = false;
     this.mailingSameAsResidentialAddressChange.emit(this.mailingSameAsResidentialAddress);
     // DEF- 153 , If the country is blank or undefined, then assigning Canada as default
-    if(!this.mailingAddress.country || this.mailingAddress.country.trim().length === 0) {
-      this.mailingAddress.country  = 'Canada';
+    if (!this.mailingAddress.country || this.mailingAddress.country.trim().length === 0) {
+      this.mailingAddress.country  = CANADA;
     }
   }
 

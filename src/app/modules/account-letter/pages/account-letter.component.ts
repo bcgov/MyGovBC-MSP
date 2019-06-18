@@ -48,8 +48,8 @@ export class AccountLetterComponent {
     private initProcessService() {
         if (this.processService.process === null) {
             this.processService.init([
-                new ProcessStep('/msp/account-letter/personal-info'),
-                new ProcessStep('/msp/account-letter/sending')]);
+                new ProcessStep('/account-letter/personal-info'),
+                new ProcessStep('/account-letter/sending')]);
         }
     }
 }

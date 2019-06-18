@@ -42,7 +42,8 @@ export class AccountSendingComponent implements AfterContentInit {
     this.transmitRequest();
   }
 
-    transmitRequest(){
+    transmitRequest(){ 
+
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
     this.hasError = undefined;
@@ -77,7 +78,7 @@ export class AccountSendingComponent implements AfterContentInit {
 
         //  go to confirmation
 
-          this.router.navigate(['/msp/account/confirmation'],
+          this.router.navigate(['/account/confirmation'],
               {queryParams: {confirmationNum: tempRef, showDepMsg: bcServicesCardElgible}});
 
 
@@ -109,6 +110,6 @@ export class AccountSendingComponent implements AfterContentInit {
   }
 
   retrySubmission(){
-    this.router.navigate(['/msp/account/review']);
+    this.router.navigate(['/account/review']);
   }
 }

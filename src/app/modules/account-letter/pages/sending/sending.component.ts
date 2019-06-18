@@ -76,14 +76,14 @@ export class AccountLetterSendingComponent implements AfterContentInit {
                         name: 'ACL - Received refNo ',
                         confirmationNumber: refNumber
                     }, 'ACL - Submission Response Success');
-                    this.router.navigate(['/msp/account-letter/confirmation'],
+                    this.router.navigate(['/account-letter/confirmation'],
                         {queryParams: {confirmationNum: refNumber}});
                 }
             });
     }
 
     retrySubmission() {
-        this.router.navigate(['/msp/account-letter/personal-info']);
+        this.router.navigate(['/account-letter/personal-info']);
     }
 
     // if there is a RAPID_ERROD code , show the spinner till SPA_ENV server reponse is fetched

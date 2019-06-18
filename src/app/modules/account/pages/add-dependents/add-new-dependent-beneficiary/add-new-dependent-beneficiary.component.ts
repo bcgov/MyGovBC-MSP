@@ -13,10 +13,11 @@ import { Relationship } from '../../../../../models/status-activities-documents'
 import { StatusInCanada } from '../../../../enrolment/models/application.model';
 import { MspPerson } from '../../../models/account.model';
 import { MspToggleComponent } from '../../../../../components/msp/common/toggle/toggle.component';
-import { MspProvinceComponent } from '../../../../../components/msp/common/province/province.component';
 import { MspOutofBCRecordComponent } from '../../../../../components/msp/common/outof-bc/outof-bc.component';
 import { MspDischargeDateComponent } from '../../../../../components/msp/common/discharge-date/discharge-date.component';
 import { OutofBCRecord } from '../../../../../models/outof-bc-record.model';
+import { ProvinceList } from 'moh-common-lib';
+import { MspAddressConstants } from '../../../../../models/msp-address.constants';
 
 
 @Component({
@@ -70,7 +71,7 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
     @Input() showError: boolean;
 
     @ViewChildren(MspToggleComponent) toggleComponents: QueryList<MspToggleComponent>;
-    @ViewChildren(MspProvinceComponent) provinceComponents: QueryList<MspProvinceComponent>;
+    //@ViewChildren(MspProvinceComponent) provinceComponents: QueryList<MspProvinceComponent>;
     //@ViewChildren(DateComponent) dateComponents: QueryList<DateComponent>;
     @ViewChildren(MspOutofBCRecordComponent) outOfBCComponents: QueryList<MspOutofBCRecordComponent>;
     @ViewChildren(MspDischargeDateComponent) dischargeDateComponents: QueryList<MspDischargeDateComponent>;
@@ -147,4 +148,8 @@ export class AddNewDependentBeneficiaryComponent extends BaseComponent implement
         return this.checkEligibility();
     }
 
+  // Province list
+  provList( exceptBC: boolean = false ): ProvinceList[] {
+    return MspAddressConstants.provList( exceptBC );
+  }
 }

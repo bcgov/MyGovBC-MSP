@@ -13,7 +13,7 @@ import {
   CANADA,
   BRITISH_COLUMBIA
 } from 'moh-common-lib';
-import { countryData, provinceData } from '../../../../models/msp-constants';
+import { MspAddressConstants } from '../../../../models/msp-address.constants';
 
 @Component({
   templateUrl: './address.component.html'
@@ -33,9 +33,9 @@ export class EnrolAddressComponent extends BaseComponent {
   @ViewChild('address') address: ElementRef;
   @ViewChild('mailingAddress') mailingAddress: ElementRef;
   @ViewChild('phone') phone: ElementRef;
-  
-  countryList: CountryList[] = countryData;
-  provinceList: ProvinceList[] = provinceData;
+
+  countryList: CountryList[] = MspAddressConstants.countryData;
+  provinceList: ProvinceList[] = MspAddressConstants.provinceData;
 
   public defaultCountry = CANADA;
   public defaultProvince = BRITISH_COLUMBIA;
