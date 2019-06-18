@@ -26,7 +26,7 @@ export class SendingComponent implements AfterContentInit {
   hasError: boolean;
   showMoreErrorDetails: boolean;
 
-  constructor(private dataService: MspDataService, private service: MspApiService, 
+  constructor(private dataService: MspDataService, private service: MspApiService,
     //private processService: ProcessService,
     public router: Router, private logService: MspLogService) {
     this.application = this.dataService.getMspApplication();
@@ -69,7 +69,7 @@ export class SendingComponent implements AfterContentInit {
       }).catch((error: ResponseType | any) => {
         console.log('error in sending application: ', error);
         this.spaEnvRes = <ISpaEnvResponse> error;
-        
+
         this.hasError = true;
         this.rawUrl = error.url;
         this.rawError = this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG === 'true' ? this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE : error;
@@ -87,7 +87,7 @@ export class SendingComponent implements AfterContentInit {
         this.application.authorizationToken = null;
         this.dataService.saveMspApplication();
       });
-  
+
   }
 
   toggleErrorDetails(){

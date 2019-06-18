@@ -50,7 +50,6 @@ import { CommonButtonComponent } from './components/common-button/common-button.
 import { MspLoggerDirective } from './components/logging/msp-logger.directive';
 import { HttpClientModule } from '@angular/common/http';
 
-
 const componentList = [
   MspFullNameComponent,
   PersonalDetailsComponent,
