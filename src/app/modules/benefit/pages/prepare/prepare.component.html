@@ -1,8 +1,13 @@
+<common-page-framework layout="blank">
 <div class="row" style="margin-top: 0px; margin-bottom: 15px">
         <div class="col-lg-8" style="border: 1px solid transparent">
             <msp-tax-year [spaEnvResponse]="benefitApp.spaEnvRes" [currentTaxYear]="benefitApp.taxYear" (onTaxYearChange)="onTaxYearUpdate($event);"></msp-tax-year>
+            
+            <div *ngIf="benefitApp.taxYear"> 
+
             <h2 [innerHTML]="this.lang('./en/index.js').checkEligibilityScreenTitleDefault" tabindex="0">
             </h2>
+
             <form #formRef='ngForm' novalidate>
     
                 <div class="form-group"
@@ -37,7 +42,12 @@
                 <div class="row">
                     <div class="col-lg-10">
                         <div class="form-group">
-                            <div role="dialog" aria-labelledby="q1">
+
+                            <common-radio [value]="benefitApp.ageOver65"  [label]="lang('./en/index.js').areYou65OrOlder" 
+                                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+                                (statusChange)="setAgeOver65($event)">
+                            </common-radio> 
+                           <!-- <div role="dialog" aria-labelledby="q1">
                                 <p id="q1" class="intro" [innerHtml]="lang('./en/index.js').areYou65OrOlder"></p>
                                 <div class="btn-group" role="group">
                                     <button #ageOver65Btn [class.msp-btn-radio]="benefitApp.ageOver65 === true"
@@ -45,12 +55,12 @@
                                     <button #ageNotOver65Btn [class.msp-btn-radio]="benefitApp.ageOver65 === false"
                                             type="button" class="btn btn-default">No&nbsp;</button>
                                 </div>
-                            </div>
+                            </div> 
                             <div *ngIf='(incomeRef.touched || incomeRef.dirty || (!!incomeRef.value && incomeRef.value.trim().length>0) || benefitApp.spouseEligibleForDisabilityCredit || formRef.controls.spouseIncomeLine236?.valid ) &&
                             (benefitApp.ageOver65 === null || benefitApp.ageOver65 === undefined)'>
                                 <div class="text-danger"
                                      [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -58,7 +68,11 @@
                      [hidden]="incomeRef.invalid || benefitApp.ageOver65 === null || benefitApp.ageOver65 === undefined">
                     <div class="col-lg-10">
                         <div class="form-group">
-                            <div role="dialog" aria-labelledby="q2">
+                            <common-radio [value]="benefitApp.hasSpouseOrCommonLaw"  [label]="lang('./en/index.js').doYouHaveASpouseOrPartner" 
+                                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+                                (statusChange)="sethasSpouseOrCommonLaw($event)">
+                            </common-radio>
+                        <!--    <div role="dialog" aria-labelledby="q2">
                                 <p id="q2" class="intro" [innerHtml]="lang('./en/index.js').doYouHaveASpouseOrPartner"></p>
                                 <div class="btn-group" role="group">
                                     <button #hasSpouse [class.msp-btn-radio]="benefitApp.hasSpouseOrCommonLaw === true"
@@ -67,34 +81,345 @@
                                             type="button" class="btn btn-default">No&nbsp;</button>
                                 </div>
     
-                            </div>
+                            </div> 
+
+
                             <div *ngIf='(incomeRef.dirty || incomeRef.touched || (!!incomeRef.value && incomeRef.value.trim().length>0) ||
                             benefitApp.spouseEligibleForDisabilityCredit === true ) &&
                             (benefitApp.hasSpouseOrCommonLaw === null || benefitApp.hasSpouseOrCommonLaw === undefined)'>
                                 <div class="text-danger" tabindex="0"
                                      [innerHTML]="lang('./en/index.js').spouseCommonLawStatusRequired"></div>
                             </div>
-                            <div class="padded" tabindex="0" [innerHtml]="lang('./en/index.js').notifySpouseWarning"></div>
+                            <div class="padded" tabindex="0" [innerHtml]="lang('./en/index.js').notifySpouseWarning"></div> -->
                         </div>
+
                         <div class="form-group" [hidden]="!benefitApp.hasSpouseOrCommonLaw">
-                            <div role="dialog" aria-labelledby="q3">
-                                <p id="q3" class="intro" [innerHtml]="lang('./en/index.js').isYourSpouseOrPartner65OrOlder"></p>
-                                <div class="btn-group" role="group">
-                                    <button #spouseOver65Btn [class.msp-btn-radio]="benefitApp.spouseAgeOver65 === true"
-                                            type="button" class="btn btn-default">Yes</button>
-                                    <button #spouseOver65NegativeBtn [class.msp-btn-radio]="benefitApp.spouseAgeOver65 === false"
-                                            type="button" class="btn btn-default">No&nbsp;</button>
+                            <common-radio [value]="benefitApp.spouseAgeOver65"  [label]="lang('./en/index.js').isYourSpouseOrPartner65OrOlder" 
+                                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+                                (statusChange)="benefitApp.spouseAgeOver65 = $event">
+                            </common-radio>
+                               <!-- <div role="dialog" aria-labelledby="q3">
+                                    <p id="q3" class="intro" [innerHtml]="lang('./en/index.js').isYourSpouseOrPartner65OrOlder"></p>
+                                    <div class="btn-group" role="group">
+                                        <button #spouseOver65Btn [class.msp-btn-radio]="benefitApp.spouseAgeOver65 === true"
+                                                type="button" class="btn btn-default">Yes</button>
+                                        <button #spouseOver65NegativeBtn [class.msp-btn-radio]="benefitApp.spouseAgeOver65 === false"
+                                                type="button" class="btn btn-default">No&nbsp;</button>
+                                    </div>
                                 </div>
+                                <div *ngIf='!(benefitApp.hasSpouseOrCommonLaw === null || benefitApp.hasSpouseOrCommonLaw === undefined) &&
+                                (benefitApp.spouseAgeOver65 === null || benefitApp.spouseAgeOver65 === undefined)'>
+                                    <div class="text-danger" tabindex="0"
+                                         [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
+                                </div>
+                            </div> -->
+
+                        </div>
+                      <!--  <div class="form-group" [hidden]="!benefitApp.hasSpouseOrCommonLaw"
+                             [ngClass]="{'has-error': !formRef.controls.spouseIncomeLine236?.valid}"> -->
+                            <label for="spouseIncomeLine236" [innerHtml]="lang('./en/index.js').whatIsYourSpouseOrPartnerIncome">
+                            </label>
+                            <div class="col-lg-4 col-md-5 col-sm-6 input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input type="text" class="form-control" name="spouseIncomeLine236" id="spouseIncomeLine236"
+                                       maxlength="12" #spouseIncomeRef="ngModel"
+                                       pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
+                                       [(ngModel)]="benefitApp.spouseIncomeLine236">
                             </div>
-                            <div *ngIf='!(benefitApp.hasSpouseOrCommonLaw === null || benefitApp.hasSpouseOrCommonLaw === undefined) &&
+                            <!--
+                            <div *ngIf='!formRef.controls.spouseIncomeLine236?.valid && benefitApp.spouseIncomeLine236.touched'>
+                                <div class="text-danger" *ngIf="formRef.controls.spouseIncomeLine236?.errors?.required"
+                                     [innerHTML]="lang('./en/index.js').incomeDataRequired" tabindex="0"></div>
+                                <div class="text-danger" *ngIf="formRef.controls.spouseIncomeLine236?.errors?.maxlength"
+                                     [innerHTML]="lang('./en/index.js').incomeDataMaxLength" tabindex="0"></div>
+                                <div class="text-danger" *ngIf="spouseIncomeRef.errors?.pattern"
+                                     [innerHTML]="lang('./en/index.js').invalidNumber" tabindex="0"></div>
+                            </div> -->
+                       <!-- </div> -->
+
+                        <div class="form-group" *ngIf="benefitApp.ageOver65 != null || benefitApp.ageOver65 != undefined">
+                            <common-radio [value]="benefitApp.haveChildrens"  [label]="'Do you have any children on your Medical Service Plan?'" 
+                                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+                                (statusChange)="setchildren($event)">
+                            </common-radio>
+                        </div>
+
+                        <div class="row" *ngIf="benefitApp.haveChildrens">
+                            <div class="col-lg-12">
+                                
+                                    <div class="form-group">
+                                        <label for="childrenCount" [innerHtml]="lang('./en/index.js').howManyChildrenDoYouHaveOnYourMSP">
+                                        </label>
+                                    
+                                        <div class="col-lg-2" style="text-align:left; padding-left: 3px;">
+                                            <input type="text" class="form-control" name="childrenCount"
+                                                id="childrenCount"
+                                                maxlength="2"
+                                                [(ngModel)]="benefitApp.childrenCount">
+                                        </div>
+                                    </div>
+                             
+                                
+                                <div class="form-group">
+                                    <label for="line214"
+                                        [innerHtml]="lang('./en/index.js').howMuchDidYouClaimForChildCareExpenseLastYear">
+                                    </label>
+            
+                                    <div class="col-lg-3 col-md-4 col-sm-6 input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">$</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="line214" name="line214" placeholder=""
+                                            pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
+                                            #line214Ref="ngModel"
+                                            [(ngModel)]="benefitApp.claimedChildCareExpense_line214">
+                                    </div>
+            
+                                    <div class="text-danger" *ngIf="line214Ref.errors?.pattern" [innerHTML]="lang('./en/index.js').invalidNumber"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label for="line117"
+                                                [innerHtml]="lang('./en/index.js').howMuchDidYouReportForUCC">
+                                            </label>
+            
+                                            <div class="col-lg-3 col-md-4 col-sm-6 input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">$</span>
+                                                </div>
+                                                <input type="text" class="form-control" name="line117" id="line117" placeholder=""
+                                                    pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
+                                                    #line117Ref="ngModel"
+                                                    [(ngModel)]="benefitApp.reportedUCCBenefit_line117">
+                                            </div>
+                                            <div class="text-danger" *ngIf="line117Ref.errors?.pattern" [innerHTML]="lang('./en/index.js').invalidNumber"></div>
+            
+                                        </div>
+                                    </div>
+                                </div>
+            
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group" *ngIf="benefitApp.ageOver65 != null || benefitApp.ageOver65 != undefined">
+                            <common-radio [value]="benefitApp.selfDisabilityCredit"  [label]="lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear" 
+                                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+                                (statusChange)="toggleClaimForSelfDisabilityCredit($event)">
+                            </common-radio>
+                            <!--<div *ngIf='!(benefitApp.hasSpouseOrCommonLaw === null || benefitApp.hasSpouseOrCommonLaw === undefined) &&
                             (benefitApp.spouseAgeOver65 === null || benefitApp.spouseAgeOver65 === undefined)'>
                                 <div class="text-danger" tabindex="0"
-                                     [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
-                            </div>
+                                        [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
+                            </div> -->
                         </div>
+
+                        
+                    <div class="row" [hidden]="!benefitApp.selfDisabilityCredit" >
+                            <div class="col-lg-12">
+        
+                                <div role="dialog" aria-labelledby="anyoneClaimeDisabilityQ">
+                                    <label id="anyoneClaimeDisabilityQ" style="margin-bottom: 5px" > 
+                                        Who claimed the attendant or nursing home expenses on last year's income tax return?
+                                    </label>
+                                    <div class="form-group">
+                                        <div class="checkbox checkbox-success checkbox-inline" style="margin-left: 15px">
+                                            <input type="checkbox" tabindex="0"
+                                                   name="applicantClaimForDisabilityCredit"
+                                                   id="applicantClaimForDisabilityCredit"
+                                                   [checked]="benefitApp.selfDisabilityCredit"
+                                                   (click)="toggleClaimForSelfDisabilityCredit($event)">
+                                            <label for="applicantClaimForDisabilityCredit">
+                                                Myself
+                                            </label>
+                                            <div *ngIf="benefitApp.hasSpouseOrCommonLaw">
+                                                <input type="checkbox" tabindex="0"
+                                                    name="spouseClaimForDisabilityCredit"
+                                                    id="spouseClaimForDisabilityCredit"
+                                                    [checked]="benefitApp.spouseEligibleForDisabilityCredit"
+                                                    (click)="toggleClaimForSpouseDisabilityCredit($event)">
+                                                <label for="spouseClaimForDisabilityCredit">
+                                                    My spouse/common-law partner
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    <div class="form-group" *ngIf="(benefitApp.childrenCount > 0)">
+                                        <label for="childWithDisabilityCount" >
+                                                How many of your chilldren are eligible for disability credit?
+                                        </label>
+                                        <div class="col-lg-1" style="text-align:left; padding-left: 3px;">
+                                            <input type="text" class="form-control" name="childWithDisabilityCount"
+                                                    id="childWithDisabilityCount"
+                                                    maxlength="2"
+                                                    [ngModel]="benefitApp.childWithDisabilityCount"
+                                                    (ngModelChange)= "updateChildDisabilityCreditCreditMultiplier($event)">
+                                        </div>
+                                       <!-- <select name="childWithDisabilityCount" id="childWithDisabilityCount" class="col-md-1" role="Option"
+                                                #childDisabilityCreditCreditMultiplierSelect
+                                                [ngModel] = "benefitApp.childWithDisabilityCount"
+                                                (ngModelChange) = "updateChildDisabilityCreditCreditMultiplier($event)">
+                                            <option *ngFor="let v of benefitApp.childrenCountArray()"
+                                                    [value]="v">
+                                                {{v}}
+                                            </option>
+                                        </select> -->
+                                    </div>
+                                </div>
+        
+                            </div>
+                        </div> 
+                        <div class="row" [hidden]="!benefitApp.selfDisabilityCredit" style="margin-left: 5px; ">
+        
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        
+                                            <label for="line125">
+                                                How much did you (or your spouse / common-law partner) report for a Registered Disability
+                                                Savings Plan on your income tax return (Line 125)?
+                                            </label>
+        
+                                            <div class="col-lg-3 col-md-4 col-sm-6 input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">$</span>
+                                                </div>
+                                                <input type="text" class="form-control" name="line125" id="line125"
+                                                       pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
+                                                       #line125Ref="ngModel"
+                                                       [(ngModel)]="benefitApp.spouseDSPAmount_line125">
+                                            </div>
+                                            <div class="text-danger" *ngIf="line125Ref.errors?.pattern" [innerHTML]="lang('./en/index.js').invalidNumber"></div>
+        
+                                       
+                                    </div>
+                                </div>
+        
+                            </div>
+                        </div>    
+
+
+
+
+
+
+
+                        <div class="form-group" *ngIf="benefitApp.ageOver65 != null || benefitApp.ageOver65 != undefined">
+                            <common-radio [value]="benefitApp.applicantClaimForAttendantCareExpense"  [label]="lang('./en/index.js').didAnyoneClaimAttendantCareLastYear" 
+                                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+                                (statusChange)="dataService.benefitApp.applicantClaimForAttendantCareExpense = $event;">
+                            </common-radio>
+                           <!-- <div *ngIf='!(benefitApp.applicantClaimForAttendantCareExpense === null || benefitApp.applicantClaimForAttendantCareExpense === undefined) &&
+                            (benefitApp.applicantClaimForAttendantCareExpense === null || benefitApp.applicantClaimForAttendantCareExpense === undefined)'>
+                                <div class="text-danger" tabindex="0"
+                                        [innerHTML]="lang('./en/index.js').ageGroupRequired"></div>
+                            </div> -->
+                        </div>
+
+                    <div [hidden]="!benefitApp.applicantClaimForAttendantCareExpense" style="margin-left: 15px; margin-top: 10px;"
+                        role="dialog" aria-labelledby="anyoneClaimeAttendantCareQ">
+                       <div class="row">
+                           <div class="col-sm-12">
+                               <label id="anyoneClaimeAttendantCareQ" style="margin-bottom: 5px"
+                                      [innerHtml]="lang('./en/index.js').didAnyoneClaimAttendantCareLastYear">
+                               </label>
+                           </div>
+                       </div>
+                       <div class="row">
+                           <div class="col-lg-3">
+                               <div class="form-group">
+                                   <div class="checkbox checkbox-success checkbox-inline">
+                                       <input type="checkbox" tabindex="0"
+                                              name="applicantClaimForAttendantCareExpense"
+                                              id="applicantClaimForAttendantCareExpense"
+                                              [ngModel]="benefitApp.applicantClaimForAttendantCareExpense"
+                                              (click)="applicantClaimForAttendantCareExpense($event)">
+                                       <label for="applicantClaimForAttendantCareExpense">
+                                           Myself
+                                       </label>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-lg-3" *ngIf="benefitApp.hasSpouseOrCommonLaw === true">
+                               <div class="checkbox checkbox-success checkbox-inline">
+                                   <div class="form-group">
+                                       <input type="checkbox" tabindex="0"
+                                              name="spouseClaimForAttendantCareExpense"
+                                              id="spouseClaimForAttendantCareExpense"
+                                              [ngModel] = "benefitApp.spouseClaimForAttendantCareExpense"
+                                              (click)="spouseClaimForAttendantCareExpense($event)">
+                                       <label for="spouseClaimForAttendantCareExpense">
+                                           My spouse/common-law partner
+                                       </label>
+                                   </div>
+                               </div>
+                           </div>
+                            <div class="col-lg-3"  *ngIf="!!benefitApp.childrenCount">
+                                <div class="form-group">
+                                    <div class="checkbox checkbox-success checkbox-inline">
+                                        <input type="checkbox" tabindex="0"
+                                              name="childClaimForAttendantCareExpense"
+                                              id="childClaimForAttendantCareExpense"
+                                              [ngModel] = "benefitApp.childClaimForAttendantCareExpense"
+                                              (click) = "childClaimForAttendantCareExpense($event)">
+                                        <label for="childClaimForAttendantCareExpense">
+                                           My child
+                                        </label>
+                                    </div>
+                               </div>
+                            </div>
+                            <div class="col-lg-8" [hidden]="!benefitApp.childClaimForAttendantCareExpense || benefitApp.childrenCount < 2">
+                               <div class="row">
+                                   <div class="col-sm-12">
+                                        <span>How many of your children who claimed for attendant care expense?</span>
+                                        <span style="margin-left: 5px">
+                                        <div class="col-lg-4" style="text-align:left; padding-left: 3px;"> 
+                                            <input type="text" class="form-control" name="childClaimForAttendantCareExpenseCount"
+                                                id="childClaimForAttendantCareExpenseCount"
+                                                maxlength="2"
+                                                [(ngModel)]="benefitApp.childClaimForAttendantCareExpenseCount">
+                                        </div>
+                                        <!--<select name="childClaimForAttendantCareExpenseCount"
+                                               #childDisabilityCreditCreditMultiplierSelect
+                                               [(ngModel)] = "benefitApp.childClaimForAttendantCareExpenseCount">
+                                            <option *ngFor="let v of benefitApp.childrenCountArray()"
+                                                   [value]="v">
+                                               {{v}}
+                                            </option>
+                                        </select>-->
+                                        </span>
+                                   </div>
+                               </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row" style="margin-top: 15px;" *ngIf="requireAttendantCareReceipts">
+                           <div class="col-lg-12">
+                               <label for="netIncome">Please upload your attendant care receipts for the expense entered above (required).</label>
+                               <common-file-uploader #fileUploader
+                                                  [images]="benefitApp.attendantCareExpenseReceipts"
+                                                  [id]='benefitApp.id'
+                                                  (onAddDocument)="addReceipts($event)"
+                                                  (onErrorDocument)="errorReceipts($event)"
+                                                  (onDeleteDocument)="deleteReceipts($event)">
+                                <span id="uploadInstruction"
+                                   #uploadInstruction>
+                                  Please upload documents for your expenses
+                                </span>
+   
+                               </common-file-uploader>
+                               <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
+                           </div>
+                        </div>
+                    </div>
     
     
-                        <div class="form-group" [hidden]="!benefitApp.hasSpouseOrCommonLaw"
+                       <!-- <div class="form-group" [hidden]="!benefitApp.hasSpouseOrCommonLaw"
                              [ngClass]="{'has-error': !formRef.controls.spouseIncomeLine236?.valid}">
                             <label for="spouseIncomeLine236" [innerHtml]="lang('./en/index.js').whatIsYourSpouseOrPartnerIncome">
                             </label>
@@ -115,10 +440,10 @@
                                 <div class="text-danger" *ngIf="spouseIncomeRef.errors?.pattern"
                                      [innerHTML]="lang('./en/index.js').invalidNumber" tabindex="0"></div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
-    
+               <!-- 
                 <div  tabindex="-1"
                       [hidden]="incomeRef.invalid || benefitApp.ageOver65 === null || benefitApp.ageOver65 === undefined">
                     <hr>
@@ -144,69 +469,12 @@
                         </div>
                     </div>
                 </div>
+               
                 <p></p>
-    
-                <div class="row" style="margin-left: 5px;"
-                     [hidden]="!showChildrenInfo || incomeRef.invalid || benefitApp.ageOver65 === null || benefitApp.ageOver65 === undefined">
-                    <div class="col-lg-12">
-                        <div class="form-horizontal">
-                            <div class="form-group row">
-                                <label for="childrenCount"
-                                       class="col-sm-8 col-lg-8 col-form-label" style="text-align:left; padding-right: 0;"
-                                       [innerHtml]="lang('./en/index.js').howManyChildrenDoYouHaveOnYourMSP">
-                                </label>
-                                <div class="col-sm-3 col-lg-2" style="text-align:left; padding-left: 3px;">
-                                    <input type="text" class="form-control" name="childrenCount"
-                                           id="childrenCount"
-                                           maxlength="2"
-                                           [(ngModel)]="benefitApp.childrenCount">
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="form-group">
-                            <label for="line214"
-                                   [innerHtml]="lang('./en/index.js').howMuchDidYouClaimForChildCareExpenseLastYear">
-                            </label>
-    
-                            <div class="col-lg-3 col-md-4 col-sm-6 input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">$</span>
-                                </div>
-                                <input type="text" class="form-control" id="line214" name="line214" placeholder=""
-                                       pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
-                                       #line214Ref="ngModel"
-                                       [(ngModel)]="benefitApp.claimedChildCareExpense_line214">
-                            </div>
-    
-                            <div class="text-danger" *ngIf="line214Ref.errors?.pattern" [innerHTML]="lang('./en/index.js').invalidNumber"></div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <label for="line117"
-                                           [innerHtml]="lang('./en/index.js').howMuchDidYouReportForUCC">
-                                    </label>
-    
-                                    <div class="col-lg-3 col-md-4 col-sm-6 input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">$</span>
-                                        </div>
-                                        <input type="text" class="form-control" name="line117" id="line117" placeholder=""
-                                               pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
-                                               #line117Ref="ngModel"
-                                               [(ngModel)]="benefitApp.reportedUCCBenefit_line117">
-                                    </div>
-                                    <div class="text-danger" *ngIf="line117Ref.errors?.pattern" [innerHTML]="lang('./en/index.js').invalidNumber"></div>
-    
-                                </div>
-                            </div>
-                        </div>
-    
-                    </div>
-                </div>
-    
-                <div [hidden]="incomeRef.invalid || benefitApp.ageOver65 === null
+               
+                
+               
+              <div [hidden]="incomeRef.invalid || benefitApp.ageOver65 === null
                 || benefitApp.ageOver65 === undefined">
     
                     <hr>
@@ -279,8 +547,7 @@
                             </div>
     
                         </div>
-                    </div>
-    
+                    </div> 
                     <div class="row" [hidden]="!showDisabilityInfo" style="margin-left: 5px; margin-top: 15px;">
     
                         <div class="col-lg-12">
@@ -309,7 +576,7 @@
     
                         </div>
                     </div>
-    
+                   
                     <hr>
                     <div class="row" style="margin-top: 12px">
                         <div class="col-md-10">
@@ -330,108 +597,23 @@
                             </div>
                         </div>
                     </div>
-    
-                    <div [hidden]="!showAttendantCareInfo" style="margin-left: 15px; margin-top: 10px;"
-                         role="dialog" aria-labelledby="anyoneClaimeAttendantCareQ">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label id="anyoneClaimeAttendantCareQ" style="margin-bottom: 5px"
-                                       [innerHtml]="lang('./en/index.js').didAnyoneClaimAttendantCareLastYear">
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3 col-lg-offset-1">
-                                <div class="form-group">
-                                    <div class="checkbox checkbox-success checkbox-inline">
-                                        <input type="checkbox" tabindex="0"
-                                               name="applicantClaimForAttendantCareExpense"
-                                               id="applicantClaimForAttendantCareExpense"
-                                               [ngModel]="benefitApp.applicantClaimForAttendantCareExpense"
-                                               (click)="applicantClaimForAttendantCareExpense($event)">
-                                        <label for="applicantClaimForAttendantCareExpense">
-                                            Myself
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-8" *ngIf="benefitApp.hasSpouseOrCommonLaw === true">
-                                <div class="checkbox checkbox-success checkbox-inline">
-                                    <div class="form-group">
-                                        <input type="checkbox" tabindex="0"
-                                               name="spouseClaimForAttendantCareExpense"
-                                               id="spouseClaimForAttendantCareExpense"
-                                               [ngModel] = "benefitApp.spouseClaimForAttendantCareExpense"
-                                               (click)="spouseClaimForAttendantCareExpense($event)">
-                                        <label for="spouseClaimForAttendantCareExpense">
-                                            My spouse/common-law partner
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top:10px" *ngIf="!!benefitApp.childrenCount">
-                            <div class="col-lg-3 col-lg-offset-1">
-                                <div class="form-group">
-                                    <div class="checkbox checkbox-success checkbox-inline">
-                                        <input type="checkbox" tabindex="0"
-                                               name="childClaimForAttendantCareExpense"
-                                               id="childClaimForAttendantCareExpense"
-                                               [ngModel] = "benefitApp.childClaimForAttendantCareExpense"
-                                               (click) = "childClaimForAttendantCareExpense($event)">
-                                        <label for="childClaimForAttendantCareExpense">
-                                            My child
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-8" [hidden]="!benefitApp.childClaimForAttendantCareExpense || benefitApp.childrenCount < 2">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <span>Number of children who claimed for attendant care expense</span>
-                                        <span style="margin-left: 5px">
-                                        <select name="childClaimForAttendantCareExpenseCount"
-                                                #childDisabilityCreditCreditMultiplierSelect
-                                                [(ngModel)] = "benefitApp.childClaimForAttendantCareExpenseCount">
-                                            <option *ngFor="let v of benefitApp.childrenCountArray()"
-                                                    [value]="v">
-                                                {{v}}
-                                            </option>
-                                        </select>
-                                    </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top: 15px;" *ngIf="requireAttendantCareReceipts">
-                            <div class="col-lg-12">
-                                <label for="netIncome">Please upload your attendant care receipts for the expense entered above (required).</label>
-                                <common-file-uploader #fileUploader
-                                                   [images]="benefitApp.attendantCareExpenseReceipts"
-                                                   [id]='benefitApp.id'
-                                                   (onAddDocument)="addReceipts($event)"
-                                                   (onErrorDocument)="errorReceipts($event)"
-                                                   (onDeleteDocument)="deleteReceipts($event)">
-                              <span id="uploadInstruction"
-                                    #uploadInstruction>
-                                Please upload documents for your expenses
-                              </span>
-    
-                                </common-file-uploader>
-                                <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    
+                   
+                
+                     
+                </div> 
+               --> 
     
             </form>
+            </div> <!-- ngif check end -->
         </div>
-    
         <div class="col-lg-4">
-            <msp-common-deduction-calculator [eligibilityCalculatorTitle]="lang('./en/index.js').eligibilityCalculatorTitle"   [application]="benefitApp" [qualificationThreshhold] = "qualificationThreshhold"
+            <msp-common-deduction-calculator  (continue)="canContinue($event)" 
+                [eligibilityCalculatorTitle]="lang('./en/index.js').eligibilityCalculatorTitle" 
+                [application]="benefitApp" [qualificationThreshhold] = "qualificationThreshhold"
                 [totalHouseholdIncomeLabel] = "lang('./en/index.js').totalHouseholdIncome" [continueButtonLabel] = "lang('./en/index.js').continueButtonLabel"  [NotQualifyText] = "lang('./en/index.js').mayNotQualifyText"
-                (taxYearInfoMissing)= "onTaxYearInfoMissing()"></msp-common-deduction-calculator>
+                (taxYearInfoMissing)= "onTaxYearInfoMissing()" 
+                [disableContinue]="true">
+            </msp-common-deduction-calculator>
             <!-- <benefit-deduction-calculator >
             </benefit-deduction-calculator>-->
             <p></p>
@@ -489,3 +671,10 @@
             </div>
         </div>
     </div>
+
+    <common-form-action-bar [submitLabel]="'Apply for Supplementary Benefits'"
+            [canContinue]="continue"
+            (btnClick)="navigateToPersonalInfo()"
+            widthOption='extra-width-mobile-only'>
+    </common-form-action-bar>
+</common-page-framework>

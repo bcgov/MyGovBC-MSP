@@ -1,6 +1,9 @@
+<common-page-framework layout="blank">
+    <div class="col-lg-8">   
 <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
+<!--
 <p class="helpblock intro" [innerHTML]="lang('./en/index.js').helpBlock"></p>
-<h2 [innerHTML]="lang('./en/index.js').declarationAndConsentTitle"></h2>
+<h2 [innerHTML]="lang('./en/index.js').declarationAndConsentTitle"></h2> -->
 <p [innerHTML]="lang('./en/index.js').declaration"></p>
 
 <form #form="ngForm">
@@ -55,6 +58,7 @@
     </common-file-uploader>
     <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
   </div>
+  <br>
   <div class="row">
     <div class="col-lg-8">
       <common-captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
@@ -62,9 +66,17 @@
     </div>
   </div>
 </form>
-<hr>
+
+  <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
+            [canContinue]="canContinue"
+            (btnClick)="continue()"
+            widthOption='extra-width-mobile-only'>
+  </common-form-action-bar>
+<!--
 <button
         [disabled]="!canContinue"
         class="btn btn-primary" type="submit" (click)="continue()"
         [innerHTML]="lang('./en/index.js').continueButton"></button>
-<msp-cancel></msp-cancel>
+<msp-cancel></msp-cancel> -->
+</div>
+</common-page-framework>

@@ -1,5 +1,5 @@
 module.exports = {
-  pageTitle: 'Give permission for your income tax information to be checked',
+  pageTitle: 'Authorize and submit your application',
   helpBlock: 'Each applicant must agree to have their income tax information confirmed with Canada Revenue Agency.',
   declarationAndConsentTitle: 'Declaration and Consent',
   doYouAgreeLabel: '{name}, do you agree?',
@@ -10,7 +10,7 @@ module.exports = {
   \
   This authorization is valid for the taxation year prior to the signature of this application. It may be revoked by sending a written notice to Health Insurance BC.\
   \
-  I am a resident of British Columbia as defined by the Medicare Protection Act.\
+  <br/><br/><br/>I am a resident of British Columbia as defined by the Medicare Protection Act.\
   \
-  I have resided in Canada as a Canadian citizen or holder of permanent resident status (landed immigrant) for at least the last 12 months immediately preceding this application; I am not exempt from liability to pay income tax by reason of any other Act; and I am not the child of another beneficiary."
+  <br/><br/><br/>I have resided in Canada as a Canadian citizen or holder of permanent resident status (landed immigrant) for at least the last 12 months immediately preceding this application; I am not exempt from liability to pay income tax by reason of any other Act; and I am not the child of another beneficiary."
 }
