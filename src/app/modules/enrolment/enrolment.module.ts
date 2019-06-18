@@ -16,7 +16,6 @@ import { SpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { FormsModule } from '@angular/forms';
 import { CaptchaModule } from 'moh-common-lib/captcha';
 import { RouteGuardService, CheckCompleteBaseService, AbstractPgCheckService } from 'moh-common-lib';
-import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -35,7 +34,7 @@ import { RouterModule } from '@angular/router';
     PersonalInfoComponent,
     PrepareComponent,
     ReviewComponent,
-    //SendingComponent,
+    SendingComponent,
     SpouseInfoComponent
   ],
   providers: [
