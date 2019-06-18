@@ -53,24 +53,25 @@
             <p [innerHtml]="lang('./en/index.js').documentInstructionsIntro"></p>
             <ul>
                 <li *ngFor="let document of documents">
-                    {{langDocuments('./en/index.js')[document]}}
-                    <a role="button" aria-haspopup="true" href="javascript:void(0)" (click)="viewIdReqModal(document)" tabindex="0"
-                       [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
+                    {{langDocuments[document]}}
+                    <a role="button" aria-haspopup="true" href="javascript:void(0)" (click)="viewIdReqModal(document)" tabindex="0">
+                    Open sample</a>
                 </li>
             </ul>
             <p [innerHtml]="lang('./en/index.js').documentInstructionsMarriage"></p>
             <ul>
                 <li *ngFor="let document of nameChangeDocuments">
-                    {{langDocuments('./en/index.js')[document]}}
-                    <a role="button" aria-haspopup="true" href="javascript:void(0)" (click)="viewIdReqModal(document)" tabindex="0"
-                       [innerHtml]="lang('./en/index.js').viewSamplesButton"></a>
+                    {{langDocuments[document]}}
+                    <a role="button" aria-haspopup="true" href="javascript:void(0)" (click)="viewIdReqModal(document)" tabindex="0">
+                            Open sample</a>
                 </li>
             </ul>
             <msp-id-req-modal #idReqModal></msp-id-req-modal>
         </div>
         <div class="col-lg-4" *ngIf="person.status != null && person.currentActivity != null">
 
-            <h3 [innerHtml]="lang('./en/index.js').documentUploadLabel[this.person.relationship]"></h3>
+            <h3>
+                <i class="fa fa-upload fa icon-upload" aria-hidden="true"></i> {{documentUploadLabel[this.person.relationship]}}</h3>
             <div [innerHtml]="lang('./en/index.js').documentInstructionsNote"></div>
 
             <common-file-uploader #fileUploader
@@ -142,18 +143,20 @@
 
       <div class="row" *ngIf="person.documents.images.length > 0">
             <div class="col-lg-4" *ngIf="person.currentActivity == Activities.MovingFromCountry || person.status == StatusInCanada.TemporaryResident">
-              <common-country #country name='msp-country'
-                  [label]="lang('./en/index.js').movedFromCountryLabel"
+              <common-country name='msp_country_1'
+                  [label]="movedFromCountryLabel"
                   [ngModel]="person.movedFromProvinceOrCountry" 
                   (ngModelChange)="person.movedFromProvinceOrCountry = $event; onChange.emit($event)">
               </common-country>
             </div>
             <div class="col-lg-4" *ngIf="person.currentActivity === Activities.MovingFromProvince">
-                <!--TODO: no states, only BC-->
-                <common-province #province name="msp-province"
-                            [label]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
+                <common-province name="msp_province_1"
+                            [label]="movedFromProvinceLabel[this.person.relationship]"
                             [ngModel]="person.movedFromProvinceOrCountry"
-                            (ngModelChange)="provinceUpdate($event)"></common-province>
+                            (ngModelChange)="provinceUpdate($event)"
+                            [provinceList]=provList()></common-province>
+                            <!--laceholder="{{ isCanada(person.movedFromProvinceOrCountry)? 'Select a Province': 'Select a State' }}">
+                            [useDropDownList]="isCanada(person.movedFromProvinceOrCountry)">-->
             </div>
             <br><br><br>
             <div class="row">
@@ -168,7 +171,7 @@
                                 (click)="setStatus(st, person)"
                                 [checked]="st === person.status" tabindex="0">
                         <label class='form-check-label' for="st{{st}}-{{id}}">
-                            {{langStatus('./en/index.js')[st]}}
+                            {{langStatus[st]}}
                         </label>
         
                         <div *ngIf="st === person.status" role="alertdialog" aria-labelledby="What is your activity?">
@@ -273,19 +276,20 @@
         
                 <div class="row" *ngIf="person.documents.images.length > 0">
                     <div class="col-lg-4" *ngIf="person.currentActivity == Activities.MovingFromCountry || person.status == StatusInCanada.TemporaryResident">
-                        <msp-country #country [label]="lang('./en/index.js').movedFromCountryLabel"
-                            [country]="person.movedFromProvinceOrCountry" 
-                            (onChange)="person.movedFromProvinceOrCountry = $event; onChange.emit($event)"
-                            [showError]="showError">
-                        </msp-country>
+                        <common-country name="msp_country_2"
+                            [label]="movedFromCountryLabel"
+                            [ngModel]="person.movedFromProvinceOrCountry" 
+                            (ngModelChange)="person.movedFromProvinceOrCountry = $event; onChange.emit($event)">
+                        </common-country>
                     </div>
                     <div class="col-lg-4" *ngIf="person.currentActivity === Activities.MovingFromProvince">
-                        <msp-province #province [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
-                                    [province]="person.movedFromProvinceOrCountry"
-                                    (onChange)="provinceUpdate($event)"
-                                    [hideStates]="true"
-                                    [exceptBC]="true" [showError]="showError"
-                                    colSize="col-md-4"></msp-province>
+                        <common-province #province name="msp-province"
+                                        [label]="movedFromProvinceLabel[this.person.relationship]"
+                                    [ngModel]="person.movedFromProvinceOrCountry"
+                                    (ngModelChange)="provinceUpdate($event)"
+                                    [provinceList]=provList(true)></common-province>
+                                 <!--  [useDropDownList]="isCanada(person.movedFromProvinceOrCountry)"
+                                    colSize="col-md-4"></common-province>-->
                     </div>
                 
                     <div class="col-lg-4" style="margin-top: 15px;" role="dialog" [attr.aria-labelledby]="'movedPermLabel' + objectId">
@@ -339,20 +343,19 @@
                     <div class="col-lg-4" *ngIf="person.status === StatusInCanada.CitizenAdult &&
                         person.currentActivity === Activities.LivingInBCWithoutMSP &&
                         !person.livedInBCSinceBirth">
-                        <msp-province #province
-                                        [provinceLabel]="lang('./en/index.js').movedFromAnotherProvinceLabel"
-                                        [province]="person.movedFromProvinceOrCountry"
-                                        (onChange)="provinceUpdate($event)"
-                                        [hideStates]="true"
-                                        [exceptBC]="true"
-                                        [showError]="showError">
-                        </msp-province>
+                        <common-province name="msp_province_2"
+                                        label="Which province did you move from?"
+                                        [ngModel]="person.movedFromProvinceOrCountry"
+                                        (ngModelChange)="provinceUpdate($event)"
+                                        [provinceList]=provList(true)>
+                                   <!--     [useDropDownList]="isCanada(person.movedFromProvinceOrCountry)">-->
+                        </common-province>
                     </div>
                     <div class="col-lg-4">
                         <!--For canadian citizen, returning to BC after an absence or moving from another province, the arrival date in canada
                         is not required.-->
                         <msp-arrival-date #arrivalDateCanada
-                                            [arrivalLabel]="lang('./en/index.js').arrivalDateToCanadaLabel"
+                                            [arrivalLabel]="'Arrival date in Canada'"
                                             [required]="!(person.status === StatusInCanada.CitizenAdult
                                             && (person.currentActivity == Activities.LivingInBCWithoutMSP || person.currentActivity == Activities.MovingFromProvince))"
                                             [year]="person.arrivalToCanadaYear"
@@ -430,17 +433,6 @@
                             [(ngModel)]="person.previous_phn"
                             [label]="lang('./en/index.js').phnLabel[this.person.relationship]"
                             (ngModelChange) = "onChange.emit($event)"> </common-phn>
-                        <!-- <common-phn #phn [label]="lang('./en/index.js').phnLabel[this.person.relationship]" 
-                            [(value)]="person.previous_phn" 
-                        ></common-phn>  
-                            <msp-phn #phn
-                                    [phn]="person.previous_phn"
-                                    (phnChange)="person.previous_phn = $event"
-                                    [required]="false"
-                                    [bcPhn]="true"
-                                    [phnLabel]="lang('./en/index.js').phnLabel[this.person.relationship]"
-                                    (onChange) = "onChange.emit($event)"
-                                    [showError] = "showError"></msp-phn> -->
                     </div>
                 </div>
         

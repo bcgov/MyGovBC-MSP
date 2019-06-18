@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Address} from '../../model/address.model';
+import {Address} from 'moh-common-lib';
 import { Router } from '@angular/router';
 
 @Component({

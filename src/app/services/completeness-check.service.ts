@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MspDataService } from './msp-data.service';
 import {FinancialAssistApplication} from '../modules/assistance/models/financial-assist-application.model';
-//import {MspApplication} from '../model/application.model';
-import { MspValidationService } from './msp-validation.service';
+
 import {MspPerson} from '../components/msp/model/msp-person.model';
 
 import * as _ from 'lodash';
@@ -13,8 +12,7 @@ export class CompletenessCheckService {
       return this.dataService.finAssistApp;
     }
 
-    constructor(private dataService: MspDataService,
-        private validationService: MspValidationService) {
+    constructor(private dataService: MspDataService) {
     }
 
     private isNumber(arg: any){
@@ -50,6 +48,7 @@ export class CompletenessCheckService {
         return basics === true && spouseInfo === true;
     }
 
+    /* Common PHN validate PHN to ensure it is valid
     validatePhnForPremiumAssistance(): boolean{
       const applicantValidPhn = this.validationService.validatePHN(this.finApp.applicant.previous_phn, true, !this.finApp.phnRequired);
       let spouseValidPhn = true;
@@ -59,6 +58,7 @@ export class CompletenessCheckService {
 
       return applicantValidPhn === true && spouseValidPhn === true;
     }
+    */
 
     finAppPersonalInfoCompleted(): boolean {
       let completed = true;
@@ -101,8 +101,10 @@ export class CompletenessCheckService {
         completed = basics;
       }
 
-      const hasValidPhn = this.validatePhnForPremiumAssistance();
-      const hasValidSin = this.validateSinForPremiumAssistance();
+      // Common Sin & Phn do in-line validation to ensure validity
+     // const hasValidPhn = this.validatePhnForPremiumAssistance();
+      //const hasValidSin = this.validateSinForPremiumAssistance();
+      /*
       if (!hasValidSin){
         console.log('SIN not valid for spouse or applicant in PA');
       }
@@ -110,11 +112,11 @@ export class CompletenessCheckService {
 
       if (!hasValidPhn){
         console.log('PHN not valid for spouse or applicant in PA');
-      }
+      }*/
 
-      return completed && hasValidPhn && hasValidSin;
+      return completed; //&& hasValidPhn && hasValidSin;
     }
-
+/*
     validateSinForPremiumAssistance(): boolean{
       const applicantValidSin = this.validationService.validateSIN(this.finApp.applicant.sin);
       let spouseValidSin = true;
@@ -125,6 +127,7 @@ export class CompletenessCheckService {
 
       return applicantValidSin && spouseValidSin;
     }
+    */
 
 
     finAppReviewCompleted(): boolean {

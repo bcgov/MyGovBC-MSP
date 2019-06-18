@@ -53,7 +53,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     lang = require('./i18n');
     langStatus = require('../../../../../components/msp/common/status/i18n');
     langAccountActivities = require('../../../../../components/msp/common/account-activities/i18n');
-    langDocuments = require('../../../../../components/msp/common/documents/i18n');
+    //langDocuments = require('../../../../../components/msp/common/documents/i18n');
 
     // Expose some types to template
     Activities: typeof Activities = Activities;

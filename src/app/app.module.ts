@@ -11,7 +11,6 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { ProcessService } from './services/process.service';
 import { MspLogService } from './services/log.service';
 import { CompletenessCheckService } from './services/completeness-check.service';
-import { MspValidationService } from './services/msp-validation.service';
 import { MspApiService } from './services/msp-api.service';
 
 @NgModule({
@@ -20,9 +19,9 @@ import { MspApiService } from './services/msp-api.service';
     BrowserModule,
     SharedCoreModule,
     HttpClientModule,
-    ModalModule.forRoot(),
-    AccordionModule.forRoot(),
-    TooltipModule.forRoot(),
+    //ModalModule.forRoot(),
+    //AccordionModule.forRoot(),
+    //TooltipModule.forRoot(),
     AppRoutingModule,
   //  RouterModule.forRoot([
     //  { path: '', redirectTo: 'msp', pathMatch: 'full' }
@@ -44,7 +43,6 @@ import { MspApiService } from './services/msp-api.service';
 
     // Called by Completeness Check Service - PHN check, probably can be removed once
     // phn component from common lib is use - will require re-factoring
-    MspValidationService,
     MspApiService
   ],
 

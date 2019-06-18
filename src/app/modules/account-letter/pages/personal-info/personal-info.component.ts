@@ -10,11 +10,10 @@ import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import * as _ from 'lodash';
 import {MspDataService} from '../../../../services/msp-data.service';
-import {ConsentModalComponent} from 'moh-common-lib';
+import {ConsentModalComponent, Address} from 'moh-common-lib';
 import {ProcessService} from '../../../../services/process.service';
 import {AccountLetterApplication, MspPerson} from '../../../../components/msp/model/account-letter-application.model';
 import {MspBirthDateComponent} from '../../../msp-core/components/birthdate/birthdate.component';
-import {Address} from '../../../../components/msp/model/address.model';
 import {
     MSPEnrollementMember, EnrollmentStatusRules
 } from '../../../../models/status-activities-documents';
@@ -44,14 +43,14 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     showError: boolean = false;
     postalCode: string = 'V8V 1l8';
     Address: typeof Address = Address;
-    public postalCodeMask = [LETTER, NUMBER, LETTER, SPACE, NUMBER, LETTER, NUMBER];
-    public phnRegex: RegExp = /^[A-Za-z][0-9][A-Za-z]\s?[0-9][A-Za-z][0-9]$/;
+    //public postalCodeMask = [LETTER, NUMBER, LETTER, SPACE, NUMBER, LETTER, NUMBER];
+    //public phnRegex: RegExp = /^[A-Za-z][0-9][A-Za-z]\s?[0-9][A-Za-z][0-9]$/;
 
     langStatus = require('../../../../components/msp/common/enrollmentMember/i18n');
 
 
     constructor(private dataService: MspDataService,
-                private _processService: ProcessService,
+                //private _processService: ProcessService,
                 private _router: Router,
                 private cd: ChangeDetectorRef,
                 private logService: MspLogService) {
@@ -60,7 +59,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     }
 
     ngOnInit() {
-        this.initProcessMembers(AccountLetterPersonalInfoComponent.ProcessStepNum, this._processService);
+       // this.initProcessMembers(AccountLetterPersonalInfoComponent.ProcessStepNum, this._processService);
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
         this.accountLetterApplication.authorizationToken = null;
         console.log(this.accountLetterApplication.postalCode);
@@ -127,7 +126,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     handleFormSubmission(evt: any) {
 
         if (this.canContinue()) {
-            this._router.navigate(['/msp/account-letter/sending']);
+            this._router.navigate(['/account-letter/sending']);
         } else {
 
             console.log('Auth token is not valid');

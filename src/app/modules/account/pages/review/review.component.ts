@@ -94,7 +94,7 @@ export class AccountReviewComponent implements OnInit {
             console.log('Found valid auth token, transfer to sending screen.');
             this.processService.setStep(this.processService.getStepNumber(ProcessUrls.ACCOUNT_REVIEW_URL), true);
             //  this.logService.log({name: "Account - Review Page after CAPTCHA"},"Account - Captcha Success")
-            this._router.navigate(['/msp/account/sending']);
+            this._router.navigate(['/account/sending']);
         } else {
             console.log('Auth token is not valid');
         }
