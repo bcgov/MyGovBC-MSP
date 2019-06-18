@@ -15,7 +15,8 @@ import { SendingComponent } from './pages/sending/sending.component';
 import { SpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { FormsModule } from '@angular/forms';
 import { CaptchaModule } from 'moh-common-lib/captcha';
-
+import { RouteGuardService, CheckCompleteBaseService, AbstractPgCheckService } from 'moh-common-lib';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -34,10 +35,12 @@ import { CaptchaModule } from 'moh-common-lib/captcha';
     PersonalInfoComponent,
     PrepareComponent,
     ReviewComponent,
-    SendingComponent,
+    //SendingComponent,
     SpouseInfoComponent
   ],
   providers: [
+    { provide: AbstractPgCheckService, useClass: CheckCompleteBaseService },
+    RouteGuardService
   ]
 })
 export class EnrolmentModule { }
