@@ -71,8 +71,13 @@ export class AssistanceHomeComponent extends BaseComponent implements OnInit {
 
       this.dataSvc.saveFinAssistApplication();
     });
-    const helperData = new PremiumRatesYear();
-    console.log(helperData.brackets);
+    // console.log(helperData.brackets);
+    const data = {};
+    for (let assistYear of this.options) {
+      const helperData = new PremiumRatesYear();
+      data[assistYear.year] = { ...helperData.brackets };
+    }
+    console.log(data);
   }
 
   applyOption(bool: boolean, i: number) {
