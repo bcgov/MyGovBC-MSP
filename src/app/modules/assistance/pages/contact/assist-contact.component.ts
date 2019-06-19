@@ -4,8 +4,9 @@ import { FinancialAssistApplication } from '../../models/financial-assist-applic
 import { NgForm } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MspDataService } from 'app/services/msp-data.service';
-import { countryData } from 'app/modules/msp-core/constants/countries';
-import provinceData from 'app/modules/msp-core/constants/provinces';
+// import { countryData } from 'app/modules/msp-core/constants/countries';
+// import provinceData from 'app/modules/msp-core/constants/provinces';
+import { COUNTRY_LIST, PROVINCE_LIST } from 'moh-common-lib';
 import { Address, ProvinceList } from 'moh-common-lib';
 
 @Component({
@@ -24,12 +25,15 @@ import { Address, ProvinceList } from 'moh-common-lib';
             name="addressLine1"
           ></common-street>
           <div class="col-1">
-            <button class=" bt btn-default">
-              <i class="fa fa-plus"></i>
-            </button>
+            <div class="row h-50"></div>
+            <div class="row">
+              <button class=" btn btn-transparent" (click)="addLine()">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="addressLine2">
           <common-street
             class="col-11"
             label="Address line 2"
@@ -37,12 +41,15 @@ import { Address, ProvinceList } from 'moh-common-lib';
             name="addressLine2"
           ></common-street>
           <div class="col-1">
-            <button class=" bt btn-default">
-              <i class="fa fa-plus"></i>
-            </button>
+            <div class="row h-50"></div>
+            <div class="row">
+              <button (click)="removeLine(2)" class=" btn btn-transparent">
+                <i class="fa fa-minus"></i>
+              </button>
+            </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="addressLine3">
           <common-street
             class="col-11"
             label="Address line 3"
@@ -50,9 +57,12 @@ import { Address, ProvinceList } from 'moh-common-lib';
             name="addressLine3"
           ></common-street>
           <div class="col-1">
-            <button class=" bt btn-default">
-              <i class="fa fa-plus"></i>
-            </button>
+            <div class="row h-50"></div>
+            <div class="row">
+              <button class=" btn btn-transparent" (click)="removeLine(3)">
+                <i class="fa fa-minus"></i>
+              </button>
+            </div>
           </div>
         </div>
         <common-city [(ngModel)]="address.city" name="city"></common-city>
@@ -82,6 +92,10 @@ import { Address, ProvinceList } from 'moh-common-lib';
 })
 export class AssistContactComponent extends BaseComponent implements OnInit {
   @ViewChild('formRef') personalInfoForm: NgForm;
+
+  addressLine2 = false;
+  addressLine3 = false;
+
   addressLines = 0;
 
   title = 'Contact Info';
@@ -106,8 +120,8 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
 
   constructor(cd: ChangeDetectorRef, private dataService: MspDataService) {
     super(cd);
-    this.countryList = countryData;
-    this.provinceList = provinceData;
+    this.countryList = COUNTRY_LIST;
+    this.provinceList = PROVINCE_LIST;
     this.financialAssistApplication = this.dataService.finAssistApp;
   }
 
@@ -115,7 +129,16 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
     this.address = this.financialAssistApplication.mailingAddress;
     this.phone = this.financialAssistApplication.applicant.phoneNumber;
     this.addressLines = this.getAddressLines(this.address);
-    console.log(this.address);
+
+    const enableLines = num => {
+      while (num > 1) {
+        this.address[`addressLine${num}`] = true;
+        num -= 1;
+      }
+    };
+
+    enableLines(this.addressLines);
+
     this.personalInfoForm.valueChanges
       .pipe(
         debounceTime(250),
@@ -129,10 +152,27 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
   }
 
   getAddressLines(address: Address) {
+    console.log(typeof address.addressLine2);
     if (address.addressLine3) return 3;
-    if (address.addressLine2) return 2;
-    else return 1;
+    if (typeof address.addressLine2 === 'string') {
+      console.log('passed this');
+      return 2;
+    } else return 1;
   }
 
-  addLine() {}
+  addLine() {
+    const i = this.getAddressLines(this.address);
+    if (i === 3) return;
+    const lineToAdd = `addressLine${i + 1}`;
+    this.address[lineToAdd] = '';
+    console.log('added line', lineToAdd);
+    console.log('address', this.address);
+    this[lineToAdd] = true;
+  }
+
+  removeLine(num: number) {
+    const lineToRemove = `addressLine${num}`;
+    this.address[lineToRemove] = undefined;
+    this[lineToRemove] = false;
+  }
 }
