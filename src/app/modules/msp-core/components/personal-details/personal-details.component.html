@@ -53,16 +53,17 @@
           <div *ngIf="person.documents.images.length > 0">
             <div *ngIf="person.currentActivity == Activities.MovingFromCountry || person.status ==
             StatusInCanada.TemporaryResident">
-              <msp-country #country [label]="lang('./en/index.js').movedFromCountryLabel"
-                [country]="person.movedFromProvinceOrCountry"
-                (onChange)="person.movedFromProvinceOrCountry = $event; onChange.emit($event)" [showError]="showError">
-              </msp-country>
+            <common-country name='msp_country_1'
+                            [label]="movedFromCountryLabel"
+                            [ngModel]="person.movedFromProvinceOrCountry" 
+                            (ngModelChange)="person.movedFromProvinceOrCountry = $event; onChange.emit($event)"></common-country>
             </div>
             <div *ngIf="person.currentActivity === Activities.MovingFromProvince">
-              <msp-province #province
-                [provinceLabel]="lang('./en/index.js').movedFromProvinceLabel[this.person.relationship]"
-                [province]="person.movedFromProvinceOrCountry" (onChange)="provinceUpdate($event)" [hideStates]="true"
-                [exceptBC]="true" [showError]="showError" colSize="col-md-4"></msp-province>
+              <common-province name="msp_province_1"
+                               [label]="movedFromProvinceLabel[this.person.relationship]"
+                               [ngModel]="person.movedFromProvinceOrCountry"
+                               (ngModelChange)="provinceUpdate($event)"
+                               [provinceList]=provList(true)></common-province>
             </div>
 
             <div role="dialog" [attr.aria-labelledby]="'movedPermLabel' + objectId" class="row">
@@ -106,10 +107,11 @@
             <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult &&
                 person.currentActivity === Activities.LivingInBCWithoutMSP &&
                 !person.livedInBCSinceBirth">
-              <msp-province #province [provinceLabel]="lang('./en/index.js').movedFromAnotherProvinceLabel"
-                [province]="person.movedFromProvinceOrCountry" (onChange)="provinceUpdate($event)" [hideStates]="true"
-                [exceptBC]="true" [showError]="showError">
-              </msp-province>
+                <common-province name="msp_province_2"
+                                 label="Which province did you move from?"
+                                 [ngModel]="person.movedFromProvinceOrCountry"
+                                 (ngModelChange)="provinceUpdate($event)"
+                                 [provinceList]=provList()></common-province>
             </div>
             <!--For canadian citizen, returning to BC after an absence or moving from another province, the arrival date in canada
                 is not required.-->

@@ -96,17 +96,18 @@ export class PersonalDetailsComponent extends BaseComponent {
    */
   movedFromCountryLabel = 'Which country are you moving from?';
   movedFromProvinceLabel = [
-    'Which province are you moving from?',
-    'Which province are they moving from?',
-    'Which province are they moving from?',
-    'Which province are they moving from?'
+   'Which province are you moving from?',
+   'Which province are they moving from?',
+   'Which province are they moving from?',
+   'Which province are they moving from?'
   ];
+
 
   documentUploadLabel = [
     'Upload your documents',
-    " Upload your spouse's documents",
-    "Upload your child's documents",
-    "<Upload your child's documents"
+    ' Upload your spouse\'s documents',
+    'Upload your child\'s documents',
+    '<\Upload your child\'s documents'
   ];
 
   langDocuments = MspDocumentConstants.documentList;
@@ -199,7 +200,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   setActivity(value: Activities) {
-    console.log("I'm defined you nit", value);
+    console.log('I\'m defined you nit', value);
     if (
       this.showServicesCardModal &&
       this.person.bcServiceCardShowStatus &&

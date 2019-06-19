@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Input, Component, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { MspApplication } from '../../models/application.model';
+import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
+import {BenefitApplication} from '../../models/benefit-application.model';
 import { BaseComponent } from '../../../../models/base.component';
 import { ProcessService } from '../../../../services/process.service';
 import { Router } from '@angular/router';
-import { Address, PROVINCE_LIST, COUNTRY_LIST, CheckCompleteBaseService } from 'moh-common-lib';
 
 import {
   CountryList,
@@ -13,12 +13,13 @@ import {
   CANADA,
   BRITISH_COLUMBIA
 } from 'moh-common-lib';
-import { MspAddressConstants } from '../../../../models/msp-address.constants';
+import { Address, PROVINCE_LIST, COUNTRY_LIST, CheckCompleteBaseService } from 'moh-common-lib';
+//import { countryData, provinceData } from '../../../../models/msp-constants';
 
 @Component({
   templateUrl: './address.component.html'
 })
-export class EnrolAddressComponent extends BaseComponent {
+export class BenefitAddressComponent extends BaseComponent {
 
   // Constants TODO: Figure out whether used in html
   outsideBCFor30DaysLabel = 'Have you or any family member been outside BC for more than 30 days in total during the past 12 months?';
@@ -33,7 +34,7 @@ export class EnrolAddressComponent extends BaseComponent {
   @ViewChild('address') address: ElementRef;
   @ViewChild('mailingAddress') mailingAddress: ElementRef;
   @ViewChild('phone') phone: ElementRef;
-
+  
   countryList: CountryList[] = COUNTRY_LIST;
   provinceList: ProvinceList[] = PROVINCE_LIST;
 
@@ -41,21 +42,18 @@ export class EnrolAddressComponent extends BaseComponent {
   public defaultProvince = BRITISH_COLUMBIA;
 
 
-  mspApplication: MspApplication;
+  mspApplication: BenefitApplication;
 
-  constructor(private dataService: MspDataService,
+  constructor(private dataService: MspBenefitDataService,
               private _router: Router,
-             // private _processService: ProcessService,
-              private cd: ChangeDetectorRef, 
-             // private checkCompleteBaseService: CheckCompleteBaseService
-               ) {
+              private _processService: ProcessService,
+              private cd: ChangeDetectorRef) {
     super(cd);
-    this.mspApplication = this.dataService.getMspApplication();
+    this.mspApplication = this.dataService.benefitApp;
     //this.mspApplication.mailingSameAsResidentialAddress = true;
   }
   ngOnInit(){
-   // this.initProcessMembers(EnrolAddressComponent.ProcessStepNum, this._processService);
-    //this.checkCompleteBaseService.setPageIncomplete();
+    this.initProcessMembers(BenefitAddressComponent.ProcessStepNum, this._processService);
   }
 
   ngAfterViewInit(): void {
@@ -101,8 +99,7 @@ export class EnrolAddressComponent extends BaseComponent {
       console.log('Please fill in all required fields on the form.');
     }else{
      // this._processService.setStep(4, true);
-     // this.checkCompleteBaseService.setPageComplete();
-      this._router.navigate(['/enrolment/review']);
+      this._router.navigate(['/benefit/review']);
     }
   }
 }

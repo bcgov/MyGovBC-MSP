@@ -1,33 +1,28 @@
+
 <div>
   <h1 [innerHTML]="lang('./en/index.js').retroYearsTitle" tabindex="0"></h1>
   <div class="row">
     <div class="col-sm-12">
       <p [innerHTML]="docRequiredInstruction.applicant" tabindex="0">
       </p>
-
-      
     </div>
   </div>
   <div class="row" *ngIf="hasSpouse">
     <div class="col-sm-12">
       <p [innerHTML]="docRequiredInstruction.spouse" tabindex="0">
       </p>
-    <!--  <p [innerHTML]="lang('./en/index.js').notice" tabindex="0">
-      </p> -->
     </div>
   </div>
-</div>
-<p [innerHTML]="lang('./en/index.js').notice" tabindex="0">
-</p>
 
+  <hr>
 <form #formRef='ngForm' novalidate>
 
-  <div class="row">
-    <div class="col-lg-8" >
-      <h2 [innerHTML]="lang('./en/index.js').docUploadInstructions" tabindex="0"></h2>
+  <div class="row" style="margin-left: 5px">
+    
+     <!-- <h2 [innerHTML]="lang('./en/index.js').docUploadInstructions" tabindex="0"></h2>
       <label [innerHTML]="lang('./en/index.js').docUploadInstruction" tabindex="0">
       </label>
-
+      -->
       <common-file-uploader #fileUploader
                          [images]="application.assistYeaDocs"
                          [id]='application.id'
@@ -37,17 +32,18 @@
         <span id="uploadInstruction" tabindex="0"
               #uploadInstruction
         >
-          Please upload Notice of Assessment documents
+          Please upload Notice of Assessment documents for {{application.taxYear}}
         </span>
 
       </common-file-uploader>
       <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
-    </div>
+   
   </div>
 
 </form>
+</div>
 
-<hr>
+
 
 <div class="col-md-6 pull-left" *ngIf="!canContinue && formRef.submitted">
   <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields"
@@ -56,7 +52,7 @@
 </div>
 
 
-
+<!--
 
 <div class="row" style="margin-top: 10px;">
   <div class="col-md-2 col-4">
@@ -67,10 +63,10 @@
   </div>
   <div class="col-md-8 col-12 pull-left" *ngIf="application.assistYeaDocs.length < 1">
     <!--<p class="text-danger" [innerHTML]="lang('./en/index.js').noaDocRequired"> tabindex="0">
-    </p>-->
+    </p>
   </div>
   <div class="col-md-2 col-12 pull-right">
     <msp-cancel></msp-cancel>
   </div>
-</div>
+</div> -->
 

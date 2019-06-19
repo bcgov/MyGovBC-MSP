@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, DoCheck, ViewChild} from '@angular/core';
+import {AfterViewInit,EventEmitter, Component, DoCheck, ViewChild, Input, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {MspImage} from '../../../../models/msp-image';
@@ -6,6 +6,7 @@ import {MspImageErrorModalComponent} from '../../../msp-core/components/image-er
 import {ProcessService} from '../../../../services/process.service';
 import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
+
 
 @Component({
   selector: 'msp-benefit-documents',
@@ -16,7 +17,10 @@ export class BenefitDocumentsComponent  implements AfterViewInit, DoCheck {
 
     static ProcessStepNum = 2;
     lang = require('./i18n');
-    application: BenefitApplication;
+    @Input() application: BenefitApplication;
+    @Input() hasSpouse: boolean;
+
+    @Output() docActionEvent = new EventEmitter<any>();
 
     @ViewChild('formRef') form: NgForm;
     //@ViewChild('fileUploader') fileUploader: FileUploaderComponent;
@@ -80,12 +84,15 @@ export class BenefitDocumentsComponent  implements AfterViewInit, DoCheck {
         this.application.assistYeaDocs = this.application.assistYeaDocs.concat(doc);
        // this.fileUploader.forceRender();
         this.dataService.saveFinAssistApplication();
+        this.docActionEvent.emit(doc);
+
     }
 
     errorDoc(evt: MspImage) {
         this.mspImageErrorModal.imageWithError = evt;
         this.mspImageErrorModal.showFullSizeView();
         this.mspImageErrorModal.forceRender();
+        this.docActionEvent.emit(evt);
     }
 
     deleteDoc(doc: MspImage){
@@ -94,9 +101,10 @@ export class BenefitDocumentsComponent  implements AfterViewInit, DoCheck {
                 return d.id !== doc.id;
             });
         this.dataService.saveFinAssistApplication();
+        this.docActionEvent.emit(doc);
     }
 
-    get hasSpouse(): boolean {
+    get hasSpouse1(): boolean {
         return this.application.hasSpouseOrCommonLaw;
     }
 

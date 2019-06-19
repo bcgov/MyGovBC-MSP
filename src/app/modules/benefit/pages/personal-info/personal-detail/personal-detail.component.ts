@@ -25,6 +25,8 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
     //@ViewChild('phn') phn: PhnComponent;
 
     @Output() onChange = new EventEmitter<any>();
+    @Output() notifySpouseRemoval: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
+ 
 
     constructor(private dataService: MspBenefitDataService,
                 private cd: ChangeDetectorRef) {
@@ -55,5 +57,9 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
         return this.benefitApp.allPersons.map(x => x.sin);
     }
 
+    removeSpouse(): void {
+        this.notifySpouseRemoval.emit(this.person);
+    }
+    
 
 }

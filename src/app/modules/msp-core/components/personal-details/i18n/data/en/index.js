@@ -79,8 +79,7 @@ module.exports = {
   schoolNameErrorIsRequired: 'Name of school is required',
   schoolAddressLabel: 'School address',
 
-  removeSpouseButton: 'Remove',
-  removeChildButton: 'Remove',
+
   mustAnswerQuestionAboutBeenOutsideBC: 'You must answer this question about your absence from B.C.',
   mustAnswerQuestionAboutPermMoveToBC: 'You must answer this question about your move to B.C.',
   mustDeclareStudentStatus: "Are you a full time student right now?",
@@ -99,6 +98,5 @@ module.exports = {
     "The spouse's most recent move to Canada cannot be before the spouse's date of birth.",
     "The child's most recent move to Canada cannot be before the child's date of birth.",
     "The child's most recent move to Canada cannot be before the child's date of birth.",
-  ],
-  minMonths: "The return date should be with in past 12 months"
+  ]
 }

@@ -8,10 +8,9 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Address, CANADA } from 'moh-common-lib';
+import { Address, CANADA, COUNTRY_LIST } from 'moh-common-lib';
 import { BaseComponent } from '../../../../models/base.component';
 import { debounceTime } from 'rxjs/operators';
-import { MspAddressConstants } from '../../../../models/msp-address.constants';
 
 @Component({
   selector: 'msp-address',
@@ -45,7 +44,7 @@ export class MspAddressComponent extends BaseComponent {
   //@ViewChild('country') country: MspCountryComponent;
 
   Address: typeof Address = Address;
-  countryData = MspAddressConstants.countryData;
+  countryData = COUNTRY_LIST;
 
   constructor(private cd: ChangeDetectorRef) {
     super(cd);

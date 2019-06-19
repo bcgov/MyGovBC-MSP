@@ -9,6 +9,7 @@ import { ReviewComponent } from './pages/review/review.component';
 import { AuthorizeComponent } from './pages/authorize/authorize.component';
 import { SendingComponent } from './pages/sending/sending.component';
 import { ConfirmationComponent } from './pages/confirmation/confirmation.component';
+import { RouteGuardService } from 'moh-common-lib';
 
 export const enrolPages: Routes = [
     {
@@ -17,35 +18,35 @@ export const enrolPages: Routes = [
     },
     {
         path: 'personal-info',
-        // canActivate: [ProcessService],
+       // canActivate: [RouteGuardService],
         component: PersonalInfoComponent
     },
     {
         path: 'spouse-info',
-        // canActivate: [ProcessService],
+        //canActivate: [RouteGuardService],
         component: SpouseInfoComponent
     },
     {
         path: 'child-info',
-        // canActivate: [ProcessService],
+        //canActivate: [RouteGuardService],
         component: ChildInfoComponent
     },
     {
         path: 'address',
-        // canActivate: [ProcessService],
+        //canActivate: [RouteGuardService],
         component: EnrolAddressComponent
     },
     {
         path: 'review',
-        // canActivate: [ProcessService],
+        //canActivate: [RouteGuardService],
         component: ReviewComponent
     },
     {
         path: 'authorize',
-        // canActivate: [ProcessService],
+        //canActivate: [RouteGuardService],
         component: AuthorizeComponent
-    },/*
-    {
+    },
+    /*{
         path: 'sending',
         // canActivate: [ProcessService],
         component: SendingComponent
