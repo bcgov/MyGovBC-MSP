@@ -19,9 +19,6 @@ export class PremiumRatesYear {
 
   constructor() {
     const opts = this.netIncomeOptions;
-    const base1 = 12.8;
-    const base2 = 23.2;
-    const base3 = 25.6;
     let index = 0;
     for (let opt of opts) {
       this.brackets.push(this.genBrackets(opt, index));

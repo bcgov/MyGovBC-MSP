@@ -9,6 +9,9 @@ import { debounceTime } from 'rxjs/operators';
   selector: 'msp-assist-home',
   template: `
     <common-page-section layout="noTips">
+      <msp-assist-rates-helper-modal
+        [rateData]="rateData"
+      ></msp-assist-rates-helper-modal>
       <h2>Apply for Retroactive Premium Assistance</h2>
       <p>
         Retroactive Premium Assistance is available for up to six years prior to
@@ -58,6 +61,7 @@ export class AssistanceHomeComponent extends BaseComponent implements OnInit {
   @ViewChild('formRef') form: NgForm;
   title = 'Apply for Retroactive Premium Assistance';
   options: import('/Users/sean/MyGovBC-MSP/src/app/modules/assistance/models/assistance-year.model').AssistanceYear[];
+  rateData: {};
 
   constructor(cd: ChangeDetectorRef, private dataSvc: MspDataService) {
     super(cd);
@@ -65,23 +69,18 @@ export class AssistanceHomeComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.options = this.dataSvc.finAssistApp.assistYears;
-    // console.log('options', options);
     this.form.valueChanges.pipe(debounceTime(250)).subscribe(obs => {
-      // console.log('changes', obs);
-
       this.dataSvc.saveFinAssistApplication();
     });
-    // console.log(helperData.brackets);
     const data = {};
     for (let assistYear of this.options) {
       const helperData = new PremiumRatesYear();
       data[assistYear.year] = { ...helperData.brackets };
     }
-    console.log(data);
+    this.rateData = data;
   }
 
   applyOption(bool: boolean, i: number) {
-    console.log('year', i);
     this.options[i].apply = bool;
     this.dataSvc.saveFinAssistApplication();
   }

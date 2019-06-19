@@ -20,6 +20,7 @@ import { ModalModule } from 'ngx-bootstrap';
 import { AssistContactComponent } from './pages/contact/assist-contact.component';
 import { AssistMailingComponent } from './components/assist-mailing/assist-mailing.component';
 import { AssistanceHomeComponent } from './pages/home/home.component';
+import { AssistRatesHelperModalComponent } from './components/assist-rates-helper-modal/assist-rates-helper-modal.component';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { AssistanceHomeComponent } from './pages/home/home.component';
     EligibilityCardComponent,
     AssistContactComponent,
     AssistMailingComponent,
-    AssistanceHomeComponent
+    AssistanceHomeComponent,
+    AssistRatesHelperModalComponent
   ],
   exports: [AssistMailingComponent]
 })

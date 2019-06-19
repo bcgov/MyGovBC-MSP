@@ -8,6 +8,7 @@ import { AssistanceSendingComponent } from './pages/sending/sending.component';
 import { AssistanceConfirmationComponent } from './pages/confirmation/confirmation.component';
 import { AssistContactComponent } from './pages/contact/assist-contact.component';
 import { AssistanceHomeComponent } from './pages/home/home.component';
+import { AssistRatesHelperModalComponent } from './components/assist-rates-helper-modal/assist-rates-helper-modal.component';
 
 export const assistPages: Routes = [
   {
@@ -53,6 +54,11 @@ export const assistPages: Routes = [
     path: 'home',
     // canActivate: [ProcessService],
     component: AssistanceHomeComponent
+  },
+  {
+    path: 'test',
+    canActivate: [],
+    component: AssistRatesHelperModalComponent
   },
   {
     path: 'confirmation',
