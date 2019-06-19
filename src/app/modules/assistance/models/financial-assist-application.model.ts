@@ -1,4 +1,4 @@
-import {Address} from '../../../components/msp/model/address.model';
+
 import {MspPerson} from '../../../components/msp/model/msp-person.model';
 import {Relationship} from '../../../models/status-activities-documents';
 import {Eligibility} from './eligibility.model';
@@ -9,6 +9,7 @@ import {ApplicationBase} from '../../enrolment/models/application-base.model';
 import {AssistanceYear} from './assistance-year.model';
 import * as _ from 'lodash';
 import {PhoneNumber} from '../../../components/msp/model/phone.model';
+import { Address } from 'moh-common-lib';
 
 export enum AssistanceApplicationType {
   CurrentYear,

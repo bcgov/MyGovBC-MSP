@@ -59,7 +59,7 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     }
 
     onSubmit(form: NgForm){
-        this._router.navigate(['/msp/benefit/documents']);
+        this._router.navigate(['/benefit/spouse-info']);
     }
 
     isValid(): boolean {
@@ -67,7 +67,10 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     }
 
     get canContinue(): boolean{
-        return this.isAllValid();
+        if ( this.isAllValid() && this.dataService.benefitApp.assistYeaDocs.length > 0) {
+            return true;
+        }
+        return  false;
     }
 
 }

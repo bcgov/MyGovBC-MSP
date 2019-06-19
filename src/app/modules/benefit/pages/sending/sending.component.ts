@@ -5,7 +5,7 @@ import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 import {MspApiBenefitService} from '../../services/msp-api-benefit.service';
 import {HttpErrorResponse} from '@angular/common/http';
-import {SuppBenefitApiResponse} from '../../../../components/msp/model/suppBenefit-response.interface';
+import {SuppBenefitApiResponse} from '../../models/suppBenefit-response.interface';
 
 
 @Component({
@@ -73,7 +73,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
             }, 'Supplementary Benefit - Submission Response Success');
             this.dataService.removeMspBenefitApp();
 
-            this.router.navigate(['/msp/benefit/confirmation'],
+            this.router.navigate(['/benefit/confirmation'],
                 {queryParams: {confirmationNum: refNumber}});
       });
   }
@@ -93,7 +93,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
   }
 
   retrySubmission(){
-      this.router.navigate(['/msp/benefit/authorize-submit']);
+      this.router.navigate(['/benefit/authorize-submit']);
   }
 
   isFailure(suppBenefitApiResponse: SuppBenefitApiResponse): boolean {

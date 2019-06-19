@@ -22,10 +22,12 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     @Input() totalHouseholdIncomeLabel: string;
     @Input() continueButtonLabel: string;
     @Input() NotQualifyText: string;
+    @Input() disableContinue: boolean = false;
     
     
     @Output() updateQualify: EventEmitter<Boolean> = new EventEmitter<Boolean>();
     @Output() taxYearInfoMissing: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+    @Output() continue: EventEmitter<Boolean> = new EventEmitter<Boolean>();
 
     @Input() qualificationThreshhold: number;
    // lang = require('./i18n');
@@ -225,18 +227,21 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
 
         if (this.applicantIncomeInfoProvided && applicantAgeSpecified && spouseSpecified && netIncomeValid && isSpouseIncomeValid) {
             if (this.application.hasSpouseOrCommonLaw) {
+                this.continue.emit(spouseAgeSpecified && this.attendantCareExpenseReceiptsProvided);
                 return spouseAgeSpecified && this.attendantCareExpenseReceiptsProvided;
             } else {
+                this.continue.emit(this.attendantCareExpenseReceiptsProvided);
                 return this.attendantCareExpenseReceiptsProvided;
             }
         } else {
+            this.continue.emit(false);
             return false;
         }
     }
 
 
     navigateToPersonalInfo() {
-            this._router.navigate(['/msp/benefit/personal-info']);
+            this._router.navigate(['/benefit/personal-info']);
     }
 
 

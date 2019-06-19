@@ -1,41 +1,54 @@
-<h1 [innerHTML]="lang('./en/index.js').pageTitle" tabindex="0"></h1>
-<button class="btn btn-default" onclick="window.print();return false;">
-  <i class="fa fa-print fa-lg pointer"
-     aria-hidden="true"></i>
-  Print
-</button>
+<common-page-framework layout="blank">
+  <a onclick="window.print();return false;" >   
+    <b class="float-right">Print <i class="fa fa-print fa-lg pointer" 
+      aria-hidden="true"></i>
+    </b> 
+  </a>
+  <h1 [innerHTML]="lang('./en/index.js').pageTitle" tabindex="0"></h1>
 <div class="row">
   <div class="col-lg-6">
     <msp-person-card [person]="application.applicant"
-                     [editRouterLink]="'/msp/benefit/personal-info'"></msp-person-card>
+                     [editRouterLink]="'/benefit/personal-info'"></msp-person-card>
     <msp-person-card [person]="application.spouse" *ngIf="application.hasSpouseOrCommonLaw"
-                     [editRouterLink]="'/msp/benefit/personal-info'"></msp-person-card>
+                     [editRouterLink]="'/benefit/spouse-info'"></msp-person-card>
 
 
     <msp-contact-card
             [residentialAddress]="application.residentialAddress"
             [mailingAddress]="application.mailingAddress"
             [phone]="application.phoneNumber"
-            [editRouterLink]="'/msp/benefit/personal-info'"></msp-contact-card>
+            [editRouterLink]="'/benefit/personal-info'"></msp-contact-card> 
 
   </div>
   <div class="col-lg-6">
+
+    <msp-benefit-eligibility-card  [application]="application"
+      [editRouterLink]="'/benefit/prepare'">
+    </msp-benefit-eligibility-card> 
+  </div>
+
+  <div class="col-lg-6">
     <div class="person-card-preview-zone">
       <div *ngFor="let mspImage of application.assistYeaDocs" class="preview-item">
-        <msp-thumbnail [imageObject] ="mspImage" [reviewMode]="true">
-        </msp-thumbnail>
+        <common-thumbnail [imageObject] ="mspImage" [reviewMode]="true">
+        </common-thumbnail>
       </div>
     </div>
+    <!--
     <msp-benefit-eligibility-card  [application]="application"
-                                 [editRouterLink]="'/msp/benefit/prepare'">
-    </msp-benefit-eligibility-card>
+                                 [editRouterLink]="'/benefit/prepare'">
+    </msp-benefit-eligibility-card>  -->
   </div>
 </div>
 
-
-<hr>
+  <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
+            (btnClick)="continue()"
+            widthOption='extra-width-mobile-only'>
+  </common-form-action-bar>
+  <!--  
 <button
         class="btn btn-primary" type="submit" (click)="continue()"
         [innerHTML]="lang('./en/index.js').continueButton"></button>
 
-<msp-cancel></msp-cancel>
+<msp-cancel></msp-cancel> -->
+</common-page-framework>

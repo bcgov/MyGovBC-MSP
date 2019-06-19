@@ -9,20 +9,11 @@
         <div class="col-sm-3" *ngIf="!embedded">
             <div *ngIf="person.relationship !== 0" style="margin-top: 18px">
                 <div *ngIf="person.relationship === 1">
-                <common-button [label]="lang('./en/index.js').removeSpouseButton" [buttonType]="buttonClass" (btnClick)='removeSpouse()'></common-button>
-                   
-                    <!--<button type="button" class="btn btn-default btn-xs pull-right"
-                            (click)="removeSpouse()"
-                            [innerHTML]="lang('./en/index.js').removeSpouseButton">
-                    </button> -->
+                <common-button [label]="Remove" [buttonType]="buttonClass" (btnClick)='removeSpouse()'></common-button>
+
                 </div>
                 <div *ngIf="person.relationship === 4">
-                    <common-button [label]="lang('./en/index.js').removeChildButton" [buttonType]="buttonClass" (btnClick)='removeChild()'></common-button>
-                
-                   <!-- <button type="button" class="btn btn-default btn-xs pull-right"
-                            (click)="removeChild()"
-                            [innerHTML]="lang('./en/index.js').removeChildButton">
-                    </button> -->
+                    <common-button [label]="Remove" [buttonType]="buttonClass" (btnClick)='removeChild()'></common-button>
                 </div>
             </div>
         </div>

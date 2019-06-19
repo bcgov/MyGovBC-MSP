@@ -34,7 +34,7 @@
     <div class="col-md-4">
       <!--TODO: Do we have unique SINs to compare against-->
       <common-sin name="sin_number"
-                  label="'SIN Number'"
+                  label="SIN Number"
                   [ngModel]="person.sin"
                   (ngModelChange)="person.sin = $event; onChange.emit($event)"
                   [placeholder]="'046 454 286'"

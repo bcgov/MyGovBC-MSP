@@ -29,7 +29,6 @@ module.exports = {
   documentInstructionsIntro: 'You need to include <strong>one</strong> of the following with your application:',
   documentInstructionsMarriage: 'Has your name changed since your ID was issued due to marriage or a legal name change? If so, include <strong>one or more</strong> of the following:',
   documentInstructionsNote: 'Scan the document, or take a photo of it. Make sure that it&#8217;s:<ul><li>The entire document, from corner to corner</li><li>At least 1000 pixels wide x 1500 pixels tall</li><li>Rotated correctly (not upside down or sideways)</li><li>In focus and easy to read</li><li>A JPG, PNG, GIF or BMP file (<strong>not a PDF</strong>)</li></ul>',
-  viewSamplesButton: 'Open sample',
 
   nameHelpBlock: ['Enter your legal name and gender',
     'Enter your spouse\'s legal name and gender',
@@ -55,17 +54,10 @@ module.exports = {
     'Does your child have a previous B.C. Personal Health Number?'
   ],
 
-  movedFromProvinceLabel: ['Which province are you moving from?',
-    'Which province are they moving from?',
-    'Which province are they moving from?',
-    'Which province are they moving from?'
-  ],
-
-  movedFromAnotherProvinceLabel: 'Which province did you move from?',
+  movedFromAnotherProvinceLabel: 'Which province did you move from?', 
 
   movedFromCountryLabel: 'Which country are you moving from?',
-  arrivalDateToBCLabel: 'Arrival date in B.C.',
-  arrivalDateToBCLabelForReturning: 'Most recent move to B.C.',
+
   arrivalDateToCanadaLabel: 'Arrival date in Canada',
 
   beenOutsideBCOver30DaysLabel: ["Since you arrived, have you been outside B.C. for more than 30 days in total?",
@@ -87,8 +79,7 @@ module.exports = {
   schoolNameErrorIsRequired: 'Name of school is required',
   schoolAddressLabel: 'School address',
 
-  removeSpouseButton: 'Remove',
-  removeChildButton: 'Remove',
+
   mustAnswerQuestionAboutBeenOutsideBC: 'You must answer this question about your absence from B.C.',
   mustAnswerQuestionAboutPermMoveToBC: 'You must answer this question about your move to B.C.',
   mustDeclareStudentStatus: "Are you a full time student right now?",
@@ -107,6 +98,5 @@ module.exports = {
     "The spouse's most recent move to Canada cannot be before the spouse's date of birth.",
     "The child's most recent move to Canada cannot be before the child's date of birth.",
     "The child's most recent move to Canada cannot be before the child's date of birth.",
-  ],
-  minMonths: "The return date should be with in past 12 months"
+  ]
 }

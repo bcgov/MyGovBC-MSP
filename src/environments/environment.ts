@@ -52,5 +52,7 @@ export const environment = {
         MSP_ASSISTANCE: 'http =//www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/premiums/regular-premium-assistance',
         FPCARE: 'http =//www2.gov.bc.ca/gov/content/health/health-drug-coverage/pharmacare-for-bc-residents/who-we-cover/fair-pharmacare-plan',
         ICBC: 'www.icbc.com'
-    }
+    },
+    /** Do not trigger guards */
+    bypassGuards: true
 };

@@ -2,7 +2,7 @@ import {ApplicationBase} from '../../enrolment/models/application-base.model';
 import {UUID} from 'angular2-uuid';
 import {MspImage} from '../../../models/msp-image';
 import * as moment from 'moment';
-import {Address} from '../../../components/msp/model/address.model';
+import {Address} from 'moh-common-lib';
 import {PhoneNumber} from '../../../components/msp/model/phone.model';
 import {MspPerson} from '../../../components/msp/model/msp-person.model';
 import {AssistanceYear} from '../../assistance/models/assistance-year.model';
@@ -31,9 +31,10 @@ export class BenefitApplication implements ApplicationBase {
 
     infoCollectionAgreement: boolean = false;
 
-    applicantClaimForAttendantCareExpense: boolean = false;
+    applicantClaimForAttendantCareExpense: boolean;
     spouseClaimForAttendantCareExpense: boolean = false;
     childClaimForAttendantCareExpense: boolean = false;
+    haveChildrens: boolean;
     childClaimForAttendantCareExpenseCount: number = 1;
 
 
@@ -134,6 +135,7 @@ export class BenefitApplication implements ApplicationBase {
     spouseAgeOver65: boolean;
 
     private _hasSpouseOrCommonLaw: boolean;
+    
 
     /**
      * Returns an array of ALL persons uses in financial assistance.

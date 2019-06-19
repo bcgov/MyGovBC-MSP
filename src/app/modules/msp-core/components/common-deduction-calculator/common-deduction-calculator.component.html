@@ -1,6 +1,6 @@
 <h2></h2>
 
-<form #formRef="ngForm" novalidate (submit)="navigateToPersonalInfo()">
+<form #formRef="ngForm" novalidate >
   <div class="deduction-calc-spacer-sm hidden-xs hidden-sm"></div>
   <div class="deduction-calc">
     <h2 [innerHTML]="eligibilityCalculatorTitle" tabindex="0"></h2>
@@ -190,28 +190,29 @@
       {{canContinue}}
     </div>
   </div>
-  <div class="row" *ngIf="canContinue"
-       style="margin-top: 10px;">
-    <div class="col-sm-12">
-      <button type="submit"
-              class="btn btn-primary btn-block break-word" [innerHtml]="continueButtonLabel">
-      </button>
-    </div>
-  </div>
-  <div class="row" *ngIf="(!canContinue && !isPristine)||(formRef.submitted)"
-       style="margin-top: 10px;">
-    <div class="col-sm-12">
-      <div class="before-continue-warning" tabindex="0">
-        Please answer all highlighted questions on the form before continuing.
+  <div *ngIf="!disableContinue">
+    <div class="row" *ngIf="canContinue"
+        style="margin-top: 10px;">
+      <div class="col-sm-12">
+        <button type="submit"
+                class="btn btn-primary btn-block break-word" [innerHtml]="continueButtonLabel" (click)="navigateToPersonalInfo()">
+        </button>
       </div>
     </div>
-  </div>
-  <div class="row" style="margin-top: 10px;">
-    <div class="col-sm-12">
-      <msp-cancel [btnBlock]="true"></msp-cancel>
+    <div class="row" *ngIf="(!canContinue && !isPristine)||(formRef.submitted)"
+        style="margin-top: 10px;">
+      <div class="col-sm-12">
+        <div class="before-continue-warning" tabindex="0">
+          Please answer all highlighted questions on the form before continuing.
+        </div>
+      </div>
     </div>
-  </div>
-  
+    <div class="row" style="margin-top: 10px;">
+      <div class="col-sm-12">
+        <msp-cancel [btnBlock]="true"></msp-cancel>
+      </div>
+    </div>
+</div>
 
   <div *ngIf="false">
     {{eligibility | json}}

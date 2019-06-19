@@ -9,13 +9,12 @@ import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTy
 import { DependentType, DependentTypeFactory, EnrolmentApplicantTypeFactory, EnrolmentApplicationTypeFactory, EnrolmentChildrenTypeFactory, EnrolmentDependentsTypeFactory, LivedInBCTypeFactory, OutsideBCTypeFactory, PersonType, PersonTypeFactory, PreviousCoverageTypeFactory, ResidencyType, ResidencyTypeFactory, WillBeAwayTypeFactory } from '../modules/enrolment/pages/api-model/enrolmentTypes';
 import { ResponseType } from '../modules/enrolment/pages/api-model/responseTypes';
 import { MspAccountApp } from '../modules/account/models/account.model';
-import { Address } from '../components/msp/model/address.model';
 import { ApplicationBase } from '../modules/enrolment/models/application-base.model';
 import { MspApplication } from '../modules/enrolment/models/application.model';
 import { AssistanceApplicationType, FinancialAssistApplication } from '../modules/assistance/models/financial-assist-application.model';
 import { MspImage } from '../models/msp-image';
 import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../components/msp/model/msp-person.model';
-import { SimpleDate } from 'moh-common-lib';
+import { SimpleDate, Address } from 'moh-common-lib';
 import { Activities, Relationship, StatusInCanada } from '../models/status-activities-documents';
 import { MspLogService } from './log.service';
 import { MspMaintenanceService } from './msp-maintenance.service';
