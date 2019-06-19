@@ -57,14 +57,9 @@ import { countryData } from '../../constants/countries';
           role="alert"
           aria-live="assertive"
         >
+          <div class="text-danger" innerHtml="Country is required"></div>
           <div
             class="text-danger"
-            *ngIf="countryRef.errors?.required"
-            innerHtml="Country is required"
-          ></div>
-          <div
-            class="text-danger"
-            *ngIf="countryRef.errors?.pattern"
             innerHtml="A valid country is required"
           ></div>
         </div>
@@ -90,7 +85,7 @@ export class CountryComponent extends BaseComponent {
 
   constructor(private cd: ChangeDetectorRef) {
     super(cd);
-    this.countryData = countryData;
+    // this.countryData = countryData;
   }
 
   ngAfterViewInit(): void {

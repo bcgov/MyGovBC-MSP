@@ -1,55 +1,55 @@
 const provinceData = [
   {
-    code: 'AB',
-    name: 'Alberta'
+    provinceCode: 'AB',
+    description: 'Alberta'
   },
   {
-    code: 'BC',
-    name: 'British Columbia'
+    provinceCode: 'BC',
+    description: 'British Columbia'
   },
   {
-    code: 'MB',
-    name: 'Manitoba'
+    provinceCode: 'MB',
+    description: 'Manitoba'
   },
   {
-    code: 'NB',
-    name: 'New Brunswick'
+    provinceCode: 'NB',
+    description: 'New Brunswick'
   },
   {
-    code: 'NL',
-    name: 'Newfoundland and Labrador'
+    provinceCode: 'NL',
+    description: 'Newfoundland and Labrador'
   },
   {
-    code: 'NS',
-    name: 'Nova Scotia'
+    provinceCode: 'NS',
+    description: 'Nova Scotia'
   },
   {
-    code: 'NU',
-    name: 'Nunavut'
+    provinceCode: 'NU',
+    description: 'Nunavut'
   },
   {
-    code: 'NT',
-    name: 'Northwest Territories'
+    provinceCode: 'NT',
+    description: 'Northwest Territories'
   },
   {
-    code: 'ON',
-    name: 'Ontario'
+    provinceCode: 'ON',
+    description: 'Ontario'
   },
   {
-    code: 'PE',
-    name: 'Prince Edward Island'
+    provinceCode: 'PE',
+    description: 'Prince Edward Island'
   },
   {
-    code: 'QC',
-    name: 'Quebec'
+    provinceCode: 'QC',
+    description: 'Quebec'
   },
   {
-    code: 'SK',
-    name: 'Saskatchewan'
+    provinceCode: 'SK',
+    description: 'Saskatchewan'
   },
   {
-    code: 'YT',
-    name: 'Yukon'
+    provinceCode: 'YT',
+    description: 'Yukon'
   }
 ];
 export default provinceData;

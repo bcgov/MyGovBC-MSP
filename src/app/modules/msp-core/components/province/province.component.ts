@@ -61,11 +61,7 @@ import { countryData } from '../../constants/countries';
           role="alert"
           aria-live="assertive"
         >
-          <div
-            class="text-danger"
-            *ngIf="provinceRef.errors?.required"
-            [innerHtml]="lang('./en/index.js').provinceErrorIsRequired"
-          ></div>
+          <div class="text-danger"></div>
         </div>
       </div>
     </form>
@@ -106,12 +102,13 @@ export class ProvinceComponent extends BaseComponent {
    */
   @Input() exceptBC: boolean = false;
 
-  private provinceData = provinceData;
-  private stateData = stateData;
-  private countryData = countryData;
+  // private provinceData = provinceData;
+  // private stateData = stateData;
+  // private countryData = countryData;
 
   private get provinceStateData() {
-    return Array().concat(this.provinceData, this.stateData);
+    // return Array().concat(this.provinceData, this.stateData);
+    return;
   }
 
   constructor(private cd: ChangeDetectorRef) {
@@ -119,15 +116,15 @@ export class ProvinceComponent extends BaseComponent {
   }
 
   ngOnInit() {
-    let data = this.provinceData;
+    // let data = this.provinceData;
     if (this.hideStates === false) {
-      data = Array().concat(data, this.stateData);
+      // data = Array().concat(data, this.stateData);
     }
     if (this.showCountries) {
-      data = Array().concat(data, this.countryData);
+      // data = Array().concat(data, this.countryData);
     }
 
-    this.provinceAndCountryData = data;
+    // this.provinceAndCountryData = data;
   }
 
   // to handle user typing a non-dropdown value.. used in mailing address where province cant be a drop down item for non-canada countires

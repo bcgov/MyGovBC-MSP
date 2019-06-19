@@ -1,994 +1,994 @@
 export const countryData = [
   {
-    code: 'AF',
-    name: 'Afghanistan'
+    countryCode: 'AF',
+    description: 'Afghanistan'
   },
   {
-    code: 'AX',
-    name: 'Aland Islands'
+    countryCode: 'AX',
+    description: 'Aland Islands'
   },
   {
-    code: 'AL',
-    name: 'Albania'
+    countryCode: 'AL',
+    description: 'Albania'
   },
   {
-    code: 'DZ',
-    name: 'Algeria'
+    countryCode: 'DZ',
+    description: 'Algeria'
   },
   {
-    code: 'AS',
-    name: 'American Samoa'
+    countryCode: 'AS',
+    description: 'American Samoa'
   },
   {
-    code: 'AD',
-    name: 'Andorra'
+    countryCode: 'AD',
+    description: 'Andorra'
   },
   {
-    code: 'AO',
-    name: 'Angola'
+    countryCode: 'AO',
+    description: 'Angola'
   },
   {
-    code: 'AI',
-    name: 'Anguilla'
+    countryCode: 'AI',
+    description: 'Anguilla'
   },
   {
-    code: 'AQ',
-    name: 'Antarctica'
+    countryCode: 'AQ',
+    description: 'Antarctica'
   },
   {
-    code: 'AG',
-    name: 'Antigua and Barbuda'
+    countryCode: 'AG',
+    description: 'Antigua and Barbuda'
   },
   {
-    code: 'AR',
-    name: 'Argentina'
+    countryCode: 'AR',
+    description: 'Argentina'
   },
   {
-    code: 'AM',
-    name: 'Armenia'
+    countryCode: 'AM',
+    description: 'Armenia'
   },
   {
-    code: 'AW',
-    name: 'Aruba'
+    countryCode: 'AW',
+    description: 'Aruba'
   },
   {
-    code: 'AU',
-    name: 'Australia'
+    countryCode: 'AU',
+    description: 'Australia'
   },
   {
-    code: 'AT',
-    name: 'Austria'
+    countryCode: 'AT',
+    description: 'Austria'
   },
   {
-    code: 'AZ',
-    name: 'Azerbaijan'
+    countryCode: 'AZ',
+    description: 'Azerbaijan'
   },
   {
-    code: 'BS',
-    name: 'Bahamas'
+    countryCode: 'BS',
+    description: 'Bahamas'
   },
   {
-    code: 'BH',
-    name: 'Bahrain'
+    countryCode: 'BH',
+    description: 'Bahrain'
   },
   {
-    code: 'BD',
-    name: 'Bangladesh'
+    countryCode: 'BD',
+    description: 'Bangladesh'
   },
   {
-    code: 'BB',
-    name: 'Barbados'
+    countryCode: 'BB',
+    description: 'Barbados'
   },
   {
-    code: 'BY',
-    name: 'Belarus'
+    countryCode: 'BY',
+    description: 'Belarus'
   },
   {
-    code: 'BE',
-    name: 'Belgium'
+    countryCode: 'BE',
+    description: 'Belgium'
   },
   {
-    code: 'BZ',
-    name: 'Belize'
+    countryCode: 'BZ',
+    description: 'Belize'
   },
   {
-    code: 'BJ',
-    name: 'Benin'
+    countryCode: 'BJ',
+    description: 'Benin'
   },
   {
-    code: 'BM',
-    name: 'Bermuda'
+    countryCode: 'BM',
+    description: 'Bermuda'
   },
   {
-    code: 'BT',
-    name: 'Bhutan'
+    countryCode: 'BT',
+    description: 'Bhutan'
   },
   {
-    code: 'BO',
-    name: 'Bolivia'
+    countryCode: 'BO',
+    description: 'Bolivia'
   },
   {
-    code: 'BQ',
-    name: 'Bonaire'
+    countryCode: 'BQ',
+    description: 'Bonaire'
   },
   {
-    code: 'BA',
-    name: 'Bosnia and Herzegovina'
+    countryCode: 'BA',
+    description: 'Bosnia and Herzegovina'
   },
   {
-    code: 'BW',
-    name: 'Botswana'
+    countryCode: 'BW',
+    description: 'Botswana'
   },
   {
-    code: 'BV',
-    name: 'Bouvet Island'
+    countryCode: 'BV',
+    description: 'Bouvet Island'
   },
   {
-    code: 'BR',
-    name: 'Brazil'
+    countryCode: 'BR',
+    description: 'Brazil'
   },
   {
-    code: 'IO',
-    name: 'British Indian Ocean'
+    countryCode: 'IO',
+    description: 'British Indian Ocean'
   },
   {
-    code: 'BN',
-    name: 'Brunei Darussalam'
+    countryCode: 'BN',
+    description: 'Brunei Darussalam'
   },
   {
-    code: 'BG',
-    name: 'Bulgaria'
+    countryCode: 'BG',
+    description: 'Bulgaria'
   },
   {
-    code: 'BF',
-    name: 'Burkina Faso'
+    countryCode: 'BF',
+    description: 'Burkina Faso'
   },
   {
-    code: 'BI',
-    name: 'Burundi'
+    countryCode: 'BI',
+    description: 'Burundi'
   },
   {
-    code: 'KH',
-    name: 'Cambodia'
+    countryCode: 'KH',
+    description: 'Cambodia'
   },
   {
-    code: 'CM',
-    name: 'Cameroon'
+    countryCode: 'CM',
+    description: 'Cameroon'
   },
   {
-    code: 'CA',
-    name: 'Canada'
+    countryCode: 'CA',
+    description: 'Canada'
   },
   {
-    code: 'CV',
-    name: 'Cape Verde'
+    countryCode: 'CV',
+    description: 'Cape Verde'
   },
   {
-    code: 'KY',
-    name: 'Cayman Islands'
+    countryCode: 'KY',
+    description: 'Cayman Islands'
   },
   {
-    code: 'CF',
-    name: 'Central African Republic'
+    countryCode: 'CF',
+    description: 'Central African Republic'
   },
   {
-    code: 'TD',
-    name: 'Chad'
+    countryCode: 'TD',
+    description: 'Chad'
   },
   {
-    code: 'CL',
-    name: 'Chile'
+    countryCode: 'CL',
+    description: 'Chile'
   },
   {
-    code: 'CN',
-    name: 'China'
+    countryCode: 'CN',
+    description: 'China'
   },
   {
-    code: 'CX',
-    name: 'Christmas Island'
+    countryCode: 'CX',
+    description: 'Christmas Island'
   },
   {
-    code: 'CC',
-    name: 'Cocos (Keeling) Islands'
+    countryCode: 'CC',
+    description: 'Cocos (Keeling) Islands'
   },
   {
-    code: 'CO',
-    name: 'Colombia'
+    countryCode: 'CO',
+    description: 'Colombia'
   },
   {
-    code: 'KM',
-    name: 'Comoros'
+    countryCode: 'KM',
+    description: 'Comoros'
   },
   {
-    code: 'CG',
-    name: 'Congo'
+    countryCode: 'CG',
+    description: 'Congo'
   },
   {
-    code: 'CK',
-    name: 'Cook Islands'
+    countryCode: 'CK',
+    description: 'Cook Islands'
   },
   {
-    code: 'CR',
-    name: 'Costa Rica'
+    countryCode: 'CR',
+    description: 'Costa Rica'
   },
   {
-    code: 'CI',
-    name: "Cote d'Ivoire"
+    countryCode: 'CI',
+    description: "Cote d'Ivoire"
   },
   {
-    code: 'HR',
-    name: 'Croatia'
+    countryCode: 'HR',
+    description: 'Croatia'
   },
   {
-    code: 'CU',
-    name: 'Cuba'
+    countryCode: 'CU',
+    description: 'Cuba'
   },
   {
-    code: 'CW',
-    name: 'Curacao'
+    countryCode: 'CW',
+    description: 'Curacao'
   },
   {
-    code: 'CY',
-    name: 'Cyprus'
+    countryCode: 'CY',
+    description: 'Cyprus'
   },
   {
-    code: 'CZ',
-    name: 'Czech Republic'
+    countryCode: 'CZ',
+    description: 'Czech Republic'
   },
   {
-    code: 'DK',
-    name: 'Denmark'
+    countryCode: 'DK',
+    description: 'Denmark'
   },
   {
-    code: 'DJ',
-    name: 'Djibouti'
+    countryCode: 'DJ',
+    description: 'Djibouti'
   },
   {
-    code: 'DM',
-    name: 'Dominica'
+    countryCode: 'DM',
+    description: 'Dominica'
   },
   {
-    code: 'DO',
-    name: 'Dominican Republic'
+    countryCode: 'DO',
+    description: 'Dominican Republic'
   },
   {
-    code: 'EC',
-    name: 'Ecuador'
+    countryCode: 'EC',
+    description: 'Ecuador'
   },
   {
-    code: 'EG',
-    name: 'Egypt'
+    countryCode: 'EG',
+    description: 'Egypt'
   },
   {
-    code: 'SV',
-    name: 'El Salvador'
+    countryCode: 'SV',
+    description: 'El Salvador'
   },
   {
-    code: 'GQ',
-    name: 'Equatorial Guinea'
+    countryCode: 'GQ',
+    description: 'Equatorial Guinea'
   },
   {
-    code: 'ER',
-    name: 'Eritrea'
+    countryCode: 'ER',
+    description: 'Eritrea'
   },
   {
-    code: 'EE',
-    name: 'Estonia'
+    countryCode: 'EE',
+    description: 'Estonia'
   },
   {
-    code: 'ET',
-    name: 'Ethiopia'
+    countryCode: 'ET',
+    description: 'Ethiopia'
   },
   {
-    code: 'FK',
-    name: 'Falkland Islands'
+    countryCode: 'FK',
+    description: 'Falkland Islands'
   },
   {
-    code: 'FO',
-    name: 'Faroe Islands'
+    countryCode: 'FO',
+    description: 'Faroe Islands'
   },
   {
-    code: 'FJ',
-    name: 'Fiji'
+    countryCode: 'FJ',
+    description: 'Fiji'
   },
   {
-    code: 'FI',
-    name: 'Finland'
+    countryCode: 'FI',
+    description: 'Finland'
   },
   {
-    code: 'FR',
-    name: 'France'
+    countryCode: 'FR',
+    description: 'France'
   },
   {
-    code: 'GF',
-    name: 'French Guiana'
+    countryCode: 'GF',
+    description: 'French Guiana'
   },
   {
-    code: 'PF',
-    name: 'French Polynesia'
+    countryCode: 'PF',
+    description: 'French Polynesia'
   },
   {
-    code: 'TF',
-    name: 'French Southern Ter.'
+    countryCode: 'TF',
+    description: 'French Southern Ter.'
   },
   {
-    code: 'GA',
-    name: 'Gabon'
+    countryCode: 'GA',
+    description: 'Gabon'
   },
   {
-    code: 'GM',
-    name: 'Gambia'
+    countryCode: 'GM',
+    description: 'Gambia'
   },
   {
-    code: 'GE',
-    name: 'Georgia'
+    countryCode: 'GE',
+    description: 'Georgia'
   },
   {
-    code: 'DE',
-    name: 'Germany'
+    countryCode: 'DE',
+    description: 'Germany'
   },
   {
-    code: 'GH',
-    name: 'Ghana'
+    countryCode: 'GH',
+    description: 'Ghana'
   },
   {
-    code: 'GI',
-    name: 'Gibraltar'
+    countryCode: 'GI',
+    description: 'Gibraltar'
   },
   {
-    code: 'GR',
-    name: 'Greece'
+    countryCode: 'GR',
+    description: 'Greece'
   },
   {
-    code: 'GL',
-    name: 'Greenland'
+    countryCode: 'GL',
+    description: 'Greenland'
   },
   {
-    code: 'GD',
-    name: 'Grenada'
+    countryCode: 'GD',
+    description: 'Grenada'
   },
   {
-    code: 'GP',
-    name: 'Guadeloupe'
+    countryCode: 'GP',
+    description: 'Guadeloupe'
   },
   {
-    code: 'GU',
-    name: 'Guam'
+    countryCode: 'GU',
+    description: 'Guam'
   },
   {
-    code: 'GT',
-    name: 'Guatemala'
+    countryCode: 'GT',
+    description: 'Guatemala'
   },
   {
-    code: 'GG',
-    name: 'Guernsey'
+    countryCode: 'GG',
+    description: 'Guernsey'
   },
   {
-    code: 'GN',
-    name: 'Guinea'
+    countryCode: 'GN',
+    description: 'Guinea'
   },
   {
-    code: 'GW',
-    name: 'Guinea-Bissau'
+    countryCode: 'GW',
+    description: 'Guinea-Bissau'
   },
   {
-    code: 'GY',
-    name: 'Guyana'
+    countryCode: 'GY',
+    description: 'Guyana'
   },
   {
-    code: 'HT',
-    name: 'Haiti'
+    countryCode: 'HT',
+    description: 'Haiti'
   },
   {
-    code: 'HM',
-    name: 'Heard and McDonald Isl'
+    countryCode: 'HM',
+    description: 'Heard and McDonald Isl'
   },
   {
-    code: 'VA',
-    name: 'Vatican City State'
+    countryCode: 'VA',
+    description: 'Vatican City State'
   },
   {
-    code: 'HN',
-    name: 'Honduras'
+    countryCode: 'HN',
+    description: 'Honduras'
   },
   {
-    code: 'HK',
-    name: 'Hong Kong'
+    countryCode: 'HK',
+    description: 'Hong Kong'
   },
   {
-    code: 'HU',
-    name: 'Hungary'
+    countryCode: 'HU',
+    description: 'Hungary'
   },
   {
-    code: 'IS',
-    name: 'Iceland'
+    countryCode: 'IS',
+    description: 'Iceland'
   },
   {
-    code: 'IN',
-    name: 'India'
+    countryCode: 'IN',
+    description: 'India'
   },
   {
-    code: 'ID',
-    name: 'Indonesia'
+    countryCode: 'ID',
+    description: 'Indonesia'
   },
   {
-    code: 'IR',
-    name: 'Iran'
+    countryCode: 'IR',
+    description: 'Iran'
   },
   {
-    code: 'IQ',
-    name: 'Iraq'
+    countryCode: 'IQ',
+    description: 'Iraq'
   },
   {
-    code: 'IE',
-    name: 'Ireland'
+    countryCode: 'IE',
+    description: 'Ireland'
   },
   {
-    code: 'IM',
-    name: 'Isle of Man'
+    countryCode: 'IM',
+    description: 'Isle of Man'
   },
   {
-    code: 'IL',
-    name: 'Israel'
+    countryCode: 'IL',
+    description: 'Israel'
   },
   {
-    code: 'IT',
-    name: 'Italy'
+    countryCode: 'IT',
+    description: 'Italy'
   },
   {
-    code: 'JM',
-    name: 'Jamaica'
+    countryCode: 'JM',
+    description: 'Jamaica'
   },
   {
-    code: 'JP',
-    name: 'Japan'
+    countryCode: 'JP',
+    description: 'Japan'
   },
   {
-    code: 'JE',
-    name: 'Jersey'
+    countryCode: 'JE',
+    description: 'Jersey'
   },
   {
-    code: 'JO',
-    name: 'Jordan'
+    countryCode: 'JO',
+    description: 'Jordan'
   },
   {
-    code: 'KZ',
-    name: 'Kazakhstan'
+    countryCode: 'KZ',
+    description: 'Kazakhstan'
   },
   {
-    code: 'KE',
-    name: 'Kenya'
+    countryCode: 'KE',
+    description: 'Kenya'
   },
   {
-    code: 'KI',
-    name: 'Kiribati'
+    countryCode: 'KI',
+    description: 'Kiribati'
   },
   {
-    code: 'KP',
-    name: 'Korea, North'
+    countryCode: 'KP',
+    description: 'Korea, North'
   },
   {
-    code: 'KR',
-    name: 'Korea, Republic of'
+    countryCode: 'KR',
+    description: 'Korea, Republic of'
   },
   {
-    code: 'KW',
-    name: 'Kuwait'
+    countryCode: 'KW',
+    description: 'Kuwait'
   },
   {
-    code: 'KG',
-    name: 'Kyrgyzstan'
+    countryCode: 'KG',
+    description: 'Kyrgyzstan'
   },
   {
-    code: 'LA',
-    name: 'Lao'
+    countryCode: 'LA',
+    description: 'Lao'
   },
   {
-    code: 'LV',
-    name: 'Latvia'
+    countryCode: 'LV',
+    description: 'Latvia'
   },
   {
-    code: 'LB',
-    name: 'Lebanon'
+    countryCode: 'LB',
+    description: 'Lebanon'
   },
   {
-    code: 'LS',
-    name: 'Lesotho'
+    countryCode: 'LS',
+    description: 'Lesotho'
   },
   {
-    code: 'LR',
-    name: 'Liberia'
+    countryCode: 'LR',
+    description: 'Liberia'
   },
   {
-    code: 'LY',
-    name: 'Libya'
+    countryCode: 'LY',
+    description: 'Libya'
   },
   {
-    code: 'LI',
-    name: 'Liechtenstein'
+    countryCode: 'LI',
+    description: 'Liechtenstein'
   },
   {
-    code: 'LT',
-    name: 'Lithuania'
+    countryCode: 'LT',
+    description: 'Lithuania'
   },
   {
-    code: 'LU',
-    name: 'Luxembourg'
+    countryCode: 'LU',
+    description: 'Luxembourg'
   },
   {
-    code: 'MO',
-    name: 'Macao'
+    countryCode: 'MO',
+    description: 'Macao'
   },
   {
-    code: 'MK',
-    name: 'Macedonia'
+    countryCode: 'MK',
+    description: 'Macedonia'
   },
   {
-    code: 'MG',
-    name: 'Madagascar'
+    countryCode: 'MG',
+    description: 'Madagascar'
   },
   {
-    code: 'MW',
-    name: 'Malawi'
+    countryCode: 'MW',
+    description: 'Malawi'
   },
   {
-    code: 'MY',
-    name: 'Malaysia'
+    countryCode: 'MY',
+    description: 'Malaysia'
   },
   {
-    code: 'MV',
-    name: 'Maldives'
+    countryCode: 'MV',
+    description: 'Maldives'
   },
   {
-    code: 'ML',
-    name: 'Mali'
+    countryCode: 'ML',
+    description: 'Mali'
   },
   {
-    code: 'MT',
-    name: 'Malta'
+    countryCode: 'MT',
+    description: 'Malta'
   },
   {
-    code: 'MH',
-    name: 'Marshall Islands'
+    countryCode: 'MH',
+    description: 'Marshall Islands'
   },
   {
-    code: 'MQ',
-    name: 'Martinique'
+    countryCode: 'MQ',
+    description: 'Martinique'
   },
   {
-    code: 'MR',
-    name: 'Mauritania'
+    countryCode: 'MR',
+    description: 'Mauritania'
   },
   {
-    code: 'MU',
-    name: 'Mauritius'
+    countryCode: 'MU',
+    description: 'Mauritius'
   },
   {
-    code: 'YT',
-    name: 'Mayotte'
+    countryCode: 'YT',
+    description: 'Mayotte'
   },
   {
-    code: 'MX',
-    name: 'Mexico'
+    countryCode: 'MX',
+    description: 'Mexico'
   },
   {
-    code: 'FM',
-    name: 'Micronesia'
+    countryCode: 'FM',
+    description: 'Micronesia'
   },
   {
-    code: 'MD',
-    name: 'Moldova, Republic of'
+    countryCode: 'MD',
+    description: 'Moldova, Republic of'
   },
   {
-    code: 'MC',
-    name: 'Monaco'
+    countryCode: 'MC',
+    description: 'Monaco'
   },
   {
-    code: 'MN',
-    name: 'Mongolia'
+    countryCode: 'MN',
+    description: 'Mongolia'
   },
   {
-    code: 'ME',
-    name: 'Montenegro'
+    countryCode: 'ME',
+    description: 'Montenegro'
   },
   {
-    code: 'MS',
-    name: 'Montserrat'
+    countryCode: 'MS',
+    description: 'Montserrat'
   },
   {
-    code: 'MA',
-    name: 'Morocco'
+    countryCode: 'MA',
+    description: 'Morocco'
   },
   {
-    code: 'MZ',
-    name: 'Mozambique'
+    countryCode: 'MZ',
+    description: 'Mozambique'
   },
   {
-    code: 'MM',
-    name: 'Myanmar'
+    countryCode: 'MM',
+    description: 'Myanmar'
   },
   {
-    code: 'NA',
-    name: 'Namibia'
+    countryCode: 'NA',
+    description: 'Namibia'
   },
   {
-    code: 'NR',
-    name: 'Nauru'
+    countryCode: 'NR',
+    description: 'Nauru'
   },
   {
-    code: 'NP',
-    name: 'Nepal'
+    countryCode: 'NP',
+    description: 'Nepal'
   },
   {
-    code: 'NL',
-    name: 'Netherlands'
+    countryCode: 'NL',
+    description: 'Netherlands'
   },
   {
-    code: 'NC',
-    name: 'New Caledonia'
+    countryCode: 'NC',
+    description: 'New Caledonia'
   },
   {
-    code: 'NZ',
-    name: 'New Zealand'
+    countryCode: 'NZ',
+    description: 'New Zealand'
   },
   {
-    code: 'NI',
-    name: 'Nicaragua'
+    countryCode: 'NI',
+    description: 'Nicaragua'
   },
   {
-    code: 'NE',
-    name: 'Niger'
+    countryCode: 'NE',
+    description: 'Niger'
   },
   {
-    code: 'NG',
-    name: 'Nigeria'
+    countryCode: 'NG',
+    description: 'Nigeria'
   },
   {
-    code: 'NU',
-    name: 'Niue'
+    countryCode: 'NU',
+    description: 'Niue'
   },
   {
-    code: 'NF',
-    name: 'Norfolk Island'
+    countryCode: 'NF',
+    description: 'Norfolk Island'
   },
   {
-    code: 'MP',
-    name: 'Northern Mariana Islands'
+    countryCode: 'MP',
+    description: 'Northern Mariana Islands'
   },
   {
-    code: 'NO',
-    name: 'Norway'
+    countryCode: 'NO',
+    description: 'Norway'
   },
   {
-    code: 'OM',
-    name: 'Oman'
+    countryCode: 'OM',
+    description: 'Oman'
   },
   {
-    code: 'PK',
-    name: 'Pakistan'
+    countryCode: 'PK',
+    description: 'Pakistan'
   },
   {
-    code: 'PW',
-    name: 'Palau'
+    countryCode: 'PW',
+    description: 'Palau'
   },
   {
-    code: 'PS',
-    name: 'Palestine, State of'
+    countryCode: 'PS',
+    description: 'Palestine, State of'
   },
   {
-    code: 'PA',
-    name: 'Panama'
+    countryCode: 'PA',
+    description: 'Panama'
   },
   {
-    code: 'PG',
-    name: 'Papua New Guinea'
+    countryCode: 'PG',
+    description: 'Papua New Guinea'
   },
   {
-    code: 'PY',
-    name: 'Paraguay'
+    countryCode: 'PY',
+    description: 'Paraguay'
   },
   {
-    code: 'PE',
-    name: 'Peru'
+    countryCode: 'PE',
+    description: 'Peru'
   },
   {
-    code: 'PH',
-    name: 'Philippines'
+    countryCode: 'PH',
+    description: 'Philippines'
   },
   {
-    code: 'PN',
-    name: 'Pitcairn'
+    countryCode: 'PN',
+    description: 'Pitcairn'
   },
   {
-    code: 'PL',
-    name: 'Poland'
+    countryCode: 'PL',
+    description: 'Poland'
   },
   {
-    code: 'PT',
-    name: 'Portugal'
+    countryCode: 'PT',
+    description: 'Portugal'
   },
   {
-    code: 'PR',
-    name: 'Puerto Rico'
+    countryCode: 'PR',
+    description: 'Puerto Rico'
   },
   {
-    code: 'QA',
-    name: 'Qatar'
+    countryCode: 'QA',
+    description: 'Qatar'
   },
   {
-    code: 'RE',
-    name: 'Reunion'
+    countryCode: 'RE',
+    description: 'Reunion'
   },
   {
-    code: 'RO',
-    name: 'Romania'
+    countryCode: 'RO',
+    description: 'Romania'
   },
   {
-    code: 'RU',
-    name: 'Russian Federation'
+    countryCode: 'RU',
+    description: 'Russian Federation'
   },
   {
-    code: 'RW',
-    name: 'Rwanda'
+    countryCode: 'RW',
+    description: 'Rwanda'
   },
   {
-    code: 'BL',
-    name: 'Saint Barthélemy'
+    countryCode: 'BL',
+    description: 'Saint Barthélemy'
   },
   {
-    code: 'SH',
-    name: 'Saint Helena'
+    countryCode: 'SH',
+    description: 'Saint Helena'
   },
   {
-    code: 'KN',
-    name: 'Saint Kitts and Nevis'
+    countryCode: 'KN',
+    description: 'Saint Kitts and Nevis'
   },
   {
-    code: 'LC',
-    name: 'Saint Lucia'
+    countryCode: 'LC',
+    description: 'Saint Lucia'
   },
   {
-    code: 'MF',
-    name: 'Saint Martin'
+    countryCode: 'MF',
+    description: 'Saint Martin'
   },
   {
-    code: 'PM',
-    name: 'Saint Pierre and Miquelon'
+    countryCode: 'PM',
+    description: 'Saint Pierre and Miquelon'
   },
   {
-    code: 'VC',
-    name: 'Saint Vincent'
+    countryCode: 'VC',
+    description: 'Saint Vincent'
   },
   {
-    code: 'WS',
-    name: 'Samoa'
+    countryCode: 'WS',
+    description: 'Samoa'
   },
   {
-    code: 'SM',
-    name: 'San Marino'
+    countryCode: 'SM',
+    description: 'San Marino'
   },
   {
-    code: 'ST',
-    name: 'Sao Tome and Principe'
+    countryCode: 'ST',
+    description: 'Sao Tome and Principe'
   },
   {
-    code: 'SA',
-    name: 'Saudi Arabia'
+    countryCode: 'SA',
+    description: 'Saudi Arabia'
   },
   {
-    code: 'SN',
-    name: 'Senegal'
+    countryCode: 'SN',
+    description: 'Senegal'
   },
   {
-    code: 'RS',
-    name: 'Serbia'
+    countryCode: 'RS',
+    description: 'Serbia'
   },
   {
-    code: 'SC',
-    name: 'Seychelles'
+    countryCode: 'SC',
+    description: 'Seychelles'
   },
   {
-    code: 'SL',
-    name: 'Sierra Leone'
+    countryCode: 'SL',
+    description: 'Sierra Leone'
   },
   {
-    code: 'SG',
-    name: 'Singapore'
+    countryCode: 'SG',
+    description: 'Singapore'
   },
   {
-    code: 'SX',
-    name: 'Sint Maarten (Dutch part)'
+    countryCode: 'SX',
+    description: 'Sint Maarten (Dutch part)'
   },
   {
-    code: 'SK',
-    name: 'Slovakia'
+    countryCode: 'SK',
+    description: 'Slovakia'
   },
   {
-    code: 'SI',
-    name: 'Slovenia'
+    countryCode: 'SI',
+    description: 'Slovenia'
   },
   {
-    code: 'SB',
-    name: 'Solomon Islands'
+    countryCode: 'SB',
+    description: 'Solomon Islands'
   },
   {
-    code: 'SO',
-    name: 'Somalia'
+    countryCode: 'SO',
+    description: 'Somalia'
   },
   {
-    code: 'ZA',
-    name: 'South Africa'
+    countryCode: 'ZA',
+    description: 'South Africa'
   },
   {
-    code: 'GS',
-    name: 'South Georgia'
+    countryCode: 'GS',
+    description: 'South Georgia'
   },
   {
-    code: 'SS',
-    name: 'South Sudan'
+    countryCode: 'SS',
+    description: 'South Sudan'
   },
   {
-    code: 'ES',
-    name: 'Spain'
+    countryCode: 'ES',
+    description: 'Spain'
   },
   {
-    code: 'LK',
-    name: 'Sri Lanka'
+    countryCode: 'LK',
+    description: 'Sri Lanka'
   },
   {
-    code: 'SD',
-    name: 'Sudan'
+    countryCode: 'SD',
+    description: 'Sudan'
   },
   {
-    code: 'SR',
-    name: 'Suriname'
+    countryCode: 'SR',
+    description: 'Suridescription'
   },
   {
-    code: 'SJ',
-    name: 'Svalbard and Jan Mayen'
+    countryCode: 'SJ',
+    description: 'Svalbard and Jan Mayen'
   },
   {
-    code: 'SZ',
-    name: 'Swaziland'
+    countryCode: 'SZ',
+    description: 'Swaziland'
   },
   {
-    code: 'SE',
-    name: 'Sweden'
+    countryCode: 'SE',
+    description: 'Sweden'
   },
   {
-    code: 'CH',
-    name: 'Switzerland'
+    countryCode: 'CH',
+    description: 'Switzerland'
   },
   {
-    code: 'SY',
-    name: 'Syrian Arab Republic'
+    countryCode: 'SY',
+    description: 'Syrian Arab Republic'
   },
   {
-    code: 'TW',
-    name: 'Taiwan'
+    countryCode: 'TW',
+    description: 'Taiwan'
   },
   {
-    code: 'TJ',
-    name: 'Tajikistan'
+    countryCode: 'TJ',
+    description: 'Tajikistan'
   },
   {
-    code: 'TZ',
-    name: 'Tanzania'
+    countryCode: 'TZ',
+    description: 'Tanzania'
   },
   {
-    code: 'TH',
-    name: 'Thailand'
+    countryCode: 'TH',
+    description: 'Thailand'
   },
   {
-    code: 'TL',
-    name: 'Timor-Leste'
+    countryCode: 'TL',
+    description: 'Timor-Leste'
   },
   {
-    code: 'TG',
-    name: 'Togo'
+    countryCode: 'TG',
+    description: 'Togo'
   },
   {
-    code: 'TK',
-    name: 'Tokelau'
+    countryCode: 'TK',
+    description: 'Tokelau'
   },
   {
-    code: 'TO',
-    name: 'Tonga'
+    countryCode: 'TO',
+    description: 'Tonga'
   },
   {
-    code: 'TT',
-    name: 'Trinidad and Tobago'
+    countryCode: 'TT',
+    description: 'Trinidad and Tobago'
   },
   {
-    code: 'TN',
-    name: 'Tunisia'
+    countryCode: 'TN',
+    description: 'Tunisia'
   },
   {
-    code: 'TR',
-    name: 'Turkey'
+    countryCode: 'TR',
+    description: 'Turkey'
   },
   {
-    code: 'TM',
-    name: 'Turkmenistan'
+    countryCode: 'TM',
+    description: 'Turkmenistan'
   },
   {
-    code: 'TC',
-    name: 'Turks and Caicos Islands'
+    countryCode: 'TC',
+    description: 'Turks and Caicos Islands'
   },
   {
-    code: 'TV',
-    name: 'Tuvalu'
+    countryCode: 'TV',
+    description: 'Tuvalu'
   },
   {
-    code: 'UG',
-    name: 'Uganda'
+    countryCode: 'UG',
+    description: 'Uganda'
   },
   {
-    code: 'UA',
-    name: 'Ukraine'
+    countryCode: 'UA',
+    description: 'Ukraine'
   },
   {
-    code: 'AE',
-    name: 'United Arab Emirates'
+    countryCode: 'AE',
+    description: 'United Arab Emirates'
   },
   {
-    code: 'GB',
-    name: 'United Kingdom'
+    countryCode: 'GB',
+    description: 'United Kingdom'
   },
   {
-    code: 'US',
-    name: 'United States'
+    countryCode: 'US',
+    description: 'United States'
   },
   {
-    code: 'UM',
-    name: 'US Minor Outlying Islands'
+    countryCode: 'UM',
+    description: 'US Minor Outlying Islands'
   },
   {
-    code: 'UY',
-    name: 'Uruguay'
+    countryCode: 'UY',
+    description: 'Uruguay'
   },
   {
-    code: 'UZ',
-    name: 'Uzbekistan'
+    countryCode: 'UZ',
+    description: 'Uzbekistan'
   },
   {
-    code: 'VU',
-    name: 'Vanuatu'
+    countryCode: 'VU',
+    description: 'Vanuatu'
   },
   {
-    code: 'VE',
-    name: 'Venezuela'
+    countryCode: 'VE',
+    description: 'Venezuela'
   },
   {
-    code: 'VN',
-    name: 'Viet Nam'
+    countryCode: 'VN',
+    description: 'Viet Nam'
   },
   {
-    code: 'VG',
-    name: 'Virgin Islands, British'
+    countryCode: 'VG',
+    description: 'Virgin Islands, British'
   },
   {
-    code: 'VI',
-    name: 'Virgin Islands, U.S.'
+    countryCode: 'VI',
+    description: 'Virgin Islands, U.S.'
   },
   {
-    code: 'WF',
-    name: 'Wallis and Futuna'
+    countryCode: 'WF',
+    description: 'Wallis and Futuna'
   },
   {
-    code: 'EH',
-    name: 'Western Sahara'
+    countryCode: 'EH',
+    description: 'Western Sahara'
   },
   {
-    code: 'YE',
-    name: 'Yemen'
+    countryCode: 'YE',
+    description: 'Yemen'
   },
   {
-    code: 'ZM',
-    name: 'Zambia'
+    countryCode: 'ZM',
+    description: 'Zambia'
   },
   {
-    code: 'ZW',
-    name: 'Zimbabwe'
+    countryCode: 'ZW',
+    description: 'Zimbabwe'
   }
 ];

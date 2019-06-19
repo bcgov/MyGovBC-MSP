@@ -6,7 +6,7 @@ import { AssistanceReviewComponent } from './pages/review/review.component';
 import { AssistanceAuthorizeSubmitComponent } from './pages/authorize-submit/authorize-submit.component';
 import { AssistanceSendingComponent } from './pages/sending/sending.component';
 import { AssistanceConfirmationComponent } from './pages/confirmation/confirmation.component';
-
+import { AssistContactComponent } from './pages/contact/assist-contact.component';
 
 export const assistPages: Routes = [
   {
@@ -21,8 +21,7 @@ export const assistPages: Routes = [
   {
     path: 'personal-info',
     //canActivate: [ProcessService],
-    component: AssistancePersonalInfoComponent,
-
+    component: AssistancePersonalInfoComponent
   },
   {
     path: 'retro',
@@ -31,18 +30,23 @@ export const assistPages: Routes = [
   },
   {
     path: 'review',
-   // canActivate: [ProcessService],
+    // canActivate: [ProcessService],
     component: AssistanceReviewComponent
   },
   {
     path: 'authorize-submit',
-   // canActivate: [ProcessService],
+    // canActivate: [ProcessService],
     component: AssistanceAuthorizeSubmitComponent
   },
   {
     path: 'sending',
-   // canActivate: [ProcessService],
+    // canActivate: [ProcessService],
     component: AssistanceSendingComponent
+  },
+  {
+    path: 'contact',
+    // canActivate: [ProcessService],
+    component: AssistContactComponent
   },
   {
     path: 'confirmation',

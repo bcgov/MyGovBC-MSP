@@ -17,6 +17,8 @@ import { EligibilityCardComponent } from './pages/prepare/eligibility-card/eligi
 import { FormsModule } from '@angular/forms';
 import { MspCoreModule } from '../msp-core/msp-core.module';
 import { ModalModule } from 'ngx-bootstrap';
+import { AssistContactComponent } from './pages/contact/assist-contact.component';
+import { AssistMailingComponent } from './components/assist-mailing/assist-mailing.component';
 
 @NgModule({
   imports: [
@@ -39,6 +41,9 @@ import { ModalModule } from 'ngx-bootstrap';
     DeductionCalculatorComponent,
     MspAssistanceYearComponent,
     EligibilityCardComponent,
-  ]
+    AssistContactComponent,
+    AssistMailingComponent
+  ],
+  exports: [AssistMailingComponent]
 })
-export class AssistanceModule { }
+export class AssistanceModule {}
