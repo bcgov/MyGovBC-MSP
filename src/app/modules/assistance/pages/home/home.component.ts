@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { BaseComponent } from 'app/models/base.component';
 import { MspDataService } from 'app/services/msp-data.service';
 import { NgForm } from '@angular/forms';
+import { PremiumRatesYear } from './home-constants';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'msp-assist-home',
@@ -64,11 +66,13 @@ export class AssistanceHomeComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.options = this.dataSvc.finAssistApp.assistYears;
     // console.log('options', options);
-    this.form.valueChanges.subscribe(obs => {
+    this.form.valueChanges.pipe(debounceTime(250)).subscribe(obs => {
       // console.log('changes', obs);
 
       this.dataSvc.saveFinAssistApplication();
     });
+    const helperData = new PremiumRatesYear();
+    console.log(helperData.brackets);
   }
 
   applyOption(bool: boolean, i: number) {
