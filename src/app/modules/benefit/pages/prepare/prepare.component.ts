@@ -12,8 +12,10 @@ import {merge} from 'rxjs/internal/observable/merge';
 import * as _ from 'lodash';
 import {ConsentModalComponent} from 'moh-common-lib';
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
+import {CommonDeductionCalculatorComponent} from '../../../msp-core/components/common-deduction-calculator/common-deduction-calculator.component'
 //import moment = require('moment');
 import * as moment from 'moment';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'msp-prepare',
@@ -35,6 +37,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
     @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
     @ViewChild('disabilityNursingHomeChoiceModal') public disabilityNursingHomeChoiceModal: ModalDirective;
+    @ViewChild('commonCalculator') commonCalculator: CommonDeductionCalculatorComponent;
 
     lang = require('./i18n');
     _showDisabilityInfo: boolean = false;
@@ -50,6 +53,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     counterClaimCategory: string;
     claimCategory: string;
     claimant: string;
+    continue: boolean;
 
     CREDIT_CLAIM_CATEGORY: string[] = ['disability credit', 'attendant or nursing home expense credit'];
     CREDIT_CLAIMANT: string[] = ['yourself', 'spouse or common law partner'];
@@ -60,7 +64,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
      */
     pastYears: number[] = [];
 
-    constructor(public dataService: MspBenefitDataService , cd: ChangeDetectorRef){
+    constructor(private _router: Router, public dataService: MspBenefitDataService , cd: ChangeDetectorRef){
         super(cd);
         this.showAttendantCareInfo = this.benefitApp.applicantClaimForAttendantCareExpense
             || this.benefitApp.spouseClaimForAttendantCareExpense
@@ -212,6 +216,19 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
     }
 
+    canContinue(evt): any {
+        console.log('Abhi ---SI active'+evt);
+        if(evt) {
+            this.continue = evt; 
+        }
+        return evt ;
+    }
+
+    navigateToPersonalInfo() {
+        this._router.navigate(['/benefit/personal-info']);
+    }
+
+
     toggleClaimForSpouseDisabilityCredit($event: Event): void{
         if (this.benefitApp.spouseClaimForAttendantCareExpense && !this.benefitApp.spouseEligibleForDisabilityCredit){
             $event.preventDefault();
@@ -256,6 +273,40 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     updateChildDisabilityCreditCreditMultiplier(evt: string){
         this.benefitApp.childWithDisabilityCount = parseInt(evt);
         this.dataService.saveBenefitApplication();
+    }
+
+    setAgeOver65(evt: boolean) {
+        if(evt) {
+            this.dataService.benefitApp.ageOver65 = true;
+        } else {
+            this.dataService.benefitApp.ageOver65 = false;
+        }
+    }
+
+    sethasSpouseOrCommonLaw(evt: boolean) {
+        if(evt) {
+            this.dataService.benefitApp.setSpouse = true;
+        } else {
+            this.dataService.benefitApp.setSpouse = false;
+        }
+    }
+
+    setchildren(evt: boolean) {
+        if(evt) {
+            this.dataService.benefitApp.haveChildrens = true;
+        } else {
+            this.dataService.benefitApp.haveChildrens = false;
+        }
+    }
+    
+    setApplicantClaimForAttendantCareExpense(evt: boolean) {
+        if(evt) {
+            this.dataService.benefitApp.applicantClaimForAttendantCareExpense = true;
+        } else{
+            
+
+        }
+
     }
 
     ngDoCheck(){

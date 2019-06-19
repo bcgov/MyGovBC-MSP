@@ -7,7 +7,8 @@ import { BenefitReviewComponent } from './pages/review/review.component';
 import { BenefitAuthorizeSubmitComponent } from './pages/authorize-submit/authorize-submit.component';
 import { BenefitSendingComponent } from './pages/sending/sending.component';
 import { BenefitConfirmationComponent } from './pages/confirmation/confirmation.component';
-
+import { BenefitSpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
+import { BenefitAddressComponent } from './pages/address/address.component'
 
 export const benefitPages: Routes = [
   {
@@ -24,28 +25,35 @@ export const benefitPages: Routes = [
    // canActivate: [ProcessService],
     component: BenefitPersonalInfoComponent,
 
-},
- {
-     path: 'documents',
+},{
+    path: 'spouse-info',
+   // canActivate: [ProcessService],
+    component: BenefitSpouseInfoComponent,
+
+},/*{
+    path: 'contact-info',
+   // canActivate: [ProcessService],
+    component: BenefitSpouseInfoComponent,
+
+},*/{
+     path: 'contact-info',
      //canActivate: [ProcessService],
-     component: BenefitDocumentsComponent
- },
-{
+     component: BenefitAddressComponent
+},{
     path: 'review',
     //canActivate: [ProcessService],
     component: BenefitReviewComponent
-},
- {
-     path: 'authorize-submit',
+},{
+     path: 'authorize',
      //canActivate: [ProcessService],
      component: BenefitAuthorizeSubmitComponent
- },
+ }/*,
    {
       path: 'sending',
       //canActivate: [ProcessService],
       component: BenefitSendingComponent
-  },
-  {
+  }*/
+  ,{
       path: 'confirmation',
       canActivate: [],
       component: BenefitConfirmationComponent

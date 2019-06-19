@@ -18,6 +18,9 @@ import { BenefitEligibilityCardComponent } from './pages/prepare/eligibility-car
 import { TaxYearComponent } from './pages/prepare/tax-year/tax-year.component';
 import { MspBenefitDataService } from './services/msp-benefit-data.service';
 import { ModalModule } from 'ngx-bootstrap';
+import { BenefitSpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
+import { BenefitAddressComponent } from './pages/address/address.component'
+
 
 @NgModule({
   imports: [
@@ -39,7 +42,9 @@ import { ModalModule } from 'ngx-bootstrap';
     BenefitConfirmationComponent,
     BenefitDeductionCalculatorComponent,
     BenefitEligibilityCardComponent,
-    TaxYearComponent
+    TaxYearComponent,
+    BenefitSpouseInfoComponent,
+    BenefitAddressComponent
   ],
   providers: [
     MspBenefitDataService

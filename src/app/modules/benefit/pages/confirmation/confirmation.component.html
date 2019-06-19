@@ -1,28 +1,45 @@
-<h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
-<div class="alert alert-info" role="alert">
-  <h2
-          class="to-upper">
-    Reference # {{confirmationNum? confirmationNum : 'N/A'}}
-  </h2>
-</div>
-<h2 [innerHTML]="lang('./en/index.js').secondTitle"></h2>
-<ul>
-  <li>
-    <h3 [innerHTML]="lang('./en/index.js').printEmailInstructions" onclick="window.print();" class="pointer"></h3>
-  </li>
-  <li>
-    <h3 [innerHTML]="lang('./en/index.js').generalInstructions1"></h3>
-  </li>
-  <li>
-    <h3 [innerHTML]="lang('./en/index.js').generalInstructions2"></h3>
-  </li>
-  <li>
-    <h3 [innerHTML]="lang('./en/index.js').generalInstructions3"></h3>
-  </li>
-  <li>
-    <h3 [innerHTML]="lang('./en/index.js').generalInstructions4"></h3>
-  </li>
-  <li>
-    <h3 [innerHTML]="lang('./en/index.js').generalInstructions5"></h3>
-  </li>
-</ul>
+<common-page-framework layout="blank">
+    <a onclick="window.print();return false;" >   
+    <b class="float-right">Print <i class="fa fa-print fa-lg pointer" 
+        aria-hidden="true"></i>
+    </b>
+    </a>
+    <h2>Confirmation Message</h2>
+    <hr>
+    <div style="border-style: solid; color:#83D31D" >
+        <div class="container">
+            <h1>
+                <i class="fa fa-check-circle" aria-hidden="true"></i> Your application has been submitted
+            </h1>
+            <p class="font-weight-normal h4">{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}</p>
+        </div>
+    </div>
+    
+    <h2>Next Steps</h2>
+    <hr>
+    
+        <ul>
+            <li>
+              <h3 [innerHTML]="lang('./en/index.js').printEmailInstructions" onclick="window.print();" class="pointer"></h3>
+            </li>
+            <li>
+              <h3 [innerHTML]="lang('./en/index.js').generalInstructions1"></h3>
+            </li>
+            <li>
+              <h3 [innerHTML]="lang('./en/index.js').generalInstructions2"></h3>
+            </li>
+            <li>
+              <h3 [innerHTML]="lang('./en/index.js').generalInstructions3"></h3>
+            </li>
+            <li>
+              <h3 [innerHTML]="lang('./en/index.js').generalInstructions4"></h3>
+            </li>
+            <li>
+              <h3 [innerHTML]="lang('./en/index.js').generalInstructions5"></h3>
+            </li>
+          </ul>
+    
+</common-page-framework>
+
+
+

@@ -31,9 +31,10 @@ export class BenefitApplication implements ApplicationBase {
 
     infoCollectionAgreement: boolean = false;
 
-    applicantClaimForAttendantCareExpense: boolean = false;
+    applicantClaimForAttendantCareExpense: boolean;
     spouseClaimForAttendantCareExpense: boolean = false;
     childClaimForAttendantCareExpense: boolean = false;
+    haveChildrens: boolean;
     childClaimForAttendantCareExpenseCount: number = 1;
 
 
@@ -134,6 +135,7 @@ export class BenefitApplication implements ApplicationBase {
     spouseAgeOver65: boolean;
 
     private _hasSpouseOrCommonLaw: boolean;
+    
 
     /**
      * Returns an array of ALL persons uses in financial assistance.
