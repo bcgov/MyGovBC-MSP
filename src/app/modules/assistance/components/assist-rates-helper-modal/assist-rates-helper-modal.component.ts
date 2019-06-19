@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IRateBracket } from '../../pages/home/home-constants';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 
 @Component({
   selector: 'msp-assist-rates-helper-modal',
@@ -12,23 +12,25 @@ import { Observable, of } from 'rxjs';
           year
         }}</option>
       </ng-container>
-      <ng-container *ngIf="selectedYear$ | async as selected">
-        zzz
-        <table class="table table-bordered">
-          <tr>
-            <th scope="col" *ngFor="let header of tableHeaders">
-              {{ header }}
-            </th>
-          </tr>
-          <tr *ngFor="let item of selected">
-            <th scope="col">{{ item.netIncome }}</th>
-            <th scope="col">{{ item.onePerson }}</th>
-            <th scope="col">{{ item.twoFamily }}</th>
-            <th scope="col">{{ item.threeFamily }}</th>
-          </tr>
-        </table>
-      </ng-container>
     </select>
+
+    <ng-container *ngIf="selectedYear$ | async as selected">
+      zzz
+
+      <table class="table table-bordered">
+        <tr>
+          <th scope="col" *ngFor="let header of tableHeaders">
+            {{ header }}
+          </th>
+        </tr>
+        <tr *ngFor="let item of selected">
+          <th scope="col">{{ item.netIncome }}</th>
+          <th scope="col">{{ item.onePerson | currency }}</th>
+          <th scope="col">{{ item.twoFamily | currency }}</th>
+          <th scope="col">{{ item.threeFamily | currency }}</th>
+        </tr>
+      </table>
+    </ng-container>
   `,
   styleUrls: ['./assist-rates-helper-modal.component.scss']
 })
@@ -37,7 +39,7 @@ export class AssistRatesHelperModalComponent implements OnInit {
 
   yearOptions: number[] = [];
   yearOptions$: Observable<number[]>;
-  selectedYear$: Observable<IRateBracket[]>;
+  selectedYear$: Subject<IRateBracket[]> = new Subject();
   yearTitle$: Observable<string>;
 
   tableHeaders = [
@@ -58,6 +60,7 @@ export class AssistRatesHelperModalComponent implements OnInit {
     opts.sort((a, b) => b - a);
     console.log(this.yearOptions);
     this.yearOptions$ = of(opts);
+    this.selectedYear$.subscribe(obs => console.log(obs));
   }
 
   selectYear(event: any) {
@@ -69,7 +72,7 @@ export class AssistRatesHelperModalComponent implements OnInit {
     for (const key of Object.keys(selectedYear)) {
       arr.push(selectedYear[key]);
     }
-    this.selectedYear$ = of(arr);
+    this.selectedYear$.next(arr);
     console.log('array', arr);
   }
 }
