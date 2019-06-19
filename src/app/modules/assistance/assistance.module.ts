@@ -19,6 +19,7 @@ import { MspCoreModule } from '../msp-core/msp-core.module';
 import { ModalModule } from 'ngx-bootstrap';
 import { AssistContactComponent } from './pages/contact/assist-contact.component';
 import { AssistMailingComponent } from './components/assist-mailing/assist-mailing.component';
+import { AssistanceHomeComponent } from './pages/home/home.component';
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import { AssistMailingComponent } from './components/assist-mailing/assist-maili
     MspAssistanceYearComponent,
     EligibilityCardComponent,
     AssistContactComponent,
-    AssistMailingComponent
+    AssistMailingComponent,
+    AssistanceHomeComponent
   ],
   exports: [AssistMailingComponent]
 })

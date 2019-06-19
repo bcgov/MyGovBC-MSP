@@ -7,6 +7,7 @@ import { AssistanceAuthorizeSubmitComponent } from './pages/authorize-submit/aut
 import { AssistanceSendingComponent } from './pages/sending/sending.component';
 import { AssistanceConfirmationComponent } from './pages/confirmation/confirmation.component';
 import { AssistContactComponent } from './pages/contact/assist-contact.component';
+import { AssistanceHomeComponent } from './pages/home/home.component';
 
 export const assistPages: Routes = [
   {
@@ -47,6 +48,11 @@ export const assistPages: Routes = [
     path: 'contact',
     // canActivate: [ProcessService],
     component: AssistContactComponent
+  },
+  {
+    path: 'home',
+    // canActivate: [ProcessService],
+    component: AssistanceHomeComponent
   },
   {
     path: 'confirmation',
