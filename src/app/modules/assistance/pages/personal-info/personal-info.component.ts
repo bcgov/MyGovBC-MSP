@@ -15,6 +15,7 @@ import { MspAddressComponent } from '../../../msp-core/components/address/addres
 import { MspPhoneComponent } from '../../../../components/msp/common/phone/phone.component';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 import { AssistanceYear } from '../../models/assistance-year.model';
+import { MspPerson } from 'app/modules/account/models/account.model';
 
 @Component({
   // templateUrl: './personal-info.component.html'
@@ -26,6 +27,7 @@ import { AssistanceYear } from '../../models/assistance-year.model';
       <form #formRef="ngForm" (ngSubmit)="onSubmit(formRef)" novalidate>
         <msp-assist-account-holder
           [person]="financialAssistApplication.applicant"
+          (dataChange)="saveAccountHolder($event)"
         ></msp-assist-account-holder>
       </form>
     </common-page-section>
@@ -190,5 +192,9 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
     } else {
       return false;
     }
+  }
+
+  saveAccountHolder(evt: MspPerson) {
+    this.dataService.saveFinAssistApplication();
   }
 }
