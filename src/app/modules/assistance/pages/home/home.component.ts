@@ -1,17 +1,21 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  ViewChild,
+  TemplateRef
+} from '@angular/core';
 import { BaseComponent } from 'app/models/base.component';
 import { MspDataService } from 'app/services/msp-data.service';
 import { NgForm } from '@angular/forms';
 import { PremiumRatesYear } from './home-constants';
 import { debounceTime } from 'rxjs/operators';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 
 @Component({
   selector: 'msp-assist-home',
   template: `
     <common-page-section layout="noTips">
-      <msp-assist-rates-helper-modal
-        [rateData]="rateData"
-      ></msp-assist-rates-helper-modal>
       <h2>Apply for Retroactive Premium Assistance</h2>
       <p>
         Retroactive Premium Assistance is available for up to six years prior to
@@ -29,9 +33,11 @@ import { debounceTime } from 'rxjs/operators';
 
       <p>
         <!-- TODO: click to show modal -->
-        <a (click)="showModal()">MSP premium rates</a> are based on the previous
-        tax year’s adjusted net income. (For example, 2019 premiums are based on
-        2018 income.)
+        <button class="btn btn-link p-0" (click)="openModal(modal)">
+          MSP premium rates
+        </button>
+        are based on the previous tax year’s adjusted net income. (For example,
+        2019 premiums are based on 2018 income.)
       </p>
 
       <p class="border-bottom">
@@ -54,6 +60,11 @@ import { debounceTime } from 'rxjs/operators';
         </div>
       </form>
     </common-page-section>
+    <ng-template #modal>
+      <msp-assist-rates-helper-modal
+        [rateData]="rateData"
+      ></msp-assist-rates-helper-modal>
+    </ng-template>
   `,
   styleUrls: ['./home.component.scss']
 })
@@ -62,8 +73,14 @@ export class AssistanceHomeComponent extends BaseComponent implements OnInit {
   title = 'Apply for Retroactive Premium Assistance';
   options: import('/Users/sean/MyGovBC-MSP/src/app/modules/assistance/models/assistance-year.model').AssistanceYear[];
   rateData: {};
+  showModal = true;
+  modalRef: BsModalRef;
 
-  constructor(cd: ChangeDetectorRef, private dataSvc: MspDataService) {
+  constructor(
+    cd: ChangeDetectorRef,
+    private dataSvc: MspDataService,
+    private modalSvc: BsModalService
+  ) {
     super(cd);
   }
 
@@ -85,5 +102,11 @@ export class AssistanceHomeComponent extends BaseComponent implements OnInit {
     this.dataSvc.saveFinAssistApplication();
   }
 
-  showModal() {}
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalSvc.show(template, {
+      backdrop: true,
+      class: 'modal-md',
+      keyboard: false
+    });
+  }
 }

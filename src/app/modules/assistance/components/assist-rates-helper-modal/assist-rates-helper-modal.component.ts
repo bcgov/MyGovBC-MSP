@@ -5,40 +5,44 @@ import { Observable, of, Subject } from 'rxjs';
 @Component({
   selector: 'msp-assist-rates-helper-modal',
   template: `
-    <h4>What year do you want to see the MSP premium rates for?</h4>
-    <select (change)="selectYear($event)">
-      <ng-container *ngIf="yearOptions$ | async as opts">
-        <option selected disabled>Year</option>
-        <option *ngFor="let year of opts" (change)="selectYear(year)">{{
-          year
-        }}</option>
-      </ng-container>
-    </select>
+    <div class="card">
+      <div class="card-body">
+        <h4>What year do you want to see the MSP premium rates for?</h4>
+        <select (change)="selectYear($event)">
+          <ng-container *ngIf="yearOptions$ | async as opts">
+            <option selected disabled>Year</option>
+            <option *ngFor="let year of opts" (change)="selectYear(year)">{{
+              year
+            }}</option>
+          </ng-container>
+        </select>
 
-    <div *ngIf="selectedYear$ | async as selected" class="p-3">
-      <br />
-      <div *ngIf="yearTitle$ | async as title" class="row pt-2">
-        <span class="col-12">
-          <b>{{ title }}</b>
-        </span>
-      </div>
-      <div *ngIf="taxReturnInfo$ | async as returnInfo" class="row pb-2">
-        <span class="col-12">{{ returnInfo }} </span>
-      </div>
+        <div *ngIf="selectedYear$ | async as selected" class="p-3">
+          <br />
+          <div *ngIf="yearTitle$ | async as title" class="row pt-2">
+            <span class="col-12">
+              <b>{{ title }}</b>
+            </span>
+          </div>
+          <div *ngIf="taxReturnInfo$ | async as returnInfo" class="row pb-2">
+            <span class="col-12">{{ returnInfo }} </span>
+          </div>
 
-      <table class="table table-bordered">
-        <tr>
-          <th scope="col" *ngFor="let header of tableHeaders">
-            {{ header }}
-          </th>
-        </tr>
-        <tr *ngFor="let item of selected">
-          <th scope="col">{{ item.netIncome }}</th>
-          <th scope="col">{{ item.onePerson | currency }}</th>
-          <th scope="col">{{ item.twoFamily | currency }}</th>
-          <th scope="col">{{ item.threeFamily | currency }}</th>
-        </tr>
-      </table>
+          <table class="table table-bordered">
+            <tr>
+              <th scope="col" *ngFor="let header of tableHeaders">
+                {{ header }}
+              </th>
+            </tr>
+            <tr *ngFor="let item of selected">
+              <th scope="col">{{ item.netIncome }}</th>
+              <th scope="col">{{ item.onePerson | currency }}</th>
+              <th scope="col">{{ item.twoFamily | currency }}</th>
+              <th scope="col">{{ item.threeFamily | currency }}</th>
+            </tr>
+          </table>
+        </div>
+      </div>
     </div>
   `,
   styleUrls: ['./assist-rates-helper-modal.component.scss']
