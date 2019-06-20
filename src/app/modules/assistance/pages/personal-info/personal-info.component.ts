@@ -19,12 +19,8 @@ import { AssistanceYear } from '../../models/assistance-year.model';
 @Component({
   // templateUrl: './personal-info.component.html'
   template: `
-    <h2>
-      {{ title }}
-    </h2>
-    <h3>
-      {{ subtitle }}
-    </h3>
+    <h2>{{ title }}</h2>
+    <h3>{{ subtitle }}</h3>
     <p class="border-bottom">{{ description }}</p>
     <common-page-section>
       <form #formRef="ngForm" (ngSubmit)="onSubmit(formRef)" novalidate>
@@ -33,9 +29,18 @@ import { AssistanceYear } from '../../models/assistance-year.model';
         ></msp-assist-account-holder>
       </form>
     </common-page-section>
+    <h3>{{ documentsTitle }}</h3>
+    <p class="border-bottom">{{ documentsDescription }}</p>
     <common-page-section>
-      <h3>{{ documentsTitle }}</h3>
-      <p>{{ documentsDescription }}</p>
+      <ng-container *ngFor="let year of assistanceYears; index as i">
+        <label>{{ year.year }}</label>
+        <common-file-uploader
+          id="{{ year }}"
+          instructionText="Click add or drag and drop documents"
+          [images]="year.files"
+        >
+        </common-file-uploader>
+      </ng-container>
     </common-page-section>
   `
 })
@@ -99,18 +104,28 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
     for (let year of assistYears) {
       arr.push(checkYear(year));
     }
-    this.assistanceYears = arr.filter(itm => itm != null);
+    this.assistanceYears = arr
+      .filter(itm => itm != null)
+      .map(itm => {
+        let { ...obj } = itm;
+        obj.files = [];
+        return obj;
+      });
 
-    this.documentsDescription += this.assistanceYears
-      .map((itm, i, arr) => itm.year)
+    this.documentsDescription += this.createDocumentDesc(this.assistanceYears);
+
+    // this.documentsDescription += '.';
+
+    console.log('arr', this.assistanceYears);
+  }
+
+  createDocumentDesc(years: any[]) {
+    return years
+      .map(itm => itm.year)
       .sort((a, b) => a - b)
       .reduce((a, b, i, arr) =>
         i === arr.length - 1 ? `${a} and ${b}.` : `${a}, ${b}`
       );
-
-    // this.documentsDescription += '.';
-
-    console.log('arr', this.documentsDescription);
   }
 
   onChange($event) {
