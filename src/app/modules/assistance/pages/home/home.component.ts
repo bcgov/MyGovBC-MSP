@@ -69,11 +69,10 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap';
   styleUrls: ['./home.component.scss']
 })
 export class AssistanceHomeComponent extends BaseComponent implements OnInit {
-  @ViewChild('formRef') form: NgForm;
+  // @ViewChild('formRef') form: NgForm;
   title = 'Apply for Retroactive Premium Assistance';
   options: import('/Users/sean/MyGovBC-MSP/src/app/modules/assistance/models/assistance-year.model').AssistanceYear[];
   rateData: {};
-  showModal = true;
   modalRef: BsModalRef;
 
   constructor(
@@ -86,9 +85,6 @@ export class AssistanceHomeComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.options = this.dataSvc.finAssistApp.assistYears;
-    this.form.valueChanges.pipe(debounceTime(250)).subscribe(obs => {
-      this.dataSvc.saveFinAssistApplication();
-    });
     const data = {};
     for (let assistYear of this.options) {
       const helperData = new PremiumRatesYear();
