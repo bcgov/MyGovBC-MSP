@@ -12,6 +12,7 @@ import { ProcessService } from './services/process.service';
 import { MspLogService } from './services/log.service';
 import { CompletenessCheckService } from './services/completeness-check.service';
 import { MspApiService } from './services/msp-api.service';
+import { PersonalComponent } from './modules/assistance/pages/personal/personal.component';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { MspApiService } from './services/msp-api.service';
   ],
   declarations: [
     LandingComponent,
-    GeneralAppComponent
+    GeneralAppComponent,
+    PersonalComponent
   ],
   providers: [
     MspDataService,

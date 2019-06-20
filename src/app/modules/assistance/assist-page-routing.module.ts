@@ -56,11 +56,6 @@ export const assistPages: Routes = [
     component: AssistanceHomeComponent
   },
   {
-    path: 'test',
-    canActivate: [],
-    component: AssistRatesHelperModalComponent
-  },
-  {
     path: 'confirmation',
     canActivate: [],
     component: AssistanceConfirmationComponent

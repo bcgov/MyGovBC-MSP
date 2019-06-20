@@ -21,6 +21,7 @@ import { AssistContactComponent } from './pages/contact/assist-contact.component
 import { AssistMailingComponent } from './components/assist-mailing/assist-mailing.component';
 import { AssistanceHomeComponent } from './pages/home/home.component';
 import { AssistRatesHelperModalComponent } from './components/assist-rates-helper-modal/assist-rates-helper-modal.component';
+import { AssistAccountHolderComponent } from './components/assist-account-holder/assist-account-holder.component';
 
 @NgModule({
   imports: [
@@ -46,8 +47,9 @@ import { AssistRatesHelperModalComponent } from './components/assist-rates-helpe
     AssistContactComponent,
     AssistMailingComponent,
     AssistanceHomeComponent,
-    AssistRatesHelperModalComponent
+    AssistRatesHelperModalComponent,
+    AssistAccountHolderComponent
   ],
-  exports: [AssistMailingComponent]
+  exports: [AssistMailingComponent, AssistAccountHolderComponent]
 })
 export class AssistanceModule {}
