@@ -31,7 +31,7 @@ import { AssistanceYear } from '../../models/assistance-year.model';
     </common-page-section>
     <h3>{{ documentsTitle }}</h3>
     <p class="border-bottom">{{ documentsDescription }}</p>
-    <common-page-section>
+    <common-page-section layout="tips">
       <ng-container *ngFor="let year of assistanceYears; index as i">
         <label>{{ year.year }}</label>
         <common-file-uploader
@@ -41,6 +41,24 @@ import { AssistanceYear } from '../../models/assistance-year.model';
         >
         </common-file-uploader>
       </ng-container>
+      <aside>
+        <div class="row">
+          <div class="col-4">
+            <i class="fa fa-exclamation-triangle" style="font-size: 40px;"></i>
+          </div>
+        </div>
+        <div class="row">
+          <p class="col-12">{{ tip1 }}</p>
+        </div>
+        <br />
+        <div class="row">
+          <p class="col-12">{{ tip2 }}</p>
+          <p class="col-12">Make sure that it's:</p>
+          <ul class="col-12">
+            <li class="col-12" *ngFor="let item of tipList">{{ item }}</li>
+          </ul>
+        </div>
+      </aside>
     </common-page-section>
   `
 })
@@ -64,6 +82,20 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   documentsTitle = 'Documents';
   documentsDescription =
     'Upload your Notice of Assessment (NOA) or Notice of Reassessment (NORA) from Canada Revenue Agency for ';
+
+  tip1 =
+    'If you are uploading a copy of a NOA/NORA printed from the CRA website, ensure that the applicable name, tax year and tax return line 236 (net income) are included on the copy.';
+
+  tip2 = `Scan the document, or take a photo of it.
+
+  `;
+  tipList = [
+    'The entire document, from corner to corner',
+    'At least 1000 pixels wide x 1500 pixels tall',
+    'Rotate correctly (not upside down or sideways)',
+    'In focus and easy to read',
+    'A JPG, PNHG, GIF, BMP or PDF'
+  ];
 
   assistanceYears: any[];
   constructor(
