@@ -85,47 +85,6 @@
 
             </div>
 
-<<<<<<< HEAD
-            <msp-image-error-modal #imageErrorModal></msp-image-error-modal>
-        </div>
-    
-<div *ngIf="hasValidCurrentActivity">
-
-    <div *ngIf="person.documents.images.length > 0">
-        <h3 [innerHtml]="lang('./en/index.js').applicationPersonalInfo[person.relationship]"></h3>
-        <p class="help-block" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
-<<<<<<< HEAD
-       <!--  <msp-name #name [person]="person" (onChange) = "onChange.emit($event)" [showError]="showError"></msp-name>-->
-       
-        <!-- <common-full-name #name [person]="person" (onChange)="onChange.emit($event)" [showError]="showError" ></common-full-name> -->
-=======
-        <msp-full-name [data]="person" (dataChange)="onChange.emit($event)" ></msp-full-name>
->>>>>>> 19317dac2471e198de1ac7b814e69aca947e2957
-       
-        
-        <div class="row">
-            <div class="col-md-4">
-                  
-                <common-radio [value]="person.gender" 
-                              label='Gender' 
-                              [radioLabels]='[{"label": "Male", "value": "M"},{ "label": "Female", "value": "F"}]' 
-                              (statusChange)="setGenderVal($event)"
-                              [showError]="showError">
-                </common-radio>   
-       <!--         <common-gender
-                    
-                    [person]="person"
-                    (onChange)="onChange.emit($event)"
-                    [showError]="showError"
-                ></common-gender>   -->
-
-            <!-- <msp-gender
-                  #gender
-                  [person]="person"
-                  (onChange) = "onChange.emit($event)" 
-                  [showError] = "showError"
-                  ></msp-gender> -->
-=======
           </div>
           <h3 class="intro text-danger" *ngIf="!checkEligibility()" class="text-danger"
             [innerHtml]="lang('./en/index.js').notEligibleError" role="alert" aria-live="assertive"></h3>
@@ -143,7 +102,6 @@
               <div class="text-danger"
                 [innerHtml]="lang('./en/index.js').moveDateBeforeBirthError[person.relationship]">
               </div>
->>>>>>> 1611c6fdf2c73cccdd798dc78b1059f103da7aaa
             </div>
             <div class="row" *ngIf="person.status === StatusInCanada.CitizenAdult &&
                 person.currentActivity === Activities.LivingInBCWithoutMSP &&

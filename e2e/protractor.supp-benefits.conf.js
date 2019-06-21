@@ -9,12 +9,12 @@ exports.config = {
     './supp-benefits/src/*.e2e-spec.ts'
   ],
   multiCapabilities: [{
-    'browserName': 'firefox'
-  }, {
+  // 'browserName': 'firefox'
+  // }, {
     'browserName': 'chrome'
   }],
   directConnect: true,
-  baseUrl: 'http://localhost:4200/',
+  baseUrl: 'http://localhost:4300/',
   framework: 'jasmine2',
   jasmineNodeOpts: {
     showColors: true,
