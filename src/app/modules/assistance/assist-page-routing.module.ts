@@ -9,6 +9,7 @@ import { AssistanceConfirmationComponent } from './pages/confirmation/confirmati
 import { AssistContactComponent } from './pages/contact/assist-contact.component';
 import { AssistanceHomeComponent } from './pages/home/home.component';
 import { AssistRatesHelperModalComponent } from './components/assist-rates-helper-modal/assist-rates-helper-modal.component';
+import { SpouseComponent } from './pages/spouse/spouse.component';
 
 export const assistPages: Routes = [
   {
@@ -59,6 +60,11 @@ export const assistPages: Routes = [
     path: 'confirmation',
     canActivate: [],
     component: AssistanceConfirmationComponent
+  },
+  {
+    path: 'spouse',
+    canActivate: [],
+    component: SpouseComponent
   },
   {
     path: '',

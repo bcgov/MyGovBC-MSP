@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AccordionModule, ModalModule, TooltipModule } from 'ngx-bootstrap';
 import { GeneralAppComponent } from './app.component';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { SharedCoreModule } from 'moh-common-lib';
 import { LandingComponent } from './pages/landing/landing.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,7 @@ import { MspLogService } from './services/log.service';
 import { CompletenessCheckService } from './services/completeness-check.service';
 import { MspApiService } from './services/msp-api.service';
 import { PersonalComponent } from './modules/assistance/pages/personal/personal.component';
+import { SpouseComponent } from './modules/assistance/pages/spouse/spouse.component';
 
 @NgModule({
   imports: [
@@ -24,19 +25,15 @@ import { PersonalComponent } from './modules/assistance/pages/personal/personal.
     //AccordionModule.forRoot(),
     //TooltipModule.forRoot(),
     AppRoutingModule,
-  //  RouterModule.forRoot([
+    //  RouterModule.forRoot([
     //  { path: '', redirectTo: 'msp', pathMatch: 'full' }
     //]),
     LocalStorageModule.withConfig({
       prefix: 'ca.bc.gov.msp',
       storageType: 'sessionStorage'
-  })
+    })
   ],
-  declarations: [
-    LandingComponent,
-    GeneralAppComponent,
-    PersonalComponent
-  ],
+  declarations: [LandingComponent, GeneralAppComponent, PersonalComponent],
   providers: [
     MspDataService,
     ProcessService,
@@ -50,5 +47,4 @@ import { PersonalComponent } from './modules/assistance/pages/personal/personal.
 
   bootstrap: [GeneralAppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}
