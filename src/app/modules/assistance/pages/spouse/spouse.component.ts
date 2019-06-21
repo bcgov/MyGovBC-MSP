@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 import { MspDataService } from 'app/services/msp-data.service';
 import { AssistanceYear } from '../../models/assistance-year.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'msp-spouse',
@@ -24,23 +25,26 @@ import { AssistanceYear } from '../../models/assistance-year.model';
           <button
             *ngIf="showTaxYears"
             class="col-1 btn btn-transparent float-right"
+            (click)="toggleSpouse()"
           >
             <i class="fa fa-times ecks"></i>
           </button>
         </div>
       </div>
       <label>In what years did you have a spouse on your MSP account?</label>
-      <div class="row">
+      <form class="row" #formRef="ngForm" novalidate>
         <div class="col-12">
           <common-checkbox
-            *ngFor="let year of assistanceYears"
+            *ngFor="let year of assistanceYearsDocs"
             class="col-1"
-            [label]="year"
-            [checked]="checkYear(year)"
+            [label]="year.year"
+            [checked]="year.apply"
+            ([ngModel])="(year.apply)"
             (dataChange)="toggleYear($event, year)"
+            id="{{ year.year }}"
           ></common-checkbox>
         </div>
-      </div>
+      </form>
       <ng-container *ngIf="selectedYears.length > 0">
         <h2>{{ documentsTitle }}</h2>
         <p class="border-bottom">{{ documentsDescription }}</p>
@@ -55,6 +59,7 @@ import { AssistanceYear } from '../../models/assistance-year.model';
   styleUrls: ['./spouse.component.scss']
 })
 export class SpouseComponent implements OnInit {
+  @ViewChild('formRef') spouseForm: NgForm;
   title = 'Tell us if you had a spouse and upload official documents';
   description =
     'If you had a spouse or common-law partner on your MSP Account during any of the years you are requesting assistance for, you are required to upload a copy of their Canada Revenue Agency Notice of Assessment or Notice of Reassessment for each year of the requested assistance.';
@@ -70,7 +75,7 @@ export class SpouseComponent implements OnInit {
   assistanceYearsDocs = [];
   selectedYears = [];
 
-  showTaxYears = true;
+  showTaxYears = false;
 
   constructor(private dataSvc: MspDataService) {
     this.finAssistApp = this.dataSvc.finAssistApp;
@@ -86,8 +91,15 @@ export class SpouseComponent implements OnInit {
       arr.push(checkYear(year));
     }
     this.assistanceYears = arr.filter(itm => itm != null).map(itm => itm.year);
+    const [...years] = [...arr];
+    this.assistanceYearsDocs = arr
+      .filter(itm => itm != null)
+      .map(itm => {
+        console.log(itm);
 
-    this.assistanceYearsDocs = arr;
+        itm.checked = false;
+        return itm;
+      });
   }
 
   toggleSpouse() {
