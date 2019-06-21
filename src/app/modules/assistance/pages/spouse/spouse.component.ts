@@ -22,20 +22,25 @@ import { AssistanceYear } from '../../models/assistance-year.model';
         <div class="row">
           <span class="col-11">{{ yearDescription }}</span>
           <button
-            class="col-1"
             *ngIf="showTaxYears"
-            class="btn btn-transparent float-right"
+            class="col-1 btn btn-transparent float-right"
           >
             <i class="fa fa-times ecks"></i>
           </button>
         </div>
       </div>
       <label>In what years did you have a spouse on your MSP account?</label>
-      <common-checkbox
-        *ngFor="let year of assistanceYears"
-        [label]="year"
-        (dataChange)="toggleYear($event, year)"
-      ></common-checkbox>
+      <div class="row">
+        <div class="col-12">
+          <common-checkbox
+            *ngFor="let year of assistanceYears"
+            class="col-1"
+            [label]="year"
+            [checked]="checkYear(year)"
+            (dataChange)="toggleYear($event, year)"
+          ></common-checkbox>
+        </div>
+      </div>
       <ng-container *ngIf="selectedYears.length > 0">
         <h2>{{ documentsTitle }}</h2>
         <p class="border-bottom">{{ documentsDescription }}</p>
@@ -111,5 +116,14 @@ export class SpouseComponent implements OnInit {
     const { ...itm } = years[0];
     itm.files = [];
     return itm;
+  }
+
+  checkYear(year: number) {
+    let test =
+      this.selectedYears.filter(itm => itm.year === year).length > 0
+        ? true
+        : false;
+    console.log(test);
+    return test;
   }
 }
