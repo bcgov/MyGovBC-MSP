@@ -81,7 +81,7 @@ export class BenefitDocumentsComponent  implements AfterViewInit, DoCheck {
     }*/
 
     addDoc(doc: MspImage){
-        this.application.assistYeaDocs = this.application.assistYeaDocs.concat(doc);
+        this.application.assistYearDocs = this.application.assistYearDocs.concat(doc);
        // this.fileUploader.forceRender();
         this.dataService.saveFinAssistApplication();
         this.docActionEvent.emit(doc);
@@ -96,7 +96,7 @@ export class BenefitDocumentsComponent  implements AfterViewInit, DoCheck {
     }
 
     deleteDoc(doc: MspImage){
-        this.application.assistYeaDocs = this.application.assistYeaDocs
+        this.application.assistYearDocs = this.application.assistYearDocs
             .filter( d => {
                 return d.id !== doc.id;
             });
@@ -121,7 +121,7 @@ export class BenefitDocumentsComponent  implements AfterViewInit, DoCheck {
     get canContinue(): boolean {
 
 
-        if ( this.application.assistYeaDocs.length > 0) {
+        if ( this.application.assistYearDocs.length > 0) {
             return true;
         }
 

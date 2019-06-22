@@ -937,6 +937,10 @@ export  class MspDataService {
         output.liveInBC = input.liveInBC;
         output.madePermanentMoveToBC = input.madePermanentMoveToBC;
         output.plannedAbsence = input.plannedAbsence;
+        
+        // added for Supp benefit 
+        output.assistYearDocs = input.assistYearDocs;
+        
     }
 
      convertToPerson(input: PersonDto, output: MspPerson) {
@@ -953,5 +957,6 @@ export  class MspDataService {
         output.liveInBC = input.liveInBC;
         output.madePermanentMoveToBC = input.madePermanentMoveToBC;
         output.plannedAbsence = input.plannedAbsence;
+        output.assistYearDocs = input.assistYearDocs;
     }
 }

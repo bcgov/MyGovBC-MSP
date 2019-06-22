@@ -8,6 +8,7 @@ import {Relationship} from '../../../../models/status-activities-documents';
 import {NgForm} from '@angular/forms';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {BenefitPersonalDetailComponent} from '../personal-info/personal-detail/personal-detail.component';
+import { MspPerson } from 'app/modules/account/models/account.model';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -59,7 +60,9 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
 
   addSpouse = () => {
    
-//    this.benefitApplication.hasSpouseOrCommonLaw = true;
+   //this.benefitApplication.applicant = new MspPerson(Relationship.Spouse);
+   this.showSpouse = true;
+  //  this.benefitApplication.hasSpouseOrCommonLaw = true;
     this.dataService.benefitApp.setSpouse = true;
     //this.dataService.benefitApp.hasSpouseOrCommonLaw = true
     //console.log(this.benefitApplication.hasSpouseOrCommonLaw);
@@ -71,7 +74,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
     console.log('remove spouse '+ event);
    // this.dataService.getMspApplication().removeSpouse();
     this.showSpouse = false;
-    this.dataService.benefitApp.setSpouse = false;
+   // this.dataService.benefitApp.setSpouse = false;
     //this.dataService.saveMspApplication();
   }
 
@@ -88,7 +91,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   }
 
   get canContinue(): boolean{
-    if ( this.isAllValid() && this.dataService.benefitApp.assistYeaDocs.length > 0) {
+    if ( this.isAllValid() && this.benefitApplication.spouse.assistYearDocs.length > 0) {
         return true;
     }
     return  false;

@@ -45,7 +45,7 @@
 
                             <common-radio [value]="benefitApp.ageOver65"  [label]="lang('./en/index.js').areYou65OrOlder" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="setAgeOver65($event)">
+                                (statusChange)="dataService.benefitApp.ageOver65 = $event;">
                             </common-radio> 
                            <!-- <div role="dialog" aria-labelledby="q1">
                                 <p id="q1" class="intro" [innerHtml]="lang('./en/index.js').areYou65OrOlder"></p>
@@ -70,7 +70,7 @@
                         <div class="form-group">
                             <common-radio [value]="benefitApp.hasSpouseOrCommonLaw"  [label]="lang('./en/index.js').doYouHaveASpouseOrPartner" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="sethasSpouseOrCommonLaw($event)">
+                                (statusChange)="dataService.benefitApp.setSpouse = $event;">
                             </common-radio>
                         <!--    <div role="dialog" aria-labelledby="q2">
                                 <p id="q2" class="intro" [innerHtml]="lang('./en/index.js').doYouHaveASpouseOrPartner"></p>
@@ -91,12 +91,11 @@
                                      [innerHTML]="lang('./en/index.js').spouseCommonLawStatusRequired"></div>
                             </div>
                             <div class="padded" tabindex="0" [innerHtml]="lang('./en/index.js').notifySpouseWarning"></div> -->
-                        </div>
-
+                        </div>   
                         <div class="form-group" [hidden]="!benefitApp.hasSpouseOrCommonLaw">
                             <common-radio [value]="benefitApp.spouseAgeOver65"  [label]="lang('./en/index.js').isYourSpouseOrPartner65OrOlder" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="benefitApp.spouseAgeOver65 = $event">
+                                (statusChange)="dataService.benefitApp.spouseAgeOver65 = $event;">
                             </common-radio>
                                <!-- <div role="dialog" aria-labelledby="q3">
                                     <p id="q3" class="intro" [innerHtml]="lang('./en/index.js').isYourSpouseOrPartner65OrOlder"></p>
@@ -143,7 +142,7 @@
                         <div class="form-group" *ngIf="benefitApp.ageOver65 != null || benefitApp.ageOver65 != undefined">
                             <common-radio [value]="benefitApp.haveChildrens"  [label]="'Do you have any children on your Medical Service Plan?'" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="setchildren($event)">
+                                (statusChange)="dataService.benefitApp.haveChildrens = $event; dataService.saveBenefitApplication();">
                             </common-radio>
                         </div>
 
@@ -210,7 +209,7 @@
                         <div class="form-group" *ngIf="benefitApp.ageOver65 != null || benefitApp.ageOver65 != undefined">
                             <common-radio [value]="benefitApp.selfDisabilityCredit"  [label]="lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="toggleClaimForSelfDisabilityCredit($event)">
+                                (statusChange)="toggleClaimForSelfDisabilityCredit($event);">
                             </common-radio>
                             <!--<div *ngIf='!(benefitApp.hasSpouseOrCommonLaw === null || benefitApp.hasSpouseOrCommonLaw === undefined) &&
                             (benefitApp.spouseAgeOver65 === null || benefitApp.spouseAgeOver65 === undefined)'>
@@ -611,7 +610,9 @@
             <msp-common-deduction-calculator  (continue)="canContinue($event)" 
                 [eligibilityCalculatorTitle]="lang('./en/index.js').eligibilityCalculatorTitle" 
                 [application]="benefitApp" [qualificationThreshhold] = "qualificationThreshhold"
-                [totalHouseholdIncomeLabel] = "lang('./en/index.js').totalHouseholdIncome" [continueButtonLabel] = "lang('./en/index.js').continueButtonLabel"  [NotQualifyText] = "lang('./en/index.js').mayNotQualifyText"
+                [totalHouseholdIncomeLabel] = "lang('./en/index.js').totalHouseholdIncome" 
+                [continueButtonLabel] = "lang('./en/index.js').continueButtonLabel"  
+                [NotQualifyText] = "lang('./en/index.js').mayNotQualifyText"
                 (taxYearInfoMissing)= "onTaxYearInfoMissing()" 
                 [disableContinue]="true">
             </msp-common-deduction-calculator>

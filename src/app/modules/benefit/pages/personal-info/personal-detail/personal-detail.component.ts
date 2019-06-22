@@ -6,7 +6,9 @@ import {MspBirthDateComponent} from '../../../../msp-core/components/birthdate/b
 import {BaseComponent} from '../../../../../models/base.component';
 import {BenefitApplication} from '../../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../../services/msp-benefit-data.service';
-
+import {MspImage} from '../../../../../models/msp-image';
+import {MspImageErrorModalComponent} from '../../../../msp-core/components/image-error-modal/image-error-modal.component';
+import {Relationship, StatusInCanada} from '../../../../../models/status-activities-documents';
 @Component({
   selector: 'msp-benefit-personal-detail',
   templateUrl: './personal-detail.component.html',
@@ -25,7 +27,9 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
     //@ViewChild('phn') phn: PhnComponent;
 
     @Output() onChange = new EventEmitter<any>();
+    @Output() docActionEvent = new EventEmitter<any>();
     @Output() notifySpouseRemoval: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
+    @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
  
 
     constructor(private dataService: MspBenefitDataService,
@@ -34,6 +38,8 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
         this.benefitApp = this.dataService.benefitApp;
         this.person = this.dataService.benefitApp.applicant;
         console.log(this.person);
+       /// this.person.assistYeaDocs = this.dataService.benefitApp.assistYeaDocs;
+        //console.log('==================='+this.person);
     }
 
     ngAfterViewInit() {
@@ -45,7 +51,10 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
                 console.log(this.person.dob_year);
                 console.log(this.person.dob);
                 this.onChange.emit(values);
+                console.log(this.person);
+                //this.dataService.saveBenefitApplication();
             });
+    //    this.dataService.saveBenefitApplication();
     }
 
 
@@ -59,7 +68,51 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
 
     removeSpouse(): void {
         this.notifySpouseRemoval.emit(this.person);
+        this.dataService.benefitApp.setSpouse = false;
+        //this.person = new MspPerson(Relationship.Spouse);
     }
+
+    /*addDoc(doc: MspImage){
+        //this.benefitApp.assistYeaDocs = this.person.assistYeaDocs;
+        this.benefitApp.assistYearDocs = this.benefitApp.assistYearDocs.concat(doc);
+        
+       // this.fileUploader.forceRender();
+        this.dataService.saveBenefitApplication();
+        this.docActionEvent.emit(doc);
+
+    }*/
+
+    errorDoc(evt: MspImage) {
+        this.mspImageErrorModal.imageWithError = evt;
+        this.mspImageErrorModal.showFullSizeView();
+        this.mspImageErrorModal.forceRender();
+        this.docActionEvent.emit(evt);
+    }
+
+    /*deleteDoc(doc: MspImage){
+        //this.person.assistYeaDocs = this.benefitApp.assistYeaDocs;
+       // console.log('****'+doc);
+        this.benefitApp.assistYearDocs = this.benefitApp.assistYearDocs
+            .filter( d => {
+                return d.id !== doc.id;
+            });
+        this.dataService.saveBenefitApplication();
+        this.docActionEvent.emit(doc);
+    }*/
+
+    deleteDocument(evt: Array<any>) {
+        console.log('evt', evt);
+        this.person.assistYearDocs = evt;
+        this.dataService.saveBenefitApplication();
+        // this.person.documents.images = this.person.documents.images.filter(
+        //   (mspImage: MspImage) => {
+        //     return evt.uuid !== mspImage.uuid;
+        //   }
+        // );
+        this.docActionEvent.emit(evt);
+        this.onChange.emit(evt);
+      }
+    
     
 
 }
