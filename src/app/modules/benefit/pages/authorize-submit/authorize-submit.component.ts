@@ -121,6 +121,6 @@ export class BenefitAuthorizeSubmitComponent {
 
     continue() {
         this._processService.setStep(BenefitAuthorizeSubmitComponent.ProcessStepNum, true);
-        this._router.navigate(['/benefit/authorize']);
+        this._router.navigate(['/benefit/sending']);
     }
 }
