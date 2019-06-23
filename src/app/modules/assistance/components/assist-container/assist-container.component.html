@@ -1,10 +1,9 @@
 <common-core-breadcrumb>
 
-  <common-wizard-progress-bar
-    center
-    [progressSteps]="progressSteps">
+  <common-wizard-progress-bar center [progressSteps]="progressSteps">
   </common-wizard-progress-bar>
 
 </common-core-breadcrumb>
-
-<router-outlet></router-outlet>
+<common-page-framework layout="blank">
+  <router-outlet></router-outlet>
+</common-page-framework>

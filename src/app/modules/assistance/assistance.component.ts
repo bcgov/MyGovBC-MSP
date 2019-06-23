@@ -1,12 +1,7 @@
 import { Component, Inject, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { MspProgressBarItem } from '../common/progressBar/progressBarDataItem.model';
-import { MspProgressBarComponent } from '../common/progressBar/progressBar.component';
-import { ProcessService, ProcessStep } from '../service/process.service';
-import { environment } from '../../../../environments/environment';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { MspLogService } from '../../../services/log.service';
 
 /**
  * Application for Premium Assistance
@@ -18,15 +13,16 @@ import { MspLogService } from '../../../services/log.service';
 export class AssistanceComponent {
   lang = require('./i18n');
 
-  @ViewChild('progressBar') progressBar: MspProgressBarComponent;
+  // @ViewChild('progressBar') progressBar: MspProgressBarComponent;
   routerSubscription: Subscription;
-
+  /*
   get assistanceProgressBarList(): Array<MspProgressBarItem> {
     if (this.processService.process == null ||
       this.processService.process.processSteps == null) {
       this.initProcessService();
     }
-
+    */
+  /*
     return [ new MspProgressBarItem(this.lang('./en/index.js').progressStep1, this.processService.process.processSteps[0].route),
       new MspProgressBarItem(this.lang('./en/index.js').progressStep2, this.processService.process.processSteps[1].route),
       new MspProgressBarItem(this.lang('./en/index.js').progressStep3, this.processService.process.processSteps[2].route),
@@ -35,11 +31,14 @@ export class AssistanceComponent {
     ];
   }
 
-  constructor(private processService: ProcessService,
-              private changeRef: ChangeDetectorRef,
-              private logService: MspLogService,
-              private router: Router) {
-    environment.appConstants.serviceName = this.lang('./en/index.js').serviceName;
+  */
+  constructor(
+    // private processService: ProcessService,
+    private changeRef: ChangeDetectorRef,
+    // private logService: MspLogService,
+    private router: Router
+  ) {
+    // environment.appConstants.serviceName = this.lang('./en/index.js').serviceName;
     this.initProcessService();
   }
 
@@ -52,28 +51,29 @@ export class AssistanceComponent {
     this.routerSubscription = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(event => {
-          if (this.router.url.indexOf('/confirmation/') === -1) {//toned down logs.no log for confirmation page
-              this.logService.log({
-                  name: 'PA - Loaded Page ',
-                  url: this.router.url
-              }, 'PA - Loaded Page ');
-          }
+        // if (this.router.url.indexOf('/confirmation/') === -1) {
+        //toned down logs.no log for confirmation page
+        //     this.logService.log({
+        //         name: 'PA - Loaded Page ',
+        //         url: this.router.url
+        //     }, 'PA - Loaded Page ');
+        // }
       });
   }
 
   ngOnDestroy() {
-      if (this.routerSubscription && !this.routerSubscription.closed) {
-          this.routerSubscription.unsubscribe();
-      }
+    if (this.routerSubscription && !this.routerSubscription.closed) {
+      this.routerSubscription.unsubscribe();
+    }
   }
 
-  private initProcessService () {
-    this.processService.init([
-      new ProcessStep('/msp/assistance/prepare'),
-      new ProcessStep('/msp/assistance/personal-info'),
-      new ProcessStep('/msp/assistance/retro'),
-      new ProcessStep('/msp/assistance/review'),
-      new ProcessStep('/msp/assistance/authorize-submit'),
-      new ProcessStep('/msp/assistance/sending')]);
+  private initProcessService() {
+    //   this.processService.init([
+    //     new ProcessStep('/msp/assistance/prepare'),
+    //     new ProcessStep('/msp/assistance/personal-info'),
+    //     new ProcessStep('/msp/assistance/retro'),
+    //     new ProcessStep('/msp/assistance/review'),
+    //     new ProcessStep('/msp/assistance/authorize-submit'),
+    //     new ProcessStep('/msp/assistance/sending')]);
   }
 }
