@@ -352,7 +352,7 @@ export class BenefitApplication implements ApplicationBase {
      * Power of atterney docs and attendant care expense receipts
      */
     getAllImages(): MspImage[] {
-        return [...this.powerOfAttorneyDocs, ...this.attendantCareExpenseReceipts, ...this.assistYearDocs];
+        return [...this.powerOfAttorneyDocs, ...this.attendantCareExpenseReceipts, ...this.assistYearDocs, ...this.applicant.assistYearDocs, ...this.spouse.assistYearDocs];
     }
 
     /**
