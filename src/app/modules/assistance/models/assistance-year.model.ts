@@ -3,5 +3,6 @@ export class AssistanceYear {
   apply: boolean;
   docsRequired: boolean = true;
   currentYear: number;
-  disabled: boolean ;
+  disabled: boolean;
+  files?: any[];
 }
