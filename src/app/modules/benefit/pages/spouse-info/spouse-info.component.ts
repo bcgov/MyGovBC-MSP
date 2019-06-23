@@ -91,10 +91,16 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   }
 
   get canContinue(): boolean{
-    if ( this.isAllValid() && this.benefitApplication.spouse.assistYearDocs.length > 0) {
-        return true;
-    }
+
+    if(!this.benefitApplication.hasSpouseOrCommonLaw) {
+      return true;
+    } else {
+      if ( this.isAllValid() && this.benefitApplication.hasSpouseOrCommonLaw && this.benefitApplication.spouse.assistYearDocs.length > 0) {
+          return true;
+      }
+    } 
     return  false;
+    
   }
 
   /*get application(): BenefitApplication {
