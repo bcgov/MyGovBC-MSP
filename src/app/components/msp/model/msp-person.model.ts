@@ -8,6 +8,7 @@ import {UUID} from 'angular2-uuid';
 import * as _ from 'lodash';
 import {PhoneNumber} from './phone.model';
 import { SimpleDate, Address } from 'moh-common-lib';
+import { MspImage } from '../../../models/msp-image';
 
 const sha1 = require('sha1');
 
@@ -31,6 +32,9 @@ class MspPerson implements IPerson {
     _status: StatusInCanada;
     _currentActivity: Activities;
     documents: PersonDocuments = new PersonDocuments();
+  
+    assistYearDocs: MspImage[] = [];
+  
     outOfBCRecord: OutofBCRecord;
     /** NEEDS XSD. Departure information for the question regarding if the person will be out of BC for more than 30 days in the next 6 months. */
     planOnBeingOutOfBCRecord: OutofBCRecord;

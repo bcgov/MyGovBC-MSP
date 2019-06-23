@@ -9,6 +9,7 @@ import {MspAddressComponent} from '../../../msp-core/components/address/address.
 import {BaseComponent} from '../../../../models/base.component';
 import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
+import { MspImage } from 'app/models/msp-image';
 
 
 @Component({
@@ -67,7 +68,9 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     }
 
     get canContinue(): boolean{
-        if ( this.isAllValid() && this.dataService.benefitApp.assistYeaDocs.length > 0) {
+        //const allDocs: MspImage[][] = this.dataService.benefitApp.allPersons.filter(x => x).map(x => x.assistYeaDocs).filter(x => x)  ;
+        
+        if ( this.isAllValid() && this.benefitApplication.applicant.assistYearDocs.length > 0) {
             return true;
         }
         return  false;

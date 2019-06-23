@@ -1,20 +1,14 @@
 import { ChangeDetectorRef, Input, Component, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MspDataService } from '../../../../services/msp-data.service';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 import {BenefitApplication} from '../../models/benefit-application.model';
 import { BaseComponent } from '../../../../models/base.component';
 import { ProcessService } from '../../../../services/process.service';
 import { Router } from '@angular/router';
 
-import {
-  CountryList,
-  ProvinceList,
-  CANADA,
-  BRITISH_COLUMBIA
-} from 'moh-common-lib';
-import { Address, PROVINCE_LIST, COUNTRY_LIST, CheckCompleteBaseService } from 'moh-common-lib';
-//import { countryData, provinceData } from '../../../../models/msp-constants';
+
+import {  ProvinceList, CountryList, CANADA, BRITISH_COLUMBIA, Address, COUNTRY_LIST, CheckCompleteBaseService } from 'moh-common-lib';
+//import { CountryList,ProvinceList,countryData, provinceData } from '../../../../models/msp-constants';
 
 @Component({
   templateUrl: './address.component.html'
@@ -36,7 +30,74 @@ export class BenefitAddressComponent extends BaseComponent {
   @ViewChild('phone') phone: ElementRef;
   
   countryList: CountryList[] = COUNTRY_LIST;
-  provinceList: ProvinceList[] = PROVINCE_LIST;
+  provinceList: ProvinceList[] = [
+    {
+      provinceCode: 'AB',
+      description: 'Alberta',
+	  country:'CAN'
+	  
+    },
+    {
+      provinceCode: 'BC',
+      description: 'British Columbia',
+	  country:'CAN'
+    },
+    {
+      provinceCode: 'MB',
+      description: 'Manitoba',
+	  country:'CAN'
+    },
+    {
+      provinceCode: 'NB',
+      description: 'New Brunswick',
+	  country:'CAN'
+    },
+    {
+      provinceCode: 'NL',
+      description: 'Newfoundland and Labrador',
+	  country:'CAN'
+    },
+    {
+      provinceCode: 'NS',
+      description: 'Nova Scotia',
+	  country:'CAN'
+    },
+    {
+      provinceCode: 'NU',
+      description: 'Nunavut',
+	  country:'CAN'
+    },
+    {
+      provinceCode: 'NT',
+      description: 'Northwest Territories',
+	  country:'CAN'
+    },
+    {
+      provinceCode: 'ON',
+      description: 'Ontario',
+	  country:'CAN'
+    },
+    {
+      provinceCode: 'PE',
+      description: 'Prince Edward Island',
+	  country:'CAN'
+    },
+    {
+      provinceCode: 'QC',
+      description: 'Quebec',
+	  country:'CAN'
+    },
+    {
+      provinceCode: 'SK',
+      description: 'Saskatchewan',
+	  country:'CAN'
+    },
+    {
+      provinceCode: 'YT',
+      description: 'Yukon',
+	  country:'CAN'
+    }
+  ];
 
   public defaultCountry = CANADA;
   public defaultProvince = BRITISH_COLUMBIA;
@@ -58,13 +119,13 @@ export class BenefitAddressComponent extends BaseComponent {
 
   ngAfterViewInit(): void {
     this.form.valueChanges.subscribe(values => {
-      this.dataService.saveMspApplication();
+      this.dataService.saveBenefitApplication();
     });
   }
 
   handlePhoneNumberChange(evt: any) {
     this.mspApplication.phoneNumber = evt;
-    this.dataService.saveMspApplication();
+    this.dataService.saveBenefitApplication();
   }
 
   toggleMailingSameAsResidentialAddress(evt: boolean){
@@ -72,19 +133,23 @@ export class BenefitAddressComponent extends BaseComponent {
     if (evt){
       this.mspApplication.mailingAddress = new Address();
     }
-    this.dataService.saveMspApplication();
+    this.dataService.saveBenefitApplication();
   }
 
   toggleCheckBox(){
     this.mspApplication.mailingSameAsResidentialAddress = !this.mspApplication.mailingSameAsResidentialAddress;
-    this.dataService.saveMspApplication();
+    this.dataService.saveBenefitApplication();
   }
 
   handleAddressUpdate(evt: any){
     console.log(evt);
     console.log('address update event: %o', evt);
     evt.addressLine1 = evt.street;
-    this.dataService.saveMspApplication();
+    if(evt.addressLine1 != null) {
+      this.dataService.benefitApp.residentialAddress.hasValue = true;
+
+    }
+    this.dataService.saveBenefitApplication();
   }
 
   canContinue(){
