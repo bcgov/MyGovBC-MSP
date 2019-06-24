@@ -55,6 +55,7 @@ export interface spouseYears {
         <ng-container>
           <msp-assist-cra-documents
             [assistanceYears]="selectedYears"
+            isSpouse="true"
           ></msp-assist-cra-documents>
         </ng-container>
       </ng-container>
@@ -101,12 +102,11 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
     if (this.finAssistApp.hasSpouseOrCommonLaw)
       this.documents = this.finAssistApp.spouse.documents;
-    console.log(this.finAssistApp);
     let i = 0;
     for (let assistYear of this.finAssistApp.assistYears) {
       if (assistYear.hasSpouse) {
         let itm = this.finAssistApp.assistYears[i];
-        itm.files = [];
+        if (!itm.spouseFiles) itm.spouseFiles = [];
         this.selectedYears.push(itm);
       }
       i++;
@@ -145,8 +145,6 @@ export class SpouseComponent extends BaseComponent implements OnInit {
       this.selectedYears = this.selectedYears.filter(itm => itm.year !== year);
     }
     this.dataSvc.saveFinAssistApplication();
-    // console.log('selected year', this.selectedYears);
-    // console.log(this.finAssistApp);
   }
 
   findYear(year: number) {
@@ -154,7 +152,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
       itm => itm.year === year
     );
     const { ...itm } = years[0];
-    itm.files = [];
+    if (!itm.spouseFiles) itm.spouseFiles = [];
     itm.hasSpouse = true;
     return itm;
   }
@@ -163,7 +161,6 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     for (let obj of this.finAssistApp.assistYears) {
       if (obj.year === year) {
         if (obj.hasSpouse) {
-          // this.selectedYears.push(obj);
           return obj.hasSpouse;
         }
         return false;

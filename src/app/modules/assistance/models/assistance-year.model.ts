@@ -6,4 +6,5 @@ export class AssistanceYear {
   disabled: boolean;
   hasSpouse?: boolean;
   files?: any[];
+  spouseFiles?: any[];
 }
