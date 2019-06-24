@@ -84,7 +84,7 @@ import * as _ from 'lodash';
 
     <common-consent-modal
       #mspConsentModal
-      [isUnderMaintenance]="true"
+      [isUnderMaintenance]="false"
       [title]="'Information collection notice'"
       agreeLabel="I have read and understand this information"
       [processName]="consentProcessName"
@@ -133,7 +133,7 @@ export class AssistanceHomeComponent extends BaseComponent
   // @ViewChild('formRef') form: NgForm;
   // finAssistApp: FinancialAssistApplication;
   title = 'Apply for Retroactive Premium Assistance';
-  options: import('/Users/sean/MyGovBC-MSP/src/app/modules/assistance/models/assistance-year.model').AssistanceYear[];
+  options: AssistanceYear[];
   rateData: {};
   modalRef: BsModalRef;
   pastYears = [];
@@ -145,6 +145,10 @@ export class AssistanceHomeComponent extends BaseComponent
     return this.dataSvc.finAssistApp;
   }
 
+  get assistanceYearsList(): AssistanceYear[] {
+    return this.finAssistApp.assistYears;
+  }
+
   constructor(
     cd: ChangeDetectorRef,
     public dataSvc: MspDataService,
@@ -154,7 +158,9 @@ export class AssistanceHomeComponent extends BaseComponent
   }
 
   ngOnInit() {
+    // console.log(this.dataSvc.finAssistApp);
     console.log(this.dataSvc.finAssistApp);
+
     this.options = this.dataSvc.finAssistApp.assistYears;
     const data = {};
     for (let assistYear of this.options) {
@@ -162,7 +168,8 @@ export class AssistanceHomeComponent extends BaseComponent
       data[assistYear.year] = { ...helperData.brackets };
     }
     this.rateData = data;
-    this.initYearsList();
+    // console.log('this is the application before ini')
+    if (this.options.length < 1) this.initYearsList();
   }
 
   ngAfterViewInit() {
@@ -190,97 +197,30 @@ export class AssistanceHomeComponent extends BaseComponent
     //   })
     // );
 
-    merge(
-      this.prepForm.valueChanges.pipe(
+    // merge(
+
+    this.prepForm.valueChanges
+      .pipe(
         debounceTime(250),
-        distinctUntilChanged(),
-        filter(values => {
-          // console.log('value changes: ', values);
-          const isEmptyObj = _.isEmpty(values);
-          return !isEmptyObj;
-        }),
-        tap(value => {
-          console.log('form value: ', value.netIncome);
-          if (!value.netIncome || value.netIncome.trim().length === 0) {
-            console.log('form value:11 ', value);
-            this.finAssistApp.netIncomelastYear = null;
-          } else {
-            console.log('form value:22 ', value);
-            this.finAssistApp.netIncomelastYear = value.netIncome;
-          }
-
-          if (
-            !value.spouseIncomeLine236 ||
-            value.spouseIncomeLine236.trim().length === 0
-          ) {
-            this.finAssistApp.spouseIncomeLine236 = null;
-          }
-
-          if (!value.line125) {
-            this.finAssistApp.spouseDSPAmount_line125 = null;
-          }
-
-          if (!value.line214) {
-            this.finAssistApp.claimedChildCareExpense_line214 = null;
-          }
-
-          if (!value.line117) {
-            this.finAssistApp.reportedUCCBenefit_line117 = null;
-          }
-
-          if (!value.childrenCount || value.childrenCount.trim().length === 0) {
-            this.finAssistApp.childrenCount = null;
-          }
-
-          return value;
-        })
+        distinctUntilChanged()
       )
-      // ageOver$,
-      // ageUnder$,
-
-      // merge(
-      //   fromEvent<MouseEvent>(this.spouseOver65Btn.nativeElement, 'click').pipe(
-      //     map(() => {
-      //       this.finAssistApp.spouseAgeOver65 = true;
-      //     })
-      //   )
-      // ),
-      // merge(
-      //   fromEvent<MouseEvent>(
-      //     this.spouseOver65NegativeBtn.nativeElement,
-      //     'click'
-      //   ).pipe(
-      //     map(() => {
-      //       this.finAssistApp.spouseAgeOver65 = false;
-      //     })
-      //   )
-      // ),
-      // merge(
-      //   fromEvent<MouseEvent>(this.hasSpouse.nativeElement, 'click').pipe(
-      //     map(() => {
-      //       this.dataService.finAssistApp.setSpouse = true;
-      //     })
-      //   )
-      // ),
-      // merge(
-      //   fromEvent<MouseEvent>(
-      //     this.negativeHasSpouse.nativeElement,
-      //     'click'
-      //   ).pipe(
-      //     map(() => {
-      //       this.finAssistApp.setSpouse = false;
-      //     })
-      //   )
-      // )
-    ).subscribe(() => {
-      // console.log('values before saving: ', values);
-      this.dataSvc.saveFinAssistApplication();
-    });
+      .subscribe(values => {
+        // console.log('values before saving: ', values);
+        this.dataSvc.saveFinAssistApplication();
+        for (let key of Object.keys(values)) {
+          const val = parseInt(key);
+          isNaN(val)
+            ? this.processNumbers(val)
+            : // console.log(val)
+              console.log('is not number');
+        }
+      });
   }
 
   applyOption(bool: boolean, i: number) {
     this.options[i].apply = bool;
     this.dataSvc.saveFinAssistApplication();
+    console.log(this.dataSvc.finAssistApp);
   }
 
   openModal(template: TemplateRef<any>) {
@@ -327,7 +267,20 @@ export class AssistanceHomeComponent extends BaseComponent
     this.options = this.dataSvc.finAssistApp.assistYears;
   }
 
-  get assistanceYearsList(): AssistanceYear[] {
-    return this.finAssistApp.assistYears;
+  acceptConsent(evt: boolean) {
+    console.log('event', evt);
+    this.initYearsList();
+    this.options = this.dataSvc.finAssistApp.assistYears;
+    this.dataSvc.finAssistApp.infoCollectionAgreement = evt;
+    this.dataSvc.saveFinAssistApplication();
+  }
+
+  processNumbers(year: number) {
+    const { ...years } = { ...this.dataSvc.finAssistApp.assistYears };
+    // console.log(this.dataSvc.finAssistApp);
+    for (let assistYear of years as any) {
+      if ((assistYear.year = year)) console.log(year);
+      console.log(assistYear);
+    }
   }
 }
