@@ -17,10 +17,10 @@ export const assistPages: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
-  {
-    path: 'prepare',
-    component: AssistancePrepareComponent
-  },
+  // {
+  //   path: 'prepare',
+  //   component: AssistancePrepareComponent
+  // },
   {
     path: 'home',
     // canActivate: [ProcessService],
@@ -70,6 +70,6 @@ export const assistPages: Routes = [
 
   {
     path: '',
-    redirectTo: 'prepare'
+    redirectTo: 'home'
   }
 ];
