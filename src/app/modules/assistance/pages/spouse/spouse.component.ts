@@ -3,6 +3,7 @@ import { FinancialAssistApplication } from '../../models/financial-assist-applic
 import { MspDataService } from 'app/services/msp-data.service';
 import { AssistanceYear } from '../../models/assistance-year.model';
 import { BaseComponent } from 'app/models/base.component';
+import { PersonDocuments } from 'app/components/msp/model/person-document.model';
 
 export interface spouseYears {
   apply: boolean;
@@ -43,6 +44,7 @@ export interface spouseYears {
             *ngFor="let year of assistanceYears"
             class="col-1"
             [label]="year"
+            [data]="checkYear(year)"
             (dataChange)="toggleYear($event, year)"
           ></common-checkbox>
         </div>
@@ -71,6 +73,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
   documentsDescription = `Upload spouse's Notice of Assessement or Reassessement from Canada Revenue Agency for 2015 and 2016`;
 
   finAssistApp: FinancialAssistApplication;
+  documents: PersonDocuments;
 
   assistanceYears = [];
   assistanceYearsDocs = [];
@@ -96,13 +99,14 @@ export class SpouseComponent extends BaseComponent implements OnInit {
 
     this.assistanceYearsDocs = arr;
     this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
-    console.log(this.finAssistApp.hasSpouseOrCommonLaw);
+    if (this.finAssistApp.hasSpouseOrCommonLaw)
+      this.documents = this.finAssistApp.spouse.documents;
+    // console.log(this.finAssistApp.hasSpouseOrCommonLaw);
   }
 
   addSpouse() {
     this.finAssistApp.setSpouse = true;
     this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
-
     this.dataSvc.saveFinAssistApplication();
     // this.showTaxYears = !this.showTaxYears;
   }
@@ -112,19 +116,12 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     this.dataSvc.saveFinAssistApplication();
   }
   toggleYear(bool: boolean, year: number) {
-    console.log('event', year);
+    console.log(this.finAssistApp);
     bool
       ? this.selectedYears.push(this.findYear(year))
       : (this.selectedYears = this.selectedYears.filter(
           itm => itm.year !== year
         ));
-    let values = this.findYear(year);
-    let { ...selection } = values[0];
-    selection.apply = bool;
-    selection.files = [];
-    console.log(selection);
-    this.selectedYears.push(selection);
-    // console.log(this.selectedYears);
   }
 
   findYear(year: number) {
@@ -141,7 +138,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
       this.selectedYears.filter(itm => itm.year === year).length > 0
         ? true
         : false;
-    console.log(test);
+    // console.log(test);
     return test;
   }
 }
