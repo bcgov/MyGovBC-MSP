@@ -108,7 +108,6 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     this.finAssistApp.setSpouse = true;
     this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
     this.dataSvc.saveFinAssistApplication();
-    // this.showTaxYears = !this.showTaxYears;
   }
   removeSpouse() {
     this.finAssistApp.setSpouse = false;
@@ -116,12 +115,28 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     this.dataSvc.saveFinAssistApplication();
   }
   toggleYear(bool: boolean, year: number) {
-    console.log(this.finAssistApp);
-    bool
-      ? this.selectedYears.push(this.findYear(year))
-      : (this.selectedYears = this.selectedYears.filter(
-          itm => itm.year !== year
-        ));
+    // console.log(this.finAssistApp);
+    if (bool) {
+      const itm = this.findYear(year);
+      let i = 0;
+      for (let assistYear of this.finAssistApp.assistYears) {
+        if (assistYear.year === year) this.finAssistApp.assistYears[i] = itm;
+        i++;
+      }
+      this.selectedYears.push(itm);
+    } else {
+      const itm = this.findYear(year);
+      itm.hasSpouse = false;
+      let i = 0;
+      for (let assistYear of this.finAssistApp.assistYears) {
+        if (assistYear.year === year) this.finAssistApp.assistYears[i] = itm;
+        i++;
+      }
+      this.selectedYears = this.selectedYears.filter(itm => itm.year !== year);
+    }
+    this.dataSvc.saveFinAssistApplication();
+    // console.log('selected year', this.selectedYears);
+    // console.log(this.finAssistApp);
   }
 
   findYear(year: number) {
@@ -130,6 +145,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     );
     const { ...itm } = years[0];
     itm.files = [];
+    itm.hasSpouse = true;
     return itm;
   }
 

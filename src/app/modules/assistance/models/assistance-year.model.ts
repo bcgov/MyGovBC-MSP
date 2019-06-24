@@ -4,5 +4,6 @@ export class AssistanceYear {
   docsRequired: boolean = true;
   currentYear: number;
   disabled: boolean;
+  hasSpouse?: boolean;
   files?: any[];
 }
