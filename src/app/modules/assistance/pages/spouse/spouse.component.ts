@@ -102,7 +102,15 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     if (this.finAssistApp.hasSpouseOrCommonLaw)
       this.documents = this.finAssistApp.spouse.documents;
     console.log(this.finAssistApp);
-
+    let i = 0;
+    for (let assistYear of this.finAssistApp.assistYears) {
+      if (assistYear.hasSpouse) {
+        let itm = this.finAssistApp.assistYears[i];
+        itm.files = [];
+        this.selectedYears.push(itm);
+      }
+      i++;
+    }
     // console.log(this.finAssistApp.hasSpouseOrCommonLaw);
   }
 
@@ -154,16 +162,12 @@ export class SpouseComponent extends BaseComponent implements OnInit {
   checkYear(year: number) {
     for (let obj of this.finAssistApp.assistYears) {
       if (obj.year === year) {
-        if (obj.hasSpouse) return obj.hasSpouse;
+        if (obj.hasSpouse) {
+          // this.selectedYears.push(obj);
+          return obj.hasSpouse;
+        }
         return false;
       }
     }
-
-    // let test =
-    //   this.selectedYears.filter(itm => itm.year === year).length > 0
-    //     ? true
-    //     : false;
-    // // console.log(test);
-    // return test;
   }
 }
