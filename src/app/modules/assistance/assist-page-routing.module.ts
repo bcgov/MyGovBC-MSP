@@ -14,12 +14,17 @@ import { SpouseComponent } from './pages/spouse/spouse.component';
 export const assistPages: Routes = [
   {
     path: '',
-    redirectTo: 'prepare',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
+  // {
+  //   path: 'prepare',
+  //   component: AssistancePrepareComponent
+  // },
   {
-    path: 'prepare',
-    component: AssistancePrepareComponent
+    path: 'home',
+    // canActivate: [ProcessService],
+    component: AssistanceHomeComponent
   },
   {
     path: 'personal-info',
@@ -27,14 +32,30 @@ export const assistPages: Routes = [
     component: AssistancePersonalInfoComponent
   },
   {
-    path: 'retro',
-    //canActivate: [ProcessService],
-    component: AssistanceRetroYearsComponent
+    path: 'spouse',
+    canActivate: [],
+    component: SpouseComponent
   },
+  // {
+  //   path: 'retro',
+  //   //canActivate: [ProcessService],
+  //   component: AssistanceRetroYearsComponent
+  // },
   {
     path: 'review',
     // canActivate: [ProcessService],
     component: AssistanceReviewComponent
+  },
+
+  // {
+  //   path: 'sending',
+  //   // canActivate: [ProcessService],
+  //   component: AssistanceSendingComponent
+  // },
+  {
+    path: 'contact',
+    // canActivate: [ProcessService],
+    component: AssistContactComponent
   },
   {
     path: 'authorize-submit',
@@ -42,32 +63,13 @@ export const assistPages: Routes = [
     component: AssistanceAuthorizeSubmitComponent
   },
   {
-    path: 'sending',
-    // canActivate: [ProcessService],
-    component: AssistanceSendingComponent
-  },
-  {
-    path: 'contact',
-    // canActivate: [ProcessService],
-    component: AssistContactComponent
-  },
-  {
-    path: 'home',
-    // canActivate: [ProcessService],
-    component: AssistanceHomeComponent
-  },
-  {
     path: 'confirmation',
     canActivate: [],
     component: AssistanceConfirmationComponent
   },
-  {
-    path: 'spouse',
-    canActivate: [],
-    component: SpouseComponent
-  },
+
   {
     path: '',
-    redirectTo: 'prepare'
+    redirectTo: 'home'
   }
 ];

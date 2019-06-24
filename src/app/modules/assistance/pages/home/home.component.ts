@@ -3,14 +3,30 @@ import {
   OnInit,
   ChangeDetectorRef,
   ViewChild,
-  TemplateRef
+  TemplateRef,
+  AfterViewInit
 } from '@angular/core';
 import { BaseComponent } from 'app/models/base.component';
 import { MspDataService } from 'app/services/msp-data.service';
 import { NgForm } from '@angular/forms';
 import { PremiumRatesYear } from './home-constants';
-import { debounceTime } from 'rxjs/operators';
+import {
+  debounceTime,
+  tap,
+  distinctUntilChanged,
+  filter,
+  map
+} from 'rxjs/operators';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
+
+import { AssistanceYear } from '../../models/assistance-year.model';
+import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
+import { fromEvent, merge } from 'rxjs';
+import { ConsentModalComponent } from 'moh-common-lib';
+
+// TODO: remove lodash
+import * as moment from 'moment';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'msp-assist-home',
@@ -65,25 +81,85 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap';
         [rateData]="rateData"
       ></msp-assist-rates-helper-modal>
     </ng-template>
+
+    <common-consent-modal
+      #mspConsentModal
+      [isUnderMaintenance]="false"
+      [title]="'Information collection notice'"
+      agreeLabel="I have read and understand this information"
+      [processName]="consentProcessName"
+      (accept)="
+        finAssistApp.infoCollectionAgreement = $event;
+        this.dataSvc.saveFinAssistApplication()
+      "
+    >
+      <p>
+        <strong
+          >Keep your personal information secure – especially when using a
+          shared device like a computer at a library, school or café.</strong
+        >
+        To delete any information that was entered, either complete the
+        application and submit it or, if you don’t finish, close the web
+        browser.
+      </p>
+      <p>
+        <strong>Need to take a break and come back later?</strong> The data you
+        enter on this form is saved locally to the computer or device you are
+        using until you close the web browser or submit your application.
+      </p>
+      <p>
+        <strong
+          >Information in this application is collected by the Ministry of
+          Health</strong
+        >
+        under section 26(a), (c) and (e) of the Freedom of Information and
+        Protection of Privacy Act and will be used to determine eligibility for
+        provincial health care benefits in BC and administer Premium Assistance.
+        Should you have any questions about the collection of this personal
+        information please
+        <a
+          href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us"
+          target="_blank"
+          >contact Health Insurance BC
+          <i class="fa fa-external-link" aria-hidden="true"></i></a
+        >.
+      </p>
+    </common-consent-modal>
   `,
   styleUrls: ['./home.component.scss']
 })
-export class AssistanceHomeComponent extends BaseComponent implements OnInit {
+export class AssistanceHomeComponent extends BaseComponent
+  implements OnInit, AfterViewInit {
   // @ViewChild('formRef') form: NgForm;
+  // finAssistApp: FinancialAssistApplication;
   title = 'Apply for Retroactive Premium Assistance';
-  options: import('/Users/sean/MyGovBC-MSP/src/app/modules/assistance/models/assistance-year.model').AssistanceYear[];
+  options: AssistanceYear[];
   rateData: {};
   modalRef: BsModalRef;
+  pastYears = [];
+  consentProcessName = 'apply for Premium Assistance';
+  @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
+  @ViewChild('formRef') prepForm: NgForm;
+
+  get finAssistApp(): FinancialAssistApplication {
+    return this.dataSvc.finAssistApp;
+  }
+
+  get assistanceYearsList(): AssistanceYear[] {
+    return this.finAssistApp.assistYears;
+  }
 
   constructor(
     cd: ChangeDetectorRef,
-    private dataSvc: MspDataService,
+    public dataSvc: MspDataService,
     private modalSvc: BsModalService
   ) {
     super(cd);
   }
 
   ngOnInit() {
+    console.log(this.dataSvc.finAssistApp);
+
     this.options = this.dataSvc.finAssistApp.assistYears;
     const data = {};
     for (let assistYear of this.options) {
@@ -91,11 +167,28 @@ export class AssistanceHomeComponent extends BaseComponent implements OnInit {
       data[assistYear.year] = { ...helperData.brackets };
     }
     this.rateData = data;
+    if (this.options.length < 1) this.initYearsList();
+  }
+
+  ngAfterViewInit() {
+    if (!this.dataSvc.finAssistApp.infoCollectionAgreement) {
+      this.mspConsentModal.showFullSizeView();
+    }
+
+    this.prepForm.valueChanges
+      .pipe(
+        debounceTime(250),
+        distinctUntilChanged()
+      )
+      .subscribe(() => {
+        this.dataSvc.saveFinAssistApplication();
+      });
   }
 
   applyOption(bool: boolean, i: number) {
     this.options[i].apply = bool;
     this.dataSvc.saveFinAssistApplication();
+    console.log(this.dataSvc.finAssistApp);
   }
 
   openModal(template: TemplateRef<any>) {
@@ -104,5 +197,49 @@ export class AssistanceHomeComponent extends BaseComponent implements OnInit {
       class: 'modal-md',
       keyboard: false
     });
+  }
+  initYearsList() {
+    const recentTaxYear = moment().year(); // this.finAssistApp.MostRecentTaxYear; //< 2020 ? 2020 : this.finAssistApp.MostRecentTaxYear;
+    const cutOffYear = 2020;
+    const numberOfYears = 6 - (recentTaxYear - cutOffYear);
+    let i = recentTaxYear < cutOffYear ? 2 : 1;
+
+    while (i <= numberOfYears) {
+      this.pastYears.push(cutOffYear - i);
+      i++;
+    }
+
+    if (
+      !this.finAssistApp.assistYears ||
+      this.finAssistApp.assistYears.length < 7
+    ) {
+      this.finAssistApp.assistYears = this.pastYears.reduce(
+        (tally, yearNum) => {
+          const assistYear: AssistanceYear = new AssistanceYear();
+          assistYear.apply = false;
+          assistYear.year = yearNum;
+          assistYear.docsRequired = true;
+          assistYear.currentYear = this.finAssistApp.MostRecentTaxYear;
+
+          if (yearNum === this.finAssistApp.MostRecentTaxYear) {
+            assistYear.docsRequired = false;
+          }
+          tally.push(assistYear);
+
+          return tally;
+        },
+        []
+      );
+    }
+    this.dataSvc.saveFinAssistApplication();
+    this.options = this.dataSvc.finAssistApp.assistYears;
+  }
+
+  acceptConsent(evt: boolean) {
+    console.log('event', evt);
+    this.initYearsList();
+    this.options = this.dataSvc.finAssistApp.assistYears;
+    this.dataSvc.finAssistApp.infoCollectionAgreement = evt;
+    this.dataSvc.saveFinAssistApplication();
   }
 }

@@ -81,7 +81,8 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
         debounceTime(250),
         distinctUntilChanged()
       )
-      .subscribe(() => {
+      .subscribe(val => {
+        console.log(val);
         this.dataService.saveFinAssistApplication();
       });
   }
@@ -99,8 +100,9 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
     this.assistanceYears = arr
       .filter(itm => itm != null)
       .map(itm => {
-        let { ...obj } = itm;
-        obj.files = [];
+        let obj = itm;
+        // console.log(obj.files);
+        if (!obj.files) obj.files = [];
         return obj;
       });
 
@@ -121,7 +123,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   }
 
   onChange($event) {
-    // console.log('changes from child component triggering save: ', values);
+    console.log('changes from child component triggering save: ');
     this.dataService.saveFinAssistApplication();
   }
 
