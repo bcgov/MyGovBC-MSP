@@ -13,7 +13,6 @@ import { MspLogService } from './services/log.service';
 import { CompletenessCheckService } from './services/completeness-check.service';
 import { MspApiService } from './services/msp-api.service';
 import { PersonalComponent } from './modules/assistance/pages/personal/personal.component';
-import { SpouseComponent } from './modules/assistance/pages/spouse/spouse.component';
 
 @NgModule({
   imports: [
