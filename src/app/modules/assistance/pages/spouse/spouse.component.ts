@@ -18,7 +18,7 @@ export interface spouseYears {
     <button
       *ngIf="!showTaxYears"
       class="btn btn-primary btn-md"
-      (click)="toggleSpouse()"
+      (click)="addSpouse()"
     >
       Add Spouse
     </button>
@@ -30,7 +30,7 @@ export interface spouseYears {
           <button
             *ngIf="showTaxYears"
             class="col-1 btn btn-transparent float-right"
-            (click)="toggleSpouse()"
+            (click)="removeSpouse()"
           >
             <i class="fa fa-times ecks"></i>
           </button>
@@ -95,10 +95,21 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     this.assistanceYears = arr.filter(itm => itm != null).map(itm => itm.year);
 
     this.assistanceYearsDocs = arr;
+    this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
+    console.log(this.finAssistApp.hasSpouseOrCommonLaw);
   }
 
-  toggleSpouse() {
-    this.showTaxYears = !this.showTaxYears;
+  addSpouse() {
+    this.finAssistApp.setSpouse = true;
+    this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
+
+    this.dataSvc.saveFinAssistApplication();
+    // this.showTaxYears = !this.showTaxYears;
+  }
+  removeSpouse() {
+    this.finAssistApp.setSpouse = false;
+    this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
+    this.dataSvc.saveFinAssistApplication();
   }
   toggleYear(bool: boolean, year: number) {
     console.log('event', year);

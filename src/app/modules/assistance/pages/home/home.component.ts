@@ -158,7 +158,6 @@ export class AssistanceHomeComponent extends BaseComponent
   }
 
   ngOnInit() {
-    // console.log(this.dataSvc.finAssistApp);
     console.log(this.dataSvc.finAssistApp);
 
     this.options = this.dataSvc.finAssistApp.assistYears;
@@ -168,52 +167,21 @@ export class AssistanceHomeComponent extends BaseComponent
       data[assistYear.year] = { ...helperData.brackets };
     }
     this.rateData = data;
-    // console.log('this is the application before ini')
     if (this.options.length < 1) this.initYearsList();
   }
 
   ngAfterViewInit() {
-    // console.log('asasasas' + this.finAssistApp.netIncomelastYear);
     if (!this.dataSvc.finAssistApp.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();
     }
-
-    //removing subscribe wont register clicks
-    // const ageOver$ = fromEvent<MouseEvent>(
-    //   this.ageOver65Btn.nativeElement,
-    //   'click'
-    // ).pipe(
-    //   map(() => {
-    //     this.dataSvc.finAssistApp.ageOver65 = true;
-    //   })
-    // );
-
-    // const ageUnder$ = fromEvent<MouseEvent>(
-    //   this.ageNotOver65Btn.nativeElement,
-    //   'click'
-    // ).pipe(
-    //   map(() => {
-    //     this.dataSvc.finAssistApp.ageOver65 = false;
-    //   })
-    // );
-
-    // merge(
 
     this.prepForm.valueChanges
       .pipe(
         debounceTime(250),
         distinctUntilChanged()
       )
-      .subscribe(values => {
-        // console.log('values before saving: ', values);
+      .subscribe(() => {
         this.dataSvc.saveFinAssistApplication();
-        for (let key of Object.keys(values)) {
-          const val = parseInt(key);
-          isNaN(val)
-            ? this.processNumbers(val)
-            : // console.log(val)
-              console.log('is not number');
-        }
       });
   }
 
@@ -273,14 +241,5 @@ export class AssistanceHomeComponent extends BaseComponent
     this.options = this.dataSvc.finAssistApp.assistYears;
     this.dataSvc.finAssistApp.infoCollectionAgreement = evt;
     this.dataSvc.saveFinAssistApplication();
-  }
-
-  processNumbers(year: number) {
-    const { ...years } = { ...this.dataSvc.finAssistApp.assistYears };
-    // console.log(this.dataSvc.finAssistApp);
-    for (let assistYear of years as any) {
-      if ((assistYear.year = year)) console.log(year);
-      console.log(assistYear);
-    }
   }
 }
