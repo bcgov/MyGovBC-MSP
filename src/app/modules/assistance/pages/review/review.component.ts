@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 //import {ProcessService} from '../../service/process.service';
-import { Router, NavigationEnd } from '@angular/router';
 import { MspLogService } from '../../../../services/log.service';
 import { assistPages } from '../../assist-page-routing.module';
 import {
@@ -122,12 +120,7 @@ export class AssistanceReviewComponent {
   address: Address;
   phone: string;
 
-  constructor(
-    private dataService: MspDataService,
-    //private _processService: ProcessService,
-    private logService: MspLogService
-  ) {
-    // this.application = this.dataService.finAssistApp;
+  constructor(private dataService: MspDataService) {
     const app = this.dataService.finAssistApp;
     this.address = app.mailingAddress;
     this.applicantInformation();
@@ -148,11 +141,6 @@ export class AssistanceReviewComponent {
     this.hasSpouse = true;
   }
 
-  continue() {
-    // this._processService.setStep(AssistanceReviewComponent.ProcessStepNum, true);
-    // this.logService.log({name: "PA - Review Page after CAPTCHA"},"PA - Captcha Success")
-    // this._router.navigate(['/enrolment/authorize-submit']);
-  }
   get appYears() {
     return this.applicantInfo.years
       .map(itm => itm.toString())

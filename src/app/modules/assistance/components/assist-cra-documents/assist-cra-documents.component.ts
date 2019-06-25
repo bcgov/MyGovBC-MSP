@@ -63,4 +63,5 @@ export class AssistCraDocumentsComponent implements OnInit {
 
   updateFiles(arr: any, year: AssistanceYear) {
     year.files = arr;
+  }
 }
