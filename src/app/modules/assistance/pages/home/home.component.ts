@@ -56,23 +56,28 @@ import * as _ from 'lodash';
         2019 premiums are based on 2018 income.)
       </p>
 
-      <p class="border-bottom">
+      <p class="border-bottom mb-2">
         You will be required during this application to upload a copy of your
         Canada Revenue Agency Notice of Assessment or Notice of Reassessment
         (and your spouse’s, if applicable)
       </p>
       <form #formRef="ngForm" novalidate>
+        <h3>
+          What premium years would you like to apply for retroactive assistance?
+        </h3>
         <div class="row">
-          <common-checkbox
-            class="col"
-            *ngFor="let option of options; index as i"
-            [(ngModel)]="option.apply"
-            [checked]="option.apply"
-            [label]="option.year"
-            (dataChange)="applyOption($event, i)"
-            id="{{ option.year }}"
-            name="{{ option.year }}"
-          ></common-checkbox>
+          <div class="col-12">
+            <common-checkbox
+              class="col-2"
+              *ngFor="let option of options; index as i"
+              [(ngModel)]="option.apply"
+              [checked]="option.apply"
+              [label]="option.year"
+              (dataChange)="applyOption($event, i)"
+              id="{{ option.year }}"
+              name="{{ option.year }}"
+            ></common-checkbox>
+          </div>
         </div>
       </form>
     </common-page-section>
