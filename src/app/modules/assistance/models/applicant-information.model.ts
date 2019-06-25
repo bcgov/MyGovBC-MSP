@@ -1,6 +1,10 @@
-import { MspApplication } from 'app/modules/enrolment/models/application.model';
+import {
+  MspApplication,
+  MspPerson
+} from 'app/modules/enrolment/models/application.model';
 import { FinancialAssistApplication } from './financial-assist-application.model';
 import { SimpleDate } from 'moh-common-lib';
+import { AssistanceYear } from './assistance-year.model';
 
 export interface IApplicantInformation {
   years: number[];
@@ -23,27 +27,24 @@ export class ApplicantInformation implements IApplicantInformation {
 
   constructor(mspApp: FinancialAssistApplication) {
     const { ...app } = { ...mspApp };
-    this.years = app.assistYears
-      .filter(year => year.apply)
-      .map(year => year.year);
-    // .reduce((a, b) => `${a}, ${b}`);
+    this.years = this.makeYears(app.assistYears);
+    this.name = this.makeName(app.applicant);
 
-    const { firstName, middleName, lastName } = { ...app.applicant };
-    this.name = [firstName, middleName, lastName]
-      .filter(itm => itm)
-      .reduce((a, b) => `${a} ${b}`);
-    // this.birthDate = app.applicant.dateOfBirth;
-    // console.log(name);
     this.birthDate = this.makeDate(app.applicant.dateOfBirth);
-    console.log(this.birthDate);
   }
 
   makeDate(date: SimpleDate) {
-    // if (!date.day) return;
     return `${date.day}/${date.month}/${date.year}`;
-    // let newDate = new Date(date.month, date.);
-    // console.log('dates', newDate);
-    // let val = dates.reduce((prev, curr) => prev + curr);
-    // console.log('dates', val);
+  }
+
+  makeYears(years: AssistanceYear[]) {
+    return years.filter(year => year.apply).map(year => year.year);
+  }
+
+  makeName(app: MspPerson) {
+    const { firstName, middleName, lastName } = { ...app };
+    return [firstName, middleName, lastName]
+      .filter(itm => itm)
+      .reduce((a, b) => `${a} ${b}`);
   }
 }
