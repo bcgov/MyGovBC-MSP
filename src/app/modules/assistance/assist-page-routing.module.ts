@@ -36,6 +36,12 @@ export const assistPages: Routes = [
     canActivate: [],
     component: SpouseComponent
   },
+
+  {
+    path: 'contact',
+    // canActivate: [ProcessService],
+    component: AssistContactComponent
+  },
   // {
   //   path: 'retro',
   //   //canActivate: [ProcessService],
@@ -52,21 +58,17 @@ export const assistPages: Routes = [
   //   // canActivate: [ProcessService],
   //   component: AssistanceSendingComponent
   // },
-  {
-    path: 'contact',
-    // canActivate: [ProcessService],
-    component: AssistContactComponent
-  },
+
   {
     path: 'authorize-submit',
     // canActivate: [ProcessService],
     component: AssistanceAuthorizeSubmitComponent
   },
-  {
-    path: 'confirmation',
-    canActivate: [],
-    component: AssistanceConfirmationComponent
-  },
+  // {
+  //   path: 'confirmation',
+  //   canActivate: [],
+  //   component: AssistanceConfirmationComponent
+  // },
 
   {
     path: '',
