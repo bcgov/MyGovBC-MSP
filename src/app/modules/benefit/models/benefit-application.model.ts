@@ -21,7 +21,7 @@ export class BenefitApplication implements ApplicationBase {
     phnRequired: boolean = true;
 
     assistYears: AssistanceYear[] = [];
-    assistYeaDocs: MspImage[] = [];
+    assistYearDocs: MspImage[] = [];
     taxYear: number ;
     userSelectedMostRecentTaxYear: number;
     public spaEnvCutOffDate: string;
@@ -352,7 +352,7 @@ export class BenefitApplication implements ApplicationBase {
      * Power of atterney docs and attendant care expense receipts
      */
     getAllImages(): MspImage[] {
-        return [...this.powerOfAttorneyDocs, ...this.attendantCareExpenseReceipts, ...this.assistYeaDocs];
+        return [...this.powerOfAttorneyDocs, ...this.attendantCareExpenseReceipts, ...this.assistYearDocs, ...this.applicant.assistYearDocs, ...this.spouse.assistYearDocs];
     }
 
     /**
