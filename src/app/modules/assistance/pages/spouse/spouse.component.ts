@@ -102,6 +102,13 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
     if (this.finAssistApp.hasSpouseOrCommonLaw)
       this.documents = this.finAssistApp.spouse.documents;
+
+    const years = this.finAssistApp.assistYears;
+    let hasSpouse = years.some(itm => itm.hasSpouse);
+    if (hasSpouse) this.parseSpouse(years);
+  }
+
+  parseSpouse(arr: AssistanceYear[]) {
     let i = 0;
     for (let assistYear of this.finAssistApp.assistYears) {
       if (assistYear.hasSpouse) {
@@ -111,7 +118,6 @@ export class SpouseComponent extends BaseComponent implements OnInit {
       }
       i++;
     }
-    // console.log(this.finAssistApp.hasSpouseOrCommonLaw);
   }
 
   addSpouse() {

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AccordionModule, ModalModule, TooltipModule } from 'ngx-bootstrap';
+// import { AccordionModule, ModalModule, TooltipModule } from 'ngx-bootstrap';
 import { GeneralAppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedCoreModule } from 'moh-common-lib';
@@ -12,7 +12,6 @@ import { ProcessService } from './services/process.service';
 import { MspLogService } from './services/log.service';
 import { CompletenessCheckService } from './services/completeness-check.service';
 import { MspApiService } from './services/msp-api.service';
-import { PersonalComponent } from './modules/assistance/pages/personal/personal.component';
 
 @NgModule({
   imports: [
@@ -32,7 +31,7 @@ import { PersonalComponent } from './modules/assistance/pages/personal/personal.
       storageType: 'sessionStorage'
     })
   ],
-  declarations: [LandingComponent, GeneralAppComponent, PersonalComponent],
+  declarations: [LandingComponent, GeneralAppComponent],
   providers: [
     MspDataService,
     ProcessService,

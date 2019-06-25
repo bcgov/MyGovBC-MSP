@@ -13,8 +13,6 @@ import { MspIdReqModalComponent } from './components/id-req-modal/id-req-modal.c
 import { MspBirthDateComponent } from './components/birthdate/birthdate.component';
 import { MspImageErrorModalComponent } from './components/image-error-modal/image-error-modal.component';
 
-
-
 // TOBE REVIEWED
 import { HealthNumberComponent } from '../../components/msp/common/health-number/health-number.component';
 import { CalendarYearFormatter } from '../../components/msp/common/calendar/calendar-year-formatter.component';
@@ -49,6 +47,9 @@ import { CommonIncomeInputtextComponent } from './components/common-income-input
 import { CommonButtonComponent } from './components/common-button/common-button.component';
 import { MspLoggerDirective } from './components/logging/msp-logger.directive';
 import { HttpClientModule } from '@angular/common/http';
+import { ReviewPartComponent } from './components/review-part/review-part.component';
+import { ReviewCardWrapperComponent } from './components/review-card-wrapper/review-card-wrapper.component';
+import { ErrorComponent } from './components/error/error.component';
 
 const componentList = [
   MspFullNameComponent,
@@ -64,16 +65,18 @@ const componentList = [
   CommonButtonGroupComponent,
   CommonIncomeInputtextComponent,
   CommonButtonComponent,
+  ReviewPartComponent,
+  ErrorComponent,
 
   // Directives
   KeyboardEventListner,
-  MspLoggerDirective
+  MspLoggerDirective,
+  ReviewCardWrapperComponent
 ];
 
-
-    // TODO: Review to determine whether these should be replace with moh-common-lib
-    // components or be moved into msp-core, or moh-common-lib component updated to
-    // support functionality
+// TODO: Review to determine whether these should be replace with moh-common-lib
+// components or be moved into msp-core, or moh-common-lib component updated to
+// support functionality
 const templistCore = [
   // General
   CalendarYearFormatter,
@@ -97,7 +100,7 @@ const templistCore = [
   HealthNumberComponent,
   ReplacewithlinksPipe,
   MspPersonCardComponent,
-  MspContactCardComponent,
+  MspContactCardComponent
 ];
 @NgModule({
   imports: [
@@ -113,11 +116,7 @@ const templistCore = [
     CaptchaModule,
     HttpClientModule
   ],
-  declarations: [
-    componentList,
-
-    templistCore
-  ],
+  declarations: [componentList, templistCore],
   exports: [
     componentList,
     SharedCoreModule,
@@ -127,4 +126,4 @@ const templistCore = [
     templistCore
   ]
 })
-export class MspCoreModule { }
+export class MspCoreModule {}

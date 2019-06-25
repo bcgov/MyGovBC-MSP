@@ -8,7 +8,6 @@ import {
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { Router } from '@angular/router';
-import { AssistancePersonalDetailComponent } from './personal-details/personal-details.component';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { BaseComponent } from '../../../../models/base.component';
 import { MspAddressComponent } from '../../../msp-core/components/address/address.component';
@@ -43,8 +42,6 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   static ProcessStepNum = 1;
 
   @ViewChild('formRef') personalInfoForm: NgForm;
-  @ViewChildren(AssistancePersonalDetailComponent)
-  personalDetailsComponent: QueryList<AssistancePersonalDetailComponent>;
   @ViewChild('address') address: MspAddressComponent;
   @ViewChild('phone') phone: MspPhoneComponent;
   financialAssistApplication: FinancialAssistApplication;
@@ -107,10 +104,6 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
       });
 
     this.documentsDescription += this.createDocumentDesc(this.assistanceYears);
-
-    // this.documentsDescription += '.';
-
-    console.log('arr', this.assistanceYears);
   }
 
   createDocumentDesc(years: any[]) {
