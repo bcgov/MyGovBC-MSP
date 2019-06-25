@@ -60,7 +60,7 @@ export class AssistAccountHolderComponent extends BaseComponent
         debounceTime(250),
         distinctUntilChanged()
       )
-      .subscribe(obs => this.dataChange.emit(this.person));
+      .subscribe(() => this.dataChange.emit(this.person));
     // this.assistApp.applicant.
   }
 }

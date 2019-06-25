@@ -5,6 +5,7 @@ import {
 import { FinancialAssistApplication } from './financial-assist-application.model';
 import { SimpleDate } from 'moh-common-lib';
 import { AssistanceYear } from './assistance-year.model';
+import { deepFlatten } from './assist-review-helpers';
 
 export interface IApplicantInformation {
   years: number[];
@@ -14,7 +15,7 @@ export interface IApplicantInformation {
   sin: string;
   appDocuments: string;
   spouseDocuments: string;
-  getData: () => IApplicantInformation;
+  getData?: () => IApplicantInformation;
 }
 
 export class ApplicantInformation implements IApplicantInformation {
@@ -29,8 +30,6 @@ export class ApplicantInformation implements IApplicantInformation {
 
   constructor(mspApp: FinancialAssistApplication) {
     const { ...app } = { ...mspApp };
-    const deepFlatten = arr =>
-      [].concat(...arr.map(v => (Array.isArray(v) ? deepFlatten(v) : v)));
 
     this.years = this.makeYears(app.assistYears);
     this.name = this.makeName(app.applicant);
@@ -53,9 +52,9 @@ export class ApplicantInformation implements IApplicantInformation {
       .map(itm => itm.name)
       .reduce((a, b) => `${a}, ${b}`);
 
-    this.spouseDocuments = deepFlatten(appDocuments)
-      .map(itm => itm.name)
-      .reduce((a, b) => `${a}, ${b}`);
+    // this.spouseDocuments = deepFlatten(appDocuments)
+    //   .map(itm => itm.name)
+    //   .reduce((a, b) => `${a}, ${b}`);
     console.log('files', this.appDocuments);
   }
 

@@ -4,8 +4,6 @@ import { FinancialAssistApplication } from '../../models/financial-assist-applic
 import { NgForm } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MspDataService } from 'app/services/msp-data.service';
-// import { countryData } from 'app/modules/msp-core/constants/countries';
-// import provinceData from 'app/modules/msp-core/constants/provinces';
 import { COUNTRY_LIST, PROVINCE_LIST } from 'moh-common-lib';
 import { Address, ProvinceList } from 'moh-common-lib';
 
