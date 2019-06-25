@@ -9,6 +9,11 @@ import {
   ApplicantInformation,
   IApplicantInformation
 } from '../../models/applicant-information.model';
+import { Address } from 'moh-common-lib';
+import {
+  SpouseInformation,
+  ISpouseInformation
+} from '../../models/spouse-information.model';
 
 export interface IContactInformation {}
 
@@ -49,29 +54,47 @@ export interface IContactInformation {}
           [value]="applicantInfo.appDocuments"
         ></msp-review-part>
       </msp-review-card-wrapper>
-
-      <!-- <div class="row">
-      <div class="col-lg-6">
-        <msp-person-card
-          [person]="application.applicant"
-          [editRouterLink]="'/msp/assistance/personal-info'"
+      <msp-review-card-wrapper
+        [title]="contactTitle"
+        [routerLink]="contactLink"
+      >
+        <h4>Mailing Address</h4>
+        <msp-review-part
+          label="Street Address"
+          [value]="address.addressLine1"
+        ></msp-review-part>
+        <msp-review-part label="City" [value]="address.city"></msp-review-part>
+        <msp-review-part
+          label="Province"
+          [value]="address.province"
+        ></msp-review-part>
+        <msp-review-part
+          label="Postal Code"
+          [value]="address.postal"
+        ></msp-review-part>
+        <msp-review-part
+          label="Country"
+          [value]="address.country"
+        ></msp-review-part>
+        <h4 class="mt-4">Contact</h4>
+        <msp-review-part label="Phone Number" [value]="phone"></msp-review-part>
+      </msp-review-card-wrapper>
+      <aside>
+        <msp-review-card-wrapper
+          [title]="spouseTitle"
+          [routerLink]="spouseLink"
+          *ngIf="hasSpouse"
         >
-        </msp-person-card>
-        <msp-person-card
-          [person]="application.spouse"
-          *ngIf="application.hasSpouseOrCommonLaw"
-          [editRouterLink]="'/msp/assistance/spouse'"
-        ></msp-person-card>
-
-        <msp-contact-card
-          [residentialAddress]="application.residentialAddress"
-          [mailingAddress]="application.mailingAddress"
-          [phone]="application.phoneNumber"
-          [editRouterLink]="'/msp/assistance/contact'"
-        ></msp-contact-card>
-      </div>
-    </div>
-    -->
+          <msp-review-part
+            label="Years had spouse"
+            [value]="spouseYears"
+          ></msp-review-part>
+          <msp-review-part
+            label="Documents"
+            [value]="spouseInfo.documents"
+          ></msp-review-part>
+        </msp-review-card-wrapper>
+      </aside>
     </common-page-section>
 
     <hr />
@@ -90,17 +113,28 @@ export class AssistanceReviewComponent {
 
   static ProcessStepNum = 3;
 
+  hasSpouse = false;
+
   // lang = require('./i18n');
-  application: FinancialAssistApplication;
+  // application: FinancialAssistApplication;
   applicantInfo: IApplicantInformation;
+  spouseInfo: ISpouseInformation;
+  address: Address;
+  phone: string;
 
   constructor(
     private dataService: MspDataService,
     //private _processService: ProcessService,
     private logService: MspLogService
   ) {
-    this.application = this.dataService.finAssistApp;
+    // this.application = this.dataService.finAssistApp;
+    const app = this.dataService.finAssistApp;
+    this.address = app.mailingAddress;
     this.applicantInformation();
+    this.hasSpouse = app.hasSpouseOrCommonLaw;
+    console.log(this.hasSpouse);
+    this.hasSpouse ? this.spouseInformation() : (this.hasSpouse = false);
+    this.phone = app.applicant.phoneNumber;
   }
 
   applicantInformation() {
@@ -108,9 +142,11 @@ export class AssistanceReviewComponent {
     this.applicantInfo = appInfo.getData();
   }
 
-  contactInformation() {}
-
-  spouseInformation() {}
+  spouseInformation() {
+    const spouseInfo = new SpouseInformation(this.dataService.finAssistApp);
+    this.spouseInfo = spouseInfo.getData();
+    this.hasSpouse = true;
+  }
 
   continue() {
     // this._processService.setStep(AssistanceReviewComponent.ProcessStepNum, true);
@@ -119,6 +155,13 @@ export class AssistanceReviewComponent {
   }
   get appYears() {
     return this.applicantInfo.years
+      .map(itm => itm.toString())
+      .reduce((a, b) => `${a}, ${b}`);
+  }
+
+  get spouseYears() {
+    if (!this.spouseInfo.years) return;
+    return this.spouseInfo.years
       .map(itm => itm.toString())
       .reduce((a, b) => `${a}, ${b}`);
   }

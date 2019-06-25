@@ -10,6 +10,12 @@ export interface ISpouseInformation {
 export class SpouseInformation implements ISpouseInformation {
   years: number[];
   documents: string;
+  getData(): ISpouseInformation {
+    return {
+      years: this.years,
+      documents: this.documents
+    };
+  }
   constructor(mspApp: FinancialAssistApplication) {
     const { ...app } = { ...mspApp };
     const spouseDocuments = [];
