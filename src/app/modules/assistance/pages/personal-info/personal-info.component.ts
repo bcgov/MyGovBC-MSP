@@ -107,10 +107,6 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
       });
 
     this.documentsDescription += this.createDocumentDesc(this.assistanceYears);
-
-    // this.documentsDescription += '.';
-
-    console.log('arr', this.assistanceYears);
   }
 
   createDocumentDesc(years: any[]) {

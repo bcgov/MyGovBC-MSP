@@ -134,7 +134,7 @@ export class AssistanceReviewComponent {
     this.hasSpouse = app.hasSpouseOrCommonLaw;
     console.log(this.hasSpouse);
     this.hasSpouse ? this.spouseInformation() : (this.hasSpouse = false);
-    this.phone = app.applicant.phoneNumber;
+    this.phone = app.phoneNumber;
   }
 
   applicantInformation() {

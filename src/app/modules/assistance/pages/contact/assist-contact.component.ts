@@ -16,6 +16,8 @@ import { Address, ProvinceList } from 'moh-common-lib';
         <p>{{ subtitle }}</p>
         <h3>{{ mailTitle }}</h3>
         <p class="border-bottom">{{ mailSubtitle }}</p>
+      </common-page-section>
+      <common-page-section>
         <div class="row">
           <common-street
             class="col-11"
@@ -77,11 +79,15 @@ import { Address, ProvinceList } from 'moh-common-lib';
           [(ngModel)]="address.postal"
           name="postal"
         ></common-postal-code>
-        <h3 class="border-bottom">{{ phoneTitle }}</h3>
+      </common-page-section>
+      <h3 class="border-bottom">{{ phoneTitle }}</h3>
+      <common-page-section>
         <common-phone-number
-          name="phone"
+          name="phoneNumber"
           [label]="phoneLabel"
+          [phoneNumber]="phone"
           [(ngModel)]="phone"
+          (onChange)="savePhone($event)"
         ></common-phone-number>
       </common-page-section>
     </form>
@@ -125,7 +131,7 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.address = this.financialAssistApplication.mailingAddress;
-    this.phone = this.financialAssistApplication.applicant.phoneNumber;
+    this.phone = this.financialAssistApplication.phoneNumber;
     this.addressLines = this.getAddressLines(this.address);
 
     const enableLines = num => {
@@ -142,7 +148,8 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
         debounceTime(250),
         distinctUntilChanged()
       )
-      .subscribe(() => {
+      .subscribe(obs => {
+        console.log(obs);
         this.dataService.saveFinAssistApplication();
       });
   }
@@ -151,7 +158,6 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
     // console.log(typeof address.addressLine2);
     if (address.addressLine3) return 3;
     if (typeof address.addressLine2 === 'string') {
-      console.log('passed this');
       return 2;
     } else return 1;
   }
@@ -170,5 +176,9 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
     const lineToRemove = `addressLine${num}`;
     this.address[lineToRemove] = undefined;
     this[lineToRemove] = false;
+  }
+
+  savePhone(evt: any) {
+    this.financialAssistApplication.phoneNumber = evt;
   }
 }

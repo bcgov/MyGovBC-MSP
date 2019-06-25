@@ -49,6 +49,7 @@ import { MspLoggerDirective } from './components/logging/msp-logger.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { ReviewPartComponent } from './components/review-part/review-part.component';
 import { ReviewCardWrapperComponent } from './components/review-card-wrapper/review-card-wrapper.component';
+import { ErrorComponent } from './components/error/error.component';
 
 const componentList = [
   MspFullNameComponent,
@@ -65,6 +66,7 @@ const componentList = [
   CommonIncomeInputtextComponent,
   CommonButtonComponent,
   ReviewPartComponent,
+  ErrorComponent,
 
   // Directives
   KeyboardEventListner,
