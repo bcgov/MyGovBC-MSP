@@ -16,6 +16,7 @@ export class FakeDataSupplementaryBenefits {
     contactInfo(): ContactInfoPageTest {
         return {
             country: faker.address.country(),
+            province: faker.address.state(),
             address: faker.address.streetAddress(),
             city: faker.address.city(),
             postal: faker.address.zipCode('?#? #?#'),
@@ -43,9 +44,9 @@ export interface PersonalInfoPageTest {
 
 export interface ContactInfoPageTest {
     country: string;
+    province: string;
     address: string;
     city: string;
     postal: string;
     mobile: string;
-    province?: string;
 }

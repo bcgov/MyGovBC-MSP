@@ -24,6 +24,7 @@ describe('MSP Supplementary Benefits - Spouse Info Page', () => {
         page.navigateTo();
         page.addSpouse();
         page.fillInfo(spouseInfoData);
+        browser.sleep(2000);
         page.continue();
         expect(browser.getCurrentUrl()).toContain(CONTACT_PAGE_URL);
     });

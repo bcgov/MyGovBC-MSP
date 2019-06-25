@@ -71,6 +71,14 @@ export class BaseMSPSuppBenefitsTestPage extends AbstractTestPage {
     checkDiffMailAddress() {
         this.diffMailAddressCheckbox.click();
     }
+
+    clickPencilIcon(h2Val: string) {
+        element(by.cssContainingText('h2', `${h2Val}`)).element(by.css('i[class*="pencil"]')).click();    
+    }
+
+    clickStepper(text: string) {
+        element(by.cssContainingText('span', text)).click();
+    }
 }
 
 export class PreparePage extends BaseMSPSuppBenefitsTestPage {
@@ -129,13 +137,47 @@ export class ContactInfoPage extends BaseMSPSuppBenefitsTestPage {
         return browser.get('/msp/benefit/contact-info');
     }
 
+    fillAddress(data: ContactInfoPageTest) {
+        element.all(by.css('common-country input')).first().sendKeys(data.country);
+        element.all(by.css('common-province input')).first().sendKeys(data.province);
+        element.all(by.css('common-street input')).first().sendKeys(data.address);
+        element.all(by.css('common-city input')).first().sendKeys(data.city);
+        element.all(by.css('common-postal-code input')).first().sendKeys(data.postal);
+    }
+
     fillMailingAddress(data: ContactInfoPageTest) {
-        element(by.css('common-address:nth-child(1) [id^="street"]')).sendKeys(data.address);
-        element(by.css('common-address:nth-child(1) [id^="city"]')).sendKeys(data.city);
-        element(by.css('common-address:nth-child(1) [id^="postal"]')).sendKeys(data.postal);
+        element.all(by.css('common-country input')).last().sendKeys(data.country);
+        element.all(by.css('common-province input')).last().sendKeys(data.province);
+        element.all(by.css('common-street input')).last().sendKeys(data.address);
+        element.all(by.css('common-city input')).last().sendKeys(data.city);
+        element.all(by.css('common-postal-code input')).last().sendKeys(data.postal);
     }
 
     fillContactNumber(data: ContactInfoPageTest) {
         element(by.css('input[id^="phone"]')).sendKeys(data.mobile);
     }
+}
+
+export class ReviewPage extends BaseMSPSuppBenefitsTestPage {
+
+    navigateTo() {
+        return browser.get('/msp/benefit/review');
+    }
+
+}
+
+export class AuthorizePage extends BaseMSPSuppBenefitsTestPage {
+
+    navigateTo() {
+        return browser.get('/msp/benefit/authorize');
+    }
+
+    checkConsent(labelVal: string) {
+        element(by.css(`label[for*="${labelVal}"]`)).click();
+    }
+
+    typeCaptcha() {
+        element(by.css('input[id="answer"]')).sendKeys('irobot');
+    }
+
 }
