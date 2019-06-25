@@ -138,21 +138,19 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
     };
 
     enableLines(this.addressLines);
-
+    console.log('address', this.address);
     this.personalInfoForm.valueChanges
       .pipe(
         debounceTime(250),
         distinctUntilChanged()
       )
-      .subscribe(val => {
-        console.log('run', val);
-        this.dataService.finAssistApp.mailingAddress = val;
+      .subscribe(() => {
         this.dataService.saveFinAssistApplication();
       });
   }
 
   getAddressLines(address: Address) {
-    console.log(typeof address.addressLine2);
+    // console.log(typeof address.addressLine2);
     if (address.addressLine3) return 3;
     if (typeof address.addressLine2 === 'string') {
       console.log('passed this');
