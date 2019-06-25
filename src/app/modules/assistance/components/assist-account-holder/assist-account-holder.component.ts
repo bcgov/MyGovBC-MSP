@@ -38,10 +38,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
         label="Date of Birth"
         name="birthdate"
       ></msp-birthdate>
-      <common-phn
-        [(ngModel)]="person.specificMember_phn"
-        name="phn"
-      ></common-phn>
+      <common-phn [(ngModel)]="person.previous_phn" name="phn"></common-phn>
       <common-sin [(ngModel)]="person.sin" name="sin"></common-sin>
     </form>
   `,
