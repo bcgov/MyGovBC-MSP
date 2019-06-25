@@ -4,9 +4,11 @@ import { Component, OnInit, Input } from '@angular/core';
   selector: 'msp-review-part',
   template: `
     <div class="row">
-      <div class="col-12">
-        <label class="col-6">{{ label }}</label>
-        <span class="col-6">{{ value }}</span>
+      <div class="col-6">
+        <label>{{ label }}</label>
+      </div>
+      <div class="col-6">
+        <span>{{ value }}</span>
       </div>
     </div>
   `,

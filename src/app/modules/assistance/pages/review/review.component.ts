@@ -5,7 +5,10 @@ import { FinancialAssistApplication } from '../../models/financial-assist-applic
 import { Router, NavigationEnd } from '@angular/router';
 import { MspLogService } from '../../../../services/log.service';
 import { assistPages } from '../../assist-page-routing.module';
-import { ApplicantInformation } from '../../models/applicant-information.model';
+import {
+  ApplicantInformation,
+  IApplicantInformation
+} from '../../models/applicant-information.model';
 
 export interface IContactInformation {}
 
@@ -17,7 +20,34 @@ export interface IContactInformation {}
       Print
     </button>
     <common-page-section layout="double">
-      <msp-review-card-wrapper [title]="applicantTitle">
+      <msp-review-card-wrapper
+        [title]="applicantTitle"
+        [routerLink]="applicantLink"
+      >
+        <msp-review-part
+          label="Years Selected"
+          [value]="appYears"
+        ></msp-review-part>
+        <msp-review-part
+          label="Name"
+          [value]="applicantInfo.name"
+        ></msp-review-part>
+        <msp-review-part
+          label="Birthdate"
+          [value]="applicantInfo.birthDate"
+        ></msp-review-part>
+        <msp-review-part
+          label="Personal Health Number"
+          [value]="applicantInfo.phn"
+        ></msp-review-part>
+        <msp-review-part
+          label="Social Insurance Number"
+          [value]="applicantInfo.sin"
+        ></msp-review-part>
+        <msp-review-part
+          label="Name"
+          [value]="applicantInfo.appDocuments"
+        ></msp-review-part>
       </msp-review-card-wrapper>
 
       <!-- <div class="row">
@@ -62,6 +92,7 @@ export class AssistanceReviewComponent {
 
   // lang = require('./i18n');
   application: FinancialAssistApplication;
+  applicantInfo: IApplicantInformation;
 
   constructor(
     private dataService: MspDataService,
@@ -74,6 +105,7 @@ export class AssistanceReviewComponent {
 
   applicantInformation() {
     const appInfo = new ApplicantInformation(this.dataService.finAssistApp);
+    this.applicantInfo = appInfo.getData();
   }
 
   contactInformation() {}
@@ -84,5 +116,10 @@ export class AssistanceReviewComponent {
     // this._processService.setStep(AssistanceReviewComponent.ProcessStepNum, true);
     // this.logService.log({name: "PA - Review Page after CAPTCHA"},"PA - Captcha Success")
     // this._router.navigate(['/enrolment/authorize-submit']);
+  }
+  get appYears() {
+    return this.applicantInfo.years
+      .map(itm => itm.toString())
+      .reduce((a, b) => `${a}, ${b}`);
   }
 }
