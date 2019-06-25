@@ -104,11 +104,8 @@ export class SpouseComponent extends BaseComponent implements OnInit {
       this.documents = this.finAssistApp.spouse.documents;
 
     const years = this.finAssistApp.assistYears;
-    // let test = any(this.finAssistApp.assistYears, this.finAssistApp.assistYears. => itm.apply === true)
     let hasSpouse = years.some(itm => itm.hasSpouse);
     if (hasSpouse) this.parseSpouse(years);
-
-    // console.log(this.finAssistApp.hasSpouseOrCommonLaw);
   }
 
   parseSpouse(arr: AssistanceYear[]) {
