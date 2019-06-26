@@ -158,7 +158,6 @@ export class BenefitAddressComponent extends BaseComponent {
   }
 
   canContinue(){
-    this._processService.setStep(BenefitAddressComponent.ProcessStepNum, true);
     return this.isAllValid();
   }
 
