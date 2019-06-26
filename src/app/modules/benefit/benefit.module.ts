@@ -19,8 +19,8 @@ import { MspBenefitDataService } from './services/msp-benefit-data.service';
 import { ModalModule } from 'ngx-bootstrap';
 import { BenefitSpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { BenefitAddressComponent } from './pages/address/address.component'
-import { ProcessService } from '../../services/process.service'
-
+import { ProcessService , ProcessStep} from '../../services/process.service';
+import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
 
 
 
@@ -48,8 +48,27 @@ import { ProcessService } from '../../services/process.service'
     BenefitAddressComponent
   ],
   providers: [
+    { provide: AbstractPgCheckService, useExisting: CheckCompleteBaseService },
+    RouteGuardService,
     MspBenefitDataService,
     ProcessService
   ]
 })
-export class BenefitModule { }
+export class BenefitModule { 
+
+  constructor(private processService: ProcessService) {
+    this.initProcessService();
+  }
+
+  private initProcessService() {
+    this.processService.init([
+        new ProcessStep('/benefit/prepare'),
+        new ProcessStep('/benefit/personal-info'),
+        new ProcessStep('/benefit/spouse-info'),
+        new ProcessStep('/benefit/contact-info'),
+        new ProcessStep('/benefit/review'),
+        new ProcessStep('/benefit/authorize'),
+        new ProcessStep('/benefit/sending')]);
+  }
+
+}

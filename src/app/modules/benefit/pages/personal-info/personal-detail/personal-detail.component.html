@@ -12,7 +12,7 @@
     </div>
 
     <div class="col-md-6"  style="margin-left: 15px">
-        <msp-full-name [data]="person" (dataChange)="onChange.emit($event)"></msp-full-name>
+        <msp-full-name [data]="person" (dataChange)="onChange.emit($event); checkPhnValid($event);"></msp-full-name>
     </div>
   </div>
   
@@ -37,13 +37,18 @@
   <div class="row">
       <div class="col-md-4">
           <div class="form-group">
-            <common-phn #phn
+            <common-phn
+                    #phnRef="ngModel"
                     name="phn"
-                    [ngModel]="person.previous_phn"
-                    (ngModelChange)="person.previous_phn = $event; onChange.emit($event)"
+                    [(ngModel)]="person.previous_phn"
                     required></common-phn>
+            <div class="text-danger" *ngIf="!isPhnUnique()"
+              [innerHTML]="lang('./en/index.js').phnUniqueError">
+            </div>
+           
+              
           </div>
-        </div>
+      </div>
   </div>
 <div class="row">
     <div class="col-md-4">
@@ -53,7 +58,6 @@
                 [innerHTML]="lang('./en/index.js').sinLabel"></label>
           <input type="text"
                 [(ngModel)]="person.sin"
-                sinCheck
                 required
                 pattern="[1-9]{1}\d{2}\s?\d{3}\s?\d{3}"
                 id='sin' name='sin'
@@ -69,7 +73,8 @@
                 [innerHTML]="lang('./en/index.js').sinCheckErrorPattern"></div>
           </div>
           <div class="text-danger" *ngIf="!isSinUnique()"
-              [innerHTML]="lang('./en/index.js').sinUniqueError"></div>
+              [innerHTML]="lang('./en/index.js').sinUniqueError">
+          </div>
         </div>
     </div>
   </div>

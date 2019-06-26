@@ -35,6 +35,7 @@ export class BenefitApplication implements ApplicationBase {
     spouseClaimForAttendantCareExpense: boolean = false;
     childClaimForAttendantCareExpense: boolean = false;
     haveChildrens: boolean;
+    addSpouse: boolean ;
     childClaimForAttendantCareExpenseCount: number = 1;
 
 
@@ -299,8 +300,8 @@ export class BenefitApplication implements ApplicationBase {
     set setSpouse(arg: boolean){
         if (!arg){
             this.spouseEligibleForDisabilityCredit = arg;
-            this.spouseIncomeLine236 = undefined;
-            this.spouseAgeOver65 = undefined;
+            //this.spouseIncomeLine236 = undefined;
+            //this.spouseAgeOver65 = undefined;
         }
         this._hasSpouseOrCommonLaw = arg;
     }

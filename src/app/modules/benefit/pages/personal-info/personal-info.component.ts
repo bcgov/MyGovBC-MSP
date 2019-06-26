@@ -10,6 +10,8 @@ import {BaseComponent} from '../../../../models/base.component';
 import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 import { MspImage } from 'app/models/msp-image';
+import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
+
 
 
 @Component({
@@ -26,7 +28,7 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     @ViewChildren(BenefitPersonalDetailComponent) personalDetailsComponent: QueryList<BenefitPersonalDetailComponent>;
     @ViewChild('address') address: MspAddressComponent;
     @ViewChild('phone') phone: MspPhoneComponent;
-
+    
     benefitApplication: BenefitApplication;
 
     constructor(private dataService: MspBenefitDataService,
@@ -52,10 +54,12 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     }
 
     ngOnInit(){
+        //this._processService.setPageIncomplete();
         this.initProcessMembers(BenefitPersonalInfoComponent.ProcessStepNum, this._processService);
     }
 
     onChange(values: any) {
+        console.log(values);
         this.dataService.saveBenefitApplication();
     }
 
@@ -69,8 +73,9 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
 
     get canContinue(): boolean{
         //const allDocs: MspImage[][] = this.dataService.benefitApp.allPersons.filter(x => x).map(x => x.assistYeaDocs).filter(x => x)  ;
-        
+        //console.log(this.benefitApplication.applicant.assistYearDocs.length);
         if ( this.isAllValid() && this.benefitApplication.applicant.assistYearDocs.length > 0) {
+            this._processService.setStep(BenefitPersonalInfoComponent.ProcessStepNum,true);    
             return true;
         }
         return  false;

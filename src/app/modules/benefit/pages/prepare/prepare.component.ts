@@ -25,7 +25,7 @@ import {ProcessService} from '../../../../services/process.service';
 })
 export class BenefitPrepareComponent  extends BaseComponent  {
     
-    static ProcessStepNum = 0;
+    //static ProcessStepNum = 0;
 
     @ViewChild('formRef') prepForm: NgForm;
     @ViewChild('incomeRef') incomeRef: ElementRef;
@@ -67,7 +67,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
      */
     pastYears: number[] = [];
 
-    constructor(private _router: Router, private _processService: ProcessService, 
+    constructor(private _router: Router, 
                 public dataService: MspBenefitDataService , cd: ChangeDetectorRef){
         super(cd);
         this.showAttendantCareInfo = this.benefitApp.applicantClaimForAttendantCareExpense
@@ -76,7 +76,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     ngOnInit(){
-        this.initProcessMembers(BenefitPrepareComponent.ProcessStepNum, this._processService);
+       // this.initProcessMembers(BenefitPrepareComponent.ProcessStepNum, this._processService);
     
         this._showDisabilityInfo =
             this.dataService.benefitApp.selfDisabilityCredit === true ||
@@ -140,7 +140,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             map( () => {
                 this.dataService.benefitApp.ageOver65 = false;
             }));*/
-
+        console.log(this.prepForm);
         merge(this.prepForm.valueChanges.pipe(debounceTime(250),
             distinctUntilChanged(),
             filter(
@@ -177,7 +177,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
                 }
             )), //ageOver$, ageUnder$,
 
-            merge(
+            /*merge(
                 fromEvent<MouseEvent>(this.spouseOver65Btn.nativeElement, 'click').pipe(
                     map(x => {
                         this.benefitApp.spouseAgeOver65 = true;
@@ -188,13 +188,13 @@ export class BenefitPrepareComponent  extends BaseComponent  {
                     map(x => {
                         this.benefitApp.spouseAgeOver65 = false;
                     }))
-            ),
+            ), 
             merge(
                 fromEvent<MouseEvent>(this.hasSpouse.nativeElement, 'click').pipe(
                     map(x => {
                         this.dataService.benefitApp.setSpouse = true;
                     }))
-            ),
+            ),*/
             merge(
                 fromEvent<MouseEvent>(this.negativeHasSpouse.nativeElement, 'click').pipe(
                     map(x => {
@@ -203,7 +203,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             ))
             .subscribe(
                 values => {
-                    // console.log('values before saving: ', values);
+                     console.log('values before saving: ', values);
                     this.dataService.saveBenefitApplication();
                 }
             );
@@ -233,14 +233,14 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
     canContinue(evt): any {
         if(evt) {
-            this._processService.setStep(0, true);
+            //this._processService.setStep(0, true);
             this.continue = evt; 
         }
         return evt ;
     }
 
     navigateToPersonalInfo() {
-        this._processService.setStep(0, true);
+       // this._processService.setStep(0, true);
         this._router.navigate(['/benefit/personal-info']);
     }
 
@@ -274,9 +274,9 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         return this.dataService.benefitApp;
     }
 
-    addSpouse(): void {
+    /*addSpouse(): void {
         this.benefitApp.setSpouse = true;
-    }
+    }*/
 
     updateQualify(evt: boolean): void {
         this._likelyQualify = evt;
