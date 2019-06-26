@@ -61,6 +61,7 @@ export class MspBenefitDataService extends MspDataService{
         dto.ageOver65 = input.ageOver65;
         dto.hasSpouseOrCommonLaw = input.hasSpouseOrCommonLaw;
         dto.spouseAgeOver65 = input.spouseAgeOver65;
+        dto.haveChildrens = input.haveChildrens;
         dto.spouseIncomeLine236 = input.spouseIncomeLine236;
         dto.childrenCount = input.childrenCount;
         dto.claimedChildCareExpense_line214 = input.claimedChildCareExpense_line214;
@@ -87,7 +88,7 @@ export class MspBenefitDataService extends MspDataService{
         dto.phoneNumber = input.phoneNumber;
 
         dto.taxYear = input.taxYear;
-        dto.assistYeaDocs = input.assistYeaDocs;
+        //dto.assistYearDocs = input.assistYearDocs;
 
         super.convertToPersonDto(input.applicant, dto.applicant);
         super.convertToPersonDto(input.spouse, dto.spouse);
@@ -113,6 +114,8 @@ export class MspBenefitDataService extends MspDataService{
         output.ageOver65 = dto.ageOver65;
         output.setSpouse = dto.hasSpouseOrCommonLaw;
         output.spouseAgeOver65 = dto.spouseAgeOver65;
+        //output.assistYearDocs = dto.assistYearDocs;
+        output.haveChildrens = dto.haveChildrens;
         output.spouseIncomeLine236 = dto.spouseIncomeLine236;
         output.childrenCount = dto.childrenCount;
         output.claimedChildCareExpense_line214 = dto.claimedChildCareExpense_line214;
@@ -138,7 +141,7 @@ export class MspBenefitDataService extends MspDataService{
         output.attendantCareExpenseReceipts = dto.attendantCareExpenseReceipts;
 
         output.taxYear = dto.taxYear;
-        output.assistYeaDocs = dto.assistYeaDocs || [];
+//        output.assistYearDocs = dto.assistYearDocs || [];
 
         this.convertToPerson(dto.applicant, output.applicant);
         this.convertToPerson(dto.spouse, output.spouse);

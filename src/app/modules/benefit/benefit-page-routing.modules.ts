@@ -47,18 +47,15 @@ export const benefitPages: Routes = [
      path: 'authorize',
      //canActivate: [ProcessService],
      component: BenefitAuthorizeSubmitComponent
- }/*,
-   {
+ },{
       path: 'sending',
       //canActivate: [ProcessService],
       component: BenefitSendingComponent
-  }*/
-  ,{
+ },{
       path: 'confirmation',
       canActivate: [],
       component: BenefitConfirmationComponent
-  },
-  {
+  },{
     path: '',
     redirectTo: 'prepare'
   }

@@ -13,13 +13,15 @@ import { BenefitSendingComponent } from './pages/sending/sending.component';
 import { BenefitConfirmationComponent } from './pages/confirmation/confirmation.component';
 import { BenefitPersonalDetailComponent } from './pages/personal-info/personal-detail/personal-detail.component';
 import { MspCoreModule } from '../msp-core/msp-core.module';
-import { BenefitDeductionCalculatorComponent } from './pages/prepare/benefit-deduction-calculator/benefit-deduction-calculator.component';
 import { BenefitEligibilityCardComponent } from './pages/prepare/eligibility-card/eligibility-card.component';
 import { TaxYearComponent } from './pages/prepare/tax-year/tax-year.component';
 import { MspBenefitDataService } from './services/msp-benefit-data.service';
 import { ModalModule } from 'ngx-bootstrap';
 import { BenefitSpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { BenefitAddressComponent } from './pages/address/address.component'
+import { ProcessService } from '../../services/process.service'
+
+
 
 
 @NgModule({
@@ -40,14 +42,14 @@ import { BenefitAddressComponent } from './pages/address/address.component'
     BenefitAuthorizeSubmitComponent,
     BenefitSendingComponent,
     BenefitConfirmationComponent,
-    BenefitDeductionCalculatorComponent,
     BenefitEligibilityCardComponent,
     TaxYearComponent,
     BenefitSpouseInfoComponent,
     BenefitAddressComponent
   ],
   providers: [
-    MspBenefitDataService
+    MspBenefitDataService,
+    ProcessService
   ]
 })
 export class BenefitModule { }

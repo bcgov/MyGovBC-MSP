@@ -40,8 +40,7 @@
             <common-phn #phn
                     name="phn"
                     [ngModel]="person.previous_phn"
-                    (ngModelChange)="person.previous_phn = $event"
-                    (ngModelChange)="onChange.emit($event)"
+                    (ngModelChange)="person.previous_phn = $event; onChange.emit($event)"
                     required></common-phn>
           </div>
         </div>
@@ -74,7 +73,19 @@
         </div>
     </div>
   </div>
+  <div class="row" style="margin-left: 5px">
+       <common-file-uploader 
+                          [images]="person.assistYearDocs"
+                          (imagesChange)="deleteDocument($event)"
+                          [id]='benefitApp.id'
+                          (errorDocument)="errorDoc($event)" instructionText="Please upload Notice of Assessment documents for {{benefitApp.taxYear}}">
+        </common-file-uploader>
+        <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
+    
+   </div>
 
-  <msp-benefit-documents [application]="benefitApp"></msp-benefit-documents>
+
+
+<!--  <msp-benefit-documents [application]="benefitApp"></msp-benefit-documents> -->
  
 </form>

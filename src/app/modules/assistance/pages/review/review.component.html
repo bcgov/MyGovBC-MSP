@@ -23,9 +23,18 @@
         </common-thumbnail>
       </div>
     </div>
-    <fin-assist-eligibility-card [application]="application" [editRouterLink]="'/assistance/prepare'">
-    </fin-assist-eligibility-card>
-  </div>
+
+    <div class="col-lg-6">
+        <div class="person-card-preview-zone">
+            <div *ngFor="let mspImage of application.assistYearDocs" class="preview-item">
+                <common-thumbnail [imageObject] ="mspImage" [reviewMode]="true">
+                </common-thumbnail>
+            </div>
+        </div>
+        <fin-assist-eligibility-card [application]="application"
+                                     [editRouterLink]="'/assistance/prepare'">
+        </fin-assist-eligibility-card>
+    </div>
 </div>
 
 
