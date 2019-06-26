@@ -52,7 +52,6 @@ export class PremiumRatesYear {
 
   constructor() {
     for (let opt in this.options) {
-      console.log(opt);
       const num = parseInt(opt);
       if (num === 2018) {
         this.brackets.push(
@@ -69,19 +68,17 @@ export class PremiumRatesYear {
         const brackets = [];
         for (let opt of this.netIncomeOptionsStd) {
           const i = this.netIncomeOptionsStd.indexOf(opt);
-          brackets.push(this.genBrackets(this.netIncomeOptionsStd, i));
+          brackets.push(this.genBrackets(this.netIncomeOptionsStd[i], i));
         }
         this.brackets.push(brackets);
       }
     }
-    console.log(this.brackets);
   }
 
   genBracketsToo(incomeOpts: string[], baseRatesOpts: number[]) {
     const brackets = [];
     for (let income of incomeOpts) {
       const i = incomeOpts.indexOf(income);
-      console.log(i);
 
       const baseRate = baseRatesOpts[i];
       brackets.push({
@@ -94,7 +91,7 @@ export class PremiumRatesYear {
     return brackets;
   }
 
-  genBrackets(netIncome, index): IRateBracket {
+  genBrackets(netIncome: string, index: number): IRateBracket {
     const base1 = 12.8;
     const base2 = 23.2;
     const base3 = 25.6;

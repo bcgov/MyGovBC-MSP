@@ -167,8 +167,11 @@ export class AssistanceHomeComponent extends BaseComponent
     const data = {};
     // for (let assistYear of this.options) {
     const helperData = new PremiumRatesYear();
+    let index = 0;
     for (let year in helperData.options) {
-      data[year] = { ...helperData.brackets };
+      // let index = helperData.options[year];
+      data[year] = { ...helperData.brackets[index] };
+      index++;
     }
     // }
     this.rateData = data;
