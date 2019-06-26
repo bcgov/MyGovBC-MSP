@@ -5,6 +5,7 @@ import { Router, NavigationStart, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MspDataService } from 'app/services/msp-data.service';
 import { FinancialAssistApplication } from '../models/financial-assist-application.model';
+import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
 
 @Injectable({
   providedIn: 'root'
@@ -24,13 +25,22 @@ export class AssistStateService {
   ];
 
   isHomeValid(): boolean {
-    let bool = this.dataSvc.finAssistApp.assistYears.some(
-      itm => itm.apply === true
-    );
+    let bool = this.finAssistApp.assistYears.some(itm => itm.apply === true);
     return bool;
   }
   isPersonalInfoValid(): boolean {
+    const person = this.finAssistApp.applicant;
+    const requiredFields = ['firstName', 'lastName', 'previous_phn', 'sin'];
+    for (let field of requiredFields) {
+      if (!person[field]) return false;
+      if (person[field].length > 0) continue;
+      return false;
+    }
+    let validPhn = validatePHN(person.previous_phn);
+    if (!validPhn) return false;
+
     return true;
+    // return false;
   }
   isSpouseValid(): boolean {
     return true;
@@ -44,10 +54,8 @@ export class AssistStateService {
 
   isValid(index: number) {
     const args = this.validations.slice(0, index + 1);
-    console.log(args);
     for (let arg of args) {
       let bool = arg();
-      console.log(bool);
       if (bool) continue;
       else return bool;
     }

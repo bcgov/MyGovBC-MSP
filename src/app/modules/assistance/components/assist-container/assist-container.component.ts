@@ -45,8 +45,10 @@ export class AssistContainerComponent extends Container implements OnInit {
   continue() {
     let index = this.stateSvc.index.value;
     let bool = this.stateSvc.isValid(index);
-    // console.log(bool);
-
-    // this.router.navigate([`/assistance/${this.stateSvc.routes[index + 1]}`]);
+    console.log(bool);
+    bool
+      ? this.router.navigate([`/assistance/${this.stateSvc.routes[index + 1]}`])
+      : this.stateSvc.touched.next(true);
+    // ;
   }
 }
