@@ -20,7 +20,7 @@ import { AssistStateService } from '../../services/assist-state.service';
     <common-page-framework layout="blank">
       <router-outlet></router-outlet>
     </common-page-framework>
-    <common-form-action-bar></common-form-action-bar>
+    <common-form-action-bar (btnClick)="continue()"></common-form-action-bar>
   `,
   styleUrls: ['./assist-container.component.scss']
 })
@@ -40,5 +40,13 @@ export class AssistContainerComponent extends Container implements OnInit {
   ngOnInit() {
     this.stateSvc.touched.subscribe(obs => console.log(obs));
     this.stateSvc.index.subscribe(obs => console.log(obs));
+  }
+
+  continue() {
+    let index = this.stateSvc.index.value;
+    let bool = this.stateSvc.isValid(index);
+    // console.log(bool);
+
+    // this.router.navigate([`/assistance/${this.stateSvc.routes[index + 1]}`]);
   }
 }

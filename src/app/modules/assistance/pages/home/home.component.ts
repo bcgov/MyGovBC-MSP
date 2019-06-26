@@ -201,7 +201,6 @@ export class AssistanceHomeComponent extends BaseComponent
   applyOption(bool: boolean, i: number) {
     this.options[i].apply = bool;
     this.dataSvc.saveFinAssistApplication();
-    console.log(this.dataSvc.finAssistApp);
   }
 
   openModal(template: TemplateRef<any>) {
