@@ -29,7 +29,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   @ViewChild('formRef') personalInfoForm: NgForm;
  
   constructor(private dataService: MspBenefitDataService,
-    private _router: Router,
+    private _router: Router, private _processService: ProcessService,
     private cd: ChangeDetectorRef) {
     super(cd);
    this.benefitApplication = this.dataService.benefitApp;
@@ -40,7 +40,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
 }
 
   ngOnInit() {
-    //this.initProcessMembers(BenefitSpouseInfoComponent.ProcessStepNum, this._processService);
+    this.initProcessMembers(BenefitSpouseInfoComponent.ProcessStepNum, this._processService);
   }
 
   ngAfterViewInit() {
@@ -53,7 +53,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   }   
 
   nextStep(){
-    //this._processService.setStep(2, true);
+    this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, true);
     this._router.navigate(['/benefit/contact-info']);
 
   }
@@ -93,12 +93,15 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   get canContinue(): boolean{
 
     if(!this.benefitApplication.hasSpouseOrCommonLaw) {
+      this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, true);
       return true;
     } else {
       if ( this.isAllValid() && this.benefitApplication.hasSpouseOrCommonLaw && this.benefitApplication.spouse.assistYearDocs.length > 0) {
-          return true;
+        this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, true); 
+        return true;
       }
     } 
+    this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, false);
     return  false;
     
   }

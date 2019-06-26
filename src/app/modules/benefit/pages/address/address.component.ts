@@ -22,7 +22,7 @@ export class BenefitAddressComponent extends BaseComponent {
   provideDifferentMailingAddress = 'I want to provide a mailing address that is different from the residential address above.';
 
 
-  static ProcessStepNum = 4;
+  static ProcessStepNum = 3;
 
   @ViewChild('formRef') form: NgForm;
   @ViewChild('address') address: ElementRef;
@@ -111,14 +111,20 @@ export class BenefitAddressComponent extends BaseComponent {
               private cd: ChangeDetectorRef) {
     super(cd);
     this.mspApplication = this.dataService.benefitApp;
-    //this.mspApplication.mailingSameAsResidentialAddress = true;
   }
+
   ngOnInit(){
     this.initProcessMembers(BenefitAddressComponent.ProcessStepNum, this._processService);
   }
 
   ngAfterViewInit(): void {
+    
+    if( this.mspApplication.residentialAddress.addressLine1 != null) {
+      this.dataService.benefitApp.residentialAddress.hasValue = true;
+    }
+
     this.form.valueChanges.subscribe(values => {
+      
       this.dataService.saveBenefitApplication();
     });
   }
@@ -153,6 +159,7 @@ export class BenefitAddressComponent extends BaseComponent {
   }
 
   canContinue(){
+    this._processService.setStep(BenefitAddressComponent.ProcessStepNum, true);
     return this.isAllValid();
   }
 
@@ -163,7 +170,7 @@ export class BenefitAddressComponent extends BaseComponent {
     if (!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{
-     // this._processService.setStep(4, true);
+      this._processService.setStep(BenefitAddressComponent.ProcessStepNum, true);
       this._router.navigate(['/benefit/review']);
     }
   }

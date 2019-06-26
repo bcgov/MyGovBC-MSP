@@ -37,6 +37,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
         // After view inits, begin sending the application
         this.transmissionInProcess = true;
         this.hasError = false;
+        console.log(this.application);
         // this.logService.log({name: 'PA - application submitting request'},"PA : Submission Request");
         // After view inits, begin sending the application
         this.service
@@ -93,7 +94,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
   }
 
   retrySubmission(){
-      this.router.navigate(['/benefit/authorize-submit']);
+      this.router.navigate(['/benefit/authorize']);
   }
 
   isFailure(suppBenefitApiResponse: SuppBenefitApiResponse): boolean {

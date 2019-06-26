@@ -68,9 +68,9 @@
                      [hidden]="incomeRef.invalid || benefitApp.ageOver65 === null || benefitApp.ageOver65 === undefined">
                     <div class="col-lg-10">
                         <div class="form-group">
-                            <common-radio [value]="benefitApp.hasSpouseOrCommonLaw"  [label]="lang('./en/index.js').doYouHaveASpouseOrPartner" 
+                            <common-radio [value]="benefitApp.addSpouse"  [label]="lang('./en/index.js').doYouHaveASpouseOrPartner" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="dataService.benefitApp.setSpouse = $event;">
+                                (statusChange)="dataService.benefitApp.addSpouse = $event;">
                             </common-radio>
                         <!--    <div role="dialog" aria-labelledby="q2">
                                 <p id="q2" class="intro" [innerHtml]="lang('./en/index.js').doYouHaveASpouseOrPartner"></p>
@@ -92,7 +92,7 @@
                             </div>
                             <div class="padded" tabindex="0" [innerHtml]="lang('./en/index.js').notifySpouseWarning"></div> -->
                         </div>   
-                        <div class="form-group" [hidden]="!benefitApp.hasSpouseOrCommonLaw">
+                        <div class="form-group" [hidden]="!benefitApp.addSpouse">
                             <common-radio [value]="benefitApp.spouseAgeOver65"  [label]="lang('./en/index.js').isYourSpouseOrPartner65OrOlder" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
                                 (statusChange)="dataService.benefitApp.spouseAgeOver65 = $event;">
@@ -236,7 +236,7 @@
                                             <label for="applicantClaimForDisabilityCredit">
                                                 Myself
                                             </label>
-                                            <div *ngIf="benefitApp.hasSpouseOrCommonLaw">
+                                            <div *ngIf="benefitApp.addSpouse">
                                                 <input type="checkbox" tabindex="0"
                                                     name="spouseClaimForDisabilityCredit"
                                                     id="spouseClaimForDisabilityCredit"
@@ -345,7 +345,7 @@
                                    </div>
                                </div>
                            </div>
-                           <div class="col-lg-3" *ngIf="benefitApp.hasSpouseOrCommonLaw === true">
+                           <div class="col-lg-3" *ngIf="benefitApp.addSpouse === true">
                                <div class="checkbox checkbox-success checkbox-inline">
                                    <div class="form-group">
                                        <input type="checkbox" tabindex="0"
