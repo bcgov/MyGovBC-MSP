@@ -2,7 +2,7 @@ export interface IRateBracket {
   netIncome: string;
   onePerson: number;
   twoFamily: number;
-  threeFamily: number;
+  threeFamily?: number;
 }
 
 export class PremiumRatesYear {
@@ -26,15 +26,24 @@ export class PremiumRatesYear {
     }
     console.log(this.brackets);
   }
-  genBrackets(netIncome, index): IRateBracket {
-    const base1 = 12.8;
-    const base2 = 23.2;
-    const base3 = 25.6;
-    return {
-      netIncome,
-      onePerson: base1 * index,
-      twoFamily: base2 * index,
-      threeFamily: base3 * index
-    };
+  genBrackets(
+    netIncome,
+    index,
+    base1 = 12.8,
+    base2 = 23.2,
+    base3?
+  ): IRateBracket {
+    return base3
+      ? {
+          netIncome,
+          onePerson: base1 * index,
+          twoFamily: base2 * index,
+          threeFamily: base3 * index
+        }
+      : {
+          netIncome,
+          onePerson: base1 * index,
+          twoFamily: base3 * index
+        };
   }
 }

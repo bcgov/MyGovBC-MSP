@@ -8,9 +8,10 @@ import { AssistanceYear } from '../../models/assistance-year.model';
       <ng-container *ngFor="let year of assistanceYears; index as i">
         <label>{{ year.year }}</label>
         <common-file-uploader
-          id="{{ year }}"
           instructionText="Click add or drag and drop documents"
           [images]="year.files"
+          [id]="year.year"
+          (imagesChange)="updateFiles($event, year)"
         >
         </common-file-uploader>
       </ng-container>
@@ -38,6 +39,7 @@ import { AssistanceYear } from '../../models/assistance-year.model';
 })
 export class AssistCraDocumentsComponent implements OnInit {
   @Input() assistanceYears: AssistanceYear[];
+  @Input() isSpouse = false;
   @Output() dataChange: any = new EventEmitter<any>();
 
   tip1 =
@@ -54,4 +56,12 @@ export class AssistCraDocumentsComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+  files(year) {
+    if (this.isSpouse) return year.spouseFiles;
+    return year.files;
+  }
+
+  updateFiles(arr: any, year: AssistanceYear) {
+    year.files = arr;
+  }
 }
