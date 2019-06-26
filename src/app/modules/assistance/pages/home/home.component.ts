@@ -27,6 +27,8 @@ import { ConsentModalComponent } from 'moh-common-lib';
 // TODO: remove lodash
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import { ActivatedRoute } from '@angular/router';
+import { AssistStateService } from '../../services/assist-state.service';
 
 @Component({
   selector: 'msp-assist-home',
@@ -157,7 +159,9 @@ export class AssistanceHomeComponent extends BaseComponent
   constructor(
     cd: ChangeDetectorRef,
     public dataSvc: MspDataService,
-    private modalSvc: BsModalService
+    private modalSvc: BsModalService,
+    private route: ActivatedRoute,
+    private stateSvc: AssistStateService
   ) {
     super(cd);
   }
@@ -176,6 +180,7 @@ export class AssistanceHomeComponent extends BaseComponent
     // }
     this.rateData = data;
     if (this.options.length < 1) this.initYearsList();
+    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
 
   ngAfterViewInit() {

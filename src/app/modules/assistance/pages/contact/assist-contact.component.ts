@@ -6,6 +6,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MspDataService } from 'app/services/msp-data.service';
 import { COUNTRY_LIST, PROVINCE_LIST } from 'moh-common-lib';
 import { Address, ProvinceList } from 'moh-common-lib';
+import { ActivatedRoute } from '@angular/router';
+import { AssistStateService } from '../../services/assist-state.service';
 
 @Component({
   selector: 'msp-assist-contact',
@@ -122,7 +124,12 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
   // provinceLabel = 'Province or state'
   // countryLabel
 
-  constructor(cd: ChangeDetectorRef, private dataService: MspDataService) {
+  constructor(
+    cd: ChangeDetectorRef,
+    private dataService: MspDataService,
+    private stateSvc: AssistStateService,
+    private route: ActivatedRoute
+  ) {
     super(cd);
     this.countryList = COUNTRY_LIST;
     this.provinceList = PROVINCE_LIST;
@@ -152,6 +159,8 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
         console.log(obs);
         this.dataService.saveFinAssistApplication();
       });
+
+    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
 
   getAddressLines(address: Address) {

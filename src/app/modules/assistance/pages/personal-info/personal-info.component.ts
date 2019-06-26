@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { BaseComponent } from '../../../../models/base.component';
 import { MspAddressComponent } from '../../../msp-core/components/address/address.component';
@@ -15,6 +15,7 @@ import { MspPhoneComponent } from '../../../../components/msp/common/phone/phone
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 import { AssistanceYear } from '../../models/assistance-year.model';
 import { MspPerson } from 'app/modules/account/models/account.model';
+import { AssistStateService } from '../../services/assist-state.service';
 
 @Component({
   // templateUrl: './personal-info.component.html'
@@ -58,6 +59,8 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   constructor(
     private dataService: MspDataService,
     private _router: Router,
+    private route: ActivatedRoute,
+    private stateSvc: AssistStateService,
     //private _processService: ProcessService,
     cd: ChangeDetectorRef
   ) {
@@ -73,15 +76,18 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   }
 
   ngAfterViewInit() {
-    this.personalInfoForm.valueChanges
-      .pipe(
-        debounceTime(250),
-        distinctUntilChanged()
-      )
-      .subscribe(val => {
-        console.log(val);
-        this.dataService.saveFinAssistApplication();
-      });
+    this.subscriptionList.push(
+      this.personalInfoForm.valueChanges
+        .pipe(
+          debounceTime(250),
+          distinctUntilChanged()
+        )
+        .subscribe(val => {
+          this.dataService.saveFinAssistApplication();
+        })
+    );
+
+    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
 
   ngOnInit() {
@@ -104,6 +110,9 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
       });
 
     this.documentsDescription += this.createDocumentDesc(this.assistanceYears);
+  }
+  ngOnDestroy() {
+    this.subscriptionList.forEach(itm => itm.unsubscribe());
   }
 
   createDocumentDesc(years: any[]) {

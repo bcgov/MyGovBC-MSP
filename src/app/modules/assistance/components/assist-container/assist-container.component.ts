@@ -8,6 +8,7 @@ import {
 import { assistPages } from '../../assist-page-routing.module';
 import { Container } from 'moh-common-lib';
 import { filter } from 'rxjs/operators';
+import { AssistStateService } from '../../services/assist-state.service';
 
 @Component({
   selector: 'msp-assist-container',
@@ -25,24 +26,19 @@ import { filter } from 'rxjs/operators';
 })
 export class AssistContainerComponent extends Container implements OnInit {
   index: any;
-  constructor(public router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(
+    public router: Router,
+    private route: ActivatedRoute,
+    private stateSvc: AssistStateService
+  ) {
     super();
     this.setProgressSteps(assistPages);
-    // this.router.events
-    //   .pipe(filter(event => event instanceof NavigationEnd))
-    //   .subscribe(() => {
-    //     console.log(this.activatedRoute.url);
-    //   });
-
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationStart))
-      .subscribe((obs: any) => {
-        const url = obs.url.slice(0, 13);
-        console.log(url);
-        // this.index = assistPages.indexOf()
-        console.log('index', this.index);
-      });
+    this.stateSvc.setAssistPages(assistPages);
+    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.stateSvc.touched.subscribe(obs => console.log(obs));
+    this.stateSvc.index.subscribe(obs => console.log(obs));
+  }
 }
