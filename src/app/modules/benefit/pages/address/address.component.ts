@@ -119,8 +119,8 @@ export class BenefitAddressComponent extends BaseComponent {
 
   ngAfterViewInit(): void {
     
-    if( this.mspApplication.residentialAddress.addressLine1 != null) {
-      this.dataService.benefitApp.residentialAddress.hasValue = true;
+    if( this.mspApplication.mailingAddress.addressLine1 != null) {
+      this.dataService.benefitApp.mailingAddress.hasValue = true;
     }
 
     this.form.valueChanges.subscribe(values => {
@@ -134,26 +134,25 @@ export class BenefitAddressComponent extends BaseComponent {
     this.dataService.saveBenefitApplication();
   }
 
-  toggleMailingSameAsResidentialAddress(evt: boolean){
+  /*toggleMailingSameAsResidentialAddress(evt: boolean){
     this.mspApplication.mailingSameAsResidentialAddress = !evt;
     if (evt){
       this.mspApplication.mailingAddress = new Address();
     }
     this.dataService.saveBenefitApplication();
-  }
+  }*/
 
-  toggleCheckBox(){
+  /*toggleCheckBox(){
     this.mspApplication.mailingSameAsResidentialAddress = !this.mspApplication.mailingSameAsResidentialAddress;
     this.dataService.saveBenefitApplication();
-  }
+  }*/
 
   handleAddressUpdate(evt: any){
     console.log(evt);
     console.log('address update event: %o', evt);
     evt.addressLine1 = evt.street;
     if(evt.addressLine1 != null) {
-      this.dataService.benefitApp.residentialAddress.hasValue = true;
-
+      this.dataService.benefitApp.mailingAddress.hasValue = true;
     }
     this.dataService.saveBenefitApplication();
   }

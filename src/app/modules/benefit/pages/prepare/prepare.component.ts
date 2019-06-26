@@ -175,7 +175,12 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
                     return value;
                 }
-            )), //ageOver$, ageUnder$,
+            ))).subscribe(
+                values => {
+                     console.log('values before saving: ', values);
+                    this.dataService.saveBenefitApplication();
+                }
+            ); //ageOver$, ageUnder$,
 
             /*merge(
                 fromEvent<MouseEvent>(this.spouseOver65Btn.nativeElement, 'click').pipe(
@@ -194,19 +199,14 @@ export class BenefitPrepareComponent  extends BaseComponent  {
                     map(x => {
                         this.dataService.benefitApp.setSpouse = true;
                     }))
-            ),*/
+            ),
             merge(
                 fromEvent<MouseEvent>(this.negativeHasSpouse.nativeElement, 'click').pipe(
                     map(x => {
                         this.benefitApp.setSpouse = false;
                     }))
-            ))
-            .subscribe(
-                values => {
-                     console.log('values before saving: ', values);
-                    this.dataService.saveBenefitApplication();
-                }
-            );
+            ))*/
+            
     }
 
 

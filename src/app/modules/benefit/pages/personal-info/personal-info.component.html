@@ -41,7 +41,7 @@
           [innerHTML]="lang('./en/index.js').continueButton"></button>
   <msp-cancel></msp-cancel> -->
 
-  <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
+  <common-form-action-bar [defaultColor]="false" [submitLabel]="lang('./en/index.js').continueButton"
       [canContinue]="canContinue"
       (btnClick)="onSubmit(formRef)"
       widthOption='extra-width-mobile-only'>   

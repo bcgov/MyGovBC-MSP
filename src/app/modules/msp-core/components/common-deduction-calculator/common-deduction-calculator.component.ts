@@ -51,7 +51,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     }
 
     get spouseAmt(): number {
-        return !!this.application.addSpouse ? 3000 : 0;
+        return !!this.application.hasSpouseOrCommonLaw ? 3000 : 0;
     }
 
     get spouseAgeOver65Amt(): number {
@@ -207,7 +207,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
 
     get canContinue() {
         const spouseSpecified =
-            !(this.application.addSpouse === null || this.application.addSpouse === undefined);
+            !(this.application.hasSpouseOrCommonLaw === null || this.application.hasSpouseOrCommonLaw === undefined);
 
         const spouseAgeSpecified = !(this.application.spouseAgeOver65 === null || this.application.spouseAgeOver65 === undefined);
         const applicantAgeSpecified = !(this.application.ageOver65 === null || this.application.ageOver65 === undefined);
@@ -233,7 +233,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
         // added for DEAM-2 fix Invalid comma in money decimal fields
         const isSpouseIncomeValid = !spouseSpecified || !this.application || !this.application.spouseIncomeLine236 || this.application.spouseIncomeLine236.toString().match(patt);
         if (this.applicantIncomeInfoProvided && applicantAgeSpecified && spouseSpecified && netIncomeValid && isSpouseIncomeValid && applicanthaveChildrens && applicantapplicantClaimForAttendantCareExpense && applicantselfDisabilityCredit) {
-            if (this.application.addSpouse) {
+            if (this.application.hasSpouseOrCommonLaw) {
                 this.continue.emit(spouseAgeSpecified && this.attendantCareExpenseReceiptsProvided);
                 return spouseAgeSpecified && this.attendantCareExpenseReceiptsProvided;
             } else {

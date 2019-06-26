@@ -26,7 +26,7 @@
   
 </common-page-framework>
  
-  <common-form-action-bar [submitLabel]="benefitApplication.hasSpouseOrCommonLaw? 'Continue':'No Spouse'"
+  <common-form-action-bar [defaultColor]="false" [submitLabel]="benefitApplication.hasSpouseOrCommonLaw? 'Continue':'No Spouse'"
       [canContinue]="canContinue" 
       (btnClick)="nextStep()">
   </common-form-action-bar>

@@ -42,7 +42,7 @@ export class MspApiBenefitService extends AbstractHttpService {
 
     sendRequest(app: BenefitApplication): Promise<any> {
         return new Promise<SuppBenefitApiResponse>((resolve, reject) => {
-            console.log('Start sending...');
+            console.log(app);
 
             // if no errors, then we'll sendApplication all attachments
             return this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages()).then(() => {
@@ -136,7 +136,7 @@ export class MspApiBenefitService extends AbstractHttpService {
              /{applicationUUID}/attachment/{attachmentUUID}
              */
             let url = environment.appConstants['apiBaseUrl']
-                + '/MSPDESubmitAttachment/' + applicationUUID
+                + environment.appConstants['attachment'] + applicationUUID
                 + '/attachment/' + attachment.uuid;
 
             // programArea

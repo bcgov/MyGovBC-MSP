@@ -62,4 +62,4 @@ export const benefitPages: Routes = [
   }
 ];
 
-export const displayedbenefitPages = benefitPages.filter(x => x.path !== 'sending');
+export const displayedbenefitPages = benefitPages.filter(x => (x.path !== 'sending' && x.path !== 'confirmation'));

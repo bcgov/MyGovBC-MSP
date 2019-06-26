@@ -16,6 +16,7 @@
     <msp-contact-card
             [residentialAddress]="application.residentialAddress"
             [mailingAddress]="application.mailingAddress"
+            
             [phone]="application.phoneNumber"
             [editRouterLink]="'/benefit/contact-info'"></msp-contact-card> 
 
@@ -41,7 +42,7 @@
   </div> -->
 </div>
 
-  <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
+  <common-form-action-bar [defaultColor]="false" [submitLabel]="lang('./en/index.js').continueButton"
             (btnClick)="continue()"
             widthOption='extra-width-mobile-only'>
   </common-form-action-bar>
