@@ -7,8 +7,6 @@ import {
   ViewChild,
   ChangeDetectorRef
 } from '@angular/core';
-import { Person } from 'moh-common-lib';
-import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 import { MspPerson } from 'app/modules/account/models/account.model';
 import { NgForm } from '@angular/forms';
 import { BaseComponent } from 'app/models/base.component';
@@ -50,7 +48,7 @@ export class AssistAccountHolderComponent extends BaseComponent
   @Input() person: MspPerson;
   @Output() dataChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(cd: ChangeDetectorRef) {
     super(cd);
   }
 

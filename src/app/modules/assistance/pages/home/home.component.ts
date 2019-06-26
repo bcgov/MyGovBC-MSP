@@ -163,14 +163,14 @@ export class AssistanceHomeComponent extends BaseComponent
   }
 
   ngOnInit() {
-    console.log(this.dataSvc.finAssistApp);
-
     this.options = this.dataSvc.finAssistApp.assistYears;
     const data = {};
-    for (let assistYear of this.options) {
-      const helperData = new PremiumRatesYear();
-      data[assistYear.year] = { ...helperData.brackets };
+    // for (let assistYear of this.options) {
+    const helperData = new PremiumRatesYear();
+    for (let year in helperData.options) {
+      data[year] = { ...helperData.brackets };
     }
+    // }
     this.rateData = data;
     if (this.options.length < 1) this.initYearsList();
   }
@@ -241,7 +241,6 @@ export class AssistanceHomeComponent extends BaseComponent
   }
 
   acceptConsent(evt: boolean) {
-    console.log('event', evt);
     this.initYearsList();
     this.options = this.dataSvc.finAssistApp.assistYears;
     this.dataSvc.finAssistApp.infoCollectionAgreement = evt;
