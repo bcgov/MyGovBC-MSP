@@ -22,9 +22,7 @@ const checkDate = (
   fn: (num: number) => boolean
 ) => {
   for (let key in validMonths) {
-    let arr = validMonths[key];
-    const num = parseInt(key);
-    if (arr.indexOf(month) > -1) return fn(num);
+    if (validMonths[key].indexOf(month) > -1) return fn(parseInt(key));
   }
 };
 
@@ -44,6 +42,5 @@ const checkMonth = (month: number): boolean => {
 };
 
 const checkDay = (day: number): boolean => {
-  console.log('today', date.getDate());
   return day < date.getDate();
 };
