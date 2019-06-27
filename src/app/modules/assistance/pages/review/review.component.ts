@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MspDataService } from '../../../../services/msp-data.service';
 //import {ProcessService} from '../../service/process.service';
 import { MspLogService } from '../../../../services/log.service';
-import { assistPages } from '../../assist-page-routing.module';
 import {
   ApplicantInformation,
   IApplicantInformation
@@ -12,6 +11,8 @@ import {
   SpouseInformation,
   ISpouseInformation
 } from '../../models/spouse-information.model';
+import { ActivatedRoute } from '@angular/router';
+import { AssistStateService } from '../../services/assist-state.service';
 
 export interface IContactInformation {}
 
@@ -98,16 +99,16 @@ export interface IContactInformation {}
     <hr />
   `
 })
-export class AssistanceReviewComponent {
+export class AssistanceReviewComponent implements OnInit {
   title = 'Review your application';
 
   applicantTitle = 'Applicant Information';
   contactTitle = 'Contact Information';
   spouseTitle = 'Spouse Information';
 
-  applicantLink = assistPages[1];
-  contactLink = assistPages[3];
-  spouseLink = assistPages[2];
+  applicantLink = this.stateSvc.routes[1];
+  contactLink = this.stateSvc.routes[3];
+  spouseLink = this.stateSvc.routes[2];
 
   static ProcessStepNum = 3;
 
@@ -120,7 +121,11 @@ export class AssistanceReviewComponent {
   address: Address;
   phone: string;
 
-  constructor(private dataService: MspDataService) {
+  constructor(
+    private dataService: MspDataService,
+    private route: ActivatedRoute,
+    private stateSvc: AssistStateService
+  ) {
     const app = this.dataService.finAssistApp;
     this.address = app.mailingAddress;
     this.applicantInformation();
@@ -128,6 +133,10 @@ export class AssistanceReviewComponent {
     console.log(this.hasSpouse);
     this.hasSpouse ? this.spouseInformation() : (this.hasSpouse = false);
     this.phone = app.phoneNumber;
+  }
+
+  ngOnInit() {
+    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
 
   applicantInformation() {

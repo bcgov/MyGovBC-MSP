@@ -9,8 +9,8 @@ import { AssistanceYear } from '../../models/assistance-year.model';
         <label>{{ year.year }}</label>
         <common-file-uploader
           instructionText="Click add or drag and drop documents"
-          [images]="year.files"
-          [id]="year.year"
+          [images]="files(year)"
+          id="year.year"
           (imagesChange)="updateFiles($event, year)"
         >
         </common-file-uploader>
@@ -57,11 +57,10 @@ export class AssistCraDocumentsComponent implements OnInit {
 
   ngOnInit() {}
   files(year) {
-    if (this.isSpouse) return year.spouseFiles;
-    return year.files;
+    return this.isSpouse ? year.spouseFiles : year.files;
   }
 
   updateFiles(arr: any, year: AssistanceYear) {
-    year.files = arr;
+    return this.isSpouse ? (year.spouseFiles = arr) : (year.files = arr);
   }
 }

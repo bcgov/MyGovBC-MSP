@@ -27,6 +27,8 @@ import { ConsentModalComponent } from 'moh-common-lib';
 // TODO: remove lodash
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import { ActivatedRoute } from '@angular/router';
+import { AssistStateService } from '../../services/assist-state.service';
 
 @Component({
   selector: 'msp-assist-home',
@@ -157,22 +159,28 @@ export class AssistanceHomeComponent extends BaseComponent
   constructor(
     cd: ChangeDetectorRef,
     public dataSvc: MspDataService,
-    private modalSvc: BsModalService
+    private modalSvc: BsModalService,
+    private route: ActivatedRoute,
+    private stateSvc: AssistStateService
   ) {
     super(cd);
   }
 
   ngOnInit() {
-    console.log(this.dataSvc.finAssistApp);
-
     this.options = this.dataSvc.finAssistApp.assistYears;
     const data = {};
-    for (let assistYear of this.options) {
-      const helperData = new PremiumRatesYear();
-      data[assistYear.year] = { ...helperData.brackets };
+    // for (let assistYear of this.options) {
+    const helperData = new PremiumRatesYear();
+    let index = 0;
+    for (let year in helperData.options) {
+      // let index = helperData.options[year];
+      data[year] = { ...helperData.brackets[index] };
+      index++;
     }
+    // }
     this.rateData = data;
     if (this.options.length < 1) this.initYearsList();
+    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
 
   ngAfterViewInit() {
@@ -193,7 +201,6 @@ export class AssistanceHomeComponent extends BaseComponent
   applyOption(bool: boolean, i: number) {
     this.options[i].apply = bool;
     this.dataSvc.saveFinAssistApplication();
-    console.log(this.dataSvc.finAssistApp);
   }
 
   openModal(template: TemplateRef<any>) {
@@ -241,7 +248,6 @@ export class AssistanceHomeComponent extends BaseComponent
   }
 
   acceptConsent(evt: boolean) {
-    console.log('event', evt);
     this.initYearsList();
     this.options = this.dataSvc.finAssistApp.assistYears;
     this.dataSvc.finAssistApp.infoCollectionAgreement = evt;

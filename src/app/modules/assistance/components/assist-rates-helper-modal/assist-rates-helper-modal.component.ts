@@ -35,10 +35,12 @@ import { Observable, of, Subject } from 'rxjs';
               </th>
             </tr>
             <tr *ngFor="let item of selected">
-              <th scope="col">{{ item.netIncome }}</th>
-              <th scope="col">{{ item.onePerson | currency }}</th>
-              <th scope="col">{{ item.twoFamily | currency }}</th>
-              <th scope="col">{{ item.threeFamily | currency }}</th>
+              <td scope="col">{{ item.netIncome }}</td>
+              <td scope="col">{{ item.onePerson | currency }}</td>
+              <td scope="col">{{ item.twoFamily | currency }}</td>
+              <td scope="col" *ngIf="tableHeaders.length > 3">
+                {{ item.threeFamily | currency }}
+              </td>
             </tr>
           </table>
         </div>
@@ -48,12 +50,11 @@ import { Observable, of, Subject } from 'rxjs';
   styleUrls: ['./assist-rates-helper-modal.component.scss']
 })
 export class AssistRatesHelperModalComponent implements OnInit {
-  @Input() rateData: any;
+  @Input() rateData: IRateBracket[][];
   yearOptions$: Observable<number[]>;
   selectedYear$: Subject<IRateBracket[]> = new Subject();
   yearTitle$: Observable<string>;
   yearSummary$: Observable<string>;
-  // Provide income information(CRA Notice of Assessment or Notice of Reassessment) for the tax year
   incomeThreshold$: Observable<string>;
   taxReturnInfo$: Observable<string>;
   tableHeaders = [
@@ -68,11 +69,9 @@ export class AssistRatesHelperModalComponent implements OnInit {
   ngOnInit() {
     const opts = [];
     for (const key in this.rateData) {
-      // this.yearOptions.push(key);
       opts.push(parseInt(key));
     }
     opts.sort((a, b) => b - a);
-    // console.log(this.yearOptions);
     this.yearOptions$ = of(opts);
     this.selectedYear$.subscribe(obs => console.log(obs));
   }
@@ -80,6 +79,25 @@ export class AssistRatesHelperModalComponent implements OnInit {
   selectYear(event: any) {
     const year = event.target.value;
     const selectedYear = this.rateData[year];
+    console.log('run', typeof year);
+
+    if (parseInt(year) === 2018 || parseInt(year) === 2017) {
+      this.tableHeaders = [
+        'Adjusted Net Income',
+        'One Person',
+        'Family of Two'
+      ];
+    } else {
+      this.tableHeaders = [
+        'Adjusted Net Income',
+        'One Person',
+        'Family of Two',
+        'Family of Three or More'
+      ];
+    }
+
+    console.log('headers length', this.tableHeaders.length);
+
     const yearTitle = `${year}(January 1, ${year} to December 31, ${year})`;
     const taxReturnInfo = `Provide income information(CRA Notice of Assessment or Notice of Reassessment) for the ${year -
       1} tax year`;
@@ -94,6 +112,5 @@ export class AssistRatesHelperModalComponent implements OnInit {
     }`;
     this.incomeThreshold$ = of(incomeThreshold);
     this.taxReturnInfo$ = of(taxReturnInfo);
-    console.log('array', arr);
   }
 }

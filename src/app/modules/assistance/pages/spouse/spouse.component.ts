@@ -4,6 +4,8 @@ import { MspDataService } from 'app/services/msp-data.service';
 import { AssistanceYear } from '../../models/assistance-year.model';
 import { BaseComponent } from 'app/models/base.component';
 import { PersonDocuments } from 'app/components/msp/model/person-document.model';
+import { AssistStateService } from '../../services/assist-state.service';
+import { ActivatedRoute } from '@angular/router';
 
 export interface spouseYears {
   apply: boolean;
@@ -82,7 +84,12 @@ export class SpouseComponent extends BaseComponent implements OnInit {
 
   showTaxYears = false;
 
-  constructor(private dataSvc: MspDataService, private cd: ChangeDetectorRef) {
+  constructor(
+    private dataSvc: MspDataService,
+    cd: ChangeDetectorRef,
+    private route: ActivatedRoute,
+    private stateSvc: AssistStateService
+  ) {
     super(cd);
     this.finAssistApp = this.dataSvc.finAssistApp;
   }
@@ -106,6 +113,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     const years = this.finAssistApp.assistYears;
     let hasSpouse = years.some(itm => itm.hasSpouse);
     if (hasSpouse) this.parseSpouse(years);
+    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
 
   parseSpouse(arr: AssistanceYear[]) {
