@@ -5,13 +5,15 @@ import {
   EventEmitter,
   Output,
   ViewChild,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnDestroy
 } from '@angular/core';
 import { MspPerson } from 'app/modules/account/models/account.model';
 import { NgForm } from '@angular/forms';
 import { BaseComponent } from 'app/models/base.component';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { AssistStateService } from '../../services/assist-state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'msp-assist-account-holder',
@@ -61,30 +63,43 @@ import { AssistStateService } from '../../services/assist-state.service';
   styleUrls: ['./assist-account-holder.component.scss']
 })
 export class AssistAccountHolderComponent extends BaseComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
   @ViewChild('formRef') form: NgForm;
   @Input() person: MspPerson;
   @Output() dataChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
+
+  subscriptions: Subscription[] = [];
 
   constructor(cd: ChangeDetectorRef, private stateSvc: AssistStateService) {
     super(cd);
   }
 
   ngOnInit() {
-    this.stateSvc.touched.asObservable().subscribe(obs => {
-      if (obs) {
-        const controls = this.form.form.controls;
-        for (let control in controls) {
-          controls[control].markAsTouched();
-        }
-      }
-    });
-    this.form.valueChanges
-      .pipe(
-        debounceTime(250),
-        distinctUntilChanged()
-      )
-      .subscribe(() => this.dataChange.emit(this.person));
+    setTimeout(
+      () =>
+        this.subscriptions.push(
+          this.stateSvc.touched.asObservable().subscribe(obs => {
+            if (obs) {
+              const controls = this.form.form.controls;
+              for (let control in controls) {
+                controls[control].markAsTouched();
+              }
+            }
+          })
+        ),
+      500
+    );
+    this.subscriptions.push(
+      this.form.valueChanges
+        .pipe(
+          debounceTime(250),
+          distinctUntilChanged()
+        )
+        .subscribe(() => this.dataChange.emit(this.person))
+    );
     // this.assistApp.applicant.
+  }
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

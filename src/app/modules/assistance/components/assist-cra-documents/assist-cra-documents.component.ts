@@ -12,8 +12,12 @@ import { AssistanceYear } from '../../models/assistance-year.model';
           [images]="files(year)"
           id="{{ year.year }}"
           (imagesChange)="updateFiles($event, year)"
+          required
         >
         </common-file-uploader>
+        <ng-container *ngIf="touched && year.files.length < 1">
+          <p class="text-danger">Files are required for {{ year.year }}</p>
+        </ng-container>
       </ng-container>
       <aside>
         <div class="row">
@@ -40,6 +44,7 @@ import { AssistanceYear } from '../../models/assistance-year.model';
 export class AssistCraDocumentsComponent implements OnInit {
   @Input() assistanceYears: AssistanceYear[];
   @Input() isSpouse = false;
+  @Input() touched = false;
   @Output() dataChange: any = new EventEmitter<any>();
 
   tip1 =
