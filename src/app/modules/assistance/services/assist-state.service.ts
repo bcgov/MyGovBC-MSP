@@ -6,6 +6,7 @@ import { filter } from 'rxjs/operators';
 import { MspDataService } from 'app/services/msp-data.service';
 import { FinancialAssistApplication } from '../models/financial-assist-application.model';
 import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
+import { validateBirthdate } from 'app/modules/msp-core/models/validate-birthdate';
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +42,8 @@ export class AssistStateService {
     const sin = person.sin;
     let validSin = /\b[1-9]\d{2}[- ]?\d{3}[- ]?\d{3}\b/.test(sin);
     if (!validSin) return false;
-    const hasDob = person.hasDob;
-    console.log(hasDob);
+
+    let validDate = validateBirthdate(person.dateOfBirth);
     // return true;
     // return false;
   }
