@@ -14,13 +14,13 @@ import {  ProvinceList, CountryList, CANADA, BRITISH_COLUMBIA, Address, COUNTRY_
   templateUrl: './address.component.html'
 })
 export class BenefitAddressComponent extends BaseComponent {
-
+  lang = require('./i18n');
   // Constants TODO: Figure out whether used in html
   outsideBCFor30DaysLabel = 'Have you or any family member been outside BC for more than 30 days in total during the past 12 months?';
   addAnotherOutsideBCPersonButton = 'Add Another Person';
   sameMailingAddress = 'Use this as my mailing address.';
   provideDifferentMailingAddress = 'I want to provide a mailing address that is different from the residential address above.';
-
+  
 
   static ProcessStepNum = 3;
 
@@ -30,74 +30,7 @@ export class BenefitAddressComponent extends BaseComponent {
   @ViewChild('phone') phone: ElementRef;
   
   countryList: CountryList[] = COUNTRY_LIST;
-  provinceList: ProvinceList[] = [
-    {
-      provinceCode: 'AB',
-      description: 'Alberta',
-	  country:'CAN'
-	  
-    },
-    {
-      provinceCode: 'BC',
-      description: 'British Columbia',
-	  country:'CAN'
-    },
-    {
-      provinceCode: 'MB',
-      description: 'Manitoba',
-	  country:'CAN'
-    },
-    {
-      provinceCode: 'NB',
-      description: 'New Brunswick',
-	  country:'CAN'
-    },
-    {
-      provinceCode: 'NL',
-      description: 'Newfoundland and Labrador',
-	  country:'CAN'
-    },
-    {
-      provinceCode: 'NS',
-      description: 'Nova Scotia',
-	  country:'CAN'
-    },
-    {
-      provinceCode: 'NU',
-      description: 'Nunavut',
-	  country:'CAN'
-    },
-    {
-      provinceCode: 'NT',
-      description: 'Northwest Territories',
-	  country:'CAN'
-    },
-    {
-      provinceCode: 'ON',
-      description: 'Ontario',
-	  country:'CAN'
-    },
-    {
-      provinceCode: 'PE',
-      description: 'Prince Edward Island',
-	  country:'CAN'
-    },
-    {
-      provinceCode: 'QC',
-      description: 'Quebec',
-	  country:'CAN'
-    },
-    {
-      provinceCode: 'SK',
-      description: 'Saskatchewan',
-	  country:'CAN'
-    },
-    {
-      provinceCode: 'YT',
-      description: 'Yukon',
-	  country:'CAN'
-    }
-  ];
+  provinceList: ProvinceList[] = this.lang('./en/index.js').provinceData;
 
   public defaultCountry = CANADA;
   public defaultProvince = BRITISH_COLUMBIA;
@@ -133,20 +66,6 @@ export class BenefitAddressComponent extends BaseComponent {
     this.mspApplication.phoneNumber = evt;
     this.dataService.saveBenefitApplication();
   }
-
-  /*toggleMailingSameAsResidentialAddress(evt: boolean){
-    this.mspApplication.mailingSameAsResidentialAddress = !evt;
-    if (evt){
-      this.mspApplication.mailingAddress = new Address();
-    }
-    this.dataService.saveBenefitApplication();
-  }*/
-
-  /*toggleCheckBox(){
-    this.mspApplication.mailingSameAsResidentialAddress = !this.mspApplication.mailingSameAsResidentialAddress;
-    this.dataService.saveBenefitApplication();
-  }*/
-
   handleAddressUpdate(evt: any){
     console.log(evt);
     console.log('address update event: %o', evt);

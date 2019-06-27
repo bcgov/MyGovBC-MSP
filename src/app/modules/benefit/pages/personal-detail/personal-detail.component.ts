@@ -1,15 +1,15 @@
 import {ChangeDetectorRef, ElementRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {debounceTime} from 'rxjs/operators';
-import {MspPerson} from '../../../../../components/msp/model/msp-person.model';
+import {MspPerson} from '../../../../components/msp/model/msp-person.model';
 import {NgForm} from '@angular/forms';
-import {MspBirthDateComponent} from '../../../../msp-core/components/birthdate/birthdate.component';
-import {BaseComponent} from '../../../../../models/base.component';
-import {BenefitApplication} from '../../../models/benefit-application.model';
-import {MspBenefitDataService} from '../../../services/msp-benefit-data.service';
-import {MspImage} from '../../../../../models/msp-image';
+import {MspBirthDateComponent} from '../../../msp-core/components/birthdate/birthdate.component';
+import {BaseComponent} from '../../../../models/base.component';
+import {BenefitApplication} from '../../models/benefit-application.model';
+import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
+import {MspImage} from '../../../../models/msp-image';
 import { Subscription, Observable, of } from 'rxjs';
-import {MspImageErrorModalComponent} from '../../../../msp-core/components/image-error-modal/image-error-modal.component';
-import {Relationship, StatusInCanada} from '../../../../../models/status-activities-documents';
+import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
+import {Relationship, StatusInCanada} from '../../../../models/status-activities-documents';
 
 
 @Component({
@@ -56,12 +56,7 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
     //    this.dataService.saveBenefitApplication();
     }
 
-    checkPhnValid(evt: any){
-        console.log(evt);
-        /*this.subscriptions.push( parent.statusChanges.subscribe( x => {
-            console.log( '(full-name) parent change status: ', parent.status );
-          }) );*/
-    }
+   
 
     isSinUnique(): boolean {
         return this.dataService.benefitApp.isUniqueSin;
@@ -72,24 +67,10 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
         return this.dataService.benefitApp.isUniquePhns;
     }
 
-    getSinList(): string[]{
-        return this.benefitApp.allPersons.map(x => x.sin);
-    }
-
     removeSpouse(): void {
         this.notifySpouseRemoval.emit(this.person);
         this.dataService.benefitApp.setSpouse = false;
         //this.person = new MspPerson(Relationship.Spouse);
-    }
-
-    addDoc(doc: MspImage){
-        //this.benefitApp.assistYeaDocs = this.person.assistYeaDocs;
-        this.benefitApp.assistYearDocs = this.benefitApp.assistYearDocs.concat(doc);
-        
-       // this.fileUploader.forceRender();
-        this.dataService.saveBenefitApplication();
-        this.docActionEvent.emit(doc);
-
     }
 
     errorDoc(evt: MspImage) {
@@ -99,7 +80,14 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
         this.docActionEvent.emit(evt);
     }
 
-    /*deleteDoc(doc: MspImage){
+    /*
+    checkPhnValid(evt: any){
+        console.log(evt);
+        /*this.subscriptions.push( parent.statusChanges.subscribe( x => {
+            console.log( '(full-name) parent change status: ', parent.status );
+          }) );
+    }
+    deleteDoc(doc: MspImage){
         //this.person.assistYeaDocs = this.benefitApp.assistYeaDocs;
        // console.log('****'+doc);
         this.benefitApp.assistYearDocs = this.benefitApp.assistYearDocs
@@ -109,8 +97,20 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
         this.dataService.saveBenefitApplication();
         this.docActionEvent.emit(doc);
     }*/
+    /*  getSinList(): string[]{
+        return this.benefitApp.allPersons.map(x => x.sin);
+    }*/
+    /*addDoc(doc: MspImage){
+        //this.benefitApp.assistYeaDocs = this.person.assistYeaDocs;
+        this.benefitApp.assistYearDocs = this.benefitApp.assistYearDocs.concat(doc);
+        
+       // this.fileUploader.forceRender();
+        this.dataService.saveBenefitApplication();
+        this.docActionEvent.emit(doc);
 
-    deleteDocument(evt: Array<any>) {   
+    }*/
+
+    addDocument(evt: Array<any>) {   
         console.log('evt', evt);
         this.person.assistYearDocs = evt;
         this.dataService.saveBenefitApplication();

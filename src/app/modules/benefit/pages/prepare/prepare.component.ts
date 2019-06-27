@@ -140,72 +140,73 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             map( () => {
                 this.dataService.benefitApp.ageOver65 = false;
             }));*/
-        console.log(this.prepForm);
-        merge(this.prepForm.valueChanges.pipe(debounceTime(250),
-            distinctUntilChanged(),
-            filter(
-                (values) => {
-                    // console.log('value changes: ', values);
-                    const isEmptyObj = _.isEmpty(values);
-                    return !isEmptyObj;
-                }
-            ), tap(
-                (value) => {
-                    // console.log('form value: ', value);
-                    if (!value.netIncome || value.netIncome.trim().length === 0){
-                        this.benefitApp.netIncomelastYear = null;
-                    }else{
-                        this.benefitApp.netIncomelastYear = value.netIncome;
+        if(this.prepForm != undefined) {
+            merge(this.prepForm.valueChanges.pipe(debounceTime(250),
+                distinctUntilChanged(),
+                filter(
+                    (values) => {
+                        console.log('value changes: ', values);
+                        const isEmptyObj = _.isEmpty(values);
+                        return !isEmptyObj;
                     }
-                    if (!value.spouseIncomeLine236 || value.spouseIncomeLine236.trim().length === 0){
-                        this.benefitApp.spouseIncomeLine236 = null;
-                    }
-                    if (!value.line125){
-                        this.benefitApp.spouseDSPAmount_line125 = null;
-                    }
-                    if (!value.line214){
-                        this.benefitApp.claimedChildCareExpense_line214 = null;
-                    }
-                    if (!value.line117){
-                        this.benefitApp.reportedUCCBenefit_line117 = null;
-                    }
-                    if (!value.childrenCount || value.childrenCount.trim().length === 0){
-                        this.benefitApp.childrenCount = null;
-                    }
+                ), tap(
+                    (value) => {
+                        // console.log('form value: ', value);
+                        if (!value.netIncome || value.netIncome.trim().length === 0){
+                            this.benefitApp.netIncomelastYear = null;
+                        }else{
+                            this.benefitApp.netIncomelastYear = value.netIncome;
+                        }
+                        if (!value.spouseIncomeLine236 || value.spouseIncomeLine236.trim().length === 0){
+                            this.benefitApp.spouseIncomeLine236 = null;
+                        }
+                        if (!value.line125){
+                            this.benefitApp.spouseDSPAmount_line125 = null;
+                        }
+                        if (!value.line214){
+                            this.benefitApp.claimedChildCareExpense_line214 = null;
+                        }
+                        if (!value.line117){
+                            this.benefitApp.reportedUCCBenefit_line117 = null;
+                        }
+                        if (!value.childrenCount || value.childrenCount.trim().length === 0){
+                            this.benefitApp.childrenCount = null;
+                        }
 
-                    return value;
-                }
-            ))).subscribe(
-                values => {
-                     console.log('values before saving: ', values);
-                    this.dataService.saveBenefitApplication();
-                }
-            ); //ageOver$, ageUnder$,
+                        return value;
+                    }
+                ))).subscribe(
+                    values => {
+                        console.log('values before saving: ', values);
+                        this.dataService.saveBenefitApplication();
+                    }
+                ); //ageOver$, ageUnder$,
 
-            /*merge(
-                fromEvent<MouseEvent>(this.spouseOver65Btn.nativeElement, 'click').pipe(
-                    map(x => {
-                        this.benefitApp.spouseAgeOver65 = true;
-                    }))
-            ),
-            merge(
-                fromEvent<MouseEvent>(this.spouseOver65NegativeBtn.nativeElement, 'click').pipe(
-                    map(x => {
-                        this.benefitApp.spouseAgeOver65 = false;
-                    }))
-            ), 
-            merge(
-                fromEvent<MouseEvent>(this.hasSpouse.nativeElement, 'click').pipe(
-                    map(x => {
-                        this.dataService.benefitApp.setSpouse = true;
-                    }))
-            ),
-            merge(
-                fromEvent<MouseEvent>(this.negativeHasSpouse.nativeElement, 'click').pipe(
-                    map(x => {
-                        this.benefitApp.setSpouse = false;
-                    }))
-            ))*/
+                /*merge(
+                    fromEvent<MouseEvent>(this.spouseOver65Btn.nativeElement, 'click').pipe(
+                        map(x => {
+                            this.benefitApp.spouseAgeOver65 = true;
+                        }))
+                ),
+                merge(
+                    fromEvent<MouseEvent>(this.spouseOver65NegativeBtn.nativeElement, 'click').pipe(
+                        map(x => {
+                            this.benefitApp.spouseAgeOver65 = false;
+                        }))
+                ), 
+                merge(
+                    fromEvent<MouseEvent>(this.hasSpouse.nativeElement, 'click').pipe(
+                        map(x => {
+                            this.dataService.benefitApp.setSpouse = true;
+                        }))
+                ),
+                merge(
+                    fromEvent<MouseEvent>(this.negativeHasSpouse.nativeElement, 'click').pipe(
+                        map(x => {
+                            this.benefitApp.setSpouse = false;
+                        }))
+                ))*/
+        }
             
     }
 
