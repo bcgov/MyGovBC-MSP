@@ -1,29 +1,49 @@
 import { SimpleDate } from 'moh-common-lib';
 
-export const validateBirthdate = (date: SimpleDate) => {
-  const validMonths = {
-    29: [2],
-    30: [4, 5, 9, 11],
-    31: [1, 3, 6, 7, 8, 10, 12]
-  };
-  const month = date.month;
+const validMonths = {
+  29: [2],
+  30: [4, 5, 9, 11],
+  31: [1, 3, 6, 7, 8, 10, 12]
+};
 
-  const checkDate = (
-    validMonths,
-    month: number,
-    fn: (num: number) => boolean
-  ) => {
-    for (let key in validMonths) {
-      let arr = validMonths[key];
-      const num = parseInt(key);
-      if (arr.indexOf(month) > -1) return fn(num);
-    }
-  };
+const date = new Date();
 
-  let isValid = checkDate(validMonths, date.month, num => {
-    return date.day <= num;
+export const validateBirthdate = (date: SimpleDate): boolean => {
+  return checkYear(date.year)
+    ? checkDate(validMonths, date.month, num => {
+        return date.day <= num;
+      })
+    : checkFutureDate(date.month, date.day);
+};
+
+const checkDate = (
+  validMonths: { 29: number[]; 30: number[]; 31: number[] },
+  month: number,
+  fn: (num: number) => boolean
+) => {
+  for (let key in validMonths) {
+    let arr = validMonths[key];
+    const num = parseInt(key);
+    if (arr.indexOf(month) > -1) return fn(num);
+  }
+};
+
+const checkFutureDate = (month: number, day: number) => {
+  return checkDate(validMonths, month, num => {
+    if (day > num) return false;
+    return checkMonth(month) ? true : checkDay(day);
   });
+};
 
-  console.log('is valid?', isValid);
-  return isValid;
+const checkYear = (year: number): boolean => {
+  return year < date.getFullYear();
+};
+
+const checkMonth = (month: number): boolean => {
+  return month < date.getMonth() - 1;
+};
+
+const checkDay = (day: number): boolean => {
+  console.log('today', date.getDate());
+  return day < date.getDate();
 };

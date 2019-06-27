@@ -43,7 +43,7 @@ export class AssistStateService {
     let validSin = /\b[1-9]\d{2}[- ]?\d{3}[- ]?\d{3}\b/.test(sin);
     if (!validSin) return false;
 
-    let validDate = validateBirthdate(person.dateOfBirth);
+    console.log('valid birthdate', validateBirthdate(person.dateOfBirth));
     // return true;
     // return false;
   }
