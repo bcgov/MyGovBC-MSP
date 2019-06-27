@@ -167,14 +167,12 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
     };
 
     enableLines(this.addressLines);
-    console.log('address', this.address);
     this.personalInfoForm.valueChanges
       .pipe(
         debounceTime(250),
         distinctUntilChanged()
       )
       .subscribe(obs => {
-        console.log(obs);
         this.dataService.saveFinAssistApplication();
       });
 
@@ -182,7 +180,6 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
   }
 
   getAddressLines(address: Address) {
-    // console.log(typeof address.addressLine2);
     if (address.addressLine3) return 3;
     if (typeof address.addressLine2 === 'string') {
       return 2;
@@ -194,8 +191,6 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
     if (i === 3) return;
     const lineToAdd = `addressLine${i + 1}`;
     this.address[lineToAdd] = '';
-    console.log('added line', lineToAdd);
-    console.log('address', this.address);
     this[lineToAdd] = true;
   }
 

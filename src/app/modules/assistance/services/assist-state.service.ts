@@ -4,9 +4,9 @@ import { Route } from '@angular/compiler/src/core';
 import { Router, NavigationStart, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MspDataService } from 'app/services/msp-data.service';
-import { FinancialAssistApplication } from '../models/financial-assist-application.model';
 import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
 import { validateBirthdate } from 'app/modules/msp-core/models/validate-birthdate';
+import { validateContact } from 'app/modules/msp-core/models/validate-contact';
 
 @Injectable({
   providedIn: 'root'
@@ -51,22 +51,21 @@ export class AssistStateService {
     return filteredYears.every(files => files.length > 0);
   }
   isSpouseValid(): boolean {
-    console.log('run');
     if (!this.finAssistApp.hasSpouseOrCommonLaw) return true;
 
     const filteredYears = this.filteredYears('spouseFiles');
-    console.log('filteredYears');
     for (let year in filteredYears) {
       if (year.length < 1) return false;
     }
-    console.log('some files', filteredYears.some(itm => itm.length > 0));
     return filteredYears.some(itm => itm.length > 0)
       ? filteredYears.every(itm => itm.length > 0)
       : false;
   }
   isContactValid(): boolean {
-    return true;
+    const address = this.finAssistApp.mailingAddress;
+    return validateContact(address);
   }
+
   isReviewValid(): boolean {
     return true;
   }
@@ -75,7 +74,6 @@ export class AssistStateService {
     const args = this.validations.slice(0, index + 1);
     for (let arg of args) {
       let bool = arg();
-      console.log('bool', bool);
       if (bool) continue;
       else return bool;
     }
