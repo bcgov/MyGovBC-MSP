@@ -75,6 +75,7 @@ export class AssistAccountHolderComponent extends BaseComponent
       if (obs) {
         const controls = this.form.form.controls;
         for (let control in controls) {
+          controls[control].markAsTouched();
         }
       }
     });
