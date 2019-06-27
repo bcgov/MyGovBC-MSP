@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 import { MspDataService } from 'app/services/msp-data.service';
 import { AssistanceYear } from '../../models/assistance-year.model';
@@ -49,14 +49,21 @@ export interface spouseYears {
             [data]="checkYear(year)"
             (dataChange)="toggleYear($event, year)"
           ></common-checkbox>
+          <ng-container *ngIf="touched$ | async as touched">
+            <p class="text-danger" *ngIf="touched && validSelection">
+              At least one tax year must be selected
+            </p>
+          </ng-container>
         </div>
       </div>
+
       <ng-container *ngIf="selectedYears.length > 0">
         <h2>{{ documentsTitle }}</h2>
         <p class="border-bottom">{{ documentsDescription }}</p>
         <ng-container>
           <msp-assist-cra-documents
             [assistanceYears]="selectedYears"
+            [touched]="touched$ | async"
             isSpouse="true"
           ></msp-assist-cra-documents>
         </ng-container>
@@ -66,6 +73,7 @@ export interface spouseYears {
   styleUrls: ['./spouse.component.scss']
 })
 export class SpouseComponent extends BaseComponent implements OnInit {
+  touched$ = this.stateSvc.touched.asObservable();
   title = 'Tell us if you had a spouse and upload official documents';
   description =
     'If you had a spouse or common-law partner on your MSP Account during any of the years you are requesting assistance for, you are required to upload a copy of their Canada Revenue Agency Notice of Assessment or Notice of Reassessment for each year of the requested assistance.';
@@ -83,6 +91,11 @@ export class SpouseComponent extends BaseComponent implements OnInit {
   selectedYears: spouseYears[] = [];
 
   showTaxYears = false;
+
+  get validSelection() {
+    const app = this.finAssistApp.assistYears;
+    return !app.some(itm => itm.hasSpouse);
+  }
 
   constructor(
     private dataSvc: MspDataService,

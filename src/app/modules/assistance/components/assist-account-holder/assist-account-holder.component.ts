@@ -5,12 +5,15 @@ import {
   EventEmitter,
   Output,
   ViewChild,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnDestroy
 } from '@angular/core';
 import { MspPerson } from 'app/modules/account/models/account.model';
 import { NgForm } from '@angular/forms';
 import { BaseComponent } from 'app/models/base.component';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { AssistStateService } from '../../services/assist-state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'msp-assist-account-holder',
@@ -20,6 +23,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
         [(ngModel)]="person.firstName"
         label="First name"
         name="firstName"
+        id="firstName"
+        required
       ></common-name>
       <common-name
         [(ngModel)]="person.middleName"
@@ -30,36 +35,71 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
         [(ngModel)]="person.lastName"
         label="Last Name"
         name="lastName"
+        id="lastName"
+        required
       ></common-name>
       <msp-birthdate
         [person]="person"
         (onChange)="this.dataChange.emit(person)"
         label="Date of Birth"
         name="birthdate"
+        id="birthdate"
+        required
       ></msp-birthdate>
-      <common-phn [(ngModel)]="person.previous_phn" name="phn"></common-phn>
-      <common-sin [(ngModel)]="person.sin" name="sin"></common-sin>
+      <common-phn
+        [(ngModel)]="person.previous_phn"
+        name="phn"
+        id="phn"
+        required
+      ></common-phn>
+      <common-sin
+        [(ngModel)]="person.sin"
+        name="sin"
+        id="sin"
+        required
+      ></common-sin>
     </form>
   `,
   styleUrls: ['./assist-account-holder.component.scss']
 })
 export class AssistAccountHolderComponent extends BaseComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
   @ViewChild('formRef') form: NgForm;
   @Input() person: MspPerson;
   @Output() dataChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
 
-  constructor(cd: ChangeDetectorRef) {
+  subscriptions: Subscription[] = [];
+
+  constructor(cd: ChangeDetectorRef, private stateSvc: AssistStateService) {
     super(cd);
   }
 
   ngOnInit() {
-    this.form.valueChanges
-      .pipe(
-        debounceTime(250),
-        distinctUntilChanged()
-      )
-      .subscribe(() => this.dataChange.emit(this.person));
+    setTimeout(
+      () =>
+        this.subscriptions.push(
+          this.stateSvc.touched.asObservable().subscribe(obs => {
+            if (obs) {
+              const controls = this.form.form.controls;
+              for (let control in controls) {
+                controls[control].markAsTouched();
+              }
+            }
+          })
+        ),
+      500
+    );
+    this.subscriptions.push(
+      this.form.valueChanges
+        .pipe(
+          debounceTime(250),
+          distinctUntilChanged()
+        )
+        .subscribe(() => this.dataChange.emit(this.person))
+    );
     // this.assistApp.applicant.
+  }
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

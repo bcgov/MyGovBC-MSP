@@ -10,23 +10,14 @@ import { BaseComponent } from 'app/models/base.component';
 import { MspDataService } from 'app/services/msp-data.service';
 import { NgForm } from '@angular/forms';
 import { PremiumRatesYear } from './home-constants';
-import {
-  debounceTime,
-  tap,
-  distinctUntilChanged,
-  filter,
-  map
-} from 'rxjs/operators';
+import { debounceTime, tap, distinctUntilChanged } from 'rxjs/operators';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 
 import { AssistanceYear } from '../../models/assistance-year.model';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
-import { fromEvent, merge } from 'rxjs';
 import { ConsentModalComponent } from 'moh-common-lib';
 
 // TODO: remove lodash
-import * as moment from 'moment';
-import * as _ from 'lodash';
 import { ActivatedRoute } from '@angular/router';
 import { AssistStateService } from '../../services/assist-state.service';
 
@@ -82,6 +73,11 @@ import { AssistStateService } from '../../services/assist-state.service';
           </div>
         </div>
       </form>
+      <ng-container *ngIf="touched$ | async as touched">
+        <p class="text-danger" *ngIf="touched && validSelection">
+          A tax year is required
+        </p>
+      </ng-container>
     </common-page-section>
     <ng-template #modal>
       <msp-assist-rates-helper-modal
@@ -137,16 +133,18 @@ import { AssistStateService } from '../../services/assist-state.service';
 })
 export class AssistanceHomeComponent extends BaseComponent
   implements OnInit, AfterViewInit {
-  // @ViewChild('formRef') form: NgForm;
-  // finAssistApp: FinancialAssistApplication;
+  @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
+  @ViewChild('formRef') prepForm: NgForm;
+
+  touched$ = this.stateSvc.touched.asObservable();
+
   title = 'Apply for Retroactive Premium Assistance';
+  consentProcessName = 'apply for Premium Assistance';
+
   options: AssistanceYear[];
   rateData: {};
   modalRef: BsModalRef;
   pastYears = [];
-  consentProcessName = 'apply for Premium Assistance';
-  @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
-  @ViewChild('formRef') prepForm: NgForm;
 
   get finAssistApp(): FinancialAssistApplication {
     return this.dataSvc.finAssistApp;
@@ -154,6 +152,11 @@ export class AssistanceHomeComponent extends BaseComponent
 
   get assistanceYearsList(): AssistanceYear[] {
     return this.finAssistApp.assistYears;
+  }
+
+  get validSelection() {
+    const app = this.finAssistApp.assistYears;
+    return app.every(itm => itm.apply === false);
   }
 
   constructor(
@@ -194,6 +197,7 @@ export class AssistanceHomeComponent extends BaseComponent
         distinctUntilChanged()
       )
       .subscribe(() => {
+        if (this.prepForm.dirty) this.stateSvc.touched.next(true);
         this.dataSvc.saveFinAssistApplication();
       });
   }
@@ -211,7 +215,7 @@ export class AssistanceHomeComponent extends BaseComponent
     });
   }
   initYearsList() {
-    const recentTaxYear = moment().year(); // this.finAssistApp.MostRecentTaxYear; //< 2020 ? 2020 : this.finAssistApp.MostRecentTaxYear;
+    const recentTaxYear = new Date().getFullYear(); // this.finAssistApp.MostRecentTaxYear; //< 2020 ? 2020 : this.finAssistApp.MostRecentTaxYear;
     const cutOffYear = 2020;
     const numberOfYears = 6 - (recentTaxYear - cutOffYear);
     let i = recentTaxYear < cutOffYear ? 2 : 1;

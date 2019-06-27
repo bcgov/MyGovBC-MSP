@@ -4,8 +4,9 @@ import { Route } from '@angular/compiler/src/core';
 import { Router, NavigationStart, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MspDataService } from 'app/services/msp-data.service';
-import { FinancialAssistApplication } from '../models/financial-assist-application.model';
 import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
+import { validateBirthdate } from 'app/modules/msp-core/models/validate-birthdate';
+import { validateContact } from 'app/modules/msp-core/models/validate-contact';
 
 @Injectable({
   providedIn: 'root'
@@ -30,28 +31,42 @@ export class AssistStateService {
   }
   isPersonalInfoValid(): boolean {
     const person = this.finAssistApp.applicant;
+    // check that these fields have value
     const requiredFields = ['firstName', 'lastName', 'previous_phn', 'sin'];
     for (let field of requiredFields) {
       if (!person[field]) return false;
       if (person[field].length > 0) continue;
       return false;
     }
-    let validPhn = validatePHN(person.previous_phn);
-    if (!validPhn) return false;
-    const sin = person.sin;
-    let validSin = /\b[1-9]\d{2}[- ]?\d{3}[- ]?\d{3}\b/.test(sin);
-    if (!validSin) return false;
-    const hasDob = person.hasDob;
-    console.log(hasDob);
-    // return true;
-    // return false;
+
+    if (!validatePHN(person.previous_phn)) return false;
+
+    if (!/\b[1-9]\d{2}[- ]?\d{3}[- ]?\d{3}\b/.test(person.sin)) return false;
+
+    if (!validateBirthdate(person.dateOfBirth)) return false;
+    const filteredYears = this.filteredYears('files');
+    for (let year in filteredYears) {
+      if (year.length < 1) return false;
+    }
+    return filteredYears.every(files => files.length > 0);
   }
   isSpouseValid(): boolean {
-    return true;
+    if (!this.finAssistApp.hasSpouseOrCommonLaw) return true;
+
+    const filteredYears = this.filteredYears('spouseFiles');
+    for (let year in filteredYears) {
+      if (year.length < 1) return false;
+    }
+    return filteredYears.some(itm => itm.length > 0)
+      ? filteredYears.every(itm => itm.length > 0)
+      : false;
   }
+
   isContactValid(): boolean {
-    return true;
+    const address = this.finAssistApp.mailingAddress;
+    return validateContact(address);
   }
+
   isReviewValid(): boolean {
     return true;
   }
@@ -64,6 +79,18 @@ export class AssistStateService {
       else return bool;
     }
     return true;
+  }
+
+  filteredYears(fileType: 'files' | 'spouseFiles') {
+    const { ...assistYears } = this.finAssistApp.assistYears;
+    const filteredYears = [];
+
+    for (let year in assistYears) {
+      if (assistYears[year].apply) {
+        filteredYears.push(assistYears[year][fileType]);
+      }
+    }
+    return filteredYears;
   }
 
   constructor(private router: Router, public dataSvc: MspDataService) {
