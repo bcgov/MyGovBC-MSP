@@ -25,6 +25,8 @@ import { AssistStateService } from '../../services/assist-state.service';
             class="col-11"
             [(ngModel)]="address.addressLine1"
             name="addressLine1"
+            id="addressLine1"
+            required
           ></common-street>
           <div class="col-1">
             <div class="row h-50"></div>
@@ -41,6 +43,8 @@ import { AssistStateService } from '../../services/assist-state.service';
             label="Address line 2"
             [(ngModel)]="address.addressLine2"
             name="addressLine2"
+            id="addressLine2"
+            required
           ></common-street>
           <div class="col-1">
             <div class="row h-50"></div>
@@ -57,6 +61,8 @@ import { AssistStateService } from '../../services/assist-state.service';
             label="Address line 3"
             [(ngModel)]="address.addressLine3"
             name="addressLine3"
+            id="addressLine3"
+            required
           ></common-street>
           <div class="col-1">
             <div class="row h-50"></div>
@@ -67,23 +73,34 @@ import { AssistStateService } from '../../services/assist-state.service';
             </div>
           </div>
         </div>
-        <common-city [(ngModel)]="address.city" name="city"></common-city>
+        <common-city
+          [(ngModel)]="address.city"
+          name="city"
+          id="city"
+          required
+        ></common-city>
         <common-country
           name="country"
           [countryList]="countryList"
           [(ngModel)]="address.country"
+          id="country"
+          required
         ></common-country>
         <common-province
           name="province"
           [(ngModel)]="address.province"
+          id="province"
+          required
         ></common-province>
         <common-postal-code
           [(ngModel)]="address.postal"
           name="postal"
+          id="postal"
+          required
         ></common-postal-code>
       </common-page-section>
       <h3 class="border-bottom">{{ phoneTitle }}</h3>
-      <common-page-section>
+      <common-page-section layout="tips">
         <common-phone-number
           name="phoneNumber"
           [label]="phoneLabel"
@@ -91,6 +108,7 @@ import { AssistStateService } from '../../services/assist-state.service';
           [(ngModel)]="phone"
           (onChange)="savePhone($event)"
         ></common-phone-number>
+        <aside>Tip about phone numbers</aside>
       </common-page-section>
     </form>
   `,
