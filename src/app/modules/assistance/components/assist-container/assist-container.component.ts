@@ -9,6 +9,8 @@ import { assistPages } from '../../assist-page-routing.module';
 import { Container } from 'moh-common-lib';
 import { filter } from 'rxjs/operators';
 import { AssistStateService } from '../../services/assist-state.service';
+import { MspDataService } from 'app/services/msp-data.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'msp-assist-container',
@@ -26,10 +28,13 @@ import { AssistStateService } from '../../services/assist-state.service';
 })
 export class AssistContainerComponent extends Container implements OnInit {
   index: any;
+
+  submitLabel = new BehaviorSubject<string>('Continue');
   constructor(
     public router: Router,
     private route: ActivatedRoute,
-    private stateSvc: AssistStateService
+    private stateSvc: AssistStateService,
+    private dataSvc: MspDataService
   ) {
     super();
     this.setProgressSteps(assistPages);
@@ -39,13 +44,16 @@ export class AssistContainerComponent extends Container implements OnInit {
 
   ngOnInit() {
     this.stateSvc.touched.subscribe(obs => console.log(obs));
-    this.stateSvc.index.subscribe(obs => console.log(obs));
+    this.stateSvc.index.subscribe(obs => {
+      // if(obs === 2)
+    });
   }
 
   continue() {
     let index = this.stateSvc.index.value;
+    console.log('current index', index);
     let bool = this.stateSvc.isValid(index);
-    console.log(bool);
+    console.log('valid index?', bool);
     bool
       ? this.router.navigate([`/assistance/${this.stateSvc.routes[index + 1]}`])
       : this.stateSvc.touched.next(true);

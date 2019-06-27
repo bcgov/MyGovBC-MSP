@@ -44,33 +44,25 @@ export class AssistStateService {
     if (!/\b[1-9]\d{2}[- ]?\d{3}[- ]?\d{3}\b/.test(person.sin)) return false;
 
     if (!validateBirthdate(person.dateOfBirth)) return false;
-    const { ...assistYears } = this.finAssistApp.assistYears;
-    console.log('assist years', assistYears);
-    const filteredYears = [];
-    for (let year in assistYears) {
-      // const year = assistYears[i];
-      console.log('the year', assistYears[year]);
-      if (assistYears[year].apply) filteredYears.push(assistYears[year]);
+    const filteredYears = this.filteredYears('files');
+    for (let year in filteredYears) {
+      if (year.length < 1) return false;
     }
-    let result = filteredYears.filter(year => year.files.length > 0);
-    console.log(result);
-    if (result.length < 1) return false;
-    result.forEach(itm => {
-      console.log(itm);
-    });
-    /*
-      .forEach(files => {
-        console.log('files',files);
-        if (files.length < 1) console.log('missing files');
-      });
-      */
-    // console.log('result', result.length < 1);
-    // if (result.length < 1) return false;
-    // let filteredYears = assistYears.filter(itm => itm.apply);
-    console.log('filtered Years', filteredYears);
+    return filteredYears.every(files => files.length > 0);
   }
   isSpouseValid(): boolean {
-    return true;
+    console.log('run');
+    if (!this.finAssistApp.hasSpouseOrCommonLaw) return true;
+
+    const filteredYears = this.filteredYears('spouseFiles');
+    console.log('filteredYears');
+    for (let year in filteredYears) {
+      if (year.length < 1) return false;
+    }
+    console.log('some files', filteredYears.some(itm => itm.length > 0));
+    return filteredYears.some(itm => itm.length > 0)
+      ? filteredYears.every(itm => itm.length > 0)
+      : false;
   }
   isContactValid(): boolean {
     return true;
@@ -83,10 +75,23 @@ export class AssistStateService {
     const args = this.validations.slice(0, index + 1);
     for (let arg of args) {
       let bool = arg();
+      console.log('bool', bool);
       if (bool) continue;
       else return bool;
     }
     return true;
+  }
+
+  filteredYears(fileType: 'files' | 'spouseFiles') {
+    const { ...assistYears } = this.finAssistApp.assistYears;
+    const filteredYears = [];
+
+    for (let year in assistYears) {
+      if (assistYears[year].apply) {
+        filteredYears.push(assistYears[year][fileType]);
+      }
+    }
+    return filteredYears;
   }
 
   constructor(private router: Router, public dataSvc: MspDataService) {

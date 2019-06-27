@@ -57,7 +57,6 @@ export class AssistCraDocumentsComponent implements OnInit {
 
   ngOnInit() {}
   files(year) {
-    console.log('the year', year);
     return this.isSpouse ? year.spouseFiles : year.files;
   }
 
