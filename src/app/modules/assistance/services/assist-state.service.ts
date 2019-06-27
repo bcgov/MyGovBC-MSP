@@ -31,21 +31,43 @@ export class AssistStateService {
   }
   isPersonalInfoValid(): boolean {
     const person = this.finAssistApp.applicant;
+    // check that these fields have value
     const requiredFields = ['firstName', 'lastName', 'previous_phn', 'sin'];
     for (let field of requiredFields) {
       if (!person[field]) return false;
       if (person[field].length > 0) continue;
       return false;
     }
-    let validPhn = validatePHN(person.previous_phn);
-    if (!validPhn) return false;
-    const sin = person.sin;
-    let validSin = /\b[1-9]\d{2}[- ]?\d{3}[- ]?\d{3}\b/.test(sin);
-    if (!validSin) return false;
 
-    console.log('valid birthdate', validateBirthdate(person.dateOfBirth));
-    // return true;
-    // return false;
+    if (!validatePHN(person.previous_phn)) return false;
+
+    if (!/\b[1-9]\d{2}[- ]?\d{3}[- ]?\d{3}\b/.test(person.sin)) return false;
+
+    if (!validateBirthdate(person.dateOfBirth)) return false;
+    const { ...assistYears } = this.finAssistApp.assistYears;
+    console.log('assist years', assistYears);
+    const filteredYears = [];
+    for (let year in assistYears) {
+      // const year = assistYears[i];
+      console.log('the year', assistYears[year]);
+      if (assistYears[year].apply) filteredYears.push(assistYears[year]);
+    }
+    let result = filteredYears.filter(year => year.files.length > 0);
+    console.log(result);
+    if (result.length < 1) return false;
+    result.forEach(itm => {
+      console.log(itm);
+    });
+    /*
+      .forEach(files => {
+        console.log('files',files);
+        if (files.length < 1) console.log('missing files');
+      });
+      */
+    // console.log('result', result.length < 1);
+    // if (result.length < 1) return false;
+    // let filteredYears = assistYears.filter(itm => itm.apply);
+    console.log('filtered Years', filteredYears);
   }
   isSpouseValid(): boolean {
     return true;
