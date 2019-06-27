@@ -33,6 +33,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
       ></common-name>
       <msp-birthdate
         [person]="person"
+        (onChange)="this.dataChange.emit(person)"
         label="Date of Birth"
         name="birthdate"
       ></msp-birthdate>

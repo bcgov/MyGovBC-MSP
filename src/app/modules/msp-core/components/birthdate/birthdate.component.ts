@@ -17,7 +17,16 @@ import { BaseComponent } from '../../../../models/base.component';
 
 @Component({
   selector: 'msp-birthdate',
-  templateUrl: './birthdate.component.html',
+  template: `
+    <form #formRef="ngForm" novalidate>
+      <common-date
+        [label]="dateLabel"
+        [restrictDate]="'past'"
+        [(date)]="person.dateOfBirth"
+        (dateChange)="onChange.emit($event)"
+      ></common-date>
+    </form>
+  `,
   styleUrls: ['./birthdate.component.scss']
 })
 export class MspBirthDateComponent extends BaseComponent {

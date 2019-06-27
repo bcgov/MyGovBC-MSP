@@ -38,8 +38,12 @@ export class AssistStateService {
     }
     let validPhn = validatePHN(person.previous_phn);
     if (!validPhn) return false;
-
-    return true;
+    const sin = person.sin;
+    let validSin = /\b[1-9]\d{2}[- ]?\d{3}[- ]?\d{3}\b/.test(sin);
+    if (!validSin) return false;
+    const hasDob = person.hasDob;
+    console.log(hasDob);
+    // return true;
     // return false;
   }
   isSpouseValid(): boolean {
@@ -62,11 +66,7 @@ export class AssistStateService {
     return true;
   }
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    public dataSvc: MspDataService
-  ) {
+  constructor(private router: Router, public dataSvc: MspDataService) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationStart))
       .subscribe((obs: any) => {
