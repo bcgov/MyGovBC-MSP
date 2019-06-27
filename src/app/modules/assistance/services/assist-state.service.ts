@@ -61,6 +61,7 @@ export class AssistStateService {
       ? filteredYears.every(itm => itm.length > 0)
       : false;
   }
+
   isContactValid(): boolean {
     const address = this.finAssistApp.mailingAddress;
     return validateContact(address);
