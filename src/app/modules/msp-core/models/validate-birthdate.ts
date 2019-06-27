@@ -9,6 +9,10 @@ const validMonths = {
 const date = new Date();
 
 export const validateBirthdate = (date: SimpleDate): boolean => {
+  if (date.month === 2) {
+    let leap = isLeapYear(date.year);
+    if (!leap && date.day > 28) return false;
+  }
   return checkYear(date.year)
     ? checkDate(validMonths, date.month, num => {
         return date.day <= num;
@@ -43,4 +47,8 @@ const checkMonth = (month: number): boolean => {
 
 const checkDay = (day: number): boolean => {
   return day < date.getDate();
+};
+
+const isLeapYear = (year: number) => {
+  return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
 };
