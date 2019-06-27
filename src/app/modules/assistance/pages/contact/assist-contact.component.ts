@@ -107,6 +107,7 @@ import { AssistStateService } from '../../services/assist-state.service';
           [phoneNumber]="phone"
           [(ngModel)]="phone"
           (onChange)="savePhone($event)"
+          required="false"
         ></common-phone-number>
         <aside>Tip about phone numbers</aside>
       </common-page-section>
@@ -137,10 +138,8 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
   phone: string;
 
   financialAssistApplication: FinancialAssistApplication;
-  // streetLabel = 'Full street address, rural route, PO Box or general delivery'
-  // cityLabel = 'City'
-  // provinceLabel = 'Province or state'
-  // countryLabel
+
+  touched$ = this.stateSvc.touched.asObservable();
 
   constructor(
     cd: ChangeDetectorRef,
@@ -175,6 +174,16 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
       .subscribe(obs => {
         this.dataService.saveFinAssistApplication();
       });
+
+    this.touched$.subscribe(obs => {
+      if (obs) {
+        const controls = this.personalInfoForm.controls;
+        console.log(controls);
+        for (let control in controls) {
+          controls[control].markAsTouched();
+        }
+      }
+    });
 
     this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
