@@ -15,7 +15,7 @@ import { AssistanceYear } from '../../models/assistance-year.model';
           required
         >
         </common-file-uploader>
-        <ng-container *ngIf="touched && year.files.length < 1">
+        <ng-container *ngIf="touched && validFiles(year)">
           <p class="text-danger">Files are required for {{ year.year }}</p>
         </ng-container>
       </ng-container>
@@ -63,6 +63,10 @@ export class AssistCraDocumentsComponent implements OnInit {
   ngOnInit() {}
   files(year) {
     return this.isSpouse ? year.spouseFiles : year.files;
+  }
+
+  validFiles(year) {
+    return this.isSpouse ? year.spouseFiles.length < 1 : year.files.length < 1;
   }
 
   updateFiles(arr: any, year: AssistanceYear) {
