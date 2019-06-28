@@ -1,3 +1,6 @@
+// TODO: REPLACE THIS WITH `validatePHN` from COMMON LIBRARY
+// If there are changes in this implmeentation, then review merging them into lib.
+
 export const validatePHN = function(
   phn: string,
   isBCPhn: boolean = true,
