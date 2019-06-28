@@ -1,13 +1,7 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ViewChild,
-  ViewChildren,
-  QueryList
-} from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { BaseComponent } from '../../../../models/base.component';
 import { MspAddressComponent } from '../../../msp-core/components/address/address.component';
@@ -15,6 +9,7 @@ import { MspPhoneComponent } from '../../../../components/msp/common/phone/phone
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 import { AssistanceYear } from '../../models/assistance-year.model';
 import { MspPerson } from 'app/modules/account/models/account.model';
+import { AssistStateService } from '../../services/assist-state.service';
 
 @Component({
   // templateUrl: './personal-info.component.html'
@@ -23,7 +18,7 @@ import { MspPerson } from 'app/modules/account/models/account.model';
     <h3>{{ subtitle }}</h3>
     <p class="border-bottom">{{ description }}</p>
     <common-page-section>
-      <form #formRef="ngForm" (ngSubmit)="onSubmit(formRef)" novalidate>
+      <form #formRef="ngForm" novalidate>
         <msp-assist-account-holder
           [person]="financialAssistApplication.applicant"
           (dataChange)="saveAccountHolder($event)"
@@ -34,6 +29,7 @@ import { MspPerson } from 'app/modules/account/models/account.model';
     <p class="border-bottom">{{ documentsDescription }}</p>
     <msp-assist-cra-documents
       [assistanceYears]="assistanceYears"
+      [touched]="touched$ | async"
     ></msp-assist-cra-documents>
   `
 })
@@ -45,6 +41,8 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   @ViewChild('address') address: MspAddressComponent;
   @ViewChild('phone') phone: MspPhoneComponent;
   financialAssistApplication: FinancialAssistApplication;
+
+  touched$ = this.stateSvc.touched.asObservable();
 
   title = 'Tell us about who is applying and upload official documents';
   subtitle = 'Account Holder (Main Applicant)';
@@ -58,6 +56,8 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   constructor(
     private dataService: MspDataService,
     private _router: Router,
+    private route: ActivatedRoute,
+    private stateSvc: AssistStateService,
     //private _processService: ProcessService,
     cd: ChangeDetectorRef
   ) {
@@ -73,19 +73,21 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   }
 
   ngAfterViewInit() {
-    this.personalInfoForm.valueChanges
-      .pipe(
-        debounceTime(250),
-        distinctUntilChanged()
-      )
-      .subscribe(val => {
-        console.log(val);
-        this.dataService.saveFinAssistApplication();
-      });
+    this.subscriptionList.push(
+      this.personalInfoForm.valueChanges
+        .pipe(
+          debounceTime(250),
+          distinctUntilChanged()
+        )
+        .subscribe(val => {
+          this.dataService.saveFinAssistApplication();
+        })
+    );
+
+    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
 
   ngOnInit() {
-    //  this.initProcessMembers(AssistancePersonalInfoComponent.ProcessStepNum, this._processService);
     const assistYears = this.financialAssistApplication.assistYears;
     let arr = [];
     const checkYear = (year: AssistanceYear) => {
@@ -98,12 +100,14 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
       .filter(itm => itm != null)
       .map(itm => {
         let obj = itm;
-        // console.log(obj.files);
         if (!obj.files) obj.files = [];
         return obj;
       });
 
     this.documentsDescription += this.createDocumentDesc(this.assistanceYears);
+  }
+  ngOnDestroy() {
+    this.subscriptionList.forEach(itm => itm.unsubscribe());
   }
 
   createDocumentDesc(years: any[]) {
@@ -120,32 +124,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
     this.dataService.saveFinAssistApplication();
   }
 
-  onSubmit($event) {
-    this._router.navigate(['/assistance/retro']);
-  }
-
-  isValid(): boolean {
-    return (
-      this.dataService.finAssistApp.isUniquePhns &&
-      this.dataService.finAssistApp.isUniqueSin
-    );
-  }
-
-  get canContinue(): boolean {
-    return this.isAllValid() && this.hasCountry();
-  }
-
   // Final check to see if the country is present // DEF 153
-  hasCountry(): boolean {
-    if (
-      this.financialAssistApplication.mailingAddress.country &&
-      this.financialAssistApplication.mailingAddress.country.trim().length > 0
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   saveAccountHolder(evt: MspPerson) {
     this.dataService.saveFinAssistApplication();

@@ -9,11 +9,15 @@ import { AssistanceYear } from '../../models/assistance-year.model';
         <label>{{ year.year }}</label>
         <common-file-uploader
           instructionText="Click add or drag and drop documents"
-          [images]="year.files"
-          [id]="year.year"
+          [images]="files(year)"
+          id="{{ year.year }}"
           (imagesChange)="updateFiles($event, year)"
+          required
         >
         </common-file-uploader>
+        <ng-container *ngIf="touched && validFiles(year)">
+          <p class="text-danger">Files are required for {{ year.year }}</p>
+        </ng-container>
       </ng-container>
       <aside>
         <div class="row">
@@ -40,6 +44,7 @@ import { AssistanceYear } from '../../models/assistance-year.model';
 export class AssistCraDocumentsComponent implements OnInit {
   @Input() assistanceYears: AssistanceYear[];
   @Input() isSpouse = false;
+  @Input() touched = false;
   @Output() dataChange: any = new EventEmitter<any>();
 
   tip1 =
@@ -57,11 +62,14 @@ export class AssistCraDocumentsComponent implements OnInit {
 
   ngOnInit() {}
   files(year) {
-    if (this.isSpouse) return year.spouseFiles;
-    return year.files;
+    return this.isSpouse ? year.spouseFiles : year.files;
+  }
+
+  validFiles(year) {
+    return this.isSpouse ? year.spouseFiles.length < 1 : year.files.length < 1;
   }
 
   updateFiles(arr: any, year: AssistanceYear) {
-    year.files = arr;
+    return this.isSpouse ? (year.spouseFiles = arr) : (year.files = arr);
   }
 }
