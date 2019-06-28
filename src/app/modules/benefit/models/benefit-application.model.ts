@@ -189,8 +189,8 @@ export class BenefitApplication implements ApplicationBase {
     set authorizedByAttorney(auth: boolean){
         this._authorizedByAttorney = auth;
         if (auth){
-            this._authorizedByApplicant = false;
-            this._authorizedBySpouse = false;
+            //this._authorizedByApplicant = false;
+            //this._authorizedBySpouse = false;
             this.authorizedByApplicantDate = moment().toDate();
         }
     }
