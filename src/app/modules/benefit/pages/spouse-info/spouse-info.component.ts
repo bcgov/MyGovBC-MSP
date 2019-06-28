@@ -10,6 +10,7 @@ import {NgForm} from '@angular/forms';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {BenefitPersonalDetailComponent} from '../personal-detail/personal-detail.component';
 import { MspPerson } from 'app/modules/account/models/account.model';
+import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -89,7 +90,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   }
 
   isValid(): boolean {
-      return this.dataService.benefitApp.isUniquePhns && this.dataService.benefitApp.isUniqueSin;
+      return this.dataService.benefitApp.isUniquePhns && this.dataService.benefitApp.isUniqueSin && validatePHN(this.dataService.benefitApp.spouse.previous_phn);
   }
 
   get canContinue(): boolean{
