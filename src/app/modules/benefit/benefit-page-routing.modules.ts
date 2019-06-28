@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { BenefitPrepareComponent } from './pages/prepare/prepare.component';
 import { BenefitPersonalInfoComponent } from './pages/personal-info/personal-info.component';
-import { BenefitDocumentsComponent } from './pages/documents/documents.component';
 import { ProcessService } from '../../services/process.service';
 import { BenefitReviewComponent } from './pages/review/review.component';
 import { BenefitAuthorizeSubmitComponent } from './pages/authorize-submit/authorize-submit.component';
@@ -62,4 +61,4 @@ export const benefitPages: Routes = [
   }
 ];
 
-export const displayedbenefitPages = benefitPages.filter(x => x.path !== 'sending');
+export const displayedbenefitPages = benefitPages.filter(x => (x.path !== 'sending' && x.path !== 'confirmation'));

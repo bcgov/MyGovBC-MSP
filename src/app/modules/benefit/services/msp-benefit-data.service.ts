@@ -56,7 +56,7 @@ export class MspBenefitDataService extends MspDataService{
         const dto: BenefitApplicationDto = new BenefitApplicationDto();
 
         dto.infoCollectionAgreement = input.infoCollectionAgreement;
-
+        //dto.addSpouse = input.addSpouse;
         dto.incomeLine236 = input.netIncomelastYear;
         dto.ageOver65 = input.ageOver65;
         dto.hasSpouseOrCommonLaw = input.hasSpouseOrCommonLaw;
@@ -93,7 +93,7 @@ export class MspBenefitDataService extends MspDataService{
         super.convertToPersonDto(input.applicant, dto.applicant);
         super.convertToPersonDto(input.spouse, dto.spouse);
         super.convertMailingAddress(input, dto);
-        super.convertResidentialAddress(input, dto);
+        //super.convertResidentialAddress(input, dto);
 
         return dto;
 
@@ -146,7 +146,7 @@ export class MspBenefitDataService extends MspDataService{
         this.convertToPerson(dto.applicant, output.applicant);
         this.convertToPerson(dto.spouse, output.spouse);
         this.convertMailingAddress(dto, output);
-        this.convertResidentialAddress(dto, output);
+       // this.convertResidentialAddress(dto, output);
         return output;
 
 

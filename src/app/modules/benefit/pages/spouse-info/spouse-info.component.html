@@ -17,16 +17,24 @@
     <h2>Your spouse or common-law partner</h2>
     <h4>Enter spouse's legal name as it appears on their official Canadian identity documents, e.g., birth certificate, permanent resident card, passport.</h4>
     <hr>
-    <msp-benefit-personal-detail *ngIf="benefitApplication.hasSpouseOrCommonLaw"
+   <!--  <msp-benefit-personal-detail *ngIf="benefitApplication.hasSpouseOrCommonLaw"
                                    [person]="benefitApplication.spouse"
                                    (onChange)="onChange($event)" 
                                    (notifySpouseRemoval)="removeSpouse($event)">
-    </msp-benefit-personal-detail>
+    </msp-benefit-personal-detail> -->
+
+   <msp-personal-details-retro-suppben *ngIf="benefitApplication.hasSpouseOrCommonLaw"
+        [(person)]="benefitApplication.spouse"
+        [benefitApp] = "benefitApplication"
+        (onChange)="onChange($event)"
+        (notifySpouseRemoval)="removeSpouse($event)">
+    </msp-personal-details-retro-suppben>  
+
   </div>
   
 </common-page-framework>
  
-  <common-form-action-bar [submitLabel]="benefitApplication.hasSpouseOrCommonLaw? 'Continue':'No Spouse'"
+  <common-form-action-bar [defaultColor]="false" [submitLabel]="benefitApplication.hasSpouseOrCommonLaw? 'Continue':'No Spouse'"
       [canContinue]="canContinue" 
       (btnClick)="nextStep()">
   </common-form-action-bar>
