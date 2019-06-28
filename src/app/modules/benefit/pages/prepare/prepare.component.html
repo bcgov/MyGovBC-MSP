@@ -62,14 +62,14 @@
 
                         <!-- Question 4 - Do you have a spouse   -->
                         <div class="form-group">
-                            <common-radio [value]="benefitApp.hasSpouseOrCommonLaw"  [label]="lang('./en/index.js').doYouHaveASpouseOrPartner" 
+                            <common-radio [value]="benefitApp.hasSpouse"  [label]="lang('./en/index.js').doYouHaveASpouseOrPartner" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="dataService.benefitApp.setSpouse = $event;">
+                                (statusChange)="dataService.benefitApp.hasSpouse = $event; dataService.saveBenefitApplication();">
                             </common-radio>
                         </div>   
 
                         <!-- If applicant has a Spouse, optionally required -->
-                        <div class="form-group" [hidden]="!benefitApp.hasSpouseOrCommonLaw">
+                        <div class="form-group" [hidden]="!benefitApp.hasSpouse">
                             
                             <!-- Spouse age 65 years   -->
                             <common-radio [value]="benefitApp.spouseAgeOver65"  [label]="lang('./en/index.js').isYourSpouseOrPartner65OrOlder" 
@@ -189,7 +189,7 @@
                                             <label for="applicantClaimForDisabilityCredit">
                                                 Myself
                                             </label>
-                                            <div *ngIf="benefitApp.hasSpouseOrCommonLaw">
+                                            <div *ngIf="benefitApp.hasSpouse">
                                                 <input type="checkbox" tabindex="0"
                                                     name="spouseClaimForDisabilityCredit"
                                                     id="spouseClaimForDisabilityCredit"
@@ -281,7 +281,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3" *ngIf="benefitApp.hasSpouseOrCommonLaw === true">
+                            <div class="col-lg-3" *ngIf="benefitApp.hasSpouse === true">
                                 <div class="checkbox checkbox-success checkbox-inline">
                                     <div class="form-group">
                                         <input type="checkbox" tabindex="0"

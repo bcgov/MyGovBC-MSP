@@ -180,32 +180,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
                         console.log('values before saving: ', values);
                         this.dataService.saveBenefitApplication();
                     }
-                ); //ageOver$, ageUnder$,
-
-                /*merge(
-                    fromEvent<MouseEvent>(this.spouseOver65Btn.nativeElement, 'click').pipe(
-                        map(x => {
-                            this.benefitApp.spouseAgeOver65 = true;
-                        }))
-                ),
-                merge(
-                    fromEvent<MouseEvent>(this.spouseOver65NegativeBtn.nativeElement, 'click').pipe(
-                        map(x => {
-                            this.benefitApp.spouseAgeOver65 = false;
-                        }))
-                ), 
-                merge(
-                    fromEvent<MouseEvent>(this.hasSpouse.nativeElement, 'click').pipe(
-                        map(x => {
-                            this.dataService.benefitApp.setSpouse = true;
-                        }))
-                ),
-                merge(
-                    fromEvent<MouseEvent>(this.negativeHasSpouse.nativeElement, 'click').pipe(
-                        map(x => {
-                            this.benefitApp.setSpouse = false;
-                        }))
-                ))*/
+                ); 
         }
             
     }
@@ -218,12 +193,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         } else {
             this.dataService.benefitApp.selfDisabilityCredit = false;
         }
-        /*if (this.benefitApp.applicantClaimForAttendantCareExpense){
-            $event.preventDefault();
-            this.applicantClaimDisabilityCredit();
-        }else{
-            this.benefitApp.selfDisabilityCredit = !this.benefitApp.selfDisabilityCredit;
-        }*/
     }
 
     setYear(assistYearParam: AssistanceYear) {
@@ -275,10 +244,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         return this.dataService.benefitApp;
     }
 
-    /*addSpouse(): void {
-        this.benefitApp.setSpouse = true;
-    }*/
-
     updateQualify(evt: boolean): void {
         this._likelyQualify = evt;
     }
@@ -301,11 +266,11 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         this.dataService.saveBenefitApplication();
     }
 
-    sethasSpouseOrCommonLaw(evt: boolean) {
+    sethasSpouse(evt: boolean) {
         if(evt) {
-            this.dataService.benefitApp.setSpouse = true;
+            this.dataService.benefitApp.hasSpouse = true;
         } else {
-            this.dataService.benefitApp.setSpouse = false;
+            this.dataService.benefitApp.hasSpouse = false;
         }
         this.dataService.saveBenefitApplication();
     }

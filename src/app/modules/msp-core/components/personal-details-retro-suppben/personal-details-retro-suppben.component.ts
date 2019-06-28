@@ -10,7 +10,6 @@ import {MspImage} from '../../../../models/msp-image';
 import { Subscription, Observable, of } from 'rxjs';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
 import {Relationship, StatusInCanada} from '../../../../models/status-activities-documents';
-
 @Component({
   selector: 'msp-personal-details-retro-suppben',
   templateUrl: './personal-details-retro-suppben.component.html',
@@ -55,12 +54,6 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
     //    this.dataService.saveBenefitApplication();
     }
 
-    checkPhnValid(evt: any){
-        console.log(evt);
-        /*this.subscriptions.push( parent.statusChanges.subscribe( x => {
-            console.log( '(full-name) parent change status: ', parent.status );
-          }) );*/
-    }
 
     isSinUnique(): boolean {
         return this.benefitApp.isUniqueSin;
@@ -71,9 +64,6 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
         return this.benefitApp.isUniquePhns;
     }
 
-/*    getSinList(): string[]{
-        return this.benefitApp.allPersons.map(x => x.sin);
-    }*/
 
     removeSpouse(): void {
         this.notifySpouseRemoval.emit(this.person);
