@@ -12,12 +12,13 @@
     <msp-person-card [person]="application.spouse" *ngIf="application.hasSpouseOrCommonLaw"
                      [editRouterLink]="'/benefit/spouse-info'"></msp-person-card>
 
-
+    
     <msp-contact-card
             [residentialAddress]="application.residentialAddress"
             [mailingAddress]="application.mailingAddress"
+            
             [phone]="application.phoneNumber"
-            [editRouterLink]="'/benefit/personal-info'"></msp-contact-card> 
+            [editRouterLink]="'/benefit/contact-info'"></msp-contact-card> 
 
   </div>
   <div class="col-lg-6">
@@ -27,21 +28,21 @@
     </msp-benefit-eligibility-card> 
   </div>
 
-  <div class="col-lg-6">
+   <!--<div class="col-lg-6">
     <div class="person-card-preview-zone">
       <div *ngFor="let mspImage of application.assistYeaDocs" class="preview-item">
         <common-thumbnail [imageObject] ="mspImage" [reviewMode]="true">
         </common-thumbnail>
       </div>
     </div>
-    <!--
+   
     <msp-benefit-eligibility-card  [application]="application"
                                  [editRouterLink]="'/benefit/prepare'">
-    </msp-benefit-eligibility-card>  -->
-  </div>
+    </msp-benefit-eligibility-card>  
+  </div> -->
 </div>
 
-  <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
+  <common-form-action-bar [defaultColor]="false" [submitLabel]="lang('./en/index.js').continueButton"
             (btnClick)="continue()"
             widthOption='extra-width-mobile-only'>
   </common-form-action-bar>

@@ -3,5 +3,8 @@ export class AssistanceYear {
   apply: boolean;
   docsRequired: boolean = true;
   currentYear: number;
-  disabled: boolean ;
+  disabled: boolean;
+  hasSpouse?: boolean;
+  files?: any[];
+  spouseFiles?: any[];
 }

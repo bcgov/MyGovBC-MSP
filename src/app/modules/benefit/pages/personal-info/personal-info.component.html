@@ -1,50 +1,16 @@
 <common-page-framework layout="blank">
-<h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
-<h2 [innerHTML]="lang('./en/index.js').applicantInfo"></h2>
-<p class="help-block" [innerHTML]="lang('./en/index.js').helpBlock"></p>
-<hr>
-<form #formRef='ngForm' novalidate>
-  <msp-benefit-personal-detail
+  <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
+  <h2 [innerHTML]="lang('./en/index.js').applicantInfo"></h2>
+  <p class="help-block" [innerHTML]="lang('./en/index.js').helpBlock"></p>
+  <hr>
+  <form #formRef='ngForm' novalidate>
+    <!-- <msp-benefit-personal-detail
           [(person)]="benefitApplication.applicant"
           (onChange)="onChange($event)">
-  </msp-benefit-personal-detail>
-
-  
-
-  
-
-<!--
-  <h2 [innerHTML]="lang('./en/index.js').contactInfo"></h2>
-  <a href="#contact-anchor" tabindex="-1"></a>
-  <div class="row">
-    <div class="col-lg-8">
-      <div class="row">
-        <div class="col-md-4">
-          <msp-phone #phone
-                     [phoneNumber]="benefitApplication.phoneNumber"
-                     (phoneNumberChange)="benefitApplication.phoneNumber = $event"
-                     (onChange)="onChange($event)"></msp-phone>
-        </div>
-      </div>
-    </div>
-  </div>
-  <hr>
-  <msp-address #address
-               [mailingAddress]="benefitApplication.mailingAddress"
-               [mailingOnly]="true" (onChange)="onChange($event)"></msp-address>
-  <hr>
-
-
-  <button
-          class="btn btn-primary" type="submit"
-          [disabled]="!canContinue"
-          [innerHTML]="lang('./en/index.js').continueButton"></button>
-  <msp-cancel></msp-cancel> -->
-
-  <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
-      [canContinue]="canContinue"
-      (btnClick)="onSubmit(formRef)"
-      widthOption='extra-width-mobile-only'>   
-  </common-form-action-bar>
-</form>
+    </msp-benefit-personal-detail>  -->
+    <msp-personal-details-retro-suppben [(person)]="benefitApplication.applicant" 
+      [benefitApp]="benefitApplication" (onChange)="onChange($event)">
+    </msp-personal-details-retro-suppben>
+    <common-form-action-bar [defaultColor]="false" [submitLabel]="lang('./en/index.js').continueButton" [canContinue]="canContinue" (btnClick)="onSubmit(formRef)" widthOption='extra-width-mobile-only'></common-form-action-bar>
+  </form>
 </common-page-framework>

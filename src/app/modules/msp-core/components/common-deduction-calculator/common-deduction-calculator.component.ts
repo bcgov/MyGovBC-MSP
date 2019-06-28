@@ -1,4 +1,4 @@
-import {Component, DoCheck, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ChangeDetectorRef, DoCheck, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import * as _ from 'lodash';
 import {Eligibility} from '../../../assistance/models/eligibility.model';
@@ -6,6 +6,7 @@ import {ProcessService} from '../../../../services/process.service';
 import {MspBenefitDataService} from '../../../benefit/services/msp-benefit-data.service';
 import {BenefitApplication} from '../../../benefit/models/benefit-application.model';
 import * as moment from 'moment';
+import {BaseComponent} from '../../../../models/base.component';
 
 @Component({
   selector: 'msp-common-deduction-calculator',
@@ -34,8 +35,12 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
 
     constructor(private _router: Router,
                 private dataService: MspBenefitDataService,
-                private _processService: ProcessService) {
+                private _processService: ProcessService, 
+                cd: ChangeDetectorRef) {
+//                    super(cd);
     }
+
+    
 
     ngDoCheck(): void {
         this._processService.setStep(CommonDeductionCalculatorComponent.ProcessStepNum, this.canContinue);
@@ -183,12 +188,9 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     }
 
     get applicantIncomeInfoProvided() {
-        console.log(this.application.netIncomelastYear);
+        //console.log(this.application.netIncomelastYear);
         const result = (!!this.application.netIncomelastYear && !isNaN(this.application.netIncomelastYear) && (this.application.netIncomelastYear + '').trim() !== '' ); //
-        const stamp = new Date().getTime();
-        console.log('Abhi--1---'+result);
-        // console.log( stamp + '- income info number : ' + this.application.netIncomelastYear);
-        // console.log(stamp + '- income info provided? : ' + result);
+        //const stamp = new Date().getTime();
         return result;
     }
 
@@ -210,6 +212,12 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
         const spouseAgeSpecified = !(this.application.spouseAgeOver65 === null || this.application.spouseAgeOver65 === undefined);
         const applicantAgeSpecified = !(this.application.ageOver65 === null || this.application.ageOver65 === undefined);
 
+        const applicanthaveChildrens = !(this.application.haveChildrens === null || this.application.haveChildrens === undefined);
+        const applicantselfDisabilityCredit = !(this.application.selfDisabilityCredit === null || this.application.selfDisabilityCredit === undefined);
+        const applicantapplicantClaimForAttendantCareExpense = !(this.application.applicantClaimForAttendantCareExpense === null || this.application.applicantClaimForAttendantCareExpense === undefined);
+
+
+
         // check the net income with pattern "^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
         const patt = /^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2}){0,1}$/g;
         let netIncomeValid = false;
@@ -224,8 +232,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
         }
         // added for DEAM-2 fix Invalid comma in money decimal fields
         const isSpouseIncomeValid = !spouseSpecified || !this.application || !this.application.spouseIncomeLine236 || this.application.spouseIncomeLine236.toString().match(patt);
-
-        if (this.applicantIncomeInfoProvided && applicantAgeSpecified && spouseSpecified && netIncomeValid && isSpouseIncomeValid) {
+        if (this.applicantIncomeInfoProvided && applicantAgeSpecified && spouseSpecified && netIncomeValid && isSpouseIncomeValid && applicanthaveChildrens && applicantapplicantClaimForAttendantCareExpense && applicantselfDisabilityCredit) {
             if (this.application.hasSpouseOrCommonLaw) {
                 this.continue.emit(spouseAgeSpecified && this.attendantCareExpenseReceiptsProvided);
                 return spouseAgeSpecified && this.attendantCareExpenseReceiptsProvided;
@@ -241,7 +248,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
 
 
     navigateToPersonalInfo() {
-            this._router.navigate(['/benefit/personal-info']);
+      this._router.navigate(['/benefit/personal-info']);
     }
 
 

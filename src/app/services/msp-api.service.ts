@@ -163,7 +163,7 @@ export class MspApiService {
              /{applicationUUID}/attachment/{attachmentUUID}
              */
             let url = environment.appConstants['apiBaseUrl']
-                + '/MSPDESubmitAttachment/' + applicationUUID
+                +  environment.appConstants['attachment'] + applicationUUID
                 + '/attachment/' + attachment.uuid;
 
             // programArea

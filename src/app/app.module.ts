@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AccordionModule, ModalModule, TooltipModule } from 'ngx-bootstrap';
+// import { AccordionModule, ModalModule, TooltipModule } from 'ngx-bootstrap';
 import { GeneralAppComponent } from './app.component';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { SharedCoreModule } from 'moh-common-lib';
 import { LandingComponent } from './pages/landing/landing.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,18 +23,15 @@ import { MspApiService } from './services/msp-api.service';
     //AccordionModule.forRoot(),
     //TooltipModule.forRoot(),
     AppRoutingModule,
-  //  RouterModule.forRoot([
+    //  RouterModule.forRoot([
     //  { path: '', redirectTo: 'msp', pathMatch: 'full' }
     //]),
     LocalStorageModule.withConfig({
       prefix: 'ca.bc.gov.msp',
       storageType: 'sessionStorage'
-  })
+    })
   ],
-  declarations: [
-    LandingComponent,
-    GeneralAppComponent
-  ],
+  declarations: [LandingComponent, GeneralAppComponent],
   providers: [
     MspDataService,
     ProcessService,
@@ -48,5 +45,4 @@ import { MspApiService } from './services/msp-api.service';
 
   bootstrap: [GeneralAppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

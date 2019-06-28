@@ -14,6 +14,7 @@ export default class PersonDto {
     dob_month: number;
     dob_year: number;
     sin: string;
+    assistYearDocs: MspImage[]; //= [];
 
     arrivalToCanadaYear: number;
     arrivalToCanadaMonth: number;

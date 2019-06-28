@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
 import { MspDataService } from './msp-data.service';
+import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
+
 
 export class ProcessUrls {
     public static readonly ACCOUNT_PREPARE_URL = '/account/prepare' ;
@@ -30,14 +32,16 @@ export class ProcessStep {
 }
 
 @Injectable()
-export class ProcessService implements CanActivate {
+export class ProcessService extends CheckCompleteBaseService implements CanActivate {
 
     constructor(private dataService: MspDataService,
                 private _router: Router) {
+                    super(_router);
     }
 
     get process(): Process {
         return this.dataService.getMspProcess();
+        
     }
 
     init(processSteps: ProcessStep[]): void {
@@ -47,11 +51,11 @@ export class ProcessService implements CanActivate {
     }
 
     setStep(stepNumber: number, complete: boolean) {
-        // const process = this.process;
-        // process.processSteps[stepNumber].complete = complete;
-        // this.dataService.setMspProcess(process);
-        console.log('ProcessService is being deprecated.');
-        return null;
+        const process = this.process;
+        process.processSteps[stepNumber].complete = complete;
+        this.dataService.setMspProcess(process);
+       // console.log('ProcessService is being deprecated.');
+       // return null;
     }
 
     getNextStep(stepNumber: number): String {

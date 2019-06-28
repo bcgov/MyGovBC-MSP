@@ -21,7 +21,7 @@ export class BenefitApplication implements ApplicationBase {
     phnRequired: boolean = true;
 
     assistYears: AssistanceYear[] = [];
-    assistYeaDocs: MspImage[] = [];
+    assistYearDocs: MspImage[] = [];
     taxYear: number ;
     userSelectedMostRecentTaxYear: number;
     public spaEnvCutOffDate: string;
@@ -35,6 +35,7 @@ export class BenefitApplication implements ApplicationBase {
     spouseClaimForAttendantCareExpense: boolean = false;
     childClaimForAttendantCareExpense: boolean = false;
     haveChildrens: boolean;
+    addSpouse: boolean ;
     childClaimForAttendantCareExpenseCount: number = 1;
 
 
@@ -188,8 +189,8 @@ export class BenefitApplication implements ApplicationBase {
     set authorizedByAttorney(auth: boolean){
         this._authorizedByAttorney = auth;
         if (auth){
-            this._authorizedByApplicant = false;
-            this._authorizedBySpouse = false;
+            //this._authorizedByApplicant = false;
+            //this._authorizedBySpouse = false;
             this.authorizedByApplicantDate = moment().toDate();
         }
     }
@@ -299,8 +300,8 @@ export class BenefitApplication implements ApplicationBase {
     set setSpouse(arg: boolean){
         if (!arg){
             this.spouseEligibleForDisabilityCredit = arg;
-            this.spouseIncomeLine236 = undefined;
-            this.spouseAgeOver65 = undefined;
+            //this.spouseIncomeLine236 = undefined;
+            //this.spouseAgeOver65 = undefined;
         }
         this._hasSpouseOrCommonLaw = arg;
     }
@@ -352,7 +353,7 @@ export class BenefitApplication implements ApplicationBase {
      * Power of atterney docs and attendant care expense receipts
      */
     getAllImages(): MspImage[] {
-        return [...this.powerOfAttorneyDocs, ...this.attendantCareExpenseReceipts, ...this.assistYeaDocs];
+        return [...this.powerOfAttorneyDocs, ...this.attendantCareExpenseReceipts, ...this.assistYearDocs, ...this.applicant.assistYearDocs, ...this.spouse.assistYearDocs];
     }
 
     /**

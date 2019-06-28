@@ -16,6 +16,7 @@ import {CommonDeductionCalculatorComponent} from '../../../msp-core/components/c
 //import moment = require('moment');
 import * as moment from 'moment';
 import {Router} from '@angular/router';
+import {ProcessService} from '../../../../services/process.service';
 
 @Component({
     selector: 'msp-prepare',
@@ -23,6 +24,8 @@ import {Router} from '@angular/router';
     styleUrls: ['./prepare.component.scss']
 })
 export class BenefitPrepareComponent  extends BaseComponent  {
+    
+    //static ProcessStepNum = 0;
 
     @ViewChild('formRef') prepForm: NgForm;
     @ViewChild('incomeRef') incomeRef: ElementRef;
@@ -64,16 +67,17 @@ export class BenefitPrepareComponent  extends BaseComponent  {
      */
     pastYears: number[] = [];
 
-    constructor(private _router: Router, public dataService: MspBenefitDataService , cd: ChangeDetectorRef){
+    constructor(private _router: Router, 
+                public dataService: MspBenefitDataService , cd: ChangeDetectorRef){
         super(cd);
         this.showAttendantCareInfo = this.benefitApp.applicantClaimForAttendantCareExpense
             || this.benefitApp.spouseClaimForAttendantCareExpense
             || this.benefitApp.childClaimForAttendantCareExpense;
     }
 
-
-
     ngOnInit(){
+       // this.initProcessMembers(BenefitPrepareComponent.ProcessStepNum, this._processService);
+    
         this._showDisabilityInfo =
             this.dataService.benefitApp.selfDisabilityCredit === true ||
             this.dataService.benefitApp.spouseEligibleForDisabilityCredit === true ||
@@ -120,7 +124,12 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             this.mspConsentModal.showFullSizeView();
         }
 
-        //removing subscribe wont register clicks
+       /* this.prepForm.valueChanges.subscribe(() => {
+            console.log('authorization form change: %o');
+            this.dataService.saveBenefitApplication();
+        });
+
+        /*removing subscribe wont register clicks
         const ageOver$ = fromEvent<MouseEvent>(this.ageOver65Btn.nativeElement, 'click').pipe(
             map( () => {
                 this.dataService.benefitApp.ageOver65 = true;
@@ -130,84 +139,91 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         const ageUnder$ = fromEvent<MouseEvent>(this.ageNotOver65Btn.nativeElement, 'click').pipe(
             map( () => {
                 this.dataService.benefitApp.ageOver65 = false;
-            }));
+            }));*/
+        if(this.prepForm != undefined) {
+            merge(this.prepForm.valueChanges.pipe(debounceTime(250),
+                distinctUntilChanged(),
+                filter(
+                    (values) => {
+                        console.log('value changes: ', values);
+                        const isEmptyObj = _.isEmpty(values);
+                        return !isEmptyObj;
+                    }
+                ), tap(
+                    (value) => {
+                        // console.log('form value: ', value);
+                        if (!value.netIncome || value.netIncome.trim().length === 0){
+                            this.benefitApp.netIncomelastYear = null;
+                        }else{
+                            this.benefitApp.netIncomelastYear = value.netIncome;
+                        }
+                        if (!value.spouseIncomeLine236 || value.spouseIncomeLine236.trim().length === 0){
+                            this.benefitApp.spouseIncomeLine236 = null;
+                        }
+                        if (!value.line125){
+                            this.benefitApp.spouseDSPAmount_line125 = null;
+                        }
+                        if (!value.line214){
+                            this.benefitApp.claimedChildCareExpense_line214 = null;
+                        }
+                        if (!value.line117){
+                            this.benefitApp.reportedUCCBenefit_line117 = null;
+                        }
+                        if (!value.childrenCount || value.childrenCount.trim().length === 0){
+                            this.benefitApp.childrenCount = null;
+                        }
 
+                        return value;
+                    }
+                ))).subscribe(
+                    values => {
+                        console.log('values before saving: ', values);
+                        this.dataService.saveBenefitApplication();
+                    }
+                ); //ageOver$, ageUnder$,
 
-        merge(this.prepForm.valueChanges.pipe(debounceTime(250),
-            distinctUntilChanged(),
-            filter(
-                (values) => {
-                    // console.log('value changes: ', values);
-                    const isEmptyObj = _.isEmpty(values);
-                    return !isEmptyObj;
-                }
-            ), tap(
-                (value) => {
-                    // console.log('form value: ', value);
-                    if (!value.netIncome || value.netIncome.trim().length === 0){
-                        this.benefitApp.netIncomelastYear = null;
-                    }else{
-                        this.benefitApp.netIncomelastYear = value.netIncome;
-                    }
-                    if (!value.spouseIncomeLine236 || value.spouseIncomeLine236.trim().length === 0){
-                        this.benefitApp.spouseIncomeLine236 = null;
-                    }
-                    if (!value.line125){
-                        this.benefitApp.spouseDSPAmount_line125 = null;
-                    }
-                    if (!value.line214){
-                        this.benefitApp.claimedChildCareExpense_line214 = null;
-                    }
-                    if (!value.line117){
-                        this.benefitApp.reportedUCCBenefit_line117 = null;
-                    }
-                    if (!value.childrenCount || value.childrenCount.trim().length === 0){
-                        this.benefitApp.childrenCount = null;
-                    }
-
-                    return value;
-                }
-            )), ageOver$, ageUnder$,
-
-            merge(
-                fromEvent<MouseEvent>(this.spouseOver65Btn.nativeElement, 'click').pipe(
-                    map(() => {
-                        this.benefitApp.spouseAgeOver65 = true;
-                    }))
-            ),
-            merge(
-                fromEvent<MouseEvent>(this.spouseOver65NegativeBtn.nativeElement, 'click').pipe(
-                    map(() => {
-                        this.benefitApp.spouseAgeOver65 = false;
-                    }))
-            ),
-            merge(
-                fromEvent<MouseEvent>(this.hasSpouse.nativeElement, 'click').pipe(
-                    map(() => {
-                        this.dataService.benefitApp.setSpouse = true;
-                    }))
-            ),
-            merge(
-                fromEvent<MouseEvent>(this.negativeHasSpouse.nativeElement, 'click').pipe(
-                    map(() => {
-                        this.benefitApp.setSpouse = false;
-                    }))
-            ))
-            .subscribe(
-                () => {
-                    // console.log('values before saving: ', values);
-                    this.dataService.saveBenefitApplication();
-                }
-            );
+                /*merge(
+                    fromEvent<MouseEvent>(this.spouseOver65Btn.nativeElement, 'click').pipe(
+                        map(x => {
+                            this.benefitApp.spouseAgeOver65 = true;
+                        }))
+                ),
+                merge(
+                    fromEvent<MouseEvent>(this.spouseOver65NegativeBtn.nativeElement, 'click').pipe(
+                        map(x => {
+                            this.benefitApp.spouseAgeOver65 = false;
+                        }))
+                ), 
+                merge(
+                    fromEvent<MouseEvent>(this.hasSpouse.nativeElement, 'click').pipe(
+                        map(x => {
+                            this.dataService.benefitApp.setSpouse = true;
+                        }))
+                ),
+                merge(
+                    fromEvent<MouseEvent>(this.negativeHasSpouse.nativeElement, 'click').pipe(
+                        map(x => {
+                            this.benefitApp.setSpouse = false;
+                        }))
+                ))*/
+        }
+            
     }
 
-    toggleClaimForSelfDisabilityCredit($event: Event): void {
-        if (this.benefitApp.applicantClaimForAttendantCareExpense){
+
+    toggleClaimForSelfDisabilityCredit(evt: Event): void {
+        if(evt) {
+            this.dataService.benefitApp.selfDisabilityCredit = true;
+            this.applicantClaimDisabilityCredit();
+        } else {
+            this.dataService.benefitApp.selfDisabilityCredit = false;
+        }
+        /*if (this.benefitApp.applicantClaimForAttendantCareExpense){
             $event.preventDefault();
             this.applicantClaimDisabilityCredit();
         }else{
             this.benefitApp.selfDisabilityCredit = !this.benefitApp.selfDisabilityCredit;
-        }
+        }*/
     }
 
     setYear(assistYearParam: AssistanceYear) {
@@ -217,14 +233,15 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     canContinue(evt): any {
-        console.log('Abhi ---SI active'+evt);
         if(evt) {
+            //this._processService.setStep(0, true);
             this.continue = evt; 
         }
         return evt ;
     }
 
     navigateToPersonalInfo() {
+       // this._processService.setStep(0, true);
         this._router.navigate(['/benefit/personal-info']);
     }
 
@@ -258,9 +275,9 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         return this.dataService.benefitApp;
     }
 
-    addSpouse(): void {
+    /*addSpouse(): void {
         this.benefitApp.setSpouse = true;
-    }
+    }*/
 
     updateQualify(evt: boolean): void {
         this._likelyQualify = evt;
@@ -281,6 +298,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         } else {
             this.dataService.benefitApp.ageOver65 = false;
         }
+        this.dataService.saveBenefitApplication();
     }
 
     sethasSpouseOrCommonLaw(evt: boolean) {
@@ -289,6 +307,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         } else {
             this.dataService.benefitApp.setSpouse = false;
         }
+        this.dataService.saveBenefitApplication();
     }
 
     setchildren(evt: boolean) {

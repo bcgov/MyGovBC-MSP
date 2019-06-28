@@ -16,7 +16,7 @@ import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 })
 export class BenefitAuthorizeSubmitComponent {
 
-    static ProcessStepNum = 4;
+    static ProcessStepNum = 5;
     lang = require('./i18n');
     captchaApiBaseUrl: string;
 
@@ -121,6 +121,6 @@ export class BenefitAuthorizeSubmitComponent {
 
     continue() {
         this._processService.setStep(BenefitAuthorizeSubmitComponent.ProcessStepNum, true);
-        this._router.navigate(['/benefit/authorize']);
+        this._router.navigate(['/benefit/sending']);
     }
 }

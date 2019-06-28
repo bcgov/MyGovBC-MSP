@@ -3,11 +3,13 @@ import {ProcessService} from '../../../../services/process.service';
 import {BaseComponent} from '../../../../models/base.component';
 import { Router } from '@angular/router';
 import {BenefitApplication} from '../../models/benefit-application.model';
+import {PersonalDetailsRetroSuppbenComponent} from '../../../msp-core/components/personal-details-retro-suppben/personal-details-retro-suppben.component';
 import { MspBenefitDataService } from '../../services/msp-benefit-data.service';
 import {Relationship} from '../../../../models/status-activities-documents';
 import {NgForm} from '@angular/forms';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
-import {BenefitPersonalDetailComponent} from '../personal-info/personal-detail/personal-detail.component';
+import {BenefitPersonalDetailComponent} from '../personal-detail/personal-detail.component';
+import { MspPerson } from 'app/modules/account/models/account.model';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -18,7 +20,8 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   static ProcessStepNum = 2;
   lang = require('./i18n');
   Relationship: typeof Relationship = Relationship;
-  @ViewChildren(BenefitPersonalDetailComponent) personalDetailsComponent: QueryList<BenefitPersonalDetailComponent>;
+  //@ViewChildren(BenefitPersonalDetailComponent) personalDetailsComponent: QueryList<BenefitPersonalDetailComponent>;
+  @ViewChildren(PersonalDetailsRetroSuppbenComponent) personalDetailsComponent: QueryList<PersonalDetailsRetroSuppbenComponent>;
     
   public buttonClass: string = 'btn btn-primary';
   benefitApplication: BenefitApplication;
@@ -28,7 +31,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   @ViewChild('formRef') personalInfoForm: NgForm;
  
   constructor(private dataService: MspBenefitDataService,
-    private _router: Router,
+    private _router: Router, private _processService: ProcessService,
     private cd: ChangeDetectorRef) {
     super(cd);
    this.benefitApplication = this.dataService.benefitApp;
@@ -39,7 +42,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
 }
 
   ngOnInit() {
-    //this.initProcessMembers(BenefitSpouseInfoComponent.ProcessStepNum, this._processService);
+    this.initProcessMembers(BenefitSpouseInfoComponent.ProcessStepNum, this._processService);
   }
 
   ngAfterViewInit() {
@@ -52,14 +55,16 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   }   
 
   nextStep(){
-    //this._processService.setStep(2, true);
+    this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, true);
     this._router.navigate(['/benefit/contact-info']);
 
   }
 
   addSpouse = () => {
    
-//    this.benefitApplication.hasSpouseOrCommonLaw = true;
+   //this.benefitApplication.applicant = new MspPerson(Relationship.Spouse);
+   this.showSpouse = true;
+  //  this.benefitApplication.hasSpouseOrCommonLaw = true;
     this.dataService.benefitApp.setSpouse = true;
     //this.dataService.benefitApp.hasSpouseOrCommonLaw = true
     //console.log(this.benefitApplication.hasSpouseOrCommonLaw);
@@ -71,7 +76,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
     console.log('remove spouse '+ event);
    // this.dataService.getMspApplication().removeSpouse();
     this.showSpouse = false;
-    this.dataService.benefitApp.setSpouse = false;
+   // this.dataService.benefitApp.setSpouse = false;
     //this.dataService.saveMspApplication();
   }
 
@@ -88,10 +93,19 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   }
 
   get canContinue(): boolean{
-    if ( this.isAllValid() && this.dataService.benefitApp.assistYeaDocs.length > 0) {
+
+    if(!this.benefitApplication.hasSpouseOrCommonLaw) {
+      this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, true);
+      return true;
+    } else {
+      if ( this.isAllValid() && this.benefitApplication.hasSpouseOrCommonLaw && this.benefitApplication.spouse.assistYearDocs.length > 0) {
+        this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, true); 
         return true;
-    }
+      }
+    } 
+    this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, false);
     return  false;
+    
   }
 
   /*get application(): BenefitApplication {

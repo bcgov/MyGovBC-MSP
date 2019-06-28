@@ -1,68 +1,76 @@
 import {
-    Component,
-    Input,
-    ViewChild,
-    Output,
-    EventEmitter,
-    AfterViewInit,
-    OnInit,
-    ChangeDetectorRef
+  Component,
+  Input,
+  ViewChild,
+  Output,
+  EventEmitter,
+  AfterViewInit,
+  OnInit,
+  ChangeDetectorRef
 } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {MspPerson} from '../../../../components/msp/model/msp-person.model';
-import {Relationship} from '../../../../models/status-activities-documents';
+import { NgForm } from '@angular/forms';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { Relationship } from '../../../../models/status-activities-documents';
 
 import * as moment from 'moment';
-import {BaseComponent} from '../../../../models/base.component';
-
+import { BaseComponent } from '../../../../models/base.component';
 
 @Component({
-    selector: 'msp-birthdate',
-    templateUrl: './birthdate.component.html',
-    styleUrls: ['./birthdate.component.scss']
-
+  selector: 'msp-birthdate',
+  template: `
+    <form #formRef="ngForm" novalidate>
+      <common-date
+        [label]="dateLabel"
+        [restrictDate]="'past'"
+        [(date)]="person.dateOfBirth"
+        (dateChange)="onChange.emit($event)"
+      ></common-date>
+    </form>
+  `,
+  styleUrls: ['./birthdate.component.scss']
 })
 export class MspBirthDateComponent extends BaseComponent {
+  //lang = require('./i18n');
+  public dateLabel = 'Date of Birth';
 
-    //lang = require('./i18n');
-    public dateLabel = 'Birthdate';
+  // Create today for comparison in check later
+  today: any;
+  @Input() isForAccountChange: boolean = false;
+  @Input() isACL: boolean = false;
+  @Input() person: MspPerson;
+  @Input() showError: boolean;
+  @Output() onChange = new EventEmitter<any>();
 
-    // Create today for comparison in check later
-   today: any;
-    @Input() isForAccountChange: boolean = false;
-    @Input() isACL: boolean = false;
-    @Input() person: MspPerson;
-    @Input() showError: boolean;
-    @Output() onChange = new EventEmitter<any>();
+  constructor(private cd: ChangeDetectorRef) {
+    super(cd);
+    console.log(this.person);
+  }
 
-    constructor(private cd: ChangeDetectorRef) {
-        super(cd);
-        console.log(this.person);
-    }
+  @ViewChild('formRef') form: NgForm;
 
+  ngAfterViewInit(): void {
+    this.person.dateOfBirth = {
+      year: this.person.dob_year,
+      month: this.person.dob_month,
+      day: this.person.dob_day
+    };
 
-    @ViewChild('formRef') form: NgForm;
+    this.form.valueChanges.subscribe(values => {
+      if (this.person.dateOfBirth) {
+        if (this.person.dateOfBirth.month) {
+          this.person.dob_month = this.person.dateOfBirth.month;
+        }
+        if (this.person.dateOfBirth.day) {
+          this.person.dob_day = this.person.dateOfBirth.day;
+        }
+        if (this.person.dateOfBirth.year) {
+          this.person.dob_year = this.person.dateOfBirth.year;
+        }
+      }
+    });
+  }
 
-    ngAfterViewInit(): void {
-
-        this.person.dateOfBirth =  { year: this.person.dob_year , month: this.person.dob_month, day: this.person.dob_day};
-
-        this.form.valueChanges.subscribe(values => {
-            if ( this.person.dateOfBirth  ) {
-                if (this.person.dateOfBirth.month) {
-                    this.person.dob_month = this.person.dateOfBirth.month;
-                }
-                if (this.person.dateOfBirth.day) {
-                    this.person.dob_day = this.person.dateOfBirth.day;
-                }
-                if (this.person.dateOfBirth.year) {
-                    this.person.dob_year = this.person.dateOfBirth.year;
-                }
-            }
-        });
-    }
-
-    /**
+  /**
     setYearValueOnModel(value: number) {
         this.person.dob_year = value;
     }

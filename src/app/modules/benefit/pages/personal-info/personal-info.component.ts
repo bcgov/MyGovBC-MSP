@@ -4,11 +4,15 @@ import {MspPhoneComponent} from '../../../../components/msp/common/phone/phone.c
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {ProcessService} from '../../../../services/process.service';
 import {NgForm} from '@angular/forms';
-import {BenefitPersonalDetailComponent} from './personal-detail/personal-detail.component';
+import {BenefitPersonalDetailComponent} from '../personal-detail/personal-detail.component';
+import {PersonalDetailsRetroSuppbenComponent} from '../../../msp-core/components/personal-details-retro-suppben/personal-details-retro-suppben.component';
 import {MspAddressComponent} from '../../../msp-core/components/address/address.component';
 import {BaseComponent} from '../../../../models/base.component';
 import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
+import { MspImage } from 'app/models/msp-image';
+import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
+
 
 
 @Component({
@@ -22,10 +26,11 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     lang = require('./i18n');
 
     @ViewChild('formRef') personalInfoForm: NgForm;
-    @ViewChildren(BenefitPersonalDetailComponent) personalDetailsComponent: QueryList<BenefitPersonalDetailComponent>;
+    //@ViewChildren(BenefitPersonalDetailComponent) personalDetailsComponent: QueryList<BenefitPersonalDetailComponent>;
+    @ViewChildren(PersonalDetailsRetroSuppbenComponent) personalDetailsComponent: QueryList<PersonalDetailsRetroSuppbenComponent>;
     @ViewChild('address') address: MspAddressComponent;
     @ViewChild('phone') phone: MspPhoneComponent;
-
+    
     benefitApplication: BenefitApplication;
 
     constructor(private dataService: MspBenefitDataService,
@@ -51,10 +56,12 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     }
 
     ngOnInit(){
+        //this._processService.setPageIncomplete();
         this.initProcessMembers(BenefitPersonalInfoComponent.ProcessStepNum, this._processService);
     }
 
     onChange(values: any) {
+        console.log(values);
         this.dataService.saveBenefitApplication();
     }
 
@@ -67,7 +74,10 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     }
 
     get canContinue(): boolean{
-        if ( this.isAllValid() && this.dataService.benefitApp.assistYeaDocs.length > 0) {
+        //const allDocs: MspImage[][] = this.dataService.benefitApp.allPersons.filter(x => x).map(x => x.assistYeaDocs).filter(x => x)  ;
+        //console.log(this.benefitApplication.applicant.assistYearDocs.length);
+        if ( this.isAllValid() && this.benefitApplication.applicant.assistYearDocs.length > 0) {
+            this._processService.setStep(BenefitPersonalInfoComponent.ProcessStepNum,true);    
             return true;
         }
         return  false;

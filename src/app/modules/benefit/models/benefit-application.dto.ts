@@ -9,6 +9,7 @@ export default class BenefitApplicationDto {
   incomeLine236: number;
   ageOver65: boolean;
   hasSpouseOrCommonLaw: boolean;
+  haveChildrens: boolean;
   spouseAgeOver65: boolean;
   spouseIncomeLine236: number;
   childrenCount: number;
@@ -41,6 +42,6 @@ export default class BenefitApplicationDto {
   attendantCareExpense: number;
 
   assistYears: AssistanceYear[] = [];
-  assistYeaDocs: MspImage[] = [];
+  assistYearDocs: MspImage[] = [];
 
 }
