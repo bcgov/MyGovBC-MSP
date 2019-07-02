@@ -72,7 +72,7 @@
                         <div class="form-group">
                             <common-radio [value]="benefitApp.hasSpouse"  label="Do you have a spouse or common-law partner?" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="dataService.benefitApp.hasSpouse = $event;">
+                                (statusChange)="setHasSpouse($event)">
                             </common-radio>
                         </div>   
         

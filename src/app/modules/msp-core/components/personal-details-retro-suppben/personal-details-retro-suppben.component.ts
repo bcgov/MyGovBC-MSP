@@ -21,6 +21,7 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
     public dateLabel = 'BirthDate1';
     @Input() benefitApp: BenefitApplication;
 
+    @Input() removeable: boolean = false;
     @Input() person: MspPerson;
    // @ViewChild('name') name: MspFullNameComponent;
     @ViewChild('formRef') personalDetailsForm: NgForm;

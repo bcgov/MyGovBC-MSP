@@ -276,8 +276,13 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         // this.dataService.saveBenefitApplication();
     }
 
-    setHasSpouse(evt: boolean) {
-        this.benefitApp.hasSpouse = evt;
+    setHasSpouse(hasSpouse: boolean) {
+        this.benefitApp.hasSpouse = hasSpouse;
+        if (!hasSpouse){
+            this.benefitApp.spouseAgeOver65 = null;
+            this.benefitApp.spouseIncomeLine236 = null;
+
+        }
         this.dataService.saveBenefitApplication();
     }
 

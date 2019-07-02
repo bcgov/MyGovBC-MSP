@@ -45,8 +45,12 @@ export class MspApiBenefitService extends AbstractHttpService {
             console.log(app);
 
             // if no errors, then we'll sendApplication all attachments
-            return this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages()).then(() => {
+            return this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages()).then((attachmentResponse) => {
+                // TODO - Likely have to store all the responses for image uploads, so we can use those UUIDs with our application puload
+                // unless we can just use our pre-uploaded ones? though that has potential for missing records.
                 // once all attachments are done we can sendApplication in the data
+                console.log('sendAttachments response', attachmentResponse);
+                
                 return this.sendApplication(app, app.uuid).subscribe( response  => {
                     // Add reference number
                     if (response && response.referenceNumber) {
@@ -83,8 +87,8 @@ export class MspApiBenefitService extends AbstractHttpService {
         return this.post<BenefitApplication>(url, suppBenefitResponse);
     }
 
-    public sendAttachments(token: string, applicationUUID: string, attachments: MspImage[]): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
+    public sendAttachments(token: string, applicationUUID: string, attachments: MspImage[]): Promise<ResponseType[]>  {
+        return new Promise<ResponseType[]>((resolve, reject) => {
 
             // Instantly resolve if no attachments
             if (!attachments || attachments.length < 1) {
@@ -108,7 +112,8 @@ export class MspApiBenefitService extends AbstractHttpService {
                     //     text: "Send All Attachments - Success",
                     //     response: responses,
                     // }, "Send All Attachments - Success")
-                    return resolve();
+                    console.log('resolving responess', responses);
+                    return resolve(responses);
                 },
                 (error: Response | any) => {
                     this.logService.log({
@@ -138,7 +143,7 @@ export class MspApiBenefitService extends AbstractHttpService {
              */
             let url = environment.appConstants['apiBaseUrl']
                 + environment.appConstants['attachment'] + applicationUUID
-                + '/attachment/' + attachment.uuid;
+                + '/attachments/' + attachment.uuid;
 
             // programArea
             url += '?programArea=enrolment';
@@ -152,6 +157,11 @@ export class MspApiBenefitService extends AbstractHttpService {
             // imageSize
             url += '&imageSize=' + attachment.size;
 
+            // Necessary to differentiate between PA and SuppBen
+            // TODO - VALIDATE THIS VALUE IS CORRECT, NEEDS TO BE CONFIRMED
+            url += '&dpackage=msp_sb_pkg';
+
+            // TODO - Description? Would have to set at each file uploader. Confirming with Oleg.
             // description - UI does NOT collect this property
 
             // Setup headers

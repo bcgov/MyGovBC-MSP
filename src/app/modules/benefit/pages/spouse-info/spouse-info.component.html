@@ -27,6 +27,7 @@
         [(person)]="benefitApplication.spouse"
         [benefitApp] = "benefitApplication"
         (onChange)="onChange($event)"
+        [removeable]='true'
         (notifySpouseRemoval)="removeSpouse($event)">
     </msp-personal-details-retro-suppben>  
 

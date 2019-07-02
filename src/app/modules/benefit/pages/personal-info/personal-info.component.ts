@@ -76,8 +76,8 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     get canContinue(): boolean{
         //const allDocs: MspImage[][] = this.dataService.benefitApp.allPersons.filter(x => x).map(x => x.assistYeaDocs).filter(x => x)  ;
         //console.log(this.benefitApplication.applicant.assistYearDocs.length);
-        if ( this.isAllValid() && this.benefitApplication.applicant.assistYearDocs.length > 0) {
-            this._processService.setStep(BenefitPersonalInfoComponent.ProcessStepNum,true);    
+        if ( this.isAllValid() && this.benefitApplication.applicant.assistYearDocs && this.benefitApplication.applicant.assistYearDocs.length > 0) {
+            this._processService.setStep(BenefitPersonalInfoComponent.ProcessStepNum,true);
             return true;
         }
         return  false;
