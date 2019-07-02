@@ -20,7 +20,7 @@
                             <!-- Question 2, Enter your net income -->
                             <label for="netIncome">Enter your net income – see Line 236 of your Notice of Assessment or Reassessment from Canada Revenue Agency.</label>
         
-                            <div class="col-lg-3 col-md-4 col-sm-6 input-group">
+                            <div class="col-md-6 input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">$</span>
                                 </div>
@@ -47,22 +47,17 @@
                 </div>
         
                 <!-- Question 3  Are you 65 or older -->
-                <div class="row">
-                    <div class="col-lg-10">
-                        <div class="form-group">
-                            <common-radio [value]="benefitApp.ageOver65"  [label]="lang('./en/index.js').areYou65OrOlder" 
-                                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="dataService.benefitApp.ageOver65 = $event;">
-                            </common-radio> 
-                            
-                        </div>
-                    </div>
+        
+                <div class="form-group">
+                    <common-radio [value]="benefitApp.ageOver65"  [label]="lang('./en/index.js').areYou65OrOlder" 
+                        [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+                        (statusChange)="dataService.benefitApp.ageOver65 = $event;">
+                    </common-radio> 
+                    
                 </div>
+        
                 
-                
-                <div class="row" tabindex="-1"
-                        [hidden]="incomeRef.invalid || benefitApp.ageOver65 === null || benefitApp.ageOver65 === undefined">
-                    <div class="col-lg-10">
+                <div tabindex="-1" [hidden]="incomeRef.invalid || benefitApp.ageOver65 === null || benefitApp.ageOver65 === undefined">
         
                         <!-- Question 4 - Do you have a spouse   -->
                         <div class="form-group">
@@ -84,7 +79,7 @@
                             <!-- Spouse Income  -->
                             <label for="spouseIncomeLine236" [innerHtml]="lang('./en/index.js').whatIsYourSpouseOrPartnerIncome">
                             </label>
-                            <div class="col-lg-4 col-md-5 col-sm-6 input-group">
+                            <div class="col-md-6 input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">$</span>
                                 </div>
@@ -126,7 +121,7 @@
                                         [innerHtml]="lang('./en/index.js').howMuchDidYouClaimForChildCareExpenseLastYear">
                                     </label>
             
-                                    <div class="col-lg-3 col-md-4 col-sm-6 input-group">
+                                    <div class="col-md-6 input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">$</span>
                                         </div>
@@ -147,7 +142,7 @@
                                                 [innerHtml]="lang('./en/index.js').howMuchDidYouReportForUCC">
                                             </label>
             
-                                            <div class="col-lg-3 col-md-4 col-sm-6 input-group">
+                                            <div class="col-md-6 input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">$</span>
                                                 </div>
@@ -239,7 +234,7 @@
                                                 Savings Plan on your income tax return (Line 125)?
                                             </label>
         
-                                            <div class="col-lg-3 col-md-4 col-sm-6 input-group">
+                                            <div class="col-md-6 input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">$</span>
                                                 </div>
@@ -355,7 +350,6 @@
                                 </common-file-uploader>
                                 <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
                             </div>
-                        </div>
                         </div>
                     </div>
                 </div>
