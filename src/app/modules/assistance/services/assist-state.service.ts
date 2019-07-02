@@ -150,6 +150,7 @@ export class AssistStateService {
   }
 
   setIndex(path: string) {
+    console.log('set index', path);
     let index = this.findIndex(path);
     if (index > -1) return this.index.next(index);
   }

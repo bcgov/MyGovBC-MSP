@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  Router,
-  NavigationEnd,
-  ActivatedRoute,
-  NavigationStart
-} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { assistPages } from '../../assist-page-routing.module';
 import { Container } from 'moh-common-lib';
-import { filter } from 'rxjs/operators';
 import { AssistStateService } from '../../services/assist-state.service';
 import { MspDataService } from 'app/services/msp-data.service';
 import { BehaviorSubject } from 'rxjs';
@@ -22,7 +16,10 @@ import { BehaviorSubject } from 'rxjs';
     <common-page-framework layout="blank">
       <router-outlet></router-outlet>
     </common-page-framework>
-    <common-form-action-bar (btnClick)="continue()"></common-form-action-bar>
+    <common-form-action-bar
+      (btnClick)="continue()"
+      [submitLabel]="submitLabel | async"
+    ></common-form-action-bar>
   `,
   styleUrls: ['./assist-container.component.scss']
 })
@@ -39,13 +36,15 @@ export class AssistContainerComponent extends Container implements OnInit {
     super();
     this.setProgressSteps(assistPages);
     this.stateSvc.setAssistPages(assistPages);
-    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
 
   ngOnInit() {
+    const url = this.router.url.slice(12, this.router.url.length);
+    this.stateSvc.setIndex(url);
     this.stateSvc.touched.subscribe(obs => console.log(obs));
+    console.log('index', this.stateSvc.index.value);
     this.stateSvc.index.subscribe(obs => {
-      // if(obs === 2)
+      if (obs === 5) this.submitLabel.next('Submit');
     });
   }
 
