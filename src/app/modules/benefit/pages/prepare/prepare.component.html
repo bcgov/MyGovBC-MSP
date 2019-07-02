@@ -368,52 +368,50 @@
          </div>
     </div>
     
-    <div class="row">
-        <div class="col-sm-2 col-sm-offset-7">
-        </div>
-    </div>
+
     
-    <common-consent-modal #mspConsentModal [isUnderMaintenance]="true" (cutOffDate)= "spaEnvCutOffDate($event)"
-            title="Information collection notice" agreeLabel="I have read and understand this information"
-            [processName]="lang('./en/index.js').consentProcessName" (accept)="benefitApp.infoCollectionAgreement = $event; this.dataService.saveBenefitApplication();">
-            <p><strong>Keep your personal information secure – especially when using a shared device like a computer at a library, school or café.</strong> To delete any information that was entered, either complete the application and submit it or, if you don’t finish, close the web browser.</p><p><strong>Need to take a break and come back later?</strong> The data you enter on this form is saved locally to the computer or device you are using until you close the web browser or submit your application.</p><p><strong>Information in this application is collected by the Ministry of Health</strong> under section 26(a), (c) and (e) of the Freedom of Information and Protection of Privacy Act and will be used to determine eligibility for provincial health care benefits in BC and administer Premium Assistance. Should you have any questions about the collection of this personal information please <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">contact Health Insurance BC <i class="fa fa-external-link" aria-hidden="true"></i></a>.</p>
-    </common-consent-modal>         
-    
-    <div bsModal #disabilityNursingHomeChoiceModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}"
-         tabindex="0" role="dialog" aria-labelledby="disabilityNursingHomeChoiceModalLabel">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title pull-left">Claim either {{claimCategory}} or {{counterClaimCategory}}</h3>
-                    <button type="button" class="close pull-right" aria-label="Close" (click)="disabilityNursingHomeChoiceModal.hide()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+</common-page-framework>
+
+<common-consent-modal #mspConsentModal [isUnderMaintenance]="true" (cutOffDate)= "spaEnvCutOffDate($event)"
+        title="Information collection notice" agreeLabel="I have read and understand this information"
+        [processName]="lang('./en/index.js').consentProcessName" (accept)="benefitApp.infoCollectionAgreement = $event; this.dataService.saveBenefitApplication();">
+        <p><strong>Keep your personal information secure – especially when using a shared device like a computer at a library, school or café.</strong> To delete any information that was entered, either complete the application and submit it or, if you don’t finish, close the web browser.</p><p><strong>Need to take a break and come back later?</strong> The data you enter on this form is saved locally to the computer or device you are using until you close the web browser or submit your application.</p><p><strong>Information in this application is collected by the Ministry of Health</strong> under section 26(a), (c) and (e) of the Freedom of Information and Protection of Privacy Act and will be used to determine eligibility for provincial health care benefits in BC and administer Premium Assistance. Should you have any questions about the collection of this personal information please <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">contact Health Insurance BC <i class="fa fa-external-link" aria-hidden="true"></i></a>.</p>
+</common-consent-modal>         
+
+<div bsModal #disabilityNursingHomeChoiceModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}"
+     tabindex="0" role="dialog" aria-labelledby="disabilityNursingHomeChoiceModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title pull-left">Claim either {{claimCategory}} or {{counterClaimCategory}}</h3>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="disabilityNursingHomeChoiceModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <p>
+                        You have already selected <span class="msp-emphasis">{{counterClaimCategory}}</span> for {{claimant}}.
+                    </p>
+                    <p>
+                        If you add <span class="msp-emphasis">{{claimCategory}}</span> for {{claimant}}, your {{counterClaimCategory}} will be removed.
+                    </p>
+                    <p>
+                        Do you want to continue to add {{claimCategory}} for {{claimant}}?
                 </div>
-                <div class="modal-body">
-                    <div>
-                        <p>
-                            You have already selected <span class="msp-emphasis">{{counterClaimCategory}}</span> for {{claimant}}.
-                        </p>
-                        <p>
-                            If you add <span class="msp-emphasis">{{claimCategory}}</span> for {{claimant}}, your {{counterClaimCategory}} will be removed.
-                        </p>
-                        <p>
-                            Do you want to continue to add {{claimCategory}} for {{claimant}}?
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-md pull-left" data-dismiss="modal" tabindex="0"
-                            (click)="switchClaim(claimant, claimCategory, counterClaimCategory)">Yes, continue</button>
-                    <button type="button" class="btn btn-danger btn-md pull-right" data-dismiss="modal" tabindex="0"
-                            (click)="disabilityNursingHomeChoiceModal.hide()">No, cancel</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-md pull-left" data-dismiss="modal" tabindex="0"
+                        (click)="switchClaim(claimant, claimCategory, counterClaimCategory)">Yes, continue</button>
+                <button type="button" class="btn btn-danger btn-md pull-right" data-dismiss="modal" tabindex="0"
+                        (click)="disabilityNursingHomeChoiceModal.hide()">No, cancel</button>
             </div>
         </div>
     </div>
+</div>
 
-    <common-form-action-bar [submitLabel]="'Apply for Supplementary Benefits'"
-            [canContinue]="continue"
-            (btnClick)="navigateToPersonalInfo()"
-            widthOption='extra-width-mobile-only'>
-    </common-form-action-bar>
-</common-page-framework>
+<common-form-action-bar [submitLabel]="'Apply for Supplementary Benefits'"
+        [canContinue]="continue"
+        (btnClick)="navigateToPersonalInfo()"
+        widthOption='extra-width-mobile-only'>
+</common-form-action-bar>

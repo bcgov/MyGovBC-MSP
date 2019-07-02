@@ -1,5 +1,5 @@
-<form #formRef="ngForm" novalidate>
-    <common-page-framework layout="blank">
+<common-page-framework layout="blank">
+    <form #formRef="ngForm" novalidate>
         <h1>Contact Info</h1>
         <p class="help-block">Please provide the Account Holder's information.</p>
         <common-page-section layout='double'>
@@ -19,9 +19,9 @@
                 </common-phone-number>
             </div>
         </div>
-        <common-form-action-bar [defaultColor]="false" [canContinue]="canContinue()" (btnClick)="continue()"></common-form-action-bar>
-    </common-page-framework>
-</form>
+    </form>
+</common-page-framework>
+<common-form-action-bar [defaultColor]="false" [canContinue]="canContinue()" (btnClick)="continue()"></common-form-action-bar>
 <ng-template #NoMailingAddress>
     <div class="mail-address-container">
         <button type="button" class="btn btn-lg btn-warning mx-auto d-block" (click)="toggleCheckBox()">My mailing address is different.</button>
