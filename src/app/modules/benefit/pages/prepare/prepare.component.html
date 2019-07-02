@@ -18,6 +18,12 @@
                         <div class="col-lg-12">
                             
                             <!-- Question 2, Enter your net income -->
+                            <!-- <msp-common-income-inputtext 
+                                [required]='true'
+                                [(ngModel)]='benefitApp.netIncomelastYear'
+                                #incomeRef
+                                label=' new new Enter your net income – see Line 236 of your Notice of Assessment or Reassessment from Canada Revenue Agency.'>
+                            </msp-common-income-inputtext> -->
                             <label for="netIncome">Enter your net income – see Line 236 of your Notice of Assessment or Reassessment from Canada Revenue Agency.</label>
         
                             <div class="col-md-6 input-group">
@@ -31,20 +37,23 @@
                                         required maxlength="12">
                             </div>
         
-        
+                            <div *ngIf="(incomeRef.touched || incomeRef.dirty || (!!incomeRef.value && incomeRef.value.trim().length>0) || formRef.touched || !(benefitApp.ageOver65 === null || benefitApp.ageOver65 === undefined) ||
+                                            formRef.controls.spouseIncomeLine236?.valid || benefitApp.spouseEligibleForDisabilityCredit)">
+                                <div class="text-danger" *ngIf="(incomeRef.touched && incomeRef.errors?.required)"
+                                        [innerHTML]="lang('./en/index.js').incomeDataRequired" tabindex="0"></div>
+                                <div class="text-danger" *ngIf="incomeRef.errors?.pattern"
+                                        [innerHTML]="lang('./en/index.js').invalidNumber" tabindex="0"></div>
+                                <div class="text-danger" *ngIf="incomeRef.errors?.maxlength"
+                                        [innerHTML]="lang('./en/index.js').incomeDataMaxLength" tabindex="0"></div>
+                            </div>
                             
                         </div>
+
+
+
                     </div>
                 </div>
-                <div *ngIf="(incomeRef.touched || incomeRef.dirty || (!!incomeRef.value && incomeRef.value.trim().length>0) || formRef.touched || !(benefitApp.ageOver65 === null || benefitApp.ageOver65 === undefined) ||
-                                formRef.controls.spouseIncomeLine236?.valid || benefitApp.spouseEligibleForDisabilityCredit)">
-                    <div class="text-danger" *ngIf="(incomeRef.touched && incomeRef.errors?.required)"
-                            [innerHTML]="lang('./en/index.js').incomeDataRequired" tabindex="0"></div>
-                    <div class="text-danger" *ngIf="incomeRef.errors?.pattern"
-                            [innerHTML]="lang('./en/index.js').invalidNumber" tabindex="0"></div>
-                    <div class="text-danger" *ngIf="incomeRef.errors?.maxlength"
-                            [innerHTML]="lang('./en/index.js').incomeDataMaxLength" tabindex="0"></div>
-                </div>
+                
         
                 <!-- Question 3  Are you 65 or older -->
         
@@ -87,6 +96,18 @@
                                         maxlength="12" #spouseIncomeRef="ngModel"
                                         pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
                                         [(ngModel)]="benefitApp.spouseIncomeLine236">
+                                        
+
+                                <div *ngIf="(spouseIncomeRef.touched || spouseIncomeRef.dirty || (!!spouseIncomeRef.value && spouseIncomeRef.value.trim().length>0) || formRef.touched || !(benefitApp.ageOver65 === null || benefitApp.ageOver65 === undefined) ||
+                                                formRef.controls.spouseIncomeLine236?.valid || benefitApp.spouseEligibleForDisabilityCredit)">
+                                    <div class="text-danger" *ngIf="(spouseIncomeRef.touched && spouseIncomeRef.errors?.required)"
+                                            [innerHTML]="lang('./en/index.js').incomeDataRequired" tabindex="0"></div>
+                                    <div class="text-danger" *ngIf="spouseIncomeRef.errors?.pattern"
+                                            [innerHTML]="lang('./en/index.js').invalidNumber" tabindex="0"></div>
+                                    <div class="text-danger" *ngIf="spouseIncomeRef.errors?.maxlength"
+                                            [innerHTML]="lang('./en/index.js').incomeDataMaxLength" tabindex="0"></div>
+                                </div>
+                                
                             </div>
                         </div>
                             
@@ -99,21 +120,20 @@
                         </div>
                         
                         
-                        <div class="row" *ngIf="benefitApp.haveChildrens">
-                            <div class="col-lg-12">
-        
-                                    <!-- Children Count-->        
-                                    <div class="form-group">
-                                        <label for="childrenCount" [innerHtml]="lang('./en/index.js').howManyChildrenDoYouHaveOnYourMSP">
-                                        </label>
-                                    
-                                        <div class="col-lg-2" style="text-align:left; padding-left: 3px;">
-                                            <input type="text" class="form-control" name="childrenCount"
-                                                id="childrenCount"
-                                                maxlength="2"
-                                                [(ngModel)]="benefitApp.childrenCount">
+                        <ng-container *ngIf="benefitApp.haveChildrens">
+            
+                                        <!-- Children Count-->        
+                                        <div class="form-group row">
+                                            <label class='col-md-12' for="childrenCount" [innerHtml]="lang('./en/index.js').howManyChildrenDoYouHaveOnYourMSP">
+                                            </label>
+                                            <div class="col-md-3" >
+                                        
+                                                <input type="text" class="form-control" name="childrenCount"
+                                                    id="childrenCount"
+                                                    maxlength="2"
+                                                    [(ngModel)]="benefitApp.childrenCount">
+                                            </div>
                                         </div>
-                                    </div>
                                 
                                 <!-- Claim for Child Care Expense -->     
                                 <div class="form-group">
@@ -157,8 +177,7 @@
                                     </div>
                                 </div>
             
-                            </div>
-                        </div>
+                        </ng-container>
         
         
                         <!-- Question 4 - Report for UCC - Anyone included in your MSP coverage claim a disability tax credit-->
