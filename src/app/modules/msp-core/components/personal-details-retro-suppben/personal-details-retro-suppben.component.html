@@ -84,14 +84,17 @@
     <!-- Doc Uploader   -->
     <h2>Documents</h2>
     <p class="help-block"> Upload your Notice of Assessment or Reassessment from Canada Revenue Agency for {{benefitApp.taxYear}}</p>
-    <div class="row" style="margin-left: 5px">
-         <common-file-uploader 
-                            [images]="person.assistYearDocs"
-                            (imagesChange)="addDocument($event)"
-                            [id]='benefitApp.id'
-                            (errorDocument)="errorDoc($event)" instructionText="Please upload Notice of Assessment documents for {{benefitApp.taxYear}}">
-          </common-file-uploader>
-          <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
-     </div>
+    <div class="row">
+        <div class="col-md-6">
 
+            <common-file-uploader 
+                               [images]="person.assistYearDocs"
+                               (imagesChange)="addDocument($event)"
+                               [id]='benefitApp.id'
+                               (errorDocument)="errorDoc($event)" instructionText="Please upload Notice of Assessment documents for {{benefitApp.taxYear}}">
+             </common-file-uploader>
+            </div>
+        </div>
+        
+        <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
   </form>
