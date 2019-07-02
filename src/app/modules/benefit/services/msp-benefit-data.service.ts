@@ -114,6 +114,7 @@ export class MspBenefitDataService extends MspDataService{
         output.netIncomelastYear = dto.incomeLine236;
         output.ageOver65 = dto.ageOver65;
         output.setSpouse = dto.hasSpouseOrCommonLaw;
+        output.hasSpouse = dto.hasSpouse;
         output.spouseAgeOver65 = dto.spouseAgeOver65;
         //output.assistYearDocs = dto.assistYearDocs;
         output.haveChildrens = dto.haveChildrens;
