@@ -1,13 +1,13 @@
 import {
   Component, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef
 } from '@angular/core';
-import {OutofBCRecord} from '../../model/outof-bc-record.model';
+import {OutofBCRecord} from '../../../../models/outof-bc-record.model';
 import {NgForm} from '@angular/forms';
 
 
 
 
-import {BaseComponent} from '../base.component';
+import {BaseComponent} from '../../../../models/base.component';
 import {MspDepartureDateComponent} from '../departure-date/departure-date.component';
 import {MspReturnDateComponent} from '../return-date/return-date.component';
 

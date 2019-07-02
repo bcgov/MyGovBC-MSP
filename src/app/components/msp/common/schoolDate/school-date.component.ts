@@ -1,7 +1,7 @@
 import {Component, Input, EventEmitter, Output, ViewChild, ChangeDetectorRef} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import * as moment from 'moment';
-import {BaseComponent} from '../base.component';
+import {BaseComponent} from '../../../../models/base.component';
 
 @Component({
   selector: 'msp-school-date',

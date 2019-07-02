@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MspPersonCardComponent } from './person-card.component';
-import { MspDataService } from '../../service/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
 import {MspAddressCardPartComponent} from '../address-card-part/address-card-part.component';
 import {ThumbnailComponent} from '../thumbnail/thumbnail.component';

@@ -1,7 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {Address} from '../../model/address.model';
-import {Person} from '../../model/person.model';
-import * as moment from 'moment';
+import {Address} from 'moh-common-lib';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'msp-contact-card',
@@ -15,5 +14,13 @@ export class MspContactCardComponent {
   @Input() phone: string;
   @Input() altPhone: string;
   @Input() editRouterLink: string;
+
+  constructor(private _router: Router){
+
+  }
+
+  editPersonalInfo() {
+    this._router.navigate([this.editRouterLink]);
+  }
 
 }

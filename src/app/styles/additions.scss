@@ -1,12 +1,14 @@
 @import "./variables.scss";
+// @import "~@ng-select/ng-select/themes/default.theme.css";
 
 html {
   min-height: 100%;
 }
 
-html, body {
+html,
+body {
   position: relative;
-  height: 100%;
+  // height: 100%;
 }
 
 label {
@@ -27,12 +29,13 @@ label {
   /* Negative indent footer by it's height */
   margin: 0 auto -52px;
 }
-#pad {
-  height: 75px;
 
-  @media (max-width: 768px) {
-    height: 100px;
-  }
+#pad {
+  height: 50px;
+
+  // @media (max-width: 768px) {
+  //   height: 100px;
+  // }
 }
 
 .fa-check-circle {
@@ -53,6 +56,7 @@ button.disabled {
   font-weight: normal;
   white-space: nowrap;
 }
+
 .optional::after {
   content: " (optional)";
 }
@@ -61,6 +65,7 @@ button.disabled {
   font-weight: normal;
   white-space: nowrap;
 }
+
 .if-applicable::after {
   content: " (if applicable)";
 }
@@ -83,23 +88,27 @@ button.disabled {
 [data-ng-click],
 [x-ng-click] {
   cursor: pointer;
-  text-decoration: none!important;
+  text-decoration: none !important;
 }
 
 .msp-btn-radio {
   background: #2962FF;
   color: white;
+
   &:hover {
     background: #2962FF;
     color: white;
   }
+
   &:not(:hover) {
     background: #2962FF;
     color: white;
   }
+
   &::selection {
     background: #2962FF;
   }
+
   &:active {
     background: #2962FF;
   }
@@ -108,7 +117,7 @@ button.disabled {
 /* Apply our bootstrap theme form-control to the input of the component using some
    some less magic */
 .completer-holder input {
- @extend .form-control;
+  @extend .form-control;
 }
 
 /* Add modal header color */
@@ -120,6 +129,7 @@ button.disabled {
     font-weight: 600;
   }
 }
+
 // this is used across forms to show error message..this is as in bootstrap 3
 .has-error .form-control {
   border-color: #a94442;
@@ -139,8 +149,10 @@ hr {
   border: none;
   height: 1px;
   /* Set the hr color */
-  color: #333; /* old IE */
-  background-color: #333; /* Modern Browsers */
+  color: #333;
+  /* old IE */
+  background-color: #333;
+  /* Modern Browsers */
 
 }
 
@@ -149,20 +161,22 @@ hr {
 }
 
 h3 i {
-    margin-right: 5px;
-    color: #036;
+  margin-right: 5px;
+  color: #036;
 }
-.shade{
+
+.shade {
   text-shadow: 2px 2px 4px yellow;
 }
 
-.pointer{
-  cursor:pointer;
+.pointer {
+  cursor: pointer;
 
 }
+
 p.intro {
-    font-size: $font-size-lg;
-    margin-top: 20px;
+  font-size: $font-size-lg;
+  margin-top: 20px;
 }
 
 /*
@@ -172,9 +186,13 @@ Special accessibility class to hide things like labels but still have the readab
   position: absolute;
   overflow: hidden;
   clip: rect(0 0 0 0);
-  height: 1px; width: 1px;
-  margin: -1px; padding: 0; border: 0;
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
 }
+
 /*
   Hide spinners in firefox
  */
@@ -185,24 +203,35 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 input[type=number] {
-  -moz-appearance:textfield;
+  -moz-appearance: textfield;
 }
 
 // Bootstrap has deprecated these helper classes, replacing them with their
 // "display" helpers, e.g. d-none or d-sm-block.  We should try to use the new
 // helpers wherever possible, but currently some of our implementations (such as
 // the ProgressBar) require these classes.
-@include media-breakpoint-down(sm){
-  .hidden-xs { display: none !important;}
+@include media-breakpoint-down(sm) {
+  .hidden-xs {
+    display: none !important;
+  }
 }
-@include media-breakpoint-down(md){
-  .hidden-sm { display: none !important;}
+
+@include media-breakpoint-down(md) {
+  .hidden-sm {
+    display: none !important;
+  }
 }
-@include media-breakpoint-down(lg){
-  .hidden-md { display: none !important;}
+
+@include media-breakpoint-down(lg) {
+  .hidden-md {
+    display: none !important;
+  }
 }
-@include media-breakpoint-down(xl){
-  .hidden-lg { display: none !important;}
+
+@include media-breakpoint-down(xl) {
+  .hidden-lg {
+    display: none !important;
+  }
 }
 
 .help-block {
@@ -215,13 +244,23 @@ input[type=number] {
 
 // Bootstrap 3 to 4: Re-add has-error label effects, so the question label
 // becomes highlighted red, not just the field.
-.has-error .checkbox, .has-error .checkbox-inline, .has-error.checkbox-inline label, .has-error.checkbox label, .has-error .control-label, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.radio-inline label, .has-error.radio label {
+.has-error .checkbox,
+.has-error .checkbox-inline,
+.has-error.checkbox-inline label,
+.has-error.checkbox label,
+.has-error .control-label,
+.has-error .help-block,
+.has-error .radio,
+.has-error .radio-inline,
+.has-error.radio-inline label,
+.has-error.radio label {
   color: $color-danger;
 }
 
-.checkbox label, .radio label,
-input[type=checkbox] + label,
-input[type=radio] + label {
+.checkbox label,
+.radio label,
+input[type=checkbox]+label,
+input[type=radio]+label {
   font-weight: 400;
 }
 

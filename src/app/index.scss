@@ -1,7 +1,7 @@
 // Declare primary font
 @font-face {
-    font-family: 'Myriad-Pro';
-    src: url('fonts/MyriadWebPro.ttf');
+  font-family: 'Myriad-Pro';
+  src: url('fonts/MyriadWebPro.ttf');
 }
 
 //------------------------------------------------------------------------------
@@ -58,11 +58,12 @@
 @import "~font-awesome/scss/variables";
 @import "~font-awesome/scss/mixins";
 $fa-font-path: '~font-awesome/fonts';
+
 @font-face {
-    font-family: 'FontAwesome';
-    src: url('#{$fa-font-path}/fontawesome-webfont.ttf?v=${fa-version}') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'FontAwesome';
+  src: url('#{$fa-font-path}/fontawesome-webfont.ttf?v=${fa-version}') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @import "~font-awesome/scss/core";
@@ -78,6 +79,7 @@ $fa-font-path: '~font-awesome/fonts';
 $icon-font-path: '~bootstrap/fonts/';
 @import 'styles/overrides.scss';
 @import 'styles/additions.scss';
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 // Set a base font-size in px to ensure that we don't just use the browser's
 // default text size. We use rems for font-sizes everywhere else.
@@ -88,7 +90,7 @@ html {
   // Left in because it really demonstrates the value of rem based designs. We
   // can scale the entire layout, from element sizing to padding, just by
   // changing font-size here.
-  @include media-breakpoint-up(sm){
+  @include media-breakpoint-up(sm) {
     font-size: 14px;
   }
 }

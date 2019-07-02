@@ -1,12 +1,12 @@
-import PersonDto from './person.dto';
+import PersonDto from './msp-person.dto';
 import AddressDto from './address.dto';
-import {MSPEnrollementMember} from '../model/status-activities-documents';
+import {MSPEnrollementMember} from '../../../models/status-activities-documents';
 
 
 export default class AccountLetterDto {
   infoCollectionAgreement: boolean;
   postalCode: string;
-  enrollmentMember: MSPEnrollementMember ;
+  enrollmentMember: string; //MSPEnrollementMember ;
   specificMember_phn: string;
   showSpecificMember: boolean;
   showCaptcha: boolean;

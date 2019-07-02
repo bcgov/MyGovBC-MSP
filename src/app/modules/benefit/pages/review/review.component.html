@@ -1,0 +1,56 @@
+<common-page-framework layout="blank">
+  <a onclick="window.print();return false;" >   
+    <b class="float-right">Print <i class="fa fa-print fa-lg pointer" 
+      aria-hidden="true"></i>
+    </b> 
+  </a>
+  <h1 [innerHTML]="lang('./en/index.js').pageTitle" tabindex="0"></h1>
+<div class="row">
+  <div class="col-lg-6">
+    <msp-person-card [person]="application.applicant"
+                     [editRouterLink]="'/benefit/personal-info'"></msp-person-card>
+    <msp-person-card [person]="application.spouse" *ngIf="application.hasSpouseOrCommonLaw"
+                     [editRouterLink]="'/benefit/spouse-info'"></msp-person-card>
+
+    
+    <msp-contact-card
+            [residentialAddress]="application.residentialAddress"
+            [mailingAddress]="application.mailingAddress"
+            
+            [phone]="application.phoneNumber"
+            [editRouterLink]="'/benefit/contact-info'"></msp-contact-card> 
+
+  </div>
+  <div class="col-lg-6">
+
+    <msp-benefit-eligibility-card  [application]="application"
+      [editRouterLink]="'/benefit/prepare'">
+    </msp-benefit-eligibility-card> 
+  </div>
+
+   <!--<div class="col-lg-6">
+    <div class="person-card-preview-zone">
+      <div *ngFor="let mspImage of application.assistYeaDocs" class="preview-item">
+        <common-thumbnail [imageObject] ="mspImage" [reviewMode]="true">
+        </common-thumbnail>
+      </div>
+    </div>
+   
+    <msp-benefit-eligibility-card  [application]="application"
+                                 [editRouterLink]="'/benefit/prepare'">
+    </msp-benefit-eligibility-card>  
+  </div> -->
+</div>
+
+<!--  
+  <button
+  class="btn btn-primary" type="submit" (click)="continue()"
+  [innerHTML]="lang('./en/index.js').continueButton"></button>
+  
+  <msp-cancel></msp-cancel> -->
+</common-page-framework>
+
+<common-form-action-bar [defaultColor]="false" [submitLabel]="lang('./en/index.js').continueButton"
+          (btnClick)="continue()"
+          widthOption='extra-width-mobile-only'>
+</common-form-action-bar>

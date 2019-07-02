@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { BaseComponent } from '../base.component';
+import { BaseComponent } from '../../../../models/base.component';
 
 
 @Component({

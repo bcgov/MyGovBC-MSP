@@ -1,8 +1,8 @@
 import {Component, Input, EventEmitter, Output, ViewChild, ChangeDetectorRef} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {PhoneNumber} from '../../model/phone.model';
-import {BaseComponent} from '../base.component';
-import {debounceTime} from "rxjs/operators";
+import {BaseComponent} from '../../../../models/base.component';
+import {debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'msp-phone',
@@ -11,10 +11,11 @@ import {debounceTime} from "rxjs/operators";
 export class MspPhoneComponent extends BaseComponent {
     lang = require('./i18n');
 
-    @Input() phoneNumber: string;
+    @Input() phoneNumber: string = 'Phone number';
     @Output() phoneNumberChange = new EventEmitter<string>();
     @Input('alternative') alternative = false;
     PhoneNumber: typeof PhoneNumber = PhoneNumber;
+    @Input() label: string = 'Postal Code';
 
     @Output() onChange = new EventEmitter<any>();
     @ViewChild('formRef') form: NgForm;

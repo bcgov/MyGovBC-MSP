@@ -1,5 +1,5 @@
 //List of constants used for masking inputs
-import {BaseComponent} from '../../msp/common/base.component';
+import {BaseComponent} from '../../../models/base.component';
 import {EventEmitter, Input, Output} from '@angular/core';
 
 export const LETTER = /[A-Z]/i; //Ignore case here, then upperCase it via pipe.

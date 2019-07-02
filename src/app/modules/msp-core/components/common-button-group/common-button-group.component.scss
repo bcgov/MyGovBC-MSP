@@ -1,0 +1,18 @@
+.msp-btn-radio {
+    background: #2962FF;
+    color: white;
+    &:hover {
+      background: #2962FF;
+      color: white;
+    }
+    &:not(:hover) {
+      background: #2962FF;
+      color: white;
+    }
+    &::selection {
+      background: #2962FF;
+    }
+    &:active {
+      background: #2962FF;
+    }
+  }

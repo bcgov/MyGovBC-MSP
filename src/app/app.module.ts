@@ -1,34 +1,48 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
-import {AccordionModule, ModalModule, TooltipModule} from 'ngx-bootstrap';
+// import { AccordionModule, ModalModule, TooltipModule } from 'ngx-bootstrap';
 import { GeneralAppComponent } from './app.component';
-import { CoreFooterComponent } from './components/core/footer';
-import { CoreHeaderComponent } from './components/core/header';
-import { MspModule } from './components/msp/msp.module';
-import { HttpClientModule} from '@angular/common/http';
-import {TextMaskModule} from 'angular2-text-mask';
+import { HttpClientModule } from '@angular/common/http';
+import { SharedCoreModule } from 'moh-common-lib';
+import { LandingComponent } from './pages/landing/landing.component';
+import { AppRoutingModule } from './app-routing.module';
+import { MspDataService } from './services/msp-data.service';
+import { LocalStorageModule } from 'angular-2-local-storage';
+import { ProcessService } from './services/process.service';
+import { MspLogService } from './services/log.service';
+import { CompletenessCheckService } from './services/completeness-check.service';
+import { MspApiService } from './services/msp-api.service';
 
-
-require('./index.scss');
 @NgModule({
-  imports: [ TextMaskModule,
+  imports: [
+    //TextMaskModule,
     BrowserModule,
-    MspModule,
+    SharedCoreModule,
     HttpClientModule,
-    ModalModule.forRoot(),
-    AccordionModule.forRoot(),
-    TooltipModule.forRoot(),
-    RouterModule.forRoot([
-      { path: '', redirectTo: 'msp', pathMatch: 'full' }
-    ])
+    //ModalModule.forRoot(),
+    //AccordionModule.forRoot(),
+    //TooltipModule.forRoot(),
+    AppRoutingModule,
+    //  RouterModule.forRoot([
+    //  { path: '', redirectTo: 'msp', pathMatch: 'full' }
+    //]),
+    LocalStorageModule.withConfig({
+      prefix: 'ca.bc.gov.msp',
+      storageType: 'sessionStorage'
+    })
+  ],
+  declarations: [LandingComponent, GeneralAppComponent],
+  providers: [
+    MspDataService,
+    ProcessService,
+    MspLogService,
+    CompletenessCheckService,
 
+    // Called by Completeness Check Service - PHN check, probably can be removed once
+    // phn component from common lib is use - will require re-factoring
+    MspApiService
   ],
-  declarations: [
-    CoreHeaderComponent, CoreFooterComponent,
-    GeneralAppComponent
-  ],
-  bootstrap: [CoreHeaderComponent, CoreFooterComponent, GeneralAppComponent]
+
+  bootstrap: [GeneralAppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

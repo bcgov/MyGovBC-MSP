@@ -1,20 +1,23 @@
 import {
-  Component, Input, Output, EventEmitter, ViewChild, OnChanges, SimpleChanges,
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  OnChanges,
+  SimpleChanges,
   ChangeDetectorRef
 } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {Person, Gender} from '../../model/person.model';
-import {UUID} from 'angular2-uuid';
-import {BaseComponent} from '../base.component';
+import { NgForm } from '@angular/forms';
+import { MspPerson, Gender } from '../../model/msp-person.model';
+import { UUID } from 'angular2-uuid';
+import { BaseComponent } from '../../../../models/base.component';
 
 @Component({
   selector: 'msp-gender',
   templateUrl: './gender.component.html'
 })
 export class MspGenderComponent extends BaseComponent {
-
-
-
   lang = require('./i18n');
 
   @ViewChild('formRef') form: NgForm;
@@ -22,7 +25,7 @@ export class MspGenderComponent extends BaseComponent {
   // Expose type to template
   Gender: typeof Gender = Gender;
 
-  @Input('person') person: Person;
+  @Input('person') person: MspPerson;
   @Input() showError: boolean;
 
   @Output() onChange = new EventEmitter<any>();
@@ -37,7 +40,7 @@ export class MspGenderComponent extends BaseComponent {
     super(cd);
   }
 
-  genderChange(evt: Gender){
+  genderChange(evt: Gender) {
     this.onChange.emit(evt);
     this.emitIsFormValid(true);
   }

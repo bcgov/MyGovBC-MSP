@@ -23,7 +23,8 @@ export const environment = {
         logBaseUrl: '/msp/api/logging',
         apiBaseUrl: '/msp/api',
         aclContextPath: '/accLetterIntegration/',
-        suppBenefitAPIUrl: '/accLetterIntegration/suppbenefit/',
+        suppBenefitAPIUrl: '/submit-application/suppbenefit/',
+        attachment: '/submit-attachment/',
         envServerBaseUrl: '/msp/api/env',
         captchaApiBaseUrl: '/msp/api/captcha',
         addressChangeBCUrl: 'https://www.addresschange.gov.bc.ca/',
@@ -43,5 +44,16 @@ export const environment = {
         // mspIsInMaintenanceFlag: false,
         // mspIsInMaintenanceText: null,
         // mspIsInMaintenanceTimes: null,
-    }
+    },
+    /** Link used in app */
+    links: {
+        FAQ: 'https =//www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/managing-your-msp-account/msp-account-change-faqs',
+        MSP_RESIDENT_CONTACT: 'http =//www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us',
+        MSP_ELIGIBILITY: 'http =//www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/are-you-eligible',
+        MSP_ASSISTANCE: 'http =//www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/premiums/regular-premium-assistance',
+        FPCARE: 'http =//www2.gov.bc.ca/gov/content/health/health-drug-coverage/pharmacare-for-bc-residents/who-we-cover/fair-pharmacare-plan',
+        ICBC: 'www.icbc.com'
+    },
+    /** Do not trigger guards */
+    bypassGuards: true
 };
