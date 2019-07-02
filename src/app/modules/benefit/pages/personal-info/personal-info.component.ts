@@ -61,7 +61,6 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     }
 
     onChange(values: any) {
-        console.log(values);
         this.dataService.saveBenefitApplication();
     }
 

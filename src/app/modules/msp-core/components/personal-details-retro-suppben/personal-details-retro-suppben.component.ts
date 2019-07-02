@@ -39,16 +39,14 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
         super(cd);
         this.benefitApp = this.dataService.benefitApp;
         this.person = this.dataService.benefitApp.applicant;
-        console.log(this.person);
+        // console.log(this.person);
     }
 
     ngAfterViewInit() {
         console.log(this.birthdate);
         this.personalDetailsForm.valueChanges.pipe(debounceTime(0))
             .subscribe( values => {
-                console.log(values);
                 this.onChange.emit(values);
-                console.log(this.person);
                 
                 //this.dataService.saveBenefitApplication();
             });
@@ -61,7 +59,6 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
     }
 
     isPhnUnique() {
-        console.log('Unique phn: '+this.benefitApp.isUniquePhns);
         return this.benefitApp.isUniquePhns;
     }
 

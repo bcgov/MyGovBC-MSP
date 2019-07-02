@@ -187,7 +187,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
                 ))).subscribe(
                     values => {
                         // console.log('values before saving: ', values);
-                        console.log('form update, saving');
                         this.dataService.saveBenefitApplication();
                     }
                 );

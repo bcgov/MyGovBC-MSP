@@ -29,16 +29,17 @@ export class MspFullNameComponent implements OnDestroy {
   constructor( @Optional() @Host() public parent: ControlContainer ) {
 
     this.newObs = of(this.data);
-    this.subscriptions = [ this.newObs.subscribe(obs => console.log(obs) ) ];
+    this.subscriptions = [ this.newObs.subscribe() ];
+
 
     if ( parent ) {
       this.subscriptions.push( parent.valueChanges.subscribe(obs => {
-        console.log( '(full-name) parent change values: ', obs );
+        // console.log( '(full-name) parent change values: ', obs );
         this.dataChange.emit( obs );
       }) );
-      this.subscriptions.push( parent.statusChanges.subscribe( x => {
-        console.log( '(full-name) parent change status: ', parent.status );
-      }) );
+      // this.subscriptions.push( parent.statusChanges.subscribe( x => {
+      //   console.log( '(full-name) parent change status: ', parent.status );
+      // }) );
     }
   }
 
