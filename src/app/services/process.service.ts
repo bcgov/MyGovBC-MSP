@@ -3,6 +3,7 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '
 import {Observable} from 'rxjs';
 import { MspDataService } from './msp-data.service';
 import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
+import { environment } from 'environments/environment';
 
 
 export class ProcessUrls {
@@ -93,6 +94,10 @@ export class ProcessService extends CheckCompleteBaseService implements CanActiv
         | Promise<boolean>
         | boolean {
         console.log('can activate? state: ' + state.url);
+
+        if (environment.bypassGuards) {
+            return true;
+        }
 
         // Find target route
         let lastIndex = 0;
