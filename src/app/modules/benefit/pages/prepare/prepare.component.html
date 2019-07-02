@@ -76,9 +76,9 @@
         
                         <!-- Question 4 - Do you have a spouse   -->
                         <div class="form-group">
-                            <common-radio [value]="benefitApp.hasSpouse"  [label]="lang('./en/index.js').doYouHaveASpouseOrPartner" 
+                            <common-radio [value]="benefitApp.hasSpouse"  label="Do you have a spouse or common-law partner?" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="dataService.benefitApp.hasSpouse = $event; dataService.saveBenefitApplication();">
+                                (statusChange)="dataService.benefitApp.hasSpouse = $event;">
                             </common-radio>
                         </div>   
         
@@ -193,23 +193,28 @@
                                     <label id="anyoneClaimeDisabilityQ" style="margin-bottom: 5px" > 
                                         Who claimed the attendant or nursing home expenses on last year's income tax return?
                                     </label>
-                                    <div class="form-group">
-                                        <div class="checkbox checkbox-success checkbox-inline" style="margin-left: 15px">
+                                    <div class="form-group d-flex">
+                                        <div class="form-check form-check-inline">
                                             <input type="checkbox" tabindex="0"
                                                     name="applicantClaimForDisabilityCredit"
                                                     id="applicantClaimForDisabilityCredit"
                                                     [checked]="benefitApp.selfDisabilityCredit"
+                                                    class='form-check-input'
                                                     (click)="toggleClaimForSelfDisabilityCredit($event)">
-                                            <label for="applicantClaimForDisabilityCredit">
+                                            <label for="applicantClaimForDisabilityCredit" class='form-check-label'>
                                                 Myself
                                             </label>
+
+                                        </div>
+                                        <div class='form-check form-check-inline'>
                                             <div *ngIf="benefitApp.hasSpouse">
                                                 <input type="checkbox" tabindex="0"
                                                     name="spouseClaimForDisabilityCredit"
                                                     id="spouseClaimForDisabilityCredit"
                                                     [checked]="benefitApp.spouseEligibleForDisabilityCredit"
+                                                    class='form-check-input'
                                                     (click)="toggleClaimForSpouseDisabilityCredit($event)">
-                                                <label for="spouseClaimForDisabilityCredit">
+                                                <label for="spouseClaimForDisabilityCredit" class='form-check-label'>
                                                     My spouse/common-law partner
                                                 </label>
                                             </div>
