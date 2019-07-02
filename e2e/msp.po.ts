@@ -1,6 +1,7 @@
 import { AbstractTestPage } from "moh-common-lib/e2e";
 import { browser, element, by } from "protractor";
 import { PersonalInfoPageTest } from "./supp-benefits/src/mspsb-supp-benefits.data";
+import { equalParamsAndUrlSegments } from "@angular/router/src/router_state";
 
 export class BaseMSPTestPage extends AbstractTestPage {
 
@@ -30,6 +31,30 @@ export class BaseMSPTestPage extends AbstractTestPage {
         element(by.css(`common-name[ng-reflect-name*="${ngVal}"] input`)).sendKeys(text);
     }
 
+    typeStreet(idVal: string, text: string) {
+        element(by.css(`common-street[id="${idVal}"] input`)).sendKeys(text);
+    }
+
+    typeCity(text: string) {
+        element(by.css(`common-city[id^="city"] input`)).sendKeys(text);
+    }
+
+    typeProvince(text: string) {
+        element(by.css('input[id^="province"]')).sendKeys(text);
+    }
+
+    typeCountry(text: string) {
+        element(by.css('input[id^="country"]')).sendKeys(text);
+    }   
+
+    typePostalCode(text: string) {
+        element(by.css(`common-postal-code[id^="postal"] input`)).sendKeys(text);
+    }
+
+    typePhoneNum(text: string) {
+        element(by.css(`common-phone-number input`)).sendKeys(text);
+    }
+
     typePHN(text: string) {
         element(by.css(`common-phn input`)).sendKeys(text);
     }
@@ -43,7 +68,7 @@ export class BaseMSPTestPage extends AbstractTestPage {
     }
 
     uploadMultipleFiles(START_YEAR: number, END_YEAR: number, absolutePath = '/space/workspace/MyGovBC-MSP/e2e/sample.jpg') {
-        for(var year = START_YEAR; year < END_YEAR; year++){
+        for(var year = START_YEAR; year <= END_YEAR; year++){
             element(by.css(`common-file-uploader[ng-reflect-id="${year}"] input[type="file"]`)).sendKeys(absolutePath);
         }
     }

@@ -15,10 +15,10 @@ export class FakeDataRetroPA {
 
     contactInfo(): ContactInfoPageTest {
         return {
+            streetAddress: faker.address.streetAddress(),
+            city: faker.address.city(),
             country: faker.address.country(),
             province: faker.address.state(),
-            address: faker.address.streetAddress(),
-            city: faker.address.city(),
             postal: faker.address.zipCode('?#? #?#'),
             mobile: faker.phone.phoneNumberFormat(2)
         };
@@ -43,10 +43,10 @@ export interface PersonalInfoPageTest {
 }
 
 export interface ContactInfoPageTest {
+    streetAddress: string;
+    city: string;
     country: string;
     province: string;
-    address: string;
-    city: string;
     postal: string;
     mobile: string;
 }

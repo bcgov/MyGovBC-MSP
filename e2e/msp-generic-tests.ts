@@ -75,6 +75,3 @@ export function onClickConsentModalTest(PAGE_URL: string) {
     });
 }
 
-
-
-

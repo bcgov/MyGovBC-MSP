@@ -2,7 +2,6 @@ import { browser, element, by } from 'protractor';
 import { PersonalInfoPage } from './mspretro-pa.po';
 import { FakeDataRetroPA } from './mspretro-pa.data';
 import { onPageLoadTest, onClickStepperTest, onClickContinueTest, onClickConsentModalTest, fillConsentModal } from '../../msp-generic-tests';
-import { homedir } from 'os';
 
 describe('MSP Retro PA - Personal Info Page', () => {
     let personalInfoPage: PersonalInfoPage;
@@ -38,6 +37,13 @@ describe('MSP Retro PA - Personal Info Page', () => {
         personalInfoPage.fillPageWithMultipleYears();
         personalInfoPage.fillPersonalInfo(personalInfoData);
         personalInfoPage.uploadMultipleFiles(personalInfoPage.START_YEAR, personalInfoPage.END_YEAR);
+        personalInfoPage.continue();
         expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL, 'should navigate to the next page');
+    });
+
+    it('03. should NOT let user continue if there is at least one incomplete field', () => {
+        personalInfoData.lastName = '';
+        personalInfoPage.fillPersonalInfoPage(personalInfoData);
+        expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL, 'should stay on the same page');
     });
 });

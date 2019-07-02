@@ -1,6 +1,7 @@
 import { BaseMSPTestPage } from "../../msp.po";
 import { element, by, browser } from "protractor";
 import { PersonalInfoPageTest } from "../../supp-benefits/src/mspsb-supp-benefits.data";
+import { ContactInfoPageTest } from "./mspretro-pa.data";
 
 export class BaseMSPRetroPATestPage extends BaseMSPTestPage {
 
@@ -51,4 +52,22 @@ export class PersonalInfoPage extends HomePage {
         this.uploadOneFile();
         this.continue();
     }
+}
+
+export class SpouseInfoPage extends PersonalInfoPage {
+
+
+}
+
+export class ContactInfoPage extends PersonalInfoPage {
+
+    fillContactInfoPage(data: ContactInfoPageTest) {
+        this.typeStreet('addressLine1', data.streetAddress);
+        this.typeCity(data.streetAddress);
+        this.typeProvince(data.province);
+        this.typeCountry(data.country);
+        this.typePostalCode(data.postal);
+        this.typePhoneNum(data.mobile);
+    }
+
 }
