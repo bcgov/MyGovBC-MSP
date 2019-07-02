@@ -87,8 +87,8 @@ export class MspApiBenefitService extends AbstractHttpService {
         return this.post<BenefitApplication>(url, suppBenefitResponse);
     }
 
-    public sendAttachments(token: string, applicationUUID: string, attachments: MspImage[]): Promise<ResponseType[]>  {
-        return new Promise<ResponseType[]>((resolve, reject) => {
+    public sendAttachments(token: string, applicationUUID: string, attachments: MspImage[]): Promise<string[]>  {
+        return new Promise<string[]>((resolve, reject) => {
 
             // Instantly resolve if no attachments
             if (!attachments || attachments.length < 1) {
@@ -96,7 +96,7 @@ export class MspApiBenefitService extends AbstractHttpService {
             }
 
             // Make a list of promises for each attachment
-            const attachmentPromises = new Array<Promise<ResponseType>>();
+            const attachmentPromises = new Array<Promise<string>>();
             for (const attachment of attachments) {
                 attachmentPromises.push(this.sendAttachment(token, applicationUUID, attachment));
             }
@@ -107,7 +107,7 @@ export class MspApiBenefitService extends AbstractHttpService {
 
             // Execute all promises are waiting for results
             return Promise.all(attachmentPromises).then(
-                (responses: ResponseType[]) => {
+                (responses: string[]) => {
                     // this.logService.log({
                     //     text: "Send All Attachments - Success",
                     //     response: responses,
@@ -161,9 +161,6 @@ export class MspApiBenefitService extends AbstractHttpService {
             // TODO - VALIDATE THIS VALUE IS CORRECT, NEEDS TO BE CONFIRMED
             url += '&dpackage=msp_sb_pkg';
 
-            // TODO - Description? Would have to set at each file uploader. Confirming with Oleg.
-            // description - UI does NOT collect this property
-
             // Setup headers
             const headers = new HttpHeaders({
                 'Content-Type': attachment.contentType,
@@ -187,7 +184,7 @@ export class MspApiBenefitService extends AbstractHttpService {
                         //     text: "Send Individual Attachment - Success",
                         //     response: response,
                         // }, "Send Individual Attachment - Success")
-                        return resolve();
+                        return resolve(response);
                     },
                     (error: Response | any) => {
                         console.log('error response in its origin form: ', error);
