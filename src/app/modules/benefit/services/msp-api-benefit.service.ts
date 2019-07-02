@@ -56,6 +56,7 @@ export class MspApiBenefitService extends AbstractHttpService {
                     return resolve(response);
                 });
             }).catch((error: Response | any) => {
+                    // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
                     console.log('sent all attachments rejected: ', error);
                     this.logService.log({
                         text: 'Attachment - Send All Rejected ',
