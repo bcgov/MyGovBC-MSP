@@ -22,7 +22,8 @@ export class AssistStateService {
     this.isPersonalInfoValid.bind(this),
     this.isSpouseValid.bind(this),
     this.isContactValid.bind(this),
-    this.isReviewValid.bind(this)
+    this.isReviewValid.bind(this),
+    this.isAuthorizeValid.bind(this)
   ];
 
   isHomeValid(): boolean {
@@ -69,6 +70,35 @@ export class AssistStateService {
 
   isReviewValid(): boolean {
     return true;
+  }
+
+  isAuthorizeValid() {
+    const familyAuth =
+      this.finAssistApp.authorizedByApplicant &&
+      ((this.finAssistApp.hasSpouseOrCommonLaw &&
+        this.finAssistApp.authorizedBySpouse) ||
+        !this.finAssistApp.hasSpouseOrCommonLaw);
+
+    if (!familyAuth) {
+      // console.log('PA application not authorized by applicant and spouse');
+    } else {
+      // console.log('PA application authorized by applicant and spouse');
+    }
+    const attorneyAUth =
+      this.finAssistApp.authorizedByAttorney &&
+      this.finAssistApp.powerOfAttorneyDocs.length > 0;
+    if (!attorneyAUth) {
+      // console.log('PA application not authorized by attorney');
+    } else {
+      // console.log('PA application authorized by attorney');
+    }
+    if (this.finAssistApp.authorizationToken == null) return false;
+
+    return (
+      (familyAuth === true || attorneyAUth === true) &&
+      this.finAssistApp.authorizationToken &&
+      this.finAssistApp.authorizationToken.length > 1
+    );
   }
 
   isValid(index: number) {
