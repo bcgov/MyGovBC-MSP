@@ -85,3 +85,9 @@
   .break-word {
     white-space: normal;
   }
+
+  .deduction-calculator-wrapper {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 2rem;
+  }
