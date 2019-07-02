@@ -1,3 +1,9 @@
+@import 'variables.scss';
+// @import "~bootstrap/scss/bootstrap/scss/functions";
+// @import "~bootstrap/scss/functions";
+// @import "~bootstrap/scss/variables";
+// @import "~bootstrap/scss/mixins/_breakpoints";
+
 @mixin border-radius($radius: 5px){
     -webkit-border-radius: $radius;
     -moz-border-radius: $radius;
@@ -86,8 +92,11 @@
     white-space: normal;
   }
 
+  @include media-breakpoint-up(md){
+
   .deduction-calculator-wrapper {
     position: -webkit-sticky;
     position: sticky;
     top: 2rem;
   }
+}
