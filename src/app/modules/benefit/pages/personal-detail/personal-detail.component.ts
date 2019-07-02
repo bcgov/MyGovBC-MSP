@@ -21,7 +21,7 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
 
     lang = require('./i18n');
     public dateLabel = 'BirthDate1';
-    private benefitApp: BenefitApplication;
+    public benefitApp: BenefitApplication;
 
     @Input() person: MspPerson;
    // @ViewChild('name') name: MspFullNameComponent;

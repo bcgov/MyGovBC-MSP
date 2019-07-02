@@ -20,6 +20,8 @@ export class MspFullNameComponent implements OnDestroy {
   @Input() data: MspPerson;
   @Input() disabled: boolean = false;
   @Output() dataChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
+  // Use old behaviour of having rows for each.  Preferable to set to false. Easier to embed in designs.
+  @Input() useRows = true;
 
   subscriptions: Subscription[];
   newObs = new Observable();

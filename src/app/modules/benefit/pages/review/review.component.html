@@ -42,14 +42,15 @@
   </div> -->
 </div>
 
-  <common-form-action-bar [defaultColor]="false" [submitLabel]="lang('./en/index.js').continueButton"
-            (btnClick)="continue()"
-            widthOption='extra-width-mobile-only'>
-  </common-form-action-bar>
-  <!--  
-<button
-        class="btn btn-primary" type="submit" (click)="continue()"
-        [innerHTML]="lang('./en/index.js').continueButton"></button>
-
-<msp-cancel></msp-cancel> -->
+<!--  
+  <button
+  class="btn btn-primary" type="submit" (click)="continue()"
+  [innerHTML]="lang('./en/index.js').continueButton"></button>
+  
+  <msp-cancel></msp-cancel> -->
 </common-page-framework>
+
+<common-form-action-bar [defaultColor]="false" [submitLabel]="lang('./en/index.js').continueButton"
+          (btnClick)="continue()"
+          widthOption='extra-width-mobile-only'>
+</common-form-action-bar>

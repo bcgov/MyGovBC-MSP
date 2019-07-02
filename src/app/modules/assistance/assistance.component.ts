@@ -1,3 +1,4 @@
+/*
 import { Component, Inject, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -6,9 +7,10 @@ import { filter } from 'rxjs/operators';
 /**
  * Application for Premium Assistance
  */
+/*
 @Component({
-  templateUrl: './assistance.component.html',
-  styleUrls: ['./assistance.component.scss']
+  templateUrl: './assistance.component.html'
+  // styleUrls: ['./assistance.component.scss']
 })
 export class AssistanceComponent {
   lang = require('./i18n');
@@ -22,7 +24,7 @@ export class AssistanceComponent {
       this.initProcessService();
     }
     */
-  /*
+/*
     return [ new MspProgressBarItem(this.lang('./en/index.js').progressStep1, this.processService.process.processSteps[0].route),
       new MspProgressBarItem(this.lang('./en/index.js').progressStep2, this.processService.process.processSteps[1].route),
       new MspProgressBarItem(this.lang('./en/index.js').progressStep3, this.processService.process.processSteps[2].route),
@@ -32,6 +34,7 @@ export class AssistanceComponent {
   }
 
   */
+/*
   constructor(
     // private processService: ProcessService,
     private changeRef: ChangeDetectorRef,
@@ -47,7 +50,7 @@ export class AssistanceComponent {
       name: "Assistance - Loaded Page",
       url: this.router.url
     },"Assistance - Page Load")*/
-
+/*
     this.routerSubscription = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(event => {
@@ -77,3 +80,4 @@ export class AssistanceComponent {
     //     new ProcessStep('/msp/assistance/sending')]);
   }
 }
+*/

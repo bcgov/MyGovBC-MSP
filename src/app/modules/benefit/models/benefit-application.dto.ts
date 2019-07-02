@@ -27,6 +27,10 @@ export default class BenefitApplicationDto {
   applicant: PersonDto = new PersonDto();
   spouse: PersonDto = new PersonDto();
 
+  // TODO - Verify this has been implemented correctly across models, e.g. what
+  // about BenefitApplication (non-dto)
+  hasSpouse: boolean;
+
   authorizedByApplicant: boolean;
   authorizedBySpouse: boolean;
   authorizedByAttorney: boolean;

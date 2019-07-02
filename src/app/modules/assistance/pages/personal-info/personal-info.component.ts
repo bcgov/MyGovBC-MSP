@@ -10,6 +10,7 @@ import { FinancialAssistApplication } from '../../models/financial-assist-applic
 import { AssistanceYear } from '../../models/assistance-year.model';
 import { MspPerson } from 'app/modules/account/models/account.model';
 import { AssistStateService } from '../../services/assist-state.service';
+import { Observable } from 'rxjs';
 
 @Component({
   // templateUrl: './personal-info.component.html'
@@ -42,7 +43,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   @ViewChild('phone') phone: MspPhoneComponent;
   financialAssistApplication: FinancialAssistApplication;
 
-  touched$ = this.stateSvc.touched.asObservable();
+  touched$: Observable<any>;
 
   title = 'Tell us about who is applying and upload official documents';
   subtitle = 'Account Holder (Main Applicant)';
@@ -82,6 +83,11 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
         .subscribe(val => {
           this.dataService.saveFinAssistApplication();
         })
+    );
+
+    setTimeout(
+      () => (this.touched$ = this.stateSvc.touched.asObservable()),
+      500
     );
 
     this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);

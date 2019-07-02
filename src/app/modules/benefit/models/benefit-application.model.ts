@@ -35,7 +35,7 @@ export class BenefitApplication implements ApplicationBase {
     spouseClaimForAttendantCareExpense: boolean = false;
     childClaimForAttendantCareExpense: boolean = false;
     haveChildrens: boolean;
-    hasSpouse: boolean ;
+    hasSpouse: boolean;
     childClaimForAttendantCareExpenseCount: number = 1;
 
 
