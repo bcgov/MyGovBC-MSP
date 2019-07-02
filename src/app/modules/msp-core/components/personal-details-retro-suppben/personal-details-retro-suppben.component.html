@@ -10,16 +10,25 @@
           </div>
       </div>
       
-      <!-- Full Name  -->
-      <div class="col-md-6"  style="margin-left: 15px">
-          <msp-full-name [data]="person" (dataChange)="onChange.emit($event);"></msp-full-name>
-      </div>
     </div>
     
+    <!-- Full Name  -->
+    <!-- <div class="row">
+        <div class="col-md-6">
+            <msp-full-name [data]="person" (dataChange)="onChange.emit($event);"></msp-full-name>
+            
+        </div>
+    </div> -->
+    <div class="row">
+        <div class="col-md-6">
+            <msp-full-name [useRows]='false' [data]="person" (dataChange)="onChange.emit($event);"></msp-full-name>
+        
+        </div>
+    </div>
 
     <!-- BirthDate  -->
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-md-6">
         <msp-birthdate #birthdate
                       [person]="person"
                       (onChange)="onChange.emit($event)">
@@ -29,7 +38,7 @@
 
     <!-- PHN  -->
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group">
               <common-phn
                       #phnRef="ngModel"
@@ -45,7 +54,7 @@
     
     <!-- SIN  -->
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-6">
           <div class="form-group"
               [ngClass]="{'has-error': !formRef.controls.sin?.valid && sinRef.touched}">
             <label class="control-label" for="sin">Social Insurance Number (SIN)</label>
