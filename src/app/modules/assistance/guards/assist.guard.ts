@@ -19,9 +19,10 @@ export class AssistGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     const url = state.url.slice(12, state.url.length);
+    console.log(this.stateSvc);
     this.stateSvc.setAssistPages(assistPages);
 
     let index = this.stateSvc.findIndex(url);
-    return this.stateSvc.isValid(index);
+    return index === 0 ? true : this.stateSvc.isValid(index - 1);
   }
 }
