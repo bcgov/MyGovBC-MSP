@@ -145,11 +145,14 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     this.finAssistApp.setSpouse = true;
     this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
     this.dataSvc.saveFinAssistApplication();
+    this.stateSvc.index.next(2);
   }
   removeSpouse() {
     this.finAssistApp.setSpouse = false;
     this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
     this.dataSvc.saveFinAssistApplication();
+    this.stateSvc.index.next(2);
+    console.log(this.finAssistApp.hasSpouseOrCommonLaw);
   }
   toggleYear(bool: boolean, year: number) {
     // console.log(this.finAssistApp);
