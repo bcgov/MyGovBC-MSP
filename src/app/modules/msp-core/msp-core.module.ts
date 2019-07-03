@@ -50,6 +50,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReviewPartComponent } from './components/review-part/review-part.component';
 import { ReviewCardWrapperComponent } from './components/review-card-wrapper/review-card-wrapper.component';
 import { ErrorComponent } from './components/error/error.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 const componentList = [
   MspFullNameComponent,
@@ -116,14 +117,16 @@ const templistCore = [
     CaptchaModule,
     HttpClientModule
   ],
-  declarations: [componentList, templistCore],
+  declarations: [componentList, templistCore, ConfirmationComponent],
   exports: [
     componentList,
     SharedCoreModule,
     CaptchaModule,
 
     // TODO: Be reviewed
-    templistCore
+    templistCore,
+
+    ConfirmationComponent
   ]
 })
 export class MspCoreModule {}

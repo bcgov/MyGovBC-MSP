@@ -16,6 +16,7 @@ export class AssistStateService {
   touched: Subject<boolean> = new Subject<boolean>();
   routes: string[];
   finAssistApp = this.dataSvc.finAssistApp;
+  submitted = false;
 
   validations = [
     this.isHomeValid.bind(this),

@@ -20,12 +20,15 @@ import { FinancialAssistApplication } from '../../models/financial-assist-applic
     <common-form-action-bar
       (btnClick)="continue()"
       [submitLabel]="submitLabel$ | async"
+      [isLoading]="isLoading"
     ></common-form-action-bar>
   `,
   styleUrls: ['./assist-container.component.scss']
 })
 export class AssistContainerComponent extends Container implements OnInit {
   app: FinancialAssistApplication = this.dataSvc.finAssistApp;
+  isLoading = false;
+  submitted = false;
 
   submitLabels = {
     0: 'Continue',
@@ -69,11 +72,24 @@ export class AssistContainerComponent extends Container implements OnInit {
   continue() {
     let index = this.stateSvc.index.value;
     console.log('current index', index);
-    let bool = this.stateSvc.isValid(index);
-    console.log('valid index?', bool);
-    bool
-      ? this.router.navigate([`/assistance/${this.stateSvc.routes[index + 1]}`])
+
+    this.stateSvc.isValid(index)
+      ? this.navigate(index)
       : this.stateSvc.touched.next(true);
     // ;
+  }
+
+  navigate(index: number) {
+    index !== 5
+      ? this.router.navigate([`/assistance/${this.stateSvc.routes[index + 1]}`])
+      : this.submit();
+  }
+  submit() {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.stateSvc.submitted = true;
+      this.isLoading = false;
+      this.submitLabel$.next('Home');
+    }, 1000);
   }
 }
