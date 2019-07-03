@@ -125,14 +125,16 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
       );
   }
 
-  onChange($event) {
-    console.log('changes from child component triggering save: ');
-    this.dataService.saveFinAssistApplication();
-  }
+  // onChange($event) {
+  //   console.log('event', $event);
+  //   console.log('changes from child component triggering save: ');
+  //   this.dataService.saveFinAssistApplication();
+  // }
 
   // Final check to see if the country is present // DEF 153
 
   saveAccountHolder(evt: MspPerson) {
+    console.log(evt);
     this.dataService.saveFinAssistApplication();
   }
 }

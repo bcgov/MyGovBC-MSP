@@ -43,8 +43,7 @@ export class AssistStateService {
     if (!validatePHN(person.previous_phn)) return false;
 
     if (!/\b[1-9]\d{2}[- ]?\d{3}[- ]?\d{3}\b/.test(person.sin)) return false;
-
-    if (!validateBirthdate(person.dateOfBirth)) return false;
+    if (!validateBirthdate(person.dobSimple)) return false;
     const filteredYears = this.filteredYears('files');
     for (let year in filteredYears) {
       if (year.length < 1) return false;
@@ -79,19 +78,10 @@ export class AssistStateService {
         this.finAssistApp.authorizedBySpouse) ||
         !this.finAssistApp.hasSpouseOrCommonLaw);
 
-    if (!familyAuth) {
-      // console.log('PA application not authorized by applicant and spouse');
-    } else {
-      // console.log('PA application authorized by applicant and spouse');
-    }
     const attorneyAUth =
       this.finAssistApp.authorizedByAttorney &&
       this.finAssistApp.powerOfAttorneyDocs.length > 0;
-    if (!attorneyAUth) {
-      // console.log('PA application not authorized by attorney');
-    } else {
-      // console.log('PA application authorized by attorney');
-    }
+
     if (this.finAssistApp.authorizationToken == null) return false;
 
     return (

@@ -45,6 +45,7 @@ export class AssistContainerComponent extends Container implements OnInit {
     console.log('index', this.stateSvc.index.value);
     this.stateSvc.index.subscribe(obs => {
       if (obs === 5) this.submitLabel.next('Submit');
+      else this.submitLabel.next('Continue');
     });
   }
 
