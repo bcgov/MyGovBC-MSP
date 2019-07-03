@@ -1,0 +1,1025 @@
+{
+  "id": "moh-msp/MSPApplication.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "SubNameType": {
+      "type": "string",
+      "maxLength": 30
+    },
+    "NameType": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "$ref": "#/definitions/SubNameType"
+        },
+        "secondName": {
+          "$ref": "#/definitions/SubNameType"
+        },
+        "lastName": {
+          "$ref": "#/definitions/SubNameType"
+        }
+      },
+      "required": ["firstName", "lastName"]
+    },
+    "SubAddressLineType": {
+      "type": "string",
+      "maxLength": 25
+    },
+    "CityType": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 25
+    },
+    "PostalCodeType": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 25
+    },
+    "ProvinceOrStateType": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 25
+    },
+    "CountryType": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 30
+    },
+    "AddressType": {
+      "type": "object",
+      "properties": {
+        "addressLine1": {
+          "$ref": "#/definitions/SubAddressLineType"
+        },
+        "addressLine2": {
+          "$ref": "#/definitions/SubAddressLineType"
+        },
+        "addressLine3": {
+          "$ref": "#/definitions/SubAddressLineType"
+        },
+        "city": {
+          "$ref": "#/definitions/CityType"
+        },
+        "postalCode": {
+          "$ref": "#/definitions/PostalCodeType"
+        },
+        "provinceOrState": {
+          "$ref": "#/definitions/ProvinceOrStateType"
+        },
+        "country": {
+          "$ref": "#/definitions/CountryType"
+        }
+      },
+      "required": ["addressLine1", "city", "postalCode", "provinceOrState", "country"]
+    },
+    "GenderType": {
+      "type": "string",
+      "pattern": "^[MF]$"
+    },
+    "PHNType": {
+      "type": "string",
+      "pattern": "^[1-9]([0-9]{9})$"
+    },
+    "GroupNumberType": {
+      "type": "string",
+      "pattern": "^[0-9]*$"
+    },
+    "YearType": {
+      "type": "string",
+      "pattern": "^[1-2]([0-9]{3})$"
+    },
+    "SINType": {
+      "type": "string",
+      "pattern": "^[1-9]([0-9]{8})$"
+    },
+    "TelephoneType": {
+      "type": "string",
+      "pattern": "^[2-9]([0-9]{9})$"
+    },
+    "NumberOfTaxYearsType": {
+      "type": "string",
+      "pattern": "^[1-7]$"
+    },
+    "YesOrNoType": {
+      "type": "string",
+      "pattern": "^[YN]{1}$\b"
+    },
+    "AssistanceYearType": {
+      "type": "string",
+      "enum": ["CurrentPA", "PreviousTwo", "MultiYear"]
+    },
+    "CitizenshipType": {
+      "type": "string",
+      "enum": ["CanadianCitizen", "PermanentResident", "WorkPermit", "StudyPermit", "Diplomat", "ReligiousWorker", "VisitorPermit"]
+    },
+    "ContentType": {
+      "type": "string",
+      "enum": ["image/jpeg", "application/pdf"]
+    },
+    "OperationActionType": {
+      "type": "string",
+      "enum": ["Add", "Remove", "Update"]
+    },
+    "PrevProvinceOrCountryType": {
+      "type": "string",
+      "maxLength": 25
+    },
+    "PrevHealthNumberType": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "SchoolNameType": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "InstitutionNameType": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "SchoolAddressType": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "CancellationReasonType": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "AttachmentUuidsType": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "CitizenshipStatus": {
+      "type": "object",
+      "properties": {
+        "citizenshipType": {
+          "$ref": "#/definitions/CitizenshipType"
+        },
+        "attachmentUuids": {
+          "$ref": "#/definitions/AttachmentUuidsType"
+        }
+      },
+      "required": ["citizenshipType", "attachmentUuids"]
+    },
+    "MMDDYYDateType": {
+      "type": "string",
+      "pattern": "^[0-9]{2}-[0-9]{2}-[12][0-9]{3}$"
+    },
+    "BasicInfoType": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/NameType"
+        },
+        "gender": {
+          "$ref": "#/definitions/GenderType"
+        },
+        "birthDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "attachmentUuids": {
+          "$ref": "#/definitions/AttachmentUuidsType"
+        }
+      },
+      "required": ["name", "birthDate"]
+    },
+    "PreviousCoverageType": {
+      "type": "object",
+      "properties": {
+        "hasPreviousCoverage": {
+          "$ref": "#/definitions/YesOrNoType"
+        },
+        "prevPHN": {
+          "$ref": "#/definitions/PHNType"
+        }
+      },
+      "required": ["hasPreviousCoverage"]
+    },
+    "OutsideBCType": {
+      "type": "object",
+      "properties": {
+        "beenOutsideBCMoreThan": {
+          "$ref": "#/definitions/YesOrNoType"
+        },
+        "departureDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "returnDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "familyMemeberReason": {
+          "type": "string"
+        },
+        "destination": {
+          "type": "string"
+        }
+      },
+      "required": ["beenOutsideBCMoreThan"]
+    },
+    "LivedInBCType": {
+      "type": "object",
+      "properties": {
+        "hasLivedInBC": {
+          "$ref": "#/definitions/YesOrNoType"
+        },
+        "recentBCMoveDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "recentCanadaMoveDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "isPermanentMove": {
+          "$ref": "#/definitions/YesOrNoType"
+        },
+        "prevProvinceOrCountry": {
+          "$ref": "#/definitions/PrevProvinceOrCountryType"
+        },
+        "prevHealthNumber": {
+          "$ref": "#/definitions/PrevHealthNumberType"
+        }
+      },
+      "required": ["hasLivedInBC"]
+    },
+    "WillBeAwayType": {
+      "type": "object",
+      "properties": {
+        "isFullTimeStudent": {
+          "$ref": "#/definitions/YesOrNoType"
+        },
+        "isInBCafterStudies": {
+          "$ref": "#/definitions/YesOrNoType"
+        },
+        "armedDischargeDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "armedForceInstitutionName": {
+          "$ref": "#/definitions/InstitutionNameType"
+        }
+      },
+      "required": ["isFullTimeStudent"]
+    },
+	"ResidencyType": {
+       "type": "object",
+       "properties": {
+	      "citizenshipStatus": { 
+	        "$ref": "#/definitions/CitizenshipStatus" 
+	      },
+		  "previousCoverage": { 
+		    "$ref": "#/definitions/PreviousCoverageType" 
+		  },
+		  "livedInBC": { 
+		    "$ref": "#/definitions/LivedInBCType"
+		  },
+		  "outsideBC": { 
+		    "$ref": "#/definitions/OutsideBCType" 
+		  },
+		  "outsideBCinFuture": { 
+		    "$ref": "#/definitions/OutsideBCType" 
+		  },
+		  "willBeAway": { 
+		    "$ref": "#/definitions/WillBeAwayType" 
+		  }
+        },
+        "required": [ "citizenshipStatus", "previousCoverage", "livedInBC", "outsideBC", "willBeAway" ]
+    },
+    "PersonType": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/NameType"
+        },
+        "gender": {
+          "$ref": "#/definitions/GenderType"
+        },
+        "birthDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "attachmentUuids": {
+          "$ref": "#/definitions/AttachmentUuidsType"
+        },
+        "residency": {
+          "$ref": "#/definitions/ResidencyType"
+        }
+      },
+      "required": [ "name", "gender", "birthDate", "attachmentUuids", "residency" ]
+    },
+    "DependentType": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/NameType"
+        },
+        "gender": {
+          "$ref": "#/definitions/GenderType"
+        },
+        "birthDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "attachmentUuids": {
+          "$ref": "#/definitions/AttachmentUuidsType"
+        },
+        "residency": {
+          "$ref": "#/definitions/ResidencyType"
+        },
+        "schoolName": {
+          "$ref": "#/definitions/SchoolNameType"
+        },
+        "schoolAddress": {
+          "$ref": "#/definitions/AddressType"
+        },
+        "dateStudiesFinish": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "departDateSchoolOutside": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        }
+      },
+      "required": [ "name", "gender", "birthDate", "schoolName", "schoolAddress", "residency", "attachmentUuids", "dateStudiesFinish", "departDateSchoolOutside" ]
+    },
+    "EnrolmentApplicantType": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/NameType"
+        },
+        "gender": {
+          "$ref": "#/definitions/GenderType"
+        },
+        "birthDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "attachmentUuids": {
+          "$ref": "#/definitions/AttachmentUuidsType"
+        },
+        "telephone": {
+          "$ref": "#/definitions/TelephoneType"
+        },
+        "residenceAddress": {
+          "$ref": "#/definitions/AddressType"
+        },
+        "mailingAddress": {
+          "$ref": "#/definitions/AddressType"
+        },
+        "residency": {
+          "$ref": "#/definitions/ResidencyType"
+        },
+        "authorizedByApplicant": {
+          "$ref": "#/definitions/YesOrNoType"
+        },
+        "authorizedByApplicantDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "authorizedBySpouse": {
+          "$ref": "#/definitions/YesOrNoType"
+        }
+      },
+      "required": [ "name", "gender", "birthDate", "residenceAddress", "residency", "attachmentUuids", "authorizedByApplicant", "authorizedByApplicantDate", "authorizedBySpouse" ]
+    },
+    "EnrolmentChildrenType": {
+      "type": "array",
+      "items": {
+        "child": {
+          "$ref": "#/definitions/PersonType"
+        }
+      }
+    },
+    "EnrolmentDependentsType": {
+      "type": "array",
+      "items": {
+        "child": {
+          "$ref": "#/definitions/DependentType"
+        }
+      }
+    },
+    "EnrolmentApplicationType": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/EnrolmentApplicantType"
+        },
+        "spouse": {
+          "$ref": "#/definitions/PersonType"
+        },
+        "children": {
+          "$ref": "#/definitions/EnrolmentChildrenType"
+        },
+        "dependents": {
+          "$ref": "#/definitions/EnrolmentDependentsType"
+        }
+      },
+      "required": ["applicant"]
+    },
+    "AccountChangeAccountHolderType": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/NameType"
+        },
+        "gender": {
+          "$ref": "#/definitions/GenderType"
+        },
+        "birthDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "attachmentUuids": {
+          "$ref": "#/definitions/AttachmentUuidsType"
+        },
+        "phn": {
+          "$ref": "#/definitions/PHNType"
+        },
+        "telephone": {
+          "$ref": "#/definitions/TelephoneType"
+        },
+        "residenceAddress": {
+          "$ref": "#/definitions/AddressType"
+        },
+        "mailingAddress": {
+          "$ref": "#/definitions/AddressType"
+        },
+        "citizenship": {
+          "$ref": "#/definitions/CitizenshipType"
+        },
+        "authorizedByApplicant": {
+          "$ref": "#/definitions/YesOrNoType"
+        },
+        "authorizedByApplicantDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "authorizedBySpouse": {
+          "$ref": "#/definitions/YesOrNoType"
+        },
+        "selectedAddressChange": {
+          "$ref": "#/definitions/YesOrNoType"
+        },
+        "selectedPersonalInfoChange": {
+          "$ref": "#/definitions/YesOrNoType"
+        },
+        "selectedAddRemove": {
+          "$ref": "#/definitions/YesOrNoType"
+        },
+        "selectedStatusChange": {
+          "$ref": "#/definitions/YesOrNoType"
+        }
+      },
+      "required": ["name", "gender", "birthDate", "phn", "residenceAddress", "authorizedByApplicant", "authorizedByApplicantDate", "selectedAddressChange", "selectedPersonalInfoChange", "selectedAddRemove", "selectedStatusChange"]
+    },
+    "AccountChangeSpouseType": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/NameType"
+        },
+        "gender": {
+          "$ref": "#/definitions/GenderType"
+        },
+        "birthDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "attachmentUuids": {
+          "$ref": "#/definitions/AttachmentUuidsType"
+        },
+        "citizenship": {
+          "$ref": "#/definitions/CitizenshipType"
+        },
+        "previousCoverage": {
+          "$ref": "#/definitions/PreviousCoverageType"
+        },
+        "livedInBC": {
+          "$ref": "#/definitions/LivedInBCType"
+        },
+        "outsideBC": {
+          "$ref": "#/definitions/OutsideBCType"
+        },
+        "outsideBCinFuture": {
+          "$ref": "#/definitions/OutsideBCType"
+        },
+        "willBeAway": {
+          "$ref": "#/definitions/WillBeAwayType"
+        },
+        "previousLastName": {
+          "$ref": "#/definitions/SubNameType"
+        },
+        "mailingAddress": {
+          "$ref": "#/definitions/AddressType"
+        },
+        "marriageDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "phn": {
+          "$ref": "#/definitions/PHNType"
+        },
+        "cancellationReason": {
+          "$ref": "#/definitions/CancellationReasonType"
+        },
+        "cancellationDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        }
+      },
+      "required": ["name", "birthDate", "gender", "phn"]
+    },
+    "AccountChangeSpousesType": {
+      "type": "object",
+      "properties": {
+        "removedSpouse": {
+          "$ref": "#/definitions/AccountChangeSpouseType"
+        },
+        "addedSpouse": {
+          "$ref": "#/definitions/AccountChangeSpouseType"
+        },
+        "updatedSpouse": {
+          "$ref": "#/definitions/AccountChangeSpouseType"
+        }
+      }
+    },
+    "AccountChangeChildType": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/NameType"
+        },
+        "gender": {
+          "$ref": "#/definitions/GenderType"
+        },
+        "birthDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "attachmentUuids": {
+          "$ref": "#/definitions/AttachmentUuidsType"
+        },
+        "operationAction": {
+          "$ref": "#/definitions/OperationActionType"
+        },
+        "citizenship": {
+          "$ref": "#/definitions/CitizenshipType"
+        },
+        "isExistingBeneficiary": {
+          "$ref": "#/definitions/YesOrNoType"
+        },
+        "previousCoverage": {
+          "$ref": "#/definitions/PreviousCoverageType"
+        },
+        "livedInBC": {
+          "$ref": "#/definitions/LivedInBCType"
+        },
+        "outsideBC": {
+          "$ref": "#/definitions/OutsideBCType"
+        },
+        "outsideBCinFuture": {
+          "$ref": "#/definitions/OutsideBCType"
+        },
+        "willBeAway": {
+          "$ref": "#/definitions/WillBeAwayType"
+        },
+        "mailingAddress": {
+          "$ref": "#/definitions/AddressType"
+        },
+        "phn": {
+          "$ref": "#/definitions/PHNType"
+        },
+        "cancellationReason": {
+          "$ref": "#/definitions/CancellationReasonType"
+        },
+        "cancellationDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "adoptionDate": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "schoolName": {
+          "$ref": "#/definitions/SchoolNameType"
+        },
+        "schoolAddress": {
+          "$ref": "#/definitions/AddressType"
+        },
+        "dateStudiesBegin": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "dateStudiesFinish": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        },
+        "departDateSchoolOutside": {
+          "$ref": "#/definitions/MMDDYYDateType"
+        }
+      },
+      "required": ["name", "birthDate", "operationAction", "gender", "phn"]
+	},
+	"AccountChangeChildrenType": {
+	  "type": "array",
+	  "properties": {
+		"child": {
+		  "$ref": "#/definitions/AccountChangeChildType"
+		}
+      }
+	},
+      "AccountChangeApplicationType": {
+        "type": "object",
+        "properties": {
+          "accountHolder": {
+            "$ref": "#/definitions/AccountChangeAccountHolderType"
+          },
+          "spouses": {
+            "$ref": "#/definitions/AccountChangeSpousesType"
+          },
+          "children": {
+            "$ref": "#/definitions/AccountChangeChildrenType"
+          }
+        },
+        "required": ["accountHolder", "spouses"]
+      },
+      "FinancialsType": {
+        "type": "object",
+        "properties": {
+          "taxYear": {
+            "$ref": "#/definitions/YearType"
+          },
+          "assistanceYear": {
+            "$ref": "#/definitions/AssistanceYearType"
+          },
+          "numberOfTaxYears": {
+            "$ref": "#/definitions/NumberOfTaxYearsType"
+          },
+          "netIncome": {
+            "type": "number"
+          },
+          "spouseNetIncome": {
+            "type": "number"
+          },
+          "totalNetIncome": {
+            "type": "number"
+          },
+          "spouseDeduction": {
+            "type": "number"
+          },
+          "sixtyFiveDeduction": {
+            "type": "number"
+          },
+          "spouseSixtyFiveDeduction": {
+            "type": "number"
+          },
+          "numChildren": {
+            "type": "number"
+          },
+          "childDeduction": {
+            "type": "number"
+          },
+          "childCareExpense": {
+            "type": "number"
+          },
+          "deductions": {
+            "type": "number"
+          },
+          "uccb": {
+            "type": "number"
+          },
+          "numDisabled": {
+            "type": "number"
+          },
+          "disabilityDeduction": {
+            "type": "number"
+          },
+          "disabilitySavingsPlan": {
+            "type": "number"
+          },
+          "totalDeductions": {
+            "type": "number"
+          },
+          "adjustedNetIncome": {
+            "type": "number"
+          }
+        },
+        "required": ["taxYear", "assistanceYear", "numberOfTaxYears", "netIncome", "totalNetIncome", "sixtyFiveDeduction", "deductions", "childDeduction", "totalDeductions", "adjustedNetIncome" ]
+      },
+      "AssistanceApplicantType": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "$ref": "#/definitions/NameType"
+          },
+          "gender": {
+            "$ref": "#/definitions/GenderType"
+          },
+          "birthDate": {
+            "$ref": "#/definitions/MMDDYYDateType"
+          },
+          "attachmentUuids": {
+            "$ref": "#/definitions/AttachmentUuidsType"
+          },
+          "telephone": {
+            "$ref": "#/definitions/TelephoneType"
+          },
+          "mailingAddress": {
+            "$ref": "#/definitions/AddressType"
+          },
+          "financials": {
+            "$ref": "#/definitions/FinancialsType"
+          },
+          "phn": {
+            "$ref": "#/definitions/PHNType"
+          },
+          "SIN": {
+            "$ref": "#/definitions/SINType"
+          },
+          "powerOfAttorney": {
+            "$ref": "#/definitions/YesOrNoType"
+          }
+        },
+        "required": ["name", "birthDate", "mailingAddress", "financials", "phn", "SIN", "powerOfAttorney"]
+      },
+      "AssistanceSpouseType": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "$ref": "#/definitions/NameType"
+          },
+          "birthDate": {
+            "$ref": "#/definitions/MMDDYYDateType"
+          },
+          "phn": {
+            "$ref": "#/definitions/PHNType"
+          },
+          "SIN": {
+            "$ref": "#/definitions/SINType"
+          },
+          "spouseDeduction": {
+            "type": "number"
+          },
+		  "spouseSixtyFiveDeduction": {
+            "type": "number"
+          },
+          "attachmentUuids": {
+            "$ref": "#/definitions/AttachmentUuidsType"
+          }
+        },
+        "required": ["name", "birthDate", "phn", "SIN"]
+      },
+      "AssistanceApplicationType": {
+        "type": "object",
+        "properties": {
+          "applicant": {
+            "$ref": "#/definitions/AssistanceApplicantType"
+          },
+          "spouse": {
+            "$ref": "#/definitions/AssistanceSpouseType"
+          },
+          "authorizedByApplicant": {
+            "$ref": "#/definitions/YesOrNoType"
+          },
+          "authorizedByApplicantDate": {
+            "$ref": "#/definitions/MMDDYYDateType"
+          },
+          "authorizedBySpouse": {
+            "$ref": "#/definitions/YesOrNoType"
+          }
+        },
+        "required": ["applicant", "authorizedByApplicant", "authorizedByApplicantDate", "authorizedBySpouse"]
+      },
+      "SupplementaryBenefitsApplicationType": {
+        "type": "object",
+        "properties": {
+		   	"applicantFirstName" : {
+		      "type": "string",
+		      "maxLength": 30,
+		      "description": "Applicant First Name"
+		    },
+		    "applicantSecondName" : {
+		      "type": "string",
+		      "maxLength": 30,
+		      "description": "Applicant Middle Name"
+		    },
+		    "applicantLastName" : {
+		      "type": "string",
+		      "maxLength": 30,
+		      "description": "Applicant Last Name"
+		    },
+		    "applicantGender": {
+		      "type": "string",
+		      "pattern": "^[MF]$",
+		      "description": "Gender of Applicant"
+		    },
+		    "applicantBirthdate": {
+		      "$ref": "#/definitions/MMDDYYDateType",
+		      "description": "Birthdate of Applicant"
+		    },
+		    "applicantPHN": {
+		      "$ref": "#/definitions/PHNType",
+		      "description": "PHN of Applicant"
+		    },
+		    "applicantSIN": {
+		      "$ref": "#/definitions/SINType",
+		      "description": "SIN of Applicant"
+		    },
+		    "applicantAddressLine1" : {
+		      "type": "string",
+		      "maxLength": 25,
+		      "description": "Applicant Address Line 1"
+		    },
+		    "applicantAddressLine2" : {
+		      "type": "string",
+		      "maxLength": 25,
+		      "description": "Applicant Address Line 2"
+		    },
+		    "applicantAddressLine3" : {
+		      "type": "string",
+		      "maxLength": 25,
+		      "description": "Applicant Address Line 3"
+		    },
+		    "applicantCity" : {
+		      "type": "string",
+		      "maxLength": 25,
+		      "description": "Applicant City"
+		    },
+		    "applicantProvinceOrState" : {
+		      "type": "string",
+		      "maxLength": 25,
+		      "description": "Applicant Province or State"
+		    },
+		    "applicantCountry" : {
+		      "type": "string",
+		      "maxLength": 25,
+		      "description": "Applicant Country"
+		    },
+		    "applicantPostalCode": {
+		      "type": "string",
+		      "pattern": "^[V][0-9][ABCEGHJ-NPRSTV-Z][0-9][ABCEGHJ-NPRSTV-Z][0-9]$",
+		      "description": "PostalCode of Applicant"
+		    },
+		    "applicantTelephone": {
+		      "$ref": "#/definitions/TelephoneType",
+		      "description": "Telephone of Applicant"
+		    },
+		    "spouseFirstName" : {
+		      "type": "string",
+		      "maxLength": 30,
+		      "description": "Spouse First Name"
+		    },
+		    "spouseSecondName" : {
+		      "type": "string",
+		      "maxLength": 30,
+		      "description": "Spouse Middle Name"
+		    },
+		    "spouseLastName" : {
+		      "type": "string",
+		      "maxLength": 30,
+		      "description": "Spouse Last Name"
+		    },
+		    "spouseBirthdate": {
+		      "$ref": "#/definitions/MMDDYYDateType",
+		      "description": "Birthdate of Spouse"
+		    },
+		    "spousePHN": {
+		      "$ref": "#/definitions/PHNType",
+		      "description": "PHN of Spouse"
+		    },
+		    "spouseSIN": {
+		      "$ref": "#/definitions/SINType",
+		      "description": "SIN of Spouse"
+		    },
+		    "authorizedByApplicant": {
+		      "$ref": "#/definitions/YesOrNoType",
+		      "description": "Applicant authorization"
+		    },
+		    "authorizedByApplicantDate": {
+		      "$ref": "#/definitions/MMDDYYDateType",
+		      "description": "Date of authorization"
+		    },
+		    "authorizedBySpouse": {
+		      "$ref": "#/definitions/YesOrNoType",
+		      "description": "Spouse authorization"
+		    },
+		    "powerOfAttorney": {
+		      "$ref": "#/definitions/YesOrNoType",
+		      "description": "Power of attorney"
+		    },
+		    "assistanceYear": {
+		      "type": "string",
+		      "pattern": "^[1-2]{1}[0-9]{3}$",
+		      "description": "Assistance Year"
+		    },
+		    "taxYear": {
+		      "type": "string",
+		      "pattern": "^[1-2]{1}[0-9]{3}$",
+		      "description": "Tax Year"
+		    },
+		    "numberOfTaxYears": {
+		      "type": "number",
+		      "description": "Number of Tax Years"
+		    },
+		    "adjustedNetIncome": {
+		      "type": "number",
+		      "description": "Adjusted Net Income"
+		    },
+		    "childDeduction": {
+		      "type": "number",
+		      "description": "Child Deduction"
+		    },
+		    "deductions": {
+		      "type": "number",
+		      "description": "Deductions"
+		    },
+		    "disabilityDeduction": {
+		      "type": "number",
+		      "description": "Disability Deduction"
+		    },
+		    "sixtyFiveDeduction": {
+		      "type": "number",
+		      "description": "Sixty Five years age deduction"
+		    },
+		    "totalDeductions": {
+		      "type": "number",
+		      "description": "Total Deductions"
+		    },
+		    "totalNetIncome": {
+		      "type": "number",
+		      "description": "Total Net Income"
+		    },
+		    "childCareExpense": {
+		      "type": "number",
+		      "description": "Child Care Expense"
+		    },
+		    "netIncomeLastYear": {
+		      "type": "number",
+		      "description": "Net Income Last Year"
+		    },
+		    "numChildren": {
+		      "type": "number",
+		      "description": "Number of Children"
+		    },
+		    "numDisabled": {
+		      "type": "number",
+		      "description": "Number of Disabled persons in care"
+		    },
+		    "spouseIncomeLine236": {
+		      "type": "number",
+		      "description": "Spouse Income line 236"
+		    },
+		    "reportedUCCBenefit": {
+		      "type": "number",
+		      "description": "Reported UCC Benefit Line 117"
+		    },
+		    "spouseDSPAmount": {
+		      "type": "number",
+		      "description": "Spouse DSP Amount Line 125"
+		    },
+		    "spouseDeduction": {
+		      "type": "number",
+		      "description": "Spouse Deduction"
+		    },
+		    "spouseSixtyFiveDeduction": {
+		      "type": "number",
+		      "description": "Spouse 65 years old deduction"
+		    },
+		    "applicantAttachmentUuids": {
+              "$ref": "#/definitions/AttachmentUuidsType"
+            },
+            "spouseAttachmentUuids": {
+              "$ref": "#/definitions/AttachmentUuidsType"
+            }
+        },
+        "required": [ "applicantFirstName" , "applicantSecondName" , "applicantLastName" , "applicantBirthdate", "applicantPHN", "applicantSIN", "applicantAddressLine1" , "applicantCity" , "applicantProvinceOrState" , "applicantCountry" , "applicantPostalCode", "applicantTelephone", "authorizedByApplicant", "authorizedByApplicantDate", "powerOfAttorney", "assistanceYear", "taxYear", "numberOfTaxYears", "adjustedNetIncome", "childDeduction", "deductions", "disabilityDeduction", "sixtyFiveDeduction", "totalDeductions", "totalNetIncome", "childCareExpense", "netIncomeLastYear", "numChildren", "numDisabled", "spouseIncomeLine236", "reportedUCCBenefit", "spouseDSPAmount", "spouseDeduction", "applicantAttachmentUuids" ]
+      },
+      "AttachmentType": {
+        "type": "object",
+        "properties": {
+          "contentType": {
+            "$ref": "#/definitions/ContentType"
+          },
+          "attachmentDocumentType": {
+            "type": "string"
+          },
+          "attachmentUuid": {
+            "type": "string"
+          },
+          "attachmentOrder": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": ["contentType", "attachmentDocumentType", "attachmentUuid"]
+      },
+      "AttachmentsType": {
+        "type": "array",
+        "items": {
+          "attachment": {
+            "$ref": "#/definitions/AttachmentType"
+          }
+        }
+      }
+	},
+	
+	"title": "Application",
+	"type": "object",
+    "properties": {
+      "enrolmentApplication": { "$ref": "#/definitions/EnrolmentApplicationType" },
+      "assistanceApplication": { "$ref": "#/definitions/AssistanceApplicationType" },
+      "accountChangeApplication": { "$ref": "#/definitions/AccountChangeApplicationType" },
+      "supplementaryBenefitsApplication": { "$ref": "#/definitions/SupplementaryBenefitsApplicationType" },
+      "uuid": { "type": "string" },
+      "attachments": { "$ref": "#/definitions/AttachmentsType" }
+    },
+    "required": [ "uuid", "attachments" ]
+}
+
