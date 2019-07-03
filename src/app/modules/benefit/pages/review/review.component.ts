@@ -11,7 +11,7 @@ import {BenefitApplication} from '../../models/benefit-application.model';
   styleUrls: ['./review.component.scss']
 })
 export class BenefitReviewComponent {
-    static ProcessStepNum = 3;
+    static ProcessStepNum = 4;
 
     lang = require('./i18n');
     application: BenefitApplication;

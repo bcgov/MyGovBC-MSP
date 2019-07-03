@@ -67,16 +67,17 @@
   </div>
 </form>
 </div>
-  <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
-            [canContinue]="canContinue"
-            (btnClick)="continue()"
-            widthOption='extra-width-mobile-only'>
-  </common-form-action-bar>
 <!--
-<button
-        [disabled]="!canContinue"
-        class="btn btn-primary" type="submit" (click)="continue()"
-        [innerHTML]="lang('./en/index.js').continueButton"></button>
-<msp-cancel></msp-cancel> -->
-
+  <button
+  [disabled]="!canContinue"
+  class="btn btn-primary" type="submit" (click)="continue()"
+  [innerHTML]="lang('./en/index.js').continueButton"></button>
+  <msp-cancel></msp-cancel> -->
+  
 </common-page-framework>
+
+<common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
+          [canContinue]="canContinue"
+          (btnClick)="continue()"
+          widthOption='extra-width-mobile-only'>
+</common-form-action-bar>

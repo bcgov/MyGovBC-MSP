@@ -14,6 +14,7 @@
     "start": "npm run dev",
     "dev": "ng serve --host='0.0.0.0' -o",
     "dev-build": "ng build",
+    "prebuild": "node src/version.js",
     "build": "ng build --prod",
     "test": "ng test"
   },

@@ -50,7 +50,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReviewPartComponent } from './components/review-part/review-part.component';
 import { ReviewCardWrapperComponent } from './components/review-card-wrapper/review-card-wrapper.component';
 import { ErrorComponent } from './components/error/error.component';
+
 import { ConfirmationComponent } from './confirmation/confirmation.component';
+
+import { PersonalDetailsRetroSuppbenComponent } from './components/personal-details-retro-suppben/personal-details-retro-suppben.component';
+import { AddressRetroSuppbenComponent } from './components/address-retro-suppben/address-retro-suppben.component';
 
 const componentList = [
   MspFullNameComponent,
@@ -68,6 +72,7 @@ const componentList = [
   CommonButtonComponent,
   ReviewPartComponent,
   ErrorComponent,
+  PersonalDetailsRetroSuppbenComponent,
 
   // Directives
   KeyboardEventListner,
@@ -117,7 +122,9 @@ const templistCore = [
     CaptchaModule,
     HttpClientModule
   ],
-  declarations: [componentList, templistCore, ConfirmationComponent],
+
+  declarations: [componentList, templistCore, AddressRetroSuppbenComponent, ConfirmationComponent],
+
   exports: [
     componentList,
     SharedCoreModule,

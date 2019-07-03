@@ -1,14 +1,14 @@
-<div class="form-group col-sm-6 p-sm-0">
+<div class="form-group" [ngClass]="{'col-sm-6 p-sm-0': useRows}">
   <common-name name="first_name" label="First Name" [disabled]="disabled" [(ngModel)]="data.firstName" maxlen="30"
-    class="row" commonValidateName></common-name>
+    [ngClass]="{row: useRows}" commonValidateName></common-name>
 </div>
 
-<div class="form-group col-sm-6 p-sm-0">
+<div class="form-group" [ngClass]="{'col-sm-6 p-sm-0': useRows}">
   <common-name name="middle_name" label="Middle Name" [disabled]="disabled" [(ngModel)]="data.middleName" maxlen="30"
-    class="row" commonValidateName></common-name>
+    [ngClass]="{row: useRows}" commonValidateName></common-name>
 </div>
 
-<div class="form-group col-sm-6 p-sm-0">
-  <common-name class="row" name="last_name" label="Last Name" required [disabled]="disabled" [(ngModel)]="data.lastName"
+<div class="form-group" [ngClass]="{'col-sm-6 p-sm-0': useRows}">
+  <common-name [ngClass]="{row: useRows}" name="last_name" label="Last Name" required [disabled]="disabled" [(ngModel)]="data.lastName"
     maxlen="30" commonValidateName></common-name>
 </div>

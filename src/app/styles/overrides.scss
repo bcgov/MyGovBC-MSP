@@ -21,13 +21,13 @@
 }
 
 .btn-secondary {
-  @include button-variant($color-secondary, #036);
+  @include button-variant($color-primary, #036);
 
   &.disabled, &:disabled, &[disabled] {
       color: #777;
       background-color: #eee;
       border-color: #eee;
-      &:hover { border-color: $color-secondary; }
+      &:hover { border-color: $color-primary; }
   }
 }
 .btn-default {
@@ -195,11 +195,6 @@ accordion-group + accordion-group {
 .input-group[class*=col-]{
   padding-left: 0;
   padding-right: 0;
-}
-//Bootstrap 3 to 4: BS3 styling of input-group-text to match input-group-addon
-.input-group-text {
-  border-radius: 0;
-  padding: 0.425rem 0.85rem; //6px 14px
 }
 
 .edit--icon {

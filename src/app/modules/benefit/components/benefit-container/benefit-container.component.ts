@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { benefitPages } from '../../benefit-page-routing.modules';
+import { benefitPages, displayedbenefitPages } from '../../benefit-page-routing.modules';
 import { Container } from 'moh-common-lib';
 
 @Component({
@@ -12,7 +12,7 @@ export class BenefitContainerComponent extends Container implements OnInit  {
 
   constructor( public router: Router ) {
     super();
-    this.setProgressSteps( benefitPages );
+    this.setProgressSteps( displayedbenefitPages );
   }
 
   ngOnInit() {

@@ -18,6 +18,7 @@ import * as moment from 'moment';
 import {Router} from '@angular/router';
 import {ProcessService} from '../../../../services/process.service';
 
+
 @Component({
     selector: 'msp-prepare',
     templateUrl: './prepare.component.html',
@@ -25,7 +26,7 @@ import {ProcessService} from '../../../../services/process.service';
 })
 export class BenefitPrepareComponent  extends BaseComponent  {
     
-    static ProcessStepNum = 0;
+    //static ProcessStepNum = 0;
 
     @ViewChild('formRef') prepForm: NgForm;
     @ViewChild('incomeRef') incomeRef: ElementRef;
@@ -67,7 +68,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
      */
     pastYears: number[] = [];
 
-    constructor(private _router: Router, private _processService: ProcessService, 
+    constructor(private _router: Router, 
                 public dataService: MspBenefitDataService , cd: ChangeDetectorRef){
         super(cd);
         this.showAttendantCareInfo = this.benefitApp.applicantClaimForAttendantCareExpense
@@ -76,7 +77,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     ngOnInit(){
-        this.initProcessMembers(BenefitPrepareComponent.ProcessStepNum, this._processService);
+       // this.initProcessMembers(BenefitPrepareComponent.ProcessStepNum, this._processService);
     
         this._showDisabilityInfo =
             this.dataService.benefitApp.selfDisabilityCredit === true ||
@@ -140,73 +141,57 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             map( () => {
                 this.dataService.benefitApp.ageOver65 = false;
             }));*/
+        if(this.prepForm != undefined) {
+            console.log('Prepform?', this.prepForm, this.prepForm.valueChanges);
+            merge(this.prepForm.valueChanges.pipe(debounceTime(250),
+                distinctUntilChanged(),
+                filter(
+                    (values) => {
+                        // console.log('value changes: ', values);
+                        const isEmptyObj = _.isEmpty(values);
+                        return !isEmptyObj;
+                    }
+                ), tap(
+                    (value) => {
+                        // console.log('form value: ', value);
+                        if (!value.netIncome || value.netIncome.trim().length === 0){
+                            this.benefitApp.netIncomelastYear = null;
+                        }else{
+                            this.benefitApp.netIncomelastYear = value.netIncome;
+                        }
+                        if (!value.spouseIncomeLine236 || value.spouseIncomeLine236.trim().length === 0){
+                            this.benefitApp.spouseIncomeLine236 = null;
+                        }
+                        if (!value.line125){
+                            this.benefitApp.spouseDSPAmount_line125 = null;
+                        }
+                        if (!value.line214){
+                            this.benefitApp.claimedChildCareExpense_line214 = null;
+                        }
+                        if (!value.line117){
+                            this.benefitApp.reportedUCCBenefit_line117 = null;
+                        }
+                        if (!value.childrenCount || value.childrenCount.trim().length === 0){
+                            this.benefitApp.childrenCount = null;
+                        }
 
-        merge(this.prepForm.valueChanges.pipe(debounceTime(250),
-            distinctUntilChanged(),
-            filter(
-                (values) => {
-                    // console.log('value changes: ', values);
-                    const isEmptyObj = _.isEmpty(values);
-                    return !isEmptyObj;
-                }
-            ), tap(
-                (value) => {
-                    // console.log('form value: ', value);
-                    if (!value.netIncome || value.netIncome.trim().length === 0){
-                        this.benefitApp.netIncomelastYear = null;
-                    }else{
-                        this.benefitApp.netIncomelastYear = value.netIncome;
+                        // TODO - INVESTIGATE. Does commenting this out fix the runtime TypeError for rxjs subscribe?
+                        // return value;
                     }
-                    if (!value.spouseIncomeLine236 || value.spouseIncomeLine236.trim().length === 0){
-                        this.benefitApp.spouseIncomeLine236 = null;
-                    }
-                    if (!value.line125){
-                        this.benefitApp.spouseDSPAmount_line125 = null;
-                    }
-                    if (!value.line214){
-                        this.benefitApp.claimedChildCareExpense_line214 = null;
-                    }
-                    if (!value.line117){
-                        this.benefitApp.reportedUCCBenefit_line117 = null;
-                    }
-                    if (!value.childrenCount || value.childrenCount.trim().length === 0){
-                        this.benefitApp.childrenCount = null;
-                    }
+                    // TODO - Sometimes this subscribe fails. Race condition, or something else?
+                    // TypeError: You provided an invalid object where a stream was expected. You can provide an Observable, Promise, Array, or Iterable.
+                    // TODO - Test with blacklisting the SPA ENV request.
 
-                    return value;
-                }
-            )), //ageOver$, ageUnder$,
-
-            merge(
-                fromEvent<MouseEvent>(this.spouseOver65Btn.nativeElement, 'click').pipe(
-                    map(x => {
-                        this.benefitApp.spouseAgeOver65 = true;
-                    }))
-            ),
-            merge(
-                fromEvent<MouseEvent>(this.spouseOver65NegativeBtn.nativeElement, 'click').pipe(
-                    map(x => {
-                        this.benefitApp.spouseAgeOver65 = false;
-                    }))
-            ),
-            merge(
-                fromEvent<MouseEvent>(this.hasSpouse.nativeElement, 'click').pipe(
-                    map(x => {
-                        this.dataService.benefitApp.setSpouse = true;
-                    }))
-            ),
-            merge(
-                fromEvent<MouseEvent>(this.negativeHasSpouse.nativeElement, 'click').pipe(
-                    map(x => {
-                        this.benefitApp.setSpouse = false;
-                    }))
-            ))
-            .subscribe(
-                values => {
-                    // console.log('values before saving: ', values);
-                    this.dataService.saveBenefitApplication();
-                }
-            );
+                    // THeory on "spouse" persistence - is the input not in the form? form.values doesn't include it, why?
+                    // does that matter? could just write to service and persist anyways, that should work regardless of template
+                ))).subscribe(
+                    values => {
+                        // console.log('values before saving: ', values);
+                        this.dataService.saveBenefitApplication();
+                    }
+                );
+        }
+            
     }
 
 
@@ -217,12 +202,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         } else {
             this.dataService.benefitApp.selfDisabilityCredit = false;
         }
-        /*if (this.benefitApp.applicantClaimForAttendantCareExpense){
-            $event.preventDefault();
-            this.applicantClaimDisabilityCredit();
-        }else{
-            this.benefitApp.selfDisabilityCredit = !this.benefitApp.selfDisabilityCredit;
-        }*/
     }
 
     setYear(assistYearParam: AssistanceYear) {
@@ -233,14 +212,14 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
     canContinue(evt): any {
         if(evt) {
-            this._processService.setStep(0, true);
+            //this._processService.setStep(0, true);
             this.continue = evt; 
         }
         return evt ;
     }
 
     navigateToPersonalInfo() {
-        this._processService.setStep(0, true);
+       // this._processService.setStep(0, true);
         this._router.navigate(['/benefit/personal-info']);
     }
 
@@ -274,10 +253,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         return this.dataService.benefitApp;
     }
 
-    addSpouse(): void {
-        this.benefitApp.setSpouse = true;
-    }
-
     updateQualify(evt: boolean): void {
         this._likelyQualify = evt;
     }
@@ -287,7 +262,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     updateChildDisabilityCreditCreditMultiplier(evt: string){
-        this.benefitApp.childWithDisabilityCount = parseInt(evt);
+        this.benefitApp.childWithDisabilityCount = parseInt(evt, 10);
         this.dataService.saveBenefitApplication();
     }
 
@@ -297,14 +272,15 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         } else {
             this.dataService.benefitApp.ageOver65 = false;
         }
-        this.dataService.saveBenefitApplication();
+        // this.dataService.saveBenefitApplication();
     }
 
-    sethasSpouseOrCommonLaw(evt: boolean) {
-        if(evt) {
-            this.dataService.benefitApp.setSpouse = true;
-        } else {
-            this.dataService.benefitApp.setSpouse = false;
+    setHasSpouse(hasSpouse: boolean) {
+        this.benefitApp.hasSpouse = hasSpouse;
+        if (!hasSpouse){
+            this.benefitApp.spouseAgeOver65 = null;
+            this.benefitApp.spouseIncomeLine236 = null;
+
         }
         this.dataService.saveBenefitApplication();
     }

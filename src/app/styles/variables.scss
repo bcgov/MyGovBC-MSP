@@ -107,3 +107,4 @@ $card-border-width: 0px;
 // Now that we've set the variables, we can override them in Bootstrap
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/_breakpoints";

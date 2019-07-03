@@ -3,6 +3,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { environment } from '../environments/environment';
+import * as version from '../version.GENERATED';
+// import { } from '../version.GENERATED';
 
 @Component({
   selector: 'general-app',
@@ -28,6 +30,10 @@ export class GeneralAppComponent {
       ).subscribe(event => {
         document.body.scrollTop = 0;
       });
+
+      version.success
+            ? console.log('%c' + version.message, 'color: #036; font-size: 20px;')
+            : console.error(version.message);
   }
 
   ngOnDestroy() {
