@@ -1,14 +1,16 @@
-<!-- <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1> 
-<p class="helpblock intro" [innerHTML]="lang('./en/index.js').helpBlock"></p> 
+<!-- <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
+<p class="helpblock intro" [innerHTML]="lang('./en/index.js').helpBlock"></p>
 <h2 [innerHTML]="lang('./en/index.js').declarationAndConsentTitle"></h2>
 <p [innerHTML]="lang('./en/index.js').declaration"></p> -->
 
 <form #form="ngForm">
-     <div>
+
+  <!-- <div>
+
         <div class="strong" [innerHTML]="questionApplicant"></div>
         <div class="form-check form-check-inline mb-5" >
             <input class="input-lg form-check-input"
-                name="authorizedByApplicant" 
+                name="authorizedByApplicant"
                 [(ngModel)] = "application.authorizedByApplicant"
                 (ngModelChange) = "deleteAllDocs($event)"
                 id="firstPersonAuthorize" type="checkbox">
@@ -19,53 +21,48 @@
             <div class="strong" [innerHTML]="questionSpouse"></div>
             <div class="form-check form-check-inline">
                 <input class="input-lg form-check-input"
-                name="authorizedBySpouse" 
+                name="authorizedBySpouse"
                 [(ngModel)] = "application.authorizedBySpouse"
                 (ngModelChange) = "deleteAllDocs($event)"
                 id="secondPersonAuthorize" type="checkbox">
                 <label class="form-check-label" for="secondPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
             </div>
-        </div> -->
-    </div> 
-    <div style="margin-top: 20px;">
-        <div class="strong" [innerHTML]="questionForAttorney"></div>
-        <div class="form-check form-check-inline">
-            <input class="input-lg form-check-input"
-                name="authorizedByAttorney" 
-                [(ngModel)] = "application.authorizedByAttorney"
-                (ngModelChange) = "handleAuthorizedByAttorney($event)"
-                id="authByAttorney" type="checkbox">
-            <label class="form-check-label" for="authByAttorney" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
-        </div>
-    </div>
 
-    <div style="margin-top: 20px;" *ngIf="application.authorizedByAttorney">
-        <label for="">Power of Attorney Document (required)</label>
-        <common-file-uploader #fileUploader
-            [images]="application.powerOfAttorneyDocs" 
-            [id]='application.id'
-            (onAddDocument)="addDocument($event)"
-            (onErrorDocument)="errorDocument($event)"
-            (onDeleteDocument)="deleteDocument($event)">
-            <span id="uploadInstruction"
-              #uploadInstruction
-            >
-              Please upload required power of attorney documents
-            </span>
-            
-        </common-file-uploader>
-        <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
+        </div>
+    </div> -->
+  <div style="margin-top: 20px;">
+    <div class="strong" [innerHTML]="questionForAttorney"></div>
+    <div class="form-check form-check-inline">
+      <input class="input-lg form-check-input" name="authorizedByAttorney"
+        [(ngModel)]="application.authorizedByAttorney" (ngModelChange)="handleAuthorizedByAttorney($event)"
+        id="authByAttorney" type="checkbox">
+      <label class="form-check-label" for="authByAttorney" [innerHTML]="agreeLabel"></label>
+
     </div>
-    <div class="row">
-      <div class="col-lg-8">
-        <common-captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
-                 (onValidToken)="application.authorizationToken = $event"></common-captcha>
-      </div>
+  </div>
+
+  <div style="margin-top: 20px;" *ngIf="application.authorizedByAttorney">
+    <label for="">Power of Attorney Document (required)</label>
+    <common-file-uploader #fileUploader [images]="application.powerOfAttorneyDocs" [id]='application.id'
+      (onAddDocument)="addDocument($event)" (onErrorDocument)="errorDocument($event)"
+      (onDeleteDocument)="deleteDocument($event)">
+      <span id="uploadInstruction" #uploadInstruction>
+        Please upload required power of attorney documents
+      </span>
+
+    </common-file-uploader>
+    <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
+  </div>
+  <div class="row">
+    <div class="col-lg-8">
+      <common-captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"
+        (onValidToken)="application.authorizationToken = $event"></common-captcha>
     </div>
+  </div>
 </form>
-<hr>
-<button
+<!-- <hr> -->
+<!-- <button
     [disabled]="!canContinue"
     class="btn btn-primary" type="submit" (click)="continue()"
-        [innerHTML]="lang('./en/index.js').continueButton"></button>
+        [innerHTML]="continueButton"></button> -->
 <msp-cancel></msp-cancel>
