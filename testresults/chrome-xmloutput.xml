@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites disabled="19" errors="0" failures="1" tests="24" time="34.433">
- <testsuite name="chrome.MSP Retro PA - Contact Info Page" timestamp="2019-07-02T19:20:44" hostname="localhost" time="34.423" errors="0" tests="5" skipped="0" disabled="0" failures="1">
-  <testcase classname="chrome.MSP Retro PA - Contact Info Page" name="GENERIC TEST 01. should load the page without issue" time="5.933" />
-  <testcase classname="chrome.MSP Retro PA - Contact Info Page" name="GENERIC TEST 02. should let user to go back to the previous page by clicking the stepper" time="7.043" />
-  <testcase classname="chrome.MSP Retro PA - Contact Info Page" name="GENERIC TEST 03. should NOT let user continue by clicking the stepper" time="6.346" />
-  <testcase classname="chrome.MSP Retro PA - Contact Info Page" name="GENERIC TEST 04. should NOT let user to continue if they did not filled out required fields" time="6.26" />
-  <testcase classname="chrome.MSP Retro PA - Contact Info Page" name="01. should be able to continue when all required fields are filled up" time="8.837">
+<testsuites disabled="19" errors="0" failures="1" tests="24" time="32.919">
+ <testsuite name="chrome.MSP Retro PA - Contact Info Page" timestamp="2019-07-04T16:32:13" hostname="localhost" time="32.911" errors="0" tests="5" skipped="0" disabled="0" failures="1">
+  <testcase classname="chrome.MSP Retro PA - Contact Info Page" name="GENERIC TEST 01. should load the page without issue" time="5.242" />
+  <testcase classname="chrome.MSP Retro PA - Contact Info Page" name="GENERIC TEST 02. should let user to go back to the previous page by clicking the stepper" time="6.491" />
+  <testcase classname="chrome.MSP Retro PA - Contact Info Page" name="GENERIC TEST 03. should NOT let user continue by clicking the stepper" time="6.78" />
+  <testcase classname="chrome.MSP Retro PA - Contact Info Page" name="GENERIC TEST 04. should NOT let user to continue if they did not filled out required fields" time="5.683" />
+  <testcase classname="chrome.MSP Retro PA - Contact Info Page" name="01. should be able to continue when all required fields are filled up" time="8.711">
    <failure type="toContain" message="Expected &apos;http://localhost:4300/msp/assistance/contact&apos; to contain &apos;msp/assistance/review&apos;, &apos;should navigate to the next page&apos;."><![CDATA[Error: Failed expectation
     at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/retro-pa/src/mspretro-contact.e2e-spec.ts:33:41)
     at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:112:25
@@ -19,7 +19,7 @@
    </failure>
   </testcase>
  </testsuite>
- <testsuite name="chrome.MSP Retro PA - Home Page" timestamp="2019-07-02T19:21:18" hostname="localhost" time="0.006" errors="0" tests="6" skipped="0" disabled="6" failures="0">
+ <testsuite name="chrome.MSP Retro PA - Home Page" timestamp="2019-07-04T16:32:46" hostname="localhost" time="0.004" errors="0" tests="6" skipped="0" disabled="6" failures="0">
   <testcase classname="chrome.MSP Retro PA - Home Page" name="GENERIC TEST 01. should load the page without issue" time="0">
    <skipped />
   </testcase>
@@ -29,7 +29,7 @@
   <testcase classname="chrome.MSP Retro PA - Home Page" name="GENERIC TEST 04. should NOT let user to continue if they did not filled out required fields" time="0">
    <skipped />
   </testcase>
-  <testcase classname="chrome.MSP Retro PA - Home Page" name="01. should let user to continue once they selected a year" time="0.005">
+  <testcase classname="chrome.MSP Retro PA - Home Page" name="01. should let user to continue once they selected a year" time="0.002">
    <skipped />
   </testcase>
   <testcase classname="chrome.MSP Retro PA - Home Page" name="02. should let user to continue when more than one year is selected" time="0">
@@ -39,7 +39,7 @@
    <skipped />
   </testcase>
  </testsuite>
- <testsuite name="chrome.MSP Retro PA - Personal Info Page" timestamp="2019-07-02T19:21:18" hostname="localhost" time="0.003" errors="0" tests="7" skipped="0" disabled="7" failures="0">
+ <testsuite name="chrome.MSP Retro PA - Personal Info Page" timestamp="2019-07-04T16:32:46" hostname="localhost" time="0.003" errors="0" tests="7" skipped="0" disabled="7" failures="0">
   <testcase classname="chrome.MSP Retro PA - Personal Info Page" name="GENERIC TEST 01. should load the page without issue" time="0">
    <skipped />
   </testcase>
@@ -55,18 +55,18 @@
   <testcase classname="chrome.MSP Retro PA - Personal Info Page" name="01. should fill out the required fields and click continue" time="0">
    <skipped />
   </testcase>
-  <testcase classname="chrome.MSP Retro PA - Personal Info Page" name="02. should be able to upload multiple files (if multiple years were selected) and click continue" time="0">
+  <testcase classname="chrome.MSP Retro PA - Personal Info Page" name="02. should be able to upload multiple files (if multiple years were selected) and click continue" time="0.001">
    <skipped />
   </testcase>
   <testcase classname="chrome.MSP Retro PA - Personal Info Page" name="03. should NOT let user continue if there is at least one incomplete field" time="0.001">
    <skipped />
   </testcase>
  </testsuite>
- <testsuite name="chrome.MSP Retro PA - Spouse Info Page" timestamp="2019-07-02T19:21:18" hostname="localhost" time="0.001" errors="0" tests="6" skipped="0" disabled="6" failures="0">
-  <testcase classname="chrome.MSP Retro PA - Spouse Info Page" name="GENERIC TEST 01. should load the page without issue" time="0.001">
+ <testsuite name="chrome.MSP Retro PA - Spouse Info Page" timestamp="2019-07-04T16:32:46" hostname="localhost" time="0.001" errors="0" tests="6" skipped="0" disabled="6" failures="0">
+  <testcase classname="chrome.MSP Retro PA - Spouse Info Page" name="GENERIC TEST 01. should load the page without issue" time="0">
    <skipped />
   </testcase>
-  <testcase classname="chrome.MSP Retro PA - Spouse Info Page" name="GENERIC TEST 02. should let user to go back to the previous page by clicking the stepper" time="0">
+  <testcase classname="chrome.MSP Retro PA - Spouse Info Page" name="GENERIC TEST 02. should let user to go back to the previous page by clicking the stepper" time="0.001">
    <skipped />
   </testcase>
   <testcase classname="chrome.MSP Retro PA - Spouse Info Page" name="GENERIC TEST 03. should NOT let user continue by clicking the stepper" time="0">

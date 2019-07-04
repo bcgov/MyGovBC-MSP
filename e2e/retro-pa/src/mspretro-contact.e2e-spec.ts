@@ -3,7 +3,7 @@ import { ContactInfoPage } from './mspretro-pa.po';
 import { onPageLoadTest, onClickStepperTest, onClickContinueTest, onClickConsentModalTest, fillConsentModal } from '../../msp-generic-tests';
 import { FakeDataRetroPA } from './mspretro-pa.data';
 
-fdescribe('MSP Retro PA - Contact Info Page', () => {
+describe('MSP Retro PA - Contact Info Page', () => {
     let contactInfoPage: ContactInfoPage;
     const data = new FakeDataRetroPA;
     let contactInfoData;
