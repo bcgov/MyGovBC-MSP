@@ -23,9 +23,9 @@ export class TaxYearComponent extends BaseComponent {
     @Input() currentTaxYear: boolean;
     @Input() spaEnvResponse: ISpaEnvResponse;
     @Output() onTaxYearChange: EventEmitter<number> = new EventEmitter<number>();
-    today: any;
-    cutOffStartDate: any;
-    cutOffEndDate: any;
+    today: Date;
+    cutOffStartDate: Date;
+    cutOffEndDate: Date;
 
 
     constructor(cd: ChangeDetectorRef, public dataService: MspBenefitDataService) {
@@ -33,7 +33,7 @@ export class TaxYearComponent extends BaseComponent {
     }
 
     ngOnInit() {
-        this.taxYears = this.getTaxYears ();
+        this.taxYears = this.getTaxYears();
     }
     setTaxYear(value: number) {
         this.onTaxYearChange.emit(value);
@@ -60,9 +60,10 @@ export class TaxYearComponent extends BaseComponent {
                 assistYear.year = yearNum;
                 assistYear.docsRequired = true;
                 assistYear.currentYear = this.benefitApp.MostRecentTaxYear;
-                this.cutOffDate();
+                // this.cutOffDate();
 
                 // checking the cutoff Date and disabling the last year
+                // console.log('momment date?', this.cutOffStartDate);
                 if (this.cutOffStartDate && moment(this.cutOffStartDate).isSameOrBefore(this.today) && assistYear.year === this.benefitApp.MostRecentTaxYear - 1 && moment(this.cutOffEndDate).isSameOrAfter(this.today)) {
                     assistYear.disabled =  true; //  (assistYear.year == this.benefitApp.MostRecentTaxYear - 1) ? true : false;
                 } else {
@@ -81,9 +82,17 @@ export class TaxYearComponent extends BaseComponent {
     // Gets the cutoff date time frame from SPA-ENV server
     cutOffDate() {
         if (this.spaEnvResponse && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END && this.spaEnvResponse.SPA_ENV_NOW) {
-            this.today = this.spaEnvResponse.SPA_ENV_NOW;
-            this.cutOffStartDate = this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START;
-            this.cutOffEndDate  = this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END;
+            this.today = new Date(this.spaEnvResponse.SPA_ENV_NOW);
+            this.cutOffStartDate = new Date(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START);
+            this.cutOffEndDate  = new Date(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END);
+            // console.log('cutoffDate ran', {
+            //     SPA_ENV_NOW: this.spaEnvResponse.SPA_ENV_NOW,
+            //     SPA_ENV_PACUTOFF_MAINTENANCE_START: this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START,
+            //     SPA_ENV_PACUTOFF_MAINTENANCE_END: this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END,
+            //     today: this.today,
+            //     cutOffStartDate: this.cutOffStartDate,
+            //     cutOffEndDate: this.cutOffEndDate
+            // })
         }
 
     }

@@ -2,7 +2,7 @@
     <div class="row">
 
       <!-- Remove Spouse and Child Button, (Red cross) -->
-      <div class="col-lg-12" *ngIf="!embedded">
+      <div class="col-lg-12" *ngIf="removeable">
           <div *ngIf="person.relationship !== 0" style="margin-top: 18px">
               <div *ngIf="person.relationship === 1">
               <i class="fa fa-times mr-3 mb-3 pointer float-right text-danger" aria-hidden="true" (click)="removeSpouse()"></i>
@@ -10,16 +10,25 @@
           </div>
       </div>
       
-      <!-- Full Name  -->
-      <div class="col-md-6"  style="margin-left: 15px">
-          <msp-full-name [data]="person" (dataChange)="onChange.emit($event);"></msp-full-name>
-      </div>
     </div>
     
+    <!-- Full Name  -->
+    <!-- <div class="row">
+        <div class="col-md-6">
+            <msp-full-name [data]="person" (dataChange)="onChange.emit($event);"></msp-full-name>
+            
+        </div>
+    </div> -->
+    <div class="row">
+        <div class="col-md-6">
+            <msp-full-name [useRows]='false' [data]="person" (dataChange)="onChange.emit($event);"></msp-full-name>
+        
+        </div>
+    </div>
 
     <!-- BirthDate  -->
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-md-6">
         <msp-birthdate #birthdate
                       [person]="person"
                       (onChange)="onChange.emit($event)">
@@ -29,7 +38,7 @@
 
     <!-- PHN  -->
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group">
               <common-phn
                       #phnRef="ngModel"
@@ -45,7 +54,7 @@
     
     <!-- SIN  -->
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-6">
           <div class="form-group"
               [ngClass]="{'has-error': !formRef.controls.sin?.valid && sinRef.touched}">
             <label class="control-label" for="sin">Social Insurance Number (SIN)</label>
@@ -75,14 +84,17 @@
     <!-- Doc Uploader   -->
     <h2>Documents</h2>
     <p class="help-block"> Upload your Notice of Assessment or Reassessment from Canada Revenue Agency for {{benefitApp.taxYear}}</p>
-    <div class="row" style="margin-left: 5px">
-         <common-file-uploader 
-                            [images]="person.assistYearDocs"
-                            (imagesChange)="addDocument($event)"
-                            [id]='benefitApp.id'
-                            (errorDocument)="errorDoc($event)" instructionText="Please upload Notice of Assessment documents for {{benefitApp.taxYear}}">
-          </common-file-uploader>
-          <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
-     </div>
+    <div class="row">
+        <div class="col-md-6">
 
+            <common-file-uploader 
+                               [images]="person.assistYearDocs"
+                               (imagesChange)="addDocument($event)"
+                               [id]='benefitApp.id'
+                               (errorDocument)="errorDoc($event)" instructionText="Please upload Notice of Assessment documents for {{benefitApp.taxYear}}">
+             </common-file-uploader>
+            </div>
+        </div>
+        
+        <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
   </form>

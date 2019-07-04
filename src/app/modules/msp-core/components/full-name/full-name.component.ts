@@ -20,6 +20,8 @@ export class MspFullNameComponent implements OnDestroy {
   @Input() data: MspPerson;
   @Input() disabled: boolean = false;
   @Output() dataChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
+  // Use old behaviour of having rows for each.  Preferable to set to false. Easier to embed in designs.
+  @Input() useRows = true;
 
   subscriptions: Subscription[];
   newObs = new Observable();
@@ -27,16 +29,17 @@ export class MspFullNameComponent implements OnDestroy {
   constructor( @Optional() @Host() public parent: ControlContainer ) {
 
     this.newObs = of(this.data);
-    this.subscriptions = [ this.newObs.subscribe(obs => console.log(obs) ) ];
+    this.subscriptions = [ this.newObs.subscribe() ];
+
 
     if ( parent ) {
       this.subscriptions.push( parent.valueChanges.subscribe(obs => {
-        console.log( '(full-name) parent change values: ', obs );
+        // console.log( '(full-name) parent change values: ', obs );
         this.dataChange.emit( obs );
       }) );
-      this.subscriptions.push( parent.statusChanges.subscribe( x => {
-        console.log( '(full-name) parent change status: ', parent.status );
-      }) );
+      // this.subscriptions.push( parent.statusChanges.subscribe( x => {
+      //   console.log( '(full-name) parent change status: ', parent.status );
+      // }) );
     }
   }
 

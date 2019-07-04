@@ -12,7 +12,7 @@ import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 import { MspImage } from 'app/models/msp-image';
 import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
-
+import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
 
 
 @Component({
@@ -61,7 +61,6 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     }
 
     onChange(values: any) {
-        console.log(values);
         this.dataService.saveBenefitApplication();
     }
 
@@ -70,14 +69,14 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     }
 
     isValid(): boolean {
-        return this.dataService.benefitApp.isUniquePhns && this.dataService.benefitApp.isUniqueSin;
+        return this.dataService.benefitApp.isUniquePhns && this.dataService.benefitApp.isUniqueSin && validatePHN(this.dataService.benefitApp.applicant.previous_phn);
     }
 
     get canContinue(): boolean{
         //const allDocs: MspImage[][] = this.dataService.benefitApp.allPersons.filter(x => x).map(x => x.assistYeaDocs).filter(x => x)  ;
         //console.log(this.benefitApplication.applicant.assistYearDocs.length);
-        if ( this.isAllValid() && this.benefitApplication.applicant.assistYearDocs.length > 0) {
-            this._processService.setStep(BenefitPersonalInfoComponent.ProcessStepNum,true);    
+        if ( this.isAllValid() && this.benefitApplication.applicant.assistYearDocs && this.benefitApplication.applicant.assistYearDocs.length > 0) {
+            this._processService.setStep(BenefitPersonalInfoComponent.ProcessStepNum,true);
             return true;
         }
         return  false;

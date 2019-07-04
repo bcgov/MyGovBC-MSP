@@ -18,6 +18,8 @@ import { AssistRatesHelperModalComponent } from './components/assist-rates-helpe
 import { AssistAccountHolderComponent } from './components/assist-account-holder/assist-account-holder.component';
 import { AssistCraDocumentsComponent } from './components/assist-cra-documents/assist-cra-documents.component';
 import { SpouseComponent } from './pages/spouse/spouse.component';
+import { RouteGuardService } from 'moh-common-lib';
+import { AssistGuard } from './guards/assist.guard';
 
 @NgModule({
   imports: [
@@ -42,6 +44,7 @@ import { SpouseComponent } from './pages/spouse/spouse.component';
     AssistCraDocumentsComponent,
     SpouseComponent
   ],
+  providers: [RouteGuardService, AssistGuard],
   exports: [AssistMailingComponent, AssistAccountHolderComponent]
 })
 export class AssistanceModule {}

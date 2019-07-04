@@ -5,6 +5,7 @@ import { AssistanceAuthorizeSubmitComponent } from './pages/authorize-submit/aut
 import { AssistContactComponent } from './pages/contact/assist-contact.component';
 import { AssistanceHomeComponent } from './pages/home/home.component';
 import { SpouseComponent } from './pages/spouse/spouse.component';
+import { AssistGuard } from './guards/assist.guard';
 
 export const assistPages: Routes = [
   {
@@ -18,23 +19,23 @@ export const assistPages: Routes = [
   // },
   {
     path: 'home',
-    // canActivate: [ProcessService],
+    canActivate: [AssistGuard],
     component: AssistanceHomeComponent
   },
   {
     path: 'personal-info',
-    //canActivate: [ProcessService],
+    canActivate: [AssistGuard],
     component: AssistancePersonalInfoComponent
   },
   {
     path: 'spouse',
-    canActivate: [],
+    canActivate: [AssistGuard],
     component: SpouseComponent
   },
 
   {
     path: 'contact',
-    // canActivate: [ProcessService],
+    canActivate: [AssistGuard],
     component: AssistContactComponent
   },
   // {
@@ -44,7 +45,7 @@ export const assistPages: Routes = [
   // },
   {
     path: 'review',
-    // canActivate: [ProcessService],
+    canActivate: [AssistGuard],
     component: AssistanceReviewComponent
   },
 
@@ -56,7 +57,7 @@ export const assistPages: Routes = [
 
   {
     path: 'authorize-submit',
-    // canActivate: [ProcessService],
+    canActivate: [AssistGuard],
     component: AssistanceAuthorizeSubmitComponent
   },
   // {

@@ -16,13 +16,15 @@ export class AssistStateService {
   touched: Subject<boolean> = new Subject<boolean>();
   routes: string[];
   finAssistApp = this.dataSvc.finAssistApp;
+  submitted = false;
 
   validations = [
     this.isHomeValid.bind(this),
     this.isPersonalInfoValid.bind(this),
     this.isSpouseValid.bind(this),
     this.isContactValid.bind(this),
-    this.isReviewValid.bind(this)
+    this.isReviewValid.bind(this),
+    this.isAuthorizeValid.bind(this)
   ];
 
   isHomeValid(): boolean {
@@ -42,8 +44,7 @@ export class AssistStateService {
     if (!validatePHN(person.previous_phn)) return false;
 
     if (!/\b[1-9]\d{2}[- ]?\d{3}[- ]?\d{3}\b/.test(person.sin)) return false;
-
-    if (!validateBirthdate(person.dateOfBirth)) return false;
+    if (!validateBirthdate(person.dobSimple)) return false;
     const filteredYears = this.filteredYears('files');
     for (let year in filteredYears) {
       if (year.length < 1) return false;
@@ -69,6 +70,26 @@ export class AssistStateService {
 
   isReviewValid(): boolean {
     return true;
+  }
+
+  isAuthorizeValid() {
+    const familyAuth =
+      this.finAssistApp.authorizedByApplicant &&
+      ((this.finAssistApp.hasSpouseOrCommonLaw &&
+        this.finAssistApp.authorizedBySpouse) ||
+        !this.finAssistApp.hasSpouseOrCommonLaw);
+
+    const attorneyAUth =
+      this.finAssistApp.authorizedByAttorney &&
+      this.finAssistApp.powerOfAttorneyDocs.length > 0;
+
+    if (this.finAssistApp.authorizationToken == null) return false;
+
+    return (
+      (familyAuth === true || attorneyAUth === true) &&
+      this.finAssistApp.authorizationToken &&
+      this.finAssistApp.authorizationToken.length > 1
+    );
   }
 
   isValid(index: number) {
@@ -120,6 +141,7 @@ export class AssistStateService {
   }
 
   setIndex(path: string) {
+    console.log('set index', path);
     let index = this.findIndex(path);
     if (index > -1) return this.index.next(index);
   }

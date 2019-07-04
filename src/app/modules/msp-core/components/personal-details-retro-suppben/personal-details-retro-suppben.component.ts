@@ -10,7 +10,6 @@ import {MspImage} from '../../../../models/msp-image';
 import { Subscription, Observable, of } from 'rxjs';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
 import {Relationship, StatusInCanada} from '../../../../models/status-activities-documents';
-
 @Component({
   selector: 'msp-personal-details-retro-suppben',
   templateUrl: './personal-details-retro-suppben.component.html',
@@ -22,6 +21,7 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
     public dateLabel = 'BirthDate1';
     @Input() benefitApp: BenefitApplication;
 
+    @Input() removeable: boolean = false;
     @Input() person: MspPerson;
    // @ViewChild('name') name: MspFullNameComponent;
     @ViewChild('formRef') personalDetailsForm: NgForm;
@@ -39,41 +39,29 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
         super(cd);
         this.benefitApp = this.dataService.benefitApp;
         this.person = this.dataService.benefitApp.applicant;
-        console.log(this.person);
+        // console.log(this.person);
     }
 
     ngAfterViewInit() {
         console.log(this.birthdate);
         this.personalDetailsForm.valueChanges.pipe(debounceTime(0))
             .subscribe( values => {
-                console.log(values);
                 this.onChange.emit(values);
-                console.log(this.person);
                 
                 //this.dataService.saveBenefitApplication();
             });
     //    this.dataService.saveBenefitApplication();
     }
 
-    checkPhnValid(evt: any){
-        console.log(evt);
-        /*this.subscriptions.push( parent.statusChanges.subscribe( x => {
-            console.log( '(full-name) parent change status: ', parent.status );
-          }) );*/
-    }
 
     isSinUnique(): boolean {
         return this.benefitApp.isUniqueSin;
     }
 
     isPhnUnique() {
-        console.log('Unique phn: '+this.benefitApp.isUniquePhns);
         return this.benefitApp.isUniquePhns;
     }
 
-/*    getSinList(): string[]{
-        return this.benefitApp.allPersons.map(x => x.sin);
-    }*/
 
     removeSpouse(): void {
         this.notifySpouseRemoval.emit(this.person);

@@ -57,6 +57,7 @@ export class MspBenefitDataService extends MspDataService{
 
         dto.infoCollectionAgreement = input.infoCollectionAgreement;
         //dto.addSpouse = input.addSpouse;
+        dto.hasSpouse = input.hasSpouse;
         dto.incomeLine236 = input.netIncomelastYear;
         dto.ageOver65 = input.ageOver65;
         dto.hasSpouseOrCommonLaw = input.hasSpouseOrCommonLaw;
@@ -113,6 +114,7 @@ export class MspBenefitDataService extends MspDataService{
         output.netIncomelastYear = dto.incomeLine236;
         output.ageOver65 = dto.ageOver65;
         output.setSpouse = dto.hasSpouseOrCommonLaw;
+        output.hasSpouse = dto.hasSpouse;
         output.spouseAgeOver65 = dto.spouseAgeOver65;
         //output.assistYearDocs = dto.assistYearDocs;
         output.haveChildrens = dto.haveChildrens;

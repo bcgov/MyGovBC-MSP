@@ -21,7 +21,7 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
 
     lang = require('./i18n');
     public dateLabel = 'BirthDate1';
-    private benefitApp: BenefitApplication;
+    public benefitApp: BenefitApplication;
 
     @Input() person: MspPerson;
    // @ViewChild('name') name: MspFullNameComponent;
@@ -47,9 +47,9 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
         console.log(this.birthdate);
         this.personalDetailsForm.valueChanges.pipe(debounceTime(0))
             .subscribe( values => {
-                console.log(values);
+                // console.log(values);
                 this.onChange.emit(values);
-                console.log(this.person);
+                // console.log(this.person);
                 
                 //this.dataService.saveBenefitApplication();
             });
@@ -63,7 +63,6 @@ export class BenefitPersonalDetailComponent extends BaseComponent {
     }
 
     isPhnUnique() {
-        console.log('Unique phn: '+this.dataService.benefitApp.isUniquePhns);
         return this.dataService.benefitApp.isUniquePhns;
     }
 

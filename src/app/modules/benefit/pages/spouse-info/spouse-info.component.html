@@ -1,5 +1,5 @@
-<form #formRef="ngForm" novalidate>
-    <common-page-framework layout="blank">
+<common-page-framework layout="blank">
+  <form #formRef="ngForm" novalidate>
 
   <h1>Tell us about your Spouse and upload official documents</h1>
 
@@ -7,8 +7,8 @@
     
   <div class="row">
     <div class="col-sm-8">
-      <common-button *ngIf='!spouse' [label]="'Add Spouse'" 
-        [buttonType]="buttonClass" [disabled] = "benefitApplication.hasSpouseOrCommonLaw" (btnClick)='addSpouse()'>
+      <common-button [label]="'Add Spouse'" 
+        buttonType="primary" [disabled] = "benefitApplication.hasSpouseOrCommonLaw" (btnClick)='addSpouse()'>
       </common-button>
     </div>
   </div>  
@@ -27,11 +27,13 @@
         [(person)]="benefitApplication.spouse"
         [benefitApp] = "benefitApplication"
         (onChange)="onChange($event)"
+        [removeable]='true'
         (notifySpouseRemoval)="removeSpouse($event)">
     </msp-personal-details-retro-suppben>  
 
   </div>
   
+  </form>
 </common-page-framework>
  
   <common-form-action-bar [defaultColor]="false" [submitLabel]="benefitApplication.hasSpouseOrCommonLaw? 'Continue':'No Spouse'"
@@ -40,4 +42,3 @@
   </common-form-action-bar>
  
   
-</form>

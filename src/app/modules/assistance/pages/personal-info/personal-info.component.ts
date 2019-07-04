@@ -10,6 +10,7 @@ import { FinancialAssistApplication } from '../../models/financial-assist-applic
 import { AssistanceYear } from '../../models/assistance-year.model';
 import { MspPerson } from 'app/modules/account/models/account.model';
 import { AssistStateService } from '../../services/assist-state.service';
+import { Observable } from 'rxjs';
 
 @Component({
   // templateUrl: './personal-info.component.html'
@@ -42,7 +43,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   @ViewChild('phone') phone: MspPhoneComponent;
   financialAssistApplication: FinancialAssistApplication;
 
-  touched$ = this.stateSvc.touched.asObservable();
+  touched$: Observable<any>;
 
   title = 'Tell us about who is applying and upload official documents';
   subtitle = 'Account Holder (Main Applicant)';
@@ -84,6 +85,11 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
         })
     );
 
+    setTimeout(
+      () => (this.touched$ = this.stateSvc.touched.asObservable()),
+      500
+    );
+
     this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
 
@@ -119,14 +125,16 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
       );
   }
 
-  onChange($event) {
-    console.log('changes from child component triggering save: ');
-    this.dataService.saveFinAssistApplication();
-  }
+  // onChange($event) {
+  //   console.log('event', $event);
+  //   console.log('changes from child component triggering save: ');
+  //   this.dataService.saveFinAssistApplication();
+  // }
 
   // Final check to see if the country is present // DEF 153
 
   saveAccountHolder(evt: MspPerson) {
+    console.log(evt);
     this.dataService.saveFinAssistApplication();
   }
 }

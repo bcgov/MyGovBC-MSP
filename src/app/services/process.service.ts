@@ -3,6 +3,7 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '
 import {Observable} from 'rxjs';
 import { MspDataService } from './msp-data.service';
 import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
+import { environment } from 'environments/environment';
 
 
 export class ProcessUrls {
@@ -92,46 +93,50 @@ export class ProcessService extends CheckCompleteBaseService implements CanActiv
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>
         | Promise<boolean>
         | boolean {
-        // console.log('can activate? state: ' + state.url);
+        console.log('can activate? state: ' + state.url);
 
-        // // Find target route
-        // let lastIndex = 0;
-        // for (lastIndex; lastIndex < this.process.processSteps.length; lastIndex++) {
-        //     const step = this.process.processSteps[lastIndex];
-        //     if (step.route === state.url) {
-        //         // found last index
-        //         lastIndex--;
-        //         break;
-        //     }
-        // }
+        if (environment.bypassGuards) {
+            return true;
+        }
 
-        // // Ensure all previous steps were complete
-        // for (let i = 0; i <= lastIndex; i++) {
-        //     const step = this.process.processSteps[i];
-        //     console.log('step: ' + step.route + '; ' + step.complete);
+        // Find target route
+        let lastIndex = 0;
+        for (lastIndex; lastIndex < this.process.processSteps.length; lastIndex++) {
+            const step = this.process.processSteps[lastIndex];
+            if (step.route === state.url) {
+                // found last index
+                lastIndex--;
+                break;
+            }
+        }
 
-        //     if (step.complete == false) {
-        //         // On the first step that is incomplete, navigate back one
-        //         console.log('navigating back');
-        //         this._router.navigate([this.process.processSteps[i].route]);
+        // Ensure all previous steps were complete
+        for (let i = 0; i <= lastIndex; i++) {
+            const step = this.process.processSteps[i];
+            console.log('step: ' + step.route + '; ' + step.complete);
 
-        //         //If validation fails because of an activeElement not being validated, we scroll to it and trigger validation.
-        //         const bodyRect = document.body.getBoundingClientRect();
-        //         const elemRect = document.activeElement.getBoundingClientRect();
-        //         const offset = elemRect.top - bodyRect.top;
-        //         document.body.scrollTop = offset - (document.activeElement !== document.body ? 50 : 0);
+            if (step.complete == false) {
+                // On the first step that is incomplete, navigate back one
+                console.log('navigating back');
+                this._router.navigate([this.process.processSteps[i].route]);
 
-        //         //Force validation to trigger by causing blur
-        //         //We wrap this in a try/catch, because it's theoretically possible the last activeElement is not an HTML element, but an SVG.
-        //         try {
-        //             (<HTMLElement>document.activeElement).blur(); //works?
-        //         }catch (e) {
-        //             console.error(e);
-        //         }
+                //If validation fails because of an activeElement not being validated, we scroll to it and trigger validation.
+                const bodyRect = document.body.getBoundingClientRect();
+                const elemRect = document.activeElement.getBoundingClientRect();
+                const offset = elemRect.top - bodyRect.top;
+                document.body.scrollTop = offset - (document.activeElement !== document.body ? 50 : 0);
 
-        //         return false;
-        //     }
-        // }
+                //Force validation to trigger by causing blur
+                //We wrap this in a try/catch, because it's theoretically possible the last activeElement is not an HTML element, but an SVG.
+                try {
+                    (<HTMLElement>document.activeElement).blur(); //works?
+                }catch (e) {
+                    console.error(e);
+                }
+
+                return false;
+            }
+        }
         console.log('router guard OK');
         return true;
     }
