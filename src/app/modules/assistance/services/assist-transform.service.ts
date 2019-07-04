@@ -8,7 +8,8 @@ import {
   AssistanceYearType,
   AddressType,
   NameType,
-  AssistanceApplicationType
+  AssistanceApplicationType,
+  MSPApplicationSchema
 } from 'app/modules/msp-core/interfaces/i-api';
 
 @Injectable({
@@ -18,6 +19,16 @@ export class AssistTransformService {
   private app: FinancialAssistApplication = this.dataSvc.finAssistApp;
 
   constructor(private dataSvc: MspDataService) {}
+
+  get application(): MSPApplicationSchema {
+    const object = {
+      assistanceApplication: this.assistanceApplication,
+      attachments: this.attachments,
+      uuid: this.app.uuid
+    };
+
+    return object;
+  }
 
   get assistanceApplication(): AssistanceApplicationType {
     const applicant = this.assistanceApplicant as AssistanceApplicantType;
@@ -36,7 +47,7 @@ export class AssistTransformService {
 
   get assistanceApplicant(): AssistanceApplicantType {
     const app = this.app.applicant;
-    const attachmentUuids = null;
+    const attachmentUuids = this.attachmentUuids as any;
     const birthDate = `${app.dobSimple.month.toString()}-${app.dobSimple.day.toString()}-${app.dobSimple.year.toString()}`;
     const financials = this.financials;
     const mailingAddress = this.mailingAddress;
@@ -110,6 +121,37 @@ export class AssistTransformService {
       lastName: this.app.applicant.lastName,
       secondName: this.app.applicant.middleName
     };
+  }
+
+  get attachmentUuids() {
+    const uuids = [];
+    const taxYears = this.app.assistYears.filter(year => year.apply);
+    // console.log('tax years', taxYears);
+    for (let year of taxYears) {
+      if (year.files && year.files.length > 0) {
+        year.files.forEach(itm => uuids.push(itm.uuid));
+      }
+      if (year.spouseFiles && year.spouseFiles.length > 0) {
+        year.spouseFiles.forEach(itm => uuids.push(itm.uuid));
+      }
+    }
+    // console.log('uuids', uuids);
+    return uuids;
+  }
+
+  get attachments() {
+    const attachments = [];
+    const taxYears = this.app.assistYears.filter(year => year.apply);
+    for (let year of taxYears) {
+      if (year.files && year.files.length > 0) {
+        attachments.push(...year.files);
+      }
+      if (year.spouseFiles && year.spouseFiles.length > 0) {
+        attachments.push(...year.spouseFiles);
+      }
+    }
+    console.log('attachments', attachments);
+    return attachments;
   }
 
   calcAssistYearType(): AssistanceYearType {

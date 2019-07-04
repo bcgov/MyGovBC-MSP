@@ -156,7 +156,7 @@ export class AssistStateService {
   }
 
   submitApplication() {
-    const app = this.xformSvc.assistanceApplication;
+    const app = this.xformSvc.application;
 
     console.log('application', app);
   }

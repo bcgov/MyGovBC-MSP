@@ -182,7 +182,6 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
     this.touched$.subscribe(obs => {
       if (obs) {
         const controls = this.personalInfoForm.controls;
-        console.log(controls);
         for (let control in controls) {
           controls[control].markAsTouched();
         }
