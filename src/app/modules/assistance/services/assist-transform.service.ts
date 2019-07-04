@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { MspDataService } from 'app/services/msp-data.service';
-import {
-  FinancialAssistApplication,
-  AssistanceApplicationType
-} from '../models/financial-assist-application.model';
+import { FinancialAssistApplication } from '../models/financial-assist-application.model';
 
 import {
   FinancialsType,
   AssistanceApplicantType,
   AssistanceYearType,
   AddressType,
-  NameType
+  NameType,
+  AssistanceApplicationType
 } from 'app/modules/msp-core/interfaces/i-api';
 
 @Injectable({
@@ -23,7 +21,17 @@ export class AssistTransformService {
 
   get assistanceApplication(): AssistanceApplicationType {
     const applicant = this.assistanceApplicant as AssistanceApplicantType;
-    return;
+
+    const authorizedByApplicant = this.app.authorizedByApplicant ? 'Yes' : 'No';
+    const authorizedByApplicantDate = this.app.authorizedByApplicantDate.toString();
+    // TODO: still require authorized by spouse?
+    const authorizedBySpouse = 'Yes';
+    return {
+      applicant,
+      authorizedByApplicant,
+      authorizedByApplicantDate,
+      authorizedBySpouse
+    };
   }
 
   get assistanceApplicant(): AssistanceApplicantType {

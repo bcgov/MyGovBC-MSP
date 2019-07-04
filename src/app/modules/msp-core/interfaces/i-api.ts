@@ -1,3 +1,5 @@
+export type YesNoType = 'Yes' | 'No';
+
 export interface MSPApplicationSchema {
   accountChangeApplication?: AccountChangeApplicationType;
   assistanceApplication?: AssistanceApplicationType;
@@ -15,7 +17,7 @@ export interface AccountChangeApplicationType {
 
 export interface AccountChangeAccountHolderType {
   attachmentUuids?: string[];
-  authorizedByApplicant: string;
+  authorizedByApplicant: YesNoType;
   authorizedByApplicantDate: string;
   authorizedBySpouse?: string;
   birthDate: string;
