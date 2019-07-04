@@ -65,6 +65,7 @@
     "@angular/platform-server": "^6.1.9",
     "@angular/router": "^6.1.9",
     "@ng-select/ng-select": "^2.20.0",
+    "ajv": "^6.10.0",
     "angular-2-local-storage": "^2.0.0",
     "angular2-template-loader": "^0.6.2",
     "angular2-text-mask": "^9.0.0",
