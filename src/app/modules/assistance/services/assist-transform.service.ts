@@ -9,7 +9,8 @@ import {
   FinancialsType,
   AssistanceApplicantType,
   AssistanceYearType,
-  AddressType
+  AddressType,
+  NameType
 } from 'app/modules/msp-core/interfaces/i-api';
 
 @Injectable({
@@ -31,7 +32,7 @@ export class AssistTransformService {
     const birthDate = `${app.dob_month}-${app.dob.day}-${app.dob.year}`;
     const financials = this.financials;
     const mailingAddress = this.mailingAddress;
-    const name = null;
+    const name = this.name;
     const phn = '';
     const powerOfAttorney = '';
     const SIN = '';
@@ -78,6 +79,29 @@ export class AssistTransformService {
   }
 
   get mailingAddress(): AddressType {
-    return;
+    const addressLine1 = this.app.mailingAddress.addressLine1;
+    const addressLine2 = this.app.mailingAddress.addressLine2;
+    const addressLine3 = this.app.mailingAddress.addressLine3;
+    const city = this.app.mailingAddress.city;
+    const country = this.app.mailingAddress.country;
+    const postalCode = this.app.mailingAddress.postal;
+    const provinceOrState = this.app.mailingAddress.province;
+    return {
+      addressLine1,
+      addressLine2,
+      addressLine3,
+      city,
+      country,
+      postalCode,
+      provinceOrState
+    };
+  }
+
+  get name(): NameType {
+    return {
+      firstName: this.app.applicant.firstName,
+      lastName: this.app.applicant.lastName,
+      secondName: this.app.applicant.middleName
+    };
   }
 }
