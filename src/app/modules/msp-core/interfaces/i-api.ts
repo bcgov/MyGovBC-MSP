@@ -12,12 +12,12 @@ export interface MSPApplicationSchema {
 export interface AccountChangeApplicationType {
   accountHolder: AccountChangeAccountHolderType;
   children?: any[];
-  spouses: AccountChangeSpousesType;
+  spouses?: AccountChangeSpousesType;
 }
 
 export interface AccountChangeAccountHolderType {
   attachmentUuids?: string[];
-  authorizedByApplicant: YesNoType;
+  authorizedByApplicant: string;
   authorizedByApplicantDate: string;
   authorizedBySpouse?: string;
   birthDate: string;
@@ -131,7 +131,7 @@ export interface AssistanceApplicantType {
   name: NameType;
   phn: string;
   powerOfAttorney: string;
-  SIN: string;
+  sin: string;
   telephone?: string;
 }
 
@@ -168,7 +168,7 @@ export interface AssistanceSpouseType {
   birthDate: string;
   name: NameType;
   phn: string;
-  SIN: string;
+  sin: string;
   spouseDeduction?: number;
   spouseSixtyFiveDeduction?: number;
 }
@@ -233,7 +233,6 @@ export interface SupplementaryBenefitsApplicationType {
    * Applicant Address Line 3
    */
   applicantAddressLine3?: string;
-  applicantAttachmentUuids: string[];
   /**
    * Birthdate of Applicant
    */
@@ -273,7 +272,7 @@ export interface SupplementaryBenefitsApplicationType {
   /**
    * Applicant Middle Name
    */
-  applicantSecondName: string;
+  applicantSecondName?: string;
   /**
    * SIN of Applicant
    */
@@ -281,7 +280,7 @@ export interface SupplementaryBenefitsApplicationType {
   /**
    * Telephone of Applicant
    */
-  applicantTelephone: string;
+  applicantTelephone?: string;
   /**
    * Assistance Year
    */
@@ -301,7 +300,7 @@ export interface SupplementaryBenefitsApplicationType {
   /**
    * Child Care Expense
    */
-  childCareExpense: number;
+  childCareExpense?: number;
   /**
    * Child Deduction
    */
@@ -313,7 +312,7 @@ export interface SupplementaryBenefitsApplicationType {
   /**
    * Disability Deduction
    */
-  disabilityDeduction: number;
+  disabilityDeduction?: number;
   /**
    * Net Income Last Year
    */
@@ -325,11 +324,11 @@ export interface SupplementaryBenefitsApplicationType {
   /**
    * Number of Children
    */
-  numChildren: number;
+  numChildren?: number;
   /**
    * Number of Disabled persons in care
    */
-  numDisabled: number;
+  numDisabled?: number;
   /**
    * Power of attorney
    */
@@ -337,12 +336,11 @@ export interface SupplementaryBenefitsApplicationType {
   /**
    * Reported UCC Benefit Line 117
    */
-  reportedUCCBenefit: number;
+  reportedUCCBenefit?: number;
   /**
    * Sixty Five years age deduction
    */
   sixtyFiveDeduction: number;
-  spouseAttachmentUuids?: string[];
   /**
    * Birthdate of Spouse
    */
@@ -350,11 +348,11 @@ export interface SupplementaryBenefitsApplicationType {
   /**
    * Spouse Deduction
    */
-  spouseDeduction: number;
+  spouseDeduction?: number;
   /**
    * Spouse DSP Amount Line 125
    */
-  spouseDSPAmount: number;
+  spouseDSPAmount?: number;
   /**
    * Spouse First Name
    */
@@ -362,7 +360,7 @@ export interface SupplementaryBenefitsApplicationType {
   /**
    * Spouse Income line 236
    */
-  spouseIncomeLine236: number;
+  spouseIncomeLine236?: number;
   /**
    * Spouse Last Name
    */

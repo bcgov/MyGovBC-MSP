@@ -102,7 +102,7 @@
     },
     "YesOrNoType": {
       "type": "string",
-      "pattern": "^[YN]{1}$\b"
+      "pattern": "^[YN]{1}$"
     },
     "AssistanceYearType": {
       "type": "string",
@@ -626,7 +626,7 @@
           "$ref": "#/definitions/AccountChangeChildrenType"
         }
       },
-      "required": ["accountHolder", "spouses"]
+      "required": ["accountHolder"]
     },
     "FinancialsType": {
       "type": "object",
@@ -718,14 +718,14 @@
         "phn": {
           "$ref": "#/definitions/PHNType"
         },
-        "SIN": {
+        "sin": {
           "$ref": "#/definitions/SINType"
         },
         "powerOfAttorney": {
           "$ref": "#/definitions/YesOrNoType"
         }
       },
-      "required": ["name", "birthDate", "mailingAddress", "financials", "phn", "SIN", "powerOfAttorney"]
+      "required": ["name", "birthDate", "mailingAddress", "financials", "phn", "sin", "powerOfAttorney"]
     },
     "AssistanceSpouseType": {
       "type": "object",
@@ -739,7 +739,7 @@
         "phn": {
           "$ref": "#/definitions/PHNType"
         },
-        "SIN": {
+        "sin": {
           "$ref": "#/definitions/SINType"
         },
         "spouseDeduction": {
@@ -752,7 +752,7 @@
           "$ref": "#/definitions/AttachmentUuidsType"
         }
       },
-      "required": ["name", "birthDate", "phn", "SIN"]
+      "required": ["name", "birthDate", "phn", "sin"]
     },
     "AssistanceApplicationType": {
       "type": "object",
@@ -969,15 +969,9 @@
         "spouseSixtyFiveDeduction": {
           "type": "number",
           "description": "Spouse 65 years old deduction"
-        },
-        "applicantAttachmentUuids": {
-          "$ref": "#/definitions/AttachmentUuidsType"
-        },
-        "spouseAttachmentUuids": {
-          "$ref": "#/definitions/AttachmentUuidsType"
         }
       },
-      "required": ["applicantFirstName", "applicantSecondName", "applicantLastName", "applicantBirthdate", "applicantPHN", "applicantSIN", "applicantAddressLine1", "applicantCity", "applicantProvinceOrState", "applicantCountry", "applicantPostalCode", "applicantTelephone", "authorizedByApplicant", "authorizedByApplicantDate", "powerOfAttorney", "assistanceYear", "taxYear", "numberOfTaxYears", "adjustedNetIncome", "childDeduction", "deductions", "disabilityDeduction", "sixtyFiveDeduction", "totalDeductions", "totalNetIncome", "childCareExpense", "netIncomeLastYear", "numChildren", "numDisabled", "spouseIncomeLine236", "reportedUCCBenefit", "spouseDSPAmount", "spouseDeduction", "applicantAttachmentUuids"]
+      "required": ["applicantFirstName", "applicantLastName", "applicantBirthdate", "applicantPHN", "applicantSIN", "applicantAddressLine1", "applicantCity", "applicantProvinceOrState", "applicantCountry", "applicantPostalCode", "authorizedByApplicant", "authorizedByApplicantDate", "powerOfAttorney", "assistanceYear", "taxYear", "numberOfTaxYears", "adjustedNetIncome", "childDeduction", "deductions", "sixtyFiveDeduction", "totalDeductions", "totalNetIncome", "netIncomeLastYear"]
     },
     "AttachmentType": {
       "type": "object",
@@ -1009,9 +1003,9 @@
       }
     }
   },
-
   "title": "Application",
   "type": "object",
+
   "properties": {
     "enrolmentApplication": {
       "$ref": "#/definitions/EnrolmentApplicationType"
@@ -1031,6 +1025,7 @@
     "attachments": {
       "$ref": "#/definitions/AttachmentsType"
     }
+
   },
   "required": ["uuid", "attachments"]
 }

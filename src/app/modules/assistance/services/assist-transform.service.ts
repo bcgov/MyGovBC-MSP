@@ -41,10 +41,10 @@ export class AssistTransformService {
     const financials = this.financials;
     const mailingAddress = this.mailingAddress;
     const name = this.name;
-    const phn = '';
-    const powerOfAttorney = '';
-    const SIN = '';
-    const telephone = '';
+    const phn = app.previous_phn;
+    const powerOfAttorney = this.app.hasPowerOfAttorney ? 'Yes' : 'No';
+    const sin = app.sin;
+    const telephone = this.app.phoneNumber;
     return {
       attachmentUuids,
       birthDate,
@@ -53,15 +53,14 @@ export class AssistTransformService {
       name,
       phn,
       powerOfAttorney,
-      SIN,
+      sin,
       telephone
     };
   }
   // TODO: half of these fields are no longer required
   get financials(): FinancialsType {
     const adjustedNetIncome = 0;
-    // TODO: write function to convert the tax years to the correct format
-    const assistanceYear = AssistanceYearType['CurrentPA'];
+    const assistanceYear = this.calcAssistYearType();
     const childDeduction = 0;
     const deductions = 0;
     const netIncome = 0;
@@ -111,5 +110,29 @@ export class AssistTransformService {
       lastName: this.app.applicant.lastName,
       secondName: this.app.applicant.middleName
     };
+  }
+
+  calcAssistYearType(): AssistanceYearType {
+    const date = new Date();
+    const taxYear = date.getFullYear();
+    const appliedYears = this.app.assistYears.filter(year => year.apply);
+    if (!appliedYears) return null;
+    if (appliedYears.length === 1) {
+      if (appliedYears[0].year === taxYear) {
+        return AssistanceYearType['CurrentPA'];
+      }
+      if ((appliedYears[0].year = taxYear - 1)) {
+        return AssistanceYearType['PreviousTwo'];
+      }
+      return AssistanceYearType['MultiYear'];
+    }
+    if (
+      appliedYears.length === 2 &&
+      appliedYears[0].year === taxYear &&
+      appliedYears[1].year === taxYear - 1
+    ) {
+      return AssistanceYearType['PreviousTwo'];
+    }
+    return AssistanceYearType['MultiYear'];
   }
 }
