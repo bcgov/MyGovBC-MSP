@@ -75,9 +75,13 @@ interface BenefitApplicationBody {
 }
 
 // tslint:disable-next-line:class-name
-interface _BenefitApplicationType extends BaseType {
+interface _BenefitApplicationType {
+// TODO - Verify removing baseType okay. Removes 'sequence' necessary for ordering... xml only?
+	// interface _BenefitApplicationType extends BaseType {
 	supplementaryBenefitsApplication: BenefitApplicationBody;
 	uuid: string;
+	// TODO
+	attachments: any;
 	// 'supplementaryBenefitsApplication': {
 	// 	applicantFirstName: string;
 	// 	applicantSecondName: string;
@@ -174,7 +178,10 @@ interface _BenefitApplicationType extends BaseType {
 	// spouseSIN: number;
 	// spouseSixtyFiveDeduction: number;
 }
-export interface BenefitApplicationType extends _BenefitApplicationType { constructor: { new(): BenefitApplicationType }; }
+// export interface BenefitApplicationType extends _BenefitApplicationType { constructor: { new(): BenefitApplicationType }; }
+// TODO _ try removing the constructor requrirement by enabling below line
+export interface BenefitApplicationType extends _BenefitApplicationType { }
+
 export let BenefitApplicationType: { new(): BenefitApplicationType };
 
 

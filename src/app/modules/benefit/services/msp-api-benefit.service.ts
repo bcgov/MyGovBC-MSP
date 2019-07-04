@@ -75,8 +75,9 @@ export class MspApiBenefitService extends AbstractHttpService {
 
     sendApplication(app: BenefitApplication, uuid: string): Observable<any>{
 
-        const suppBenefitResponse = this.convertBenefitApplication(app);
-        const url =  environment.appConstants.apiBaseUrl + environment.appConstants.suppBenefitAPIUrl + uuid ;
+        // const suppBenefitRequest = this.convertBenefitApplication(app);
+        const suppBenefitRequest = this.prepareBenefitApplication(app);
+        const url =  environment.appConstants.apiBaseUrl + environment.appConstants.suppBenefitAPIUrl + uuid;
 
         // Setup headers
         this._headers = new HttpHeaders({
@@ -84,7 +85,7 @@ export class MspApiBenefitService extends AbstractHttpService {
             'Response-Type': 'application/json',
             'X-Authorization': 'Bearer ' + app.authorizationToken,
         });
-        return this.post<BenefitApplication>(url, suppBenefitResponse);
+        return this.post<BenefitApplication>(url, suppBenefitRequest);
     }
 
     public sendAttachments(token: string, applicationUUID: string, attachments: MspImage[]): Promise<string[]>  {
@@ -417,8 +418,10 @@ export class MspApiBenefitService extends AbstractHttpService {
     }
 
     // TODO - IN PROGRESS REFACTORING OF ABOVE
-    private prepareBenefitApplication(from: BenefitApplication): BenefitApplicationType {
-        return {
+    // private prepareBenefitApplication(from: BenefitApplication): BenefitApplicationType {
+    private prepareBenefitApplication(from: BenefitApplication): any {
+        console.log('prepareBenefitApplicatoin', {from, imageUUIDs: from.getAllImages().map(x => x.uuid)});
+        const output = {
             'supplementaryBenefitsApplication' : {
               'applicantFirstName' : 'Smith',
               'applicantLastName' : 'Lord',
@@ -453,17 +456,56 @@ export class MspApiBenefitService extends AbstractHttpService {
               'spouseDSPAmount' : 0,
               'spouseDeduction' : 0
             },
-            'uuid' : '2345678-a89b-52d3-a456-526655441250',
-            'attachments' : [ {
-              'contentType' : 'IMAGE_JPEG',
-              'attachmentDocumentType' : 'ImmigrationDocuments',
-              'attachmentUuid' : '4345678-f89c-52d3-a456-626655441236',
-              'attachmentOrder' : '1',
-              'description' : 'Foreign Birth Certificate'
-            } ]
+            // 'uuid' : '2345678-a89b-52d3-a456-526655441250',
+            // 'attachments' : [ {
+            //   'contentType' : 'IMAGE_JPEG',
+            //   'attachmentDocumentType' : 'ImmigrationDocuments',
+            //   'attachmentUuid' : '4345678-f89c-52d3-a456-626655441236',
+            //   'attachmentOrder' : '1',
+            //   'description' : 'Foreign Birth Certificate'
+            // } ]
           };
+
+          
+
+          // create Attachment from Images
+          output['attachments'] = this.convertToAttachment(from.getAllImages());
+          output['uuid'] = from.uuid;
+
+          return output;
+    }
+
+    private convertToAttachment(images: MspImage[]): AttachmentRequestPartial[] {
+        const output = [];
+        images.map((image, i) => {
+            const partial: AttachmentRequestPartial = {
+                contentType: 'IMAGE_JPEG',
+                attachmentDocumentType: MspApiBenefitService.AttachmentDocumentType,
+                attachmentOrder: (i + 1).toString(),
+                description: '',
+                
+                // TODO - Sure this is the correct UUID here?
+                attachmentUuid: image.uuid
+            }
+            output.push(partial);
+        });
+
+        return output;
     }
 }
+
+// TODO - Move file - meant to be generic?
+interface AttachmentRequestPartial {
+    contentType: 'IMAGE_JPEG';
+    // attachmentDocumentType: string; // TODO lock down
+    attachmentDocumentType: 'SupportDocument'; 
+    attachmentOrder: string; // String of number! '1', '2', '3'
+    description: string;
+    attachmentUuid: string;
+   
+}
+
+// interface 
 
 
 // Remove? Make use of applicationTypes.ts?
