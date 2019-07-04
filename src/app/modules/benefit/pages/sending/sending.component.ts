@@ -42,8 +42,10 @@ export class BenefitSendingComponent implements AfterContentInit  {
         // After view inits, begin sending the application
         this.service
           .sendRequest(this.application)
-          .then(response => {
+          .then((response: SuppBenefitApiResponse) => {
             // probable network errors..middleware could be down
+            console.log('sending RESPONSE', response);
+
             if (response instanceof HttpErrorResponse) {
                 this.logService.log({
                     name: 'Supplementary Benefit - System Error',
@@ -58,6 +60,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
             this.suppBenefitResponse = <SuppBenefitApiResponse> response;
 
             if (this.isFailure(this.suppBenefitResponse)) {
+                console.log('isFailure', this.suppBenefitResponse)
                 this.logService.log({
                     name: 'Supplementary Benefit - DB Error',
                     confirmationNumber: this.application.uuid,
@@ -66,7 +69,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
                 this.processErrorResponse(false);
                 return;
             }
-            const refNumber = response.referenceNumber;
+            const refNumber = response.op_reference_number;
             this.logService.log({
                 name: 'Supplementary Benefit - Received refNo ',
                 confirmationNumber: refNumber,
@@ -99,10 +102,12 @@ export class BenefitSendingComponent implements AfterContentInit  {
 
   isFailure(suppBenefitApiResponse: SuppBenefitApiResponse): boolean {
       // has a reference number , is DB error code Y , is RAPID response Y then its not a failure
-      if (suppBenefitApiResponse && suppBenefitApiResponse.referenceNumber && !suppBenefitApiResponse.dberrorMessage) {
-          return false;
-      }
-      return true;
+    //   if (suppBenefitApiResponse && suppBenefitApiResponse.referenceNumber && !suppBenefitApiResponse.dberrorMessage) {
+    //       return false;
+    //   }
+    if (!suppBenefitApiResponse) return true;
+    return suppBenefitApiResponse.op_return_code === 'FAILURE';
+
   }
 
 }
