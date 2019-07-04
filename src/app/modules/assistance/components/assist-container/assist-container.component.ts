@@ -69,7 +69,6 @@ export class AssistContainerComponent extends Container implements OnInit {
         ? this.submitLabel$.next(this.spouseLabel)
         : this.submitLabel$.next(this.submitLabels[obs]);
     });
-    this.schemaSvc.validate();
   }
 
   continue() {

@@ -8,6 +8,7 @@ import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
 import { validateBirthdate } from 'app/modules/msp-core/models/validate-birthdate';
 import { validateContact } from 'app/modules/msp-core/models/validate-contact';
 import { AssistTransformService } from './assist-transform.service';
+import { SchemaService } from 'app/services/schema.service';
 
 @Injectable({
   providedIn: 'root'
@@ -122,6 +123,7 @@ export class AssistStateService {
   constructor(
     private router: Router,
     public dataSvc: MspDataService,
+    private schemaSvc: SchemaService,
     private xformSvc: AssistTransformService
   ) {
     this.router.events
@@ -157,7 +159,8 @@ export class AssistStateService {
 
   submitApplication() {
     const app = this.xformSvc.application;
-
     console.log('application', app);
+
+    this.schemaSvc.validate(app).then(res => console.log(res));
   }
 }
