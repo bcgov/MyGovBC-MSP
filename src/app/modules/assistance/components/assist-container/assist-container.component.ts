@@ -6,6 +6,7 @@ import { AssistStateService } from '../../services/assist-state.service';
 import { MspDataService } from 'app/services/msp-data.service';
 import { BehaviorSubject } from 'rxjs';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
+import { SchemaService } from 'app/services/schema.service';
 
 @Component({
   selector: 'msp-assist-container',
@@ -51,7 +52,8 @@ export class AssistContainerComponent extends Container implements OnInit {
     public router: Router,
     private route: ActivatedRoute,
     private stateSvc: AssistStateService,
-    private dataSvc: MspDataService
+    private dataSvc: MspDataService,
+    private schemaSvc: SchemaService
   ) {
     super();
     this.setProgressSteps(assistPages);
@@ -85,11 +87,15 @@ export class AssistContainerComponent extends Container implements OnInit {
       : this.submit();
   }
   submit() {
-    this.isLoading = true;
+    // this.isLoading = true;
+    /**
     setTimeout(() => {
       this.stateSvc.submitted = true;
       this.isLoading = false;
       this.submitLabel$.next('Home');
+
     }, 1000);
+     */
+    this.stateSvc.submitApplication();
   }
 }
