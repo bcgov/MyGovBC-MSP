@@ -7,6 +7,7 @@ import { MspDataService } from 'app/services/msp-data.service';
 import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
 import { validateBirthdate } from 'app/modules/msp-core/models/validate-birthdate';
 import { validateContact } from 'app/modules/msp-core/models/validate-contact';
+import { AssistTransformService } from './assist-transform.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,10 @@ export class AssistStateService {
   routes: string[];
   finAssistApp = this.dataSvc.finAssistApp;
   submitted = false;
+
+  // The index of the validations is tied to the index of the router
+  // ie: home is index 0 ergo validation is index 0.
+  // could be changed to a dictionary type object.
 
   validations = [
     this.isHomeValid.bind(this),
@@ -114,7 +119,11 @@ export class AssistStateService {
     return filteredYears;
   }
 
-  constructor(private router: Router, public dataSvc: MspDataService) {
+  constructor(
+    private router: Router,
+    public dataSvc: MspDataService,
+    private xformSvc: AssistTransformService
+  ) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationStart))
       .subscribe((obs: any) => {
@@ -144,5 +153,11 @@ export class AssistStateService {
     console.log('set index', path);
     let index = this.findIndex(path);
     if (index > -1) return this.index.next(index);
+  }
+
+  submitApplication() {
+    const app = this.xformSvc.assistanceApplication;
+
+    console.log('application', app);
   }
 }

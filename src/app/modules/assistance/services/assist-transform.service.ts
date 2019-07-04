@@ -15,7 +15,7 @@ import {
   providedIn: 'root'
 })
 export class AssistTransformService {
-  app: FinancialAssistApplication = this.dataSvc.finAssistApp;
+  private app: FinancialAssistApplication = this.dataSvc.finAssistApp;
 
   constructor(private dataSvc: MspDataService) {}
 
@@ -37,7 +37,7 @@ export class AssistTransformService {
   get assistanceApplicant(): AssistanceApplicantType {
     const app = this.app.applicant;
     const attachmentUuids = null;
-    const birthDate = `${app.dob_month}-${app.dob.day}-${app.dob.year}`;
+    const birthDate = `${app.dobSimple.month.toString()}-${app.dobSimple.day.toString()}-${app.dobSimple.year.toString()}`;
     const financials = this.financials;
     const mailingAddress = this.mailingAddress;
     const name = this.name;
