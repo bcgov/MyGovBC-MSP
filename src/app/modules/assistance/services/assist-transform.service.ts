@@ -47,15 +47,20 @@ export class AssistTransformService {
 
   get assistanceApplicant(): AssistanceApplicantType {
     const app = this.app.applicant;
+    let birthMonth =
+      app.dobSimple.month < 10
+        ? `0${app.dobSimple.month.toString()}`
+        : app.dobSimple.month.toString();
     const attachmentUuids = this.attachmentUuids as any;
-    const birthDate = `${app.dobSimple.month.toString()}-${app.dobSimple.day.toString()}-${app.dobSimple.year.toString()}`;
+    const birthDate = `${birthMonth}-${app.dobSimple.day.toString()}-${app.dobSimple.year.toString()}`;
     const financials = this.financials;
     const mailingAddress = this.mailingAddress;
     const name = this.name;
     const phn = app.previous_phn;
     const powerOfAttorney = this.app.hasPowerOfAttorney ? 'Yes' : 'No';
     const sin = app.sin;
-    const telephone = this.app.phoneNumber;
+    const telephone = this.app.phoneNumber.replace(/[() +-]/g, '');
+    console.log('phone', telephone);
     return {
       attachmentUuids,
       birthDate,

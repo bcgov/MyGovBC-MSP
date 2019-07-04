@@ -94,7 +94,7 @@ export const defaultSchema = {
     },
     "TelephoneType": {
       "type": "string",
-      "pattern": "^[2-9]([0-9]{9})$"
+      "pattern": "^[1-9]([0-9]{10})$"
     },
     "NumberOfTaxYearsType": {
       "type": "string",
