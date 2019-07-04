@@ -33,10 +33,24 @@ export class AssistTransformService {
   get assistanceApplication(): AssistanceApplicationType {
     const applicant = this.assistanceApplicant as AssistanceApplicantType;
 
-    const authorizedByApplicant = this.app.authorizedByApplicant ? 'Yes' : 'No';
-    const authorizedByApplicantDate = this.app.authorizedByApplicantDate.toString();
+    const authorizedByApplicant = this.app.authorizedByApplicant ? 'Y' : 'N';
+    console.log(
+      'authorized by applicant date',
+      this.app.authorizedByApplicantDate
+    );
+    let date = this.app.authorizedByApplicantDate;
+    let day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+    console.log(date.getMonth());
+    let month =
+      date.getMonth() < 10
+        ? `0${(date.getMonth() + 1).toString()}`
+        : (date.getMonth() + 1).toString();
+    let year = date.getFullYear();
+
+    const authorizedByApplicantDate = `${month}-${day}-${year}`;
+    console.log('authorization date', authorizedByApplicantDate);
     // TODO: still require authorized by spouse?
-    const authorizedBySpouse = 'Yes';
+    const authorizedBySpouse = 'Y';
     return {
       applicant,
       authorizedByApplicant,
@@ -56,11 +70,10 @@ export class AssistTransformService {
     const financials = this.financials;
     const mailingAddress = this.mailingAddress;
     const name = this.name;
-    const phn = app.previous_phn;
-    const powerOfAttorney = this.app.hasPowerOfAttorney ? 'Yes' : 'No';
-    const sin = app.sin;
+    const phn = app.previous_phn.replace(/ /g, '');
+    const powerOfAttorney = this.app.hasPowerOfAttorney ? 'Y' : 'N';
+    const sin = app.sin.replace(/ /g, '');
     const telephone = this.app.phoneNumber.replace(/[() +-]/g, '');
-    console.log('phone', telephone);
     return {
       attachmentUuids,
       birthDate,

@@ -26,7 +26,7 @@ import { AssistStateService } from '../../services/assist-state.service';
             [(ngModel)]="address.addressLine1"
             name="addressLine1"
             id="addressLine1"
-            maxlength="25"
+            maxlen="25"
             required
           ></common-street>
           <div class="col-1">
@@ -45,7 +45,7 @@ import { AssistStateService } from '../../services/assist-state.service';
             [(ngModel)]="address.addressLine2"
             name="addressLine2"
             id="addressLine2"
-            maxlength="25"
+            maxlen="25"
             required
           ></common-street>
           <div class="col-1">
@@ -64,7 +64,7 @@ import { AssistStateService } from '../../services/assist-state.service';
             [(ngModel)]="address.addressLine3"
             name="addressLine3"
             id="addressLine3"
-            maxlength="25"
+            maxlen="25"
             required
           ></common-street>
           <div class="col-1">
@@ -110,7 +110,7 @@ import { AssistStateService } from '../../services/assist-state.service';
           [phoneNumber]="phone"
           [(ngModel)]="phone"
           (onChange)="savePhone($event)"
-          maxlength="25"
+          maxlen="25"
           required="false"
         ></common-phone-number>
         <aside>Tip about phone numbers</aside>

@@ -102,7 +102,7 @@ export const defaultSchema = {
     },
     "YesOrNoType": {
       "type": "string",
-      "pattern": "^[YN]{1}$\b"
+      "pattern": "^[YN]{1}$"
     },
     "AssistanceYearType": {
       "type": "string",
@@ -718,14 +718,14 @@ export const defaultSchema = {
           "phn": {
             "$ref": "#/definitions/PHNType"
           },
-          "SIN": {
+          "sin": {
             "$ref": "#/definitions/SINType"
           },
           "powerOfAttorney": {
             "$ref": "#/definitions/YesOrNoType"
           }
         },
-        "required": ["name", "birthDate", "mailingAddress", "financials", "phn", "SIN", "powerOfAttorney"]
+        "required": ["name", "birthDate", "mailingAddress", "financials", "phn", "sin", "powerOfAttorney"]
       },
       "AssistanceSpouseType": {
         "type": "object",

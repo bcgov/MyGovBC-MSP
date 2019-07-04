@@ -1,4 +1,4 @@
-export type YesNoType = 'Yes' | 'No';
+export type YesNoType = 'Y' | 'N';
 
 export interface MSPApplicationSchema {
   accountChangeApplication?: AccountChangeApplicationType;
