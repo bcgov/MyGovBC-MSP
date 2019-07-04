@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MspLogService } from '../../../services/log.service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { BenefitApplication } from '../models/benefit-application.model';
-import { BenefitApplicationTypeFactory, BenefitApplicationType  } from '../../enrolment/pages/api-model/benefitTypes';
+import { BenefitApplicationTypeFactory, BenefitApplicationType} from '../../enrolment/pages/api-model/benefitTypes';
 import { AssistanceApplicationType } from '../../assistance/models/financial-assist-application.model';
 import { AttachmentType, _ApplicationTypeNameSpace } from '../../enrolment/pages/api-model/applicationTypes';
 import { environment } from '../../../../environments/environment';
@@ -235,7 +235,8 @@ export class MspApiBenefitService extends AbstractHttpService {
     private convertBenefitApplication(from: BenefitApplication): BenefitApplicationType {
 
         // Init BenefitApplication
-        const to = BenefitApplicationTypeFactory.make();
+        // const to = BenefitApplicationTypeFactory.make();
+        const to: any = BenefitApplicationTypeFactory.make();
         to.applicationType = MspApiBenefitService.ApplicationType;
         to.applicationUuid = from.uuid;
 
@@ -411,12 +412,12 @@ export class MspApiBenefitService extends AbstractHttpService {
             to.attachments.push(toAttachment);
         }
 
-        console.log('convertBenefitApplication', {orig: to, new: this.prepareBenefitApplication(to), from});
+        console.log('convertBenefitApplication', {orig: to, new: this.prepareBenefitApplication(from), from});
         return to;
     }
 
     // TODO - IN PROGRESS REFACTORING OF ABOVE
-    private prepareBenefitApplication(from: BenefitApplication) {
+    private prepareBenefitApplication(from: BenefitApplication): BenefitApplicationType {
         return {
             'supplementaryBenefitsApplication' : {
               'applicantFirstName' : 'Smith',

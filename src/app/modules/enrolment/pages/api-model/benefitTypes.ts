@@ -1,9 +1,11 @@
 import * as Primitive from './xml-primitives';
 import * as ct from './commonTypes';
-import * as at from './applicationTypes'
+import * as at from './applicationTypes';
 
 // Source files:
 // https://raw.githubusercontent.com/bcgov/MyGovBC-MSP/master/src/app/components/msp/api-model/xsd-flat/BenefitTypes.xsd
+// tslint:disable:indent
+
 
 
 interface BaseType {
@@ -33,64 +35,144 @@ export class BenefitApplicantTypeFactory {
 	}
 }
 
-interface _BenefitApplicationType extends BaseType {
-	applicationType: string;
-	attachmentUuids?: ct.AttachmentUuidsType;
-	applicant: BenefitApplicantType;
-	authorizedByApplicant: ct.YesOrNoType;
-	authorizedByApplicantDate: string;
-	authorizedBySpouse?: ct.YesOrNoType;
-	spouse?: BenefitSpouseType;
-	financials: FinancialsType;
-	attachments: Array<at.AttachmentType> ;
-	mailingAddress: ct.AddressType;
-	phn: number;
-	powerOfAttorney: ct.YesOrNoType;
-	SIN: number;
-	telephone: number;
-	birthDate: string;
-	name: ct.NameType;
-	applicationUuid: string;
+interface BenefitApplicationBody {
 	applicantFirstName: string;
 	applicantSecondName: string;
 	applicantLastName: string;
-	applicantGender: string;
-	applicantBirthdate: string;
-  applicantPHN:number;
-  applicantSIN: number;
-  applicantAddressLine1: string;
-  applicantAddressLine2: string;
-  applicantAddressLine3: string;
-  applicantCity: string;
-  applicantProvinceOrState: string;
-  applicantCountry: string;
-  applicantPostalCode: string;
-  applicantTelephone: number;
-  assistanceYear: string;
-  taxYear: number;
-  numberOfTaxYears: number;
-  adjustedNetIncome: number;
-  childDeduction: number;
-  deductions: number;
-  disabilityDeduction: number;
-  sixtyFiveDeduction: number;
-  totalDeductions: number;
-  totalNetIncome: number;
-  childCareExpense: number;
-  netIncomeLastYear: number;
-  numChildren:number;
-  numDisabled: number;
-  spouseIncomeLine236: number;
-  reportedUCCBenefit: number;
-  spouseDSPAmount: number;
-  spouseDeduction: number;
-  spouseFirstName: string;
-  spouseSecondName:  string;
-  spouseLastName:  string;
-  spouseBirthdate:  string;
-  spousePHN: number;
-  spouseSIN: number;
-  spouseSixtyFiveDeduction: number;
+
+	applicantBirthDate: string; //datestring
+	applicantPHN: string;
+	applicantSIN: string;
+	applicantAddressLine1: string;
+	applicantCity: string;
+	applicantProvinceOrState: string;
+	applicantCountry: string;
+	applicantPostalCode: string;
+	applicantTelephone: string;
+	authorizedByApplicant: ct.YesOrNoType;
+	authorizedByApplicantDate: string; //'09-10-2018',
+	powerOfAttorney: ct.YesOrNoType;
+	assistanceYear: string;
+	taxYear: string;
+	numberOfTaxYears: number;
+	adjustedNetIncome: number;
+	childDeduction: number;
+	deductions: number;
+	disabilityDeduction: number;
+	sixtyFiveDeduction: number;
+	totalDeductions: number;
+	totalNetIncome: number;
+	childCareExpense: number;
+	netIncomeLastYear: number;
+	numChildren: number;
+	numDisabled: number;
+	spouseIncomeLine236: number;
+	reportedUCCBenefit: number;
+	spouseDSPAmount: number;
+	spouseDeduction: number;
+	// TODO - NOT SURE IF NECESSARY. Not in Example from Jing, but could
+	// just be that example. authorizedBySpouse?: ct.YesOrNoType		
+}
+
+// tslint:disable-next-line:class-name
+interface _BenefitApplicationType extends BaseType {
+	supplementaryBenefitsApplication: BenefitApplicationBody;
+	uuid: string;
+	// 'supplementaryBenefitsApplication': {
+	// 	applicantFirstName: string;
+	// 	applicantSecondName: string;
+	// 	applicantLastName: string;
+
+	// 	applicantPHN: string,
+	// 	applicantSIN: string,
+	// 	applicantAddressLine1: string,
+	// 	applicantCity: string
+    //     applicantProvinceOrState: string
+    //     applicantCountry: string
+    //     applicantPostalCode: string
+    //     applicantTelephone: string
+    //     authorizedByApplicant: ct.YesOrNoType
+    //     authorizedByApplicantDate: string //'09-10-2018',
+	// 	powerOfAttorney: ct.YesOrNoType,
+    //     assistanceYear: string
+    //     taxYear: string
+    //     numberOfTaxYears: number
+    //     adjustedNetIncome: number
+    //     childDeduction: number
+    //     deductions: number
+    //     disabilityDeduction: number
+    //     sixtyFiveDeduction: number
+    //     totalDeductions: number
+    //     totalNetIncome: number
+    //     childCareExpense: number
+    //     netIncomeLastYear: number
+    //     numChildren: number
+    //     numDisabled: number
+    //     spouseIncomeLine236: number
+    //     reportedUCCBenefit: number
+    //     spouseDSPAmount: number
+	// 	spouseDeduction: number
+	// 	// TODO - NOT SURE IF NECESSARY. Not in Example from Jing, but could
+	// 	// just be that example. authorizedBySpouse?: ct.YesOrNoType		
+	// };
+
+	// applicationType: string;
+
+	// TODO - Can we remove below? 
+
+	attachmentUuids?: ct.AttachmentUuidsType;
+	// applicant: BenefitApplicantType;
+	// authorizedByApplicant: ct.YesOrNoType;
+	// authorizedByApplicantDate: string;
+	// authorizedBySpouse?: ct.YesOrNoType;
+	// spouse?: BenefitSpouseType;
+	// financials: FinancialsType;
+	// attachments: Array<at.AttachmentType>;
+	// mailingAddress: ct.AddressType;
+	// phn: number;
+	// powerOfAttorney: ct.YesOrNoType;
+	// SIN: number;
+	// telephone: number;
+	// birthDate: string;
+	// name: ct.NameType;
+	// applicationUuid: string;
+	// applicantGender: string;
+	// applicantBirthdate: string;
+	// applicantPHN: number;
+	// applicantSIN: number;
+	// applicantAddressLine1: string;
+	// applicantAddressLine2: string;
+	// applicantAddressLine3: string;
+	// applicantCity: string;
+	// applicantProvinceOrState: string;
+	// applicantCountry: string;
+	// applicantPostalCode: string;
+	// applicantTelephone: number;
+	// assistanceYear: string;
+	// taxYear: number;
+	// numberOfTaxYears: number;
+	// adjustedNetIncome: number;
+	// childDeduction: number;
+	// deductions: number;
+	// disabilityDeduction: number;
+	// sixtyFiveDeduction: number;
+	// totalDeductions: number;
+	// totalNetIncome: number;
+	// childCareExpense: number;
+	// netIncomeLastYear: number;
+	// numChildren: number;
+	// numDisabled: number;
+	// spouseIncomeLine236: number;
+	// reportedUCCBenefit: number;
+	// spouseDSPAmount: number;
+	// spouseDeduction: number;
+	// spouseFirstName: string;
+	// spouseSecondName: string;
+	// spouseLastName: string;
+	// spouseBirthdate: string;
+	// spousePHN: number;
+	// spouseSIN: number;
+	// spouseSixtyFiveDeduction: number;
 }
 export interface BenefitApplicationType extends _BenefitApplicationType { constructor: { new(): BenefitApplicationType }; }
 export let BenefitApplicationType: { new(): BenefitApplicationType };
