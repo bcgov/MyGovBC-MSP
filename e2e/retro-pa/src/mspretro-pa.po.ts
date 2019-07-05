@@ -64,10 +64,18 @@ export class ContactInfoPage extends PersonalInfoPage {
     fillContactInfoPage(data: ContactInfoPageTest) {
         this.typeStreet('addressLine1', data.streetAddress);
         this.typeCity(data.streetAddress);
-        this.typeProvince(data.province);
-        this.typeCountry(data.country);
+        this.typeCountry('Canada');
+        this.typeProvince('British Columbia');
         this.typePostalCode(data.postal);
         this.typePhoneNum(data.mobile);
     }
+
+}
+
+export class ReviewPage extends BaseMSPRetroPATestPage {
+    
+}
+
+export class AuthorizePage extends BaseMSPRetroPATestPage {
 
 }

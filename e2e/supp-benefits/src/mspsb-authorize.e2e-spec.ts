@@ -1,41 +1,40 @@
 import { browser, element, by } from 'protractor';
 import { AuthorizePage } from './mspsb-supp-benefits.po';
 import { FakeDataSupplementaryBenefits } from './mspsb-supp-benefits.data';
+import { testPageLoad, testClickPrevStepper, testClickContinue } from '../../msp-generic-tests';
 
-describe('MSP Enrolment - Authorize', () => {
+describe('MSP Supplementary Benefits - Authorize Page', () => {
     let page: AuthorizePage;
     const data = new FakeDataSupplementaryBenefits();
    
+    const REVIEW_PAGE_URL = `msp/benefit/review`;
     const AUTHORIZE_PAGE_URL = `msp/benefit/authorize`;
-    const CONFIRMATION_PAGE_URL = `msp/benefit/confirmation`;
+    const CONFIRMATION_PAGE_URL = `msp/benefit/sending`;
 
     beforeEach(() => {
         page = new AuthorizePage();
         data.setSeed();
     });
 
-    it('01. should load the page without issue', () => {
-        page.navigateTo();
-        expect(browser.getCurrentUrl()).toContain(AUTHORIZE_PAGE_URL);
-    });
+    testPageLoad(AUTHORIZE_PAGE_URL);
+    testClickPrevStepper(AUTHORIZE_PAGE_URL, REVIEW_PAGE_URL, 'Review');
+    testClickContinue(AUTHORIZE_PAGE_URL);
 
-    it('02. should let user to continue when they select authorize by applicant', () => {
+    it('01. should let user to continue when they select authorize by applicant', () => {
         page.navigateTo();
         page.checkConsent('firstPersonAuthorize');
         page.typeCaptcha();
         page.continue();
-        // This will fail because continue button is not working yet
-        expect(browser.getCurrentUrl()).toContain(CONFIRMATION_PAGE_URL, 'should navigate to confirmation page - EXPECT TO FAIL');
+        expect(browser.getCurrentUrl()).toContain(CONFIRMATION_PAGE_URL, 'should navigate to confirmation page');
     });
 
-    it('03. should let user to continue when they select authorize by attorney', () => {
+    it('02. should let user to continue when they select authorize by attorney', () => {
         page.navigateTo();
         page.checkConsent('authByAttorney');
-        page.uploadFile();
+        page.uploadOneFile();
         page.typeCaptcha();
         page.continue();
-        // This will fail because continue button is not working yet
-        expect(browser.getCurrentUrl()).toContain(CONFIRMATION_PAGE_URL, 'should navigate to confirmation page - EXPECT TO FAIL');
+        expect(browser.getCurrentUrl()).toContain(CONFIRMATION_PAGE_URL, 'should navigate to confirmation page');
     });
 
 });

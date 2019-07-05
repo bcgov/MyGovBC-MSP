@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 import { SpouseInfoPage } from './mspretro-pa.po';
-import { onPageLoadTest, onClickStepperTest, onClickContinueTest, onClickConsentModalTest, fillConsentModal } from '../../msp-generic-tests';
+import { testPageLoad, testClickStepper, testClickContinue, testClickConsentModal, fillConsentModal } from '../../msp-generic-tests';
 import { FakeDataRetroPA } from './mspretro-pa.data';
 
 describe('MSP Retro PA - Spouse Info Page', () => {
@@ -24,9 +24,9 @@ describe('MSP Retro PA - Spouse Info Page', () => {
         browser.executeScript('window.localStorage.clear();');
     });
 
-    onPageLoadTest(SPOUSE_PAGE_URL);
-    onClickStepperTest(SPOUSE_PAGE_URL, PERSONAL_PAGE_URL, 'Personal Info', 'Contact');
-    onClickContinueTest(SPOUSE_PAGE_URL);
+    testPageLoad(SPOUSE_PAGE_URL);
+    testClickStepper(SPOUSE_PAGE_URL, PERSONAL_PAGE_URL, 'Personal Info', 'Contact');
+    testClickContinue(SPOUSE_PAGE_URL);
 
     // This page depends on the inputs from the home page
     it('01. should be able to add spouse, fill out the page and continue', () => {
@@ -44,4 +44,4 @@ describe('MSP Retro PA - Spouse Info Page', () => {
         expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL, 'should stay on the same page');
     });
 
-});
+});;

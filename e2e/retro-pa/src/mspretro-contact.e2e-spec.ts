@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 import { ContactInfoPage } from './mspretro-pa.po';
-import { onPageLoadTest, onClickStepperTest, onClickContinueTest, onClickConsentModalTest, fillConsentModal } from '../../msp-generic-tests';
+import { testPageLoad, testClickStepper, testClickContinue, testClickConsentModal, fillConsentModal } from '../../msp-generic-tests';
 import { FakeDataRetroPA } from './mspretro-pa.data';
 
 describe('MSP Retro PA - Contact Info Page', () => {
@@ -22,9 +22,9 @@ describe('MSP Retro PA - Contact Info Page', () => {
         browser.executeScript('window.localStorage.clear();');
     });
 
-    onPageLoadTest(CONTACT_PAGE_URL);
-    onClickStepperTest(CONTACT_PAGE_URL, SPOUSE_PAGE_URL, 'Spouse', 'Review');
-    onClickContinueTest(CONTACT_PAGE_URL);
+    testPageLoad(CONTACT_PAGE_URL);
+    testClickStepper(CONTACT_PAGE_URL, SPOUSE_PAGE_URL, 'Spouse', 'Review');
+    testClickContinue(CONTACT_PAGE_URL);
 
     it('01. should be able to continue when all required fields are filled up', () => {
         contactInfoPage.navigateToURL(CONTACT_PAGE_URL);

@@ -1,5 +1,5 @@
 import { browser } from 'protractor';
-import { onPageLoadTest, onClickNextStepperTest, onClickContinueTest, onClickConsentModalTest, fillConsentModal } from '../../msp-generic-tests';
+import { testPageLoad, testClickNextStepper, testClickContinue, testClickConsentModal, fillConsentModal } from '../../msp-generic-tests';
 import { HomePage } from './mspretro-pa.po';
 
 describe('MSP Retro PA - Home Page', () => {
@@ -18,9 +18,9 @@ describe('MSP Retro PA - Home Page', () => {
         browser.executeScript('window.localStorage.clear();');
     });
 
-    onPageLoadTest(HOME_PAGE_URL);
-    onClickNextStepperTest(HOME_PAGE_URL, 'Personal Info');
-    onClickContinueTest(HOME_PAGE_URL);
+    testPageLoad(HOME_PAGE_URL);
+    testClickNextStepper(HOME_PAGE_URL, 'Personal Info');
+    testClickContinue(HOME_PAGE_URL);
 
     it('01. should let user to continue once they selected a year', () => {
         homePage.fillPage();

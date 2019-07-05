@@ -1,11 +1,13 @@
 import { browser, element, by } from 'protractor';
 import { PersonalInfoPage } from './mspsb-supp-benefits.po';
 import { FakeDataSupplementaryBenefits } from './mspsb-supp-benefits.data';
+import { testPageLoad, testClickStepper, testClickContinue } from '../../msp-generic-tests';
 
 describe('MSP Supplementary Benefits - Personal Info Page', () => {
     let page: PersonalInfoPage;
     const data = new FakeDataSupplementaryBenefits;
     let personalInfoData;
+    const PREPARE_PAGE_URL = `msp/benefit/prepare`
     const PERSONAL_PAGE_URL = `msp/benefit/personal-info`
     const SPOUSE_PAGE_URL = `msp/benefit/spouse-info`
 
@@ -15,12 +17,11 @@ describe('MSP Supplementary Benefits - Personal Info Page', () => {
         data.setSeed();
     });
 
-    it('01. should load the page without issue', () => {
-        page.navigateTo();
-        expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL);
-    });
+    testPageLoad(PERSONAL_PAGE_URL);
+    testClickStepper(PERSONAL_PAGE_URL, PREPARE_PAGE_URL, 'Prepare', 'Spouse Info');
+    testClickContinue(PERSONAL_PAGE_URL);
 
-    it('02. should fill out the required fields and click continue', () => {
+    it('01. should fill out the required fields and click continue', () => {
         page.navigateTo();
         page.fillInfo(personalInfoData);
         page.continue();

@@ -1,7 +1,7 @@
 import { browser, element, by } from 'protractor';
 import { PersonalInfoPage } from './mspretro-pa.po';
 import { FakeDataRetroPA } from './mspretro-pa.data';
-import { onPageLoadTest, onClickStepperTest, onClickContinueTest, onClickConsentModalTest, fillConsentModal } from '../../msp-generic-tests';
+import { testPageLoad, testClickStepper, testClickContinue, testClickConsentModal, fillConsentModal } from '../../msp-generic-tests';
 
 describe('MSP Retro PA - Personal Info Page', () => {
     let personalInfoPage: PersonalInfoPage;
@@ -23,9 +23,9 @@ describe('MSP Retro PA - Personal Info Page', () => {
         browser.executeScript('window.localStorage.clear();');
     });
 
-    onPageLoadTest(PERSONAL_PAGE_URL);
-    onClickStepperTest(PERSONAL_PAGE_URL, HOME_PAGE_URL, 'Home', 'Spouse');
-    onClickContinueTest(PERSONAL_PAGE_URL);
+    testPageLoad(PERSONAL_PAGE_URL);
+    testClickStepper(PERSONAL_PAGE_URL, HOME_PAGE_URL, 'Home', 'Spouse');
+    testClickContinue(PERSONAL_PAGE_URL);
 
     // This page depends on the inputs from the home page
     it('01. should fill out the required fields and click continue', () => {

@@ -1,5 +1,5 @@
 import { AbstractTestPage } from "moh-common-lib/e2e";
-import { browser, element, by } from "protractor";
+import { browser, element, by, protractor } from "protractor";
 import { PersonalInfoPageTest } from "./supp-benefits/src/mspsb-supp-benefits.data";
 import { equalParamsAndUrlSegments } from "@angular/router/src/router_state";
 
@@ -7,6 +7,30 @@ export class BaseMSPTestPage extends AbstractTestPage {
 
     navigateTo() {
 
+    }
+
+    clickOption(value: string) {
+        element(by.css(`label[for^="${value}"]`)).click();
+    }
+
+    clickRadioButton(labelVal: string, forVal: string){
+        element(by.css(`common-radio[ng-reflect-label*="${labelVal}"]`)).element(by.css(`label[for*="${forVal}"]`)).click();
+    }
+
+    clickPencilIcon(h2Val: string) {
+        element(by.cssContainingText('h2', `${h2Val}`)).element(by.css('i[class*="pencil"]')).click();    
+    }
+
+    clickStepper(text: string) {
+        element(by.cssContainingText('span', text)).click();
+    }
+
+    checkConsent(labelVal: string) {
+        element(by.css(`label[for*="${labelVal}"]`)).click();
+    }
+
+    typeCaptcha() {
+        element(by.css('input[id="answer"]')).sendKeys('irobot');
     }
 
     // This method will be used on both Supp Benefits and Retro PA
@@ -41,10 +65,12 @@ export class BaseMSPTestPage extends AbstractTestPage {
 
     typeProvince(text: string) {
         element(by.css('input[id^="province"]')).sendKeys(text);
+        element(by.css('input[id^="province"]')).sendKeys(protractor.Key.ENTER);
     }
 
     typeCountry(text: string) {
         element(by.css('input[id^="country"]')).sendKeys(text);
+        element(by.css('input[id^="country"]')).sendKeys(protractor.Key.ENTER);
     }   
 
     typePostalCode(text: string) {
@@ -94,7 +120,7 @@ export class BaseMSPTestPage extends AbstractTestPage {
      * InfoColectionNoticeComponent <common-collection-modal>
      */
     clickConsentModalContinue() {
-        element(by.css('div[class="modal-footer"]')).element(by.css('button[type="submit"]')).click();
+        element(by.css('common-consent-modal')).element(by.css('button[type="submit"]')).click();
     }
 
     /**

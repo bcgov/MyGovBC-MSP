@@ -1,12 +1,14 @@
 import { browser, element, by } from 'protractor';
 import { ReviewPage, PersonalInfoPage } from './mspsb-supp-benefits.po';
 import { FakeDataSupplementaryBenefits } from './mspsb-supp-benefits.data';
+import { testPageLoad, testClickStepper, testSkip } from '../../msp-generic-tests';
 
-describe('MSP Supplementary Benefits - Spouse Info Page', () => {
+describe('MSP Supplementary Benefits - Review Page', () => {
     let page: ReviewPage;
     let personalPage: PersonalInfoPage;
     const data = new FakeDataSupplementaryBenefits;
     let personalInfoData;
+    const CONTACT_PAGE_URL = `msp/benefit/contact-info`;
     const REVIEW_PAGE_URL = `msp/benefit/review`;
     const AUTHORIZE_PAGE_URL = `msp/benefit/authorize`;
 
@@ -17,18 +19,11 @@ describe('MSP Supplementary Benefits - Spouse Info Page', () => {
         data.setSeed();
     });
 
-    it('01. should load the page without issue', () => {
-        page.navigateTo();
-        expect(browser.getCurrentUrl()).toContain(REVIEW_PAGE_URL);
-    });
+    testPageLoad(REVIEW_PAGE_URL);
+    testClickStepper(REVIEW_PAGE_URL, CONTACT_PAGE_URL, 'Contact Info', 'Authorize');
+    testSkip(REVIEW_PAGE_URL, AUTHORIZE_PAGE_URL);
 
-    it('02. should let the user continue without having any changes', () => {
-        page.navigateTo();
-        page.continue();
-        expect(browser.getCurrentUrl()).toContain(AUTHORIZE_PAGE_URL);
-    });
-
-    it('03. should let the user to edit information', () => {
+    it('01. should let the user to edit information', () => {
         page.navigateTo();
         page.clickPencilIcon('Applicant info');
         personalPage.fillInfo(personalInfoData);
