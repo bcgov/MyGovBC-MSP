@@ -102,6 +102,11 @@ export class ContactInfoPage extends BaseMSPSuppBenefitsTestPage {
 
 export class ReviewPage extends BaseMSPSuppBenefitsTestPage {
 
+    constructor(){
+        super();
+        console.log('REVIEW PAGE INIT');
+    }
+
     navigateTo() {
         return browser.get('/msp/benefit/review');
     }

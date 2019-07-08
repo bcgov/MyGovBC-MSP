@@ -2,7 +2,7 @@ import { browser, element, by } from 'protractor';
 import { PersonalInfoPage } from './mspe-enrolment.po';
 import { FakeDataEnrolment } from './mspe-enrolment.data';
 
-fdescribe('MSP Enrolment - Personal Info', () => {
+describe('MSP Enrolment - Personal Info', () => {
     let page: PersonalInfoPage;
     const data = new FakeDataEnrolment();
     let perData;
