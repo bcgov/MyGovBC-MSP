@@ -24,36 +24,39 @@ import { AssistStateService } from '../../services/assist-state.service';
 @Component({
   selector: 'msp-assist-home',
   template: `
-    <common-page-section layout="noTips">
+    <common-page-section layout="tips">
       <h2>Apply for Retroactive Premium Assistance</h2>
       <p>
-        Retroactive Premium Assistance is available for up to six years prior to
-        the current tax year for those on self-administered accounts. If you
-        were covered on a group account during the period you are applying for,
-        contact your group administrator.
-      </p>
-
-      <p>
-        To be assessed for retroactive Premium Assistance, you must submit this
-        form to Health Insurance BC (HIBC) with a copy of the Notice of
-        Assessment (NOA) or Notice of Reassessment (NORA) from Canada Revenue
-        Agency (CRA) for the applicable tax year.
-      </p>
-
-      <p>
-        <!-- TODO: click to show modal -->
+        Retroactive Premium Assistance provides assistance for previously
+        charged Medical Services Plan premiums.
         <button class="btn btn-link p-0" (click)="openModal(modal)">
-          MSP premium rates
+          Medical Services Plan premiums
         </button>
-        are based on the previous tax year’s adjusted net income. (For example,
-        2019 premiums are based on 2018 income.)
+        are based on the previous tax year's adjusted net income.
       </p>
+      <p>
+        To be assessed for Retroactive Premium Assistance, complete this form
+        and upload a copy of the Notice of Assessment or Notice of Reassessment
+        from Canada Revenue Agency (CRA) for each requested tax year.
+      </p>
+      <aside>
+        <div class="row">
+          <div class="col-2">
+            <i class="fa fa-exclamation-triangle" style="font-size: 40px;"></i>
+          </div>
+          <div class="col-10">
+            <p>
+              If you were covered on a group account during the period you are
+              applying for, contact your group administrator.
+            </p>
+          </div>
+        </div>
+      </aside>
+    </common-page-section>
 
-      <p class="border-bottom mb-2">
-        You will be required during this application to upload a copy of your
-        Canada Revenue Agency Notice of Assessment or Notice of Reassessment
-        (and your spouse’s, if applicable)
-      </p>
+    <common-page-section class="border-bottom" layout="noTips">
+    </common-page-section>
+    <common-page-section layout="tips">
       <form #formRef="ngForm" novalidate>
         <h3>
           What premium years would you like to apply for retroactive assistance?

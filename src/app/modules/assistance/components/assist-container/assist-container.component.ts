@@ -50,10 +50,8 @@ export class AssistContainerComponent extends Container implements OnInit {
 
   constructor(
     public router: Router,
-    private route: ActivatedRoute,
     private stateSvc: AssistStateService,
-    private dataSvc: MspDataService,
-    private schemaSvc: SchemaService
+    private dataSvc: MspDataService
   ) {
     super();
     this.setProgressSteps(assistPages);
@@ -73,7 +71,6 @@ export class AssistContainerComponent extends Container implements OnInit {
 
   continue() {
     let index = this.stateSvc.index.value;
-    console.log('current index', index);
 
     this.stateSvc.isValid(index)
       ? this.navigate(index)
