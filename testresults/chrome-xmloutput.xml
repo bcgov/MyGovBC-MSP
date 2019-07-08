@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites disabled="28" errors="0" failures="0" tests="29" time="6.15">
- <testsuite name="chrome.MSP Supplementary Benefits - Review Page" timestamp="2019-07-08T14:08:41" hostname="localhost" time="3.072" errors="0" tests="0" skipped="0" disabled="0" failures="0">
+<testsuites disabled="28" errors="0" failures="0" tests="30" time="12.206">
+ <testsuite name="chrome.MSP Supplementary Benefits - Review Page" timestamp="2019-07-08T14:11:28" hostname="localhost" time="9.072" errors="0" tests="1" skipped="0" disabled="0" failures="0">
+  <testcase classname="chrome.MSP Supplementary Benefits - Review Page" name="01. should let the user to edit information" time="5.942" />
  </testsuite>
- <testsuite name="chrome.MSP Supplementary Benefits - Review Page.GENERAL SUITE" timestamp="2019-07-08T14:08:41" hostname="localhost" time="3.072" errors="0" tests="1" skipped="0" disabled="0" failures="0">
-  <testcase classname="chrome.MSP Supplementary Benefits - Review Page.GENERAL SUITE" name="GENERIC TEST 01. should load the page without issue" time="3.07" />
+ <testsuite name="chrome.MSP Supplementary Benefits - Review Page.GENERAL SUITE" timestamp="2019-07-08T14:11:28" hostname="localhost" time="3.129" errors="0" tests="1" skipped="0" disabled="0" failures="0">
+  <testcase classname="chrome.MSP Supplementary Benefits - Review Page.GENERAL SUITE" name="GENERIC TEST 01. should load the page without issue" time="3.128" />
  </testsuite>
- <testsuite name="chrome.MSP Supplementary Benefits - Authorize Page" timestamp="2019-07-08T14:08:44" hostname="localhost" time="0" errors="0" tests="5" skipped="0" disabled="5" failures="0">
+ <testsuite name="chrome.MSP Supplementary Benefits - Authorize Page" timestamp="2019-07-08T14:11:38" hostname="localhost" time="0.001" errors="0" tests="5" skipped="0" disabled="5" failures="0">
   <testcase classname="chrome.MSP Supplementary Benefits - Authorize Page" name="GENERIC TEST 01. should load the page without issue" time="0">
    <skipped />
   </testcase>
@@ -22,8 +23,8 @@
    <skipped />
   </testcase>
  </testsuite>
- <testsuite name="chrome.MSP Supplementary Benefits - Contact Info" timestamp="2019-07-08T14:08:44" hostname="localhost" time="0.002" errors="0" tests="6" skipped="0" disabled="6" failures="0">
-  <testcase classname="chrome.MSP Supplementary Benefits - Contact Info" name="GENERIC TEST 01. should load the page without issue" time="0.002">
+ <testsuite name="chrome.MSP Supplementary Benefits - Contact Info" timestamp="2019-07-08T14:11:38" hostname="localhost" time="0.001" errors="0" tests="6" skipped="0" disabled="6" failures="0">
+  <testcase classname="chrome.MSP Supplementary Benefits - Contact Info" name="GENERIC TEST 01. should load the page without issue" time="0">
    <skipped />
   </testcase>
   <testcase classname="chrome.MSP Supplementary Benefits - Contact Info" name="GENERIC TEST 02. should let user to go back to the previous page by clicking the stepper" time="0">
@@ -42,24 +43,24 @@
    <skipped />
   </testcase>
  </testsuite>
- <testsuite name="chrome.MSP Supplementary Benefits - Personal Info Page" timestamp="2019-07-08T14:08:44" hostname="localhost" time="0.002" errors="0" tests="5" skipped="0" disabled="5" failures="0">
+ <testsuite name="chrome.MSP Supplementary Benefits - Personal Info Page" timestamp="2019-07-08T14:11:38" hostname="localhost" time="0.001" errors="0" tests="5" skipped="0" disabled="5" failures="0">
   <testcase classname="chrome.MSP Supplementary Benefits - Personal Info Page" name="GENERIC TEST 01. should load the page without issue" time="0">
    <skipped />
   </testcase>
-  <testcase classname="chrome.MSP Supplementary Benefits - Personal Info Page" name="GENERIC TEST 02. should let user to go back to the previous page by clicking the stepper" time="0.001">
+  <testcase classname="chrome.MSP Supplementary Benefits - Personal Info Page" name="GENERIC TEST 02. should let user to go back to the previous page by clicking the stepper" time="0">
    <skipped />
   </testcase>
-  <testcase classname="chrome.MSP Supplementary Benefits - Personal Info Page" name="GENERIC TEST 03. should NOT let user continue by clicking the stepper" time="0">
+  <testcase classname="chrome.MSP Supplementary Benefits - Personal Info Page" name="GENERIC TEST 03. should NOT let user continue by clicking the stepper" time="0.001">
    <skipped />
   </testcase>
-  <testcase classname="chrome.MSP Supplementary Benefits - Personal Info Page" name="GENERIC TEST 04. should NOT let user to continue if they did not filled out required fields" time="0.001">
+  <testcase classname="chrome.MSP Supplementary Benefits - Personal Info Page" name="GENERIC TEST 04. should NOT let user to continue if they did not filled out required fields" time="0">
    <skipped />
   </testcase>
   <testcase classname="chrome.MSP Supplementary Benefits - Personal Info Page" name="01. should fill out the required fields and click continue" time="0">
    <skipped />
   </testcase>
  </testsuite>
- <testsuite name="chrome.MSP Supplementary Benefits - Prepare Page" timestamp="2019-07-08T14:08:44" hostname="localhost" time="0.001" errors="0" tests="7" skipped="0" disabled="7" failures="0">
+ <testsuite name="chrome.MSP Supplementary Benefits - Prepare Page" timestamp="2019-07-08T14:11:38" hostname="localhost" time="0.001" errors="0" tests="7" skipped="0" disabled="7" failures="0">
   <testcase classname="chrome.MSP Supplementary Benefits - Prepare Page" name="GENERIC TEST 01. should load the page without issue" time="0">
    <skipped />
   </testcase>
@@ -78,11 +79,11 @@
   <testcase classname="chrome.MSP Supplementary Benefits - Prepare Page" name="01. should NOT let the user continue if all required questions have NOT been answered" time="0">
    <skipped />
   </testcase>
-  <testcase classname="chrome.MSP Supplementary Benefits - Prepare Page" name="02. should let the user continue if all required questions have been answered" time="0">
+  <testcase classname="chrome.MSP Supplementary Benefits - Prepare Page" name="02. should let the user continue if all required questions have been answered" time="0.001">
    <skipped />
   </testcase>
  </testsuite>
- <testsuite name="chrome.MSP Supplementary Benefits - Spouse Info Page" timestamp="2019-07-08T14:08:44" hostname="localhost" time="0.001" errors="0" tests="5" skipped="0" disabled="5" failures="0">
+ <testsuite name="chrome.MSP Supplementary Benefits - Spouse Info Page" timestamp="2019-07-08T14:11:38" hostname="localhost" time="0.001" errors="0" tests="5" skipped="0" disabled="5" failures="0">
   <testcase classname="chrome.MSP Supplementary Benefits - Spouse Info Page" name="GENERIC TEST 01. should load the page without issue" time="0">
    <skipped />
   </testcase>
@@ -95,7 +96,7 @@
   <testcase classname="chrome.MSP Supplementary Benefits - Spouse Info Page" name="GENERIC TEST 05. should let user continue or skip without filling out any fields" time="0">
    <skipped />
   </testcase>
-  <testcase classname="chrome.MSP Supplementary Benefits - Spouse Info Page" name="01. should fill out the required fields and click continue" time="0.001">
+  <testcase classname="chrome.MSP Supplementary Benefits - Spouse Info Page" name="01. should fill out the required fields and click continue" time="0">
    <skipped />
   </testcase>
  </testsuite>

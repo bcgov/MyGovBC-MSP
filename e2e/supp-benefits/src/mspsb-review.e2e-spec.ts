@@ -26,13 +26,13 @@ fdescribe('MSP Supplementary Benefits - Review Page', () => {
     // testClickStepper(REVIEW_PAGE_URL, CONTACT_PAGE_URL, 'Contact Info', 'Authorize');
     // testSkip(REVIEW_PAGE_URL, AUTHORIZE_PAGE_URL);
 
-    // it('01. should let the user to edit information', () => {
-    //     page.navigateTo();
-    //     page.clickPencilIcon('Applicant info');
-    //     personalPage.fillInfo(personalInfoData);
-    //     personalPage.continue();
-    //     page.clickStepper('Review');
-    //     browser.sleep(2000);
-    //     expect(browser.getCurrentUrl()).toContain(REVIEW_PAGE_URL);
-    // });
+    it('01. should let the user to edit information', () => {
+        page.navigateTo();
+        page.clickPencilIcon('Applicant info');
+        personalPage.fillInfo(personalInfoData);
+        personalPage.continue();
+        page.clickStepper('Review');
+        browser.sleep(2000);
+        expect(browser.getCurrentUrl()).toContain(REVIEW_PAGE_URL);
+    });
 });

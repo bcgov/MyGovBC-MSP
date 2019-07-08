@@ -3,28 +3,11 @@ import { BaseMSPTestPage } from './msp.po';
 
 const page = new BaseMSPTestPage();
 
-// declare describe(s: string, test): any;
-
-// export function genDescribe(PAGE_URL, pageX_{
-//     // return describe('Generic Tests')
-//     // return () => {
-//     //   testPageLoad(PAGE_URL, pageX);
-//     // };
-// });
-
-// export function describeBlock(PAGE_URL, pageX: BaseMSPTestPage){
-//     return () => {
-//         testPageLoad(PAGE_URL, pageX);
-//     }
-// }
 
 export function genDescribe(PageClass: typeof BaseMSPTestPage, urls: {PAGE_URL: string, NEXT_PAGE_URL?: string}){
     let page;
 
-    // We must manually instantiate here, otherwise instance will be undefined
-    // when calling test() functions. As such, we must be careful to avoid any state in tests.
-    // page = new PageClass();
-    return describe('GENERAL SUITE', () => {
+    return describe('Generic - All Pages', () => {
         beforeEach(() => {
             page = new PageClass();
             // console.log('\nbeforeEACH THIS THIS THIS\n\n')
@@ -41,6 +24,7 @@ export function genDescribe(PageClass: typeof BaseMSPTestPage, urls: {PAGE_URL: 
             });
         });
 
+        // Below doesn't work with beforeEach, must have it blocks direclty in
         // testPageLoad(urls.PAGE_URL, page);
         // testSkip(urls.PAGE_URL, urls.NEXT_PAGE_URL, page);
         // testClickStepper(REVIEW_PAGE_URL, CONTACT_PAGE_URL, 'Contact Info', 'Authorize');
