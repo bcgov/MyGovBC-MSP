@@ -81,6 +81,21 @@ import { AssistStateService } from '../../services/assist-state.service';
           A tax year is required
         </p>
       </ng-container>
+      <aside>
+        <p>
+          <b>
+            Where’s tax year 2019?
+          </b>
+        </p>
+        <p>
+          Medical Services Plan premiums are based on the previous tax year’s
+          adjusted net income. MSP premiums were eliminated on January 1, 2020.
+        </p>
+        <p>
+          Because the 2019 tax year would apply towards a year in which no
+          premiums were charged, it is not available for selection.
+        </p>
+      </aside>
     </common-page-section>
     <ng-template #modal>
       <msp-assist-rates-helper-modal
