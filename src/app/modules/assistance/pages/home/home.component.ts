@@ -146,8 +146,7 @@ import { AssistStateService } from '../../services/assist-state.service';
         >.
       </p>
     </common-consent-modal>
-  `,
-  styleUrls: ['./home.component.scss']
+  `
 })
 export class AssistanceHomeComponent extends BaseComponent
   implements OnInit, AfterViewInit {
