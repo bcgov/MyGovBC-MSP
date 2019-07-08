@@ -2,7 +2,7 @@ import { browser, element, by } from 'protractor';
 import { SpouseInfoPage, EligibilityPage, ChildInfoPage, ContactInfoPage, PersonalInfoPage, ReviewPage, AuthorizePage } from './mspe-enrolment.po';
 import { FakeDataEnrolment } from './mspe-enrolment.data';
 
-fdescribe('MSP Enrolment - End-to-End', () => {
+describe('MSP Enrolment - End-to-End', () => {
     let eligibilityPage: EligibilityPage;
     let personalPage: PersonalInfoPage;
     let spousePage: SpouseInfoPage;

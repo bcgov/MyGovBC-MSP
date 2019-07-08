@@ -3,11 +3,40 @@ import { BaseMSPTestPage } from './msp.po';
 
 const page = new BaseMSPTestPage();
 
-export function testPageLoad(PAGE_URL: string) {
+
+export function genDescribe(PageClass: typeof BaseMSPTestPage, urls: {PAGE_URL: string, NEXT_PAGE_URL?: string}){
+    let page;
+
+    return describe('Generic - All Pages', () => {
+        beforeEach(() => {
+            page = new PageClass();
+            // console.log('\nbeforeEACH THIS THIS THIS\n\n')
+        });
+
+        // console.log('before testPageLoad', page);
+
+        it('GENERIC TEST 01. should load the page without issue', () => {
+            // console.log('nested IT!', page);
+            page.navigateToURL(urls.PAGE_URL);
+            expect(browser.getCurrentUrl()).toContain(urls.PAGE_URL);
+            page.formErrors().count().then(val => {
+                expect(val).toBe(0, 'should be no errors on page load');
+            });
+        });
+
+        // Below doesn't work with beforeEach, must have it blocks direclty in
+        // testPageLoad(urls.PAGE_URL, page);
+        // testSkip(urls.PAGE_URL, urls.NEXT_PAGE_URL, page);
+        // testClickStepper(REVIEW_PAGE_URL, CONTACT_PAGE_URL, 'Contact Info', 'Authorize');
+    });
+}
+
+export function testPageLoad(PAGE_URL: string, pageX?: BaseMSPTestPage) {
     it('GENERIC TEST 01. should load the page without issue', () => {
-        page.navigateToURL(PAGE_URL);
+        console.log('testPageLoad', {PAGE_URL, page: !!pageX});
+        pageX.navigateToURL(PAGE_URL);
         expect(browser.getCurrentUrl()).toContain(PAGE_URL);
-        page.formErrors().count().then(val => {
+        pageX.formErrors().count().then(val => {
             expect(val).toBe(0, 'should be no errors on page load');
         });
     });
@@ -42,10 +71,10 @@ export function testClickContinue(PAGE_URL: string) {
     });
 }
 
-export function testSkip(CURR_PAGE_URL: string, NEXT_PAGE_URL: string) {
+export function testSkip(CURR_PAGE_URL: string, NEXT_PAGE_URL: string, pageX?: BaseMSPTestPage) {
     it('GENERIC TEST 05. should let user continue or skip without filling out any fields', () => {
-        page.navigateToURL(CURR_PAGE_URL);
-        page.continue();
+        pageX.navigateToURL(CURR_PAGE_URL);
+        pageX.continue();
         expect(browser.getCurrentUrl()).toContain(NEXT_PAGE_URL, 'should navigate to the next page');
     });
 }
