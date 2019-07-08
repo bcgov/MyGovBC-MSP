@@ -19,6 +19,11 @@ describe('MSP Supplementary Benefits - Review Page', () => {
         data.setSeed();
     });
 
+    afterEach(() => {
+        browser.executeScript('window.sessionStorage.clear();');
+        browser.executeScript('window.localStorage.clear();');
+    });
+
     testPageLoad(REVIEW_PAGE_URL);
     testClickStepper(REVIEW_PAGE_URL, CONTACT_PAGE_URL, 'Contact Info', 'Authorize');
     testSkip(REVIEW_PAGE_URL, AUTHORIZE_PAGE_URL);
@@ -29,7 +34,6 @@ describe('MSP Supplementary Benefits - Review Page', () => {
         personalPage.fillInfo(personalInfoData);
         personalPage.continue();
         page.clickStepper('Review');
-        browser.sleep(2000);
         expect(browser.getCurrentUrl()).toContain(REVIEW_PAGE_URL);
     });
 });

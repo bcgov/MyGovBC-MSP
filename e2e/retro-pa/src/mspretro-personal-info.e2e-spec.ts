@@ -28,12 +28,12 @@ describe('MSP Retro PA - Personal Info Page', () => {
     testClickContinue(PERSONAL_PAGE_URL);
 
     // This page depends on the inputs from the home page
-    it('01. should fill out the required fields and click continue', () => {
+    fit('01. should fill out the required fields and click continue', () => {
         personalInfoPage.fillPersonalInfoPage(personalInfoData);
         expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL, 'should navigate to the next page');
     });
 
-    it('02. should be able to upload multiple files (if multiple years were selected) and click continue', () => {
+    fit('02. should be able to upload multiple files (if multiple years were selected) and click continue', () => {
         personalInfoPage.fillPageWithMultipleYears();
         personalInfoPage.fillPersonalInfo(personalInfoData);
         personalInfoPage.uploadMultipleFiles(personalInfoPage.START_YEAR, personalInfoPage.END_YEAR);
