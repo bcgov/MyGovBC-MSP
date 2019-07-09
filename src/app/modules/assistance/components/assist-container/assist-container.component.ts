@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { assistPages } from '../../assist-page-routing.module';
 import { Container } from 'moh-common-lib';
 import { AssistStateService } from '../../services/assist-state.service';
 import { MspDataService } from 'app/services/msp-data.service';
 import { BehaviorSubject } from 'rxjs';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
-import { SchemaService } from 'app/services/schema.service';
 
 @Component({
   selector: 'msp-assist-container',
@@ -32,7 +31,7 @@ export class AssistContainerComponent extends Container implements OnInit {
   submitted = false;
 
   submitLabels = {
-    0: 'Continue',
+    0: 'Apply for Retroactive Premium Assistance',
     1: 'Continue',
     2: this.spouseLabel,
     3: 'Continue',
@@ -50,10 +49,8 @@ export class AssistContainerComponent extends Container implements OnInit {
 
   constructor(
     public router: Router,
-    private route: ActivatedRoute,
     private stateSvc: AssistStateService,
-    private dataSvc: MspDataService,
-    private schemaSvc: SchemaService
+    private dataSvc: MspDataService
   ) {
     super();
     this.setProgressSteps(assistPages);
@@ -73,7 +70,6 @@ export class AssistContainerComponent extends Container implements OnInit {
 
   continue() {
     let index = this.stateSvc.index.value;
-    console.log('current index', index);
 
     this.stateSvc.isValid(index)
       ? this.navigate(index)
@@ -87,15 +83,12 @@ export class AssistContainerComponent extends Container implements OnInit {
       : this.submit();
   }
   submit() {
-    // this.isLoading = true;
-    /**
+    this.isLoading = true;
     setTimeout(() => {
       this.stateSvc.submitted = true;
       this.isLoading = false;
+      this.stateSvc.submitApplication();
       this.submitLabel$.next('Home');
-
     }, 1000);
-     */
-    this.stateSvc.submitApplication();
   }
 }

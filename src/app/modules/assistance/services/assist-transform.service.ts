@@ -73,7 +73,9 @@ export class AssistTransformService {
     const phn = app.previous_phn.replace(/ /g, '');
     const powerOfAttorney = this.app.hasPowerOfAttorney ? 'Y' : 'N';
     const sin = app.sin.replace(/ /g, '');
-    const telephone = this.app.phoneNumber.replace(/[() +-]/g, '');
+    const telephone = this.app.phoneNumber
+      ? this.app.phoneNumber.replace(/[() +-]/g, '')
+      : '';
     return {
       attachmentUuids,
       birthDate,
@@ -97,7 +99,7 @@ export class AssistTransformService {
     const numberOfTaxYears = this.app.numberOfTaxYears().toString();
     const sixtyFiveDeduction = 0;
     // TODO: does this makes sense as a string?
-    const taxYear = this.app.MostRecentTaxYear.toString();
+    const taxYear = `${this.app.MostRecentTaxYear}`;
     const totalDeductions = 0;
     const totalNetIncome = 0;
     return {
@@ -143,7 +145,7 @@ export class AssistTransformService {
 
   get attachmentUuids() {
     const uuids = [];
-    const taxYears = this.app.assistYears.filter(year => year.apply);
+    const [...taxYears] = this.app.assistYears.filter(year => year.apply);
     // console.log('tax years', taxYears);
     for (let year of taxYears) {
       if (year.files && year.files.length > 0) {
@@ -159,7 +161,7 @@ export class AssistTransformService {
 
   get attachments() {
     const attachments = [];
-    const taxYears = this.app.assistYears.filter(year => year.apply);
+    const [...taxYears] = this.app.assistYears.filter(year => year.apply);
     for (let year of taxYears) {
       if (year.files && year.files.length > 0) {
         attachments.push(...year.files);
@@ -175,24 +177,24 @@ export class AssistTransformService {
   calcAssistYearType(): AssistanceYearType {
     const date = new Date();
     const taxYear = date.getFullYear();
-    const appliedYears = this.app.assistYears.filter(year => year.apply);
-    if (!appliedYears) return null;
-    if (appliedYears.length === 1) {
-      if (appliedYears[0].year === taxYear) {
-        return AssistanceYearType['CurrentPA'];
-      }
-      if ((appliedYears[0].year = taxYear - 1)) {
-        return AssistanceYearType['PreviousTwo'];
-      }
-      return AssistanceYearType['MultiYear'];
-    }
-    if (
-      appliedYears.length === 2 &&
-      appliedYears[0].year === taxYear &&
-      appliedYears[1].year === taxYear - 1
-    ) {
-      return AssistanceYearType['PreviousTwo'];
-    }
+    // const [...appliedYears] = this.app.assistYears.filter(year => year.apply);
+    // if (!appliedYears) return null;
+    // if (appliedYears.length === 1) {
+    //   if (appliedYears[0].year === taxYear) {
+    //     return AssistanceYearType['CurrentPA'];
+    //   }
+    //   if ((appliedYears[0].year = taxYear - 1)) {
+    //     return AssistanceYearType['PreviousTwo'];
+    //   }
+    //   return AssistanceYearType['MultiYear'];
+    // }
+    // if (
+    //   appliedYears.length === 2 &&
+    //   appliedYears[0].year === taxYear &&
+    //   appliedYears[1].year === taxYear - 1
+    // ) {
+    //   return AssistanceYearType['PreviousTwo'];
+    // }
     return AssistanceYearType['MultiYear'];
   }
 }
