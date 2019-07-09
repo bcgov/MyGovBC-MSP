@@ -9,6 +9,7 @@ import { validateBirthdate } from 'app/modules/msp-core/models/validate-birthdat
 import { validateContact } from 'app/modules/msp-core/models/validate-contact';
 import { AssistTransformService } from './assist-transform.service';
 import { SchemaService } from 'app/services/schema.service';
+import { ApiSendService } from 'app/modules/benefit/services/api-send.service';
 
 @Injectable({
   providedIn: 'root'
@@ -124,7 +125,8 @@ export class AssistStateService {
     private router: Router,
     public dataSvc: MspDataService,
     private schemaSvc: SchemaService,
-    private xformSvc: AssistTransformService
+    private xformSvc: AssistTransformService,
+    private api: ApiSendService
   ) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationStart))
@@ -156,9 +158,17 @@ export class AssistStateService {
     if (index > -1) return this.index.next(index);
   }
 
-  submitApplication() {
+  async submitApplication() {
     const app = this.xformSvc.application;
-
-    this.schemaSvc.validate(app).then(res => console.log(res));
+    const token = this.finAssistApp.authorizationToken;
+    const call = await this.api.sendFiles(token, app.uuid, app.attachments);
+    console.log('call', call);
+    call.subscribe(obs => console.log('res', obs));
+    // try {
+    //   let valid = await this.schemaSvc.validate(app);
+    //   return valid;
+    // } catch (err) {
+    //   return err;
+    // }
   }
 }
