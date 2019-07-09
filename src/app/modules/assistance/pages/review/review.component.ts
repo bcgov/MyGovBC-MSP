@@ -54,7 +54,7 @@ export interface IContactInformation {}
           [value]="applicantInfo.sin"
         ></msp-review-part>
         <msp-review-part
-          label="Name"
+          label="Documents"
           [value]="applicantInfo.appDocuments"
         ></msp-review-part>
       </msp-review-card-wrapper>
@@ -90,7 +90,7 @@ export interface IContactInformation {}
           *ngIf="hasSpouse"
         >
           <msp-review-part
-            label="Years had spouse"
+            label="Years selected"
             [value]="spouseYears"
           ></msp-review-part>
           <msp-review-part

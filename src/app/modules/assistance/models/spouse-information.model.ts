@@ -27,11 +27,10 @@ export class SpouseInformation implements ISpouseInformation {
       if (i >= 0) {
         spouseDocuments.push(year.spouseFiles);
       }
-      // console.log('index of ', test);
     }
-    this.documents = deepFlatten(spouseDocuments)
-      .map(itm => itm.name)
-      .reduce((a, b) => `${a}, ${b}`);
+    const docCount = deepFlatten(spouseDocuments).map(itm => itm.name).length;
+    // .reduce((a, b) => `${a}, ${b}`);
+    this.documents = docCount > 1 ? `${docCount} files` : `${docCount} file`;
   }
   makeYears(years: AssistanceYear[]) {
     return years.filter(year => year.hasSpouse).map(year => year.year);

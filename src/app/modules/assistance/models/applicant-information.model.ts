@@ -54,11 +54,9 @@ export class ApplicantInformation implements IApplicantInformation {
       }
     }
     appDocuments.filter(itm => itm.length > 0);
-    this.appDocuments = deepFlatten(appDocuments)
-      .map(itm => itm.name)
-      .reduce((a, b) => `${a}, ${b}`);
-
-    console.log('files', this.appDocuments);
+    const docCount = deepFlatten(appDocuments).map(itm => itm.name).length;
+    // .reduce((a, b) => `${a}, ${b}`);
+    this.appDocuments = docCount > 1 ? `${docCount} files` : `${docCount} file`;
   }
 
   makeDate(date: SimpleDate) {
