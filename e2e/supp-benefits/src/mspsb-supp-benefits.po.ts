@@ -7,19 +7,8 @@ import { BaseMSPTestPage } from '../../msp.po';
  * `moh-common-lib/testing` once created. That way different Angular projects
  * can use the same e2e starting board.
  */
-export class BaseMSPSuppBenefitsTestPage extends BaseMSPTestPage {
 
-    navigateTo() {
-        return browser.get('/msp/');
-    }
-
-    clickButton(val: string) {
-        element(by.css(`common-button[ng-reflect-label="${val}"]`)).element(by.cssContainingText('span', `${val}`)).click();
-    }
-
-}
-
-export class PreparePage extends BaseMSPSuppBenefitsTestPage {
+export class PreparePage extends BaseMSPTestPage {
 
     navigateTo() {
         return browser.get('/msp/benefit/prepare');
@@ -29,13 +18,45 @@ export class PreparePage extends BaseMSPSuppBenefitsTestPage {
         element(by.css('input[id="netIncome"]')).sendKeys(val);
     }
 
+    typeSpouseIncome(val : string) {
+        element(by.css('input[id="spouseIncomeLine236"]')).sendKeys(val);
+    }
+
+    typeChildrenCount(val: string) {
+        element(by.css('input[id="childrenCount"]')).sendKeys(val);
+    }
+
+    typeLine214(val: string) {
+        element(by.css('input[id="line214"]')).sendKeys(val);
+    }
+
+    typeLine117(val: string) {
+        element(by.css('input[id="line117"]')).sendKeys(val);
+    }
+
     clickRadioButtonDuplicate(labelVal: string, forVal: string){
         element.all(by.css(`common-radio[ng-reflect-label*="${labelVal}"]`)).last().element(by.css(`label[for*="${forVal}"]`)).click();
     }
 
+    checkHouseholdIncome() {
+        return element(by.cssContainingText('span' , 'Total household income')).element(by.xpath('../..')).element(by.css('td[class*="padding"] span')).getText();  
+    }
+
+    clickContinueDisabilityCredit() {
+        element(by.cssContainingText('button', 'Yes, continue')).click();
+    }
+
+    checkSpouseDisabilityCredit() {
+        return element(by.cssContainingText('td', 'Spouse disability credit')).isPresent();
+    }
+
+    checkChildrenDeduction() {
+        return element(by.cssContainingText('td', 'Children')).isPresent();
+    }
+
 }
 
-export class PersonalInfoPage extends BaseMSPSuppBenefitsTestPage {
+export class PersonalInfoPage extends BaseMSPTestPage {
 
     navigateTo() {
         return browser.get('/msp/benefit/personal-info');
@@ -73,7 +94,7 @@ export class SpouseInfoPage extends PersonalInfoPage {
 
 }
 
-export class ContactInfoPage extends BaseMSPSuppBenefitsTestPage {
+export class ContactInfoPage extends BaseMSPTestPage {
 
     navigateTo() {
         return browser.get('/msp/benefit/contact-info');
@@ -100,7 +121,7 @@ export class ContactInfoPage extends BaseMSPSuppBenefitsTestPage {
     }
 }
 
-export class ReviewPage extends BaseMSPSuppBenefitsTestPage {
+export class ReviewPage extends BaseMSPTestPage {
 
     navigateTo() {
         return browser.get('/msp/benefit/review');
@@ -108,7 +129,7 @@ export class ReviewPage extends BaseMSPSuppBenefitsTestPage {
 
 }
 
-export class AuthorizePage extends BaseMSPSuppBenefitsTestPage {
+export class AuthorizePage extends BaseMSPTestPage {
 
     navigateTo() {
         return browser.get('/msp/benefit/authorize');

@@ -1,9 +1,9 @@
 import { browser, element, by } from 'protractor';
 import { ReviewPage, PersonalInfoPage } from './mspretro-pa.po';
 import { FakeDataRetroPA } from './mspretro-pa.data';
-import { testPageLoad, testClickStepper, testSkip } from '../../msp-generic-tests';
+import { testPageLoad, testClickStepper, testSkip, testGenericAllPages, testGenericSubsequentPage } from '../../msp-generic-tests';
 
-describe('MSP Retro PA - Review Page', () => {
+describe('MSP Retro PA - Review Page:', () => {
     let page: ReviewPage;
     let personalPage: PersonalInfoPage;
     const data = new FakeDataRetroPA;
@@ -19,10 +19,9 @@ describe('MSP Retro PA - Review Page', () => {
         data.setSeed();
     });
 
-    testPageLoad(REVIEW_PAGE_URL);
-    testClickStepper(REVIEW_PAGE_URL, CONTACT_PAGE_URL, 'Contact Info', 'Authorize');
-    testSkip(REVIEW_PAGE_URL, AUTHORIZE_PAGE_URL);
-
+    testGenericAllPages(ReviewPage, REVIEW_PAGE_URL);
+    testGenericSubsequentPage(ReviewPage, {prevLink: 'Contact', nextLink: 'Authorize Submit'}, {PAGE_URL: REVIEW_PAGE_URL, PREV_PAGE_URL: CONTACT_PAGE_URL, NEXT_PAGE_URL: AUTHORIZE_PAGE_URL});
+    
     // Pages still not finish
     xit('01. should let the user to edit information', () => {
         page.navigateTo();

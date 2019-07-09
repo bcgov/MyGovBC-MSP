@@ -22,7 +22,7 @@ describe('MSP Enrolment - Personal Info', () => {
     it('02. should be able to select status by typing it in the field', () => {
         page.navigateTo();
         page.typeOption('Canadian citizen');
-        page.getInputVal().then(function(val){
+        page.getInputVal().then(val =>{
         //    expect(val).toBe('Canadian citizen');
         });
         expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL);
@@ -31,7 +31,7 @@ describe('MSP Enrolment - Personal Info', () => {
     it('03. should be able to select status by clicking it in the field', () => {
         page.navigateTo();
         page.clickOption('Canadian citizen');
-        page.getInputVal().then(function(val){
+        page.getInputVal().then(val =>{
         //    expect(val).toBe('Canadian citizen');
         });
         expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL);
@@ -45,7 +45,7 @@ describe('MSP Enrolment - Personal Info', () => {
         page.uploadFile();
         page.clickContinue();
         // expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL);
-        page.formErrors().count().then(function(val) {
+        page.formErrors().count().then(val => {
             expect(val).toBe(0, 'should be no errors after answering all required questions');
         });
         // browser.sleep(10000);

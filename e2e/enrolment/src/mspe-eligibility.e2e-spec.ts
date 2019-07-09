@@ -28,7 +28,7 @@ describe('MSP Enrolment - Check Eligibility', () => {
     it('02. should NOT let the user to proceed if the user has not agreeed to the info collection notice', () => {
         page.navigateTo();
         page.clickModalContinue();
-        page.checkModal().then(function(val) {
+        page.checkModal().then(val => {
             expect(val).toBe(true);
         });
         expect(browser.getCurrentUrl()).toContain(ELIGIBILITY_PAGE_URL, 'should stay on page');
@@ -38,7 +38,7 @@ describe('MSP Enrolment - Check Eligibility', () => {
         page.navigateTo();
         page.clickCheckBox();
         page.clickModalContinue();
-        page.checkModal().then(function(val) {
+        page.checkModal().then(val => {
             expect(val).toBe(false);
         });
         expect(browser.getCurrentUrl()).toContain(ELIGIBILITY_PAGE_URL, 'should stay on page');

@@ -34,7 +34,7 @@ describe('MSP Enrolment - Child Info', () => {
         // page.uploadFile();
         // page.clickContinue();
         // expect(browser.getCurrentUrl()).toContain(CONTACT_PAGE_URL);
-        page.formErrors().count().then(function(val) {
+        page.formErrors().count().then(val => {
             expect(val).toBe(0, 'should be no errors after answering all required questions');
         });
     });

@@ -1,9 +1,9 @@
 import { browser, element, by } from 'protractor';
 import { AuthorizePage } from './mspsb-supp-benefits.po';
 import { FakeDataSupplementaryBenefits } from './mspsb-supp-benefits.data';
-import { testPageLoad, testClickPrevStepper, testClickContinue } from '../../msp-generic-tests';
+import { testGenericLastPage, testGenericAllPages } from '../../msp-generic-tests';
 
-describe('MSP Supplementary Benefits - Authorize Page', () => {
+describe('MSP Supplementary Benefits - Authorize Page:', () => {
     let page: AuthorizePage;
     const data = new FakeDataSupplementaryBenefits();
    
@@ -16,9 +16,8 @@ describe('MSP Supplementary Benefits - Authorize Page', () => {
         data.setSeed();
     });
 
-    testPageLoad(AUTHORIZE_PAGE_URL);
-    testClickPrevStepper(AUTHORIZE_PAGE_URL, REVIEW_PAGE_URL, 'Review');
-    testClickContinue(AUTHORIZE_PAGE_URL);
+    testGenericAllPages(AuthorizePage, AUTHORIZE_PAGE_URL);
+    testGenericLastPage(AuthorizePage, 'Review', {PAGE_URL: AUTHORIZE_PAGE_URL, PREV_PAGE_URL: REVIEW_PAGE_URL});
 
     it('01. should let user to continue when they select authorize by applicant', () => {
         page.navigateTo();

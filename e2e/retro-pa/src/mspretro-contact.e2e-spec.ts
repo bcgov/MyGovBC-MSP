@@ -1,9 +1,10 @@
 import { browser, element, by } from 'protractor';
 import { ContactInfoPage } from './mspretro-pa.po';
-import { testPageLoad, testClickStepper, testClickContinue, testClickConsentModal, fillConsentModal } from '../../msp-generic-tests';
+import { testGenericSubsequentPage, testGenericAllPages } from '../../msp-generic-tests';
 import { FakeDataRetroPA } from './mspretro-pa.data';
+import { SpouseComponent } from 'app/modules/assistance/pages/spouse/spouse.component';
 
-describe('MSP Retro PA - Contact Info Page', () => {
+describe('MSP Retro PA - Contact Info Page:', () => {
     let contactInfoPage: ContactInfoPage;
     const data = new FakeDataRetroPA;
     let contactInfoData;
@@ -12,19 +13,15 @@ describe('MSP Retro PA - Contact Info Page', () => {
     const REVIEW_PAGE_URL = `msp/assistance/review`;
 
     beforeEach(() => {
+        browser.executeScript('window.sessionStorage.clear();');
+        browser.executeScript('window.localStorage.clear();');
         contactInfoPage = new ContactInfoPage();
         contactInfoData = data.contactInfo();
         data.setSeed();
     });
 
-    afterEach(() => {
-        browser.executeScript('window.sessionStorage.clear();');
-        browser.executeScript('window.localStorage.clear();');
-    });
-
-    testPageLoad(CONTACT_PAGE_URL);
-    testClickStepper(CONTACT_PAGE_URL, SPOUSE_PAGE_URL, 'Spouse', 'Review');
-    testClickContinue(CONTACT_PAGE_URL);
+    testGenericAllPages(ContactInfoPage, CONTACT_PAGE_URL);
+    testGenericSubsequentPage(ContactInfoPage, {prevLink: 'Spouse', nextLink: 'Review'}, {PAGE_URL: CONTACT_PAGE_URL, PREV_PAGE_URL: SPOUSE_PAGE_URL, NEXT_PAGE_URL: REVIEW_PAGE_URL});
 
     it('01. should be able to continue when all required fields are filled up', () => {
         contactInfoPage.navigateToURL(CONTACT_PAGE_URL);

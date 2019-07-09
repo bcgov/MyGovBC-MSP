@@ -1,9 +1,9 @@
 import { browser, element, by } from 'protractor';
 import { ContactInfoPage } from './mspsb-supp-benefits.po';
 import { FakeDataSupplementaryBenefits } from './mspsb-supp-benefits.data';
-import { testPageLoad, testClickContinue, testClickStepper } from '../../msp-generic-tests';
+import { testGenericSubsequentPage, testGenericAllPages } from '../../msp-generic-tests';
 
-describe('MSP Supplementary Benefits - Contact Info', () => {
+describe('MSP Supplementary Benefits - Contact Info:', () => {
 
     let page: ContactInfoPage;
     const data = new FakeDataSupplementaryBenefits;
@@ -13,25 +13,21 @@ describe('MSP Supplementary Benefits - Contact Info', () => {
     const REVIEW_PAGE_URL = `msp/benefit/review`;
 
     beforeEach(() => {
+        browser.executeScript('window.sessionStorage.clear();');
+        browser.executeScript('window.localStorage.clear();');
         page = new ContactInfoPage();
         contactData = data.contactInfo();
         data.setSeed();
     });
 
-    afterEach(() => {
-        browser.executeScript('window.sessionStorage.clear();');
-        browser.executeScript('window.localStorage.clear();');
-    });
-
-    testPageLoad(CONTACT_PAGE_URL);
-    testClickStepper(CONTACT_PAGE_URL, SPOUSE_PAGE_URL, 'Spouse Info', 'Review');
-    testClickContinue(CONTACT_PAGE_URL);
+    testGenericAllPages(ContactInfoPage, CONTACT_PAGE_URL);
+    testGenericSubsequentPage(ContactInfoPage, {prevLink: 'Spouse Info', nextLink: 'Review'}, {PAGE_URL: CONTACT_PAGE_URL, PREV_PAGE_URL: SPOUSE_PAGE_URL, NEXT_PAGE_URL: REVIEW_PAGE_URL});
 
     it('01. should let the user continue when all required fields are filled out', () => {
         page.navigateTo();
         page.fillAddress(contactData);
         page.fillContactNumber(contactData);
-        page.formErrors().count().then(function(val) {
+        page.formErrors().count().then(val => {
             expect(val).toBe(0, 'should be no errors after filling out all required fields');
         });
         page.continue();
@@ -44,7 +40,7 @@ describe('MSP Supplementary Benefits - Contact Info', () => {
         page.navigateTo();
         page.fillAddress(contactData);
         page.fillContactNumber(contactData);
-        page.formErrors().count().then(function(val) {
+        page.formErrors().count().then(val => {
             expect(val).toBe(1, 'should be two errors in city field for address');
         });
         page.continue();

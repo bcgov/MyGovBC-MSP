@@ -1,9 +1,9 @@
 import { browser, element, by } from 'protractor';
 import { SpouseInfoPage } from './mspretro-pa.po';
-import { testPageLoad, testClickStepper, testClickContinue, testClickConsentModal, fillConsentModal } from '../../msp-generic-tests';
+import { testPageLoad, testClickStepper, testClickContinue, testClickConsentModal, fillConsentModal, testGenericAllPages, testGenericSubsequentPage } from '../../msp-generic-tests';
 import { FakeDataRetroPA } from './mspretro-pa.data';
 
-describe('MSP Retro PA - Spouse Info Page', () => {
+describe('MSP Retro PA - Spouse Info Page:', () => {
     let spouseInfoPage: SpouseInfoPage;
     const data = new FakeDataRetroPA;
     let personalInfoData;
@@ -13,20 +13,16 @@ describe('MSP Retro PA - Spouse Info Page', () => {
     const CONTACT_PAGE_URL = `msp/assistance/contact`;
 
     beforeEach(() => {
+        browser.executeScript('window.sessionStorage.clear();');
+        browser.executeScript('window.localStorage.clear();');
         spouseInfoPage = new SpouseInfoPage();
         personalInfoData = data.personalInfo();
         data.setSeed();
         fillConsentModal(HOME_PAGE_URL);
     });
 
-    afterEach(() => {
-        browser.executeScript('window.sessionStorage.clear();');
-        browser.executeScript('window.localStorage.clear();');
-    });
-
-    testPageLoad(SPOUSE_PAGE_URL);
-    testClickStepper(SPOUSE_PAGE_URL, PERSONAL_PAGE_URL, 'Personal Info', 'Contact');
-    testClickContinue(SPOUSE_PAGE_URL);
+    testGenericAllPages(SpouseInfoPage, SPOUSE_PAGE_URL);
+    testGenericSubsequentPage(SpouseInfoPage, {prevLink: 'Personal Info', nextLink: 'Contact'}, {PAGE_URL: SPOUSE_PAGE_URL, PREV_PAGE_URL: PERSONAL_PAGE_URL, NEXT_PAGE_URL: CONTACT_PAGE_URL});
 
     // This page depends on the inputs from the home page
     it('01. should be able to add spouse, fill out the page and continue', () => {

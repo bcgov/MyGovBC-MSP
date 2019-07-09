@@ -31,7 +31,7 @@ describe('MSP Enrolment - Contact Info', () => {
         page.continue();
 
         expect(browser.getCurrentUrl()).toContain(REVIEW_PAGE_URL, 'should navigate to the Review page');
-        page.formErrors().count().then(function(val) {
+        page.formErrors().count().then(val => {
             expect(val).toBe(0, 'should be no errors after filling out all required fields');
         });
     });
@@ -45,7 +45,7 @@ describe('MSP Enrolment - Contact Info', () => {
         page.continue();
 
         expect(browser.getCurrentUrl()).toContain(CONTACT_PAGE_URL, 'should stay on the same page');
-        page.formErrors().count().then(function(val) {
+        page.formErrors().count().then(val => {
             expect(val).toBe(3, 'should have 3 errors for incomplete address');
         });
     });
@@ -61,7 +61,7 @@ describe('MSP Enrolment - Contact Info', () => {
         page.continue();
         
         expect(browser.getCurrentUrl()).toContain(REVIEW_PAGE_URL, 'should navigate to the Review page');
-        page.formErrors().count().then(function(val) {
+        page.formErrors().count().then(val => {
             expect(val).toBe(3, 'should have 3 errors for incomplete address');
         });
     });

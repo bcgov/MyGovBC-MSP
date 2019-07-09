@@ -1,9 +1,9 @@
 import { browser, element, by } from 'protractor';
 import { ReviewPage, PersonalInfoPage } from './mspsb-supp-benefits.po';
 import { FakeDataSupplementaryBenefits } from './mspsb-supp-benefits.data';
-import { testPageLoad, testClickStepper, testSkip, genDescribe } from '../../msp-generic-tests';
+import { testPageLoad, testClickStepper, testSkip, testGenericSubsequentPage, testGenericAllPages } from '../../msp-generic-tests';
 
-fdescribe('MSP Supplementary Benefits - Review Page', () => {
+describe('MSP Supplementary Benefits - Review Page:', () => {
     let page: ReviewPage;
     let personalPage: PersonalInfoPage;
     const data = new FakeDataSupplementaryBenefits;
@@ -19,12 +19,8 @@ fdescribe('MSP Supplementary Benefits - Review Page', () => {
         data.setSeed();
     });
 
-    // genDescribe(REVIEW_PAGE_URL, new ReviewPage());
-    genDescribe(ReviewPage,  {PAGE_URL: REVIEW_PAGE_URL, NEXT_PAGE_URL: AUTHORIZE_PAGE_URL});
-
-    // testPageLoad(REVIEW_PAGE_URL);
-    // testClickStepper(REVIEW_PAGE_URL, CONTACT_PAGE_URL, 'Contact Info', 'Authorize');
-    // testSkip(REVIEW_PAGE_URL, AUTHORIZE_PAGE_URL);
+    testGenericAllPages(ReviewPage, REVIEW_PAGE_URL);
+    testGenericSubsequentPage(ReviewPage, {prevLink: 'Contact Info', nextLink: 'Authorize'}, {PAGE_URL: REVIEW_PAGE_URL, PREV_PAGE_URL: CONTACT_PAGE_URL, NEXT_PAGE_URL: AUTHORIZE_PAGE_URL});
 
     it('01. should let the user to edit information', () => {
         page.navigateTo();

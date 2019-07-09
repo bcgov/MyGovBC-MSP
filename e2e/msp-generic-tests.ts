@@ -3,43 +3,114 @@ import { BaseMSPTestPage } from './msp.po';
 
 const page = new BaseMSPTestPage();
 
-
-export function genDescribe(PageClass: typeof BaseMSPTestPage, urls: {PAGE_URL: string, NEXT_PAGE_URL?: string}){
+export function testGenericAllPages(PageClass: typeof BaseMSPTestPage, PAGE_URL: string){
     let page;
 
-    return describe('Generic - All Pages', () => {
+    return describe('Generic Suite for All Pages', () => {
         beforeEach(() => {
             page = new PageClass();
-            // console.log('\nbeforeEACH THIS THIS THIS\n\n')
         });
 
-        // console.log('before testPageLoad', page);
-
         it('GENERIC TEST 01. should load the page without issue', () => {
-            // console.log('nested IT!', page);
-            page.navigateToURL(urls.PAGE_URL);
-            expect(browser.getCurrentUrl()).toContain(urls.PAGE_URL);
+            page.navigateToURL(PAGE_URL);
+            expect(browser.getCurrentUrl()).toContain(PAGE_URL);
             page.formErrors().count().then(val => {
                 expect(val).toBe(0, 'should be no errors on page load');
             });
         });
+    });
+}
 
-        // Below doesn't work with beforeEach, must have it blocks direclty in
-        // testPageLoad(urls.PAGE_URL, page);
-        // testSkip(urls.PAGE_URL, urls.NEXT_PAGE_URL, page);
-        // testClickStepper(REVIEW_PAGE_URL, CONTACT_PAGE_URL, 'Contact Info', 'Authorize');
+
+export function testGenericFirstPage(PageClass: typeof BaseMSPTestPage, nextLink: string, urls: {PAGE_URL: string, NEXT_PAGE_URL?: string}){
+    let page;
+
+    return describe('Generic Suite for First Page', () => {
+        beforeEach(() => {
+            page = new PageClass();
+        });
+
+        it('GENERIC TEST 02. should NOT let the user to proceed if the user has not agreeed to the info collection notice', () => {
+            page.navigateToURL(urls.PAGE_URL);
+            page.clickConsentModalContinue();
+            page.checkConsentModal().then(val => {
+                expect(val).toBe(true);
+            });
+            expect(browser.getCurrentUrl()).toContain(urls.PAGE_URL, 'should still be on the same page');
+        });
+    
+        it('GENERIC TEST 03. should let the user to proceed if the user has agreeed to the info collection notice', () => {
+            this.fillConsentModal(urls.PAGE_URL);
+            page.checkConsentModal().then(val => {
+                expect(val).toBe(false);
+            });
+            expect(browser.getCurrentUrl()).toContain(urls.PAGE_URL, 'should still be on the same page');
+        });
+
+        it('GENERIC TEST 04. should NOT let user continue by clicking the stepper', () => {
+            page.navigateToURL(urls.PAGE_URL);
+            page.clickLink('span', nextLink);
+            expect(browser.getCurrentUrl()).toContain(urls.PAGE_URL, 'should still be on the same page');
+        });
+
+        it('GENERIC TEST 05. should NOT let user to continue if they did not filled out required fields', () => {
+            page.navigateToURL(urls.PAGE_URL);
+            page.continue();
+            expect(browser.getCurrentUrl()).toContain(urls.PAGE_URL, 'should still be on the same page');
+        });
+    });
+}
+
+export function testGenericSubsequentPage(PageClass: typeof BaseMSPTestPage, links: {prevLink: string, nextLink: string}, urls: {PAGE_URL: string, PREV_PAGE_URL: string, NEXT_PAGE_URL: string}){
+    let page;
+
+    return describe('Generic Suite for Subsequent Page', () => {
+        beforeEach(() => {
+            page = new PageClass();
+        });
+
+        it('GENERIC TEST 02. should let user to go back to the previous page by clicking the stepper', () => {
+            page.navigateToURL(urls.PAGE_URL);
+            page.clickLink('span', links.prevLink);
+            expect(browser.getCurrentUrl()).toContain(urls.PREV_PAGE_URL, 'should navigate to the previous page');
+        });
+    
+        it('GENERIC TEST 03. should NOT let user continue by clicking the stepper', () => {
+            page.navigateToURL(urls.PAGE_URL);
+            page.clickLink('span', links.nextLink);
+            expect(browser.getCurrentUrl()).toContain(urls.PAGE_URL, 'should still be on the same page');
+        });
+    });
+}
+
+export function testGenericLastPage(PageClass: typeof BaseMSPTestPage, prevLink: string, urls: {PAGE_URL: string, PREV_PAGE_URL: string}){
+    let page;
+
+    return describe('Generic Suite for Last Page', () => {
+        beforeEach(() => {
+            page = new PageClass();
+        });
+
+        it('GENERIC TEST 02. should let user to go back to the previous page by clicking the stepper', () => {
+            page.navigateToURL(urls.PAGE_URL);
+            page.clickLink('span', prevLink);
+            expect(browser.getCurrentUrl()).toContain(urls.PREV_PAGE_URL, 'should navigate to the previous page');
+        });
+
+        it('GENERIC TEST 03. should NOT let user to continue if they did not filled out required fields', () => {
+            page.navigateToURL(urls.PAGE_URL);
+            page.continue();
+            expect(browser.getCurrentUrl()).toContain(urls.PAGE_URL, 'should still be on the same page');
+        });
     });
 }
 
 export function testPageLoad(PAGE_URL: string, pageX?: BaseMSPTestPage) {
-    it('GENERIC TEST 01. should load the page without issue', () => {
-        console.log('testPageLoad', {PAGE_URL, page: !!pageX});
-        pageX.navigateToURL(PAGE_URL);
+    pageX.navigateToURL(PAGE_URL);
         expect(browser.getCurrentUrl()).toContain(PAGE_URL);
         pageX.formErrors().count().then(val => {
             expect(val).toBe(0, 'should be no errors on page load');
         });
-    });
 }
 
 export function testClickPrevStepper(CURR_PAGE_URL: string, PREV_PAGE_URL: string, prevLink: string) {
@@ -85,11 +156,12 @@ export function fillConsentModal(PAGE_URL: string){
     page.clickConsentModalContinue();
 }
 
+
 export function testClickConsentModal(PAGE_URL: string) {
     it('GENERIC TEST 06. should NOT let the user to proceed if the user has not agreeed to the info collection notice', () => {
         page.navigateToURL(PAGE_URL);
         page.clickConsentModalContinue();
-        page.checkConsentModal().then(function(val) {
+        page.checkConsentModal().then(val => {
             expect(val).toBe(true);
         });
         expect(browser.getCurrentUrl()).toContain(PAGE_URL, 'should still be on the same page');
@@ -97,10 +169,9 @@ export function testClickConsentModal(PAGE_URL: string) {
 
     it('GENERIC TEST 07. should let the user to proceed if the user has agreeed to the info collection notice', () => {
         this.fillConsentModal(PAGE_URL);
-        page.checkConsentModal().then(function(val) {
+        page.checkConsentModal().then(val => {
             expect(val).toBe(false);
         });
         expect(browser.getCurrentUrl()).toContain(PAGE_URL, 'should still be on the same page');
     });
 }
-

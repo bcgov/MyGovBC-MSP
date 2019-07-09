@@ -17,7 +17,7 @@ describe('MSP Enrolment - Spouse Info', () => {
     it('01. should load the page without issue', () => {
         page.navigateTo();
         expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL);
-        page.formErrors().count().then(function(val) {
+        page.formErrors().count().then(val => {
             expect(val).toBe(0, 'should be no errors on page load');
         });
     });
@@ -38,7 +38,7 @@ describe('MSP Enrolment - Spouse Info', () => {
         // page.uploadFile();
         // page.clickContinue();
         // expect(browser.getCurrentUrl()).toContain(CHILD_PAGE_URL);
-        page.formErrors().count().then(function(val) {
+        page.formErrors().count().then(val => {
             expect(val).toBe(0, 'should be no errors after answering all required questions');
         });
     });
