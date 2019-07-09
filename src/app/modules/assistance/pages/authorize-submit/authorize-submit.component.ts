@@ -127,8 +127,7 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
   constructor(
     private dataService: MspDataService,
     private completenessCheck: CompletenessCheckService,
-    public stateSvc: AssistStateService,
-    private _router: Router //private _processService: ProcessService
+    public stateSvc: AssistStateService
   ) {
     this.application = this.dataService.finAssistApp;
     this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
