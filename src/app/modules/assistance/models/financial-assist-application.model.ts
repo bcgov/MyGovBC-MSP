@@ -167,7 +167,7 @@ export class FinancialAssistApplication implements ApplicationBase {
     this._authorizedByApplicant = auth;
 
     if (auth) {
-      this._authorizedByAttorney = false;
+      // this._authorizedByAttorney = false;
       this.authorizedByApplicantDate = moment().toDate();
     }
   }
@@ -181,7 +181,7 @@ export class FinancialAssistApplication implements ApplicationBase {
   set authorizedByAttorney(auth: boolean) {
     this._authorizedByAttorney = auth;
     if (auth) {
-      this._authorizedByApplicant = false;
+      // this._authorizedByApplicant = false;
       this._authorizedBySpouse = false;
       this.authorizedByApplicantDate = moment().toDate();
     }
