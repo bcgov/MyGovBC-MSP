@@ -34,13 +34,13 @@ export class AssistTransformService {
     const applicant = this.assistanceApplicant as AssistanceApplicantType;
 
     const authorizedByApplicant = this.app.authorizedByApplicant ? 'Y' : 'N';
-    console.log(
-      'authorized by applicant date',
-      this.app.authorizedByApplicantDate
-    );
+    // console.log(
+    //   'authorized by applicant date',
+    //   this.app.authorizedByApplicantDate
+    // );
     let date = this.app.authorizedByApplicantDate;
     let day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
-    console.log(date.getMonth());
+    // console.log(date.getMonth());
     let month =
       date.getMonth() < 10
         ? `0${(date.getMonth() + 1).toString()}`
@@ -48,7 +48,7 @@ export class AssistTransformService {
     let year = date.getFullYear();
 
     const authorizedByApplicantDate = `${month}-${day}-${year}`;
-    console.log('authorization date', authorizedByApplicantDate);
+    // console.log('authorization date', authorizedByApplicantDate);
     // TODO: still require authorized by spouse?
     const authorizedBySpouse = 'Y';
     return {

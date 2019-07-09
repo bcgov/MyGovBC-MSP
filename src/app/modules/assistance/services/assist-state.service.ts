@@ -152,14 +152,12 @@ export class AssistStateService {
   }
 
   setIndex(path: string) {
-    console.log('set index', path);
     let index = this.findIndex(path);
     if (index > -1) return this.index.next(index);
   }
 
   submitApplication() {
     const app = this.xformSvc.application;
-    console.log('application', app);
 
     this.schemaSvc.validate(app).then(res => console.log(res));
   }
