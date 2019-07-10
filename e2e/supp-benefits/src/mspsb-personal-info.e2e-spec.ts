@@ -7,7 +7,7 @@ describe('MSP Supplementary Benefits - Personal Info Page:', () => {
     let page: PersonalInfoPage;
     const data = new FakeDataSupplementaryBenefits;
     let personalInfoData;
-    const PREPARE_PAGE_URL = `msp/benefit/prepare`
+    const FINANCIAL_PAGE_URL = `msp/benefit/financial-info`
     const PERSONAL_PAGE_URL = `msp/benefit/personal-info`
     const SPOUSE_PAGE_URL = `msp/benefit/spouse-info`
 
@@ -18,7 +18,7 @@ describe('MSP Supplementary Benefits - Personal Info Page:', () => {
     });
 
     testGenericAllPages(PersonalInfoPage, PERSONAL_PAGE_URL);
-    testGenericSubsequentPage(PersonalInfoPage, {prevLink: 'Prepare', nextLink: 'Spouse Info'}, {PAGE_URL: PERSONAL_PAGE_URL, PREV_PAGE_URL: SPOUSE_PAGE_URL, NEXT_PAGE_URL: PREPARE_PAGE_URL});
+    testGenericSubsequentPage(PersonalInfoPage, {prevLink: 'Financial Info', nextLink: 'Spouse Info'}, {PAGE_URL: PERSONAL_PAGE_URL, PREV_PAGE_URL: SPOUSE_PAGE_URL, NEXT_PAGE_URL: FINANCIAL_PAGE_URL});
 
     it('01. should fill out the required fields and click continue', () => {
         page.navigateTo();

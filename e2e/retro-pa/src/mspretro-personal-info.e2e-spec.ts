@@ -12,12 +12,15 @@ describe('MSP Retro PA - Personal Info Page:', () => {
     const SPOUSE_PAGE_URL = `msp/assistance/spouse`;
 
     beforeEach(() => {
-        browser.executeScript('window.sessionStorage.clear();');
-        browser.executeScript('window.localStorage.clear();');
         personalInfoPage = new PersonalInfoPage();
         personalInfoData = data.personalInfo();
         data.setSeed();
         fillConsentModal(HOME_PAGE_URL);
+    });
+
+    afterEach(() => {
+        browser.executeScript('window.sessionStorage.clear();');
+        browser.executeScript('window.localStorage.clear();');
     });
 
     testGenericAllPages(PersonalInfoPage, PERSONAL_PAGE_URL);

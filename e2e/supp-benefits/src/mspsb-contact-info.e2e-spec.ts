@@ -13,11 +13,15 @@ describe('MSP Supplementary Benefits - Contact Info:', () => {
     const REVIEW_PAGE_URL = `msp/benefit/review`;
 
     beforeEach(() => {
-        browser.executeScript('window.sessionStorage.clear();');
-        browser.executeScript('window.localStorage.clear();');
         page = new ContactInfoPage();
         contactData = data.contactInfo();
         data.setSeed();
+    });
+
+
+    afterEach(() => {
+        browser.executeScript('window.sessionStorage.clear();');
+        browser.executeScript('window.localStorage.clear();');
     });
 
     testGenericAllPages(ContactInfoPage, CONTACT_PAGE_URL);

@@ -13,11 +13,14 @@ describe('MSP Retro PA - Contact Info Page:', () => {
     const REVIEW_PAGE_URL = `msp/assistance/review`;
 
     beforeEach(() => {
-        browser.executeScript('window.sessionStorage.clear();');
-        browser.executeScript('window.localStorage.clear();');
         contactInfoPage = new ContactInfoPage();
         contactInfoData = data.contactInfo();
         data.setSeed();
+    });
+
+    afterEach(() => {
+        browser.executeScript('window.sessionStorage.clear();');
+        browser.executeScript('window.localStorage.clear();');
     });
 
     testGenericAllPages(ContactInfoPage, CONTACT_PAGE_URL);

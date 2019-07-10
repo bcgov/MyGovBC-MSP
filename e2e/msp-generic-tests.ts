@@ -48,12 +48,14 @@ export function testGenericFirstPage(PageClass: typeof BaseMSPTestPage, nextLink
         });
 
         it('GENERIC TEST 04. should NOT let user continue by clicking the stepper', () => {
+            this.fillConsentModal(urls.PAGE_URL);
             page.navigateToURL(urls.PAGE_URL);
             page.clickLink('span', nextLink);
             expect(browser.getCurrentUrl()).toContain(urls.PAGE_URL, 'should still be on the same page');
         });
 
         it('GENERIC TEST 05. should NOT let user to continue if they did not filled out required fields', () => {
+            this.fillConsentModal(urls.PAGE_URL);
             page.navigateToURL(urls.PAGE_URL);
             page.continue();
             expect(browser.getCurrentUrl()).toContain(urls.PAGE_URL, 'should still be on the same page');

@@ -9,7 +9,7 @@ describe('MSP Supplementary Benefits - Authorize Page:', () => {
    
     const REVIEW_PAGE_URL = `msp/benefit/review`;
     const AUTHORIZE_PAGE_URL = `msp/benefit/authorize`;
-    const CONFIRMATION_PAGE_URL = `msp/benefit/sending`;
+    const CONFIRMATION_PAGE_URL = `msp/benefit/confirmation?confirmationNum=`;
 
     beforeEach(() => {
         page = new AuthorizePage();

@@ -13,12 +13,15 @@ describe('MSP Retro PA - Spouse Info Page:', () => {
     const CONTACT_PAGE_URL = `msp/assistance/contact`;
 
     beforeEach(() => {
-        browser.executeScript('window.sessionStorage.clear();');
-        browser.executeScript('window.localStorage.clear();');
         spouseInfoPage = new SpouseInfoPage();
         personalInfoData = data.personalInfo();
         data.setSeed();
         fillConsentModal(HOME_PAGE_URL);
+    });
+
+    afterEach(() => {
+        browser.executeScript('window.sessionStorage.clear();');
+        browser.executeScript('window.localStorage.clear();');
     });
 
     testGenericAllPages(SpouseInfoPage, SPOUSE_PAGE_URL);

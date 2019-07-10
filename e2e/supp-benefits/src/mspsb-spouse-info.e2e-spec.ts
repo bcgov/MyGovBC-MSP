@@ -12,11 +12,14 @@ describe('MSP Supplementary Benefits - Spouse Info Page:', () => {
     const CONTACT_PAGE_URL = `msp/benefit/contact-info`;
 
     beforeEach(() => {
-        browser.executeScript('window.sessionStorage.clear();');
-        browser.executeScript('window.localStorage.clear();');
         page = new SpouseInfoPage();
         spouseInfoData = data.personalInfo();
         data.setSeed();
+    });
+
+    afterEach(() => {
+        browser.executeScript('window.sessionStorage.clear();');
+        browser.executeScript('window.localStorage.clear();');
     });
 
     testGenericAllPages(SpouseInfoPage, SPOUSE_PAGE_URL);
