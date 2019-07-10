@@ -13,11 +13,11 @@ import { RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
 export const benefitPages: Routes = [
   {
     path: '',
-    redirectTo: 'prepare',
+    redirectTo: 'financial-info',
     pathMatch: 'full'
 },
 {
-    path: 'prepare',
+    path: 'financial-info',
     component: BenefitPrepareComponent
 },
 {
@@ -57,7 +57,7 @@ export const benefitPages: Routes = [
       component: BenefitConfirmationComponent
   },{
     path: '',
-    redirectTo: 'prepare'
+    redirectTo: 'financial-info'
   }
 ];
 

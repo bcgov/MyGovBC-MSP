@@ -388,13 +388,13 @@ export class BenefitApplication implements ApplicationBase {
      * It ALWAYS returns most recent applied for year which is always this year
      * @returns {number}
      */
-    getTaxYear(): number {
+    getTaxYear(): string {
         const mostRecentAppliedForTaxYears = this.getMostRecentAppliedForTaxYears();
         if (mostRecentAppliedForTaxYears.length > 0) {
-            return mostRecentAppliedForTaxYears[0].year;
+            return String(mostRecentAppliedForTaxYears[0].year);
         }
         else {
-            return this.MostRecentTaxYear;
+            return String(this.MostRecentTaxYear);
         }
     }
 
