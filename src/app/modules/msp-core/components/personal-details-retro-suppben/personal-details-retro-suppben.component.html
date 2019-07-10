@@ -1,16 +1,14 @@
 <form #formRef="ngForm" novalidate>
-    <div class="row">
 
       <!-- Remove Spouse and Child Button, (Red cross) -->
-      <div class="col-lg-12" *ngIf="removeable">
-          <div *ngIf="person.relationship !== 0" style="margin-top: 18px">
-              <div *ngIf="person.relationship === 1">
-              <i class="fa fa-times mr-3 mb-3 pointer float-right text-danger" aria-hidden="true" (click)="removeSpouse()"></i>
-              </div>
-          </div>
-      </div>
-      
+    <div *ngIf="removeable">
+        <div *ngIf="person.relationship !== 0">
+            <div *ngIf="person.relationship === 1">
+            <common-xicon-button (click)="removeSpouse()"></common-xicon-button>
+            </div>
+        </div>
     </div>
+      
     
     <!-- Full Name  -->
     <!-- <div class="row">

@@ -23,7 +23,7 @@ export const environment = {
         logBaseUrl: '/msp/api/logging',
         apiBaseUrl: '/msp/api',
         aclContextPath: '/accLetterIntegration/',
-        suppBenefitAPIUrl: '/submit-application/suppbenefit/',
+        suppBenefitAPIUrl: '/submit-application/',
         attachment: '/submit-attachment/',
         envServerBaseUrl: '/msp/api/env',
         captchaApiBaseUrl: '/msp/api/captcha',

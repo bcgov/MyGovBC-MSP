@@ -26,6 +26,7 @@ import { AssistStateService } from '../../services/assist-state.service';
             [(ngModel)]="address.addressLine1"
             name="addressLine1"
             id="addressLine1"
+            maxlen="25"
             required
           ></common-street>
           <div class="col-1">
@@ -44,6 +45,7 @@ import { AssistStateService } from '../../services/assist-state.service';
             [(ngModel)]="address.addressLine2"
             name="addressLine2"
             id="addressLine2"
+            maxlen="25"
             required
           ></common-street>
           <div class="col-1">
@@ -62,6 +64,7 @@ import { AssistStateService } from '../../services/assist-state.service';
             [(ngModel)]="address.addressLine3"
             name="addressLine3"
             id="addressLine3"
+            maxlen="25"
             required
           ></common-street>
           <div class="col-1">
@@ -107,9 +110,14 @@ import { AssistStateService } from '../../services/assist-state.service';
           [phoneNumber]="phone"
           [(ngModel)]="phone"
           (onChange)="savePhone($event)"
+          maxlen="25"
           required="false"
         ></common-phone-number>
-        <aside>Tip about phone numbers</aside>
+
+        <aside>
+          <h5>Tip</h5>
+          <p>{{ phoneTip }}</p>
+        </aside>
       </common-page-section>
     </form>
   `,
@@ -129,6 +137,8 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
   mailSubtitle = 'Enter your current mailing address';
   phoneTitle = 'Contact';
   phoneLabel = 'Phone Number (optional)';
+  phoneTip =
+    'Please provide a phone number so you may be contacted in case of any issues with your application.';
 
   countryList: { countryCode: string; description: string }[];
   provinceList: { provinceCode: string; description: string }[];
@@ -178,7 +188,6 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
     this.touched$.subscribe(obs => {
       if (obs) {
         const controls = this.personalInfoForm.controls;
-        console.log(controls);
         for (let control in controls) {
           controls[control].markAsTouched();
         }
