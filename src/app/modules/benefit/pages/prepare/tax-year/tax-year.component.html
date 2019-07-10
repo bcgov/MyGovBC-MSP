@@ -1,7 +1,7 @@
 <p id="qTaxYear" class="intro" [innerHtml]="lang('./en/index.js').taxYearTitle"></p>
 <h5 id="txYearSubtitle" class="intro" [innerHtml]="lang('./en/index.js').taxYearSubTitle"></h5>
 <label class="intro" id="taxYear" [innerHtml]="lang('./en/index.js').enterTaxYearLabel"></label>
-<div style="display:inline-block;" *ngFor="let st of assistanceYearsList;  let i = index">
+<div style="display:inline-block;" *ngFor="let st of assistanceYears;  let i = index">
     <common-radio [value]="currentTaxYear"
         [radioLabels]='[{ "label": st.year, "value": st.year}]'
         (statusChange)="setTaxYear(st.year)"
