@@ -161,9 +161,13 @@ export class AssistStateService {
   async submitApplication() {
     const app = this.xformSvc.application;
     const token = this.finAssistApp.authorizationToken;
-    const call = await this.api.sendFiles(token, app.uuid, app.attachments);
-    console.log('call', call);
-    call.subscribe(obs => console.log('res', obs));
+    const call = await this.api.sendApp(app, token, app.uuid, app.attachments);
+    call.subscribe(obs => console.log('subscribe run', obs));
+
+    // console.log('call', call);
+    // const res = call.toPromise();
+
+    // console.log(res);
     // try {
     //   let valid = await this.schemaSvc.validate(app);
     //   return valid;

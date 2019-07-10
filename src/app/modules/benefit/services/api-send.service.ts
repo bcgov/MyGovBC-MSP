@@ -5,14 +5,23 @@ import { MspImage } from 'app/models/msp-image';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { MspApiService } from 'app/services/msp-api.service';
-import { Observable, forkJoin, from, of } from 'rxjs';
-import { catchError, mergeMap } from 'rxjs/operators';
+import { Observable, forkJoin, from, of, concat } from 'rxjs';
+import { catchError, mergeMap, tap, flatMap, concatMap } from 'rxjs/operators';
+import { AbstractHttpService } from 'moh-common-lib';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApiSendService {
-  constructor(private schemaSvc: SchemaService, private http: HttpClient) {}
+export class ApiSendService extends AbstractHttpService {
+  protected _headers: HttpHeaders;
+  protected handleError(
+    error: import('@angular/common/http').HttpErrorResponse
+  ) {
+    throw new Error('Method not implemented.');
+  }
+  constructor(private schemaSvc: SchemaService, http: HttpClient) {
+    super(http);
+  }
 
   async validate(app: MSPApplicationSchema) {
     try {
@@ -23,25 +32,41 @@ export class ApiSendService {
     }
   }
 
+  async sendApp(
+    app: MSPApplicationSchema,
+    token: string,
+    applicationUUID,
+    attachments: MspImage[]
+  ) {
+    console.log('run');
+    const appUrl = this.setAppUrl(applicationUUID);
+    this._headers = this.setHeaders('application/json', token);
+    const files$ = await this.sendFiles(token, applicationUUID, attachments);
+    return files$
+      .pipe(mergeMap(q => forkJoin(from(q))))
+      .pipe(() => from(this.post<MSPApplicationSchema>(appUrl, app)));
+
+    // .pipe(catchError(err => of(err)));
+  }
+
   async sendFiles(
     token: string,
     applicationUUID: string,
     attachments: MspImage[]
   ) {
-    const attachmentPromises = new Array<Promise<string>>();
+    const attachmentPromises = new Array<Observable<string>>();
     for (let attachment of attachments) {
       attachmentPromises.push(
-        this.sendFile(token, applicationUUID, attachment).toPromise()
+        this.sendFile(token, applicationUUID, attachment)
       );
       // this.httpSvc.post()
     }
-    const source = from([...attachmentPromises]);
-    return source.pipe(mergeMap(q => forkJoin(from(q))));
+    return from(attachmentPromises);
   }
 
   sendFile(token: string, applicationUUID: string, attachment) {
     console.log('send file run');
-    const url = this.setUrl(attachment, applicationUUID);
+    const url = this.setFileUrl(attachment, applicationUUID);
 
     const headers = this.setHeaders(attachment.contentType, token);
 
@@ -59,17 +84,29 @@ export class ApiSendService {
     return this.http.post(url, blob, options).pipe(catchError(err => of(err)));
   }
 
-  async sendApp(app: MSPApplicationSchema) {}
-
   setHeaders(contentType: string, token: string): HttpHeaders {
-    return new HttpHeaders({
-      'Content-Type': contentType,
-      'Access-Control-Allow-Origin': '*',
-      'X-Authorization': 'Bearer ' + token
-    });
+    return contentType === 'application/json'
+      ? new HttpHeaders({
+          'Content-Type': contentType,
+          'Response-Type': 'application/json',
+          'X-Authorization': 'Bearer ' + token
+        })
+      : new HttpHeaders({
+          'Content-Type': contentType,
+          'Access-Control-Allow-Origin': '*',
+          'X-Authorization': 'Bearer ' + token
+        });
   }
 
-  setUrl(attachment: MspImage, uuid: string): string {
+  setAppUrl(uuid: string) {
+    return (
+      environment.appConstants.apiBaseUrl +
+      environment.appConstants.suppBenefitAPIUrl +
+      uuid
+    );
+  }
+
+  setFileUrl(attachment: MspImage, uuid: string): string {
     let url =
       environment.appConstants['apiBaseUrl'] +
       environment.appConstants['attachment'] +

@@ -31,13 +31,10 @@ export class AssistTransformService {
   }
 
   get assistanceApplication(): AssistanceApplicationType {
-    const applicant = this.assistanceApplicant as AssistanceApplicantType;
+    const applicant = this.assistanceApplicant;
 
     const authorizedByApplicant = this.app.authorizedByApplicant ? 'Y' : 'N';
-    // console.log(
-    //   'authorized by applicant date',
-    //   this.app.authorizedByApplicantDate
-    // );
+
     let date = this.app.authorizedByApplicantDate;
     let day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
     // console.log(date.getMonth());
