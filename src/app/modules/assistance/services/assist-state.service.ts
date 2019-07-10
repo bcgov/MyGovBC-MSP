@@ -161,8 +161,9 @@ export class AssistStateService {
   async submitApplication() {
     const app = this.xformSvc.application;
     const token = this.finAssistApp.authorizationToken;
-    const call = await this.api.sendApp(app, token, app.uuid, app.attachments);
-    call.subscribe(obs => console.log('subscribe run', obs));
+    // const call = await this.api.sendApp(app, token, app.uuid, app.attachments);
+    // call.subscribe(obs => console.log('subscribe run', obs));
+    this.api.testApp(app, token, app.uuid);
 
     // console.log('call', call);
     // const res = call.toPromise();
