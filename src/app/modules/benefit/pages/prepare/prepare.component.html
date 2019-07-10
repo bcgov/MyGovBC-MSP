@@ -184,7 +184,7 @@
                         <div class="form-group" *ngIf="benefitApp.ageOver65 != null || benefitApp.ageOver65 != undefined">
                             <common-radio [value]="benefitApp.selfDisabilityCredit"  [label]="lang('./en/index.js').didAnyoneClaimDisabilityTaxCreditLastYear" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="toggleClaimForSelfDisabilityCredit($event); toggleClaimForSpouseDisabilityCredit($event);">
+                                (statusChange)="toggleClaimForSelfDisabilityCredit($event);">
                             </common-radio>
                         </div>
         

@@ -199,8 +199,14 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         if(evt) {
             this.dataService.benefitApp.selfDisabilityCredit = true;
             this.applicantClaimDisabilityCredit();
+            if (this.benefitApp.hasSpouse){
+                this.benefitApp.spouseEligibleForDisabilityCredit = true;
+            }
         } else {
             this.dataService.benefitApp.selfDisabilityCredit = false;
+            if (this.benefitApp.hasSpouse){
+                this.benefitApp.spouseEligibleForDisabilityCredit = false;
+            }
         }
     }
 
