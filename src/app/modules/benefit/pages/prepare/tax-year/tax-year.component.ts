@@ -21,6 +21,8 @@ export class TaxYearComponent extends BaseComponent {
     lang = require('./i18n');
     taxYears: number[] ;
     @Input() currentTaxYear: boolean;
+    assistanceYears: AssistanceYear[];
+    currentYear: number;  // = this.benefitApp.taxYear;
     @Input() spaEnvResponse: ISpaEnvResponse;
     @Output() onTaxYearChange: EventEmitter<number> = new EventEmitter<number>();
     today: Date;
@@ -30,28 +32,34 @@ export class TaxYearComponent extends BaseComponent {
 
     constructor(cd: ChangeDetectorRef, public dataService: MspBenefitDataService) {
         super(cd);
+       
     }
 
     ngOnInit() {
         this.taxYears = this.getTaxYears();
+        this.assistanceYears = this.assistanceYearsList();
     }
+
     setTaxYear(value: number) {
+        this.currentYear = value;
         this.onTaxYearChange.emit(value);
     }
+    
     getTaxYears(): number[] {
         const currentTaxYear = moment().year() ;
         return [currentTaxYear, currentTaxYear - 1 ];
     }
+
     get benefitApp(): BenefitApplication{
         return this.dataService.benefitApp;
     }
 
 
-    isValid(): boolean {
+   /* isValid(): boolean {
         return !!this.currentTaxYear ;
-    }
+    }*/
 
-    get assistanceYearsList(): AssistanceYear[] {
+    assistanceYearsList(): AssistanceYear[] {
 
         return this.benefitApp.assistYears = this.getTaxYears().reduce(
             (tally, yearNum) => {
@@ -77,6 +85,8 @@ export class TaxYearComponent extends BaseComponent {
 
                 return tally;
             }, []);
+
+           //return [{docsRequired: false, apply:false, year:2019, currentYear:2019, disabled: false}, {docsRequired: false, apply:false, year:2018, currentYear:2018, disabled: false}]
     }
 
     // Gets the cutoff date time frame from SPA-ENV server
