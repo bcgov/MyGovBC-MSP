@@ -2,6 +2,7 @@ import { browser, element, by } from 'protractor';
 import { PersonalInfoPage } from './mspsb-supp-benefits.po';
 import { FakeDataSupplementaryBenefits } from './mspsb-supp-benefits.data';
 import { testGenericSubsequentPage, testGenericAllPages } from '../../msp-generic-tests';
+import { p } from '@angular/core/src/render3';
 
 describe('MSP Supplementary Benefits - Personal Info Page:', () => {
     let page: PersonalInfoPage;
@@ -25,5 +26,13 @@ describe('MSP Supplementary Benefits - Personal Info Page:', () => {
         page.fillInfo(personalInfoData);
         page.continue();
         expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL);
+    });
+
+    it('02. should capture invalid PHN and SIN', () => {
+        personalInfoData.PHN = personalInfoData.SIN = '1234567890';
+        page.navigateTo();
+        page.fillInfo(personalInfoData);
+        page.continue();
+        expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL, 'should stay on the same page');
     });
 });

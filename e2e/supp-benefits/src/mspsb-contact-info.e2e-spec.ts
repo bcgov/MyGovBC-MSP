@@ -18,7 +18,6 @@ describe('MSP Supplementary Benefits - Contact Info:', () => {
         data.setSeed();
     });
 
-
     afterEach(() => {
         browser.executeScript('window.sessionStorage.clear();');
         browser.executeScript('window.localStorage.clear();');
@@ -49,6 +48,18 @@ describe('MSP Supplementary Benefits - Contact Info:', () => {
         });
         page.continue();
         expect(browser.getCurrentUrl()).toContain(CONTACT_PAGE_URL, 'should stay on the same page');
+    });
+
+    it('03. should be able to add and remove an address line', () => {
+        page.navigateTo();
+        page.clickIcon('plus');
+        page.checkAddressLine2().then(val => {
+            expect(val).toBe(true, 'Address Line 2 should be present');
+        });
+        page.clickIcon('minus');
+        page.checkAddressLine2().then(val => {
+            expect(val).toBe(false, 'Address Line 2 should be hidden');
+        });
     });
 
 });

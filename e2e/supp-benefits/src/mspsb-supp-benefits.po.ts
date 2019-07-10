@@ -75,8 +75,8 @@ export class PersonalInfoPage extends BaseMSPTestPage {
         this.typeText('day', day.toString());
         this.typeText('year', year.toString());
         this.scrollDown();
-        this.typePHN('9999999998');
-        this.typeText('sin', '712234123');
+        this.typePHN(info.PHN.toString());
+        this.typeText('sin', info.SIN.toString());
         this.uploadOneFile();
     }
 
@@ -118,6 +118,14 @@ export class ContactInfoPage extends BaseMSPTestPage {
 
     fillContactNumber(data: ContactInfoPageTest) {
         element(by.css('input[id^="phone"]')).sendKeys(data.mobile);
+    }
+
+    clickIcon(classVal: string){
+        element(by.css(`button i[class*="${classVal}"]`)).click();
+    }
+
+    checkAddressLine2(){
+        return element(by.css('common-street[label="Address Line 2"]')).isPresent();
     }
 }
 

@@ -9,7 +9,9 @@ export class FakeDataSupplementaryBenefits {
             firstName: faker.name.firstName(),
             middleName: Math.random() > 0.5 ? faker.name.firstName() : undefined,
             lastName: faker.name.lastName(),
-            birthDate: faker.date.past()
+            birthDate: faker.date.past(),
+            PHN: 9999999998,
+            SIN: 712234123
         }
     }
 
@@ -38,8 +40,8 @@ export interface PersonalInfoPageTest {
     middleName: string;
     lastName: string;
     birthDate: Date;
-    PHN?: number;
-    SIN?: number;
+    PHN: number;
+    SIN: number;
 }
 
 export interface ContactInfoPageTest {
