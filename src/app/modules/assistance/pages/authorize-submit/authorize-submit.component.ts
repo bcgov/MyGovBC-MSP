@@ -15,7 +15,11 @@ import { AssistStateService } from '../../services/assist-state.service';
     <ng-container *ngIf="!stateSvc.submitted">
       <common-page-section layout="noTips">
         <h2>{{ title }}</h2>
-        <p>{{ declarationOne }}</p>
+        <p>
+          {{ declarationOne }}<em>{{ declarationOneEm }}</em
+          >{{ declarationOneB }}
+        </p>
+
         <p>{{ declarationTwo }}</p>
       </common-page-section>
       <form #form="ngForm">
@@ -25,7 +29,6 @@ import { AssistStateService } from '../../services/assist-state.service';
             class="input-lg form-check-input"
             name="authorizedByApplicant"
             [(ngModel)]="application.authorizedByApplicant"
-            (ngModelChange)="deleteAllDocs($event)"
             id="firstPersonAuthorize"
             type="checkbox"
           />
@@ -40,12 +43,11 @@ import { AssistStateService } from '../../services/assist-state.service';
               class="input-lg form-check-input"
               name="authorizedByAttorney"
               [(ngModel)]="application.authorizedByAttorney"
-              (ngModelChange)="handleAuthorizedByAttorney($event)"
               id="authByAttorney"
               type="checkbox"
             />
             <label class="form-check-label" for="authByAttorney">
-              {{ agreeLabel }}</label
+              {{ poaAgreeLabel }}</label
             >
           </div>
         </div>
@@ -85,13 +87,36 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
 
   title = 'Authorize and submit your application';
 
-  declarationOne = `The information I provide will be relevant to and used solely for the purpose of determining and verifying my entitlement to Retroactive Premium Assistance under the Medicare Protection Act, and will not be disclosed to any other party.
+  declarationOne = `The information I provide will be relevant to and used solely for the purpose of determining and verifying my entitlement to Retroactive Premium Assistance under the
   `;
+  declarationOneEm = 'Medicare Protection Act';
+  declarationOneB = `, and will not be disclosed to any other party.`;
   declarationTwo = `I hereby declare that I resided in Canada as a Canadian citizen or holder of permanent resident status (landed immigrant) for at least 12 months immediately preceding the period for which I am applying for retroactive premium assistance. I am not exempt from liability to pay income tax by reason of any other Act.
   `;
   captchaApiBaseUrl: string;
 
   agreeLabel = 'Yes, I agree';
+
+  poaAgreeLabel = 'Yes, I have Power of Attorney';
+
+  get questionApplicant() {
+    return `${
+      this.applicantName
+    } (or representative with Power of Attorney), do you agree?`;
+  }
+
+  get questionForAttorney() {
+    return `Do you have Power of Attorney to apply on behalf of ${
+      this.applicantName
+    }?`;
+  }
+  get applicantName() {
+    return (
+      this.application.applicant.firstName +
+      ' ' +
+      this.application.applicant.lastName
+    );
+  }
 
   application: FinancialAssistApplication;
 
@@ -102,8 +127,7 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
   constructor(
     private dataService: MspDataService,
     private completenessCheck: CompletenessCheckService,
-    public stateSvc: AssistStateService,
-    private _router: Router //private _processService: ProcessService
+    public stateSvc: AssistStateService
   ) {
     this.application = this.dataService.finAssistApp;
     this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
@@ -111,17 +135,10 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
 
   @ViewChild('form') form: NgForm;
 
-  ngOnInit() {
-    /*  let oldUUID = this.application.uuid;
-    this.application.regenUUID();
-    this.dataService.saveFinAssistApplication();
-    console.log('PA uuid updated: from %s to %s', oldUUID, this.dataService.finAssistApp.uuid);*/
-  }
+  ngOnInit() {}
 
   ngAfterViewInit(): void {
     this.form.valueChanges.subscribe(() => {
-      // console.log('authorization form change: %o', values);
-      // this.onChange.emit(values);
       this.dataService.saveFinAssistApplication();
     });
   }
@@ -130,7 +147,6 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
     this.application.powerOfAttorneyDocs = this.application.powerOfAttorneyDocs.concat(
       mspImage
     );
-    //this.fileUploader.forceRender();
     this.dataService.saveFinAssistApplication();
   }
 
@@ -141,7 +157,6 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
   }
 
   deleteDocument(mspImage: MspImage) {
-    // console.log('doc to be deleted: %o', mspImage);
     this.application.powerOfAttorneyDocs = this.application.powerOfAttorneyDocs.filter(
       (doc: MspImage) => {
         return doc.uuid !== mspImage.uuid;
@@ -158,7 +173,6 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
   }
 
   handleAuthorizedByAttorney(byAttorney: boolean) {
-    // console.log('Power of Attorney, %o', byAttorney);
     if (!byAttorney) {
       this.deleteAllDocs(!byAttorney);
     }
@@ -168,42 +182,11 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
     return this.completenessCheck.finAppAuthorizationCompleted();
   }
 
-  get questionApplicant() {
-    return `${this.applicantName}, do you agree?`;
-  }
-
-  get questionForAttorney() {
-    return `I have a power of attorney and I'm applying on behalf of ${
-      this.applicantName
-    }`;
-  }
-  get applicantName() {
-    return (
-      this.application.applicant.firstName +
-      ' ' +
-      this.application.applicant.lastName
-    );
-  }
-  get spouseName() {
-    return (
-      this.application.spouse.firstName + ' ' + this.application.spouse.lastName
-    );
-  }
-
   get canContinue(): boolean {
-
     return (
       this.authorized &&
-
       this.application.authorizationToken &&
       this.application.authorizationToken.length > 1
     );
-  }
-
-  continue() {
-    //this._processService.setStep(AssistanceAuthorizeSubmitComponent.ProcessStepNum, true);
-
-    // TODO:  Should this URL not be '/assistance/sending'
-    this._router.navigate(['/benefit/sending']);
   }
 }

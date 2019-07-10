@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MspDataService } from '../../../../services/msp-data.service';
 //import {ProcessService} from '../../service/process.service';
-import { MspLogService } from '../../../../services/log.service';
 import {
   ApplicantInformation,
   IApplicantInformation
@@ -18,11 +17,17 @@ export interface IContactInformation {}
 
 @Component({
   template: `
-    <h1 tabindex="0">{{ title }}</h1>
-    <button class="btn btn-default" onclick="window.print();return false;">
-      <i class="fa fa-print fa-lg pointer" aria-hidden="true"></i>
-      Print
-    </button>
+    <div class="row">
+      <h1 tabindex="0" class="col-11">{{ title }}</h1>
+      <button
+        class="btn btn-transparent col-1"
+        onclick="window.print();return false;"
+      >
+        Print
+
+        <i class="fa fa-print fa-lg pointer" aria-hidden="true"></i>
+      </button>
+    </div>
     <common-page-section layout="double">
       <msp-review-card-wrapper
         [title]="applicantTitle"
@@ -49,7 +54,7 @@ export interface IContactInformation {}
           [value]="applicantInfo.sin"
         ></msp-review-part>
         <msp-review-part
-          label="Name"
+          label="Documents"
           [value]="applicantInfo.appDocuments"
         ></msp-review-part>
       </msp-review-card-wrapper>
@@ -57,7 +62,7 @@ export interface IContactInformation {}
         [title]="contactTitle"
         [routerLink]="contactLink"
       >
-        <h4>Mailing Address</h4>
+        <h4 class="link-text">Mailing Address</h4>
         <msp-review-part
           label="Street Address"
           [value]="address.addressLine1"
@@ -75,7 +80,7 @@ export interface IContactInformation {}
           label="Country"
           [value]="address.country"
         ></msp-review-part>
-        <h4 class="mt-4">Contact</h4>
+        <h4 class="mt-4 link-text">Contact</h4>
         <msp-review-part label="Phone Number" [value]="phone"></msp-review-part>
       </msp-review-card-wrapper>
       <aside>
@@ -85,7 +90,7 @@ export interface IContactInformation {}
           *ngIf="hasSpouse"
         >
           <msp-review-part
-            label="Years had spouse"
+            label="Years selected"
             [value]="spouseYears"
           ></msp-review-part>
           <msp-review-part
@@ -97,7 +102,8 @@ export interface IContactInformation {}
     </common-page-section>
 
     <hr />
-  `
+  `,
+  styleUrls: ['./review.component.scss']
 })
 export class AssistanceReviewComponent implements OnInit {
   title = 'Review your application';
@@ -106,9 +112,9 @@ export class AssistanceReviewComponent implements OnInit {
   contactTitle = 'Contact Information';
   spouseTitle = 'Spouse Information';
 
-  applicantLink = this.stateSvc.routes[1];
-  contactLink = this.stateSvc.routes[3];
-  spouseLink = this.stateSvc.routes[2];
+  applicantLink = `/assistance/${this.stateSvc.routes[1]}`;
+  contactLink = `/assistance/${this.stateSvc.routes[3]}`;
+  spouseLink = `/assistance/${this.stateSvc.routes[2]}`;
 
   static ProcessStepNum = 3;
 
@@ -130,9 +136,9 @@ export class AssistanceReviewComponent implements OnInit {
     this.address = app.mailingAddress;
     this.applicantInformation();
     this.hasSpouse = app.hasSpouseOrCommonLaw;
-    console.log(this.hasSpouse);
     this.hasSpouse ? this.spouseInformation() : (this.hasSpouse = false);
     this.phone = app.phoneNumber;
+    console.log(this.stateSvc.routes);
   }
 
   ngOnInit() {

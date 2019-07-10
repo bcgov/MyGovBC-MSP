@@ -113,7 +113,11 @@ import { AssistStateService } from '../../services/assist-state.service';
           maxlen="25"
           required="false"
         ></common-phone-number>
-        <aside>Tip about phone numbers</aside>
+
+        <aside>
+          <h5>Tip</h5>
+          <p>{{ phoneTip }}</p>
+        </aside>
       </common-page-section>
     </form>
   `,
@@ -133,6 +137,8 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
   mailSubtitle = 'Enter your current mailing address';
   phoneTitle = 'Contact';
   phoneLabel = 'Phone Number (optional)';
+  phoneTip =
+    'Please provide a phone number so you may be contacted in case of any issues with your application.';
 
   countryList: { countryCode: string; description: string }[];
   provinceList: { provinceCode: string; description: string }[];

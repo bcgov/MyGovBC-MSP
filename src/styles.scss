@@ -197,10 +197,6 @@ Special accessibility class to hide things like labels but still have the readab
     background-color: #38598a !important;
   }
 }
-//Related to same mygovbc-bootstrap-theme 0.4.0 issue as above.
-.btn-primary:hover {
-  background-color: #294266;
-}
 
 .btn-primary {
   transition: background-color 0.3s;

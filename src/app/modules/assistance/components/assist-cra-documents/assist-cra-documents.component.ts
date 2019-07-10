@@ -21,21 +21,17 @@ import { AssistanceYear } from '../../models/assistance-year.model';
       </ng-container>
       <aside>
         <div class="row">
-          <div class="col-4">
-            <i class="fa fa-exclamation-triangle" style="font-size: 40px;"></i>
+          <div class="col-2">
+            <i class="fa fa-exclamation-triangle " style="font-size: 40px;"></i>
           </div>
+          <p class="col-10">{{ tip1 }}</p>
         </div>
-        <div class="row">
-          <p class="col-12">{{ tip1 }}</p>
-        </div>
-        <br />
-        <div class="row">
-          <p class="col-12">{{ tip2 }}</p>
-          <p class="col-12">Make sure that it's:</p>
-          <ul class="col-12">
-            <li class="col-12" *ngFor="let item of tipList">{{ item }}</li>
-          </ul>
-        </div>
+
+        <ul class="col-10 offset-2">
+          <li class="col-12" *ngFor="let item of tipList">
+            {{ item }}
+          </li>
+        </ul>
       </aside>
     </common-page-section>
   `,
@@ -47,16 +43,8 @@ export class AssistCraDocumentsComponent implements OnInit {
   @Input() touched = false;
   @Output() dataChange: any = new EventEmitter<any>();
 
-  tip1 =
-    'If you are uploading a copy of a NOA/NORA printed from the CRA website, ensure that the applicable name, tax year and tax return line 236 (net income) are included on the copy.';
-  tip2 = `Scan the document, or take a photo of it.`;
-  tipList = [
-    'The entire document, from corner to corner',
-    'At least 1000 pixels wide x 1500 pixels tall',
-    'Rotate correctly (not upside down or sideways)',
-    'In focus and easy to read',
-    'A JPG, PNHG, GIF, BMP or PDF'
-  ];
+  tip1 = `If you are uploading a copy of a Notice of Assessment or Reassessment from the Canada Revenue Agency website, make sure the image contains:`;
+  tipList = ['your name', 'the tax year', 'your net income (line 236)'];
 
   constructor() {}
 
