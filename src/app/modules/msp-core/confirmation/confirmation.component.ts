@@ -5,7 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   template: `
     <common-page-section>
       <h2>{{ title }}</h2>
-      <div [ngClass]="resultStyle">
+      <div [ngClass]="{ success: success, failure: !success }">
         <div class="container">
           <h3>
             <i class="fa fa-check-circle" aria-hidden="true"></i> Your
@@ -44,8 +44,10 @@ export class ConfirmationComponent implements OnInit {
   @Input() confirmationNum: string = 'A12345678';
   @Input() success: boolean;
 
-  get resultStyle() {
-    return this.success ? '.success' : '.failure';
+  resultStyle(bool: boolean) {
+    console.log('success', this.success);
+    return 'failure';
+    // return bool ? 'success' : 'failure';
   }
 
   generalInstructions = [

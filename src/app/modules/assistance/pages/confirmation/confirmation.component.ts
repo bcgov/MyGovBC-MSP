@@ -5,11 +5,15 @@ import { AssistStateService } from '../../services/assist-state.service';
 @Component({
   template: `
     <ng-container *ngIf="success$ | async as success">
-      SUCCESS: {{ success | json }}</ng-container
-    >
+      SUCCESS: {{ success | json }}
+      <msp-confirmation [success]="true"></msp-confirmation>
+    </ng-container>
+
     <ng-container *ngIf="failure$ | async as failure">
-      FAILURE: {{ failure | json }}</ng-container
-    >
+      FAILURE: {{ failure | json }}
+
+      <msp-confirmation [success]="false"></msp-confirmation>
+    </ng-container>
   `,
   styleUrls: ['./confirmation.component.scss']
 })
