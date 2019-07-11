@@ -11,6 +11,7 @@ import {
   AssistanceApplicationType,
   MSPApplicationSchema
 } from 'app/modules/msp-core/interfaces/i-api';
+import { MspApiService } from 'app/services/msp-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,7 @@ export class AssistTransformService {
     const authorizedByApplicantDate = `${month}-${day}-${year}`;
     // console.log('authorization date', authorizedByApplicantDate);
     // TODO: still require authorized by spouse?
-    const authorizedBySpouse = 'Y';
+    const authorizedBySpouse = 'N';
     return {
       applicant,
       authorizedByApplicant,
@@ -71,7 +72,7 @@ export class AssistTransformService {
     const powerOfAttorney = this.app.hasPowerOfAttorney ? 'Y' : 'N';
     const sin = app.sin.replace(/ /g, '');
     const telephone = this.app.phoneNumber
-      ? this.app.phoneNumber.replace(/[() +-]/g, '')
+      ? this.app.phoneNumber.replace(/[() +-]/g, '').slice(1)
       : '';
     return {
       attachmentUuids,
@@ -167,9 +168,37 @@ export class AssistTransformService {
         attachments.push(...year.spouseFiles);
       }
     }
-    console.log('attachments', attachments);
+
+    return attachments.map((itm, i, arr) => {
+      return {
+        contentType: 'IMAGE_JPEG',
+        attachmentDocumentType: 'SupportDocument',
+        attachmentOrder: (i + 1).toString(),
+        attachmentUuid: itm.uuid
+      };
+    });
+  }
+
+  get fileAttachments() {
+    const attachments = [];
+    const [...taxYears] = this.app.assistYears.filter(year => year.apply);
+    for (let year of taxYears) {
+      if (year.files && year.files.length > 0) {
+        attachments.push(...year.files);
+      }
+      if (year.spouseFiles && year.spouseFiles.length > 0) {
+        attachments.push(...year.spouseFiles);
+      }
+    }
     return attachments;
   }
+  /**
+   *           contentType: 'IMAGE_JPEG',
+          attachmentDocumentType: 'ImmigrationDocuments',
+          attachmentUuid: '4345678-f89c-52d3-a456-626655441236',
+          attachmentOrder: '1',
+          description: 'Foreign Birth Certificate'
+   */
 
   calcAssistYearType(): AssistanceYearType {
     const date = new Date();

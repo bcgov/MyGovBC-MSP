@@ -6,7 +6,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { MspApiService } from 'app/services/msp-api.service';
 import { Observable, forkJoin, from, of, concat } from 'rxjs';
-import { catchError, mergeMap, tap, flatMap, concatMap } from 'rxjs/operators';
+import {
+  catchError,
+  mergeMap,
+  tap,
+  flatMap,
+  concatMap,
+  map
+} from 'rxjs/operators';
 import { AbstractHttpService } from 'moh-common-lib';
 
 @Injectable({
@@ -38,79 +45,82 @@ export class ApiSendService extends AbstractHttpService {
     applicationUUID,
     attachments: MspImage[]
   ) {
-    console.log('run');
     const appUrl = this.setAppUrl(applicationUUID);
     this._headers = this.setHeaders('application/json', token);
-    const files$ = await this.sendFiles(token, applicationUUID, attachments);
-    return files$
-      .pipe(mergeMap(q => forkJoin(from(q))))
-      .pipe(() => from(this.post<MSPApplicationSchema>(appUrl, app)));
+    // const files$ = await this.sendFiles(token, applicationUUID, attachments);
+    console.log('first app', JSON.stringify(app, null, 2));
+
+    // return files$
+    // .pipe(mergeMap(q => forkJoin(from(q))))
+    // .pipe(() => from(
+    return this.post<MSPApplicationSchema>(appUrl, app);
+    // ));
 
     // .pipe(catchError(err => of(err)));
   }
 
   testApp(app, token, applicationUUID) {
     console.log('first app', JSON.stringify(app, null, 2));
-    app = {
-      assistanceApplication: {
-        applicant: {
-          name: {
-            firstName: 'James',
-            lastName: 'Cook'
-          },
-          gender: 'M',
-          birthDate: '12-05-1966',
-          attachmentUuids: ['4345678-f89c-52d3-a456-626655441236'],
-          telephone: '2501231234',
-          mailingAddress: {
-            addressLine1: '1234 Fort St.',
-            city: 'Victoria',
-            postalCode: 'V9R3T1',
-            provinceOrState: 'BC',
-            country: 'Canada'
-          },
-          financials: {
-            taxYear: '1999',
-            assistanceYear: 'CurrentPA',
-            numberOfTaxYears: '5',
-            netIncome: 100000.0,
-            totalNetIncome: 100000.0,
-            sixtyFiveDeduction: 0,
-            childDeduction: 0,
-            deductions: 30000.0,
-            totalDeductions: 30000.0,
-            adjustedNetIncome: 70000.0
-          },
-          phn: '1234567890',
-          sin: '123123123',
-          powerOfAttorney: 'N'
-        },
-        spouse: {
-          name: {
-            firstName: 'Mary',
-            lastName: 'Lamb'
-          },
-          birthDate: '12-02-1972',
-          phn: '1234567880',
-          sin: '124234567',
-          spouseDeduction: 1000.0
-        },
-        authorizedByApplicant: 'Y',
-        authorizedByApplicantDate: '06-18-2019',
-        authorizedBySpouse: 'Y'
-      },
-      uuid: '2345678-a89b-52d3-a456-526655441257',
-      attachments: [
-        {
-          contentType: 'IMAGE_JPEG',
-          attachmentDocumentType: 'ImmigrationDocuments',
-          attachmentUuid: '4345678-f89c-52d3-a456-626655441236',
-          attachmentOrder: '1',
-          description: 'Foreign Birth Certificate'
-        }
-      ]
-    };
-    console.log('claimed valid app', JSON.stringify(app, null, 2));
+    // app = {
+    //   assistanceApplication: {
+    //     applicant: {
+    //       name: {
+    //         firstName: 'James',
+    //         lastName: 'Cook'
+    //       },
+    //       gender: 'M',
+    //       birthDate: '12-05-1966',
+    //       attachmentUuids: ['4345678-f89c-52d3-a456-626655441236'],
+    //       telephone: '2501231234',
+    //       mailingAddress: {
+    //         addressLine1: '1234 Fort St.',
+    //         city: 'Victoria',
+    //         postalCode: 'V9R3T1',
+    //         provinceOrState: 'BC',
+    //         country: 'Canada'
+    //       },
+    //       financials: {
+    //         taxYear: '1999',
+    //         assistanceYear: 'CurrentPA',
+    //         numberOfTaxYears: '5',
+    //         netIncome: 100000.0,
+    //         totalNetIncome: 100000.0,
+    //         sixtyFiveDeduction: 0,
+    //         childDeduction: 0,
+    //         deductions: 30000.0,
+    //         totalDeductions: 30000.0,
+    //         adjustedNetIncome: 70000.0
+    //       },
+    //       phn: '1234567890',
+    //       sin: '123123123',
+    //       powerOfAttorney: 'N'
+    //     },
+    //     spouse: {
+    //       name: {
+    //         firstName: 'Mary',
+    //         lastName: 'Lamb'
+    //       },
+    //       birthDate: '12-02-1972',
+    //       phn: '1234567880',
+    //       sin: '124234567',
+    //       spouseDeduction: 1000.0
+    //     },
+    //     authorizedByApplicant: 'Y',
+    //     authorizedByApplicantDate: '06-18-2019',
+    //     authorizedBySpouse: 'Y'
+    //   },
+    //   uuid: applicationUUID,
+    //   attachments: [
+    //     {
+    //       contentType: 'IMAGE_JPEG',
+    //       attachmentDocumentType: 'ImmigrationDocuments',
+    //       attachmentUuid: '4345678-f89c-52d3-a456-626655441236',
+    //       attachmentOrder: '1',
+    //       description: 'Foreign Birth Certificate'
+    //     }
+    //   ]
+    // };
+    // console.log('claimed valid app', JSON.stringify(app, null, 2));
 
     const appUrl = this.setAppUrl(applicationUUID);
     this._headers = this.setHeaders('application/json', token);
@@ -123,14 +133,19 @@ export class ApiSendService extends AbstractHttpService {
     applicationUUID: string,
     attachments: MspImage[]
   ) {
-    const attachmentPromises = new Array<Observable<string>>();
+    const attachmentPromises = new Array<Promise<string>>();
     for (let attachment of attachments) {
       attachmentPromises.push(
-        this.sendFile(token, applicationUUID, attachment)
+        this.sendFile(token, applicationUUID, attachment).toPromise()
       );
       // this.httpSvc.post()
     }
-    return from(attachmentPromises);
+
+    const res = await Promise.all(attachmentPromises);
+    console.log('promises', res);
+    return;
+    // return attachmentPromises
+    // return from(attachmentPromises);
   }
 
   sendFile(token: string, applicationUUID: string, attachment) {
@@ -168,6 +183,7 @@ export class ApiSendService extends AbstractHttpService {
   }
 
   setAppUrl(uuid: string) {
+    console.log('url uuid', uuid);
     return (
       environment.appConstants.apiBaseUrl +
       environment.appConstants.suppBenefitAPIUrl +
