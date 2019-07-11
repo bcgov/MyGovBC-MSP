@@ -47,16 +47,17 @@ export class ApiSendService extends AbstractHttpService {
   ) {
     const appUrl = this.setAppUrl(applicationUUID);
     this._headers = this.setHeaders('application/json', token);
-    // const files$ = await this.sendFiles(token, applicationUUID, attachments);
+    const files$ = await this.sendFiles(token, applicationUUID, attachments);
     console.log('first app', JSON.stringify(app, null, 2));
 
     // return files$
     // .pipe(mergeMap(q => forkJoin(from(q))))
     // .pipe(() => from(
-    return this.post<MSPApplicationSchema>(appUrl, app);
-    // ));
+    return this.post<MSPApplicationSchema>(appUrl, app).pipe(
+      catchError(err => of(err))
+    );
 
-    // .pipe(catchError(err => of(err)));
+    // ));
   }
 
   testApp(app, token, applicationUUID) {
