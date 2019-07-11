@@ -5,7 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   template: `
     <common-page-section>
       <h2>{{ title }}</h2>
-      <div style="border-style: solid; color:#83D31D">
+      <div [ngClass]="resultStyle">
         <div class="container">
           <h3>
             <i class="fa fa-check-circle" aria-hidden="true"></i> Your
@@ -42,6 +42,11 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ConfirmationComponent implements OnInit {
   @Input() title = 'Confirmation Message';
   @Input() confirmationNum: string = 'A12345678';
+  @Input() success: boolean;
+
+  get resultStyle() {
+    return this.success ? '.success' : '.failure';
+  }
 
   generalInstructions = [
     'Important: Keep your reference number - write it down, or print this page for your records',

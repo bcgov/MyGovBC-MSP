@@ -2,18 +2,15 @@ import { Injectable } from '@angular/core';
 import { SchemaService } from 'app/services/schema.service';
 import { MSPApplicationSchema } from 'app/modules/msp-core/interfaces/i-api';
 import { MspImage } from 'app/models/msp-image';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse
+} from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { MspApiService } from 'app/services/msp-api.service';
-import { Observable, forkJoin, from, of, concat } from 'rxjs';
-import {
-  catchError,
-  mergeMap,
-  tap,
-  flatMap,
-  concatMap,
-  map
-} from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { AbstractHttpService } from 'moh-common-lib';
 
 @Injectable({
@@ -21,9 +18,7 @@ import { AbstractHttpService } from 'moh-common-lib';
 })
 export class ApiSendService extends AbstractHttpService {
   protected _headers: HttpHeaders;
-  protected handleError(
-    error: import('@angular/common/http').HttpErrorResponse
-  ) {
+  protected handleError(error: HttpErrorResponse) {
     throw new Error('Method not implemented.');
   }
   constructor(private schemaSvc: SchemaService, http: HttpClient) {
@@ -58,75 +53,6 @@ export class ApiSendService extends AbstractHttpService {
     );
 
     // ));
-  }
-
-  testApp(app, token, applicationUUID) {
-    console.log('first app', JSON.stringify(app, null, 2));
-    // app = {
-    //   assistanceApplication: {
-    //     applicant: {
-    //       name: {
-    //         firstName: 'James',
-    //         lastName: 'Cook'
-    //       },
-    //       gender: 'M',
-    //       birthDate: '12-05-1966',
-    //       attachmentUuids: ['4345678-f89c-52d3-a456-626655441236'],
-    //       telephone: '2501231234',
-    //       mailingAddress: {
-    //         addressLine1: '1234 Fort St.',
-    //         city: 'Victoria',
-    //         postalCode: 'V9R3T1',
-    //         provinceOrState: 'BC',
-    //         country: 'Canada'
-    //       },
-    //       financials: {
-    //         taxYear: '1999',
-    //         assistanceYear: 'CurrentPA',
-    //         numberOfTaxYears: '5',
-    //         netIncome: 100000.0,
-    //         totalNetIncome: 100000.0,
-    //         sixtyFiveDeduction: 0,
-    //         childDeduction: 0,
-    //         deductions: 30000.0,
-    //         totalDeductions: 30000.0,
-    //         adjustedNetIncome: 70000.0
-    //       },
-    //       phn: '1234567890',
-    //       sin: '123123123',
-    //       powerOfAttorney: 'N'
-    //     },
-    //     spouse: {
-    //       name: {
-    //         firstName: 'Mary',
-    //         lastName: 'Lamb'
-    //       },
-    //       birthDate: '12-02-1972',
-    //       phn: '1234567880',
-    //       sin: '124234567',
-    //       spouseDeduction: 1000.0
-    //     },
-    //     authorizedByApplicant: 'Y',
-    //     authorizedByApplicantDate: '06-18-2019',
-    //     authorizedBySpouse: 'Y'
-    //   },
-    //   uuid: applicationUUID,
-    //   attachments: [
-    //     {
-    //       contentType: 'IMAGE_JPEG',
-    //       attachmentDocumentType: 'ImmigrationDocuments',
-    //       attachmentUuid: '4345678-f89c-52d3-a456-626655441236',
-    //       attachmentOrder: '1',
-    //       description: 'Foreign Birth Certificate'
-    //     }
-    //   ]
-    // };
-    // console.log('claimed valid app', JSON.stringify(app, null, 2));
-
-    const appUrl = this.setAppUrl(applicationUUID);
-    this._headers = this.setHeaders('application/json', token);
-
-    this.post(appUrl, app).subscribe(obs => console.log(obs));
   }
 
   async sendFiles(

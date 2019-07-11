@@ -84,11 +84,15 @@ export class AssistContainerComponent extends Container implements OnInit {
   }
   submit() {
     this.isLoading = true;
-    setTimeout(() => {
-      this.stateSvc.submitted = true;
+    // setTimeout(() => {
+    // this.stateSvc.submitted = true;
+    // this.isLoading = false;
+    this.stateSvc.submitApplication().then(res => {
+      console.log('result', res);
       this.isLoading = false;
-      this.stateSvc.submitApplication();
-      this.submitLabel$.next('Home');
-    }, 1000);
+      this.router.navigate(['/assistance/confirmation']);
+    });
+    this.submitLabel$.next('Home');
+    // }, 1000);
   }
 }

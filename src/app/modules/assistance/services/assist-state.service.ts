@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Route } from '@angular/compiler/src/core';
-import { Router, NavigationStart, ActivatedRoute } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MspDataService } from 'app/services/msp-data.service';
 import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
@@ -16,6 +16,8 @@ import { ApiSendService } from 'app/modules/benefit/services/api-send.service';
 })
 export class AssistStateService {
   index: BehaviorSubject<number> = new BehaviorSubject(null);
+  success$: BehaviorSubject<any> = new BehaviorSubject(null);
+  failure$: BehaviorSubject<any> = new BehaviorSubject(null);
   touched: Subject<boolean> = new Subject<boolean>();
   routes: string[];
   finAssistApp = this.dataSvc.finAssistApp;
@@ -167,7 +169,17 @@ export class AssistStateService {
       console.log('valid', valid);
       await this.api.sendFiles(token, app.uuid, attachments);
       const call = await this.api.sendApp(app, token, app.uuid, attachments);
-      call.subscribe(obs => console.log('subscribe run', obs));
+      const res = await call.toPromise();
+      const isSuccess = res.op_return_code === 'SUCCESS';
+      isSuccess ? this.success$.next(res) : this.failure$.next(res);
+      return res;
+      // console.log('res', res);
+      // .subscribe(obs => {
+      //   console.log('result', obs);
+      //   const valid = obs.op_return_code === 'SUCCESS';
+      //   if (valid) this.success$.next(obs);
+      //   else this.success$.next(obs);
+      // });
     } catch (err) {
       console.error;
     }

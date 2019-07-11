@@ -38,33 +38,18 @@ export const assistPages: Routes = [
     canActivate: [AssistGuard],
     component: AssistContactComponent
   },
-  // {
-  //   path: 'retro',
-  //   //canActivate: [ProcessService],
-  //   component: AssistanceRetroYearsComponent
-  // },
+
   {
     path: 'review',
     canActivate: [AssistGuard],
     component: AssistanceReviewComponent
   },
 
-  // {
-  //   path: 'sending',
-  //   // canActivate: [ProcessService],
-  //   component: AssistanceSendingComponent
-  // },
-
   {
     path: 'authorize-submit',
     canActivate: [AssistGuard],
     component: AssistanceAuthorizeSubmitComponent
   },
-  // {
-  //   path: 'confirmation',
-  //   canActivate: [],
-  //   component: AssistanceConfirmationComponent
-  // },
 
   {
     path: '',
