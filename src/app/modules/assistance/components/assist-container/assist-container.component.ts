@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { assistPages } from '../../assist-page-routing.module';
 import { Container } from 'moh-common-lib';
 import { AssistStateService } from '../../services/assist-state.service';
@@ -55,7 +55,8 @@ export class AssistContainerComponent extends Container implements OnInit {
     private stateSvc: AssistStateService,
     private dataSvc: MspDataService,
     private schemaSvc: SchemaService,
-    private xformSvc: AssistTransformService
+    private xformSvc: AssistTransformService,
+    private route: ActivatedRoute
   ) {
     super();
     this.setProgressSteps(assistPages);
@@ -70,6 +71,10 @@ export class AssistContainerComponent extends Container implements OnInit {
       obs === 2
         ? this.submitLabel$.next(this.spouseLabel)
         : this.submitLabel$.next(this.submitLabels[obs] || 'Next');
+    });
+
+    this.route.params.subscribe(obs => {
+      console.log(obs);
     });
   }
 
@@ -99,7 +104,6 @@ export class AssistContainerComponent extends Container implements OnInit {
       const validateList = await this.schemaSvc.validate(app);
       console.log(validateList);
       if (validateList.length > 0) {
-        console.log('error');
         this.isLoading = false;
         for (let error of validateList) {
           let fieldName = findFieldName(error.dataPath);
@@ -120,14 +124,15 @@ export class AssistContainerComponent extends Container implements OnInit {
     } catch (err) {
       console.error;
     } finally {
-      console.log('119');
-      await this.stateSvc.submitApplication();
-      console.log('121');
+      let res = await this.stateSvc.submitApplication();
       this.isLoading = false;
-      this.router.navigate(['/assistance/confirmation']);
+      this.router.navigate([
+        '/assistance/confirmation',
+        res.op_return_code,
+        res.op_reference_number || 'N/A'
+      ]);
 
       this.submitLabel$.next('Home');
     }
-    // }, 1000);
   }
 }

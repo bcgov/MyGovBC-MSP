@@ -12,9 +12,10 @@ const routes: Routes = [
     children: [
       ...assistPages,
       {
-        path: 'confirmation',
-        canActivate: [AssistGuard],
-        component: AssistanceConfirmationComponent
+        path: 'confirmation/:status/:id',
+        component: AssistanceConfirmationComponent,
+
+        canActivate: [AssistGuard]
       }
     ],
     canActivateChild: []
