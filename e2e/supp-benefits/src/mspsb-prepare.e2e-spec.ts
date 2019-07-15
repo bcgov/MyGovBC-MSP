@@ -29,15 +29,7 @@ describe('MSP Supplementary Benefits - Prepare Page:', () => {
 
     it('02. should let the user continue if all required questions have been answered', () => {
         fillConsentModal(FINANCIAL_PAGE_URL);
-        page.clickOption('2018');
-        page.typeNetIncome('25000');
-        page.clickRadioButton('Are you 65 or older this year?', 'false');
-        page.scrollDown();
-        page.clickRadioButton('Do you have a spouse or common', 'false');
-        page.clickRadioButton('Do you have any children', 'false');
-        page.clickRadioButton('Did anyone included in your MS', 'false');
-        page.clickRadioButtonDuplicate('Did anyone included in your MS', 'false');
-        page.continue();
+        page.fillPage();
         expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL, 'should navigate to the next page');
     });
 
@@ -103,7 +95,7 @@ describe('MSP Supplementary Benefits - Prepare Page:', () => {
         page.checkChildrenDeduction().then(val => {
             expect(val).toBe(false, 'expect that children deduction is not visible');
         });
-        browser.sleep(5000);
+        browser.sleep(10000);
         page.clickRadioButton('Did anyone included in your MS', 'false');
         page.clickRadioButtonDuplicate('Did anyone included in your MS', 'false');
         page.continue();

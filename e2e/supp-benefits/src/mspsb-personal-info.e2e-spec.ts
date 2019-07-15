@@ -18,8 +18,13 @@ describe('MSP Supplementary Benefits - Personal Info Page:', () => {
         data.setSeed();
     });
 
+    afterEach(() => {
+        browser.executeScript('window.sessionStorage.clear();');
+        browser.executeScript('window.localStorage.clear();');
+    });
+
     testGenericAllPages(PersonalInfoPage, PERSONAL_PAGE_URL);
-    testGenericSubsequentPage(PersonalInfoPage, {prevLink: 'Financial Info', nextLink: 'Spouse Info'}, {PAGE_URL: PERSONAL_PAGE_URL, PREV_PAGE_URL: SPOUSE_PAGE_URL, NEXT_PAGE_URL: FINANCIAL_PAGE_URL});
+    testGenericSubsequentPage(PersonalInfoPage, {prevLink: 'Financial Info', nextLink: 'Spouse Info'}, {PAGE_URL: PERSONAL_PAGE_URL, PREV_PAGE_URL: FINANCIAL_PAGE_URL, NEXT_PAGE_URL: SPOUSE_PAGE_URL});
 
     it('01. should fill out the required fields and click continue', () => {
         page.navigateTo();
@@ -32,6 +37,7 @@ describe('MSP Supplementary Benefits - Personal Info Page:', () => {
         personalInfoData.PHN = personalInfoData.SIN = '1234567890';
         page.navigateTo();
         page.fillInfo(personalInfoData);
+        browser.sleep(5000);
         page.continue();
         expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL, 'should stay on the same page');
     });

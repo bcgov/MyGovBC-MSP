@@ -3,7 +3,7 @@ import { ContactInfoPage } from './mspsb-supp-benefits.po';
 import { FakeDataSupplementaryBenefits } from './mspsb-supp-benefits.data';
 import { testGenericSubsequentPage, testGenericAllPages } from '../../msp-generic-tests';
 
-describe('MSP Supplementary Benefits - Contact Info:', () => {
+describe('MSP Supplementary Benefits - Contact Info Page:', () => {
 
     let page: ContactInfoPage;
     const data = new FakeDataSupplementaryBenefits;

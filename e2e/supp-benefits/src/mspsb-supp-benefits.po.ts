@@ -11,7 +11,19 @@ import { BaseMSPTestPage } from '../../msp.po';
 export class PreparePage extends BaseMSPTestPage {
 
     navigateTo() {
-        return browser.get('/msp/benefit/prepare');
+        return browser.get('/msp/benefit/financial-info');
+    }
+
+    fillPage(){
+        this.clickOption('2018');
+        this.typeNetIncome('25000');
+        this.clickRadioButton('Are you 65 or older this year?', 'false');
+        this.scrollDown();
+        this.clickRadioButton('Do you have a spouse or common', 'false');
+        this.clickRadioButton('Do you have any children', 'false');
+        this.clickRadioButton('Did anyone included in your MS', 'false');
+        this.clickRadioButtonDuplicate('Did anyone included in your MS', 'false');
+        this.continue();
     }
 
     typeNetIncome(val: string) {
@@ -62,6 +74,11 @@ export class PersonalInfoPage extends BaseMSPTestPage {
         return browser.get('/msp/benefit/personal-info');
     }
 
+    fillPage(personalInfoData: PersonalInfoPageTest) {
+        this.fillInfo(personalInfoData);
+        this.continue();
+    }
+
     fillInfo(info: PersonalInfoPageTest) {
         this.typeName('first_name', info.firstName);
         if(info.middleName){
@@ -88,6 +105,14 @@ export class SpouseInfoPage extends PersonalInfoPage {
         return browser.get('/msp/benefit/spouse-info');
     }
 
+    fillPage(spouseInfoData: PersonalInfoPageTest) {
+        spouseInfoData.PHN = 9898293823;
+        spouseInfoData.SIN = 358745768;
+        this.addSpouse();
+        this.fillInfo(spouseInfoData);
+        this.continue();
+    }
+
     addSpouse() {
         element(by.css('common-button[ng-reflect-label*="Add Spouse"] span')).click();
     }
@@ -98,6 +123,13 @@ export class ContactInfoPage extends BaseMSPTestPage {
 
     navigateTo() {
         return browser.get('/msp/benefit/contact-info');
+    }
+
+    fillPage(contactData: ContactInfoPageTest) {
+        this.fillAddress(contactData);
+        this.scrollDown();
+        this.fillContactNumber(contactData);
+        this.continue();
     }
 
     fillAddress(data: ContactInfoPageTest) {
@@ -141,6 +173,12 @@ export class AuthorizePage extends BaseMSPTestPage {
 
     navigateTo() {
         return browser.get('/msp/benefit/authorize');
+    }
+
+    fillPage() {
+        this.checkConsent('firstPersonAuthorize');
+        this.typeCaptcha();
+        this.continue();
     }
 
     checkConsent(labelVal: string) {
