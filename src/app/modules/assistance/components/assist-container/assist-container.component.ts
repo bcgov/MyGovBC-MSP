@@ -69,7 +69,7 @@ export class AssistContainerComponent extends Container implements OnInit {
     this.stateSvc.index.subscribe(obs => {
       obs === 2
         ? this.submitLabel$.next(this.spouseLabel)
-        : this.submitLabel$.next(this.submitLabels[obs]);
+        : this.submitLabel$.next(this.submitLabels[obs] || 'Next');
     });
   }
 
@@ -97,7 +97,9 @@ export class AssistContainerComponent extends Container implements OnInit {
     try {
       const app = this.xformSvc.application;
       const validateList = await this.schemaSvc.validate(app);
+      console.log(validateList);
       if (validateList.length > 0) {
+        console.log('error');
         this.isLoading = false;
         for (let error of validateList) {
           let fieldName = findFieldName(error.dataPath);
@@ -115,13 +117,16 @@ export class AssistContainerComponent extends Container implements OnInit {
           ]);
         }
       }
-      this.stateSvc.submitApplication(app).then(() => {
-        this.isLoading = false;
-        this.router.navigate(['/assistance/confirmation']);
-      });
-      this.submitLabel$.next('Home');
     } catch (err) {
       console.error;
+    } finally {
+      console.log('119');
+      await this.stateSvc.submitApplication();
+      console.log('121');
+      this.isLoading = false;
+      this.router.navigate(['/assistance/confirmation']);
+
+      this.submitLabel$.next('Home');
     }
     // }, 1000);
   }

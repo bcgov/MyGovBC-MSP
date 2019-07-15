@@ -161,9 +161,11 @@ export class AssistStateService {
     if (index > -1) return this.index.next(index);
   }
 
-  async submitApplication(app: MSPApplicationSchema) {
+  async submitApplication() {
     const token = this.finAssistApp.authorizationToken;
     const attachments = this.xformSvc.fileAttachments;
+    const app = this.xformSvc.application;
+    console.log('run');
     try {
       await this.api.sendFiles(token, app.uuid, attachments);
       const call = await this.api.sendApp(app, token, app.uuid, attachments);
