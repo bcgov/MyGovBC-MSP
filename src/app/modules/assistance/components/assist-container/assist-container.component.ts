@@ -102,7 +102,6 @@ export class AssistContainerComponent extends Container implements OnInit {
     try {
       const app = this.xformSvc.application;
       const validateList = await this.schemaSvc.validate(app);
-      console.log(validateList);
       if (validateList.length > 0) {
         this.isLoading = false;
         for (let error of validateList) {
