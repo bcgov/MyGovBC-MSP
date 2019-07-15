@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 import { SchemaService } from 'app/services/schema.service';
 import { AssistTransformService } from '../../services/assist-transform.service';
+import { AssistMapping } from '../../models/assist-mapping';
 
 @Component({
   selector: 'msp-assist-container',
@@ -88,17 +89,33 @@ export class AssistContainerComponent extends Container implements OnInit {
   }
   async submit() {
     this.isLoading = true;
-    // setTimeout(() => {
-    // this.stateSvc.submitted = true;
-    // this.isLoading = false;
+
+    const findFieldName = (path: string) => {
+      return path.split('.').pop();
+    };
+
     try {
       const app = this.xformSvc.application;
+      const validateList = await this.schemaSvc.validate(app);
+      if (validateList.length > 0) {
+        this.isLoading = false;
+        for (let error of validateList) {
+          let fieldName = findFieldName(error.dataPath);
 
-      const valid = await this.schemaSvc.validate(app);
-      console.log('valid', valid);
-      if (!valid) return this.stateSvc.mapInvalidField();
-      this.stateSvc.submitApplication(app).then(res => {
-        console.log('result', res);
+          for (let arr of AssistMapping.items) {
+            if (arr.some(itm => itm === fieldName)) {
+              let index = AssistMapping.items.indexOf(arr);
+              return this.router.navigate([
+                `/assistance/${this.stateSvc.routes[index]}`
+              ]);
+            }
+          }
+          return this.router.navigate([
+            `/assistance/${this.stateSvc.routes[0]}`
+          ]);
+        }
+      }
+      this.stateSvc.submitApplication(app).then(() => {
         this.isLoading = false;
         this.router.navigate(['/assistance/confirmation']);
       });
