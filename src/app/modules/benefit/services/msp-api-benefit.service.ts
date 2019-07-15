@@ -79,32 +79,33 @@ export class MspApiBenefitService extends AbstractHttpService {
                     }
                    
                 }    
-                
-            });
+               
 
-            // if no errors, then we'll sendApplication all attachments
-            return this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages()).then((attachmentResponse) => {
-                // TODO - Likely have to store all the responses for image uploads, so we can use those UUIDs with our application puload
-                // unless we can just use our pre-uploaded ones? though that has potential for missing records.
-                // once all attachments are done we can sendApplication in the data
-                console.log('sendAttachments response', attachmentResponse);
+                // if no errors, then we'll sendApplication all attachments
+                return this.sendAttachments(app.authorizationToken, app.uuid, app.getAllImages()).then((attachmentResponse) => {
+                    // TODO - Likely have to store all the responses for image uploads, so we can use those UUIDs with our application puload
+                    // unless we can just use our pre-uploaded ones? though that has potential for missing records.
+                    // once all attachments are done we can sendApplication in the data
+                    console.log('sendAttachments response', attachmentResponse);
 
-                return this.sendApplication(suppBenefitRequest, app.uuid, app.authorizationToken).subscribe( response  => {
-                    // Add reference number
-                    if (response && response.referenceNumber) {
-                        app.referenceNumber = response.referenceNumber.toString();
-                    }
-                    // Let our caller know were done passing back the application
-                    return resolve(response);
+                    return this.sendApplication(suppBenefitRequest, app.uuid, app.authorizationToken).subscribe( response  => {
+                        // Add reference number
+                        if (response && response.referenceNumber) {
+                            app.referenceNumber = response.referenceNumber.toString();
+                        }
+                        // Let our caller know were done passing back the application
+                        return resolve(response);
+                    });
+                }).catch((error: Response | any) => {
+                        // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
+                        console.log('sent all attachments rejected: ', error);
+                        this.logService.log({
+                            text: 'Attachment - Send All Rejected ',
+                            response: error,
+                        }, 'Attachment - Send All Rejected ');
+                        return resolve(error);
                 });
-            }).catch((error: Response | any) => {
-                    // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
-                    console.log('sent all attachments rejected: ', error);
-                    this.logService.log({
-                        text: 'Attachment - Send All Rejected ',
-                        response: error,
-                    }, 'Attachment - Send All Rejected ');
-                    return resolve(error);
+                
             });
 
         });
@@ -335,7 +336,10 @@ export class MspApiBenefitService extends AbstractHttpService {
         to.applicantCountry = from.mailingAddress.country;
         to.applicantPostalCode = from.mailingAddress.postal ? from.mailingAddress.postal.toUpperCase().replace(' ', '') : '';
         to.applicantProvinceOrState = from.mailingAddress.province;
-        to.applicantTelephone = from.phoneNumber ? from.phoneNumber.replace(/[() +/-]/g, '').substr(1) : '';
+
+        if(from.phoneNumber) {
+            to.applicantTelephone = from.phoneNumber.replace(/[() +/-]/g, '').substr(1);
+        }
         
         // Capturing Authorization page response 
         let date = from.authorizedByApplicantDate;
