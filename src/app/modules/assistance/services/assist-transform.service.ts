@@ -78,9 +78,8 @@ export class AssistTransformService {
     const powerOfAttorney = this.app.hasPowerOfAttorney ? 'Y' : 'N';
     const sin = app.sin.replace(/ /g, '');
     const telephone = this.app.phoneNumber
-      ? this.app.phoneNumber
-      : // .replace(/[() +-]/g, '').slice(1)
-        '';
+      ? this.app.phoneNumber.replace(/[() +-]/g, '').slice(1)
+      : '';
     return {
       attachmentUuids,
       birthDate,
