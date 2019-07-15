@@ -6,6 +6,8 @@ import { AssistStateService } from '../../services/assist-state.service';
 import { MspDataService } from 'app/services/msp-data.service';
 import { BehaviorSubject } from 'rxjs';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
+import { SchemaService } from 'app/services/schema.service';
+import { AssistTransformService } from '../../services/assist-transform.service';
 
 @Component({
   selector: 'msp-assist-container',
@@ -50,7 +52,9 @@ export class AssistContainerComponent extends Container implements OnInit {
   constructor(
     public router: Router,
     private stateSvc: AssistStateService,
-    private dataSvc: MspDataService
+    private dataSvc: MspDataService,
+    private schemaSvc: SchemaService,
+    private xformSvc: AssistTransformService
   ) {
     super();
     this.setProgressSteps(assistPages);
@@ -82,17 +86,26 @@ export class AssistContainerComponent extends Container implements OnInit {
       ? this.router.navigate([`/assistance/${this.stateSvc.routes[index + 1]}`])
       : this.submit();
   }
-  submit() {
+  async submit() {
     this.isLoading = true;
     // setTimeout(() => {
     // this.stateSvc.submitted = true;
     // this.isLoading = false;
-    this.stateSvc.submitApplication().then(res => {
-      console.log('result', res);
-      this.isLoading = false;
-      this.router.navigate(['/assistance/confirmation']);
-    });
-    this.submitLabel$.next('Home');
+    try {
+      const app = this.xformSvc.application;
+
+      const valid = await this.schemaSvc.validate(app);
+      console.log('valid', valid);
+      if (!valid) return this.stateSvc.mapInvalidField();
+      this.stateSvc.submitApplication(app).then(res => {
+        console.log('result', res);
+        this.isLoading = false;
+        this.router.navigate(['/assistance/confirmation']);
+      });
+      this.submitLabel$.next('Home');
+    } catch (err) {
+      console.error;
+    }
     // }, 1000);
   }
 }

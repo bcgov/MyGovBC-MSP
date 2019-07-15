@@ -19,6 +19,12 @@ import { MspApiService } from 'app/services/msp-api.service';
 export class AssistTransformService {
   private app: FinancialAssistApplication = this.dataSvc.finAssistApp;
 
+  listKeys(obj: Object) {
+    return Object.keys(obj);
+  }
+
+  setKeys() {}
+
   constructor(private dataSvc: MspDataService) {}
 
   get application(): MSPApplicationSchema {
@@ -72,8 +78,9 @@ export class AssistTransformService {
     const powerOfAttorney = this.app.hasPowerOfAttorney ? 'Y' : 'N';
     const sin = app.sin.replace(/ /g, '');
     const telephone = this.app.phoneNumber
-      ? this.app.phoneNumber.replace(/[() +-]/g, '').slice(1)
-      : '';
+      ? this.app.phoneNumber
+      : // .replace(/[() +-]/g, '').slice(1)
+        '';
     return {
       attachmentUuids,
       birthDate,

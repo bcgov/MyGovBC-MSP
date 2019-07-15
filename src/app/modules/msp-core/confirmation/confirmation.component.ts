@@ -84,7 +84,7 @@ export class ConfirmationComponent implements OnInit {
       12: 'December'
     };
     const date = new Date();
-    this.month = monthChart[date.getUTCMonth()];
+    this.month = monthChart[date.getUTCMonth() + 1];
     this.day = date.getDate();
     this.year = date.getFullYear();
   }

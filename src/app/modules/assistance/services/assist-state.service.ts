@@ -10,6 +10,7 @@ import { validateContact } from 'app/modules/msp-core/models/validate-contact';
 import { AssistTransformService } from './assist-transform.service';
 import { SchemaService } from 'app/services/schema.service';
 import { ApiSendService } from 'app/modules/benefit/services/api-send.service';
+import { MSPApplicationSchema } from 'app/modules/msp-core/interfaces/i-api';
 
 @Injectable({
   providedIn: 'root'
@@ -160,44 +161,20 @@ export class AssistStateService {
     if (index > -1) return this.index.next(index);
   }
 
-  async submitApplication() {
-    const app = this.xformSvc.application;
+  async submitApplication(app: MSPApplicationSchema) {
     const token = this.finAssistApp.authorizationToken;
     const attachments = this.xformSvc.fileAttachments;
     try {
-      const valid = await this.schemaSvc.validate(app);
-      console.log('valid', valid);
       await this.api.sendFiles(token, app.uuid, attachments);
       const call = await this.api.sendApp(app, token, app.uuid, attachments);
       const res = await call.toPromise();
       const isSuccess = res.op_return_code === 'SUCCESS';
       isSuccess ? this.success$.next(res) : this.failure$.next(res);
       return res;
-      // console.log('res', res);
-      // .subscribe(obs => {
-      //   console.log('result', obs);
-      //   const valid = obs.op_return_code === 'SUCCESS';
-      //   if (valid) this.success$.next(obs);
-      //   else this.success$.next(obs);
-      // });
     } catch (err) {
       console.error;
     }
-
-    // valid
-    //   ? call.subscribe(obs => console.log('subscribe run', obs))
-    //   : console.log('invalid', valid);
-    // this.api.testApp(app, token, app.uuid);
-
-    // console.log('call', call);
-    // const res = call.toPromise();
-
-    // console.log(res);
-    // try {
-    //   let valid = await this.schemaSvc.validate(app);
-    //   return valid;
-    // } catch (err) {
-    //   return err;
-    // }
   }
+
+  mapInvalidField() {}
 }
