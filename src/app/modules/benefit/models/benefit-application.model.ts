@@ -214,7 +214,7 @@ export class BenefitApplication implements ApplicationBase {
         }
     }
     get spouseIncomeLine236(): number{
-        return this._spouseIncomeLine236 === null ? null : this._spouseIncomeLine236;
+        return this._spouseIncomeLine236 ; //=== null ? null : this._spouseIncomeLine236;
     }
 
     set spouseIncomeLine236(n: number){
@@ -257,7 +257,7 @@ export class BenefitApplication implements ApplicationBase {
         if (!!this._claimedChildCareExpense_line214 && !isNaN(this._claimedChildCareExpense_line214)){
             return parseFloat(this._claimedChildCareExpense_line214 + '');
         }else{
-            return null;
+            return 0;
         }
     }
 
@@ -270,7 +270,7 @@ export class BenefitApplication implements ApplicationBase {
         if (!!this._reportedUCCBenefit_line117 && !isNaN(this._reportedUCCBenefit_line117)){
             return parseFloat(this._reportedUCCBenefit_line117 + '');
         }else{
-            return null;
+            return 0;
         }
     }
 
@@ -283,7 +283,7 @@ export class BenefitApplication implements ApplicationBase {
         if (!!this._spouseDSPAmount_line125 && !isNaN(this._spouseDSPAmount_line125)){
             return parseFloat(this._spouseDSPAmount_line125 + '');
         }else{
-            return null;
+            return 0;
         }
     }
 
