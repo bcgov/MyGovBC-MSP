@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { assistPages } from '../../assist-page-routing.module';
 import { Container } from 'moh-common-lib';
 import { AssistStateService } from '../../services/assist-state.service';
 import { MspDataService } from 'app/services/msp-data.service';
 import { BehaviorSubject } from 'rxjs';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
+import { SchemaService } from 'app/services/schema.service';
+import { AssistTransformService } from '../../services/assist-transform.service';
+import { AssistMapping } from '../../models/assist-mapping';
 
 @Component({
   selector: 'msp-assist-container',
@@ -50,7 +53,10 @@ export class AssistContainerComponent extends Container implements OnInit {
   constructor(
     public router: Router,
     private stateSvc: AssistStateService,
-    private dataSvc: MspDataService
+    private dataSvc: MspDataService,
+    private schemaSvc: SchemaService,
+    private xformSvc: AssistTransformService,
+    private route: ActivatedRoute
   ) {
     super();
     this.setProgressSteps(assistPages);
@@ -64,7 +70,11 @@ export class AssistContainerComponent extends Container implements OnInit {
     this.stateSvc.index.subscribe(obs => {
       obs === 2
         ? this.submitLabel$.next(this.spouseLabel)
-        : this.submitLabel$.next(this.submitLabels[obs]);
+        : this.submitLabel$.next(this.submitLabels[obs] || 'Next');
+    });
+
+    this.route.params.subscribe(obs => {
+      console.log(obs);
     });
   }
 
@@ -82,13 +92,47 @@ export class AssistContainerComponent extends Container implements OnInit {
       ? this.router.navigate([`/assistance/${this.stateSvc.routes[index + 1]}`])
       : this.submit();
   }
-  submit() {
+  async submit() {
     this.isLoading = true;
-    setTimeout(() => {
-      this.stateSvc.submitted = true;
+
+    const findFieldName = (path: string) => {
+      return path.split('.').pop();
+    };
+
+    try {
+      const app = this.xformSvc.application;
+      const validateList = await this.schemaSvc.validate(app);
+
+      if (validateList.errors.length > 0) {
+        this.isLoading = false;
+        for (let error of validateList.errors) {
+          let fieldName = findFieldName(error.dataPath);
+
+          for (let arr of AssistMapping.items) {
+            if (arr.some(itm => itm === fieldName)) {
+              let index = AssistMapping.items.indexOf(arr);
+              return this.router.navigate([
+                `/assistance/${this.stateSvc.routes[index]}`
+              ]);
+            }
+          }
+          return this.router.navigate([
+            `/assistance/${this.stateSvc.routes[0]}`
+          ]);
+        }
+      }
+    } catch (err) {
+      console.error;
+    } finally {
+      let res = await this.stateSvc.submitApplication();
       this.isLoading = false;
-      this.stateSvc.submitApplication();
+      this.router.navigate([
+        '/assistance/confirmation',
+        res.op_return_code,
+        res.op_reference_number || 'N/A'
+      ]);
+
       this.submitLabel$.next('Home');
-    }, 1000);
+    }
   }
 }

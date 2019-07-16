@@ -5,7 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   template: `
     <div class="row">
       <div class="col-6">
-        <label>{{ label }}</label>
+        <span>{{ label }}</span>
       </div>
       <div class="col-6">
         <span>{{ value }}</span>

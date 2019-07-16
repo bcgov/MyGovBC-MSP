@@ -54,7 +54,6 @@ export class ApplicantInformation implements IApplicantInformation {
         appDocuments.push(year.files);
       }
     }
-    console.log('docs', appDocuments);
     appDocuments.filter(itm => itm.length > 0);
     const docCount = deepFlatten(appDocuments).map(itm => itm.name).length;
     // .reduce((a, b) => `${a}, ${b}`);

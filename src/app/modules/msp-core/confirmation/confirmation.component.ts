@@ -5,11 +5,17 @@ import { Component, OnInit, Input } from '@angular/core';
   template: `
     <common-page-section>
       <h2>{{ title }}</h2>
-      <div style="border-style: solid; color:#83D31D">
+      <div [ngClass]="{ success: success, failure: !success }">
         <div class="container">
           <h3>
-            <i class="fa fa-check-circle" aria-hidden="true"></i> Your
-            application has been submitted
+            <i
+              class="fa fa-check-circle"
+              aria-hidden="true"
+              *ngIf="success"
+            ></i>
+            <i class="fa fa-times ecks" aria-hidden="true" *ngIf="!success"></i>
+
+            {{ message }}
           </h3>
           <p class="font-weight-normal h4">
             {{ month }} {{ day }}, {{ year }} - Reference #
@@ -18,7 +24,7 @@ import { Component, OnInit, Input } from '@angular/core';
         </div>
       </div>
     </common-page-section>
-    <common-page-section>
+    <common-page-section *ngIf="success">
       <h2>Next Steps</h2>
       <hr />
 
@@ -41,7 +47,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ConfirmationComponent implements OnInit {
   @Input() title = 'Confirmation Message';
-  @Input() confirmationNum: string = 'A12345678';
+  @Input() confirmationNum: string;
+  @Input() success: boolean;
+  @Input() message: string;
+
+  resultStyle(bool: boolean) {
+    console.log('success', this.success);
+    return 'failure';
+    // return bool ? 'success' : 'failure';
+  }
 
   generalInstructions = [
     'Important: Keep your reference number - write it down, or print this page for your records',
@@ -70,7 +84,7 @@ export class ConfirmationComponent implements OnInit {
       12: 'December'
     };
     const date = new Date();
-    this.month = monthChart[date.getUTCMonth()];
+    this.month = monthChart[date.getUTCMonth() + 1];
     this.day = date.getDate();
     this.year = date.getFullYear();
   }
