@@ -106,6 +106,7 @@ export class AssistContainerComponent extends Container implements OnInit {
       if (validateList.errors.length > 0) {
         this.isLoading = false;
         for (let error of validateList.errors) {
+          console.log('error', validateList.errors, error);
           let fieldName = findFieldName(error.dataPath);
 
           for (let arr of AssistMapping.items) {

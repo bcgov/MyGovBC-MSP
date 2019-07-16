@@ -53,7 +53,7 @@ export class AssistStateService {
 
     if (!validatePHN(person.previous_phn)) return false;
 
-    if (!/\b[1-9]\d{2}[- ]?\d{3}[- ]?\d{3}\b/.test(person.sin)) return false;
+    if (!/^[1-9]([0-9]{8})$/.test(person.sin)) return false;
     if (!validateBirthdate(person.dobSimple)) return false;
     const filteredYears = this.filteredYears('files');
     for (let year in filteredYears) {
