@@ -18,12 +18,6 @@
                         <div class="col-lg-12">
                             
                             <!-- Question 2, Enter your net income -->
-                            <!-- <msp-common-income-inputtext 
-                                [required]='true'
-                                [(ngModel)]='benefitApp.netIncomelastYear'
-                                #incomeRef
-                                label=' new new Enter your net income – see Line 236 of your Notice of Assessment or Reassessment from Canada Revenue Agency.'>
-                            </msp-common-income-inputtext> -->
                             <label for="netIncome">Enter your net income – see Line 236 of your Notice of Assessment or Reassessment from Canada Revenue Agency.</label>
         
                             <div class="col-md-6 input-group">
@@ -186,6 +180,7 @@
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
                                 (statusChange)="toggleClaimForSelfDisabilityCredit($event);">
                             </common-radio>
+                            
                         </div>
         
                         
@@ -336,7 +331,9 @@
                             <div class="col-lg-8" [hidden]="!benefitApp.childClaimForAttendantCareExpense || benefitApp.childrenCount < 2">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                            <span>How many of your children who claimed for attendant care expense?</span>
+                                            <label for="childClaimForAttendantCareExpenseCount">
+                                                How many of your children who claimed for attendant care expense?
+                                            </label>
                                             <span style="margin-left: 5px">
                                             <div class="col-lg-4" style="text-align:left; padding-left: 3px;"> 
                                                 <input type="text" class="form-control" name="childClaimForAttendantCareExpenseCount"
@@ -413,7 +410,7 @@
 </common-consent-modal>         
 
 <div bsModal #disabilityNursingHomeChoiceModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}"
-     tabindex="0" role="dialog" aria-labelledby="disabilityNursingHomeChoiceModalLabel">
+     tabindex="0" role="dialog" >
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
