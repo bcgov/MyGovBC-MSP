@@ -103,9 +103,9 @@ export class AssistContainerComponent extends Container implements OnInit {
       const app = this.xformSvc.application;
       const validateList = await this.schemaSvc.validate(app);
 
-      if (validateList.length > 0) {
+      if (validateList.errors.length > 0) {
         this.isLoading = false;
-        for (let error of validateList) {
+        for (let error of validateList.errors) {
           let fieldName = findFieldName(error.dataPath);
 
           for (let arr of AssistMapping.items) {

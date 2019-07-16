@@ -86,8 +86,8 @@ export class BenefitAuthorizeSubmitComponent {
 
     //TODO check this logic again...
     finAppAuthorizationCompleted(): boolean {
-        const familyAuth = (this.application.authorizedByApplicant &&
-            (this.application.hasSpouseOrCommonLaw && this.application.authorizedBySpouse || !this.application.hasSpouseOrCommonLaw));
+        const familyAuth = (this.application.authorizedByApplicant ) &&
+               (this.application.hasSpouseOrCommonLaw && this.application.authorizedBySpouse || !this.application.hasSpouseOrCommonLaw);
 
         const attorneyAUth = this.application.authorizedByAttorney && this.application.powerOfAttorneyDocs.length > 0;
 

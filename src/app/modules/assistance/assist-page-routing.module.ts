@@ -6,6 +6,7 @@ import { AssistContactComponent } from './pages/contact/assist-contact.component
 import { AssistanceHomeComponent } from './pages/home/home.component';
 import { SpouseComponent } from './pages/spouse/spouse.component';
 import { AssistGuard } from './guards/assist.guard';
+import { environment } from 'environments/environment';
 
 export const assistPages: Routes = [
   {
@@ -56,3 +57,12 @@ export const assistPages: Routes = [
     redirectTo: 'home'
   }
 ];
+
+export let routes = assistPages;
+if (environment.bypassGuards || true ) {
+    console.log('DEVELOPMENT ONLY - BYPASSING ROUTE GUARDS');
+    routes = routes.map(x => {
+        x.canActivate = [];
+        return x;
+    });
+}

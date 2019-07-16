@@ -64,7 +64,7 @@ export class BenefitComponent {
 
     private initProcessService() {
         this.processService.init([
-            new ProcessStep('/msp/benefit/prepare'),
+            new ProcessStep('/msp/benefit/financial-info'),
             new ProcessStep('/msp/benefit/personal-info'),
             new ProcessStep('/msp/benefit/documents'),
             new ProcessStep('/msp/benefit/review'),

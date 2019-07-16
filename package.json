@@ -16,7 +16,14 @@
     "dev-build": "ng build",
     "prebuild": "node src/version.js",
     "build": "ng build --prod",
-    "test": "ng test"
+    "test": "ng test",
+    "e2e": "ng e2e",
+    "e2e-protractor": "npx protractor",
+    "e2e:all": "npm run e2e -- --protractorConfig=e2e/protractor.full-tests.conf.js",
+    "e2e:chrome": "npm run e2e -- --protractorConfig=e2e/protractor.conf.js",
+    "e2e:enrolment": "npm run e2e -- --protractorConfig=e2e/protractor.enrolment.conf.js",
+    "e2e:supp-benefits": "npm run e2e-protractor -- e2e/protractor.supp-benefits.conf.js",
+    "e2e:retro-pa": "npm run e2e-protractor -- e2e/protractor.retro-pa.conf.js"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.8.4",
@@ -35,6 +42,7 @@
     "eslint": "^3.10.2",
     "font-awesome": "^4.7.0",
     "jasmine-core": "~2.5.2",
+    "jasmine-reporters": "^2.3.2",
     "jasmine-spec-reporter": "~3.2.0",
     "karma": "^3.0.0",
     "karma-chrome-launcher": "~2.2.0",
@@ -47,6 +55,7 @@
     "pluralize": "^3.0.0",
     "protractor": "^5.4.0",
     "rimraf": "^2.5.2",
+    "ts-node": "^8.2.0",
     "tslint": "~5.9.1"
   },
   "engines": {
@@ -74,6 +83,7 @@
     "blueimp-load-image": "^2.19.0",
     "bootstrap": "4.3.1",
     "css-loader": "^1.0.0",
+    "faker": "^4.1.0",
     "jquery": "^3.3.1",
     "jxon": "git+https://github.com/bcgov/jxon.git",
     "lodash": "^4.17.11",

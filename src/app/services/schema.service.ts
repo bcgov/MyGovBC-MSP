@@ -16,7 +16,7 @@ export class SchemaService {
       const valid = await validate(app);
       // console.log('valid', valid);
       if (!valid) console.log('errors', validate.errors);
-      return validate.errors;
+      return validate;
     } catch (err) {
       console.error;
     }

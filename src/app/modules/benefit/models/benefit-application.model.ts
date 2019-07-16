@@ -209,9 +209,7 @@ export class BenefitApplication implements ApplicationBase {
     }
   }
   get spouseIncomeLine236(): number {
-    return this._spouseIncomeLine236 === null
-      ? null
-      : this._spouseIncomeLine236;
+    return this._spouseIncomeLine236; //=== null ? null : this._spouseIncomeLine236;
   }
 
   set spouseIncomeLine236(n: number) {
@@ -263,7 +261,7 @@ export class BenefitApplication implements ApplicationBase {
     ) {
       return parseFloat(this._claimedChildCareExpense_line214 + '');
     } else {
-      return null;
+      return 0;
     }
   }
 
@@ -279,7 +277,7 @@ export class BenefitApplication implements ApplicationBase {
     ) {
       return parseFloat(this._reportedUCCBenefit_line117 + '');
     } else {
-      return null;
+      return 0;
     }
   }
 
@@ -295,7 +293,7 @@ export class BenefitApplication implements ApplicationBase {
     ) {
       return parseFloat(this._spouseDSPAmount_line125 + '');
     } else {
-      return null;
+      return 0;
     }
   }
 
@@ -402,12 +400,12 @@ export class BenefitApplication implements ApplicationBase {
    * It ALWAYS returns most recent applied for year which is always this year
    * @returns {number}
    */
-  getTaxYear(): number {
+  getTaxYear(): string {
     const mostRecentAppliedForTaxYears = this.getMostRecentAppliedForTaxYears();
     if (mostRecentAppliedForTaxYears.length > 0) {
-      return mostRecentAppliedForTaxYears[0].year;
+      return String(mostRecentAppliedForTaxYears[0].year);
     } else {
-      return this.MostRecentTaxYear;
+      return String(this.MostRecentTaxYear);
     }
   }
 

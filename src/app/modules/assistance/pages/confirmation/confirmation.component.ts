@@ -7,7 +7,7 @@ import { tap, map } from 'rxjs/operators';
 @Component({
   template: `
     <ng-container *ngIf="success">
-      SUCCESS: {{ success$ | async | json }}
+      <!-- SUCCESS: {{ success$ | async | json }} -->
       <msp-confirmation
         [success]="true"
         [confirmationNum]="confirmationNum"
@@ -17,7 +17,7 @@ import { tap, map } from 'rxjs/operators';
     </ng-container>
 
     <ng-container *ngIf="!success">
-      FAILURE: {{ failure$ | async | json }}
+      <!-- FAILURE: {{ failure$ | async | json }} -->
 
       <msp-confirmation
         [success]="false"
