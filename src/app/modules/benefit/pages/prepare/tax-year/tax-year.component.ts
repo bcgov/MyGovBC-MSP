@@ -32,7 +32,6 @@ export class TaxYearComponent extends BaseComponent {
 
     constructor(cd: ChangeDetectorRef, public dataService: MspBenefitDataService) {
         super(cd);
-       
     }
 
     ngOnInit() {

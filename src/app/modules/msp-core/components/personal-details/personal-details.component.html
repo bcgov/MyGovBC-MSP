@@ -43,11 +43,9 @@
           </common-radio>
           <div *ngIf="person.status === StatusInCanada.CitizenAdult &&
             person.currentActivity === Activities.LivingInBCWithoutMSP">
-            <!-- <div class="form-group" role="dialog" [attr.aria-labelledby]="'livedInBCSinceBirth' + objectId"> -->
 
             <common-toggle label="Have you moved to BC permanently?" [(ngModel)]="person.livedInBCSinceBirth">
             </common-toggle>
-            <!-- </div> -->
           </div>
 
           <div *ngIf="person.documents.images.length > 0">
