@@ -2,7 +2,7 @@ import {Component, Injectable, AfterContentInit} from '@angular/core';
 import { MspDataService } from '../../../../services/msp-data.service';
 import {MspApiService} from '../../../../services/msp-api.service';
 import {Router} from '@angular/router';
-import {ResponseType} from '../../../enrolment/pages/api-model/responseTypes';
+import {ResponseType} from '../../../msp-core/api-model/responseTypes';
 import {FinancialAssistApplication} from '../../models/financial-assist-application.model';
 import {MspLogService} from '../../../../services/log.service';
 

@@ -44,7 +44,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
         // After view inits, begin sending the application
         this.transmissionInProcess = true;
         this.hasError = undefined;
-        this.logService.log({name: 'ACL application submitting request'}, "ACL : Submission Request");
+        this.logService.log({name: 'ACL application submitting request'}, 'ACL : Submission Request');
         console.log(this.application);
         this.aclService
             .sendAccountLetterApp(this.application, this.application.uuid)
@@ -106,9 +106,9 @@ export class AccountLetterSendingComponent implements AfterContentInit {
     /*
     Handle all the failure conditions here
      */
-    isFailure(aCLApiResponse: ACLApiResponse):boolean {
+    isFailure(aCLApiResponse: ACLApiResponse): boolean {
         // has a reference number , is DB error code Y , is RAPID response Y then its not a failure
-        if (aCLApiResponse.referenceNumber && aCLApiResponse.dberrorCode ==='Y'  && aCLApiResponse.rapidResponse ==='Y' ) {
+        if (aCLApiResponse.referenceNumber && aCLApiResponse.dberrorCode === 'Y'  && aCLApiResponse.rapidResponse ==='Y' ) {
             return false;
         }
 
