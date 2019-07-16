@@ -61,6 +61,7 @@ import { AssistStateService } from '../../services/assist-state.service';
             (onAddDocument)="addDocument($event)"
             (onErrorDocument)="errorDocument($event)"
             (onDeleteDocument)="deleteDocument($event)"
+            (imagesChange)="updateFiles($event)"
           >
             <span id="uploadInstruction" #uploadInstruction>
               Please upload required power of attorney documents
@@ -157,6 +158,7 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
   }
 
   deleteDocument(mspImage: MspImage) {
+    console.log(mspImage);
     this.application.powerOfAttorneyDocs = this.application.powerOfAttorneyDocs.filter(
       (doc: MspImage) => {
         return doc.uuid !== mspImage.uuid;
@@ -176,6 +178,11 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
     if (!byAttorney) {
       this.deleteAllDocs(!byAttorney);
     }
+  }
+  updateFiles(evt) {
+    console.log(evt);
+    this.application.powerOfAttorneyDocs = evt;
+    this.dataService.saveFinAssistApplication();
   }
 
   get authorized(): boolean {
