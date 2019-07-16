@@ -4,6 +4,7 @@ import { MspDataService } from '../../services/msp-data.service';
 
 import { Router } from '@angular/router';
 import { MspBenefitDataService } from '../../modules/benefit/services/msp-benefit-data.service';
+import { ROUTES_ENROL } from '../../modules/enrolment/models/enrol-route-constants';
 
 /**
  * Application for MSP
@@ -28,6 +29,10 @@ export class LandingComponent {
   newBenefitApp = 'New Supplementary Benefits application';
   continueBenefitApp = 'Continue Supplementary Benefits application';
 
+
+  // routes
+  checkEligibility = ROUTES_ENROL.CHECK_ELIG.fullpath;
+
   constructor(
     private mspDataService: MspDataService,
     private mspBenefitDataService: MspBenefitDataService,
@@ -42,7 +47,7 @@ export class LandingComponent {
 
   clearSavedMspApp() {
     this.mspDataService.removeMspApplication();
-    this.router.navigate(['/enrolment/prepare']);
+    this.router.navigate([this.checkEligibility]);
   }
 
   clearSavedAccountApp() {

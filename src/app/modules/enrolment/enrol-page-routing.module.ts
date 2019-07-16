@@ -1,63 +1,58 @@
 import { Routes } from '@angular/router';
 import { PrepareComponent } from './pages/prepare/prepare.component';
-import { ProcessService } from '../../services/process.service';
 import { PersonalInfoComponent } from './pages/personal-info/personal-info.component';
 import { SpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { ChildInfoComponent } from './pages/child-info/child-info.component';
 import { EnrolAddressComponent } from './pages/address/address.component';
 import { ReviewComponent } from './pages/review/review.component';
 import { AuthorizeComponent } from './pages/authorize/authorize.component';
-import { SendingComponent } from './pages/sending/sending.component';
-import { ConfirmationComponent } from './pages/confirmation/confirmation.component';
-import { RouteGuardService } from 'moh-common-lib';
+import { ROUTES_ENROL } from './models/enrol-route-constants';
+
 
 export const enrolPages: Routes = [
     {
-        path: 'prepare',
-        component: PrepareComponent
+        path: ROUTES_ENROL.CHECK_ELIG.path,
+        component: PrepareComponent,
+        data: { title: ROUTES_ENROL.CHECK_ELIG.title }
     },
     {
-        path: 'personal-info',
+        path: ROUTES_ENROL.PERSONAL_INFO.path,
        // canActivate: [RouteGuardService],
-        component: PersonalInfoComponent
+        component: PersonalInfoComponent,
+        data: { title: ROUTES_ENROL.PERSONAL_INFO.title }
     },
     {
-        path: 'spouse-info',
+        path: ROUTES_ENROL.SPOUSE_INFO.path,
         //canActivate: [RouteGuardService],
-        component: SpouseInfoComponent
+        component: SpouseInfoComponent,
+        data: { title: ROUTES_ENROL.SPOUSE_INFO.title }
     },
     {
-        path: 'child-info',
+        path: ROUTES_ENROL.CHILD_INFO.path,
         //canActivate: [RouteGuardService],
-        component: ChildInfoComponent
+        component: ChildInfoComponent,
+        data: { title: ROUTES_ENROL.CHILD_INFO.title }
     },
     {
-        path: 'address',
+        path: ROUTES_ENROL.CONTACT.path,
         //canActivate: [RouteGuardService],
         component: EnrolAddressComponent
     },
     {
-        path: 'review',
+        path: ROUTES_ENROL.REVIEW.path,
         //canActivate: [RouteGuardService],
-        component: ReviewComponent
+        component: ReviewComponent,
+        data: { title: ROUTES_ENROL.REVIEW.title }
     },
     {
-        path: 'authorize',
+        path: ROUTES_ENROL.AUTHORIZE.path,
         //canActivate: [RouteGuardService],
-        component: AuthorizeComponent
+        component: AuthorizeComponent,
+        data: { title: ROUTES_ENROL.AUTHORIZE.title }
     },
-    /*{
-        path: 'sending',
-        // canActivate: [ProcessService],
-        component: SendingComponent
-    },*/
-    {
-        path: 'confirmation',
-        canActivate: [],
-        component: ConfirmationComponent
-    },
+
     {
         path: '',
-        redirectTo: 'prepare'
+        redirectTo: ROUTES_ENROL.CHECK_ELIG.path
     }
 ];

@@ -8,6 +8,7 @@ import { MspDataService } from '../../../../services/msp-data.service';
 import {Relationship} from '../../../../models/status-activities-documents';
 import {BaseComponent} from '../../../../models/base.component';
 import {ProcessService} from '../../../../services/process.service';
+import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 
 @Component({
   selector: 'msp-child-info',
@@ -29,7 +30,7 @@ export class ChildInfoComponent extends BaseComponent implements OnInit {
 
   nextStep(){
     this._processService.setStep(3, true);
-    this._router.navigate(['/enrolment/address']);
+    this._router.navigate([ROUTES_ENROL.CONTACT.fullpath]);
 
   }
 

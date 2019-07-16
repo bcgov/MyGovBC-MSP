@@ -14,6 +14,7 @@ import {
   BRITISH_COLUMBIA
 } from 'moh-common-lib';
 import { MspAddressConstants } from '../../../../models/msp-address.constants';
+import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 
 @Component({
   templateUrl: './address.component.html'
@@ -96,13 +97,13 @@ export class EnrolAddressComponent extends BaseComponent {
   continue() {
     // console.log('personal info form itself valid: %s', this.form.valid);
     console.log('combinedValidationState on address: %s', this.isAllValid());
-    
+
     if (!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{
      // this._processService.setStep(4, true);
      // this.checkCompleteBaseService.setPageComplete();
-      this._router.navigate(['/enrolment/review']);
+      this._router.navigate([ROUTES_ENROL.REVIEW.fullpath]);
     }
   }
 }

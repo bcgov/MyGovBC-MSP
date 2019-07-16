@@ -44,11 +44,11 @@
  
 </div>
 
+  </common-page-framework>
   <common-form-action-bar [submitLabel]="lang('./en/index.js').submitButton"
         [canContinue]="!(!application.authorizedByApplicant || (application.spouse && !application.authorizedBySpouse)
         || !application.hasValidAuthToken)"
         (btnClick)="handleFormSubmission($event)">
   </common-form-action-bar>
-  
-  </common-page-framework>
+
 </form>
