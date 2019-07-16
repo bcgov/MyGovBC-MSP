@@ -83,23 +83,23 @@ export class AssistStateService {
   }
 
   isAuthorizeValid() {
-    const familyAuth =
-      this.finAssistApp.authorizedByApplicant &&
-      ((this.finAssistApp.hasSpouseOrCommonLaw &&
-        this.finAssistApp.authorizedBySpouse) ||
-        !this.finAssistApp.hasSpouseOrCommonLaw);
+    const familyAuth = this.finAssistApp.authorizedByApplicant;
+    // &&
+    // ((this.finAssistApp.hasSpouseOrCommonLaw &&
+    //   this.finAssistApp.authorizedBySpouse) ||
+    //   !this.finAssistApp.hasSpouseOrCommonLaw);
 
     const attorneyAUth =
       this.finAssistApp.authorizedByAttorney &&
       this.finAssistApp.powerOfAttorneyDocs.length > 0;
 
     if (this.finAssistApp.authorizationToken == null) return false;
-
-    return (
+    const valid =
       (familyAuth === true || attorneyAUth === true) &&
       this.finAssistApp.authorizationToken &&
-      this.finAssistApp.authorizationToken.length > 1
-    );
+      this.finAssistApp.authorizationToken.length > 1;
+    console.log('authorize', valid);
+    return valid;
   }
 
   isValid(index: number) {

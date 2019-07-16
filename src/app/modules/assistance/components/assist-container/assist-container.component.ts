@@ -102,8 +102,8 @@ export class AssistContainerComponent extends Container implements OnInit {
     try {
       const app = this.xformSvc.application;
       const validateList = await this.schemaSvc.validate(app);
-
-      if (validateList.errors.length > 0) {
+      console.log('validate', validateList);
+      if (validateList && validateList.errors.length > 0) {
         this.isLoading = false;
         for (let error of validateList.errors) {
           console.log('error', validateList.errors, error);
@@ -123,7 +123,7 @@ export class AssistContainerComponent extends Container implements OnInit {
         }
       }
     } catch (err) {
-      console.error;
+      console.error(err);
     } finally {
       let res = await this.stateSvc.submitApplication();
       this.isLoading = false;
