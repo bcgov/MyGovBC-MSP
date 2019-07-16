@@ -68,8 +68,6 @@ export class BenefitAddressComponent extends BaseComponent {
     this.dataService.saveBenefitApplication();
   }
   handleAddressUpdate(evt: any){
-    console.log(evt);
-    console.log('address update event: %o', evt);
     evt.addressLine1 = evt.street;
     if(evt.addressLine1 != null) {
       this.dataService.benefitApp.mailingAddress.hasValue = true;
