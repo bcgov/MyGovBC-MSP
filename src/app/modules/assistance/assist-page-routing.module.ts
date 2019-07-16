@@ -6,6 +6,7 @@ import { AssistContactComponent } from './pages/contact/assist-contact.component
 import { AssistanceHomeComponent } from './pages/home/home.component';
 import { SpouseComponent } from './pages/spouse/spouse.component';
 import { AssistGuard } from './guards/assist.guard';
+import { environment } from 'environments/environment';
 
 export const assistPages: Routes = [
   {
@@ -38,36 +39,30 @@ export const assistPages: Routes = [
     canActivate: [AssistGuard],
     component: AssistContactComponent
   },
-  // {
-  //   path: 'retro',
-  //   //canActivate: [ProcessService],
-  //   component: AssistanceRetroYearsComponent
-  // },
+
   {
     path: 'review',
     canActivate: [AssistGuard],
     component: AssistanceReviewComponent
   },
 
-  // {
-  //   path: 'sending',
-  //   // canActivate: [ProcessService],
-  //   component: AssistanceSendingComponent
-  // },
-
   {
     path: 'authorize-submit',
     canActivate: [AssistGuard],
     component: AssistanceAuthorizeSubmitComponent
   },
-  // {
-  //   path: 'confirmation',
-  //   canActivate: [],
-  //   component: AssistanceConfirmationComponent
-  // },
 
   {
     path: '',
     redirectTo: 'home'
   }
 ];
+
+export let routes = assistPages;
+if (environment.bypassGuards || true ) {
+    console.log('DEVELOPMENT ONLY - BYPASSING ROUTE GUARDS');
+    routes = routes.map(x => {
+        x.canActivate = [];
+        return x;
+    });
+}

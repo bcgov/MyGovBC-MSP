@@ -101,7 +101,7 @@ export class MspDataService {
     const dto: MspAccountDto = this.toMspAccountAppTransferObject(
       this._mspAccountApp
     );
-    console.log(dto);
+    // console.log(dto);
     this.localStorageService.set(this.mspAccountStorageKey, dto);
   }
 
@@ -165,7 +165,7 @@ export class MspDataService {
     const dto: FinancialAssistApplicationDto = this.toFinAssistDataTransferObject(
       this._finAssistApp
     );
-    console.log(dto);
+    // console.log(dto);
     this.localStorageService.set(this.finAssistAppStorageKey, dto);
     // this.localStorageService.set(this.finAssistMailingAddressStorageKey,dto.mailingAddress);
   }

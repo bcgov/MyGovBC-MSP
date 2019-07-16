@@ -191,9 +191,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
                     }
                 );
         }
-            
     }
-
 
     toggleClaimForSelfDisabilityCredit(evt: Event): void {
         if(evt) {
@@ -201,6 +199,9 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             this.applicantClaimDisabilityCredit();
         } else {
             this.dataService.benefitApp.selfDisabilityCredit = false;
+            if (this.benefitApp.hasSpouse){
+                this.benefitApp.spouseEligibleForDisabilityCredit = null;
+            }
         }
     }
 
@@ -280,7 +281,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         if (!hasSpouse){
             this.benefitApp.spouseAgeOver65 = null;
             this.benefitApp.spouseIncomeLine236 = null;
-
+            this.benefitApp.spouseEligibleForDisabilityCredit = null;
         }
         this.dataService.saveBenefitApplication();
     }

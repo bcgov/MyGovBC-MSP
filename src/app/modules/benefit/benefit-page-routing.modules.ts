@@ -9,6 +9,7 @@ import { BenefitConfirmationComponent } from './pages/confirmation/confirmation.
 import { BenefitSpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { BenefitAddressComponent } from './pages/address/address.component';
 import { RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
+import { environment } from 'environments/environment';
 
 export const benefitPages: Routes = [
   {
@@ -60,5 +61,14 @@ export const benefitPages: Routes = [
     redirectTo: 'financial-info'
   }
 ];
+
+export let routes = benefitPages;
+if (environment.bypassGuards || true ) {
+    console.log('DEVELOPMENT ONLY - BYPASSING ROUTE GUARDS');
+    routes = routes.map(x => {
+        x.canActivate = [];
+        return x;
+    });
+}
 
 export const displayedbenefitPages = benefitPages.filter(x => (x.path !== 'sending' && x.path !== 'confirmation'));

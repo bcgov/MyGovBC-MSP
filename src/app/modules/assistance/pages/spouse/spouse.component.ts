@@ -36,6 +36,7 @@ export interface spouseYears {
             (click)="removeSpouse()"
           >
             <i class="fa fa-times ecks"></i>
+            <span class="hidden">Remove spouse</span>
           </button>
         </div>
       </div>
