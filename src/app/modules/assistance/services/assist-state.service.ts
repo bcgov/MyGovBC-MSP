@@ -103,6 +103,7 @@ export class AssistStateService {
   }
 
   isValid(index: number) {
+    console.log('index', index);
     const args = this.validations.slice(0, index + 1);
     for (let arg of args) {
       let bool = arg();
@@ -149,6 +150,7 @@ export class AssistStateService {
   }
 
   findIndex(url: string) {
+    if (!this.routes) return 0;
     return this.routes.indexOf(url);
   }
 
