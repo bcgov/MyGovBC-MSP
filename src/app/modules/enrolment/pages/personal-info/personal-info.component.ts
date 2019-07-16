@@ -8,7 +8,7 @@ import { MspDataService } from '../../../../services/msp-data.service';
 import { Router } from '@angular/router';
 import {Relationship} from '../../../../models/status-activities-documents';
 import {NgForm} from '@angular/forms';
-import {PersonalDetailsComponent} from '../../../msp-core/components/personal-details/personal-details.component';
+import {PersonalDetailsComponent} from '../../components/personal-details/personal-details.component';
 import {BaseComponent} from '../../../../models/base.component';
 import {ProcessService} from '../../../../services/process.service';
 import { StatusInCanada} from '../../../../models/status-activities-documents';
