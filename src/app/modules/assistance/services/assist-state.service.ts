@@ -53,7 +53,7 @@ export class AssistStateService {
 
     if (!validatePHN(person.previous_phn)) return false;
 
-    if (!/\b[1-9]\d{2}[- ]?\d{3}[- ]?\d{3}\b/.test(person.sin)) return false;
+    if (!/^[1-9]([0-9]{8})$/.test(person.sin)) return false;
     if (!validateBirthdate(person.dobSimple)) return false;
     const filteredYears = this.filteredYears('files');
     for (let year in filteredYears) {
@@ -83,26 +83,27 @@ export class AssistStateService {
   }
 
   isAuthorizeValid() {
-    const familyAuth =
-      this.finAssistApp.authorizedByApplicant &&
-      ((this.finAssistApp.hasSpouseOrCommonLaw &&
-        this.finAssistApp.authorizedBySpouse) ||
-        !this.finAssistApp.hasSpouseOrCommonLaw);
+    const familyAuth = this.finAssistApp.authorizedByApplicant;
+    // &&
+    // ((this.finAssistApp.hasSpouseOrCommonLaw &&
+    //   this.finAssistApp.authorizedBySpouse) ||
+    //   !this.finAssistApp.hasSpouseOrCommonLaw);
 
     const attorneyAUth =
       this.finAssistApp.authorizedByAttorney &&
       this.finAssistApp.powerOfAttorneyDocs.length > 0;
 
     if (this.finAssistApp.authorizationToken == null) return false;
-
-    return (
+    const valid =
       (familyAuth === true || attorneyAUth === true) &&
       this.finAssistApp.authorizationToken &&
-      this.finAssistApp.authorizationToken.length > 1
-    );
+      this.finAssistApp.authorizationToken.length > 1;
+    console.log('authorize', valid);
+    return valid;
   }
 
   isValid(index: number) {
+    console.log('index', index);
     const args = this.validations.slice(0, index + 1);
     for (let arg of args) {
       let bool = arg();
@@ -149,6 +150,7 @@ export class AssistStateService {
   }
 
   findIndex(url: string) {
+    if (!this.routes) return 0;
     return this.routes.indexOf(url);
   }
 
