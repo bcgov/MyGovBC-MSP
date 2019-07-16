@@ -46,6 +46,7 @@ export class AssistStateService {
     // check that these fields have value
     const requiredFields = ['firstName', 'lastName', 'previous_phn', 'sin'];
     for (let field of requiredFields) {
+      console.log(person[field]);
       if (!person[field]) return false;
       if (person[field].length > 0) continue;
       return false;
@@ -53,7 +54,8 @@ export class AssistStateService {
 
     if (!validatePHN(person.previous_phn)) return false;
 
-    if (!/^[1-9]([0-9]{8})$/.test(person.sin)) return false;
+    if (!/^[1-9]([0-9]{8})$/.test(person.sin.replace(/ /g, ''))) return false;
+
     if (!validateBirthdate(person.dobSimple)) return false;
     const filteredYears = this.filteredYears('files');
     for (let year in filteredYears) {
@@ -84,31 +86,37 @@ export class AssistStateService {
 
   isAuthorizeValid() {
     const familyAuth = this.finAssistApp.authorizedByApplicant;
-    // &&
-    // ((this.finAssistApp.hasSpouseOrCommonLaw &&
-    //   this.finAssistApp.authorizedBySpouse) ||
-    //   !this.finAssistApp.hasSpouseOrCommonLaw);
 
     const attorneyAUth =
       this.finAssistApp.authorizedByAttorney &&
       this.finAssistApp.powerOfAttorneyDocs.length > 0;
 
+    if (
+      this.finAssistApp.authorizedByAttorney &&
+      this.finAssistApp.powerOfAttorneyDocs.length < 1
+    ) {
+      return false;
+    }
+    console.log(this.finAssistApp.powerOfAttorneyDocs);
     if (this.finAssistApp.authorizationToken == null) return false;
     const valid =
       (familyAuth === true || attorneyAUth === true) &&
       this.finAssistApp.authorizationToken &&
       this.finAssistApp.authorizationToken.length > 1;
-    console.log('authorize', valid);
+    // console.log('authorize', valid);
     return valid;
   }
 
   isValid(index: number) {
-    console.log('index', index);
     const args = this.validations.slice(0, index + 1);
     for (let arg of args) {
       let bool = arg();
       if (bool) continue;
-      else return bool;
+      else {
+        console.log('invalid index', index);
+
+        return bool;
+      }
     }
     return true;
   }
@@ -173,7 +181,9 @@ export class AssistStateService {
       const call = await this.api.sendApp(app, token, app.uuid, attachments);
       const res = await call.toPromise();
       const isSuccess = res.op_return_code === 'SUCCESS';
-      isSuccess ? this.success$.next(res) : this.failure$.next(res);
+      isSuccess
+        ? (this.dataSvc.removeFinAssistApplication(), this.success$.next(res))
+        : this.failure$.next(res);
       return res;
     } catch (err) {
       console.error;
