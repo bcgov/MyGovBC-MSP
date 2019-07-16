@@ -97,8 +97,8 @@ export class AssistAccountHolderComponent extends BaseComponent
           distinctUntilChanged()
         )
         .subscribe(obs => {
-          console.log(obs);
-          this.person.sin = obs.sin.replace(/ /g, '');
+          // console.log(obs);
+          // this.person.sin = obs.sin.replace(/ /g, '');
           this.dataChange.emit(this.person);
         })
     );
