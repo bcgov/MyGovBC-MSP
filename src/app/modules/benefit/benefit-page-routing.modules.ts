@@ -63,7 +63,7 @@ export const benefitPages: Routes = [
 ];
 
 export let routes = benefitPages;
-if (environment.bypassGuards ) {
+if (environment.bypassGuards) {
     console.log('DEVELOPMENT ONLY - BYPASSING ROUTE GUARDS');
     routes = routes.map(x => {
         x.canActivate = [];
