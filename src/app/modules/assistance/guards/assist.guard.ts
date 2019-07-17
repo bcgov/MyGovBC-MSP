@@ -24,9 +24,9 @@ export class AssistGuard implements CanActivate {
 
     let index = this.stateSvc.findIndex(url);
     return bypass
-      ? index === 0
-        ? true
-        : this.stateSvc.isValid(index - 1)
-      : bypass;
+      ? bypass
+      : index === 0
+      ? true
+      : this.stateSvc.isValid(index - 1);
   }
 }
