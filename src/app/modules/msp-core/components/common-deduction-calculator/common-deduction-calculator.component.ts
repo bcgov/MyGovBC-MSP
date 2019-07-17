@@ -24,8 +24,6 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     @Input() continueButtonLabel: string;
     @Input() NotQualifyText: string;
     @Input() disableContinue: boolean = false;
-    
-    
     @Output() updateQualify: EventEmitter<Boolean> = new EventEmitter<Boolean>();
     @Output() taxYearInfoMissing: EventEmitter<Boolean> = new EventEmitter<Boolean>();
     @Output() continue: EventEmitter<Boolean> = new EventEmitter<Boolean>();
@@ -35,15 +33,15 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
 
     constructor(private _router: Router,
                 private dataService: MspBenefitDataService,
-                private _processService: ProcessService, 
+                private _processService: ProcessService,
                 cd: ChangeDetectorRef) {
 //                    super(cd);
     }
 
-    
 
     ngDoCheck(): void {
-        this._processService.setStep(CommonDeductionCalculatorComponent.ProcessStepNum, this.canContinue);
+      const valid = this.canContinue ;
+      this._processService.setStep(CommonDeductionCalculatorComponent.ProcessStepNum, valid);
     }
 
     get ageOver65Amt(): number {
@@ -294,10 +292,9 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     }
 
     get currentCalendarYear(): string {
-        if(this.application.taxYear) {
-            return this.application.taxYear.toString();   
+        if (this.application.taxYear) {
+            return this.application.taxYear.toString();
         }    else return '';
-        
     }
     get nextCalendarYear(): Number {
         return moment().year() + 1;

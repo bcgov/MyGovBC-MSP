@@ -43,7 +43,7 @@ export class TaxYearComponent extends BaseComponent {
         this.currentYear = value;
         this.onTaxYearChange.emit(value);
     }
-    
+
     getTaxYears(): number[] {
         const currentTaxYear = moment().year() ;
         return [currentTaxYear, currentTaxYear - 1 ];

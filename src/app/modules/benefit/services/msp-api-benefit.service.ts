@@ -446,13 +446,13 @@ export class MspApiBenefitService extends AbstractHttpService {
     }
 
     // Capturing Authorization page response
-    let date = from.authorizedByApplicantDate;
-    let day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
-    let month =
+    const date = from.authorizedByApplicantDate;
+    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+    const month =
       date.getMonth() < 10
         ? `0${(date.getMonth() + 1).toString()}`
         : (date.getMonth() + 1).toString();
-    let year = date.getFullYear();
+    const year = date.getFullYear();
     const authorizedByApplicantDate = `${month}-${day}-${year}`;
     to.authorizedByApplicantDate = authorizedByApplicantDate;
     to.authorizedByApplicant = from.authorizedByApplicant ? 'Y' : 'N';
