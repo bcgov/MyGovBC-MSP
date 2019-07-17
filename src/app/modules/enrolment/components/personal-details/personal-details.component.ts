@@ -37,7 +37,8 @@ import { BaseComponent } from '../../../../models/base.component';
 import {
   CANADA,
   Address,
-  ProvinceList} from 'moh-common-lib';
+  ProvinceList,
+  BRITISH_COLUMBIA} from 'moh-common-lib';
 import { MspAddressConstants } from '../../../../models/msp-address.constants';
 import { MspDocumentConstants } from '../../../../models/msp-document.constants';
 import { legalStatus } from '../../../../models/msp.contants';
@@ -177,8 +178,6 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   setStatus(value: StatusInCanada, p: MspPerson) {
     if (typeof value === 'object') return;
-    // console.log(value);
-    // console.log(p);
     p.status = value;
     p.currentActivity = null;
 
@@ -191,7 +190,6 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   setActivity(value: Activities) {
-    console.log('I\'m defined you nit', value);
     if (
       this.showServicesCardModal &&
       this.person.bcServiceCardShowStatus &&
@@ -245,25 +243,13 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   addDocument(evt: MspImage) {
-    // console.log('image added: %s', evt);
     this.person.documents.images = this.person.documents.images.concat(evt);
-    console.log('$fileParent (1) addDocument', {
-      images: this.person.documents.images,
-      evt: evt
-    });
-
-    //this.fileUploader.forceRender();
     this.onChange.emit(evt);
   }
 
   deleteDocument(evt: Array<any>) {
     console.log('evt', evt);
     this.person.documents.images = evt;
-    // this.person.documents.images = this.person.documents.images.filter(
-    //   (mspImage: MspImage) => {
-    //     return evt.uuid !== mspImage.uuid;
-    //   }
-    // );
     this.onChange.emit(evt);
   }
 
@@ -301,7 +287,7 @@ export class PersonalDetailsComponent extends BaseComponent {
     return (
       this.person.schoolAddress &&
       this.person.schoolAddress.province &&
-      this.person.schoolAddress.province.toLowerCase() === 'british columbia'
+      this.person.schoolAddress.province ===  BRITISH_COLUMBIA
     );
   }
   setFullTimeStudent(event: any) {
@@ -311,7 +297,6 @@ export class PersonalDetailsComponent extends BaseComponent {
     }
     this.onChange.emit(event);
     this.emitIsFormValid();
-    console.log('event', event);
   }
   setStayInBCAfterStudy(event: boolean) {
     this.person.inBCafterStudies = event;
@@ -331,7 +316,6 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.emitIsFormValid();
   }
   updateSchoolExpectedCompletionDate(evt: any) {
-    // console.log('school expected completion date updated: %o', evt);
     this.person.studiesFinishedDay = evt.day;
     this.person.studiesFinishedMonth = evt.month;
     this.person.studiesFinishedYear = evt.year;
@@ -339,7 +323,6 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   updateSchoolDepartureDate(evt: any) {
-    // console.log('school departure date updated: %o', evt);
     this.person.studiesDepartureDay = evt.day;
     this.person.studiesDepartureMonth = evt.month;
     this.person.studiesDepartureYear = evt.year;
@@ -502,7 +485,6 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   // Province list
   provList(exceptBC: boolean = false): ProvinceList[] {
-    console.log('provlist: ', MspAddressConstants.provList(exceptBC));
     return MspAddressConstants.provList(exceptBC);
   }
 }
