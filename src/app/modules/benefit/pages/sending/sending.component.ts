@@ -60,7 +60,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
             this.suppBenefitResponse = <SuppBenefitApiResponse> response;
 
             if (this.isFailure(this.suppBenefitResponse)) {
-                console.log('isFailure', this.suppBenefitResponse)
+                console.log('isFailure', this.suppBenefitResponse);
                 this.logService.log({
                     name: 'Supplementary Benefit - DB Error',
                     confirmationNumber: this.application.uuid,

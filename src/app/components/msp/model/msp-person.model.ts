@@ -32,9 +32,9 @@ class MspPerson implements IPerson {
     _status: StatusInCanada;
     _currentActivity: Activities;
     documents: PersonDocuments = new PersonDocuments();
-  
+
     assistYearDocs: MspImage[] = [];
-  
+
     outOfBCRecord: OutofBCRecord;
     /** NEEDS XSD. Departure information for the question regarding if the person will be out of BC for more than 30 days in the next 6 months. */
     planOnBeingOutOfBCRecord: OutofBCRecord;

@@ -30,7 +30,6 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     @ViewChildren(PersonalDetailsRetroSuppbenComponent) personalDetailsComponent: QueryList<PersonalDetailsRetroSuppbenComponent>;
     @ViewChild('address') address: MspAddressComponent;
     @ViewChild('phone') phone: MspPhoneComponent;
-    
     benefitApplication: BenefitApplication;
 
     constructor(private dataService: MspBenefitDataService,
@@ -40,7 +39,7 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
         super(cd);
         this.benefitApplication = this.dataService.benefitApp;
         // if the country is blank or null or undefined then assign Canada By Default //DEF-153
-        if(!this.benefitApplication.mailingAddress.country || this.benefitApplication.mailingAddress.country.trim().length === 0 ) {
+        if (!this.benefitApplication.mailingAddress.country || this.benefitApplication.mailingAddress.country.trim().length === 0 ) {
             this.benefitApplication.mailingAddress.country = 'Canada';
         }
     }
@@ -76,7 +75,7 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
         //const allDocs: MspImage[][] = this.dataService.benefitApp.allPersons.filter(x => x).map(x => x.assistYeaDocs).filter(x => x)  ;
         //console.log(this.benefitApplication.applicant.assistYearDocs.length);
         if ( this.isAllValid() && this.benefitApplication.applicant.assistYearDocs && this.benefitApplication.applicant.assistYearDocs.length > 0) {
-            this._processService.setStep(BenefitPersonalInfoComponent.ProcessStepNum,true);
+            this._processService.setStep(BenefitPersonalInfoComponent.ProcessStepNum, true);
             return true;
         }
         return  false;

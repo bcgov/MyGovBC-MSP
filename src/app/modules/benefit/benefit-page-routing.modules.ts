@@ -26,12 +26,12 @@ export const benefitPages: Routes = [
     canActivate: [ProcessService],
     component: BenefitPersonalInfoComponent,
 
-},{
+}, {
     path: 'spouse-info',
     canActivate: [ProcessService],
     component: BenefitSpouseInfoComponent,
 
-},/*{
+}, /*{
     path: 'contact-info',
    // canActivate: [RouteGuardService],
     component: BenefitSpouseInfoComponent,
@@ -40,30 +40,30 @@ export const benefitPages: Routes = [
      path: 'contact-info',
      canActivate: [ProcessService],
      component: BenefitAddressComponent
-},{
+}, {
     path: 'review',
     canActivate: [ProcessService],
     component: BenefitReviewComponent
-},{
+}, {
      path: 'authorize',
      canActivate: [ProcessService],
      component: BenefitAuthorizeSubmitComponent
-},{
+}, {
       path: 'sending',
       canActivate: [ProcessService],
       component: BenefitSendingComponent
- },{
+ }, {
       path: 'confirmation',
       canActivate: [],
       component: BenefitConfirmationComponent
-  },{
+  }, {
     path: '',
     redirectTo: 'financial-info'
   }
 ];
 
 export let routes = benefitPages;
-if (environment.bypassGuards || true ) {
+if (environment.bypassGuards ) {
     console.log('DEVELOPMENT ONLY - BYPASSING ROUTE GUARDS');
     routes = routes.map(x => {
         x.canActivate = [];
