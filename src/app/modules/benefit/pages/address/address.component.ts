@@ -14,13 +14,13 @@ import {  ProvinceList, PROVINCE_LIST, CountryList, CANADA, BRITISH_COLUMBIA, Ad
   templateUrl: './address.component.html'
 })
 export class BenefitAddressComponent extends BaseComponent {
- 
+
   // Constants TODO: Figure out whether used in html
   outsideBCFor30DaysLabel = 'Have you or any family member been outside BC for more than 30 days in total during the past 12 months?';
   addAnotherOutsideBCPersonButton = 'Add Another Person';
   sameMailingAddress = 'Use this as my mailing address.';
   provideDifferentMailingAddress = 'I want to provide a mailing address that is different from the residential address above.';
-  
+
 
   static ProcessStepNum = 3;
 
@@ -42,16 +42,16 @@ export class BenefitAddressComponent extends BaseComponent {
   ngOnInit(){
     this.initProcessMembers(BenefitAddressComponent.ProcessStepNum, this._processService);
   }
-  
-  
+
+
   ngAfterViewInit(): void {
-    
-    if( this.mspApplication.mailingAddress.addressLine1 != null) {
+
+    if ( this.mspApplication.mailingAddress.addressLine1 != null) {
       this.dataService.benefitApp.mailingAddress.hasValue = true;
     }
 
     this.form.valueChanges.subscribe(values => {
-      
+
       this.dataService.saveBenefitApplication();
     });
   }
@@ -64,7 +64,7 @@ export class BenefitAddressComponent extends BaseComponent {
     console.log(evt);
     console.log('address update event: %o', evt);
     evt.addressLine1 = evt.street;
-    if(evt.addressLine1 != null) {
+    if (evt.addressLine1 != null) {
       this.dataService.benefitApp.mailingAddress.hasValue = true;
     }
     this.dataService.saveBenefitApplication();
@@ -77,7 +77,7 @@ export class BenefitAddressComponent extends BaseComponent {
   continue() {
     // console.log('personal info form itself valid: %s', this.form.valid);
     console.log('combinedValidationState on address: %s', this.isAllValid());
-    
+
     if (!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{
