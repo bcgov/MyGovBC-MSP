@@ -17,7 +17,7 @@ import {
   Gender,
   OperationActionType
 } from '../components/msp/model/msp-person.model';
-import { Address } from 'moh-common-lib';
+import { Address, CANADA, BRITISH_COLUMBIA } from 'moh-common-lib';
 import PersonDto from '../components/msp/model/msp-person.dto';
 import { OutofBCRecord } from '../models/outof-bc-record.model';
 import { OutofBCRecordDto } from '../models/outof-bc-record.dto';
@@ -723,10 +723,10 @@ export class MspDataService {
 
     //if page is refreshed before filling address, the province and country is lost..so initialising..
     if (!output.applicant.residentialAddress.province) {
-      output.applicant.residentialAddress.province = 'British Columbia';
+      output.applicant.residentialAddress.province = BRITISH_COLUMBIA;
     }
     if (!output.applicant.residentialAddress.country) {
-      output.applicant.residentialAddress.country = 'Canada';
+      output.applicant.residentialAddress.country = CANADA;
     }
 
     if (dto.applicant.addedSpouse) {

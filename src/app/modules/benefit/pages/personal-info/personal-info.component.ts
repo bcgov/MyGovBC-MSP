@@ -11,7 +11,7 @@ import {BaseComponent} from '../../../../models/base.component';
 import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 import { MspImage } from 'app/models/msp-image';
-import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
+import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService, CANADA } from 'moh-common-lib';
 import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
 
 
@@ -41,7 +41,7 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
         this.benefitApplication = this.dataService.benefitApp;
         // if the country is blank or null or undefined then assign Canada By Default //DEF-153
         if(!this.benefitApplication.mailingAddress.country || this.benefitApplication.mailingAddress.country.trim().length === 0 ) {
-            this.benefitApplication.mailingAddress.country = 'Canada';
+            this.benefitApplication.mailingAddress.country = CANADA;
         }
     }
 

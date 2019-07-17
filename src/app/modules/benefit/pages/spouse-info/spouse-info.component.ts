@@ -11,6 +11,7 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {BenefitPersonalDetailComponent} from '../personal-detail/personal-detail.component';
 import { MspPerson } from 'app/modules/account/models/account.model';
 import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
+import { CANADA } from 'moh-common-lib';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -37,7 +38,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
    this.benefitApplication = this.dataService.benefitApp;
     // if the country is blank or null or undefined then assign Canada By Default //DEF-153
     if(!this.benefitApplication.mailingAddress.country || this.benefitApplication.mailingAddress.country.trim().length === 0 ) {
-       this.benefitApplication.mailingAddress.country = 'Canada';
+       this.benefitApplication.mailingAddress.country = CANADA;
     }
 }
 

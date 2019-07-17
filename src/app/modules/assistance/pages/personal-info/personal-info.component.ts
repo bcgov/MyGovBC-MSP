@@ -11,6 +11,7 @@ import { AssistanceYear } from '../../models/assistance-year.model';
 import { MspPerson } from 'app/modules/account/models/account.model';
 import { AssistStateService } from '../../services/assist-state.service';
 import { Observable } from 'rxjs';
+import { CANADA } from 'moh-common-lib';
 
 @Component({
   // templateUrl: './personal-info.component.html'
@@ -69,7 +70,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
       !this.financialAssistApplication.mailingAddress.country ||
       this.financialAssistApplication.mailingAddress.country.trim().length === 0
     ) {
-      this.financialAssistApplication.mailingAddress.country = 'Canada';
+      this.financialAssistApplication.mailingAddress.country = CANADA;
     }
   }
 

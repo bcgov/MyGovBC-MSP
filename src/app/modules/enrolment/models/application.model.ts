@@ -1,4 +1,4 @@
-import {Address} from 'moh-common-lib';
+import {Address, BRITISH_COLUMBIA, CANADA} from 'moh-common-lib';
 import { Relationship, StatusInCanada, Activities, Documents } from '../../../models/status-activities-documents';
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
 import { UUID } from 'angular2-uuid';
@@ -250,8 +250,8 @@ class MspApplication implements ApplicationBase {
   }
   constructor() {
     // Set some defaults
-    this.residentialAddress.province = 'British Columbia'; // TODO: Should this be constant BRITISH_COLUMBIA
-    this.residentialAddress.country = 'Canada'; // TODO: Should this be constant CANADA
+    this.residentialAddress.province = BRITISH_COLUMBIA;
+    this.residentialAddress.country = CANADA;
   }
 }
 

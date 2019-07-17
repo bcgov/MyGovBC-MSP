@@ -2,6 +2,7 @@ import { BaseMSPTestPage } from "../../msp.po";
 import { element, by, browser } from "protractor";
 import { PersonalInfoPageTest } from "../../supp-benefits/src/mspsb-supp-benefits.data";
 import { ContactInfoPageTest } from "./mspretro-pa.data";
+import { CANADA, BRITISH_COLUMBIA } from "moh-common-lib";
 
 export class BaseMSPRetroPATestPage extends BaseMSPTestPage {
 
@@ -64,8 +65,8 @@ export class ContactInfoPage extends PersonalInfoPage {
     fillContactInfoPage(data: ContactInfoPageTest) {
         this.typeStreet('addressLine1', data.streetAddress);
         this.typeCity(data.streetAddress);
-        this.typeCountry('Canada');
-        this.typeProvince('British Columbia');
+        this.typeCountry(CANADA);
+        this.typeProvince(BRITISH_COLUMBIA);
         this.typePostalCode(data.postal);
         this.typePhoneNum(data.mobile);
     }

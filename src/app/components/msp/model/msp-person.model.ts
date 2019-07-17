@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import {UUID} from 'angular2-uuid';
 import * as _ from 'lodash';
 import {PhoneNumber} from './phone.model';
-import { SimpleDate, Address } from 'moh-common-lib';
+import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA } from 'moh-common-lib';
 import { MspImage } from '../../../models/msp-image';
 
 const sha1 = require('sha1');
@@ -587,8 +587,8 @@ class MspPerson implements IPerson {
         this.relationship = rel;
         this.operationActionType = operationActionType;
         this.id = sha1(new Date().getTime()).substring(0, 9);
-        this.residentialAddress.province = 'British Columbia';
-        this.residentialAddress.country = 'Canada';
+        this.residentialAddress.province = BRITISH_COLUMBIA;
+        this.residentialAddress.country = CANADA;
     }
 
     private parseDate(year: number, month: number, day: number) {
