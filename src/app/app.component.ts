@@ -36,8 +36,6 @@ export class GeneralAppComponent {
 
       const prefix = environment.appConstants.serviceName;
       this.header.title.subscribe(title => {
-        console.log('new title', title);
-        // this.headerName = `${prefix} - ${title}`;
         this.headerName = title;
       });
 
