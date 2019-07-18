@@ -20,52 +20,37 @@ export const assistPages: Routes = [
   // },
   {
     path: 'home',
-    canActivate: [AssistGuard],
+    // canActivate: [AssistGuard],
     component: AssistanceHomeComponent
   },
   {
     path: 'personal-info',
-    canActivate: [AssistGuard],
+    // canActivate: [AssistGuard],
     component: AssistancePersonalInfoComponent
   },
   {
     path: 'spouse',
-    canActivate: [AssistGuard],
+    // canActivate: [AssistGuard],
     component: SpouseComponent
   },
 
   {
     path: 'contact',
-    canActivate: [AssistGuard],
+    // canActivate: [AssistGuard],
     component: AssistContactComponent
   },
-  // {
-  //   path: 'retro',
-  //   //canActivate: [ProcessService],
-  //   component: AssistanceRetroYearsComponent
-  // },
+
   {
     path: 'review',
-    canActivate: [AssistGuard],
+    // canActivate: [AssistGuard],
     component: AssistanceReviewComponent
   },
 
-  // {
-  //   path: 'sending',
-  //   // canActivate: [ProcessService],
-  //   component: AssistanceSendingComponent
-  // },
-
   {
     path: 'authorize-submit',
-    canActivate: [AssistGuard],
+    // canActivate: [AssistGuard],
     component: AssistanceAuthorizeSubmitComponent
   },
-  // {
-  //   path: 'confirmation',
-  //   canActivate: [],
-  //   component: AssistanceConfirmationComponent
-  // },
 
   {
     path: '',
@@ -74,10 +59,10 @@ export const assistPages: Routes = [
 ];
 
 export let routes = assistPages;
-if (environment.bypassGuards || true ) {
-    console.log('DEVELOPMENT ONLY - BYPASSING ROUTE GUARDS');
-    routes = routes.map(x => {
-        x.canActivate = [];
-        return x;
-    });
-}
+// if (environment.bypassGuards) {
+//     console.log('DEVELOPMENT ONLY - BYPASSING ROUTE GUARDS');
+//     routes = routes.map(x => {
+//         x.canActivate = [];
+//         return x;
+//     });
+// }

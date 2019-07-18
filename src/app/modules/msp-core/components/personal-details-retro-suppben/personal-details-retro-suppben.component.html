@@ -4,7 +4,7 @@
     <div *ngIf="removeable">
         <div *ngIf="person.relationship !== 0">
             <div *ngIf="person.relationship === 1">
-            <common-xicon-button (click)="removeSpouse()"></common-xicon-button>
+            <common-xicon-button label='Remove Spouse' (click)="removeSpouse()"></common-xicon-button>
             </div>
         </div>
     </div>

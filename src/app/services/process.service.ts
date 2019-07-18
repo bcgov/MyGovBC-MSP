@@ -42,7 +42,7 @@ export class ProcessService extends CheckCompleteBaseService implements CanActiv
 
     get process(): Process {
         return this.dataService.getMspProcess();
-        
+
     }
 
     init(processSteps: ProcessStep[]): void {

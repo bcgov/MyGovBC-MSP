@@ -21,7 +21,6 @@ export class BenefitAddressComponent extends BaseComponent {
   sameMailingAddress = 'Use this as my mailing address.';
   provideDifferentMailingAddress = 'I want to provide a mailing address that is different from the residential address above.';
 
-
   static ProcessStepNum = 3;
 
   @ViewChild('formRef') form: NgForm;
@@ -43,15 +42,12 @@ export class BenefitAddressComponent extends BaseComponent {
     this.initProcessMembers(BenefitAddressComponent.ProcessStepNum, this._processService);
   }
 
-
   ngAfterViewInit(): void {
-
     if ( this.mspApplication.mailingAddress.addressLine1 != null) {
       this.dataService.benefitApp.mailingAddress.hasValue = true;
     }
 
     this.form.valueChanges.subscribe(values => {
-
       this.dataService.saveBenefitApplication();
     });
   }
@@ -77,7 +73,6 @@ export class BenefitAddressComponent extends BaseComponent {
   continue() {
     // console.log('personal info form itself valid: %s', this.form.valid);
     console.log('combinedValidationState on address: %s', this.isAllValid());
-
     if (!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{

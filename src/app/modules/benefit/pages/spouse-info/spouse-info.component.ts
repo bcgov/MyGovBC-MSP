@@ -24,20 +24,20 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   Relationship: typeof Relationship = Relationship;
   //@ViewChildren(BenefitPersonalDetailComponent) personalDetailsComponent: QueryList<BenefitPersonalDetailComponent>;
   @ViewChildren(PersonalDetailsRetroSuppbenComponent) personalDetailsComponent: QueryList<PersonalDetailsRetroSuppbenComponent>;
-    
+
   benefitApplication: BenefitApplication;
 
-  showSpouse: boolean
+  showSpouse: boolean;
 
   @ViewChild('formRef') personalInfoForm: NgForm;
- 
+
   constructor(private dataService: MspBenefitDataService,
     private _router: Router, private _processService: ProcessService,
     private cd: ChangeDetectorRef) {
     super(cd);
    this.benefitApplication = this.dataService.benefitApp;
     // if the country is blank or null or undefined then assign Canada By Default //DEF-153
-    if(!this.benefitApplication.mailingAddress.country || this.benefitApplication.mailingAddress.country.trim().length === 0 ) {
+    if (!this.benefitApplication.mailingAddress.country || this.benefitApplication.mailingAddress.country.trim().length === 0 ) {
        this.benefitApplication.mailingAddress.country = CANADA;
     }
 }
@@ -53,7 +53,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
     ).subscribe( values => {
         this.dataService.saveBenefitApplication();
     });
-  }   
+  }
 
   nextStep(){
     this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, true);
@@ -62,7 +62,6 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   }
 
   addSpouse = () => {
-   
    //this.benefitApplication.applicant = new MspPerson(Relationship.Spouse);
    this.showSpouse = true;
   //  this.benefitApplication.hasSpouseOrCommonLaw = true;
@@ -74,7 +73,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   }
 
   removeSpouse(event: Object): void{
-    console.log('remove spouse ', event);
+   // console.log('remove spouse ', event);
    // this.dataService.getMspApplication().removeSpouse();
     this.showSpouse = false;
    // this.dataService.benefitApp.setSpouse = false;
@@ -94,19 +93,17 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   }
 
   get canContinue(): boolean{
-
-    if(!this.benefitApplication.hasSpouseOrCommonLaw) {
-      this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, true);
+    if (!this.benefitApplication.hasSpouseOrCommonLaw) {
+      //this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, true);
       return true;
     } else {
       if ( this.isAllValid() && this.benefitApplication.hasSpouseOrCommonLaw && this.benefitApplication.spouse.assistYearDocs.length > 0) {
-        this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, true); 
+        this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, true);
         return true;
       }
-    } 
+    }
     this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, false);
     return  false;
-    
   }
 
   /*get application(): BenefitApplication {

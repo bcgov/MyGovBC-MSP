@@ -12,7 +12,7 @@ import {merge} from 'rxjs/internal/observable/merge';
 import * as _ from 'lodash';
 import {ConsentModalComponent} from 'moh-common-lib';
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
-import {CommonDeductionCalculatorComponent} from '../../../msp-core/components/common-deduction-calculator/common-deduction-calculator.component'
+import {CommonDeductionCalculatorComponent} from '../../../msp-core/components/common-deduction-calculator/common-deduction-calculator.component';
 //import moment = require('moment');
 import * as moment from 'moment';
 import {Router} from '@angular/router';
@@ -25,7 +25,6 @@ import {ProcessService} from '../../../../services/process.service';
     styleUrls: ['./prepare.component.scss']
 })
 export class BenefitPrepareComponent  extends BaseComponent  {
-    
     //static ProcessStepNum = 0;
 
     @ViewChild('formRef') prepForm: NgForm;
@@ -68,8 +67,8 @@ export class BenefitPrepareComponent  extends BaseComponent  {
      */
     pastYears: number[] = [];
 
-    constructor(private _router: Router, 
-                public dataService: MspBenefitDataService , cd: ChangeDetectorRef){
+    constructor(private _router: Router,
+                public dataService: MspBenefitDataService , cd: ChangeDetectorRef, private _processService: ProcessService, ){
         super(cd);
         this.showAttendantCareInfo = this.benefitApp.applicantClaimForAttendantCareExpense
             || this.benefitApp.spouseClaimForAttendantCareExpense
@@ -77,8 +76,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     ngOnInit(){
-       // this.initProcessMembers(BenefitPrepareComponent.ProcessStepNum, this._processService);
-    
+        //this.initProcessMembers(BenefitPrepareComponent.ProcessStepNum, this._processService);
         this._showDisabilityInfo =
             this.dataService.benefitApp.selfDisabilityCredit === true ||
             this.dataService.benefitApp.spouseEligibleForDisabilityCredit === true ||
@@ -141,7 +139,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             map( () => {
                 this.dataService.benefitApp.ageOver65 = false;
             }));*/
-        if(this.prepForm != undefined) {
+        if (this.prepForm !== undefined) {
             console.log('Prepform?', this.prepForm, this.prepForm.valueChanges);
             merge(this.prepForm.valueChanges.pipe(debounceTime(250),
                 distinctUntilChanged(),
@@ -184,24 +182,17 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
                     // THeory on "spouse" persistence - is the input not in the form? form.values doesn't include it, why?
                     // does that matter? could just write to service and persist anyways, that should work regardless of template
-                ))).subscribe(
-                    values => {
-                        // console.log('values before saving: ', values);
-                        this.dataService.saveBenefitApplication();
-                    }
-                );
+                )));
         }
     }
 
+
     toggleClaimForSelfDisabilityCredit(evt: Event): void {
-        if(evt) {
+        if (evt) {
             this.dataService.benefitApp.selfDisabilityCredit = true;
             this.applicantClaimDisabilityCredit();
         } else {
             this.dataService.benefitApp.selfDisabilityCredit = false;
-            if (this.benefitApp.hasSpouse){
-                this.benefitApp.spouseEligibleForDisabilityCredit = null;
-            }
         }
     }
 
@@ -212,15 +203,15 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     canContinue(evt): any {
-        if(evt) {
+        if (evt) {
             //this._processService.setStep(0, true);
-            this.continue = evt; 
+            this.continue = evt;
         }
         return evt ;
     }
 
     navigateToPersonalInfo() {
-       // this._processService.setStep(0, true);
+      //  this._processService.setStep(0, true);
         this._router.navigate(['/benefit/personal-info']);
     }
 
@@ -268,12 +259,12 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     setAgeOver65(evt: boolean) {
-        if(evt) {
+        if (evt) {
             this.dataService.benefitApp.ageOver65 = true;
         } else {
             this.dataService.benefitApp.ageOver65 = false;
         }
-        // this.dataService.saveBenefitApplication();
+         this.dataService.saveBenefitApplication();
     }
 
     setHasSpouse(hasSpouse: boolean) {
@@ -281,27 +272,22 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         if (!hasSpouse){
             this.benefitApp.spouseAgeOver65 = null;
             this.benefitApp.spouseIncomeLine236 = null;
-            this.benefitApp.spouseEligibleForDisabilityCredit = null;
+
         }
         this.dataService.saveBenefitApplication();
     }
 
     setchildren(evt: boolean) {
-        if(evt) {
+        if (evt) {
             this.dataService.benefitApp.haveChildrens = true;
         } else {
             this.dataService.benefitApp.haveChildrens = false;
         }
     }
-    
     setApplicantClaimForAttendantCareExpense(evt: boolean) {
-        if(evt) {
+        if (evt) {
             this.dataService.benefitApp.applicantClaimForAttendantCareExpense = true;
-        } else{
-            
-
         }
-
     }
 
     ngDoCheck(){

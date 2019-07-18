@@ -37,7 +37,7 @@ export default class PersonDto {
     previous_phn: string;
     specificMember_phn: string;
     enrollmentMember: MSPEnrollementMember ;
-    
+
     gender: number;
 
     liveInBC: boolean;

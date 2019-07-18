@@ -34,6 +34,7 @@ import { AssistStateService } from '../../services/assist-state.service';
             <div class="row">
               <button class=" btn btn-transparent" (click)="addLine()">
                 <i class="fa fa-plus"></i>
+                <span class="hidden">Add another address line</span>
               </button>
             </div>
           </div>
@@ -53,6 +54,7 @@ import { AssistStateService } from '../../services/assist-state.service';
             <div class="row">
               <button (click)="removeLine(2)" class=" btn btn-transparent">
                 <i class="fa fa-minus"></i>
+                <span class="hidden">Remove address line 2</span>
               </button>
             </div>
           </div>
@@ -72,6 +74,7 @@ import { AssistStateService } from '../../services/assist-state.service';
             <div class="row">
               <button class=" btn btn-transparent" (click)="removeLine(3)">
                 <i class="fa fa-minus"></i>
+                <span class="hidden">Remove address line 3</span>
               </button>
             </div>
           </div>

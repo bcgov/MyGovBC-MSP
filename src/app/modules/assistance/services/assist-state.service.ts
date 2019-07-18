@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Route } from '@angular/compiler/src/core';
-import { Router, NavigationStart, ActivatedRoute } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MspDataService } from 'app/services/msp-data.service';
 import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
@@ -9,12 +9,16 @@ import { validateBirthdate } from 'app/modules/msp-core/models/validate-birthdat
 import { validateContact } from 'app/modules/msp-core/models/validate-contact';
 import { AssistTransformService } from './assist-transform.service';
 import { SchemaService } from 'app/services/schema.service';
+import { ApiSendService } from 'app/modules/benefit/services/api-send.service';
+import { MSPApplicationSchema } from 'app/modules/msp-core/interfaces/i-api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssistStateService {
   index: BehaviorSubject<number> = new BehaviorSubject(null);
+  success$: BehaviorSubject<any> = new BehaviorSubject(null);
+  failure$: BehaviorSubject<any> = new BehaviorSubject(null);
   touched: Subject<boolean> = new Subject<boolean>();
   routes: string[];
   finAssistApp = this.dataSvc.finAssistApp;
@@ -42,6 +46,7 @@ export class AssistStateService {
     // check that these fields have value
     const requiredFields = ['firstName', 'lastName', 'previous_phn', 'sin'];
     for (let field of requiredFields) {
+      console.log(person[field]);
       if (!person[field]) return false;
       if (person[field].length > 0) continue;
       return false;
@@ -49,7 +54,8 @@ export class AssistStateService {
 
     if (!validatePHN(person.previous_phn)) return false;
 
-    if (!/\b[1-9]\d{2}[- ]?\d{3}[- ]?\d{3}\b/.test(person.sin)) return false;
+    if (!/^[1-9]([0-9]{8})$/.test(person.sin.replace(/ /g, ''))) return false;
+
     if (!validateBirthdate(person.dobSimple)) return false;
     const filteredYears = this.filteredYears('files');
     for (let year in filteredYears) {
@@ -79,23 +85,26 @@ export class AssistStateService {
   }
 
   isAuthorizeValid() {
-    const familyAuth =
-      this.finAssistApp.authorizedByApplicant &&
-      ((this.finAssistApp.hasSpouseOrCommonLaw &&
-        this.finAssistApp.authorizedBySpouse) ||
-        !this.finAssistApp.hasSpouseOrCommonLaw);
+    const familyAuth = this.finAssistApp.authorizedByApplicant;
 
     const attorneyAUth =
       this.finAssistApp.authorizedByAttorney &&
       this.finAssistApp.powerOfAttorneyDocs.length > 0;
 
+    if (
+      this.finAssistApp.authorizedByAttorney &&
+      this.finAssistApp.powerOfAttorneyDocs.length < 1
+    ) {
+      return false;
+    }
+    console.log(this.finAssistApp.powerOfAttorneyDocs);
     if (this.finAssistApp.authorizationToken == null) return false;
-
-    return (
+    const valid =
       (familyAuth === true || attorneyAUth === true) &&
       this.finAssistApp.authorizationToken &&
-      this.finAssistApp.authorizationToken.length > 1
-    );
+      this.finAssistApp.authorizationToken.length > 1;
+    // console.log('authorize', valid);
+    return valid;
   }
 
   isValid(index: number) {
@@ -103,7 +112,11 @@ export class AssistStateService {
     for (let arg of args) {
       let bool = arg();
       if (bool) continue;
-      else return bool;
+      else {
+        console.log('invalid index', index);
+
+        return bool;
+      }
     }
     return true;
   }
@@ -124,7 +137,8 @@ export class AssistStateService {
     private router: Router,
     public dataSvc: MspDataService,
     private schemaSvc: SchemaService,
-    private xformSvc: AssistTransformService
+    private xformSvc: AssistTransformService,
+    private api: ApiSendService
   ) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationStart))
@@ -144,6 +158,7 @@ export class AssistStateService {
   }
 
   findIndex(url: string) {
+    if (!this.routes) return 0;
     return this.routes.indexOf(url);
   }
 
@@ -152,15 +167,28 @@ export class AssistStateService {
   }
 
   setIndex(path: string) {
-    console.log('set index', path);
     let index = this.findIndex(path);
     if (index > -1) return this.index.next(index);
   }
 
-  submitApplication() {
+  async submitApplication() {
+    const token = this.finAssistApp.authorizationToken;
+    const attachments = this.xformSvc.fileAttachments;
     const app = this.xformSvc.application;
-    console.log('application', app);
-
-    this.schemaSvc.validate(app).then(res => console.log(res));
+    console.log('run');
+    try {
+      await this.api.sendFiles(token, app.uuid, attachments);
+      const call = await this.api.sendApp(app, token, app.uuid, attachments);
+      const res = await call.toPromise();
+      const isSuccess = res.op_return_code === 'SUCCESS';
+      isSuccess
+        ? (this.dataSvc.removeFinAssistApplication(), this.success$.next(res))
+        : this.failure$.next(res);
+      return res;
+    } catch (err) {
+      console.error;
+    }
   }
+
+  mapInvalidField() {}
 }

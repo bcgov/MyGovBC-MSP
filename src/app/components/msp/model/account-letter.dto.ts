@@ -17,5 +17,5 @@ export default class AccountLetterDto {
   unUsualCircumstance: boolean;
   authorizedByApplicant: boolean;
   authorizedByApplicantDate: Date;
-  
+
 }
