@@ -9,6 +9,7 @@ import { FinancialAssistApplication } from '../../models/financial-assist-applic
 import { SchemaService } from 'app/services/schema.service';
 import { AssistTransformService } from '../../services/assist-transform.service';
 import { AssistMapping } from '../../models/assist-mapping';
+import { HeaderService } from '../../../../services/header.service';
 
 @Component({
   selector: 'msp-assist-container',
@@ -56,11 +57,13 @@ export class AssistContainerComponent extends Container implements OnInit {
     private dataSvc: MspDataService,
     private schemaSvc: SchemaService,
     private xformSvc: AssistTransformService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private header: HeaderService
   ) {
     super();
     this.setProgressSteps(assistPages);
     this.stateSvc.setAssistPages(assistPages);
+    this.header.setTitle('Retroactive Premium Assistance');
   }
 
   ngOnInit() {
