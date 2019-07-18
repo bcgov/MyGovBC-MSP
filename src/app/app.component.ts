@@ -16,6 +16,7 @@ import { HeaderService } from './services/header.service';
 export class GeneralAppComponent {
   private viewContainerRef: ViewContainerRef;
   routerSubscription: Subscription;
+  headerSubscription: Subscription;
   // Even though we update this from headerService, we still want to set default value to avoid pop-in.
   public headerName: string = environment.appConstants.serviceName;
 
@@ -35,7 +36,7 @@ export class GeneralAppComponent {
       });
 
       const prefix = environment.appConstants.serviceName;
-      this.header.title.subscribe(title => {
+      this.headerSubscription = this.header.title.subscribe(title => {
         this.headerName = title;
       });
 
@@ -45,6 +46,8 @@ export class GeneralAppComponent {
   }
 
   ngOnDestroy() {
+    // note - if we add any more subscriptions, refactor to a takeUntil()
     this.routerSubscription.unsubscribe();
+    this.headerSubscription.unsubscribe();
   }
 }
