@@ -8,9 +8,7 @@ import { Observable } from 'rxjs';
 import { AssistStateService } from '../services/assist-state.service';
 // import { assistPages } from '../assist-page-routing.module';
 import { environment } from 'environments/environment';
-
-// const bypass = environment.bypassGuards;
-
+const bypass = environment.bypassGuards;
 @Injectable({
   providedIn: 'root'
 })
@@ -23,13 +21,13 @@ export class AssistGuard implements CanActivate {
   ): Observable<boolean> | Promise<boolean> | boolean {
     const url = state.url.slice(12, state.url.length);
     // this.stateSvc.setAssistPages(assistPages);
-    let bypass = false;
+
     let index = this.stateSvc.findIndex(url);
     console.log('index', index);
     return bypass
-      ? bypass
-      : index === 0
-      ? true
-      : this.stateSvc.isValid(index - 1);
+      ? index === 0
+        ? true
+        : this.stateSvc.isValid(index - 1)
+      : bypass;
   }
 }

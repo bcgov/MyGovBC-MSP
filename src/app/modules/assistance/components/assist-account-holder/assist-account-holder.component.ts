@@ -21,6 +21,7 @@ import { Subscription } from 'rxjs';
     <form #formRef="ngForm" novalidate>
       <common-name
         [(ngModel)]="person.firstName"
+        maxlen="30"
         label="First name"
         name="firstName"
         id="firstName"
@@ -28,11 +29,13 @@ import { Subscription } from 'rxjs';
       ></common-name>
       <common-name
         [(ngModel)]="person.middleName"
+        maxlen="30"
         label="Middle name(optional)"
         name="middleName"
       ></common-name>
       <common-name
         [(ngModel)]="person.lastName"
+        maxlen="30"
         label="Last Name"
         name="lastName"
         id="lastName"
