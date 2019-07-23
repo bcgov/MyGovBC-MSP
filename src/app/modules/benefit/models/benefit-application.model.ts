@@ -28,9 +28,14 @@ export class BenefitApplication implements ApplicationBase {
 
   infoCollectionAgreement: boolean = false;
 
-  applicantClaimForAttendantCareExpense: boolean;
+  isEligible: boolean;
+  hasClaimedAttendantCareExpenses: boolean;
+  applicantClaimForAttendantCareExpense: boolean = false;
   spouseClaimForAttendantCareExpense: boolean = false;
   childClaimForAttendantCareExpense: boolean = false;
+  childClaimForDisabilityCredit: boolean;
+  applicantEligibleForDisabilityCredit: boolean;
+  hasRegisteredDisabilityPlan: boolean;
   haveChildrens: boolean;
   hasSpouse: boolean;
   childClaimForAttendantCareExpenseCount: number = 1;
@@ -170,7 +175,7 @@ export class BenefitApplication implements ApplicationBase {
     this._authorizedByApplicant = auth;
 
     if (auth) {
-      this._authorizedByAttorney = false;
+     // this._authorizedByAttorney = false;
       this.authorizedByApplicantDate = moment().toDate();
     }
   }
@@ -178,7 +183,7 @@ export class BenefitApplication implements ApplicationBase {
   set authorizedBySpouse(auth: boolean) {
     this._authorizedBySpouse = auth;
     if (auth) {
-      this._authorizedByAttorney = false;
+      //this._authorizedByAttorney = false;
     }
   }
   set authorizedByAttorney(auth: boolean) {
@@ -251,6 +256,7 @@ export class BenefitApplication implements ApplicationBase {
       this.childrenCount < this.childWithDisabilityCount
     ) {
       this.childWithDisabilityCount = 0;
+      this.childClaimForAttendantCareExpenseCount = 0;
     }
   }
 

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {BaseComponent} from '../../../../models/base.component';
 import {Subscription} from 'rxjs';
-import {MspDataService} from '../../../../services/msp-data.service';
+import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 import {ActivatedRoute} from '@angular/router';
+import {BenefitApplication} from '../../models/benefit-application.model';
 import * as moment from 'moment';
 
 @Component({
@@ -15,7 +17,8 @@ export class BenefitConfirmationComponent {
     confirmationNum: string;
     subscription: Subscription;
 
-    constructor(private route: ActivatedRoute) {
+    constructor(private route: ActivatedRoute, public dataService: MspBenefitDataService) {
+
     }
 
     ngOnInit(): void {
@@ -24,6 +27,10 @@ export class BenefitConfirmationComponent {
                 this.confirmationNum = params['confirmationNum'];
             }
         );
+    }
+
+    get benefitApp(): BenefitApplication {
+        return this.dataService.benefitApp;
     }
 
     ngOnDestroy() {

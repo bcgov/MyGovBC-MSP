@@ -6,6 +6,7 @@ import {AssistanceYear} from '../../assistance/models/assistance-year.model';
 export default class BenefitApplicationDto {
 
   infoCollectionAgreement: boolean;
+  isEligible: boolean;
   incomeLine236: number;
   ageOver65: boolean;
   hasSpouseOrCommonLaw: boolean;
@@ -17,7 +18,10 @@ export default class BenefitApplicationDto {
   reportedUCCBenefit_line117: number;
   selfDisabilityCredit: boolean;
   spouseEligibleForDisabilityCredit: boolean;
+  hasRegisteredDisabilityPlan: boolean;
+  hasClaimedAttendantCareExpenses: boolean;
   spouseDSPAmount_line125: number;
+  applicantEligibleForDisabilityCredit: boolean;
   taxYear: number;
   childWithDisabilityCount: number;
   phoneNumber: string;

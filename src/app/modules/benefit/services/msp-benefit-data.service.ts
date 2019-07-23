@@ -56,7 +56,7 @@ export class MspBenefitDataService extends MspDataService{
         const dto: BenefitApplicationDto = new BenefitApplicationDto();
 
         dto.infoCollectionAgreement = input.infoCollectionAgreement;
-        //dto.addSpouse = input.addSpouse;
+        dto.isEligible = input.isEligible;
         dto.hasSpouse = input.hasSpouse;
         dto.incomeLine236 = input.netIncomelastYear;
         dto.ageOver65 = input.ageOver65;
@@ -76,6 +76,10 @@ export class MspBenefitDataService extends MspDataService{
         dto.spouseClaimForAttendantCareExpense = input.spouseClaimForAttendantCareExpense;
         dto.childClaimForAttendantCareExpense = input.childClaimForAttendantCareExpense;
         dto.childClaimForAttendantCareExpenseCount = input.childClaimForAttendantCareExpenseCount;
+
+        dto.hasRegisteredDisabilityPlan = input.hasRegisteredDisabilityPlan;
+        dto.hasClaimedAttendantCareExpenses = input.hasClaimedAttendantCareExpenses;
+       // dto.applicantEligibleForDisabilityCredit = input.applicantEligibleForDisabilityCredit;
 
         dto.attendantCareExpense = input.attendantCareExpense;
 
@@ -126,12 +130,16 @@ export class MspBenefitDataService extends MspDataService{
         output.spouseEligibleForDisabilityCredit = dto.spouseEligibleForDisabilityCredit;
         output.spouseDSPAmount_line125 = dto.spouseDSPAmount_line125;
         output.childWithDisabilityCount = dto.childWithDisabilityCount;
+        //output.applicantEligibleForDisabilityCredit = dto.applicantEligibleForDisabilityCredit;
 
         output.applicantClaimForAttendantCareExpense = dto.applicantClaimForAttendantCareExpense;
         output.spouseClaimForAttendantCareExpense = dto.spouseClaimForAttendantCareExpense;
         output.childClaimForAttendantCareExpense = dto.childClaimForAttendantCareExpense;
         output.childClaimForAttendantCareExpenseCount = dto.childClaimForAttendantCareExpenseCount;
         output.attendantCareExpense = dto.attendantCareExpense;
+
+        output.hasRegisteredDisabilityPlan = dto.hasRegisteredDisabilityPlan;
+        output.hasClaimedAttendantCareExpenses = dto.hasClaimedAttendantCareExpenses;
 
         output.phoneNumber = dto.phoneNumber;
 

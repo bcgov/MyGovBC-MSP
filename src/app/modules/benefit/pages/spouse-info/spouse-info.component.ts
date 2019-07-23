@@ -8,8 +8,6 @@ import { MspBenefitDataService } from '../../services/msp-benefit-data.service';
 import {Relationship} from '../../../../models/status-activities-documents';
 import {NgForm} from '@angular/forms';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
-import {BenefitPersonalDetailComponent} from '../personal-detail/personal-detail.component';
-import { MspPerson } from 'app/modules/account/models/account.model';
 import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
 
 @Component({
@@ -42,7 +40,10 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
 }
 
   ngOnInit() {
+    
     this.initProcessMembers(BenefitSpouseInfoComponent.ProcessStepNum, this._processService);
+    this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, false);
+    
   }
 
   ngAfterViewInit() {
@@ -97,7 +98,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
       return true;
     } else {
       if ( this.isAllValid() && this.benefitApplication.hasSpouseOrCommonLaw && this.benefitApplication.spouse.assistYearDocs.length > 0) {
-        this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, true);
+        //this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, true);
         return true;
       }
     }

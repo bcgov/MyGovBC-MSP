@@ -1,6 +1,7 @@
-import { ProcessStep } from '../../../services/process.service';
-
 export class FieldPageMap {
+
+  eligibility = [];
+
   financialInfo = [
     'taxYear',
     'assistanceYear',
@@ -40,7 +41,7 @@ export class FieldPageMap {
       'spouseSIN'
     ];
 
-  contactInfo = [   
+  contactInfo = [
     'applicantAddressLine1',
     'applicantCity',
     'applicantCountry',
@@ -49,7 +50,7 @@ export class FieldPageMap {
     'mailingAddress',
     'applicantTelephone'
   ];
-  
+
 
   review = [];
 
@@ -66,6 +67,7 @@ export class FieldPageMap {
 
   constructor() {
     this.fields = [
+      this.eligibility,
       this.financialInfo,
       this.personalInfo,
       this.spouseInfo,
