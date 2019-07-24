@@ -42,7 +42,6 @@ export class ApplicantInformation implements IApplicantInformation {
 
     this.years = this.makeYears(app.assistYears);
     this.name = this.makeName(app.applicant);
-    console.log('application birthdate', app.applicant);
     this.birthDate = app.applicant.dateOfBirth.year
       ? this.makeDate(app.applicant.dateOfBirth)
       : `${app.applicant.dob_day}/${app.applicant.dob_month}/${
@@ -55,7 +54,6 @@ export class ApplicantInformation implements IApplicantInformation {
     for (let year of app.assistYears) {
       let i = this.years.indexOf(year.year);
       if (i >= 0) {
-        console.log(year.files);
         appDocuments.push(year.files);
       }
     }
