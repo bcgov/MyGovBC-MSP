@@ -98,7 +98,6 @@ export class AssistStateService {
     ) {
       return false;
     }
-    console.log(this.finAssistApp.powerOfAttorneyDocs);
     if (this.finAssistApp.authorizationToken == null) return false;
     const valid =
       (familyAuth === true || attorneyAUth === true) &&
