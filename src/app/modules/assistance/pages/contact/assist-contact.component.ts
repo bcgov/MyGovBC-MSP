@@ -19,7 +19,7 @@ import { AssistStateService } from '../../services/assist-state.service';
         <h3>{{ mailTitle }}</h3>
         <p class="border-bottom">{{ mailSubtitle }}</p>
       </common-page-section>
-      <common-page-section>
+      <common-page-section layout="double">
         <common-address
           [address]="address"
           (addressChange)="updateAddress($event)"
