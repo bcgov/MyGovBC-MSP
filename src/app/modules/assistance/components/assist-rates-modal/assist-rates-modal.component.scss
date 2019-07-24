@@ -1,0 +1,30 @@
+p,
+span,
+td,
+th,
+strong {
+  font-size: 12px !important;
+}
+
+td,
+th {
+  text-align: center;
+
+}
+
+h2 {
+  font-size: 16px;
+}
+
+h3 {
+  font-size: 14px;
+}
+
+:host() {
+  padding: 15px;
+}
+
+.centered {
+  text-align: center;
+  padding-bottom: 15px;
+}
