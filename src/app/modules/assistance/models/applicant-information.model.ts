@@ -42,8 +42,13 @@ export class ApplicantInformation implements IApplicantInformation {
 
     this.years = this.makeYears(app.assistYears);
     this.name = this.makeName(app.applicant);
+    console.log('application birthdate', app.applicant);
+    this.birthDate = app.applicant.dateOfBirth.year
+      ? this.makeDate(app.applicant.dateOfBirth)
+      : `${app.applicant.dob_day}/${app.applicant.dob_month}/${
+          app.applicant.dob_year
+        }`;
 
-    this.birthDate = this.makeDate(app.applicant.dateOfBirth);
     this.phn = app.applicant.previous_phn;
     this.sin = app.applicant.sin;
     const appDocuments = [];
