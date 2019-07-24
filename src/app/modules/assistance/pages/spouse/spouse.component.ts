@@ -19,7 +19,7 @@ export interface spouseYears {
     <p class="border-bottom">{{ description }}</p>
 
     <button
-      *ngIf="!showTaxYears"
+      [disabled]="showTaxYears"
       class="btn btn-primary btn-md"
       (click)="addSpouse()"
     >

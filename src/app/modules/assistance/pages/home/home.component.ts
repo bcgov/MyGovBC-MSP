@@ -234,8 +234,6 @@ export class AssistanceHomeComponent extends BaseComponent
   }
 
   applyOption(bool: boolean, i: number) {
-    console.log('options', this.options[i]);
-
     this.options[i].apply = bool;
     if (!bool) {
       this.options[i].hasSpouse = false;
