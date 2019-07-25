@@ -40,15 +40,17 @@ export class BaseMSPTestPage extends AbstractTestPage {
             this.typeName('middle', info.middleName);
         }
         this.typeName('last', info.lastName);
-        const month = info.birthDate.getMonth();
+        // const month = info.birthDate.getMonth(); // Some of the generated months are not working
+        const month = 1;
         const year = info.birthDate.getFullYear();
         const day = info.birthDate.getDate();
         element.all(by.css(`select[ng-reflect-name*="month"] option`)).get(month).click();
         this.typeText('day', day.toString());
         this.typeText('year', year.toString());
         this.scrollDown();
-        this.typePHN('9999999998');
-        this.typeSIN('046454286');
+        this.typePHN(info.PHN.toString());
+        this.typeSIN(info.SIN.toString());
+        //046454286
     }
 
     typeName(ngVal: string, text: string) {

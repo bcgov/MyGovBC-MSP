@@ -26,6 +26,7 @@ describe('MSP Retro PA - Contact Info Page:', () => {
     testGenericAllPages(ContactInfoPage, CONTACT_PAGE_URL);
     testGenericSubsequentPage(ContactInfoPage, {prevLink: 'Spouse', nextLink: 'Review'}, {PAGE_URL: CONTACT_PAGE_URL, PREV_PAGE_URL: SPOUSE_PAGE_URL, NEXT_PAGE_URL: REVIEW_PAGE_URL});
 
+    // Will only work if the previous pages are filled out
     it('01. should be able to continue when all required fields are filled up', () => {
         contactInfoPage.navigateToURL(CONTACT_PAGE_URL);
         contactInfoPage.fillContactInfoPage(contactInfoData);

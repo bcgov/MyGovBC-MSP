@@ -1,7 +1,7 @@
 import { browser, element, by } from 'protractor';
 import { PersonalInfoPage } from './mspretro-pa.po';
 import { FakeDataRetroPA } from './mspretro-pa.data';
-import { testPageLoad, testClickStepper, testClickContinue, testClickConsentModal, fillConsentModal, testGenericAllPages, testGenericSubsequentPage } from '../../msp-generic-tests';
+import { fillConsentModal, testGenericAllPages, testGenericSubsequentPage } from '../../msp-generic-tests';
 
 describe('MSP Retro PA - Personal Info Page:', () => {
     let personalInfoPage: PersonalInfoPage;
@@ -28,6 +28,7 @@ describe('MSP Retro PA - Personal Info Page:', () => {
 
     // This page depends on the inputs from the home page
     it('01. should fill out the required fields and click continue', () => {
+        personalInfoPage.fillPage();
         personalInfoPage.fillPersonalInfoPage(personalInfoData);
         expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL, 'should navigate to the next page');
     });
@@ -42,6 +43,7 @@ describe('MSP Retro PA - Personal Info Page:', () => {
 
     it('03. should NOT let user continue if there is at least one incomplete field', () => {
         personalInfoData.lastName = '';
+        personalInfoPage.fillPage();
         personalInfoPage.fillPersonalInfoPage(personalInfoData);
         expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL, 'should stay on the same page');
     });

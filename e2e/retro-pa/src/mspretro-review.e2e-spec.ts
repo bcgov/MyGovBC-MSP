@@ -22,14 +22,13 @@ describe('MSP Retro PA - Review Page:', () => {
     testGenericAllPages(ReviewPage, REVIEW_PAGE_URL);
     testGenericSubsequentPage(ReviewPage, {prevLink: 'Contact', nextLink: 'Authorize Submit'}, {PAGE_URL: REVIEW_PAGE_URL, PREV_PAGE_URL: CONTACT_PAGE_URL, NEXT_PAGE_URL: AUTHORIZE_PAGE_URL});
     
-    // Pages still not finish
+     // Will only work if the previous pages are filled out
     xit('01. should let the user to edit information', () => {
         page.navigateTo();
-        page.clickPencilIcon('Applicant info');
+        page.clickPencilIcon('Personal info');
         personalPage.fillPersonalInfoPage(personalInfoData);
         personalPage.continue();
         page.clickStepper('Review');
-        browser.sleep(2000);
         expect(browser.getCurrentUrl()).toContain(REVIEW_PAGE_URL);
     });
 });

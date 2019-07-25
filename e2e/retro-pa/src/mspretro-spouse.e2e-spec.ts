@@ -29,17 +29,17 @@ describe('MSP Retro PA - Spouse Info Page:', () => {
 
     // This page depends on the inputs from the home page
     it('01. should be able to add spouse, fill out the page and continue', () => {
+        spouseInfoPage.fillPage();
         spouseInfoPage.fillPersonalInfoPage(personalInfoData);
-        spouseInfoPage.clickButton('btn', 'Add Spouse');
-        spouseInfoPage.selectYear('2018');
-        spouseInfoPage.uploadOneFile();
+        spouseInfoPage.fillSpouseInfoPage();
         expect(browser.getCurrentUrl()).toContain(CONTACT_PAGE_URL, 'should navigate to the next page');
     });
 
     it('02. should NOT let user to continue if there is at least one incomplete field', () => {
+        spouseInfoPage.fillPage();
         spouseInfoPage.fillPersonalInfoPage(personalInfoData);
         spouseInfoPage.clickButton('btn', 'Add Spouse');
-        spouseInfoPage.selectYear('2018');
+        spouseInfoPage.continue();
         expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL, 'should stay on the same page');
     });
 

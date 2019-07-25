@@ -15,6 +15,17 @@ export class FakeDataSupplementaryBenefits {
         }
     }
 
+    personalInfoMax(): PersonalInfoPageTest {
+        return {
+            firstName: 'Loremipsumdolorsitametonsectet',
+            middleName: 'Loremipsumdolorsitametonsectet',
+            lastName: 'Loremipsumdolorsitametonsectet',
+            birthDate: faker.date.past(),
+            PHN: 9999999998,
+            SIN: 712234123
+        }
+    }
+
     contactInfo(): ContactInfoPageTest {
         return {
             country: faker.address.country(),
