@@ -4,8 +4,7 @@ import { FinancialAssistApplication } from '../../models/financial-assist-applic
 import { NgForm } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MspDataService } from 'app/services/msp-data.service';
-import { COUNTRY_LIST, PROVINCE_LIST } from 'moh-common-lib';
-import { Address, ProvinceList } from 'moh-common-lib';
+import { Address } from 'moh-common-lib';
 import { ActivatedRoute } from '@angular/router';
 import { AssistStateService } from '../../services/assist-state.service';
 
@@ -23,16 +22,10 @@ import { AssistStateService } from '../../services/assist-state.service';
         <common-address
           [address]="address"
           (addressChange)="updateAddress($event)"
-          [defaultCountry]="'CAN'"
-          [countryList]="countryList"
-          [defaultProvince]="'BC'"
-          [provinceList]="provinceList"
-          [isRequired]="true"
-          [allowExtralines]="true"
-          [disableGeocoder]="true"
-          ([ngModel])="(address)"
-        >
-        </common-address>
+          isRequired="true"
+          allowExtralines="true"
+          disableGeocoder="true"
+        ></common-address>
         <!--
         <div class="row">
           <common-street
@@ -157,8 +150,6 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
   phoneTip =
     'Please provide a phone number so you may be contacted in case of any issues with your application.';
 
-  countryList: { countryCode: string; description: string }[];
-  provinceList: { provinceCode: string; description: string }[];
 
   // form variables
   address: Address;
@@ -175,8 +166,6 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     super(cd);
-    this.countryList = COUNTRY_LIST;
-    this.provinceList = PROVINCE_LIST;
     this.financialAssistApplication = this.dataService.finAssistApp;
   }
 
