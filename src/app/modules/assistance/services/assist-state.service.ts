@@ -67,6 +67,7 @@ export class AssistStateService {
     if (!this.finAssistApp.hasSpouseOrCommonLaw) return true;
 
     const filteredYears = this.filteredYears('spouseFiles');
+    console.log('filtered years', filteredYears);
     for (let year in filteredYears) {
       if (year.length < 1) return false;
     }
@@ -97,7 +98,6 @@ export class AssistStateService {
     ) {
       return false;
     }
-    console.log(this.finAssistApp.powerOfAttorneyDocs);
     if (this.finAssistApp.authorizationToken == null) return false;
     const valid =
       (familyAuth === true || attorneyAUth === true) &&
@@ -130,7 +130,7 @@ export class AssistStateService {
         filteredYears.push(assistYears[year][fileType]);
       }
     }
-    return filteredYears;
+    return filteredYears.filter(itm => itm);
   }
 
   constructor(

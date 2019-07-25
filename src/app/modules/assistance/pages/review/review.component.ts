@@ -132,7 +132,10 @@ export class AssistanceReviewComponent implements OnInit {
     private route: ActivatedRoute,
     private stateSvc: AssistStateService
   ) {
+    this.dataService.saveFinAssistApplication();
+
     const app = this.dataService.finAssistApp;
+
     this.address = app.mailingAddress;
     this.applicantInformation();
     this.hasSpouse = app.hasSpouseOrCommonLaw;

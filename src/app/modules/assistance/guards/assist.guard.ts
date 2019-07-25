@@ -23,6 +23,7 @@ export class AssistGuard implements CanActivate {
     // this.stateSvc.setAssistPages(assistPages);
 
     let index = this.stateSvc.findIndex(url);
+    console.log('index', index);
     return bypass
       ? index === 0
         ? true

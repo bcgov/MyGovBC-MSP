@@ -20,35 +20,35 @@ export const assistPages: Routes = [
   // },
   {
     path: 'home',
-    // canActivate: [AssistGuard],
+    canActivate: [AssistGuard],
     component: AssistanceHomeComponent
   },
   {
     path: 'personal-info',
-    // canActivate: [AssistGuard],
+    canActivate: [AssistGuard],
     component: AssistancePersonalInfoComponent
   },
   {
     path: 'spouse',
-    // canActivate: [AssistGuard],
+    canActivate: [AssistGuard],
     component: SpouseComponent
   },
 
   {
     path: 'contact',
-    // canActivate: [AssistGuard],
+    canActivate: [AssistGuard],
     component: AssistContactComponent
   },
 
   {
     path: 'review',
-    // canActivate: [AssistGuard],
+    canActivate: [AssistGuard],
     component: AssistanceReviewComponent
   },
 
   {
     path: 'authorize-submit',
-    // canActivate: [AssistGuard],
+    canActivate: [AssistGuard],
     component: AssistanceAuthorizeSubmitComponent
   },
 

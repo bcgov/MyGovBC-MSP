@@ -19,7 +19,21 @@ import { AssistStateService } from '../../services/assist-state.service';
         <h3>{{ mailTitle }}</h3>
         <p class="border-bottom">{{ mailSubtitle }}</p>
       </common-page-section>
-      <common-page-section>
+      <common-page-section layout="double">
+        <common-address
+          [address]="address"
+          (addressChange)="updateAddress($event)"
+          [defaultCountry]="'CAN'"
+          [countryList]="countryList"
+          [defaultProvince]="'BC'"
+          [provinceList]="provinceList"
+          [isRequired]="true"
+          [allowExtralines]="true"
+          [disableGeocoder]="true"
+          ([ngModel])="(address)"
+        >
+        </common-address>
+        <!--
         <div class="row">
           <common-street
             class="col-11"
@@ -104,6 +118,7 @@ import { AssistStateService } from '../../services/assist-state.service';
           id="postal"
           required
         ></common-postal-code>
+-->
       </common-page-section>
       <h3 class="border-bottom">{{ phoneTitle }}</h3>
       <common-page-section layout="tips">
@@ -116,7 +131,6 @@ import { AssistStateService } from '../../services/assist-state.service';
           maxlen="25"
           required="false"
         ></common-phone-number>
-
         <aside>
           <h5>Tip</h5>
           <p>{{ phoneTip }}</p>
@@ -185,6 +199,7 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe(obs => {
+        console.log('values changed');
         this.dataService.saveFinAssistApplication();
       });
 
@@ -223,5 +238,9 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
 
   savePhone(evt: any) {
     this.financialAssistApplication.phoneNumber = evt;
+  }
+  updateAddress(evt: Address) {
+    console.log('update event', evt);
+    this.address.addressLine1 = evt.street;
   }
 }

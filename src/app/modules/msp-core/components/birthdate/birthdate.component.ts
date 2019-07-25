@@ -30,7 +30,8 @@ import { BaseComponent } from '../../../../models/base.component';
   styleUrls: ['./birthdate.component.scss']
 })
 export class MspBirthDateComponent extends BaseComponent {
-  //lang = require('./i18n');
+  @ViewChild('formRef') form: NgForm;
+
   public dateLabel = 'Date of Birth';
 
   // Create today for comparison in check later
@@ -41,12 +42,10 @@ export class MspBirthDateComponent extends BaseComponent {
   @Input() showError: boolean;
   @Output() onChange = new EventEmitter<any>();
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(cd: ChangeDetectorRef) {
     super(cd);
     console.log(this.person);
   }
-
-  @ViewChild('formRef') form: NgForm;
 
   ngAfterViewInit(): void {
     this.person.dateOfBirth = {
@@ -55,7 +54,7 @@ export class MspBirthDateComponent extends BaseComponent {
       day: this.person.dob_day
     };
 
-    this.form.valueChanges.subscribe(values => {
+    this.form.valueChanges.subscribe(() => {
       if (this.person.dateOfBirth) {
         if (this.person.dateOfBirth.month) {
           this.person.dob_month = this.person.dateOfBirth.month;
