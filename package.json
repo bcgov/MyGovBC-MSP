@@ -87,7 +87,7 @@
     "jquery": "^3.3.1",
     "jxon": "git+https://github.com/bcgov/jxon.git",
     "lodash": "^4.17.15",
-    "moh-common-lib": "^2.2.0",
+    "moh-common-lib": "^2.3.0",
     "moment": "^2.22.2",
     "ngx-bootstrap": "3.0.1",
     "ngx-mydatepicker": "^2.4.9",
