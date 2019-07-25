@@ -79,8 +79,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
   description =
     'If you had a spouse or common-law partner on your MSP Account during any of the years you are requesting assistance for, you are required to upload a copy of their Canada Revenue Agency Notice of Assessment or Notice of Reassessment for each year of the requested assistance.';
   yearTitle = 'Your spouse or common-law partner';
-  yearDescription =
-    'Tell us if you had a spouse or common-law partner on your MSP account in any of the years of requested assistance';
+  yearDescription = 'Select the tax year when you had a spouse';
   documentsTitle = 'Documents';
   documentsDescription = `Upload spouse's Notice of Assessement or Reassessement from Canada Revenue Agency for`;
 

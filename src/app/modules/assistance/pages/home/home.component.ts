@@ -110,7 +110,9 @@ import { AssistStateService } from '../../services/assist-state.service';
       </aside>
     </common-page-section>
     <ng-template #modal>
-      <msp-assist-rates-modal></msp-assist-rates-modal>
+      <msp-assist-rates-modal
+        (closeModal)="closeModal()"
+      ></msp-assist-rates-modal>
     </ng-template>
 
     <common-consent-modal
@@ -244,9 +246,7 @@ export class AssistanceHomeComponent extends BaseComponent
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalSvc.show(template, {
-      backdrop: true,
-      class: 'modal-md',
-      keyboard: false
+      class: 'modal-md'
     });
   }
   initYearsList() {
@@ -284,6 +284,11 @@ export class AssistanceHomeComponent extends BaseComponent
     }
     this.dataSvc.saveFinAssistApplication();
     this.options = this.dataSvc.finAssistApp.assistYears;
+  }
+
+  closeModal() {
+    console.log('clicked');
+    this.modalRef.hide();
   }
 
   acceptConsent(evt: boolean) {
