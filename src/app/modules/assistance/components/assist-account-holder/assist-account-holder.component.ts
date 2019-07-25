@@ -48,14 +48,14 @@ import { Subscription } from 'rxjs';
         ></common-name>
       </div>
       <div class="form-group">
-        <msp-birthdate
-          [person]="person"
-          (onChange)="this.dataChange.emit(person)"
+        <common-date
           label="Date of Birth"
-          name="birthdate"
-          id="birthdate"
+          name="birthDate"
+          id="birthDate"
+          [date]='person.dateOfBirth'
+          (onDateChange)="this.dataChange.emit(person)"
           required
-        ></msp-birthdate>
+        ></common-date>
       </div>
       <div class="form-group">
         <common-phn
