@@ -15,7 +15,7 @@ module.exports = {
   howMuchDidYouClaimForChildCareExpenseLastYear: 'How much did you claim for child care expenses last year on your income tax return (Line 214)?',
   howMuchDidYouReportForUCC: 'How much did you report for the Universal Child Care Benefit on your income tax return (Line 117)?',
   didAnyoneClaimDisabilityTaxCreditLastYear: 'Did anyone included in your MSP coverage claim a disability tax credit on last year\'s income tax return (Lines 316, 318 or 326)? ',
-  didAnyoneClaimAttendantCareLastYear : 'Did anyone included in your MSP coverage claim attendant or nursing home expenses <strong>in place of a disability</strong> on last year\'s tax return (line 215 or line 330)?',
+  didAnyoneClaimAttendantCareLastYear : 'Did anyone included in your MSP coverage claim attendant or nursing home expenses in place of a disability on last year\'s tax return (line 215 or line 330)?',
   checkEligibilityScreenTitleDefault: 'Enter your financial information',
   checkEligibilityScreenTitle: 'Enter your financial information for tax year {userSelectedMostRecentTaxYear}',
   mustSelectTaxYears: 'Please select the year for which you are apply for assistance for.',

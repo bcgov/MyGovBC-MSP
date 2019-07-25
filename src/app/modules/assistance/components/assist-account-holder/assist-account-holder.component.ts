@@ -48,6 +48,7 @@ import { Subscription } from 'rxjs';
       ></msp-birthdate>
       <common-phn
         [(ngModel)]="person.previous_phn"
+        (ngModelChange)="sinChange()"
         name="phn"
         id="phn"
         required
@@ -95,11 +96,18 @@ export class AssistAccountHolderComponent extends BaseComponent
           debounceTime(250),
           distinctUntilChanged()
         )
-        .subscribe(() => this.dataChange.emit(this.person))
+        .subscribe(obs => {
+          // console.log(obs);
+          // this.person.sin = obs.sin.replace(/ /g, '');
+          this.dataChange.emit(this.person);
+        })
     );
     // this.assistApp.applicant.
   }
+
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
+
+  sinChange() {}
 }

@@ -46,7 +46,7 @@ export class EnrolAddressComponent extends BaseComponent {
   constructor(private dataService: MspDataService,
               private _router: Router,
              // private _processService: ProcessService,
-              private cd: ChangeDetectorRef, 
+              private cd: ChangeDetectorRef,
              // private checkCompleteBaseService: CheckCompleteBaseService
                ) {
     super(cd);
@@ -94,9 +94,7 @@ export class EnrolAddressComponent extends BaseComponent {
   }
 
   continue() {
-    // console.log('personal info form itself valid: %s', this.form.valid);
-    console.log('combinedValidationState on address: %s', this.isAllValid());
-    
+  // console.log('combinedValidationState on address: %s', this.isAllValid());
     if (!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{
