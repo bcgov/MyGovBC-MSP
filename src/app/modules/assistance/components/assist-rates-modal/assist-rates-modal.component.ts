@@ -21,10 +21,6 @@ import { ModalDirective } from 'ngx-bootstrap';
         <span class="hidden">Close modal</span>
       </button>
       <div class="modal-body">
-        <button>
-          <i class="fa fa-times " (click)="test()" type="submit"></i>
-          <span>Close modal</span>
-        </button>
         <p class="border-bottom">
           Estimate your adjusted net income for the tax year(s) below for which
           you are applying. If you feel your adjusted net income will qualify
@@ -38,8 +34,8 @@ import { ModalDirective } from 'ngx-bootstrap';
                 Adjusted Net Income threshold for Retroactive Premium Assistance
               </h3>
             </div>
-            <table class="table border-bottom primary-background">
-              <tr class="d-flex ">
+            <table class="table border-bottom ">
+              <tr class="d-flex primary-background">
                 <th
                   scope="col"
                   class="col-5 primary-background"
