@@ -71,6 +71,7 @@ export class MspBenefitDataService extends MspDataService{
         dto.spouseEligibleForDisabilityCredit = input.spouseEligibleForDisabilityCredit;
         dto.spouseDSPAmount_line125 = input.spouseDSPAmount_line125;
         dto.childWithDisabilityCount = input.childWithDisabilityCount;
+        dto.childClaimForDisabilityCredit = input.childClaimForDisabilityCredit;
 
         dto.applicantClaimForAttendantCareExpense = input.applicantClaimForAttendantCareExpense;
         dto.spouseClaimForAttendantCareExpense = input.spouseClaimForAttendantCareExpense;
@@ -79,7 +80,7 @@ export class MspBenefitDataService extends MspDataService{
 
         dto.hasRegisteredDisabilityPlan = input.hasRegisteredDisabilityPlan;
         dto.hasClaimedAttendantCareExpenses = input.hasClaimedAttendantCareExpenses;
-       // dto.applicantEligibleForDisabilityCredit = input.applicantEligibleForDisabilityCredit;
+        dto.applicantEligibleForDisabilityCredit = input.applicantEligibleForDisabilityCredit;
 
         dto.attendantCareExpense = input.attendantCareExpense;
 
@@ -130,7 +131,8 @@ export class MspBenefitDataService extends MspDataService{
         output.spouseEligibleForDisabilityCredit = dto.spouseEligibleForDisabilityCredit;
         output.spouseDSPAmount_line125 = dto.spouseDSPAmount_line125;
         output.childWithDisabilityCount = dto.childWithDisabilityCount;
-        //output.applicantEligibleForDisabilityCredit = dto.applicantEligibleForDisabilityCredit;
+        output.applicantEligibleForDisabilityCredit = dto.applicantEligibleForDisabilityCredit;
+        output.childClaimForDisabilityCredit = dto.childClaimForDisabilityCredit;
 
         output.applicantClaimForAttendantCareExpense = dto.applicantClaimForAttendantCareExpense;
         output.spouseClaimForAttendantCareExpense = dto.spouseClaimForAttendantCareExpense;

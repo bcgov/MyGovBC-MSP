@@ -22,6 +22,7 @@ export default class BenefitApplicationDto {
   hasClaimedAttendantCareExpenses: boolean;
   spouseDSPAmount_line125: number;
   applicantEligibleForDisabilityCredit: boolean;
+  childClaimForDisabilityCredit: boolean;
   taxYear: number;
   childWithDisabilityCount: number;
   phoneNumber: string;

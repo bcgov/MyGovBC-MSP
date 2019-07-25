@@ -38,9 +38,13 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
 //                    super(cd);
     }
 
+    ngOnInit(): void {
+      this.canContinue;
+      this._processService.setStep(CommonDeductionCalculatorComponent.ProcessStepNum, false);
+    }
 
     ngDoCheck(): void {
-      const valid = this.canContinue ;
+      const valid = this.canContinue;
       this._processService.setStep(CommonDeductionCalculatorComponent.ProcessStepNum, valid);
     }
 
@@ -247,6 +251,8 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
 
 
     navigateToPersonalInfo() {
+
+      this._processService.setStep(CommonDeductionCalculatorComponent.ProcessStepNum, true);
       this._router.navigate(['/benefit/personal-info']);
     }
 

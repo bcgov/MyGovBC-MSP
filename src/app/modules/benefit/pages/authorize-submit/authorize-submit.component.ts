@@ -103,8 +103,6 @@ export class BenefitAuthorizeSubmitComponent {
         const attorneyAUth = this.application.authorizedByAttorney && this.application.powerOfAttorneyDocs.length > 0;
 
         if (this.application.authorizationToken == null) return false;
-        console.log(familyAuth);
-        console.log(attorneyAUth);
         return familyAuth === true || attorneyAUth === true;
     }
 

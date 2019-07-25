@@ -184,7 +184,6 @@
                             </common-radio>
                         </div>
         
-                        
                         <div class="form-group" [hidden]="!benefitApp.selfDisabilityCredit" class="sub-section" >
                                 <div class="col-md-12">
                                     <label id="anyoneClaimeDisabilityQ" style="margin-bottom: 5px" > 
@@ -336,7 +335,7 @@
                                     <div *ngIf="benefitApp.hasSpouse === true">
                                         <div class="form-check form-check-inline">
                                                 <common-checkbox label="My spouse/common-law partner"
-                                                    (click)="spouseClaimForAttendantCareExpense($event)"
+                                                    (click)="spouseClaimForAttendantCare($event)"
                                                     [data]="benefitApp.spouseClaimForAttendantCareExpense" >
                                                 </common-checkbox> 
                                                 <!--<input type="checkbox" tabindex="0"
@@ -392,43 +391,52 @@
                             </div>
                         </div>
                      
-
-                     
-                        
                         <!-- Expense receipt File Uploader -->
-                        <div  *ngIf="requireAttendantCareReceipts">
-                            <div class="col-md-10 sub-section">
-                                <label for="netIncome">Please upload your attendant care or nursing home expense receipts for the expense entered above.</label>
-                                <div class="form-group">
-                                    <common-file-uploader #fileUploader
-                                                        [images]="benefitApp.attendantCareExpenseReceipts"
-                                                        [id]='benefitApp.id'
-                                                        (onAddDocument)="addReceipts($event)"
-                                                        (onErrorDocument)="errorReceipts($event)"
-                                                        (onDeleteDocument)="deleteReceipts($event)">
-                                    </common-file-uploader>
+                        <div *ngIf="requireAttendantCareReceipts">
+                            
+                                <div class="col-10 sub-section">
+                                    <label for="netIncome">Please upload your attendant care or nursing home expense receipts for the expense entered above.</label>
+                                    <div class="form-group">
+                                        <common-file-uploader #fileUploader
+                                                            [images]="benefitApp.attendantCareExpenseReceipts"
+                                                            [id]='benefitApp.id'
+                                                            (imagesChange)="addReceipts($event)">
+                                        </common-file-uploader>
+                                    </div>
+                                    <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
                                 </div>
-                                <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
-                            </div>
+                                <div class="col-4 tool-tip" >
+                                        <h2>Tip</h2>   
+                                </div>  
+                                
+                           
+                            
                         </div>
                 </div>
             </form>
             </div> <!-- ngif check end -->
         </div>
         <div class='col-md-4'>
-            <msp-common-deduction-calculator (continue)="canContinue($event)"
-                                             [eligibilityCalculatorTitle]="lang('./en/index.js').eligibilityCalculatorTitle"
-                                             [application]="benefitApp"
-                                             [qualificationThreshhold]="qualificationThreshhold"
-                                             [totalHouseholdIncomeLabel]="lang('./en/index.js').totalHouseholdIncome"
-                                             [continueButtonLabel]="lang('./en/index.js').continueButtonLabel"
-                                             [NotQualifyText]="lang('./en/index.js').mayNotQualifyText"
-                                             (taxYearInfoMissing)="onTaxYearInfoMissing()"
-                                             [disableContinue]="true">
-            </msp-common-deduction-calculator>
+           
+               
+                <msp-common-deduction-calculator (continue)="canContinue($event)"
+                                                [eligibilityCalculatorTitle]="lang('./en/index.js').eligibilityCalculatorTitle"
+                                                [application]="benefitApp"
+                                                [qualificationThreshhold]="qualificationThreshhold"
+                                                [totalHouseholdIncomeLabel]="lang('./en/index.js').totalHouseholdIncome"
+                                                [continueButtonLabel]="lang('./en/index.js').continueButtonLabel"
+                                                [NotQualifyText]="lang('./en/index.js').mayNotQualifyText"
+                                                (taxYearInfoMissing)="onTaxYearInfoMissing()"
+                                                [disableContinue]="true">
+                </msp-common-deduction-calculator>
+            
+                
+               
+           
         </div>
+        
     </div>
-
+   
         <!-- Calculator -->
         <!-- <div class="col-lg-4">
             <msp-common-deduction-calculator  (continue)="canContinue($event)" 

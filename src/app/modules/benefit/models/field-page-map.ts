@@ -1,7 +1,5 @@
 export class FieldPageMap {
 
-  eligibility = [];
-
   financialInfo = [
     'taxYear',
     'assistanceYear',
@@ -67,7 +65,6 @@ export class FieldPageMap {
 
   constructor() {
     this.fields = [
-      this.eligibility,
       this.financialInfo,
       this.personalInfo,
       this.spouseInfo,
@@ -85,6 +82,4 @@ export class FieldPageMap {
       if (val >= 0) return this.fields.indexOf(list);
     }
   }
-
-  // urls located somewhere
 }
