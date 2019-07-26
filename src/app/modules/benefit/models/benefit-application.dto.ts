@@ -3,6 +3,8 @@ import PersonDto from '../../../components/msp/model/msp-person.dto';
 import {MspImage} from '../../../models/msp-image';
 
 import {AssistanceYear} from '../../assistance/models/assistance-year.model';
+import { ISpaEnvResponse } from '../../../components/msp/model/spa-env-response.interface';
+
 export default class BenefitApplicationDto {
 
   infoCollectionAgreement: boolean;
@@ -28,6 +30,7 @@ export default class BenefitApplicationDto {
   phoneNumber: string;
   mailingAddress = new AddressDto();
   residentialAddress = new AddressDto();
+  spaEnvRes: ISpaEnvResponse;
 
   applicant: PersonDto = new PersonDto();
   spouse: PersonDto = new PersonDto();

@@ -28,6 +28,7 @@ export class TaxYearComponent extends BaseComponent {
     today: Date;
     cutOffStartDate: Date;
     cutOffEndDate: Date;
+    cutOffYear: number;
 
 
     constructor(cd: ChangeDetectorRef, public dataService: MspBenefitDataService) {
@@ -35,6 +36,7 @@ export class TaxYearComponent extends BaseComponent {
     }
 
     ngOnInit() {
+        this.cutOffDate();
         this.taxYears = this.getTaxYears();
         this.assistanceYears = this.assistanceYearsList();
     }
@@ -45,7 +47,7 @@ export class TaxYearComponent extends BaseComponent {
     }
 
     getTaxYears(): number[] {
-        const currentTaxYear = moment().year() ;
+        const currentTaxYear = this.currentYear ;
         return [currentTaxYear, currentTaxYear - 1 ];
     }
 
@@ -66,20 +68,22 @@ export class TaxYearComponent extends BaseComponent {
                 assistYear.apply = false;
                 assistYear.year = yearNum;
                 assistYear.docsRequired = true;
-                assistYear.currentYear = this.benefitApp.MostRecentTaxYear;
-                // this.cutOffDate();
-
+                assistYear.currentYear = this.currentYear;
+                
                 // checking the cutoff Date and disabling the last year
-                // console.log('momment date?', this.cutOffStartDate);
+                console.log('momment date?', this.cutOffStartDate);
                 if (this.cutOffStartDate && moment(this.cutOffStartDate).isSameOrBefore(this.today) && assistYear.year === this.benefitApp.MostRecentTaxYear - 1 && moment(this.cutOffEndDate).isSameOrAfter(this.today)) {
-                    assistYear.disabled =  true; //  (assistYear.year == this.benefitApp.MostRecentTaxYear - 1) ? true : false;
+                    console.log('in cut off date');
+                    this.cutOffYear = assistYear.year;
+                    assistYear.isCutoffDate =  true; //  (assistYear.year == this.benefitApp.MostRecentTaxYear - 1) ? true : false;
                 } else {
-                    assistYear.disabled =  false;
+                    assistYear.isCutoffDate =  false;
                 }
 
                 if (yearNum === this.benefitApp.MostRecentTaxYear){
                     assistYear.docsRequired = false;
                 }
+                console.log(assistYear);
                 tally.push(assistYear);
 
                 return tally;
@@ -92,6 +96,7 @@ export class TaxYearComponent extends BaseComponent {
     cutOffDate() {
         if (this.spaEnvResponse && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END && this.spaEnvResponse.SPA_ENV_NOW) {
             this.today = new Date(this.spaEnvResponse.SPA_ENV_NOW);
+            this.currentYear = this.today.getFullYear(); 
             this.cutOffStartDate = new Date(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START);
             this.cutOffEndDate  = new Date(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END);
             // console.log('cutoffDate ran', {

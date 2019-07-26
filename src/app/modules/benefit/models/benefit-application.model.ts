@@ -23,12 +23,13 @@ export class BenefitApplication implements ApplicationBase {
   userSelectedMostRecentTaxYear: number;
   public spaEnvCutOffDate: string;
   public spaEnvRes: ISpaEnvResponse;
+  isEligible: boolean;
 
   cutOffDate: Date;
 
   infoCollectionAgreement: boolean = false;
 
-  isEligible: boolean;
+
   hasClaimedAttendantCareExpenses: boolean;
   applicantClaimForAttendantCareExpense: boolean = false;
   spouseClaimForAttendantCareExpense: boolean = false;

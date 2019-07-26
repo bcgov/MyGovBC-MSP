@@ -208,9 +208,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         console.log(this.continue);
         
         if ((this.benefitApp.childClaimForAttendantCareExpenseCount > this.benefitApp.childrenCount) || (this.benefitApp.childWithDisabilityCount > this.benefitApp.childrenCount)) {
-            console.log(this.benefitApp.childClaimForAttendantCareExpenseCount);
-            console.log(this.benefitApp.childrenCount);
-            console.log(this.benefitApp.childWithDisabilityCount);
             this.continue = false;
             return false ;
         }

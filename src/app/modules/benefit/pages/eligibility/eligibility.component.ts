@@ -40,6 +40,7 @@ export class EligibilityComponent extends BaseComponent {
 
   spaEnvCutOffDate(evt: any){
     this.benefitApp.spaEnvRes = evt;
+    this.dataService.saveBenefitApplication();
   }
 
   navigate() {
