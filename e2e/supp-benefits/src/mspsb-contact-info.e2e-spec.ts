@@ -62,4 +62,23 @@ describe('MSP Supplementary Benefits - Contact Info Page:', () => {
         });
     });
 
+    it('04. should be able to add additional 2 address lines', () => {
+        page.navigateTo();
+        page.clickIcon('plus');
+        page.checkAddressLine2().then(val => {
+            expect(val).toBe(true, 'Address Line 2 should be present');
+        });
+        page.clickIcon('plus');
+        page.checkAddressLine3().then(val => {
+            expect(val).toBe(true, 'Address Line 3 should be present');
+        });
+    });
+
+    it('05. should NOT show undefined in the province field', () => {
+        page.navigateTo();
+        page.checkProvince().then(val => {
+            expect(val).toBe('', 'expect that undefined is not displayed');
+        });
+    });
+
 });

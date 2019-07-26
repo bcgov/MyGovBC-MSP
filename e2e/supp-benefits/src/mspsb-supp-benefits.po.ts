@@ -44,6 +44,15 @@ export class PreparePage extends BaseMSPTestPage {
         element(by.css('input[id="childrenCount"]')).sendKeys(val);
     }
 
+    typeChildWithDisabilityCount(val: string) {
+        element(by.css('input[id="childWithDisabilityCount"]')).sendKeys(val);
+    }
+
+    typeChildClaimCount(val: string) {
+        element(by.css('input[id="childClaimForAttendantCareExpenseCount"]')).clear();
+        element(by.css('input[id="childClaimForAttendantCareExpenseCount"]')).sendKeys(val);
+    }
+
     typeLine214(val: string) {
         element(by.css('input[id="line214"]')).sendKeys(val);
     }
@@ -70,6 +79,14 @@ export class PreparePage extends BaseMSPTestPage {
 
     checkChildrenDeduction() {
         return element(by.cssContainingText('td', 'Children')).isPresent();
+    }
+
+    getChildCountValue(idVal: string) {
+        return element(by.css(`input[id="${idVal}"]`)).getAttribute('value');
+    }
+
+    clickMyChild() {
+        element(by.css('label[for="childClaimForAttendantCareExpense"]')).click();
     }
 
 }
@@ -158,6 +175,14 @@ export class ContactInfoPage extends BaseMSPTestPage {
 
     checkAddressLine2(){
         return element(by.css('common-street[label="Address Line 2"]')).isPresent();
+    }
+
+    checkAddressLine3(){
+        return element(by.css('common-street[label="Address Line 3"]')).isPresent();
+    }
+
+    checkProvince(){
+        return element(by.css('common-province input')).getAttribute('value');
     }
 }
 

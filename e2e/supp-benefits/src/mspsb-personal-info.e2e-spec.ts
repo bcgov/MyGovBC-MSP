@@ -33,12 +33,36 @@ describe('MSP Supplementary Benefits - Personal Info Page:', () => {
         expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL);
     });
 
-    it('02. should capture invalid PHN and SIN', () => {
-        personalInfoData.PHN = personalInfoData.SIN = '1234567890';
+    it('02. should capture invalid PHN', () => {
+        personalInfoData.PHN = '1234567890';
         page.navigateTo();
         page.fillInfo(personalInfoData);
-        browser.sleep(5000);
         page.continue();
         expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL, 'should stay on the same page');
+    });
+
+    // New tests from TEST feedback
+    it('03. should capture invalid SINs', () => {
+        const sampleSIN = ['000000000', '-999999999', '123456789'];
+        personalInfoData.SIN = sampleSIN[Math.floor(Math.random() * 3)];
+        page.navigateTo();
+        page.fillInfo(personalInfoData);
+        page.checkErrorDisplayed('SIN is not in the correct format').then(val => {
+            expect(val).toBe(true, 'expect the invalid SIN error should be displayed');
+        });
+        page.continue();
+        expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL, 'should stay on the same page');
+    });
+
+    it('04. should capture valid SINs', () => {
+        const sampleSIN = ['574268660', '637351180', '448719799'];
+        personalInfoData.SIN = sampleSIN[Math.floor(Math.random() * 3)];
+        page.navigateTo();
+        page.fillInfo(personalInfoData);
+        page.checkErrorDisplayed('Social Insurance Number (SIN) is invalid.').then(val => {
+            expect(val).toBe(false, 'expect the SIN is valid');
+        });
+        page.continue();
+        expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL, 'should navigate to the next page');
     });
 });

@@ -34,4 +34,29 @@ describe('MSP Retro PA - Contact Info Page:', () => {
         expect(browser.getCurrentUrl()).toContain(REVIEW_PAGE_URL, 'should navigate to the next page');
     });
 
+    // New tests from TEST feedback
+    it('02. should capture invalid postal codes thru postal code validation if country is Canada', () => {
+        contactInfoData.country = 'Canada';
+        contactInfoData.postal = 'ABC123'
+        contactInfoPage.navigateToURL(CONTACT_PAGE_URL);
+        contactInfoPage.fillContactInfoPage(contactInfoData);
+        contactInfoPage.checkErrorDisplayed('Must be in the format A1A 1A1.').then(val => {
+            expect(val).toBe(true, 'expect the invalid postal code error should display');
+        });
+        contactInfoPage.continue();
+        expect(browser.getCurrentUrl()).toContain(CONTACT_PAGE_URL, 'should stay on the same page');
+    });
+
+    it('03. should allow non-Canadian format for postal code validation if country is NOT Canada', () => {
+        contactInfoData.country = 'United States';
+        contactInfoData.postal = 'ABC123'
+        contactInfoPage.navigateToURL(CONTACT_PAGE_URL);
+        contactInfoPage.fillContactInfoPage(contactInfoData);
+        contactInfoPage.getPostalCodeInput().then(val => {
+            expect(val).toBe('ABC123', 'expect the postal value and input field value are the same');
+        });
+        contactInfoPage.continue();
+        expect(browser.getCurrentUrl()).toContain(CONTACT_PAGE_URL, 'should stay on the same page');
+    });
+
 });

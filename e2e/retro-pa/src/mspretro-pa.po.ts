@@ -38,6 +38,10 @@ export class HomePage extends BaseMSPTestPage {
         return element(by.cssContainingText('span b', `${year}(January 1, ${year} to December 31, ${year})`)).isPresent();
     }
 
+    checkErrorDisplayed(text: string) {
+        return element(by.cssContainingText('div[class="text-danger"]', text)).isPresent();
+    }
+
 }
 
 export class PersonalInfoPage extends HomePage {
@@ -45,7 +49,10 @@ export class PersonalInfoPage extends HomePage {
     fillPersonalInfoPage(data: PersonalInfoPageTest) {
         this.fillPersonalInfo(data);
         this.uploadOneFile();
-        this.continue();
+    }
+
+    getNameInput(nameVal: string) {
+        return element(by.css(`common-name[name="${nameVal}"] input`)).getAttribute('value');
     }
 }
 
@@ -59,6 +66,12 @@ export class SpouseInfoPage extends PersonalInfoPage {
         this.uploadOneFile();
         this.continue();
     }
+
+    checkAddSpouse(){
+        return element(by.cssContainingText('button', 'Add Spouse')).isPresent();
+    }
+
+    
 }
 
 export class ContactInfoPage extends PersonalInfoPage {
@@ -71,6 +84,10 @@ export class ContactInfoPage extends PersonalInfoPage {
         this.typePostalCode(data.postal);
         this.typePhoneNum(data.mobile);
         this.continue();
+    }
+
+    getPostalCodeInput() {
+        return element(by.css('common-postal-code input')).getAttribute('value');
     }
 
 }

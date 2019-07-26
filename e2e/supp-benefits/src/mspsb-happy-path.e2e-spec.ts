@@ -75,5 +75,21 @@ describe('MSP Supplementary Benefits - End to End Test (Happy Path)', () => {
         expect(browser.getCurrentUrl()).toContain(CONFIRMATION_PAGE_URL, 'should be able to succesfully submit the form');
     }, 120000);
 
+    it('should navigate to Financial Info Page - currently it navigates to the home page', () => {
+        let personalInfoData = data.personalInfoMax();
+        fillConsentModal(PREPARE_PAGE_URL);
+        expect(browser.getCurrentUrl()).toContain(PREPARE_PAGE_URL, 'should navigate to the Financial Info Page');
+        preparePage.fillPage('999999.99');
+        expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL, 'should continue to the Personal Info Page');
+        personalPage.fillPage(personalInfoData);
+        expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL, 'should continue to the Spouse Info Page');
+        spousePage.fillPage(personalInfoData);
+        expect(browser.getCurrentUrl()).toContain(CONTACT_PAGE_URL, 'should continue to the Contact Info Page');
+        contactPage.fillPage(contactData);
+        expect(browser.getCurrentUrl()).toContain(REVIEW_PAGE_URL, 'should continue to the Review Page');
+        reviewPage.clickPencilIcon('Financial Info');
+        expect(browser.getCurrentUrl()).toContain(PREPARE_PAGE_URL, 'should navigate to Financial Info Page');
+    }, 120000);
+
 });
 
