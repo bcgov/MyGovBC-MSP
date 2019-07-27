@@ -94,6 +94,9 @@ export class MspBenefitDataService extends MspDataService{
 
         dto.phoneNumber = input.phoneNumber;
         dto.spaEnvRes = input.spaEnvRes;
+        dto.cutoffYear = input.cutoffYear;
+        dto.isCutoffDate = input.isCutoffDate;
+
 
         dto.taxYear = input.taxYear;
         //dto.assistYearDocs = input.assistYearDocs;
@@ -157,6 +160,8 @@ export class MspBenefitDataService extends MspDataService{
         output.attendantCareExpenseReceipts = dto.attendantCareExpenseReceipts;
 
         output.taxYear = dto.taxYear;
+        output.cutoffYear = dto.cutoffYear;
+        output.isCutoffDate = dto.isCutoffDate;
 //        output.assistYearDocs = dto.assistYearDocs || [];
 
         this.convertToPerson(dto.applicant, output.applicant);

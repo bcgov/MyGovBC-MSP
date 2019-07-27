@@ -206,7 +206,11 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
         console.log(evt);
         console.log(this.continue);
-        
+
+        if(this.benefitApp.hasRegisteredDisabilityPlan === undefined ||this.benefitApp.hasClaimedAttendantCareExpenses === undefined) {
+            return false;
+        }
+
         if ((this.benefitApp.childClaimForAttendantCareExpenseCount > this.benefitApp.childrenCount) || (this.benefitApp.childWithDisabilityCount > this.benefitApp.childrenCount)) {
             this.continue = false;
             return false ;

@@ -28,6 +28,9 @@ export class BenefitApplication implements ApplicationBase {
   cutOffDate: Date;
 
   infoCollectionAgreement: boolean = false;
+  // cutoff Date fields
+  cutoffYear: number;
+  isCutoffDate: boolean;
 
 
   hasClaimedAttendantCareExpenses: boolean;

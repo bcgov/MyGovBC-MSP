@@ -72,13 +72,18 @@ export class TaxYearComponent extends BaseComponent {
                 
                 // checking the cutoff Date and disabling the last year
                 console.log('momment date?', this.cutOffStartDate);
-                if (this.cutOffStartDate && moment(this.cutOffStartDate).isSameOrBefore(this.today) && assistYear.year === this.benefitApp.MostRecentTaxYear - 1 && moment(this.cutOffEndDate).isSameOrAfter(this.today)) {
+                if (this.cutOffStartDate && moment(this.cutOffStartDate).isSameOrBefore(this.today) && (assistYear.year === this.benefitApp.MostRecentTaxYear - 1) && moment(this.cutOffEndDate).isSameOrAfter(this.today)) {
                     console.log('in cut off date');
                     this.cutOffYear = assistYear.year;
-                    assistYear.isCutoffDate =  true; //  (assistYear.year == this.benefitApp.MostRecentTaxYear - 1) ? true : false;
+                    this.dataService.benefitApp.cutoffYear = assistYear.year;
+                    this.dataService.benefitApp.isCutoffDate = true;
+
+                    //  (assistYear.year == this.benefitApp.MostRecentTaxYear - 1) ? true : false;
                 } else {
-                    assistYear.isCutoffDate =  false;
+
+                    this.dataService.benefitApp.isCutoffDate = false;
                 }
+
 
                 if (yearNum === this.benefitApp.MostRecentTaxYear){
                     assistYear.docsRequired = false;

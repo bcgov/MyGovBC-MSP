@@ -10,6 +10,9 @@ module.exports = {
   generalInstructions2:'File your taxes every year so that you do not have to reapply for supplementary benefits.',
   generalInstructions3: 'BC residents must fulfill their MSP obligations under the Medicare Protection Act.',
   generalInstructions4:'Update your MSP account due to address changes or changes in family structure.',
-  generalInstructions5: 'Health Insurance BC and Ministry of Health offer easy online services to update your MSP account. Visit <a href="https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/managing-your-msp-account" target="_blank">Managing Your MSP Account.</a>'
-  
+  generalInstructions5: 'Health Insurance BC and Ministry of Health offer easy online services to update your MSP account. Visit <a href="https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/managing-your-msp-account" target="_blank">Managing Your MSP Account.</a>',
+  noticeOfAssessment:'The Notice of Assessment or Reassessment you submitted will be used to assess your eligibility to receive supplementary benefits only until the end of this calendar year. Continue to file your taxes every year so that you do not have to reapply.',
+  noticeOfAssessmentNonCutOffyear: 'The Notice of Assessment or Reassessment you submitted will be used to assess your eligibility to receive Supplementary Benefits until the end of next calendar year. Continue to file your taxes every year so that you do not have to reapply.',
+  noticeOfAssessmentCutOffyear: 'The Notice of Assessment or Reassessment you submitted will be used to assess your eligibility to receive supplementary benefits only until the end of this calendar year. You will need to reapply the following year in order to continue receiving supplementary benefits.'
+
 }

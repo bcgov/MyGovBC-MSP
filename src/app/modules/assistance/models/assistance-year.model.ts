@@ -4,6 +4,7 @@ export class AssistanceYear {
   docsRequired: boolean = true;
   currentYear: number;
   isCutoffDate?: boolean;
+  cutoffYear?: number;
   disabled: boolean;
   hasSpouse?: boolean;
   files?: any[];

@@ -39,13 +39,14 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     }
 
     ngOnInit(): void {
-      this.canContinue;
+     // this.canContinue;
       this._processService.setStep(CommonDeductionCalculatorComponent.ProcessStepNum, false);
     }
 
     ngDoCheck(): void {
-      const valid = this.canContinue;
-      this._processService.setStep(CommonDeductionCalculatorComponent.ProcessStepNum, valid);
+      this.canContinue;
+      //const valid = this.canContinue;
+      //this._processService.setStep(CommonDeductionCalculatorComponent.ProcessStepNum, valid);
     }
 
     get ageOver65Amt(): number {

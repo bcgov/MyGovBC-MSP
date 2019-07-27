@@ -56,4 +56,9 @@ export default class BenefitApplicationDto {
   assistYears: AssistanceYear[] = [];
   assistYearDocs: MspImage[] = [];
 
+ // cutOfdate fields
+ cutoffYear: number;
+ isCutoffDate: boolean;
+
+
 }

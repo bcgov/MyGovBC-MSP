@@ -28,8 +28,9 @@ export class EligibilityComponent extends BaseComponent {
 
   @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
 
-  constructor(private _router: Router, public dataService: MspBenefitDataService , cd: ChangeDetectorRef) { 
+  constructor(private _router: Router, public dataService: MspBenefitDataService , cd: ChangeDetectorRef) {
                 super(cd);
+                
   }
 
   ngAfterViewInit() {
@@ -40,7 +41,6 @@ export class EligibilityComponent extends BaseComponent {
 
   spaEnvCutOffDate(evt: any){
     this.benefitApp.spaEnvRes = evt;
-    this.dataService.saveBenefitApplication();
   }
 
   navigate() {

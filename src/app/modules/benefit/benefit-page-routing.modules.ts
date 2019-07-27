@@ -49,6 +49,12 @@ export const benefitPages: Routes = [
         path: 'sending',
         canActivate: [ProcessService],
         component: BenefitSendingComponent
+    },
+    {
+        path: '',
+        canActivate: [],
+        redirectTo: 'eligibility',
+        pathMatch: 'full'
     }
 ];
 
