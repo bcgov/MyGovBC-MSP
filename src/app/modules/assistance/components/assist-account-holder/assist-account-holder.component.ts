@@ -67,6 +67,7 @@ import { Subscription } from 'rxjs';
           name="phn"
           id="phn"
           required
+          commonValidatePhn
         ></common-phn>
       </div>
       <div class="form-group">

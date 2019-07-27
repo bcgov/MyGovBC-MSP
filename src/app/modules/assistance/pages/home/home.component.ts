@@ -176,7 +176,7 @@ export class AssistanceHomeComponent extends BaseComponent
 
   options: AssistanceYear[];
   rateData: {};
-  //modalRef: BsModalRef;
+  modalRef: BsModalRef;
   pastYears = [];
 
   get finAssistApp(): FinancialAssistApplication {
@@ -195,7 +195,7 @@ export class AssistanceHomeComponent extends BaseComponent
   constructor(
     cd: ChangeDetectorRef,
     public dataSvc: MspDataService,
-   // private modalSvc: BsModalService,
+    private modalSvc: BsModalService,
     private route: ActivatedRoute,
     private stateSvc: AssistStateService
   ) {
@@ -244,11 +244,11 @@ export class AssistanceHomeComponent extends BaseComponent
     this.dataSvc.saveFinAssistApplication();
   }
 
- /* openModal(template: TemplateRef<any>) {
+  openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalSvc.show(template, {
       class: 'modal-md'
     });
-  }*/
+  }
   initYearsList() {
     const recentTaxYear = new Date().getFullYear(); // this.finAssistApp.MostRecentTaxYear; //< 2020 ? 2020 : this.finAssistApp.MostRecentTaxYear;
     const cutOffYear = 2020;
@@ -286,10 +286,10 @@ export class AssistanceHomeComponent extends BaseComponent
     this.options = this.dataSvc.finAssistApp.assistYears;
   }
 
- /* closeModal() {
+  closeModal() {
     console.log('clicked');
     this.modalRef.hide();
-  }*/
+  }
 
   acceptConsent(evt: boolean) {
     this.initYearsList();

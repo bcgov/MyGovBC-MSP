@@ -37,7 +37,8 @@
                             [(ngModel)]="applicant.previous_phn"
                             (ngModelChange)=saveApplication($event)
                             [placeholder]="lang('./en/index.js').phnPlaceHolder"
-                            required></common-phn>
+                            required
+                            commonValidatePhn></common-phn>
 
                 <msp-birthdate [isACL]="true"
                         #birthDate

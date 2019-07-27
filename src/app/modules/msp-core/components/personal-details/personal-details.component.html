@@ -176,7 +176,8 @@
             <div *ngIf="person.hasPreviousBCPhn === true">
               <common-phn #phn [required]="false" [(ngModel)]="person.previous_phn"
                 [label]="lang('./en/index.js').phnLabel[this.person.relationship]" placeholder="1111 111 111"
-                (ngModelChange)="person.previous_phn = $event"></common-phn>
+                (ngModelChange)="person.previous_phn = $event"
+                commonValidatePhn></common-phn>
             </div>
           </div>
 
