@@ -12,13 +12,16 @@ import { ModalDirective } from 'ngx-bootstrap';
 @Component({
   selector: 'msp-assist-rates-modal',
   template: `
-    <div class="modal-dialog">
-      <div class="modal-header modal-header-primary">
+    <div class="">
+      <div class="modal-header-primary">
         <h2>What is Adjusted Net Income?</h2>
       </div>
-      <button class="btn btn-transparent float-right close-btn">
-        <i class="fa fa-times ecks" (click)="close()"></i>
-        <span class="hidden">Close modal</span>
+      <button
+        class="btn btn-transparent float-right close-btn close"
+        type="button"
+        (click)="closeModal.emit(true)"
+      >
+        <i class="fa fa-times ecks"></i>
       </button>
       <div class="modal-body">
         <p class="border-bottom">
@@ -87,7 +90,6 @@ import { ModalDirective } from 'ngx-bootstrap';
 export class AssistRatesModalComponent implements OnInit {
   @Input() entries: any[];
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
 
   deductions = [
     ['Spouse:', '$3,000'],
@@ -117,9 +119,10 @@ export class AssistRatesModalComponent implements OnInit {
 
   close() {
     console.log('clicked');
-    // this.closeModal.emit(true);
+    this.closeModal.emit(true);
   }
   test() {
     console.log('test');
+    this.closeModal.emit(true);
   }
 }

@@ -6,15 +6,9 @@ strong {
   font-size: 12px !important;
 }
 
-table {
-  // border-color: #000000;
-}
-
 td,
 th {
   text-align: center;
-  // border-color: #000000;
-  // border-width: .5px;
 
 }
 
@@ -28,6 +22,9 @@ th {
 }
 
 h2 {
+  margin: 0;
+  padding: 21px 0px 10.5px 10px;
+
   font-size: 17px;
 }
 
@@ -35,9 +32,6 @@ h3 {
   font-size: 15px;
 }
 
-// :host() {
-//   padding: 15px;
-// }
 
 .centered {
   text-align: center;
