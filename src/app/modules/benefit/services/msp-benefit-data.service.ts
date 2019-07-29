@@ -56,7 +56,7 @@ export class MspBenefitDataService extends MspDataService{
         const dto: BenefitApplicationDto = new BenefitApplicationDto();
 
         dto.infoCollectionAgreement = input.infoCollectionAgreement;
-        //dto.addSpouse = input.addSpouse;
+        dto.isEligible = input.isEligible;
         dto.hasSpouse = input.hasSpouse;
         dto.incomeLine236 = input.netIncomelastYear;
         dto.ageOver65 = input.ageOver65;
@@ -71,11 +71,17 @@ export class MspBenefitDataService extends MspDataService{
         dto.spouseEligibleForDisabilityCredit = input.spouseEligibleForDisabilityCredit;
         dto.spouseDSPAmount_line125 = input.spouseDSPAmount_line125;
         dto.childWithDisabilityCount = input.childWithDisabilityCount;
+        dto.childClaimForDisabilityCredit = input.childClaimForDisabilityCredit;
 
         dto.applicantClaimForAttendantCareExpense = input.applicantClaimForAttendantCareExpense;
         dto.spouseClaimForAttendantCareExpense = input.spouseClaimForAttendantCareExpense;
         dto.childClaimForAttendantCareExpense = input.childClaimForAttendantCareExpense;
         dto.childClaimForAttendantCareExpenseCount = input.childClaimForAttendantCareExpenseCount;
+        dto.isEligible = input.isEligible;
+
+        dto.hasRegisteredDisabilityPlan = input.hasRegisteredDisabilityPlan;
+        dto.hasClaimedAttendantCareExpenses = input.hasClaimedAttendantCareExpenses;
+        dto.applicantEligibleForDisabilityCredit = input.applicantEligibleForDisabilityCredit;
 
         dto.attendantCareExpense = input.attendantCareExpense;
 
@@ -87,6 +93,10 @@ export class MspBenefitDataService extends MspDataService{
         dto.attendantCareExpenseReceipts = input.attendantCareExpenseReceipts;
 
         dto.phoneNumber = input.phoneNumber;
+        dto.spaEnvRes = input.spaEnvRes;
+        dto.cutoffYear = input.cutoffYear;
+        dto.isCutoffDate = input.isCutoffDate;
+
 
         dto.taxYear = input.taxYear;
         //dto.assistYearDocs = input.assistYearDocs;
@@ -110,6 +120,8 @@ export class MspBenefitDataService extends MspDataService{
         const output: BenefitApplication = new BenefitApplication();
 
         output.infoCollectionAgreement = dto.infoCollectionAgreement;
+        output.spaEnvRes = dto.spaEnvRes;
+        output.isEligible = dto.isEligible;
 
         output.netIncomelastYear = dto.incomeLine236;
         output.ageOver65 = dto.ageOver65;
@@ -126,12 +138,17 @@ export class MspBenefitDataService extends MspDataService{
         output.spouseEligibleForDisabilityCredit = dto.spouseEligibleForDisabilityCredit;
         output.spouseDSPAmount_line125 = dto.spouseDSPAmount_line125;
         output.childWithDisabilityCount = dto.childWithDisabilityCount;
+        output.applicantEligibleForDisabilityCredit = dto.applicantEligibleForDisabilityCredit;
+        output.childClaimForDisabilityCredit = dto.childClaimForDisabilityCredit;
 
         output.applicantClaimForAttendantCareExpense = dto.applicantClaimForAttendantCareExpense;
         output.spouseClaimForAttendantCareExpense = dto.spouseClaimForAttendantCareExpense;
         output.childClaimForAttendantCareExpense = dto.childClaimForAttendantCareExpense;
         output.childClaimForAttendantCareExpenseCount = dto.childClaimForAttendantCareExpenseCount;
         output.attendantCareExpense = dto.attendantCareExpense;
+
+        output.hasRegisteredDisabilityPlan = dto.hasRegisteredDisabilityPlan;
+        output.hasClaimedAttendantCareExpenses = dto.hasClaimedAttendantCareExpenses;
 
         output.phoneNumber = dto.phoneNumber;
 
@@ -143,6 +160,8 @@ export class MspBenefitDataService extends MspDataService{
         output.attendantCareExpenseReceipts = dto.attendantCareExpenseReceipts;
 
         output.taxYear = dto.taxYear;
+        output.cutoffYear = dto.cutoffYear;
+        output.isCutoffDate = dto.isCutoffDate;
 //        output.assistYearDocs = dto.assistYearDocs || [];
 
         this.convertToPerson(dto.applicant, output.applicant);

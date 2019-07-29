@@ -144,6 +144,16 @@ hr {
   border-top: 1px solid #eee;
 }
 
+.tool-tip {
+  padding: 10px 10px 25px 25px;
+  background: #ECEFF1;
+
+  border-radius: 8px 8px 8px 8px;
+  -moz-border-radius: 8px 8px 8px 8px;
+  -webkit-border-radius: 8px 8px 8px 8px;
+  border: 0px solid #ECEFF1;
+}
+
 /* A more visually important HR */
 .strong-hr {
   border: none;

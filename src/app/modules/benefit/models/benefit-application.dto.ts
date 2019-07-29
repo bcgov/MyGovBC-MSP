@@ -3,9 +3,12 @@ import PersonDto from '../../../components/msp/model/msp-person.dto';
 import {MspImage} from '../../../models/msp-image';
 
 import {AssistanceYear} from '../../assistance/models/assistance-year.model';
+import { ISpaEnvResponse } from '../../../components/msp/model/spa-env-response.interface';
+
 export default class BenefitApplicationDto {
 
   infoCollectionAgreement: boolean;
+  isEligible: boolean;
   incomeLine236: number;
   ageOver65: boolean;
   hasSpouseOrCommonLaw: boolean;
@@ -17,12 +20,17 @@ export default class BenefitApplicationDto {
   reportedUCCBenefit_line117: number;
   selfDisabilityCredit: boolean;
   spouseEligibleForDisabilityCredit: boolean;
+  hasRegisteredDisabilityPlan: boolean;
+  hasClaimedAttendantCareExpenses: boolean;
   spouseDSPAmount_line125: number;
+  applicantEligibleForDisabilityCredit: boolean;
+  childClaimForDisabilityCredit: boolean;
   taxYear: number;
   childWithDisabilityCount: number;
   phoneNumber: string;
   mailingAddress = new AddressDto();
   residentialAddress = new AddressDto();
+  spaEnvRes: ISpaEnvResponse;
 
   applicant: PersonDto = new PersonDto();
   spouse: PersonDto = new PersonDto();
@@ -47,5 +55,10 @@ export default class BenefitApplicationDto {
 
   assistYears: AssistanceYear[] = [];
   assistYearDocs: MspImage[] = [];
+
+ // cutOfdate fields
+ cutoffYear: number;
+ isCutoffDate: boolean;
+
 
 }
