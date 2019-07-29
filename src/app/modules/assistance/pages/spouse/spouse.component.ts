@@ -19,7 +19,7 @@ export interface spouseYears {
     <p class="border-bottom">{{ description }}</p>
 
     <button
-      *ngIf="!showTaxYears"
+      [disabled]="showTaxYears"
       class="btn btn-primary btn-md"
       (click)="addSpouse()"
     >
@@ -79,10 +79,9 @@ export class SpouseComponent extends BaseComponent implements OnInit {
   description =
     'If you had a spouse or common-law partner on your MSP Account during any of the years you are requesting assistance for, you are required to upload a copy of their Canada Revenue Agency Notice of Assessment or Notice of Reassessment for each year of the requested assistance.';
   yearTitle = 'Your spouse or common-law partner';
-  yearDescription =
-    'Tell us if you had a spouse or common-law partner on your MSP account in any of the years of requested assistance';
+  yearDescription = 'Select the tax year when you had a spouse';
   documentsTitle = 'Documents';
-  documentsDescription = `Upload spouse's Notice of Assessement or Reassessement from Canada Revenue Agency for 2015 and 2016`;
+  documentsDescription = `Upload spouse's Notice of Assessement or Reassessement from Canada Revenue Agency for`;
 
   finAssistApp: FinancialAssistApplication;
   documents: PersonDocuments;
@@ -128,6 +127,10 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     let hasSpouse = years.some(itm => itm.hasSpouse);
     if (hasSpouse) this.parseSpouse(years);
     this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
+    if (this.finAssistApp.assistYears.some(itm => itm.hasSpouse))
+      this.documentsDescription = `Upload spouse's Notice of Assessement or Reassessement from Canada Revenue Agency for ${this.createDocumentDesc(
+        this.selectedYears
+      )}`;
   }
 
   parseSpouse(arr: AssistanceYear[]) {
@@ -175,6 +178,10 @@ export class SpouseComponent extends BaseComponent implements OnInit {
       this.selectedYears = this.selectedYears.filter(itm => itm.year !== year);
     }
     this.dataSvc.saveFinAssistApplication();
+    if (this.finAssistApp.assistYears.some(itm => itm.hasSpouse))
+      this.documentsDescription = `Upload spouse's Notice of Assessement or Reassessement from Canada Revenue Agency for ${this.createDocumentDesc(
+        this.selectedYears
+      )}`;
   }
 
   findYear(year: number) {
@@ -196,5 +203,14 @@ export class SpouseComponent extends BaseComponent implements OnInit {
         return false;
       }
     }
+  }
+  createDocumentDesc(years: any[]) {
+    return years
+      .filter(itm => itm.hasSpouse)
+      .map(itm => itm.year)
+      .sort((a, b) => a - b)
+      .reduce((a, b, i, arr) =>
+        i === arr.length - 1 ? `${a} and ${b}.` : `${a}, ${b}`
+      );
   }
 }

@@ -19,45 +19,61 @@ import { Subscription } from 'rxjs';
   selector: 'msp-assist-account-holder',
   template: `
     <form #formRef="ngForm" novalidate>
-      <common-name
-        [(ngModel)]="person.firstName"
-        label="First name"
-        name="firstName"
-        id="firstName"
-        required
-      ></common-name>
-      <common-name
-        [(ngModel)]="person.middleName"
-        label="Middle name(optional)"
-        name="middleName"
-      ></common-name>
-      <common-name
-        [(ngModel)]="person.lastName"
-        label="Last Name"
-        name="lastName"
-        id="lastName"
-        required
-      ></common-name>
-      <msp-birthdate
-        [person]="person"
-        (onChange)="this.dataChange.emit(person)"
-        label="Date of Birth"
-        name="birthdate"
-        id="birthdate"
-        required
-      ></msp-birthdate>
-      <common-phn
-        [(ngModel)]="person.previous_phn"
-        name="phn"
-        id="phn"
-        required
-      ></common-phn>
-      <common-sin
-        [(ngModel)]="person.sin"
-        name="sin"
-        id="sin"
-        required
-      ></common-sin>
+      <div class="form-group">
+        <common-name
+          [(ngModel)]="person.firstName"
+          maxlen="30"
+          label="First name"
+          name="firstName"
+          id="firstName"
+          required
+        ></common-name>
+      </div>
+      <div class="form-group">
+        <common-name
+          [(ngModel)]="person.middleName"
+          maxlen="30"
+          label="Middle name(optional)"
+          name="middleName"
+        ></common-name>
+      </div>
+      <div class="form-group">
+        <common-name
+          [(ngModel)]="person.lastName"
+          maxlen="30"
+          label="Last Name"
+          name="lastName"
+          id="lastName"
+          required
+        ></common-name>
+      </div>
+      <div class="form-group">
+        <msp-birthdate
+          [person]="person"
+          (onChange)="this.dataChange.emit(person)"
+          label="Date of Birth"
+          name="birthdate"
+          id="birthdate"
+          required
+        ></msp-birthdate>
+      </div>
+      <div class="form-group">
+        <common-phn
+          [(ngModel)]="person.previous_phn"
+          (ngModelChange)="sinChange()"
+          name="phn"
+          id="phn"
+          required
+        ></common-phn>
+      </div>
+      <div class="form-group">
+        <common-sin
+          [(ngModel)]="person.sin"
+          name="sin"
+          id="sin"
+          required
+        ></common-sin>
+      </div>
     </form>
   `,
   styleUrls: ['./assist-account-holder.component.scss']
@@ -95,11 +111,18 @@ export class AssistAccountHolderComponent extends BaseComponent
           debounceTime(250),
           distinctUntilChanged()
         )
-        .subscribe(() => this.dataChange.emit(this.person))
+        .subscribe(obs => {
+          // console.log(obs);
+          // this.person.sin = obs.sin.replace(/ /g, '');
+          this.dataChange.emit(this.person);
+        })
     );
     // this.assistApp.applicant.
   }
+
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
+
+  sinChange() {}
 }

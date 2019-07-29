@@ -9,6 +9,7 @@ import { FinancialAssistApplication } from '../../models/financial-assist-applic
 import { SchemaService } from 'app/services/schema.service';
 import { AssistTransformService } from '../../services/assist-transform.service';
 import { AssistMapping } from '../../models/assist-mapping';
+import { HeaderService } from '../../../../services/header.service';
 
 @Component({
   selector: 'msp-assist-container',
@@ -56,11 +57,13 @@ export class AssistContainerComponent extends Container implements OnInit {
     private dataSvc: MspDataService,
     private schemaSvc: SchemaService,
     private xformSvc: AssistTransformService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private header: HeaderService
   ) {
     super();
     this.setProgressSteps(assistPages);
     this.stateSvc.setAssistPages(assistPages);
+    this.header.setTitle('Retroactive Premium Assistance');
   }
 
   ngOnInit() {
@@ -102,10 +105,11 @@ export class AssistContainerComponent extends Container implements OnInit {
     try {
       const app = this.xformSvc.application;
       const validateList = await this.schemaSvc.validate(app);
-
-      if (validateList.errors.length > 0) {
+      console.log('validate', validateList.errors);
+      if (validateList.errors != null && validateList.errors.length > 0) {
         this.isLoading = false;
         for (let error of validateList.errors) {
+          // console.log('error', validateList.errors, error);
           let fieldName = findFieldName(error.dataPath);
 
           for (let arr of AssistMapping.items) {
@@ -122,7 +126,7 @@ export class AssistContainerComponent extends Container implements OnInit {
         }
       }
     } catch (err) {
-      console.error;
+      console.error(err);
     } finally {
       let res = await this.stateSvc.submitApplication();
       this.isLoading = false;

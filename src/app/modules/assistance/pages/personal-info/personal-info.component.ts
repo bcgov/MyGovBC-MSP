@@ -18,7 +18,7 @@ import { Observable } from 'rxjs';
     <h2>{{ title }}</h2>
     <h3>{{ subtitle }}</h3>
     <p class="border-bottom">{{ description }}</p>
-    <common-page-section>
+    <common-page-section layout="double">
       <form #formRef="ngForm" novalidate>
         <msp-assist-account-holder
           [person]="financialAssistApplication.applicant"
@@ -45,10 +45,10 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
 
   touched$: Observable<any>;
 
-  title = 'Tell us about who is applying and upload official documents';
-  subtitle = 'Account Holder (Main Applicant)';
+  title = 'Add personal information and upload documents';
+  subtitle = 'Medical Services Plan Account Holder';
   description =
-    'Enter your legal name as it appears on your official Canadian identity documents, e.g., birth certificate, permanent resident card, passport.';
+    'Enter your legal name as it appears on your BC Services Card or CareCard.';
   documentsTitle = 'Documents';
   documentsDescription =
     'Upload your Notice of Assessment (NOA) or Notice of Reassessment (NORA) from Canada Revenue Agency for ';
@@ -56,10 +56,8 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   assistanceYears: any[];
   constructor(
     private dataService: MspDataService,
-    private _router: Router,
     private route: ActivatedRoute,
     private stateSvc: AssistStateService,
-    //private _processService: ProcessService,
     cd: ChangeDetectorRef
   ) {
     super(cd);
@@ -134,7 +132,6 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   // Final check to see if the country is present // DEF 153
 
   saveAccountHolder(evt: MspPerson) {
-    console.log(evt);
     this.dataService.saveFinAssistApplication();
   }
 }

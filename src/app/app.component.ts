@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import * as version from '../version.GENERATED';
+import { HeaderService } from './services/header.service';
 // import { } from '../version.GENERATED';
 
 @Component({
@@ -15,9 +16,12 @@ import * as version from '../version.GENERATED';
 export class GeneralAppComponent {
   private viewContainerRef: ViewContainerRef;
   routerSubscription: Subscription;
+  headerSubscription: Subscription;
+  // Even though we update this from headerService, we still want to set default value to avoid pop-in.
+  public headerName: string = environment.appConstants.serviceName;
 
-  public constructor(viewContainerRef: ViewContainerRef, private router: Router) {
-    console.log('%c ACL', 'color: red; font-weight: bold;');
+
+  public constructor(viewContainerRef: ViewContainerRef, private router: Router, private header: HeaderService) {
     // You need this small hack in order to catch application root view container ref
     this.viewContainerRef = viewContainerRef;
   }
@@ -31,16 +35,19 @@ export class GeneralAppComponent {
         document.body.scrollTop = 0;
       });
 
+      const prefix = environment.appConstants.serviceName;
+      this.headerSubscription = this.header.title.subscribe(title => {
+        this.headerName = title;
+      });
+
       version.success
             ? console.log('%c' + version.message, 'color: #036; font-size: 20px;')
             : console.error(version.message);
   }
 
   ngOnDestroy() {
+    // note - if we add any more subscriptions, refactor to a takeUntil()
     this.routerSubscription.unsubscribe();
-  }
-
-  get serviceName(): string {
-    return environment.appConstants.serviceName;
+    this.headerSubscription.unsubscribe();
   }
 }

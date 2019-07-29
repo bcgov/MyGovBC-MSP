@@ -1,0 +1,68 @@
+p,
+span,
+td,
+th,
+strong {
+  font-size: 12px !important;
+}
+
+table {
+  // border-color: #000000;
+}
+
+td,
+th {
+  text-align: center;
+  // border-color: #000000;
+  // border-width: .5px;
+
+}
+
+td {
+  background-color: #fff;
+}
+
+th {
+  color: #fff;
+  border: 0px;
+}
+
+h2 {
+  font-size: 17px;
+}
+
+h3 {
+  font-size: 15px;
+}
+
+// :host() {
+//   padding: 15px;
+// }
+
+.centered {
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.modal-dialog {
+  margin: 0 !important;
+}
+
+.primary-background {
+  background-color: #036;
+}
+
+.ecks {
+  color: #fff;
+  font-size: 21px;
+}
+
+.hidden {
+  display: none;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
