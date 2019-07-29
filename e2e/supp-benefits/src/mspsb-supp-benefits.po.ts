@@ -120,6 +120,10 @@ export class PersonalInfoPage extends BaseMSPTestPage {
         this.uploadOneFile();
     }
 
+    checkFileUpload() {
+        return element(by.css('common-file-uploader common-thumbnail')).isDisplayed();
+    }
+
 }
 
 export class SpouseInfoPage extends PersonalInfoPage {
@@ -133,6 +137,7 @@ export class SpouseInfoPage extends PersonalInfoPage {
         spouseInfoData.SIN = 358745768;
         this.addSpouse();
         this.fillInfo(spouseInfoData);
+        browser.sleep(3000);
         this.continue();
     }
 
@@ -165,7 +170,6 @@ export class ContactInfoPage extends BaseMSPTestPage {
     }
 
     fillContactNumber(data: ContactInfoPageTest) {
-        browser.sleep(1000);
         element(by.css('input[id^="phone"]')).sendKeys(data.mobile);
     }
 
@@ -208,7 +212,11 @@ export class AuthorizePage extends BaseMSPTestPage {
             }
         });
         this.typeCaptcha();
-        this.continue();
+    }
+
+    fillPOA() {
+        this.checkConsent('authByAttorney');
+        this.uploadOneFile();
     }
 
     checkConsent(labelVal: string) {
@@ -221,6 +229,10 @@ export class AuthorizePage extends BaseMSPTestPage {
 
     checkHasSpouse() {
         return element(by.css('label[for="secondPersonAuthorize"]')).isPresent();
+    }
+
+    checkPOA() {
+        return element(by.css('input[id="authByAttorney"]')).isSelected();
     }
 
 }

@@ -18,7 +18,7 @@ export class BaseMSPTestPage extends AbstractTestPage {
     }
 
     clickPencilIcon(h2Val: string) {
-        element(by.cssContainingText('h2', `${h2Val}`)).element(by.css('i[class*="pencil"]')).click();    
+        element(by.cssContainingText('h2', `${h2Val}`)).element(by.css('i[class*="fa-pencil"]')).click();    
     }
 
     clickStepper(text: string) {

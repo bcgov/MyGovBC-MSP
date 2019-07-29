@@ -1,11 +1,12 @@
 import { browser, element, by } from 'protractor';
-import { PersonalInfoPage } from './mspsb-supp-benefits.po';
+import { PersonalInfoPage, PreparePage } from './mspsb-supp-benefits.po';
 import { FakeDataSupplementaryBenefits } from './mspsb-supp-benefits.data';
-import { testGenericSubsequentPage, testGenericAllPages } from '../../msp-generic-tests';
+import { testGenericSubsequentPage, testGenericAllPages, fillConsentModal } from '../../msp-generic-tests';
 import { p } from '@angular/core/src/render3';
 
 describe('MSP Supplementary Benefits - Personal Info Page:', () => {
     let page: PersonalInfoPage;
+    let preparePage: PreparePage;
     const data = new FakeDataSupplementaryBenefits;
     let personalInfoData;
     const FINANCIAL_PAGE_URL = `msp/benefit/financial-info`
@@ -43,7 +44,7 @@ describe('MSP Supplementary Benefits - Personal Info Page:', () => {
 
     // New tests from TEST feedback
     it('03. should capture invalid SINs', () => {
-        const sampleSIN = ['000000000', '-999999999', '123456789'];
+        const sampleSIN = ['000000000', '-999999999', '12345abcd'];
         personalInfoData.SIN = sampleSIN[Math.floor(Math.random() * 3)];
         page.navigateTo();
         page.fillInfo(personalInfoData);
@@ -64,5 +65,20 @@ describe('MSP Supplementary Benefits - Personal Info Page:', () => {
         });
         page.continue();
         expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL, 'should navigate to the next page');
+    });
+
+    it('05. should clear the file upload if the user changes the year in Financial Info', () => {
+        preparePage = new PreparePage();
+        fillConsentModal(FINANCIAL_PAGE_URL);
+        preparePage.navigateTo();
+        preparePage.fillPage();
+        page.fillInfo(personalInfoData);
+        page.clickStepper('Financial Info');
+        preparePage.clickOption('2019');
+        preparePage.continue();
+        page.checkFileUpload().then(val => {
+            expect(val).toBe(false, 'attached file/s should be cleared');
+        });
+        browser.sleep(5000);
     });
 });

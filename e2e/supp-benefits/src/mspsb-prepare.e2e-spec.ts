@@ -68,13 +68,12 @@ describe('MSP Supplementary Benefits - Prepare Page:', () => {
         page.clickRadioButton('Did anyone included in your MS', 'true');
         page.clickContinueDisabilityCredit();
         page.scrollDown();
-        browser.sleep(5000);
         page.clickOption('spouseClaimForDisabilityCredit');
         page.clickRadioButton('Did anyone included in your MS', 'false');
         page.checkSpouseDisabilityCredit().then(val => {
             expect(val).toBe(false, 'expect that spouse disability credit is not visible');
         });
-        browser.sleep(5000);
+        browser.sleep(15000);
         page.clickRadioButtonDuplicate('Did anyone included in your MS', 'false');
         page.continue();
         expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL, 'should navigate to the next page');
@@ -97,7 +96,7 @@ describe('MSP Supplementary Benefits - Prepare Page:', () => {
         page.checkChildrenDeduction().then(val => {
             expect(val).toBe(false, 'expect that children deduction is not visible');
         });
-        browser.sleep(10000);
+        browser.sleep(15000);
         page.clickRadioButton('Did anyone included in your MS', 'false');
         page.clickRadioButtonDuplicate('Did anyone included in your MS', 'false');
         page.continue();
@@ -157,6 +156,7 @@ describe('MSP Supplementary Benefits - Prepare Page:', () => {
                 expect(valA >= valB).toBe(true, 'children count must be >= children claim for attendant count');
             });
         });
+        browser.sleep(15000);
     });
 
 });

@@ -33,7 +33,7 @@ export class FakeDataSupplementaryBenefits {
             address: faker.address.streetAddress(),
             city: faker.address.city(),
             postal: faker.address.zipCode('?#? #?#'),
-            mobile: faker.phone.phoneNumberFormat(2)
+            mobile: '2501234567'
         };
     }
 
