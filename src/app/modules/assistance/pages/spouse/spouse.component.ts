@@ -30,14 +30,16 @@ export interface spouseYears {
       <div class="border-bottom">
         <div class="row">
           <span class="col-11">{{ yearDescription }}</span>
-          <button
+          <common-xicon-button *ngIf="showTaxYears" label= "Remove spouse" (click)="removeSpouse()">
+          </common-xicon-button>
+      <!--    <button
             *ngIf="showTaxYears"
             class="col-1 btn btn-transparent float-right"
             (click)="removeSpouse()"
           >
             <i class="fa fa-times ecks"></i>
             <span class="hidden">Remove spouse</span>
-          </button>
+          </button> -->
         </div>
       </div>
       <label>In what years did you have a spouse on your MSP account?</label>
