@@ -60,13 +60,13 @@ import { ModalDirective } from 'ngx-bootstrap';
           </div>
 
           <div class="col-md-7">
-            <h3>Estimate your Adjusted Net Income</h3>
+            <h3>Estimate Your Adjusted Net Income</h3>
             <p>
               Your net income plus spouse's net income (if applicable) from line
               236 from the Notice of Assessment or Reassessment less total
               deductions that apply to you
             </p>
-            <h3>Estimate your deductions</h3>
+            <h3>Estimate Your Total Deductions</h3>
             <p>Calculate based on the tax year for which you are applying.</p>
             <div *ngFor="let deduction of deductions" class="row">
               <div class="col-7">
