@@ -29,11 +29,15 @@ import { AssistRatesModalComponent } from '../../components/assist-rates-modal/a
       <h2>Apply for Retroactive Premium Assistance</h2>
       <p>
         Retroactive Premium Assistance provides assistance for previously
-        charged Medical Services Plan premiums.
+        charged Medical Services Plan premiums. Medical Services Plan premiums
+
         <a class="btn btn-link p-0" [href]="taxLink">
           Medical Services Plan premiums
         </a>
-        are based on the previous tax year's adjusted net income.
+        are based on the previous tax year's
+        <button class="btn btn-link p-0" (click)="openModal(modal)">
+          adjusted net income
+        </button>
       </p>
       <p>
         To be assessed for Retroactive Premium Assistance, complete this form
@@ -63,6 +67,7 @@ import { AssistRatesModalComponent } from '../../components/assist-rates-modal/a
           Which years do you think your income might qualify you for Retroactive
           Premium Assistance?
         </h3>
+        <!--
         <p>
           <span>
             Note:
@@ -74,6 +79,7 @@ import { AssistRatesModalComponent } from '../../components/assist-rates-modal/a
             for Retroactive Permium Assistance.
           </span>
         </p>
+        -->
         <div class="row">
           <div class="col-12">
             <common-checkbox
