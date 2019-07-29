@@ -20,7 +20,7 @@ export class TaxYearComponent extends BaseComponent {
 
     lang = require('./i18n');
     taxYears: number[] ;
-    @Input() currentTaxYear: boolean;
+    @Input() currentTaxYear: number;
     assistanceYears: AssistanceYear[];
     currentYear: number;  // = this.benefitApp.taxYear;
     @Input() spaEnvResponse: ISpaEnvResponse;
