@@ -50,6 +50,15 @@ export class BenefitAuthorizeSubmitComponent {
         this.dataService.saveBenefitApplication();
     }
 
+    uploadDocument(evt: Array<any>) {
+        console.log('evt', evt);
+        this.application.powerOfAttorneyDocs = evt;
+        this.dataService.saveBenefitApplication();
+        //this.docActionEvent.emit(evt);
+        //this.onChange.emit(evt);
+    }
+
+
     errorDocument(evt: MspImage) {
         this.mspImageErrorModal.imageWithError = evt;
         this.mspImageErrorModal.showFullSizeView();
@@ -58,17 +67,19 @@ export class BenefitAuthorizeSubmitComponent {
 
     deleteDocument(mspImage: MspImage) {
         // console.log('doc to be deleted: %o', mspImage);
+        
         this.application.powerOfAttorneyDocs = this.application.powerOfAttorneyDocs.filter(
             (doc: MspImage) => {
                 return doc.uuid !== mspImage.uuid;
             }
         );
+        this.application.powerOfAttorneyDocs = [];
         this.dataService.saveBenefitApplication();
     }
 
     deleteAllDocs(doDelete: boolean){
         if (doDelete){
-            this.application.powerOfAttorneyDocs = [];
+            //this.application.powerOfAttorneyDocs = [];
             this.dataService.saveBenefitApplication();
         }
     }
@@ -92,7 +103,6 @@ export class BenefitAuthorizeSubmitComponent {
         const attorneyAUth = this.application.authorizedByAttorney && this.application.powerOfAttorneyDocs.length > 0;
 
         if (this.application.authorizationToken == null) return false;
-
         return familyAuth === true || attorneyAUth === true;
     }
 

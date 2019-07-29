@@ -4,7 +4,6 @@ import {MspPhoneComponent} from '../../../../components/msp/common/phone/phone.c
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {ProcessService} from '../../../../services/process.service';
 import {NgForm} from '@angular/forms';
-import {BenefitPersonalDetailComponent} from '../personal-detail/personal-detail.component';
 import {PersonalDetailsRetroSuppbenComponent} from '../../../msp-core/components/personal-details-retro-suppben/personal-details-retro-suppben.component';
 import {MspAddressComponent} from '../../../msp-core/components/address/address.component';
 import {BaseComponent} from '../../../../models/base.component';
@@ -38,6 +37,7 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
                 private cd: ChangeDetectorRef) {
         super(cd);
         this.benefitApplication = this.dataService.benefitApp;
+        this._processService.setStep(BenefitPersonalInfoComponent.ProcessStepNum, false);
         // if the country is blank or null or undefined then assign Canada By Default //DEF-153
         if (!this.benefitApplication.mailingAddress.country || this.benefitApplication.mailingAddress.country.trim().length === 0 ) {
             this.benefitApplication.mailingAddress.country = 'Canada';
@@ -64,6 +64,7 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     }
 
     onSubmit(form: NgForm){
+        this._processService.setStep(BenefitPersonalInfoComponent.ProcessStepNum, true);
         this._router.navigate(['/benefit/spouse-info']);
     }
 
@@ -75,7 +76,6 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
         //const allDocs: MspImage[][] = this.dataService.benefitApp.allPersons.filter(x => x).map(x => x.assistYeaDocs).filter(x => x)  ;
         //console.log(this.benefitApplication.applicant.assistYearDocs.length);
         if ( this.isAllValid() && this.benefitApplication.applicant.assistYearDocs && this.benefitApplication.applicant.assistYearDocs.length > 0) {
-            this._processService.setStep(BenefitPersonalInfoComponent.ProcessStepNum, true);
             return true;
         }
         return  false;

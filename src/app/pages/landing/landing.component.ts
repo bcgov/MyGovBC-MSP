@@ -57,6 +57,6 @@ export class LandingComponent {
 
   clearSavedBenefitAssisApp() {
     this.mspBenefitDataService.removeMspBenefitApp();
-    this.router.navigate(['/benefit/financial-info']);
+    this.router.navigate(['/benefit/eligibility']);
   }
 }

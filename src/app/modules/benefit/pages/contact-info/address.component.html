@@ -7,11 +7,9 @@
             <p class="help-block">Enter your current mailing address</p>
             <common-address [address]="mspApplication?.mailingAddress"
                             (addressChange)="handleAddressUpdate($event)"
-                            [defaultCountry]="'CAN'"
-                            [countryList]="countryList"
-                            [defaultProvince]="'BC'"
-                            [provinceList]="provinceList"
                             [isRequired]="true"
+                            [defaultProvince]="'BC'"
+                            [defaultCountry]="'CAN'"
                             [allowExtralines]='true'
                             [disableGeocoder]='true'>
             </common-address>

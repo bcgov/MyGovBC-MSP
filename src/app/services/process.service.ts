@@ -46,12 +46,15 @@ export class ProcessService extends CheckCompleteBaseService implements CanActiv
     }
 
     init(processSteps: ProcessStep[]): void {
+        console.log('init');
         const process = new Process();
         process.processSteps = processSteps;
         this.dataService.setMspProcess(process);
     }
 
     setStep(stepNumber: number, complete: boolean) {
+        console.log('set step');
+        
         const process = this.process;
         process.processSteps[stepNumber].complete = complete;
         this.dataService.setMspProcess(process);
@@ -80,6 +83,7 @@ export class ProcessService extends CheckCompleteBaseService implements CanActiv
     }
 
     addStep(step: ProcessStep, index: number) {
+        console.log('add step');
         const process = this.process;
         process.processSteps.splice(index, 0, step);
         this.dataService.setMspProcess(process);
@@ -98,9 +102,12 @@ export class ProcessService extends CheckCompleteBaseService implements CanActiv
         if (environment.bypassGuards) {
             return true;
         }
-
+        console.log('can activate');
+        
         // Find target route
         let lastIndex = 0;
+        console.log(this.process);
+        console.log(this.process.processSteps);
         for (lastIndex; lastIndex < this.process.processSteps.length; lastIndex++) {
             const step = this.process.processSteps[lastIndex];
             if (step.route === state.url) {

@@ -4,23 +4,23 @@ import { CommonModule } from '@angular/common';
 import { BenefitRoutingModule } from './benefit-routing.module';
 import { BenefitContainerComponent } from './components/benefit-container/benefit-container.component';
 import { FormsModule } from '@angular/forms';
-import { BenefitPrepareComponent } from './pages/prepare/prepare.component';
+import { BenefitPrepareComponent } from './pages/financial-info/prepare.component';
 import { BenefitPersonalInfoComponent } from './pages/personal-info/personal-info.component';
 import { BenefitReviewComponent } from './pages/review/review.component';
 import { BenefitAuthorizeSubmitComponent } from './pages/authorize-submit/authorize-submit.component';
 import { BenefitSendingComponent } from './pages/sending/sending.component';
 import { BenefitConfirmationComponent } from './pages/confirmation/confirmation.component';
-import { BenefitPersonalDetailComponent } from './pages/personal-detail/personal-detail.component';
 import { MspCoreModule } from '../msp-core/msp-core.module';
-import { BenefitEligibilityCardComponent } from './pages/prepare/eligibility-card/eligibility-card.component';
-import { TaxYearComponent } from './pages/prepare/tax-year/tax-year.component';
+import { BenefitEligibilityCardComponent } from './pages/financial-info/eligibility-card/eligibility-card.component';
+import { TaxYearComponent } from './pages/financial-info/tax-year/tax-year.component';
 import { MspBenefitDataService } from './services/msp-benefit-data.service';
 import { ModalModule } from 'ngx-bootstrap';
 import { BenefitSpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
-import { BenefitAddressComponent } from './pages/address/address.component'
+import { BenefitAddressComponent } from './pages/contact-info/address.component';
 import { ProcessService , ProcessStep} from '../../services/process.service';
 import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
-import { PersonalDetailsRetroSuppbenComponent } from '../msp-core/components/personal-details-retro-suppben/personal-details-retro-suppben.component'
+import { PersonalDetailsRetroSuppbenComponent } from '../msp-core/components/personal-details-retro-suppben/personal-details-retro-suppben.component';
+import { EligibilityComponent } from './pages/eligibility/eligibility.component'
 
 
 
@@ -36,7 +36,6 @@ import { PersonalDetailsRetroSuppbenComponent } from '../msp-core/components/per
     BenefitContainerComponent,
     BenefitPrepareComponent,
     BenefitPersonalInfoComponent,
-    BenefitPersonalDetailComponent,
     BenefitReviewComponent,
     BenefitAuthorizeSubmitComponent,
     BenefitSendingComponent,
@@ -44,7 +43,8 @@ import { PersonalDetailsRetroSuppbenComponent } from '../msp-core/components/per
     BenefitEligibilityCardComponent,
     TaxYearComponent,
     BenefitSpouseInfoComponent,
-    BenefitAddressComponent
+    BenefitAddressComponent,
+    EligibilityComponent
   ],
   providers: [
     { provide: AbstractPgCheckService, useExisting: CheckCompleteBaseService },
@@ -53,9 +53,10 @@ import { PersonalDetailsRetroSuppbenComponent } from '../msp-core/components/per
     ProcessService
   ]
 })
-export class BenefitModule { 
+export class BenefitModule {
 
   constructor(private processService: ProcessService) {
+    console.log('1');
     this.initProcessService();
   }
 

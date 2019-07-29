@@ -46,11 +46,16 @@ export class BenefitAddressComponent extends BaseComponent {
 
   ngOnInit(){
     this.initProcessMembers(BenefitAddressComponent.ProcessStepNum, this._processService);
+    this._processService.setStep(BenefitAddressComponent.ProcessStepNum, false);
   }
 
   ngAfterViewInit(): void {
     if ( this.mspApplication.mailingAddress.addressLine1 != null) {
       this.dataService.benefitApp.mailingAddress.hasValue = true;
+    }
+
+    if ( this.mspApplication.mailingAddress.province === undefined || this.mspApplication.mailingAddress.province === null ) {
+      this.dataService.benefitApp.mailingAddress.province = '';
     }
 
     this.form.valueChanges.subscribe(values => {

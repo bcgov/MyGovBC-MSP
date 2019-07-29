@@ -70,6 +70,9 @@ export class BenefitSendingComponent implements AfterContentInit  {
                 return;
             }
             const refNumber = response.op_reference_number;
+            const isCutOffDate = this.dataService.benefitApp.isCutoffDate;
+            const hasCutoffYear =  (this.dataService.benefitApp.cutoffYear === this.dataService.benefitApp.taxYear) ? true : false;
+ 
             this.logService.log({
                 name: 'Supplementary Benefit - Received refNo ',
                 confirmationNumber: refNumber,
@@ -78,7 +81,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
             this.dataService.removeMspBenefitApp();
 
             this.router.navigate(['/benefit/confirmation'],
-                {queryParams: {confirmationNum: refNumber}});
+                {queryParams: {confirmationNum: refNumber, isCutOff: isCutOffDate, isCutOffyear: hasCutoffYear}});
       });
   }
 
