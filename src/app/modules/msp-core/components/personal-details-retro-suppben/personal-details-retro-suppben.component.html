@@ -11,26 +11,27 @@
       
     
     <!-- Full Name  -->
-    <!-- <div class="row">
-        <div class="col-md-6">
-            <msp-full-name [data]="person" (dataChange)="onChange.emit($event);"></msp-full-name>
-            
-        </div>
-    </div> -->
+    <div class="form-group">
+       &nbsp;
+    </div>
+                    
     <div class="row">
         <div class="col-md-6">
-            <msp-full-name [useRows]='false' [data]="person" (dataChange)="onChange.emit($event);"></msp-full-name>
-        
+            <div class="form-group">
+                    <msp-full-name [useRows]='false' [data]="person" (dataChange)="onChange.emit($event);"></msp-full-name>
+            </div>
         </div>
     </div>
 
     <!-- BirthDate  -->
     <div class="row">
       <div class="col-md-6">
-        <msp-birthdate #birthdate
-                      [person]="person"
-                      (onChange)="onChange.emit($event)">
-        </msp-birthdate>
+        <div class="form-group">
+            <msp-birthdate #birthdate
+                        [person]="person"
+                        (onChange)="onChange.emit($event)">
+            </msp-birthdate>
+        </div>
       </div>
     </div>
 
@@ -50,7 +51,8 @@
             </div>
         </div>
     </div>
-    
+
+    <!-- SIN -->
     <div class="row">
         <div class="col-md-6">
             <common-sin
@@ -65,40 +67,47 @@
         </div>
     </div>
 
-    <!-- SIN  
-    <div class="row">
-      <div class="col-md-6">
-          <div class="form-group"
-              [ngClass]="{'has-error': !formRef.controls.sin?.valid && sinRef.touched}">
-            <label class="control-label" for="sin">Social Insurance Number (SIN)</label>
-            <input type="text"
-                  [(ngModel)]="person.sin"
-                  required
-                  pattern="[0-9]{1}\d{2}\s?\d{3}\s?\d{3}"
-                  id='sin' name='sin'
-                  maxlength="9"
-                  #sinRef="ngModel"
-                  class="form-control"
-                  placeholder="046 454 286">
-            <div *ngIf='sinRef.touched'>
-              <div class="text-danger" *ngIf="sinRef.errors?.required"
-                  [innerHTML]="lang('./en/index.js').sinErrorRequired"></div>
-              <div class="text-danger" *ngIf="sinRef.errors?.pattern"
-                  [innerHTML]="lang('./en/index.js').sinErrorPattern"></div>
-              <div class="text-danger" *ngIf="!sinRef.errors?.pattern && sinRef.errors?.sinCheck"
-                  [innerHTML]="lang('./en/index.js').sinCheckErrorPattern"></div>
-            </div>
-            <div class="text-danger" *ngIf="!isSinUnique()"
-                [innerHTML]="lang('./en/index.js').sinUniqueError">
-            </div>
-          </div>
-      </div>
-    </div> -->
-
     <!-- Doc Uploader   -->
     <h2>Documents</h2>
-    <p class="help-block"> Upload your Notice of Assessment or Reassessment from Canada Revenue Agency for {{benefitApp.taxYear}}</p>
-    <div class="row">
+    <p class="help-block"> Upload your Notice of Assessment or Reassessment from Canada Revenue Agency for <b>{{benefitApp.taxYear}}</b></p>
+        <common-page-section layout="tips">
+            <div >
+                <common-file-uploader 
+                    [images]="person.assistYearDocs"
+                    (imagesChange)="addDocument($event)"
+                    [id]='benefitApp.id'
+                    (errorDocument)="errorDoc($event)" 
+                    instructionText="Please upload Notice of Assessment documents for {{benefitApp.taxYear}} ">
+                </common-file-uploader>
+            </div>   
+             
+            <!-- TIP -->
+            <aside >
+            <div class="row">
+                <div class="col-2">
+                    <i class="fa fa-exclamation-triangle" style="font-size: 35px;"></i>
+                </div>
+                <div class="col-8">
+                <p>
+                        If you are uploading a copy of a Notice of Assessment or Reassessment from the Canada Revenue Agency website, make sure the image contains
+                </p>
+                <ul>
+                    <li>
+                            Your name
+                    </li>
+                    <li>
+                            the tax year
+                    </li>
+                    <li>
+                            your net income (line 236)
+                    </li>
+                </ul>
+            </div>
+            </div>
+                    
+                </aside>
+        </common-page-section>
+    <!-- <div class="row">
         <div class="col-md-6" >
 
             <common-file-uploader 
@@ -108,7 +117,7 @@
                                (errorDocument)="errorDoc($event)" instructionText="Please upload Notice of Assessment documents for {{benefitApp.taxYear}}">
              </common-file-uploader>
             </div>
-        </div>
+        </div> -->
         
         <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
   </form>

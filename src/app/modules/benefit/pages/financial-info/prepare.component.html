@@ -391,26 +391,59 @@
                             </div>
                         </div>
                      
-                        <!-- Expense receipt File Uploader -->
-                        <div *ngIf="requireAttendantCareReceipts">
-                            
-                                <div class="col-10 sub-section">
-                                    <label for="netIncome">Please upload your attendant care or nursing home expense receipts for the expense entered above.</label>
-                                    <div class="form-group">
-                                        <common-file-uploader #fileUploader
-                                                            [images]="benefitApp.attendantCareExpenseReceipts"
-                                                            [id]='benefitApp.id'
-                                                            (imagesChange)="addReceipts($event)">
-                                        </common-file-uploader>
-                                    </div>
-                                    <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
-                                </div>
-                                <div  class="col-4 tool-tip" >
+                        <!-- Expense receipt File Uploader 
+                         <div  class="col-4 tool-tip" >
                                         <h2>Tip</h2>   
                                 </div>  
-                                
-                           
+                            -->
+                        
+                </div>
+                <div *ngIf="requireAttendantCareReceipts">
                             
+                        <div class="col-lg-12 sub-section">
+                                <label for="netIncome">Please upload your attendant care or nursing home expense receipts for the expense entered above.</label>
+                                <common-page-section layout="tips">
+                                    <div style="width:150%">
+                                        <common-file-uploader #fileUploader
+                                            [images]="benefitApp.attendantCareExpenseReceipts"
+                                            [id]='benefitApp.id'
+                                            (imagesChange)="addReceipts($event)">
+                                        </common-file-uploader>
+                                    </div>    
+                                    <aside  style="position:inherit;left:450px;bottom:15px;height:275px;">
+                                        <p>
+                                            <b>
+                                                Tip
+                                            </b>
+                                        </p>
+                                        <p>
+                                            Scan the document, or take a photo of it.
+                                        </p>
+                                        <p>
+                                            Make sure that it’s:
+                                        </p>
+                                          
+                                        <ul>
+                                            <li>
+                                                    The entire document, from corner to corner
+                                            </li>
+                                            <li>
+                                                    Rotated correctly (not upside down or sideways)
+                                            </li>
+                                            <li>
+                                                    In focus and easy to read
+                                            </li>
+                                            <li>
+                                                    A JPG, PNG, GIF, BMP or PDF file
+                                            </li>
+                                        </ul>
+                                         
+                                        </aside>
+                                </common-page-section>
+                               
+                           
+                            <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
+                       
                         </div>
                 </div>
             </form>
@@ -463,6 +496,7 @@
 </common-consent-modal>         
 -->
 </common-page-framework>
+
 
 <common-form-action-bar [submitLabel]="'Continue'"
         [defaultColor]="false"

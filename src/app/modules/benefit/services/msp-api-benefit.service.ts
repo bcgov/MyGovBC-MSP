@@ -36,9 +36,10 @@ import { FieldPageMap } from '../models/field-page-map';
 // This service should handle the hitting of the middleware
 export class MspApiBenefitService extends AbstractHttpService {
   protected _headers: HttpHeaders = new HttpHeaders();
-  readonly ISO8601DateFormat = 'MM-DD-YYYY';
+  readonly ISO8601DateFormat = 'YYYY-MM-DD';
   suppBenefitResponse: SuppBenefitApiResponse;
 
+  
   constructor(
     protected http: HttpClient,
     private logService: MspLogService,
@@ -453,7 +454,7 @@ export class MspApiBenefitService extends AbstractHttpService {
         ? `0${(date.getMonth() + 1).toString()}`
         : (date.getMonth() + 1).toString();
     const year = date.getFullYear();
-    const authorizedByApplicantDate = `${month}-${day}-${year}`;
+    const authorizedByApplicantDate = `${year}-${month}-${day}`;
     to.authorizedByApplicantDate = authorizedByApplicantDate;
     to.authorizedByApplicant = from.authorizedByApplicant ? 'Y' : 'N';
     to.authorizedBySpouse = from.authorizedBySpouse ? 'Y' : 'N';

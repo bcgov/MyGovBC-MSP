@@ -3,8 +3,8 @@
         <h1>Contact Info</h1>
         <p class="help-block">Please provide the Account Holder's information.</p>
         <common-page-section layout='double'>
-            <h2 class="border-bottom">Mailing Address</h2>
-            <p class="help-block">Enter your current mailing address</p>
+            <h2>Mailing Address</h2>
+            <p class="help-block border-bottom">Enter your current mailing address</p>
             <common-address [address]="mspApplication?.mailingAddress"
                             (addressChange)="handleAddressUpdate($event)"
                             [isRequired]="true"
@@ -14,13 +14,24 @@
                             [disableGeocoder]='true'>
             </common-address>
             </common-page-section>
+        <h2 class="border-bottom">Phone</h2>
         <div class="row">
-            <div class="form-group col-md-5">
+            <div class="form-group col-3">
                 <common-phone-number name="phone_number" 
-                    [label]="'Phone Number'" 
+                    [label]="'Phone Number (optional)'" 
                     [phoneNumber]="mspApplication.phoneNumber" 
                     (onChange)="handlePhoneNumberChange($event)">
                 </common-phone-number>
+            </div>
+            <div class="col-9">           
+                <common-page-section layout="tips">
+                    <aside>
+                        <b>Tip</b>
+                        <p>
+                            Please provide a phone number so you may be contacted in case of any issues with your application.
+                        </p>
+                    </aside>
+                </common-page-section>
             </div>
         </div>
     </form>

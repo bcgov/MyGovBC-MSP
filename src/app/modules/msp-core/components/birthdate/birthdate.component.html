@@ -1,4 +1,4 @@
-<form #formRef='ngForm' novalidate>
+<form #formRef='ngForm'>
   <common-date [label]="dateLabel" [restrictDate]="'past'" [(date)]="person.dateOfBirth"
     (dateChange)="onChange.emit($event)"></common-date>
 </form>

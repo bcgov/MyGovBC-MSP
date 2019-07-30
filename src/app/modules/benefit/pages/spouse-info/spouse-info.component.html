@@ -1,36 +1,36 @@
 <common-page-framework layout="blank">
   <form #formRef="ngForm" novalidate>
-
-  <h1>Tell us about your Spouse and upload official documents</h1>
-
-  
-    
-  <div class="row">
-    <div class="col-sm-8">
+  <div class="col-10" >
+    <h1> <b>  Add spouse information and upload documents </b></h1>
+  </div>
+  <div class="col-6">
+    <p class="help-block border-bottom">Do you have a spouse or common-law partner? If so, you are required to provide spouse information and upload a Notice of Assessment or Reassessment.</p>
+  </div>
+ 
+  <div class="col-8">
+    <div style="width: 480px;">
       <common-button [label]="'Add Spouse'" 
         buttonType="primary" [disabled] = "benefitApplication.hasSpouseOrCommonLaw" (btnClick)='addSpouse()'>
       </common-button>
     </div>
-  </div>  
+  </div>
+
+  <div class="col-12">
   
   <div *ngIf="benefitApplication.hasSpouseOrCommonLaw">
     <h2>Your spouse or common-law partner</h2>
-    <h4>Enter spouse's legal name as it appears on their official Canadian identity documents, e.g., birth certificate, permanent resident card, passport.</h4>
+    <h4>Enter your spouse’s legal name as it appears on their BC Service Card.
+    </h4>
     <hr>
-   <!--  <msp-benefit-personal-detail *ngIf="benefitApplication.hasSpouseOrCommonLaw"
-                                   [person]="benefitApplication.spouse"
-                                   (onChange)="onChange($event)" 
-                                   (notifySpouseRemoval)="removeSpouse($event)">
-    </msp-benefit-personal-detail> -->
-
-   <msp-personal-details-retro-suppben *ngIf="benefitApplication.hasSpouseOrCommonLaw"
-        [(person)]="benefitApplication.spouse"
-        [benefitApp] = "benefitApplication"
-        (onChange)="onChange($event)"
-        [removeable]='true'
-        (notifySpouseRemoval)="removeSpouse($event)">
-    </msp-personal-details-retro-suppben>  
-
+      <msp-personal-details-retro-suppben *ngIf="benefitApplication.hasSpouseOrCommonLaw"
+            [(person)]="benefitApplication.spouse"
+            [benefitApp] = "benefitApplication"
+            (onChange)="onChange($event)"
+            [removeable]='true'
+            (notifySpouseRemoval)="removeSpouse($event)">
+        </msp-personal-details-retro-suppben>  
+   
+  </div>
   </div>
   
   </form>
