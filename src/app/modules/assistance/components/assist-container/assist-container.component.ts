@@ -106,6 +106,7 @@ export class AssistContainerComponent extends Container implements OnInit {
       const app = this.xformSvc.application;
       const validateList = await this.schemaSvc.validate(app);
       console.log('validate', validateList.errors);
+
       if (validateList.errors != null && validateList.errors.length > 0) {
         this.isLoading = false;
         for (let error of validateList.errors) {
@@ -125,9 +126,6 @@ export class AssistContainerComponent extends Container implements OnInit {
           ]);
         }
       }
-    } catch (err) {
-      console.error(err);
-    } finally {
       let res = await this.stateSvc.submitApplication();
       this.isLoading = false;
       this.router.navigate([
@@ -137,6 +135,9 @@ export class AssistContainerComponent extends Container implements OnInit {
       ]);
 
       this.submitLabel$.next('Home');
+    } catch (err) {
+      console.error(err);
+    } finally {
     }
   }
 }

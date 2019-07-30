@@ -177,10 +177,13 @@ export class AssistStateService {
     const app = this.xformSvc.application;
     console.log('run');
     try {
+      console.log('attachments', attachments);
       await this.api.sendFiles(token, app.uuid, attachments);
       const call = await this.api.sendApp(app, token, app.uuid, attachments);
       const res = await call.toPromise();
+
       const isSuccess = res.op_return_code === 'SUCCESS';
+      console.log('result', res);
       isSuccess
         ? (this.dataSvc.removeFinAssistApplication(), this.success$.next(res))
         : this.failure$.next(res);
