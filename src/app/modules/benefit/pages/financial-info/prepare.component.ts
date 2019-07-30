@@ -207,7 +207,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         console.log(evt);
         console.log(this.continue);
 
-        if(this.benefitApp.hasRegisteredDisabilityPlan === undefined ||this.benefitApp.hasClaimedAttendantCareExpenses === undefined) {
+        if(this.benefitApp.hasRegisteredDisabilityPlan === undefined || this.benefitApp.hasClaimedAttendantCareExpenses === undefined) {
             return false;
         }
 
@@ -216,7 +216,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             return false ;
         }
 
-        if (this.benefitApp.attendantCareExpenseReceipts.length === 0 && (this.benefitApp.applicantClaimForAttendantCareExpense || this.benefitApp.spouseClaimForAttendantCareExpense || this.benefitApp.childClaimForAttendantCareExpense)) {
+        if ( this.benefitApp.attendantCareExpenseReceipts.length === 0 && (this.benefitApp.applicantClaimForAttendantCareExpense || this.benefitApp.spouseClaimForAttendantCareExpense || this.benefitApp.childClaimForAttendantCareExpense || this.benefitApp.hasClaimedAttendantCareExpenses === true )) {
             this.continue = false;
             return false;
         }
