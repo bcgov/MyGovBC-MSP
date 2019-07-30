@@ -47,7 +47,6 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
         this.personalDetailsForm.valueChanges.pipe(debounceTime(0))
             .subscribe( values => {
                 this.onChange.emit(values);
-                
                 //this.dataService.saveBenefitApplication();
             });
     //    this.dataService.saveBenefitApplication();
@@ -76,7 +75,7 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
         this.docActionEvent.emit(evt);
     }
 
-    addDocument(evt: Array<any>) {   
+    addDocument(evt: Array<any>) {
         console.log('evt', evt);
         this.person.assistYearDocs = evt;
         this.dataService.saveBenefitApplication();

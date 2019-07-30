@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { BaseComponent } from '../../../../models/base.component';
 import { MspAddressComponent } from '../../../msp-core/components/address/address.component';
@@ -19,7 +19,7 @@ import { CANADA } from 'moh-common-lib';
     <h2>{{ title }}</h2>
     <h3>{{ subtitle }}</h3>
     <p class="border-bottom">{{ description }}</p>
-    <common-page-section>
+    <common-page-section layout="double">
       <form #formRef="ngForm" novalidate>
         <msp-assist-account-holder
           [person]="financialAssistApplication.applicant"
@@ -46,10 +46,10 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
 
   touched$: Observable<any>;
 
-  title = 'Tell us about who is applying and upload official documents';
-  subtitle = 'Account Holder (Main Applicant)';
+  title = 'Add personal information and upload documents';
+  subtitle = 'Medical Services Plan Account Holder';
   description =
-    'Enter your legal name as it appears on your official Canadian identity documents, e.g., birth certificate, permanent resident card, passport.';
+    'Enter your legal name as it appears on your BC Services Card or CareCard.';
   documentsTitle = 'Documents';
   documentsDescription =
     'Upload your Notice of Assessment (NOA) or Notice of Reassessment (NORA) from Canada Revenue Agency for ';
@@ -57,21 +57,19 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   assistanceYears: any[];
   constructor(
     private dataService: MspDataService,
-    private _router: Router,
     private route: ActivatedRoute,
     private stateSvc: AssistStateService,
-    //private _processService: ProcessService,
     cd: ChangeDetectorRef
   ) {
     super(cd);
     this.financialAssistApplication = this.dataService.finAssistApp;
     // if the country is blank or null or undefined then assign Canada By Default //DEF-153
-    if (
+  /*  if (
       !this.financialAssistApplication.mailingAddress.country ||
       this.financialAssistApplication.mailingAddress.country.trim().length === 0
     ) {
       this.financialAssistApplication.mailingAddress.country = CANADA;
-    }
+    }*/
   }
 
   ngAfterViewInit() {
@@ -118,12 +116,14 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   }
 
   createDocumentDesc(years: any[]) {
-    return years
-      .map(itm => itm.year)
-      .sort((a, b) => a - b)
-      .reduce((a, b, i, arr) =>
-        i === arr.length - 1 ? `${a} and ${b}.` : `${a}, ${b}`
-      );
+    if (years  && years.length ) {
+      return years
+        .map(itm => itm.year)
+        .sort((a, b) => a - b)
+        .reduce((a, b, i, arr) =>
+          i === arr.length - 1 ? `${a} and ${b}.` : `${a}, ${b}`
+        );
+    }
   }
 
   // onChange($event) {
@@ -135,7 +135,6 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   // Final check to see if the country is present // DEF 153
 
   saveAccountHolder(evt: MspPerson) {
-    console.log(evt);
     this.dataService.saveFinAssistApplication();
   }
 }

@@ -1,4 +1,6 @@
 <common-page-framework layout="blank">
+  <div *ngIf="benefitApp.isEligible != false">  
+        
     <a onclick="window.print();return false;" >   
     <b class="float-right">Print <i class="fa fa-print fa-lg pointer" 
         aria-hidden="true"></i>
@@ -12,7 +14,9 @@
                 <i class="fa fa-check-circle" aria-hidden="true"></i> Your application has been submitted
             </h1>
             <p class="font-weight-normal h4">{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}</p>
-        </div>
+            <p class="font-weight-normal h3" style="text-align: start" > <li [innerHtml]="noticeOfAssessment"></li> </p>
+            
+          </div>
     </div>
     
     <h2>Next Steps</h2>
@@ -38,6 +42,25 @@
               <h3 [innerHTML]="lang('./en/index.js').generalInstructions5"></h3>
             </li>
           </ul>
+      </div>
+      
+      <!-- Not Eligible Section -->
+      <div *ngIf="benefitApp.isEligible == false"> 
+          <h1>Eligibility Message</h1>
+          <hr>
+          <div style="border-style: solid; color:rgba(0, 0, 191, 1);" >
+            <div class="container">
+                <h2> <i class="fa fa-exclamation-circle" aria-hidden="true"></i> You are not eligible to apply at this time 
+                </h2>
+                <h3>
+                  Please make a new application when you meet the residency requirements. For assistance please contact <a href="">Health Insurance BC.</a> 
+                </h3>
+                <h3>
+                  For more information on eligibility requirements visit a <a href="">Landing Page.</a>
+                </h3>
+            </div>
+          </div>
+      </div>
     
 </common-page-framework>
 

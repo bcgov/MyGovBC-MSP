@@ -10,7 +10,7 @@ import { AssistanceSendingComponent } from './pages/sending/sending.component';
 import { AssistanceConfirmationComponent } from './pages/confirmation/confirmation.component';
 import { FormsModule } from '@angular/forms';
 import { MspCoreModule } from '../msp-core/msp-core.module';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule, BsModalService } from 'ngx-bootstrap';
 import { AssistContactComponent } from './pages/contact/assist-contact.component';
 import { AssistMailingComponent } from './components/assist-mailing/assist-mailing.component';
 import { AssistanceHomeComponent } from './pages/home/home.component';
@@ -20,6 +20,7 @@ import { AssistCraDocumentsComponent } from './components/assist-cra-documents/a
 import { SpouseComponent } from './pages/spouse/spouse.component';
 import { RouteGuardService } from 'moh-common-lib';
 import { AssistGuard } from './guards/assist.guard';
+import { AssistRatesModalComponent } from './components/assist-rates-modal/assist-rates-modal.component';
 
 @NgModule({
   imports: [
@@ -42,9 +43,10 @@ import { AssistGuard } from './guards/assist.guard';
     AssistRatesHelperModalComponent,
     AssistAccountHolderComponent,
     AssistCraDocumentsComponent,
-    SpouseComponent
+    SpouseComponent,
+    AssistRatesModalComponent
   ],
-  providers: [RouteGuardService, AssistGuard],
+  providers: [RouteGuardService, AssistGuard, BsModalService],
   exports: [AssistMailingComponent, AssistAccountHolderComponent]
 })
 export class AssistanceModule {}

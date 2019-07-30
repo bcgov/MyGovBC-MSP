@@ -1,13 +1,20 @@
-<p id="qTaxYear" class="intro" [innerHtml]="lang('./en/index.js').taxYearTitle"></p>
-<h5 id="txYearSubtitle" class="intro" [innerHtml]="lang('./en/index.js').taxYearSubTitle"></h5>
+<!--<p id="qTaxYear" class="intro" [innerHtml]="lang('./en/index.js').taxYearTitle"></p>
+<h5 id="txYearSubtitle" class="intro" [innerHtml]="lang('./en/index.js').taxYearSubTitle"></h5> -->
 <label class="intro" id="taxYear" [innerHtml]="lang('./en/index.js').enterTaxYearLabel"></label>
-<div style="display:inline-block;" *ngFor="let st of assistanceYears;  let i = index">
+<div  style="display:inline-block;" *ngFor="let st of assistanceYears;  let i = index">
     <common-radio [value]="currentTaxYear"
         [radioLabels]='[{ "label": st.year, "value": st.year}]'
-        (statusChange)="setTaxYear(st.year)"
-        [disabled]="st.disabled">
+        (statusChange)="setTaxYear(st.year)">
     </common-radio>
+
 </div>
+
+<div *ngIf="(this.cutOffYear===currentTaxYear) && this.cutOffYear " class="text-danger">
+        <i class="fa fa-exclamation-circle " style="font-size: 15px;"></i>
+        Selecting this tax year will allow you to be evaluated for benefits only until the end of this calendar year. You must provide the most recent year’s tax information to be assessed for next calendar year.
+</div>
+    
+
 <!--
 <div style="display:inline-block;" *ngFor="let st of assistanceYearsList;  let i = index">
    

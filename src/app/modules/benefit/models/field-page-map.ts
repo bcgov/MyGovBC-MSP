@@ -1,6 +1,5 @@
-import { ProcessStep } from '../../../services/process.service';
-
 export class FieldPageMap {
+
   financialInfo = [
     'taxYear',
     'assistanceYear',
@@ -40,7 +39,7 @@ export class FieldPageMap {
       'spouseSIN'
     ];
 
-  contactInfo = [   
+  contactInfo = [
     'applicantAddressLine1',
     'applicantCity',
     'applicantCountry',
@@ -49,7 +48,7 @@ export class FieldPageMap {
     'mailingAddress',
     'applicantTelephone'
   ];
-  
+
 
   review = [];
 
@@ -83,6 +82,4 @@ export class FieldPageMap {
       if (val >= 0) return this.fields.indexOf(list);
     }
   }
-
-  // urls located somewhere
 }

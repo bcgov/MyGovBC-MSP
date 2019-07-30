@@ -132,7 +132,10 @@ export class AssistanceReviewComponent implements OnInit {
     private route: ActivatedRoute,
     private stateSvc: AssistStateService
   ) {
+    this.dataService.saveFinAssistApplication();
+
     const app = this.dataService.finAssistApp;
+
     this.address = app.mailingAddress;
     this.applicantInformation();
     this.hasSpouse = app.hasSpouseOrCommonLaw;
@@ -157,9 +160,11 @@ export class AssistanceReviewComponent implements OnInit {
   }
 
   get appYears() {
+    if ( this.applicantInfo.years) {
     return this.applicantInfo.years
       .map(itm => itm.toString())
       .reduce((a, b) => `${a}, ${b}`);
+    }
   }
 
   get spouseYears() {

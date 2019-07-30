@@ -42,7 +42,8 @@
                       #phnRef="ngModel"
                       name="phn"
                       [(ngModel)]="person.previous_phn"
-                      required></common-phn>
+                      required
+                      commonValidatePhn></common-phn>
               <div class="text-danger" *ngIf="!isPhnUnique()"
                 [innerHTML]="lang('./en/index.js').phnUniqueError">
               </div>
@@ -50,7 +51,21 @@
         </div>
     </div>
     
-    <!-- SIN  -->
+    <div class="row">
+        <div class="col-md-6">
+            <common-sin
+                [(ngModel)]="person.sin"
+                name="sin"
+                id="sin"
+                required>
+            </common-sin>
+            <div class="text-danger" *ngIf="!isSinUnique()"
+                [innerHTML]="lang('./en/index.js').sinUniqueError">
+            </div>
+        </div>
+    </div>
+
+    <!-- SIN  
     <div class="row">
       <div class="col-md-6">
           <div class="form-group"
@@ -59,8 +74,9 @@
             <input type="text"
                   [(ngModel)]="person.sin"
                   required
-                  pattern="[1-9]{1}\d{2}\s?\d{3}\s?\d{3}"
+                  pattern="[0-9]{1}\d{2}\s?\d{3}\s?\d{3}"
                   id='sin' name='sin'
+                  maxlength="9"
                   #sinRef="ngModel"
                   class="form-control"
                   placeholder="046 454 286">
@@ -77,13 +93,13 @@
             </div>
           </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Doc Uploader   -->
     <h2>Documents</h2>
     <p class="help-block"> Upload your Notice of Assessment or Reassessment from Canada Revenue Agency for {{benefitApp.taxYear}}</p>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6" >
 
             <common-file-uploader 
                                [images]="person.assistYearDocs"

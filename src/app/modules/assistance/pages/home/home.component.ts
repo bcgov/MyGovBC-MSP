@@ -29,9 +29,9 @@ import { AssistStateService } from '../../services/assist-state.service';
       <p>
         Retroactive Premium Assistance provides assistance for previously
         charged Medical Services Plan premiums.
-        <button class="btn btn-link p-0" (click)="openModal(modal)">
+        <a class="btn btn-link p-0" [href]="taxLink">
           Medical Services Plan premiums
-        </button>
+        </a>
         are based on the previous tax year's adjusted net income.
       </p>
       <p>
@@ -59,8 +59,20 @@ import { AssistStateService } from '../../services/assist-state.service';
     <common-page-section layout="tips">
       <form #formRef="ngForm" novalidate>
         <h3>
-          What premium years would you like to apply for retroactive assistance?
+          Which years do you think your income might qualify you for Retroactive
+          Premium Assistance?
         </h3>
+        <p>
+          <span>
+            Note:
+          </span>
+          <button class="btn btn-link p-0" (click)="openModal(modal)">
+            Income eligibility
+          </button>
+          <span>
+            for Retroactive Permium Assistance.
+          </span>
+        </p>
         <div class="row">
           <div class="col-12">
             <common-checkbox
@@ -98,9 +110,9 @@ import { AssistStateService } from '../../services/assist-state.service';
       </aside>
     </common-page-section>
     <ng-template #modal>
-      <msp-assist-rates-helper-modal
-        [rateData]="rateData"
-      ></msp-assist-rates-helper-modal>
+      <msp-assist-rates-modal
+        (closeModal)="closeModal()"
+      ></msp-assist-rates-modal>
     </ng-template>
 
     <common-consent-modal
@@ -138,9 +150,7 @@ import { AssistStateService } from '../../services/assist-state.service';
         provincial health care benefits in BC and administer Premium Assistance.
         Should you have any questions about the collection of this personal
         information please
-        <a
-          href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us"
-          target="_blank"
+        <a [href]="contactLink" target="_blank"
           >contact Health Insurance BC
           <i class="fa fa-external-link" aria-hidden="true"></i></a
         >.
@@ -154,6 +164,12 @@ export class AssistanceHomeComponent extends BaseComponent
   @ViewChild('formRef') prepForm: NgForm;
 
   touched$ = this.stateSvc.touched.asObservable();
+
+  taxLink =
+    'https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/premiums/regular-premium-assistance';
+
+  contactLink =
+    'http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us';
 
   title = 'Apply for Retroactive Premium Assistance';
   consentProcessName = 'apply for Premium Assistance';
@@ -221,14 +237,16 @@ export class AssistanceHomeComponent extends BaseComponent
 
   applyOption(bool: boolean, i: number) {
     this.options[i].apply = bool;
+    if (!bool) {
+      this.options[i].hasSpouse = false;
+      this.options[i].spouseFiles = undefined;
+    }
     this.dataSvc.saveFinAssistApplication();
   }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalSvc.show(template, {
-      backdrop: true,
-      class: 'modal-md',
-      keyboard: false
+      class: 'modal-md'
     });
   }
   initYearsList() {
@@ -266,6 +284,11 @@ export class AssistanceHomeComponent extends BaseComponent
     }
     this.dataSvc.saveFinAssistApplication();
     this.options = this.dataSvc.finAssistApp.assistYears;
+  }
+
+  closeModal() {
+    console.log('clicked');
+    this.modalRef.hide();
   }
 
   acceptConsent(evt: boolean) {
