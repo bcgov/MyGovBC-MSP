@@ -21,7 +21,6 @@ import { HeaderService } from '../../../../services/header.service';
     <common-page-framework layout="blank">
       <router-outlet></router-outlet>
     </common-page-framework>
-
     <common-form-action-bar
       (btnClick)="continue()"
       [submitLabel]="submitLabel$ | async"
@@ -143,7 +142,7 @@ export class AssistContainerComponent extends Container implements OnInit {
     } catch (err) {
       console.error(err);
     } finally {
-      this.submitLabel$.next('Home');
+      //this.submitLabel$.next('Home');
       //this.submitLabel$.next('Home');
     }
   }
