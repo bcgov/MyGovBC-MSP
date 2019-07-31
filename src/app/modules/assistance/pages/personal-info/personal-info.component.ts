@@ -51,7 +51,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
     'Enter your legal name as it appears on your BC Services Card or CareCard.';
   documentsTitle = 'Documents';
   documentsDescription =
-    'Upload your Notice of Assessment (NOA) or Notice of Reassessment (NORA) from Canada Revenue Agency for ';
+    'Upload your Canada Revenue Agency Notice of Assessment or Reassessment for ';
 
   assistanceYears: any[];
   constructor(
@@ -93,17 +93,17 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
 
   ngOnInit() {
     const assistYears = this.financialAssistApplication.assistYears;
-    let arr = [];
+    const arr = [];
     const checkYear = (year: AssistanceYear) => {
       return year.apply ? year : null;
     };
-    for (let year of assistYears) {
+    for (const year of assistYears) {
       arr.push(checkYear(year));
     }
     this.assistanceYears = arr
       .filter(itm => itm != null)
       .map(itm => {
-        let obj = itm;
+        const obj = itm;
         if (!obj.files) obj.files = [];
         return obj;
       });

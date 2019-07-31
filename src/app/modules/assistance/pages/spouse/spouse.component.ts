@@ -23,26 +23,19 @@ export interface spouseYears {
       class="btn btn-primary btn-md"
       (click)="addSpouse()"
     >
-      Add Spouse
+      Add Spouse Information
     </button>
-    <ng-container *ngIf="showTaxYears">
+    <common-page-section layout='noTips' *ngIf="showTaxYears">
       <h2>{{ yearTitle }}</h2>
-      <div class="border-bottom">
-        <div class="row">
-          <span class="col-11">{{ yearDescription }}</span>
-          <common-xicon-button *ngIf="showTaxYears" label= "Remove spouse" (click)="removeSpouse()">
-          </common-xicon-button>
-      <!--    <button
-            *ngIf="showTaxYears"
-            class="col-1 btn btn-transparent float-right"
-            (click)="removeSpouse()"
-          >
-            <i class="fa fa-times ecks"></i>
-            <span class="hidden">Remove spouse</span>
-          </button> -->
-        </div>
-      </div>
-      <label>In what years did you have a spouse on your MSP account?</label>
+      <p class="border-bottom">
+        {{ yearDescription }}
+        <common-xicon-button *ngIf="showTaxYears" label= "Remove spouse" (click)="removeSpouse()">
+        </common-xicon-button>
+      </p>
+
+
+    <ng-container *ngIf="showTaxYears">
+      <h3>When did you have a spouse?</h3>
       <div class="row">
         <div class="col-12">
           <common-checkbox
@@ -72,14 +65,16 @@ export interface spouseYears {
         </ng-container>
       </ng-container>
     </ng-container>
+  </common-page-section>
   `,
   styleUrls: ['./spouse.component.scss']
 })
 export class SpouseComponent extends BaseComponent implements OnInit {
   touched$ = this.stateSvc.touched.asObservable();
-  title = 'Tell us if you had a spouse and upload official documents';
+  title = 'Add spouse information and upload documents';
   description =
-    'If you had a spouse or common-law partner on your MSP Account during any of the years you are requesting assistance for, you are required to upload a copy of their Canada Revenue Agency Notice of Assessment or Notice of Reassessment for each year of the requested assistance.';
+    'Did you have a spouse or common-law partner during any of the years you are requesting Retroactive Premium Assistance? ' +
+    'If so, you are required to upload your spouses\' Notice of Assessment or Reassessment.';
   yearTitle = 'Your spouse or common-law partner';
   yearDescription = 'Select the tax year when you had a spouse';
   documentsTitle = 'Documents';
@@ -111,11 +106,11 @@ export class SpouseComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     const assistYears = this.finAssistApp.assistYears;
-    let arr = [];
+    const arr = [];
     const checkYear = (year: AssistanceYear) => {
       return year.apply ? year : null;
     };
-    for (let year of assistYears) {
+    for (const year of assistYears) {
       arr.push(checkYear(year));
     }
     this.assistanceYears = arr.filter(itm => itm != null).map(itm => itm.year);
@@ -126,7 +121,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
       this.documents = this.finAssistApp.spouse.documents;
 
     const years = this.finAssistApp.assistYears;
-    let hasSpouse = years.some(itm => itm.hasSpouse);
+    const hasSpouse = years.some(itm => itm.hasSpouse);
     if (hasSpouse) this.parseSpouse(years);
     this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
     if (this.finAssistApp.assistYears.some(itm => itm.hasSpouse))
@@ -137,9 +132,9 @@ export class SpouseComponent extends BaseComponent implements OnInit {
 
   parseSpouse(arr: AssistanceYear[]) {
     let i = 0;
-    for (let assistYear of this.finAssistApp.assistYears) {
+    for (const assistYear of this.finAssistApp.assistYears) {
       if (assistYear.hasSpouse) {
-        let itm = this.finAssistApp.assistYears[i];
+        const itm = this.finAssistApp.assistYears[i];
         if (!itm.spouseFiles) itm.spouseFiles = [];
         this.selectedYears.push(itm);
       }
@@ -164,7 +159,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     if (bool) {
       const itm = this.findYear(year);
       let i = 0;
-      for (let assistYear of this.finAssistApp.assistYears) {
+      for (const assistYear of this.finAssistApp.assistYears) {
         if (assistYear.year === year) this.finAssistApp.assistYears[i] = itm;
         i++;
       }
@@ -173,7 +168,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
       const itm = this.findYear(year);
       itm.hasSpouse = false;
       let i = 0;
-      for (let assistYear of this.finAssistApp.assistYears) {
+      for (const assistYear of this.finAssistApp.assistYears) {
         if (assistYear.year === year) this.finAssistApp.assistYears[i] = itm;
         i++;
       }
@@ -197,7 +192,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
   }
 
   checkYear(year: number) {
-    for (let obj of this.finAssistApp.assistYears) {
+    for (const obj of this.finAssistApp.assistYears) {
       if (obj.year === year) {
         if (obj.hasSpouse) {
           return obj.hasSpouse;
