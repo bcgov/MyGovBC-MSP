@@ -86,7 +86,7 @@ export class AssistContainerComponent extends Container implements OnInit {
   }
 
   continue() {
-    let index = this.stateSvc.index.value;
+    const index = this.stateSvc.index.value;
 
     this.stateSvc.isValid(index)
       ? this.navigate(index)
@@ -110,15 +110,16 @@ export class AssistContainerComponent extends Container implements OnInit {
       const app = this.xformSvc.application;
       const validateList = await this.schemaSvc.validate(app);
       console.log('validate', validateList.errors);
+
       if (validateList.errors != null && validateList.errors.length > 0) {
         this.isLoading = false;
-        for (let error of validateList.errors) {
+        for (const error of validateList.errors) {
           // console.log('error', validateList.errors, error);
-          let fieldName = findFieldName(error.dataPath);
+          const fieldName = findFieldName(error.dataPath);
 
-          for (let arr of AssistMapping.items) {
+          for (const arr of AssistMapping.items) {
             if (arr.some(itm => itm === fieldName)) {
-              let index = AssistMapping.items.indexOf(arr);
+              const index = AssistMapping.items.indexOf(arr);
               return this.router.navigate([
                 `/assistance/${this.stateSvc.routes[index]}`
               ]);

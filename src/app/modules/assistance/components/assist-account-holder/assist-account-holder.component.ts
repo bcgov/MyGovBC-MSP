@@ -27,14 +27,16 @@ import { Subscription } from 'rxjs';
           name="firstName"
           id="firstName"
           required
+          commonValidateName
         ></common-name>
       </div>
       <div class="form-group">
         <common-name
           [(ngModel)]="person.middleName"
           maxlen="30"
-          label="Middle name(optional)"
+          label="Middle name (optional)"
           name="middleName"
+          commonValidateName
         ></common-name>
       </div>
       <div class="form-group">
@@ -45,6 +47,7 @@ import { Subscription } from 'rxjs';
           name="lastName"
           id="lastName"
           required
+          commonValidateName
         ></common-name>
       </div>
       <div class="form-group">
@@ -64,6 +67,7 @@ import { Subscription } from 'rxjs';
           name="phn"
           id="phn"
           required
+          commonValidatePhn
         ></common-phn>
       </div>
       <div class="form-group">
@@ -72,6 +76,7 @@ import { Subscription } from 'rxjs';
           name="sin"
           id="sin"
           required
+          commonValidateSin
         ></common-sin>
       </div>
     </form>

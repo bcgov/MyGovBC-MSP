@@ -59,10 +59,10 @@ export const assistPages: Routes = [
 ];
 
 export let routes = assistPages;
-// if (environment.bypassGuards) {
-//     console.log('DEVELOPMENT ONLY - BYPASSING ROUTE GUARDS');
-//     routes = routes.map(x => {
-//         x.canActivate = [];
-//         return x;
-//     });
-// }
+ if (environment.bypassGuards) {
+    console.log('DEVELOPMENT ONLY - BYPASSING ROUTE GUARDS');
+     routes = routes.map(x => {
+           x.canActivate = [];
+         return x;
+     });
+ }

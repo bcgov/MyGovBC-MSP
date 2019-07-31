@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { BaseComponent } from '../../../../models/base.component';
 import { MspAddressComponent } from '../../../msp-core/components/address/address.component';
@@ -51,7 +51,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
     'Enter your legal name as it appears on your BC Services Card or CareCard.';
   documentsTitle = 'Documents';
   documentsDescription =
-    'Upload your Notice of Assessment (NOA) or Notice of Reassessment (NORA) from Canada Revenue Agency for ';
+    'Upload your Canada Revenue Agency Notice of Assessment or Reassessment for ';
 
   assistanceYears: any[];
   constructor(
@@ -63,12 +63,12 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
     super(cd);
     this.financialAssistApplication = this.dataService.finAssistApp;
     // if the country is blank or null or undefined then assign Canada By Default //DEF-153
-    if (
+  /*  if (
       !this.financialAssistApplication.mailingAddress.country ||
       this.financialAssistApplication.mailingAddress.country.trim().length === 0
     ) {
-      this.financialAssistApplication.mailingAddress.country = 'Canada';
-    }
+      this.financialAssistApplication.mailingAddress.country = CANADA;
+    }*/
   }
 
   ngAfterViewInit() {
@@ -93,17 +93,17 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
 
   ngOnInit() {
     const assistYears = this.financialAssistApplication.assistYears;
-    let arr = [];
+    const arr = [];
     const checkYear = (year: AssistanceYear) => {
       return year.apply ? year : null;
     };
-    for (let year of assistYears) {
+    for (const year of assistYears) {
       arr.push(checkYear(year));
     }
     this.assistanceYears = arr
       .filter(itm => itm != null)
       .map(itm => {
-        let obj = itm;
+        const obj = itm;
         if (!obj.files) obj.files = [];
         return obj;
       });
@@ -115,12 +115,14 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   }
 
   createDocumentDesc(years: any[]) {
-    return years
-      .map(itm => itm.year)
-      .sort((a, b) => a - b)
-      .reduce((a, b, i, arr) =>
-        i === arr.length - 1 ? `${a} and ${b}.` : `${a}, ${b}`
-      );
+    if (years  && years.length ) {
+      return years
+        .map(itm => itm.year)
+        .sort((a, b) => a - b)
+        .reduce((a, b, i, arr) =>
+          i === arr.length - 1 ? `${a} and ${b}.` : `${a}, ${b}`
+        );
+    }
   }
 
   // onChange($event) {

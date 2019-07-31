@@ -20,6 +20,8 @@ import { ConsentModalComponent } from 'moh-common-lib';
 // TODO: remove lodash
 import { ActivatedRoute } from '@angular/router';
 import { AssistStateService } from '../../services/assist-state.service';
+import { AssistRatesModalComponent } from '../../components/assist-rates-modal/assist-rates-modal.component';
+import { environment } from '../../../../../environments/environment.prod';
 
 @Component({
   selector: 'msp-assist-home',
@@ -28,11 +30,15 @@ import { AssistStateService } from '../../services/assist-state.service';
       <h2>Apply for Retroactive Premium Assistance</h2>
       <p>
         Retroactive Premium Assistance provides assistance for previously
-        charged Medical Services Plan premiums.
-        <a class="btn btn-link p-0" [href]="taxLink">
+        charged Medical Services Plan premiums. Medical Services Plan premiums
+
+        <a class="btn btn-link p-0" href="{{links.MSP_ASSISTANCE}}">
           Medical Services Plan premiums
         </a>
-        are based on the previous tax year's adjusted net income.
+        are based on the previous tax year's
+        <button class="btn btn-link p-0" (click)="openModal(modal)">
+          adjusted net income
+        </button>
       </p>
       <p>
         To be assessed for Retroactive Premium Assistance, complete this form
@@ -62,6 +68,7 @@ import { AssistStateService } from '../../services/assist-state.service';
           Which years do you think your income might qualify you for Retroactive
           Premium Assistance?
         </h3>
+        <!--
         <p>
           <span>
             Note:
@@ -73,6 +80,7 @@ import { AssistStateService } from '../../services/assist-state.service';
             for Retroactive Permium Assistance.
           </span>
         </p>
+        -->
         <div class="row">
           <div class="col-12">
             <common-checkbox
@@ -100,12 +108,8 @@ import { AssistStateService } from '../../services/assist-state.service';
           </b>
         </p>
         <p>
-          Medical Services Plan premiums are based on the previous tax year’s
-          adjusted net income. MSP premiums were eliminated on January 1, 2020.
-        </p>
-        <p>
-          Because the 2019 tax year would apply towards a year in which no
-          premiums were charged, it is not available for selection.
+          MSP premiums were eliminated on January 1, 2020. Because the 2019 tax year would 
+          apply towards a year in which no premiums were charged, it is not available for selection.
         </p>
       </aside>
     </common-page-section>
@@ -114,7 +118,6 @@ import { AssistStateService } from '../../services/assist-state.service';
         (closeModal)="closeModal()"
       ></msp-assist-rates-modal>
     </ng-template>
-
     <common-consent-modal
       #mspConsentModal
       [isUnderMaintenance]="false"
@@ -141,16 +144,11 @@ import { AssistStateService } from '../../services/assist-state.service';
         using until you close the web browser or submit your application.
       </p>
       <p>
-        <strong
-          >Information in this application is collected by the Ministry of
-          Health</strong
-        >
-        under section 26(a), (c) and (e) of the Freedom of Information and
-        Protection of Privacy Act and will be used to determine eligibility for
-        provincial health care benefits in BC and administer Premium Assistance.
-        Should you have any questions about the collection of this personal
-        information please
-        <a [href]="contactLink" target="_blank"
+        Personal information is collected under the authority of the Medicare Protection Act 
+        and section 26 (a), (c) and (e) of the Freedom of Information and Protection of 
+        Privacy Act for the purposes of administration of the Medical Services Plan. If you 
+        have any questions about the collection and use of your personal information, please 
+        <a href="{{links.MSP_RESIDENT_CONTACT}}" target="_blank"
           >contact Health Insurance BC
           <i class="fa fa-external-link" aria-hidden="true"></i></a
         >.
@@ -161,15 +159,12 @@ import { AssistStateService } from '../../services/assist-state.service';
 export class AssistanceHomeComponent extends BaseComponent
   implements OnInit, AfterViewInit {
   @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
+  @ViewChild('modal') ratesModal: AssistRatesModalComponent;
   @ViewChild('formRef') prepForm: NgForm;
 
   touched$ = this.stateSvc.touched.asObservable();
 
-  taxLink =
-    'https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/premiums/regular-premium-assistance';
-
-  contactLink =
-    'http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us';
+  links = environment.links;
 
   title = 'Apply for Retroactive Premium Assistance';
   consentProcessName = 'apply for Premium Assistance';
@@ -204,17 +199,17 @@ export class AssistanceHomeComponent extends BaseComponent
 
   ngOnInit() {
     this.options = this.dataSvc.finAssistApp.assistYears;
-    const data = {};
+    // const data = {};
     // for (let assistYear of this.options) {
-    const helperData = new PremiumRatesYear();
-    let index = 0;
-    for (let year in helperData.options) {
-      // let index = helperData.options[year];
-      data[year] = { ...helperData.brackets[index] };
-      index++;
-    }
+    // const helperData = new PremiumRatesYear();
+    // let index = 0;
+    // for (let year in helperData.options) {
+    // let index = helperData.options[year];
+    // data[year] = { ...helperData.brackets[index] };
+    // index++;
     // }
-    this.rateData = data;
+    // }
+    // this.rateData = data;
     if (this.options.length < 1) this.initYearsList();
     this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
@@ -245,9 +240,11 @@ export class AssistanceHomeComponent extends BaseComponent
   }
 
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalSvc.show(template, {
+    this.modalRef = this.modalSvc.show(this.ratesModal, {
       class: 'modal-md'
     });
+
+    // this.ratesModal.close();
   }
   initYearsList() {
     const recentTaxYear = new Date().getFullYear(); // this.finAssistApp.MostRecentTaxYear; //< 2020 ? 2020 : this.finAssistApp.MostRecentTaxYear;

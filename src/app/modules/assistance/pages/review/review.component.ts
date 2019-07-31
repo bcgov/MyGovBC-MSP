@@ -160,9 +160,11 @@ export class AssistanceReviewComponent implements OnInit {
   }
 
   get appYears() {
+    if ( this.applicantInfo.years) {
     return this.applicantInfo.years
       .map(itm => itm.toString())
       .reduce((a, b) => `${a}, ${b}`);
+    }
   }
 
   get spouseYears() {
