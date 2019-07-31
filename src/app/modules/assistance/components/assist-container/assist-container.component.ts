@@ -21,13 +21,13 @@ import { HeaderService } from '../../../../services/header.service';
     <common-page-framework layout="blank">
       <router-outlet></router-outlet>
     </common-page-framework>
-    <div *ngIf="(submitLabel$ !== 'undefined' || submitLabel$ !== undefined )">
+
     <common-form-action-bar
       (btnClick)="continue()"
       [submitLabel]="submitLabel$ | async"
       [isLoading]="isLoading"
     ></common-form-action-bar>
-    </div>
+
   `,
   styleUrls: ['./assist-container.component.scss']
 })
