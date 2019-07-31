@@ -34,7 +34,7 @@ import { Subscription } from 'rxjs';
         <common-name
           [(ngModel)]="person.middleName"
           maxlen="30"
-          label="Middle name(optional)"
+          label="Middle name (optional)"
           name="middleName"
           commonValidateName
         ></common-name>

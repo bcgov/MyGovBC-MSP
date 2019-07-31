@@ -38,54 +38,78 @@ export class AssistStateService {
   ];
 
   isHomeValid(): boolean {
-    let bool = this.finAssistApp.assistYears.some(itm => itm.apply === true);
+    console.log( 'isHomeValid' );
+    const bool = this.finAssistApp.assistYears.some(itm => itm.apply === true);
     return bool;
   }
+
   isPersonalInfoValid(): boolean {
     const person = this.finAssistApp.applicant;
+
+    console.log( 'isPersonalInfoValid: ', person )
     // check that these fields have value
     const requiredFields = ['firstName', 'lastName', 'previous_phn', 'sin'];
-    for (let field of requiredFields) {
-      console.log(person[field]);
-      if (!person[field]) return false;
-      if (person[field].length > 0) continue;
+    for (const field of requiredFields) {
+      //console.log(person[field]);
+      if (!person[field]) {
+        //console.log( '!person[field]: ', person[field] );
+        return false;
+      }
+      if (person[field].length <= 0) {
+        //console.log( '!person[field].length: ', person[field].length );
+        return false;
+      }
+    }
+
+    if (!validatePHN(person.previous_phn)) { 
+      //console.log( 'Invalid PHN - not meet mod11 check' );
       return false;
     }
 
-    if (!validatePHN(person.previous_phn)) return false;
-
-    if (!/^[1-9]([0-9]{8})$/.test(person.sin.replace(/ /g, ''))) return false;
-
     if (!validateBirthdate(person.dobSimple)) return false;
     const filteredYears = this.filteredYears('files');
-    for (let year in filteredYears) {
+    for (const year in filteredYears) {
       if (year.length < 1) return false;
     }
     return filteredYears.every(files => files.length > 0);
   }
+
   isSpouseValid(): boolean {
-    if (!this.finAssistApp.hasSpouseOrCommonLaw) return true;
+    console.log( 'isSpouseValid' );
+    if (!this.finAssistApp.hasSpouseOrCommonLaw) {
+      console.log( 'isSpouseValid: No spouse return true' );
+      return true;
+    }
 
     const filteredYears = this.filteredYears('spouseFiles');
     console.log('filtered years', filteredYears);
-    for (let year in filteredYears) {
-      if (year.length < 1) return false;
+    for (const year in filteredYears) {
+      if (year.length < 1) {
+        console.log( 'isSpouseValid:  not years' );
+        return false;
+      }
     }
+
     return filteredYears.some(itm => itm.length > 0)
       ? filteredYears.every(itm => itm.length > 0)
       : false;
   }
 
   isContactValid(): boolean {
+
+    console.log( 'isContactValid' );
     const address = this.finAssistApp.mailingAddress;
     return validateContact(address);
   }
 
   isReviewValid(): boolean {
+    console.log( 'isReviewValid' );
     return true;
   }
 
   isAuthorizeValid() {
+
+    console.log( 'isAuthorizeValid' );
     const familyAuth = this.finAssistApp.authorizedByApplicant;
 
     const attorneyAUth =
@@ -108,9 +132,11 @@ export class AssistStateService {
   }
 
   isValid(index: number) {
+    
+    console.log( 'isValid: index = ', index );
     const args = this.validations.slice(0, index + 1);
-    for (let arg of args) {
-      let bool = arg();
+    for (const arg of args) {
+      const bool = arg();
       if (bool) continue;
       else {
         console.log('invalid index', index);
@@ -125,7 +151,7 @@ export class AssistStateService {
     const { ...assistYears } = this.finAssistApp.assistYears;
     const filteredYears = [];
 
-    for (let year in assistYears) {
+    for (const year in assistYears) {
       if (assistYears[year].apply) {
         filteredYears.push(assistYears[year][fileType]);
       }
@@ -167,7 +193,7 @@ export class AssistStateService {
   }
 
   setIndex(path: string) {
-    let index = this.findIndex(path);
+    const index = this.findIndex(path);
     if (index > -1) return this.index.next(index);
   }
 

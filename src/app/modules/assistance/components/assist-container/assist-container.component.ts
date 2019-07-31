@@ -82,7 +82,7 @@ export class AssistContainerComponent extends Container implements OnInit {
   }
 
   continue() {
-    let index = this.stateSvc.index.value;
+    const index = this.stateSvc.index.value;
 
     this.stateSvc.isValid(index)
       ? this.navigate(index)
@@ -109,13 +109,13 @@ export class AssistContainerComponent extends Container implements OnInit {
 
       if (validateList.errors != null && validateList.errors.length > 0) {
         this.isLoading = false;
-        for (let error of validateList.errors) {
+        for (const error of validateList.errors) {
           // console.log('error', validateList.errors, error);
-          let fieldName = findFieldName(error.dataPath);
+          const fieldName = findFieldName(error.dataPath);
 
-          for (let arr of AssistMapping.items) {
+          for (const arr of AssistMapping.items) {
             if (arr.some(itm => itm === fieldName)) {
-              let index = AssistMapping.items.indexOf(arr);
+              const index = AssistMapping.items.indexOf(arr);
               return this.router.navigate([
                 `/assistance/${this.stateSvc.routes[index]}`
               ]);
@@ -126,7 +126,7 @@ export class AssistContainerComponent extends Container implements OnInit {
           ]);
         }
       }
-      let res = await this.stateSvc.submitApplication();
+      const res = await this.stateSvc.submitApplication();
       this.isLoading = false;
       this.router.navigate([
         '/assistance/confirmation',

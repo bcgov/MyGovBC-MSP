@@ -26,92 +26,6 @@ import { AssistStateService } from '../../services/assist-state.service';
           allowExtralines="true"
           disableGeocoder="true"
         ></common-address>
-        <!--
-        <div class="row">
-          <common-street
-            class="col-11"
-            [(ngModel)]="address.addressLine1"
-            name="addressLine1"
-            id="addressLine1"
-            maxlen="25"
-            required
-          ></common-street>
-          <div class="col-1">
-            <div class="row h-50"></div>
-            <div class="row">
-              <button class=" btn btn-transparent" (click)="addLine()">
-                <i class="fa fa-plus"></i>
-                <span class="hidden">Add another address line</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="row" *ngIf="addressLine2">
-          <common-street
-            class="col-11"
-            label="Address line 2"
-            [(ngModel)]="address.addressLine2"
-            name="addressLine2"
-            id="addressLine2"
-            maxlen="25"
-            required
-          ></common-street>
-          <div class="col-1">
-            <div class="row h-50"></div>
-            <div class="row">
-              <button (click)="removeLine(2)" class=" btn btn-transparent">
-                <i class="fa fa-minus"></i>
-                <span class="hidden">Remove address line 2</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="row" *ngIf="addressLine3">
-          <common-street
-            class="col-11"
-            label="Address line 3"
-            [(ngModel)]="address.addressLine3"
-            name="addressLine3"
-            id="addressLine3"
-            maxlen="25"
-            required
-          ></common-street>
-          <div class="col-1">
-            <div class="row h-50"></div>
-            <div class="row">
-              <button class=" btn btn-transparent" (click)="removeLine(3)">
-                <i class="fa fa-minus"></i>
-                <span class="hidden">Remove address line 3</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <common-city
-          [(ngModel)]="address.city"
-          name="city"
-          id="city"
-          required
-        ></common-city>
-        <common-country
-          name="country"
-          [countryList]="countryList"
-          [(ngModel)]="address.country"
-          id="country"
-          required
-        ></common-country>
-        <common-province
-          name="province"
-          [(ngModel)]="address.province"
-          id="province"
-          required
-        ></common-province>
-        <common-postal-code
-          [(ngModel)]="address.postal"
-          name="postal"
-          id="postal"
-          required
-        ></common-postal-code>
--->
       </common-page-section>
       <h3 class="border-bottom">{{ phoneTitle }}</h3>
       <common-page-section layout="tips">
@@ -142,7 +56,7 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
   addressLines = 0;
 
   title = 'Contact Info';
-  subtitle = "Please provide the Account Holder's information";
+  subtitle = 'Provide your contact information.';
   mailTitle = 'Mailing Address';
   mailSubtitle = 'Enter your current mailing address';
   phoneTitle = 'Contact';
