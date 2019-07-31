@@ -3,12 +3,13 @@
   <h2 [innerHTML]="lang('./en/index.js').applicantInfo"></h2>
   
   <p class="help-block border-bottom" [innerHTML]="lang('./en/index.js').helpBlock"></p>
-  
+  <form #formRef='ngForm' novalidate>
   <msp-personal-details-retro-suppben 
     [(person)]="benefitApplication.applicant" 
     [benefitApp]="benefitApplication" 
     (onChange)="onChange($event)">
   </msp-personal-details-retro-suppben>
+  </form>
 </common-page-framework>
 
 <common-form-action-bar [defaultColor]="false" 
