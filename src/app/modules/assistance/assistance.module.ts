@@ -21,7 +21,6 @@ import { SpouseComponent } from './pages/spouse/spouse.component';
 import { RouteGuardService } from 'moh-common-lib';
 import { AssistGuard } from './guards/assist.guard';
 import { AssistRatesModalComponent } from './components/assist-rates-modal/assist-rates-modal.component';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
