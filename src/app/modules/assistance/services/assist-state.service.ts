@@ -23,6 +23,7 @@ export class AssistStateService {
   routes: string[];
   finAssistApp = this.dataSvc.finAssistApp;
   submitted = false;
+  response: any;
 
   // The index of the validations is tied to the index of the router
   // ie: home is index 0 ergo validation is index 0.
@@ -177,10 +178,12 @@ export class AssistStateService {
     const app = this.xformSvc.application;
     console.log('run');
     try {
-      await this.api.sendFiles(token, app.uuid, attachments);
+      //await this.api.sendFiles(token, app.uuid, attachments);
       const call = await this.api.sendApp(app, token, app.uuid, attachments);
       const res = await call.toPromise();
-      const isSuccess = res.op_return_code === 'SUCCESS';
+      this.response = res;
+      console.log(res);
+      const isSuccess =  this.response.op_return_code === 'SUCCESS';
       isSuccess
         ? (this.dataSvc.removeFinAssistApplication(), this.success$.next(res))
         : this.failure$.next(res);

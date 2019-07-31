@@ -18,7 +18,7 @@ import { MspApiService } from 'app/services/msp-api.service';
 })
 export class AssistTransformService {
   private app: FinancialAssistApplication = this.dataSvc.finAssistApp;
-
+  readonly ISO8601DateFormat = 'YYYY-MM-DD';
   listKeys(obj: Object) {
     return Object.keys(obj);
   }
@@ -51,7 +51,7 @@ export class AssistTransformService {
         : (date.getMonth() + 1).toString();
     let year = date.getFullYear();
 
-    const authorizedByApplicantDate = `${month}-${day}-${year}`;
+    const authorizedByApplicantDate = `${year}-${month}-${day}`;
     // console.log('authorization date', authorizedByApplicantDate);
     // TODO: still require authorized by spouse?
     const authorizedBySpouse = 'N';
@@ -70,7 +70,7 @@ export class AssistTransformService {
         ? `0${app.dobSimple.month.toString()}`
         : app.dobSimple.month.toString();
     const attachmentUuids = this.attachmentUuids as any;
-    const birthDate = `${birthMonth}-${app.dobSimple.day.toString()}-${app.dobSimple.year.toString()}`;
+    const birthDate =  String(this.app.applicant.dob.format(this.ISO8601DateFormat)); //`${app.dobSimple.year.toString()}-${birthMonth}-${app.dobSimple.day.toString()}`;
     const financials = this.financials;
     const mailingAddress = this.mailingAddress;
     const name = this.name;
