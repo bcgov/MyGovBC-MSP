@@ -179,7 +179,7 @@ export const defaultSchema = {
     },
     MMDDYYDateType: {
       type: 'string',
-      pattern: '^[0-9]{2}-[0-9]{2}-[12][0-9]{3}$'
+      pattern: '^[12][0-9]{3}-[01][0-9]-[0-9]{2}$'
     },
     BasicInfoType: {
       type: 'object',
