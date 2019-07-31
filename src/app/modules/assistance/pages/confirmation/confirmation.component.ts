@@ -32,8 +32,8 @@ export class AssistanceConfirmationComponent implements OnInit {
   success: boolean;
   confirmationNum: string;
   subscription: Subscription;
-  success$: Observable<any> = this.stateSvc.success$.asObservable();
-  failure$: Observable<any> = this.stateSvc.failure$.asObservable();
+  //success$: Observable<any> = this.stateSvc.success$.asObservable();
+  //failure$: Observable<any> = this.stateSvc.failure$.asObservable();
 
   constructor(
     private stateSvc: AssistStateService,
@@ -41,8 +41,10 @@ export class AssistanceConfirmationComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.route.params.subscribe(obj => {
+      console.log(obj);
       this.confirmationNum = obj.id;
-      this.success = obj.successs === 'SUCCESS';
+      this.success = obj.status === 'SUCCESS' ? true : false;
+
     });
   }
 }

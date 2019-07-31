@@ -49,7 +49,7 @@ export class ApiSendService extends AbstractHttpService {
     // .pipe(mergeMap(q => forkJoin(from(q))))
     // .pipe(() => from(
     return this.post<MSPApplicationSchema>(appUrl, app).pipe(
-      catchError(err => of(err))
+      //catchError(err => of(err))
     );
 
     // ));

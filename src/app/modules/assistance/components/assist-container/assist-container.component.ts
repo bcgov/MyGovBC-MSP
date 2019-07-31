@@ -21,11 +21,13 @@ import { HeaderService } from '../../../../services/header.service';
     <common-page-framework layout="blank">
       <router-outlet></router-outlet>
     </common-page-framework>
+    <div *ngIf="(submitLabel$ !== 'undefined' || submitLabel$ !== undefined )">
     <common-form-action-bar
       (btnClick)="continue()"
       [submitLabel]="submitLabel$ | async"
       [isLoading]="isLoading"
     ></common-form-action-bar>
+    </div>
   `,
   styleUrls: ['./assist-container.component.scss']
 })
@@ -48,6 +50,8 @@ export class AssistContainerComponent extends Container implements OnInit {
   }
 
   index: any;
+
+  response: any;
 
   submitLabel$ = new BehaviorSubject<string>('Continue');
 
@@ -125,19 +129,22 @@ export class AssistContainerComponent extends Container implements OnInit {
             `/assistance/${this.stateSvc.routes[0]}`
           ]);
         }
-      }
-      const res = await this.stateSvc.submitApplication();
-      this.isLoading = false;
-      this.router.navigate([
+      } else {
+        let res = await this.stateSvc.submitApplication();
+        this.response = res;
+        this.isLoading = false;
+        this.router.navigate([
         '/assistance/confirmation',
-        res.op_return_code,
-        res.op_reference_number || 'N/A'
+        this.response.op_return_code,
+        this.response.op_reference_number || 'N/A'
       ]);
-
-      this.submitLabel$.next('Home');
+        this.submitLabel$.next('Home');
+      }
     } catch (err) {
       console.error(err);
     } finally {
+      this.submitLabel$.next('Home');
+      //this.submitLabel$.next('Home');
     }
   }
 }
