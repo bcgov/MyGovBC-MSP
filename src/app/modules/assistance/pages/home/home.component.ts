@@ -118,42 +118,16 @@ import { environment } from '../../../../../environments/environment.prod';
         (closeModal)="closeModal()"
       ></msp-assist-rates-modal>
     </ng-template>
-    <common-consent-modal
+    <msp-consent-modal
       #mspConsentModal
-      [isUnderMaintenance]="false"
-      [title]="'Information collection notice'"
-      agreeLabel="I have read and understand this information"
-      [processName]="consentProcessName"
+      [isMaintenanceMode]="false"
+      [consentProcessName]="consentProcessName"
       (accept)="
         finAssistApp.infoCollectionAgreement = $event;
         this.dataSvc.saveFinAssistApplication()
       "
     >
-      <p>
-        <strong
-          >Keep your personal information secure – especially when using a
-          shared device like a computer at a library, school or café.</strong
-        >
-        To delete any information that was entered, either complete the
-        application and submit it or, if you don’t finish, close the web
-        browser.
-      </p>
-      <p>
-        <strong>Need to take a break and come back later?</strong> The data you
-        enter on this form is saved locally to the computer or device you are
-        using until you close the web browser or submit your application.
-      </p>
-      <p>
-        Personal information is collected under the authority of the Medicare Protection Act 
-        and section 26 (a), (c) and (e) of the Freedom of Information and Protection of 
-        Privacy Act for the purposes of administration of the Medical Services Plan. If you 
-        have any questions about the collection and use of your personal information, please 
-        <a href="{{links.MSP_RESIDENT_CONTACT}}" target="_blank"
-          >contact Health Insurance BC
-          <i class="fa fa-external-link" aria-hidden="true"></i></a
-        >.
-      </p>
-    </common-consent-modal>
+    </msp-consent-modal>
   `
 })
 export class AssistanceHomeComponent extends BaseComponent

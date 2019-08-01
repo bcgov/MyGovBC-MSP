@@ -1,7 +1,6 @@
 <!--  -->
 <msp-services-card-disclaimer-modal #mspServicesCardModal></msp-services-card-disclaimer-modal>
 <common-page-section layout="noTips">
-  <form #formRef='ngForm' novalidate>
     <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]" class="row border-bottom"></h2>
 
     <msp-citizen-status class="row" id="primary" [label]="statusLabel()" [items]="langStatus"
@@ -278,5 +277,4 @@
       </div>
 
     </div>
-  </form>
 </common-page-section>

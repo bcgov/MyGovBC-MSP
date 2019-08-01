@@ -10,6 +10,7 @@ import {BaseComponent} from '../../../../models/base.component';
 import { CommonButtonGroupComponent } from '../../../msp-core/components/common-button-group/common-button-group.component';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { environment } from '../../../../../environments/environment.prod';
+import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
 
 @Component({
   templateUrl: './prepare.component.html'
@@ -20,7 +21,7 @@ export class PrepareComponent extends BaseComponent {
   static ProcessStepNum = 0;
   @ViewChild('formRef') form: NgForm;
   @ViewChild('liveInBCBtn') liveInBCBtn: CommonButtonGroupComponent ;
-  @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
+  @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
 
   private apt: MspPerson;
   mspApplication: MspApplication;
