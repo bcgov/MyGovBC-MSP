@@ -256,7 +256,7 @@
                                         <label for="childWithDisabilityCount" >
                                                 How many of your children are eligible for a disability tax credit?
                                         </label>
-                                        <div class="col-lg-3" style="text-align:left; padding-left: 3px;">
+                                        <div class="col-2" style="text-align:left; padding-left: 3px;">
                                             <input type="text" class="form-control" name="childWithDisabilityCount"
                                                     id="childWithDisabilityCount"
                                                     maxlength="2"
@@ -380,19 +380,21 @@
                         </div>
                         <!-- Number of Children Claim for attendant care Expense   -->
                         <div class="form-group sub-section" [hidden]="!benefitApp.childClaimForAttendantCareExpense">
-                            
-                            <div class="col-md-8">
+                            <div class="col-lg-8">
                             <label for="childClaimForAttendantCareExpenseCount">
                                     How many children claimed attendant care expense?
                             </label>
+                        </div>
+                            <div class="col-2" >
                             <input type="text" class="form-control" name="childClaimForAttendantCareExpenseCount"
                                     id="childClaimForAttendantCareExpenseCount"
                                     maxlength="2"
                                     [(ngModel)]="benefitApp.childClaimForAttendantCareExpenseCount">
+                            </div>
                             <div class="text-danger" *ngIf="benefitApp.childClaimForAttendantCareExpenseCount > benefitApp.childrenCount"
                                     [innerHTML]="lang('./en/index.js').cannotExceedChildrenCount" tabindex="0">
                             </div>
-                            </div>
+                            
                         </div>
                      
                         <!-- Expense receipt File Uploader 
@@ -411,7 +413,8 @@
                                         <common-file-uploader #fileUploader
                                             [images]="benefitApp.attendantCareExpenseReceipts"
                                             [id]='benefitApp.id'
-                                            (imagesChange)="addReceipts($event)">
+                                            (imagesChange)="addReceipts($event)"
+                                            instructionText="Click add, or drag and drop file into this box">
                                         </common-file-uploader>
                                     </div>    
                                     <aside  style="position:inherit;left:450px;bottom:15px;height:275px;">
