@@ -28,7 +28,7 @@ import { AssistRatesModalComponent } from './components/assist-rates-modal/assis
     AssistanceRoutingModule,
     FormsModule,
     MspCoreModule,
-    ModalModule
+    ModalModule.forRoot()
   ],
   declarations: [
     AssistContainerComponent,

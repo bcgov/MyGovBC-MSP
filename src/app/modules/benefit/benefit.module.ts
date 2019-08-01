@@ -20,7 +20,7 @@ import { BenefitAddressComponent } from './pages/contact-info/address.component'
 import { ProcessService , ProcessStep} from '../../services/process.service';
 import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
 import { PersonalDetailsRetroSuppbenComponent } from '../msp-core/components/personal-details-retro-suppben/personal-details-retro-suppben.component';
-import { EligibilityComponent } from './pages/eligibility/eligibility.component'
+import { EligibilityComponent } from './pages/eligibility/eligibility.component';
 
 
 

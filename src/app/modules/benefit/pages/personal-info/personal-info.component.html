@@ -1,12 +1,20 @@
 <common-page-framework layout="blank">
   <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
   <h2 [innerHTML]="lang('./en/index.js').applicantInfo"></h2>
-  <p class="help-block" [innerHTML]="lang('./en/index.js').helpBlock"></p>
-  <hr>
+  
+  <p class="help-block border-bottom" [innerHTML]="lang('./en/index.js').helpBlock"></p>
   <form #formRef='ngForm' novalidate>
-    <msp-personal-details-retro-suppben [(person)]="benefitApplication.applicant" 
-      [benefitApp]="benefitApplication" (onChange)="onChange($event)">
-    </msp-personal-details-retro-suppben>
+  <msp-personal-details-retro-suppben 
+    [(person)]="benefitApplication.applicant" 
+    [benefitApp]="benefitApplication" 
+    (onChange)="onChange($event)">
+  </msp-personal-details-retro-suppben>
   </form>
 </common-page-framework>
-<common-form-action-bar [defaultColor]="false" [submitLabel]="lang('./en/index.js').continueButton" [canContinue]="canContinue" (btnClick)="onSubmit(formRef)" widthOption='extra-width-mobile-only'></common-form-action-bar>
+
+<common-form-action-bar [defaultColor]="false" 
+  [submitLabel]="lang('./en/index.js').continueButton" 
+  [canContinue]="canContinue" 
+  (btnClick)="onSubmit(formRef)" 
+  widthOption='extra-width-mobile-only'>
+</common-form-action-bar>
