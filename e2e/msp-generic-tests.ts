@@ -18,6 +18,7 @@ export function testGenericAllPages(PageClass: typeof BaseMSPTestPage, PAGE_URL:
                 expect(val).toBe(0, 'should be no errors on page load');
             });
         });
+
     });
 }
 
