@@ -37,16 +37,13 @@ export class BenefitConfirmationComponent implements OnDestroy {
 
         if (this.isCutOff) {
             if (this.isCutOffYear === true) {
-                console.log('****CutOf year***');
                 this.noticeOfAssessment =  this.lang('./en/index.js').noticeOfAssessmentCutOffyear;
 
             } else {
-                console.log('****non CutOf year***');
                 this.noticeOfAssessment = this.lang('./en/index.js').noticeOfAssessmentNonCutOffyear;
 
             }
         } else if (this.isCutOff === false) {
-            console.log('****No CutOff Date***');
             this.noticeOfAssessment = this.lang('./en/index.js').noticeOfAssessment;
         }
     }
