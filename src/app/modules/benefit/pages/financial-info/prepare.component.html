@@ -207,8 +207,9 @@
                                         </div>
 
                                         <div class='form-check form-check-inline'>
-                                            <div *ngIf="benefitApp.hasSpouse">
+                                            <div><!--benefitApp.hasSpouse-->
                                                <common-checkbox label="My spouse/common-law partner"
+                                                    [disabled]="!benefitApp.hasSpouse"
                                                     (click)="toggleClaimForSpouseDisabilityCredit($event)"
                                                     [data]="benefitApp.spouseEligibleForDisabilityCredit" >
                                                 </common-checkbox>
@@ -225,8 +226,9 @@
                                         </div>
                                         
                                         <div class='form-check form-check-inline'>
-                                                <div *ngIf="benefitApp.haveChildrens">
+                                                <div> <!--benefitApp.haveChildrens-->
                                                     <common-checkbox label="My child"
+                                                        [disabled]="!benefitApp.childrenCount"
                                                         (dataChange)="checkedChildClaimDisabilityCredit($event);"
                                                         [data]="benefitApp.childClaimForDisabilityCredit" >
                                                     </common-checkbox>
@@ -332,9 +334,10 @@
                                         </label>  -->
                                     </div>
                                 
-                                    <div *ngIf="benefitApp.hasSpouse === true">
+                                    <div> <!-- *ngIf="benefitApp.hasSpouse === true"-->
                                         <div class="form-check form-check-inline">
                                                 <common-checkbox label="My spouse/common-law partner"
+                                                    [disabled]="!(benefitApp.hasSpouse === true)"
                                                     (click)="spouseClaimForAttendantCare($event)"
                                                     [data]="benefitApp.spouseClaimForAttendantCareExpense" >
                                                 </common-checkbox> 
@@ -350,9 +353,10 @@
                                         </div>
                                     </div>
 
-                                    <div *ngIf="!!benefitApp.childrenCount">
+                                    <div><!--!!benefitApp.childrenCount-->
                                         <div class="form-check form-check-inline">
                                             <common-checkbox label="My child"
+                                                [disabled]="!benefitApp.childrenCount"
                                                 (dataChange)="childClaimForAttendantCareExpense($event)"
                                                 [data]="benefitApp.childClaimForAttendantCareExpense" >
                                             </common-checkbox>

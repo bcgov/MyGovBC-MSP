@@ -1,8 +1,8 @@
 <common-page-framework layout="blank">
-  <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
+  <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1> <br/>
   <h2 [innerHTML]="lang('./en/index.js').applicantInfo"></h2>
   
-  <p class="help-block border-bottom" [innerHTML]="lang('./en/index.js').helpBlock"></p>
+  <p class="border-bottom" [innerHTML]="lang('./en/index.js').helpBlock"></p>
   <form #formRef='ngForm' novalidate>
   <msp-personal-details-retro-suppben 
     [(person)]="benefitApplication.applicant" 

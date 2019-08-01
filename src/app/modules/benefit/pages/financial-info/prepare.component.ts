@@ -275,11 +275,13 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     updateChildDisabilityCreditCreditMultiplier(evt: string){
-        this.benefitApp.childWithDisabilityCount = parseInt(evt, 10);
-        if (this.benefitApp.childWithDisabilityCount > this.benefitApp.childrenCount) {
-            this.chldCountExceededError = true;
+        if (evt) {
+            this.benefitApp.childWithDisabilityCount = parseInt(evt);
+            if (this.benefitApp.childWithDisabilityCount > this.benefitApp.childrenCount) {
+                this.chldCountExceededError = true;
+            }
+            this.dataService.saveBenefitApplication();
         }
-        this.dataService.saveBenefitApplication();
     }
 
    /* setAgeOver65(evt: boolean) {

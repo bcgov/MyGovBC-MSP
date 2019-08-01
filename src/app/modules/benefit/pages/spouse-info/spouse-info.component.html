@@ -1,23 +1,25 @@
 <common-page-framework layout="blank">
   <form #formRef="ngForm" novalidate>
-  <div class="col-10" >
-    <h1> <b>  Add spouse information and upload documents </b></h1>
-  </div>
-  <div class="col-6">
-    <p class="help-block border-bottom">Do you have a spouse or common-law partner? If so, you are required to provide spouse information and upload a Notice of Assessment or Reassessment.</p>
-  </div>
+  
+  <h1> <b>  Add spouse information and upload documents </b></h1>
+  <br>
+  <p class="border-bottom">Do you have a spouse or common-law partner? If so, you are required to provide spouse information and upload a Notice of Assessment or Reassessment.</p>
+  
  
-  <div class="col-8">
-    <div style="width: 480px;">
-      <common-button [label]="'Add Spouse'" 
-        buttonType="primary" [disabled] = "benefitApplication.hasSpouseOrCommonLaw" (btnClick)='addSpouse()'>
-      </common-button>
-    </div>
-  </div>
+  
+  <button style="width: 200px;" type="button" class="btn btn-primary" 
+    (click)="addSpouse()"
+    [disabled]="benefitApplication.hasSpouseOrCommonLaw">
+    <span>Add Spouse</span>
+  </button>
 
-  <div class="col-12">
+    <!--<common-button [label]="'Add Spouse'" 
+      buttonType="primary" [disabled] = "benefitApplication.hasSpouseOrCommonLaw" (btnClick)='addSpouse()'>
+    </common-button> -->
+  
   
   <div *ngIf="benefitApplication.hasSpouseOrCommonLaw">
+    <br/><br/>
     <h2>Your spouse or common-law partner</h2>
     <h4>Enter your spouse’s legal name as it appears on their BC Service Card.
     </h4>
@@ -31,7 +33,7 @@
         </msp-personal-details-retro-suppben>  
    
   </div>
-  </div>
+
   
   </form>
 </common-page-framework>
