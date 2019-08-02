@@ -8,8 +8,6 @@
             <common-address [address]="mspApplication?.mailingAddress"
                             (addressChange)="handleAddressUpdate($event)"
                             [isRequired]="true"
-                            [defaultProvince]="'BC'"
-                            [defaultCountry]="'CAN'"
                             [allowExtralines]='true'
                             [disableGeocoder]='true'>
             </common-address>

@@ -37,15 +37,14 @@ export class BenefitSendingComponent implements AfterContentInit  {
         // After view inits, begin sending the application
         this.transmissionInProcess = true;
         this.hasError = false;
-        console.log(this.application);
+        //console.log(this.application);
         // this.logService.log({name: 'PA - application submitting request'},"PA : Submission Request");
         // After view inits, begin sending the application
         this.service
           .sendRequest(this.application)
           .then((response: SuppBenefitApiResponse) => {
             // probable network errors..middleware could be down
-            console.log('sending RESPONSE', response);
-
+            
             if (response instanceof HttpErrorResponse) {
                 this.logService.log({
                     name: 'Supplementary Benefit - System Error',

@@ -43,7 +43,7 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
     }
 
     ngAfterViewInit() {
-        console.log(this.birthdate);
+        //console.log(this.birthdate);
         this.personalDetailsForm.valueChanges.pipe(debounceTime(0))
             .subscribe( values => {
                 this.onChange.emit(values);

@@ -98,7 +98,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     addReceipts(evt: any){
-        console.log('image added: %s', evt.length);
        /* if(evt.length === 0 && (this.benefitApp.applicantClaimForAttendantCareExpense || this.benefitApp.spouseClaimForAttendantCareExpense || this.benefitApp.childClaimForAttendantCareExpense )) {
             this.continue = false;
         }*/
@@ -148,7 +147,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
                 this.dataService.benefitApp.ageOver65 = false;
             }));*/
         if (this.prepForm !== undefined) {
-            console.log('Prepform?', this.prepForm, this.prepForm.valueChanges);
+           // console.log('Prepform?', this.prepForm, this.prepForm.valueChanges);
             merge(this.prepForm.valueChanges.pipe(debounceTime(250),
                 distinctUntilChanged(),
                 filter(
@@ -204,8 +203,8 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
     canContinue(evt): any {
 
-        console.log(evt);
-        console.log(this.continue);
+      //  console.log(evt);
+      //  console.log(this.continue);
 
         if(this.benefitApp.hasRegisteredDisabilityPlan === undefined || this.benefitApp.hasClaimedAttendantCareExpenses === undefined) {
             return false;
@@ -320,7 +319,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     checkSelfDisabilityCredit(evt: any) {
-        console.log(evt);
+       // console.log(evt);
         this.dataService.benefitApp.applicantEligibleForDisabilityCredit = evt;
         this.dataService.saveBenefitApplication();
 
@@ -329,10 +328,9 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
 
     applicantClaimDataChange(evt: boolean) {
-        console.log(evt);
-        console.log(this.benefitApp.applicantEligibleForDisabilityCredit);
+        //console.log(evt);
+        //console.log(this.benefitApp.applicantEligibleForDisabilityCredit);
         if (evt && this.benefitApp.applicantEligibleForDisabilityCredit !== true) {
-            console.log('---Abbbbb----');
             this.dataService.benefitApp.applicantClaimForAttendantCareExpense = evt;
             this.dataService.saveBenefitApplication();
         } else {
@@ -342,7 +340,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     toggleClaimForSelfDisabilityCredit(evt: Event): void {
-        console.log(evt.defaultPrevented);
+        //console.log(evt.defaultPrevented);
 
         this.dataService.benefitApp.applicantEligibleForDisabilityCredit = !this.dataService.benefitApp.applicantEligibleForDisabilityCredit;
 
@@ -361,7 +359,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
          if (this.dataService.benefitApp.applicantClaimForAttendantCareExpense === true && this.dataService.benefitApp.applicantEligibleForDisabilityCredit === true) {
 
              evt.preventDefault();
-             console.log(evt.defaultPrevented);
+             //console.log(evt.defaultPrevented);
              this.showNursingError = true;
          }
          this.dataService.saveBenefitApplication();
@@ -407,7 +405,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     spouseClaimForAttendantCare(event: Event){
-        console.log(event);
+        //console.log(event);
         if (!this.benefitApp.spouseClaimForAttendantCareExpense
             && (this.benefitApp.spouseDSPAmount_line125 || this.benefitApp.spouseEligibleForDisabilityCredit)){
             event.preventDefault();

@@ -55,14 +55,17 @@
     <!-- SIN -->
     <div class="row">
         <div class="col-md-6">
-            <common-sin
-                [(ngModel)]="person.sin"
-                name="sin"
-                id="sin"
-                required>
-            </common-sin>
-            <div class="text-danger" *ngIf="!isSinUnique()"
-                [innerHTML]="lang('./en/index.js').sinUniqueError">
+            <div class="form-group">
+                <common-sin
+                    [(ngModel)]="person.sin"
+                    name="sin"
+                    id="sin"
+                    required
+                    commonValidateSin>
+                </common-sin>
+                <div class="text-danger" *ngIf="!isSinUnique()"
+                    [innerHTML]="lang('./en/index.js').sinUniqueError">
+                </div>
             </div>
         </div>
     </div>
