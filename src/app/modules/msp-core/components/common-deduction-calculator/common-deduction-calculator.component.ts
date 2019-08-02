@@ -44,8 +44,8 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     }
 
     ngDoCheck(): void {
-      this.canContinue;
-      //const valid = this.canContinue;
+      const valid = this.canContinue;
+      console.log("valid "+valid);
       //this._processService.setStep(CommonDeductionCalculatorComponent.ProcessStepNum, valid);
     }
 
