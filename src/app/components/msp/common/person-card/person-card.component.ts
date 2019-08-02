@@ -40,4 +40,15 @@ export class MspPersonCardComponent {
       return 'Moved from province:';
     }
   }
+
+  get fileLabel(): string {
+
+    if (this.person.assistYearDocs !== null && this.person.assistYearDocs.length > 0 ) {
+      if (this.person.assistYearDocs.length > 1) {
+        return 'Files';
+      } else if (this.person.assistYearDocs.length < 2) {
+        return 'File';
+      }
+    }
+  }
 }
