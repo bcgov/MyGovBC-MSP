@@ -15,6 +15,17 @@ export class FakeDataSupplementaryBenefits {
         }
     }
 
+    personalInfoMax(): PersonalInfoPageTest {
+        return {
+            firstName: 'Loremipsumdolorsitametonsectet',
+            middleName: 'Loremipsumdolorsitametonsectet',
+            lastName: 'Loremipsumdolorsitametonsectet',
+            birthDate: faker.date.past(),
+            PHN: 9999999998,
+            SIN: 712234123
+        }
+    }
+
     contactInfo(): ContactInfoPageTest {
         return {
             country: faker.address.country(),
@@ -22,7 +33,7 @@ export class FakeDataSupplementaryBenefits {
             address: faker.address.streetAddress(),
             city: faker.address.city(),
             postal: faker.address.zipCode('?#? #?#'),
-            mobile: faker.phone.phoneNumberFormat(2)
+            mobile: '2501234567'
         };
     }
 

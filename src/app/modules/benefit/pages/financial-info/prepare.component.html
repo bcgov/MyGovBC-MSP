@@ -79,7 +79,8 @@
                         <div class="form-group">
                             <common-radio [value]="benefitApp.hasSpouse"  label="Do you have a spouse or common-law partner?" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="setHasSpouse($event)">
+                                (statusChange)="setHasSpouse($event)"
+                                [instructionText]="'Note: Failure to notify HIBC when you marry or begin living in a marriage-like relationship may impact eligibility for Supplementary Benefits.'">
                             </common-radio>
                         </div>   
                         
@@ -180,7 +181,8 @@
                         <div class="form-group" *ngIf="benefitApp.ageOver65 != null || benefitApp.ageOver65 != undefined">
                             <common-radio [value]="benefitApp.selfDisabilityCredit"  [label]="getDisablityCreditTitle" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="updateDisabilityCredit($event)">
+                                (statusChange)="updateDisabilityCredit($event)"
+                                [instructionText]="'See Line 316, 318 or 326 of your Notice of Assessment or Reassessment'">
                             </common-radio>
                         </div>
         
@@ -207,8 +209,9 @@
                                         </div>
 
                                         <div class='form-check form-check-inline'>
-                                            <div *ngIf="benefitApp.hasSpouse">
+                                            <div><!--benefitApp.hasSpouse-->
                                                <common-checkbox label="My spouse/common-law partner"
+                                                    [disabled]="!benefitApp.hasSpouse"
                                                     (click)="toggleClaimForSpouseDisabilityCredit($event)"
                                                     [data]="benefitApp.spouseEligibleForDisabilityCredit" >
                                                 </common-checkbox>
@@ -225,8 +228,9 @@
                                         </div>
                                         
                                         <div class='form-check form-check-inline'>
-                                                <div *ngIf="benefitApp.haveChildrens">
+                                                <div> <!--benefitApp.haveChildrens-->
                                                     <common-checkbox label="My child"
+                                                        [disabled]="!benefitApp.childrenCount"
                                                         (dataChange)="checkedChildClaimDisabilityCredit($event);"
                                                         [data]="benefitApp.childClaimForDisabilityCredit" >
                                                     </common-checkbox>
@@ -254,7 +258,7 @@
                                         <label for="childWithDisabilityCount" >
                                                 How many of your children are eligible for a disability tax credit?
                                         </label>
-                                        <div class="col-lg-3" style="text-align:left; padding-left: 3px;">
+                                        <div class="col-2" style="text-align:left; padding-left: 3px;">
                                             <input type="text" class="form-control" name="childWithDisabilityCount"
                                                     id="childWithDisabilityCount"
                                                     maxlength="2"
@@ -303,7 +307,8 @@
                         <div class="form-group" *ngIf="benefitApp.ageOver65 != null || benefitApp.ageOver65 != undefined">
                             <common-radio [value]="benefitApp.hasClaimedAttendantCareExpenses"  [label]="didAnyoneClaimAttendantCareLastYear" 
                                 [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                                (statusChange)="updateNursingHomeExpense($event);">
+                                (statusChange)="updateNursingHomeExpense($event);"
+                                instructionText="See Line 215 or 330 of your Notice of Assessment or Reassessment">
                             </common-radio>
                             
                         </div>
@@ -332,9 +337,10 @@
                                         </label>  -->
                                     </div>
                                 
-                                    <div *ngIf="benefitApp.hasSpouse === true">
+                                    <div> <!-- *ngIf="benefitApp.hasSpouse === true"-->
                                         <div class="form-check form-check-inline">
                                                 <common-checkbox label="My spouse/common-law partner"
+                                                    [disabled]="!(benefitApp.hasSpouse === true)"
                                                     (click)="spouseClaimForAttendantCare($event)"
                                                     [data]="benefitApp.spouseClaimForAttendantCareExpense" >
                                                 </common-checkbox> 
@@ -350,9 +356,10 @@
                                         </div>
                                     </div>
 
-                                    <div *ngIf="!!benefitApp.childrenCount">
+                                    <div><!--!!benefitApp.childrenCount-->
                                         <div class="form-check form-check-inline">
                                             <common-checkbox label="My child"
+                                                [disabled]="!benefitApp.childrenCount"
                                                 (dataChange)="childClaimForAttendantCareExpense($event)"
                                                 [data]="benefitApp.childClaimForAttendantCareExpense" >
                                             </common-checkbox>
@@ -376,19 +383,21 @@
                         </div>
                         <!-- Number of Children Claim for attendant care Expense   -->
                         <div class="form-group sub-section" [hidden]="!benefitApp.childClaimForAttendantCareExpense">
-                            
-                            <div class="col-md-8">
+                            <div class="col-lg-8">
                             <label for="childClaimForAttendantCareExpenseCount">
                                     How many children claimed attendant care expense?
                             </label>
+                        </div>
+                            <div class="col-2" >
                             <input type="text" class="form-control" name="childClaimForAttendantCareExpenseCount"
                                     id="childClaimForAttendantCareExpenseCount"
                                     maxlength="2"
                                     [(ngModel)]="benefitApp.childClaimForAttendantCareExpenseCount">
+                            </div>
                             <div class="text-danger" *ngIf="benefitApp.childClaimForAttendantCareExpenseCount > benefitApp.childrenCount"
                                     [innerHTML]="lang('./en/index.js').cannotExceedChildrenCount" tabindex="0">
                             </div>
-                            </div>
+                            
                         </div>
                      
                         <!-- Expense receipt File Uploader 
@@ -407,7 +416,8 @@
                                         <common-file-uploader #fileUploader
                                             [images]="benefitApp.attendantCareExpenseReceipts"
                                             [id]='benefitApp.id'
-                                            (imagesChange)="addReceipts($event)">
+                                            (imagesChange)="addReceipts($event)"
+                                            instructionText="Click add, or drag and drop file into this box">
                                         </common-file-uploader>
                                     </div>    
                                     <aside  style="position:inherit;left:450px;bottom:15px;height:275px;">

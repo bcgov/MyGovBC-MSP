@@ -3,7 +3,7 @@ import { ContactInfoPage } from './mspsb-supp-benefits.po';
 import { FakeDataSupplementaryBenefits } from './mspsb-supp-benefits.data';
 import { testGenericSubsequentPage, testGenericAllPages } from '../../msp-generic-tests';
 
-describe('MSP Supplementary Benefits - Contact Info:', () => {
+describe('MSP Supplementary Benefits - Contact Info Page:', () => {
 
     let page: ContactInfoPage;
     const data = new FakeDataSupplementaryBenefits;
@@ -59,6 +59,25 @@ describe('MSP Supplementary Benefits - Contact Info:', () => {
         page.clickIcon('minus');
         page.checkAddressLine2().then(val => {
             expect(val).toBe(false, 'Address Line 2 should be hidden');
+        });
+    });
+
+    it('04. should be able to add additional 2 address lines', () => {
+        page.navigateTo();
+        page.clickIcon('plus');
+        page.checkAddressLine2().then(val => {
+            expect(val).toBe(true, 'Address Line 2 should be present');
+        });
+        page.clickIcon('plus');
+        page.checkAddressLine3().then(val => {
+            expect(val).toBe(true, 'Address Line 3 should be present');
+        });
+    });
+
+    it('05. should NOT show undefined in the province field', () => {
+        page.navigateTo();
+        page.checkProvince().then(val => {
+            expect(val).toBe('', 'expect that undefined is not displayed');
         });
     });
 

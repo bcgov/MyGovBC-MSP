@@ -55,21 +55,24 @@
     <!-- SIN -->
     <div class="row">
         <div class="col-md-6">
-            <common-sin
-                [(ngModel)]="person.sin"
-                name="sin"
-                id="sin"
-                required>
-            </common-sin>
-            <div class="text-danger" *ngIf="!isSinUnique()"
-                [innerHTML]="lang('./en/index.js').sinUniqueError">
+            <div class="form-group">
+                <common-sin
+                    [(ngModel)]="person.sin"
+                    name="sin"
+                    id="sin"
+                    required
+                    commonValidateSin>
+                </common-sin>
+                <div class="text-danger" *ngIf="!isSinUnique()"
+                    [innerHTML]="lang('./en/index.js').sinUniqueError">
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Doc Uploader   -->
     <h2>Documents</h2>
-    <p class="help-block"> Upload your Notice of Assessment or Reassessment from Canada Revenue Agency for <b>{{benefitApp.taxYear}}</b></p>
+    <p class="help-block border-bottom"> Upload your Notice of Assessment or Reassessment from Canada Revenue Agency for <b>{{benefitApp.taxYear}}</b></p>
         <common-page-section layout="tips">
             <div >
                 <common-file-uploader 
@@ -77,7 +80,7 @@
                     (imagesChange)="addDocument($event)"
                     [id]='benefitApp.id'
                     (errorDocument)="errorDoc($event)" 
-                    instructionText="Please upload Notice of Assessment documents for {{benefitApp.taxYear}} ">
+                    instructionText="Click add, or drag and drop file into this box">
                 </common-file-uploader>
             </div>   
              

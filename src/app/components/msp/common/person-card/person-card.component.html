@@ -381,17 +381,25 @@
                        <strong>{{person.studiesDepartureDate.format("MMMM Do, YYYY")}}</strong>
                    </div>
                </div>
-
+               <div class="row" *ngIf="person.assistYearDocs.length > 0">
+                    <div class="col-sm-4">
+                        Documents
+                    </div>
+                    <div class="col-sm-8">
+                        <strong>{{person.assistYearDocs.length}} {{fileLabel}}</strong>
+                    </div>
+                </div>
+                <!--<div *ngIf= "person.assistYearDocs.length < 2">File</div><div *ngIf= "person.assistYearDocs.length > 1">Files</div> -->
                <msp-address-card-part [address]="person.schoolAddress"
                                       [label]="lang('./en/index.js').schoolAddressLabel"></msp-address-card-part>
-
-               <!--<div class="person-card-preview-zone">
+               
+               <div class="person-card-preview-zone">
                    <div *ngFor="let mspImage of person.documents.images" class="preview-item">
                        <common-thumbnail [imageObject]="mspImage" [reviewMode]="true">
                        </common-thumbnail>
                    </div>
-               </div> -->
- <!--              <button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
+               </div> 
+            <!--              <button *ngIf="editRouterLink" class="btn btn-link text-uppercase" type="submit" [routerLink]="editRouterLink"
                        [innerHTML]="customLinkTitle?customLinkTitle:lang('./en/index.js').editButton.replace('{label}', lang('./en/index.js').relationshipLabel[person.relationship])"
                        tabindex="0"> 
                </button> -->

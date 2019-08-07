@@ -29,18 +29,31 @@ describe('MSP Retro PA - Spouse Info Page:', () => {
 
     // This page depends on the inputs from the home page
     it('01. should be able to add spouse, fill out the page and continue', () => {
+        spouseInfoPage.fillPage();
         spouseInfoPage.fillPersonalInfoPage(personalInfoData);
-        spouseInfoPage.clickButton('btn', 'Add Spouse');
-        spouseInfoPage.selectYear('2018');
-        spouseInfoPage.uploadOneFile();
+        spouseInfoPage.continue();
+        spouseInfoPage.fillSpouseInfoPage();
         expect(browser.getCurrentUrl()).toContain(CONTACT_PAGE_URL, 'should navigate to the next page');
     });
 
     it('02. should NOT let user to continue if there is at least one incomplete field', () => {
+        spouseInfoPage.fillPage();
         spouseInfoPage.fillPersonalInfoPage(personalInfoData);
+        spouseInfoPage.continue();
         spouseInfoPage.clickButton('btn', 'Add Spouse');
-        spouseInfoPage.selectYear('2018');
+        spouseInfoPage.continue();
         expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL, 'should stay on the same page');
+    });
+
+    // New tests from TEST Feedback
+    it('03. Add Spouse button should still be present but disabled when clicked - EXPECT TO FAIL', () => {
+        spouseInfoPage.fillPage();
+        spouseInfoPage.fillPersonalInfoPage(personalInfoData);
+        spouseInfoPage.continue();
+        spouseInfoPage.clickButton('btn', 'Add Spouse');
+        spouseInfoPage.checkAddSpouse().then(val => {
+            expect(val).toBe(true, 'expect that Add Spouse is still present');
+        });
     });
 
 });;
