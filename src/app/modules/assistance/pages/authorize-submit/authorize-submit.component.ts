@@ -62,6 +62,7 @@ import { AssistStateService } from '../../services/assist-state.service';
             (onErrorDocument)="errorDocument($event)"
             (onDeleteDocument)="deleteDocument($event)"
             (imagesChange)="updateFiles($event)"
+            instructionText="Click add or drag and drop documents"
           >
             <span id="uploadInstruction" #uploadInstruction>
               Please upload required power of attorney documents
