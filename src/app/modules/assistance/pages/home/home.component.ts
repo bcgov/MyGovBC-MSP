@@ -27,13 +27,13 @@ import { environment } from '../../../../../environments/environment.prod';
   selector: 'msp-assist-home',
   template: `
     <common-page-section layout="tips">
-      <h2>Apply for Retroactive Premium Assistance</h2>
+      <h1>Apply for Retroactive Premium Assistance</h1>
       <p>
         Retroactive Premium Assistance provides assistance for previously
         charged Medical Services Plan premiums. Medical Services Plan premiums
 
-        <a class="btn btn-link p-0" href="{{links.MSP_ASSISTANCE}}">
-          Medical Services Plan premiums
+        <a class="btn btn-link p-0" href="http://gov.bc.ca/MSP/retropremiumassistance" target="_blank">
+          Medical Services Plan premiums <i class="fa fa-external-link" aria-hidden="true"></i>
         </a>
         are based on the previous tax year's
         <button class="btn btn-link p-0" (click)="openModal(modal)">
@@ -64,10 +64,10 @@ import { environment } from '../../../../../environments/environment.prod';
     </common-page-section>
     <common-page-section layout="tips">
       <form #formRef="ngForm" novalidate>
-        <h3>
+        <h2 class="h3">
           Which years do you think your income might qualify you for Retroactive
           Premium Assistance?
-        </h3>
+        </h2>
         <!--
         <p>
           <span>
@@ -148,7 +148,7 @@ import { environment } from '../../../../../environments/environment.prod';
         and section 26 (a), (c) and (e) of the Freedom of Information and Protection of 
         Privacy Act for the purposes of administration of the Medical Services Plan. If you 
         have any questions about the collection and use of your personal information, please 
-        <a href="{{links.MSP_RESIDENT_CONTACT}}" target="_blank"
+        <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank"
           >contact Health Insurance BC
           <i class="fa fa-external-link" aria-hidden="true"></i></a
         >.
