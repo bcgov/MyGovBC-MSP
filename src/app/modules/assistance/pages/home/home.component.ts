@@ -27,7 +27,7 @@ import { environment } from '../../../../../environments/environment.prod';
   selector: 'msp-assist-home',
   template: `
     <common-page-section layout="tips">
-      <h2>Apply for Retroactive Premium Assistance</h2>
+      <h1>Apply for Retroactive Premium Assistance</h1>
       <p>
         Retroactive Premium Assistance provides assistance for previously
         charged Medical Services Plan premiums. Medical Services Plan premiums
@@ -64,10 +64,10 @@ import { environment } from '../../../../../environments/environment.prod';
     </common-page-section>
     <common-page-section layout="tips">
       <form #formRef="ngForm" novalidate>
-        <h3>
+        <h2 class="h3">
           Which years do you think your income might qualify you for Retroactive
           Premium Assistance?
-        </h3>
+        </h2>
         <!--
         <p>
           <span>

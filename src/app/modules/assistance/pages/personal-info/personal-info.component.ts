@@ -15,8 +15,8 @@ import { Observable } from 'rxjs';
 @Component({
   // templateUrl: './personal-info.component.html'
   template: `
-    <h2>{{ title }}</h2>
-    <h3>{{ subtitle }}</h3>
+    <h1>{{ title }}</h1>
+    <h2>{{ subtitle }}</h2>
     <p class="border-bottom">{{ description }}</p>
     <common-page-section layout="double">
       <form #formRef="ngForm" novalidate>
@@ -26,7 +26,7 @@ import { Observable } from 'rxjs';
         ></msp-assist-account-holder>
       </form>
     </common-page-section>
-    <h3>{{ documentsTitle }}</h3>
+    <h2>{{ documentsTitle }}</h2>
     <p class="border-bottom">{{ documentsDescription }}</p>
     <msp-assist-cra-documents
       [assistanceYears]="assistanceYears"
