@@ -23,10 +23,9 @@ import { HeaderService } from '../../../../services/header.service';
     </common-page-framework>
     <common-form-action-bar
       (btnClick)="continue()"
-      [submitLabel]="submitLabel$ | async"
+      [submitLabel]="submitLabel"
       [isLoading]="isLoading"
     ></common-form-action-bar>
-
   `,
   styleUrls: ['./assist-container.component.scss']
 })
@@ -52,11 +51,15 @@ export class AssistContainerComponent extends Container implements OnInit {
 
   response: any;
 
-  submitLabel$ = new BehaviorSubject<string>('Continue');
+  //submitLabel$ = new BehaviorSubject<string>('Continue');
+
+  get submitLabel() {
+    return this.stateSvc.submitLabel;
+  }
 
   constructor(
     public router: Router,
-    private stateSvc: AssistStateService,
+    private stateSvc: AssistStateService, // TODO: Modify to keep current state
     private dataSvc: MspDataService,
     private schemaSvc: SchemaService,
     private xformSvc: AssistTransformService,
@@ -65,12 +68,11 @@ export class AssistContainerComponent extends Container implements OnInit {
   ) {
     super();
     this.setProgressSteps(assistPages);
-    this.stateSvc.setAssistPages(assistPages);
     this.header.setTitle('Retroactive Premium Assistance');
   }
 
   ngOnInit() {
-    const url = this.router.url.slice(12, this.router.url.length);
+  /*  const url = this.router.url.slice(12, this.router.url.length);
     this.stateSvc.setIndex(url);
     this.stateSvc.touched.subscribe(obs => console.log(obs));
     this.stateSvc.index.subscribe(obs => {
@@ -81,23 +83,30 @@ export class AssistContainerComponent extends Container implements OnInit {
 
     this.route.params.subscribe(obs => {
       console.log(obs);
-    });
+    });*/
   }
 
   continue() {
-    const index = this.stateSvc.index.value;
+    /*const index = this.stateSvc.index.value;
 
     this.stateSvc.isValid(index)
       ? this.navigate(index)
       : this.stateSvc.touched.next(true);
-    // ;
+    // ;*/
+
+    if ( this.stateSvc.canContinue ) {
+      this.router.navigate([this.stateSvc.nextPage]);
+    }
   }
 
+/*
   navigate(index: number) {
     index !== 5
       ? this.router.navigate([`/assistance/${this.stateSvc.routes[index + 1]}`])
       : this.submit();
-  }
+}*/
+
+/*
   async submit() {
     this.isLoading = true;
 
@@ -146,4 +155,5 @@ export class AssistContainerComponent extends Container implements OnInit {
       //this.submitLabel$.next('Home');
     }
   }
+  */
 }

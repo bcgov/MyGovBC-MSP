@@ -22,6 +22,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AssistStateService } from '../../services/assist-state.service';
 import { AssistRatesModalComponent } from '../../components/assist-rates-modal/assist-rates-modal.component';
 import { environment } from '../../../../../environments/environment.prod';
+import { ROUTES_ASSIST } from '../../models/assist-route-constants';
 
 @Component({
   selector: 'msp-assist-home',
@@ -59,9 +60,6 @@ import { environment } from '../../../../../environments/environment.prod';
         </div>
       </aside>
     </common-page-section>
-
-    <common-page-section class="border-bottom" layout="noTips">
-    </common-page-section>
     <common-page-section layout="tips">
       <form #formRef="ngForm" novalidate>
         <h3>
@@ -96,11 +94,9 @@ import { environment } from '../../../../../environments/environment.prod';
           </div>
         </div>
       </form>
-      <ng-container *ngIf="touched$ | async as touched">
-        <p class="text-danger" *ngIf="touched && validSelection">
-          A tax year is required
-        </p>
-      </ng-container>
+      <common-error-container [displayError]="(formRef.touched || formRef.dirty ) && !optionValid()">
+        A tax year is required
+      </common-error-container>
       <aside>
         <p>
           <b>
@@ -136,12 +132,10 @@ export class AssistanceHomeComponent extends BaseComponent
   @ViewChild('modal') ratesModal: AssistRatesModalComponent;
   @ViewChild('formRef') prepForm: NgForm;
 
-  touched$ = this.stateSvc.touched.asObservable();
+  //touched$ = this.stateSvc.touched.asObservable();
 
   links = environment.links;
-
-  title = 'Apply for Retroactive Premium Assistance';
-  consentProcessName = 'apply for Premium Assistance';
+  consentProcessName = 'Apply for Premium Assistance';
 
   options: AssistanceYear[];
   rateData: {};
@@ -185,21 +179,25 @@ export class AssistanceHomeComponent extends BaseComponent
     // }
     // this.rateData = data;
     if (this.options.length < 1) this.initYearsList();
-    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
+    //this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
 
   ngAfterViewInit() {
     if (!this.dataSvc.finAssistApp.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();
     }
-
+    
     this.prepForm.valueChanges
       .pipe(
-        debounceTime(250),
+      //  debounceTime(250),
         distinctUntilChanged()
       )
       .subscribe(() => {
-        if (this.prepForm.dirty) this.stateSvc.touched.next(true);
+        console.log( 'form values changed: form is ', this.prepForm.valid );
+        this.stateSvc.canContinue = this.prepForm.valid;
+        if ( this.stateSvc.canContinue ) {
+          this.stateSvc.nextPage = ROUTES_ASSIST.PERSONAL_INFO.fullpath;
+        }
         this.dataSvc.saveFinAssistApplication();
       });
   }
@@ -211,6 +209,12 @@ export class AssistanceHomeComponent extends BaseComponent
       this.options[i].spouseFiles = undefined;
     }
     this.dataSvc.saveFinAssistApplication();
+  }
+
+  optionValid(): boolean {
+    // At least one option selected
+    const selectOpts =  this.options.filter( x => x.apply === true );
+    return selectOpts.length !== 0;
   }
 
   openModal(template: TemplateRef<any>) {

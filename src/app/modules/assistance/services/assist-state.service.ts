@@ -4,18 +4,25 @@ import { Route } from '@angular/compiler/src/core';
 import { Router, NavigationStart } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MspDataService } from 'app/services/msp-data.service';
-import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
 import { validateBirthdate } from 'app/modules/msp-core/models/validate-birthdate';
 import { validateContact } from 'app/modules/msp-core/models/validate-contact';
 import { AssistTransformService } from './assist-transform.service';
 import { SchemaService } from 'app/services/schema.service';
 import { ApiSendService } from 'app/modules/benefit/services/api-send.service';
-import { MSPApplicationSchema } from 'app/modules/msp-core/interfaces/i-api';
+import { ROUTES_ASSIST } from '../models/assist-route-constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssistStateService {
+
+  public canContinue: boolean = false;
+  public nextPage: string = ROUTES_ASSIST.PERSONAL_INFO.fullpath;
+  public submitLabel: string = 'Continue';
+
+
+
+
   index: BehaviorSubject<number> = new BehaviorSubject(null);
   success$: BehaviorSubject<any> = new BehaviorSubject(null);
   failure$: BehaviorSubject<any> = new BehaviorSubject(null);
@@ -62,10 +69,11 @@ export class AssistStateService {
       }
     }
 
+    /*
     if (!validatePHN(person.previous_phn)) { 
       //console.log( 'Invalid PHN - not meet mod11 check' );
       return false;
-    }
+    }*/
 
     if (!validateBirthdate(person.dobSimple)) return false;
     const filteredYears = this.filteredYears('files');

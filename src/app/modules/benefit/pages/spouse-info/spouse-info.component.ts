@@ -8,7 +8,7 @@ import { MspBenefitDataService } from '../../services/msp-benefit-data.service';
 import {Relationship} from '../../../../models/status-activities-documents';
 import {NgForm} from '@angular/forms';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
-import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
+//import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
 import { CANADA } from 'moh-common-lib';
 
 @Component({
@@ -90,7 +90,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   }
 
   isValid(): boolean {
-      return this.dataService.benefitApp.isUniquePhns && this.dataService.benefitApp.isUniqueSin && validatePHN(this.dataService.benefitApp.spouse.previous_phn);
+      return this.dataService.benefitApp.isUniquePhns && this.dataService.benefitApp.isUniqueSin;
   }
 
   get canContinue(): boolean{

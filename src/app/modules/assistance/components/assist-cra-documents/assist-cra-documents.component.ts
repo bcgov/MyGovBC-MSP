@@ -9,15 +9,15 @@ import { AssistanceYear } from '../../models/assistance-year.model';
         <label>{{ year.year }}</label>
         <common-file-uploader
           instructionText="Click add or drag and drop documents"
-          [images]="files(year)"
+          [ngModel]="files(year)"
           id="{{ year.year }}"
-          (imagesChange)="updateFiles($event, year)"
+          (ngModelChange)="updateFiles($event, year)"
           required
         >
         </common-file-uploader>
-        <ng-container *ngIf="touched && validFiles(year)">
-          <p class="text-danger">Files are required for {{ year.year }}</p>
-        </ng-container>
+        <common-error-container [displayError]="touched && validFiles(year)">
+          Files are required for {{ year.year }}<
+        </common-error-container>
       </ng-container>
       <aside>
         <div class="row">

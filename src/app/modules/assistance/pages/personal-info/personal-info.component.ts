@@ -12,6 +12,7 @@ import { MspPerson } from 'app/modules/account/models/account.model';
 import { AssistStateService } from '../../services/assist-state.service';
 import { Observable } from 'rxjs';
 import { CANADA } from 'moh-common-lib';
+import { ROUTES_ASSIST } from '../../models/assist-route-constants';
 
 @Component({
   // templateUrl: './personal-info.component.html'
@@ -19,20 +20,20 @@ import { CANADA } from 'moh-common-lib';
     <h2>{{ title }}</h2>
     <h3>{{ subtitle }}</h3>
     <p class="border-bottom">{{ description }}</p>
-    <common-page-section layout="double">
-      <form #formRef="ngForm" novalidate>
+    <form #formRef="ngForm" novalidate>
+      <common-page-section layout="double">
         <msp-assist-account-holder
           [person]="financialAssistApplication.applicant"
           (dataChange)="saveAccountHolder($event)"
         ></msp-assist-account-holder>
-      </form>
-    </common-page-section>
-    <h3>{{ documentsTitle }}</h3>
-    <p class="border-bottom">{{ documentsDescription }}</p>
-    <msp-assist-cra-documents
-      [assistanceYears]="assistanceYears"
-      [touched]="touched$ | async"
-    ></msp-assist-cra-documents>
+      </common-page-section>
+      <h3>{{ documentsTitle }}</h3>
+      <p class="border-bottom">{{ documentsDescription }}</p>
+      <msp-assist-cra-documents
+        [assistanceYears]="assistanceYears"
+        [touched]="touched$ | async"
+      ></msp-assist-cra-documents>
+    </form>
   `
 })
 export class AssistancePersonalInfoComponent extends BaseComponent {
@@ -76,10 +77,15 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
     this.subscriptionList.push(
       this.personalInfoForm.valueChanges
         .pipe(
-          debounceTime(250),
+       //   debounceTime(250),
           distinctUntilChanged()
         )
         .subscribe(val => {
+          console.log( 'form values changed: form is ', this.personalInfoForm.valid );
+          this.stateSvc.canContinue = this.personalInfoForm.valid;
+          if ( this.stateSvc.canContinue ) {
+            this.stateSvc.nextPage = ROUTES_ASSIST.SPOUSE_INFO.fullpath;
+          }
           this.dataService.saveFinAssistApplication();
         })
     );

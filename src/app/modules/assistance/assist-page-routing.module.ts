@@ -7,54 +7,43 @@ import { AssistanceHomeComponent } from './pages/home/home.component';
 import { SpouseComponent } from './pages/spouse/spouse.component';
 import { AssistGuard } from './guards/assist.guard';
 import { environment } from 'environments/environment';
+import { ROUTES_ASSIST } from './models/assist-route-constants';
 
 export const assistPages: Routes = [
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  // {
-  //   path: 'prepare',
-  //   component: AssistancePrepareComponent
-  // },
-  {
-    path: 'home',
-    canActivate: [AssistGuard],
-    component: AssistanceHomeComponent
+    path: ROUTES_ASSIST.HOME.path,
+    component: AssistanceHomeComponent,
+    data: { title: ROUTES_ASSIST.HOME.title }
   },
   {
-    path: 'personal-info',
-    canActivate: [AssistGuard],
-    component: AssistancePersonalInfoComponent
+    path: ROUTES_ASSIST.PERSONAL_INFO.path,
+    component: AssistancePersonalInfoComponent,
+    data: { title: ROUTES_ASSIST.PERSONAL_INFO.title }
   },
   {
-    path: 'spouse',
-    canActivate: [AssistGuard],
-    component: SpouseComponent
+    path: ROUTES_ASSIST.SPOUSE_INFO.path,
+    component: SpouseComponent,
+    data: { title: ROUTES_ASSIST.SPOUSE_INFO.title }
   },
 
   {
-    path: 'contact',
-    canActivate: [AssistGuard],
-    component: AssistContactComponent
+    path: ROUTES_ASSIST.CONTACT.path,
+    component: AssistContactComponent,
+    data: { title: ROUTES_ASSIST.CONTACT.title }
   },
-
   {
-    path: 'review',
-    canActivate: [AssistGuard],
-    component: AssistanceReviewComponent
+    path: ROUTES_ASSIST.REVIEW.path,
+    component: AssistanceReviewComponent,
+    data: { title: ROUTES_ASSIST.REVIEW.title }
   },
-
   {
-    path: 'authorize-submit',
-    canActivate: [AssistGuard],
-    component: AssistanceAuthorizeSubmitComponent
+    path: ROUTES_ASSIST.AUTHORIZE.path,
+    component: AssistanceAuthorizeSubmitComponent,
+    data: { title: ROUTES_ASSIST.AUTHORIZE.title }
   },
-
   {
     path: '',
-    redirectTo: 'home'
+    redirectTo: ROUTES_ASSIST.HOME.path
   }
 ];
 
