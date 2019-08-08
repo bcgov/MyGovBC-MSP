@@ -119,7 +119,11 @@ export class BenefitAuthorizeSubmitComponent {
         return this.lang('./en/index.js').doYouAgreeLabel.replace('{name}', this.spouseName);
     }
     get questionForAttorney(){
-        return this.lang('./en/index.js').attorneyDoYouAgreeLabel.replace('{applicantName}', this.applicantName);
+        let allName = this.applicantName;
+        if(this.dataService.benefitApp.hasSpouseOrCommonLaw && this.spouseName) {
+            allName += ' or '+this.spouseName;
+        }
+        return this.lang('./en/index.js').attorneyDoYouAgreeLabel.replace('{applicantName}', allName);
     }
     get applicantName(){
         return this.application.applicant.firstName + ' ' + this.application.applicant.lastName;

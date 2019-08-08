@@ -38,7 +38,7 @@
              [(ngModel)] = "application.authorizedByAttorney"
              (ngModelChange) = "handleAuthorizedByAttorney($event)"
              id="authByAttorney" type="checkbox">
-      <label class="form-check-label" for="authByAttorney" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
+      <label class="form-check-label" for="authByAttorney" [innerHTML]="'Yes, I have Power of Attorney'"></label>
     </div>
   </div>
   <div style="margin-top: 20px;" *ngIf="application.authorizedByAttorney">
