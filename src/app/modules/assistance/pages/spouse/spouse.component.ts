@@ -15,7 +15,7 @@ export interface spouseYears {
 @Component({
   selector: 'msp-spouse',
   template: `
-    <h2>{{ title }}</h2>
+    <h1>{{ title }}</h1>
     <p class="border-bottom">{{ description }}</p>
 
     <button

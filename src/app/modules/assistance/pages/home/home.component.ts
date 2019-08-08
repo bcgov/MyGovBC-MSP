@@ -28,13 +28,13 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
   selector: 'msp-assist-home',
   template: `
     <common-page-section layout="tips">
-      <h2>Apply for Retroactive Premium Assistance</h2>
+      <h1>Apply for Retroactive Premium Assistance</h1>
       <p>
         Retroactive Premium Assistance provides assistance for previously
         charged Medical Services Plan premiums. Medical Services Plan premiums
 
-        <a class="btn btn-link p-0" href="{{links.MSP_ASSISTANCE}}">
-          Medical Services Plan premiums
+        <a class="btn btn-link p-0" href="http://gov.bc.ca/MSP/retropremiumassistance" target="_blank">
+          Medical Services Plan premiums <i class="fa fa-external-link" aria-hidden="true"></i>
         </a>
         are based on the previous tax year's
         <button class="btn btn-link p-0" (click)="openModal(modal)">
@@ -62,10 +62,10 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
     </common-page-section>
     <common-page-section layout="tips">
       <form #formRef="ngForm" novalidate>
-        <h3>
+        <h2 class="h3">
           Which years do you think your income might qualify you for Retroactive
           Premium Assistance?
-        </h3>
+        </h2>
         <!--
         <p>
           <span>
@@ -186,7 +186,6 @@ export class AssistanceHomeComponent extends BaseComponent
     if (!this.dataSvc.finAssistApp.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();
     }
-    
     this.prepForm.valueChanges
       .pipe(
       //  debounceTime(250),

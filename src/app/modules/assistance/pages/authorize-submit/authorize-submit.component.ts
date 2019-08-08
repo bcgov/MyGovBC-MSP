@@ -14,7 +14,7 @@ import { AssistStateService } from '../../services/assist-state.service';
   template: `
     <ng-container *ngIf="!stateSvc.submitted">
       <common-page-section layout="noTips">
-        <h2>{{ title }}</h2>
+        <h1>{{ title }}</h1>
         <p>
           {{ declarationOne }}<em>{{ declarationOneEm }}</em
           >{{ declarationOneB }}

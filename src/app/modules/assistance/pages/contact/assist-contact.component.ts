@@ -13,9 +13,9 @@ import { AssistStateService } from '../../services/assist-state.service';
   template: `
     <form #formRef="ngForm" novalidate>
       <common-page-section layout="noTips">
-        <h2>{{ title }}</h2>
+        <h1>{{ title }}</h1>
         <p>{{ subtitle }}</p>
-        <h3>{{ mailTitle }}</h3>
+        <h2>{{ mailTitle }}</h2>
         <p class="border-bottom">{{ mailSubtitle }}</p>
       </common-page-section>
       <common-page-section layout="double">
@@ -27,7 +27,7 @@ import { AssistStateService } from '../../services/assist-state.service';
           disableGeocoder="true"
         ></common-address>
       </common-page-section>
-      <h3 class="border-bottom">{{ phoneTitle }}</h3>
+      <h2 class="border-bottom">{{ phoneTitle }}</h2>
       <common-page-section layout="tips">
         <common-phone-number
           name="phoneNumber"
@@ -39,7 +39,7 @@ import { AssistStateService } from '../../services/assist-state.service';
           required="false"
         ></common-phone-number>
         <aside>
-          <h5>Tip</h5>
+          <h3>Tip</h3>
           <p>{{ phoneTip }}</p>
         </aside>
       </common-page-section>
@@ -59,7 +59,7 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
   subtitle = 'Provide your contact information.';
   mailTitle = 'Mailing Address';
   mailSubtitle = 'Enter your current mailing address';
-  phoneTitle = 'Contact';
+  phoneTitle = 'Phone';
   phoneLabel = 'Phone Number (optional)';
   phoneTip =
     'Please provide a phone number so you may be contacted in case of any issues with your application.';

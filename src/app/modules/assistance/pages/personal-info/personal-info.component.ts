@@ -17,8 +17,8 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
 @Component({
   // templateUrl: './personal-info.component.html'
   template: `
-    <h2>{{ title }}</h2>
-    <h3>{{ subtitle }}</h3>
+    <h1>{{ title }}</h1>
+    <h2>{{ subtitle }}</h2>
     <p class="border-bottom">{{ description }}</p>
     <form #formRef="ngForm" novalidate>
       <common-page-section layout="double">
