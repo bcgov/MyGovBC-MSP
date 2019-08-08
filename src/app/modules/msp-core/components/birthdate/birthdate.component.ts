@@ -23,7 +23,7 @@ import { BaseComponent } from '../../../../models/base.component';
 })
 export class MspBirthDateComponent extends BaseComponent {
 
-  public dateLabel = 'Date of Birth';
+  public dateLabel = 'Birthdate';
 
   // Create today for comparison in check later
   today: any;

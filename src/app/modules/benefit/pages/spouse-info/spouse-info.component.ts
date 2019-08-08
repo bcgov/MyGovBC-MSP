@@ -73,11 +73,11 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   }
 
   removeSpouse(event: Object): void{
-   // console.log('remove spouse ', event);
+    console.log('remove spouse ', event);
    // this.dataService.getMspApplication().removeSpouse();
     this.showSpouse = false;
-   // this.dataService.benefitApp.setSpouse = false;
-    //this.dataService.saveMspApplication();
+    this.dataService.benefitApp.setSpouse = false;
+    this.dataService.saveMspApplication();
   }
 
   onChange(values: any) {
