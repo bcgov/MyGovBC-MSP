@@ -1,5 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { AssistanceYear } from '../../models/assistance-year.model';
+import { ControlContainer, NgForm } from '@angular/forms';
+import { FileUploaderMsg } from 'moh-common-lib/lib/components/file-uploader/file-uploader.component';
 
 @Component({
   selector: 'msp-assist-cra-documents',
@@ -9,15 +11,13 @@ import { AssistanceYear } from '../../models/assistance-year.model';
         <label>{{ year.year }}</label>
         <common-file-uploader
           instructionText="Click add or drag and drop documents"
-          [ngModel]="files(year)"
+          [images]="files(year)"
           id="{{ year.year }}"
-          (ngModelChange)="updateFiles($event, year)"
-          required
+          (imagesChange)="updateFiles($event, year)"
+          errorMessages="{{errorMesage(year)}}"
+          [required]="true"
         >
         </common-file-uploader>
-        <common-error-container [displayError]="touched && validFiles(year)">
-          Files are required for {{ year.year }}<
-        </common-error-container>
       </ng-container>
       <aside>
         <div class="row">
@@ -35,7 +35,13 @@ import { AssistanceYear } from '../../models/assistance-year.model';
       </aside>
     </common-page-section>
   `,
-  styleUrls: ['./assist-cra-documents.component.scss']
+  styleUrls: ['./assist-cra-documents.component.scss'],
+  /* Re-use the same ngForm that it's parent is using. The component will show
+   * up in its parents `this.form`, and will auto-update `this.form.valid`
+   */
+  viewProviders: [
+    { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
+  ]
 })
 export class AssistCraDocumentsComponent implements OnInit {
   @Input() assistanceYears: AssistanceYear[];
@@ -46,16 +52,23 @@ export class AssistCraDocumentsComponent implements OnInit {
   tip1 = `If you are uploading a copy of a Notice of Assessment or Reassessment from the Canada Revenue Agency website, make sure the image contains:`;
   tipList = ['your name', 'the tax year', 'your net income (line 236)'];
 
+
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
+  errorMesage( year: AssistanceYear ): FileUploaderMsg {
+    return { required:  'Files are required for' +  year.year};
+  }
+  
   files(year) {
     return this.isSpouse ? year.spouseFiles : year.files;
   }
 
-  validFiles(year) {
+/*  validFiles(year) {
     return this.isSpouse ? year.spouseFiles.length < 1 : year.files.length < 1;
-  }
+  }*/
 
   updateFiles(arr: any, year: AssistanceYear) {
     return this.isSpouse ? (year.spouseFiles = arr) : (year.files = arr);

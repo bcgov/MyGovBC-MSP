@@ -72,9 +72,10 @@ export class ApplicantInformation implements IApplicantInformation {
   }
 
   makeName(app: MspPerson) {
+
     const { firstName, middleName, lastName } = { ...app };
-    return [firstName, middleName, lastName]
-      .filter(itm => itm)
-      .reduce((a, b) => `${a} ${b}`);
+    const names = [firstName, middleName, lastName].filter(itm => itm);
+    console.log( 'makeName: ', names );
+    return names.length ? names.reduce((a, b) => `${a} ${b}`) : null;
   }
 }

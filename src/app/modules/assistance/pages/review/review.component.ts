@@ -12,6 +12,7 @@ import {
 } from '../../models/spouse-information.model';
 import { ActivatedRoute } from '@angular/router';
 import { AssistStateService } from '../../services/assist-state.service';
+import { ROUTES_ASSIST } from '../../models/assist-route-constants';
 
 export interface IContactInformation {}
 
@@ -112,9 +113,9 @@ export class AssistanceReviewComponent implements OnInit {
   contactTitle = 'Contact Information';
   spouseTitle = 'Spouse Information';
 
-  applicantLink = `/assistance/${this.stateSvc.routes[1]}`;
-  contactLink = `/assistance/${this.stateSvc.routes[3]}`;
-  spouseLink = `/assistance/${this.stateSvc.routes[2]}`;
+  applicantLink = ROUTES_ASSIST.PERSONAL_INFO.fullpath;
+  contactLink = ROUTES_ASSIST.CONTACT.fullpath;
+  spouseLink = ROUTES_ASSIST.SPOUSE_INFO.fullpath;
 
   static ProcessStepNum = 3;
 
@@ -141,7 +142,7 @@ export class AssistanceReviewComponent implements OnInit {
     this.hasSpouse = app.hasSpouseOrCommonLaw;
     this.hasSpouse ? this.spouseInformation() : (this.hasSpouse = false);
     this.phone = app.phoneNumber;
-    console.log(this.stateSvc.routes);
+    //console.log(this.stateSvc.routes);
   }
 
   ngOnInit() {
@@ -160,7 +161,7 @@ export class AssistanceReviewComponent implements OnInit {
   }
 
   get appYears() {
-    if ( this.applicantInfo.years) {
+    if ( this.applicantInfo.years && this.applicantInfo.years.length ) {
     return this.applicantInfo.years
       .map(itm => itm.toString())
       .reduce((a, b) => `${a}, ${b}`);
@@ -168,9 +169,10 @@ export class AssistanceReviewComponent implements OnInit {
   }
 
   get spouseYears() {
-    if (!this.spouseInfo.years) return;
+    if ( this.spouseInfo.years && this.spouseInfo.years.length ) {
     return this.spouseInfo.years
       .map(itm => itm.toString())
       .reduce((a, b) => `${a}, ${b}`);
+    }
   }
 }
