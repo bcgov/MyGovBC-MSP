@@ -324,6 +324,7 @@ export class BenefitApplication implements ApplicationBase {
       //this.spouseAgeOver65 = undefined;
     }
     this._hasSpouseOrCommonLaw = arg;
+    this.hasSpouse = arg;
   }
 
   get selfDisabilityCredit() {
@@ -339,7 +340,8 @@ export class BenefitApplication implements ApplicationBase {
 
   set spouseEligibleForDisabilityCredit(spouseEligible: boolean) {
     if (spouseEligible) {
-      this._hasSpouseOrCommonLaw = true;
+      //this._hasSpouseOrCommonLaw = true;
+      this.hasSpouse = true;
     }
     this.spouseOrCommonLawEligibleForDisabilityCredit = spouseEligible;
   }

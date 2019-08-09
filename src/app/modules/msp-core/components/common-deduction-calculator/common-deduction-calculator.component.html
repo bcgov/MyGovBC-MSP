@@ -37,7 +37,7 @@
             {{ageOver65Amt | currency: 'CAD': 'symbol-narrow'}}
           </td>
         </tr>
-        <tr *ngIf="application.hasSpouseOrCommonLaw">
+        <tr *ngIf="application.hasSpouse">
           <td class="deduction-table-cell-margin" tabindex="0">
             Spouse
           </td>
@@ -45,7 +45,7 @@
             {{spouseAmt| currency: 'CAD': 'symbol-narrow'}}
           </td>
         </tr>
-        <tr *ngIf="application.hasSpouseOrCommonLaw && application.spouseAgeOver65">
+        <tr *ngIf="application.hasSpouse && application.spouseAgeOver65">
           <td class="deduction-table-cell-margin" tabindex="0">
             Spouse age over 65
           </td>

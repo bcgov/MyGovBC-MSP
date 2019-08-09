@@ -1,46 +1,34 @@
 <common-page-framework layout="blank">
   <form #formRef="ngForm" novalidate>
   
-  <h1> <b>  Add spouse information and upload documents </b></h1>
-  <br>
-  <p class="border-bottom">Do you have a spouse or common-law partner? If so, you are required to provide spouse information and upload a Notice of Assessment or Reassessment.</p>
-  
- 
-  
-  <button style="width: 200px;" type="button" class="btn btn-primary" 
-    (click)="addSpouse()"
-    [disabled]="benefitApplication.hasSpouseOrCommonLaw">
-    <span>Add Spouse</span>
-  </button>
-
-    <!--<common-button [label]="'Add Spouse'" 
-      buttonType="primary" [disabled] = "benefitApplication.hasSpouseOrCommonLaw" (btnClick)='addSpouse()'>
-    </common-button> -->
-  
-  
-  <div *ngIf="benefitApplication.hasSpouseOrCommonLaw">
-    <br/><br/>
-    <h2>Your spouse or common-law partner</h2>
-    <h4>Enter your spouse’s legal name as it appears on their BC Service Card.
-    </h4>
-    <hr>
-      <msp-personal-details-retro-suppben *ngIf="benefitApplication.hasSpouseOrCommonLaw"
-            [(person)]="benefitApplication.spouse"
-            [benefitApp] = "benefitApplication"
-            (onChange)="onChange($event)"
-            [removeable]='true'
-            (notifySpouseRemoval)="removeSpouse($event)">
-        </msp-personal-details-retro-suppben>  
-   
-  </div>
-
-  
+    <h1> <b>  Add spouse information and upload documents </b></h1>
+    <br>
+    <p class="border-bottom">Do you have a spouse or common-law partner? If so, you are required to provide spouse information and upload a Notice of Assessment or Reassessment.</p>
+    
+    <button style="width: 200px;" type="button" class="btn btn-primary" 
+      (click)="addSpouse()"
+      [disabled]="showSpouse">
+      <span>Add Spouse</span>
+    </button>
+    
+    <div *ngIf="showSpouse">
+      <br/><br/>
+      <h2>Your spouse or common-law partner</h2>
+      <h4>Enter your spouse’s legal name as it appears on their BC Service Card.
+      </h4>
+      <hr>
+        <msp-personal-details-retro-suppben 
+              [(person)]="benefitApplication.spouse"
+              [benefitApp] = "benefitApplication"
+              (onChange)="onChange($event)"
+              [removeable]='true'
+              (notifySpouseRemoval)="removeSpouse($event)">
+          </msp-personal-details-retro-suppben>  
+    </div>
   </form>
 </common-page-framework>
  
-  <common-form-action-bar [defaultColor]="false" [submitLabel]="benefitApplication.hasSpouseOrCommonLaw? 'Continue':'No Spouse'"
-      [canContinue]="canContinue" 
-      (btnClick)="nextStep()">
-  </common-form-action-bar>
- 
-  
+<common-form-action-bar [defaultColor]="false" [submitLabel]="benefitApplication.hasSpouseOrCommonLaw? 'Continue':'No Spouse'"
+    [canContinue]="canContinue" 
+    (btnClick)="nextStep()">
+</common-form-action-bar>

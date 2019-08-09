@@ -40,10 +40,12 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
 }
 
   ngOnInit() {
-    
+
     this.initProcessMembers(BenefitSpouseInfoComponent.ProcessStepNum, this._processService);
     this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, false);
-    
+    if (this.benefitApplication.hasSpouseOrCommonLaw){
+      this.showSpouse = true;
+    }
   }
 
   ngAfterViewInit() {
@@ -64,6 +66,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   addSpouse = () => {
    //this.benefitApplication.applicant = new MspPerson(Relationship.Spouse);
    this.showSpouse = true;
+   //this.dataService.benefitApp.hasSpouse = true;
   //  this.benefitApplication.hasSpouseOrCommonLaw = true;
     this.dataService.benefitApp.setSpouse = true;
     //this.dataService.benefitApp.hasSpouseOrCommonLaw = true
@@ -73,7 +76,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   }
 
   removeSpouse(event: Object): void{
-    console.log('remove spouse ', event);
+   // this.dataService.benefitApp.hasSpouse = false;
    // this.dataService.getMspApplication().removeSpouse();
     this.showSpouse = false;
     this.dataService.benefitApp.setSpouse = false;

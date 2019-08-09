@@ -297,7 +297,8 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         if (!hasSpouse){
             this.benefitApp.spouseAgeOver65 = null;
             this.benefitApp.spouseIncomeLine236 = null;
-
+            this.benefitApp.spouseEligibleForDisabilityCredit = false;
+            this.benefitApp.spouseClaimForAttendantCareExpense = false;
         }
         this.dataService.saveBenefitApplication();
     }
@@ -407,7 +408,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     spouseClaimForAttendantCare(event: Event){
         //console.log(event);
         if (!this.benefitApp.spouseClaimForAttendantCareExpense
-            && (this.benefitApp.spouseDSPAmount_line125 || this.benefitApp.spouseEligibleForDisabilityCredit)){
+            && this.benefitApp.spouseEligibleForDisabilityCredit){
             event.preventDefault();
             this.showDisabilityError = true;
 
@@ -425,9 +426,10 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     updateChildren(evt: boolean) {
         this.dataService.benefitApp.haveChildrens = evt;
         if (!evt) {
-
             this.dataService.benefitApp.childrenCount = 0;
             this.dataService.benefitApp.claimedChildCareExpense_line214 = 0;
+            this.benefitApp.childClaimForDisabilityCredit = false;
+            this.benefitApp.childClaimForAttendantCareExpense = false;
         }
         this.dataService.saveBenefitApplication();
 
