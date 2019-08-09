@@ -77,15 +77,13 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
     this.subscriptionList.push(
       this.personalInfoForm.valueChanges
         .pipe(
-       //   debounceTime(250),
+          debounceTime(250),
           distinctUntilChanged()
         )
         .subscribe(val => {
           console.log( 'form values changed: form is ', this.personalInfoForm.valid );
           this.stateSvc.canContinue = this.personalInfoForm.valid;
-          if ( this.stateSvc.canContinue ) {
-            this.stateSvc.nextPage = ROUTES_ASSIST.SPOUSE_INFO.fullpath;
-          }
+
           this.dataService.saveFinAssistApplication();
         })
     );

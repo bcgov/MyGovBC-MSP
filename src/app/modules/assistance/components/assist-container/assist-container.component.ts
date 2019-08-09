@@ -23,7 +23,7 @@ import { HeaderService } from '../../../../services/header.service';
     </common-page-framework>
     <common-form-action-bar
       (btnClick)="continue()"
-      [submitLabel]="submitLabel"
+      [submitLabel]="submitLabel$ | async"
       [isLoading]="isLoading"
     ></common-form-action-bar>
   `,
@@ -51,11 +51,7 @@ export class AssistContainerComponent extends Container implements OnInit {
 
   response: any;
 
-  //submitLabel$ = new BehaviorSubject<string>('Continue');
-
-  get submitLabel() {
-    return this.stateSvc.submitLabel;
-  }
+  submitLabel$ = new BehaviorSubject<string>('Continue');
 
   constructor(
     public router: Router,
@@ -72,9 +68,11 @@ export class AssistContainerComponent extends Container implements OnInit {
   }
 
   ngOnInit() {
+    console.log( 'router: ', this.router.url );
   /*  const url = this.router.url.slice(12, this.router.url.length);
-    this.stateSvc.setIndex(url);
-    this.stateSvc.touched.subscribe(obs => console.log(obs));
+    this.stateSvc.setIndex(url);*/
+    this.stateSvc.touched.subscribe(obs => console.log('assist-containter touched:' + obs));
+
     this.stateSvc.index.subscribe(obs => {
       obs === 2
         ? this.submitLabel$.next(this.spouseLabel)
@@ -82,21 +80,26 @@ export class AssistContainerComponent extends Container implements OnInit {
     });
 
     this.route.params.subscribe(obs => {
-      console.log(obs);
-    });*/
+      console.log('route params: ', obs);
+    });
   }
 
   continue() {
-    /*const index = this.stateSvc.index.value;
+    const index = this.stateSvc.index.value;
+    console.log( 'Continue (container)', index );
 
-    this.stateSvc.isValid(index)
+ /*   this.stateSvc.isValid(index)
       ? this.navigate(index)
       : this.stateSvc.touched.next(true);
     // ;*/
 
-    if ( this.stateSvc.canContinue ) {
+
+
+  /*  if ( this.stateSvc.canContinue ) {
       this.router.navigate([this.stateSvc.nextPage]);
-    }
+    } else {
+      this.stateSvc.touched.next( true );
+    }*/
   }
 
 /*

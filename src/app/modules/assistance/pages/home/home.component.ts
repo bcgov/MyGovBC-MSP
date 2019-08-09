@@ -62,23 +62,10 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
     </common-page-section>
     <common-page-section layout="tips">
       <form #formRef="ngForm" novalidate>
-        <h2 class="h3">
+        <h2>
           Which years do you think your income might qualify you for Retroactive
           Premium Assistance?
         </h2>
-        <!--
-        <p>
-          <span>
-            Note:
-          </span>
-          <button class="btn btn-link p-0" (click)="openModal(modal)">
-            Income eligibility
-          </button>
-          <span>
-            for Retroactive Permium Assistance.
-          </span>
-        </p>
-        -->
         <div class="row">
           <div class="col-12">
             <common-checkbox
@@ -94,7 +81,7 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
           </div>
         </div>
       </form>
-      <common-error-container [displayError]="(formRef.touched || formRef.dirty ) && !optionValid()">
+      <common-error-container [displayError]="(touched$ | async) && validSelection">
         A tax year is required
       </common-error-container>
       <aside>
@@ -132,7 +119,7 @@ export class AssistanceHomeComponent extends BaseComponent
   @ViewChild('modal') ratesModal: AssistRatesModalComponent;
   @ViewChild('formRef') prepForm: NgForm;
 
-  //touched$ = this.stateSvc.touched.asObservable();
+  touched$ = this.stateSvc.touched.asObservable();
 
   links = environment.links;
   consentProcessName = 'Apply for Premium Assistance';
@@ -167,19 +154,12 @@ export class AssistanceHomeComponent extends BaseComponent
 
   ngOnInit() {
     this.options = this.dataSvc.finAssistApp.assistYears;
-    // const data = {};
-    // for (let assistYear of this.options) {
-    // const helperData = new PremiumRatesYear();
-    // let index = 0;
-    // for (let year in helperData.options) {
-    // let index = helperData.options[year];
-    // data[year] = { ...helperData.brackets[index] };
-    // index++;
-    // }
-    // }
-    // this.rateData = data;
-    if (this.options.length < 1) this.initYearsList();
-    //this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
+    if (this.options.length < 1) {
+      this.initYearsList();
+    }
+    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
+    this.stateSvc.setPageStatus( this.route.snapshot.routeConfig.path, !this.validSelection );
+
   }
 
   ngAfterViewInit() {
@@ -188,16 +168,16 @@ export class AssistanceHomeComponent extends BaseComponent
     }
     this.prepForm.valueChanges
       .pipe(
-      //  debounceTime(250),
+        debounceTime(250),
         distinctUntilChanged()
       )
       .subscribe(() => {
-        console.log( 'form values changed: form is ', this.prepForm.valid );
-        this.stateSvc.canContinue = this.prepForm.valid;
-        if ( this.stateSvc.canContinue ) {
-          this.stateSvc.nextPage = ROUTES_ASSIST.PERSONAL_INFO.fullpath;
-        }
+        console.log( 'change in home page' );
+
         this.dataSvc.saveFinAssistApplication();
+
+        // No form vlaidation only need at least one checkbox marked
+        this.stateSvc.setPageStatus( this.route.snapshot.routeConfig.path, !this.validSelection );
       });
   }
 
@@ -208,12 +188,6 @@ export class AssistanceHomeComponent extends BaseComponent
       this.options[i].spouseFiles = undefined;
     }
     this.dataSvc.saveFinAssistApplication();
-  }
-
-  optionValid(): boolean {
-    // At least one option selected
-    const selectOpts =  this.options.filter( x => x.apply === true );
-    return selectOpts.length !== 0;
   }
 
   openModal(template: TemplateRef<any>) {

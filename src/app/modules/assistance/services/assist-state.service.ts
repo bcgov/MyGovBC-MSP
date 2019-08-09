@@ -17,19 +17,15 @@ import { ROUTES_ASSIST } from '../models/assist-route-constants';
 export class AssistStateService {
 
   public canContinue: boolean = false;
-  public nextPage: string = ROUTES_ASSIST.PERSONAL_INFO.fullpath;
-  public submitLabel: string = 'Continue';
 
-
-
-
+  touched: Subject<boolean> = new Subject<boolean>();
   index: BehaviorSubject<number> = new BehaviorSubject(null);
+
   success$: BehaviorSubject<any> = new BehaviorSubject(null);
   failure$: BehaviorSubject<any> = new BehaviorSubject(null);
-  touched: Subject<boolean> = new Subject<boolean>();
-  routes: string[];
+  routes: any[];
   finAssistApp = this.dataSvc.finAssistApp;
-  submitted = false;
+  submitted = false; // Do we need?
   response: any;
 
   // The index of the validations is tied to the index of the router
@@ -45,7 +41,7 @@ export class AssistStateService {
     this.isAuthorizeValid.bind(this)
   ];
 
-  isHomeValid(): boolean {
+  isHomeValid(): boolean { // to remove - done on pages
     console.log( 'isHomeValid' );
     const bool = this.finAssistApp.assistYears.some(itm => itm.apply === true);
     return bool;
@@ -54,7 +50,7 @@ export class AssistStateService {
   isPersonalInfoValid(): boolean {
     const person = this.finAssistApp.applicant;
 
-    console.log( 'isPersonalInfoValid: ', person )
+    console.log( 'isPersonalInfoValid: ', person );
     // check that these fields have value
     const requiredFields = ['firstName', 'lastName', 'previous_phn', 'sin'];
     for (const field of requiredFields) {
@@ -69,11 +65,6 @@ export class AssistStateService {
       }
     }
 
-    /*
-    if (!validatePHN(person.previous_phn)) { 
-      //console.log( 'Invalid PHN - not meet mod11 check' );
-      return false;
-    }*/
 
     if (!validateBirthdate(person.dobSimple)) return false;
     const filteredYears = this.filteredYears('files');
@@ -178,32 +169,73 @@ export class AssistStateService {
     this.router.events
       .pipe(filter(event => event instanceof NavigationStart))
       .subscribe((obs: any) => {
-        const url = obs.url.slice(12, obs.url.length);
-        const index = this.findIndex(url);
+        const index = this.findIndex( obs.url );
+        console.log( 'route events: ', obs.url, index );
         if (index > -1) this.index.next(index);
       });
   }
 
   setAssistPages(arr: Route[]) {
+
+    const routeConst = Object.keys( ROUTES_ASSIST ).map( x => ROUTES_ASSIST[x] );
+
     const [...routes] = [...arr];
 
     this.routes = routes
       .filter((itm: any) => !itm.redirectTo)
-      .map((itm: any) => itm.path);
+      .map((itm: any) => {
+        const val = routeConst.find( x => x.path === itm.path );
+        return {
+          index: val.index,
+          path: val.path,
+          fullpath: val.fullpath,
+          isComplete: false
+        };
+      });
+
+    console.log( 'setAssistPages: ', this.routes );
   }
 
-  findIndex(url: string) {
-    if (!this.routes) return 0;
-    return this.routes.indexOf(url);
+  findIndex( url: string ): number {
+    let idx = 0;
+    if ( this.routes ) {
+      console.log( 'findIndex: ', url );
+      const obj = this.routes.find( x => url.includes(x.path) );
+      console.log( 'findIndex: ', obj );
+      if ( obj ) {
+
+        idx = obj.index;
+      }
+    }
+    return idx;
   }
 
   nextIndex(i: number) {
     this.index.next(i);
   }
 
-  setIndex(path: string) {
+  setIndex( path: string ) {
+    console.log( 'setIndex: ', path );
     const index = this.findIndex(path);
-    if (index > -1) return this.index.next(index);
+     if (index > -1) return this.index.next(index);
+  }
+
+  setPageStatus( path: string , complete: boolean ) {
+    const obj = this.routes.find( x => path.includes(x.path) );
+    if ( obj ) {
+      obj.isComplete = complete;
+    }
+  }
+
+  isPageComplete( path: string ): boolean {
+    let complete = false;
+    const obj = this.routes.find( x => path.includes(x.path) );
+    if ( obj ) {
+      // Requirement to continue is the previous page is complete
+      const prevIdx = obj.index - 1;
+      complete = (prevIdx === 0 ? obj.isComplete : this.routes[prevIdx - 1].isComplete );
+    }
+    return complete;
   }
 
   async submitApplication() {

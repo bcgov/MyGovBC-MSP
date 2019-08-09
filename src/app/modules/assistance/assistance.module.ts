@@ -18,9 +18,11 @@ import { AssistRatesHelperModalComponent } from './components/assist-rates-helpe
 import { AssistAccountHolderComponent } from './components/assist-account-holder/assist-account-holder.component';
 import { AssistCraDocumentsComponent } from './components/assist-cra-documents/assist-cra-documents.component';
 import { SpouseComponent } from './pages/spouse/spouse.component';
-import { RouteGuardService } from 'moh-common-lib';
+import { RouteGuardService , AbstractPgCheckService } from 'moh-common-lib';
 import { AssistGuard } from './guards/assist.guard';
 import { AssistRatesModalComponent } from './components/assist-rates-modal/assist-rates-modal.component';
+import { AssistStateService } from './services/assist-state.service';
+import { assistPages } from './assist-page-routing.module';
 
 @NgModule({
   imports: [
@@ -46,7 +48,15 @@ import { AssistRatesModalComponent } from './components/assist-rates-modal/assis
     SpouseComponent,
     AssistRatesModalComponent
   ],
-  providers: [RouteGuardService, AssistGuard, BsModalService],
+  providers: [
+    { provide: AbstractPgCheckService, useClass: AssistGuard },
+    RouteGuardService,
+    BsModalService
+  ],
   exports: [AssistMailingComponent, AssistAccountHolderComponent]
 })
-export class AssistanceModule {}
+export class AssistanceModule {
+  constructor( private stateSvc: AssistStateService ) {
+    this.stateSvc.setAssistPages( assistPages );
+  }
+}
