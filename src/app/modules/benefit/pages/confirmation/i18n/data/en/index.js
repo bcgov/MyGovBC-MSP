@@ -8,7 +8,7 @@ module.exports = {
   generalInstructions1:'<b>After your application is processed</b>, notification will be sent to your address on record, indicating whether you and your family are eligible for supplementary benefits.',
   //generalInstructions2: '<strong>File your taxes</strong> by April 30 every year so that you do not have to reapply for assistance',
   generalInstructions2:'File your taxes every year so that you do not have to reapply for supplementary benefits.',
-  generalInstructions3: 'BC residents must fulfill their MSP obligations under the Medicare Protection Act.',
+  generalInstructions3: 'BC residents must fulfill their MSP obligations under the <i>Medicare Protection Act</i>.',
   generalInstructions4:'Update your MSP account due to address changes or changes in family structure.',
   generalInstructions5: 'Health Insurance BC and Ministry of Health offer easy online services to update your MSP account. Visit <a href="https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/managing-your-msp-account" target="_blank">Managing Your MSP Account.</a>',
   noticeOfAssessment:'The Notice of Assessment or Reassessment you submitted will be used to assess your eligibility to receive supplementary benefits only until the end of this calendar year. Continue to file your taxes every year so that you do not have to reapply.',
