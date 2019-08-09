@@ -69,9 +69,11 @@ export class TaxYearComponent extends BaseComponent {
                 assistYear.year = yearNum;
                 assistYear.docsRequired = true;
                 assistYear.currentYear = this.currentYear;
+
                 // checking the cutoff Date and disabling the last year
                 console.log('CutOff Start Date', this.cutOffStartDate);
                 console.log('CutOff End Date', this.cutOffEndDate);
+
                 if (this.cutOffStartDate && moment(this.cutOffStartDate).isSameOrBefore(this.today) && (assistYear.year === this.benefitApp.MostRecentTaxYear - 1) && moment(this.cutOffEndDate).isSameOrAfter(this.today)) {
                     console.log('Cut off date started');
                     this.cutOffYear = assistYear.year;
@@ -101,11 +103,16 @@ export class TaxYearComponent extends BaseComponent {
     cutOffDate() {
         if (this.spaEnvResponse && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END && this.spaEnvResponse.SPA_ENV_NOW) {
             this.today = new Date(this.spaEnvResponse.SPA_ENV_NOW);
+            this.today = moment().toDate();
             const startDate = new Date(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START);
             const endDate = new Date(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END);
             this.currentYear = this.today.getFullYear();
             this.cutOffStartDate = new Date(this.currentYear, startDate.getMonth(), startDate.getDate(), startDate.getHours(), startDate.getMinutes(), startDate.getSeconds(), startDate.getMilliseconds());
+            this.cutOffStartDate = moment().toDate();
             this.cutOffEndDate  = new Date(this.currentYear, endDate.getMonth(), endDate.getDate(), endDate.getHours(), endDate.getMinutes(), endDate.getSeconds(), endDate.getMilliseconds());
+            this.cutOffEndDate = moment().toDate();
+            console.log(this.cutOffStartDate);
+            console.log(this.cutOffEndDate);
             // console.log('cutoffDate ran', {
             //     SPA_ENV_NOW: this.spaEnvResponse.SPA_ENV_NOW,
             //     SPA_ENV_PACUTOFF_MAINTENANCE_START: this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START,
