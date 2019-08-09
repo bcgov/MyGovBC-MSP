@@ -123,6 +123,7 @@ export class AssistanceHomeComponent extends BaseComponent
 
   links = environment.links;
   consentProcessName = 'Apply for Premium Assistance';
+  private url: string;
 
   options: AssistanceYear[];
   rateData: {};
@@ -153,13 +154,14 @@ export class AssistanceHomeComponent extends BaseComponent
   }
 
   ngOnInit() {
+    this.url = this.route.snapshot.routeConfig.path;
+    console.log( 'Home page url: ', this.url );
     this.options = this.dataSvc.finAssistApp.assistYears;
     if (this.options.length < 1) {
       this.initYearsList();
     }
-    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
-    this.stateSvc.setPageStatus( this.route.snapshot.routeConfig.path, !this.validSelection );
-
+    this.stateSvc.setIndex( this.url );
+    this.stateSvc.setPageStatus( this.url, !this.validSelection );
   }
 
   ngAfterViewInit() {
@@ -174,10 +176,13 @@ export class AssistanceHomeComponent extends BaseComponent
       .subscribe(() => {
         console.log( 'change in home page' );
 
-        this.dataSvc.saveFinAssistApplication();
+        if ( this.prepForm.dirty ) {
+          this.stateSvc.touched.next( true );
+        }
 
         // No form vlaidation only need at least one checkbox marked
-        this.stateSvc.setPageStatus( this.route.snapshot.routeConfig.path, !this.validSelection );
+        this.stateSvc.setPageStatus( this.url, !this.validSelection );
+        this.dataSvc.saveFinAssistApplication();
       });
   }
 

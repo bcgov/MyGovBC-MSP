@@ -23,7 +23,6 @@ export class AssistStateService {
 
   success$: BehaviorSubject<any> = new BehaviorSubject(null);
   failure$: BehaviorSubject<any> = new BehaviorSubject(null);
-  routes: any[];
   finAssistApp = this.dataSvc.finAssistApp;
   submitted = false; // Do we need?
   response: any;
@@ -132,7 +131,6 @@ export class AssistStateService {
   }
 
   isValid(index: number) {
-    
     console.log( 'isValid: index = ', index );
     const args = this.validations.slice(0, index + 1);
     for (const arg of args) {
@@ -171,36 +169,35 @@ export class AssistStateService {
       .subscribe((obs: any) => {
         const index = this.findIndex( obs.url );
         console.log( 'route events: ', obs.url, index );
-        if (index > -1) this.index.next(index);
+        if (index > 0 ) {
+          this.index.next( index );
+        }
       });
   }
 
   setAssistPages(arr: Route[]) {
+    if ( !this.finAssistApp.pageStatus.length ) {
+      const routeConst = Object.keys( ROUTES_ASSIST ).map( x => ROUTES_ASSIST[x] );
 
-    const routeConst = Object.keys( ROUTES_ASSIST ).map( x => ROUTES_ASSIST[x] );
-
-    const [...routes] = [...arr];
-
-    this.routes = routes
-      .filter((itm: any) => !itm.redirectTo)
-      .map((itm: any) => {
-        const val = routeConst.find( x => x.path === itm.path );
-        return {
-          index: val.index,
-          path: val.path,
-          fullpath: val.fullpath,
-          isComplete: false
-        };
-      });
-
-    console.log( 'setAssistPages: ', this.routes );
+      this.finAssistApp.pageStatus = arr
+        .filter((itm: any) => !itm.redirectTo)
+        .map((itm: any) => {
+          const val = routeConst.find( x => x.path === itm.path );
+          return {
+            index: val.index,
+            path: val.path,
+            fullpath: val.fullpath,
+            isComplete: false
+          };
+        });
+    }
   }
 
   findIndex( url: string ): number {
     let idx = 0;
-    if ( this.routes ) {
+    if ( this.finAssistApp.pageStatus  ) {
       console.log( 'findIndex: ', url );
-      const obj = this.routes.find( x => url.includes(x.path) );
+      const obj = this.finAssistApp.pageStatus .find( x => url.includes(x.path) );
       console.log( 'findIndex: ', obj );
       if ( obj ) {
 
@@ -210,7 +207,7 @@ export class AssistStateService {
     return idx;
   }
 
-  nextIndex(i: number) {
+  nextIndex( i: number ) {
     this.index.next(i);
   }
 
@@ -221,7 +218,7 @@ export class AssistStateService {
   }
 
   setPageStatus( path: string , complete: boolean ) {
-    const obj = this.routes.find( x => path.includes(x.path) );
+    const obj = this.finAssistApp.pageStatus.find( x => path.includes(x.path) );
     if ( obj ) {
       obj.isComplete = complete;
     }
@@ -229,11 +226,11 @@ export class AssistStateService {
 
   isPageComplete( path: string ): boolean {
     let complete = false;
-    const obj = this.routes.find( x => path.includes(x.path) );
+    const obj = this.finAssistApp.pageStatus .find( x => path.includes(x.path) );
     if ( obj ) {
       // Requirement to continue is the previous page is complete
       const prevIdx = obj.index - 1;
-      complete = (prevIdx === 0 ? obj.isComplete : this.routes[prevIdx - 1].isComplete );
+      complete = (prevIdx === 0 ? obj.isComplete : this.finAssistApp.pageStatus[prevIdx - 1].isComplete );
     }
     return complete;
   }

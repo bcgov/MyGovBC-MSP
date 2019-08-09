@@ -171,6 +171,7 @@ export class MspDataService {
   }
 
   private fetchFinAssistApplication(): FinancialAssistApplication {
+
     const dto: FinancialAssistApplicationDto = this.localStorageService.get<
       FinancialAssistApplicationDto
     >(this.finAssistAppStorageKey);
@@ -908,6 +909,8 @@ export class MspDataService {
     dto.assistYears = input.assistYears;
     dto.assistYeaDocs = input.assistYeaDocs;
 
+    dto.pageStatus = input.pageStatus; // page status complete/ incomplete
+
     this.convertToPersonDto(input.applicant, dto.applicant);
     this.convertToPersonDto(input.spouse, dto.spouse);
     this.convertMailingAddress(input, dto);
@@ -969,6 +972,8 @@ export class MspDataService {
 
     output.assistYears = dto.assistYears || [];
     output.assistYeaDocs = dto.assistYeaDocs || [];
+
+    output.pageStatus = dto.pageStatus; // page status complete/ incomplete
 
     this.convertToPerson(dto.applicant, output.applicant);
     this.convertToPerson(dto.spouse, output.spouse);

@@ -37,6 +37,8 @@ export class ApplicantInformation implements IApplicantInformation {
     };
   }
 
+  pageStatus: any[];
+
   constructor(mspApp: FinancialAssistApplication) {
     const { ...app } = { ...mspApp };
 
@@ -61,6 +63,8 @@ export class ApplicantInformation implements IApplicantInformation {
     const docCount = deepFlatten(appDocuments).map(itm => itm.name).length;
     // .reduce((a, b) => `${a}, ${b}`);
     this.appDocuments = docCount > 1 ? `${docCount} files` : `${docCount} file`;
+
+    this.pageStatus = app.pageStatus;
   }
 
   makeDate(date: SimpleDate) {

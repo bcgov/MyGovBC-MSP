@@ -4,7 +4,6 @@ import { assistPages } from './assist-page-routing.module';
 import { AssistContainerComponent } from './components/assist-container/assist-container.component';
 import { ROUTES_ASSIST } from './models/assist-route-constants';
 import { ConfirmationComponent } from '../msp-core/confirmation/confirmation.component';
-import { RouteGuardService } from 'moh-common-lib';
 
 const routes: Routes = [
   {

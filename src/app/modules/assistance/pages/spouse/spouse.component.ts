@@ -59,7 +59,6 @@ export interface spouseYears {
         <ng-container>
           <msp-assist-cra-documents
             [assistanceYears]="selectedYears"
-            [touched]="touched$ | async"
             isSpouse="true"
           ></msp-assist-cra-documents>
         </ng-container>

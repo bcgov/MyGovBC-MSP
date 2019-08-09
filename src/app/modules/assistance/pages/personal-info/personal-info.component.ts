@@ -11,8 +11,6 @@ import { AssistanceYear } from '../../models/assistance-year.model';
 import { MspPerson } from 'app/modules/account/models/account.model';
 import { AssistStateService } from '../../services/assist-state.service';
 import { Observable } from 'rxjs';
-import { CANADA } from 'moh-common-lib';
-import { ROUTES_ASSIST } from '../../models/assist-route-constants';
 
 @Component({
   // templateUrl: './personal-info.component.html'
@@ -31,21 +29,16 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
       <p class="border-bottom">{{ documentsDescription }}</p>
       <msp-assist-cra-documents
         [assistanceYears]="assistanceYears"
-        [touched]="touched$ | async"
       ></msp-assist-cra-documents>
     </form>
   `
 })
 export class AssistancePersonalInfoComponent extends BaseComponent {
-  //DEF-74 KPS
-  static ProcessStepNum = 1;
 
   @ViewChild('formRef') personalInfoForm: NgForm;
   @ViewChild('address') address: MspAddressComponent;
   @ViewChild('phone') phone: MspPhoneComponent;
   financialAssistApplication: FinancialAssistApplication;
-
-  touched$: Observable<any>;
 
   title = 'Add personal information and upload documents';
   subtitle = 'Medical Services Plan Account Holder';
@@ -54,6 +47,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   documentsTitle = 'Documents';
   documentsDescription =
     'Upload your Canada Revenue Agency Notice of Assessment or Reassessment for ';
+  url: string;
 
   assistanceYears: any[];
   constructor(
@@ -64,13 +58,8 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   ) {
     super(cd);
     this.financialAssistApplication = this.dataService.finAssistApp;
-    // if the country is blank or null or undefined then assign Canada By Default //DEF-153
-  /*  if (
-      !this.financialAssistApplication.mailingAddress.country ||
-      this.financialAssistApplication.mailingAddress.country.trim().length === 0
-    ) {
-      this.financialAssistApplication.mailingAddress.country = CANADA;
-    }*/
+    this.url = this.route.snapshot.routeConfig.path;
+    this.stateSvc.setIndex( this.url );
   }
 
   ngAfterViewInit() {
@@ -80,20 +69,12 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
           debounceTime(250),
           distinctUntilChanged()
         )
-        .subscribe(val => {
+        .subscribe(() => {
           console.log( 'form values changed: form is ', this.personalInfoForm.valid );
-          this.stateSvc.canContinue = this.personalInfoForm.valid;
-
+          this.stateSvc.setPageStatus( this.url, this.personalInfoForm.valid );
           this.dataService.saveFinAssistApplication();
         })
     );
-
-    setTimeout(
-      () => (this.touched$ = this.stateSvc.touched.asObservable()),
-      500
-    );
-
-    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
 
   ngOnInit() {
@@ -114,6 +95,22 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
       });
 
     this.documentsDescription += this.createDocumentDesc(this.assistanceYears);
+
+    setTimeout(
+      () =>
+      this.subscriptionList.push(
+          this.stateSvc.touched.asObservable().subscribe(obs => {
+            if (obs) {
+              const controls = this.personalInfoForm.form.controls;
+              console.log( 'controls: ', controls );
+              for (const control in controls) {
+                controls[control].markAsTouched();
+              }
+            }
+          })
+        ),
+      500
+    );
   }
   ngOnDestroy() {
     this.subscriptionList.forEach(itm => itm.unsubscribe());
@@ -138,7 +135,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
 
   // Final check to see if the country is present // DEF 153
 
-  saveAccountHolder(evt: MspPerson) {
+  saveAccountHolder() {
     this.dataService.saveFinAssistApplication();
   }
 }

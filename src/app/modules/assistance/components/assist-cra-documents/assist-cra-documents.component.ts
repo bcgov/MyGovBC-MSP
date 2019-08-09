@@ -14,7 +14,7 @@ import { FileUploaderMsg } from 'moh-common-lib/lib/components/file-uploader/fil
           [images]="files(year)"
           id="{{ year.year }}"
           (imagesChange)="updateFiles($event, year)"
-          errorMessages="{{errorMesage(year)}}"
+          [errorMessages]="errorMesage(year)"
           [required]="true"
         >
         </common-file-uploader>
@@ -66,9 +66,9 @@ export class AssistCraDocumentsComponent implements OnInit {
     return this.isSpouse ? year.spouseFiles : year.files;
   }
 
-/*  validFiles(year) {
+  validFiles(year) {
     return this.isSpouse ? year.spouseFiles.length < 1 : year.files.length < 1;
-  }*/
+  }
 
   updateFiles(arr: any, year: AssistanceYear) {
     return this.isSpouse ? (year.spouseFiles = arr) : (year.files = arr);

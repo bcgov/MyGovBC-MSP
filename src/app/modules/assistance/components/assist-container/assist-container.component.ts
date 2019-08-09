@@ -10,6 +10,7 @@ import { SchemaService } from 'app/services/schema.service';
 import { AssistTransformService } from '../../services/assist-transform.service';
 import { AssistMapping } from '../../models/assist-mapping';
 import { HeaderService } from '../../../../services/header.service';
+import { ROUTES_ASSIST } from '../../models/assist-route-constants';
 
 @Component({
   selector: 'msp-assist-container',
@@ -64,6 +65,7 @@ export class AssistContainerComponent extends Container implements OnInit {
   ) {
     super();
     this.setProgressSteps(assistPages);
+    this.stateSvc.setAssistPages( assistPages );
     this.header.setTitle('Retroactive Premium Assistance');
   }
 
@@ -74,9 +76,9 @@ export class AssistContainerComponent extends Container implements OnInit {
     this.stateSvc.touched.subscribe(obs => console.log('assist-containter touched:' + obs));
 
     this.stateSvc.index.subscribe(obs => {
-      obs === 2
+      obs === 3
         ? this.submitLabel$.next(this.spouseLabel)
-        : this.submitLabel$.next(this.submitLabels[obs] || 'Next');
+        : this.submitLabel$.next(this.submitLabels[obs - 1] || 'Next');
     });
 
     this.route.params.subscribe(obs => {
@@ -85,32 +87,30 @@ export class AssistContainerComponent extends Container implements OnInit {
   }
 
   continue() {
+    // index is the number for ROUTE_ASSIST item, offset by 1
     const index = this.stateSvc.index.value;
     console.log( 'Continue (container)', index );
 
- /*   this.stateSvc.isValid(index)
-      ? this.navigate(index)
-      : this.stateSvc.touched.next(true);
-    // ;*/
-
-
-
-  /*  if ( this.stateSvc.canContinue ) {
-      this.router.navigate([this.stateSvc.nextPage]);
+    if ( this.stateSvc.finAssistApp.pageStatus[index - 1].isComplete ) {
+      this.navigate( index );
     } else {
       this.stateSvc.touched.next( true );
-    }*/
+    }
   }
 
-/*
-  navigate(index: number) {
-    index !== 5
-      ? this.router.navigate([`/assistance/${this.stateSvc.routes[index + 1]}`])
-      : this.submit();
-}*/
 
-/*
+  navigate( index: number ) {
+    if ( index === this.stateSvc.finAssistApp.pageStatus.length ) {
+      // last item in routes
+      this.submit();
+    } else {
+      // next page
+      this.router.navigate( [this.stateSvc.finAssistApp.pageStatus[index].fullpath] );
+    }
+  }
+
   async submit() {
+    console.log( 'submit functions - needs work' );
     this.isLoading = true;
 
     const findFieldName = (path: string) => {
@@ -131,23 +131,19 @@ export class AssistContainerComponent extends Container implements OnInit {
           for (const arr of AssistMapping.items) {
             if (arr.some(itm => itm === fieldName)) {
               const index = AssistMapping.items.indexOf(arr);
-              return this.router.navigate([
-                `/assistance/${this.stateSvc.routes[index]}`
-              ]);
+              return this.router.navigate([this.stateSvc.finAssistApp.pageStatus[index].fullpath]);
             }
           }
-          return this.router.navigate([
-            `/assistance/${this.stateSvc.routes[0]}`
-          ]);
+          return this.router.navigate([this.stateSvc.finAssistApp.pageStatus[0].fullpath]);
         }
       } else {
         let res = await this.stateSvc.submitApplication();
         this.response = res;
         this.isLoading = false;
-        this.router.navigate([
-        '/assistance/confirmation',
-        this.response.op_return_code,
-        this.response.op_reference_number || 'N/A'
+        this.router.navigate([ 
+          ROUTES_ASSIST.CONFIRMATION.fullpath,
+          this.response.op_return_code,
+          this.response.op_reference_number || 'N/A'
       ]);
         this.submitLabel$.next('Home');
       }
@@ -158,5 +154,4 @@ export class AssistContainerComponent extends Container implements OnInit {
       //this.submitLabel$.next('Home');
     }
   }
-  */
 }

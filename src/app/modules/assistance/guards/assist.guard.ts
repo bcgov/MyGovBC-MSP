@@ -17,15 +17,16 @@ export class AssistGuard implements AbstractPgCheckService {
   }
 
   public isPageComplete( url: string ): boolean {
-    console.log( 'AssistGuard: isPageComplete', url );
-    return this.stateSvc.isPageComplete( url );
+    const complete = this.stateSvc.isPageComplete( url );
+    console.log( 'AssistGuard: isPageComplete', url, complete );
+    return complete;
   }
   public isPrerequisiteComplete(): boolean {
     console.log( 'AssistGuard: isPrerequisiteComplete' );
     return true;
   }
   public getStartUrl(): string {
-    console.log( 'getStartUrl: isPrerequisiteComplete' );
+    console.log( 'getStartUrl: getStartUrl' );
     return ROUTES_ASSIST.HOME.fullpath;
   }
 }
