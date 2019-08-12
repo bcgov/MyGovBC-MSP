@@ -11,6 +11,7 @@ import { SchemaService } from 'app/services/schema.service';
 import { ApiSendService } from 'app/modules/benefit/services/api-send.service';
 import { ROUTES_ASSIST } from '../models/assist-route-constants';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,12 +19,13 @@ export class AssistStateService {
 
   public canContinue: boolean = false;
 
+  finAssistApp = this.dataSvc.finAssistApp;
   touched: Subject<boolean> = new Subject<boolean>();
   index: BehaviorSubject<number> = new BehaviorSubject(null);
 
+
   success$: BehaviorSubject<any> = new BehaviorSubject(null);
   failure$: BehaviorSubject<any> = new BehaviorSubject(null);
-  finAssistApp = this.dataSvc.finAssistApp;
   submitted = false; // Do we need?
   response: any;
 
@@ -195,12 +197,11 @@ export class AssistStateService {
 
   findIndex( url: string ): number {
     let idx = 0;
-    if ( this.finAssistApp.pageStatus  ) {
+    if ( this.finAssistApp.pageStatus ) {
       console.log( 'findIndex: ', url );
-      const obj = this.finAssistApp.pageStatus .find( x => url.includes(x.path) );
+      const obj = this.finAssistApp.pageStatus.find( x => url.includes(x.path) );
       console.log( 'findIndex: ', obj );
       if ( obj ) {
-
         idx = obj.index;
       }
     }

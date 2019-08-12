@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import { assistPages } from '../../assist-page-routing.module';
 import { Container } from 'moh-common-lib';
 import { AssistStateService } from '../../services/assist-state.service';
@@ -11,6 +11,7 @@ import { AssistTransformService } from '../../services/assist-transform.service'
 import { AssistMapping } from '../../models/assist-mapping';
 import { HeaderService } from '../../../../services/header.service';
 import { ROUTES_ASSIST } from '../../models/assist-route-constants';
+import { filter } from 'lodash';
 
 @Component({
   selector: 'msp-assist-container',
@@ -24,16 +25,18 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
     </common-page-framework>
     <common-form-action-bar
       (btnClick)="continue()"
-      [submitLabel]="submitLabel$ | async"
+      [submitLabel]="submitLabel"
       [isLoading]="isLoading"
+      [defaultColor]="useDefaultColor"
     ></common-form-action-bar>
   `,
   styleUrls: ['./assist-container.component.scss']
 })
 export class AssistContainerComponent extends Container implements OnInit {
   app: FinancialAssistApplication = this.dataSvc.finAssistApp;
+
   isLoading = false;
-  submitted = false;
+  //submitted = false;
 
   submitLabels = {
     0: 'Apply for Retroactive Premium Assistance',
@@ -41,22 +44,21 @@ export class AssistContainerComponent extends Container implements OnInit {
     2: this.spouseLabel,
     3: 'Continue',
     4: 'Continue',
-    5: 'Submit'
+    5: 'Continue',
+    6: 'Submit'
   };
 
   get spouseLabel() {
     return this.app.hasSpouseOrCommonLaw ? 'Continue' : 'No Spouse';
   }
 
-  index: any;
+  //index: any;
 
   response: any;
 
-  submitLabel$ = new BehaviorSubject<string>('Continue');
-
   constructor(
     public router: Router,
-    private stateSvc: AssistStateService, // TODO: Modify to keep current state
+    private stateSvc: AssistStateService,
     private dataSvc: MspDataService,
     private schemaSvc: SchemaService,
     private xformSvc: AssistTransformService,
@@ -71,19 +73,15 @@ export class AssistContainerComponent extends Container implements OnInit {
 
   ngOnInit() {
     console.log( 'router: ', this.router.url );
-  /*  const url = this.router.url.slice(12, this.router.url.length);
-    this.stateSvc.setIndex(url);*/
-    this.stateSvc.touched.subscribe(obs => console.log('assist-containter touched:' + obs));
+    this.stateSvc.setIndex( this.router.url );
+  }
 
-    this.stateSvc.index.subscribe(obs => {
-      obs === 3
-        ? this.submitLabel$.next(this.spouseLabel)
-        : this.submitLabel$.next(this.submitLabels[obs - 1] || 'Next');
-    });
+  get submitLabel() {
+    return this.submitLabels[this.stateSvc.index.value - 1];
+  }
 
-    this.route.params.subscribe(obs => {
-      console.log('route params: ', obs);
-    });
+  get useDefaultColor() {
+    return  (this.stateSvc.index.value > 1 && this.stateSvc.index.value < 7) ? true : false;
   }
 
   continue() {
@@ -98,14 +96,14 @@ export class AssistContainerComponent extends Container implements OnInit {
     }
   }
 
-
   navigate( index: number ) {
     if ( index === this.stateSvc.finAssistApp.pageStatus.length ) {
       // last item in routes
       this.submit();
     } else {
       // next page
-      this.router.navigate( [this.stateSvc.finAssistApp.pageStatus[index].fullpath] );
+      const nextPageObj = this.stateSvc.finAssistApp.pageStatus[index];
+      this.router.navigate( [nextPageObj.fullpath] );
     }
   }
 
@@ -119,6 +117,8 @@ export class AssistContainerComponent extends Container implements OnInit {
 
     try {
       const app = this.xformSvc.application;
+
+      // Validation functions are redunant - to be removed
       const validateList = await this.schemaSvc.validate(app);
       console.log('validate', validateList.errors);
 
@@ -140,18 +140,16 @@ export class AssistContainerComponent extends Container implements OnInit {
         let res = await this.stateSvc.submitApplication();
         this.response = res;
         this.isLoading = false;
-        this.router.navigate([ 
+        this.router.navigate([
           ROUTES_ASSIST.CONFIRMATION.fullpath,
           this.response.op_return_code,
           this.response.op_reference_number || 'N/A'
       ]);
-        this.submitLabel$.next('Home');
       }
     } catch (err) {
       console.error(err);
     } finally {
-      //this.submitLabel$.next('Home');
-      //this.submitLabel$.next('Home');
+      // Should there be some code in here??
     }
   }
 }

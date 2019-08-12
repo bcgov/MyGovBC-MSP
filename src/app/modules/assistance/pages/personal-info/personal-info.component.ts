@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { ActivatedRoute } from '@angular/router';
@@ -8,9 +8,7 @@ import { MspAddressComponent } from '../../../msp-core/components/address/addres
 import { MspPhoneComponent } from '../../../../components/msp/common/phone/phone.component';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 import { AssistanceYear } from '../../models/assistance-year.model';
-import { MspPerson } from 'app/modules/account/models/account.model';
 import { AssistStateService } from '../../services/assist-state.service';
-import { Observable } from 'rxjs';
 
 @Component({
   // templateUrl: './personal-info.component.html'
@@ -47,7 +45,6 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   documentsTitle = 'Documents';
   documentsDescription =
     'Upload your Canada Revenue Agency Notice of Assessment or Reassessment for ';
-  url: string;
 
   assistanceYears: any[];
   constructor(
@@ -58,8 +55,6 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   ) {
     super(cd);
     this.financialAssistApplication = this.dataService.finAssistApp;
-    this.url = this.route.snapshot.routeConfig.path;
-    this.stateSvc.setIndex( this.url );
   }
 
   ngAfterViewInit() {
@@ -71,13 +66,15 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
         )
         .subscribe(() => {
           console.log( 'form values changed: form is ', this.personalInfoForm.valid );
-          this.stateSvc.setPageStatus( this.url, this.personalInfoForm.valid );
+          this.stateSvc.setPageStatus( this.route.snapshot.routeConfig.path, this.personalInfoForm.valid );
           this.dataService.saveFinAssistApplication();
         })
     );
   }
 
   ngOnInit() {
+
+    // Set Container data specific to page
     const assistYears = this.financialAssistApplication.assistYears;
     const arr = [];
     const checkYear = (year: AssistanceYear) => {
@@ -126,13 +123,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
         );
     }
   }
-
-  // onChange($event) {
-  //   console.log('event', $event);
-  //   console.log('changes from child component triggering save: ');
-  //   this.dataService.saveFinAssistApplication();
-  // }
-
+  
   // Final check to see if the country is present // DEF 153
 
   saveAccountHolder() {

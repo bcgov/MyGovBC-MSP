@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, SimpleChanges } from '@angular/core';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 import { MspDataService } from 'app/services/msp-data.service';
 import { AssistanceYear } from '../../models/assistance-year.model';
@@ -6,6 +6,8 @@ import { BaseComponent } from 'app/models/base.component';
 import { PersonDocuments } from 'app/components/msp/model/person-document.model';
 import { AssistStateService } from '../../services/assist-state.service';
 import { ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 export interface spouseYears {
   apply: boolean;
@@ -25,6 +27,7 @@ export interface spouseYears {
     >
       Add Spouse Information
     </button>
+
     <common-page-section layout='noTips' *ngIf="showTaxYears">
       <h2>{{ yearTitle }}</h2>
       <p class="border-bottom">
@@ -46,7 +49,7 @@ export interface spouseYears {
             (dataChange)="toggleYear($event, year)"
           ></common-checkbox>
           <ng-container *ngIf="touched$ | async as touched">
-            <p class="text-danger" *ngIf="touched && validSelection">
+            <p class="text-danger" *ngIf="touched && !validSelection">
               At least one tax year must be selected
             </p>
           </ng-container>
@@ -69,6 +72,9 @@ export interface spouseYears {
   styleUrls: ['./spouse.component.scss']
 })
 export class SpouseComponent extends BaseComponent implements OnInit {
+
+  //@ViewChild('formRef') spouseInfoForm: NgForm;
+
   touched$ = this.stateSvc.touched.asObservable();
   title = 'Add spouse information and upload documents';
   description =
@@ -90,7 +96,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
 
   get validSelection() {
     const app = this.finAssistApp.assistYears;
-    return !app.some(itm => itm.hasSpouse);
+    return app.every(itm => itm.hasSpouse);
   }
 
   constructor(
@@ -142,16 +148,16 @@ export class SpouseComponent extends BaseComponent implements OnInit {
   }
 
   addSpouse() {
+    console.log( 'add spouse' ) ;
     this.finAssistApp.setSpouse = true;
     this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
-    this.dataSvc.saveFinAssistApplication();
-    this.stateSvc.index.next(2);
+    this.dataSvc.saveFinAssistApplication();;
   }
   removeSpouse() {
     this.finAssistApp.setSpouse = false;
+    console.log( 'remove spouse' ) ;
     this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
     this.dataSvc.saveFinAssistApplication();
-    this.stateSvc.index.next(2);
   }
   toggleYear(bool: boolean, year: number) {
     // console.log(this.finAssistApp);

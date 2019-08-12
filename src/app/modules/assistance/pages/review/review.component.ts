@@ -106,7 +106,7 @@ export interface IContactInformation {}
   `,
   styleUrls: ['./review.component.scss']
 })
-export class AssistanceReviewComponent implements OnInit {
+export class AssistanceReviewComponent {
   title = 'Review your application';
 
   applicantTitle = 'Applicant Information';
@@ -117,12 +117,8 @@ export class AssistanceReviewComponent implements OnInit {
   contactLink = ROUTES_ASSIST.CONTACT.fullpath;
   spouseLink = ROUTES_ASSIST.SPOUSE_INFO.fullpath;
 
-  static ProcessStepNum = 3;
-
   hasSpouse = false;
 
-  // lang = require('./i18n');
-  // application: FinancialAssistApplication;
   applicantInfo: IApplicantInformation;
   spouseInfo: ISpouseInformation;
   address: Address;
@@ -130,11 +126,7 @@ export class AssistanceReviewComponent implements OnInit {
 
   constructor(
     private dataService: MspDataService,
-    private route: ActivatedRoute,
-    private stateSvc: AssistStateService
   ) {
-    this.dataService.saveFinAssistApplication();
-
     const app = this.dataService.finAssistApp;
 
     this.address = app.mailingAddress;
@@ -142,11 +134,6 @@ export class AssistanceReviewComponent implements OnInit {
     this.hasSpouse = app.hasSpouseOrCommonLaw;
     this.hasSpouse ? this.spouseInformation() : (this.hasSpouse = false);
     this.phone = app.phoneNumber;
-    //console.log(this.stateSvc.routes);
-  }
-
-  ngOnInit() {
-    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
 
   applicantInformation() {
