@@ -22,6 +22,7 @@ import { HeaderService } from '../../../../services/header.service';
       <router-outlet></router-outlet>
     </common-page-framework>
     <common-form-action-bar
+      [defaultColor]="false"
       (btnClick)="continue()"
       [submitLabel]="submitLabel$ | async"
       [isLoading]="isLoading"
