@@ -5,7 +5,7 @@ import {
   ApplicantInformation,
   IApplicantInformation
 } from '../../models/applicant-information.model';
-import { Address } from 'moh-common-lib';
+import { Address, getCountryDescription, getProvinceDescription } from 'moh-common-lib';
 import {
   SpouseInformation,
   ISpouseInformation
@@ -71,7 +71,7 @@ export interface IContactInformation {}
         <msp-review-part label="City" [value]="address.city"></msp-review-part>
         <msp-review-part
           label="Province"
-          [value]="address.province"
+          [value]="province"
         ></msp-review-part>
         <msp-review-part
           label="Postal Code"
@@ -79,7 +79,7 @@ export interface IContactInformation {}
         ></msp-review-part>
         <msp-review-part
           label="Country"
-          [value]="address.country"
+          [value]="country"
         ></msp-review-part>
         <h4 class="mt-4 link-text">Contact</h4>
         <msp-review-part label="Phone Number" [value]="phone"></msp-review-part>
@@ -126,6 +126,8 @@ export class AssistanceReviewComponent {
 
   constructor(
     private dataService: MspDataService,
+    private route: ActivatedRoute,
+    private stateSvc: AssistStateService
   ) {
     const app = this.dataService.finAssistApp;
 
@@ -134,6 +136,11 @@ export class AssistanceReviewComponent {
     this.hasSpouse = app.hasSpouseOrCommonLaw;
     this.hasSpouse ? this.spouseInformation() : (this.hasSpouse = false);
     this.phone = app.phoneNumber;
+  }
+
+  ngOnInit() {
+    // No input required on this page
+    this.stateSvc.setPageStatus( this.route.snapshot.routeConfig.path, true );
   }
 
   applicantInformation() {
@@ -161,5 +168,13 @@ export class AssistanceReviewComponent {
       .map(itm => itm.toString())
       .reduce((a, b) => `${a}, ${b}`);
     }
+  }
+
+  get country( ) {
+    return getCountryDescription( this.address.country );
+  }
+
+  get province() {
+    return getProvinceDescription( this.address.province );
   }
 }

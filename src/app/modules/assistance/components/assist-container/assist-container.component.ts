@@ -36,23 +36,10 @@ export class AssistContainerComponent extends Container implements OnInit {
   app: FinancialAssistApplication = this.dataSvc.finAssistApp;
 
   isLoading = false;
-  //submitted = false;
-
-  submitLabels = {
-    0: 'Apply for Retroactive Premium Assistance',
-    1: 'Continue',
-    2: this.spouseLabel,
-    3: 'Continue',
-    4: 'Continue',
-    5: 'Continue',
-    6: 'Submit'
-  };
 
   get spouseLabel() {
     return this.app.hasSpouseOrCommonLaw ? 'Continue' : 'No Spouse';
   }
-
-  //index: any;
 
   response: any;
 
@@ -62,7 +49,6 @@ export class AssistContainerComponent extends Container implements OnInit {
     private dataSvc: MspDataService,
     private schemaSvc: SchemaService,
     private xformSvc: AssistTransformService,
-    private route: ActivatedRoute,
     private header: HeaderService
   ) {
     super();
@@ -77,17 +63,20 @@ export class AssistContainerComponent extends Container implements OnInit {
   }
 
   get submitLabel() {
-    return this.submitLabels[this.stateSvc.index.value - 1];
+    return this.stateSvc.finAssistApp.pageStatus[this.stateSvc.index.value - 1].btnLabel;
   }
 
   get useDefaultColor() {
-    return  (this.stateSvc.index.value > 1 && this.stateSvc.index.value < 7) ? true : false;
+    return this.stateSvc.finAssistApp.pageStatus[this.stateSvc.index.value - 1].btnDefaultColor;
   }
 
   continue() {
     // index is the number for ROUTE_ASSIST item, offset by 1
     const index = this.stateSvc.index.value;
-    console.log( 'Continue (container)', index );
+    console.log( 
+      'Continue (container)', index,
+       this.stateSvc.finAssistApp.pageStatus[index - 1].isComplete
+      );
 
     if ( this.stateSvc.finAssistApp.pageStatus[index - 1].isComplete ) {
       this.navigate( index );
@@ -137,7 +126,7 @@ export class AssistContainerComponent extends Container implements OnInit {
           return this.router.navigate([this.stateSvc.finAssistApp.pageStatus[0].fullpath]);
         }
       } else {
-        let res = await this.stateSvc.submitApplication();
+        const res = await this.stateSvc.submitApplication();
         this.response = res;
         this.isLoading = false;
         this.router.navigate([

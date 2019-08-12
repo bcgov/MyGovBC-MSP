@@ -4,7 +4,7 @@ import { MspDataService } from '../../../../services/msp-data.service';
 import { MspImageErrorModalComponent } from '../../../msp-core/components/image-error-modal/image-error-modal.component';
 import { CompletenessCheckService } from '../../../../services/completeness-check.service';
 //import {ProcessService} from '../../service/process.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 import { MspImage } from '../../../../models/msp-image';
@@ -84,7 +84,6 @@ import { AssistStateService } from '../../services/assist-state.service';
   `
 })
 export class AssistanceAuthorizeSubmitComponent implements OnInit {
-  static ProcessStepNum = 4;
 
   title = 'Authorize and submit your application';
 
@@ -128,6 +127,7 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
   constructor(
     private dataService: MspDataService,
     private completenessCheck: CompletenessCheckService,
+    private route: ActivatedRoute,
     public stateSvc: AssistStateService
   ) {
     this.application = this.dataService.finAssistApp;
@@ -140,6 +140,8 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.form.valueChanges.subscribe(() => {
+
+      this.stateSvc.setPageStatus( this.route.snapshot.routeConfig.path, this.form.valid );
       this.dataService.saveFinAssistApplication();
     });
   }

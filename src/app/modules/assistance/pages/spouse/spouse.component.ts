@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
-export interface spouseYears {
+export interface SpouseYears {
   apply: boolean;
   year: number;
 }
@@ -17,63 +17,63 @@ export interface spouseYears {
 @Component({
   selector: 'msp-spouse',
   template: `
-    <h1>{{ title }}</h1>
-    <p class="border-bottom">{{ description }}</p>
+    <form #formRef="ngForm" novalidate>
+      <h1>{{ title }}</h1>
+      <p class="border-bottom">{{ description }}</p>
 
-    <button
-      [disabled]="showTaxYears"
-      class="btn btn-primary btn-md"
-      (click)="addSpouse()"
-    >
-      Add Spouse Information
-    </button>
+      <button
+        [disabled]="showTaxYears"
+        class="btn btn-primary btn-md"
+        (click)="addSpouse()"
+      >
+        Add Spouse Information
+      </button>
 
-    <common-page-section layout='noTips' *ngIf="showTaxYears">
-      <h2>{{ yearTitle }}</h2>
-      <p class="border-bottom">
-        {{ yearDescription }}
-        <common-xicon-button *ngIf="showTaxYears" label= "Remove spouse" (click)="removeSpouse()">
-        </common-xicon-button>
-      </p>
+      <common-page-section layout='noTips' *ngIf="showTaxYears">
+        <h2>{{ yearTitle }}</h2>
+        <p class="border-bottom">
+          {{ yearDescription }}
+          <common-xicon-button *ngIf="showTaxYears" label= "Remove spouse" (click)="removeSpouse()">
+          </common-xicon-button>
+        </p>
 
 
-    <ng-container *ngIf="showTaxYears">
-      <h3>When did you have a spouse?</h3>
-      <div class="row">
-        <div class="col-12">
-          <common-checkbox
-            *ngFor="let year of assistanceYears"
-            class="col-1"
-            [label]="year"
-            [data]="checkYear(year)"
-            (dataChange)="toggleYear($event, year)"
-          ></common-checkbox>
-          <ng-container *ngIf="touched$ | async as touched">
-            <p class="text-danger" *ngIf="touched && !validSelection">
+        <ng-container *ngIf="showTaxYears">
+          <h3>When did you have a spouse?</h3>
+          <div class="row">
+            <div class="col-12">
+              <common-checkbox
+                *ngFor="let year of assistanceYears"
+                class="col-1"
+                [label]="year"
+                [data]="checkYear(year)"
+                (dataChange)="toggleYear($event, year)"
+              ></common-checkbox>
+            <common-error-container [displayError]="(touched$ | async) && validSelection">
               At least one tax year must be selected
-            </p>
-          </ng-container>
-        </div>
-      </div>
+            </common-error-container>
+            </div>
+          </div>
 
-      <ng-container *ngIf="selectedYears.length > 0">
-        <h2>{{ documentsTitle }}</h2>
-        <p class="border-bottom">{{ documentsDescription }}</p>
-        <ng-container>
-          <msp-assist-cra-documents
-            [assistanceYears]="selectedYears"
-            isSpouse="true"
-          ></msp-assist-cra-documents>
+          <ng-container *ngIf="selectedYears.length > 0">
+            <h2>{{ documentsTitle }}</h2>
+            <p class="border-bottom">{{ documentsDescription }}</p>
+            <ng-container>
+              <msp-assist-cra-documents
+                [assistanceYears]="selectedYears"
+                isSpouse="true"
+              ></msp-assist-cra-documents>
+            </ng-container>
+          </ng-container>
         </ng-container>
-      </ng-container>
-    </ng-container>
-  </common-page-section>
+      </common-page-section>
+    </form>
   `,
   styleUrls: ['./spouse.component.scss']
 })
 export class SpouseComponent extends BaseComponent implements OnInit {
 
-  //@ViewChild('formRef') spouseInfoForm: NgForm;
+  @ViewChild('formRef') spouseInfoForm: NgForm;
 
   touched$ = this.stateSvc.touched.asObservable();
   title = 'Add spouse information and upload documents';
@@ -90,13 +90,14 @@ export class SpouseComponent extends BaseComponent implements OnInit {
 
   assistanceYears = [];
   assistanceYearsDocs = [];
-  selectedYears: spouseYears[] = [];
+  selectedYears: SpouseYears[] = [];
 
   showTaxYears = false;
 
   get validSelection() {
     const app = this.finAssistApp.assistYears;
-    return app.every(itm => itm.hasSpouse);
+    console.log('this.finAssistApp.assistYears: ', this.finAssistApp.assistYears );
+    return app.some(itm => itm.hasSpouse);
   }
 
   constructor(
@@ -108,6 +109,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     super(cd);
     this.finAssistApp = this.dataSvc.finAssistApp;
   }
+
 
   ngOnInit() {
     const assistYears = this.finAssistApp.assistYears;
@@ -128,11 +130,50 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     const years = this.finAssistApp.assistYears;
     const hasSpouse = years.some(itm => itm.hasSpouse);
     if (hasSpouse) this.parseSpouse(years);
-    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
+
     if (this.finAssistApp.assistYears.some(itm => itm.hasSpouse))
       this.documentsDescription = `Upload spouse's Notice of Assessement or Reassessement from Canada Revenue Agency for ${this.createDocumentDesc(
         this.selectedYears
       )}`;
+
+    this.stateSvc.setPageStatus(
+      this.route.snapshot.routeConfig.path,
+      this.finAssistApp.hasSpouseOrCommonLaw ? (this.spouseInfoForm.valid && this.validSelection) : true
+      );
+  }
+
+  ngAfterViewInit() {
+    this.subscriptionList.push(
+      this.spouseInfoForm.valueChanges
+        .pipe(
+          debounceTime(250),
+          distinctUntilChanged()
+        )
+        .subscribe(() => {
+          console.log( 'form values changed: form is ', this.spouseInfoForm.valid );
+          this.stateSvc.setPageStatus(
+            this.route.snapshot.routeConfig.path,
+            this.finAssistApp.hasSpouseOrCommonLaw ? (this.spouseInfoForm.valid && this.validSelection) : true
+            );
+          this.dataSvc.saveFinAssistApplication();
+        })
+    );
+
+    setTimeout(
+      () =>
+      this.subscriptionList.push(
+          this.stateSvc.touched.asObservable().subscribe(obs => {
+            if (obs) {
+              const controls = this.spouseInfoForm.form.controls;
+              console.log( 'controls: ', controls );
+              for (const control in controls) {
+                controls[control].markAsTouched();
+              }
+            }
+          })
+        ),
+      500
+    );
   }
 
   parseSpouse(arr: AssistanceYear[]) {
@@ -151,14 +192,18 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     console.log( 'add spouse' ) ;
     this.finAssistApp.setSpouse = true;
     this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
-    this.dataSvc.saveFinAssistApplication();;
+    this.stateSvc.finAssistApp.pageStatus[this.stateSvc.index.value - 1].btnLabel = 'Continue';
+    this.dataSvc.saveFinAssistApplication();
   }
+
   removeSpouse() {
     this.finAssistApp.setSpouse = false;
     console.log( 'remove spouse' ) ;
     this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
+    this.stateSvc.finAssistApp.pageStatus[this.stateSvc.index.value - 1].btnLabel = 'No Spouse';
     this.dataSvc.saveFinAssistApplication();
   }
+
   toggleYear(bool: boolean, year: number) {
     // console.log(this.finAssistApp);
     if (bool) {
@@ -177,7 +222,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
         if (assistYear.year === year) this.finAssistApp.assistYears[i] = itm;
         i++;
       }
-      this.selectedYears = this.selectedYears.filter(itm => itm.year !== year);
+      this.selectedYears = this.selectedYears.filter(x => x.year !== year);
     }
     this.dataSvc.saveFinAssistApplication();
     if (this.finAssistApp.assistYears.some(itm => itm.hasSpouse))
@@ -188,7 +233,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
 
   findYear(year: number) {
     const [...years] = this.finAssistApp.assistYears.filter(
-      itm => itm.year === year
+      x => x.year === year
     );
     const { ...itm } = years[0];
     if (!itm.spouseFiles) itm.spouseFiles = [];
@@ -214,5 +259,9 @@ export class SpouseComponent extends BaseComponent implements OnInit {
       .reduce((a, b, i, arr) =>
         i === arr.length - 1 ? `${a} and ${b}.` : `${a}, ${b}`
       );
+  }
+
+  ngOnDestroy() {
+    this.subscriptionList.forEach(itm => itm.unsubscribe());
   }
 }

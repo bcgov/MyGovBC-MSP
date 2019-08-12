@@ -20,7 +20,7 @@ import { AssistStateService } from '../../services/assist-state.service';
       <common-page-section layout="double">
         <msp-assist-account-holder
           [person]="financialAssistApplication.applicant"
-          (dataChange)="saveAccountHolder($event)"
+          (dataChange)="saveAccountHolder()"
         ></msp-assist-account-holder>
       </common-page-section>
       <h3>{{ documentsTitle }}</h3>
@@ -109,6 +109,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
       500
     );
   }
+
   ngOnDestroy() {
     this.subscriptionList.forEach(itm => itm.unsubscribe());
   }
@@ -123,7 +124,7 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
         );
     }
   }
-  
+
   // Final check to see if the country is present // DEF 153
 
   saveAccountHolder() {

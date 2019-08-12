@@ -103,13 +103,16 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
       )
       .subscribe(obs => {
         console.log('values changed');
+
+        this.financialAssistApplication.mailingAddress.hasValue = this.financialAssistApplication.mailingAddress.isComplete();
+        this.stateSvc.setPageStatus( this.route.snapshot.routeConfig.path, this.personalInfoForm.valid );
         this.dataService.saveFinAssistApplication();
       });
 
     this.touched$.subscribe(obs => {
       if (obs) {
         const controls = this.personalInfoForm.controls;
-        for (let control in controls) {
+        for (const control in controls) {
           controls[control].markAsTouched();
         }
       }

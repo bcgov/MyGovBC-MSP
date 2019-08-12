@@ -171,9 +171,8 @@ export class AssistStateService {
       .subscribe((obs: any) => {
         const index = this.findIndex( obs.url );
         console.log( 'route events: ', obs.url, index );
-        if (index > 0 ) {
-          this.index.next( index );
-        }
+
+        this.index.next( index > 0 ? index : 1 );
       });
   }
 
@@ -189,7 +188,9 @@ export class AssistStateService {
             index: val.index,
             path: val.path,
             fullpath: val.fullpath,
-            isComplete: false
+            isComplete: false,
+            btnLabel: val.btnLabel ? val.btnLabel : '',
+            btnDefaultColor: val.btnDefaultColor
           };
         });
     }
@@ -215,13 +216,19 @@ export class AssistStateService {
   setIndex( path: string ) {
     console.log( 'setIndex: ', path );
     const index = this.findIndex(path);
-     if (index > -1) return this.index.next(index);
+     if (index > 0) return this.index.next(index);
   }
 
   setPageStatus( path: string , complete: boolean ) {
     const obj = this.finAssistApp.pageStatus.find( x => path.includes(x.path) );
     if ( obj ) {
       obj.isComplete = complete;
+      // Set future pages to not complete
+      this.finAssistApp.pageStatus.map( x => {
+        if ( obj.index < x.index ) {
+          x.isComplete = false;
+        }
+      });
     }
   }
 
@@ -253,7 +260,7 @@ export class AssistStateService {
         : this.failure$.next(res);
       return res;
     } catch (err) {
-      console.error;
+      console.log( 'Error: ', err );
     }
   }
 

@@ -59,7 +59,7 @@ export class AssistCraDocumentsComponent implements OnInit {
   }
 
   errorMesage( year: AssistanceYear ): FileUploaderMsg {
-    return { required:  'Files are required for' +  year.year};
+    return { required:  'Files are required for ' +  year.year};
   }
   
   files(year) {

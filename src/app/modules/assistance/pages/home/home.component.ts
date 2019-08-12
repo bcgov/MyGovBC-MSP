@@ -91,7 +91,7 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
           </b>
         </p>
         <p>
-          MSP premiums were eliminated on January 1, 2020. Because the 2019 tax year would 
+          MSP premiums were eliminated on January 1, 2020. Because the 2019 tax year would
           apply towards a year in which no premiums were charged, it is not available for selection.
         </p>
       </aside>
@@ -169,7 +169,7 @@ export class AssistanceHomeComponent extends BaseComponent
         distinctUntilChanged()
       )
       .subscribe(() => {
-        console.log( 'change in home page' );
+        console.log( 'change in home page', !this.validSelection );
         // No form validation only need at least one checkbox marked
         this.stateSvc.setPageStatus( this.route.snapshot.routeConfig.path, !this.validSelection );
 
