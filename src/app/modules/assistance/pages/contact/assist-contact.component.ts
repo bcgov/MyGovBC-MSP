@@ -86,16 +86,16 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.address = this.financialAssistApplication.mailingAddress;
     this.phone = this.financialAssistApplication.phoneNumber;
-    this.addressLines = this.getAddressLines(this.address);
+    // this.addressLines = this.getAddressLines(this.address);
 
-    const enableLines = num => {
-      while (num > 1) {
-        this.address[`addressLine${num}`] = true;
-        num -= 1;
-      }
-    };
+    // const enableLines = num => {
+    //   while (num > 1) {
+    //     this.address[`addressLine${num}`] = true;
+    //     num -= 1;
+    //   }
+    // };
 
-    enableLines(this.addressLines);
+    // enableLines(this.addressLines);
     this.personalInfoForm.valueChanges
       .pipe(
         debounceTime(250),
