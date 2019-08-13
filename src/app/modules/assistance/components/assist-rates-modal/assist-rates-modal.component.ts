@@ -29,6 +29,7 @@ import { ModalDirective } from 'ngx-bootstrap';
           you are applying. If you feel your adjusted net income will qualify
           you for assistance, we encourage you to apply and your application
           will be reviewed.
+          <hr>
         </p>
         <div class="row">
           <div class="col-md-5">
