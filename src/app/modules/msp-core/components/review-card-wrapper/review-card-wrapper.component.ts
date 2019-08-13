@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
       <i
         class="fa fa-pencil edit--icon float-right"
         aria-hidden="true"
-        (click)="router.navigate([routerLink])"
+        (click)="router.navigate([link])"
       ></i>
     </h2>
     <div class="card">
@@ -22,7 +22,7 @@ import { Router } from '@angular/router';
 })
 export class ReviewCardWrapperComponent implements OnInit {
   @Input() title: string;
-  @Input() routerLink: string;
+  @Input() link: string;
 
   constructor(public router: Router) {}
 

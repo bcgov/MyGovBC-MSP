@@ -32,7 +32,7 @@ export interface IContactInformation {}
     <common-page-section layout="double">
       <msp-review-card-wrapper
         [title]="applicantTitle"
-        [routerLink]="applicantLink"
+        [link]="applicantLink"
       >
         <msp-review-part
           label="Years Selected"
@@ -61,7 +61,7 @@ export interface IContactInformation {}
       </msp-review-card-wrapper>
       <msp-review-card-wrapper
         [title]="contactTitle"
-        [routerLink]="contactLink"
+        [link]="contactLink"
       >
         <h4 class="link-text">Mailing Address</h4>
         <msp-review-part
@@ -87,7 +87,7 @@ export interface IContactInformation {}
       <aside>
         <msp-review-card-wrapper
           [title]="spouseTitle"
-          [routerLink]="spouseLink"
+          [link]="spouseLink"
           *ngIf="hasSpouse"
         >
           <msp-review-part
