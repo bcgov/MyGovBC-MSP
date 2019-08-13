@@ -21,6 +21,7 @@ import {MspToggleComponent} from '../../../../components/msp/common/toggle/toggl
 import {MspStatusInCanadaRadioComponent} from '../../../msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
 import {AddNewDependentBeneficiaryComponent} from '../add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
 import { AccountPersonalDetailsComponent } from '../personal-info/personal-details/personal-details.component';
+import { BRITISH_COLUMBIA, CANADA } from 'moh-common-lib';
 
 @Component({
     selector: 'msp-add-dependent',
@@ -139,8 +140,8 @@ export class AddDependentComponent extends BaseComponent {
             this.person.schoolAddress.country = '';
 
         } else {
-             this.person.schoolAddress.province = 'British Columbia';
-            this.person.schoolAddress.country = 'Canada';
+             this.person.schoolAddress.province = BRITISH_COLUMBIA;
+            this.person.schoolAddress.country = CANADA;
 
         }
 

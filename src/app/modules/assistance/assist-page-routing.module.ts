@@ -5,64 +5,57 @@ import { AssistanceAuthorizeSubmitComponent } from './pages/authorize-submit/aut
 import { AssistContactComponent } from './pages/contact/assist-contact.component';
 import { AssistanceHomeComponent } from './pages/home/home.component';
 import { SpouseComponent } from './pages/spouse/spouse.component';
-import { AssistGuard } from './guards/assist.guard';
-import { environment } from 'environments/environment';
+import { ROUTES_ASSIST } from './models/assist-route-constants';
+import { RouteGuardService } from 'moh-common-lib';
 
 export const assistPages: Routes = [
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  // {
-  //   path: 'prepare',
-  //   component: AssistancePrepareComponent
-  // },
-  {
-    path: 'home',
-    canActivate: [AssistGuard],
-    component: AssistanceHomeComponent
+    path: ROUTES_ASSIST.HOME.path,
+    component: AssistanceHomeComponent,
+    data: { title: ROUTES_ASSIST.HOME.title }
   },
   {
-    path: 'personal-info',
-    canActivate: [AssistGuard],
-    component: AssistancePersonalInfoComponent
+    path: ROUTES_ASSIST.PERSONAL_INFO.path,
+    component: AssistancePersonalInfoComponent,
+    data: { title: ROUTES_ASSIST.PERSONAL_INFO.title },
+    canActivate: [RouteGuardService]
   },
   {
-    path: 'spouse',
-    canActivate: [AssistGuard],
-    component: SpouseComponent
+    path: ROUTES_ASSIST.SPOUSE_INFO.path,
+    component: SpouseComponent,
+    data: { title: ROUTES_ASSIST.SPOUSE_INFO.title },
+    canActivate: [RouteGuardService]
   },
 
   {
-    path: 'contact',
-    canActivate: [AssistGuard],
-    component: AssistContactComponent
+    path: ROUTES_ASSIST.CONTACT.path,
+    component: AssistContactComponent,
+    data: { title: ROUTES_ASSIST.CONTACT.title },
+    canActivate: [RouteGuardService]
   },
-
   {
-    path: 'review',
-    canActivate: [AssistGuard],
-    component: AssistanceReviewComponent
+    path: ROUTES_ASSIST.REVIEW.path,
+    component: AssistanceReviewComponent,
+    data: { title: ROUTES_ASSIST.REVIEW.title },
+    canActivate: [RouteGuardService]
   },
-
   {
-    path: 'authorize-submit',
-    canActivate: [AssistGuard],
-    component: AssistanceAuthorizeSubmitComponent
+    path: ROUTES_ASSIST.AUTHORIZE.path,
+    component: AssistanceAuthorizeSubmitComponent,
+    data: { title: ROUTES_ASSIST.AUTHORIZE.title },
+    canActivate: [RouteGuardService]
   },
-
   {
     path: '',
-    redirectTo: 'home'
+    redirectTo: ROUTES_ASSIST.HOME.path
   }
 ];
 
 export let routes = assistPages;
- if (environment.bypassGuards) {
+/* if (environment.bypassGuards) {
     console.log('DEVELOPMENT ONLY - BYPASSING ROUTE GUARDS');
      routes = routes.map(x => {
            x.canActivate = [];
          return x;
      });
- }
+ }*/

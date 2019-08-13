@@ -14,7 +14,7 @@ import {  ProvinceList, PROVINCE_LIST, CountryList, CANADA, BRITISH_COLUMBIA, Ad
   templateUrl: './address.component.html'
 })
 export class BenefitAddressComponent extends BaseComponent {
-  lang = require('./i18n');
+
   // Constants TODO: Figure out whether used in html
   outsideBCFor30DaysLabel = 'Have you or any family member been outside BC for more than 30 days in total during the past 12 months?';
   addAnotherOutsideBCPersonButton = 'Add Another Person';
@@ -27,12 +27,6 @@ export class BenefitAddressComponent extends BaseComponent {
   @ViewChild('address') address: ElementRef;
   @ViewChild('mailingAddress') mailingAddress: ElementRef;
   @ViewChild('phone') phone: ElementRef;
-  countryList: CountryList[] = COUNTRY_LIST;
-  provinceList: ProvinceList[] = PROVINCE_LIST; //this.lang('./en/index.js').provinceData;
-
-  public defaultCountry = CANADA;
-  public defaultProvince = BRITISH_COLUMBIA;
-
 
   mspApplication: BenefitApplication;
 

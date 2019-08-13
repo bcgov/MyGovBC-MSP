@@ -2,16 +2,9 @@ import {
   Component,
   Input,
   Output,
-  OnChanges,
   EventEmitter,
-  SimpleChange,
   ViewChild,
-  AfterViewInit,
-  OnInit,
-  OnDestroy,
   ElementRef,
-  QueryList,
-  ViewChildren,
   ChangeDetectorRef
 } from '@angular/core';
 import { state, trigger, style } from '@angular/animations';
@@ -33,28 +26,27 @@ import {
 import { MspImage } from '../../../../models/msp-image';
 import * as _ from 'lodash';
 
-import { MspIdReqModalComponent } from '../id-req-modal/id-req-modal.component';
-import { MspImageErrorModalComponent } from '../image-error-modal/image-error-modal.component';
-import { MspBirthDateComponent } from '../birthdate/birthdate.component';
 import { MspGenderComponent } from '../../../../components/msp/common/gender/gender.component';
 import { MspSchoolDateComponent } from '../../../../components/msp/common/schoolDate/school-date.component';
 import { HealthNumberComponent } from '../../../../components/msp/common/health-number/health-number.component';
 import { MspDischargeDateComponent } from '../../../../components/msp/common/discharge-date/discharge-date.component';
-import { MspAddressComponent } from '../address/address.component';
 
 import { MspArrivalDateComponent } from '../../../../components/msp/common/arrival-date/arrival-date.component';
 import { MspOutofBCRecordComponent } from '../../../../components/msp/common/outof-bc/outof-bc.component';
 import { BaseComponent } from '../../../../models/base.component';
-import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
 import {
   CANADA,
   Address,
   ProvinceList,
-  BRITISH_COLUMBIA
-} from 'moh-common-lib';
+  BRITISH_COLUMBIA} from 'moh-common-lib';
 import { MspAddressConstants } from '../../../../models/msp-address.constants';
 import { MspDocumentConstants } from '../../../../models/msp-document.constants';
 import { legalStatus } from '../../../../models/msp.contants';
+import { MspIdReqModalComponent } from '../../../msp-core/components/id-req-modal/id-req-modal.component';
+import { MspImageErrorModalComponent } from '../../../msp-core/components/image-error-modal/image-error-modal.component';
+import { MspBirthDateComponent } from '../../../msp-core/components/birthdate/birthdate.component';
+import { MspAddressComponent } from '../../../msp-core/components/address/address.component';
+import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
 
 @Component({
   selector: 'msp-personal-details',
@@ -186,8 +178,6 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   setStatus(value: StatusInCanada, p: MspPerson) {
     if (typeof value === 'object') return;
-    // console.log(value);
-    // console.log(p);
     p.status = value;
     p.currentActivity = null;
 
@@ -200,7 +190,6 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   setActivity(value: Activities) {
-    console.log('I\'m defined you nit', value);
     if (
       this.showServicesCardModal &&
       this.person.bcServiceCardShowStatus &&
@@ -254,25 +243,13 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   addDocument(evt: MspImage) {
-    // console.log('image added: %s', evt);
     this.person.documents.images = this.person.documents.images.concat(evt);
-    console.log('$fileParent (1) addDocument', {
-      images: this.person.documents.images,
-      evt: evt
-    });
-
-    //this.fileUploader.forceRender();
     this.onChange.emit(evt);
   }
 
   deleteDocument(evt: Array<any>) {
     console.log('evt', evt);
     this.person.documents.images = evt;
-    // this.person.documents.images = this.person.documents.images.filter(
-    //   (mspImage: MspImage) => {
-    //     return evt.uuid !== mspImage.uuid;
-    //   }
-    // );
     this.onChange.emit(evt);
   }
 
@@ -310,7 +287,7 @@ export class PersonalDetailsComponent extends BaseComponent {
     return (
       this.person.schoolAddress &&
       this.person.schoolAddress.province &&
-      this.person.schoolAddress.province.toLowerCase() === 'british columbia'
+      this.person.schoolAddress.province ===  BRITISH_COLUMBIA
     );
   }
   setFullTimeStudent(event: any) {
@@ -320,7 +297,6 @@ export class PersonalDetailsComponent extends BaseComponent {
     }
     this.onChange.emit(event);
     this.emitIsFormValid();
-    console.log('event', event);
   }
   setStayInBCAfterStudy(event: boolean) {
     this.person.inBCafterStudies = event;
@@ -340,7 +316,6 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.emitIsFormValid();
   }
   updateSchoolExpectedCompletionDate(evt: any) {
-    // console.log('school expected completion date updated: %o', evt);
     this.person.studiesFinishedDay = evt.day;
     this.person.studiesFinishedMonth = evt.month;
     this.person.studiesFinishedYear = evt.year;
@@ -348,7 +323,6 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   updateSchoolDepartureDate(evt: any) {
-    // console.log('school departure date updated: %o', evt);
     this.person.studiesDepartureDay = evt.day;
     this.person.studiesDepartureMonth = evt.month;
     this.person.studiesDepartureYear = evt.year;
@@ -511,7 +485,6 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   // Province list
   provList(exceptBC: boolean = false): ProvinceList[] {
-    console.log('provlist: ', MspAddressConstants.provList(exceptBC));
     return MspAddressConstants.provList(exceptBC);
   }
 }

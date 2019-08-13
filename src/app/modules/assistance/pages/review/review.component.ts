@@ -5,13 +5,14 @@ import {
   ApplicantInformation,
   IApplicantInformation
 } from '../../models/applicant-information.model';
-import { Address } from 'moh-common-lib';
+import { Address, getCountryDescription, getProvinceDescription } from 'moh-common-lib';
 import {
   SpouseInformation,
   ISpouseInformation
 } from '../../models/spouse-information.model';
 import { ActivatedRoute } from '@angular/router';
 import { AssistStateService } from '../../services/assist-state.service';
+import { ROUTES_ASSIST } from '../../models/assist-route-constants';
 
 export interface IContactInformation {}
 
@@ -80,7 +81,7 @@ export interface IContactInformation {}
         <msp-review-part label="City" [value]="address.city"></msp-review-part>
         <msp-review-part
           label="Province"
-          [value]="address.province"
+          [value]="province"
         ></msp-review-part>
         <msp-review-part
           label="Postal Code"
@@ -88,7 +89,7 @@ export interface IContactInformation {}
         ></msp-review-part>
         <msp-review-part
           label="Country"
-          [value]="address.country"
+          [value]="country"
         ></msp-review-part>
         <h4 class="mt-4 link-text">Contact</h4>
         <msp-review-part label="Phone Number" [value]="phone"></msp-review-part>
@@ -115,23 +116,19 @@ export interface IContactInformation {}
   `,
   styleUrls: ['./review.component.scss']
 })
-export class AssistanceReviewComponent implements OnInit {
+export class AssistanceReviewComponent {
   title = 'Review your application';
 
   applicantTitle = 'Applicant Information';
   contactTitle = 'Contact Information';
   spouseTitle = 'Spouse Information';
 
-  applicantLink = `/assistance/${this.stateSvc.routes[1]}`;
-  contactLink = `/assistance/${this.stateSvc.routes[3]}`;
-  spouseLink = `/assistance/${this.stateSvc.routes[2]}`;
-
-  static ProcessStepNum = 3;
+  applicantLink = ROUTES_ASSIST.PERSONAL_INFO.fullpath;
+  contactLink = ROUTES_ASSIST.CONTACT.fullpath;
+  spouseLink = ROUTES_ASSIST.SPOUSE_INFO.fullpath;
 
   hasSpouse = false;
 
-  // lang = require('./i18n');
-  // application: FinancialAssistApplication;
   applicantInfo: IApplicantInformation;
   spouseInfo: ISpouseInformation;
   address: Address;
@@ -142,8 +139,6 @@ export class AssistanceReviewComponent implements OnInit {
     private route: ActivatedRoute,
     private stateSvc: AssistStateService
   ) {
-    this.dataService.saveFinAssistApplication();
-
     const app = this.dataService.finAssistApp;
 
     this.address = app.mailingAddress;
@@ -151,11 +146,11 @@ export class AssistanceReviewComponent implements OnInit {
     this.hasSpouse = app.hasSpouseOrCommonLaw;
     this.hasSpouse ? this.spouseInformation() : (this.hasSpouse = false);
     this.phone = app.phoneNumber;
-    console.log(this.stateSvc.routes);
   }
 
   ngOnInit() {
-    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
+    // No input required on this page
+    this.stateSvc.setPageStatus( this.route.snapshot.routeConfig.path, true );
   }
 
   applicantInformation() {
@@ -170,7 +165,7 @@ export class AssistanceReviewComponent implements OnInit {
   }
 
   get appYears() {
-    if ( this.applicantInfo.years) {
+    if ( this.applicantInfo.years && this.applicantInfo.years.length ) {
     return this.applicantInfo.years
       .map(itm => itm.toString())
       .reduce((a, b) => `${a}, ${b}`);
@@ -178,9 +173,18 @@ export class AssistanceReviewComponent implements OnInit {
   }
 
   get spouseYears() {
-    if (!this.spouseInfo.years) return;
+    if ( this.spouseInfo.years && this.spouseInfo.years.length ) {
     return this.spouseInfo.years
       .map(itm => itm.toString())
       .reduce((a, b) => `${a}, ${b}`);
+    }
+  }
+
+  get country( ) {
+    return getCountryDescription( this.address.country );
+  }
+
+  get province() {
+    return getProvinceDescription( this.address.province );
   }
 }

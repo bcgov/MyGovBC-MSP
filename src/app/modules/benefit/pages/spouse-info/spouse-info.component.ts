@@ -8,7 +8,8 @@ import { MspBenefitDataService } from '../../services/msp-benefit-data.service';
 import {Relationship} from '../../../../models/status-activities-documents';
 import {NgForm} from '@angular/forms';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
-import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
+//import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
+import { CANADA } from 'moh-common-lib';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -35,15 +36,17 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
    this.benefitApplication = this.dataService.benefitApp;
     // if the country is blank or null or undefined then assign Canada By Default //DEF-153
     if (!this.benefitApplication.mailingAddress.country || this.benefitApplication.mailingAddress.country.trim().length === 0 ) {
-       this.benefitApplication.mailingAddress.country = 'Canada';
+       this.benefitApplication.mailingAddress.country = CANADA;
     }
 }
 
   ngOnInit() {
-    
+
     this.initProcessMembers(BenefitSpouseInfoComponent.ProcessStepNum, this._processService);
     this._processService.setStep(BenefitSpouseInfoComponent.ProcessStepNum, false);
-    
+    if (this.benefitApplication.hasSpouseOrCommonLaw){
+      this.showSpouse = true;
+    }
   }
 
   ngAfterViewInit() {
@@ -64,6 +67,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   addSpouse = () => {
    //this.benefitApplication.applicant = new MspPerson(Relationship.Spouse);
    this.showSpouse = true;
+   //this.dataService.benefitApp.hasSpouse = true;
   //  this.benefitApplication.hasSpouseOrCommonLaw = true;
     this.dataService.benefitApp.setSpouse = true;
     //this.dataService.benefitApp.hasSpouseOrCommonLaw = true
@@ -73,11 +77,11 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   }
 
   removeSpouse(event: Object): void{
-   // console.log('remove spouse ', event);
+   // this.dataService.benefitApp.hasSpouse = false;
    // this.dataService.getMspApplication().removeSpouse();
     this.showSpouse = false;
-   // this.dataService.benefitApp.setSpouse = false;
-    //this.dataService.saveMspApplication();
+    this.dataService.benefitApp.setSpouse = false;
+    this.dataService.saveMspApplication();
   }
 
   onChange(values: any) {
@@ -89,7 +93,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   }
 
   isValid(): boolean {
-      return this.dataService.benefitApp.isUniquePhns && this.dataService.benefitApp.isUniqueSin && validatePHN(this.dataService.benefitApp.spouse.previous_phn);
+      return this.dataService.benefitApp.isUniquePhns && this.dataService.benefitApp.isUniqueSin;
   }
 
   get canContinue(): boolean{

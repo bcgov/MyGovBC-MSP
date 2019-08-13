@@ -4,25 +4,29 @@ import { Route } from '@angular/compiler/src/core';
 import { Router, NavigationStart } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MspDataService } from 'app/services/msp-data.service';
-import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
 import { validateBirthdate } from 'app/modules/msp-core/models/validate-birthdate';
 import { validateContact } from 'app/modules/msp-core/models/validate-contact';
 import { AssistTransformService } from './assist-transform.service';
 import { SchemaService } from 'app/services/schema.service';
 import { ApiSendService } from 'app/modules/benefit/services/api-send.service';
-import { MSPApplicationSchema } from 'app/modules/msp-core/interfaces/i-api';
+import { ROUTES_ASSIST } from '../models/assist-route-constants';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssistStateService {
+
+  public canContinue: boolean = false;
+
+  finAssistApp = this.dataSvc.finAssistApp;
+  touched: Subject<boolean> = new Subject<boolean>();
   index: BehaviorSubject<number> = new BehaviorSubject(null);
+
+
   success$: BehaviorSubject<any> = new BehaviorSubject(null);
   failure$: BehaviorSubject<any> = new BehaviorSubject(null);
-  touched: Subject<boolean> = new Subject<boolean>();
-  routes: string[];
-  finAssistApp = this.dataSvc.finAssistApp;
-  submitted = false;
+  submitted = false; // Do we need?
   response: any;
 
   // The index of the validations is tied to the index of the router
@@ -38,7 +42,7 @@ export class AssistStateService {
     this.isAuthorizeValid.bind(this)
   ];
 
-  isHomeValid(): boolean {
+  isHomeValid(): boolean { // to remove - done on pages
     console.log( 'isHomeValid' );
     const bool = this.finAssistApp.assistYears.some(itm => itm.apply === true);
     return bool;
@@ -47,7 +51,7 @@ export class AssistStateService {
   isPersonalInfoValid(): boolean {
     const person = this.finAssistApp.applicant;
 
-    console.log( 'isPersonalInfoValid: ', person )
+    console.log( 'isPersonalInfoValid: ', person );
     // check that these fields have value
     const requiredFields = ['firstName', 'lastName', 'previous_phn', 'sin'];
     for (const field of requiredFields) {
@@ -62,10 +66,6 @@ export class AssistStateService {
       }
     }
 
-    if (!validatePHN(person.previous_phn)) { 
-      //console.log( 'Invalid PHN - not meet mod11 check' );
-      return false;
-    }
 
     if (!validateBirthdate(person.dobSimple)) return false;
     const filteredYears = this.filteredYears('files');
@@ -133,7 +133,6 @@ export class AssistStateService {
   }
 
   isValid(index: number) {
-    
     console.log( 'isValid: index = ', index );
     const args = this.validations.slice(0, index + 1);
     for (const arg of args) {
@@ -170,32 +169,78 @@ export class AssistStateService {
     this.router.events
       .pipe(filter(event => event instanceof NavigationStart))
       .subscribe((obs: any) => {
-        const url = obs.url.slice(12, obs.url.length);
-        const index = this.findIndex(url);
-        if (index > -1) this.index.next(index);
+        const index = this.findIndex( obs.url );
+        console.log( 'route events: ', obs.url, index );
+
+        this.index.next( index > 0 ? index : 1 );
       });
   }
 
   setAssistPages(arr: Route[]) {
-    const [...routes] = [...arr];
+    if ( !this.finAssistApp.pageStatus.length ) {
+      const routeConst = Object.keys( ROUTES_ASSIST ).map( x => ROUTES_ASSIST[x] );
 
-    this.routes = routes
-      .filter((itm: any) => !itm.redirectTo)
-      .map((itm: any) => itm.path);
+      this.finAssistApp.pageStatus = arr
+        .filter((itm: any) => !itm.redirectTo)
+        .map((itm: any) => {
+          const val = routeConst.find( x => x.path === itm.path );
+          return {
+            index: val.index,
+            path: val.path,
+            fullpath: val.fullpath,
+            isComplete: false,
+            btnLabel: val.btnLabel ? val.btnLabel : '',
+            btnDefaultColor: val.btnDefaultColor
+          };
+        });
+    }
   }
 
-  findIndex(url: string) {
-    if (!this.routes) return 0;
-    return this.routes.indexOf(url);
+  findIndex( url: string ): number {
+    let idx = 0;
+    if ( this.finAssistApp.pageStatus ) {
+      console.log( 'findIndex: ', url );
+      const obj = this.finAssistApp.pageStatus.find( x => url.includes(x.path) );
+      console.log( 'findIndex: ', obj );
+      if ( obj ) {
+        idx = obj.index;
+      }
+    }
+    return idx;
   }
 
-  nextIndex(i: number) {
+  nextIndex( i: number ) {
     this.index.next(i);
   }
 
-  setIndex(path: string) {
+  setIndex( path: string ) {
+    console.log( 'setIndex: ', path );
     const index = this.findIndex(path);
-    if (index > -1) return this.index.next(index);
+     if (index > 0) return this.index.next(index);
+  }
+
+  setPageStatus( path: string , complete: boolean ) {
+    const obj = this.finAssistApp.pageStatus.find( x => path.includes(x.path) );
+    if ( obj ) {
+      obj.isComplete = complete;
+      // Set future pages to not complete
+      this.finAssistApp.pageStatus.map( x => {
+        if ( obj.index < x.index ) {
+          x.isComplete = false;
+        }
+      });
+    }
+  }
+
+  isPageComplete( path: string ): boolean {
+    let complete = false;
+    const obj = this.finAssistApp.pageStatus .find( x => path.includes(x.path) );
+    if ( obj ) {
+      // Requirement to continue is the previous page is complete
+      const prevIdx = obj.index - 1;
+      complete = (prevIdx === 0 ? obj.isComplete : this.finAssistApp.pageStatus[prevIdx - 1].isComplete );
+    }
+    return complete;
   }
 
   async submitApplication() {
@@ -215,7 +260,7 @@ export class AssistStateService {
         : this.failure$.next(res);
       return res;
     } catch (err) {
-      console.error;
+      console.log( 'Error: ', err );
     }
   }
 

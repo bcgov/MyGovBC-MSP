@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import { assistPages } from '../../assist-page-routing.module';
 import { Container } from 'moh-common-lib';
 import { AssistStateService } from '../../services/assist-state.service';
@@ -10,6 +10,8 @@ import { SchemaService } from 'app/services/schema.service';
 import { AssistTransformService } from '../../services/assist-transform.service';
 import { AssistMapping } from '../../models/assist-mapping';
 import { HeaderService } from '../../../../services/header.service';
+import { ROUTES_ASSIST } from '../../models/assist-route-constants';
+import { filter } from 'lodash';
 
 @Component({
   selector: 'msp-assist-container',
@@ -24,36 +26,23 @@ import { HeaderService } from '../../../../services/header.service';
     <common-form-action-bar
       [defaultColor]="false"
       (btnClick)="continue()"
-      [submitLabel]="submitLabel$ | async"
+      [submitLabel]="submitLabel"
       [isLoading]="isLoading"
+      [defaultColor]="useDefaultColor"
     ></common-form-action-bar>
-
   `,
   styleUrls: ['./assist-container.component.scss']
 })
 export class AssistContainerComponent extends Container implements OnInit {
   app: FinancialAssistApplication = this.dataSvc.finAssistApp;
-  isLoading = false;
-  submitted = false;
 
-  submitLabels = {
-    0: 'Apply for Retroactive Premium Assistance',
-    1: 'Continue',
-    2: this.spouseLabel,
-    3: 'Continue',
-    4: 'Continue',
-    5: 'Submit'
-  };
+  isLoading = false;
 
   get spouseLabel() {
     return this.app.hasSpouseOrCommonLaw ? 'Continue' : 'No Spouse';
   }
 
-  index: any;
-
   response: any;
-
-  submitLabel$ = new BehaviorSubject<string>('Continue');
 
   constructor(
     public router: Router,
@@ -61,45 +50,55 @@ export class AssistContainerComponent extends Container implements OnInit {
     private dataSvc: MspDataService,
     private schemaSvc: SchemaService,
     private xformSvc: AssistTransformService,
-    private route: ActivatedRoute,
     private header: HeaderService
   ) {
     super();
     this.setProgressSteps(assistPages);
-    this.stateSvc.setAssistPages(assistPages);
+    this.stateSvc.setAssistPages( assistPages );
     this.header.setTitle('Retroactive Premium Assistance');
   }
 
   ngOnInit() {
-    const url = this.router.url.slice(12, this.router.url.length);
-    this.stateSvc.setIndex(url);
-    this.stateSvc.touched.subscribe(obs => console.log(obs));
-    this.stateSvc.index.subscribe(obs => {
-      obs === 2
-        ? this.submitLabel$.next(this.spouseLabel)
-        : this.submitLabel$.next(this.submitLabels[obs] || 'Next');
-    });
+    console.log( 'router: ', this.router.url );
+    this.stateSvc.setIndex( this.router.url );
+  }
 
-    this.route.params.subscribe(obs => {
-      console.log(obs);
-    });
+  get submitLabel() {
+    return this.stateSvc.finAssistApp.pageStatus[this.stateSvc.index.value - 1].btnLabel;
+  }
+
+  get useDefaultColor() {
+    return this.stateSvc.finAssistApp.pageStatus[this.stateSvc.index.value - 1].btnDefaultColor;
   }
 
   continue() {
+    // index is the number for ROUTE_ASSIST item, offset by 1
     const index = this.stateSvc.index.value;
+    console.log( 
+      'Continue (container)', index,
+       this.stateSvc.finAssistApp.pageStatus[index - 1].isComplete
+      );
 
-    this.stateSvc.isValid(index)
-      ? this.navigate(index)
-      : this.stateSvc.touched.next(true);
-    // ;
+    if ( this.stateSvc.finAssistApp.pageStatus[index - 1].isComplete ) {
+      this.navigate( index );
+    } else {
+      this.stateSvc.touched.next( true );
+    }
   }
 
-  navigate(index: number) {
-    index !== 5
-      ? this.router.navigate([`/assistance/${this.stateSvc.routes[index + 1]}`])
-      : this.submit();
+  navigate( index: number ) {
+    if ( index === this.stateSvc.finAssistApp.pageStatus.length ) {
+      // last item in routes
+      this.submit();
+    } else {
+      // next page
+      const nextPageObj = this.stateSvc.finAssistApp.pageStatus[index];
+      this.router.navigate( [nextPageObj.fullpath] );
+    }
   }
+
   async submit() {
+    console.log( 'submit functions - needs work' );
     this.isLoading = true;
 
     const findFieldName = (path: string) => {
@@ -108,6 +107,8 @@ export class AssistContainerComponent extends Container implements OnInit {
 
     try {
       const app = this.xformSvc.application;
+
+      // Validation functions are redunant - to be removed
       const validateList = await this.schemaSvc.validate(app);
       console.log('validate', validateList.errors);
 
@@ -120,31 +121,25 @@ export class AssistContainerComponent extends Container implements OnInit {
           for (const arr of AssistMapping.items) {
             if (arr.some(itm => itm === fieldName)) {
               const index = AssistMapping.items.indexOf(arr);
-              return this.router.navigate([
-                `/assistance/${this.stateSvc.routes[index]}`
-              ]);
+              return this.router.navigate([this.stateSvc.finAssistApp.pageStatus[index].fullpath]);
             }
           }
-          return this.router.navigate([
-            `/assistance/${this.stateSvc.routes[0]}`
-          ]);
+          return this.router.navigate([this.stateSvc.finAssistApp.pageStatus[0].fullpath]);
         }
       } else {
-        let res = await this.stateSvc.submitApplication();
+        const res = await this.stateSvc.submitApplication();
         this.response = res;
         this.isLoading = false;
         this.router.navigate([
-        '/assistance/confirmation',
-        this.response.op_return_code,
-        this.response.op_reference_number || 'N/A'
+          ROUTES_ASSIST.CONFIRMATION.fullpath,
+          this.response.op_return_code,
+          this.response.op_reference_number || 'N/A'
       ]);
-        this.submitLabel$.next('Home');
       }
     } catch (err) {
       console.error(err);
     } finally {
-      //this.submitLabel$.next('Home');
-      //this.submitLabel$.next('Home');
+      // Should there be some code in here??
     }
   }
 }

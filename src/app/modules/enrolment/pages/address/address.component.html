@@ -10,10 +10,6 @@
         <common-address #address
                         [address]="mspApplication?.residentialAddress"
                         (addressChange)="handleAddressUpdate($event)"
-                        [defaultCountry]="defaultCountry"
-                        [countryList]="countryList"
-                        [defaultProvince]="defaultProvince"
-                        [provinceList]="provinceList"
                         [isRequired]="true">
         </common-address>
         <div class="custom-control custom-checkbox">
@@ -48,10 +44,10 @@
         </div>
     </div>
     
-
+    </common-page-framework>
     <common-form-action-bar [canContinue]="canContinue()"
                             (btnClick)="continue()"></common-form-action-bar>
-    </common-page-framework>
+
 </form>
 
 <ng-template #NoMailingAddress>

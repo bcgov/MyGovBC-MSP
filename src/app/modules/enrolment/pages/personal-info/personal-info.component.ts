@@ -8,11 +8,12 @@ import { MspDataService } from '../../../../services/msp-data.service';
 import { Router } from '@angular/router';
 import {Relationship} from '../../../../models/status-activities-documents';
 import {NgForm} from '@angular/forms';
-import {PersonalDetailsComponent} from '../../../msp-core/components/personal-details/personal-details.component';
+import {PersonalDetailsComponent} from '../../components/personal-details/personal-details.component';
 import {BaseComponent} from '../../../../models/base.component';
 import {ProcessService} from '../../../../services/process.service';
 import { StatusInCanada} from '../../../../models/status-activities-documents';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
+import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 
 @Component({
   templateUrl: './personal-info.component.html'
@@ -65,7 +66,7 @@ export class PersonalInfoComponent extends BaseComponent {
   addSpouse = () => {
     const sp: MspPerson = new MspPerson(Relationship.Spouse);
     this.dataService.getMspApplication().addSpouse(sp);
-  };
+  }
 
   addChild(relationship: Relationship): void {
     this.dataService.getMspApplication().addChild(relationship);
@@ -107,7 +108,7 @@ export class PersonalInfoComponent extends BaseComponent {
           ) {
             if (
               currentApplicant.fullTimeStudent &&
-              currentApplicant.inBCafterStudies == false
+              currentApplicant.inBCafterStudies === false
             ) {
               this._processService.setStep(1, false);
               stayingInBc = false;
@@ -145,7 +146,7 @@ export class PersonalInfoComponent extends BaseComponent {
     if (!this.isAllValid()) {
       console.log('Please fill in all required fields on the form.');
     }else{
-      this._router.navigate(['/enrolment/spouse-info']);
+      this._router.navigate([ROUTES_ENROL.PERSONAL_INFO.fullpath]);
     }
   }
 }
