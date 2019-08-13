@@ -85,17 +85,18 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.address = this.financialAssistApplication.mailingAddress;
+    console.log('init', this.address);
     this.phone = this.financialAssistApplication.phoneNumber;
-    this.addressLines = this.getAddressLines(this.address);
+    // this.addressLines = this.getAddressLines(this.address);
 
-    const enableLines = num => {
-      while (num > 1) {
-        this.address[`addressLine${num}`] = true;
-        num -= 1;
-      }
-    };
+    // const enableLines = num => {
+    //   while (num > 1) {
+    //     this.address[`addressLine${num}`] = true;
+    //     num -= 1;
+    //   }
+    // };
 
-    enableLines(this.addressLines);
+    // enableLines(this.addressLines);
     this.personalInfoForm.valueChanges
       .pipe(
         debounceTime(250),
@@ -118,26 +119,26 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
     this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
 
-  getAddressLines(address: Address) {
-    if (address.addressLine3) return 3;
-    if (typeof address.addressLine2 === 'string') {
-      return 2;
-    } else return 1;
-  }
+  // getAddressLines(address: Address) {
+  //   if (address.addressLine3) return 3;
+  //   if (typeof address.addressLine2 === 'string') {
+  //     return 2;
+  //   } else return 1;
+  // }
 
-  addLine() {
-    const i = this.getAddressLines(this.address);
-    if (i === 3) return;
-    const lineToAdd = `addressLine${i + 1}`;
-    this.address[lineToAdd] = '';
-    this[lineToAdd] = true;
-  }
+  // addLine() {
+  //   const i = this.getAddressLines(this.address);
+  //   if (i === 3) return;
+  //   const lineToAdd = `addressLine${i + 1}`;
+  //   this.address[lineToAdd] = '';
+  //   this[lineToAdd] = true;
+  // }
 
-  removeLine(num: number) {
-    const lineToRemove = `addressLine${num}`;
-    this.address[lineToRemove] = undefined;
-    this[lineToRemove] = false;
-  }
+  // removeLine(num: number) {
+  //   const lineToRemove = `addressLine${num}`;
+  //   this.address[lineToRemove] = undefined;
+  //   this[lineToRemove] = false;
+  // }
 
   savePhone(evt: any) {
     this.financialAssistApplication.phoneNumber = evt;
@@ -145,5 +146,11 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
   updateAddress(evt: Address) {
     console.log('update event', evt);
     this.address.addressLine1 = evt.street;
+    if(this.address.addressLine2){
+      this.address.addressLine2 = evt.addressLine2;
+    }
+    if(this.address.addressLine3){
+      this.address.addressLine3 = evt.addressLine3;
+    }
   }
 }

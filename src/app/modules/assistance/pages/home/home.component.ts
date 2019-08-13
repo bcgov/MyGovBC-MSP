@@ -37,7 +37,7 @@ import { environment } from '../../../../../environments/environment.prod';
         </a>
         are based on the previous tax year's
         <button class="btn btn-link p-0" (click)="openModal(modal)">
-          adjusted net income
+          adjusted net income.
         </button>
       </p>
       <p>
