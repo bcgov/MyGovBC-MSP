@@ -1,130 +1,91 @@
-<!--<msp-consent-modal #mspConsentModal [application]="mspApplication"
-                   [processName]="lang('./en/index.js').consentProcessName"
-                   (onClose)="liveInBCBtn.focus()">
+<msp-consent-modal #mspConsentModal 
+                [isMaintenanceMode]="true" 
+                (onClose)="liveInBCBtn.focus()"
+                [consentProcessName]="'MSP'" 
+                (accept)="mspApplication.infoCollectionAgreement = $event;  this.dataService.saveMspApplication();">
 </msp-consent-modal>
- -->
-
-<common-consent-modal #mspConsentModal [isUnderMaintenance]="true" (onClose)="liveInBCBtn.focus()"
-        [title]="'Information collection notice'" agreeLabel="I have read and understand this information"
-        [processName]="lang('./en/index.js').consentProcessName" 
-        (accept)="mspApplication.infoCollectionAgreement = $event;  this.dataService.saveMspApplication();">
-        <p><strong>Keep your personal information secure – especially when using a shared device like a computer at a library, school or café.</strong> To delete any information that was entered, either complete the application and submit it or, if you don’t finish, close the web browser.</p><p><strong>Need to take a break and come back later?</strong> The data you enter on this form is saved locally to the computer or device you are using until you close the web browser or submit your application.</p><p><strong>Information in this application is collected by the Ministry of Health</strong> under section 26(a), (c) and (e) of the Freedom of Information and Protection of Privacy Act and will be used to determine eligibility for provincial health care benefits in BC and administer Premium Assistance. Should you have any questions about the collection of this personal information please <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us" target="_blank">contact Health Insurance BC <i class="fa fa-external-link" aria-hidden="true"></i></a>.</p>
-</common-consent-modal> 
 
 <common-page-framework layout="blank">
 
-    <p class="intro"
-    [innerHtml]="lang('./en/index.js').servicesCardMsg" role="heading" >
+    <h1>See if you qualify for public health care in B.C.</h1>
+
+    <p class="pb-2 border-bottom">  
+        If you already have Medical Services Plan (MSP) coverage and received a letter notifying you to renew 
+        your BC Services Card, you do not have to submit a new Application for MSP Enrolment; you only need to 
+        renew your BC Services Card. Follow the instructions on the letter to renew your card.
     </p>
 
+    <common-page-section layout='noTips'>
+        <form #formRef='ngForm' novalidate>
 
-    <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
+            <common-radio [value]="liveInBC"  
+                          [label]="question1" 
+                          [radioLabels]="radioLabels"
+                          (statusChange)="setLiveInBC($event)"
+                          aria-labelledby="q1">
+            </common-radio> 
 
-    <form #formRef='ngForm' novalidate role="form" >
-        
-        <common-radio [value]="liveInBC"  [label]="lang('./en/index.js').question1" 
-            [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-            (statusChange)="setLiveInBC($event)">
-        </common-radio> 
-        <!--<label for="{{objectId}}" class="control-label" [innerHtml]="lang('./en/index.js').question1" ></label><br/>
-        <div *ngFor="let val of radioLabels" >
-            <div class="md-radio md-radio-inline">
-            <input type="radio"   name="{{val}}-{{objectId}}" 
-                id="{{val.label}}-{{objectId}}" 
-                (click)="setLiveInBC(val.value);" value="val.value" 
-                tabindex="0">
-            <label for="{{val.label}}-{{objectId}}">
-                {{val.label}} -- {{val.value}}
-            </label>
+            <div [hidden]="liveInBC !== true" role="dialog" aria-labelledby="q2">
+            
+                <common-radio [value]="plannedAbsence"  
+                              [label]="plannedAwayForOver30DaysQuestion" 
+                              [radioLabels]="radioLabels"
+                              (statusChange)="setPlannedAbsence($event)">
+                </common-radio>
+
+                <p class="text-danger" 
+                   *ngIf="plannedAbsence === true"
+                   role="alert" 
+                   aria-live="assertive">
+                    You might not qualify for public health insurance if you leave the province for more than 30 
+                    days in total during the first six months after you apply - doing this could mean you are no 
+                    longer considered a B.C. resident. Find out more by contacting 
+                    <a href="{{links.MSP_RESIDENT_CONTACT}}" target="_blank">Health Insurance BC</a>.
+                </p>
             </div>
-        </div> -->
 
-        <!-- <div role="dialog" aria-labelledby="q1">
-                <p id="q1" class="intro" [innerHtml]="lang('./en/index.js').question1"></p>
-                <div class="btn-group" role="group">
-                    <button [class.msp-btn-radio]="liveInBC === true" (click)="setLiveInBC(true)"
-                    #liveInBCBtn type="button" class="btn btn-default" tabindex="0">Yes</button>
-                    <button [class.msp-btn-radio]="liveInBC === false" (click)="setLiveInBC(false)"
-                        #notLiveInBCBtn type="button" class="btn btn-default" tabindex="0">No&nbsp;</button>
+            <div [hidden]= "plannedAbsence !== false || !liveInBC" 
+                 role="dialog" 
+                 aria-labelledby="q3"> 
+
+                <common-radio [value]="unUsualCircumstance"  
+                              [radioLabels]="radioLabels"
+                              (statusChange)="setUnusualCircumstance($event)">
+                    Is anyone you're applying for<br>
+                    <ul class="mb-0">
+                        <li>A student returning to your home province at the end of a course or program; or</li>
+                        <li>A minor (under the age of 16) who needs to have their own individual account; or</li>
+                        <li>Seeking refugee status and is not approved yet</li>
+                    </ul>
+                </common-radio>      
+                
+                <div class="text-danger" 
+                   *ngIf="unUsualCircumstance === true"
+                   role="alert"
+                   aria-live="assertive">
+                    You can submit an application with some assistance from one of our representatives - please contact
+                    Health Insurance BC:
+                    <ul>
+                        <li>(604) 683-7151 (Lower Mainland)</li>
+                        <li>1-800-663-7100 (Elsewhere in B.C.)</li>
+                    </ul>
                 </div>
-            </div> 
-    -->
 
-        <div [hidden]="liveInBC !== true" role="dialog" aria-labelledby="q2">
-            <common-radio [value]="plannedAbsence"  [label]="lang('./en/index.js').plannedAwayForOver30DaysQuestion" 
-                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-            (statusChange)="setPlannedAbsence($event)">
-            </common-radio>
-    
-            <!--     <common-button-group [label]="lang('./en/index.js').plannedAwayForOver30DaysQuestion" 
-                [data]="plannedAbsence" 
-                (dataChange)="setPlannedAbsence($event)" >
-            </common-button-group> 
+            </div>
 
-    
-            <p id="q2" class="intro" [innerHtml]="lang('./en/index.js').plannedAwayForOver30DaysQuestion"></p>
-            <div class="btn-group" role="group">
-                <button [class.msp-btn-radio]="plannedAbsence === true" tabindex="0"
-                    #plannedAbsenceBtn type="button" class="btn btn-default">Yes</button>
-                <button [class.msp-btn-radio]="plannedAbsence === false" tabindex="0"
-                    #noPlannedAbsenceBtn type="button" class="btn btn-default">No&nbsp;</button>
-            </div> -->
-        
-
-            <p class="intro text-danger" *ngIf="plannedAbsence === true"
-                [innerHtml]="lang('./en/index.js').badAnswer3" role="alert" aria-live="assertive">
+            <p class="text-danger" 
+               *ngIf="!(liveInBC === true || liveInBC === null || liveInBC === undefined)"
+               role="alert" aria-live="assertive">
+                You might not qualify for public health insurance if you do not live in B.C. Contact
+                 <a href="{{links.MSP_RESIDENT_CONTACT}}" target="_blank">Health Insurance BC</a> for more information.
             </p>
-        </div>
-        <div [hidden]= "plannedAbsence !== false || !liveInBC" role="dialog" aria-labelledby="q3">
+        </form>
 
-            <common-radio [value]="unUsualCircumstance"  [label]="lang('./en/index.js').specialCircumstanceQuestion" 
-                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                (statusChange)="setUnusualCircumstance($event)">
-            </common-radio>
-        <!--    <common-button-group [label]="lang('./en/index.js').specialCircumstanceQuestion" 
-                [data]="unUsualCircumstance" (dataChange)="setUnusualCircumstance($event)" >
-            </common-button-group> 
-        
-        
-        <p id="q3" class="intro" [innerHtml]="lang('./en/index.js').specialCircumstanceQuestion"></p>
-            <div class="btn-group" role="group">
-                <button [class.msp-btn-radio]="unUsualCircumstance === true" tabindex="0"
-                    #unUsualCircumstanceBtn type="button" class="btn btn-default" >Yes</button>
-                <button [class.msp-btn-radio]="unUsualCircumstance === false" tabindex="0"
-                    #noUnusualCircustanceBtn type="button" class="btn btn-default">No&nbsp;</button>
-            </div> -->
-        
-            <p class="intro text-danger" *ngIf="unUsualCircumstance === true"
-                [innerHtml]="lang('./en/index.js').badAnswer4" role="alert" aria-live="assertive">
-            </p>
-        </div>
-        <div *ngIf="unUsualCircumstance === false" [innerHtml]="lang('./en/index.js').allRightAnswers" role="alert" aria-live="assertive">
-        </div>
-
-        <p class="intro text-danger" *ngIf="!(liveInBC === true || liveInBC === null || liveInBC === undefined)" class="text-danger" [innerHtml]="lang('./en/index.js').badAnswer1"
-            role="alert" aria-live="assertive">
-        </p>
-
-    </form>
+    </common-page-section>
     
-    <!--<div class="position: inherit;"> -->
-
 </common-page-framework>
 
-<common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
-            [canContinue]="canContinue()"
-            (btnClick)="goToPersonalInfo()"
-            widthOption='extra-width-mobile-only'>
+<common-form-action-bar [canContinue]="canContinue()"
+                        (btnClick)="goToPersonalInfo()"
+                        widthOption='extra-width-mobile-only'>
 </common-form-action-bar>
-<!--</div> -->
-    
-
-<!--<button class="btn btn-primary"
-        [disabled] = "!canContinue()"
-        (click) = "goToPersonalInfo()"
-        type="button" tabindex="0"
-        [innerHtml]="lang('./en/index.js').continueButton"></button>
-
-<msp-cancel></msp-cancel>-->
-
-

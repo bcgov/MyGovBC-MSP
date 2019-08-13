@@ -22,6 +22,24 @@ import { MspLogService } from '../../../../services/log.service';
 import { async } from '@angular/core/testing';
 import { CompletenessCheckService } from '../../../../services/completeness-check.service';
 import { MspValidationService} from '../../../../services/msp-validation.service';
+import { BRITISH_COLUMBIA, Person, CANADA, Address } from 'moh-common-lib';
+import { CaptchaComponent } from 'moh-common-lib/captcha/captcha.component';
+import { MspLoggerDirective } from '../../../msp-core/components/logging/msp-logger.directive';
+import { MspCancelComponent } from '../../../../components/msp/common/cancel/cancel.component';
+import { MspToggleComponent } from '../../../../components/msp/common/toggle/toggle.component';
+import { MspGenderComponent } from '../../../../components/msp/common/gender/gender.component';
+import { MspPhoneComponent } from '../../../../components/msp/common/phone/phone.component';
+import { CalendarYearValidator } from '../../../../components/msp/common/calendar/calendar-year.validator';
+import { CalendarMonthValidator } from '../../../../components/msp/common/calendar/calendar-month.validator';
+import { CalendarDayValidator } from '../../../../components/msp/common/calendar/calendar-day.validator';
+import { CalendarYearFormatter } from '../../../../components/msp/common/calendar/calendar-year-formatter.component';
+import { MspDischargeDateComponent } from '../../../../components/msp/common/discharge-date/discharge-date.component';
+import { MspOutofBCRecordComponent } from '../../../../components/msp/common/outof-bc/outof-bc.component';
+import { MspReturnDateComponent } from '../../../../components/msp/common/return-date/return-date.component';
+import { MspDepartureDateComponent } from '../../../../components/msp/common/departure-date/departure-date.component';
+import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
+import { CaptchaDataService } from 'moh-common-lib/captcha/captcha-data.service';
+import { Relationship } from '../../../../models/status-activities-documents';
 
 
 describe('AccountDependentChangeComponent', () => {
@@ -66,9 +84,9 @@ describe('AccountDependentChangeComponent', () => {
         const applicant = new Person(Relationship.Applicant);
         applicant.residentialAddress.addressLine1 = '123 Main Street';
         applicant.residentialAddress.city = 'Victoria';
-        applicant.residentialAddress.province = 'British Columbia';
+        applicant.residentialAddress.province = BRITISH_COLUMBIA;
         applicant.residentialAddress.postal = 'V8R 2N9';
-        applicant.residentialAddress.country = 'Canada';
+        applicant.residentialAddress.country = CANADA;
         //Attach to data store, which component uses.
         const dataService = TestBed.get(MspDataService);
         dataService.getMspAccountApp().applicant = applicant;

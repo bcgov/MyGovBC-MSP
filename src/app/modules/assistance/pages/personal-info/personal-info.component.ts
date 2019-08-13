@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { ActivatedRoute } from '@angular/router';
@@ -8,9 +8,7 @@ import { MspAddressComponent } from '../../../msp-core/components/address/addres
 import { MspPhoneComponent } from '../../../../components/msp/common/phone/phone.component';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 import { AssistanceYear } from '../../models/assistance-year.model';
-import { MspPerson } from 'app/modules/account/models/account.model';
 import { AssistStateService } from '../../services/assist-state.service';
-import { Observable } from 'rxjs';
 
 @Component({
   // templateUrl: './personal-info.component.html'
@@ -18,32 +16,27 @@ import { Observable } from 'rxjs';
     <h1>{{ title }}</h1>
     <h2>{{ subtitle }}</h2>
     <p class="border-bottom">{{ description }}</p>
-    <common-page-section layout="double">
-      <form #formRef="ngForm" novalidate>
+    <form #formRef="ngForm" novalidate>
+      <common-page-section layout="double">
         <msp-assist-account-holder
           [person]="financialAssistApplication.applicant"
-          (dataChange)="saveAccountHolder($event)"
+          (dataChange)="saveAccountHolder()"
         ></msp-assist-account-holder>
-      </form>
-    </common-page-section>
-    <h2>{{ documentsTitle }}</h2>
-    <p class="border-bottom">{{ documentsDescription }}</p>
-    <msp-assist-cra-documents
-      [assistanceYears]="assistanceYears"
-      [touched]="touched$ | async"
-    ></msp-assist-cra-documents>
+      </common-page-section>
+      <h3>{{ documentsTitle }}</h3>
+      <p class="border-bottom">{{ documentsDescription }}</p>
+      <msp-assist-cra-documents
+        [assistanceYears]="assistanceYears"
+      ></msp-assist-cra-documents>
+    </form>
   `
 })
 export class AssistancePersonalInfoComponent extends BaseComponent {
-  //DEF-74 KPS
-  static ProcessStepNum = 1;
 
   @ViewChild('formRef') personalInfoForm: NgForm;
   @ViewChild('address') address: MspAddressComponent;
   @ViewChild('phone') phone: MspPhoneComponent;
   financialAssistApplication: FinancialAssistApplication;
-
-  touched$: Observable<any>;
 
   title = 'Add personal information and upload documents';
   subtitle = 'Medical Services Plan Account Holder';
@@ -62,13 +55,6 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
   ) {
     super(cd);
     this.financialAssistApplication = this.dataService.finAssistApp;
-    // if the country is blank or null or undefined then assign Canada By Default //DEF-153
-  /*  if (
-      !this.financialAssistApplication.mailingAddress.country ||
-      this.financialAssistApplication.mailingAddress.country.trim().length === 0
-    ) {
-      this.financialAssistApplication.mailingAddress.country = CANADA;
-    }*/
   }
 
   ngAfterViewInit() {
@@ -78,20 +64,17 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
           debounceTime(250),
           distinctUntilChanged()
         )
-        .subscribe(val => {
+        .subscribe(() => {
+          console.log( 'form values changed: form is ', this.personalInfoForm.valid );
+          this.stateSvc.setPageStatus( this.route.snapshot.routeConfig.path, this.personalInfoForm.valid );
           this.dataService.saveFinAssistApplication();
         })
     );
-
-    setTimeout(
-      () => (this.touched$ = this.stateSvc.touched.asObservable()),
-      500
-    );
-
-    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
   }
 
   ngOnInit() {
+
+    // Set Container data specific to page
     const assistYears = this.financialAssistApplication.assistYears;
     const arr = [];
     const checkYear = (year: AssistanceYear) => {
@@ -109,7 +92,24 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
       });
 
     this.documentsDescription += this.createDocumentDesc(this.assistanceYears);
+
+    setTimeout(
+      () =>
+      this.subscriptionList.push(
+          this.stateSvc.touched.asObservable().subscribe(obs => {
+            if (obs) {
+              const controls = this.personalInfoForm.form.controls;
+              console.log( 'controls: ', controls );
+              for (const control in controls) {
+                controls[control].markAsTouched();
+              }
+            }
+          })
+        ),
+      500
+    );
   }
+
   ngOnDestroy() {
     this.subscriptionList.forEach(itm => itm.unsubscribe());
   }
@@ -125,15 +125,9 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
     }
   }
 
-  // onChange($event) {
-  //   console.log('event', $event);
-  //   console.log('changes from child component triggering save: ');
-  //   this.dataService.saveFinAssistApplication();
-  // }
-
   // Final check to see if the country is present // DEF 153
 
-  saveAccountHolder(evt: MspPerson) {
+  saveAccountHolder() {
     this.dataService.saveFinAssistApplication();
   }
 }

@@ -14,6 +14,7 @@ import {
   BRITISH_COLUMBIA
 } from 'moh-common-lib';
 import { MspAddressConstants } from '../../../../models/msp-address.constants';
+import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 
 @Component({
   templateUrl: './address.component.html'
@@ -100,7 +101,7 @@ export class EnrolAddressComponent extends BaseComponent {
     }else{
      // this._processService.setStep(4, true);
      // this.checkCompleteBaseService.setPageComplete();
-      this._router.navigate(['/enrolment/review']);
+      this._router.navigate([ROUTES_ENROL.REVIEW.fullpath]);
     }
   }
 }

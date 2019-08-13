@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import {MspApplication, MspPerson} from '../../models/application.model';
 import { MspDataService } from '../../../../services/msp-data.service';
 import {Relationship} from '../../../../models/status-activities-documents';
+import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -28,7 +29,7 @@ export class SpouseInfoComponent extends BaseComponent implements OnInit {
 
   nextStep(){
     this._processService.setStep(2, true);
-    this._router.navigate(['/enrolment/child-info']);
+    this._router.navigate([ROUTES_ENROL.CHILD_INFO.fullpath]);
 
   }
 

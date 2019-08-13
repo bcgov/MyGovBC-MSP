@@ -12,12 +12,12 @@ export class MspAddressCardPartComponent {
   constructor() {
   }
 
-  get country(){
-    return getCountryDescription(this.address.country);
+  get country() {
+    return getCountryDescription( this.address.country );
   }
 
-  get province(){
-    return getProvinceDescription(this.address.province);
+  get province() {
+    return getProvinceDescription( this.address.province );
   }
 
 }

@@ -8,6 +8,7 @@ import { MspDataService } from '../../../../services/msp-data.service';
 import {ProcessService} from '../../../../services/process.service';
 import { environment } from '../../../../../environments/environment';
 import { MspLogService } from '../../../../services/log.service';
+import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 
 @Component({
   selector: 'msp-authorize',
@@ -24,7 +25,7 @@ export class AuthorizeComponent implements OnInit {
 
   constructor(private dataService: MspDataService,
               private _router: Router,
-              private processService: ProcessService,
+            //  private processService: ProcessService,
               private logService: MspLogService) {
     this.application = this.dataService.getMspApplication();
     this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
@@ -71,9 +72,10 @@ export class AuthorizeComponent implements OnInit {
     // console.log('review form submitted, %o', evt);
     if (this.application.hasValidAuthToken){
       console.log('Found valid auth token, transfer to sending screen.');
-      this.processService.setStep(6, true);
+      //this.processService.setStep(6, true);
       // this.logService.log({name: "Application - Review Page Before Submit (after CAPTCHA)"},"Application-Captcha Success")
-      this._router.navigate(['/enrolment/sending']);
+      // TODO: Setup call to backend - use sending page information
+      this._router.navigate([ROUTES_ENROL.CONFIRMATION.fullpath]);
     }else{
       console.log('Auth token is not valid');
     }

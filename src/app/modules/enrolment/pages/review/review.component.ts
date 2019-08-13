@@ -8,6 +8,7 @@ import { MspDataService } from '../../../../services/msp-data.service';
 import { ProcessService } from '../../../../services/process.service';
 import { environment } from '../../../../../environments/environment';
 import { MspLogService } from '../../../../services/log.service';
+import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 
 @Component({
   templateUrl: './review.component.html'
@@ -19,11 +20,16 @@ export class ReviewComponent implements OnInit {
   captchaApiBaseUrl: string;
   @ViewChild(NgForm) form: NgForm;
 
-  constructor(
-    private dataService: MspDataService,
-    private _router: Router,
-    private processService: ProcessService
-  ) {
+  // routes
+  personal_info = ROUTES_ENROL.PERSONAL_INFO.fullpath;
+  spouse_info = ROUTES_ENROL.SPOUSE_INFO.fullpath;
+  address_info = ROUTES_ENROL.CONTACT.fullpath;
+  child_info = ROUTES_ENROL.CHILD_INFO.fullpath;
+
+  constructor(private dataService: MspDataService,
+              private _router: Router,
+              private processService: ProcessService,
+              private logService: MspLogService) {
     this.application = this.dataService.getMspApplication();
     this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
   }
@@ -77,7 +83,7 @@ export class ReviewComponent implements OnInit {
   handleFormSubmission(evt: any) {
     // console.log('review form submitted, %o', evt);
     this.processService.setStep(5, true);
-    this._router.navigate(['/enrolment/authorize']);
+    this._router.navigate([ROUTES_ENROL.AUTHORIZE.fullpath]);
     /*if (this.application.hasValidAuthToken){
       console.log('Found valid auth token, transfer to sending screen.');
       this.processService.setStep(5, true);

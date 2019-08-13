@@ -2,7 +2,7 @@ import {Component, Inject, Injectable, AfterContentInit, ViewChild, ElementRef} 
 import { MspDataService } from '../../../../services/msp-data.service';
 import {MspApiService} from '../../../../services/msp-api.service';
 import {Router} from '@angular/router';
-import {ResponseType} from '../../../../modules/enrolment/pages/api-model/responseTypes';
+import {ResponseType} from '../../../../modules/msp-core/api-model/responseTypes';
 import {MspLogService} from '../../../../services/log.service';
 import {ProcessService} from '../../../../services/process.service';
 import { MspAccountApp } from '../../models/account.model';
@@ -42,7 +42,7 @@ export class AccountSendingComponent implements AfterContentInit {
     this.transmitRequest();
   }
 
-    transmitRequest(){ 
+    transmitRequest(){
 
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
@@ -68,7 +68,7 @@ export class AccountSendingComponent implements AfterContentInit {
               if (this.mspAccountApp.addedSpouse && !this.mspAccountApp.addedSpouse.isExistingBeneficiary && this.mspAccountApp.addedSpouse.bcServiceCardShowStatus ) {
                   bcServicesCardElgible = true;
               }
-            if (this.mspAccountApp.getAllChildren().filter( child => (child.relationship == Relationship.Child19To24 && !child.isExistingBeneficiary) ).length > 0) {
+            if (this.mspAccountApp.getAllChildren().filter( child => (child.relationship === Relationship.Child19To24 && !child.isExistingBeneficiary) ).length > 0) {
                 bcServicesCardElgible = true;
             }
           }

@@ -42,4 +42,5 @@ export default class FinancialAssistApplicationDto {
   assistYears: AssistanceYear[] = [];
   assistYeaDocs: MspImage[] = [];
 
+  pageStatus: any[] = []; // page status - complete/ incomplete
 }
