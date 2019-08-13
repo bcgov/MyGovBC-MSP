@@ -25,30 +25,15 @@ import { AssistStateService } from '../../services/assist-state.service';
       <form #form="ngForm">
         <p>{{ questionApplicant }}</p>
         <div class="form-check form-check-inline mb-3">
-          <input
-            class="input-lg form-check-input"
-            name="authorizedByApplicant"
-            [(ngModel)]="application.authorizedByApplicant"
-            id="firstPersonAuthorize"
-            type="checkbox"
-          />
-          <label class="form-check-label" for="firstPersonAuthorize">{{
-            agreeLabel
-          }}</label>
+        <common-checkbox label="{{agreeLabel}}"
+                         [(data)]="application.authorizedByApplicant"
+                         [required]='true'></common-checkbox>
         </div>
         <div>
           <p>{{ questionForAttorney }}</p>
           <div class="form-check form-check-inline mb-3">
-            <input
-              class="input-lg form-check-input"
-              name="authorizedByAttorney"
-              [(ngModel)]="application.authorizedByAttorney"
-              id="authByAttorney"
-              type="checkbox"
-            />
-            <label class="form-check-label" for="authByAttorney">
-              {{ poaAgreeLabel }}</label
-            >
+            <common-checkbox label="{{poaAgreeLabel}}"
+                             [(data)]="application.authorizedByAttorney"></common-checkbox>
           </div>
         </div>
 
@@ -126,7 +111,7 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
 
   constructor(
     private dataService: MspDataService,
-    private completenessCheck: CompletenessCheckService,
+    //private completenessCheck: CompletenessCheckService,
     private route: ActivatedRoute,
     public stateSvc: AssistStateService
   ) {
@@ -136,12 +121,24 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
 
   @ViewChild('form') form: NgForm;
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.stateSvc.setPageIncomplete( this.route.snapshot.routeConfig.path );
+  }
 
   ngAfterViewInit(): void {
     this.form.valueChanges.subscribe(() => {
 
-      this.stateSvc.setPageStatus( this.route.snapshot.routeConfig.path, this.form.valid );
+      let valid = this.form.valid && !!this.application.authorizationToken;
+
+      // Power of Attorney must have documents if selected
+      if ( this.application.authorizedByAttorney ) {
+        console.log( 'Need power of attorney docs' );
+        valid = valid && this.application.powerOfAttorneyDocs.length > 0;
+      }
+
+      console.log( 'form has changes: ', valid );
+
+      this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, valid );
       this.dataService.saveFinAssistApplication();
     });
   }
@@ -187,7 +184,8 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
     this.dataService.saveFinAssistApplication();
   }
 
-  get authorized(): boolean {
+/*  get authorized(): boolean {
+
     return this.completenessCheck.finAppAuthorizationCompleted();
   }
 
@@ -197,5 +195,5 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
       this.application.authorizationToken &&
       this.application.authorizationToken.length > 1
     );
-  }
+  }*/
 }

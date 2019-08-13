@@ -17,8 +17,6 @@ import { ROUTES_ASSIST } from '../models/assist-route-constants';
 })
 export class AssistStateService {
 
-  public canContinue: boolean = false;
-
   finAssistApp = this.dataSvc.finAssistApp;
   touched: Subject<boolean> = new Subject<boolean>();
   index: BehaviorSubject<number> = new BehaviorSubject(null);
@@ -29,86 +27,9 @@ export class AssistStateService {
   submitted = false; // Do we need?
   response: any;
 
-  // The index of the validations is tied to the index of the router
-  // ie: home is index 0 ergo validation is index 0.
-  // could be changed to a dictionary type object.
 
-  validations = [
-    this.isHomeValid.bind(this),
-    this.isPersonalInfoValid.bind(this),
-    this.isSpouseValid.bind(this),
-    this.isContactValid.bind(this),
-    this.isReviewValid.bind(this),
-    this.isAuthorizeValid.bind(this)
-  ];
-
-  isHomeValid(): boolean { // to remove - done on pages
-    console.log( 'isHomeValid' );
-    const bool = this.finAssistApp.assistYears.some(itm => itm.apply === true);
-    return bool;
-  }
-
-  isPersonalInfoValid(): boolean {
-    const person = this.finAssistApp.applicant;
-
-    console.log( 'isPersonalInfoValid: ', person );
-    // check that these fields have value
-    const requiredFields = ['firstName', 'lastName', 'previous_phn', 'sin'];
-    for (const field of requiredFields) {
-      //console.log(person[field]);
-      if (!person[field]) {
-        //console.log( '!person[field]: ', person[field] );
-        return false;
-      }
-      if (person[field].length <= 0) {
-        //console.log( '!person[field].length: ', person[field].length );
-        return false;
-      }
-    }
-
-
-    if (!validateBirthdate(person.dobSimple)) return false;
-    const filteredYears = this.filteredYears('files');
-    for (const year in filteredYears) {
-      if (year.length < 1) return false;
-    }
-    return filteredYears.every(files => files.length > 0);
-  }
-
-  isSpouseValid(): boolean {
-    console.log( 'isSpouseValid' );
-    if (!this.finAssistApp.hasSpouseOrCommonLaw) {
-      console.log( 'isSpouseValid: No spouse return true' );
-      return true;
-    }
-
-    const filteredYears = this.filteredYears('spouseFiles');
-    console.log('filtered years', filteredYears);
-    for (const year in filteredYears) {
-      if (year.length < 1) {
-        console.log( 'isSpouseValid:  not years' );
-        return false;
-      }
-    }
-
-    return filteredYears.some(itm => itm.length > 0)
-      ? filteredYears.every(itm => itm.length > 0)
-      : false;
-  }
-
-  isContactValid(): boolean {
-
-    console.log( 'isContactValid' );
-    const address = this.finAssistApp.mailingAddress;
-    return validateContact(address);
-  }
-
-  isReviewValid(): boolean {
-    console.log( 'isReviewValid' );
-    return true;
-  }
-
-  isAuthorizeValid() {
+/*
+  isAuthorizeValid() { // take logic page
 
     console.log( 'isAuthorizeValid' );
     const familyAuth = this.finAssistApp.authorizedByApplicant;
@@ -157,22 +78,19 @@ export class AssistStateService {
       }
     }
     return filteredYears.filter(itm => itm);
-  }
+  }*/
 
   constructor(
     private router: Router,
     public dataSvc: MspDataService,
-    private schemaSvc: SchemaService,
     private xformSvc: AssistTransformService,
     private api: ApiSendService
   ) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationStart))
       .subscribe((obs: any) => {
-        const index = this.findIndex( obs.url );
-        console.log( 'route events: ', obs.url, index );
-
-        this.index.next( index > 0 ? index : 1 );
+        console.log( 'route events: ', obs.url );
+        this.setIndex( obs.url );
       });
   }
 
@@ -189,6 +107,7 @@ export class AssistStateService {
             path: val.path,
             fullpath: val.fullpath,
             isComplete: false,
+            isValid: false,
             btnLabel: val.btnLabel ? val.btnLabel : '',
             btnDefaultColor: val.btnDefaultColor
           };
@@ -199,7 +118,6 @@ export class AssistStateService {
   findIndex( url: string ): number {
     let idx = 0;
     if ( this.finAssistApp.pageStatus ) {
-      console.log( 'findIndex: ', url );
       const obj = this.finAssistApp.pageStatus.find( x => url.includes(x.path) );
       console.log( 'findIndex: ', obj );
       if ( obj ) {
@@ -209,26 +127,32 @@ export class AssistStateService {
     return idx;
   }
 
-  nextIndex( i: number ) {
-    this.index.next(i);
-  }
-
   setIndex( path: string ) {
     console.log( 'setIndex: ', path );
-    const index = this.findIndex(path);
-     if (index > 0) return this.index.next(index);
+    const index = this.findIndex( path );
+    this.index.next( index ? index : 1 );
   }
 
-  setPageStatus( path: string , complete: boolean ) {
+  setPageIncomplete( path: string ) {
+    console.log( 'setPageIncomplete: ', path );
     const obj = this.finAssistApp.pageStatus.find( x => path.includes(x.path) );
     if ( obj ) {
-      obj.isComplete = complete;
+      obj.isComplete = false;
       // Set future pages to not complete
       this.finAssistApp.pageStatus.map( x => {
-        if ( obj.index < x.index ) {
+        if ( obj.index < x.index && x.isComplete ) {
+          console.log( 'sets pages in front false: ', x, obj );
           x.isComplete = false;
         }
       });
+    }
+  }
+
+  setPageValid( path: string, valid: boolean ) {
+    console.log( 'setPageValid: ', path, valid );
+    const obj = this.finAssistApp.pageStatus.find( x => path.includes(x.path) );
+    if ( obj ) {
+      obj.isValid = valid;
     }
   }
 
