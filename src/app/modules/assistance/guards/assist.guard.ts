@@ -12,21 +12,19 @@ export class AssistGuard implements AbstractPgCheckService {
   constructor( private stateSvc: AssistStateService ) {}
 
   public canBypassGuards(): boolean {
-    console.log( 'AssistGuard: canBypassGuards ', environment.bypassGuards );
     return environment.bypassGuards;
   }
 
   public isPageComplete( url: string ): boolean {
     const complete = this.stateSvc.isPageComplete( url );
-    console.log( 'AssistGuard: isPageComplete', url, complete );
     return complete;
   }
+
   public isPrerequisiteComplete(): boolean {
-    console.log( 'AssistGuard: isPrerequisiteComplete' );
     return true;
   }
+  
   public getStartUrl(): string {
-    console.log( 'getStartUrl: getStartUrl' );
     return ROUTES_ASSIST.HOME.fullpath;
   }
 }

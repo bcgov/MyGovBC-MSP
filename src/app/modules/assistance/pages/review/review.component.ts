@@ -139,8 +139,12 @@ export class AssistanceReviewComponent {
   }
 
   ngOnInit() {
+    console.log( 'ngOnInit (Review): ', this.route.snapshot.routeConfig.path );
     // No input required on this page
-    this.stateSvc.setPageStatus( this.route.snapshot.routeConfig.path, true );
+    this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, true );
+
+    // continue button needs to be selected to be complete
+    this.stateSvc.setPageIncomplete( this.route.snapshot.routeConfig.path );
   }
 
   applicantInformation() {

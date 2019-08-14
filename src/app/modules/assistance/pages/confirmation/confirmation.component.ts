@@ -6,25 +6,27 @@ import { tap, map } from 'rxjs/operators';
 
 @Component({
   template: `
-    <ng-container *ngIf="success">
-      <!-- SUCCESS: {{ success$ | async | json }} -->
-      <msp-confirmation
-        [success]="true"
-        [confirmationNum]="confirmationNum"
-        message="Your application has been successfully submitted"
-      >
-      </msp-confirmation>
-    </ng-container>
+  <common-page-framework layout="blank">
+      <ng-container *ngIf="success">
+        <!-- SUCCESS: {{ success$ | async | json }} -->
+        <msp-confirmation
+          [success]="true"
+          [confirmationNum]="confirmationNum"
+          message="Your application has been successfully submitted"
+        >
+        </msp-confirmation>
+      </ng-container>
 
-    <ng-container *ngIf="!success">
-      <!-- FAILURE: {{ failure$ | async | json }} -->
+      <ng-container *ngIf="!success">
+        <!-- FAILURE: {{ failure$ | async | json }} -->
 
-      <msp-confirmation
-        [success]="false"
-        title="There was a technical issue with your submission."
-        message="Your application has not been submitted"
-      ></msp-confirmation>
-    </ng-container>
+        <msp-confirmation
+          [success]="false"
+          title="There was a technical issue with your submission."
+          message="Your application has not been submitted"
+        ></msp-confirmation>
+      </ng-container>
+    </common-page-framework>
   `,
   styleUrls: ['./confirmation.component.scss']
 })

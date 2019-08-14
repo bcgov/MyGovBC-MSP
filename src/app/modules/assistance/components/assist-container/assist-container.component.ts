@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
+import { Router } from '@angular/router';
 import { assistPages } from '../../assist-page-routing.module';
 import { Container } from 'moh-common-lib';
 import { AssistStateService } from '../../services/assist-state.service';
 import { MspDataService } from 'app/services/msp-data.service';
-import { BehaviorSubject } from 'rxjs';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 import { SchemaService } from 'app/services/schema.service';
 import { AssistTransformService } from '../../services/assist-transform.service';
 import { AssistMapping } from '../../models/assist-mapping';
 import { HeaderService } from '../../../../services/header.service';
 import { ROUTES_ASSIST } from '../../models/assist-route-constants';
-import { filter } from 'lodash';
 
 @Component({
   selector: 'msp-assist-container',
@@ -63,36 +61,31 @@ export class AssistContainerComponent extends Container implements OnInit {
   }
 
   get submitLabel() {
-    return this.stateSvc.finAssistApp.pageStatus[this.stateSvc.index.value - 1].btnLabel;
+    const index = this.stateSvc.findIndex( this.router.url );
+    return this.stateSvc.finAssistApp.pageStatus[index ? index - 1 : 0].btnLabel;
   }
 
   get useDefaultColor() {
-    return this.stateSvc.finAssistApp.pageStatus[this.stateSvc.index.value - 1].btnDefaultColor;
+    const index = this.stateSvc.findIndex( this.router.url );
+    return this.stateSvc.finAssistApp.pageStatus[index ? index - 1 : 0].btnDefaultColor;
   }
 
   continue() {
-    // index is the number for ROUTE_ASSIST item, offset by 1
-    const index = this.stateSvc.index.value;
-    console.log( 
-      'Continue (container)', index,
-       this.stateSvc.finAssistApp.pageStatus[index - 1].isComplete
-      );
+    const index = this.stateSvc.findIndex( this.router.url );
+    const idx = index ? index - 1 : 0;
 
-    if ( this.stateSvc.finAssistApp.pageStatus[index - 1].isComplete ) {
-      this.navigate( index );
+    console.log( 'index: ', index, this.stateSvc.finAssistApp.pageStatus.length );
+    if ( this.stateSvc.finAssistApp.pageStatus[idx].isValid ) {
+      this.stateSvc.finAssistApp.pageStatus[idx].isComplete = true;
+      if ( index === this.stateSvc.finAssistApp.pageStatus.length ) {
+        // last item in routes
+        this.submit();
+      } else {
+        // next page
+        this.router.navigate( [this.stateSvc.finAssistApp.pageStatus[index].fullpath] );
+      }
     } else {
       this.stateSvc.touched.next( true );
-    }
-  }
-
-  navigate( index: number ) {
-    if ( index === this.stateSvc.finAssistApp.pageStatus.length ) {
-      // last item in routes
-      this.submit();
-    } else {
-      // next page
-      const nextPageObj = this.stateSvc.finAssistApp.pageStatus[index];
-      this.router.navigate( [nextPageObj.fullpath] );
     }
   }
 
@@ -104,17 +97,16 @@ export class AssistContainerComponent extends Container implements OnInit {
       return path.split('.').pop();
     };
 
+    console.log( 'findFieldName: ', findFieldName );
     try {
       const app = this.xformSvc.application;
 
-      // Validation functions are redunant - to be removed
       const validateList = await this.schemaSvc.validate(app);
       console.log('validate', validateList.errors);
 
       if (validateList.errors != null && validateList.errors.length > 0) {
         this.isLoading = false;
         for (const error of validateList.errors) {
-          // console.log('error', validateList.errors, error);
           const fieldName = findFieldName(error.dataPath);
 
           for (const arr of AssistMapping.items) {
@@ -126,6 +118,7 @@ export class AssistContainerComponent extends Container implements OnInit {
           return this.router.navigate([this.stateSvc.finAssistApp.pageStatus[0].fullpath]);
         }
       } else {
+
         const res = await this.stateSvc.submitApplication();
         this.response = res;
         this.isLoading = false;
