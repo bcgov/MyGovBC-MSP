@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { MspImageErrorModalComponent } from '../../../msp-core/components/image-error-modal/image-error-modal.component';
@@ -9,6 +9,7 @@ import { environment } from '../../../../../environments/environment';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 import { MspImage } from '../../../../models/msp-image';
 import { AssistStateService } from '../../services/assist-state.service';
+import { BaseComponent } from '../../../../models/base.component';
 
 @Component({
   template: `
@@ -23,17 +24,23 @@ import { AssistStateService } from '../../services/assist-state.service';
         <p>{{ declarationTwo }}</p>
       </common-page-section>
       <form #form="ngForm">
-        <p>{{ questionApplicant }}</p>
-        <div class="form-check form-check-inline mb-3">
-        <common-checkbox label="{{agreeLabel}}"
-                         [(data)]="application.authorizedByApplicant"
-                         [required]='true'></common-checkbox>
+       <div>
+          <p>{{ questionApplicant }}</p>
+          <div class=" mb-3">
+            <common-checkbox class="form-check-inline" label="{{agreeLabel}}"
+                             [(data)]="application.authorizedByApplicant"
+                             [required]='true'></common-checkbox>
+            <common-error-container [displayError]="(touched$ | async) && !application.authorizedByApplicant">
+              Field is required
+            </common-error-container>
+          </div>
         </div>
         <div>
           <p>{{ questionForAttorney }}</p>
           <div class="form-check form-check-inline mb-3">
             <common-checkbox label="{{poaAgreeLabel}}"
                              [(data)]="application.authorizedByAttorney"></common-checkbox>
+
           </div>
         </div>
 
@@ -59,7 +66,7 @@ import { AssistStateService } from '../../services/assist-state.service';
             <common-captcha
               [apiBaseUrl]="captchaApiBaseUrl"
               [nonce]="application.uuid"
-              (onValidToken)="application.authorizationToken = $event"
+              (onValidToken)="setToken($event)"
             ></common-captcha>
           </div>
         </div>
@@ -68,7 +75,7 @@ import { AssistStateService } from '../../services/assist-state.service';
     <msp-confirmation *ngIf="stateSvc.submitted"></msp-confirmation>
   `
 })
-export class AssistanceAuthorizeSubmitComponent implements OnInit {
+export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements OnInit {
 
   title = 'Authorize and submit your application';
 
@@ -83,6 +90,9 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
   agreeLabel = 'Yes, I agree';
 
   poaAgreeLabel = 'Yes, I have Power of Attorney';
+
+  private hasToken = false;
+  touched$ = this.stateSvc.touched.asObservable();
 
   get questionApplicant() {
     return `${
@@ -105,16 +115,17 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
 
   application: FinancialAssistApplication;
 
-  //@ViewChild('fileUploader') fileUploader: FileUploaderComponent;
   @ViewChild('mspImageErrorModal')
   mspImageErrorModal: MspImageErrorModalComponent;
 
   constructor(
     private dataService: MspDataService,
+    cd: ChangeDetectorRef,
     //private completenessCheck: CompletenessCheckService,
     private route: ActivatedRoute,
     public stateSvc: AssistStateService
   ) {
+    super(cd);
     this.application = this.dataService.finAssistApp;
     this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
   }
@@ -126,21 +137,30 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.form.valueChanges.subscribe(() => {
+    this.subscriptionList.push(
+      this.form.valueChanges.subscribe(() => {
 
-      let valid = this.form.valid && !!this.application.authorizationToken;
+        console.log( 'form: ', this.form );
 
-      // Power of Attorney must have documents if selected
-      if ( this.application.authorizedByAttorney ) {
-        console.log( 'Need power of attorney docs' );
-        valid = valid && this.application.powerOfAttorneyDocs.length > 0;
-      }
+        this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, this.isPageValid() );
+        this.dataService.saveFinAssistApplication();
+      })
+    );
 
-      console.log( 'form has changes: ', valid );
-
-      this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, valid );
-      this.dataService.saveFinAssistApplication();
-    });
+    setTimeout(
+      () =>
+      this.subscriptionList.push(
+          this.stateSvc.touched.asObservable().subscribe(obs => {
+            if (obs) {
+              const controls = this.form.form.controls;
+              for (const control in controls) {
+                controls[control].markAsTouched();
+              }
+            }
+          })
+        ),
+      500
+    );
   }
 
   addDocument(mspImage: MspImage) {
@@ -184,16 +204,25 @@ export class AssistanceAuthorizeSubmitComponent implements OnInit {
     this.dataService.saveFinAssistApplication();
   }
 
-/*  get authorized(): boolean {
+  isPageValid(): boolean {
+    let isValid = this.form.valid && this.hasToken;
 
-    return this.completenessCheck.finAppAuthorizationCompleted();
+    // Power of Attorney must have documents if selected
+    if ( this.application.authorizedByAttorney ) {
+      console.log( 'Need power of attorney docs' );
+      isValid = isValid && this.application.powerOfAttorneyDocs.length > 0;
+    }
+    return isValid;
   }
 
-  get canContinue(): boolean {
-    return (
-      this.authorized &&
-      this.application.authorizationToken &&
-      this.application.authorizationToken.length > 1
-    );
-  }*/
+  setToken(token): void {
+    this.hasToken = true;
+
+    this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, this.isPageValid() );
+    this.application.authorizationToken  = token;
+  }
+
+  ngOnDestroy() {
+    this.subscriptionList.forEach(itm => itm.unsubscribe());
+  }
 }

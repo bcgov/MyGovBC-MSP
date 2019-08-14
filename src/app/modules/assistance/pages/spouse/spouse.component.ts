@@ -165,7 +165,6 @@ export class SpouseComponent extends BaseComponent implements OnInit {
           this.stateSvc.touched.asObservable().subscribe(obs => {
             if (obs) {
               const controls = this.spouseInfoForm.form.controls;
-              console.log( 'controls: ', controls );
               for (const control in controls) {
                 controls[control].markAsTouched();
               }
@@ -197,7 +196,6 @@ export class SpouseComponent extends BaseComponent implements OnInit {
   }
 
   addSpouse() {
-    console.log( 'add spouse' ) ;
     this.finAssistApp.setSpouse = true;
     this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
     this.stateSvc.finAssistApp.pageStatus[this.urlIndex - 1].btnLabel = 'Continue';
@@ -206,7 +204,6 @@ export class SpouseComponent extends BaseComponent implements OnInit {
 
   removeSpouse() {
     this.finAssistApp.setSpouse = false;
-    console.log( 'remove spouse' ) ;
     this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
     this.stateSvc.finAssistApp.pageStatus[this.urlIndex - 1].btnLabel = 'No Spouse';
     this.dataSvc.saveFinAssistApplication();

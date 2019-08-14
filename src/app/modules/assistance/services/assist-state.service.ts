@@ -28,58 +28,6 @@ export class AssistStateService {
   response: any;
 
 
-/*
-  isAuthorizeValid() { // take logic page
-
-    console.log( 'isAuthorizeValid' );
-    const familyAuth = this.finAssistApp.authorizedByApplicant;
-
-    const attorneyAUth =
-      this.finAssistApp.authorizedByAttorney &&
-      this.finAssistApp.powerOfAttorneyDocs.length > 0;
-
-    if (
-      this.finAssistApp.authorizedByAttorney &&
-      this.finAssistApp.powerOfAttorneyDocs.length < 1
-    ) {
-      return false;
-    }
-    if (this.finAssistApp.authorizationToken == null) return false;
-    const valid =
-      (familyAuth === true || attorneyAUth === true) &&
-      this.finAssistApp.authorizationToken &&
-      this.finAssistApp.authorizationToken.length > 1;
-    // console.log('authorize', valid);
-    return valid;
-  }
-
-  isValid(index: number) {
-    console.log( 'isValid: index = ', index );
-    const args = this.validations.slice(0, index + 1);
-    for (const arg of args) {
-      const bool = arg();
-      if (bool) continue;
-      else {
-        console.log('invalid index', index);
-
-        return bool;
-      }
-    }
-    return true;
-  }
-
-  filteredYears(fileType: 'files' | 'spouseFiles') {
-    const { ...assistYears } = this.finAssistApp.assistYears;
-    const filteredYears = [];
-
-    for (const year in assistYears) {
-      if (assistYears[year].apply) {
-        filteredYears.push(assistYears[year][fileType]);
-      }
-    }
-    return filteredYears.filter(itm => itm);
-  }*/
-
   constructor(
     private router: Router,
     public dataSvc: MspDataService,
@@ -119,7 +67,6 @@ export class AssistStateService {
     let idx = 0;
     if ( this.finAssistApp.pageStatus ) {
       const obj = this.finAssistApp.pageStatus.find( x => url.includes(x.path) );
-      console.log( 'findIndex: ', obj );
       if ( obj ) {
         idx = obj.index;
       }
@@ -128,7 +75,6 @@ export class AssistStateService {
   }
 
   setIndex( path: string ) {
-    console.log( 'setIndex: ', path );
     const index = this.findIndex( path );
     this.index.next( index ? index : 1 );
   }
@@ -187,6 +133,4 @@ export class AssistStateService {
       console.log( 'Error: ', err );
     }
   }
-
-  mapInvalidField() {}
 }

@@ -3,7 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { assistPages } from './assist-page-routing.module';
 import { AssistContainerComponent } from './components/assist-container/assist-container.component';
 import { ROUTES_ASSIST } from './models/assist-route-constants';
-import { ConfirmationComponent } from '../msp-core/confirmation/confirmation.component';
+import { AssistanceConfirmationComponent } from './pages/confirmation/confirmation.component';
+
+const confirmationPage = ROUTES_ASSIST.CONFIRMATION.path + '/:status/:id';
 
 const routes: Routes = [
   {
@@ -12,8 +14,8 @@ const routes: Routes = [
     children: assistPages
   },
   {
-    path: ROUTES_ASSIST.CONFIRMATION.path,
-    component: ConfirmationComponent,
+    path: confirmationPage,
+    component: AssistanceConfirmationComponent,
     data: { title: ROUTES_ASSIST.CONFIRMATION.title }
   },
 ];

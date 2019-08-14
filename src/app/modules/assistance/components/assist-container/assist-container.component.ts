@@ -61,7 +61,6 @@ export class AssistContainerComponent extends Container implements OnInit {
   }
 
   get submitLabel() {
-    console.log( 'submitLabel: ', this.router.url );
     const index = this.stateSvc.findIndex( this.router.url );
     return this.stateSvc.finAssistApp.pageStatus[index ? index - 1 : 0].btnLabel;
   }
@@ -73,9 +72,9 @@ export class AssistContainerComponent extends Container implements OnInit {
 
   continue() {
     const index = this.stateSvc.findIndex( this.router.url );
-    console.log( 'Continue button pushed', this.router.url );
     const idx = index ? index - 1 : 0;
 
+    console.log( 'index: ', index, this.stateSvc.finAssistApp.pageStatus.length );
     if ( this.stateSvc.finAssistApp.pageStatus[idx].isValid ) {
       this.stateSvc.finAssistApp.pageStatus[idx].isComplete = true;
       if ( index === this.stateSvc.finAssistApp.pageStatus.length ) {
@@ -83,7 +82,6 @@ export class AssistContainerComponent extends Container implements OnInit {
         this.submit();
       } else {
         // next page
-        console.log( 'navigate to ', this.stateSvc.finAssistApp.pageStatus[index].fullpath );
         this.router.navigate( [this.stateSvc.finAssistApp.pageStatus[index].fullpath] );
       }
     } else {
@@ -96,23 +94,19 @@ export class AssistContainerComponent extends Container implements OnInit {
     this.isLoading = true;
 
     const findFieldName = (path: string) => {
-
       return path.split('.').pop();
     };
 
-    const validateList = await this.schemaSvc.validate( this.xformSvc.application );
-
-  /*  try {
+    console.log( 'findFieldName: ', findFieldName );
+    try {
       const app = this.xformSvc.application;
 
-      // Validation functions are redunant - to be removed
       const validateList = await this.schemaSvc.validate(app);
       console.log('validate', validateList.errors);
 
       if (validateList.errors != null && validateList.errors.length > 0) {
         this.isLoading = false;
         for (const error of validateList.errors) {
-          // console.log('error', validateList.errors, error);
           const fieldName = findFieldName(error.dataPath);
 
           for (const arr of AssistMapping.items) {
@@ -124,6 +118,7 @@ export class AssistContainerComponent extends Container implements OnInit {
           return this.router.navigate([this.stateSvc.finAssistApp.pageStatus[0].fullpath]);
         }
       } else {
+
         const res = await this.stateSvc.submitApplication();
         this.response = res;
         this.isLoading = false;
@@ -137,6 +132,6 @@ export class AssistContainerComponent extends Container implements OnInit {
       console.error(err);
     } finally {
       // Should there be some code in here??
-    } */
+    }
   }
 }
