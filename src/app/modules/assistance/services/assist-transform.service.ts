@@ -11,7 +11,6 @@ import {
   AssistanceApplicationType,
   MSPApplicationSchema
 } from 'app/modules/msp-core/interfaces/i-api';
-import { MspApiService } from 'app/services/msp-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -99,7 +98,7 @@ export class AssistTransformService {
     const numberOfTaxYears = this.app.numberOfTaxYears().toString();
     const sixtyFiveDeduction = 0;
     // TODO: does this makes sense as a string?
-    const taxYear = `${this.app.MostRecentTaxYear}`;
+    const taxYear = `${this.app.getTaxYear()}`;
     const totalDeductions = 0;
     const totalNetIncome = 0;
     return {
@@ -171,7 +170,7 @@ export class AssistTransformService {
       }
     }
 
-    return attachments.map((itm, i, arr) => {
+    return attachments.map((itm, i) => {
       return {
         contentType: 'IMAGE_JPEG',
         attachmentDocumentType: 'SupportDocument',
@@ -204,7 +203,6 @@ export class AssistTransformService {
 
   calcAssistYearType(): AssistanceYearType {
     const date = new Date();
-    const taxYear = date.getFullYear();
     // const [...appliedYears] = this.app.assistYears.filter(year => year.apply);
     // if (!appliedYears) return null;
     // if (appliedYears.length === 1) {
