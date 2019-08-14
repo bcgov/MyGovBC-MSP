@@ -55,5 +55,5 @@ export const environment = {
         ICBC: 'www.icbc.com'
     },
     /** Do not trigger guards */
-    bypassGuards: true
+    bypassGuards: false
 };

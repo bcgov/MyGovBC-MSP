@@ -49,7 +49,7 @@ export interface SpouseYears {
                 [data]="checkYear(year)"
                 (dataChange)="toggleYear($event, year)"
               ></common-checkbox>
-            <common-error-container [displayError]="(touched$ | async) && validSelection">
+            <common-error-container [displayError]="(touched$ | async) && !validSelection">
               At least one tax year must be selected
             </common-error-container>
             </div>
@@ -94,6 +94,8 @@ export class SpouseComponent extends BaseComponent implements OnInit {
 
   showTaxYears = false;
 
+  urlIndex: number;
+
   get validSelection() {
     const app = this.finAssistApp.assistYears;
     console.log('this.finAssistApp.assistYears: ', this.finAssistApp.assistYears );
@@ -124,22 +126,24 @@ export class SpouseComponent extends BaseComponent implements OnInit {
 
     this.assistanceYearsDocs = arr;
     this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
-    if (this.finAssistApp.hasSpouseOrCommonLaw)
+    if (this.finAssistApp.hasSpouseOrCommonLaw) {
       this.documents = this.finAssistApp.spouse.documents;
+    }
 
     const years = this.finAssistApp.assistYears;
     const hasSpouse = years.some(itm => itm.hasSpouse);
-    if (hasSpouse) this.parseSpouse(years);
+    if (hasSpouse) {
+      this.parseSpouse(years);
+    }
 
     if (this.finAssistApp.assistYears.some(itm => itm.hasSpouse))
       this.documentsDescription = `Upload spouse's Notice of Assessement or Reassessement from Canada Revenue Agency for ${this.createDocumentDesc(
         this.selectedYears
       )}`;
 
-    this.stateSvc.setPageStatus(
-      this.route.snapshot.routeConfig.path,
-      this.finAssistApp.hasSpouseOrCommonLaw ? (this.spouseInfoForm.valid && this.validSelection) : true
-      );
+    this.urlIndex = this.stateSvc.findIndex( this.route.snapshot.routeConfig.path );
+    this.stateSvc.setPageIncomplete( this.route.snapshot.routeConfig.path );
+    this.setPageStatus();
   }
 
   ngAfterViewInit() {
@@ -150,11 +154,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
           distinctUntilChanged()
         )
         .subscribe(() => {
-          console.log( 'form values changed: form is ', this.spouseInfoForm.valid );
-          this.stateSvc.setPageStatus(
-            this.route.snapshot.routeConfig.path,
-            this.finAssistApp.hasSpouseOrCommonLaw ? (this.spouseInfoForm.valid && this.validSelection) : true
-            );
+          this.setPageStatus();
           this.dataSvc.saveFinAssistApplication();
         })
     );
@@ -165,7 +165,6 @@ export class SpouseComponent extends BaseComponent implements OnInit {
           this.stateSvc.touched.asObservable().subscribe(obs => {
             if (obs) {
               const controls = this.spouseInfoForm.form.controls;
-              console.log( 'controls: ', controls );
               for (const control in controls) {
                 controls[control].markAsTouched();
               }
@@ -174,6 +173,14 @@ export class SpouseComponent extends BaseComponent implements OnInit {
         ),
       500
     );
+  }
+
+  setPageStatus() {
+    let valid = true;
+    if ( this.finAssistApp.hasSpouseOrCommonLaw  ) {
+      valid = this.spouseInfoForm.valid && this.validSelection;
+    }
+    this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, valid );
   }
 
   parseSpouse(arr: AssistanceYear[]) {
@@ -189,18 +196,16 @@ export class SpouseComponent extends BaseComponent implements OnInit {
   }
 
   addSpouse() {
-    console.log( 'add spouse' ) ;
     this.finAssistApp.setSpouse = true;
     this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
-    this.stateSvc.finAssistApp.pageStatus[this.stateSvc.index.value - 1].btnLabel = 'Continue';
+    this.stateSvc.finAssistApp.pageStatus[this.urlIndex - 1].btnLabel = 'Continue';
     this.dataSvc.saveFinAssistApplication();
   }
 
   removeSpouse() {
     this.finAssistApp.setSpouse = false;
-    console.log( 'remove spouse' ) ;
     this.showTaxYears = this.finAssistApp.hasSpouseOrCommonLaw;
-    this.stateSvc.finAssistApp.pageStatus[this.stateSvc.index.value - 1].btnLabel = 'No Spouse';
+    this.stateSvc.finAssistApp.pageStatus[this.urlIndex - 1].btnLabel = 'No Spouse';
     this.dataSvc.saveFinAssistApplication();
   }
 

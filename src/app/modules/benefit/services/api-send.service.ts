@@ -27,7 +27,7 @@ export class ApiSendService extends AbstractHttpService {
 
   async validate(app: MSPApplicationSchema) {
     try {
-      let valid = await this.schemaSvc.validate(app);
+      const valid = await this.schemaSvc.validate(app);
       return valid;
     } catch (err) {
       return err;
@@ -61,7 +61,7 @@ export class ApiSendService extends AbstractHttpService {
     attachments: MspImage[]
   ) {
     const attachmentPromises = new Array<Promise<string>>();
-    for (let attachment of attachments) {
+    for (const attachment of attachments) {
       attachmentPromises.push(
         this.sendFile(token, applicationUUID, attachment).toPromise()
       );

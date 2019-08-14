@@ -105,8 +105,7 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
       .subscribe(obs => {
         console.log('values changed');
 
-        this.financialAssistApplication.mailingAddress.hasValue = this.financialAssistApplication.mailingAddress.isComplete();
-        this.stateSvc.setPageStatus( this.route.snapshot.routeConfig.path, this.personalInfoForm.valid );
+        this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, this.personalInfoForm.valid );
         this.dataService.saveFinAssistApplication();
       });
 
@@ -119,7 +118,7 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
       }
     });
 
-    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
+    this.stateSvc.setPageIncomplete( this.route.snapshot.routeConfig.path );
   }
 
   // getAddressLines(address: Address) {

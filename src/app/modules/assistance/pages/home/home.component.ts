@@ -157,6 +157,7 @@ export class AssistanceHomeComponent extends BaseComponent
     if (this.options.length < 1) {
       this.initYearsList();
     }
+    this.stateSvc.setPageIncomplete( this.route.snapshot.routeConfig.path );
   }
 
   ngAfterViewInit() {
@@ -171,12 +172,7 @@ export class AssistanceHomeComponent extends BaseComponent
       .subscribe(() => {
         console.log( 'change in home page', !this.validSelection );
         // No form validation only need at least one checkbox marked
-        this.stateSvc.setPageStatus( this.route.snapshot.routeConfig.path, !this.validSelection );
-
-        if ( this.prepForm.dirty ) {
-          this.stateSvc.touched.next( true );
-        }
-
+        this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, !this.validSelection );
         this.dataSvc.saveFinAssistApplication();
       });
   }

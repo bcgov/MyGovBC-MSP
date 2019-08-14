@@ -66,13 +66,14 @@ export class AssistancePersonalInfoComponent extends BaseComponent {
         )
         .subscribe(() => {
           console.log( 'form values changed: form is ', this.personalInfoForm.valid );
-          this.stateSvc.setPageStatus( this.route.snapshot.routeConfig.path, this.personalInfoForm.valid );
+          this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, this.personalInfoForm.valid );
           this.dataService.saveFinAssistApplication();
         })
     );
   }
 
   ngOnInit() {
+    this.stateSvc.setPageIncomplete( this.route.snapshot.routeConfig.path );
 
     // Set Container data specific to page
     const assistYears = this.financialAssistApplication.assistYears;
