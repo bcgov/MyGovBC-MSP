@@ -374,9 +374,14 @@ export class FinancialAssistApplication implements ApplicationBase {
    * @returns {AssistanceYear[]}
    */
   getAppliedForTaxYears(): AssistanceYear[] {
-    return this.assistYears.filter((value: AssistanceYear) => {
-      return value.apply;
+    const years = this.assistYears.filter((value: AssistanceYear) => {
+      if ( value.apply ) {
+        return value.year;
+      }
     });
+
+    console.log( 'getAppliedForTaxYears: ', years );
+    return years.filter( x => x );
   }
 
   get taxtYearsProvided(): boolean {
@@ -388,11 +393,13 @@ export class FinancialAssistApplication implements ApplicationBase {
    * Sorts descending the applied for tax years
    */
   getMostRecentAppliedForTaxYears(): AssistanceYear[] {
-    return this.getAppliedForTaxYears().sort(
+    const years = this.getAppliedForTaxYears().sort(
       (a: AssistanceYear, b: AssistanceYear) => {
         return b.year - a.year;
       }
     );
+    console.log( 'getMostRecentAppliedForTaxYears: ', years );
+    return years;
   }
 
   /**
@@ -425,7 +432,7 @@ export class FinancialAssistApplication implements ApplicationBase {
     if (
       mostRecentAppliedForTaxYears &&
       mostRecentAppliedForTaxYears.length === 1 &&
-      mostRecentAppliedForTaxYears[0].year === this.MostRecentTaxYear - 1
+      mostRecentAppliedForTaxYears[0].year === this.MostRecentTaxYear
     ) {
       return AssistanceApplicationType.PreviousTwoYears;
     }
@@ -448,7 +455,8 @@ export class FinancialAssistApplication implements ApplicationBase {
   }
 
   get MostRecentTaxYear(): number {
-    return moment().year();
+    /** If current year is 2019, then the tax year is 2018 */
+    return moment().year() - 1;
   }
 
   /**
