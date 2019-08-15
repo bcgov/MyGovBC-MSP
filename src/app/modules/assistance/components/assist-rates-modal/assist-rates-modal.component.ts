@@ -12,7 +12,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 @Component({
   selector: 'msp-assist-rates-modal',
   template: `
-    <div class="">
+    <div class="modal-lg">
       <div class="modal-header-primary">
         <h2>What is Adjusted Net Income?</h2>
       </div>
@@ -29,8 +29,8 @@ import { ModalDirective } from 'ngx-bootstrap';
           you are applying. If you feel your adjusted net income will qualify
           you for assistance, we encourage you to apply and your application
           will be reviewed.
-          <hr>
         </p>
+        <hr>
         <div class="row">
           <div class="col-md-5">
             <div class="row align-items-center">
