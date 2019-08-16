@@ -83,7 +83,9 @@
         {{lang('./en/index.js').disabilityCredit}}
       </div>
       <div class="col-sm-4">
-        <span class="fa fa-usd" aria-hidden="true"></span>
+        <small>
+            <span class="fa fa-usd" aria-hidden="true"></span>
+          </small>
         <strong >{{_mainDisabilityCredit}}</strong>
       </div>
     </div>
@@ -92,7 +94,9 @@
         {{lang('./en/index.js').spouseDisabilityCredit}}
       </div>
       <div class="col-sm-4">
-        <span class="fa fa-usd" aria-hidden="true"></span>
+        <small>
+          <span class="fa fa-usd" aria-hidden="true"></span>
+        </small>
         <strong>{{_spouseDisabilityCredit}}</strong>
       </div>
     </div>
@@ -113,11 +117,37 @@
         <small>
           <span class="fa fa-usd" aria-hidden="true"></span>
         </small>
-        <strong>
-          {{this.application.spouseDSPAmount_line125}}
-        </strong>
+        <strong>{{this.application.spouseDSPAmount_line125}}</strong>
       </div>
     </div>
+
+    <!-- Attendant Care expenses and Spouse Attendant Care Expenses-->
+    
+    <div *ngIf="this.application.applicantClaimForAttendantCareExpense" class="row">
+        <div class="col-sm-8">
+          {{lang('./en/index.js').applicantAttendantCare}}
+        </div>
+        <div class="col-sm-4">
+          <small>
+              <span class="fa fa-usd" aria-hidden="true"></span>
+        </small>
+          <strong >{{_applicantAttendantCareExpense}}</strong>
+        </div>
+    </div>
+
+    <div *ngIf="this.application.spouseClaimForAttendantCareExpense" class="row" >
+        <div class="col-sm-8">
+          {{lang('./en/index.js').spouseAttendantCare}}
+        </div>
+        <div class="col-sm-4">
+          <small>
+            <span class="fa fa-usd" aria-hidden="true"></span>
+          </small>
+          <strong>{{_spouseAttendantCareExpense}}
+          </strong>
+        </div>
+    </div>
+
     <div class="row">
       <div class="col-sm-8">
         {{lang('./en/index.js').totalDeductions}}
@@ -134,9 +164,9 @@
         {{lang('./en/index.js').adjustedIncome}}
       </div>
       <div class="col-sm-4">
-        <small>
-          <span class="fas fa-dollar-sign" aria-hidden="true"></span>
-        </small>
+          <small>
+            <span class="fa fa-usd" aria-hidden="true"></span>
+          </small>
         <strong>{{this.application.eligibility.adjustedNetIncome}}</strong>
       </div>
     </div>

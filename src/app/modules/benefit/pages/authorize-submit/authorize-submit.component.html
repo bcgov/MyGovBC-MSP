@@ -9,7 +9,7 @@
 <form #form="ngForm">
   <div>
     <div class="strong" [innerHTML]="questionApplicant"></div>
-    <div class="form-check form-check-inline mb-5" >
+    <div class="form-check form-check-inline mb-4" >
       <input class="input-lg form-check-input"
              name="authorizedByApplicant"
              [(ngModel)] = "application.authorizedByApplicant"
@@ -17,7 +17,7 @@
              id="firstPersonAuthorize" type="checkbox">
       <label class="form-check-label" for="firstPersonAuthorize" [innerHTML]="lang('./en/index.js').agreeLabel"></label>
     </div>
-    <br><br>
+ 
     <div *ngIf="application.hasSpouseOrCommonLaw">
       <div class="strong" [innerHTML]="questionSpouse"></div>
       <div class="form-check form-check-inline">

@@ -326,6 +326,20 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
     }
 
+    spouseIncomeRequired() {
+
+        if(this.benefitApp.hasSpouse){
+            console.log(this.benefitApp.spouseIncomeLine236);
+            if(!this.benefitApp.spouseIncomeLine236) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+        return false;
+    }
+
 
 
     applicantClaimDataChange(evt: boolean) {

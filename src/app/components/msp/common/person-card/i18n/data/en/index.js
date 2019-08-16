@@ -1,7 +1,7 @@
 module.exports = {
   relationshipLabel: ['Applicant', 'Spouse', 'Child', 'Child' ,'Child'],
     actionTypeLabel: ['Add ', 'Remove ', 'Update '],
-  cardSuffix: 'info',
+  cardSuffix: 'Information',
 
   nameLabel: 'Name',
   genderLabel: 'Gender',
@@ -10,9 +10,9 @@ module.exports = {
   dobLabel: 'Birthdate',
   statusLabel: 'Status in Canada',
   livedInBCSinceBirth: 'Lived in B.C. since birth',
-  previousHealthNumberLabel: 'Previous health number',
-  personalHealthNumberLabel: 'Personal health number',
-  sinNumberLabel: 'Social insurance number',
+  previousHealthNumberLabel: 'Previous Health Number',
+  personalHealthNumberLabel: 'Personal Health Number',
+  sinNumberLabel: 'Social Insurance Number',
   arrivedToBCLabel: 'Date arrived in B.C.',
   arrivedToCanadaLabel: 'Date arrived in Canada',
   outsideBCLabel: 'Outside BC for more than 30 days',

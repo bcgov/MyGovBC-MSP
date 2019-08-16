@@ -1,13 +1,39 @@
 <div class="row" *ngIf="address.hasValue">
-    <div class="col-sm-4" [innerHtml]="label">
+    <div class="col-sm-4" style="text-decoration: underline" >{{label}}
+    </div>
+    <div class="col-sm-8"></div>
+    <div class="col-sm-4" >
+        Street
     </div>
     <div class="col-sm-8">
         <strong>
             <span>{{address.addressLine1}}<br></span>
             <span *ngIf="address.addressLine2 != null">{{address.addressLine2}}<br></span>
             <span *ngIf="address.addressLine3 != null">{{address.addressLine3}}<br></span>
-            <span>{{address.city}}, {{province}}, {{address.postal}}<br></span>
-            <span>{{country}}</span>
         </strong>
     </div>
+    <div class="col-sm-4" >
+        City
+    </div>
+    <div class="col-sm-8">
+          <strong>  <span>{{address.city}}</span> </strong>
+    </div>
+    <div class="col-sm-4" >
+        Province
+    </div>
+    <div class="col-sm-8">
+        <strong>  <span>{{province}}</span> </strong>
+    </div>
+    <div class="col-sm-4" >
+        Postal Code
+    </div>
+    <div class="col-sm-8">
+            <strong>  <span>{{address.postal}}</span> </strong>
+    </div>
+    <div class="col-sm-4" >
+        Country
+    </div>
+    <div class="col-sm-8">
+            <strong>  <span>{{country}}, </span> </strong>
+    </div>    
 </div>

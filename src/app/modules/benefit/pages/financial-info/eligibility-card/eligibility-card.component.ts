@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BenefitApplication} from '../../../models/benefit-application.model';
 import { Router } from '@angular/router';
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 @Component({
   selector: 'msp-benefit-eligibility-card',
   templateUrl: './eligibility-card.component.html',
@@ -24,6 +25,22 @@ export class BenefitEligibilityCardComponent  {
         return this.application.childrenDisabilityCredit;
     }
 
+   get _applicantAttendantCareExpense(): number {
+        if(this.application.applicantClaimForAttendantCareExpense)
+            return 3000; 
+            else {
+                return 0;
+            }
+   }
+
+   get _spouseAttendantCareExpense(): number {
+    if(this.application.spouseClaimForAttendantCareExpense)
+         return 3000; 
+        else {
+            return 0;
+        }
+    }
+    
     editLink(){
         this._router.navigate([this.editRouterLink]);
     }

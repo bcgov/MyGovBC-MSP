@@ -3,18 +3,23 @@
       <!-- Remove Spouse and Child Button, (Red cross) -->
     <div *ngIf="removeable">
         <div *ngIf="person.relationship !== 0">
-            <div *ngIf="person.relationship === 1">
-            <common-xicon-button label='Remove Spouse' (click)="removeSpouse()"></common-xicon-button>
+            <div  *ngIf="person.relationship === 1">
+                <h2>Your spouse or common-law partner</h2>
+                Enter your spouse’s legal name as it appears on their BC Service Card.
+                
+                <common-xicon-button label='Remove Spouse' (click)="removeSpouse()"></common-xicon-button>
+                <hr>    
             </div>
         </div>
     </div>
-      
     
     <!-- Full Name  -->
     <div class="form-group">
-       &nbsp;
+        
+        &nbsp;
     </div>
-                    
+
+
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -74,19 +79,18 @@
     <h2>Documents</h2>
     <p class="help-block border-bottom"> Upload your Notice of Assessment or Reassessment from Canada Revenue Agency for <b>{{benefitApp.taxYear}}</b></p>
         <common-page-section layout="tips">
-            <div >
-                <common-file-uploader 
-                    [images]="person.assistYearDocs"
-                    (imagesChange)="addDocument($event)"
-                    [id]='benefitApp.id'
-                    (errorDocument)="errorDoc($event)" 
-                    instructionText="Click add, or drag and drop file into this box">
-                </common-file-uploader>
-            </div>   
+            
+            <common-file-uploader 
+                [images]="person.assistYearDocs"
+                (imagesChange)="addDocument($event)"
+                [id]='benefitApp.id'
+                (errorDocument)="errorDoc($event)" 
+                instructionText="Click add, or drag and drop file into this box">
+            </common-file-uploader>
+            
              
             <!-- TIP -->
-            <aside >
-            <div class="row">
+            <aside>
                 <div class="col-2">
                     <i class="fa fa-exclamation-triangle" style="font-size: 35px;"></i>
                 </div>
@@ -109,9 +113,9 @@
                     </li>
                 </ul>
             </div>
-            </div>
+        </aside>
+
                     
-                </aside>
         </common-page-section>
     <!-- <div class="row">
         <div class="col-md-6" >

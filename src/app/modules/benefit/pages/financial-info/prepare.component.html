@@ -111,10 +111,12 @@
                                                     pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
                                                     [(ngModel)]="benefitApp.spouseIncomeLine236">
                                                     
-
+                                            <!-- <div class="text-danger" *ngIf="spouseIncomeRequired"
+                                                    [innerHTML]="lang('./en/index.js').incomeDataRequired" tabindex="0"></div> -->
+                                                    
                                             <div *ngIf="(spouseIncomeRef.touched || spouseIncomeRef.dirty || (!!spouseIncomeRef.value && spouseIncomeRef.value.trim().length>0) || formRef.touched || !(benefitApp.ageOver65 === null || benefitApp.ageOver65 === undefined) ||
                                                             formRef.controls.spouseIncomeLine236?.valid || benefitApp.spouseEligibleForDisabilityCredit)">
-                                                <div class="text-danger" *ngIf="(spouseIncomeRef.touched && spouseIncomeRef.errors?.required)"
+                                                <div class="text-danger" *ngIf="spouseIncomeRef.errors?.required"
                                                         [innerHTML]="lang('./en/index.js').incomeDataRequired" tabindex="0"></div>
                                                 <div class="text-danger" *ngIf="spouseIncomeRef.errors?.pattern"
                                                         [innerHTML]="lang('./en/index.js').invalidNumber" tabindex="0"></div>
@@ -165,9 +167,11 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
                                             </div>
-                                            <input type="text" class="form-control" id="line214" name="line214" placeholder=""
+                                            <input type="text" class="form-control" id="line214" 
+                                                name="line214" 
                                                 pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
                                                 #line214Ref="ngModel"
+												maxlength="12"
                                                 [(ngModel)]="benefitApp.claimedChildCareExpense_line214">
                                         </div>
                                         <div class="text-danger" *ngIf="line214Ref.errors?.pattern" [innerHTML]="lang('./en/index.js').invalidNumber">
@@ -295,7 +299,8 @@
                                         <input type="text" class="form-control" name="line125" id="line125"
                                                 pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
                                                 #line125Ref="ngModel"
-                                                [(ngModel)]="benefitApp.spouseDSPAmount_line125">
+                                                [(ngModel)]="benefitApp.spouseDSPAmount_line125"
+                                                maxlength="12">
                                     </div>
                                     <div class="text-danger" *ngIf="line125Ref.errors?.pattern" [innerHTML]="lang('./en/index.js').invalidNumber">
                                     </div>
