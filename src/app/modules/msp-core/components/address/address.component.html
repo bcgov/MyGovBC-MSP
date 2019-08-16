@@ -3,7 +3,7 @@
     <div class="row">
         <div class="form-group col-md-5"
              [ngClass]="{'has-error': !formRef.controls.residentialAddressLine1?.valid && (residentialAddressLine1Ref.touched || showError)}">
-            <label for="residentialAddressLine1{{objectId}}" [innerHtml]="lang('./en/index.js').addressLine1LabelResidence"></label>
+            <label for="residentialAddressLine1{{objectId}}">{{lang('./en/index.js').addressLine1LabelMailing}}</label>
             <input [(ngModel)]="residentialAddress.addressLine1" type="text" class="form-control msp-addressline"
                    id="residentialAddressLine1{{objectId}}" name="residentialAddressLine1" #residentialAddressLine1Ref="ngModel"
                    required tabindex="0"

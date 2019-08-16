@@ -22,6 +22,7 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
       <router-outlet></router-outlet>
     </common-page-framework>
     <common-form-action-bar
+      [defaultColor]="false"
       (btnClick)="continue()"
       [submitLabel]="submitLabel"
       [isLoading]="isLoading"

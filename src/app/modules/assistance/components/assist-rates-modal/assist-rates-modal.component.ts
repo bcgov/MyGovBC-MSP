@@ -30,6 +30,7 @@ import { ModalDirective } from 'ngx-bootstrap';
           you for assistance, we encourage you to apply and your application
           will be reviewed.
         </p>
+        <hr>
         <div class="row">
           <div class="col-md-5">
             <div class="row align-items-center">

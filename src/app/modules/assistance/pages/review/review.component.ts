@@ -68,6 +68,16 @@ export interface IContactInformation {}
           label="Street Address"
           [value]="address.addressLine1"
         ></msp-review-part>
+        <msp-review-part
+          *ngIf="address.addressLine2"
+          label="Address Line 2"
+          [value]="address.addressLine2"
+        ></msp-review-part>
+        <msp-review-part
+          *ngIf="address.addressLine3"
+          label="Address Line 3"
+          [value]="address.addressLine3"
+        ></msp-review-part>
         <msp-review-part label="City" [value]="address.city"></msp-review-part>
         <msp-review-part
           label="Province"

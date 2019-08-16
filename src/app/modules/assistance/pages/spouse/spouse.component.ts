@@ -79,7 +79,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
   title = 'Add spouse information and upload documents';
   description =
     'Did you have a spouse or common-law partner during any of the years you are requesting Retroactive Premium Assistance? ' +
-    'If so, you are required to upload your spouses\' Notice of Assessment or Reassessment.';
+    'If so, you are required to upload your spouse\'s Notice of Assessment or Reassessment.';
   yearTitle = 'Your spouse or common-law partner';
   yearDescription = 'Select the tax year when you had a spouse';
   documentsTitle = 'Documents';

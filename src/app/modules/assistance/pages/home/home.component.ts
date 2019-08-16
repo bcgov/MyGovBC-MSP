@@ -38,7 +38,7 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
         </a>
         are based on the previous tax year's
         <button class="btn btn-link p-0" (click)="openModal(modal)">
-          adjusted net income
+          adjusted net income.
         </button>
       </p>
       <p>
@@ -188,7 +188,7 @@ export class AssistanceHomeComponent extends BaseComponent
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalSvc.show(this.ratesModal, {
-      class: 'modal-md'
+      class: 'modal-xl'
     });
 
     // this.ratesModal.close();
