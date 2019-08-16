@@ -7,7 +7,7 @@ export const ROUTES_ASSIST = {
     fullpath: `${APP_ROUTES.ASSISTANCE}/home`,
     title: 'home',
     btnLabel: 'Apply for Retroactive Premium Assistance',
-    btnDefaultColor: false
+    btnDefaultColor: true
   },
   PERSONAL_INFO: {
     index: 2,
@@ -15,7 +15,7 @@ export const ROUTES_ASSIST = {
     fullpath: `${APP_ROUTES.ASSISTANCE}/personal-info`,
     title: 'Personal Information',
     btnLabel: 'Continue',
-    btnDefaultColor: true
+    btnDefaultColor: false
   },
   SPOUSE_INFO: {
     index: 3,
@@ -23,7 +23,7 @@ export const ROUTES_ASSIST = {
     fullpath: `${APP_ROUTES.ASSISTANCE}/spouse-info`,
     title: 'Spouse Information',
     btnLabel: 'No Spouse',
-    btnDefaultColor: true
+    btnDefaultColor: false
   },
   CONTACT: {
     index: 4,
@@ -31,7 +31,7 @@ export const ROUTES_ASSIST = {
     fullpath: `${APP_ROUTES.ASSISTANCE}/contact-info`,
     title: 'Contact Information',
     btnLabel: 'Continue',
-    btnDefaultColor: true
+    btnDefaultColor: false
   },
   REVIEW: {
     index: 5,
@@ -39,7 +39,7 @@ export const ROUTES_ASSIST = {
     fullpath: `${APP_ROUTES.ASSISTANCE}/review`,
     title: 'Review',
     btnLabel: 'Continue',
-    btnDefaultColor: true
+    btnDefaultColor: false
   },
   AUTHORIZE: {
     index: 6,
@@ -47,7 +47,7 @@ export const ROUTES_ASSIST = {
     fullpath: `${APP_ROUTES.ASSISTANCE}/authorize`,
     title: 'Authorize',
     btnLabel: 'Submit',
-    btnDefaultColor: false
+    btnDefaultColor: true
   },
   CONFIRMATION: {
     index: 7,
