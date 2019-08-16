@@ -12,7 +12,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 @Component({
   selector: 'msp-assist-rates-modal',
   template: `
-    <div class="modal-lg">
+    <div class="">
       <div class="modal-header-primary">
         <h2>What is Adjusted Net Income?</h2>
       </div>

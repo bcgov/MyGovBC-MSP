@@ -188,7 +188,7 @@ export class AssistanceHomeComponent extends BaseComponent
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalSvc.show(this.ratesModal, {
-      class: 'modal-lg'
+      class: 'modal-xl'
     });
 
     // this.ratesModal.close();
