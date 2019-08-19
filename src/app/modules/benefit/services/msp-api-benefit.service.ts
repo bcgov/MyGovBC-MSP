@@ -391,7 +391,7 @@ export class MspApiBenefitService extends AbstractHttpService {
 
     // Capturing Financial-info page response
     to.assistanceYear = String(from.getTaxYear());
-    to.taxYear = String(from.getTaxYear());
+    to.taxYear = String(from.taxYear);
     to.numberOfTaxYears = from.numberOfTaxYears();
     to.adjustedNetIncome =
       from.eligibility.adjustedNetIncome != null

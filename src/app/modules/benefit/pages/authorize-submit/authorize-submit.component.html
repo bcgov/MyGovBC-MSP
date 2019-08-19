@@ -1,10 +1,10 @@
 <common-page-framework layout="blank">
     <div class="col-lg-8">   
-<h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
+<h1> <strong>Authorize and submit your application</strong> </h1> <br> <br>
 <!--
 <p class="helpblock intro" [innerHTML]="lang('./en/index.js').helpBlock"></p>
 <h2 [innerHTML]="lang('./en/index.js').declarationAndConsentTitle"></h2> -->
-<p [innerHTML]="lang('./en/index.js').declaration"></p>
+<p [innerHTML]="lang('./en/index.js').declaration"></p> <br><br>
 
 <form #form="ngForm">
   <div>
@@ -62,7 +62,7 @@
     </common-file-uploader>-->
     <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
   </div>
-  <br>
+  <br><br>
   <div class="row">
     <div class="col-lg-8">
       <common-captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="application.uuid"

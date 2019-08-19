@@ -73,7 +73,7 @@ export class TaxYearComponent extends BaseComponent {
 
                 // checking the cutoff Date and displaying the message
                 if (this.cutOffStartDate && moment(this.cutOffStartDate).isSameOrBefore(this.today) && (assistYear.year === this.benefitApp.MostRecentTaxYear - 1) && moment(this.cutOffEndDate).isSameOrAfter(this.today)) {
-                    console.log('Cut off date year'+assistYear.year);
+                    console.log('Cut off date year ' + assistYear.year);
                     this.cutOffYear = assistYear.year;
                     this.dataService.benefitApp.cutoffYear = assistYear.year;
                     this.dataService.benefitApp.isCutoffDate = true;
