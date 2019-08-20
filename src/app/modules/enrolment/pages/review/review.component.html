@@ -11,11 +11,11 @@
   <div class="row">
       <div class="col-lg-6">
           <msp-person-card [person]="application.applicant"
-                          [editRouterLink]="'/enrolment/personal-info'"></msp-person-card>
+                          [editRouterLink]="personal_info"></msp-person-card>
       </div>
       <div class="col-lg-6" *ngIf="application.spouse != null">
           <msp-person-card [person]="application.spouse"
-                          [editRouterLink]="'/enrolment/spouse-info'"></msp-person-card>
+                          [editRouterLink]="spouse_info"></msp-person-card>
       </div>
   </div>
   <div class="row">
@@ -24,7 +24,7 @@
         <msp-contact-card [residentialAddress]="application.residentialAddress"
         [mailingAddress]="application.mailingAddress"
         [phone]="application.phoneNumber"
-        [editRouterLink]="'/enrolment/address'"></msp-contact-card>
+        [editRouterLink]="address_info"></msp-contact-card>
 
     </div>
 
@@ -32,16 +32,16 @@
         <ng-container *ngFor="let child of application.children; let i = index;">
             <div class="clearfix" *ngIf="i % 2 == 0"></div>
                 <msp-person-card [person]="child"
-                                [editRouterLink]="'/enrolment/child-info'"></msp-person-card>
+                                [editRouterLink]="child_info"></msp-person-card>
          
         </ng-container>
     </div>
   </div>
                     
-
+  </common-page-framework>
   <common-form-action-bar [submitLabel]="lang('./en/index.js').submitButton"
         [canContinue]="true"
         (btnClick)="handleFormSubmission($event)">
   </common-form-action-bar>
-</common-page-framework>
+
 </form>

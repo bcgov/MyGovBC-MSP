@@ -6,10 +6,7 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { BenefitApplication } from '../models/benefit-application.model';
-import {
-  AttachmentType,
-  _ApplicationTypeNameSpace
-} from '../../enrolment/pages/api-model/applicationTypes';
+import { AttachmentType, _ApplicationTypeNameSpace } from '../../msp-core/api-model/applicationTypes';
 import { environment } from '../../../../environments/environment';
 import * as moment from 'moment';
 import { AbstractHttpService } from 'moh-common-lib';

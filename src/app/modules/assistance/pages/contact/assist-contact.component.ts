@@ -13,9 +13,9 @@ import { AssistStateService } from '../../services/assist-state.service';
   template: `
     <form #formRef="ngForm" novalidate>
       <common-page-section layout="noTips">
-        <h2>{{ title }}</h2>
+        <h1>{{ title }}</h1>
         <p>{{ subtitle }}</p>
-        <h3>{{ mailTitle }}</h3>
+        <h2>{{ mailTitle }}</h2>
         <p class="border-bottom">{{ mailSubtitle }}</p>
       </common-page-section>
       <common-page-section layout="double">
@@ -27,7 +27,7 @@ import { AssistStateService } from '../../services/assist-state.service';
           disableGeocoder="true"
         ></common-address>
       </common-page-section>
-      <h3 class="border-bottom">{{ phoneTitle }}</h3>
+      <h2 class="border-bottom">{{ phoneTitle }}</h2>
       <common-page-section layout="tips">
         <common-phone-number
           name="phoneNumber"
@@ -39,7 +39,7 @@ import { AssistStateService } from '../../services/assist-state.service';
           required="false"
         ></common-phone-number>
         <aside>
-          <h5>Tip</h5>
+          <h3>Tip</h3>
           <p>{{ phoneTip }}</p>
         </aside>
       </common-page-section>
@@ -59,7 +59,7 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
   subtitle = 'Provide your contact information.';
   mailTitle = 'Mailing Address';
   mailSubtitle = 'Enter your current mailing address';
-  phoneTitle = 'Contact';
+  phoneTitle = 'Phone';
   phoneLabel = 'Phone Number (optional)';
   phoneTip =
     'Please provide a phone number so you may be contacted in case of any issues with your application.';
@@ -85,17 +85,18 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.address = this.financialAssistApplication.mailingAddress;
+    console.log('init', this.address);
     this.phone = this.financialAssistApplication.phoneNumber;
-    this.addressLines = this.getAddressLines(this.address);
+    // this.addressLines = this.getAddressLines(this.address);
 
-    const enableLines = num => {
-      while (num > 1) {
-        this.address[`addressLine${num}`] = true;
-        num -= 1;
-      }
-    };
+    // const enableLines = num => {
+    //   while (num > 1) {
+    //     this.address[`addressLine${num}`] = true;
+    //     num -= 1;
+    //   }
+    // };
 
-    enableLines(this.addressLines);
+    // enableLines(this.addressLines);
     this.personalInfoForm.valueChanges
       .pipe(
         debounceTime(250),
@@ -103,41 +104,43 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
       )
       .subscribe(obs => {
         console.log('values changed');
+
+        this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, this.personalInfoForm.valid );
         this.dataService.saveFinAssistApplication();
       });
 
     this.touched$.subscribe(obs => {
       if (obs) {
         const controls = this.personalInfoForm.controls;
-        for (let control in controls) {
+        for (const control in controls) {
           controls[control].markAsTouched();
         }
       }
     });
 
-    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
+    this.stateSvc.setPageIncomplete( this.route.snapshot.routeConfig.path );
   }
 
-  getAddressLines(address: Address) {
-    if (address.addressLine3) return 3;
-    if (typeof address.addressLine2 === 'string') {
-      return 2;
-    } else return 1;
-  }
+  // getAddressLines(address: Address) {
+  //   if (address.addressLine3) return 3;
+  //   if (typeof address.addressLine2 === 'string') {
+  //     return 2;
+  //   } else return 1;
+  // }
 
-  addLine() {
-    const i = this.getAddressLines(this.address);
-    if (i === 3) return;
-    const lineToAdd = `addressLine${i + 1}`;
-    this.address[lineToAdd] = '';
-    this[lineToAdd] = true;
-  }
+  // addLine() {
+  //   const i = this.getAddressLines(this.address);
+  //   if (i === 3) return;
+  //   const lineToAdd = `addressLine${i + 1}`;
+  //   this.address[lineToAdd] = '';
+  //   this[lineToAdd] = true;
+  // }
 
-  removeLine(num: number) {
-    const lineToRemove = `addressLine${num}`;
-    this.address[lineToRemove] = undefined;
-    this[lineToRemove] = false;
-  }
+  // removeLine(num: number) {
+  //   const lineToRemove = `addressLine${num}`;
+  //   this.address[lineToRemove] = undefined;
+  //   this[lineToRemove] = false;
+  // }
 
   savePhone(evt: any) {
     this.financialAssistApplication.phoneNumber = evt;
@@ -145,5 +148,11 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
   updateAddress(evt: Address) {
     console.log('update event', evt);
     this.address.addressLine1 = evt.street;
+    if(this.address.addressLine2){
+      this.address.addressLine2 = evt.addressLine2;
+    }
+    if(this.address.addressLine3){
+      this.address.addressLine3 = evt.addressLine3;
+    }
   }
 }

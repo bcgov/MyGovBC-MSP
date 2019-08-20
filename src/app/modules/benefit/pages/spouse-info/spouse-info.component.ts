@@ -8,7 +8,8 @@ import { MspBenefitDataService } from '../../services/msp-benefit-data.service';
 import {Relationship} from '../../../../models/status-activities-documents';
 import {NgForm} from '@angular/forms';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
-import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
+//import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
+import { CANADA } from 'moh-common-lib';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -35,7 +36,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
    this.benefitApplication = this.dataService.benefitApp;
     // if the country is blank or null or undefined then assign Canada By Default //DEF-153
     if (!this.benefitApplication.mailingAddress.country || this.benefitApplication.mailingAddress.country.trim().length === 0 ) {
-       this.benefitApplication.mailingAddress.country = 'Canada';
+       this.benefitApplication.mailingAddress.country = CANADA;
     }
 }
 
@@ -92,7 +93,7 @@ export class BenefitSpouseInfoComponent extends BaseComponent implements OnInit 
   }
 
   isValid(): boolean {
-      return this.dataService.benefitApp.isUniquePhns && this.dataService.benefitApp.isUniqueSin && validatePHN(this.dataService.benefitApp.spouse.previous_phn);
+      return this.dataService.benefitApp.isUniquePhns && this.dataService.benefitApp.isUniqueSin;
   }
 
   get canContinue(): boolean{

@@ -1,6 +1,7 @@
 export const defaultSchema = {
   id: 'moh-msp/MSPApplication.schema.json',
   $schema: 'http://json-schema.org/draft-07/schema#',
+  version: '1.0.1',
   definitions: {
     SubNameType: {
       type: 'string',
@@ -96,7 +97,7 @@ export const defaultSchema = {
     },
     SINType: {
       type: 'string',
-      pattern: '^[1-9]([0-9]{8})$'
+      pattern: '^[0-9]([0-9]{8})$'
     },
     TelephoneType: {
       type: 'string',
@@ -801,18 +802,6 @@ export const defaultSchema = {
     AssistanceSpouseType: {
       type: 'object',
       properties: {
-        name: {
-          $ref: '#/definitions/NameType'
-        },
-        birthDate: {
-          $ref: '#/definitions/MMDDYYDateType'
-        },
-        phn: {
-          $ref: '#/definitions/PHNType'
-        },
-        sin: {
-          $ref: '#/definitions/SINType'
-        },
         spouseDeduction: {
           type: 'number'
         },
@@ -823,7 +812,6 @@ export const defaultSchema = {
           $ref: '#/definitions/AttachmentUuidsType'
         }
       },
-      required: ['name', 'birthDate', 'phn', 'sin']
     },
     AssistanceApplicationType: {
       type: 'object',
@@ -868,11 +856,6 @@ export const defaultSchema = {
           type: 'string',
           maxLength: 30,
           description: 'Applicant Last Name'
-        },
-        applicantGender: {
-          type: 'string',
-          pattern: '^[MF]$',
-          description: 'Gender of Applicant'
         },
         applicantBirthdate: {
           $ref: '#/definitions/MMDDYYDateType',

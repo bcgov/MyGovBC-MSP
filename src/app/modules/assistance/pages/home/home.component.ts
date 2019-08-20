@@ -22,22 +22,23 @@ import { ActivatedRoute } from '@angular/router';
 import { AssistStateService } from '../../services/assist-state.service';
 import { AssistRatesModalComponent } from '../../components/assist-rates-modal/assist-rates-modal.component';
 import { environment } from '../../../../../environments/environment.prod';
+import { ROUTES_ASSIST } from '../../models/assist-route-constants';
 
 @Component({
   selector: 'msp-assist-home',
   template: `
     <common-page-section layout="tips">
-      <h2>Apply for Retroactive Premium Assistance</h2>
+      <h1>Apply for Retroactive Premium Assistance</h1>
       <p>
         Retroactive Premium Assistance provides assistance for previously
         charged Medical Services Plan premiums. Medical Services Plan premiums
 
-        <a class="btn btn-link p-0" href="{{links.MSP_ASSISTANCE}}">
-          Medical Services Plan premiums
+        <a class="btn btn-link p-0" href="http://gov.bc.ca/MSP/retropremiumassistance" target="_blank">
+          Medical Services Plan premiums <i class="fa fa-external-link" aria-hidden="true"></i>
         </a>
         are based on the previous tax year's
         <button class="btn btn-link p-0" (click)="openModal(modal)">
-          adjusted net income
+          adjusted net income.
         </button>
       </p>
       <p>
@@ -59,28 +60,12 @@ import { environment } from '../../../../../environments/environment.prod';
         </div>
       </aside>
     </common-page-section>
-
-    <common-page-section class="border-bottom" layout="noTips">
-    </common-page-section>
     <common-page-section layout="tips">
       <form #formRef="ngForm" novalidate>
-        <h3>
+        <h2>
           Which years do you think your income might qualify you for Retroactive
           Premium Assistance?
-        </h3>
-        <!--
-        <p>
-          <span>
-            Note:
-          </span>
-          <button class="btn btn-link p-0" (click)="openModal(modal)">
-            Income eligibility
-          </button>
-          <span>
-            for Retroactive Permium Assistance.
-          </span>
-        </p>
-        -->
+        </h2>
         <div class="row">
           <div class="col-12">
             <common-checkbox
@@ -96,11 +81,9 @@ import { environment } from '../../../../../environments/environment.prod';
           </div>
         </div>
       </form>
-      <ng-container *ngIf="touched$ | async as touched">
-        <p class="text-danger" *ngIf="touched && validSelection">
-          A tax year is required
-        </p>
-      </ng-container>
+      <common-error-container [displayError]="(touched$ | async) && validSelection">
+        A tax year is required
+      </common-error-container>
       <aside>
         <p>
           <b>
@@ -108,7 +91,7 @@ import { environment } from '../../../../../environments/environment.prod';
           </b>
         </p>
         <p>
-          MSP premiums were eliminated on January 1, 2020. Because the 2019 tax year would 
+          MSP premiums were eliminated on January 1, 2020. Because the 2019 tax year would
           apply towards a year in which no premiums were charged, it is not available for selection.
         </p>
       </aside>
@@ -118,42 +101,16 @@ import { environment } from '../../../../../environments/environment.prod';
         (closeModal)="closeModal()"
       ></msp-assist-rates-modal>
     </ng-template>
-    <common-consent-modal
+    <msp-consent-modal
       #mspConsentModal
-      [isUnderMaintenance]="false"
-      [title]="'Information collection notice'"
-      agreeLabel="I have read and understand this information"
-      [processName]="consentProcessName"
+      [isMaintenanceMode]="false"
+      [consentProcessName]="consentProcessName"
       (accept)="
         finAssistApp.infoCollectionAgreement = $event;
         this.dataSvc.saveFinAssistApplication()
       "
     >
-      <p>
-        <strong
-          >Keep your personal information secure – especially when using a
-          shared device like a computer at a library, school or café.</strong
-        >
-        To delete any information that was entered, either complete the
-        application and submit it or, if you don’t finish, close the web
-        browser.
-      </p>
-      <p>
-        <strong>Need to take a break and come back later?</strong> The data you
-        enter on this form is saved locally to the computer or device you are
-        using until you close the web browser or submit your application.
-      </p>
-      <p>
-        Personal information is collected under the authority of the Medicare Protection Act 
-        and section 26 (a), (c) and (e) of the Freedom of Information and Protection of 
-        Privacy Act for the purposes of administration of the Medical Services Plan. If you 
-        have any questions about the collection and use of your personal information, please 
-        <a href="{{links.MSP_RESIDENT_CONTACT}}" target="_blank"
-          >contact Health Insurance BC
-          <i class="fa fa-external-link" aria-hidden="true"></i></a
-        >.
-      </p>
-    </common-consent-modal>
+    </msp-consent-modal>
   `
 })
 export class AssistanceHomeComponent extends BaseComponent
@@ -165,9 +122,7 @@ export class AssistanceHomeComponent extends BaseComponent
   touched$ = this.stateSvc.touched.asObservable();
 
   links = environment.links;
-
-  title = 'Apply for Retroactive Premium Assistance';
-  consentProcessName = 'apply for Premium Assistance';
+  consentProcessName = 'Apply for Premium Assistance';
 
   options: AssistanceYear[];
   rateData: {};
@@ -199,33 +154,25 @@ export class AssistanceHomeComponent extends BaseComponent
 
   ngOnInit() {
     this.options = this.dataSvc.finAssistApp.assistYears;
-    // const data = {};
-    // for (let assistYear of this.options) {
-    // const helperData = new PremiumRatesYear();
-    // let index = 0;
-    // for (let year in helperData.options) {
-    // let index = helperData.options[year];
-    // data[year] = { ...helperData.brackets[index] };
-    // index++;
-    // }
-    // }
-    // this.rateData = data;
-    if (this.options.length < 1) this.initYearsList();
-    this.stateSvc.setIndex(this.route.snapshot.routeConfig.path);
+    if (this.options.length < 1) {
+      this.initYearsList();
+    }
+    this.stateSvc.setPageIncomplete( this.route.snapshot.routeConfig.path );
   }
 
   ngAfterViewInit() {
     if (!this.dataSvc.finAssistApp.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();
     }
-
     this.prepForm.valueChanges
       .pipe(
         debounceTime(250),
         distinctUntilChanged()
       )
       .subscribe(() => {
-        if (this.prepForm.dirty) this.stateSvc.touched.next(true);
+        console.log( 'change in home page', !this.validSelection );
+        // No form validation only need at least one checkbox marked
+        this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, !this.validSelection );
         this.dataSvc.saveFinAssistApplication();
       });
   }
@@ -241,7 +188,7 @@ export class AssistanceHomeComponent extends BaseComponent
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalSvc.show(this.ratesModal, {
-      class: 'modal-md'
+      class: 'modal-xl'
     });
 
     // this.ratesModal.close();

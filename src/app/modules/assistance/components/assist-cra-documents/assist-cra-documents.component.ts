@@ -1,5 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { AssistanceYear } from '../../models/assistance-year.model';
+import { ControlContainer, NgForm } from '@angular/forms';
+import { FileUploaderMsg } from 'moh-common-lib/lib/components/file-uploader/file-uploader.component';
 
 @Component({
   selector: 'msp-assist-cra-documents',
@@ -12,12 +14,10 @@ import { AssistanceYear } from '../../models/assistance-year.model';
           [images]="files(year)"
           id="{{ year.year }}"
           (imagesChange)="updateFiles($event, year)"
-          required
+          [errorMessages]="errorMesage(year)"
+          [required]="true"
         >
         </common-file-uploader>
-        <ng-container *ngIf="touched && validFiles(year)">
-          <p class="text-danger">Files are required for {{ year.year }}</p>
-        </ng-container>
       </ng-container>
       <aside>
         <div class="row">
@@ -35,7 +35,13 @@ import { AssistanceYear } from '../../models/assistance-year.model';
       </aside>
     </common-page-section>
   `,
-  styleUrls: ['./assist-cra-documents.component.scss']
+  styleUrls: ['./assist-cra-documents.component.scss'],
+  /* Re-use the same ngForm that it's parent is using. The component will show
+   * up in its parents `this.form`, and will auto-update `this.form.valid`
+   */
+  viewProviders: [
+    { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
+  ]
 })
 export class AssistCraDocumentsComponent implements OnInit {
   @Input() assistanceYears: AssistanceYear[];
@@ -46,9 +52,16 @@ export class AssistCraDocumentsComponent implements OnInit {
   tip1 = `If you are uploading a copy of a Notice of Assessment or Reassessment from the Canada Revenue Agency website, make sure the image contains:`;
   tipList = ['your name', 'the tax year', 'your net income (line 236)'];
 
+
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
+  errorMesage( year: AssistanceYear ): FileUploaderMsg {
+    return { required:  'Files are required for ' +  year.year};
+  }
+
   files(year) {
     return this.isSpouse ? year.spouseFiles : year.files;
   }

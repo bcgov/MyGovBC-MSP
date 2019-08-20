@@ -24,12 +24,13 @@ import { ModalDirective } from 'ngx-bootstrap';
         <i class="fa fa-times ecks"></i>
       </button>
       <div class="modal-body">
-        <p class="border-bottom">
+        <p>
           Estimate your adjusted net income for the tax year(s) below for which
           you are applying. If you feel your adjusted net income will qualify
           you for assistance, we encourage you to apply and your application
           will be reviewed.
         </p>
+        <hr>
         <div class="row">
           <div class="col-md-5">
             <div class="row align-items-center">

@@ -21,3 +21,5 @@ documentation/
 *.sh
 .scannerwork/
 package-lock.json
+
+temp/

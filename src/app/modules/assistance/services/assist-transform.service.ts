@@ -11,7 +11,6 @@ import {
   AssistanceApplicationType,
   MSPApplicationSchema
 } from 'app/modules/msp-core/interfaces/i-api';
-import { MspApiService } from 'app/services/msp-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -42,19 +41,19 @@ export class AssistTransformService {
 
     const authorizedByApplicant = this.app.authorizedByApplicant ? 'Y' : 'N';
 
-    let date = this.app.authorizedByApplicantDate;
-    let day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+    const date = this.app.authorizedByApplicantDate;
+    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
     // console.log(date.getMonth());
-    let month =
+    const month =
       date.getMonth() < 10
         ? `0${(date.getMonth() + 1).toString()}`
         : (date.getMonth() + 1).toString();
-    let year = date.getFullYear();
+    const year = date.getFullYear();
 
     const authorizedByApplicantDate = `${year}-${month}-${day}`;
     // console.log('authorization date', authorizedByApplicantDate);
-    // TODO: still require authorized by spouse?
-    const authorizedBySpouse = 'N';
+    // TODO: schema updates required as not data for spouse object - POC set authorizedBySpouse based on whether spouse exists
+    const authorizedBySpouse = this.app.hasSpouseOrCommonLaw ? 'Y' : 'N';
     return {
       applicant,
       authorizedByApplicant,
@@ -65,10 +64,6 @@ export class AssistTransformService {
 
   get assistanceApplicant(): AssistanceApplicantType {
     const app = this.app.applicant;
-    let birthMonth =
-      app.dobSimple.month < 10
-        ? `0${app.dobSimple.month.toString()}`
-        : app.dobSimple.month.toString();
     const attachmentUuids = this.attachmentUuids as any;
     const birthDate =  String(this.app.applicant.dob.format(this.ISO8601DateFormat)); //`${app.dobSimple.year.toString()}-${birthMonth}-${app.dobSimple.day.toString()}`;
     const financials = this.financials;
@@ -103,7 +98,7 @@ export class AssistTransformService {
     const numberOfTaxYears = this.app.numberOfTaxYears().toString();
     const sixtyFiveDeduction = 0;
     // TODO: does this makes sense as a string?
-    const taxYear = `${this.app.MostRecentTaxYear}`;
+    const taxYear = `${this.app.getTaxYear()}`;
     const totalDeductions = 0;
     const totalNetIncome = 0;
     return {
@@ -151,7 +146,7 @@ export class AssistTransformService {
     const uuids = [];
     const [...taxYears] = this.app.assistYears.filter(year => year.apply);
     // console.log('tax years', taxYears);
-    for (let year of taxYears) {
+    for (const year of taxYears) {
       if (year.files && year.files.length > 0) {
         year.files.forEach(itm => uuids.push(itm.uuid));
       }
@@ -175,7 +170,7 @@ export class AssistTransformService {
       }
     }
 
-    return attachments.map((itm, i, arr) => {
+    return attachments.map((itm, i) => {
       return {
         contentType: 'IMAGE_JPEG',
         attachmentDocumentType: 'SupportDocument',
@@ -208,7 +203,6 @@ export class AssistTransformService {
 
   calcAssistYearType(): AssistanceYearType {
     const date = new Date();
-    const taxYear = date.getFullYear();
     // const [...appliedYears] = this.app.assistYears.filter(year => year.apply);
     // if (!appliedYears) return null;
     // if (appliedYears.length === 1) {

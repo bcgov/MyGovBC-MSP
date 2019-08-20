@@ -1,7 +1,8 @@
 <h2>{{lang('./en/index.js').cardTitle}} <i class="fa fa-pencil edit--icon float-right" aria-hidden="true" (click)="editPersonalInfo()"></i></h2>
 <div class="card">
   <div class="card-body">
-    <msp-address-card-part [address]="residentialAddress"
+    <msp-address-card-part *ngIf="mailingAddress"
+                           [address]="residentialAddress"
                            [label]="lang('./en/index.js').residentialAddressLabel"></msp-address-card-part>
     <msp-address-card-part [address]="mailingAddress"
                            [label]="lang('./en/index.js').mailingAddressLabel"></msp-address-card-part>

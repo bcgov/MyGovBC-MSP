@@ -17,7 +17,7 @@ import {
   Gender,
   OperationActionType
 } from '../components/msp/model/msp-person.model';
-import { Address } from 'moh-common-lib';
+import { Address, CANADA, BRITISH_COLUMBIA } from 'moh-common-lib';
 import PersonDto from '../components/msp/model/msp-person.dto';
 import { OutofBCRecord } from '../models/outof-bc-record.model';
 import { OutofBCRecordDto } from '../models/outof-bc-record.dto';
@@ -171,6 +171,7 @@ export class MspDataService {
   }
 
   private fetchFinAssistApplication(): FinancialAssistApplication {
+
     const dto: FinancialAssistApplicationDto = this.localStorageService.get<
       FinancialAssistApplicationDto
     >(this.finAssistAppStorageKey);
@@ -723,10 +724,10 @@ export class MspDataService {
 
     //if page is refreshed before filling address, the province and country is lost..so initialising..
     if (!output.applicant.residentialAddress.province) {
-      output.applicant.residentialAddress.province = 'British Columbia';
+      output.applicant.residentialAddress.province = BRITISH_COLUMBIA;
     }
     if (!output.applicant.residentialAddress.country) {
-      output.applicant.residentialAddress.country = 'Canada';
+      output.applicant.residentialAddress.country = CANADA;
     }
 
     if (dto.applicant.addedSpouse) {
@@ -908,6 +909,8 @@ export class MspDataService {
     dto.assistYears = input.assistYears;
     dto.assistYeaDocs = input.assistYeaDocs;
 
+    dto.pageStatus = input.pageStatus; // page status complete/ incomplete
+
     this.convertToPersonDto(input.applicant, dto.applicant);
     this.convertToPersonDto(input.spouse, dto.spouse);
     this.convertMailingAddress(input, dto);
@@ -969,6 +972,8 @@ export class MspDataService {
 
     output.assistYears = dto.assistYears || [];
     output.assistYeaDocs = dto.assistYeaDocs || [];
+
+    output.pageStatus = dto.pageStatus; // page status complete/ incomplete
 
     this.convertToPerson(dto.applicant, output.applicant);
     this.convertToPerson(dto.spouse, output.spouse);

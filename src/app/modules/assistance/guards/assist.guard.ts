@@ -1,39 +1,30 @@
 import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot
-} from '@angular/router';
-import { Observable } from 'rxjs';
 import { AssistStateService } from '../services/assist-state.service';
-import { assistPages } from '../assist-page-routing.module';
 import { environment } from 'environments/environment';
+import { ROUTES_ASSIST } from '../models/assist-route-constants';
+import { AbstractPgCheckService } from 'moh-common-lib';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AssistGuard implements CanActivate {
-  constructor(private stateSvc: AssistStateService) {}
+export class AssistGuard implements AbstractPgCheckService {
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
+  constructor( private stateSvc: AssistStateService ) {}
 
-    if (environment.bypassGuards) {
-      return true;
-    }
-    const url = state.url.slice(12, state.url.length);
-    console.log(url);
-    this.stateSvc.setAssistPages(assistPages);
+  public canBypassGuards(): boolean {
+    return environment.bypassGuards;
+  }
 
-    let index = this.stateSvc.findIndex(url);
-    console.log('index', index);
+  public isPageComplete( url: string ): boolean {
+    const complete = this.stateSvc.isPageComplete( url );
+    return complete;
+  }
 
-    if (index === 0) {
-      return true;
-    } else {
-      return this.stateSvc.isValid(index - 1);
-    }
+  public isPrerequisiteComplete(): boolean {
+    return true;
+  }
+  
+  public getStartUrl(): string {
+    return ROUTES_ASSIST.HOME.fullpath;
   }
 }

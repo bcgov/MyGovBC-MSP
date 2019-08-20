@@ -18,7 +18,7 @@ export class BaseMSPTestPage extends AbstractTestPage {
     }
 
     clickPencilIcon(h2Val: string) {
-        element(by.cssContainingText('h2', `${h2Val}`)).element(by.css('i[class*="pencil"]')).click();    
+        element(by.cssContainingText('h2', `${h2Val}`)).element(by.css('i[class*="fa-pencil"]')).click();    
     }
 
     clickStepper(text: string) {
@@ -40,15 +40,20 @@ export class BaseMSPTestPage extends AbstractTestPage {
             this.typeName('middle', info.middleName);
         }
         this.typeName('last', info.lastName);
-        const month = info.birthDate.getMonth();
-        const year = info.birthDate.getFullYear();
-        const day = info.birthDate.getDate();
-        element.all(by.css(`select[ng-reflect-name*="month"] option`)).get(month).click();
-        this.typeText('day', day.toString());
-        this.typeText('year', year.toString());
+        // const month = info.birthDate.getMonth(); // Some of the generated months are not working
+        if(info.birthDate !== undefined){
+            const month = info.birthDate.getMonth();
+            const year = info.birthDate.getFullYear();
+            const day = info.birthDate.getDate();
+            console.log("DATE: ", info.birthDate);
+            element.all(by.css(`select[ng-reflect-name*="month"] option`)).get(month).click();
+            this.typeText('day', day.toString());
+            this.typeText('year', year.toString());
+        }
         this.scrollDown();
-        this.typePHN('9999999998');
-        this.typeSIN('046454286');
+        this.typePHN(info.PHN.toString());
+        this.typeSIN(info.SIN.toString());
+        //046454286
     }
 
     typeName(ngVal: string, text: string) {
@@ -130,4 +135,11 @@ export class BaseMSPTestPage extends AbstractTestPage {
         return element(by.css('common-consent-modal')).element(by.css('div[aria-labelledby="myLargeModalLabel"]')).isDisplayed();
     }
 
+    checkTitleHeader() {
+        return element(by.css('common-header span')).getText();
+    }
+
+    checkErrorDisplayed(text: string) {
+        return element(by.cssContainingText('div[class="text-danger"]', text)).isPresent();
+    }
 }

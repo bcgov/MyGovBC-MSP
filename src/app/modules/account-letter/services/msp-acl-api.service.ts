@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { _ApplicationTypeNameSpace } from '../../enrolment/pages/api-model/applicationTypes';
+import { _ApplicationTypeNameSpace } from '../../msp-core/api-model/applicationTypes';
 import { MspLogService } from '../../../services/log.service';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { AccountLetterApplication } from '../../../components/msp/model/account-letter-application.model';
-import { AccountLetterApplicantTypeFactory, AccountLetterType  } from '../../enrolment/pages/api-model/accountLetterTypes';
+import { AccountLetterApplicantTypeFactory, AccountLetterType  } from '../../msp-core/api-model/accountLetterTypes';
 import { AbstractHttpService } from 'moh-common-lib';
 
 

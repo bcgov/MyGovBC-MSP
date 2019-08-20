@@ -37,6 +37,8 @@ export class ApplicantInformation implements IApplicantInformation {
     };
   }
 
+  pageStatus: any[];
+
   constructor(mspApp: FinancialAssistApplication) {
     const { ...app } = { ...mspApp };
 
@@ -61,6 +63,8 @@ export class ApplicantInformation implements IApplicantInformation {
     const docCount = deepFlatten(appDocuments).map(itm => itm.name).length;
     // .reduce((a, b) => `${a}, ${b}`);
     this.appDocuments = docCount > 1 ? `${docCount} files` : `${docCount} file`;
+
+    this.pageStatus = app.pageStatus;
   }
 
   makeDate(date: SimpleDate) {
@@ -72,9 +76,10 @@ export class ApplicantInformation implements IApplicantInformation {
   }
 
   makeName(app: MspPerson) {
+
     const { firstName, middleName, lastName } = { ...app };
-    return [firstName, middleName, lastName]
-      .filter(itm => itm)
-      .reduce((a, b) => `${a} ${b}`);
+    const names = [firstName, middleName, lastName].filter(itm => itm);
+    console.log( 'makeName: ', names );
+    return names.length ? names.reduce((a, b) => `${a} ${b}`) : null;
   }
 }

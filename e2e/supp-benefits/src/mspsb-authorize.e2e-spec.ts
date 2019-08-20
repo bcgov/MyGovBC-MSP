@@ -21,9 +21,7 @@ describe('MSP Supplementary Benefits - Authorize Page:', () => {
 
     it('01. should let user to continue when they select authorize by applicant', () => {
         page.navigateTo();
-        page.checkConsent('firstPersonAuthorize');
-        page.typeCaptcha();
-        page.continue();
+        page.fillPage();
         expect(browser.getCurrentUrl()).toContain(CONFIRMATION_PAGE_URL, 'should navigate to confirmation page');
     });
 

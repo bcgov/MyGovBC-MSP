@@ -8,34 +8,43 @@ import {ConsentModalComponent} from 'moh-common-lib';
 import {ProcessService} from '../../../../services/process.service';
 import {BaseComponent} from '../../../../models/base.component';
 import { CommonButtonGroupComponent } from '../../../msp-core/components/common-button-group/common-button-group.component';
+import { ROUTES_ENROL } from '../../models/enrol-route-constants';
+import { environment } from '../../../../../environments/environment.prod';
+import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
 
 @Component({
   templateUrl: './prepare.component.html'
 })
 @Injectable()
 export class PrepareComponent extends BaseComponent {
+
   static ProcessStepNum = 0;
-  lang = require('./i18n');
   @ViewChild('formRef') form: NgForm;
-   @ViewChild('liveInBCBtn') liveInBCBtn: CommonButtonGroupComponent ;
- // @ViewChild('notLiveInBCBtn') notLiveInBCBtn: ElementRef;
-//  @ViewChild('unUsualCircumstanceBtn') unUsualCircumstanceBtn: ElementRef;
-//  @ViewChild('noUnusualCircustanceBtn') noUnusualCircustanceBtn: ElementRef;
-//  @ViewChild('plannedAbsenceBtn') plannedAbsenceBtn: ElementRef;
-//  @ViewChild('noPlannedAbsenceBtn') noPlannedAbsenceBtn: ElementRef;
-  @ViewChild('mspConsentModal') mspConsentModal: ConsentModalComponent;
-  public radioLabels = [{'label': 'Yes', 'value': true}, { 'label': 'No', 'value': false}];
+  @ViewChild('liveInBCBtn') liveInBCBtn: CommonButtonGroupComponent ;
+  @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
+
   private apt: MspPerson;
   mspApplication: MspApplication;
   public styleClass: string = 'control-label';
 
+  // labels
+  radioLabels = [{ 'label': 'No', 'value': false}, {'label': 'Yes', 'value': true} ];
+
+
+  // Web links
+  links = environment.links;
+
+  // verbage
+  question1 = 'Do you currently live in British Columbia (i.e. Do you have an address here)?';
+  plannedAwayForOver30DaysQuestion = 'Will you or anyone in your immediate family (included on this application) be away from B.C. for more than 30 days in total over the next six months?';
+
   constructor(public dataService: MspDataService,
-    private _processService: ProcessService,
-    private _router: Router,
-    cd: ChangeDetectorRef) {
-    super(cd);
-    this.mspApplication = this.dataService.getMspApplication();
-    this.apt = this.mspApplication.applicant;
+              private _processService: ProcessService,
+              private _router: Router,
+              cd: ChangeDetectorRef) {
+      super(cd);
+      this.mspApplication = this.dataService.getMspApplication();
+      this.apt = this.mspApplication.applicant;
   }
 
   ngOnInit(){
@@ -48,43 +57,7 @@ export class PrepareComponent extends BaseComponent {
       this.mspConsentModal.showFullSizeView();
     }
 
-    /*const liveInBC$ = fromEvent<MouseEvent>(this.liveInBCBtn.nativeElement, 'click')
-      .pipe(map( x => {
-        this.dataService.getMspApplication().applicant.liveInBC = true;
-      }));
-    const notLiveInBC$ = fromEvent<MouseEvent>(this.notLiveInBCBtn.nativeElement, 'click')
-      .pipe(map( x => {
-        this.dataService.getMspApplication().applicant.liveInBC = false;
-      }));
-     
-    const unUsualCircumstance$ = fromEvent<MouseEvent>(this.unUsualCircumstanceBtn.nativeElement, 'click')
-      .pipe(map( x => {
-        this.dataService.getMspApplication().unUsualCircumstance = true;
-      }));
-    const noUnUsualCircumstance$ = fromEvent<MouseEvent>(this.noUnusualCircustanceBtn.nativeElement, 'click')
-      .pipe(map( x => {
-        this.dataService.getMspApplication().unUsualCircumstance = false;
-      }));
-
-    const plannedAbsenceBtn$ = fromEvent<MouseEvent>(this.plannedAbsenceBtn.nativeElement, 'click')
-      .pipe(map( x => {
-        this.dataService.getMspApplication().applicant.plannedAbsence = true;
-      }));
-    const noPlannedAbsenceBtn$ = fromEvent<MouseEvent>(this.noPlannedAbsenceBtn.nativeElement, 'click')
-      .pipe(map( x => {
-        this.dataService.getMspApplication().applicant.plannedAbsence = false;
-      }));
- */
-    if (this.form){
-      // merge(
-      //   this.form.valueChanges,
-      //  /* liveInBC$,
-      //  // notLiveInBC$,
-      //   unUsualCircumstance$,
-      //   noUnUsualCircumstance$,
-      //   plannedAbsenceBtn$,
-      //   noPlannedAbsenceBtn$,*/
-      // )
+    if (this.form) {
       this.form.valueChanges
       .subscribe(() => {
         this.dataService.saveMspApplication();
@@ -98,8 +71,8 @@ export class PrepareComponent extends BaseComponent {
       console.log('user agreement not accepted yet, show user dialog box.');
       this.mspConsentModal.showFullSizeView();
     } else {
-      this._processService.setStep(0, true);
-      this._router.navigate(['/enrolment/personal-info']);
+     // this._processService.setStep(0, true);
+      this._router.navigate([ROUTES_ENROL.PERSONAL_INFO.fullpath]);
     }
   }
 
@@ -118,7 +91,6 @@ export class PrepareComponent extends BaseComponent {
 
   setLiveInBC(live: any) {
     console.log(live);
-    //live = (live == true) ? true : false;
 
     this.dataService.getMspApplication().applicant.liveInBC = live;
     this.apt.liveInBC = live;
@@ -126,14 +98,12 @@ export class PrepareComponent extends BaseComponent {
   }
 
   setPlannedAbsence(live: any) {
-    //live = (live == true) ? true : false;
     this.dataService.getMspApplication().applicant.plannedAbsence = live;
     this.apt.plannedAbsence = live;
     this.dataService.saveMspApplication();
   }
 
   setUnusualCircumstance(live: any) {
-    //live = (live == true) ? true : false;
     this.dataService.getMspApplication().unUsualCircumstance = live;
     this.dataService.saveMspApplication();
   }
