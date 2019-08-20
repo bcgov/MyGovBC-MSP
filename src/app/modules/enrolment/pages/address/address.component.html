@@ -39,7 +39,7 @@
                                 [defaultProvince]="defaultProvince"
                                 [provinceList]="provinceList"
                                 [isRequired]="true"></common-address> -->
-                    <common-address [address]="mspApplication?.residentialAddress"
+                    <common-address [address]="mspApplication?.mailingAddress"
                                     (addressChange)="handleAddressUpdate($event)"
                                     [isRequired]="true"
                                     [allowExtralines]='true'

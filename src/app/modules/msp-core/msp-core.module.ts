@@ -54,6 +54,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 import { PersonalDetailsRetroSuppbenComponent } from './components/personal-details-retro-suppben/personal-details-retro-suppben.component';
 import { AddressRetroSuppbenComponent } from './components/address-retro-suppben/address-retro-suppben.component';
+import { CoreContactInfoComponent } from './components/core-contact-info/core-contact-info.component';
 
 const componentList = [
   MspFullNameComponent,
@@ -121,7 +122,7 @@ const templistCore = [
     HttpClientModule
   ],
 
-  declarations: [componentList, templistCore, AddressRetroSuppbenComponent, ConfirmationComponent],
+  declarations: [componentList, templistCore, AddressRetroSuppbenComponent, ConfirmationComponent, CoreContactInfoComponent],
 
   exports: [
     componentList,
