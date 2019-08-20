@@ -40,7 +40,7 @@
                                         [(ngModel)]="benefitApp.netIncomelastYear"
                                         #incomeRef="ngModel"
                                         pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
-                                        required maxlength="12">
+                                        required maxlength="9">
                             </div>
         
                             <div *ngIf="(incomeRef.touched || incomeRef.dirty || (!!incomeRef.value && incomeRef.value.trim().length>0) || formRef.touched || !(benefitApp.ageOver65 === null || benefitApp.ageOver65 === undefined) ||
@@ -109,14 +109,13 @@
                                                 <span class="input-group-text">$</span>
                                             </div>
                                             <input type="text" class="form-control" name="spouseIncomeLine236" id="spouseIncomeLine236"
-                                                    maxlength="12" #spouseIncomeRef="ngModel"
+                                                    maxlength="9" #spouseIncomeRef="ngModel" [required]="this.benefitApp.hasSpouse"
                                                     pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
                                                     [(ngModel)]="benefitApp.spouseIncomeLine236">
                                                     
-
                                             <div *ngIf="(spouseIncomeRef.touched || spouseIncomeRef.dirty || (!!spouseIncomeRef.value && spouseIncomeRef.value.trim().length>0) || formRef.touched || !(benefitApp.ageOver65 === null || benefitApp.ageOver65 === undefined) ||
                                                             formRef.controls.spouseIncomeLine236?.valid || benefitApp.spouseEligibleForDisabilityCredit)">
-                                                <div class="text-danger" *ngIf="(spouseIncomeRef.touched && spouseIncomeRef.errors?.required)"
+                                                <div class="text-danger" *ngIf="spouseIncomeRef.touched && spouseIncomeRef.errors?.required"
                                                         [innerHTML]="lang('./en/index.js').incomeDataRequired" tabindex="0"></div>
                                                 <div class="text-danger" *ngIf="spouseIncomeRef.errors?.pattern"
                                                         [innerHTML]="lang('./en/index.js').invalidNumber" tabindex="0"></div>
@@ -147,7 +146,6 @@
                                         <label class='col-md-12' for="childrenCount" [innerHtml]="lang('./en/index.js').howManyChildrenDoYouHaveOnYourMSP">
                                         </label>
                                         <div class="col-md-3" >
-                                    
                                             <input type="text" class="form-control" name="childrenCount"
                                                 id="childrenCount"
                                                 maxlength="2"
@@ -167,10 +165,16 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
                                             </div>
-                                            <input type="text" class="form-control" id="line214" name="line214" placeholder=""
+                                            <input type="text" class="form-control" id="line214" 
+                                                name="line214" 
+                                                [required]="benefitApp.haveChildrens"
                                                 pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
                                                 #line214Ref="ngModel"
+												maxlength="9"
                                                 [(ngModel)]="benefitApp.claimedChildCareExpense_line214">
+                                        </div>
+                                        <div class="text-danger" *ngIf="(line214Ref.touched && line214Ref.errors?.required)"
+                                                [innerHTML]="lang('./en/index.js').incomeDataRequired" tabindex="0">
                                         </div>
                                         <div class="text-danger" *ngIf="line214Ref.errors?.pattern" [innerHTML]="lang('./en/index.js').invalidNumber">
                                         </div>
@@ -256,8 +260,7 @@
                                             You have already selected disability credit for yourself. Please remove disability credit if you want to claim nursing home expense credit for yourself.'" tabindex="0">
                                         <br>
                                     </div> 
-                           
-        
+                                   
                                     <div class="form-group" *ngIf="(benefitApp.childrenCount > 0) && benefitApp.childClaimForDisabilityCredit">
                                         <label for="childWithDisabilityCount" >
                                                 How many of your children are eligible for a disability tax credit?
@@ -270,7 +273,7 @@
                                                     (ngModelChange)= "updateChildDisabilityCreditCreditMultiplier($event)">
                                         </div>
                                         <div class="text-danger" *ngIf="benefitApp.childWithDisabilityCount > benefitApp.childrenCount"
-                                            [innerHTML]="lang('./en/index.js').cannotExceedChildrenCount" tabindex="0">
+                                            [innerHTML]="lang('./en/index.js').cannotExceedChildrenCount">
                                         </div>
                                     </div>
                             </div>
@@ -298,10 +301,16 @@
                                         </div>
                                         <input type="text" class="form-control" name="line125" id="line125"
                                                 pattern="^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
+                                                [required]="benefitApp.hasRegisteredDisabilityPlan"
                                                 #line125Ref="ngModel"
-                                                [(ngModel)]="benefitApp.spouseDSPAmount_line125">
+                                                [(ngModel)]="benefitApp.spouseDSPAmount_line125"
+                                                maxlength="9">
                                     </div>
                                     <div class="text-danger" *ngIf="line125Ref.errors?.pattern" [innerHTML]="lang('./en/index.js').invalidNumber">
+                                    </div>
+                                    
+                                    <div class="text-danger" *ngIf="(line125Ref.touched && line125Ref.errors?.required)"
+                                        [innerHTML]="lang('./en/index.js').incomeDataRequired" tabindex="0">
                                     </div>
                                 </div>
                             </div>
@@ -385,6 +394,7 @@
                                 </div>
                             </div>   
                         </div>
+                       
                         <!-- Number of Children Claim for attendant care Expense   -->
                         <div class="form-group sub-section" [hidden]="!benefitApp.childClaimForAttendantCareExpense">
                             <div class="col-lg-8">
@@ -398,7 +408,7 @@
                                     maxlength="2"
                                     [(ngModel)]="benefitApp.childClaimForAttendantCareExpenseCount">
                             </div>
-                            <div class="text-danger" *ngIf="benefitApp.childClaimForAttendantCareExpenseCount > benefitApp.childrenCount"
+                            <div style="margin-left:15px;" class="text-danger" *ngIf="(benefitApp.childClaimForAttendantCareExpenseCount * 1 > benefitApp.childrenCount * 1)"
                                     [innerHTML]="lang('./en/index.js').cannotExceedChildrenCount" tabindex="0">
                             </div>
                             

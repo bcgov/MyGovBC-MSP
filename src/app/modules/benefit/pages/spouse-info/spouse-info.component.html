@@ -2,21 +2,23 @@
   <form #formRef="ngForm" novalidate>
   
     <h1> <b>  Add spouse information and upload documents </b></h1>
-    <br>
-    <p class="border-bottom">Do you have a spouse or common-law partner? If so, you are required to provide spouse information and upload a Notice of Assessment or Reassessment.</p>
     
+    <div >Do you have a spouse or common-law partner? If so, you are required to provide spouse information and upload a Notice of Assessment or Reassessment.</div>
+    <hr>    
     <button style="width: 200px;" type="button" class="btn btn-primary" 
       (click)="addSpouse()"
       [disabled]="showSpouse">
-      <span>Add Spouse</span>
+      <span>Add Spouse Information</span>
     </button>
     
     <div *ngIf="showSpouse">
-      <br/><br/>
+    
+      <br/>
+          <!-- <br/>
       <h2>Your spouse or common-law partner</h2>
       <h4>Enter your spouse’s legal name as it appears on their BC Service Card.
-      </h4>
-      <hr>
+      </h4> -->
+
         <msp-personal-details-retro-suppben 
               [(person)]="benefitApplication.spouse"
               [benefitApp] = "benefitApplication"

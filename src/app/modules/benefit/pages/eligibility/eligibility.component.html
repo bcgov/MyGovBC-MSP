@@ -7,15 +7,15 @@
 </common-consent-modal>    
 <common-page-framework layout="blank">   
   <div class="row">
-      <h1>
-        Supplementary Benefits
-      </h1>
+    <h1>
+      Supplementary Benefits
+    </h1>
   </div>
   <div class="row">
-    <h3>
+    
       To be eligible for Supplementary Benefits you must meet the residency requirement.
-    </h3>
-  </div>
+    
+  </div>  
   
   <div class="row">
       <h2> 
@@ -36,7 +36,7 @@
   <hr>
  <div class="row">
   <div class="form-group">
-      <common-radio [value]="dataService.benefitApp.isEligible"  [label]="'Do you meet the eligibility requirement?'" 
+      <common-radio [value]="dataService.benefitApp.isEligible"  [label]="'Do you meet the residency requirement?'" 
           [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
           (statusChange)="dataService.benefitApp.isEligible = $event; this.continue=true; this.dataService.saveBenefitApplication(); ">
       </common-radio> 

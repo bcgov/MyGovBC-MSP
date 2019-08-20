@@ -5,6 +5,7 @@ import {AssistanceYear} from '../../../../assistance/models/assistance-year.mode
 import {BenefitApplication} from '../../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../../services/msp-benefit-data.service';
 import {ISpaEnvResponse} from '../../../../../components/msp/model/spa-env-response.interface';
+import { parseDate } from 'ngx-bootstrap/chronos';
 
 @Component({
     selector: 'msp-tax-year',
@@ -70,12 +71,9 @@ export class TaxYearComponent extends BaseComponent {
                 assistYear.docsRequired = true;
                 assistYear.currentYear = this.currentYear;
 
-                // checking the cutoff Date and disabling the last year
-                console.log('CutOff Start Date', this.cutOffStartDate);
-                console.log('CutOff End Date', this.cutOffEndDate);
-
+                // checking the cutoff Date and displaying the message
                 if (this.cutOffStartDate && moment(this.cutOffStartDate).isSameOrBefore(this.today) && (assistYear.year === this.benefitApp.MostRecentTaxYear - 1) && moment(this.cutOffEndDate).isSameOrAfter(this.today)) {
-                    console.log('Cut off date started');
+                    console.log('Cut off date year ' + assistYear.year);
                     this.cutOffYear = assistYear.year;
                     this.dataService.benefitApp.cutoffYear = assistYear.year;
                     this.dataService.benefitApp.isCutoffDate = true;
@@ -102,17 +100,23 @@ export class TaxYearComponent extends BaseComponent {
     // Gets the cutoff date time frame from SPA-ENV server
     cutOffDate() {
         if (this.spaEnvResponse && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END && this.spaEnvResponse.SPA_ENV_NOW) {
-            this.today = new Date(this.spaEnvResponse.SPA_ENV_NOW);
-            this.today = moment().toDate();
-            const startDate = new Date(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START);
-            const endDate = new Date(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END);
+            this.today = new Date(this.spaEnvResponse.SPA_ENV_NOW.replace(/-/g, '/'));
             this.currentYear = this.today.getFullYear();
+            //console.log(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START);
+            //const mydate1 = this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START;
+            //const mydate = moment(mydate1).format();       // new Date(String(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START));
+           // var str = mydate1;
+           // str = str.replace(/-/g,'/');  // replaces all occurances of "-" with "/"
+          //  var dateObject = new Date(str);
+          //  console.log(dateObject);
+            //this.today = moment().toDate();
+            let startDate = new Date (this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START.replace(/-/g, '/'));
+            let endDate = new Date(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END.replace(/-/g, '/'));
             this.cutOffStartDate = new Date(this.currentYear, startDate.getMonth(), startDate.getDate(), startDate.getHours(), startDate.getMinutes(), startDate.getSeconds(), startDate.getMilliseconds());
-            this.cutOffStartDate = moment().toDate();
             this.cutOffEndDate  = new Date(this.currentYear, endDate.getMonth(), endDate.getDate(), endDate.getHours(), endDate.getMinutes(), endDate.getSeconds(), endDate.getMilliseconds());
-            this.cutOffEndDate = moment().toDate();
-            console.log(this.cutOffStartDate);
-            console.log(this.cutOffEndDate);
+            console.log('CutOff Start Date', this.cutOffStartDate);
+            console.log('CutOff End Date', this.cutOffEndDate);
+
             // console.log('cutoffDate ran', {
             //     SPA_ENV_NOW: this.spaEnvResponse.SPA_ENV_NOW,
             //     SPA_ENV_PACUTOFF_MAINTENANCE_START: this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START,

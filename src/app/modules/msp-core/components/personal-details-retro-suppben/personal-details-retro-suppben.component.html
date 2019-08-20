@@ -3,18 +3,23 @@
       <!-- Remove Spouse and Child Button, (Red cross) -->
     <div *ngIf="removeable">
         <div *ngIf="person.relationship !== 0">
-            <div *ngIf="person.relationship === 1">
-            <common-xicon-button label='Remove Spouse' (click)="removeSpouse()"></common-xicon-button>
+            <div  *ngIf="person.relationship === 1">
+                <h2>Your spouse or common-law partner</h2>
+                Enter your spouse’s legal name as it appears on their BC Service Card.
+                
+                <common-xicon-button label='Remove Spouse' (click)="removeSpouse()"></common-xicon-button>
+                <hr>    
             </div>
         </div>
     </div>
-      
     
     <!-- Full Name  -->
     <div class="form-group">
-       &nbsp;
+        
+        &nbsp;
     </div>
-                    
+
+
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -71,59 +76,49 @@
     </div>
 
     <!-- Doc Uploader   -->
+    
     <h2>Documents</h2>
-    <p class="help-block border-bottom"> Upload your Notice of Assessment or Reassessment from Canada Revenue Agency for <b>{{benefitApp.taxYear}}</b></p>
-        <common-page-section layout="tips">
-            <div >
-                <common-file-uploader 
-                    [images]="person.assistYearDocs"
-                    (imagesChange)="addDocument($event)"
-                    [id]='benefitApp.id'
-                    (errorDocument)="errorDoc($event)" 
-                    instructionText="Click add, or drag and drop file into this box">
-                </common-file-uploader>
-            </div>   
-             
-            <!-- TIP -->
-            <aside >
-            <div class="row">
-                <div class="col-2">
-                    <i class="fa fa-exclamation-triangle" style="font-size: 35px;"></i>
-                </div>
-                <div class="col-8">
-                <p>
-                        If you are uploading a copy of a Notice of Assessment or Reassessment from the Canada Revenue Agency website, make sure the image contains
-                </p>
-                <ul>
-                    <li>
-                            Your name
-                    </li>
-                    <li>
-                            the tax year
-                    </li>
-                    <li>
-                            your net income (line 236)
-                    </li>
-                    <li>
-                            If you have a Registered Disability Savings Plan (line 125)
-                    </li>
-                </ul>
-            </div>
-            </div>
-                    
-                </aside>
-        </common-page-section>
-    <!-- <div class="row">
-        <div class="col-md-6" >
-
+    <p class="help-block border-bottom"> Upload your Canada Revenue Agency Notice of Assessment or Reassessment for <b>{{benefitApp.taxYear}}</b></p>
+    <div class="row">        
+        <div class="col-8" style="margin-bottom: 15px;">      
             <common-file-uploader 
-                               [images]="person.assistYearDocs"
-                               (imagesChange)="addDocument($event)"
-                               [id]='benefitApp.id'
-                               (errorDocument)="errorDoc($event)" instructionText="Please upload Notice of Assessment documents for {{benefitApp.taxYear}}">
-             </common-file-uploader>
-            </div>
-        </div> -->
-        
+                [images]="person.assistYearDocs"
+                (imagesChange)="addDocument($event)"
+                [id]='benefitApp.id'
+                (errorDocument)="errorDoc($event)" 
+                instructionText="Click add, or drag and drop file into this box">
+            </common-file-uploader>
+        </div>
+             <!-- TIP -->
+        <div class="col-4" style="background-color : #f2f2f2; height: 240px;">
+            <br>
+            <aside>
+                <div class="row" style="margin-bottom:15px">
+                    <div class="col-2">
+                        <i class="fa fa-exclamation-triangle" style="font-size: 35px;"></i>
+                    </div>
+                    <div class="col-8">
+                        <p>
+                                If you are uploading a copy of a Notice of Assessment or Reassessment from the Canada Revenue Agency website, make sure the image contains
+                        </p>
+                        <ul>
+                            <li>
+                                    Your name
+                            </li>
+                            <li>
+                                    the tax year
+                            </li>
+                            <li>
+                                    your net income (line 236)
+                            </li>
+                            <li>
+                                    If you have a Registered Disability Savings Plan (line 125)
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </aside> 
+        </div>  
+    </div> 
         <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
   </form>

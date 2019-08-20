@@ -901,7 +901,8 @@ export const defaultSchema = {
         },
         applicantPostalCode: {
           type: 'string',
-          pattern: '^[V][0-9][ABCEGHJ-NPRSTV-Z][0-9][ABCEGHJ-NPRSTV-Z][0-9]$',
+          maxLength: 25,
+          //pattern: '^[V][0-9][ABCEGHJ-NPRSTV-Z][0-9][ABCEGHJ-NPRSTV-Z][0-9]$',
           description: 'PostalCode of Applicant'
         },
         applicantTelephone: {

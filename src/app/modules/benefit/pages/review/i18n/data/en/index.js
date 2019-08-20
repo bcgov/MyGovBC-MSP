@@ -1,6 +1,6 @@
 module.exports = {
   pageTitle: 'Review your application',
-  eligibilityInfo: 'Financial info',
+  eligibilityInfo: 'Financial Information',
 
   netAnnualIncomeLabel: 'Your net annual income:',
   minAgeOrOlderLabel: '65 or older:',
@@ -23,7 +23,7 @@ module.exports = {
 
   changeSpouseInfoButton: 'Edit Spouse Info',
 
-  contactInfo: 'Contact information',
+  contactInfo: 'Contact Information',
   phoneNumberLabel: 'Phone number:',
   mailingAddressLabel: 'Mailing Address:',
   changeContactInfoButton: 'Edit Contact Info',
