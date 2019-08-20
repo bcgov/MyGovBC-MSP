@@ -108,7 +108,7 @@ export interface IContactInformation {}
 export class AssistanceReviewComponent implements OnInit {
   title = 'Review your application';
 
-  applicantTitle = 'Applicant Information';
+  applicantTitle = 'Account Holder Information';
   contactTitle = 'Contact Information';
   spouseTitle = 'Spouse Information';
 

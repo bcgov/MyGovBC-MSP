@@ -110,6 +110,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         this.benefitApp.spaEnvRes = evt;
     }
 
+    
     errorReceipts(evt: MspImage) {
         this.mspImageErrorModal.imageWithError = evt;
         this.mspImageErrorModal.showFullSizeView();
@@ -202,13 +203,40 @@ export class BenefitPrepareComponent  extends BaseComponent  {
     }
 
     canContinue(evt): any {
-
-      //  console.log(evt);
-      //  console.log(this.continue);
-
-        if(this.benefitApp.hasRegisteredDisabilityPlan === undefined || this.benefitApp.hasClaimedAttendantCareExpenses === undefined) {
-            return false;
+        if (this.benefitApp.hasSpouse) {
+            if (!this.benefitApp.spouseIncomeLine236) {
+                this.continue = false;
+                return false;
+            }
         }
+
+        if (this.benefitApp.haveChildrens){
+            if (!this.benefitApp.claimedChildCareExpense_line214){
+                this.continue = false;
+                return false;
+            }
+        }
+
+        if (this.benefitApp.hasRegisteredDisabilityPlan){
+            if (!this.benefitApp.spouseDSPAmount_line125){
+                this.continue = false;
+                return false;
+            }
+        }
+
+        if (evt !== undefined) {
+            this.continue = evt;
+        }
+
+
+
+       /* if (this.benefitApp.hasRegisteredDisabilityPlan === undefined || this.benefitApp.hasClaimedAttendantCareExpenses === undefined) {
+            return false;
+        }*/
+
+      /*  if (this.benefitApp.hasRegisteredDisabilityPlan && this.benefitApp.spouseDSPAmount_line125 === undefined) {
+            return false;
+        }*/
 
         if ((this.benefitApp.childClaimForAttendantCareExpenseCount > this.benefitApp.childrenCount) || (this.benefitApp.childWithDisabilityCount > this.benefitApp.childrenCount)) {
             this.continue = false;
@@ -220,9 +248,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             return false;
         }
 
-        if (evt) {
-            this.continue = evt;
-        }
         return evt ;
     }
 
@@ -326,22 +351,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
     }
 
-    spouseIncomeRequired() {
-
-        if(this.benefitApp.hasSpouse){
-            console.log(this.benefitApp.spouseIncomeLine236);
-            if(!this.benefitApp.spouseIncomeLine236) {
-                return true;
-            } else {
-                return false;
-            }
-
-        }
-        return false;
-    }
-
-
-
     applicantClaimDataChange(evt: boolean) {
         //console.log(evt);
         //console.log(this.benefitApp.applicantEligibleForDisabilityCredit);
@@ -441,7 +450,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         this.dataService.benefitApp.haveChildrens = evt;
         if (!evt) {
             this.dataService.benefitApp.childrenCount = 0;
-            this.dataService.benefitApp.claimedChildCareExpense_line214 = 0;
+            this.dataService.benefitApp.claimedChildCareExpense_line214 = null;
             this.benefitApp.childClaimForDisabilityCredit = false;
             this.benefitApp.childClaimForAttendantCareExpense = false;
         }
@@ -582,7 +591,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
     updateRegisteredDisabilityPlan(evt: boolean) {
         if (!evt) {
-            this.dataService.benefitApp.spouseDSPAmount_line125 = 0;
+            this.dataService.benefitApp.spouseDSPAmount_line125 = null;
         }
         this.benefitApp.hasRegisteredDisabilityPlan = evt;
         this.dataService.saveBenefitApplication();

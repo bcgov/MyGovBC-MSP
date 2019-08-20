@@ -1,4 +1,4 @@
-<h2>Financial Info <i class="fa fa-pencil edit--icon float-right" aria-hidden="true" (click)="editLink()"></i></h2>
+<h2>Financial Information <i class="fa fa-pencil edit--icon float-right" aria-hidden="true" (click)="editLink()"></i></h2>
 <div class="card panel-default">
   <div class="card-body">
     <div class="row">
@@ -6,10 +6,8 @@
         {{lang('./en/index.js').netAnnualIncome}}
       </div>
       <div class="col-sm-4">
-        <small>
-          <span class="fa fa-usd" aria-hidden="true"></span>
-        </small>
-        <strong>{{this.application.netIncomelastYear}}</strong>
+        
+        <strong>{{this.application.netIncomelastYear | currency: 'CAD' : 'symbol-narrow'}}</strong>
       </div>
     </div>
     <div class="row">
@@ -41,10 +39,8 @@
         {{lang('./en/index.js').spouseAnnualIncome}}
       </div>
       <div class="col-sm-4">
-        <small>
-          <span class="fa fa-usd" aria-hidden="true"></span>
-        </small>
-        <strong>{{this.application.spouseIncomeLine236}}</strong>
+       
+        <strong>{{this.application.spouseIncomeLine236 | currency: 'CAD' : 'symbol-narrow' }}</strong>
       </div>
     </div>
     <div class="row" *ngIf="this.application.childrenCount">
@@ -60,10 +56,8 @@
         {{lang('./en/index.js').claimedChildCareExpense_line214}}
       </div>
       <div class="col-sm-4">
-        <small>
-          <span class="fa fa-usd" aria-hidden="true"></span>
-        </small>
-        <strong>{{this.application.claimedChildCareExpense_line214}}</strong>
+        
+        <strong>{{this.application.claimedChildCareExpense_line214 | currency: 'CAD' : 'symbol-narrow'}}</strong>
       </div>
     </div>
 
@@ -72,10 +66,8 @@
         {{lang('./en/index.js').reportedUCCBenefit_line117}}
       </div>
       <div class="col-sm-4">
-        <small>
-          <span class="fa fa-usd" aria-hidden="true"></span>
-        </small>
-        <strong>{{this.application.reportedUCCBenefit_line117}}</strong>
+       
+        <strong>{{this.application.reportedUCCBenefit_line117 | currency: 'CAD' : 'symbol-narrow'}}</strong>
       </div>
     </div>
     <div *ngIf="_mainDisabilityCredit" class="row">
@@ -83,10 +75,8 @@
         {{lang('./en/index.js').disabilityCredit}}
       </div>
       <div class="col-sm-4">
-        <small>
-            <span class="fa fa-usd" aria-hidden="true"></span>
-          </small>
-        <strong >{{_mainDisabilityCredit}}</strong>
+       
+        <strong >{{_mainDisabilityCredit | currency: 'CAD' : 'symbol-narrow'}}</strong>
       </div>
     </div>
     <div *ngIf="_spouseDisabilityCredit" class="row">
@@ -94,10 +84,8 @@
         {{lang('./en/index.js').spouseDisabilityCredit}}
       </div>
       <div class="col-sm-4">
-        <small>
-          <span class="fa fa-usd" aria-hidden="true"></span>
-        </small>
-        <strong>{{_spouseDisabilityCredit}}</strong>
+        
+        <strong>{{_spouseDisabilityCredit | currency: 'CAD' : 'symbol-narrow'}}</strong>
       </div>
     </div>
     <div *ngIf="_childrenDisabilityCredit" class="row">
@@ -105,8 +93,7 @@
         {{lang('./en/index.js').childrenDisabilityCredit}}
       </div>
       <div class="col-sm-4">
-        <span class="fa fa-usd" aria-hidden="true"></span>
-        <strong>{{_childrenDisabilityCredit}}</strong>
+        <strong>{{_childrenDisabilityCredit | currency: 'CAD' : 'symbol-narrow' }}</strong>
       </div>
     </div>
     <div class="row" *ngIf="this.application.spouseDSPAmount_line125">
@@ -114,10 +101,8 @@
         {{lang('./en/index.js').registeredDSP}}
       </div>
       <div class="col-sm-4">
-        <small>
-          <span class="fa fa-usd" aria-hidden="true"></span>
-        </small>
-        <strong>{{this.application.spouseDSPAmount_line125}}</strong>
+        
+        <strong>{{this.application.spouseDSPAmount_line125 | currency: 'CAD' : 'symbol-narrow'}}</strong>
       </div>
     </div>
 
@@ -128,10 +113,8 @@
           {{lang('./en/index.js').applicantAttendantCare}}
         </div>
         <div class="col-sm-4">
-          <small>
-              <span class="fa fa-usd" aria-hidden="true"></span>
-        </small>
-          <strong >{{_applicantAttendantCareExpense}}</strong>
+         
+          <strong >{{_applicantAttendantCareExpense | currency: 'CAD' : 'symbol-narrow' }}</strong>
         </div>
     </div>
 
@@ -140,10 +123,8 @@
           {{lang('./en/index.js').spouseAttendantCare}}
         </div>
         <div class="col-sm-4">
-          <small>
-            <span class="fa fa-usd" aria-hidden="true"></span>
-          </small>
-          <strong>{{_spouseAttendantCareExpense}}
+          
+          <strong>{{_spouseAttendantCareExpense | currency: 'CAD' : 'symbol-narrow'}}
           </strong>
         </div>
     </div>
@@ -153,10 +134,8 @@
         {{lang('./en/index.js').totalDeductions}}
       </div>
       <div class="col-sm-4">
-        <small>
-          <span class="fa fa-usd" aria-hidden="true"></span>
-        </small>
-        <strong>{{this.application.eligibility.totalDeductions}}</strong>
+       
+        <strong> {{this.application.eligibility.totalDeductions | currency: 'CAD' : 'symbol-narrow'}}</strong>
       </div>
     </div>
     <div class="row">
@@ -164,10 +143,8 @@
         {{lang('./en/index.js').adjustedIncome}}
       </div>
       <div class="col-sm-4">
-          <small>
-            <span class="fa fa-usd" aria-hidden="true"></span>
-          </small>
-        <strong>{{this.application.eligibility.adjustedNetIncome}}</strong>
+          
+        <strong>{{this.application.eligibility.adjustedNetIncome  | currency: 'CAD' : 'symbol-narrow'}}</strong>
       </div>
     </div>
 

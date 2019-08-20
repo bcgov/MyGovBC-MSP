@@ -210,15 +210,15 @@ export class BenefitApplication implements ApplicationBase {
   get authorizedByAttorney(): boolean {
     return this._authorizedByAttorney;
   }
-  
+
   get netIncomelastYear(): number {
     return this._netIncomelastYear === null ? null : this._netIncomelastYear;
   }
 
   set netIncomelastYear(n: number) {
-    if (!this.isEmptyString(n)) {
+  //  if (!this.isEmptyString(n)) {
       this._netIncomelastYear = n;
-    }
+   // }
   }
 
   get spouseIncomeLine236(): number {
@@ -226,10 +226,11 @@ export class BenefitApplication implements ApplicationBase {
   }
 
   set spouseIncomeLine236(n: number) {
-    if (!this.isEmptyString(n)) {
+    //if (!this.isEmptyString(n)) {
       this._spouseIncomeLine236 = n;
-    }
+    //}
   }
+
   //End of GET SET for the SpouseIncome
   isEmptyString(value: number) {
     let temp: string = value + '';
@@ -282,10 +283,11 @@ export class BenefitApplication implements ApplicationBase {
   }
 
   set claimedChildCareExpense_line214(n: number) {
-    if (!this.isEmptyString(n)) {
+   // if (!this.isEmptyString(n)) {
       this._claimedChildCareExpense_line214 = n;
-    }
+   // }
   }
+
   get reportedUCCBenefit_line117(): number {
     if (
       !!this._reportedUCCBenefit_line117 &&
@@ -316,10 +318,11 @@ export class BenefitApplication implements ApplicationBase {
   }
 
   set spouseDSPAmount_line125(n: number) {
-    if (!this.isEmptyString(n)) {
+   // if (!this.isEmptyString(n)) {
       this._spouseDSPAmount_line125 = n;
-    }
+    //}
   }
+
   // End of GET SET for spouseDSPAmount_line125
   get hasSpouseOrCommonLaw() {
     return this._hasSpouseOrCommonLaw;

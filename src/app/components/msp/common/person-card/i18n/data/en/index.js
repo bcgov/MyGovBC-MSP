@@ -1,5 +1,5 @@
 module.exports = {
-  relationshipLabel: ['Applicant', 'Spouse', 'Child', 'Child' ,'Child'],
+  relationshipLabel: ['Account Holder', 'Spouse', 'Child', 'Child' ,'Child'],
     actionTypeLabel: ['Add ', 'Remove ', 'Update '],
   cardSuffix: 'Information',
 

@@ -30,6 +30,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
 
     @Input() qualificationThreshhold: number;
    // lang = require('./i18n');
+    total: number;
 
     constructor(private _router: Router,
                 private dataService: MspBenefitDataService,
@@ -46,6 +47,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     ngDoCheck(): void {
       const valid = this.canContinue;
       console.log("valid "+valid);
+      //this.continue.emit(valid);
       //this._processService.setStep(CommonDeductionCalculatorComponent.ProcessStepNum, valid);
     }
 
@@ -143,21 +145,20 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     }
 
     get totalDeductions(): number {
-        const total = this.ageOver65Amt
+         let total = this.ageOver65Amt
             + this.spouseAmt
             + this.spouseAgeOver65Amt
             + this.adjustedChildrenAmt
             + this.uCCBenefitAmt
             + this.disabilityCreditAmt
             + this.spouseDisabilityCreditAmt
-            + this.childrenDisabilityCreditAmt
-            + this.application.spouseDSPAmount_line125
-            + this.applicantClaimForAttendantCareExpenseAmt
-            + this.spouseClaimForAttendantCareExpenseAmt
-            + this.childClaimForAttendantCareExpenseAmt;
+            + this.childrenDisabilityCreditAmt;
 
-        //this.dataService.saveFinAssistApplication();
-        return total;
+          let otherAmtTotal = (this.application.spouseDSPAmount_line125 * 1) + (this.applicantClaimForAttendantCareExpenseAmt * 1) + (this.spouseClaimForAttendantCareExpenseAmt * 1) + (this.childClaimForAttendantCareExpenseAmt * 1) ;
+
+          total += otherAmtTotal;
+          this.dataService.saveBenefitApplication();
+          return total;
     }
 
     get adjustedIncome(): number {
@@ -221,19 +222,60 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
         const applicantapplicantClaimForAttendantCareExpense = !(this.application.applicantClaimForAttendantCareExpense === null || this.application.applicantClaimForAttendantCareExpense === undefined);
 
 
+        if (this.application.hasRegisteredDisabilityPlan === undefined || this.application.hasClaimedAttendantCareExpenses === undefined) {
+          return false;
+        }
 
         // check the net income with pattern "^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2})?$"
         const patt = /^[0-9]{1}[0-9]{0,5}(\.[0-9]{1,2}){0,1}$/g;
         let netIncomeValid = false;
         if (this.application.netIncomelastYear === null || this.application.netIncomelastYear === undefined) {
-            netIncomeValid = false;
+
+          netIncomeValid = false;
         }
         else {
             const pm = this.application.netIncomelastYear.toString().match(patt);
             if (pm && !(pm === null) && pm[0] && ! (pm[0] === null)) {
-                netIncomeValid = this.application.netIncomelastYear.toString() === pm[0];
+              netIncomeValid = this.application.netIncomelastYear.toString() === pm[0];
+            } else {
+              this.continue.emit(false);
+              return false;
             }
         }
+
+        const spouseDisabilityCreditAmt = this.application.spouseDSPAmount_line125 && this.application.spouseDSPAmount_line125.toString().match(patt);
+
+        if (this.application.hasRegisteredDisabilityPlan) {
+            if (spouseDisabilityCreditAmt) {
+              this.continue.emit(true);
+              return true;
+            } else {
+              this.continue.emit(false);
+              return false;
+            }
+        }
+
+        // Expense child care
+        const childCareExpenseAmt = this.application.claimedChildCareExpense_line214 && this.application.claimedChildCareExpense_line214.toString().match(patt);
+        if (this.application.haveChildrens) {
+          if (childCareExpenseAmt) {
+            this.continue.emit(true);
+            return true;
+          } else {
+            this.continue.emit(false);
+            return false;
+          }
+        }
+
+        /* console.log('Abhi DSP amount --> '+spouseDisabilityCreditAmt);
+        if (spouseDisabilityCreditAmt && this.application.hasRegisteredDisabilityPlan) {
+            this.continue.emit(true);
+            return true;
+        } else {
+          this.continue.emit(false);
+          return false;
+        }*/
+
         // added for DEAM-2 fix Invalid comma in money decimal fields
         const isSpouseIncomeValid = !spouseSpecified || !this.application || !this.application.spouseIncomeLine236 || this.application.spouseIncomeLine236.toString().match(patt);
         if (this.applicantIncomeInfoProvided && applicantAgeSpecified && spouseSpecified && netIncomeValid && isSpouseIncomeValid && applicanthaveChildrens && applicantapplicantClaimForAttendantCareExpense && applicantselfDisabilityCredit) {
@@ -244,10 +286,13 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
                 this.continue.emit(this.attendantCareExpenseReceiptsProvided);
                 return this.attendantCareExpenseReceiptsProvided;
             }
+
         } else {
             this.continue.emit(false);
             return false;
         }
+
+
     }
 
 
