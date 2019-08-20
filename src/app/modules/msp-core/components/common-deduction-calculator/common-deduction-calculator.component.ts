@@ -246,26 +246,22 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
         const spouseDisabilityCreditAmt = this.application.spouseDSPAmount_line125 && this.application.spouseDSPAmount_line125.toString().match(patt);
 
         if (this.application.hasRegisteredDisabilityPlan) {
-            if (spouseDisabilityCreditAmt) {
-              this.continue.emit(true);
-              return true;
-            } else {
-              this.continue.emit(false);
-              return false;
-            }
+            if (!spouseDisabilityCreditAmt) {
+               this.continue.emit(false);
+               return false;
+            } 
         }
 
         // Expense child care
         const childCareExpenseAmt = this.application.claimedChildCareExpense_line214 && this.application.claimedChildCareExpense_line214.toString().match(patt);
+        
         if (this.application.haveChildrens) {
-          if (childCareExpenseAmt) {
-            this.continue.emit(true);
-            return true;
-          } else {
+          if (!childCareExpenseAmt) {
             this.continue.emit(false);
             return false;
           }
         }
+
 
         /* console.log('Abhi DSP amount --> '+spouseDisabilityCreditAmt);
         if (spouseDisabilityCreditAmt && this.application.hasRegisteredDisabilityPlan) {
@@ -278,6 +274,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
 
         // added for DEAM-2 fix Invalid comma in money decimal fields
         const isSpouseIncomeValid = !spouseSpecified || !this.application || !this.application.spouseIncomeLine236 || this.application.spouseIncomeLine236.toString().match(patt);
+        
         if (this.applicantIncomeInfoProvided && applicantAgeSpecified && spouseSpecified && netIncomeValid && isSpouseIncomeValid && applicanthaveChildrens && applicantapplicantClaimForAttendantCareExpense && applicantselfDisabilityCredit) {
             if (this.application.hasSpouse) {
                 this.continue.emit(spouseAgeSpecified && this.attendantCareExpenseReceiptsProvided);
