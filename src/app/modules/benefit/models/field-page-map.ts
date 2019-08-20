@@ -18,7 +18,8 @@ export class FieldPageMap {
     'numDisabled',
     'disabilityDeduction',
     'disabilitySavingsPlan',
-    'totalDeductions'
+    'totalDeductions',
+    'spouseDSPAmount'
   ];
 
   personalInfo = [

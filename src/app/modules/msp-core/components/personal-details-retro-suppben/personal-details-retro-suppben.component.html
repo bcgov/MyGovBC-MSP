@@ -76,10 +76,11 @@
     </div>
 
     <!-- Doc Uploader   -->
+    
     <h2>Documents</h2>
-    <p class="help-block border-bottom"> Upload your Notice of Assessment or Reassessment from Canada Revenue Agency for <b>{{benefitApp.taxYear}}</b></p>
-        <common-page-section layout="tips">
-            
+    <p class="help-block border-bottom"> Upload your Canada Revenue Agency Notice of Assessment or Reassessment for <b>{{benefitApp.taxYear}}</b></p>
+    <div class="row">        
+        <div class="col-8" style="margin-bottom: 15px;">      
             <common-file-uploader 
                 [images]="person.assistYearDocs"
                 (imagesChange)="addDocument($event)"
@@ -87,47 +88,37 @@
                 (errorDocument)="errorDoc($event)" 
                 instructionText="Click add, or drag and drop file into this box">
             </common-file-uploader>
-            
-             
-            <!-- TIP -->
+        </div>
+             <!-- TIP -->
+        <div class="col-4" style="background-color : #f2f2f2; height: 240px;">
+            <br>
             <aside>
-                <div class="col-2">
-                    <i class="fa fa-exclamation-triangle" style="font-size: 35px;"></i>
+                <div class="row" style="margin-bottom:15px">
+                    <div class="col-2">
+                        <i class="fa fa-exclamation-triangle" style="font-size: 35px;"></i>
+                    </div>
+                    <div class="col-8">
+                        <p>
+                                If you are uploading a copy of a Notice of Assessment or Reassessment from the Canada Revenue Agency website, make sure the image contains
+                        </p>
+                        <ul>
+                            <li>
+                                    Your name
+                            </li>
+                            <li>
+                                    the tax year
+                            </li>
+                            <li>
+                                    your net income (line 236)
+                            </li>
+                            <li>
+                                    If you have a Registered Disability Savings Plan (line 125)
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-8">
-                <p>
-                        If you are uploading a copy of a Notice of Assessment or Reassessment from the Canada Revenue Agency website, make sure the image contains
-                </p>
-                <ul>
-                    <li>
-                            Your name
-                    </li>
-                    <li>
-                            the tax year
-                    </li>
-                    <li>
-                            your net income (line 236)
-                    </li>
-                    <li>
-                            If you have a Registered Disability Savings Plan (line 125)
-                    </li>
-                </ul>
-            </div>
-        </aside>
-
-                    
-        </common-page-section>
-    <!-- <div class="row">
-        <div class="col-md-6" >
-
-            <common-file-uploader 
-                               [images]="person.assistYearDocs"
-                               (imagesChange)="addDocument($event)"
-                               [id]='benefitApp.id'
-                               (errorDocument)="errorDoc($event)" instructionText="Please upload Notice of Assessment documents for {{benefitApp.taxYear}}">
-             </common-file-uploader>
-            </div>
-        </div> -->
-        
+            </aside> 
+        </div>  
+    </div> 
         <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
   </form>

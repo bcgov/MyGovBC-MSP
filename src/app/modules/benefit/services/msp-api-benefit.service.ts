@@ -418,7 +418,7 @@ export class MspApiBenefitService extends AbstractHttpService {
         ? from.eligibility.totalNetIncome
         : 0;
     if (from.claimedChildCareExpense_line214 != null) {
-      to.childCareExpense = from.claimedChildCareExpense_line214;
+      to.childCareExpense = from.claimedChildCareExpense_line214 * 1;
     } else to.childCareExpense = 0;
     to.netIncomeLastYear = Number(from.netIncomelastYear);
     to.numChildren = from.childrenCount > 0 ? Number(from.childrenCount) : 0;
@@ -426,7 +426,7 @@ export class MspApiBenefitService extends AbstractHttpService {
     to.spouseIncomeLine236 =
       from.spouseIncomeLine236 != null ? Number(from.spouseIncomeLine236) : 0;
     to.reportedUCCBenefit = from.reportedUCCBenefit_line117;
-    to.spouseDSPAmount = from.spouseDSPAmount_line125;
+    to.spouseDSPAmount = from.spouseDSPAmount_line125 * 1;
     to.spouseDeduction = from.eligibility.spouseDeduction;
 
     // Capturing Address page response
