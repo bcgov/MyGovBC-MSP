@@ -900,9 +900,7 @@ export const defaultSchema = {
           description: 'Applicant Country'
         },
         applicantPostalCode: {
-          type: 'string',
-          maxLength: 25,
-          //pattern: '^[V][0-9][ABCEGHJ-NPRSTV-Z][0-9][ABCEGHJ-NPRSTV-Z][0-9]$',
+          $ref: '#/definitions/PostalCodeType',
           description: 'PostalCode of Applicant'
         },
         applicantTelephone: {
