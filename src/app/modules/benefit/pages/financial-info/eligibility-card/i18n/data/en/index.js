@@ -5,7 +5,7 @@ module.exports = {
   spouseAgeOver65: 'Spouse/common-law 65 or older',
   spouseAnnualIncome: 'Spouse\'s annual income',
   childCount: 'Children',
-  disabilityCredit: 'Applicant Disability credit',
+  disabilityCredit: 'Applicant disability credit',
   spouseDisabilityCredit: 'Spouse disability credit',
   childrenDisabilityCredit: 'Child disability credit',
   registeredDSP: 'Registered Disability Savings Plan',
