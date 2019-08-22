@@ -21,12 +21,22 @@ import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 })
 export class EnrolAddressComponent extends BaseComponent {
 
-  // Constants TODO: Figure out whether used in html
-  outsideBCFor30DaysLabel = 'Have you or any family member been outside BC for more than 30 days in total during the past 12 months?';
-  addAnotherOutsideBCPersonButton = 'Add Another Person';
-  sameMailingAddress = 'Use this as my mailing address.';
-  provideDifferentMailingAddress = 'I want to provide a mailing address that is different from the residential address above.';
+  // // LABEL CONSTANTS
+  // contactInfoLabel = 'Contact Information';
+  // contractInfoText = 'Please provide the Account Holder\'s contact information.';
+  // residentialAddressLabel = 'Residential Address';
+  // residentialAddressText = 'Enter your residential address - that\'s the address your currently reside at in B.C.';
+  // sameMailingAddress = 'This is my mailing address.';
+  // mailingAddressLabel = 'Mailing Address';
+  // mailingAddressText = 'Enter your mailing address - if it\'s different';
+  // differentMailingAddress = 'My mailing address is different';
+  // phoneLabel = 'Phone';
+  // phoneText = 'Please provide a phone number so you may be contacted in case of any issues with your application.';
 
+  // // Constants TODO: Figure out whether used in html
+  // outsideBCFor30DaysLabel = 'Have you or any family member been outside BC for more than 30 days in total during the past 12 months?';
+  // addAnotherOutsideBCPersonButton = 'Add Another Person';
+  // provideDifferentMailingAddress = 'I want to provide a mailing address that is different from the residential address above.';
 
   static ProcessStepNum = 4;
 
@@ -90,12 +100,18 @@ export class EnrolAddressComponent extends BaseComponent {
     this.dataService.saveMspApplication();
   }
 
+  // handlePhoneUpdate(evt: any)(){}
+
   canContinue(){
-    return this.isAllValid();
+    // re-write this with proper validations.
+    if (this.mspApplication.mailingSameAsResidentialAddress === false){
+      return true;
+    }
+    return false;
   }
 
   continue() {
-  // console.log('combinedValidationState on address: %s', this.isAllValid());
+  console.log('combinedValidationState on address: %s', );
     if (!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{

@@ -76,7 +76,8 @@ const componentList = [
   // Directives
   KeyboardEventListner,
   MspLoggerDirective,
-  ReviewCardWrapperComponent
+  ReviewCardWrapperComponent,
+  CoreContactInfoComponent
 ];
 
 // TODO: Review to determine whether these should be replace with moh-common-lib
@@ -105,7 +106,7 @@ const templistCore = [
   HealthNumberComponent,
   ReplacewithlinksPipe,
   MspPersonCardComponent,
-  MspContactCardComponent
+  MspContactCardComponent,
 ];
 @NgModule({
   imports: [
@@ -122,7 +123,7 @@ const templistCore = [
     HttpClientModule
   ],
 
-  declarations: [componentList, templistCore, AddressRetroSuppbenComponent, ConfirmationComponent, CoreContactInfoComponent],
+  declarations: [componentList, templistCore, AddressRetroSuppbenComponent, ConfirmationComponent],
 
   exports: [
     componentList,
