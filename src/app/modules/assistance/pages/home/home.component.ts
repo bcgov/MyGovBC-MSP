@@ -67,10 +67,9 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
           Premium Assistance?
         </h2>
         <div class="row">
-          <div class="col-12">
+          <div *ngFor="let option of options; index as i" class="form-check form-check-inline">
             <common-checkbox
-              class="col-2"
-              *ngFor="let option of options; index as i"
+              class="col-12"
               [(ngModel)]="option.apply"
               [checked]="option.apply"
               [label]="option.year"
