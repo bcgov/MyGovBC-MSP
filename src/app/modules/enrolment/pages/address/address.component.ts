@@ -15,6 +15,7 @@ import {
 } from 'moh-common-lib';
 import { MspAddressConstants } from '../../../../models/msp-address.constants';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
+import { CoreContactInfoComponent } from 'app/modules/msp-core/components/core-contact-info/core-contact-info.component';
 
 @Component({
   templateUrl: './address.component.html'
@@ -51,8 +52,9 @@ export class EnrolAddressComponent extends BaseComponent {
   public defaultCountry = CANADA;
   public defaultProvince = BRITISH_COLUMBIA;
 
-
+  private cdr: ChangeDetectorRef;
   mspApplication: MspApplication;
+  private coreContactInfo = new CoreContactInfoComponent(this.cdr);
 
   constructor(private dataService: MspDataService,
               private _router: Router,
@@ -104,10 +106,21 @@ export class EnrolAddressComponent extends BaseComponent {
 
   canContinue(){
     // re-write this with proper validations.
-    if (this.mspApplication.mailingSameAsResidentialAddress === false){
+    console.log('ADDRESS - MAILING SAME AS RESIDENTIAL?:' + this.coreContactInfo.hasSameResidentialAddress());
+    if (this.coreContactInfo.hasSameResidentialAddress()) {
+      // if (!isValidMailingAddress()){
+      //   return false;
+      // }
       return true;
     }
     return false;
+    // if (isValidResidentialAddress()){
+    //   return true;
+    // });
+    // if (this.mspApplication.mailingSameAsResidentialAddress === false){
+    //   return true;
+    // }
+    // return false;
   }
 
   continue() {

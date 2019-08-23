@@ -27,7 +27,6 @@ export class CoreContactInfoComponent extends BaseComponent {
 
   constructor(private cd: ChangeDetectorRef) {
     super(cd);
-    // REmove mspAapplication entirely. Do NOT USE MSPDATASERVICE
   }
 
   ngOnInit() {
@@ -49,7 +48,6 @@ export class CoreContactInfoComponent extends BaseComponent {
   }
 
   toggleMailingSameAsResidentialAddress(evt: boolean){
-    // remove application and replace with emits.
     this.mailingSameAsResidentialAddress = !evt;
     if (evt){
       this.mailingAddress = new Address();
@@ -58,6 +56,13 @@ export class CoreContactInfoComponent extends BaseComponent {
 
   toggleCheckBox(){
     this.mailingSameAsResidentialAddress = !this.mailingSameAsResidentialAddress;
+    // console.log('TOGGLE- MAILING SAME AS RESIDENTIAL?:' + this.mailingSameAsResidentialAddress);
+  }
+
+  hasSameResidentialAddress(){
+    // return this.mailingSameAsResidentialAddress;
+    console.log('CORE - MAILING SAME AS RESIDENTIAL?:' + this.mailingSameAsResidentialAddressChange);
+    return false;
   }
 
 }
