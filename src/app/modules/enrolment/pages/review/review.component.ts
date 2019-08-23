@@ -9,6 +9,7 @@ import { ProcessService } from '../../../../services/process.service';
 import { environment } from '../../../../../environments/environment';
 import { MspLogService } from '../../../../services/log.service';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
+import { PageStateService } from '../../../../services/page-state.service';
 
 @Component({
   templateUrl: './review.component.html'
@@ -28,9 +29,9 @@ export class ReviewComponent implements OnInit {
 
   constructor(private dataService: MspDataService,
               private _router: Router,
-              private processService: ProcessService,
+              private pageStateService: PageStateService,
               private logService: MspLogService) {
-    this.application = this.dataService.getMspApplication();
+    this.application = this.dataService.mspApplication;
     this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
   }
 
@@ -38,7 +39,8 @@ export class ReviewComponent implements OnInit {
     /* let oldUUID = this.application.uuid;
     this.application.regenUUID();
     this.dataService.saveMspApplication();
-    console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);*/
+    console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.mspApplication.uuid);*/
+    this.pageStateService.setPageIncomplete( this._router.url, this.application.pageStatus );
   }
 
   applicantAuthorizeOnChange(event: boolean) {
@@ -82,7 +84,7 @@ export class ReviewComponent implements OnInit {
 
   handleFormSubmission(evt: any) {
     // console.log('review form submitted, %o', evt);
-    this.processService.setStep(5, true);
+    this.pageStateService.setPageComplete( this._router.url, this.application.pageStatus );
     this._router.navigate([ROUTES_ENROL.AUTHORIZE.fullpath]);
     /*if (this.application.hasValidAuthToken){
       console.log('Found valid auth token, transfer to sending screen.');

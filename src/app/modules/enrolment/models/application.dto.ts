@@ -15,4 +15,5 @@ export default class MspApplicationDto {
   authorizedByApplicantDate: Date;
   authorizedBySpouse: boolean;
 
+  pageStatus: any[] = []; // page status - complete/ incomplete
 }

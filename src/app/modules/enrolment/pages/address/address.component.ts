@@ -15,6 +15,7 @@ import {
 } from 'moh-common-lib';
 import { MspAddressConstants } from '../../../../models/msp-address.constants';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
+import { PageStateService } from '../../../../services/page-state.service';
 
 @Component({
   templateUrl: './address.component.html'
@@ -46,17 +47,16 @@ export class EnrolAddressComponent extends BaseComponent {
 
   constructor(private dataService: MspDataService,
               private _router: Router,
-             // private _processService: ProcessService,
+              private pageStateService: PageStateService,
               private cd: ChangeDetectorRef,
-             // private checkCompleteBaseService: CheckCompleteBaseService
+
                ) {
     super(cd);
-    this.mspApplication = this.dataService.getMspApplication();
-    //this.mspApplication.mailingSameAsResidentialAddress = true;
+    this.mspApplication = this.dataService.mspApplication;
+
   }
   ngOnInit(){
-   // this.initProcessMembers(EnrolAddressComponent.ProcessStepNum, this._processService);
-    //this.checkCompleteBaseService.setPageIncomplete();
+    this.pageStateService.setPageIncomplete(this._router.url, this.mspApplication.pageStatus);
   }
 
   ngAfterViewInit(): void {
@@ -99,8 +99,7 @@ export class EnrolAddressComponent extends BaseComponent {
     if (!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{
-     // this._processService.setStep(4, true);
-     // this.checkCompleteBaseService.setPageComplete();
+      this.pageStateService.setPageComplete(this._router.url, this.mspApplication.pageStatus);
       this._router.navigate([ROUTES_ENROL.REVIEW.fullpath]);
     }
   }

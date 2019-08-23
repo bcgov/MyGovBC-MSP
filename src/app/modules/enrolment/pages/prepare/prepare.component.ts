@@ -11,6 +11,7 @@ import { CommonButtonGroupComponent } from '../../../msp-core/components/common-
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { environment } from '../../../../../environments/environment.prod';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
+import { PageStateService } from '../../../../services/page-state.service';
 
 @Component({
   templateUrl: './prepare.component.html'
@@ -39,16 +40,16 @@ export class PrepareComponent extends BaseComponent {
   plannedAwayForOver30DaysQuestion = 'Will you or anyone in your immediate family (included on this application) be away from B.C. for more than 30 days in total over the next six months?';
 
   constructor(public dataService: MspDataService,
-              private _processService: ProcessService,
+              private pageStateService: PageStateService,
               private _router: Router,
               cd: ChangeDetectorRef) {
       super(cd);
-      this.mspApplication = this.dataService.getMspApplication();
+      this.mspApplication = this.dataService.mspApplication;
       this.apt = this.mspApplication.applicant;
   }
 
   ngOnInit(){
-    this.initProcessMembers(PrepareComponent.ProcessStepNum, this._processService);
+    this.pageStateService.setPageIncomplete(this._router.url, this.mspApplication.pageStatus);
   }
 
   ngAfterViewInit() {
@@ -71,7 +72,7 @@ export class PrepareComponent extends BaseComponent {
       console.log('user agreement not accepted yet, show user dialog box.');
       this.mspConsentModal.showFullSizeView();
     } else {
-     // this._processService.setStep(0, true);
+      this.pageStateService.setPageComplete(this._router.url, this.mspApplication.pageStatus);
       this._router.navigate([ROUTES_ENROL.PERSONAL_INFO.fullpath]);
     }
   }
@@ -86,25 +87,25 @@ export class PrepareComponent extends BaseComponent {
   }
 
   get unUsualCircumstance() {
-    return this.dataService.getMspApplication().unUsualCircumstance;
+    return this.dataService.mspApplication.unUsualCircumstance;
   }
 
   setLiveInBC(live: any) {
     console.log(live);
 
-    this.dataService.getMspApplication().applicant.liveInBC = live;
+    this.dataService.mspApplication.applicant.liveInBC = live;
     this.apt.liveInBC = live;
     this.dataService.saveMspApplication();
   }
 
   setPlannedAbsence(live: any) {
-    this.dataService.getMspApplication().applicant.plannedAbsence = live;
+    this.dataService.mspApplication.applicant.plannedAbsence = live;
     this.apt.plannedAbsence = live;
     this.dataService.saveMspApplication();
   }
 
   setUnusualCircumstance(live: any) {
-    this.dataService.getMspApplication().unUsualCircumstance = live;
+    this.dataService.mspApplication.unUsualCircumstance = live;
     this.dataService.saveMspApplication();
   }
 
@@ -117,7 +118,7 @@ export class PrepareComponent extends BaseComponent {
   }
 
   isValid(): boolean {
-    const app = this.dataService.getMspApplication();
+    const app = this.dataService.mspApplication;
     return app.applicant.plannedAbsence === false
       && app.applicant.liveInBC === true
       && app.unUsualCircumstance === false;

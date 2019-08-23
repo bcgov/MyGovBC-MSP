@@ -14,6 +14,7 @@ import {ProcessService} from '../../../../services/process.service';
 import { StatusInCanada} from '../../../../models/status-activities-documents';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
+import { PageStateService } from '../../../../services/page-state.service';
 
 @Component({
   templateUrl: './personal-info.component.html'
@@ -35,17 +36,14 @@ export class PersonalInfoComponent extends BaseComponent {
   constructor(
     private dataService: MspDataService,
     private _router: Router,
-    private _processService: ProcessService,
+    private pageStateService: PageStateService,
     private cd: ChangeDetectorRef
   ) {
     super(cd);
   }
 
   ngOnInit() {
-    this.initProcessMembers(
-      PersonalInfoComponent.ProcessStepNum,
-      this._processService
-    );
+    this.pageStateService.setPageIncomplete(this._router.url, this.dataService.mspApplication.pageStatus);
   }
 
   onChange(values: any) {
@@ -53,43 +51,43 @@ export class PersonalInfoComponent extends BaseComponent {
   }
 
   get application(): MspApplication {
-    return this.dataService.getMspApplication();
+    return this.dataService.mspApplication;
   }
   get applicant(): MspPerson {
-    return this.dataService.getMspApplication().applicant;
+    return this.dataService.mspApplication.applicant;
   }
 
   get spouse(): MspPerson {
-    return this.dataService.getMspApplication().spouse;
+    return this.dataService.mspApplication.spouse;
   }
 
   addSpouse = () => {
     const sp: MspPerson = new MspPerson(Relationship.Spouse);
-    this.dataService.getMspApplication().addSpouse(sp);
+    this.dataService.mspApplication.addSpouse(sp);
   }
 
   addChild(relationship: Relationship): void {
-    this.dataService.getMspApplication().addChild(relationship);
+    this.dataService.mspApplication.addChild(relationship);
   }
 
   get children(): MspPerson[] {
-    return this.dataService.getMspApplication().children;
+    return this.dataService.mspApplication.children;
   }
 
   removeChild(event: Object, idx: number): void {
     // console.log('remove child ' + JSON.stringify(event));
-    this.dataService.getMspApplication().removeChild(idx);
+    this.dataService.mspApplication.removeChild(idx);
     this.dataService.saveMspApplication();
   }
 
   removeSpouse(event: Object): void {
     // console.log('remove spouse ' + JSON.stringify(event));
-    this.dataService.getMspApplication().removeSpouse();
+    this.dataService.mspApplication.removeSpouse();
     this.dataService.saveMspApplication();
   }
 
   documentsReady(): boolean {
-    return this.dataService.getMspApplication().documentsReady;
+    return this.dataService.mspApplication.documentsReady;
   }
 
   // fix for DEF-90
@@ -110,7 +108,6 @@ export class PersonalInfoComponent extends BaseComponent {
               currentApplicant.fullTimeStudent &&
               currentApplicant.inBCafterStudies === false
             ) {
-              this._processService.setStep(1, false);
               stayingInBc = false;
             }
           }
@@ -125,14 +122,14 @@ export class PersonalInfoComponent extends BaseComponent {
   }
 
   isValid(): boolean {
-    return this.dataService.getMspApplication().isUniquePhns;
+    return this.dataService.mspApplication.isUniquePhns;
   }
 
   checkAnyDependentsIneligible(): boolean {
     const target = [
-      this.dataService.getMspApplication().applicant,
-      this.dataService.getMspApplication().spouse,
-      ...this.dataService.getMspApplication().children
+      this.dataService.mspApplication.applicant,
+      this.dataService.mspApplication.spouse,
+      ...this.dataService.mspApplication.children
     ];
     return target.filter(x => x).filter(x => x.ineligibleForMSP).length >= 1;
   }
@@ -146,6 +143,7 @@ export class PersonalInfoComponent extends BaseComponent {
     if (!this.isAllValid()) {
       console.log('Please fill in all required fields on the form.');
     }else{
+      this.pageStateService.setPageComplete(this._router.url, this.dataService.mspApplication.pageStatus);
       this._router.navigate([ROUTES_ENROL.PERSONAL_INFO.fullpath]);
     }
   }
