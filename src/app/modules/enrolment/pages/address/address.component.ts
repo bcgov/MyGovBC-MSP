@@ -15,11 +15,8 @@ import {
 } from 'moh-common-lib';
 import { MspAddressConstants } from '../../../../models/msp-address.constants';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
-<<<<<<< HEAD
 import { PageStateService } from '../../../../services/page-state.service';
-=======
 import { CoreContactInfoComponent } from 'app/modules/msp-core/components/core-contact-info/core-contact-info.component';
->>>>>>> cyril-bug-fix
 
 @Component({
   templateUrl: './address.component.html'
