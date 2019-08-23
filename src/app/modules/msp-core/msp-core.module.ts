@@ -54,6 +54,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 import { PersonalDetailsRetroSuppbenComponent } from './components/personal-details-retro-suppben/personal-details-retro-suppben.component';
 import { AddressRetroSuppbenComponent } from './components/address-retro-suppben/address-retro-suppben.component';
+import { CoreContactInfoComponent } from './components/core-contact-info/core-contact-info.component';
 
 const componentList = [
   MspFullNameComponent,
@@ -75,7 +76,8 @@ const componentList = [
   // Directives
   KeyboardEventListner,
   MspLoggerDirective,
-  ReviewCardWrapperComponent
+  ReviewCardWrapperComponent,
+  CoreContactInfoComponent
 ];
 
 // TODO: Review to determine whether these should be replace with moh-common-lib
@@ -104,7 +106,7 @@ const templistCore = [
   HealthNumberComponent,
   ReplacewithlinksPipe,
   MspPersonCardComponent,
-  MspContactCardComponent
+  MspContactCardComponent,
 ];
 @NgModule({
   imports: [

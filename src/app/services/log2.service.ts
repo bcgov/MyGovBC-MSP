@@ -24,7 +24,7 @@ export class MspLog2Service extends AbstractHttpService {
      */
     protected _headers: HttpHeaders = new HttpHeaders({
         applicationId: this.getApplicationId(),
-        referenceNumber: this.dataService.getMspApplication().referenceNumber ||
+        referenceNumber: this.dataService.mspApplication.referenceNumber ||
             this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber || 'n/a',
         logsource: window.location.hostname,
         http_x_forwarded_host: window.location.hostname,
@@ -159,7 +159,7 @@ export class MspLog2Service extends AbstractHttpService {
     getApplicationId(): string {
         console.log(this.router.url);
         if (this.router.url.indexOf('/application/') !== -1){
-            return  this.dataService.getMspApplication().uuid;
+            return  this.dataService.mspApplication.uuid;
         }
         if (this.router.url.indexOf('/assistance/') !== -1){
             return  this.dataService.finAssistApp.uuid ;

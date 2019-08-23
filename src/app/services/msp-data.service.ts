@@ -72,7 +72,7 @@ export class MspDataService {
     this.localStorageService.remove(this.mspProgressBarKey);
   }
 
-  getMspApplication(): MspApplication {
+  get mspApplication(): MspApplication {
     return this._mspApplication;
   }
 
@@ -646,6 +646,8 @@ export class MspDataService {
 
     dto.outsideBCFor30Days = input.outsideBCFor30Days;
 
+    dto.pageStatus = input.pageStatus; // page status complete/ incomplete
+
     return dto;
   }
 
@@ -830,6 +832,8 @@ export class MspDataService {
     }
 
     output.outsideBCFor30Days = dto.outsideBCFor30Days;
+
+    output.pageStatus = dto.pageStatus; // page status complete/ incomplete
 
     return output;
   }
