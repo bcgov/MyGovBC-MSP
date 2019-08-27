@@ -22,9 +22,9 @@ export class EnrolContainerComponent extends Container implements OnInit {
     super();
 
     // Set service name for application
-    this.header.setTitle('Apply For MSP');
+    this.header.setTitle('Apply For Medical Services Plan');
     this.setProgressSteps( enrolPages );
-    this.dataService.mspApplication.pageStatus = 
+    this.dataService.mspApplication.pageStatus =
       this.pageStateService.setPages( enrolPages,
                                       ROUTES_ENROL,
                                       this.dataService.mspApplication.pageStatus );

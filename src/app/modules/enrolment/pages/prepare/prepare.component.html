@@ -7,14 +7,10 @@
 
 <common-page-framework layout="blank">
 
-    <h1>See if you qualify for public health care in B.C.</h1>
+    <h1>Apply for Medical Services Plan</h1>
 
     <p class="pb-2 border-bottom">  
-        If you already have Medical Services Plan (MSP) coverage and received a letter notifying you to renew 
-        your BC Services Card, you do not have to submit a new Application for MSP Enrolment; you only need to 
-        renew your BC Services Card. Follow the instructions on the letter to renew your card.
-    </p>
-
+        If you already have Medical Services Plan (MSP) coverage and received a letter notifying you to renew your BC Services Card, you do not have to submit a new Application for MSP Enrolment; you only need to renew your BC Services Card. Follow the instructions on the letter to renew your card.</p>
     <common-page-section layout='noTips'>
         <form #formRef='ngForm' novalidate>
 
@@ -87,5 +83,6 @@
 
 <common-form-action-bar [canContinue]="canContinue()"
                         (btnClick)="goToPersonalInfo()"
-                        widthOption='extra-width-mobile-only'>
+                        widthOption='extra-width-mobile-only'
+                        submitLabel='Apply'>
 </common-form-action-bar>
