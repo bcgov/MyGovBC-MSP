@@ -42,7 +42,7 @@ export class BenefitApplication implements ApplicationBase {
   hasRegisteredDisabilityPlan: boolean;
   haveChildrens: boolean;
   hasSpouse: boolean;
-  childClaimForAttendantCareExpenseCount: number = 1;
+  childClaimForAttendantCareExpenseCount: number ; //= 1;
 
   applicantDisabilityCredit: number;
   spouseDisabilityCredit: number;
@@ -163,7 +163,10 @@ export class BenefitApplication implements ApplicationBase {
   private eligibleForDisabilityCredit: boolean;
   private spouseOrCommonLawEligibleForDisabilityCredit: boolean;
 
-  childWithDisabilityCount: number = 0;
+  childWithDisabilityCount: number;
+
+  childDisablityCount: number;
+  childAttendantCareCount: number;
 
   _authorizedByApplicant: boolean;
   _authorizedBySpouse: boolean;
@@ -237,6 +240,7 @@ export class BenefitApplication implements ApplicationBase {
     temp = temp.trim();
     return temp.length < 1;
   }
+
   get childrenCount(): number {
     if (!this._childrenCount) {
       return null;
@@ -248,6 +252,42 @@ export class BenefitApplication implements ApplicationBase {
       return n;
     }
   }
+
+
+/// ***** My child getter and setter ******************************************
+  get numberOfChildrenWithDisability(): number {
+    if (!this.childWithDisabilityCount) {
+      return null;
+    } else {
+      const n =
+        !!this.childWithDisabilityCount
+          ? this.childWithDisabilityCount
+          : 0;
+      return n;
+    }
+  }
+
+  set numberOfChildrenWithDisability(n: number) {
+    this.childWithDisabilityCount = n;
+  }
+
+  get childWithAttendantCareCount(): number {
+    if (!this.childClaimForAttendantCareExpenseCount) {
+      return null;
+    } else {
+      const n =
+        !!this.childClaimForAttendantCareExpenseCount 
+          ? this.childClaimForAttendantCareExpenseCount
+          : 0;
+      return n;
+    }
+  }
+
+  set childWithAttendantCareCount(n: number) {
+    this.childClaimForAttendantCareExpenseCount = n;
+  }
+
+ /// ***********************************************
 
   childrenCountArray(): Array<number> {
     const arr: number[] = new Array(this.childrenCount);

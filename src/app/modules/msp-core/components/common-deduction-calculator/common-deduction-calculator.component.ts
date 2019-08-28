@@ -242,7 +242,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
               return false;
             }
         }
-
+        
         const spouseDisabilityCreditAmt = this.application.spouseDSPAmount_line125 && this.application.spouseDSPAmount_line125.toString().match(patt);
 
         if (this.application.hasRegisteredDisabilityPlan) {
@@ -253,6 +253,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
         }
 
         // Expense child care
+        
         const childCareExpenseAmt = this.application.claimedChildCareExpense_line214 && this.application.claimedChildCareExpense_line214.toString().match(patt);
         
         if (this.application.haveChildrens) {
@@ -261,6 +262,34 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
             return false;
           }
         }
+
+        // regex pattern check for the child count 
+        const childCountPattern = /^[0-9]{0,2}$/g;
+        if (this.application.childClaimForAttendantCareExpense) {
+          const childCountcheck = this.application.childWithAttendantCareCount && this.application.childWithAttendantCareCount.toString().match(childCountPattern);
+          if (!childCountcheck) {
+              this.continue.emit(false);
+              return false;
+          }
+        }
+
+        if (this.application.childClaimForDisabilityCredit) {
+          const childCountcheck = this.application.numberOfChildrenWithDisability && this.application.numberOfChildrenWithDisability.toString().match(childCountPattern);
+          if (!childCountcheck) {
+              this.continue.emit(false);
+              return false;
+          }
+        }
+
+        if( this.application.haveChildrens) {
+          const childCountcheck = this.application.childrenCount && this.application.childrenCount.toString().match(childCountPattern);
+          if (!childCountcheck) {
+            this.continue.emit(false);
+            return false;
+          }
+        }
+        
+        // Regex pattern check for the child count 
 
 
         /* console.log('Abhi DSP amount --> '+spouseDisabilityCreditAmt);

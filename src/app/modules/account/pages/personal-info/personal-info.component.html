@@ -1,3 +1,4 @@
+<common-page-framework layout="blank">
 <form #formRef="ngForm" novalidate>
     <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
     <msp-account-personal-details [person]='applicant' [id]='applicant.id' [addressRequired]="true"
@@ -75,3 +76,4 @@
     [canContinue]="!hasAnyInvalidStatus()" (btnClick)="continue()">
     </common-form-action-bar>
 </div>
+</common-page-framework>
