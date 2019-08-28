@@ -6,7 +6,7 @@ import {ProcessService, ProcessUrls} from '../../../../services/process.service'
 import {MspDataService} from '../../../../services/msp-data.service';
 import {AccountPersonalDetailsComponent} from './personal-details/personal-details.component';
 import { MspPerson } from '../../models/account.model';
-import { Relationship } from '../../../../models/status-activities-documents';
+import { Relationship } from '../../../msp-core/models/status-activities-documents';
 
 
 @Component({
@@ -105,7 +105,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
         }else{
            // console.log('redirecting to' + this._processService.getNextStep( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL)));
            // this._router.navigate([this._processService.getNextStep( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL))]);
-        
+
            this._router.navigate([ProcessUrls.ACCOUNT_PERSONAL_INFO_URL]);
         }
     }

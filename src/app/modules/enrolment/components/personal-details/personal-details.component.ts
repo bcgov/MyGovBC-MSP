@@ -19,8 +19,10 @@ import {
   Activities,
   DocumentRules,
   Documents,
-  Relationship
-} from '../../../../models/status-activities-documents';
+  Relationship,
+  LangStatus,
+  LangActivities
+} from '../../../msp-core/models/status-activities-documents';
 import { MspImage } from '../../../../models/msp-image';
 import * as _ from 'lodash';
 
@@ -44,8 +46,6 @@ import { MspImageErrorModalComponent } from '../../../msp-core/components/image-
 import { MspBirthDateComponent } from '../../../msp-core/components/birthdate/birthdate.component';
 import { MspAddressComponent } from '../../../msp-core/components/address/address.component';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
-import { LegalStatus, StatusActivites } from '../../../../models/msp.contants';
-
 @Component({
   selector: 'msp-personal-details',
   templateUrl: './personal-details.component.html',
@@ -103,7 +103,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   langDocuments = MspDocumentConstants.documentList;
 
   lang = require('./i18n');
-  langActivities = StatusActivites;
+  langActivities = LangActivities;
 
 
   // Expose some types to template
@@ -162,7 +162,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   @Input() statusLabel: string = 'Your immigration status in Canada';
 
 
-  statusOpts: string[] = Object.keys(LegalStatus).map( x  => LegalStatus[x] );
+  statusOpts: string[] = Object.keys(LangStatus).map( x  => LangStatus[x] );
 
   selectedOpt; // Temporary
   // END -- NEW CODE FOR PAGE

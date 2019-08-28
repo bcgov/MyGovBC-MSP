@@ -1,4 +1,4 @@
-import {Documents} from '../../../../models/status-activities-documents';
+import {Documents} from '../../models/status-activities-documents';
 export class IdRequirementContent {
   residency: string;
 

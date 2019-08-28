@@ -15,7 +15,7 @@ import { AssistanceApplicationType, FinancialAssistApplication } from '../module
 import { MspImage } from '../models/msp-image';
 import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../components/msp/model/msp-person.model';
 import { SimpleDate, Address } from 'moh-common-lib';
-import { Activities, Relationship, StatusInCanada } from '../models/status-activities-documents';
+import { Activities, Relationship, StatusInCanada } from '../modules/msp-core/models/status-activities-documents';
 import { MspLogService } from './log.service';
 import { MspMaintenanceService } from './msp-maintenance.service';
 import { Response } from '@angular/http';

@@ -12,8 +12,7 @@ import {MspIdReqModalComponent} from '../../../../modules/msp-core/components/id
 import { MspAccountApp } from '../../models/account.model';
 import { DocumentGroup, LangAccountDocuments } from '../../../../models/account-documents';
 import { AccountDocumentHelperService } from '../../../benefit/services/account-document-helper.service';
-import { Documents, CancellationReasonsForSpouse } from '../../../../models/status-activities-documents';
-import { LegalStatus, StatusActivites } from '../../../../models/msp.contants';
+import { Documents, CancellationReasonsForSpouse, LangStatus, LangActivities } from '../../../msp-core/models/status-activities-documents';
 
 @Component({
     templateUrl: './documents.component.html'
@@ -28,8 +27,8 @@ export class AccountDocumentsComponent extends BaseComponent {
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
     @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
 
-    langStatus = LegalStatus;
-    langActivities = StatusActivites
+    langStatus = LangStatus;
+    langActivities = LangActivities;
     documentsList: DocumentGroup[] ;
 
     langAccountDocuments = LangAccountDocuments;

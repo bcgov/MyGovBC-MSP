@@ -4,7 +4,7 @@ import {BaseComponent} from '../../../../models/base.component';
 import { Router } from '@angular/router';
 import {MspApplication, MspPerson} from '../../models/application.model';
 import { MspDataService } from '../../../../services/msp-data.service';
-import {Relationship} from '../../../../models/status-activities-documents';
+import {Relationship} from '../../../msp-core/models/status-activities-documents';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 
 @Component({

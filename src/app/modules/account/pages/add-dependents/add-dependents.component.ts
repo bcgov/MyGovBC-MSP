@@ -10,7 +10,7 @@ import {
     QueryList
 } from '@angular/core';
 import {MspPerson} from '../../../../components/msp/model/msp-person.model';
-import {Relationship, StatusInCanada} from '../../../../models/status-activities-documents';
+import {Relationship, StatusInCanada} from '../../../msp-core/models/status-activities-documents';
 import {BaseComponent} from '../../../../models/base.component';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {Router} from '@angular/router';

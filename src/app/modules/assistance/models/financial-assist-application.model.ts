@@ -1,5 +1,5 @@
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
-import { Relationship } from '../../../models/status-activities-documents';
+import { Relationship } from '../../msp-core/models/status-activities-documents';
 import { Eligibility } from './eligibility.model';
 import { UUID } from 'angular2-uuid';
 import { MspImage } from '../../../models/msp-image';

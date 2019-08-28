@@ -1,6 +1,6 @@
 import {IPerson} from './msp-person.interface';
 
-import {Relationship, StatusInCanada, Activities} from '../../../models/status-activities-documents';
+import {Relationship, StatusInCanada, Activities} from '../../../modules/msp-core/models/status-activities-documents';
 import {PersonDocuments} from './person-document.model';
 import {OutofBCRecord} from '../../../models/outof-bc-record.model';
 import * as moment from 'moment';

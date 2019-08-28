@@ -7,7 +7,7 @@ import { PhoneNumber } from '../../../components/msp/model/phone.model';
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
 import { AssistanceYear } from '../../assistance/models/assistance-year.model';
 import { AssistanceApplicationType } from '../../assistance/models/financial-assist-application.model';
-import { Relationship } from '../../../models/status-activities-documents';
+import { Relationship } from '../../msp-core/models/status-activities-documents';
 import { Eligibility } from '../../assistance/models/eligibility.model';
 import { ISpaEnvResponse } from '../../../components/msp/model/spa-env-response.interface';
 
@@ -202,11 +202,11 @@ export class BenefitApplication implements ApplicationBase {
   get authorizedByApplicant(): boolean {
     return this._authorizedByApplicant;
   }
-  
+
   get authorizedBySpouse(): boolean {
     return this._authorizedBySpouse;
   }
-  
+
   get authorizedByAttorney(): boolean {
     return this._authorizedByAttorney;
   }
@@ -306,7 +306,7 @@ export class BenefitApplication implements ApplicationBase {
   }
   get spouseDSPAmount_line125(): number {
     return this._spouseDSPAmount_line125 === null ? null : this._spouseDSPAmount_line125;
-   
+
     /*if (
       !!this._spouseDSPAmount_line125 &&
       !isNaN(this._spouseDSPAmount_line125)

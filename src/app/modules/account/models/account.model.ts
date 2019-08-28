@@ -2,7 +2,7 @@ import {UUID} from 'angular2-uuid';
 import {ApplicationBase} from '../../enrolment/models/application-base.model';
 import {MspImage} from '../../../models/msp-image';
 import {MspPerson, OperationActionType} from '../../../components/msp/model/msp-person.model';
-import {Relationship, StatusInCanada} from '../../../models/status-activities-documents';
+import {Relationship, StatusInCanada} from '../../msp-core/models/status-activities-documents';
 import {PhoneNumber} from '../../../components/msp/model/phone.model';
 
 

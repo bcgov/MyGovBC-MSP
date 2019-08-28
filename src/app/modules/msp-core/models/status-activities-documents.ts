@@ -1,7 +1,7 @@
 /**
  * Various relationships
  */
-enum Relationship {
+export enum Relationship {
   Applicant,
   Spouse,
   ChildUnder19,
@@ -14,16 +14,22 @@ enum Relationship {
 /**
  * Various statuses in Canada
  */
-enum StatusInCanada {
+export enum StatusInCanada {
   CitizenAdult, // adult
   PermanentResident,
   TemporaryResident,
 }
 
+export const LangStatus = {
+  CitizenAdult: 'Canadian citizen',
+  PermanentResident: 'Permanent resident',
+  TemporaryResident: 'Temporary permit holder or diplomat'
+};
+
 /**
  * Whose MSP Enrollement for ACL
  */
-enum MSPEnrollementMember {
+export enum MSPEnrollementMember {
   MyselfOnly, // adult
   AllMembers,
   SpecificMember
@@ -34,7 +40,7 @@ enum MSPEnrollementMember {
 /**
  * Reasons for returning to Canada
  */
-enum Activities {
+export enum Activities {
   LivingInBCWithoutMSP,
   MovingFromProvince,
   MovingFromCountry,
@@ -45,10 +51,21 @@ enum Activities {
   Visiting
 }
 
+export const LangActivities = {
+  LivingInBCWithoutMSP: 'Not new to B.C. but need to apply for MSP',
+  MovingFromProvince: 'Moved to B.C. from another province',
+  MovingFromCountry: 'Moved to B.C. from another country',
+  WorkingInBC: 'Working in B.C.',
+  StudyingInBC: 'Studying in B.C.',
+  ReligiousWorker: 'Religious worker',
+  Diplomat: 'Diplomat',
+  Visiting: 'Visiting'
+};
+
 /**
  * ID documents
  */
-enum Documents {
+export enum Documents {
   CanadianBirthCertificate,
   CanadianPassport,
   CanadianCitizenCard,
@@ -62,7 +79,7 @@ enum Documents {
   ChangeOfNameCertificate
 }
 
-enum CancellationReasons {
+export enum CancellationReasons {
   NoLongerInFullTimeStudies,
   Deceased,
   OutOfProvinceOrCountry,
@@ -70,7 +87,7 @@ enum CancellationReasons {
   Incarcerated
 }
 
-enum CancellationReasonsForSpouse {
+export enum CancellationReasonsForSpouse {
    SeparatedDivorced,
    RemoveFromAccountButStillMarriedOrCommomLaw,
    Deceased,
@@ -82,7 +99,7 @@ enum CancellationReasonsForSpouse {
 /**
  * Business rules for status
  */
-class StatusRules {
+export class StatusRules {
   static availableStatus(relationship: Relationship): StatusInCanada[] {
     switch (relationship) {
       default:
@@ -93,7 +110,7 @@ class StatusRules {
   }
 }
 
-class EnrollmentStatusRules {
+export class EnrollmentStatusRules {
   static availableStatus(): MSPEnrollementMember[] {
         return [MSPEnrollementMember.MyselfOnly,
             MSPEnrollementMember.AllMembers,
@@ -104,7 +121,7 @@ class EnrollmentStatusRules {
 /**
  * Business rules for activities
  */
-class ActivitiesRules {
+export class ActivitiesRules {
   static availableActivities(relationship: Relationship, status: StatusInCanada): Activities[] {
     switch (status) {
       case StatusInCanada.CitizenAdult:
@@ -130,7 +147,7 @@ class ActivitiesRules {
 /**
  * Business rules for documents
  */
-class DocumentRules {
+export class DocumentRules {
   static availiableDocuments(status: StatusInCanada, activity: Activities): Documents[] {
     switch (status) {
       case StatusInCanada.CitizenAdult:
@@ -156,5 +173,3 @@ class DocumentRules {
     return [Documents.MarriageCertificate, Documents.ChangeOfNameCertificate];
   }
 }
-
-export {MSPEnrollementMember, EnrollmentStatusRules, Relationship, Activities, StatusInCanada, Documents, ActivitiesRules, StatusRules, DocumentRules, CancellationReasons , CancellationReasonsForSpouse};

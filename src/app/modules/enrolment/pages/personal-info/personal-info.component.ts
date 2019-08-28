@@ -6,12 +6,12 @@ import {MspApplication, MspPerson} from '../../models/application.model';
 import { MspDataService } from '../../../../services/msp-data.service';
 
 import { Router } from '@angular/router';
-import {Relationship} from '../../../../models/status-activities-documents';
+import {Relationship} from '../../../msp-core/models/status-activities-documents';
 import {NgForm} from '@angular/forms';
 import {PersonalDetailsComponent} from '../../components/personal-details/personal-details.component';
 import {BaseComponent} from '../../../../models/base.component';
 import {ProcessService} from '../../../../services/process.service';
-import { StatusInCanada} from '../../../../models/status-activities-documents';
+import { StatusInCanada} from '../../../msp-core/models/status-activities-documents';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
