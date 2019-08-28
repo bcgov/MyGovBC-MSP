@@ -87,7 +87,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     }
 
     get disabilityCreditAmt(): number {
-        const amt = !!this.application.selfDisabilityCredit ? 3000 : 0;
+        const amt = !!this.application.applicantEligibleForDisabilityCredit ? 3000 : 0;
         this.application.applicantDisabilityCredit = amt;
         return amt;
     }
@@ -264,7 +264,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
         }
 
         // regex pattern check for the child count 
-        const childCountPattern = /^[0-9]{0,2}$/g;
+        const childCountPattern = /^[1-9]{0,2}$/g;
         if (this.application.childClaimForAttendantCareExpense) {
           const childCountcheck = this.application.childWithAttendantCareCount && this.application.childWithAttendantCareCount.toString().match(childCountPattern);
           if (!childCountcheck) {
@@ -288,7 +288,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
             return false;
           }
         }
-        
+
         // Regex pattern check for the child count 
 
 

@@ -242,7 +242,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             this.continue = false;
             return false ;
         }
-       
+
 
 
         if (this.benefitApp.attendantCareExpenseReceipts.length === 0 && (this.benefitApp.applicantClaimForAttendantCareExpense || this.benefitApp.spouseClaimForAttendantCareExpense || this.benefitApp.hasClaimedAttendantCareExpenses === true )) {
@@ -250,7 +250,12 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             return false;
         }
 
-        
+
+        if(this.benefitApp.selfDisabilityCredit && !( this.benefitApp.applicantEligibleForDisabilityCredit || this.benefitApp.spouseEligibleForDisabilityCredit || this.benefitApp.childClaimForDisabilityCredit)) {
+            this.continue = false;
+            return false;
+        }
+
        /* if(this.benefitApp.childClaimForAttendantCareExpense && this.benefitApp.childWithAttendantCareCount) {
             console.log(this.benefitApp.childWithAttendantCareCount.toString().match(patt));
             if ( this.benefitApp.childWithAttendantCareCount.toString().match(patt)) {
@@ -656,6 +661,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             this.dataService.benefitApp.applicantEligibleForDisabilityCredit = false;
             this.benefitApp.spouseEligibleForDisabilityCredit = false;
             this.benefitApp.childClaimForDisabilityCredit = false;
+            this.benefitApp.childWithDisabilityCount = 0;
         }
         this.benefitApp.selfDisabilityCredit = evt;
         this.dataService.saveBenefitApplication();
