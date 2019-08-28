@@ -4,7 +4,6 @@ import { MspFullNameComponent } from './components/full-name/full-name.component
 import { SharedCoreModule } from 'moh-common-lib';
 import { CaptchaModule } from 'moh-common-lib/captcha';
 import { FormsModule } from '@angular/forms';
-import { CitizenStatusComponent } from './components/citizen-status/citizen-status.component';
 import { ServicesCardDisclaimerModalComponent } from './components/services-card-disclaimer/services-card-disclaimer.component';
 import { MspStatusInCanadaRadioComponent } from './components/status-in-canada-radio/status-in-canada-radio.component';
 import { TextMaskModule } from 'angular2-text-mask';
@@ -58,7 +57,6 @@ import { CoreContactInfoComponent } from './components/core-contact-info/core-co
 
 const componentList = [
   MspFullNameComponent,
-  CitizenStatusComponent,
   ServicesCardDisclaimerModalComponent,
   MspStatusInCanadaRadioComponent,
   MspIdReqModalComponent,

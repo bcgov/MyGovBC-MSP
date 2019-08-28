@@ -5,7 +5,6 @@ import {Router} from '@angular/router';
 import {BaseComponent} from '../../../../models/base.component';
 import {LocalStorageService} from 'angular-2-local-storage';
 
-import {ProcessService, ProcessUrls} from '../../../../services/process.service';
 import {MspImage} from '../../../../models/msp-image';
 //import {FileUploaderComponent} from 'moh-common-lib/lib/components';
 import {MspImageErrorModalComponent} from '../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';
@@ -14,6 +13,7 @@ import { MspAccountApp } from '../../models/account.model';
 import { DocumentGroup, LangAccountDocuments } from '../../../../models/account-documents';
 import { AccountDocumentHelperService } from '../../../benefit/services/account-document-helper.service';
 import { Documents, CancellationReasonsForSpouse } from '../../../../models/status-activities-documents';
+import { LegalStatus, StatusActivites } from '../../../../models/msp.contants';
 
 @Component({
     templateUrl: './documents.component.html'
@@ -28,8 +28,8 @@ export class AccountDocumentsComponent extends BaseComponent {
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
     @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
 
-    langStatus = require('../../../../components/msp/common/status/i18n');
-    langActivities = require('../../../../components/msp/common/activities/i18n');
+    langStatus = LegalStatus;
+    langActivities = StatusActivites
     documentsList: DocumentGroup[] ;
 
     langAccountDocuments = LangAccountDocuments;

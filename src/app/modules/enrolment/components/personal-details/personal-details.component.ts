@@ -8,14 +8,12 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { state, trigger, style } from '@angular/animations';
-import { NgForm } from '@angular/forms';
 import {
   MspPerson,
   Gender
 } from '../../../../components/msp/model/msp-person.model';
 import { OutofBCRecord } from '../../../../models/outof-bc-record.model';
 import {
-  StatusRules,
   ActivitiesRules,
   StatusInCanada,
   Activities,
@@ -41,12 +39,12 @@ import {
   BRITISH_COLUMBIA} from 'moh-common-lib';
 import { MspAddressConstants } from '../../../../models/msp-address.constants';
 import { MspDocumentConstants } from '../../../../models/msp-document.constants';
-import { legalStatus } from '../../../../models/msp.contants';
 import { MspIdReqModalComponent } from '../../../msp-core/components/id-req-modal/id-req-modal.component';
 import { MspImageErrorModalComponent } from '../../../msp-core/components/image-error-modal/image-error-modal.component';
 import { MspBirthDateComponent } from '../../../msp-core/components/birthdate/birthdate.component';
 import { MspAddressComponent } from '../../../msp-core/components/address/address.component';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
+import { LegalStatus, StatusActivites } from '../../../../models/msp.contants';
 
 @Component({
   selector: 'msp-personal-details',
@@ -103,14 +101,10 @@ export class PersonalDetailsComponent extends BaseComponent {
   ];
 
   langDocuments = MspDocumentConstants.documentList;
-  langStatus = legalStatus;
 
   lang = require('./i18n');
-  langActivities = require('../../../../components/msp/common/activities/i18n');
-  genderLabels = [
-    { label: 'Female', value: 'Female' },
-    { label: 'Male', value: 'Male' }
-  ];
+  langActivities = StatusActivites;
+
 
   // Expose some types to template
   Activities: typeof Activities = Activities;
@@ -119,8 +113,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   Gender: typeof Gender = Gender;
 
   public styleClass = 'control-label';
-  @ViewChild('formRef') form: NgForm;
-  //@ViewChild('fileUploader') fileUploader: FileUploaderComponent;
+
   @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
   @ViewChild('imageErrorModal') imageErrorModal: MspImageErrorModalComponent;
   @ViewChild('outOfBCRecord') outOfBCRecord: MspOutofBCRecordComponent;
@@ -129,7 +122,6 @@ export class PersonalDetailsComponent extends BaseComponent {
   @ViewChild('arrivalDateBC') arrivalDateBC: MspArrivalDateComponent;
   @ViewChild('arrivalDateCanada') arrivalDateCanada: MspArrivalDateComponent;
   @ViewChild('healthNumber') healthNumber: HealthNumberComponent;
-  // @ViewChild('phn') phn: PhnComponent;
   @ViewChild('armedForcedQuestion') armedForcedQuestion: HTMLElement;
   @ViewChild('dischargeDate') dischargeDate: MspDischargeDateComponent;
   @ViewChild('schoolQuestion') schoolQuestion: HTMLElement;
@@ -150,6 +142,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   >();
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 
+
   shrinkOut: string;
   shrinkOutStatus: string;
   genderListSignal: string;
@@ -159,22 +152,34 @@ export class PersonalDetailsComponent extends BaseComponent {
   /** Hides the 'Clear Spouse/Child' button, and the <hr> at the end of the component. Useful in layouts where this form must be embedded in a larger form.. */
   @Input() embedded: boolean = false;
 
+
+
+
+
+  // START -- NEW CODE FOR PAGE
+  @Input() sectionTitle: string = 'Status in Canada';
+  @Input() sectionInstruct: string = 'Please provide your immigration status information. You will be required to upload documents to support your status in Canada.';
+  @Input() statusLabel: string = 'Your immigration status in Canada';
+
+
+  statusOpts: string[] = Object.keys(LegalStatus).map( x  => LegalStatus[x] );
+
+  selectedOpt; // Temporary
+  // END -- NEW CODE FOR PAGE
+
   constructor(private el: ElementRef, private cd: ChangeDetectorRef) {
     super(cd);
   }
 
-  statusLabel(): string {
-    return this.lang('./en/index.js').statusLabel[this.person.relationship];
-  }
 
   institutionList: string[] = ['Yes', 'No'];
 
   /**
    * Gets status available to the current person
    */
-  get statusInCanada(): StatusInCanada[] {
+ /* get statusInCanada(): StatusInCanada[] {
     return StatusRules.availableStatus(this.person.relationship);
-  }
+  }*/
 
   setStatus(value: StatusInCanada, p: MspPerson) {
     if (typeof value === 'object') return;
@@ -207,7 +212,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   get activitiesTable() {
     if (!this.activities) return;
     return this.activities.map(itm => {
-      const label = this.langActivities('./en/index.js')[itm];
+      const label = this.langActivities[itm];
       return {
         label,
         value: itm

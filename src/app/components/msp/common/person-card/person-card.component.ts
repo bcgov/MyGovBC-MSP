@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {MspPerson} from '../../model/msp-person.model';
 import {Activities, StatusInCanada} from '../../../../models/status-activities-documents';
 import { Router } from '@angular/router';
+import { LegalStatus, StatusActivites } from '../../../../models/msp.contants';
 
 @Component({
   selector: 'msp-person-card',
@@ -13,9 +14,8 @@ export class MspPersonCardComponent {
 
 
   lang = require('./i18n');
-  langStatus = require('../status/i18n');
-  langActivities = require('../activities/i18n');
- // langProvince = require('../province/i18n');
+  langStatus = LegalStatus;
+  langActivities = StatusActivites;
 
   @Input() person: MspPerson;
   @Input() editRouterLink: string;

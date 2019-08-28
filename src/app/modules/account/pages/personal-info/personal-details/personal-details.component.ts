@@ -15,6 +15,7 @@ import { Relationship, StatusRules, ActivitiesRules } from '../../../../../model
 import { MspPhoneComponent } from '../../../../../components/msp/common/phone/phone.component';
 import { MspPerson, MspAccountApp } from '../../../models/account.model';
 import { Address } from 'moh-common-lib';
+import { LegalStatus } from '../../../../../models/msp.contants';
 
 @Component({
         selector: 'msp-account-personal-details',
@@ -51,7 +52,7 @@ import { Address } from 'moh-common-lib';
 
 export class AccountPersonalDetailsComponent extends BaseComponent {
     lang = require('./i18n');
-    langStatus = require('../../../../../components/msp/common/status/i18n');
+    langStatus = LegalStatus;
     langAccountActivities = require('../../../../../components/msp/common/account-activities/i18n');
     //langDocuments = require('../../../../../components/msp/common/documents/i18n');
 

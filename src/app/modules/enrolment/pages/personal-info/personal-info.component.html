@@ -1,15 +1,20 @@
 <common-page-framework layout="blank">
   <form #formRef="ngForm" novalidate>
-  <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
+    <h1>Main Applicant's Personal Information</h1>
+    <p class="border-bottom">
+      Please provide the main applicant's (Account Holder) personal information and status in Canada. You will be required to provide supporting documents with your application.
+    </p>
+
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
       (onChange) = "onChange($event)"
       [showError] = "formRef.submitted">
-      </msp-personal-details>
+    </msp-personal-details>
       
-      <div class="row" style="margin-top: 10px;">
-        <p class="intro text-danger" *ngIf="!isStayinginBCAfterstudies()"
-            [innerHtml]="lang('./en/index.js').badAnswerStudies" role="alert" aria-live="assertive">
-        </p>
+
+    <div class="row" style="margin-top: 10px;">
+      <p class="intro text-danger" *ngIf="!isStayinginBCAfterstudies()"
+          [innerHtml]="lang('./en/index.js').badAnswerStudies" role="alert" aria-live="assertive">
+      </p>
     
       <div class="col-md-6 pull-left" *ngIf="formRef.submitted">
           <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
@@ -18,7 +23,7 @@
     </div>
   </form>
 </common-page-framework>
-<common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
+<common-form-action-bar defaultColor='false'
     [canContinue]="!(!isStayinginBCAfterstudies() ||checkAnyDependentsIneligible() || !isAllValid())"
     (btnClick)="continue()">
 </common-form-action-bar>
