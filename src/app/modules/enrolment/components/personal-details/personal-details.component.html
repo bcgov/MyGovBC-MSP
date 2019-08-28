@@ -30,44 +30,67 @@
     Provide one of the required documents to support your status in Canada. 
     If your name has changed since your ID was issued you are also required to upload document to support the name change.
   </p>
-  <div class="form-group col-sm-4 p-sm-0">
-      <common-dropdown name="DocumentType"
-                       label="Document Type"
-                       [items]="documentList"
-                       placeholder="Please Select"
-                       [clearable]="false">
-      </common-dropdown>
+  <div class="form-row align-items-end">
+    <div class="form-group col-sm-4">
+        <common-dropdown name="DocumentType"
+                         label="Document Type"
+                         [items]="documentList"
+                         placeholder="Please Select"
+                         [clearable]="false"
+                         [(ngModel)]="documentType">
+        </common-dropdown>
     </div>
+    <div class="form-group col-sm-4">
+      <common-button label="Add"
+                     buttonType="primary"
+                     (btnClick)="addBtnClicked()"
+                     [disabled]="this.addDocumentType"></common-button>
+    </div>
+  </div>
 
-  <common-page-section layout="tips">
-<!--   
-  <common-xicon-button *ngIf="showTaxYears" label= "Remove document" (click)="removeSpouse()">
-  </common-xicon-button>
---> 
-    <common-file-uploader [images]="person.documents.images" 
-                          (imagesChange)="deleteDocument($event)"
-                          id="uploader" 
-                          [required]="true" 
-                          instructionText="Please upload required ID documents">
-    </common-file-uploader>
-    <aside>
-      <div>
-        Scan the document, or take a photo of it. Make sure that it's:
-        <ul>
-          <li>The entire document, from corner to corner</li>
-          <li>At least 1000 pixels wide x 1500 pixels tall</li>
-          <li>Rotated correctly (not upside down or sideways)</li>
-          <li>In focus and easy to read</li>
-          <li>A JPG, PNG, GIF or BMP file (<strong>not a PDF</strong>)</li>
-        </ul>
-      </div>
-    </aside>
-  </common-page-section>
+  <div *ngIf="this.addDocumentType">
+    <h2 class="border-bottom">{{documentType}}
+      <common-xicon-button label= "Remove document" (click)="removeDocument()">
+      </common-xicon-button>
+    </h2>
+    <common-page-section layout="tips">
+      <common-file-uploader [images]="person.documents.images" 
+                            (imagesChange)="deleteDocument($event)"
+                            id="uploader" 
+                            [required]="true" 
+                            instructionText="Please upload required ID documents">
+      </common-file-uploader>
+
+      <common-radio class="p-sm-2"
+                    [value]="hadNameChanged"  
+                    label="Has your name changed since your ID was issued due to marriage or a legal name change?" 
+                    [radioLabels]="yesNoRadioLabels"
+                    (statusChange)="hadNameChanged=$event">
+        </common-radio>
+      <aside>
+        <div>
+          TODO: Need to add links with images to display
+          Scan the document, or take a photo of it. Make sure that it's:
+          <ul>
+            <li>The entire document, from corner to corner</li>
+            <li>At least 1000 pixels wide x 1500 pixels tall</li>
+            <li>Rotated correctly (not upside down or sideways)</li>
+            <li>In focus and easy to read</li>
+            <li>A JPG, PNG, GIF or BMP file (<strong>not a PDF</strong>)</li>
+          </ul>
+        </div>
+      </aside>
+    </common-page-section>
+  </div>
+
+
 </div>
 
 
 
 
+
+<!--
 
 
     <div *ngIf="hasValidCurrentActivity && person.documents.images.length > 0">
@@ -151,8 +174,11 @@
                                 (ngModelChange)="provinceUpdate($event)"
                                 [provinceList]=provList()></common-province>
           </div>
+-->
           <!--For canadian citizen, returning to BC after an absence or moving from another province, the arrival date in canada
               is not required.-->
+
+<!--             
           <msp-arrival-date #arrivalDateCanada class='row'
             [arrivalLabel]="lang('./en/index.js').arrivalDateToCanadaLabel"
             [required]="!(person.status === StatusInCanada.CitizenAdult
@@ -323,3 +349,5 @@
       </div>
 
     </div>
+-->
+

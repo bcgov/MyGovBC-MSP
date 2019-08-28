@@ -20,7 +20,8 @@ import {
   DocumentRules,
   Relationship,
   LangStatus,
-  LangActivities
+  LangActivities,
+  yesNoLabels
 } from '../../../msp-core/models/status-activities-documents';
 import { MspImage } from '../../../../models/msp-image';
 import * as _ from 'lodash';
@@ -148,10 +149,14 @@ export class PersonalDetailsComponent extends BaseComponent {
   statusOpts: string[] = Object.keys(LangStatus).map( x  => LangStatus[x] );
   activitiesOpts: string[] = Object.keys(LangActivities).map( x  => LangActivities[x] );
   documentOpts: string[] = MspDocumentConstants.langDocument();
+  addDocumentType: boolean = false;
+  documentType: string = null;
+  yesNoRadioLabels = yesNoLabels;
+  hadNameChanged: boolean = false;
 
   // END -- NEW CODE FOR PAGE
 
-  constructor(private el: ElementRef, private cd: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef) {
     super(cd);
   }
 
@@ -232,12 +237,23 @@ export class PersonalDetailsComponent extends BaseComponent {
     }
   }
 
+  addBtnClicked(){
+    if ( this.documentType ) {
+      this.addDocumentType = true;
+    }
+  }
+
+  removeDocument() {
+    this.person.documents.images = [];
+    this.addDocumentType = false;
+  }
+
   /**
    * Gets the available documents given the known status and activity
    */
-  get nameChangeDocuments(): Documents[] {
+ /* get nameChangeDocuments(): Documents[] {
     return DocumentRules.nameChangeDocument();
-  }
+  }*/
 
   addDocument(evt: MspImage) {
     this.person.documents.images = this.person.documents.images.concat(evt);
@@ -264,9 +280,9 @@ export class PersonalDetailsComponent extends BaseComponent {
     /**
      * Load an empty row to screen
      */
-    if (this.person.relationship === Relationship.Spouse) {
+ /*   if (this.person.relationship === Relationship.Spouse) {
       window.scrollTo(0, this.el.nativeElement.offsetTop);
-    }
+    }*/
   }
 
   get arrivalDateLabel(): string {
