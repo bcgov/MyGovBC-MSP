@@ -12,19 +12,19 @@ import { MspImage } from '../../../models/msp-image';
 
 const sha1 = require('sha1');
 
-enum Gender {
+export enum Gender {
     Female = <any>'F',
     Male = <any>'M'
 }
 
-enum OperationActionType {
+export enum OperationActionType {
     Add,
     Remove,
     Update
 }
 
 
-class MspPerson implements IPerson {
+export class MspPerson implements IPerson {
 
     readonly uuid = UUID.UUID();
 
@@ -741,5 +741,3 @@ class MspPerson implements IPerson {
         return result;
     }
 }
-
-export {MspPerson, Gender, OperationActionType};

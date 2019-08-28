@@ -12,7 +12,8 @@ import {MspIdReqModalComponent} from '../../../../modules/msp-core/components/id
 import { MspAccountApp } from '../../models/account.model';
 import { DocumentGroup, LangAccountDocuments } from '../../../../models/account-documents';
 import { AccountDocumentHelperService } from '../../../benefit/services/account-document-helper.service';
-import { Documents, CancellationReasonsForSpouse, LangStatus, LangActivities } from '../../../msp-core/models/status-activities-documents';
+import { CancellationReasonsForSpouse, LangStatus, LangActivities } from '../../../msp-core/models/status-activities-documents';
+import { Documents } from '../../../msp-core/models/msp-document.constants';
 
 @Component({
     templateUrl: './documents.component.html'

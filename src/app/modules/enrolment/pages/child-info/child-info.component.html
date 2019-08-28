@@ -8,6 +8,7 @@
     </common-button>
   </div>
 
+  <!-- TODO: Fix once the personal info page is complete as spouse & child use same component
   <div *ngIf = 'children.length > 0'>
       <msp-personal-details *ngFor = "let child of children; let idx = index"
         [person] = 'child'
@@ -17,6 +18,7 @@
         [showError] = "formRef.submitted">
       </msp-personal-details>
     </div>
+  -->
   </common-page-framework>
 
   <common-form-action-bar [submitLabel]="children.length > 0? 'Continue':'No Child'"

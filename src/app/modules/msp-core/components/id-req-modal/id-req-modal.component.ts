@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { AccordionComponent, ModalDirective } from 'ngx-bootstrap';
-import { Documents } from '../../models/status-activities-documents';
 import { IdRequirementContent } from './id-req-content.model.component';
+import { Documents } from '../../models/msp-document.constants';
 
 
 @Component({

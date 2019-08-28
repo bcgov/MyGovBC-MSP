@@ -1,4 +1,5 @@
-import {Documents} from '../../models/status-activities-documents';
+import { Documents } from '../../models/msp-document.constants';
+
 export class IdRequirementContent {
   residency: string;
 

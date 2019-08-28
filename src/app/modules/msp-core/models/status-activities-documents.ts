@@ -1,3 +1,5 @@
+import { Documents } from './msp-document.constants';
+
 /**
  * Various relationships
  */
@@ -9,7 +11,6 @@ export enum Relationship {
   ChildUnder24,
   AllAgeApplicant,
 }
-
 
 /**
  * Various statuses in Canada
@@ -52,9 +53,9 @@ export enum Activities {
 }
 
 export const LangActivities = {
-  LivingInBCWithoutMSP: 'Not new to B.C. but need to apply for MSP',
-  MovingFromProvince: 'Moved to B.C. from another province',
-  MovingFromCountry: 'Moved to B.C. from another country',
+  LivingInBCWithoutMSP: 'Not new to B.C. but need to apply for Medical Services Plan',
+  MovingFromProvince: 'Moved from another province',
+  MovingFromCountry: 'Moved from another country',
   WorkingInBC: 'Working in B.C.',
   StudyingInBC: 'Studying in B.C.',
   ReligiousWorker: 'Religious worker',
@@ -62,22 +63,6 @@ export const LangActivities = {
   Visiting: 'Visiting'
 };
 
-/**
- * ID documents
- */
-export enum Documents {
-  CanadianBirthCertificate,
-  CanadianPassport,
-  CanadianCitizenCard,
-  RecordOfLanding,
-  PermanentResidentCard,
-  WorkPermit,
-  StudyPermit,
-  VisitorVisa,
-  PassportWithDiplomaticFoil,
-  MarriageCertificate,
-  ChangeOfNameCertificate
-}
 
 export enum CancellationReasons {
   NoLongerInFullTimeStudies,

@@ -1,5 +1,5 @@
 import {Component, Injectable, ViewChild, ViewChildren,
-  ChangeDetectorRef, QueryList, AfterViewInit, OnInit} from '@angular/core';
+  ChangeDetectorRef, QueryList} from '@angular/core';
 import {MspApplication, MspPerson} from '../../models/application.model';
 
 // import {MspDataService} from '../../service/msp-data.service';
@@ -10,7 +10,6 @@ import {Relationship} from '../../../msp-core/models/status-activities-documents
 import {NgForm} from '@angular/forms';
 import {PersonalDetailsComponent} from '../../components/personal-details/personal-details.component';
 import {BaseComponent} from '../../../../models/base.component';
-import {ProcessService} from '../../../../services/process.service';
 import { StatusInCanada} from '../../../msp-core/models/status-activities-documents';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
@@ -37,7 +36,7 @@ export class PersonalInfoComponent extends BaseComponent {
     private dataService: MspDataService,
     private _router: Router,
     private pageStateService: PageStateService,
-    private cd: ChangeDetectorRef
+    cd: ChangeDetectorRef
   ) {
     super(cd);
   }
@@ -46,7 +45,9 @@ export class PersonalInfoComponent extends BaseComponent {
     this.pageStateService.setPageIncomplete(this._router.url, this.dataService.mspApplication.pageStatus);
   }
 
-  onChange(values: any) {
+  onChange($event) {
+
+    console.log( 'onChange: ', $event );
     this.dataService.saveMspApplication();
   }
 
@@ -74,13 +75,13 @@ export class PersonalInfoComponent extends BaseComponent {
     return this.dataService.mspApplication.children;
   }
 
-  removeChild(event: Object, idx: number): void {
+  removeChild(idx: number): void {
     // console.log('remove child ' + JSON.stringify(event));
     this.dataService.mspApplication.removeChild(idx);
     this.dataService.saveMspApplication();
   }
 
-  removeSpouse(event: Object): void {
+  removeSpouse(): void {
     // console.log('remove spouse ' + JSON.stringify(event));
     this.dataService.mspApplication.removeSpouse();
     this.dataService.saveMspApplication();
@@ -117,9 +118,6 @@ export class PersonalInfoComponent extends BaseComponent {
 
     return stayingInBc;
   }
-  canContinue(): boolean {
-    return this.isAllValid();
-  }
 
   isValid(): boolean {
     return this.dataService.mspApplication.isUniquePhns;
@@ -146,5 +144,13 @@ export class PersonalInfoComponent extends BaseComponent {
       this.pageStateService.setPageComplete(this._router.url, this.dataService.mspApplication.pageStatus);
       this._router.navigate([ROUTES_ENROL.PERSONAL_INFO.fullpath]);
     }
+  }
+
+  canContinue(): boolean {
+    const valid = !(!this.isStayinginBCAfterstudies() ||
+    this.checkAnyDependentsIneligible() || !this.isAllValid());
+
+    console.log('canContinue(): ', valid, this.form );
+    return valid;
   }
 }

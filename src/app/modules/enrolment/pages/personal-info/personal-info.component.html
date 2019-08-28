@@ -6,10 +6,9 @@
     </p>
 
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
-      (onChange) = "onChange($event)"
-      [showError] = "formRef.submitted">
-    </msp-personal-details>
-      
+      (personChange) = "onChange($event)"></msp-personal-details>
+      <!--[showError] = "formRef.submitted"-->
+    
 
     <div class="row" style="margin-top: 10px;">
       <p class="intro text-danger" *ngIf="!isStayinginBCAfterstudies()"
@@ -24,7 +23,7 @@
   </form>
 </common-page-framework>
 <common-form-action-bar defaultColor='false'
-    [canContinue]="!(!isStayinginBCAfterstudies() ||checkAnyDependentsIneligible() || !isAllValid())"
+    [canContinue]="canContinue()"
     (btnClick)="continue()">
 </common-form-action-bar>
 

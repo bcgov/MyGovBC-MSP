@@ -1,54 +1,73 @@
-<!--  
 <msp-services-card-disclaimer-modal #mspServicesCardModal></msp-services-card-disclaimer-modal>
--->
 
 <h2>{{sectionTitle}}</h2>
 <p class="border-bottom">{{sectionInstruct}}</p>
 
 <common-page-section layout="tips">
-  <div class="form-group col-sm-6 p-sm-0">
-    <common-dropdown [label]="statusLabel"
-                    [items]="statusOpts"
-                    placeholder="Please Select"
-                    [clearable]="false"
-                    [ngModel]="selectedOpt"
-                    (ngModelChange)="selectedOpt=$event;"
-                    required>
+  <div class="form-group col-sm-6 p-sm-0 mb-0">
+    <common-dropdown name="StatusInCanada"
+                     [label]="statusLabel"
+                     [items]="statusOpts"
+                     placeholder="Please Select"
+                     [clearable]="false"
+                     [ngModel]="getStatusInCanada()"
+                     (ngModelChange)="setStatusInCanada($event);">
     </common-dropdown>
   </div>
-
-  <common-radio *ngIf="person.status != null" 
-                [radioLabels]='activitiesTable' 
-                [label]=""
-                [value]="person.currentActivity"
-                (statusChange)="setActivity($event)" 
-                display="table-row-group"
-                required>
-  </common-radio>
+  <div class="form-group col-sm-8">
+    <common-radio *ngIf="getStatusInCanada()" 
+                  [radioLabels]="activitiesTable"
+                  [value]="person.currentActivity"
+                  (statusChange)="setActivity($event)" 
+                  display="table-row-group">
+    </common-radio>
+  </div>
 </common-page-section>
 
+<div *ngIf="getStatusInCanada() && person.currentActivity">
+  <h2>Documents</h2>
+  <p class="border-bottom"> 
+    Provide one of the required documents to support your status in Canada. 
+    If your name has changed since your ID was issued you are also required to upload document to support the name change.
+  </p>
+  <div class="form-group col-sm-4 p-sm-0">
+      <common-dropdown name="DocumentType"
+                       label="Document Type"
+                       [items]="documentList"
+                       placeholder="Please Select"
+                       [clearable]="false">
+      </common-dropdown>
+    </div>
+
+  <common-page-section layout="tips">
+<!--   
+  <common-xicon-button *ngIf="showTaxYears" label= "Remove document" (click)="removeSpouse()">
+  </common-xicon-button>
+--> 
+    <common-file-uploader [images]="person.documents.images" 
+                          (imagesChange)="deleteDocument($event)"
+                          id="uploader" 
+                          [required]="true" 
+                          instructionText="Please upload required ID documents">
+    </common-file-uploader>
+    <aside>
+      <div>
+        Scan the document, or take a photo of it. Make sure that it's:
+        <ul>
+          <li>The entire document, from corner to corner</li>
+          <li>At least 1000 pixels wide x 1500 pixels tall</li>
+          <li>Rotated correctly (not upside down or sideways)</li>
+          <li>In focus and easy to read</li>
+          <li>A JPG, PNG, GIF or BMP file (<strong>not a PDF</strong>)</li>
+        </ul>
+      </div>
+    </aside>
+  </common-page-section>
+</div>
 
 
 
 
-
-  <common-radio class="row" *ngIf="person.status != null" [radioLabels]='activitiesTable' [label]=""
-    [value]="person.currentActivity" (statusChange)="setActivity($event)" display="table-row-group">
-  </common-radio>
-
-
-  <div *ngIf="person.status != null && person.currentActivity != null">
-
-    <h2 class="row border-bottom">Documents</h2>
-    <common-page-section layout="tips">
-      <common-file-uploader class="row" [images]="person.documents.images" (imagesChange)="deleteDocument($event)"
-        id="uploader" [required]="true" instructionText="Please upload required ID documents">
-      </common-file-uploader>
-      <aside class="mt-0">
-        <div [innerHtml]="lang('./en/index.js').documentInstructionsNote" class="mt-0"></div>
-      </aside>
-    </common-page-section>
-  </div>
 
 
     <div *ngIf="hasValidCurrentActivity && person.documents.images.length > 0">

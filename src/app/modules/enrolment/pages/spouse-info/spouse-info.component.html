@@ -13,11 +13,13 @@
   </div>  
 
   <div *ngIf = 'spouse'>
+    <!-- TODO: Fix once the personal info page is complete as spouse & child use same component
       <msp-personal-details [person] = 'spouse' [id] = 'spouse.id'
         (notifySpouseRemoval)="removeSpouse($event)"
         (onChange) = "onChange($event)"
         [showError] = "formRef.submitted">
       </msp-personal-details>
+    -->
   </div>
 </common-page-framework>
  
