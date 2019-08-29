@@ -233,15 +233,31 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             return false;
         }*/
 
-        if ((this.benefitApp.childClaimForAttendantCareExpenseCount > this.benefitApp.childrenCount) || (this.benefitApp.childWithDisabilityCount > this.benefitApp.childrenCount)) {
+        if (this.childCountExceedError()) {
             this.continue = false;
             return false ;
         }
 
-        if ( this.benefitApp.attendantCareExpenseReceipts.length === 0 && (this.benefitApp.applicantClaimForAttendantCareExpense || this.benefitApp.spouseClaimForAttendantCareExpense || this.benefitApp.childClaimForAttendantCareExpense || this.benefitApp.hasClaimedAttendantCareExpenses === true )) {
+
+
+        if (this.benefitApp.attendantCareExpenseReceipts.length === 0 && (this.benefitApp.applicantClaimForAttendantCareExpense || this.benefitApp.spouseClaimForAttendantCareExpense || this.benefitApp.hasClaimedAttendantCareExpenses === true )) {
             this.continue = false;
             return false;
         }
+
+
+        if(this.benefitApp.selfDisabilityCredit && !( this.benefitApp.applicantEligibleForDisabilityCredit || this.benefitApp.spouseEligibleForDisabilityCredit || this.benefitApp.childClaimForDisabilityCredit)) {
+            this.continue = false;
+            return false;
+        }
+
+       /* if(this.benefitApp.childClaimForAttendantCareExpense && this.benefitApp.childWithAttendantCareCount) {
+            console.log(this.benefitApp.childWithAttendantCareCount.toString().match(patt));
+            if ( this.benefitApp.childWithAttendantCareCount.toString().match(patt)) {
+                this.continue = false;
+                return false;
+            }
+        }*/
 
         return evt ;
     }
@@ -293,14 +309,58 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         return this._likelyQualify;
     }
 
-    updateChildDisabilityCreditCreditMultiplier(evt: string){
+    updateChildDisabilityCreditCreditMultiplier(evt: number){
+        console.log(evt);
+       /* if (!evt) {
+            return null;
+        } else {
+            const n = !!evt && !isNaN(evt) ? evt  : 0;
+            return n;
+        }*/
+
+
         if (evt) {
-            this.benefitApp.childWithDisabilityCount = parseInt(evt);
+            this.benefitApp.childWithDisabilityCount = evt;
             if (this.benefitApp.childWithDisabilityCount > this.benefitApp.childrenCount) {
                 this.chldCountExceededError = true;
             }
             this.dataService.saveBenefitApplication();
+        } else {
+            console.log(this.benefitApp.childWithDisabilityCount);
+            this.benefitApp.childWithDisabilityCount = null;
         }
+    }
+
+
+    childCountExceedError(): boolean {
+        if ((this.benefitApp.childWithAttendantCareCount || this.benefitApp.numberOfChildrenWithDisability) && this.benefitApp.childrenCount) {
+            const childcount = this.benefitApp.childrenCount * 1;
+            const childDeclaredForbenefit = ((this.benefitApp.childWithAttendantCareCount * 1) + (this.benefitApp.numberOfChildrenWithDisability * 1)) ;
+            return childDeclaredForbenefit > childcount ? true : false ;
+        } else {
+            return false ;
+        }
+    }
+
+    updateChildAttendantCareCount(evt: number){
+        console.log(evt);
+        if (!evt) {
+            return null;
+        } else {
+            const n = !!evt && !isNaN(evt) ? evt  : 0;
+            return n;
+        }
+    }
+       /* if (evt) {
+            this.benefitApp.childWithDisabilityCount = evt;
+            if (this.benefitApp.childWithDisabilityCount > this.benefitApp.childrenCount) {
+                this.chldCountExceededError = true;
+            }
+            this.dataService.saveBenefitApplication();
+        } else {
+            console.log(this.benefitApp.childWithDisabilityCount);
+            this.benefitApp.childWithDisabilityCount = null;
+        }*
     }
 
    /* setAgeOver65(evt: boolean) {
@@ -453,12 +513,29 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
     }
 
+
+
     checkedChildClaimDisabilityCredit(evt: boolean) {
+        console.log(this.benefitApp.childDisablityCount);
         this.benefitApp.childClaimForDisabilityCredit = evt;
         if (!evt) {
-           this.benefitApp.childWithDisabilityCount = 0;
+           this.benefitApp.numberOfChildrenWithDisability = null;
         }
+    }
 
+    checkAttendantCareExpenseForChild(evt: boolean){
+        this.benefitApp.childClaimForAttendantCareExpense = evt;
+        if (!evt) {
+           this.benefitApp.childWithAttendantCareCount = null;
+        }
+        //this.dataService.saveBenefitApplication();
+        // if(!this.benefitApp.childClaimForAttendantCareExpense && this.benefitApp.childWithDisabilityCount){
+        //     event.preventDefault();
+        //     this.disabilityNursingHomeChoiceModal.config.backdrop = false;
+        //     this.disabilityNursingHomeChoiceModal.show();
+        // }else{
+        //   this.benefitApp.childClaimForAttendantCareExpense = !this.benefitApp.childClaimForAttendantCareExpense;
+        // }
     }
 
     childClaimForAttendantCareExpense(evt: boolean){
@@ -569,6 +646,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
             this.dataService.benefitApp.applicantEligibleForDisabilityCredit = false;
             this.benefitApp.spouseEligibleForDisabilityCredit = false;
             this.benefitApp.childClaimForDisabilityCredit = false;
+            this.benefitApp.childWithDisabilityCount = 0;
         }
         this.benefitApp.selfDisabilityCredit = evt;
         this.dataService.saveBenefitApplication();

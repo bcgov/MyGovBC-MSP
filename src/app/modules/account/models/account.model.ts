@@ -3,8 +3,7 @@ import {ApplicationBase} from '../../enrolment/models/application-base.model';
 import {MspPerson, OperationActionType} from '../../../components/msp/model/msp-person.model';
 import {Relationship, StatusInCanada} from '../../msp-core/models/status-activities-documents';
 import {PhoneNumber} from '../../../components/msp/model/phone.model';
-import { CommonImage } from 'moh-common-lib';
-
+import { Address, CommonImage } from 'moh-common-lib';
 
 class MspAccountApp implements ApplicationBase {
     set updatedChildren(value: Array<MspPerson>) {
@@ -20,13 +19,20 @@ class MspAccountApp implements ApplicationBase {
      */
     referenceNumber: string;
     private _applicant: MspPerson = new MspPerson(Relationship.Applicant);
-    public phoneNumber: string;
+
     documents: CommonImage[] = [];
     id: string;
 
     authorizedByApplicant: boolean;
     authorizedByApplicantDate: Date;
     authorizedBySpouse: boolean;
+
+    // Address and Contact Info
+   public residentialAddress: Address = new Address();
+   public mailingSameAsResidentialAddress: boolean = true;
+   public mailingAddress: Address = new Address();
+   public phoneNumber: string;
+
 
     /**
      * validator for phone number

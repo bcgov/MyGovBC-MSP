@@ -1,68 +1,45 @@
-<div role="alert" aria-live="assertive">
-    <h1><i class="fa fa-check success" aria-hidden="true"></i> 
-        Your update request has been submitted.
-    </h1>
-    <div class="alert alert-info" role="alert">
-        <h2 class="to-upper">
-            Reference # {{confirmationNum? confirmationNum : 'N/A'}}
-        </h2>
-    </div>
-</div>
+<common-page-framework layout="blank">
+  <div>  
+        
+    <a onclick="window.print();return false;" >   
+    <b class="float-right">Print <i class="fa fa-print fa-lg pointer" 
+        aria-hidden="true"></i>
+    </b>
+    </a>
+    <h1><strong>Confirmation Message </strong> </h1>
+    <p class="border-bottom">It is important to keep your reference number – write it down, or print this page for your records.</p>
+    
+    <div class="row" style="border-style: solid; color:#83D31D" >
+          <div class="col-sm-.5" style="font-size: 50px; margin-top: 15px;margin-left: 15px" ><i class="fa fa-check-circle" aria-hidden="true"></i></div>
+          <div class="col-9">
+              <h2>
+                  Your update request has been submitted
+              </h2>
+              <p class="font-weight-normal h4">{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}</p>
+             
+              
+          </div>
+      </div>
+    
+    <h2 class="border-bottom"> <strong> Important </strong></h2>
+   
+        <ul>
+            <li>
+              <h3 [innerHTML]="lang('./en/index.js').printEmailInstructions" onclick="window.print();" class="pointer"></h3>
+            </li>
+            <li>
+              <h3 [innerHTML]="lang('./en/index.js').generalInstructions1"></h3>
+            </li>
+            <li>
+              <h3 [innerHTML]="lang('./en/index.js').generalInstructions2"></h3>
+            </li>
+            <li>
+              <h3 [innerHTML]="lang('./en/index.js').generalInstructions3"></h3>
+            </li>
+          </ul>
+      </div>
+    
+</common-page-framework>
 
-<h2><strong>What Happens Next</strong></h2>
-<ul>
-    <li>
-        <h3 onclick="window.print();" class="pointer">
-            <strong>Important =</strong> Keep your reference number – write it down, or <a>print this page</a> for your records.
-        </h3>
-    </li>
-    <li>
-        <h3>
-            Allow 21 business days for your request to be processed.
-        </h3>
-    </li>
-    <li>
-        <h3>
-            Canadians or Permanent residents who are enrolled in MSP may qualify for a reduction in monthly premiums. You can learn more and apply online for premium assistance. 
-            <a href='{{links.MSP_ASSISTANCE}}' target='_blank'> Find out about premium assistance</a>.
-        </h3>
-    </li>
-    <li>
-        <h3>
-            Living outside the province for more than six months could cause your MSP enrolment to be cancelled.
-            <a href='{{links.MSP_ELIGIBILITY}}' target='_blank'>Learn more about eligibility for MSP</a>.
-        </h3>
-    </li>
-</ul>
 
-<ng-container *ngIf="showDepMsg == 'true'">
-    <h3>
-        <strong>For new adult Canadian Citizens or Permanent Residents =</strong>
-    </h3>
 
-    <ul>
-        <li>
-            <h3>
-                'To complete MSP enrolment, adult Canadian Citizens and Permanent Residents must obtain a Photo BC Services Card by visiting an Insurance 
-                Corporation of BC (ICBC) driver licensing office. To find an ICBC driver licensing office near you, please visit 
-                <a href='{{links.ICBC}}' target='_blank'>icbc.com</a>.
-                <br><br>If a Photo BC Services Card has already been requested at an ICBC driver licensing office, no further action is required.
-            </h3>
-        </li>
-        <li>
-            <h3>
-                When you get your BC Services Card, register for the <a href='{{links.FPCARE}}' target='_blank'>FairPharmacare plan</a>. 
-                It can help with the cost of prescription drugs and some medical supplies. Registration is free and there are no premiums to pay.
-            </h3>
-        </li>
-    </ul>
-
-</ng-container>
-<h3>
-    <strong> For Frequently Asked Questions, 
-    <a href='{{links.FAQ}}' target='_blank'>please click here</a></strong>
-</h3>
-<h3>
-    <strong> If you require additional assistance, 
-    <a href='{{links.MSP_RESIDENT_CONTACT}}' target='_blank'>contact Health Insurance BC</a></strong>
-</h3>
