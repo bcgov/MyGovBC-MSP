@@ -1,8 +1,8 @@
 import { Relationship } from '../../../modules/msp-core/models/status-activities-documents';
 import { MspPerson } from './msp-person.model';
 import { UUID } from 'angular2-uuid';
-import { MspImage } from '../../../models/msp-image';
 import { ApplicationBase } from '../../../modules/enrolment/models/application-base.model';
+import { CommonImage } from 'moh-common-lib';
 
 /**
  * Overall MSP Application Process Data
@@ -77,7 +77,7 @@ class AccountLetterApplication implements ApplicationBase {
     return null;
   }
 
-  getAllImages(): MspImage[] {
+  getAllImages(): CommonImage[] {
     return null;
   }
 

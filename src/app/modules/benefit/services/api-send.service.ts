@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SchemaService } from 'app/services/schema.service';
 import { MSPApplicationSchema } from 'app/modules/msp-core/interfaces/i-api';
-import { MspImage } from 'app/models/msp-image';
 import {
   HttpClient,
   HttpHeaders,
@@ -11,7 +10,7 @@ import { environment } from 'environments/environment';
 import { MspApiService } from 'app/services/msp-api.service';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AbstractHttpService } from 'moh-common-lib';
+import { AbstractHttpService, CommonImage } from 'moh-common-lib';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +37,7 @@ export class ApiSendService extends AbstractHttpService {
     app: MSPApplicationSchema,
     token: string,
     applicationUUID,
-    attachments: MspImage[]
+    attachments: CommonImage[]
   ) {
     const appUrl = this.setAppUrl(applicationUUID);
     this._headers = this.setHeaders('application/json', token);
@@ -58,7 +57,7 @@ export class ApiSendService extends AbstractHttpService {
   async sendFiles(
     token: string,
     applicationUUID: string,
-    attachments: MspImage[]
+    attachments: CommonImage[]
   ) {
     const attachmentPromises = new Array<Promise<string>>();
     for (const attachment of attachments) {
@@ -118,7 +117,7 @@ export class ApiSendService extends AbstractHttpService {
     );
   }
 
-  setFileUrl(attachment: MspImage, uuid: string): string {
+  setFileUrl(attachment: CommonImage, uuid: string): string {
     let url =
       environment.appConstants['apiBaseUrl'] +
       environment.appConstants['attachment'] +

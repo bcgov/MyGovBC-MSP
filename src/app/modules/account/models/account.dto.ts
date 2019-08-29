@@ -1,6 +1,7 @@
 import PersonDto from '../../../components/msp/model/msp-person.dto';
 import AddressDto from '../../../components/msp/model/address.dto';
-import {MspImage} from '../../../models/msp-image';
+import { CommonImage } from 'moh-common-lib';
+
 export default class MspAccountDto {
     infoCollectionAgreement: boolean;
     applicant: PersonDto = new PersonDto();
@@ -21,6 +22,6 @@ export default class MspAccountDto {
     addressUpdate: boolean ;
     statusUpdate: boolean ;
     nameChangeDueToMarriage: boolean ;
-    documents: MspImage[];
+    documents: CommonImage[];
 
 }

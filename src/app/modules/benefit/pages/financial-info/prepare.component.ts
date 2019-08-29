@@ -2,22 +2,17 @@ import {ChangeDetectorRef, Component, ElementRef, ViewChild} from '@angular/core
 import {BaseComponent} from '../../../../models/base.component';
 import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
-import {debounceTime, distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, filter, tap} from 'rxjs/operators';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
-import {ModalDirective} from 'ngx-bootstrap';
 import {NgForm} from '@angular/forms';
-import {MspImage} from '../../../../models/msp-image';
 import {AssistanceYear} from '../../../assistance/models/assistance-year.model';
 import {merge} from 'rxjs/internal/observable/merge';
 import * as _ from 'lodash';
-import {ConsentModalComponent} from 'moh-common-lib';
-import {fromEvent} from 'rxjs/internal/observable/fromEvent';
+import {ConsentModalComponent, CommonImage} from 'moh-common-lib';
 import {CommonDeductionCalculatorComponent} from '../../../msp-core/components/common-deduction-calculator/common-deduction-calculator.component';
-//import moment = require('moment');
 import * as moment from 'moment';
 import {Router} from '@angular/router';
 import { ProcessService } from 'app/services/process.service';
-//import {ProcessService} from '../../../../services/process.service';
 
 
 @Component({
@@ -110,14 +105,14 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         this.benefitApp.spaEnvRes = evt;
     }
 
-    
-    errorReceipts(evt: MspImage) {
+
+    errorReceipts(evt: CommonImage) {
         this.mspImageErrorModal.imageWithError = evt;
         this.mspImageErrorModal.showFullSizeView();
         this.mspImageErrorModal.forceRender();
     }
 
-    deleteReceipts(evt: MspImage){
+    deleteReceipts(evt: CommonImage){
         this.benefitApp.attendantCareExpenseReceipts = this.benefitApp.attendantCareExpenseReceipts.filter(
             receipt => {
                 return receipt.id !== evt.id;
@@ -492,16 +487,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY[1];
         this.claimCategory = this.CREDIT_CLAIM_CATEGORY[0];
         this.claimant = this.CREDIT_CLAIMANT[1];    }
-    /**
-     * Prevent application from claiming disability credit
-    */
-    private applicantClaimDisabilityCredit(){
-        this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY[1];
-        this.claimCategory = this.CREDIT_CLAIM_CATEGORY[0];
-        this.claimant = this.CREDIT_CLAIMANT[0];
-       // this.disabilityNursingHomeChoiceModal.config.backdrop = false;
-        //this.disabilityNursingHomeChoiceModal.show();
-    }
 
     switchClaim(...args: string[]){
         //for self

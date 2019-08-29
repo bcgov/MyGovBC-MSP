@@ -23,7 +23,6 @@ import {
   LangActivities,
   yesNoLabels
 } from '../../../msp-core/models/status-activities-documents';
-import { MspImage } from '../../../../models/msp-image';
 import * as _ from 'lodash';
 
 
@@ -32,7 +31,8 @@ import {
   CANADA,
   Address,
   ProvinceList,
-  BRITISH_COLUMBIA} from 'moh-common-lib';
+  BRITISH_COLUMBIA,
+  CommonImage} from 'moh-common-lib';
 import { MspAddressConstants } from '../../../../models/msp-address.constants';
 import { MspDocumentConstants, Documents } from '../../../msp-core/models/msp-document.constants';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
@@ -149,10 +149,13 @@ export class PersonalDetailsComponent extends BaseComponent {
   statusOpts: string[] = Object.keys(LangStatus).map( x  => LangStatus[x] );
   activitiesOpts: string[] = Object.keys(LangActivities).map( x  => LangActivities[x] );
   documentOpts: string[] = MspDocumentConstants.langDocument();
-  addDocumentType: boolean = false;
-  documentType: string = null;
   yesNoRadioLabels = yesNoLabels;
-  hadNameChanged: boolean = false;
+
+  statusDocumentType: string = null;
+  hasStatusDocumentType: boolean = false;
+  nameChangeDocumentType: string = null;
+  hasNameChangeDocumentType: boolean = false;
+  hasNameChange: boolean = false;
 
   // END -- NEW CODE FOR PAGE
 
@@ -231,31 +234,37 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   get documentList() {
     if (this.documents) {
-      return this.documents.map(itm => {
-        return this.documentOpts[itm];
-      });
+      return this.documents.map(itm => this.documentOpts[itm] );
     }
   }
 
-  addBtnClicked(){
-    if ( this.documentType ) {
-      this.addDocumentType = true;
-    }
+  addStatusBtnClick() {
+    this.hasStatusDocumentType = this.statusDocumentType ? true : false;
+    console.log('addStatusBtnClick: ', this.hasStatusDocumentType, this.statusDocumentType );
   }
 
-  removeDocument() {
+  addNameBtnClick() {
+    this.hasNameChangeDocumentType = this.nameChangeDocumentType ? true : false;
+  }
+
+  /** Removes all documents in the list */
+  removeStatusDocuments() {
     this.person.documents.images = [];
-    this.addDocumentType = false;
+    this.hasStatusDocumentType = false;
+  }
+
+  onStatusDocumentChange($event) {
+    console.log( 'onStatusDocumentChange: ', $event );
   }
 
   /**
    * Gets the available documents given the known status and activity
    */
- /* get nameChangeDocuments(): Documents[] {
-    return DocumentRules.nameChangeDocument();
-  }*/
+  get nameChgDocumentList() {
+    return DocumentRules.nameChangeDocument().map( x => this.documentOpts[x] );
+  }
 
-  addDocument(evt: MspImage) {
+  addDocument(evt: CommonImage) {
     this.person.documents.images = this.person.documents.images.concat(evt);
     this.personChange.emit(this.person);
   }

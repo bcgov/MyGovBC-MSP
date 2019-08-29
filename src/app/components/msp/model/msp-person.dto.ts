@@ -1,7 +1,6 @@
-import {MspImage} from '../../../models/msp-image';
 import AddressDto from './address.dto';
 import {OutofBCRecordDto} from '../../../models/outof-bc-record.dto';
-import { SimpleDate } from 'moh-common-lib';
+import { SimpleDate , CommonImage } from 'moh-common-lib';
 import {MSPEnrollementMember} from '../../../modules/msp-core/models/status-activities-documents';
 
 export default class PersonDto {
@@ -14,7 +13,7 @@ export default class PersonDto {
     dob_month: number;
     dob_year: number;
     sin: string;
-    assistYearDocs: MspImage[]; //= [];
+    assistYearDocs: CommonImage[]; //= [];
 
     arrivalToCanadaYear: number;
     arrivalToCanadaMonth: number;
@@ -67,7 +66,7 @@ export default class PersonDto {
     marriageDate: SimpleDate;
     prevLastName: string;
     phoneNumber: string;
-    images: MspImage[];
+    images: CommonImage[];
     isExistingBeneficiary: boolean;
     knownMailingAddress: boolean;
     fullTimeStudent: boolean;

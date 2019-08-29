@@ -150,7 +150,7 @@ export class PersonalInfoComponent extends BaseComponent {
     const valid = !(!this.isStayinginBCAfterstudies() ||
     this.checkAnyDependentsIneligible() || !this.isAllValid());
 
-    console.log('canContinue(): ', valid, this.form );
+    //console.log('canContinue(): ', valid, this.form );
     return valid;
   }
 }

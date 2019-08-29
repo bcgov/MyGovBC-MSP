@@ -1,8 +1,7 @@
-import {Address, BRITISH_COLUMBIA, CANADA} from 'moh-common-lib';
+import {Address, BRITISH_COLUMBIA, CANADA, CommonImage} from 'moh-common-lib';
 import { Relationship, StatusInCanada, Activities } from '../../msp-core/models/status-activities-documents';
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
 import { UUID } from 'angular2-uuid';
-import { MspImage } from '../../../models/msp-image';
 import { ApplicationBase } from './application-base.model';
 import { PhoneNumber } from '../../../components/msp/model/phone.model';
 
@@ -168,8 +167,8 @@ class MspApplication implements ApplicationBase {
   /*
     Gets all images for applicant, spouse and all children
    */
-  getAllImages(): MspImage[] {
-    let allImages = Array<MspImage>();
+  getAllImages(): CommonImage[] {
+    let allImages = Array<CommonImage>();
 
     // add applicant
     allImages = allImages.concat(this.applicant.documents.images);

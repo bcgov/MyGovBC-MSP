@@ -76,8 +76,8 @@ export enum CancellationReasonsForSpouse {
    SeparatedDivorced,
    RemoveFromAccountButStillMarriedOrCommomLaw,
    Deceased,
-    OutOfProvinceOrCountry,
-    ArmedForces,
+   OutOfProvinceOrCountry,
+   ArmedForces,
    Incarcerated,
 }
 
