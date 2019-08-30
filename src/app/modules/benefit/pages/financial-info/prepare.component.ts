@@ -197,68 +197,17 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
     }
 
+    // All the validations and required field are coming from common-deduction-calculator canContinue method 
     canContinue(evt): any {
-        if (this.benefitApp.hasSpouse) {
-            if (!this.benefitApp.spouseIncomeLine236) {
-                this.continue = false;
-                return false;
-            }
-        }
-
-        if (this.benefitApp.haveChildrens){
-            if (!this.benefitApp.claimedChildCareExpense_line214){
-                this.continue = false;
-                return false;
-            }
-        }
-
-        if (this.benefitApp.hasRegisteredDisabilityPlan){
-            if (!this.benefitApp.spouseDSPAmount_line125){
-                this.continue = false;
-                return false;
-            }
-        }
 
         if (evt !== undefined) {
             this.continue = evt;
         }
 
-
-
-       /* if (this.benefitApp.hasRegisteredDisabilityPlan === undefined || this.benefitApp.hasClaimedAttendantCareExpenses === undefined) {
-            return false;
-        }*/
-
-      /*  if (this.benefitApp.hasRegisteredDisabilityPlan && this.benefitApp.spouseDSPAmount_line125 === undefined) {
-            return false;
-        }*/
-
         if (this.childCountExceedError()) {
             this.continue = false;
             return false ;
         }
-
-
-
-        if (this.benefitApp.attendantCareExpenseReceipts.length === 0 && (this.benefitApp.applicantClaimForAttendantCareExpense || this.benefitApp.spouseClaimForAttendantCareExpense || this.benefitApp.hasClaimedAttendantCareExpenses === true )) {
-            this.continue = false;
-            return false;
-        }
-
-
-        if(this.benefitApp.selfDisabilityCredit && !( this.benefitApp.applicantEligibleForDisabilityCredit || this.benefitApp.spouseEligibleForDisabilityCredit || this.benefitApp.childClaimForDisabilityCredit)) {
-            this.continue = false;
-            return false;
-        }
-
-       /* if(this.benefitApp.childClaimForAttendantCareExpense && this.benefitApp.childWithAttendantCareCount) {
-            console.log(this.benefitApp.childWithAttendantCareCount.toString().match(patt));
-            if ( this.benefitApp.childWithAttendantCareCount.toString().match(patt)) {
-                this.continue = false;
-                return false;
-            }
-        }*/
-
         return evt ;
     }
 

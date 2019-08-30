@@ -142,25 +142,23 @@
                                 <div class="col-md-8">
                                    
                                     <!-- Children Count-->        
-                                    <div class="form-group row">
-                                        <label class='col-md-12' for="childrenCount" [innerHtml]="'How many children do you have on your account?'">
+                                    <div class="form-group">
+                                        <label  for="childrenCount" [innerHtml]="'How many children do you have on your account?'">
                                         </label>
-                                        <div class="col-md-3" >
-                                            <input type="text" class="form-control" name="childrenCount"
-                                                id="childrenCount"
-                                                maxlength="2"
-                                                #childCount="ngModel"
-                                                pattern="^[1-9]{0,2}?$"
-                                                [(ngModel)]="benefitApp.childrenCount">
+                                       
+                                        <input type="text" class="form-control col-md-2" name="childrenCount"
+                                            id="childrenCount"
+                                            maxlength="2"
+                                            #childCount="ngModel"
+                                            pattern="^[1-9]{0,2}?$"
+                                            [(ngModel)]="benefitApp.childrenCount">
+                                    
+                                        <div  class="text-danger" *ngIf="childCount.errors?.pattern"
+                                            [innerHTML]="'Children count must be numeric and in between 1-29'">
                                         </div>
-                                    </div>
-                                    <div class="text-danger" *ngIf="((benefitApp.childrenCount) > 29)"
-                                        [innerHTML]="'Maximum number of children allowed is 29'" tabindex="0">
-                                    </div>
-                                    <div class="text-danger" *ngIf="childCount.errors?.pattern"
-                                        [innerHTML]="'The number must be a valid number greater than 0, e.g., 1'">
-                                     </div>
                             
+                                    </div>
+                                    
                                     <!-- Claim for Child Care Expense -->     
                                     <div class="form-group">
                                         <label for="line214">
@@ -274,7 +272,7 @@
                                                     [(ngModel)]="benefitApp.numberOfChildrenWithDisability">
                                         </div>
                                         <div class="text-danger" *ngIf="disabilityCount.errors?.pattern"
-                                                [innerHTML]="'The number must be a valid number greater than 0, e.g., 1'">
+                                                [innerHTML]="'Children count must be numeric and in between 1-29'">
                                         </div>
                                             
                                         <div class="text-danger" *ngIf="childCountExceedError()"
