@@ -55,8 +55,8 @@ export class EnrolAddressComponent extends BaseComponent {
 
   private cdr: ChangeDetectorRef;
   mspApplication: MspApplication;
-  private coreContactInfo = new CoreContactInfoComponent(this.cdr);
-
+  public coreContactInfo = new CoreContactInfoComponent(this.cdr);
+  
   constructor(private dataService: MspDataService,
               private _router: Router,
               private pageStateService: PageStateService,
@@ -91,8 +91,8 @@ export class EnrolAddressComponent extends BaseComponent {
   }
 
   toggleCheckBox(){
-    this.mspApplication.mailingSameAsResidentialAddress = !this.mspApplication.mailingSameAsResidentialAddress;
-    this.dataService.saveMspApplication();
+    // this.mspApplication.mailingSameAsResidentialAddress = !this.mspApplication.mailingSameAsResidentialAddress;
+    // this.dataService.saveMspApplication();
   }
 
   handleAddressUpdate(evt: any){
@@ -104,27 +104,31 @@ export class EnrolAddressComponent extends BaseComponent {
 
   // handlePhoneUpdate(evt: any)(){}
 
-  canContinue(){
-    // re-write this with proper validations.
-    console.log('ADDRESS - MAILING SAME AS RESIDENTIAL?:' + this.coreContactInfo.hasSameResidentialAddress());
-    if (this.coreContactInfo.hasSameResidentialAddress()) {
-      // if (!isValidMailingAddress()){
-      //   return false;
-      // }
-      return true;
+  canContinue(): boolean {
+    // re-write this with proper validations
+    console.log('SAME MAILING ADDRESS?' + this.coreContactInfo.hasSameMailingAddress);
+    // debugger;
+    if (this.coreContactInfo.hasSameMailingAddress === false) {
+      return (this.mspApplication.residentialAddress.isComplete() && this.mspApplication.mailingAddress.isComplete());
     }
-    return false;
-    // if (isValidResidentialAddress()){
-    //   return true;
-    // });
-    // if (this.mspApplication.mailingSameAsResidentialAddress === false){
-    //   return true;
-    // }
-    // return false;
+    else {
+      return this.mspApplication.residentialAddress.isComplete();
+    }
   }
 
+  // canContinue(): boolean {
+  //   return this.isAllValid();
+  // }
+
+  // isValid(): boolean {
+  //   const app = this.dataService.mspApplication;
+  //   return app.applicant.plannedAbsence === false
+  //     && app.applicant.liveInBC === true
+  //     && app.unUsualCircumstance === false;
+  // }
+
   continue() {
-  console.log('combinedValidationState on address: %s', );
+    console.log('combinedValidationState on address: %s', );
     if (!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{

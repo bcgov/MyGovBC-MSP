@@ -20,12 +20,10 @@
   </div>
   <div class="row">
     <div class="col-lg-6">
-
         <msp-contact-card [residentialAddress]="application.residentialAddress"
-        [mailingAddress]="application.mailingAddress"
-        [phone]="application.phoneNumber"
-        [editRouterLink]="address_info"></msp-contact-card>
-
+                          [mailingAddress]="application.mailingAddress"
+                          [phone]="application.phoneNumber"
+                          [editRouterLink]="address_info"></msp-contact-card>
     </div>
 
     <div  class="col-lg-6" *ngIf="application.children != null && application.children.length > 0">

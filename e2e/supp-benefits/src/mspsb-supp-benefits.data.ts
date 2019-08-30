@@ -11,7 +11,7 @@ export class FakeDataSupplementaryBenefits {
             lastName: faker.name.lastName(),
             birthDate: faker.date.past(),
             PHN: 9999999998,
-            SIN: 712234123
+            SIN: 999999998
         }
     }
 
@@ -22,7 +22,7 @@ export class FakeDataSupplementaryBenefits {
             lastName: 'Loremipsumdolorsitametonsectet',
             birthDate: faker.date.past(),
             PHN: 9999999998,
-            SIN: 712234123
+            SIN: 999999998
         }
     }
 

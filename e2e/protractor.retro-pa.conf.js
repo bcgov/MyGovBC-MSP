@@ -6,7 +6,7 @@ const { SpecReporter } = require('jasmine-spec-reporter');
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
-    './retro-pa/src/*.e2e-spec.ts'
+    './retro-pa/src/mspretro-happy-path.e2e-spec.ts'
   ],
   multiCapabilities: [{
   // 'browserName': 'firefox'
