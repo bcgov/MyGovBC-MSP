@@ -647,8 +647,6 @@ export class MspDataService {
     dto.outsideBCFor30Days = input.outsideBCFor30Days;
 
     dto.pageStatus = input.pageStatus; // page status complete/ incomplete
-<<<<<<< HEAD
-=======
         
     // Documents
     dto.applicantStatusDoc = input.applicantStatusDoc;
@@ -657,7 +655,6 @@ export class MspDataService {
     dto.spouseNameDoc = input.spouseNameDoc;
     dto.childrenStatusDoc = input.childrenStatusDoc;
     dto.childrenNameDoc = input.childrenNameDoc;
->>>>>>> enrolment
 
     return dto;
   }
@@ -846,8 +843,6 @@ export class MspDataService {
 
     output.pageStatus = dto.pageStatus; // page status complete/ incomplete
 
-<<<<<<< HEAD
-=======
     // Documents
     output.applicantStatusDoc = dto.applicantStatusDoc;
     output.applicantNameDoc = dto.applicantNameDoc;
@@ -856,7 +851,6 @@ export class MspDataService {
     output.childrenStatusDoc = dto.childrenStatusDoc;
     output.childrenNameDoc = dto.childrenNameDoc;
 
->>>>>>> enrolment
     return output;
   }
 

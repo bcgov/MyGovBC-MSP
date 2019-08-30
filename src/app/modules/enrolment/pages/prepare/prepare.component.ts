@@ -12,10 +12,7 @@ import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { environment } from '../../../../../environments/environment.prod';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
 import { PageStateService } from '../../../../services/page-state.service';
-<<<<<<< HEAD
-=======
 import { yesNoLabels } from '../../../msp-core/models/status-activities-documents';
->>>>>>> enrolment
 
 @Component({
   templateUrl: './prepare.component.html'

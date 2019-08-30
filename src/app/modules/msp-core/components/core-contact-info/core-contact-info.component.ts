@@ -22,11 +22,8 @@ export class CoreContactInfoComponent extends BaseComponent {
   @Input() phoneNumber: string;
   @Output() phoneNumberChange = new EventEmitter<string>();
 
-<<<<<<< HEAD
   hasSameMailingAddress = true;
 
-=======
->>>>>>> enrolment
   // remove - replace references to address in here to simply the address input (this.address or address)
   // mspApplication: MspApplication;
 
@@ -60,7 +57,6 @@ export class CoreContactInfoComponent extends BaseComponent {
   }
 
   toggleCheckBox(){
-<<<<<<< HEAD
     if (this.hasSameMailingAddress === true){
       this.hasSameMailingAddress = false;
     }
@@ -79,16 +75,4 @@ export class CoreContactInfoComponent extends BaseComponent {
   // getHasSameMailingAddress(){
   //   return this.hasSameMailingAddress;
   // }
-=======
-    this.mailingSameAsResidentialAddress = !this.mailingSameAsResidentialAddress;
-    // console.log('TOGGLE- MAILING SAME AS RESIDENTIAL?:' + this.mailingSameAsResidentialAddress);
-  }
-
-  hasSameResidentialAddress(){
-    // return this.mailingSameAsResidentialAddress;
-    console.log('CORE - MAILING SAME AS RESIDENTIAL?:' + this.mailingSameAsResidentialAddressChange);
-    return false;
-  }
-
->>>>>>> enrolment
 }
