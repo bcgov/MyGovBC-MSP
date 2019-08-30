@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites disabled="0" errors="0" failures="0" tests="4" time="125.413">
- <testsuite name="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" timestamp="2019-08-28T14:02:26" hostname="localhost" time="125.413" errors="0" tests="4" skipped="0" disabled="0" failures="0">
-  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="01. should navigate from Financial Info Page to Confirmation Page (end-to-end) when all required fields are filled out" time="32.998" />
-  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="02. should be able to successfully pass test for maximum length for each field" time="34.925" />
-  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="03. should NOT allow to continue when there is no file upload for POA" time="28.949" />
-  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="04. should NOT uncheck POA and clear file/s attached to it when user checks First Person Authorize" time="28.538" />
+<testsuites disabled="0" errors="0" failures="0" tests="4" time="124.933">
+ <testsuite name="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" timestamp="2019-08-30T16:24:46" hostname="localhost" time="124.933" errors="0" tests="4" skipped="0" disabled="0" failures="0">
+  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="01. should navigate from Financial Info Page to Confirmation Page (end-to-end) when all required fields are filled out" time="33.503" />
+  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="02. should be able to successfully pass test for maximum length for each field" time="33.083" />
+  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="03. should NOT allow to continue when there is no file upload for POA" time="27.984" />
+  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="04. should NOT uncheck POA and clear file/s attached to it when user checks First Person Authorize" time="30.361" />
  </testsuite>
 </testsuites>
