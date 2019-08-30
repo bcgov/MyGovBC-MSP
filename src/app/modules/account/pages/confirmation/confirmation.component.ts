@@ -1,35 +1,77 @@
-import {Component, OnInit} from '@angular/core';
-import {MspApplication} from '../../../../modules/enrolment/models/application.model';
-import {MspDataService} from '../../../../services/msp-data.service';
-import {ActivatedRoute, Router, Params} from '@angular/router';
-import {Observable, Subscription} from 'rxjs';
-import { environment } from '../../../../../environments/environment';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
+import {BaseComponent} from '../../../../models/base.component';
+import {Subscription} from 'rxjs';
+import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
+import {ActivatedRoute} from '@angular/router';
+import { MspAccountApp } from '../../models/account.model';
+import * as moment from 'moment';
 
 @Component({
-    templateUrl: './confirmation.component.html'
+  selector: 'msp-confirmation',
+  templateUrl: './confirmation.component.html',
+  styleUrls: ['./confirmation.component.scss']
 })
-export class AccountConfirmationComponent implements OnInit {
-    public links = environment.links;
+export class AccountConfirmationComponent implements OnDestroy {
 
+    lang = require('./i18n');
     confirmationNum: string;
     subscription: Subscription;
-    showDepMsg: string;
+    noticeOfAssessment: string;
+    isCutOff: boolean;
+    isCutOffYear: boolean;
 
-    constructor(private dataService: MspDataService,
-                private route: ActivatedRoute) {
+    constructor(private route: ActivatedRoute, public dataService: MspAccountMaintenanceDataService) {
+
     }
 
     ngOnInit(): void {
         this.subscription = this.route.queryParams.subscribe(
             params => {
-                this.confirmationNum = params['confirmationNum'],
-                    this.showDepMsg = params['showDepMsg'];
+                this.confirmationNum = params['confirmationNum'];
+                this.isCutOff = params['isCutOff'];
+                this.isCutOffYear = params['isCutOffyear'];
             }
         );
+        console.log(this.isCutOff);
+        console.log(this.isCutOffYear);
+
+        if (this.isCutOff) {
+            if (this.isCutOffYear === true) {
+                this.noticeOfAssessment =  this.lang('./en/index.js').noticeOfAssessmentCutOffyear;
+
+            } else {
+                this.noticeOfAssessment = this.lang('./en/index.js').noticeOfAssessmentNonCutOffyear;
+
+            }
+        } else if (this.isCutOff === false) {
+            this.noticeOfAssessment = this.lang('./en/index.js').noticeOfAssessment;
+        }
+    }
+
+    ngAfterViewChecked(){
+        //this.dataService.removeMspBenefitApp();
+    }
+
+    get accountApp(): MspAccountApp {
+        return this.dataService.accountApp;
     }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
 
+    /**
+     * Today's date
+     * @returns {string}
+     */
+    get dateStamp(): string {
+        return moment().format('MMMM DD, YYYY');
+    }
+
+    // Logic to get the cutoff Date text
+   /* get noticeOfAssessment() {
+        
+
+
+    }*/
 }

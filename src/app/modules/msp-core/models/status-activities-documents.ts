@@ -1,7 +1,9 @@
+import { Documents } from './msp-document.constants';
+
 /**
  * Various relationships
  */
-enum Relationship {
+export enum Relationship {
   Applicant,
   Spouse,
   ChildUnder19,
@@ -10,20 +12,25 @@ enum Relationship {
   AllAgeApplicant,
 }
 
-
 /**
  * Various statuses in Canada
  */
-enum StatusInCanada {
+export enum StatusInCanada {
   CitizenAdult, // adult
   PermanentResident,
   TemporaryResident,
 }
 
+export const LangStatus = {
+  CitizenAdult: 'Canadian citizen',
+  PermanentResident: 'Permanent resident',
+  TemporaryResident: 'Temporary permit holder or diplomat'
+};
+
 /**
  * Whose MSP Enrollement for ACL
  */
-enum MSPEnrollementMember {
+export enum MSPEnrollementMember {
   MyselfOnly, // adult
   AllMembers,
   SpecificMember
@@ -34,7 +41,7 @@ enum MSPEnrollementMember {
 /**
  * Reasons for returning to Canada
  */
-enum Activities {
+export enum Activities {
   LivingInBCWithoutMSP,
   MovingFromProvince,
   MovingFromCountry,
@@ -45,24 +52,19 @@ enum Activities {
   Visiting
 }
 
-/**
- * ID documents
- */
-enum Documents {
-  CanadianBirthCertificate,
-  CanadianPassport,
-  CanadianCitizenCard,
-  RecordOfLanding,
-  PermanentResidentCard,
-  WorkPermit,
-  StudyPermit,
-  VisitorVisa,
-  PassportWithDiplomaticFoil,
-  MarriageCertificate,
-  ChangeOfNameCertificate
-}
+export const LangActivities = {
+  LivingInBCWithoutMSP: 'Not new to B.C. but need to apply for Medical Services Plan',
+  MovingFromProvince: 'Moved from another province',
+  MovingFromCountry: 'Moved from another country',
+  WorkingInBC: 'Working in B.C.',
+  StudyingInBC: 'Studying in B.C.',
+  ReligiousWorker: 'Religious worker',
+  Diplomat: 'Diplomat',
+  Visiting: 'Visiting'
+};
 
-enum CancellationReasons {
+
+export enum CancellationReasons {
   NoLongerInFullTimeStudies,
   Deceased,
   OutOfProvinceOrCountry,
@@ -70,19 +72,19 @@ enum CancellationReasons {
   Incarcerated
 }
 
-enum CancellationReasonsForSpouse {
+export enum CancellationReasonsForSpouse {
    SeparatedDivorced,
    RemoveFromAccountButStillMarriedOrCommomLaw,
    Deceased,
-    OutOfProvinceOrCountry,
-    ArmedForces,
+   OutOfProvinceOrCountry,
+   ArmedForces,
    Incarcerated,
 }
 
 /**
  * Business rules for status
  */
-class StatusRules {
+export class StatusRules {
   static availableStatus(relationship: Relationship): StatusInCanada[] {
     switch (relationship) {
       default:
@@ -93,7 +95,7 @@ class StatusRules {
   }
 }
 
-class EnrollmentStatusRules {
+export class EnrollmentStatusRules {
   static availableStatus(): MSPEnrollementMember[] {
         return [MSPEnrollementMember.MyselfOnly,
             MSPEnrollementMember.AllMembers,
@@ -104,7 +106,7 @@ class EnrollmentStatusRules {
 /**
  * Business rules for activities
  */
-class ActivitiesRules {
+export class ActivitiesRules {
   static availableActivities(relationship: Relationship, status: StatusInCanada): Activities[] {
     switch (status) {
       case StatusInCanada.CitizenAdult:
@@ -130,7 +132,7 @@ class ActivitiesRules {
 /**
  * Business rules for documents
  */
-class DocumentRules {
+export class DocumentRules {
   static availiableDocuments(status: StatusInCanada, activity: Activities): Documents[] {
     switch (status) {
       case StatusInCanada.CitizenAdult:
@@ -157,4 +159,7 @@ class DocumentRules {
   }
 }
 
-export {MSPEnrollementMember, EnrollmentStatusRules, Relationship, Activities, StatusInCanada, Documents, ActivitiesRules, StatusRules, DocumentRules, CancellationReasons , CancellationReasonsForSpouse};
+
+// Yes/no button labels
+// TODO: figure out where to keeps common items like these
+export const yesNoLabels = [{ 'label': 'No', 'value': false}, {'label': 'Yes', 'value': true} ];

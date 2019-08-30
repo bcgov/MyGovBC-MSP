@@ -1,17 +1,17 @@
 import {Component, Input, ViewChild, NgZone, Inject} from '@angular/core';
 import * as moment from 'moment';
 import {ModalDirective} from 'ngx-bootstrap';
-import {MspImage, MspImageError} from '../../../../models/msp-image';
 import { environment } from '../../../../../environments/environment';
+import { CommonImage, CommonImageError } from 'moh-common-lib';
 
 @Component({
-  selector: 'msp-image-error-modal',
+  selector: 'common-image-error-modal',
   templateUrl: './image-error-modal.component.html'
 })
 export class MspImageErrorModalComponent {
   lang = require('./i18n');
 
-  @Input() imageWithError: MspImage;
+  @Input() imageWithError: CommonImage;
   @ViewChild('errorModal') public errorModal: ModalDirective;
 
   constructor(private zone: NgZone) {}
@@ -22,7 +22,7 @@ export class MspImageErrorModalComponent {
    */
   getErrorMessage(): string {
     let message: string = this.lang('./en/index.js').imageError[this.imageWithError.error];
-    if (this.imageWithError.error === MspImageError.TooSmall) {
+    if (this.imageWithError.error === CommonImageError.TooSmall) {
       message = message.replace('{width}', environment.appConstants.images.minWidth.toString());
       message = message.replace('{height}', environment.appConstants.images.minHeight.toString());
     }

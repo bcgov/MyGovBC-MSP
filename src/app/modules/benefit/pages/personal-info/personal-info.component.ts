@@ -9,8 +9,7 @@ import {MspAddressComponent} from '../../../msp-core/components/address/address.
 import {BaseComponent} from '../../../../models/base.component';
 import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
-import { MspImage } from 'app/models/msp-image';
-import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService, CANADA } from 'moh-common-lib';
+import { CANADA } from 'moh-common-lib';
 
 
 @Component({
@@ -33,7 +32,7 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     constructor(private dataService: MspBenefitDataService,
                 private _router: Router,
                 private _processService: ProcessService,
-                private cd: ChangeDetectorRef) {
+                cd: ChangeDetectorRef) {
         super(cd);
         this.benefitApplication = this.dataService.benefitApp;
         this._processService.setStep(BenefitPersonalInfoComponent.ProcessStepNum, false);
@@ -48,7 +47,7 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
         this.personalInfoForm.valueChanges.pipe(
             debounceTime(250),
             distinctUntilChanged()
-        ).subscribe( values => {
+        ).subscribe( () => {
             this.dataService.saveBenefitApplication();
         });
     }
@@ -58,11 +57,11 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
         this.initProcessMembers(BenefitPersonalInfoComponent.ProcessStepNum, this._processService);
     }
 
-    onChange(values: any) {
+    onChange($event) {
         this.dataService.saveBenefitApplication();
     }
 
-    onSubmit(form: NgForm){
+    onSubmit(){
         this._processService.setStep(BenefitPersonalInfoComponent.ProcessStepNum, true);
         this._router.navigate(['/benefit/spouse-info']);
     }

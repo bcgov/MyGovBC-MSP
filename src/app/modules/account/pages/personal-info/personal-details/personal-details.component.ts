@@ -11,7 +11,7 @@ import {MspStatusInCanadaRadioComponent} from '../../../../../modules/msp-core/c
 import {MspDataService} from '../../../../../services/msp-data.service';
 import {BaseComponent} from '../../../../../models/base.component';
 import { Activities, StatusInCanada } from '../../../../enrolment/models/application.model';
-import { Relationship, StatusRules, ActivitiesRules } from '../../../../../models/status-activities-documents';
+import { Relationship, StatusRules, ActivitiesRules, LangStatus } from '../../../../msp-core/models/status-activities-documents';
 import { MspPhoneComponent } from '../../../../../components/msp/common/phone/phone.component';
 import { MspPerson, MspAccountApp } from '../../../models/account.model';
 import { Address } from 'moh-common-lib';
@@ -51,7 +51,7 @@ import { Address } from 'moh-common-lib';
 
 export class AccountPersonalDetailsComponent extends BaseComponent {
     lang = require('./i18n');
-    langStatus = require('../../../../../components/msp/common/status/i18n');
+    langStatus = LangStatus;
     langAccountActivities = require('../../../../../components/msp/common/account-activities/i18n');
     //langDocuments = require('../../../../../components/msp/common/documents/i18n');
 

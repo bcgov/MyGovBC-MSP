@@ -1,6 +1,6 @@
 import PersonDto from './msp-person.dto';
 import AddressDto from './address.dto';
-import {MSPEnrollementMember} from '../../../models/status-activities-documents';
+import {MSPEnrollementMember} from '../../../modules/msp-core/models/status-activities-documents';
 
 
 export default class AccountLetterDto {

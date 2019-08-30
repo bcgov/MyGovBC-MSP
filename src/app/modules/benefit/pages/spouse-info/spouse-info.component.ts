@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import {BenefitApplication} from '../../models/benefit-application.model';
 import {PersonalDetailsRetroSuppbenComponent} from '../../../msp-core/components/personal-details-retro-suppben/personal-details-retro-suppben.component';
 import { MspBenefitDataService } from '../../services/msp-benefit-data.service';
-import {Relationship} from '../../../../models/status-activities-documents';
+import {Relationship} from '../../../msp-core/models/status-activities-documents';
 import {NgForm} from '@angular/forms';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 //import { validatePHN } from 'app/modules/msp-core/models/validate-phn';

@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { StatusInCanada } from '../../../../models/status-activities-documents';
+import { StatusInCanada } from '../../models/status-activities-documents';
 import { Person } from '../../../../components/msp/model/msp-person.model';
-import { Activities, Relationship } from '../../../../models/status-activities-documents';
+import { Activities, Relationship } from '../../models/status-activities-documents';
 import { MspStatusInCanadaRadioComponent } from './status-in-canada-radio.component';
 
 describe('StatusInCanadaRadioComponent', () => {

@@ -1,44 +1,183 @@
-<!--  -->
 <msp-services-card-disclaimer-modal #mspServicesCardModal></msp-services-card-disclaimer-modal>
-<common-page-section layout="noTips">
-    <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]" class="row border-bottom"></h2>
 
-    <msp-citizen-status class="row" id="primary" [label]="statusLabel()" [items]="langStatus"
-      (change)="setStatus($event, person)" [selected]="person.status">
-    </msp-citizen-status>
-    <common-radio class="row" *ngIf="person.status != null" [radioLabels]='activitiesTable' [label]=""
-      [value]="person.currentActivity" (statusChange)="setActivity($event)" display="table-row-group">
+<h2>{{sectionTitle}}</h2>
+<p class="border-bottom">{{sectionInstruct}}</p>
+
+<common-page-section layout="tips">
+  <div class="form-group col-sm-6 p-sm-0 mb-0">
+    <common-dropdown name="StatusInCanada"
+                     [label]="statusLabel"
+                     [items]="statusOpts"
+                     placeholder="Please Select"
+                     [clearable]="false"
+                     [ngModel]="getStatusInCanada()"
+                     (ngModelChange)="setStatusInCanada($event);">
+    </common-dropdown>
+  </div>
+  <div class="form-group col-sm-8">
+    <common-radio *ngIf="getStatusInCanada()" 
+                  [radioLabels]="activitiesTable"
+                  [value]="person.currentActivity"
+                  (statusChange)="setActivity($event)" 
+                  display="table-row-group">
     </common-radio>
-    <ng-container *ngIf="person.status != null && person.currentActivity != null">
+  </div>
+</common-page-section>
 
-      <h2 class="row border-bottom">Documents</h2>
+<div *ngIf="getStatusInCanada() && person.currentActivity">
+  <h2>Documents</h2>
+  <p class="border-bottom"> 
+    Provide one of the required documents to support your status in Canada. 
+    If your name has changed since your ID was issued you are also required to upload document to support the name change.
+  </p>
+  <div class="form-row align-items-end">
+    <div class="form-group col-sm-4">
+        <common-dropdown name="StatusDocumentType"
+                         label="Document Type"
+                         [items]="documentList"
+                         placeholder="Please Select"
+                         [clearable]="false"
+                         [(ngModel)]="statusDocumentType">
+        </common-dropdown>
+    </div>
+    <div class="form-group col-sm-4">
+      <common-button label="Add"
+                     buttonType="primary"
+                     (btnClick)="addStatusBtnClick()"
+                     [disabled]="hasStatusDocumentType"></common-button>
+    </div>
+  </div>
+
+  <div *ngIf="hasStatusDocumentType">
+    <h2 class="border-bottom">{{statusDocumentType}}
+      <common-xicon-button label= "Remove document" (click)="removeDocuments()">
+      </common-xicon-button>
+    </h2>
+    <common-page-section layout="tips">
+      <common-file-uploader [images]="statusDocuments" 
+                            (imagesChange)="statusDocumentsChange.emit($event)"
+                            id="statusUploader" 
+                            [required]="true" 
+                            instructionText="{{uploadDocInstructions}}">
+      </common-file-uploader>
+
+      <common-radio class="p-sm-2"
+                    [value]="hadNameChanged"  
+                    label="Has your name changed since your ID was issued due to marriage or a legal name change?" 
+                    [radioLabels]="yesNoRadioLabels"
+                    (statusChange)="hadNameChanged=$event">
+        </common-radio>
+      <aside>
+        <div>
+          TODO: Need to add links with images to display
+          Scan the document, or take a photo of it. Make sure that it's:
+          <ul>
+            <li>The entire document, from corner to corner</li>
+            <li>At least 1000 pixels wide x 1500 pixels tall</li>
+            <li>Rotated correctly (not upside down or sideways)</li>
+            <li>In focus and easy to read</li>
+            <li>A JPG, PNG, GIF or BMP file (<strong>not a PDF</strong>)</li>
+          </ul>
+        </div>
+      </aside>
+    </common-page-section>
+  </div>
+
+  <div *ngIf="hasNameChange && statusDocuments.length">
+    <h3>Additional Documents</h3>
+    <p class="border-bottom"> 
+        Provide one of the required documents to support your name change.
+    </p>
+    <div class="form-row align-items-end">
+      <div class="form-group col-sm-4">
+          <common-dropdown name="NameDocumentType"
+                            label="Document Type"
+                            [items]="nameChgDocumentList"
+                            placeholder="Please Select"
+                            [clearable]="false"
+                            [(ngModel)]="nameChangeDocumentType">
+          </common-dropdown>
+      </div>
+      <div class="form-group col-sm-4">
+        <common-button label="Add"
+                        buttonType="primary"
+                        (btnClick)="addNameBtnClick()"
+                        [disabled]="hasNameChangeDocumentType"></common-button>
+      </div>
+    </div>
+
+    <div *ngIf="hasNameChangeDocumentType">
+      <h3 class="border-bottom">{{nameChangeDocumentType}}
+        <common-xicon-button label= "Remove document" (click)="removeNameDocuments()">
+        </common-xicon-button>
+      </h3>
       <common-page-section layout="tips">
-
-        <common-file-uploader class="row" [images]="person.documents.images" (imagesChange)="deleteDocument($event)"
-          id="uploader" [required]="true" instructionText="Please upload required ID documents">
+        <common-file-uploader [images]="nameDocuments" 
+                              (imagesChange)="nameDocumentsChange.emit($event)"
+                              id="nameChgUploader" 
+                              [required]="true" 
+                              instructionText="{{uploadDocInstructions}}">
         </common-file-uploader>
-        <aside class="mt-0">
-          <div [innerHtml]="lang('./en/index.js').documentInstructionsNote" class="mt-0"></div>
+        <aside>
+          <!--TODO:  aside should be in variable as it is used in more than one place-->
+          <div>
+            TODO: Need to add links with images to display
+            Scan the document, or take a photo of it. Make sure that it's:
+            <ul>
+              <li>The entire document, from corner to corner</li>
+              <li>At least 1000 pixels wide x 1500 pixels tall</li>
+              <li>Rotated correctly (not upside down or sideways)</li>
+              <li>In focus and easy to read</li>
+              <li>A JPG, PNG, GIF or BMP file (<strong>not a PDF</strong>)</li>
+            </ul>
+          </div>
         </aside>
       </common-page-section>
-    </ng-container>
+    </div>
+
+  </div>
+</div>
+
+<div *ngIf="statusDocuments.length &&  (!hasNameChange || (hasNameChange && nameDocuments.length))">
+  <!--TODO: Title needs to change depending on relationship - should be a variable-->
+  <h2>Personal Information</h2>
+  <p class="border-bottom">Enter your legal name and gender.</p>
+  <common-page-section layout="tips">
+    <msp-full-name #name [data]="person" (dataChange)="onChange.emit($event)">
+    </msp-full-name>
+
+    <msp-birthdate #birthDate [person]="person" class="row" (onChange)="onChange.emit($event)"
+      [showError]="showError">
+    </msp-birthdate>
 
 
-    <div *ngIf="hasValidCurrentActivity && person.documents.images.length > 0">
-      <h2 class="row" [innerHtml]="lang('./en/index.js').applicationPersonalInfo[person.relationship]"></h2>
-      <p class="row border-bottom" [innerHtml]="lang('./en/index.js').nameHelpBlock[this.person.relationship]"></p>
-      <div *ngIf="person.documents.images.length > 0">
-        <msp-full-name #name [data]="person" (dataChange)="onChange.emit($event)">
-        </msp-full-name>
+    <common-radio class="row" [radioLabels]='genderLabels' (statusChange)="setGender($event)"
+      [(ngModel)]="person.gender" name="gender" label="Gender">
+    </common-radio>
+  </common-page-section>
 
-        <msp-birthdate #birthDate [person]="person" class="row" (onChange)="onChange.emit($event)"
-          [showError]="showError">
-        </msp-birthdate>
+  <h2>Moving Information</h2>
+    <div *ngIf="isCanadianCitizen">
+      <p class="border-bottom">
+        Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
+      </p>
+      <common-page-section layout="tips">
+      </common-page-section>
+    </div>
 
 
-        <common-radio class="row" [radioLabels]='genderLabels' (statusChange)="setGender($event)"
-          [(ngModel)]="person.gender" name="gender" label="Gender">
-        </common-radio>
+
+
+</div>
+
+
+
+
+
+<!--
+TODO: Bring the elements below in to match the mockups
+
+
         <div *ngIf="person.status === StatusInCanada.CitizenAdult &&
           person.currentActivity === Activities.LivingInBCWithoutMSP">
           <common-toggle label="Have you moved to BC permanently?" [(ngModel)]="person.livedInBCSinceBirth">
@@ -105,8 +244,11 @@
                                 (ngModelChange)="provinceUpdate($event)"
                                 [provinceList]=provList()></common-province>
           </div>
+-->
           <!--For canadian citizen, returning to BC after an absence or moving from another province, the arrival date in canada
               is not required.-->
+
+<!--             
           <msp-arrival-date #arrivalDateCanada class='row'
             [arrivalLabel]="lang('./en/index.js').arrivalDateToCanadaLabel"
             [required]="!(person.status === StatusInCanada.CitizenAdult
@@ -277,4 +419,5 @@
       </div>
 
     </div>
-</common-page-section>
+-->
+

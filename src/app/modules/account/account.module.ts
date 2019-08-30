@@ -17,6 +17,14 @@ import { AccountConfirmationComponent } from './pages/confirmation/confirmation.
 import { RemoveDependentComponent } from './pages/remove-dependents/remove-dependents.component';
 import { AddNewDependentBeneficiaryComponent } from './pages/add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
 import { AddDependentComponent } from './pages/add-dependents/add-dependents.component';
+import { HomeComponent } from './pages/home/home.component';
+import { SpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
+import { ChildInfoComponent } from './pages/child-info/child-info.component';
+import { AuthorizeComponent } from './pages/authorize/authorize.component';
+import { ContactInfoComponent } from './pages/contact-info/contact-info.component';
+import { MspAccountMaintenanceDataService } from './services/msp-account-data.service';
+import { MspApiAccountService } from './services/msp-api-account.service';
+import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
 
 @NgModule({
   imports: [
@@ -38,7 +46,18 @@ import { AddDependentComponent } from './pages/add-dependents/add-dependents.com
     AccountConfirmationComponent,
     AddDependentComponent,
     RemoveDependentComponent,
-    AddNewDependentBeneficiaryComponent
+    AddNewDependentBeneficiaryComponent,
+    HomeComponent,
+    SpouseInfoComponent,
+    ChildInfoComponent,
+    AuthorizeComponent,
+    ContactInfoComponent
+  ],
+  providers: [
+    { provide: AbstractPgCheckService, useExisting: CheckCompleteBaseService },
+    RouteGuardService,
+    MspAccountMaintenanceDataService,
+    MspApiAccountService
   ]
 })
 export class AccountModule { }

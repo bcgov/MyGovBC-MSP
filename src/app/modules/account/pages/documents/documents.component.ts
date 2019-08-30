@@ -5,15 +5,15 @@ import {Router} from '@angular/router';
 import {BaseComponent} from '../../../../models/base.component';
 import {LocalStorageService} from 'angular-2-local-storage';
 
-import {ProcessService, ProcessUrls} from '../../../../services/process.service';
-import {MspImage} from '../../../../models/msp-image';
 //import {FileUploaderComponent} from 'moh-common-lib/lib/components';
 import {MspImageErrorModalComponent} from '../../../../modules/msp-core/components/image-error-modal/image-error-modal.component';
 import {MspIdReqModalComponent} from '../../../../modules/msp-core/components/id-req-modal/id-req-modal.component';
 import { MspAccountApp } from '../../models/account.model';
 import { DocumentGroup, LangAccountDocuments } from '../../../../models/account-documents';
 import { AccountDocumentHelperService } from '../../../benefit/services/account-document-helper.service';
-import { Documents, CancellationReasonsForSpouse } from '../../../../models/status-activities-documents';
+import { CancellationReasonsForSpouse, LangStatus, LangActivities } from '../../../msp-core/models/status-activities-documents';
+import { Documents } from '../../../msp-core/models/msp-document.constants';
+import { CommonImage } from 'moh-common-lib';
 
 @Component({
     templateUrl: './documents.component.html'
@@ -28,8 +28,8 @@ export class AccountDocumentsComponent extends BaseComponent {
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
     @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
 
-    langStatus = require('../../../../components/msp/common/status/i18n');
-    langActivities = require('../../../../components/msp/common/activities/i18n');
+    langStatus = LangStatus;
+    langActivities = LangActivities;
     documentsList: DocumentGroup[] ;
 
     langAccountDocuments = LangAccountDocuments;
@@ -75,7 +75,7 @@ export class AccountDocumentsComponent extends BaseComponent {
         return Object.keys(this.documentsList).map(x => parseInt(x, 10));
     }
 
-    onImagesChange(doc: Document, img: MspImage) {
+    onImagesChange(doc: Document, img: CommonImage) {
         console.log('onImagesChanges', img);
        // this.documentsChange.emit( this.documents ); // Not sure this will work
     }
@@ -86,13 +86,13 @@ export class AccountDocumentsComponent extends BaseComponent {
         this.dataService.saveMspAccountApp();
     }*/
 
-    errorDoc(evt: MspImage) {
+    errorDoc(evt: CommonImage) {
         this.mspImageErrorModal.imageWithError = evt;
         this.mspImageErrorModal.showFullSizeView();
         this.mspImageErrorModal.forceRender();
     }
 
-    deleteDoc(doc: MspImage) {
+    deleteDoc(doc: CommonImage) {
         this.mspAccountApp.documents = this.mspAccountApp.documents
             .filter(d => {
                 return d.id !== doc.id;

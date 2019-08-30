@@ -12,6 +12,10 @@ import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { environment } from '../../../../../environments/environment.prod';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
 import { PageStateService } from '../../../../services/page-state.service';
+<<<<<<< HEAD
+=======
+import { yesNoLabels } from '../../../msp-core/models/status-activities-documents';
+>>>>>>> enrolment
 
 @Component({
   templateUrl: './prepare.component.html'
@@ -29,7 +33,7 @@ export class PrepareComponent extends BaseComponent {
   public styleClass: string = 'control-label';
 
   // labels
-  radioLabels = [{ 'label': 'No', 'value': false}, {'label': 'Yes', 'value': true} ];
+  radioLabels = yesNoLabels;
 
 
   // Web links
@@ -37,7 +41,7 @@ export class PrepareComponent extends BaseComponent {
 
   // verbage
   question1 = 'Do you currently live in British Columbia (i.e. Do you have an address here)?';
-  plannedAwayForOver30DaysQuestion = 'Will you or anyone in your immediate family (included on this application) be away from B.C. for more than 30 days in total over the next six months?';
+  plannedAwayForOver30DaysQuestion = 'Will you or anyone included on this application be away from B.C. for more than 30 days in total over the next six months?';
 
   constructor(public dataService: MspDataService,
               private pageStateService: PageStateService,

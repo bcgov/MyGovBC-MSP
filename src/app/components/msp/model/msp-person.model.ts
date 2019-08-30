@@ -1,30 +1,29 @@
 import {IPerson} from './msp-person.interface';
 
-import {Relationship, StatusInCanada, Activities} from '../../../models/status-activities-documents';
+import {Relationship, StatusInCanada, Activities} from '../../../modules/msp-core/models/status-activities-documents';
 import {PersonDocuments} from './person-document.model';
 import {OutofBCRecord} from '../../../models/outof-bc-record.model';
 import * as moment from 'moment';
 import {UUID} from 'angular2-uuid';
 import * as _ from 'lodash';
 import {PhoneNumber} from './phone.model';
-import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA } from 'moh-common-lib';
-import { MspImage } from '../../../models/msp-image';
+import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
 
 const sha1 = require('sha1');
 
-enum Gender {
+export enum Gender {
     Female = <any>'F',
     Male = <any>'M'
 }
 
-enum OperationActionType {
+export enum OperationActionType {
     Add,
     Remove,
     Update
 }
 
 
-class MspPerson implements IPerson {
+export class MspPerson implements IPerson {
 
     readonly uuid = UUID.UUID();
 
@@ -33,7 +32,7 @@ class MspPerson implements IPerson {
     _currentActivity: Activities;
     documents: PersonDocuments = new PersonDocuments();
 
-    assistYearDocs: MspImage[] = [];
+    assistYearDocs: CommonImage[] = [];
 
     outOfBCRecord: OutofBCRecord;
     /** NEEDS XSD. Departure information for the question regarding if the person will be out of BC for more than 30 days in the next 6 months. */
@@ -741,5 +740,3 @@ class MspPerson implements IPerson {
         return result;
     }
 }
-
-export {MspPerson, Gender, OperationActionType};

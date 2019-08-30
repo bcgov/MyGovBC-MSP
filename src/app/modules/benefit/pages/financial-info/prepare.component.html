@@ -142,17 +142,23 @@
                                 <div class="col-md-8">
                                    
                                     <!-- Children Count-->        
-                                    <div class="form-group row">
-                                        <label class='col-md-12' for="childrenCount" [innerHtml]="lang('./en/index.js').howManyChildrenDoYouHaveOnYourMSP">
+                                    <div class="form-group">
+                                        <label  for="childrenCount" [innerHtml]="'How many children do you have on your account?'">
                                         </label>
-                                        <div class="col-md-3" >
-                                            <input type="text" class="form-control" name="childrenCount"
-                                                id="childrenCount"
-                                                maxlength="2"
-                                                [(ngModel)]="benefitApp.childrenCount">
+                                       
+                                        <input type="text" class="form-control col-md-2" name="childrenCount"
+                                            id="childrenCount"
+                                            maxlength="2"
+                                            #childCount="ngModel"
+                                            pattern="^[1-9]{0,2}?$"
+                                            [(ngModel)]="benefitApp.childrenCount">
+                                    
+                                        <div  class="text-danger" *ngIf="childCount.errors?.pattern"
+                                            [innerHTML]="'Children count must be numeric and in between 1-29'">
                                         </div>
-                                    </div>
                             
+                                    </div>
+                                    
                                     <!-- Claim for Child Care Expense -->     
                                     <div class="form-group">
                                         <label for="line214">
@@ -242,15 +248,7 @@
                                                         (dataChange)="checkedChildClaimDisabilityCredit($event);"
                                                         [data]="benefitApp.childClaimForDisabilityCredit" >
                                                     </common-checkbox>
-                                                    <!--<input type="checkbox" tabindex="0"
-                                                        name="childClaimForDisabilityCredit"
-                                                        id="childClaimForDisabilityCredit"
-                                                        [checked]="benefitApp.childClaimForDisabilityCredit"
-                                                        class='form-check-input'
-                                                        (click)="this.benefitApp.childClaimForDisabilityCredit = $event;">
-                                                    <label for="spouseClaimForDisabilityCredit" class='form-check-label'>
-                                                        My child
-                                                    </label> -->
+                                                    
                                                 </div>
                                         </div>
                                     </div>
@@ -268,13 +266,19 @@
                                         <div class="col-2" style="text-align:left; padding-left: 3px;">
                                             <input type="text" class="form-control" name="childWithDisabilityCount"
                                                     id="childWithDisabilityCount"
+                                                    #disabilityCount="ngModel"
+                                                    pattern="^[1-9]{0,2}?$"
                                                     maxlength="2"
-                                                    [ngModel]="benefitApp.childWithDisabilityCount"
-                                                    (ngModelChange)= "updateChildDisabilityCreditCreditMultiplier($event)">
+                                                    [(ngModel)]="benefitApp.numberOfChildrenWithDisability">
                                         </div>
-                                        <div class="text-danger" *ngIf="benefitApp.childWithDisabilityCount > benefitApp.childrenCount"
+                                        <div class="text-danger" *ngIf="disabilityCount.errors?.pattern"
+                                                [innerHTML]="'Children count must be numeric and in between 1-29'">
+                                        </div>
+                                            
+                                        <div class="text-danger" *ngIf="childCountExceedError()"
                                             [innerHTML]="lang('./en/index.js').cannotExceedChildrenCount">
                                         </div>
+                                        
                                     </div>
                             </div>
                         </div> 
@@ -373,17 +377,9 @@
                                         <div class="form-check form-check-inline">
                                             <common-checkbox label="My child"
                                                 [disabled]="!benefitApp.childrenCount"
-                                                (dataChange)="childClaimForAttendantCareExpense($event)"
+                                                (dataChange)="checkAttendantCareExpenseForChild($event)"
                                                 [data]="benefitApp.childClaimForAttendantCareExpense" >
                                             </common-checkbox>
-                                            <!--<input type="checkbox" tabindex="0"
-                                                name="childClaimForAttendantCareExpense"
-                                                id="childClaimForAttendantCareExpense"
-                                                [ngModel] = "benefitApp.childClaimForAttendantCareExpense"
-                                                (click) = "childClaimForAttendantCareExpense($event)">
-                                            <label for="childClaimForAttendantCareExpense">
-                                            My child
-                                            </label> -->
                                         </div>
                                     </div>
                                 </div>
@@ -405,10 +401,16 @@
                             <div class="col-2" >
                             <input type="text" class="form-control" name="childClaimForAttendantCareExpenseCount"
                                     id="childClaimForAttendantCareExpenseCount"
+                                    #attendantCareCount="ngModel"
+                                    pattern="^[1-9]{0,2}?$"
                                     maxlength="2"
-                                    [(ngModel)]="benefitApp.childClaimForAttendantCareExpenseCount">
+                                    [(ngModel)]="benefitApp.childWithAttendantCareCount">
                             </div>
-                            <div style="margin-left:15px;" class="text-danger" *ngIf="(benefitApp.childClaimForAttendantCareExpenseCount * 1 > benefitApp.childrenCount * 1)"
+                            
+                            <div style="margin-left:15px;"  class="text-danger" *ngIf="attendantCareCount.errors?.pattern"
+                                [innerHTML]="'The number must be a valid number greater than 0, e.g., 1'">
+                            </div>
+                            <div style="margin-left:15px;" class="text-danger" *ngIf="childCountExceedError()"
                                     [innerHTML]="lang('./en/index.js').cannotExceedChildrenCount" tabindex="0">
                             </div>
                             
@@ -466,7 +468,7 @@
                                 </common-page-section>
                                
                            
-                            <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
+                            <common-image-error-modal #mspImageErrorModal></common-image-error-modal>
                        
                         </div>
                 </div>

@@ -87,7 +87,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
     }
 
     get disabilityCreditAmt(): number {
-        const amt = !!this.application.selfDisabilityCredit ? 3000 : 0;
+        const amt = !!this.application.applicantEligibleForDisabilityCredit ? 3000 : 0;
         this.application.applicantDisabilityCredit = amt;
         return amt;
     }
@@ -242,7 +242,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
               return false;
             }
         }
-
+        
         const spouseDisabilityCreditAmt = this.application.spouseDSPAmount_line125 && this.application.spouseDSPAmount_line125.toString().match(patt);
 
         if (this.application.hasRegisteredDisabilityPlan) {
@@ -252,15 +252,81 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
             } 
         }
 
+        // If a spouse id declared then income field becomes required 
+        if (this.application.hasSpouse) {
+          if (!this.application.spouseIncomeLine236) {
+              this.continue.emit(false);
+              return false;
+          }
+        }
+
+        // if an applicant has childrens, then Child care expense field becomes required
+        if (this.application.haveChildrens){
+          if (!this.application.claimedChildCareExpense_line214){
+              this.continue.emit(false);
+              return false;
+          }
+        }
+
+        // if an applicant checks the disablity registered plan, registered disabled savings plan becomes mandatory
+        if (this.application.hasRegisteredDisabilityPlan){
+          if (!this.application.spouseDSPAmount_line125){
+              this.continue.emit(false);
+              return false;
+          }
+        }
+
+        //If self disablity credit is checked, then user needs to click on Applicant, spouse or my child checkbox
+        if (this.application.selfDisabilityCredit && !( this.application.applicantEligibleForDisabilityCredit || this.application.spouseEligibleForDisabilityCredit || this.application.childClaimForDisabilityCredit)) {
+          this.continue.emit(false);
+          return false;
+        }
+
+        // If applicant claim for nursing home expenses, then make sure he uploads the document for applicant or spouse or mychild
+        if (this.application.attendantCareExpenseReceipts.length === 0 && (this.application.applicantClaimForAttendantCareExpense || this.application.spouseClaimForAttendantCareExpense || this.application.hasClaimedAttendantCareExpenses === true )) {
+          this.continue.emit( false);
+          return false;
+        }
+
+
         // Expense child care
+
         const childCareExpenseAmt = this.application.claimedChildCareExpense_line214 && this.application.claimedChildCareExpense_line214.toString().match(patt);
-        
+
         if (this.application.haveChildrens) {
           if (!childCareExpenseAmt) {
             this.continue.emit(false);
             return false;
           }
         }
+
+        // regex pattern check for the child count 
+        const childCountPattern = /^[1-9]{0,2}$/g;
+        if (this.application.childClaimForAttendantCareExpense) {
+          const childCountcheck = this.application.childWithAttendantCareCount && this.application.childWithAttendantCareCount.toString().match(childCountPattern);
+          if (!childCountcheck) {
+              this.continue.emit(false);
+              return false;
+          }
+        }
+
+        if (this.application.childClaimForDisabilityCredit) {
+          const childCountcheck = this.application.numberOfChildrenWithDisability && this.application.numberOfChildrenWithDisability.toString().match(childCountPattern);
+          if (!childCountcheck) {
+              this.continue.emit(false);
+              return false;
+          }
+        }
+
+        if( this.application.haveChildrens) {
+          const childCountcheck = this.application.childrenCount && this.application.childrenCount.toString().match(childCountPattern);
+          if (!childCountcheck) {
+            this.continue.emit(false);
+            return false;
+          }
+        }
+
+        // Regex pattern check for the child count 
 
 
         /* console.log('Abhi DSP amount --> '+spouseDisabilityCreditAmt);

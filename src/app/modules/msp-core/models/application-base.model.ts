@@ -1,10 +1,9 @@
-import {UUID} from 'angular2-uuid';
-import {MspImage} from '../../../models/msp-image';
+import { CommonImage } from 'moh-common-lib';
 
 export interface ApplicationBase {
   readonly uuid: string;
   referenceNumber: string;
-  getAllImages(): MspImage[];
+  getAllImages(): CommonImage[];
   infoCollectionAgreement: boolean;
   authorizationToken: string;
 

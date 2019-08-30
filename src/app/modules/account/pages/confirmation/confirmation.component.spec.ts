@@ -1,37 +1,25 @@
-import { TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-// import { RouterTestingModule } from '@angular/router/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { AccountConfirmationComponent } from './confirmation.component';
-import { MspDataService } from '../../../../services/msp-data.service';
-import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';
-import { MspLogService } from '../../../../services/log.service';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Observable} from 'rxjs/internal/Observable';
-import { Subscription} from 'rxjs/internal/Subscription';
-import { RouterTestingModule } from '@angular/router/testing';
-import {HttpClientModule} from '@angular/common/http';
 
+describe('AccountConfirmationComponent', () => {
+  let component: AccountConfirmationComponent;
+  let fixture: ComponentFixture<AccountConfirmationComponent>;
 
-describe('Component Test', () => {
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ AccountConfirmationComponent ]
+    })
+    .compileComponents();
+  }));
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [AccountConfirmationComponent, MspLoggerDirective],
-      imports: [HttpClientModule, RouterModule, RouterTestingModule, LocalStorageModule.withConfig({
-        prefix: 'ca.bc.gov.msp',
-        storageType: 'sessionStorage'
-      })
-    ],
-      providers: [MspDataService, MspLogService, ActivatedRoute,
-
-      ]
-    });
+    fixture = TestBed.createComponent(AccountConfirmationComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
-  // it ('should work', () => {
-  //   let fixture = TestBed.createComponent(AccountConfirmationComponent);
-  //   expect(fixture.componentInstance instanceof AccountConfirmationComponent).toBe(true, 'should create AccountConfirmationComponent');
 
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

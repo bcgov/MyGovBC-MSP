@@ -9,7 +9,7 @@ import {
     QueryList
 } from '@angular/core';
 import {BaseComponent} from '../../../../../models/base.component';
-import { Relationship } from '../../../../../models/status-activities-documents';
+import { Relationship } from '../../../../msp-core/models/status-activities-documents';
 import { StatusInCanada } from '../../../../enrolment/models/application.model';
 import { MspPerson } from '../../../models/account.model';
 import { MspToggleComponent } from '../../../../../components/msp/common/toggle/toggle.component';

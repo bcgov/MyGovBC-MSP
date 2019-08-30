@@ -6,13 +6,11 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { BenefitApplication } from '../models/benefit-application.model';
-import { AttachmentType, _ApplicationTypeNameSpace } from '../../msp-core/api-model/applicationTypes';
+import { _ApplicationTypeNameSpace } from '../../msp-core/api-model/applicationTypes';
 import { environment } from '../../../../environments/environment';
-import * as moment from 'moment';
-import { AbstractHttpService } from 'moh-common-lib';
+import { AbstractHttpService, CommonImage } from 'moh-common-lib';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
-import { MspImage } from '../../../models/msp-image';
 import { Response } from '@angular/http';
 import { MspApiService } from '../../../services/msp-api.service';
 import { SuppBenefitApiResponse } from '../models/suppBenefit-response.interface';
@@ -155,7 +153,7 @@ export class MspApiBenefitService extends AbstractHttpService {
   public sendAttachments(
     token: string,
     applicationUUID: string,
-    attachments: MspImage[]
+    attachments: CommonImage[]
   ): Promise<string[]> {
     return new Promise<string[]>((resolve, reject) => {
       // Instantly resolve if no attachments
@@ -215,7 +213,7 @@ export class MspApiBenefitService extends AbstractHttpService {
   private sendAttachment(
     token: string,
     applicationUUID: string,
-    attachment: MspImage
+    attachment: CommonImage
   ): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       /*
@@ -472,7 +470,7 @@ export class MspApiBenefitService extends AbstractHttpService {
     return object;
   }
 
-  private convertToAttachment(images: MspImage[]): AttachmentRequestPartial[] {
+  private convertToAttachment(images: CommonImage[]): AttachmentRequestPartial[] {
     const output = [];
     images.map((image, i) => {
       const partial: AttachmentRequestPartial = {

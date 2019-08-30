@@ -1,10 +1,9 @@
 import {UUID} from 'angular2-uuid';
-import {ApplicationBase} from '../../enrolment/models/application-base.model';
-import {MspImage} from '../../../models/msp-image';
+import {ApplicationBase} from '../../msp-core/models/application-base.model';
 import {MspPerson, OperationActionType} from '../../../components/msp/model/msp-person.model';
-import {Relationship, StatusInCanada} from '../../../models/status-activities-documents';
+import {Relationship, StatusInCanada} from '../../msp-core/models/status-activities-documents';
 import {PhoneNumber} from '../../../components/msp/model/phone.model';
-
+import { Address, CommonImage } from 'moh-common-lib';
 
 class MspAccountApp implements ApplicationBase {
     set updatedChildren(value: Array<MspPerson>) {
@@ -20,13 +19,20 @@ class MspAccountApp implements ApplicationBase {
      */
     referenceNumber: string;
     private _applicant: MspPerson = new MspPerson(Relationship.Applicant);
-    public phoneNumber: string;
-    documents: MspImage[] = [];
+
+    documents: CommonImage[] = [];
     id: string;
 
     authorizedByApplicant: boolean;
     authorizedByApplicantDate: Date;
     authorizedBySpouse: boolean;
+
+    // Address and Contact Info
+   public residentialAddress: Address = new Address();
+   public mailingSameAsResidentialAddress: boolean = true;
+   public mailingAddress: Address = new Address();
+   public phoneNumber: string;
+
 
     /**
      * validator for phone number
@@ -287,7 +293,7 @@ class MspAccountApp implements ApplicationBase {
     /*
     Gets all images for applicant, spouse and all children
    */
-    getAllImages(): MspImage[] {
+    getAllImages(): CommonImage[] {
         return this.documents;
     }
 
