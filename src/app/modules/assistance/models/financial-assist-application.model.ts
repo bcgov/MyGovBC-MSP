@@ -3,7 +3,7 @@ import { Relationship } from '../../msp-core/models/status-activities-documents'
 import { Eligibility } from './eligibility.model';
 import { UUID } from 'angular2-uuid';
 import * as moment from 'moment';
-import { ApplicationBase } from '../../enrolment/models/application-base.model';
+import { ApplicationBase } from '../../msp-core/models/application-base.model';
 import { AssistanceYear } from './assistance-year.model';
 import * as _ from 'lodash';
 import { PhoneNumber } from '../../../components/msp/model/phone.model';

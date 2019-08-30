@@ -1,4 +1,4 @@
-import { ApplicationBase } from '../../enrolment/models/application-base.model';
+import { ApplicationBase } from '../../msp-core/models/application-base.model';
 import { UUID } from 'angular2-uuid';
 import * as moment from 'moment';
 import { Address, CommonImage } from 'moh-common-lib';

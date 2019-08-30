@@ -1,7 +1,7 @@
 import { Relationship } from '../../../modules/msp-core/models/status-activities-documents';
 import { MspPerson } from './msp-person.model';
 import { UUID } from 'angular2-uuid';
-import { ApplicationBase } from '../../../modules/enrolment/models/application-base.model';
+import { ApplicationBase } from '../../../modules/msp-core/models/application-base.model';
 import { CommonImage } from 'moh-common-lib';
 
 /**

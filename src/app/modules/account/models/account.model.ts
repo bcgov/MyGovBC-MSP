@@ -1,5 +1,5 @@
 import {UUID} from 'angular2-uuid';
-import {ApplicationBase} from '../../enrolment/models/application-base.model';
+import {ApplicationBase} from '../../msp-core/models/application-base.model';
 import {MspPerson, OperationActionType} from '../../../components/msp/model/msp-person.model';
 import {Relationship, StatusInCanada} from '../../msp-core/models/status-activities-documents';
 import {PhoneNumber} from '../../../components/msp/model/phone.model';

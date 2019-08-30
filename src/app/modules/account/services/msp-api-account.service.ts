@@ -9,31 +9,28 @@ import { MspAccountApp } from '../models/account.model';
 import { AttachmentType, _ApplicationTypeNameSpace } from '../../msp-core/api-model/applicationTypes';
 import { environment } from '../../../../environments/environment';
 import * as moment from 'moment';
-import { AbstractHttpService } from 'moh-common-lib';
+import { AbstractHttpService, CommonImage } from 'moh-common-lib';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
-import { MspImage } from '../../../models/msp-image';
 import { Response } from '@angular/http';
 import { MspApiService } from '../../../services/msp-api.service';
 import { AccountMaintenanceApiResponse } from '../models/account-response.interface';
 import { SchemaService } from 'app/services/schema.service';
 import { Router } from '@angular/router';
 import { MspAccountMaintenanceDataService } from './msp-account-data.service';
-import { AccountChangeAccountHolderFactory, AccountChangeAccountHolderType, AccountChangeApplicationTypeFactory, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from '../../../modules/msp-core/api-model/accountChangeTypes';
+import { AccountChangeAccountHolderFactory, AccountChangeAccountHolderType, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from '../../../modules/msp-core/api-model/accountChangeTypes';
 import { AccountChangeApplicationType } from '../../msp-core/interfaces/i-api';
 import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../../../components/msp/model/msp-person.model';
 import { SimpleDate, Address } from 'moh-common-lib';
-import { Activities, Relationship, StatusInCanada } from '../../../models/status-activities-documents';
-import { ApplicationTypeFactory, AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory, DocumentFactory, document } from '../../../modules/msp-core/api-model/applicationTypes';
-import { AssistanceApplicantTypeFactory, AssistanceApplicationTypeFactory, AssistanceSpouseTypeFactory, FinancialsType, FinancialsTypeFactory } from '../../../modules/msp-core/api-model/assistanceTypes';
-import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTypeFactory, BasicCitizenshipTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../../../modules/msp-core/api-model/commonTypes';
-import { DependentType, DependentTypeFactory, EnrolmentApplicantTypeFactory, EnrolmentApplicationTypeFactory, EnrolmentChildrenTypeFactory, EnrolmentDependentsTypeFactory, LivedInBCTypeFactory, OutsideBCTypeFactory, PersonType, PersonTypeFactory, PreviousCoverageTypeFactory, ResidencyType, ResidencyTypeFactory, WillBeAwayTypeFactory } from '../../../modules/msp-core/api-model/enrolmentTypes';
+import { AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory } from '../../../modules/msp-core/api-model/applicationTypes';
+import { AddressType, AddressTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../../../modules/msp-core/api-model/commonTypes';
+import { LivedInBCTypeFactory, OutsideBCTypeFactory, WillBeAwayTypeFactory } from '../../../modules/msp-core/api-model/enrolmentTypes';
 
 
 import {
-  SupplementaryBenefitsApplicationType,
   MSPApplicationSchema
 } from 'app/modules/msp-core/interfaces/i-api';
+import { Activities, StatusInCanada, Relationship } from '../../msp-core/models/status-activities-documents';
 //import { FieldPageMap } from '../models/field-page-map';
 
 @Injectable({
@@ -52,10 +49,7 @@ export class MspApiAccountService extends AbstractHttpService {
   constructor(
     protected http: HttpClient,
     private logService: MspLogService,
-    private schemaSvc: SchemaService,
-    private router: Router,
-    private dataSvc: MspAccountMaintenanceDataService
-  ) {
+    private schemaSvc: SchemaService  ) {
     super(http);
   }
 
@@ -168,7 +162,7 @@ export class MspApiAccountService extends AbstractHttpService {
   public sendAttachments(
     token: string,
     applicationUUID: string,
-    attachments: MspImage[]
+    attachments: CommonImage[]
   ): Promise<string[]> {
     return new Promise<string[]>((resolve, reject) => {
       // Instantly resolve if no attachments
@@ -228,7 +222,7 @@ export class MspApiAccountService extends AbstractHttpService {
   private sendAttachment(
     token: string,
     applicationUUID: string,
-    attachment: MspImage
+    attachment: CommonImage
   ): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       /*
@@ -571,16 +565,16 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
 /**
      * Creates the array of attachments from applicant, spouse and all children
      * used with both assistance and DEAM
-     * @param {MspImage[]} from
+     * @param {CommonImage[]} from
      * @returns {AttachmentsType}
      */
-    private convertAttachments(from: MspImage[]): AttachmentsType {
+    private convertAttachments(from: CommonImage[]): AttachmentsType {
 
       const to = AttachmentsTypeFactory.make();
       to.attachment = new Array<AttachmentType>();
 
       // assemble all attachments
-      const attachments: MspImage[] = from;
+      const attachments: CommonImage[] = from;
 
       // If no attachments just return
       if (!attachments || attachments.length < 1) {
@@ -786,7 +780,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
     }
 }
 
-  private convertToAttachment(images: MspImage[]): AttachmentRequestPartial[] {
+  private convertToAttachment(images: CommonImage[]): AttachmentRequestPartial[] {
     const output = [];
     images.map((image, i) => {
       const partial: AttachmentRequestPartial = {

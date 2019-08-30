@@ -4,7 +4,6 @@ import {
   Output,
   EventEmitter,
   ViewChild,
-  ElementRef,
   ChangeDetectorRef
 } from '@angular/core';
 import { state, trigger, style } from '@angular/animations';
@@ -144,6 +143,11 @@ export class PersonalDetailsComponent extends BaseComponent {
   @Input() sectionTitle: string = 'Status in Canada';
   @Input() sectionInstruct: string = 'Please provide your immigration status information. You will be required to upload documents to support your status in Canada.';
   @Input() statusLabel: string = 'Your immigration status in Canada';
+  @Input() statusDocuments: CommonImage[] = [];
+  @Input() nameDocuments: CommonImage[] = [];
+  @Output() statusDocumentsChange: EventEmitter<CommonImage[]> = new EventEmitter<CommonImage[]>();
+  @Output() nameDocumentsChange: EventEmitter<CommonImage[]> = new EventEmitter<CommonImage[]>();
+
 
 
   statusOpts: string[] = Object.keys(LangStatus).map( x  => LangStatus[x] );
@@ -156,6 +160,8 @@ export class PersonalDetailsComponent extends BaseComponent {
   nameChangeDocumentType: string = null;
   hasNameChangeDocumentType: boolean = false;
   hasNameChange: boolean = false;
+
+  uploadDocInstructions = 'Click add, or drag and drop file into this box';
 
   // END -- NEW CODE FOR PAGE
 
@@ -186,7 +192,6 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   setActivity(value: Activities) {
-    console.log( 'setActivity: ', value );
     if (
       this.showServicesCardModal &&
       this.person.bcServiceCardShowStatus &&
@@ -248,14 +253,28 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   /** Removes all documents in the list */
-  removeStatusDocuments() {
-    this.person.documents.images = [];
+  removeDocuments() {
+    this.statusDocuments = [];
     this.hasStatusDocumentType = false;
+    this.statusDocumentsChange.emit(this.statusDocuments);
+
+    this.removeNameDocuments();
   }
 
-  onStatusDocumentChange($event) {
-    console.log( 'onStatusDocumentChange: ', $event );
+  removeNameDocuments() {
+    this.nameDocuments = [];
+    this.hasNameChangeDocumentType = false;
+    this.nameDocumentsChange.emit(this.nameDocuments);
   }
+
+
+  // Statuses
+  get isCanadianCitizen(): boolean {
+    return this.person.status === StatusInCanada.CitizenAdult;
+  }
+
+
+  
 
   /**
    * Gets the available documents given the known status and activity
@@ -387,10 +406,10 @@ export class PersonalDetailsComponent extends BaseComponent {
       : (this.institutionWorkSignal = 'out');
   }
 
-  get hasValidCurrentActivity(): boolean {
+  /*get hasValidCurrentActivity(): boolean {
     const v = _.isNumber(this.person.currentActivity);
     return v;
-  }
+  }*/
 
   get isInstitutionListShown() {
     return this.institutionWorkSignal === 'out';

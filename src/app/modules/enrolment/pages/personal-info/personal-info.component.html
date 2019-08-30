@@ -6,7 +6,10 @@
     </p>
 
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
-      (personChange) = "onChange($event)"></msp-personal-details>
+      (personChange) = "onChange($event)"
+      [(statusDocuments)]="application.applicantStatusDoc"
+      [(nameDocuments)]="application.applicantNameDoc">
+    </msp-personal-details>
       <!--[showError] = "formRef.submitted"-->
     
 
