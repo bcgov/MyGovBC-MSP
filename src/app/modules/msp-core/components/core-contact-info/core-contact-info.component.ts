@@ -36,11 +36,19 @@ export class CoreContactInfoComponent extends BaseComponent {
 
   handleAddressChange(addr: any){
     this.address = addr;
+    this.address.addressLine1 = addr.street;
+    if (this.address.addressLine1 !== null){
+      this.address.hasValue = true;
+    }
     this.addressChange.emit(addr);
   }
 
   handleMailingAddressChange(addr: any){
     this.mailingAddress = addr;
+    this.mailingAddress.addressLine1 = addr.street;
+    if (this.mailingAddress.addressLine1 !== null){
+      this.mailingAddress.hasValue = true;
+    }
     this.mailingAdddressChange.emit(addr);
   }
 

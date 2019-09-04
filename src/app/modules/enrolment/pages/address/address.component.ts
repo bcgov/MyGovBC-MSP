@@ -60,9 +60,7 @@ export class EnrolAddressComponent extends BaseComponent {
   constructor(private dataService: MspDataService,
               private _router: Router,
               private pageStateService: PageStateService,
-              private cd: ChangeDetectorRef,
-
-               ) {
+              private cd: ChangeDetectorRef) {
     super(cd);
     this.mspApplication = this.dataService.mspApplication;
 
@@ -75,6 +73,16 @@ export class EnrolAddressComponent extends BaseComponent {
     this.form.valueChanges.subscribe(values => {
       this.dataService.saveMspApplication();
     });
+  }
+
+  handleAddressChange(evt: any) {
+    this.mspApplication.residentialAddress = evt;
+    this.dataService.saveMspApplication();
+  }
+
+  handleMailingAddressChange(evt: any) {
+    this.mspApplication.mailingAddress = evt;
+    this.dataService.saveMspApplication();
   }
 
   handlePhoneNumberChange(evt: any) {
@@ -96,10 +104,13 @@ export class EnrolAddressComponent extends BaseComponent {
   }
 
   handleAddressUpdate(evt: any){
-    console.log(evt);
-    console.log('address update event: %o', evt);
-    evt.addressLine1 = evt.street;
-    this.dataService.saveMspApplication();
+    // console.log(evt);
+    // console.log('address update event: %o', evt);
+    // evt.addressLine1 = evt.street;
+    // // if (evt.addressLine1 != null) {
+    // //   this.dataService.mspApplication.mailingAddress.hasValue = true;
+    // // }
+    // this.dataService.saveMspApplication();
   }
 
   // handlePhoneUpdate(evt: any)(){}
@@ -129,6 +140,7 @@ export class EnrolAddressComponent extends BaseComponent {
 
   continue() {
     console.log('combinedValidationState on address: %s', );
+    this.dataService.saveMspApplication();
     if (!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{
