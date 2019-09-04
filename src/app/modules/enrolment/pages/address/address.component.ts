@@ -75,43 +75,43 @@ export class EnrolAddressComponent extends BaseComponent {
     });
   }
 
-  handleAddressChange(evt: any) {
-    this.mspApplication.residentialAddress = evt;
-    this.dataService.saveMspApplication();
-  }
+  // handleAddressChange(evt: any) {
+  //   this.mspApplication.residentialAddress = evt;
+  //   this.dataService.saveMspApplication();
+  // }
 
-  handleMailingAddressChange(evt: any) {
-    this.mspApplication.mailingAddress = evt;
-    this.dataService.saveMspApplication();
-  }
+  // handleMailingAddressChange(evt: any) {
+  //   this.mspApplication.mailingAddress = evt;
+  //   this.dataService.saveMspApplication();
+  // }
 
-  handlePhoneNumberChange(evt: any) {
-    this.mspApplication.phoneNumber = evt;
-    this.dataService.saveMspApplication();
-  }
+  // handlePhoneNumberChange(evt: any) {
+  //   this.mspApplication.phoneNumber = evt;
+  //   this.dataService.saveMspApplication();
+  // }
 
-  toggleMailingSameAsResidentialAddress(evt: boolean){
-    this.mspApplication.mailingSameAsResidentialAddress = !evt;
-    if (evt){
-      this.mspApplication.mailingAddress = new Address();
-    }
-    this.dataService.saveMspApplication();
-  }
+  // toggleMailingSameAsResidentialAddress(evt: boolean){
+  //   this.mspApplication.mailingSameAsResidentialAddress = !evt;
+  //   if (evt){
+  //     this.mspApplication.mailingAddress = new Address();
+  //   }
+  //   this.dataService.saveMspApplication();
+  // }
 
-  toggleCheckBox(){
-    // this.mspApplication.mailingSameAsResidentialAddress = !this.mspApplication.mailingSameAsResidentialAddress;
-    // this.dataService.saveMspApplication();
-  }
+  // toggleCheckBox(){
+  //   // this.mspApplication.mailingSameAsResidentialAddress = !this.mspApplication.mailingSameAsResidentialAddress;
+  //   // this.dataService.saveMspApplication();
+  // }
 
-  handleAddressUpdate(evt: any){
-    // console.log(evt);
-    // console.log('address update event: %o', evt);
-    // evt.addressLine1 = evt.street;
-    // // if (evt.addressLine1 != null) {
-    // //   this.dataService.mspApplication.mailingAddress.hasValue = true;
-    // // }
-    // this.dataService.saveMspApplication();
-  }
+  // handleAddressUpdate(evt: any){
+  //   // console.log(evt);
+  //   // console.log('address update event: %o', evt);
+  //   // evt.addressLine1 = evt.street;
+  //   // // if (evt.addressLine1 != null) {
+  //   // //   this.dataService.mspApplication.mailingAddress.hasValue = true;
+  //   // // }
+  //   // this.dataService.saveMspApplication();
+  // }
 
   // handlePhoneUpdate(evt: any)(){}
 
