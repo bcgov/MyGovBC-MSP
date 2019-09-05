@@ -23,23 +23,6 @@ import { CoreContactInfoComponent } from 'app/modules/msp-core/components/core-c
 })
 export class EnrolAddressComponent extends BaseComponent {
 
-  // // LABEL CONSTANTS
-  // contactInfoLabel = 'Contact Information';
-  // contractInfoText = 'Please provide the Account Holder\'s contact information.';
-  // residentialAddressLabel = 'Residential Address';
-  // residentialAddressText = 'Enter your residential address - that\'s the address your currently reside at in B.C.';
-  // sameMailingAddress = 'This is my mailing address.';
-  // mailingAddressLabel = 'Mailing Address';
-  // mailingAddressText = 'Enter your mailing address - if it\'s different';
-  // differentMailingAddress = 'My mailing address is different';
-  // phoneLabel = 'Phone';
-  // phoneText = 'Please provide a phone number so you may be contacted in case of any issues with your application.';
-
-  // // Constants TODO: Figure out whether used in html
-  // outsideBCFor30DaysLabel = 'Have you or any family member been outside BC for more than 30 days in total during the past 12 months?';
-  // addAnotherOutsideBCPersonButton = 'Add Another Person';
-  // provideDifferentMailingAddress = 'I want to provide a mailing address that is different from the residential address above.';
-
   static ProcessStepNum = 4;
 
   @ViewChild('formRef') form: NgForm;
@@ -55,8 +38,7 @@ export class EnrolAddressComponent extends BaseComponent {
 
   private cdr: ChangeDetectorRef;
   mspApplication: MspApplication;
-  public coreContactInfo = new CoreContactInfoComponent(this.cdr);
-  
+
   constructor(private dataService: MspDataService,
               private _router: Router,
               private pageStateService: PageStateService,
@@ -116,10 +98,11 @@ export class EnrolAddressComponent extends BaseComponent {
   // handlePhoneUpdate(evt: any)(){}
 
   canContinue(): boolean {
-    // re-write this with proper validations
-    console.log('SAME MAILING ADDRESS?' + this.coreContactInfo.hasSameMailingAddress);
+
+    console.log('SAME MAILING ADDRESS?' + this.mspApplication.mailingSameAsResidentialAddress);
     // debugger;
-    if (this.coreContactInfo.hasSameMailingAddress === false) {
+    // console.log('RESIDENTIAL IS VALID?' + this.isValid());
+    if (this.mspApplication.mailingSameAsResidentialAddress === false) {
       return (this.mspApplication.residentialAddress.isComplete() && this.mspApplication.mailingAddress.isComplete());
     }
     else {
@@ -131,12 +114,12 @@ export class EnrolAddressComponent extends BaseComponent {
   //   return this.isAllValid();
   // }
 
-  // isValid(): boolean {
-  //   const app = this.dataService.mspApplication;
-  //   return app.applicant.plannedAbsence === false
-  //     && app.applicant.liveInBC === true
-  //     && app.unUsualCircumstance === false;
-  // }
+  isValid(): boolean {
+    const app = this.dataService.mspApplication;
+    return app. === false
+      && app.applicant.liveInBC === true
+      && app.unUsualCircumstance === false;
+  }
 
   continue() {
     console.log('combinedValidationState on address: %s', );
