@@ -56,7 +56,7 @@
         {{lang('./en/index.js').childCount}}
       </div>
       <div class="col-sm-4">
-        <strong>{{this.application.childrenCount}}</strong>
+        <strong>{{childrenAmt | currency: 'CAD' : 'symbol-narrow'}}</strong>
       </div>
     </div>
     <div class="row" *ngIf="this.application.claimedChildCareExpense_line214">
