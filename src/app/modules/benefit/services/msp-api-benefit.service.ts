@@ -419,7 +419,7 @@ export class MspApiBenefitService extends AbstractHttpService {
     } else to.childCareExpense = 0;
     to.netIncomeLastYear = Number(from.netIncomelastYear);
     to.numChildren = from.childrenCount > 0 ? Number(from.childrenCount) : 0;
-    to.numDisabled = from.numDisabled;
+    to.numDisabled = from.numDisabled * 1;
     to.spouseIncomeLine236 =
       from.spouseIncomeLine236 != null ? Number(from.spouseIncomeLine236) : 0;
     to.reportedUCCBenefit = from.reportedUCCBenefit_line117;
