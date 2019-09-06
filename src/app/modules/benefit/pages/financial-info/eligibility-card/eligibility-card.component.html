@@ -104,6 +104,14 @@
         <strong>{{_childrenDisabilityCredit | currency: 'CAD' : 'symbol-narrow' }}</strong>
       </div>
     </div>
+    <div *ngIf="application.childClaimForAttendantCareExpense" class="row">
+        <div class="col-sm-8">
+            Child attendant care expense
+        </div>  
+        <div class="col-sm-4">
+            <strong> {{childClaimForAttendantCareExpenseAmt| currency: 'CAD' : 'symbol-narrow'}}</strong>
+        </div>
+    </div>
     <div class="row" *ngIf="this.application.spouseDSPAmount_line125">
       <div class="col-sm-8">
         {{lang('./en/index.js').registeredDSP}}
