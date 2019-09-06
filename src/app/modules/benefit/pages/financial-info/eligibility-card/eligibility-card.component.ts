@@ -45,4 +45,11 @@ export class BenefitEligibilityCardComponent  {
         this._router.navigate([this.editRouterLink]);
     }
     
+    get childrenAmt(): number {
+        const cnt: number = (!!this.application.childrenCount && this.application.childrenCount > 0) ? this.application.childrenCount : 0;
+        const amt = cnt * 3000;
+        return amt > 0 ? amt : 0;
+    }
+
+    
 }
