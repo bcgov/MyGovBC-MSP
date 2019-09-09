@@ -100,7 +100,6 @@ export class EnrolAddressComponent extends BaseComponent {
   canContinue(): boolean {
 
     console.log('SAME MAILING ADDRESS?' + this.mspApplication.mailingSameAsResidentialAddress);
-    // debugger;
     // console.log('RESIDENTIAL IS VALID?' + this.isValid());
     if (this.mspApplication.mailingSameAsResidentialAddress === false) {
       return (this.mspApplication.residentialAddress.isComplete() && this.mspApplication.mailingAddress.isComplete());
@@ -114,16 +113,17 @@ export class EnrolAddressComponent extends BaseComponent {
   //   return this.isAllValid();
   // }
 
-  isValid(): boolean {
-    const app = this.dataService.mspApplication;
-    return app. === false
-      && app.applicant.liveInBC === true
-      && app.unUsualCircumstance === false;
-  }
+  //  MODIFY THIS
+  //   isValid(): boolean {
+  //   const app = this.dataService.mspApplication;
+  //   console.log('FORM VALID?' + this.form.valid);
+  //   console.log('MAILING ADDRESS?' + this.mspApplication.mailingAddress.isValid);
+  //   return true;
+  // }
 
   continue() {
-    console.log('combinedValidationState on address: %s', );
-    this.dataService.saveMspApplication();
+    // console.log('combinedValidationState on address: %s', );
+    // this.dataService.saveMspApplication();
     if (!this.isAllValid()){
       console.log('Please fill in all required fields on the form.');
     }else{
