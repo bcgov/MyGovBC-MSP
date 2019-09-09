@@ -408,7 +408,7 @@
                             </div>
                             
                             <div style="margin-left:15px;"  class="text-danger" *ngIf="attendantCareCount.errors?.pattern"
-                                [innerHTML]="'The number must be a valid number greater than 0, e.g., 1'">
+                                [innerHTML]="'Children count must be numeric and in between 1-29'">
                             </div>
                             <div style="margin-left:15px;" class="text-danger" *ngIf="childCountExceedError()"
                                     [innerHTML]="lang('./en/index.js').cannotExceedChildrenCount" tabindex="0">
