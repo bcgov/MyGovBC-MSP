@@ -57,76 +57,20 @@ export class EnrolAddressComponent extends BaseComponent {
     });
   }
 
-  // handleAddressChange(evt: any) {
-  //   this.mspApplication.residentialAddress = evt;
-  //   this.dataService.saveMspApplication();
-  // }
-
-  // handleMailingAddressChange(evt: any) {
-  //   this.mspApplication.mailingAddress = evt;
-  //   this.dataService.saveMspApplication();
-  // }
-
-  // handlePhoneNumberChange(evt: any) {
-  //   this.mspApplication.phoneNumber = evt;
-  //   this.dataService.saveMspApplication();
-  // }
-
-  // toggleMailingSameAsResidentialAddress(evt: boolean){
-  //   this.mspApplication.mailingSameAsResidentialAddress = !evt;
-  //   if (evt){
-  //     this.mspApplication.mailingAddress = new Address();
-  //   }
-  //   this.dataService.saveMspApplication();
-  // }
-
-  // toggleCheckBox(){
-  //   // this.mspApplication.mailingSameAsResidentialAddress = !this.mspApplication.mailingSameAsResidentialAddress;
-  //   // this.dataService.saveMspApplication();
-  // }
-
-  // handleAddressUpdate(evt: any){
-  //   // console.log(evt);
-  //   // console.log('address update event: %o', evt);
-  //   // evt.addressLine1 = evt.street;
-  //   // // if (evt.addressLine1 != null) {
-  //   // //   this.dataService.mspApplication.mailingAddress.hasValue = true;
-  //   // // }
-  //   // this.dataService.saveMspApplication();
-  // }
-
-  // handlePhoneUpdate(evt: any)(){}
-
   canContinue(): boolean {
-
-    console.log('SAME MAILING ADDRESS?' + this.mspApplication.mailingSameAsResidentialAddress);
-    // console.log('RESIDENTIAL IS VALID?' + this.isValid());
-    if (this.mspApplication.mailingSameAsResidentialAddress === false) {
-      return (this.mspApplication.residentialAddress.isComplete() && this.mspApplication.mailingAddress.isComplete());
+    const controls = this.form.form.controls;
+    for (const control in controls) {
+      if (controls[control].invalid) {
+        return false;
+      }
     }
-    else {
-      return this.mspApplication.residentialAddress.isComplete();
-    }
+    return true;
   }
 
-  // canContinue(): boolean {
-  //   return this.isAllValid();
-  // }
-
-  //  MODIFY THIS
-  //   isValid(): boolean {
-  //   const app = this.dataService.mspApplication;
-  //   console.log('FORM VALID?' + this.form.valid);
-  //   console.log('MAILING ADDRESS?' + this.mspApplication.mailingAddress.isValid);
-  //   return true;
-  // }
-
   continue() {
-    // console.log('combinedValidationState on address: %s', );
-    // this.dataService.saveMspApplication();
-    if (!this.isAllValid()){
+    if (this.canContinue() === false){
       console.log('Please fill in all required fields on the form.');
-    }else{
+    } else{
       this.pageStateService.setPageComplete(this._router.url, this.mspApplication.pageStatus);
       this._router.navigate([ROUTES_ENROL.REVIEW.fullpath]);
     }

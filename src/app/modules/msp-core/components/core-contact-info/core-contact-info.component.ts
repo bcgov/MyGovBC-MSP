@@ -21,9 +21,6 @@ export class CoreContactInfoComponent extends BaseComponent {
 
   @Input() phoneNumber: string;
   @Output() phoneNumberChange = new EventEmitter<string>();
-  
-  // remove - replace references to address in here to simply the address input (this.address or address)
-  // mspApplication: MspApplication;
 
   constructor(private cd: ChangeDetectorRef) {
     super(cd);
