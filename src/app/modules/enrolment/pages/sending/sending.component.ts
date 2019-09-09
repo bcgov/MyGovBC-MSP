@@ -29,7 +29,7 @@ export class SendingComponent implements AfterContentInit {
   constructor(private dataService: MspDataService, private service: MspApiService,
     //private processService: ProcessService,
     public router: Router, private logService: MspLogService) {
-    this.application = this.dataService.getMspApplication();
+    this.application = this.dataService.mspApplication;
     this.transmissionInProcess = undefined;
     this.hasError = undefined;
     this.showMoreErrorDetails = undefined;
@@ -82,7 +82,7 @@ export class SendingComponent implements AfterContentInit {
         const oldUUID = this.application.uuid;
         this.application.regenUUID();
 
-        console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
+        console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.mspApplication.uuid);
 
         this.application.authorizationToken = null;
         this.dataService.saveMspApplication();

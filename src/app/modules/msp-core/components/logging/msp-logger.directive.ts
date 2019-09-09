@@ -27,12 +27,12 @@ export class MspLoggerDirective{
 
   makeGeneralLog(): LogEntry{
     const log: LogEntry = new LogEntry();
-    log.applicationId = this.dataService. getMspApplication().uuid || this.dataService.finAssistApp.uuid;
+    log.applicationId = this.dataService. mspApplication.uuid || this.dataService.finAssistApp.uuid;
     // log.mspTimestamp = new Date().getTime() + '';
     const now = moment();
     log.mspTimestamp = now.toISOString();
     log.applicationPhase = this.mspLogger;
-    log.refNumberEnrollment = this.dataService.getMspApplication().referenceNumber;
+    log.refNumberEnrollment = this.dataService.mspApplication.referenceNumber;
     log.refNumberPremiumAssistance = this.dataService.finAssistApp.referenceNumber;
     return log;
   }

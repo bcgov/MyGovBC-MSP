@@ -38,7 +38,7 @@ export class MspLogService  {
     const baseUrl = this.appConstants['logBaseUrl'];
     // With Angular 5 we can't pass in undefined to the headers without runtime
     // errors, so now we default to 'n/a'.
-    const refNumber = this.dataService.getMspApplication().referenceNumber ||
+    const refNumber = this.dataService.mspApplication.referenceNumber ||
       this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber || 'n/a';
 
     const headers = new HttpHeaders({
@@ -74,7 +74,7 @@ export class MspLogService  {
     const baseUrl = this.appConstants['logBaseUrl'];
     // With Angular 5 we can't pass in undefined to the headers without runtime
     // errors, so now we default to 'n/a'.
-    const refNumber = this.dataService.getMspApplication().referenceNumber ||
+    const refNumber = this.dataService.mspApplication.referenceNumber ||
       this.dataService.finAssistApp.referenceNumber || this.dataService.getMspAccountApp().referenceNumber || 'n/a';
 
     const headers = new HttpHeaders({
@@ -94,7 +94,7 @@ export class MspLogService  {
     const log: LogEntry = new LogEntry();
     log.applicationId = this.getApplicationId();
     log.mspTimestamp = moment().toISOString();
-    log.refNumberEnrollment = this.dataService.getMspApplication().referenceNumber;
+    log.refNumberEnrollment = this.dataService.mspApplication.referenceNumber;
     log.refNumberPremiumAssistance = this.dataService.finAssistApp.referenceNumber;
     log.refNumberAccountChange = this.dataService.getMspAccountApp().referenceNumber;
 
@@ -105,7 +105,7 @@ export class MspLogService  {
 
         console.log(this.router.url);
         if (this.router.url.indexOf('/application/') !== -1){
-            return  this.dataService.getMspApplication().uuid;
+            return  this.dataService.mspApplication.uuid;
         }
         if (this.router.url.indexOf('/assistance/') !== -1){
             return  this.dataService.finAssistApp.uuid ;

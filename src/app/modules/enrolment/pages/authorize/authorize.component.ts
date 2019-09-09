@@ -9,6 +9,7 @@ import {ProcessService} from '../../../../services/process.service';
 import { environment } from '../../../../../environments/environment';
 import { MspLogService } from '../../../../services/log.service';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
+import { PageStateService } from '../../../../services/page-state.service';
 
 @Component({
   selector: 'msp-authorize',
@@ -25,9 +26,9 @@ export class AuthorizeComponent implements OnInit {
 
   constructor(private dataService: MspDataService,
               private _router: Router,
-            //  private processService: ProcessService,
+              private pageStateService: PageStateService,
               private logService: MspLogService) {
-    this.application = this.dataService.getMspApplication();
+    this.application = this.dataService.mspApplication;
     this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
   }
 
@@ -37,6 +38,7 @@ export class AuthorizeComponent implements OnInit {
     this.application.regenUUID();
     this.dataService.saveMspApplication();
     console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);*/
+    this.pageStateService.setPageIncomplete(this._router.url, this.dataService.mspApplication.pageStatus);
   }
 
   applicantAuthorizeOnChange(event: boolean) {
@@ -72,9 +74,7 @@ export class AuthorizeComponent implements OnInit {
     // console.log('review form submitted, %o', evt);
     if (this.application.hasValidAuthToken){
       console.log('Found valid auth token, transfer to sending screen.');
-      //this.processService.setStep(6, true);
-      // this.logService.log({name: "Application - Review Page Before Submit (after CAPTCHA)"},"Application-Captcha Success")
-      // TODO: Setup call to backend - use sending page information
+      this.pageStateService.setPageComplete(this._router.url, this.dataService.mspApplication.pageStatus);
       this._router.navigate([ROUTES_ENROL.CONFIRMATION.fullpath]);
     }else{
       console.log('Auth token is not valid');

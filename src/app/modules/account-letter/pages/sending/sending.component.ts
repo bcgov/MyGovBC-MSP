@@ -98,7 +98,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
         this.transmissionInProcess = transmissionInProcess;
         const oldUUID = this.application.uuid;
         this.application.regenUUID();
-        console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspApplication().uuid);
+        console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.mspApplication.uuid);
         this.application.authorizationToken = null;
         this.dataService.saveAccountLetterApplication();
 

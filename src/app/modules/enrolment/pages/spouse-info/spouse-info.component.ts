@@ -35,24 +35,24 @@ export class SpouseInfoComponent extends BaseComponent implements OnInit {
 
   addSpouse = () => {
     const sp: MspPerson = new MspPerson(Relationship.Spouse);
-    this.dataService.getMspApplication().addSpouse(sp);
+    this.dataService.mspApplication.addSpouse(sp);
   }
 
   removeSpouse(event: Object): void{
     // console.log('remove spouse ' + JSON.stringify(event));
-    this.dataService.getMspApplication().removeSpouse();
+    this.dataService.mspApplication.removeSpouse();
     this.dataService.saveMspApplication();
   }
 
   get application(): MspApplication {
-    return this.dataService.getMspApplication();
+    return this.dataService.mspApplication;
   }
   get applicant(): MspPerson {
-    return this.dataService.getMspApplication().applicant;
+    return this.dataService.mspApplication.applicant;
   }
 
   get spouse(): MspPerson {
-    return this.dataService.getMspApplication().spouse;
+    return this.dataService.mspApplication.spouse;
   }
 
   onChange(values: any){
@@ -60,11 +60,11 @@ export class SpouseInfoComponent extends BaseComponent implements OnInit {
   }
 
   documentsReady(): boolean {
-    return this.dataService.getMspApplication().spouseDocumentsReady;
+    return this.dataService.mspApplication.spouseDocumentsReady;
   }
 
   checkAnyDependentsIneligible(): boolean {
-    const target = [this.dataService.getMspApplication().applicant, this.dataService.getMspApplication().spouse , ...this.dataService.getMspApplication().children];
+    const target = [this.dataService.mspApplication.applicant, this.dataService.mspApplication.spouse , ...this.dataService.mspApplication.children];
     return target.filter(x => x)
         .filter(x => x.ineligibleForMSP).length >= 1;
   }

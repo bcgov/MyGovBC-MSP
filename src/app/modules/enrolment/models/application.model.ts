@@ -31,6 +31,8 @@ class MspApplication implements ApplicationBase {
 
   unUsualCircumstance: boolean;
 
+  pageStatus: any[] = []; // page status - complete/ incomplete
+
 
   get uuid(): string {
     return this._uuid;

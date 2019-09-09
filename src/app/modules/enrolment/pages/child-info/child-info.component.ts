@@ -9,6 +9,7 @@ import {Relationship} from '../../../../models/status-activities-documents';
 import {BaseComponent} from '../../../../models/base.component';
 import {ProcessService} from '../../../../services/process.service';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
+import { PageStateService } from '../../../../services/page-state.service';
 
 @Component({
   selector: 'msp-child-info',
@@ -20,44 +21,47 @@ export class ChildInfoComponent extends BaseComponent implements OnInit {
   Relationship: typeof Relationship = Relationship;
   public buttonClass: string = 'btn btn-default';
 
-  constructor (private dataService: MspDataService, private _router: Router, private _processService: ProcessService, private cd: ChangeDetectorRef) {
+  constructor (private dataService: MspDataService, 
+               private _router: Router, 
+               private pageStateService: PageStateService,
+              private cd: ChangeDetectorRef) {
     super(cd);
   }
 
   ngOnInit() {
-    this.initProcessMembers(ChildInfoComponent.ProcessStepNum, this._processService);
+    this.pageStateService.setPageIncomplete(this._router.url, this.dataService.mspApplication.pageStatus);
   }
 
   nextStep(){
-    this._processService.setStep(3, true);
+    this.pageStateService.setPageComplete(this._router.url, this.dataService.mspApplication.pageStatus);
     this._router.navigate([ROUTES_ENROL.CONTACT.fullpath]);
 
   }
 
   addChild(relationship: Relationship): void {
-    this.dataService.getMspApplication().addChild(relationship);
+    this.dataService.mspApplication.addChild(relationship);
   }
 
   get children(): MspPerson[] {
-    console.log(this.dataService.getMspApplication().children);
-    return this.dataService.getMspApplication().children;
+    console.log(this.dataService.mspApplication.children);
+    return this.dataService.mspApplication.children;
   }
 
   removeChild(event: Object, idx: number): void{
     // console.log('remove child ' + JSON.stringify(event));
-    this.dataService.getMspApplication().removeChild(idx);
+    this.dataService.mspApplication.removeChild(idx);
     this.dataService.saveMspApplication();
 
   }
 
   checkAnyDependentsIneligible(): boolean {
-    const target = [...this.dataService.getMspApplication().children];
+    const target = [...this.dataService.mspApplication.children];
     return target.filter(x => x)
         .filter(x => x.ineligibleForMSP).length >= 1;
   }
 
   documentsReady(): boolean {
-    return this.dataService.getMspApplication().childDocumentsReady;
+    return this.dataService.mspApplication.childDocumentsReady;
   }
 
 }

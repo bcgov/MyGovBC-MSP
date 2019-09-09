@@ -15,8 +15,9 @@ import { SendingComponent } from './pages/sending/sending.component';
 import { SpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { FormsModule } from '@angular/forms';
 import { CaptchaModule } from 'moh-common-lib/captcha';
-import { RouteGuardService, CheckCompleteBaseService, AbstractPgCheckService } from 'moh-common-lib';
+import { RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
 import { PersonalDetailsComponent } from './components/personal-details/personal-details.component';
+import { GuardEnrolService } from './services/guard-enrol.service';
 
 @NgModule({
   imports: [
@@ -40,8 +41,8 @@ import { PersonalDetailsComponent } from './components/personal-details/personal
     PersonalDetailsComponent
   ],
   providers: [
-    { provide: AbstractPgCheckService, useClass: CheckCompleteBaseService },
-    RouteGuardService
+    { provide: AbstractPgCheckService, useClass: GuardEnrolService },
+    RouteGuardService,
   ]
 })
 export class EnrolmentModule { }

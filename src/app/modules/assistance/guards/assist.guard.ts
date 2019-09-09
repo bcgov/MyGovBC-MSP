@@ -23,7 +23,7 @@ export class AssistGuard implements AbstractPgCheckService {
   public isPrerequisiteComplete(): boolean {
     return true;
   }
-  
+
   public getStartUrl(): string {
     return ROUTES_ASSIST.HOME.fullpath;
   }
