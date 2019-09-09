@@ -1,0 +1,66 @@
+<h2><strong>{{title}}</strong></h2>
+
+<!-- Static Content -->
+
+<p class="border-bottom">{{subtitle}}</p>
+           
+<label for={{id}} class="control-label">Document Type</label>
+<!-- <ng-select [id]="id" [items]="items$ | async" (change)="changed($event)" [(ngModel)]="selected"> -->
+<!-- </ng-select> -->
+<div class="form-group">
+<select style="width:250px;" class="custom-select" [id]="id" [ngModel]="docSelected" (ngModelChange)="docSelected=$event;">
+    <ng-container>
+        <option selected value="null" disabled="true">Please Select</option>
+        <option  *ngFor="let item of items" [selected]="selected === item">{{ item }}</option>
+    </ng-container>
+</select>
+</div>
+<div *ngIf="docSelected">
+
+<common-xicon-button label='Remove' (click)="remove()"></common-xicon-button>
+
+<p class="border-bottom"> <i>{{docSelected}}</i></p>
+<div  class="row">        
+  <div class="col-8" style="margin-bottom: 15px;">      
+      <common-file-uploader 
+          [images]="person.assistYearDocs"
+          [id]='accountApp.id'
+          instructionText="Click add, or drag and drop file into this box">
+      </common-file-uploader>
+  </div>
+
+  <!-- TIP -->
+  <div style="background-color : #f2f2f2; height: 240px; width: 396px;">
+      <br>
+      <aside>
+          <div class="row" style="margin-bottom:15px">
+              &nbsp;&nbsp;&nbsp;  <div class="col-2">
+                  <i class="fa fa-exclamation-triangle" style="font-size: 35px;"></i>
+              </div>
+              <div class="col-8">
+                  <p>
+                          If you are uploading a copy of a Notice of Assessment or Reassessment from the Canada Revenue Agency website, make sure the image contains:
+                  </p>
+                  <ul>
+                      <li>
+                              Your name
+                      </li>
+                      <li>
+                              The tax year
+                      </li>
+                      <li>
+                              Your net income (line 236)
+                      </li>
+                      
+                      <li> 
+                          If you have a Registered Disability Savings Plan (line 125)
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </aside> 
+  </div>  
+  <!-- TIP -->
+
+</div>
+</div>

@@ -15,7 +15,9 @@
         <h2 class="border-bottom">Phone</h2>
         <div class="row">
             <div class="form-group col-3">
-                <common-phone-number name="phone_number" 
+                <common-phone-number name="phone_number"
+                    [displayMask]="true"
+                    
                     [label]="'Phone Number (optional)'" 
                     [phoneNumber]="mspApplication.phoneNumber" 
                     (onChange)="handlePhoneNumberChange($event)">

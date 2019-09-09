@@ -1,5 +1,45 @@
 <common-page-framework layout="blank">
-<p>
-  child-info works!
-</p>
+    <h1><strong>Manage child information on your account</strong></h1>
+    <p>
+        Use this section to add a child to your account, remove a child from your account, or update the legal name, birthdate and /or gender of a child currently on your Medical Services Plan account.
+    </p>
+    <div class="col-8">  
+      <p>
+          A child is a resident of B.C. who:
+      </p>
+      <ul>
+          <li>
+              is a child of a beneficiary or a person who stands in place of a parent;
+          </li>
+          <li>
+              who is a minor;
+          </li>
+          <li>
+              does not have a spouse; and
+          </li>
+          <li> 
+              is supported by the beneficiary.
+          </li>
+      </ul>
+    </div>
+      <hr>
+      <div class="row">
+        <div class="col-2">
+            <common-button [label]="'Add Spouse'" 
+            [buttonType]="'btn btn-primary'" (btnClick)='addSpouse(Relationship.spouse)'>
+          </common-button>
+        </div>
+        <div class="col-2">
+          <common-button [label]="'Remove Spouse'" 
+            [buttonType]="'btn btn-primary'" (btnClick)='removeSpouse(Relationship.spouse)'>
+          </common-button>
+        </div>
+    
+        <div class="col-2 ">
+          <common-button [label]="'Update Spouse'" 
+            [buttonType]="'btn btn-primary'" (btnClick)='updateSpouse(Relationship.spouse)'>
+          </common-button>
+        </div>
+    
+      </div>
 </common-page-framework>
