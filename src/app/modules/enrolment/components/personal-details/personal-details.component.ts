@@ -20,7 +20,8 @@ import {
   Relationship,
   LangStatus,
   LangActivities,
-  yesNoLabels
+  yesNoLabels,
+  genderLabels
 } from '../../../msp-core/models/status-activities-documents';
 import * as _ from 'lodash';
 
@@ -39,7 +40,7 @@ import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/componen
   selector: 'msp-personal-details',
   templateUrl: './personal-details.component.html',
   styleUrls: ['./personal-details.component.scss'],
-
+/*
   animations: [
     trigger('shrinkOut', [
       state('in', style({ display: 'none' })),
@@ -65,6 +66,7 @@ import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/componen
       // transition('* => *', animate(500))
     ])
   ]
+  */
 })
 export class PersonalDetailsComponent extends BaseComponent {
   /**
@@ -91,7 +93,7 @@ export class PersonalDetailsComponent extends BaseComponent {
 
 
 
-  lang = require('./i18n');
+  //lang = require('./i18n'); //TODO: pull wording from file to use in html
 /*
   @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
   @ViewChild('imageErrorModal') imageErrorModal: MspImageErrorModalComponent;
@@ -126,17 +128,19 @@ export class PersonalDetailsComponent extends BaseComponent {
   >();*/
 
 
+  /*
   shrinkOut: string;
   shrinkOutStatus: string;
   genderListSignal: string;
+  */
+
   institutionWorkSignal: string;
   showServicesCardModal: boolean = false;
 
+
   /** Hides the 'Clear Spouse/Child' button, and the <hr> at the end of the component. Useful in layouts where this form must be embedded in a larger form.. */
-  @Input() embedded: boolean = false;
+  //@Input() embedded: boolean = false;
   institutionList: string[] = ['Yes', 'No'];
-
-
 
 
   // START -- NEW CODE FOR PAGE
@@ -154,6 +158,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   activitiesOpts: string[] = Object.keys(LangActivities).map( x  => LangActivities[x] );
   documentOpts: string[] = MspDocumentConstants.langDocument();
   yesNoRadioLabels = yesNoLabels;
+  genderRedioLabels = genderLabels;
 
   statusDocumentType: string = null;
   hasStatusDocumentType: boolean = false;
@@ -162,7 +167,6 @@ export class PersonalDetailsComponent extends BaseComponent {
   hasNameChange: boolean = false;
 
   uploadDocInstructions = 'Click add, or drag and drop file into this box';
-
   // END -- NEW CODE FOR PAGE
 
   constructor(private cd: ChangeDetectorRef) {
@@ -273,9 +277,6 @@ export class PersonalDetailsComponent extends BaseComponent {
     return this.person.status === StatusInCanada.CitizenAdult;
   }
 
-
-  
-
   /**
    * Gets the available documents given the known status and activity
    */
@@ -293,6 +294,8 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.person.documents.images = evt;
     this.personChange.emit(this.person);
   }
+
+
 
   /*
   errorDocument(evt: MspImage) {
@@ -520,6 +523,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
   setGender(evt: Gender) {
     this.person.gender = evt;
+    this.personChange.emit(this.person);
   }
 
   isCanada(addr: Address): boolean {
