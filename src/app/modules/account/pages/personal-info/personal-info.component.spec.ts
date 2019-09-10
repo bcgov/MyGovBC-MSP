@@ -8,7 +8,7 @@ import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage
 import { RouterTestingModule } from '@angular/router/testing';
 import { ProcessService } from '../../../../services/process.service';
 import { async } from '@angular/core/testing';
-import { StatusInCanada, Activities } from '../../model/status-activities-documents';
+import { StatusInCanada, Activities } from '../../../../models/status-activities-documents';
 import {TextMaskModule} from 'angular2-text-mask';
 
 describe('AccountPersonalInfoComponent', () => {

@@ -17,6 +17,7 @@ export default class MspAccountDto {
 
     // Account Change options chosen by the user
     personInfoUpdate: boolean ;
+    immigrationStatusChange: boolean;
     dependentChange: boolean ;
     addressUpdate: boolean ;
     statusUpdate: boolean ;

@@ -1,4 +1,52 @@
 <common-page-framework layout="blank">
+<h1><strong>Medical Services Plan Account Holder</strong></h1>
+<p class="border-bottom">Please provide information about this account. If you are requesting an update or correction to personal information (including a name change as a result of marriage, separation or divorce), birthdate or gender, provide supporting documents.</p>
+
+<div class="form-group">
+    <common-radio [value]="accountChangeOptions.personInfoUpdate" 
+        [label]="'As the Account Holder, are you requesting an update/correction to your personal information?'" 
+        [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+        (statusChange)="personInfoUpdateOnChange($event)">
+    </common-radio>
+</div>
+
+<div class="form-group">
+    <common-radio [value]="accountChangeOptions.immigrationStatusChange"  
+        [label]="'Are you requesting to update or renew your immigration status in Canada?'" 
+        [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+        (statusChange)="accountChangeOptions.immigrationStatusChange = $event; this.dataService.saveMspAccountApp();">
+    </common-radio>
+</div>
+
+<!--
+<h2><strong>{{accountHolderTitle}}</strong></h2>
+<p class="border-bottom">{{accountHolderSubtitle}}</p>
+-->
+<msp-account-personal-details [title] ="accountHolderTitle"
+    [subtitle]="accountHolderSubtitle" 
+    [person]='applicant' 
+    [id]='applicant.id' 
+    [addressRequired]="true"
+    (onChange)="onChange($event)">
+</msp-account-personal-details>
+
+<br>
+
+<msp-update-request title="What updates are you requesting for Account Holder?" 
+    subtitle = "For each update or correction selected, provide the supporting documents." 
+    [updateList]="accountUpdateList" 
+    [person]="person" 
+    
+    [items]= "items" 
+    [langStatus]="residentStatus"
+    [accountApp]="accountApp">
+</msp-update-request>
+
+    
+</common-page-framework>
+
+
+<!--
 <form #formRef="ngForm" novalidate>
     <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
     <msp-account-personal-details [person]='applicant' [id]='applicant.id' [addressRequired]="true"
@@ -40,13 +88,13 @@
                             [disabled]="spouse || !canContinue()"  >
                         <span class="glyphicon" aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').UpdateSpouseButton"></span>
-                    </button>-->
+                    </button>
                     <common-button [label]="lang('./en/index.js').addChildUnder19Button" [buttonType]="buttonstyle" (btnClick)='addUpdateChild()' [disabled]="!canContinue()"></common-button>
                       
                   <!--  <button type="button" class="btn btn-default" (click)='addUpdateChild()' [disabled] = "!canContinue()">
                         <span class="glyphicon" aria-hidden="true"></span>
                         <span [innerHTML]="lang('./en/index.js').addChildUnder19Button"></span>
-                    </button> -->
+                    </button> 
 
 
                 </div>
@@ -68,12 +116,13 @@
             <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
             </p>
         </div>
-        <msp-cancel class='col'></msp-cancel> -->
-</form>
+        <msp-cancel class='col'></msp-cancel> 
+</form> -->
 
 <div class="position: inherit;">
-    <common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
+    <common-form-action-bar 
+    [defaultColor]="false"
+    [submitLabel]="lang('./en/index.js').continueButton"
     [canContinue]="!hasAnyInvalidStatus()" (btnClick)="continue()">
     </common-form-action-bar>
 </div>
-</common-page-framework>

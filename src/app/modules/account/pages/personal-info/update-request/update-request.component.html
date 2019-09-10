@@ -1,0 +1,117 @@
+<div *ngIf="title"><h2><strong>{{title}}</strong></h2></div>
+
+<div *ngIf="subtitle"><p class="border-bottom">{{subtitle}}</p></div>
+
+
+<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
+    <common-checkbox  [label]="'Update status in Canada'" (dataChange)="person.updateStatusInCanada = $event; checkStatus($event);" [data]="person.updateStatusInCanada"></common-checkbox>
+</div>
+
+<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
+    <common-checkbox  [label]="'Update name - due to marriage or other'" (dataChange)="person.updateNameDueToMarriage = $event; checkStatus($event);" [data]="person.updateNameDueToMarriage"  ></common-checkbox>
+</div>
+
+<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
+    <common-checkbox [label]="'Correct name - due to error'" (dataChange)="person.updateNameDueToError = $event; checkStatus($event);" [data]="person.updateNameDueToError"  ></common-checkbox>
+</div>
+
+<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
+    <common-checkbox  [label]="'Correct birthdate'" (dataChange)="person.updateBirthdate = $event; checkStatus($event);" [data]="person.updateBirthdate"  ></common-checkbox>
+</div>
+
+<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
+    <common-checkbox  [label]="'Correct gender'" (dataChange)="person.updateGender = $event; checkStatus($event);" [data]="person.updateGender"  ></common-checkbox>
+</div>
+
+<div role="dialog" aria-labelledby="q2" class="form-check mb-2" >
+    <common-checkbox  [label]="'Change gender designation'" (dataChange)="person.updateGenderDesignation = $event; checkStatus($event);" [data]="person.updateGenderDesignation"  ></common-checkbox>
+</div>
+
+
+<!-- Update Status in Canada -->
+<div *ngIf="person.updateStatusInCanada">
+  <div class="border-bottom">
+      <h2><strong>Account Holder's new status in Canada</strong></h2>
+  </div>
+
+ 
+ <label class="control-label"></label>
+
+  <div class="form-group" style="width:250px;">
+     <div class="form-group">
+          <select style="width:250px;" class="custom-select" [id]="id" [(ngModel)]="person.status" (ngModelChange)="setStatus($event);">
+              <ng-container>
+                  <option selected disabled="true" value="null">Please Select</option>
+                  <option  *ngFor="let item of langStatus" [ngValue]="item.value" [selected]="person.status == item.value">{{ item.label }}</option>
+              </ng-container>
+          </select>
+      </div> 
+      <common-radio  
+        [radioLabels]="activitiesTable" 
+        [value]="person.currentActivity" 
+        display="table-row-group"
+        (statusChange)= "person.currentActivity = $event; this.dataService.saveMspAccountApp();">
+      </common-radio>
+  </div>
+
+  <div *ngIf="person.status == 0">
+    <msp-account-file-uploader [title]="'Documents to support new status in Canada'"
+      subtitle="'Provide one of the required documents to support your immigration status in Canada.'"  
+    [person]="person" 
+    [activitiesTable]="activitiesTable" 
+    [items]="items" 
+    [accountApp]="accountApp"> 
+    </msp-account-file-uploader>
+  </div>
+
+  <div *ngIf="person.status == 1">
+      <msp-account-file-uploader [title]="'Documents to support new status in Canada'"
+        subtitle="'Provide one of the required documents to support your immigration status in Canada.'"  
+      [person]="person" 
+      [activitiesTable]="activitiesTable" 
+      [items]="permanentResidentDocs" 
+      [accountApp]="accountApp"> 
+      </msp-account-file-uploader>
+  </div>
+
+  <div *ngIf="person.currentActivity">
+      <msp-account-file-uploader [title]="'Documents to support new status in Canada'"
+        subtitle="'Provide one of the required documents to support your immigration status in Canada.'"  
+      [person]="person" 
+      [activitiesTable]="activitiesTable" 
+      [items]="workPermitDocs" 
+      [accountApp]="accountApp"> 
+      </msp-account-file-uploader>
+  </div>
+</div>
+
+<!-- Document Upload Status Section --> 
+<div *ngIf="person.updateNameDueToMarriage">
+  <msp-account-file-uploader [title]="'Documents - Update name due to marriage or other'"
+   subtitle="'Provide one of the required documents to support your immigration status in Canada.'"  
+  [person]="person" [activitiesTable]="activitiesTable" [items]="items" [accountApp]="accountApp"> </msp-account-file-uploader>
+</div>
+
+<div *ngIf="person.updateNameDueToError">
+  <msp-account-file-uploader [title]="'Documents - Correct name'"
+  subtitle="'Provide one of the required documents to support your immigration status in Canada.'" 
+  [person]="person" [activitiesTable]="activitiesTable" [items]="items" [accountApp]="accountApp"> </msp-account-file-uploader>
+</div>
+
+<div *ngIf="person.updateBirthdate">
+  <msp-account-file-uploader [title]="'Documents - Correct birthdate'" 
+  subtitle="'Provide one of the required documents to support your immigration status in Canada.'"
+  [person]="person" [activitiesTable]="activitiesTable" [items]="items" [accountApp]="accountApp"> </msp-account-file-uploader>
+</div>
+
+<div *ngIf="person.updateGender">
+    <msp-account-file-uploader [title]="'Documents - Correct gender'"
+      subtitle="'Provide one of the required documents to support your immigration status in Canada.'" 
+      [person]="person" [activitiesTable]="activitiesTable" [items]="items" [accountApp]="accountApp"> </msp-account-file-uploader>
+</div>
+
+<div *ngIf="person.updateGenderDesignation">
+    <msp-account-file-uploader [title]="'Documents - Change gender designation'"
+      subtitle="'Provide one of the required documents to support your immigration status in Canada.'"
+      [person]="person" [activitiesTable]="activitiesTable" [items]="items" [accountApp]="accountApp"> </msp-account-file-uploader>
+</div>

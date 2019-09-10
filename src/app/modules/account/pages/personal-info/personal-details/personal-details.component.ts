@@ -15,6 +15,7 @@ import { Relationship, StatusRules, ActivitiesRules } from '../../../../../model
 import { MspPhoneComponent } from '../../../../../components/msp/common/phone/phone.component';
 import { MspPerson, MspAccountApp } from '../../../models/account.model';
 import { Address } from 'moh-common-lib';
+import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 
 @Component({
         selector: 'msp-account-personal-details',
@@ -70,6 +71,8 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @ViewChild(MspStatusInCanadaRadioComponent) statusRadioComponents: MspStatusInCanadaRadioComponent;
 
     @Input() person: MspPerson;
+    @Input() title: string;
+    @Input() subtitle: string;
     @Input() id: string;
     @Input() showError: boolean;
     public buttonClass: string = 'btn btn-default btn-xs pull-right';
@@ -106,9 +109,10 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     public label: string = 'PHN 333';
 
     constructor(private el: ElementRef,
-                private cd: ChangeDetectorRef, private dataService: MspDataService) {
+                private cd: ChangeDetectorRef, private dataService: MspAccountMaintenanceDataService) {
         super(cd);
-        this.mspAccountApp = dataService.getMspAccountApp();
+        this.mspAccountApp = this.dataService.getMspAccountApp();
+        this.person = this.dataService.getMspAccountApp().applicant ;
     }
 
 
@@ -143,7 +147,10 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     }
 
     setName(evt: any) {
-        this.person = evt;
+        this.person.firstName = evt.first_name;
+        this.person.middleName = evt.middle_name;
+        this.person.lastName = evt.last_name;
+        
         console.log(this.person);
         console.log(evt);
         this.onChange.emit(evt);

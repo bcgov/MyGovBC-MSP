@@ -75,7 +75,7 @@ export class AuthorizeComponent implements OnInit {
     if (this.application.hasValidAuthToken){
       console.log('Found valid auth token, transfer to sending screen.');
       this.pageStateService.setPageComplete(this._router.url, this.dataService.mspApplication.pageStatus);
-      this._router.navigate([ROUTES_ENROL.CONFIRMATION.fullpath]);
+      this._router.navigate([ROUTES_ENROL.SENDING.fullpath]);
     }else{
       console.log('Auth token is not valid');
     }

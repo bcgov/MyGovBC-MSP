@@ -5,8 +5,9 @@ import { ISpaEnvResponse } from 'moh-common-lib/lib/components/consent-modal/con
 import { MspDataService } from '../../../../services/msp-data.service';
 import { ProcessService } from '../../../../services/process.service';
 import { MspLogService } from '../../../../services/log.service';
-import { MspApiService } from '../../../../services/msp-api.service';
-
+import { MspApiEnrolmentService } from '../../services/msp-api-enrolment.service';
+import { ApiResponse } from '../../../../models/api-response.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   templateUrl: 'sending.component.html',
@@ -25,8 +26,9 @@ export class SendingComponent implements AfterContentInit {
   transmissionInProcess: boolean;
   hasError: boolean;
   showMoreErrorDetails: boolean;
+  suppBenefitResponse: ApiResponse;
 
-  constructor(private dataService: MspDataService, private service: MspApiService,
+  constructor(private dataService: MspDataService, private service: MspApiEnrolmentService,
     //private processService: ProcessService,
     public router: Router, private logService: MspLogService) {
     this.application = this.dataService.mspApplication;
@@ -47,11 +49,29 @@ export class SendingComponent implements AfterContentInit {
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
     this.hasError = undefined;
+    console.log(this.application.uuid);
     //  this.logService.log({name: 'Enrollment application submitting request'},"Enrollment : Submission Request");
     this.service
-      .sendApplication(this.application)
-      .then((application: MspApplication) => {
-        this.application = application;
+      .sendRequest(this.application)
+      .then((response: ApiResponse) => {
+        
+        if (response instanceof HttpErrorResponse) {
+          this.logService.log({
+              name: 'Enrolment - System Error',
+              confirmationNumber: this.application.uuid,
+              url: this.router.url
+          }, 'Supplementary Benefit - Submission Response Error' + response.message);
+          this.processErrorResponse(false);
+          return;
+      }
+
+      const refNumber = response.op_reference_number;
+
+        
+        
+       // this.application = application;
+        console.log(this.application);
+
         this.logService.log({name: 'Enrolment - Received refNo ',
           confirmationNumber: this.application.referenceNumber}, 'Enrolment - Submission Response Success');
 
@@ -63,8 +83,7 @@ export class SendingComponent implements AfterContentInit {
         //  go to confirmation
 
         this.router.navigate(['/enrolment/confirmation'],
-          {queryParams: {confirmationNum: tempRef}});
-
+                {queryParams: {confirmationNum: refNumber}});
 
       }).catch((error: ResponseType | any) => {
         console.log('error in sending application: ', error);
@@ -93,6 +112,17 @@ export class SendingComponent implements AfterContentInit {
   toggleErrorDetails(){
     this.showMoreErrorDetails = !this.showMoreErrorDetails;
   }
+
+  processErrorResponse(transmissionInProcess: boolean) {
+    this.hasError = true;
+    this.transmissionInProcess = transmissionInProcess;
+    const oldUUID = this.application.uuid;
+    this.application.regenUUID();
+    console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.mspApplication.uuid);
+    this.application.authorizationToken = null;
+    this.dataService.saveMspApplication();
+}
+
 
   retrySubmission(){
     this.router.navigate(['/enrolment/authorize']);

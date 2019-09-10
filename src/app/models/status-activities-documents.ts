@@ -17,7 +17,8 @@ enum Relationship {
 enum StatusInCanada {
   CitizenAdult, // adult
   PermanentResident,
-  TemporaryResident,
+  TemporaryResident
+  
 }
 
 /**
@@ -124,6 +125,39 @@ class ActivitiesRules {
             Activities.Visiting];
         }
     }
+  }
+
+  static activitiesForAccountChange(relationship: Relationship, status: StatusInCanada): Activities[] {
+    console.log(status);
+    console.log(StatusInCanada.CitizenAdult);
+    console.log(StatusInCanada.PermanentResident);
+    console.log(StatusInCanada.TemporaryResident);
+
+    if (status === StatusInCanada.TemporaryResident) {
+      console.log("got it");
+      return [Activities.WorkingInBC, Activities.StudyingInBC, 
+                Activities.ReligiousWorker, 
+                Activities.Diplomat];
+    } 
+    /*  console.log("1");
+      if (relationship === Relationship.Applicant) {
+        return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat];
+      } else {
+        return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat,
+          Activities.Visiting];
+      }
+      console.log("2");
+       /* if (relationship === Relationship.Child19To24 ||
+            relationship === Relationship.ChildUnder19 || relationship === Relationship.ChildUnder24) {
+          return [Activities.MovingFromProvince, Activities.MovingFromCountry, Activities.LivingInBCWithoutMSP];
+        }
+        else {
+          return [Activities.MovingFromProvince, Activities.MovingFromCountry, Activities.LivingInBCWithoutMSP];
+        }*/
+    /*  return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat,
+          Activities.Visiting];*/
+      
+  
   }
 }
 

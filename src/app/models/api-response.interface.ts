@@ -1,4 +1,4 @@
-export interface SuppBenefitApiResponse {
+export interface ApiResponse {
     op_return_code: 'SUCCESS' | 'FAILURE';
     op_technical_error: null | string;
     dbErrorMessage: null | string;
