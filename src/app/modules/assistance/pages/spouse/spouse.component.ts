@@ -48,6 +48,7 @@ export interface SpouseYears {
                 [label]="year"
                 [data]="checkYear(year)"
                 (dataChange)="toggleYear($event, year)"
+                id="{{year}}"
               ></common-checkbox>
             <common-error-container [displayError]="(touched$ | async) && !validSelection">
               At least one tax year must be selected
