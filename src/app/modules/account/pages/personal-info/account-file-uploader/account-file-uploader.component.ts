@@ -30,6 +30,7 @@ import {
 export class AccountFileUploaderComponent  {
 
   @Input() title: string;
+  @Input() subtitle: string;
   docSelected: string;
   @Input() person: MspPerson;
   @Input() activitiesTable: any[];

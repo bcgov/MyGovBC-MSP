@@ -4,11 +4,11 @@
 
 <p class="border-bottom">{{subtitle}}</p>
            
-<label for={{id}} class="control-label">Document Type</label>
+<label  class="control-label">Document Type</label>
 <!-- <ng-select [id]="id" [items]="items$ | async" (change)="changed($event)" [(ngModel)]="selected"> -->
 <!-- </ng-select> -->
 <div class="form-group">
-<select style="width:250px;" class="custom-select" [id]="id" [ngModel]="docSelected" (ngModelChange)="docSelected=$event;">
+<select style="width:250px;" class="custom-select"  [ngModel]="docSelected" (ngModelChange)="docSelected=$event;">
     <ng-container>
         <option selected value="null" disabled="true">Please Select</option>
         <option  *ngFor="let item of items" [selected]="selected === item">{{ item }}</option>

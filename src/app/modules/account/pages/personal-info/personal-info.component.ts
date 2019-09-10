@@ -52,7 +52,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
     updateList: UpdateList[];
 
 
-    constructor(private dataService: MspAccountMaintenanceDataService,
+    constructor(public dataService: MspAccountMaintenanceDataService,
               private _router: Router,
               //private _processService: ProcessService,
               cd: ChangeDetectorRef) {
