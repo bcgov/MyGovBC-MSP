@@ -164,7 +164,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   hasStatusDocumentType: boolean = false;
   nameChangeDocumentType: string = null;
   hasNameChangeDocumentType: boolean = false;
-  hasNameChange: boolean = false;
+  hasNameChange: boolean = undefined;
 
   uploadDocInstructions = 'Click add, or drag and drop file into this box';
   // END -- NEW CODE FOR PAGE

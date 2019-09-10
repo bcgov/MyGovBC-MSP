@@ -60,7 +60,6 @@
                             [required]="true" 
                             instructionText="{{uploadDocInstructions}}">
       </common-file-uploader>
-
       <common-radio class="p-sm-2"
                     [value]="hasNameChange"  
                     label="Has your name changed since your ID was issued due to marriage or a legal name change?" 
@@ -138,7 +137,7 @@
   </div>
 </div>
 
-<div *ngIf="statusDocuments.length &&  (!hasNameChange || (hasNameChange && nameDocuments.length))">
+<div *ngIf="statusDocuments.length && (hasNameChange == false || (hasNameChange && nameDocuments.length))">
   <!--TODO: Title needs to change depending on relationship - should be a variable-->
   <h2>Personal Information</h2>
   <p class="border-bottom">Enter your legal name and gender.</p>
