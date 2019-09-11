@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-
+import { Observable } from 'rxjs';
 import { AccountChangeAccountHolderFactory, AccountChangeAccountHolderType, AccountChangeApplicationTypeFactory, AccountChangeChildType, AccountChangeChildTypeFactory, AccountChangeChildrenFactory, AccountChangeSpouseType, AccountChangeSpouseTypeFactory, AccountChangeSpousesTypeFactory, OperationActionType } from '../modules/msp-core/api-model/accountChangeTypes';
 import { ApplicationTypeFactory, AttachmentType, AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory, DocumentFactory, _ApplicationTypeNameSpace, document } from '../modules/msp-core/api-model/applicationTypes';
 import { AssistanceApplicantTypeFactory, AssistanceApplicationTypeFactory, AssistanceSpouseTypeFactory, FinancialsType, FinancialsTypeFactory } from '../modules/msp-core/api-model/assistanceTypes';
@@ -20,15 +20,82 @@ import { MspMaintenanceService } from './msp-maintenance.service';
 import { Response } from '@angular/http';
 import {ISpaEnvResponse} from '../components/msp/model/spa-env-response.interface';
 import { environment } from '../../environments/environment';
-
+import { ApiResponse } from '../models/api-response.interface';
+import {
+    SupplementaryBenefitsApplicationType,
+    MSPApplicationSchema
+  } from 'app/modules/msp-core/interfaces/i-api';
 
 const jxon = require('jxon/jxon');
 
 @Injectable()
 export class MspApiService {
-
+    protected _headers: HttpHeaders = new HttpHeaders();
     constructor(private http: HttpClient, private logService: MspLogService, private maintenanceService: MspMaintenanceService) {
     }
+
+    sendRequest(app: MspApplication): Promise<any> {
+		const suppBenefitRequest = this.prepareEnrolmentApplication(app);
+		console.log(suppBenefitRequest);
+
+		return new Promise<ApiResponse>((resolve, reject) => {
+			
+			// if no errors, then we'll sendApplication all attachments
+			return this.sendAttachments(
+			  app.authorizationToken,
+			  app.uuid,
+			  app.getAllImages()
+			)
+			  .then(attachmentResponse => {
+				console.log('sendAttachments response', attachmentResponse);
+
+				return this.sendEnrolmentApplication(
+				  suppBenefitRequest,
+				  app.uuid,
+				  app.authorizationToken
+				).subscribe(response => {
+				  // Add reference number
+				  if (response && response.referenceNumber) {
+					app.referenceNumber = response.referenceNumber.toString();
+				  }
+				  // Let our caller know were done passing back the application
+				  return resolve(response);
+				});
+			  })
+			  .catch((error: Response | any) => {
+				// TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
+				console.log('sent all attachments rejected: ', error);
+				this.logService.log(
+				  {
+					text: 'Attachment - Send All Rejected ',
+					response: error
+				  },
+				  'Attachment - Send All Rejected '
+				);
+				return resolve(error);
+			  });
+		  
+		});
+    }
+
+
+    sendEnrolmentApplication(
+        app: MSPApplicationSchema,
+        uuid: string,
+        authToken: string
+      ): Observable<any> {
+          const url = environment.appConstants['apiBaseUrl']
+        + '/MSPDESubmitApplication/' + app.uuid
+        + '?programArea=enrolment';
+    
+        // Setup headers
+        this._headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Response-Type': 'application/json',
+          'X-Authorization': 'Bearer ' + authToken
+        });
+        return this.http.post<MspApplication>(url, app);
+      }
 
     /**
      * Sends the Application and returns an MspApplication if successful with referenceNumber populated
@@ -48,7 +115,9 @@ export class MspApiService {
                         console.log('Start sending...');
                         let documentModel: document;
                         if (app instanceof MspApplication) {
+                            console.log(app);
                             documentModel = this.convertMspApplication(app);
+                            //documentModel = this.prepareEnrolmentApplication(app);
                         } else if (app instanceof FinancialAssistApplication) {
                             documentModel = this.convertAssistance(app);
                         } else if (app instanceof MspAccountApp) {
@@ -65,6 +134,7 @@ export class MspApiService {
 
                         // second convert to XML
                         const convertedAppXml = this.toXmlString(documentModel);
+              
 
                         // if no errors, then we'll sendApplication all attachments
                         return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
@@ -1372,6 +1442,82 @@ export class MspApiService {
             month: date.month - 1, // moment use 0 index for month :(
             day: date.day,
         }); // use UTC mode to prevent browser timezone shifting
+    }
+
+    
+
+  private prepareEnrolmentApplication(from: MspApplication): any {
+    console.log('prepareBenefitApplicatoin', {from, imageUUIDs: from.getAllImages().map(x => x.uuid)});
+    const output = { 
+      'enrolmentApplication': {
+        'applicant': {
+          'name': {
+          'firstName': 'Smith',
+          'lastName': 'Butler',
+          'secondName': 'MIddle Name'
+          },
+          'gender': 'M',
+          'birthDate': '03-18-1982',
+          'residenceAddress': {
+            'addressLine1': '236 Tret Street',
+            'city': 'Vancouver',
+            'postalCode': 'V6J8U7',
+            'provinceOrState': 'BC',
+            'country': 'Canada',
+            'addressLine2': 'ABCDEFGH',
+            'addressLine3': 'ABCDEFGHIJKLMNOPQRS'
+          },
+          'residency': {
+          'citizenshipStatus': {
+            'citizenshipType': 'ReligiousWorker',
+          // 'attachmentUuids': [
+          //	'ABCDEFGHIJKLMNOPQRST'
+          //  ]
+          },
+          'previousCoverage': {
+            'hasPreviousCoverage': 'N',
+            'prevPHN': '9876458907'
+          },
+          'livedInBC': {
+            'hasLivedInBC': 'N',
+            'recentBCMoveDate': '03-18-1989',
+            'recentCanadaMoveDate': '03-18-1985',
+            'isPermanentMove': 'Y',
+            'prevProvinceOrCountry': 'ABCDEFGHIJKLMNOPQRSTU',
+            'prevHealthNumber': '9876458907'
+          },
+          'outsideBC': {
+            'beenOutsideBCMoreThan': 'Y',
+            'departureDate': '03-18-1986',
+            'returnDate': '03-18-1987',
+            'familyMemeberReason': 'ABCDEFGHIJKLMNOPQ',
+            'destination': 'ABCDEFGHIJKLMN'
+          },
+          'willBeAway': {
+            'isFullTimeStudent': 'N',
+            'isInBCafterStudies': 'Y',
+            'armedDischargeDate': '03-18-1989',
+            'armedForceInstitutionName': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+          }
+          },
+          //'attachmentUuids': [
+        //	'ABCDEFGHIJKLMNOPQRSTUVWX'
+        // ],
+          'authorizedByApplicant': 'Y',
+          'authorizedByApplicantDate': '09-10-2018',
+          'authorizedBySpouse': 'N',
+          'telephone': '2356626262'
+        }
+      }
+     };
+
+      
+
+      // create Attachment from Images
+      output['attachments'] = this.convertAttachmentsForEnrolment(from);
+      output['uuid'] = from.uuid;
+      console.log(output);
+      return output;
     }
 
     // trim in the XML the leading <xx:application xmlns="xx"> and trailing </xx:application>

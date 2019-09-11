@@ -100,4 +100,13 @@ export default class PersonDto {
 
 
     schoolOutsideOfBC: boolean;
+
+    // New Update Status 
+    updateStatusInCanada: boolean;
+    updateNameDueToMarriage: boolean;
+    updateNameDueToError: boolean;
+    updateBirthdate: boolean;
+    updateGender: boolean;
+    updateGenderDesignation: boolean;
+
 }

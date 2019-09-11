@@ -25,6 +25,14 @@ import { ContactInfoComponent } from './pages/contact-info/contact-info.componen
 import { MspAccountMaintenanceDataService } from './services/msp-account-data.service';
 import { MspApiAccountService } from './services/msp-api-account.service';
 import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
+import { UpdateRequestComponent } from './pages/personal-info/update-request/update-request.component';
+import { AccountFileUploaderComponent } from './pages/personal-info/account-file-uploader/account-file-uploader.component';
+import { AddSpouseComponent } from './pages/spouse-info/add-spouse/add-spouse.component';
+import { UpdateSpouseComponent } from './pages/spouse-info/update-spouse/update-spouse.component';
+import { RemoveSpouseComponent } from './pages/spouse-info/remove-spouse/remove-spouse.component';
+import { AddChildComponent } from './pages/child-info/add-child/add-child.component';
+import { UpdateChildComponent } from './pages/child-info/update-child/update-child.component';
+import { RemoveChildComponent } from './pages/child-info/remove-child/remove-child.component';
 
 @NgModule({
   imports: [
@@ -51,7 +59,15 @@ import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheck
     SpouseInfoComponent,
     ChildInfoComponent,
     AuthorizeComponent,
-    ContactInfoComponent
+    ContactInfoComponent,
+    UpdateRequestComponent,
+    AccountFileUploaderComponent,
+    AddSpouseComponent,
+    UpdateSpouseComponent,
+    RemoveSpouseComponent,
+    AddChildComponent,
+    UpdateChildComponent,
+    RemoveChildComponent
   ],
   providers: [
     { provide: AbstractPgCheckService, useExisting: CheckCompleteBaseService },

@@ -318,9 +318,10 @@ class MspAccountApp implements ApplicationBase {
 
 class AccountChangeOptions {
 
-    personInfoUpdate: boolean = false;
+    personInfoUpdate: boolean ;
     dependentChange: boolean = false;
     addressUpdate: boolean = false;
+    immigrationStatusChange: boolean;
 
     get nameChangeDueToMarriage(): boolean {
         return this._nameChangeDueToMarriage;
@@ -350,5 +351,9 @@ class AccountChangeOptions {
         return  this.addressUpdate || this.personInfoUpdate  ||  this.dependentChange || this.statusUpdate;
     }
 }
+class UpdateList {
+    label: string;
+    value: boolean;
+}
 
-export {MspAccountApp, AccountChangeOptions, MspPerson};
+export {MspAccountApp, AccountChangeOptions, MspPerson, UpdateList};

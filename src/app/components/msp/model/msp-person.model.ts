@@ -49,6 +49,14 @@ export class MspPerson implements IPerson {
     /** NEEDS XSD. For child only. */
     private _newlyAdopted: boolean;
 
+    public updateStatusInCanada: boolean;
+    public updateNameDueToMarriage: boolean;
+    public updateNameDueToError: boolean;
+    public updateBirthdate: boolean;
+    public updateGender: boolean;
+    public updateGenderDesignation: boolean;
+
+
     get newlyAdopted(): boolean {
         return this._newlyAdopted;
     }

@@ -1,5 +1,9 @@
+<div *ngIf="title"> <h2><strong>{{title}}</strong></h2></div>
+
+<div *ngIf="subtitle"><p class="border-bottom">{{subtitle}}</p></div>
+
 <form #formRef='ngForm' novalidate>
-    <div class="row">
+    <!--<div class="row">
         <div [ngClass]="person.relationship === 0 ? 'col-sm-12' :'col-sm-9'"  *ngIf="!embedded">
             <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]"></h2>
             <ng-container  *ngIf="person.relationship === 0 || person.relationship === 1">
@@ -17,9 +21,52 @@
                 </div>
             </div>
         </div>
+    </div> -->
+
+  <!-- Full Name  -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <msp-full-name [useRows]='false' 
+                    [data]="person" 
+                    (dataChange)="onChange.emit($event);">
+                </msp-full-name>
+            </div>
+        </div>
     </div>
 
-    <msp-full-name [data]="person" (dataChange)="setName($event)" ></msp-full-name>
+    <!-- PHN  -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <common-phn
+                        #phnRef="ngModel"
+                        name="phn"
+                        [(ngModel)]="person.previous_phn"
+                        required
+                        commonValidatePhn></common-phn>
+               <!-- <div class="text-danger" *ngIf="!isPhnUnique()"
+                      [innerHTML]="lang('./en/index.js').phnUniqueError">
+                </div> -->
+            </div>
+        </div>
+    </div>
+      
+
+    <!-- BirthDate  -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <msp-birthdate #birthdate
+                            [person]="person"
+                            (onChange)="onChange.emit($event)">
+                </msp-birthdate>
+            </div>
+        </div>
+    </div>
+      
+      
+
     <div class="row">
         <div class="col-md-4">
 
@@ -29,43 +76,14 @@
                     (statusChange)="setGender($event)"
                     [showError]="showError">
                 </common-radio> 
-            <!-- <msp-gender
-                #gender
-                [person]="person"
-                (onChange) = "onChange.emit($event)" 
-                [showError] = "showError">
-            </msp-gender>
-           <common-gender
-                    #gender
-                    [person]="person"
-                    (onChange)="onChange.emit($event)"
-                    [showError]="showError"
-            ></common-gender> -->
         </div>
-        <div class="col-md-4">
-            <msp-birthdate
-                    #birthDate
-                    [person]="person" [isForAccountChange]="true"
-                    (onChange)="onChange.emit($event)"
-                    [showError]="showError">
-            </msp-birthdate>
-        </div>
-        <div class="col-md-4">
-           <!-- <common-phn #phn [label]="label" 
-                     [(value)]="person.previous_phn" 
-            ></common-phn> -->
-        </div>
-
     </div>
-    <div class="row" *ngIf="person.relationship === 0">
+<!--    <div class="row" *ngIf="person.relationship === 0">
         <div class="col-md-4">
 
             <common-phone-number [label]="'Mobile/SMS'" [phoneNumber] = "person.phoneNumber" 
                 (onChange)= "handlePhoneNumberChange($event)">
             </common-phone-number>
-            <!--<msp-phone #phone
-                       [phoneNumber]="person.phoneNumber"
-                       (phoneNumberChange)="handlePhoneNumberChange($event)"></msp-phone> -->
 
         </div>
     </div>
@@ -94,7 +112,7 @@
             </common-address> -->
 
 
-          <msp-address #address *ngIf="person.relationship === 0" [showError]="showError && showErrorAddress"
+      <!--    <msp-address #address *ngIf="person.relationship === 0" [showError]="showError && showErrorAddress"
                          [residentialAddress]="person.residentialAddress"
                          [mailingAddress]="person.mailingAddress"
                          [mailingSameAsResidentialAddress]="person.mailingSameAsResidentialAddress"
@@ -103,19 +121,18 @@
 
             </msp-address> 
         </div>
-    </div>
+    </div> -->
 
-    <msp-status-in-canada-radio (onChange)="onChange.emit($event)" [showError]="showError"
+<!--    <msp-status-in-canada-radio (onChange)="onChange.emit($event)" 
+        [showError]="showError"
         *ngIf="mspAccountApp.accountChangeOptions.statusUpdate&&!embedded"
-            [person]='person'>
-    </msp-status-in-canada-radio>
-
-
-
+        [person]='person'>
+    </msp-status-in-canada-radio> -->
 
 </form>
+<!--
 <hr class="strong-hr" *ngIf="!embedded">
-
+-->
 <!-- switch *ngIf value to true for debugging-->
 <div class="row" *ngIf='false'>
     <div class="col-lg-12">
