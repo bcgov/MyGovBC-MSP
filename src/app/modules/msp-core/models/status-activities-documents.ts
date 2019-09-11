@@ -19,7 +19,7 @@ export enum StatusInCanada {
   CitizenAdult, // adult
   PermanentResident,
   TemporaryResident
-  
+
 }
 
 export const LangStatus = {
@@ -136,11 +136,11 @@ export class ActivitiesRules {
     console.log(StatusInCanada.TemporaryResident);
 
     if (status === StatusInCanada.TemporaryResident) {
-      console.log("got it");
-      return [Activities.WorkingInBC, Activities.StudyingInBC, 
-                Activities.ReligiousWorker, 
+      console.log('got it');
+      return [Activities.WorkingInBC, Activities.StudyingInBC,
+                Activities.ReligiousWorker,
                 Activities.Diplomat];
-    } 
+    }
     /*  console.log("1");
       if (relationship === Relationship.Applicant) {
         return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat];
@@ -158,8 +158,8 @@ export class ActivitiesRules {
         }*/
     /*  return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat,
           Activities.Visiting];*/
-      
-  
+
+
   }
 }
 

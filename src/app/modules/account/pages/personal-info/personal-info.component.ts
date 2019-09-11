@@ -84,13 +84,13 @@ export class AccountPersonalInfoComponent extends BaseComponent {
 
        // this.isPICheckedByUser = true;
         this.accountChangeOptions.personInfoUpdate = event;
-        if(event) {
+        if (event) {
             this.accountHolderTitle = 'Update Account Holder\'s Information';
             this.accountHolderSubtitle = 'Please provide new information if you are requesting an update or correction to the Account Holder’s name (including a name change as a result of marriage, separation or divorce), birthdate or gender.';
         } else {
             this.accountHolderTitle = 'Account Holder Identification';
             this.accountHolderSubtitle = 'Please provide the Account Holder’s personal information for verification purposes.';
-         
+
         }
 
         this.dataService.saveMspAccountApp();
@@ -159,73 +159,73 @@ export class AccountPersonalInfoComponent extends BaseComponent {
         'Canadian birth certificate',
         'Canadian citizenship card or certificate',
         'Canadian Passport'
-    ]};
+    ]; }
 
     get canadaStatus()   {
         return[
         'Canadian Citizen',
         'Permanent Resident',
-        'Temporary Permit Holder or Diplomat']
-    };
+        'Temporary Permit Holder or Diplomat'];
+    }
 
     get residentStatus() {
         return[
             {
-                "label": "Canadian Citizen",
-                "value": StatusInCanada.CitizenAdult
+                'label': 'Canadian Citizen',
+                'value': StatusInCanada.CitizenAdult
               },
 
               {
-                "label": "Permanent Resident",
-                "value": StatusInCanada.PermanentResident
+                'label': 'Permanent Resident',
+                'value': StatusInCanada.PermanentResident
               },
               {
-                "label": "Temporary Permit Holder or Diplomat",
-                "value": StatusInCanada.TemporaryResident
+                'label': 'Temporary Permit Holder or Diplomat',
+                'value': StatusInCanada.TemporaryResident
               }
-    ]};
+    ]; }
 
     get accountUpdateList(): UpdateList[] {
-        
+
         return [{
-            "label": "Update status in Canada",
-            "value": this.person.updateStatusInCanada
+            'label': 'Update status in Canada',
+            'value': this.person.updateStatusInCanada
           },
           {
-            "label": "Update name - due to marriage or other",
-            "value": this.person.updateNameDueToMarriage
+            'label': 'Update name - due to marriage or other',
+            'value': this.person.updateNameDueToMarriage
           },
           {
-            "label": "Correct name - due to error",
-            "value": this.person.updateNameDueToError
+            'label': 'Correct name - due to error',
+            'value': this.person.updateNameDueToError
           },
           {
-            "label": "Correct birthdate",
-            "value": this.person.updateBirthdate
+            'label': 'Correct birthdate',
+            'value': this.person.updateBirthdate
           },
           {
-            "label": "Correct gender",
-            "value": this.person.updateGender
+            'label': 'Correct gender',
+            'value': this.person.updateGender
           },
           {
-            "label": "Change gender designation",
-            "value": this.person.updateGenderDesignation
+            'label': 'Change gender designation',
+            'value': this.person.updateGenderDesignation
           }
 
-        ]
+        ];
 
     }
-    
-    
+
+
     get activitiesTable() {
-		if (!this.activities) return;
-		return this.activities.map(itm => {
-		  const label = this.langActivities('./en/index.js')[itm];
-		  return {
-			label,
-			value: itm
-		  };
-		});
+      if (!this.activities) return;
+      return this.activities.map(itm => {
+        const label = this.langActivities('./en/index.js')[itm];
+        return {
+        label,
+        value: itm
+        };
+      });
     }
 
     setStatus(value: StatusInCanada, p: MspPerson) {
@@ -236,9 +236,9 @@ export class AccountPersonalInfoComponent extends BaseComponent {
         if (p.status !== StatusInCanada.CitizenAdult) {
             p.institutionWorkHistory = 'No';
         }
-		//this.showServicesCardModal = true;
+      //this.showServicesCardModal = true;
 
-		//this.onChange.emit(value);
+      //this.onChange.emit(value);
     }
 
     continue(): void {
