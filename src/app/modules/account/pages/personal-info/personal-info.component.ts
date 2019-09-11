@@ -5,7 +5,13 @@ import {BaseComponent} from '../../../../models/base.component';
 import {ProcessUrls} from '../../../../services/process.service';
 import {AccountPersonalDetailsComponent} from './personal-details/personal-details.component';
 import { MspPerson } from '../../models/account.model';
-import { Relationship, LangStatus, Activities, ActivitiesRules, StatusInCanada } from '../../../msp-core/models/status-activities-documents';
+import {
+  Relationship,
+  LangStatus,
+  Activities,
+  ActivitiesRules,
+  StatusInCanada,
+  LangActivities } from '../../../msp-core/models/status-activities-documents';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/account.model';
 
@@ -18,7 +24,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
   static ProcessStepNum = 1;
   lang = require('./i18n');
   docSelected: string ;
-  langActivities = require('../../../../components/msp/common/activities/i18n');
+  activitiesOpts: string[] = Object.keys(LangActivities).map( x  => LangActivities[x] );
 
     langStatus = LangStatus;
 
@@ -218,14 +224,14 @@ export class AccountPersonalInfoComponent extends BaseComponent {
 
 
     get activitiesTable() {
-      if (!this.activities) return;
-      return this.activities.map(itm => {
-        const label = this.langActivities('./en/index.js')[itm];
-        return {
-        label,
-        value: itm
-        };
-      });
+      if (this.activities) {
+        return this.activities.map(itm => {
+          return {
+            label: this.activitiesOpts[itm],
+            value: itm
+          };
+        });
+      }
     }
 
     setStatus(value: StatusInCanada, p: MspPerson) {

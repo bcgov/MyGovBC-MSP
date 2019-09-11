@@ -39,7 +39,7 @@ export class MspApiService {
 		console.log(suppBenefitRequest);
 
 		return new Promise<ApiResponse>((resolve, reject) => {
-			
+
 			// if no errors, then we'll sendApplication all attachments
 			return this.sendAttachments(
 			  app.authorizationToken,
@@ -74,7 +74,7 @@ export class MspApiService {
 				);
 				return resolve(error);
 			  });
-		  
+
 		});
     }
 
@@ -87,7 +87,7 @@ export class MspApiService {
           const url = environment.appConstants['apiBaseUrl']
         + '/MSPDESubmitApplication/' + app.uuid
         + '?programArea=enrolment';
-    
+
         // Setup headers
         this._headers = new HttpHeaders({
           'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ export class MspApiService {
 
                         // second convert to XML
                         const convertedAppXml = this.toXmlString(documentModel);
-              
+
 
                         // if no errors, then we'll sendApplication all attachments
                         return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
@@ -1444,11 +1444,11 @@ export class MspApiService {
         }); // use UTC mode to prevent browser timezone shifting
     }
 
-    
+
 
   private prepareEnrolmentApplication(from: MspApplication): any {
     console.log('prepareBenefitApplicatoin', {from, imageUUIDs: from.getAllImages().map(x => x.uuid)});
-    const output = { 
+    const output = {
       'enrolmentApplication': {
         'applicant': {
           'name': {
@@ -1511,7 +1511,7 @@ export class MspApiService {
       }
      };
 
-      
+
 
       // create Attachment from Images
       output['attachments'] = this.convertAttachmentsForEnrolment(from);
