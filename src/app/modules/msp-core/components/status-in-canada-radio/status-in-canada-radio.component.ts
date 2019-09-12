@@ -1,11 +1,11 @@
 import {ChangeDetectorRef, Component, Input, Output, EventEmitter, ViewChild} from '@angular/core';
-import { Activities, ActivitiesRules, Relationship
-} from '../../models/status-activities-documents';
 import {MspPerson} from '../../../../components/msp/model/msp-person.model';
 import {BaseComponent} from '../../../../models/base.component';
 import {ServicesCardDisclaimerModalComponent} from '../services-card-disclaimer/services-card-disclaimer.component';
-import { statusRules } from '../canadian-status/canadian-status.component';
-import { StatusInCanada } from '../../models/canadian-status.enum';
+import { statusRules, statusReasonRules } from '../canadian-status/canadian-status.component';
+import { StatusInCanada, CanadianStatusReason } from '../../models/canadian-status.enum';
+import { Relationship } from '../../models/relationship.enum';
+import { ActivitiesRules } from '../../models/status-activities-documents';
 
 // TODO: Remove component after add-dependent done in account module
 @Component({
@@ -17,7 +17,7 @@ export class MspStatusInCanadaRadioComponent extends BaseComponent {
     lang = require('./i18n');
     langAccountActivities = require('../../../../components/msp/common/account-activities/i18n');
 
-    Activities: typeof Activities = Activities;
+    Activities: typeof CanadianStatusReason = CanadianStatusReason;
     StatusInCanada: typeof StatusInCanada = StatusInCanada;
     Relationship: typeof Relationship = Relationship;
 
@@ -55,7 +55,7 @@ export class MspStatusInCanadaRadioComponent extends BaseComponent {
         this.emitIsFormValid();
     }
 
-    setActivity(value: Activities) {
+    setActivity(value: CanadianStatusReason) {
 
 
         this.person.currentActivity = value;
@@ -67,8 +67,8 @@ export class MspStatusInCanadaRadioComponent extends BaseComponent {
     /**
      * Gets the available activities given the known status
      */
-    get activities(): Activities[] {
-        return ActivitiesRules.availableActivities(this.person.relationship, this.person.status);
+    get activities(): CanadianStatusReason[] {
+        return statusReasonRules(this.person.relationship, this.person.status);
     }
 
     get statusInCanada(): StatusInCanada[] {

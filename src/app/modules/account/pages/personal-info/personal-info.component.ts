@@ -5,15 +5,11 @@ import {BaseComponent} from '../../../../models/base.component';
 import {ProcessUrls} from '../../../../services/process.service';
 import {AccountPersonalDetailsComponent} from './personal-details/personal-details.component';
 import { MspPerson } from '../../models/account.model';
-import {
-  Relationship,
-  LangStatus,
-  Activities,
-  ActivitiesRules,
-  LangActivities } from '../../../msp-core/models/status-activities-documents';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/account.model';
-import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
+import { StatusInCanada, CanadianStatusReason, CanadianStatusReasonStrings, CanadianStatusStrings } from '../../../msp-core/models/canadian-status.enum';
+import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { ActivitiesRules } from '../../../msp-core/models/status-activities-documents';
 
 
 @Component({
@@ -25,11 +21,11 @@ export class AccountPersonalInfoComponent extends BaseComponent {
   static ProcessStepNum = 1;
   lang = require('./i18n');
   docSelected: string ;
-  activitiesOpts: string[] = Object.keys(LangActivities).map( x  => LangActivities[x] );
+  activitiesOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
 
-    langStatus = LangStatus;
+    langStatus = CanadianStatusStrings;
 
-    Activities: typeof Activities = Activities;
+    Activities: typeof CanadianStatusReason = CanadianStatusReason;
     @ViewChild('formRef') form: NgForm;
     @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
     public buttonstyle: string = 'btn btn-default';
@@ -152,7 +148,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
         return 'You Status in Canada';
     }
 
-    get activities(): Activities[] {
+    get activities(): CanadianStatusReason[] {
         console.log( this.person.relationship);
         console.log( this.person.status);
         return ActivitiesRules.activitiesForAccountChange(

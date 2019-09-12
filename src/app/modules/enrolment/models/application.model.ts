@@ -1,9 +1,9 @@
 import { Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
-import { Relationship, Activities } from '../../msp-core/models/status-activities-documents';
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
 import { UUID } from 'angular2-uuid';
 import { ApplicationBase } from '../../msp-core/models/application-base.model';
 import { PhoneNumber } from '../../../components/msp/model/phone.model';
+import { Relationship } from '../../msp-core/models/relationship.enum';
 
 /**
  * Overall MSP Application Process Data

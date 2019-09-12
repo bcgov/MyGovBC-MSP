@@ -9,13 +9,13 @@ import * as _ from 'lodash';
 import {MspBirthDateComponent} from '../../../../../modules/msp-core/components/birthdate/birthdate.component';
 import {MspStatusInCanadaRadioComponent} from '../../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
 import {BaseComponent} from '../../../../../models/base.component';
-import { Relationship, ActivitiesRules, LangStatus, Activities } from '../../../../msp-core/models/status-activities-documents';
 import { MspPhoneComponent } from '../../../../../components/msp/common/phone/phone.component';
 import { MspPerson, MspAccountApp } from '../../../models/account.model';
 import { Address } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
-import { StatusInCanada } from '../../../../msp-core/models/canadian-status.enum';
-import { statusRules } from '../../../../msp-core/components/canadian-status/canadian-status.component';
+import { StatusInCanada, CanadianStatusReason, CanadianStatusStrings } from '../../../../msp-core/models/canadian-status.enum';
+import { statusRules, statusReasonRules } from '../../../../msp-core/components/canadian-status/canadian-status.component';
+import { Relationship } from '../../../../msp-core/models/relationship.enum';
 
 @Component({
         selector: 'msp-account-personal-details',
@@ -52,12 +52,12 @@ import { statusRules } from '../../../../msp-core/components/canadian-status/can
 
 export class AccountPersonalDetailsComponent extends BaseComponent {
     lang = require('./i18n');
-    langStatus = LangStatus;
+    langStatus = CanadianStatusStrings;
     langAccountActivities = require('../../../../../components/msp/common/account-activities/i18n');
     //langDocuments = require('../../../../../components/msp/common/documents/i18n');
 
     // Expose some types to template
-    Activities: typeof Activities = Activities;
+    Activities: typeof CanadianStatusReason = CanadianStatusReason;
     Relationship: typeof Relationship = Relationship;
     StatusInCanada: typeof StatusInCanada = StatusInCanada;
 
@@ -140,7 +140,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
         this.onChange.emit(value);
     }
 
-    setActivity(value: Activities) {
+    setActivity(value: CanadianStatusReason) {
         this.person.currentActivity = value;
         this.person.movedFromProvinceOrCountry = '';
         this.onChange.emit(value);
@@ -182,10 +182,10 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
 
 
     /**
-     * Gets the available activities given the known status
+     * Gets the available reason for given the known status
      */
-    get activities(): Activities[] {
-        return ActivitiesRules.availableActivities(this.person.relationship, this.person.status);
+    get activities(): CanadianStatusReason[] {
+        return statusReasonRules(this.person.relationship, this.person.status);
     }
 
 

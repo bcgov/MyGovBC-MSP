@@ -6,18 +6,12 @@ import {
   ViewChild,
   ChangeDetectorRef
 } from '@angular/core';
-import { state, trigger, style } from '@angular/animations';
 import {
   Gender, MspPerson
 } from '../../../../components/msp/model/msp-person.model';
 import { OutofBCRecord } from '../../../../models/outof-bc-record.model';
 import {
-  ActivitiesRules,
-  Activities,
   DocumentRules,
-  Relationship,
-  LangStatus,
-  LangActivities,
   yesNoLabels,
   genderLabels
 } from '../../../msp-core/models/status-activities-documents';
@@ -34,7 +28,9 @@ import {
 import { MspAddressConstants } from '../../../../models/msp-address.constants';
 import { MspDocumentConstants, Documents } from '../../../msp-core/models/msp-document.constants';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
-import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
+import { StatusInCanada, CanadianStatusStrings, CanadianStatusReasonStrings, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
+import { statusReasonRules } from '../../../msp-core/components/canadian-status/canadian-status.component';
+import { Relationship } from '../../../msp-core/models/relationship.enum';
 
 
 @Component({
@@ -155,8 +151,8 @@ export class PersonalDetailsComponent extends BaseComponent {
 
 
 
-  statusOpts: string[] = Object.keys(LangStatus).map( x  => LangStatus[x] );
-  activitiesOpts: string[] = Object.keys(LangActivities).map( x  => LangActivities[x] );
+  statusOpts: string[] = Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
+  activitiesOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
   documentOpts: string[] = MspDocumentConstants.langDocument();
   yesNoRadioLabels = yesNoLabels;
   genderRedioLabels = genderLabels;
@@ -183,7 +179,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   setStatusInCanada($event) {
-    const status = Object.keys(LangStatus).find( x => LangStatus[x] === $event );
+    const status = Object.keys(CanadianStatusStrings).find( x => CanadianStatusStrings[x] === $event );
     this.person.status = StatusInCanada[status];
 
     // initialize activity
@@ -196,7 +192,7 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.personChange.emit(this.person);
   }
 
-  setActivity(value: Activities) {
+  setActivity(value: CanadianStatusReason) {
     if (
       this.showServicesCardModal &&
       this.person.bcServiceCardShowStatus &&
@@ -225,11 +221,8 @@ export class PersonalDetailsComponent extends BaseComponent {
   /**
    * Gets the available activities given the known status
    */
-  get activities(): Activities[] {
-    return ActivitiesRules.availableActivities(
-      this.person.relationship,
-      this.person.status
-    );
+  get activities(): CanadianStatusReason[] {
+    return statusReasonRules( this.person.relationship, this.person.status );
   }
 
   /**
@@ -318,7 +311,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   get arrivalDateLabel(): string {
-    if (this.person.currentActivity === Activities.LivingInBCWithoutMSP) {
+    if (this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP) {
       return 'Most recent move to B.C.';
     }
     return 'Arrival date in B.C.';

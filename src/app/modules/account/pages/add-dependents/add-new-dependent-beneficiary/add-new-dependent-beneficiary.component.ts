@@ -9,7 +9,6 @@ import {
     QueryList
 } from '@angular/core';
 import {BaseComponent} from '../../../../../models/base.component';
-import { Relationship } from '../../../../msp-core/models/status-activities-documents';
 import { MspPerson } from '../../../models/account.model';
 import { MspToggleComponent } from '../../../../../components/msp/common/toggle/toggle.component';
 import { MspOutofBCRecordComponent } from '../../../../../components/msp/common/outof-bc/outof-bc.component';
@@ -18,6 +17,7 @@ import { OutofBCRecord } from '../../../../../models/outof-bc-record.model';
 import { ProvinceList } from 'moh-common-lib';
 import { MspAddressConstants } from '../../../../../models/msp-address.constants';
 import { StatusInCanada } from '../../../../msp-core/models/canadian-status.enum';
+import { Relationship } from '../../../../msp-core/models/relationship.enum';
 
 
 @Component({

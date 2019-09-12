@@ -1,10 +1,10 @@
 import {UUID} from 'angular2-uuid';
 import {ApplicationBase} from '../../msp-core/models/application-base.model';
 import {MspPerson, OperationActionType} from '../../../components/msp/model/msp-person.model';
-import {Relationship} from '../../msp-core/models/status-activities-documents';
 import {PhoneNumber} from '../../../components/msp/model/phone.model';
 import { Address, CommonImage } from 'moh-common-lib';
 import { StatusInCanada } from '../../msp-core/models/canadian-status.enum';
+import { Relationship } from '../../msp-core/models/relationship.enum';
 
 class MspAccountApp implements ApplicationBase {
     set updatedChildren(value: Array<MspPerson>) {

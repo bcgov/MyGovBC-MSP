@@ -1,14 +1,13 @@
 import { Router } from '@angular/router';
 import {Component, ChangeDetectorRef, OnInit} from '@angular/core';
 
-
 // import {MspDataService} from '../../service/msp-data.service';
 import { MspDataService } from '../../../../services/msp-data.service';
-import {Relationship} from '../../../msp-core/models/status-activities-documents';
 import {BaseComponent} from '../../../../models/base.component';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { Relationship } from '../../../msp-core/models/relationship.enum';
 
 @Component({
   selector: 'msp-child-info',

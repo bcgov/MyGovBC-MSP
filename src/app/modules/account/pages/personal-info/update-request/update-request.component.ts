@@ -2,8 +2,8 @@ import {EventEmitter, Output, Component, Input } from '@angular/core';
 import { MspPerson } from '../../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { MspAccountApp, UpdateList } from '../../../models/account.model';
-import { Activities, ActivitiesRules } from '../../../../msp-core/models/status-activities-documents';
-import { StatusInCanada } from '../../../../msp-core/models/canadian-status.enum';
+import { ActivitiesRules } from '../../../../msp-core/models/status-activities-documents';
+import { StatusInCanada, CanadianStatusReason } from '../../../../msp-core/models/canadian-status.enum';
 
 
 @Component({
@@ -71,7 +71,7 @@ export class UpdateRequestComponent  {
 
   }
 
-  get activities(): Activities[] {
+  get activities(): CanadianStatusReason[] {
     console.log( this.person.relationship);
     console.log( this.person.status);
     return ActivitiesRules.activitiesForAccountChange(

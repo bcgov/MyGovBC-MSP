@@ -1,15 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountPersonalInfoComponent } from './personal-info.component';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
+import { LocalStorageModule } from 'angular-2-local-storage';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ProcessService } from '../../../../services/process.service';
 import { async } from '@angular/core/testing';
-import { StatusInCanada, Activities } from '../../../../models/status-activities-documents';
 import {TextMaskModule} from 'angular2-text-mask';
+import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 
 describe('AccountPersonalInfoComponent', () => {
     let fixture: ComponentFixture<AccountPersonalInfoComponent>;
@@ -56,7 +55,7 @@ describe('AccountPersonalInfoComponent', () => {
         mspAccountApp.accountChangeOptions.statusUpdate = true;
         comp.addUpdateSpouse();
         mspAccountApp.updatedSpouse.status = StatusInCanada.TemporaryResident;
-        mspAccountApp.updatedSpouse.currentActivity =  Activities.Visiting;
+        mspAccountApp.updatedSpouse.currentActivity =  CanadianStatusReason.Visiting;
         fixture.detectChanges();
         expect(comp.hasAnyInvalidStatus()).toBe(true, 'added spouse is just visiting so hasAnyInvalidStatus should be true');
     });
@@ -68,7 +67,7 @@ describe('AccountPersonalInfoComponent', () => {
         mspAccountApp.accountChangeOptions.statusUpdate = true;
         comp.addUpdateSpouse();
         mspAccountApp.updatedSpouse.status = StatusInCanada.TemporaryResident;
-        mspAccountApp.updatedSpouse.currentActivity =  Activities.Visiting;
+        mspAccountApp.updatedSpouse.currentActivity =  CanadianStatusReason.Visiting;
         expect(comp.hasAnyInvalidStatus()).toBe(true, 'should have hasAnyInvalidStatus true after adding new spouse');
         comp.removeSpouse();
 

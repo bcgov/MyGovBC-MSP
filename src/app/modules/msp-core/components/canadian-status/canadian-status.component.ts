@@ -1,17 +1,15 @@
 import { Component, ViewChild, Input, Output, EventEmitter, forwardRef, OnInit } from '@angular/core';
 import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
-import { LangActivities,
-         Relationship,
-         Activities} from '../../models/status-activities-documents';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
-import { StatusInCanada, CanadianStatusStrings } from '../../models/canadian-status.enum';
+import { StatusInCanada, CanadianStatusStrings, CanadianStatusReasonStrings, CanadianStatusReason } from '../../models/canadian-status.enum';
+import { Relationship } from '../../models/relationship.enum';
 
 /**
  * TODO: May be able to remove once re-factor done
  * @param relationship
  */
-export function statusRules(relationship: Relationship): StatusInCanada[] {
+export function statusRules( relationship: Relationship ): StatusInCanada[] {
   switch (relationship) {
     default:
       return [
@@ -19,6 +17,50 @@ export function statusRules(relationship: Relationship): StatusInCanada[] {
         StatusInCanada.PermanentResident,
         StatusInCanada.TemporaryResident
       ];
+  }
+}
+
+/**
+ * Default rules for activities related to status in Canada
+ * @param relationship
+ * @param status
+ */
+export function statusReasonRules( relationship: Relationship,
+                                   status: StatusInCanada ): CanadianStatusReason[] {
+  switch (status) {
+    case StatusInCanada.CitizenAdult:
+    case StatusInCanada.PermanentResident:
+      if (relationship === Relationship.Child19To24 ||
+          relationship === Relationship.ChildUnder19 ||
+          relationship === Relationship.ChildUnder24) {
+        return [
+          CanadianStatusReason.MovingFromProvince,
+          CanadianStatusReason.MovingFromCountry,
+          CanadianStatusReason.LivingInBCWithoutMSP
+        ];
+      }
+      else {
+        return [
+          CanadianStatusReason.MovingFromProvince,
+          CanadianStatusReason.MovingFromCountry,
+          CanadianStatusReason.LivingInBCWithoutMSP
+        ];
+      }
+    case StatusInCanada.TemporaryResident:
+      if (relationship === Relationship.Applicant) {
+        return [
+          CanadianStatusReason.WorkingInBC,
+          CanadianStatusReason.StudyingInBC,
+          CanadianStatusReason.ReligiousWorker,
+          CanadianStatusReason.Diplomat];
+      } else {
+        return [
+          CanadianStatusReason.WorkingInBC,
+          CanadianStatusReason.StudyingInBC,
+          CanadianStatusReason.ReligiousWorker,
+          CanadianStatusReason.Diplomat,
+          CanadianStatusReason.Visiting];
+      }
   }
 }
 
@@ -34,22 +76,28 @@ export function statusRules(relationship: Relationship): StatusInCanada[] {
     { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
   ]
 })
-export class CanadianStatusComponent {
+export class CanadianStatusComponent implements OnInit {
 
   @ViewChild('mspServicesCardModal')
     servicesCardDisclaimerModalComponent: ServicesCardDisclaimerModalComponent;
 
-  @Input() activityList: Activities[] = [];
+  @Input() statusReasonList: CanadianStatusReason[] = [];
   @Input() label: String = 'Your immigration status in Canada';
 
   @Input() person: MspPerson;
   @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
 
   statusOpts: string[] = Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
-  activitiesOpts: string[] = Object.keys(LangActivities).map( x  => LangActivities[x] );
+  statusReasonOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
   showServicesCardModal: boolean;
 
   constructor() { }
+
+  ngOnInit() {
+    if ( !this.statusReasonList ) {
+      this.statusReasonList = statusReasonRules( this.person.relationship, this.person.status );
+    }
+  }
 
   /**
    * Gets status available to the current person
@@ -74,10 +122,10 @@ export class CanadianStatusComponent {
   }
 
   /**
-   * Set the activity for the Status in Canada
+   * Set the reason for the Status in Canada
    * @param value
    */
-  setActivity(value: Activities) {
+  setReason(value: CanadianStatusReason) {
     if (
       this.showServicesCardModal &&
       this.person.bcServiceCardShowStatus &&
@@ -96,11 +144,13 @@ export class CanadianStatusComponent {
    * Display available activities for status
    */
   get availableActivties() {
-    return this.activityList.map(itm => {
-      return {
-        label: this.activitiesOpts[itm],
-        value: itm
-      };
-    });
+    if ( this.statusReasonList ) {
+      return this.statusReasonList.map(itm => {
+        return {
+          label: this.statusReasonOpts[itm],
+          value: itm
+        };
+      });
+    }
   }
 }
