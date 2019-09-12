@@ -157,6 +157,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
           let otherAmtTotal = (this.application.spouseDSPAmount_line125 * 1) + (this.applicantClaimForAttendantCareExpenseAmt * 1) + (this.spouseClaimForAttendantCareExpenseAmt * 1) + (this.childClaimForAttendantCareExpenseAmt * 1) ;
 
           total += otherAmtTotal;
+          this.application.totalDeduction = total;
           this.dataService.saveBenefitApplication();
           return total;
     }
@@ -318,8 +319,8 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
           }
         }
 
-        if( this.application.haveChildrens) {
-          const childCountcheck = this.application.childrenCount && this.application.childrenCount.toString().match(childCountPattern);
+        if (this.application.haveChildrens) {
+          const childCountcheck = this.application.childrenCount ;
           if (!childCountcheck) {
             this.continue.emit(false);
             return false;
