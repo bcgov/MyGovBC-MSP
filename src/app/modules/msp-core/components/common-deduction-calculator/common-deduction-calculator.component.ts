@@ -320,7 +320,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
         }
 
         if (this.application.haveChildrens) {
-          const childCountcheck = this.application.childrenCount ;
+            const childCountcheck = this.application.childrenCount && this.application.childrenCount.toString().match(childCountPattern);
           if (!childCountcheck) {
             this.continue.emit(false);
             return false;
