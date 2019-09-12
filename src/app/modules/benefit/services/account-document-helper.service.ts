@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {MspDataService} from '../../../services/msp-data.service';
 import {DocumentGroup, Documents} from '../../../models/account-documents';
 import {MspAccountApp} from '../../account/models/account.model';
-import {CancellationReasonsForSpouse, StatusInCanada} from '../../msp-core/models/status-activities-documents';
+import {CancellationReasonsForSpouse} from '../../msp-core/models/status-activities-documents';
+import { StatusInCanada } from '../../msp-core/models/canadian-status.enum';
 
 
 export class AccountCollection {

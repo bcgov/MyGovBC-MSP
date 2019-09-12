@@ -8,14 +8,14 @@ import {NgForm} from '@angular/forms';
 import * as _ from 'lodash';
 import {MspBirthDateComponent} from '../../../../../modules/msp-core/components/birthdate/birthdate.component';
 import {MspStatusInCanadaRadioComponent} from '../../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
-import {MspDataService} from '../../../../../services/msp-data.service';
 import {BaseComponent} from '../../../../../models/base.component';
-import { Activities, StatusInCanada } from '../../../../enrolment/models/application.model';
-import { Relationship, StatusRules, ActivitiesRules, LangStatus } from '../../../../msp-core/models/status-activities-documents';
+import { Relationship, ActivitiesRules, LangStatus, Activities } from '../../../../msp-core/models/status-activities-documents';
 import { MspPhoneComponent } from '../../../../../components/msp/common/phone/phone.component';
 import { MspPerson, MspAccountApp } from '../../../models/account.model';
 import { Address } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
+import { StatusInCanada } from '../../../../msp-core/models/canadian-status.enum';
+import { statusRules } from '../../../../msp-core/components/canadian-status/canadian-status.component';
 
 @Component({
         selector: 'msp-account-personal-details',
@@ -122,7 +122,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
      * Gets status available to the current person
      */
     get statusInCanada(): StatusInCanada[] {
-        return StatusRules.availableStatus(this.person.relationship);
+        return statusRules(this.person.relationship);
     }
 
     handlePhoneNumberChange(evt: any) {
@@ -150,7 +150,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
         this.person.firstName = evt.first_name;
         this.person.middleName = evt.middle_name;
         this.person.lastName = evt.last_name;
-        
+
         console.log(this.person);
         console.log(evt);
         this.onChange.emit(evt);

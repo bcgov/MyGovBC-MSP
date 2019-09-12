@@ -1,10 +1,11 @@
 import {ChangeDetectorRef, Component, Input, Output, EventEmitter, ViewChild} from '@angular/core';
-import {
-    StatusInCanada, StatusRules, Activities, ActivitiesRules, Relationship
+import { Activities, ActivitiesRules, Relationship
 } from '../../models/status-activities-documents';
 import {MspPerson} from '../../../../components/msp/model/msp-person.model';
 import {BaseComponent} from '../../../../models/base.component';
 import {ServicesCardDisclaimerModalComponent} from '../services-card-disclaimer/services-card-disclaimer.component';
+import { statusRules } from '../canadian-status/canadian-status.component';
+import { StatusInCanada } from '../../models/canadian-status.enum';
 
 @Component({
     selector: 'msp-status-in-canada-radio',
@@ -70,7 +71,7 @@ export class MspStatusInCanadaRadioComponent extends BaseComponent {
     }
 
     get statusInCanada(): StatusInCanada[] {
-        return StatusRules.availableStatus(this.person.relationship);
+        return statusRules(this.person.relationship);
     }
 
     /** Valid as long as user has made a choice. Invalid if it's in its default state with no data. */

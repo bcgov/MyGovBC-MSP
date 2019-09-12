@@ -8,13 +8,11 @@ import {
 } from '@angular/core';
 import { state, trigger, style } from '@angular/animations';
 import {
-  MspPerson,
-  Gender
+  Gender, MspPerson
 } from '../../../../components/msp/model/msp-person.model';
 import { OutofBCRecord } from '../../../../models/outof-bc-record.model';
 import {
   ActivitiesRules,
-  StatusInCanada,
   Activities,
   DocumentRules,
   Relationship,
@@ -36,6 +34,9 @@ import {
 import { MspAddressConstants } from '../../../../models/msp-address.constants';
 import { MspDocumentConstants, Documents } from '../../../msp-core/models/msp-document.constants';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
+import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
+
+
 @Component({
   selector: 'msp-personal-details',
   templateUrl: './personal-details.component.html',

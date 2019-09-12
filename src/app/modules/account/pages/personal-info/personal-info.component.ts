@@ -10,10 +10,11 @@ import {
   LangStatus,
   Activities,
   ActivitiesRules,
-  StatusInCanada,
   LangActivities } from '../../../msp-core/models/status-activities-documents';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/account.model';
+import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
+
 
 @Component({
   templateUrl: './personal-info.component.html'

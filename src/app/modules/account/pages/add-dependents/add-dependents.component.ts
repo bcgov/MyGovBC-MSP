@@ -10,7 +10,7 @@ import {
     QueryList
 } from '@angular/core';
 import {MspPerson} from '../../../../components/msp/model/msp-person.model';
-import {Relationship, StatusInCanada} from '../../../msp-core/models/status-activities-documents';
+import {Relationship} from '../../../msp-core/models/status-activities-documents';
 import {BaseComponent} from '../../../../models/base.component';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {Router} from '@angular/router';
@@ -22,6 +22,7 @@ import {MspStatusInCanadaRadioComponent} from '../../../msp-core/components/stat
 import {AddNewDependentBeneficiaryComponent} from '../add-dependents/add-new-dependent-beneficiary/add-new-dependent-beneficiary.component';
 import { AccountPersonalDetailsComponent } from '../personal-info/personal-details/personal-details.component';
 import { BRITISH_COLUMBIA, CANADA } from 'moh-common-lib';
+import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 
 @Component({
     selector: 'msp-add-dependent',

@@ -1,7 +1,6 @@
 import {ChangeDetectorRef, Component, Injectable, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {  Router } from '@angular/router';
-import {MspApplication, MspPerson} from '../../models/application.model';
 import * as _ from 'lodash';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {ConsentModalComponent} from 'moh-common-lib';
@@ -13,6 +12,8 @@ import { environment } from '../../../../../environments/environment.prod';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
 import { PageStateService } from '../../../../services/page-state.service';
 import { yesNoLabels } from '../../../msp-core/models/status-activities-documents';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { MspApplication } from '../../models/application.model';
 
 @Component({
   templateUrl: './prepare.component.html'

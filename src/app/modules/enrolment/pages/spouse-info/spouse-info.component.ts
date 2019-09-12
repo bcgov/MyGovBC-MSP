@@ -2,10 +2,11 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {ProcessService} from '../../../../services/process.service';
 import {BaseComponent} from '../../../../models/base.component';
 import { Router } from '@angular/router';
-import {MspApplication, MspPerson} from '../../models/application.model';
 import { MspDataService } from '../../../../services/msp-data.service';
 import {Relationship} from '../../../msp-core/models/status-activities-documents';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { MspApplication } from '../../models/application.model';
 
 @Component({
   selector: 'msp-spouse-info',

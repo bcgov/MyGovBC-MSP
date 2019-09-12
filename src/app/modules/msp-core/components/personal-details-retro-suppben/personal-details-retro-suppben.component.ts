@@ -8,7 +8,7 @@ import {BenefitApplication} from '../../../benefit/models/benefit-application.mo
 import {MspBenefitDataService} from '../../../benefit/services/msp-benefit-data.service';
 import { Subscription, Observable, of } from 'rxjs';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
-import {Relationship, StatusInCanada} from '../../models/status-activities-documents';
+import {Relationship} from '../../models/status-activities-documents';
 import { CommonImage } from 'moh-common-lib';
 @Component({
   selector: 'msp-personal-details-retro-suppben',

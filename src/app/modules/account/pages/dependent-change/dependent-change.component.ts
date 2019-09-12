@@ -7,9 +7,8 @@ import {ProcessService, ProcessUrls} from '../../../../services/process.service'
 import {LocalStorageService} from 'angular-2-local-storage';
 import {AccountPersonalDetailsComponent} from '../personal-info/personal-details/personal-details.component';
 import {RemoveDependentComponent} from '../remove-dependents/remove-dependents.component';
-import {MspPerson} from '../../../../modules/enrolment/models/application.model';
 import { Relationship } from '../../../msp-core/models/status-activities-documents';
-import { OperationActionType } from '../../../../components/msp/model/msp-person.model';
+import { OperationActionType, MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { AddDependentComponent } from '../add-dependents/add-dependents.component';
 //import {ProcessUrls} from '../../../../services/process.service';
 

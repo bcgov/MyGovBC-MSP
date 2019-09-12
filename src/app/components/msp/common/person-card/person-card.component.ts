@@ -1,7 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {MspPerson} from '../../model/msp-person.model';
-import {Activities, StatusInCanada, LangStatus, LangActivities} from '../../../../modules/msp-core/models/status-activities-documents';
+import {Activities, LangStatus, LangActivities} from '../../../../modules/msp-core/models/status-activities-documents';
 import { Router } from '@angular/router';
+import { StatusInCanada } from '../../../../modules/msp-core/models/canadian-status.enum';
 
 
 @Component({

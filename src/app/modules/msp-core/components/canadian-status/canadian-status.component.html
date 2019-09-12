@@ -1,0 +1,23 @@
+<msp-services-card-disclaimer-modal #mspServicesCardModal></msp-services-card-disclaimer-modal>
+
+<ng-content select="[sectionTitleInfo]"></ng-content>
+<common-page-section layout="tips">
+  <div class="form-group col-sm-6 p-sm-0 mb-0">
+    <common-dropdown name="StatusInCanada"
+                     [label]="label"
+                     [items]="statusOpts"
+                     placeholder="Please Select"
+                     [clearable]="false"
+                     [ngModel]="getStatusInCanada()"
+                     (ngModelChange)="setStatusInCanada($event)">
+    </common-dropdown>
+  </div>
+  <div class="form-group col-sm-8">
+    <common-radio *ngIf="getStatusInCanada()" 
+                  [radioLabels]="availableActivties"
+                  [value]="person.currentActivity"
+                  (statusChange)="setActivity($event)" 
+                  display="table-row-group">
+    </common-radio>
+  </div>
+</common-page-section>

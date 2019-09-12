@@ -14,7 +14,7 @@ import { MspApplication } from '../modules/enrolment/models/application.model';
 import { AssistanceApplicationType, FinancialAssistApplication } from '../modules/assistance/models/financial-assist-application.model';
 import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../components/msp/model/msp-person.model';
 import { SimpleDate, Address, CommonImage } from 'moh-common-lib';
-import { Activities, Relationship, StatusInCanada } from '../modules/msp-core/models/status-activities-documents';
+import { Activities, Relationship } from '../modules/msp-core/models/status-activities-documents';
 import { MspLogService } from './log.service';
 import { MspMaintenanceService } from './msp-maintenance.service';
 import { Response } from '@angular/http';
@@ -25,6 +25,7 @@ import {
     SupplementaryBenefitsApplicationType,
     MSPApplicationSchema
   } from 'app/modules/msp-core/interfaces/i-api';
+import { StatusInCanada } from '../modules/msp-core/models/canadian-status.enum';
 
 const jxon = require('jxon/jxon');
 

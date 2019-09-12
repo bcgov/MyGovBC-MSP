@@ -55,6 +55,9 @@ import { PersonalDetailsRetroSuppbenComponent } from './components/personal-deta
 import { AddressRetroSuppbenComponent } from './components/address-retro-suppben/address-retro-suppben.component';
 import { CoreContactInfoComponent } from './components/core-contact-info/core-contact-info.component';
 
+
+import { CanadianStatusComponent } from './components/canadian-status/canadian-status.component';
+
 const componentList = [
   MspFullNameComponent,
   ServicesCardDisclaimerModalComponent,
@@ -75,7 +78,10 @@ const componentList = [
   KeyboardEventListner,
   MspLoggerDirective,
   ReviewCardWrapperComponent,
-  CoreContactInfoComponent
+  CoreContactInfoComponent,
+
+  // New components
+  CanadianStatusComponent
 ];
 
 // TODO: Review to determine whether these should be replace with moh-common-lib

@@ -1,11 +1,9 @@
-import {
-  MspApplication,
-  MspPerson
-} from 'app/modules/enrolment/models/application.model';
+
 import { FinancialAssistApplication } from './financial-assist-application.model';
 import { SimpleDate } from 'moh-common-lib';
 import { AssistanceYear } from './assistance-year.model';
 import { deepFlatten } from './assist-review-helpers';
+import { MspPerson } from '../../../components/msp/model/msp-person.model';
 
 export interface IApplicantInformation {
   years: number[];

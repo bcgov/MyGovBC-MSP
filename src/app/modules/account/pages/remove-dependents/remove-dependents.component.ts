@@ -15,7 +15,7 @@ import {AccountPersonalDetailsComponent} from '../personal-info/personal-details
 import { MspPerson } from '../../models/account.model';
 import { MspToggleComponent } from '../../../../components/msp/common/toggle/toggle.component';
 import { Relationship, CancellationReasons, CancellationReasonsForSpouse } from '../../../msp-core/models/status-activities-documents';
-import { StatusInCanada } from '../../../enrolment/models/application.model';
+import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 
 
 @Component({

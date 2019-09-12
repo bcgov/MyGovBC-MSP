@@ -1,4 +1,5 @@
 import { Documents } from './msp-document.constants';
+import { StatusInCanada } from './canadian-status.enum';
 
 /**
  * Various relationships
@@ -12,21 +13,14 @@ export enum Relationship {
   AllAgeApplicant,
 }
 
-/**
- * Various statuses in Canada
- */
-export enum StatusInCanada {
-  CitizenAdult, // adult
-  PermanentResident,
-  TemporaryResident
 
-}
-
+// TODO: Remove when all modules use the canadian-status.component
 export const LangStatus = {
   CitizenAdult: 'Canadian citizen',
   PermanentResident: 'Permanent resident',
   TemporaryResident: 'Temporary permit holder or diplomat'
 };
+
 
 /**
  * Whose MSP Enrollement for ACL
@@ -55,8 +49,8 @@ export enum Activities {
 
 export const LangActivities = {
   LivingInBCWithoutMSP: 'Not new to B.C. but need to apply for Medical Services Plan',
-  MovingFromProvince: 'Moved from another province',
-  MovingFromCountry: 'Moved from another country',
+  MovingFromProvince: 'Moved to B.C. from another province',
+  MovingFromCountry: 'Moved to B.C. from another country',
   WorkingInBC: 'Working in B.C.',
   StudyingInBC: 'Studying in B.C.',
   ReligiousWorker: 'Religious worker',
@@ -84,7 +78,10 @@ export enum CancellationReasonsForSpouse {
 
 /**
  * Business rules for status
+ * TODO: Remove as all relationships use the same status rules -
+ * If need change - modify canadian-status component in msp-core
  */
+/*
 export class StatusRules {
   static availableStatus(relationship: Relationship): StatusInCanada[] {
     switch (relationship) {
@@ -95,6 +92,7 @@ export class StatusRules {
     }
   }
 }
+*/
 
 export class EnrollmentStatusRules {
   static availableStatus(): MSPEnrollementMember[] {

@@ -25,13 +25,12 @@ import { SimpleDate, Address } from 'moh-common-lib';
 import { AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory } from '../../../modules/msp-core/api-model/applicationTypes';
 import { AddressType, AddressTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../../../modules/msp-core/api-model/commonTypes';
 import { LivedInBCTypeFactory, OutsideBCTypeFactory, WillBeAwayTypeFactory } from '../../../modules/msp-core/api-model/enrolmentTypes';
-
-
 import {
   MSPApplicationSchema
 } from 'app/modules/msp-core/interfaces/i-api';
-import { Activities, StatusInCanada, Relationship } from '../../msp-core/models/status-activities-documents';
-//import { FieldPageMap } from '../models/field-page-map';
+import { Activities, Relationship } from '../../msp-core/models/status-activities-documents';
+import { StatusInCanada } from '../../msp-core/models/canadian-status.enum';
+
 
 @Injectable({
   providedIn: 'root'
@@ -156,7 +155,7 @@ export class MspApiAccountService extends AbstractHttpService {
       'Response-Type': 'application/json',
       'X-Authorization': 'Bearer ' + authToken
     });
-    return this.post<MspAccountApp>(url, app);
+    return this.http.post<MspAccountApp>(url, app);
   }
 
   public sendAttachments(

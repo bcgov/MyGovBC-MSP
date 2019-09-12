@@ -1,6 +1,6 @@
 import {IPerson} from './msp-person.interface';
 
-import {Relationship, StatusInCanada, Activities} from '../../../modules/msp-core/models/status-activities-documents';
+import {Relationship, Activities} from '../../../modules/msp-core/models/status-activities-documents';
 import {PersonDocuments} from './person-document.model';
 import {OutofBCRecord} from '../../../models/outof-bc-record.model';
 import * as moment from 'moment';
@@ -8,6 +8,7 @@ import {UUID} from 'angular2-uuid';
 import * as _ from 'lodash';
 import {PhoneNumber} from './phone.model';
 import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
+import { StatusInCanada } from '../../../modules/msp-core/models/canadian-status.enum';
 
 const sha1 = require('sha1');
 
