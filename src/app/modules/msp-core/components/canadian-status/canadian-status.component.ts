@@ -108,15 +108,16 @@ export class CanadianStatusComponent implements OnInit {
 
   setStatusInCanada($event) {
 
+    const status = Object.keys(CanadianStatusStrings).find( x => CanadianStatusStrings[x] === $event );
+
+    this.person.status = StatusInCanada[status];
+
+    // Get the status reason list available for the selected status
     if ( !this.statusReasonList ) {
       this._reasonList = statusReasonRules( this.person.relationship, this.person.status );
     } else {
       this._reasonList = this.statusReasonList;
     }
-
-    const status = Object.keys(CanadianStatusStrings).find( x => CanadianStatusStrings[x] === $event );
-
-    this.person.status = StatusInCanada[status];
 
     // initialize activity
     this.person.currentActivity = null;
