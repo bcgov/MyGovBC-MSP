@@ -5,7 +5,7 @@ import { LangActivities,
          Activities} from '../../models/status-activities-documents';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
-import { StatusInCanada } from '../../models/canadian-status.enum';
+import { StatusInCanada, CanadianStatusStrings } from '../../models/canadian-status.enum';
 
 /**
  * TODO: May be able to remove once re-factor done
@@ -45,13 +45,7 @@ export class CanadianStatusComponent {
   @Input() person: MspPerson;
   @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
 
-  CanadianStatusStrings = {
-    CitizenAdult: 'Canadian citizen',
-    PermanentResident: 'Permanent resident',
-    TemporaryResident: 'Temporary permit holder or diplomat'
-  };
-
-  statusOpts: string[] = Object.keys(this.CanadianStatusStrings).map( x  => this.CanadianStatusStrings[x] );
+  statusOpts: string[] = Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
   activitiesOpts: string[] = Object.keys(LangActivities).map( x  => LangActivities[x] );
   showServicesCardModal: boolean;
 
@@ -65,7 +59,7 @@ export class CanadianStatusComponent {
   }
 
   setStatusInCanada($event) {
-    const status = Object.keys(this.CanadianStatusStrings).find( x => this.CanadianStatusStrings[x] === $event );
+    const status = Object.keys(CanadianStatusStrings).find( x => CanadianStatusStrings[x] === $event );
 
     this.person.status = StatusInCanada[status];
 

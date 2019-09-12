@@ -7,6 +7,7 @@ import {ServicesCardDisclaimerModalComponent} from '../services-card-disclaimer/
 import { statusRules } from '../canadian-status/canadian-status.component';
 import { StatusInCanada } from '../../models/canadian-status.enum';
 
+// TODO: Remove component after add-dependent done in account module
 @Component({
     selector: 'msp-status-in-canada-radio',
     templateUrl: './status-in-canada-radio.component.html',
