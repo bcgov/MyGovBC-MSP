@@ -81,22 +81,22 @@ export class CanadianStatusComponent implements OnInit {
   @ViewChild('mspServicesCardModal')
     servicesCardDisclaimerModalComponent: ServicesCardDisclaimerModalComponent;
 
-  @Input() statusReasonList: CanadianStatusReason[] = [];
+  @Input() statusReasonList: CanadianStatusReason[];
   @Input() label: String = 'Your immigration status in Canada';
 
   @Input() person: MspPerson;
   @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
 
   statusOpts: string[] = Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
-  statusReasonOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
   showServicesCardModal: boolean;
+
+  private _reasonList: CanadianStatusReason[] = [];
+  private _reasonOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
+
 
   constructor() { }
 
   ngOnInit() {
-    if ( !this.statusReasonList ) {
-      this.statusReasonList = statusReasonRules( this.person.relationship, this.person.status );
-    }
   }
 
   /**
@@ -107,6 +107,13 @@ export class CanadianStatusComponent implements OnInit {
   }
 
   setStatusInCanada($event) {
+
+    if ( !this.statusReasonList ) {
+      this._reasonList = statusReasonRules( this.person.relationship, this.person.status );
+    } else {
+      this._reasonList = this.statusReasonList;
+    }
+
     const status = Object.keys(CanadianStatusStrings).find( x => CanadianStatusStrings[x] === $event );
 
     this.person.status = StatusInCanada[status];
@@ -143,11 +150,12 @@ export class CanadianStatusComponent implements OnInit {
   /**
    * Display available activities for status
    */
-  get availableActivties() {
-    if ( this.statusReasonList ) {
-      return this.statusReasonList.map(itm => {
+  get availableStatusReasons() {
+
+    if ( this._reasonList ) {
+      return this._reasonList.map(itm => {
         return {
-          label: this.statusReasonOpts[itm],
+          label: this._reasonOpts[itm],
           value: itm
         };
       });
