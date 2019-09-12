@@ -8,14 +8,14 @@ import {NgForm} from '@angular/forms';
 import * as _ from 'lodash';
 import {MspBirthDateComponent} from '../../../../../modules/msp-core/components/birthdate/birthdate.component';
 import {MspStatusInCanadaRadioComponent} from '../../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
-import {MspDataService} from '../../../../../services/msp-data.service';
 import {BaseComponent} from '../../../../../models/base.component';
-import { Activities, StatusInCanada } from '../../../../enrolment/models/application.model';
-import { Relationship, StatusRules, ActivitiesRules } from '../../../../../models/status-activities-documents';
 import { MspPhoneComponent } from '../../../../../components/msp/common/phone/phone.component';
 import { MspPerson, MspAccountApp } from '../../../models/account.model';
 import { Address } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
+import { StatusInCanada, CanadianStatusReason, CanadianStatusStrings } from '../../../../msp-core/models/canadian-status.enum';
+import { statusRules, statusReasonRules } from '../../../../msp-core/components/canadian-status/canadian-status.component';
+import { Relationship } from '../../../../msp-core/models/relationship.enum';
 
 @Component({
         selector: 'msp-account-personal-details',
@@ -52,12 +52,12 @@ import { MspAccountMaintenanceDataService } from '../../../services/msp-account-
 
 export class AccountPersonalDetailsComponent extends BaseComponent {
     lang = require('./i18n');
-    langStatus = require('../../../../../components/msp/common/status/i18n');
+    langStatus = CanadianStatusStrings;
     langAccountActivities = require('../../../../../components/msp/common/account-activities/i18n');
     //langDocuments = require('../../../../../components/msp/common/documents/i18n');
 
     // Expose some types to template
-    Activities: typeof Activities = Activities;
+    Activities: typeof CanadianStatusReason = CanadianStatusReason;
     Relationship: typeof Relationship = Relationship;
     StatusInCanada: typeof StatusInCanada = StatusInCanada;
 
@@ -122,7 +122,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
      * Gets status available to the current person
      */
     get statusInCanada(): StatusInCanada[] {
-        return StatusRules.availableStatus(this.person.relationship);
+        return statusRules(this.person.relationship);
     }
 
     handlePhoneNumberChange(evt: any) {
@@ -140,7 +140,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
         this.onChange.emit(value);
     }
 
-    setActivity(value: Activities) {
+    setActivity(value: CanadianStatusReason) {
         this.person.currentActivity = value;
         this.person.movedFromProvinceOrCountry = '';
         this.onChange.emit(value);
@@ -150,7 +150,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
         this.person.firstName = evt.first_name;
         this.person.middleName = evt.middle_name;
         this.person.lastName = evt.last_name;
-        
+
         console.log(this.person);
         console.log(evt);
         this.onChange.emit(evt);
@@ -182,10 +182,10 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
 
 
     /**
-     * Gets the available activities given the known status
+     * Gets the available reason for given the known status
      */
-    get activities(): Activities[] {
-        return ActivitiesRules.availableActivities(this.person.relationship, this.person.status);
+    get activities(): CanadianStatusReason[] {
+        return statusReasonRules(this.person.relationship, this.person.status);
     }
 
 

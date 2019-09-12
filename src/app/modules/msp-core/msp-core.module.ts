@@ -4,7 +4,6 @@ import { MspFullNameComponent } from './components/full-name/full-name.component
 import { SharedCoreModule } from 'moh-common-lib';
 import { CaptchaModule } from 'moh-common-lib/captcha';
 import { FormsModule } from '@angular/forms';
-import { CitizenStatusComponent } from './components/citizen-status/citizen-status.component';
 import { ServicesCardDisclaimerModalComponent } from './components/services-card-disclaimer/services-card-disclaimer.component';
 import { MspStatusInCanadaRadioComponent } from './components/status-in-canada-radio/status-in-canada-radio.component';
 import { TextMaskModule } from 'angular2-text-mask';
@@ -25,7 +24,6 @@ import { MspDischargeDateComponent } from '../../components/msp/common/discharge
 import { MspDepartureDateComponent } from '../../components/msp/common/departure-date/departure-date.component';
 import { MspReturnDateComponent } from '../../components/msp/common/return-date/return-date.component';
 import { MspSchoolDateComponent } from '../../components/msp/common/schoolDate/school-date.component';
-import { MspGenderComponent } from '../../components/msp/common/gender/gender.component';
 import { MspProgressBarComponent } from '../account/components/progressBar/progressBar.component';
 import { TransmissionErrorView } from '../../components/msp/common/transmission-error-view/transmission-error-view.component';
 import { MspOutofBCRecordComponent } from '../../components/msp/common/outof-bc/outof-bc.component';
@@ -41,9 +39,7 @@ import { MspContactCardComponent } from '../../components/msp/common/contact-car
 import { CommonDeductionCalculatorComponent } from './components/common-deduction-calculator/common-deduction-calculator.component';
 import { KeyboardEventListner } from './components/keyboard-listener/keyboard-listener.directive';
 import { MspAddressCardPartComponent } from './components/address-card-part/address-card-part.component';
-import { CommonButtonGroupComponent } from './components/common-button-group/common-button-group.component';
 import { CommonIncomeInputtextComponent } from './components/common-income-inputtext/common-income-inputtext.component';
-import { CommonButtonComponent } from './components/common-button/common-button.component';
 import { MspLoggerDirective } from './components/logging/msp-logger.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { ReviewPartComponent } from './components/review-part/review-part.component';
@@ -56,9 +52,11 @@ import { PersonalDetailsRetroSuppbenComponent } from './components/personal-deta
 import { AddressRetroSuppbenComponent } from './components/address-retro-suppben/address-retro-suppben.component';
 import { CoreContactInfoComponent } from './components/core-contact-info/core-contact-info.component';
 
+
+import { CanadianStatusComponent } from './components/canadian-status/canadian-status.component';
+
 const componentList = [
   MspFullNameComponent,
-  CitizenStatusComponent,
   ServicesCardDisclaimerModalComponent,
   MspStatusInCanadaRadioComponent,
   MspIdReqModalComponent,
@@ -66,9 +64,7 @@ const componentList = [
   MspImageErrorModalComponent,
   CommonDeductionCalculatorComponent,
   MspAddressCardPartComponent,
-  CommonButtonGroupComponent,
   CommonIncomeInputtextComponent,
-  CommonButtonComponent,
   ReviewPartComponent,
   ErrorComponent,
   PersonalDetailsRetroSuppbenComponent,
@@ -77,7 +73,10 @@ const componentList = [
   KeyboardEventListner,
   MspLoggerDirective,
   ReviewCardWrapperComponent,
-  CoreContactInfoComponent
+  CoreContactInfoComponent,
+
+  // New components
+  CanadianStatusComponent
 ];
 
 // TODO: Review to determine whether these should be replace with moh-common-lib
@@ -96,7 +95,6 @@ const templistCore = [
   MspDepartureDateComponent,
   MspReturnDateComponent,
   MspSchoolDateComponent,
-  MspGenderComponent,
   MspProgressBarComponent,
   TransmissionErrorView,
   MspOutofBCRecordComponent,

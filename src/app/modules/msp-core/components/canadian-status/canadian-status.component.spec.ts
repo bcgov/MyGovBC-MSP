@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CommonButtonGroupComponent } from './common-button-group.component';
+import { CanadianStatusComponent } from './canadian-status.component';
 
-describe('CommonButtonGroupComponent', () => {
-  let component: CommonButtonGroupComponent;
-  let fixture: ComponentFixture<CommonButtonGroupComponent>;
+describe('CanadianStatusComponent', () => {
+  let component: CanadianStatusComponent;
+  let fixture: ComponentFixture<CanadianStatusComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommonButtonGroupComponent ]
+      declarations: [ CanadianStatusComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CommonButtonGroupComponent);
+    fixture = TestBed.createComponent(CanadianStatusComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

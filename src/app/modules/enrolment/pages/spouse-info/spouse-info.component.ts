@@ -1,11 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import {ProcessService} from '../../../../services/process.service';
 import {BaseComponent} from '../../../../models/base.component';
 import { Router } from '@angular/router';
-import {MspApplication, MspPerson} from '../../models/application.model';
 import { MspDataService } from '../../../../services/msp-data.service';
-import {Relationship} from '../../../../models/status-activities-documents';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { MspApplication } from '../../models/application.model';
+import { PageStateService } from '../../../../services/page-state.service';
+import { Relationship } from '../../../msp-core/models/relationship.enum';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -13,22 +14,30 @@ import { ROUTES_ENROL } from '../../models/enrol-route-constants';
   styleUrls: ['./spouse-info.component.scss']
 })
 export class SpouseInfoComponent extends BaseComponent implements OnInit {
-  static ProcessStepNum = 2;
-  lang = require('./i18n');
-  Relationship: typeof Relationship = Relationship;
-  public buttonClass: string = 'btn btn-primary';
+
+  statusLabel: string = 'Spouse\'s immigration status in Canada';
 
 
-  constructor(private dataService: MspDataService, private _router: Router, private _processService: ProcessService, private cd: ChangeDetectorRef) {
+  constructor( private dataService: MspDataService,
+               private _router: Router,
+               private pageStateService: PageStateService,
+               private cd: ChangeDetectorRef) {
       super(cd);
   }
 
   ngOnInit() {
-    this.initProcessMembers(SpouseInfoComponent.ProcessStepNum, this._processService);
+    this.pageStateService.setPageIncomplete(this._router.url, this.dataService.mspApplication.pageStatus);
+  }
+
+  /**
+   * Check if applicant has a spouse, used to enable/disable "add spouse" button
+   */
+  get hasSpouse(): boolean{
+    return this.spouse ? true : false;
   }
 
   nextStep(){
-    this._processService.setStep(2, true);
+
     this._router.navigate([ROUTES_ENROL.CHILD_INFO.fullpath]);
 
   }
@@ -39,7 +48,6 @@ export class SpouseInfoComponent extends BaseComponent implements OnInit {
   }
 
   removeSpouse(event: Object): void{
-    // console.log('remove spouse ' + JSON.stringify(event));
     this.dataService.mspApplication.removeSpouse();
     this.dataService.saveMspApplication();
   }
@@ -55,7 +63,7 @@ export class SpouseInfoComponent extends BaseComponent implements OnInit {
     return this.dataService.mspApplication.spouse;
   }
 
-  onChange(values: any){
+  onChange(values: any) {
     this.dataService.saveMspApplication();
   }
 

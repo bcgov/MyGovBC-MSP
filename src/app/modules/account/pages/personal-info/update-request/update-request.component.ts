@@ -1,22 +1,10 @@
-import {ChangeDetectorRef, EventEmitter, Output, Component, Injectable , ViewChild, ViewChildren , QueryList, Input } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {Router} from '@angular/router';
-import {BaseComponent} from '../../../../../models/base.component';
-import {ProcessService, ProcessUrls} from '../../../../../services/process.service';
+import {EventEmitter, Output, Component, Input } from '@angular/core';
 import { MspPerson } from '../../../models/account.model';
-import { Relationship } from '../../../../../models/status-activities-documents';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
-import {ActivatedRoute} from '@angular/router';
-import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
-import { legalStatus } from '../../../../../models/msp.contants';
-import {
-  StatusRules,
-  ActivitiesRules,
-  StatusInCanada,
-  Activities,
-  DocumentRules,
-  Documents
-} from '../../../../../models/status-activities-documents';
+import { MspAccountApp, UpdateList } from '../../../models/account.model';
+import { ActivitiesRules } from '../../../../msp-core/models/status-activities-documents';
+import { StatusInCanada, CanadianStatusReason } from '../../../../msp-core/models/canadian-status.enum';
+
 
 @Component({
   selector: 'msp-update-request',
@@ -47,7 +35,7 @@ export class UpdateRequestComponent  {
 
 
 
-  constructor(private dataService: MspAccountMaintenanceDataService) { 
+  constructor(private dataService: MspAccountMaintenanceDataService) {
     this.mspAccountApp = dataService.getMspAccountApp();
     this.person = this.dataService.getMspAccountApp().applicant ;
   }
@@ -62,10 +50,10 @@ export class UpdateRequestComponent  {
     this.person.status = evt ; //this.statusValue;
 
     // if the status is temporary work permit, show the activity table
-    if(this.person.status === StatusInCanada.TemporaryResident) {
-      console.log("working");
+    if (this.person.status === StatusInCanada.TemporaryResident) {
+      console.log('working');
     }
-    
+
     this.person.currentActivity = null;
 
     if ( this.person.status !== StatusInCanada.CitizenAdult) {
@@ -75,7 +63,7 @@ export class UpdateRequestComponent  {
 
   }
 
-  checkStatus(evt : boolean) {
+  checkStatus(evt: boolean) {
     console.log(evt);
     console.log(this.person.updateStatusInCanada);
     this.dataService.saveMspAccountApp();
@@ -83,7 +71,7 @@ export class UpdateRequestComponent  {
 
   }
 
-  get activities(): Activities[] {
+  get activities(): CanadianStatusReason[] {
     console.log( this.person.relationship);
     console.log( this.person.status);
     return ActivitiesRules.activitiesForAccountChange(
@@ -111,7 +99,7 @@ get permanentResidentDocs(): string[] {
     'Confirmation Of Permanent Residence',
     'Permanent Resident Card (front and back)',
     'Record Of Landing'
-  ]
+  ];
 }
 
 get workPermitDocs(): string[] {
@@ -122,7 +110,7 @@ get workPermitDocs(): string[] {
     'Acceptance foil from your Diplomatic Passport',
     'Notice of Decision',
     'Permit indicating Religious Worker'
-  ]
+  ];
 
 }
 
@@ -130,26 +118,18 @@ get workPermitDocs(): string[] {
 
   get activitiesTable() {
     console.log(this.activities);
-		if (!this.activities) return;
-		return this.activities.map(itm => {
-      const label = this.activityStatus[itm];
-      console.log(itm);
-      console.log(label);
-		  return {
-			label,
-			value: itm
-		  };
-		});
+      if (!this.activities) return;
+      return this.activities.map(itm => {
+        const label = this.activityStatus[itm];
+        console.log(itm);
+        console.log(label);
+        return {
+        label,
+        value: itm
+        };
+      });
   }
 
 }
 
- /**
- * Various statuses in Canada
- */
-enum canadaStatus {
-  CitizenAdult, // adult
-  PermanentResident,
-  TemporaryResident
-  
-}
+

@@ -2,14 +2,13 @@ import { Component, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { MspImageErrorModalComponent } from '../../../msp-core/components/image-error-modal/image-error-modal.component';
-import { CompletenessCheckService } from '../../../../services/completeness-check.service';
 //import {ProcessService} from '../../service/process.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
-import { MspImage } from '../../../../models/msp-image';
 import { AssistStateService } from '../../services/assist-state.service';
 import { BaseComponent } from '../../../../models/base.component';
+import { CommonImage } from 'moh-common-lib';
 
 @Component({
   template: `
@@ -60,7 +59,7 @@ import { BaseComponent } from '../../../../models/base.component';
               Please upload required power of attorney documents
             </span>
           </common-file-uploader>
-          <msp-image-error-modal #mspImageErrorModal></msp-image-error-modal>
+          <common-image-error-modal #mspImageErrorModal></common-image-error-modal>
         </div>
         <div class="row">
           <div class="col-lg-8">
@@ -164,23 +163,23 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
     );
   }
 
-  addDocument(mspImage: MspImage) {
+  addDocument(mspImage: CommonImage) {
     this.application.powerOfAttorneyDocs = this.application.powerOfAttorneyDocs.concat(
       mspImage
     );
     this.dataService.saveFinAssistApplication();
   }
 
-  errorDocument(evt: MspImage) {
+  errorDocument(evt: CommonImage) {
     this.mspImageErrorModal.imageWithError = evt;
     this.mspImageErrorModal.showFullSizeView();
     this.mspImageErrorModal.forceRender();
   }
 
-  deleteDocument(mspImage: MspImage) {
+  deleteDocument(mspImage: CommonImage) {
     console.log(mspImage);
     this.application.powerOfAttorneyDocs = this.application.powerOfAttorneyDocs.filter(
-      (doc: MspImage) => {
+      (doc: CommonImage) => {
         return doc.uuid !== mspImage.uuid;
       }
     );

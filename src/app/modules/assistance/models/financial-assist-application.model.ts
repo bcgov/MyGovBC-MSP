@@ -1,14 +1,13 @@
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
-import { Relationship } from '../../../models/status-activities-documents';
 import { Eligibility } from './eligibility.model';
 import { UUID } from 'angular2-uuid';
-import { MspImage } from '../../../models/msp-image';
 import * as moment from 'moment';
-import { ApplicationBase } from '../../enrolment/models/application-base.model';
+import { ApplicationBase } from '../../msp-core/models/application-base.model';
 import { AssistanceYear } from './assistance-year.model';
 import * as _ from 'lodash';
 import { PhoneNumber } from '../../../components/msp/model/phone.model';
-import { Address } from 'moh-common-lib';
+import { Address, CommonImage } from 'moh-common-lib';
+import { Relationship } from '../../msp-core/models/relationship.enum';
 
 export enum AssistanceApplicationType {
   CurrentYear,
@@ -25,7 +24,7 @@ export class FinancialAssistApplication implements ApplicationBase {
   phnRequired: boolean = true;
 
   assistYears: AssistanceYear[] = [];
-  assistYeaDocs: MspImage[] = [];
+  assistYeaDocs: CommonImage[] = [];
 
   infoCollectionAgreement: boolean = false;
 
@@ -40,7 +39,7 @@ export class FinancialAssistApplication implements ApplicationBase {
 
   _attendantCareExpense: number;
 
-  private _attendantCareExpenseReceipts: MspImage[] = new Array<MspImage>();
+  private _attendantCareExpenseReceipts: CommonImage[] = new Array<CommonImage>();
 
   get uuid(): string {
     return this._uuid;
@@ -86,11 +85,11 @@ export class FinancialAssistApplication implements ApplicationBase {
   set attendantCareExpense(n: number) {
     this._attendantCareExpense = n || 0;
   }
-  get attendantCareExpenseReceipts(): MspImage[] {
+  get attendantCareExpenseReceipts(): CommonImage[] {
     return this._attendantCareExpenseReceipts;
   }
 
-  set attendantCareExpenseReceipts(receipts: MspImage[]) {
+  set attendantCareExpenseReceipts(receipts: CommonImage[]) {
     this._attendantCareExpenseReceipts = receipts || [];
   }
   /**
@@ -160,7 +159,7 @@ export class FinancialAssistApplication implements ApplicationBase {
   _authorizedByAttorney: boolean;
   authorizedByApplicantDate: Date;
 
-  powerOfAttorneyDocs: MspImage[] = [];
+  powerOfAttorneyDocs: CommonImage[] = [];
   get hasPowerOfAttorney(): boolean {
     return this.powerOfAttorneyDocs && this.powerOfAttorneyDocs.length > 0;
   }
@@ -361,7 +360,7 @@ export class FinancialAssistApplication implements ApplicationBase {
   /**
    * Power of atterney docs and attendant care expense receipts
    */
-  getAllImages(): MspImage[] {
+  getAllImages(): CommonImage[] {
     return [
       ...this.powerOfAttorneyDocs,
       ...this.attendantCareExpenseReceipts,

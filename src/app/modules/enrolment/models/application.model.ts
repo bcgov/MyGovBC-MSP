@@ -1,15 +1,14 @@
-import {Address, BRITISH_COLUMBIA, CANADA} from 'moh-common-lib';
-import { Relationship, StatusInCanada, Activities, Documents } from '../../../models/status-activities-documents';
+import { Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
 import { UUID } from 'angular2-uuid';
-import { MspImage } from '../../../models/msp-image';
-import { ApplicationBase } from './application-base.model';
+import { ApplicationBase } from '../../msp-core/models/application-base.model';
 import { PhoneNumber } from '../../../components/msp/model/phone.model';
+import { Relationship } from '../../msp-core/models/relationship.enum';
 
 /**
  * Overall MSP Application Process Data
  */
-class MspApplication implements ApplicationBase {
+export class MspApplication implements ApplicationBase {
 
   private _uuid = UUID.UUID();
   infoCollectionAgreement: boolean = false;
@@ -32,6 +31,14 @@ class MspApplication implements ApplicationBase {
   unUsualCircumstance: boolean;
 
   pageStatus: any[] = []; // page status - complete/ incomplete
+
+  // Documents
+  applicantStatusDoc: CommonImage[] = [];
+  applicantNameDoc: CommonImage[] = [];
+  spouseStatusDoc: CommonImage[] = [];
+  spouseNameDoc: CommonImage[] = [];
+  childrenStatusDoc: Array<CommonImage[]> = [];
+  childrenNameDoc: Array<CommonImage[]> = [];
 
 
   get uuid(): string {
@@ -168,17 +175,22 @@ class MspApplication implements ApplicationBase {
   /*
     Gets all images for applicant, spouse and all children
    */
-  getAllImages(): MspImage[] {
-    let allImages = Array<MspImage>();
-
-    // add applicant
-    allImages = allImages.concat(this.applicant.documents.images);
+  getAllImages(): CommonImage[] {
+    let allImages = [
+      ...this.applicantNameDoc,
+      ...this.applicantNameDoc
+    ];
 
     if (this.spouse) {
-      allImages = allImages.concat(this.spouse.documents.images);
+      allImages = allImages.concat([...this.spouseStatusDoc,
+                                   ...this.spouseNameDoc]);
     }
-    for (const child of this.children) {
-      allImages = allImages.concat(child.documents.images);
+    for (const child of this.childrenStatusDoc) {
+      allImages = allImages.concat(child);
+    }
+
+    for (const child of this.childrenNameDoc) {
+      allImages = allImages.concat(child);
     }
 
     return allImages;
@@ -256,6 +268,3 @@ class MspApplication implements ApplicationBase {
     this.residentialAddress.country = CANADA;
   }
 }
-
-// Exports item from different files within msp/models
-export { MspApplication, MspPerson, StatusInCanada, Activities };

@@ -1,5 +1,6 @@
 import PersonDto from '../../../components/msp/model/msp-person.dto';
 import AddressDto from '../../../components/msp/model/address.dto';
+import { CommonImage } from 'moh-common-lib';
 
 export default class MspApplicationDto {
   infoCollectionAgreement: boolean;
@@ -16,4 +17,12 @@ export default class MspApplicationDto {
   authorizedBySpouse: boolean;
 
   pageStatus: any[] = []; // page status - complete/ incomplete
+
+  // Documents
+  applicantStatusDoc: CommonImage[] = [];
+  applicantNameDoc: CommonImage[] = [];
+  spouseStatusDoc: CommonImage[] = [];
+  spouseNameDoc: CommonImage[] = [];
+  childrenStatusDoc: Array<CommonImage[]> = [];
+  childrenNameDoc: Array<CommonImage[]> = [];
 }

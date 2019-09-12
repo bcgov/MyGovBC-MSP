@@ -9,13 +9,11 @@ import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTy
 import { DependentType, DependentTypeFactory, EnrolmentApplicantTypeFactory, EnrolmentApplicationTypeFactory, EnrolmentChildrenTypeFactory, EnrolmentDependentsTypeFactory, LivedInBCTypeFactory, OutsideBCTypeFactory, PersonType, PersonTypeFactory, PreviousCoverageTypeFactory, ResidencyType, ResidencyTypeFactory, WillBeAwayTypeFactory } from '../modules/msp-core/api-model/enrolmentTypes';
 import { ResponseType } from '../modules/msp-core/api-model/responseTypes';
 import { MspAccountApp } from '../modules/account/models/account.model';
-import { ApplicationBase } from '../modules/enrolment/models/application-base.model';
+import { ApplicationBase } from '../modules/msp-core/models/application-base.model';
 import { MspApplication } from '../modules/enrolment/models/application.model';
 import { AssistanceApplicationType, FinancialAssistApplication } from '../modules/assistance/models/financial-assist-application.model';
-import { MspImage } from '../models/msp-image';
 import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../components/msp/model/msp-person.model';
-import { SimpleDate, Address } from 'moh-common-lib';
-import { Activities, Relationship, StatusInCanada } from '../models/status-activities-documents';
+import { SimpleDate, Address, CommonImage } from 'moh-common-lib';
 import { MspLogService } from './log.service';
 import { MspMaintenanceService } from './msp-maintenance.service';
 import { Response } from '@angular/http';
@@ -23,9 +21,10 @@ import {ISpaEnvResponse} from '../components/msp/model/spa-env-response.interfac
 import { environment } from '../../environments/environment';
 import { ApiResponse } from '../models/api-response.interface';
 import {
-    SupplementaryBenefitsApplicationType,
     MSPApplicationSchema
   } from 'app/modules/msp-core/interfaces/i-api';
+import { StatusInCanada, CanadianStatusReason } from '../modules/msp-core/models/canadian-status.enum';
+import { Relationship } from '../modules/msp-core/models/relationship.enum';
 
 const jxon = require('jxon/jxon');
 
@@ -39,8 +38,8 @@ export class MspApiService {
 		const suppBenefitRequest = this.prepareEnrolmentApplication(app);
 		console.log(suppBenefitRequest);
 
-		return new Promise<ApiResponse>((resolve, reject) => {
-			
+		return new Promise<ApiResponse>((resolve) => {
+
 			// if no errors, then we'll sendApplication all attachments
 			return this.sendAttachments(
 			  app.authorizationToken,
@@ -52,7 +51,6 @@ export class MspApiService {
 
 				return this.sendEnrolmentApplication(
 				  suppBenefitRequest,
-				  app.uuid,
 				  app.authorizationToken
 				).subscribe(response => {
 				  // Add reference number
@@ -75,20 +73,19 @@ export class MspApiService {
 				);
 				return resolve(error);
 			  });
-		  
+
 		});
     }
 
 
     sendEnrolmentApplication(
         app: MSPApplicationSchema,
-        uuid: string,
         authToken: string
       ): Observable<any> {
           const url = environment.appConstants['apiBaseUrl']
         + '/MSPDESubmitApplication/' + app.uuid
         + '?programArea=enrolment';
-    
+
         // Setup headers
         this._headers = new HttpHeaders({
           'Content-Type': 'application/json',
@@ -135,7 +132,7 @@ export class MspApiService {
 
                         // second convert to XML
                         const convertedAppXml = this.toXmlString(documentModel);
-              
+
 
                         // if no errors, then we'll sendApplication all attachments
                         return this.sendAttachments(app.authorizationToken, documentModel.application.uuid, app.getAllImages()).then(() => {
@@ -178,7 +175,7 @@ export class MspApiService {
     }
 
 
-    private sendAttachments(token: string, applicationUUID: string, attachments: MspImage[]): Promise<void> {
+    private sendAttachments(token: string, applicationUUID: string, attachments: CommonImage[]): Promise<void> {
         return new Promise<void>((resolve, reject) => {
 
             // Instantly resolve if no attachments
@@ -225,7 +222,7 @@ export class MspApiService {
         });
     }
 
-    private sendAttachment(token: string, applicationUUID: string, attachment: MspImage): Promise<ResponseType> {
+    private sendAttachment(token: string, applicationUUID: string, attachment: CommonImage): Promise<ResponseType> {
         return new Promise<ResponseType>((resolve, reject) => {
 
             /*
@@ -705,7 +702,7 @@ export class MspApiService {
         to.attachment = new Array<AttachmentType>();
 
         // assemble all attachments
-        const attachments: MspImage[] = from.getAllImages();
+        const attachments: CommonImage[] = from.getAllImages();
 
         // Convert each one
         for (const attachment of attachments) {
@@ -738,16 +735,16 @@ export class MspApiService {
     /**
      * Creates the array of attachments from applicant, spouse and all children
      * used with both assistance and DEAM
-     * @param {MspImage[]} from
+     * @param {CommonImage[]} from
      * @returns {AttachmentsType}
      */
-    private convertAttachments(from: MspImage[]): AttachmentsType {
+    private convertAttachments(from: CommonImage[]): AttachmentsType {
 
         const to = AttachmentsTypeFactory.make();
         to.attachment = new Array<AttachmentType>();
 
         // assemble all attachments
-        const attachments: MspImage[] = from;
+        const attachments: CommonImage[] = from;
 
         // If no attachments just return
         if (!attachments || attachments.length < 1) {
@@ -1018,7 +1015,7 @@ export class MspApiService {
     }
 
 
-    findCitizenShip(statusInCanada: StatusInCanada, currentActivity: Activities): CitizenshipType {
+    findCitizenShip(statusInCanada: StatusInCanada, currentActivity: CanadianStatusReason): CitizenshipType {
         let citizen: CitizenshipType;
         switch (statusInCanada) {
             case StatusInCanada.CitizenAdult:
@@ -1029,19 +1026,19 @@ export class MspApiService {
                 break;
             case StatusInCanada.TemporaryResident:
                 switch (currentActivity) {
-                    case Activities.WorkingInBC:
+                    case CanadianStatusReason.WorkingInBC:
                         citizen = 'WorkPermit';
                         break;
-                    case Activities.StudyingInBC:
+                    case CanadianStatusReason.StudyingInBC:
                         citizen = 'StudyPermit';
                         break;
-                    case Activities.Diplomat:
+                    case CanadianStatusReason.Diplomat:
                         citizen = 'Diplomat';
                         break;
-                    case Activities.ReligiousWorker:
+                    case CanadianStatusReason.ReligiousWorker:
                         citizen = 'ReligiousWorker';
                         break;
-                    case Activities.Visiting:
+                    case CanadianStatusReason.Visiting:
                     default:
                         citizen = 'VisitorPermit';
                         break;
@@ -1218,7 +1215,7 @@ export class MspApiService {
         return to;
     }
 
-    private convertAttachmentUuids(from: MspImage[]): AttachmentUuidsType {
+    private convertAttachmentUuids(from: CommonImage[]): AttachmentUuidsType {
         const to = AttachmentUuidsTypeFactory.make();
 
         to.attachmentUuid = new Array<string>();
@@ -1251,19 +1248,19 @@ export class MspApiService {
                 break;
             case StatusInCanada.TemporaryResident:
                 switch (from.currentActivity) {
-                    case Activities.WorkingInBC:
+                    case CanadianStatusReason.WorkingInBC:
                         to.citizenshipStatus.citizenshipType = 'WorkPermit';
                         break;
-                    case Activities.StudyingInBC:
+                    case CanadianStatusReason.StudyingInBC:
                         to.citizenshipStatus.citizenshipType = 'StudyPermit';
                         break;
-                    case Activities.Diplomat:
+                    case CanadianStatusReason.Diplomat:
                         to.citizenshipStatus.citizenshipType = 'Diplomat';
                         break;
-                    case Activities.ReligiousWorker:
+                    case CanadianStatusReason.ReligiousWorker:
                         to.citizenshipStatus.citizenshipType = 'ReligiousWorker';
                         break;
-                    case Activities.Visiting:
+                    case CanadianStatusReason.Visiting:
                     default:
                         to.citizenshipStatus.citizenshipType = 'VisitorPermit';
                         break;
@@ -1445,11 +1442,11 @@ export class MspApiService {
         }); // use UTC mode to prevent browser timezone shifting
     }
 
-    
+
 
   private prepareEnrolmentApplication(from: MspApplication): any {
     console.log('prepareBenefitApplicatoin', {from, imageUUIDs: from.getAllImages().map(x => x.uuid)});
-    const output = { 
+    const output = {
       'enrolmentApplication': {
         'applicant': {
           'name': {
@@ -1512,7 +1509,7 @@ export class MspApiService {
       }
      };
 
-      
+
 
       // create Attachment from Images
       output['attachments'] = this.convertAttachmentsForEnrolment(from);

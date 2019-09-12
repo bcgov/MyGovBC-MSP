@@ -4,55 +4,40 @@ import {
   Output,
   EventEmitter,
   ViewChild,
-  ElementRef,
   ChangeDetectorRef
 } from '@angular/core';
-import { state, trigger, style } from '@angular/animations';
-import { NgForm } from '@angular/forms';
 import {
-  MspPerson,
-  Gender
+  Gender, MspPerson
 } from '../../../../components/msp/model/msp-person.model';
 import { OutofBCRecord } from '../../../../models/outof-bc-record.model';
 import {
-  StatusRules,
-  ActivitiesRules,
-  StatusInCanada,
-  Activities,
   DocumentRules,
-  Documents,
-  Relationship
-} from '../../../../models/status-activities-documents';
-import { MspImage } from '../../../../models/msp-image';
+  yesNoLabels,
+  genderLabels
+} from '../../../msp-core/models/status-activities-documents';
 import * as _ from 'lodash';
 
-import { MspGenderComponent } from '../../../../components/msp/common/gender/gender.component';
-import { MspSchoolDateComponent } from '../../../../components/msp/common/schoolDate/school-date.component';
-import { HealthNumberComponent } from '../../../../components/msp/common/health-number/health-number.component';
-import { MspDischargeDateComponent } from '../../../../components/msp/common/discharge-date/discharge-date.component';
 
-import { MspArrivalDateComponent } from '../../../../components/msp/common/arrival-date/arrival-date.component';
-import { MspOutofBCRecordComponent } from '../../../../components/msp/common/outof-bc/outof-bc.component';
 import { BaseComponent } from '../../../../models/base.component';
 import {
   CANADA,
   Address,
   ProvinceList,
-  BRITISH_COLUMBIA} from 'moh-common-lib';
+  BRITISH_COLUMBIA,
+  CommonImage} from 'moh-common-lib';
 import { MspAddressConstants } from '../../../../models/msp-address.constants';
-import { MspDocumentConstants } from '../../../../models/msp-document.constants';
-import { legalStatus } from '../../../../models/msp.contants';
-import { MspIdReqModalComponent } from '../../../msp-core/components/id-req-modal/id-req-modal.component';
-import { MspImageErrorModalComponent } from '../../../msp-core/components/image-error-modal/image-error-modal.component';
-import { MspBirthDateComponent } from '../../../msp-core/components/birthdate/birthdate.component';
-import { MspAddressComponent } from '../../../msp-core/components/address/address.component';
+import { MspDocumentConstants, Documents } from '../../../msp-core/models/msp-document.constants';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
+import { StatusInCanada, CanadianStatusStrings, CanadianStatusReasonStrings, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
+import { statusReasonRules } from '../../../msp-core/components/canadian-status/canadian-status.component';
+import { Relationship } from '../../../msp-core/models/relationship.enum';
+
 
 @Component({
   selector: 'msp-personal-details',
   templateUrl: './personal-details.component.html',
   styleUrls: ['./personal-details.component.scss'],
-
+/*
   animations: [
     trigger('shrinkOut', [
       state('in', style({ display: 'none' })),
@@ -78,6 +63,7 @@ import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/componen
       // transition('* => *', animate(500))
     ])
   ]
+  */
 })
 export class PersonalDetailsComponent extends BaseComponent {
   /**
@@ -102,25 +88,10 @@ export class PersonalDetailsComponent extends BaseComponent {
     '<\Upload your child\'s documents'
   ];
 
-  langDocuments = MspDocumentConstants.documentList;
-  langStatus = legalStatus;
 
-  lang = require('./i18n');
-  langActivities = require('../../../../components/msp/common/activities/i18n');
-  genderLabels = [
-    { label: 'Female', value: 'Female' },
-    { label: 'Male', value: 'Male' }
-  ];
 
-  // Expose some types to template
-  Activities: typeof Activities = Activities;
-  Relationship: typeof Relationship = Relationship;
-  StatusInCanada: typeof StatusInCanada = StatusInCanada;
-  Gender: typeof Gender = Gender;
-
-  public styleClass = 'control-label';
-  @ViewChild('formRef') form: NgForm;
-  //@ViewChild('fileUploader') fileUploader: FileUploaderComponent;
+  //lang = require('./i18n'); //TODO: pull wording from file to use in html
+/*
   @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
   @ViewChild('imageErrorModal') imageErrorModal: MspImageErrorModalComponent;
   @ViewChild('outOfBCRecord') outOfBCRecord: MspOutofBCRecordComponent;
@@ -129,17 +100,21 @@ export class PersonalDetailsComponent extends BaseComponent {
   @ViewChild('arrivalDateBC') arrivalDateBC: MspArrivalDateComponent;
   @ViewChild('arrivalDateCanada') arrivalDateCanada: MspArrivalDateComponent;
   @ViewChild('healthNumber') healthNumber: HealthNumberComponent;
-  // @ViewChild('phn') phn: PhnComponent;
   @ViewChild('armedForcedQuestion') armedForcedQuestion: HTMLElement;
   @ViewChild('dischargeDate') dischargeDate: MspDischargeDateComponent;
   @ViewChild('schoolQuestion') schoolQuestion: HTMLElement;
   @ViewChild('inBCAfterStudiesQuestion') inBCAfterStudiesQuestion: HTMLElement;
   @ViewChild('schoolAddress') schoolAddress: MspAddressComponent;
   @ViewChild('schoolDate') schoolDate: MspSchoolDateComponent;
+  */
   @ViewChild('mspServicesCardModal')
   servicesCardDisclaimerModalComponent: ServicesCardDisclaimerModalComponent;
 
   @Input() person: MspPerson;
+  @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
+
+
+  /*
   @Input() id: string;
   @Input() showError: boolean;
   @Output() notifyChildRemoval: EventEmitter<MspPerson> = new EventEmitter<
@@ -147,53 +122,81 @@ export class PersonalDetailsComponent extends BaseComponent {
   >();
   @Output() notifySpouseRemoval: EventEmitter<MspPerson> = new EventEmitter<
     MspPerson
-  >();
-  @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
+  >();*/
 
+
+  /*
   shrinkOut: string;
   shrinkOutStatus: string;
   genderListSignal: string;
+  */
+
   institutionWorkSignal: string;
   showServicesCardModal: boolean = false;
 
-  /** Hides the 'Clear Spouse/Child' button, and the <hr> at the end of the component. Useful in layouts where this form must be embedded in a larger form.. */
-  @Input() embedded: boolean = false;
 
-  constructor(private el: ElementRef, private cd: ChangeDetectorRef) {
+  /** Hides the 'Clear Spouse/Child' button, and the <hr> at the end of the component. Useful in layouts where this form must be embedded in a larger form.. */
+  //@Input() embedded: boolean = false;
+  institutionList: string[] = ['Yes', 'No'];
+
+
+  // START -- NEW CODE FOR PAGE
+  @Input() sectionTitle: string = 'Status in Canada';
+  @Input() sectionInstruct: string = 'Please provide your immigration status information. You will be required to upload documents to support your status in Canada.';
+  @Input() statusLabel: string = 'Your immigration status in Canada';
+  @Input() statusDocuments: CommonImage[] = [];
+  @Input() nameDocuments: CommonImage[] = [];
+  @Output() statusDocumentsChange: EventEmitter<CommonImage[]> = new EventEmitter<CommonImage[]>();
+  @Output() nameDocumentsChange: EventEmitter<CommonImage[]> = new EventEmitter<CommonImage[]>();
+
+
+
+  statusOpts: string[] = Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
+  activitiesOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
+  documentOpts: string[] = MspDocumentConstants.langDocument();
+  yesNoRadioLabels = yesNoLabels;
+  genderRedioLabels = genderLabels;
+
+  statusDocumentType: string = null;
+  hasStatusDocumentType: boolean = false;
+  nameChangeDocumentType: string = null;
+  hasNameChangeDocumentType: boolean = false;
+  hasNameChange: boolean = undefined;
+
+  uploadDocInstructions = 'Click add, or drag and drop file into this box';
+  // END -- NEW CODE FOR PAGE
+
+  constructor(private cd: ChangeDetectorRef) {
     super(cd);
   }
 
-  statusLabel(): string {
-    return this.lang('./en/index.js').statusLabel[this.person.relationship];
-  }
-
-  institutionList: string[] = ['Yes', 'No'];
 
   /**
    * Gets status available to the current person
    */
-  get statusInCanada(): StatusInCanada[] {
-    return StatusRules.availableStatus(this.person.relationship);
+  getStatusInCanada() {
+    return this.person.status !== undefined ? this.statusOpts[this.person.status] : undefined;
   }
 
-  setStatus(value: StatusInCanada, p: MspPerson) {
-    if (typeof value === 'object') return;
-    p.status = value;
-    p.currentActivity = null;
+  setStatusInCanada($event) {
+    const status = Object.keys(CanadianStatusStrings).find( x => CanadianStatusStrings[x] === $event );
+    this.person.status = StatusInCanada[status];
 
-    if (p.status !== StatusInCanada.CitizenAdult) {
-      p.institutionWorkHistory = 'No';
+    // initialize activity
+    this.person.currentActivity = null;
+
+    if (this.person.status !== StatusInCanada.CitizenAdult) {
+      this.person.institutionWorkHistory = 'No';
     }
     this.showServicesCardModal = true;
-
-    this.onChange.emit(value);
+    this.personChange.emit(this.person);
   }
 
-  setActivity(value: Activities) {
+  setActivity(value: CanadianStatusReason) {
     if (
       this.showServicesCardModal &&
       this.person.bcServiceCardShowStatus &&
-      this.person.relationship !== this.Relationship.ChildUnder19
+      this.person.relationship !== Relationship.ChildUnder19
     ) {
       this.servicesCardDisclaimerModalComponent.showModal();
       this.showServicesCardModal = false;
@@ -201,28 +204,25 @@ export class PersonalDetailsComponent extends BaseComponent {
 
     this.person.currentActivity = value;
     this.person.movedFromProvinceOrCountry = '';
-    this.onChange.emit(value);
+    this.personChange.emit(this.person);
   }
 
   get activitiesTable() {
-    if (!this.activities) return;
-    return this.activities.map(itm => {
-      const label = this.langActivities('./en/index.js')[itm];
-      return {
-        label,
-        value: itm
-      };
-    });
+    if (this.activities) {
+      return this.activities.map(itm => {
+        return {
+          label: this.activitiesOpts[itm],
+          value: itm
+        };
+      });
+    }
   }
 
   /**
    * Gets the available activities given the known status
    */
-  get activities(): Activities[] {
-    return ActivitiesRules.availableActivities(
-      this.person.relationship,
-      this.person.status
-    );
+  get activities(): CanadianStatusReason[] {
+    return statusReasonRules( this.person.relationship, this.person.status );
   }
 
   /**
@@ -235,29 +235,68 @@ export class PersonalDetailsComponent extends BaseComponent {
     );
   }
 
+  get documentList() {
+    if (this.documents) {
+      return this.documents.map(itm => this.documentOpts[itm] );
+    }
+  }
+
+  addStatusBtnClick() {
+    this.hasStatusDocumentType = this.statusDocumentType ? true : false;
+    console.log('addStatusBtnClick: ', this.hasStatusDocumentType, this.statusDocumentType );
+  }
+
+  addNameBtnClick() {
+    this.hasNameChangeDocumentType = this.nameChangeDocumentType ? true : false;
+  }
+
+  /** Removes all documents in the list */
+  removeDocuments() {
+    this.statusDocuments = [];
+    this.hasStatusDocumentType = false;
+    this.statusDocumentsChange.emit(this.statusDocuments);
+
+    this.removeNameDocuments();
+  }
+
+  removeNameDocuments() {
+    this.nameDocuments = [];
+    this.hasNameChangeDocumentType = false;
+    this.nameDocumentsChange.emit(this.nameDocuments);
+  }
+
+
+  // Statuses
+  get isCanadianCitizen(): boolean {
+    return this.person.status === StatusInCanada.CitizenAdult;
+  }
+
   /**
    * Gets the available documents given the known status and activity
    */
-  get nameChangeDocuments(): Documents[] {
-    return DocumentRules.nameChangeDocument();
+  get nameChgDocumentList() {
+    return DocumentRules.nameChangeDocument().map( x => this.documentOpts[x] );
   }
 
-  addDocument(evt: MspImage) {
+  addDocument(evt: CommonImage) {
     this.person.documents.images = this.person.documents.images.concat(evt);
-    this.onChange.emit(evt);
+    this.personChange.emit(this.person);
   }
 
   deleteDocument(evt: Array<any>) {
     console.log('evt', evt);
     this.person.documents.images = evt;
-    this.onChange.emit(evt);
+    this.personChange.emit(this.person);
   }
 
+
+
+  /*
   errorDocument(evt: MspImage) {
     this.imageErrorModal.imageWithError = evt;
     this.imageErrorModal.showFullSizeView();
     this.imageErrorModal.forceRender();
-  }
+  }*/
 
   ngAfterContentInit() {
     super.ngAfterContentInit();
@@ -266,13 +305,13 @@ export class PersonalDetailsComponent extends BaseComponent {
     /**
      * Load an empty row to screen
      */
-    if (this.person.relationship === Relationship.Spouse) {
+ /*   if (this.person.relationship === Relationship.Spouse) {
       window.scrollTo(0, this.el.nativeElement.offsetTop);
-    }
+    }*/
   }
 
   get arrivalDateLabel(): string {
-    if (this.person.currentActivity === Activities.LivingInBCWithoutMSP) {
+    if (this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP) {
       return 'Most recent move to B.C.';
     }
     return 'Arrival date in B.C.';
@@ -280,7 +319,7 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   provinceUpdate(evt: string) {
     this.person.movedFromProvinceOrCountry = evt;
-    this.onChange.emit(evt);
+    this.personChange.emit(this.person);
   }
 
   get schoolInBC(): boolean {
@@ -295,23 +334,23 @@ export class PersonalDetailsComponent extends BaseComponent {
     if (!this.person.fullTimeStudent) {
       this.person.inBCafterStudies = null;
     }
-    this.onChange.emit(event);
+    this.personChange.emit(this.person);
     this.emitIsFormValid();
   }
   setStayInBCAfterStudy(event: boolean) {
     this.person.inBCafterStudies = event;
-    this.onChange.emit(event);
+    this.personChange.emit(this.person);
     this.emitIsFormValid();
     this.emitIsFormValid();
   }
 
-  schoolAddressUpdate(evt: any) {
-    this.onChange.emit(evt);
+  schoolAddressUpdate() {
+    this.personChange.emit(this.person);
   }
 
   setHasPreviousPhn(value: boolean) {
     this.person.hasPreviousBCPhn = value;
-    this.onChange.emit(value);
+    this.personChange.emit(this.person);
     this.cd.detectChanges();
     this.emitIsFormValid();
   }
@@ -319,16 +358,16 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.person.studiesFinishedDay = evt.day;
     this.person.studiesFinishedMonth = evt.month;
     this.person.studiesFinishedYear = evt.year;
-    this.onChange.emit(evt);
+    this.personChange.emit(this.person);
   }
 
   updateSchoolDepartureDate(evt: any) {
     this.person.studiesDepartureDay = evt.day;
     this.person.studiesDepartureMonth = evt.month;
     this.person.studiesDepartureYear = evt.year;
-    this.onChange.emit(evt);
+    this.personChange.emit(this.person);
   }
-
+/*
   removeChild(): void {
     this.notifyChildRemoval.emit(this.person);
     // this.notifyChildRemoval.next(id);
@@ -337,7 +376,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   removeSpouse(): void {
     this.notifySpouseRemoval.emit(this.person);
   }
-
+*/
   get institutionWorkHistory(): string {
     return this.person.institutionWorkHistory;
   }
@@ -347,7 +386,7 @@ export class PersonalDetailsComponent extends BaseComponent {
     const history = evt ? 'Yes' : 'No';
     this.person.institutionWorkHistory = history;
     this.cd.detectChanges();
-    this.onChange.emit(history);
+    this.personChange.emit(this.person);
     this.emitIsFormValid();
   }
 
@@ -364,10 +403,10 @@ export class PersonalDetailsComponent extends BaseComponent {
       : (this.institutionWorkSignal = 'out');
   }
 
-  get hasValidCurrentActivity(): boolean {
+  /*get hasValidCurrentActivity(): boolean {
     const v = _.isNumber(this.person.currentActivity);
     return v;
-  }
+  }*/
 
   get isInstitutionListShown() {
     return this.institutionWorkSignal === 'out';
@@ -375,7 +414,7 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   handleHealthNumberChange(evt: string) {
     this.person.healthNumberFromOtherProvince = evt;
-    this.onChange.emit(evt);
+    this.personChange.emit(this.person);
   }
 
   setBeenOutsideForOver30Days(out: boolean) {
@@ -386,17 +425,17 @@ export class PersonalDetailsComponent extends BaseComponent {
       this.person.outOfBCRecord = null;
     }
     this.cd.detectChanges();
-    this.onChange.emit(out);
+    this.personChange.emit(this.person);
     this.emitIsFormValid();
   }
 
-  handleDeleteOutofBCRecord(evt: OutofBCRecord) {
+  handleDeleteOutofBCRecord() {
     this.person.outOfBCRecord = null;
-    this.onChange.emit(evt);
+    this.personChange.emit(this.person);
   }
 
-  handleOutofBCRecordChange(evt: OutofBCRecord) {
-    this.onChange.emit(evt);
+  handleOutofBCRecordChange() {
+    this.personChange.emit(this.person);
   }
   //If false, then we don't want users continuing to further application;
   checkEligibility(): boolean {
@@ -405,19 +444,20 @@ export class PersonalDetailsComponent extends BaseComponent {
 
   setMovedToBCPermanently(moved: boolean) {
     this.person.madePermanentMoveToBC = moved;
-    this.onChange.emit(moved);
+    this.personChange.emit(this.person);
     this.emitIsFormValid();
   }
   setLivedInBCSinceBirth(lived: boolean) {
     this.person.livedInBCSinceBirth = lived;
-    this.onChange.emit(lived);
+    this.personChange.emit(this.person);
     this.emitIsFormValid();
     this.cd.detectChanges();
   }
 
+  /*
   viewIdReqModal(event: Documents) {
     this.idReqModal.showFullSizeView(event);
-  }
+  }*/
 
   isValid(): boolean {
     // Some inputs can be determine via the form.isValid,
@@ -447,13 +487,13 @@ export class PersonalDetailsComponent extends BaseComponent {
     }
 
     // armed forces
-    if (
+  /*  if (
       this.armedForcedQuestion != null &&
       this.person.institutionWorkHistory == null
     ) {
       console.log('institutionWorkHistory invalid');
       return false;
-    }
+    }*/
 
     if (this.person.isArrivalToBcBeforeDob) {
       return false;
@@ -464,10 +504,10 @@ export class PersonalDetailsComponent extends BaseComponent {
     }
 
     // school
-    if (this.schoolQuestion != null && this.person.fullTimeStudent == null) {
+   /* if (this.schoolQuestion != null && this.person.fullTimeStudent == null) {
       console.log('schoolQuestion invalid');
       return false;
-    }
+    }*/
     if (this.person.fullTimeStudent && this.person.inBCafterStudies == null) {
       console.log('inBCafterStudies invalid');
       return false;
@@ -477,6 +517,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
   setGender(evt: Gender) {
     this.person.gender = evt;
+    this.personChange.emit(this.person);
   }
 
   isCanada(addr: Address): boolean {

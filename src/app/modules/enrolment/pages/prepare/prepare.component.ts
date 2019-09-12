@@ -1,17 +1,16 @@
 import {ChangeDetectorRef, Component, Injectable, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {  Router } from '@angular/router';
-import {MspApplication, MspPerson} from '../../models/application.model';
 import * as _ from 'lodash';
 import {MspDataService} from '../../../../services/msp-data.service';
-import {ConsentModalComponent} from 'moh-common-lib';
-import {ProcessService} from '../../../../services/process.service';
 import {BaseComponent} from '../../../../models/base.component';
-import { CommonButtonGroupComponent } from '../../../msp-core/components/common-button-group/common-button-group.component';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { environment } from '../../../../../environments/environment.prod';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
 import { PageStateService } from '../../../../services/page-state.service';
+import { yesNoLabels } from '../../../msp-core/models/status-activities-documents';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { MspApplication } from '../../models/application.model';
 
 @Component({
   templateUrl: './prepare.component.html'
@@ -19,17 +18,15 @@ import { PageStateService } from '../../../../services/page-state.service';
 @Injectable()
 export class PrepareComponent extends BaseComponent {
 
-  static ProcessStepNum = 0;
   @ViewChild('formRef') form: NgForm;
-  @ViewChild('liveInBCBtn') liveInBCBtn: CommonButtonGroupComponent ;
+  //@ViewChild('liveInBCBtn') liveInBCBtn: RadioComponent ;
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
 
   private apt: MspPerson;
   mspApplication: MspApplication;
-  public styleClass: string = 'control-label';
 
   // labels
-  radioLabels = [{ 'label': 'No', 'value': false}, {'label': 'Yes', 'value': true} ];
+  radioLabels = yesNoLabels;
 
 
   // Web links
@@ -37,7 +34,7 @@ export class PrepareComponent extends BaseComponent {
 
   // verbage
   question1 = 'Do you currently live in British Columbia (i.e. Do you have an address here)?';
-  plannedAwayForOver30DaysQuestion = 'Will you or anyone in your immediate family (included on this application) be away from B.C. for more than 30 days in total over the next six months?';
+  plannedAwayForOver30DaysQuestion = 'Will you or anyone included on this application be away from B.C. for more than 30 days in total over the next six months?';
 
   constructor(public dataService: MspDataService,
               private pageStateService: PageStateService,

@@ -1,23 +1,24 @@
-import {MspImage} from '../../../models/msp-image';
+import { CommonImage } from "moh-common-lib";
+
 
 /**
  * A persons ID documents
  */
 class PersonDocuments {
-  private _images: MspImage[];
+  private _images: CommonImage[];
 
   constructor(){
 
   }
 
-  get images(): MspImage[]{
+  get images(): CommonImage[]{
     if (!this._images){
-      this._images = new Array<MspImage>();
+      this._images = new Array<CommonImage>();
     }
     return this._images;
   }
 
-  set images(imgs: MspImage[]){
+  set images(imgs: CommonImage[]){
     this._images = imgs;
   }
 }

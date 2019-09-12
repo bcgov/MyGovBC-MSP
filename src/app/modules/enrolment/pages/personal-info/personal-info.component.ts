@@ -1,30 +1,29 @@
 import {Component, Injectable, ViewChild, ViewChildren,
-  ChangeDetectorRef, QueryList, AfterViewInit, OnInit} from '@angular/core';
-import {MspApplication, MspPerson} from '../../models/application.model';
-
+  ChangeDetectorRef, QueryList} from '@angular/core';
 // import {MspDataService} from '../../service/msp-data.service';
 import { MspDataService } from '../../../../services/msp-data.service';
-
 import { Router } from '@angular/router';
-import {Relationship} from '../../../../models/status-activities-documents';
 import {NgForm} from '@angular/forms';
 import {PersonalDetailsComponent} from '../../components/personal-details/personal-details.component';
 import {BaseComponent} from '../../../../models/base.component';
-import {ProcessService} from '../../../../services/process.service';
-import { StatusInCanada} from '../../../../models/status-activities-documents';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
+import { MspApplication } from '../../models/application.model';
+import { MspPerson } from '../../../account/models/account.model';
+import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
+import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { statusReasonRules } from '../../../msp-core/components/canadian-status/canadian-status.component';
+
 
 @Component({
   templateUrl: './personal-info.component.html'
 })
 @Injectable()
 export class PersonalInfoComponent extends BaseComponent {
-  static ProcessStepNum = 1;
+
   lang = require('./i18n');
   Relationship: typeof Relationship = Relationship;
-  public buttonClass: string = 'btn btn-default';
 
   @ViewChild('formRef') form: NgForm;
   @ViewChild('mspServicesCardModal')
@@ -33,12 +32,10 @@ export class PersonalInfoComponent extends BaseComponent {
     PersonalDetailsComponent
   >;
 
-  constructor(
-    private dataService: MspDataService,
-    private _router: Router,
-    private pageStateService: PageStateService,
-    private cd: ChangeDetectorRef
-  ) {
+  constructor( private dataService: MspDataService,
+               private _router: Router,
+               private pageStateService: PageStateService,
+               cd: ChangeDetectorRef ) {
     super(cd);
   }
 
@@ -46,7 +43,9 @@ export class PersonalInfoComponent extends BaseComponent {
     this.pageStateService.setPageIncomplete(this._router.url, this.dataService.mspApplication.pageStatus);
   }
 
-  onChange(values: any) {
+  onChange($event) {
+
+    console.log( 'onChange: ', $event );
     this.dataService.saveMspApplication();
   }
 
@@ -55,6 +54,13 @@ export class PersonalInfoComponent extends BaseComponent {
   }
   get applicant(): MspPerson {
     return this.dataService.mspApplication.applicant;
+  }
+
+  get availableActivities() {
+    return statusReasonRules(
+      this.applicant.relationship,
+      this.applicant.status
+    );
   }
 
   get spouse(): MspPerson {
@@ -74,13 +80,13 @@ export class PersonalInfoComponent extends BaseComponent {
     return this.dataService.mspApplication.children;
   }
 
-  removeChild(event: Object, idx: number): void {
+  removeChild(idx: number): void {
     // console.log('remove child ' + JSON.stringify(event));
     this.dataService.mspApplication.removeChild(idx);
     this.dataService.saveMspApplication();
   }
 
-  removeSpouse(event: Object): void {
+  removeSpouse(): void {
     // console.log('remove spouse ' + JSON.stringify(event));
     this.dataService.mspApplication.removeSpouse();
     this.dataService.saveMspApplication();
@@ -117,9 +123,6 @@ export class PersonalInfoComponent extends BaseComponent {
 
     return stayingInBc;
   }
-  canContinue(): boolean {
-    return this.isAllValid();
-  }
 
   isValid(): boolean {
     return this.dataService.mspApplication.isUniquePhns;
@@ -146,5 +149,13 @@ export class PersonalInfoComponent extends BaseComponent {
       this.pageStateService.setPageComplete(this._router.url, this.dataService.mspApplication.pageStatus);
       this._router.navigate([ROUTES_ENROL.PERSONAL_INFO.fullpath]);
     }
+  }
+
+  canContinue(): boolean {
+    const valid = !(!this.isStayinginBCAfterstudies() ||
+    this.checkAnyDependentsIneligible() || !this.isAllValid());
+
+    //console.log('canContinue(): ', valid, this.form );
+    return valid;
   }
 }
