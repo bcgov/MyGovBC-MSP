@@ -24,7 +24,6 @@ import { MspDischargeDateComponent } from '../../components/msp/common/discharge
 import { MspDepartureDateComponent } from '../../components/msp/common/departure-date/departure-date.component';
 import { MspReturnDateComponent } from '../../components/msp/common/return-date/return-date.component';
 import { MspSchoolDateComponent } from '../../components/msp/common/schoolDate/school-date.component';
-import { MspGenderComponent } from '../../components/msp/common/gender/gender.component';
 import { MspProgressBarComponent } from '../account/components/progressBar/progressBar.component';
 import { TransmissionErrorView } from '../../components/msp/common/transmission-error-view/transmission-error-view.component';
 import { MspOutofBCRecordComponent } from '../../components/msp/common/outof-bc/outof-bc.component';
@@ -40,9 +39,7 @@ import { MspContactCardComponent } from '../../components/msp/common/contact-car
 import { CommonDeductionCalculatorComponent } from './components/common-deduction-calculator/common-deduction-calculator.component';
 import { KeyboardEventListner } from './components/keyboard-listener/keyboard-listener.directive';
 import { MspAddressCardPartComponent } from './components/address-card-part/address-card-part.component';
-import { CommonButtonGroupComponent } from './components/common-button-group/common-button-group.component';
 import { CommonIncomeInputtextComponent } from './components/common-income-inputtext/common-income-inputtext.component';
-import { CommonButtonComponent } from './components/common-button/common-button.component';
 import { MspLoggerDirective } from './components/logging/msp-logger.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { ReviewPartComponent } from './components/review-part/review-part.component';
@@ -67,9 +64,7 @@ const componentList = [
   MspImageErrorModalComponent,
   CommonDeductionCalculatorComponent,
   MspAddressCardPartComponent,
-  CommonButtonGroupComponent,
   CommonIncomeInputtextComponent,
-  CommonButtonComponent,
   ReviewPartComponent,
   ErrorComponent,
   PersonalDetailsRetroSuppbenComponent,
@@ -100,7 +95,6 @@ const templistCore = [
   MspDepartureDateComponent,
   MspReturnDateComponent,
   MspSchoolDateComponent,
-  MspGenderComponent,
   MspProgressBarComponent,
   TransmissionErrorView,
   MspOutofBCRecordComponent,
