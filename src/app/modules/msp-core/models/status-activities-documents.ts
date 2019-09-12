@@ -1,4 +1,5 @@
 import { Documents } from './msp-document.constants';
+import { CanadianStatusReason } from './canadian-status.enum';
 
 /**
  * Various relationships
@@ -133,7 +134,7 @@ export class ActivitiesRules {
  * Business rules for documents
  */
 export class DocumentRules {
-  static availiableDocuments(status: StatusInCanada, activity: Activities): Documents[] {
+  static availiableDocuments(status: StatusInCanada, activity: CanadianStatusReason): Documents[] {
     switch (status) {
       case StatusInCanada.CitizenAdult:
         return [Documents.CanadianBirthCertificate, Documents.CanadianCitizenCard, Documents.CanadianPassport];
@@ -141,15 +142,15 @@ export class DocumentRules {
         return [Documents.RecordOfLanding, Documents.PermanentResidentCard];
     }
     switch (activity) {
-      case Activities.WorkingInBC:
+      case CanadianStatusReason.WorkingInBC:
         return [Documents.WorkPermit];
-      case Activities.StudyingInBC:
+      case CanadianStatusReason.StudyingInBC:
         return [Documents.StudyPermit];
-      case Activities.ReligiousWorker:
+      case CanadianStatusReason.ReligiousWorker:
         return [Documents.VisitorVisa];
-      case Activities.Diplomat:
+      case CanadianStatusReason.Diplomat:
         return [Documents.PassportWithDiplomaticFoil];
-      case Activities.Visiting:
+      case CanadianStatusReason.Visiting:
         return [Documents.VisitorVisa];
     }
   }

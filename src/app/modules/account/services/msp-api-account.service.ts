@@ -25,13 +25,12 @@ import { SimpleDate, Address } from 'moh-common-lib';
 import { AttachmentTypeFactory, AttachmentsType, AttachmentsTypeFactory } from '../../../modules/msp-core/api-model/applicationTypes';
 import { AddressType, AddressTypeFactory, CitizenshipType, GenderType, NameType, NameTypeFactory } from '../../../modules/msp-core/api-model/commonTypes';
 import { LivedInBCTypeFactory, OutsideBCTypeFactory, WillBeAwayTypeFactory } from '../../../modules/msp-core/api-model/enrolmentTypes';
-
-
 import {
   MSPApplicationSchema
 } from 'app/modules/msp-core/interfaces/i-api';
-import { Activities, StatusInCanada, Relationship } from '../../msp-core/models/status-activities-documents';
-//import { FieldPageMap } from '../models/field-page-map';
+import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
+import { Relationship } from '../../msp-core/models/relationship.enum';
+
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +44,7 @@ export class MspApiAccountService extends AbstractHttpService {
   readonly ISO8601DateFormat = 'YYYY-MM-DD';
   accountMaintenanceApiResponse: AccountMaintenanceApiResponse;
 
-  
+
   constructor(
     protected http: HttpClient,
     private logService: MspLogService,
@@ -61,7 +60,7 @@ export class MspApiAccountService extends AbstractHttpService {
   static readonly ApplicationType = 'benefitApplication';
 
   sendRequest(app: MspAccountApp): Promise<any> {
-    
+
     const suppBenefitRequest = this.prepareAccountApplication(app);
 
     return new Promise<AccountMaintenanceApiResponse>((resolve, reject) => {
@@ -156,7 +155,7 @@ export class MspApiAccountService extends AbstractHttpService {
       'Response-Type': 'application/json',
       'X-Authorization': 'Bearer ' + authToken
     });
-    return this.post<MspAccountApp>(url, app);
+    return this.http.post<MspAccountApp>(url, app);
   }
 
   public sendAttachments(
@@ -813,7 +812,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
   }
 
 
-  findCitizenShip(statusInCanada: StatusInCanada, currentActivity: Activities): CitizenshipType {
+  findCitizenShip(statusInCanada: StatusInCanada, currentActivity: CanadianStatusReason): CitizenshipType {
       let citizen: CitizenshipType;
       switch (statusInCanada) {
           case StatusInCanada.CitizenAdult:
@@ -824,19 +823,19 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
               break;
           case StatusInCanada.TemporaryResident:
               switch (currentActivity) {
-                  case Activities.WorkingInBC:
+                  case CanadianStatusReason.WorkingInBC:
                       citizen = 'WorkPermit';
                       break;
-                  case Activities.StudyingInBC:
+                  case CanadianStatusReason.StudyingInBC:
                       citizen = 'StudyPermit';
                       break;
-                  case Activities.Diplomat:
+                  case CanadianStatusReason.Diplomat:
                       citizen = 'Diplomat';
                       break;
-                  case Activities.ReligiousWorker:
+                  case CanadianStatusReason.ReligiousWorker:
                       citizen = 'ReligiousWorker';
                       break;
-                  case Activities.Visiting:
+                  case CanadianStatusReason.Visiting:
                   default:
                       citizen = 'VisitorPermit';
                       break;

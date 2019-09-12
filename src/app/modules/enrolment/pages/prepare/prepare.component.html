@@ -14,19 +14,22 @@
     <common-page-section layout='noTips'>
         <form #formRef='ngForm' novalidate>
 
-            <common-radio [value]="liveInBC"  
+            <common-radio #liveInBCBtn
+                          name="LiveInBC"
+                          [ngModel]="liveInBC"  
                           [label]="question1" 
                           [radioLabels]="radioLabels"
-                          (statusChange)="setLiveInBC($event)"
+                          (ngModelChange)="setLiveInBC($event)"
                           aria-labelledby="q1">
             </common-radio> 
 
             <div [hidden]="liveInBC !== true" role="dialog" aria-labelledby="q2">
             
-                <common-radio [value]="plannedAbsence"  
+                <common-radio name="PlannedAbsence"
+                              [ngModel]="plannedAbsence"  
                               [label]="plannedAwayForOver30DaysQuestion" 
                               [radioLabels]="radioLabels"
-                              (statusChange)="setPlannedAbsence($event)">
+                              (ngModelChange)="setPlannedAbsence($event)">
                 </common-radio>
 
                 <p class="text-danger" 
@@ -44,9 +47,10 @@
                  role="dialog" 
                  aria-labelledby="q3"> 
 
-                <common-radio [value]="unUsualCircumstance"  
+                <common-radio name="UnusualCircumstance"
+                              [ngModel]="unUsualCircumstance"  
                               [radioLabels]="radioLabels"
-                              (statusChange)="setUnusualCircumstance($event)">
+                              (ngModelChange)="setUnusualCircumstance($event)">
                     Is anyone you're applying for<br>
                     <ul class="mb-0">
                         <li>A student returning to your home province at the end of a course or program; or</li>

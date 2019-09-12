@@ -207,10 +207,19 @@ export class MspAccountMaintenanceDataService {
     if (input.gender) {
       dto.gender = input.gender.valueOf();
     }
+    console.log('======Abhi Status ====='+input.status);
     dto.status = input.status;
     dto.currentActivity = input.currentActivity;
 
     dto.images = input.documents.images;
+
+    dto.updateStatusInCanada = input.updateStatusInCanada;
+    dto.updateNameDueToMarriage = input.updateNameDueToMarriage;
+    dto.updateNameDueToError = input.updateNameDueToError;
+    dto.updateBirthdate = input.updateBirthdate;
+    dto.updateGender = input.updateGender;
+    dto.updateGenderDesignation = input.updateGenderDesignation;
+
     return dto;
   }
 
@@ -298,6 +307,13 @@ export class MspAccountMaintenanceDataService {
       output.documents.images = [...output.documents.images, img];
     });
 
+    output.updateStatusInCanada = dto.updateStatusInCanada;
+    output.updateNameDueToMarriage = dto.updateNameDueToMarriage;
+    output.updateNameDueToError = dto.updateNameDueToError;
+    output.updateBirthdate = dto.updateBirthdate;
+    output.updateGender = dto.updateGender;
+    output.updateGenderDesignation = dto.updateGenderDesignation;
+
     return output;
   }
 
@@ -305,12 +321,17 @@ export class MspAccountMaintenanceDataService {
   toMspAccountAppTransferObject(input: MspAccountApp): MspAccountDto {
     const dto: MspAccountDto = new MspAccountDto();
     dto.addressUpdate = input.accountChangeOptions.addressUpdate;
+    
     dto.personInfoUpdate = input.accountChangeOptions.personInfoUpdate;
+    dto.immigrationStatusChange = input.accountChangeOptions.immigrationStatusChange;
+
     dto.nameChangeDueToMarriage =
       input.accountChangeOptions.nameChangeDueToMarriage;
     dto.dependentChange = input.accountChangeOptions.dependentChange;
     dto.statusUpdate = input.accountChangeOptions.statusUpdate;
+    console.log(input.applicant);
     dto.applicant = this.toPersonDtoForAccount(input.applicant);
+
     if (input.updatedSpouse) {
       dto.applicant.updatedSpouse = this.toPersonDtoForAccount(
         input.updatedSpouse
@@ -397,7 +418,10 @@ export class MspAccountMaintenanceDataService {
     const output: MspAccountApp = new MspAccountApp();
 
     output.accountChangeOptions.addressUpdate = dto.addressUpdate;
+
     output.accountChangeOptions.personInfoUpdate = dto.personInfoUpdate;
+    output.accountChangeOptions.immigrationStatusChange = dto.immigrationStatusChange;
+
     output.accountChangeOptions.dependentChange = dto.dependentChange;
     output.accountChangeOptions.statusUpdate = dto.statusUpdate;
     output.accountChangeOptions.nameChangeDueToMarriage =

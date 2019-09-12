@@ -6,21 +6,13 @@ import {
   ViewChild,
   ChangeDetectorRef
 } from '@angular/core';
-import { state, trigger, style } from '@angular/animations';
 import {
-  MspPerson,
-  Gender
+  Gender, MspPerson
 } from '../../../../components/msp/model/msp-person.model';
 import { OutofBCRecord } from '../../../../models/outof-bc-record.model';
 import {
-  ActivitiesRules,
-  StatusInCanada,
-  Activities,
   DocumentRules,
-  Relationship,
-  LangStatus,
-  LangActivities,
-  yesNoLabels
+  yesNoLabels,
 } from '../../../msp-core/models/status-activities-documents';
 import * as _ from 'lodash';
 
@@ -35,11 +27,16 @@ import {
 import { MspAddressConstants } from '../../../../models/msp-address.constants';
 import { MspDocumentConstants, Documents } from '../../../msp-core/models/msp-document.constants';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
+import { StatusInCanada, CanadianStatusStrings, CanadianStatusReasonStrings, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
+import { statusReasonRules } from '../../../msp-core/components/canadian-status/canadian-status.component';
+import { Relationship } from '../../../msp-core/models/relationship.enum';
+
+
 @Component({
   selector: 'msp-personal-details',
   templateUrl: './personal-details.component.html',
   styleUrls: ['./personal-details.component.scss'],
-
+/*
   animations: [
     trigger('shrinkOut', [
       state('in', style({ display: 'none' })),
@@ -65,6 +62,7 @@ import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/componen
       // transition('* => *', animate(500))
     ])
   ]
+  */
 })
 export class PersonalDetailsComponent extends BaseComponent {
   /**
@@ -91,7 +89,7 @@ export class PersonalDetailsComponent extends BaseComponent {
 
 
 
-  lang = require('./i18n');
+  //lang = require('./i18n'); //TODO: pull wording from file to use in html
 /*
   @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
   @ViewChild('imageErrorModal') imageErrorModal: MspImageErrorModalComponent;
@@ -126,17 +124,19 @@ export class PersonalDetailsComponent extends BaseComponent {
   >();*/
 
 
+  /*
   shrinkOut: string;
   shrinkOutStatus: string;
   genderListSignal: string;
+  */
+
   institutionWorkSignal: string;
   showServicesCardModal: boolean = false;
 
+
   /** Hides the 'Clear Spouse/Child' button, and the <hr> at the end of the component. Useful in layouts where this form must be embedded in a larger form.. */
-  @Input() embedded: boolean = false;
+  //@Input() embedded: boolean = false;
   institutionList: string[] = ['Yes', 'No'];
-
-
 
 
   // START -- NEW CODE FOR PAGE
@@ -150,19 +150,19 @@ export class PersonalDetailsComponent extends BaseComponent {
 
 
 
-  statusOpts: string[] = Object.keys(LangStatus).map( x  => LangStatus[x] );
-  activitiesOpts: string[] = Object.keys(LangActivities).map( x  => LangActivities[x] );
+  statusOpts: string[] = Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
+  activitiesOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
   documentOpts: string[] = MspDocumentConstants.langDocument();
   yesNoRadioLabels = yesNoLabels;
+  // genderRadioLabels = genderLabels;
 
   statusDocumentType: string = null;
   hasStatusDocumentType: boolean = false;
   nameChangeDocumentType: string = null;
   hasNameChangeDocumentType: boolean = false;
-  hasNameChange: boolean = false;
+  hasNameChange: boolean = undefined;
 
   uploadDocInstructions = 'Click add, or drag and drop file into this box';
-
   // END -- NEW CODE FOR PAGE
 
   constructor(private cd: ChangeDetectorRef) {
@@ -178,7 +178,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   setStatusInCanada($event) {
-    const status = Object.keys(LangStatus).find( x => LangStatus[x] === $event );
+    const status = Object.keys(CanadianStatusStrings).find( x => CanadianStatusStrings[x] === $event );
     this.person.status = StatusInCanada[status];
 
     // initialize activity
@@ -191,7 +191,7 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.personChange.emit(this.person);
   }
 
-  setActivity(value: Activities) {
+  setActivity(value: CanadianStatusReason) {
     if (
       this.showServicesCardModal &&
       this.person.bcServiceCardShowStatus &&
@@ -220,11 +220,8 @@ export class PersonalDetailsComponent extends BaseComponent {
   /**
    * Gets the available activities given the known status
    */
-  get activities(): Activities[] {
-    return ActivitiesRules.availableActivities(
-      this.person.relationship,
-      this.person.status
-    );
+  get activities(): CanadianStatusReason[] {
+    return statusReasonRules( this.person.relationship, this.person.status );
   }
 
   /**
@@ -273,9 +270,6 @@ export class PersonalDetailsComponent extends BaseComponent {
     return this.person.status === StatusInCanada.CitizenAdult;
   }
 
-
-  
-
   /**
    * Gets the available documents given the known status and activity
    */
@@ -293,6 +287,8 @@ export class PersonalDetailsComponent extends BaseComponent {
     this.person.documents.images = evt;
     this.personChange.emit(this.person);
   }
+
+
 
   /*
   errorDocument(evt: MspImage) {
@@ -314,7 +310,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
 
   get arrivalDateLabel(): string {
-    if (this.person.currentActivity === Activities.LivingInBCWithoutMSP) {
+    if (this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP) {
       return 'Most recent move to B.C.';
     }
     return 'Arrival date in B.C.';
@@ -520,6 +516,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   }
   setGender(evt: Gender) {
     this.person.gender = evt;
+    this.personChange.emit(this.person);
   }
 
   isCanada(addr: Address): boolean {

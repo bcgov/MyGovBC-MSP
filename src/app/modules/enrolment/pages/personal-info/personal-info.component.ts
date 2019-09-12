@@ -1,29 +1,29 @@
 import {Component, Injectable, ViewChild, ViewChildren,
   ChangeDetectorRef, QueryList} from '@angular/core';
-import {MspApplication, MspPerson} from '../../models/application.model';
-
 // import {MspDataService} from '../../service/msp-data.service';
 import { MspDataService } from '../../../../services/msp-data.service';
-
 import { Router } from '@angular/router';
-import {Relationship} from '../../../msp-core/models/status-activities-documents';
 import {NgForm} from '@angular/forms';
 import {PersonalDetailsComponent} from '../../components/personal-details/personal-details.component';
 import {BaseComponent} from '../../../../models/base.component';
-import { StatusInCanada} from '../../../msp-core/models/status-activities-documents';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
+import { MspApplication } from '../../models/application.model';
+import { MspPerson } from '../../../account/models/account.model';
+import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
+import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { statusReasonRules } from '../../../msp-core/components/canadian-status/canadian-status.component';
+
 
 @Component({
   templateUrl: './personal-info.component.html'
 })
 @Injectable()
 export class PersonalInfoComponent extends BaseComponent {
-  static ProcessStepNum = 1;
+
   lang = require('./i18n');
   Relationship: typeof Relationship = Relationship;
-  public buttonClass: string = 'btn btn-default';
 
   @ViewChild('formRef') form: NgForm;
   @ViewChild('mspServicesCardModal')
@@ -32,12 +32,10 @@ export class PersonalInfoComponent extends BaseComponent {
     PersonalDetailsComponent
   >;
 
-  constructor(
-    private dataService: MspDataService,
-    private _router: Router,
-    private pageStateService: PageStateService,
-    cd: ChangeDetectorRef
-  ) {
+  constructor( private dataService: MspDataService,
+               private _router: Router,
+               private pageStateService: PageStateService,
+               cd: ChangeDetectorRef ) {
     super(cd);
   }
 
@@ -56,6 +54,13 @@ export class PersonalInfoComponent extends BaseComponent {
   }
   get applicant(): MspPerson {
     return this.dataService.mspApplication.applicant;
+  }
+
+  get availableActivities() {
+    return statusReasonRules(
+      this.applicant.relationship,
+      this.applicant.status
+    );
   }
 
   get spouse(): MspPerson {

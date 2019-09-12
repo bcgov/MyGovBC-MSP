@@ -656,6 +656,14 @@ export class MspDataService {
     dto.childrenStatusDoc = input.childrenStatusDoc;
     dto.childrenNameDoc = input.childrenNameDoc;
 
+    // Documents
+    dto.applicantStatusDoc = input.applicantStatusDoc;
+    dto.applicantNameDoc = input.applicantNameDoc;
+    dto.spouseStatusDoc = input.spouseStatusDoc;
+    dto.spouseNameDoc = input.spouseNameDoc;
+    dto.childrenStatusDoc = input.childrenStatusDoc;
+    dto.childrenNameDoc = input.childrenNameDoc;
+
     return dto;
   }
 

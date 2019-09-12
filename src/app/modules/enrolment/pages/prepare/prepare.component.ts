@@ -1,18 +1,16 @@
 import {ChangeDetectorRef, Component, Injectable, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {  Router } from '@angular/router';
-import {MspApplication, MspPerson} from '../../models/application.model';
 import * as _ from 'lodash';
 import {MspDataService} from '../../../../services/msp-data.service';
-import {ConsentModalComponent} from 'moh-common-lib';
-import {ProcessService} from '../../../../services/process.service';
 import {BaseComponent} from '../../../../models/base.component';
-import { CommonButtonGroupComponent } from '../../../msp-core/components/common-button-group/common-button-group.component';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { environment } from '../../../../../environments/environment.prod';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
 import { PageStateService } from '../../../../services/page-state.service';
 import { yesNoLabels } from '../../../msp-core/models/status-activities-documents';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { MspApplication } from '../../models/application.model';
 
 @Component({
   templateUrl: './prepare.component.html'
@@ -20,14 +18,12 @@ import { yesNoLabels } from '../../../msp-core/models/status-activities-document
 @Injectable()
 export class PrepareComponent extends BaseComponent {
 
-  static ProcessStepNum = 0;
   @ViewChild('formRef') form: NgForm;
-  @ViewChild('liveInBCBtn') liveInBCBtn: CommonButtonGroupComponent ;
+  //@ViewChild('liveInBCBtn') liveInBCBtn: RadioComponent ;
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
 
   private apt: MspPerson;
   mspApplication: MspApplication;
-  public styleClass: string = 'control-label';
 
   // labels
   radioLabels = yesNoLabels;

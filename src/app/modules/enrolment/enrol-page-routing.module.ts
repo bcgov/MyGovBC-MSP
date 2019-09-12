@@ -6,6 +6,7 @@ import { ChildInfoComponent } from './pages/child-info/child-info.component';
 import { EnrolAddressComponent } from './pages/address/address.component';
 import { ReviewComponent } from './pages/review/review.component';
 import { AuthorizeComponent } from './pages/authorize/authorize.component';
+import { SendingComponent } from './pages/sending/sending.component';
 import { ROUTES_ENROL } from './models/enrol-route-constants';
 import { RouteGuardService } from 'moh-common-lib';
 
@@ -50,6 +51,12 @@ export const enrolPages: Routes = [
         canActivate: [RouteGuardService],
         component: AuthorizeComponent,
         data: { title: ROUTES_ENROL.AUTHORIZE.title }
+    },
+    {
+        path: ROUTES_ENROL.SENDING.path,
+        canActivate: [RouteGuardService],
+        component: SendingComponent,
+        data: { title: ROUTES_ENROL.SENDING.title }
     },
     {
         path: '',

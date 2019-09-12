@@ -5,7 +5,7 @@ import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 import {MspApiBenefitService} from '../../services/msp-api-benefit.service';
 import {HttpErrorResponse} from '@angular/common/http';
-import {SuppBenefitApiResponse} from '../../models/suppBenefit-response.interface';
+import {ApiResponse} from '../../../../models/api-response.interface';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
     transmissionInProcess: boolean;
     hasError: boolean;
     showMoreErrorDetails: boolean;
-    suppBenefitResponse: SuppBenefitApiResponse;
+    suppBenefitResponse: ApiResponse;
 
     constructor(private dataService: MspBenefitDataService,
                 private service: MspApiBenefitService,
@@ -42,7 +42,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
         // After view inits, begin sending the application
         this.service
           .sendRequest(this.application)
-          .then((response: SuppBenefitApiResponse) => {
+          .then((response: ApiResponse) => {
             // probable network errors..middleware could be down
             
             if (response instanceof HttpErrorResponse) {
@@ -56,7 +56,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
             }
 
             // Business errors. Might be either a DB error.
-            this.suppBenefitResponse = <SuppBenefitApiResponse> response;
+            this.suppBenefitResponse = <ApiResponse> response;
 
             if (this.isFailure(this.suppBenefitResponse)) {
                 console.log('isFailure', this.suppBenefitResponse);
@@ -102,7 +102,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
       this.router.navigate(['/benefit/authorize']);
   }
 
-  isFailure(suppBenefitApiResponse: SuppBenefitApiResponse): boolean {
+  isFailure(suppBenefitApiResponse: ApiResponse): boolean {
       // has a reference number , is DB error code Y , is RAPID response Y then its not a failure
     //   if (suppBenefitApiResponse && suppBenefitApiResponse.referenceNumber && !suppBenefitApiResponse.dberrorMessage) {
     //       return false;

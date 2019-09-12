@@ -1,9 +1,10 @@
 import {UUID} from 'angular2-uuid';
 import {ApplicationBase} from '../../msp-core/models/application-base.model';
 import {MspPerson, OperationActionType} from '../../../components/msp/model/msp-person.model';
-import {Relationship, StatusInCanada} from '../../msp-core/models/status-activities-documents';
 import {PhoneNumber} from '../../../components/msp/model/phone.model';
 import { Address, CommonImage } from 'moh-common-lib';
+import { StatusInCanada } from '../../msp-core/models/canadian-status.enum';
+import { Relationship } from '../../msp-core/models/relationship.enum';
 
 class MspAccountApp implements ApplicationBase {
     set updatedChildren(value: Array<MspPerson>) {
@@ -318,9 +319,10 @@ class MspAccountApp implements ApplicationBase {
 
 class AccountChangeOptions {
 
-    personInfoUpdate: boolean = false;
+    personInfoUpdate: boolean ;
     dependentChange: boolean = false;
     addressUpdate: boolean = false;
+    immigrationStatusChange: boolean;
 
     get nameChangeDueToMarriage(): boolean {
         return this._nameChangeDueToMarriage;
@@ -350,5 +352,9 @@ class AccountChangeOptions {
         return  this.addressUpdate || this.personInfoUpdate  ||  this.dependentChange || this.statusUpdate;
     }
 }
+class UpdateList {
+    label: string;
+    value: boolean;
+}
 
-export {MspAccountApp, AccountChangeOptions, MspPerson};
+export {MspAccountApp, AccountChangeOptions, MspPerson, UpdateList};

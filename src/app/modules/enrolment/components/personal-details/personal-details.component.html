@@ -1,28 +1,3 @@
-<msp-services-card-disclaimer-modal #mspServicesCardModal></msp-services-card-disclaimer-modal>
-
-<h2>{{sectionTitle}}</h2>
-<p class="border-bottom">{{sectionInstruct}}</p>
-
-<common-page-section layout="tips">
-  <div class="form-group col-sm-6 p-sm-0 mb-0">
-    <common-dropdown name="StatusInCanada"
-                     [label]="statusLabel"
-                     [items]="statusOpts"
-                     placeholder="Please Select"
-                     [clearable]="false"
-                     [ngModel]="getStatusInCanada()"
-                     (ngModelChange)="setStatusInCanada($event);">
-    </common-dropdown>
-  </div>
-  <div class="form-group col-sm-8">
-    <common-radio *ngIf="getStatusInCanada()" 
-                  [radioLabels]="activitiesTable"
-                  [value]="person.currentActivity"
-                  (statusChange)="setActivity($event)" 
-                  display="table-row-group">
-    </common-radio>
-  </div>
-</common-page-section>
 
 <div *ngIf="getStatusInCanada() && person.currentActivity">
   <h2>Documents</h2>
@@ -60,12 +35,11 @@
                             [required]="true" 
                             instructionText="{{uploadDocInstructions}}">
       </common-file-uploader>
-
       <common-radio class="p-sm-2"
-                    [value]="hadNameChanged"  
+                    [value]="hasNameChange"  
                     label="Has your name changed since your ID was issued due to marriage or a legal name change?" 
                     [radioLabels]="yesNoRadioLabels"
-                    (statusChange)="hadNameChanged=$event">
+                    (statusChange)="hasNameChange=$event">
         </common-radio>
       <aside>
         <div>
@@ -138,22 +112,32 @@
   </div>
 </div>
 
-<div *ngIf="statusDocuments.length &&  (!hasNameChange || (hasNameChange && nameDocuments.length))">
+<div *ngIf="statusDocuments.length && (hasNameChange == false || (hasNameChange && nameDocuments.length))">
   <!--TODO: Title needs to change depending on relationship - should be a variable-->
   <h2>Personal Information</h2>
   <p class="border-bottom">Enter your legal name and gender.</p>
   <common-page-section layout="tips">
-    <msp-full-name #name [data]="person" (dataChange)="onChange.emit($event)">
+    <msp-full-name [useRows]='false'
+                   [data]="person" 
+                   (dataChange)="personChange.emit($event)">
     </msp-full-name>
 
-    <msp-birthdate #birthDate [person]="person" class="row" (onChange)="onChange.emit($event)"
-      [showError]="showError">
-    </msp-birthdate>
+    <common-date [restrictDate]="'past'" 
+                 [(date)]="person.dateOfBirth"
+                 (dateChange)="personChange.emit(person)"></common-date>
 
+    <!-- <common-radio class="p-sm-2"
+                  label="Gender"
+                  [radioLabels]="genderRedioLabels"
+                  [value]="person.gender" 
+                  (statusChange)="setGender($event)">
+    </common-radio> -->
 
-    <common-radio class="row" [radioLabels]='genderLabels' (statusChange)="setGender($event)"
-      [(ngModel)]="person.gender" name="gender" label="Gender">
+    <common-radio class='p-sm-2' [value]="person.gender" label='Gender'
+      [radioLabels]='[{"label": "Male", "value": "M"},{ "label": "Female", "value": "F"}]'
+      (statusChange)="setGender($event)">
     </common-radio>
+
   </common-page-section>
 
   <h2>Moving Information</h2>
@@ -161,7 +145,9 @@
       <p class="border-bottom">
         Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
       </p>
+      
       <common-page-section layout="tips">
+        Need to added html code
       </common-page-section>
     </div>
 

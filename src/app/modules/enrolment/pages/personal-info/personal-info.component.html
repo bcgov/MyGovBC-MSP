@@ -5,6 +5,19 @@
       Please provide the main applicant's (Account Holder) personal information and status in Canada. You will be required to provide supporting documents with your application.
     </p>
 
+    <msp-canadian-status [person]="applicant"
+                         (personChange) = "onChange($event)">
+      <div sectionTitleInfo>
+        <h2>Status in Canada</h2>
+        <p class="border-bottom">
+            Please provide your immigration status information. You will be required to upload documents to support your status in Canada.
+        </p>
+      </div>
+    </msp-canadian-status>
+
+
+    
+
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
       (personChange) = "onChange($event)"
       [(statusDocuments)]="application.applicantStatusDoc"

@@ -11,9 +11,10 @@ import {MspIdReqModalComponent} from '../../../../modules/msp-core/components/id
 import { MspAccountApp } from '../../models/account.model';
 import { DocumentGroup, LangAccountDocuments } from '../../../../models/account-documents';
 import { AccountDocumentHelperService } from '../../../benefit/services/account-document-helper.service';
-import { CancellationReasonsForSpouse, LangStatus, LangActivities } from '../../../msp-core/models/status-activities-documents';
+import { CancellationReasonsForSpouse } from '../../../msp-core/models/status-activities-documents';
 import { Documents } from '../../../msp-core/models/msp-document.constants';
 import { CommonImage } from 'moh-common-lib';
+import { CanadianStatusReasonStrings, CanadianStatusStrings } from '../../../msp-core/models/canadian-status.enum';
 
 @Component({
     templateUrl: './documents.component.html'
@@ -28,8 +29,8 @@ export class AccountDocumentsComponent extends BaseComponent {
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
     @ViewChild('idReqModal') idReqModal: MspIdReqModalComponent;
 
-    langStatus = LangStatus;
-    langActivities = LangActivities;
+    langStatus = CanadianStatusStrings;
+    langActivities = CanadianStatusReasonStrings;
     documentsList: DocumentGroup[] ;
 
     langAccountDocuments = LangAccountDocuments;

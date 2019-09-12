@@ -1,25 +1,34 @@
 <form #formRef="ngForm" novalidate>
-    <common-page-framework layout="blank">
+  <common-page-framework layout="blank">
 
-  <h1>Tell us about your Spouse and upload official documents</h1>
-  
-    
+  <h1>Spouse Information</h1>
+  <p class="border-bottom">
+      A spouse is a resident of B.C. who is married to or is living and cohabiting in a 
+      marriage-like relationship with the applicant. You will be required to provide 
+      supporting documents with your application.
+  </p>
+
   <div class="row">
     <div class="col-sm-8">
-      <common-button *ngIf = '!spouse' [label]="'Add Spouse'" 
-        [buttonType]="buttonClass" (btnClick)='addSpouse()'>
+      <common-button label="Add Spouse" 
+                     buttonType="btn btn-primary"
+                     (btnClick)="addSpouse()"
+                     [disabled]="hasSpouse">
       </common-button>
     </div>
   </div>  
 
-  <div *ngIf = 'spouse'>
-    <!-- TODO: Fix once the personal info page is complete as spouse & child use same component
-      <msp-personal-details [person] = 'spouse' [id] = 'spouse.id'
-        (notifySpouseRemoval)="removeSpouse($event)"
-        (onChange) = "onChange($event)"
-        [showError] = "formRef.submitted">
-      </msp-personal-details>
-    -->
+  <div *ngIf="hasSpouse">
+      <msp-canadian-status [(person)]="spouse"
+                           (personChange) = "onChange($event)"
+                           label="{{statusLabel}}">
+      <div sectionTitleInfo>
+        <h2>Spouse or common-law partner</h2>
+        <p class="border-bottom">
+            Please provide the spouse's personal information and immigration status in Canada. You will be required to upload supporting documents with your application.
+        </p>
+      </div>
+      </msp-canadian-status>
   </div>
 </common-page-framework>
  

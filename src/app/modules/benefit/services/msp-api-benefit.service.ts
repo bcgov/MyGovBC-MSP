@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { Response } from '@angular/http';
 import { MspApiService } from '../../../services/msp-api.service';
-import { SuppBenefitApiResponse } from '../models/suppBenefit-response.interface';
+import { ApiResponse } from '../../../models/api-response.interface';
 import { SchemaService } from 'app/services/schema.service';
 import { Router } from '@angular/router';
 import { MspBenefitDataService } from './msp-benefit-data.service';
@@ -32,7 +32,7 @@ import { FieldPageMap } from '../models/field-page-map';
 export class MspApiBenefitService extends AbstractHttpService {
   protected _headers: HttpHeaders = new HttpHeaders();
   readonly ISO8601DateFormat = 'YYYY-MM-DD';
-  suppBenefitResponse: SuppBenefitApiResponse;
+  suppBenefitResponse: ApiResponse;
 
   
   constructor(
@@ -55,7 +55,7 @@ export class MspApiBenefitService extends AbstractHttpService {
   sendRequest(app: BenefitApplication): Promise<any> {
     const suppBenefitRequest = this.prepareBenefitApplication(app);
 
-    return new Promise<SuppBenefitApiResponse>((resolve, reject) => {
+    return new Promise<ApiResponse>((resolve, reject) => {
       //Validating the response against the schema
       this.schemaSvc.validate(suppBenefitRequest).then(res => {
         console.log(res.errors);
