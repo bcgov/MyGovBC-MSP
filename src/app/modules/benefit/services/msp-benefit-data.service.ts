@@ -96,7 +96,7 @@ export class MspBenefitDataService extends MspDataService{
         dto.spaEnvRes = input.spaEnvRes;
         dto.cutoffYear = input.cutoffYear;
         dto.isCutoffDate = input.isCutoffDate;
-
+        dto.totalDeduction = input.totalDeduction;
 
         dto.taxYear = input.taxYear;
         //dto.assistYearDocs = input.assistYearDocs;
@@ -122,6 +122,7 @@ export class MspBenefitDataService extends MspDataService{
         output.infoCollectionAgreement = dto.infoCollectionAgreement;
         output.spaEnvRes = dto.spaEnvRes;
         output.isEligible = dto.isEligible;
+
 
         output.netIncomelastYear = dto.incomeLine236;
         output.ageOver65 = dto.ageOver65;
@@ -162,6 +163,7 @@ export class MspBenefitDataService extends MspDataService{
         output.taxYear = dto.taxYear;
         output.cutoffYear = dto.cutoffYear;
         output.isCutoffDate = dto.isCutoffDate;
+        output.totalDeduction = dto.totalDeduction;
 //        output.assistYearDocs = dto.assistYearDocs || [];
 
         this.convertToPerson(dto.applicant, output.applicant);

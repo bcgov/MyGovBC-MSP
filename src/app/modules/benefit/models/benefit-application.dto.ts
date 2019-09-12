@@ -31,6 +31,8 @@ export default class BenefitApplicationDto {
   mailingAddress = new AddressDto();
   residentialAddress = new AddressDto();
   spaEnvRes: ISpaEnvResponse;
+  totalDeduction: number;
+  numDisabled: number;
 
   applicant: PersonDto = new PersonDto();
   spouse: PersonDto = new PersonDto();
