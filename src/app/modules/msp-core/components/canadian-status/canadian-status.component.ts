@@ -76,13 +76,14 @@ export function statusReasonRules( relationship: Relationship,
     { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
   ]
 })
-export class CanadianStatusComponent implements OnInit {
+export class CanadianStatusComponent {
 
   @ViewChild('mspServicesCardModal')
     servicesCardDisclaimerModalComponent: ServicesCardDisclaimerModalComponent;
 
   @Input() statusReasonList: CanadianStatusReason[];
   @Input() label: String = 'Your immigration status in Canada';
+  @Input() displayStatusInCanada: boolean = true;
 
   @Input() person: MspPerson;
   @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
@@ -90,14 +91,10 @@ export class CanadianStatusComponent implements OnInit {
   statusOpts: string[] = Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
   showServicesCardModal: boolean;
 
-  private _reasonList: CanadianStatusReason[] = [];
   private _reasonOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
 
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
   /**
    * Gets status available to the current person
@@ -111,13 +108,6 @@ export class CanadianStatusComponent implements OnInit {
     const status = Object.keys(CanadianStatusStrings).find( x => CanadianStatusStrings[x] === $event );
 
     this.person.status = StatusInCanada[status];
-
-    // Get the status reason list available for the selected status
-    if ( !this.statusReasonList ) {
-      this._reasonList = statusReasonRules( this.person.relationship, this.person.status );
-    } else {
-      this._reasonList = this.statusReasonList;
-    }
 
     // initialize activity
     this.person.currentActivity = null;
@@ -134,6 +124,7 @@ export class CanadianStatusComponent implements OnInit {
    * @param value
    */
   setReason(value: CanadianStatusReason) {
+    console.log('setReason: ', value);
     if (
       this.showServicesCardModal &&
       this.person.bcServiceCardShowStatus &&
@@ -152,14 +143,19 @@ export class CanadianStatusComponent implements OnInit {
    * Display available activities for status
    */
   get availableStatusReasons() {
+    return this.reasonList.map(itm => {
+      return {
+        label: this._reasonOpts[itm],
+        value: itm
+      };
+    });
+  }
 
-    if ( this._reasonList ) {
-      return this._reasonList.map(itm => {
-        return {
-          label: this._reasonOpts[itm],
-          value: itm
-        };
-      });
-    }
+  get reasonList() {
+      // Get the status reason list available for the selected status
+      if ( !this.statusReasonList ) {
+        return statusReasonRules( this.person.relationship, this.person.status );
+      }
+      return this.statusReasonList;
   }
 }

@@ -56,21 +56,6 @@ export class PersonalInfoComponent extends BaseComponent {
     return this.dataService.mspApplication.applicant;
   }
 
-  get availableActivities() {
-    return statusReasonRules(
-      this.applicant.relationship,
-      this.applicant.status
-    );
-  }
-
-  get spouse(): MspPerson {
-    return this.dataService.mspApplication.spouse;
-  }
-
-  addSpouse = () => {
-    const sp: MspPerson = new MspPerson(Relationship.Spouse);
-    this.dataService.mspApplication.addSpouse(sp);
-  }
 
   addChild(relationship: Relationship): void {
     this.dataService.mspApplication.addChild(relationship);
@@ -86,11 +71,6 @@ export class PersonalInfoComponent extends BaseComponent {
     this.dataService.saveMspApplication();
   }
 
-  removeSpouse(): void {
-    // console.log('remove spouse ' + JSON.stringify(event));
-    this.dataService.mspApplication.removeSpouse();
-    this.dataService.saveMspApplication();
-  }
 
   documentsReady(): boolean {
     return this.dataService.mspApplication.documentsReady;

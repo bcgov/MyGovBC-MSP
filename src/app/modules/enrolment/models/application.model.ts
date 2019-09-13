@@ -101,7 +101,7 @@ export class MspApplication implements ApplicationBase {
   }
 
   removeChild(idx: number): void {
-    const removed = this._children.splice(idx, 1);
+    this._children.splice(idx, 1);
   }
 
   removeSpouse(): void {
