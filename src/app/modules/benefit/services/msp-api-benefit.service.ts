@@ -379,9 +379,7 @@ export class MspApiBenefitService extends AbstractHttpService {
       to.spouseSIN = from.spouse.sin
         ? String(from.spouse.sin.replace(new RegExp('[^0-9]', 'g'), ''))
         : '';
-      to.spouseSixtyFiveDeduction = from.eligibility.spouseSixtyFiveDeduction
-        ? from.eligibility.spouseSixtyFiveDeduction
-        : 0;
+      
     }
 
     // Capturing Financial-info page response
@@ -405,24 +403,44 @@ export class MspApiBenefitService extends AbstractHttpService {
         ? from.eligibility.sixtyFiveDeduction
         : 0;
     to.totalDeductions =
-      from.eligibility.totalDeductions != null
-        ? from.eligibility.totalDeductions
+      from.totalDeduction != null
+        ? from.totalDeduction
         : 0;
     to.totalNetIncome =
       from.eligibility.totalNetIncome != null
         ? from.eligibility.totalNetIncome
         : 0;
-    if (from.claimedChildCareExpense_line214 != null) {
-      to.childCareExpense = from.claimedChildCareExpense_line214 * 1;
-    } else to.childCareExpense = 0;
+    
+    to.childCareExpense = from.claimedChildCareExpense_line214 != null ? (from.claimedChildCareExpense_line214 / 2) * 1 : 0 ;
+    
     to.netIncomeLastYear = Number(from.netIncomelastYear);
-    to.numChildren = from.childrenCount > 0 ? Number(from.childrenCount) : 0;
-    to.numDisabled = from.numDisabled * 1;
+
+    to.numChildren = (!!from.childrenCount && from.childrenCount > 0) ? from.childrenCount * 1 : 0;
+
+    let numDisabled = 0;
+    // applicant
+    if ( from.selfDisabilityCredit != null && from.selfDisabilityCredit === true) {
+      numDisabled = numDisabled + 1 ;
+    }
+
+    // spouse
+    if ( from.spouseEligibleForDisabilityCredit != null && from.spouseEligibleForDisabilityCredit === true) {
+      numDisabled = numDisabled + 1 ;
+    }
+
+    if ( from.childWithDisabilityCount != null && from.childWithDisabilityCount >= 0
+    ) {
+      numDisabled =  (numDisabled * 1 + from.childWithDisabilityCount * 1);
+    }
+
+    to.numDisabled = numDisabled * 1;
+
     to.spouseIncomeLine236 =
       from.spouseIncomeLine236 != null ? Number(from.spouseIncomeLine236) : 0;
     to.reportedUCCBenefit = from.reportedUCCBenefit_line117;
     to.spouseDSPAmount = from.spouseDSPAmount_line125 * 1;
     to.spouseDeduction = from.eligibility.spouseDeduction;
+    to.spouseSixtyFiveDeduction = (from.spouseAgeOver65 === true) ? 3000 : 0;
 
     // Capturing Address page response
     to.applicantAddressLine1 = from.mailingAddress.addressLine1;
