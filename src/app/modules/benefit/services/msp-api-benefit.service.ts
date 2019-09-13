@@ -411,10 +411,8 @@ export class MspApiBenefitService extends AbstractHttpService {
         ? from.eligibility.totalNetIncome
         : 0;
     
-    if (from.claimedChildCareExpense_line214 != null) {
-      to.childCareExpense = (from.claimedChildCareExpense_line214 / 2) * -1;
-    } else to.childCareExpense = 0;
-
+    to.childCareExpense = from.claimedChildCareExpense_line214 != null ? (from.claimedChildCareExpense_line214 / 2) * 1 : 0 ;
+    
     to.netIncomeLastYear = Number(from.netIncomelastYear);
 
     to.numChildren = (!!from.childrenCount && from.childrenCount > 0) ? from.childrenCount * 1 : 0;
