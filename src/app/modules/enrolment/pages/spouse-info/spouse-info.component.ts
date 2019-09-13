@@ -47,16 +47,16 @@ export class SpouseInfoComponent extends BaseComponent implements OnInit {
     this.dataService.mspApplication.addSpouse(sp);
   }
 
-  removeSpouse(event: Object): void{
+  /**
+   * Remove spouse
+   */
+  removeSpouse(): void{
     this.dataService.mspApplication.removeSpouse();
     this.dataService.saveMspApplication();
   }
 
   get application(): MspApplication {
     return this.dataService.mspApplication;
-  }
-  get applicant(): MspPerson {
-    return this.dataService.mspApplication.applicant;
   }
 
   get spouse(): MspPerson {

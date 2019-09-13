@@ -1,30 +1,51 @@
-<form #formRef="ngForm" novalidate>
-    <common-page-framework layout="blank" >
-  <h1>Tell us about your Dependants and upload official documents</h1>
- 
-  <div class="col-sm-4">
-    <common-button [label]="'Add Child'" 
-      [buttonType]="'btn btn-primary'" (btnClick)='addChild(Relationship.ChildUnder19)'>
-    </common-button>
-  </div>
-
-  <!-- TODO: Fix once the personal info page is complete as spouse & child use same component
-  <div *ngIf = 'children.length > 0'>
-      <msp-personal-details *ngFor = "let child of children; let idx = index"
-        [person] = 'child'
-        [id] = 'child.id'
-        (notifyChildRemoval)="removeChild($event,idx)"
-        (onChange) = "onChange($event)"
-        [showError] = "formRef.submitted">
-      </msp-personal-details>
+<common-page-framework layout="blank">
+    <form #formRef="ngForm" novalidate>
+    <h1>Child Information</h1>
+    <p class="border-bottom">
+        A child of the main applicant between 0-18 years of age can be added to the 
+        account. If your child is over 18 and younger than 25 years of age, they have to 
+        be a full-time student to be allowed on your account, and you will be required to 
+        provide their school information. You will be required to provide supporting documents 
+        with your application.
+    </p>
+    <div class="row">
+      <div class="col-sm-8">
+        <common-button [label]="'Add Child'" 
+                      [buttonType]="'btn btn-primary'"
+                      (btnClick)='addChild()'>
+        </common-button>
+      </div>
     </div>
-  -->
-  </common-page-framework>
 
-  <common-form-action-bar [submitLabel]="children.length > 0? 'Continue':'No Child'"
-    [canContinue]="!(!documentsReady() || checkAnyDependentsIneligible() || !isAllValid())" 
-    (btnClick)="nextStep()">
-  </common-form-action-bar>
- 
+    <div *ngIf="children.length > 0">
+      <div *ngFor="let child of children; let idx = index">
+        <msp-canadian-status [person]="child"
+                             (personChange)="onChange()"
+                             label="{{statusLabel}}"
+                             [displayStatusInCanada]="displayStatusOpt(idx)">
+          <div sectionTitleInfo>
+            <h2>Child #{{idx+1}}</h2>
+            <p class="border-bottom">
+                Please provide child's personal information and immigration status in Canada. You will be required to upload supporting documents with your application.
+                <common-xicon-button label= "Remove child" (click)="removeChild(idx)">
+                </common-xicon-button>
+            </p>
+            <div additionalInfo>
+                <common-radio class="p-sm-2"
+                              [value]="child.relationship"  
+                              label="How old is your child?" 
+                              [radioLabels]="childAgeCategory"
+                              (statusChange)="onRelationshipUpdate($event,idx)">
+                </common-radio>
+            </div>
+          </div>
+        </msp-canadian-status>
+      </div>
+    </div>
+  </form>
+</common-page-framework>
 
-</form>
+<common-form-action-bar [submitLabel]="children.length > 0? 'Continue':'No Child'"
+  [canContinue]="!(!documentsReady() || checkAnyDependentsIneligible() || !isAllValid())" 
+  (btnClick)="nextStep()">
+</common-form-action-bar>

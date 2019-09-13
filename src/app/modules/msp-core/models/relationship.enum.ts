@@ -8,4 +8,5 @@ export enum Relationship {
   Child19To24,
   ChildUnder24,
   AllAgeApplicant,
+  Unknown // Used to determine whether Status in Canada options should be displayed
 }
