@@ -19,16 +19,18 @@
   </div>  
 
   <div *ngIf="hasSpouse">
-      <msp-canadian-status [(person)]="spouse"
+      <msp-canadian-status [person]="spouse"
                            (personChange) = "onChange($event)"
                            label="{{statusLabel}}">
       <div sectionTitleInfo>
         <h2>Spouse or common-law partner</h2>
         <p class="border-bottom">
             Please provide the spouse's personal information and immigration status in Canada. You will be required to upload supporting documents with your application.
+            <common-xicon-button label= "Remove spouse" (click)="removeSpouse()">
+            </common-xicon-button>
         </p>
       </div>
-      </msp-canadian-status>
+    </msp-canadian-status>
   </div>
 </common-page-framework>
  

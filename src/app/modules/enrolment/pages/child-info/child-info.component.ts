@@ -15,15 +15,19 @@ import { Relationship } from '../../../msp-core/models/relationship.enum';
   styleUrls: ['./child-info.component.scss']
 })
 export class ChildInfoComponent extends BaseComponent implements OnInit {
-  static ProcessStepNum = 3;
-  Relationship: typeof Relationship = Relationship;
-  public buttonClass: string = 'btn btn-default';
+
+  statusLabel: string = 'Child\'s immigration status in Canada';
+  childAgeCategory = [
+    {'label': '0-18 years', 'value': Relationship.ChildUnder19},
+    {'label': '19-24 years (must be a full-time student)', 'value': Relationship.Child19To24},
+  ];
+
 
   // tslint:disable-next-line: no-trailing-whitespace
   constructor (private dataService: MspDataService, 
                private _router: Router,
                private pageStateService: PageStateService,
-              cd: ChangeDetectorRef) {
+               cd: ChangeDetectorRef) {
     super(cd);
   }
 
@@ -37,20 +41,32 @@ export class ChildInfoComponent extends BaseComponent implements OnInit {
 
   }
 
-  addChild(relationship: Relationship): void {
-    this.dataService.mspApplication.addChild(relationship);
+  addChild(): void {
+    // Default to child under 19 years (constructor for MspPerson requires relationship)
+    this.dataService.mspApplication.addChild(Relationship.Unknown);
   }
 
   get children(): MspPerson[] {
-    console.log(this.dataService.mspApplication.children);
     return this.dataService.mspApplication.children;
   }
 
-  removeChild(idx: number): void{
-    // console.log('remove child ' + JSON.stringify(event));
+  removeChild(idx: number): void {
     this.dataService.mspApplication.removeChild(idx);
     this.dataService.saveMspApplication();
 
+  }
+
+  onChange() {
+    this.dataService.saveMspApplication();
+  }
+
+  onRelationshipUpdate($event, idx: number) {
+    this.children[idx].relationship = $event;
+    this.dataService.saveMspApplication();
+  }
+
+  displayStatusOpt(idx: number): boolean {
+    return this.children[idx].relationship !== Relationship.Unknown;
   }
 
   checkAnyDependentsIneligible(): boolean {

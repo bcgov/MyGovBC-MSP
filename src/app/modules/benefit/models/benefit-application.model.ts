@@ -30,6 +30,7 @@ export class BenefitApplication implements ApplicationBase {
   // cutoff Date fields
   cutoffYear: number;
   isCutoffDate: boolean;
+  //numDisabled: number;
 
 
   hasClaimedAttendantCareExpenses: boolean;
@@ -46,6 +47,7 @@ export class BenefitApplication implements ApplicationBase {
   applicantDisabilityCredit: number;
   spouseDisabilityCredit: number;
   childrenDisabilityCredit: number;
+  totalDeduction: number;
 
   _attendantCareExpense: number;
 
@@ -246,7 +248,7 @@ export class BenefitApplication implements ApplicationBase {
     } else {
       const n =
         !!this._childrenCount && !isNaN(this._childrenCount)
-          ? this._childrenCount
+          ? this._childrenCount * 1
           : 0;
       return n;
     }
@@ -298,7 +300,7 @@ export class BenefitApplication implements ApplicationBase {
   }
 
   set childrenCount(n: number) {
-    n > 29 ? (this._childrenCount = 0) : (this._childrenCount = n);
+    n > 29 ? (this._childrenCount = 0) : (this._childrenCount = (n * 1));
     if (
       !this.childrenCount ||
       this.childrenCount < this.childWithDisabilityCount

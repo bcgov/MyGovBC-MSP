@@ -2,7 +2,8 @@
 
 <ng-content select="[sectionTitleInfo]"></ng-content>
 <common-page-section layout="tips">
-  <div class="form-group col-sm-6 p-sm-0 mb-0">
+  <ng-content select="[additionalInfo]"></ng-content>
+  <div *ngIf="displayStatusInCanada" class="form-group col-sm-6 p-sm-0 mb-0">
     <common-dropdown name="StatusInCanada"
                      [label]="label"
                      [items]="statusOpts"
@@ -16,7 +17,7 @@
     <common-radio *ngIf="getStatusInCanada()" 
                   [radioLabels]="availableStatusReasons"
                   [value]="person.currentActivity"
-                  (statusChange)="setActivity($event)" 
+                  (statusChange)="setReason($event)" 
                   display="table-row-group">
     </common-radio>
   </div>
