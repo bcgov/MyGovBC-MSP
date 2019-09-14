@@ -1,0 +1,49 @@
+<ng-content select="[sectionTitleInfo]"></ng-content>
+<div class="form-row align-items-end">
+  <div class="form-group col-sm-4">
+    <common-dropdown name="DocumentType_{{objectId}}"
+                     label="Document Type"
+                     [items]="availableSupportDocuments"
+                     placeholder="Please Select"
+                     [clearable]="false"
+                     [(ngModel)]="supportDoc.documentType">
+    </common-dropdown>
+  </div>
+  <div class="form-group col-sm-4">
+    <common-button label="Add"
+                   buttonType="primary"
+                   (btnClick)="addDocument()"
+                   [disabled]="hasDocumentType"
+                   id="addDoc_{{objectId}}">
+    </common-button>
+  </div>
+</div>
+
+<div *ngIf="hasDocumentType">
+  <h2 class="border-bottom">{{supportDoc.documentType}}
+    <common-xicon-button label= "Remove document" (click)="removeDocument()">
+    </common-xicon-button>
+  </h2>
+  <common-page-section layout="tips">
+    <common-file-uploader [images]="supportDoc.images" 
+                          (imagesChange)="documentChange($event)"
+                          id="docUploader_{{objectId}}" 
+                          [required]="true" 
+                          instructionText="{{uploadInstructions}}">
+    </common-file-uploader>
+    <ng-content select="[requestAdditionInfo]"></ng-content>
+    <aside>
+      <div>
+        <ng-content select="[sampleDocument]"></ng-content>
+        Scan the document, or take a photo of it. Make sure that it's:
+        <ul>
+          <li>The entire document, from corner to corner</li>
+          <li>At least 1000 pixels wide x 1500 pixels tall</li>
+          <li>Rotated correctly (not upside down or sideways)</li>
+          <li>In focus and easy to read</li>
+          <li>A JPG, PNG, GIF or BMP file (<strong>not a PDF</strong>)</li>
+        </ul>
+      </div>
+    </aside>
+  </common-page-section>
+</div>

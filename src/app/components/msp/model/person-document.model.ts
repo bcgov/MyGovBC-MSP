@@ -1,25 +1,24 @@
-import { CommonImage } from "moh-common-lib";
+import { CommonImage } from 'moh-common-lib';
 
 
 /**
  * A persons ID documents
  */
-class PersonDocuments {
+export class PersonDocuments {
+
+  documentType: string;
   private _images: CommonImage[];
 
-  constructor(){
+  constructor() {}
 
-  }
-
-  get images(): CommonImage[]{
+  get images(): CommonImage[] {
     if (!this._images){
       this._images = new Array<CommonImage>();
     }
     return this._images;
   }
 
-  set images(imgs: CommonImage[]){
+  set images(imgs: CommonImage[]) {
     this._images = imgs;
   }
 }
-export {PersonDocuments};

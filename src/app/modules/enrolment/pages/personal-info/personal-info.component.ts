@@ -14,6 +14,8 @@ import { MspPerson } from '../../../account/models/account.model';
 import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../msp-core/models/relationship.enum';
 import { statusReasonRules } from '../../../msp-core/components/canadian-status/canadian-status.component';
+import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
+import { yesNoLabels } from '../../../msp-core/models/msp-constants';
 
 
 @Component({
@@ -22,15 +24,14 @@ import { statusReasonRules } from '../../../msp-core/components/canadian-status/
 @Injectable()
 export class PersonalInfoComponent extends BaseComponent {
 
-  lang = require('./i18n');
-  Relationship: typeof Relationship = Relationship;
-
   @ViewChild('formRef') form: NgForm;
-  @ViewChild('mspServicesCardModal')
-  mspServicesCardModal: ServicesCardDisclaimerModalComponent;
   @ViewChildren(PersonalDetailsComponent) personalDetailsComponent: QueryList<
     PersonalDetailsComponent
   >;
+
+
+  hasNameChange: boolean = undefined;
+  yesNoRadioLabels = yesNoLabels;
 
   constructor( private dataService: MspDataService,
                private _router: Router,
@@ -43,33 +44,44 @@ export class PersonalInfoComponent extends BaseComponent {
     this.pageStateService.setPageIncomplete(this._router.url, this.dataService.mspApplication.pageStatus);
   }
 
-  onChange($event) {
-
-    console.log( 'onChange: ', $event );
-    this.dataService.saveMspApplication();
-  }
-
-  get application(): MspApplication {
-    return this.dataService.mspApplication;
-  }
   get applicant(): MspPerson {
     return this.dataService.mspApplication.applicant;
   }
 
-
-  addChild(relationship: Relationship): void {
-    this.dataService.mspApplication.addChild(relationship);
+  set applicant( applicant: MspPerson ) {
+    this.dataService.mspApplication.applicant = applicant;
   }
 
-  get children(): MspPerson[] {
-    return this.dataService.mspApplication.children;
-  }
-
-  removeChild(idx: number): void {
-    // console.log('remove child ' + JSON.stringify(event));
-    this.dataService.mspApplication.removeChild(idx);
+  applicantUpdate( $event ) {
+    console.log( 'applicantUpdate: ', $event );
+    this.applicant = $event;
     this.dataService.saveMspApplication();
   }
+
+  get statusDocuments(): PersonDocuments {
+    return this.dataService.mspApplication.applicantStatusDoc;
+  }
+
+  set statusDocuments( documents: PersonDocuments ) {
+    this.dataService.mspApplication.applicantStatusDoc = documents;
+  }
+
+  statusDocUpdate($event) {
+    this.statusDocuments = $event;
+    this.dataService.saveMspApplication();
+  }
+
+  get hasStatus() {
+    return this.applicant.status !== undefined && this.applicant.currentActivity;
+  }
+
+
+
+  get application(): MspApplication {
+    return this.dataService.mspApplication;
+  }
+
+
 
 
   documentsReady(): boolean {

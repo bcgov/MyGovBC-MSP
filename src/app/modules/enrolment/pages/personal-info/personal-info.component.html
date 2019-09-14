@@ -6,7 +6,7 @@
     </p>
 
     <msp-canadian-status [person]="applicant"
-                         (personChange) = "onChange($event)">
+                         (personChange)="applicantUpdate($event)">
       <div sectionTitleInfo>
         <h2>Status in Canada</h2>
         <p class="border-bottom">
@@ -15,11 +15,39 @@
       </div>
     </msp-canadian-status>
 
+    <msp-support-documents *ngIf="hasStatus"
+                            [canadianStatus]="applicant.status"
+                            [statusReason]="applicant.currentActivity"
+                            [supportDoc]="statusDocuments"
+                            (supportDocChange)="statusDocUpdate($event)">
+      <div sectionTitleInfo>
+        <h2>Documents</h2>
+        <p class="border-bottom"> 
+          Provide one of the required documents to support your status in Canada. 
+          If your name has changed since your ID was issued you are also required to upload document to support the name change.
+        </p>
+      </div>
+
+      <div requestAdditionInfo>
+        <common-radio class="p-sm-2"
+                      [value]="hasNameChange"  
+                      label="Has your name changed since your ID was issued due to marriage or a legal name change?" 
+                      [radioLabels]="yesNoRadioLabels"
+                      (statusChange)="hasNameChange=$event">
+        </common-radio>
+      </div>
+
+      <div sampleDocument>
+          TODO: Need to add links with images to display        
+      </div>
+
+    </msp-support-documents>
+
 
     
 
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
-      (personChange) = "onChange($event)"
+      (personChange) = "applicantUpdate($event)"
       [(statusDocuments)]="application.applicantStatusDoc"
       [(nameDocuments)]="application.applicantNameDoc">
     </msp-personal-details>

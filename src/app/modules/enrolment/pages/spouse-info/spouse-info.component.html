@@ -31,6 +31,34 @@
         </p>
       </div>
     </msp-canadian-status>
+
+    <msp-support-documents *ngIf="hasStatus"
+                           [canadianStatus]="spouse.status"
+                           [statusReason]="spouse.currentActivity"
+                           [supportDoc]="statusDocuments"
+                           (supportDocChange)="statusDocUpdate($event)">
+      <div sectionTitleInfo>
+        <h3>Documents</h3>
+        <p class="border-bottom"> 
+          Provide one of the required documents to support your spouse's status in Canada. 
+          If your spouse's name has changed since their ID was issued you are also required to 
+          upload document to support the name change
+        </p>
+      </div>
+
+      <div requestAdditionInfo>
+        <common-radio class="p-sm-2"
+                      [value]="hasNameChange"  
+                      label="Has your spouse's name changed since their ID was issued due to marriage or a legal name change?" 
+                      [radioLabels]="yesNoRadioLabels"
+                      (statusChange)="hasNameChange=$event">
+        </common-radio>
+      </div>
+
+      <div sampleDocument>
+          TODO: Need to add links with images to display        
+      </div>
+    </msp-support-documents>
   </div>
 </common-page-framework>
  

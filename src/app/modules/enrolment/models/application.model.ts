@@ -4,6 +4,7 @@ import { UUID } from 'angular2-uuid';
 import { ApplicationBase } from '../../msp-core/models/application-base.model';
 import { PhoneNumber } from '../../../components/msp/model/phone.model';
 import { Relationship } from '../../msp-core/models/relationship.enum';
+import { PersonDocuments } from '../../../components/msp/model/person-document.model';
 
 /**
  * Overall MSP Application Process Data
@@ -33,12 +34,12 @@ export class MspApplication implements ApplicationBase {
   pageStatus: any[] = []; // page status - complete/ incomplete
 
   // Documents
-  applicantStatusDoc: CommonImage[] = [];
-  applicantNameDoc: CommonImage[] = [];
-  spouseStatusDoc: CommonImage[] = [];
-  spouseNameDoc: CommonImage[] = [];
-  childrenStatusDoc: Array<CommonImage[]> = [];
-  childrenNameDoc: Array<CommonImage[]> = [];
+  applicantStatusDoc: PersonDocuments = new PersonDocuments();
+  applicantNameDoc: PersonDocuments = new PersonDocuments();
+  spouseStatusDoc: PersonDocuments = new PersonDocuments();
+  spouseNameDoc: PersonDocuments = new PersonDocuments();
+  childrenStatusDoc: Array<PersonDocuments> = [];
+  childrenNameDoc: Array<PersonDocuments> = [];
 
 
   get uuid(): string {
@@ -177,20 +178,20 @@ export class MspApplication implements ApplicationBase {
    */
   getAllImages(): CommonImage[] {
     let allImages = [
-      ...this.applicantNameDoc,
-      ...this.applicantNameDoc
+      ...this.applicantStatusDoc.images,
+      ...this.applicantNameDoc.images
     ];
 
     if (this.spouse) {
-      allImages = allImages.concat([...this.spouseStatusDoc,
-                                   ...this.spouseNameDoc]);
+      allImages = allImages.concat([...this.spouseStatusDoc.images,
+                                   ...this.spouseNameDoc.images]);
     }
     for (const child of this.childrenStatusDoc) {
-      allImages = allImages.concat(child);
+      allImages = allImages.concat(child.images);
     }
 
     for (const child of this.childrenNameDoc) {
-      allImages = allImages.concat(child);
+      allImages = allImages.concat(child.images);
     }
 
     return allImages;

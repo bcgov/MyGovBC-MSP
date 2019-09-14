@@ -8,9 +8,9 @@ import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { environment } from '../../../../../environments/environment.prod';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
 import { PageStateService } from '../../../../services/page-state.service';
-import { yesNoLabels } from '../../../msp-core/models/status-activities-documents';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { MspApplication } from '../../models/application.model';
+import { yesNoLabels } from '../../../msp-core/models/msp-constants';
 
 @Component({
   templateUrl: './prepare.component.html'
