@@ -32,6 +32,7 @@ export class MspPerson implements IPerson {
     _currentActivity: CanadianStatusReason;
     documents: PersonDocuments = new PersonDocuments();
     nameChangeDocs: PersonDocuments = new PersonDocuments();
+    hasNameChange: boolean;
 
     assistYearDocs: CommonImage[] = [];
 

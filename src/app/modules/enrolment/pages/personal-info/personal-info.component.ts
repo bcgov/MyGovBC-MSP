@@ -16,6 +16,7 @@ import { Relationship } from '../../../msp-core/models/relationship.enum';
 import { statusReasonRules } from '../../../msp-core/components/canadian-status/canadian-status.component';
 import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
 import { yesNoLabels } from '../../../msp-core/models/msp-constants';
+import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 
 
 @Component({
@@ -29,9 +30,8 @@ export class PersonalInfoComponent extends BaseComponent {
     PersonalDetailsComponent
   >;
 
-
-  hasNameChange: boolean = undefined;
   yesNoRadioLabels = yesNoLabels;
+  nameChangeDocList = nameChangeSupportDocuments();
 
   constructor( private dataService: MspDataService,
                private _router: Router,
@@ -50,11 +50,6 @@ export class PersonalInfoComponent extends BaseComponent {
 
   set applicant( applicant: MspPerson ) {
     this.dataService.mspApplication.applicant = applicant;
-  }
-
-  applicantUpdate( $event ) {
-    console.log( 'applicantUpdate: ', $event );
-    this.applicant = $event;
     this.dataService.saveMspApplication();
   }
 
@@ -62,17 +57,43 @@ export class PersonalInfoComponent extends BaseComponent {
     return this.dataService.mspApplication.applicant.documents;
   }
 
-  set statusDocuments( documents: PersonDocuments ) {
-    this.dataService.mspApplication.applicant.documents = documents;
-  }
+  set statusDocuments( document: PersonDocuments ) {
 
-  statusDocUpdate($event) {
-    this.statusDocuments = $event;
+    if ( document.images.length === 0 ) {
+      // no status documents remove any name documents
+      this.dataService.mspApplication.applicant.nameChangeDocs.documentType = null;
+      this.dataService.mspApplication.applicant.nameChangeDocs.images = [];
+    }
+
+    this.dataService.mspApplication.applicant.documents = document;
     this.dataService.saveMspApplication();
   }
 
   get hasStatus() {
-    return this.applicant.status !== undefined && this.applicant.currentActivity;
+    // Has to have values
+    return this.applicant.status !== undefined &&
+           this.applicant.currentActivity !== undefined;
+  }
+
+  get nameChangeDocuments(): PersonDocuments {
+    return this.dataService.mspApplication.applicant.nameChangeDocs;
+  }
+
+  set nameChangeDocuments( document: PersonDocuments ) {
+    this.dataService.mspApplication.applicant.nameChangeDocs = document;
+    this.dataService.saveMspApplication();
+  }
+
+  get hasNameChange() {
+    return this.dataService.mspApplication.applicant.hasNameChange;
+  }
+
+  set hasNameChange( value: boolean ) {
+    this.dataService.mspApplication.applicant.hasNameChange = value;
+  }
+
+  get requestNameChangeInfo() {
+    return this.hasStatus && this.hasNameChange && this.statusDocuments.images.length;
   }
 
 
@@ -144,6 +165,8 @@ export class PersonalInfoComponent extends BaseComponent {
   }
 
   canContinue(): boolean {
+
+    console.log( 'form: ', this.form.valid , this.isAllValid() );
     const valid = !(!this.isStayinginBCAfterstudies() ||
     this.checkAnyDependentsIneligible() || !this.isAllValid());
 

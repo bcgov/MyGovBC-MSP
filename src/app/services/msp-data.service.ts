@@ -487,6 +487,7 @@ export class MspDataService {
 
     dto.nameChangeDocType = input.nameChangeDocs.documentType;
     dto.nameChangeImages = input.nameChangeDocs.images;
+    dto.hasNameChange = input.hasNameChange;
     return dto;
   }
 
@@ -553,6 +554,7 @@ export class MspDataService {
 
     output.nameChangeDocs.documentType = dto.nameChangeDocType;
     output.nameChangeDocs.images = dto.nameChangeImages;
+    output.hasNameChange = dto.hasNameChange;
     return output;
   }
 

@@ -5,8 +5,7 @@
       Please provide the main applicant's (Account Holder) personal information and status in Canada. You will be required to provide supporting documents with your application.
     </p>
 
-    <msp-canadian-status [person]="applicant"
-                         (personChange)="applicantUpdate($event)">
+    <msp-canadian-status [(person)]="applicant">
       <div sectionTitleInfo>
         <h2>Status in Canada</h2>
         <p class="border-bottom">
@@ -18,8 +17,7 @@
     <msp-support-documents *ngIf="hasStatus"
                             [canadianStatus]="applicant.status"
                             [statusReason]="applicant.currentActivity"
-                            [supportDoc]="statusDocuments"
-                            (supportDocChange)="statusDocUpdate($event)">
+                            [(supportDoc)]="statusDocuments">
       <div sectionTitleInfo>
         <h2>Documents</h2>
         <p class="border-bottom"> 
@@ -30,24 +28,38 @@
 
       <div requestAdditionInfo>
         <common-radio class="p-sm-2"
-                      [value]="hasNameChange"  
+                      name="NameChangeQuestion"
+                      [(ngModel)]="hasNameChange"  
                       label="Has your name changed since your ID was issued due to marriage or a legal name change?" 
                       [radioLabels]="yesNoRadioLabels"
-                      (statusChange)="hasNameChange=$event">
+                      required>
         </common-radio>
       </div>
 
       <div sampleDocument>
           TODO: Need to add links with images to display        
       </div>
+    </msp-support-documents>
 
+    <msp-support-documents *ngIf="requestNameChangeInfo"
+                           [supportDocList]="nameChangeDocList"
+                           [(supportDoc)]="nameChangeDocuments">
+      <div sectionTitleInfo> 
+        <h3>Additional Documents</h3>
+        <p class="border-bottom"> 
+            Provide one of the required documents to support your name change.
+        </p>
+      </div>
+
+      <div sampleDocument>
+        TODO: Need to add links with images to display        
+      </div>
     </msp-support-documents>
 
 
     
 
-    <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
-      (personChange) = "applicantUpdate($event)"
+    <msp-personal-details [(person)] = 'applicant' [id] = 'applicant.id'
       [(statusDocuments)]="applicant.documents.images"
       [(nameDocuments)]="applicant.nameChangeDocs.images">
     </msp-personal-details>

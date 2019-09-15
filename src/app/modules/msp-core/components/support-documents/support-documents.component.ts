@@ -43,7 +43,7 @@ export function nameChangeSupportDocuments(): SupportDocuments[] {
     { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
   ]
 })
-export class SupportDocumentsComponent extends Base {
+export class SupportDocumentsComponent extends Base implements OnInit {
 
   @Input() supportDocList: SupportDocuments[];
   @Input() canadianStatus: StatusInCanada;
@@ -53,12 +53,19 @@ export class SupportDocumentsComponent extends Base {
   @Output() supportDocChange: EventEmitter<PersonDocuments> = new EventEmitter<PersonDocuments>();
 
 
-  uploadDocInstructions = 'Click add, or drag and drop file into this box';
+  uploadInstructions = 'Click add, or drag and drop file into this box';
 
+  btnEnabled: boolean  = true;
   private _documentOpts: string[] = Object.keys(SupportDocumentList).map( x => SupportDocumentList[x] );
 
   constructor() {
     super();
+  }
+
+  ngOnInit() {
+    if (this.supportDoc.documentType) {
+      this.btnEnabled = false;
+    }
   }
 
   get hasDocumentType() {
@@ -67,6 +74,7 @@ export class SupportDocumentsComponent extends Base {
 
   // When clicked button is disabled
   addDocument() {
+    this.btnEnabled = false;
 
     // Check to verify images is not undefined
     if ( !this.supportDoc.images ) {
@@ -76,6 +84,8 @@ export class SupportDocumentsComponent extends Base {
   }
 
   removeDocument() {
+    this.btnEnabled = true;
+
     this.supportDoc.images  = [];
     this.supportDoc.documentType = null;
     this.supportDocChange.emit(this.supportDoc);

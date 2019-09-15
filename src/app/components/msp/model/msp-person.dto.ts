@@ -72,6 +72,7 @@ export default class PersonDto {
     images: CommonImage[];
     nameChangeDocType: string;
     nameChangeImages: CommonImage[];
+    hasNameChange: boolean;
     isExistingBeneficiary: boolean;
     knownMailingAddress: boolean;
     fullTimeStudent: boolean;

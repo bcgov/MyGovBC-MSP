@@ -19,7 +19,6 @@ import { yesNoLabels } from '../../../msp-core/models/msp-constants';
 export class PrepareComponent extends BaseComponent {
 
   @ViewChild('formRef') form: NgForm;
-  //@ViewChild('liveInBCBtn') liveInBCBtn: RadioComponent ;
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
 
   private apt: MspPerson;
@@ -111,10 +110,6 @@ export class PrepareComponent extends BaseComponent {
   }
 
   canContinue(): boolean {
-    return this.isAllValid();
-  }
-
-  isValid(): boolean {
     const app = this.dataService.mspApplication;
     return app.applicant.plannedAbsence === false
       && app.applicant.liveInBC === true
