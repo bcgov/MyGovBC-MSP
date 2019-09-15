@@ -26,20 +26,10 @@ export class MspApplication implements ApplicationBase {
   private _children: Array<MspPerson> = [];
   /** Either the current spouse, or an application to add a new spouse */
   private _spouse: MspPerson;
-  /** An application to remove a spouse.  */
-  private _spouseRemoval: MspPerson;
 
   unUsualCircumstance: boolean;
 
   pageStatus: any[] = []; // page status - complete/ incomplete
-
-  // Documents
-  applicantStatusDoc: PersonDocuments = new PersonDocuments();
-  applicantNameDoc: PersonDocuments = new PersonDocuments();
-  spouseStatusDoc: PersonDocuments = new PersonDocuments();
-  spouseNameDoc: PersonDocuments = new PersonDocuments();
-  childrenStatusDoc: Array<PersonDocuments> = [];
-  childrenNameDoc: Array<PersonDocuments> = [];
 
 
   get uuid(): string {
@@ -178,20 +168,17 @@ export class MspApplication implements ApplicationBase {
    */
   getAllImages(): CommonImage[] {
     let allImages = [
-      ...this.applicantStatusDoc.images,
-      ...this.applicantNameDoc.images
+      ...this.applicant.documents.images,
+      ...this.applicant.nameChangeDocs.images
     ];
 
     if (this.spouse) {
-      allImages = allImages.concat([...this.spouseStatusDoc.images,
-                                   ...this.spouseNameDoc.images]);
+      allImages = allImages.concat([...this.spouse.documents.images,
+                                   ...this.spouse.nameChangeDocs.images]);
     }
-    for (const child of this.childrenStatusDoc) {
-      allImages = allImages.concat(child.images);
-    }
-
-    for (const child of this.childrenNameDoc) {
-      allImages = allImages.concat(child.images);
+    for (const child of this.children) {
+      allImages = allImages.concat([...child.documents.images,
+                                    ...child.nameChangeDocs.images]);
     }
 
     return allImages;

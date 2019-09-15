@@ -72,11 +72,11 @@ export class SpouseInfoComponent extends BaseComponent implements OnInit {
   }
 
   get statusDocuments(): PersonDocuments {
-    return this.dataService.mspApplication.spouseStatusDoc;
+    return this.dataService.mspApplication.spouse.documents;
   }
 
   set statusDocuments( documents: PersonDocuments ) {
-    this.dataService.mspApplication.spouseStatusDoc = documents;
+    this.dataService.mspApplication.spouse.documents = documents;
   }
 
   statusDocUpdate($event) {

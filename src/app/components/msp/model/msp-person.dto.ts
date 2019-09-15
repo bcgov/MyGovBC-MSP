@@ -3,6 +3,8 @@ import {OutofBCRecordDto} from '../../../models/outof-bc-record.dto';
 import { SimpleDate , CommonImage } from 'moh-common-lib';
 import {MSPEnrollementMember} from '../../../modules/msp-core/models/status-activities-documents';
 
+
+// TODO: Class makes reference to self within definition - This should be reviewed
 export default class PersonDto {
     relationship: number;
     firstName: string;
@@ -66,7 +68,10 @@ export default class PersonDto {
     marriageDate: SimpleDate;
     prevLastName: string;
     phoneNumber: string;
+    imageDocType: string;
     images: CommonImage[];
+    nameChangeDocType: string;
+    nameChangeImages: CommonImage[];
     isExistingBeneficiary: boolean;
     knownMailingAddress: boolean;
     fullTimeStudent: boolean;
@@ -101,7 +106,7 @@ export default class PersonDto {
 
     schoolOutsideOfBC: boolean;
 
-    // New Update Status 
+    // New Update Status
     updateStatusInCanada: boolean;
     updateNameDueToMarriage: boolean;
     updateNameDueToError: boolean;

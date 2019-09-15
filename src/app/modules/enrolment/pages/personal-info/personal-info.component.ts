@@ -59,11 +59,11 @@ export class PersonalInfoComponent extends BaseComponent {
   }
 
   get statusDocuments(): PersonDocuments {
-    return this.dataService.mspApplication.applicantStatusDoc;
+    return this.dataService.mspApplication.applicant.documents;
   }
 
   set statusDocuments( documents: PersonDocuments ) {
-    this.dataService.mspApplication.applicantStatusDoc = documents;
+    this.dataService.mspApplication.applicant.documents = documents;
   }
 
   statusDocUpdate($event) {

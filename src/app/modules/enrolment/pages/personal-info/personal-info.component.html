@@ -48,8 +48,8 @@
 
     <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
       (personChange) = "applicantUpdate($event)"
-      [(statusDocuments)]="application.applicantStatusDoc"
-      [(nameDocuments)]="application.applicantNameDoc">
+      [(statusDocuments)]="applicant.documents.images"
+      [(nameDocuments)]="applicant.nameChangeDocs.images">
     </msp-personal-details>
       <!--[showError] = "formRef.submitted"-->
     

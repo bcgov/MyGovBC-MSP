@@ -8,6 +8,8 @@ import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { yesNoLabels } from '../../../msp-core/models/msp-constants';
+import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
 
 @Component({
   selector: 'msp-child-info',
@@ -21,6 +23,10 @@ export class ChildInfoComponent extends BaseComponent implements OnInit {
     {'label': '0-18 years', 'value': Relationship.ChildUnder19},
     {'label': '19-24 years (must be a full-time student)', 'value': Relationship.Child19To24},
   ];
+
+  yesNoRadioLabels = yesNoLabels;
+
+  private _hasNameChange: boolean[] = [];
 
 
   // tslint:disable-next-line: no-trailing-whitespace
@@ -42,7 +48,6 @@ export class ChildInfoComponent extends BaseComponent implements OnInit {
   }
 
   addChild(): void {
-    // Default to child under 19 years (constructor for MspPerson requires relationship)
     this.dataService.mspApplication.addChild(Relationship.Unknown);
   }
 
@@ -53,7 +58,6 @@ export class ChildInfoComponent extends BaseComponent implements OnInit {
   removeChild(idx: number): void {
     this.dataService.mspApplication.removeChild(idx);
     this.dataService.saveMspApplication();
-
   }
 
   onChange() {
@@ -68,6 +72,27 @@ export class ChildInfoComponent extends BaseComponent implements OnInit {
   displayStatusOpt(idx: number): boolean {
     return this.children[idx].relationship !== Relationship.Unknown;
   }
+
+  getStatusDocuments( idx: number ): PersonDocuments {
+    return this.dataService.mspApplication.children[idx].documents;
+  }
+
+  statusDocUpdate($event, idx: number) {
+    this.dataService.mspApplication.children[idx].documents = $event;
+    this.dataService.saveMspApplication();
+  }
+
+  getHasNameChange( idx: number ): boolean {
+    return false;
+  }
+
+  setHasNameChange( $event, idx: number )  {
+
+  }
+
+
+
+
 
   checkAnyDependentsIneligible(): boolean {
     const target = [...this.dataService.mspApplication.children];

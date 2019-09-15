@@ -1,9 +1,10 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, forwardRef } from '@angular/core';
 import { Base, CommonImage } from 'moh-common-lib';
 import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
 import { CanadianStatusReason, StatusInCanada } from '../../models/canadian-status.enum';
 import { statusReasonRules } from '../canadian-status/canadian-status.component';
 import { SupportDocuments, SupportDocumentList } from '../../models/support-documents.enum';
+import { ControlContainer, NgForm } from '@angular/forms';
 
 export function suportDocumentRules(status: StatusInCanada, reason: CanadianStatusReason): SupportDocuments[] {
   switch (status) {
@@ -34,7 +35,13 @@ export function nameChangeSupportDocuments(): SupportDocuments[] {
 @Component({
   selector: 'msp-support-documents',
   templateUrl: './support-documents.component.html',
-  styleUrls: ['./support-documents.component.scss']
+  styleUrls: ['./support-documents.component.scss'],
+  /* Re-use the same ngForm that it's parent is using. The component will show
+   * up in its parents `this.form`, and will auto-update `this.form.valid`
+   */
+  viewProviders: [
+    { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
+  ]
 })
 export class SupportDocumentsComponent extends Base {
 
@@ -46,7 +53,6 @@ export class SupportDocumentsComponent extends Base {
   @Output() supportDocChange: EventEmitter<PersonDocuments> = new EventEmitter<PersonDocuments>();
 
 
-  hasDocumentType: boolean = false;
   uploadDocInstructions = 'Click add, or drag and drop file into this box';
 
   private _documentOpts: string[] = Object.keys(SupportDocumentList).map( x => SupportDocumentList[x] );
@@ -55,9 +61,12 @@ export class SupportDocumentsComponent extends Base {
     super();
   }
 
+  get hasDocumentType() {
+    return this.supportDoc.documentType ? true : false;
+  }
+
   // When clicked button is disabled
   addDocument() {
-    this.hasDocumentType = this.supportDoc.documentType ? true : false;
 
     // Check to verify images is not undefined
     if ( !this.supportDoc.images ) {
@@ -68,7 +77,7 @@ export class SupportDocumentsComponent extends Base {
 
   removeDocument() {
     this.supportDoc.images  = [];
-    this.hasDocumentType = false;
+    this.supportDoc.documentType = null;
     this.supportDocChange.emit(this.supportDoc);
   }
 

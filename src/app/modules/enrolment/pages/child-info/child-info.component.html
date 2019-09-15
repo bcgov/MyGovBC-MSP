@@ -17,30 +17,56 @@
       </div>
     </div>
 
-    <div *ngIf="children.length > 0">
-      <div *ngFor="let child of children; let idx = index">
-        <msp-canadian-status [person]="child"
-                             (personChange)="onChange()"
-                             label="{{statusLabel}}"
-                             [displayStatusInCanada]="displayStatusOpt(idx)">
-          <div sectionTitleInfo>
-            <h2>Child #{{idx+1}}</h2>
-            <p class="border-bottom">
-                Please provide child's personal information and immigration status in Canada. You will be required to upload supporting documents with your application.
-                <common-xicon-button label= "Remove child" (click)="removeChild(idx)">
-                </common-xicon-button>
-            </p>
-            <div additionalInfo>
-                <common-radio class="p-sm-2"
-                              [value]="child.relationship"  
-                              label="How old is your child?" 
-                              [radioLabels]="childAgeCategory"
-                              (statusChange)="onRelationshipUpdate($event,idx)">
-                </common-radio>
-            </div>
+    <div *ngFor="let child of children; let idx = index">
+      <msp-canadian-status [person]="child"
+                            (personChange)="onChange()"
+                            label="{{statusLabel}}"
+                            [displayStatusInCanada]="displayStatusOpt(idx)">
+        <div sectionTitleInfo>
+          <h2>Child #{{idx+1}}</h2>
+          <p class="border-bottom">
+              Please provide child's personal information and immigration status in Canada. You will be required to upload supporting documents with your application.
+              <common-xicon-button label= "Remove child" (click)="removeChild(idx)">
+              </common-xicon-button>
+          </p>
+          <div additionalInfo>
+              <common-radio class="p-sm-2"
+                            [value]="child.relationship"  
+                            label="How old is your child?" 
+                            [radioLabels]="childAgeCategory"
+                            (statusChange)="onRelationshipUpdate($event,idx)">
+              </common-radio>
           </div>
-        </msp-canadian-status>
-      </div>
+        </div>
+      </msp-canadian-status>
+
+      <msp-support-documents *ngIf="hasStatus(idx)"
+                             [canadianStatus]="child"
+                             [statusReason]="child.currentActivity"
+                             [supportDoc]="statusDocuments(idx)"
+                             (supportDocChange)="statusDocUpdate($event, idx)">
+        <div sectionTitleInfo>
+        <h3>Documents</h3>
+        <p class="border-bottom"> 
+            Provide one of the required documents to support your child's status in Canada. 
+            If your child's name has changed since their ID was issued you are also required 
+            to upload document to support the name change.
+        </p>
+        </div>
+
+        <div requestAdditionInfo>
+          <common-radio class="p-sm-2"
+                        [value]="getHasNameChange(idx)"  
+                        label="Has your child's name changed since their ID was issued?" 
+                        [radioLabels]="yesNoRadioLabels"
+                        (statusChange)="setHasNameChange($event, idx)">
+          </common-radio>
+        </div>
+
+        <div sampleDocument>
+          TODO: Need to add links with images to display        
+        </div>
+      </msp-support-documents>
     </div>
   </form>
 </common-page-framework>

@@ -18,12 +18,4 @@ export default class MspApplicationDto {
   authorizedBySpouse: boolean;
 
   pageStatus: any[] = []; // page status - complete/ incomplete
-
-  // Documents
-  applicantStatusDoc: PersonDocuments = new PersonDocuments();
-  applicantNameDoc: PersonDocuments = new PersonDocuments();
-  spouseStatusDoc: PersonDocuments = new PersonDocuments();
-  spouseNameDoc: PersonDocuments = new PersonDocuments();
-  childrenStatusDoc: Array<PersonDocuments> = [];
-  childrenNameDoc: Array<PersonDocuments> = [];
 }
