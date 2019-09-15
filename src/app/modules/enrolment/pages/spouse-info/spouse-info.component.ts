@@ -7,6 +7,8 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { MspApplication } from '../../models/application.model';
 import { PageStateService } from '../../../../services/page-state.service';
 import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
+import { yesNoLabels } from '../../../msp-core/models/msp-constants';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -16,6 +18,8 @@ import { Relationship } from '../../../msp-core/models/relationship.enum';
 export class SpouseInfoComponent extends BaseComponent implements OnInit {
 
   statusLabel: string = 'Spouse\'s immigration status in Canada';
+  hasNameChange: boolean = undefined;
+  yesNoRadioLabels = yesNoLabels;
 
 
   constructor( private dataService: MspDataService,
@@ -36,15 +40,15 @@ export class SpouseInfoComponent extends BaseComponent implements OnInit {
     return this.spouse ? true : false;
   }
 
-  nextStep(){
+  nextStep() {
 
     this._router.navigate([ROUTES_ENROL.CHILD_INFO.fullpath]);
-
   }
 
-  addSpouse = () => {
+  addSpouse() {
     const sp: MspPerson = new MspPerson(Relationship.Spouse);
     this.dataService.mspApplication.addSpouse(sp);
+    this.dataService.saveMspApplication();
   }
 
   /**
@@ -66,6 +70,29 @@ export class SpouseInfoComponent extends BaseComponent implements OnInit {
   onChange(values: any) {
     this.dataService.saveMspApplication();
   }
+
+  get statusDocuments(): PersonDocuments {
+    return this.dataService.mspApplication.spouse.documents;
+  }
+
+  set statusDocuments( documents: PersonDocuments ) {
+    this.dataService.mspApplication.spouse.documents = documents;
+  }
+
+  statusDocUpdate($event) {
+    this.statusDocuments = $event;
+    this.dataService.saveMspApplication();
+  }
+
+  get hasStatus() {
+    return this.spouse.status !== undefined && this.spouse.currentActivity;
+  }
+
+
+
+
+
+
 
   documentsReady(): boolean {
     return this.dataService.mspApplication.spouseDocumentsReady;

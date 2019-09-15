@@ -109,8 +109,8 @@ export class CanadianStatusComponent {
 
     this.person.status = StatusInCanada[status];
 
-    // initialize activity
-    this.person.currentActivity = null;
+    // not activity at this point - mark as undefined
+    this.person.currentActivity = undefined;
 
     if (this.person.status !== StatusInCanada.CitizenAdult) {
       this.person.institutionWorkHistory = 'No';

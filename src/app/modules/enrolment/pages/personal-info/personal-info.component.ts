@@ -14,6 +14,9 @@ import { MspPerson } from '../../../account/models/account.model';
 import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../msp-core/models/relationship.enum';
 import { statusReasonRules } from '../../../msp-core/components/canadian-status/canadian-status.component';
+import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
+import { yesNoLabels } from '../../../msp-core/models/msp-constants';
+import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 
 
 @Component({
@@ -22,15 +25,13 @@ import { statusReasonRules } from '../../../msp-core/components/canadian-status/
 @Injectable()
 export class PersonalInfoComponent extends BaseComponent {
 
-  lang = require('./i18n');
-  Relationship: typeof Relationship = Relationship;
-
   @ViewChild('formRef') form: NgForm;
-  @ViewChild('mspServicesCardModal')
-  mspServicesCardModal: ServicesCardDisclaimerModalComponent;
   @ViewChildren(PersonalDetailsComponent) personalDetailsComponent: QueryList<
     PersonalDetailsComponent
   >;
+
+  yesNoRadioLabels = yesNoLabels;
+  nameChangeDocList = nameChangeSupportDocuments();
 
   constructor( private dataService: MspDataService,
                private _router: Router,
@@ -43,33 +44,65 @@ export class PersonalInfoComponent extends BaseComponent {
     this.pageStateService.setPageIncomplete(this._router.url, this.dataService.mspApplication.pageStatus);
   }
 
-  onChange($event) {
-
-    console.log( 'onChange: ', $event );
-    this.dataService.saveMspApplication();
-  }
-
-  get application(): MspApplication {
-    return this.dataService.mspApplication;
-  }
   get applicant(): MspPerson {
     return this.dataService.mspApplication.applicant;
   }
 
-
-  addChild(relationship: Relationship): void {
-    this.dataService.mspApplication.addChild(relationship);
-  }
-
-  get children(): MspPerson[] {
-    return this.dataService.mspApplication.children;
-  }
-
-  removeChild(idx: number): void {
-    // console.log('remove child ' + JSON.stringify(event));
-    this.dataService.mspApplication.removeChild(idx);
+  set applicant( applicant: MspPerson ) {
+    this.dataService.mspApplication.applicant = applicant;
     this.dataService.saveMspApplication();
   }
+
+  get statusDocuments(): PersonDocuments {
+    return this.dataService.mspApplication.applicant.documents;
+  }
+
+  set statusDocuments( document: PersonDocuments ) {
+
+    if ( document.images.length === 0 ) {
+      // no status documents remove any name documents
+      this.dataService.mspApplication.applicant.nameChangeDocs.documentType = null;
+      this.dataService.mspApplication.applicant.nameChangeDocs.images = [];
+    }
+
+    this.dataService.mspApplication.applicant.documents = document;
+    this.dataService.saveMspApplication();
+  }
+
+  get hasStatus() {
+    // Has to have values
+    return this.applicant.status !== undefined &&
+           this.applicant.currentActivity !== undefined;
+  }
+
+  get nameChangeDocuments(): PersonDocuments {
+    return this.dataService.mspApplication.applicant.nameChangeDocs;
+  }
+
+  set nameChangeDocuments( document: PersonDocuments ) {
+    this.dataService.mspApplication.applicant.nameChangeDocs = document;
+    this.dataService.saveMspApplication();
+  }
+
+  get hasNameChange() {
+    return this.dataService.mspApplication.applicant.hasNameChange;
+  }
+
+  set hasNameChange( value: boolean ) {
+    this.dataService.mspApplication.applicant.hasNameChange = value;
+  }
+
+  get requestNameChangeInfo() {
+    return this.hasStatus && this.hasNameChange && this.statusDocuments.images.length;
+  }
+
+
+
+  get application(): MspApplication {
+    return this.dataService.mspApplication;
+  }
+
+
 
 
   documentsReady(): boolean {
@@ -132,6 +165,8 @@ export class PersonalInfoComponent extends BaseComponent {
   }
 
   canContinue(): boolean {
+
+    console.log( 'form: ', this.form.valid , this.isAllValid() );
     const valid = !(!this.isStayinginBCAfterstudies() ||
     this.checkAnyDependentsIneligible() || !this.isAllValid());
 

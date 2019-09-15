@@ -8,9 +8,9 @@ import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { environment } from '../../../../../environments/environment.prod';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
 import { PageStateService } from '../../../../services/page-state.service';
-import { yesNoLabels } from '../../../msp-core/models/status-activities-documents';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { MspApplication } from '../../models/application.model';
+import { yesNoLabels } from '../../../msp-core/models/msp-constants';
 
 @Component({
   templateUrl: './prepare.component.html'
@@ -19,7 +19,6 @@ import { MspApplication } from '../../models/application.model';
 export class PrepareComponent extends BaseComponent {
 
   @ViewChild('formRef') form: NgForm;
-  //@ViewChild('liveInBCBtn') liveInBCBtn: RadioComponent ;
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
 
   private apt: MspPerson;
@@ -111,10 +110,6 @@ export class PrepareComponent extends BaseComponent {
   }
 
   canContinue(): boolean {
-    return this.isAllValid();
-  }
-
-  isValid(): boolean {
     const app = this.dataService.mspApplication;
     return app.applicant.plannedAbsence === false
       && app.applicant.liveInBC === true

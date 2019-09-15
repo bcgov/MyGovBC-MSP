@@ -10,15 +10,18 @@
                      placeholder="Please Select"
                      [clearable]="false"
                      [ngModel]="getStatusInCanada()"
-                     (ngModelChange)="setStatusInCanada($event)">
+                     (ngModelChange)="setStatusInCanada($event)"
+                     required>
     </common-dropdown>
   </div>
   <div class="form-group col-sm-8">
-    <common-radio *ngIf="getStatusInCanada()" 
+    <common-radio *ngIf="getStatusInCanada()"
+                  name="statausReason"
                   [radioLabels]="availableStatusReasons"
-                  [value]="person.currentActivity"
-                  (statusChange)="setReason($event)" 
-                  display="table-row-group">
+                  [ngModel]="person.currentActivity"
+                  (ngModelChange)="setReason($event)" 
+                  display="table-row-group"
+                  required>
     </common-radio>
   </div>
 </common-page-section>

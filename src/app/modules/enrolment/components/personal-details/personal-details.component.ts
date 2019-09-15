@@ -12,8 +12,6 @@ import {
 import { OutofBCRecord } from '../../../../models/outof-bc-record.model';
 import {
   DocumentRules,
-  yesNoLabels,
-  genderLabels
 } from '../../../msp-core/models/status-activities-documents';
 import * as _ from 'lodash';
 
@@ -31,6 +29,7 @@ import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/componen
 import { StatusInCanada, CanadianStatusStrings, CanadianStatusReasonStrings, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 import { statusReasonRules } from '../../../msp-core/components/canadian-status/canadian-status.component';
 import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { yesNoLabels, genderLabels } from '../../../msp-core/models/msp-constants';
 
 
 @Component({

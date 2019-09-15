@@ -122,9 +122,3 @@ export class DocumentRules {
     return [Documents.MarriageCertificate, Documents.ChangeOfNameCertificate];
   }
 }
-
-
-// Yes/no button labels
-// TODO: figure out where to keeps common items like these
-export const yesNoLabels = [{ 'label': 'No', 'value': false}, {'label': 'Yes', 'value': true} ];
-export const genderLabels = [{'label': 'Female', 'value': 'F'}, { 'label': 'Male', 'value': 'M'}];
