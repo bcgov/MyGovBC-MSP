@@ -54,6 +54,7 @@ import { CoreContactInfoComponent } from './components/core-contact-info/core-co
 
 
 import { CanadianStatusComponent } from './components/canadian-status/canadian-status.component';
+import { SupportDocumentsComponent } from './components/support-documents/support-documents.component';
 
 const componentList = [
   MspFullNameComponent,
@@ -76,7 +77,8 @@ const componentList = [
   CoreContactInfoComponent,
 
   // New components
-  CanadianStatusComponent
+  CanadianStatusComponent,
+  SupportDocumentsComponent
 ];
 
 // TODO: Review to determine whether these should be replace with moh-common-lib
@@ -121,7 +123,7 @@ const templistCore = [
     HttpClientModule
   ],
 
-  declarations: [componentList, templistCore, AddressRetroSuppbenComponent, ConfirmationComponent],
+  declarations: [componentList, templistCore, AddressRetroSuppbenComponent, ConfirmationComponent, SupportDocumentsComponent],
 
   exports: [
     componentList,

@@ -4,21 +4,26 @@
 <common-page-section layout="tips">
   <ng-content select="[additionalInfo]"></ng-content>
   <div *ngIf="displayStatusInCanada" class="form-group col-sm-6 p-sm-0 mb-0">
-    <common-dropdown name="StatusInCanada"
+    <common-dropdown name="StatusInCanada_{objectId}}"
+                     id="StatusInCanada_{objectId}}"
                      [label]="label"
                      [items]="statusOpts"
                      placeholder="Please Select"
                      [clearable]="false"
                      [ngModel]="getStatusInCanada()"
-                     (ngModelChange)="setStatusInCanada($event)">
+                     (ngModelChange)="setStatusInCanada($event)"
+                     required>
     </common-dropdown>
   </div>
   <div class="form-group col-sm-8">
-    <common-radio *ngIf="getStatusInCanada()" 
+    <common-radio *ngIf="getStatusInCanada()"
+                  name="statausReason_{{objectid}}"
+                  id="statausReason_{{objectid}}"
                   [radioLabels]="availableStatusReasons"
-                  [value]="person.currentActivity"
-                  (statusChange)="setReason($event)" 
-                  display="table-row-group">
+                  [ngModel]="person.currentActivity"
+                  (ngModelChange)="setReason($event)" 
+                  display="table-row-group"
+                  required>
     </common-radio>
   </div>
 </common-page-section>

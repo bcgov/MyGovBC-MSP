@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Injectable, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, Injectable, ViewChild, OnDestroy, OnInit, AfterViewInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {  Router } from '@angular/router';
 import * as _ from 'lodash';
@@ -8,18 +8,18 @@ import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { environment } from '../../../../../environments/environment.prod';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
 import { PageStateService } from '../../../../services/page-state.service';
-import { yesNoLabels } from '../../../msp-core/models/status-activities-documents';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { MspApplication } from '../../models/application.model';
+import { yesNoLabels } from '../../../msp-core/models/msp-constants';
+import { AbstractForm } from 'moh-common-lib';
+import { Subscription } from 'rxjs';
 
 @Component({
   templateUrl: './prepare.component.html'
 })
 @Injectable()
-export class PrepareComponent extends BaseComponent {
+export class PrepareComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('formRef') form: NgForm;
-  //@ViewChild('liveInBCBtn') liveInBCBtn: RadioComponent ;
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
 
   private apt: MspPerson;
@@ -32,21 +32,18 @@ export class PrepareComponent extends BaseComponent {
   // Web links
   links = environment.links;
 
-  // verbage
-  question1 = 'Do you currently live in British Columbia (i.e. Do you have an address here)?';
-  plannedAwayForOver30DaysQuestion = 'Will you or anyone included on this application be away from B.C. for more than 30 days in total over the next six months?';
+  subscriptions: Subscription[];
 
-  constructor(public dataService: MspDataService,
+  constructor(private dataService: MspDataService,
               private pageStateService: PageStateService,
-              private _router: Router,
-              cd: ChangeDetectorRef) {
-      super(cd);
+              protected router: Router) {
+      super(router);
       this.mspApplication = this.dataService.mspApplication;
       this.apt = this.mspApplication.applicant;
   }
 
   ngOnInit(){
-    this.pageStateService.setPageIncomplete(this._router.url, this.mspApplication.pageStatus);
+    this.pageStateService.setPageIncomplete(this.router.url, this.mspApplication.pageStatus);
   }
 
   ngAfterViewInit() {
@@ -56,22 +53,18 @@ export class PrepareComponent extends BaseComponent {
     }
 
     if (this.form) {
-      this.form.valueChanges
-      .subscribe(() => {
-        this.dataService.saveMspApplication();
-        this.emitIsFormValid();
-      });
+      this.subscriptions = [
+        this.form.valueChanges.subscribe(() => { this.dataService.saveMspApplication(); })
+        ];
     }
   }
 
-  goToPersonalInfo(){
-    if (this.mspApplication.infoCollectionAgreement !== true){
-      console.log('user agreement not accepted yet, show user dialog box.');
-      this.mspConsentModal.showFullSizeView();
-    } else {
-      this.pageStateService.setPageComplete(this._router.url, this.mspApplication.pageStatus);
-      this._router.navigate([ROUTES_ENROL.PERSONAL_INFO.fullpath]);
-    }
+  ngOnDestroy() {
+    this.subscriptions.forEach( itm => itm.unsubscribe() );
+  }
+
+  get applicant(): MspPerson {
+    return this.apt;
   }
 
   get liveInBC() {
@@ -87,37 +80,37 @@ export class PrepareComponent extends BaseComponent {
     return this.dataService.mspApplication.unUsualCircumstance;
   }
 
-  setLiveInBC(live: any) {
-    console.log(live);
+  acceptAgreement($event) {
+    this.dataService.mspApplication.infoCollectionAgreement = $event;
+  }
 
+  setLiveInBC(live: any) {
     this.dataService.mspApplication.applicant.liveInBC = live;
     this.apt.liveInBC = live;
-    this.dataService.saveMspApplication();
   }
 
   setPlannedAbsence(live: any) {
     this.dataService.mspApplication.applicant.plannedAbsence = live;
     this.apt.plannedAbsence = live;
-    this.dataService.saveMspApplication();
   }
 
   setUnusualCircumstance(live: any) {
     this.dataService.mspApplication.unUsualCircumstance = live;
-    this.dataService.saveMspApplication();
   }
 
-  get applicant(): MspPerson {
-    return this.apt;
+  continue() {
+    if (this.mspApplication.infoCollectionAgreement !== true){
+      console.log('user agreement not accepted yet, show user dialog box.');
+      this.mspConsentModal.showFullSizeView();
+    } else {
+      this.pageStateService.setPageComplete(this.router.url, this.mspApplication.pageStatus);
+      this.navigate(ROUTES_ENROL.PERSONAL_INFO.fullpath);
+    }
   }
 
   canContinue(): boolean {
-    return this.isAllValid();
-  }
-
-  isValid(): boolean {
     const app = this.dataService.mspApplication;
-    return app.applicant.plannedAbsence === false
-      && app.applicant.liveInBC === true
-      && app.unUsualCircumstance === false;
+    return this.form.valid && app.applicant.plannedAbsence === false &&
+           app.applicant.liveInBC === true && app.unUsualCircumstance === false;
   }
 }

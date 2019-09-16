@@ -5,8 +5,7 @@
       Please provide the main applicant's (Account Holder) personal information and status in Canada. You will be required to provide supporting documents with your application.
     </p>
 
-    <msp-canadian-status [person]="applicant"
-                         (personChange) = "onChange($event)">
+    <msp-canadian-status [(person)]="applicant">
       <div sectionTitleInfo>
         <h2>Status in Canada</h2>
         <p class="border-bottom">
@@ -15,18 +14,59 @@
       </div>
     </msp-canadian-status>
 
+    <msp-support-documents *ngIf="hasStatus"
+                            [canadianStatus]="applicant.status"
+                            [statusReason]="applicant.currentActivity"
+                            [(supportDoc)]="statusDocuments">
+      <div sectionTitleInfo>
+        <h2>Documents</h2>
+        <p class="border-bottom"> 
+          Provide one of the required documents to support your status in Canada. 
+          If your name has changed since your ID was issued you are also required to upload document to support the name change.
+        </p>
+      </div>
+
+      <div requestAdditionInfo>
+        <common-radio class="p-sm-2"
+                      name="NameChangeQuestion"
+                      [(ngModel)]="applicant.hasNameChange"  
+                      label="Has your name changed since your ID was issued due to marriage or a legal name change?" 
+                      [radioLabels]="yesNoRadioLabels"
+                      required>
+        </common-radio>
+      </div>
+
+      <div sampleDocument>
+          TODO: Need to add links with images to display        
+      </div>
+    </msp-support-documents>
+
+    <msp-support-documents *ngIf="requestNameChangeInfo"
+                           [supportDocList]="nameChangeDocList"
+                           [(supportDoc)]="applicant.nameChangeDocs">
+      <div sectionTitleInfo> 
+        <h3>Additional Documents</h3>
+        <p class="border-bottom"> 
+            Provide <strong>one</strong> of the required documents to support your name change.
+        </p>
+      </div>
+
+      <div sampleDocument>
+        TODO: Need to add links with images to display        
+      </div>
+    </msp-support-documents>
+
 
     
 
-    <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
-      (personChange) = "onChange($event)"
-      [(statusDocuments)]="application.applicantStatusDoc"
-      [(nameDocuments)]="application.applicantNameDoc">
+    <msp-personal-details [(person)] = 'applicant' [id] = 'applicant.id'
+      [(statusDocuments)]="applicant.documents.images"
+      [(nameDocuments)]="applicant.nameChangeDocs.images">
     </msp-personal-details>
       <!--[showError] = "formRef.submitted"-->
     
 
-    <div class="row" style="margin-top: 10px;">
+    <div class="row" style="margin-top: 10px">
       <p class="intro text-danger" *ngIf="!isStayinginBCAfterstudies()"
           [innerHtml]="lang('./en/index.js').badAnswerStudies" role="alert" aria-live="assertive">
       </p>
@@ -39,7 +79,6 @@
   </form>
 </common-page-framework>
 <common-form-action-bar defaultColor='false'
-    [canContinue]="canContinue()"
-    (btnClick)="continue()">
+                        [canContinue]="canContinue()"
+                        (btnClick)="continue()">
 </common-form-action-bar>
-

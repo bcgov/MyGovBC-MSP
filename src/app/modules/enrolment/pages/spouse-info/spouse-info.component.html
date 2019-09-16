@@ -1,43 +1,83 @@
-<form #formRef="ngForm" novalidate>
-  <common-page-framework layout="blank">
+<common-page-framework layout="blank">
+  <form #formRef="ngForm" novalidate>
 
-  <h1>Spouse Information</h1>
-  <p class="border-bottom">
-      A spouse is a resident of B.C. who is married to or is living and cohabiting in a 
-      marriage-like relationship with the applicant. You will be required to provide 
-      supporting documents with your application.
-  </p>
+    <h1>Spouse Information</h1>
+    <p class="border-bottom">
+        A spouse is a resident of B.C. who is married to or is living and cohabiting in a 
+        marriage-like relationship with the applicant. You will be required to provide 
+        supporting documents with your application.
+    </p>
 
-  <div class="row">
-    <div class="col-sm-8">
-      <common-button label="Add Spouse" 
-                     buttonType="btn btn-primary"
-                     (btnClick)="addSpouse()"
-                     [disabled]="hasSpouse">
-      </common-button>
-    </div>
-  </div>  
-
-  <div *ngIf="hasSpouse">
-      <msp-canadian-status [person]="spouse"
-                           (personChange) = "onChange($event)"
-                           label="{{statusLabel}}">
-      <div sectionTitleInfo>
-        <h2>Spouse or common-law partner</h2>
-        <p class="border-bottom">
-            Please provide the spouse's personal information and immigration status in Canada. You will be required to upload supporting documents with your application.
-            <common-xicon-button label= "Remove spouse" (click)="removeSpouse()">
-            </common-xicon-button>
-        </p>
+    <div class="row">
+      <div class="col-sm-8">
+        <common-button label="Add Spouse" 
+                      buttonType="btn btn-primary"
+                      (btnClick)="addSpouse()"
+                      [disabled]="hasSpouse">
+        </common-button>
       </div>
-    </msp-canadian-status>
-  </div>
+    </div>  
+
+    <div *ngIf="hasSpouse">
+        <msp-canadian-status [person]="spouse"
+                            label="{{statusLabel}}">
+        <div sectionTitleInfo>
+          <h2>Spouse or common-law partner</h2>
+          <p class="border-bottom">
+              Please provide the spouse's personal information and immigration status in Canada. You will be required to upload supporting documents with your application.
+              <common-xicon-button label= "Remove spouse" (click)="removeSpouse()">
+              </common-xicon-button>
+          </p>
+        </div>
+      </msp-canadian-status>
+
+      <msp-support-documents *ngIf="hasStatus"
+                            [canadianStatus]="spouse.status"
+                            [statusReason]="spouse.currentActivity"
+                            [(supportDoc)]="statusDocuments">
+        <div sectionTitleInfo>
+          <h3>Documents</h3>
+          <p class="border-bottom"> 
+            Provide one of the required documents to support your spouse's status in Canada. 
+            If your spouse's name has changed since their ID was issued you are also required to 
+            upload document to support the name change
+          </p>
+        </div>
+
+        <div requestAdditionInfo>
+          <common-radio class="p-sm-2"
+                        name="NameChangeQuestion"
+                        [(ngModel)]="spouse.hasNameChange"  
+                        label="Has your spouse's name changed since their ID was issued due to marriage or a legal name change?" 
+                        [radioLabels]="yesNoRadioLabels"
+                        required>
+          </common-radio>
+        </div>
+
+        <div sampleDocument>
+            TODO: Need to add links with images to display        
+        </div>
+      </msp-support-documents>
+
+      <msp-support-documents *ngIf="requestNameChangeInfo"
+                            [supportDocList]="nameChangeDocList"
+                            [(supportDoc)]="spouse.nameChangeDocs">
+        <div sectionTitleInfo> 
+          <h3>Additional Documents</h3>
+          <p class="border-bottom"> 
+            Provide <strong>one</strong> of the required documents to support your spouse's name change.
+          </p>
+        </div>
+
+        <div sampleDocument>
+          TODO: Need to add links with images to display        
+        </div>
+      </msp-support-documents>
+    </div>
+  </form>
 </common-page-framework>
- 
-  <common-form-action-bar [submitLabel]="spouse? 'Continue':'No Spouse'"
-      [canContinue]="!(!documentsReady() || checkAnyDependentsIneligible() || !isAllValid())"
-      (btnClick)="nextStep()">
-    </common-form-action-bar>
- 
-  
-</form>
+<common-form-action-bar [submitLabel]="spouse? 'Continue':'No Spouse'"
+                        [canContinue]="canContinue()"
+                        (btnClick)="continue()">
+</common-form-action-bar>
+

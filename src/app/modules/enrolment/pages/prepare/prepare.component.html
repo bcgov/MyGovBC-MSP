@@ -2,7 +2,7 @@
                 [isMaintenanceMode]="true" 
                 (onClose)="liveInBCBtn.focus()"
                 [consentProcessName]="'MSP'" 
-                (accept)="mspApplication.infoCollectionAgreement = $event;  this.dataService.saveMspApplication();">
+                (accept)="acceptAgreement($event)">
 </msp-consent-modal>
 
 <common-page-framework layout="blank">
@@ -17,19 +17,20 @@
             <common-radio #liveInBCBtn
                           name="LiveInBC"
                           [ngModel]="liveInBC"  
-                          [label]="question1" 
+                          label="Do you currently live in British Columbia (i.e. Do you have an address here)?" 
                           [radioLabels]="radioLabels"
                           (ngModelChange)="setLiveInBC($event)"
-                          aria-labelledby="q1">
+                          required>
             </common-radio> 
 
             <div [hidden]="liveInBC !== true" role="dialog" aria-labelledby="q2">
             
                 <common-radio name="PlannedAbsence"
                               [ngModel]="plannedAbsence"  
-                              [label]="plannedAwayForOver30DaysQuestion" 
+                              label="Will you or anyone included on this application be away from B.C. for more than 30 days in total over the next six months?" 
                               [radioLabels]="radioLabels"
-                              (ngModelChange)="setPlannedAbsence($event)">
+                              (ngModelChange)="setPlannedAbsence($event)"
+                              required>
                 </common-radio>
 
                 <p class="text-danger" 
@@ -50,7 +51,8 @@
                 <common-radio name="UnusualCircumstance"
                               [ngModel]="unUsualCircumstance"  
                               [radioLabels]="radioLabels"
-                              (ngModelChange)="setUnusualCircumstance($event)">
+                              (ngModelChange)="setUnusualCircumstance($event)"
+                              required>
                     Is anyone you're applying for<br>
                     <ul class="mb-0">
                         <li>A student returning to your home province at the end of a course or program; or</li>
@@ -82,11 +84,10 @@
         </form>
 
     </common-page-section>
-    
 </common-page-framework>
 
 <common-form-action-bar [canContinue]="canContinue()"
-                        (btnClick)="goToPersonalInfo()"
+                        (btnClick)="continue()"
                         widthOption='extra-width-mobile-only'
                         submitLabel='Apply'>
 </common-form-action-bar>

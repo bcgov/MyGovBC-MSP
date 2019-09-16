@@ -4,6 +4,7 @@ import { ControlContainer, NgForm } from '@angular/forms';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { StatusInCanada, CanadianStatusStrings, CanadianStatusReasonStrings, CanadianStatusReason } from '../../models/canadian-status.enum';
 import { Relationship } from '../../models/relationship.enum';
+import { Base } from 'moh-common-lib';
 
 /**
  * TODO: May be able to remove once re-factor done
@@ -76,7 +77,7 @@ export function statusReasonRules( relationship: Relationship,
     { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
   ]
 })
-export class CanadianStatusComponent {
+export class CanadianStatusComponent  extends Base {
 
   @ViewChild('mspServicesCardModal')
     servicesCardDisclaimerModalComponent: ServicesCardDisclaimerModalComponent;
@@ -94,7 +95,9 @@ export class CanadianStatusComponent {
   private _reasonOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
 
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   /**
    * Gets status available to the current person
@@ -109,8 +112,8 @@ export class CanadianStatusComponent {
 
     this.person.status = StatusInCanada[status];
 
-    // initialize activity
-    this.person.currentActivity = null;
+    // not activity at this point - mark as undefined
+    this.person.currentActivity = undefined;
 
     if (this.person.status !== StatusInCanada.CitizenAdult) {
       this.person.institutionWorkHistory = 'No';
