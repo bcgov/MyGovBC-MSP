@@ -97,14 +97,22 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
   }
 
   canContinue(): boolean {
-    return super.canContinue() &&
-                this.children.map( x => x.documents.images.length === 0).filter(itm => itm === true).length === 0 &&
+    let valid = true;
+    if ( this.children.length > 0 ) {
+      valid = super.canContinue() &&
+                this.children.map( x => {
+                  if ( x.documents.images ) {
+                    return x.documents.images.length === 0;
+                  }
+                  return true;
+                }).filter(itm => itm === true).length === 0 &&
                 this.children.map( x => {
                   if ( x.hasNameChange ) {
-                    return x.nameChangeDocs.images.length === 0;
+                    return x.nameChangeDocs.images ? x.nameChangeDocs.images.length === 0 : true;
                   }
                 }).filter(itm => itm === true).length === 0;
-
+        }
+    return valid;
   }
 
   setRelationship( $event, idx: number ) {
