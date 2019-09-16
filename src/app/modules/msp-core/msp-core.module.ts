@@ -12,7 +12,6 @@ import { MspBirthDateComponent } from './components/birthdate/birthdate.componen
 import { MspImageErrorModalComponent } from './components/image-error-modal/image-error-modal.component';
 
 // TOBE REVIEWED
-import { HealthNumberComponent } from '../../components/msp/common/health-number/health-number.component';
 import { CalendarYearFormatter } from '../../components/msp/common/calendar/calendar-year-formatter.component';
 import { CalendarYearValidator } from '../../components/msp/common/calendar/calendar-year.validator';
 import { CalendarDayValidator } from '../../components/msp/common/calendar/calendar-day.validator';
@@ -69,16 +68,17 @@ const componentList = [
   ReviewPartComponent,
   ErrorComponent,
   PersonalDetailsRetroSuppbenComponent,
+  ConfirmationComponent,
+
+  // New components
+  CanadianStatusComponent,
+  SupportDocumentsComponent,
 
   // Directives
   KeyboardEventListner,
   MspLoggerDirective,
   ReviewCardWrapperComponent,
-  CoreContactInfoComponent,
-
-  // New components
-  CanadianStatusComponent,
-  SupportDocumentsComponent
+  CoreContactInfoComponent
 ];
 
 // TODO: Review to determine whether these should be replace with moh-common-lib
@@ -103,7 +103,6 @@ const templistCore = [
   MspConsentModalComponent,
   MspCancelComponent,
   MspToggleComponent,
-  HealthNumberComponent,
   ReplacewithlinksPipe,
   MspPersonCardComponent,
   MspContactCardComponent,
@@ -123,8 +122,11 @@ const templistCore = [
     HttpClientModule
   ],
 
-  declarations: [componentList, templistCore, AddressRetroSuppbenComponent, ConfirmationComponent, SupportDocumentsComponent],
-
+  declarations: [
+    componentList,
+    templistCore,
+    AddressRetroSuppbenComponent,
+  ],
   exports: [
     componentList,
     SharedCoreModule,
@@ -132,8 +134,6 @@ const templistCore = [
 
     // TODO: Be reviewed
     templistCore,
-
-    ConfirmationComponent
   ]
 })
 export class MspCoreModule {}

@@ -1,4 +1,3 @@
-import { Documents } from './msp-document.constants';
 import { StatusInCanada, CanadianStatusReason } from './canadian-status.enum';
 import { Relationship } from './relationship.enum';
 
@@ -28,24 +27,6 @@ export enum CancellationReasonsForSpouse {
    Incarcerated,
 }
 
-/**
- * Business rules for status
- * TODO: Remove as all relationships use the same status rules -
- * If need change - modify canadian-status component in msp-core
- */
-/*
-export class StatusRules {
-  static availableStatus(relationship: Relationship): StatusInCanada[] {
-    switch (relationship) {
-      default:
-        return [StatusInCanada.CitizenAdult,
-          StatusInCanada.PermanentResident,
-          StatusInCanada.TemporaryResident];
-    }
-  }
-}
-*/
-
 export class EnrollmentStatusRules {
   static availableStatus(): MSPEnrollementMember[] {
         return [MSPEnrollementMember.MyselfOnly,
@@ -59,6 +40,10 @@ export class EnrollmentStatusRules {
  */
 export class ActivitiesRules {
 
+  /**
+   * TODO: change to function and pass into the canadian_status component - see enrolment
+   * personal, spouse or child pages.
+   */
   static activitiesForAccountChange(relationship: Relationship, status: StatusInCanada): CanadianStatusReason[] {
     console.log(status);
     console.log(StatusInCanada.CitizenAdult);
@@ -90,35 +75,5 @@ export class ActivitiesRules {
           Activities.Visiting];*/
 
 
-  }
-}
-
-/**
- * Business rules for documents
- */
-export class DocumentRules {
-  static availiableDocuments(status: StatusInCanada, activity: CanadianStatusReason): Documents[] {
-    switch (status) {
-      case StatusInCanada.CitizenAdult:
-        return [Documents.CanadianBirthCertificate, Documents.CanadianCitizenCard, Documents.CanadianPassport];
-      case StatusInCanada.PermanentResident:
-        return [Documents.RecordOfLanding, Documents.PermanentResidentCard];
-    }
-    switch (activity) {
-      case CanadianStatusReason.WorkingInBC:
-        return [Documents.WorkPermit];
-      case CanadianStatusReason.StudyingInBC:
-        return [Documents.StudyPermit];
-      case CanadianStatusReason.ReligiousWorker:
-        return [Documents.VisitorVisa];
-      case CanadianStatusReason.Diplomat:
-        return [Documents.PassportWithDiplomaticFoil];
-      case CanadianStatusReason.Visiting:
-        return [Documents.VisitorVisa];
-    }
-  }
-
-  static nameChangeDocument() {
-    return [Documents.MarriageCertificate, Documents.ChangeOfNameCertificate];
   }
 }
