@@ -1,5 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import {BaseComponent} from '../../../../models/base.component';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
@@ -9,28 +8,43 @@ import { PageStateService } from '../../../../services/page-state.service';
 import { Relationship } from '../../../msp-core/models/relationship.enum';
 import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
 import { yesNoLabels } from '../../../msp-core/models/msp-constants';
+import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
+import { AbstractForm } from 'moh-common-lib';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'msp-spouse-info',
-  templateUrl: './spouse-info.component.html',
-  styleUrls: ['./spouse-info.component.scss']
+  templateUrl: './spouse-info.component.html'
 })
-export class SpouseInfoComponent extends BaseComponent implements OnInit {
+export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
 
   statusLabel: string = 'Spouse\'s immigration status in Canada';
-  hasNameChange: boolean = undefined;
   yesNoRadioLabels = yesNoLabels;
+  nameChangeDocList = nameChangeSupportDocuments();
+  subscriptions: Subscription[];
 
 
   constructor( private dataService: MspDataService,
-               private _router: Router,
-               private pageStateService: PageStateService,
-               private cd: ChangeDetectorRef) {
-      super(cd);
+               protected router: Router,
+               private pageStateService: PageStateService) {
+      super(router);
   }
 
   ngOnInit() {
-    this.pageStateService.setPageIncomplete(this._router.url, this.dataService.mspApplication.pageStatus);
+    this.pageStateService.setPageIncomplete(this.router.url, this.dataService.mspApplication.pageStatus);
+  }
+
+  ngAfterViewInit() {
+
+    if (this.form) {
+      this.subscriptions = [
+        this.form.valueChanges.subscribe(() => { this.dataService.saveMspApplication(); })
+        ];
+    }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach( itm => itm.unsubscribe() );
   }
 
   /**
@@ -40,15 +54,9 @@ export class SpouseInfoComponent extends BaseComponent implements OnInit {
     return this.spouse ? true : false;
   }
 
-  nextStep() {
-
-    this._router.navigate([ROUTES_ENROL.CHILD_INFO.fullpath]);
-  }
-
   addSpouse() {
     const sp: MspPerson = new MspPerson(Relationship.Spouse);
     this.dataService.mspApplication.addSpouse(sp);
-    this.dataService.saveMspApplication();
   }
 
   /**
@@ -56,19 +64,10 @@ export class SpouseInfoComponent extends BaseComponent implements OnInit {
    */
   removeSpouse(): void{
     this.dataService.mspApplication.removeSpouse();
-    this.dataService.saveMspApplication();
-  }
-
-  get application(): MspApplication {
-    return this.dataService.mspApplication;
   }
 
   get spouse(): MspPerson {
     return this.dataService.mspApplication.spouse;
-  }
-
-  onChange(values: any) {
-    this.dataService.saveMspApplication();
   }
 
   get statusDocuments(): PersonDocuments {
@@ -76,18 +75,38 @@ export class SpouseInfoComponent extends BaseComponent implements OnInit {
   }
 
   set statusDocuments( documents: PersonDocuments ) {
-    this.dataService.mspApplication.spouse.documents = documents;
-  }
 
-  statusDocUpdate($event) {
-    this.statusDocuments = $event;
-    this.dataService.saveMspApplication();
+    if ( document.images.length === 0 ) {
+      // no status documents remove any name documents
+      this.spouse.nameChangeDocs.documentType = null;
+      this.spouse.nameChangeDocs.images = [];
+    }
+
+    this.spouse.documents = documents;
   }
 
   get hasStatus() {
-    return this.spouse.status !== undefined && this.spouse.currentActivity;
+    // Has to have values
+    return this.spouse.status !== undefined &&
+           this.spouse.currentActivity !== undefined;
   }
 
+  get requestNameChangeInfo() {
+    return this.hasStatus && this.spouse.hasNameChange && this.statusDocuments.images.length;
+  }
+
+
+  continue() {
+    this.navigate(ROUTES_ENROL.CHILD_INFO.fullpath);
+  }
+
+  canContinue(): boolean {
+    let valid = super.canContinue() && this.statusDocuments.images.length > 0;
+    if ( this.spouse.hasNameChange ) {
+      valid = valid && this.spouse.nameChangeDocs.images.length > 0;
+    }
+    return valid;
+  }
 
 
 
