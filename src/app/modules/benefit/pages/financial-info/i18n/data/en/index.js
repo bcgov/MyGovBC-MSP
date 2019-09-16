@@ -1,6 +1,7 @@
 module.exports = {
   eligibilityCalculatorTitle: 'Eligibility calculator',
   totalHouseholdIncome: 'Total household income:',
+  totalHouseHoldIncomError: 'Total household income must be less than 1,000,000.00',
   mayNotQualifyText:'Based on {currentCalendarYear} rates, you might not qualify for Supplementary Benefits.',
   // mayNotQualifyText:'Based on {currentCalendarYear} rates, you might not qualify for assistance. Please <a href="http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us">contact Health Insurance BC</a> for more information.',
   youShouldContinue: 'If you entered information from a previous year, you should continue to apply. Your eligibility will be based on the rates from that year.',
