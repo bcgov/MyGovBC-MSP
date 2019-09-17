@@ -1,5 +1,5 @@
 module.exports = {
-  pageTitle: 'Authorize your application',
+  pageTitle: 'Authorize and submit your application',
   changePersonalInfoButton: 'Edit Personal Info & Documents',
   agreementLabel: 'Authorize your application',
   doYouAgreeLabel: '{name}, do you agree?',

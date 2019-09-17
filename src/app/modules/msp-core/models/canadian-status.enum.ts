@@ -1,3 +1,5 @@
+import { Relationship } from "./relationship.enum";
+
 /**
  * Various statuses in Canada
  */
@@ -43,3 +45,32 @@ export const CanadianStatusReasonStrings = {
   Diplomat: 'Diplomat',
   Visiting: 'Visiting'
 };
+
+
+/**
+ * Business rules for activities
+ *
+ * Refactored from 'ActivityRules' to 'CanadianStatusRules'.
+ */
+export class CanadianStatusRules {
+  static statusesForRelationship(relationship: Relationship, status: StatusInCanada): CanadianStatusReason[] {
+    switch (status) {
+      case StatusInCanada.CitizenAdult:
+      case StatusInCanada.PermanentResident:
+        if (relationship === Relationship.Child19To24 ||
+            relationship === Relationship.ChildUnder19 || relationship === Relationship.ChildUnder24) {
+          return [CanadianStatusReason.MovingFromProvince, CanadianStatusReason.MovingFromCountry, CanadianStatusReason.LivingInBCWithoutMSP];
+        }
+        else {
+          return [CanadianStatusReason.MovingFromProvince, CanadianStatusReason.MovingFromCountry, CanadianStatusReason.LivingInBCWithoutMSP];
+        }
+      case StatusInCanada.TemporaryResident:
+        if (relationship === Relationship.Applicant) {
+          return [CanadianStatusReason.WorkingInBC, CanadianStatusReason.StudyingInBC, CanadianStatusReason.ReligiousWorker, CanadianStatusReason.Diplomat];
+        } else {
+          return [CanadianStatusReason.WorkingInBC, CanadianStatusReason.StudyingInBC, CanadianStatusReason.ReligiousWorker, CanadianStatusReason.Diplomat,
+            CanadianStatusReason.Visiting];
+        }
+    }
+  }
+}

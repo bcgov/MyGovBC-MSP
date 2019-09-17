@@ -1,7 +1,6 @@
 import { BaseMSPTestPage } from "../../msp.po";
 import { element, by, browser } from "protractor";
-import { PersonalInfoPageTest } from "../../supp-benefits/src/mspsb-supp-benefits.data";
-import { ContactInfoPageTest } from "./mspretro-pa.data";
+import { ContactInfoPageTest, PersonalInfoPageTest } from "./mspretro-pa.data";
 import { CANADA, BRITISH_COLUMBIA } from "moh-common-lib";
 
 export class HomePage extends BaseMSPTestPage {

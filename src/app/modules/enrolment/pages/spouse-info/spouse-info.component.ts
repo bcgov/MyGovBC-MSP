@@ -85,6 +85,10 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
     this.spouse.documents = documents;
   }
 
+  get hasStatusDocuments(): boolean {
+    return this.statusDocuments.images && this.statusDocuments.images.length > 0;
+  }
+
   get hasStatus() {
     // Has to have values
     return this.spouse.status !== undefined &&
@@ -92,7 +96,17 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
   }
 
   get requestNameChangeInfo() {
-    return this.hasStatus && this.spouse.hasNameChange && this.statusDocuments.images.length;
+    return this.hasStatus && this.spouse.hasNameChange && this.hasStatusDocuments;
+  }
+
+  get hasNameDocuments(): boolean {
+    return this.spouse.nameChangeDocs.images && this.spouse.nameChangeDocs.images.length > 0;
+  }
+
+  get requestPersonalInfo(): boolean {
+    return this.hasStatus && this.hasStatusDocuments &&
+           ( this.spouse.hasNameChange === false || // No name change
+            ( this.spouse.hasNameChange && this.hasNameDocuments )); // name change requires documentation
   }
 
 
@@ -104,11 +118,9 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
     let valid = true;
 
     if ( this.hasSpouse ) {
-      valid = super.canContinue() &&
-          (this.statusDocuments && this.statusDocuments.images.length > 0);
+      valid = super.canContinue() && this.hasStatusDocuments;
       if ( this.spouse.hasNameChange ) {
-        valid = valid &&
-                (this.spouse.nameChangeDocs.images && this.spouse.nameChangeDocs.images.length > 0);
+        valid = valid && this.hasNameDocuments;
       }
     }
     return valid;

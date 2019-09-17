@@ -3,10 +3,9 @@
   <div class="card-body">
     <msp-address-card-part *ngIf="mailingAddress"
                            [address]="residentialAddress"
-                           [label]="lang('./en/index.js').residentialAddressLabel"></msp-address-card-part>
+                           [label]="lang('./en/index.js').residentialAddressLabel"></msp-address-card-part><br>
     <msp-address-card-part [address]="mailingAddress"
-                           [label]="lang('./en/index.js').mailingAddressLabel"></msp-address-card-part>
-                           <br>
+                           [label]="lang('./en/index.js').mailingAddressLabel"></msp-address-card-part><br>
     <div class="row" *ngIf="phone">
       <div class="col-sm-4" style="text-decoration: underline" >
         Phone

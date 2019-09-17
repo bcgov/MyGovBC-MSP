@@ -22,9 +22,6 @@ export class CoreContactInfoComponent extends BaseComponent {
   @Input() phoneNumber: string;
   @Output() phoneNumberChange = new EventEmitter<string>();
 
-  // remove - replace references to address in here to simply the address input (this.address or address)
-  // mspApplication: MspApplication;
-
   constructor(private cd: ChangeDetectorRef) {
     super(cd);
   }
@@ -34,11 +31,19 @@ export class CoreContactInfoComponent extends BaseComponent {
 
   handleAddressChange(addr: any){
     this.address = addr;
+    this.address.addressLine1 = addr.street;
+    if (this.address.addressLine1 !== null){
+      this.address.hasValue = true;
+    }
     this.addressChange.emit(addr);
   }
 
   handleMailingAddressChange(addr: any){
     this.mailingAddress = addr;
+    this.mailingAddress.addressLine1 = addr.street;
+    if (this.mailingAddress.addressLine1 !== null){
+      this.mailingAddress.hasValue = true;
+    }
     this.mailingAdddressChange.emit(addr);
   }
 
@@ -56,13 +61,6 @@ export class CoreContactInfoComponent extends BaseComponent {
 
   toggleCheckBox(){
     this.mailingSameAsResidentialAddress = !this.mailingSameAsResidentialAddress;
-    // console.log('TOGGLE- MAILING SAME AS RESIDENTIAL?:' + this.mailingSameAsResidentialAddress);
+    this.mailingSameAsResidentialAddressChange.emit(this.mailingSameAsResidentialAddress);
   }
-
-  hasSameResidentialAddress(){
-    // return this.mailingSameAsResidentialAddress;
-    console.log('CORE - MAILING SAME AS RESIDENTIAL?:' + this.mailingSameAsResidentialAddressChange);
-    return false;
-  }
-
 }

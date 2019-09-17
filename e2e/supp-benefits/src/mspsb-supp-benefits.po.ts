@@ -8,6 +8,19 @@ import { BaseMSPTestPage } from '../../msp.po';
  * can use the same e2e starting board.
  */
 
+export class EligibilityPage extends BaseMSPTestPage {
+
+    navigateTo() {
+        return browser.get('/msp/benefit/eligibility');
+    }
+
+    fillPage() {
+        this.clickRadioButton('Do you meet the residency requ', 'true');
+        this.continue();
+    }
+
+}
+
 export class PreparePage extends BaseMSPTestPage {
 
     navigateTo() {
@@ -20,15 +33,16 @@ export class PreparePage extends BaseMSPTestPage {
         }
         this.clickOption('2018');
         this.typeNetIncome(amount);
-        this.clickRadioButton('Are you 65 or older this year?', 'false');
+        this.clickRadioButton('Are you 65 or older?', 'false');
         this.scrollDown();
         this.clickRadioButton('Do you have a spouse or common', 'true');
-        this.clickRadioButton('Is your spouse/common-law part', 'false');
+        this.clickRadioButton('Is your spouse 65 or older?', 'false');
         this.typeSpouseIncome(amount);
         this.scrollDown();
         this.clickRadioButton('Do you have any children', 'false');
-        this.clickRadioButton('Did anyone included in your MS', 'false');
-        this.clickRadioButtonDuplicate('Did anyone included in your MS', 'false');
+        this.clickRadioButton('Did anyone on your Medical Ser', 'false');
+        this.clickRadioButton('Does anyone on your Medical Se', 'false');
+        this.clickRadioButtonDuplicate('Did anyone on your Medical Ser', 'false');
         this.continue();
     }
 
@@ -115,8 +129,8 @@ export class PersonalInfoPage extends BaseMSPTestPage {
         this.typeText('day', day.toString());
         this.typeText('year', year.toString());
         this.scrollDown();
-        this.typePHN(info.PHN.toString());
-        this.typeText('sin', info.SIN.toString());
+        element.all(by.css('common-phn input')).sendKeys(info.PHN.toString());
+        element.all(by.css('common-sin input')).sendKeys(info.SIN.toString());
         this.uploadOneFile();
     }
 
@@ -135,6 +149,7 @@ export class SpouseInfoPage extends PersonalInfoPage {
     fillPage(spouseInfoData: PersonalInfoPageTest) {
         spouseInfoData.PHN = 9898293823;
         spouseInfoData.SIN = 358745768;
+        browser.sleep(2000);
         this.addSpouse();
         this.fillInfo(spouseInfoData);
         browser.sleep(3000);
@@ -142,7 +157,7 @@ export class SpouseInfoPage extends PersonalInfoPage {
     }
 
     addSpouse() {
-        element(by.css('common-button[ng-reflect-label*="Add Spouse"] span')).click();
+        element(by.cssContainingText('button', 'Add Spouse Information')).click();
     }
 
 }

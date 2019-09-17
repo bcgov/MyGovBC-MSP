@@ -10,12 +10,7 @@ import {
   Gender, MspPerson
 } from '../../../../components/msp/model/msp-person.model';
 import { OutofBCRecord } from '../../../../models/outof-bc-record.model';
-import {
-  DocumentRules,
-} from '../../../msp-core/models/status-activities-documents';
 import * as _ from 'lodash';
-
-
 import { BaseComponent } from '../../../../models/base.component';
 import {
   CANADA,
@@ -24,12 +19,12 @@ import {
   BRITISH_COLUMBIA,
   CommonImage} from 'moh-common-lib';
 import { MspAddressConstants } from '../../../../models/msp-address.constants';
-import { MspDocumentConstants, Documents } from '../../../msp-core/models/msp-document.constants';
+import { MspDocumentConstants } from '../../../msp-core/models/msp-document.constants';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
 import { StatusInCanada, CanadianStatusStrings, CanadianStatusReasonStrings, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 import { statusReasonRules } from '../../../msp-core/components/canadian-status/canadian-status.component';
 import { Relationship } from '../../../msp-core/models/relationship.enum';
-import { yesNoLabels, genderLabels } from '../../../msp-core/models/msp-constants';
+import { yesNoLabels } from '../../../msp-core/models/msp-constants';
 
 
 @Component({
@@ -154,7 +149,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   activitiesOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
   documentOpts: string[] = MspDocumentConstants.langDocument();
   yesNoRadioLabels = yesNoLabels;
-  genderRedioLabels = genderLabels;
+  // genderRadioLabels = genderLabels;
 
   statusDocumentType: string = null;
   hasStatusDocumentType: boolean = false;
@@ -224,58 +219,13 @@ export class PersonalDetailsComponent extends BaseComponent {
     return statusReasonRules( this.person.relationship, this.person.status );
   }
 
-  /**
-   * Gets the available documents given the known status and activity
-   */
-  get documents(): Documents[] {
-    return DocumentRules.availiableDocuments(
-      this.person.status,
-      this.person.currentActivity
-    );
-  }
-
-  get documentList() {
-    if (this.documents) {
-      return this.documents.map(itm => this.documentOpts[itm] );
-    }
-  }
-
-  addStatusBtnClick() {
-    this.hasStatusDocumentType = this.statusDocumentType ? true : false;
-    console.log('addStatusBtnClick: ', this.hasStatusDocumentType, this.statusDocumentType );
-  }
-
-  addNameBtnClick() {
-    this.hasNameChangeDocumentType = this.nameChangeDocumentType ? true : false;
-  }
-
-  /** Removes all documents in the list */
-  removeDocuments() {
-    this.statusDocuments = [];
-    this.hasStatusDocumentType = false;
-    this.statusDocumentsChange.emit(this.statusDocuments);
-
-    this.removeNameDocuments();
-  }
-
-  removeNameDocuments() {
-    this.nameDocuments = [];
-    this.hasNameChangeDocumentType = false;
-    this.nameDocumentsChange.emit(this.nameDocuments);
-  }
-
 
   // Statuses
   get isCanadianCitizen(): boolean {
     return this.person.status === StatusInCanada.CitizenAdult;
   }
 
-  /**
-   * Gets the available documents given the known status and activity
-   */
-  get nameChgDocumentList() {
-    return DocumentRules.nameChangeDocument().map( x => this.documentOpts[x] );
-  }
+
 
   addDocument(evt: CommonImage) {
     this.person.documents.images = this.person.documents.images.concat(evt);

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { StatusInCanada, CanadianStatusReason, CanadianStatusReasonStrings, CanadianStatusStrings } from '../../../../modules/msp-core/models/canadian-status.enum';
 
 
+
 @Component({
   selector: 'msp-person-card',
   templateUrl: './person-card.component.html',

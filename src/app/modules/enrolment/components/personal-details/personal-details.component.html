@@ -13,11 +13,16 @@
                  [(date)]="person.dateOfBirth"
                  (dateChange)="personChange.emit(person)"></common-date>
 
-    <common-radio class="p-sm-2"
+    <!-- <common-radio class="p-sm-2"
                   label="Gender"
                   [radioLabels]="genderRedioLabels"
                   [value]="person.gender" 
                   (statusChange)="setGender($event)">
+    </common-radio> -->
+
+    <common-radio class='p-sm-2' [value]="person.gender" label='Gender'
+      [radioLabels]='[{"label": "Male", "value": "M"},{ "label": "Female", "value": "F"}]'
+      (statusChange)="setGender($event)">
     </common-radio>
 
   </common-page-section>

@@ -71,7 +71,7 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
   statusDocUpdate($event, idx: number) {
     this.children[idx].documents = $event;
 
-    if ( this.children[idx].documents.images.length === 0 ) {
+    if ( this.children[idx].documents && this.children[idx].documents.images.length === 0 ) {
       // no status documents remove any name documents
       this.children[idx].nameChangeDocs.documentType = null;
       this.children[idx].nameChangeDocs.images = [];
@@ -84,11 +84,15 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
            this.children[idx].currentActivity !== undefined;
   }
 
+  hasStatusDocuments( idx: number ): boolean {
+    return this.children[idx].documents.images && this.children[idx].documents.images.length > 0;
+  }
+
 
   requestNameChangeInfo( idx: number ) {
     return this.hasStatus( idx ) &&
            this.children[idx].hasNameChange &&
-           this.children[idx].documents.images.length;
+           this.hasStatusDocuments( idx );
   }
 
   continue(){
@@ -118,6 +122,18 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
   setRelationship( $event, idx: number ) {
     this.children[idx].relationship = Number($event);
   }
+
+  hasNameDocuments( idx: number ): boolean {
+    return this.children[idx].nameChangeDocs.images && this.children[idx].nameChangeDocs.images.length > 0;
+  }
+
+  requestPersonalInfo( idx: number ): boolean {
+    return this.hasStatus( idx ) && this.hasStatusDocuments( idx ) &&
+           ( this.children[idx].hasNameChange === false || // No name change
+            ( this.children[idx].hasNameChange && this.hasNameDocuments( idx ) )); // name change requires documentation
+  }
+
+
 
 
 

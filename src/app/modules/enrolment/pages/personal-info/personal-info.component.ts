@@ -65,13 +65,17 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
 
   set statusDocuments( document: PersonDocuments ) {
 
-    if ( document.images.length === 0 ) {
+    if ( document.images && document.images.length === 0 ) {
       // no status documents remove any name documents
       this.applicant.nameChangeDocs.documentType = null;
       this.applicant.nameChangeDocs.images = [];
     }
 
     this.applicant.documents = document;
+  }
+
+  get hasStatusDocuments(): boolean {
+    return this.statusDocuments.images && this.statusDocuments.images.length > 0;
   }
 
   get hasStatus() {
@@ -81,18 +85,22 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
   }
 
   get requestNameChangeInfo() {
-    return this.hasStatus && this.applicant.hasNameChange && this.statusDocuments.images.length;
+    return this.hasStatus && this.applicant.hasNameChange && this.hasStatusDocuments;
   }
 
+  get hasNameDocuments(): boolean {
+    return this.applicant.nameChangeDocs.images && this.applicant.nameChangeDocs.images.length > 0;
+  }
+
+  get requestPersonalInfo(): boolean {
+    return this.hasStatus && this.hasStatusDocuments &&
+           ( this.applicant.hasNameChange === false || // No name change
+            ( this.applicant.hasNameChange && this.hasNameDocuments )); // name change requires documentation
+  }
 
   canContinue(): boolean {
-    let valid = super.canContinue() &&
-                (this.statusDocuments.images && this.statusDocuments.images.length > 0);
-    if ( this.applicant.hasNameChange ) {
-      valid = valid &&
-              (this.applicant.nameChangeDocs.images && this.applicant.nameChangeDocs.images.length > 0);
-    }
-    return valid;
+    const valid = super.canContinue() && this.hasStatusDocuments;
+    return this.applicant.hasNameChange ? valid && this.hasNameDocuments : valid;
   }
 
   continue(): void {

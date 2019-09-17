@@ -433,13 +433,14 @@ export class MspDataService {
     dto.livedInBCSinceBirth = input.livedInBCSinceBirth;
     dto.hasPreviousBCPhn = input.hasPreviousBCPhn;
 
+    // TODO: Remove replace with simple date
     dto.firstName = input.firstName;
     dto.middleName = input.middleName;
     dto.lastName = input.lastName;
     dto.dob_day = input.dob_day;
     dto.dob_month = input.dob_month;
     dto.dob_year = input.dob_year;
-    dto.middleName = input.middleName;
+    dto.dateOfBirth = input.dateOfBirth;
     dto.previous_phn = input.previous_phn;
 
     dto.specificMember_phn = input.specificMember_phn;
@@ -474,7 +475,9 @@ export class MspDataService {
 
     dto.declarationForOutsideOver30Days = input.declarationForOutsideOver30Days;
 
+    console.log( 'Gender (toPersonDto): ', input.gender );
     if (input.gender) {
+      console.log( 'Gender valueOF (toPersonDto): ', input.gender.valueOf() );
       dto.gender = input.gender.valueOf();
     }
     dto.status = input.status;
@@ -504,10 +507,12 @@ export class MspDataService {
     output.firstName = dto.firstName;
     output.middleName = dto.middleName;
     output.lastName = dto.lastName;
+
+    // TODO: Remove and replace with SimpleDte
     output.dob_day = dto.dob_day;
     output.dob_month = dto.dob_month;
     output.dob_year = dto.dob_year;
-    output.middleName = dto.middleName;
+    output.dateOfBirth = dto.dateOfBirth;
     output.healthNumberFromOtherProvince = dto.healthNumberFromOtherProvince;
     output.previous_phn = dto.previous_phn;
     output.specificMember_phn = dto.specificMember_phn;
@@ -541,6 +546,7 @@ export class MspDataService {
     output.declarationForOutsideOver30Days =
       dto.declarationForOutsideOver30Days;
 
+    console.log( 'Gender (fromPersonDto): ', dto.gender );
     if (dto.gender) {
       output.gender = dto.gender;
     }
@@ -996,9 +1002,13 @@ export class MspDataService {
   }
 
   convertToPersonDto(input: MspPerson, output: PersonDto) {
+
+    // TODO: Remove once verify where being used - replace with SimpleDate
     output.dob_day = input.dob_day;
     output.dob_month = input.dob_month;
     output.dob_year = input.dob_year;
+
+    output.dateOfBirth = input.dateOfBirth;
 
     output.firstName = input.firstName;
     output.middleName = input.middleName;

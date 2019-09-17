@@ -3,7 +3,7 @@ import { MspPerson } from '../../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { MspAccountApp, UpdateList } from '../../../models/account.model';
 import { ActivitiesRules } from '../../../../msp-core/models/status-activities-documents';
-import { StatusInCanada, CanadianStatusReason } from '../../../../msp-core/models/canadian-status.enum';
+import { StatusInCanada, CanadianStatusReason, CanadianStatusRules } from '../../../../msp-core/models/canadian-status.enum';
 
 
 @Component({
@@ -74,14 +74,21 @@ export class UpdateRequestComponent  {
   get activities(): CanadianStatusReason[] {
     console.log( this.person.relationship);
     console.log( this.person.status);
-    return ActivitiesRules.activitiesForAccountChange(
+    // todo review correctness, had to modify after merge.
+    return CanadianStatusRules.statusesForRelationship(
         this.person.relationship,
         this.person.status
     );
-}
+  }
 
-
-
+  // get activities(): CanadianStatusReason[] {
+  //   console.log( this.person.relationship);
+  //   console.log( this.person.status);
+  //   return ActivitiesRules.availableActivities(
+  //       this.person.relationship,
+  //       this.person.status
+  //   );
+  // }
 
 activityStatus  =  {
   0: 'Not new to B.C. but need to apply for MSP',
