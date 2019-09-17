@@ -475,9 +475,7 @@ export class MspDataService {
 
     dto.declarationForOutsideOver30Days = input.declarationForOutsideOver30Days;
 
-    console.log( 'Gender (toPersonDto): ', input.gender );
     if (input.gender) {
-      console.log( 'Gender valueOF (toPersonDto): ', input.gender.valueOf() );
       dto.gender = input.gender.valueOf();
     }
     dto.status = input.status;
@@ -546,7 +544,6 @@ export class MspDataService {
     output.declarationForOutsideOver30Days =
       dto.declarationForOutsideOver30Days;
 
-    console.log( 'Gender (fromPersonDto): ', dto.gender );
     if (dto.gender) {
       output.gender = dto.gender;
     }

@@ -14,22 +14,17 @@
     <common-page-section layout='noTips'>
         <form #formRef='ngForm' novalidate>
 
-            <common-radio #liveInBCBtn
-                          name="LiveInBC"
-                          [ngModel]="liveInBC"  
+            <common-radio name="LiveInBC"
+                          [(ngModel)]="liveInBC"  
                           label="Do you currently live in British Columbia (i.e. Do you have an address here)?" 
-                          [radioLabels]="radioLabels"
-                          (ngModelChange)="setLiveInBC($event)"
                           required>
             </common-radio> 
 
             <div [hidden]="liveInBC !== true" role="dialog" aria-labelledby="q2">
             
                 <common-radio name="PlannedAbsence"
-                              [ngModel]="plannedAbsence"  
+                              [(ngModel)]="plannedAbsence"  
                               label="Will you or anyone included on this application be away from B.C. for more than 30 days in total over the next six months?" 
-                              [radioLabels]="radioLabels"
-                              (ngModelChange)="setPlannedAbsence($event)"
                               required>
                 </common-radio>
 
@@ -49,9 +44,7 @@
                  aria-labelledby="q3"> 
 
                 <common-radio name="UnusualCircumstance"
-                              [ngModel]="unUsualCircumstance"  
-                              [radioLabels]="radioLabels"
-                              (ngModelChange)="setUnusualCircumstance($event)"
+                              [(ngModel)]="unUsualCircumstance"
                               required>
                     Is anyone you're applying for<br>
                     <ul class="mb-0">
@@ -76,7 +69,7 @@
             </div>
 
             <p class="text-danger" 
-               *ngIf="!(liveInBC === true || liveInBC === null || liveInBC === undefined)"
+               *ngIf="liveInBC == false"
                role="alert" aria-live="assertive">
                 You might not qualify for public health insurance if you do not live in B.C. Contact
                  <a href="{{links.MSP_RESIDENT_CONTACT}}" target="_blank">Health Insurance BC</a> for more information.

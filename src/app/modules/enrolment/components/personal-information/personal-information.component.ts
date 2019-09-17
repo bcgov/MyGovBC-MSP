@@ -8,7 +8,7 @@ import { MspPerson, Gender } from '../../../../components/msp/model/msp-person.m
   templateUrl: './personal-information.component.html',
   styleUrls: ['./personal-information.component.scss'],
 
-    /* Re-use the same ngForm that it's parent is using. The component will show
+  /* Re-use the same ngForm that it's parent is using. The component will show
    * up in its parents `this.form`, and will auto-update `this.form.valid`
    */
   viewProviders: [

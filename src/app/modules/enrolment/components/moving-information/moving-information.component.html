@@ -1,0 +1,30 @@
+<ng-content select="[sectionTitleInfo]"></ng-content>
+<common-page-section layout="tips">
+  <div *ngIf="isCanadianNotBC">
+    <div class="form-group" class="p-sm-2">
+      <common-radio name="livedInBCSinceBirth_{{objectId}}"
+                    [(ngModel)]="person.livedInBCSinceBirth"  
+                    label="Have you lived in B.C. since birth?" 
+                    required>
+      </common-radio>
+    </div>
+  </div>
+
+
+  <div *ngIf="isCanadianFromProv || isCanadianFromCountry || (isCanadianNotBC && person.livedInBCSinceBirth)">
+    <div class="form-group" class="p-sm-2">
+      <common-radio name="madePermanentMoveToBC_{{objectId}}"
+                    [(ngModel)]="person.madePermanentMoveToBC"  
+                    label="Have you moved to B.C. permanently?" 
+                    required>
+      </common-radio>
+      <common-error-container [displayError]="person.madePermanentMoveToBC == false">
+        You have indcated that a recent move to B.C. is not permanent.  As a result, this person
+        is not eligible for enrolment in the Medical Services Plan.  Please contact
+        <a href="{{links.MSP_RESIDENT_CONTACT}}" target="_blank">Health Insurance BC</a> for further 
+        information.
+      </common-error-container>
+    </div>   
+  </div>
+</common-page-section>
+
