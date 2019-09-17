@@ -417,23 +417,23 @@ export class MspApiBenefitService extends AbstractHttpService {
 
     to.numChildren = (!!from.childrenCount && from.childrenCount > 0) ? from.childrenCount * 1 : 0;
 
-    let numDisabled = 0;
+    let numDis = 0;
+
     // applicant
-    if ( from.selfDisabilityCredit != null && from.selfDisabilityCredit === true) {
-      numDisabled = numDisabled + 1 ;
+    if ( from.applicantEligibleForDisabilityCredit != null && from.applicantEligibleForDisabilityCredit === true) {
+      numDis = numDis + 1 ;
     }
 
     // spouse
     if ( from.spouseEligibleForDisabilityCredit != null && from.spouseEligibleForDisabilityCredit === true) {
-      numDisabled = numDisabled + 1 ;
+      numDis = numDis + 1 ;
     }
 
-    if ( from.childWithDisabilityCount != null && from.childWithDisabilityCount >= 0
-    ) {
-      numDisabled =  (numDisabled * 1 + from.childWithDisabilityCount * 1);
+    if ( from.childWithDisabilityCount != null && from.childWithDisabilityCount >= 0) {
+      numDis =  (numDis * 1 + from.childWithDisabilityCount * 1);
     }
 
-    to.numDisabled = numDisabled * 1;
+    to.numDisabled = numDis * 1;
 
     to.spouseIncomeLine236 =
       from.spouseIncomeLine236 != null ? Number(from.spouseIncomeLine236) : 0;
