@@ -302,7 +302,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
         }
 
         // regex pattern check for the child count 
-        const childCountPattern = /^[1-9]{0,2}$/g;
+        const childCountPattern = /^[0-9]{0,2}$/g;
         if (this.application.childClaimForAttendantCareExpense) {
           const childCountcheck = this.application.childWithAttendantCareCount && this.application.childWithAttendantCareCount.toString().match(childCountPattern);
           if (!childCountcheck) {
@@ -327,6 +327,14 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
           }
         }
 
+        // checking if the total income does not exceeds 999999.99
+        if (this.totalHouseholdIncome) {
+            const totalFamilyincome = parseFloat(this.totalHouseholdIncome) * 1 ;
+            if (totalFamilyincome > 999999.99) {
+                this.continue.emit(false);
+                return false;
+            }
+        }
         // Regex pattern check for the child count 
 
 
@@ -355,6 +363,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
             this.continue.emit(false);
             return false;
         }
+
 
 
     }

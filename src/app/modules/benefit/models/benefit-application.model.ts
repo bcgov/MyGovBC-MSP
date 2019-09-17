@@ -261,8 +261,8 @@ export class BenefitApplication implements ApplicationBase {
       return null;
     } else {
       const n =
-        !!this.childWithDisabilityCount
-          ? this.childWithDisabilityCount
+        !!this.childWithDisabilityCount && !isNaN(this.childWithDisabilityCount)
+          ? this.childWithDisabilityCount * 1
           : 0;
       return n;
     }
