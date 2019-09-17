@@ -69,6 +69,7 @@ const componentList = [
   ErrorComponent,
   PersonalDetailsRetroSuppbenComponent,
   ConfirmationComponent,
+  CoreContactInfoComponent,
 
   // New components
   CanadianStatusComponent,
@@ -78,7 +79,6 @@ const componentList = [
   KeyboardEventListner,
   MspLoggerDirective,
   ReviewCardWrapperComponent,
-  CoreContactInfoComponent
 ];
 
 // TODO: Review to determine whether these should be replace with moh-common-lib

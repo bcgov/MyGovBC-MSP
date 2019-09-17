@@ -15,7 +15,7 @@ import { HeaderService } from '../../../../services/header.service';
 })
 export class EnrolContainerComponent extends Container implements OnInit {
 
-  constructor( public router: Router, 
+  constructor( public router: Router,
                private pageStateService: PageStateService,
                private dataService: MspDataService,
                private header: HeaderService ) {
@@ -28,8 +28,6 @@ export class EnrolContainerComponent extends Container implements OnInit {
       this.pageStateService.setPages( enrolPages,
                                       ROUTES_ENROL,
                                       this.dataService.mspApplication.pageStatus );
-
-    console.log( 'pageList: ', this.dataService.mspApplication.pageStatus );
   }
 
   ngOnInit() {

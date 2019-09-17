@@ -14,6 +14,9 @@ export default class PersonDto {
     dob_day: number;
     dob_month: number;
     dob_year: number;
+
+    dateOfBirth: SimpleDate;
+
     sin: string;
     assistYearDocs: CommonImage[]; //= [];
 
@@ -114,5 +117,4 @@ export default class PersonDto {
     updateBirthdate: boolean;
     updateGender: boolean;
     updateGenderDesignation: boolean;
-
 }

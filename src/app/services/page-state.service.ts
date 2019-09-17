@@ -25,7 +25,6 @@ export class PageStateService {
       return arr.filter((itm: any) => !itm.redirectTo)
         .map((itm: any) => {
           const val = routeConst.find( x => x.path === itm.path );
-          console.log( 'setPages: ', val );
           return {
             index: val.index,
             path: val.path,
@@ -49,14 +48,12 @@ export class PageStateService {
   }
 
   setPageIncomplete( path: string, pageStatus: PageList[] ) {
-    console.log( 'setPageIncomplete: ', path );
     const obj = pageStatus.find( x => path.includes(x.path) );
     if ( obj ) {
       obj.isComplete = false;
       // Set future pages to not complete
       pageStatus.map( x => {
         if ( obj.index < x.index && x.isComplete ) {
-          console.log( 'sets pages in front false: ', x, obj );
           x.isComplete = false;
         }
       });
@@ -64,7 +61,6 @@ export class PageStateService {
   }
 
   setPageComplete( path: string, pageStatus: PageList[] ) {
-    console.log( 'setPageComplete: ', path );
     const obj = pageStatus.find( x => path.includes(x.path) );
     if ( obj ) {
       obj.isComplete = true;
@@ -74,7 +70,6 @@ export class PageStateService {
   isPageComplete( path: string, pageStatus: PageList[] ): boolean {
     let complete = false;
     const obj = pageStatus .find( x => path.includes(x.path) );
-    console.log( 'isPageComplete: ', obj );
     if ( obj ) {
       // Requirement to continue is the previous page is complete
       const prevIdx = obj.index - 1;

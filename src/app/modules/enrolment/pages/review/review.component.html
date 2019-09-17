@@ -6,7 +6,7 @@
   </b> 
  </a> 
   
-  <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
+  <h1>Review your application</h1>
   
   <div class="row">
       <div class="col-lg-6">
@@ -19,7 +19,7 @@
       </div>
   </div>
   <div class="row">
-    <div class="col-lg-6">>
+    <div class="col-lg-6">
         <msp-contact-card [residentialAddress]="application.residentialAddress"
                           [mailingAddress]="application.mailingAddress"
                           [phone]="application.phoneNumber"
@@ -37,9 +37,8 @@
   </div>
                     
   </common-page-framework>
-  <common-form-action-bar [submitLabel]="lang('./en/index.js').submitButton"
-        [canContinue]="true"
-        (btnClick)="handleFormSubmission($event)">
+  <common-form-action-bar [canContinue]="true"
+                          (btnClick)="handleFormSubmission($event)">
   </common-form-action-bar>
 
 </form>

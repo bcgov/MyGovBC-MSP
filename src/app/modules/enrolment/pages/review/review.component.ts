@@ -1,11 +1,8 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { MspApplication } from '../../models/application.model';
-
 import { MspDataService } from '../../../../services/msp-data.service';
-import { ProcessService } from '../../../../services/process.service';
 import { environment } from '../../../../../environments/environment';
 import { MspLogService } from '../../../../services/log.service';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
@@ -15,7 +12,6 @@ import { PageStateService } from '../../../../services/page-state.service';
   templateUrl: './review.component.html'
 })
 export class ReviewComponent implements OnInit {
-  lang = require('./i18n');
 
   application: MspApplication;
   captchaApiBaseUrl: string;
@@ -57,18 +53,6 @@ export class ReviewComponent implements OnInit {
     this.dataService.saveMspApplication();
   }
 
-  get questionApplicant() {
-    return this.lang('./en/index.js').doYouAgreeLabel.replace(
-      '{name}',
-      this.applicantName
-    );
-  }
-  get questionSpouse() {
-    return this.lang('./en/index.js').doYouAgreeLabel.replace(
-      '{name}',
-      this.spouseName
-    );
-  }
   get applicantName() {
     return (
       this.application.applicant.firstName +
