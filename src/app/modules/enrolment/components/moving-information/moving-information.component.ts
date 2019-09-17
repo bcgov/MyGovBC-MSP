@@ -1,5 +1,5 @@
 import { Component, OnInit, forwardRef, EventEmitter, Input, Output } from '@angular/core';
-import { Base, Person } from 'moh-common-lib';
+import { Base, Person, PROVINCE_LIST, BRITISH_COLUMBIA, COUNTRY_LIST } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { MspPerson } from '../../../account/models/account.model';
 import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
@@ -24,6 +24,13 @@ export class MovingInformationComponent extends Base implements OnInit {
 
   // Web links
   links = environment.links;
+  countryList = COUNTRY_LIST;
+  // Remove BC from province list
+  provinceList = PROVINCE_LIST.map( x => {
+    if ( x.provinceCode !== BRITISH_COLUMBIA ) {
+      return x;
+    }
+  }).filter( x => x );
 
   constructor() {
     super();

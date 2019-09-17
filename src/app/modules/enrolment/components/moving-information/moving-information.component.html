@@ -24,7 +24,27 @@
         <a href="{{links.MSP_RESIDENT_CONTACT}}" target="_blank">Health Insurance BC</a> for further 
         information.
       </common-error-container>
-    </div>   
+    </div>
+
+    <div *ngIf="isCanadianFromProv || isCanadianNotBC; else SelectCountry"
+         class="form-group" class="col-sm-6 p-sm-2">
+      <common-province name="movedFromProvince_{{objectId}}"
+                       label="Which province are you moving from?"
+                       [provinceList]="provinceList"
+                       [(ngModel)]="person.movedFromProvinceOrCountry"
+                       required>
+      </common-province>
+    </div>
+
+
   </div>
 </common-page-section>
 
+<ng-template #SelectCountry>
+  <common-country name="movedFromCountry_{{objectId}}"
+                  label="Which counrty are you moving from?"
+                  [countryList]="countryList"
+                  [(ngModel)]="person.movedFromProvinceOrCountry"
+                  required>
+  </common-country>
+</ng-template>

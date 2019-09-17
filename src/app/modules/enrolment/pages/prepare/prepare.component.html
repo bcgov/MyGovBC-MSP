@@ -14,7 +14,8 @@
     <common-page-section layout='noTips'>
         <form #formRef='ngForm' novalidate>
 
-            <common-radio name="LiveInBC"
+            <common-radio #liveInBCBtn
+                          name="LiveInBC"
                           [(ngModel)]="liveInBC"  
                           label="Do you currently live in British Columbia (i.e. Do you have an address here)?" 
                           required>
