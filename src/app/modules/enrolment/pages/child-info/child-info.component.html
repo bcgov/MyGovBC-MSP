@@ -22,7 +22,7 @@
                            label="{{statusLabel}}"
                            [displayStatusInCanada]="displayStatusOpt(idx)">
         <div sectionTitleInfo>
-          <h2>Child #{{idx+1}}</h2>
+          <h2>Child #{{children.length - idx}}</h2>
           <p class="border-bottom">
             Please provide child's personal information and immigration status in Canada. You will be required to upload supporting documents with your application.
             <common-xicon-button label= "Remove child" (click)="removeChild(idx)">
@@ -59,8 +59,7 @@
           <div class="form-group" class="p-sm-2">
             <common-radio name="NameChangeQuestion_{{id}}"
                           [(ngModel)]="child.hasNameChange"  
-                          label="Has your child's name changed since their ID was issued?" 
-                          [radioLabels]="yesNoRadioLabels"
+                          label="Has your child's name changed since their ID was issued?"
                           required>
             </common-radio>
           </div>
@@ -95,6 +94,15 @@
             </p>
           </div>     
         </msp-personal-information>
+
+        <msp-moving-information [person]="child">
+          <div sectionTitleInfo>
+            <h2>Moving Information</h2>
+            <p class="border-bottom"> 
+                Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
+            </p>
+          </div>         
+        </msp-moving-information>          
       </div>
 
     </div>

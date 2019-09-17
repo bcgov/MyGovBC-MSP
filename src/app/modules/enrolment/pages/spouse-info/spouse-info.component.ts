@@ -7,10 +7,10 @@ import { MspApplication } from '../../models/application.model';
 import { PageStateService } from '../../../../services/page-state.service';
 import { Relationship } from '../../../msp-core/models/relationship.enum';
 import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
-import { yesNoLabels } from '../../../msp-core/models/msp-constants';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { AbstractForm } from 'moh-common-lib';
 import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -19,7 +19,6 @@ import { Subscription } from 'rxjs';
 export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
 
   statusLabel: string = 'Spouse\'s immigration status in Canada';
-  yesNoRadioLabels = yesNoLabels;
   nameChangeDocList = nameChangeSupportDocuments();
   subscriptions: Subscription[];
 
@@ -35,10 +34,13 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
   }
 
   ngAfterViewInit() {
-
     if (this.form) {
       this.subscriptions = [
-        this.form.valueChanges.subscribe(() => { this.dataService.saveMspApplication(); })
+        this.form.valueChanges.pipe(
+          debounceTime(100)
+        ).subscribe(() => {
+          this.dataService.saveMspApplication();
+        })
         ];
     }
   }

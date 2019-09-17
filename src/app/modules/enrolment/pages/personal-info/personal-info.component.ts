@@ -4,14 +4,13 @@ import { Router } from '@angular/router';
 import {PersonalDetailsComponent} from '../../components/personal-details/personal-details.component';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
-import { MspApplication } from '../../models/application.model';
 import { MspPerson } from '../../../account/models/account.model';
 import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
-import { yesNoLabels } from '../../../msp-core/models/msp-constants';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { AbstractForm } from 'moh-common-lib';
 import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 
 @Component({
@@ -24,7 +23,6 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
     PersonalDetailsComponent
   >;
 
-  yesNoRadioLabels = yesNoLabels;
   nameChangeDocList = nameChangeSupportDocuments();
   subscriptions: Subscription[];
 
@@ -39,10 +37,13 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
   }
 
   ngAfterViewInit() {
-
     if (this.form) {
       this.subscriptions = [
-        this.form.valueChanges.subscribe(() => { this.dataService.saveMspApplication(); })
+        this.form.valueChanges.pipe(
+          debounceTime(100)
+        ).subscribe(() => {
+          this.dataService.saveMspApplication();
+        })
         ];
     }
   }

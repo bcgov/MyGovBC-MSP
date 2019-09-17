@@ -31,7 +31,6 @@
           <common-radio name="NameChangeQuestion"
                         [(ngModel)]="applicant.hasNameChange"  
                         label="Has your name changed since your ID was issued due to marriage or a legal name change?" 
-                        [radioLabels]="yesNoRadioLabels"
                         required>
           </common-radio>
         </div>
@@ -66,18 +65,19 @@
           </p>
         </div>     
       </msp-personal-information>
+
+      <msp-moving-information [(person)]="applicant">
+        <div sectionTitleInfo>
+          <h2>Moving Information</h2>
+          <p class="border-bottom"> 
+              Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
+          </p>
+        </div>         
+      </msp-moving-information>
     </div>
 
 
-    
 
-    
-    <msp-personal-details [(person)] = 'applicant' [id] = 'applicant.id'
-      [(statusDocuments)]="applicant.documents.images"
-      [(nameDocuments)]="applicant.nameChangeDocs.images">
-    </msp-personal-details>
-      <!--[showError] = "formRef.submitted"-->
-    
 
     <div class="row" style="margin-top: 10px">
       <p class="intro text-danger" *ngIf="!isStayinginBCAfterstudies()"

@@ -127,7 +127,7 @@ export class CanadianStatusComponent  extends Base {
    * @param value
    */
   setReason(value: CanadianStatusReason) {
-    console.log('setReason: ', value);
+
     if (
       this.showServicesCardModal &&
       this.person.bcServiceCardShowStatus &&

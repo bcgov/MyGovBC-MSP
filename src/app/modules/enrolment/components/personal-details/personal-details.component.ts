@@ -24,7 +24,6 @@ import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/componen
 import { StatusInCanada, CanadianStatusStrings, CanadianStatusReasonStrings, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 import { statusReasonRules } from '../../../msp-core/components/canadian-status/canadian-status.component';
 import { Relationship } from '../../../msp-core/models/relationship.enum';
-import { yesNoLabels } from '../../../msp-core/models/msp-constants';
 
 
 @Component({
@@ -148,7 +147,7 @@ export class PersonalDetailsComponent extends BaseComponent {
   statusOpts: string[] = Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
   activitiesOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
   documentOpts: string[] = MspDocumentConstants.langDocument();
-  yesNoRadioLabels = yesNoLabels;
+
   // genderRadioLabels = genderLabels;
 
   statusDocumentType: string = null;

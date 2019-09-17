@@ -5,10 +5,10 @@ import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Relationship } from '../../../msp-core/models/relationship.enum';
-import { yesNoLabels } from '../../../msp-core/models/msp-constants';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { AbstractForm } from 'moh-common-lib';
 import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'msp-child-info',
@@ -19,11 +19,10 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
 
   statusLabel: string = 'Child\'s immigration status in Canada';
   childAgeCategory = [
-    {'label': '0-18 years', 'value': Relationship.ChildUnder19},
-    {'label': '19-24 years (must be a full-time student)', 'value': Relationship.Child19To24},
+    {label: '0-18 years', value: Relationship.ChildUnder19},
+    {label: '19-24 years (must be a full-time student)', value: Relationship.Child19To24},
   ];
 
-  yesNoRadioLabels = yesNoLabels;
   nameChangeDocList = nameChangeSupportDocuments();
   subscriptions: Subscription[];
 
@@ -40,10 +39,13 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
   }
 
   ngAfterViewInit() {
-
     if (this.form) {
       this.subscriptions = [
-        this.form.valueChanges.subscribe(() => { this.dataService.saveMspApplication(); })
+        this.form.valueChanges.pipe(
+          debounceTime(100)
+        ).subscribe(() => {
+          this.dataService.saveMspApplication();
+        })
         ];
     }
   }

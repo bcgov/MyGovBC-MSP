@@ -87,7 +87,13 @@ export class MspApplication implements ApplicationBase {
       //child between 19-24 must be a full time student to qualify for enrollment
       c.fullTimeStudent = true;
     }
-    this._children.length < 30 ? this._children.push(c) : console.log('No more than 30 children can be added to one application');
+    if ( this._children.length < 30 ) {
+      // Add child to front of array
+      const tmp = [c, ...this._children];
+      this._children = tmp;
+    } else {
+      console.log('No more than 30 children can be added to one application');
+    }
     return c;
   }
 

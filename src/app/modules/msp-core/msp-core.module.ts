@@ -18,7 +18,6 @@ import { CalendarDayValidator } from '../../components/msp/common/calendar/calen
 import { CalendarMonthValidator } from '../../components/msp/common/calendar/calendar-month.validator';
 import { MspAddressComponent } from './components/address/address.component';
 import { MspPhoneComponent } from '../../components/msp/common/phone/phone.component';
-import { MspArrivalDateComponent } from '../../components/msp/common/arrival-date/arrival-date.component';
 import { MspDischargeDateComponent } from '../../components/msp/common/discharge-date/discharge-date.component';
 import { MspDepartureDateComponent } from '../../components/msp/common/departure-date/departure-date.component';
 import { MspReturnDateComponent } from '../../components/msp/common/return-date/return-date.component';
@@ -92,7 +91,6 @@ const templistCore = [
   CalendarMonthValidator,
   MspAddressComponent,
   MspPhoneComponent,
-  MspArrivalDateComponent,
   MspDischargeDateComponent,
   MspDepartureDateComponent,
   MspReturnDateComponent,

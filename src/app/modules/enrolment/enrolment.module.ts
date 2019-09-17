@@ -20,6 +20,7 @@ import { PersonalDetailsComponent } from './components/personal-details/personal
 import { GuardEnrolService } from './services/guard-enrol.service';
 import { MspApiEnrolmentService } from '../enrolment/services/msp-api-enrolment.service';
 import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
+import { MovingInformationComponent } from './components/moving-information/moving-information.component';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import { PersonalInformationComponent } from './components/personal-information/
     SendingComponent,
     SpouseInfoComponent,
     PersonalDetailsComponent,
-    PersonalInformationComponent
+    PersonalInformationComponent,
+    MovingInformationComponent
   ],
   providers: [
     { provide: AbstractPgCheckService, useClass: GuardEnrolService },
