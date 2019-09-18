@@ -118,9 +118,6 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
 
 
 
-
-
-
   documentsReady(): boolean {
     return this.dataService.mspApplication.documentsReady;
   }

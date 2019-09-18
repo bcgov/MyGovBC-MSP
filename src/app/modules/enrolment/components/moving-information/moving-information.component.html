@@ -98,6 +98,22 @@
       </common-radio>
     </div>
 
+    <div *ngIf="person.hasBeenReleasedFromArmedForces" class="form-group p-sm-2 border-left">
+      Need to request more information
+    </div>
+
+    <div class="form-group p-sm-2">
+      <common-radio name="fullTimeStudent_{{objectId}}"
+                    [(ngModel)]="person.fullTimeStudent"  
+                    label="Are {{relationship}} full-time student in B.C.?" 
+                    required>
+      </common-radio>
+    </div>
+
+    <div *ngIf="person.fullTimeStudent" class="form-group p-sm-2 border-left">
+      Need to request more information
+    </div>
+
   </div>
 </common-page-section>
 
