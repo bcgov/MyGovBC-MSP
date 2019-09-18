@@ -77,10 +77,7 @@ export function statusReasonRules( relationship: Relationship,
     { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
   ]
 })
-export class CanadianStatusComponent  extends Base {
-
-  @ViewChild('mspServicesCardModal')
-    servicesCardDisclaimerModalComponent: ServicesCardDisclaimerModalComponent;
+export class CanadianStatusComponent extends Base {
 
   @Input() statusReasonList: CanadianStatusReason[];
   @Input() label: String = 'Your immigration status in Canada';
@@ -90,7 +87,6 @@ export class CanadianStatusComponent  extends Base {
   @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
 
   statusOpts: string[] = Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
-  showServicesCardModal: boolean;
 
   private _reasonOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
 
@@ -118,7 +114,6 @@ export class CanadianStatusComponent  extends Base {
     if (this.person.status !== StatusInCanada.CitizenAdult) {
       this.person.institutionWorkHistory = 'No';
     }
-    this.showServicesCardModal = true;
     this.personChange.emit(this.person);
   }
 
@@ -127,15 +122,6 @@ export class CanadianStatusComponent  extends Base {
    * @param value
    */
   setReason(value: CanadianStatusReason) {
-
-    if (
-      this.showServicesCardModal &&
-      this.person.bcServiceCardShowStatus &&
-      this.person.relationship !== Relationship.ChildUnder19
-    ) {
-      this.servicesCardDisclaimerModalComponent.showModal();
-      this.showServicesCardModal = false;
-    }
 
     this.person.currentActivity = value;
     this.person.movedFromProvinceOrCountry = '';

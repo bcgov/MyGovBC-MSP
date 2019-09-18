@@ -74,7 +74,7 @@ export class SupportDocumentsComponent extends Base implements OnInit {
 
   // When clicked button is disabled
   addDocument() {
-    this.btnEnabled = false;
+    this.btnEnabled = !this.supportDoc.documentType;
 
     // Check to verify images is not undefined
     if ( !this.supportDoc.images ) {
@@ -109,4 +109,15 @@ export class SupportDocumentsComponent extends Base implements OnInit {
     }
     return this.supportDocList;
   }
+
+  get documentType() {
+    return this.supportDoc.documentType;
+  }
+
+  set documentType( doc: string ){
+    if ( this.btnEnabled ) {
+      this.supportDoc.documentType = doc;
+    }
+  }
+
 }

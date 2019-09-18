@@ -19,7 +19,7 @@ import { RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
 import { PersonalDetailsComponent } from './components/personal-details/personal-details.component';
 import { GuardEnrolService } from './services/guard-enrol.service';
 import { MspApiEnrolmentService } from '../enrolment/services/msp-api-enrolment.service';
-import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
+import { PersonalInformationComponent } from '../msp-core/components/personal-information/personal-information.component';
 import { MovingInformationComponent } from './components/moving-information/moving-information.component';
 
 @NgModule({
@@ -42,7 +42,6 @@ import { MovingInformationComponent } from './components/moving-information/movi
     SendingComponent,
     SpouseInfoComponent,
     PersonalDetailsComponent,
-    PersonalInformationComponent,
     MovingInformationComponent
   ],
   providers: [
