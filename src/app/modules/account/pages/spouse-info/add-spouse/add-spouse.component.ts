@@ -106,6 +106,19 @@ export class AddSpouseComponent implements OnInit {
 
     ]
 
-}
+  }
+
+  get spouseNameChangedocs(){
+
+    return[
+    { 
+      "label": "Marriage Certificate",
+      "value": Documents.MarriageCertificate
+    },
+    { 
+      "label": "Legal Name Change Certificate",
+      "value": Documents.ChangeOfNameCertificate
+    }
+  ]};
 
 }

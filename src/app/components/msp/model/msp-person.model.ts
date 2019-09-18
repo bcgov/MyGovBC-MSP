@@ -1,6 +1,7 @@
 import {IPerson} from './msp-person.interface';
 
-import {Relationship, StatusInCanada, Activities, Documents, CancellationReasons} from '../../../models/status-activities-documents';
+
+import { StatusInCanada, Activities, Documents, CancellationReasons} from '../../../models/status-activities-documents';
 import {PersonDocuments} from './person-document.model';
 import {OutofBCRecord} from '../../../models/outof-bc-record.model';
 import * as moment from 'moment';
@@ -13,6 +14,7 @@ import { PersonStatusChange } from './person-status-change';
 
 import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
 import { CanadianStatusReason } from '../../../modules/msp-core/models/canadian-status.enum';
+import { Relationship } from 'app/modules/msp-core/models/relationship.enum';
 
 const sha1 = require('sha1');
 

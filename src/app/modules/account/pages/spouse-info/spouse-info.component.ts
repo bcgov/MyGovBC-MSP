@@ -1,4 +1,9 @@
 import {Component } from '@angular/core';
+import { MspAccountApp, AccountChangeOptions, MspPerson } from '../../models/account.model';
+import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
+import { Activities } from 'app/models/status-activities-documents';
+import { ActivitiesRules } from 'app/modules/msp-core/models/status-activities-documents';
+import { CanadianStatusReason } from 'app/modules/msp-core/models/canadian-status.enum';
 
 
 
@@ -70,7 +75,7 @@ export class SpouseInfoComponent {
     });
   }*/
 
-  get activities(): Activities[] {
+  get activities(): CanadianStatusReason[] {
     return ActivitiesRules.activitiesForAccountChange(
         this.removedSpouse.relationship,
         this.removedSpouse.status

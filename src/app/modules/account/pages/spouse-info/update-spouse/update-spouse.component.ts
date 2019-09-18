@@ -8,7 +8,7 @@ import { Relationship } from '../../../../../models/status-activities-documents'
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
-import { legalStatus } from '../../../../../models/msp.contants';
+//import { legalStatus } from '../../../../../models/msp.contants';
 import {
   StatusRules,
   ActivitiesRules,
@@ -29,7 +29,7 @@ export class UpdateSpouseComponent extends BaseComponent implements OnInit {
   @Input() spouse: MspPerson;
   @Input() accountApp: MspAccountApp;
   Activities: typeof Activities = Activities;
-  langActivities = require('../../../../../components/msp/common/activities/i18n');
+  //langActivities = require('../../../../../components/msp/common/activities/i18n');
   
   
   constructor(public dataService: MspAccountMaintenanceDataService, cd: ChangeDetectorRef) {

@@ -8,7 +8,7 @@ import { Relationship } from '../../../../../models/status-activities-documents'
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
-import { legalStatus } from '../../../../../models/msp.contants';
+//import { legalStatus } from '../../../../../models/msp.contants';
 import {
   StatusRules,
   ActivitiesRules,
@@ -39,7 +39,7 @@ export class RemoveSpouseComponent extends BaseComponent {
   docSelected: string ;
   //langActivities = require('../../../../components/msp/common/activities/i18n');
 
-  langStatus = legalStatus;
+  //langStatus = legalStatus;
 
   Activities: typeof Activities = Activities;
   @ViewChild('formRef') form: NgForm;

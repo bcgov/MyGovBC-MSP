@@ -1,14 +1,8 @@
+import { Relationship } from "app/modules/msp-core/models/relationship.enum";
+
 /**
  * Various relationships
  */
-enum Relationship {
-  Applicant,
-  Spouse,
-  ChildUnder19,
-  Child19To24,
-  ChildUnder24,
-  AllAgeApplicant,
-}
 
 
 /**

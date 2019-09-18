@@ -9,7 +9,9 @@ import { MspAccountMaintenanceDataService } from '../../services/msp-account-dat
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/account.model';
 import { StatusInCanada, CanadianStatusReason, CanadianStatusReasonStrings, CanadianStatusStrings, CanadianStatusRules } from '../../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../msp-core/models/relationship.enum';
-import { ActivitiesRules } from '../../../msp-core/models/status-activities-documents';
+//import { ActivitiesRules } from '../../../msp-core/models/status-activities-documents';
+import { Activities,  ActivitiesRules, Documents } from '../../../../models/status-activities-documents';
+
 // import { Canadian }
 
 

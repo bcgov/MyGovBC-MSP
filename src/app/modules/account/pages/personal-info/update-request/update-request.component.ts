@@ -3,7 +3,6 @@ import { MspPerson } from '../../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp, AccountChangeOptions, UpdateList, ItemList } from '../../../models/account.model';
-import { legalStatus } from '../../../../../models/msp.contants';
 import {
   StatusRules,
   ActivitiesRules,
