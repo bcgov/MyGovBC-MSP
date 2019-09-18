@@ -97,8 +97,7 @@ export class MspApiEnrolmentService extends AbstractHttpService {
       'Response-Type': 'application/json',
       'X-Authorization': 'Bearer ' + authToken
     });
-    //return this.post<MspApplication>(url, app);
-    return this.http.post<MspApplication>(url, app);
+    return this.post<MspApplication>(url, app);
   }
 
 
