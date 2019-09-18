@@ -31,9 +31,85 @@ import { Person } from 'moh-common-lib';
 })
 export class SpouseInfoComponent {
 
-  constructor() { }
+  accountApp: MspAccountApp;
+  accountChangeOptions: AccountChangeOptions;
+  
+  constructor( public dataService: MspAccountMaintenanceDataService ) { }
+  addNewSpouse: boolean = false;
+  showSpouse: boolean = false;
+  showUpdateSpouse: boolean = false;
+  
+  ngOnInit() {
+      this.accountApp = this.dataService.accountApp;
+      this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
+  }
 
- /* ngOnInit() {
+  addSpouse() {
+    
+    this.addNewSpouse = true;
+    this.accountApp.hasSpouseAdded = true;
+
+    this.showUpdateSpouse = false;
+    this.showSpouse = false;
+    this.dataService.saveMspAccountApp();
+    return this.addNewSpouse;
+
+  }
+
+  removeSpouse() {
+    this.showSpouse = true;
+    this.accountApp.hasSpouseRemoved = true;
+
+    this.showUpdateSpouse = false;
+    this.addNewSpouse = false;
+
+    this.dataService.saveMspAccountApp();
+    return this.showSpouse;
+
+  }
+
+  updateSpouse() {
+    this.showUpdateSpouse = true;
+    this.accountApp.hasSpouseUpdated = true;
+ 
+    this.showSpouse = false;
+    this.addNewSpouse = false;
+
+    this.dataService.saveMspAccountApp();
+    return this.showUpdateSpouse;
+  }
+
+
+ /* get activitiesTable() {
+    if (!this.activities) return;
+    return this.activities.map(itm => {
+      const label = this.langActivities('./en/index.js')[itm];
+      return {
+      label,
+      value: itm
+      };
+    });
   }*/
 
+  get activities(): Activities[] {
+    return ActivitiesRules.activitiesForAccountChange(
+        this.removedSpouse.relationship,
+        this.removedSpouse.status
+    );
+  }
+
+  get removedSpouse(): MspPerson {
+    return this.dataService.getMspAccountApp().removedSpouse;
+  }
+  
+  get addedSpouse(): MspPerson {
+   
+    return this.dataService.getMspAccountApp().addedSpouse;
+  }
+
+  get updatedSpouse(): MspPerson {
+    return this.dataService.getMspAccountApp().updatedSpouse;
+  }
+
+  
 }

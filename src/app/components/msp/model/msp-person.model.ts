@@ -1,6 +1,6 @@
 import {IPerson} from './msp-person.interface';
 
-import {Relationship, StatusInCanada, Activities} from '../../../models/status-activities-documents';
+import {Relationship, StatusInCanada, Activities, Documents, CancellationReasons} from '../../../models/status-activities-documents';
 import {PersonDocuments} from './person-document.model';
 import {OutofBCRecord} from '../../../models/outof-bc-record.model';
 import * as moment from 'moment';
@@ -9,6 +9,9 @@ import * as _ from 'lodash';
 import {PhoneNumber} from './phone.model';
 import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA } from 'moh-common-lib';
 import { MspImage } from '../../../models/msp-image';
+import { PersonStatusChange } from './person-status-change';
+
+
 
 const sha1 = require('sha1');
 
@@ -30,8 +33,13 @@ class MspPerson implements IPerson {
 
     relationship: Relationship;
     _status: StatusInCanada;
+    cancellationReason:  CancellationReasons;
+    additionalReason: string;
+    hasCurrentMailingAddress: boolean;
+
     _currentActivity: Activities;
     documents: PersonDocuments = new PersonDocuments();
+    statusChange: PersonStatusChange[];
 
     assistYearDocs: MspImage[] = [];
 
@@ -51,11 +59,29 @@ class MspPerson implements IPerson {
     private _newlyAdopted: boolean;
 
     public updateStatusInCanada: boolean;
+    public updateStatusInCanadaDoc: MspImage[];
+    _docType: Documents;
+    
     public updateNameDueToMarriage: boolean;
+    public updateNameDueToMarriageDocType: Documents;
+    public updateNameDueDoc: MspImage[] = [];
+    
+
     public updateNameDueToError: boolean;
+    public updateNameDueToErrorDocType: Documents;
+    public updateNameDueToErrorDoc: MspImage[] = [];
+
     public updateBirthdate: boolean;
+    public updateBirthdateDocType: Documents;
+    public updateBirthdateDoc: MspImage[] = [];
+
     public updateGender: boolean;
+    public updateGenderDocType: Documents;
+    public updateGenderDoc: MspImage[] = [];
+
     public updateGenderDesignation: boolean;
+    public updateGenderDesignationDocType: Documents;
+    public updateGenderDesignationDoc: MspImage[] = [];
 
 
     get newlyAdopted(): boolean {
@@ -544,6 +570,14 @@ class MspPerson implements IPerson {
             || this._status === StatusInCanada.TemporaryResident) {
             this._livedInBCSinceBirth = false;
         }
+    }
+
+    get docType() {
+        return this._docType;
+    }
+
+    set docType(doc: Documents) {
+        this._docType = doc;
     }
 
     get currentActivity() {

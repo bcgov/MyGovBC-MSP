@@ -232,26 +232,30 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
 
 
     isValid(): boolean {
-        if (this.addressRequired) {
-            if (!this.person.residentialAddress ) { //|| !this.person.residentialAddress.isValid ) {
-                return false;
+        if(!this.person) {
+            if (this.addressRequired) {
+                if (!this.person.residentialAddress ) { //|| !this.person.residentialAddress.isValid ) {
+                    return false;
+                }
             }
-        }
-        // residential address if exists , it shud be BC
-
-        if (this.person.residentialAddress ) { // && this.person.residentialAddress.isValid) {
-           /* if (!this.person.residentialAddress){
-                return false ;
+            // residential address if exists , it shud be BC
+    
+            //if (!this.person.residentialAddress ) { // && this.person.residentialAddress.isValid) {
+               /* if (!this.person.residentialAddress){
+                    return false ;
+                }*/
+           // }
+    
+    
+            /*if (!this.person.mailingSameAsResidentialAddress) {
+                if (!this.person.mailingAddress.isValid){
+                    return false;
+                }
             }*/
+    
+
         }
-
-
-        /*if (!this.person.mailingSameAsResidentialAddress) {
-            if (!this.person.mailingAddress.isValid){
-                return false;
-            }
-        }*/
-
+        
         return true;
     }
 }

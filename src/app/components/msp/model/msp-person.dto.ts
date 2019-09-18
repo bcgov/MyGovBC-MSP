@@ -3,6 +3,15 @@ import AddressDto from './address.dto';
 import {OutofBCRecordDto} from '../../../models/outof-bc-record.dto';
 import { SimpleDate } from 'moh-common-lib';
 import {MSPEnrollementMember} from '../../../models/status-activities-documents';
+import { PersonStatusChange } from './person-status-change';
+import {
+    StatusRules,
+    ActivitiesRules,
+    StatusInCanada,
+    Activities,
+    DocumentRules,
+    Documents
+  } from '../../../models/status-activities-documents';
 
 export default class PersonDto {
     relationship: number;
@@ -31,6 +40,7 @@ export default class PersonDto {
     dischargeDay: number;
 
     status: number;
+    docType: number;
     currentActivity: number;
     healthNumberFromOtherProvince: string;
 
@@ -102,12 +112,30 @@ export default class PersonDto {
 
     schoolOutsideOfBC: boolean;
 
-    // New Update Status 
-    updateStatusInCanada: boolean;
+    // New Update Status
+    statusChange: PersonStatusChange;
+
     updateNameDueToMarriage: boolean;
+    updateNameDueToMarriageDocType: Documents;
+    updateNameDueDoc: MspImage[] = [];
+
     updateNameDueToError: boolean;
+    updateNameDueToErrorDocType: Documents;
+    updateNameDueToErrorDoc: MspImage[] = [];
+
     updateBirthdate: boolean;
+    updateBirthdateDocType: Documents;
+    updateBirthdateDoc: MspImage[] = [];
+
     updateGender: boolean;
+    updateGenderDocType: Documents;
+    updateGenderDoc: MspImage[] = [];
+
     updateGenderDesignation: boolean;
+    updateGenderDesignationDocType: Documents;
+    updateGenderDesignationDoc: MspImage[] = [];
+
+    updateStatusInCanada: boolean;
+    updateStatusInCanadaDoc: MspImage[];
 
 }

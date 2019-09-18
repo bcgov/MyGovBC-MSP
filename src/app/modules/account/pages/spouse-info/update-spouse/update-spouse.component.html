@@ -1,23 +1,20 @@
-<h2><strong>Update Spouse's Information</strong>
+<!-- <h2><strong>Update Spouse's Information</strong>
 </h2>
 <p class="border-bottom">
     Please provide personal information of the spouse currently on your Medical Services Plan account. If you are requesting an update or correction to the spouse’s legal name (including a name change as a result of marriage, separation or divorce), birthdate or gender, please provide the new information here.
-</p>
-<!--
-<msp-account-personal-details [title] ="'Spouse's Personal Information'" [subtitle]="'Enter your spouse’s legal name as it appears on their BC Service Card or CareCard.'" 
-  [person]='spouse' 
-  [id]='spouse.id' 
-  [addressRequired]="true"
+</p> -->
+
+<msp-account-personal-details 
+  [person]="spouse"
   (onChange)="onChange($event)">
 </msp-account-personal-details>
 
-<msp-update-request title="What updates are you requesting for spouse?" 
+<msp-update-request 
+    title="What updates are you requesting for spouse?" 
     subtitle = "For each update or correction selected, provide the supporting documents." 
     [updateList]="accountUpdateList" 
-    [person]="person" 
-    [activitiesTable]="activitiesTable" 
-    [items]= "items" 
+    [activitiesTable]="activitiesTable"
+    [person]="spouse" 
     [accountApp]="accountApp">
 </msp-update-request>
--->
 

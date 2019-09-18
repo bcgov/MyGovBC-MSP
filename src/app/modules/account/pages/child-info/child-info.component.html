@@ -22,24 +22,60 @@
           </li>
       </ul>
     </div>
-      <hr>
-      <div class="row">
-      <!--  <div class="col-2">
-            <common-button [label]="'Add Spouse'" 
-            [buttonType]="'btn btn-primary'" (btnClick)='addSpouse(Relationship.spouse)'>
-          </common-button>
-        </div>
-        <div class="col-2">
-          <common-button [label]="'Remove Spouse'" 
-            [buttonType]="'btn btn-primary'" (btnClick)='removeSpouse(Relationship.spouse)'>
-          </common-button>
-        </div>
-    
-        <div class="col-2 ">
-          <common-button [label]="'Update Spouse'" 
-            [buttonType]="'btn btn-primary'" (btnClick)='updateSpouse(Relationship.spouse)'>
-          </common-button>
-        </div> -->
-    
+    <hr>
+    <div class="row">
+      <div class="col-2">
+          <common-button [label]="'Add Child'" 
+          [buttonType]="'btn btn-primary'" (btnClick)='this.addChild = true;this.removeChild = false; this.updateChild = false;'>
+        </common-button>
       </div>
+      <div class="col-2">
+        <common-button [label]="'Remove Child'" 
+          [buttonType]="'btn btn-primary'" (btnClick)='this.removeChild = true; this.addChild = false; this.updateChild = false;'>
+        </common-button>
+      </div>
+  
+      <div class="col-2 ">
+        <common-button [label]="'Update Child'" 
+          [buttonType]="'btn btn-primary'" (btnClick)='this.updateChild = true; this.addChild = false; this.removeChild= false;'>
+        </common-button>
+      </div> 
+    </div>
+
+    <br>
+    <div *ngIf="addChild">
+      <h2><strong>Add Child</strong></h2>
+      <common-xicon-button label='Remove' (click)="this.addChild = false;"></common-xicon-button>
+      <p class="border-bottom">
+        Please provide child’s personal information.
+      </p>
+      <br>
+      <msp-add-child>
+      </msp-add-child>
+    </div>
+
+    <div *ngIf="removeChild">
+      <h2><strong>Remove Child</strong></h2>
+      <common-xicon-button label='Remove' (click)="this.removeChild = false;"></common-xicon-button>
+      <p class="border-bottom">
+          Please provide spouse’s personal information and indicate the reason for removing the spouse from your account.
+      </p>
+      <br>
+      <msp-remove-child>
+      </msp-remove-child>
+    </div>
+
+  <div *ngIf="updateChild">
+      <h2><strong>Update Child</strong></h2>
+      <common-xicon-button label='Remove' (click)="this.updateChild = false; "></common-xicon-button>
+      <p class="border-bottom">
+          Please provide personal information of the child currently on your account. If you are requesting an update or correction to the child’s name, birthdate or gender, please provide the new information here.
+      </p>
+      <br>
+      <msp-update-child>
+      </msp-update-child>
+  </div>
+
+
+      
 </common-page-framework>

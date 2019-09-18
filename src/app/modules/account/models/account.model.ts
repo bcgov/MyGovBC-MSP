@@ -28,6 +28,14 @@ class MspAccountApp implements ApplicationBase {
     authorizedByApplicantDate: Date;
     authorizedBySpouse: boolean;
 
+    // Boolean variables to see if the child and spouse are updated
+    hasSpouseAdded: boolean;
+    hasSpouseUpdated: boolean;
+    hasSpouseRemoved: boolean;
+    hasChildAdded: boolean;
+    hasChildRemoved: boolean;
+    hasChildUpdated: boolean;
+
 
   
     // Address and Contact Info
@@ -54,7 +62,7 @@ class MspAccountApp implements ApplicationBase {
         return regEx.test(this.phoneNumber);
     }
 
-    private _removedSpouse: MspPerson;
+    private _removedSpouse: MspPerson = new MspPerson(Relationship.Spouse);
     private _removedChildren: Array<MspPerson> = [];
     private _addedChildren: Array<MspPerson> = [];
     private _updatedChildren: Array<MspPerson>  = [];
@@ -143,8 +151,8 @@ class MspAccountApp implements ApplicationBase {
         this._removedChildren = value;
     }
 
-    private _addedSpouse: MspPerson;
-    private _updatedSpouse: MspPerson;
+    private _addedSpouse: MspPerson = new MspPerson(Relationship.Spouse); ;
+    private _updatedSpouse: MspPerson = new MspPerson(Relationship.Spouse);
     //DEAM doesnt use chidren as such..its either updated/removed/added children
     private _children: Array<MspPerson>  = [];
 
@@ -321,7 +329,10 @@ class MspAccountApp implements ApplicationBase {
 
 class AccountChangeOptions {
 
-    personInfoUpdate: boolean ;
+    personInfoUpdate: boolean;
+    spouseInfoUpdate: boolean;
+    spouseRemoved: boolean;
+    lastNameUpdate: boolean;
     dependentChange: boolean = false;
     addressUpdate: boolean = false;
     immigrationStatusChange: boolean;
@@ -359,4 +370,9 @@ class UpdateList {
     value: boolean;
 }
 
-export {MspAccountApp, AccountChangeOptions, MspPerson, UpdateList};
+class ItemList {
+    label: string;
+    value: number;
+}
+
+export {MspAccountApp, AccountChangeOptions, MspPerson, UpdateList, ItemList};

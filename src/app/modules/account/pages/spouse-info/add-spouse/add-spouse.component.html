@@ -1,18 +1,70 @@
 
   <div>
-      <h2><strong>Add Spouse</strong></h2>
+      <!-- <h2><strong>Add Spouse</strong></h2>
       <p class="border-bottom">
           Please provide your spouse's personal information and immigration status in Canada.
-      </p> 
-      <!--
+      </p> -->
+    
   
       <div class="form-group">
-          <common-radio [value]="accountChangeOptions.mmigrationStatusChange"  [label]="'Does your spouse currently have an active Medical Services Plan coverage?'" 
+          <common-radio [value]="accountChangeOptions.immigrationStatusChange"  [label]="'Does your spouse currently have an active Medical Services Plan coverage?'" 
               [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
               (statusChange)="accountChangeOptions.immigrationStatusChange = $event">
           </common-radio>
       </div>
-      
+
+      <div *ngIf="accountChangeOptions.immigrationStatusChange">
+        <msp-account-personal-details 
+              title="Spouse's Personal Information" 
+              [subtitle]="'Enter your spouse’s legal name as it appears on their BC Service Card or CareCard.'" 
+              [person]="spouse"
+              (onChange)="onChange($event)">
+        </msp-account-personal-details>
+      </div>
+
+      <div class="form-group" style="width: 300px;">
+        
+          <common-date label="Marriage date (optional)" [restrictDate]="'past'" 
+            [(date)]="spouse.dateOfBirth"
+            (dateChange)="onChange($event);">
+          </common-date>
+        
+
+      </div>
+
+      <div class="form-group">
+          <common-radio [value]="accountChangeOptions.spouseInfoUpdate" 
+              label="Do you need to update spouse’s personal information or renew their status in Canada?" 
+              [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+              (statusChange)="accountChangeOptions.spouseInfoUpdate = $event">
+          </common-radio>
+      </div>
+
+      <div *ngIf="accountChangeOptions.spouseInfoUpdate" >
+        <msp-update-request title="What updates are you requesting for your spouse?" 
+          subtitle = "For each update or correction selected, provide the supporting documents." 
+          [activitiesTable]="activitiesTable"
+          [updateList]="accountUpdateList" 
+          [person]="spouse" 
+          [accountApp]="accountApp">
+      </msp-update-request>
+        
+        <!-- <msp-account-file-uploader 
+            title="Documents to support spouse's name change"
+            subtitle="Provide one of the required documents to support your spouse's name change."  
+            [items]="items" 
+            [accountApp]="accountApp"
+            [docStatus]="spouse.docType"
+            [doc]="spouse.updateStatusInCanadaDoc"
+            (documentStatus)=" this.spouse.docType = $event; this.dataService.saveMspAccountApp();"
+            (onChange)=" this.spouse.updateStatusInCanadaDoc = $event; this.dataService.saveMspAccountApp();">
+          </msp-account-file-uploader>-->
+
+
+      </div>
+
+
+      <!--
       <div>
   
         <h3><strong>Spouse's immigration status in Canada</strong></h3>

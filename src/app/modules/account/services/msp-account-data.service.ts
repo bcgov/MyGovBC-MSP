@@ -151,6 +151,11 @@ export class MspAccountMaintenanceDataService {
     dto.previous_phn = input.previous_phn;
     dto.healthNumberFromOtherProvince = input.healthNumberFromOtherProvince;
 
+
+    
+    //= input.updateNameDueDoc;
+    
+    
     dto.arrivalToCanadaDay = input.arrivalToCanadaDay;
     dto.arrivalToCanadaMonth = input.arrivalToCanadaMonth;
     dto.arrivalToCanadaYear = input.arrivalToCanadaYear;
@@ -207,7 +212,7 @@ export class MspAccountMaintenanceDataService {
     if (input.gender) {
       dto.gender = input.gender.valueOf();
     }
-    console.log('======Abhi Status ====='+input.status);
+    dto.docType = input.docType;
     dto.status = input.status;
     dto.currentActivity = input.currentActivity;
 
@@ -220,6 +225,22 @@ export class MspAccountMaintenanceDataService {
     dto.updateGender = input.updateGender;
     dto.updateGenderDesignation = input.updateGenderDesignation;
 
+    dto.updateNameDueToMarriageDocType = input.updateNameDueToMarriageDocType;
+    dto.updateNameDueDoc = input.updateNameDueDoc;
+    dto.updateNameDueToErrorDocType = input.updateNameDueToErrorDocType;
+    dto.updateNameDueToErrorDoc = input.updateNameDueToErrorDoc;
+
+    dto.updateBirthdateDocType = input.updateBirthdateDocType;
+    dto.updateBirthdateDoc = input.updateBirthdateDoc;
+
+    dto.updateGenderDocType = input.updateGenderDocType;
+    dto.updateGenderDoc = input.updateGenderDoc;
+
+    dto.updateGenderDesignationDocType = input.updateGenderDesignationDocType;
+    dto.updateGenderDesignationDoc = input.updateGenderDesignationDoc;
+
+    dto.updateStatusInCanadaDoc = input.updateStatusInCanadaDoc;
+
     return dto;
   }
 
@@ -231,7 +252,7 @@ export class MspAccountMaintenanceDataService {
     output.madePermanentMoveToBC = dto.madePermanentMoveToBC;
     output.livedInBCSinceBirth = dto.livedInBCSinceBirth;
     output.hasPreviousBCPhn = dto.hasPreviousBCPhn;
-
+    output.docType = dto.docType;
     output.plannedAbsence = dto.plannedAbsence;
     output.firstName = dto.firstName;
     output.middleName = dto.middleName;
@@ -243,6 +264,7 @@ export class MspAccountMaintenanceDataService {
     output.healthNumberFromOtherProvince = dto.healthNumberFromOtherProvince;
     output.previous_phn = dto.previous_phn;
 
+    
     output.arrivalToCanadaDay = dto.arrivalToCanadaDay;
     output.arrivalToCanadaMonth = dto.arrivalToCanadaMonth;
     output.arrivalToCanadaYear = dto.arrivalToCanadaYear;
@@ -313,6 +335,25 @@ export class MspAccountMaintenanceDataService {
     output.updateBirthdate = dto.updateBirthdate;
     output.updateGender = dto.updateGender;
     output.updateGenderDesignation = dto.updateGenderDesignation;
+    output.updateNameDueDoc = dto.updateNameDueDoc;
+
+    output.updateNameDueToMarriageDocType = dto.updateNameDueToMarriageDocType;
+    output.updateNameDueDoc = dto.updateNameDueDoc;
+
+    output.updateNameDueToErrorDocType = dto.updateNameDueToErrorDocType;
+    output.updateNameDueToErrorDoc = dto.updateNameDueToErrorDoc;
+
+    output.updateBirthdateDocType = dto.updateBirthdateDocType;
+    output.updateBirthdateDoc = dto.updateBirthdateDoc;
+
+    output.updateGenderDocType = dto.updateGenderDocType;
+    output.updateGenderDoc = dto.updateGenderDoc;
+
+    output.updateGenderDesignationDocType = dto.updateGenderDesignationDocType;
+    output.updateGenderDesignationDoc = dto.updateGenderDesignationDoc;
+
+    output.updateStatusInCanadaDoc = dto.updateStatusInCanadaDoc;
+
 
     return output;
   }
@@ -331,6 +372,13 @@ export class MspAccountMaintenanceDataService {
     dto.statusUpdate = input.accountChangeOptions.statusUpdate;
     console.log(input.applicant);
     dto.applicant = this.toPersonDtoForAccount(input.applicant);
+
+    dto.hasSpouseAdded = input.hasSpouseAdded;
+    dto.hasSpouseUpdated = input.hasSpouseUpdated;
+    dto.hasSpouseRemoved = input.hasSpouseRemoved;
+    dto.hasChildAdded = input.hasChildAdded;
+    dto.hasChildRemoved = input.hasChildRemoved;
+    dto.hasChildUpdated = input.hasChildUpdated;
 
     if (input.updatedSpouse) {
       dto.applicant.updatedSpouse = this.toPersonDtoForAccount(
@@ -433,6 +481,13 @@ export class MspAccountMaintenanceDataService {
 
     output.infoCollectionAgreement = dto.infoCollectionAgreement;
 
+    output.hasSpouseAdded = dto.hasSpouseAdded ;
+    output.hasSpouseUpdated = dto.hasSpouseUpdated;
+    output.hasSpouseRemoved = dto.hasSpouseRemoved;
+    output.hasChildAdded = dto.hasChildAdded;
+    output.hasChildRemoved = dto.hasChildRemoved;
+    output.hasChildUpdated = dto.hasChildUpdated;
+
     /*
         output.phoneNumber = dto.phoneNumber;
 
@@ -441,6 +496,7 @@ export class MspAccountMaintenanceDataService {
 */
 
     output.applicant = this.fromPersonDtoForAccount(dto.applicant);
+    
 
     //if page is refreshed before filling address, the province and country is lost..so initialising..
     if (!output.applicant.residentialAddress.province) {
@@ -500,6 +556,10 @@ export class MspAccountMaintenanceDataService {
       const child: MspPerson = this.fromPersonDtoForAccount(c);
       child.operationActionType = OperationActionType.Update;
       output.updatedChildren = [...output.updatedChildren, child];
+    });
+
+    dto.applicant.updateNameDueDoc.forEach(img => {
+      output.applicant.updateNameDueDoc = [img];
     });
 
     dto.documents.forEach(img => {

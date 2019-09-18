@@ -53,19 +53,36 @@ enum Documents {
   CanadianBirthCertificate,
   CanadianPassport,
   CanadianCitizenCard,
+  DriverLicense,
   RecordOfLanding,
   PermanentResidentCard,
+  PermanentResidentConfirmation,
   WorkPermit,
   StudyPermit,
   VisitorVisa,
   PassportWithDiplomaticFoil,
   MarriageCertificate,
-  ChangeOfNameCertificate
+  ChangeOfNameCertificate,
+  ReligiousWorker,
+  NoticeOfDecision,
+  DiplomaticPassportAcceptance,
+  WorkInCanadaAcceptance,
+  DivorceDecree,
+  ChangeGenderAdultApplication,
+  ChangeGenderChildApplication,
+  ChangeGenderPhyscianConfirmation,
+  ParentalConsentWaiver,
+  SeperationAgreement,
+  NotrizedStatementOrAffidavit,
+  Other,
+
 }
 
 enum CancellationReasons {
   NoLongerInFullTimeStudies,
+  DivorcedOrSeperated,
   Deceased,
+  RemovedFromAccountButMarried,
   OutOfProvinceOrCountry,
   ArmedForces,
   Incarcerated

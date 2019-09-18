@@ -162,29 +162,64 @@ export class AccountPersonalInfoComponent extends BaseComponent {
     statusLabel(): string {
         return 'You Status in Canada';
     }
+   
 
+    get activitiesTable() {
+      console.log(this.activities);
+      if (!this.activities) return;
+      return this.activities.map(itm => {
+        const label = this.activityStatus[itm];
+        console.log(itm);
+        console.log(label);
+        return {
+        label,
+        value: itm
+        };
+      });
+    }
+
+    activityStatus  =  {
+      0: 'Not new to B.C. but need to apply for MSP',
+      1: 'Moved to B.C. from another province',
+      2: 'Moved to B.C. from another country',
+      3: 'Working in B.C.',
+      4: 'Studying in B.C.',
+      5: 'Religious worker',
+      6: 'Diplomat',
+      7: 'Visiting'
+    };
+  
     get activities(): Activities[] {
-        console.log( this.person.relationship);
-        console.log( this.person.status);
-        return ActivitiesRules.activitiesForAccountChange(
-            this.person.relationship,
-            this.person.status
-        );
+      console.log( this.person.relationship);
+      console.log( this.person.status);
+      return ActivitiesRules.activitiesForAccountChange(
+          this.person.relationship,
+          this.person.status
+      );
     }
 
     get items()   {
         return[
-        'Canadian birth certificate',
-        'Canadian citizenship card or certificate',
-        'Canadian Passport'
+        { 
+          "label": "Canadian birth certificate",
+          "value": Documents.CanadianBirthCertificate
+        },
+        { 
+          "label": "Canadian Passport",
+          "value": Documents.CanadianPassport
+        },
+        { 
+          "label": "Canadian citizenship card or certificate",
+          "value": Documents.CanadianCitizenCard
+        }
     ]};
 
     get canadaStatus()   {
         return[
-        'Canadian Citizen',
-        'Permanent Resident',
-        'Temporary Permit Holder or Diplomat']
-    };
+          { 0: 'Canadian Citizen'},
+          { 1: 'Permanent Resident' },
+          { 2: 'Temporary Permit Holder or Diplomat'}
+    ]};
 
     get residentStatus() {
         return[
@@ -235,16 +270,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
     }
     
     
-    get activitiesTable() {
-		if (!this.activities) return;
-		return this.activities.map(itm => {
-		  const label = this.langActivities('./en/index.js')[itm];
-		  return {
-			label,
-			value: itm
-		  };
-		});
-    }
+    
 
     setStatus(value: StatusInCanada, p: MspPerson) {
         if (typeof value === 'object') return;

@@ -1,19 +1,99 @@
 <div>
 
-  <h2><strong>Remove Spouse</strong></h2>
+ <!-- <h2><strong>Remove Spouse</strong></h2>
 
   <p class="border-bottom">
       Please provide spouse’s personal information and indicate the reason for removing the spouse from your account.
-  </p>
-<!--
-<msp-account-personal-details [title] ="'Spouse's Personal Information'" [subtitle]="'Enter your spouse’s legal name as it appears on their BC Service Card or CareCard.'" 
-  [person]='spouse' 
-  [id]='spouse.id' 
-  [addressRequired]="true"
+  </p> 
+  -->
+
+
+<msp-account-personal-details 
+  title="Spouse's Personal Information" 
+  [subtitle]="'Enter your spouse’s legal name as it appears on their BC Service Card or CareCard.'" 
+  [person]="spouse"
   (onChange)="onChange($event)">
 </msp-account-personal-details>
--->
+
 <br>
+
+<div class="form-group">
+    <common-radio
+        [value]="accountChangeOptions.spouseRemoved"  
+        [label]="'When should the spouse be removed from your account?'" 
+        [radioLabels]='[{ "label": "The end of the current month", "value": false}, {"label": "A date prior to this month", "value": true}]'
+        (statusChange)="accountChangeOptions.spouseRemoved = $event; this.dataService.saveMspAccountApp();">
+    </common-radio>
+</div>
+
+<div class="form-group"  style="width: 300px;" *ngIf="accountChangeOptions.spouseRemoved" >
+  <common-date label="Requested cancellation date" [restrictDate]="'past'" 
+    [(date)]="spouse.cancellationDate"
+    (dateChange)="this.dataService.saveMspAccountApp();">
+  </common-date>
+</div>
+
+<div *ngIf="accountChangeOptions.spouseRemoved != null">
+  <label for="objectId" class="control-label">Reason for cancellation</label>
+  <div class="form-group">
+      <select style="width:350px;" class="custom-select" [id]="objectId" [(ngModel)]="spouse.cancellationReason" (ngModelChange)="spouse.cancellationReason = $event; this.dataService.saveMspAccountApp();">
+          <ng-container>
+              <option selected value="null" disabled="true">Please Select</option>
+              <option  *ngFor="let item of cancellationReasons" [ngValue]="item.value" [selected]="spouse.cancellationReason == item.value">{{ item.label }}</option>
+          </ng-container>
+      </select>
+  </div>
+</div>
+
+<div *ngIf="spouse.cancellationReason === 3" >
+  <div class="form-group" style="width: 350px">
+      <label class="control-label">Please provide additional information</label>
+      
+      <textarea class="form-control" rows="3" [(ngModel)]="spouse.additionalReason"></textarea>
+  </div>
+
+  <div class="form-group">
+      <common-radio
+          [value]="spouse.hasCurrentMailingAddress"  
+          label="Do you know your spouse's current mailing address?" 
+          [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+          (statusChange)="spouse.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();">
+      </common-radio>
+  </div>
+
+  <div *ngIf="spouse.hasCurrentMailingAddress">
+      <common-page-section layout='double'>
+      <h2> <strong> Spouse's Mailing Address</strong></h2>
+        <p>Please provide the spouse's current mailing address.</p>
+        <hr>
+        <common-address [address]="spouse?.mailingAddress"
+            (addressChange)="handleAddressUpdate($event)"
+            [isRequired]="true">
+        </common-address> 
+      </common-page-section>
+        
+  </div>
+    
+</div>
+
+
+<div *ngIf="accountChangeOptions.spouseRemoved != undefined && spouse.cancellationReason === 1 ">
+  <msp-account-file-uploader 
+        [title]="'Documents to support new status in Canada'"
+        [subtitle]="'Provide one of the required documents to support your immigration status in Canada.'"  
+        [items]="spouseCancellationdocs" 
+        [accountApp]="accountApp"
+        [docStatus]="spouse.docType"
+        [doc]="spouse.updateStatusInCanadaDoc"
+        (documentStatus)=" this.spouse.docType = $event; this.dataService.saveMspAccountApp();"
+        (onChange)=" this.spouse.updateStatusInCanadaDoc = $event; this.dataService.saveMspAccountApp();">
+  </msp-account-file-uploader>
+
+</div>
+
+
+
+
 
 
 

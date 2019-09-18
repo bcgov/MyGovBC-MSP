@@ -24,4 +24,11 @@ export default class MspAccountDto {
     nameChangeDueToMarriage: boolean ;
     documents: MspImage[];
 
+    hasSpouseAdded: boolean;
+    hasSpouseUpdated: boolean;
+    hasSpouseRemoved: boolean;
+    hasChildAdded: boolean;
+    hasChildRemoved: boolean;
+    hasChildUpdated: boolean;
+
 }
