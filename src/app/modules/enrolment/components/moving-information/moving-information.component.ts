@@ -4,6 +4,7 @@ import { ControlContainer, NgForm } from '@angular/forms';
 import { MspPerson } from '../../../account/models/account.model';
 import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 import { environment } from '../../../../../environments/environment';
+import { Relationship } from '../../../msp-core/models/relationship.enum';
 
 @Component({
   selector: 'msp-moving-information',
@@ -32,11 +33,16 @@ export class MovingInformationComponent extends Base implements OnInit {
     }
   }).filter( x => x );
 
+  relationship: string = 'you';
+
   constructor() {
     super();
   }
 
   ngOnInit() {
+    if ( this.person.relationship !== Relationship.Applicant ) {
+      this.relationship = 'they';
+    }
   }
 
   // Moved from another province

@@ -14,7 +14,7 @@
     </common-dropdown>
   </div>
   <div class="form-group col-sm-8">
-    <common-radio *ngIf="getStatusInCanada()"
+    <common-radio *ngIf="displayStatusReasons"
                   name="statausReason_{{objectid}}"
                   id="statausReason_{{objectid}}"
                   [radioLabels]="availableStatusReasons"

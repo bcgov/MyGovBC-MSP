@@ -48,6 +48,7 @@ export class SupportDocumentsComponent extends Base implements OnInit {
   @Input() supportDocList: SupportDocuments[];
   @Input() canadianStatus: StatusInCanada;
   @Input() statusReason: CanadianStatusReason;
+  @Input() displayButton: boolean = true;
 
   @Input() supportDoc: PersonDocuments;
   @Output() supportDocChange: EventEmitter<PersonDocuments> = new EventEmitter<PersonDocuments>();
@@ -114,7 +115,7 @@ export class SupportDocumentsComponent extends Base implements OnInit {
     return this.supportDoc.documentType;
   }
 
-  set documentType( doc: string ){
+  set documentType( doc: string ) {
     if ( this.btnEnabled ) {
       this.supportDoc.documentType = doc;
     }

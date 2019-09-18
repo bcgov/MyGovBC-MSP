@@ -82,6 +82,7 @@ export class CanadianStatusComponent extends Base {
   @Input() statusReasonList: CanadianStatusReason[];
   @Input() label: String = 'Your immigration status in Canada';
   @Input() displayStatusInCanada: boolean = true;
+  @Input() diplomatReasonsOnly: boolean = false;
 
   @Input() person: MspPerson;
   @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
@@ -115,6 +116,11 @@ export class CanadianStatusComponent extends Base {
       this.person.institutionWorkHistory = 'No';
     }
     this.personChange.emit(this.person);
+  }
+
+  get displayStatusReasons() {
+    return this.diplomatReasonsOnly ?
+           (this.person.status === StatusInCanada.TemporaryResident) : this.getStatusInCanada();
   }
 
   /**
