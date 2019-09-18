@@ -1,90 +1,125 @@
-import {Component, Injectable, ViewChild, ViewChildren,
-  ChangeDetectorRef, QueryList, AfterViewInit, OnInit} from '@angular/core';
-import {MspApplication, MspPerson} from '../../models/application.model';
-
-// import {MspDataService} from '../../service/msp-data.service';
+import {Component, Injectable, ViewChildren, QueryList, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
 import { MspDataService } from '../../../../services/msp-data.service';
-
 import { Router } from '@angular/router';
-import {Relationship} from '../../../../models/status-activities-documents';
-import {NgForm} from '@angular/forms';
 import {PersonalDetailsComponent} from '../../components/personal-details/personal-details.component';
-import {BaseComponent} from '../../../../models/base.component';
-import {ProcessService} from '../../../../services/process.service';
-import { StatusInCanada} from '../../../../models/status-activities-documents';
-import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
+import { MspPerson } from '../../../account/models/account.model';
+import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
+import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
+import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
+import { AbstractForm } from 'moh-common-lib';
+import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+
 
 @Component({
   templateUrl: './personal-info.component.html'
 })
 @Injectable()
-export class PersonalInfoComponent extends BaseComponent {
-  static ProcessStepNum = 1;
-  lang = require('./i18n');
-  Relationship: typeof Relationship = Relationship;
-  public buttonClass: string = 'btn btn-default';
+export class PersonalInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('formRef') form: NgForm;
-  @ViewChild('mspServicesCardModal')
-  mspServicesCardModal: ServicesCardDisclaimerModalComponent;
   @ViewChildren(PersonalDetailsComponent) personalDetailsComponent: QueryList<
     PersonalDetailsComponent
   >;
 
-  constructor(
-    private dataService: MspDataService,
-    private _router: Router,
-    private pageStateService: PageStateService,
-    private cd: ChangeDetectorRef
-  ) {
-    super(cd);
+  nameChangeDocList = nameChangeSupportDocuments();
+  subscriptions: Subscription[];
+
+  constructor( protected router: Router,
+               private dataService: MspDataService,
+               private pageStateService: PageStateService ) {
+    super(router);
   }
 
   ngOnInit() {
-    this.pageStateService.setPageIncomplete(this._router.url, this.dataService.mspApplication.pageStatus);
+    this.pageStateService.setPageIncomplete(this.router.url, this.dataService.mspApplication.pageStatus);
   }
 
-  onChange(values: any) {
-    this.dataService.saveMspApplication();
+  ngAfterViewInit() {
+    if (this.form) {
+      this.subscriptions = [
+        this.form.valueChanges.pipe(
+          debounceTime(100)
+        ).subscribe(() => {
+          this.dataService.saveMspApplication();
+        })
+        ];
+    }
   }
 
-  get application(): MspApplication {
-    return this.dataService.mspApplication;
+  ngOnDestroy() {
+    this.subscriptions.forEach( itm => itm.unsubscribe() );
   }
+
   get applicant(): MspPerson {
     return this.dataService.mspApplication.applicant;
   }
 
-  get spouse(): MspPerson {
-    return this.dataService.mspApplication.spouse;
+  set applicant( applicant: MspPerson ) {
+    this.dataService.mspApplication.applicant = applicant;
   }
 
-  addSpouse = () => {
-    const sp: MspPerson = new MspPerson(Relationship.Spouse);
-    this.dataService.mspApplication.addSpouse(sp);
+  get statusDocuments(): PersonDocuments {
+    return this.applicant.documents;
   }
 
-  addChild(relationship: Relationship): void {
-    this.dataService.mspApplication.addChild(relationship);
+  set statusDocuments( document: PersonDocuments ) {
+
+    if ( document.images && document.images.length === 0 ) {
+      // no status documents remove any name documents
+      this.applicant.nameChangeDocs.documentType = null;
+      this.applicant.nameChangeDocs.images = [];
+    }
+
+    this.applicant.documents = document;
   }
 
-  get children(): MspPerson[] {
-    return this.dataService.mspApplication.children;
+  get hasStatusDocuments(): boolean {
+    return this.statusDocuments.images && this.statusDocuments.images.length > 0;
   }
 
-  removeChild(event: Object, idx: number): void {
-    // console.log('remove child ' + JSON.stringify(event));
-    this.dataService.mspApplication.removeChild(idx);
-    this.dataService.saveMspApplication();
+  get hasStatus() {
+    // Has to have values
+    return this.applicant.status !== undefined &&
+           this.applicant.currentActivity !== undefined;
   }
 
-  removeSpouse(event: Object): void {
-    // console.log('remove spouse ' + JSON.stringify(event));
-    this.dataService.mspApplication.removeSpouse();
-    this.dataService.saveMspApplication();
+  get requestNameChangeInfo() {
+    return this.hasStatus && this.applicant.hasNameChange && this.hasStatusDocuments;
   }
+
+  get hasNameDocuments(): boolean {
+    return this.applicant.nameChangeDocs.images && this.applicant.nameChangeDocs.images.length > 0;
+  }
+
+  get requestPersonalInfo(): boolean {
+    return this.hasStatus && this.hasStatusDocuments &&
+           ( this.applicant.hasNameChange === false || // No name change
+            ( this.applicant.hasNameChange && this.hasNameDocuments )); // name change requires documentation
+  }
+
+  canContinue(): boolean {
+    const valid = super.canContinue() && this.hasStatusDocuments;
+    return this.applicant.hasNameChange ? valid && this.hasNameDocuments : valid;
+  }
+
+  continue(): void {
+    if (!this.canContinue()) {
+      console.log('Please fill in all required fields on the form.');
+      this.markAllInputsTouched();
+    }else{
+      this.pageStateService.setPageComplete(this.router.url, this.dataService.mspApplication.pageStatus);
+      this.navigate(ROUTES_ENROL.SPOUSE_INFO.fullpath);
+    }
+  }
+
+
+
+
+
+
+
 
   documentsReady(): boolean {
     return this.dataService.mspApplication.documentsReady;
@@ -117,9 +152,6 @@ export class PersonalInfoComponent extends BaseComponent {
 
     return stayingInBc;
   }
-  canContinue(): boolean {
-    return this.isAllValid();
-  }
 
   isValid(): boolean {
     return this.dataService.mspApplication.isUniquePhns;
@@ -132,19 +164,5 @@ export class PersonalInfoComponent extends BaseComponent {
       ...this.dataService.mspApplication.children
     ];
     return target.filter(x => x).filter(x => x.ineligibleForMSP).length >= 1;
-  }
-
-  continue(): void {
-    // console.log('personal info form itself valid: %s', this.form.valid);
-    console.log(
-      'combinedValidationState on personal info: %s',
-      this.isAllValid()
-    );
-    if (!this.isAllValid()) {
-      console.log('Please fill in all required fields on the form.');
-    }else{
-      this.pageStateService.setPageComplete(this._router.url, this.dataService.mspApplication.pageStatus);
-      this._router.navigate([ROUTES_ENROL.PERSONAL_INFO.fullpath]);
-    }
   }
 }

@@ -6,24 +6,17 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { MspApplication } from '../../../modules/enrolment/models/application.model';
-import { AttachmentType, _ApplicationTypeNameSpace } from '../../../modules/msp-core/api-model/applicationTypes';
+import { _ApplicationTypeNameSpace } from '../../../modules/msp-core/api-model/applicationTypes';
 import { environment } from '../../../../environments/environment';
-import * as moment from 'moment';
-import { AbstractHttpService } from 'moh-common-lib';
+import { AbstractHttpService, CommonImage } from 'moh-common-lib';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
-import { MspImage } from '../../../models/msp-image';
 import { Response } from '@angular/http';
 import { MspApiService } from '../../../services/msp-api.service';
 import { ApiResponse } from '../../../models/api-response.interface';
-//import { SchemaService } from 'app/services/schema.service';
-import { Router } from '@angular/router';
-//import { MspBenefitDataService } from './';
 import {
- SupplementaryBenefitsApplicationType,
-  MSPApplicationSchema
+ MSPApplicationSchema
 } from '../../../modules/msp-core/interfaces/i-api';
-//import { FieldPageMap } from '../models/field-page-map';
 
 
 
@@ -36,11 +29,10 @@ export class MspApiEnrolmentService extends AbstractHttpService {
   readonly ISO8601DateFormat = 'YYYY-MM-DD';
   suppBenefitResponse: ApiResponse;
 
-  
+
   constructor(
     protected http: HttpClient,
     private logService: MspLogService,
-    private router: Router,
   ) {
     super(http);
   }
@@ -54,72 +46,66 @@ export class MspApiEnrolmentService extends AbstractHttpService {
 
   sendRequest(app: MspApplication): Promise<any> {
     console.log(app.uuid);
+    const suppBenefitRequest = this.prepareEnrolmentApplication(app);
 
-		const suppBenefitRequest = this.prepareEnrolmentApplication(app);
-    
     console.log(suppBenefitRequest);
 
-		return new Promise<ApiResponse>((resolve, reject) => {
-			
-			// if no errors, then we'll sendApplication all attachments
-			return this.sendAttachments(
-			  app.authorizationToken,
-			  app.uuid,
-			  app.getAllImages()
-			)
-			  .then(attachmentResponse => {
-				console.log('sendAttachments response', attachmentResponse);
+    return new Promise<ApiResponse>((resolve) => {
 
-				return this.sendEnrolmentApplication(
-				  suppBenefitRequest,
-				  app.uuid,
-				  app.authorizationToken
-				).subscribe(response => {
-				  // Add reference number
-				  if (response && response.referenceNumber) {
-					app.referenceNumber = response.referenceNumber.toString();
-				  }
-				  // Let our caller know were done passing back the application
-				  return resolve(response);
-				});
-			  })
-			  .catch((error: Response | any) => {
-				// TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
-				console.log('sent all attachments rejected: ', error);
-				this.logService.log(
-				  {
-					text: 'Attachment - Send All Rejected ',
-					response: error
-				  },
-				  'Attachment - Send All Rejected '
-				);
-				return resolve(error);
-			  });
-		  
-		});
-    }
+      // if no errors, then we'll sendApplication all attachments
+      return this.sendAttachments(
+        app.authorizationToken,
+        app.uuid,
+        app.getAllImages()
+      )
+      .then(attachmentResponse => {
+      console.log('sendAttachments response', attachmentResponse);
 
-    sendEnrolmentApplication(
-      app: MSPApplicationSchema,
-      uuid: string,
-      authToken: string
-    ): Observable<any> {
-        const url = environment.appConstants['apiBaseUrl']
-      + '/submit-application/' + app.uuid;
-      // Setup headers
-      this._headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Response-Type': 'application/json',
-        'X-Authorization': 'Bearer ' + authToken
+      return this.sendEnrolmentApplication(
+        suppBenefitRequest,
+        app.authorizationToken
+      ).subscribe(response => {
+        // Add reference number
+        if (response && response.referenceNumber) {
+        app.referenceNumber = response.referenceNumber.toString();
+        }
+        // Let our caller know were done passing back the application
+        return resolve(response);
       });
-      return this.post<MspApplication>(url, app);
-    }
+      })
+      .catch((error: Response | any) => {
+      // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
+      console.log('sent all attachments rejected: ', error);
+      this.logService.log(
+        {
+        text: 'Attachment - Send All Rejected ',
+        response: error
+        },
+        'Attachment - Send All Rejected '
+      );
+      return resolve(error);
+      });
+
+    });
+  }
+
+  sendEnrolmentApplication(app: MSPApplicationSchema, authToken: string): Observable<any> {
+    const url = environment.appConstants['apiBaseUrl'] + '/submit-application/' + app.uuid;
+    // Setup headers
+    this._headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Response-Type': 'application/json',
+      'X-Authorization': 'Bearer ' + authToken
+    });
+    //return this.post<MspApplication>(url, app);
+    return this.http.post<MspApplication>(url, app);
+  }
 
 
   public sendAttachments(
     token: string,
     applicationUUID: string,
-    attachments: MspImage[]
+    attachments: CommonImage[]
   ): Promise<string[]> {
     return new Promise<string[]>((resolve, reject) => {
       // Instantly resolve if no attachments
@@ -179,7 +165,7 @@ export class MspApiEnrolmentService extends AbstractHttpService {
   private sendAttachment(
     token: string,
     applicationUUID: string,
-    attachment: MspImage
+    attachment: CommonImage
   ): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       /*
@@ -268,11 +254,11 @@ export class MspApiEnrolmentService extends AbstractHttpService {
     // console.log("handleError", JSON.stringify(error));
     if (error.error instanceof ErrorEvent) {
       //Client-side / network error occured
-      console.error('MSP Supp Benefit API error: ', error.error.message);
+      console.error('MSP Enrolment API error: ', error.error.message);
     } else {
       // The backend returned an unsuccessful response code
       console.error(
-        `Msp Supp Benefit Backend returned error code: ${
+        `Msp Enrolment Backend returned error code: ${
           error.status
         }.  Error body: ${error.error}`
       );
@@ -291,30 +277,6 @@ export class MspApiEnrolmentService extends AbstractHttpService {
     // return of([]);
   }
 
-  // This method is used to convert the response from user into a JSON object
-  private convertEnrolmentApplication(
-    from: MspApplication
-  ): SupplementaryBenefitsApplicationType {
-    const to: any = {};
-
-
-    // Capturing Authorization page response
-    const date = from.authorizedByApplicantDate;
-    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
-    const month =
-      date.getMonth() < 10
-        ? `0${(date.getMonth() + 1).toString()}`
-        : (date.getMonth() + 1).toString();
-    const year = date.getFullYear();
-    const authorizedByApplicantDate = `${year}-${month}-${day}`;
-    to.authorizedByApplicantDate = authorizedByApplicantDate;
-    to.authorizedByApplicant = from.authorizedByApplicant ? 'Y' : 'N';
-    to.authorizedBySpouse = from.authorizedBySpouse ? 'Y' : 'N';
-//    to.powerOfAttorney = from.hasPowerOfAttorney ? 'Y' : 'N';
-
-    // returning the suppbenefitresponse object
-    return to;
-  }
 
  /* private prepareBenefitApplication(
     from: MspApplication
@@ -327,7 +289,7 @@ export class MspApiEnrolmentService extends AbstractHttpService {
     return object;
   }
 */
-  private convertToAttachment(images: MspImage[]): AttachmentRequestPartial[] {
+  private convertToAttachment(images: CommonImage[]): AttachmentRequestPartial[] {
     const output = [];
     images.map((image, i) => {
       const partial: AttachmentRequestPartial = {
@@ -344,11 +306,11 @@ export class MspApiEnrolmentService extends AbstractHttpService {
     return output;
   }
 
- 
-  
+
+
   private prepareEnrolmentApplication(from: MspApplication): any {
-    console.log('prepareBenefitApplicatoin', {from, imageUUIDs: from.getAllImages().map(x => x.uuid)});
-    const output = { 
+    console.log('prepareBenefitApplication', {from, imageUUIDs: from.getAllImages().map(x => x.uuid)});
+    const output = {
       'enrolmentApplication': {
         'applicant': {
           'name': {
@@ -371,7 +333,7 @@ export class MspApiEnrolmentService extends AbstractHttpService {
           'citizenshipStatus': {
             'citizenshipType': 'ReligiousWorker',
              'attachmentUuids': [
-            	'ABCDEFGHIJKLMNOPQRST'
+             'ABCDEFGHIJKLMNOPQRST'
              ]
           },
           'previousCoverage': {

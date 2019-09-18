@@ -1,15 +1,15 @@
-import {Address, BRITISH_COLUMBIA, CANADA} from 'moh-common-lib';
-import { Relationship, StatusInCanada, Activities, Documents } from '../../../models/status-activities-documents';
+import { Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
 import { UUID } from 'angular2-uuid';
-import { MspImage } from '../../../models/msp-image';
-import { ApplicationBase } from './application-base.model';
+import { ApplicationBase } from '../../msp-core/models/application-base.model';
 import { PhoneNumber } from '../../../components/msp/model/phone.model';
+import { Relationship } from '../../msp-core/models/relationship.enum';
+import { PersonDocuments } from '../../../components/msp/model/person-document.model';
 
 /**
  * Overall MSP Application Process Data
  */
-class MspApplication implements ApplicationBase {
+export class MspApplication implements ApplicationBase {
 
   private _uuid = UUID.UUID();
   infoCollectionAgreement: boolean = false;
@@ -26,8 +26,6 @@ class MspApplication implements ApplicationBase {
   private _children: Array<MspPerson> = [];
   /** Either the current spouse, or an application to add a new spouse */
   private _spouse: MspPerson;
-  /** An application to remove a spouse.  */
-  private _spouseRemoval: MspPerson;
 
   unUsualCircumstance: boolean;
 
@@ -89,12 +87,18 @@ class MspApplication implements ApplicationBase {
       //child between 19-24 must be a full time student to qualify for enrollment
       c.fullTimeStudent = true;
     }
-    this._children.length < 30 ? this._children.push(c) : console.log('No more than 30 children can be added to one application');
+    if ( this._children.length < 30 ) {
+      // Add child to front of array
+      const tmp = [c, ...this._children];
+      this._children = tmp;
+    } else {
+      console.log('No more than 30 children can be added to one application');
+    }
     return c;
   }
 
   removeChild(idx: number): void {
-    const removed = this._children.splice(idx, 1);
+    this._children.splice(idx, 1);
   }
 
   removeSpouse(): void {
@@ -168,17 +172,19 @@ class MspApplication implements ApplicationBase {
   /*
     Gets all images for applicant, spouse and all children
    */
-  getAllImages(): MspImage[] {
-    let allImages = Array<MspImage>();
-
-    // add applicant
-    allImages = allImages.concat(this.applicant.documents.images);
+  getAllImages(): CommonImage[] {
+    let allImages = [
+      ...this.applicant.documents.images,
+      ...this.applicant.nameChangeDocs.images
+    ];
 
     if (this.spouse) {
-      allImages = allImages.concat(this.spouse.documents.images);
+      allImages = allImages.concat([...this.spouse.documents.images,
+                                   ...this.spouse.nameChangeDocs.images]);
     }
     for (const child of this.children) {
-      allImages = allImages.concat(child.documents.images);
+      allImages = allImages.concat([...child.documents.images,
+                                    ...child.nameChangeDocs.images]);
     }
 
     return allImages;
@@ -256,6 +262,3 @@ class MspApplication implements ApplicationBase {
     this.residentialAddress.country = CANADA;
   }
 }
-
-// Exports item from different files within msp/models
-export { MspApplication, MspPerson, StatusInCanada, Activities };

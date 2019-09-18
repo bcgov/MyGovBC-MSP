@@ -7,27 +7,28 @@ import * as moment from 'moment';
 import {UUID} from 'angular2-uuid';
 import * as _ from 'lodash';
 import {PhoneNumber} from './phone.model';
-import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA } from 'moh-common-lib';
-import { MspImage } from '../../../models/msp-image';
+//import { MspImage } from '../../../../../models/msp-image';
 import { PersonStatusChange } from './person-status-change';
 
 
+import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
+import { CanadianStatusReason } from '../../../modules/msp-core/models/canadian-status.enum';
 
 const sha1 = require('sha1');
 
-enum Gender {
+export enum Gender {
     Female = <any>'F',
     Male = <any>'M'
 }
 
-enum OperationActionType {
+export enum OperationActionType {
     Add,
     Remove,
     Update
 }
 
 
-class MspPerson implements IPerson {
+export class MspPerson implements IPerson {
 
     readonly uuid = UUID.UUID();
 
@@ -37,11 +38,15 @@ class MspPerson implements IPerson {
     additionalReason: string;
     hasCurrentMailingAddress: boolean;
 
-    _currentActivity: Activities;
+   // _currentActivity: Activities;
     documents: PersonDocuments = new PersonDocuments();
     statusChange: PersonStatusChange[];
+    _currentActivity: CanadianStatusReason;
+    //documents: PersonDocuments = new PersonDocuments();
+    nameChangeDocs: PersonDocuments = new PersonDocuments();
+    hasNameChange: boolean;
 
-    assistYearDocs: MspImage[] = [];
+    assistYearDocs: CommonImage[] = [];
 
     outOfBCRecord: OutofBCRecord;
     /** NEEDS XSD. Departure information for the question regarding if the person will be out of BC for more than 30 days in the next 6 months. */
@@ -59,29 +64,29 @@ class MspPerson implements IPerson {
     private _newlyAdopted: boolean;
 
     public updateStatusInCanada: boolean;
-    public updateStatusInCanadaDoc: MspImage[];
+    public updateStatusInCanadaDoc: CommonImage[];
     _docType: Documents;
     
     public updateNameDueToMarriage: boolean;
     public updateNameDueToMarriageDocType: Documents;
-    public updateNameDueDoc: MspImage[] = [];
+    public updateNameDueDoc: CommonImage[] = [];
     
 
     public updateNameDueToError: boolean;
     public updateNameDueToErrorDocType: Documents;
-    public updateNameDueToErrorDoc: MspImage[] = [];
+    public updateNameDueToErrorDoc: CommonImage[] = [];
 
     public updateBirthdate: boolean;
     public updateBirthdateDocType: Documents;
-    public updateBirthdateDoc: MspImage[] = [];
+    public updateBirthdateDoc: CommonImage[] = [];
 
     public updateGender: boolean;
     public updateGenderDocType: Documents;
-    public updateGenderDoc: MspImage[] = [];
+    public updateGenderDoc: CommonImage[] = [];
 
     public updateGenderDesignation: boolean;
     public updateGenderDesignationDocType: Documents;
-    public updateGenderDesignationDoc: MspImage[] = [];
+    public updateGenderDesignationDoc: CommonImage[] = [];
 
 
     get newlyAdopted(): boolean {
@@ -208,9 +213,9 @@ class MspPerson implements IPerson {
 
 
 
-    arrivalToBCDay: number;
-    arrivalToBCMonth: number;
-    arrivalToBCYear: number;
+    arrivalToBCDay: number = null;
+    arrivalToBCMonth: number = null;
+    arrivalToBCYear: number = null;
 
     get hasArrivalToBC(): boolean {
         return (this.arrivalToBCDay != null &&
@@ -225,9 +230,9 @@ class MspPerson implements IPerson {
     /** Provides the same answer as arrivalToBC but in a different format. Useful with the MspDateComponent which can take a single SimpleDate obj for configuration. */
     get arrivalToBCSimple(): SimpleDate {
         return {
-            'day': this.arrivalToBCDay,
-            'month': this.arrivalToBCMonth,
-            'year': this.arrivalToBCYear,
+            day: this.arrivalToBCDay,
+            month: this.arrivalToBCMonth,
+            year: this.arrivalToBCYear,
         };
     }
 
@@ -238,9 +243,9 @@ class MspPerson implements IPerson {
         this.arrivalToBCYear = date.year;
     }
 
-    arrivalToCanadaDay: number;
-    arrivalToCanadaMonth: number;
-    arrivalToCanadaYear: number;
+    arrivalToCanadaDay: number = null;
+    arrivalToCanadaMonth: number = null;
+    arrivalToCanadaYear: number = null;
 
     get arrivalToCanada() {
         return this.parseDate(this.arrivalToCanadaYear, this.arrivalToCanadaMonth, this.arrivalToCanadaDay);
@@ -249,6 +254,21 @@ class MspPerson implements IPerson {
     get hasArrivalToCanada(): boolean {
         return !!(this.arrivalToCanadaDay && this.arrivalToCanadaMonth && this.arrivalToCanadaYear) ;
     }
+
+    get arrivalToCanadaDate() {
+        return {
+            day: this.arrivalToCanadaDay,
+            month: this.arrivalToCanadaMonth,
+            year: this.arrivalToCanadaYear,
+        };
+    }
+
+    set arrivalToCanadaDate(date: SimpleDate) {
+        this.arrivalToCanadaDay = date.day;
+        this.arrivalToCanadaMonth = date.month;
+        this.arrivalToCanadaYear = date.year;
+    }
+
 
     /**
      * BC Personal Health Number
@@ -587,7 +607,7 @@ class MspPerson implements IPerson {
     /**
      * All activies in the system now indicates that person has not lived in BC since birth.
      */
-    set currentActivity(act: Activities) {
+    set currentActivity(act: CanadianStatusReason) {
         this._currentActivity = act;
     }
 
@@ -608,11 +628,11 @@ class MspPerson implements IPerson {
     }
 
     isDiplomat = () => {
-        return this.status === StatusInCanada.TemporaryResident && this.currentActivity === Activities.Diplomat;
+        return this.status === StatusInCanada.TemporaryResident && this.currentActivity === CanadianStatusReason.Diplomat;
     }
 
     isVisitor = () => {
-        return this.status === StatusInCanada.TemporaryResident && this.currentActivity === Activities.Visiting;
+        return this.status === StatusInCanada.TemporaryResident && this.currentActivity === CanadianStatusReason.Visiting;
     }
 
 
@@ -761,8 +781,8 @@ class MspPerson implements IPerson {
 
         let arrivalInCanadaComplete = true;
         if (!(this.status === StatusInCanada.CitizenAdult &&
-                (this.currentActivity === Activities.MovingFromProvince ||
-                    this.currentActivity === Activities.LivingInBCWithoutMSP))) {
+                (this.currentActivity === CanadianStatusReason.MovingFromProvince ||
+                    this.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP))) {
             arrivalInCanadaComplete = _.isNumber(this.arrivalToCanadaDay) && _.isString(this.arrivalToCanadaMonth) && _.isNumber(this.arrivalToCanadaYear);
         }
         const result = basic
@@ -783,5 +803,3 @@ class MspPerson implements IPerson {
         return result;
     }
 }
-
-export {MspPerson, Gender, OperationActionType};

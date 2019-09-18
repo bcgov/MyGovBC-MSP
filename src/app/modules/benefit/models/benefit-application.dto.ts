@@ -1,9 +1,8 @@
 import AddressDto from '../../../components/msp/model/address.dto';
 import PersonDto from '../../../components/msp/model/msp-person.dto';
-import {MspImage} from '../../../models/msp-image';
-
 import {AssistanceYear} from '../../assistance/models/assistance-year.model';
 import { ISpaEnvResponse } from '../../../components/msp/model/spa-env-response.interface';
+import { CommonImage } from 'moh-common-lib';
 
 export default class BenefitApplicationDto {
 
@@ -45,8 +44,8 @@ export default class BenefitApplicationDto {
   authorizedBySpouse: boolean;
   authorizedByAttorney: boolean;
 
-  powerOfAttorneyDocs: MspImage[] = [];
-  attendantCareExpenseReceipts: MspImage[] = [];
+  powerOfAttorneyDocs: CommonImage[] = [];
+  attendantCareExpenseReceipts: CommonImage[] = [];
 
   applicantClaimForAttendantCareExpense: boolean = false;
   spouseClaimForAttendantCareExpense: boolean = false;
@@ -56,7 +55,7 @@ export default class BenefitApplicationDto {
   attendantCareExpense: number;
 
   assistYears: AssistanceYear[] = [];
-  assistYearDocs: MspImage[] = [];
+  assistYearDocs: CommonImage[] = [];
 
  // cutOfdate fields
  cutoffYear: number;

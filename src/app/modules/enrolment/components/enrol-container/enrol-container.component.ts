@@ -15,21 +15,19 @@ import { HeaderService } from '../../../../services/header.service';
 })
 export class EnrolContainerComponent extends Container implements OnInit {
 
-  constructor( public router: Router, 
+  constructor( public router: Router,
                private pageStateService: PageStateService,
                private dataService: MspDataService,
                private header: HeaderService ) {
     super();
 
     // Set service name for application
-    this.header.setTitle('Apply For MSP');
+    this.header.setTitle('Apply For Medical Services Plan');
     this.setProgressSteps( enrolPages );
-    this.dataService.mspApplication.pageStatus = 
+    this.dataService.mspApplication.pageStatus =
       this.pageStateService.setPages( enrolPages,
                                       ROUTES_ENROL,
                                       this.dataService.mspApplication.pageStatus );
-
-    console.log( 'pageList: ', this.dataService.mspApplication.pageStatus );
   }
 
   ngOnInit() {

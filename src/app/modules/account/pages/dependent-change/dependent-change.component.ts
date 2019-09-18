@@ -3,14 +3,13 @@ import {NgForm} from '@angular/forms';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {Router} from '@angular/router';
 import {BaseComponent} from '../../../../models/base.component';
-import {ProcessService, ProcessUrls} from '../../../../services/process.service';
+import {ProcessUrls} from '../../../../services/process.service';
 import {LocalStorageService} from 'angular-2-local-storage';
 import {AccountPersonalDetailsComponent} from '../personal-info/personal-details/personal-details.component';
 import {RemoveDependentComponent} from '../remove-dependents/remove-dependents.component';
-import {MspPerson} from '../../../../modules/enrolment/models/application.model';
-import { Relationship } from '../../../../models/status-activities-documents';
-import { OperationActionType } from '../../../../components/msp/model/msp-person.model';
+import { OperationActionType, MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { AddDependentComponent } from '../add-dependents/add-dependents.component';
+import { Relationship } from '../../../msp-core/models/relationship.enum';
 //import {ProcessUrls} from '../../../../services/process.service';
 
 @Component({

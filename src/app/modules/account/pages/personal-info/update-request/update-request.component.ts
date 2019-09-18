@@ -1,10 +1,5 @@
-import {ChangeDetectorRef, EventEmitter, Output, Component, Injectable , ViewChild, ViewChildren , QueryList, Input } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {Router} from '@angular/router';
-import {BaseComponent} from '../../../../../models/base.component';
-import {ProcessService, ProcessUrls} from '../../../../../services/process.service';
+import {EventEmitter, Output, Component, Input } from '@angular/core';
 import { MspPerson } from '../../../models/account.model';
-import { Relationship } from '../../../../../models/status-activities-documents';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp, AccountChangeOptions, UpdateList, ItemList } from '../../../models/account.model';
@@ -141,7 +136,8 @@ export class UpdateRequestComponent  {
   get activities(): Activities[] {
     console.log( this.person.relationship);
     console.log( this.person.status);
-    return ActivitiesRules.activitiesForAccountChange(
+    // todo review correctness, had to modify after merge.
+    return CanadianStatusRules.statusesForRelationship(
         this.person.relationship,
         this.person.status
     );
@@ -149,6 +145,14 @@ export class UpdateRequestComponent  {
 
 
 
+  // get activities(): CanadianStatusReason[] {
+  //   console.log( this.person.relationship);
+  //   console.log( this.person.status);
+  //   return ActivitiesRules.availableActivities(
+  //       this.person.relationship,
+  //       this.person.status
+  //   );
+  // }
 
 activityStatus  =  {
   0: 'Not new to B.C. but need to apply for MSP',

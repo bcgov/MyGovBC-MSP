@@ -433,13 +433,14 @@ export class MspDataService {
     dto.livedInBCSinceBirth = input.livedInBCSinceBirth;
     dto.hasPreviousBCPhn = input.hasPreviousBCPhn;
 
+    // TODO: Remove replace with simple date
     dto.firstName = input.firstName;
     dto.middleName = input.middleName;
     dto.lastName = input.lastName;
     dto.dob_day = input.dob_day;
     dto.dob_month = input.dob_month;
     dto.dob_year = input.dob_year;
-    dto.middleName = input.middleName;
+    dto.dateOfBirth = input.dateOfBirth;
     dto.previous_phn = input.previous_phn;
 
     dto.specificMember_phn = input.specificMember_phn;
@@ -480,9 +481,14 @@ export class MspDataService {
     dto.status = input.status;
     dto.currentActivity = input.currentActivity;
 
+    dto.imageDocType = input.documents.documentType;
     dto.images = input.documents.images.sort(
       (a, b) => a.attachmentOrder - b.attachmentOrder
     );
+
+    dto.nameChangeDocType = input.nameChangeDocs.documentType;
+    dto.nameChangeImages = input.nameChangeDocs.images;
+    dto.hasNameChange = input.hasNameChange;
     return dto;
   }
 
@@ -499,10 +505,12 @@ export class MspDataService {
     output.firstName = dto.firstName;
     output.middleName = dto.middleName;
     output.lastName = dto.lastName;
+
+    // TODO: Remove and replace with SimpleDte
     output.dob_day = dto.dob_day;
     output.dob_month = dto.dob_month;
     output.dob_year = dto.dob_year;
-    output.middleName = dto.middleName;
+    output.dateOfBirth = dto.dateOfBirth;
     output.healthNumberFromOtherProvince = dto.healthNumberFromOtherProvince;
     output.previous_phn = dto.previous_phn;
     output.specificMember_phn = dto.specificMember_phn;
@@ -542,10 +550,14 @@ export class MspDataService {
     output.status = dto.status;
     output.currentActivity = dto.currentActivity;
 
+    output.documents.documentType = dto.imageDocType;
     dto.images.forEach(img => {
       output.documents.images = [...output.documents.images, img];
     });
 
+    output.nameChangeDocs.documentType = dto.nameChangeDocType;
+    output.nameChangeDocs.images = dto.nameChangeImages;
+    output.hasNameChange = dto.hasNameChange;
     return output;
   }
 
@@ -987,9 +999,13 @@ export class MspDataService {
   }
 
   convertToPersonDto(input: MspPerson, output: PersonDto) {
+
+    // TODO: Remove once verify where being used - replace with SimpleDate
     output.dob_day = input.dob_day;
     output.dob_month = input.dob_month;
     output.dob_year = input.dob_year;
+
+    output.dateOfBirth = input.dateOfBirth;
 
     output.firstName = input.firstName;
     output.middleName = input.middleName;

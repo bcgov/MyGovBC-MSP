@@ -1,7 +1,5 @@
-import {MspImage} from '../../../models/msp-image';
 import AddressDto from './address.dto';
 import {OutofBCRecordDto} from '../../../models/outof-bc-record.dto';
-import { SimpleDate } from 'moh-common-lib';
 import {MSPEnrollementMember} from '../../../models/status-activities-documents';
 import { PersonStatusChange } from './person-status-change';
 import {
@@ -12,7 +10,10 @@ import {
     DocumentRules,
     Documents
   } from '../../../models/status-activities-documents';
+  import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
 
+
+// TODO: Class makes reference to self within definition - This should be reviewed
 export default class PersonDto {
     relationship: number;
     firstName: string;
@@ -22,8 +23,11 @@ export default class PersonDto {
     dob_day: number;
     dob_month: number;
     dob_year: number;
+
+    dateOfBirth: SimpleDate;
+
     sin: string;
-    assistYearDocs: MspImage[]; //= [];
+    assistYearDocs: CommonImage[]; //= [];
 
     arrivalToCanadaYear: number;
     arrivalToCanadaMonth: number;
@@ -77,7 +81,11 @@ export default class PersonDto {
     marriageDate: SimpleDate;
     prevLastName: string;
     phoneNumber: string;
-    images: MspImage[];
+    imageDocType: string;
+    images: CommonImage[];
+    nameChangeDocType: string;
+    nameChangeImages: CommonImage[];
+    hasNameChange: boolean;
     isExistingBeneficiary: boolean;
     knownMailingAddress: boolean;
     fullTimeStudent: boolean;
@@ -117,25 +125,25 @@ export default class PersonDto {
 
     updateNameDueToMarriage: boolean;
     updateNameDueToMarriageDocType: Documents;
-    updateNameDueDoc: MspImage[] = [];
+    updateNameDueDoc: CommonImage[] = [];
 
     updateNameDueToError: boolean;
     updateNameDueToErrorDocType: Documents;
-    updateNameDueToErrorDoc: MspImage[] = [];
+    updateNameDueToErrorDoc: CommonImage[] = [];
 
     updateBirthdate: boolean;
     updateBirthdateDocType: Documents;
-    updateBirthdateDoc: MspImage[] = [];
+    updateBirthdateDoc: CommonImage[] = [];
 
     updateGender: boolean;
     updateGenderDocType: Documents;
-    updateGenderDoc: MspImage[] = [];
+    updateGenderDoc: CommonImage[] = [];
 
     updateGenderDesignation: boolean;
     updateGenderDesignationDocType: Documents;
-    updateGenderDesignationDoc: MspImage[] = [];
+    updateGenderDesignationDoc: CommonImage[] = [];
 
     updateStatusInCanada: boolean;
-    updateStatusInCanadaDoc: MspImage[];
+    updateStatusInCanadaDoc: CommonImage[];
 
 }

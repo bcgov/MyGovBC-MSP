@@ -20,8 +20,7 @@ import { AssistStateService } from '../../services/assist-state.service';
       </common-page-section>
       <common-page-section layout="double">
         <common-address
-          [address]="address"
-          (addressChange)="updateAddress($event)"
+          [(address)]="address"
           isRequired="true"
           allowExtralines="true"
           disableGeocoder="true"
@@ -144,15 +143,5 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
 
   savePhone(evt: any) {
     this.financialAssistApplication.phoneNumber = evt;
-  }
-  updateAddress(evt: Address) {
-    console.log('update event', evt);
-    this.address.addressLine1 = evt.street;
-    if(this.address.addressLine2){
-      this.address.addressLine2 = evt.addressLine2;
-    }
-    if(this.address.addressLine3){
-      this.address.addressLine3 = evt.addressLine3;
-    }
   }
 }

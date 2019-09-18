@@ -1,15 +1,88 @@
 <common-page-framework layout="blank">
   <form #formRef="ngForm" novalidate>
-  <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
-    <msp-personal-details [person] = 'applicant' [id] = 'applicant.id'
-      (onChange) = "onChange($event)"
-      [showError] = "formRef.submitted">
-      </msp-personal-details>
-      
-      <div class="row" style="margin-top: 10px;">
-        <p class="intro text-danger" *ngIf="!isStayinginBCAfterstudies()"
-            [innerHtml]="lang('./en/index.js').badAnswerStudies" role="alert" aria-live="assertive">
+    <h1>Main Applicant's Personal Information</h1>
+    <p class="border-bottom">
+      Please provide the main applicant's (Account Holder) personal information and status in Canada. You will be required to provide supporting documents with your application.
+    </p>
+
+    <msp-canadian-status [(person)]="applicant">
+      <div sectionTitleInfo>
+        <h2>Status in Canada</h2>
+        <p class="border-bottom">
+            Please provide your immigration status information. You will be required to upload documents to support your status in Canada.
         </p>
+      </div>
+    </msp-canadian-status>
+
+    <msp-support-documents *ngIf="hasStatus"
+                            [canadianStatus]="applicant.status"
+                            [statusReason]="applicant.currentActivity"
+                            [(supportDoc)]="statusDocuments">
+      <div sectionTitleInfo>
+        <h2>Documents</h2>
+        <p class="border-bottom"> 
+          Provide one of the required documents to support your status in Canada. 
+          If your name has changed since your ID was issued you are also required to upload document to support the name change.
+        </p>
+      </div>
+
+      <div requestAdditionInfo>
+        <div class="form-group" class="p-sm-2">
+          <common-radio name="NameChangeQuestion"
+                        [(ngModel)]="applicant.hasNameChange"  
+                        label="Has your name changed since your ID was issued due to marriage or a legal name change?" 
+                        required>
+          </common-radio>
+        </div>
+      </div>
+
+      <div sampleDocument>
+          TODO: Need to add links with images to display        
+      </div>
+    </msp-support-documents>
+
+    <msp-support-documents *ngIf="requestNameChangeInfo"
+                           [supportDocList]="nameChangeDocList"
+                           [(supportDoc)]="applicant.nameChangeDocs">
+      <div sectionTitleInfo> 
+        <h3>Additional Documents</h3>
+        <p class="border-bottom"> 
+            Provide <strong>one</strong> of the required documents to support your name change.
+        </p>
+      </div>
+
+      <div sampleDocument>
+        TODO: Need to add links with images to display        
+      </div>
+    </msp-support-documents>
+
+    <div *ngIf="requestPersonalInfo">
+      <msp-personal-information [(person)]="applicant">
+        <div sectionTitleInfo>
+          <h2>Personal Information</h2>
+          <p class="border-bottom"> 
+            Enter your legal name and gender.
+          </p>
+        </div>     
+      </msp-personal-information>
+
+      <msp-moving-information [(person)]="applicant">
+        <div sectionTitleInfo>
+          <h2>Moving Information</h2>
+          <p class="border-bottom"> 
+              Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
+          </p>
+        </div>         
+      </msp-moving-information>
+    </div>
+
+
+
+
+    <div class="row" style="margin-top: 10px">
+      <p class="intro text-danger" *ngIf="!isStayinginBCAfterstudies()"
+          [innerHtml]="lang('./en/index.js').badAnswerStudies" role="alert" aria-live="assertive">
+      </p>
     
       <div class="col-md-6 pull-left" *ngIf="formRef.submitted">
           <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
@@ -18,8 +91,7 @@
     </div>
   </form>
 </common-page-framework>
-<common-form-action-bar [submitLabel]="lang('./en/index.js').continueButton"
-    [canContinue]="!(!isStayinginBCAfterstudies() ||checkAnyDependentsIneligible() || !isAllValid())"
-    (btnClick)="continue()">
+<common-form-action-bar defaultColor='false'
+                        [canContinue]="canContinue()"
+                        (btnClick)="continue()">
 </common-form-action-bar>
-

@@ -2,29 +2,15 @@ import {ChangeDetectorRef, Component, Injectable , ViewChild, ViewChildren , Que
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {BaseComponent} from '../../../../models/base.component';
-import {ProcessService, ProcessUrls} from '../../../../services/process.service';
+import {ProcessUrls} from '../../../../services/process.service';
 import {AccountPersonalDetailsComponent} from './personal-details/personal-details.component';
 import { MspPerson } from '../../models/account.model';
-import { Relationship } from '../../../../models/status-activities-documents';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
-import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/account.model';
-import { legalStatus } from '../../../../models/msp.contants';
-import {
-  StatusRules,
-  ActivitiesRules,
-  StatusInCanada,
-  Activities,
-  DocumentRules,
-  Documents
-} from '../../../../models/status-activities-documents';
-
-import {
-
-  Gender
-} from '../../../../components/msp/model/msp-person.model';
-import { Person } from 'moh-common-lib';
-
+import { StatusInCanada, CanadianStatusReason, CanadianStatusReasonStrings, CanadianStatusStrings, CanadianStatusRules } from '../../../msp-core/models/canadian-status.enum';
+import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { ActivitiesRules } from '../../../msp-core/models/status-activities-documents';
+// import { Canadian }
 
 
 @Component({
@@ -36,11 +22,11 @@ export class AccountPersonalInfoComponent extends BaseComponent {
   static ProcessStepNum = 1;
   lang = require('./i18n');
   docSelected: string ;
-  langActivities = require('../../../../components/msp/common/activities/i18n');
+  activitiesOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
 
-    langStatus = legalStatus;
+    langStatus = CanadianStatusStrings;
 
-    Activities: typeof Activities = Activities;
+    Activities: typeof CanadianStatusReason = CanadianStatusReason;
     @ViewChild('formRef') form: NgForm;
     @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
     public buttonstyle: string = 'btn btn-default';
@@ -102,13 +88,13 @@ export class AccountPersonalInfoComponent extends BaseComponent {
 
        // this.isPICheckedByUser = true;
         this.accountChangeOptions.personInfoUpdate = event;
-        if(event) {
+        if (event) {
             this.accountHolderTitle = 'Update Account Holder\'s Information';
             this.accountHolderSubtitle = 'Please provide new information if you are requesting an update or correction to the Account Holder’s name (including a name change as a result of marriage, separation or divorce), birthdate or gender.';
         } else {
             this.accountHolderTitle = 'Account Holder Identification';
             this.accountHolderSubtitle = 'Please provide the Account Holder’s personal information for verification purposes.';
-         
+
         }
 
         this.dataService.saveMspAccountApp();
@@ -224,48 +210,48 @@ export class AccountPersonalInfoComponent extends BaseComponent {
     get residentStatus() {
         return[
             {
-                "label": "Canadian Citizen",
-                "value": StatusInCanada.CitizenAdult
+                'label': 'Canadian Citizen',
+                'value': StatusInCanada.CitizenAdult
               },
 
               {
-                "label": "Permanent Resident",
-                "value": StatusInCanada.PermanentResident
+                'label': 'Permanent Resident',
+                'value': StatusInCanada.PermanentResident
               },
               {
-                "label": "Temporary Permit Holder or Diplomat",
-                "value": StatusInCanada.TemporaryResident
+                'label': 'Temporary Permit Holder or Diplomat',
+                'value': StatusInCanada.TemporaryResident
               }
-    ]};
+    ]; }
 
     get accountUpdateList(): UpdateList[] {
-        
+
         return [{
-            "label": "Update status in Canada",
-            "value": this.person.updateStatusInCanada
+            'label': 'Update status in Canada',
+            'value': this.person.updateStatusInCanada
           },
           {
-            "label": "Update name - due to marriage or other",
-            "value": this.person.updateNameDueToMarriage
+            'label': 'Update name - due to marriage or other',
+            'value': this.person.updateNameDueToMarriage
           },
           {
-            "label": "Correct name - due to error",
-            "value": this.person.updateNameDueToError
+            'label': 'Correct name - due to error',
+            'value': this.person.updateNameDueToError
           },
           {
-            "label": "Correct birthdate",
-            "value": this.person.updateBirthdate
+            'label': 'Correct birthdate',
+            'value': this.person.updateBirthdate
           },
           {
-            "label": "Correct gender",
-            "value": this.person.updateGender
+            'label': 'Correct gender',
+            'value': this.person.updateGender
           },
           {
-            "label": "Change gender designation",
-            "value": this.person.updateGenderDesignation
+            'label': 'Change gender designation',
+            'value': this.person.updateGenderDesignation
           }
 
-        ]
+        ];
 
     }
     
@@ -280,9 +266,9 @@ export class AccountPersonalInfoComponent extends BaseComponent {
         if (p.status !== StatusInCanada.CitizenAdult) {
             p.institutionWorkHistory = 'No';
         }
-		//this.showServicesCardModal = true;
+      //this.showServicesCardModal = true;
 
-		//this.onChange.emit(value);
+      //this.onChange.emit(value);
     }
 
     continue(): void {
@@ -294,7 +280,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
         }else{
            // console.log('redirecting to' + this._processService.getNextStep( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL)));
            // this._router.navigate([this._processService.getNextStep( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL))]);
-        
+
            this._router.navigate([ProcessUrls.ACCOUNT_PERSONAL_INFO_URL]);
         }
     }

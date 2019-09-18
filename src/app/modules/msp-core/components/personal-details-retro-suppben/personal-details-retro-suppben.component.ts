@@ -6,10 +6,10 @@ import {MspBirthDateComponent} from '../../../msp-core/components/birthdate/birt
 import {BaseComponent} from '../../../../models/base.component';
 import {BenefitApplication} from '../../../benefit/models/benefit-application.model';
 import {MspBenefitDataService} from '../../../benefit/services/msp-benefit-data.service';
-import {MspImage} from '../../../../models/msp-image';
 import { Subscription, Observable, of } from 'rxjs';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
-import {Relationship, StatusInCanada} from '../../../../models/status-activities-documents';
+import { CommonImage } from 'moh-common-lib';
+import { Relationship } from '../../models/relationship.enum';
 @Component({
   selector: 'msp-personal-details-retro-suppben',
   templateUrl: './personal-details-retro-suppben.component.html',
@@ -68,7 +68,7 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
         this.person = new MspPerson(Relationship.Spouse);
     }
 
-    errorDoc(evt: MspImage) {
+    errorDoc(evt: CommonImage) {
         this.mspImageErrorModal.imageWithError = evt;
         this.mspImageErrorModal.showFullSizeView();
         this.mspImageErrorModal.forceRender();

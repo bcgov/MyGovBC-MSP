@@ -1,7 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {MspPerson} from '../../model/msp-person.model';
-import {Activities, StatusInCanada} from '../../../../models/status-activities-documents';
 import { Router } from '@angular/router';
+import { StatusInCanada, CanadianStatusReason, CanadianStatusReasonStrings, CanadianStatusStrings } from '../../../../modules/msp-core/models/canadian-status.enum';
+
+
 
 @Component({
   selector: 'msp-person-card',
@@ -13,9 +15,8 @@ export class MspPersonCardComponent {
 
 
   lang = require('./i18n');
-  langStatus = require('../status/i18n');
-  langActivities = require('../activities/i18n');
- // langProvince = require('../province/i18n');
+  langStatus = CanadianStatusStrings;
+  langActivities = CanadianStatusReasonStrings;
 
   @Input() person: MspPerson;
   @Input() editRouterLink: string;
@@ -33,7 +34,7 @@ export class MspPersonCardComponent {
 
   get movedFromLabel(): string {
     if (this.person.status === StatusInCanada.TemporaryResident ||
-      this.person.currentActivity === Activities.MovingFromCountry) {
+      this.person.currentActivity === CanadianStatusReason.MovingFromCountry) {
       return 'Moved from country:';
     }
     else {

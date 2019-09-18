@@ -1,8 +1,8 @@
 import AddressDto from '../../../components/msp/model/address.dto';
 import PersonDto from '../../../components/msp/model/msp-person.dto';
-import {MspImage} from '../../../models/msp-image';
-
 import {AssistanceYear} from './assistance-year.model';
+import { CommonImage } from 'moh-common-lib';
+
 export default class FinancialAssistApplicationDto {
   infoCollectionAgreement: boolean;
   incomeLine236: number;
@@ -29,8 +29,8 @@ export default class FinancialAssistApplicationDto {
   authorizedBySpouse: boolean;
   authorizedByAttorney: boolean;
 
-  powerOfAttorneyDocs: MspImage[] = [];
-  attendantCareExpenseReceipts: MspImage[] = [];
+  powerOfAttorneyDocs: CommonImage[] = [];
+  attendantCareExpenseReceipts: CommonImage[] = [];
 
   applicantClaimForAttendantCareExpense: boolean = false;
   spouseClaimForAttendantCareExpense: boolean = false;
@@ -40,7 +40,7 @@ export default class FinancialAssistApplicationDto {
   attendantCareExpense: number;
 
   assistYears: AssistanceYear[] = [];
-  assistYeaDocs: MspImage[] = [];
+  assistYeaDocs: CommonImage[] = [];
 
   pageStatus: any[] = []; // page status - complete/ incomplete
 }

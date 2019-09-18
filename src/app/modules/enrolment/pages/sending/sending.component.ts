@@ -3,11 +3,11 @@ import {Router} from '@angular/router';
 import { MspApplication } from '../../models/application.model';
 import { ISpaEnvResponse } from 'moh-common-lib/lib/components/consent-modal/consent-modal.component';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { ProcessService } from '../../../../services/process.service';
 import { MspLogService } from '../../../../services/log.service';
 import { MspApiEnrolmentService } from '../../services/msp-api-enrolment.service';
 import { ApiResponse } from '../../../../models/api-response.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 
 @Component({
   templateUrl: 'sending.component.html',
@@ -54,35 +54,34 @@ export class SendingComponent implements AfterContentInit {
     this.service
       .sendRequest(this.application)
       .then((response: ApiResponse) => {
-        
+
         if (response instanceof HttpErrorResponse) {
           this.logService.log({
               name: 'Enrolment - System Error',
               confirmationNumber: this.application.uuid,
               url: this.router.url
-          }, 'Supplementary Benefit - Submission Response Error' + response.message);
+          }, 'Enrolment - Submission Response Error' + response.message);
           this.processErrorResponse(false);
           return;
       }
 
       const refNumber = response.op_reference_number;
 
-        
-        
+
+
        // this.application = application;
         console.log(this.application);
 
         this.logService.log({name: 'Enrolment - Received refNo ',
           confirmationNumber: this.application.referenceNumber}, 'Enrolment - Submission Response Success');
 
-        const tempRef = this.application.referenceNumber;
 
         //delete the application from storage
         this.dataService.removeMspApplication();
 
         //  go to confirmation
 
-        this.router.navigate(['/enrolment/confirmation'],
+        this.router.navigate([ROUTES_ENROL.CONFIRMATION.fullpath],
                 {queryParams: {confirmationNum: refNumber}});
 
       }).catch((error: ResponseType | any) => {
@@ -125,6 +124,6 @@ export class SendingComponent implements AfterContentInit {
 
 
   retrySubmission(){
-    this.router.navigate(['/enrolment/authorize']);
+    this.router.navigate([ROUTES_ENROL.AUTHORIZE.fullpath]);
   }
 }

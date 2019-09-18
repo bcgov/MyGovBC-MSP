@@ -1,9 +1,0 @@
-<div role="dialog" aria-labelledby="q1">
-  <p id="q1" class="intro" [innerHtml]="label"></p>
-  <div class="btn-group" role="group">
-      <button #buttonGroup [class.msp-btn-radio]="data === true" (click)="dataChange.emit(true)"
-          type="button" class="btn btn-default" tabindex="0">Yes</button>
-      <button [class.msp-btn-radio]="data === false" (click)="dataChange.emit(false)"
-          type="button" class="btn btn-default" tabindex="0">No&nbsp;</button>
-  </div>
-</div>

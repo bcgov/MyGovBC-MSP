@@ -1,0 +1,76 @@
+<ng-content select="[sectionTitleInfo]"></ng-content>
+<common-page-section layout="tips">
+  <div *ngIf="isCanadianNotBC">
+    <div class="form-group" class="p-sm-2">
+      <common-radio name="livedInBCSinceBirth_{{objectId}}"
+                    [(ngModel)]="person.livedInBCSinceBirth"  
+                    label="Have you lived in B.C. since birth?" 
+                    required>
+      </common-radio>
+    </div>
+  </div>
+
+
+  <div *ngIf="isCanadianFromProv || isCanadianFromCountry || (isCanadianNotBC && person.livedInBCSinceBirth)">
+    <div class="form-group" class="p-sm-2">
+      <common-radio name="madePermanentMoveToBC_{{objectId}}"
+                    [(ngModel)]="person.madePermanentMoveToBC"  
+                    label="Have you moved to B.C. permanently?" 
+                    required>
+      </common-radio>
+      <common-error-container [displayError]="person.madePermanentMoveToBC == false">
+        You have indcated that a recent move to B.C. is not permanent.  As a result, this person
+        is not eligible for enrolment in the Medical Services Plan.  Please contact
+        <a href="{{links.MSP_RESIDENT_CONTACT}}" target="_blank">Health Insurance BC</a> for further 
+        information.
+      </common-error-container>
+    </div>
+
+    <div *ngIf="isCanadianFromProv || isCanadianNotBC; else SelectCountry"
+         class="form-group" class="col-sm-6 p-sm-2">
+      <common-province name="movedFromProvince_{{objectId}}"
+                       label="Which province are you moving from?"
+                       [provinceList]="provinceList"
+                       [(ngModel)]="person.movedFromProvinceOrCountry"
+                       required>
+      </common-province>
+    </div>
+
+    <div *ngIf="isCanadianFromProv || isCanadianFromCountry; else NewToBC"
+         class="form-group" class="col-sm-6 p-sm-2">
+        <common-date label="Arrival date in B.C."
+                     [restrictDate]="'past'" 
+                     [(date)]="person.arrivalToBCSimple"
+                     [required]="true">
+        </common-date>
+    </div>
+
+    <div class="form-group" class="col-sm-6 p-sm-2">
+      <common-date label="Arrival date in Canada{{!isCanadianFromCountry ? ' (optional)' : ''}}"
+                    [restrictDate]="'past'" 
+                    [(date)]="person.arrivalToCanadaDate"
+                    [required]="isCanadianFromCountry">
+      </common-date>
+    </div>
+
+    
+
+  </div>
+</common-page-section>
+
+<ng-template #SelectCountry>
+  <common-country name="movedFromCountry_{{objectId}}"
+                  label="Which counrty are you moving from?"
+                  [countryList]="countryList"
+                  [(ngModel)]="person.movedFromProvinceOrCountry"
+                  required>
+  </common-country>
+</ng-template>
+
+<ng-template #NewToBC>
+    <common-date label="Most recent move to B.C."
+                 [restrictDate]="'past'" 
+                 [(date)]="person.arrivalToBCSimple"
+                 [required="true"]>
+    </common-date>
+</ng-template>

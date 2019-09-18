@@ -1,12 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 // import { ToggleComponent } from './toggle.component';
 import { Person } from './msp-person.model';
-import { Relationship, StatusInCanada, Activities } from '../../../models/status-activities-documents';
-import { SimpleDate } from './simple-date.interface';
+import { Relationship } from '../../../modules/msp-core/models/status-activities-documents';
 
 describe('Person Model', () => {
-    let instance: Person;
     let applicant: Person;
     let spouse: Person;
     let childUnder19: Person;

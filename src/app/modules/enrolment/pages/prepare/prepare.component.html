@@ -2,35 +2,31 @@
                 [isMaintenanceMode]="true" 
                 (onClose)="liveInBCBtn.focus()"
                 [consentProcessName]="'MSP'" 
-                (accept)="mspApplication.infoCollectionAgreement = $event;  this.dataService.saveMspApplication();">
+                (accept)="acceptAgreement($event)">
 </msp-consent-modal>
 
 <common-page-framework layout="blank">
 
-    <h1>See if you qualify for public health care in B.C.</h1>
+    <h1>Apply for Medical Services Plan</h1>
 
     <p class="pb-2 border-bottom">  
-        If you already have Medical Services Plan (MSP) coverage and received a letter notifying you to renew 
-        your BC Services Card, you do not have to submit a new Application for MSP Enrolment; you only need to 
-        renew your BC Services Card. Follow the instructions on the letter to renew your card.
-    </p>
-
+        If you already have Medical Services Plan (MSP) coverage and received a letter notifying you to renew your BC Services Card, you do not have to submit a new Application for MSP Enrolment; you only need to renew your BC Services Card. Follow the instructions on the letter to renew your card.</p>
     <common-page-section layout='noTips'>
         <form #formRef='ngForm' novalidate>
 
-            <common-radio [value]="liveInBC"  
-                          [label]="question1" 
-                          [radioLabels]="radioLabels"
-                          (statusChange)="setLiveInBC($event)"
-                          aria-labelledby="q1">
+            <common-radio #liveInBCBtn
+                          name="LiveInBC"
+                          [(ngModel)]="liveInBC"  
+                          label="Do you currently live in British Columbia (i.e. Do you have an address here)?" 
+                          required>
             </common-radio> 
 
             <div [hidden]="liveInBC !== true" role="dialog" aria-labelledby="q2">
             
-                <common-radio [value]="plannedAbsence"  
-                              [label]="plannedAwayForOver30DaysQuestion" 
-                              [radioLabels]="radioLabels"
-                              (statusChange)="setPlannedAbsence($event)">
+                <common-radio name="PlannedAbsence"
+                              [(ngModel)]="plannedAbsence"  
+                              label="Will you or anyone included on this application be away from B.C. for more than 30 days in total over the next six months?" 
+                              required>
                 </common-radio>
 
                 <p class="text-danger" 
@@ -48,9 +44,9 @@
                  role="dialog" 
                  aria-labelledby="q3"> 
 
-                <common-radio [value]="unUsualCircumstance"  
-                              [radioLabels]="radioLabels"
-                              (statusChange)="setUnusualCircumstance($event)">
+                <common-radio name="UnusualCircumstance"
+                              [(ngModel)]="unUsualCircumstance"
+                              required>
                     Is anyone you're applying for<br>
                     <ul class="mb-0">
                         <li>A student returning to your home province at the end of a course or program; or</li>
@@ -74,7 +70,7 @@
             </div>
 
             <p class="text-danger" 
-               *ngIf="!(liveInBC === true || liveInBC === null || liveInBC === undefined)"
+               *ngIf="liveInBC == false"
                role="alert" aria-live="assertive">
                 You might not qualify for public health insurance if you do not live in B.C. Contact
                  <a href="{{links.MSP_RESIDENT_CONTACT}}" target="_blank">Health Insurance BC</a> for more information.
@@ -82,10 +78,10 @@
         </form>
 
     </common-page-section>
-    
 </common-page-framework>
 
 <common-form-action-bar [canContinue]="canContinue()"
-                        (btnClick)="goToPersonalInfo()"
-                        widthOption='extra-width-mobile-only'>
+                        (btnClick)="continue()"
+                        widthOption='extra-width-mobile-only'
+                        submitLabel='Apply'>
 </common-form-action-bar>

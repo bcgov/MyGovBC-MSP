@@ -8,7 +8,7 @@ import { Relationship } from '../../../../../models/status-activities-documents'
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
-import { legalStatus } from '../../../../../models/msp.contants';
+//import { legalStatus } from '../../../../../models/msp.contants';
 import {
   StatusRules,
   ActivitiesRules,
@@ -17,7 +17,7 @@ import {
   DocumentRules,
   Documents
 } from '../../../../../models/status-activities-documents';
-import { MspImage } from '../../../../../models/msp-image';
+import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
 
 
 
@@ -33,7 +33,7 @@ export class AccountFileUploaderComponent extends BaseComponent {
   @Input() title: string;
   @Input() subtitle: string;
 
-  @Input() doc: MspImage[] = [];
+  @Input() doc: CommonImage[] = [];
   @Input() docStatus: Documents;
   @Input() items:  ItemList[];
 

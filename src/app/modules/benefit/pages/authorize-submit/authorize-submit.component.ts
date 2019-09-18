@@ -5,9 +5,9 @@ import {ProcessService} from '../../../../services/process.service';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
 import {environment} from '../../../../../environments/environment';
 import {NgForm} from '@angular/forms';
-import {MspImage} from '../../../../models/msp-image';
 import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
+import { CommonImage } from 'moh-common-lib';
 
 @Component({
   selector: 'msp-authorize-submit',
@@ -44,7 +44,7 @@ export class BenefitAuthorizeSubmitComponent {
         });
     }
 
-    addDocument(mspImage: MspImage) {
+    addDocument(mspImage: CommonImage) {
         this.application.powerOfAttorneyDocs = this.application.powerOfAttorneyDocs.concat(mspImage);
      //   this.fileUploader.forceRender();
         this.dataService.saveBenefitApplication();
@@ -59,17 +59,17 @@ export class BenefitAuthorizeSubmitComponent {
     }
 
 
-    errorDocument(evt: MspImage) {
+    errorDocument(evt: CommonImage) {
         this.mspImageErrorModal.imageWithError = evt;
         this.mspImageErrorModal.showFullSizeView();
         this.mspImageErrorModal.forceRender();
     }
 
-    deleteDocument(mspImage: MspImage) {
+    deleteDocument(mspImage: CommonImage) {
         // console.log('doc to be deleted: %o', mspImage);
-        
+
         this.application.powerOfAttorneyDocs = this.application.powerOfAttorneyDocs.filter(
-            (doc: MspImage) => {
+            (doc: CommonImage) => {
                 return doc.uuid !== mspImage.uuid;
             }
         );
@@ -103,12 +103,12 @@ export class BenefitAuthorizeSubmitComponent {
         const attorneyAUth = this.application.authorizedByAttorney && this.application.powerOfAttorneyDocs.length > 0;
 
         if (this.application.authorizationToken == null) return false;
-        if(this.application.authorizedByAttorney) {
-            return familyAuth === true && attorneyAUth === true;         
+        if (this.application.authorizedByAttorney) {
+            return familyAuth === true && attorneyAUth === true;
         } else {
             return familyAuth === true;
         }
-        
+
     }
 
 
@@ -120,8 +120,8 @@ export class BenefitAuthorizeSubmitComponent {
     }
     get questionForAttorney(){
         let allName = this.applicantName;
-        if(this.dataService.benefitApp.hasSpouseOrCommonLaw && this.spouseName) {
-            allName += ' or '+this.spouseName;
+        if (this.dataService.benefitApp.hasSpouseOrCommonLaw && this.spouseName) {
+            allName += ' or ' + this.spouseName;
         }
         return this.lang('./en/index.js').attorneyDoYouAgreeLabel.replace('{applicantName}', allName);
     }
