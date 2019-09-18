@@ -14,11 +14,9 @@ import { of } from 'rxjs';
 import { Response } from '@angular/http';
 import { MspApiService } from '../../../services/msp-api.service';
 import { ApiResponse } from '../../../models/api-response.interface';
-//import { MspBenefitDataService } from './';
 import {
  MSPApplicationSchema
 } from '../../../modules/msp-core/interfaces/i-api';
-//import { FieldPageMap } from '../models/field-page-map';
 
 
 
@@ -256,11 +254,11 @@ export class MspApiEnrolmentService extends AbstractHttpService {
     // console.log("handleError", JSON.stringify(error));
     if (error.error instanceof ErrorEvent) {
       //Client-side / network error occured
-      console.error('MSP Supp Benefit API error: ', error.error.message);
+      console.error('MSP Enrolment API error: ', error.error.message);
     } else {
       // The backend returned an unsuccessful response code
       console.error(
-        `Msp Supp Benefit Backend returned error code: ${
+        `Msp Enrolment Backend returned error code: ${
           error.status
         }.  Error body: ${error.error}`
       );
@@ -311,7 +309,7 @@ export class MspApiEnrolmentService extends AbstractHttpService {
 
 
   private prepareEnrolmentApplication(from: MspApplication): any {
-    console.log('prepareBenefitApplicatoin', {from, imageUUIDs: from.getAllImages().map(x => x.uuid)});
+    console.log('prepareBenefitApplication', {from, imageUUIDs: from.getAllImages().map(x => x.uuid)});
     const output = {
       'enrolmentApplication': {
         'applicant': {

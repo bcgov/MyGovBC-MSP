@@ -42,17 +42,16 @@ import { MspLoggerDirective } from './components/logging/msp-logger.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { ReviewPartComponent } from './components/review-part/review-part.component';
 import { ReviewCardWrapperComponent } from './components/review-card-wrapper/review-card-wrapper.component';
-import { ErrorComponent } from './components/error/error.component';
-
 import { ConfirmationComponent } from './confirmation/confirmation.component';
-
 import { PersonalDetailsRetroSuppbenComponent } from './components/personal-details-retro-suppben/personal-details-retro-suppben.component';
 import { AddressRetroSuppbenComponent } from './components/address-retro-suppben/address-retro-suppben.component';
 import { CoreContactInfoComponent } from './components/core-contact-info/core-contact-info.component';
 
 
+// New components - use common library
 import { CanadianStatusComponent } from './components/canadian-status/canadian-status.component';
 import { SupportDocumentsComponent } from './components/support-documents/support-documents.component';
+import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
 
 const componentList = [
   MspFullNameComponent,
@@ -65,7 +64,6 @@ const componentList = [
   MspAddressCardPartComponent,
   CommonIncomeInputtextComponent,
   ReviewPartComponent,
-  ErrorComponent,
   PersonalDetailsRetroSuppbenComponent,
   ConfirmationComponent,
   CoreContactInfoComponent,
@@ -73,6 +71,7 @@ const componentList = [
   // New components
   CanadianStatusComponent,
   SupportDocumentsComponent,
+  PersonalInformationComponent,
 
   // Directives
   KeyboardEventListner,
