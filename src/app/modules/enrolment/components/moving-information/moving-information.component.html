@@ -36,6 +36,24 @@
       </common-province>
     </div>
 
+    <div *ngIf="isCanadianFromProv || isCanadianFromCountry; else NewToBC"
+         class="form-group" class="col-sm-6 p-sm-2">
+        <common-date label="Arrival date in B.C."
+                     [restrictDate]="'past'" 
+                     [(date)]="person.arrivalToBCSimple"
+                     [required]="true">
+        </common-date>
+    </div>
+
+    <div class="form-group" class="col-sm-6 p-sm-2">
+      <common-date label="Arrival date in Canada{{!isCanadianFromCountry ? ' (optional)' : ''}}"
+                    [restrictDate]="'past'" 
+                    [(date)]="person.arrivalToCanadaDate"
+                    [required]="isCanadianFromCountry">
+      </common-date>
+    </div>
+
+    
 
   </div>
 </common-page-section>
@@ -47,4 +65,12 @@
                   [(ngModel)]="person.movedFromProvinceOrCountry"
                   required>
   </common-country>
+</ng-template>
+
+<ng-template #NewToBC>
+    <common-date label="Most recent move to B.C."
+                 [restrictDate]="'past'" 
+                 [(date)]="person.arrivalToBCSimple"
+                 [required="true"]>
+    </common-date>
 </ng-template>

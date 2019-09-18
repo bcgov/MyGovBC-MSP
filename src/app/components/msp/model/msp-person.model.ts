@@ -183,9 +183,9 @@ export class MspPerson implements IPerson {
 
 
 
-    arrivalToBCDay: number;
-    arrivalToBCMonth: number;
-    arrivalToBCYear: number;
+    arrivalToBCDay: number = null;
+    arrivalToBCMonth: number = null;
+    arrivalToBCYear: number = null;
 
     get hasArrivalToBC(): boolean {
         return (this.arrivalToBCDay != null &&
@@ -200,9 +200,9 @@ export class MspPerson implements IPerson {
     /** Provides the same answer as arrivalToBC but in a different format. Useful with the MspDateComponent which can take a single SimpleDate obj for configuration. */
     get arrivalToBCSimple(): SimpleDate {
         return {
-            'day': this.arrivalToBCDay,
-            'month': this.arrivalToBCMonth,
-            'year': this.arrivalToBCYear,
+            day: this.arrivalToBCDay,
+            month: this.arrivalToBCMonth,
+            year: this.arrivalToBCYear,
         };
     }
 
@@ -213,9 +213,9 @@ export class MspPerson implements IPerson {
         this.arrivalToBCYear = date.year;
     }
 
-    arrivalToCanadaDay: number;
-    arrivalToCanadaMonth: number;
-    arrivalToCanadaYear: number;
+    arrivalToCanadaDay: number = null;
+    arrivalToCanadaMonth: number = null;
+    arrivalToCanadaYear: number = null;
 
     get arrivalToCanada() {
         return this.parseDate(this.arrivalToCanadaYear, this.arrivalToCanadaMonth, this.arrivalToCanadaDay);
@@ -224,6 +224,21 @@ export class MspPerson implements IPerson {
     get hasArrivalToCanada(): boolean {
         return !!(this.arrivalToCanadaDay && this.arrivalToCanadaMonth && this.arrivalToCanadaYear) ;
     }
+
+    get arrivalToCanadaDate() {
+        return {
+            day: this.arrivalToCanadaDay,
+            month: this.arrivalToCanadaMonth,
+            year: this.arrivalToCanadaYear,
+        };
+    }
+
+    set arrivalToCanadaDate(date: SimpleDate) {
+        this.arrivalToCanadaDay = date.day;
+        this.arrivalToCanadaMonth = date.month;
+        this.arrivalToCanadaYear = date.year;
+    }
+
 
     /**
      * BC Personal Health Number
