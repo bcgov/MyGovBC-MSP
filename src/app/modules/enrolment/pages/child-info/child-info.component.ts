@@ -111,17 +111,20 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
     if ( this.children.length > 0 ) {
       valid = super.canContinue() &&
                 this.children.map( x => {
-                  if ( x.documents.images ) {
-                    return x.documents.images.length === 0;
+                  let childValid = x.documents.images && x.documents.images.length > 0;
+                  if (x.hasNameChange){
+                    childValid = childValid &&
+                                 x.nameChangeDocs.images &&
+                                 x.nameChangeDocs.images.length > 0;
                   }
-                  return true;
-                }).filter(itm => itm === true).length === 0 &&
-                this.children.map( x => {
-                  if ( x.hasNameChange ) {
-                    return x.nameChangeDocs.images ? x.nameChangeDocs.images.length === 0 : true;
+
+                  if ( x.relationship === Relationship.Child19To24 ) {
+                    childValid = childValid && x.inBCafterStudies;
                   }
-                }).filter(itm => itm === true).length === 0;
-        }
+                  return valid;
+                }).filter(itm => itm === true).length === this.children.length;
+
+    }
     return valid;
   }
 

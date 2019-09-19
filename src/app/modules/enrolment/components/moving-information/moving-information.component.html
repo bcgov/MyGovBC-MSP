@@ -92,13 +92,14 @@
           <label for="departureDestination_{{objectId}}" class="control-label">
             Location
           </label>
-          <input name="departureDestination_{{objectId}}"
+          <input #destinationRef="ngModel"
+                 name="departureDestination_{{objectId}}"
                  type="text" 
                  class="form-control"
                  [(ngModel)]=person.departureDestination
                  maxlength="20"
                  required>
-        <common-error-container [displayError]="reasonRef.error?.required">
+        <common-error-container [displayError]="destinationRef.error?.required">
           Location is required.
         </common-error-container>
        </div>
@@ -155,34 +156,93 @@ and check departure was within last 12 months - need to find error messages for 
         </common-date>
       </div>
     </div>
+  </div>
 
-    <div *ngIf="isApplicant">
-      <div class="form-group p-sm-2">
-        <common-radio name="fullTimeStudent_{{objectId}}"
-                      [(ngModel)]="person.fullTimeStudent"  
-                      label="Are you full-time student in B.C.?" 
-                      required>
-        </common-radio>
-      </div>
-    
-      <div *ngIf="person.fullTimeStudent" class="form-group border-left">
-          <div class="form-group p-sm-2">
-            <common-radio name="inBCafterStudies_{{objectId}}"
-                          [(ngModel)]="person.inBCafterStudies"  
-                          label="Will you reside in B.C. upon completion of your studies?" 
-                          required>
-            </common-radio>
-            <common-error-container [displayError]="person.inBCafterStudies == false">
-                To qualify for provincial health care benefits a person must be a resident of 
-                B.C.  As you intend to leave B.C. when your studies are completed, you are not 
-                eligible for Medical Services Plan coverage.  Please contact the health care plan 
-                in your home province for information about medical coverage while studying in B.C.
-              </common-error-container>
-          </div>
-      </div>
+  <div *ngIf="isApplicant && requestSchoolInfo">
+    <div class="form-group p-sm-2">
+      <common-radio name="fullTimeStudent_{{objectId}}"
+                    [(ngModel)]="person.fullTimeStudent"  
+                    label="Are you full-time student in B.C.?" 
+                    required>
+      </common-radio>
+    </div>
+  
+    <div *ngIf="person.fullTimeStudent" class="form-group border-left">
+        <div class="form-group p-sm-2">
+          <common-radio name="inBCafterStudies_{{objectId}}"
+                        [(ngModel)]="person.inBCafterStudies"  
+                        label="Will {{relationship}} reside in B.C. upon completion of {{isApplicant? 'your' : 'their'}} studies?" 
+                        required>
+          </common-radio>
+          <common-error-container [displayError]="person.inBCafterStudies == false">
+              To qualify for provincial health care benefits a person must be a resident of 
+              B.C.  As you intend to leave B.C. when your studies are completed, you are not 
+              eligible for Medical Services Plan coverage.  Please contact the health care plan 
+              in your home province for information about medical coverage while studying in B.C.
+            </common-error-container>
+        </div>
     </div>
   </div>
 </common-page-section>
+
+<div *ngIf="isOveragedChild">
+  <h2>School Information</h2>
+  <p class="border-bottom">
+    Enter information of the school that this child is attending (must be in full-time attendance)
+  </p>
+  <common-page-section layout="tips">
+    <div class="form-group col-sm-6">
+      <label for="schoolName_{{objectId}}" class="control-label">
+        Name of school
+      </label>
+      <input #schoolNameRef="ngModel"
+              name="schoolName_{{objectId}}"
+              type="text" 
+              class="form-control"
+              [(ngModel)]=person.schoolName
+              maxlength="50"
+              required>
+      <common-error-container [displayError]="schoolNameRef.error?.required">
+        Name of school is required.
+      </common-error-container>
+    </div>
+
+    <div class="form-group col-sm-8">
+      <div class="label">School Address</div> 
+      <common-address [(address)]="person.schoolAddress"
+                      [isRequired]="true"
+                      [allowExtralines]='true'
+                      [disableGeocoder]='true'>
+      </common-address>
+    </div>
+
+    <div class="form-group col-sm-6 p-sm-2">
+      <common-date label="Original departure date from B.C. (if school is outside B.C.)"
+                    [(date)]="person.studiesDepartureSimple">
+      </common-date>
+    </div>    
+
+    <div class="form-group col-sm-6 p-sm-2">
+      <common-date label="Expected school completion date"
+                    [(date)]="person.studiesFinishedSimple">
+      </common-date>
+    </div>  
+
+    <div class="form-group p-sm-2">
+      <common-radio name="inBCafterStudiesOA_{{objectId}}"
+                    [(ngModel)]="person.inBCafterStudies"  
+                    label="Will this child reside in B.C. after completing study in this school?" 
+                    required>
+      </common-radio>
+      <common-error-container [displayError]="person.inBCafterStudies == false && !isTemporaryResident">
+          To qualify for provincial health care benefits a person must be a resident of 
+          B.C.  As you intend to leave B.C. when your studies are completed, you are not 
+          eligible for Medical Services Plan coverage.  Please contact the health care plan 
+          in your home province for information about medical coverage while studying in B.C.
+        </common-error-container>
+    </div>
+  </common-page-section>
+</div>
 
 <ng-template #SelectCountry>
   <div *ngIf="isCanadianFromCountry || isResidentFromCountry" 
@@ -200,8 +260,7 @@ and check departure was within last 12 months - need to find error messages for 
   <div class="form-group col-sm-6 p-sm-2">
     <common-date label="Most recent move to B.C."
                  [restrictDate]="'past'" 
-                 [(date)]="person.arrivalToBCSimple"
-                 [required]="true">
+                 [(date)]="person.arrivalToBCSimple">
     </common-date>
   </div>
 </ng-template>

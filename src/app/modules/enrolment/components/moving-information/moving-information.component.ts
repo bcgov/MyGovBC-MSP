@@ -58,6 +58,10 @@ export class MovingInformationComponent extends Base implements OnInit {
            this.person.relationship === Relationship.Child19To24;
   }
 
+  get isOveragedChild() {
+    return this.person.relationship === Relationship.Child19To24;
+  }
+
   // Moved from another province
   get isCanadianFromProv() {
     return this.person.status === StatusInCanada.CitizenAdult &&
@@ -92,6 +96,15 @@ export class MovingInformationComponent extends Base implements OnInit {
   get isResidentNotBC() {
     return this.person.status === StatusInCanada.PermanentResident &&
             this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP;
+  }
+
+  get isTemporaryResident() {
+    return this.person.status === StatusInCanada.TemporaryResident;
+  }
+
+  get requestSchoolInfo() {
+    return this.isCanadianFromCountry || this.isCanadianFromProv || this.isCanadianNotBC ||
+           this.isResidentFromCountry || this.isResidentFromProv || this.isResidentNotBC;
   }
 
   get requestPermMoveInfo() {

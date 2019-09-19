@@ -416,6 +416,7 @@ export class MspPerson implements IPerson {
      */
     schoolName: string;
     schoolAddress: Address = new Address();
+
     /** Needs XSD.  */
     schoolOutsideOfBC: boolean;
 
