@@ -64,7 +64,6 @@ export class PersonalInformationComponent extends Base {
   }
 
   set dateOfBirth( dob: SimpleDate ) {
-    console.log( 'dateOfBirth: ', dob );
     this.person.dateOfBirth = dob;
     this.personChange.emit(this.person);
   }
@@ -74,7 +73,7 @@ export class PersonalInformationComponent extends Base {
   }
 
   set gender( val: Gender ) {
-    console.log( 'set gender: ', val );
+
     this.person.gender = val;
     this.personChange.emit(this.person);
   }

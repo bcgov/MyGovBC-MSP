@@ -175,23 +175,24 @@ export interface AssistanceSpouseType {
 
 export interface EnrolmentApplicationType {
   applicant: EnrolmentApplicantType;
-  children?: any[];
-  dependents?: any[];
+  children?: PersonType[];
+  dependents?: DependentType[];
   spouse?: PersonType;
 }
 
 export interface EnrolmentApplicantType {
+  name: NameType;
+  gender: string;
+  birthDate: string;
   attachmentUuids: string[];
+  residency: ResidencyType;
+  residenceAddress: AddressType;
+  mailingAddress?: AddressType;
+  telephone?: string;
+
   authorizedByApplicant: string;
   authorizedByApplicantDate: string;
   authorizedBySpouse: string;
-  birthDate: string;
-  gender: string;
-  mailingAddress?: AddressType;
-  name: NameType;
-  residenceAddress: AddressType;
-  residency: ResidencyType;
-  telephone?: string;
 }
 
 export interface ResidencyType {
@@ -214,6 +215,19 @@ export interface PersonType {
   gender: string;
   name: NameType;
   residency: ResidencyType;
+}
+
+export interface DependentType {
+  attachmentUuids: string[];
+  birthDate: string;
+  gender: string;
+  name: NameType;
+  residency: ResidencyType;
+
+  schoolName: string;
+  schoolAddress: AddressType;
+  dateStudiesFinish: string;
+  departDateSchoolOutside: string;
 }
 
 export interface SupplementaryBenefitsApplicationType {

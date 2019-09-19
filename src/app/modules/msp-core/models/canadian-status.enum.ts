@@ -1,4 +1,4 @@
-import { Relationship } from "./relationship.enum";
+import { Relationship } from './relationship.enum';
 
 /**
  * Various statuses in Canada
