@@ -46,7 +46,7 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
         ).subscribe(() => {
           this.dataService.saveMspApplication();
         })
-        ];
+      ];
     }
   }
 
@@ -97,7 +97,11 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
            this.hasStatusDocuments( idx );
   }
 
-  continue(){
+  continue() {
+    if ( !this.canContinue() ) {
+      this.markAllInputsTouched();
+      return;
+    }
     this.pageStateService.setPageComplete(this.router.url, this.dataService.mspApplication.pageStatus);
     this.navigate(ROUTES_ENROL.CONTACT.fullpath);
   }

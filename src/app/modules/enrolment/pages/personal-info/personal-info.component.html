@@ -75,20 +75,6 @@
         </div>         
       </msp-moving-information>
     </div>
-
-
-
-
-    <div class="row" style="margin-top: 10px">
-      <p class="intro text-danger" *ngIf="!isStayinginBCAfterstudies()"
-          [innerHtml]="lang('./en/index.js').badAnswerStudies" role="alert" aria-live="assertive">
-      </p>
-    
-      <div class="col-md-6 pull-left" *ngIf="formRef.submitted">
-          <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
-          </p>
-      </div>
-    </div>
   </form>
 </common-page-framework>
 <common-form-action-bar defaultColor='false'
