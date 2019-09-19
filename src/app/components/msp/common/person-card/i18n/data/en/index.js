@@ -21,7 +21,7 @@ module.exports = {
   outsideBCLocationLabel: 'Location',
   outsideBCDepartureDateLabel: 'Departure date',
   outsideBCReturnDateLabel: 'Return date',
-  institutionWorkHistoryLabel: 'Released from Canadian Armed Forces or an institution',
+  institutionWorkHistoryLabel: 'Released from Canadian Forces',
   institutionWorkHistoryValues: {Yes: 'Yes', No: 'No'},
   nameOfInstituteLabel:'Name of Institute',
   newlyAdoptedLabel:'Is Adopted',
