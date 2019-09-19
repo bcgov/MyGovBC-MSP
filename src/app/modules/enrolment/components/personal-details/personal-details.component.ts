@@ -147,7 +147,6 @@ export class PersonalDetailsComponent extends BaseComponent {
   statusOpts: string[] = Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
   activitiesOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
   documentOpts: string[] = MspDocumentConstants.langDocument();
-
   // genderRadioLabels = genderLabels;
 
   statusDocumentType: string = null;

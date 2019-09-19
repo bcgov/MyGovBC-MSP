@@ -10,7 +10,7 @@ module.exports = {
   childrenDisabilityCredit: 'Child disability credit',
   registeredDSP: 'Registered Disability Savings Plan',
   totalDeductions: 'Total deductions',
-  adjustedIncome: 'Adjusted income',
+  adjustedIncome: 'Adjusted Net Income',
   reportedUCCBenefit_line117: 'Universal child card benefit income',
   claimedChildCareExpense_line214: 'Child care expense',
   editEligibilityInfo: 'Edit Financial Information',
