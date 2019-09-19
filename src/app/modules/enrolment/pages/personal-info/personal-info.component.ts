@@ -100,8 +100,16 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
   }
 
   canContinue(): boolean {
-    const valid = super.canContinue() && this.hasStatusDocuments;
-    return this.applicant.hasNameChange ? valid && this.hasNameDocuments : valid;
+    let valid = super.canContinue() && this.hasStatusDocuments;
+
+    if ( this.applicant.hasNameChange ) {
+      valid = valid && this.hasNameDocuments;
+    }
+
+    if ( this.applicant.fullTimeStudent ) {
+      valid = valid && this.applicant.inBCafterStudies;
+    }
+    return valid;
   }
 
   continue(): void {
@@ -114,6 +122,10 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
     }
   }
 
+
+
+
+  
 
 
 
