@@ -150,7 +150,7 @@
                                             id="childrenCount"
                                             maxlength="2"
                                             #childCount="ngModel"
-                                            pattern="^[1-9]{0,2}?$"
+                                            pattern="^[0-9]{0,2}?$"
                                             [(ngModel)]="benefitApp.childrenCount">
                                     
                                         <div  class="text-danger" *ngIf="childCount.errors?.pattern"
@@ -267,7 +267,7 @@
                                             <input type="text" class="form-control" name="childWithDisabilityCount"
                                                     id="childWithDisabilityCount"
                                                     #disabilityCount="ngModel"
-                                                    pattern="^[1-9]{0,2}?$"
+                                                    pattern="^[0-9]{0,2}?$"
                                                     maxlength="2"
                                                     [(ngModel)]="benefitApp.numberOfChildrenWithDisability">
                                         </div>
@@ -402,7 +402,7 @@
                             <input type="text" class="form-control" name="childClaimForAttendantCareExpenseCount"
                                     id="childClaimForAttendantCareExpenseCount"
                                     #attendantCareCount="ngModel"
-                                    pattern="^[1-9]{0,2}?$"
+                                    pattern="^[0-9]{0,2}?$"
                                     maxlength="2"
                                     [(ngModel)]="benefitApp.childWithAttendantCareCount">
                             </div>
@@ -484,7 +484,7 @@
                                                 [qualificationThreshhold]="qualificationThreshhold"
                                                 [totalHouseholdIncomeLabel]="lang('./en/index.js').totalHouseholdIncome"
                                                 [continueButtonLabel]="lang('./en/index.js').continueButtonLabel"
-                                                [NotQualifyText]="lang('./en/index.js').mayNotQualifyText"
+                                                [NotQualifyText]="(benefitApp.eligibility.totalNetIncome > 999999.99) ? lang('./en/index.js').totalHouseHoldIncomError : lang('./en/index.js').mayNotQualifyText"
                                                 (taxYearInfoMissing)="onTaxYearInfoMissing()"
                                                 [disableContinue]="true">
                 </msp-common-deduction-calculator>

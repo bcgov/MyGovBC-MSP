@@ -65,6 +65,8 @@ export function statusReasonRules( relationship: Relationship,
   }
 }
 
+
+
 @Component({
   selector: 'msp-canadian-status',
   templateUrl: './canadian-status.component.html',
@@ -77,20 +79,17 @@ export function statusReasonRules( relationship: Relationship,
     { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
   ]
 })
-export class CanadianStatusComponent  extends Base {
-
-  @ViewChild('mspServicesCardModal')
-    servicesCardDisclaimerModalComponent: ServicesCardDisclaimerModalComponent;
+export class CanadianStatusComponent extends Base {
 
   @Input() statusReasonList: CanadianStatusReason[];
   @Input() label: String = 'Your immigration status in Canada';
   @Input() displayStatusInCanada: boolean = true;
+  @Input() hideStatusReasons: StatusInCanada[] = [];
 
   @Input() person: MspPerson;
   @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
 
   statusOpts: string[] = Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
-  showServicesCardModal: boolean;
 
   private _reasonOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
 
@@ -118,8 +117,16 @@ export class CanadianStatusComponent  extends Base {
     if (this.person.status !== StatusInCanada.CitizenAdult) {
       this.person.institutionWorkHistory = 'No';
     }
-    this.showServicesCardModal = true;
     this.personChange.emit(this.person);
+  }
+
+  get displayStatusReasons() {
+    let show = (this.getStatusInCanada() !== undefined);
+    if ( show && this.hideStatusReasons.length > 0 ) {
+      const tmp = this.hideStatusReasons.find( x => x === this.person.status );
+      show = tmp === undefined ? true : false;
+    }
+    return show;
   }
 
   /**
@@ -127,15 +134,6 @@ export class CanadianStatusComponent  extends Base {
    * @param value
    */
   setReason(value: CanadianStatusReason) {
-    console.log('setReason: ', value);
-    if (
-      this.showServicesCardModal &&
-      this.person.bcServiceCardShowStatus &&
-      this.person.relationship !== Relationship.ChildUnder19
-    ) {
-      this.servicesCardDisclaimerModalComponent.showModal();
-      this.showServicesCardModal = false;
-    }
 
     this.person.currentActivity = value;
     this.person.movedFromProvinceOrCountry = '';
@@ -146,12 +144,14 @@ export class CanadianStatusComponent  extends Base {
    * Display available activities for status
    */
   get availableStatusReasons() {
-    return this.reasonList.map(itm => {
-      return {
-        label: this._reasonOpts[itm],
-        value: itm
-      };
-    });
+    if ( this.reasonList ) {
+      return this.reasonList.map(itm => {
+        return {
+          label: this._reasonOpts[itm],
+          value: itm
+        };
+      });
+    }
   }
 
   get reasonList() {

@@ -53,10 +53,10 @@
             </div>
             <div class="col-sm-8">
                 <strong>
-                    {{langStatus('./en/index.js')[person.status]}}
+                    {{langStatus[person.status]}}
                     <span *ngIf="person.currentActivity">
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        {{langActivities('./en/index.js')[person.currentActivity]}}
+                        {{langActivities[person.currentActivity]}}
                     </span>
                 </strong>
             </div>

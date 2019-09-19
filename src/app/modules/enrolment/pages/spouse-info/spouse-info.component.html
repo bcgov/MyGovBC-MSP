@@ -45,13 +45,13 @@
         </div>
 
         <div requestAdditionInfo>
-          <common-radio class="p-sm-2"
-                        name="NameChangeQuestion"
-                        [(ngModel)]="spouse.hasNameChange"  
-                        label="Has your spouse's name changed since their ID was issued due to marriage or a legal name change?" 
-                        [radioLabels]="yesNoRadioLabels"
-                        required>
-          </common-radio>
+          <div class="form-group" class="col-sm-6 p-sm-2">
+            <common-radio name="NameChangeQuestion"
+                          [(ngModel)]="spouse.hasNameChange"  
+                          label="Has your spouse's name changed since their ID was issued due to marriage or a legal name change?" 
+                          required>
+            </common-radio>
+          </div>
         </div>
 
         <div sampleDocument>
@@ -73,6 +73,26 @@
           TODO: Need to add links with images to display        
         </div>
       </msp-support-documents>
+
+      <div *ngIf="requestPersonalInfo">
+        <msp-personal-information [person]="spouse">
+          <div sectionTitleInfo>
+            <h2>Spouse's Information</h2>
+            <p class="border-bottom"> 
+              Enter spouse's legal name and gender.
+            </p>
+          </div>     
+        </msp-personal-information>
+
+        <msp-moving-information [person]="spouse">
+          <div sectionTitleInfo>
+            <h2>Moving Information</h2>
+            <p class="border-bottom"> 
+                Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
+            </p>
+          </div>         
+        </msp-moving-information>        
+      </div>
     </div>
   </form>
 </common-page-framework>

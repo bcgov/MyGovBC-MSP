@@ -4,14 +4,13 @@ import { Router } from '@angular/router';
 import {PersonalDetailsComponent} from '../../components/personal-details/personal-details.component';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
-import { MspApplication } from '../../models/application.model';
 import { MspPerson } from '../../../account/models/account.model';
 import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
-import { yesNoLabels } from '../../../msp-core/models/msp-constants';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { AbstractForm } from 'moh-common-lib';
 import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 
 @Component({
@@ -24,7 +23,6 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
     PersonalDetailsComponent
   >;
 
-  yesNoRadioLabels = yesNoLabels;
   nameChangeDocList = nameChangeSupportDocuments();
   subscriptions: Subscription[];
 
@@ -39,10 +37,13 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
   }
 
   ngAfterViewInit() {
-
     if (this.form) {
       this.subscriptions = [
-        this.form.valueChanges.subscribe(() => { this.dataService.saveMspApplication(); })
+        this.form.valueChanges.pipe(
+          debounceTime(100)
+        ).subscribe(() => {
+          this.dataService.saveMspApplication();
+        })
         ];
     }
   }
@@ -65,13 +66,17 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
 
   set statusDocuments( document: PersonDocuments ) {
 
-    if ( document.images.length === 0 ) {
+    if ( document.images && document.images.length === 0 ) {
       // no status documents remove any name documents
       this.applicant.nameChangeDocs.documentType = null;
       this.applicant.nameChangeDocs.images = [];
     }
 
     this.applicant.documents = document;
+  }
+
+  get hasStatusDocuments(): boolean {
+    return this.statusDocuments.images && this.statusDocuments.images.length > 0;
   }
 
   get hasStatus() {
@@ -81,16 +86,22 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
   }
 
   get requestNameChangeInfo() {
-    return this.hasStatus && this.applicant.hasNameChange && this.statusDocuments.images.length;
+    return this.hasStatus && this.applicant.hasNameChange && this.hasStatusDocuments;
   }
 
+  get hasNameDocuments(): boolean {
+    return this.applicant.nameChangeDocs.images && this.applicant.nameChangeDocs.images.length > 0;
+  }
+
+  get requestPersonalInfo(): boolean {
+    return this.hasStatus && this.hasStatusDocuments &&
+           ( this.applicant.hasNameChange === false || // No name change
+            ( this.applicant.hasNameChange && this.hasNameDocuments )); // name change requires documentation
+  }
 
   canContinue(): boolean {
-    let valid = super.canContinue() && this.statusDocuments.images.length > 0;
-    if ( this.applicant.hasNameChange ) {
-      valid = valid && this.applicant.nameChangeDocs.images.length > 0;
-    }
-    return valid;
+    const valid = super.canContinue() && this.hasStatusDocuments;
+    return this.applicant.hasNameChange ? valid && this.hasNameDocuments : valid;
   }
 
   continue(): void {
@@ -102,9 +113,6 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
       this.navigate(ROUTES_ENROL.SPOUSE_INFO.fullpath);
     }
   }
-
-
-
 
 
 

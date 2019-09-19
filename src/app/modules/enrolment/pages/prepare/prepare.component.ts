@@ -1,18 +1,16 @@
-import {ChangeDetectorRef, Component, Injectable, ViewChild, OnDestroy, OnInit, AfterViewInit} from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {Component, Injectable, ViewChild, OnDestroy, OnInit, AfterViewInit} from '@angular/core';
 import {  Router } from '@angular/router';
 import * as _ from 'lodash';
 import {MspDataService} from '../../../../services/msp-data.service';
-import {BaseComponent} from '../../../../models/base.component';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { environment } from '../../../../../environments/environment.prod';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
 import { PageStateService } from '../../../../services/page-state.service';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { MspApplication } from '../../models/application.model';
-import { yesNoLabels } from '../../../msp-core/models/msp-constants';
 import { AbstractForm } from 'moh-common-lib';
 import { Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   templateUrl: './prepare.component.html'
@@ -22,12 +20,7 @@ export class PrepareComponent extends AbstractForm implements OnInit, AfterViewI
 
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
 
-  private apt: MspPerson;
   mspApplication: MspApplication;
-
-  // labels
-  radioLabels = yesNoLabels;
-
 
   // Web links
   links = environment.links;
@@ -39,7 +32,6 @@ export class PrepareComponent extends AbstractForm implements OnInit, AfterViewI
               protected router: Router) {
       super(router);
       this.mspApplication = this.dataService.mspApplication;
-      this.apt = this.mspApplication.applicant;
   }
 
   ngOnInit(){
@@ -54,7 +46,11 @@ export class PrepareComponent extends AbstractForm implements OnInit, AfterViewI
 
     if (this.form) {
       this.subscriptions = [
-        this.form.valueChanges.subscribe(() => { this.dataService.saveMspApplication(); })
+        this.form.valueChanges.pipe(
+          debounceTime(100)
+        ).subscribe(() => {
+          this.dataService.saveMspApplication();
+        })
         ];
     }
   }
@@ -64,38 +60,35 @@ export class PrepareComponent extends AbstractForm implements OnInit, AfterViewI
   }
 
   get applicant(): MspPerson {
-    return this.apt;
+    return this.mspApplication.applicant;
   }
 
   get liveInBC() {
+    return this.applicant.liveInBC;
+  }
 
-    return this.apt.liveInBC;
+  set liveInBC(live: boolean) {
+    this.applicant.liveInBC = live;
   }
 
   get plannedAbsence() {
-    return this.apt.plannedAbsence;
+    return this.applicant.plannedAbsence;
+  }
+
+  set plannedAbsence(live: boolean) {
+    this.applicant.plannedAbsence = live;
   }
 
   get unUsualCircumstance() {
     return this.dataService.mspApplication.unUsualCircumstance;
   }
 
+  set unUsualCircumstance(live: boolean) {
+    this.dataService.mspApplication.unUsualCircumstance = live;
+  }
+
   acceptAgreement($event) {
     this.dataService.mspApplication.infoCollectionAgreement = $event;
-  }
-
-  setLiveInBC(live: any) {
-    this.dataService.mspApplication.applicant.liveInBC = live;
-    this.apt.liveInBC = live;
-  }
-
-  setPlannedAbsence(live: any) {
-    this.dataService.mspApplication.applicant.plannedAbsence = live;
-    this.apt.plannedAbsence = live;
-  }
-
-  setUnusualCircumstance(live: any) {
-    this.dataService.mspApplication.unUsualCircumstance = live;
   }
 
   continue() {
@@ -109,8 +102,7 @@ export class PrepareComponent extends AbstractForm implements OnInit, AfterViewI
   }
 
   canContinue(): boolean {
-    const app = this.dataService.mspApplication;
-    return this.form.valid && app.applicant.plannedAbsence === false &&
-           app.applicant.liveInBC === true && app.unUsualCircumstance === false;
+    return this.form.valid && this.applicant.plannedAbsence === false &&
+           this.applicant.liveInBC === true && this.unUsualCircumstance === false;
   }
 }

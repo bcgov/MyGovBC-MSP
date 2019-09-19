@@ -6,11 +6,11 @@
                      [items]="availableSupportDocuments"
                      placeholder="Please Select"
                      [clearable]="false"
-                     [(ngModel)]="supportDoc.documentType"
+                     [(ngModel)]="documentType"
                      required>
     </common-dropdown>
   </div>
-  <div class="form-group col-sm-4">
+  <div *ngIf="displayButton" class="form-group col-sm-4">
     <common-button label="Add"
                    buttonType="primary"
                    (btnClick)="addDocument()"
@@ -20,8 +20,8 @@
   </div>
 </div>
 
-<div *ngIf="!btnEnabled && hasDocumentType">
-  <h2 class="border-bottom">{{supportDoc.documentType}}
+<div *ngIf="(!btnEnabled || btnEnabled && !displayButton) && hasDocumentType">
+  <h2 class="border-bottom">{{documentType}}
     <common-xicon-button label= "Remove document" (click)="removeDocument()">
     </common-xicon-button>
   </h2>
