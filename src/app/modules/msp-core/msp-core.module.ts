@@ -37,7 +37,6 @@ import { MspContactCardComponent } from '../../components/msp/common/contact-car
 import { CommonDeductionCalculatorComponent } from './components/common-deduction-calculator/common-deduction-calculator.component';
 import { KeyboardEventListner } from './components/keyboard-listener/keyboard-listener.directive';
 import { MspAddressCardPartComponent } from './components/address-card-part/address-card-part.component';
-import { CommonIncomeInputtextComponent } from './components/common-income-inputtext/common-income-inputtext.component';
 import { MspLoggerDirective } from './components/logging/msp-logger.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { ReviewPartComponent } from './components/review-part/review-part.component';
@@ -62,7 +61,6 @@ const componentList = [
   MspImageErrorModalComponent,
   CommonDeductionCalculatorComponent,
   MspAddressCardPartComponent,
-  CommonIncomeInputtextComponent,
   ReviewPartComponent,
   PersonalDetailsRetroSuppbenComponent,
   ConfirmationComponent,
