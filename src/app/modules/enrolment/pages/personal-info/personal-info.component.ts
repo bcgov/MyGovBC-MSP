@@ -100,66 +100,25 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
   }
 
   canContinue(): boolean {
-    const valid = super.canContinue() && this.hasStatusDocuments;
-    return this.applicant.hasNameChange ? valid && this.hasNameDocuments : valid;
+    let valid = super.canContinue() && this.hasStatusDocuments;
+
+    if ( this.applicant.hasNameChange ) {
+      valid = valid && this.hasNameDocuments;
+    }
+
+    if ( this.applicant.fullTimeStudent ) {
+      valid = valid && this.applicant.inBCafterStudies;
+    }
+    return valid;
   }
 
   continue(): void {
     if (!this.canContinue()) {
       console.log('Please fill in all required fields on the form.');
       this.markAllInputsTouched();
-    }else{
-      this.pageStateService.setPageComplete(this.router.url, this.dataService.mspApplication.pageStatus);
-      this.navigate(ROUTES_ENROL.SPOUSE_INFO.fullpath);
+      return;
     }
-  }
-
-
-
-
-
-  documentsReady(): boolean {
-    return this.dataService.mspApplication.documentsReady;
-  }
-
-  // fix for DEF-90
-  isStayinginBCAfterstudies(): boolean {
-    let stayingInBc = true;
-    if (this.personalDetailsComponent) {
-      // initial page load..empty object
-      this.personalDetailsComponent.forEach(personalDetailsComponent => {
-        if (personalDetailsComponent && personalDetailsComponent.person) {
-          //dependent can be empty object..ignore them
-
-          const currentApplicant: MspPerson = personalDetailsComponent.person;
-          if (
-            currentApplicant.status === StatusInCanada.CitizenAdult ||
-            currentApplicant.status === StatusInCanada.PermanentResident
-          ) {
-            if (
-              currentApplicant.fullTimeStudent &&
-              currentApplicant.inBCafterStudies === false
-            ) {
-              stayingInBc = false;
-            }
-          }
-        }
-      });
-    }
-
-    return stayingInBc;
-  }
-
-  isValid(): boolean {
-    return this.dataService.mspApplication.isUniquePhns;
-  }
-
-  checkAnyDependentsIneligible(): boolean {
-    const target = [
-      this.dataService.mspApplication.applicant,
-      this.dataService.mspApplication.spouse,
-      ...this.dataService.mspApplication.children
-    ];
-    return target.filter(x => x).filter(x => x.ineligibleForMSP).length >= 1;
+    this.pageStateService.setPageComplete(this.router.url, this.dataService.mspApplication.pageStatus);
+    this.navigate(ROUTES_ENROL.SPOUSE_INFO.fullpath);
   }
 }
