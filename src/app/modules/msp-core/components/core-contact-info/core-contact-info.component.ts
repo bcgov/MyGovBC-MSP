@@ -1,19 +1,25 @@
-import { Component, OnInit, ChangeDetectorRef, Input, Output, EventEmitter } from '@angular/core';
-import { BaseComponent } from 'app/models/base.component';
-import { Address } from 'moh-common-lib';
+import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Address, Base } from 'moh-common-lib';
+import { ControlContainer, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'msp-core-contact-info',
   templateUrl: './core-contact-info.component.html',
-  styleUrls: ['./core-contact-info.component.scss']
+  styleUrls: ['./core-contact-info.component.scss'],
+  /* Re-use the same ngForm that it's parent is using. The component will show
+   * up in its parents `this.form`, and will auto-update `this.form.valid`
+   */
+  viewProviders: [
+    { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
+  ]
 })
 
-export class CoreContactInfoComponent extends BaseComponent {
+export class CoreContactInfoComponent extends Base {
 
   @Input() address: Address;
   @Output() addressChange = new EventEmitter<Address>();
 
-  @Input() mailingSameAsResidentialAddress: boolean;
+  @Input() mailingSameAsResidentialAddress: boolean = true;
   @Output() mailingSameAsResidentialAddressChange = new EventEmitter<boolean>();
 
   @Input() mailingAddress: Address;
@@ -22,11 +28,8 @@ export class CoreContactInfoComponent extends BaseComponent {
   @Input() phoneNumber: string;
   @Output() phoneNumberChange = new EventEmitter<string>();
 
-  constructor(private cd: ChangeDetectorRef) {
-    super(cd);
-  }
-
-  ngOnInit() {
+  constructor() {
+    super();
   }
 
   handleAddressChange(addr: any){
@@ -50,13 +53,6 @@ export class CoreContactInfoComponent extends BaseComponent {
   handlePhoneNumberChange(phone: any) {
     this.phoneNumber = phone;
     this.phoneNumberChange.emit(phone);
-  }
-
-  toggleMailingSameAsResidentialAddress(evt: boolean){
-    this.mailingSameAsResidentialAddress = !evt;
-    if (evt){
-      this.mailingAddress = new Address();
-    }
   }
 
   toggleCheckBox(){

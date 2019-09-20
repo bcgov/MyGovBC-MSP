@@ -9,12 +9,6 @@ export enum StatusInCanada {
   TemporaryResident
 }
 
-export enum statusInCanadaStrings {
-  'Canadian citizen',
-  'Permanent resident',
-  'Temporary permit holder or diplomat'
-}
-
 /**
  * Dropdown selections associated with StatusInCanada enums
  */
@@ -36,17 +30,6 @@ export enum CanadianStatusReason {
   ReligiousWorker,
   Diplomat,
   Visiting
-}
-
-export enum statusInCanadaReasonStrings {
-  'Not new to B.C. but need to apply for Medical Services Plan',
-  'Moved to B.C. from another province',
-  'Moved to B.C. from another country',
-  'Working in B.C.',
-  'Studying in B.C.',
-  'Religious worker',
-  'Diplomat',
-  'Visiting'
 }
 
 /**
