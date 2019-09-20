@@ -670,7 +670,7 @@ export class MspDataService {
     dto.outsideBCFor30Days = input.outsideBCFor30Days;
 
     dto.pageStatus = input.pageStatus; // page status complete/ incomplete
-        
+
     // Documents
     // dto.applicantStatusDoc = input.applicantStatusDoc;
     // dto.applicantNameDoc = input.applicantNameDoc;

@@ -15,7 +15,7 @@ import { Response } from '@angular/http';
 import { MspApiService } from '../../../services/msp-api.service';
 import { ApiResponse } from '../../../models/api-response.interface';
 import {
- MSPApplicationSchema, EnrolmentApplicationType, AddressType, ResidencyType, CitizenshipType, PersonType, DependentType
+ MSPApplicationSchema, EnrolmentApplicationType, AddressType, ResidencyType, CitizenshipType, PersonType, DependentType, NameType, EnrolmentApplicantType
 } from '../../../modules/msp-core/interfaces/i-api';
 import * as moment from 'moment';
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
@@ -46,7 +46,7 @@ export class MspApiEnrolmentService extends AbstractHttpService {
 
   constructor(
     protected http: HttpClient,
-    private logService: MspLogService,
+    private logService: MspLogService
   ) {
     super(http);
   }
@@ -334,66 +334,63 @@ export class MspApiEnrolmentService extends AbstractHttpService {
    return  String(date.format(this.ISO8601DateFormat));
   }
 
+  private convertResidency( from: MspPerson ): ResidencyType {
 
-  // TODO: need a service that can be extended with common methods
-  private convertAddress( from: Address ): AddressType {
-
-    const to: any = {};
-
-    to.addressLine1 = from.addressLine1;
-    if ( from.addressLine2 ) {
-      to.addressLine2 = from.addressLine2;
-    }
-
-    if ( from.addressLine3 ) {
-      to.addressLine3 = from.addressLine3;
-    }
-
-    to.city = from.city;
-    to.provinceOrState = from.province;
-    to.country = from.country;
-    to.postalCode = from.postal.toUpperCase().replace(' ', '');
-    return to;
-  }
-
-  // TODO: Make common
-  private convertResidency(from: MspPerson): ResidencyType {
-    const to: any = {};
-
+    let citizenType;
     // citizenship
     switch (from.status) {
-        case StatusInCanada.CitizenAdult:
-            to.citizenshipStatus.citizenshipType = CitizenshipType.CanadianCitizen;
-            break;
-        case StatusInCanada.PermanentResident:
-            to.citizenshipStatus.citizenshipType = CitizenshipType.PermanentResident;
-            break;
-        case StatusInCanada.TemporaryResident:
-            switch (from.currentActivity) {
-                case CanadianStatusReason.WorkingInBC:
-                    to.citizenshipStatus.citizenshipType = CitizenshipType.WorkPermit;
-                    break;
-                case CanadianStatusReason.StudyingInBC:
-                    to.citizenshipStatus.citizenshipType = CitizenshipType.StudyPermit;
-                    break;
-                case CanadianStatusReason.Diplomat:
-                    to.citizenshipStatus.citizenshipType = CitizenshipType.Diplomat;
-                    break;
-                case CanadianStatusReason.ReligiousWorker:
-                    to.citizenshipStatus.citizenshipType = CitizenshipType.ReligiousWorker;
-                    break;
-                case CanadianStatusReason.Visiting:
-                default:
-                    to.citizenshipStatus.citizenshipType = CitizenshipType.VisitorPermit;
-                    break;
-            }
-    }
-    to.citizenshipStatus.attachmentUuids = new Array<string>();
-    for (const image of from.documents.images) {
-        to.citizenshipStatus.attachmentUuids.push(image.uuid);
+      case StatusInCanada.CitizenAdult:
+        citizenType = CitizenshipType.CanadianCitizen;
+        break;
+      case StatusInCanada.PermanentResident:
+        citizenType = CitizenshipType.PermanentResident;
+      break;
+      case StatusInCanada.TemporaryResident:
+        switch (from.currentActivity) {
+          case CanadianStatusReason.WorkingInBC:
+            citizenType = CitizenshipType.WorkPermit;
+          break;
+        case CanadianStatusReason.StudyingInBC:
+          citizenType = CitizenshipType.StudyPermit;
+          break;
+        case CanadianStatusReason.Diplomat:
+          citizenType = CitizenshipType.Diplomat;
+          break;
+        case CanadianStatusReason.ReligiousWorker:
+          citizenType = CitizenshipType.ReligiousWorker;
+          break;
+        case CanadianStatusReason.Visiting:
+        default:
+          citizenType = CitizenshipType.VisitorPermit;
+          break;
+      }
     }
 
-    to.livedInBC.hasLivedInBC = from.livedInBCSinceBirth === true ? 'Y' : 'N';
+    const attachmentUuids = new Array<string>();
+    for (const image of from.documents.images) {
+        attachmentUuids.push(image.uuid);
+    }
+
+    const to: ResidencyType = {
+      citizenshipStatus: {
+        citizenshipType: citizenType,
+        attachmentUuids: attachmentUuids
+      },
+      livedInBC: {
+        hasLivedInBC: from.livedInBCSinceBirth === true ? 'Y' : 'N',
+      },
+      outsideBC: {
+        beenOutsideBCMoreThan: from.beenOutSideOver30Days ? 'Y' : 'N'
+      },
+      previousCoverage: {
+        hasPreviousCoverage: from.hasPreviousBCPhn ? 'Y' : 'N'
+      },
+      willBeAway: {
+        isFullTimeStudent: from.fullTimeStudent ? 'Y' : 'N'
+      }
+    };
+
+   // outsideBCinFuture?: OutsideBCType;  - Not sure this is used
 
     if ( from.madePermanentMoveToBC !== undefined  ) {
       to.livedInBC.isPermanentMove = from.madePermanentMoveToBC === true ? 'Y' : 'N';
@@ -415,122 +412,70 @@ export class MspApiEnrolmentService extends AbstractHttpService {
         to.livedInBC.recentCanadaMoveDate = from.arrivalToCanada.format(this.ISO8601DateFormat);
     }
 
-    // Outside BC
+    // Outside BC - optional fields
     if (from.beenOutSideOver30Days) {
-        to.outsideBC.beenOutsideBCMoreThan = 'Y';
-        to.outsideBC.departureDate = this.convertSimpleDate(from.departureDate);
-        to.outsideBC.returnDate = this.convertSimpleDate(from.returnDate);
-        to.outsideBC.familyMemeberReason = from.departureReason;
-        to.outsideBC.destination = from.departureDestination;
-    }
-    else {
-        to.outsideBC.beenOutsideBCMoreThan = 'N';
+      to.outsideBC.departureDate = this.convertSimpleDate(from.departureDate);
+      to.outsideBC.returnDate = this.convertSimpleDate(from.returnDate);
+      to.outsideBC.familyMemeberReason = from.departureReason;
+      to.outsideBC.destination = from.departureDestination;
     }
 
-    if (from.fullTimeStudent) {
-        to.willBeAway.isFullTimeStudent = 'Y';
-    }
-    else {
-        to.willBeAway.isFullTimeStudent = 'N';
-    }
-    if (from.inBCafterStudies) {
-        to.willBeAway.isInBCafterStudies = 'Y';
-    }
-    else {
-        to.willBeAway.isInBCafterStudies = 'N';
+    if (from.inBCafterStudies !== undefined ) {
+      to.willBeAway.isInBCafterStudies = from.inBCafterStudies ? 'Y' : 'N';
     }
 
     if (from.hasDischarge) {
-        to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
+      to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
     }
 
-    to.previousCoverage.hasPreviousCoverage = 'N';  // default N
-    if (from.hasPreviousBCPhn) {
-        to.previousCoverage.hasPreviousCoverage = 'Y';
-
-        if (from.previous_phn) {
-            to.previousCoverage.prevPHN = from.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
-        }
+    if (from.hasPreviousBCPhn && from.previous_phn) {
+      to.previousCoverage.prevPHN = from.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
     }
-
     return to;
   }
 
-  private convertPersonType( person: MspPerson ): PersonType {
-    const to: any = {};
-    to.name.firstName = person.firstName;
-    to.name.middleName = person.middleName;
-    to.name.lastName = person.lastName;
+  private convertAddress( from: Address ): AddressType {
+    const addr: AddressType = {
+      addressLine1: from.addressLine1,
+      city: from.city,
+      provinceOrState: from.province,
+      country: from.country,
+      postalCode: from.postal.toUpperCase().replace(' ', '')
+    };
 
-    to.gender = person.gender.valueOf();
+    if ( from.addressLine2 ) {
+      addr.addressLine2 = from.addressLine2;
+    }
 
-    to.birthDate = String(person.dob.format(this.ISO8601DateFormat));
-    to.attachmentUuid = this.getAttachementUuids( person.documents.images,
-                                                  person.nameChangeDocs.images );
-    to.residency = this.convertResidency(person);
-    return to;
+    if ( from.addressLine3 ) {
+      addr.addressLine3 = from.addressLine3;
+    }
+    return addr;
   }
 
   private convertDependentType( person: MspPerson ): DependentType {
-    const to: any = {};
-    to.name.firstName = person.firstName;
-    to.name.middleName = person.middleName;
-    to.name.lastName = person.lastName;
-
-    to.gender = person.gender.valueOf();
-
-    to.birthDate = String(person.dob.format(this.ISO8601DateFormat));
-    to.attachmentUuid = this.getAttachementUuids( person.documents.images,
-                                                  person.nameChangeDocs.images );
-    to.residency = this.convertResidency(person);
-
-    to.schoolName = person.schoolName;
-    to.schoolAddress = this.convertAddress( person.schoolAddress );
-    to.dateStudiesFinish = this.convertSimpleDate( person.studiesFinishedSimple );
-    to.departDateSchoolOutside = this.convertSimpleDate( person.studiesDepartureSimple );
-
-    return to;
+    return {
+      name: this.convertName( person ),
+      gender: String( person.gender.valueOf ),
+      birthDate: String( person.dob.format( this.ISO8601DateFormat ) ),
+      attachmentUuids: this.getAttachementUuids( person.documents.images, person.nameChangeDocs.images ),
+      residency: this.convertResidency( person ),
+      schoolName: person.schoolName,
+      schoolAddress: this.convertAddress( person.schoolAddress ),
+      dateStudiesFinish: this.convertSimpleDate( person.studiesFinishedSimple ),
+      departDateSchoolOutside: this.convertSimpleDate( person.studiesDepartureSimple ),
+    };
   }
 
   // This method is used to convert the response from user into a JSON object
   private convertMspApplication(from: MspApplication): EnrolmentApplicationType {
-    // Instantiate new object from interface
-    const to: any = {};
-
-    // UUID
-    to.uuid = from.uuid;
-
-    // Applicant section
-    to.applicant.name.firstName = from.applicant.firstName;
-    to.applicant.name.middleName = from.applicant.middleName;
-    to.applicant.name.lastName = from.applicant.lastName;
-
-    to.applicant.gender = from.applicant.gender.valueOf();
-
-    to.applicant.birthDate = String(from.applicant.dob.format(this.ISO8601DateFormat));
-
-    to.applicant.attachmentUuid = this.getAttachementUuids( from.applicant.documents.images,
-                                                            from.applicant.nameChangeDocs.images );
-    to.applicant.authorizedByApplicant = from.authorizedByApplicant ? 'Y' : 'N';
-    to.applicant.authorizedByApplicantDate = moment(from.authorizedByApplicantDate).format(this.ISO8601DateFormat);
-
-    to.applicant.authorizedBySpouse = from.authorizedBySpouse ? 'Y' : 'N';
-
-    if (from.phoneNumber) {
-      to.applicant.telephone = Number(from.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
-    }
-
-    to.applicant.residenceAddress = this.convertAddress(from.residentialAddress);
-
-    if ( from.mailingAddress ) {
-      to.applicant.mailingAddress = this.convertAddress(from.mailingAddress);
-    }
-
-    to.applicant.residency = this.convertResidency(from.applicant);
+    const application: EnrolmentApplicationType = {
+      applicant: this.convertEnrolmentApplicantType( from )
+    };
 
     // Convert spouse
     if (from.spouse) {
-      to.spouse = this.convertPersonType( from.spouse );
+      application.spouse = this.convertPersonType( from.spouse );
     }
 
     // Convert children and dependants
@@ -547,21 +492,68 @@ export class MspApiEnrolmentService extends AbstractHttpService {
 
       // Children
       if (children.length > 0) {
-        to.application.enrolmentApplication.children.child = new Array<PersonType>();
+        application.children = new Array<PersonType>();
         for (const child of children) {
-            to.application.enrolmentApplication.children.child.push(this.convertPersonType(child));
+          application.children.push( this.convertPersonType( child ) );
         }
       }
 
       // Dependants
       if (dependants.length > 0) {
-        to.application.enrolmentApplication.dependents.dependent = new Array<DependentType>();
+        application.dependents = new Array<DependentType>();
         for (const dependant of dependants) {
-            to.application.enrolmentApplication.dependents.dependent.push(this.convertDependentType(dependant));
+          application.dependents.push( this.convertDependentType( dependant ) );
         }
       }
     }
 
-    return to;
+    return application;
+  }
+
+
+
+
+
+  private convertName( person: MspPerson ): NameType {
+    return {
+      firstName: person.firstName,
+      lastName: person.lastName,
+      secondName: person.middleName
+    };
+  }
+
+  private convertPersonType( person: MspPerson ): PersonType {
+   return {
+      name: this.convertName( person ),
+      gender: String( person.gender.valueOf ),
+      birthDate: String( person.dob.format( this.ISO8601DateFormat ) ),
+      attachmentUuids: this.getAttachementUuids( person.documents.images, person.nameChangeDocs.images ),
+      residency: this.convertResidency( person )
+    };
+  }
+
+  private convertEnrolmentApplicantType( application: MspApplication): EnrolmentApplicantType {
+    const applicant: MspPerson = application.applicant;
+    const enrolee: EnrolmentApplicantType =  {
+      name: this.convertName( applicant ),
+      gender: String( applicant.gender.valueOf ),
+      birthDate: String( applicant.dob.format( this.ISO8601DateFormat ) ),
+      attachmentUuids: this.getAttachementUuids( applicant.documents.images, applicant.nameChangeDocs.images ),
+      residency: this.convertResidency( applicant ),
+      residenceAddress: this.convertAddress( application.residentialAddress ),
+      authorizedByApplicant: application.authorizedByApplicant ? 'Y' : 'N',
+      authorizedByApplicantDate: moment(application.authorizedByApplicantDate).format(this.ISO8601DateFormat),
+      authorizedBySpouse: application.authorizedBySpouse ? 'Y' : 'N'
+    };
+
+    if (application.phoneNumber) {
+      enrolee.telephone = String(application.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
+    }
+
+    if ( !application.mailingSameAsResidentialAddress ) {
+      enrolee.mailingAddress = this.convertAddress( application.mailingAddress );
+    }
+
+    return enrolee;
   }
 }

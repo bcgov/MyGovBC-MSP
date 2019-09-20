@@ -60,11 +60,11 @@ export class PersonalInformationComponent extends Base {
   }
 
   get dateOfBirth() {
-    return this.person.dateOfBirth;
+    return this.person.dobSimple;
   }
 
   set dateOfBirth( dob: SimpleDate ) {
-    this.person.dateOfBirth = dob;
+    this.person.dobSimple = dob;
     this.personChange.emit(this.person);
   }
 

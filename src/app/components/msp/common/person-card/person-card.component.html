@@ -53,10 +53,10 @@
             </div>
             <div class="col-sm-8">
                 <strong>
-                    {{langStatus[person.status]}}
+                    {{status[person.status]}}
                     <span *ngIf="person.currentActivity">
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
-                        {{langActivities[person.currentActivity]}}
+                        {{statusReason[person.currentActivity]}}
                     </span>
                 </strong>
             </div>
@@ -389,10 +389,20 @@
                         <strong>{{person.assistYearDocs.length}} {{fileLabel}}</strong>
                     </div>
                 </div>
+                <div class="row" *ngIf="person.documents.images.length > 0">
+                    <div class="col-sm-4">
+                        Documents
+                    </div>
+                    <div class="col-sm-8" *ngIf="person.documents.images.length == 1">
+                        <strong>{{person.documents.images.length}} file</strong>
+                    </div>
+                    <div class="col-sm-8" *ngIf="person.documents.images.length > 1">
+                        <strong>{{person.documents.images.length}} files</strong>
+                    </div>
+                </div>
                 <!--<div *ngIf= "person.assistYearDocs.length < 2">File</div><div *ngIf= "person.assistYearDocs.length > 1">Files</div> -->
                <msp-address-card-part [address]="person.schoolAddress"
                                       [label]="lang('./en/index.js').schoolAddressLabel"></msp-address-card-part>
-               
                <div class="person-card-preview-zone">
                    <div *ngFor="let mspImage of person.documents.images" class="preview-item">
                        <common-thumbnail [imageObject]="mspImage" [reviewMode]="true">

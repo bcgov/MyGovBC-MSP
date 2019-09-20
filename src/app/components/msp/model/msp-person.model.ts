@@ -164,6 +164,13 @@ export class MspPerson implements IPerson {
         return this.parseDate(this.dob_year, this.dob_month, this.dob_day);
     }
 
+    set dobSimple( dt: SimpleDate ) {
+        console.log( 'dobSimple: ', dt );
+        this.dob_day = dt.day;
+        this.dob_month = dt.month;
+        this.dob_year = dt.year;
+    }
+
     get dobSimple(): SimpleDate {
         return {
             'day': this.dob_day,
@@ -175,7 +182,7 @@ export class MspPerson implements IPerson {
     public dateOfBirth: SimpleDate = { year: null, month: null, day: null };
 
     //TODO fix this..not DRY
-    getCancellationDateInMoment (){
+    getCancellationDateInMoment () {
         return this.parseDate(this.cancellationDate.year, this.cancellationDate.month, this.cancellationDate.day);
     }
 
