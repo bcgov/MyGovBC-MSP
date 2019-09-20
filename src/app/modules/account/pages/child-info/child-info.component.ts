@@ -31,13 +31,34 @@ import { Person } from 'moh-common-lib';
 export class ChildInfoComponent {
 
   constructor(public dataService: MspAccountMaintenanceDataService ) { }
-  addChild: boolean = false;
-  removeChild: boolean = false;
-  updateChild: boolean = false;
+  showChild: boolean = false;
+  child: MspPerson ;
+  showRemoveChild: boolean = false;
+  showUpadateChild: boolean = false;
 
   ngOnInit() {
   }
 
 
+  addChild(): void {
+    this.showChild = true;
+    this.showRemoveChild = false; 
+    this.showUpadateChild = false;
+    this.dataService.accountApp.addChild(Relationship.Unknown);
+  }
+
+  get children(): MspPerson[] {
+    console.log(this.dataService.accountApp.children);
+    return this.dataService.accountApp.children;
+  }
+
+  removeChild(idx: number): void {
+    this.dataService.accountApp.removeChild(idx);
+  }
+
+  get accountApp() {
+
+    return this.dataService.accountApp;
+  }
 
 }

@@ -1,3 +1,160 @@
-<p>
-  add-child works!
-</p>
+<!--<msp-canadian-status [person]="child"
+                           label="{{statusLabel}}"
+                           [displayStatusInCanada]="displayStatusOpt(idx)">
+        <div sectionTitleInfo>
+          <h2>Child #{{children.length - idx}}</h2>
+          <p class="border-bottom">
+            Please provide child's personal information and immigration status in Canada. You will be required to upload supporting documents with your application.
+            <common-xicon-button label= "Remove child" (click)="removeChild(idx)">
+            </common-xicon-button>
+          </p>
+          <div additionalInfo>
+            <div class="form-group p-sm-2">
+              <common-radio name="AgeCategory_{{idx}}"
+                            [(ngModel)]="child.relationship" 
+                            label="How old is your child?" 
+                            [radioLabels]="childAgeCategory"
+                            required>
+              </common-radio>
+            </div>
+          </div>
+        </div>
+      </msp-canadian-status>
+
+      <msp-support-documents *ngIf="hasStatus(idx)"
+                             [canadianStatus]="child.status"
+                             [statusReason]="child.currentActivity"
+                             [supportDoc]="child.documents"
+                             (supportDocChange)="statusDocUpdate">
+        <div sectionTitleInfo>
+          <h3>Documents</h3>
+          <p class="border-bottom"> 
+            Provide one of the required documents to support your child's status in Canada. 
+            If your child's name has changed since their ID was issued you are also required 
+            to upload document to support the name change.
+          </p>
+        </div>
+
+        <div requestAdditionInfo>
+          <div class="form-group p-sm-2">
+            <common-radio name="NameChangeQuestion_{{id}}"
+                          [(ngModel)]="child.hasNameChange"  
+                          label="Has your child's name changed since their ID was issued?"
+                          required>
+            </common-radio>
+          </div>
+        </div>
+
+        <div sampleDocument>
+          TODO: Need to add links with images to display        
+        </div>
+      </msp-support-documents>
+
+      <msp-support-documents *ngIf="requestNameChangeInfo(idx)"
+                            [supportDocList]="nameChangeDocList"
+                            [(supportDoc)]="child.nameChangeDocs">
+        <div sectionTitleInfo> 
+          <h3>Additional Documents</h3>
+          <p class="border-bottom"> 
+            Provide <strong>one</strong> of the required documents to support your child's name change.
+          </p>
+        </div>
+
+        <div sampleDocument>
+          TODO: Need to add links with images to display        
+        </div>
+      </msp-support-documents>
+
+      <div *ngIf="requestPersonalInfo(idx)">
+        <msp-personal-information [person]="child">
+          <div sectionTitleInfo>
+            <h2>Child's Information</h2>
+            <p class="border-bottom"> 
+              Enter child's legal name and gender.
+            </p>
+          </div>     
+        </msp-personal-information>
+
+        <msp-moving-information [person]="child">
+          <div sectionTitleInfo>
+            <h2>Moving Information</h2>
+            <p class="border-bottom"> 
+                Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
+            </p>
+          </div>         
+        </msp-moving-information>          
+      </div> -->
+<div class="form-group">
+  <common-radio [value]="isChildUnder19"  
+      label="How old is your child?" 
+      [radioLabels]='[{ "label": "0-18 years", "value": true }, {"label": "19-24 years (must be a full-time student)", "value": false}]'
+      (statusChange)="isChildUnder19 = $event">
+  </common-radio>
+</div>
+
+<div class="form-group">
+
+  <common-radio [value]="isCHildAdopted"  
+    label="Is this child newly adopted?" 
+    [radioLabels]='[{ "label": "No", "value": false }, {"label": "Yes", "value": true}]'
+    (statusChange)="isCHildAdopted = $event">
+  </common-radio>
+</div>
+
+
+<div class="form-group">
+   <common-radio [value]="hasMedicalCoverage"  
+      label="Does your child currently have active Medical Services Plan coverage?" 
+      [radioLabels]='[{ "label": "No", "value": false }, {"label": "Yes", "value": true}]'
+      (statusChange)="hasMedicalCoverage = $event">
+  </common-radio>
+
+</div>
+ 
+<div class="form-group">
+
+  <msp-canadian-status [person]="child"
+        label="Child's immigration status in Canada">
+  </msp-canadian-status>
+
+</div>
+  <msp-support-documents *ngIf="hasStatus"
+        [canadianStatus]="child.status"
+        [statusReason]="child.currentActivity"
+        [(supportDoc)]="statusDocuments">
+      <div sectionTitleInfo>
+       <h2>Documents</h2>
+       <p class="border-bottom"> 
+          Provide one of the required documents to support your status in Canada. 
+          If your name has changed since your ID was issued you are also required to upload document to support the name change.
+        </p>
+      </div>
+  </msp-support-documents>
+
+<common-radio [value]="hasNameChanged"  
+  label="  Has your child's name changed since their ID was issued?" 
+  [radioLabels]='[{ "label": "No", "value": false }, {"label": "Yes", "value": true}]'
+  (statusChange)="hasNameChanged = $event">
+</common-radio>
+
+
+<msp-support-documents *ngIf="hasNameChanged"
+        [canadianStatus]="child.status"
+        [statusReason]="child.currentActivity"
+        [(supportDoc)]="childNameChangedocs">
+      <div sectionTitleInfo>
+       <h2> Documents to support child's name change</h2>
+       <p class="border-bottom"> 
+          Provide one of the required documents to support your child's name change.
+
+        </p>
+      </div>
+</msp-support-documents>
+
+
+
+
+
+
+  
+

@@ -325,6 +325,29 @@ class MspAccountApp implements ApplicationBase {
         this.id = UUID.UUID();
     }
 
+    
+  addChild(relationship: Relationship): MspPerson {
+    const c = new MspPerson(relationship);
+    if (relationship === Relationship.Child19To24) {
+      //child between 19-24 must be a full time student to qualify for enrollment
+      c.fullTimeStudent = true;
+    }
+    if ( this._children.length < 30 ) {
+      // Add child to front of array
+      const tmp = [c, ...this._children];
+      this._children = tmp;
+    } else {
+      console.log('No more than 30 children can be added to one application');
+    }
+    return c;
+  }
+
+  removeChild(idx: number): void {
+    this._children.splice(idx, 1);
+  }
+
+  
+
 }
 
 class AccountChangeOptions {

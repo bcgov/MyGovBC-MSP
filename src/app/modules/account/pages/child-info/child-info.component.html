@@ -12,7 +12,7 @@
               is a child of a beneficiary or a person who stands in place of a parent;
           </li>
           <li>
-              who is a minor;
+              is a minor;
           </li>
           <li>
               does not have a spouse; and
@@ -26,37 +26,43 @@
     <div class="row">
       <div class="col-2">
           <common-button [label]="'Add Child'" 
-          [buttonType]="'btn btn-primary'" (btnClick)='this.addChild = true;this.removeChild = false; this.updateChild = false;'>
+          [buttonType]="'btn btn-primary'" (btnClick)='addChild()'>
         </common-button>
       </div>
       <div class="col-2">
         <common-button [label]="'Remove Child'" 
-          [buttonType]="'btn btn-primary'" (btnClick)='this.removeChild = true; this.addChild = false; this.updateChild = false;'>
+          [buttonType]="'btn btn-primary'" (btnClick)='this.showRemoveChild = true; this.showChild = false; this.showUpadateChild = false;'>
         </common-button>
       </div>
   
       <div class="col-2 ">
         <common-button [label]="'Update Child'" 
-          [buttonType]="'btn btn-primary'" (btnClick)='this.updateChild = true; this.addChild = false; this.removeChild= false;'>
+          [buttonType]="'btn btn-primary'" (btnClick)='this.showUpadateChild = true; this.showChild = false; this.showRemoveChild= false;'>
         </common-button>
       </div> 
     </div>
 
     <br>
-    <div *ngIf="addChild">
+    <div *ngIf="showChild">
       <h2><strong>Add Child</strong></h2>
-      <common-xicon-button label='Remove' (click)="this.addChild = false;"></common-xicon-button>
+      <common-xicon-button label='Remove' (click)="this.showChild = false;"></common-xicon-button>
       <p class="border-bottom">
         Please provide child’s personal information.
       </p>
       <br>
-      <msp-add-child>
-      </msp-add-child>
+
+      <div *ngFor="let child of children; let idx = index">
+          <msp-add-child [child]="child" [accountApp]="accountApp"  >
+          </msp-add-child>
+      </div>
+
+     
+      
     </div>
 
-    <div *ngIf="removeChild">
+    <div *ngIf="showRemoveChild">
       <h2><strong>Remove Child</strong></h2>
-      <common-xicon-button label='Remove' (click)="this.removeChild = false;"></common-xicon-button>
+      <common-xicon-button label='Remove' (click)="this.showRemoveChild = false;"></common-xicon-button>
       <p class="border-bottom">
           Please provide spouse’s personal information and indicate the reason for removing the spouse from your account.
       </p>
@@ -65,9 +71,9 @@
       </msp-remove-child>
     </div>
 
-  <div *ngIf="updateChild">
+  <div *ngIf="showUpadateChild">
       <h2><strong>Update Child</strong></h2>
-      <common-xicon-button label='Remove' (click)="this.updateChild = false; "></common-xicon-button>
+      <common-xicon-button label='Remove' (click)="this.showUpadateChild = false; "></common-xicon-button>
       <p class="border-bottom">
           Please provide personal information of the child currently on your account. If you are requesting an update or correction to the child’s name, birthdate or gender, please provide the new information here.
       </p>
