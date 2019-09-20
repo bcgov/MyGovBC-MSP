@@ -104,7 +104,9 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
   }
 
   canContinue(): boolean {
-    let valid = super.canContinue() && this.hasStatusDocuments;
+    let valid = super.canContinue() &&
+                this.applicant.madePermanentMoveToBC &&
+                this.hasStatusDocuments;
 
     if ( this.applicant.hasNameChange ) {
       valid = valid && this.hasNameDocuments;

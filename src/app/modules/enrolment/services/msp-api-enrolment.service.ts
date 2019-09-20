@@ -361,12 +361,20 @@ export class MspApiEnrolmentService extends AbstractHttpService {
   }
 
   private convertSimpleDate( dt: SimpleDate ): string {
-    const date = moment.utc({
-                      year: dt.year,
-                      month: dt.month - 1, // moment use 0 index for month :(
-                      day: dt.day,
-                  }); // use UTC mode to prevent browser timezone shifting
-   return  String(date.format(this.ISO8601DateFormat));
+    console.log( 'convertSimpleDate: ', dt );
+
+    const dtFields = Object.keys(dt).filter( x => dt[x] );
+    console.log( 'convertSimpleDate: dtFields ', dtFields );
+
+    if ( dtFields.length === 3 ) {
+        const date = moment.utc({
+          year: dt.year,
+          month: dt.month - 1, // moment use 0 index for month :(
+          day: dt.day,
+      }); // use UTC mode to prevent browser timezone shifting
+      return  String(date.format(this.ISO8601DateFormat));
+    }
+    return '';
   }
 
   private convertResidency( from: MspPerson ): ResidencyType {
