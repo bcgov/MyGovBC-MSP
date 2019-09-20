@@ -33,6 +33,7 @@ import { RemoveSpouseComponent } from './pages/spouse-info/remove-spouse/remove-
 import { AddChildComponent } from './pages/child-info/add-child/add-child.component';
 import { UpdateChildComponent } from './pages/child-info/update-child/update-child.component';
 import { RemoveChildComponent } from './pages/child-info/remove-child/remove-child.component';
+import { MovingInformationComponent } from '../enrolment/components/moving-information/moving-information.component';
 
 @NgModule({
   imports: [
@@ -67,7 +68,8 @@ import { RemoveChildComponent } from './pages/child-info/remove-child/remove-chi
     RemoveSpouseComponent,
     AddChildComponent,
     UpdateChildComponent,
-    RemoveChildComponent
+    RemoveChildComponent,
+    MovingInformationComponent
   ],
   providers: [
     { provide: AbstractPgCheckService, useExisting: CheckCompleteBaseService },

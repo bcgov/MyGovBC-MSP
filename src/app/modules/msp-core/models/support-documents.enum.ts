@@ -12,7 +12,19 @@ export enum SupportDocuments {
   VisitorVisa,
   PassportWithDiplomaticFoil,
   MarriageCertificate,
-  ChangeOfNameCertificate
+  ChangeOfNameCertificate,
+  ReligiousWorker,
+  NoticeOfDecision,
+  DiplomaticPassportAcceptance,
+  WorkInCanadaAcceptance,
+  DivorceDecree,
+  ChangeGenderAdultApplication,
+  ChangeGenderChildApplication,
+  ChangeGenderPhyscianConfirmation,
+  ParentalConsentWaiver,
+  SeperationAgreement,
+  NotrizedStatementOrAffidavit,
+  Other
 }
 
 /**
@@ -29,5 +41,18 @@ export const SupportDocumentList = {
   VisitorVisa: 'Visitor permit',
   PassportWithDiplomaticFoil: 'Passport with diplomatic foil',
   MarriageCertificate: 'Marriage Certificate',
-  ChangeOfNameCertificate: 'Legal Name Change Certificate'
+  ChangeOfNameCertificate: 'Legal Name Change Certificate',
+  ReligiousWorker: 'Religious Worker',
+  NoticeOfDecision : 'Notice Of Decision',
+  DiplomaticPassportAcceptance : 'Diplomatic Passport Acceptance',
+  WorkInCanadaAcceptance : 'Work In Canada Acceptance',
+  DivorceDecree : 'Divorce Decree',
+  ChangeGenderAdultApplication : 'Gender Adult Application',
+  ChangeGenderChildApplication : 'Gender Child Application',
+  ChangeGenderPhyscianConfirmation : 'Gender Physcian Confirmation', 
+  ParentalConsentWaiver : 'Parental Consent Waiver',
+  SeperationAgreement : 'Seperation Agreement',
+  NotrizedStatementOrAffidavit : 'Notrized Statement Or Affidavit',
+  Other: 'Other',
 };
+
