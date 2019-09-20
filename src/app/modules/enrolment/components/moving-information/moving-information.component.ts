@@ -95,8 +95,7 @@ export class MovingInformationComponent extends Base implements OnInit {
   }
 
   get requestPermMoveInfo() {
-    console.log( 'request Perm move info: ', this.isCanadianNotBC, this.person.livedInBCSinceBirth );
-    return this.isCanadianFromProv || this.isCanadianFromCountry ||
+   return this.isCanadianFromProv || this.isCanadianFromCountry ||
           (this.isCanadianNotBC && this.person.livedInBCSinceBirth === true) || this.isResidentFromProv ||
           this.isResidentFromCountry || this.isResidentNotBC;
   }
@@ -107,7 +106,6 @@ export class MovingInformationComponent extends Base implements OnInit {
   }
 
   get requestAdditionalMoveInfo() {
-    console.log( 'request additional move info: ', this.isCanadianNotBC, this.person.livedInBCSinceBirth );
     return this.isCanadianFromProv || this.isCanadianFromCountry ||
           (this.isCanadianNotBC && this.person.livedInBCSinceBirth !== undefined) ||
           this.isResidentFromProv || this.isResidentFromCountry || this.isResidentNotBC;

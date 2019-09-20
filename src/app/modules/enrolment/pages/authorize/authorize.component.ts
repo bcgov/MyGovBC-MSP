@@ -62,14 +62,7 @@ export class AuthorizeComponent extends AbstractForm implements OnInit {
     if (this.application.authorizedByApplicant) {
       this.application.authorizedByApplicantDate = new Date();
     }
-    this.dataService.saveMspApplication();
-
   }
-  spouseAuthorizeOnChange(event: boolean) {
-    this.application.authorizedBySpouse = event;
-    this.dataService.saveMspApplication();
-  }
-
 
   get questionApplicant(){
     return this.applicantName + ', do you agree?';
