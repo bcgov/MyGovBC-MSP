@@ -1,7 +1,6 @@
-import {Component, Injectable, ViewChildren, QueryList, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
+import {Component, Injectable, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { Router } from '@angular/router';
-import {PersonalDetailsComponent} from '../../components/personal-details/personal-details.component';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
 import { MspPerson } from '../../../account/models/account.model';
@@ -19,9 +18,6 @@ import { debounceTime } from 'rxjs/operators';
 @Injectable()
 export class PersonalInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChildren(PersonalDetailsComponent) personalDetailsComponent: QueryList<
-    PersonalDetailsComponent
-  >;
 
   nameChangeDocList = nameChangeSupportDocuments();
   subscriptions: Subscription[];
@@ -99,8 +95,8 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
             ( this.applicant.hasNameChange && this.hasNameDocuments )); // name change requires documentation
   }
 
-  get requestSchoolInfo() {
-    return this.applicant.status !== StatusInCanada.TemporaryResident;
+  get isTemporaryResident() {
+    return this.applicant.status === StatusInCanada.TemporaryResident;
   }
 
   canContinue(): boolean {

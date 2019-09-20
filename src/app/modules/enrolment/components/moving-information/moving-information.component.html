@@ -134,7 +134,8 @@ and check departure was within last 12 months - need to find error messages for 
       <common-phn name="previousPhn_{{objectId}}"
                   label="{{isApplicant? 'Your' : 'Their'}} previous B.C. Personal Health Number (optional)"
                   [(ngModel)]="person.previous_phn"
-                  commonValidatePhn>
+                  commonValidatePhn
+                  [allowEmptyValue]="true">
       </common-phn>
     </div>
 
