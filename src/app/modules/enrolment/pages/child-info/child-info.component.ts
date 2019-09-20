@@ -9,6 +9,7 @@ import { nameChangeSupportDocuments } from '../../../msp-core/components/support
 import { AbstractForm } from 'moh-common-lib';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 
 @Component({
   selector: 'msp-child-info',
@@ -115,7 +116,8 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
     if ( this.children.length > 0 ) {
       valid = super.canContinue() &&
                 this.children.map( x => {
-                  let childValid = x.documents.images && x.documents.images.length > 0;
+                  let childValid = x.madePermanentMoveToBC &&
+                                   (x.documents.images && x.documents.images.length > 0);
                   if (x.hasNameChange){
                     childValid = childValid &&
                                  x.nameChangeDocs.images &&
@@ -144,6 +146,10 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
     return this.hasStatus( idx ) && this.hasStatusDocuments( idx ) &&
            ( this.children[idx].hasNameChange === false || // No name change
             ( this.children[idx].hasNameChange && this.hasNameDocuments( idx ) )); // name change requires documentation
+  }
+
+  isTemporaryResident(idx: number) {
+    return this.children[idx].status === StatusInCanada.TemporaryResident;
   }
 
 

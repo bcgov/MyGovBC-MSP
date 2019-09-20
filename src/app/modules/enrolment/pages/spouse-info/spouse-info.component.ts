@@ -125,7 +125,9 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
     let valid = true;
 
     if ( this.hasSpouse ) {
-      valid = super.canContinue() && this.hasStatusDocuments;
+      valid = super.canContinue() &&
+              this.spouse.madePermanentMoveToBC &&
+              this.hasStatusDocuments;
       if ( this.spouse.hasNameChange ) {
         valid = valid && this.hasNameDocuments;
       }
