@@ -99,6 +99,10 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
             ( this.applicant.hasNameChange && this.hasNameDocuments )); // name change requires documentation
   }
 
+  get requestSchoolInfo() {
+    return this.applicant.status !== StatusInCanada.TemporaryResident;
+  }
+
   canContinue(): boolean {
     let valid = super.canContinue() && this.hasStatusDocuments;
 

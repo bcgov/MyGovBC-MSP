@@ -102,7 +102,7 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe(obs => {
-        console.log('values changed');
+        console.log('values changed', this.address);
 
         this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, this.personalInfoForm.valid );
         this.dataService.saveFinAssistApplication();

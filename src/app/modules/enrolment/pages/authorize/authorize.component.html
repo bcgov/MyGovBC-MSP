@@ -6,7 +6,7 @@
   <p [innerHtml]="lang('./en/index.js').agreement"></p><br>
   
   <div class="strong" [innerHTML]="questionApplicant"></div>
-  <div class="form-check form-check-inline mb-5">
+  <div class="form-check form-check-inline m-sm-2">
       <common-checkbox [label]="lang('./en/index.js').agreeLabel" (dataChange)="applicantAuthorizeOnChange($event)" [data]="application.authorizedByApplicant"></common-checkbox>
        
       <!--<input class="input-lg form-check-input" id="firstPersonAuthorize" name="firstPersonAuthorize"
@@ -17,7 +17,7 @@
 
   <div *ngIf="application.spouse != null">
       <div class="strong" [innerHTML]="questionSpouse"></div>
-      <div class="form-check form-check-inline">
+      <div class="form-check form-check-inline p-sm-2">
           <common-checkbox [label]="lang('./en/index.js').agreeLabel" (dataChange)="spouseAuthorizeOnChange($event)" [data]="application.authorizedBySpouse"></common-checkbox>
       
           <!-- <input class="input-lg form-check-input" id="secondPersonAuthorize" type="checkbox" name="secondPersonAuthorize"

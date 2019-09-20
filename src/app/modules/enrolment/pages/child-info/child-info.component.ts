@@ -97,6 +97,10 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
            this.hasStatusDocuments( idx );
   }
 
+  isOveragedChild(idx: number ) {
+    return this.children[idx].relationship === Relationship.Child19To24;
+  }
+
   continue() {
     if ( !this.canContinue() ) {
       this.markAllInputsTouched();
