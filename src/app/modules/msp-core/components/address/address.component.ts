@@ -28,7 +28,7 @@ export class MspAddressComponent extends BaseComponent {
    * Model Inputs
    */
   @Input() residentialAddress: Address;
-  @Input() mailingSameAsResidentialAddress: boolean;
+  @Input() mailingSameAsResidentialAddress: boolean = true;
   @Output() mailingSameAsResidentialAddressChange = new EventEmitter<boolean>();
   @Input() mailingAddress: Address;
   @Input('mailingOnly') mailingOnly: boolean;

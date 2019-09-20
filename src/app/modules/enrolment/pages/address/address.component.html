@@ -1,69 +1,11 @@
-<form #formRef="ngForm" novalidate >
-    <common-page-framework layout="blank">
+<common-page-framework layout="blank">
+    <form #formRef="ngForm" novalidate >
         <msp-core-contact-info [(address)]='mspApplication.residentialAddress'
-                            [(mailingSameAsResidentialAddress)]='mspApplication.mailingSameAsResidentialAddress'
-                            [(mailingAddress)]='mspApplication.mailingAddress'
-                            [(phoneNumber)]='mspApplication.phoneNumber'>
+                               [(mailingSameAsResidentialAddress)]='mspApplication.mailingSameAsResidentialAddress'
+                               [(mailingAddress)]='mspApplication.mailingAddress'
+                               [(phoneNumber)]='mspApplication.phoneNumber'>
         </msp-core-contact-info>
-        <!-- Listen to new emitters -> (phoneChange), (mailingAddressSameAsResdietnaChange) 
-            addressChange)='handleAddressUpdate($event)'-->
-        <!-- <h1> {{contactInfoLabel}} </h1>
-        <p class="help-block"> {{contactInfoText}} </p>
-        <common-page-section layout='double'>
-            <h2> {{residentialAddressLabel}} </h2>
-            <p class="border-bottom"> {{residentialAddressText}} </p>
-            <common-address [address]="mspApplication?.residentialAddress"
-                            (addressChange)="handleAddressUpdate($event)"
-                            [isRequired]="true"
-                            [allowExtralines]='true'
-                            [disableGeocoder]='true'>
-            </common-address>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox"
-                    class="custom-control-input"
-                    id="isMailingAddress"
-                    [checked]="mspApplication.mailingSameAsResidentialAddress"
-                    (click)="toggleCheckBox()" />
-                <label class="custom-control-label" for="isMailingAddress"> {{sameMailingAddress}} </label>
-            </div>
-            <aside>
-                <h2> {{mailingAddressLabel}} </h2>
-                <p class="border-bottom"> {{mailingAddressText}} </p>
-                <div *ngIf="!mspApplication.mailingSameAsResidentialAddress; else NoMailingAddress">
-                    <common-address [address]="mspApplication?.mailingAddress"
-                                    (addressChange)="handleAddressUpdate($event)"
-                                    [isRequired]="true"
-                                    [allowExtralines]='true'
-                                    [disableGeocoder]='true'>
-                    </common-address>
-                </div>
-            </aside>
-        </common-page-section>
-        <h2 class="border-bottom"> {{phoneLabel}}</h2>
-        <div class="row">
-            <div class="form-group col-3">
-                <common-phone-number name="phone_number" 
-                    [label]="'Phone Number (optional)'" 
-                    [phoneNumber]="mspApplication.phoneNumber" 
-                    (onChange)="handlePhoneNumberChange($event)">
-                </common-phone-number>
-            </div>
-            <div class="col-9">           
-                <common-page-section layout="tips">
-                    <aside>
-                        <b>Tip</b>
-                        <p> {{phoneText}} </p>
-                    </aside>
-                </common-page-section>
-            </div>
-        </div> -->
-    </common-page-framework>
-    <common-form-action-bar [canContinue]="canContinue()"
-                            (btnClick)="continue()"></common-form-action-bar>
-</form>
-
-<!-- <ng-template #NoMailingAddress>
-    <div class="mail-address-container">
-        <button type="button" class="btn btn-lg btn-warning mx-auto d-block" (click)="toggleCheckBox()"> {{differentMailingAddress}} </button>
-    </div>
-</ng-template> -->
+    </form>
+</common-page-framework>
+<common-form-action-bar [canContinue]="canContinue()"
+                        (btnClick)="continue()"></common-form-action-bar>
