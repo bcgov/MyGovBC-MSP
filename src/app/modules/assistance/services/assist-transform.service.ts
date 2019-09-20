@@ -116,22 +116,22 @@ export class AssistTransformService {
   }
 
   get mailingAddress(): AddressType {
-    const addressLine1 = this.app.mailingAddress.addressLine1;
-    const addressLine2 = this.app.mailingAddress.addressLine2;
-    const addressLine3 = this.app.mailingAddress.addressLine3;
-    const city = this.app.mailingAddress.city;
-    const country = this.app.mailingAddress.country;
-    const postalCode = this.app.mailingAddress.postal;
-    const provinceOrState = this.app.mailingAddress.province;
-    return {
-      addressLine1,
-      addressLine2,
-      addressLine3,
-      city,
-      country,
-      postalCode,
-      provinceOrState
+    const addr: AddressType = {
+      addressLine1: this.app.mailingAddress.street,
+      city: this.app.mailingAddress.city,
+      provinceOrState: this.app.mailingAddress.province,
+      country: this.app.mailingAddress.country,
+      postalCode: this.app.mailingAddress.postal
     };
+
+    if ( this.app.mailingAddress.addressLine2 ) {
+      addr.addressLine2 = this.app.mailingAddress.addressLine2;
+    }
+
+    if ( this.app.mailingAddress.addressLine3 ) {
+      addr.addressLine3 = this.app.mailingAddress.addressLine3;
+    }
+    return addr;
   }
 
   get name(): NameType {
