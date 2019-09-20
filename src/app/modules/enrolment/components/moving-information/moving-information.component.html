@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <div *ngIf="isCanadianFromProv || isCanadianFromCountry || (isCanadianNotBC && person.livedInBCSinceBirth)">
+  <div *ngIf="requestPermMoveInfo">
     <div class="form-group p-sm-2">
       <common-radio name="madePermanentMoveToBC_{{objectId}}"
                     [(ngModel)]="person.madePermanentMoveToBC"  
@@ -25,12 +25,12 @@
       </common-error-container>
     </div>
 
-    <div *ngIf="isCanadianFromProv || isCanadianNotBC; else SelectCountry"
+    <div *ngIf="isCanadianFromProv || isCanadianNotBC || isResidentFromProv; else SelectCountry"
          class="form-group col-sm-6 p-sm-2">
       <common-province name="movedFromProvince_{{objectId}}"
-                       label="Which province are {{relationship}} moving from?"
                        [provinceList]="provinceList"
                        [(ngModel)]="person.movedFromProvinceOrCountry"
+                       label="Which province are {{relationship}} moving from?"
                        required>
       </common-province>
     </div>
@@ -39,8 +39,7 @@
          class="form-group col-sm-6 p-sm-2">
         <common-date label="Arrival date in B.C."
                      [restrictDate]="'past'" 
-                     [(date)]="person.arrivalToBCSimple"
-                     [required]="true">
+                     [(date)]="person.arrivalToBCSimple">
         </common-date>
     </div>
 
@@ -48,21 +47,23 @@
       <common-date label="Arrival date in Canada{{!isCanadianFromCountry ? ' (optional)' : ''}}"
                     [restrictDate]="'past'" 
                     [(date)]="person.arrivalToCanadaDate"
-                    [required]="isCanadianFromCountry">
+                    [required]="arrivalDateRequired">
       </common-date>
     </div>
 
     <div *ngIf="isCanadianFromProv" class="form-group col-sm-6 p-sm-2">
-      <common-phn name="healthNumber_{{objectId}}"
-                  label="Health Number from that province (optional)"
-                  [(ngModel)]="person.healthNumberFromOtherProvince"
-                  commonValidatePhn
-                  [isBCPhn]="false">
-      </common-phn>
+        <label for="healthNumber_{{objectId}}" class="control-label">
+            Health Number from that province (optional)
+        </label>
+      <input name="healthNumber_{{objectId}}"
+             type="text"
+             class="form-control"
+             [(ngModel)]="person.healthNumberFromOtherProvince"
+             maxlength="15">
     </div>
   </div>
 
-  <div *ngIf="isCanadianFromProv || isCanadianFromCountry || (isCanadianNotBC && person.livedInBCSinceBirth !== undefined)">
+  <div *ngIf="requestAdditionalMoveInfo">
     <div class="form-group p-sm-2">
       <common-radio name="outsideOver30Days_{{objectId}}"
                     [(ngModel)]="person.declarationForOutsideOver30Days"  
@@ -71,7 +72,54 @@
       </common-radio>
     </div>
     <div *ngIf="person.declarationForOutsideOver30Days" class="border-left">
-      Need to add additional questions
+       <div class="form-group col-sm-6">
+          <label for="departureReason_{{objectId}}" class="control-label">
+            Reason for departure
+          </label>
+          <input #reasonRef="ngModel"
+                 name="departureReason_{{objectId}}"
+                 type="text" 
+                 class="form-control"
+                 [(ngModel)]=person.departureReason
+                 maxlength="20"
+                 required>
+        <common-error-container [displayError]="reasonRef.error?.required">
+            Reason for departure is required.
+        </common-error-container>
+       </div>
+
+       <div class="form-group col-sm-6">
+          <label for="departureDestination_{{objectId}}" class="control-label">
+            Location
+          </label>
+          <input #destinationRef="ngModel"
+                 name="departureDestination_{{objectId}}"
+                 type="text" 
+                 class="form-control"
+                 [(ngModel)]=person.departureDestination
+                 maxlength="20"
+                 required>
+        <common-error-container [displayError]="destinationRef.error?.required">
+          Location is required.
+        </common-error-container>
+       </div>
+
+       <div class="form-group col-sm-6 p-sm-2">
+        <common-date label="Departure date"
+                     [restrictDate]="'past'" 
+                     [(date)]="person.departureDate">
+        </common-date>
+      </div>
+
+      <div class="form-group col-sm-6 p-sm-2">
+          <common-date label="Return date"
+                       [restrictDate]="'past'" 
+                       [(date)]="person.returnDate">
+          </common-date>
+
+<!--TODO: Need to do checks to ensure return date is greater than departure date
+and check departure was within last 12 months - need to find error messages for this-->
+        </div>
     </div>
 
     <div class="form-group p-sm-2">
@@ -82,15 +130,16 @@
       </common-radio>
     </div>
 
-    <div *ngIf="person.hasPreviousBCPhn" class="form-group p-sm-2 border-left">
+    <div *ngIf="person.hasPreviousBCPhn" class="form-group col-sm-6 border-left">
       <common-phn name="previousPhn_{{objectId}}"
-                  label="{{relationship | titlecase }} previous B.C. Personal Health Number (optional)"
+                  label="{{isApplicant? 'Your' : 'Their'}} previous B.C. Personal Health Number (optional)"
                   [(ngModel)]="person.previous_phn"
                   commonValidatePhn>
       </common-phn>
     </div>
 
-    <div class="form-group p-sm-2">
+    <div *ngIf="!((isSpouse || isChild) && (isResidentFromProv || isResidentFromCountry || isCanadianNotBC))" 
+         class="form-group p-sm-2">
       <common-radio name="armedForces_{{objectId}}"
                     [(ngModel)]="person.hasBeenReleasedFromArmedForces"  
                     label="Have {{relationship}} been released from the Canadian Armed Forces or an Institution?" 
@@ -98,11 +147,106 @@
       </common-radio>
     </div>
 
+    <div *ngIf="person.hasBeenReleasedFromArmedForces" class="form-group p-sm-2 border-left">
+      <div class="form-group col-sm-6 p-sm-2">
+        <common-date label="Discharge date"
+                      [restrictDate]="'past'" 
+                      [(date)]="person.dischargeDateSimple"
+                      required>
+        </common-date>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isApplicant && requestSchoolInfo">
+    <div class="form-group p-sm-2">
+      <common-radio name="fullTimeStudent_{{objectId}}"
+                    [(ngModel)]="person.fullTimeStudent"  
+                    label="Are you full-time student in B.C.?" 
+                    required>
+      </common-radio>
+    </div>
+  
+    <div *ngIf="person.fullTimeStudent" class="form-group border-left">
+        <div class="form-group p-sm-2">
+          <common-radio name="inBCafterStudies_{{objectId}}"
+                        [(ngModel)]="person.inBCafterStudies"  
+                        label="Will {{relationship}} reside in B.C. upon completion of {{isApplicant? 'your' : 'their'}} studies?" 
+                        required>
+          </common-radio>
+          <common-error-container [displayError]="person.inBCafterStudies == false">
+              To qualify for provincial health care benefits a person must be a resident of 
+              B.C.  As you intend to leave B.C. when your studies are completed, you are not 
+              eligible for Medical Services Plan coverage.  Please contact the health care plan 
+              in your home province for information about medical coverage while studying in B.C.
+            </common-error-container>
+        </div>
+    </div>
   </div>
 </common-page-section>
 
+<div *ngIf="isOveragedChild">
+  <h2>School Information</h2>
+  <p class="border-bottom">
+    Enter information of the school that this child is attending (must be in full-time attendance)
+  </p>
+  <common-page-section layout="tips">
+    <div class="form-group col-sm-6">
+      <label for="schoolName_{{objectId}}" class="control-label">
+        Name of school
+      </label>
+      <input #schoolNameRef="ngModel"
+              name="schoolName_{{objectId}}"
+              type="text" 
+              class="form-control"
+              [(ngModel)]=person.schoolName
+              maxlength="50"
+              required>
+      <common-error-container [displayError]="schoolNameRef.error?.required">
+        Name of school is required.
+      </common-error-container>
+    </div>
+
+    <div class="form-group col-sm-8">
+      <div class="label">School Address</div> 
+      <common-address [(address)]="person.schoolAddress"
+                      [isRequired]="true"
+                      [allowExtralines]='true'
+                      [disableGeocoder]='true'>
+      </common-address>
+    </div>
+
+    <div class="form-group col-sm-6 p-sm-2">
+      <common-date label="Original departure date from B.C. (if school is outside B.C.)"
+                    [(date)]="person.studiesDepartureSimple">
+      </common-date>
+    </div>    
+
+    <div class="form-group col-sm-6 p-sm-2">
+      <common-date label="Expected school completion date"
+                    [(date)]="person.studiesFinishedSimple">
+      </common-date>
+    </div>  
+
+    <div class="form-group p-sm-2">
+      <common-radio name="inBCafterStudiesOA_{{objectId}}"
+                    [(ngModel)]="person.inBCafterStudies"  
+                    label="Will this child reside in B.C. after completing study in this school?" 
+                    required>
+      </common-radio>
+      <common-error-container [displayError]="person.inBCafterStudies == false && !isTemporaryResident">
+          To qualify for provincial health care benefits a person must be a resident of 
+          B.C.  As you intend to leave B.C. when your studies are completed, you are not 
+          eligible for Medical Services Plan coverage.  Please contact the health care plan 
+          in your home province for information about medical coverage while studying in B.C.
+        </common-error-container>
+    </div>
+  </common-page-section>
+</div>
+
 <ng-template #SelectCountry>
-  <div class="form-group col-sm-6 p-sm-2">
+  <div *ngIf="isCanadianFromCountry || isResidentFromCountry" 
+       class="form-group col-sm-6 p-sm-2">
     <common-country name="movedFromCountry_{{objectId}}"
                     label="Which country are {{relationship}} moving from?"
                     [countryList]="countryList"
@@ -116,8 +260,7 @@
   <div class="form-group col-sm-6 p-sm-2">
     <common-date label="Most recent move to B.C."
                  [restrictDate]="'past'" 
-                 [(date)]="person.arrivalToBCSimple"
-                 [required]="true">
+                 [(date)]="person.arrivalToBCSimple">
     </common-date>
   </div>
 </ng-template>

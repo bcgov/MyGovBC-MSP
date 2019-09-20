@@ -35,14 +35,14 @@
              [(ngModel)] = "application.authorizedByAttorney"
              (ngModelChange) = "handleAuthorizedByAttorney($event)"
              id="authByAttorney" type="checkbox">
-      <label class="form-check-label" for="authByAttorney" [innerHTML]="'Yes, I have Power of Attorney'"></label>
+      <label class="form-check-label" for="authByAttorney" [innerHTML]="'Yes, I have Power of Attorney or another legal representation agreement'"></label>
     </div>
   </div>
   <div style="margin-top: 20px;" *ngIf="application.authorizedByAttorney">
-    <label for="">Power of Attorney Document (required)</label>
+    <label for="">Power of Attorney document or another legal representation agreement (required)</label>
     <common-file-uploader #fileUploader class="row" 
           [images]="application.powerOfAttorneyDocs" (imagesChange)="uploadDocument($event)"
-          id="application.id" [instructionText]="'Please upload required power of attorney documents'">
+          id="application.id" [instructionText]="'Please upload required Power of Attorney or another legal representation agreement'">
     </common-file-uploader>
     <!--<common-file-uploader #fileUploader
                        [images]="application.powerOfAttorneyDocs"

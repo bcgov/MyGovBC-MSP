@@ -40,9 +40,26 @@ export class MovingInformationComponent extends Base implements OnInit {
   }
 
   ngOnInit() {
-    if ( this.person.relationship !== Relationship.Applicant ) {
+    if ( !this.isApplicant ) {
       this.relationship = 'they';
     }
+  }
+
+  get isApplicant() {
+    return this.person.relationship === Relationship.Applicant;
+  }
+
+  get isSpouse() {
+    return this.person.relationship === Relationship.Spouse;
+  }
+
+  get isChild() {
+    return this.person.relationship === Relationship.ChildUnder19 ||
+           this.person.relationship === Relationship.Child19To24;
+  }
+
+  get isOveragedChild() {
+    return this.person.relationship === Relationship.Child19To24;
   }
 
   // Moved from another province
@@ -63,23 +80,48 @@ export class MovingInformationComponent extends Base implements OnInit {
            this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP;
   }
 
-    // Moved from another province
-    get isResidentFromProv() {
-      return this.person.status === StatusInCanada.PermanentResident &&
-             this.person.currentActivity === CanadianStatusReason.MovingFromProvince;
-    }
+  // Moved from another province
+  get isResidentFromProv() {
+    return this.person.status === StatusInCanada.PermanentResident &&
+            this.person.currentActivity === CanadianStatusReason.MovingFromProvince;
+  }
 
-    // Moved from another Country
-    get isResidentFromCountry() {
-      return this.person.status === StatusInCanada.PermanentResident &&
-             this.person.currentActivity === CanadianStatusReason.MovingFromCountry;
-    }
+  // Moved from another Country
+  get isResidentFromCountry() {
+    return this.person.status === StatusInCanada.PermanentResident &&
+            this.person.currentActivity === CanadianStatusReason.MovingFromCountry;
+  }
 
-    // Not new to BC
-    get isResidentNotBC() {
-      return this.person.status === StatusInCanada.PermanentResident &&
-             this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP;
-    }
+  // Not new to BC
+  get isResidentNotBC() {
+    return this.person.status === StatusInCanada.PermanentResident &&
+            this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP;
+  }
 
+  get isTemporaryResident() {
+    return this.person.status === StatusInCanada.TemporaryResident;
+  }
+
+  get requestSchoolInfo() {
+    return this.isCanadianFromCountry || this.isCanadianFromProv || this.isCanadianNotBC ||
+           this.isResidentFromCountry || this.isResidentFromProv || this.isResidentNotBC;
+  }
+
+  get requestPermMoveInfo() {
+    return this.isCanadianFromProv || this.isCanadianFromCountry ||
+          (this.isCanadianNotBC && this.person.livedInBCSinceBirth) || this.isResidentFromProv ||
+          this.isResidentFromCountry || this.isResidentNotBC;
+  }
+
+  get arrivalDateRequired() {
+    return this.isCanadianFromCountry || this.isResidentFromProv || this.isResidentFromCountry ||
+           this.isResidentNotBC;
+  }
+
+  get requestAdditionalMoveInfo() {
+    return this.isCanadianFromProv || this.isCanadianFromCountry ||
+          (this.isCanadianNotBC && this.person.livedInBCSinceBirth !== undefined) ||
+          this.isResidentFromProv || this.isResidentFromCountry || this.isResidentNotBC;
+  }
 
 }

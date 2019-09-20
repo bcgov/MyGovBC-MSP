@@ -110,6 +110,10 @@ export default class PersonDto {
     studiesDepartureDay: number;
 
     declarationForOutsideOver30Days: boolean;
+    departureReason: string;
+    departureDestination: string;
+    departureDate: SimpleDate = { day: null, month: null, year: null };
+    returnDate: SimpleDate = { day: null, month: null, year: null };
 
     newlyAdopted: boolean;
     adoptedDate: SimpleDate;

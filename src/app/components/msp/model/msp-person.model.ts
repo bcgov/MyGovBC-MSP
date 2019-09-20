@@ -50,7 +50,7 @@ export class MspPerson implements IPerson {
 
     assistYearDocs: CommonImage[] = [];
 
-    outOfBCRecord: OutofBCRecord;
+    outOfBCRecord: OutofBCRecord; // do not use
     /** NEEDS XSD. Departure information for the question regarding if the person will be out of BC for more than 30 days in the next 6 months. */
     planOnBeingOutOfBCRecord: OutofBCRecord;
     private _operationActionType: OperationActionType;
@@ -160,6 +160,11 @@ export class MspPerson implements IPerson {
         return this._declarationForOutsideOver30Days;
     }
 
+    departureReason: string;
+    departureDestination: string;
+    departureDate: SimpleDate = { day: null, month: null, year: null };
+    returnDate: SimpleDate = { day: null, month: null, year: null };
+
     /**
      * Name section
      */
@@ -191,6 +196,13 @@ export class MspPerson implements IPerson {
         return this.parseDate(this.dob_year, this.dob_month, this.dob_day);
     }
 
+    set dobSimple( dt: SimpleDate ) {
+        console.log( 'dobSimple: ', dt );
+        this.dob_day = dt.day;
+        this.dob_month = dt.month;
+        this.dob_year = dt.year;
+    }
+
     get dobSimple(): SimpleDate {
         return {
             'day': this.dob_day,
@@ -202,7 +214,7 @@ export class MspPerson implements IPerson {
     public dateOfBirth: SimpleDate = { year: null, month: null, day: null };
 
     //TODO fix this..not DRY
-    getCancellationDateInMoment (){
+    getCancellationDateInMoment () {
         return this.parseDate(this.cancellationDate.year, this.cancellationDate.month, this.cancellationDate.day);
     }
 
@@ -312,9 +324,9 @@ export class MspPerson implements IPerson {
     /**
      * Discharge date if worked in CDN forces
      */
-    dischargeYear: number;
-    dischargeMonth: number;
-    dischargeDay: number;
+    dischargeYear: number = null;
+    dischargeMonth: number = null;
+    dischargeDay: number = null;
 
     /** NEEDS XSD. Name of institute they've been discharged from. */
     nameOfInstitute: string;
@@ -323,6 +335,19 @@ export class MspPerson implements IPerson {
         return (this.dischargeDay != null &&
             this.dischargeMonth != null &&
             this.dischargeYear != null);
+    }
+
+    set dischargeDateSimple(date: SimpleDate) {
+        this.dischargeDay = date.day;
+        this.dischargeMonth = date.month;
+        this.dischargeYear = date.year;
+    }
+    get dischargeDateSimple() {
+        return {
+            day: this.dischargeDay,
+            month: this.dischargeMonth,
+            year: this.dischargeYear,
+        };
     }
 
     get dischargeDate() {
@@ -430,6 +455,7 @@ export class MspPerson implements IPerson {
      */
     schoolName: string;
     schoolAddress: Address = new Address();
+
     /** Needs XSD.  */
     schoolOutsideOfBC: boolean;
 

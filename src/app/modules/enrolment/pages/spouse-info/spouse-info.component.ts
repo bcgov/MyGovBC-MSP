@@ -41,7 +41,7 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
         ).subscribe(() => {
           this.dataService.saveMspApplication();
         })
-        ];
+      ];
     }
   }
 
@@ -113,6 +113,11 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
 
 
   continue() {
+    if ( !this.canContinue() ) {
+      this.markAllInputsTouched();
+      return;
+    }
+    this.pageStateService.setPageComplete(this.router.url, this.dataService.mspApplication.pageStatus);
     this.navigate(ROUTES_ENROL.CHILD_INFO.fullpath);
   }
 

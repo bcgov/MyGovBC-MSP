@@ -65,6 +65,8 @@ export function statusReasonRules( relationship: Relationship,
   }
 }
 
+
+
 @Component({
   selector: 'msp-canadian-status',
   templateUrl: './canadian-status.component.html',
@@ -82,7 +84,7 @@ export class CanadianStatusComponent extends Base {
   @Input() statusReasonList: CanadianStatusReason[];
   @Input() label: String = 'Your immigration status in Canada';
   @Input() displayStatusInCanada: boolean = true;
-  @Input() diplomatReasonsOnly: boolean = false;
+  @Input() hideStatusReasons: StatusInCanada[] = [];
 
   @Input() person: MspPerson;
   @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
@@ -119,8 +121,12 @@ export class CanadianStatusComponent extends Base {
   }
 
   get displayStatusReasons() {
-    return this.diplomatReasonsOnly ?
-           (this.person.status === StatusInCanada.TemporaryResident) : this.getStatusInCanada();
+    let show = (this.getStatusInCanada() !== undefined);
+    if ( show && this.hideStatusReasons.length > 0 ) {
+      const tmp = this.hideStatusReasons.find( x => x === this.person.status );
+      show = tmp === undefined ? true : false;
+    }
+    return show;
   }
 
   /**
@@ -138,12 +144,14 @@ export class CanadianStatusComponent extends Base {
    * Display available activities for status
    */
   get availableStatusReasons() {
-    return this.reasonList.map(itm => {
-      return {
-        label: this._reasonOpts[itm],
-        value: itm
-      };
-    });
+    if ( this.reasonList ) {
+      return this.reasonList.map(itm => {
+        return {
+          label: this._reasonOpts[itm],
+          value: itm
+        };
+      });
+    }
   }
 
   get reasonList() {

@@ -8,16 +8,30 @@ import {
 import { MspApplication } from '../../../modules/enrolment/models/application.model';
 import { _ApplicationTypeNameSpace } from '../../../modules/msp-core/api-model/applicationTypes';
 import { environment } from '../../../../environments/environment';
-import { AbstractHttpService, CommonImage } from 'moh-common-lib';
+import { AbstractHttpService, CommonImage, Address, SimpleDate } from 'moh-common-lib';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { Response } from '@angular/http';
 import { MspApiService } from '../../../services/msp-api.service';
 import { ApiResponse } from '../../../models/api-response.interface';
 import {
- MSPApplicationSchema
+ MSPApplicationSchema, EnrolmentApplicationType, AddressType, ResidencyType, CitizenshipType, PersonType, DependentType, NameType, EnrolmentApplicantType
 } from '../../../modules/msp-core/interfaces/i-api';
+import * as moment from 'moment';
+import { MspPerson } from '../../../components/msp/model/msp-person.model';
+import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
+import { Relationship } from '../../msp-core/models/relationship.enum';
 
+
+// TODO - Move file - meant to be generic?
+interface AttachmentRequestPartial {
+  contentType: 'IMAGE_JPEG';
+  // attachmentDocumentType: string; // TODO lock down
+  attachmentDocumentType: 'SupportDocument';
+  attachmentOrder: string; // String of number! '1', '2', '3'
+  description: string;
+  attachmentUuid: string;
+}
 
 
 @Injectable({
@@ -32,7 +46,7 @@ export class MspApiEnrolmentService extends AbstractHttpService {
 
   constructor(
     protected http: HttpClient,
-    private logService: MspLogService,
+    private logService: MspLogService
   ) {
     super(http);
   }
@@ -97,8 +111,7 @@ export class MspApiEnrolmentService extends AbstractHttpService {
       'Response-Type': 'application/json',
       'X-Authorization': 'Bearer ' + authToken
     });
-    //return this.post<MspApplication>(url, app);
-    return this.http.post<MspApplication>(url, app);
+    return this.post<MspApplication>(url, app);
   }
 
 
@@ -278,17 +291,15 @@ export class MspApiEnrolmentService extends AbstractHttpService {
   }
 
 
- /* private prepareBenefitApplication(
-    from: MspApplication
-  ): MSPApplicationSchema {
+  private prepareEnrolmentApplication(from: MspApplication): MSPApplicationSchema {
     const object = {
-      supplementaryBenefitsApplication: this.convertBenefitApplication(from),
+      enrolmentApplication: this.convertMspApplication(from),
       attachments: this.convertToAttachment(from.getAllImages()),
       uuid: from.uuid
     };
     return object;
   }
-*/
+
   private convertToAttachment(images: CommonImage[]): AttachmentRequestPartial[] {
     const output = [];
     images.map((image, i) => {
@@ -306,90 +317,243 @@ export class MspApiEnrolmentService extends AbstractHttpService {
     return output;
   }
 
+  private getAttachementUuids( suppDocs: CommonImage[], nameChangeDocs: CommonImage[] ): string[] {
+    const suppDocUuids = suppDocs && suppDocs.length > 0 ?
+                          suppDocs.map( x => x.uuid ) : [];
+    const nameChangeDocUuids = nameChangeDocs && nameChangeDocs.length > 0 ?
+                                nameChangeDocs.map( x => x.uuid ) : [];
+    return [...suppDocUuids, ...nameChangeDocUuids];
+  }
 
+  private convertSimpleDate( dt: SimpleDate ): string {
+    const date = moment.utc({
+                      year: dt.year,
+                      month: dt.month - 1, // moment use 0 index for month :(
+                      day: dt.day,
+                  }); // use UTC mode to prevent browser timezone shifting
+   return  String(date.format(this.ISO8601DateFormat));
+  }
 
-  private prepareEnrolmentApplication(from: MspApplication): any {
-    console.log('prepareBenefitApplication', {from, imageUUIDs: from.getAllImages().map(x => x.uuid)});
-    const output = {
-      'enrolmentApplication': {
-        'applicant': {
-          'name': {
-          'firstName': 'Smith',
-          'lastName': 'Butler',
-          'secondName': 'Middle Name'
-          },
-          'gender': 'M',
-          'birthDate': '1982-03-03',
-          'residenceAddress': {
-            'addressLine1': '236 Tret Street',
-            'city': 'Vancouver',
-            'postalCode': 'V6J8U7',
-            'provinceOrState': 'BC',
-            'country': 'Canada',
-            'addressLine2': 'ABCDEFGH',
-            'addressLine3': 'ABCDEFGHIJKLMNOPQRS'
-          },
-          'residency': {
-          'citizenshipStatus': {
-            'citizenshipType': 'ReligiousWorker',
-             'attachmentUuids': [
-             'ABCDEFGHIJKLMNOPQRST'
-             ]
-          },
-          'previousCoverage': {
-            'hasPreviousCoverage': 'N',
-            'prevPHN': '9876458907'
-          },
-          'livedInBC': {
-            'hasLivedInBC': 'N',
-            'recentBCMoveDate': '1989-03-03',
-            'recentCanadaMoveDate': '1985-03-03',
-            'isPermanentMove': 'Y',
-            'prevProvinceOrCountry': 'ABCDEFGHIJKLMNOPQRSTU',
-            'prevHealthNumber': '9876458907'
-          },
-          'outsideBC': {
-            'beenOutsideBCMoreThan': 'Y',
-            'departureDate': '1986-03-03',
-            'returnDate': '1987-03-03',
-            'familyMemberReason': 'ABCDEFGHIJKLMNOPQ',
-            'destination': 'ABCDEFGHIJKLMN'
-          },
-          'willBeAway': {
-            'isFullTimeStudent': 'N',
-            'isInBCafterStudies': 'Y',
-            'armedDischargeDate': '1989-03-03',
-            'armedForceInstitutionName': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-          }
-          },
-          'attachmentUuids': [
-            'ABCDEFGHIJKLMNOPQRSTUVWX'
-          ],
-          'authorizedByApplicant': 'Y',
-          'authorizedByApplicantDate': '2018-09-10',
-          'authorizedBySpouse': 'N',
-          'telephone': '2356626262'
+  private convertResidency( from: MspPerson ): ResidencyType {
+
+    let citizenType;
+    // citizenship
+    switch (from.status) {
+      case StatusInCanada.CitizenAdult:
+        citizenType = CitizenshipType.CanadianCitizen;
+        break;
+      case StatusInCanada.PermanentResident:
+        citizenType = CitizenshipType.PermanentResident;
+      break;
+      case StatusInCanada.TemporaryResident:
+        switch (from.currentActivity) {
+          case CanadianStatusReason.WorkingInBC:
+            citizenType = CitizenshipType.WorkPermit;
+          break;
+        case CanadianStatusReason.StudyingInBC:
+          citizenType = CitizenshipType.StudyPermit;
+          break;
+        case CanadianStatusReason.Diplomat:
+          citizenType = CitizenshipType.Diplomat;
+          break;
+        case CanadianStatusReason.ReligiousWorker:
+          citizenType = CitizenshipType.ReligiousWorker;
+          break;
+        case CanadianStatusReason.Visiting:
+        default:
+          citizenType = CitizenshipType.VisitorPermit;
+          break;
+      }
+    }
+
+    const attachmentUuids = new Array<string>();
+    for (const image of from.documents.images) {
+        attachmentUuids.push(image.uuid);
+    }
+
+    const to: ResidencyType = {
+      citizenshipStatus: {
+        citizenshipType: citizenType,
+        attachmentUuids: attachmentUuids
+      },
+      livedInBC: {
+        hasLivedInBC: from.livedInBCSinceBirth === true ? 'Y' : 'N',
+      },
+      outsideBC: {
+        beenOutsideBCMoreThan: from.beenOutSideOver30Days ? 'Y' : 'N'
+      },
+      previousCoverage: {
+        hasPreviousCoverage: from.hasPreviousBCPhn ? 'Y' : 'N'
+      },
+      willBeAway: {
+        isFullTimeStudent: from.fullTimeStudent ? 'Y' : 'N'
+      }
+    };
+
+   // outsideBCinFuture?: OutsideBCType;  - Not sure this is used
+
+    if ( from.madePermanentMoveToBC !== undefined  ) {
+      to.livedInBC.isPermanentMove = from.madePermanentMoveToBC === true ? 'Y' : 'N';
+    }
+
+    if ( from.hasPreviousBCPhn ) {
+      to.livedInBC.prevHealthNumber = from.previous_phn;
+    }
+
+    if (from.movedFromProvinceOrCountry) {
+        to.livedInBC.prevProvinceOrCountry = from.movedFromProvinceOrCountry;
+    }
+
+    // Arrival dates
+    if (from.hasArrivalToBC) {
+        to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+    }
+    if (from.hasArrivalToCanada) {
+        to.livedInBC.recentCanadaMoveDate = from.arrivalToCanada.format(this.ISO8601DateFormat);
+    }
+
+    // Outside BC - optional fields
+    if (from.beenOutSideOver30Days) {
+      to.outsideBC.departureDate = this.convertSimpleDate(from.departureDate);
+      to.outsideBC.returnDate = this.convertSimpleDate(from.returnDate);
+      to.outsideBC.familyMemeberReason = from.departureReason;
+      to.outsideBC.destination = from.departureDestination;
+    }
+
+    if (from.inBCafterStudies !== undefined ) {
+      to.willBeAway.isInBCafterStudies = from.inBCafterStudies ? 'Y' : 'N';
+    }
+
+    if (from.hasDischarge) {
+      to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
+    }
+
+    if (from.hasPreviousBCPhn && from.previous_phn) {
+      to.previousCoverage.prevPHN = from.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
+    }
+    return to;
+  }
+
+  private convertAddress( from: Address ): AddressType {
+    const addr: AddressType = {
+      addressLine1: from.addressLine1,
+      city: from.city,
+      provinceOrState: from.province,
+      country: from.country,
+      postalCode: from.postal.toUpperCase().replace(' ', '')
+    };
+
+    if ( from.addressLine2 ) {
+      addr.addressLine2 = from.addressLine2;
+    }
+
+    if ( from.addressLine3 ) {
+      addr.addressLine3 = from.addressLine3;
+    }
+    return addr;
+  }
+
+  private convertDependentType( person: MspPerson ): DependentType {
+    return {
+      name: this.convertName( person ),
+      gender: String( person.gender.valueOf ),
+      birthDate: String( person.dob.format( this.ISO8601DateFormat ) ),
+      attachmentUuids: this.getAttachementUuids( person.documents.images, person.nameChangeDocs.images ),
+      residency: this.convertResidency( person ),
+      schoolName: person.schoolName,
+      schoolAddress: this.convertAddress( person.schoolAddress ),
+      dateStudiesFinish: this.convertSimpleDate( person.studiesFinishedSimple ),
+      departDateSchoolOutside: this.convertSimpleDate( person.studiesDepartureSimple ),
+    };
+  }
+
+  // This method is used to convert the response from user into a JSON object
+  private convertMspApplication(from: MspApplication): EnrolmentApplicationType {
+    const application: EnrolmentApplicationType = {
+      applicant: this.convertEnrolmentApplicantType( from )
+    };
+
+    // Convert spouse
+    if (from.spouse) {
+      application.spouse = this.convertPersonType( from.spouse );
+    }
+
+    // Convert children and dependants
+    if (from.children &&
+        from.children.length > 0) {
+
+      // Filter out children vs dependants
+      const children = from.children.filter((child: MspPerson) => {
+          return child.relationship === Relationship.ChildUnder19;
+      });
+      const dependants = from.children.filter((child: MspPerson) => {
+          return child.relationship === Relationship.Child19To24;
+      });
+
+      // Children
+      if (children.length > 0) {
+        application.children = new Array<PersonType>();
+        for (const child of children) {
+          application.children.push( this.convertPersonType( child ) );
         }
       }
-     };
 
-      // create Attachment from Images
-      console.log(from.getAllImages());
-      output['attachments'] =  this.convertToAttachment(from.getAllImages());
-      output['uuid'] = from.uuid;
-      console.log(output);
-      return output;
+      // Dependants
+      if (dependants.length > 0) {
+        application.dependents = new Array<DependentType>();
+        for (const dependant of dependants) {
+          application.dependents.push( this.convertDependentType( dependant ) );
+        }
+      }
     }
+
+    return application;
+  }
+
+
+
+
+
+  private convertName( person: MspPerson ): NameType {
+    return {
+      firstName: person.firstName,
+      lastName: person.lastName,
+      secondName: person.middleName
+    };
+  }
+
+  private convertPersonType( person: MspPerson ): PersonType {
+   return {
+      name: this.convertName( person ),
+      gender: String( person.gender.valueOf ),
+      birthDate: String( person.dob.format( this.ISO8601DateFormat ) ),
+      attachmentUuids: this.getAttachementUuids( person.documents.images, person.nameChangeDocs.images ),
+      residency: this.convertResidency( person )
+    };
+  }
+
+  private convertEnrolmentApplicantType( application: MspApplication): EnrolmentApplicantType {
+    const applicant: MspPerson = application.applicant;
+    const enrolee: EnrolmentApplicantType =  {
+      name: this.convertName( applicant ),
+      gender: String( applicant.gender.valueOf ),
+      birthDate: String( applicant.dob.format( this.ISO8601DateFormat ) ),
+      attachmentUuids: this.getAttachementUuids( applicant.documents.images, applicant.nameChangeDocs.images ),
+      residency: this.convertResidency( applicant ),
+      residenceAddress: this.convertAddress( application.residentialAddress ),
+      authorizedByApplicant: application.authorizedByApplicant ? 'Y' : 'N',
+      authorizedByApplicantDate: moment(application.authorizedByApplicantDate).format(this.ISO8601DateFormat),
+      authorizedBySpouse: application.authorizedBySpouse ? 'Y' : 'N'
+    };
+
+    if (application.phoneNumber) {
+      enrolee.telephone = String(application.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
+    }
+
+    if ( !application.mailingSameAsResidentialAddress ) {
+      enrolee.mailingAddress = this.convertAddress( application.mailingAddress );
+    }
+
+    return enrolee;
+  }
 }
-
-// TODO - Move file - meant to be generic?
-interface AttachmentRequestPartial {
-  contentType: 'IMAGE_JPEG';
-  // attachmentDocumentType: string; // TODO lock down
-  attachmentDocumentType: 'SupportDocument';
-  attachmentOrder: string; // String of number! '1', '2', '3'
-  description: string;
-  attachmentUuid: string;
-}
-
-

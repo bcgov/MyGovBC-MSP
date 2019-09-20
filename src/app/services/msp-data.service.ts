@@ -474,6 +474,11 @@ export class MspDataService {
     dto.studiesFinishedDay = input.studiesFinishedDay;
 
     dto.declarationForOutsideOver30Days = input.declarationForOutsideOver30Days;
+    dto.departureReason = input.departureReason;
+    dto.departureDestination = input.departureDestination;
+    dto.departureDate = input.departureDate;
+    dto.returnDate = input.returnDate;
+    dto.hasBeenReleasedFromArmedForces = input.hasBeenReleasedFromArmedForces;
 
     if (input.gender) {
       dto.gender = input.gender.valueOf();
@@ -523,6 +528,7 @@ export class MspDataService {
     output.arrivalToBCYear = dto.arrivalToBCYear;
 
     output.movedFromProvinceOrCountry = dto.movedFromProvinceOrCountry;
+    output.hasBeenReleasedFromArmedForces = dto.hasBeenReleasedFromArmedForces;
     output.institutionWorkHistory = dto.institutionWorkHistory;
     output.dischargeYear = dto.dischargeYear;
     output.dischargeMonth = dto.dischargeMonth;
@@ -543,6 +549,11 @@ export class MspDataService {
 
     output.declarationForOutsideOver30Days =
       dto.declarationForOutsideOver30Days;
+
+    output.departureReason = dto.departureReason;
+    output.departureDestination = dto.departureDestination;
+    output.departureDate = dto.departureDate;
+    output.returnDate = dto.returnDate;
 
     if (dto.gender) {
       output.gender = dto.gender;
@@ -659,6 +670,14 @@ export class MspDataService {
     dto.outsideBCFor30Days = input.outsideBCFor30Days;
 
     dto.pageStatus = input.pageStatus; // page status complete/ incomplete
+
+    // Documents
+    // dto.applicantStatusDoc = input.applicantStatusDoc;
+    // dto.applicantNameDoc = input.applicantNameDoc;
+    // dto.spouseStatusDoc = input.spouseStatusDoc;
+    // dto.spouseNameDoc = input.spouseNameDoc;
+    // dto.childrenStatusDoc = input.childrenStatusDoc;
+    // dto.childrenNameDoc = input.childrenNameDoc;
 
     return dto;
   }

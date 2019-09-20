@@ -1,9 +1,10 @@
 import {Component, Input} from '@angular/core';
 import {MspPerson} from '../../model/msp-person.model';
 import { Router } from '@angular/router';
-import { StatusInCanada, CanadianStatusReason, CanadianStatusReasonStrings, CanadianStatusStrings } from '../../../../modules/msp-core/models/canadian-status.enum';
-
-
+import { StatusInCanada,
+  CanadianStatusReason,
+  CanadianStatusStrings,
+  CanadianStatusReasonStrings } from '../../../../modules/msp-core/models/canadian-status.enum';
 
 @Component({
   selector: 'msp-person-card',
@@ -12,11 +13,12 @@ import { StatusInCanada, CanadianStatusReason, CanadianStatusReasonStrings, Cana
 })
 export class MspPersonCardComponent {
 
-
-
   lang = require('./i18n');
-  langStatus = CanadianStatusStrings;
-  langActivities = CanadianStatusReasonStrings;
+
+  status: string[] = Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
+
+  statusReason: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
+
 
   @Input() person: MspPerson;
   @Input() editRouterLink: string;
@@ -24,7 +26,10 @@ export class MspPersonCardComponent {
   @Input() customLinkTitle: string;
   @Input() accountCard: boolean = false;
   constructor(private _router: Router) {
+  }
 
+  ngOnInit() {
+    console.log('Has DOB?: ' + this.person.hasDob + '    DOB:' + this.person.dob + '    DOB MONTH:' + this.person.dob_month);
   }
 
   editPersonalInfo() {
@@ -35,10 +40,10 @@ export class MspPersonCardComponent {
   get movedFromLabel(): string {
     if (this.person.status === StatusInCanada.TemporaryResident ||
       this.person.currentActivity === CanadianStatusReason.MovingFromCountry) {
-      return 'Moved from country:';
+      return 'Moved from country';
     }
     else {
-      return 'Moved from province:';
+      return 'Moved from province';
     }
   }
 
