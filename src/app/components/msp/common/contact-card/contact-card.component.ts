@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
   templateUrl: './contact-card.component.html'
 })
 export class MspContactCardComponent {
-  lang = require('./i18n');
 
   @Input() residentialAddress: Address;
   @Input() mailingAddress: Address;
@@ -15,7 +14,7 @@ export class MspContactCardComponent {
   @Input() altPhone: string;
   @Input() editRouterLink: string;
 
-  constructor(private _router: Router){
+  constructor(private _router: Router) {
 
   }
 

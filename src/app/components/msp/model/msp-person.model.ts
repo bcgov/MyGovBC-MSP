@@ -150,9 +150,9 @@ export class MspPerson implements IPerson {
     /**
      * Date of birth section
      */
-    dob_day: number;
-    dob_month: number;
-    dob_year: number;
+    dob_day: number = null;
+    dob_month: number = null;
+    dob_year: number = null;
 
     get hasDob(): boolean {
         return (this.dob_year != null &&

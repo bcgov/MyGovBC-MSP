@@ -173,18 +173,24 @@ export class MspApplication implements ApplicationBase {
     Gets all images for applicant, spouse and all children
    */
   getAllImages(): CommonImage[] {
-    let allImages = [
-      ...this.applicant.documents.images,
-      ...this.applicant.nameChangeDocs.images
-    ];
+    let allImages = [...this.applicant.documents.images];
+
+    if ( this.applicant.hasNameChange ) {
+      allImages = allImages.concat([...this.applicant.nameChangeDocs.images]);
+    }
 
     if (this.spouse) {
-      allImages = allImages.concat([...this.spouse.documents.images,
-                                   ...this.spouse.nameChangeDocs.images]);
+      allImages = allImages.concat([...this.spouse.documents.images]);
+
+      if ( this.spouse.hasNameChange ) {
+        allImages = allImages.concat([...this.spouse.nameChangeDocs.images]);
+      }
     }
     for (const child of this.children) {
-      allImages = allImages.concat([...child.documents.images,
-                                    ...child.nameChangeDocs.images]);
+      allImages = allImages.concat([...child.documents.images]);
+      if ( child.hasNameChange ) {
+        allImages = allImages.concat([...child.nameChangeDocs.images]);
+      }
     }
 
     return allImages;
