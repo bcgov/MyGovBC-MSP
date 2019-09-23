@@ -43,7 +43,7 @@ import { Subscription } from 'rxjs';
       <common-name
         [(ngModel)]="person.lastName"
         maxlen="30"
-        label="Last Name"
+        label="Last name"
         name="lastName"
         id="lastName"
         required

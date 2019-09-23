@@ -44,7 +44,7 @@ import { CommonImage } from 'moh-common-lib';
         </div>
 
         <div style="margin-top: 20px;" *ngIf="application.authorizedByAttorney">
-          <label for="">Power of Attorney Document (required)</label>
+          <label for="">Power of Attorney document or another legal representation agreement (required)</label>
           <common-file-uploader
             #fileUploader
             [images]="application.powerOfAttorneyDocs"
@@ -83,13 +83,13 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
   `;
   declarationOneEm = 'Medicare Protection Act';
   declarationOneB = `, and will not be disclosed to any other party.`;
-  declarationTwo = `I hereby declare that I resided in Canada as a Canadian citizen or holder of permanent resident status (landed immigrant) for at least 12 months immediately preceding the period for which I am applying for retroactive premium assistance. I am not exempt from liability to pay income tax by reason of any other Act.
+  declarationTwo = `I hereby declare that I resided in Canada as a Canadian citizen or holder of permanent resident status (landed immigrant) for at least 12 months immediately preceding the period for which I am applying for Retroactive Premium Assistance. I am not exempt from liability to pay income tax by reason of any other Act.
   `;
   captchaApiBaseUrl: string;
 
   agreeLabel = 'Yes, I agree';
 
-  poaAgreeLabel = 'Yes, I have Power of Attorney';
+  poaAgreeLabel = 'Yes, I have Power of Attorney or another legal representation agreement';
 
   private hasToken = false;
   touched$ = this.stateSvc.touched.asObservable();
@@ -97,11 +97,11 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
   get questionApplicant() {
     return `${
       this.applicantName
-    } (or representative with Power of Attorney), do you agree?`;
+    } (or legal representative), do you agree?`;
   }
 
   get questionForAttorney() {
-    return `Do you have Power of Attorney to apply on behalf of ${
+    return `Do you have Power of Attorney or another legal representation agreement to apply on behalf of ${
       this.applicantName
     }?`;
   }
