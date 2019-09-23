@@ -25,7 +25,7 @@ import { Component, OnInit, Input } from '@angular/core';
       </div>
     </common-page-section>
     <common-page-section *ngIf="success">
-      <h2>Next Steps</h2>
+      <h2>Next steps</h2>
       <hr />
 
       <ul>
@@ -46,7 +46,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./confirmation.component.scss']
 })
 export class ConfirmationComponent implements OnInit {
-  @Input() title = 'Confirmation Message';
+  @Input() title = 'Confirmation message';
   @Input() confirmationNum: string;
   @Input() success: boolean;
   @Input() message: string;
