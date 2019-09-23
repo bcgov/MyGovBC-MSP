@@ -37,7 +37,7 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
           Medical Services Plan premiums <i class="fa fa-external-link" aria-hidden="true"></i>
         </a>
         are based on the previous tax year's
-        <button (click)="openModal(modal)">
+        <button class="btn btn-link p-0" (click)="openModal(modal)">
           adjusted net income.
         </button>
       </p>
@@ -53,7 +53,7 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
           </div>
           <div class="col-10">
             <p>
-              If you were covered on an MSP Group Plan during the period you are applying for
+              If you were covered on an MSP Group Plan during the period you are applying for,
               contact your MSP Group Plan Administrator.
             </p>
           </div>
