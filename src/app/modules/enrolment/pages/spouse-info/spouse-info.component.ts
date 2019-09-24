@@ -91,7 +91,7 @@ export class SpouseInfoComponent extends EnrolForm {
     this._nextUrl = ROUTES_ENROL.CHILD_INFO.fullpath;
     this._canContinue = this.canContinue();
 
-    super.canContinue();
+    super.continue();
   }
 
   canContinue(): boolean {

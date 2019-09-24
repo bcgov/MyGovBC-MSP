@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { EnrolmentRoutingModule } from './enrolment-routing.module';
 import { EnrolContainerComponent } from './components/enrol-container/enrol-container.component';
 import { MspCoreModule } from '../msp-core/msp-core.module';
@@ -16,10 +15,8 @@ import { SpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { FormsModule } from '@angular/forms';
 import { CaptchaModule } from 'moh-common-lib/captcha';
 import { RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
-import { PersonalDetailsComponent } from './components/personal-details/personal-details.component';
 import { GuardEnrolService } from './services/guard-enrol.service';
 import { MspApiEnrolmentService } from '../enrolment/services/msp-api-enrolment.service';
-import { PersonalInformationComponent } from '../msp-core/components/personal-information/personal-information.component';
 import { MovingInformationComponent } from './components/moving-information/moving-information.component';
 
 @NgModule({
@@ -41,7 +38,6 @@ import { MovingInformationComponent } from './components/moving-information/movi
     ReviewComponent,
     SendingComponent,
     SpouseInfoComponent,
-    PersonalDetailsComponent,
     MovingInformationComponent
   ],
   providers: [
