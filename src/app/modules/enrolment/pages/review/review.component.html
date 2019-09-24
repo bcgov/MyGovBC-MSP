@@ -13,7 +13,7 @@
           <msp-person-card [person]="mspApplication.applicant"
                           [editRouterLink]="personal_info"></msp-person-card>
       </div>
-      <div class="col-lg-6" *ngIf="aasSpouse">
+      <div class="col-lg-6" *ngIf="hasSpouse">
           <msp-person-card [person]="mspApplication.spouse"
                           [editRouterLink]="spouse_info"></msp-person-card>
       </div>
