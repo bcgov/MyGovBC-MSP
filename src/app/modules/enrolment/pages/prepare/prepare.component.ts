@@ -1,41 +1,25 @@
-import {Component, Injectable, ViewChild, OnDestroy, OnInit, AfterViewInit} from '@angular/core';
-import {  Router } from '@angular/router';
+import {Component, Injectable, ViewChild, AfterViewInit} from '@angular/core';
+import { Router } from '@angular/router';
 import * as _ from 'lodash';
-import {MspDataService} from '../../../../services/msp-data.service';
+import { MspDataService } from '../../../../services/msp-data.service';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
-import { environment } from '../../../../../environments/environment.prod';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
 import { PageStateService } from '../../../../services/page-state.service';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
-import { MspApplication } from '../../models/application.model';
-import { AbstractForm } from 'moh-common-lib';
-import { Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { EnrolForm } from '../../models/enrol-form';
 
 @Component({
   templateUrl: './prepare.component.html'
 })
 @Injectable()
-export class PrepareComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
+export class PrepareComponent extends EnrolForm implements AfterViewInit {
 
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
 
-  mspApplication: MspApplication;
-
-  // Web links
-  links = environment.links;
-
-  subscriptions: Subscription[];
-
-  constructor(private dataService: MspDataService,
-              private pageStateService: PageStateService,
-              protected router: Router) {
-      super(router);
-      this.mspApplication = this.dataService.mspApplication;
-  }
-
-  ngOnInit(){
-    this.pageStateService.setPageIncomplete(this.router.url, this.mspApplication.pageStatus);
+  constructor( protected dataService: MspDataService,
+               protected pageStateService: PageStateService,
+               protected router: Router ) {
+    super( dataService, pageStateService, router );
   }
 
   ngAfterViewInit() {
@@ -43,20 +27,7 @@ export class PrepareComponent extends AbstractForm implements OnInit, AfterViewI
     if (!this.mspApplication.infoCollectionAgreement) {
       this.mspConsentModal.showFullSizeView();
     }
-
-    if (this.form) {
-      this.subscriptions = [
-        this.form.valueChanges.pipe(
-          debounceTime(100)
-        ).subscribe(() => {
-          this.dataService.saveMspApplication();
-        })
-        ];
-    }
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach( itm => itm.unsubscribe() );
+    super.ngAfterViewInit();
   }
 
   get applicant(): MspPerson {
@@ -92,17 +63,12 @@ export class PrepareComponent extends AbstractForm implements OnInit, AfterViewI
   }
 
   continue() {
-    if (this.mspApplication.infoCollectionAgreement !== true){
-      console.log('user agreement not accepted yet, show user dialog box.');
-      this.mspConsentModal.showFullSizeView();
-    } else {
-      this.pageStateService.setPageComplete(this.router.url, this.mspApplication.pageStatus);
-      this.navigate(ROUTES_ENROL.PERSONAL_INFO.fullpath);
-    }
-  }
+    this._canContinue = super.canContinue() &&
+                        this.applicant.plannedAbsence === false &&
+                        this.applicant.liveInBC === true &&
+                        this.unUsualCircumstance === false;
 
-  canContinue(): boolean {
-    return this.form.valid && this.applicant.plannedAbsence === false &&
-           this.applicant.liveInBC === true && this.unUsualCircumstance === false;
+    this._nextUrl = ROUTES_ENROL.PERSONAL_INFO.fullpath;
+    super.continue();
   }
 }

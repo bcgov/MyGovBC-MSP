@@ -1,74 +1,64 @@
-
-<form #formRef="ngForm" novalidate >
-    <common-page-framework layout="blank">
-        <div class="col-lg-6"> 
-  <h1>Authorize and submit your application</h1>
-  <p>
-    I have received information about MSP and agree to abide by its terms and 
-    conditions. I understand the information I have given is collected under the 
-    authority of the Medicare Protection Act and may be used to assess eligibility 
-    for other Ministry of Health programs, and that practitioners who provide 
-    service(s) under MSP are required under the Medicare Protection Act to release 
-    information relative to those services to MSP to support claims for benefits. 
-  </p>
-  <p>
-    I declare that all information provided is true and I understand that 
-    the Ministry of Health and/or Health Insurance BC may verify this information with 
-    immigration authorities, law enforcement authorities and other public authorities, 
-    agencies and persons, as appropriate.<br/><br/>I agree to keep my address up to date 
-    with Health Insurance BC, notifying them of any changes within 10 days of moving. 
-    I declare that all persons listed are residents of British Columbia. Resident means 
-    a person who is a citizen of Canada or is lawfully admitted to Canada for permanent 
-    residence, who makes his or her home in British Columbia, and is physically present 
-    in British Columbia for at least six months in a calendar year, or a shorter 
-    prescribed period, and includes a person who is deemed under the regulations to 
-    be a resident, but does not include a tourist or visitor to British Columbia.
-  </p>
+<common-page-framework layout="single">
+  <form #formRef="ngForm" novalidate >
+    <h1>Authorize and submit your application</h1>
+    <p>
+      I have received information about MSP and agree to abide by its terms and 
+      conditions. I understand the information I have given is collected under the 
+      authority of the Medicare Protection Act and may be used to assess eligibility 
+      for other Ministry of Health programs, and that practitioners who provide 
+      service(s) under MSP are required under the Medicare Protection Act to release 
+      information relative to those services to MSP to support claims for benefits. 
+    </p>
+    <p>
+      I declare that all information provided is true and I understand that 
+      the Ministry of Health and/or Health Insurance BC may verify this information with 
+      immigration authorities, law enforcement authorities and other public authorities, 
+      agencies and persons, as appropriate.<br/><br/>I agree to keep my address up to date 
+      with Health Insurance BC, notifying them of any changes within 10 days of moving. 
+      I declare that all persons listed are residents of British Columbia. Resident means 
+      a person who is a citizen of Canada or is lawfully admitted to Canada for permanent 
+      residence, who makes his or her home in British Columbia, and is physically present 
+      in British Columbia for at least six months in a calendar year, or a shorter 
+      prescribed period, and includes a person who is deemed under the regulations to 
+      be a resident, but does not include a tourist or visitor to British Columbia.
+    </p>
   
-  <div class="strong">
-      {{questionApplicant}}
-  </div>
-  <div class="form-check form-check-inline m-sm-2">
+    <div class="strong">
+        {{questionApplicant}}
+    </div>
+    <div class="form-check form-check-inline m-sm-2">
       <common-checkbox name="applicantAuthorization"
-                       label="Yes, I agree" 
-                       (dataChange)="applicantAuthorizeOnChange($event)" 
-                       [data]="application.authorizedByApplicant"
+                       label="{{label}}" 
+                       (ngModelChange)="applicantAuthorizeOnChange($event)" 
+                       [ngModel]="mspApplication.authorizedByApplicant"
                        [required]="true">
       </common-checkbox>
-  </div>
+    </div>
 
-  <div *ngIf="application.spouse != null">
+    <div *ngIf="hasSpouse">
       <div class="strong">{{questionSpouse}}</div>
       <div class="form-check form-check-inline p-sm-2">
           <common-checkbox name="spouseAuthorization"
-                           label="Yes, I agree" 
-                           [(data)]="application.authorizedBySpouse"
+                           label="{{label}}" 
+                           [(ngModel)]="mspApplication.authorizedBySpouse"
                            [required]="true">
           </common-checkbox>
       </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-12">
+    </div>
+
+    <div class="mt-2 pl-4">
       <common-captcha [apiBaseUrl]="captchaApiBaseUrl" 
-                      [nonce]="application.uuid"
-                      (onValidToken)="application.authorizationToken = $event">
+                      [nonce]="mspApplication.uuid"
+                      (onValidToken)="mspApplication.authorizationToken=$event">
       </common-captcha>
+      <common-error-container [displayError]="displayError">
+        Captcha is required.
+      </common-error-container>
     </div>
-  </div>
-  <div class="row" *ngIf="form.submitted && !application.hasValidAuthToken">
-    <div class="col-lg-6">
-      <div class="text-danger">
-        Please try again to enter the text you see above
-      </div>        
-    </div>
-  </div>
- 
-</div>
 
-  </common-page-framework>
-  <common-form-action-bar submitLabel="Submit Application"
-                         [canContinue]="canContinue()"
-                         (btnClick)="continue()">
-  </common-form-action-bar>
-
-</form>
+  </form>
+</common-page-framework>
+<common-form-action-bar submitLabel="Submit Application"
+                        widthOption='extra-width-mobile-only' 
+                        (btnClick)="continue()">
+</common-form-action-bar>
