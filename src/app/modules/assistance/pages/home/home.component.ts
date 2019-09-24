@@ -71,7 +71,6 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
             <common-checkbox
               class="col-12"
               [(ngModel)]="option.apply"
-              [checked]="option.apply"
               [label]="option.year"
               (dataChange)="applyOption($event, i)"
               id="{{ option.year }}"

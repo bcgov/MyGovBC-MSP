@@ -211,15 +211,6 @@
                                                     (click)="toggleClaimForSelfDisabilityCredit($event)"
                                                     [data]="benefitApp.applicantEligibleForDisabilityCredit" >
                                                 </common-checkbox> 
-                                          <!--  <input type="checkbox" tabindex="0" 
-                                                    name="applicantClaimForDisabilityCredit"
-                                                    id="applicantClaimForDisabilityCredit"
-                                                    [checked]="benefitApp.applicantEligibleForDisabilityCredit"
-                                                    class='form-check-input'
-                                                    (click)="toggleClaimForSelfDisabilityCredit($event)">
-                                            <label for="applicantClaimForDisabilityCredit" class='form-check-label'>
-                                                Myself
-                                            </label> -->
                                         </div>
 
                                         <div class='form-check form-check-inline'>
@@ -229,15 +220,6 @@
                                                     (click)="toggleClaimForSpouseDisabilityCredit($event)"
                                                     [data]="benefitApp.spouseEligibleForDisabilityCredit" >
                                                 </common-checkbox>
-                                               <!-- <input type="checkbox" tabindex="0"
-                                                    name="spouseClaimForDisabilityCredit"
-                                                    id="spouseClaimForDisabilityCredit"
-                                                    [checked]="benefitApp.spouseEligibleForDisabilityCredit"
-                                                    class='form-check-input'
-                                                    (click)="toggleClaimForSpouseDisabilityCredit($event)">
-                                                <label for="spouseClaimForDisabilityCredit" class='form-check-label'>
-                                                    My spouse/common-law partner
-                                                </label> --> 
                                             </div>
                                         </div>
                                         
@@ -343,15 +325,7 @@
                                             (click)="applicantClaimForAttendantCare($event)"
                                             [data]="benefitApp.applicantClaimForAttendantCareExpense" >
                                         </common-checkbox> 
-                                       <!-- <input type="checkbox" tabindex="0"
-                                                name="applicantClaimForAttendantCareExpense"
-                                                id="applicantClaimForAttendantCareExpense"
-                                                [checked]="benefitApp.applicantClaimForAttendantCareExpense"
-                                                [ngModel]="benefitApp.applicantClaimForAttendantCareExpense"
-                                                (click)="applicantClaimForAttendantCareExpense($event)">
-                                        <label for="applicantClaimForAttendantCareExpense">
-                                            Myself
-                                        </label>  -->
+
                                     </div>
                                 
                                     <div> <!-- *ngIf="benefitApp.hasSpouse === true"-->
