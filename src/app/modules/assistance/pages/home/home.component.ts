@@ -31,9 +31,9 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
       <h1>Apply for Retroactive Premium Assistance</h1>
       <p>
         Retroactive Premium Assistance provides assistance for previously
-        charged Medical Services Plan premiums. Medical Services Plan premiums
+        charged Medical Services Plan premiums.
 
-        <a class="btn btn-link p-0" href="http://gov.bc.ca/MSP/retropremiumassistance" target="_blank">
+        <a href="http://gov.bc.ca/MSP/retropremiumassistance" target="_blank">
           Medical Services Plan premiums <i class="fa fa-external-link" aria-hidden="true"></i>
         </a>
         are based on the previous tax year's
@@ -53,8 +53,8 @@ import { ROUTES_ASSIST } from '../../models/assist-route-constants';
           </div>
           <div class="col-10">
             <p>
-              If you were covered on a group account during the period you are
-              applying for, contact your group administrator.
+              If you were covered on an MSP Group Plan during the period you are applying for,
+              contact your MSP Group Plan Administrator.
             </p>
           </div>
         </div>
