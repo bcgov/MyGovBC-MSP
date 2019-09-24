@@ -1,44 +1,43 @@
-<form #formRef="ngForm" novalidate >
-    <common-page-framework layout="blank">
-  <a onclick="window.print();return false;" >   
-  <b class="float-right">Print <i class="fa fa-print fa-lg pointer" 
-    aria-hidden="true"></i>
-  </b> 
- </a> 
+<common-page-framework layout="blank">
+  <form #formRef="ngForm" novalidate >
+    <a onclick="window.print();return false;">   
+    <strong class="float-right">Print 
+      <i class="fa fa-print fa-lg pointer" aria-hidden="true"></i>
+    </strong> 
+  </a> 
   
   <h1>Review your application</h1>
   
   <div class="row">
       <div class="col-lg-6">
-          <msp-person-card [person]="application.applicant"
+          <msp-person-card [person]="mspApplication.applicant"
                           [editRouterLink]="personal_info"></msp-person-card>
       </div>
-      <div class="col-lg-6" *ngIf="application.spouse != null">
-          <msp-person-card [person]="application.spouse"
+      <div class="col-lg-6" *ngIf="aasSpouse">
+          <msp-person-card [person]="mspApplication.spouse"
                           [editRouterLink]="spouse_info"></msp-person-card>
       </div>
   </div>
   <div class="row">
     <div class="col-lg-6">
-        <msp-contact-card [residentialAddress]="application.residentialAddress"
-                          [mailingAddress]="application.mailingAddress"
-                          [phone]="application.phoneNumber"
+        <msp-contact-card [residentialAddress]="mspApplication.residentialAddress"
+                          [mailingAddress]="mspApplication.mailingAddress"
+                          [phone]="mspApplication.phoneNumber"
                           [editRouterLink]="address_info"></msp-contact-card>
     </div>
 
-    <div  class="col-lg-6" *ngIf="application.children != null && application.children.length > 0">
-        <ng-container *ngFor="let child of application.children; let i = index;">
-            <div class="clearfix" *ngIf="i % 2 == 0"></div>
-                <msp-person-card [person]="child"
-                                [editRouterLink]="child_info"></msp-person-card>
-         
-        </ng-container>
+    <div class="col-lg-6" *ngIf="hasChildren">
+      <ng-container *ngFor="let child of mspApplication.children; let i = index;">
+        <div class="clearfix" *ngIf="i % 2 == 0"></div>
+            <msp-person-card [person]="child"
+                             [editRouterLink]="child_info"></msp-person-card>
+      </ng-container>
     </div>
   </div>
-                    
-  </common-page-framework>
-  <common-form-action-bar [canContinue]="true"
-                          (btnClick)="handleFormSubmission($event)">
-  </common-form-action-bar>
+  </form>                
+</common-page-framework>
+<common-form-action-bar widthOption='extra-width-mobile-only' 
+                        (btnClick)="canContinue()">
+</common-form-action-bar>
 
-</form>
+

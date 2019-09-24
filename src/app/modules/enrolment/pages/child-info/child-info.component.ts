@@ -1,22 +1,20 @@
 import { Router } from '@angular/router';
-import {Component, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
+import { Component } from '@angular/core';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { Relationship } from '../../../msp-core/models/relationship.enum';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
-import { AbstractForm } from 'moh-common-lib';
-import { Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
+import { EnrolForm } from '../../models/enrol-form';
 
 @Component({
   selector: 'msp-child-info',
   templateUrl: './child-info.component.html',
   styleUrls: ['./child-info.component.scss']
 })
-export class ChildInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
+export class ChildInfoComponent extends EnrolForm {
 
   statusLabel: string = 'Child\'s immigration status in Canada';
   childAgeCategory = [
@@ -25,46 +23,23 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
   ];
 
   nameChangeDocList = nameChangeSupportDocuments();
-  subscriptions: Subscription[];
 
-
-  // tslint:disable-next-line: no-trailing-whitespace
-  constructor (private dataService: MspDataService, 
-               protected router: Router,
-               private pageStateService: PageStateService) {
-    super(router);
-  }
-
-  ngOnInit() {
-    this.pageStateService.setPageIncomplete(this.router.url, this.dataService.mspApplication.pageStatus);
-  }
-
-  ngAfterViewInit() {
-    if (this.form) {
-      this.subscriptions = [
-        this.form.valueChanges.pipe(
-          debounceTime(100)
-        ).subscribe(() => {
-          this.dataService.saveMspApplication();
-        })
-      ];
-    }
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach( itm => itm.unsubscribe() );
+  constructor( protected dataService: MspDataService,
+               protected pageStateService: PageStateService,
+               protected router: Router ) {
+    super( dataService, pageStateService, router );
   }
 
   addChild(): void {
-    this.dataService.mspApplication.addChild(Relationship.Unknown);
+    this.mspApplication.addChild(Relationship.Unknown);
   }
 
   get children(): MspPerson[] {
-    return this.dataService.mspApplication.children;
+    return this.mspApplication.children;
   }
 
   removeChild(idx: number): void {
-    this.dataService.mspApplication.removeChild(idx);
+    this.mspApplication.removeChild(idx);
   }
 
   displayStatusOpt(idx: number): boolean {
@@ -103,12 +78,9 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
   }
 
   continue() {
-    if ( !this.canContinue() ) {
-      this.markAllInputsTouched();
-      return;
-    }
-    this.pageStateService.setPageComplete(this.router.url, this.dataService.mspApplication.pageStatus);
-    this.navigate(ROUTES_ENROL.CONTACT.fullpath);
+    this._nextUrl = ROUTES_ENROL.CONTACT.fullpath;
+    this._canContinue = this.canContinue();
+    super.continue();
   }
 
   canContinue(): boolean {

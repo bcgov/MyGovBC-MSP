@@ -588,7 +588,7 @@ export class MspApiEnrolmentService extends AbstractHttpService {
     };
 
     if (application.phoneNumber) {
-      enrolee.telephone = String(application.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
+      enrolee.telephone = application.phoneNumber.replace(/[() +/-]/g, '').substr(1);
     }
 
     if ( !application.mailingSameAsResidentialAddress ) {

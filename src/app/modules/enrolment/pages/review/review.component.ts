@@ -1,21 +1,14 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MspApplication } from '../../models/application.model';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { environment } from '../../../../../environments/environment';
-import { MspLogService } from '../../../../services/log.service';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
+import { EnrolForm } from '../../models/enrol-form';
 
 @Component({
   templateUrl: './review.component.html'
 })
-export class ReviewComponent implements OnInit {
-
-  application: MspApplication;
-  captchaApiBaseUrl: string;
-  @ViewChild(NgForm) form: NgForm;
+export class ReviewComponent extends EnrolForm {
 
   // routes
   personal_info = ROUTES_ENROL.PERSONAL_INFO.fullpath;
@@ -23,60 +16,23 @@ export class ReviewComponent implements OnInit {
   address_info = ROUTES_ENROL.CONTACT.fullpath;
   child_info = ROUTES_ENROL.CHILD_INFO.fullpath;
 
-  constructor(private dataService: MspDataService,
-              private _router: Router,
-              private pageStateService: PageStateService,
-              private logService: MspLogService) {
-    this.application = this.dataService.mspApplication;
-    this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
+  constructor( protected dataService: MspDataService,
+               protected pageStateService: PageStateService,
+               protected router: Router ) {
+    super( dataService, pageStateService, router );
   }
 
-  ngOnInit() {
-    /* let oldUUID = this.application.uuid;
-    this.application.regenUUID();
-    this.dataService.saveMspApplication();
-    console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.mspApplication.uuid);*/
-    this.pageStateService.setPageIncomplete( this._router.url, this.application.pageStatus );
+  get hasSpouse() {
+    return this.mspApplication.spouse ? true : false;
   }
 
-  applicantAuthorizeOnChange(event: boolean) {
-    // console.log('applicant authorization: ', event);
-    this.application.authorizedByApplicant = event;
-
-    if (this.application.authorizedByApplicant) {
-      this.application.authorizedByApplicantDate = new Date();
-    }
-    this.dataService.saveMspApplication();
-  }
-  spouseAuthorizeOnChange(event: boolean) {
-    this.application.authorizedBySpouse = event;
-    this.dataService.saveMspApplication();
+  get hasChildren() {
+    return this.mspApplication.children && this.mspApplication.children.length > 0;
   }
 
-  get applicantName() {
-    return (
-      this.application.applicant.firstName +
-      ' ' +
-      this.application.applicant.lastName
-    );
-  }
-  get spouseName() {
-    return (
-      this.application.spouse.firstName + ' ' + this.application.spouse.lastName
-    );
-  }
-
-  handleFormSubmission(evt: any) {
-    // console.log('review form submitted, %o', evt);
-    this.pageStateService.setPageComplete( this._router.url, this.application.pageStatus );
-    this._router.navigate([ROUTES_ENROL.AUTHORIZE.fullpath]);
-    /*if (this.application.hasValidAuthToken){
-      console.log('Found valid auth token, transfer to sending screen.');
-      this.processService.setStep(5, true);
-      // this.logService.log({name: "Application - Review Page Before Submit (after CAPTCHA)"},"Application-Captcha Success")
-
-    }else{
-      console.log('Auth token is not valid');
-    }*/
+  continue() {
+    this._canContinue = true;
+    this._nextUrl = ROUTES_ENROL.AUTHORIZE.fullpath;
+    super.continue();
   }
 }
