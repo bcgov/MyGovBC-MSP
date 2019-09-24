@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/bcgov/MyGovBC-MSP.git"
   },
-  "homepage": "",
+  "homepage": "https://my.gov.bc.ca/msp",
   "main": "server.js",
   "scripts": {
     "prestart": "npm install",
