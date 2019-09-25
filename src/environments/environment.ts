@@ -51,8 +51,10 @@ export const environment = {
         MSP_RESIDENT_CONTACT: 'http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us',
         MSP_ELIGIBILITY: 'http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/are-you-eligible',
         MSP_ASSISTANCE: 'http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/premiums/regular-premium-assistance',
+        MSP_WAIT_PERIOD: 'http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/how-to-enrol/coverage-wait-period',
         FPCARE: 'http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/pharmacare-for-bc-residents/who-we-cover/fair-pharmacare-plan',
-        ICBC: 'www.icbc.com'
+        ICBC: 'http://www.icbc.com/',
+        BCSC_UPDATE: 'http://www2.gov.bc.ca/gov/content/governments/government-id/bc-services-card/change-your-personal-information'
     },
     /** Do not trigger guards */
     bypassGuards: true

@@ -1,20 +1,22 @@
 import {Component, OnInit} from '@angular/core';
-import {MspApplication} from '../../models/application.model';
-import { MspDataService } from '../../../../services/msp-data.service';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Observable,  Subscription} from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription} from 'rxjs';
 import * as moment from 'moment';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
-  templateUrl: './confirmation.component.html'
+  templateUrl: './confirmation.component.html',
+  styleUrls: ['./confirmation.component.scss']
 })
-export class ConfirmationComponent implements OnInit{
+export class ConfirmationComponent implements OnInit {
+
   lang = require('./i18n');
   confirmationNum: string;
   subscription: Subscription;
-  constructor(private dataService: MspDataService,
-              private route: ActivatedRoute) {
-  }
+
+  links = environment.links;
+  
+  constructor( private route: ActivatedRoute ) {}
 
   ngOnInit(): void {
     this.subscription = this.route.queryParams.subscribe(

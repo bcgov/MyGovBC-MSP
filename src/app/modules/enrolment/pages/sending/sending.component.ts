@@ -80,7 +80,6 @@ export class SendingComponent implements AfterContentInit {
         this.dataService.removeMspApplication();
 
         //  go to confirmation
-
         this.router.navigate([ROUTES_ENROL.CONFIRMATION.fullpath],
                 {queryParams: {confirmationNum: refNumber}});
 

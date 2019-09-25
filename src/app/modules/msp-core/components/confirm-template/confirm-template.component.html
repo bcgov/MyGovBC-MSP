@@ -1,0 +1,39 @@
+<ng-content select="[confirmationTitle]"></ng-content>
+<common-page-section layout='noTips'>
+
+  <!-- Icons and confirmation messages -->
+  <div [ngSwitch]="displayIcon">
+    <ng-container *ngSwitchCase="successCode">
+      <div class="message-container border-success">
+        <p class="msp-icon--success">
+          <i class="fa fa-2x fa-check-circle text-success pr-2" aria-label="success"></i>
+        </p>
+        <ng-container *ngTemplateOutlet="message"></ng-container>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="errorCode">
+      <div class="message-container border-danger">
+        <p class="msp-icon--error">
+          <i class="fa fa-2x fa-exclamation-triangle text-danger pr-2" aria-label="error"></i>
+        </p>
+        <ng-container *ngTemplateOutlet="message"></ng-container>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="warningCode">
+      <div class="message-container border-warning">
+        <p class="msp-icon--warning">
+          <i class="fa fa-2x fa-exclamation-circle text-warning pr-2" aria-label="warning"></i>
+        </p>
+        <ng-container *ngTemplateOutlet="message"></ng-container>
+      </div>
+    </ng-container>
+  </div>
+</common-page-section>
+
+<ng-content select="[AdditionalInfo]"></ng-content>
+
+<ng-template #message>
+  <ng-content></ng-content>
+</ng-template>
