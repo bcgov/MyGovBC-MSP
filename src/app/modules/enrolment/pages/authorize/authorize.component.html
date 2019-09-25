@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <div class="mt-2 pl-4">
+    <div class="mt-2">
       <common-captcha [apiBaseUrl]="captchaApiBaseUrl" 
                       [nonce]="mspApplication.uuid"
                       (onValidToken)="mspApplication.authorizationToken=$event">

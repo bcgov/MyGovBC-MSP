@@ -1,14 +1,9 @@
 @import 'variables.scss';
 
 $next-step--color: #00F;
-$message--font-size: 1.2rem;
 
 .icon--message {
-  font-size: 1.5rem;
-}
-
-.confirmation--message {
-  font-size: $message--font-size;
+  font-size: $h2-font-size;
 }
 
 .next-step--container {
@@ -18,6 +13,7 @@ $message--font-size: 1.2rem;
   border-style: solid;
   border-width: 3px !important;
   border-color: $next-step--color !important;
+  font-size: $h3-font-size;
 
   @include media-breakpoint-down(sm){
     height: auto;
@@ -31,4 +27,8 @@ $message--font-size: 1.2rem;
 
 .next-step--icon {
   color: $next-step--color;
+}
+
+.info--container {
+  font-size: $h3-font-size;
 }

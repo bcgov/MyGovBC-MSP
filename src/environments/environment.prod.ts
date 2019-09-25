@@ -44,5 +44,6 @@ export const environment = {
         ICBC: 'http://www.icbc.com/',
         BCSC_UPDATE: 'http://www2.gov.bc.ca/gov/content/governments/government-id/bc-services-card/change-your-personal-information'
     },
-    bypassGuards: false
+    bypassGuards: false,
+    useMockBackend: false
 };

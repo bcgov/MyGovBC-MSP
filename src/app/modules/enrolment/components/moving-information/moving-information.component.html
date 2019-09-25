@@ -26,7 +26,7 @@
     </div>
 
     <div *ngIf="isCanadianFromProv || isCanadianNotBC || isResidentFromProv; else SelectCountry"
-         class="form-group col-sm-6">
+         class="form-group col-sm-6 pl-0">
       <common-province name="movedFromProvince_{{objectId}}"
                        [provinceList]="provinceList"
                        [(ngModel)]="person.movedFromProvinceOrCountry"
@@ -36,22 +36,22 @@
     </div>
 
     <div *ngIf="isCanadianFromProv || isCanadianFromCountry; else NewToBC"
-         class="form-group col-sm-6">
+         class="form-group col-sm-6 pl-0">
         <common-date label="Arrival date in B.C."
                      [restrictDate]="'past'" 
                      [(date)]="person.arrivalToBCSimple">
         </common-date>
     </div>
 
-    <div class="form-group col-sm-6">
+    <div class="form-group col-sm-6 pl-0">
       <common-date label="Arrival date in Canada{{!arrivalDateRequired ? ' (optional)' : ''}}"
-                    [restrictDate]="'past'" 
-                    [(date)]="person.arrivalToCanadaDate"
-                    [required]="arrivalDateRequired">
+                   [restrictDate]="'past'" 
+                   [(date)]="person.arrivalToCanadaDate"
+                   [required]="arrivalDateRequired">
       </common-date>
     </div>
 
-    <div *ngIf="isCanadianFromProv" class="form-group col-sm-6">
+    <div *ngIf="isCanadianFromProv" class="form-group col-sm-6 pl-0">
         <label for="healthNumber_{{objectId}}" class="control-label">
             Health Number from that province (optional)
         </label>
@@ -163,7 +163,7 @@ and check departure was within last 12 months - need to find error messages for 
 
 <ng-template #SelectCountry>
   <div *ngIf="isCanadianFromCountry || isResidentFromCountry" 
-       class="form-group col-sm-6">
+       class="form-group col-sm-6 pl-0">
     <common-country name="movedFromCountry_{{objectId}}"
                     label="Which country are {{relationship}} moving from?"
                     [countryList]="countryList"
@@ -174,7 +174,7 @@ and check departure was within last 12 months - need to find error messages for 
 </ng-template>
 
 <ng-template #NewToBC>
-  <div class="form-group col-sm-6">
+  <div class="form-group col-sm-6 pl-0">
     <common-date label="Most recent move to B.C."
                  [restrictDate]="'past'" 
                  [(date)]="person.arrivalToBCSimple">

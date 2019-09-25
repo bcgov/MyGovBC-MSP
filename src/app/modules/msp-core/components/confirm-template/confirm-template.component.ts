@@ -3,9 +3,9 @@ import { Base } from 'moh-common-lib';
 
 
 export enum ApiStatusCodes {
-  SUCCESS = 0,
-  ERROR = 1,
-  WARNING = 2
+  SUCCESS = '0',
+  ERROR = '1',
+  WARNING = '2'
 }
 
 @Component({

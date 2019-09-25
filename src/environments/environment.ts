@@ -57,5 +57,6 @@ export const environment = {
         BCSC_UPDATE: 'http://www2.gov.bc.ca/gov/content/governments/government-id/bc-services-card/change-your-personal-information'
     },
     /** Do not trigger guards */
-    bypassGuards: true
+    bypassGuards: true,
+    useMockBackend: true
 };

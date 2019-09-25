@@ -1,34 +1,34 @@
 <common-page-framework layout="blank">
-	<msp-confirm-template>
-			<div confirmationTitle>
-				<a onclick="window.print();return false;">
-					<strong class="float-right">Print
-						<i class="fa fa-print fa-lg pointer" aria-hidden="true"></i>
-					</strong>
-				</a>
+	<msp-confirm-template [displayIcon]="status">
+		<div confirmationTitle *ngIf="isSucess; else ErrorTitle;">
+			<a onclick="window.print();return false;">
+				<strong class="float-right">Print
+					<i class="fa fa-print fa-lg pointer" aria-hidden="true"></i>
+				</strong>
+			</a>
 			<h1>Confirmation Message</h1>
 			<p class="border-bottom">
 				It is important to keep your reference number - write it down, or print this page for your records.
 			</p>
 		</div>
-		<div message>
+		<div message *ngIf="isSucess; else ErrorMsg">
 			<div class="icon--message">
 					Your application has been submitted
 			</div>
 			
-			<div class="confirmation--message">
+			<div>
 				{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}
 			</div>
 		</div>
 
-		<div AdditionalInfo>
+		<div *ngIf="isSucess" AdditionalInfo>
 			<h2 class="border-bottom">Next Steps</h2>
 			<common-page-section layout='noTips'>
 				<div class="next-step--container">
 					<p class="next-set--item">
 						<i class="fa fa-2x fa-exclamation-circle next-step--icon pr-2" aria-label="next steps"></i>
 					</p>
-					<div class="confirmation--message">
+					<div>
 						<p>
 							To complete MSP enrolment, adult Canadian Citizens and Permanent Residents must 
 							obtain a Photo BC Services Card by visiting an Insurance Corporation of BC (ICBC) 
@@ -45,7 +45,7 @@
 
 			<h2 class="border-bottom">Information</h2>
 			<common-page-section layout='noTips'>
-				<ul class="confirmation--message">
+				<ul class="info--container">
 					<li>
 						Allow 21 business days for your application to be processed.
 					</li>
@@ -72,3 +72,18 @@
 		</div>
 	</msp-confirm-template>
 </common-page-framework>
+
+
+<ng-template #ErrorTitle>
+	<div confirmationTitle>
+			<h1 class="border-bottom">There was a technical issue with your submission</h1>
+	</div>
+</ng-template>
+
+<ng-template #ErrorMsg>
+	<div message>
+		<div class="icon--message">
+				Your application was not submitted
+		</div>
+	</div>
+</ng-template>
