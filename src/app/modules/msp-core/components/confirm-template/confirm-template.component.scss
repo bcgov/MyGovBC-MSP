@@ -1,0 +1,21 @@
+@import 'variables.scss';
+
+.message-container {
+  display: flex;
+  padding: 1rem;
+  min-height: 50px;
+  border-style: solid;
+  border-width: 3px !important;
+
+  @include media-breakpoint-down(sm){
+    height: auto;
+    margin: initial;
+  }
+}
+
+.confirm-icon--success,
+.confirm-icon--error,
+.confirm-icon--warning
+{
+  flex-direction: column;
+}
