@@ -65,6 +65,13 @@ export function statusReasonRules( relationship: Relationship,
   }
 }
 
+export function getStatusStrings(): string[] {
+  return Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
+}
+
+export function getStatusReasonStrings(): string[] {
+  return Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
+}
 
 
 @Component({
@@ -89,9 +96,9 @@ export class CanadianStatusComponent extends Base {
   @Input() person: MspPerson;
   @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
 
-  statusOpts: string[] = Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
+  statusOpts: string[] = getStatusStrings();
 
-  private _reasonOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
+  private _reasonOpts: string[] = getStatusReasonStrings();
 
 
   constructor() {

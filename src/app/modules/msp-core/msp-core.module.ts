@@ -35,7 +35,6 @@ import { ReplacewithlinksPipe } from '../../components/msp/common/replace-link-p
 import { MspPersonCardComponent } from '../../components/msp/common/person-card/person-card.component';
 import { MspContactCardComponent } from '../../components/msp/common/contact-card/contact-card.component';
 import { CommonDeductionCalculatorComponent } from './components/common-deduction-calculator/common-deduction-calculator.component';
-import { KeyboardEventListner } from './components/keyboard-listener/keyboard-listener.directive';
 import { MspAddressCardPartComponent } from './components/address-card-part/address-card-part.component';
 import { MspLoggerDirective } from './components/logging/msp-logger.directive';
 import { HttpClientModule } from '@angular/common/http';
@@ -74,7 +73,6 @@ const componentList = [
   ConfirmTemplateComponent,
 
   // Directives
-  KeyboardEventListner,
   MspLoggerDirective,
   ReviewCardWrapperComponent,
 ];

@@ -53,7 +53,7 @@ import { Relationship } from '../../../../msp-core/models/relationship.enum';
 export class AccountPersonalDetailsComponent extends BaseComponent {
     lang = require('./i18n');
     langStatus = CanadianStatusStrings;
-    langAccountActivities = require('../../../../../components/msp/common/account-activities/i18n');
+    //langAccountActivities = require('../../../../../components/msp/common/account-activities/i18n');
     //langDocuments = require('../../../../../components/msp/common/documents/i18n');
 
     // Expose some types to template
