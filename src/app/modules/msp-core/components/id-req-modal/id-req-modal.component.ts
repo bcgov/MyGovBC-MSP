@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { AccordionComponent, ModalDirective } from 'ngx-bootstrap';
 import { IdRequirementContent } from './id-req-content.model.component';
-import { Documents } from '../../models/msp-document.constants';
+import { SupportDocuments } from '../../models/support-documents.enum';
 
 
 @Component({
@@ -27,7 +27,7 @@ export class MspIdReqModalComponent implements OnInit {
     ngOnInit() {
     }
 
-    showFullSizeView(initialDocument: Documents) {
+    showFullSizeView(initialDocument: SupportDocuments) {
         if (this.isForAccountChange) {
             document.body.classList.add('IE11Scroll');
         }

@@ -16,7 +16,7 @@ import {AccountLetterApplication, MspPerson} from '../../../../components/msp/mo
 import {MspBirthDateComponent} from '../../../msp-core/components/birthdate/birthdate.component';
 import {
     MSPEnrollementMember, EnrollmentStatusRules
-} from '../../../msp-core/models/status-activities-documents';
+} from '../../../../models/status-activities-documents';
 import {environment} from '../../../../../environments/environment';
 import {SpecificMemberComponent} from './specific-member/specific-member.component';
 import {LETTER, Masking, NUMBER, SPACE} from '../../../../components/msp/model/masking.model';

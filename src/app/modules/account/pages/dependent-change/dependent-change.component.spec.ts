@@ -39,7 +39,7 @@ import { MspReturnDateComponent } from '../../../../components/msp/common/return
 import { MspDepartureDateComponent } from '../../../../components/msp/common/departure-date/departure-date.component';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
 import { CaptchaDataService } from 'moh-common-lib/captcha/captcha-data.service';
-import { Relationship } from '../../../msp-core/models/status-activities-documents';
+import { Relationship } from '../../../../models/status-activities-documents';
 
 
 describe('AccountDependentChangeComponent', () => {

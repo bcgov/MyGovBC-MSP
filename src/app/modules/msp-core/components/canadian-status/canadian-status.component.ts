@@ -1,9 +1,8 @@
-import { Component, ViewChild, Input, Output, EventEmitter, forwardRef, OnInit } from '@angular/core';
-import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
+import { Component, Input, Output, EventEmitter, forwardRef, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { StatusInCanada, CanadianStatusStrings, CanadianStatusReasonStrings, CanadianStatusReason } from '../../models/canadian-status.enum';
-import { Relationship } from '../../models/relationship.enum';
+import { Relationship } from '../../../../models/relationship.enum';
 import { Base } from 'moh-common-lib';
 
 /**
@@ -65,12 +64,20 @@ export function statusReasonRules( relationship: Relationship,
   }
 }
 
+export function getStatusStrings(): string[] {
+  return Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
+}
+
+export function getStatusReasonStrings(): string[] {
+  return Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
+}
 
 
 @Component({
   selector: 'msp-canadian-status',
   templateUrl: './canadian-status.component.html',
   styleUrls: ['./canadian-status.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 
   /* Re-use the same ngForm that it's parent is using. The component will show
    * up in its parents `this.form`, and will auto-update `this.form.valid`
@@ -79,7 +86,7 @@ export function statusReasonRules( relationship: Relationship,
     { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
   ]
 })
-export class CanadianStatusComponent extends Base {
+export class CanadianStatusComponent extends Base implements OnChanges {
 
   @Input() statusReasonList: CanadianStatusReason[];
   @Input() label: String = 'Your immigration status in Canada';
@@ -89,13 +96,16 @@ export class CanadianStatusComponent extends Base {
   @Input() person: MspPerson;
   @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
 
-  statusOpts: string[] = Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
+  statusOpts: string[] = getStatusStrings();
 
-  private _reasonOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
-
+  private _reasonOpts: string[] = getStatusReasonStrings();
 
   constructor() {
     super();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log( 'onChanges: ', changes );
   }
 
   /**
@@ -144,6 +154,7 @@ export class CanadianStatusComponent extends Base {
    * Display available activities for status
    */
   get availableStatusReasons() {
+    console.log( 'availableStatusReasons: ', this.reasonList );
     if ( this.reasonList ) {
       return this.reasonList.map(itm => {
         return {

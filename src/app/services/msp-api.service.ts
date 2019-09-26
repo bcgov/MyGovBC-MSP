@@ -9,7 +9,7 @@ import { AddressType, AddressTypeFactory, AttachmentUuidsType, AttachmentUuidsTy
 import { DependentType, DependentTypeFactory, EnrolmentApplicantTypeFactory, EnrolmentApplicationTypeFactory, EnrolmentChildrenTypeFactory, EnrolmentDependentsTypeFactory, LivedInBCTypeFactory, OutsideBCTypeFactory, PersonType, PersonTypeFactory, PreviousCoverageTypeFactory, ResidencyType, ResidencyTypeFactory, WillBeAwayTypeFactory } from '../modules/msp-core/api-model/enrolmentTypes';
 import { ResponseType } from '../modules/msp-core/api-model/responseTypes';
 import { MspAccountApp } from '../modules/account/models/account.model';
-import { ApplicationBase } from '../modules/msp-core/models/application-base.model';
+import { ApplicationBase } from '../models/application-base.model';
 import { MspApplication } from '../modules/enrolment/models/application.model';
 import { AssistanceApplicationType, FinancialAssistApplication } from '../modules/assistance/models/financial-assist-application.model';
 import { OperationActionType as OperationActionTypeEnum, MspPerson } from '../components/msp/model/msp-person.model';
@@ -24,7 +24,7 @@ import {
     MSPApplicationSchema
   } from 'app/modules/msp-core/interfaces/i-api';
 import { StatusInCanada, CanadianStatusReason } from '../modules/msp-core/models/canadian-status.enum';
-import { Relationship } from '../modules/msp-core/models/relationship.enum';
+import { Relationship } from '../models/relationship.enum';
 
 const jxon = require('jxon/jxon');
 

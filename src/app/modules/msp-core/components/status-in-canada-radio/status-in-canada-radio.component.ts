@@ -2,10 +2,9 @@ import {ChangeDetectorRef, Component, Input, Output, EventEmitter, ViewChild} fr
 import {MspPerson} from '../../../../components/msp/model/msp-person.model';
 import {BaseComponent} from '../../../../models/base.component';
 import {ServicesCardDisclaimerModalComponent} from '../services-card-disclaimer/services-card-disclaimer.component';
-import { statusRules, statusReasonRules } from '../canadian-status/canadian-status.component';
+import { statusRules, statusReasonRules, getStatusReasonStrings } from '../canadian-status/canadian-status.component';
 import { StatusInCanada, CanadianStatusReason } from '../../models/canadian-status.enum';
-import { Relationship } from '../../models/relationship.enum';
-import { ActivitiesRules } from '../../models/status-activities-documents';
+import { Relationship } from '../../../../models/relationship.enum';
 
 // TODO: Remove component after add-dependent done in account module
 @Component({
@@ -15,7 +14,8 @@ import { ActivitiesRules } from '../../models/status-activities-documents';
 })
 export class MspStatusInCanadaRadioComponent extends BaseComponent {
     lang = require('./i18n');
-    langAccountActivities = require('../../../../components/msp/common/account-activities/i18n');
+
+    langAccountActivities: string[] = getStatusReasonStrings();
 
     Activities: typeof CanadianStatusReason = CanadianStatusReason;
     StatusInCanada: typeof StatusInCanada = StatusInCanada;

@@ -9,7 +9,7 @@ import {AccountPersonalDetailsComponent} from '../personal-info/personal-details
 import {RemoveDependentComponent} from '../remove-dependents/remove-dependents.component';
 import { OperationActionType, MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { AddDependentComponent } from '../add-dependents/add-dependents.component';
-import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../../models/relationship.enum';
 //import {ProcessUrls} from '../../../../services/process.service';
 
 @Component({

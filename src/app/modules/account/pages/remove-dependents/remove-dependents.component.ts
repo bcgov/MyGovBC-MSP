@@ -14,9 +14,9 @@ import {MspStatusInCanadaRadioComponent} from '../../../../modules/msp-core/comp
 import {AccountPersonalDetailsComponent} from '../personal-info/personal-details/personal-details.component';
 import { MspPerson } from '../../models/account.model';
 import { MspToggleComponent } from '../../../../components/msp/common/toggle/toggle.component';
-import { CancellationReasons, CancellationReasonsForSpouse } from '../../../msp-core/models/status-activities-documents';
+import { CancellationReasons, CancellationReasonsForSpouse } from '../../../../models/status-activities-documents';
 import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
-import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../../models/relationship.enum';
 
 
 @Component({

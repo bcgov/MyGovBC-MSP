@@ -1,4 +1,4 @@
-import { StatusInCanada, CanadianStatusReason } from './canadian-status.enum';
+import { StatusInCanada, CanadianStatusReason } from '../modules/msp-core/models/canadian-status.enum';
 import { Relationship } from './relationship.enum';
 
 /**
