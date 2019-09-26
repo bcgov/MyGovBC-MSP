@@ -7,9 +7,9 @@ import {AccountPersonalDetailsComponent} from './personal-details/personal-detai
 import { MspPerson } from '../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/account.model';
-import { StatusInCanada, CanadianStatusReason, CanadianStatusReasonStrings, CanadianStatusStrings, CanadianStatusRules } from '../../../msp-core/models/canadian-status.enum';
+import { StatusInCanada, CanadianStatusReason, CanadianStatusStrings, CanadianStatusRules } from '../../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../msp-core/models/relationship.enum';
-import { ActivitiesRules } from '../../../msp-core/models/status-activities-documents';
+import { getStatusReasonStrings } from '../../../msp-core/components/canadian-status/canadian-status.component';
 // import { Canadian }
 
 
@@ -22,7 +22,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
   static ProcessStepNum = 1;
   lang = require('./i18n');
   docSelected: string ;
-  activitiesOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
+  activitiesOpts: string[] = getStatusReasonStrings();
 
     langStatus = CanadianStatusStrings;
 
