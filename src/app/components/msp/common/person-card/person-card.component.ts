@@ -1,9 +1,11 @@
 import {Component, Input} from '@angular/core';
-import {MspPerson} from '../../../../components/msp/model/msp-person.model';
+import {MspPerson} from '../../model/msp-person.model';
 import { Router } from '@angular/router';
-import { StatusInCanada, CanadianStatusReason } from '../../models/canadian-status.enum';
+import { StatusInCanada,
+  CanadianStatusReason,
+  CanadianStatusStrings,
+  CanadianStatusReasonStrings } from '../../../../modules/msp-core/models/canadian-status.enum';
 import { getCountryDescription, getProvinceDescription } from 'moh-common-lib';
-import { getStatusStrings, getStatusReasonStrings } from '../canadian-status/canadian-status.component';
 
 @Component({
   selector: 'msp-person-card',
@@ -14,9 +16,9 @@ export class MspPersonCardComponent {
 
   lang = require('./i18n');
 
-  status: string[] = getStatusStrings();
+  status: string[] = Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
 
-  statusReason: string[] = getStatusReasonStrings();
+  statusReason: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
 
 
   @Input() person: MspPerson;
@@ -28,7 +30,6 @@ export class MspPersonCardComponent {
   }
 
   ngOnInit() {
-    
   }
 
   editPersonalInfo() {

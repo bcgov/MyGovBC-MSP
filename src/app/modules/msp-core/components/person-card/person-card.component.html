@@ -200,13 +200,13 @@
                 <strong>{{person.declarationForOutsideOver30Days ? "Yes": "No"}}</strong>
             </div>
         </div>
-        <div *ngIf="person.outOfBCRecord">
+        <div *ngIf="person.departureReason">
             <div class="row">
                 <div class="col-sm-4">
                     {{lang('./en/index.js').outsideBCReasonLabel}}
                 </div>
                 <div class="col-sm-8">
-                    <strong>{{person.outOfBCRecord.reason}}</strong>
+                    <strong>{{person.departureReason}}</strong>
                 </div>
             </div>
             <div class="row">
@@ -214,7 +214,7 @@
                     {{lang('./en/index.js').outsideBCLocationLabel}}
                 </div>
                 <div class="col-sm-8">
-                    <strong>{{person.outOfBCRecord.location}}</strong>
+                    <strong>{{person.departureDestination}}</strong>
                 </div>
             </div>
             <div class="row">
@@ -222,7 +222,7 @@
                     {{lang('./en/index.js').outsideBCDepartureDateLabel}}
                 </div>
                 <div class="col-sm-8">
-                    <strong>{{person.outOfBCRecord.departureDate.format("MMMM D, YYYY")}}</strong>
+                    <strong>{{person.departureDate}}</strong>
                 </div>
             </div>
             <div class="row">
@@ -230,7 +230,7 @@
                     {{lang('./en/index.js').outsideBCReturnDateLabel}}
                 </div>
                 <div class="col-sm-8">
-                    <strong>{{person.outOfBCRecord.returnDate.format("MMMM D, YYYY")}}</strong>
+                    <strong>{{person.returnDate}}</strong>
                 </div>
             </div>
         </div>
