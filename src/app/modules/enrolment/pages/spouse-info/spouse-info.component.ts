@@ -4,7 +4,7 @@ import { MspDataService } from '../../../../services/msp-data.service';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { PageStateService } from '../../../../services/page-state.service';
-import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../../models/relationship.enum';
 import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { EnrolForm } from '../../models/enrol-form';

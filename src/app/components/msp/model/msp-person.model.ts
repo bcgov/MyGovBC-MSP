@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import {PhoneNumber} from './phone.model';
 import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
 import { StatusInCanada, CanadianStatusReason } from '../../../modules/msp-core/models/canadian-status.enum';
-import { Relationship } from '../../../modules/msp-core/models/relationship.enum';
+import { Relationship } from '../../../models/relationship.enum';
 
 const sha1 = require('sha1');
 

@@ -22,7 +22,7 @@ import {AddNewDependentBeneficiaryComponent} from '../add-dependents/add-new-dep
 import { AccountPersonalDetailsComponent } from '../personal-info/personal-details/personal-details.component';
 import { BRITISH_COLUMBIA, CANADA } from 'moh-common-lib';
 import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
-import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../../models/relationship.enum';
 
 @Component({
     selector: 'msp-add-dependent',

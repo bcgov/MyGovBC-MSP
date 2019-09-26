@@ -4,7 +4,7 @@ import {BaseComponent} from '../../../../models/base.component';
 import {ServicesCardDisclaimerModalComponent} from '../services-card-disclaimer/services-card-disclaimer.component';
 import { statusRules, statusReasonRules, getStatusReasonStrings } from '../canadian-status/canadian-status.component';
 import { StatusInCanada, CanadianStatusReason } from '../../models/canadian-status.enum';
-import { Relationship } from '../../models/relationship.enum';
+import { Relationship } from '../../../../models/relationship.enum';
 
 // TODO: Remove component after add-dependent done in account module
 @Component({

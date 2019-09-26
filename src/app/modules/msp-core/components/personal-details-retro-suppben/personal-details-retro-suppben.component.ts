@@ -9,7 +9,7 @@ import {MspBenefitDataService} from '../../../benefit/services/msp-benefit-data.
 import { Subscription, Observable, of } from 'rxjs';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
 import { CommonImage } from 'moh-common-lib';
-import { Relationship } from '../../models/relationship.enum';
+import { Relationship } from '../../../../models/relationship.enum';
 @Component({
   selector: 'msp-personal-details-retro-suppben',
   templateUrl: './personal-details-retro-suppben.component.html',

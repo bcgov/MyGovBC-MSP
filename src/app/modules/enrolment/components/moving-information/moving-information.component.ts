@@ -4,7 +4,7 @@ import { ControlContainer, NgForm } from '@angular/forms';
 import { MspPerson } from '../../../account/models/account.model';
 import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 import { environment } from '../../../../../environments/environment';
-import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../../models/relationship.enum';
 
 @Component({
   selector: 'msp-moving-information',

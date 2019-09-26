@@ -17,7 +17,7 @@ import { OutofBCRecord } from '../../../../../models/outof-bc-record.model';
 import { ProvinceList } from 'moh-common-lib';
 import { MspAddressConstants } from '../../../../../models/msp-address.constants';
 import { StatusInCanada } from '../../../../msp-core/models/canadian-status.enum';
-import { Relationship } from '../../../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../../../models/relationship.enum';
 
 
 @Component({

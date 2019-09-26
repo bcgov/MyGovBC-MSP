@@ -1,7 +1,7 @@
 
 // import { ToggleComponent } from './toggle.component';
 import { Person } from './msp-person.model';
-import { Relationship } from '../../../modules/msp-core/models/status-activities-documents';
+import { Relationship } from '../../../models/status-activities-documents';
 
 describe('Person Model', () => {
     let applicant: Person;

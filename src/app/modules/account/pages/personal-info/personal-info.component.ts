@@ -8,7 +8,7 @@ import { MspPerson } from '../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/account.model';
 import { StatusInCanada, CanadianStatusReason, CanadianStatusStrings, CanadianStatusRules } from '../../../msp-core/models/canadian-status.enum';
-import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../../models/relationship.enum';
 import { getStatusReasonStrings } from '../../../msp-core/components/canadian-status/canadian-status.component';
 // import { Canadian }
 

@@ -13,7 +13,7 @@ import { Address } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { StatusInCanada, CanadianStatusReason, CanadianStatusStrings } from '../../../../msp-core/models/canadian-status.enum';
 import { statusRules, statusReasonRules } from '../../../../msp-core/components/canadian-status/canadian-status.component';
-import { Relationship } from '../../../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../../../models/relationship.enum';
 
 @Component({
         selector: 'msp-account-personal-details',
