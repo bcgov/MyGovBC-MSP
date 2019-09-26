@@ -1,6 +1,5 @@
 import {ChangeDetectorRef, Component, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {Router} from '@angular/router';
-import {MspPhoneComponent} from '../../../../components/msp/common/phone/phone.component';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {ProcessService} from '../../../../services/process.service';
 import {NgForm} from '@angular/forms';
@@ -26,7 +25,7 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     //@ViewChildren(BenefitPersonalDetailComponent) personalDetailsComponent: QueryList<BenefitPersonalDetailComponent>;
     @ViewChildren(PersonalDetailsRetroSuppbenComponent) personalDetailsComponent: QueryList<PersonalDetailsRetroSuppbenComponent>;
     @ViewChild('address') address: MspAddressComponent;
-    @ViewChild('phone') phone: MspPhoneComponent;
+    //@ViewChild('phone') phone: MspPhoneComponent;
     benefitApplication: BenefitApplication;
 
     constructor(private dataService: MspBenefitDataService,

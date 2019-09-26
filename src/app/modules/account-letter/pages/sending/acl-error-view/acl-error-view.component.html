@@ -16,7 +16,7 @@
             </div>
 
             <div *ngIf="rapidError" class="alert alert-info col-sm-10" role="alert">
-                <h4 [innerHtml]="rapidError|replacewithlinks"></h4>
+                <h4 [innerHtml]="transform(rapidError)"></h4> <!--replacewithlinks removed - This is will to be -->
             </div>
 
         </div>

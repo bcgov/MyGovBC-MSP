@@ -5,6 +5,7 @@ import {MspLogService} from '../../../../../services/log.service';
 import {Router} from '@angular/router';
 import {BaseComponent} from '../../../../../models/base.component';
 import {HttpErrorResponse} from '@angular/common/http';
+import { environment } from '../../../../../../environments/environment';
 
 /*
 this component is to abstract all the Error related details for ACL.
@@ -17,6 +18,8 @@ such as  RAPID error codes has to be sent to SPA_ENV etc
 })
 export class AclErrorViewComponent extends BaseComponent{
     lang = require('./i18n');
+    hibcHtml: string = ' <a href=' + environment.links.HIBC + ' target=\'_blank\'> Health Insurance BC</a>';
+    acbcHtml: string = ' <a href=' + environment.links.ACBC + ' target=\'_blank\'> Change of Address Service</a>';
 
     @Input()response: ACLApiResponse;
 
@@ -63,6 +66,22 @@ export class AclErrorViewComponent extends BaseComponent{
 
     retrySubmission() {
         this.router.navigate(['/account-letter/personal-info']);
+    }
+
+    // Brought logic in from replacewithlinks - only place used
+    transform(value: any, args?: any): any {
+        const links = [
+            { code: 'HIBC', name: this.hibcHtml },
+            { code: 'ACBC', name: this.acbcHtml }
+          ];
+        let str: String = value;
+        if (value) {
+            links.forEach(linkData => {
+                const re = new RegExp(linkData.code, 'gi');
+                str = str.replace(re, linkData.name);
+            });
+        }
+        return str;
     }
 
 }

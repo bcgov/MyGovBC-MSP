@@ -1,11 +1,9 @@
-import { ChangeDetectorRef, Component, ViewChild, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { BaseComponent } from '../../../../models/base.component';
-import { MspAddressComponent } from '../../../msp-core/components/address/address.component';
-import { MspPhoneComponent } from '../../../../components/msp/common/phone/phone.component';
 import { FinancialAssistApplication } from '../../models/financial-assist-application.model';
 import { AssistanceYear } from '../../models/assistance-year.model';
 import { AssistStateService } from '../../services/assist-state.service';
@@ -34,8 +32,6 @@ import { AssistStateService } from '../../services/assist-state.service';
 export class AssistancePersonalInfoComponent extends BaseComponent {
 
   @ViewChild('formRef') personalInfoForm: NgForm;
-  @ViewChild('address') address: MspAddressComponent;
-  @ViewChild('phone') phone: MspPhoneComponent;
   financialAssistApplication: FinancialAssistApplication;
 
   title = 'Add personal information and upload documents';

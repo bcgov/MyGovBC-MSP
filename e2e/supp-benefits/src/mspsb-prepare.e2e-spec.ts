@@ -1,7 +1,6 @@
-import { browser, element, by } from 'protractor';
+import { browser } from 'protractor';
 import { PreparePage } from './mspsb-supp-benefits.po';
 import { testGenericFirstPage, testGenericAllPages, fillConsentModal } from '../../msp-generic-tests';
-import { validateBirthdate } from 'app/modules/msp-core/models/validate-birthdate';
 
 describe('MSP Supplementary Benefits - Prepare Page:', () => {
     let page: PreparePage;

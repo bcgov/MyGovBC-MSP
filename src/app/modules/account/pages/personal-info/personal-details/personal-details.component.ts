@@ -4,12 +4,10 @@ import {
 } from '@angular/core';
 import { state, trigger, style, } from '@angular/animations';
 import {NgForm} from '@angular/forms';
-//import {Person} from '../../../model/person.model';
 import * as _ from 'lodash';
 import {MspBirthDateComponent} from '../../../../../modules/msp-core/components/birthdate/birthdate.component';
 import {MspStatusInCanadaRadioComponent} from '../../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
 import {BaseComponent} from '../../../../../models/base.component';
-import { MspPhoneComponent } from '../../../../../components/msp/common/phone/phone.component';
 import { MspPerson, MspAccountApp } from '../../../models/account.model';
 import { Address } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
@@ -67,7 +65,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @ViewChild('birthDate') birthdate: MspBirthDateComponent;
  //   @ViewChild('name') name: ElementRef;
   //  @ViewChild('phn') phn: MspPhnComponent;
-    @ViewChild('phone') phone: MspPhoneComponent;
+    //@ViewChild('phone') phone: MspPhoneComponent;
     @ViewChild(MspStatusInCanadaRadioComponent) statusRadioComponents: MspStatusInCanadaRadioComponent;
 
     @Input() person: MspPerson;
