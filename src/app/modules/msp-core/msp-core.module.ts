@@ -17,7 +17,6 @@ import { CalendarYearValidator } from '../../components/msp/common/calendar/cale
 import { CalendarDayValidator } from '../../components/msp/common/calendar/calendar-day.validator';
 import { CalendarMonthValidator } from '../../components/msp/common/calendar/calendar-month.validator';
 import { MspAddressComponent } from './components/address/address.component';
-import { MspPhoneComponent } from '../../components/msp/common/phone/phone.component';
 import { MspDischargeDateComponent } from '../../components/msp/common/discharge-date/discharge-date.component';
 import { MspDepartureDateComponent } from '../../components/msp/common/departure-date/departure-date.component';
 import { MspReturnDateComponent } from '../../components/msp/common/return-date/return-date.component';
@@ -31,11 +30,9 @@ import { MspToggleComponent } from '../../components/msp/common/toggle/toggle.co
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ModalModule, AccordionModule, TypeaheadModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
-import { ReplacewithlinksPipe } from '../../components/msp/common/replace-link-pipe/replacewithlinks.pipe';
-import { MspPersonCardComponent } from '../../components/msp/common/person-card/person-card.component';
+import { MspPersonCardComponent } from './components/person-card/person-card.component';
 import { MspContactCardComponent } from '../../components/msp/common/contact-card/contact-card.component';
 import { CommonDeductionCalculatorComponent } from './components/common-deduction-calculator/common-deduction-calculator.component';
-import { KeyboardEventListner } from './components/keyboard-listener/keyboard-listener.directive';
 import { MspAddressCardPartComponent } from './components/address-card-part/address-card-part.component';
 import { MspLoggerDirective } from './components/logging/msp-logger.directive';
 import { HttpClientModule } from '@angular/common/http';
@@ -56,7 +53,7 @@ import { ConfirmTemplateComponent } from './components/confirm-template/confirm-
 const componentList = [
   MspFullNameComponent,
   ServicesCardDisclaimerModalComponent,
-  MspStatusInCanadaRadioComponent,
+  MspStatusInCanadaRadioComponent,  // Replaced by CanadianStatusComponent - needs to be removed
   MspIdReqModalComponent,
   MspBirthDateComponent,
   MspImageErrorModalComponent,
@@ -66,6 +63,7 @@ const componentList = [
   PersonalDetailsRetroSuppbenComponent,
   ConfirmationComponent,
   CoreContactInfoComponent,
+  MspPersonCardComponent,
 
   // New components
   CanadianStatusComponent,
@@ -74,7 +72,6 @@ const componentList = [
   ConfirmTemplateComponent,
 
   // Directives
-  KeyboardEventListner,
   MspLoggerDirective,
   ReviewCardWrapperComponent,
 ];
@@ -89,7 +86,6 @@ const templistCore = [
   CalendarDayValidator,
   CalendarMonthValidator,
   MspAddressComponent,
-  MspPhoneComponent,
   MspDischargeDateComponent,
   MspDepartureDateComponent,
   MspReturnDateComponent,
@@ -100,8 +96,6 @@ const templistCore = [
   MspConsentModalComponent,
   MspCancelComponent,
   MspToggleComponent,
-  ReplacewithlinksPipe,
-  MspPersonCardComponent,
   MspContactCardComponent,
 ];
 @NgModule({

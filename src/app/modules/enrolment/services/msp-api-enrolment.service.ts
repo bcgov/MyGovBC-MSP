@@ -20,7 +20,7 @@ import {
 import * as moment from 'moment';
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
 import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
-import { Relationship } from '../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../models/relationship.enum';
 import { SchemaService } from '../../../services/schema.service';
 
 

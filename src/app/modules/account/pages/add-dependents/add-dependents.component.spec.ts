@@ -31,7 +31,7 @@ import { MspDepartureDateComponent } from '../../../../components/msp/common/dep
 import { MspReturnDateComponent } from '../../../../components/msp/common/return-date/return-date.component';
 import { ServicesCardDisclaimerModalComponent } from '../../../msp-core/components/services-card-disclaimer/services-card-disclaimer.component';
 import { Person } from 'moh-common-lib';
-import { Relationship } from '../../../msp-core/models/status-activities-documents';
+import { Relationship } from '../../../../models/status-activities-documents';
 import { AddDependentComponent } from './add-dependents.component';
 
 

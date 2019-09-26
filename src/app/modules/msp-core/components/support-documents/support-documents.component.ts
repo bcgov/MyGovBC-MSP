@@ -97,9 +97,11 @@ export class SupportDocumentsComponent extends Base implements OnInit {
   }
 
   get availableSupportDocuments() {
-    return this.documentList.map( itm => {
-      return this._documentOpts[itm];
-    });
+    if ( this.documentList ) {
+      return this.documentList.map( itm => {
+        return this._documentOpts[itm];
+      });
+    }
   }
 
   get documentList() {

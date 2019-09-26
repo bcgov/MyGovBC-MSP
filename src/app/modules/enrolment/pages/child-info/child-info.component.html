@@ -95,14 +95,16 @@
           </div>     
         </msp-personal-information>
 
-        <msp-moving-information [person]="child">
-          <div sectionTitleInfo>
-            <h3>Moving Information</h3>
-            <p class="border-bottom"> 
-              Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
-            </p>
-          </div>         
-        </msp-moving-information>
+        <div *ngIf="!isTemporaryResident">
+          <msp-moving-information [person]="child">
+            <div sectionTitleInfo>
+              <h3>Moving Information</h3>
+              <p class="border-bottom"> 
+                Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
+              </p>
+            </div>         
+          </msp-moving-information>
+        </div>
 
         <div *ngIf="isOveragedChild(idx)">
           <h2>School Information</h2>
@@ -127,7 +129,6 @@
             </div>
     
             <div class="form-group col-sm-8">
-              <div class="label">School Address</div> 
               <common-address [(address)]="child.schoolAddress"
                               [isRequired]="true"
                               [allowExtralines]='true'

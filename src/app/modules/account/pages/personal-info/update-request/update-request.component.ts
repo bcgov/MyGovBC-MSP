@@ -2,7 +2,7 @@ import {EventEmitter, Output, Component, Input } from '@angular/core';
 import { MspPerson } from '../../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { MspAccountApp, UpdateList } from '../../../models/account.model';
-import { ActivitiesRules } from '../../../../msp-core/models/status-activities-documents';
+import { ActivitiesRules } from '../../../../../models/status-activities-documents';
 import { StatusInCanada, CanadianStatusReason, CanadianStatusRules } from '../../../../msp-core/models/canadian-status.enum';
 
 

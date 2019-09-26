@@ -1,4 +1,4 @@
-import { APP_ROUTES } from '../../msp-core/models/route-constants';
+import { APP_ROUTES } from '../../../models/route-constants';
 
 export const ROUTES_ENROL = {
   CHECK_ELIG: {

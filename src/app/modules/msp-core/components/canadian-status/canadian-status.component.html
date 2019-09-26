@@ -2,8 +2,8 @@
 <common-page-section layout="tips">
   <ng-content select="[additionalInfo]"></ng-content>
   <div *ngIf="displayStatusInCanada" class="form-group col-sm-6 p-sm-0 mb-0">
-    <common-dropdown name="StatusInCanada_{objectId}}"
-                     id="StatusInCanada_{objectId}}"
+    <common-dropdown name="StatusInCanada_{{objectId}}"
+                     id="StatusInCanada_{{objectId}}"
                      [label]="label"
                      [items]="statusOpts"
                      placeholder="Select your status"
@@ -14,8 +14,8 @@
     </common-dropdown>
   </div>
   <div *ngIf="displayStatusReasons" class="form-group col-sm-8">
-    <common-radio name="statausReason_{{objectid}}"
-                  id="statausReason_{{objectid}}"
+    <common-radio name="statausReason_{{objectId}}"
+                  id="statausReason_{{objectId}}"
                   [radioLabels]="availableStatusReasons"
                   [ngModel]="person.currentActivity"
                   (ngModelChange)="setReason($event)" 

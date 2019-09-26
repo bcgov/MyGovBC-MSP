@@ -4,7 +4,7 @@ import { MspDataService } from '../../../../services/msp-data.service';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
-import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../../models/relationship.enum';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 import { EnrolForm } from '../../models/enrol-form';
@@ -73,7 +73,7 @@ export class ChildInfoComponent extends EnrolForm {
            this.hasStatusDocuments( idx );
   }
 
-  isOveragedChild(idx: number ) {
+  isOveragedChild( idx: number ) {
     return this.children[idx].relationship === Relationship.Child19To24;
   }
 
@@ -88,8 +88,13 @@ export class ChildInfoComponent extends EnrolForm {
     if ( this.children.length > 0 ) {
       valid = super.canContinue() &&
                 this.children.map( x => {
-                  let childValid = x.madePermanentMoveToBC &&
-                                   (x.documents.images && x.documents.images.length > 0);
+                  let childValid = x.documents.images && x.documents.images.length > 0;
+
+                   // If not temporary resident needs to have moved permenently to BC
+                  if ( x.status !== StatusInCanada.TemporaryResident) {
+                    childValid = childValid && x.madePermanentMoveToBC;
+                  }
+
                   if (x.hasNameChange){
                     childValid = childValid &&
                                  x.nameChangeDocs.images &&

@@ -1,21 +1,19 @@
-
-// import { ToggleComponent } from './toggle.component';
-import { Person } from './msp-person.model';
-import { Relationship } from '../../../modules/msp-core/models/status-activities-documents';
+import { MspPerson } from './msp-person.model';
+import { Relationship } from '../../../models/relationship.enum';
 
 describe('Person Model', () => {
-    let applicant: Person;
-    let spouse: Person;
-    let childUnder19: Person;
-    let child19To24: Person;
-    let childUnder24: Person;
+    let applicant: MspPerson;
+    let spouse: MspPerson;
+    let childUnder19: MspPerson;
+    let child19To24: MspPerson;
+    let childUnder24: MspPerson;
 
     beforeEach(() => {
-        applicant = new Person(Relationship.Applicant);
-        spouse = new Person(Relationship.Spouse);
-        childUnder19 = new Person(Relationship.ChildUnder19);
-        child19To24 = new Person(Relationship.Child19To24);
-        childUnder24 = new Person(Relationship.ChildUnder24);
+        applicant = new MspPerson(Relationship.Applicant);
+        spouse = new MspPerson(Relationship.Spouse);
+        childUnder19 = new MspPerson(Relationship.ChildUnder19);
+        child19To24 = new MspPerson(Relationship.Child19To24);
+        childUnder24 = new MspPerson(Relationship.ChildUnder24);
     });
 
     it('should create', () => {

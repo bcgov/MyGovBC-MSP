@@ -1,8 +1,8 @@
 import { MspPerson } from './msp-person.model';
 import { UUID } from 'angular2-uuid';
-import { ApplicationBase } from '../../../modules/msp-core/models/application-base.model';
+import { ApplicationBase } from '../../../models/application-base.model';
 import { CommonImage } from 'moh-common-lib';
-import { Relationship } from '../../../modules/msp-core/models/relationship.enum';
+import { Relationship } from '../../../models/relationship.enum';
 
 /**
  * Overall MSP Application Process Data

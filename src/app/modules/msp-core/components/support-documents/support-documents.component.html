@@ -26,7 +26,7 @@
     </common-xicon-button>
   </h2>
   <common-page-section layout="tips">
-    <common-file-uploader [images]="supportDoc.images" 
+    <common-file-uploader [images]="supportDoc?.images" 
                           (imagesChange)="documentChange($event)"
                           id="docUploader_{{objectId}}" 
                           [required]="true" 

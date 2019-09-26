@@ -29,7 +29,7 @@ import {
   MSPApplicationSchema
 } from 'app/modules/msp-core/interfaces/i-api';
 import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
-import { Relationship } from '../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../models/relationship.enum';
 
 
 @Injectable({

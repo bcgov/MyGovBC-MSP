@@ -4,18 +4,16 @@ import {
 } from '@angular/core';
 import { state, trigger, style, } from '@angular/animations';
 import {NgForm} from '@angular/forms';
-//import {Person} from '../../../model/person.model';
 import * as _ from 'lodash';
 import {MspBirthDateComponent} from '../../../../../modules/msp-core/components/birthdate/birthdate.component';
 import {MspStatusInCanadaRadioComponent} from '../../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
 import {BaseComponent} from '../../../../../models/base.component';
-import { MspPhoneComponent } from '../../../../../components/msp/common/phone/phone.component';
 import { MspPerson, MspAccountApp } from '../../../models/account.model';
 import { Address } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { StatusInCanada, CanadianStatusReason, CanadianStatusStrings } from '../../../../msp-core/models/canadian-status.enum';
 import { statusRules, statusReasonRules } from '../../../../msp-core/components/canadian-status/canadian-status.component';
-import { Relationship } from '../../../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../../../models/relationship.enum';
 
 @Component({
         selector: 'msp-account-personal-details',
@@ -53,7 +51,7 @@ import { Relationship } from '../../../../msp-core/models/relationship.enum';
 export class AccountPersonalDetailsComponent extends BaseComponent {
     lang = require('./i18n');
     langStatus = CanadianStatusStrings;
-    langAccountActivities = require('../../../../../components/msp/common/account-activities/i18n');
+    //langAccountActivities = require('../../../../../components/msp/common/account-activities/i18n');
     //langDocuments = require('../../../../../components/msp/common/documents/i18n');
 
     // Expose some types to template
@@ -67,7 +65,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     @ViewChild('birthDate') birthdate: MspBirthDateComponent;
  //   @ViewChild('name') name: ElementRef;
   //  @ViewChild('phn') phn: MspPhnComponent;
-    @ViewChild('phone') phone: MspPhoneComponent;
+    //@ViewChild('phone') phone: MspPhoneComponent;
     @ViewChild(MspStatusInCanadaRadioComponent) statusRadioComponents: MspStatusInCanadaRadioComponent;
 
     @Input() person: MspPerson;

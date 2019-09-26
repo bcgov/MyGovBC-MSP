@@ -1,7 +1,7 @@
 import AddressDto from './address.dto';
 import {OutofBCRecordDto} from '../../../models/outof-bc-record.dto';
 import { SimpleDate , CommonImage } from 'moh-common-lib';
-import {MSPEnrollementMember} from '../../../modules/msp-core/models/status-activities-documents';
+import {MSPEnrollementMember} from '../../../models/status-activities-documents';
 
 
 // TODO: Class makes reference to self within definition - This should be reviewed
