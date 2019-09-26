@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
-import {MspPerson} from '../../model/msp-person.model';
+import {MspPerson} from '../../../../components/msp/model/msp-person.model';
 import { Router } from '@angular/router';
-import { StatusInCanada, CanadianStatusReason } from '../../../../modules/msp-core/models/canadian-status.enum';
+import { StatusInCanada, CanadianStatusReason } from '../../models/canadian-status.enum';
 import { getCountryDescription, getProvinceDescription } from 'moh-common-lib';
-import { getStatusStrings, getStatusReasonStrings } from '../../../../modules/msp-core/components/canadian-status/canadian-status.component';
+import { getStatusStrings, getStatusReasonStrings } from '../canadian-status/canadian-status.component';
 
 @Component({
   selector: 'msp-person-card',

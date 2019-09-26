@@ -32,7 +32,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ModalModule, AccordionModule, TypeaheadModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { ReplacewithlinksPipe } from '../../components/msp/common/replace-link-pipe/replacewithlinks.pipe';
-import { MspPersonCardComponent } from '../../components/msp/common/person-card/person-card.component';
+import { MspPersonCardComponent } from './components/person-card/person-card.component';
 import { MspContactCardComponent } from '../../components/msp/common/contact-card/contact-card.component';
 import { CommonDeductionCalculatorComponent } from './components/common-deduction-calculator/common-deduction-calculator.component';
 import { MspAddressCardPartComponent } from './components/address-card-part/address-card-part.component';
@@ -55,7 +55,7 @@ import { ConfirmTemplateComponent } from './components/confirm-template/confirm-
 const componentList = [
   MspFullNameComponent,
   ServicesCardDisclaimerModalComponent,
-  MspStatusInCanadaRadioComponent,
+  MspStatusInCanadaRadioComponent,  // Replaced by CanadianStatusComponent - needs to be removed
   MspIdReqModalComponent,
   MspBirthDateComponent,
   MspImageErrorModalComponent,
@@ -65,6 +65,7 @@ const componentList = [
   PersonalDetailsRetroSuppbenComponent,
   ConfirmationComponent,
   CoreContactInfoComponent,
+  MspPersonCardComponent,
 
   // New components
   CanadianStatusComponent,
@@ -99,7 +100,6 @@ const templistCore = [
   MspCancelComponent,
   MspToggleComponent,
   ReplacewithlinksPipe,
-  MspPersonCardComponent,
   MspContactCardComponent,
 ];
 @NgModule({
