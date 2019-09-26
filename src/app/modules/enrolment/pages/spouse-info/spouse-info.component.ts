@@ -1,52 +1,27 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
-import { MspApplication } from '../../models/application.model';
 import { PageStateService } from '../../../../services/page-state.service';
 import { Relationship } from '../../../msp-core/models/relationship.enum';
 import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
-import { AbstractForm } from 'moh-common-lib';
-import { Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { EnrolForm } from '../../models/enrol-form';
 
 @Component({
   selector: 'msp-spouse-info',
   templateUrl: './spouse-info.component.html'
 })
-export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
+export class SpouseInfoComponent extends EnrolForm {
 
   statusLabel: string = 'Spouse\'s immigration status in Canada';
   nameChangeDocList = nameChangeSupportDocuments();
-  subscriptions: Subscription[];
 
-
-  constructor( private dataService: MspDataService,
-               protected router: Router,
-               private pageStateService: PageStateService) {
-      super(router);
-  }
-
-  ngOnInit() {
-    this.pageStateService.setPageIncomplete(this.router.url, this.dataService.mspApplication.pageStatus);
-  }
-
-  ngAfterViewInit() {
-    if (this.form) {
-      this.subscriptions = [
-        this.form.valueChanges.pipe(
-          debounceTime(100)
-        ).subscribe(() => {
-          this.dataService.saveMspApplication();
-        })
-      ];
-    }
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach( itm => itm.unsubscribe() );
+  constructor( protected router: Router,
+               protected dataService: MspDataService,
+               protected pageStateService: PageStateService ) {
+    super( dataService, pageStateService, router );
   }
 
   /**
@@ -58,22 +33,22 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
 
   addSpouse() {
     const sp: MspPerson = new MspPerson(Relationship.Spouse);
-    this.dataService.mspApplication.addSpouse(sp);
+    this.mspApplication.addSpouse(sp);
   }
 
   /**
    * Remove spouse
    */
   removeSpouse(): void{
-    this.dataService.mspApplication.removeSpouse();
+    this.mspApplication.removeSpouse();
   }
 
   get spouse(): MspPerson {
-    return this.dataService.mspApplication.spouse;
+    return this.mspApplication.spouse;
   }
 
   get statusDocuments(): PersonDocuments {
-    return this.dataService.mspApplication.spouse.documents;
+    return this.mspApplication.spouse.documents;
   }
 
   set statusDocuments( documents: PersonDocuments ) {
@@ -113,15 +88,14 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
 
 
   continue() {
-    if ( !this.canContinue() ) {
-      this.markAllInputsTouched();
-      return;
-    }
-    this.pageStateService.setPageComplete(this.router.url, this.dataService.mspApplication.pageStatus);
-    this.navigate(ROUTES_ENROL.CHILD_INFO.fullpath);
+    this._nextUrl = ROUTES_ENROL.CHILD_INFO.fullpath;
+    this._canContinue = this.canContinue();
+
+    super.continue();
   }
 
   canContinue(): boolean {
+
     let valid = true;
 
     if ( this.hasSpouse ) {
@@ -134,22 +108,4 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
     }
     return valid;
   }
-
-
-
-
-
-
-  documentsReady(): boolean {
-    return this.dataService.mspApplication.spouseDocumentsReady;
-  }
-
-  checkAnyDependentsIneligible(): boolean {
-    const target = [this.dataService.mspApplication.applicant, this.dataService.mspApplication.spouse , ...this.dataService.mspApplication.children];
-    return target.filter(x => x)
-        .filter(x => x.ineligibleForMSP).length >= 1;
-  }
-
-
-
 }

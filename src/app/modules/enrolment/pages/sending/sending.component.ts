@@ -8,7 +8,10 @@ import { MspApiEnrolmentService } from '../../services/msp-api-enrolment.service
 import { ApiResponse } from '../../../../models/api-response.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
+import { ApiStatusCodes } from '../../../msp-core/components/confirm-template/confirm-template.component';
 
+
+// TODO: mimic what Sean did in retro pa
 @Component({
   templateUrl: 'sending.component.html',
   styleUrls: ['./sending.component.scss']
@@ -66,23 +69,22 @@ export class SendingComponent implements AfterContentInit {
       }
 
       const refNumber = response.op_reference_number;
-
-
+      const statusCode = (response.op_return_code === 'SUCCESS' ? ApiStatusCodes.SUCCESS : ApiStatusCodes.ERROR);
 
        // this.application = application;
         console.log(this.application);
 
         this.logService.log({name: 'Enrolment - Received refNo ',
-          confirmationNumber: this.application.referenceNumber}, 'Enrolment - Submission Response Success');
+          confirmationNumber: this.application.referenceNumber},
+          'Enrolment - Submission Response Success');
 
 
         //delete the application from storage
         this.dataService.removeMspApplication();
 
         //  go to confirmation
-
         this.router.navigate([ROUTES_ENROL.CONFIRMATION.fullpath],
-                {queryParams: {confirmationNum: refNumber}});
+                {queryParams: {confirmationNum: refNumber, status: statusCode}});
 
       }).catch((error: ResponseType | any) => {
         console.log('error in sending application: ', error);

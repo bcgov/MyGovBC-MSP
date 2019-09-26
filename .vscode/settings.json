@@ -1,4 +1,6 @@
 {
 "typescript.tsdk": "./node_modules/typescript/lib",
-"vsicons.presets.angular": true
+"vsicons.presets.angular": true,
+"editor.tabSize": 2,
+"editor.tabCompletion": "on"
 }

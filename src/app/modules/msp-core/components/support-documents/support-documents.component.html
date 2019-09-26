@@ -1,6 +1,6 @@
 <ng-content select="[sectionTitleInfo]"></ng-content>
-<div class="form-row align-items-end">
-  <div class="form-group col-sm-4">
+<div class="d-flex flex-row align-items-stretch">
+  <div class="form-group col-sm-4 pl-0">
     <common-dropdown name="DocumentType_{{objectId}}"
                      label="Document Type"
                      [items]="availableSupportDocuments"
@@ -10,7 +10,7 @@
                      required>
     </common-dropdown>
   </div>
-  <div *ngIf="displayButton" class="form-group col-sm-4">
+  <div *ngIf="displayButton" class="form-group col-sm-6 display--button">
     <common-button label="Add"
                    buttonType="primary"
                    (btnClick)="addDocument()"
