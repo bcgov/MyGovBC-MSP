@@ -1,6 +1,6 @@
 <ng-content select="[sectionTitleInfo]"></ng-content>
 <common-page-section layout="tips">
-  <div class="form-group col-sm-6 p-sm-2">
+  <div class="form-group col-sm-6 pl-0">
     <common-name name="firstName_{{objectId}}" 
                   label="First name" 
                   [disabled]="disabled" 
@@ -10,7 +10,7 @@
                   commonValidateName></common-name>
   </div>
 
-  <div class="form-group col-sm-6 p-sm-2">
+  <div class="form-group col-sm-6 pl-0">
     <common-name name="middleName_{{objectId}}"
                   label="Middle name (optional)" 
                   [disabled]="disabled" 
@@ -19,7 +19,7 @@
                   commonValidateName></common-name>
   </div>
     
-  <div class="form-group col-sm-6 p-sm-2">
+  <div class="form-group col-sm-6 pl-0">
     <common-name name="lastName_{{objectId}}" 
                   label="Last name" 
                   [disabled]="disabled" 
@@ -29,14 +29,14 @@
                   commonValidateName></common-name>
   </div>
 
-  <div class="form-group col-sm-6 p-sm-2">
+  <div class="form-group col-sm-6 pl-0">
       <common-date label="Birthdate"
                    [restrictDate]="'past'" 
                    [disabled]="disabled"
                    [(date)]="dateOfBirth"></common-date>
   </div>
 
-  <div class="form-group col-sm-6 p-sm-2">
+  <div class="form-group col-sm-6 pl-0">
     <common-radio name="gender_{{objectId}}"
                   [(ngModel)]="gender"
                   label="Gender"

@@ -1,52 +1,89 @@
 <common-page-framework layout="blank">
-    <a onclick="window.print();return false;" >   
-    <b class="float-right">Print <i class="fa fa-print fa-lg pointer" 
-        aria-hidden="true"></i>
-    </b>
-    </a>
-    <h2>Confirmation Message</h2>
-    <hr>
-    <div style="border-style: solid; color:#83D31D" >
-        <div class="container">
-            <h1>
-                <i class="fa fa-check-circle" aria-hidden="true"></i> Your application has been submitted
-            </h1>
-            <p class="font-weight-normal h4">{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}</p>
-        </div>
-    </div>
-    
-    <h2>Next Steps</h2>
-    <hr>
-    <div class="col-lg-6">
-    
-        <ul>
-            <li>
-                <h3 [innerHTML]="lang('./en/index.js').nextStep1" onclick="window.print();" class="pointer"></h3>
-            </li>
-            <li>
-                <h3 [innerHTML]="lang('./en/index.js').nextStep2"></h3>
-            </li>
-            <li>
-                <h3 [innerHTML]="lang('./en/index.js').nextStep3"></h3>
-            </li>
-            <li>
-                <h3 [innerHTML]="lang('./en/index.js').nextStep4"></h3>
-            </li>
-            <li>
-                <h3 [innerHTML]="lang('./en/index.js').nextStep5"></h3>
-            </li>
-            <li>
-                <h3 [innerHTML]="lang('./en/index.js').nextStep6"></h3>
-            </li>
-            <li>
-                <h3 [innerHTML]="lang('./en/index.js').nextStep7"></h3>
-            </li>
-            <li>
-                <h3 [innerHTML]="lang('./en/index.js').nextStep8"></h3>
-            </li>
-            <li>
-                <h3 [innerHTML]="lang('./en/index.js').nextStep9"></h3>
-            </li>
-        </ul>
-    </div>
+	<msp-confirm-template [displayIcon]="status">
+		<div confirmationTitle *ngIf="isSucess; else ErrorTitle;">
+			<a onclick="window.print();return false;">
+				<strong class="float-right">Print
+					<i class="fa fa-print fa-lg pointer" aria-hidden="true"></i>
+				</strong>
+			</a>
+			<h1>Confirmation Message</h1>
+			<p class="border-bottom">
+				It is important to keep your reference number - write it down, or print this page for your records.
+			</p>
+		</div>
+		<div message *ngIf="isSucess; else ErrorMsg">
+			<div class="icon--message">
+					Your application has been submitted
+			</div>
+			
+			<div>
+				{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}
+			</div>
+		</div>
+
+		<div *ngIf="isSucess" AdditionalInfo>
+			<h2 class="border-bottom">Next Steps</h2>
+			<common-page-section layout='noTips'>
+				<div class="next-step--container">
+					<p class="next-set--item">
+						<i class="fa fa-2x fa-exclamation-circle next-step--icon pr-2" aria-label="next steps"></i>
+					</p>
+					<div>
+						<p>
+							To complete MSP enrolment, adult Canadian Citizens and Permanent Residents must 
+							obtain a Photo BC Services Card by visiting an Insurance Corporation of BC (ICBC) 
+							driver licensing office. To find an ICBC driver licensing office near you, please 
+							visit <a href="{{links.ICBC}}" target="_blank">icbc.com</a>.
+						</p>
+						<p>
+							If you have already been to an ICBC driver licensing office and requested a Photo 
+							BC Services Card, no further action is required.
+						</p>
+					</div>
+				</div>
+			</common-page-section>
+
+			<h2 class="border-bottom">Information</h2>
+			<common-page-section layout='noTips'>
+				<ul class="info--container">
+					<li>
+						Allow 21 business days for your application to be processed.
+					</li>
+				  <li>
+						Once your application is processed, you will be sent a letter that confirms your MSP enrolment status. You may have a 
+						<a href="{{links.MSP_WAIT_PERIOD}}" target="_blank">wait period</a>.
+					</li>
+					<li>
+						When you get your BC Services Card, register for the <a href="{{links.FPCARE}}" target="_blank">FairPharmacare plan</a>. It can help 
+						with the cost of prescription drugs and some medical supplies. Registration is free.
+					</li>
+					<li>
+						Keep your personal information up to date. <a href="{{links.BCSC_UPDATE}}" target="_blank">Change your name, address or gender</a>.
+					</li>	
+					<li>
+						Living outside the province for more than six months could cause your MSP enrolment to be cancelled. 
+						<a href="{{links.MSP_ELIGIBILITY}}" target="_blank">Learn more about eligibility for MSP</a>.
+					</li>
+					<li>
+						If you have questions, contact <a href="{{links.MSP_RESIDENT_CONTACT}}" target="_blank">Health Insurance BC</a>.
+					</li>
+				</ul>
+			</common-page-section>
+		</div>
+	</msp-confirm-template>
 </common-page-framework>
+
+
+<ng-template #ErrorTitle>
+	<div confirmationTitle>
+			<h1 class="border-bottom">There was a technical issue with your submission</h1>
+	</div>
+</ng-template>
+
+<ng-template #ErrorMsg>
+	<div message>
+		<div class="icon--message">
+				Your application was not submitted
+		</div>
+	</div>
+</ng-template>

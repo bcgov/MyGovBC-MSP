@@ -56,7 +56,7 @@
         </div>
 
         <div requestAdditionInfo>
-          <div class="form-group p-sm-2">
+          <div class="form-group">
             <common-radio name="NameChangeQuestion_{{id}}"
                           [(ngModel)]="child.hasNameChange"  
                           label="Has your child's name changed since their ID was issued?"
@@ -88,7 +88,7 @@
       <div *ngIf="requestPersonalInfo(idx)">
         <msp-personal-information [person]="child">
           <div sectionTitleInfo>
-            <h2>Child's Information</h2>
+            <h3>Child's Information</h3>
             <p class="border-bottom"> 
               Enter child's legal name and gender.
             </p>
@@ -97,18 +97,77 @@
 
         <msp-moving-information [person]="child">
           <div sectionTitleInfo>
-            <h2>Moving Information</h2>
+            <h3>Moving Information</h3>
             <p class="border-bottom"> 
-                Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
+              Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
             </p>
           </div>         
-        </msp-moving-information>          
-      </div>
+        </msp-moving-information>
 
+        <div *ngIf="isOveragedChild(idx)">
+          <h2>School Information</h2>
+          <p class="border-bottom">
+            Enter information of the school that this child is attending (must be in full-time attendance)
+          </p>
+          <common-page-section layout="tips">
+            <div class="form-group col-sm-6">
+              <label for="schoolName_{{objectId}}" class="control-label">
+                Name of school
+              </label>
+              <input #schoolNameRef="ngModel"
+                      name="schoolName_{{objectId}}"
+                      type="text" 
+                      class="form-control"
+                      [(ngModel)]=child.schoolName
+                      maxlength="50"
+                      required>
+              <common-error-container [displayError]="schoolNameRef.error?.required">
+                Name of school is required.
+              </common-error-container>
+            </div>
+    
+            <div class="form-group col-sm-8">
+              <div class="label">School Address</div> 
+              <common-address [(address)]="child.schoolAddress"
+                              [isRequired]="true"
+                              [allowExtralines]='true'
+                              [disableGeocoder]='true'>
+              </common-address>
+            </div>
+
+            <div class="form-group col-sm-6">
+              <common-date label="Original departure date from B.C. (if school is outside B.C.)"
+                            [(date)]="child.studiesDepartureSimple"
+                            [required]="false">
+              </common-date>
+            </div>    
+        
+            <div class="form-group col-sm-6">
+              <common-date label="Expected school completion date"
+                          [(date)]="child.studiesFinishedSimple">
+              </common-date>
+            </div>  
+      
+            <div class="form-group col-sm-8">
+              <common-radio name="inBCafterStudiesOA_{{objectId}}"
+                            [(ngModel)]="child.inBCafterStudies"  
+                            label="Will this child reside in B.C. after completing study in this school?" 
+                            required>
+              </common-radio>
+              <common-error-container [displayError]="child.inBCafterStudies == false && !isTemporaryResident(idx)">
+                To qualify for provincial health care benefits a person must be a resident of 
+                B.C.  As you intend to leave B.C. when your studies are completed, you are not 
+                eligible for Medical Services Plan coverage.  Please contact the health care plan 
+                in your home province for information about medical coverage while studying in B.C.
+              </common-error-container>
+            </div>
+          </common-page-section>
+        </div>
+      </div>
     </div>
   </form>
 </common-page-framework>
 <common-form-action-bar [submitLabel]="children.length > 0? 'Continue':'No Child'"
-                        [canContinue]="canContinue()" 
+                        widthOption='extra-width-mobile-only' 
                         (btnClick)="continue()">
 </common-form-action-bar>

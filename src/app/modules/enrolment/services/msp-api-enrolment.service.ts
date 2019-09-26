@@ -21,6 +21,7 @@ import * as moment from 'moment';
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
 import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../msp-core/models/relationship.enum';
+import { SchemaService } from '../../../services/schema.service';
 
 
 // TODO - Move file - meant to be generic?
@@ -46,7 +47,8 @@ export class MspApiEnrolmentService extends AbstractHttpService {
 
   constructor(
     protected http: HttpClient,
-    private logService: MspLogService
+    private logService: MspLogService,
+    private schemaSvc: SchemaService
   ) {
     super(http);
   }
@@ -60,11 +62,44 @@ export class MspApiEnrolmentService extends AbstractHttpService {
 
   sendRequest(app: MspApplication): Promise<any> {
     console.log(app.uuid);
-    const suppBenefitRequest = this.prepareEnrolmentApplication(app);
+    const enrolmentRequest = this.prepareEnrolmentApplication(app);
+    console.log(enrolmentRequest);
 
-    console.log(suppBenefitRequest);
+    return new Promise<ApiResponse>((resolve, reject) => {
 
-    return new Promise<ApiResponse>((resolve) => {
+      //Validating the response against the schema
+      this.schemaSvc.validate(enrolmentRequest).then(res => {
+        console.log(res.errors);
+        if (res.errors) {
+          let errorField;
+          let errorMessage;
+
+          // Getting the error field
+          for (const err of res.errors) {
+            errorField = err.dataPath.substr(34);
+            errorMessage = err.message;
+          }
+          // checking the errors and routing to the correct URL
+          if (errorField && errorMessage) {
+            this.logService.log(
+              {
+                text:
+                  'Enrolment Application  - API validation against schema failed becuase of ' +
+                  errorField +
+                  ' field',
+                response: errorMessage
+              },
+              'Enrolment Application -  API validation against schema failed'
+            );
+
+            //const mapper = new FieldPageMap();
+            //const index = mapper.findStep(errorField);
+            //const urls = this.dataSvc.getMspProcess().processSteps;
+            //this.router.navigate([urls[index].route]);
+            return reject(errorMessage);
+          }
+        }
+      });
 
       // if no errors, then we'll sendApplication all attachments
       return this.sendAttachments(
@@ -76,7 +111,7 @@ export class MspApiEnrolmentService extends AbstractHttpService {
       console.log('sendAttachments response', attachmentResponse);
 
       return this.sendEnrolmentApplication(
-        suppBenefitRequest,
+        enrolmentRequest,
         app.authorizationToken
       ).subscribe(response => {
         // Add reference number
@@ -87,31 +122,31 @@ export class MspApiEnrolmentService extends AbstractHttpService {
         return resolve(response);
       });
       })
-      .catch((error: Response | any) => {
+      .catch((err: Response | any) => {
       // TODO - Is this error correct? What if sendApplication() errors, would it be caught in this .catch()?
-      console.log('sent all attachments rejected: ', error);
+      console.log('sent all attachments rejected: ', err);
       this.logService.log(
         {
         text: 'Attachment - Send All Rejected ',
-        response: error
+        response: err
         },
         'Attachment - Send All Rejected '
       );
-      return resolve(error);
+      return resolve(err);
       });
 
     });
   }
 
   sendEnrolmentApplication(app: MSPApplicationSchema, authToken: string): Observable<any> {
-    const url = environment.appConstants['apiBaseUrl'] + '/submit-application/' + app.uuid;
+    const _url = environment.appConstants['apiBaseUrl'] + '/submit-application/' + app.uuid;
     // Setup headers
     this._headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Response-Type': 'application/json',
       'X-Authorization': 'Bearer ' + authToken
     });
-    return this.post<MspApplication>(url, app);
+    return this.post<MspApplication>(_url, app);
   }
 
 
@@ -149,28 +184,28 @@ export class MspApiEnrolmentService extends AbstractHttpService {
             console.log('resolving responess', responses);
             return resolve(responses);
           },
-          (error: Response | any) => {
+          (_error: Response | any) => {
             this.logService.log(
               {
                 text: 'Attachments - Send Error ',
-                error: error
+                error: _error
               },
               'Attachments - Send Error '
             );
-            console.log('error sending attachment: ', error);
+            console.log('error sending attachment: ', _error);
             return reject();
           }
         )
-        .catch((error: Response | any) => {
+        .catch((_error: Response | any) => {
           this.logService.log(
             {
               text: 'Attachments - Send Error ',
-              error: error
+              error: _error
             },
             'Attachments - Send Error '
           );
-          console.log('error sending attachment: ', error);
-          return error;
+          console.log('error sending attachment: ', _error);
+          return _error;
         });
     });
   }
@@ -185,7 +220,7 @@ export class MspApiEnrolmentService extends AbstractHttpService {
              Create URL
              /{applicationUUID}/attachment/{attachmentUUID}
              */
-      let url =
+      let _url =
         environment.appConstants['apiBaseUrl'] +
         environment.appConstants['attachment'] +
         applicationUUID +
@@ -193,20 +228,20 @@ export class MspApiEnrolmentService extends AbstractHttpService {
         attachment.uuid;
 
       // programArea
-      url += '?programArea=enrolment';
+      _url += '?programArea=enrolment';
 
       // attachmentDocumentType - UI does NOT collect this property
-      url += '&attachmentDocumentType=' + MspApiService.AttachmentDocumentType;
+      _url += '&attachmentDocumentType=' + MspApiService.AttachmentDocumentType;
 
       // contentType
-      url += '&contentType=' + attachment.contentType;
+      _url += '&contentType=' + attachment.contentType;
 
       // imageSize
-      url += '&imageSize=' + attachment.size;
+      _url += '&imageSize=' + attachment.size;
 
       // Necessary to differentiate between PA and SuppBen
       // TODO - VALIDATE THIS VALUE IS CORRECT, NEEDS TO BE CONFIRMED
-      url += '&dpackage=msp_sb_pkg';
+      _url += '&dpackage=msp_sb_pkg';
 
       // Setup headers
       const headers = new HttpHeaders({
@@ -226,7 +261,7 @@ export class MspApiEnrolmentService extends AbstractHttpService {
       });
 
       return this.http
-        .post(url, blob, options)
+        .post(_url, blob, options)
         .toPromise()
         .then(
           response => {
@@ -236,57 +271,57 @@ export class MspApiEnrolmentService extends AbstractHttpService {
             // }, "Send Individual Attachment - Success")
             return resolve(response);
           },
-          (error: Response | any) => {
-            console.log('error response in its origin form: ', error);
+          (_error: Response | any) => {
+            console.log('error response in its origin form: ', _error);
             this.logService.log(
               {
                 text: 'Attachment - Send Error ',
-                response: error
+                response: _error
               },
               'Attachment - Send Error '
             );
-            return reject(error);
+            return reject(_error);
           }
         )
-        .catch((error: Response | any) => {
-          console.log('Error in sending individual attachment: ', error);
+        .catch((_error: Response | any) => {
+          console.log('Error in sending individual attachment: ', _error);
           this.logService.log(
             {
               text: 'Attachment - Send Error ',
-              response: error
+              response: _error
             },
             'Attachment - Send Error '
           );
 
-          reject(error);
+          reject(_error);
         });
     });
   }
 
-  protected handleError(error: HttpErrorResponse) {
+  protected handleError(_error: HttpErrorResponse) {
     // console.log("handleError", JSON.stringify(error));
-    if (error.error instanceof ErrorEvent) {
+    if (_error.error instanceof ErrorEvent) {
       //Client-side / network error occured
-      console.error('MSP Enrolment API error: ', error.error.message);
+      console.error('MSP Enrolment API error: ', _error.error.message);
     } else {
       // The backend returned an unsuccessful response code
       console.error(
         `Msp Enrolment Backend returned error code: ${
-          error.status
-        }.  Error body: ${error.error}`
+          _error.status
+        }.  Error body: ${_error.error}`
       );
     }
 
     this.logService.log(
       {
         text: 'Cannot get Suppbenefit API response',
-        response: error
+        response: _error
       },
       'Cannot get Suppbenefit API response'
     );
 
     // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
-    return of(error);
+    return of(_error);
     // return of([]);
   }
 
@@ -326,12 +361,20 @@ export class MspApiEnrolmentService extends AbstractHttpService {
   }
 
   private convertSimpleDate( dt: SimpleDate ): string {
-    const date = moment.utc({
-                      year: dt.year,
-                      month: dt.month - 1, // moment use 0 index for month :(
-                      day: dt.day,
-                  }); // use UTC mode to prevent browser timezone shifting
-   return  String(date.format(this.ISO8601DateFormat));
+    console.log( 'convertSimpleDate: ', dt );
+
+    const dtFields = Object.keys(dt).filter( x => dt[x] );
+    console.log( 'convertSimpleDate: dtFields ', dtFields );
+
+    if ( dtFields.length === 3 ) {
+        const date = moment.utc({
+          year: dt.year,
+          month: dt.month - 1, // moment use 0 index for month :(
+          day: dt.day,
+      }); // use UTC mode to prevent browser timezone shifting
+      return  String(date.format(this.ISO8601DateFormat));
+    }
+    return '';
   }
 
   private convertResidency( from: MspPerson ): ResidencyType {
@@ -456,7 +499,7 @@ export class MspApiEnrolmentService extends AbstractHttpService {
   private convertDependentType( person: MspPerson ): DependentType {
     return {
       name: this.convertName( person ),
-      gender: String( person.gender.valueOf ),
+      gender: String( person.gender.valueOf() ),
       birthDate: String( person.dob.format( this.ISO8601DateFormat ) ),
       attachmentUuids: this.getAttachementUuids( person.documents.images, person.nameChangeDocs.images ),
       residency: this.convertResidency( person ),
@@ -511,9 +554,6 @@ export class MspApiEnrolmentService extends AbstractHttpService {
   }
 
 
-
-
-
   private convertName( person: MspPerson ): NameType {
     return {
       firstName: person.firstName,
@@ -525,7 +565,7 @@ export class MspApiEnrolmentService extends AbstractHttpService {
   private convertPersonType( person: MspPerson ): PersonType {
    return {
       name: this.convertName( person ),
-      gender: String( person.gender.valueOf ),
+      gender: String( person.gender.valueOf() ),
       birthDate: String( person.dob.format( this.ISO8601DateFormat ) ),
       attachmentUuids: this.getAttachementUuids( person.documents.images, person.nameChangeDocs.images ),
       residency: this.convertResidency( person )
@@ -534,9 +574,10 @@ export class MspApiEnrolmentService extends AbstractHttpService {
 
   private convertEnrolmentApplicantType( application: MspApplication): EnrolmentApplicantType {
     const applicant: MspPerson = application.applicant;
+    console.log( 'applicant gender: ', applicant.gender );
     const enrolee: EnrolmentApplicantType =  {
       name: this.convertName( applicant ),
-      gender: String( applicant.gender.valueOf ),
+      gender: String( applicant.gender.valueOf() ),
       birthDate: String( applicant.dob.format( this.ISO8601DateFormat ) ),
       attachmentUuids: this.getAttachementUuids( applicant.documents.images, applicant.nameChangeDocs.images ),
       residency: this.convertResidency( applicant ),
@@ -547,7 +588,7 @@ export class MspApiEnrolmentService extends AbstractHttpService {
     };
 
     if (application.phoneNumber) {
-      enrolee.telephone = String(application.phoneNumber.replace(new RegExp('[^0-9]', 'g'), ''));
+      enrolee.telephone = application.phoneNumber.replace(/[() +/-]/g, '').substr(1);
     }
 
     if ( !application.mailingSameAsResidentialAddress ) {

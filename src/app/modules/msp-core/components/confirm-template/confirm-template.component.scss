@@ -1,0 +1,22 @@
+@import 'variables.scss';
+
+.message-container {
+  display: flex;
+  padding: 1rem;
+  min-height: 50px;
+  border-style: solid;
+  border-width: 3px !important;
+  font-size: $h3-font-size;
+
+  @include media-breakpoint-down(sm){
+    height: auto;
+    margin: initial;
+  }
+}
+
+.confirm-icon--success,
+.confirm-icon--error,
+.confirm-icon--warning
+{
+  flex-direction: column;
+}

@@ -5,6 +5,7 @@ import { StatusInCanada,
   CanadianStatusReason,
   CanadianStatusStrings,
   CanadianStatusReasonStrings } from '../../../../modules/msp-core/models/canadian-status.enum';
+import { getCountryDescription, getProvinceDescription } from 'moh-common-lib';
 
 @Component({
   selector: 'msp-person-card',
@@ -56,5 +57,12 @@ export class MspPersonCardComponent {
         return 'File';
       }
     }
+  }
+
+  get movedFromProvinceOrCountry() {
+    if (this.person.currentActivity === CanadianStatusReason.MovingFromCountry ) {
+      return getCountryDescription( this.person.movedFromProvinceOrCountry );
+    }
+    return getProvinceDescription( this.person.movedFromProvinceOrCountry );
   }
 }

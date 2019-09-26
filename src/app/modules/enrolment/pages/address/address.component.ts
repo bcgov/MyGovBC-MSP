@@ -16,66 +16,22 @@ import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { EnrolForm } from '../../models/enrol-form';
 
 @Component({
   templateUrl: './address.component.html'
 })
-export class EnrolAddressComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
+export class EnrolAddressComponent extends EnrolForm {
 
-  @ViewChild('address') address: ElementRef;
-  @ViewChild('mailingAddress') mailingAddress: ElementRef;
-  @ViewChild('phone') phone: ElementRef;
-
-  countryList: CountryList[] = COUNTRY_LIST;
-  provinceList: ProvinceList[] = PROVINCE_LIST;
-
-  public defaultCountry = CANADA;
-  public defaultProvince = BRITISH_COLUMBIA;
-
-  subscriptions: Subscription[];
-
-  constructor(private dataService: MspDataService,
-              protected router: Router,
-              private pageStateService: PageStateService) {
-    super(router);
+  constructor( protected dataService: MspDataService,
+               protected pageStateService: PageStateService,
+               protected router: Router ) {
+  super( dataService, pageStateService, router );
   }
-
-  get mspApplication() {
-    return  this.dataService.mspApplication;
-  }
-
-  ngOnInit(){
-    this.pageStateService.setPageIncomplete(this.router.url, this.mspApplication.pageStatus);
-  }
-
-  ngAfterViewInit() {
-    if (this.form) {
-      this.subscriptions = [
-        this.form.valueChanges.pipe(
-          debounceTime(100)
-        ).subscribe(() => {
-          this.dataService.saveMspApplication();
-        })
-      ];
-    }
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach( itm => itm.unsubscribe() );
-  }
-
-  canContinue(): boolean {
-    return super.canContinue();
-  }
-
+  
   continue() {
-    if ( !this.canContinue() ) {
-      console.log('Please fill in all required fields on the form.');
-      this.markAllInputsTouched();
-      return;
-    }
-
-    this.pageStateService.setPageComplete(this.router.url, this.mspApplication.pageStatus);
-    this.navigate(ROUTES_ENROL.REVIEW.fullpath);
+    this._canContinue = super.canContinue();
+    this._nextUrl = ROUTES_ENROL.REVIEW.fullpath;
+    super.continue();
   }
 }

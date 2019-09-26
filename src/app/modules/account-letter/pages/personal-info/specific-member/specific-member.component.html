@@ -1,14 +1,5 @@
 <form #formRef='ngForm' novalidate>
   <common-radio [value]="person.enrollmentMember"  [label]="lang('./en/index.js').MSPEnrollment" [radioLabels]="lang('./en/index.js').radioLabel" (statusChange)="setStatus($event)"></common-radio>
-
-  <!-- <div class="form-check" *ngFor="let st of MSPEnrollementMember">
-    <input class='form-check-input' type="radio" name="MSPEnrollementMember-{{id}}" id="st{{st}}-{{id}}"
-           (click)="setStatus(st);"
-           [checked]="st === person.enrollmentMember" tabindex="0">
-    <label class='form-check-label' for="st{{st}}-{{id}}">
-      {{langStatus('./en/index.js')[st]}}
-    </label>
-  </div> -->
   <div *ngIf="person.enrollmentMember == lang('./en/index.js').radioLabel[2].value">
     <h2>Specific Member Information</h2>
     <hr>

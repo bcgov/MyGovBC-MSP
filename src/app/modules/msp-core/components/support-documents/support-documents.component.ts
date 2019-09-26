@@ -2,7 +2,6 @@ import { Component, OnInit, Output, EventEmitter, Input, forwardRef } from '@ang
 import { Base, CommonImage } from 'moh-common-lib';
 import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
 import { CanadianStatusReason, StatusInCanada } from '../../models/canadian-status.enum';
-import { statusReasonRules } from '../canadian-status/canadian-status.component';
 import { SupportDocuments, SupportDocumentList } from '../../models/support-documents.enum';
 import { ControlContainer, NgForm } from '@angular/forms';
 
