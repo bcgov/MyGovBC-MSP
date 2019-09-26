@@ -84,14 +84,16 @@
           </div>     
         </msp-personal-information>
 
-        <msp-moving-information [person]="spouse">
-          <div sectionTitleInfo>
-            <h2>Moving Information</h2>
-            <p class="border-bottom"> 
-                Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
-            </p>
-          </div>         
-        </msp-moving-information>        
+        <div *ngIf="!isTemporaryResident">
+          <msp-moving-information [person]="spouse">
+            <div sectionTitleInfo>
+              <h2>Moving Information</h2>
+              <p class="border-bottom"> 
+                  Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
+              </p>
+            </div>         
+          </msp-moving-information>  
+        </div>      
       </div>
     </div>
   </form>

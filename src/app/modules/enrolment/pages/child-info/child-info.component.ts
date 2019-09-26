@@ -73,7 +73,7 @@ export class ChildInfoComponent extends EnrolForm {
            this.hasStatusDocuments( idx );
   }
 
-  isOveragedChild(idx: number ) {
+  isOveragedChild( idx: number ) {
     return this.children[idx].relationship === Relationship.Child19To24;
   }
 
@@ -88,8 +88,13 @@ export class ChildInfoComponent extends EnrolForm {
     if ( this.children.length > 0 ) {
       valid = super.canContinue() &&
                 this.children.map( x => {
-                  let childValid = x.madePermanentMoveToBC &&
-                                   (x.documents.images && x.documents.images.length > 0);
+                  let childValid = x.documents.images && x.documents.images.length > 0;
+
+                   // If not temporary resident needs to have moved permenently to BC
+                  if ( x.status !== StatusInCanada.TemporaryResident) {
+                    childValid = childValid && x.madePermanentMoveToBC;
+                  }
+
                   if (x.hasNameChange){
                     childValid = childValid &&
                                  x.nameChangeDocs.images &&

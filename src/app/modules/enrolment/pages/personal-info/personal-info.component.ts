@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, ViewChild } from '@angular/core';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { Router } from '@angular/router';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
@@ -8,6 +8,7 @@ import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { EnrolForm } from '../../models/enrol-form';
+import { SampleModalComponent } from 'moh-common-lib';
 
 
 @Component({
@@ -17,6 +18,8 @@ import { EnrolForm } from '../../models/enrol-form';
 export class PersonalInfoComponent extends EnrolForm {
 
   nameChangeDocList = nameChangeSupportDocuments();
+
+  @ViewChild('sampleDocs') sampleDocs: SampleModalComponent;
 
   constructor( protected router: Router,
                protected dataService: MspDataService,
@@ -76,9 +79,12 @@ export class PersonalInfoComponent extends EnrolForm {
   }
 
   canContinue(): boolean {
-    let valid = super.canContinue() &&
-                this.applicant.madePermanentMoveToBC &&
-                this.hasStatusDocuments;
+    let valid = super.canContinue() && this.hasStatusDocuments;
+
+    // If not temporary resident needs to have moved permenently to BC
+    if ( !this.isTemporaryResident ) {
+      valid = valid && this.applicant.madePermanentMoveToBC;
+    }
 
     if ( this.applicant.hasNameChange ) {
       valid = valid && this.hasNameDocuments;

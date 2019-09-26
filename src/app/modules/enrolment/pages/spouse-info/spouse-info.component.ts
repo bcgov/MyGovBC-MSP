@@ -8,6 +8,7 @@ import { Relationship } from '../../../../models/relationship.enum';
 import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { EnrolForm } from '../../models/enrol-form';
+import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -86,11 +87,13 @@ export class SpouseInfoComponent extends EnrolForm {
             ( this.spouse.hasNameChange && this.hasNameDocuments )); // name change requires documentation
   }
 
+  get isTemporaryResident() {
+    return this.spouse.status === StatusInCanada.TemporaryResident;
+  }
 
   continue() {
     this._nextUrl = ROUTES_ENROL.CHILD_INFO.fullpath;
     this._canContinue = this.canContinue();
-
     super.continue();
   }
 
@@ -99,9 +102,13 @@ export class SpouseInfoComponent extends EnrolForm {
     let valid = true;
 
     if ( this.hasSpouse ) {
-      valid = super.canContinue() &&
-              this.spouse.madePermanentMoveToBC &&
-              this.hasStatusDocuments;
+      valid = super.canContinue() && this.hasStatusDocuments;
+
+      // If not temporary resident needs to have moved permenently to BC
+      if ( !this.isTemporaryResident ) {
+        valid = valid && this.spouse.madePermanentMoveToBC;
+      }
+
       if ( this.spouse.hasNameChange ) {
         valid = valid && this.hasNameDocuments;
       }
