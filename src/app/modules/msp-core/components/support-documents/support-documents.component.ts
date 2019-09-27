@@ -45,9 +45,13 @@ export function nameChangeSupportDocuments(): SupportDocuments[] {
 })
 export class SupportDocumentsComponent extends Base implements OnInit, OnChanges, OnDestroy {
 
+  // List of documents to be displayed, if not provided, the default uses suportDocumentRules().
   @Input() supportDocList: SupportDocuments[];
+  // Individual's status in Canadian
   @Input() canadianStatus: StatusInCanada;
+  // Individual's reason for status in Canada
   @Input() statusReason: CanadianStatusReason;
+  // Toggles display for the 'Add' button (true => button is displayed, false => no button displayed)
   @Input() displayButton: boolean = true;
 
   @Input() supportDoc: PersonDocuments;
@@ -58,9 +62,11 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
 
   btnEnabled: boolean  = true;
   availableSupportDocuments: string[] = [];
-  private _documentOpts: string[] = Object.keys(SupportDocumentList).map( x => SupportDocumentList[x] );
 
   onChanges = new BehaviorSubject<SimpleChanges>( null );
+
+  // List of all supporting document types
+  private _documentOpts: string[] = Object.keys(SupportDocumentList).map( x => SupportDocumentList[x] );
 
   constructor() {
     super();
@@ -79,18 +85,17 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
           return this._documentOpts[itm];
         });
 
-        if ( _list && this.availableSupportDocuments ) {
-          const diff = _list.filter( x => !this.availableSupportDocuments.includes(x) );
-          if ( diff.length ) {
-            this.availableSupportDocuments = _list;
+        this.availableSupportDocuments = _list ? _list : [];
+
+        // Check if document exists in the list
+        if ( this.hasDocumentType ) {
+          const docTypeExist = this.availableSupportDocuments.find(
+            x => x === this.supportDoc.documentType
+            );
+          if ( !docTypeExist ) {
             // Change in status or reason new documents required
             this.removeDocument();
           }
-        } else {
-          this.availableSupportDocuments = [];
-
-          // Change in status or reason new documents required
-          this.removeDocument();
         }
       }
     });

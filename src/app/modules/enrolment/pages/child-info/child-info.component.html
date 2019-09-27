@@ -31,6 +31,7 @@
           <div additionalInfo>
             <div class="form-group p-sm-2">
               <common-radio name="AgeCategory_{{idx}}"
+                            id="AgeCategory_{{idx}}"
                             [(ngModel)]="child.relationship" 
                             label="How old is your child?" 
                             [radioLabels]="childAgeCategory"
@@ -95,16 +96,14 @@
           </div>     
         </msp-personal-information>
 
-        <div *ngIf="!isTemporaryResident">
-          <msp-moving-information [person]="child">
-            <div sectionTitleInfo>
-              <h3>Moving Information</h3>
-              <p class="border-bottom"> 
-                Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
-              </p>
-            </div>         
-          </msp-moving-information>
-        </div>
+        <msp-moving-information [person]="child">
+          <div sectionTitleInfo>
+            <h3>Moving Information</h3>
+            <p class="border-bottom"> 
+              Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
+            </p>
+          </div>         
+        </msp-moving-information>
 
         <div *ngIf="isOveragedChild(idx)">
           <h2>School Information</h2>
@@ -112,7 +111,7 @@
             Enter information of the school that this child is attending (must be in full-time attendance)
           </p>
           <common-page-section layout="tips">
-            <div class="form-group col-sm-6">
+            <div class="form-group col-sm-6 pl-0">
               <label for="schoolName_{{objectId}}" class="control-label">
                 Name of school
               </label>
@@ -128,7 +127,7 @@
               </common-error-container>
             </div>
     
-            <div class="form-group col-sm-8">
+            <div class="form-group col-sm-8 pl-0">
               <common-address [(address)]="child.schoolAddress"
                               [isRequired]="true"
                               [allowExtralines]='true'
@@ -136,20 +135,20 @@
               </common-address>
             </div>
 
-            <div class="form-group col-sm-6">
+            <div class="form-group col-sm-6 pl-0">
               <common-date label="Original departure date from B.C. (if school is outside B.C.)"
                             [(date)]="child.studiesDepartureSimple"
-                            [required]="false">
+                            [required]="isRequired(child)">
               </common-date>
             </div>    
         
-            <div class="form-group col-sm-6">
+            <div class="form-group col-sm-6 pl-0">
               <common-date label="Expected school completion date"
                           [(date)]="child.studiesFinishedSimple">
               </common-date>
             </div>  
       
-            <div class="form-group col-sm-8">
+            <div class="form-group col-sm-8 pl-0">
               <common-radio name="inBCafterStudiesOA_{{objectId}}"
                             [(ngModel)]="child.inBCafterStudies"  
                             label="Will this child reside in B.C. after completing study in this school?" 

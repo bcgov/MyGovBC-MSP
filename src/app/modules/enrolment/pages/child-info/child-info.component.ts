@@ -8,6 +8,7 @@ import { Relationship } from '../../../../models/relationship.enum';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 import { EnrolForm } from '../../models/enrol-form';
+import { BRITISH_COLUMBIA } from 'moh-common-lib';
 
 @Component({
   selector: 'msp-child-info',
@@ -66,7 +67,6 @@ export class ChildInfoComponent extends EnrolForm {
     return this.children[idx].documents.images && this.children[idx].documents.images.length > 0;
   }
 
-
   requestNameChangeInfo( idx: number ) {
     return this.hasStatus( idx ) &&
            this.children[idx].hasNameChange &&
@@ -75,6 +75,10 @@ export class ChildInfoComponent extends EnrolForm {
 
   isOveragedChild( idx: number ) {
     return this.children[idx].relationship === Relationship.Child19To24;
+  }
+
+  isRequired(child: MspPerson ) {
+    return child.schoolAddress.province !== BRITISH_COLUMBIA ? true : false;
   }
 
   continue() {

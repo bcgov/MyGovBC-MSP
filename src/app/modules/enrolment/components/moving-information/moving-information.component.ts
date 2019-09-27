@@ -49,15 +49,6 @@ export class MovingInformationComponent extends Base implements OnInit {
     return this.person.relationship === Relationship.Applicant;
   }
 
-  get isSpouse() {
-    return this.person.relationship === Relationship.Spouse;
-  }
-
-  get isChild() {
-    return this.person.relationship === Relationship.ChildUnder19 ||
-           this.person.relationship === Relationship.Child19To24;
-  }
-
   // Moved from another province
   get isCanadianFromProv() {
     return this.person.status === StatusInCanada.CitizenAdult &&
@@ -68,6 +59,10 @@ export class MovingInformationComponent extends Base implements OnInit {
   get isCanadianFromCountry() {
     return this.person.status === StatusInCanada.CitizenAdult &&
            this.person.currentActivity === CanadianStatusReason.MovingFromCountry;
+  }
+
+  get isTemporaryResident() {
+    return this.person.status === StatusInCanada.TemporaryResident;
   }
 
   // Not new to BC
@@ -97,17 +92,23 @@ export class MovingInformationComponent extends Base implements OnInit {
   get requestPermMoveInfo() {
    return this.isCanadianFromProv || this.isCanadianFromCountry ||
           (this.isCanadianNotBC && this.person.livedInBCSinceBirth === true) || this.isResidentFromProv ||
-          this.isResidentFromCountry || this.isResidentNotBC;
+          this.isResidentFromCountry || this.isResidentNotBC || this.isTemporaryResident;
   }
 
   get arrivalDateRequired() {
     return this.isCanadianFromCountry || this.isResidentFromProv || this.isResidentFromCountry ||
-           this.isResidentNotBC;
+           this.isResidentNotBC || this.isTemporaryResident;
   }
 
   get requestAdditionalMoveInfo() {
     return this.isCanadianFromProv || this.isCanadianFromCountry ||
           (this.isCanadianNotBC && this.person.livedInBCSinceBirth !== undefined) ||
-          this.isResidentFromProv || this.isResidentFromCountry || this.isResidentNotBC;
+          this.isResidentFromProv || this.isResidentFromCountry || this.isResidentNotBC ||
+          this.isTemporaryResident;
+  }
+
+  get requestArmForceInfo() {
+    return this.person.status === StatusInCanada.CitizenAdult ||
+          (this.isApplicant && this.person.status === StatusInCanada.PermanentResident);
   }
 }
