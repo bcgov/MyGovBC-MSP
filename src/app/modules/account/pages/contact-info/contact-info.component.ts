@@ -2,10 +2,11 @@
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
-import {ProcessService} from '../../../../services/process.service';
-import { MspAccountApp } from '../../models/account.model';
-import { ChangeDetectorRef, Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { PROVINCE_LIST, COUNTRY_LIST } from 'moh-common-lib';
+import {ProcessService, ProcessUrls} from '../../../../services/process.service';
+import { environment } from '../../../../../environments/environment';
+import { MspAccountApp, MspPerson } from '../../models/account.model';
+import { ChangeDetectorRef, Input, Component, ViewChild, ElementRef, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Address, PROVINCE_LIST, COUNTRY_LIST, CheckCompleteBaseService, AbstractForm } from 'moh-common-lib';
 
 import {
   CountryList,
@@ -15,6 +16,8 @@ import {
 } from 'moh-common-lib';
 
 import { BaseComponent } from '../../../../models/base.component';
+import { PageStateService } from 'app/services/page-state.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -22,7 +25,7 @@ import { BaseComponent } from '../../../../models/base.component';
   templateUrl: './contact-info.component.html',
   styleUrls: ['./contact-info.component.scss']
 })
-export class ContactInfoComponent extends BaseComponent  implements OnInit {
+export class ContactInfoComponent extends AbstractForm implements OnInit, AfterViewInit {
 
    // Constants TODO: Figure out whether used in html
    outsideBCFor30DaysLabel = 'Have you or any family member been outside BC for more than 30 days in total during the past 12 months?';
@@ -44,16 +47,20 @@ export class ContactInfoComponent extends BaseComponent  implements OnInit {
    public defaultProvince = BRITISH_COLUMBIA;
  
    mspAccountApp: MspAccountApp;
+   subscriptions: Subscription[];
  
    constructor(private dataService: MspAccountMaintenanceDataService,
-               cd: ChangeDetectorRef) {
-     super(cd);
+               private _router: Router,
+               private _processService: ProcessService,
+               private cd: ChangeDetectorRef,
+               protected router: Router,  private pageStateService: PageStateService) {
+     super(router);
      this.mspAccountApp = this.dataService.accountApp;
    }
  
    ngOnInit(){
-     //this.initProcessMembers(ContactInfoComponent.ProcessStepNum, this._processService);
-     //this._processService.setStep(BenefitAddressComponent.ProcessStepNum, false);
+      //this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
+    
    }
 
    toggleCheckBox(){
@@ -75,6 +82,9 @@ export class ContactInfoComponent extends BaseComponent  implements OnInit {
        this.dataService.saveMspAccountApp();
      });*/
    }
+
+   
+
  
    handlePhoneNumberChange(evt: any) {
      this.mspAccountApp.phoneNumber = evt;
@@ -91,19 +101,28 @@ export class ContactInfoComponent extends BaseComponent  implements OnInit {
   //   this.dataService.saveBenefitApplication();
    }
  
-   canContinue(){
-     return this.isAllValid();
-   }
+   canContinue(): boolean {
+    let valid = super.canContinue(); // && this.hasStatusDocuments;
+/*
+    if ( this.applicant.hasNameChange ) {
+      valid = valid && this.hasNameDocuments;
+    }
+
+    if ( this.applicant.fullTimeStudent ) {
+      valid = valid && this.applicant.inBCafterStudies;
+    }*/
+    return valid;
+  }
+
  
-   continue() {
-     // console.log('personal info form itself valid: %s', this.form.valid);
-     console.log('combinedValidationState on address: %s', this.isAllValid());
-     if (!this.isAllValid()){
-       console.log('Please fill in all required fields on the form.');
-     }else{
-       //this._processService.setStep(BenefitAddressComponent.ProcessStepNum, true);
-       //this._router.navigate(['/benefit/review']);
-     }
-   }
+  continue(): void {
+    if (!this.canContinue()) {
+      console.log('Please fill in all required fields on the form.');
+      this.markAllInputsTouched();
+      return;
+    }
+    //this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
+    this.navigate('/account/review');
+  }
 
 }

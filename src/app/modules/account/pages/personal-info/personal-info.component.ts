@@ -1,9 +1,9 @@
-import {ChangeDetectorRef, Component, Injectable , ViewChild, ViewChildren , QueryList } from '@angular/core';
+import {ChangeDetectorRef, Component, Injectable , ViewChild, ViewChildren , QueryList, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {BaseComponent} from '../../../../models/base.component';
 import {ProcessUrls} from '../../../../services/process.service';
-import {AccountPersonalDetailsComponent} from './personal-details/personal-details.component';
+import {AccountPersonalDetailsComponent} from '../../components/personal-details/personal-details.component';
 import { MspPerson } from '../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/account.model';
@@ -11,6 +11,13 @@ import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/ac
 //import { Relationship } from '../../../msp-core/models/relationship.enum';
 //import { ActivitiesRules } from '../../../msp-core/models/status-activities-documents';
 //import { Activities,  ActivitiesRules, Documents } from '../../../../models/status-activities-documents';
+import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { PersonDocuments } from 'app/components/msp/model/person-document.model';
+import { Base, AbstractForm } from 'moh-common-lib';
+import { PageStateService } from 'app/services/page-state.service';
+import { ROUTES_ENROL } from 'app/modules/enrolment/models/enrol-route-constants';
+import { ROUTES_ACCOUNT } from '../../models/enrol-route-constants';
 
 import { StatusInCanada, CanadianStatusReason,CanadianStatusStrings, CanadianStatusRules } from '../../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../../models/relationship.enum';
@@ -22,7 +29,7 @@ import { Relationship } from '../../../../models/relationship.enum';
   templateUrl: './personal-info.component.html'
 })
 @Injectable()
-export class AccountPersonalInfoComponent extends BaseComponent {
+export class AccountPersonalInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
 
   static ProcessStepNum = 1;
   lang = require('./i18n');
@@ -41,20 +48,21 @@ export class AccountPersonalInfoComponent extends BaseComponent {
     accountHolderSubtitle: string = 'Please provide the Account Holder’s personal information for verification purposes.';
     person: MspPerson;
     updateList: UpdateList[];
+    subscriptions: Subscription[];
 
 
     constructor(public dataService: MspAccountMaintenanceDataService,
-              private _router: Router,
+                 protected router: Router,  private pageStateService: PageStateService
               //private _processService: ProcessService,
-              cd: ChangeDetectorRef) {
+              ) {
 
-     super(cd);
+          super(router);
     }
 
     onChange($event){
         console.log($event);
         console.log(this.applicant);
-        this.dataService.saveMspAccountApp();
+        //this.dataService.saveMspAccountApp();
     }
 
     ngOnInit(){
@@ -67,6 +75,23 @@ export class AccountPersonalInfoComponent extends BaseComponent {
      // this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL), this._processService);
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach( itm => itm.unsubscribe() );
+  }
+  
+  ngAfterViewInit() {
+    if (this.form) {
+      this.subscriptions = [
+        this.form.valueChanges.pipe(
+          debounceTime(100)
+        ).subscribe(() => {
+          this.dataService.saveMspAccountApp();
+        })
+        ];
+    }
+  }
+
+  
     get applicant(): MspPerson {
         return this.dataService.accountApp.applicant;
     }
@@ -80,12 +105,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
 
     }
 
-    removeUpdateChild(idx: number): void{
-        // console.log('remove child ' + JSON.stringify(event));
-        this.dataService.getMspAccountApp().removeUpdateChild(idx);
-        this.dataService.saveMspAccountApp();
-
-    }
+   
 
     personInfoUpdateOnChange(event: boolean) {
 
@@ -102,12 +122,12 @@ export class AccountPersonalInfoComponent extends BaseComponent {
 
         }
 
-        this.dataService.saveMspAccountApp();
+       // this.dataService.saveMspAccountApp();
     }
 
     immigrationStatusChange(event: boolean) {
         this.accountChangeOptions.immigrationStatusChange = event;
-        this.dataService.saveMspAccountApp();
+      //  this.dataService.saveMspAccountApp();
     }
 
 
@@ -118,9 +138,6 @@ export class AccountPersonalInfoComponent extends BaseComponent {
         this.dataService.getMspAccountApp().addUpdatedSpouse(sp);
     }
 
-    addUpdateChild(): void {
-        this.dataService.getMspAccountApp().addUpdatedChild();
-    }
 
     /*
     If the application contains any Visting status , application shouldnt be sumbitted
@@ -136,17 +153,18 @@ export class AccountPersonalInfoComponent extends BaseComponent {
 
     }
 
-    canContinue(): boolean {
-        return this.isAllValid();
+    isPhnUniqueInPI() {
+      return this.dataService.accountApp.isUniquePhnsInPI ;
     }
 
-    removeSpouse = () => {
-        this.dataService.getMspAccountApp().removeUpdatedSpouse();
-        this.dataService.saveMspAccountApp();
-    }
+    /*canContinue(): boolean {
+        return this.isAllValid();
+    }*/
+
+   
 
     isValid(): boolean {
-      return this.dataService.getMspAccountApp().isUniquePhnsInPI ;
+      return this.dataService.accountApp.isUniquePhnsInPI ;
 
     }
 
@@ -276,17 +294,40 @@ export class AccountPersonalInfoComponent extends BaseComponent {
       //this.onChange.emit(value);
     }
 
-    continue(): void {
+    //continue(): void {
 
         // console.log('personal info form itself valid: %s', this.form.valid);
-        console.log('combinedValidationState on personal info: %s', this.isAllValid());
-        if (!this.isAllValid()){
+       // console.log('combinedValidationState on personal info: %s', this.isAllValid());
+       /* if (!this.isAllValid()){
             console.log('Please fill in all required fields on the form.');
         }else{
            // console.log('redirecting to' + this._processService.getNextStep( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL)));
            // this._router.navigate([this._processService.getNextStep( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL))]);
 
            this._router.navigate([ProcessUrls.ACCOUNT_PERSONAL_INFO_URL]);
-        }
+        }*/
+   // }
+
+    canContinue(): boolean {
+      let valid = super.canContinue();
+  
+      if ( this.applicant.hasNameChange ) {
+        valid = valid;
+      }
+  
+      if ( this.applicant.fullTimeStudent ) {
+        valid = valid && this.applicant.inBCafterStudies;
+      }
+      return valid;
+    }
+
+    continue(): void {
+      if (!this.canContinue()) {
+        console.log('Please fill in all required fields on the form.');
+        this.markAllInputsTouched();
+        return;
+      }
+      this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
+      this.navigate('/account/spouse-info');
     }
 }

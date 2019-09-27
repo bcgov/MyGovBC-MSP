@@ -1,13 +1,14 @@
-<!-- <h2><strong>Update Spouse's Information</strong>
-</h2>
-<p class="border-bottom">
-    Please provide personal information of the spouse currently on your Medical Services Plan account. If you are requesting an update or correction to the spouse’s legal name (including a name change as a result of marriage, separation or divorce), birthdate or gender, please provide the new information here.
-</p> -->
 
-<msp-account-personal-details 
-  [person]="spouse"
-  (onChange)="onChange($event)">
-</msp-account-personal-details>
+ <msp-personal-information [person]="spouse" [showPhn]="true">
+    <div sectionTitleInfo>
+        <h2>Spouse's Personal Information</h2>
+        <p class="border-bottom"> 
+        </p>
+    </div>     
+</msp-personal-information>
+<!-- <msp-account-personal-details 
+  [person]="spouse">
+</msp-account-personal-details> -->
 
 <msp-update-request 
     title="What updates are you requesting for spouse?" 

@@ -1,39 +1,42 @@
-<div>
 
- <!-- <h2><strong>Remove Spouse</strong></h2>
+ <msp-personal-information [person]="spouse" [showPhn]="true">
+    <div sectionTitleInfo>
+        <h2>Spouse's Personal Information</h2>
+        <p class="border-bottom"> 
+            Enter your spouse's legal name as it appears on their official Canadian identity documents, e.g., birth certificate, permanent resident card, passport.
+        </p>
+    </div>     
+</msp-personal-information>
 
-  <p class="border-bottom">
-      Please provide spouse’s personal information and indicate the reason for removing the spouse from your account.
-  </p> 
-  -->
-
-
-<msp-account-personal-details 
-  title="Spouse's Personal Information" 
-  [subtitle]="'Enter your spouse’s legal name as it appears on their BC Service Card or CareCard.'" 
-  [person]="spouse"
-  (onChange)="onChange($event)">
-</msp-account-personal-details>
+<!-- <msp-account-personal-details
+  [person]='spouse'  (onChange)="onChange($event)">
+  <div sectionTitleInfo>
+    <h2>Spouse's Personal Information</h2>
+    <p class="border-bottom"> 
+        Enter your spouse's legal name as it appears on their official Canadian identity documents, e.g., birth certificate, permanent resident card, passport.
+    </p>
+  </div>     
+</msp-account-personal-details> -->
 
 <br>
 
 <div class="form-group">
     <common-radio
-        [value]="accountChangeOptions.spouseRemoved"  
+        [value]="spouse.isRemovedAtTheEndOfCurrentMonth"  
         [label]="'When should the spouse be removed from your account?'" 
-        [radioLabels]='[{ "label": "The end of the current month", "value": false}, {"label": "A date prior to this month", "value": true}]'
-        (statusChange)="accountChangeOptions.spouseRemoved = $event; this.dataService.saveMspAccountApp();">
+        [radioLabels]='[{ "label": "The end of the current month", "value": true}, {"label": "A date prior to this month", "value": false}]'
+        (statusChange)="spouse.isRemovedAtTheEndOfCurrentMonth = $event; this.dataService.saveMspAccountApp();">
     </common-radio>
 </div>
 
-<div class="form-group"  style="width: 300px;" *ngIf="accountChangeOptions.spouseRemoved" >
+<div class="form-group"  style="width: 300px;" *ngIf="spouse.isRemovedAtTheEndOfCurrentMonth == false" >
   <common-date label="Requested cancellation date" [restrictDate]="'past'" 
     [(date)]="spouse.cancellationDate"
     (dateChange)="this.dataService.saveMspAccountApp();">
   </common-date>
 </div>
 
-<div *ngIf="accountChangeOptions.spouseRemoved != null">
+<div *ngIf="spouse.isRemovedAtTheEndOfCurrentMonth != null">
   <label for="objectId" class="control-label">Reason for cancellation</label>
   <div class="form-group">
       <select style="width:350px;" class="custom-select" [id]="objectId" [(ngModel)]="spouse.cancellationReason" (ngModelChange)="spouse.cancellationReason = $event; this.dataService.saveMspAccountApp();">
@@ -48,7 +51,6 @@
 <div *ngIf="spouse.cancellationReason === 3" >
   <div class="form-group" style="width: 350px">
       <label class="control-label">Please provide additional information</label>
-      
       <textarea class="form-control" rows="3" [(ngModel)]="spouse.additionalReason"></textarea>
   </div>
 
@@ -71,14 +73,25 @@
             [isRequired]="true">
         </common-address> 
       </common-page-section>
-        
   </div>
-    
 </div>
 
 
-<div *ngIf="accountChangeOptions.spouseRemoved != undefined && spouse.cancellationReason === 1 ">
-  <msp-account-file-uploader 
+ 
+  <msp-support-documents  *ngIf="spouse.isRemovedAtTheEndOfCurrentMonth != undefined && spouse.cancellationReason === 1"
+    [supportDocList]="spouseRemoveDocs"
+    [(supportDoc)]="spouse.removedSpouseDueToDivorceDoc">
+    <div sectionTitleInfo>
+      <h2> 
+        <strong>Documents</strong> 
+      </h2>
+      <p class="border-bottom"> 
+          Provide <b>one</b> of the required documents to support your request to remove spouse from your account.
+      </p>
+    </div>
+  </msp-support-documents>
+  
+  <!-- <msp-account-file-uploader 
         [title]="'Documents to support new status in Canada'"
         [subtitle]="'Provide one of the required documents to support your immigration status in Canada.'"  
         [items]="spouseCancellationdocs" 
@@ -87,14 +100,6 @@
         [doc]="spouse.updateStatusInCanadaDoc"
         (documentStatus)=" this.spouse.docType = $event; this.dataService.saveMspAccountApp();"
         (onChange)=" this.spouse.updateStatusInCanadaDoc = $event; this.dataService.saveMspAccountApp();">
-  </msp-account-file-uploader>
-
-</div>
+  </msp-account-file-uploader> -->
 
 
-
-
-
-
-
-</div>

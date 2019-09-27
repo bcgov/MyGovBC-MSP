@@ -1,8 +1,5 @@
 import { Routes } from '@angular/router';
-import { AccountPrepareComponent } from './pages/prepare/prepare.component';
 import { AccountPersonalInfoComponent } from './pages/personal-info/personal-info.component';
-import { AccountDependentChangeComponent } from './pages/dependent-change/dependent-change.component';
-import { AccountDocumentsComponent } from './pages/documents/documents.component';
 import { AccountReviewComponent } from './pages/review/review.component';
 import { SpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { ChildInfoComponent } from './pages/child-info/child-info.component';

@@ -29,7 +29,19 @@
                   commonValidateName></common-name>
   </div>
 
-  <div class="form-group col-sm-6 pl-0">
+  <div *ngIf="showPhn" class="form-group col-sm-6 p-sm-2">
+      <common-phn #phnRef="ngModel"
+        name="phn_{{objectId}}"
+        [(ngModel)]="person.previous_phn"
+        required
+        commonValidatePhn></common-phn> 
+	  
+  <!--  <div class="text-danger" *ngIf="!isPhnUnique()"
+		    [innerHTML]="lang('./en/index.js').phnUniqueError">
+	  </div>  -->
+  </div>
+
+  <div class="form-group col-sm-6 p-sm-2">
       <common-date label="Birthdate"
                    [restrictDate]="'past'" 
                    [disabled]="disabled"

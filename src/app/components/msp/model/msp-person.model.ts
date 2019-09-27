@@ -38,7 +38,9 @@ export class MspPerson implements IPerson {
     _status: StatusInCanada;
     additionalReason: string;
     hasCurrentMailingAddress: boolean;
-
+    immigrationStatusChange: boolean;
+   
+    updatingPersonalInfo: boolean;
    // _currentActivity: Activities;
     documents: PersonDocuments = new PersonDocuments();
     statusChange: PersonStatusChange[];
@@ -48,6 +50,8 @@ export class MspPerson implements IPerson {
     hasNameChange: boolean;
 
     assistYearDocs: CommonImage[] = [];
+
+    isRemovedAtTheEndOfCurrentMonth: boolean;
 
     outOfBCRecord: OutofBCRecord; // do not use
     /** NEEDS XSD. Departure information for the question regarding if the person will be out of BC for more than 30 days in the next 6 months. */
@@ -159,6 +163,29 @@ export class MspPerson implements IPerson {
         return this._declarationForOutsideOver30Days;
     }
 
+
+    private _declarationForOutsideOver60Days: boolean;
+
+    /**
+     * Automatically handles the instantiation and destruction of the
+     * OutofBCRecord object. Previously this was handled in the controllers, but
+     * it should be in the model as it i) is an operation purely on data ii)
+     * reduces code duplication.
+     */
+    set declarationForOutsideOver60Days(val: boolean) {
+        this._declarationForOutsideOver60Days = val;
+        if (val){
+            this.outOfBCRecord = new OutofBCRecord();
+        }
+        else {
+            this.outOfBCRecord = null;
+        }
+    }
+
+    get declarationForOutsideOver60Days(): boolean {
+        return this._declarationForOutsideOver60Days;
+    }
+
     departureReason: string;
     departureDestination: string;
     departureDate: SimpleDate = { day: null, month: null, year: null };
@@ -170,6 +197,7 @@ export class MspPerson implements IPerson {
     firstName: string;
     middleName: string;
     lastName: string;
+    previouslastName: string;
 
     static NameRegEx = '^[a-zA-Z][a-zA-Z\\-.\' ]*$';
 
@@ -327,6 +355,8 @@ export class MspPerson implements IPerson {
     dischargeMonth: number = null;
     dischargeDay: number = null;
 
+    hasActiveMedicalServicePlan: boolean;
+
     /** NEEDS XSD. Name of institute they've been discharged from. */
     nameOfInstitute: string;
 
@@ -438,7 +468,7 @@ export class MspPerson implements IPerson {
     /** Only for spouse. Previous last name. */
     prevLastName: string;
     /** Only for spouse. Marriage date to applicant. */
-    marriageDate: SimpleDate;
+    marriageDate: SimpleDate = { day: null, month: null, year: null };
 
 
 

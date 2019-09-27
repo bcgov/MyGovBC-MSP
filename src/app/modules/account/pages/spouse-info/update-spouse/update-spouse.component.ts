@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, OnInit, Injectable , ViewChild, ViewChildr
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {BaseComponent} from '../../.././../../models/base.component';
-import {AccountPersonalDetailsComponent} from '../../personal-info/personal-details/personal-details.component';
+import {AccountPersonalDetailsComponent} from '../../../components/personal-details/personal-details.component';
 import { MspPerson } from '../../../models/account.model';
 import { Relationship } from '../../../../../models/status-activities-documents';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
@@ -46,7 +46,7 @@ export class UpdateSpouseComponent extends BaseComponent implements OnInit {
   onChange($event){
     console.log($event);
     console.log(this.spouse);
-    this.dataService.saveMspAccountApp();
+    //this.dataService.saveMspAccountApp();
   }
 
   get accountUpdateList(): UpdateList[] {

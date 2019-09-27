@@ -24,6 +24,8 @@ class MspAccountApp implements ApplicationBase {
     documents: CommonImage[] = [];
     id: string;
 
+    pageStatus: any[] = [];
+
     authorizedByApplicant: boolean;
     authorizedByApplicantDate: Date;
     authorizedBySpouse: boolean;
@@ -43,6 +45,12 @@ class MspAccountApp implements ApplicationBase {
    public mailingSameAsResidentialAddress: boolean = true;
    public mailingAddress: Address = new Address();
    public phoneNumber: string;
+
+   private _spouse: MspPerson = new MspPerson(Relationship.Spouse);
+
+    get spouse(): MspPerson {
+        return this._spouse;
+    }
 
 
     /**
@@ -136,11 +144,11 @@ class MspAccountApp implements ApplicationBase {
     }
 
     get children(): Array<MspPerson> {
-        return this._children;
+        return this._addedChildren;
     }
 
     set children(value: Array<MspPerson>) {
-        this._children = value;
+        this._addedChildren = value;
     }
 
     get removedChildren(): Array<MspPerson> {
@@ -176,11 +184,7 @@ class MspAccountApp implements ApplicationBase {
     get hasValidAuthToken(){
         return this.authorizationToken && this.authorizationToken.length > 1;
     }
-    addUpdatedChild(): MspPerson {
-        const c = new MspPerson(Relationship.ChildUnder24, OperationActionType.Update);
-        this._updatedChildren.length < 30 ? this._updatedChildren.push(c) : console.log('No more than 30 children can be added to one application');
-        return c;
-    }
+   
 
 
     removeUpdateChild(idx: number): void {
@@ -325,28 +329,82 @@ class MspAccountApp implements ApplicationBase {
         this.id = UUID.UUID();
     }
 
-    
   addChild(relationship: Relationship): MspPerson {
-    const c = new MspPerson(relationship);
-    if (relationship === Relationship.Child19To24) {
-      //child between 19-24 must be a full time student to qualify for enrollment
-      c.fullTimeStudent = true;
-    }
-    if ( this._children.length < 30 ) {
-      // Add child to front of array
-      const tmp = [c, ...this._children];
-      this._children = tmp;
+    const c = new MspPerson(relationship,  OperationActionType.Add);
+    
+    //child between 19-24 must be a full time student to qualify for enrollment
+    c.fullTimeStudent = relationship === Relationship.Child19To24 ? true : false;
+    c.operationActionType = OperationActionType.Add;
+
+    if ( this._addedChildren.length < 30 ) {
+        const tmp = [c, ...this._addedChildren];
+        this._addedChildren = tmp;
+        
     } else {
-      console.log('No more than 30 children can be added to one application');
+        console.log('No more than 30 children can be added to one application');
+    }
+        return c;
+  }
+
+
+  addRemovedChild(relationship: Relationship): MspPerson {
+    const c = new MspPerson(relationship, OperationActionType.Remove);
+
+    //child between 19-24 must be a full time student to qualify for enrollment
+    c.fullTimeStudent = relationship === Relationship.Child19To24 ? true : false;
+    c.operationActionType = OperationActionType.Remove;
+
+    if ( this._removedChildren.length < 30 ) {
+        const tmp = [c, ...this._removedChildren];
+        this._removedChildren = tmp;
+
+    } else {
+        console.log('No more than 30 children can be added to one application');
     }
     return c;
   }
 
-  removeChild(idx: number): void {
-    this._children.splice(idx, 1);
+ /* addUpdatedChild (relationship: Relationship): MspPerson {
+    const c = new MspPerson(Relationship.ChildUnder24, OperationActionType.Update);
+    this._updatedChildren.length < 30 ? this._updatedChildren.push(c) : console.log('No more than 30 children can be added to one application');
+    return c;
+  }*/
+
+   addUpdatedChild(relationship: Relationship): MspPerson {
+    const c = new MspPerson(relationship,  OperationActionType.Update);
+
+    //child between 19-24 must be a full time student to qualify for enrollment
+    c.fullTimeStudent = relationship === Relationship.Child19To24 ? true : false;
+    c.operationActionType = OperationActionType.Update;
+
+    if ( this._updatedChildren.length < 30 ) {
+        const tmp = [c, ...this._updatedChildren];
+        this._updatedChildren = tmp;
+
+    } else {
+        console.log('No more than 30 children can be added to one application');
+    }
+        return c;
+
   }
 
-  
+
+
+  removeChild(idx: number, op: OperationActionType): void {
+
+    if (op === 0) {
+        this._addedChildren.splice(idx, 1);
+    }
+
+    if (op === 1) {
+        this._removedChildren.splice(idx, 1);
+    }
+
+    if (op === 2) {
+        this._updatedChildren.splice(idx, 1);
+    }
+
+  }
 
 }
 
@@ -356,6 +414,7 @@ class AccountChangeOptions {
     spouseInfoUpdate: boolean;
     spouseRemoved: boolean;
     lastNameUpdate: boolean;
+    dependentRemoved: boolean = false;
     dependentChange: boolean = false;
     addressUpdate: boolean = false;
     immigrationStatusChange: boolean;

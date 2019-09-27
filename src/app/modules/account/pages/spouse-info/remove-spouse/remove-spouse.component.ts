@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, Injectable , ViewChild, ViewChildren , Que
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {BaseComponent} from '../../.././../../models/base.component';
-import {AccountPersonalDetailsComponent} from '../../personal-info/personal-details/personal-details.component';
+import {AccountPersonalDetailsComponent} from '../../../components/personal-details/personal-details.component';
 import { MspPerson } from '../../../models/account.model';
 import { Relationship } from '../../../../../models/status-activities-documents';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
@@ -25,6 +25,7 @@ import {
 } from '../../../../../components/msp/model/msp-person.model';
 
 import { Person } from 'moh-common-lib';
+import { spouseRemovedDueToDivorceDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
 
 
 @Component({
@@ -52,6 +53,8 @@ export class RemoveSpouseComponent extends BaseComponent {
   @Input() spouse: MspPerson;
   updateList: UpdateList[];
 
+  spouseRemoveDocs = spouseRemovedDueToDivorceDocuments();
+
   constructor(public dataService: MspAccountMaintenanceDataService, cd: ChangeDetectorRef) {
 
     super(cd);
@@ -63,13 +66,13 @@ export class RemoveSpouseComponent extends BaseComponent {
   ngOnInit() {
     this.accountApp = this.dataService.accountApp;
     this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
-    //this.spouse = this.dataService.accountApp.removedSpouse;
+    this.spouse = this.dataService.accountApp.removedSpouse;
   }
 
   onChange($event){
     console.log($event);
     console.log(this.spouse);
-    this.dataService.saveMspAccountApp();
+    //this.dataService.saveMspAccountApp();
   }
 
   setCancellationStatus(evt: any) {
@@ -77,7 +80,7 @@ export class RemoveSpouseComponent extends BaseComponent {
     if(evt === 1) {
       this.spouse.reasonForCancellation = evt;
     }
-    this.dataService.saveMspAccountApp();
+    //this.dataService.saveMspAccountApp();
 
   }
 
@@ -85,7 +88,7 @@ export class RemoveSpouseComponent extends BaseComponent {
     console.log(evt);
     console.log('address update event: %o', evt);
     evt.addressLine1 = evt.street;
-    this.dataService.saveMspAccountApp();
+   // this.dataService.saveMspAccountApp();
   }
 
   get cancellationReasons() {

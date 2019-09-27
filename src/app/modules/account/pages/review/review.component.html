@@ -59,9 +59,11 @@
 </common-page-framework>
 
 <div class="position: inherit;">
-        <common-form-action-bar [submitLabel]="'Continue'"
-            [defaultColor]="false"
-            [canContinue]="mspAccountApp.authorizedByApplicant || ((mspAccountApp.updatedSpouse || mspAccountApp.addedSpouse ) && !mspAccountApp.authorizedBySpouse)" 
-            (btnClick)="handleFormSubmission($event)">
-        </common-form-action-bar>
+    <common-form-action-bar 
+        [canContinue]="canContinue()"
+        (btnClick)="continue()"
+        submitLabel="Continue">
+    </common-form-action-bar>   
+    
+   
 </div>

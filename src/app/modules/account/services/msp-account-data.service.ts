@@ -149,9 +149,11 @@ export class MspAccountMaintenanceDataService {
     dto.dob_year = input.dob_year;
     dto.middleName = input.middleName;
     dto.previous_phn = input.previous_phn;
+    
     dto.healthNumberFromOtherProvince = input.healthNumberFromOtherProvince;
 
-
+    dto.hasNameChange = input.hasNameChange;
+    
     
     //= input.updateNameDueDoc;
     
@@ -190,6 +192,8 @@ export class MspAccountMaintenanceDataService {
 
     dto.declarationForOutsideOver30Days = input.declarationForOutsideOver30Days;
 
+    dto.declarationForOutsideOver60Days = input.declarationForOutsideOver60Days;
+
     dto.reasonForCancellation = input.reasonForCancellation;
     dto.cancellationDate = input.cancellationDate;
     dto.isExistingBeneficiary = input.isExistingBeneficiary;
@@ -200,6 +204,11 @@ export class MspAccountMaintenanceDataService {
     dto.newlyAdopted = input.newlyAdopted;
     dto.adoptedDate = input.adoptedDate;
     dto.marriageDate = input.marriageDate;
+
+   // dto.relationship = input.relationship;
+
+
+    
 
     dto.phoneNumber = input.phoneNumber;
     if (input.mailingAddress.isValid) {
@@ -214,6 +223,7 @@ export class MspAccountMaintenanceDataService {
     }
     dto.docType = input.docType;
     dto.status = input.status;
+    
     dto.currentActivity = input.currentActivity;
 
     dto.images = input.documents.images;
@@ -224,14 +234,30 @@ export class MspAccountMaintenanceDataService {
     dto.updateBirthdate = input.updateBirthdate;
     dto.updateGender = input.updateGender;
     dto.updateGenderDesignation = input.updateGenderDesignation;
-
+    dto.updateStatusInCanadaDocType = input.updateStatusInCanadaDocType;
     dto.updateNameDueToMarriageDocType = input.updateNameDueToMarriageDocType;
     dto.updateNameDueDoc = input.updateNameDueDoc;
     dto.updateNameDueToErrorDocType = input.updateNameDueToErrorDocType;
     dto.updateNameDueToErrorDoc = input.updateNameDueToErrorDoc;
+    dto.nameChangeDocs = input.nameChangeDocs;
+
+    dto.hasActiveMedicalServicePlan = input.hasActiveMedicalServicePlan;
+
+    dto.previouslastName = input.previouslastName;
+    dto.updatingPersonalInfo = input.updatingPersonalInfo;
+
+    
+    dto.immigrationStatusChange = input.immigrationStatusChange;
+   // dto.spouseRemoved = input.spouseRemoved;
+    dto.cancellationDate = input.cancellationDate;
+    dto.cancellationReason = input.cancellationReason;
+    dto.hasCurrentMailingAddress = input.hasCurrentMailingAddress;
+    dto.removedSpouseDueToDivorceDoc = input.removedSpouseDueToDivorceDoc;
 
     dto.updateBirthdateDocType = input.updateBirthdateDocType;
     dto.updateBirthdateDoc = input.updateBirthdateDoc;
+
+    dto.isRemovedAtTheEndOfCurrentMonth = input.isRemovedAtTheEndOfCurrentMonth;
 
     dto.updateGenderDocType = input.updateGenderDocType;
     dto.updateGenderDoc = input.updateGenderDoc;
@@ -264,6 +290,28 @@ export class MspAccountMaintenanceDataService {
     output.healthNumberFromOtherProvince = dto.healthNumberFromOtherProvince;
     output.previous_phn = dto.previous_phn;
 
+    output.hasNameChange = dto.hasNameChange;
+    output.nameChangeDocs = dto.nameChangeDocs;
+
+    //output.relationship = dto.relationship;
+
+    output.previouslastName = dto.previouslastName;
+
+    output.immigrationStatusChange = dto.immigrationStatusChange;
+
+    output.updatingPersonalInfo = dto.updatingPersonalInfo;
+
+    
+    output.cancellationDate = dto.cancellationDate;
+    output.cancellationReason = dto.cancellationReason;
+    output.hasCurrentMailingAddress = dto.hasCurrentMailingAddress;
+    output.removedSpouseDueToDivorceDoc = dto.removedSpouseDueToDivorceDoc;
+
+    output.isRemovedAtTheEndOfCurrentMonth = dto.isRemovedAtTheEndOfCurrentMonth;
+
+    
+    
+    output.hasActiveMedicalServicePlan = dto.hasActiveMedicalServicePlan;
     
     output.arrivalToCanadaDay = dto.arrivalToCanadaDay;
     output.arrivalToCanadaMonth = dto.arrivalToCanadaMonth;
@@ -301,6 +349,9 @@ export class MspAccountMaintenanceDataService {
     output.declarationForOutsideOver30Days =
       dto.declarationForOutsideOver30Days;
 
+      output.declarationForOutsideOver60Days =
+      dto.declarationForOutsideOver60Days;
+
     output.newlyAdopted = dto.newlyAdopted;
     output.adoptedDate = dto.adoptedDate;
 
@@ -336,7 +387,7 @@ export class MspAccountMaintenanceDataService {
     output.updateGender = dto.updateGender;
     output.updateGenderDesignation = dto.updateGenderDesignation;
     output.updateNameDueDoc = dto.updateNameDueDoc;
-
+    output.updateStatusInCanadaDocType = dto.updateStatusInCanadaDocType;
     output.updateNameDueToMarriageDocType = dto.updateNameDueToMarriageDocType;
     output.updateNameDueDoc = dto.updateNameDueDoc;
 
