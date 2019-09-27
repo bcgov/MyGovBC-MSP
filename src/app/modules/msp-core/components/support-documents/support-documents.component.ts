@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input, forwardRef, SimpleChanges, OnChanges, OnDestroy } from '@angular/core';
-import { Base, CommonImage } from 'moh-common-lib';
+import { Base, CommonImage, SampleImageInterface } from 'moh-common-lib';
 import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
 import { CanadianStatusReason, StatusInCanada } from '../../models/canadian-status.enum';
 import { SupportDocuments, SupportDocumentList, SupportDocumentSamples } from '../../models/support-documents.enum';
@@ -104,6 +104,8 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
 
   onChanges = new BehaviorSubject<SimpleChanges>( null );
 
+  docSampleImages: SampleImageInterface[] = [];
+
   // List of all supporting document types
   private _documentOpts: string[] = Object.keys(SupportDocumentList).map( x => SupportDocumentList[x] );
 
@@ -181,8 +183,6 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
   }
 
   get documentList() {
-    console.log(this.statusReason);
-    console.log(this.canadianStatus);
     // Get the status reason list available for the selected status
     if ( !this.supportDocList ) {
       return suportDocumentRules( this.canadianStatus, this.statusReason );
@@ -200,11 +200,19 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
     }
   }
 
-  get docSampleTitle() {
-    return this.supportDoc.documentType;
-  }
-  get docSampleImages() {
-    const idx = Object.keys(SupportDocumentList).findIndex( x => SupportDocumentList[x] === this.supportDoc.documentType);
-    return idx >= 0 ? [SupportDocumentSamples[idx]] : [];
+  get hasSampleDoc() {
+
+    if ( this.hasDocumentType ) {
+      const idx = this._documentOpts.findIndex( x => x === this.supportDoc.documentType );
+
+      if ( idx >= 0 && idx < this._documentOpts.length ) {
+        if ( SupportDocumentSamples[idx].path ) {
+          this.docSampleImages = [SupportDocumentSamples[idx]];
+          return true;
+        }
+      }
+      this.docSampleImages = [];
+    }
+    return false;
   }
 }
