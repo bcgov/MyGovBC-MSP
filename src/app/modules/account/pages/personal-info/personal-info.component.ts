@@ -1,15 +1,27 @@
-import {ChangeDetectorRef, Component, Injectable , ViewChild, ViewChildren , QueryList } from '@angular/core';
+import {ChangeDetectorRef, Component, Injectable , ViewChild, ViewChildren , QueryList, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {BaseComponent} from '../../../../models/base.component';
 import {ProcessUrls} from '../../../../services/process.service';
-import {AccountPersonalDetailsComponent} from './personal-details/personal-details.component';
+import {AccountPersonalDetailsComponent} from '../../components/personal-details/personal-details.component';
 import { MspPerson } from '../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/account.model';
-import { StatusInCanada, CanadianStatusReason, CanadianStatusStrings, CanadianStatusRules } from '../../../msp-core/models/canadian-status.enum';
+//import { StatusInCanada, CanadianStatusReason, CanadianStatusReasonStrings, CanadianStatusStrings, CanadianStatusRules } from '../../../msp-core/models/canadian-status.enum';
+//import { Relationship } from '../../../msp-core/models/relationship.enum';
+//import { ActivitiesRules } from '../../../msp-core/models/status-activities-documents';
+//import { Activities,  ActivitiesRules, Documents } from '../../../../models/status-activities-documents';
+import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { PersonDocuments } from 'app/components/msp/model/person-document.model';
+import { Base, AbstractForm } from 'moh-common-lib';
+import { PageStateService } from 'app/services/page-state.service';
+import { ROUTES_ENROL } from 'app/modules/enrolment/models/enrol-route-constants';
+import { ROUTES_ACCOUNT } from '../../models/enrol-route-constants';
+
+import { StatusInCanada, CanadianStatusReason,CanadianStatusStrings, CanadianStatusRules } from '../../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../../models/relationship.enum';
-import { getStatusReasonStrings } from '../../../msp-core/components/canadian-status/canadian-status.component';
+//import { getStatusReasonStrings } from '../../../msp-core/components/canadian-status/canadian-status.component';
 // import { Canadian }
 
 
@@ -17,12 +29,12 @@ import { getStatusReasonStrings } from '../../../msp-core/components/canadian-st
   templateUrl: './personal-info.component.html'
 })
 @Injectable()
-export class AccountPersonalInfoComponent extends BaseComponent {
+export class AccountPersonalInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
 
   static ProcessStepNum = 1;
   lang = require('./i18n');
   docSelected: string ;
-  activitiesOpts: string[] = getStatusReasonStrings();
+  //activitiesOpts: string[] = CanadianStatusReason;
 
     langStatus = CanadianStatusStrings;
 
@@ -36,20 +48,21 @@ export class AccountPersonalInfoComponent extends BaseComponent {
     accountHolderSubtitle: string = 'Please provide the Account Holder’s personal information for verification purposes.';
     person: MspPerson;
     updateList: UpdateList[];
+    subscriptions: Subscription[];
 
 
     constructor(public dataService: MspAccountMaintenanceDataService,
-              private _router: Router,
+                 protected router: Router,  private pageStateService: PageStateService
               //private _processService: ProcessService,
-              cd: ChangeDetectorRef) {
+              ) {
 
-     super(cd);
+          super(router);
     }
 
     onChange($event){
         console.log($event);
         console.log(this.applicant);
-        this.dataService.saveMspAccountApp();
+        //this.dataService.saveMspAccountApp();
     }
 
     ngOnInit(){
@@ -62,6 +75,23 @@ export class AccountPersonalInfoComponent extends BaseComponent {
      // this.initProcessMembers( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL), this._processService);
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach( itm => itm.unsubscribe() );
+  }
+  
+  ngAfterViewInit() {
+    if (this.form) {
+      this.subscriptions = [
+        this.form.valueChanges.pipe(
+          debounceTime(100)
+        ).subscribe(() => {
+          this.dataService.saveMspAccountApp();
+        })
+        ];
+    }
+  }
+
+  
     get applicant(): MspPerson {
         return this.dataService.accountApp.applicant;
     }
@@ -75,12 +105,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
 
     }
 
-    removeUpdateChild(idx: number): void{
-        // console.log('remove child ' + JSON.stringify(event));
-        this.dataService.getMspAccountApp().removeUpdateChild(idx);
-        this.dataService.saveMspAccountApp();
-
-    }
+   
 
     personInfoUpdateOnChange(event: boolean) {
 
@@ -97,12 +122,12 @@ export class AccountPersonalInfoComponent extends BaseComponent {
 
         }
 
-        this.dataService.saveMspAccountApp();
+       // this.dataService.saveMspAccountApp();
     }
 
     immigrationStatusChange(event: boolean) {
         this.accountChangeOptions.immigrationStatusChange = event;
-        this.dataService.saveMspAccountApp();
+      //  this.dataService.saveMspAccountApp();
     }
 
 
@@ -113,9 +138,6 @@ export class AccountPersonalInfoComponent extends BaseComponent {
         this.dataService.getMspAccountApp().addUpdatedSpouse(sp);
     }
 
-    addUpdateChild(): void {
-        this.dataService.getMspAccountApp().addUpdatedChild();
-    }
 
     /*
     If the application contains any Visting status , application shouldnt be sumbitted
@@ -131,47 +153,82 @@ export class AccountPersonalInfoComponent extends BaseComponent {
 
     }
 
-    canContinue(): boolean {
-        return this.isAllValid();
+    isPhnUniqueInPI() {
+      return this.dataService.accountApp.isUniquePhnsInPI ;
     }
 
-    removeSpouse = () => {
-        this.dataService.getMspAccountApp().removeUpdatedSpouse();
-        this.dataService.saveMspAccountApp();
-    }
+    /*canContinue(): boolean {
+        return this.isAllValid();
+    }*/
+
+   
 
     isValid(): boolean {
-      return this.dataService.getMspAccountApp().isUniquePhnsInPI ;
+      return this.dataService.accountApp.isUniquePhnsInPI ;
 
     }
 
     statusLabel(): string {
         return 'You Status in Canada';
     }
+   
 
-    get activities(): CanadianStatusReason[] {
-        console.log( this.person.relationship);
-        console.log( this.person.status);
-        // todo review correctness, had to modify after merge.
-        return CanadianStatusRules.statusesForRelationship(
-            this.person.relationship,
-            this.person.status
-        );
+   /* get activitiesTable() {
+      console.log(this.activities);
+      if (!this.activities) return;
+      return this.activities.map(itm => {
+        const label = this.activityStatus[itm];
+        console.log(itm);
+        console.log(label);
+        return {
+        label,
+        value: itm
+        };
+      });
     }
 
-    get items()   {
-        return[
-        'Canadian birth certificate',
-        'Canadian citizenship card or certificate',
-        'Canadian Passport'
-    ]; }
-
-    get canadaStatus()   {
-        return[
-        'Canadian Citizen',
-        'Permanent Resident',
-        'Temporary Permit Holder or Diplomat'];
+    activityStatus  =  {
+      0: 'Not new to B.C. but need to apply for MSP',
+      1: 'Moved to B.C. from another province',
+      2: 'Moved to B.C. from another country',
+      3: 'Working in B.C.',
+      4: 'Studying in B.C.',
+      5: 'Religious worker',
+      6: 'Diplomat',
+      7: 'Visiting'
+    };
+  
+  get activities(): Activities[] {
+      console.log( this.person.relationship);
+      console.log( this.person.status);
+      return ActivitiesRules.activitiesForAccountChange(
+          this.person.relationship,
+          this.person.status
+      );
     }
+
+  get items()   {
+        return[
+        { 
+          "label": "Canadian birth certificate",
+          "value": Documents.CanadianBirthCertificate
+        },
+        { 
+          "label": "Canadian Passport",
+          "value": Documents.CanadianPassport
+        },
+        { 
+          "label": "Canadian citizenship card or certificate",
+          "value": Documents.CanadianCitizenCard
+        }
+    ]};*/
+
+    /*get canadaStatus()   {
+        return[
+          { 0: 'Canadian Citizen'},
+          { 1: 'Permanent Resident' },
+          { 2: 'Temporary Permit Holder or Diplomat'}
+    ]};
 
     get residentStatus() {
         return[
@@ -219,19 +276,10 @@ export class AccountPersonalInfoComponent extends BaseComponent {
 
         ];
 
-    }
-
-
-    get activitiesTable() {
-      if (this.activities) {
-        return this.activities.map(itm => {
-          return {
-            label: this.activitiesOpts[itm],
-            value: itm
-          };
-        });
-      }
-    }
+    }*/
+    
+    
+    
 
     setStatus(value: StatusInCanada, p: MspPerson) {
         if (typeof value === 'object') return;
@@ -246,17 +294,40 @@ export class AccountPersonalInfoComponent extends BaseComponent {
       //this.onChange.emit(value);
     }
 
-    continue(): void {
+    //continue(): void {
 
         // console.log('personal info form itself valid: %s', this.form.valid);
-        console.log('combinedValidationState on personal info: %s', this.isAllValid());
-        if (!this.isAllValid()){
+       // console.log('combinedValidationState on personal info: %s', this.isAllValid());
+       /* if (!this.isAllValid()){
             console.log('Please fill in all required fields on the form.');
         }else{
            // console.log('redirecting to' + this._processService.getNextStep( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL)));
            // this._router.navigate([this._processService.getNextStep( this._processService.getStepNumber(ProcessUrls.ACCOUNT_PERSONAL_INFO_URL))]);
 
            this._router.navigate([ProcessUrls.ACCOUNT_PERSONAL_INFO_URL]);
-        }
+        }*/
+   // }
+
+    canContinue(): boolean {
+      let valid = super.canContinue();
+  
+      if ( this.applicant.hasNameChange ) {
+        valid = valid;
+      }
+  
+      if ( this.applicant.fullTimeStudent ) {
+        valid = valid && this.applicant.inBCafterStudies;
+      }
+      return valid;
+    }
+
+    continue(): void {
+      if (!this.canContinue()) {
+        console.log('Please fill in all required fields on the form.');
+        this.markAllInputsTouched();
+        return;
+      }
+      this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
+      this.navigate('/account/spouse-info');
     }
 }

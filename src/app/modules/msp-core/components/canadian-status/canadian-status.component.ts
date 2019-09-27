@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, forwardRef, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef, ChangeDetectionStrategy } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { StatusInCanada, CanadianStatusStrings, CanadianStatusReasonStrings, CanadianStatusReason } from '../../models/canadian-status.enum';
@@ -77,7 +77,6 @@ export function getStatusReasonStrings(): string[] {
   selector: 'msp-canadian-status',
   templateUrl: './canadian-status.component.html',
   styleUrls: ['./canadian-status.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 
   /* Re-use the same ngForm that it's parent is using. The component will show
    * up in its parents `this.form`, and will auto-update `this.form.valid`
@@ -86,7 +85,7 @@ export function getStatusReasonStrings(): string[] {
     { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
   ]
 })
-export class CanadianStatusComponent extends Base implements OnChanges {
+export class CanadianStatusComponent extends Base {
 
   @Input() statusReasonList: CanadianStatusReason[];
   @Input() label: String = 'Your immigration status in Canada';
@@ -102,10 +101,6 @@ export class CanadianStatusComponent extends Base implements OnChanges {
 
   constructor() {
     super();
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    console.log( 'onChanges: ', changes );
   }
 
   /**
@@ -154,7 +149,6 @@ export class CanadianStatusComponent extends Base implements OnChanges {
    * Display available activities for status
    */
   get availableStatusReasons() {
-    console.log( 'availableStatusReasons: ', this.reasonList );
     if ( this.reasonList ) {
       return this.reasonList.map(itm => {
         return {

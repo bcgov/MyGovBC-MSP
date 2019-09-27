@@ -1,27 +1,34 @@
-import {Component, ViewChild, OnInit} from '@angular/core';
+import {Component, ViewChild, OnInit, AfterViewInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { Router} from '@angular/router';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {ProcessService, ProcessUrls} from '../../../../services/process.service';
 import {environment} from '../../../../../environments/environment';
 import { MspAccountApp, MspPerson } from '../../models/account.model';
+import { AbstractForm } from 'moh-common-lib';
+import { PageStateService } from 'app/services/page-state.service';
+import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 
 @Component({
     templateUrl: './review.component.html',
     styleUrls: ['./review.component.scss']
 })
-export class AccountReviewComponent implements OnInit {
+export class AccountReviewComponent extends AbstractForm implements OnInit {
     lang = require('./i18n');
 
     mspAccountApp: MspAccountApp;
     captchaApiBaseUrl: string;
     @ViewChild(NgForm) form: NgForm;
 
-    constructor(private dataService: MspDataService,
-                private _router: Router,
-                private processService: ProcessService) {
+    constructor(public dataService: MspAccountMaintenanceDataService,
+                    protected router: Router,  private pageStateService: PageStateService) {
+                    super(router);
         this.mspAccountApp = dataService.getMspAccountApp();
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
+    }
+
+    ngOnInit() {
+        this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
     }
 
     // unused.. logic changed
@@ -57,15 +64,6 @@ export class AccountReviewComponent implements OnInit {
         return this.mspAccountApp.applicant.firstName + ' ' + this.mspAccountApp.applicant.lastName;
     }
 
-
-    ngOnInit() {
-      /*  let oldUUID = this.mspAccountApp.uuid;
-        this.mspAccountApp.regenUUID();
-        this.dataService.saveMspAccountApp();
-        console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.getMspAccountApp().uuid);
-*/
-    }
-
     applicantAuthorizeOnChange(event: boolean) {
         this.mspAccountApp.authorizedByApplicant = event;
         if (this.mspAccountApp.authorizedByApplicant) {
@@ -88,17 +86,20 @@ export class AccountReviewComponent implements OnInit {
         return this.spouseForAuthorisation.firstName + ' ' + this.spouseForAuthorisation.lastName;
     }
 
-    handleFormSubmission($event) {
-
-        if (this.mspAccountApp.hasValidAuthToken) {
-            console.log('Found valid auth token, transfer to sending screen.');
-            this.processService.setStep(this.processService.getStepNumber(ProcessUrls.ACCOUNT_REVIEW_URL), true);
-            //  this.logService.log({name: "Account - Review Page after CAPTCHA"},"Account - Captcha Success")
-            this._router.navigate(['/account/sending']);
-        } else {
-            console.log('Auth token is not valid');
-        }
+    canContinue(): boolean {
+        let valid = super.canContinue();
+        return valid;
     }
+
+    continue(): void {
+        if (!this.canContinue()) {
+          console.log('Please fill in all required fields on the form.');
+          this.markAllInputsTouched();
+          return;
+        }
+        this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
+        this.navigate('/account/authorize');
+      }
 
 
 }

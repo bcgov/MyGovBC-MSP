@@ -211,6 +211,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
         // return r;
     }
 
+    //This method has all the logic to hide the Continue button on the Financial Info page
     get canContinue() {
         const spouseSpecified =
             !(this.application.hasSpouse === null || this.application.hasSpouse === undefined);
@@ -301,7 +302,7 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
           }
         }
 
-        // regex pattern check for the child count 
+        // regex pattern check for the child count and checking if the child count is greater than 30
         const childCountPattern = /^[0-9]{0,2}$/g;
         if (this.application.childClaimForAttendantCareExpense) {
           const childCountcheck = this.application.childWithAttendantCareCount && this.application.childWithAttendantCareCount.toString().match(childCountPattern);
@@ -321,10 +322,11 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
 
         if (this.application.haveChildrens) {
             const childCountcheck = this.application.childrenCount && this.application.childrenCount.toString().match(childCountPattern);
-          if (!childCountcheck) {
-            this.continue.emit(false);
-            return false;
-          }
+           // console.log(this.application.childrenCount);
+            if (!childCountcheck || this.application.childrenCount > 29 ) {
+                this.continue.emit(false);
+                return false;
+            }
         }
 
         // checking if the total income does not exceeds 999999.99

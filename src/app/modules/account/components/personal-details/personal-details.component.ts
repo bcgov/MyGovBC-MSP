@@ -4,16 +4,19 @@ import {
 } from '@angular/core';
 import { state, trigger, style, } from '@angular/animations';
 import {NgForm} from '@angular/forms';
+//import {Person} from '../../../model/person.model';
 import * as _ from 'lodash';
-import {MspBirthDateComponent} from '../../../../../modules/msp-core/components/birthdate/birthdate.component';
-import {MspStatusInCanadaRadioComponent} from '../../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
-import {BaseComponent} from '../../../../../models/base.component';
-import { MspPerson, MspAccountApp } from '../../../models/account.model';
+import {MspBirthDateComponent} from '../../../../modules/msp-core/components/birthdate/birthdate.component';
+import {MspStatusInCanadaRadioComponent} from '../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
+import {BaseComponent} from '../../../../models/base.component';
+//import { MspPhoneComponent } from '../../../../components/msp/common/phone/phone.component';
+import { MspPerson, MspAccountApp } from '../../models/account.model';
 import { Address } from 'moh-common-lib';
-import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
-import { StatusInCanada, CanadianStatusReason, CanadianStatusStrings } from '../../../../msp-core/models/canadian-status.enum';
-import { statusRules, statusReasonRules } from '../../../../msp-core/components/canadian-status/canadian-status.component';
-import { Relationship } from '../../../../../models/relationship.enum';
+import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
+import { StatusInCanada, CanadianStatusReason, CanadianStatusStrings } from '../../../msp-core/models/canadian-status.enum';
+import { statusRules, statusReasonRules } from '../../../msp-core/components/canadian-status/canadian-status.component';
+import { Relationship } from 'app/models/relationship.enum';
+//import { Relationship } from '../../../msp-core/models/relationship.enum';
 
 @Component({
         selector: 'msp-account-personal-details',
@@ -49,9 +52,9 @@ import { Relationship } from '../../../../../models/relationship.enum';
 )
 
 export class AccountPersonalDetailsComponent extends BaseComponent {
-    lang = require('./i18n');
+    //lang = require('./i18n');
     langStatus = CanadianStatusStrings;
-    //langAccountActivities = require('../../../../../components/msp/common/account-activities/i18n');
+    //langAccountActivities = require('../../../../components/msp/common/account-activities/i18n');
     //langDocuments = require('../../../../../components/msp/common/documents/i18n');
 
     // Expose some types to template
@@ -59,20 +62,17 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
     Relationship: typeof Relationship = Relationship;
     StatusInCanada: typeof StatusInCanada = StatusInCanada;
 
-    @ViewChild('formRef') form: NgForm;
+   // @ViewChild('formRef') form: NgForm;
 
     @ViewChild('gender') gender: ElementRef;
     @ViewChild('birthDate') birthdate: MspBirthDateComponent;
  //   @ViewChild('name') name: ElementRef;
   //  @ViewChild('phn') phn: MspPhnComponent;
-    //@ViewChild('phone') phone: MspPhoneComponent;
+   // @ViewChild('phone') phone: MspPhoneComponent;
     @ViewChild(MspStatusInCanadaRadioComponent) statusRadioComponents: MspStatusInCanadaRadioComponent;
 
     @Input() person: MspPerson;
-    @Input() title: string;
-    @Input() subtitle: string;
     @Input() id: string;
-    @Input() showError: boolean;
     public buttonClass: string = 'btn btn-default btn-xs pull-right';
     public defaultCountry = 'CANADA';
     public defaultProvince = 'BRITISH COLUMBIA';
@@ -83,6 +83,8 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
      *
      */
     @Input() showErrorAddress: boolean = true;
+
+    @Input() showError: boolean;
 
 
     /** Hides the 'Clear Spouse/Child' button, and the <hr> at the end of the component. Useful in layouts where this form must be embedded in a larger form.. */
@@ -123,10 +125,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
         return statusRules(this.person.relationship);
     }
 
-    handlePhoneNumberChange(evt: any) {
-        this.person.phoneNumber = evt;
-        this.dataService.saveMspAccountApp();
-    }
+   
 
     setStatus(value: StatusInCanada, p: MspPerson) {
         p.status = value;
@@ -167,13 +166,13 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
         if (evt) {
             this.person.mailingAddress = new Address();
         }
-        this.dataService.saveMspAccountApp();
+        //this.dataService.saveMspAccountApp();
     }
 
     handleAddressUpdate(evt: any) {
         console.log('Abhi Address --> ');
         console.log(evt);
-        this.dataService.saveMspAccountApp();
+       // this.dataService.saveMspAccountApp();
         this.emitIsFormValid();
         this.onChange.emit();
     }
@@ -230,26 +229,30 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
 
 
     isValid(): boolean {
-        if (this.addressRequired) {
-            if (!this.person.residentialAddress ) { //|| !this.person.residentialAddress.isValid ) {
-                return false;
+        if(!this.person) {
+            if (this.addressRequired) {
+                if (!this.person.residentialAddress ) { //|| !this.person.residentialAddress.isValid ) {
+                    return false;
+                }
             }
-        }
-        // residential address if exists , it shud be BC
-
-        if (this.person.residentialAddress ) { // && this.person.residentialAddress.isValid) {
-           /* if (!this.person.residentialAddress){
-                return false ;
+            // residential address if exists , it shud be BC
+    
+            //if (!this.person.residentialAddress ) { // && this.person.residentialAddress.isValid) {
+               /* if (!this.person.residentialAddress){
+                    return false ;
+                }*/
+           // }
+    
+    
+            /*if (!this.person.mailingSameAsResidentialAddress) {
+                if (!this.person.mailingAddress.isValid){
+                    return false;
+                }
             }*/
+    
+
         }
-
-
-        /*if (!this.person.mailingSameAsResidentialAddress) {
-            if (!this.person.mailingAddress.isValid){
-                return false;
-            }
-        }*/
-
+        
         return true;
     }
 }

@@ -1,51 +1,138 @@
 
-  <div>
-      <h2><strong>Add Spouse</strong></h2>
-      <p class="border-bottom">
-          Please provide your spouse's personal information and immigration status in Canada.
-      </p> 
-      <!--
-  
+<div>
+  <div class="form-group">
+      <common-radio name="immigrationStatusChange__{{objectId}}"  [(ngModel)]="spouse.immigrationStatusChange" 
+          [label]="'Does your spouse currently have an active Medical Services Plan coverage?'" 
+          [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'>
+      </common-radio>
+  </div>
+
+  <!-- EXISTING SPOUSE Section 1 New Spouse When the Active coverage is YES -->
+  <div *ngIf="spouse.immigrationStatusChange">
+      <msp-personal-information [person]="spouse" [showPhn]="true" >
+          <div sectionTitleInfo>
+              <h2>Spouse's Personal Information</h2>
+              <p class="border-bottom"> 
+                  Enter your spouse's legal name as it appears on their official Canadian identity documents, e.g., birth certificate, permanent resident card, passport.
+              </p>
+          </div>     
+      </msp-personal-information>
+
+      <div class="form-group" style="width: 300px;">
+        <common-date name="marriageDate__{{objectId}}"  label="Marriage date (optional)" [restrictDate]="'past'" 
+          [(ngModel)]="spouse.marriageDate">
+        </common-date>
+      </div>
+
       <div class="form-group">
-          <common-radio [value]="accountChangeOptions.mmigrationStatusChange"  [label]="'Does your spouse currently have an active Medical Services Plan coverage?'" 
+          <common-radio name="spouseInfoUpdate__{{objectId}}"  [(ngModel)]="accountChangeOptions.spouseInfoUpdate" 
+              label="Do you need to update spouse’s personal information or renew their status in Canada?" 
               [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-              (statusChange)="accountChangeOptions.immigrationStatusChange = $event">
+              (statusChange)="accountChangeOptions.spouseInfoUpdate = $event">
           </common-radio>
       </div>
-      
-      <div>
-  
-        <h3><strong>Spouse's immigration status in Canada</strong></h3>
-        <p class="border-bottom">Please provide the spouse's current immigration information.</p>
-  
-        <div class="form-group col-4">
-            <msp-citizen-status id="primary" [items]="langStatus"
-                (change)="setStatus($event, person)" [selected]="person.status">
-            </msp-citizen-status>
-        </div>  
-        
-        <div>
-          <msp-account-file-uploader [title]="'Documents to support spouse's status in Canada'" 
-            [person]="person" 
-            [activitiesTable]="activitiesTable" 
-            [items]="items" 
-            [accountApp]="accountApp"> 
-          </msp-account-file-uploader>
+
+      <div *ngIf="accountChangeOptions.spouseInfoUpdate" >
+        <msp-update-request title="What updates are you requesting for your spouse?" 
+            subtitle = "For each update or correction selected, provide the supporting documents." 
+            [activitiesTable]="activitiesTable"
+            [updateList]="accountUpdateList" 
+            [person]="spouse" 
+            [accountApp]="accountApp">
+        </msp-update-request>
+    </div>
+  </div>
+
+  <!-- NEW SPOUSE Section 1 New Spouse When the Active coverage is NO-->
+
+    <div *ngIf="spouse.immigrationStatusChange == false">
+      <msp-canadian-status [(person)]="spouse" 
+          [hideStatusReasons]="status">
+          <div sectionTitleInfo>
+            <h2>Spouse's Status in Canada</h2>
+            <p class="border-bottom">
+                Please provide the spouse's current immigration information.
+              </p>
+          </div>
+      </msp-canadian-status>
+
+      <msp-support-documents *ngIf="this.spouse.status !== undefined"
+            [canadianStatus]="spouse.status"
+            [statusReason]="spouse.currentActivity"
+            [(supportDoc)]="statusDocuments">
+        <div sectionTitleInfo>
+          <h2> <strong> Documents to support spouse's status in Canada </strong> </h2>
+          <p class="border-bottom"> 
+              Provide <b>one</b> of the required documents to support your spouse's immigration status in Canada. If your spouse's name has changed since their ID was issued please provide the document to support the name change.
+          </p>
         </div>
 
-         <div class="form-group">
-            <common-radio [value]="accountChangeOptions.mmigrationStatusChange" 
-                label="Did your spouse’s last name change as a result of marriage or common-law relationship?" 
-                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-                (statusChange)="accountChangeOptions.immigrationStatusChange = $event">
+        <div requestAdditionInfo>
+          <div class="form-group p-sm-2">
+            <common-radio name="nameChangeQuestion__{{objectId}}"
+                            [(ngModel)]="spouse.hasNameChange"  
+                          (statusChange)="this.spouse.hasNameChange = $event"
+                          label="Has your spouse's name changed since their ID was issued due to marriage or a legal name change?" 
+                          required>
             </common-radio>
+          </div>
+        </div>
+      </msp-support-documents>
+
+      <msp-support-documents *ngIf="spouse.hasNameChange"
+                            [supportDocList]="nameChangeDocList"
+                            [(supportDoc)]="spouse.nameChangeDocs">
+        <div sectionTitleInfo> 
+          <h3>Additional Documents</h3>
+          <p class="border-bottom"> 
+            Provide <strong>one</strong> of the required documents to support your spouse's name change.
+          </p>
         </div>
 
-        <div class="form-group" [ngClass]="{'col-sm-6 p-sm-0': useRows}">
-          <common-name [ngClass]="{row: useRows}" name="last_name" label="Spouse's previous last name" 
-            required [disabled]="disabled" [(ngModel)]="data.lastName"
-            maxlen="30" commonValidateName></common-name>
+        <div sampleDocument>
+          TODO: Need to add links with images to display        
+        </div>
+      </msp-support-documents>
+    
+
+      
+      <div *ngIf="spouse.hasNameChange !== undefined">
+
+        <msp-personal-information [person]="spouse" [showPhn]="true">
+            <div sectionTitleInfo>
+                <h2>Spouse's Personal Information</h2>
+                <p class="border-bottom"> 
+                    Enter your spouse's legal name as it appears on their official Canadian identity documents, e.g., birth certificate, permanent resident card, passport.
+                </p>
+            </div>     
+        </msp-personal-information>
+
+
+        <div class="form-group" style="width: 300px;">
+          <common-date name="marriageDate__{{objectId}}" label="Marriage date (optional)" [restrictDate]="'past'" 
+            [(ngModel)]="spouse.marriageDate">
+          </common-date>
         </div>
 
-      </div> -->
-    </div> 
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-6"> 
+              <common-name [ngClass]="{row: useRows}" name="last_name" 
+                label="Spouse's previous last name (optional)" [disabled]="disabled" 
+                [(ngModel)]="spouse.previouslastName"
+                maxlen="30" commonValidateName>
+              </common-name>
+            </div>
+          </div>
+        </div>
+
+        <msp-child-moving-information [person]="spouse" >
+            <div sectionTitleInfo>
+                <h2> <strong>Spouse's Residency Information</strong></h2>
+                  <p class="border-bottom"> 
+                  </p>
+            </div> 
+        </msp-child-moving-information>
+      </div>
+  </div>
+</div> 

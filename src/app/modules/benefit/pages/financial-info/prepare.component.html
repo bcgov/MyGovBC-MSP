@@ -153,9 +153,9 @@
                                             pattern="^[0-9]{0,2}?$"
                                             [(ngModel)]="benefitApp.childrenCount">
                                     
-                                        <div  class="text-danger" *ngIf="childCount.errors?.pattern"
+                                        <div  class="text-danger" *ngIf="childCount.errors?.pattern || benefitApp.childrenCount > 29"
                                             [innerHTML]="'Children count must be numeric and in between 1-29'">
-                                        </div>
+                                        </div>              
                             
                                     </div>
                                     
