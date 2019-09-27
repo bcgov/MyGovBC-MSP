@@ -24,15 +24,33 @@ class MspAccountApp implements ApplicationBase {
     documents: CommonImage[] = [];
     id: string;
 
+    pageStatus: any[] = [];
+
     authorizedByApplicant: boolean;
     authorizedByApplicantDate: Date;
     authorizedBySpouse: boolean;
 
+    // Boolean variables to see if the child and spouse are updated
+    hasSpouseAdded: boolean;
+    hasSpouseUpdated: boolean;
+    hasSpouseRemoved: boolean;
+    hasChildAdded: boolean;
+    hasChildRemoved: boolean;
+    hasChildUpdated: boolean;
+
+
+  
     // Address and Contact Info
    public residentialAddress: Address = new Address();
    public mailingSameAsResidentialAddress: boolean = true;
    public mailingAddress: Address = new Address();
    public phoneNumber: string;
+
+   private _spouse: MspPerson = new MspPerson(Relationship.Spouse);
+
+    get spouse(): MspPerson {
+        return this._spouse;
+    }
 
 
     /**
@@ -52,7 +70,7 @@ class MspAccountApp implements ApplicationBase {
         return regEx.test(this.phoneNumber);
     }
 
-    private _removedSpouse: MspPerson;
+    private _removedSpouse: MspPerson = new MspPerson(Relationship.Spouse);
     private _removedChildren: Array<MspPerson> = [];
     private _addedChildren: Array<MspPerson> = [];
     private _updatedChildren: Array<MspPerson>  = [];
@@ -126,11 +144,11 @@ class MspAccountApp implements ApplicationBase {
     }
 
     get children(): Array<MspPerson> {
-        return this._children;
+        return this._addedChildren;
     }
 
     set children(value: Array<MspPerson>) {
-        this._children = value;
+        this._addedChildren = value;
     }
 
     get removedChildren(): Array<MspPerson> {
@@ -141,8 +159,8 @@ class MspAccountApp implements ApplicationBase {
         this._removedChildren = value;
     }
 
-    private _addedSpouse: MspPerson;
-    private _updatedSpouse: MspPerson;
+    private _addedSpouse: MspPerson = new MspPerson(Relationship.Spouse); ;
+    private _updatedSpouse: MspPerson = new MspPerson(Relationship.Spouse);
     //DEAM doesnt use chidren as such..its either updated/removed/added children
     private _children: Array<MspPerson>  = [];
 
@@ -166,11 +184,7 @@ class MspAccountApp implements ApplicationBase {
     get hasValidAuthToken(){
         return this.authorizationToken && this.authorizationToken.length > 1;
     }
-    addUpdatedChild(): MspPerson {
-        const c = new MspPerson(Relationship.ChildUnder24, OperationActionType.Update);
-        this._updatedChildren.length < 30 ? this._updatedChildren.push(c) : console.log('No more than 30 children can be added to one application');
-        return c;
-    }
+   
 
 
     removeUpdateChild(idx: number): void {
@@ -315,11 +329,92 @@ class MspAccountApp implements ApplicationBase {
         this.id = UUID.UUID();
     }
 
+  addChild(relationship: Relationship): MspPerson {
+    const c = new MspPerson(relationship,  OperationActionType.Add);
+    
+    //child between 19-24 must be a full time student to qualify for enrollment
+    c.fullTimeStudent = relationship === Relationship.Child19To24 ? true : false;
+    c.operationActionType = OperationActionType.Add;
+
+    if ( this._addedChildren.length < 30 ) {
+        const tmp = [c, ...this._addedChildren];
+        this._addedChildren = tmp;
+        
+    } else {
+        console.log('No more than 30 children can be added to one application');
+    }
+        return c;
+  }
+
+
+  addRemovedChild(relationship: Relationship): MspPerson {
+    const c = new MspPerson(relationship, OperationActionType.Remove);
+
+    //child between 19-24 must be a full time student to qualify for enrollment
+    c.fullTimeStudent = relationship === Relationship.Child19To24 ? true : false;
+    c.operationActionType = OperationActionType.Remove;
+
+    if ( this._removedChildren.length < 30 ) {
+        const tmp = [c, ...this._removedChildren];
+        this._removedChildren = tmp;
+
+    } else {
+        console.log('No more than 30 children can be added to one application');
+    }
+    return c;
+  }
+
+ /* addUpdatedChild (relationship: Relationship): MspPerson {
+    const c = new MspPerson(Relationship.ChildUnder24, OperationActionType.Update);
+    this._updatedChildren.length < 30 ? this._updatedChildren.push(c) : console.log('No more than 30 children can be added to one application');
+    return c;
+  }*/
+
+   addUpdatedChild(relationship: Relationship): MspPerson {
+    const c = new MspPerson(relationship,  OperationActionType.Update);
+
+    //child between 19-24 must be a full time student to qualify for enrollment
+    c.fullTimeStudent = relationship === Relationship.Child19To24 ? true : false;
+    c.operationActionType = OperationActionType.Update;
+
+    if ( this._updatedChildren.length < 30 ) {
+        const tmp = [c, ...this._updatedChildren];
+        this._updatedChildren = tmp;
+
+    } else {
+        console.log('No more than 30 children can be added to one application');
+    }
+        return c;
+
+  }
+
+
+
+  removeChild(idx: number, op: OperationActionType): void {
+
+    if (op === 0) {
+        this._addedChildren.splice(idx, 1);
+    }
+
+    if (op === 1) {
+        this._removedChildren.splice(idx, 1);
+    }
+
+    if (op === 2) {
+        this._updatedChildren.splice(idx, 1);
+    }
+
+  }
+
 }
 
 class AccountChangeOptions {
 
-    personInfoUpdate: boolean ;
+    personInfoUpdate: boolean;
+    spouseInfoUpdate: boolean;
+    spouseRemoved: boolean;
+    lastNameUpdate: boolean;
+    dependentRemoved: boolean = false;
     dependentChange: boolean = false;
     addressUpdate: boolean = false;
     immigrationStatusChange: boolean;
@@ -357,4 +452,9 @@ class UpdateList {
     value: boolean;
 }
 
-export {MspAccountApp, AccountChangeOptions, MspPerson, UpdateList};
+class ItemList {
+    label: string;
+    value: number;
+}
+
+export {MspAccountApp, AccountChangeOptions, MspPerson, UpdateList, ItemList};

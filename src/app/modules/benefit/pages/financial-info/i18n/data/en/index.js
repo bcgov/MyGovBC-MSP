@@ -32,7 +32,7 @@ module.exports = {
   invalidNumber: 'Invalid number, use numbers and a period only, e.g., 12345.67',
   consentProcessName: 'PA',
   selectNursingHomeOrDisabilityError: 'You have already selected {program} credit for yourself. Please remove {program} credit if you want to claim {otherProgram} for yourself.',
-  cannotExceedChildrenCount: 'Cannot exceed the number of children count mentioned in the account',
+  cannotExceedChildrenCount: 'Cannot claim both resgitered disablility savings plan and attendant care expense. Please choose one of the two options.',
   whatYearsToApplyFor:'Select the tax year of your Canada Revenue Agency (CRA) Notice of Assessment (NOA) or Notice of Reassessment (NORA)',
   whatYearsToApplyForDetails:'Your application must be based on income from the most recent NOA or NORA available from CRA. You will be required during this application to upload a copy of your NOA or NORA (and your spouse’s, if applicable).', // <b>Select the NOA/NORA tax year you are submitting.</b>
   declaration: "I hereby consent to the release of information from my income tax returns, and other taxpayer information, by the Canada Revenue Agency to the Ministry of Health and/or Health Insurance BC. The information obtained will be relevant to and used solely for the purpose of determining and verifying my initial and ongoing entitlement to the premium assistance program under the <i>Medicare Protection Act</i>, and will not be disclosed to any other party.\

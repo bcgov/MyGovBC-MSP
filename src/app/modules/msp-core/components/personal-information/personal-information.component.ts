@@ -18,6 +18,8 @@ import { MspPerson, Gender } from '../../../../components/msp/model/msp-person.m
 export class PersonalInformationComponent extends Base {
 
   @Input() disabled: boolean = false;
+  @Input() showPhn: boolean = false;
+  @Input() isPhnUnique: boolean = true;
 
   // TODO: Change to PERSON when MspPerson is re-factored to extend Person in common lib
   @Input() person: MspPerson;
@@ -59,6 +61,15 @@ export class PersonalInformationComponent extends Base {
     this.personChange.emit(this.person);
   }
 
+  get phn() {
+    return this.person.previous_phn;
+  }
+
+  set phn(phn: string) {
+    this.person.previous_phn = phn;
+    this.personChange.emit(this.person);
+  }
+
   get dateOfBirth() {
     return this.person.dobSimple;
   }
@@ -77,4 +88,6 @@ export class PersonalInformationComponent extends Base {
     this.person.gender = val;
     this.personChange.emit(this.person);
   }
+
+
 }

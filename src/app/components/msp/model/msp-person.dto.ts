@@ -1,7 +1,18 @@
 import AddressDto from './address.dto';
 import {OutofBCRecordDto} from '../../../models/outof-bc-record.dto';
-import { SimpleDate , CommonImage } from 'moh-common-lib';
-import {MSPEnrollementMember} from '../../../models/status-activities-documents';
+import { MSPEnrollementMember, CancellationReasons} from '../../../models/status-activities-documents';
+import { PersonStatusChange } from './person-status-change';
+/*import {
+    StatusRules,
+    ActivitiesRules,
+    StatusInCanada,
+    Activities,
+    DocumentRules,
+    Documents
+  } from '../../../models/status-activities-documents';*/
+//import { SimpleDate , CommonImage } from 'moh-common-lib';
+import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
+import { PersonDocuments } from './person-document.model';
 
 
 // TODO: Class makes reference to self within definition - This should be reviewed
@@ -11,9 +22,20 @@ export default class PersonDto {
     middleName: string;
     lastName: string;
 
+  
+
+    previouslastName: string;
+
     dob_day: number;
     dob_month: number;
     dob_year: number;
+    immigrationStatusChange: boolean;
+
+    updatingPersonalInfo: boolean;
+
+    isRemovedAtTheEndOfCurrentMonth: boolean;
+
+    hasActiveMedicalServicePlan: boolean;
 
     dateOfBirth: SimpleDate;
 
@@ -35,12 +57,17 @@ export default class PersonDto {
     dischargeDay: number;
 
     status: number;
+    docType: number;
     currentActivity: number;
     healthNumberFromOtherProvince: string;
+
+    cancellationReason: CancellationReasons;
 
     previous_phn: string;
     specificMember_phn: string;
     enrollmentMember: MSPEnrollementMember ;
+
+    hasCurrentMailingAddress: boolean;
 
     gender: number;
 
@@ -68,7 +95,7 @@ export default class PersonDto {
 
     reasonForCancellation: string;
     cancellationDate: SimpleDate;
-    marriageDate: SimpleDate;
+    marriageDate: SimpleDate = { day: null, month: null, year: null };
     prevLastName: string;
     phoneNumber: string;
     imageDocType: string;
@@ -100,6 +127,7 @@ export default class PersonDto {
     studiesDepartureDay: number;
 
     declarationForOutsideOver30Days: boolean;
+    declarationForOutsideOver60Days: boolean;
     departureReason: string;
     departureDestination: string;
     departureDate: SimpleDate = { day: null, month: null, year: null };
@@ -115,10 +143,34 @@ export default class PersonDto {
     schoolOutsideOfBC: boolean;
 
     // New Update Status
-    updateStatusInCanada: boolean;
+    statusChange: PersonStatusChange;
+
     updateNameDueToMarriage: boolean;
+    updateNameDueToMarriageDocType: PersonDocuments = new PersonDocuments();
+    updateNameDueDoc: CommonImage[] = [];
+
+    removedSpouseDueToDivorceDoc: PersonDocuments = new PersonDocuments();
+
     updateNameDueToError: boolean;
+    updateNameDueToErrorDocType: PersonDocuments = new PersonDocuments();
+    updateNameDueToErrorDoc: CommonImage[] = [];
+
     updateBirthdate: boolean;
+    updateBirthdateDocType:  PersonDocuments = new PersonDocuments();
+    updateBirthdateDoc: CommonImage[] = [];
+
     updateGender: boolean;
+    updateGenderDocType: PersonDocuments = new PersonDocuments();
+    updateGenderDoc: CommonImage[] = [];
+
     updateGenderDesignation: boolean;
+    updateGenderDesignationDocType: PersonDocuments = new PersonDocuments();
+    updateGenderDesignationDoc: CommonImage[] = [];
+
+    updateStatusInCanada: boolean;
+    updateStatusInCanadaDoc: CommonImage[];
+    updateStatusInCanadaDocType: PersonDocuments = new PersonDocuments();
+    
+    nameChangeDocs: PersonDocuments = new PersonDocuments();
+
 }
