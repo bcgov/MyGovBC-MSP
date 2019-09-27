@@ -1,5 +1,5 @@
 import { CommonImage } from "moh-common-lib";
-import {Relationship, StatusInCanada, Activities, Documents} from '../../../models/status-activities-documents';
+import { PersonDocuments } from "./person-document.model";
 
 
 export class PersonStatusChange {
@@ -8,6 +8,6 @@ export class PersonStatusChange {
     label: string;
     docType: number;
     image: CommonImage;
-    documentType: Documents;
+    documentType: PersonDocuments;
 
 }

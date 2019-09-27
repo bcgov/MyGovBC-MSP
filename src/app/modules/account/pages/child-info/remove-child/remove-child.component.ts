@@ -9,26 +9,10 @@ import {BaseComponent} from '../../../../../models/base.component';
 import {ProcessService, ProcessUrls} from '../../../../../services/process.service';
 //import { AccountPersonalDetailsComponent}  from './personal-details/personal-details.component';
 import { MspPerson } from '../../../models/account.model';
-import { Relationship, CancellationReasons } from '../../../../../models/status-activities-documents';
+import {  CancellationReasons } from '../../../../../models/status-activities-documents';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
-import { PersonDocuments } from '../../../../../components/msp/model/person-document.model';
-
-import {
-  StatusRules,
-  ActivitiesRules,
-  StatusInCanada,
-  Activities,
-  DocumentRules,
-  Documents
-} from '../../../../../models/status-activities-documents';
-
-import {
-  Gender
-} from '../../../../../components/msp/model/msp-person.model';
-import { Person } from 'moh-common-lib';
-import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.enum';
 
 
 

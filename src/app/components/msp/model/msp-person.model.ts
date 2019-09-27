@@ -15,6 +15,7 @@ import { PersonStatusChange } from './person-status-change';
 import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
 import { CanadianStatusReason, StatusInCanada } from '../../../modules/msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
+import { CancellationReasons } from 'app/models/status-activities-documents';
 
 const sha1 = require('sha1');
 
@@ -69,29 +70,33 @@ export class MspPerson implements IPerson {
     private _newlyAdopted: boolean;
 
     public updateStatusInCanada: boolean;
+
+    updateStatusInCanadaDocType: PersonDocuments = new PersonDocuments();
     public updateStatusInCanadaDoc: CommonImage[];
     _docType: PersonDocuments;
     
     public updateNameDueToMarriage: boolean;
-   // public updateNameDueToMarriageDocType: Documents;
+    public updateNameDueToMarriageDocType: PersonDocuments = new PersonDocuments();
     public updateNameDueDoc: CommonImage[] = [];
     
 
     public updateNameDueToError: boolean;
-  //  public updateNameDueToErrorDocType: Documents;
+    public updateNameDueToErrorDocType: PersonDocuments = new PersonDocuments();
     public updateNameDueToErrorDoc: CommonImage[] = [];
 
     public updateBirthdate: boolean;
-  //  public updateBirthdateDocType: Documents;
+     public updateBirthdateDocType:   PersonDocuments = new PersonDocuments();
     public updateBirthdateDoc: CommonImage[] = [];
 
     public updateGender: boolean;
-   // public updateGenderDocType: Documents;
+    public updateGenderDocType:  PersonDocuments = new PersonDocuments();
     public updateGenderDoc: CommonImage[] = [];
 
     public updateGenderDesignation: boolean;
-   // public updateGenderDesignationDocType: Documents;
+    public updateGenderDesignationDocType:  PersonDocuments = new PersonDocuments();
     public updateGenderDesignationDoc: CommonImage[] = [];
+    cancellationReason: CancellationReasons;
+    removedSpouseDueToDivorceDoc: PersonDocuments;
 
 
     get newlyAdopted(): boolean {

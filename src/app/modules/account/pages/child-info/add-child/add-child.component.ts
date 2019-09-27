@@ -9,20 +9,10 @@ import {BaseComponent} from '../../../../../models/base.component';
 import {ProcessService, ProcessUrls} from '../../../../../services/process.service';
 //import { AccountPersonalDetailsComponent}  from './personal-details/personal-details.component';
 import { MspPerson } from '../../../models/account.model';
-import { Relationship } from '../../../../../models/status-activities-documents';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
 import { PersonDocuments } from '../../../../../components/msp/model/person-document.model';
-
-import {
-  StatusRules,
-  ActivitiesRules,
-  StatusInCanada,
-  Activities,
-  DocumentRules,
-  Documents
-} from '../../../../../models/status-activities-documents';
 
 import {
   Gender
@@ -30,6 +20,8 @@ import {
 import { Person } from 'moh-common-lib';
 import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.enum';
 import { Base, SimpleDate } from 'moh-common-lib';
+import { Relationship } from 'app/models/relationship.enum';
+import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
 
 @Component({
   selector: 'msp-add-child',

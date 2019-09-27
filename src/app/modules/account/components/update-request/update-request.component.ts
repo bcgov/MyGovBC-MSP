@@ -3,14 +3,6 @@ import { MspPerson } from '../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { MspAccountApp, AccountChangeOptions, UpdateList, ItemList } from '../../models/account.model';
-import {
-  StatusRules,
-  ActivitiesRules,
-  StatusInCanada,
-  Activities,
-  DocumentRules,
-  Documents
-} from '../../../../models/status-activities-documents';
 
 import {
   nameChangeSupportDocuments,
@@ -24,6 +16,7 @@ import { PersonDocuments } from 'app/components/msp/model/person-document.model'
 import { extend } from 'webdriver-js-extender';
 import { Base } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
+import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
 
 
 @Component({
@@ -207,7 +200,7 @@ activityStatus  =  {
   5: 'Religious worker',
   6: 'Diplomat',
   7: 'Visiting'
-}; */
+}; 
 
 public item(status: any)   {
   console.log(status);
@@ -437,17 +430,17 @@ get workPermitDocs() {
 
 
 
- 
+ */
 
 }
 
- /**
+ /*
  * Various statuses in Canada
- */
+
 enum canadaStatus {
   CitizenAdult, // adult
   PermanentResident,
   TemporaryResident
   
 }
-
+*/

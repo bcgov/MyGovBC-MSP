@@ -9,19 +9,15 @@ import {BaseComponent} from '../../../../../models/base.component';
 import {ProcessService, ProcessUrls} from '../../../../../services/process.service';
 //import { AccountPersonalDetailsComponent}  from './personal-details/personal-details.component';
 import { MspPerson } from '../../../models/account.model';
-import { Relationship, CancellationReasons } from '../../../../../models/status-activities-documents';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
 import { PersonDocuments } from '../../../../../components/msp/model/person-document.model';
 
 import {
-  StatusRules,
+  
   ActivitiesRules,
-  StatusInCanada,
-  Activities,
-  DocumentRules,
-  Documents
+ 
 } from '../../../../../models/status-activities-documents';
 
 import {
@@ -80,7 +76,7 @@ export class UpdateChildComponent implements OnInit {
     ];
   }
 
-  get activitiesTable() {
+ /* get activitiesTable() {
     console.log(this.activities);
     if (!this.activities) return;
     return this.activities.map(itm => {
@@ -92,26 +88,6 @@ export class UpdateChildComponent implements OnInit {
       value: itm
       };
     });
-  }
-
-  get activities(): Activities[] {
-    return ActivitiesRules.activitiesForAccountChange(
-        this.child.relationship,
-        this.child.status
-    );
-  }
-
-
-  activityStatus  =  {
-    0: 'Not new to B.C. but need to apply for MSP',
-    1: 'Moved to B.C. from another province',
-    2: 'Moved to B.C. from another country',
-    3: 'Working in B.C.',
-    4: 'Studying in B.C.',
-    5: 'Religious worker',
-    6: 'Diplomat',
-    7: 'Visiting'
-  };
-
+  }*/
 
 }

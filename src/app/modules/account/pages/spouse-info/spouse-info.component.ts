@@ -1,8 +1,7 @@
 import {Component, ViewChild, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
 import { MspAccountApp, AccountChangeOptions, MspPerson } from '../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
-import { Activities } from 'app/models/status-activities-documents';
-import { ActivitiesRules } from 'app/modules/msp-core/models/status-activities-documents';
+//import { ActivitiesRules } from 'app/modules/msp-core/models/status-activities-documents';
 import { CanadianStatusReason } from 'app/modules/msp-core/models/canadian-status.enum';
 import { nameChangeSupportDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
 
@@ -111,12 +110,12 @@ addSpouse() {
     });
   }*/
 
-  get activities(): CanadianStatusReason[] {
+ /* get activities(): CanadianStatusReason[] {
     return ActivitiesRules.activitiesForAccountChange(
         this.removedSpouse.relationship,
         this.removedSpouse.status
     );
-  }
+  }*/
 
   get removedSpouse(): MspPerson {
     return this.dataService.getMspAccountApp().removedSpouse;

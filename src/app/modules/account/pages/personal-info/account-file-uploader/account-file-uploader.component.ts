@@ -4,20 +4,12 @@ import {Router} from '@angular/router';
 import {BaseComponent} from '../../../../../models/base.component';
 import {ProcessService, ProcessUrls} from '../../../../../services/process.service';
 import { MspPerson, ItemList } from '../../../models/account.model';
-import { Relationship } from '../../../../../models/status-activities-documents';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
 //import { legalStatus } from '../../../../../models/msp.contants';
-import {
-  StatusRules,
-  ActivitiesRules,
-  StatusInCanada,
-  Activities,
-  DocumentRules,
-  Documents
-} from '../../../../../models/status-activities-documents';
 import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
+import { PersonDocuments } from 'app/components/msp/model/person-document.model';
 
 
 
@@ -34,12 +26,12 @@ export class AccountFileUploaderComponent extends BaseComponent {
   @Input() subtitle: string;
 
   @Input() doc: CommonImage[] = [];
-  @Input() docStatus: Documents;
+  @Input() docStatus: PersonDocuments;
   @Input() items:  ItemList[];
 
   @Input() accountApp: MspAccountApp;
 
-  @Output() documentStatus: EventEmitter<Documents> = new EventEmitter<Documents>();
+  @Output() documentStatus: EventEmitter<PersonDocuments> = new EventEmitter<PersonDocuments>();
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(cd: ChangeDetectorRef) {
@@ -68,7 +60,7 @@ export class AccountFileUploaderComponent extends BaseComponent {
     //this.dataService.saveMspAccountApp();
   }
 
-  get getdocStatusTitle() {
+ /* get getdocStatusTitle() {
     if(this.docStatus === Documents.CanadianBirthCertificate) {
       return 'Canadian Birth Certificate';
     } else if(this.docStatus === Documents.CanadianPassport) {
@@ -123,6 +115,6 @@ export class AccountFileUploaderComponent extends BaseComponent {
     } else {
       return "Canadian Passport";
     }
-  }
+  }*/
 
 }

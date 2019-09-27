@@ -1,19 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AccountChangeOptions, MspPerson, MspAccountApp, UpdateList } from 'app/modules/account/models/account.model';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
-import {
-  StatusRules,
-  ActivitiesRules,
-  StatusInCanada,
-  Activities,
-  DocumentRules,
-  Documents
-} from '../../../../../models/status-activities-documents';
-import { CanadianStatusStrings } from 'app/modules/msp-core/models/canadian-status.enum';
+import { CanadianStatusStrings, StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
 import { PersonDocuments } from 'app/components/msp/model/person-document.model';
 import { nameChangeSupportDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
 import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.enum';
 import { Base } from 'moh-common-lib';
+import { Documents } from 'app/models/account-documents';
+import { ActivitiesRules } from 'app/models/status-activities-documents';
 @Component({
   selector: 'msp-add-spouse',
   templateUrl: './add-spouse.component.html',
@@ -59,7 +53,7 @@ export class AddSpouseComponent extends Base implements OnInit {
     ]
   };
 
-  get activitiesTable() {
+  /*get activitiesTable() {
     console.log(this.activities);
     if (!this.activities) return;
     return this.activities.map(itm => {
@@ -71,7 +65,7 @@ export class AddSpouseComponent extends Base implements OnInit {
       value: itm
       };
     });
-  }
+  }*/
 
   get hasStatus() {
     // Has to have values
@@ -100,12 +94,12 @@ export class AddSpouseComponent extends Base implements OnInit {
     
   }
 
-  get activities(): Activities[] {
+/*  get activities(): Activities[] {
     return ActivitiesRules.activitiesForAccountChange(
         this.spouse.relationship,
         this.spouse.status
     );
-  }
+  }*/
 
   isPhnUniqueInPI() {
 

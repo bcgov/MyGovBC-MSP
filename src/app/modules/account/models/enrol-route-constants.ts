@@ -1,4 +1,5 @@
-import { APP_ROUTES } from '../../msp-core/models/route-constants';
+import { APP_ROUTES } from "app/models/route-constants";
+
 
 export const ROUTES_ACCOUNT = {
   CHECK_ELIG: {

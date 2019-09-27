@@ -4,20 +4,10 @@ import {Router} from '@angular/router';
 import {BaseComponent} from '../../.././../../models/base.component';
 import {AccountPersonalDetailsComponent} from '../../../components/personal-details/personal-details.component';
 import { MspPerson } from '../../../models/account.model';
-import { Relationship } from '../../../../../models/status-activities-documents';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
 //import { legalStatus } from '../../../../../models/msp.contants';
-import {
-  StatusRules,
-  ActivitiesRules,
-  StatusInCanada,
-  Activities,
-  DocumentRules,
-  Documents,
-  CancellationReasons
-} from '../../../../../models/status-activities-documents';
 
 import {
 
@@ -42,7 +32,6 @@ export class RemoveSpouseComponent extends BaseComponent {
 
   //langStatus = legalStatus;
 
-  Activities: typeof Activities = Activities;
   @ViewChild('formRef') form: NgForm;
   @ViewChildren(AccountPersonalDetailsComponent) personalDetailsComponent: QueryList<AccountPersonalDetailsComponent>;
   public buttonstyle: string = 'btn btn-default';
@@ -91,54 +80,5 @@ export class RemoveSpouseComponent extends BaseComponent {
    // this.dataService.saveMspAccountApp();
   }
 
-  get cancellationReasons() {
-    return[
-      { 
-        "label": "Seperated/Divorced",
-        "value": CancellationReasons.DivorcedOrSeperated
-      },
-      { 
-        "label": "Removed From Account but still Married",
-        "value": CancellationReasons.RemovedFromAccountButMarried
-      },
-      { 
-        "label": "Deceased",
-        "value": CancellationReasons.Deceased
-      },
-      { 
-        "label": "Out of province/ Out of Country move",
-        "value": CancellationReasons.OutOfProvinceOrCountry
-      },
-      { 
-        "label": "Armed Forces",
-        "value": CancellationReasons.ArmedForces
-      },
-      { 
-        "label": "Incarcerated",
-        "value": CancellationReasons.Incarcerated
-      },
-  ]};
-
-
-  get spouseCancellationdocs(){
-
-    return[
-    { 
-      "label": "Divorce Decree",
-      "value": Documents.DivorceDecree
-    },
-    { 
-      "label": "Seperation Agreement",
-      "value": Documents.SeperationAgreement
-    },
-    { 
-      "label": "Notarized Statement or affidavit",
-      "value": Documents.NotrizedStatementOrAffidavit
-    },
-    { 
-      "label": "Other (Dated or signed statement)",
-      "value": Documents.Other
-    }
-  ]};
-
+ 
 }

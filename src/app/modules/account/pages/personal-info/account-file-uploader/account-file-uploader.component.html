@@ -3,7 +3,7 @@
            
 <label for="objectId" class="control-label">Document Type</label>
 <div class="form-group">
-    <select style="width:250px;" class="custom-select" [id]="objectId" [(ngModel)]="docStatus" (ngModelChange)="setDocType($event)">
+    <select style="width:250px;" class="custom-select" [id]="objectId" [(ngModel)]="docStatus">
         <ng-container>
             <option selected value="null" disabled="true">Please Select</option>
             <option  *ngFor="let item of items" [ngValue]="item.value" [selected]="docStatus == item.value">{{ item.label }}</option>
@@ -11,16 +11,14 @@
     </select>
 </div>
 
-<div *ngIf="(docStatus >= 0 &&  docStatus !== null)">
+<div>
 
 <common-xicon-button label='Remove' (click)="remove()"></common-xicon-button>
 
-<p class="border-bottom"> <i>{{getdocStatusTitle}}</i></p>
 <div  class="row">        
   <div class="col-8" style="margin-bottom: 15px;">      
       <common-file-uploader 
           [images]="doc"
-          (imagesChange)="addDoc($event)"
           [id]='accountApp.id'
           instructionText="Click add, or drag and drop file into this box">
       </common-file-uploader>

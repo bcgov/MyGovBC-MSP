@@ -4,19 +4,10 @@ import {Router} from '@angular/router';
 import {BaseComponent} from '../../.././../../models/base.component';
 import {AccountPersonalDetailsComponent} from '../../../components/personal-details/personal-details.component';
 import { MspPerson } from '../../../models/account.model';
-import { Relationship } from '../../../../../models/status-activities-documents';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
 //import { legalStatus } from '../../../../../models/msp.contants';
-import {
-  StatusRules,
-  ActivitiesRules,
-  StatusInCanada,
-  Activities,
-  DocumentRules,
-  Documents
-} from '../../../../../models/status-activities-documents';
 import { MspBenefitDataService } from 'app/modules/benefit/services/msp-benefit-data.service';
 
 @Component({
@@ -28,7 +19,6 @@ export class UpdateSpouseComponent extends BaseComponent implements OnInit {
   
   @Input() spouse: MspPerson;
   @Input() accountApp: MspAccountApp;
-  Activities: typeof Activities = Activities;
   //langActivities = require('../../../../../components/msp/common/activities/i18n');
   
   
@@ -78,15 +68,15 @@ export class UpdateSpouseComponent extends BaseComponent implements OnInit {
 
     ];}
 
-    get activities(): Activities[] {
+   /* get activities(): Activities[] {
       return ActivitiesRules.activitiesForAccountChange(
           this.spouse.relationship,
           this.spouse.status
-      );
+      );*/
   }
 
 
-  get activitiesTable() {
+  /*get activitiesTable() {
     console.log(this.activities);
     if (!this.activities) return;
     return this.activities.map(itm => {
@@ -98,34 +88,5 @@ export class UpdateSpouseComponent extends BaseComponent implements OnInit {
       value: itm
       };
     });
-  }
-
-  activityStatus  =  {
-    0: 'Not new to B.C. but need to apply for MSP',
-    1: 'Moved to B.C. from another province',
-    2: 'Moved to B.C. from another country',
-    3: 'Working in B.C.',
-    4: 'Studying in B.C.',
-    5: 'Religious worker',
-    6: 'Diplomat',
-    7: 'Visiting'
-  };
-
-
-  get items()   {
-        return[
-        { 
-          "label": "Canadian birth certificate",
-          "value": Documents.CanadianBirthCertificate
-        },
-        { 
-          "label": "Canadian Passport",
-          "value": Documents.CanadianPassport
-        },
-        { 
-          "label": "Canadian citizenship card or certificate",
-          "value": Documents.CanadianCitizenCard
-        }
-    ]};
-
-}
+  }*/
+ 

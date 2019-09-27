@@ -4,8 +4,7 @@ import { ControlContainer, NgForm } from '@angular/forms';
 import { MspPerson } from '../../../account/models/account.model';
 import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 import { environment } from '../../../../../environments/environment';
-import { Relationship } from '../../../msp-core/models/relationship.enum';
-
+import { Relationship } from 'app/models/relationship.enum';
 @Component({
   selector: 'msp-child-moving-information',
   templateUrl: './moving-information.component.html',
