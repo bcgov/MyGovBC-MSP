@@ -27,7 +27,7 @@
       </div>
 
       <div requestAdditionInfo>
-        <div class="form-group p-sm-2">
+        <div class="form-group">
           <common-radio name="NameChangeQuestion"
                         [(ngModel)]="applicant.hasNameChange"  
                         label="Has your name changed since your ID was issued due to marriage or a legal name change?" 
@@ -37,7 +37,11 @@
       </div>
 
       <div sampleDocument>
-          TODO: Need to add links with images to display        
+        TODO: add links
+      <!--  <common-sample-modal #sampleDocuments
+            [title]="'Tax Documents'"
+            [images]="imageList"> 
+        </common-sample-modal> -->     
       </div>
     </msp-support-documents>
 
@@ -66,18 +70,46 @@
         </div>     
       </msp-personal-information>
 
-      <msp-moving-information [(person)]="applicant">
-        <div sectionTitleInfo>
-          <h2>Moving Information</h2>
-          <p class="border-bottom"> 
-              Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
-          </p>
-        </div>         
-      </msp-moving-information>
+      
+      <div *ngIf="!isTemporaryResident">
+        <msp-moving-information [(person)]="applicant">
+          <div sectionTitleInfo>
+            <h2>Moving Information</h2>
+            <p class="border-bottom"> 
+                Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
+            </p>
+          </div> 
+          <div additionalQuestions>
+            <div class="form-group">
+              <common-radio name="fullTimeStudent_{{objectId}}"
+                            [(ngModel)]="applicant.fullTimeStudent"  
+                            label="Are you full-time student in B.C.?" 
+                            required>
+              </common-radio>
+            </div>
+          
+            <div *ngIf="applicant.fullTimeStudent" class="ml-4 border-left">
+              <div class="form-group">
+                <common-radio name="inBCafterStudies_{{objectId}}"
+                              [(ngModel)]="applicant.inBCafterStudies"  
+                              label="Will you reside in B.C. upon completion of your studies?" 
+                              required>
+                </common-radio>
+                <common-error-container [displayError]="applicant.inBCafterStudies == false">
+                  To qualify for provincial health care benefits a person must be a resident of 
+                  B.C.  As you intend to leave B.C. when your studies are completed, you are not 
+                  eligible for Medical Services Plan coverage.  Please contact the health care plan 
+                  in your home province for information about medical coverage while studying in B.C.
+                </common-error-container>
+              </div>
+            </div>
+          </div>        
+        </msp-moving-information>
+      </div>
     </div>
   </form>
 </common-page-framework>
 <common-form-action-bar defaultColor='false'
-                        [canContinue]="canContinue()"
+                        widthOption='extra-width-mobile-only'
                         (btnClick)="continue()">
 </common-form-action-bar>

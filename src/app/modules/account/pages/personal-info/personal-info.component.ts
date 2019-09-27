@@ -7,11 +7,14 @@ import {AccountPersonalDetailsComponent} from './personal-details/personal-detai
 import { MspPerson } from '../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/account.model';
-import { StatusInCanada, CanadianStatusReason, CanadianStatusReasonStrings, CanadianStatusStrings, CanadianStatusRules } from '../../../msp-core/models/canadian-status.enum';
-import { Relationship } from '../../../msp-core/models/relationship.enum';
+//import { StatusInCanada, CanadianStatusReason, CanadianStatusReasonStrings, CanadianStatusStrings, CanadianStatusRules } from '../../../msp-core/models/canadian-status.enum';
+//import { Relationship } from '../../../msp-core/models/relationship.enum';
 //import { ActivitiesRules } from '../../../msp-core/models/status-activities-documents';
-import { Activities,  ActivitiesRules, Documents } from '../../../../models/status-activities-documents';
+//import { Activities,  ActivitiesRules, Documents } from '../../../../models/status-activities-documents';
 
+import { StatusInCanada, CanadianStatusReason,CanadianStatusStrings, CanadianStatusRules } from '../../../msp-core/models/canadian-status.enum';
+import { Relationship } from '../../../../models/relationship.enum';
+//import { getStatusReasonStrings } from '../../../msp-core/components/canadian-status/canadian-status.component';
 // import { Canadian }
 
 
@@ -24,7 +27,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
   static ProcessStepNum = 1;
   lang = require('./i18n');
   docSelected: string ;
-  activitiesOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
+  //activitiesOpts: string[] = CanadianStatusReason;
 
     langStatus = CanadianStatusStrings;
 
@@ -152,7 +155,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
     }
    
 
-    get activitiesTable() {
+   /* get activitiesTable() {
       console.log(this.activities);
       if (!this.activities) return;
       return this.activities.map(itm => {
@@ -177,7 +180,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
       7: 'Visiting'
     };
   
-    get activities(): Activities[] {
+  get activities(): Activities[] {
       console.log( this.person.relationship);
       console.log( this.person.status);
       return ActivitiesRules.activitiesForAccountChange(
@@ -186,7 +189,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
       );
     }
 
-    get items()   {
+  get items()   {
         return[
         { 
           "label": "Canadian birth certificate",
@@ -200,9 +203,9 @@ export class AccountPersonalInfoComponent extends BaseComponent {
           "label": "Canadian citizenship card or certificate",
           "value": Documents.CanadianCitizenCard
         }
-    ]};
+    ]};*/
 
-    get canadaStatus()   {
+    /*get canadaStatus()   {
         return[
           { 0: 'Canadian Citizen'},
           { 1: 'Permanent Resident' },
@@ -255,7 +258,7 @@ export class AccountPersonalInfoComponent extends BaseComponent {
 
         ];
 
-    }
+    }*/
     
     
     

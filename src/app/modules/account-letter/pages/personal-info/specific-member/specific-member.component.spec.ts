@@ -5,7 +5,7 @@ import {
   EnrollmentStatusRules,
   Relationship,
   MSPEnrollementMember
-} from '../../../../msp-core/models/status-activities-documents';
+} from '../../../../../models/status-activities-documents';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MspACLService } from '../../../services/msp-acl-api.service';

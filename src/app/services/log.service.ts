@@ -104,7 +104,7 @@ export class MspLogService  {
     getApplicationId(): string {
 
         console.log(this.router.url);
-        if (this.router.url.indexOf('/application/') !== -1){
+        if (this.router.url.indexOf('/enrolment/') !== -1){
             return  this.dataService.mspApplication.uuid;
         }
         if (this.router.url.indexOf('/assistance/') !== -1){

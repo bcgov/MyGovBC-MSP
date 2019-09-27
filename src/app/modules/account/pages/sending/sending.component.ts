@@ -6,7 +6,7 @@ import {ResponseType} from '../../../../modules/msp-core/api-model/responseTypes
 import {MspLogService} from '../../../../services/log.service';
 import {ProcessService} from '../../../../services/process.service';
 import { MspAccountApp } from '../../models/account.model';
-import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../../models/relationship.enum';
 
 
 @Component({

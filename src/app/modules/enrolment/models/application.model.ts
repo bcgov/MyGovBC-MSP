@@ -1,9 +1,9 @@
 import { Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
 import { UUID } from 'angular2-uuid';
-import { ApplicationBase } from '../../msp-core/models/application-base.model';
+import { ApplicationBase } from '../../../models/application-base.model';
 import { PhoneNumber } from '../../../components/msp/model/phone.model';
-import { Relationship } from '../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../models/relationship.enum';
 import { PersonDocuments } from '../../../components/msp/model/person-document.model';
 
 /**
@@ -173,18 +173,24 @@ export class MspApplication implements ApplicationBase {
     Gets all images for applicant, spouse and all children
    */
   getAllImages(): CommonImage[] {
-    let allImages = [
-      ...this.applicant.documents.images,
-      ...this.applicant.nameChangeDocs.images
-    ];
+    let allImages = [...this.applicant.documents.images];
+
+    if ( this.applicant.hasNameChange ) {
+      allImages = allImages.concat([...this.applicant.nameChangeDocs.images]);
+    }
 
     if (this.spouse) {
-      allImages = allImages.concat([...this.spouse.documents.images,
-                                   ...this.spouse.nameChangeDocs.images]);
+      allImages = allImages.concat([...this.spouse.documents.images]);
+
+      if ( this.spouse.hasNameChange ) {
+        allImages = allImages.concat([...this.spouse.nameChangeDocs.images]);
+      }
     }
     for (const child of this.children) {
-      allImages = allImages.concat([...child.documents.images,
-                                    ...child.nameChangeDocs.images]);
+      allImages = allImages.concat([...child.documents.images]);
+      if ( child.hasNameChange ) {
+        allImages = allImages.concat([...child.nameChangeDocs.images]);
+      }
     }
 
     return allImages;

@@ -11,10 +11,10 @@ import {MspIdReqModalComponent} from '../../../../modules/msp-core/components/id
 import { MspAccountApp } from '../../models/account.model';
 import { DocumentGroup, LangAccountDocuments } from '../../../../models/account-documents';
 import { AccountDocumentHelperService } from '../../../benefit/services/account-document-helper.service';
-import { CancellationReasonsForSpouse } from '../../../msp-core/models/status-activities-documents';
-import { Documents } from '../../../msp-core/models/msp-document.constants';
+import { CancellationReasonsForSpouse } from '../../../../models/status-activities-documents';
 import { CommonImage } from 'moh-common-lib';
 import { CanadianStatusReasonStrings, CanadianStatusStrings } from '../../../msp-core/models/canadian-status.enum';
+import { SupportDocuments } from '../../../msp-core/models/support-documents.enum';
 
 @Component({
     templateUrl: './documents.component.html'
@@ -101,7 +101,7 @@ export class AccountDocumentsComponent extends BaseComponent {
         this.dataService.saveMspAccountApp();
     }
 
-    viewIdReqModal(event: Documents) {
+    viewIdReqModal(event: SupportDocuments) {
         this.idReqModal.showFullSizeView(event);
     }
 

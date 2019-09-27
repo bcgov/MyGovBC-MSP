@@ -5,6 +5,8 @@ import {
 import { ModalDirective } from 'ngx-bootstrap';
 //import { StatusInCanada } from '../../model/status-activities-documents';
 
+
+//TODO: Remove - this is part of the status-in-canada-radio component
 /**
  * Modal responsible for showing a disclaimer to citizens and permanent
  * residents about required BC Services Card.

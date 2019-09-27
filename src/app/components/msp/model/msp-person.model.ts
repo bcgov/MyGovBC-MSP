@@ -1,7 +1,7 @@
 import {IPerson} from './msp-person.interface';
 
 
-import { StatusInCanada, Activities, Documents, CancellationReasons} from '../../../models/status-activities-documents';
+//import { StatusInCanada, Documents, CancellationReasons} from '../../../models/msp-core/models/canadian-status.enum';
 import {PersonDocuments} from './person-document.model';
 import {OutofBCRecord} from '../../../models/outof-bc-record.model';
 import * as moment from 'moment';
@@ -13,8 +13,8 @@ import { PersonStatusChange } from './person-status-change';
 
 
 import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
-import { CanadianStatusReason } from '../../../modules/msp-core/models/canadian-status.enum';
-import { Relationship } from 'app/modules/msp-core/models/relationship.enum';
+import { CanadianStatusReason, StatusInCanada } from '../../../modules/msp-core/models/canadian-status.enum';
+import { Relationship } from '../../../models/relationship.enum';
 
 const sha1 = require('sha1');
 
@@ -36,7 +36,6 @@ export class MspPerson implements IPerson {
 
     relationship: Relationship;
     _status: StatusInCanada;
-    cancellationReason:  CancellationReasons;
     additionalReason: string;
     hasCurrentMailingAddress: boolean;
 
@@ -67,27 +66,27 @@ export class MspPerson implements IPerson {
 
     public updateStatusInCanada: boolean;
     public updateStatusInCanadaDoc: CommonImage[];
-    _docType: Documents;
+    _docType: PersonDocuments;
     
     public updateNameDueToMarriage: boolean;
-    public updateNameDueToMarriageDocType: Documents;
+   // public updateNameDueToMarriageDocType: Documents;
     public updateNameDueDoc: CommonImage[] = [];
     
 
     public updateNameDueToError: boolean;
-    public updateNameDueToErrorDocType: Documents;
+  //  public updateNameDueToErrorDocType: Documents;
     public updateNameDueToErrorDoc: CommonImage[] = [];
 
     public updateBirthdate: boolean;
-    public updateBirthdateDocType: Documents;
+  //  public updateBirthdateDocType: Documents;
     public updateBirthdateDoc: CommonImage[] = [];
 
     public updateGender: boolean;
-    public updateGenderDocType: Documents;
+   // public updateGenderDocType: Documents;
     public updateGenderDoc: CommonImage[] = [];
 
     public updateGenderDesignation: boolean;
-    public updateGenderDesignationDocType: Documents;
+   // public updateGenderDesignationDocType: Documents;
     public updateGenderDesignationDoc: CommonImage[] = [];
 
 
@@ -182,9 +181,9 @@ export class MspPerson implements IPerson {
     /**
      * Date of birth section
      */
-    dob_day: number;
-    dob_month: number;
-    dob_year: number;
+    dob_day: number = null;
+    dob_month: number = null;
+    dob_year: number = null;
 
     get hasDob(): boolean {
         return (this.dob_year != null &&
@@ -423,10 +422,9 @@ export class MspPerson implements IPerson {
     }
 
     get ineligibleForMSP(): boolean {
-        return (this.madePermanentMoveToBC === false && (
+        return (this.madePermanentMoveToBC === false /* && (
             this.status === StatusInCanada.CitizenAdult ||
-            this.status === StatusInCanada.PermanentResident
-        ));
+            this.status === StatusInCanada.PermanentResident)*/);
     }
 
     get bcServiceCardShowStatus(): boolean {
@@ -624,7 +622,7 @@ export class MspPerson implements IPerson {
         return this._docType;
     }
 
-    set docType(doc: Documents) {
+    set docType(doc: PersonDocuments) {
         this._docType = doc;
     }
 

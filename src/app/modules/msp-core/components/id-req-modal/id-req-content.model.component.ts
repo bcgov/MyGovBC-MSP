@@ -1,10 +1,11 @@
-import { Documents } from '../../models/msp-document.constants';
+import { SupportDocuments } from '../../models/support-documents.enum';
+
 
 export class IdRequirementContent {
   residency: string;
 
   documentContentList: {
-    document: Documents;
+    document: SupportDocuments;
     title: string;
     body: string;
     image: string;

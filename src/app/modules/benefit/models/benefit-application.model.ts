@@ -1,4 +1,4 @@
-import { ApplicationBase } from '../../msp-core/models/application-base.model';
+import { ApplicationBase } from '../../../models/application-base.model';
 import { UUID } from 'angular2-uuid';
 import * as moment from 'moment';
 import { Address, CommonImage } from 'moh-common-lib';
@@ -8,7 +8,7 @@ import { AssistanceYear } from '../../assistance/models/assistance-year.model';
 import { AssistanceApplicationType } from '../../assistance/models/financial-assist-application.model';
 import { Eligibility } from '../../assistance/models/eligibility.model';
 import { ISpaEnvResponse } from '../../../components/msp/model/spa-env-response.interface';
-import { Relationship } from '../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../models/relationship.enum';
 
 export class BenefitApplication implements ApplicationBase {
   private _uuid = UUID.UUID();

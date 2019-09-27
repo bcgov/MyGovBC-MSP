@@ -2,7 +2,7 @@ import {EventEmitter, Output, Component, Input } from '@angular/core';
 import { MspPerson } from '../../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import {ActivatedRoute} from '@angular/router';
-import { MspAccountApp, AccountChangeOptions, UpdateList, ItemList } from '../../../models/account.model';
+/*import { MspAccountApp, AccountChangeOptions, UpdateList, ItemList } from '../../../models/account.model';
 import {
   StatusRules,
   ActivitiesRules,
@@ -10,7 +10,12 @@ import {
   Activities,
   DocumentRules,
   Documents
-} from '../../../../../models/status-activities-documents';
+} from '../../../../../models/status-activities-documents';*/
+
+import { MspAccountApp, UpdateList } from '../../../models/account.model';
+import { ActivitiesRules } from '../../../../../models/status-activities-documents';
+import { StatusInCanada, CanadianStatusReason, CanadianStatusRules } from '../../../../msp-core/models/canadian-status.enum';
+
 
 @Component({
   selector: 'msp-update-request',
@@ -22,6 +27,7 @@ export class UpdateRequestComponent  {
   @Input() person: MspPerson;
   @Input() activitiesTable: any[];
  // @Input() items: string[];
+ /*
   @Input() langStatus: ItemList[] = [{
        "label": "Canadian Citizen",
        "value": StatusInCanada.CitizenAdult
@@ -33,7 +39,7 @@ export class UpdateRequestComponent  {
       {
         "label": "Temporary Permit Holder or Diplomat",
         "value": StatusInCanada.TemporaryResident
-      }];
+      }];*/
 
   @Input() accountApp: MspAccountApp;
   @Input() label: string = 'Update';
@@ -66,7 +72,7 @@ export class UpdateRequestComponent  {
         "value": this.person.updateGenderDesignation
       }];*/
 
-  itemList: ItemList[];
+  //itemList: ItemList[];
   @Output() statusChange: EventEmitter<boolean>; //  = new EventEmitter<boolean>();
   mspAccountApp: MspAccountApp;
   //statusValue: number;
@@ -79,7 +85,7 @@ export class UpdateRequestComponent  {
 
   ngOnInit() {
     if (this.person.status >= 0 &&  this.person.status !== undefined) {
-      this.itemList = this.item(this.person.status);
+      //this.itemList = this.item(this.person.status);
     }
   }
 
@@ -88,8 +94,8 @@ export class UpdateRequestComponent  {
     //this.statusValue = evt ;
     this.person.status = evt ; //this.statusValue;
     this.person.currentActivity = null;
-    this.itemList = this.item(evt);
-    console.log(this.itemList);
+    //this.itemList = this.item(evt);
+    //console.log(this.itemList);
     if ( this.person.status !== StatusInCanada.CitizenAdult) {
       this.person.institutionWorkHistory = 'No';
     }
@@ -99,7 +105,7 @@ export class UpdateRequestComponent  {
   }
 
   selectDocStatus(evt: any) {
-    this.person.updateNameDueToMarriageDocType = evt;
+    //this.person.updateNameDueToMarriageDocType = evt;
    // this.accountApp.documents = evt;
     this.dataService.saveMspAccountApp();
   }
@@ -163,237 +169,6 @@ activityStatus  =  {
   6: 'Diplomat',
   7: 'Visiting'
 };
-
-public item(status: any)   {
-  console.log(status);
-  if(status === 0) {
-    return[
-      { 
-        "label": "Canadian birth certificate",
-        "value": Documents.CanadianBirthCertificate
-      },
-      { 
-        "label": "Canadian Passport",
-        "value": Documents.CanadianPassport
-      },
-      { 
-        "label": "Canadian citizenship card or certificate",
-        "value": Documents.CanadianCitizenCard
-      }
-    ]
-  } else  if(status === 1) {
-    return [
-      { 
-        "label": "Confirmation Of Permanent Residence",
-        "value": Documents.PermanentResidentConfirmation
-      },
-      { 
-        "label": "Permanent Resident Card (front and back)",
-        "value": Documents.PermanentResidentCard
-      },
-      { 
-        "label": "Record Of Landing",
-        "value": Documents.RecordOfLanding
-      }
-    ]
-  }
-
-  }
-
-get items()   {
-
-  return[
-  { 
-    "label": "Canadian birth certificate",
-    "value": Documents.CanadianBirthCertificate
-  },
-  { 
-    "label": "Canadian Passport",
-    "value": Documents.CanadianPassport
-  },
-  { 
-    "label": "Canadian citizenship card or certificate",
-    "value": Documents.CanadianCitizenCard
-  }
-]};
-
-get nameChangeitems(){
-
-  return[
-  { 
-    "label": "Marriage certificate",
-    "value": Documents.MarriageCertificate
-  },
-  { 
-    "label": "Legal Name change certificate",
-    "value": Documents.ChangeOfNameCertificate
-  },
-  { 
-    "label": "Divorce Decree",
-    "value": Documents.DivorceDecree
-  }
-]};
-
-get correctNameDocs(){
-
-  return[
-  { 
-    "label": "Canadian Birth certificate",
-    "value": Documents.CanadianBirthCertificate
-  },
-  { 
-    "label": "Canadian Citizenship card or certificate",
-    "value": Documents.CanadianCitizenCard
-  },
-  { 
-    "label": "Canadian Passport",
-    "value": Documents.CanadianPassport
-  },
-  { 
-    "label": "Permanent Resident Card",
-    "value": Documents.PermanentResidentCard
-  },
-  { 
-    "label": "Confirmation of permanent residence",
-    "value": Documents.PermanentResidentConfirmation
-  },
-  { 
-    "label": "Record of landing",
-    "value": Documents.RecordOfLanding
-  },
-  { 
-    "label": "Study Permit",
-    "value": Documents.StudyPermit
-  },
-  { 
-    "label": "Work Permit",
-    "value": Documents.WorkPermit
-  },
-  { 
-    "label": "Visitor Permit",
-    "value": Documents.VisitorVisa
-  },
-]};
-
-get correctBirthDateDocs(){
-
-  return[
-  { 
-    "label": "BC Driver's License",
-    "value": Documents.DriverLicense
-  },
-  { 
-    "label": "Canadian birth certificate",
-    "value": Documents.CanadianBirthCertificate
-  },
-  { 
-    "label": "Canadian citizenship card or certificate",
-    "value": Documents.CanadianCitizenCard
-  },
-  { 
-    "label": "Canadian passport",
-    "value": Documents.CanadianPassport
-  },
-  { 
-    "label": "Permanent Resident Card",
-    "value": Documents.PermanentResidentCard
-  },
-  { 
-    "label": "Confirmation of Permanent Residence",
-    "value": Documents.PermanentResidentConfirmation
-  },
-  { 
-    "label": "Record Of Landing",
-    "value": Documents.RecordOfLanding
-  },
-  { 
-    "label": "Study Permit",
-    "value": Documents.StudyPermit
-  },
-  { 
-    "label": "Work Permit",
-    "value": Documents.WorkPermit
-  },
-  { 
-    "label": "Visitor Permit",
-    "value": Documents.VisitorVisa
-  },
-]};
-
-get changeGenderDesignationDocs(){
-
-  return[
-  { 
-    "label": "Canadian Birth certificate",
-    "value": Documents.MarriageCertificate
-  },
-  { 
-    "label": "Application for change of gender designation (Adult)",
-    "value": Documents.ChangeGenderAdultApplication
-  },
-  { 
-    "label": "Application for change of gender designation (child)",
-    "value": Documents.ChangeGenderChildApplication
-  },
-  { 
-    "label": "Physician's or Psychologist confirmation of change of gender designation form",
-    "value": Documents.ChangeGenderPhyscianConfirmation
-  },
-  { 
-    "label": "Request for waiver of parental consent (minor)",
-    "value": Documents.ParentalConsentWaiver
-  }
-]};
-
-
-get permanentResidentDocs() {
-  return [
-    { 
-      "label": "Confirmation Of Permanent Residence",
-      "value": Documents.PermanentResidentConfirmation
-    },
-    { 
-      "label": "Permanent Resident Card (front and back)",
-      "value": Documents.PermanentResidentCard
-    },
-    { 
-      "label": "Record Of Landing",
-      "value": Documents.RecordOfLanding
-    }
-]};
-
-get workPermitDocs() {
-  return [
-    { 
-      "label": "Work Permit",
-      "value": Documents.WorkPermit
-    },
-    { 
-      "label": "Study Permit",
-      "value": Documents.StudyPermit
-    },
-    { 
-      "label": "Acceptance to work in Canada",
-      "value": Documents.WorkInCanadaAcceptance
-    },
-    { 
-      "label": "Acceptance foil from your Diplomatic Passport",
-      "value": Documents.DiplomaticPassportAcceptance
-    },
-    { 
-      "label": "Notice of Decision",
-      "value": Documents.NoticeOfDecision
-    },
-    { 
-      "label": "Permit indicating Religious Worker",
-      "value": Documents.ReligiousWorker
-    }
-]};
-
-
-
- 
-
 }
 
  /**

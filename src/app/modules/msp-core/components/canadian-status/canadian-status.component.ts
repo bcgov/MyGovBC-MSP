@@ -1,9 +1,8 @@
-import { Component, ViewChild, Input, Output, EventEmitter, forwardRef, OnInit } from '@angular/core';
-import { ServicesCardDisclaimerModalComponent } from '../services-card-disclaimer/services-card-disclaimer.component';
+import { Component, Input, Output, EventEmitter, forwardRef, ChangeDetectionStrategy } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { StatusInCanada, CanadianStatusStrings, CanadianStatusReasonStrings, CanadianStatusReason } from '../../models/canadian-status.enum';
-import { Relationship } from '../../models/relationship.enum';
+import { Relationship } from '../../../../models/relationship.enum';
 import { Base } from 'moh-common-lib';
 
 /**
@@ -65,6 +64,13 @@ export function statusReasonRules( relationship: Relationship,
   }
 }
 
+export function getStatusStrings(): string[] {
+  return Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
+}
+
+export function getStatusReasonStrings(): string[] {
+  return Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
+}
 
 
 @Component({
@@ -89,10 +95,9 @@ export class CanadianStatusComponent extends Base {
   @Input() person: MspPerson;
   @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
 
-  statusOpts: string[] = Object.keys(CanadianStatusStrings).map( x  => CanadianStatusStrings[x] );
+  statusOpts: string[] = getStatusStrings();
 
-  private _reasonOpts: string[] = Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
-
+  private _reasonOpts: string[] = getStatusReasonStrings();
 
   constructor() {
     super();

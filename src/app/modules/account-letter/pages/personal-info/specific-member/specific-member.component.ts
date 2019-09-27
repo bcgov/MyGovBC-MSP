@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, EventEmitter, Input, Output} from '@angular/core';
-import {EnrollmentStatusRules, MSPEnrollementMember} from '../../../../msp-core/models/status-activities-documents';
+import {EnrollmentStatusRules, MSPEnrollementMember} from '../../../../../models/status-activities-documents';
 import {MspPerson} from '../../../../../components/msp/model/msp-person.model';
 import {Masking} from '../../../../../components/msp/model/masking.model';
 //import { PhnComponent } from 'moh-common-lib';

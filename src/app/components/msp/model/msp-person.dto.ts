@@ -1,16 +1,17 @@
 import AddressDto from './address.dto';
 import {OutofBCRecordDto} from '../../../models/outof-bc-record.dto';
-import {MSPEnrollementMember} from '../../../models/status-activities-documents';
 import { PersonStatusChange } from './person-status-change';
-import {
+/*import {
     StatusRules,
     ActivitiesRules,
     StatusInCanada,
     Activities,
     DocumentRules,
     Documents
-  } from '../../../models/status-activities-documents';
-  import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
+  } from '../../../models/status-activities-documents';*/
+import { Address, BRITISH_COLUMBIA, CANADA } from 'moh-common-lib';
+import { SimpleDate , CommonImage } from 'moh-common-lib';
+import {MSPEnrollementMember} from '../../../models/status-activities-documents';
 
 
 // TODO: Class makes reference to self within definition - This should be reviewed
@@ -128,23 +129,23 @@ export default class PersonDto {
     statusChange: PersonStatusChange;
 
     updateNameDueToMarriage: boolean;
-    updateNameDueToMarriageDocType: Documents;
+//    updateNameDueToMarriageDocType: Documents;
     updateNameDueDoc: CommonImage[] = [];
 
     updateNameDueToError: boolean;
-    updateNameDueToErrorDocType: Documents;
+  //  updateNameDueToErrorDocType: Documents;
     updateNameDueToErrorDoc: CommonImage[] = [];
 
     updateBirthdate: boolean;
-    updateBirthdateDocType: Documents;
+ //   updateBirthdateDocType: Documents;
     updateBirthdateDoc: CommonImage[] = [];
 
     updateGender: boolean;
-    updateGenderDocType: Documents;
+ //   updateGenderDocType: Documents;
     updateGenderDoc: CommonImage[] = [];
 
     updateGenderDesignation: boolean;
-    updateGenderDesignationDocType: Documents;
+   // updateGenderDesignationDocType: Documents;
     updateGenderDesignationDoc: CommonImage[] = [];
 
     updateStatusInCanada: boolean;

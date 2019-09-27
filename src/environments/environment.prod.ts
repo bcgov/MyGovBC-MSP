@@ -36,11 +36,15 @@ export const environment = {
     /** Link used in app */
     links: {
         FAQ: 'https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/managing-your-msp-account/msp-account-change-faqs',
-        MSP_RESIDENT_CONTACT: 'http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us',
+        HIBC: 'http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents-contact-us',
         MSP_ELIGIBILITY: 'http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/are-you-eligible',
         MSP_ASSISTANCE: 'http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/premiums/regular-premium-assistance',
+        MSP_WAIT_PERIOD: 'http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/eligibility-and-enrolment/how-to-enrol/coverage-wait-period',
         FPCARE: 'http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/pharmacare-for-bc-residents/who-we-cover/fair-pharmacare-plan',
-        ICBC: 'www.icbc.com'
+        ICBC: 'http://www.icbc.com/',
+        BCSC_UPDATE: 'http://www2.gov.bc.ca/gov/content/governments/government-id/bc-services-card/change-your-personal-information',
+        ACBC: 'https://www.addresschange.gov.bc.ca'
     },
-    bypassGuards: false
+    bypassGuards: false,
+    useMockBackend: false
 };

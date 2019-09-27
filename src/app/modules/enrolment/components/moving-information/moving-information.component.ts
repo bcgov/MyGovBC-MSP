@@ -4,7 +4,7 @@ import { ControlContainer, NgForm } from '@angular/forms';
 import { MspPerson } from '../../../account/models/account.model';
 import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 import { environment } from '../../../../../environments/environment';
-import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../../models/relationship.enum';
 
 @Component({
   selector: 'msp-moving-information',
@@ -58,10 +58,6 @@ export class MovingInformationComponent extends Base implements OnInit {
            this.person.relationship === Relationship.Child19To24;
   }
 
-  get isOveragedChild() {
-    return this.person.relationship === Relationship.Child19To24;
-  }
-
   // Moved from another province
   get isCanadianFromProv() {
     return this.person.status === StatusInCanada.CitizenAdult &&
@@ -83,33 +79,24 @@ export class MovingInformationComponent extends Base implements OnInit {
   // Moved from another province
   get isResidentFromProv() {
     return this.person.status === StatusInCanada.PermanentResident &&
-            this.person.currentActivity === CanadianStatusReason.MovingFromProvince;
+           this.person.currentActivity === CanadianStatusReason.MovingFromProvince;
   }
 
   // Moved from another Country
   get isResidentFromCountry() {
     return this.person.status === StatusInCanada.PermanentResident &&
-            this.person.currentActivity === CanadianStatusReason.MovingFromCountry;
+           this.person.currentActivity === CanadianStatusReason.MovingFromCountry;
   }
 
   // Not new to BC
   get isResidentNotBC() {
     return this.person.status === StatusInCanada.PermanentResident &&
-            this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP;
-  }
-
-  get isTemporaryResident() {
-    return this.person.status === StatusInCanada.TemporaryResident;
-  }
-
-  get requestSchoolInfo() {
-    return this.isCanadianFromCountry || this.isCanadianFromProv || this.isCanadianNotBC ||
-           this.isResidentFromCountry || this.isResidentFromProv || this.isResidentNotBC;
+           this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP;
   }
 
   get requestPermMoveInfo() {
-    return this.isCanadianFromProv || this.isCanadianFromCountry ||
-          (this.isCanadianNotBC && this.person.livedInBCSinceBirth) || this.isResidentFromProv ||
+   return this.isCanadianFromProv || this.isCanadianFromCountry ||
+          (this.isCanadianNotBC && this.person.livedInBCSinceBirth === true) || this.isResidentFromProv ||
           this.isResidentFromCountry || this.isResidentNotBC;
   }
 
@@ -123,5 +110,4 @@ export class MovingInformationComponent extends Base implements OnInit {
           (this.isCanadianNotBC && this.person.livedInBCSinceBirth !== undefined) ||
           this.isResidentFromProv || this.isResidentFromCountry || this.isResidentNotBC;
   }
-
 }

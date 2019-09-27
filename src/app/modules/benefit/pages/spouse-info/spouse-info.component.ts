@@ -9,7 +9,7 @@ import {NgForm} from '@angular/forms';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 //import { validatePHN } from 'app/modules/msp-core/models/validate-phn';
 import { CANADA } from 'moh-common-lib';
-import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { Relationship } from '../../../../models/relationship.enum';
 
 @Component({
   selector: 'msp-spouse-info',

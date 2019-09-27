@@ -2,11 +2,10 @@
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
-import {ProcessService, ProcessUrls} from '../../../../services/process.service';
-import { environment } from '../../../../../environments/environment';
-import { MspAccountApp, MspPerson } from '../../models/account.model';
-import { ChangeDetectorRef, Input, Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { Address, PROVINCE_LIST, COUNTRY_LIST, CheckCompleteBaseService } from 'moh-common-lib';
+import {ProcessService} from '../../../../services/process.service';
+import { MspAccountApp } from '../../models/account.model';
+import { ChangeDetectorRef, Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { PROVINCE_LIST, COUNTRY_LIST } from 'moh-common-lib';
 
 import {
   CountryList,
@@ -14,9 +13,6 @@ import {
   CANADA,
   BRITISH_COLUMBIA
 } from 'moh-common-lib';
-import { MspAddressConstants } from '../../../../models/msp-address.constants';
-//import { ROUTES_ENROL } from '../../../models/enrol-route-constants';
-
 
 import { BaseComponent } from '../../../../models/base.component';
 
@@ -50,9 +46,7 @@ export class ContactInfoComponent extends BaseComponent  implements OnInit {
    mspAccountApp: MspAccountApp;
  
    constructor(private dataService: MspAccountMaintenanceDataService,
-               private _router: Router,
-               private _processService: ProcessService,
-               private cd: ChangeDetectorRef) {
+               cd: ChangeDetectorRef) {
      super(cd);
      this.mspAccountApp = this.dataService.accountApp;
    }

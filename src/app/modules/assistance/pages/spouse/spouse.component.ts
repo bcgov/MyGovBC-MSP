@@ -84,7 +84,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
   yearTitle = 'Your spouse or common-law partner';
   yearDescription = 'Select the tax year when you had a spouse';
   documentsTitle = 'Documents';
-  documentsDescription = `Upload spouse's Notice of Assessement or Reassessement from Canada Revenue Agency for`;
+  documentsDescription = `Upload your spouse's Canada Revenue Agency Notice of Assessment or Reassessement for`;
 
   finAssistApp: FinancialAssistApplication;
   documents: PersonDocuments;
@@ -138,7 +138,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     }
 
     if (this.finAssistApp.assistYears.some(itm => itm.hasSpouse))
-      this.documentsDescription = `Upload spouse's Notice of Assessement or Reassessement from Canada Revenue Agency for ${this.createDocumentDesc(
+      this.documentsDescription = `Upload your spouse's Canada Revenue Agency Notice of Assessment or Reassessement for ${this.createDocumentDesc(
         this.selectedYears
       )}`;
 
@@ -232,7 +232,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
     }
     this.dataSvc.saveFinAssistApplication();
     if (this.finAssistApp.assistYears.some(itm => itm.hasSpouse))
-      this.documentsDescription = `Upload spouse's Notice of Assessement or Reassessement from Canada Revenue Agency for ${this.createDocumentDesc(
+      this.documentsDescription = `Upload your spouse's Canada Revenue Agency Notice of Assessment or Reassessement for ${this.createDocumentDesc(
         this.selectedYears
       )}`;
   }

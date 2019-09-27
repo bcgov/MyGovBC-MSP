@@ -1,24 +1,10 @@
-import { Relationship } from "app/modules/msp-core/models/relationship.enum";
-
-/**
- * Various relationships
- */
-
-
-/**
- * Various statuses in Canada
- */
-enum StatusInCanada {
-  CitizenAdult, // adult
-  PermanentResident,
-  TemporaryResident
-  
-}
+import { StatusInCanada, CanadianStatusReason } from '../modules/msp-core/models/canadian-status.enum';
+import { Relationship } from './relationship.enum';
 
 /**
  * Whose MSP Enrollement for ACL
  */
-enum MSPEnrollementMember {
+export enum MSPEnrollementMember {
   MyselfOnly, // adult
   AllMembers,
   SpecificMember
@@ -26,86 +12,24 @@ enum MSPEnrollementMember {
 
 
 
-/**
- * Reasons for returning to Canada
- */
-enum Activities {
-  LivingInBCWithoutMSP,
-  MovingFromProvince,
-  MovingFromCountry,
-  WorkingInBC,
-  StudyingInBC,
-  ReligiousWorker,
-  Diplomat,
-  Visiting
-}
-
-/**
- * ID documents
- */
-enum Documents {
-  CanadianBirthCertificate,
-  CanadianPassport,
-  CanadianCitizenCard,
-  DriverLicense,
-  RecordOfLanding,
-  PermanentResidentCard,
-  PermanentResidentConfirmation,
-  WorkPermit,
-  StudyPermit,
-  VisitorVisa,
-  PassportWithDiplomaticFoil,
-  MarriageCertificate,
-  ChangeOfNameCertificate,
-  ReligiousWorker,
-  NoticeOfDecision,
-  DiplomaticPassportAcceptance,
-  WorkInCanadaAcceptance,
-  DivorceDecree,
-  ChangeGenderAdultApplication,
-  ChangeGenderChildApplication,
-  ChangeGenderPhyscianConfirmation,
-  ParentalConsentWaiver,
-  SeperationAgreement,
-  NotrizedStatementOrAffidavit,
-  Other,
-
-}
-
-enum CancellationReasons {
+export enum CancellationReasons {
   NoLongerInFullTimeStudies,
-  DivorcedOrSeperated,
   Deceased,
-  RemovedFromAccountButMarried,
   OutOfProvinceOrCountry,
   ArmedForces,
   Incarcerated
 }
 
-enum CancellationReasonsForSpouse {
+export enum CancellationReasonsForSpouse {
    SeparatedDivorced,
    RemoveFromAccountButStillMarriedOrCommomLaw,
    Deceased,
-    OutOfProvinceOrCountry,
-    ArmedForces,
+   OutOfProvinceOrCountry,
+   ArmedForces,
    Incarcerated,
 }
 
-/**
- * Business rules for status
- */
-class StatusRules {
-  static availableStatus(relationship: Relationship): StatusInCanada[] {
-    switch (relationship) {
-      default:
-        return [StatusInCanada.CitizenAdult,
-          StatusInCanada.PermanentResident,
-          StatusInCanada.TemporaryResident];
-    }
-  }
-}
-
-class EnrollmentStatusRules {
+export class EnrollmentStatusRules {
   static availableStatus(): MSPEnrollementMember[] {
         return [MSPEnrollementMember.MyselfOnly,
             MSPEnrollementMember.AllMembers,
@@ -116,40 +40,24 @@ class EnrollmentStatusRules {
 /**
  * Business rules for activities
  */
-class ActivitiesRules {
-  static availableActivities(relationship: Relationship, status: StatusInCanada): Activities[] {
-    switch (status) {
-      case StatusInCanada.CitizenAdult:
-      case StatusInCanada.PermanentResident:
-        if (relationship === Relationship.Child19To24 ||
-            relationship === Relationship.ChildUnder19 || relationship === Relationship.ChildUnder24) {
-          return [Activities.MovingFromProvince, Activities.MovingFromCountry, Activities.LivingInBCWithoutMSP];
-        }
-        else {
-          return [Activities.MovingFromProvince, Activities.MovingFromCountry, Activities.LivingInBCWithoutMSP];
-        }
-      case StatusInCanada.TemporaryResident:
-        if (relationship === Relationship.Applicant) {
-          return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat];
-        } else {
-          return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat,
-            Activities.Visiting];
-        }
-    }
-  }
+export class ActivitiesRules {
 
-  static activitiesForAccountChange(relationship: Relationship, status: StatusInCanada): Activities[] {
+  /**
+   * TODO: change to function and pass into the canadian_status component - see enrolment
+   * personal, spouse or child pages.
+   */
+  static activitiesForAccountChange(relationship: Relationship, status: StatusInCanada): CanadianStatusReason[] {
     console.log(status);
     console.log(StatusInCanada.CitizenAdult);
     console.log(StatusInCanada.PermanentResident);
     console.log(StatusInCanada.TemporaryResident);
 
     if (status === StatusInCanada.TemporaryResident) {
-      console.log("got it");
-      return [Activities.WorkingInBC, Activities.StudyingInBC, 
-                Activities.ReligiousWorker, 
-                Activities.Diplomat];
-    } 
+      console.log('got it');
+      return [CanadianStatusReason.WorkingInBC, CanadianStatusReason.StudyingInBC,
+        CanadianStatusReason.ReligiousWorker,
+        CanadianStatusReason.Diplomat];
+    }
     /*  console.log("1");
       if (relationship === Relationship.Applicant) {
         return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat];
@@ -164,42 +72,14 @@ class ActivitiesRules {
         }
         else {
           return [Activities.MovingFromProvince, Activities.MovingFromCountry, Activities.LivingInBCWithoutMSP];
-        }*/
-    /*  return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat,
-          Activities.Visiting];*/
-      
-  
+        }
+      case StatusInCanada.TemporaryResident:
+        if (relationship === Relationship.Applicant) {
+          return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat];
+        } else {
+          return [Activities.WorkingInBC, Activities.StudyingInBC, Activities.ReligiousWorker, Activities.Diplomat,
+            Activities.Visiting];
+        }
+    }*/
   }
 }
-
-/**
- * Business rules for documents
- */
-class DocumentRules {
-  static availiableDocuments(status: StatusInCanada, activity: Activities): Documents[] {
-    switch (status) {
-      case StatusInCanada.CitizenAdult:
-        return [Documents.CanadianBirthCertificate, Documents.CanadianCitizenCard, Documents.CanadianPassport];
-      case StatusInCanada.PermanentResident:
-        return [Documents.RecordOfLanding, Documents.PermanentResidentCard];
-    }
-    switch (activity) {
-      case Activities.WorkingInBC:
-        return [Documents.WorkPermit];
-      case Activities.StudyingInBC:
-        return [Documents.StudyPermit];
-      case Activities.ReligiousWorker:
-        return [Documents.VisitorVisa];
-      case Activities.Diplomat:
-        return [Documents.PassportWithDiplomaticFoil];
-      case Activities.Visiting:
-        return [Documents.VisitorVisa];
-    }
-  }
-
-  static nameChangeDocument() {
-    return [Documents.MarriageCertificate, Documents.ChangeOfNameCertificate];
-  }
-}
-
-export {MSPEnrollementMember, EnrollmentStatusRules, Relationship, Activities, StatusInCanada, Documents, ActivitiesRules, StatusRules, DocumentRules, CancellationReasons , CancellationReasonsForSpouse};

@@ -59,7 +59,7 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
   mailTitle = 'Mailing Address';
   mailSubtitle = 'Enter your current mailing address';
   phoneTitle = 'Phone';
-  phoneLabel = 'Phone Number (optional)';
+  phoneLabel = 'Phone number (optional)';
   phoneTip =
     'Please provide a phone number so you may be contacted in case of any issues with your application.';
 
@@ -102,7 +102,7 @@ export class AssistContactComponent extends BaseComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe(obs => {
-        console.log('values changed');
+        console.log('values changed', this.address);
 
         this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, this.personalInfoForm.valid );
         this.dataService.saveFinAssistApplication();

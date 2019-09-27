@@ -1,63 +1,38 @@
-import {Component, Injectable, ViewChildren, QueryList, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
+import { Component, Injectable, ViewChild } from '@angular/core';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { Router } from '@angular/router';
-import {PersonalDetailsComponent} from '../../components/personal-details/personal-details.component';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
 import { MspPerson } from '../../../account/models/account.model';
 import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
-import { AbstractForm } from 'moh-common-lib';
-import { Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { EnrolForm } from '../../models/enrol-form';
+import { SampleModalComponent } from 'moh-common-lib';
 
 
 @Component({
   templateUrl: './personal-info.component.html'
 })
 @Injectable()
-export class PersonalInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
-
-  @ViewChildren(PersonalDetailsComponent) personalDetailsComponent: QueryList<
-    PersonalDetailsComponent
-  >;
+export class PersonalInfoComponent extends EnrolForm {
 
   nameChangeDocList = nameChangeSupportDocuments();
-  subscriptions: Subscription[];
+
+  @ViewChild('sampleDocs') sampleDocs: SampleModalComponent;
 
   constructor( protected router: Router,
-               private dataService: MspDataService,
-               private pageStateService: PageStateService ) {
-    super(router);
-  }
-
-  ngOnInit() {
-    this.pageStateService.setPageIncomplete(this.router.url, this.dataService.mspApplication.pageStatus);
-  }
-
-  ngAfterViewInit() {
-    if (this.form) {
-      this.subscriptions = [
-        this.form.valueChanges.pipe(
-          debounceTime(100)
-        ).subscribe(() => {
-          this.dataService.saveMspApplication();
-        })
-        ];
-    }
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach( itm => itm.unsubscribe() );
+               protected dataService: MspDataService,
+               protected pageStateService: PageStateService ) {
+    super( dataService, pageStateService, router );
   }
 
   get applicant(): MspPerson {
-    return this.dataService.mspApplication.applicant;
+    return this.mspApplication.applicant;
   }
 
   set applicant( applicant: MspPerson ) {
-    this.dataService.mspApplication.applicant = applicant;
+    this.mspApplication.applicant = applicant;
   }
 
   get statusDocuments(): PersonDocuments {
@@ -99,8 +74,17 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
             ( this.applicant.hasNameChange && this.hasNameDocuments )); // name change requires documentation
   }
 
+  get isTemporaryResident() {
+    return this.applicant.status === StatusInCanada.TemporaryResident;
+  }
+
   canContinue(): boolean {
     let valid = super.canContinue() && this.hasStatusDocuments;
+
+    // If not temporary resident needs to have moved permenently to BC
+    if ( !this.isTemporaryResident ) {
+      valid = valid && this.applicant.madePermanentMoveToBC;
+    }
 
     if ( this.applicant.hasNameChange ) {
       valid = valid && this.hasNameDocuments;
@@ -113,12 +97,8 @@ export class PersonalInfoComponent extends AbstractForm implements OnInit, After
   }
 
   continue(): void {
-    if (!this.canContinue()) {
-      console.log('Please fill in all required fields on the form.');
-      this.markAllInputsTouched();
-      return;
-    }
-    this.pageStateService.setPageComplete(this.router.url, this.dataService.mspApplication.pageStatus);
-    this.navigate(ROUTES_ENROL.SPOUSE_INFO.fullpath);
+    this._nextUrl = ROUTES_ENROL.SPOUSE_INFO.fullpath;
+    this._canContinue = this.canContinue();
+    super.continue();
   }
 }

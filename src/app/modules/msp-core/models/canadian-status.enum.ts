@@ -1,4 +1,4 @@
-import { Relationship } from './relationship.enum';
+import { Relationship } from '../../../models/relationship.enum';
 
 /**
  * Various statuses in Canada
@@ -7,6 +7,12 @@ export enum StatusInCanada {
   CitizenAdult, // adult
   PermanentResident,
   TemporaryResident
+}
+
+export enum statusInCanadaStrings {
+  'Canadian citizen',
+  'Permanent resident',
+  'Temporary permit holder or diplomat'
 }
 
 /**
@@ -30,6 +36,17 @@ export enum CanadianStatusReason {
   ReligiousWorker,
   Diplomat,
   Visiting
+}
+
+export enum statusInCanadaReasonStrings {
+  'Not new to B.C. but need to apply for Medical Services Plan',
+  'Moved to B.C. from another province',
+  'Moved to B.C. from another country',
+  'Working in B.C.',
+  'Studying in B.C.',
+  'Religious worker',
+  'Diplomat',
+  'Visiting'
 }
 
 /**
