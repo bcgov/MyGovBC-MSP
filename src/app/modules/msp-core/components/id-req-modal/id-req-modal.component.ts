@@ -3,7 +3,7 @@ import { AccordionComponent, ModalDirective } from 'ngx-bootstrap';
 import { IdRequirementContent } from './id-req-content.model.component';
 import { SupportDocuments } from '../../models/support-documents.enum';
 
-
+// TODO: Remove - do not use
 @Component({
     selector: 'msp-id-req-modal',
     templateUrl: './id-req-modal.component.html',

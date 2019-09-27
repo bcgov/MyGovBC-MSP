@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input, forwardRef, SimpleChanges, OnChanges, OnDestroy } from '@angular/core';
-import { Base, CommonImage } from 'moh-common-lib';
+import { Base, CommonImage, SampleImageInterface } from 'moh-common-lib';
 import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
 import { CanadianStatusReason, StatusInCanada } from '../../models/canadian-status.enum';
-import { SupportDocuments, SupportDocumentList } from '../../models/support-documents.enum';
+import { SupportDocuments, SupportDocumentList, SupportDocumentSamples } from '../../models/support-documents.enum';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
@@ -35,23 +35,23 @@ export function nameChangeSupportDocuments(): SupportDocuments[] {
 export function genderBirthDateChangeDocuments(): SupportDocuments[] {
   return [SupportDocuments.DriverLicense, SupportDocuments.CanadianBirthCertificate,
       SupportDocuments.CanadianPassport,  SupportDocuments.CanadianCitizenCard,
-      SupportDocuments.PermanentResidentCard, SupportDocuments.PermanentResidentConfirmation, 
-      SupportDocuments.RecordOfLanding, SupportDocuments.StudyPermit, 
+      SupportDocuments.PermanentResidentCard, SupportDocuments.PermanentResidentConfirmation,
+      SupportDocuments.RecordOfLanding, SupportDocuments.StudyPermit,
       SupportDocuments.WorkPermit, SupportDocuments.VisitorVisa];
 }
 
 export function nameChangeDueToErrorDocuments(): SupportDocuments[] {
   return [SupportDocuments.CanadianBirthCertificate,
-      SupportDocuments.CanadianPassport,  SupportDocuments.CanadianCitizenCard, SupportDocuments.PermanentResidentCard, 
+      SupportDocuments.CanadianPassport,  SupportDocuments.CanadianCitizenCard, SupportDocuments.PermanentResidentCard,
       SupportDocuments.PermanentResidentConfirmation, SupportDocuments.RecordOfLanding,
       SupportDocuments.StudyPermit, SupportDocuments.WorkPermit,
       SupportDocuments.VisitorVisa];
 }
 
 export function spouseRemovedDueToDivorceDocuments(): SupportDocuments[] {
-  return [SupportDocuments.DivorceDecree, 
-          SupportDocuments.SeperationAgreement, 
-          SupportDocuments.NotrizedStatementOrAffidavit, 
+  return [SupportDocuments.DivorceDecree,
+          SupportDocuments.SeperationAgreement,
+          SupportDocuments.NotrizedStatementOrAffidavit,
           SupportDocuments.Other];
 }
 
@@ -84,9 +84,13 @@ export function nameChangeSupportDocuments(): SupportDocuments[] {
 })
 export class SupportDocumentsComponent extends Base implements OnInit, OnChanges, OnDestroy {
 
+  // List of documents to be displayed, if not provided, the default uses suportDocumentRules().
   @Input() supportDocList: SupportDocuments[];
+  // Individual's status in Canadian
   @Input() canadianStatus: StatusInCanada;
+  // Individual's reason for status in Canada
   @Input() statusReason: CanadianStatusReason;
+  // Toggles display for the 'Add' button (true => button is displayed, false => no button displayed)
   @Input() displayButton: boolean = true;
 
   @Input() supportDoc: PersonDocuments;
@@ -97,9 +101,13 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
 
   btnEnabled: boolean  = true;
   availableSupportDocuments: string[] = [];
-  private _documentOpts: string[] = Object.keys(SupportDocumentList).map( x => SupportDocumentList[x] );
 
   onChanges = new BehaviorSubject<SimpleChanges>( null );
+
+  docSampleImages: SampleImageInterface[] = [];
+
+  // List of all supporting document types
+  private _documentOpts: string[] = Object.keys(SupportDocumentList).map( x => SupportDocumentList[x] );
 
   constructor() {
     super();
@@ -114,24 +122,25 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
 
     // Change document list if status or reason changes
     this.onChanges.subscribe((changes: SimpleChanges) => {
+      console.log( 'on changes: ', changes );
 
-      if ( changes.canadianStatus || changes.statusReason ) {
+      if ( changes.canadianStatus || changes.statusReason || changes.supportDocList ) {
+
         const _list = this.documentList.map( itm => {
           return this._documentOpts[itm];
         });
 
-        if ( _list && this.availableSupportDocuments ) {
-          const diff = _list.filter( x => !this.availableSupportDocuments.includes(x) );
-          if ( diff.length ) {
-            this.availableSupportDocuments = _list;
+        this.availableSupportDocuments = _list ? _list : [];
+
+        // Check if document exists in the list
+        if ( this.hasDocumentType ) {
+          const docTypeExist = this.availableSupportDocuments.find(
+            x => x === this.supportDoc.documentType
+            );
+          if ( !docTypeExist ) {
             // Change in status or reason new documents required
             this.removeDocument();
           }
-        } else {
-          this.availableSupportDocuments = [];
-
-          // Change in status or reason new documents required
-          this.removeDocument();
         }
       }
     });
@@ -173,17 +182,7 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
     this.supportDocChange.emit(this.supportDoc);
   }
 
-  /*get availableSupportDocuments() {
-    if (this.documentList) {
-      return this.documentList.map( itm => {
-        return this._documentOpts[itm];
-      });
-    }
-  }*/
-
   get documentList() {
-    console.log(this.statusReason);
-    console.log(this.canadianStatus);
     // Get the status reason list available for the selected status
     if ( !this.supportDocList ) {
       return suportDocumentRules( this.canadianStatus, this.statusReason );
@@ -201,4 +200,19 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
     }
   }
 
+  get hasSampleDoc() {
+
+    if ( this.hasDocumentType ) {
+      const idx = this._documentOpts.findIndex( x => x === this.supportDoc.documentType );
+
+      if ( idx >= 0 && idx < this._documentOpts.length ) {
+        if ( SupportDocumentSamples[idx].path ) {
+          this.docSampleImages = [SupportDocumentSamples[idx]];
+          return true;
+        }
+      }
+      this.docSampleImages = [];
+    }
+    return false;
+  }
 }

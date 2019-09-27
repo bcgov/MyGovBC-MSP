@@ -7,15 +7,25 @@
                   required>
     </common-radio>
   </div>
-  
+  <div *ngIf="isTemporaryResident" class="form-group col-sm-6 pl-0" >
+    <common-country name="movedFromCountry_{{objectId}}"
+                    label="Which country are {{relationship}} moving from?"
+                    [countryList]="countryList"
+                    [(ngModel)]="person.movedFromProvinceOrCountry"
+                    required>
+    </common-country>
+  </div> 
+
   <div *ngIf="requestPermMoveInfo">
     <div class="form-group">
+      <!--Temporary residents can continue whether or not they make the permanent move to BC-->
       <common-radio name="madePermanentMoveToBC_{{objectId}}"
                     [(ngModel)]="person.madePermanentMoveToBC"  
                     label="Have {{relationship}} moved to B.C. permanently?" 
                     required>
       </common-radio>
-      <common-error-container [displayError]="person.madePermanentMoveToBC == false">
+      <common-error-container 
+        [displayError]="person.madePermanentMoveToBC == false && !isTemporaryResident">
         You have indicated that a recent move to B.C. is not permanent.  As a result, this person
         is not eligible for enrolment in the Medical Services Plan.  Please contact
         <a href="{{links.HIBC}}" target="_blank">Health Insurance BC</a> for further 
@@ -33,7 +43,7 @@
       </common-province>
     </div>
 
-    <div *ngIf="isCanadianFromProv || isCanadianFromCountry; else NewToBC"
+    <div *ngIf="isCanadianFromProv || isCanadianFromCountry || isTemporaryResident; else NewToBC"
          class="form-group col-sm-6 pl-0">
         <common-date label="Arrival date in B.C."
                      [restrictDate]="'past'" 
@@ -137,8 +147,7 @@ and check departure was within last 12 months - need to find error messages for 
       </common-phn>
     </div>
 
-    <div *ngIf="!((isSpouse || isChild) && (isResidentFromProv || isResidentFromCountry || isCanadianNotBC))" 
-         class="form-group">
+    <div *ngIf="requestArmForceInfo" class="form-group">
       <common-radio name="armedForces_{{objectId}}"
                     [(ngModel)]="person.hasBeenReleasedFromArmedForces"  
                     label="Have {{relationship}} been released from the Canadian Armed Forces or an Institution?" 

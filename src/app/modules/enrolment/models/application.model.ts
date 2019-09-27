@@ -89,8 +89,8 @@ export class MspApplication implements ApplicationBase {
     }
     if ( this._children.length < 30 ) {
       // Add child to front of array
-      const tmp = [c, ...this._children];
-      this._children = tmp;
+      this._children.push( c );
+
     } else {
       console.log('No more than 30 children can be added to one application');
     }

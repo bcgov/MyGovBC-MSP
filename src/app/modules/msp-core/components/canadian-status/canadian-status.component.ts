@@ -87,9 +87,12 @@ export function getStatusReasonStrings(): string[] {
 })
 export class CanadianStatusComponent extends Base {
 
+  //List of statuses to be displayed, if not provided, the default uses statusReasonRules().
   @Input() statusReasonList: CanadianStatusReason[];
   @Input() label: String = 'Your immigration status in Canada';
+
   @Input() displayStatusInCanada: boolean = true;
+  // List of statuses where the status reasons show not be shown
   @Input() hideStatusReasons: StatusInCanada[] = [];
 
   @Input() person: MspPerson;
