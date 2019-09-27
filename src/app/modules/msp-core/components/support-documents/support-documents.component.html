@@ -35,7 +35,12 @@
     <ng-content select="[requestAdditionInfo]"></ng-content>
     <aside>
       <div>
-        <ng-content select="[sampleDocument]"></ng-content>
+        <a role="button"
+            aria-haspopup="true"
+            href="javascript:void(0)"
+            (click)="docSample.openModal()">{{supportDoc.documentType}} samples</a>
+      </div>
+      <div>
         Scan the document, or take a photo of it. Make sure that it's:
         <ul>
           <li>The entire document, from corner to corner</li>
@@ -48,3 +53,8 @@
     </aside>
   </common-page-section>
 </div>
+
+<common-sample-modal #docSample
+                     [title]="docSampleTitle"
+                     [images]="docSampleImages"> 
+</common-sample-modal>

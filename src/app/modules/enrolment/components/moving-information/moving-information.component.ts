@@ -35,7 +35,7 @@ export class MovingInformationComponent extends Base implements OnInit {
 
   relationship: string = 'you';
 
-  constructor() {
+  constructor(public cntr: ControlContainer ) {
     super();
   }
 

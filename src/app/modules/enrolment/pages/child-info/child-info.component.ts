@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
@@ -117,6 +117,9 @@ export class ChildInfoComponent extends EnrolForm {
 
   setRelationship( $event, idx: number ) {
     this.children[idx].relationship = Number($event);
+    if ( this.children[idx].relationship === Relationship.Child19To24 ) {
+      this.children[idx].fullTimeStudent = true;
+    }
   }
 
   hasNameDocuments( idx: number ): boolean {
@@ -124,9 +127,9 @@ export class ChildInfoComponent extends EnrolForm {
   }
 
   requestPersonalInfo( idx: number ): boolean {
-    return this.hasStatus( idx ) && this.hasStatusDocuments( idx ) &&
-           ( this.children[idx].hasNameChange === false || // No name change
-            ( this.children[idx].hasNameChange && this.hasNameDocuments( idx ) )); // name change requires documentation
+    return !!( this.hasStatus( idx ) && this.hasStatusDocuments( idx ) &&
+             ( this.children[idx].hasNameChange === false || // No name change
+             ( this.children[idx].hasNameChange && this.hasNameDocuments( idx ) ))); // name change requires documentation
   }
 
   isTemporaryResident(idx: number) {

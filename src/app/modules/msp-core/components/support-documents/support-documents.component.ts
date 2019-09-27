@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input, forwardRef, SimpleChang
 import { Base, CommonImage } from 'moh-common-lib';
 import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
 import { CanadianStatusReason, StatusInCanada } from '../../models/canadian-status.enum';
-import { SupportDocuments, SupportDocumentList } from '../../models/support-documents.enum';
+import { SupportDocuments, SupportDocumentList, SupportDocumentSamples } from '../../models/support-documents.enum';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
@@ -79,8 +79,10 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
 
     // Change document list if status or reason changes
     this.onChanges.subscribe((changes: SimpleChanges) => {
+      console.log( 'on changes: ', changes );
 
-      if ( changes.canadianStatus || changes.statusReason ) {
+      if ( changes.canadianStatus || changes.statusReason || changes.supportDocList ) {
+
         const _list = this.documentList.map( itm => {
           return this._documentOpts[itm];
         });
@@ -137,7 +139,6 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
     this.supportDocChange.emit(this.supportDoc);
   }
 
-
   get documentList() {
     // Get the status reason list available for the selected status
     if ( !this.supportDocList ) {
@@ -156,4 +157,11 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
     }
   }
 
+  get docSampleTitle() {
+    return this.supportDoc.documentType;
+  }
+  get docSampleImages() {
+    const idx = Object.keys(SupportDocumentList).findIndex( x => SupportDocumentList[x] === this.supportDoc.documentType);
+    return idx >= 0 ? [SupportDocumentSamples[idx]] : [];
+  }
 }

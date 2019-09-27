@@ -17,151 +17,153 @@
       </div>
     </div>
 
-    <div *ngFor="let child of children; let idx = index">
-      <msp-canadian-status [person]="child"
-                           label="{{statusLabel}}"
-                           [displayStatusInCanada]="displayStatusOpt(idx)">
-        <div sectionTitleInfo>
-          <h2>Child #{{children.length - idx}}</h2>
-          <p class="border-bottom">
-            Please provide child's personal information and immigration status in Canada. You will be required to upload supporting documents with your application.
-            <common-xicon-button label= "Remove child" (click)="removeChild(idx)">
-            </common-xicon-button>
-          </p>
-          <div additionalInfo>
-            <div class="form-group p-sm-2">
-              <common-radio name="AgeCategory_{{idx}}"
-                            id="AgeCategory_{{idx}}"
-                            [(ngModel)]="child.relationship" 
-                            label="How old is your child?" 
-                            [radioLabels]="childAgeCategory"
+    <div class="d-flex flex-column-reverse">
+      <div *ngFor="let child of children; let idx = index">
+        <msp-canadian-status [person]="child"
+                             label="{{statusLabel}}"
+                             [displayStatusInCanada]="displayStatusOpt(idx)">
+          <div sectionTitleInfo>
+            <h2>Child #{{idx + 1}}</h2>
+            <p class="border-bottom">
+              Please provide child's personal information and immigration status in Canada. You will be required to upload supporting documents with your application.
+              <common-xicon-button label= "Remove child" (click)="removeChild(idx)">
+              </common-xicon-button>
+            </p>
+            <div additionalInfo>
+              <div class="form-group p-sm-2">
+                <common-radio name="AgeCategory_{{idx}}"
+                              id="AgeCategory_{{idx}}"
+                              [(ngModel)]="child.relationship" 
+                              label="How old is your child?" 
+                              [radioLabels]="childAgeCategory"
+                              required>
+                </common-radio>
+              </div>
+            </div>
+          </div>
+        </msp-canadian-status>
+  
+        <msp-support-documents *ngIf="hasStatus(idx)"
+                               [canadianStatus]="child.status"
+                               [statusReason]="child.currentActivity"
+                               [supportDoc]="child.documents"
+                               (supportDocChange)="statusDocUpdate">
+          <div sectionTitleInfo>
+            <h3>Documents</h3>
+            <p class="border-bottom"> 
+              Provide one of the required documents to support your child's status in Canada. 
+              If your child's name has changed since their ID was issued you are also required 
+              to upload document to support the name change.
+            </p>
+          </div>
+  
+          <div requestAdditionInfo>
+            <div class="form-group">
+              <common-radio name="NameChangeQuestion_{{id}}"
+                            [(ngModel)]="child.hasNameChange"  
+                            label="Has your child's name changed since their ID was issued?"
                             required>
               </common-radio>
             </div>
           </div>
-        </div>
-      </msp-canadian-status>
-
-      <msp-support-documents *ngIf="hasStatus(idx)"
-                             [canadianStatus]="child.status"
-                             [statusReason]="child.currentActivity"
-                             [supportDoc]="child.documents"
-                             (supportDocChange)="statusDocUpdate">
-        <div sectionTitleInfo>
-          <h3>Documents</h3>
-          <p class="border-bottom"> 
-            Provide one of the required documents to support your child's status in Canada. 
-            If your child's name has changed since their ID was issued you are also required 
-            to upload document to support the name change.
-          </p>
-        </div>
-
-        <div requestAdditionInfo>
-          <div class="form-group">
-            <common-radio name="NameChangeQuestion_{{id}}"
-                          [(ngModel)]="child.hasNameChange"  
-                          label="Has your child's name changed since their ID was issued?"
-                          required>
-            </common-radio>
+  
+          <div sampleDocument>
+            TODO: Need to add links with images to display        
           </div>
-        </div>
-
-        <div sampleDocument>
-          TODO: Need to add links with images to display        
-        </div>
-      </msp-support-documents>
-
-      <msp-support-documents *ngIf="requestNameChangeInfo(idx)"
-                            [supportDocList]="nameChangeDocList"
-                            [(supportDoc)]="child.nameChangeDocs">
-        <div sectionTitleInfo> 
-          <h3>Additional Documents</h3>
-          <p class="border-bottom"> 
-            Provide <strong>one</strong> of the required documents to support your child's name change.
-          </p>
-        </div>
-
-        <div sampleDocument>
-          TODO: Need to add links with images to display        
-        </div>
-      </msp-support-documents>
-
-      <div *ngIf="requestPersonalInfo(idx)">
-        <msp-personal-information [person]="child">
-          <div sectionTitleInfo>
-            <h3>Child's Information</h3>
+        </msp-support-documents>
+  
+        <msp-support-documents *ngIf="requestNameChangeInfo(idx)"
+                              [supportDocList]="nameChangeDocList"
+                              [(supportDoc)]="child.nameChangeDocs">
+          <div sectionTitleInfo> 
+            <h3>Additional Documents</h3>
             <p class="border-bottom"> 
-              Enter child's legal name and gender.
+              Provide <strong>one</strong> of the required documents to support your child's name change.
             </p>
-          </div>     
-        </msp-personal-information>
-
-        <msp-moving-information [person]="child">
-          <div sectionTitleInfo>
-            <h3>Moving Information</h3>
-            <p class="border-bottom"> 
-              Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
+          </div>
+  
+          <div sampleDocument>
+            TODO: Need to add links with images to display        
+          </div>
+        </msp-support-documents>
+  
+        <div *ngIf="requestPersonalInfo(idx)">
+          <msp-personal-information [person]="child">
+            <div sectionTitleInfo>
+              <h3>Child's Information</h3>
+              <p class="border-bottom"> 
+                Enter child's legal name and gender.
+              </p>
+            </div>     
+          </msp-personal-information>
+  
+          <msp-moving-information [person]="child">
+            <div sectionTitleInfo>
+              <h3>Moving Information</h3>
+              <p class="border-bottom"> 
+                Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
+              </p>
+            </div>         
+          </msp-moving-information>
+  
+          <div *ngIf="isOveragedChild(idx)">
+            <h2>School Information</h2>
+            <p class="border-bottom">
+              Enter information of the school that this child is attending (must be in full-time attendance)
             </p>
-          </div>         
-        </msp-moving-information>
-
-        <div *ngIf="isOveragedChild(idx)">
-          <h2>School Information</h2>
-          <p class="border-bottom">
-            Enter information of the school that this child is attending (must be in full-time attendance)
-          </p>
-          <common-page-section layout="tips">
-            <div class="form-group col-sm-6 pl-0">
-              <label for="schoolName_{{objectId}}" class="control-label">
-                Name of school
-              </label>
-              <input #schoolNameRef="ngModel"
-                      name="schoolName_{{objectId}}"
-                      type="text" 
-                      class="form-control"
-                      [(ngModel)]=child.schoolName
-                      maxlength="50"
-                      required>
-              <common-error-container [displayError]="schoolNameRef.error?.required">
-                Name of school is required.
-              </common-error-container>
-            </div>
-    
-            <div class="form-group col-sm-8 pl-0">
-              <common-address [(address)]="child.schoolAddress"
-                              [isRequired]="true"
-                              [allowExtralines]='true'
-                              [disableGeocoder]='true'>
-              </common-address>
-            </div>
-
-            <div class="form-group col-sm-6 pl-0">
-              <common-date label="Original departure date from B.C. (if school is outside B.C.)"
-                            [(date)]="child.studiesDepartureSimple"
-                            [required]="isRequired(child)">
-              </common-date>
-            </div>    
-        
-            <div class="form-group col-sm-6 pl-0">
-              <common-date label="Expected school completion date"
-                          [(date)]="child.studiesFinishedSimple">
-              </common-date>
-            </div>  
+            <common-page-section layout="tips">
+              <div class="form-group col-sm-6 pl-0">
+                <label for="schoolName_{{objectId}}" class="control-label">
+                  Name of school
+                </label>
+                <input #schoolNameRef="ngModel"
+                        name="schoolName_{{objectId}}"
+                        type="text" 
+                        class="form-control"
+                        [(ngModel)]=child.schoolName
+                        maxlength="50"
+                        required>
+                <common-error-container [displayError]="schoolNameRef.error?.required">
+                  Name of school is required.
+                </common-error-container>
+              </div>
       
-            <div class="form-group col-sm-8 pl-0">
-              <common-radio name="inBCafterStudiesOA_{{objectId}}"
-                            [(ngModel)]="child.inBCafterStudies"  
-                            label="Will this child reside in B.C. after completing study in this school?" 
-                            required>
-              </common-radio>
-              <common-error-container [displayError]="child.inBCafterStudies == false && !isTemporaryResident(idx)">
-                To qualify for provincial health care benefits a person must be a resident of 
-                B.C.  As you intend to leave B.C. when your studies are completed, you are not 
-                eligible for Medical Services Plan coverage.  Please contact the health care plan 
-                in your home province for information about medical coverage while studying in B.C.
-              </common-error-container>
-            </div>
-          </common-page-section>
+              <div class="form-group col-sm-8 pl-0">
+                <common-address [(address)]="child.schoolAddress"
+                                [isRequired]="true"
+                                [allowExtralines]='true'
+                                [disableGeocoder]='true'>
+                </common-address>
+              </div>
+  
+              <div class="form-group col-sm-6 pl-0">
+                <common-date label="Original departure date from B.C. (if school is outside B.C.)"
+                              [(date)]="child.studiesDepartureSimple"
+                              [required]="isRequired(child)">
+                </common-date>
+              </div>    
+          
+              <div class="form-group col-sm-6 pl-0">
+                <common-date label="Expected school completion date"
+                            [(date)]="child.studiesFinishedSimple">
+                </common-date>
+              </div>  
+        
+              <div class="form-group col-sm-8 pl-0">
+                <common-radio name="inBCafterStudiesOA_{{objectId}}"
+                              [(ngModel)]="child.inBCafterStudies"  
+                              label="Will this child reside in B.C. after completing study in this school?" 
+                              required>
+                </common-radio>
+                <common-error-container [displayError]="child.inBCafterStudies == false && !isTemporaryResident(idx)">
+                  To qualify for provincial health care benefits a person must be a resident of 
+                  B.C.  As you intend to leave B.C. when your studies are completed, you are not 
+                  eligible for Medical Services Plan coverage.  Please contact the health care plan 
+                  in your home province for information about medical coverage while studying in B.C.
+                </common-error-container>
+              </div>
+            </common-page-section>
+          </div>
         </div>
       </div>
     </div>
