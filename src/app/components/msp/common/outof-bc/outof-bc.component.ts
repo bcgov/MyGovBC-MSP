@@ -3,10 +3,6 @@ import {
 } from '@angular/core';
 import {OutofBCRecord} from '../../../../models/outof-bc-record.model';
 import {NgForm} from '@angular/forms';
-
-
-
-
 import {BaseComponent} from '../../../../models/base.component';
 import {MspDepartureDateComponent} from '../departure-date/departure-date.component';
 import {MspReturnDateComponent} from '../return-date/return-date.component';
@@ -19,7 +15,6 @@ export class MspOutofBCRecordComponent extends BaseComponent {
   lang = require('./i18n');
 
   @Input() outofBCRecord: OutofBCRecord;
-
   @Input()futureReturnDate: boolean;
   @Input()futureDepartureDate: boolean;
   @Input()showError: boolean;

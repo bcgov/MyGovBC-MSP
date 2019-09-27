@@ -28,7 +28,7 @@ export class MspPersonCardComponent {
   }
 
   ngOnInit() {
-    console.log('Has DOB?: ' + this.person.hasDob + '    DOB:' + this.person.dob + '    DOB MONTH:' + this.person.dob_month);
+    
   }
 
   editPersonalInfo() {
