@@ -1,8 +1,6 @@
-<div *ngIf="title"> <h2><strong>{{title}}</strong></h2></div>
+<ng-content select="[sectionTitleInfo]"></ng-content>
 
-<div *ngIf="subtitle"><p class="border-bottom">{{subtitle}}</p></div>
 
-<form #formRef='ngForm' novalidate>
     <!--<div class="row">
         <div [ngClass]="person.relationship === 0 ? 'col-sm-12' :'col-sm-9'"  *ngIf="!embedded">
             <h2 [innerHTML]="lang('./en/index.js').sectionTitle[person.relationship]"></h2>
@@ -73,8 +71,7 @@
                 <common-radio [value]="person.gender" 
                     label='Gender' 
                     [radioLabels]='[{"label": "Male", "value": "M"},{ "label": "Female", "value": "F"}]' 
-                    (statusChange)="setGender($event)"
-                    [showError]="showError">
+                    (statusChange)="setGender($event)">
                 </common-radio> 
         </div>
     </div>
@@ -129,7 +126,7 @@
         [person]='person'>
     </msp-status-in-canada-radio> -->
 
-</form>
+
 <!--
 <hr class="strong-hr" *ngIf="!embedded">
 -->

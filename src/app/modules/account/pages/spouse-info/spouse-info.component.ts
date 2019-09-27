@@ -1,5 +1,16 @@
-import {Component } from '@angular/core';
+import {Component, ViewChild, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
+import { MspAccountApp, AccountChangeOptions, MspPerson } from '../../models/account.model';
+import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
+//import { ActivitiesRules } from 'app/modules/msp-core/models/status-activities-documents';
+import { CanadianStatusReason } from 'app/modules/msp-core/models/canadian-status.enum';
+import { nameChangeSupportDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
 
+import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { NgForm } from '@angular/forms';
+import { AbstractForm } from 'moh-common-lib';
+import { Router } from '@angular/router';
+import { PageStateService } from 'app/services/page-state.service';
 
 
 
@@ -8,11 +19,138 @@ import {Component } from '@angular/core';
   templateUrl: './spouse-info.component.html',
   styleUrls: ['./spouse-info.component.scss']
 })
-export class SpouseInfoComponent {
+export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
 
-  constructor() { }
+  accountApp: MspAccountApp;
+  accountChangeOptions: AccountChangeOptions;
+  addNewSpouse: boolean;
+  showSpouse: boolean;
+  showUpdateSpouse: boolean;
+  subscriptions: Subscription[];
+  
+  constructor( public dataService: MspAccountMaintenanceDataService, protected router: Router,  private pageStateService: PageStateService ) { 
+    super(router);
+    if (this.dataService.getMspAccountApp().hasSpouseAdded) {
+      this.addNewSpouse = true;
+    } else if (this.dataService.getMspAccountApp().hasSpouseRemoved) {
+      this.showSpouse = true;
+    } else if ( this.dataService.getMspAccountApp().hasSpouseUpdated) {
+      this.showUpdateSpouse = true;
+    }
+  }
 
- /* ngOnInit() {
+  @ViewChild('formRef') form: NgForm;
+
+  ngOnInit() {
+      this.accountApp = this.dataService.accountApp;
+      this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
+      this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach( itm => itm.unsubscribe() );
+  }
+  
+  ngAfterViewInit() {
+    if (this.form) {
+      this.subscriptions = [
+        this.form.valueChanges.pipe(
+          debounceTime(100)
+        ).subscribe(() => {
+          this.dataService.saveMspAccountApp();
+        })
+        ];
+    }
+  }
+
+addSpouse() {
+    
+    this.addNewSpouse = true;
+    this.accountApp.hasSpouseAdded = true;
+
+    this.showUpdateSpouse = false;
+    this.showSpouse = false;
+  //  this.dataService.saveMspAccountApp();
+    return this.addNewSpouse;
+
+  }
+
+  removeSpouse() {
+    this.showSpouse = true;
+    this.accountApp.hasSpouseRemoved = true;
+
+    this.showUpdateSpouse = false;
+    this.addNewSpouse = false;
+
+    //this.dataService.saveMspAccountApp();
+    return this.showSpouse;
+
+  }
+
+  updateSpouse() {
+    this.showUpdateSpouse = true;
+    this.accountApp.hasSpouseUpdated = true;
+ 
+    this.showSpouse = false;
+    this.addNewSpouse = false;
+
+    //this.dataService.saveMspAccountApp();
+    return this.showUpdateSpouse;
+  }
+
+
+ /* get activitiesTable() {
+    if (!this.activities) return;
+    return this.activities.map(itm => {
+      const label = this.langActivities('./en/index.js')[itm];
+      return {
+      label,
+      value: itm
+      };
+    });
   }*/
 
+ /* get activities(): CanadianStatusReason[] {
+    return ActivitiesRules.activitiesForAccountChange(
+        this.removedSpouse.relationship,
+        this.removedSpouse.status
+    );
+  }*/
+
+  get removedSpouse(): MspPerson {
+    return this.dataService.getMspAccountApp().removedSpouse;
+  }
+
+  get addedSpouse(): MspPerson {
+    return this.dataService.getMspAccountApp().addedSpouse;
+  }
+
+  get updatedSpouse(): MspPerson {
+    return this.dataService.getMspAccountApp().updatedSpouse;
+  }
+
+  canContinue(): boolean {
+    let valid = super.canContinue();
+
+   /* if ( this.person.hasNameChange ) {
+      valid = valid && this.hasNameDocuments;
+    }
+
+    if ( this.applicant.fullTimeStudent ) {
+      valid = valid && this.applicant.inBCafterStudies;
+    }*/
+    return valid;
+  }
+
+
+
+ continue(): void {
+    if (!this.canContinue()) {
+      console.log('Please fill in all required fields on the form.');
+      this.markAllInputsTouched();
+      return;
+    }
+    this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
+    this.navigate('/account/child-info');
+  }
 }

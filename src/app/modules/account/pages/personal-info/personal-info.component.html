@@ -1,123 +1,44 @@
 <common-page-framework layout="blank">
-<h1><strong>Medical Services Plan Account Holder</strong></h1>
-<p class="border-bottom">Please provide information about this account. If you are requesting an update or correction to personal information (including a name change as a result of marriage, separation or divorce), birthdate or gender, provide supporting documents.</p>
+    <form #formRef="ngForm" novalidate> 
+        <h1><strong>Medical Services Plan Account Holder</strong></h1>
+        <p class="border-bottom">Please provide information about this account. If you are requesting an update or correction to personal information (including a name change as a result of marriage, separation or divorce), birthdate or gender, provide supporting documents.</p>
 
-<div class="form-group">
-    <common-radio [value]="accountChangeOptions.personInfoUpdate" 
-        [label]="'As the Account Holder, are you requesting an update/correction to your personal information?'" 
-        [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-        (statusChange)="personInfoUpdateOnChange($event)">
-    </common-radio>
-</div>
+        <div class="form-group">
+            <common-radio [value]="applicant.updatingPersonalInfo" 
+                [label]="'As the Account Holder, are you requesting an update/correction to your personal information?'" 
+                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+                (statusChange)="applicant.updatingPersonalInfo = $event">
+            </common-radio>
+        </div>
 
-<div class="form-group">
-    <common-radio [value]="accountChangeOptions.immigrationStatusChange"  
-        [label]="'Are you requesting to update or renew your immigration status in Canada?'" 
-        [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-        (statusChange)="accountChangeOptions.immigrationStatusChange = $event; this.dataService.saveMspAccountApp();">
-    </common-radio>
-</div>
+        <div class="form-group">
+            <common-radio [value]="applicant.immigrationStatusChange"  
+                [label]="'Are you requesting to update or renew your immigration status in Canada?'" 
+                [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+                (statusChange)="applicant.immigrationStatusChange = $event; ">
+            </common-radio>
+        </div>
 
-<!--
-<h2><strong>{{accountHolderTitle}}</strong></h2>
-<p class="border-bottom">{{accountHolderSubtitle}}</p>
--->
-<msp-account-personal-details [title] ="accountHolderTitle"
-    [subtitle]="accountHolderSubtitle" 
-    [person]='applicant' 
-    [id]='applicant.id' 
-    [addressRequired]="true"
-    (onChange)="onChange($event)">
-</msp-account-personal-details>
+        <msp-personal-information [person]="applicant" [showPhn]="true">
+            <div sectionTitleInfo>
+                <h2>Account Holder Identification</h2>
+                <p class="border-bottom"> 
+                    Please provide the Account Holder’s personal information for verification purposes.
+                </p>
+            </div>     
+        </msp-personal-information>
 
-<br>
+        <br>
 
-<msp-update-request title="What updates are you requesting for Account Holder?" 
-    subtitle = "For each update or correction selected, provide the supporting documents." 
-    [updateList]="accountUpdateList" 
-    [person]="person" 
-    
-    [items]= "items" 
-    [langStatus]="residentStatus"
-    [accountApp]="accountApp">
-</msp-update-request>
+        <msp-update-request title="What updates are you requesting for Account Holder?" 
+            subtitle = "For each update or correction selected, provide the supporting documents." 
+            [person]="person" 
+            [accountApp]="accountApp">
+        </msp-update-request>
 
-    
+    </form>
 </common-page-framework>
 
-
-<!--
-<form #formRef="ngForm" novalidate>
-    <h1 [innerHTML]="lang('./en/index.js').pageTitle"></h1>
-    <msp-account-personal-details [person]='applicant' [id]='applicant.id' [addressRequired]="true"
-                                  (onChange)="onChange($event)"
-                                  [showError]="formRef.submitted">
-    </msp-account-personal-details>
-
-    <div class="row">
-        <div class="col-sm-12">
-            <h2 [innerHtml]="lang('./en/index.js').depdendentTitle"></h2>
-            <h4 [innerHtml]="lang('./en/index.js').depdendentInfoMsg"></h4>
-        </div>
-    </div>
-
-    <div *ngIf='spouse'>
-        <msp-account-personal-details [person]='spouse' [id]='spouse.id'
-                                      (notifySpouseRemoval)="removeSpouse($event)"
-                                      (onChange)="onChange($event)"
-                                      [showError]="formRef.submitted">
-        </msp-account-personal-details>
-    </div>
-
-    <div *ngIf='children.length > 0'>
-        <msp-account-personal-details *ngFor="let child of children; let idx = index"
-                                      [person]='child'
-                                      [id]='child.id'
-                                      (notifyChildRemoval)="removeUpdateChild($event,idx)"
-                                      (onChange)="onChange($event)"
-                                      [showError]="formRef.submitted">
-        </msp-account-personal-details>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="msp-app">
-                <div class="button-group">
-                    <common-button [label]="lang('./en/index.js').UpdateSpouseButton" [buttonType]="buttonstyle" (btnClick)='addUpdateSpouse()' [disabled]="spouse || !canContinue()"></common-button>
-                   <!-- <button type="button" class="btn btn-default" (click)='addUpdateSpouse()'
-                            [disabled]="spouse || !canContinue()"  >
-                        <span class="glyphicon" aria-hidden="true"></span>
-                        <span [innerHTML]="lang('./en/index.js').UpdateSpouseButton"></span>
-                    </button>
-                    <common-button [label]="lang('./en/index.js').addChildUnder19Button" [buttonType]="buttonstyle" (btnClick)='addUpdateChild()' [disabled]="!canContinue()"></common-button>
-                      
-                  <!--  <button type="button" class="btn btn-default" (click)='addUpdateChild()' [disabled] = "!canContinue()">
-                        <span class="glyphicon" aria-hidden="true"></span>
-                        <span [innerHTML]="lang('./en/index.js').addChildUnder19Button"></span>
-                    </button> 
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <hr>
-   
-   
-        
-        <!--<div class="col-2">
-            <button [disabled] = "hasAnyInvalidStatus()"
-                    class="btn btn-primary" type="submit"
-                    [innerHTML]="lang('./en/index.js').continueButton"></button>
-
-        </div>
-        <div class="col-md-6 pull-left" *ngIf="formRef.submitted">
-            <p class="text-danger" [innerHTML]="lang('./en/index.js').completesAllHighlightedFields">
-            </p>
-        </div>
-        <msp-cancel class='col'></msp-cancel> 
-</form> -->
 
 <div class="position: inherit;">
     <common-form-action-bar 

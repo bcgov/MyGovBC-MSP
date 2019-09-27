@@ -1,3 +1,74 @@
-<p>
-  remove-child works!
-</p>
+<msp-personal-information [person]="child" [showPhn]="true" >
+    <div sectionTitleInfo>
+      <h2>Child's Information</h2>
+      <p class="border-bottom"> 
+          Enter your child’s legal name as it appears on their BC Service Card or CareCard.
+      </p>
+    </div>     
+</msp-personal-information>
+
+<br>
+
+<div class="form-group">
+    <common-radio
+        [value]="child.isRemovedAtTheEndOfCurrentMonth"  
+        label="When should the child be removed from your account?" 
+        [radioLabels]='[{ "label": "The end of the current month", "value": false}, {"label": "A date prior to this month", "value": true}]'
+        (statusChange)="child.isRemovedAtTheEndOfCurrentMonth = $event; this.dataService.saveMspAccountApp();">
+    </common-radio>
+</div>
+
+<div class="form-group"  style="width: 300px;" *ngIf="child.isRemovedAtTheEndOfCurrentMonth == false">
+  <common-date label="Requested cancellation date" [restrictDate]="'past'" 
+    [(date)]="child.cancellationDate"
+    (dateChange)="this.dataService.saveMspAccountApp();">
+  </common-date>
+</div>
+
+<div *ngIf="child.isRemovedAtTheEndOfCurrentMonth != null">
+  <label for="objectId" class="control-label">Reason for cancellation</label>
+  <div class="form-group">
+      <select style="width:350px;" class="custom-select" [id]="objectId" 
+          name="objectId"
+          [(ngModel)]="child.cancellationReason" 
+          (ngModelChange)="child.cancellationReason = $event; this.dataService.saveMspAccountApp();">
+          <ng-container>
+              <option selected value="null" disabled="true">Please Select</option>
+              <option  *ngFor="let item of cancellationReasons" 
+                [ngValue]="item.value" 
+                [selected]="child.cancellationReason == item.value">
+                {{ item.label }}
+              </option>
+          </ng-container>
+      </select>
+  </div>
+</div>
+
+<div class="form-group">
+    <common-radio
+        [value]="child.hasCurrentMailingAddress"  
+        label="Do you know your child's current mailing address?" 
+        [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+        (statusChange)="child.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();">
+    </common-radio>
+</div>
+
+
+<div *ngIf="child.hasCurrentMailingAddress">
+    <common-page-section layout='double'>
+    <h2> <strong> Child's Mailing Address</strong></h2>
+      <p>Enter your child's current mailing address</p>
+      <hr>
+      <common-address [address]="child?.mailingAddress"
+          (addressChange)="handleAddressUpdate($event)"
+          [isRequired]="true">
+      </common-address> 
+    </common-page-section>
+      
+</div>
+
+
+<div *ngIf="child.hasCurrentMailingAddress">
+
+
+</div>

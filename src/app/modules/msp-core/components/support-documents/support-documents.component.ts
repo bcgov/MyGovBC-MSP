@@ -31,6 +31,45 @@ export function nameChangeSupportDocuments(): SupportDocuments[] {
   return [SupportDocuments.MarriageCertificate, SupportDocuments.ChangeOfNameCertificate];
 }
 
+// Added by Abhi
+export function genderBirthDateChangeDocuments(): SupportDocuments[] {
+  return [SupportDocuments.DriverLicense, SupportDocuments.CanadianBirthCertificate,
+      SupportDocuments.CanadianPassport,  SupportDocuments.CanadianCitizenCard,
+      SupportDocuments.PermanentResidentCard, SupportDocuments.PermanentResidentConfirmation,
+      SupportDocuments.RecordOfLanding, SupportDocuments.StudyPermit,
+      SupportDocuments.WorkPermit, SupportDocuments.VisitorVisa];
+}
+
+export function nameChangeDueToErrorDocuments(): SupportDocuments[] {
+  return [SupportDocuments.CanadianBirthCertificate,
+      SupportDocuments.CanadianPassport,  SupportDocuments.CanadianCitizenCard, SupportDocuments.PermanentResidentCard,
+      SupportDocuments.PermanentResidentConfirmation, SupportDocuments.RecordOfLanding,
+      SupportDocuments.StudyPermit, SupportDocuments.WorkPermit,
+      SupportDocuments.VisitorVisa];
+}
+
+export function spouseRemovedDueToDivorceDocuments(): SupportDocuments[] {
+  return [SupportDocuments.DivorceDecree,
+          SupportDocuments.SeperationAgreement,
+          SupportDocuments.NotrizedStatementOrAffidavit,
+          SupportDocuments.Other];
+}
+
+export function nameChangeDueToMarriageOrDivorceDocuments(): SupportDocuments[] {
+  return [SupportDocuments.MarriageCertificate, SupportDocuments.ChangeOfNameCertificate, SupportDocuments.DivorceDecree];
+}
+
+export function genderDesignationChangeDocuments(): SupportDocuments[] {
+  return [SupportDocuments.CanadianBirthCertificate , SupportDocuments.ChangeGenderAdultApplication,
+        SupportDocuments.ChangeGenderChildApplication , SupportDocuments.ChangeGenderPhyscianConfirmation ,
+        SupportDocuments.ParentalConsentWaiver ];
+}
+
+/*
+export function nameChangeSupportDocuments(): SupportDocuments[] {
+  return [SupportDocuments.MarriageCertificate, SupportDocuments.ChangeOfNameCertificate];
+}*/
+
 
 @Component({
   selector: 'msp-support-documents',
@@ -73,6 +112,8 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
   }
 
   ngOnInit() {
+
+    console.log(this.supportDoc);
     if (this.supportDoc.documentType) {
       this.btnEnabled = false;
     }
@@ -140,6 +181,8 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
   }
 
   get documentList() {
+    console.log(this.statusReason);
+    console.log(this.canadianStatus);
     // Get the status reason list available for the selected status
     if ( !this.supportDocList ) {
       return suportDocumentRules( this.canadianStatus, this.statusReason );

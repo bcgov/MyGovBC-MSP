@@ -1,13 +1,21 @@
 import {IPerson} from './msp-person.interface';
+
+
+//import { StatusInCanada, Documents, CancellationReasons} from '../../../models/msp-core/models/canadian-status.enum';
 import {PersonDocuments} from './person-document.model';
 import {OutofBCRecord} from '../../../models/outof-bc-record.model';
 import * as moment from 'moment';
 import {UUID} from 'angular2-uuid';
 import * as _ from 'lodash';
 import {PhoneNumber} from './phone.model';
+//import { MspImage } from '../../../../../models/msp-image';
+import { PersonStatusChange } from './person-status-change';
+
+
 import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
-import { StatusInCanada, CanadianStatusReason } from '../../../modules/msp-core/models/canadian-status.enum';
+import { CanadianStatusReason, StatusInCanada } from '../../../modules/msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
+import { CancellationReasons } from 'app/models/status-activities-documents';
 
 const sha1 = require('sha1');
 
@@ -29,12 +37,22 @@ export class MspPerson implements IPerson {
 
     relationship: Relationship;
     _status: StatusInCanada;
-    _currentActivity: CanadianStatusReason;
+    additionalReason: string;
+    hasCurrentMailingAddress: boolean;
+    immigrationStatusChange: boolean;
+   
+    updatingPersonalInfo: boolean;
+   // _currentActivity: Activities;
     documents: PersonDocuments = new PersonDocuments();
+    statusChange: PersonStatusChange[];
+    _currentActivity: CanadianStatusReason;
+    //documents: PersonDocuments = new PersonDocuments();
     nameChangeDocs: PersonDocuments = new PersonDocuments();
     hasNameChange: boolean;
 
     assistYearDocs: CommonImage[] = [];
+
+    isRemovedAtTheEndOfCurrentMonth: boolean;
 
     outOfBCRecord: OutofBCRecord; // do not use
     /** NEEDS XSD. Departure information for the question regarding if the person will be out of BC for more than 30 days in the next 6 months. */
@@ -52,11 +70,33 @@ export class MspPerson implements IPerson {
     private _newlyAdopted: boolean;
 
     public updateStatusInCanada: boolean;
+
+    updateStatusInCanadaDocType: PersonDocuments = new PersonDocuments();
+    public updateStatusInCanadaDoc: CommonImage[];
+    _docType: PersonDocuments;
+    
     public updateNameDueToMarriage: boolean;
+    public updateNameDueToMarriageDocType: PersonDocuments = new PersonDocuments();
+    public updateNameDueDoc: CommonImage[] = [];
+    
+
     public updateNameDueToError: boolean;
+    public updateNameDueToErrorDocType: PersonDocuments = new PersonDocuments();
+    public updateNameDueToErrorDoc: CommonImage[] = [];
+
     public updateBirthdate: boolean;
+     public updateBirthdateDocType:   PersonDocuments = new PersonDocuments();
+    public updateBirthdateDoc: CommonImage[] = [];
+
     public updateGender: boolean;
+    public updateGenderDocType:  PersonDocuments = new PersonDocuments();
+    public updateGenderDoc: CommonImage[] = [];
+
     public updateGenderDesignation: boolean;
+    public updateGenderDesignationDocType:  PersonDocuments = new PersonDocuments();
+    public updateGenderDesignationDoc: CommonImage[] = [];
+    cancellationReason: CancellationReasons;
+    removedSpouseDueToDivorceDoc: PersonDocuments;
 
 
     get newlyAdopted(): boolean {
@@ -128,6 +168,29 @@ export class MspPerson implements IPerson {
         return this._declarationForOutsideOver30Days;
     }
 
+
+    private _declarationForOutsideOver60Days: boolean;
+
+    /**
+     * Automatically handles the instantiation and destruction of the
+     * OutofBCRecord object. Previously this was handled in the controllers, but
+     * it should be in the model as it i) is an operation purely on data ii)
+     * reduces code duplication.
+     */
+    set declarationForOutsideOver60Days(val: boolean) {
+        this._declarationForOutsideOver60Days = val;
+        if (val){
+            this.outOfBCRecord = new OutofBCRecord();
+        }
+        else {
+            this.outOfBCRecord = null;
+        }
+    }
+
+    get declarationForOutsideOver60Days(): boolean {
+        return this._declarationForOutsideOver60Days;
+    }
+
     departureReason: string;
     departureDestination: string;
     departureDate: SimpleDate = { day: null, month: null, year: null };
@@ -139,6 +202,7 @@ export class MspPerson implements IPerson {
     firstName: string;
     middleName: string;
     lastName: string;
+    previouslastName: string;
 
     static NameRegEx = '^[a-zA-Z][a-zA-Z\\-.\' ]*$';
 
@@ -296,6 +360,8 @@ export class MspPerson implements IPerson {
     dischargeMonth: number = null;
     dischargeDay: number = null;
 
+    hasActiveMedicalServicePlan: boolean;
+
     /** NEEDS XSD. Name of institute they've been discharged from. */
     nameOfInstitute: string;
 
@@ -391,10 +457,9 @@ export class MspPerson implements IPerson {
     }
 
     get ineligibleForMSP(): boolean {
-        return (this.madePermanentMoveToBC === false && (
+        return (this.madePermanentMoveToBC === false /* && (
             this.status === StatusInCanada.CitizenAdult ||
-            this.status === StatusInCanada.PermanentResident
-        ));
+            this.status === StatusInCanada.PermanentResident)*/);
     }
 
     get bcServiceCardShowStatus(): boolean {
@@ -408,7 +473,7 @@ export class MspPerson implements IPerson {
     /** Only for spouse. Previous last name. */
     prevLastName: string;
     /** Only for spouse. Marriage date to applicant. */
-    marriageDate: SimpleDate;
+    marriageDate: SimpleDate = { day: null, month: null, year: null };
 
 
 
@@ -586,6 +651,14 @@ export class MspPerson implements IPerson {
             || this._status === StatusInCanada.TemporaryResident) {
             this._livedInBCSinceBirth = false;
         }
+    }
+
+    get docType() {
+        return this._docType;
+    }
+
+    set docType(doc: PersonDocuments) {
+        this._docType = doc;
     }
 
     get currentActivity() {

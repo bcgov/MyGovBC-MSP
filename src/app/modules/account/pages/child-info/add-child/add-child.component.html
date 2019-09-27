@@ -1,3 +1,89 @@
-<p>
-  add-child works!
-</p>
+<div class="form-group">
+    <common-radio name="AgeCategory_{{objectId}}" [(ngModel)]="childRelationship" 
+      label="How old is your child?" [radioLabels]="childAgeCategory" required>
+    </common-radio>
+</div>
+
+<div *ngIf="child.relationship == 2 || child.relationship == 3" >
+  <div class="form-group">
+    <common-radio  name="newAdopted_{{objectId}}" [(ngModel)]="newlyAdopted" 
+      label="Is this child newly adopted?" 
+      [radioLabels]='[{ "label": "No", "value": false }, {"label": "Yes", "value": true}]'>
+    </common-radio>
+  </div>
+  <div class="form-group">
+    <common-radio  name="activeCoverage_{{objectId}}" [(ngModel)]="hasActiveMedicalCoverage"  
+        label="Does your child currently have active Medical Services Plan coverage?" 
+        [radioLabels]='[{ "label": "No", "value": false }, {"label": "Yes", "value": true}]'>
+    </common-radio>
+  </div>
+  
+  <!-- Canadian Status-->
+  <div class="form-group">
+    <msp-canadian-status [person]="child" 
+        [hideStatusReasons]="status"
+        label="Child's current immigration status in Canada">
+    </msp-canadian-status>
+  </div>
+
+  <!-- Doc to support the Canadian Staus -->
+  <msp-support-documents [supportDocList]="supportDocList"
+          [canadianStatus]="child.status"
+          [supportDocList]="supportDocList"
+          [statusReason]="child.currentActivity"
+          [(supportDoc)]="statusDocuments">
+        <div sectionTitleInfo>
+        <h2>Documents</h2>
+        <p class="border-bottom"> 
+            Provide one of the required documents to support your status in Canada. 
+            If your name has changed since your ID was issued you are also required to upload document to support the name change.
+          </p>
+        </div>
+  </msp-support-documents> 
+  
+  <!-- Name Change Radio --> 
+  <common-radio  name="nameChange_{{objectId}}" [(ngModel)]="child.hasNameChange"  
+    label="Has your child's name changed since their ID was issued?" 
+    (statusChange)="this.personChange.emit(child);">
+  </common-radio>
+
+  <!-- Name Change Supporting Doc-->
+  <msp-support-documents *ngIf="child.hasNameChange"
+          [supportDocList]="nameChangeDocList"
+          [(supportDoc)]="child.nameChangeDocs">
+        <div sectionTitleInfo>
+        <h2> Documents to support child's name change</h2>
+        <p class="border-bottom"> 
+            Provide one of the required documents to support your child's name change.
+          </p>
+        </div>
+  </msp-support-documents>
+
+  <!-- Child's Personal Info-->
+  <msp-personal-information [person]="child" [showPhn]="true"  >
+      <div sectionTitleInfo>
+        <h2>Child's Personal Information</h2>
+        <p class="border-bottom"> 
+            Enter child's legal name as it appears on their official Canadian identity documents, e.g., birth certificate, permanent resident card, passport.
+        </p>
+      </div>     
+  </msp-personal-information>
+
+  <!-- Child's Moving Information-->
+  <msp-child-moving-information [person]="child" >
+      <div sectionTitleInfo>
+          <h2> <strong>Child's Residency Information</strong></h2>
+          <p class="border-bottom"> 
+              </p>
+      </div> 
+  </msp-child-moving-information>
+</div>
+
+
+
+
+
+
+
+  
+
