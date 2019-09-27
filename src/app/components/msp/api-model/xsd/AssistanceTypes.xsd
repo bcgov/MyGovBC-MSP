@@ -87,7 +87,7 @@
 	
 	<xs:simpleType name="AssistanceYearType">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="CurrentPA"/>
+           <!-- <xs:enumeration value="CurrentPA"/> -->
             <xs:enumeration value="PreviousTwo"/>
             <xs:enumeration value="MultiYear"/>
         </xs:restriction>

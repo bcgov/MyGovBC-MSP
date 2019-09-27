@@ -361,8 +361,8 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
 
   initYearsList(){
     this.pastYears = [];
-    const recentTaxYear = this.finAssistApp.MostRecentTaxYear;
-    this.pastYears.push(recentTaxYear);
+    const recentTaxYear = this.finAssistApp.MostRecentTaxYear ;
+ //   this.pastYears.push(recentTaxYear - 1);
 
     let i = 1;
     while (i < 7){
@@ -386,7 +386,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
 
           return tally;
       }, []);
-    }
+    } 
     this.dataService.saveFinAssistApplication();
   }
 

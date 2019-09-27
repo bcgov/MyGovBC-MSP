@@ -635,9 +635,9 @@ export class MspApiService {
          */
 
         switch (from.getAssistanceApplicationType()) {
-            case AssistanceApplicationType.CurrentYear:
+           /* case AssistanceApplicationType.CurrentYear:
                 to.assistanceYear = 'CurrentPA';
-                break;
+                break;*/
             case AssistanceApplicationType.PreviousTwoYears:
                 to.assistanceYear = 'PreviousTwo';
                 break;

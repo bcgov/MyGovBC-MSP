@@ -1,6 +1,16 @@
 <div class="row" style="margin-top: 0px; margin-bottom: 15px">
     <div class="col-lg-8" style="border: 1px solid transparent">
-      <div [ngClass]="{'tax-year-missing': (taxYearInfoMissing && !taxYearsSpecified)}">
+      <h1>Retroactive Premium Assistance and Supplementary Benefits</h1>
+      <p>
+        From November 9 to December 31, 2019, Applications for current-year Regular Premium Assistance must be submitted to Health Insurance BC by mail using the <a href="https://www2.gov.bc.ca/assets/gov/health/forms/119fil.pdf">print form (HLTH 119)</a>. 
+        Applications for current-year Regular Premium Assistance cannot be submitted using this application form.
+      </p>
+
+      <p>
+        You can use this form to apply for retroactive Premium Assistance. Apply for any years you may have qualified for. In step 3, you will required to upload your Notice of Assessment or Reassessment from Canada Revenue Agency.
+      </p>
+      <hr>
+        <div [ngClass]="{'tax-year-missing': (taxYearInfoMissing && !taxYearsSpecified)}">
         <h2 [innerHTML]="lang('./en/index.js').whatYearsToApplyFor" tabindex="0">
         </h2>
         <div>
