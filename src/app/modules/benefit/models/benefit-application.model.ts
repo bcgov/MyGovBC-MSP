@@ -254,6 +254,10 @@ export class BenefitApplication implements ApplicationBase {
     }
   }
 
+  set childrenCount(n: number) {
+      this._childrenCount = n;
+  }
+
 
 /// ***** My child getter and setter ******************************************
   get numberOfChildrenWithDisability(): number {
@@ -299,16 +303,7 @@ export class BenefitApplication implements ApplicationBase {
     return arr;
   }
 
-  set childrenCount(n: number) {
-    n > 29 ? (this._childrenCount = 0) : (this._childrenCount = (n * 1));
-    if (
-      !this.childrenCount ||
-      this.childrenCount < this.childWithDisabilityCount
-    ) {
-      this.childWithDisabilityCount = 0;
-      this.childClaimForAttendantCareExpenseCount = 0;
-    }
-  }
+ 
 
   get claimedChildCareExpense_line214() {
     return this._claimedChildCareExpense_line214 === null ? null : this._claimedChildCareExpense_line214;
