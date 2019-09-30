@@ -1,12 +1,7 @@
 import { Component, ViewChild, AfterViewInit, OnInit, ElementRef, DoCheck} from '@angular/core';
 import { FormGroup, NgForm, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
-//import { Observable } from 'rxjs/internal';
-import { Observable} from 'rxjs/internal/Observable';
-
-
 import { ModalDirective } from 'ngx-bootstrap';
-
 import { MspDataService } from '../../service/msp-data.service';
 import {FinancialAssistApplication} from '../../model/financial-assist-application.model';
 import {MspConsentModalComponent} from '../../common/consent-modal/consent-modal.component';
@@ -84,7 +79,7 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
       (!_.isNil(this.finAssistApp.claimedChildCareExpense_line214) && this.finAssistApp.claimedChildCareExpense_line214 > 0) ||
       ((!_.isNil(this.finAssistApp.reportedUCCBenefit_line117) && (this.finAssistApp.reportedUCCBenefit_line117 > 0)) );
 
-    this.initYearsList();
+    //this.initYearsList();
 
   }
 
@@ -362,7 +357,10 @@ export class AssistancePrepareComponent implements AfterViewInit, OnInit, DoChec
   initYearsList(){
     this.pastYears = [];
     const recentTaxYear = this.finAssistApp.MostRecentTaxYear ;
- //   this.pastYears.push(recentTaxYear - 1);
+  // checking if spa-env is interim PA
+    if (this.finAssistApp.isInterimPA === false) {
+      this.pastYears.push(recentTaxYear);
+    }
 
     let i = 1;
     while (i < 7){

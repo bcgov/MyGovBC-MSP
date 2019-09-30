@@ -28,6 +28,8 @@ export class FinancialAssistApplication implements ApplicationBase {
 
   infoCollectionAgreement: boolean = false;
 
+  isInterimPA: boolean = false;
+
   applicantClaimForAttendantCareExpense: boolean = false;
   spouseClaimForAttendantCareExpense: boolean = false;
   childClaimForAttendantCareExpense: boolean = false;

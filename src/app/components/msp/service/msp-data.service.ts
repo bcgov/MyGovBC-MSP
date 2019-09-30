@@ -868,6 +868,8 @@ export class MspDataService {
 
     dto.infoCollectionAgreement = input.infoCollectionAgreement;
 
+    dto.isInterimPA = input.isInterimPA;
+
     dto.incomeLine236 = input.netIncomelastYear;
     dto.ageOver65 = input.ageOver65;
     dto.hasSpouseOrCommonLaw = input.hasSpouseOrCommonLaw;
@@ -929,6 +931,8 @@ export class MspDataService {
     const output: FinancialAssistApplication = new FinancialAssistApplication();
 
     output.infoCollectionAgreement = dto.infoCollectionAgreement;
+
+    output.isInterimPA = dto.isInterimPA;
 
     output.netIncomelastYear = dto.incomeLine236;
     output.ageOver65 = dto.ageOver65;

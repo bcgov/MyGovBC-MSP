@@ -6,12 +6,13 @@ import {ApplicationBase} from '../../model/application-base.model';
 //
 import { HttpClient, HttpHeaders,HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
-import { MspMaintenanceService } from "../../service/msp-maintenance.service";
+import { MspMaintenanceService } from '../../service/msp-maintenance.service';
 import { Response } from '@angular/http';
 import { MspLog2Service } from '../../service/log2.service';
 import { MspLogService } from '../../service/log.service';
-import {MspACLService} from "../../service/msp-acl-api.service";
-import {ISpaEnvResponse} from '../../model/spa-env-response.interface'
+import { MspACLService } from '../../service/msp-acl-api.service';
+import { ISpaEnvResponse } from '../../model/spa-env-response.interface';
+import { FinancialAssistApplication } from '../../model/financial-assist-application.model';
 
 
 @Component({
@@ -27,12 +28,13 @@ export class MspConsentModalComponent {
     @Input() application: ApplicationBase;
     @ViewChild('fullSizeViewModal') public fullSizeViewModal: ModalDirective;
     @Output() onClose = new EventEmitter<void>();
+    @Output() isInterim = new EventEmitter<boolean>();
 
     public spaEnvRes: ISpaEnvResponse = {} as any;
     public maintenanceFlag: string ;
     public maintenanceMessage: string;
 
-    private _applicationHeaderMap:Map<string, string> = new Map([["ACL", '{"SPA_ENV_ACL_MAINTENANCE_FLAG":"","SPA_ENV_ACL_MAINTENANCE_MESSAGE":""}'], ["MSP", '{"SPA_ENV_MSP_MAINTENANCE_FLAG":"","SPA_ENV_MSP_MAINTENANCE_MESSAGE":""}']]);
+    private _applicationHeaderMap:Map<string, string> = new Map([["ACL", '{"SPA_ENV_ACL_MAINTENANCE_FLAG":"","SPA_ENV_ACL_MAINTENANCE_MESSAGE":""}'], [ "MSP" , '{"SPA_ENV_MSP_MAINTENANCE_FLAG":"","SPA_ENV_MSP_MAINTENANCE_MESSAGE":"","SPA_ENV_INTERIMCUTOFF_MAINTENANCE_START":"","SPA_ENV_NOW":""}']]);
 
     
     constructor(private aclService: MspACLService, protected http: HttpClient,  private logService: MspLogService, private maintenanceService: MspMaintenanceService) {
@@ -43,7 +45,8 @@ export class MspConsentModalComponent {
         //Called after ngOnInit when the component's or directive's content has been initialized.
         //Add 'implements AfterContentInit' to the class.
         this.inMaintenance();
-    } 
+        
+    }
 
     agreeCheck: boolean = false;
 
@@ -64,23 +67,38 @@ export class MspConsentModalComponent {
             .sendSpaEnvServer(this._applicationHeaderMap.get(this.processName))
                 .subscribe(response => {
                     this.spaEnvRes = <ISpaEnvResponse> response;
-                    if(this.spaEnvRes.SPA_ENV_ACL_MAINTENANCE_FLAG == 'true') {
+                    if(this.spaEnvRes.SPA_ENV_ACL_MAINTENANCE_FLAG === 'true') {
                         this.maintenanceFlag = 'true';
                         this.maintenanceMessage = this.spaEnvRes.SPA_ENV_ACL_MAINTENANCE_MESSAGE; 
-                    } else if (this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG == 'true') {
+                    } else if (this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_FLAG === 'true') {
                         this.maintenanceFlag = 'true';
                         this.maintenanceMessage = this.spaEnvRes.SPA_ENV_MSP_MAINTENANCE_MESSAGE;
                     }
                     console.log(this.spaEnvRes);
-                    
-			}, (error: Response | any) => {
+
+                    if ( this.application instanceof FinancialAssistApplication) {
+                        //this.application.isInterimPA =  this.checkCutOffDate(this.spaEnvRes);
+                        this.isInterim.emit(this.checkCutOffDate(this.spaEnvRes));
+                    }
+
+            }, (error: Response | any) => {
                 console.log('Error when calling the MSP Maintenance: '+error);
                 this.logService.log({
                     name: 'ACL - SPA Env System Error'
-                }, 'ACL - SPA Env Rapid Response Error' +error);
-             
+                }, 'ACL - SPA Env Rapid Response Error' + error);
             });
     }
 
-    
+    checkCutOffDate(spaResponse: ISpaEnvResponse): boolean{
+        if (spaResponse && spaResponse.SPA_ENV_INTERIMCUTOFF_MAINTENANCE_START && spaResponse.SPA_ENV_NOW) { 
+
+            let today = new Date(spaResponse.SPA_ENV_NOW.replace(/-/g, '/'));
+            let interimPaCutOffDate = new Date (spaResponse.SPA_ENV_INTERIMCUTOFF_MAINTENANCE_START.replace(/-/g, '/'));
+            if (moment(interimPaCutOffDate).isSameOrBefore(today)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
