@@ -4,7 +4,7 @@
         <div *ngIf="this.finAssistApp.isInterimPA">
             <h1>Retroactive Premium Assistance and Supplementary Benefits</h1>
             <p>
-                From November 9 to December 31, 2019, Applications for current-year Regular Premium Assistance must be submitted to Health Insurance BC by mail using the <a href="https://www2.gov.bc.ca/assets/gov/health/forms/119fil.pdf">print form (HLTH 119)</a>. 
+                From November 9 to December 31, 2019, applications for current-year Regular Premium Assistance must be submitted to Health Insurance BC by mail using the <a href="https://www2.gov.bc.ca/assets/gov/health/forms/119fil.pdf">print form (HLTH 119)</a>. 
                 Applications for current-year Regular Premium Assistance cannot be submitted using this application form.
             </p>
 
@@ -18,7 +18,7 @@
         <div [ngClass]="{'tax-year-missing': (taxYearInfoMissing && !taxYearsSpecified)}">
         <h2 [innerHTML]="lang('./en/index.js').whatYearsToApplyFor" tabindex="0">
         </h2>
-        <div>
+        <div *ngIf="this.finAssistApp.isInterimPA === false">
           <p [innerHTML]="lang('./en/index.js').whatYearsToApplyForDetails" tabindex="0">
           </p>
         </div>
