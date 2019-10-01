@@ -463,7 +463,7 @@ export class MspApiBenefitService extends AbstractHttpService {
     const date = from.authorizedByApplicantDate;
     const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
     const month =
-      date.getMonth() < 10
+      date.getMonth() < 9 // off by 1 error
         ? `0${(date.getMonth() + 1).toString()}`
         : (date.getMonth() + 1).toString();
     const year = date.getFullYear();
