@@ -42,4 +42,6 @@ export default class FinancialAssistApplicationDto {
   assistYears: AssistanceYear[] = [];
   assistYeaDocs: MspImage[] = [];
 
+  isInterimPA: boolean = false;
+
 }

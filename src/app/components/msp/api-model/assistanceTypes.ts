@@ -97,7 +97,7 @@ export class AssistanceSpouseTypeFactory {
   }
 }
 
-export type AssistanceYearType = 'PreviousTwo' | 'MultiYear';
+export type AssistanceYearType = 'CurrentPA' | 'PreviousTwo' | 'MultiYear';
 interface _AssistanceYearType extends Primitive._string {
   content: AssistanceYearType;
 }
