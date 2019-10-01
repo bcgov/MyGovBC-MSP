@@ -234,10 +234,10 @@ export class MspAccountMaintenanceDataService {
     dto.updateBirthdate = input.updateBirthdate;
     dto.updateGender = input.updateGender;
     dto.updateGenderDesignation = input.updateGenderDesignation;
-//    dto.updateStatusInCanadaDocType = input.updateStatusInCanadaDocType;
-//    dto.updateNameDueToMarriageDocType = input.updateNameDueToMarriageDocType;
+    dto.updateStatusInCanadaDocType = input.updateStatusInCanadaDocType;
+    dto.updateNameDueToMarriageDocType = input.updateNameDueToMarriageDocType;
     dto.updateNameDueDoc = input.updateNameDueDoc;
-//    dto.updateNameDueToErrorDocType = input.updateNameDueToErrorDocType;
+    dto.updateNameDueToErrorDocType = input.updateNameDueToErrorDocType;
     dto.updateNameDueToErrorDoc = input.updateNameDueToErrorDoc;
     dto.nameChangeDocs = input.nameChangeDocs;
 
@@ -250,19 +250,19 @@ export class MspAccountMaintenanceDataService {
     dto.immigrationStatusChange = input.immigrationStatusChange;
    // dto.spouseRemoved = input.spouseRemoved;
     dto.cancellationDate = input.cancellationDate;
-   // dto.cancellationReason = input.cancellationReason;
+    dto.cancellationReason = input.cancellationReason;
     dto.hasCurrentMailingAddress = input.hasCurrentMailingAddress;
-  //  dto.removedSpouseDueToDivorceDoc = input.removedSpouseDueToDivorceDoc;
+    dto.removedSpouseDueToDivorceDoc = input.removedSpouseDueToDivorceDoc;
 
-  //  dto.updateBirthdateDocType = input.updateBirthdateDocType;
+    dto.updateBirthdateDocType = input.updateBirthdateDocType;
     dto.updateBirthdateDoc = input.updateBirthdateDoc;
 
     dto.isRemovedAtTheEndOfCurrentMonth = input.isRemovedAtTheEndOfCurrentMonth;
 
- //   dto.updateGenderDocType = input.updateGenderDocType;
+    dto.updateGenderDocType = input.updateGenderDocType;
     dto.updateGenderDoc = input.updateGenderDoc;
 
-  //  dto.updateGenderDesignationDocType = input.updateGenderDesignationDocType;
+    dto.updateGenderDesignationDocType = input.updateGenderDesignationDocType;
     dto.updateGenderDesignationDoc = input.updateGenderDesignationDoc;
 
     dto.updateStatusInCanadaDoc = input.updateStatusInCanadaDoc;
@@ -293,7 +293,7 @@ export class MspAccountMaintenanceDataService {
     output.hasNameChange = dto.hasNameChange;
     output.nameChangeDocs = dto.nameChangeDocs;
 
-    //output.relationship = dto.relationship;
+    output.relationship = dto.relationship;
 
     output.previouslastName = dto.previouslastName;
 
@@ -387,20 +387,20 @@ export class MspAccountMaintenanceDataService {
     output.updateGender = dto.updateGender;
     output.updateGenderDesignation = dto.updateGenderDesignation;
     output.updateNameDueDoc = dto.updateNameDueDoc;
-   // output.updateStatusInCanadaDocType = dto.updateStatusInCanadaDocType;
-   // output.updateNameDueToMarriageDocType = dto.updateNameDueToMarriageDocType;
+    output.updateStatusInCanadaDocType = dto.updateStatusInCanadaDocType;
+    output.updateNameDueToMarriageDocType = dto.updateNameDueToMarriageDocType;
     output.updateNameDueDoc = dto.updateNameDueDoc;
 
-   // output.updateNameDueToErrorDocType = dto.updateNameDueToErrorDocType;
+    output.updateNameDueToErrorDocType = dto.updateNameDueToErrorDocType;
     output.updateNameDueToErrorDoc = dto.updateNameDueToErrorDoc;
 
-   // output.updateBirthdateDocType = dto.updateBirthdateDocType;
+    output.updateBirthdateDocType = dto.updateBirthdateDocType;
     output.updateBirthdateDoc = dto.updateBirthdateDoc;
 
-   // output.updateGenderDocType = dto.updateGenderDocType;
+    output.updateGenderDocType = dto.updateGenderDocType;
     output.updateGenderDoc = dto.updateGenderDoc;
 
-  //  output.updateGenderDesignationDocType = dto.updateGenderDesignationDocType;
+    output.updateGenderDesignationDocType = dto.updateGenderDesignationDocType;
     output.updateGenderDesignationDoc = dto.updateGenderDesignationDoc;
 
     output.updateStatusInCanadaDoc = dto.updateStatusInCanadaDoc;
