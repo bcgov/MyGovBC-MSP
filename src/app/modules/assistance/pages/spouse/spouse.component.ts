@@ -166,7 +166,16 @@ export class SpouseComponent extends BaseComponent implements OnInit {
         if (assistYear.year === year) this.finAssistApp.assistYears[i] = itm;
         i++;
       }
-      this.selectedYears.push(itm);
+
+      // There's a bug that can lead to duplicate records here that only comes
+      // up during automation testing.  Here we are directly scanning for dupes
+      // before inserting into the array.
+      const duplicate = this.selectedYears.filter(x => x.year === year);
+      if (!duplicate || duplicate.length === 0){
+        // Only add item is unique
+        this.selectedYears.push(itm);
+      }
+
     } else {
       const itm = this.findYear(year);
       itm.hasSpouse = false;
