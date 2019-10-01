@@ -160,13 +160,21 @@ export class MovingInformationComponent extends Base implements OnInit {
       case OopDateValidationCodes.OUT_OF_RANGE:
         message = message.concat( ' must be within the last 12 months.' );
         break;
-      default:
+      case OopDateValidationCodes.DEPARTURE_INVALID:
+          message = message.concat( ' must be after the departure date.' );
+          break;
+    default:
     }
     return message;
   }
 
   validateDepartureDate($event) {
     this.person.departureDate = $event;
+
+    if ( OopDateValidationCodes.DEPARTURE_INVALID === this._oopReturnDateError ) {
+      // clear error - only display invalid departure date in one location
+      this._oopReturnDateError = OopDateValidationCodes.VALID;
+    }
 
     this._oopDepartureDateError = this.validateDateRange( this.person.departureDate );
     if ( this._oopDepartureDateError === OopDateValidationCodes.VALID ) {
@@ -176,6 +184,11 @@ export class MovingInformationComponent extends Base implements OnInit {
 
   validateReturnDate($event) {
     this.person.returnDate = $event;
+
+    if ( OopDateValidationCodes.DEPARTURE_INVALID === this._oopDepartureDateError ) {
+      // clear error - only display invalid departure date in one location
+      this._oopDepartureDateError = OopDateValidationCodes.VALID;
+    }
 
     this._oopReturnDateError = this.validateDateRange( this.person.returnDate );
     if ( this._oopReturnDateError === OopDateValidationCodes.VALID ) {
