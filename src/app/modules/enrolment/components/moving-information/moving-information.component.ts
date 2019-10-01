@@ -6,6 +6,7 @@ import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/c
 import { environment } from '../../../../../environments/environment';
 import { Relationship } from '../../../../models/relationship.enum';
 import * as moment_ from 'moment';
+import { debounceTime } from 'rxjs/operators';
 const moment = moment_;
 
 enum OopDateValidationCodes {
@@ -53,7 +54,7 @@ export class MovingInformationComponent extends Base implements OnInit {
   // All times in this application are UTC
   private _today = moment().utc();
 
-  constructor(public cntr: ControlContainer ) {
+  constructor() {
     super();
   }
 
@@ -67,67 +68,103 @@ export class MovingInformationComponent extends Base implements OnInit {
     return this.person.relationship === Relationship.Applicant;
   }
 
-  // Moved from another province
-  get isCanadianFromProv() {
-    return this.person.status === StatusInCanada.CitizenAdult &&
-           this.person.currentActivity === CanadianStatusReason.MovingFromProvince;
+  get isProvinceMove() {
+    return this.person.currentActivity === CanadianStatusReason.MovingFromProvince;
   }
 
-  // Moved from another Country
-  get isCanadianFromCountry() {
-    return this.person.status === StatusInCanada.CitizenAdult &&
-           this.person.currentActivity === CanadianStatusReason.MovingFromCountry;
+  get isCountryMove() {
+    return this.person.currentActivity === CanadianStatusReason.MovingFromCountry;
+  }
+
+  get isLivingWithoutMSP() {
+    return this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP;
+  }
+
+  get isCanadianResident() {
+    return this.person.status === StatusInCanada.CitizenAdult;
+  }
+
+  get isPermanentResident() {
+    return this.person.status === StatusInCanada.PermanentResident;
   }
 
   get isTemporaryResident() {
     return this.person.status === StatusInCanada.TemporaryResident;
   }
 
-  // Not new to BC
-  get isCanadianNotBC() {
-    return this.person.status === StatusInCanada.CitizenAdult &&
-           this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP;
-  }
-
-  // Moved from another province
-  get isResidentFromProv() {
-    return this.person.status === StatusInCanada.PermanentResident &&
-           this.person.currentActivity === CanadianStatusReason.MovingFromProvince;
-  }
-
-  // Moved from another Country
-  get isResidentFromCountry() {
-    return this.person.status === StatusInCanada.PermanentResident &&
-           this.person.currentActivity === CanadianStatusReason.MovingFromCountry;
-  }
-
-  // Not new to BC
-  get isResidentNotBC() {
-    return this.person.status === StatusInCanada.PermanentResident &&
-           this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP;
+  get requestLivedInBC() {
+    return this.isCanadianResident && this.isLivingWithoutMSP;
   }
 
   get requestPermMoveInfo() {
-   return this.isCanadianFromProv || this.isCanadianFromCountry ||
-          (this.isCanadianNotBC && this.person.livedInBCSinceBirth === true) || this.isResidentFromProv ||
-          this.isResidentFromCountry || this.isResidentNotBC || this.isTemporaryResident;
+    console.log( 'requestPermMoveInfo: ', this.person.livedInBCSinceBirth, this.requestLivedInBC );
+    if ( this.requestLivedInBC ) {
+      // Convert to boolean
+      return this.person.livedInBCSinceBirth !== undefined && this.person.livedInBCSinceBirth !== null;
+    }
+    return this.isCanadianResident || this.isPermanentResident || this.isTemporaryResident;
+  }
+
+  get canContinueProcess() {
+
+    console.log( 'canContinueProcess: ', this.person.madePermanentMoveToBC );
+    if ( this.person.madePermanentMoveToBC !== null &&
+         this.person.madePermanentMoveToBC !== undefined ) {
+
+      if ( this.requestLivedInBC ) {
+        return this.person.livedInBCSinceBirth !== undefined &&
+               this.person.livedInBCSinceBirth !== null &&
+               this.person.madePermanentMoveToBC === true;
+      }
+      return this.person.madePermanentMoveToBC === true || this.isTemporaryResident;
+    }
+    return true;
+  }
+
+  get requestProvinceMoveInfo() {
+    return (this.isCanadianResident && (this.isProvinceMove ||
+           (this.isLivingWithoutMSP && this.person.livedInBCSinceBirth === false))) ||
+           (this.isPermanentResident && this.isProvinceMove);
+  }
+
+  get requestCountryMoveInfo() {
+    return (this.isCanadianResident || this.isPermanentResident) && this.isCountryMove;
+  }
+
+  get requestArrivalInBCInfo() {
+    return ((this.isCanadianResident || this.isPermanentResident) &&
+           (this.isProvinceMove || this.isCountryMove)) || this.isTemporaryResident;
   }
 
   get arrivalDateRequired() {
-    return this.isCanadianFromCountry || this.isResidentFromProv || this.isResidentFromCountry ||
-           this.isResidentNotBC || this.isTemporaryResident;
+    return (this.isCountryMove &&
+           (this.isCanadianResident || this.isPermanentResident)) ||
+           this.isTemporaryResident;
   }
 
-  get requestAdditionalMoveInfo() {
-    return this.isCanadianFromProv || this.isCanadianFromCountry ||
-          (this.isCanadianNotBC && this.person.livedInBCSinceBirth !== undefined) ||
-          this.isResidentFromProv || this.isResidentFromCountry || this.isResidentNotBC ||
-          this.isTemporaryResident;
+  get requestProvHealthNumber() {
+    return this.isProvinceMove && (this.isCanadianResident || this.isPermanentResident);
   }
 
   get requestArmForceInfo() {
-    return this.person.status === StatusInCanada.CitizenAdult ||
-          (this.isApplicant && this.person.status === StatusInCanada.PermanentResident);
+    return this.isCanadianResident ||
+          (this.isApplicant && this.isPermanentResident);
+  }
+
+  get requestRecentMoveToBC() {
+    console.log( 'requestRecentMoveToBC ', this.requestLivedInBC, this.person.livedInBCSinceBirth );
+    if ( this.requestLivedInBC ) {
+      return this.person.livedInBCSinceBirth === false;
+    }
+    return true;
+  }
+
+  get requestArrivalToCanada() {
+    console.log( 'requestArrivalToCanada ', this.requestLivedInBC, this.person.livedInBCSinceBirth );
+    if ( this.requestLivedInBC ) {
+      return this.person.livedInBCSinceBirth === false;
+    }
+    return true;
   }
 
   get isValidDepartureDate() {
