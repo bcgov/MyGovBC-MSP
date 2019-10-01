@@ -22,6 +22,7 @@ import {
   MSPApplicationSchema
 } from 'app/modules/msp-core/interfaces/i-api';
 import { FieldPageMap } from '../models/field-page-map';
+import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
 @Injectable({
   providedIn: 'root'
@@ -468,7 +469,9 @@ export class MspApiBenefitService extends AbstractHttpService {
         : (date.getMonth() + 1).toString();
     const year = date.getFullYear();
     const authorizedByApplicantDate = `${year}-${month}-${day}`;
-    to.authorizedByApplicantDate = authorizedByApplicantDate;
+
+    to.authorizedByApplicantDate = moment(from.authorizedByApplicantDate).format(this.ISO8601DateFormat);
+    
     to.authorizedByApplicant = from.authorizedByApplicant ? 'Y' : 'N';
     to.authorizedBySpouse = from.authorizedBySpouse ? 'Y' : 'N';
     to.powerOfAttorney = from.hasPowerOfAttorney ? 'Y' : 'N';
