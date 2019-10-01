@@ -17,6 +17,8 @@ import {
 import { Person } from 'moh-common-lib';
 import { spouseRemovedDueToDivorceDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
 
+import { CancellationReasons } from '../../../../../models/status-activities-documents';
+import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.enum';
 
 @Component({
   selector: 'msp-remove-spouse',
@@ -28,6 +30,7 @@ export class RemoveSpouseComponent extends BaseComponent {
   //static ProcessStepNum = 1;
  
   docSelected: string ;
+  
   //langActivities = require('../../../../components/msp/common/activities/i18n');
 
   //langStatus = legalStatus;
@@ -79,6 +82,35 @@ export class RemoveSpouseComponent extends BaseComponent {
     evt.addressLine1 = evt.street;
    // this.dataService.saveMspAccountApp();
   }
+
+
+  get cancellationReasons() {
+    return[
+      { 
+        "label": "Seperated/Divorced",
+        "value": CancellationReasons.SeparatedDivorced
+      },
+      { 
+        "label": "Remove from Account but still married/common-law",
+        "value": CancellationReasons.RemoveFromAccountButStillMarriedOrCommomLaw
+      },
+      { 
+        "label": "Deceased",
+        "value": CancellationReasons.Deceased
+      },
+      { 
+        "label": "Out of province/ Out of Country move",
+        "value": CancellationReasons.OutOfProvinceOrCountry
+      },
+      { 
+        "label": "Armed Forces",
+        "value": CancellationReasons.ArmedForces
+      },
+      { 
+        "label": "Incarcerated",
+        "value": CancellationReasons.Incarcerated
+      },
+  ]};
 
  
 }
