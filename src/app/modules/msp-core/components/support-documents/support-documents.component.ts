@@ -205,7 +205,7 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
     if ( this.hasDocumentType ) {
       const idx = this._documentOpts.findIndex( x => x === this.supportDoc.documentType );
 
-      if ( idx >= 0 && idx < this._documentOpts.length ) {
+      if ( idx >= 0 && idx < SupportDocumentSamples.length ) {
         if ( SupportDocumentSamples[idx].path ) {
           this.docSampleImages = [SupportDocumentSamples[idx]];
           return true;
