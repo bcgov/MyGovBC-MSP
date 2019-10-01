@@ -13,6 +13,8 @@ export enum MSPEnrollementMember {
 
 
 export enum CancellationReasons {
+  SeparatedDivorced,
+  RemoveFromAccountButStillMarriedOrCommomLaw,
   NoLongerInFullTimeStudies,
   Deceased,
   OutOfProvinceOrCountry,

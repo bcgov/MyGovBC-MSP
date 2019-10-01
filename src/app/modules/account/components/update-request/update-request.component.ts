@@ -75,7 +75,7 @@ export class UpdateRequestComponent extends Base {
   }
 
   ngOnInit() {
-    this.person = this.dataService.getMspAccountApp().applicant ;
+    //this.person = this.dataService.getMspAccountApp().applicant ;
 
     if (this.person.status >= 0 &&  this.person.status !== undefined) {
       //this.itemList = this.item(this.person.status);
