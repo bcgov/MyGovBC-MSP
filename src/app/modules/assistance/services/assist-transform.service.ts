@@ -45,7 +45,7 @@ export class AssistTransformService {
     const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
     // console.log(date.getMonth());
     const month =
-      date.getMonth() < 10
+      date.getMonth() < 9 // off by 1 due to 0 indicing
         ? `0${(date.getMonth() + 1).toString()}`
         : (date.getMonth() + 1).toString();
     const year = date.getFullYear();
