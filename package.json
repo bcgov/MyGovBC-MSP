@@ -1,6 +1,6 @@
 {
   "name": "mygovbc-msp",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "description": "MyGovBC MSP Service Provider Web App",
   "license": "Apache-2.0",
   "repository": {
