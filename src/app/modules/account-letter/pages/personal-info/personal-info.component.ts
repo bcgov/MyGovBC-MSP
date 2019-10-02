@@ -11,17 +11,16 @@ import {Router} from '@angular/router';
 import * as _ from 'lodash';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {ConsentModalComponent, Address} from 'moh-common-lib';
-import {ProcessService} from '../../../../services/process.service';
-import {AccountLetterApplication, MspPerson} from '../../../../components/msp/model/account-letter-application.model';
+import {AccountLetterApplication} from '../../../../components/msp/model/account-letter-application.model';
 import {MspBirthDateComponent} from '../../../msp-core/components/birthdate/birthdate.component';
 import {
     MSPEnrollementMember, EnrollmentStatusRules
 } from '../../../../models/status-activities-documents';
 import {environment} from '../../../../../environments/environment';
 import {SpecificMemberComponent} from './specific-member/specific-member.component';
-import {LETTER, Masking, NUMBER, SPACE} from '../../../../components/msp/model/masking.model';
+import {Masking} from '../../../../components/msp/model/masking.model';
 import {MspLogService} from '../../../../services/log.service';
-//import { PhnComponent } from 'moh-common-lib';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 
 @Component({
     templateUrl: './personal-info.component.html',
@@ -52,7 +51,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
     constructor(private dataService: MspDataService,
                 //private _processService: ProcessService,
                 private _router: Router,
-                private cd: ChangeDetectorRef,
+                cd: ChangeDetectorRef,
                 private logService: MspLogService) {
         super(cd);
 
@@ -123,7 +122,7 @@ export class AccountLetterPersonalInfoComponent extends Masking  implements OnIn
         return this.accountLetterApplication.hasValidAuthToken && this.isAllValid() ;
     }
 
-    handleFormSubmission(evt: any) {
+    handleFormSubmission() {
 
         if (this.canContinue()) {
             this._router.navigate(['/account-letter/sending']);

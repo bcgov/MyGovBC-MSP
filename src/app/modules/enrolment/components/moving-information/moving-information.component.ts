@@ -1,12 +1,11 @@
 import { Component, OnInit, forwardRef, EventEmitter, Input, Output } from '@angular/core';
 import { Base, PROVINCE_LIST, BRITISH_COLUMBIA, COUNTRY_LIST, SimpleDate } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
-import { MspPerson } from '../../../account/models/account.model';
 import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 import { environment } from '../../../../../environments/environment';
 import { Relationship } from '../../../../models/relationship.enum';
 import * as moment_ from 'moment';
-import { debounceTime } from 'rxjs/operators';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 const moment = moment_;
 
 enum OopDateValidationCodes {

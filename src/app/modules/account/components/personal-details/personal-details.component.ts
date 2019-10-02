@@ -3,20 +3,17 @@ import {
     ViewChild, ElementRef, ChangeDetectorRef
 } from '@angular/core';
 import { state, trigger, style, } from '@angular/animations';
-import {NgForm} from '@angular/forms';
-//import {Person} from '../../../model/person.model';
 import * as _ from 'lodash';
 import {MspBirthDateComponent} from '../../../../modules/msp-core/components/birthdate/birthdate.component';
 import {MspStatusInCanadaRadioComponent} from '../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
 import {BaseComponent} from '../../../../models/base.component';
-//import { MspPhoneComponent } from '../../../../components/msp/common/phone/phone.component';
-import { MspPerson, MspAccountApp } from '../../models/account.model';
+import { MspAccountApp } from '../../models/account.model';
 import { Address } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { StatusInCanada, CanadianStatusReason, CanadianStatusStrings } from '../../../msp-core/models/canadian-status.enum';
 import { statusRules, statusReasonRules } from '../../../msp-core/components/canadian-status/canadian-status.component';
 import { Relationship } from 'app/models/relationship.enum';
-//import { Relationship } from '../../../msp-core/models/relationship.enum';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 
 @Component({
         selector: 'msp-account-personal-details',
@@ -125,7 +122,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
         return statusRules(this.person.relationship);
     }
 
-   
+
 
     setStatus(value: StatusInCanada, p: MspPerson) {
         p.status = value;
@@ -229,30 +226,30 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
 
 
     isValid(): boolean {
-        if(!this.person) {
+        if (!this.person) {
             if (this.addressRequired) {
                 if (!this.person.residentialAddress ) { //|| !this.person.residentialAddress.isValid ) {
                     return false;
                 }
             }
             // residential address if exists , it shud be BC
-    
+
             //if (!this.person.residentialAddress ) { // && this.person.residentialAddress.isValid) {
                /* if (!this.person.residentialAddress){
                     return false ;
                 }*/
            // }
-    
-    
+
+
             /*if (!this.person.mailingSameAsResidentialAddress) {
                 if (!this.person.mailingAddress.isValid){
                     return false;
                 }
             }*/
-    
+
 
         }
-        
+
         return true;
     }
 }

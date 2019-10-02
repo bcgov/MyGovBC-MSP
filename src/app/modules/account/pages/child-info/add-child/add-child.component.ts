@@ -1,27 +1,13 @@
-import { Component, forwardRef, OnInit, Input, AfterViewInit, OnDestroy, ChangeDetectorRef, Injectable , ViewChild, ViewChildren , QueryList, Output, EventEmitter } from '@angular/core';
+import { Component, forwardRef, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { nameChangeSupportDocuments } from '../../../../msp-core/components/support-documents/support-documents.component';
-import { AbstractForm } from 'moh-common-lib';
-import { Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 import { NgForm, ControlContainer } from '@angular/forms';
-import {Router} from '@angular/router';
-import {BaseComponent} from '../../../../../models/base.component';
-import {ProcessService, ProcessUrls} from '../../../../../services/process.service';
-//import { AccountPersonalDetailsComponent}  from './personal-details/personal-details.component';
-import { MspPerson } from '../../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
-import {ActivatedRoute} from '@angular/router';
-import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
 import { PersonDocuments } from '../../../../../components/msp/model/person-document.model';
-
-import {
-  Gender
-} from '../../../../../components/msp/model/msp-person.model';
-import { Person } from 'moh-common-lib';
 import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.enum';
-import { Base, SimpleDate } from 'moh-common-lib';
+import { Base } from 'moh-common-lib';
 import { Relationship } from 'app/models/relationship.enum';
 import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
+import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 
 @Component({
   selector: 'msp-add-child',
@@ -35,9 +21,9 @@ import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum
 
 
 export class AddChildComponent extends Base implements OnInit {
-  
+
   statusLabel: string = 'Child\'s immigration status in Canada';
-  relationShip : Relationship;
+  relationShip: Relationship;
 
   childAgeCategory = [
     {label: '0-18 years', value: Relationship.ChildUnder19},
@@ -101,7 +87,7 @@ isPhnUniqueInChild() {
 
 
 set statusDocuments( document: PersonDocuments ) {
-  
+
   this.child.updateStatusInCanadaDocType = document;
 
   if ( document.images && document.images.length === 0 ) {
@@ -109,7 +95,7 @@ set statusDocuments( document: PersonDocuments ) {
     this.child.nameChangeDocs.documentType = null;
     this.child.nameChangeDocs.images = [];
 
-   
+
 
    /* this.child.updateNameDueToMarriageDocType.documentType = null;
     this.child.updateNameDueToMarriageDocType.images = [];
@@ -128,7 +114,7 @@ set statusDocuments( document: PersonDocuments ) {
 
   }
 
-  
+
 }
 
  /* get childNameChangedocs() : PersonDocuments {
@@ -136,7 +122,7 @@ set statusDocuments( document: PersonDocuments ) {
   };
 
   get statusChangeDocList(): SupportDocuments[] {
-    return [SupportDocuments.CanadianBirthCertificate, 
+    return [SupportDocuments.CanadianBirthCertificate,
           SupportDocuments.CanadianCitizenCard,
           SupportDocuments.CanadianPassport];
   }
@@ -159,15 +145,15 @@ set statusDocuments( document: PersonDocuments ) {
   get items()   {
 
     return[
-    { 
+    {
       "label": "Canadian birth certificate",
       "value": Documents.CanadianBirthCertificate
     },
-    { 
+    {
       "label": "Canadian Passport",
       "value": Documents.CanadianPassport
     },
-    { 
+    {
       "label": "Canadian citizenship card or certificate",
       "value": Documents.CanadianCitizenCard
     }

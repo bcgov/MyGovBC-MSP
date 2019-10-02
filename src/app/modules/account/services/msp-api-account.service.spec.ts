@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-
-import { MspApiBenefitService } from './msp-api-benefit.service';
+import { MspApiBenefitService } from '../../benefit/services/msp-api-benefit.service';
 
 describe('MspApiBenefitService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

@@ -90,4 +90,4 @@ class AccountLetterApplication implements ApplicationBase {
   }
 }
 
-export { AccountLetterApplication, MspPerson };
+export { AccountLetterApplication };
