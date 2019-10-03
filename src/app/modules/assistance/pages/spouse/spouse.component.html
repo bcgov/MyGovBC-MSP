@@ -1,0 +1,52 @@
+<form #formRef="ngForm" novalidate>
+  <h1>{{ title }}</h1>
+  <p class="border-bottom">{{ description }}</p>
+
+  <button
+    [disabled]="showTaxYears"
+    class="btn btn-primary btn-md"
+    (click)="addSpouse()"
+  >
+    Add Spouse Information
+  </button>
+
+  <common-page-section layout='noTips' *ngIf="showTaxYears">
+    <h2>{{ yearTitle }}</h2>
+    <p class="border-bottom">
+      {{ yearDescription }}
+      <common-xicon-button *ngIf="showTaxYears" label= "Remove spouse" (click)="removeSpouse()">
+      </common-xicon-button>
+    </p>
+
+
+    <ng-container *ngIf="showTaxYears">
+      <h3>When did you have a spouse?</h3>
+      <div class="row">
+         <div class="col-12"> 
+          <common-checkbox
+            *ngFor="let year of assistanceYears"
+            class="col-1 mr-5"
+            [label]="year"
+            [data]="checkYear(year)"
+            (dataChange)="toggleYear($event, year)"
+            id="{{year}}"
+          ></common-checkbox>
+        <common-error-container [displayError]="(touched$ | async) && !validSelection">
+          At least one tax year must be selected
+        </common-error-container>
+        </div>
+      </div>
+
+      <ng-container *ngIf="selectedYears.length > 0">
+        <h2>{{ documentsTitle }}</h2>
+        <p class="border-bottom">{{ documentsDescription }}</p>
+        <ng-container>
+          <msp-assist-cra-documents
+            [assistanceYears]="selectedYears"
+            isSpouse="true"
+          ></msp-assist-cra-documents>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </common-page-section>
+</form>

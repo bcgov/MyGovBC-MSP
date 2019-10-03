@@ -1,67 +1,77 @@
 <ng-content select="[sectionTitleInfo]"></ng-content>
 <common-page-section layout="tips">
-  <div class="form-group p-sm-2">
+  <div *ngIf="requestLivedInBC" class="form-group p-sm-2">
     <common-radio name="livedInBCSinceBirth_{{objectId}}"
                   [(ngModel)]="person.livedInBCSinceBirth"  
                   label="Have {{relationship}} lived in B.C. since birth?" 
                   required>
     </common-radio>
   </div>
-  
-  <div *ngIf="requestPermMoveInfo">
-    <div class="form-group">
-      <common-radio name="madePermanentMoveToBC_{{objectId}}"
-                    [(ngModel)]="person.madePermanentMoveToBC"  
-                    label="Have {{relationship}} moved to B.C. permanently?" 
+  <div *ngIf="isTemporaryResident" class="form-group col-sm-6 pl-0" >
+    <common-country name="movedFromCountry_{{objectId}}"
+                    label="Which country are {{relationship}} moving from?"
+                    [countryList]="countryList"
+                    [(ngModel)]="person.movedFromProvinceOrCountry"
                     required>
-      </common-radio>
-      <common-error-container [displayError]="person.madePermanentMoveToBC == false">
-        You have indicated that a recent move to B.C. is not permanent.  As a result, this person
-        is not eligible for enrolment in the Medical Services Plan.  Please contact
-        <a href="{{links.HIBC}}" target="_blank">Health Insurance BC</a> for further 
-        information.
-      </common-error-container>
-    </div>
+    </common-country>
+  </div> 
 
-    <div *ngIf="isCanadianFromProv || isCanadianNotBC || isResidentFromProv; else SelectCountry"
-         class="form-group col-sm-6 pl-0">
+  <div *ngIf="requestPermMoveInfo" class="form-group">
+    <!--Temporary residents can continue whether or not they make the permanent move to BC-->
+    <common-radio name="madePermanentMoveToBC_{{objectId}}"
+                  [(ngModel)]="person.madePermanentMoveToBC"  
+                  label="Have {{relationship}} moved to B.C. permanently?" 
+                  required>
+    </common-radio>
+    <common-error-container 
+      [displayError]="!canContinueProcess">
+      You have indicated that a recent move to B.C. is not permanent.  As a result, this person
+      is not eligible for enrolment in the Medical Services Plan.  Please contact
+      <a href="{{links.HIBC}}" target="_blank">Health Insurance BC</a> for further 
+      information.
+    </common-error-container>
+  </div>
+
+
+  <!--Cannot continue if individual has not move to BC permanently, unless he/she is temporary resident-->
+  <div *ngIf="canContinueProcess">
+    <div *ngIf="requestProvinceMoveInfo; else SelectCountry"
+        class="form-group col-sm-6 pl-0">
       <common-province name="movedFromProvince_{{objectId}}"
-                       [provinceList]="provinceList"
-                       [(ngModel)]="person.movedFromProvinceOrCountry"
-                       label="Which province are {{relationship}} moving from?"
-                       required>
+                      [provinceList]="provinceList"
+                      [(ngModel)]="person.movedFromProvinceOrCountry"
+                      label="Which province {{isLivingWithoutMSP ? 'did' : 'are'}} {{relationship}} moving from?"
+                      required>
       </common-province>
     </div>
 
-    <div *ngIf="isCanadianFromProv || isCanadianFromCountry; else NewToBC"
-         class="form-group col-sm-6 pl-0">
+    <div *ngIf="requestArrivalInBCInfo; else NewToBC"
+        class="form-group col-sm-6 pl-0">
         <common-date label="Arrival date in B.C."
-                     [restrictDate]="'past'" 
-                     [(date)]="person.arrivalToBCSimple">
+                    [restrictDate]="'past'" 
+                    [(date)]="person.arrivalToBCSimple">
         </common-date>
     </div>
 
-    <div class="form-group col-sm-6 pl-0">
+    <div *ngIf="requestArrivalToCanada" class="form-group col-sm-6 pl-0">
       <common-date label="Arrival date in Canada{{!arrivalDateRequired ? ' (optional)' : ''}}"
-                   [restrictDate]="'past'" 
-                   [(date)]="person.arrivalToCanadaDate"
-                   [required]="arrivalDateRequired">
+                  [restrictDate]="'past'" 
+                  [(date)]="person.arrivalToCanadaDate"
+                  [required]="arrivalDateRequired">
       </common-date>
     </div>
 
-    <div *ngIf="isCanadianFromProv" class="form-group col-sm-6 pl-0">
-        <label for="healthNumber_{{objectId}}" class="control-label">
-            Health Number from that province (optional)
-        </label>
+    <div *ngIf="requestProvHealthNumber" class="form-group col-sm-6 pl-0">
+      <label for="healthNumber_{{objectId}}" class="control-label">
+        Health Number from that province (optional)
+      </label>
       <input name="healthNumber_{{objectId}}"
-             type="text"
-             class="form-control"
-             [(ngModel)]="person.healthNumberFromOtherProvince"
-             maxlength="15">
+            type="text"
+            class="form-control"
+            [(ngModel)]="person.healthNumberFromOtherProvince"
+            maxlength="15">
     </div>
-  </div>
-
-  <div *ngIf="requestAdditionalMoveInfo">
+    
     <div class="form-group">
       <common-radio name="outsideOver30Days_{{objectId}}"
                     [(ngModel)]="person.declarationForOutsideOver30Days"  
@@ -69,6 +79,7 @@
                     required>
       </common-radio>
     </div>
+
     <div *ngIf="person.declarationForOutsideOver30Days" class="ml-4 border-left">
        <div class="form-group col-sm-6">
           <label for="departureReason_{{objectId}}" class="control-label">
@@ -103,20 +114,25 @@
        </div>
 
        <div class="form-group col-sm-6">
-        <common-date label="Departure date"
+        <common-date label="{{departureDateLabel}}"
                      [restrictDate]="'past'" 
-                     [(date)]="person.departureDate">
+                     [date]="person.departureDate"
+                     (dateChange)="validateDepartureDate($event)">
         </common-date>
+        <common-error-container [displayError]="!isValidDepartureDate">
+          {{departureDateError}}
+        </common-error-container>
       </div>
 
       <div class="form-group col-sm-6">
-          <common-date label="Return date"
+          <common-date label="{{returnDateLabel}}"
                        [restrictDate]="'past'" 
-                       [(date)]="person.returnDate">
+                       [date]="person.returnDate"
+                       (dateChange)="validateReturnDate($event)">
           </common-date>
-
-<!--TODO: Need to do checks to ensure return date is greater than departure date
-and check departure was within last 12 months - need to find error messages for this-->
+          <common-error-container [displayError]="!isValidReturnDate">
+            {{returnDateError}}
+          </common-error-container>
         </div>
     </div>
 
@@ -136,9 +152,8 @@ and check departure was within last 12 months - need to find error messages for 
                   [allowEmptyValue]="true">
       </common-phn>
     </div>
-
-    <div *ngIf="!((isSpouse || isChild) && (isResidentFromProv || isResidentFromCountry || isCanadianNotBC))" 
-         class="form-group">
+    
+    <div *ngIf="requestArmForceInfo" class="form-group">
       <common-radio name="armedForces_{{objectId}}"
                     [(ngModel)]="person.hasBeenReleasedFromArmedForces"  
                     label="Have {{relationship}} been released from the Canadian Armed Forces or an Institution?" 
@@ -160,7 +175,7 @@ and check departure was within last 12 months - need to find error messages for 
 </common-page-section>
 
 <ng-template #SelectCountry>
-  <div *ngIf="isCanadianFromCountry || isResidentFromCountry" 
+  <div *ngIf="requestCountryMoveInfo" 
        class="form-group col-sm-6 pl-0">
     <common-country name="movedFromCountry_{{objectId}}"
                     label="Which country are {{relationship}} moving from?"
@@ -172,7 +187,7 @@ and check departure was within last 12 months - need to find error messages for 
 </ng-template>
 
 <ng-template #NewToBC>
-  <div class="form-group col-sm-6 pl-0">
+  <div *ngIf="requestRecentMoveToBC" class="form-group col-sm-6 pl-0">
     <common-date label="Most recent move to B.C."
                  [restrictDate]="'past'" 
                  [(date)]="person.arrivalToBCSimple">

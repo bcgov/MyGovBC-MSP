@@ -1,0 +1,69 @@
+
+    <div class="">
+        <div class="modal-header-primary">
+          <h2>What is Adjusted Net Income?</h2>
+        </div>
+        <button
+          class="btn btn-transparent float-right close-btn close"
+          type="button"
+          (click)="closeModal.emit(true)"
+        >
+          <i class="fa fa-times ecks"></i>
+        </button>
+        <div class="modal-body">
+          <p>
+            Estimate your adjusted net income for the tax year(s) below for which
+            you are applying. If you feel your adjusted net income will qualify
+            you for assistance, we encourage you to apply and your application
+            will be reviewed.
+          </p>
+          <hr>
+          <div class="row">
+            <div class="col-md-5">
+              <div class="row align-items-center">
+                <h3 class="col-12 centered">
+                  Adjusted Net Income threshold for Retroactive Premium Assistance
+                </h3>
+              </div>
+              <table class="table">
+              <thead class="primary-background">
+                <tr>
+                  <th scope="col" class="primary-background">Tax Year</th>
+                  <th scope="col" class="primary-background">Adjusted Net Income</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let entry of entries" >
+                  <td>
+                    {{ entry.year }}
+                  </td>
+                  <td>
+                    {{ entry.amount }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+  
+            <div class="col-md-7">
+              <h3>Estimate Your Adjusted Net Income</h3>
+              <p>
+                Your net income plus spouse's net income (if applicable) from line
+                236 from the Notice of Assessment or Reassessment less total
+                deductions that apply to you
+              </p>
+              <h3>Estimate Your Total Deductions</h3>
+              <p>Calculate based on the tax year for which you are applying.</p>
+              <div *ngFor="let deduction of deductions" class="row">
+                <div class="col-7">
+                  <strong *ngIf="deduction[2]">{{ deduction[2] }}</strong
+                  ><span>{{ deduction[0] }}</span>
+                </div>
+                <div class="col-5">
+                  <span>{{ deduction[1] }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

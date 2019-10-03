@@ -1,13 +1,13 @@
-import {Component, ViewChild, OnInit, AfterViewInit} from '@angular/core';
+import {Component, ViewChild, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { Router} from '@angular/router';
-import {MspDataService} from '../../../../services/msp-data.service';
-import {ProcessService, ProcessUrls} from '../../../../services/process.service';
+import {ProcessUrls} from '../../../../services/process.service';
 import {environment} from '../../../../../environments/environment';
-import { MspAccountApp, MspPerson } from '../../models/account.model';
+import { MspAccountApp } from '../../models/account.model';
 import { AbstractForm } from 'moh-common-lib';
 import { PageStateService } from 'app/services/page-state.service';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 
 @Component({
     templateUrl: './review.component.html',
@@ -87,7 +87,7 @@ export class AccountReviewComponent extends AbstractForm implements OnInit {
     }
 
     canContinue(): boolean {
-        let valid = super.canContinue();
+        const valid = super.canContinue();
         return valid;
     }
 

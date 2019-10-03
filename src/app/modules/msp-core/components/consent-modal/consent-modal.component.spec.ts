@@ -2,8 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MspConsentModalComponent } from './consent-modal.component';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {MspAddressCardPartComponent} from '../../../../components/msp/common/address-card-part/address-card-part.component';
+import { LocalStorageModule } from 'angular-2-local-storage';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ModalModule} from 'ngx-bootstrap';
 import {MspMaintenanceService} from '../../../../services/msp-maintenance.service';
@@ -15,7 +14,7 @@ describe('MspConsentModalComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MspConsentModalComponent, MspAddressCardPartComponent],
+      declarations: [MspConsentModalComponent],
       imports: [FormsModule, HttpClientModule, RouterTestingModule, LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
         storageType: 'sessionStorage'

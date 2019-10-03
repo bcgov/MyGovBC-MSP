@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
@@ -8,6 +8,7 @@ import { Relationship } from '../../../../models/relationship.enum';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 import { EnrolForm } from '../../models/enrol-form';
+import { BRITISH_COLUMBIA } from 'moh-common-lib';
 
 @Component({
   selector: 'msp-child-info',
@@ -66,7 +67,6 @@ export class ChildInfoComponent extends EnrolForm {
     return this.children[idx].documents.images && this.children[idx].documents.images.length > 0;
   }
 
-
   requestNameChangeInfo( idx: number ) {
     return this.hasStatus( idx ) &&
            this.children[idx].hasNameChange &&
@@ -75,6 +75,10 @@ export class ChildInfoComponent extends EnrolForm {
 
   isOveragedChild( idx: number ) {
     return this.children[idx].relationship === Relationship.Child19To24;
+  }
+
+  isRequired(child: MspPerson ) {
+    return child.schoolAddress.province !== BRITISH_COLUMBIA ? true : false;
   }
 
   continue() {
@@ -113,6 +117,9 @@ export class ChildInfoComponent extends EnrolForm {
 
   setRelationship( $event, idx: number ) {
     this.children[idx].relationship = Number($event);
+    if ( this.children[idx].relationship === Relationship.Child19To24 ) {
+      this.children[idx].fullTimeStudent = true;
+    }
   }
 
   hasNameDocuments( idx: number ): boolean {
@@ -120,9 +127,9 @@ export class ChildInfoComponent extends EnrolForm {
   }
 
   requestPersonalInfo( idx: number ): boolean {
-    return this.hasStatus( idx ) && this.hasStatusDocuments( idx ) &&
-           ( this.children[idx].hasNameChange === false || // No name change
-            ( this.children[idx].hasNameChange && this.hasNameDocuments( idx ) )); // name change requires documentation
+    return !!( this.hasStatus( idx ) && this.hasStatusDocuments( idx ) &&
+             ( this.children[idx].hasNameChange === false || // No name change
+             ( this.children[idx].hasNameChange && this.hasNameDocuments( idx ) ))); // name change requires documentation
   }
 
   isTemporaryResident(idx: number) {

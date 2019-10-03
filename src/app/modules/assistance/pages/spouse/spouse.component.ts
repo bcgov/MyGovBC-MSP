@@ -16,60 +16,7 @@ export interface SpouseYears {
 
 @Component({
   selector: 'msp-spouse',
-  template: `
-    <form #formRef="ngForm" novalidate>
-      <h1>{{ title }}</h1>
-      <p class="border-bottom">{{ description }}</p>
-
-      <button
-        [disabled]="showTaxYears"
-        class="btn btn-primary btn-md"
-        (click)="addSpouse()"
-      >
-        Add Spouse Information
-      </button>
-
-      <common-page-section layout='noTips' *ngIf="showTaxYears">
-        <h2>{{ yearTitle }}</h2>
-        <p class="border-bottom">
-          {{ yearDescription }}
-          <common-xicon-button *ngIf="showTaxYears" label= "Remove spouse" (click)="removeSpouse()">
-          </common-xicon-button>
-        </p>
-
-
-        <ng-container *ngIf="showTaxYears">
-          <h3>When did you have a spouse?</h3>
-          <div class="row">
-            <div class="col-12">
-              <common-checkbox
-                *ngFor="let year of assistanceYears"
-                class="col-1"
-                [label]="year"
-                [data]="checkYear(year)"
-                (dataChange)="toggleYear($event, year)"
-                id="{{year}}"
-              ></common-checkbox>
-            <common-error-container [displayError]="(touched$ | async) && !validSelection">
-              At least one tax year must be selected
-            </common-error-container>
-            </div>
-          </div>
-
-          <ng-container *ngIf="selectedYears.length > 0">
-            <h2>{{ documentsTitle }}</h2>
-            <p class="border-bottom">{{ documentsDescription }}</p>
-            <ng-container>
-              <msp-assist-cra-documents
-                [assistanceYears]="selectedYears"
-                isSpouse="true"
-              ></msp-assist-cra-documents>
-            </ng-container>
-          </ng-container>
-        </ng-container>
-      </common-page-section>
-    </form>
-  `,
+  templateUrl: './spouse.component.html',
   styleUrls: ['./spouse.component.scss']
 })
 export class SpouseComponent extends BaseComponent implements OnInit {
@@ -219,7 +166,16 @@ export class SpouseComponent extends BaseComponent implements OnInit {
         if (assistYear.year === year) this.finAssistApp.assistYears[i] = itm;
         i++;
       }
-      this.selectedYears.push(itm);
+
+      // There's a bug that can lead to duplicate records here that only comes
+      // up during automation testing.  Here we are directly scanning for dupes
+      // before inserting into the array.
+      const duplicate = this.selectedYears.filter(x => x.year === year);
+      if (!duplicate || duplicate.length === 0){
+        // Only add item is unique
+        this.selectedYears.push(itm);
+      }
+
     } else {
       const itm = this.findYear(year);
       itm.hasSpouse = false;

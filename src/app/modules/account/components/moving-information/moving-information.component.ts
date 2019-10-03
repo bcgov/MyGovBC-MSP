@@ -1,10 +1,10 @@
 import { Component, OnInit, forwardRef, EventEmitter, Input, Output } from '@angular/core';
-import { Base, Person, PROVINCE_LIST, BRITISH_COLUMBIA, COUNTRY_LIST } from 'moh-common-lib';
+import { Base, PROVINCE_LIST, BRITISH_COLUMBIA, COUNTRY_LIST } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
-import { MspPerson } from '../../../account/models/account.model';
 import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 import { environment } from '../../../../../environments/environment';
 import { Relationship } from 'app/models/relationship.enum';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 @Component({
   selector: 'msp-child-moving-information',
   templateUrl: './moving-information.component.html',

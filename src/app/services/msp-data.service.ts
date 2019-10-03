@@ -5,7 +5,6 @@ import { AccountLetterApplication } from '../components/msp/model/account-letter
 import { FinancialAssistApplication } from '../modules/assistance/models/financial-assist-application.model';
 import {
   MspAccountApp,
-  MspPerson
 } from '../modules/account/models/account.model';
 import { Process } from './process.service';
 import { MspProgressBarItem } from '../modules/account/components/progressBar/progressBarDataItem.model';
@@ -15,7 +14,8 @@ import AccountLetterDto from '../components/msp/model/account-letter.dto';
 import FinancialAssistApplicationDto from '../modules/assistance/models/financial-assist-application.dto';
 import {
   Gender,
-  OperationActionType
+  OperationActionType,
+  MspPerson
 } from '../components/msp/model/msp-person.model';
 import { Address, CANADA, BRITISH_COLUMBIA } from 'moh-common-lib';
 import PersonDto from '../components/msp/model/msp-person.dto';

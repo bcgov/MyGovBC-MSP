@@ -102,14 +102,6 @@ export class TaxYearComponent extends BaseComponent {
         if (this.spaEnvResponse && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START && this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END && this.spaEnvResponse.SPA_ENV_NOW) {
             this.today = new Date(this.spaEnvResponse.SPA_ENV_NOW.replace(/-/g, '/'));
             this.currentYear = this.today.getFullYear();
-            //console.log(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START);
-            //const mydate1 = this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START;
-            //const mydate = moment(mydate1).format();       // new Date(String(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START));
-           // var str = mydate1;
-           // str = str.replace(/-/g,'/');  // replaces all occurances of "-" with "/"
-          //  var dateObject = new Date(str);
-          //  console.log(dateObject);
-            //this.today = moment().toDate();
             let startDate = new Date (this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_START.replace(/-/g, '/'));
             let endDate = new Date(this.spaEnvResponse.SPA_ENV_PACUTOFF_MAINTENANCE_END.replace(/-/g, '/'));
             this.cutOffStartDate = new Date(this.currentYear, startDate.getMonth(), startDate.getDate(), startDate.getHours(), startDate.getMinutes(), startDate.getSeconds(), startDate.getMilliseconds());

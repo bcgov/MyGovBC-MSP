@@ -42,7 +42,7 @@
                     [canadianStatus]="person.status"
                     [supportDocList]="supportDocList"
                     [statusReason]="person.currentActivity"
-                    [(supportDoc)]="statusDocuments">
+                    [(supportDoc)]="person.updateStatusInCanadaDocType">
         <div sectionTitleInfo>
         <h2> <strong> Documents to support new status in Canada </strong> </h2>
         <p class="border-bottom"> 
@@ -51,60 +51,6 @@
         </div>
     </msp-support-documents>
 </div>
-
-<!-- Update Status in Canada 
-<div *ngIf="person.updateStatusInCanada">
-  <div class="border-bottom">
-      <h2><strong> Account Holder's new status in Canada</strong></h2>
-  </div>
-
- 
-  <label class="control-label"></label>
-
-  <div class="form-group" style="width:250px;">
-     <div class="form-group">
-          <select style="width:250px;" class="custom-select" [id]="id" [(ngModel)]="person.status" (ngModelChange)="setStatus($event);">
-              <ng-container>
-                  <option selected disabled="true" value="null">Please Select</option>
-                  <option  *ngFor="let item of langStatus" [ngValue]="item.value" [selected]="person.status == item.value">{{ item.label }}</option>
-              </ng-container>
-          </select>
-      </div> 
-      <common-radio   
-        [radioLabels]="activitiesTable" 
-        [value]="person.currentActivity" 
-        display="table-row-group"
-        (statusChange)= "person.currentActivity = $event; this.dataService.saveMspAccountApp();">
-      </common-radio>
-  </div>
-
-  <div *ngIf="(person.status == 0 || person.status == 1)">
-     <msp-account-file-uploader 
-        [title]="'Documents to support new status in Canada'"
-        [subtitle]="'Provide one of the required documents to support your immigration status in Canada.'"  
-        [items]="itemList" 
-        [accountApp]="accountApp"
-        [docStatus]="person.docType"
-        [doc]="person.updateStatusInCanadaDoc"
-        (documentStatus)=" this.person.docType = $event; this.dataService.saveMspAccountApp();"
-        (onChange)="this.person.updateStatusInCanadaDoc = $event; this.dataService.saveMspAccountApp();">
-    </msp-account-file-uploader>
-  </div>
-  
-
-  <div *ngIf="person.currentActivity">
-       <msp-account-file-uploader [title]="'Documents to support new status in Canada'"
-          subtitle="'Provide one of the required documents to support your immigration status in Canada.'"  
-        [items]="workPermitDocs" 
-        [accountApp]="accountApp"
-        [docStatus]="person.docType"
-        [doc]="person.updateStatusInCanadaDoc"
-        (documentStatus)=" this.person.docType = $event; this.dataService.saveMspAccountApp();"
-        (onChange)=" this.person.updateStatusInCanadaDoc = $event; this.dataService.saveMspAccountApp();"> 
-      </msp-account-file-uploader> 
-  </div>
-</div>
--->
 
 <div *ngIf="person.relationship == 1 && person.updateNameDueToMarriage">
   <h2><strong>Spouse's new last name</strong></h2>
@@ -132,20 +78,6 @@
     </p>
     </div>
 </msp-support-documents>
-<!--
- Document Upload Status Section  
-<div *ngIf="person.updateNameDueToMarriage">
-  <msp-account-file-uploader [title]="'Documents - Update name due to marriage or other'"
-    subtitle="'Provide one of the required documents to support your immigration status in Canada.'"  
-    [items]="nameChangeitems" 
-    [accountApp]="accountApp"
-    [docStatus]="person.updateNameDueToMarriageDocType"
-    [doc]="person.updateNameDueDoc"
-    (documentStatus)="selectDocStatus($event)"
-    (onChange)="uploadDocument($event);"> 
-  </msp-account-file-uploader>
-</div> -->
-
  
 <msp-support-documents  *ngIf="person.updateNameDueToError"
     [supportDocList]="nameChangeDuetoErrorDocs"
@@ -158,20 +90,6 @@
     </div>
 </msp-support-documents>
 
-<!--
-
-<div *ngIf="person.updateNameDueToError">
-  <msp-account-file-uploader [title]="'Documents - Correct name'"
-      subtitle="'Provide one of the required documents to support your immigration status in Canada.'" 
-      [items]="correctNameDocs" 
-      [accountApp]="accountApp"
-      [docStatus]="person.updateNameDueToErrorDocType"
-      [doc]="person.updateNameDueToErrorDoc"
-      (documentStatus)=" this.person.updateNameDueToErrorDocType = $event; this.dataService.saveMspAccountApp();"
-      (onChange)=" this.person.updateNameDueToErrorDoc = $event; this.dataService.saveMspAccountApp();">
- </msp-account-file-uploader>
-</div> -->
-
 <msp-support-documents  *ngIf="person.updateBirthdate"
     [supportDocList]="genderBirthdateChangeDocs"
     [(supportDoc)]="person.updateBirthdateDocType">
@@ -182,21 +100,6 @@
     </p>
     </div>
 </msp-support-documents>
-<!--
-
-<div *ngIf="person.updateBirthdate">
-  <msp-account-file-uploader 
-      [title]="'Documents - Correct birthdate'" 
-      subtitle="'Provide one of the required documents to support your immigration status in Canada.'"
-      [items]="correctBirthDateDocs" 
-      [accountApp]="accountApp"
-      [docStatus]="person.updateBirthdateDocType"
-      [doc]="person.updateBirthdateDoc"
-      (documentStatus)=" this.person.updateBirthdateDocType = $event; this.dataService.saveMspAccountApp();"
-      (onChange)=" this.person.updateBirthdateDoc = $event; this.dataService.saveMspAccountApp();"> 
-  </msp-account-file-uploader>
-</div> -->
-
 
 <msp-support-documents  *ngIf="person.updateGender"
     [supportDocList]="genderBirthdateChangeDocs"
@@ -208,44 +111,14 @@
       </p>
     </div>
 </msp-support-documents>
-<!--
 
-<div *ngIf="person.updateGender">
-
-    <msp-account-file-uploader [title]="'Documents - Correct gender'"
-        subtitle="'Provide one of the required documents to support your immigration status in Canada.'" 
-        [items]="correctBirthDateDocs" 
-        [accountApp]="accountApp"
-        [docStatus]="person.updateGenderDocType"
-        [doc]="person.updateGenderDoc"
-        (documentStatus)=" this.person.updateGenderDocType = $event; this.dataService.saveMspAccountApp();"
-        (onChange)=" this.person.updateGenderDoc = $event; this.dataService.saveMspAccountApp();"> 
-    </msp-account-file-uploader>
-</div> -->
-
-
-
-  <msp-support-documents  *ngIf="person.updateGenderDesignation"
-        [supportDocList]="genderChangeDocs"
-        [(supportDoc)]="person.updateGenderDesignationDocType">
-    <div sectionTitleInfo>
-    <h2> <strong> Documents - Change gender designation </strong> </h2>
-    <p class="border-bottom"> 
-    Provide <b>one</b> of the required documents to support your spouse's immigration status in Canada. If your spouse's name has changed since their ID was issued please provide the document to support the name change.
-    </p>
-    </div>
-  </msp-support-documents>
-   
-  <!-- 
-    <div *ngIf="person.updateGenderDesignation"> <msp-account-file-uploader [title]="'Documents - Change gender designation'"
-      subtitle="'Provide one of the required documents to support your immigration status in Canada.'"
-      [items]="changeGenderDesignationDocs" 
-      [accountApp]="accountApp"
-      [docStatus]="person.updateGenderDesignationDocType"
-      [doc]="person.updateGenderDesignationDoc"
-      (documentStatus)=" this.person.updateGenderDesignationDocType = $event; this.dataService.saveMspAccountApp();"
-      (onChange)=" this.person.updateGenderDesignationDoc = $event; this.dataService.saveMspAccountApp();"> 
-    </msp-account-file-uploader> </div>
- -->
-
-
+<msp-support-documents  *ngIf="person.updateGenderDesignation"
+      [supportDocList]="genderChangeDocs"
+      [(supportDoc)]="person.updateGenderDesignationDocType">
+  <div sectionTitleInfo>
+  <h2> <strong> Documents - Change gender designation </strong> </h2>
+  <p class="border-bottom"> 
+  Provide <b>one</b> of the required documents to support your spouse's immigration status in Canada. If your spouse's name has changed since their ID was issued please provide the document to support the name change.
+  </p>
+  </div>
+</msp-support-documents>

@@ -22,94 +22,11 @@ import { ActivatedRoute } from '@angular/router';
 import { AssistStateService } from '../../services/assist-state.service';
 import { AssistRatesModalComponent } from '../../components/assist-rates-modal/assist-rates-modal.component';
 import { environment } from '../../../../../environments/environment.prod';
-import { ROUTES_ASSIST } from '../../models/assist-route-constants';
+
 
 @Component({
   selector: 'msp-assist-home',
-  template: `
-    <common-page-section layout="tips">
-      <h1>Apply for Retroactive Premium Assistance</h1>
-      <p>
-        Retroactive Premium Assistance provides assistance for previously
-        charged Medical Services Plan premiums.
-
-        <a href="http://gov.bc.ca/MSP/retropremiumassistance" target="_blank">
-          Medical Services Plan premiums <i class="fa fa-external-link" aria-hidden="true"></i>
-        </a>
-        are based on the previous tax year's
-        <button class="btn btn-link p-0" (click)="openModal(modal)">
-          adjusted net income.
-        </button>
-      </p>
-      <p>
-        To be assessed for Retroactive Premium Assistance, complete this form
-        and upload a copy of the Notice of Assessment or Notice of Reassessment
-        from Canada Revenue Agency (CRA) for each requested tax year.
-      </p>
-      <aside>
-        <div class="row">
-          <div class="col-2">
-            <i class="fa fa-exclamation-triangle" style="font-size: 40px;"></i>
-          </div>
-          <div class="col-10">
-            <p>
-              If you were covered on an MSP Group Plan during the period you are applying for,
-              contact your MSP Group Plan Administrator.
-            </p>
-          </div>
-        </div>
-      </aside>
-    </common-page-section>
-    <common-page-section layout="tips">
-      <form #formRef="ngForm" novalidate>
-        <h2>
-          Which years do you think your income might qualify you for Retroactive
-          Premium Assistance?
-        </h2>
-        <div class="row">
-          <div *ngFor="let option of options; index as i" class="form-check form-check-inline">
-            <common-checkbox
-              class="col-12"
-              [(ngModel)]="option.apply"
-              [label]="option.year"
-              (dataChange)="applyOption($event, i)"
-              id="{{ option.year }}"
-              name="{{ option.year }}"
-            ></common-checkbox>
-          </div>
-        </div>
-      </form>
-      <common-error-container [displayError]="(touched$ | async) && validSelection">
-        A tax year is required
-      </common-error-container>
-      <aside>
-        <p>
-          <b>
-            Where’s tax year 2019?
-          </b>
-        </p>
-        <p>
-          MSP premiums were eliminated on January 1, 2020. Because the 2019 tax year would
-          apply towards a year in which no premiums were charged, it is not available for selection.
-        </p>
-      </aside>
-    </common-page-section>
-    <ng-template #modal>
-      <msp-assist-rates-modal
-        (closeModal)="closeModal()"
-      ></msp-assist-rates-modal>
-    </ng-template>
-    <msp-consent-modal
-      #mspConsentModal
-      [isMaintenanceMode]="false"
-      [consentProcessName]="consentProcessName"
-      (accept)="
-        finAssistApp.infoCollectionAgreement = $event;
-        this.dataSvc.saveFinAssistApplication()
-      "
-    >
-    </msp-consent-modal>
-  `
+  templateUrl: './home.component.html'
 })
 export class AssistanceHomeComponent extends BaseComponent
   implements OnInit, AfterViewInit {

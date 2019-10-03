@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 import { ServicesCardDisclaimerModalComponent } from './components/services-card-disclaimer/services-card-disclaimer.component';
 import { MspStatusInCanadaRadioComponent } from './components/status-in-canada-radio/status-in-canada-radio.component';
 import { TextMaskModule } from 'angular2-text-mask';
-import { MspIdReqModalComponent } from './components/id-req-modal/id-req-modal.component';
 import { MspBirthDateComponent } from './components/birthdate/birthdate.component';
 import { MspImageErrorModalComponent } from './components/image-error-modal/image-error-modal.component';
 
@@ -54,7 +53,6 @@ const componentList = [
   MspFullNameComponent,
   ServicesCardDisclaimerModalComponent,
   MspStatusInCanadaRadioComponent,  // Replaced by CanadianStatusComponent - needs to be removed
-  MspIdReqModalComponent,
   MspBirthDateComponent,
   MspImageErrorModalComponent,
   CommonDeductionCalculatorComponent,

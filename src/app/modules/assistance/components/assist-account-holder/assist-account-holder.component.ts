@@ -4,17 +4,13 @@ import {
   Input,
   EventEmitter,
   Output,
-  ViewChild,
   ChangeDetectorRef,
   OnDestroy,
   forwardRef
 } from '@angular/core';
-import { MspPerson } from 'app/modules/account/models/account.model';
 import { NgForm, ControlContainer } from '@angular/forms';
 import { BaseComponent } from 'app/models/base.component';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { AssistStateService } from '../../services/assist-state.service';
-import { Subscription } from 'rxjs';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 
 @Component({
   selector: 'msp-assist-account-holder',
