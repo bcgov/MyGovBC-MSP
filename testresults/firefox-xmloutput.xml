@@ -1,82 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites disabled="0" errors="0" failures="6" tests="5" time="39.643">
- <testsuite name="firefox.MSP Supplementary Benefits - End to End Test (Happy Path)" timestamp="2019-08-28T13:00:34" hostname="localhost" time="39.643" errors="0" tests="5" skipped="0" disabled="0" failures="6">
-  <testcase classname="firefox.MSP Supplementary Benefits - End to End Test (Happy Path)" name="01. should navigate from Financial Info Page to Confirmation Page (end-to-end) when all required fields are filled out" time="0.123">
-   <failure type="exception" message="Failed: Error while waiting for Protractor to sync with the page: &quot;both angularJS testability and angular testability are undefined.  This could be either because this is a non-angular page or because your test involves client-side navigation, which can interfere with Protractor&apos;s bootstrapping.  See http://git.io/v4gXM for details&quot;"><![CDATA[Error: Error while waiting for Protractor to sync with the page: "both angularJS testability and angular testability are undefined.  This could be either because this is a non-angular page or because your test involves client-side navigation, which can interfere with Protractor's bootstrapping.  See http://git.io/v4gXM for details"
-    at runWaitForAngularScript.then (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/browser.js:463:23)
-    at ManagedPromise.invokeCallback_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:1376:14)
-    at TaskQueue.execute_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3084:14)
-    at TaskQueue.executeNext_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3067:27)
-    at asyncRun (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2927:27)
-    at /space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:668:7
-    at <anonymous>
-    at process._tickCallback (internal/process/next_tick.js:188:7)
-From: Task: Run it("01. should navigate from Financial Info Page to Confirmation Page (end-to-end) when all required fields are filled out") in control flow
-    at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:94:19)
-    at attempt (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4297:26)
-    at QueueRunner.run (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4217:20)
-    at runNext (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4257:20)
-    at /space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4264:13
-    at /space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4172:9
-    at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:64:48
-    at ControlFlow.emit (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/events.js:62:21)
-    at ControlFlow.shutdown_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2674:10)
-    at shutdownTask_.MicroTask (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2599:53)
-From asynchronous test: 
-Error
-    at Suite.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:43:5)
-    at addSpecsToSuite (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1107:25)
-    at Env.describe (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1074:7)
-    at describe (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4399:18)
-    at Object.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:6:1)
-    at Module._compile (module.js:643:30)
-    at Module.m._compile (/space/workspace/MyGovBC-MSP/node_modules/ts-node/src/index.ts:473:23)
-    at Module._extensions..js (module.js:654:10)
-    at Object.require.extensions.(anonymous function) [as .ts] (/space/workspace/MyGovBC-MSP/node_modules/ts-node/src/index.ts:476:12)]]>
-   </failure>
-   <failure type="exception" message="Failed: [Exception... &quot;Component is not available&quot;  nsresult: &quot;0x80040111 (NS_ERROR_NOT_AVAILABLE)&quot;  location: &quot;JS frame :: moz-nullprincipal:{42113193-f3ba-40fe-a2d4-dbd80c774c6b} :: &lt;TOP_LEVEL&gt; :: line 1&quot;  data: no]"><![CDATA[JavascriptError: [Exception... "Component is not available"  nsresult: "0x80040111 (NS_ERROR_NOT_AVAILABLE)"  location: "JS frame :: moz-nullprincipal:{42113193-f3ba-40fe-a2d4-dbd80c774c6b} :: <TOP_LEVEL> :: line 1"  data: no]
-    at Object.throwDecodedError (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/error.js:514:15)
-    at parseHttpResponse (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/http.js:519:13)
-    at doSend.then.response (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/http.js:441:30)
-    at <anonymous>
-    at process._tickCallback (internal/process/next_tick.js:188:7)
-From: Task: WebDriver.executeScript()
-    at Driver.schedule (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/webdriver.js:807:17)
-    at Driver.executeScript (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/webdriver.js:878:16)
-    at run (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/browser.js:59:33)
-    at ProtractorBrowser.to.(anonymous function) [as executeScript] (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/browser.js:67:16)
-    at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:39:17)
-    at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:112:25
-    at new ManagedPromise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:1077:7)
-    at ControlFlow.promise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2505:12)
-    at schedulerExecute (/space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:95:18)
-    at TaskQueue.execute_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3084:14)
-From: Task: Run afterEach in control flow
-    at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:94:19)
-    at attempt (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4297:26)
-    at QueueRunner.run (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4217:20)
-    at runNext (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4257:20)
-    at /space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4264:13
-    at /space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4172:9
-    at Function.next.fail (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4274:9)
-    at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:64:48
-    at ControlFlow.emit (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/events.js:62:21)
-    at ControlFlow.shutdown_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2674:10)
-From asynchronous test: 
-Error
-    at Suite.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:38:5)
-    at addSpecsToSuite (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1107:25)
-    at Env.describe (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1074:7)
-    at describe (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4399:18)
-    at Object.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:6:1)
-    at Module._compile (module.js:643:30)
-    at Module.m._compile (/space/workspace/MyGovBC-MSP/node_modules/ts-node/src/index.ts:473:23)
-    at Module._extensions..js (module.js:654:10)
-    at Object.require.extensions.(anonymous function) [as .ts] (/space/workspace/MyGovBC-MSP/node_modules/ts-node/src/index.ts:476:12)]]>
-   </failure>
-  </testcase>
-  <testcase classname="firefox.MSP Supplementary Benefits - End to End Test (Happy Path)" name="02. should be able to successfully pass test for maximum length for each field" time="10.079">
-   <failure type="exception" message="Failed: No element found using locator: By(css selector, label[for=&quot;agree&quot;])"><![CDATA[NoSuchElementError: No element found using locator: By(css selector, label[for="agree"])
+<testsuites disabled="0" errors="0" failures="1" tests="1" time="12.927">
+ <testsuite name="firefox.MSP Enrolment Page - End to End Test (Happy Path)" timestamp="2019-09-30T13:52:23" hostname="localhost" time="12.927" errors="0" tests="1" skipped="0" disabled="0" failures="1">
+  <testcase classname="firefox.MSP Enrolment Page - End to End Test (Happy Path)" name="01. should navigate Check Eligibility Page to Authorize Page successfully" time="12.923">
+   <failure type="exception" message="Failed: No element found using locator: By(css selector, div[aria-label*=&quot;statausReason&quot;])"><![CDATA[NoSuchElementError: No element found using locator: By(css selector, div[aria-label*="statausReason"])
     at elementArrayFinder.getWebElements.then (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:814:27)
     at ManagedPromise.invokeCallback_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:1376:14)
     at TaskQueue.execute_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3084:14)
@@ -88,14 +14,14 @@ Error
     at ElementArrayFinder.applyAction_ (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:459:27)
     at ElementArrayFinder.(anonymous function).args [as click] (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:91:29)
     at ElementFinder.(anonymous function).args [as click] (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:831:22)
-    at BaseMSPTestPage.agreeConsentModal (/space/workspace/MyGovBC-MSP/e2e/msp.po.ts:120:73)
-    at Object.fillConsentModal (/space/workspace/MyGovBC-MSP/e2e/msp-generic-tests.ts:158:10)
-    at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:63:9)
+    at PersonalInfoPage.clickRadioButton (/space/workspace/MyGovBC-MSP/e2e/enrolment/src/mspe-enrolment.po.ts:119:111)
+    at PersonalInfoPage.fillPage (/space/workspace/MyGovBC-MSP/e2e/enrolment/src/mspe-enrolment.po.ts:101:14)
+    at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/enrolment/src/mspe-happy-path.e2e-spec.ts:42:22)
     at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:112:25
     at new ManagedPromise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:1077:7)
     at ControlFlow.promise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2505:12)
     at schedulerExecute (/space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:95:18)
-From: Task: Run it("02. should be able to successfully pass test for maximum length for each field") in control flow
+From: Task: Run it("01. should navigate Check Eligibility Page to Authorize Page successfully") in control flow
     at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:94:19)
     at attempt (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4297:26)
     at QueueRunner.run (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4217:20)
@@ -108,143 +34,11 @@ From: Task: Run it("02. should be able to successfully pass test for maximum len
     at shutdownTask_.MicroTask (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2599:53)
 From asynchronous test: 
 Error
-    at Suite.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:61:5)
+    at Suite.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/enrolment/src/mspe-happy-path.e2e-spec.ts:39:5)
     at addSpecsToSuite (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1107:25)
     at Env.describe (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1074:7)
     at describe (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4399:18)
-    at Object.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:6:1)
-    at Module._compile (module.js:643:30)
-    at Module.m._compile (/space/workspace/MyGovBC-MSP/node_modules/ts-node/src/index.ts:473:23)
-    at Module._extensions..js (module.js:654:10)
-    at Object.require.extensions.(anonymous function) [as .ts] (/space/workspace/MyGovBC-MSP/node_modules/ts-node/src/index.ts:476:12)]]>
-   </failure>
-  </testcase>
-  <testcase classname="firefox.MSP Supplementary Benefits - End to End Test (Happy Path)" name="03. should navigate to Financial Info Page - currently it navigates to the home page" time="10.854">
-   <failure type="exception" message="Failed: No element found using locator: By(css selector, label[for=&quot;agree&quot;])"><![CDATA[NoSuchElementError: No element found using locator: By(css selector, label[for="agree"])
-    at elementArrayFinder.getWebElements.then (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:814:27)
-    at ManagedPromise.invokeCallback_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:1376:14)
-    at TaskQueue.execute_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3084:14)
-    at TaskQueue.executeNext_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3067:27)
-    at asyncRun (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2927:27)
-    at /space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:668:7
-    at <anonymous>
-    at process._tickCallback (internal/process/next_tick.js:188:7)Error
-    at ElementArrayFinder.applyAction_ (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:459:27)
-    at ElementArrayFinder.(anonymous function).args [as click] (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:91:29)
-    at ElementFinder.(anonymous function).args [as click] (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:831:22)
-    at BaseMSPTestPage.agreeConsentModal (/space/workspace/MyGovBC-MSP/e2e/msp.po.ts:120:73)
-    at Object.fillConsentModal (/space/workspace/MyGovBC-MSP/e2e/msp-generic-tests.ts:158:10)
-    at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:82:9)
-    at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:112:25
-    at new ManagedPromise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:1077:7)
-    at ControlFlow.promise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2505:12)
-    at schedulerExecute (/space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:95:18)
-From: Task: Run it("03. should navigate to Financial Info Page - currently it navigates to the home page") in control flow
-    at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:94:19)
-    at attempt (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4297:26)
-    at QueueRunner.run (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4217:20)
-    at runNext (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4257:20)
-    at /space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4264:13
-    at /space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4172:9
-    at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:64:48
-    at ControlFlow.emit (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/events.js:62:21)
-    at ControlFlow.shutdown_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2674:10)
-    at shutdownTask_.MicroTask (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2599:53)
-From asynchronous test: 
-Error
-    at Suite.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:80:5)
-    at addSpecsToSuite (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1107:25)
-    at Env.describe (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1074:7)
-    at describe (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4399:18)
-    at Object.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:6:1)
-    at Module._compile (module.js:643:30)
-    at Module.m._compile (/space/workspace/MyGovBC-MSP/node_modules/ts-node/src/index.ts:473:23)
-    at Module._extensions..js (module.js:654:10)
-    at Object.require.extensions.(anonymous function) [as .ts] (/space/workspace/MyGovBC-MSP/node_modules/ts-node/src/index.ts:476:12)]]>
-   </failure>
-  </testcase>
-  <testcase classname="firefox.MSP Supplementary Benefits - End to End Test (Happy Path)" name="04. should NOT allow to continue when there is no file upload for POA" time="9.22">
-   <failure type="exception" message="Failed: No element found using locator: By(css selector, label[for=&quot;agree&quot;])"><![CDATA[NoSuchElementError: No element found using locator: By(css selector, label[for="agree"])
-    at elementArrayFinder.getWebElements.then (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:814:27)
-    at ManagedPromise.invokeCallback_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:1376:14)
-    at TaskQueue.execute_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3084:14)
-    at TaskQueue.executeNext_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3067:27)
-    at asyncRun (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2927:27)
-    at /space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:668:7
-    at <anonymous>
-    at process._tickCallback (internal/process/next_tick.js:188:7)Error
-    at ElementArrayFinder.applyAction_ (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:459:27)
-    at ElementArrayFinder.(anonymous function).args [as click] (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:91:29)
-    at ElementFinder.(anonymous function).args [as click] (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:831:22)
-    at BaseMSPTestPage.agreeConsentModal (/space/workspace/MyGovBC-MSP/e2e/msp.po.ts:120:73)
-    at Object.fillConsentModal (/space/workspace/MyGovBC-MSP/e2e/msp-generic-tests.ts:158:10)
-    at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:98:9)
-    at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:112:25
-    at new ManagedPromise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:1077:7)
-    at ControlFlow.promise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2505:12)
-    at schedulerExecute (/space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:95:18)
-From: Task: Run it("04. should NOT allow to continue when there is no file upload for POA") in control flow
-    at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:94:19)
-    at attempt (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4297:26)
-    at QueueRunner.run (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4217:20)
-    at runNext (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4257:20)
-    at /space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4264:13
-    at /space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4172:9
-    at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:64:48
-    at ControlFlow.emit (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/events.js:62:21)
-    at ControlFlow.shutdown_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2674:10)
-    at shutdownTask_.MicroTask (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2599:53)
-From asynchronous test: 
-Error
-    at Suite.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:97:5)
-    at addSpecsToSuite (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1107:25)
-    at Env.describe (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1074:7)
-    at describe (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4399:18)
-    at Object.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:6:1)
-    at Module._compile (module.js:643:30)
-    at Module.m._compile (/space/workspace/MyGovBC-MSP/node_modules/ts-node/src/index.ts:473:23)
-    at Module._extensions..js (module.js:654:10)
-    at Object.require.extensions.(anonymous function) [as .ts] (/space/workspace/MyGovBC-MSP/node_modules/ts-node/src/index.ts:476:12)]]>
-   </failure>
-  </testcase>
-  <testcase classname="firefox.MSP Supplementary Benefits - End to End Test (Happy Path)" name="05. should NOT uncheck POA and clear file/s attached to it when user checks First Person Authorize" time="9.366">
-   <failure type="exception" message="Failed: No element found using locator: By(css selector, label[for=&quot;agree&quot;])"><![CDATA[NoSuchElementError: No element found using locator: By(css selector, label[for="agree"])
-    at elementArrayFinder.getWebElements.then (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:814:27)
-    at ManagedPromise.invokeCallback_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:1376:14)
-    at TaskQueue.execute_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3084:14)
-    at TaskQueue.executeNext_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3067:27)
-    at asyncRun (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2927:27)
-    at /space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:668:7
-    at <anonymous>
-    at process._tickCallback (internal/process/next_tick.js:188:7)Error
-    at ElementArrayFinder.applyAction_ (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:459:27)
-    at ElementArrayFinder.(anonymous function).args [as click] (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:91:29)
-    at ElementFinder.(anonymous function).args [as click] (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:831:22)
-    at BaseMSPTestPage.agreeConsentModal (/space/workspace/MyGovBC-MSP/e2e/msp.po.ts:120:73)
-    at Object.fillConsentModal (/space/workspace/MyGovBC-MSP/e2e/msp-generic-tests.ts:158:10)
-    at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:117:9)
-    at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:112:25
-    at new ManagedPromise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:1077:7)
-    at ControlFlow.promise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2505:12)
-    at schedulerExecute (/space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:95:18)
-From: Task: Run it("05. should NOT uncheck POA and clear file/s attached to it when user checks First Person Authorize") in control flow
-    at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:94:19)
-    at attempt (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4297:26)
-    at QueueRunner.run (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4217:20)
-    at runNext (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4257:20)
-    at /space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4264:13
-    at /space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4172:9
-    at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:64:48
-    at ControlFlow.emit (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/events.js:62:21)
-    at ControlFlow.shutdown_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2674:10)
-    at shutdownTask_.MicroTask (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2599:53)
-From asynchronous test: 
-Error
-    at Suite.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:116:5)
-    at addSpecsToSuite (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1107:25)
-    at Env.describe (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1074:7)
-    at describe (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4399:18)
-    at Object.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:6:1)
+    at Object.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/enrolment/src/mspe-happy-path.e2e-spec.ts:6:1)
     at Module._compile (module.js:643:30)
     at Module.m._compile (/space/workspace/MyGovBC-MSP/node_modules/ts-node/src/index.ts:473:23)
     at Module._extensions..js (module.js:654:10)

@@ -1,41 +1,34 @@
 import { browser } from 'protractor';
-import { FakeDataSupplementaryBenefits } from './mspsb-supp-benefits.data';
-import { EligibilityPage, PreparePage, PersonalInfoPage, SpouseInfoPage, ContactInfoPage, ReviewPage, AuthorizePage } from './mspsb-supp-benefits.po';   
+import { FakeDataEnrolment } from './mspe-enrolment.data';
+import { EligibilityPage, PersonalInfoPage } from './mspe-enrolment.po';   
 import { fillConsentModal } from '../../msp-generic-tests';
 
 describe('MSP Enrolment Page - End to End Test (Happy Path)', () => {
     let eligibilityPage: EligibilityPage;
-    // let preparePage: PreparePage;
-    // let personalPage: PersonalInfoPage;
+    let personalPage: PersonalInfoPage;
     // let spousePage: SpouseInfoPage;
     // let contactPage: ContactInfoPage;
     // let reviewPage: ReviewPage;
     // let authorizePage: AuthorizePage;
 
-    // const data = new FakeDataSupplementaryBenefits;
-    // let personalInfoData;
+    const data = new FakeDataEnrolment;
+    let personalInfoData;
     // let contactData;
 
-    const ELIGIBILITY_PAGE_URL = `msp/enrolment/eligibility`;
-    // const PREPARE_PAGE_URL = `msp/benefit/financial-info`;
-    // const PERSONAL_PAGE_URL = `msp/benefit/personal-info`;
-    // const SPOUSE_PAGE_URL = `msp/benefit/spouse-info`;
-    // const CONTACT_PAGE_URL = `msp/benefit/contact-info`;
-    // const REVIEW_PAGE_URL = `msp/benefit/review`;
-    // const AUTHORIZE_PAGE_URL = `msp/benefit/authorize`;
-    // const CONFIRMATION_PAGE_URL = `msp/benefit/confirmation?confirmationNum=`;
+    // const ELIGIBILITY_PAGE_URL = `msp/enrolment/check-eligibility`;
+    const PERSONAL_PAGE_URL = `msp/enrolment/personal-info`;
+    const SPOUSE_PAGE_URL = `msp/enrolment/spouse-info`;
 
     beforeEach(() => {
         eligibilityPage = new EligibilityPage();
-        // preparePage = new PreparePage();
-        // personalPage = new PersonalInfoPage();
+        personalPage = new PersonalInfoPage();
         // spousePage = new SpouseInfoPage();
         // contactPage = new ContactInfoPage();
         // reviewPage = new ReviewPage();
         // authorizePage = new AuthorizePage();
-        // personalInfoData = data.personalInfo();
+        personalInfoData = data.personalInfo();
         // contactData = data.contactInfo();
-        // data.setSeed();
+        data.setSeed();
     });
 
     afterEach(() => {
@@ -44,13 +37,10 @@ describe('MSP Enrolment Page - End to End Test (Happy Path)', () => {
     });
 
     it('01. should navigate Check Eligibility Page to Authorize Page successfully', () => {
-        fillConsentModal(ELIGIBILITY_PAGE_URL);
-        // eligibilityPage.fillPage();
-        // expect(browser.getCurrentUrl()).toContain(PREPARE_PAGE_URL, 'should navigate to the Financial Info Page');
-        // preparePage.fillPage();
-        // expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL, 'should continue to the Personal Info Page');
-        // personalPage.fillPage(personalInfoData);
-        // expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL, 'should continue to the Spouse Info Page');
+        eligibilityPage.fillPage();
+        expect(browser.getCurrentUrl()).toContain(PERSONAL_PAGE_URL, 'should navigate to the Personal Info Page');
+        personalPage.fillPage(personalInfoData);
+        expect(browser.getCurrentUrl()).toContain(SPOUSE_PAGE_URL, 'should continue to the Spouse Info Page');
         // spousePage.fillPage(personalInfoData);
         // expect(browser.getCurrentUrl()).toContain(CONTACT_PAGE_URL, 'should continue to the Contact Info Page');
         // contactPage.fillPage(contactData);

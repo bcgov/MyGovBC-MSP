@@ -1,6 +1,6 @@
 import { browser, by, element, WebElement, protractor, Key } from 'protractor';
 import { AbstractTestPage } from 'moh-common-lib/e2e';
-import { ContactPageTest } from './mspe-enrolment.data';
+import { ContactPageTest, PersonalInfoPageTest } from './mspe-enrolment.data';
 /**
  * This class is for GENERAL functions, and all those that target components
  * from the moh-common-lib.  The long-term plan will be to move these over to
@@ -28,8 +28,12 @@ export class BaseMSPEnrolmentTestPage extends AbstractTestPage {
         element(by.css(`common-button[ng-reflect-label="${val}"]`)).element(by.cssContainingText('span', `${val}`)).click();
     }
 
-    clickRadioButton(labelVal: string, forVal: string){
-        element(by.css(`common-radio[ng-reflect-label*="${labelVal}"]`)).element(by.css(`label[for*="${forVal}"]`)).click();
+    clickRadioButtonByName(nameVal: string, forVal: string){
+        element(by.css(`common-radio[name^="${nameVal}"]`)).element(by.css(`label[for^="${forVal}"]`)).click();
+    }
+
+    clickRadioButtonByID(idVal: string, forVal: string){
+        element(by.css(`common-radio[id^="${idVal}"]`)).element(by.css(`label[for^="${forVal}"]`)).click();
     }
     
     clickContinue() {
@@ -52,6 +56,8 @@ export class BaseMSPEnrolmentTestPage extends AbstractTestPage {
         element(by.css(`a[href*="${hrefVal}"]`)).element(by.css('span')).click();
     }
 
+
+
 }
 
 export class EligibilityPage extends BaseMSPEnrolmentTestPage {
@@ -60,16 +66,26 @@ export class EligibilityPage extends BaseMSPEnrolmentTestPage {
         super();
     }
 
-    navigateTo() {
-        return browser.get('/msp/enrolment/prepare');
+    fillPage() {
+        this.navigateTo();
+        this.clickAgree();
+        this.clickModalContinue();
+        this.clickRadioButtonByName('LiveInBC', 'true');
+        this.clickRadioButtonByName('PlannedAbsence', 'false');
+        this.clickRadioButtonByName('UnusualCircumstance', 'false');
+        this.clickContinue();
     }
 
-    clickCheckBox() {
+    navigateTo() {
+        return browser.get('/msp/enrolment/check-eligibility');
+    }
+
+    clickAgree() {
         element(by.css('label[for="agree"]')).element(by.css('strong')).click();
     }
 
-    checkModal() {
-        return element(by.css('common-consent-modal')).element(by.css('div[aria-labelledby="myLargeModalLabel"]')).isDisplayed();
+    clickModalContinue() {
+         element(by.cssContainingText('button', 'Continue')).click();
     }
 
 }
@@ -80,18 +96,18 @@ export class PersonalInfoPage extends BaseMSPEnrolmentTestPage {
         super();
     }
 
+    fillPage(data: PersonalInfoPageTest) {
+        this.clickOption('Your immigration status', 'Canadian citizen');
+        this.clickRadioButton('statausReason', '0');
+    }
+
     navigateTo() {
         return browser.get('/msp/enrolment/personal-info');
     }
 
-    typeOption(status: string) {
-        element(by.css('input[role="combobox"]')).sendKeys(status);
-        element(by.css('input[role="combobox"]')).sendKeys(protractor.Key.ENTER);
-    }
-
-    clickOption(status: string) {
-        element(by.css('input[role="combobox"]')).click();
-        element(by.cssContainingText('span', `${status}`)).click();
+    clickOption(idVal: string, status: string) {
+        element(by.css(`input[id^="${idVal}"]`)).click();
+        element(by.cssContainingText('ng-dropdown-panel span', `${status}`)).click();
     }
 
     getInputVal() {

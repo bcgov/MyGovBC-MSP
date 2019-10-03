@@ -10,9 +10,9 @@ exports.config = {
   ],
   multiCapabilities: [{
     'browserName': 'firefox'
-  }, {
+  }], /* {
     'browserName': 'chrome'
-  }],
+  }], */
   directConnect: true,
   baseUrl: 'https://msp-supp-benefit-dev.pathfinder.gov.bc.ca/msp/',
   framework: 'jasmine2',
