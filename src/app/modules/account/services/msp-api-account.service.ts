@@ -407,14 +407,14 @@ export class MspApiAccountService extends AbstractHttpService {
             "beenOutsideBCMoreThan": "Y",
             "departureDate": "1992-01-03",
             "returnDate": "1993-01-03",
-            "familyMemeberReason": "ABCDE",
+            "familyMemberReason": "ABCDE",
             "destination": "ABCDEFGHIJKLM"
           },
           "outsideBCinFuture": {
             "beenOutsideBCMoreThan": "N",
             "departureDate": "1994-01-03",
             "returnDate": "1995-01-03",
-            "familyMemeberReason": "ABCDEFGHIJKLMNOPQRSTUVWXYZA",
+            "familyMemberReason": "ABCDEFGHIJKLMNOPQRSTUVWXYZA",
             "destination": "ABCDEFGHIJKLMNO"
           },
           "willBeAway": {
@@ -466,14 +466,14 @@ export class MspApiAccountService extends AbstractHttpService {
             "beenOutsideBCMoreThan": "Y",
             "departureDate": "2067-02-29",
             "returnDate": "2909-03-62",
-            "familyMemeberReason": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            "familyMemberReason": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
             "destination": "ABCDE"
           },
           "outsideBCinFuture": {
             "beenOutsideBCMoreThan": "Y",
             "departureDate": "1364-08-55",
             "returnDate": "2554-05-99",
-            "familyMemeberReason": "ABCDEFGHIJKLMNOPQRSTUV",
+            "familyMemberReason": "ABCDEFGHIJKLMNOPQRSTUV",
             "destination": "ABCDEFGHIJKLMN"
           },
           "willBeAway": {
@@ -496,9 +496,7 @@ export class MspApiAccountService extends AbstractHttpService {
           "cancellationReason": "ABCDEFGHIJKLMNOPQRST",
           "cancellationDate": "1990-01-03"
         }
-      },
-      "children": []
-    
+      }
   };
 
     return toa;
