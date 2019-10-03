@@ -1,22 +1,12 @@
-import {ChangeDetectorRef, Component, Injectable , ViewChild, ViewChildren , QueryList, Input } from '@angular/core';
+import {ChangeDetectorRef, Component, ViewChild, ViewChildren , QueryList, Input } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Router} from '@angular/router';
 import {BaseComponent} from '../../.././../../models/base.component';
 import {AccountPersonalDetailsComponent} from '../../../components/personal-details/personal-details.component';
-import { MspPerson } from '../../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
-import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
-//import { legalStatus } from '../../../../../models/msp.contants';
-
-import {
-
-  Gender
-} from '../../../../../components/msp/model/msp-person.model';
-
-import { Person } from 'moh-common-lib';
 import { spouseRemovedDueToDivorceDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
-
+import { CancellationReasons } from '../../../../../models/status-activities-documents';
+import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 
 @Component({
   selector: 'msp-remove-spouse',
@@ -24,10 +14,11 @@ import { spouseRemovedDueToDivorceDocuments } from 'app/modules/msp-core/compone
   styleUrls: ['./remove-spouse.component.scss']
 })
 export class RemoveSpouseComponent extends BaseComponent {
-  
+
   //static ProcessStepNum = 1;
- 
+
   docSelected: string ;
+
   //langActivities = require('../../../../components/msp/common/activities/i18n');
 
   //langStatus = legalStatus;
@@ -66,7 +57,7 @@ export class RemoveSpouseComponent extends BaseComponent {
 
   setCancellationStatus(evt: any) {
     console.log(evt);
-    if(evt === 1) {
+    if (evt === 1) {
       this.spouse.reasonForCancellation = evt;
     }
     //this.dataService.saveMspAccountApp();
@@ -80,5 +71,34 @@ export class RemoveSpouseComponent extends BaseComponent {
    // this.dataService.saveMspAccountApp();
   }
 
- 
+
+  get cancellationReasons() {
+    return[
+      {
+        'label': 'Seperated/Divorced',
+        'value': CancellationReasons.SeparatedDivorced
+      },
+      {
+        'label': 'Remove from Account but still married/common-law',
+        'value': CancellationReasons.RemoveFromAccountButStillMarriedOrCommomLaw
+      },
+      {
+        'label': 'Deceased',
+        'value': CancellationReasons.Deceased
+      },
+      {
+        'label': 'Out of province/ Out of Country move',
+        'value': CancellationReasons.OutOfProvinceOrCountry
+      },
+      {
+        'label': 'Armed Forces',
+        'value': CancellationReasons.ArmedForces
+      },
+      {
+        'label': 'Incarcerated',
+        'value': CancellationReasons.Incarcerated
+      },
+  ];}
+
+
 }

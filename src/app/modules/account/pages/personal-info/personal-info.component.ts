@@ -1,28 +1,16 @@
-import {ChangeDetectorRef, Component, Injectable , ViewChild, ViewChildren , QueryList, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import {Component, Injectable , ViewChild, ViewChildren , QueryList, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
-import {BaseComponent} from '../../../../models/base.component';
-import {ProcessUrls} from '../../../../services/process.service';
 import {AccountPersonalDetailsComponent} from '../../components/personal-details/personal-details.component';
-import { MspPerson } from '../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/account.model';
-//import { StatusInCanada, CanadianStatusReason, CanadianStatusReasonStrings, CanadianStatusStrings, CanadianStatusRules } from '../../../msp-core/models/canadian-status.enum';
-//import { Relationship } from '../../../msp-core/models/relationship.enum';
-//import { ActivitiesRules } from '../../../msp-core/models/status-activities-documents';
-//import { Activities,  ActivitiesRules, Documents } from '../../../../models/status-activities-documents';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { PersonDocuments } from 'app/components/msp/model/person-document.model';
-import { Base, AbstractForm } from 'moh-common-lib';
+import { AbstractForm } from 'moh-common-lib';
 import { PageStateService } from 'app/services/page-state.service';
-import { ROUTES_ENROL } from 'app/modules/enrolment/models/enrol-route-constants';
-import { ROUTES_ACCOUNT } from '../../models/enrol-route-constants';
-
-import { StatusInCanada, CanadianStatusReason,CanadianStatusStrings, CanadianStatusRules } from '../../../msp-core/models/canadian-status.enum';
+import { StatusInCanada, CanadianStatusReason, CanadianStatusStrings } from '../../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../../models/relationship.enum';
-//import { getStatusReasonStrings } from '../../../msp-core/components/canadian-status/canadian-status.component';
-// import { Canadian }
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 
 
 @Component({
@@ -78,7 +66,7 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
   ngOnDestroy() {
     this.subscriptions.forEach( itm => itm.unsubscribe() );
   }
-  
+
   ngAfterViewInit() {
     if (this.form) {
       this.subscriptions = [
@@ -91,7 +79,7 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
     }
   }
 
-  
+
     get applicant(): MspPerson {
         return this.dataService.accountApp.applicant;
     }
@@ -105,7 +93,7 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
 
     }
 
-   
+
 
     personInfoUpdateOnChange(event: boolean) {
 
@@ -161,7 +149,7 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
         return this.isAllValid();
     }*/
 
-   
+
 
     isValid(): boolean {
       return this.dataService.accountApp.isUniquePhnsInPI ;
@@ -171,7 +159,7 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
     statusLabel(): string {
         return 'You Status in Canada';
     }
-   
+
 
    /* get activitiesTable() {
       console.log(this.activities);
@@ -197,7 +185,7 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
       6: 'Diplomat',
       7: 'Visiting'
     };
-  
+
   get activities(): Activities[] {
       console.log( this.person.relationship);
       console.log( this.person.status);
@@ -209,15 +197,15 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
 
   get items()   {
         return[
-        { 
+        {
           "label": "Canadian birth certificate",
           "value": Documents.CanadianBirthCertificate
         },
-        { 
+        {
           "label": "Canadian Passport",
           "value": Documents.CanadianPassport
         },
-        { 
+        {
           "label": "Canadian citizenship card or certificate",
           "value": Documents.CanadianCitizenCard
         }
@@ -277,9 +265,9 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
         ];
 
     }*/
-    
-    
-    
+
+
+
 
     setStatus(value: StatusInCanada, p: MspPerson) {
         if (typeof value === 'object') return;
@@ -310,11 +298,11 @@ export class AccountPersonalInfoComponent extends AbstractForm implements OnInit
 
     canContinue(): boolean {
       let valid = super.canContinue();
-  
+
       if ( this.applicant.hasNameChange ) {
         valid = valid;
       }
-  
+
       if ( this.applicant.fullTimeStudent ) {
         valid = valid && this.applicant.inBCafterStudies;
       }

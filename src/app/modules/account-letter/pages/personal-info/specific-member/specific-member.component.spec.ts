@@ -2,8 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SpecificMemberComponent } from './specific-member.component';
 import {
-  EnrollmentStatusRules,
-  Relationship,
   MSPEnrollementMember
 } from '../../../../../models/status-activities-documents';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +10,6 @@ import { MspACLService } from '../../../services/msp-acl-api.service';
 import { MspDataService } from '../../../../../services/msp-data.service';
 import { MspLogService } from '../../../../../services/log.service';
 import { TextMaskModule } from 'angular2-text-mask';
-import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 
 describe('SpecificMemberComponent', () => {
   let component: SpecificMemberComponent;

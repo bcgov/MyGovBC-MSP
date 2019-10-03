@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { StatusInCanada } from '../../model/status-activities-documents';
 import { ModalModule } from 'ngx-bootstrap';
 
 import { ServicesCardDisclaimerModalComponent } from './services-card-disclaimer.component';

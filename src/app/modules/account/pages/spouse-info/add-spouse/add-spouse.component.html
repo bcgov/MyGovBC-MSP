@@ -35,10 +35,8 @@
       <div *ngIf="accountChangeOptions.spouseInfoUpdate" >
         <msp-update-request title="What updates are you requesting for your spouse?" 
             subtitle = "For each update or correction selected, provide the supporting documents." 
-            [activitiesTable]="activitiesTable"
-            [updateList]="accountUpdateList" 
-            [person]="spouse" 
-            [accountApp]="accountApp">
+            [person]="spouse"
+            [accountApp]="accountApp" >
         </msp-update-request>
     </div>
   </div>

@@ -1,8 +1,6 @@
 import {EventEmitter, Output, Component, Input, forwardRef } from '@angular/core';
-import { MspPerson } from '../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
-import { ActivatedRoute } from '@angular/router';
-import { MspAccountApp, AccountChangeOptions, UpdateList, ItemList } from '../../models/account.model';
+import { MspAccountApp, UpdateList, ItemList } from '../../models/account.model';
 
 import {
   nameChangeSupportDocuments,
@@ -13,10 +11,10 @@ import {
 } from '../../../msp-core/components/support-documents/support-documents.component';
 import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.enum';
 import { PersonDocuments } from 'app/components/msp/model/person-document.model';
-import { extend } from 'webdriver-js-extender';
 import { Base } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 
 
 @Component({
@@ -67,7 +65,7 @@ export class UpdateRequestComponent extends Base {
 
   //statusValue: number;
  //  = legalStatus;
-  constructor(private dataService: MspAccountMaintenanceDataService) {
+  constructor() {
     super();
     //this.mspAccountApp = dataService.getMspAccountApp();
 
@@ -75,7 +73,7 @@ export class UpdateRequestComponent extends Base {
   }
 
   ngOnInit() {
-    this.person = this.dataService.getMspAccountApp().applicant ;
+    //this.person = this.dataService.getMspAccountApp().applicant ;
 
     if (this.person.status >= 0 &&  this.person.status !== undefined) {
       //this.itemList = this.item(this.person.status);
@@ -87,9 +85,9 @@ export class UpdateRequestComponent extends Base {
   }
 
   set statusDocuments( document: PersonDocuments ) {
-    
+
     this.person.updateStatusInCanadaDocType = document;
-    
+
     if ( document.images && document.images.length === 0 ) {
 
       // no status documents remove any name documents
@@ -113,10 +111,10 @@ export class UpdateRequestComponent extends Base {
 
     }
 
-   
+
   }
- 
-  
+
+
 
 
 
@@ -200,36 +198,36 @@ activityStatus  =  {
   5: 'Religious worker',
   6: 'Diplomat',
   7: 'Visiting'
-}; 
+};
 
 public item(status: any)   {
   console.log(status);
   if(status === 0) {
     return[
-      { 
+      {
         "label": "Canadian birth certificate",
         "value": Documents.CanadianBirthCertificate
       },
-      { 
+      {
         "label": "Canadian Passport",
         "value": Documents.CanadianPassport
       },
-      { 
+      {
         "label": "Canadian citizenship card or certificate",
         "value": Documents.CanadianCitizenCard
       }
     ]
   } else  if(status === 1) {
     return [
-      { 
+      {
         "label": "Confirmation Of Permanent Residence",
         "value": Documents.PermanentResidentConfirmation
       },
-      { 
+      {
         "label": "Permanent Resident Card (front and back)",
         "value": Documents.PermanentResidentCard
       },
-      { 
+      {
         "label": "Record Of Landing",
         "value": Documents.RecordOfLanding
       }
@@ -241,15 +239,15 @@ public item(status: any)   {
 get items()   {
 
   return[
-  { 
+  {
     "label": "Canadian birth certificate",
     "value": Documents.CanadianBirthCertificate
   },
-  { 
+  {
     "label": "Canadian Passport",
     "value": Documents.CanadianPassport
   },
-  { 
+  {
     "label": "Canadian citizenship card or certificate",
     "value": Documents.CanadianCitizenCard
   }
@@ -258,15 +256,15 @@ get items()   {
 get nameChangeitems(){
 
   return[
-  { 
+  {
     "label": "Marriage certificate",
     "value": Documents.MarriageCertificate
   },
-  { 
+  {
     "label": "Legal Name change certificate",
     "value": Documents.ChangeOfNameCertificate
   },
-  { 
+  {
     "label": "Divorce Decree",
     "value": Documents.DivorceDecree
   }
@@ -275,39 +273,39 @@ get nameChangeitems(){
 get correctNameDocs(){
 
   return[
-  { 
+  {
     "label": "Canadian Birth certificate",
     "value": Documents.CanadianBirthCertificate
   },
-  { 
+  {
     "label": "Canadian Citizenship card or certificate",
     "value": Documents.CanadianCitizenCard
   },
-  { 
+  {
     "label": "Canadian Passport",
     "value": Documents.CanadianPassport
   },
-  { 
+  {
     "label": "Permanent Resident Card",
     "value": Documents.PermanentResidentCard
   },
-  { 
+  {
     "label": "Confirmation of permanent residence",
     "value": Documents.PermanentResidentConfirmation
   },
-  { 
+  {
     "label": "Record of landing",
     "value": Documents.RecordOfLanding
   },
-  { 
+  {
     "label": "Study Permit",
     "value": Documents.StudyPermit
   },
-  { 
+  {
     "label": "Work Permit",
     "value": Documents.WorkPermit
   },
-  { 
+  {
     "label": "Visitor Permit",
     "value": Documents.VisitorVisa
   },
@@ -316,43 +314,43 @@ get correctNameDocs(){
 get correctBirthDateDocs(){
 
   return[
-  { 
+  {
     "label": "BC Driver's License",
     "value": Documents.DriverLicense
   },
-  { 
+  {
     "label": "Canadian birth certificate",
     "value": Documents.CanadianBirthCertificate
   },
-  { 
+  {
     "label": "Canadian citizenship card or certificate",
     "value": Documents.CanadianCitizenCard
   },
-  { 
+  {
     "label": "Canadian passport",
     "value": Documents.CanadianPassport
   },
-  { 
+  {
     "label": "Permanent Resident Card",
     "value": Documents.PermanentResidentCard
   },
-  { 
+  {
     "label": "Confirmation of Permanent Residence",
     "value": Documents.PermanentResidentConfirmation
   },
-  { 
+  {
     "label": "Record Of Landing",
     "value": Documents.RecordOfLanding
   },
-  { 
+  {
     "label": "Study Permit",
     "value": Documents.StudyPermit
   },
-  { 
+  {
     "label": "Work Permit",
     "value": Documents.WorkPermit
   },
-  { 
+  {
     "label": "Visitor Permit",
     "value": Documents.VisitorVisa
   },
@@ -361,23 +359,23 @@ get correctBirthDateDocs(){
 get changeGenderDesignationDocs(){
 
   return[
-  { 
+  {
     "label": "Canadian Birth certificate",
     "value": Documents.MarriageCertificate
   },
-  { 
+  {
     "label": "Application for change of gender designation (Adult)",
     "value": Documents.ChangeGenderAdultApplication
   },
-  { 
+  {
     "label": "Application for change of gender designation (child)",
     "value": Documents.ChangeGenderChildApplication
   },
-  { 
+  {
     "label": "Physician's or Psychologist confirmation of change of gender designation form",
     "value": Documents.ChangeGenderPhyscianConfirmation
   },
-  { 
+  {
     "label": "Request for waiver of parental consent (minor)",
     "value": Documents.ParentalConsentWaiver
   }
@@ -386,15 +384,15 @@ get changeGenderDesignationDocs(){
 
 get permanentResidentDocs() {
   return [
-    { 
+    {
       "label": "Confirmation Of Permanent Residence",
       "value": Documents.PermanentResidentConfirmation
     },
-    { 
+    {
       "label": "Permanent Resident Card (front and back)",
       "value": Documents.PermanentResidentCard
     },
-    { 
+    {
       "label": "Record Of Landing",
       "value": Documents.RecordOfLanding
     }
@@ -402,27 +400,27 @@ get permanentResidentDocs() {
 
 get workPermitDocs() {
   return [
-    { 
+    {
       "label": "Work Permit",
       "value": Documents.WorkPermit
     },
-    { 
+    {
       "label": "Study Permit",
       "value": Documents.StudyPermit
     },
-    { 
+    {
       "label": "Acceptance to work in Canada",
       "value": Documents.WorkInCanadaAcceptance
     },
-    { 
+    {
       "label": "Acceptance foil from your Diplomatic Passport",
       "value": Documents.DiplomaticPassportAcceptance
     },
-    { 
+    {
       "label": "Notice of Decision",
       "value": Documents.NoticeOfDecision
     },
-    { 
+    {
       "label": "Permit indicating Religious Worker",
       "value": Documents.ReligiousWorker
     }
@@ -441,6 +439,6 @@ enum canadaStatus {
   CitizenAdult, // adult
   PermanentResident,
   TemporaryResident
-  
+
 }
 */

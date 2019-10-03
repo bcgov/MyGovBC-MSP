@@ -2,11 +2,9 @@
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
-import {ProcessService, ProcessUrls} from '../../../../services/process.service';
-import { environment } from '../../../../../environments/environment';
-import { MspAccountApp, MspPerson } from '../../models/account.model';
-import { ChangeDetectorRef, Input, Component, ViewChild, ElementRef, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { Address, PROVINCE_LIST, COUNTRY_LIST, CheckCompleteBaseService, AbstractForm } from 'moh-common-lib';
+import { MspAccountApp } from '../../models/account.model';
+import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
+import { PROVINCE_LIST, COUNTRY_LIST, AbstractForm } from 'moh-common-lib';
 
 import {
   CountryList,
@@ -15,8 +13,6 @@ import {
   BRITISH_COLUMBIA
 } from 'moh-common-lib';
 
-import { BaseComponent } from '../../../../models/base.component';
-import { PageStateService } from 'app/services/page-state.service';
 import { Subscription } from 'rxjs';
 
 
@@ -32,60 +28,57 @@ export class ContactInfoComponent extends AbstractForm implements OnInit, AfterV
    addAnotherOutsideBCPersonButton = 'Add Another Person';
    sameMailingAddress = 'Use this as my mailing address.';
    provideDifferentMailingAddress = 'I want to provide a mailing address that is different from the residential address above.';
- 
+
    static ProcessStepNum = 3;
- 
+
    @ViewChild('formRef') form: NgForm;
    @ViewChild('address') address: ElementRef;
    @ViewChild('mailingAddress') mailingAddress: ElementRef;
    @ViewChild('phone') phone: ElementRef;
- 
+
    countryList: CountryList[] = COUNTRY_LIST;
    provinceList: ProvinceList[] = PROVINCE_LIST;
- 
+
    public defaultCountry = CANADA;
    public defaultProvince = BRITISH_COLUMBIA;
- 
+
    mspAccountApp: MspAccountApp;
    subscriptions: Subscription[];
- 
+
    constructor(private dataService: MspAccountMaintenanceDataService,
-               private _router: Router,
-               private _processService: ProcessService,
-               private cd: ChangeDetectorRef,
-               protected router: Router,  private pageStateService: PageStateService) {
+               protected router: Router) {
      super(router);
      this.mspAccountApp = this.dataService.accountApp;
    }
- 
+
    ngOnInit(){
       //this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
-    
+
    }
 
    toggleCheckBox(){
     this.mspAccountApp.mailingSameAsResidentialAddress = !this.mspAccountApp.mailingSameAsResidentialAddress;
     this.dataService.saveMspAccountApp();
   }
- 
+
    ngAfterViewInit(): void {
 
    /*  if ( this.mspAccountApp.mailingAddress.addressLine1 != null) {
         this.dataService.accountApp.mailingAddress.hasValue = true;
      }
- 
+
      if ( this.mspAccountApp.mailingAddress.province === undefined || this.mspAccountApp.mailingAddress.province === null ) {
         this.dataService.accountApp.mailingAddress.province = '';
      }
- 
+
      this.form.valueChanges.subscribe(values => {
        this.dataService.saveMspAccountApp();
      });*/
    }
 
-   
 
- 
+
+
    handlePhoneNumberChange(evt: any) {
      this.mspAccountApp.phoneNumber = evt;
     // this.dataService.saveBenefitApplication();
@@ -100,9 +93,9 @@ export class ContactInfoComponent extends AbstractForm implements OnInit, AfterV
      }
   //   this.dataService.saveBenefitApplication();
    }
- 
+
    canContinue(): boolean {
-    let valid = super.canContinue(); // && this.hasStatusDocuments;
+    const valid = super.canContinue(); // && this.hasStatusDocuments;
 /*
     if ( this.applicant.hasNameChange ) {
       valid = valid && this.hasNameDocuments;
@@ -114,7 +107,7 @@ export class ContactInfoComponent extends AbstractForm implements OnInit, AfterV
     return valid;
   }
 
- 
+
   continue(): void {
     if (!this.canContinue()) {
       console.log('Please fill in all required fields on the form.');

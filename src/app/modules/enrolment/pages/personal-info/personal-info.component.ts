@@ -3,13 +3,11 @@ import { MspDataService } from '../../../../services/msp-data.service';
 import { Router } from '@angular/router';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
-import { MspPerson } from '../../../account/models/account.model';
-import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
+import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { EnrolForm } from '../../models/enrol-form';
-import { SampleModalComponent } from 'moh-common-lib';
-
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 
 @Component({
   templateUrl: './personal-info.component.html'
@@ -18,8 +16,6 @@ import { SampleModalComponent } from 'moh-common-lib';
 export class PersonalInfoComponent extends EnrolForm {
 
   nameChangeDocList = nameChangeSupportDocuments();
-
-  @ViewChild('sampleDocs') sampleDocs: SampleModalComponent;
 
   constructor( protected router: Router,
                protected dataService: MspDataService,
@@ -51,16 +47,16 @@ export class PersonalInfoComponent extends EnrolForm {
   }
 
   get hasStatusDocuments(): boolean {
-    return this.statusDocuments.images && this.statusDocuments.images.length > 0;
+    return this.statusDocuments.images !== undefined && this.statusDocuments.images.length > 0;
   }
 
-  get hasStatus() {
+  get hasStatus(): boolean  {
     // Has to have values
     return this.applicant.status !== undefined &&
            this.applicant.currentActivity !== undefined;
   }
 
-  get requestNameChangeInfo() {
+  get requestNameChangeInfo(): boolean  {
     return this.hasStatus && this.applicant.hasNameChange && this.hasStatusDocuments;
   }
 
@@ -69,13 +65,23 @@ export class PersonalInfoComponent extends EnrolForm {
   }
 
   get requestPersonalInfo(): boolean {
-    return this.hasStatus && this.hasStatusDocuments &&
-           ( this.applicant.hasNameChange === false || // No name change
-            ( this.applicant.hasNameChange && this.hasNameDocuments )); // name change requires documentation
+    return !!(this.hasStatus && this.hasStatusDocuments &&
+             ( this.applicant.hasNameChange === false || // No name change
+             ( this.applicant.hasNameChange && this.hasNameDocuments ))); // name change requires documentation
   }
 
-  get isTemporaryResident() {
+  get isTemporaryResident(): boolean  {
     return this.applicant.status === StatusInCanada.TemporaryResident;
+  }
+
+  get requestSchoolInfo() {
+    if ( this.applicant.status === StatusInCanada.CitizenAdult &&
+         this.applicant.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP) {
+      return this.applicant.livedInBCSinceBirth !== undefined &&
+             this.applicant.livedInBCSinceBirth !== null &&
+             this.applicant.madePermanentMoveToBC;
+    }
+    return this.applicant.madePermanentMoveToBC || this.isTemporaryResident;
   }
 
   canContinue(): boolean {

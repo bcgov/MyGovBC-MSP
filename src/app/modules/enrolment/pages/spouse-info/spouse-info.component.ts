@@ -82,9 +82,9 @@ export class SpouseInfoComponent extends EnrolForm {
   }
 
   get requestPersonalInfo(): boolean {
-    return this.hasStatus && this.hasStatusDocuments &&
-           ( this.spouse.hasNameChange === false || // No name change
-            ( this.spouse.hasNameChange && this.hasNameDocuments )); // name change requires documentation
+    return !!(this.hasStatus && this.hasStatusDocuments &&
+             ( this.spouse.hasNameChange === false || // No name change
+             ( this.spouse.hasNameChange && this.hasNameDocuments ))); // name change requires documentation
   }
 
   get isTemporaryResident() {

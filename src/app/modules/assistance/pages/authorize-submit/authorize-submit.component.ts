@@ -11,69 +11,7 @@ import { BaseComponent } from '../../../../models/base.component';
 import { CommonImage } from 'moh-common-lib';
 
 @Component({
-  template: `
-    <ng-container *ngIf="!stateSvc.submitted">
-      <common-page-section layout="noTips">
-        <h1>{{ title }}</h1>
-        <p>
-          {{ declarationOne }}<em>{{ declarationOneEm }}</em
-          >{{ declarationOneB }}
-        </p>
-
-        <p>{{ declarationTwo }}</p>
-      </common-page-section>
-      <form #form="ngForm">
-       <div>
-          <p>{{ questionApplicant }}</p>
-          <div class=" mb-3">
-            <common-checkbox class="form-check-inline" label="{{agreeLabel}}"
-                             [(data)]="application.authorizedByApplicant"
-                             [required]='true'></common-checkbox>
-            <common-error-container [displayError]="(touched$ | async) && !application.authorizedByApplicant">
-              Field is required
-            </common-error-container>
-          </div>
-        </div>
-        <div>
-          <p>{{ questionForAttorney }}</p>
-          <div class="form-check form-check-inline mb-3">
-            <common-checkbox label="{{poaAgreeLabel}}"
-                             [(data)]="application.authorizedByAttorney"></common-checkbox>
-
-          </div>
-        </div>
-
-        <div style="margin-top: 20px;" *ngIf="application.authorizedByAttorney">
-          <label for="">Power of Attorney document or another legal representation agreement (required)</label>
-          <common-file-uploader
-            #fileUploader
-            [images]="application.powerOfAttorneyDocs"
-            [id]="application.id"
-            (onAddDocument)="addDocument($event)"
-            (onErrorDocument)="errorDocument($event)"
-            (onDeleteDocument)="deleteDocument($event)"
-            (imagesChange)="updateFiles($event)"
-            instructionText="Click add or drag and drop documents"
-          >
-            <span id="uploadInstruction" #uploadInstruction>
-              Please upload required power of attorney documents
-            </span>
-          </common-file-uploader>
-          <common-image-error-modal #mspImageErrorModal></common-image-error-modal>
-        </div>
-        <div class="row">
-          <div class="col-lg-8">
-            <common-captcha
-              [apiBaseUrl]="captchaApiBaseUrl"
-              [nonce]="application.uuid"
-              (onValidToken)="setToken($event)"
-            ></common-captcha>
-          </div>
-        </div>
-      </form>
-    </ng-container>
-    <msp-confirmation *ngIf="stateSvc.submitted"></msp-confirmation>
-  `
+  templateUrl: './authorize-submit.component.html'
 })
 export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements OnInit {
 
@@ -97,13 +35,13 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
   get questionApplicant() {
     return `${
       this.applicantName
-    } (or legal representative), do you agree?`;
+      } (or legal representative), do you agree?`;
   }
 
   get questionForAttorney() {
     return `Do you have Power of Attorney or another legal representation agreement to apply on behalf of ${
       this.applicantName
-    }?`;
+      }?`;
   }
   get applicantName() {
     return (
@@ -133,23 +71,23 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
   @ViewChild('form') form: NgForm;
 
   ngOnInit() {
-    this.stateSvc.setPageIncomplete( this.route.snapshot.routeConfig.path );
+    this.stateSvc.setPageIncomplete(this.route.snapshot.routeConfig.path);
   }
 
   ngAfterViewInit(): void {
     this.subscriptionList.push(
       this.form.valueChanges.subscribe(() => {
 
-        console.log( 'form: ', this.form );
+        console.log('form: ', this.form);
 
-        this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, this.isPageValid() );
+        this.stateSvc.setPageValid(this.route.snapshot.routeConfig.path, this.isPageValid());
         this.dataService.saveFinAssistApplication();
       })
     );
 
     setTimeout(
       () =>
-      this.subscriptionList.push(
+        this.subscriptionList.push(
           this.stateSvc.touched.asObservable().subscribe(obs => {
             if (obs) {
               const controls = this.form.form.controls;
@@ -208,8 +146,8 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
     let isValid = this.form.valid && this.hasToken;
 
     // Power of Attorney must have documents if selected
-    if ( this.application.authorizedByAttorney ) {
-      console.log( 'Need power of attorney docs' );
+    if (this.application.authorizedByAttorney) {
+      console.log('Need power of attorney docs');
       isValid = isValid && this.application.powerOfAttorneyDocs.length > 0;
     }
     return isValid;
@@ -218,8 +156,8 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
   setToken(token): void {
     this.hasToken = true;
 
-    this.stateSvc.setPageValid( this.route.snapshot.routeConfig.path, this.isPageValid() );
-    this.application.authorizationToken  = token;
+    this.stateSvc.setPageValid(this.route.snapshot.routeConfig.path, this.isPageValid());
+    this.application.authorizationToken = token;
   }
 
   ngOnDestroy() {
