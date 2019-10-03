@@ -39,26 +39,18 @@
     </div>
   </div>
   <div style="margin-top: 20px;" *ngIf="application.authorizedByAttorney">
-    <label for="">Power of Attorney document or another legal representation agreement (required)</label>
-    <common-file-uploader #fileUploader class="row" 
-          [images]="application.powerOfAttorneyDocs" (imagesChange)="uploadDocument($event)"
-          id="application.id" [instructionText]="'Please upload required Power of Attorney or another legal representation agreement'">
-    </common-file-uploader>
-    <!--<common-file-uploader #fileUploader
-                       [images]="application.powerOfAttorneyDocs"
-                       [id]='application.id'
-                       (onAddDocument)="addDocument($event)"
-                       (onErrorDocument)="errorDocument($event)"
-                       (onDeleteDocument)="deleteDocument($event)">
-            <span id="uploadInstruction"
-                  #uploadInstruction
-            >
-              Please upload required power of attorney documents
-            </span>
-
-    </common-file-uploader>-->
-    <common-image-error-modal #mspImageErrorModal></common-image-error-modal>
-  </div>
+    
+    <h2>Documents</h2>
+    <p class="help-block border-bottom">Power of Attorney document or another legal representation agreement (required)</p>
+    <div class="row">
+      <div style="margin-left: 30px;">      
+        <common-file-uploader #fileUploader class="row" 
+              [images]="application.powerOfAttorneyDocs" (imagesChange)="uploadDocument($event)"
+              id="application.id" [instructionText]="'Please upload required Power of Attorney or another legal representation agreement'">
+        </common-file-uploader>
+      </div>
+    </div>
+     </div>
   <br><br>
   <div class="row">
     <div class="col-lg-8">

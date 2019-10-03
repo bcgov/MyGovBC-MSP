@@ -1,5 +1,5 @@
 <common-page-framework layout="blank">
-<form #formRef="ngForm" novalidate (submit)="handleFormSubmission($event)">
+    <form #formRef="ngForm" novalidate>
     <div class="col-lg-8">   
     <h1> <strong>Authorize and submit your application</strong> </h1> <br> 
      <p>I have received information about MSP and agree to abide by its terms and conditions. I understand the information I have given is collected under the authority of the Medicare Protection Act and may be used to assess eligibility for other Ministry of Health programs, and that practitioners who provide service(s) under MSP are required under the Medicare Protection Act to release information relative to those services to MSP to support claims for benefits.</p> 
@@ -106,6 +106,7 @@
 </common-page-framework>
 <div class="position: inherit;">
     <common-form-action-bar [submitLabel]="lang('./en/index.js').submitButton"
+        (btnClick)="continue()"
         [canContinue]="mspAccountApp.authorizedByApplicant || ((mspAccountApp.updatedSpouse || mspAccountApp.addedSpouse ) && !mspAccountApp.authorizedBySpouse)" (btnClick)="handleFormSubmission($event)">
     </common-form-action-bar>
 </div>

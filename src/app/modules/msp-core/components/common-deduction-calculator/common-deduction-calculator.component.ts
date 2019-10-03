@@ -327,6 +327,16 @@ export class CommonDeductionCalculatorComponent implements DoCheck {
                 this.continue.emit(false);
                 return false;
             }
+
+            if (this.application.numberOfChildrenWithDisability && (this.application.numberOfChildrenWithDisability > this.application.childrenCount)) {
+                this.continue.emit(false);
+                return false;
+            }
+
+            if (this.application.childWithAttendantCareCount && (this.application.childWithAttendantCareCount > this.application.childrenCount)) {
+              this.continue.emit(false);
+              return false;
+            }
         }
 
         // checking if the total income does not exceeds 999999.99

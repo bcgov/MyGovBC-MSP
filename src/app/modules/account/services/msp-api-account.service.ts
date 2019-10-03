@@ -62,6 +62,7 @@ export class MspApiAccountService extends AbstractHttpService {
   sendRequest(app: MspAccountApp): Promise<any> {
 
     const suppBenefitRequest = this.prepareAccountApplication(app);
+    console.log(suppBenefitRequest);
 
     return new Promise<AccountMaintenanceApiResponse>((resolve, reject) => {
       //Validating the response against the schema
@@ -155,9 +156,10 @@ export class MspApiAccountService extends AbstractHttpService {
       'Response-Type': 'application/json',
       'X-Authorization': 'Bearer ' + authToken
     });
-    return this.http.post<MspAccountApp>(url, app);
+    return this.post<MspAccountApp>(url, app);
   }
 
+ 
   public sendAttachments(
     token: string,
     applicationUUID: string,
@@ -333,9 +335,182 @@ export class MspApiAccountService extends AbstractHttpService {
     // return of([]);
   }
 
+  convertSampleResponse(from: MspAccountApp): AccountChangeApplicationType {
+    const toa: any = {
+      "accountHolder": {
+        "name": {
+          "firstName": "Accountholder",
+          "lastName": "AccountholderLastname",
+          "secondName": "AccountholderMiddleName"
+        },
+        "gender": "F",
+        "birthDate": "1990-01-03",
+        "phn": "9214213255",
+        "residenceAddress": {
+          "addressLine1": "ABCDEFGHIJKLM",
+          "city": "ABCDEFGHIJ",
+          "postalCode": "ABCDEFGHIJKLMNOPQRSTU",
+          "provinceOrState": "ABCDEFGHIJKLMNOPQ",
+          "country": "ABCDEFGHIJKLMN",
+          "addressLine2": "ABCDEFGHIJKLMNOPQRSTUVWX",
+          "addressLine3": "ABCDEFGHIJKLMNOPQRST"
+        },
+        "authorizedByApplicant": "N",
+        "authorizedByApplicantDate": "2019-01-03",
+        "selectedAddressChange": "Y",
+        "selectedPersonalInfoChange": "Y",
+        "selectedAddRemove": "Y",
+        "selectedStatusChange": "N",
+        "attachmentUuids": [
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZABC"
+        ],
+        "telephone": "8902205701",
+        "mailingAddress": {
+          "addressLine1": "ABCDEFGHIJ",
+          "city": "ABCDEFGHIJKLMNOPQRSTU",
+          "postalCode": "ABCDEFGHIJKLMNOPQR",
+          "provinceOrState": "ABCD",
+          "country": "ABCDEFGHIJKLMNOPQRSTUV",
+          "addressLine2": "ABCDEFGHI",
+          "addressLine3": "ABCDEFGHIJKLMNOPQRS"
+        },
+        "citizenship": "WorkPermit",
+        "authorizedBySpouse": "Y"
+      },
+      "spouses": {
+        "removedSpouse": {
+          "name": {
+            "firstName": "ABCD",
+            "lastName": "ABCDEF",
+            "secondName": "ABCDEFGHIJK"
+          },
+          "birthDate": "1990-01-03",
+          "gender": "F",
+          "phn": "9214213255",
+          "attachmentUuids": [
+            "ABCDEFGHIJKLMNOPQRS"
+          ],
+          "citizenship": "ReligiousWorker",
+          "previousCoverage": {
+            "hasPreviousCoverage": "Y",
+            "prevPHN": "7179189832"
+          },
+          "livedInBC": {
+            "hasLivedInBC": "Y",
+            "recentBCMoveDate": "1992-01-03",
+            "recentCanadaMoveDate": "1990-01-03",
+            "isPermanentMove": "N",
+            "prevProvinceOrCountry": "ABCDEFGHIJKLMNOPQRST",
+            "prevHealthNumber": "ABCDEFGHIJKLMNOPQ"
+          },
+          "outsideBC": {
+            "beenOutsideBCMoreThan": "Y",
+            "departureDate": "1992-01-03",
+            "returnDate": "1993-01-03",
+            "familyMemberReason": "ABCDE",
+            "destination": "ABCDEFGHIJKLM"
+          },
+          "outsideBCinFuture": {
+            "beenOutsideBCMoreThan": "N",
+            "departureDate": "1994-01-03",
+            "returnDate": "1995-01-03",
+            "familyMemberReason": "ABCDEFGHIJKLMNOPQRSTUVWXYZA",
+            "destination": "ABCDEFGHIJKLMNO"
+          },
+          "willBeAway": {
+            "isFullTimeStudent": "N",
+            "isInBCafterStudies": "N",
+            "armedDischargeDate": "2018-01-03",
+            "armedForceInstitutionName": "ABCDEFGHIJK"
+          },
+          "previousLastName": "ABCDEFGHIJKLMNOPQ",
+          "mailingAddress": {
+            "addressLine1": "ABCDEFGHI",
+            "city": "ABCDEFGHIJKLMNOPQR",
+            "postalCode": "ABCDEFGHIJKL",
+            "provinceOrState": "ABCDEFGHI",
+            "country": "ABCDEFGHIJ",
+            "addressLine2": "ABCDEFGH",
+            "addressLine3": "ABCDEFGHIJKLMNOPQRSTU"
+          },
+          "marriageDate": "2016-01-03",
+          "cancellationReason": "ABCDEFGHIJKLMNOP",
+          "cancellationDate": "2017-01-03"
+        },
+        "addedSpouse": {
+          "name": {
+            "firstName": "ABCD",
+            "lastName": "ABCDEFGH",
+            "secondName": "ABCDEF"
+          },
+          "birthDate": "1990-01-03",
+          "gender": "F",
+          "phn": "9214213255",
+          "attachmentUuids": [
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZABC"
+          ],
+          "citizenship": "CanadianCitizen",
+          "previousCoverage": {
+            "hasPreviousCoverage": "Y",
+            "prevPHN": "9214213255"
+          },
+          "livedInBC": {
+            "hasLivedInBC": "Y",
+            "recentBCMoveDate": "2681-16-95",
+            "recentCanadaMoveDate": "1624-03-75",
+            "isPermanentMove": "N",
+            "prevProvinceOrCountry": "ABCDEFGH",
+            "prevHealthNumber": "ABCDEFGHIJKLMNO"
+          },
+          "outsideBC": {
+            "beenOutsideBCMoreThan": "Y",
+            "departureDate": "2067-02-29",
+            "returnDate": "2909-03-62",
+            "familyMemberReason": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            "destination": "ABCDE"
+          },
+          "outsideBCinFuture": {
+            "beenOutsideBCMoreThan": "Y",
+            "departureDate": "1364-08-55",
+            "returnDate": "2554-05-99",
+            "familyMemberReason": "ABCDEFGHIJKLMNOPQRSTUV",
+            "destination": "ABCDEFGHIJKLMN"
+          },
+          "willBeAway": {
+            "isFullTimeStudent": "Y",
+            "isInBCafterStudies": "Y",
+            "armedDischargeDate": "1998-01-03",
+            "armedForceInstitutionName": "ABCDE"
+          },
+          "previousLastName": "ABCDEFGHIJKLMNOPQ",
+          "mailingAddress": {
+            "addressLine1": "ABCD",
+            "city": "ABCDEFGHIJKLMNOPQRSTUVW",
+            "postalCode": "ABCDEFGHIJKLMNO",
+            "provinceOrState": "ABCDEFGHIJKLMNOPQRST",
+            "country": "ABCDEFGHIJ",
+            "addressLine2": "ABCDEFGHIJKL",
+            "addressLine3": "ABCDEFGH"
+          },
+          "marriageDate": "1990-01-03",
+          "cancellationReason": "ABCDEFGHIJKLMNOPQRST",
+          "cancellationDate": "1990-01-03"
+        }
+      }
+  };
+
+    return toa;
+  }
+
   // This method is used to convert the response from user into a JSON object
   convertMspAccountApp(from: MspAccountApp): AccountChangeApplicationType  {
-    const to: any = {};
+    
+   // const accountHardcodeRes = ;
+    
+
+   const to: any = {};
+
+  
     // UUID
     // UUID
     to.application.uuid = from.uuid;
@@ -617,7 +792,7 @@ private convertChildFromAccountChange(from: MspPerson): AccountChangeChildType {
     from: MspAccountApp
   ): MSPApplicationSchema {
     const object = {
-      accountChangeApplication: this.convertMspAccountApp(from),
+      accountChangeApplication: this.convertSampleResponse(from),
       attachments: this.convertToAttachment(from.getAllImages()),
       uuid: from.uuid
     };
