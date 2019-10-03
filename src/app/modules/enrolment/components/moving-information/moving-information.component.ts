@@ -96,7 +96,7 @@ export class MovingInformationComponent extends Base implements OnInit {
   }
 
   get requestPermMoveInfo() {
-    console.log( 'requestPermMoveInfo: ', this.person.livedInBCSinceBirth, this.requestLivedInBC );
+    //console.log( 'requestPermMoveInfo: ', this.person.livedInBCSinceBirth, this.requestLivedInBC );
     if ( this.requestLivedInBC ) {
       // Convert to boolean
       return this.person.livedInBCSinceBirth !== undefined && this.person.livedInBCSinceBirth !== null;
@@ -106,7 +106,7 @@ export class MovingInformationComponent extends Base implements OnInit {
 
   get canContinueProcess() {
 
-    console.log( 'canContinueProcess: ', this.person.madePermanentMoveToBC );
+    //console.log( 'canContinueProcess: ', this.person.madePermanentMoveToBC );
     if ( this.person.madePermanentMoveToBC !== null &&
          this.person.madePermanentMoveToBC !== undefined ) {
 
@@ -151,7 +151,7 @@ export class MovingInformationComponent extends Base implements OnInit {
   }
 
   get requestRecentMoveToBC() {
-    console.log( 'requestRecentMoveToBC ', this.requestLivedInBC, this.person.livedInBCSinceBirth );
+    //console.log( 'requestRecentMoveToBC ', this.requestLivedInBC, this.person.livedInBCSinceBirth );
     if ( this.requestLivedInBC ) {
       return this.person.livedInBCSinceBirth === false;
     }
@@ -159,7 +159,7 @@ export class MovingInformationComponent extends Base implements OnInit {
   }
 
   get requestArrivalToCanada() {
-    console.log( 'requestArrivalToCanada ', this.requestLivedInBC, this.person.livedInBCSinceBirth );
+    //console.log( 'requestArrivalToCanada ', this.requestLivedInBC, this.person.livedInBCSinceBirth );
     if ( this.requestLivedInBC ) {
       return this.person.livedInBCSinceBirth === false;
     }
@@ -247,7 +247,7 @@ export class MovingInformationComponent extends Base implements OnInit {
           month: departureDate.month - 1,
           day: departureDate.day }), 'days', true );
 
-        console.log( 'invalid departure must be prior to return day: ', diff );
+        // console.log( 'invalid departure must be prior to return day: ', diff );
 
         return (diff <= 0) ? OopDateValidationCodes.DEPARTURE_INVALID : OopDateValidationCodes.VALID;
     }
@@ -260,7 +260,7 @@ export class MovingInformationComponent extends Base implements OnInit {
                                              month: date.month - 1,
                                              day: date.day } ), 'months', true );
 
-    console.log( 'past 12 months: ', diff );
+    // console.log( 'past 12 months: ', diff );
     // Date validation should catch future dates
     return (diff > 12) ? OopDateValidationCodes.OUT_OF_RANGE : OopDateValidationCodes.VALID;
   }
