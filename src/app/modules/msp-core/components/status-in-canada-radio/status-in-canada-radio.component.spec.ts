@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { StatusInCanada } from '../../../../models/status-activities-documents';
-import { Person } from '../../../../components/msp/model/msp-person.model';
-import { Activities, Relationship } from '../../../../models/status-activities-documents';
 import { MspStatusInCanadaRadioComponent } from './status-in-canada-radio.component';
+import { StatusInCanada, CanadianStatusReason } from '../../models/canadian-status.enum';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { Relationship } from '../../../../models/relationship.enum';
 
 describe('StatusInCanadaRadioComponent', () => {
     let comp: MspStatusInCanadaRadioComponent;
@@ -23,7 +23,7 @@ describe('StatusInCanadaRadioComponent', () => {
             imports: [ FormsModule ],
             providers: [
                 { provide: StatusInCanada, useValue: statusInCanadaStub },
-                { provide: Person, useValue: personStub }
+                { provide: MspPerson, useValue: personStub }
             ]
         });
         fixture = TestBed.createComponent(MspStatusInCanadaRadioComponent);
@@ -35,7 +35,7 @@ describe('StatusInCanadaRadioComponent', () => {
     });
 
     it('Activities defaults to: Activities', () => {
-        expect(comp.Activities).toEqual(Activities);
+        expect(comp.Activities).toEqual(CanadianStatusReason);
     });
 
     it('StatusInCanada defaults to: StatusInCanada', () => {
@@ -43,35 +43,35 @@ describe('StatusInCanadaRadioComponent', () => {
     });
 
     it('should be invalid with a default person status', () => {
-        const applicant = new Person(Relationship.Applicant);
+        const applicant = new MspPerson(Relationship.Applicant);
         comp.person = applicant;
         expect(comp.isValid()).toBeFalsy();
     });
 
     it('should be valid when person has a set status', () => {
-        const applicant = new Person(Relationship.Applicant);
+        const applicant = new MspPerson(Relationship.Applicant);
         applicant.status = StatusInCanada.CitizenAdult;
         comp.person = applicant;
         expect(comp.isValid()).toBeTruthy();
     });
 
     it('should be invalid when a temporary status is set without an activity', () => {
-        const applicant = new Person(Relationship.Applicant);
+        const applicant = new MspPerson(Relationship.Applicant);
         comp.person = applicant;
         comp.setStatus(StatusInCanada.TemporaryResident, applicant);
         expect(comp.isValid()).toBeFalsy();
     });
 
     it('should be valid when a temporary status is set with an activity', () => {
-        const applicant = new Person(Relationship.Applicant);
+        const applicant = new MspPerson(Relationship.Applicant);
         comp.person = applicant;
         comp.setStatus(StatusInCanada.TemporaryResident, applicant);
-        comp.setActivity(Activities.StudyingInBC);
+        comp.setActivity(CanadianStatusReason.StudyingInBC);
         expect(comp.isValid()).toBeTruthy();
     });
 
     it('should be able to go from invalid to valid', () => {
-        const applicant = new Person(Relationship.Applicant);
+        const applicant = new MspPerson(Relationship.Applicant);
         comp.person = applicant;
         expect(comp.isValid()).toBeFalsy();
         comp.setStatus(StatusInCanada.CitizenAdult, applicant);
@@ -79,11 +79,11 @@ describe('StatusInCanadaRadioComponent', () => {
     });
 
     it('should be able to set a person\'s activity if their status is a temporary permit holder or diplomat', () => {
-        const applicant = new Person(Relationship.Applicant);
+        const applicant = new MspPerson(Relationship.Applicant);
         comp.person = applicant;
         comp.setStatus(StatusInCanada.TemporaryResident, applicant);
-        comp.setActivity(Activities.WorkingInBC);
-        expect(comp.person.currentActivity).toBe(Activities.WorkingInBC);
+        comp.setActivity(CanadianStatusReason.WorkingInBC);
+        expect(comp.person.currentActivity).toBe(CanadianStatusReason.WorkingInBC);
     });
 
 });

@@ -14,7 +14,8 @@ module.exports = function (config) {
         require('karma-spec-reporter')
       ],
       client:{
-        clearContext: false // leave Jasmine Spec Runner output visible in browser
+        clearContext: false, // leave Jasmine Spec Runner output visible in browser
+      /*  captureConsole: true */
       },
       files: [
         
@@ -41,7 +42,10 @@ module.exports = function (config) {
         showSpecTiming: true,      // print the time elapsed for each spec
         failFast: config.angularCli && config.angularCli.singleRun              // test would finish with error when a first fail occurs. 
       },
-  
+    /*  browserConsoleLogOptions: {
+        level: 'LOG',
+        terminal: true
+      },*/
       port: 9876,
       colors: true,
       logLevel: config.LOG_INFO,

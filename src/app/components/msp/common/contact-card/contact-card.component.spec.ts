@@ -2,9 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MspContactCardComponent } from './contact-card.component';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {MspAddressCardPartComponent} from '../address-card-part/address-card-part.component';
+import { LocalStorageModule } from 'angular-2-local-storage';
 import {RouterTestingModule} from '@angular/router/testing';
+import { MspAddressCardPartComponent } from '../../../../modules/msp-core/components/address-card-part/address-card-part.component';
 
 describe('MspContactCardComponent', () => {
 

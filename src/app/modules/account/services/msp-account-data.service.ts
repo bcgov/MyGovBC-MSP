@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { LocalStorageService } from 'angular-2-local-storage';import {
-  MspAccountApp,
-  MspPerson
-} from '../../../modules/account/models/account.model';
+import { LocalStorageService } from 'angular-2-local-storage';
+import { MspAccountApp } from '../../../modules/account/models/account.model';
 import { Process } from '../../../services/process.service';
 import { MspProgressBarItem } from '../../../modules/account/components/progressBar/progressBarDataItem.model';
 import MspAccountDto from '../../../modules/account/models/account.dto';
 import {
   Gender,
-  OperationActionType
+  OperationActionType,
+  MspPerson
 } from '../../../components/msp/model/msp-person.model';
 import { Address, CANADA, BRITISH_COLUMBIA } from 'moh-common-lib';
 import PersonDto from '../../../components/msp/model/msp-person.dto';
@@ -18,7 +17,7 @@ import AddressDto from '../../../components/msp/model/address.dto';
 
 @Injectable()
 export class MspAccountMaintenanceDataService {
-  
+
   private _mspAccountApp: MspAccountApp;
   private mspProgressBarKey: string = 'msp-progressbar'; //Progress bar has to be saved since its dynamic .Storing to avoid extra calls in all the getter invocations
 
@@ -63,7 +62,7 @@ export class MspAccountMaintenanceDataService {
     return this._mspAccountApp;
   }
 
-  
+
   saveMspAccountApp(): void {
     const dto: MspAccountDto = this.toMspAccountAppTransferObject(
       this._mspAccountApp
@@ -149,15 +148,15 @@ export class MspAccountMaintenanceDataService {
     dto.dob_year = input.dob_year;
     dto.middleName = input.middleName;
     dto.previous_phn = input.previous_phn;
-    
+
     dto.healthNumberFromOtherProvince = input.healthNumberFromOtherProvince;
 
     dto.hasNameChange = input.hasNameChange;
-    
-    
+
+
     //= input.updateNameDueDoc;
-    
-    
+
+
     dto.arrivalToCanadaDay = input.arrivalToCanadaDay;
     dto.arrivalToCanadaMonth = input.arrivalToCanadaMonth;
     dto.arrivalToCanadaYear = input.arrivalToCanadaYear;
@@ -211,7 +210,7 @@ export class MspAccountMaintenanceDataService {
    // dto.relationship = input.relationship;
 
 
-    
+
 
     dto.phoneNumber = input.phoneNumber;
     if (input.mailingAddress.isValid) {
@@ -226,7 +225,7 @@ export class MspAccountMaintenanceDataService {
     }
    // dto.docType = input.docType;
     dto.status = input.status;
-    
+
     dto.currentActivity = input.currentActivity;
 
     dto.images = input.documents.images;
@@ -273,7 +272,7 @@ export class MspAccountMaintenanceDataService {
  
     
 
-    
+
     dto.immigrationStatusChange = input.immigrationStatusChange;
    // dto.spouseRemoved = input.spouseRemoved;
     dto.cancellationDate = input.cancellationDate;
@@ -341,7 +340,7 @@ export class MspAccountMaintenanceDataService {
     
     
     output.hasActiveMedicalServicePlan = dto.hasActiveMedicalServicePlan;
-    
+
     output.arrivalToCanadaDay = dto.arrivalToCanadaDay;
     output.arrivalToCanadaMonth = dto.arrivalToCanadaMonth;
     output.arrivalToCanadaYear = dto.arrivalToCanadaYear;
@@ -469,7 +468,7 @@ export class MspAccountMaintenanceDataService {
   toMspAccountAppTransferObject(input: MspAccountApp): MspAccountDto {
     const dto: MspAccountDto = new MspAccountDto();
     dto.addressUpdate = input.accountChangeOptions.addressUpdate;
-    
+
     dto.personInfoUpdate = input.accountChangeOptions.personInfoUpdate;
     dto.immigrationStatusChange = input.accountChangeOptions.immigrationStatusChange;
 
@@ -536,7 +535,7 @@ export class MspAccountMaintenanceDataService {
     return dto;
   }
 
-  
+
   private toOutofBCRecordDto(outofBCRecord: OutofBCRecord) {
     if (outofBCRecord == null) return null;
 
@@ -603,7 +602,7 @@ export class MspAccountMaintenanceDataService {
 */
 
     output.applicant = this.fromPersonDtoForAccount(dto.applicant);
-    
+
 
     //if page is refreshed before filling address, the province and country is lost..so initialising..
     if (!output.applicant.residentialAddress.province) {
@@ -696,7 +695,7 @@ export class MspAccountMaintenanceDataService {
    * Convert DTO object from local storage to data model object that is bound to screen.
    * For financial assistance application
    */
-  
+
 
   convertToPersonDto(input: MspPerson, output: PersonDto) {
     output.dob_day = input.dob_day;

@@ -1,14 +1,8 @@
-import {ChangeDetectorRef, Component, Injectable , ViewChild, ViewChildren , QueryList, Input, Output, EventEmitter } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ChangeDetectorRef, Component, Input, Output, EventEmitter } from '@angular/core';
 import {BaseComponent} from '../../../../../models/base.component';
-import {ProcessService, ProcessUrls} from '../../../../../services/process.service';
-import { MspPerson, ItemList } from '../../../models/account.model';
-import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
-import {ActivatedRoute} from '@angular/router';
-import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
-//import { legalStatus } from '../../../../../models/msp.contants';
-import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
+import { ItemList } from '../../../models/account.model';
+import { MspAccountApp } from '../../../models/account.model';
+import { CommonImage } from 'moh-common-lib';
 import { PersonDocuments } from 'app/components/msp/model/person-document.model';
 
 

@@ -4,13 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { MspCancelComponent } from './cancel.component';
 import {MspDataService} from '../../../../services/msp-data.service';
 import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {MspAddressCardPartComponent} from '../address-card-part/address-card-part.component';
 import {RouterTestingModule} from '@angular/router/testing';
 
 import { MspLogService } from '../../../../services/log.service';
 import {MspLoggerDirective} from '../../../../modules/msp-core/components/logging/msp-logger.directive';
 import {ModalModule} from 'ngx-bootstrap';
 import {HttpClientModule} from '@angular/common/http';
+import { MspAddressCardPartComponent } from '../../../../modules/msp-core/components/address-card-part/address-card-part.component';
 describe('MspCancelComponent', () => {
 
   beforeEach(() => {

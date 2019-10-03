@@ -1,25 +1,20 @@
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-// import { RouterTestingModule } from '@angular/router/testing';
 import { AssistanceConfirmationComponent } from './confirmation.component';
 import {LandingComponent} from '../../../../pages/landing/landing.component';
-import {AssistanceComponent} from '../assistance.component';
 import { MspDataService } from '../../../../services/msp-data.service';
-import { LocalStorageService, LocalStorageModule } from 'angular-2-local-storage';
-import {MspLoggerDirective} from '../../common/logging/msp-logger.directive';
+import { LocalStorageModule } from 'angular-2-local-storage';
 import {MspLogService} from '../../../../services/log.service';
 import { HttpClientModule} from '@angular/common/http';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Observable} from 'rxjs/internal/Observable';
-import { Subscription} from 'rxjs/internal/Subscription';
+import { ActivatedRoute } from '@angular/router';
 
 
 describe('AssistanceConfirmationComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AssistanceConfirmationComponent, MspLoggerDirective],
+      declarations: [AssistanceConfirmationComponent],
       imports: [FormsModule, HttpClientModule,
       LocalStorageModule.withConfig({
         prefix: 'ca.bc.gov.msp',
@@ -34,7 +29,7 @@ describe('AssistanceConfirmationComponent', () => {
                 path: '',
                 component: LandingComponent
               },
-              {
+            /*  {
                 path: 'assistance',
                 component: AssistanceComponent,
                 children: [
@@ -44,7 +39,7 @@ describe('AssistanceConfirmationComponent', () => {
                     component: AssistanceConfirmationComponent
                   }
                 ]
-              }
+              }*/
             ]
           }
         ]

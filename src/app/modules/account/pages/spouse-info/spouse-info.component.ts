@@ -1,16 +1,13 @@
 import {Component, ViewChild, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
-import { MspAccountApp, AccountChangeOptions, MspPerson } from '../../models/account.model';
+import { MspAccountApp, AccountChangeOptions } from '../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
-//import { ActivitiesRules } from 'app/modules/msp-core/models/status-activities-documents';
-import { CanadianStatusReason } from 'app/modules/msp-core/models/canadian-status.enum';
-import { nameChangeSupportDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
-
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
 import { AbstractForm } from 'moh-common-lib';
 import { Router } from '@angular/router';
 import { PageStateService } from 'app/services/page-state.service';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 
 
 
@@ -27,8 +24,8 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
   showSpouse: boolean;
   showUpdateSpouse: boolean;
   subscriptions: Subscription[];
-  
-  constructor( public dataService: MspAccountMaintenanceDataService, protected router: Router,  private pageStateService: PageStateService ) { 
+
+  constructor( public dataService: MspAccountMaintenanceDataService, protected router: Router,  private pageStateService: PageStateService ) {
     super(router);
     if (this.dataService.getMspAccountApp().hasSpouseAdded) {
       this.addNewSpouse = true;
@@ -50,7 +47,7 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
   ngOnDestroy() {
     this.subscriptions.forEach( itm => itm.unsubscribe() );
   }
-  
+
   ngAfterViewInit() {
     if (this.form) {
       this.subscriptions = [
@@ -64,7 +61,7 @@ export class SpouseInfoComponent extends AbstractForm implements OnInit, AfterVi
   }
 
 addSpouse() {
-    
+
     this.addNewSpouse = true;
     this.accountApp.hasSpouseAdded = true;
 
@@ -90,7 +87,7 @@ addSpouse() {
   updateSpouse() {
     this.showUpdateSpouse = true;
     this.accountApp.hasSpouseUpdated = true;
- 
+
     this.showSpouse = false;
     this.addNewSpouse = false;
 
@@ -130,7 +127,7 @@ addSpouse() {
   }
 
   canContinue(): boolean {
-    let valid = super.canContinue();
+    const valid = super.canContinue();
 
    /* if ( this.person.hasNameChange ) {
       valid = valid && this.hasNameDocuments;

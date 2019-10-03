@@ -1,14 +1,8 @@
-import {ChangeDetectorRef, Component, OnInit, Injectable , ViewChild, ViewChildren , QueryList, Input } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ChangeDetectorRef, Component, OnInit, Input } from '@angular/core';
 import {BaseComponent} from '../../.././../../models/base.component';
-import {AccountPersonalDetailsComponent} from '../../../components/personal-details/personal-details.component';
-import { MspPerson } from '../../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
-import {ActivatedRoute} from '@angular/router';
-import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
-//import { legalStatus } from '../../../../../models/msp.contants';
-import { MspBenefitDataService } from 'app/modules/benefit/services/msp-benefit-data.service';
+import { MspAccountApp, UpdateList } from '../../../models/account.model';
+import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 
 @Component({
   selector: 'msp-update-spouse',
