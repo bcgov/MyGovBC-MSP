@@ -14,6 +14,7 @@ import { By } from '@angular/platform-browser';
 class Applicant {
 
   person: MspPerson;
+  radioBtnLabels: string[] = [];
 
   constructor( relationship: Relationship,
                status: StatusInCanada,
@@ -21,6 +22,7 @@ class Applicant {
     this.person = new MspPerson( relationship );
     this.person.status = status;
     this.person.currentActivity = statusReason;
+    this.radioBtnLabels = this._initRadioBtns();
   }
 
   permanentMoveBC( permanent: boolean = true ): MspPerson {
@@ -32,8 +34,26 @@ class Applicant {
     this.person.livedInBCSinceBirth = livedIn;
     return this.person;
   }
-}
 
+  private _initRadioBtns(): string[] {
+    const labelList: string[] = [];
+
+    if ( this.person.status === StatusInCanada.CitizenAdult &&
+         this.person.currentActivity === CanadianStatusReason.LivingInBCWithoutMSP ) {
+      labelList.push( 'Have ' + this._relationshipWording + ' lived in B.C. since birth?' );
+    }
+
+    labelList.push( 'Have ' + this._relationshipWording + ' moved to B.C. permanently?' );
+
+    console.log('labelList: ', labelList );
+
+    return labelList;
+  }
+
+  private get _relationshipWording(){
+    return this.person.relationship === Relationship.Applicant ? 'you' : 'they';
+  }
+}
 
 fdescribe('MovingInformationComponent', () => {
   let component: MovingInformationComponent;
@@ -77,10 +97,19 @@ fdescribe('MovingInformationComponent', () => {
     component.person = person.permanentMoveBC(false);
     fixture.detectChanges();
 
+    // Error container
     err = fixture.debugElement.query(By.css('.error--container'));
+
+    // Radio buttons
     elmts = fixture.debugElement.queryAll(By.css('.form-group'));
+    // elmts = fixture.debugElement.queryAll(By.css('.form-group fieldset legend'));
+
     expect(err).toBeTruthy();
     expect(elmts.length).toBe(1);
+  /*  TODO: Figure out why this does not work
+      elmts.forEach( (x, idx) => {
+      expect(x.context).toContain(person.radioBtnLabels[idx]);
+    });*/
   });
 
   it('(Applicant) Canadian Citizen -> country move not permanent in BC', () => {
