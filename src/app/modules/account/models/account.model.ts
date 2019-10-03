@@ -457,4 +457,4 @@ class ItemList {
     value: number;
 }
 
-export {MspAccountApp, AccountChangeOptions, MspPerson, UpdateList, ItemList};
+export {MspAccountApp, AccountChangeOptions, UpdateList, ItemList};

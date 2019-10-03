@@ -1,17 +1,9 @@
-import { ChangeDetectorRef, Component, Injectable , ViewChild, ViewChildren , QueryList, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BaseComponent } from '../../../../models/base.component';
-import { ProcessService, ProcessUrls } from '../../../../services/process.service';
-import { AccountPersonalDetailsComponent } from '../../components/personal-details/personal-details.component';
-import { MspPerson } from '../../models/account.model';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
-import { ActivatedRoute } from '@angular/router';
-import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../models/account.model';
-//import { legalStatus } from '../../../../models/msp.contants';
-
-import { Gender, OperationActionType } from '../../../../components/msp/model/msp-person.model';
-import { Person, AbstractForm } from 'moh-common-lib';
+import { OperationActionType, MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { AbstractForm } from 'moh-common-lib';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { PageStateService } from 'app/services/page-state.service';
@@ -24,7 +16,7 @@ import { Relationship } from 'app/models/relationship.enum';
   styleUrls: ['./child-info.component.scss']
 })
 export class ChildInfoComponent extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
-  
+
 
  // children: MspPerson[];
 
@@ -74,7 +66,7 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
 
   addChildBtnClick(): void {
     this.showChild = true;
-    this.showRemoveChild = false; 
+    this.showRemoveChild = false;
     this.showUpdateChild = false;
     this.dataService.accountApp.addChild(Relationship.Unknown);
    // this.dataService.saveMspAccountApp();
@@ -119,7 +111,7 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
   }
 
   canContinue(): boolean {
-    let valid = super.canContinue();
+    const valid = super.canContinue();
 
    /* if ( this.child.hasNameChange ) {
       valid = valid ; // && this.hasNameDocuments;

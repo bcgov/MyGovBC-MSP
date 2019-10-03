@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AccountChangeOptions, MspPerson, MspAccountApp, UpdateList } from 'app/modules/account/models/account.model';
+import { AccountChangeOptions, MspAccountApp, UpdateList } from 'app/modules/account/models/account.model';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { CanadianStatusStrings, StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
 import { PersonDocuments } from 'app/components/msp/model/person-document.model';
@@ -7,7 +7,7 @@ import { nameChangeSupportDocuments } from 'app/modules/msp-core/components/supp
 import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.enum';
 import { Base } from 'moh-common-lib';
 import { Documents } from 'app/models/account-documents';
-import { ActivitiesRules } from 'app/models/status-activities-documents';
+import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 @Component({
   selector: 'msp-add-spouse',
   templateUrl: './add-spouse.component.html',
@@ -21,12 +21,12 @@ export class AddSpouseComponent extends Base implements OnInit {
   status: StatusInCanada[] = [ StatusInCanada.CitizenAdult, StatusInCanada.PermanentResident];
   supportDocList: SupportDocuments[] = [ SupportDocuments.CanadianBirthCertificate , SupportDocuments.CanadianPassport , SupportDocuments.CanadianCitizenCard];
 
-  
+
   langStatus = CanadianStatusStrings;
   nameChangeDocList = nameChangeSupportDocuments();
 
   constructor( public dataService: MspAccountMaintenanceDataService) {
-    
+
     super();
   }
 
@@ -42,16 +42,16 @@ export class AddSpouseComponent extends Base implements OnInit {
   get items()   {
 
     return[
-      { 
-        "label": "Marriage certificate",
-        "value": Documents.MarriageCertificate
+      {
+        'label': 'Marriage certificate',
+        'value': Documents.MarriageCertificate
       },
-      { 
-        "label": "Legal Name Change Certificate",
-        "value": Documents.ChangeOfNameCertificate
+      {
+        'label': 'Legal Name Change Certificate',
+        'value': Documents.ChangeOfNameCertificate
       }
-    ]
-  };
+    ];
+  }
 
   /*get activitiesTable() {
     console.log(this.activities);
@@ -81,17 +81,17 @@ export class AddSpouseComponent extends Base implements OnInit {
 
     if ( document.images && document.images.length === 0 ) {
 
-    
+
 
       // no status documents remove any name documents
       this.spouse.nameChangeDocs.documentType = null;
       this.spouse.nameChangeDocs.images = [];
 
-    
+
 
     }
 
-    
+
   }
 
 /*  get activities(): Activities[] {
@@ -118,47 +118,47 @@ export class AddSpouseComponent extends Base implements OnInit {
   };
 
   get accountUpdateList(): UpdateList[] {
-        
+
     return [{
-        "label": "Update status in Canada",
-        "value": this.spouse.updateStatusInCanada
+        'label': 'Update status in Canada',
+        'value': this.spouse.updateStatusInCanada
       },
       {
-        "label": "Update name - due to marriage or other",
-        "value": this.spouse.updateNameDueToMarriage
+        'label': 'Update name - due to marriage or other',
+        'value': this.spouse.updateNameDueToMarriage
       },
       {
-        "label": "Correct name - due to error",
-        "value": this.spouse.updateNameDueToError
+        'label': 'Correct name - due to error',
+        'value': this.spouse.updateNameDueToError
       },
       {
-        "label": "Correct birthdate",
-        "value": this.spouse.updateBirthdate
+        'label': 'Correct birthdate',
+        'value': this.spouse.updateBirthdate
       },
       {
-        "label": "Correct gender",
-        "value": this.spouse.updateGender
+        'label': 'Correct gender',
+        'value': this.spouse.updateGender
       },
       {
-        "label": "Change gender designation",
-        "value": this.spouse.updateGenderDesignation
+        'label': 'Change gender designation',
+        'value': this.spouse.updateGenderDesignation
       }
 
-    ]
+    ];
 
   }
 
   get spouseNameChangedocs(){
 
     return[
-    { 
-      "label": "Marriage Certificate",
-      "value": Documents.MarriageCertificate
+    {
+      'label': 'Marriage Certificate',
+      'value': Documents.MarriageCertificate
     },
-    { 
-      "label": "Legal Name Change Certificate",
-      "value": Documents.ChangeOfNameCertificate
+    {
+      'label': 'Legal Name Change Certificate',
+      'value': Documents.ChangeOfNameCertificate
     }
-  ]};
+  ]; }
 
 }

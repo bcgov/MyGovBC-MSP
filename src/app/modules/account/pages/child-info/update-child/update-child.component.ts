@@ -1,30 +1,9 @@
-import { Component, OnInit, Input, AfterViewInit, OnDestroy, ChangeDetectorRef, Injectable , ViewChild, ViewChildren , QueryList } from '@angular/core';
-import { nameChangeSupportDocuments } from '../../../../msp-core/components/support-documents/support-documents.component';
-import { AbstractForm } from 'moh-common-lib';
-import { Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
-import {NgForm} from '@angular/forms';
-import {Router} from '@angular/router';
-import {BaseComponent} from '../../../../../models/base.component';
-import {ProcessService, ProcessUrls} from '../../../../../services/process.service';
-//import { AccountPersonalDetailsComponent}  from './personal-details/personal-details.component';
-import { MspPerson } from '../../../models/account.model';
+import { Component, OnInit, Input } from '@angular/core';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
-import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp, AccountChangeOptions, UpdateList } from '../../../models/account.model';
-import { PersonDocuments } from '../../../../../components/msp/model/person-document.model';
+import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 
-import {
-  
-  ActivitiesRules,
- 
-} from '../../../../../models/status-activities-documents';
 
-import {
-  Gender
-} from '../../../../../components/msp/model/msp-person.model';
-import { Person } from 'moh-common-lib';
-import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.enum';
 
 
 
@@ -47,30 +26,31 @@ export class UpdateChildComponent implements OnInit {
 
 
   get accountUpdateList(): UpdateList[] {
-        
+
     return [{
+        // tslint:disable-next-line: quotemark
         "label": "Update status in Canada",
-        "value": this.child.updateStatusInCanada
+        'value': this.child.updateStatusInCanada
       },
       {
-        "label": "Update name - due to marriage or other",
-        "value": this.child.updateNameDueToMarriage
+        'label': 'Update name - due to marriage or other',
+        'value': this.child.updateNameDueToMarriage
       },
       {
-        "label": "Correct name - due to error",
-        "value": this.child.updateNameDueToError
+        'label': 'Correct name - due to error',
+        'value': this.child.updateNameDueToError
       },
       {
-        "label": "Correct birthdate",
-        "value": this.child.updateBirthdate
+        'label': 'Correct birthdate',
+        'value': this.child.updateBirthdate
       },
       {
-        "label": "Correct gender",
-        "value": this.child.updateGender
+        'label': 'Correct gender',
+        'value': this.child.updateGender
       },
       {
-        "label": "Change gender designation",
-        "value": this.child.updateGenderDesignation
+        'label': 'Change gender designation',
+        'value': this.child.updateGenderDesignation
       }
 
     ];

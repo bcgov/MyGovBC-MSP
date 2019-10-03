@@ -69,7 +69,7 @@ describe('AccountPersonalInfoComponent', () => {
         mspAccountApp.updatedSpouse.status = StatusInCanada.TemporaryResident;
         mspAccountApp.updatedSpouse.currentActivity =  CanadianStatusReason.Visiting;
         expect(comp.hasAnyInvalidStatus()).toBe(true, 'should have hasAnyInvalidStatus true after adding new spouse');
-        comp.removeSpouse();
+        //comp.removeSpouse();
 
         expect(comp.hasAnyInvalidStatus()).toBe(false, 'should have hasAnyInvalidStatus false after removing spouse');
     });

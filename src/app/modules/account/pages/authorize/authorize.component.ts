@@ -4,7 +4,8 @@ import { Router} from '@angular/router';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {ProcessService, ProcessUrls} from '../../../../services/process.service';
 import {environment} from '../../../../../environments/environment';
-import { MspAccountApp, MspPerson } from '../../models/account.model';
+import { MspAccountApp } from '../../models/account.model';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 
 @Component({
   selector: 'msp-authorize',
