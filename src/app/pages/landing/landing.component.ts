@@ -1,7 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-// import { MspDataService } from '../service/msp-data.service';
+import { Component } from '@angular/core';
 import { MspDataService } from '../../services/msp-data.service';
-
 import { Router } from '@angular/router';
 import { MspBenefitDataService } from '../../modules/benefit/services/msp-benefit-data.service';
 import { ROUTES_ENROL } from '../../modules/enrolment/models/enrol-route-constants';
