@@ -30,6 +30,8 @@
         </div>
       </div>
       <br>
+      
+      <!-- Add Spouse Section -->
       <div *ngIf="addNewSpouse">
           <h2><strong>Add Spouse</strong></h2>
           <common-xicon-button label='Remove' (click)="this.addNewSpouse = false; this.accountApp.hasSpouseAdded = false;"></common-xicon-button>
@@ -44,6 +46,7 @@
           </msp-add-spouse>
       </div>
 
+      <!-- Remove Spouse Section -->
       <div *ngIf="showSpouse">
         <h2><strong>Remove Spouse</strong></h2>
         <common-xicon-button label='Remove' (click)="this.showSpouse = false; this.accountApp.hasSpouseRemoved = false;"></common-xicon-button>
@@ -57,6 +60,7 @@
         </msp-remove-spouse>
       </div>
 
+      <!-- Update Spouse Section -->
       <div *ngIf="showUpdateSpouse">
           <h2><strong>Update Spouse's Information</strong></h2>
           <common-xicon-button label='Remove' (click)="this.showUpdateSpouse = false; this.accountApp.hasSpouseUpdated = false;"></common-xicon-button>

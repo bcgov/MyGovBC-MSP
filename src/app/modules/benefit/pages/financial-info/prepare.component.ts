@@ -282,7 +282,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
 
     childCountExceedError(): boolean {
-        if ((this.benefitApp.childWithAttendantCareCount || this.benefitApp.numberOfChildrenWithDisability) && this.benefitApp.childrenCount) {
+        if ((this.benefitApp.childWithAttendantCareCount && this.benefitApp.numberOfChildrenWithDisability) && this.benefitApp.childrenCount) {
             const childcount = this.benefitApp.childrenCount * 1;
             const childDeclaredForbenefit = ((this.benefitApp.childWithAttendantCareCount * 1) + (this.benefitApp.numberOfChildrenWithDisability * 1)) ;
             return childDeclaredForbenefit > childcount ? true : false ;

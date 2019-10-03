@@ -1,6 +1,6 @@
 import {Component, Inject, Injectable, AfterContentInit, ViewChild, ElementRef} from '@angular/core';
-import { MspDataService } from '../../../../services/msp-data.service';
-import {MspApiService} from '../../../../services/msp-api.service';
+import {  MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
+import { MspApiAccountService } from '../../services/msp-api-account.service';
 import {Router} from '@angular/router';
 import {ResponseType} from '../../../../modules/msp-core/api-model/responseTypes';
 import {MspLogService} from '../../../../services/log.service';
@@ -26,9 +26,9 @@ export class AccountSendingComponent implements AfterContentInit {
   hasError: boolean;
   showMoreErrorDetails: boolean;
 
-  constructor(private dataService: MspDataService, private service: MspApiService, private processService: ProcessService,
+  constructor(private dataService: MspAccountMaintenanceDataService, private service: MspApiAccountService, private processService: ProcessService,
     public router: Router, private logService: MspLogService) {
-    this.mspAccountApp = this.dataService.getMspAccountApp();
+    this.mspAccountApp = this.dataService.accountApp;
     this.transmissionInProcess = undefined;
     this.hasError = undefined;
     this.showMoreErrorDetails = undefined;
@@ -49,7 +49,7 @@ export class AccountSendingComponent implements AfterContentInit {
     this.hasError = undefined;
   //  this.logService.log({name: 'Account - Submitting Request'},"Account - Submission Request");
     this.service
-      .sendApplication(this.mspAccountApp)
+      .sendRequest(this.mspAccountApp)
       .then((mspAccountApp: MspAccountApp) => {
         this.mspAccountApp = mspAccountApp;
         this.logService.log({name: 'Account - Received refNo ',
@@ -110,6 +110,6 @@ export class AccountSendingComponent implements AfterContentInit {
   }
 
   retrySubmission(){
-    this.router.navigate(['/account/review']);
+    this.router.navigate(['/account/authorize']);
   }
 }

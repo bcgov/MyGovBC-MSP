@@ -76,7 +76,7 @@
               name="departureReason_{{objectId}}"
               type="text" 
               class="form-control"
-              [(ngModel)]=person.departureReason
+              [(ngModel)]= "person.departureReason12Months"
               maxlength="20"
               required>
         <common-error-container [displayError]="reasonRef.error?.required">
@@ -92,7 +92,7 @@
               name="departureDestination_{{objectId}}"
               type="text" 
               class="form-control"
-              [(ngModel)]=person.departureDestination
+              [(ngModel)]= "person.departureDestination12Months" 
               maxlength="20"
               required>
      <common-error-container [displayError]="destinationRef.error?.required">
@@ -103,14 +103,14 @@
     <div class="form-group col-sm-6 p-sm-2">
      <common-date label="Departure date"
                   [restrictDate]="'past'" 
-                  [(date)]="person.departureDate">
+                  [(date)]="person.departureDateDuring12Months">
      </common-date>
    </div>
 
    <div class="form-group col-sm-6 p-sm-2">
        <common-date label="Return date"
                     [restrictDate]="'past'" 
-                    [(date)]="person.returnDate">
+                    [(date)]="person.returnDateDuring12Months">
        </common-date>
 
 <!--TODO: Need to do checks to ensure return date is greater than departure date
@@ -136,7 +136,7 @@ and check departure was within last 12 months - need to find error messages for 
               name="departureReason_{{objectId}}"
               type="text" 
               class="form-control"
-              [(ngModel)]=person.departureReason
+              [(ngModel)]="person.departureReason"
               maxlength="20"
               required>
         <common-error-container [displayError]="reasonRef.error?.required">
@@ -152,7 +152,7 @@ and check departure was within last 12 months - need to find error messages for 
               name="departureDestination_{{objectId}}"
               type="text" 
               class="form-control"
-              [(ngModel)]=person.departureDestination
+              [(ngModel)]="person.departureDestination"
               maxlength="20"
               required>
      <common-error-container [displayError]="destinationRef.error?.required">
@@ -163,14 +163,14 @@ and check departure was within last 12 months - need to find error messages for 
     <div class="form-group col-sm-6 p-sm-2">
      <common-date label="Departure date"
                   [restrictDate]="'past'" 
-                  [(date)]="person.departureDate">
+                  [(date)]="person.departureDateDuring6Months">
      </common-date>
    </div>
 
    <div class="form-group col-sm-6 p-sm-2">
        <common-date label="Return date"
                     [restrictDate]="'past'" 
-                    [(date)]="person.returnDate">
+                    [(date)]="person.returnDateDuring6Months">
        </common-date>
 
 <!--TODO: Need to do checks to ensure return date is greater than departure date

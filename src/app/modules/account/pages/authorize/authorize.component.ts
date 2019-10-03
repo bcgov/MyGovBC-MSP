@@ -5,13 +5,17 @@ import {MspDataService} from '../../../../services/msp-data.service';
 import {ProcessService, ProcessUrls} from '../../../../services/process.service';
 import {environment} from '../../../../../environments/environment';
 import { MspAccountApp, MspPerson } from '../../models/account.model';
+import { PageStateService } from 'app/services/page-state.service';
+import { AbstractForm } from 'moh-common-lib';
+import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 
 @Component({
   selector: 'msp-authorize',
   templateUrl: './authorize.component.html',
   styleUrls: ['./authorize.component.scss']
 })
-export class AuthorizeComponent implements OnInit {
+export class AuthorizeComponent extends AbstractForm implements OnInit {
+    
 
   lang = require('./i18n');
 
@@ -19,9 +23,10 @@ export class AuthorizeComponent implements OnInit {
     captchaApiBaseUrl: string;
     @ViewChild(NgForm) form: NgForm;
 
-    constructor(private dataService: MspDataService,
+    constructor(private dataService: MspAccountMaintenanceDataService,
                 private _router: Router,
-                private processService: ProcessService) {
+                private pageStateService: PageStateService) {
+        super(_router);
         this.mspAccountApp = dataService.getMspAccountApp();
         this.captchaApiBaseUrl = environment.appConstants.captchaApiBaseUrl;
     }
@@ -61,6 +66,8 @@ export class AuthorizeComponent implements OnInit {
 
 
     ngOnInit() {
+        this.pageStateService.setPageIncomplete(this.router.url, this.dataService.accountApp.pageStatus);
+   
       /*  let oldUUID = this.mspAccountApp.uuid;
         this.mspAccountApp.regenUUID();
         this.dataService.saveMspAccountApp();
@@ -92,14 +99,25 @@ export class AuthorizeComponent implements OnInit {
 
     handleFormSubmission($event) {
 
-        if (this.mspAccountApp.hasValidAuthToken) {
+      /*  if (this.mspAccountApp.hasValidAuthToken) {
             console.log('Found valid auth token, transfer to sending screen.');
             this.processService.setStep(this.processService.getStepNumber(ProcessUrls.ACCOUNT_REVIEW_URL), true);
             //  this.logService.log({name: "Account - Review Page after CAPTCHA"},"Account - Captcha Success")
             this._router.navigate(['/account/sending']);
         } else {
             console.log('Auth token is not valid');
-        }
+        }*/
     }
+
+    continue(): void {
+        if (!this.canContinue()) {
+          console.log('Please fill in all required fields on the form.');
+          this.markAllInputsTouched();
+          return;
+        }
+        this.pageStateService.setPageComplete(this.router.url, this.dataService.accountApp.pageStatus);
+        this.navigate('/account/sending');
+      }
+
 
 }

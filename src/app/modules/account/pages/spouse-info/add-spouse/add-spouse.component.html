@@ -19,8 +19,10 @@
       </msp-personal-information>
 
       <div class="form-group" style="width: 300px;">
-        <common-date name="marriageDate__{{objectId}}"  label="Marriage date (optional)" [restrictDate]="'past'" 
-          [(ngModel)]="spouse.marriageDate">
+        <common-date  
+          label="Marriage date (optional)" 
+          [restrictDate]="'past'" 
+          [(date)]="spouse.marriageDate">
         </common-date>
       </div>
 
@@ -107,8 +109,10 @@
 
 
         <div class="form-group" style="width: 300px;">
-          <common-date name="marriageDate__{{objectId}}" label="Marriage date (optional)" [restrictDate]="'past'" 
-            [(ngModel)]="spouse.marriageDate">
+          <common-date  
+            label="Marriage date (optional)" 
+            [restrictDate]="'past'" 
+            [(date)]="spouse.marriageDate">
           </common-date>
         </div>
 
