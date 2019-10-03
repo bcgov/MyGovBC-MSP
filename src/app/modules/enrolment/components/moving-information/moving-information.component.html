@@ -40,7 +40,7 @@
       <common-province name="movedFromProvince_{{objectId}}"
                       [provinceList]="provinceList"
                       [(ngModel)]="person.movedFromProvinceOrCountry"
-                      label="Which province are {{relationship}} moving from?"
+                      label="Which province {{isLivingWithoutMSP ? 'did' : 'are'}} {{relationship}} moving from?"
                       required>
       </common-province>
     </div>
