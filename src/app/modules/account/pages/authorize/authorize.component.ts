@@ -4,11 +4,11 @@ import { Router} from '@angular/router';
 import {MspDataService} from '../../../../services/msp-data.service';
 import {ProcessService, ProcessUrls} from '../../../../services/process.service';
 import {environment} from '../../../../../environments/environment';
-import { MspAccountApp, MspPerson } from '../../models/account.model';
+import { MspAccountApp } from '../../models/account.model';
 import { PageStateService } from 'app/services/page-state.service';
 import { AbstractForm } from 'moh-common-lib';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
-
+import { MspPerson } from '../../../../../app/components/msp/model/msp-person.model';
 @Component({
   selector: 'msp-authorize',
   templateUrl: './authorize.component.html',
