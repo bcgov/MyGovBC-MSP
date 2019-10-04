@@ -217,7 +217,8 @@
                                             <div><!--benefitApp.hasSpouse-->
                                                <common-checkbox label="My spouse/common-law partner"
                                                     [disabled]="!benefitApp.hasSpouse"
-                                                    (click)="toggleClaimForSpouseDisabilityCredit($event)"
+                                                    (click)="spouseDisabilityClicked($event)"
+                                                    (dataChange)="toggleClaimForSpouseDisabilityCredit($event)"
                                                     [data]="benefitApp.spouseEligibleForDisabilityCredit" >
                                                 </common-checkbox>
                                             </div>
@@ -331,12 +332,13 @@
                                         </common-checkbox> 
 
                                     </div>
-                                
+                                   
                                     <div> <!-- *ngIf="benefitApp.hasSpouse === true"-->
                                         <div class="form-check form-check-inline">
                                                 <common-checkbox label="My spouse/common-law partner"
-                                                    [disabled]="!(benefitApp.hasSpouse === true)"
-                                                    (click)="spouseClaimForAttendantCare($event)"
+                                                    [disabled]="!benefitApp.hasSpouse"
+                                                    (click)="spouseNursingClicked($event)"
+                                                    (dataChange)="spouseClaimForAttendantCare($event)"
                                                     [data]="benefitApp.spouseClaimForAttendantCareExpense" >
                                                 </common-checkbox> 
                                         </div>
