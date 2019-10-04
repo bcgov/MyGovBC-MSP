@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { AbstractForm } from 'moh-common-lib';
+import { AbstractForm, SimpleDate } from 'moh-common-lib';
 import { Router } from '@angular/router';
 import { HeaderService } from '../../../../services/header.service';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
@@ -32,6 +32,16 @@ export class RequestLetterComponent extends AbstractForm implements AfterViewIni
 
   get application() {
     return this.dataService.application;
+  }
+
+  get dob() {
+    console.log( 'dob: ', this.application.accountHolderDob );
+    return this.application.accountHolderDob;
+  }
+
+  set dob( val: SimpleDate ) {
+    console.log( 'dob: ', val );
+    this.application.accountHolderDob = val;
   }
 
   ngAfterViewInit() {

@@ -9,7 +9,7 @@ export class AclApplication  extends BaseApplication {
   infoCollectionAgreement: boolean;
 
   accountHolderPhn: string;
-  accountHolderDob: SimpleDate;
+  accountHolderDob: SimpleDate = { year: null, month: null, day: null };
 
   // Postal code for account holder
   postalCode: string;

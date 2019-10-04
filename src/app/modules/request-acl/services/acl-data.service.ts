@@ -52,6 +52,8 @@ export class AclDataService extends BaseMspDataService {
    private fromTransferObject( dto: AclDto ): AclApplication {
     const output: AclApplication = new AclApplication();
 
+    console.log( 'from transfer object: ', dto );
+
     output.infoCollectionAgreement = dto.infoCollectionAgreement;
     output.accountHolderPhn = dto.accountHolderPhn;
     output.accountHolderDob = dto.accountHolderDob;

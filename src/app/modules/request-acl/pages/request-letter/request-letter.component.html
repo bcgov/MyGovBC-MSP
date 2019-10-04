@@ -32,7 +32,8 @@
         <div class="form-group">
             <common-date label="Birthdate"
                          [restrictDate]="'past'" 
-                         [(date)]="application.accountHolderDob">
+                         [(date)]="dob"
+                         [required]="true">
             </common-date>
         </div>
         <div>
