@@ -19,8 +19,6 @@ export class RequestLetterComponent extends AbstractForm implements AfterViewIni
   // Used to indicate that the system is processing the request
   loading: boolean = false;
 
-  tmpPhn: string = '';
-
   private _subscription: Subscription;
 
   constructor( protected router: Router,
@@ -29,9 +27,12 @@ export class RequestLetterComponent extends AbstractForm implements AfterViewIni
     super( router );
 
     // Set service name for application
-    this.header.setTitle('Account Confirmation Request');
-   }
+    this.header.setTitle( 'Account Confirmation Request' );
+  }
 
+  get application() {
+    return this.dataService.application;
+  }
 
   ngAfterViewInit() {
     // Display consent modal if no agreement

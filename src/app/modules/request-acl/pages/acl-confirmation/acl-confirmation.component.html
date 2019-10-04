@@ -1,3 +1,33 @@
-<p>
-  acl-confirmation works!
-</p>
+<common-page-framework layout="blank">
+  <msp-confirm-template [displayIcon]="status">
+    <div confirmationTitle>
+      <a *ngIf="isSucess" onclick="window.print();return false;">
+        <strong class="float-right">Print
+          <i class="fa fa-print fa-lg pointer" aria-hidden="true"></i>
+        </strong>
+      </a>
+      <h1>Confirmation Message</h1>
+      <p class="border-bottom">
+        It is important to keep your reference number - write it down, or print this page for your records.
+      </p>
+    </div>
+    <div message *ngIf="isSucess; else ErrorMsg">
+      {{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}
+    </div>
+  
+    <div AdditionalInfo>
+      <h2 class="border-bottom">Important</h2>
+      TODO add information from mockup
+    </div>
+  </msp-confirm-template>
+</common-page-framework>
+  
+  
+<ng-template #ErrorMsg>
+  <div message >
+      The postal code you entered does not match Medical Services Plan records for your account. 
+      Please update your address by using the 
+      <a href="{{links.BCSC_UPDATE}}" target="_blank">Change of Address Service </a> 
+      or by contacting <a href="{{links.HIBC}}" target="_blank">Health Insurance B.C.</a>
+  </div>
+ </ng-template>

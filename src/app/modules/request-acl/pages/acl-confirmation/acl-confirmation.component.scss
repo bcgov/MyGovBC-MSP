@@ -1,0 +1,27 @@
+@import 'variables.scss';
+
+.confirm-icon--success,
+.confirm-icon--error,
+.confirm-icon--warning
+{
+  flex-direction: row;
+}
+
+.confirm-icon--success::after,
+.confirm-icon--error::after,
+.confirm-icon--warning::after {
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
+}
+
+.confirm-icon--success::after {
+  content: 'Success';
+}
+
+.cofirm-icon--error::after {
+  content: 'Error';
+}
+
+.confirm-icon--warning::after {
+  content: 'Warning';
+}
