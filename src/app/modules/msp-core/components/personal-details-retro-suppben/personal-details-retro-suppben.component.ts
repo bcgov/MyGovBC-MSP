@@ -34,6 +34,8 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
     @ViewChild('mspImageErrorModal') mspImageErrorModal: MspImageErrorModalComponent;
     subscriptions: Subscription[];
 
+
+
     constructor(private dataService: MspBenefitDataService,
                 private cd: ChangeDetectorRef) {
         super(cd);
@@ -50,6 +52,10 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
                 //this.dataService.saveBenefitApplication();
             });
     //    this.dataService.saveBenefitApplication();
+    }
+
+    get docText(): string {
+        return this.person.relationship === 0 ? "account holder\'s": "spouse\'s";
     }
 
 

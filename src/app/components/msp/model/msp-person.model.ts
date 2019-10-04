@@ -192,7 +192,9 @@ export class MspPerson implements IPerson {
     }
 
     departureReason: string;
+    departureReason12Months: string;
     departureDestination: string;
+    departureDestination12Months: string;
     departureDate: SimpleDate = { day: null, month: null, year: null };
     returnDate: SimpleDate = { day: null, month: null, year: null };
 
@@ -434,6 +436,80 @@ export class MspPerson implements IPerson {
     }
 
 
+    departureDateDuring12MonthsDay: number = null;
+    departureDateDuring12MonthsMonth: number = null;
+    departureDateDuring12MonthsYear: number = null;
+
+    departureDateDuring6MonthsDay: number = null;
+    departureDateDuring6MonthsMonth: number = null;
+    departureDateDuring6MonthsYear: number = null;
+
+    returnDate12MonthsDay: number = null;
+    returnDate12MonthsMonth: number = null;
+    returnDate12MonthsYear: number = null;
+
+    returnDate6MonthsDay: number = null;
+    returnDate6MonthsMonth: number = null;
+    returnDate6MonthsYear: number = null;
+
+
+    get departureDateDuring12Months(): SimpleDate {
+        return {
+            day: this.departureDateDuring12MonthsDay,
+            month: this.departureDateDuring12MonthsMonth,
+            year: this.departureDateDuring12MonthsYear,
+        };
+    }
+
+    set departureDateDuring12Months(date: SimpleDate){
+        this.departureDateDuring12MonthsDay = date.day;
+        this.departureDateDuring12MonthsMonth = date.month;
+        this.departureDateDuring12MonthsYear = date.year;
+    }
+
+    get departureDateDuring6Months(): SimpleDate {
+        return {
+            day: this.departureDateDuring6MonthsDay,
+            month: this.departureDateDuring6MonthsMonth,
+            year: this.departureDateDuring6MonthsYear,
+        };
+    }
+
+    set departureDateDuring6Months(date: SimpleDate){
+        this.departureDateDuring6MonthsDay = date.day;
+        this.departureDateDuring6MonthsMonth = date.month;
+        this.departureDateDuring6MonthsYear = date.year;
+    }
+
+    set returnDateDuring12Months(date: SimpleDate){
+        this.returnDate12MonthsDay = date.day;
+        this.returnDate12MonthsMonth = date.month;
+        this.returnDate12MonthsYear = date.year;
+    }
+
+    get returnDateDuring12Months(): SimpleDate {
+        return {
+            day: this.returnDate12MonthsDay,
+            month: this.returnDate12MonthsMonth,
+            year: this.returnDate12MonthsYear,
+        };
+    }
+
+    set returnDateDuring6Months(date: SimpleDate){
+        this.returnDate6MonthsDay = date.day;
+        this.returnDate6MonthsMonth = date.month;
+        this.returnDate6MonthsYear = date.year;
+    }
+
+    get returnDateDuring6Months(): SimpleDate {
+        return {
+            day: this.returnDate6MonthsDay,
+            month: this.returnDate6MonthsMonth,
+            year: this.returnDate6MonthsYear,
+        };
+    }
+
+
     madePermanentMoveToBC: boolean;
     private _plannedAbsence: boolean;
 
@@ -473,9 +549,26 @@ export class MspPerson implements IPerson {
     /** Only for spouse. Previous last name. */
     prevLastName: string;
     /** Only for spouse. Marriage date to applicant. */
-    marriageDate: SimpleDate = { day: null, month: null, year: null };
+    //marriageDate: SimpleDate = { day: null, month: null, year: null };
 
 
+    marriageDateDay: number = null;
+    marriageDateMonth: number = null;
+    marriageDateYear: number = null;
+
+    get marriageDate(): SimpleDate {
+        return {
+            day: this.marriageDateDay,
+            month: this.marriageDateMonth,
+            year: this.marriageDateYear,
+        };
+    }
+
+    set marriageDate(date: SimpleDate){
+        this.marriageDateDay = date.day;
+        this.marriageDateMonth = date.month;
+        this.marriageDateYear = date.year;
+    }
 
 
 

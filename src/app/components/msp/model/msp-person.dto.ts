@@ -48,6 +48,23 @@ export default class PersonDto {
     arrivalToBCYear: number;
     arrivalToBCMonth: number;
     arrivalToBCDay: number;
+
+    departureDateDuring12MonthsDay: number;
+    departureDateDuring12MonthsMonth: number ;
+    departureDateDuring12MonthsYear: number;
+
+    departureDateDuring6MonthsDay: number;
+    departureDateDuring6MonthsMonth: number;
+    departureDateDuring6MonthsYear: number;
+
+    returnDate12MonthsDay: number;
+    returnDate12MonthsMonth: number;
+    returnDate12MonthsYear: number;
+
+    returnDate6MonthsDay: number;
+    returnDate6MonthsMonth: number;
+    returnDate6MonthsYear: number;
+
     hasBeenReleasedFromArmedForces: boolean;
     movedFromProvinceOrCountry: string;
     institutionWorkHistory: string;
@@ -96,6 +113,10 @@ export default class PersonDto {
     reasonForCancellation: string;
     cancellationDate: SimpleDate;
     marriageDate: SimpleDate = { day: null, month: null, year: null };
+    marriageDateDay: number ;
+    marriageDateMonth: number;
+    marriageDateYear: number;
+
     prevLastName: string;
     phoneNumber: string;
     imageDocType: string;
@@ -129,7 +150,9 @@ export default class PersonDto {
     declarationForOutsideOver30Days: boolean;
     declarationForOutsideOver60Days: boolean;
     departureReason: string;
+    departureReason12Months: string;
     departureDestination: string;
+    departureDestination12Months: string;
     departureDate: SimpleDate = { day: null, month: null, year: null };
     returnDate: SimpleDate = { day: null, month: null, year: null };
 

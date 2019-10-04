@@ -217,7 +217,8 @@
                                             <div><!--benefitApp.hasSpouse-->
                                                <common-checkbox label="My spouse/common-law partner"
                                                     [disabled]="!benefitApp.hasSpouse"
-                                                    (click)="toggleClaimForSpouseDisabilityCredit($event)"
+                                                    (click)="spouseDisabilityClicked($event)"
+                                                    (dataChange)="toggleClaimForSpouseDisabilityCredit($event)"
                                                     [data]="benefitApp.spouseEligibleForDisabilityCredit" >
                                                 </common-checkbox>
                                             </div>
@@ -235,9 +236,9 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="text-danger" style="font-size:12px" *ngIf="showNursingError"
+                                    <div class="text-danger" *ngIf="showNursingError"
                                             [innerHTML]="'
-                                            You have already selected disability credit for yourself. Please remove disability credit if you want to claim nursing home expense credit for yourself.'" tabindex="0">
+                                            You have already selected nursing home expense credit for yourself. Please remove nursing home expense credit if you want to claim disability credit for yourself.'" tabindex="0">
                                         <br>
                                     </div> 
                                    
@@ -258,6 +259,10 @@
                                         </div>
                                             
                                         <div class="text-danger" *ngIf="childCountExceedError()"
+                                            [innerHTML]="'The total number of children for which you claimed disability credit and attendance care expense credit cannot exceed the total number of children on the account.'">
+                                        </div>
+                                        
+                                        <div class="text-danger" *ngIf="benefitApp.numberOfChildrenWithDisability > benefitApp.childrenCount"
                                             [innerHTML]="lang('./en/index.js').cannotExceedChildrenCount">
                                         </div>
                                         
@@ -327,23 +332,15 @@
                                         </common-checkbox> 
 
                                     </div>
-                                
+                                   
                                     <div> <!-- *ngIf="benefitApp.hasSpouse === true"-->
                                         <div class="form-check form-check-inline">
                                                 <common-checkbox label="My spouse/common-law partner"
-                                                    [disabled]="!(benefitApp.hasSpouse === true)"
-                                                    (click)="spouseClaimForAttendantCare($event)"
+                                                    [disabled]="!benefitApp.hasSpouse"
+                                                    (click)="spouseNursingClicked($event)"
+                                                    (dataChange)="spouseClaimForAttendantCare($event)"
                                                     [data]="benefitApp.spouseClaimForAttendantCareExpense" >
                                                 </common-checkbox> 
-                                                <!--<input type="checkbox" tabindex="0"
-                                                        name="spouseClaimForAttendantCareExpense"
-                                                        id="spouseClaimForAttendantCareExpense"
-                                                        [ngModel] = "benefitApp.spouseClaimForAttendantCareExpense"
-                                                        (click)="spouseClaimForAttendantCareExpense($event)">
-                                                <label for="spouseClaimForAttendantCareExpense">
-                                                    My spouse/common-law partner
-                                                </label> -->
-                                            
                                         </div>
                                     </div>
 
@@ -358,9 +355,9 @@
                                     </div>
                                 </div>
                             
-                                <div class="text-danger" style="font-size:12px" *ngIf="showDisabilityError"
+                                <div class="text-danger" *ngIf="showDisabilityError"
                                         [innerHTML]="'
-                                        You have already selected nursing home expense credit for yourself. Please remove nursing home expense credit if you want to claim disability credit for yourself.'" tabindex="0">
+                                        You have already selected disability credit for yourself. Please remove disability credit if you want to claim nursing home credit for yourself.'" tabindex="0">
                                 </div>
                             </div>   
                         </div>
@@ -371,31 +368,27 @@
                             <label for="childClaimForAttendantCareExpenseCount">
                                     How many children claimed attendant care expense?
                             </label>
-                        </div>
+                             </div>
                             <div class="col-2" >
-                            <input type="text" class="form-control" name="childClaimForAttendantCareExpenseCount"
-                                    id="childClaimForAttendantCareExpenseCount"
-                                    #attendantCareCount="ngModel"
-                                    pattern="^[0-9]{0,2}?$"
-                                    maxlength="2"
-                                    [(ngModel)]="benefitApp.childWithAttendantCareCount">
+                                <input type="text" class="form-control" name="childClaimForAttendantCareExpenseCount"
+                                        id="childClaimForAttendantCareExpenseCount"
+                                        #attendantCareCount="ngModel"
+                                        pattern="^[0-9]{0,2}?$"
+                                        maxlength="2"
+                                        [(ngModel)]="benefitApp.childWithAttendantCareCount">
                             </div>
-                            
                             <div style="margin-left:15px;"  class="text-danger" *ngIf="attendantCareCount.errors?.pattern"
-                                [innerHTML]="'Children count must be numeric and in between 1-29'">
+                                    [innerHTML]="'Children count must be numeric and in between 1-29'">
                             </div>
                             <div style="margin-left:15px;" class="text-danger" *ngIf="childCountExceedError()"
-                                    [innerHTML]="lang('./en/index.js').cannotExceedChildrenCount" tabindex="0">
+                                        [innerHTML]="'The total number of children for which you claimed disability credit and attendance care expense credit cannot exceed the total number of children on the account.'" tabindex="0">
                             </div>
-                            
+
+                            <div style="margin-left:15px;" class="text-danger" *ngIf="benefitApp.childWithAttendantCareCount > benefitApp.childrenCount"
+                                    [innerHTML]="lang('./en/index.js').cannotExceedChildrenCount">
+                            </div>
+
                         </div>
-                     
-                        <!-- Expense receipt File Uploader 
-                         <div  class="col-4 tool-tip" >
-                                        <h2>Tip</h2>   
-                                </div>  
-                            -->
-                        
                 </div>
                 <div *ngIf="requireAttendantCareReceipts">
                             

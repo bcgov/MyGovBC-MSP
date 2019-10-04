@@ -216,11 +216,27 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         this._router.navigate(['/benefit/personal-info']);
     }
 
+    spouseDisabilityClicked($event: Event): void {
+        if (this.benefitApp.spouseClaimForAttendantCareExpense) {
+            $event.preventDefault();
+            this.showNursingError = true;
+        }
+    }
+
+    spouseNursingClicked($event: Event): void {
+
+        if(this.benefitApp.spouseEligibleForDisabilityCredit) {
+            $event.preventDefault();
+            this.showDisabilityError = true;
+        }
+
+    }
+
 
     toggleClaimForSpouseDisabilityCredit($event: Event): void{
         if (this.benefitApp.spouseClaimForAttendantCareExpense && !this.benefitApp.spouseEligibleForDisabilityCredit){
-            $event.preventDefault();
-            this.showNursingError = true;
+        //    $event.preventDefault();
+        //    this.showNursingError = true;
             this.spouseClaimDisabilityCredit();
         }else{
             this.showNursingError = false;
@@ -282,7 +298,7 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
 
     childCountExceedError(): boolean {
-        if ((this.benefitApp.childWithAttendantCareCount || this.benefitApp.numberOfChildrenWithDisability) && this.benefitApp.childrenCount) {
+        if ((this.benefitApp.childWithAttendantCareCount && this.benefitApp.numberOfChildrenWithDisability) && this.benefitApp.childrenCount) {
             const childcount = this.benefitApp.childrenCount * 1;
             const childDeclaredForbenefit = ((this.benefitApp.childWithAttendantCareCount * 1) + (this.benefitApp.numberOfChildrenWithDisability * 1)) ;
             return childDeclaredForbenefit > childcount ? true : false ;
@@ -436,8 +452,8 @@ export class BenefitPrepareComponent  extends BaseComponent  {
         //console.log(event);
         if (!this.benefitApp.spouseClaimForAttendantCareExpense
             && this.benefitApp.spouseEligibleForDisabilityCredit){
-            event.preventDefault();
-            this.showDisabilityError = true;
+           // event.preventDefault();
+           // this.showDisabilityError = true;
 
             this.claimCategory = this.CREDIT_CLAIM_CATEGORY[1];
             this.counterClaimCategory = this.CREDIT_CLAIM_CATEGORY[0];
