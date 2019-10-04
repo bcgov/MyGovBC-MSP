@@ -1,0 +1,41 @@
+<msp-consent-modal #mspConsentModal 
+                   [isMaintenanceMode]="true" 
+                   (onClose)="phn.focus()"
+                   [consentProcessName]="'MSP'" 
+                   (accept)="acceptAgreement($event)">
+</msp-consent-modal>
+
+<common-page-framework layout='blank'>
+  <form #formRef='ngForm' novalidate>
+  
+    <h1>Request MSP Account Confirmation Letter</h1>
+    <p>
+        Medical Services Plan (MSP) Account Holders and Spouses can use this online form 
+        to request an MSP Account Confirmation letter that will verify MSP enrolment 
+        status for one or more individuals on an MSP account.
+    </p>
+    <p class="border-bottom">
+        Please allow two to three weeks for delivery.
+    </p>
+
+    <h2 class="border-bottom">Your Information</h2>
+    <common-page-section layout='tips'>
+      <div class="form-group col-sm-6 pl-0">
+        <common-phn #phn="ngModel"
+                    name="phn"
+                    [(ngModel)]="tmpPhn"
+                    required
+                    commonValidatePhn>
+        </common-phn>
+      </div>
+    </common-page-section>
+
+  </form>
+</common-page-framework>
+<common-form-action-bar (btnClick)="continue()"
+                        widthOption="extra-width-mobile-only"
+                        submitLabel="Request Confirmation"
+                        [defaultColor]="false"
+                        [isLoading]="loading">
+</common-form-action-bar>
+

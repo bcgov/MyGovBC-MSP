@@ -27,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: APP_ROUTES.ACCOUNT_LETTER,
-    loadChildren: 'app/modules/account-letter/account-letter.module#AccountLetterModule'
+    loadChildren: 'app/modules/request-acl/request-acl.module#RequestAclModule'
   },
   {
     path: '**',

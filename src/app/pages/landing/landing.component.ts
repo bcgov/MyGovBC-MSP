@@ -3,6 +3,8 @@ import { MspDataService } from '../../services/msp-data.service';
 import { Router } from '@angular/router';
 import { MspBenefitDataService } from '../../modules/benefit/services/msp-benefit-data.service';
 import { ROUTES_ENROL } from '../../modules/enrolment/models/enrol-route-constants';
+import { ROUTES_ACL } from '../../modules/request-acl/request-acl-route-constants';
+import { AclDataService } from '../../modules/request-acl/services/acl-data.service';
 
 /**
  * Application for MSP
@@ -30,10 +32,12 @@ export class LandingComponent {
 
   // routes
   checkEligibility = ROUTES_ENROL.CHECK_ELIG.fullpath;
+  acl = ROUTES_ACL.REQUEST_ACL.fullpath;
 
   constructor(
     private mspDataService: MspDataService,
     private mspBenefitDataService: MspBenefitDataService,
+    private aclDataService: AclDataService,
     private router: Router
   ) {}
 
@@ -61,5 +65,10 @@ export class LandingComponent {
   clearSavedBenefitAssisApp() {
     this.mspBenefitDataService.removeMspBenefitApp();
     this.router.navigate(['/benefit/eligibility']);
+  }
+
+  clearSavedAclApplication() {
+    this.aclDataService.removeApplication();
+    this.router.navigate([this.acl]);
   }
 }
