@@ -218,10 +218,8 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
     spouseDisabilityClicked($event: Event): void {
         if (this.benefitApp.spouseClaimForAttendantCareExpense) {
-
             $event.preventDefault();
             this.showNursingError = true;
-           
         }
     }
 
@@ -236,8 +234,6 @@ export class BenefitPrepareComponent  extends BaseComponent  {
 
 
     toggleClaimForSpouseDisabilityCredit($event: Event): void{
-        console.log($event);
-        
         if (this.benefitApp.spouseClaimForAttendantCareExpense && !this.benefitApp.spouseEligibleForDisabilityCredit){
         //    $event.preventDefault();
         //    this.showNursingError = true;
