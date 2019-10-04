@@ -1,5 +1,5 @@
 <common-page-framework layout="blank">
-    <div class="col-lg-8">   
+  
 <h1> <strong>Authorize and submit your application</strong> </h1> <br> 
 <p [innerHTML]="lang('./en/index.js').declaration"></p> <br><br>
 
@@ -38,19 +38,58 @@
       <label class="form-check-label" for="authByAttorney" [innerHTML]="'Yes, I have Power of Attorney or another legal representation agreement'"></label>
     </div>
   </div>
-  <div style="margin-top: 20px;" *ngIf="application.authorizedByAttorney">
+  <div *ngIf="application.authorizedByAttorney">
     
-    <h2>Documents</h2>
-    <p class="help-block border-bottom">Power of Attorney document or another legal representation agreement (required)</p>
+    <h2><b> Documents </b></h2>
+    <p class="help-block border-bottom">Upload your Power of Attorney document or another legal representation agreement</p>
+    
     <div class="row">
-      <div style="margin-left: 30px;">      
-        <common-file-uploader #fileUploader class="row" 
-              [images]="application.powerOfAttorneyDocs" (imagesChange)="uploadDocument($event)"
-              id="application.id" [instructionText]="'Please upload required Power of Attorney or another legal representation agreement'">
+      <div class="col-8" >      
+        <common-file-uploader
+              [images]="application.powerOfAttorneyDocs" 
+              (imagesChange)="uploadDocument($event)"
+              id="application.id" 
+              [instructionText]="'Please upload required Power of Attorney or another legal representation agreement'">
         </common-file-uploader>
+      </div>  
+              <!-- TIP -->
+      <div class="col-2">
+        <div  style="background-color : #f2f2f2; height: 275px; width: 367px;">
+          <br>
+          <aside>
+              <div class="row" style="margin-bottom:15px">
+                      &nbsp;&nbsp;&nbsp; 
+                  <div class="col-8">
+                    <p>
+                        <b>Tip</b>  
+                    </p>
+                    <p>
+                          Scan the document, or take a photo of it
+                    </p>
+                    <p>
+                      Make sure that it's :
+                    </p>
+                      <ul>
+                          <li>
+                              The entire document, from corner to corner
+                          </li>
+                          <li>
+                              Rotated correctly (not upside down or sideways)
+                          </li>
+                          <li>
+                              In focus and easy to read
+                          </li>
+                          <li> 
+                              A JPG, PNG, GIF, BMP or PDF file
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </aside> 
+      </div> 
       </div>
-    </div>
-     </div>
+    </div> 
+  </div>
   <br><br>
   <div class="row">
     <div class="col-lg-8">
@@ -59,7 +98,6 @@
     </div>
   </div>
 </form>
-</div>
 <!--
   <button
   [disabled]="!canContinue"
