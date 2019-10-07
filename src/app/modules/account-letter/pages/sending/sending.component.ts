@@ -108,7 +108,7 @@ export class AccountLetterSendingComponent implements AfterContentInit {
      */
     isFailure(aCLApiResponse: ACLApiResponse): boolean {
         // has a reference number , is DB error code Y , is RAPID response Y then its not a failure
-        if (aCLApiResponse.referenceNumber && aCLApiResponse.dberrorCode === 'Y'  && aCLApiResponse.rapidResponse ==='Y' ) {
+        if (aCLApiResponse.referenceNumber && aCLApiResponse.dberrorCode === 'Y'  && aCLApiResponse.rapidResponse === 'Y' ) {
             return false;
         }
 

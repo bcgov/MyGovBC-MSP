@@ -14,6 +14,7 @@ export class AclConfirmationComponent implements OnInit {
 
   confirmationNum: string;
   status: ApiStatusCodes = ApiStatusCodes.ERROR;
+  message: string;
 
   links = environment.links;
 
@@ -24,13 +25,17 @@ export class AclConfirmationComponent implements OnInit {
   ngOnInit(): void {
     this._subscription = this.route.queryParams.subscribe(
       params => {
-        const statusCode = params['status'];
-        if ( statusCode ) {
-          this.status = statusCode;
+        if ( params['status'] ) {
+          this.status = params['status'];
         }
 
-        this.confirmationNum = params['confirmationNum'];
+        if ( params['confirmationNum'] ) {
+          this.confirmationNum = params['confirmationNum'];
+        }
 
+        if ( params['message'] ) {
+          this.message = params['message'];
+        }
         console.log( 'params: ', params );
       }
     );

@@ -7,14 +7,8 @@ export const ROUTES_ACL = {
     fullpath: `${APP_ROUTES.ACCOUNT_LETTER}/request-acl`,
     title: 'Request Account Confirmation Letter',
   },
-  SENDING: {
-    index: 2,
-    path: 'sending',
-    fullpath: `${APP_ROUTES.ACCOUNT_LETTER}/sending`,
-    title: 'Sending',
-  },
   CONFIRMATION: {
-    index: 2,
+    index: 1,
     path: 'confirmation',
     fullpath: `${APP_ROUTES.ACCOUNT_LETTER}/confirmation`,
     title: 'Confirmation',

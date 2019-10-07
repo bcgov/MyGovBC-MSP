@@ -52,11 +52,18 @@
 <ng-template #IconErrMsg>
   <div message >
     <p class="icon--message">Error</p>
-    <p>
-      The postal code you entered does not match Medical Services Plan records for your account. 
-      Please update your address by using the 
-      <a href="{{links.BCSC_UPDATE}}" target="_blank">Change of Address Service </a> 
-      or by contacting <a href="{{links.HIBC}}" target="_blank">Health Insurance B.C.</a>
+    <p *ngIf="message; else DefaultMessage;">
+      {{message}}
     </p>
   </div>
  </ng-template>
+
+
+ <ng-template #DefaultMessage>
+  <p>
+    The postal code you entered does not match Medical Services Plan records for your account. 
+    Please update your address by using the 
+    <a href="{{links.BCSC_UPDATE}}" target="_blank">Change of Address Service </a> 
+    or by contacting <a href="{{links.HIBC}}" target="_blank">Health Insurance B.C.</a>
+  </p>
+</ng-template>
