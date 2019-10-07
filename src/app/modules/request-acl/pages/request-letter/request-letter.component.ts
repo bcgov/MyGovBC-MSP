@@ -6,6 +6,8 @@ import { MspConsentModalComponent } from '../../../msp-core/components/consent-m
 import { AclDataService } from '../../services/acl-data.service';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { EnrolmentMembership } from '../../model/enrolment-membership.enum';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'msp-request-letter',
@@ -18,6 +20,15 @@ export class RequestLetterComponent extends AbstractForm implements AfterViewIni
 
   // Used to indicate that the system is processing the request
   loading: boolean = false;
+  captchaApiBaseUrl: string = environment.appConstants.captchaApiBaseUrl;
+  requireAuthToken: boolean = false;
+
+  // Radio button labels
+  radioBtnLabels = [
+    { label: 'Myself only', value: EnrolmentMembership.MyselfOnly },
+    { label: 'All members on my MSP Account', value: EnrolmentMembership.AllMembers },
+    { label: 'One specific member on my MSP Account', value: EnrolmentMembership.SpecificMember },
+  ];
 
   private _subscription: Subscription;
 
@@ -34,14 +45,8 @@ export class RequestLetterComponent extends AbstractForm implements AfterViewIni
     return this.dataService.application;
   }
 
-  get dob() {
-    console.log( 'dob: ', this.application.accountHolderDob );
-    return this.application.accountHolderDob;
-  }
-
-  set dob( val: SimpleDate ) {
-    console.log( 'dob: ', val );
-    this.application.accountHolderDob = val;
+  get isSpecificMember() {
+    return this.application.enrolmentMembership === EnrolmentMembership.SpecificMember;
   }
 
   ngAfterViewInit() {
@@ -51,10 +56,22 @@ export class RequestLetterComponent extends AbstractForm implements AfterViewIni
     }
 
     if ( this.form ) {
-      console.log( 'subscribe to form changes' );
       this._subscription = this.form.valueChanges.pipe(
           debounceTime( 100 )
         ).subscribe(() => {
+
+          // Clear out specific member PHN
+          if ( !this.isSpecificMember ) {
+            this.application.specificMemberPhn = '';
+          }
+
+          // Determine whether captcha is displayed or not
+          if ( this.form.valid && this.dataService.application.infoCollectionAgreement ) {
+            this.requireAuthToken = true;
+          } else {
+            this.requireAuthToken = false;
+          }
+
           this.dataService.saveApplication();
         });
     }
@@ -65,7 +82,6 @@ export class RequestLetterComponent extends AbstractForm implements AfterViewIni
   }
 
   acceptAgreement( $event ) {
-    console.log( 'accept agreement ', $event );
     this.dataService.application.infoCollectionAgreement = $event;
     this.dataService.saveApplication();
   }
@@ -74,6 +90,12 @@ export class RequestLetterComponent extends AbstractForm implements AfterViewIni
   // TODO: Build logic - add the send page data here
   continue(): void {
 
+    if ( !this.form.valid || !this.application.authorizationToken ) {
+      this.markAllInputsTouched();
+      return;
+    }
+
+    console.log( 'Can continue' );
   }
 
 }

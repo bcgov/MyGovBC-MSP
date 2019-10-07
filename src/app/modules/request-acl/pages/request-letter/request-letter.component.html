@@ -26,25 +26,62 @@
                       name="accountHolderPhn"
                       [(ngModel)]="application.accountHolderPhn"
                       required
-                      commonValidatePhn>
+                      commonValidatePhn
+                      commonDuplicateCheck
+                      [dupList]="[application?.SpecificMember]">
           </common-phn>
         </div>
         <div class="form-group">
             <common-date label="Birthdate"
                          [restrictDate]="'past'" 
-                         [(date)]="dob"
+                         [(date)]="application.accountHolderDob"
                          [required]="true">
             </common-date>
         </div>
-        <div>
+        <div class="form-group">
           <common-postal-code name="accountHolderPC"
+                              label="Mailing Postal Code"
                               [(ngModel)]="application.postalCode"
                               required>
           </common-postal-code>
         </div>
       </div>
+
+      <div class="form-group pt-4">
+        <common-radio name="EnrolmentMembership"
+                      [(ngModel)]="application.enrolmentMembership" 
+                      label="Whose MSP enrolment information should be included in the MSP Account Confirmation Letter?" 
+                      [radioLabels]="radioBtnLabels"
+                      display="table-row-group"
+                      required>
+        </common-radio>
+      </div>
     </common-page-section>
 
+    <div *ngIf="isSpecificMember">
+      <h2>Specific Member Information</h2>
+      <p class="border-bottom">
+        Please provide additional information for the specific member.
+      </p>
+      <common-page-section layout='tips' >
+        <div class="form-group col-sm-6 pl-0">
+          <common-phn name="SpecificMember"
+                      [(ngModel)]="application.SpecificMember"
+                      required
+                      commonValidatePhn
+                      commonDuplicateCheck
+                      [dupList]="[application?.accountHolderPhn]">
+          </common-phn>
+        </div>
+      </common-page-section>
+    </div>
+
+    <div  class="pt-4" *ngIf="requireAuthToken">
+      <common-captcha [apiBaseUrl]="captchaApiBaseUrl" 
+                      [nonce]="application.uuid"
+                      (onValidToken)="application.authorizationToken=$event">
+      </common-captcha>
+    </div>
   </form>
 </common-page-framework>
 <common-form-action-bar (btnClick)="continue()"

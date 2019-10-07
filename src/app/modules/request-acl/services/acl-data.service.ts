@@ -32,8 +32,6 @@ export class AclDataService extends BaseMspDataService {
   }
 
   private toTransferObject( input: AclApplication ): AclDto {
-
-    console.log( 'to transfer object: ', input );
     const dto: AclDto = new AclDto();
 
     dto.infoCollectionAgreement = input.infoCollectionAgreement;
@@ -52,8 +50,6 @@ export class AclDataService extends BaseMspDataService {
    private fromTransferObject( dto: AclDto ): AclApplication {
     const output: AclApplication = new AclApplication();
 
-    console.log( 'from transfer object: ', dto );
-
     output.infoCollectionAgreement = dto.infoCollectionAgreement;
     output.accountHolderPhn = dto.accountHolderPhn;
     output.accountHolderDob = dto.accountHolderDob;
@@ -65,9 +61,8 @@ export class AclDataService extends BaseMspDataService {
   }
 
    private fetchApplication(): AclApplication {
-    console.log( 'fetch application (storage key): ', this._storageKey );
     const dto: AclDto = this.localStorageService.get<AclDto>( this._storageKey );
-    console.log( 'fetch application (dto): ', dto );
+
     if ( dto ) {
       return this.fromTransferObject( dto );
     } else {

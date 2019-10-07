@@ -5,7 +5,7 @@
   <div [ngSwitch]="displayIcon">
     <ng-container *ngSwitchCase="successCode">
       <div class="message-container border-success">
-        <p class="msp-icon--success">
+        <p class="confirm-icon--success">
           <i class="fa fa-2x fa-check-circle text-success pr-2" aria-label="success"></i>
         </p>
         <ng-container *ngTemplateOutlet="message"></ng-container>
@@ -14,7 +14,7 @@
 
     <ng-container *ngSwitchCase="errorCode">
       <div class="message-container border-danger">
-        <p class="msp-icon--error">
+        <p class="confirm-icon--error">
           <i class="fa fa-2x fa-exclamation-triangle text-danger pr-2" aria-label="error"></i>
         </p>
         <ng-container *ngTemplateOutlet="message"></ng-container>
@@ -23,7 +23,7 @@
 
     <ng-container *ngSwitchCase="warningCode">
       <div class="message-container border-warning">
-        <p class="msp-icon--warning">
+        <p class="confirm-icon--warning">
           <i class="fa fa-2x fa-exclamation-circle text-warning pr-2" aria-label="warning"></i>
         </p>
         <ng-container *ngTemplateOutlet="message"></ng-container>

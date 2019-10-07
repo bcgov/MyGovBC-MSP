@@ -11,22 +11,21 @@
 				It is important to keep your reference number - write it down, or print this page for your records.
 			</p>
 		</div>
-		<div message *ngIf="isSucess; else ErrorMsg">
-			<div class="icon--message">
-					Your application has been submitted
-			</div>
-			
-			<div>
+		<div message *ngIf="isSucess; else IconErrMsg">
+			<p class="icon--message">
+				Your application has been submitted
+			</p>
+			<p>
 				{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}
-			</div>
+			</p>
 		</div>
 
 		<div *ngIf="isSucess" AdditionalInfo>
 			<h2 class="border-bottom">Next Steps</h2>
 			<common-page-section layout='noTips'>
 				<div class="next-step--container">
-					<p class="next-set--item">
-						<i class="fa fa-2x fa-exclamation-circle next-step--icon pr-2" aria-label="next steps"></i>
+					<p>
+						<i class="fa fa-2x fa-exclamation-circle next-step--color pr-2" aria-label="next steps"></i>
 					</p>
 					<div>
 						<p>
@@ -80,7 +79,8 @@
 	</div>
 </ng-template>
 
-<ng-template #ErrorMsg>
+
+<ng-template #IconErrMsg>
 	<div message>
 		<div class="icon--message">
 				Your application was not submitted

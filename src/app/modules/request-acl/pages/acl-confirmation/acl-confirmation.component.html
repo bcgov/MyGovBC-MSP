@@ -11,23 +11,52 @@
         It is important to keep your reference number - write it down, or print this page for your records.
       </p>
     </div>
-    <div message *ngIf="isSucess; else ErrorMsg">
-      {{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}
+    <div message *ngIf="isSucess; else IconErrMsg" >
+      <p class="icon--message">Succss</p>
+      <p>{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}</p>
     </div>
   
     <div AdditionalInfo>
       <h2 class="border-bottom">Important</h2>
-      TODO add information from mockup
+      <div class="pb-4">
+        <div *ngIf="isSucess">
+          We are mailing you a letter to confirm your MSP enrolment status. Please wait two to three weeks for delivery.
+        </div>
+        <ul>
+          <li *ngIf="isSucess">
+              If you have not received your confirmation letter in three weeks, please contact 
+              <a href="{{links.HIBC}}" target="_blank"> Health Insurance BC</a> 
+              and be ready to provide the Reference Number above.
+          </li>
+          <li>
+            BC residents must fulfill their MSP obligations under the <i>Medicare Protection Act</i>
+          </li>
+          <ul style="list-style-type:circle">
+            <li>
+              Update your MSP account due to address changes or changes in family structure.
+            </li>
+            <li>
+              Health Insurance BC and the Ministry of Health offer easy online services to 
+              update your MSP account. Visit 
+              <a href={{links.MGMT_MSP_ACCOUNT}} target="_blank">Managing Your MSP Account.</a>
+            </li>
+          </ul>
+        </ul>
+      </div>
+      More information available on <a href="{{links.FAQ}}" target="blank">Frequently Asked Questions</a>.
     </div>
   </msp-confirm-template>
 </common-page-framework>
   
   
-<ng-template #ErrorMsg>
+<ng-template #IconErrMsg>
   <div message >
+    <p class="icon--message">Error</p>
+    <p>
       The postal code you entered does not match Medical Services Plan records for your account. 
       Please update your address by using the 
       <a href="{{links.BCSC_UPDATE}}" target="_blank">Change of Address Service </a> 
       or by contacting <a href="{{links.HIBC}}" target="_blank">Health Insurance B.C.</a>
+    </p>
   </div>
  </ng-template>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RequestLetterComponent } from './pages/request-letter/request-letter.component';
+import { AclConfirmationComponent } from './pages/acl-confirmation/acl-confirmation.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
     path: 'request-acl',
     component: RequestLetterComponent
   },
+  {
+    path: 'confirmation',
+    component: AclConfirmationComponent
+  }
 ];
 
 @NgModule({
