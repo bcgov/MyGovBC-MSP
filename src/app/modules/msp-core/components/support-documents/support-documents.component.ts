@@ -9,9 +9,17 @@ import { BehaviorSubject } from 'rxjs';
 export function suportDocumentRules(status: StatusInCanada, reason: CanadianStatusReason): SupportDocuments[] {
   switch (status) {
     case StatusInCanada.CitizenAdult:
-      return [SupportDocuments.CanadianBirthCertificate, SupportDocuments.CanadianCitizenCard, SupportDocuments.CanadianPassport];
+      return [
+        SupportDocuments.CanadianBirthCertificate,
+        SupportDocuments.CanadianCitizenCard,
+        SupportDocuments.CanadianPassport
+      ];
     case StatusInCanada.PermanentResident:
-      return [SupportDocuments.RecordOfLanding, SupportDocuments.PermanentResidentCard];
+      return [
+        SupportDocuments.PermanentResidentConfirmation,
+        SupportDocuments.RecordOfLanding,
+        SupportDocuments.PermanentResidentCard
+      ];
   }
   switch (reason) {
     case CanadianStatusReason.WorkingInBC:

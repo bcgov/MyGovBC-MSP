@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
 import { MspApplication } from '../modules/enrolment/models/application.model';
-import { AccountLetterApplication } from '../components/msp/model/account-letter-application.model';
 import { FinancialAssistApplication } from '../modules/assistance/models/financial-assist-application.model';
 import {
   MspAccountApp,
@@ -10,7 +9,6 @@ import { Process } from './process.service';
 import { MspProgressBarItem } from '../modules/account/components/progressBar/progressBarDataItem.model';
 import MspAccountDto from '../modules/account/models/account.dto';
 import MspApplicationDto from '../modules/enrolment/models/application.dto';
-import AccountLetterDto from '../components/msp/model/account-letter.dto';
 import FinancialAssistApplicationDto from '../modules/assistance/models/financial-assist-application.dto';
 import {
   Gender,
@@ -26,12 +24,10 @@ import AddressDto from '../components/msp/model/address.dto';
 @Injectable()
 export class MspDataService {
   private _mspApplication: MspApplication;
-  private _accountLetterApp: AccountLetterApplication;
   private _finAssistApp: FinancialAssistApplication;
 
   private _mspAccountApp: MspAccountApp;
   private finAssistAppStorageKey: string = 'financial-assist';
-  private accountLetterAppStorageKey: string = 'account-letter';
   // private finAssistMailingAddressStorageKey:string = 'financial-assist-mailing-address';
   private mspAppStorageKey: string = 'msp-application';
   private mspProcessKey: string = 'msp-process';
@@ -41,7 +37,6 @@ export class MspDataService {
 
   constructor(public localStorageService: LocalStorageService) {
     this._finAssistApp = this.fetchFinAssistApplication();
-    this._accountLetterApp = this.fetchAccountLetterApplication();
     this._mspApplication = this.fetchMspApplication();
     this._mspAccountApp = this.fetchMspAccountApplication();
   }
@@ -84,16 +79,12 @@ export class MspDataService {
     return this._finAssistApp;
   }
 
-  get accountLetterApp(): AccountLetterApplication {
-    return this._accountLetterApp;
-  }
 
   // return the application or assistance uuid
   getMspUuid(): string {
     let uuid = '';
     if (this._mspApplication) uuid = this._mspApplication.uuid;
     else if (this._finAssistApp) uuid = this._finAssistApp.uuid;
-    else if (this._accountLetterApp) uuid = this._accountLetterApp.uuid;
     return uuid;
   }
 
@@ -137,27 +128,6 @@ export class MspDataService {
     }
   }
 
-  // Saving Account Letter into local storage
-  saveAccountLetterApplication(): void {
-    const dto: AccountLetterDto = this.toAccoutLetterTransferObject(
-      this._accountLetterApp
-    );
-    this.localStorageService.set(this.accountLetterAppStorageKey, dto);
-    // this.localStorageService.set(this.finAssistMailingAddressStorageKey,dto.mailingAddress);
-  }
-
-  // Fetch Account Letter into local storage
-  private fetchAccountLetterApplication(): AccountLetterApplication {
-    const dto: AccountLetterDto = this.localStorageService.get<
-      AccountLetterDto
-    >(this.accountLetterAppStorageKey);
-    if (dto) {
-      return this.fromAccoutLetterTransferObject(dto);
-    } else {
-      return new AccountLetterApplication();
-    }
-  }
-  //private _accountLetterApp: AccountLetterApplication;
 
   saveFinAssistApplication(): void {
     // console.log('this._finAssistApp before conversion and saving: ');
@@ -242,11 +212,6 @@ export class MspDataService {
   removeMspAccountApp(): void {
     this.destroyAll();
     this._mspAccountApp = new MspAccountApp();
-  }
-
-  removeMspAccountLetterApp(): void {
-    this.destroyAll();
-    this._accountLetterApp = new AccountLetterApplication();
   }
 
   private toPersonDtoForAccount(input: MspPerson): PersonDto {
@@ -682,22 +647,6 @@ export class MspDataService {
     return dto;
   }
 
-  // Account letter to method
-  toAccoutLetterTransferObject(
-    input: AccountLetterApplication
-  ): AccountLetterDto {
-    const dto: AccountLetterDto = new AccountLetterDto();
-    dto.authorizedByApplicant = input.authorizedByApplicant;
-    dto.enrollmentMember = input.applicant.enrollmentMember;
-    dto.authorizedByApplicantDate = input.authorizedByApplicantDate;
-    dto.infoCollectionAgreement = input.infoCollectionAgreement;
-    dto.postalCode = input.postalCode;
-
-    dto.applicant = this.toPersonDto(input.applicant);
-
-    return dto;
-  }
-
   private toOutofBCRecordDto(outofBCRecord: OutofBCRecord) {
     if (outofBCRecord == null) return null;
 
@@ -869,21 +818,6 @@ export class MspDataService {
     return output;
   }
 
-  //Account letter from method
-  private fromAccoutLetterTransferObject(
-    dto: AccountLetterDto
-  ): AccountLetterApplication {
-    const output: AccountLetterApplication = new AccountLetterApplication();
-    output.authorizedByApplicant = dto.authorizedByApplicant;
-    output.authorizedByApplicantDate = dto.authorizedByApplicantDate;
-
-    output.applicant = this.fromPersonDto(dto.applicant);
-    output.infoCollectionAgreement = dto.infoCollectionAgreement;
-    output.postalCode = dto.postalCode;
-    output.applicant.enrollmentMember = dto.enrollmentMember;
-
-    return output;
-  }
 
   //TODO rewrite and make it proper
   isValidAddress(addressDto: AddressDto): boolean {

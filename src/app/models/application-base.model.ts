@@ -2,7 +2,7 @@ import { CommonImage } from 'moh-common-lib';
 
 /**
  * Base information that all MSP applications have
- * 
+ *
  * TODO: Determine whether is this required
  */
 export interface ApplicationBase {
@@ -23,5 +23,5 @@ export interface ApplicationBase {
   authorizationToken: string;
 
   // TODO: Determine if this field is required
-  phnRequired: boolean;
+  // phnRequired: boolean;
 }

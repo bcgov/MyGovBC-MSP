@@ -16,13 +16,8 @@ import { CalendarYearValidator } from '../../components/msp/common/calendar/cale
 import { CalendarDayValidator } from '../../components/msp/common/calendar/calendar-day.validator';
 import { CalendarMonthValidator } from '../../components/msp/common/calendar/calendar-month.validator';
 import { MspAddressComponent } from './components/address/address.component';
-import { MspDischargeDateComponent } from '../../components/msp/common/discharge-date/discharge-date.component';
-import { MspDepartureDateComponent } from '../../components/msp/common/departure-date/departure-date.component';
-import { MspReturnDateComponent } from '../../components/msp/common/return-date/return-date.component';
-import { MspSchoolDateComponent } from '../../components/msp/common/schoolDate/school-date.component';
 import { MspProgressBarComponent } from '../account/components/progressBar/progressBar.component';
 import { TransmissionErrorView } from '../../components/msp/common/transmission-error-view/transmission-error-view.component';
-import { MspOutofBCRecordComponent } from '../../components/msp/common/outof-bc/outof-bc.component';
 import { MspConsentModalComponent } from './components/consent-modal/consent-modal.component';
 import { MspCancelComponent } from '../../components/msp/common/cancel/cancel.component';
 import { MspToggleComponent } from '../../components/msp/common/toggle/toggle.component';
@@ -84,13 +79,8 @@ const templistCore = [
   CalendarDayValidator,
   CalendarMonthValidator,
   MspAddressComponent,
-  MspDischargeDateComponent,
-  MspDepartureDateComponent,
-  MspReturnDateComponent,
-  MspSchoolDateComponent,
   MspProgressBarComponent,
   TransmissionErrorView,
-  MspOutofBCRecordComponent,
   MspConsentModalComponent,
   MspCancelComponent,
   MspToggleComponent,

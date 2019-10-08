@@ -6,7 +6,6 @@ import { PersonDocuments } from 'app/components/msp/model/person-document.model'
 import { nameChangeSupportDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
 import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.enum';
 import { Base } from 'moh-common-lib';
-import { Documents } from 'app/models/account-documents';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 @Component({
   selector: 'msp-add-spouse',
@@ -39,16 +38,17 @@ export class AddSpouseComponent extends Base implements OnInit {
     //this.dataService.saveMspAccountApp();
   }
 
+
   get items()   {
 
     return[
       {
         'label': 'Marriage certificate',
-        'value': Documents.MarriageCertificate
+        'value': SupportDocuments.MarriageCertificate
       },
       {
         'label': 'Legal Name Change Certificate',
-        'value': Documents.ChangeOfNameCertificate
+        'value': SupportDocuments.ChangeOfNameCertificate
       }
     ];
   }
@@ -153,11 +153,11 @@ export class AddSpouseComponent extends Base implements OnInit {
     return[
     {
       'label': 'Marriage Certificate',
-      'value': Documents.MarriageCertificate
+      'value': SupportDocuments.MarriageCertificate
     },
     {
       'label': 'Legal Name Change Certificate',
-      'value': Documents.ChangeOfNameCertificate
+      'value': SupportDocuments.ChangeOfNameCertificate
     }
   ]; }
 
