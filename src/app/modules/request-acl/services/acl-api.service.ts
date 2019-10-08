@@ -35,10 +35,9 @@ export class AclApiService extends AbstractHttpService {
       'X-Authorization': 'Bearer ' + application.authorizationToken,
     });
 
-
     const dob = moment( {
       year: application.accountHolderDob.year,
-      month: application.accountHolderDob.month + 1,
+      month: application.accountHolderDob.month - 1, // Months are zero based
       day: application.accountHolderDob.day
       } );
 
