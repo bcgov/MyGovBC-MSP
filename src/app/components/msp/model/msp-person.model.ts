@@ -251,10 +251,7 @@ export class MspPerson implements IPerson {
     getCancellationDateInMoment () {
         return this.parseDate(this.cancellationDate.year, this.cancellationDate.month, this.cancellationDate.day);
     }
-
-    getMarriageDateInMoment (){
-        return this.parseDate(this.marriageDate.year, this.marriageDate.month, this.marriageDate.day);
-    }
+    
     getAdoptedDateInMoment (){
         return this.parseDate(this.adoptedDate.year, this.adoptedDate.month, this.adoptedDate.day);
     }
