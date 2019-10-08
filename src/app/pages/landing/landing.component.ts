@@ -52,16 +52,6 @@ export class LandingComponent {
     this.router.navigate([this.checkEligibility]);
   }
 
-  clearSavedAccountApp() {
-    this.mspDataService.removeMspAccountApp();
-    this.router.navigate(['/account/home']);
-  }
-
-  clearSavedAccountLetterApp() {
-    this.mspDataService.removeMspAccountLetterApp();
-    this.router.navigate(['/account-letter/personal-info']);
-  }
-
   clearSavedBenefitAssisApp() {
     this.mspBenefitDataService.removeMspBenefitApp();
     this.router.navigate(['/benefit/eligibility']);
