@@ -1,6 +1,6 @@
 import AddressDto from './address.dto';
 import {OutofBCRecordDto} from '../../../models/outof-bc-record.dto';
-import { MSPEnrollementMember, CancellationReasons} from '../../../models/status-activities-documents';
+import { CancellationReasons} from '../../../models/status-activities-documents';
 import { PersonStatusChange } from './person-status-change';
 /*import {
     StatusRules,
@@ -82,7 +82,7 @@ export default class PersonDto {
 
     previous_phn: string;
     specificMember_phn: string;
-    enrollmentMember: MSPEnrollementMember ;
+    //enrollmentMember: MSPEnrollementMember ;
 
     hasCurrentMailingAddress: boolean;
 

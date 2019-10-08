@@ -1,7 +1,5 @@
 import PersonDto from '../../../components/msp/model/msp-person.dto';
 import AddressDto from '../../../components/msp/model/address.dto';
-import { CommonImage } from 'moh-common-lib';
-import { PersonDocuments } from '../../../components/msp/model/person-document.model';
 
 export default class MspApplicationDto {
   infoCollectionAgreement: boolean;

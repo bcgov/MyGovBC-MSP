@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ROUTES } from '@angular/router';
 import * as moment from 'moment';
 //import { Observable, Subscription } from 'rxjs/Rx';
 import { Observable } from 'rxjs/internal/Observable';
@@ -9,13 +9,19 @@ import { LogEntry } from '../modules/msp-core/components/logging/log-entry.model
 import { MspDataService } from './msp-data.service';
 import { MspBenefitDataService } from '../modules/benefit/services/msp-benefit-data.service';
 import { environment } from '../../environments/environment';
+import { AclDataService } from '../modules/request-acl/services/acl-data.service';
+import { APP_ROUTES } from '../models/route-constants';
 
 
 
 @Injectable()
 export class MspLogService  {
   appConstants;
-  constructor(private http: HttpClient, private dataService: MspDataService , private router: Router, private benefitDataService: MspBenefitDataService) {
+  constructor(private http: HttpClient,
+              private dataService: MspDataService ,
+              private router: Router, 
+              private benefitDataService: MspBenefitDataService,
+              private aclDataService: AclDataService) {
     this.appConstants = environment.appConstants;
   }
 
@@ -104,19 +110,19 @@ export class MspLogService  {
     getApplicationId(): string {
 
         console.log(this.router.url);
-        if (this.router.url.indexOf('/enrolment/') !== -1){
+        if (this.router.url.indexOf('/' + APP_ROUTES.ENROLMENT + '/') !== -1){
             return  this.dataService.mspApplication.uuid;
         }
-        if (this.router.url.indexOf('/assistance/') !== -1){
+        if (this.router.url.indexOf('/' + APP_ROUTES.ASSISTANCE + '/') !== -1){
             return  this.dataService.finAssistApp.uuid ;
         }
-        if (this.router.url.indexOf('/account/') !== -1){
+        if (this.router.url.indexOf('/' + APP_ROUTES.ACCOUNT + '/') !== -1){
             return  this.dataService.getMspAccountApp().uuid;
         }
-        if (this.router.url.indexOf('/account-letter/') !== -1){
-          return  this.dataService.accountLetterApp.uuid ;
+        if (this.router.url.indexOf('/' + APP_ROUTES.ACCOUNT_LETTER + '/') !== -1){
+          return  this.aclDataService.application.uuid ;
         }
-        if (this.router.url.indexOf('/benefit/') !== -1){
+        if (this.router.url.indexOf('/' + APP_ROUTES.BENEFIT + '/') !== -1){
           return  this.benefitDataService.benefitApp.uuid ;
         }
     }
