@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
 import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
-import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
+import { SupportDocuments } from '../../../msp-core/models/support-documents.model';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { EnrolForm } from '../../models/enrol-form';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
@@ -31,11 +31,11 @@ export class PersonalInfoComponent extends EnrolForm {
     this.mspApplication.applicant = applicant;
   }
 
-  get statusDocuments(): PersonDocuments {
+  get statusDocuments(): SupportDocuments {
     return this.applicant.documents;
   }
 
-  set statusDocuments( document: PersonDocuments ) {
+  set statusDocuments( document: SupportDocuments ) {
 
     if ( document.images && document.images.length === 0 ) {
       // no status documents remove any name documents

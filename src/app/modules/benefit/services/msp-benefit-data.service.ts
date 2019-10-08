@@ -3,7 +3,7 @@ import {MspDataService} from '../../../services/msp-data.service';
 import {LocalStorageService} from 'angular-2-local-storage';
 import {BenefitApplication} from '../models/benefit-application.model';
 import BenefitApplicationDto from '../models/benefit-application.dto';
-import AddressDto from '../../../components/msp/model/address.dto';
+import AddressDto from '../../../models/address.dto';
 
 @Injectable({
   providedIn: 'root'

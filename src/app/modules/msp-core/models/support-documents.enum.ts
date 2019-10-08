@@ -3,7 +3,7 @@ import { SampleImageInterface } from 'moh-common-lib';
 /**
  * Types of supporting documentation
  */
-export enum SupportDocuments {
+export enum SupportDocumentTypes {
   CanadianBirthCertificate,
   CanadianPassport,
   CanadianCitizenCard,

@@ -2,7 +2,6 @@ import {IPerson} from './msp-person.interface';
 
 
 //import { StatusInCanada, Documents, CancellationReasons} from '../../../models/msp-core/models/canadian-status.enum';
-import {PersonDocuments} from './person-document.model';
 import {OutofBCRecord} from '../../../models/outof-bc-record.model';
 import * as moment from 'moment';
 import {UUID} from 'angular2-uuid';
@@ -16,6 +15,7 @@ import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-
 import { CanadianStatusReason, StatusInCanada } from '../../../modules/msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
 import { CancellationReasons } from 'app/models/status-activities-documents';
+import { SupportDocuments } from '../../../modules/msp-core/models/support-documents.model';
 
 const sha1 = require('sha1');
 
@@ -40,14 +40,14 @@ export class MspPerson implements IPerson {
     additionalReason: string;
     hasCurrentMailingAddress: boolean;
     immigrationStatusChange: boolean;
-   
+
     updatingPersonalInfo: boolean;
    // _currentActivity: Activities;
-    documents: PersonDocuments = new PersonDocuments();
+    documents: SupportDocuments = new SupportDocuments();
     statusChange: PersonStatusChange[];
     _currentActivity: CanadianStatusReason;
     //documents: PersonDocuments = new PersonDocuments();
-    nameChangeDocs: PersonDocuments = new PersonDocuments();
+    nameChangeDocs: SupportDocuments = new SupportDocuments();
     hasNameChange: boolean;
 
     assistYearDocs: CommonImage[] = [];
@@ -71,32 +71,32 @@ export class MspPerson implements IPerson {
 
     public updateStatusInCanada: boolean;
 
-    updateStatusInCanadaDocType: PersonDocuments = new PersonDocuments();
+    updateStatusInCanadaDocType: SupportDocuments = new SupportDocuments();
     public updateStatusInCanadaDoc: CommonImage[];
-    _docType: PersonDocuments;
-    
+    _docType: SupportDocuments;
+
     public updateNameDueToMarriage: boolean;
-    public updateNameDueToMarriageDocType: PersonDocuments = new PersonDocuments();
+    public updateNameDueToMarriageDocType: SupportDocuments = new SupportDocuments();
     public updateNameDueDoc: CommonImage[] = [];
-    
+
 
     public updateNameDueToError: boolean;
-    public updateNameDueToErrorDocType: PersonDocuments = new PersonDocuments();
+    public updateNameDueToErrorDocType: SupportDocuments = new SupportDocuments();
     public updateNameDueToErrorDoc: CommonImage[] = [];
 
     public updateBirthdate: boolean;
-     public updateBirthdateDocType:   PersonDocuments = new PersonDocuments();
+     public updateBirthdateDocType:   SupportDocuments = new SupportDocuments();
     public updateBirthdateDoc: CommonImage[] = [];
 
     public updateGender: boolean;
-    public updateGenderDocType:  PersonDocuments = new PersonDocuments();
+    public updateGenderDocType:  SupportDocuments = new SupportDocuments();
     public updateGenderDoc: CommonImage[] = [];
 
     public updateGenderDesignation: boolean;
-    public updateGenderDesignationDocType:  PersonDocuments = new PersonDocuments();
+    public updateGenderDesignationDocType:  SupportDocuments = new SupportDocuments();
     public updateGenderDesignationDoc: CommonImage[] = [];
     cancellationReason: CancellationReasons;
-    removedSpouseDueToDivorceDoc: PersonDocuments;
+    removedSpouseDueToDivorceDoc: SupportDocuments;
 
 
     get newlyAdopted(): boolean {
@@ -750,7 +750,7 @@ export class MspPerson implements IPerson {
         return this._docType;
     }
 
-    set docType(doc: PersonDocuments) {
+    set docType(doc: SupportDocuments) {
         this._docType = doc;
     }
 

@@ -1,10 +1,9 @@
 import { CommonImage } from 'moh-common-lib';
 
-
 /**
- * A persons ID documents
+ * Class used to store documents name changes, residency status, etc
  */
-export class PersonDocuments {
+export class SupportDocuments {
 
   documentType: string;
   private _images: CommonImage[];
