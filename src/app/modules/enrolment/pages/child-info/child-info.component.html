@@ -105,17 +105,18 @@
             </p>
             <common-page-section layout="tips">
               <div class="form-group col-sm-6 pl-0">
-                <label for="schoolName_{{objectId}}" class="control-label">
+                <label for="schoolName_{{idx}}" class="control-label">
                   Name of school
                 </label>
-                <input #schoolNameRef="ngModel"
-                        name="schoolName_{{objectId}}"
-                        type="text" 
-                        class="form-control"
-                        [(ngModel)]=child.schoolName
-                        maxlength="50"
-                        required>
-                <common-error-container [displayError]="schoolNameRef.error?.required">
+                <input name="schoolName_{{idx}}"
+                       id="schoolName_{{idx}}"
+                       type="text" 
+                       class="form-control"
+                       [(ngModel)]=child.schoolName
+                       maxlength="50"
+                       required
+                       #schoolNameRef="ngModel">
+                <common-error-container [displayError]="schoolNameRef.errors?.required">
                   Name of school is required.
                 </common-error-container>
               </div>
@@ -142,7 +143,7 @@
               </div>  
         
               <div class="form-group col-sm-8 pl-0">
-                <common-radio name="inBCafterStudiesOA_{{objectId}}"
+                <common-radio name="inBCafterStudiesOA_{{idx}}"
                               [(ngModel)]="child.inBCafterStudies"  
                               label="Will this child reside in B.C. after completing study in this school?" 
                               required>

@@ -84,6 +84,7 @@ export class ChildInfoComponent extends EnrolForm {
   continue() {
     this._nextUrl = ROUTES_ENROL.CONTACT.fullpath;
     this._canContinue = this.canContinue();
+    console.log( 'form: ', this.form );
     super.continue();
   }
 
