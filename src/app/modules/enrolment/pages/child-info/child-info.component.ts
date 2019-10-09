@@ -8,7 +8,9 @@ import { Relationship } from '../../../../models/relationship.enum';
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 import { EnrolForm } from '../../models/enrol-form';
-import { BRITISH_COLUMBIA } from 'moh-common-lib';
+import { BRITISH_COLUMBIA, ErrorMessage } from 'moh-common-lib';
+import * as moment_ from 'moment';
+const moment = moment_;
 
 @Component({
   selector: 'msp-child-info',
@@ -22,6 +24,25 @@ export class ChildInfoComponent extends EnrolForm {
     {label: '0-18 years', value: Relationship.ChildUnder19},
     {label: '19-24 years (must be a full-time student)', value: Relationship.Child19To24},
   ];
+
+  // Replace default messages in the date component for school completion and departure dates
+  schoolCompletionErrMsg: ErrorMessage = {
+    noPastDatesAllowed: 'Expected school completion cannot be in the past.',
+    invalidValue: 'This does not appear to be a valid date.',
+    dayOutOfRange: 'This does not appear to be a valid date.',
+    noFutureDatesAllowed: 'This does not appear to be a valid date.',
+    yearDistantFuture: 'This does not appear to be a valid date.',
+    yearDistantPast: 'This does not appear to be a valid date.'
+  };
+
+  schoolDepartureErrMsg: ErrorMessage = {
+    noFutureDatesAllowed: 'Departure date can not be in the future.',
+    invalidValue: 'This does not appear to be a valid date.',
+    dayOutOfRange: 'This does not appear to be a valid date.',
+    noPastDatesAllowed: 'This does not appear to be a valid date.',
+    yearDistantFuture: 'This does not appear to be a valid date.',
+    yearDistantPast: 'This does not appear to be a valid date.'
+  };
 
   nameChangeDocList = nameChangeSupportDocuments();
 
@@ -79,6 +100,25 @@ export class ChildInfoComponent extends EnrolForm {
 
   isRequired(child: MspPerson ) {
     return child.schoolAddress.province !== BRITISH_COLUMBIA ? true : false;
+  }
+
+  isCompletionDateValid( child: MspPerson ) {
+    const completionDt = Object.keys(child.studiesFinishedSimple).filter( x => child.studiesFinishedSimple[x] );
+    const departureDt = Object.keys(child.studiesDepartureSimple).filter( x => child.studiesDepartureSimple[x] );
+
+    if ( completionDt.length === 3 && departureDt.length === 3 ) {
+      const diff =  moment( {
+        year: child.studiesFinishedSimple.year,
+        month: child.studiesFinishedSimple.month - 1,
+        day: child.studiesFinishedSimple.day
+      }).diff( moment({
+        year: child.studiesDepartureSimple.year,
+        month: child.studiesDepartureSimple.month - 1,
+        day: child.studiesDepartureSimple.day
+      }), 'days', true );
+      return diff >= -1;
+    }
+    return true;
   }
 
   continue() {

@@ -660,9 +660,9 @@ export class MspPerson implements IPerson {
     /**
      * When the student expects to finish
      */
-    studiesFinishedYear: number;
-    studiesFinishedMonth: number;
-    studiesFinishedDay: number;
+    studiesFinishedYear: number = null;
+    studiesFinishedMonth: number = null;
+    studiesFinishedDay: number = null;
 
     get hasStudiesFinished(): boolean {
         return (this.studiesFinishedDay != null &&
@@ -701,9 +701,9 @@ export class MspPerson implements IPerson {
     /**
      * If school outside BC when did they leave
      */
-    studiesDepartureYear: number;
-    studiesDepartureMonth: number;
-    studiesDepartureDay: number;
+    studiesDepartureYear: number = null;
+    studiesDepartureMonth: number = null;
+    studiesDepartureDay: number = null;
 
     get hasStudiesDeparture(): boolean {
         return (this.studiesDepartureDay != null &&

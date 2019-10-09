@@ -92,7 +92,8 @@
                  [(ngModel)]=person.departureReason
                  maxlength="20"
                  required>
-        <common-error-container [displayError]="reasonRef.error?.required">
+        <common-error-container 
+           [displayError]="(reasonRef.touched || reasonRef.dirty) && reasonRef.errors?.required">
             Reason for departure is required.
         </common-error-container>
        </div>
@@ -108,7 +109,8 @@
                  [(ngModel)]=person.departureDestination
                  maxlength="20"
                  required>
-        <common-error-container [displayError]="destinationRef.error?.required">
+        <common-error-container 
+          [displayError]="(destinationRef.touched || destinationRef.dirty ) && destinationRef.errors?.required">
           Location is required.
         </common-error-container>
        </div>

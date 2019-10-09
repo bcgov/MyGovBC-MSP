@@ -4,8 +4,8 @@ import { ControlContainer, NgForm } from '@angular/forms';
 import { StatusInCanada, CanadianStatusReason } from '../../../msp-core/models/canadian-status.enum';
 import { environment } from '../../../../../environments/environment';
 import { Relationship } from '../../../../models/relationship.enum';
-import * as moment_ from 'moment';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import * as moment_ from 'moment';
 const moment = moment_;
 
 enum OopDateValidationCodes {
