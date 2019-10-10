@@ -41,7 +41,6 @@ import { CoreContactInfoComponent } from './components/core-contact-info/core-co
 import { CanadianStatusComponent } from './components/canadian-status/canadian-status.component';
 import { SupportDocumentsComponent } from './components/support-documents/support-documents.component';
 import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
-import { ConfirmTemplateComponent } from './components/confirm-template/confirm-template.component';
 
 const componentList = [
   MspFullNameComponent,
@@ -61,7 +60,6 @@ const componentList = [
   CanadianStatusComponent,
   SupportDocumentsComponent,
   PersonalInformationComponent,
-  ConfirmTemplateComponent,
 
   // Directives
   ReviewCardWrapperComponent,

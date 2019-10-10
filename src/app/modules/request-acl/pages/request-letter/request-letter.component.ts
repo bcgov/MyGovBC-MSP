@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
-import { AbstractForm, SimpleDate } from 'moh-common-lib';
+import { AbstractForm, ApiStatusCodes } from 'moh-common-lib';
 import { Router } from '@angular/router';
 import { HeaderService } from '../../../../services/header.service';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
@@ -13,7 +13,6 @@ import { AclApiService } from '../../services/acl-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AclApiPayLoad } from '../../model/acl-api.model';
 import { ROUTES_ACL } from '../../request-acl-route-constants';
-import { ApiStatusCodes } from '../../../msp-core/components/confirm-template/confirm-template.component';
 
 @Component({
   selector: 'msp-request-letter',

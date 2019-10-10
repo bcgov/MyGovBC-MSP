@@ -44,7 +44,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
           .sendRequest(this.application)
           .then((response: ApiResponse) => {
             // probable network errors..middleware could be down
-            
+
             if (response instanceof HttpErrorResponse) {
                 this.logService.log({
                     name: 'Supplementary Benefit - System Error',
@@ -71,7 +71,7 @@ export class BenefitSendingComponent implements AfterContentInit  {
             const refNumber = response.op_reference_number;
             const isCutOffDate = this.dataService.benefitApp.isCutoffDate;
             const hasCutoffYear =  (this.dataService.benefitApp.cutoffYear === this.dataService.benefitApp.taxYear) ? true : false;
- 
+
             this.logService.log({
                 name: 'Supplementary Benefit - Received refNo ',
                 confirmationNumber: refNumber,

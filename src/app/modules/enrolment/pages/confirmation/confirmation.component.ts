@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription} from 'rxjs';
 import * as moment from 'moment';
 import { environment } from '../../../../../environments/environment';
-import { ApiStatusCodes } from '../../../msp-core/components/confirm-template/confirm-template.component';
+import { ApiStatusCodes } from 'moh-common-lib';
 
 @Component({
   templateUrl: './confirmation.component.html',
