@@ -32,11 +32,14 @@ import { BaseMspApiService } from '../../../services/base-msp-api.service';
 })
 export class MspApiEnrolmentService extends BaseMspApiService {
 
+
   constructor( protected http: HttpClient,
                protected logService: MspLogService,
                private schemaSvc: SchemaService ) {
+
     super( http, logService );
-    this._applicationName = 'Enrolment';
+    this._dpackage = 'msp_enrolment_pkg';
+    this._application = 'Enrolment';
   }
 
   sendRequest(app: MspApplication): Promise<any> {
@@ -125,183 +128,6 @@ export class MspApiEnrolmentService extends BaseMspApiService {
 
     return this.post<MspApplication>(_url, app);
   }
-
-
-  public sendAttachments(
-    token: string,
-    applicationUUID: string,
-    attachments: CommonImage[]
-  ): Promise<string[]> {
-    return new Promise<string[]>((resolve, reject) => {
-      // Instantly resolve if no attachments
-      if (!attachments || attachments.length < 1) {
-        resolve();
-      }
-
-      // Make a list of promises for each attachment
-      const attachmentPromises = new Array<Promise<string>>();
-      for (const attachment of attachments) {
-        attachmentPromises.push(
-          this.sendAttachment(token, applicationUUID, attachment)
-        );
-      }
-      // this.logService.log({
-      //    text: "Send All Attachments - Before Sending",
-      //     numberOfAttachments: attachmentPromises.length
-      // }, "Send Attachments - Before Sending")
-
-      // Execute all promises are waiting for results
-      return Promise.all(attachmentPromises)
-        .then(
-          (responses: string[]) => {
-            // this.logService.log({
-            //     text: "Send All Attachments - Success",
-            //     response: responses,
-            // }, "Send All Attachments - Success")
-            console.log('resolving responess', responses);
-            return resolve(responses);
-          },
-          (_error: Response | any) => {
-            this.logService.log(
-              {
-                text: 'Attachments - Send Error ',
-                error: _error
-              },
-              'Attachments - Send Error '
-            );
-            console.log('error sending attachment: ', _error);
-            return reject();
-          }
-        )
-        .catch((_error: Response | any) => {
-          this.logService.log(
-            {
-              text: 'Attachments - Send Error ',
-              error: _error
-            },
-            'Attachments - Send Error '
-          );
-          console.log('error sending attachment: ', _error);
-          return _error;
-        });
-    });
-  }
-
-  private sendAttachment(
-    token: string,
-    applicationUUID: string,
-    attachment: CommonImage
-  ): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      /*
-             Create URL
-             /{applicationUUID}/attachment/{attachmentUUID}
-             */
-      let _url =
-        environment.appConstants['apiBaseUrl'] +
-        environment.appConstants['attachment'] +
-        applicationUUID +
-        '/attachments/' +
-        attachment.uuid;
-
-      // programArea
-      _url += '?programArea=enrolment';
-
-      // attachmentDocumentType - UI does NOT collect this property
-      _url += '&attachmentDocumentType=' + MspApiService.AttachmentDocumentType;
-
-      // contentType
-      _url += '&contentType=' + attachment.contentType;
-
-      // imageSize
-      _url += '&imageSize=' + attachment.size;
-
-      // Necessary to differentiate between PA and SuppBen
-      // TODO - VALIDATE THIS VALUE IS CORRECT, NEEDS TO BE CONFIRMED
-      _url += '&dpackage=msp_sb_pkg';
-
-      // Setup headers
-      const headers = new HttpHeaders({
-        'Content-Type': attachment.contentType,
-        'Access-Control-Allow-Origin': '*',
-        'X-Authorization': 'Bearer ' + token
-      });
-      const options = { headers: headers, responseType: 'text' as 'text' };
-
-      const binary = atob(attachment.fileContent.split(',')[1]);
-      const array = <any>[];
-      for (let i = 0; i < binary.length; i++) {
-        array.push(binary.charCodeAt(i));
-      }
-      const blob = new Blob([new Uint8Array(array)], {
-        type: attachment.contentType
-      });
-
-      return this.http
-        .post(_url, blob, options)
-        .toPromise()
-        .then(
-          response => {
-            // this.logService.log({
-            //     text: "Send Individual Attachment - Success",
-            //     response: response,
-            // }, "Send Individual Attachment - Success")
-            return resolve(response);
-          },
-          (_error: Response | any) => {
-            console.log('error response in its origin form: ', _error);
-            this.logService.log(
-              {
-                text: 'Attachment - Send Error ',
-                response: _error
-              },
-              'Attachment - Send Error '
-            );
-            return reject(_error);
-          }
-        )
-        .catch((_error: Response | any) => {
-          console.log('Error in sending individual attachment: ', _error);
-          this.logService.log(
-            {
-              text: 'Attachment - Send Error ',
-              response: _error
-            },
-            'Attachment - Send Error '
-          );
-
-          reject(_error);
-        });
-    });
-  }
-
-  protected handleError(_error: HttpErrorResponse) {
-    // console.log("handleError", JSON.stringify(error));
-    if (_error.error instanceof ErrorEvent) {
-      //Client-side / network error occured
-      console.error('MSP Enrolment API error: ', _error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code
-      console.error(
-        `Msp Enrolment Backend returned error code: ${
-          _error.status
-        }.  Error body: ${_error.error}`
-      );
-    }
-
-    this.logService.log(
-      {
-        text: 'Cannot get Enrolment API response',
-        response: _error
-      },
-      'Cannot get Enrolment API response'
-    );
-
-    // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
-    return of(_error);
-    // return of([]);
-  }
-
 
   private prepareEnrolmentApplication(from: MspApplication): MSPApplicationSchema {
     const object = {
