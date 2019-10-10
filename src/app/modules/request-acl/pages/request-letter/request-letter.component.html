@@ -1,0 +1,93 @@
+<msp-consent-modal #mspConsentModal 
+                   [isMaintenanceMode]="true" 
+                   (onClose)="accountHolderPhn.focus()"
+                   [consentProcessName]="'MSP'" 
+                   (accept)="acceptAgreement($event)">
+</msp-consent-modal>
+
+<common-page-framework layout='blank'>
+  <form #formRef='ngForm' novalidate>
+  
+    <h1>Request MSP Account Confirmation Letter</h1>
+    <p>
+        Medical Services Plan (MSP) Account Holders and Spouses can use this online form 
+        to request an MSP Account Confirmation letter that will verify MSP enrolment 
+        status for one or more individuals on an MSP account.
+    </p>
+    <p class="border-bottom">
+        Please allow two to three weeks for delivery.
+    </p>
+
+    <h2 class="border-bottom">Your Information</h2>
+    <common-page-section layout='tips'>
+      <div class="col-sm-6 pl-0">
+        <div class="form-group">
+          <common-phn #accountHolderPhn="ngModel"
+                      name="accountHolderPhn"
+                      [(ngModel)]="application.accountHolderPhn"
+                      required
+                      commonValidatePhn
+                      commonDuplicateCheck
+                      [dupList]="[application?.specificMemberPhn]">
+          </common-phn>
+        </div>
+        <div class="form-group">
+            <common-date label="Birthdate"
+                         [restrictDate]="'past'" 
+                         [(date)]="application.accountHolderDob"
+                         [required]="true">
+            </common-date>
+        </div>
+        <div class="form-group">
+          <common-postal-code name="accountHolderPC"
+                              label="Mailing Postal Code"
+                              [(ngModel)]="application.postalCode"
+                              required>
+          </common-postal-code>
+        </div>
+      </div>
+
+      <div class="form-group pt-4">
+        <common-radio name="EnrolmentMembership"
+                      [(ngModel)]="application.enrolmentMembership" 
+                      label="Whose MSP enrolment information should be included in the MSP Account Confirmation Letter?" 
+                      [radioLabels]="radioBtnLabels"
+                      display="table-row-group"
+                      required>
+        </common-radio>
+      </div>
+    </common-page-section>
+
+    <div *ngIf="isSpecificMember">
+      <h2>Specific Member Information</h2>
+      <p class="border-bottom">
+        Please provide additional information for the specific member.
+      </p>
+      <common-page-section layout='tips' >
+        <div class="form-group col-sm-6 pl-0">
+          <common-phn name="SpecificMember"
+                      [(ngModel)]="application.specificMemberPhn"
+                      required
+                      commonValidatePhn
+                      commonDuplicateCheck
+                      [dupList]="[application?.accountHolderPhn]">
+          </common-phn>
+        </div>
+      </common-page-section>
+    </div>
+
+    <div  class="pt-4" *ngIf="requireAuthToken">
+      <common-captcha [apiBaseUrl]="captchaApiBaseUrl" 
+                      [nonce]="application.uuid"
+                      (onValidToken)="application.authorizationToken=$event">
+      </common-captcha>
+    </div>
+  </form>
+</common-page-framework>
+<common-form-action-bar (btnClick)="continue()"
+                        widthOption="extra-width-mobile-only"
+                        submitLabel="Request Confirmation"
+                        [defaultColor]="false"
+                        [isLoading]="loading">
+</common-form-action-bar>
+

@@ -15,7 +15,6 @@ export class AuthorizeComponent extends EnrolForm {
 
   captchaApiBaseUrl: string = environment.appConstants.captchaApiBaseUrl;
   displayError: boolean = false;
-  private _captchaAttempt = false;
 
   constructor( protected dataService: MspDataService,
                protected pageStateService: PageStateService,
@@ -48,7 +47,7 @@ export class AuthorizeComponent extends EnrolForm {
   }
 
   canContinue(): boolean {
-    this.displayError = !this.mspApplication.hasValidAuthToken && !this._captchaAttempt;
+    this.displayError = !this.mspApplication.hasValidAuthToken;
     return super.canContinue() && this.mspApplication.hasValidAuthToken;
   }
 

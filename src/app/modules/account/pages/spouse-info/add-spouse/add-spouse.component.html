@@ -19,8 +19,10 @@
       </msp-personal-information>
 
       <div class="form-group" style="width: 300px;">
-        <common-date name="marriageDate__{{objectId}}"  label="Marriage date (optional)" [restrictDate]="'past'" 
-          [(ngModel)]="spouse.marriageDate">
+        <common-date  
+          label="Marriage date (optional)" 
+          [restrictDate]="'past'" 
+          [(date)]="spouse.marriageDate">
         </common-date>
       </div>
 
@@ -86,10 +88,6 @@
             Provide <strong>one</strong> of the required documents to support your spouse's name change.
           </p>
         </div>
-
-        <div sampleDocument>
-          TODO: Need to add links with images to display        
-        </div>
       </msp-support-documents>
     
 
@@ -107,8 +105,10 @@
 
 
         <div class="form-group" style="width: 300px;">
-          <common-date name="marriageDate__{{objectId}}" label="Marriage date (optional)" [restrictDate]="'past'" 
-            [(ngModel)]="spouse.marriageDate">
+          <common-date  
+            label="Marriage date (optional)" 
+            [restrictDate]="'past'" 
+            [(date)]="spouse.marriageDate">
           </common-date>
         </div>
 

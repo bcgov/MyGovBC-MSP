@@ -2,11 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AccountChangeOptions, MspAccountApp, UpdateList } from 'app/modules/account/models/account.model';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
 import { CanadianStatusStrings, StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
-import { PersonDocuments } from 'app/components/msp/model/person-document.model';
+import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.model';
 import { nameChangeSupportDocuments } from 'app/modules/msp-core/components/support-documents/support-documents.component';
-import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.enum';
+import { SupportDocumentTypes } from 'app/modules/msp-core/models/support-documents.enum';
 import { Base } from 'moh-common-lib';
-import { Documents } from 'app/models/account-documents';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
 @Component({
   selector: 'msp-add-spouse',
@@ -19,7 +18,7 @@ export class AddSpouseComponent extends Base implements OnInit {
   @Input() spouse: MspPerson;
   @Input() accountApp: MspAccountApp;
   status: StatusInCanada[] = [ StatusInCanada.CitizenAdult, StatusInCanada.PermanentResident];
-  supportDocList: SupportDocuments[] = [ SupportDocuments.CanadianBirthCertificate , SupportDocuments.CanadianPassport , SupportDocuments.CanadianCitizenCard];
+  supportDocList: SupportDocumentTypes[] = [ SupportDocumentTypes.CanadianBirthCertificate , SupportDocumentTypes.CanadianPassport , SupportDocumentTypes.CanadianCitizenCard];
 
 
   langStatus = CanadianStatusStrings;
@@ -39,16 +38,17 @@ export class AddSpouseComponent extends Base implements OnInit {
     //this.dataService.saveMspAccountApp();
   }
 
+
   get items()   {
 
     return[
       {
         'label': 'Marriage certificate',
-        'value': Documents.MarriageCertificate
+        'value': SupportDocumentTypes.MarriageCertificate
       },
       {
         'label': 'Legal Name Change Certificate',
-        'value': Documents.ChangeOfNameCertificate
+        'value': SupportDocumentTypes.ChangeOfNameCertificate
       }
     ];
   }
@@ -72,11 +72,11 @@ export class AddSpouseComponent extends Base implements OnInit {
     return this.spouse.status !== undefined;
   }
 
-  get statusDocuments(): PersonDocuments {
+  get statusDocuments(): SupportDocuments {
     return this.spouse.updateStatusInCanadaDocType;
   }
 
-  set statusDocuments( document: PersonDocuments ) {
+  set statusDocuments( document: SupportDocuments ) {
     this.spouse.updateStatusInCanadaDocType = document;
 
     if ( document.images && document.images.length === 0 ) {
@@ -153,11 +153,11 @@ export class AddSpouseComponent extends Base implements OnInit {
     return[
     {
       'label': 'Marriage Certificate',
-      'value': Documents.MarriageCertificate
+      'value': SupportDocumentTypes.MarriageCertificate
     },
     {
       'label': 'Legal Name Change Certificate',
-      'value': Documents.ChangeOfNameCertificate
+      'value': SupportDocumentTypes.ChangeOfNameCertificate
     }
   ]; }
 

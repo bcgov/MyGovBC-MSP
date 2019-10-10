@@ -35,7 +35,7 @@ export class MspApiBenefitService extends AbstractHttpService {
   readonly ISO8601DateFormat = 'YYYY-MM-DD';
   suppBenefitResponse: ApiResponse;
 
-  
+
   constructor(
     protected http: HttpClient,
     private logService: MspLogService,
@@ -380,7 +380,7 @@ export class MspApiBenefitService extends AbstractHttpService {
       to.spouseSIN = from.spouse.sin
         ? String(from.spouse.sin.replace(new RegExp('[^0-9]', 'g'), ''))
         : '';
-      
+
     }
 
     // Capturing Financial-info page response
@@ -411,9 +411,9 @@ export class MspApiBenefitService extends AbstractHttpService {
       from.eligibility.totalNetIncome != null
         ? from.eligibility.totalNetIncome
         : 0;
-    
+
     to.childCareExpense = from.claimedChildCareExpense_line214 != null ? (from.claimedChildCareExpense_line214 / 2) * 1 : 0 ;
-    
+
     to.netIncomeLastYear = Number(from.netIncomelastYear);
 
     to.numChildren = (!!from.childrenCount && from.childrenCount > 0) ? from.childrenCount * 1 : 0;
@@ -471,7 +471,7 @@ export class MspApiBenefitService extends AbstractHttpService {
     const authorizedByApplicantDate = `${year}-${month}-${day}`;
 
     to.authorizedByApplicantDate = moment(from.authorizedByApplicantDate).format(this.ISO8601DateFormat);
-    
+
     to.authorizedByApplicant = from.authorizedByApplicant ? 'Y' : 'N';
     to.authorizedBySpouse = from.authorizedBySpouse ? 'Y' : 'N';
     to.powerOfAttorney = from.hasPowerOfAttorney ? 'Y' : 'N';

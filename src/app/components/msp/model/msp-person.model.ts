@@ -2,7 +2,6 @@ import {IPerson} from './msp-person.interface';
 
 
 //import { StatusInCanada, Documents, CancellationReasons} from '../../../models/msp-core/models/canadian-status.enum';
-import {PersonDocuments} from './person-document.model';
 import {OutofBCRecord} from '../../../models/outof-bc-record.model';
 import * as moment from 'moment';
 import {UUID} from 'angular2-uuid';
@@ -16,6 +15,7 @@ import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-
 import { CanadianStatusReason, StatusInCanada } from '../../../modules/msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
 import { CancellationReasons } from 'app/models/status-activities-documents';
+import { SupportDocuments } from '../../../modules/msp-core/models/support-documents.model';
 
 const sha1 = require('sha1');
 
@@ -40,14 +40,14 @@ export class MspPerson implements IPerson {
     additionalReason: string;
     hasCurrentMailingAddress: boolean;
     immigrationStatusChange: boolean;
-   
+
     updatingPersonalInfo: boolean;
    // _currentActivity: Activities;
-    documents: PersonDocuments = new PersonDocuments();
+    documents: SupportDocuments = new SupportDocuments();
     statusChange: PersonStatusChange[];
     _currentActivity: CanadianStatusReason;
     //documents: PersonDocuments = new PersonDocuments();
-    nameChangeDocs: PersonDocuments = new PersonDocuments();
+    nameChangeDocs: SupportDocuments = new SupportDocuments();
     hasNameChange: boolean;
 
     assistYearDocs: CommonImage[] = [];
@@ -58,7 +58,7 @@ export class MspPerson implements IPerson {
     /** NEEDS XSD. Departure information for the question regarding if the person will be out of BC for more than 30 days in the next 6 months. */
     planOnBeingOutOfBCRecord: OutofBCRecord;
     private _operationActionType: OperationActionType;
-    enrollmentMember: string; //MSPEnrollementMember;
+    //enrollmentMember: string; //MSPEnrollementMember;
    /*
     given default value so that pleaseSelect is selected on page load
     */
@@ -71,32 +71,32 @@ export class MspPerson implements IPerson {
 
     public updateStatusInCanada: boolean;
 
-    updateStatusInCanadaDocType: PersonDocuments = new PersonDocuments();
+    updateStatusInCanadaDocType: SupportDocuments = new SupportDocuments();
     public updateStatusInCanadaDoc: CommonImage[];
-    _docType: PersonDocuments;
-    
+    _docType: SupportDocuments;
+
     public updateNameDueToMarriage: boolean;
-    public updateNameDueToMarriageDocType: PersonDocuments = new PersonDocuments();
+    public updateNameDueToMarriageDocType: SupportDocuments = new SupportDocuments();
     public updateNameDueDoc: CommonImage[] = [];
-    
+
 
     public updateNameDueToError: boolean;
-    public updateNameDueToErrorDocType: PersonDocuments = new PersonDocuments();
+    public updateNameDueToErrorDocType: SupportDocuments = new SupportDocuments();
     public updateNameDueToErrorDoc: CommonImage[] = [];
 
     public updateBirthdate: boolean;
-     public updateBirthdateDocType:   PersonDocuments = new PersonDocuments();
+     public updateBirthdateDocType:   SupportDocuments = new SupportDocuments();
     public updateBirthdateDoc: CommonImage[] = [];
 
     public updateGender: boolean;
-    public updateGenderDocType:  PersonDocuments = new PersonDocuments();
+    public updateGenderDocType:  SupportDocuments = new SupportDocuments();
     public updateGenderDoc: CommonImage[] = [];
 
     public updateGenderDesignation: boolean;
-    public updateGenderDesignationDocType:  PersonDocuments = new PersonDocuments();
+    public updateGenderDesignationDocType:  SupportDocuments = new SupportDocuments();
     public updateGenderDesignationDoc: CommonImage[] = [];
     cancellationReason: CancellationReasons;
-    removedSpouseDueToDivorceDoc: PersonDocuments;
+    removedSpouseDueToDivorceDoc: SupportDocuments;
 
 
     get newlyAdopted(): boolean {
@@ -192,7 +192,9 @@ export class MspPerson implements IPerson {
     }
 
     departureReason: string;
+    departureReason12Months: string;
     departureDestination: string;
+    departureDestination12Months: string;
     departureDate: SimpleDate = { day: null, month: null, year: null };
     returnDate: SimpleDate = { day: null, month: null, year: null };
 
@@ -249,10 +251,7 @@ export class MspPerson implements IPerson {
     getCancellationDateInMoment () {
         return this.parseDate(this.cancellationDate.year, this.cancellationDate.month, this.cancellationDate.day);
     }
-
-    getMarriageDateInMoment (){
-        return this.parseDate(this.marriageDate.year, this.marriageDate.month, this.marriageDate.day);
-    }
+    
     getAdoptedDateInMoment (){
         return this.parseDate(this.adoptedDate.year, this.adoptedDate.month, this.adoptedDate.day);
     }
@@ -434,6 +433,80 @@ export class MspPerson implements IPerson {
     }
 
 
+    departureDateDuring12MonthsDay: number = null;
+    departureDateDuring12MonthsMonth: number = null;
+    departureDateDuring12MonthsYear: number = null;
+
+    departureDateDuring6MonthsDay: number = null;
+    departureDateDuring6MonthsMonth: number = null;
+    departureDateDuring6MonthsYear: number = null;
+
+    returnDate12MonthsDay: number = null;
+    returnDate12MonthsMonth: number = null;
+    returnDate12MonthsYear: number = null;
+
+    returnDate6MonthsDay: number = null;
+    returnDate6MonthsMonth: number = null;
+    returnDate6MonthsYear: number = null;
+
+
+    get departureDateDuring12Months(): SimpleDate {
+        return {
+            day: this.departureDateDuring12MonthsDay,
+            month: this.departureDateDuring12MonthsMonth,
+            year: this.departureDateDuring12MonthsYear,
+        };
+    }
+
+    set departureDateDuring12Months(date: SimpleDate){
+        this.departureDateDuring12MonthsDay = date.day;
+        this.departureDateDuring12MonthsMonth = date.month;
+        this.departureDateDuring12MonthsYear = date.year;
+    }
+
+    get departureDateDuring6Months(): SimpleDate {
+        return {
+            day: this.departureDateDuring6MonthsDay,
+            month: this.departureDateDuring6MonthsMonth,
+            year: this.departureDateDuring6MonthsYear,
+        };
+    }
+
+    set departureDateDuring6Months(date: SimpleDate){
+        this.departureDateDuring6MonthsDay = date.day;
+        this.departureDateDuring6MonthsMonth = date.month;
+        this.departureDateDuring6MonthsYear = date.year;
+    }
+
+    set returnDateDuring12Months(date: SimpleDate){
+        this.returnDate12MonthsDay = date.day;
+        this.returnDate12MonthsMonth = date.month;
+        this.returnDate12MonthsYear = date.year;
+    }
+
+    get returnDateDuring12Months(): SimpleDate {
+        return {
+            day: this.returnDate12MonthsDay,
+            month: this.returnDate12MonthsMonth,
+            year: this.returnDate12MonthsYear,
+        };
+    }
+
+    set returnDateDuring6Months(date: SimpleDate){
+        this.returnDate6MonthsDay = date.day;
+        this.returnDate6MonthsMonth = date.month;
+        this.returnDate6MonthsYear = date.year;
+    }
+
+    get returnDateDuring6Months(): SimpleDate {
+        return {
+            day: this.returnDate6MonthsDay,
+            month: this.returnDate6MonthsMonth,
+            year: this.returnDate6MonthsYear,
+        };
+    }
+
+
     madePermanentMoveToBC: boolean;
     private _plannedAbsence: boolean;
 
@@ -473,9 +546,26 @@ export class MspPerson implements IPerson {
     /** Only for spouse. Previous last name. */
     prevLastName: string;
     /** Only for spouse. Marriage date to applicant. */
-    marriageDate: SimpleDate = { day: null, month: null, year: null };
+    //marriageDate: SimpleDate = { day: null, month: null, year: null };
 
 
+    marriageDateDay: number = null;
+    marriageDateMonth: number = null;
+    marriageDateYear: number = null;
+
+    get marriageDate(): SimpleDate {
+        return {
+            day: this.marriageDateDay,
+            month: this.marriageDateMonth,
+            year: this.marriageDateYear,
+        };
+    }
+
+    set marriageDate(date: SimpleDate){
+        this.marriageDateDay = date.day;
+        this.marriageDateMonth = date.month;
+        this.marriageDateYear = date.year;
+    }
 
 
 
@@ -570,9 +660,9 @@ export class MspPerson implements IPerson {
     /**
      * When the student expects to finish
      */
-    studiesFinishedYear: number;
-    studiesFinishedMonth: number;
-    studiesFinishedDay: number;
+    studiesFinishedYear: number = null;
+    studiesFinishedMonth: number = null;
+    studiesFinishedDay: number = null;
 
     get hasStudiesFinished(): boolean {
         return (this.studiesFinishedDay != null &&
@@ -611,9 +701,9 @@ export class MspPerson implements IPerson {
     /**
      * If school outside BC when did they leave
      */
-    studiesDepartureYear: number;
-    studiesDepartureMonth: number;
-    studiesDepartureDay: number;
+    studiesDepartureYear: number = null;
+    studiesDepartureMonth: number = null;
+    studiesDepartureDay: number = null;
 
     get hasStudiesDeparture(): boolean {
         return (this.studiesDepartureDay != null &&
@@ -657,7 +747,7 @@ export class MspPerson implements IPerson {
         return this._docType;
     }
 
-    set docType(doc: PersonDocuments) {
+    set docType(doc: SupportDocuments) {
         this._docType = doc;
     }
 

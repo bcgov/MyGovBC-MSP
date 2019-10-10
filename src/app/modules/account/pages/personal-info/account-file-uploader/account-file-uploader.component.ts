@@ -3,7 +3,7 @@ import {BaseComponent} from '../../../../../models/base.component';
 import { ItemList } from '../../../models/account.model';
 import { MspAccountApp } from '../../../models/account.model';
 import { CommonImage } from 'moh-common-lib';
-import { PersonDocuments } from 'app/components/msp/model/person-document.model';
+import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.model';
 
 
 
@@ -20,12 +20,12 @@ export class AccountFileUploaderComponent extends BaseComponent {
   @Input() subtitle: string;
 
   @Input() doc: CommonImage[] = [];
-  @Input() docStatus: PersonDocuments;
+  @Input() docStatus: SupportDocuments;
   @Input() items:  ItemList[];
 
   @Input() accountApp: MspAccountApp;
 
-  @Output() documentStatus: EventEmitter<PersonDocuments> = new EventEmitter<PersonDocuments>();
+  @Output() documentStatus: EventEmitter<SupportDocuments> = new EventEmitter<SupportDocuments>();
   @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(cd: ChangeDetectorRef) {

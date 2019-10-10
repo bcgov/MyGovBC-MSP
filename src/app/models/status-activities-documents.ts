@@ -1,16 +1,6 @@
 import { StatusInCanada, CanadianStatusReason } from '../modules/msp-core/models/canadian-status.enum';
 import { Relationship } from './relationship.enum';
 
-/**
- * Whose MSP Enrollement for ACL
- */
-export enum MSPEnrollementMember {
-  MyselfOnly, // adult
-  AllMembers,
-  SpecificMember
-}
-
-
 
 export enum CancellationReasons {
   SeparatedDivorced,
@@ -29,14 +19,6 @@ export enum CancellationReasonsForSpouse {
    OutOfProvinceOrCountry,
    ArmedForces,
    Incarcerated,
-}
-
-export class EnrollmentStatusRules {
-  static availableStatus(): MSPEnrollementMember[] {
-        return [MSPEnrollementMember.MyselfOnly,
-            MSPEnrollementMember.AllMembers,
-            MSPEnrollementMember.SpecificMember];
-      }
 }
 
 /**

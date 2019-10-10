@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-// import { AccordionModule, ModalModule, TooltipModule } from 'ngx-bootstrap';
 import { GeneralAppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedCoreModule } from 'moh-common-lib';
@@ -12,24 +11,19 @@ import { ProcessService } from './services/process.service';
 import { MspLogService } from './services/log.service';
 import { CompletenessCheckService } from './services/completeness-check.service';
 import { MspApiService } from './services/msp-api.service';
+import { RequestAclModule } from './modules/request-acl/request-acl.module';
 
 @NgModule({
   imports: [
-    //TextMaskModule,
     BrowserModule,
     SharedCoreModule,
     HttpClientModule,
-    //ModalModule.forRoot(),
-    //AccordionModule.forRoot(),
-    //TooltipModule.forRoot(),
     AppRoutingModule,
-    //  RouterModule.forRoot([
-    //  { path: '', redirectTo: 'msp', pathMatch: 'full' }
-    //]),
     LocalStorageModule.withConfig({
       prefix: 'ca.bc.gov.msp',
       storageType: 'sessionStorage'
-    })
+    }),
+    RequestAclModule
   ],
   declarations: [LandingComponent, GeneralAppComponent],
   providers: [

@@ -42,7 +42,7 @@
                 {{lang('./en/index.js').dobLabel}}
             </div>
             <div class="col-sm-8">
-                <strong>{{person.dob.format("MMMM D, YYYY")}}</strong>
+                <strong>{{person.dob.format(dateFormat)}}</strong>
             </div>
         </div>
 
@@ -109,12 +109,12 @@
             </div>
         </div>
 
-        <div class="row" *ngIf="person.marriageDate && person.relationship==1">
+        <div class="row" *ngIf="hasMarriageDate">
             <div class="col-sm-4">
                 {{lang('./en/index.js').marriageDateLabel}}
             </div>
             <div class="col-sm-8">
-                <strong>{{person.getMarriageDateInMoment().format("MMMM D, YYYY")}}</strong>
+                <strong>{{formatDateField(person.marriageDate)}}</strong>
             </div>
         </div>
 
@@ -152,7 +152,7 @@
                 {{lang('./en/index.js').cancellationDateLabel}}
             </div>
             <div class="col-sm-8">
-                <strong>{{person.getCancellationDateInMoment().format("MMMM D, YYYY")}}</strong>
+                <strong>{{person.getCancellationDateInMoment().format(dateFormat)}}</strong>
             </div>
         </div>
 
@@ -171,7 +171,7 @@
                 {{lang('./en/index.js').dateAdoptedLabel}}
             </div>
             <div class="col-sm-8">
-                <strong>{{person.getAdoptedDateInMoment().format("MMMM D, YYYY")}}</strong>
+                <strong>{{person.getAdoptedDateInMoment().format(dateFormat)}}</strong>
             </div>
         </div>
 
@@ -180,7 +180,7 @@
                 {{lang('./en/index.js').arrivedToBCLabel}}
             </div>
             <div class="col-sm-8">
-                <strong>{{person.arrivalToBC.format("MMMM D, YYYY")}}</strong>
+                <strong>{{person.arrivalToBC.format(dateFormat)}}</strong>
             </div>
         </div>
 
@@ -189,7 +189,7 @@
                 {{lang('./en/index.js').arrivedToCanadaLabel}}
             </div>
             <div class="col-sm-8">
-                <strong>{{person.arrivalToCanada.format("MMMM D, YYYY")}}</strong>
+                <strong>{{person.arrivalToCanada.format(dateFormat)}}</strong>
             </div>
         </div>
         <div class="row" *ngIf="person.declarationForOutsideOver30Days">
@@ -222,7 +222,7 @@
                     {{lang('./en/index.js').outsideBCDepartureDateLabel}}
                 </div>
                 <div class="col-sm-8">
-                    <strong>{{person.departureDate}}</strong>
+                    <strong>{{formatDateField(person.departureDate)}}</strong>
                 </div>
             </div>
             <div class="row">
@@ -230,7 +230,7 @@
                     {{lang('./en/index.js').outsideBCReturnDateLabel}}
                 </div>
                 <div class="col-sm-8">
-                    <strong>{{person.returnDate}}</strong>
+                    <strong>{{formatDateField(person.returnDate)}}</strong>
                 </div>
             </div>
         </div>
@@ -268,7 +268,7 @@
                     {{lang('./en/index.js').outsideBCDepartureDateLabel}}
                 </div>
                 <div class="col-sm-8">
-                    <strong>{{person.planOnBeingOutOfBCRecord.departureDate.format("MMMM D, YYYY")}}</strong>
+                    <strong>{{person.planOnBeingOutOfBCRecord.departureDate.format(dateFormat)}}</strong>
                 </div>
             </div>
             <div class="row">
@@ -276,7 +276,7 @@
                     {{lang('./en/index.js').outsideBCReturnDateLabel}}
                 </div>
                 <div class="col-sm-8">
-                    <strong>{{person.planOnBeingOutOfBCRecord.returnDate.format("MMMM D, YYYY")}}</strong>
+                    <strong>{{person.planOnBeingOutOfBCRecord.returnDate.format(dateFormat)}}</strong>
                 </div>
             </div>
         </div>
@@ -341,7 +341,7 @@
                        {{lang('./en/index.js').dischargeDateLabel}}
                    </div>
                    <div class="col-sm-8">
-                       <strong>{{person.dischargeDate.format("MMMM D, YYYY")}}</strong>
+                       <strong>{{person.dischargeDate.format(dateFormat)}}</strong>
                    </div>
                </div>
 
@@ -361,7 +361,7 @@
                 {{lang('./en/index.js').dateStuduesBeginLabel}}
             </div>
             <div class="col-sm-8">
-                <strong>{{person.studiesBeginDate.format("MMMM D, YYYY")}}</strong>
+                <strong>{{person.studiesBeginDate.format(dateFormat)}}</strong>
             </div>
         </div>
 
@@ -370,7 +370,7 @@
                        {{lang('./en/index.js').studiesFinishedLabel}}
                    </div>
                    <div class="col-sm-8">
-                       <strong>{{person.studiesFinishedDate.format("MMMM D, YYYY")}}</strong>
+                       <strong>{{person.studiesFinishedDate.format(dateFormat)}}</strong>
                    </div>
                </div>
                <div class="row" *ngIf="person.hasStudiesDeparture">
@@ -378,7 +378,7 @@
                        {{lang('./en/index.js').studiesDepartureLabel}}
                    </div>
                    <div class="col-sm-8">
-                       <strong>{{person.studiesDepartureDate.format("MMMM D, YYYY")}}</strong>
+                       <strong>{{person.studiesDepartureDate.format(dateFormat)}}</strong>
                    </div>
                </div>
                <div class="row" *ngIf="person.assistYearDocs.length > 0">

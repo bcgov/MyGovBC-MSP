@@ -60,6 +60,7 @@ export class PrepareComponent extends EnrolForm implements AfterViewInit {
 
   acceptAgreement($event) {
     this.dataService.mspApplication.infoCollectionAgreement = $event;
+    this.dataService.saveMspApplication();
   }
 
   continue() {

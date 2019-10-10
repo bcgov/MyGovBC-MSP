@@ -19,7 +19,7 @@ export class AccountLetterApplicantTypeFactory {
 
 interface _AccountLetterType extends BaseType {
 	requesterPHN: string;
-    requesterBirthdate: string;
+  requesterBirthdate: string;
 	requesterPostalCode: string;
 	letterSelection: string;
 	specificPHN: string;

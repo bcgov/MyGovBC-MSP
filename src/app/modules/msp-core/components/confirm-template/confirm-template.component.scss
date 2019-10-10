@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@import '../../../../styles/variables.scss';
 
 .message-container {
   display: flex;
@@ -14,9 +14,9 @@
   }
 }
 
-.confirm-icon--success,
-.confirm-icon--error,
-.confirm-icon--warning
-{
-  flex-direction: column;
+.confirm-icon--success::after,
+.confirm-icon--error::after,
+.confirm-icon--warning::after {
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
 }
