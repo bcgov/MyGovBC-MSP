@@ -1,10 +1,6 @@
-@import 'variables.scss';
+@import '../../../../styles/variables.scss';
 
 $next-step--color: #00F;
-
-.icon--message {
-  font-size: $h2-font-size;
-}
 
 .next-step--container {
   display: flex;
@@ -21,14 +17,15 @@ $next-step--color: #00F;
   }
 }
 
-.next-set--item {
-  flex-direction: column;
-}
-
-.next-step--icon {
-  color: $next-step--color;
+.next-step--color {
+  color: $next-step--color
 }
 
 .info--container {
   font-size: $h3-font-size;
+}
+
+.icon--message {
+  font-size: $h2-font-size !important;
+  padding-top: .25rem;
 }

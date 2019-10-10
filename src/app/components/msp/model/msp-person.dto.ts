@@ -1,6 +1,6 @@
-import AddressDto from './address.dto';
+import AddressDto from '../../../models/address.dto';
 import {OutofBCRecordDto} from '../../../models/outof-bc-record.dto';
-import { MSPEnrollementMember, CancellationReasons} from '../../../models/status-activities-documents';
+import { CancellationReasons} from '../../../models/status-activities-documents';
 import { PersonStatusChange } from './person-status-change';
 /*import {
     StatusRules,
@@ -12,7 +12,7 @@ import { PersonStatusChange } from './person-status-change';
   } from '../../../models/status-activities-documents';*/
 //import { SimpleDate , CommonImage } from 'moh-common-lib';
 import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
-import { PersonDocuments } from './person-document.model';
+import { SupportDocuments } from '../../../modules/msp-core/models/support-documents.model';
 
 
 // TODO: Class makes reference to self within definition - This should be reviewed
@@ -22,7 +22,7 @@ export default class PersonDto {
     middleName: string;
     lastName: string;
 
-  
+
 
     previouslastName: string;
 
@@ -48,6 +48,23 @@ export default class PersonDto {
     arrivalToBCYear: number;
     arrivalToBCMonth: number;
     arrivalToBCDay: number;
+
+    departureDateDuring12MonthsDay: number;
+    departureDateDuring12MonthsMonth: number ;
+    departureDateDuring12MonthsYear: number;
+
+    departureDateDuring6MonthsDay: number;
+    departureDateDuring6MonthsMonth: number;
+    departureDateDuring6MonthsYear: number;
+
+    returnDate12MonthsDay: number;
+    returnDate12MonthsMonth: number;
+    returnDate12MonthsYear: number;
+
+    returnDate6MonthsDay: number;
+    returnDate6MonthsMonth: number;
+    returnDate6MonthsYear: number;
+
     hasBeenReleasedFromArmedForces: boolean;
     movedFromProvinceOrCountry: string;
     institutionWorkHistory: string;
@@ -65,7 +82,7 @@ export default class PersonDto {
 
     previous_phn: string;
     specificMember_phn: string;
-    enrollmentMember: MSPEnrollementMember ;
+    //enrollmentMember: MSPEnrollementMember ;
 
     hasCurrentMailingAddress: boolean;
 
@@ -96,6 +113,10 @@ export default class PersonDto {
     reasonForCancellation: string;
     cancellationDate: SimpleDate;
     marriageDate: SimpleDate = { day: null, month: null, year: null };
+    marriageDateDay: number ;
+    marriageDateMonth: number;
+    marriageDateYear: number;
+
     prevLastName: string;
     phoneNumber: string;
     imageDocType: string;
@@ -129,7 +150,9 @@ export default class PersonDto {
     declarationForOutsideOver30Days: boolean;
     declarationForOutsideOver60Days: boolean;
     departureReason: string;
+    departureReason12Months: string;
     departureDestination: string;
+    departureDestination12Months: string;
     departureDate: SimpleDate = { day: null, month: null, year: null };
     returnDate: SimpleDate = { day: null, month: null, year: null };
 
@@ -146,31 +169,31 @@ export default class PersonDto {
     statusChange: PersonStatusChange;
 
     updateNameDueToMarriage: boolean;
-    updateNameDueToMarriageDocType: PersonDocuments = new PersonDocuments();
+    updateNameDueToMarriageDocType: SupportDocuments = new SupportDocuments();
     updateNameDueDoc: CommonImage[] = [];
 
-    removedSpouseDueToDivorceDoc: PersonDocuments = new PersonDocuments();
+    removedSpouseDueToDivorceDoc: SupportDocuments = new SupportDocuments();
 
     updateNameDueToError: boolean;
-    updateNameDueToErrorDocType: PersonDocuments = new PersonDocuments();
+    updateNameDueToErrorDocType: SupportDocuments = new SupportDocuments();
     updateNameDueToErrorDoc: CommonImage[] = [];
 
     updateBirthdate: boolean;
-    updateBirthdateDocType:  PersonDocuments = new PersonDocuments();
+    updateBirthdateDocType:  SupportDocuments = new SupportDocuments();
     updateBirthdateDoc: CommonImage[] = [];
 
     updateGender: boolean;
-    updateGenderDocType: PersonDocuments = new PersonDocuments();
+    updateGenderDocType: SupportDocuments = new SupportDocuments();
     updateGenderDoc: CommonImage[] = [];
 
     updateGenderDesignation: boolean;
-    updateGenderDesignationDocType: PersonDocuments = new PersonDocuments();
+    updateGenderDesignationDocType: SupportDocuments = new SupportDocuments();
     updateGenderDesignationDoc: CommonImage[] = [];
 
     updateStatusInCanada: boolean;
     updateStatusInCanadaDoc: CommonImage[];
-    updateStatusInCanadaDocType: PersonDocuments = new PersonDocuments();
-    
-    nameChangeDocs: PersonDocuments = new PersonDocuments();
+    updateStatusInCanadaDocType: SupportDocuments = new SupportDocuments();
+
+    nameChangeDocs: SupportDocuments = new SupportDocuments();
 
 }

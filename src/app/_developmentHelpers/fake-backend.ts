@@ -11,6 +11,7 @@ import { mergeMap, delay } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { Injectable } from '@angular/core';
 import { FakeBackendService } from './fake-backend.service';
+import { AclApiPayLoad } from '../modules/request-acl/model/acl-api.model';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor  {
@@ -25,7 +26,12 @@ export class FakeBackendInterceptor implements HttpInterceptor  {
       console.log( 'Request (fakeBackend interceptor)', request );
 
       if ( 'POST' === request.method ) {
-        const payload = null;
+        let payload = null;
+
+        if (request.url.includes('/accLetterIntegration')) {
+          console.log( 'Fake-backend for accLetterIntegration' );
+          payload = this.getAclResponse( request );
+        }
 
         if ( payload ) {
           return of(new HttpResponse({ status: 200, body: payload }))
@@ -36,6 +42,17 @@ export class FakeBackendInterceptor implements HttpInterceptor  {
       // Pass through to actual service
       return next.handle( request );
     }));
+  }
+
+  private getAclResponse( request: HttpRequest<any> ): AclApiPayLoad {
+
+    return {
+      aclTransactionId: request.body.aclTransactionId,
+      referenceNumber: '1535785',
+      dberrorMessage: null,
+      rapidResponse: 'Y',
+      dberrorCode: 'Y'
+    };
   }
 }
 

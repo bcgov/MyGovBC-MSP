@@ -13,7 +13,7 @@ import { Address, CANADA, BRITISH_COLUMBIA } from 'moh-common-lib';
 import PersonDto from '../../../components/msp/model/msp-person.dto';
 import { OutofBCRecord } from '../../../models/outof-bc-record.model';
 import { OutofBCRecordDto } from '../../../models/outof-bc-record.dto';
-import AddressDto from '../../../components/msp/model/address.dto';
+import AddressDto from '../../../models/address.dto';
 
 @Injectable()
 export class MspAccountMaintenanceDataService {
@@ -204,6 +204,9 @@ export class MspAccountMaintenanceDataService {
     dto.adoptedDate = input.adoptedDate;
     dto.marriageDate = input.marriageDate;
 
+    dto.marriageDateDay  = input.marriageDateDay;
+    dto.marriageDateMonth  = input.marriageDateMonth;
+    dto.marriageDateYear  = input.marriageDateYear;
    // dto.relationship = input.relationship;
 
 
@@ -240,10 +243,34 @@ export class MspAccountMaintenanceDataService {
     dto.updateNameDueToErrorDoc = input.updateNameDueToErrorDoc;
     dto.nameChangeDocs = input.nameChangeDocs;
 
+    dto.departureReason12Months = input.departureReason12Months;
+    dto.departureDestination12Months = input.departureDestination12Months;
+
     dto.hasActiveMedicalServicePlan = input.hasActiveMedicalServicePlan;
 
     dto.previouslastName = input.previouslastName;
     dto.updatingPersonalInfo = input.updatingPersonalInfo;
+
+    dto.departureReason = input.departureReason;
+    dto.departureDestination = input.departureDestination;
+
+    dto.departureDateDuring12MonthsDay =  input.departureDateDuring12MonthsDay;
+    dto.departureDateDuring12MonthsMonth = input.departureDateDuring12MonthsMonth;
+    dto.departureDateDuring12MonthsYear = input.departureDateDuring12MonthsYear;
+
+    dto.departureDateDuring6MonthsDay = input.departureDateDuring6MonthsDay ;
+    dto.departureDateDuring6MonthsMonth = input.departureDateDuring6MonthsMonth ;
+    dto.departureDateDuring6MonthsYear = input.departureDateDuring6MonthsYear ;
+
+    dto.returnDate12MonthsDay = input.returnDate12MonthsDay ;
+    dto.returnDate12MonthsMonth = input.returnDate12MonthsMonth ;
+    dto.returnDate12MonthsYear = input.returnDate12MonthsYear ;
+
+    dto.returnDate6MonthsDay = input.returnDate6MonthsDay ;
+    dto.returnDate6MonthsMonth = input.returnDate6MonthsMonth ;
+    dto.returnDate6MonthsYear = input.returnDate6MonthsYear ;
+
+
 
 
     dto.immigrationStatusChange = input.immigrationStatusChange;
@@ -297,9 +324,8 @@ export class MspAccountMaintenanceDataService {
     output.previouslastName = dto.previouslastName;
 
     output.immigrationStatusChange = dto.immigrationStatusChange;
-
     output.updatingPersonalInfo = dto.updatingPersonalInfo;
-
+    output.departureDestination = dto.departureDestination;
 
     output.cancellationDate = dto.cancellationDate;
     output.cancellationReason = dto.cancellationReason;
@@ -308,6 +334,9 @@ export class MspAccountMaintenanceDataService {
 
     output.isRemovedAtTheEndOfCurrentMonth = dto.isRemovedAtTheEndOfCurrentMonth;
 
+    output.marriageDateDay  = dto.marriageDateDay;
+    dto.marriageDateMonth  = dto.marriageDateMonth;
+    output.marriageDateYear  = dto.marriageDateYear;
 
 
     output.hasActiveMedicalServicePlan = dto.hasActiveMedicalServicePlan;
@@ -360,7 +389,34 @@ export class MspAccountMaintenanceDataService {
     output.marriageDate = dto.marriageDate;
     output.knownMailingAddress = dto.knownMailingAddress;
 
+
+
+
     output.phoneNumber = dto.phoneNumber;
+
+    output.departureReason = dto.departureReason;
+    output.departureReason12Months = dto.departureReason12Months;
+    output.departureDestination12Months = dto.departureDestination12Months;
+
+    output.departureDateDuring12MonthsDay =  dto.departureDateDuring12MonthsDay;
+    output.departureDateDuring12MonthsMonth = dto.departureDateDuring12MonthsMonth;
+    output.departureDateDuring12MonthsYear = dto.departureDateDuring12MonthsYear;
+
+    output.departureDateDuring6MonthsDay = dto.departureDateDuring6MonthsDay ;
+    output.departureDateDuring6MonthsMonth = dto.departureDateDuring6MonthsMonth ;
+    output.departureDateDuring6MonthsYear = dto.departureDateDuring6MonthsYear ;
+
+    output.returnDate12MonthsDay = dto.returnDate12MonthsDay ;
+    output.returnDate12MonthsMonth = dto.returnDate12MonthsMonth ;
+    output.returnDate12MonthsYear = dto.returnDate12MonthsYear ;
+
+    output.returnDate6MonthsDay = dto.returnDate6MonthsDay ;
+    output.returnDate6MonthsMonth = dto.returnDate6MonthsMonth ;
+    output.returnDate6MonthsYear = dto.returnDate6MonthsYear ;
+    output.nameOfInstitute = dto.nameOfInstitute;
+
+
+
 
     output.cancellationDate = dto.cancellationDate;
     if (dto.gender) {

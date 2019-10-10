@@ -55,9 +55,10 @@ export const environment = {
         FPCARE: 'http://www2.gov.bc.ca/gov/content/health/health-drug-coverage/pharmacare-for-bc-residents/who-we-cover/fair-pharmacare-plan',
         ICBC: 'http://www.icbc.com/',
         BCSC_UPDATE: 'http://www2.gov.bc.ca/gov/content/governments/government-id/bc-services-card/change-your-personal-information',
-        ACBC: 'https://www.addresschange.gov.bc.ca'
+        ACBC: 'https://www.addresschange.gov.bc.ca',
+        MGMT_MSP_ACCOUNT: 'https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/managing-your-msp-account'
     },
     /** Do not trigger guards */
     bypassGuards: true,
-    useMockBackend: true
+    useMockBackend: false
 };

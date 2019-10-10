@@ -1,4 +1,4 @@
-import AddressDto from '../../../components/msp/model/address.dto';
+import AddressDto from '../../../models/address.dto';
 import PersonDto from '../../../components/msp/model/msp-person.dto';
 import {AssistanceYear} from './assistance-year.model';
 import { CommonImage } from 'moh-common-lib';

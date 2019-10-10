@@ -1,3 +1,4 @@
+<common-page-framework layout="blank">
 <div *ngIf="transmissionInProcess" class="center-block" role="alert" aria-live="assertive">
     <h1 [innerHtml]="lang('./en/index.js').pageTitle"></h1>
     <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
@@ -40,3 +41,4 @@
     <hr>
     <button class="btn btn-primary" type="submit" routerLink="/msp/account/confirmation">Skip to confirmation</button>
 </div>
+</common-page-framework>

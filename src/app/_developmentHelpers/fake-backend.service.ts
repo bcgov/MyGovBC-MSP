@@ -6,6 +6,4 @@ import { Injectable } from '@angular/core';
 })
 export class FakeBackendService {
 
-// TODO: build dummy backend for enrolment
-
 }

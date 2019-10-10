@@ -3,7 +3,7 @@ import { SampleImageInterface } from 'moh-common-lib';
 /**
  * Types of supporting documentation
  */
-export enum SupportDocuments {
+export enum SupportDocumentTypes {
   CanadianBirthCertificate,
   CanadianPassport,
   CanadianCitizenCard,
@@ -41,7 +41,7 @@ export const SupportDocumentList = {
   DriverLicense: 'Driving License',
   RecordOfLanding: 'Record Of Landing',
   PermanentResidentCard: 'Permanent Resident Card (front and back)',
-  PermanentResidentConfirmation: 'Permanent Resident Card Confirmation',
+  PermanentResidentConfirmation: 'Confirmation of Permanent Residence',
   WorkPermit: 'Work permit',
   StudyPermit: 'Study permit',
   VisitorVisa: 'Visitor permit',
