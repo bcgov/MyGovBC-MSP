@@ -19,7 +19,6 @@ export class PersonalInformationComponent extends Base {
 
   @Input() disabled: boolean = false;
   @Input() showPhn: boolean = false;
-  @Input() isPhnUnique: boolean = true;
 
   // TODO: Change to PERSON when MspPerson is re-factored to extend Person in common lib
   @Input() person: MspPerson;

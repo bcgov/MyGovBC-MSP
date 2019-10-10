@@ -4,16 +4,13 @@ import { UUID } from 'angular2-uuid';
 import { ApplicationBase } from '../../../models/application-base.model';
 import { PhoneNumber } from '../../../components/msp/model/phone.model';
 import { Relationship } from '../../../models/relationship.enum';
-import { PersonDocuments } from '../../../components/msp/model/person-document.model';
+import { BaseApplication } from '../../../models/base-application';
 
 /**
  * Overall MSP Application Process Data
  */
-export class MspApplication implements ApplicationBase {
+export class MspApplication extends BaseApplication {
 
-  private _uuid = UUID.UUID();
-  infoCollectionAgreement: boolean = false;
-  authorizationToken: string;
   phnRequired: boolean = false;
 
   /**
@@ -32,12 +29,9 @@ export class MspApplication implements ApplicationBase {
   pageStatus: any[] = []; // page status - complete/ incomplete
 
 
-  get uuid(): string {
-    return this._uuid;
-  }
-
+  // method specific to application
   regenUUID() {
-    this._uuid = UUID.UUID();
+    super.regenUUID();
 
     /**
      * Each image will have a uuid that starts with application uuid
@@ -49,6 +43,7 @@ export class MspApplication implements ApplicationBase {
       image.uuid = UUID.UUID();
     });
   }
+
   get applicant(): MspPerson {
     return this._applicant;
   }
@@ -256,13 +251,12 @@ export class MspApplication implements ApplicationBase {
   }
 
 
-
-
-
   get hasValidAuthToken() {
     return this.authorizationToken && this.authorizationToken.length > 1;
   }
+
   constructor() {
+    super();
     // Set some defaults
     this.residentialAddress.province = BRITISH_COLUMBIA;
     this.residentialAddress.country = CANADA;

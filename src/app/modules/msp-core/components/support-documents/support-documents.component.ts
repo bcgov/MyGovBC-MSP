@@ -1,83 +1,102 @@
 import { Component, OnInit, Output, EventEmitter, Input, forwardRef, SimpleChanges, OnChanges, OnDestroy } from '@angular/core';
 import { Base, CommonImage, SampleImageInterface } from 'moh-common-lib';
-import { PersonDocuments } from '../../../../components/msp/model/person-document.model';
 import { CanadianStatusReason, StatusInCanada } from '../../models/canadian-status.enum';
-import { SupportDocuments, SupportDocumentList, SupportDocumentSamples } from '../../models/support-documents.enum';
+import { SupportDocumentList, SupportDocumentSamples, SupportDocumentTypes } from '../../models/support-documents.enum';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import { SupportDocuments } from '../../models/support-documents.model';
 
-export function suportDocumentRules(status: StatusInCanada, reason: CanadianStatusReason): SupportDocuments[] {
+export function suportDocumentRules(status: StatusInCanada, reason: CanadianStatusReason): SupportDocumentTypes[] {
   switch (status) {
     case StatusInCanada.CitizenAdult:
       return [
-        SupportDocuments.CanadianBirthCertificate,
-        SupportDocuments.CanadianCitizenCard,
-        SupportDocuments.CanadianPassport
+        SupportDocumentTypes.CanadianBirthCertificate,
+        SupportDocumentTypes.CanadianCitizenCard,
+        SupportDocumentTypes.CanadianPassport
       ];
     case StatusInCanada.PermanentResident:
       return [
-        SupportDocuments.PermanentResidentConfirmation,
-        SupportDocuments.RecordOfLanding,
-        SupportDocuments.PermanentResidentCard
+        SupportDocumentTypes.PermanentResidentConfirmation,
+        SupportDocumentTypes.RecordOfLanding,
+        SupportDocumentTypes.PermanentResidentCard
       ];
   }
   switch (reason) {
     case CanadianStatusReason.WorkingInBC:
-      return [SupportDocuments.WorkPermit];
+      return [SupportDocumentTypes.WorkPermit];
     case CanadianStatusReason.StudyingInBC:
-      return [SupportDocuments.StudyPermit];
+      return [SupportDocumentTypes.StudyPermit];
     case CanadianStatusReason.ReligiousWorker:
-      return [SupportDocuments.VisitorVisa];
+      return [SupportDocumentTypes.VisitorVisa];
     case CanadianStatusReason.Diplomat:
-      return [SupportDocuments.PassportWithDiplomaticFoil];
+      return [SupportDocumentTypes.PassportWithDiplomaticFoil];
     case CanadianStatusReason.Visiting:
-      return [SupportDocuments.VisitorVisa];
+      return [SupportDocumentTypes.VisitorVisa];
   }
 }
 
-export function nameChangeSupportDocuments(): SupportDocuments[] {
-  return [SupportDocuments.MarriageCertificate, SupportDocuments.ChangeOfNameCertificate];
+export function nameChangeSupportDocuments(): SupportDocumentTypes[] {
+  return [
+    SupportDocumentTypes.MarriageCertificate,
+    SupportDocumentTypes.ChangeOfNameCertificate
+  ];
 }
 
 // Added by Abhi
-export function genderBirthDateChangeDocuments(): SupportDocuments[] {
-  return [SupportDocuments.DriverLicense, SupportDocuments.CanadianBirthCertificate,
-      SupportDocuments.CanadianPassport,  SupportDocuments.CanadianCitizenCard,
-      SupportDocuments.PermanentResidentCard, SupportDocuments.PermanentResidentConfirmation,
-      SupportDocuments.RecordOfLanding, SupportDocuments.StudyPermit,
-      SupportDocuments.WorkPermit, SupportDocuments.VisitorVisa];
+export function genderBirthDateChangeDocuments(): SupportDocumentTypes[] {
+  return [
+    SupportDocumentTypes.DriverLicense,
+    SupportDocumentTypes.CanadianBirthCertificate,
+    SupportDocumentTypes.CanadianPassport,
+    SupportDocumentTypes.CanadianCitizenCard,
+    SupportDocumentTypes.PermanentResidentCard,
+    SupportDocumentTypes.PermanentResidentConfirmation,
+    SupportDocumentTypes.RecordOfLanding,
+    SupportDocumentTypes.StudyPermit,
+    SupportDocumentTypes.WorkPermit,
+    SupportDocumentTypes.VisitorVisa
+  ];
 }
 
-export function nameChangeDueToErrorDocuments(): SupportDocuments[] {
-  return [SupportDocuments.CanadianBirthCertificate,
-      SupportDocuments.CanadianPassport,  SupportDocuments.CanadianCitizenCard, SupportDocuments.PermanentResidentCard,
-      SupportDocuments.PermanentResidentConfirmation, SupportDocuments.RecordOfLanding,
-      SupportDocuments.StudyPermit, SupportDocuments.WorkPermit,
-      SupportDocuments.VisitorVisa];
+export function nameChangeDueToErrorDocuments(): SupportDocumentTypes[] {
+  return [
+    SupportDocumentTypes.CanadianBirthCertificate,
+    SupportDocumentTypes.CanadianPassport,
+    SupportDocumentTypes.CanadianCitizenCard,
+    SupportDocumentTypes.PermanentResidentCard,
+    SupportDocumentTypes.PermanentResidentConfirmation,
+    SupportDocumentTypes.RecordOfLanding,
+    SupportDocumentTypes.StudyPermit,
+    SupportDocumentTypes.WorkPermit,
+    SupportDocumentTypes.VisitorVisa
+  ];
 }
 
-export function spouseRemovedDueToDivorceDocuments(): SupportDocuments[] {
-  return [SupportDocuments.DivorceDecree,
-          SupportDocuments.SeperationAgreement,
-          SupportDocuments.NotrizedStatementOrAffidavit,
-          SupportDocuments.Other];
+export function spouseRemovedDueToDivorceDocuments(): SupportDocumentTypes[] {
+  return [
+    SupportDocumentTypes.DivorceDecree,
+    SupportDocumentTypes.SeperationAgreement,
+    SupportDocumentTypes.NotrizedStatementOrAffidavit,
+    SupportDocumentTypes.Other
+  ];
 }
 
-export function nameChangeDueToMarriageOrDivorceDocuments(): SupportDocuments[] {
-  return [SupportDocuments.MarriageCertificate, SupportDocuments.ChangeOfNameCertificate, SupportDocuments.DivorceDecree];
+export function nameChangeDueToMarriageOrDivorceDocuments(): SupportDocumentTypes[] {
+  return [
+    SupportDocumentTypes.MarriageCertificate,
+    SupportDocumentTypes.ChangeOfNameCertificate,
+    SupportDocumentTypes.DivorceDecree];
 }
 
-export function genderDesignationChangeDocuments(): SupportDocuments[] {
-  return [SupportDocuments.CanadianBirthCertificate , SupportDocuments.ChangeGenderAdultApplication,
-        SupportDocuments.ChangeGenderChildApplication , SupportDocuments.ChangeGenderPhyscianConfirmation ,
-        SupportDocuments.ParentalConsentWaiver ];
+export function genderDesignationChangeDocuments(): SupportDocumentTypes[] {
+  return [
+    SupportDocumentTypes.CanadianBirthCertificate ,
+    SupportDocumentTypes.ChangeGenderAdultApplication,
+    SupportDocumentTypes.ChangeGenderChildApplication ,
+    SupportDocumentTypes.ChangeGenderPhyscianConfirmation ,
+    SupportDocumentTypes.ParentalConsentWaiver
+  ];
 }
-
-/*
-export function nameChangeSupportDocuments(): SupportDocuments[] {
-  return [SupportDocuments.MarriageCertificate, SupportDocuments.ChangeOfNameCertificate];
-}*/
-
 
 @Component({
   selector: 'msp-support-documents',
@@ -93,7 +112,7 @@ export function nameChangeSupportDocuments(): SupportDocuments[] {
 export class SupportDocumentsComponent extends Base implements OnInit, OnChanges, OnDestroy {
 
   // List of documents to be displayed, if not provided, the default uses suportDocumentRules().
-  @Input() supportDocList: SupportDocuments[];
+  @Input() supportDocList: SupportDocumentTypes[];
   // Individual's status in Canadian
   @Input() canadianStatus: StatusInCanada;
   // Individual's reason for status in Canada
@@ -101,8 +120,8 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
   // Toggles display for the 'Add' button (true => button is displayed, false => no button displayed)
   @Input() displayButton: boolean = true;
 
-  @Input() supportDoc: PersonDocuments;
-  @Output() supportDocChange: EventEmitter<PersonDocuments> = new EventEmitter<PersonDocuments>();
+  @Input() supportDoc: SupportDocuments;
+  @Output() supportDocChange: EventEmitter<SupportDocuments> = new EventEmitter<SupportDocuments>();
 
 
   uploadInstructions = 'Click add, or drag and drop file into this box';

@@ -8,57 +8,36 @@ import {
 import { MspApplication } from '../../../modules/enrolment/models/application.model';
 import { _ApplicationTypeNameSpace } from '../../../modules/msp-core/api-model/applicationTypes';
 import { environment } from '../../../../environments/environment';
-import { AbstractHttpService, CommonImage, Address, SimpleDate } from 'moh-common-lib';
+import { CommonImage } from 'moh-common-lib';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { Response } from '@angular/http';
 import { MspApiService } from '../../../services/msp-api.service';
 import { ApiResponse } from '../../../models/api-response.interface';
 import {
- MSPApplicationSchema, EnrolmentApplicationType, AddressType, ResidencyType, CitizenshipType, PersonType, DependentType, NameType, EnrolmentApplicantType
+ MSPApplicationSchema, EnrolmentApplicationType, ResidencyType, CitizenshipType, PersonType, DependentType, NameType, EnrolmentApplicantType
 } from '../../../modules/msp-core/interfaces/i-api';
 import * as moment from 'moment';
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
 import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
 import { SchemaService } from '../../../services/schema.service';
+import { BaseMspApiService } from '../../../services/base-msp-api.service';
 
 
-// TODO - Move file - meant to be generic?
-interface AttachmentRequestPartial {
-  contentType: 'IMAGE_JPEG';
-  // attachmentDocumentType: string; // TODO lock down
-  attachmentDocumentType: 'SupportDocument';
-  attachmentOrder: string; // String of number! '1', '2', '3'
-  description: string;
-  attachmentUuid: string;
-}
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class MspApiEnrolmentService extends AbstractHttpService {
+export class MspApiEnrolmentService extends BaseMspApiService {
 
-  protected _headers: HttpHeaders = new HttpHeaders();
-  readonly ISO8601DateFormat = 'YYYY-MM-DD';
-  suppBenefitResponse: ApiResponse;
-
-
-  constructor(
-    protected http: HttpClient,
-    private logService: MspLogService,
-    private schemaSvc: SchemaService
-  ) {
-    super(http);
+  constructor( protected http: HttpClient,
+               protected logService: MspLogService,
+               private schemaSvc: SchemaService ) {
+    super( http, logService );
+    this._applicationName = 'Enrolment';
   }
-
-  /**
-   * User does NOT specify document type therefore we always say its a supporting document
-   * @type {string}
-   */
-  static readonly AttachmentDocumentType = 'SupportDocument';
-  static readonly ApplicationType = 'benefitApplication';
 
   sendRequest(app: MspApplication): Promise<any> {
     console.log(app.uuid);
@@ -140,12 +119,10 @@ export class MspApiEnrolmentService extends AbstractHttpService {
 
   sendEnrolmentApplication(app: MSPApplicationSchema, authToken: string): Observable<any> {
     const _url = environment.appConstants['apiBaseUrl'] + '/submit-application/' + app.uuid;
+
     // Setup headers
-    this._headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Response-Type': 'application/json',
-      'X-Authorization': 'Bearer ' + authToken
-    });
+    this.setHeaders( authToken );
+
     return this.post<MspApplication>(_url, app);
   }
 
@@ -314,10 +291,10 @@ export class MspApiEnrolmentService extends AbstractHttpService {
 
     this.logService.log(
       {
-        text: 'Cannot get Suppbenefit API response',
+        text: 'Cannot get Enrolment API response',
         response: _error
       },
-      'Cannot get Suppbenefit API response'
+      'Cannot get Enrolment API response'
     );
 
     // A user facing erorr message /could/ go here; we shouldn't log dev info through the throwError observable
@@ -335,46 +312,12 @@ export class MspApiEnrolmentService extends AbstractHttpService {
     return object;
   }
 
-  private convertToAttachment(images: CommonImage[]): AttachmentRequestPartial[] {
-    const output = [];
-    images.map((image, i) => {
-      const partial: AttachmentRequestPartial = {
-        contentType: 'IMAGE_JPEG',
-        attachmentDocumentType: MspApiEnrolmentService.AttachmentDocumentType,
-        attachmentOrder: (i + 1).toString(),
-        description: '',
-        // TODO - Sure this is the correct UUID here?
-        attachmentUuid: image.uuid
-      };
-      output.push(partial);
-    });
-
-    return output;
-  }
-
   private getAttachementUuids( suppDocs: CommonImage[], nameChangeDocs: CommonImage[] ): string[] {
     const suppDocUuids = suppDocs && suppDocs.length > 0 ?
                           suppDocs.map( x => x.uuid ) : [];
     const nameChangeDocUuids = nameChangeDocs && nameChangeDocs.length > 0 ?
                                 nameChangeDocs.map( x => x.uuid ) : [];
     return [...suppDocUuids, ...nameChangeDocUuids];
-  }
-
-  private convertSimpleDate( dt: SimpleDate ): string {
-    console.log( 'convertSimpleDate: ', dt );
-
-    const dtFields = Object.keys(dt).filter( x => dt[x] );
-    console.log( 'convertSimpleDate: dtFields ', dtFields );
-
-    if ( dtFields.length === 3 ) {
-        const date = moment.utc({
-          year: dt.year,
-          month: dt.month - 1, // moment use 0 index for month :(
-          day: dt.day,
-      }); // use UTC mode to prevent browser timezone shifting
-      return  String(date.format(this.ISO8601DateFormat));
-    }
-    return '';
   }
 
   private convertResidency( from: MspPerson ): ResidencyType {
@@ -475,25 +418,6 @@ export class MspApiEnrolmentService extends AbstractHttpService {
       to.previousCoverage.prevPHN = from.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
     }
     return to;
-  }
-
-  private convertAddress( from: Address ): AddressType {
-    const addr: AddressType = {
-      addressLine1: from.addressLine1,
-      city: from.city,
-      provinceOrState: from.province,
-      country: from.country,
-      postalCode: from.postal.toUpperCase().replace(' ', '')
-    };
-
-    if ( from.addressLine2 ) {
-      addr.addressLine2 = from.addressLine2;
-    }
-
-    if ( from.addressLine3 ) {
-      addr.addressLine3 = from.addressLine3;
-    }
-    return addr;
   }
 
   private convertDependentType( person: MspPerson ): DependentType {

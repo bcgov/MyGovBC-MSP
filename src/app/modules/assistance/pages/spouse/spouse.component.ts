@@ -3,7 +3,7 @@ import { FinancialAssistApplication } from '../../models/financial-assist-applic
 import { MspDataService } from 'app/services/msp-data.service';
 import { AssistanceYear } from '../../models/assistance-year.model';
 import { BaseComponent } from 'app/models/base.component';
-import { PersonDocuments } from 'app/components/msp/model/person-document.model';
+import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.model';
 import { AssistStateService } from '../../services/assist-state.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
@@ -34,7 +34,7 @@ export class SpouseComponent extends BaseComponent implements OnInit {
   documentsDescription = `Upload your spouse's Canada Revenue Agency Notice of Assessment or Reassessment for`;
 
   finAssistApp: FinancialAssistApplication;
-  documents: PersonDocuments;
+  documents: SupportDocuments;
 
   assistanceYears = [];
   assistanceYearsDocs = [];

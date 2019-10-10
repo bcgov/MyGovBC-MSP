@@ -66,10 +66,6 @@
               </common-radio>
             </div>
           </div>
-  
-          <div sampleDocument>
-            TODO: Need to add links with images to display        
-          </div>
         </msp-support-documents>
   
         <msp-support-documents *ngIf="requestNameChangeInfo(idx)"
@@ -80,10 +76,6 @@
             <p class="border-bottom"> 
               Provide <strong>one</strong> of the required documents to support your child's name change.
             </p>
-          </div>
-  
-          <div sampleDocument>
-            TODO: Need to add links with images to display        
           </div>
         </msp-support-documents>
   
@@ -113,17 +105,19 @@
             </p>
             <common-page-section layout="tips">
               <div class="form-group col-sm-6 pl-0">
-                <label for="schoolName_{{objectId}}" class="control-label">
+                <label for="schoolName_{{idx}}" class="control-label">
                   Name of school
                 </label>
-                <input #schoolNameRef="ngModel"
-                        name="schoolName_{{objectId}}"
-                        type="text" 
-                        class="form-control"
-                        [(ngModel)]=child.schoolName
-                        maxlength="50"
-                        required>
-                <common-error-container [displayError]="schoolNameRef.error?.required">
+                <input name="schoolName_{{idx}}"
+                       id="schoolName_{{idx}}"
+                       type="text" 
+                       class="form-control"
+                       [(ngModel)]=child.schoolName
+                       maxlength="50"
+                       required
+                       #schoolNameRef="ngModel">
+                <common-error-container 
+                  [displayError]="(schoolNameRef.touched || schoolNameRef.dirty) && schoolNameRef.errors?.required">
                   Name of school is required.
                 </common-error-container>
               </div>
@@ -138,19 +132,25 @@
   
               <div class="form-group col-sm-6 pl-0">
                 <common-date label="Original departure date from B.C. (if school is outside B.C.)"
-                              [(date)]="child.studiesDepartureSimple"
-                              [required]="isRequired(child)">
+                             [(date)]="child.studiesDepartureSimple"
+                             [required]="isRequired(child)"
+                             [errorMessages]="schoolDepartureErrMsg">
                 </common-date>
               </div>    
           
               <div class="form-group col-sm-6 pl-0">
                 <common-date label="Expected school completion date"
-                            [(date)]="child.studiesFinishedSimple">
+                             [(date)]="child.studiesFinishedSimple"
+                             [restrictDate]="'future'"
+                             [errorMessages]="schoolCompletionErrMsg">      
                 </common-date>
+                <common-error-container [displayError]="!isCompletionDateValid(child)">
+                  {{schoolCompletionErrMsg.noPastDatesAllowed}}
+                </common-error-container>
               </div>  
         
               <div class="form-group col-sm-8 pl-0">
-                <common-radio name="inBCafterStudiesOA_{{objectId}}"
+                <common-radio name="inBCafterStudiesOA_{{idx}}"
                               [(ngModel)]="child.inBCafterStudies"  
                               label="Will this child reside in B.C. after completing study in this school?" 
                               required>

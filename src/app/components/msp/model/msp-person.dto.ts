@@ -1,4 +1,4 @@
-import AddressDto from './address.dto';
+import AddressDto from '../../../models/address.dto';
 import {OutofBCRecordDto} from '../../../models/outof-bc-record.dto';
 import { CancellationReasons} from '../../../models/status-activities-documents';
 import { PersonStatusChange } from './person-status-change';
@@ -12,7 +12,7 @@ import { PersonStatusChange } from './person-status-change';
   } from '../../../models/status-activities-documents';*/
 //import { SimpleDate , CommonImage } from 'moh-common-lib';
 import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
-import { PersonDocuments } from './person-document.model';
+import { SupportDocuments } from '../../../modules/msp-core/models/support-documents.model';
 
 
 // TODO: Class makes reference to self within definition - This should be reviewed
@@ -22,7 +22,7 @@ export default class PersonDto {
     middleName: string;
     lastName: string;
 
-  
+
 
     previouslastName: string;
 
@@ -169,31 +169,31 @@ export default class PersonDto {
     statusChange: PersonStatusChange;
 
     updateNameDueToMarriage: boolean;
-    updateNameDueToMarriageDocType: PersonDocuments = new PersonDocuments();
+    updateNameDueToMarriageDocType: SupportDocuments = new SupportDocuments();
     updateNameDueDoc: CommonImage[] = [];
 
-    removedSpouseDueToDivorceDoc: PersonDocuments = new PersonDocuments();
+    removedSpouseDueToDivorceDoc: SupportDocuments = new SupportDocuments();
 
     updateNameDueToError: boolean;
-    updateNameDueToErrorDocType: PersonDocuments = new PersonDocuments();
+    updateNameDueToErrorDocType: SupportDocuments = new SupportDocuments();
     updateNameDueToErrorDoc: CommonImage[] = [];
 
     updateBirthdate: boolean;
-    updateBirthdateDocType:  PersonDocuments = new PersonDocuments();
+    updateBirthdateDocType:  SupportDocuments = new SupportDocuments();
     updateBirthdateDoc: CommonImage[] = [];
 
     updateGender: boolean;
-    updateGenderDocType: PersonDocuments = new PersonDocuments();
+    updateGenderDocType: SupportDocuments = new SupportDocuments();
     updateGenderDoc: CommonImage[] = [];
 
     updateGenderDesignation: boolean;
-    updateGenderDesignationDocType: PersonDocuments = new PersonDocuments();
+    updateGenderDesignationDocType: SupportDocuments = new SupportDocuments();
     updateGenderDesignationDoc: CommonImage[] = [];
 
     updateStatusInCanada: boolean;
     updateStatusInCanadaDoc: CommonImage[];
-    updateStatusInCanadaDocType: PersonDocuments = new PersonDocuments();
-    
-    nameChangeDocs: PersonDocuments = new PersonDocuments();
+    updateStatusInCanadaDocType: SupportDocuments = new SupportDocuments();
+
+    nameChangeDocs: SupportDocuments = new SupportDocuments();
 
 }
