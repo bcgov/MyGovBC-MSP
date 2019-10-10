@@ -6,8 +6,7 @@ export class FakeDataEnrolment {
 
     contactInfo(): ContactPageTest {
         return {
-            country: faker.address.country(),
-            address: faker.address.streetAddress(),
+            street: faker.address.streetAddress(),
             city: faker.address.city(),
             postal: faker.address.zipCode('?#? #?#'),
             mobile: faker.phone.phoneNumberFormat(2)
@@ -16,11 +15,11 @@ export class FakeDataEnrolment {
 
     personalInfo(): PersonalInfoPageTest {
         return {
+            firstName: faker.name.firstName(),
+            middleName: Math.random() > 0.5 ? faker.name.firstName() : undefined,
+            lastName: faker.name.lastName(),
             birthDate: faker.date.past(),
-            province: faker.address.state(),
             arrivalDateBC:  faker.date.past(),
-            arrivalDateCAN: Math.random() > 0.5 ? faker.date.past() : undefined,
-            healthNum: faker.random.number()
         }
     }
 
@@ -34,18 +33,16 @@ export class FakeDataEnrolment {
 }
 
 export interface ContactPageTest {
-    country: string;
-    address: string;
+    street: string;
     city: string;
     postal: string;
     mobile: string;
-    province?: string;
 }
 
 export interface PersonalInfoPageTest {
+    firstName: string;
+    middleName?: string;
+    lastName: string;
     birthDate: Date;
-    province?: string;
     arrivalDateBC: Date;
-    arrivalDateCAN: Date;
-    healthNum: number;
 }

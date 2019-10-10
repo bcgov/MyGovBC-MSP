@@ -21,7 +21,7 @@
     "e2e-protractor": "npx protractor",
     "e2e:all": "npm run e2e -- --protractorConfig=e2e/protractor.full-tests.conf.js",
     "e2e:chrome": "npm run e2e -- --protractorConfig=e2e/protractor.conf.js",
-    "e2e:enrolment": "npm run e2e -- --protractorConfig=e2e/protractor.enrolment.conf.js",
+    "e2e:enrolment": "npm run e2e-protractor -- e2e/protractor.enrolment.conf.js --port=4300",
     "e2e:supp-benefits": "npm run e2e-protractor -- e2e/protractor.supp-benefits.conf.js",
     "e2e:retro-pa": "npm run e2e-protractor -- e2e/protractor.retro-pa.conf.js"
   },

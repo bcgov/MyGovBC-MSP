@@ -25,7 +25,7 @@ export class BaseMSPEnrolmentTestPage extends AbstractTestPage {
     }
 
     clickButton(val: string) {
-        element(by.css(`common-button[ng-reflect-label="${val}"]`)).element(by.cssContainingText('span', `${val}`)).click();
+        element(by.cssContainingText('button span', `${val}`)).click();
     }
 
     clickRadioButtonByName(nameVal: string, forVal: string){
@@ -34,6 +34,18 @@ export class BaseMSPEnrolmentTestPage extends AbstractTestPage {
 
     clickRadioButtonByID(idVal: string, forVal: string){
         element(by.css(`common-radio[id^="${idVal}"]`)).element(by.css(`label[for^="${forVal}"]`)).click();
+    }
+
+    clickRadioButtonByLabel(labelVal: string, forVal: string){
+        element(by.css(`common-radio[label^="${labelVal}"]`)).element(by.css(`label[for^="${forVal}"]`)).click();
+    }
+
+    clickRadioButtonByLegend(legVal: string, forVal: string){
+        element(by.cssContainingText('legend', `${legVal}`)).element(by.xpath('../..')).element(by.css(`label[for^="${forVal}"]`)).click();
+    }
+
+    typeName(labelVal: string, text: string) {
+        element(by.css(`common-name[label="${labelVal}"] input`)).sendKeys(text);
     }
     
     clickContinue() {
@@ -56,7 +68,21 @@ export class BaseMSPEnrolmentTestPage extends AbstractTestPage {
         element(by.css(`a[href*="${hrefVal}"]`)).element(by.css('span')).click();
     }
 
+    selectDate(labelVal: string, data: PersonalInfoPageTest){
+        const month = data.birthDate.getMonth();
+        const day = data.birthDate.getDate();
+        const year = data.birthDate.getFullYear();
 
+        element(by.css(`common-date[label="${labelVal}"]`)).click();
+        element(by.css(`common-date[label="${labelVal}"]`)).element(by.css(`option[value="${month}"]`)).click();
+        element(by.css(`common-date[label="${labelVal}"]`)).element(by.css(`input[id^="day"]`)).sendKeys(day);
+        element(by.css(`common-date[label="${labelVal}"]`)).element(by.css(`input[id^="year"]`)).sendKeys(year);
+    }
+
+    typeText(idVal: string, text: string){
+        element(by.css(`input[id^="${idVal}"]`)).sendKeys(text);
+        element(by.css(`input[id^="${idVal}"]`)).sendKeys(protractor.Key.ENTER);
+    }
 
 }
 
@@ -98,7 +124,42 @@ export class PersonalInfoPage extends BaseMSPEnrolmentTestPage {
 
     fillPage(data: PersonalInfoPageTest) {
         this.clickOption('Your immigration status', 'Canadian citizen');
-        this.clickRadioButton('statausReason', '0');
+        this.clickRadioButtonByID('statausReason', '1');
+        browser.sleep(1000);
+        this.clickRadioButtonByID('statausReason', '1');
+        this.scrollDown();
+        this.clickOption('Document Type', 'Canadian birth certificate');
+        this.clickButton('Add');
+        this.scrollDown();
+        this.clickRadioButtonByName('NameChangeQuestion', 'false');
+        browser.sleep(1000);
+        this.uploadFile();
+        browser.sleep(1000);
+        this.typeName('First name', data.firstName);
+        this.scrollDown();
+        if(data.middleName){
+            this.typeName('Middle name (optional)', data.middleName);
+        }
+        this.typeName('Last name', data.lastName);
+        this.selectDate('Birthdate', data);
+        this.clickRadioButtonByLabel('Gender', 'M');
+        this.scrollDown();
+        this.clickRadioButtonByLegend('Have you moved to B.C. permanently?', 'true');
+        this.typeText('province', 'Alberta');
+        this.selectDate('Arrival date in B.C.', data);
+        this.clickRadioButtonByLegend('Have you been outside B.C. for', 'false');
+        this.clickRadioButtonByLegend('Do you have a previous B.C.', 'false');
+        this.clickRadioButtonByLegend('Have you been released from', 'false');
+        this.clickRadioButtonByLegend('Are you full-time student', 'false');
+        this.clickContinue();
+    }
+
+    uploadFile(absolutePath = '/space/workspace/MyGovBC-MSP/e2e/sample.jpg') {
+        // browser.executeAsyncScript(function(callback) {
+        //     document.querySelectorAll('#input-file-element')[0].style.display = 'inline';
+        //     callback();
+        // });
+        element(by.css('common-file-uploader input[type="file"]')).sendKeys(absolutePath); 
     }
 
     navigateTo() {
@@ -110,22 +171,6 @@ export class PersonalInfoPage extends BaseMSPEnrolmentTestPage {
         element(by.cssContainingText('ng-dropdown-panel span', `${status}`)).click();
     }
 
-    getInputVal() {
-        // return element(by.css('div[class="ng-value"]')).element(by.css('span[class="ng-value-label"]')).getAttribute('value');
-        return element(by.css('input[role="combobox"]')).getAttribute('value');
-    }
-
-    clickRadioButton(ariaVal: string, labelVal: string) {
-       element(by.css(`div[aria-label*="${ariaVal}"]`)).element(by.cssContainingText('label', `${labelVal}`)).click();
-    }
-
-    // TODO - Move over to lib
-    // Sample file : file:///space/workspace/MyGovBC-MSP/e2e/sample.jpg
-    uploadFile(absolutePath = '/space/workspace/MyGovBC-MSP/e2e/sample.jpg') {
-        element(by.css('common-file-uploader input[type="file"]')).sendKeys(absolutePath); 
-        // element(by.css('input[type="file"]')).sendKeys(protractor.Key.ENTER);  // Causes error?
-        // element(by.css('common-file-uploader')).element(by.css('i')).click();
-    }
 }
 
 export class SpouseInfoPage extends PersonalInfoPage {
@@ -137,6 +182,47 @@ export class SpouseInfoPage extends PersonalInfoPage {
     navigateTo() {
         return browser.get('/msp/enrolment/spouse-info');
     }
+
+    fillPage(data: PersonalInfoPageTest)
+    {
+        this.clickAddSpouse();
+        this.clickOption("Spouse's immigration status in Canada", 'Canadian citizen');
+        this.clickRadioButtonByID('statausReason', '1');
+        browser.sleep(1000);
+        this.clickRadioButtonByID('statausReason', '1');
+        this.scrollDown();
+        this.clickOption('Document Type', 'Canadian birth certificate');
+        this.clickAddDoc();
+        this.scrollDown();
+        this.clickRadioButtonByName('NameChangeQuestion', 'false');
+        browser.sleep(1000);
+        this.uploadFile();
+        browser.sleep(1000);
+        this.typeName('First name', data.firstName);
+        this.scrollDown();
+        if(data.middleName){
+            this.typeName('Middle name (optional)', data.middleName);
+        }
+        this.typeName('Last name', data.lastName);
+        this.selectDate('Birthdate', data);
+        this.clickRadioButtonByLabel('Gender', 'M');
+        this.scrollDown();
+        this.clickRadioButtonByLegend('Have they moved to B.C. permanently?', 'true');
+        this.typeText('province', 'Alberta');
+        this.selectDate('Arrival date in B.C.', data);
+        this.clickRadioButtonByLegend('Have they been outside B.C. for', 'false');
+        this.clickRadioButtonByLegend('Do they have a previous B.C.', 'false');
+        this.clickRadioButtonByLegend('Have they been released from', 'false');
+        this.clickContinue();       
+    }
+
+    clickAddSpouse() {
+        element(by.cssContainingText('button span', 'Add Spouse')).click();
+    }
+
+    clickAddDoc() {
+        element(by.css('common-button[label="Add"]')).click();
+    }
     
 }
 
@@ -144,6 +230,16 @@ export class ChildInfoPage extends PersonalInfoPage {
 
     constructor() {
         super();
+    }
+
+    fillPage(data: PersonalInfoPageTest) {
+        this.clickAddChild();
+        this.clickRadioButtonByID('AgeCategory', '2');
+        browser.sleep(5000);
+    }
+
+    clickAddChild() {
+        element(by.cssContainingText('button span', 'Add Child')).click();
     }
 
     navigateTo() {
@@ -162,15 +258,23 @@ export class ContactInfoPage extends BaseMSPEnrolmentTestPage {
         return browser.get('/msp/enrolment/address');
     }
 
-    fillMailingAddress(data: ContactPageTest) {
-        element(by.css('common-address:nth-child(1) [id^="street"]')).sendKeys(data.address);
-        element(by.css('common-address:nth-child(1) [id^="city"]')).sendKeys(data.city);
-        element(by.css('common-address:nth-child(1) [id^="postal"]')).sendKeys(data.postal);
+    fillPage(data: ContactPageTest) {
+        this.typeText('street', data.street);
+        this.typeText('city', data.city);
+        this.typeText('postalCode', data.postal);
+        this.typeText('phone', data.mobile);
+        this.clickContinue();
     }
 
-    fillContactNumber(data: ContactPageTest) {
-        element(by.css('input[id^="phone"]')).sendKeys(data.mobile);
-    }
+    // fillMailingAddress(data: ContactPageTest) {
+    //     element(by.css('common-address:nth-child(1) [id^="street"]')).sendKeys(data.address);
+    //     element(by.css('common-address:nth-child(1) [id^="city"]')).sendKeys(data.city);
+    //     element(by.css('common-address:nth-child(1) [id^="postal"]')).sendKeys(data.postal);
+    // }
+
+    // fillContactNumber(data: ContactPageTest) {
+    //     element(by.css('input[id^="phone"]')).sendKeys(data.mobile);
+    // }
 
 }
 
@@ -200,8 +304,33 @@ export class AuthorizePage extends BaseMSPEnrolmentTestPage {
         return browser.get('/msp/enrolment/authorize');
     }
 
-    checkAgree() {
-        element(by.css('common-checkbox[ng-reflect-label*="Yes"]')).element(by.css('input')).click();
+    fillPage() {
+        this.scrollDown();
+        this.checkAgree('applicantAuthorization');
+        this.checkHasSpouse().then(val => {
+            if(val){
+                this.checkAgree('spouseAuthorization');
+            }
+        });
+        this.typeCaptcha();
+        this.clickSubmit();
+        browser.sleep(10000);
+    }
+
+    checkAgree(nameVal: string) {
+        element(by.css(`common-checkbox[name="${nameVal}"]`)).element(by.cssContainingText('label', 'Yes, I agree')).click();
+    }
+
+    checkHasSpouse() {
+        return element(by.css('common-checkbox[name="spouseAuthorization"]')).isPresent();
+    }
+
+    typeCaptcha() {
+        element(by.css('input[id="answer"]')).sendKeys('irobot');
+    }
+
+    clickSubmit() {
+        element(by.cssContainingText('button', ' Submit Application ')).click();
     }
     
 }

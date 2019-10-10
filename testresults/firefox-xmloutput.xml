@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites disabled="0" errors="0" failures="1" tests="1" time="12.927">
- <testsuite name="firefox.MSP Enrolment Page - End to End Test (Happy Path)" timestamp="2019-09-30T13:52:23" hostname="localhost" time="12.927" errors="0" tests="1" skipped="0" disabled="0" failures="1">
-  <testcase classname="firefox.MSP Enrolment Page - End to End Test (Happy Path)" name="01. should navigate Check Eligibility Page to Authorize Page successfully" time="12.923">
-   <failure type="exception" message="Failed: No element found using locator: By(css selector, div[aria-label*=&quot;statausReason&quot;])"><![CDATA[NoSuchElementError: No element found using locator: By(css selector, div[aria-label*="statausReason"])
-    at elementArrayFinder.getWebElements.then (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:814:27)
-    at ManagedPromise.invokeCallback_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:1376:14)
-    at TaskQueue.execute_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3084:14)
-    at TaskQueue.executeNext_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3067:27)
-    at asyncRun (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2927:27)
-    at /space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:668:7
+<testsuites disabled="0" errors="0" failures="1" tests="1" time="14.527">
+ <testsuite name="firefox.MSP Enrolment Page - End to End Test (Happy Path)" timestamp="2019-10-04T18:57:48" hostname="localhost" time="14.527" errors="0" tests="1" skipped="0" disabled="0" failures="1">
+  <testcase classname="firefox.MSP Enrolment Page - End to End Test (Happy Path)" name="01. should navigate Check Eligibility Page to Authorize Page successfully" time="14.524">
+   <failure type="exception" message="Failed: TypeError: document.querySelectorAll(...)[0] is undefined"><![CDATA[JavascriptError: TypeError: document.querySelectorAll(...)[0] is undefined
+    at Object.throwDecodedError (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/error.js:514:15)
+    at parseHttpResponse (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/http.js:519:13)
+    at doSend.then.response (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/http.js:441:30)
     at <anonymous>
-    at process._tickCallback (internal/process/next_tick.js:188:7)Error
-    at ElementArrayFinder.applyAction_ (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:459:27)
-    at ElementArrayFinder.(anonymous function).args [as click] (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:91:29)
-    at ElementFinder.(anonymous function).args [as click] (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:831:22)
-    at PersonalInfoPage.clickRadioButton (/space/workspace/MyGovBC-MSP/e2e/enrolment/src/mspe-enrolment.po.ts:119:111)
-    at PersonalInfoPage.fillPage (/space/workspace/MyGovBC-MSP/e2e/enrolment/src/mspe-enrolment.po.ts:101:14)
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+From: Task: WebDriver.executeScript()
+    at Driver.schedule (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/webdriver.js:807:17)
+    at Driver.executeAsyncScript (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/webdriver.js:891:17)
+    at run (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/browser.js:59:33)
+    at ProtractorBrowser.to.(anonymous function) [as executeAsyncScript] (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/browser.js:67:16)
+    at PersonalInfoPage.uploadFile (/space/workspace/MyGovBC-MSP/e2e/enrolment/src/mspe-enrolment.po.ts:147:17)
+    at PersonalInfoPage.fillPage (/space/workspace/MyGovBC-MSP/e2e/enrolment/src/mspe-enrolment.po.ts:131:14)
     at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/enrolment/src/mspe-happy-path.e2e-spec.ts:42:22)
     at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:112:25
     at new ManagedPromise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:1077:7)
     at ControlFlow.promise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2505:12)
-    at schedulerExecute (/space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:95:18)
 From: Task: Run it("01. should navigate Check Eligibility Page to Authorize Page successfully") in control flow
     at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:94:19)
     at attempt (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4297:26)

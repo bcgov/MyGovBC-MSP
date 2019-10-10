@@ -9,7 +9,7 @@ exports.config = {
     './enrolment/src/mspe-happy-path.e2e-spec.ts'
   ],
   multiCapabilities: [{
-    'browserName': 'firefox'
+    'browserName': 'chrome'
   }], /* {
     'browserName': 'chrome'
   }], */
