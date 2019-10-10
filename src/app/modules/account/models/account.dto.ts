@@ -1,5 +1,5 @@
 import PersonDto from '../../../components/msp/model/msp-person.dto';
-import AddressDto from '../../../components/msp/model/address.dto';
+import AddressDto from '../../../models/address.dto';
 import { CommonImage } from 'moh-common-lib';
 
 export default class MspAccountDto {

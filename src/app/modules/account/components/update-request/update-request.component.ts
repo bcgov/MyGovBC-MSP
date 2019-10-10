@@ -1,5 +1,4 @@
 import {EventEmitter, Output, Component, Input, forwardRef } from '@angular/core';
-import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import { MspAccountApp, UpdateList, ItemList } from '../../models/account.model';
 
 import {
@@ -9,12 +8,12 @@ import {
   nameChangeDueToErrorDocuments,
   genderBirthDateChangeDocuments
 } from '../../../msp-core/components/support-documents/support-documents.component';
-import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.enum';
-import { PersonDocuments } from 'app/components/msp/model/person-document.model';
+import { SupportDocumentTypes } from 'app/modules/msp-core/models/support-documents.enum';
 import { Base } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { SupportDocuments } from '../../../msp-core/models/support-documents.model';
 
 
 @Component({
@@ -53,7 +52,7 @@ export class UpdateRequestComponent extends Base {
   itemList: ItemList[];
   @Output() statusChange: EventEmitter<boolean>; //  = new EventEmitter<boolean>();
   mspAccountApp: MspAccountApp;
-  supportDocList: SupportDocuments[] = [ SupportDocuments.CanadianBirthCertificate , SupportDocuments.CanadianPassport , SupportDocuments.CanadianCitizenCard];
+  supportDocList: SupportDocumentTypes[] = [ SupportDocumentTypes.CanadianBirthCertificate , SupportDocumentTypes.CanadianPassport , SupportDocumentTypes.CanadianCitizenCard];
   hideStatus: StatusInCanada[] = [ StatusInCanada.CitizenAdult, StatusInCanada.PermanentResident];
 
   nameChangeDocs = nameChangeSupportDocuments();
@@ -80,11 +79,11 @@ export class UpdateRequestComponent extends Base {
     }
   }
 
-  get statusDocuments(): PersonDocuments {
+  get statusDocuments(): SupportDocuments {
     return this.person.updateStatusInCanadaDocType;
   }
 
-  set statusDocuments( document: PersonDocuments ) {
+  set statusDocuments( document: SupportDocuments ) {
 
     this.person.updateStatusInCanadaDocType = document;
 

@@ -1,5 +1,5 @@
-import { CommonImage } from "moh-common-lib";
-import { PersonDocuments } from "./person-document.model";
+import { CommonImage } from 'moh-common-lib';
+import { SupportDocuments } from '../../../modules/msp-core/models/support-documents.model';
 
 
 export class PersonStatusChange {
@@ -8,6 +8,6 @@ export class PersonStatusChange {
     label: string;
     docType: number;
     image: CommonImage;
-    documentType: PersonDocuments;
+    documentType: SupportDocuments;
 
 }

@@ -13,7 +13,7 @@ import { Address, CANADA, BRITISH_COLUMBIA } from 'moh-common-lib';
 import PersonDto from '../../../components/msp/model/msp-person.dto';
 import { OutofBCRecord } from '../../../models/outof-bc-record.model';
 import { OutofBCRecordDto } from '../../../models/outof-bc-record.dto';
-import AddressDto from '../../../components/msp/model/address.dto';
+import AddressDto from '../../../models/address.dto';
 
 @Injectable()
 export class MspAccountMaintenanceDataService {
@@ -250,7 +250,7 @@ export class MspAccountMaintenanceDataService {
 
     dto.previouslastName = input.previouslastName;
     dto.updatingPersonalInfo = input.updatingPersonalInfo;
-    
+
     dto.departureReason = input.departureReason;
     dto.departureDestination = input.departureDestination;
 
@@ -269,8 +269,8 @@ export class MspAccountMaintenanceDataService {
     dto.returnDate6MonthsDay = input.returnDate6MonthsDay ;
     dto.returnDate6MonthsMonth = input.returnDate6MonthsMonth ;
     dto.returnDate6MonthsYear = input.returnDate6MonthsYear ;
- 
-    
+
+
 
 
     dto.immigrationStatusChange = input.immigrationStatusChange;
@@ -318,7 +318,7 @@ export class MspAccountMaintenanceDataService {
 
     output.hasNameChange = dto.hasNameChange;
     output.nameChangeDocs = dto.nameChangeDocs;
-   
+
     output.relationship = dto.relationship;
 
     output.previouslastName = dto.previouslastName;
@@ -337,8 +337,8 @@ export class MspAccountMaintenanceDataService {
     output.marriageDateDay  = dto.marriageDateDay;
     dto.marriageDateMonth  = dto.marriageDateMonth;
     output.marriageDateYear  = dto.marriageDateYear;
-    
-    
+
+
     output.hasActiveMedicalServicePlan = dto.hasActiveMedicalServicePlan;
 
     output.arrivalToCanadaDay = dto.arrivalToCanadaDay;
@@ -389,8 +389,8 @@ export class MspAccountMaintenanceDataService {
     output.marriageDate = dto.marriageDate;
     output.knownMailingAddress = dto.knownMailingAddress;
 
-    
-    
+
+
 
     output.phoneNumber = dto.phoneNumber;
 
@@ -414,9 +414,9 @@ export class MspAccountMaintenanceDataService {
     output.returnDate6MonthsMonth = dto.returnDate6MonthsMonth ;
     output.returnDate6MonthsYear = dto.returnDate6MonthsYear ;
     output.nameOfInstitute = dto.nameOfInstitute;
-    
 
-    
+
+
 
     output.cancellationDate = dto.cancellationDate;
     if (dto.gender) {

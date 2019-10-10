@@ -2,12 +2,12 @@ import { Component, forwardRef, OnInit, Input, Output, EventEmitter } from '@ang
 import { nameChangeSupportDocuments } from '../../../../msp-core/components/support-documents/support-documents.component';
 import { NgForm, ControlContainer } from '@angular/forms';
 import { MspAccountMaintenanceDataService } from '../../../services/msp-account-data.service';
-import { PersonDocuments } from '../../../../../components/msp/model/person-document.model';
-import { SupportDocuments } from 'app/modules/msp-core/models/support-documents.enum';
 import { Base } from 'moh-common-lib';
 import { Relationship } from 'app/models/relationship.enum';
 import { StatusInCanada } from 'app/modules/msp-core/models/canadian-status.enum';
 import { MspPerson } from '../../../../../components/msp/model/msp-person.model';
+import { SupportDocumentTypes } from '../../../../msp-core/models/support-documents.enum';
+import { SupportDocuments } from '../../../../msp-core/models/support-documents.model';
 
 @Component({
   selector: 'msp-add-child',
@@ -31,7 +31,7 @@ export class AddChildComponent extends Base implements OnInit {
   ];
 
   status: StatusInCanada[] = [ StatusInCanada.CitizenAdult, StatusInCanada.PermanentResident , StatusInCanada.TemporaryResident];
-  supportDocList: SupportDocuments[] = [ SupportDocuments.CanadianBirthCertificate , SupportDocuments.CanadianPassport , SupportDocuments.CanadianCitizenCard];
+  supportDocList: SupportDocumentTypes[] = [ SupportDocumentTypes.CanadianBirthCertificate , SupportDocumentTypes.CanadianPassport , SupportDocumentTypes.CanadianCitizenCard];
   nameChangeDocList = nameChangeSupportDocuments();
 
  // @Input() accountChangeOptions: AccountChangeOptions;
@@ -77,7 +77,7 @@ set hasActiveMedicalCoverage(val: boolean) {
 }
 
 
-get statusDocuments(): PersonDocuments {
+get statusDocuments(): SupportDocuments {
   return this.child.updateStatusInCanadaDocType;
 }
 
@@ -86,7 +86,7 @@ isPhnUniqueInChild() {
 }
 
 
-set statusDocuments( document: PersonDocuments ) {
+set statusDocuments( document: SupportDocuments ) {
 
   this.child.updateStatusInCanadaDocType = document;
 
@@ -121,10 +121,10 @@ set statusDocuments( document: PersonDocuments ) {
     return this.child.nameChangeDocs;
   };
 
-  get statusChangeDocList(): SupportDocuments[] {
-    return [SupportDocuments.CanadianBirthCertificate,
-          SupportDocuments.CanadianCitizenCard,
-          SupportDocuments.CanadianPassport];
+  get statusChangeDocList(): SupportDocumentTypes[] {
+    return [SupportDocumentTypes.CanadianBirthCertificate,
+          SupportDocumentTypes.CanadianCitizenCard,
+          SupportDocumentTypes.CanadianPassport];
   }
 
 

@@ -1,5 +1,5 @@
 import PersonDto from '../../../components/msp/model/msp-person.dto';
-import AddressDto from '../../../components/msp/model/address.dto';
+import AddressDto from '../../../models/address.dto';
 
 export default class MspApplicationDto {
   infoCollectionAgreement: boolean;

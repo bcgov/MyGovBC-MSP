@@ -19,7 +19,7 @@ import { Address, CANADA, BRITISH_COLUMBIA } from 'moh-common-lib';
 import PersonDto from '../components/msp/model/msp-person.dto';
 import { OutofBCRecord } from '../models/outof-bc-record.model';
 import { OutofBCRecordDto } from '../models/outof-bc-record.dto';
-import AddressDto from '../components/msp/model/address.dto';
+import AddressDto from '../models/address.dto';
 
 @Injectable()
 export class MspDataService {
@@ -80,7 +80,7 @@ export class MspDataService {
   }
 
 
-  // return the application or assistance uuid
+  // return the application or assistance uuid  - do not appear to be used
   getMspUuid(): string {
     let uuid = '';
     if (this._mspApplication) uuid = this._mspApplication.uuid;
