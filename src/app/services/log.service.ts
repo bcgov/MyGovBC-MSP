@@ -5,7 +5,7 @@ import * as moment from 'moment';
 //import { Observable, Subscription } from 'rxjs/Rx';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription} from 'rxjs/internal/Subscription';
-import { LogEntry } from '../modules/msp-core/components/logging/log-entry.model';
+import { LogEntry } from '../models/log-entry.model';
 import { MspDataService } from './msp-data.service';
 import { MspBenefitDataService } from '../modules/benefit/services/msp-benefit-data.service';
 import { environment } from '../../environments/environment';
@@ -19,7 +19,7 @@ export class MspLogService  {
   appConstants;
   constructor(private http: HttpClient,
               private dataService: MspDataService ,
-              private router: Router, 
+              private router: Router,
               private benefitDataService: MspBenefitDataService,
               private aclDataService: AclDataService) {
     this.appConstants = environment.appConstants;
