@@ -235,6 +235,11 @@ export class ChildInfoPage extends PersonalInfoPage {
     fillPage(data: PersonalInfoPageTest) {
         this.clickAddChild();
         this.clickRadioButtonByID('AgeCategory', '2');
+        this.clickOption("Child's immigration status in Canada", 'Canadian citizen');
+        this.clickRadioButtonByID('statausReason', '1');
+        browser.sleep(1000);
+        this.clickRadioButtonByID('statausReason', '1');
+        this.scrollDown();
         browser.sleep(5000);
     }
 

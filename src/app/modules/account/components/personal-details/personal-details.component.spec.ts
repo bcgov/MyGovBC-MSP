@@ -15,7 +15,6 @@ import { MspStatusInCanadaRadioComponent } from '../../../../modules/msp-core/co
 import { RouterTestingModule } from '@angular/router/testing';
 import {TextMaskModule} from 'angular2-text-mask';
 import { MspDischargeDateComponent } from '../../../../components/msp/common/discharge-date/discharge-date.component';
-import { MspSchoolDateComponent } from '../../../../components/msp/common/schoolDate/school-date.component';
 import { MspOutofBCRecordComponent } from '../../../../components/msp/common/outof-bc/outof-bc.component';
 import { MspDepartureDateComponent } from '../../../../components/msp/common/departure-date/departure-date.component';
 import { MspReturnDateComponent } from '../../../../components/msp/common/return-date/return-date.component';
@@ -34,7 +33,6 @@ describe('AccountPersonalDetailsComponent', () => {
         AccountPersonalDetailsComponent,
          MspDischargeDateComponent,
         MspBirthDateComponent,
-        MspSchoolDateComponent,
         MspAddressComponent,
         MspOutofBCRecordComponent,
         MspDepartureDateComponent,

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites disabled="0" errors="0" failures="3" tests="4" time="103.968">
- <testsuite name="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" timestamp="2019-10-10T15:50:04" hostname="localhost" time="103.968" errors="0" tests="4" skipped="0" disabled="0" failures="3">
-  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="01. should navigate from Financial Info Page to Confirmation Page (end-to-end) when all required fields are filled out" time="34.104">
+<testsuites disabled="3" errors="0" failures="1" tests="4" time="32.194">
+ <testsuite name="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" timestamp="2019-10-11T16:55:00" hostname="localhost" time="32.194" errors="0" tests="4" skipped="0" disabled="3" failures="1">
+  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="01. should navigate from Financial Info Page to Confirmation Page (end-to-end) when all required fields are filled out" time="32.19">
    <failure type="toContain" message="Expected &apos;http://localhost:4300/msp/benefit/sending&apos; to contain &apos;msp/benefit/confirmation?confirmationNum=&apos;, &apos;should be able to succesfully submit the form&apos;."><![CDATA[Error: Failed expectation
     at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:62:41)
     at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:112:25
@@ -14,62 +14,14 @@
     at /space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:668:7]]>
    </failure>
   </testcase>
-  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="02. should be able to successfully pass test for maximum length for each field" time="11.67">
-   <failure type="toContain" message="Expected &apos;http://localhost:4300/msp/benefit/financial-info&apos; to contain &apos;msp/benefit/personal-info&apos;, &apos;should continue to the Personal Info Page&apos;."><![CDATA[Error: Failed expectation
-    at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:71:41)
-    at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:112:25
-    at new ManagedPromise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:1077:7)
-    at ControlFlow.promise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2505:12)
-    at schedulerExecute (/space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:95:18)
-    at TaskQueue.execute_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3084:14)
-    at TaskQueue.executeNext_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3067:27)
-    at asyncRun (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2974:25)
-    at /space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:668:7]]>
-   </failure>
-   <failure type="exception" message="Failed: No element found using locator: By(css selector, common-name[ng-reflect-name*=&quot;first_name&quot;] input)"><![CDATA[NoSuchElementError: No element found using locator: By(css selector, common-name[ng-reflect-name*="first_name"] input)
-    at elementArrayFinder.getWebElements.then (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:814:27)
-    at ManagedPromise.invokeCallback_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:1376:14)
-    at TaskQueue.execute_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3084:14)
-    at TaskQueue.executeNext_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3067:27)
-    at asyncRun (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2927:27)
-    at /space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:668:7
-    at <anonymous>
-    at process._tickCallback (internal/process/next_tick.js:188:7)Error
-    at ElementArrayFinder.applyAction_ (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:459:27)
-    at ElementArrayFinder.(anonymous function).args [as sendKeys] (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:91:29)
-    at ElementFinder.(anonymous function).args [as sendKeys] (/space/workspace/MyGovBC-MSP/node_modules/protractor/built/element.js:831:22)
-    at PersonalInfoPage.BaseMSPTestPage.typeName (/space/workspace/MyGovBC-MSP/e2e/msp.po.ts:60:75)
-    at PersonalInfoPage.fillInfo (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-supp-benefits.po.ts:120:14)
-    at PersonalInfoPage.fillPage (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-supp-benefits.po.ts:115:14)
-    at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:72:22)
-    at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:112:25
-    at new ManagedPromise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:1077:7)
-    at ControlFlow.promise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2505:12)
-From: Task: Run it("02. should be able to successfully pass test for maximum length for each field") in control flow
-    at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:94:19)
-    at attempt (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4297:26)
-    at QueueRunner.run (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4217:20)
-    at runNext (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4257:20)
-    at /space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4264:13
-    at /space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4172:9
-    at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:64:48
-    at ControlFlow.emit (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/events.js:62:21)
-    at ControlFlow.shutdown_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2674:10)
-    at shutdownTask_.MicroTask (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2599:53)
-From asynchronous test: 
-Error
-    at Suite.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:65:5)
-    at addSpecsToSuite (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1107:25)
-    at Env.describe (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:1074:7)
-    at describe (/space/workspace/MyGovBC-MSP/node_modules/jasmine/node_modules/jasmine-core/lib/jasmine-core/jasmine.js:4399:18)
-    at Object.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:6:1)
-    at Module._compile (module.js:643:30)
-    at Module.m._compile (/space/workspace/MyGovBC-MSP/node_modules/ts-node/src/index.ts:473:23)
-    at Module._extensions..js (module.js:654:10)
-    at Object.require.extensions.(anonymous function) [as .ts] (/space/workspace/MyGovBC-MSP/node_modules/ts-node/src/index.ts:476:12)]]>
-   </failure>
+  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="02. should be able to successfully pass test for maximum length for each field" time="0.001">
+   <skipped />
   </testcase>
-  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="03. should NOT allow to continue when there is no file upload for POA" time="30.239" />
-  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="04. should NOT uncheck POA and clear file/s attached to it when user checks First Person Authorize" time="27.951" />
+  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="03. should NOT allow to continue when there is no file upload for POA" time="0.001">
+   <skipped />
+  </testcase>
+  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="04. should NOT uncheck POA and clear file/s attached to it when user checks First Person Authorize" time="0">
+   <skipped />
+  </testcase>
  </testsuite>
 </testsuites>

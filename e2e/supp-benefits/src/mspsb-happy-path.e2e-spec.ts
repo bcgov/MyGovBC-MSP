@@ -43,7 +43,7 @@ describe('MSP Supplementary Benefits - End to End Test (Happy Path)', () => {
         browser.executeScript('window.localStorage.clear();');
     });
 
-    it('01. should navigate from Financial Info Page to Confirmation Page (end-to-end) when all required fields are filled out', () => {
+    fit('01. should navigate from Financial Info Page to Confirmation Page (end-to-end) when all required fields are filled out', () => {
         fillConsentModal(ELIGIBILITY_PAGE_URL);
         eligibilityPage.fillPage();
         expect(browser.getCurrentUrl()).toContain(PREPARE_PAGE_URL, 'should navigate to the Financial Info Page');

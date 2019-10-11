@@ -8,7 +8,6 @@ import {MspDepartureDateComponent} from '../../../../components/msp/common/depar
 import {MspReturnDateComponent} from '../../../../components/msp/common/return-date/return-date.component';
 import {MspDischargeDateComponent} from '../../../../components/msp/common/discharge-date/discharge-date.component';
 import {MspBirthDateComponent} from '../../../msp-core/components/birthdate/birthdate.component';
-import {MspSchoolDateComponent} from '../../../../components/msp/common/schoolDate/school-date.component';
 import {MspAddressComponent} from '../../../msp-core/components/address/address.component';
 import { TypeaheadModule } from 'ngx-bootstrap';
 import {ModalModule, AccordionModule} from 'ngx-bootstrap';
@@ -34,7 +33,6 @@ describe('PersonalInfoComponent', () => {
         PersonalInfoComponent,
         MspDischargeDateComponent,
         MspBirthDateComponent,
-        MspSchoolDateComponent,
         MspAddressComponent,
         MspOutofBCRecordComponent,
         MspDepartureDateComponent,
