@@ -34,7 +34,7 @@
       <!-- Add Spouse Section -->
       <div *ngIf="addNewSpouse">
           <h2><strong>Add Spouse</strong></h2>
-          <common-xicon-button label='Remove' (click)="this.addNewSpouse = false; this.accountApp.hasSpouseAdded = false;"></common-xicon-button>
+          <common-xicon-button label='Remove' (click)="removedAddedSpouse();"></common-xicon-button>
           <p class="border-bottom">
               Please provide your spouse's personal information and immigration status in Canada.
           </p>
@@ -49,7 +49,7 @@
       <!-- Remove Spouse Section -->
       <div *ngIf="showSpouse">
         <h2><strong>Remove Spouse</strong></h2>
-        <common-xicon-button label='Remove' (click)="this.showSpouse = false; this.accountApp.hasSpouseRemoved = false;"></common-xicon-button>
+        <common-xicon-button label='Remove' (click)="removedDeletedSpouse();"></common-xicon-button>
         <p class="border-bottom">
             Please provide spouse’s personal information and indicate the reason for removing the spouse from your account.
         </p>
@@ -63,7 +63,7 @@
       <!-- Update Spouse Section -->
       <div *ngIf="showUpdateSpouse">
           <h2><strong>Update Spouse's Information</strong></h2>
-          <common-xicon-button label='Remove' (click)="this.showUpdateSpouse = false; this.accountApp.hasSpouseUpdated = false;"></common-xicon-button>
+          <common-xicon-button label='Remove' (click)="removedUpdatedSpouse();"></common-xicon-button>
           <p class="border-bottom">
               Please provide personal information of the spouse currently on your Medical Services Plan account. If you are requesting an update or correction to the spouse’s legal name (including a name change as a result of marriage, separation or divorce), birthdate or gender, please provide the new information here.
           </p>
@@ -74,7 +74,8 @@
       </div>
   </form>
 </common-page-framework>
-<common-form-action-bar [submitLabel]="(this.accountApp.hasSpouseAdded ||  this.accountApp.hasSpouseRemoved ||   this.accountApp.hasSpouseUpdated) ? 'Continue':'No Spouse'"
+<common-form-action-bar [defaultColor]="false" 
+                        [submitLabel]="(this.accountApp.hasSpouseAdded ||  this.accountApp.hasSpouseRemoved ||   this.accountApp.hasSpouseUpdated) ? 'Continue':'No Spouse'"
                         [canContinue]="canContinue()"
                         (btnClick)="continue()">
 </common-form-action-bar>
