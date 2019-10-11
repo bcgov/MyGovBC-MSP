@@ -5,6 +5,8 @@ import { MspAccountMaintenanceDataService } from '../../services/msp-account-dat
 import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp } from '../../models/account.model';
 import * as moment from 'moment';
+import { ApiStatusCodes } from 'app/modules/msp-core/components/confirm-template/confirm-template.component';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'msp-confirmation',
@@ -13,12 +15,14 @@ import * as moment from 'moment';
 })
 export class AccountConfirmationComponent implements OnDestroy {
 
-    lang = require('./i18n');
     confirmationNum: string;
     subscription: Subscription;
     noticeOfAssessment: string;
     isCutOff: boolean;
     isCutOffYear: boolean;
+    status: ApiStatusCodes = ApiStatusCodes.ERROR;
+    links = environment.links;
+
 
     constructor(private route: ActivatedRoute, public dataService: MspAccountMaintenanceDataService) {
 
@@ -27,29 +31,21 @@ export class AccountConfirmationComponent implements OnDestroy {
     ngOnInit(): void {
         this.subscription = this.route.queryParams.subscribe(
             params => {
+                const statusCode = params['status'];
+                if ( statusCode ) {
+                  this.status = statusCode;
+                }
                 this.confirmationNum = params['confirmationNum'];
-                this.isCutOff = params['isCutOff'];
-                this.isCutOffYear = params['isCutOffyear'];
             }
         );
-        console.log(this.isCutOff);
-        console.log(this.isCutOffYear);
-
-        if (this.isCutOff) {
-            if (this.isCutOffYear === true) {
-                this.noticeOfAssessment =  this.lang('./en/index.js').noticeOfAssessmentCutOffyear;
-
-            } else {
-                this.noticeOfAssessment = this.lang('./en/index.js').noticeOfAssessmentNonCutOffyear;
-
-            }
-        } else if (this.isCutOff === false) {
-            this.noticeOfAssessment = this.lang('./en/index.js').noticeOfAssessment;
-        }
     }
 
     ngAfterViewChecked(){
         //this.dataService.removeMspBenefitApp();
+    }
+
+    get isSucess() {
+        return this.status === ApiStatusCodes.SUCCESS;
     }
 
     get accountApp(): MspAccountApp {
@@ -67,11 +63,4 @@ export class AccountConfirmationComponent implements OnDestroy {
     get dateStamp(): string {
         return moment().format('MMMM DD, YYYY');
     }
-
-    // Logic to get the cutoff Date text
-   /* get noticeOfAssessment() {
-        
-
-
-    }*/
 }
