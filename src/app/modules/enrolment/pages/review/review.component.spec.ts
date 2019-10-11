@@ -9,7 +9,6 @@ import { MspContactCardComponent } from '../../../msp-core/components/contact-ca
 import { ModalModule } from 'ngx-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MspCancelComponent  } from '../../../../components/msp/common/cancel/cancel.component';
-import { MspLoggerDirective } from '../../../msp-core/components/logging/msp-logger.directive';
 import { MspLogService } from '../../../../services/log.service';
 import { ProcessService } from '../../../../services/process.service';
 import { MspAddressCardPartComponent } from '../../../msp-core/components/address-card-part/address-card-part.component';
@@ -26,8 +25,7 @@ describe('ReviewComponent', () => {
         MspPersonCardComponent,
         MspAddressCardPartComponent,
         MspContactCardComponent,
-        MspCancelComponent,
-        MspLoggerDirective
+        MspCancelComponent
       ],
       imports: [
         FormsModule,

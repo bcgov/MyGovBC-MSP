@@ -4,19 +4,11 @@ import { MspFullNameComponent } from './components/full-name/full-name.component
 import { SharedCoreModule } from 'moh-common-lib';
 import { CaptchaModule } from 'moh-common-lib/captcha';
 import { FormsModule } from '@angular/forms';
-import { ServicesCardDisclaimerModalComponent } from './components/services-card-disclaimer/services-card-disclaimer.component';
-import { MspStatusInCanadaRadioComponent } from './components/status-in-canada-radio/status-in-canada-radio.component';
 import { TextMaskModule } from 'angular2-text-mask';
 import { MspBirthDateComponent } from './components/birthdate/birthdate.component';
 import { MspImageErrorModalComponent } from './components/image-error-modal/image-error-modal.component';
 
 // TOBE REVIEWED
-import { CalendarYearFormatter } from '../../components/msp/common/calendar/calendar-year-formatter.component';
-import { CalendarYearValidator } from '../../components/msp/common/calendar/calendar-year.validator';
-import { CalendarDayValidator } from '../../components/msp/common/calendar/calendar-day.validator';
-import { CalendarMonthValidator } from '../../components/msp/common/calendar/calendar-month.validator';
-import { MspAddressComponent } from './components/address/address.component';
-import { MspProgressBarComponent } from '../account/components/progressBar/progressBar.component';
 import { TransmissionErrorView } from '../../components/msp/common/transmission-error-view/transmission-error-view.component';
 import { MspConsentModalComponent } from './components/consent-modal/consent-modal.component';
 import { MspCancelComponent } from '../../components/msp/common/cancel/cancel.component';
@@ -44,8 +36,6 @@ import { PersonalInformationComponent } from './components/personal-information/
 
 const componentList = [
   MspFullNameComponent,
-  ServicesCardDisclaimerModalComponent,
-  MspStatusInCanadaRadioComponent,  // Replaced by CanadianStatusComponent - needs to be removed
   MspBirthDateComponent,
   MspImageErrorModalComponent,
   CommonDeductionCalculatorComponent,
@@ -70,12 +60,6 @@ const componentList = [
 // support functionality
 const templistCore = [
   // General
-  CalendarYearFormatter,
-  CalendarYearValidator,
-  CalendarDayValidator,
-  CalendarMonthValidator,
-  MspAddressComponent,
-  MspProgressBarComponent,
   TransmissionErrorView,
   MspConsentModalComponent,
   MspCancelComponent,

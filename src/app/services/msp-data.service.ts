@@ -6,7 +6,6 @@ import {
   MspAccountApp,
 } from '../modules/account/models/account.model';
 import { Process } from './process.service';
-import { MspProgressBarItem } from '../modules/account/components/progressBar/progressBarDataItem.model';
 import MspAccountDto from '../modules/account/models/account.dto';
 import MspApplicationDto from '../modules/enrolment/models/application.dto';
 import FinancialAssistApplicationDto from '../modules/assistance/models/financial-assist-application.dto';
@@ -53,6 +52,7 @@ export class MspDataService {
     this.localStorageService.set(this.mspProcessKey, process);
   }
 
+  /*
   getMspProgressBar(): Array<MspProgressBarItem> {
     return this.localStorageService.get<Array<MspProgressBarItem>>(
       this.mspProgressBarKey
@@ -66,7 +66,7 @@ export class MspDataService {
   emptyMspProgressBar() {
     this.localStorageService.remove(this.mspProgressBarKey);
   }
-
+*/
   get mspApplication(): MspApplication {
     return this._mspApplication;
   }
