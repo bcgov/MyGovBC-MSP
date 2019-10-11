@@ -1,45 +1,64 @@
 <common-page-framework layout="blank">
-  <div>  
-        
-    <a onclick="window.print();return false;" >   
-    <b class="float-right">Print <i class="fa fa-print fa-lg pointer" 
-        aria-hidden="true"></i>
-    </b>
-    </a>
-    <h1><strong>Confirmation Message </strong> </h1>
-    <p class="border-bottom">It is important to keep your reference number – write it down, or print this page for your records.</p>
-    
-    <div class="row" style="border-style: solid; color:#83D31D" >
-          <div class="col-sm-.5" style="font-size: 50px; margin-top: 15px;margin-left: 15px" ><i class="fa fa-check-circle" aria-hidden="true"></i></div>
-          <div class="col-9">
-              <h2>
-                  Your update request has been submitted
-              </h2>
-              <p class="font-weight-normal h4">{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}</p>
-             
-              
-          </div>
-      </div>
-    
-    <h2 class="border-bottom"> <strong> Important </strong></h2>
-   
-        <ul>
-            <li>
-              <h3 [innerHTML]="lang('./en/index.js').printEmailInstructions" onclick="window.print();" class="pointer"></h3>
-            </li>
-            <li>
-              <h3 [innerHTML]="lang('./en/index.js').generalInstructions1"></h3>
-            </li>
-            <li>
-              <h3 [innerHTML]="lang('./en/index.js').generalInstructions2"></h3>
-            </li>
-            <li>
-              <h3 [innerHTML]="lang('./en/index.js').generalInstructions3"></h3>
-            </li>
-          </ul>
-      </div>
-    
+	<msp-confirm-template [displayIcon]="status">
+		<div confirmationTitle *ngIf="isSucess; else ErrorTitle;">
+			<a onclick="window.print();return false;">
+				<strong class="float-right">Print
+					<i class="fa fa-print fa-lg pointer" aria-hidden="true"></i>
+				</strong>
+			</a>
+			<h1>Confirmation Message</h1>
+			<p class="border-bottom">
+				It is important to keep your reference number - write it down, or print this page for your records.
+			</p>
+		</div>
+		<div message *ngIf="isSucess; else ErrorMsg">
+			<div class="icon--message">
+					Your update request has been submitted
+			</div>
+			
+			<div>
+				{{dateStamp}} - Reference # {{confirmationNum? confirmationNum : 'N/A'}}
+			</div>
+		</div>
+
+		<div *ngIf="isSucess" AdditionalInfo>
+
+			<h2 class="border-bottom"><strong>Important</strong></h2>
+			<common-page-section layout='noTips'>
+				<ul class="info--container">
+					<li>
+						Allow 21 business days for your application to be processed.
+					</li>
+				  <li>
+              Living outside the province for more than six months could cause your Medical Services Plan enrolment to be cancelled. Learn more about
+					  	<a href="{{links.MSP_WAIT_PERIOD}}" target="_blank">eligibility for Medical Services Plan</a>.
+					</li>
+					<li>
+              Review <a href="{{links.FPCARE}}" target="_blank">Frequently Asked Questions.</a>.
+					</li>
+					<li>
+						Keep your personal information up to date. <a href="{{links.BCSC_UPDATE}}" target="_blank">Change your name, address or gender</a>.
+					</li>	
+					<li>
+              If you require additional assistance, contact <a href="{{links.MSP_ELIGIBILITY}}" target="_blank">Health Insurance B.C.</a>
+					</li>
+				</ul>
+			</common-page-section>
+		</div>
+	</msp-confirm-template>
 </common-page-framework>
 
 
+<ng-template #ErrorTitle>
+	<div confirmationTitle>
+			<h1 class="border-bottom">There was a technical issue with your submission</h1>
+	</div>
+</ng-template>
 
+<ng-template #ErrorMsg>
+	<div message>
+		<div class="icon--message">
+				Your application was not submitted
+		</div>
+	</div>
+</ng-template>

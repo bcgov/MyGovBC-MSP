@@ -7,6 +7,9 @@ import {MspLogService} from '../../../../services/log.service';
 import {ProcessService} from '../../../../services/process.service';
 import { MspAccountApp } from '../../models/account.model';
 import { Relationship } from '../../../../models/relationship.enum';
+import { ApiResponse } from 'app/models/api-response.interface';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ApiStatusCodes } from 'app/modules/msp-core/components/confirm-template/confirm-template.component';
 
 
 @Component({
@@ -47,7 +50,29 @@ export class AccountSendingComponent implements AfterContentInit {
     // After view inits, begin sending the application
     this.transmissionInProcess = true;
     this.hasError = undefined;
-  //  this.logService.log({name: 'Account - Submitting Request'},"Account - Submission Request");
+      
+
+      this.service
+      .sendRequest(this.mspAccountApp)
+      .then((response: ApiResponse) => {
+
+        if (response instanceof HttpErrorResponse) {
+          this.logService.log({
+              name: 'Enrolment - System Error',
+              confirmationNumber: this.mspAccountApp.referenceNumber,
+              url: this.router.url
+          }, 'Enrolment - Submission Response Error' + response.message);
+          this.processErrorResponse(false);
+          return;
+      }
+
+      const refNumber = response.op_reference_number;
+      
+      const statusCode = (response.op_return_code === 'SUCCESS' ? ApiStatusCodes.SUCCESS : ApiStatusCodes.ERROR);
+
+
+
+  /* this.logService.log({name: 'Account - Submitting Request'},"Account - Submission Request");
     this.service
       .sendRequest(this.mspAccountApp)
       .then((mspAccountApp: MspAccountApp) => {
@@ -56,15 +81,17 @@ export class AccountSendingComponent implements AfterContentInit {
           confirmationNumber: this.mspAccountApp.referenceNumber}, 'Account - Submission Response Success ');
 
         const tempRef = this.mspAccountApp.referenceNumber;
-          let bcServicesCardElgible = false;
+        console.log(tempRef);
+*/
+        let bcServicesCardElgible = false;
           //check if there is status in canada selected
-          if (this.mspAccountApp.accountChangeOptions.statusUpdate) {
+          if (this.mspAccountApp.accountChangeOptions && this.mspAccountApp.accountChangeOptions.statusUpdate) {
               bcServicesCardElgible = true ;
           }
 
 
         //check any new beneficiary is added
-          if (!bcServicesCardElgible && this.mspAccountApp.accountChangeOptions.dependentChange) {
+          if (!bcServicesCardElgible && this.mspAccountApp.accountChangeOptions && this.mspAccountApp.accountChangeOptions.dependentChange) {
               if (this.mspAccountApp.addedSpouse && !this.mspAccountApp.addedSpouse.isExistingBeneficiary && this.mspAccountApp.addedSpouse.bcServiceCardShowStatus ) {
                   bcServicesCardElgible = true;
               }
@@ -79,7 +106,7 @@ export class AccountSendingComponent implements AfterContentInit {
         //  go to confirmation
 
           this.router.navigate(['/account/confirmation'],
-              {queryParams: {confirmationNum: tempRef, showDepMsg: bcServicesCardElgible}});
+              {queryParams: {confirmationNum: refNumber, showDepMsg: bcServicesCardElgible, status: statusCode}});
 
 
 
@@ -104,6 +131,16 @@ export class AccountSendingComponent implements AfterContentInit {
       });
 
   }
+
+  processErrorResponse(transmissionInProcess: boolean) {
+    this.hasError = true;
+    this.transmissionInProcess = transmissionInProcess;
+    const oldUUID = this.mspAccountApp.uuid;
+    this.mspAccountApp.regenUUID();
+    console.log('EA uuid updated: from %s to %s', oldUUID, this.dataService.accountApp.uuid);
+    this.mspAccountApp.authorizationToken = null;
+    this.dataService.saveMspAccountApp();
+}
 
   toggleErrorDetails(){
     this.showMoreErrorDetails = !this.showMoreErrorDetails;

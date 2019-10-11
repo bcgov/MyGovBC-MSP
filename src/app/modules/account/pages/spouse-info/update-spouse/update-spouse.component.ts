@@ -22,7 +22,7 @@ export class UpdateSpouseComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.spouse = this.dataService.accountApp.spouse;
+   // this.spouse = this.dataService.accountApp.spouse;
     this.accountApp = this.dataService.accountApp;
     //this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
   }

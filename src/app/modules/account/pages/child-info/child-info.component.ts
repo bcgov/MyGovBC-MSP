@@ -29,6 +29,7 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
 
   showChild: boolean = false;
   operation: OperationActionType;
+ 
   child: MspPerson ;
   showRemoveChild: boolean = false;
   showUpdateChild: boolean = false;
@@ -90,6 +91,14 @@ export class ChildInfoComponent extends AbstractForm implements OnInit, AfterVie
 
   get children(): MspPerson[] {
     return this.dataService.accountApp.addedChildren;
+  }
+
+  get hasChild(): boolean {
+    if (this.dataService.accountApp.addedChildren.length > 0 || this.dataService.accountApp.removedChildren.length > 0 || this.dataService.accountApp.updatedChildren.length > 0 ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   get removedChildren(): MspPerson[] {

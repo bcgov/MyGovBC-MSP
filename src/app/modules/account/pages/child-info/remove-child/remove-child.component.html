@@ -7,8 +7,6 @@
     </div>     
 </msp-personal-information>
 
-<br>
-
 <div class="form-group">
     <common-radio
         [value]="child.isRemovedAtTheEndOfCurrentMonth"  
@@ -42,15 +40,15 @@
           </ng-container>
       </select>
   </div>
-</div>
 
-<div class="form-group">
-    <common-radio
-        [value]="child.hasCurrentMailingAddress"  
-        label="Do you know your child's current mailing address?" 
-        [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
-        (statusChange)="child.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();">
-    </common-radio>
+  <div class="form-group">
+      <common-radio
+          [value]="child.hasCurrentMailingAddress"  
+          label="Do you know your child's current mailing address?" 
+          [radioLabels]='[{ "label": "No", "value": false}, {"label": "Yes", "value": true}]'
+          (statusChange)="child.hasCurrentMailingAddress = $event; this.dataService.saveMspAccountApp();">
+      </common-radio>
+  </div>
 </div>
 
 

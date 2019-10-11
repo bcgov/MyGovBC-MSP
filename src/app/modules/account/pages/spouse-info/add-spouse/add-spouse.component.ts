@@ -31,7 +31,7 @@ export class AddSpouseComponent extends Base implements OnInit {
   }
 
   ngOnInit() {
-    this.spouse = this.dataService.accountApp.spouse;
+    //this.spouse = this.dataService.accountApp.spouse;
     this.accountApp = this.dataService.accountApp;
   }
 
