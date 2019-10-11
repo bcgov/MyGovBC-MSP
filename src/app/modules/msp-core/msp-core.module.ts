@@ -25,7 +25,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ModalModule, AccordionModule, TypeaheadModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { MspPersonCardComponent } from './components/person-card/person-card.component';
-import { MspContactCardComponent } from '../../components/msp/common/contact-card/contact-card.component';
+import { MspContactCardComponent } from './components/contact-card/contact-card.component';
 import { CommonDeductionCalculatorComponent } from './components/common-deduction-calculator/common-deduction-calculator.component';
 import { MspAddressCardPartComponent } from './components/address-card-part/address-card-part.component';
 import { HttpClientModule } from '@angular/common/http';
