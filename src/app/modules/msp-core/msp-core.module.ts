@@ -28,7 +28,6 @@ import { MspPersonCardComponent } from './components/person-card/person-card.com
 import { MspContactCardComponent } from '../../components/msp/common/contact-card/contact-card.component';
 import { CommonDeductionCalculatorComponent } from './components/common-deduction-calculator/common-deduction-calculator.component';
 import { MspAddressCardPartComponent } from './components/address-card-part/address-card-part.component';
-import { MspLoggerDirective } from './components/logging/msp-logger.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { ReviewPartComponent } from './components/review-part/review-part.component';
 import { ReviewCardWrapperComponent } from './components/review-card-wrapper/review-card-wrapper.component';
@@ -65,7 +64,6 @@ const componentList = [
   ConfirmTemplateComponent,
 
   // Directives
-  MspLoggerDirective,
   ReviewCardWrapperComponent,
 ];
 
