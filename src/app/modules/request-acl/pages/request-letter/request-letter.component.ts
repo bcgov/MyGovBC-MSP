@@ -40,7 +40,7 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
   constructor( protected router: Router,
                private header: HeaderService,
                private dataService: AclDataService,
-               private logService: MspLogService ,
+               private logService: MspLogService,
                private aclApiService: AclApiService ) {
     super( router );
 
@@ -104,8 +104,6 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
       this.markAllInputsTouched();
       return;
     }
-
-    console.log( 'Can continue' );
 
     this.logService.log( {name: 'ACL application submitting request'},
                          'ACL : Submission Request');
