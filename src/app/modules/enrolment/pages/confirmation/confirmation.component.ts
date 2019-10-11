@@ -4,7 +4,6 @@ import { Subscription} from 'rxjs';
 import * as moment from 'moment';
 import { environment } from '../../../../../environments/environment';
 import { ApiStatusCodes } from 'moh-common-lib';
-
 @Component({
   templateUrl: './confirmation.component.html',
   styleUrls: ['./confirmation.component.scss']
