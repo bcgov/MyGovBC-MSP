@@ -46,7 +46,7 @@ export class RemoveSpouseComponent extends BaseComponent {
   ngOnInit() {
     this.accountApp = this.dataService.accountApp;
     this.accountChangeOptions = this.dataService.accountApp.accountChangeOptions;
-    this.spouse = this.dataService.accountApp.removedSpouse;
+   // this.spouse = this.dataService.accountApp.removedSpouse;
   }
 
   onChange($event){

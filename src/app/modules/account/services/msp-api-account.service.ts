@@ -30,6 +30,7 @@ import {
 } from 'app/modules/msp-core/interfaces/i-api';
 import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/canadian-status.enum';
 import { Relationship } from '../../../models/relationship.enum';
+import { ApiResponse } from 'app/models/api-response.interface';
 
 
 @Injectable({
@@ -64,7 +65,7 @@ export class MspApiAccountService extends AbstractHttpService {
     const suppBenefitRequest = this.prepareAccountApplication(app);
     console.log(suppBenefitRequest);
 
-    return new Promise<AccountMaintenanceApiResponse>((resolve, reject) => {
+    return new Promise<ApiResponse>((resolve, reject) => {
       //Validating the response against the schema
       this.schemaSvc.validate(suppBenefitRequest).then(res => {
         console.log(res.errors);
@@ -116,9 +117,11 @@ export class MspApiAccountService extends AbstractHttpService {
               app.uuid,
               app.authorizationToken
             ).subscribe(response => {
+              console.log(response);
               // Add reference number
-              if (response && response.referenceNumber) {
-                app.referenceNumber = response.referenceNumber.toString();
+              if (response && response.op_reference_number) {
+                app.referenceNumber = response.op_reference_number.toString();
+                console.log(app.referenceNumber);
               }
               // Let our caller know were done passing back the application
               return resolve(response);

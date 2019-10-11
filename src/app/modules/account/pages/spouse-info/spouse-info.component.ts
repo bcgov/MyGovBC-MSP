@@ -8,6 +8,7 @@ import { AbstractForm } from 'moh-common-lib';
 import { Router } from '@angular/router';
 import { PageStateService } from 'app/services/page-state.service';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { Relationship } from 'app/models/relationship.enum';
 
 
 
@@ -64,7 +65,7 @@ addSpouse() {
 
     this.addNewSpouse = true;
     this.accountApp.hasSpouseAdded = true;
-
+    this.accountChangeOptions.dependentChange = true;
     this.showUpdateSpouse = false;
     this.showSpouse = false;
   //  this.dataService.saveMspAccountApp();
@@ -75,7 +76,7 @@ addSpouse() {
   removeSpouse() {
     this.showSpouse = true;
     this.accountApp.hasSpouseRemoved = true;
-
+    this.accountChangeOptions.dependentChange = true;
     this.showUpdateSpouse = false;
     this.addNewSpouse = false;
 
@@ -93,6 +94,28 @@ addSpouse() {
 
     //this.dataService.saveMspAccountApp();
     return this.showUpdateSpouse;
+  }
+
+  removedAddedSpouse() {
+
+    this.addNewSpouse = false;
+    this.accountApp.hasSpouseAdded = false; 
+    this.accountChangeOptions.dependentChange = false;
+    this.dataService.accountApp.addedSpouse = new MspPerson(Relationship.Spouse);
+}
+
+  removedDeletedSpouse() {
+    this.showSpouse = false;
+    this.accountApp.hasSpouseRemoved = false;
+    this.accountChangeOptions.dependentChange = false;
+    this.dataService.accountApp.removedSpouse = new MspPerson(Relationship.Spouse);
+  }
+
+  removedUpdatedSpouse() {
+
+    this.showUpdateSpouse = false;
+    this.accountApp.hasSpouseUpdated = false; 
+    this.dataService.accountApp.updatedSpouse = new MspPerson(Relationship.Spouse);
   }
 
 
