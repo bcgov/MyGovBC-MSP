@@ -51,9 +51,6 @@
                       [nonce]="mspApplication.uuid"
                       (onValidToken)="mspApplication.authorizationToken=$event">
       </common-captcha>
-      <common-error-container [displayError]="displayError">
-        Captcha is required.
-      </common-error-container>
     </div>
 
   </form>

@@ -19,7 +19,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class AuthorizeComponent extends EnrolForm {
 
   captchaApiBaseUrl: string = environment.appConstants.captchaApiBaseUrl;
-  displayError: boolean = false;
 
   constructor( protected dataService: MspDataService,
                protected pageStateService: PageStateService,
@@ -54,7 +53,6 @@ export class AuthorizeComponent extends EnrolForm {
   }
 
   canContinue(): boolean {
-    this.displayError = !this.mspApplication.hasValidAuthToken;
     return super.canContinue() && this.mspApplication.hasValidAuthToken;
   }
 
