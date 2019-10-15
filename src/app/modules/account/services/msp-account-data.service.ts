@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
 import { MspAccountApp } from '../../../modules/account/models/account.model';
 import { Process } from '../../../services/process.service';
-import { MspProgressBarItem } from '../../../modules/account/components/progressBar/progressBarDataItem.model';
 import MspAccountDto from '../../../modules/account/models/account.dto';
 import {
   Gender,
@@ -43,6 +42,7 @@ export class MspAccountMaintenanceDataService {
     this.localStorageService.set(this.mspAccountStorageKey, process);
   }
 
+  /*
   getMspProgressBar(): Array<MspProgressBarItem> {
     return this.localStorageService.get<Array<MspProgressBarItem>>(
       this.mspProgressBarKey
@@ -56,7 +56,7 @@ export class MspAccountMaintenanceDataService {
   emptyMspProgressBar() {
     this.localStorageService.remove(this.mspProgressBarKey);
   }
-
+*/
 
   getMspAccountApp(): MspAccountApp {
     return this._mspAccountApp;

@@ -1,5 +1,5 @@
 <common-page-framework layout="blank">
-	<msp-confirm-template [displayIcon]="status">
+	<common-confirm-template [displayIcon]="status">
 		<div confirmationTitle *ngIf="isSucess; else ErrorTitle;">
 			<a onclick="window.print();return false;">
 				<strong class="float-right">Print
@@ -69,7 +69,7 @@
 				</ul>
 			</common-page-section>
 		</div>
-	</msp-confirm-template>
+	</common-confirm-template>
 </common-page-framework>
 
 

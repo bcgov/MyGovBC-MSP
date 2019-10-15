@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiStatusCodes } from '../../../msp-core/components/confirm-template/confirm-template.component';
+import { ApiStatusCodes } from 'moh-common-lib';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import { Subscription } from 'rxjs';

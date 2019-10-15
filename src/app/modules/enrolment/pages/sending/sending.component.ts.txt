@@ -8,7 +8,7 @@ import { MspApiEnrolmentService } from '../../services/msp-api-enrolment.service
 import { ApiResponse } from '../../../../models/api-response.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
-import { ApiStatusCodes } from '../../../msp-core/components/confirm-template/confirm-template.component';
+import { ApiStatusCodes } from 'moh-common-lib';
 
 
 // TODO: mimic what Sean did in retro pa

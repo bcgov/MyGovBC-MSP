@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
-import { AbstractForm, SimpleDate } from 'moh-common-lib';
+import { AbstractForm, ApiStatusCodes } from 'moh-common-lib';
 import { Router } from '@angular/router';
 import { HeaderService } from '../../../../services/header.service';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
@@ -13,7 +13,6 @@ import { AclApiService } from '../../services/acl-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AclApiPayLoad } from '../../model/acl-api.model';
 import { ROUTES_ACL } from '../../request-acl-route-constants';
-import { ApiStatusCodes } from '../../../msp-core/components/confirm-template/confirm-template.component';
 
 @Component({
   selector: 'msp-request-letter',
@@ -41,7 +40,7 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
   constructor( protected router: Router,
                private header: HeaderService,
                private dataService: AclDataService,
-               private logService: MspLogService ,
+               private logService: MspLogService,
                private aclApiService: AclApiService ) {
     super( router );
 
@@ -105,8 +104,6 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
       this.markAllInputsTouched();
       return;
     }
-
-    console.log( 'Can continue' );
 
     this.logService.log( {name: 'ACL application submitting request'},
                          'ACL : Submission Request');

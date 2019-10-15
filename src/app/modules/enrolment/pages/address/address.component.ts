@@ -16,7 +16,7 @@ export class EnrolAddressComponent extends EnrolForm {
                protected router: Router ) {
   super( dataService, pageStateService, router );
   }
-  
+
   continue() {
     this._canContinue = super.canContinue();
     this._nextUrl = ROUTES_ENROL.REVIEW.fullpath;

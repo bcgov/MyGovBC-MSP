@@ -13,6 +13,7 @@ export class MspContactCardComponent {
   @Input() phone: string;
   @Input() altPhone: string;
   @Input() editRouterLink: string;
+  @Input() displayMailingAddress: boolean = false;
 
   constructor(private _router: Router) {
 

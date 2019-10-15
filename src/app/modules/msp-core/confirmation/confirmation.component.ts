@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-//TODO: remove after convert files that use msp-confirmation to msp-confirm-template
+//TODO: remove after convert files that use msp-confirmation to common-confirm-template
 @Component({
   selector: 'msp-confirmation',
   template: `

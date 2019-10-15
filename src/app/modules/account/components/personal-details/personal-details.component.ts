@@ -5,7 +5,6 @@ import {
 import { state, trigger, style, } from '@angular/animations';
 import * as _ from 'lodash';
 import {MspBirthDateComponent} from '../../../../modules/msp-core/components/birthdate/birthdate.component';
-import {MspStatusInCanadaRadioComponent} from '../../../../modules/msp-core/components/status-in-canada-radio/status-in-canada-radio.component';
 import {BaseComponent} from '../../../../models/base.component';
 import { MspAccountApp } from '../../models/account.model';
 import { Address } from 'moh-common-lib';
@@ -66,7 +65,7 @@ export class AccountPersonalDetailsComponent extends BaseComponent {
  //   @ViewChild('name') name: ElementRef;
   //  @ViewChild('phn') phn: MspPhnComponent;
    // @ViewChild('phone') phone: MspPhoneComponent;
-    @ViewChild(MspStatusInCanadaRadioComponent) statusRadioComponents: MspStatusInCanadaRadioComponent;
+    //@ViewChild(MspStatusInCanadaRadioComponent) statusRadioComponents: MspStatusInCanadaRadioComponent;
 
     @Input() person: MspPerson;
     @Input() id: string;

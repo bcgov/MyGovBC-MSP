@@ -4,7 +4,6 @@ import { EnrolContainerComponent } from './components/enrol-container/enrol-cont
 import { enrolPages } from './enrol-page-routing.module';
 import { ConfirmationComponent } from './pages/confirmation/confirmation.component';
 import { ROUTES_ENROL } from './models/enrol-route-constants';
-import { SendingComponent } from './pages/sending/sending.component';
 
 const routes: Routes = [
   {
@@ -17,12 +16,7 @@ const routes: Routes = [
     path: ROUTES_ENROL.CONFIRMATION.path,
     component: ConfirmationComponent,
     data: { title: ROUTES_ENROL.CONFIRMATION.title }
-  },
-  {
-    path: ROUTES_ENROL.SENDING.path,
-    component: SendingComponent,
-    data: { title: ROUTES_ENROL.SENDING.title }
-  },
+  }
 ];
 
 @NgModule({
