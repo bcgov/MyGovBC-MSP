@@ -4,7 +4,6 @@ import { MspAccountApp } from '../../../modules/account/models/account.model';
 import { Process } from '../../../services/process.service';
 import MspAccountDto from '../../../modules/account/models/account.dto';
 import {
-  Gender,
   OperationActionType,
   MspPerson
 } from '../../../components/msp/model/msp-person.model';
@@ -13,13 +12,12 @@ import PersonDto from '../../../components/msp/model/msp-person.dto';
 import { OutofBCRecord } from '../../../models/outof-bc-record.model';
 import { OutofBCRecordDto } from '../../../models/outof-bc-record.dto';
 import AddressDto from '../../../models/address.dto';
+import { Gender } from '../../../models/gender.enum';
 
 @Injectable()
 export class MspAccountMaintenanceDataService {
 
   private _mspAccountApp: MspAccountApp;
-  private mspProgressBarKey: string = 'msp-progressbar'; //Progress bar has to be saved since its dynamic .Storing to avoid extra calls in all the getter invocations
-
   private mspAccountStorageKey: string = 'msp-account';
 
   constructor(public localStorageService: LocalStorageService) {
@@ -42,21 +40,6 @@ export class MspAccountMaintenanceDataService {
     this.localStorageService.set(this.mspAccountStorageKey, process);
   }
 
-  /*
-  getMspProgressBar(): Array<MspProgressBarItem> {
-    return this.localStorageService.get<Array<MspProgressBarItem>>(
-      this.mspProgressBarKey
-    );
-  }
-
-  seMspProgressBar(progressBar: Array<MspProgressBarItem>) {
-    this.localStorageService.set(this.mspProgressBarKey, progressBar);
-  }
-
-  emptyMspProgressBar() {
-    this.localStorageService.remove(this.mspProgressBarKey);
-  }
-*/
 
   getMspAccountApp(): MspAccountApp {
     return this._mspAccountApp;
@@ -221,7 +204,7 @@ export class MspAccountMaintenanceDataService {
     }
 
     if (input.gender) {
-      dto.gender = input.gender.valueOf();
+      dto.gender = input.gender;
     }
    // dto.docType = input.docType;
     dto.status = input.status;

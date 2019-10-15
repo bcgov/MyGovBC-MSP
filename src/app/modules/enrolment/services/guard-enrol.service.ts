@@ -3,11 +3,12 @@ import { ROUTES_ENROL } from '../models/enrol-route-constants';
 import { PageStateService } from '../../../services/page-state.service';
 import { environment } from '../../../../environments/environment';
 import { MspDataService } from '../../../services/msp-data.service';
+import { AbstractPgCheckService } from 'moh-common-lib';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GuardEnrolService {
+export class GuardEnrolService implements AbstractPgCheckService {
 
   constructor( private pageStateService: PageStateService,
                private dataService: MspDataService ) { }

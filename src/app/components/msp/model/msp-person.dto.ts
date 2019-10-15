@@ -2,17 +2,9 @@ import AddressDto from '../../../models/address.dto';
 import {OutofBCRecordDto} from '../../../models/outof-bc-record.dto';
 import { CancellationReasons} from '../../../models/status-activities-documents';
 import { PersonStatusChange } from './person-status-change';
-/*import {
-    StatusRules,
-    ActivitiesRules,
-    StatusInCanada,
-    Activities,
-    DocumentRules,
-    Documents
-  } from '../../../models/status-activities-documents';*/
-//import { SimpleDate , CommonImage } from 'moh-common-lib';
-import { SimpleDate, Address, BRITISH_COLUMBIA, CANADA, CommonImage } from 'moh-common-lib';
+import { SimpleDate, CommonImage } from 'moh-common-lib';
 import { SupportDocuments } from '../../../modules/msp-core/models/support-documents.model';
+import { Gender } from '../../../models/gender.enum';
 
 
 // TODO: Class makes reference to self within definition - This should be reviewed
@@ -86,7 +78,7 @@ export default class PersonDto {
 
     hasCurrentMailingAddress: boolean;
 
-    gender: number;
+    gender: Gender;
 
     liveInBC: boolean;
     livedInBCSinceBirth: boolean;

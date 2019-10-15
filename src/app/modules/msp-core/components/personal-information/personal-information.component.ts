@@ -1,7 +1,8 @@
 import { Component, forwardRef, Input, Output, EventEmitter } from '@angular/core';
 import { Base, SimpleDate } from 'moh-common-lib';
 import { ControlContainer, NgForm } from '@angular/forms';
-import { MspPerson, Gender } from '../../../../components/msp/model/msp-person.model';
+import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { Gender } from '../../../../models/gender.enum';
 
 @Component({
   selector: 'msp-personal-information',
@@ -23,6 +24,8 @@ export class PersonalInformationComponent extends Base {
   // TODO: Change to PERSON when MspPerson is re-factored to extend Person in common lib
   @Input() person: MspPerson;
   @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
+
+  dobError: boolean = false;
 
   genderLabels = [
      {'label': 'Male', 'value': Gender.Male},
@@ -75,6 +78,8 @@ export class PersonalInformationComponent extends Base {
 
   set dateOfBirth( dob: SimpleDate ) {
     this.person.dobSimple = dob;
+
+
     this.personChange.emit(this.person);
   }
 
