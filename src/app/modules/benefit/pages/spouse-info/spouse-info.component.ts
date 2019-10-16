@@ -3,7 +3,7 @@ import {ProcessService} from '../../../../services/process.service';
 import {BaseComponent} from '../../../../models/base.component';
 import { Router } from '@angular/router';
 import {BenefitApplication} from '../../models/benefit-application.model';
-import {PersonalDetailsRetroSuppbenComponent} from '../../../msp-core/components/personal-details-retro-suppben/personal-details-retro-suppben.component';
+import {PersonalDetailsRetroSuppbenComponent} from '../../components/personal-details-retro-suppben/personal-details-retro-suppben.component';
 import { MspBenefitDataService } from '../../services/msp-benefit-data.service';
 import {NgForm} from '@angular/forms';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';

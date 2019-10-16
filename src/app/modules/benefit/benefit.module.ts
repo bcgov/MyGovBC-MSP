@@ -18,8 +18,8 @@ import { ModalModule } from 'ngx-bootstrap';
 import { BenefitSpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { BenefitAddressComponent } from './pages/contact-info/address.component';
 import { ProcessService , ProcessStep} from '../../services/process.service';
-import { Container, CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
-import { PersonalDetailsRetroSuppbenComponent } from '../msp-core/components/personal-details-retro-suppben/personal-details-retro-suppben.component';
+import { CheckCompleteBaseService, RouteGuardService, AbstractPgCheckService } from 'moh-common-lib';
+import { PersonalDetailsRetroSuppbenComponent } from './components/personal-details-retro-suppben/personal-details-retro-suppben.component';
 import { EligibilityComponent } from './pages/eligibility/eligibility.component';
 
 
@@ -44,7 +44,8 @@ import { EligibilityComponent } from './pages/eligibility/eligibility.component'
     TaxYearComponent,
     BenefitSpouseInfoComponent,
     BenefitAddressComponent,
-    EligibilityComponent
+    EligibilityComponent,
+    PersonalDetailsRetroSuppbenComponent
   ],
   providers: [
     { provide: AbstractPgCheckService, useExisting: CheckCompleteBaseService },
