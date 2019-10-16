@@ -118,7 +118,7 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
   // Individual's reason for status in Canada
   @Input() statusReason: CanadianStatusReason;
   // Toggles display for the 'Add' button (true => button is displayed, false => no button displayed)
-  @Input() displayButton: boolean = true;
+  @Input() displayButton: boolean = false;
 
   @Input() supportDoc: SupportDocuments;
   @Output() supportDocChange: EventEmitter<SupportDocuments> = new EventEmitter<SupportDocuments>();
@@ -142,14 +142,12 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
 
   ngOnInit() {
 
-    console.log(this.supportDoc);
-    if (this.supportDoc.documentType) {
+    if (this.supportDoc.documentType && this.displayButton) {
       this.btnEnabled = false;
     }
 
     // Change document list if status or reason changes
     this.onChanges.subscribe((changes: SimpleChanges) => {
-      console.log( 'on changes: ', changes );
 
       if ( changes.canadianStatus || changes.statusReason || changes.supportDocList ) {
 
@@ -187,7 +185,9 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
 
   // When clicked button is disabled
   addDocument() {
-    this.btnEnabled = !this.supportDoc.documentType;
+    if ( this.displayButton ) {
+      this.btnEnabled = !this.supportDoc.documentType;
+    }
 
     // Check to verify images is not undefined
     if ( !this.supportDoc.images ) {
@@ -222,7 +222,16 @@ export class SupportDocumentsComponent extends Base implements OnInit, OnChanges
   }
 
   set documentType( doc: string ) {
+
+    console.log( 'set document type: ', doc, this.btnEnabled );
+
     if ( this.btnEnabled ) {
+
+      // Clear document uploaded if the doc type differs
+      if ( !this.displayButton && this.supportDoc.documentType !== doc ) {
+        this.supportDoc.images  = [];
+        this.supportDocChange.emit(this.supportDoc);
+      }
       this.supportDoc.documentType = doc;
     }
   }
