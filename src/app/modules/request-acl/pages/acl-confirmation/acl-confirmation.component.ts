@@ -35,8 +35,11 @@ export class AclConfirmationComponent implements OnInit {
 
         if ( params['message'] ) {
           this.message = params['message'];
+          this.message = this.message.replace('HIBC',
+                                              '<a href=\"' + this.links.HIBC + '\" target=\"blank\">Health Insurance BC</a>');
+          this.message = this.message.replace('ACBC',
+                                              '<a href=\"' + this.links.ACBC + '\" target=\"blank\">Change of Address Service</a>');
         }
-        console.log( 'params: ', params );
       }
     );
   }
