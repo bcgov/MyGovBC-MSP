@@ -16,7 +16,6 @@ import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 export class PersonalInfoComponent extends EnrolForm {
 
   nameChangeDocList = nameChangeSupportDocuments();
-  _hasError: boolean = false;
 
   constructor( protected router: Router,
                protected dataService: MspDataService,
@@ -85,14 +84,9 @@ export class PersonalInfoComponent extends EnrolForm {
     return this.applicant.madePermanentMoveToBC || this.isTemporaryResident;
   }
 
-  hasError($event) {
-    console.log( 'hasError: ', $event );
-    this._hasError = $event;
-  }
-
   canContinue(): boolean {
-    console.log( 'form: ', this.form, this._hasError );
-    let valid = super.canContinue() && this.hasStatusDocuments && !this._hasError;
+    console.log( 'form: ', this.form );
+    let valid = super.canContinue() && this.hasStatusDocuments;
 
     // If not temporary resident needs to have moved permenently to BC
     if ( !this.isTemporaryResident ) {
