@@ -52,8 +52,7 @@
 <ng-template #IconErrMsg>
   <div message >
     <p class="icon--message">Error</p>
-    <p *ngIf="message; else DefaultMessage;">
-      {{message}}
+    <p *ngIf="message; else DefaultMessage;" [innerHTML]="message">
     </p>
   </div>
  </ng-template>

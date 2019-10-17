@@ -1,5 +1,5 @@
-import { Component, ViewChild, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
-import { AbstractForm, ApiStatusCodes } from 'moh-common-lib';
+import { Component, ViewChild, AfterViewInit, OnDestroy, OnInit, SimpleChange } from '@angular/core';
+import { AbstractForm, ApiStatusCodes, SimpleDate } from 'moh-common-lib';
 import { Router } from '@angular/router';
 import { HeaderService } from '../../../../services/header.service';
 import { MspConsentModalComponent } from '../../../msp-core/components/consent-modal/consent-modal.component';
@@ -26,7 +26,7 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
   // Used to indicate that the system is processing the request
   loading: boolean = false;
   captchaApiBaseUrl: string = environment.appConstants.captchaApiBaseUrl;
-  requireAuthToken: boolean = false;
+  showCaptcha: boolean = false;
 
   // Radio button labels
   radioBtnLabels = [
@@ -56,6 +56,44 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
     return this.application.enrolmentMembership === EnrolmentMembership.SpecificMember;
   }
 
+  get accountHolderPhn(): string {
+    return this.application.accountHolderPhn ? this.application.accountHolderPhn : null;
+  }
+  set accountHolderPhn( phn: string ) {
+    this.application.accountHolderPhn = phn;
+  }
+
+  get postalCode(): string {
+    return this.application.postalCode ? this.application.postalCode : null;
+  }
+  set postalCode( val: string ) {
+    this.application.postalCode = val;
+  }
+
+  get accountHolderDob(): SimpleDate {
+    return this.application.accountHolderDob;
+  }
+  set accountHolderDob( dt: SimpleDate ) {
+    this.application.accountHolderDob = dt;
+  }
+
+  get enrolmentMembership(): EnrolmentMembership {
+   return this.application.enrolmentMembership;
+  }
+  set enrolmentMembership( val: EnrolmentMembership ) {
+    if ( val === EnrolmentMembership.SpecificMember ) {
+      this.showCaptcha = false;
+    }
+    this.application.enrolmentMembership = val;
+  }
+
+  get specificMemberPhn(): string {
+    return this.application.specificMemberPhn ? this.application.specificMemberPhn : null;
+  }
+  set specificMemberPhn( phn: string ) {
+    this.application.specificMemberPhn = phn;
+  }
+
   ngOnInit() {
     this.logService.log( { name: 'ACL - Loaded Page', url: this.router.url},
                          'ACL - Loaded Page');
@@ -77,11 +115,8 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
             this.application.specificMemberPhn = '';
           }
 
-          // Determine whether captcha is displayed or not
-          if ( this.form.valid && this.dataService.application.infoCollectionAgreement ) {
-            this.requireAuthToken = true;
-          } else {
-            this.requireAuthToken = false;
+          if ( !this.showCaptcha && this.form.valid && this.application.infoCollectionAgreement ) {
+            this.showCaptcha = true;
           }
 
           this.dataService.saveApplication();
@@ -115,7 +150,6 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
 
     // Trigger the HTTP request
     subscription.subscribe( response => {
-      console.log( 'request letter payload: ', response );
 
       // business errors.. Might be either a RAPID validation failure or DB error
       const payload: AclApiPayLoad = <AclApiPayLoad> response;
@@ -165,6 +199,10 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
                 return;
               }
 
+              this.application.regenUUID(); // Generates a new uuid
+              this.application.authorizationToken = null;
+              this.dataService.saveApplication(); // save changes
+
               const key = Object.keys(spaResponse)[0];
               this.navigate( ROUTES_ACL.CONFIRMATION.fullpath,
                 {
@@ -197,6 +235,5 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
           message: message
         });
     });
-
   }
 }
