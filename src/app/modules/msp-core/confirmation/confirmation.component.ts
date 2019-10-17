@@ -4,7 +4,10 @@ import { Component, OnInit, Input } from '@angular/core';
   selector: 'msp-confirmation',
   template: `
     <common-page-section>
+    <div>
+      <ng-content select='[afterTitleSlot]'></ng-content>
       <h2>{{ title }}</h2>
+    </div>
       <div [ngClass]="{ success: success, failure: !success }">
         <div class="container">
           <h3>
