@@ -115,7 +115,6 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
 
     // Trigger the HTTP request
     subscription.subscribe( response => {
-      this.loading = false;
       console.log( 'request letter payload: ', response );
 
       // business errors.. Might be either a RAPID validation failure or DB error
@@ -124,6 +123,7 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
                          payload.dberrorCode === 'Y' &&
                          payload.rapidResponse === 'Y';
       if ( isSuccess ) {
+        this.loading = false;
 
         // Successfully submitted request
         this.dataService.removeApplication();  // clear storage for application
@@ -140,16 +140,38 @@ export class RequestLetterComponent extends AbstractForm implements OnInit, Afte
         return;
       }
 
-      // TODO: Confirm whether PHN should be sent to logging
       this.logService.log( {
         name: 'ACL - RAPID/DB Error',
         confirmationNumber: this.application.uuid
       }, 'ACL - Submission Response Error' + JSON.stringify( payload ) );
 
-      this.navigate( ROUTES_ACL.CONFIRMATION.fullpath,
-        {
-          status: ApiStatusCodes.ERROR
-        });
+      // Get error repsonse messages from ENV server
+      this.aclApiService
+          .sendSpaEnvServer( '{"SPA_ENV_ACL_' + payload.rapidResponse + '":""}' )
+          .subscribe( spaResponse => {
+              this.loading = false;
+
+              if (spaResponse instanceof HttpErrorResponse) { // probable network errors..Spa Env server could be down
+                  this.logService.log({
+                      name: 'account-letter - SPA Env System Error',
+                      url: this.router.url
+                  }, 'account-letter - SPA Env Rapid Response Error' + spaResponse.message);
+
+                this.navigate( ROUTES_ACL.CONFIRMATION.fullpath,
+                  {
+                    status: ApiStatusCodes.ERROR,
+                    message: spaResponse.message
+                  });
+                return;
+              }
+
+              const key = Object.keys(spaResponse)[0];
+              this.navigate( ROUTES_ACL.CONFIRMATION.fullpath,
+                {
+                  status: ApiStatusCodes.ERROR,
+                  message: spaResponse[key]
+                });
+          });
     },
     (responseError) => {
       this.loading = false;
