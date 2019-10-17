@@ -227,7 +227,6 @@ export class MspPerson implements IPerson {
     }
 
     set dobSimple( dt: SimpleDate ) {
-        console.log( 'dobSimple: ', dt );
         this.dob_day = dt.day;
         this.dob_month = dt.month;
         this.dob_year = dt.year;
