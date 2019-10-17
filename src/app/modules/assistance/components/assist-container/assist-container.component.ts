@@ -74,7 +74,8 @@ export class AssistContainerComponent extends Container implements OnInit {
     const index = this.stateSvc.findIndex( this.router.url );
     const idx = index ? index - 1 : 0;
 
-    console.log( 'index: ', index, this.stateSvc.finAssistApp.pageStatus.length );
+    console.log( 'index: ', index, this.stateSvc.finAssistApp.pageStatus.length,
+                  this.stateSvc.finAssistApp.pageStatus[idx].isValid );
     if ( this.stateSvc.finAssistApp.pageStatus[idx].isValid ) {
       this.stateSvc.finAssistApp.pageStatus[idx].isComplete = true;
       if ( index === this.stateSvc.finAssistApp.pageStatus.length ) {

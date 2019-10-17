@@ -138,7 +138,7 @@ export class ApiSendService extends AbstractHttpService {
 
     // Necessary to differentiate between PA and SuppBen
     // TODO - VALIDATE THIS VALUE IS CORRECT, NEEDS TO BE CONFIRMED
-    url += '&dpackage=msp_sb_pkg';
+    url += '&dpackage=msp_pa_pkg';
     return url;
   }
 }

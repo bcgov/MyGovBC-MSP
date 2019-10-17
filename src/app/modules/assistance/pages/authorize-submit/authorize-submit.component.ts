@@ -145,6 +145,8 @@ export class AssistanceAuthorizeSubmitComponent extends BaseComponent implements
   isPageValid(): boolean {
     let isValid = this.form.valid && this.hasToken;
 
+    console.log( 'isPageValid: ', isValid, this.form.valid, this.hasToken, this.form );
+
     // Power of Attorney must have documents if selected
     if (this.application.authorizedByAttorney) {
       console.log('Need power of attorney docs');
