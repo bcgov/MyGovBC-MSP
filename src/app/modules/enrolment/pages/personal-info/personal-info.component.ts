@@ -85,6 +85,7 @@ export class PersonalInfoComponent extends EnrolForm {
   }
 
   canContinue(): boolean {
+    console.log( 'form: ', this.form );
     let valid = super.canContinue() && this.hasStatusDocuments;
 
     // If not temporary resident needs to have moved permenently to BC

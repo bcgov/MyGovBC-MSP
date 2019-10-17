@@ -89,7 +89,8 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <common-captcha [apiBaseUrl]="captchaApiBaseUrl" [nonce]="mspAccountApp.uuid"
+            <common-captcha name="captcha" ngModel required
+                        [apiBaseUrl]="captchaApiBaseUrl" [nonce]="mspAccountApp.uuid"
                      (onValidToken)="mspAccountApp.authorizationToken = $event"></common-captcha>
         </div>
     </div>
