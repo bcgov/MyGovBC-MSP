@@ -121,10 +121,6 @@ export class CanadianStatusComponent extends Base {
 
     // not activity at this point - mark as undefined
     this.person.currentActivity = undefined;
-
-    if (this.person.status !== StatusInCanada.CitizenAdult) {
-      this.person.institutionWorkHistory = 'No';
-    }
     this.personChange.emit(this.person);
   }
 

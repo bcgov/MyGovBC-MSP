@@ -24,8 +24,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReviewPartComponent } from './components/review-part/review-part.component';
 import { ReviewCardWrapperComponent } from './components/review-card-wrapper/review-card-wrapper.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
-import { PersonalDetailsRetroSuppbenComponent } from './components/personal-details-retro-suppben/personal-details-retro-suppben.component';
-import { AddressRetroSuppbenComponent } from './components/address-retro-suppben/address-retro-suppben.component';
 import { CoreContactInfoComponent } from './components/core-contact-info/core-contact-info.component';
 
 
@@ -41,7 +39,6 @@ const componentList = [
   CommonDeductionCalculatorComponent,
   MspAddressCardPartComponent,
   ReviewPartComponent,
-  PersonalDetailsRetroSuppbenComponent,
   ConfirmationComponent,
   CoreContactInfoComponent,
   MspPersonCardComponent,
@@ -84,7 +81,6 @@ const templistCore = [
   declarations: [
     componentList,
     templistCore,
-    AddressRetroSuppbenComponent,
   ],
   exports: [
     componentList,

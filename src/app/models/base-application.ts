@@ -21,5 +21,4 @@ export class BaseApplication extends Base {
   regenUUID() {
     this.objectId = UUID.UUID();
   }
-
 }

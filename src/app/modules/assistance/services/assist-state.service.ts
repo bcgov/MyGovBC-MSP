@@ -5,7 +5,7 @@ import { Router, NavigationStart } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MspDataService } from 'app/services/msp-data.service';
 import { AssistTransformService } from './assist-transform.service';
-import { ApiSendService } from 'app/modules/benefit/services/api-send.service';
+import { ApiSendService } from 'app/modules/assistance/services/api-send.service';
 import { ROUTES_ASSIST } from '../models/assist-route-constants';
 
 

@@ -4,8 +4,8 @@ import {MspPerson} from '../../../../components/msp/model/msp-person.model';
 import {NgForm} from '@angular/forms';
 import {MspBirthDateComponent} from '../../../msp-core/components/birthdate/birthdate.component';
 import {BaseComponent} from '../../../../models/base.component';
-import {BenefitApplication} from '../../../benefit/models/benefit-application.model';
-import {MspBenefitDataService} from '../../../benefit/services/msp-benefit-data.service';
+import {BenefitApplication} from '../../models/benefit-application.model';
+import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
 import { Subscription, Observable, of } from 'rxjs';
 import {MspImageErrorModalComponent} from '../../../msp-core/components/image-error-modal/image-error-modal.component';
 import { CommonImage } from 'moh-common-lib';
@@ -55,7 +55,7 @@ export class PersonalDetailsRetroSuppbenComponent extends BaseComponent  {
     }
 
     get docText(): string {
-        return this.person.relationship === 0 ? "account holder\'s": "spouse\'s";
+        return this.person.relationship === 0 ? 'account holder\'s' : 'spouse\'s';
     }
 
 

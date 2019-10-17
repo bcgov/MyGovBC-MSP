@@ -16,13 +16,9 @@ import { CanadianStatusReason, StatusInCanada } from '../../../modules/msp-core/
 import { Relationship } from '../../../models/relationship.enum';
 import { CancellationReasons } from 'app/models/status-activities-documents';
 import { SupportDocuments } from '../../../modules/msp-core/models/support-documents.model';
+import { Gender } from '../../../models/gender.enum';
 
 const sha1 = require('sha1');
-
-export enum Gender {
-    Female = <any>'F',
-    Male = <any>'M'
-}
 
 export enum OperationActionType {
     Add,
@@ -231,7 +227,6 @@ export class MspPerson implements IPerson {
     }
 
     set dobSimple( dt: SimpleDate ) {
-        console.log( 'dobSimple: ', dt );
         this.dob_day = dt.day;
         this.dob_month = dt.month;
         this.dob_year = dt.year;
@@ -251,7 +246,7 @@ export class MspPerson implements IPerson {
     getCancellationDateInMoment () {
         return this.parseDate(this.cancellationDate.year, this.cancellationDate.month, this.cancellationDate.day);
     }
-    
+
     getAdoptedDateInMoment (){
         return this.parseDate(this.adoptedDate.year, this.adoptedDate.month, this.adoptedDate.day);
     }
