@@ -5,6 +5,7 @@ import { MspBenefitDataService } from '../../modules/benefit/services/msp-benefi
 import { ROUTES_ENROL } from '../../modules/enrolment/models/enrol-route-constants';
 import { ROUTES_ACL } from '../../modules/request-acl/request-acl-route-constants';
 import { AclDataService } from '../../modules/request-acl/services/acl-data.service';
+import { EnrolDataService } from '../../modules/enrolment/services/enrol-data.service';
 
 /**
  * Application for MSP
@@ -38,6 +39,7 @@ export class LandingComponent {
     private mspDataService: MspDataService,
     private mspBenefitDataService: MspBenefitDataService,
     private aclDataService: AclDataService,
+    private enrolDataService: EnrolDataService,
     private router: Router
   ) {}
 
@@ -49,6 +51,7 @@ export class LandingComponent {
 
   clearSavedMspApp() {
     this.mspDataService.removeMspApplication();
+    this.enrolDataService.removeApplication(); // New service to replace mspDataService for enrol
     this.router.navigate([this.checkEligibility]);
   }
 

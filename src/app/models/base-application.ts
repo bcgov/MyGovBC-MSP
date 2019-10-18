@@ -22,3 +22,12 @@ export class BaseApplication extends Base {
     this.objectId = UUID.UUID();
   }
 }
+
+export default class BaseApplicationDto {
+
+    // Flag to indicate whether individual has read the collection agreement
+    infoCollectionAgreement: boolean;
+
+    // Token for all calls to backend
+    authorizationToken: string;
+}

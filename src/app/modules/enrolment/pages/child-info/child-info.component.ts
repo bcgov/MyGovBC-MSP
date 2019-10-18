@@ -10,6 +10,7 @@ import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
 import { EnrolForm } from '../../models/enrol-form';
 import { BRITISH_COLUMBIA, ErrorMessage } from 'moh-common-lib';
 import * as moment_ from 'moment';
+import { EnrolDataService } from '../../services/enrol-data.service';
 const moment = moment_;
 
 @Component({
@@ -47,9 +48,10 @@ export class ChildInfoComponent extends EnrolForm {
   nameChangeDocList = nameChangeSupportDocuments();
 
   constructor( protected dataService: MspDataService,
+               protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
                protected router: Router ) {
-    super( dataService, pageStateService, router );
+    super( dataService, enrolDataService, pageStateService, router );
   }
 
   addChild(): void {

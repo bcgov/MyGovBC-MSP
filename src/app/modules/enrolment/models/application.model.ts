@@ -51,6 +51,7 @@ export class MspApplication extends BaseApplication {
   set applicant(apt: MspPerson) {
     this._applicant = apt;
   }
+
   get spouse(): MspPerson {
     return this._spouse;
   }

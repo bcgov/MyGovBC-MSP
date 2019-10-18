@@ -7,6 +7,7 @@ import { PageStateService } from '../../../services/page-state.service';
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { MspApplication } from './application.model';
+import { EnrolDataService } from '../services/enrol-data.service';
 
 export class EnrolForm extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
 
@@ -19,6 +20,7 @@ export class EnrolForm extends AbstractForm implements OnInit, AfterViewInit, On
 
 
   constructor( protected dataService: MspDataService,
+               protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
                protected router: Router ) {
 
@@ -42,6 +44,7 @@ export class EnrolForm extends AbstractForm implements OnInit, AfterViewInit, On
           debounceTime( 100 )
         ).subscribe(() => {
           this.dataService.saveMspApplication();
+          this.enrolDataService.saveApplication();
         })
         ];
     }

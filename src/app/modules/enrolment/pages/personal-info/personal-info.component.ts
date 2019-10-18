@@ -8,6 +8,7 @@ import { SupportDocuments } from '../../../msp-core/models/support-documents.mod
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { EnrolForm } from '../../models/enrol-form';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
+import { EnrolDataService } from '../../services/enrol-data.service';
 
 @Component({
   templateUrl: './personal-info.component.html'
@@ -18,9 +19,10 @@ export class PersonalInfoComponent extends EnrolForm {
   nameChangeDocList = nameChangeSupportDocuments();
 
   constructor( protected router: Router,
-               protected dataService: MspDataService,
+               protected dataService: MspDataService, // TO REMOVE when enrolDataService is done
+               protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService ) {
-    super( dataService, pageStateService, router );
+    super( dataService, enrolDataService, pageStateService, router );
   }
 
   get applicant(): MspPerson {

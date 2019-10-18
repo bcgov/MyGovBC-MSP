@@ -17,6 +17,7 @@ import { Relationship } from '../../../models/relationship.enum';
 import { CancellationReasons } from 'app/models/status-activities-documents';
 import { SupportDocuments } from '../../../modules/msp-core/models/support-documents.model';
 import { Gender } from '../../../models/gender.enum';
+import { ICanadianStatus } from '../../../modules/msp-core/components/canadian-status/canadian-status.component';
 
 const sha1 = require('sha1');
 
@@ -27,7 +28,7 @@ export enum OperationActionType {
 }
 
 
-export class MspPerson implements IPerson {
+export class MspPerson implements ICanadianStatus {
 
     readonly uuid = UUID.UUID();
 

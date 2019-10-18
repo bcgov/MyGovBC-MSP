@@ -19,6 +19,7 @@ import { MspApiEnrolmentService } from '../enrolment/services/msp-api-enrolment.
 import { MovingInformationComponent } from './components/moving-information/moving-information.component';
 import { environment } from '../../../environments/environment';
 import { fakeBackendProvider } from '../../_developmentHelpers/fake-backend';
+import { EnrolDataService } from './services/enrol-data.service';
 
 const providerList: any = [
   { provide: AbstractPgCheckService, useClass: GuardEnrolService },

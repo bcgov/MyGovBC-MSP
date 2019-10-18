@@ -4,6 +4,7 @@ import { MspDataService } from '../../../../services/msp-data.service';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
 import { EnrolForm } from '../../models/enrol-form';
+import { EnrolDataService } from '../../services/enrol-data.service';
 
 @Component({
   templateUrl: './review.component.html'
@@ -17,9 +18,10 @@ export class ReviewComponent extends EnrolForm {
   child_info = ROUTES_ENROL.CHILD_INFO.fullpath;
 
   constructor( protected dataService: MspDataService,
+               protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
                protected router: Router ) {
-    super( dataService, pageStateService, router );
+    super( dataService, enrolDataService, pageStateService, router );
   }
 
   get hasSpouse() {

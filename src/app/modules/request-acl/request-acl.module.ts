@@ -10,9 +10,7 @@ import { AclDataService } from './services/acl-data.service';
 import { environment } from '../../../environments/environment';
 import { fakeBackendProvider } from '../../_developmentHelpers/fake-backend';
 
-const providerList: any = [
-  AclDataService
-];
+const providerList: any = [];
 
 if ( environment.useMockBackend ) {
   // provider used to create fake backend - development of registration modules

@@ -10,6 +10,7 @@ import { MspApiEnrolmentService } from '../../services/msp-api-enrolment.service
 import { ApiStatusCodes } from 'moh-common-lib';
 import { ApiResponse } from '../../../../models/api-response.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { EnrolDataService } from '../../services/enrol-data.service';
 
 @Component({
   selector: 'msp-authorize',
@@ -21,11 +22,12 @@ export class AuthorizeComponent extends EnrolForm {
   captchaApiBaseUrl: string = environment.appConstants.captchaApiBaseUrl;
 
   constructor( protected dataService: MspDataService,
+               protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
                protected router: Router,
                private logService: MspLogService,
                private apiService: MspApiEnrolmentService ) {
-  super( dataService, pageStateService, router );
+  super( dataService,  enrolDataService, pageStateService, router );
   }
 
   applicantAuthorizeOnChange(event: boolean) {

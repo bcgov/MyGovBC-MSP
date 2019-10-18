@@ -2,19 +2,20 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RequestLetterComponent } from './pages/request-letter/request-letter.component';
 import { AclConfirmationComponent } from './pages/acl-confirmation/acl-confirmation.component';
+import { ROUTES_ACL } from './request-acl-route-constants';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'request-acl',
+    redirectTo: ROUTES_ACL.REQUEST_ACL.path,
     pathMatch: 'full'
   },
   {
-    path: 'request-acl',
+    path: ROUTES_ACL.REQUEST_ACL.path,
     component: RequestLetterComponent
   },
   {
-    path: 'confirmation',
+    path: ROUTES_ACL.CONFIRMATION.path,
     component: AclConfirmationComponent
   }
 ];

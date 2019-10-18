@@ -10,7 +10,7 @@ import { EnrolmentMembership } from '../model/enrolment-membership.enum';
 })
 export class AclDataService extends BaseMspDataService {
 
-  private _storageKey: string = 'acl-app'; // TODO: set back to account-letter when original files removed
+  protected _storageKey: string = 'acl-app'; // TODO: set back to account-letter when original files removed
 
   application: AclApplication;
 

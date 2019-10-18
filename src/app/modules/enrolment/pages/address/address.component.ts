@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
 import { EnrolForm } from '../../models/enrol-form';
+import { EnrolDataService } from '../../services/enrol-data.service';
 
 @Component({
   templateUrl: './address.component.html'
@@ -12,9 +13,10 @@ import { EnrolForm } from '../../models/enrol-form';
 export class EnrolAddressComponent extends EnrolForm {
 
   constructor( protected dataService: MspDataService,
+               protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
                protected router: Router ) {
-  super( dataService, pageStateService, router );
+  super( dataService, enrolDataService, pageStateService, router );
   }
 
   continue() {

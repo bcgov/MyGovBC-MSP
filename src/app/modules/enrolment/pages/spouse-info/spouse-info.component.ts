@@ -9,6 +9,7 @@ import { SupportDocuments } from '../../../msp-core/models/support-documents.mod
 import { nameChangeSupportDocuments } from '../../../msp-core/components/support-documents/support-documents.component';
 import { EnrolForm } from '../../models/enrol-form';
 import { StatusInCanada } from '../../../msp-core/models/canadian-status.enum';
+import { EnrolDataService } from '../../services/enrol-data.service';
 
 @Component({
   selector: 'msp-spouse-info',
@@ -21,8 +22,9 @@ export class SpouseInfoComponent extends EnrolForm {
 
   constructor( protected router: Router,
                protected dataService: MspDataService,
+               protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService ) {
-    super( dataService, pageStateService, router );
+    super( dataService, enrolDataService, pageStateService, router );
   }
 
   /**

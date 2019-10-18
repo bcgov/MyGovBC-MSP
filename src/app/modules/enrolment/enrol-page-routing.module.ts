@@ -53,6 +53,7 @@ export const enrolPages: Routes = [
   },
   {
     path: '',
-    redirectTo: ROUTES_ENROL.CHECK_ELIG.path
+    redirectTo: ROUTES_ENROL.CHECK_ELIG.path,
+    pathMatch: 'full'
   }
 ];

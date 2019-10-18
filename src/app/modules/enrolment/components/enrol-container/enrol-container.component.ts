@@ -15,6 +15,9 @@ import { HeaderService } from '../../../../services/header.service';
 })
 export class EnrolContainerComponent extends Container implements OnInit {
 
+  // Spinner to show that application is processing
+  isLoading = false;
+
   constructor( public router: Router,
                private pageStateService: PageStateService,
                private dataService: MspDataService,

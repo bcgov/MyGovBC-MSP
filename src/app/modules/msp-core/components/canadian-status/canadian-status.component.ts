@@ -72,6 +72,16 @@ export function getStatusReasonStrings(): string[] {
   return Object.keys(CanadianStatusReasonStrings).map( x  => CanadianStatusReasonStrings[x] );
 }
 
+/**
+ * Component requires these fields.
+ * Component Generic as each application could have different requirements for a person
+ */
+export interface ICanadianStatus {
+  status: StatusInCanada;
+  currentActivity: CanadianStatusReason;
+  relationship: Relationship;
+  clearData?: (x: any) => {};
+}
 
 @Component({
   selector: 'msp-canadian-status',
@@ -85,7 +95,7 @@ export function getStatusReasonStrings(): string[] {
     { provide: ControlContainer, useExisting: forwardRef(() => NgForm) }
   ]
 })
-export class CanadianStatusComponent extends Base {
+export class CanadianStatusComponent<T extends ICanadianStatus> extends Base {
 
   //List of statuses to be displayed, if not provided, the default uses statusReasonRules().
   @Input() statusReasonList: CanadianStatusReason[];
@@ -95,8 +105,8 @@ export class CanadianStatusComponent extends Base {
   // List of statuses where the status reasons show not be shown
   @Input() hideStatusReasons: StatusInCanada[] = [];
 
-  @Input() person: MspPerson;
-  @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
+  @Input() person: T;
+  @Output() personChange: EventEmitter<T> = new EventEmitter<T>();
 
   statusOpts: string[] = getStatusStrings();
 
@@ -140,7 +150,10 @@ export class CanadianStatusComponent extends Base {
   setReason(value: CanadianStatusReason) {
 
     this.person.currentActivity = value;
-    this.person.movedFromProvinceOrCountry = '';
+    if ( this.person.clearData ) {
+      // Clear data
+      this.person.clearData( this.person );
+    }
     this.personChange.emit(this.person);
   }
 

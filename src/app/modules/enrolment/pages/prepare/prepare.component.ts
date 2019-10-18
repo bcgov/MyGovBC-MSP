@@ -7,6 +7,7 @@ import { MspConsentModalComponent } from '../../../msp-core/components/consent-m
 import { PageStateService } from '../../../../services/page-state.service';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { EnrolForm } from '../../models/enrol-form';
+import { EnrolDataService } from '../../services/enrol-data.service';
 
 @Component({
   templateUrl: './prepare.component.html'
@@ -16,10 +17,11 @@ export class PrepareComponent extends EnrolForm implements AfterViewInit {
 
   @ViewChild('mspConsentModal') mspConsentModal: MspConsentModalComponent;
 
-  constructor( protected dataService: MspDataService,
+  constructor( protected dataService: MspDataService, // TO REMOVE when enrolDataService is done
+               protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
                protected router: Router ) {
-    super( dataService, pageStateService, router );
+    super( dataService, enrolDataService, pageStateService, router );
   }
 
   ngAfterViewInit() {
@@ -61,6 +63,7 @@ export class PrepareComponent extends EnrolForm implements AfterViewInit {
   acceptAgreement($event) {
     this.dataService.mspApplication.infoCollectionAgreement = $event;
     this.dataService.saveMspApplication();
+    this.enrolDataService.saveApplication();
   }
 
   continue() {
