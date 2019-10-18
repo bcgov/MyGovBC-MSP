@@ -9,6 +9,7 @@ import { nameChangeSupportDocuments } from '../../../msp-core/components/support
 import { EnrolForm } from '../../models/enrol-form';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import { EnrolDataService } from '../../services/enrol-data.service';
+import { Enrollee } from '../../models/enrollee';
 
 @Component({
   templateUrl: './personal-info.component.html'
@@ -19,17 +20,16 @@ export class PersonalInfoComponent extends EnrolForm {
   nameChangeDocList = nameChangeSupportDocuments();
 
   constructor( protected router: Router,
-               protected dataService: MspDataService, // TO REMOVE when enrolDataService is done
                protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService ) {
-    super( dataService, enrolDataService, pageStateService, router );
+    super( enrolDataService, pageStateService, router );
   }
 
-  get applicant(): MspPerson {
+  get applicant(): Enrollee {
     return this.mspApplication.applicant;
   }
 
-  set applicant( applicant: MspPerson ) {
+  set applicant( applicant: Enrollee ) {
     this.mspApplication.applicant = applicant;
   }
 
@@ -38,6 +38,7 @@ export class PersonalInfoComponent extends EnrolForm {
   }
 
   set statusDocuments( document: SupportDocuments ) {
+    console.log( 'statusDocuments: ', document );
 
     if ( document.images && document.images.length === 0 ) {
       // no status documents remove any name documents
@@ -46,6 +47,7 @@ export class PersonalInfoComponent extends EnrolForm {
     }
 
     this.applicant.documents = document;
+    console.log( 'statusDocuments: ', document );
   }
 
   get hasStatusDocuments(): boolean {

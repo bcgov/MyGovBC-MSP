@@ -50,8 +50,7 @@ export class LandingComponent {
   }
 
   clearSavedMspApp() {
-    this.mspDataService.removeMspApplication();
-    this.enrolDataService.removeApplication(); // New service to replace mspDataService for enrol
+    this.enrolDataService.removeApplication();
     this.router.navigate([this.checkEligibility]);
   }
 

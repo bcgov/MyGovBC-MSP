@@ -1,4 +1,4 @@
-import { Base } from 'moh-common-lib';
+import { Base, CommonImage } from 'moh-common-lib';
 import { UUID } from 'angular2-uuid';
 
 /**
@@ -12,6 +12,15 @@ export class BaseApplication extends Base {
   // Token for all calls to backend
   authorizationToken: string;
 
+  // Reference number returned by call to back-end
+  referenceNumber: string;
+
+
+  // Authorization
+  authorizedByApplicant: boolean;
+  authorizedBySpouse: boolean;
+  authorizedByApplicantDate: Date;
+
   // Wrapper arount objectId so that we do not break applications that call this method
   get uuid(): string {
     return this.objectId;
@@ -21,13 +30,20 @@ export class BaseApplication extends Base {
   regenUUID() {
     this.objectId = UUID.UUID();
   }
+
+  // Specific to application
+  getAllImages(): CommonImage[] {
+    return [];
+  }
 }
 
 export default class BaseApplicationDto {
 
-    // Flag to indicate whether individual has read the collection agreement
-    infoCollectionAgreement: boolean;
+  // Flag to indicate whether individual has read the collection agreement
+  infoCollectionAgreement: boolean;
 
-    // Token for all calls to backend
-    authorizationToken: string;
+  // Authorization
+  authorizedByApplicant: boolean;
+  authorizedBySpouse: boolean;
+  authorizedByApplicantDate: Date;
 }

@@ -11,7 +11,7 @@ export class SupportDocuments {
   constructor() {}
 
   get images(): CommonImage[] {
-    if (!this._images){
+    if (!this._images) {
       this._images = new Array<CommonImage>();
     }
     return this._images;

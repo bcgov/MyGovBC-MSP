@@ -49,7 +49,7 @@
         class="form-group col-sm-6 pl-0">
         <common-date label="Arrival date in B.C."
                     [restrictDate]="'past'" 
-                    [(date)]="person.arrivalToBCSimple">
+                    [(date)]="person.arrivalToBCDate">
         </common-date>
     </div>
 
@@ -118,7 +118,7 @@
        <div class="form-group col-sm-6">
         <common-date label="{{departureDateLabel}}"
                      [restrictDate]="'past'" 
-                     [date]="person.departureDate"
+                     [date]="person.oopDepartureDate"
                      (dateChange)="validateDepartureDate($event)">
         </common-date>
         <common-error-container [displayError]="!isValidDepartureDate">
@@ -129,7 +129,7 @@
       <div class="form-group col-sm-6">
           <common-date label="{{returnDateLabel}}"
                        [restrictDate]="'past'" 
-                       [date]="person.returnDate"
+                       [date]="person.oopReturnDate"
                        (dateChange)="validateReturnDate($event)">
           </common-date>
           <common-error-container [displayError]="!isValidReturnDate">
@@ -149,7 +149,7 @@
     <div *ngIf="person.hasPreviousBCPhn" class="form-group col-sm-6 ml-4 border-left">
       <common-phn name="previousPhn_{{objectId}}"
                   label="{{isApplicant? 'Your' : 'Their'}} previous B.C. Personal Health Number (optional)"
-                  [(ngModel)]="person.previous_phn"
+                  [(ngModel)]="person.previousBCPhn"
                   commonValidatePhn
                   [allowEmptyValue]="true">
       </common-phn>
@@ -167,7 +167,7 @@
       <div class="form-group col-sm-6">
         <common-date label="Discharge date"
                       [restrictDate]="'past'" 
-                      [(date)]="person.dischargeDateSimple"
+                      [(date)]="person.dischargeDate"
                       required>
         </common-date>
       </div>
@@ -192,7 +192,7 @@
   <div *ngIf="requestRecentMoveToBC" class="form-group col-sm-6 pl-0">
     <common-date label="Most recent move to B.C."
                  [restrictDate]="'past'" 
-                 [(date)]="person.arrivalToBCSimple">
+                 [(date)]="person.arrivalToBCDate">
     </common-date>
   </div>
 </ng-template>

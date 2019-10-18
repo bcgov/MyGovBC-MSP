@@ -104,20 +104,13 @@ export class BaseMspApiService extends AbstractHttpService  {
     });
   }
 
-  protected convertSimpleDate( dt: SimpleDate ): string {
 
-    const dtFields = Object.keys(dt).filter( x => dt[x] );
-    console.log( 'convertSimpleDate: dtFields ', dtFields );
-
-    if ( dtFields.length === 3 ) {
-        const date = moment.utc({
-          year: dt.year,
-          month: dt.month - 1, // moment use 0 index for month :(
-          day: dt.day,
-      }); // use UTC mode to prevent browser timezone shifting
-      return  String( date.format(this.ISO8601DateFormat ) );
-    }
-    return '';
+  protected formatDate( dt: SimpleDate ) {
+    const hasDt = Object.keys(dt)
+                    .map( x => dt[x] === null || dt[x] === undefined )
+                    .filter( itm => itm === true )
+                    .length === 0;
+    return hasDt ? moment.utc( {year: dt.year, month: dt.month - 1, day: dt.day} ).format( this.ISO8601DateFormat ) : '';
   }
 
   protected convertToAttachment( images: CommonImage[] ): AttachmentRequestPartial[] {

@@ -23,7 +23,7 @@ export default class MspAccountDto {
     addressUpdate: boolean ;
     statusUpdate: boolean ;
     nameChangeDueToMarriage: boolean ;
-    documents: CommonImage[];
+    documents: CommonImage[] = [];
 
     hasSpouseAdded: boolean;
     hasSpouseUpdated: boolean;

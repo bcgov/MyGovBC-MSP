@@ -1,14 +1,15 @@
 import BaseApplicationDto, { BaseApplication } from '../../../models/base-application';
 import EnrolleeDto, { Enrollee } from './enrollee';
 import { Relationship } from '../../../models/relationship.enum';
+import { CommonImage, Address } from 'moh-common-lib';
 
 export class EnrolApplication extends BaseApplication {
 
   applicant: Enrollee = new Enrollee( Relationship.Applicant );
 
   // Applicant may have spouse and/or children
-  private _spouse: Enrollee;
-  private _children: Array<Enrollee> = [];
+  spouse: Enrollee;
+  children: Enrollee[] = [];
 
 
   // Determine whether individual can apply for MSP
@@ -16,21 +17,24 @@ export class EnrolApplication extends BaseApplication {
   plannedAbsence: boolean; // Planned absence from BC
   unUsualCircumstance: boolean;
 
+  // Contact information
+  residentialAddress: Address = new Address();
+  mailingSameAsResidentialAddress: boolean = true;
+  mailingAddress: Address = new Address();
+  phoneNumber: string;
 
-
-
-  get spouse() {
-    return this._spouse;
+  hasSpouse() {
+    return this.spouse ? true : false;
   }
 
   addSpouse() {
-    if ( !this._spouse ) {
-      this._spouse = new Enrollee( Relationship.Spouse );
+    if ( !this.spouse ) {
+      this.spouse = new Enrollee( Relationship.Spouse );
     }
   }
 
   removeSpouse(): void {
-    this._spouse = null;
+    this.spouse = null;
   }
 
   addChild( relationship: Relationship ): Enrollee {
@@ -41,9 +45,9 @@ export class EnrolApplication extends BaseApplication {
       c.fullTimeStudent = true;
     }
 
-    if ( this._children.length < 30 ) {
+    if ( this.children.length < 30 ) {
       // Add child to front of array
-      this._children.push( c );
+      this.children.push( c );
     } else {
       console.log( 'No more than 30 children can be added to one application' );
     }
@@ -51,7 +55,33 @@ export class EnrolApplication extends BaseApplication {
   }
 
   removeChild( idx: number ): void {
-    this._children.splice( idx, 1 );
+    this.children.splice( idx, 1 );
+  }
+
+  // Specific logic to enrolment application
+  getAllImages(): CommonImage[] {
+
+    let allImages = [...this.applicant.documents.images];
+
+    if ( this.applicant.hasNameChange ) {
+      allImages = allImages.concat([...this.applicant.nameChangeDocs.images]);
+    }
+
+    if (this.spouse) {
+      allImages = allImages.concat([...this.spouse.documents.images]);
+
+      if ( this.spouse.hasNameChange ) {
+        allImages = allImages.concat([...this.spouse.nameChangeDocs.images]);
+      }
+    }
+    for (const child of this.children) {
+      allImages = allImages.concat([...child.documents.images]);
+      if ( child.hasNameChange ) {
+        allImages = allImages.concat([...child.nameChangeDocs.images]);
+      }
+    }
+
+    return allImages;
   }
 }
 
@@ -59,7 +89,7 @@ export default class EnrolApplicationDto extends BaseApplicationDto {
 
   applicant: EnrolleeDto;
   spouse: EnrolleeDto;
-  children: EnrolleeDto[];
+  children: EnrolleeDto[] = [];
 
   // Determine whether individual can apply for MSP
   liveInBC: boolean; // Currently live in BC

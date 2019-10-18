@@ -526,10 +526,12 @@ export class MspDataService {
     output.status = dto.status;
     output.currentActivity = dto.currentActivity;
 
-    output.documents.documentType = dto.imageDocType;
-    dto.images.forEach(img => {
-      output.documents.images = [...output.documents.images, img];
-    });
+    if ( dto.images && dto.images.length > 0 ) {
+      output.documents.documentType = dto.imageDocType;
+      dto.images.forEach(img => {
+        output.documents.images = [...output.documents.images, img];
+      });
+    }
 
     output.nameChangeDocs.documentType = dto.nameChangeDocType;
     output.nameChangeDocs.images = dto.nameChangeImages;
@@ -792,15 +794,22 @@ export class MspDataService {
       output.addSpouse(this.fromPersonDto(dto.applicant.spouse));
     }
 
-    dto.applicant.children.forEach(c => {
-      const child: MspPerson = this.fromPersonDto(c);
-      child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
-      this.convertSchoolAddress(c, child);
-      output.children = [...output.children, child];
-    });
+    if (dto.applicant.children && dto.applicant.children.length > 0 ) {
+      dto.applicant.children.forEach(c => {
+        const child: MspPerson = this.fromPersonDto(c);
+        child.outOfBCRecord = this.toOutofBCRecord(c.outOfBCRecord);
+        this.convertSchoolAddress(c, child);
+        output.children = [...output.children, child];
+      });
+    }
 
-    this.convertMailingAddress(dto, output);
-    this.convertResidentialAddress(dto, output);
+    if ( dto.mailingAddress )  {
+      this.convertMailingAddress(dto, output);
+    }
+
+    if ( dto.residentialAddress ) {
+      this.convertResidentialAddress(dto, output);
+    }
 
     output.applicant.outOfBCRecord = this.toOutofBCRecord(
       dto.applicant.outOfBCRecord

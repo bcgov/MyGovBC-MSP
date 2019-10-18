@@ -6,6 +6,7 @@ import { environment } from '../../../../../environments/environment';
 import { Relationship } from '../../../../models/relationship.enum';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
 import * as moment_ from 'moment';
+import { Enrollee } from '../../models/enrollee';
 const moment = moment_;
 
 enum OopDateValidationCodes {
@@ -28,8 +29,8 @@ enum OopDateValidationCodes {
 })
 export class MovingInformationComponent extends Base implements OnInit {
 
-  @Input() person: MspPerson;
-  @Output() personChange: EventEmitter<MspPerson> = new EventEmitter<MspPerson>();
+  @Input() person: Enrollee;
+  @Output() personChange: EventEmitter<Enrollee> = new EventEmitter<Enrollee>();
 
   // Web links
   links = environment.links;
@@ -205,30 +206,30 @@ export class MovingInformationComponent extends Base implements OnInit {
   }
 
   validateDepartureDate($event) {
-    this.person.departureDate = $event;
+    this.person.oopDepartureDate = $event;
 
     if ( OopDateValidationCodes.DEPARTURE_INVALID === this._oopReturnDateError ) {
       // clear error - only display invalid departure date in one location
       this._oopReturnDateError = OopDateValidationCodes.VALID;
     }
 
-    this._oopDepartureDateError = this.validateDateRange( this.person.departureDate );
+    this._oopDepartureDateError = this.validateDateRange( this.person.oopDepartureDate );
     if ( this._oopDepartureDateError === OopDateValidationCodes.VALID ) {
-      this._oopDepartureDateError = this.invalidDepartureDate( this.person.departureDate, this.person.returnDate );
+      this._oopDepartureDateError = this.invalidDepartureDate( this.person.oopDepartureDate, this.person.oopReturnDate );
     }
   }
 
   validateReturnDate($event) {
-    this.person.returnDate = $event;
+    this.person.oopReturnDate = $event;
 
     if ( OopDateValidationCodes.DEPARTURE_INVALID === this._oopDepartureDateError ) {
       // clear error - only display invalid departure date in one location
       this._oopDepartureDateError = OopDateValidationCodes.VALID;
     }
 
-    this._oopReturnDateError = this.validateDateRange( this.person.returnDate );
+    this._oopReturnDateError = this.validateDateRange( this.person.oopReturnDate );
     if ( this._oopReturnDateError === OopDateValidationCodes.VALID ) {
-      this._oopReturnDateError = this.invalidDepartureDate( this.person.departureDate, this.person.returnDate );
+      this._oopReturnDateError = this.invalidDepartureDate( this.person.oopDepartureDate, this.person.oopReturnDate );
     }
   }
 

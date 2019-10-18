@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { MspApplication } from './application.model';
 import { EnrolDataService } from '../services/enrol-data.service';
+import { EnrolApplication } from './enrol-application';
 
 export class EnrolForm extends AbstractForm implements OnInit, AfterViewInit, OnDestroy {
 
@@ -19,8 +20,7 @@ export class EnrolForm extends AbstractForm implements OnInit, AfterViewInit, On
   protected _canContinue: boolean;
 
 
-  constructor( protected dataService: MspDataService,
-               protected enrolDataService: EnrolDataService,
+  constructor( protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
                protected router: Router ) {
 
@@ -28,25 +28,25 @@ export class EnrolForm extends AbstractForm implements OnInit, AfterViewInit, On
   }
 
 
-  get mspApplication(): MspApplication {
-    return this.dataService.mspApplication;
+  get mspApplication(): EnrolApplication {
+    return this.enrolDataService.application;
   }
 
   ngOnInit(){
-    this.pageStateService.setPageIncomplete(this.router.url, this.dataService.mspApplication.pageStatus);
+    this.pageStateService.setPageIncomplete(this.router.url, this.enrolDataService.pageStatus);
   }
 
   ngAfterViewInit() {
 
-    if (this.form) {
+    if ( this.form ) {
       this.subscriptions = [
         this.form.valueChanges.pipe(
           debounceTime( 100 )
         ).subscribe(() => {
-          this.dataService.saveMspApplication();
+          console.log( 'enrol-form: saving data' );
           this.enrolDataService.saveApplication();
         })
-        ];
+      ];
     }
   }
 
@@ -64,7 +64,7 @@ export class EnrolForm extends AbstractForm implements OnInit, AfterViewInit, On
       return;
     }
 
-    this.pageStateService.setPageComplete( this.router.url, this.mspApplication.pageStatus);
+    this.pageStateService.setPageComplete( this.router.url, this.enrolDataService.pageStatus);
     this.navigate( this._nextUrl );
   }
 }

@@ -24,6 +24,9 @@ import { StatusInCanada, CanadianStatusReason } from '../../msp-core/models/cana
 import { Relationship } from '../../../models/relationship.enum';
 import { SchemaService } from '../../../services/schema.service';
 import { BaseMspApiService } from '../../../services/base-msp-api.service';
+import { EnrolApplication } from '../models/enrol-application';
+import { Enrollee } from '../models/enrollee';
+import { BasePerson } from '../../../models/base-person';
 
 
 
@@ -43,9 +46,9 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     this._application = 'Enrolment';
   }
 
-  sendRequest(app: MspApplication): Promise<any> {
+  sendRequest(app: EnrolApplication): Promise<any> {
     console.log(app.uuid);
-    const enrolmentRequest = this.prepareEnrolmentApplication(app);
+    const enrolmentRequest = this.prepareEnrolmentApplication( app );
     console.log(enrolmentRequest);
 
     return new Promise<ApiResponse>((resolve, reject) => {
@@ -130,7 +133,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     return this.post<MspApplication>(_url, app);
   }
 
-  private prepareEnrolmentApplication(from: MspApplication): MSPApplicationSchema {
+  private prepareEnrolmentApplication(from: EnrolApplication): MSPApplicationSchema {
     const object = {
       enrolmentApplication: this.convertMspApplication(from),
       attachments: this.convertToAttachment(from.getAllImages()),
@@ -147,7 +150,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     return [...suppDocUuids, ...nameChangeDocUuids];
   }
 
-  private convertResidency( from: MspPerson ): ResidencyType {
+  private convertResidency( from: Enrollee ): ResidencyType {
 
     let citizenType;
     // citizenship
@@ -193,7 +196,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
         hasLivedInBC: from.livedInBCSinceBirth === true ? 'Y' : 'N',
       },
       outsideBC: {
-        beenOutsideBCMoreThan: from.beenOutSideOver30Days ? 'Y' : 'N'
+        beenOutsideBCMoreThan: from.declarationForOutsideOver30Days ? 'Y' : 'N'
       },
       previousCoverage: {
         hasPreviousCoverage: from.hasPreviousBCPhn ? 'Y' : 'N'
@@ -210,7 +213,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     }
 
     if ( from.hasPreviousBCPhn ) {
-      to.livedInBC.prevHealthNumber = from.previous_phn;
+      to.livedInBC.prevHealthNumber = from.previousBCPhn;
     }
 
     if (from.movedFromProvinceOrCountry) {
@@ -218,17 +221,17 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     }
 
     // Arrival dates
-    if (from.hasArrivalToBC) {
-        to.livedInBC.recentBCMoveDate = from.arrivalToBC.format(this.ISO8601DateFormat);
+    if (from.arrivalToBCDt) {
+        to.livedInBC.recentBCMoveDate = this.formatDate( from.arrivalToBCDate );
     }
-    if (from.hasArrivalToCanada) {
-        to.livedInBC.recentCanadaMoveDate = from.arrivalToCanada.format(this.ISO8601DateFormat);
+    if (from.arrivalToCanadaDt) {
+        to.livedInBC.recentCanadaMoveDate = this.formatDate( from.arrivalToCanadaDate );
     }
 
     // Outside BC - optional fields
-    if (from.beenOutSideOver30Days) {
-      to.outsideBC.departureDate = this.convertSimpleDate(from.departureDate);
-      to.outsideBC.returnDate = this.convertSimpleDate(from.returnDate);
+    if ( from.declarationForOutsideOver30Days ) {
+      to.outsideBC.departureDate = this.formatDate(from.oopDepartureDate);
+      to.outsideBC.returnDate = this.formatDate(from.oopReturnDate);
       to.outsideBC.familyMemeberReason = from.departureReason;
       to.outsideBC.destination = from.departureDestination;
     }
@@ -237,32 +240,32 @@ export class MspApiEnrolmentService extends BaseMspApiService {
       to.willBeAway.isInBCafterStudies = from.inBCafterStudies ? 'Y' : 'N';
     }
 
-    if (from.hasDischarge) {
-      to.willBeAway.armedDischargeDate = from.dischargeDate.format(this.ISO8601DateFormat);
+    if (from.dischargeDt) {
+      to.willBeAway.armedDischargeDate = this.formatDate( from.dischargeDate );
     }
 
-    if (from.hasPreviousBCPhn && from.previous_phn) {
-      to.previousCoverage.prevPHN = from.previous_phn.replace(new RegExp('[^0-9]', 'g'), '');
+    if (from.hasPreviousBCPhn && from.previousBCPhn) {
+      to.previousCoverage.prevPHN = from.previousBCPhn.replace(new RegExp('[^0-9]', 'g'), '');
     }
     return to;
   }
 
-  private convertDependentType( person: MspPerson ): DependentType {
+  private convertDependentType( person: Enrollee ): DependentType {
     return {
       name: this.convertName( person ),
       gender: person.gender.toString(),
-      birthDate: String( person.dob.format( this.ISO8601DateFormat ) ),
+      birthDate: String( this.formatDate( person.dateOfBirth ) ),
       attachmentUuids: this.getAttachementUuids( person.documents.images, person.nameChangeDocs.images ),
       residency: this.convertResidency( person ),
       schoolName: person.schoolName,
       schoolAddress: this.convertAddress( person.schoolAddress ),
-      dateStudiesFinish: this.convertSimpleDate( person.studiesFinishedSimple ),
-      departDateSchoolOutside: this.convertSimpleDate( person.studiesDepartureSimple ),
+      dateStudiesFinish: this.formatDate( person.schoolCompletionDate ),
+      departDateSchoolOutside: this.formatDate( person.departureDateForSchool ),
     };
   }
 
   // This method is used to convert the response from user into a JSON object
-  private convertMspApplication(from: MspApplication): EnrolmentApplicationType {
+  private convertMspApplication(from: EnrolApplication): EnrolmentApplicationType {
     const application: EnrolmentApplicationType = {
       applicant: this.convertEnrolmentApplicantType( from )
     };
@@ -277,10 +280,10 @@ export class MspApiEnrolmentService extends BaseMspApiService {
         from.children.length > 0) {
 
       // Filter out children vs dependants
-      const children = from.children.filter((child: MspPerson) => {
+      const children = from.children.filter((child: Enrollee) => {
           return child.relationship === Relationship.ChildUnder19;
       });
-      const dependants = from.children.filter((child: MspPerson) => {
+      const dependants = from.children.filter((child: Enrollee) => {
           return child.relationship === Relationship.Child19To24;
       });
 
@@ -305,7 +308,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
   }
 
 
-  private convertName( person: MspPerson ): NameType {
+  private convertName( person: BasePerson ): NameType {
     return {
       firstName: person.firstName,
       lastName: person.lastName,
@@ -313,23 +316,23 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     };
   }
 
-  private convertPersonType( person: MspPerson ): PersonType {
+  private convertPersonType( person: Enrollee ): PersonType {
    return {
       name: this.convertName( person ),
-      gender: person.gender.toString(),
-      birthDate: String( person.dob.format( this.ISO8601DateFormat ) ),
+      gender: person.gender,
+      birthDate: String( this.formatDate(person.dateOfBirth) ),
       attachmentUuids: this.getAttachementUuids( person.documents.images, person.nameChangeDocs.images ),
       residency: this.convertResidency( person )
     };
   }
 
-  private convertEnrolmentApplicantType( application: MspApplication): EnrolmentApplicantType {
-    const applicant: MspPerson = application.applicant;
+  private convertEnrolmentApplicantType( application: EnrolApplication): EnrolmentApplicantType {
+    const applicant: Enrollee = application.applicant;
     console.log( 'applicant gender: ', applicant.gender );
     const enrolee: EnrolmentApplicantType =  {
       name: this.convertName( applicant ),
       gender: applicant.gender.toString(),
-      birthDate: String( applicant.dob.format( this.ISO8601DateFormat ) ),
+      birthDate: String( this.formatDate( applicant.dateOfBirth ) ),
       attachmentUuids: this.getAttachementUuids( applicant.documents.images, applicant.nameChangeDocs.images ),
       residency: this.convertResidency( applicant ),
       residenceAddress: this.convertAddress( application.residentialAddress ),

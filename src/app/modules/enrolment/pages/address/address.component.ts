@@ -12,11 +12,10 @@ import { EnrolDataService } from '../../services/enrol-data.service';
 })
 export class EnrolAddressComponent extends EnrolForm {
 
-  constructor( protected dataService: MspDataService,
-               protected enrolDataService: EnrolDataService,
+  constructor( protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
                protected router: Router ) {
-  super( dataService, enrolDataService, pageStateService, router );
+  super( enrolDataService, pageStateService, router );
   }
 
   continue() {

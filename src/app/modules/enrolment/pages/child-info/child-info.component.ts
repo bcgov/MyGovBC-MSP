@@ -1,6 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { MspDataService } from '../../../../services/msp-data.service';
+import { Component } from '@angular/core';
 import { ROUTES_ENROL } from '../../models/enrol-route-constants';
 import { PageStateService } from '../../../../services/page-state.service';
 import { MspPerson } from '../../../../components/msp/model/msp-person.model';
@@ -11,6 +10,7 @@ import { EnrolForm } from '../../models/enrol-form';
 import { BRITISH_COLUMBIA, ErrorMessage } from 'moh-common-lib';
 import * as moment_ from 'moment';
 import { EnrolDataService } from '../../services/enrol-data.service';
+import { Enrollee } from '../../models/enrollee';
 const moment = moment_;
 
 @Component({
@@ -47,18 +47,17 @@ export class ChildInfoComponent extends EnrolForm {
 
   nameChangeDocList = nameChangeSupportDocuments();
 
-  constructor( protected dataService: MspDataService,
-               protected enrolDataService: EnrolDataService,
+  constructor( protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
                protected router: Router ) {
-    super( dataService, enrolDataService, pageStateService, router );
+    super( enrolDataService, pageStateService, router );
   }
 
   addChild(): void {
     this.mspApplication.addChild(Relationship.Unknown);
   }
 
-  get children(): MspPerson[] {
+  get children(): Enrollee[] {
     return this.mspApplication.children;
   }
 
@@ -178,20 +177,4 @@ export class ChildInfoComponent extends EnrolForm {
   isTemporaryResident(idx: number) {
     return this.children[idx].status === StatusInCanada.TemporaryResident;
   }
-
-
-
-
-
-
-  checkAnyDependentsIneligible(): boolean {
-    const target = [...this.dataService.mspApplication.children];
-    return target.filter(x => x)
-        .filter(x => x.ineligibleForMSP).length >= 1;
-  }
-
-  documentsReady(): boolean {
-    return this.dataService.mspApplication.childDocumentsReady;
-  }
-
 }

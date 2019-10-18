@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
 import BasePersonDto, { BasePerson } from '../models/base-person';
+import BaseApplicationDto, { BaseApplication } from '../models/base-application';
+import { SupportDocuments } from '../modules/msp-core/models/support-documents.model';
 
 export default class MspPagesDto {
   // page status - complete/ incomplete
@@ -33,12 +35,14 @@ export abstract class BaseMspDataService {
   protected savePageStatus( pageStatus: any[] ): void {
     const dto: MspPagesDto = new MspPagesDto();
     dto.pageStatus = pageStatus;
+    console.log( 'savePageStatus: ', this._pageStorageKey, dto );
     this.localStorageService.set( this._pageStorageKey, dto );
   }
 
   protected fetchPageStatus(): any[] {
     let pageStatus: any[] = [];
     const dto: MspPagesDto = this.localStorageService.get<MspPagesDto>( this._pageStorageKey );
+    console.log( 'fetchPageStatus: ', this._pageStorageKey, dto );
     if ( dto ) {
       pageStatus = dto.pageStatus;
     }
@@ -53,7 +57,6 @@ export abstract class BaseMspDataService {
   protected fromBasePersonTransferObject<T extends BasePerson>( dto: BasePersonDto, c: {new(): T; } ): T {
 
     const output = new c();
-    console.log( 'fromBasePersonTransferObject: ', output );
 
     output.firstName = dto.firstName;
     output.middleName = dto.middleName;
@@ -61,16 +64,9 @@ export abstract class BaseMspDataService {
 
     output.gender = dto.gender;
 
-    output.documents = dto.documents;
+    this.copyDocuments( dto.documents, output.documents );
 
-    if ( dto.dateOfBirth ) {
-      // TODO: revisit once date component refactored
-      output.dateOfBirth = {
-        year: dto.dateOfBirth.getFullYear(),
-        month: dto.dateOfBirth.getMonth(),
-        day: dto.dateOfBirth.getDate()
-      };
-    }
+    output.dateOfBirth = output.convertToSimpleDt( dto.dateOfBirth  );
 
     return output;
   }
@@ -83,7 +79,6 @@ export abstract class BaseMspDataService {
   protected toBasePersonTransferObject<T extends BasePersonDto>( input: BasePerson, c: {new(): T; } ): T {
 
     const dto = new c();
-    console.log( 'toBasePersonTransferObject: ', dto );
 
     dto.firstName = input.firstName;
     dto.middleName = input.middleName;
@@ -91,14 +86,45 @@ export abstract class BaseMspDataService {
 
     dto.gender = input.gender;
 
-    dto.documents = input.documents;
+    this.copyDocuments( input.documents, dto.documents );
+    console.log( 'toBasePersonTransferObject copy: ', dto.documents );
 
-    if ( !input.isDobEmpty() ) {
-      // TODO: revisit once date component refactored
-      dto.dateOfBirth = new Date( input.dateOfBirth.year, input.dateOfBirth.month - 1, input.dateOfBirth.day );
-    }
+    dto.dateOfBirth = input.convertToDate( input.dateOfBirth );
 
     return dto;
+  }
+
+  protected toBaseApplicationTransferObject<T extends BaseApplicationDto>( input: BaseApplication, c: {new(): T; } ): T {
+    const dto = new c();
+
+    dto.infoCollectionAgreement = input.infoCollectionAgreement;
+
+    // Authorization
+    dto.authorizedByApplicant = input.authorizedByApplicant;
+    dto.authorizedBySpouse = input.authorizedBySpouse;
+    dto.authorizedByApplicantDate = input.authorizedByApplicantDate;
+
+    return dto;
+  }
+
+  protected fromBaseApplicationTransferObject<T extends BaseApplication>( dto: BaseApplicationDto, c: {new(): T; } ): T {
+    const output = new c();
+
+    output.infoCollectionAgreement = dto.infoCollectionAgreement;
+
+    // Authorization
+    output.authorizedByApplicant = dto.authorizedByApplicant;
+    output.authorizedBySpouse = dto.authorizedBySpouse;
+    output.authorizedByApplicantDate = dto.authorizedByApplicantDate;
+
+    return output;
+  }
+
+  protected copyDocuments( from: SupportDocuments, to: SupportDocuments ) {
+    console.log( '1 copyDocuments ', to, from );
+    to.documentType = from.documentType;
+    to.images = from.images;
+    console.log( '2 copyDocuments ', to, from );
   }
 }
 

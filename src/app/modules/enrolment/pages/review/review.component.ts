@@ -17,11 +17,10 @@ export class ReviewComponent extends EnrolForm {
   address_info = ROUTES_ENROL.CONTACT.fullpath;
   child_info = ROUTES_ENROL.CHILD_INFO.fullpath;
 
-  constructor( protected dataService: MspDataService,
-               protected enrolDataService: EnrolDataService,
+  constructor( protected enrolDataService: EnrolDataService,
                protected pageStateService: PageStateService,
                protected router: Router ) {
-    super( dataService, enrolDataService, pageStateService, router );
+    super( enrolDataService, pageStateService, router );
   }
 
   get hasSpouse() {
