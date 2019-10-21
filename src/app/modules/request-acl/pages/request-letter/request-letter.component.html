@@ -1,6 +1,6 @@
 <msp-consent-modal #mspConsentModal 
                    [isMaintenanceMode]="true" 
-                   (onClose)="accountHolderPhn.focus()"
+                   (onClose)="AccountHolder_Phn.focus()"
                    [consentProcessName]="'MSP'" 
                    (accept)="acceptAgreement($event)">
 </msp-consent-modal>
@@ -22,26 +22,26 @@
     <common-page-section layout='tips'>
       <div class="col-sm-6 pl-0">
         <div class="form-group">
-          <common-phn #accountHolderPhn="ngModel"
-                      name="accountHolderPhn"
-                      [(ngModel)]="application.accountHolderPhn"
+          <common-phn #AccountHolder_Phn="ngModel"
+                      name="AccountHolderPhn"
+                      [(ngModel)]="accountHolderPhn"
                       required
                       commonValidatePhn
                       commonDuplicateCheck
-                      [dupList]="[application?.specificMemberPhn]">
+                      [dupList]="[specificMemberPhn]">
           </common-phn>
         </div>
         <div class="form-group">
             <common-date label="Birthdate"
                          [restrictDate]="'past'" 
-                         [(date)]="application.accountHolderDob"
+                         [(date)]="accountHolderDob"
                          [required]="true">
             </common-date>
         </div>
         <div class="form-group">
-          <common-postal-code name="accountHolderPC"
+          <common-postal-code name="AccountHolderPC"
                               label="Mailing Postal Code"
-                              [(ngModel)]="application.postalCode"
+                              [(ngModel)]="postalCode"
                               required>
           </common-postal-code>
         </div>
@@ -49,7 +49,7 @@
 
       <div class="form-group pt-4">
         <common-radio name="EnrolmentMembership"
-                      [(ngModel)]="application.enrolmentMembership" 
+                      [(ngModel)]="enrolmentMembership" 
                       label="Whose MSP enrolment information should be included in the MSP Account Confirmation Letter?" 
                       [radioLabels]="radioBtnLabels"
                       display="table-row-group"
@@ -66,18 +66,21 @@
       <common-page-section layout='tips' >
         <div class="form-group col-sm-6 pl-0">
           <common-phn name="SpecificMember"
-                      [(ngModel)]="application.specificMemberPhn"
+                      [(ngModel)]="specificMemberPhn"
                       required
                       commonValidatePhn
                       commonDuplicateCheck
-                      [dupList]="[application?.accountHolderPhn]">
+                      [dupList]="[accountHolderPhn]">
           </common-phn>
         </div>
       </common-page-section>
     </div>
 
-    <div  class="pt-4" *ngIf="requireAuthToken">
-      <common-captcha [apiBaseUrl]="captchaApiBaseUrl" 
+    <div  class="pt-4" *ngIf="showCaptcha">
+      <common-captcha name="Captcha"
+                      ngModel
+                      required
+                      [apiBaseUrl]="captchaApiBaseUrl" 
                       [nonce]="application.uuid"
                       (onValidToken)="application.authorizationToken=$event">
       </common-captcha>

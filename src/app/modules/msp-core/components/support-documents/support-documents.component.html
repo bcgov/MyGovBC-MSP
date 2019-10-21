@@ -22,7 +22,7 @@
 
 <div *ngIf="(!btnEnabled || btnEnabled && !displayButton) && hasDocumentType">
   <h2 class="border-bottom">{{documentType}}
-    <common-xicon-button label= "Remove document" (click)="removeDocument()">
+    <common-xicon-button *ngIf="displayButton" label="Remove document" (click)="removeDocument()">
     </common-xicon-button>
   </h2>
   <common-page-section layout="tips">

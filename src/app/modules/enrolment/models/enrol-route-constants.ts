@@ -43,16 +43,11 @@ export const ROUTES_ENROL = {
     fullpath: `${APP_ROUTES.ENROLMENT}/authorize`,
     title: 'Authorize',
   },
-  SENDING: {
-    index: 7,
-    path: 'sending',
-    fullpath: `${APP_ROUTES.ENROLMENT}/sending`,
-    title: 'Sending',
-  },
   CONFIRMATION: {
     index: 8,
     path: 'confirmation',
-    fullpath: `${APP_ROUTES.ENROLMENT}/confirmation`,
+    fullpath:
+     `${APP_ROUTES.ENROLMENT}/confirmation`,
     title: 'Confirmation',
   },
 };

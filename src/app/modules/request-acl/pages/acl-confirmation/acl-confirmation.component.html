@@ -1,5 +1,5 @@
 <common-page-framework layout="blank">
-  <msp-confirm-template [displayIcon]="status">
+  <common-confirm-template [displayIcon]="status">
     <div confirmationTitle>
       <a *ngIf="isSucess" onclick="window.print();return false;">
         <strong class="float-right">Print
@@ -45,15 +45,14 @@
       </div>
       More information available on <a href="{{links.FAQ}}" target="blank">Frequently Asked Questions</a>.
     </div>
-  </msp-confirm-template>
+  </common-confirm-template>
 </common-page-framework>
   
   
 <ng-template #IconErrMsg>
   <div message >
     <p class="icon--message">Error</p>
-    <p *ngIf="message; else DefaultMessage;">
-      {{message}}
+    <p *ngIf="message; else DefaultMessage;" [innerHTML]="message">
     </p>
   </div>
  </ng-template>

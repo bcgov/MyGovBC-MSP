@@ -9,7 +9,7 @@ import { MspAccountApp } from '../../models/account.model';
 import { Relationship } from '../../../../models/relationship.enum';
 import { ApiResponse } from 'app/models/api-response.interface';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ApiStatusCodes } from 'app/modules/msp-core/components/confirm-template/confirm-template.component';
+import { ApiStatusCodes } from 'moh-common-lib';
 
 
 @Component({

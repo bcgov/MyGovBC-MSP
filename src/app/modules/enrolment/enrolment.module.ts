@@ -10,7 +10,6 @@ import { ConfirmationComponent } from './pages/confirmation/confirmation.compone
 import { PersonalInfoComponent } from './pages/personal-info/personal-info.component';
 import { PrepareComponent } from './pages/prepare/prepare.component';
 import { ReviewComponent } from './pages/review/review.component';
-import { SendingComponent } from './pages/sending/sending.component';
 import { SpouseInfoComponent } from './pages/spouse-info/spouse-info.component';
 import { FormsModule } from '@angular/forms';
 import { CaptchaModule } from 'moh-common-lib/captcha';
@@ -48,7 +47,6 @@ if ( environment.useMockBackend ) {
     PersonalInfoComponent,
     PrepareComponent,
     ReviewComponent,
-    SendingComponent,
     SpouseInfoComponent,
     MovingInformationComponent
   ],

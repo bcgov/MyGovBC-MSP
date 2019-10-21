@@ -5,11 +5,10 @@ import { ReviewComponent } from './review.component';
 import { MspDataService } from '../../../../services/msp-data.service';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { MspPersonCardComponent } from '../../../msp-core/components/person-card/person-card.component';
-import { MspContactCardComponent } from '../../../../components/msp/common/contact-card/contact-card.component';
+import { MspContactCardComponent } from '../../../msp-core/components/contact-card/contact-card.component';
 import { ModalModule } from 'ngx-bootstrap';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MspCancelComponent  } from '../../../../components/msp/common/cancel/cancel.component';
-import { MspLoggerDirective } from '../../../msp-core/components/logging/msp-logger.directive';
 import { MspLogService } from '../../../../services/log.service';
 import { ProcessService } from '../../../../services/process.service';
 import { MspAddressCardPartComponent } from '../../../msp-core/components/address-card-part/address-card-part.component';
@@ -26,8 +25,7 @@ describe('ReviewComponent', () => {
         MspPersonCardComponent,
         MspAddressCardPartComponent,
         MspContactCardComponent,
-        MspCancelComponent,
-        MspLoggerDirective
+        MspCancelComponent
       ],
       imports: [
         FormsModule,

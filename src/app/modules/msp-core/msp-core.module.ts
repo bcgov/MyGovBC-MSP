@@ -4,19 +4,11 @@ import { MspFullNameComponent } from './components/full-name/full-name.component
 import { SharedCoreModule } from 'moh-common-lib';
 import { CaptchaModule } from 'moh-common-lib/captcha';
 import { FormsModule } from '@angular/forms';
-import { ServicesCardDisclaimerModalComponent } from './components/services-card-disclaimer/services-card-disclaimer.component';
-import { MspStatusInCanadaRadioComponent } from './components/status-in-canada-radio/status-in-canada-radio.component';
 import { TextMaskModule } from 'angular2-text-mask';
 import { MspBirthDateComponent } from './components/birthdate/birthdate.component';
 import { MspImageErrorModalComponent } from './components/image-error-modal/image-error-modal.component';
 
 // TOBE REVIEWED
-import { CalendarYearFormatter } from '../../components/msp/common/calendar/calendar-year-formatter.component';
-import { CalendarYearValidator } from '../../components/msp/common/calendar/calendar-year.validator';
-import { CalendarDayValidator } from '../../components/msp/common/calendar/calendar-day.validator';
-import { CalendarMonthValidator } from '../../components/msp/common/calendar/calendar-month.validator';
-import { MspAddressComponent } from './components/address/address.component';
-import { MspProgressBarComponent } from '../account/components/progressBar/progressBar.component';
 import { TransmissionErrorView } from '../../components/msp/common/transmission-error-view/transmission-error-view.component';
 import { MspConsentModalComponent } from './components/consent-modal/consent-modal.component';
 import { MspCancelComponent } from '../../components/msp/common/cancel/cancel.component';
@@ -25,15 +17,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ModalModule, AccordionModule, TypeaheadModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { MspPersonCardComponent } from './components/person-card/person-card.component';
-import { MspContactCardComponent } from '../../components/msp/common/contact-card/contact-card.component';
+import { MspContactCardComponent } from './components/contact-card/contact-card.component';
 import { CommonDeductionCalculatorComponent } from './components/common-deduction-calculator/common-deduction-calculator.component';
 import { MspAddressCardPartComponent } from './components/address-card-part/address-card-part.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReviewPartComponent } from './components/review-part/review-part.component';
 import { ReviewCardWrapperComponent } from './components/review-card-wrapper/review-card-wrapper.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
-import { PersonalDetailsRetroSuppbenComponent } from './components/personal-details-retro-suppben/personal-details-retro-suppben.component';
-import { AddressRetroSuppbenComponent } from './components/address-retro-suppben/address-retro-suppben.component';
 import { CoreContactInfoComponent } from './components/core-contact-info/core-contact-info.component';
 
 
@@ -41,18 +31,14 @@ import { CoreContactInfoComponent } from './components/core-contact-info/core-co
 import { CanadianStatusComponent } from './components/canadian-status/canadian-status.component';
 import { SupportDocumentsComponent } from './components/support-documents/support-documents.component';
 import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
-import { ConfirmTemplateComponent } from './components/confirm-template/confirm-template.component';
 
 const componentList = [
   MspFullNameComponent,
-  ServicesCardDisclaimerModalComponent,
-  MspStatusInCanadaRadioComponent,  // Replaced by CanadianStatusComponent - needs to be removed
   MspBirthDateComponent,
   MspImageErrorModalComponent,
   CommonDeductionCalculatorComponent,
   MspAddressCardPartComponent,
   ReviewPartComponent,
-  PersonalDetailsRetroSuppbenComponent,
   ConfirmationComponent,
   CoreContactInfoComponent,
   MspPersonCardComponent,
@@ -61,7 +47,6 @@ const componentList = [
   CanadianStatusComponent,
   SupportDocumentsComponent,
   PersonalInformationComponent,
-  ConfirmTemplateComponent,
 
   // Directives
   ReviewCardWrapperComponent,
@@ -72,12 +57,6 @@ const componentList = [
 // support functionality
 const templistCore = [
   // General
-  CalendarYearFormatter,
-  CalendarYearValidator,
-  CalendarDayValidator,
-  CalendarMonthValidator,
-  MspAddressComponent,
-  MspProgressBarComponent,
   TransmissionErrorView,
   MspConsentModalComponent,
   MspCancelComponent,
@@ -102,7 +81,6 @@ const templistCore = [
   declarations: [
     componentList,
     templistCore,
-    AddressRetroSuppbenComponent,
   ],
   exports: [
     componentList,

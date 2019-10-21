@@ -3,11 +3,16 @@
 </h2>
 <div class="card">
   <div class="card-body">
-    <msp-address-card-part *ngIf="mailingAddress"
-                           [address]="residentialAddress"
-                           label="Residential Address"></msp-address-card-part><br>
-    <msp-address-card-part [address]="mailingAddress"
-                           label="Mailing Address"></msp-address-card-part><br>
+    <div class="pb-2" *ngIf="residentialAddress">
+      <msp-address-card-part [address]="residentialAddress"
+                             label="Residential Address"></msp-address-card-part>
+    </div>
+
+    <div *ngIf="displayMailingAddress" class="pb-2">
+        <msp-address-card-part [address]="mailingAddress"
+                               label="Mailing Address"></msp-address-card-part>
+    </div>
+
     <div class="row" *ngIf="phone">
       <div class="col-sm-4" style="text-decoration: underline" >
         Phone

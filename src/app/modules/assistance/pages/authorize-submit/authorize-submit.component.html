@@ -52,8 +52,11 @@
           <div class="row">
             <div class="col-lg-8">
               <common-captcha
-                [apiBaseUrl]="captchaApiBaseUrl"
+                name='captcha'
+                required
+                ngModel
                 [nonce]="application.uuid"
+                [apiBaseUrl]="captchaApiBaseUrl"
                 (onValidToken)="setToken($event)"
               ></common-captcha>
             </div>

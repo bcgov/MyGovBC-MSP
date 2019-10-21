@@ -7,6 +7,7 @@ import { tap, map } from 'rxjs/operators';
 @Component({
   template: `
   <common-page-framework layout="blank">
+     
       <ng-container *ngIf="success">
         <!-- SUCCESS: {{ success$ | async | json }} -->
         <msp-confirmation
@@ -14,6 +15,11 @@ import { tap, map } from 'rxjs/operators';
           [confirmationNum]="confirmationNum"
           message="Your application has been successfully submitted"
         >
+            <a afterTitleSlot onclick="window.print();return false;" >
+            <b class="float-right">Print <i class="fa fa-print fa-lg pointer"
+              aria-hidden="true"></i>
+            </b>
+          </a>
         </msp-confirmation>
       </ng-container>
 
@@ -24,7 +30,13 @@ import { tap, map } from 'rxjs/operators';
           [success]="false"
           title="There was a technical issue with your submission."
           message="Your application has not been submitted"
-        ></msp-confirmation>
+        >
+          <a afterTitleSlot onclick="window.print();return false;" >
+          <b class="float-right">Print <i class="fa fa-print fa-lg pointer"
+            aria-hidden="true"></i>
+          </b>
+        </a>
+          </msp-confirmation>
       </ng-container>
     </common-page-framework>
   `,

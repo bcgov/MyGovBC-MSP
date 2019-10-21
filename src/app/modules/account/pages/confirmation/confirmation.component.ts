@@ -1,11 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
-import {BaseComponent} from '../../../../models/base.component';
+import { Component, OnDestroy } from '@angular/core';
 import {Subscription} from 'rxjs';
 import { MspAccountMaintenanceDataService } from '../../services/msp-account-data.service';
 import {ActivatedRoute} from '@angular/router';
 import { MspAccountApp } from '../../models/account.model';
 import * as moment from 'moment';
-import { ApiStatusCodes } from 'app/modules/msp-core/components/confirm-template/confirm-template.component';
+import { ApiStatusCodes } from 'moh-common-lib';
 import { environment } from 'environments/environment';
 
 @Component({

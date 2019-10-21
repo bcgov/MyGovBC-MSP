@@ -3,8 +3,7 @@ import {Router} from '@angular/router';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {ProcessService} from '../../../../services/process.service';
 import {NgForm} from '@angular/forms';
-import {PersonalDetailsRetroSuppbenComponent} from '../../../msp-core/components/personal-details-retro-suppben/personal-details-retro-suppben.component';
-import {MspAddressComponent} from '../../../msp-core/components/address/address.component';
+import {PersonalDetailsRetroSuppbenComponent} from '../../components/personal-details-retro-suppben/personal-details-retro-suppben.component';
 import {BaseComponent} from '../../../../models/base.component';
 import {BenefitApplication} from '../../models/benefit-application.model';
 import {MspBenefitDataService} from '../../services/msp-benefit-data.service';
@@ -24,7 +23,7 @@ export class BenefitPersonalInfoComponent extends BaseComponent {
     @ViewChild('formRef') personalInfoForm: NgForm;
     //@ViewChildren(BenefitPersonalDetailComponent) personalDetailsComponent: QueryList<BenefitPersonalDetailComponent>;
     @ViewChildren(PersonalDetailsRetroSuppbenComponent) personalDetailsComponent: QueryList<PersonalDetailsRetroSuppbenComponent>;
-    @ViewChild('address') address: MspAddressComponent;
+    //@ViewChild('address') address: MspAddressComponent;
     //@ViewChild('phone') phone: MspPhoneComponent;
     benefitApplication: BenefitApplication;
 

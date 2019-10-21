@@ -45,17 +45,11 @@ import { ChildMovingInformationComponent } from '../account/components/moving-in
   ],
   declarations: [
     AccountContainerComponent,
-    
     AccountPersonalInfoComponent,
-   // AccountDependentChangeComponent,
     AccountPersonalDetailsComponent,
-
     AccountReviewComponent,
     AccountSendingComponent,
     AccountConfirmationComponent,
-    //AddDependentComponent,
-   // RemoveDependentComponent,
-   // AddNewDependentBeneficiaryComponent,
     HomeComponent,
     SpouseInfoComponent,
     ChildInfoComponent,

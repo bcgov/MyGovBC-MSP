@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AbstractHttpService } from 'moh-common-lib';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { AclApplication } from '../model/acl-application.model';
 import { environment } from '../../../../environments/environment';
 import { AclApiPayLoad } from '../model/acl-api.model';
@@ -51,6 +51,15 @@ export class AclApiService extends AbstractHttpService {
                      '' : application.specificMemberPhn.replace(/ /g, ''),
         aclTransactionId: application.uuid
     } );
+  }
+
+  // Api callout to get the message from the Rapid code
+  sendSpaEnvServer(rapidResponseCode: string): Observable<any> {
+    this._headers = new HttpHeaders({
+        'SPA_ENV_NAME': rapidResponseCode
+    });
+    const url = environment.appConstants['envServerBaseUrl'];
+    return this.post<any>(url, null);
   }
 
   /** Handles all failed requests that throw either a server error (400/500) or a client error (e.g. lost internet). */

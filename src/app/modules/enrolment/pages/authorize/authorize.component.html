@@ -47,13 +47,13 @@
     </div>
 
     <div class="mt-2">
-      <common-captcha [apiBaseUrl]="captchaApiBaseUrl" 
+      <common-captcha name="captcha"
+                      ngModel
+                      [apiBaseUrl]="captchaApiBaseUrl" 
                       [nonce]="mspApplication.uuid"
-                      (onValidToken)="mspApplication.authorizationToken=$event">
+                      (onValidToken)="mspApplication.authorizationToken=$event"
+                      required>
       </common-captcha>
-      <common-error-container [displayError]="displayError">
-        Captcha is required.
-      </common-error-container>
     </div>
 
   </form>

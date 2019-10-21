@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
 import { MspLogService } from '../../../services/log.service';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpErrorResponse
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { MspApplication } from '../../../modules/enrolment/models/application.model';
 import { _ApplicationTypeNameSpace } from '../../../modules/msp-core/api-model/applicationTypes';
 import { environment } from '../../../../environments/environment';
 import { CommonImage } from 'moh-common-lib';
 import { Observable } from 'rxjs';
-import { of } from 'rxjs';
 import { Response } from '@angular/http';
-import { MspApiService } from '../../../services/msp-api.service';
 import { ApiResponse } from '../../../models/api-response.interface';
 import {
- MSPApplicationSchema, EnrolmentApplicationType, ResidencyType, CitizenshipType, PersonType, DependentType, NameType, EnrolmentApplicantType
+ MSPApplicationSchema,
+ EnrolmentApplicationType,
+ ResidencyType,
+ CitizenshipType,
+ PersonType,
+ DependentType,
+ NameType,
+ EnrolmentApplicantType
 } from '../../../modules/msp-core/interfaces/i-api';
 import * as moment from 'moment';
 import { MspPerson } from '../../../components/msp/model/msp-person.model';
@@ -249,7 +250,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
   private convertDependentType( person: MspPerson ): DependentType {
     return {
       name: this.convertName( person ),
-      gender: String( person.gender.valueOf() ),
+      gender: person.gender.toString(),
       birthDate: String( person.dob.format( this.ISO8601DateFormat ) ),
       attachmentUuids: this.getAttachementUuids( person.documents.images, person.nameChangeDocs.images ),
       residency: this.convertResidency( person ),
@@ -315,7 +316,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
   private convertPersonType( person: MspPerson ): PersonType {
    return {
       name: this.convertName( person ),
-      gender: String( person.gender.valueOf() ),
+      gender: person.gender.toString(),
       birthDate: String( person.dob.format( this.ISO8601DateFormat ) ),
       attachmentUuids: this.getAttachementUuids( person.documents.images, person.nameChangeDocs.images ),
       residency: this.convertResidency( person )
@@ -327,7 +328,7 @@ export class MspApiEnrolmentService extends BaseMspApiService {
     console.log( 'applicant gender: ', applicant.gender );
     const enrolee: EnrolmentApplicantType =  {
       name: this.convertName( applicant ),
-      gender: String( applicant.gender.valueOf() ),
+      gender: applicant.gender.toString(),
       birthDate: String( applicant.dob.format( this.ISO8601DateFormat ) ),
       attachmentUuids: this.getAttachementUuids( applicant.documents.images, applicant.nameChangeDocs.images ),
       residency: this.convertResidency( applicant ),

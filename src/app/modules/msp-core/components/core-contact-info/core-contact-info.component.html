@@ -7,8 +7,9 @@
                         (addressChange)="handleAddressChange($event)"
                         [isRequired]="true"
                         [disabled]="{province: true, country: true}"
-                        [allowExtralines]='true'
-                        [disableGeocoder]='true'>
+                        [allowExtralines]="true"
+                        [disableGeocoder]="true"
+                        >
         </common-address>
         <div class="custom-control custom-checkbox">
             <input type="checkbox"
@@ -25,8 +26,8 @@
                 <common-address [address]="mailingAddress"
                                 (addressChange)="handleMailingAddressChange($event)"
                                 [isRequired]="true"
-                                [allowExtralines]='true'
-                                [disableGeocoder]='true'>
+                                [allowExtralines]="true"
+                                [disableGeocoder]="true">
                 </common-address>
             </div>
         </aside>

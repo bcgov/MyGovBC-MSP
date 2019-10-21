@@ -6,12 +6,10 @@ import {
   MspAccountApp,
 } from '../modules/account/models/account.model';
 import { Process } from './process.service';
-import { MspProgressBarItem } from '../modules/account/components/progressBar/progressBarDataItem.model';
 import MspAccountDto from '../modules/account/models/account.dto';
 import MspApplicationDto from '../modules/enrolment/models/application.dto';
 import FinancialAssistApplicationDto from '../modules/assistance/models/financial-assist-application.dto';
 import {
-  Gender,
   OperationActionType,
   MspPerson
 } from '../components/msp/model/msp-person.model';
@@ -20,6 +18,7 @@ import PersonDto from '../components/msp/model/msp-person.dto';
 import { OutofBCRecord } from '../models/outof-bc-record.model';
 import { OutofBCRecordDto } from '../models/outof-bc-record.dto';
 import AddressDto from '../models/address.dto';
+import { Gender } from '../models/gender.enum';
 
 @Injectable()
 export class MspDataService {
@@ -53,6 +52,7 @@ export class MspDataService {
     this.localStorageService.set(this.mspProcessKey, process);
   }
 
+  /*
   getMspProgressBar(): Array<MspProgressBarItem> {
     return this.localStorageService.get<Array<MspProgressBarItem>>(
       this.mspProgressBarKey
@@ -66,7 +66,7 @@ export class MspDataService {
   emptyMspProgressBar() {
     this.localStorageService.remove(this.mspProgressBarKey);
   }
-
+*/
   get mspApplication(): MspApplication {
     return this._mspApplication;
   }
@@ -290,7 +290,7 @@ export class MspDataService {
     }
 
     if (input.gender) {
-      dto.gender = input.gender.valueOf();
+      dto.gender = input.gender;
     }
     dto.status = input.status;
     dto.currentActivity = input.currentActivity;
@@ -446,7 +446,7 @@ export class MspDataService {
     dto.hasBeenReleasedFromArmedForces = input.hasBeenReleasedFromArmedForces;
 
     if (input.gender) {
-      dto.gender = input.gender.valueOf();
+      dto.gender = input.gender;
     }
     dto.status = input.status;
     dto.currentActivity = input.currentActivity;

@@ -65,8 +65,8 @@
               Permanent move to B.C. requires you to reside in B.C. for 6 months or more.
           </p>
         </div> 
-        <div additionalQuestions>
-          <div *ngIf="requestSchoolInfo" class="form-group">
+        <div additionalQuestions *ngIf="requestSchoolInfo">
+          <div class="form-group">
             <common-radio name="fullTimeStudent_{{objectId}}"
                           [(ngModel)]="applicant.fullTimeStudent"  
                           label="Are you full-time student in B.C.?" 
