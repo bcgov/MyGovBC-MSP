@@ -1,27 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites disabled="3" errors="0" failures="1" tests="4" time="32.194">
- <testsuite name="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" timestamp="2019-10-11T16:55:00" hostname="localhost" time="32.194" errors="0" tests="4" skipped="0" disabled="3" failures="1">
-  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="01. should navigate from Financial Info Page to Confirmation Page (end-to-end) when all required fields are filled out" time="32.19">
-   <failure type="toContain" message="Expected &apos;http://localhost:4300/msp/benefit/sending&apos; to contain &apos;msp/benefit/confirmation?confirmationNum=&apos;, &apos;should be able to succesfully submit the form&apos;."><![CDATA[Error: Failed expectation
-    at UserContext.<anonymous> (/space/workspace/MyGovBC-MSP/e2e/supp-benefits/src/mspsb-happy-path.e2e-spec.ts:62:41)
-    at /space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:112:25
-    at new ManagedPromise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:1077:7)
-    at ControlFlow.promise (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2505:12)
-    at schedulerExecute (/space/workspace/MyGovBC-MSP/node_modules/jasminewd2/index.js:95:18)
-    at TaskQueue.execute_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3084:14)
-    at TaskQueue.executeNext_ (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:3067:27)
-    at asyncRun (/space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:2974:25)
-    at /space/workspace/MyGovBC-MSP/node_modules/selenium-webdriver/lib/promise.js:668:7]]>
-   </failure>
-  </testcase>
-  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="02. should be able to successfully pass test for maximum length for each field" time="0.001">
-   <skipped />
-  </testcase>
-  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="03. should NOT allow to continue when there is no file upload for POA" time="0.001">
-   <skipped />
-  </testcase>
-  <testcase classname="chrome.MSP Supplementary Benefits - End to End Test (Happy Path)" name="04. should NOT uncheck POA and clear file/s attached to it when user checks First Person Authorize" time="0">
-   <skipped />
-  </testcase>
+<testsuites disabled="0" errors="0" failures="0" tests="4" time="35.645">
+ <testsuite name="chrome.MSP ACL Page - E2E TESTS" timestamp="2019-10-21T12:15:02" hostname="localhost" time="35.645" errors="0" tests="4" skipped="0" disabled="0" failures="0">
+  <testcase classname="chrome.MSP ACL Page - E2E TESTS" name="01. should check for validations of each field and should not let continue of there are any invalid fields" time="7.798" />
+  <testcase classname="chrome.MSP ACL Page - E2E TESTS" name="02. should get an error if the first PHN is the same as the second one" time="7.584" />
+  <testcase classname="chrome.MSP ACL Page - E2E TESTS" name="03. should NOT be able to continue if the required fields are NOT filled out" time="5.909" />
+  <testcase classname="chrome.MSP ACL Page - E2E TESTS" name="04. should NOT be able to continue if the captcha is NOT filled out" time="14.352" />
  </testsuite>
 </testsuites>

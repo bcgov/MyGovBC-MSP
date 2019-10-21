@@ -129,7 +129,6 @@ export class PersonalInfoPage extends BaseMSPEnrolmentTestPage {
         this.clickRadioButtonByID('statausReason', '1');
         this.scrollDown();
         this.clickOption('Document Type', 'Canadian birth certificate');
-        this.clickButton('Add');
         this.scrollDown();
         this.clickRadioButtonByName('NameChangeQuestion', 'false');
         browser.sleep(1000);
@@ -192,7 +191,6 @@ export class SpouseInfoPage extends PersonalInfoPage {
         this.clickRadioButtonByID('statausReason', '1');
         this.scrollDown();
         this.clickOption('Document Type', 'Canadian birth certificate');
-        this.clickAddDoc();
         this.scrollDown();
         this.clickRadioButtonByName('NameChangeQuestion', 'false');
         browser.sleep(1000);
@@ -220,9 +218,9 @@ export class SpouseInfoPage extends PersonalInfoPage {
         element(by.cssContainingText('button span', 'Add Spouse')).click();
     }
 
-    clickAddDoc() {
-        element(by.css('common-button[label="Add"]')).click();
-    }
+    // clickAddDoc() {
+    //     element(by.css('common-button[label="Add"]')).click();
+    // }
     
 }
 
